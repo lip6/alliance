@@ -15,7 +15,7 @@ COPYTHIS=\*
 
 cd $INSTALL_FROM/archi
 
-for ARCHI in Linux_elf Linux SunOS Solaris
+for ARCHI in Linux SunOS Solaris
  do
  for FILE in $INSTALL_FROM/archi/$ARCHI/bin/$COPYTHIS
  do
@@ -41,3 +41,10 @@ done
   done
 
 done
+
+# Sanity checks
+echo "Launching chgrp and chmod ..."
+chmod -R ug+w /users/soft5/newlabo/alliance
+chgrp -R alliance /users/soft5/newlabo/alliance
+
+echo "Il faut faire ranlib..."
