@@ -1,6 +1,8 @@
 /*********** Donnees relatives a l'ensemble Boundary Scan ********************/
 #define EMULBS_INST_SIZE 2      /*taille du registre instruction de la carte EMULBS 31*/
+#ifndef EMULBS_BS_SIZE
 #define EMULBS_BS_SIZE 31     /*nombre de cellules BS dans EMUL31    Rq: de 0 a 30*/
+#endif
 #define EMULBS_BYPASS_SIZE 1         /*revient a indiquer le nbr de cycles de retard*/
 #define EMULBS_BYPASS0_VALUE "00"                          	      /*instructions d'EMUL31*/
 #define EMULBS_BYPASS1_VALUE "11"

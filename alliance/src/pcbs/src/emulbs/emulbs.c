@@ -191,7 +191,7 @@ extern int main(int argc, char *argv[])
 /****initialisation environnement****/
   mbkenv();
   initializeBdd(SMALL_BDD);                                     /*SMALL_BDD=0*/
-  alliancebanner_with_authors("EmulBs", EMULBS_VERSION "[2002/02/18]", 
+  alliancebanner_with_authors("EmulBs", EMULBS_VERSION "[2003/01/13]", 
                               "Emulated Boundary-Scan Tester Platform", 
                 "2001", ALLIANCE_VERSION,
                 "Ana ABRIL, François DONNET, Eric MECHIN, Philippe OLEK");
