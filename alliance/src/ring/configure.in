@@ -9,10 +9,6 @@ AC_SUBST(RING_MAJOR_VERSION)
 AC_SUBST(RING_MINOR_VERSION)
 AC_SUBST(RING_VERSION)
 
-# libtool versioning
-LT_RELEASE=$RING_MAJOR_VERSION.$RING_MINOR_VERSION
-AC_SUBST(LT_RELEASE)
-
 # For automake.
 VERSION=$RING_VERSION
 PACKAGE=ring
@@ -20,27 +16,17 @@ PACKAGE=ring
 dnl Initialize automake stuff
 AM_INIT_AUTOMAKE($PACKAGE, $VERSION)
 
-dnl Specify a configuration file
-dnl AM_CONFIG_HEADER(config.h)
-
 dnl Checks for programs.
 AC_PROG_CC
 AM_PROG_LEX
 AC_PROG_YACC
+AC_PROG_RANLIB
 AC_PROG_MAKE_SET
-
-changequote(,)dnl
-INCLUDES=-I${ALLIANCE_TOP}/include
-LDFLAGS=-L${ALLIANCE_TOP}/lib
-changequote([,])dnl
-
-AC_SUBST(INCLUDES)
-AC_SUBST(LDFLAGS)
 
 dnl Checks for typedefs, structures, and compiler characteristics.
 AC_C_CONST
 
-dnl Checks for library functions.
+AM_ALLIANCE
 
 AC_OUTPUT([
 Makefile
