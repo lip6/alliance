@@ -22,7 +22,7 @@ ocp_LDADD = @ALLIANCE_LIBS@ \
 	  -lMsl \
 	  -lMel -lMgl \
 	  -lMhl \
-	  -lMvl \
+	  -lMvg \
 	  -lMmg \
 	  -lMlo \
 	  -lMph -lMut \

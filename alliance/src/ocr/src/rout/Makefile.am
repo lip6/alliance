@@ -11,7 +11,7 @@ ocr_LDADD = @ALLIANCE_LIBS@ \
 	   $(top_builddir)/src/seg/libocrPath.a \
 	   $(top_builddir)/src/util/libocrUtil.a \
 	  -lMlu -lMlo -lMal -lMcl -lMel -lMhl \
-	  -lMgl -lMsl -lMvl -lMpu -lMph -lMap \
+	  -lMgl -lMsl -lMvg -lMpu -lMph -lMap \
 	  -lMcp -lMmg -lMut -lRcn
 
 ocr_SOURCES = display.c findNPointsPath.c getOption.c\
