@@ -1044,7 +1044,9 @@ void CallbackExpose( MyWidget, ClientData, CallData )
     GraalRefreshGraphicWindow( 0, 0, GraalGraphicDx, GraalGraphicDy );
     GraalDisplayCursor();
 
+    /* LUDO: Fed up to Click On IT ...
     GraalEnterPresentPanel();
+    */
   }
   else
   {
