@@ -1,4 +1,4 @@
-.\"   $Id: ocp.1,v 1.5 2002/11/21 15:17:17 xtof Exp $
+.\"   $Id: ocp.1,v 1.6 2003/10/07 14:03:05 fred Exp $
 .\" @(#)Labo.l 0.0 92/09/24 UPMC; Author: Christophe ALEXANDRE
 .pl -.4
 .TH OCP 1 "September 27, 2001" "ASIM/LIP6" "CAO\-VLSI Reference Manual"
@@ -49,7 +49,7 @@ There are three ways to place connectors in a physical view :
 .br
 \fB-c\fP option will automatically place the connectors randomly. The auto placement will set connectors on each side of the abutment box.
 .br
-\fB-ring\fP option will automatically place the connectors randomly but only on the north and south side. This option is temporary and is provided for the ring pad placement tool.
+\fB-ring\fP option will automatically place the connectors for the  ring pad placement tool. The placement is random but only on the north and south side unless the \fB-ioc <NAME>\fP option is given, in which case the constraints given in the <NAME>.ioc file will be respected, but with layers suitable for ring. This option is temporary and is provided for the ring pad placement tool.
 .br
 \fB-ioc <NAME>\fP option will place connectors as specified by the <NAME>.ioc given file.
 .br
