@@ -1,0 +1,955 @@
+###################################
+#
+#        Alliance graphics
+#
+###################################
+        
+  proc Library_UpdateIndex { libdir } {
+    if ![file exists $libdir/tclIndex] {
+	set doit 1
+    } else {
+	set age [file mtime $libdir/tclIndex]
+	set doit 0
+	if {[file mtime $libdir] > $age} {
+	    set doit 1
+	} else {
+	    foreach file [glob $libdir/*.tcl] {
+		if {[file mtime $file] > $age} {
+		    set doit 1
+		    break
+		}
+	    }
+	}
+    }
+    if { $doit } {
+	auto_mkindex $libdir *.tcl
+    }
+  }
+ 
+  set alcgraph $env(ALLIANCE_TOP)/algue
+
+  lappend auto_path   $alcgraph
+ 
+  Library_UpdateIndex $alcgraph
+
+ global fontes
+         set fontes(1) -adobe-helvetica-bold-r-normal-*-12-*-*-*-*-*-*-*
+         set fontes(2) -adobe-helvetica-bold-r-normal-*-10-*-*-*-*-*-*-*
+         set fontes(3) -adobe-helvetica-bold-r-normal-*-34-*-*-*-*-*-*-*
+         set fontes(4) -adobe-helvetica-bold-r-normal-*-8-*-75-*-*-*-*-*
+         set fontes(5) -adobe-helvetica-bold-r-normal-*-24-*-*-*-*-*-*-*
+         set fontes(6) -adobe-helvetica-bold-r-normal-*-20-*-*-*-*-*-*-*
+         set fontes(7) -adobe-helvetica-bold-r-normal-*-16-*-*-*-*-*-*-*
+
+
+        option add *foreground black
+        option add *Button.background #eef
+        option add *Menubutton.background #eef
+        
+        option add *Checkbutton.background #fff
+        option add *Radiobutton.background #fff
+        option add *Frame.background #fff
+        option add *Canvas.background #fff
+        option add *Canvas.background #fff
+        option add *Label.background #fff
+        option add *Toplevel.background #fff
+        option add *Entry.background #fff
+        option add *Scrollbar.background #eef
+        option add *Listbox.background bisque
+        option add *Text.background white
+
+    set w .alliance
+
+    toplevel    $w -class Cairo_otacsrndmos 
+    wm title    $w "A L L I A N C E"
+    raise       $w
+    wm geometry $w  +20+20
+    wm iconify  .
+global currentlang
+set currentlang "francais"
+
+global paramlaunch
+set  paramlaunch(changelang) "Switch to English"
+set  paramlaunch(exit) "SORTIE"
+
+
+
+##################
+# Procedures....
+#
+#
+########################
+#
+
+
+########################
+#
+proc dlg_reset {exec file_conf  } {
+global fontes
+global button_press
+
+
+ set win .dgl
+ set texte "Voulez-vous vraiment remettre les parametres a leurs valeurs \
+ initiales ?"
+ 
+ toplevel $win -class Dialog
+
+ wm title $win "Confirmation"
+ wm geometry $win +300+400
+ raise $win
+
+ frame $win.haut -relief raised -bd 1
+ pack  $win.haut -side top -fill both
+ frame $win.bas  -relief raised -bd 1
+ pack  $win.bas  -side bottom -fill both
+
+ message $win.haut.msg -width 3i -text $texte
+
+ pack  $win.haut.msg -side right -expand 1 -fill both -padx 3 -pady 3
+
+ button $win.bas.1 -text "Oui" -command "set button_press 0" 
+ pack   $win.bas.1 -expand 1 -side left -padx 5 -pady 5 -ipadx 3 -ipady 3 
+
+ button $win.bas.2 -text "Non" -command "set button_press 1" 
+ pack   $win.bas.2 -expand 1  -side left -padx 5 -pady 5 -ipadx 3 -ipady 3 
+
+  tkwait  variable button_press
+ destroy $win
+
+return $button_press
+}
+
+
+######
+#
+proc askforshell { } {
+global fontes
+global button_press
+global currentlang
+
+  set win .dgl
+switch $currentlang {
+ "francais" {
+ set texte "A quel shell voulez vous que le script se conforme ?"
+ set titlefile "Choix du shell"
+ }
+
+ "anglais" {
+ set texte "Witch Shell do you want to use ?"
+ set titlefile "Shell Choose"
+ }
+ }
+
+ toplevel $win -class Dialog
+
+ wm title $win "$titlefile"
+
+ wm geometry $win +300+400
+ raise $win
+
+ frame $win.haut -relief raised -bd 1
+ pack  $win.haut -side top -fill both
+ frame $win.bas  -relief raised -bd 1
+ pack  $win.bas  -side bottom -fill both
+
+ message $win.haut.msg -width 3i -text $texte
+
+ pack  $win.haut.msg -side right -expand 1 -fill both -padx 3 -pady 3
+
+ button $win.bas.1 -text "TCSH" -command "set button_press TCSH" 
+ pack   $win.bas.1 -expand 1 -side left -padx 5 -pady 5 -ipadx 3 -ipady 3 
+
+ button $win.bas.2 -text "BASH" -command "set button_press BASH" 
+ pack   $win.bas.2 -expand 1  -side left -padx 5 -pady 5 -ipadx 3 -ipady 3 
+
+set oldfocus [focus]
+
+focus $win
+
+  tkwait  variable button_press
+ destroy $win
+ focus $oldfocus
+
+return $button_press
+}
+
+########################
+proc dump_env_file { file } {
+ global env
+ global dir_env_file
+
+ 
+ if ![file exists $env(PWD)/$file] { 
+  eval "exec cp ${dir_env_file}/${file} ." 
+ }
+return 0
+}
+
+
+########################
+proc reset_env_file { file execut } {
+ global env
+ global dir_env_file
+ global  result_dialog
+ global liste_variables
+
+set result_dialog [ dlg_reset $execut $file]
+
+if { $result_dialog == 0 } {
+ if [file exists $env(PWD)/$file] {
+  eval "exec cp ${dir_env_file}/${file} ." 
+  }
+ }
+ 
+########
+# on devrait lire les nouvelles valeurs..
+#ABCD
+ 
+return $result_dialog
+}
+
+
+#######
+#
+proc config_binaire { executable file_config } { 
+ global fontes
+ global largeur    
+ global entry_val
+ global exec_dupfile
+ global do_pack
+ set exec_dupfile $executable
+ global env
+
+ global liste_variables
+ global dir_env_file
+
+set dir_env_file $env(ALLIANCE_TOP)/algue
+
+ global liste_topack
+
+ global currentlang
+ 
+ switch $currentlang {
+  
+   "francais"  {
+	set paramlaunch(title)  "Configuration de l' environnement de "
+	set paramlaunch(var)    "Variable"
+	set paramlaunch(val)    "Valeur"
+	set paramlaunch(cmd)    "Commande"
+	set paramlaunch(launch) "Execution"
+	set paramlaunch(defaut) "Valeurs par defaut"
+	set paramlaunch(save)   "Sauvegarde"
+	set paramlaunch(script) "Genere script"
+	set paramlaunch(exit)   "SORTIE" 
+	
+	}
+	"anglais" {
+	set paramlaunch(title)  "Environnement of "
+	set paramlaunch(var)    "Variable"
+	set paramlaunch(val)    "Value"
+	set paramlaunch(cmd)    "Command"
+	set paramlaunch(launch) "Launch"
+	set paramlaunch(defaut) "Default Values"
+	set paramlaunch(save)   "Save"
+	set paramlaunch(script) "Drive script"
+	set paramlaunch(exit)   "EXIT" 
+
+	}
+}
+  
+
+
+
+
+
+ 
+  	toplevel    .config 
+	wm title    .config "Alliance Configurator"
+	wm iconname .config  Config 
+	wm geometry .config +10+10
+	
+   set h_scrol 100
+
+############
+# si executable.env n existe pas dans le repertoire courant on le copie  
+# 
+set exe_env [dump_env_file ${executable}.env]
+
+		
+	frame  .config.top  -relief flat
+	pack   .config.top  -side top -fill both 
+   frame  .config.cmd  -relief flat
+	pack   .config.cmd  -fill both 
+   frame  .config.bot  -relief raised -bd 1 
+	pack   .config.bot  -side bottom -fill both
+	
+   label  .config.top.titre  -font $fontes(6) \
+  -text "$paramlaunch(title) $executable" -foreground #0000CC
+
+	pack   .config.top.titre  -side top -padx 3 -pady 10
+
+   canvas .config.top.canvas  -relief flat -borderwidth 0 -background #fff -width 40 -height 10 \
+          -scrollregion "0 0 0 $h_scrol" -yscrollcommand ".config.top.scrol set"
+  
+
+   scrollbar  .config.top.scrol -width 8 -orient vertical -command ".config.top.canvas  yview" \
+	-width 8
+
+   pack .config.top.scrol  -side right -fill y
+        .config.top.scrol  config -cursor {hand2} 
+   pack .config.top.canvas  -expand yes -side left  -fill both  
+
+
+  if [catch {open $file_config r} fichier] {
+             set pouba "L'erreur est humaine"
+             set poubb "Probleme a l'ouverture du fichier $file_config !!"           
+             Dialogue.tcl .d $pouba $poubb error -1 SORTIE
+           } else {
+              set gocalcul 1
+    global do_pack
+    global liste_topack
+             #bell
+				    set largeur 0
+					 set largeur_maxi 2
+					 set ligne_act 1
+					 set liste_topack ""
+					 set liste_variables ""
+					 set wdtent 35
+					 set wdtlbl 20
+                set topady 5        
+                set topadx 5        
+
+				 frame  .config.top.canvas.titre  -relief raised -bd 1 
+	          pack   .config.top.canvas.titre  -side top -fill both 
+
+             label  .config.top.canvas.titre.col1  -width $wdtlbl -font $fontes(1) \
+				 -text  "$paramlaunch(var)" -fg #CC0000
+         	 label  .config.top.canvas.titre.col2  -width $wdtent -font $fontes(1) \
+ 				 -text  "$paramlaunch(val)" -fg #CC0000  
+				 label  .config.top.canvas.titre.col3  -width $wdtlbl -font $fontes(1) \
+				 -text  "$paramlaunch(var)" -fg #CC0000
+             label  .config.top.canvas.titre.col4  -width $wdtent -font $fontes(1) \
+				 -text  "$paramlaunch(val)" -fg #CC0000
+  
+    
+	          pack .config.top.canvas.titre.col1 .config.top.canvas.titre.col2 \
+				 .config.top.canvas.titre.col3 .config.top.canvas.titre.col4  -side left -padx $topadx -pady $topady
+
+             frame  .config.top.canvas.${ligne_act}  -relief raised -bd 1 
+	          pack   .config.top.canvas.${ligne_act}  -side top -fill both 
+				 
+              while {[gets $fichier ligne] >= 0} {
+				    
+						global do_pack			
+
+                set parametre [lrange $ligne 0 0] 
+                set val_parametre  [lrange $ligne 1 1]
+				    set allval_param   [lrange $ligne 1 end] 
+				   	set do_pack 1 
+					   set lengthval [string length $val_parametre ] 	
+						set lengthval [expr $lengthval - 2]
+						set firstval  [string index  $val_parametre 0]
+						set lastval   [string index  $val_parametre $lengthval]
+						
+						if { $firstval == "\{" } { 
+                  set goodval [ string range $val_parametre 1 $lengthval ]
+						set val_parametre $goodval
+						}
+
+switch $parametre {
+
+
+ "commande" {  
+	 
+	 switch $currentlang {
+	 "francais" { 
+	      label .config.cmd.lbl -width $wdtlbl -font $fontes(7) \
+    	       -text "commande" -fg #CC0000  
+				  }
+	 "anglais" { 
+	      label .config.cmd.lbl -width $wdtlbl -font $fontes(7) \
+    	       -text "command" -fg #CC0000  
+				  }
+			 }
+
+ 
+  set  entry_val(commande) $allval_param
+  
+  lappend liste_variables "commande"
+
+  entry .config.cmd.ent -width $wdtent \
+  -textvariable entry_val(commande) 
+#XXX
+
+button .config.cmd.lance  -font $fontes(7) -fg #0000CC -text "$paramlaunch(launch)" -underline 0 -width 14 -command\
+			 {  
+		
+ global exec_dupfile
+ global liste_variables
+ global entry_val
+ global filewrite 
+ global shellused
+
+
+ 
+set filewrite ${exec_dupfile}.tmpsh
+
+if [catch {open $filewrite w+ } fichier] {
+             set pouba "L'erreur est humaine"
+             set poubb "Probleme a l'ouverture du fichier $filewrite !!"           
+             Dialogue.tcl .d $pouba $poubb error -1 SORTIE
+           } else {
+set ii 0
+
+
+foreach vartowrite $liste_variables {
+ incr ii
+  if {$vartowrite == "commande" } { 
+	   puts $fichier "$entry_val($vartowrite)" 
+
+  } else {
+  puts $fichier "$vartowrite=$entry_val($vartowrite)"
+  puts $fichier "export $vartowrite"
+  
+  }
+ 
+}
+ close $fichier 
+	 
+	 } 
+
+eval "exec chmod 755 $filewrite" 
+
+set comd  "${filewrite}" 
+
+Supervision_cmdunix.tcl $env(PWD)/$comd 1 ;
+
+# puts "$filewrite"
+# set comd2 "rm $filewrite" 
+# Supervision_cmdunix.tcl $comd2 1 ;
+
+# eval "exec rm -rf $filewrite" 
+
+ }
+
+ pack .config.cmd.lbl .config.cmd.ent .config.cmd.lance -side left -padx $topadx -pady 15
+			 
+			 
+			 } 
+
+	   
+		
+	 default {	
+global liste_topack
+	 
+                if {$largeur < $largeur_maxi} { 
+					     set largeur [expr $largeur + 1]
+
+						  set liste_topack "$liste_topack .config.top.canvas.$ligne_act.$ligne_act${largeur}lbl"
+						  set liste_topack "$liste_topack .config.top.canvas.$ligne_act.$ligne_act${largeur}ent"
+						  
+						  label .config.top.canvas.$ligne_act.$ligne_act${largeur}lbl -width $wdtlbl -font $fontes(1) \
+   						  -text $parametre -bg #DDDDDD -fg #0000CC 
+#						  set  entry_val($ligne_act$largeur) $val_parametre
+						  set  entry_val($parametre) $val_parametre
+
+entry .config.top.canvas.$ligne_act.$ligne_act${largeur}ent -width $wdtent \
+						  -textvariable entry_val($parametre) 
+						  lappend liste_variables $parametre
+						  set do_pack 1
+
+						  } else {
+						  set topack " pack $liste_topack -side left -padx $topadx -pady $topady"
+						  eval $topack
+						    set largeur 1 
+							 set liste_topack ""
+							 incr ligne_act
+                   frame  .config.top.canvas.${ligne_act}  -relief raised -bd 1 
+	                pack   .config.top.canvas.${ligne_act}  -side top -fill both 
+						 
+
+                    set liste_topack "$liste_topack .config.top.canvas.$ligne_act.$ligne_act${largeur}lbl"
+						  set liste_topack "$liste_topack .config.top.canvas.$ligne_act.$ligne_act${largeur}ent"
+						  
+						  label .config.top.canvas.$ligne_act.$ligne_act${largeur}lbl -width $wdtlbl -font $fontes(1) \
+   						  -text $parametre -bg #DDDDDD -fg #0000CC 
+#						  set  entry_val($ligne_act$largeur) $val_parametre
+						  set  entry_val($parametre) $val_parametre
+						  entry .config.top.canvas.$ligne_act.$ligne_act${largeur}ent -width $wdtent \
+						  -textvariable entry_val($parametre) 
+						  lappend liste_variables $parametre
+
+						 
+							 set do_pack 0
+							 } 
+					 
+					 
+                if { $parametre != "*" } { 
+                  if { $parametre == "AD0" } { 
+                    set dim_otacsrndmos(ad0) $val_parametre 
+                  } elseif { $parametre == "VC3" } { 
+                    set dim_otacsrndmos(vc3) [format "%6.3f" $val_parametre]
+                  } elseif { $parametre == "AIRE" } { 
+                    set dim_otacsrndmos(aire)  $val_parametre
+                  }
+                }
+              }
+
+  }
+}
+
+
+					set topack " pack $liste_topack -side left -padx $topadx -pady $topady"
+
+#   if { $do_pack == 1 } {
+  eval $topack
+#  }
+				  
+              close $fichier
+
+	 }
+				  
+####################
+# Bouttons du bas  
+ 
+  button .config.bot.reset  -font $fontes(1) -text "$paramlaunch(defaut)" -underline 0 -width 14 -command\
+			 { } 
+
+  button .config.bot.save   -font $fontes(1) -text "$paramlaunch(save)" -underline 0 -width 14  -command\
+			 {} 
+ 
+  button .config.bot.lance  -font $fontes(1) -text "$paramlaunch(script)" -underline 0 -width 14 -command\
+			 {} 
+ 
+  button .config.bot.exit   -font $fontes(1) -text "$paramlaunch(exit)" -underline 0 -width 14 -command\
+           "destroy .config"
+
+
+  pack .config.bot.reset .config.bot.save .config.bot.lance .config.bot.exit  -side left -expand 1\
+	    -padx 9 -pady 6 -ipadx 6 -ipady 3  
+
+
+
+bind .config.bot.reset  <1> {
+ global exec_dupfile
+ global allval_param
+ global entry_val
+
+ set okresult [ reset_env_file ${exec_dupfile}.env ${exec_dupfile} ]
+
+ if { $okresult == 0} {
+ #on doit reconfigurer ....
+
+# pack forget .config.bot.reset .config.bot.save    .config.bot.lance  
+# .config.bot.exit   configure -text "Restart !"
+# .config.bot.exit   configure -command "destroy .config ; return 11"
+
+ }
+set fich ${exec_dupfile}.env
+ 
+  if [catch {open $fich r} fichier] {
+             set pouba "L'erreur est humaine"
+             set poubb "Probleme a l'ouverture du fichier $file_config !!"           
+             Dialogue.tcl .d $pouba $poubb error -1 SORTIE
+           } else {
+              set gocalcul 1
+    global do_pack
+    global liste_topack
+					 set liste_topack ""
+					 set liste_variables ""
+
+              while {[gets $fichier ligne] >= 0} {
+				    
+
+                set parametre [lrange $ligne 0 0] 
+                set val_parametre  [lrange $ligne 1 1]
+				    set allval_param   [lrange $ligne 1 end] 
+
+   set entry_val($parametre) $allval_param 
+
+
+    }
+   }
+ }
+
+bind .config.bot.save  <1> {
+ global exec_dupfile
+ global liste_variables
+ global entry_val
+ global filewrite 
+    set types_circuit_files {
+      {{ENV Files} {.env}  }
+      {{ALL Files} {*.*}   }
+   }
+
+
+  set filewrite [ tk_getSaveFile -title "ALLIANCE Loader" -filetypes $types_circuit_files -initialdir $env(PWD) -initialfile ${exec_dupfile}.env ]
+
+if {$filewrite != ""} {
+
+if [catch {open $filewrite w} fichier] {
+             set pouba "L'erreur est humaine"
+             set poubb "Probleme a l'ouverture du fichier $filewrite !!"           
+             Dialogue.tcl .d $pouba $poubb error -1 SORTIE
+           } else {
+set ii 0
+
+
+foreach vartowrite $liste_variables {
+ incr ii
+  if {$vartowrite == "commande" } { 
+  puts $fichier "$vartowrite    $entry_val($vartowrite)"
+  } else {
+  puts $fichier "$vartowrite    $entry_val($vartowrite)"
+  }
+ 
+}
+ close $fichier 
+	 
+	 } 
+ }
+
+}
+
+bind .config.bot.lance  <1> {
+ global exec_dupfile
+ global liste_variables
+ global entry_val
+ global filewrite 
+ global shellused
+ 
+    set types_circuit_files {
+      {{Script Files} {.sh}  }
+      {{ALL Files} {*.*}   }
+   }
+
+set shellused [askforshell]
+
+
+  set filewrite [ tk_getSaveFile -title "ALLIANCE Loader" -filetypes $types_circuit_files -initialdir $env(PWD) -initialfile ${exec_dupfile}.sh ]
+if {$filewrite != ""} {
+  #ABC
+
+if [catch {open $filewrite w} fichier] {
+             set pouba "L'erreur est humaine"
+             set poubb "Probleme a l'ouverture du fichier $filewrite !!"           
+             Dialogue.tcl .d $pouba $poubb error -1 SORTIE
+           } else {
+set ii 0
+
+  if { $shellused == "TCSH" } {
+  puts $fichier "#!/bin/csh"
+  }
+  if { $shellused == "BASH" } {
+  puts $fichier "#!/bin/sh"
+  }
+
+foreach vartowrite $liste_variables {
+ incr ii
+  if {$vartowrite == "commande" } { 
+	   puts $fichier "$entry_val($vartowrite)" 
+
+  } else {
+  if { $shellused == "TCSH" } {
+  puts $fichier "setenv $vartowrite   $entry_val($vartowrite)"
+  }
+  if { $shellused == "BASH" } {
+  puts $fichier "$vartowrite=$entry_val($vartowrite)"
+  puts $fichier "export $vartowrite"
+  }
+  
+  }
+ 
+}
+
+eval "exec chmod 755 $filewrite"
+
+ close $fichier 
+	 
+	 } 
+
+ }
+
+}
+
+
+
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+###################
+# FRAME DU HAUT     
+###################
+   set widthcanvastitre    700
+	set heigthcanvastitre   80
+
+     frame $w.haut -relief raised -bd 1
+     pack  $w.haut -side top -fill both
+    
+     frame $w.haut.1 -relief ridge -bd 3
+     pack  $w.haut.1 -side top  -anchor w -fill both
+
+    canvas $w.haut.1.c -relief flat -borderwidth 0 -background #fff \
+  	 -width $widthcanvastitre -height $heigthcanvastitre \
+ 
+     pack $w.haut.1.c   -expand true -side left  -fill both  
+     
+	  set chemin $env(ALLIANCE_TOP)/algue/asim.gif
+     set imh [image create photo -file $chemin]
+ 
+	  $w.haut.1.c create image  70 55 -image $imh
+
+	  set chemin $env(ALLIANCE_TOP)/algue/asimtxt.gif
+     set imh [image create photo -file $chemin]
+ 
+	  $w.haut.1.c create image  70 15 -image $imh
+
+
+     set chemin $env(ALLIANCE_TOP)/algue/alliance.gif
+     set imh [image create photo -file $chemin]
+ 
+	  $w.haut.1.c create image  370 40 -image $imh
+
+     set chemin $env(ALLIANCE_TOP)/algue/lip6.gif
+     set imh [image create photo -file $chemin]
+ 
+	  $w.haut.1.c create image  660 40 -image $imh
+
+
+###################
+# FRAME      
+###################
+
+   frame  $w.princ  -relief raised -bd 1 
+   pack   $w.princ  -fill both
+ 	frame  $w.princ.1  -relief ridge -bd 3 
+   pack   $w.princ.1  -fill both
+
+   set widthcanvas    720
+	set heigthcanvas   410
+	
+   set widthboutton    100
+	set heigthboutton   40
+
+	set widthlabel     580
+	set heigthlabel     40
+
+	set h_scrol        200
+   
+	set color_boutton #AA0000  
+	set color_label   #0000CC
+	
+	set y1 50;
+   set defautx1 55;
+   set x1	$defautx1
+	
+	set file_config "$env(ALLIANCE_TOP)/algue/main.cfg"
+	
+ 
+   canvas $w.princ.1.c -relief flat -borderwidth 0 -background #fff \
+	-width $widthcanvas -height $heigthcanvas \
+	-scrollregion "0 0 0 $h_scrol" -yscrollcommand  "$w.princ.1.scl set" 
+
+   scrollbar $w.princ.1.scl  -width 8 -orient vertical -command "$w.princ.1.c  yview "
+        
+   pack $w.princ.1.scl -side right -fill y
+        $w.princ.1.scl config -cursor {hand2}
+		  
+   pack $w.princ.1.c   -expand true -side left  -fill both  
+
+###########################
+# Debut du parssage
+# du fichier de config
+
+ if [catch {open $file_config r} fichier] {
+             set mesg1 "L'erreur est humaine"
+             set mesg2 "Probleme a l'ouverture du fichier $file_config !"           
+             Dialogue.tcl .d $mesg1 $mesg2 error -1 SORTIE
+           } else {
+
+  set num 0
+ 
+   	
+	while {[gets $fichier ligne] >= 0} {
+
+      incr num
+                
+			set parametre [lrange $ligne 0 0] 
+         set val_parametre  [lrange $ligne 1 1]
+	      set allval_param   [lrange $ligne 1 end] 
+		
+		   set lengthval [string length $val_parametre ] 
+
+			
+
+## On force la taille du texte ....
+  set allval_param [ string range $allval_param 0 70 ]
+
+    label  $w.princ.1.lbl$num -font $fontes(1) \
+    -text $allval_param -anchor w -foreground $color_label  -font $fontes(7) -width 60 
+
+
+   set paramsend [string tolower $parametre]
+
+	 button $w.princ.1.bout$num   -font $fontes(7) \
+       -text $parametre -command  "config_binaire $paramsend ${paramsend}.env" \
+		 -foreground $color_boutton
+
+	 pack $w.princ.1.lbl$num $w.princ.1.bout$num -side left  -expand 1 -padx 5 -pady 5 -ipadx 3 -ipady 3	 
+    $w.princ.1.c create window $x1 $y1  -window $w.princ.1.bout$num  \
+    -width $widthboutton  -height $heigthboutton 
+
+   set x1 [expr $x1 + 360 ] ;
+	 $w.princ.1.c create window $x1 $y1  -window $w.princ.1.lbl$num  \
+    -width $widthlabel -height $heigthlabel 
+	 
+	set y1 [expr $y1 + 55]
+	set x1 $defautx1
+  }
+
+  
+ }
+
+   set h_scrol  $y1 
+	$w.princ.1.c configure -scrollregion "0 0 0 $h_scrol" 
+
+###################
+# FRAME BAS
+###################
+
+###
+# Debut reconfiguration language
+proc switchlang { } {
+global fontes color_label
+global currentlang
+global paramlaunch
+global w env
+	
+global  widthboutton  heigthboutton 
+global  widthlabel  heigthlabel  
+
+  switch $currentlang {
+  "francais" {
+  set currentlang "anglais"
+  set paramlaunch(changelang) "Passer en Francais"
+  set  paramlaunch(exit) "EXIT"
+  $w.bot.switch configure -text $paramlaunch(changelang) 
+  $w.bot.quit configure -text $paramlaunch(exit) 
+  set file_to_read $env(ALLIANCE_TOP)/algue/maine.cfg
+  }
+  "anglais" {
+  set currentlang "francais"
+  set paramlaunch(changelang) "Switch to English"
+  set  paramlaunch(exit) "SORTIE"
+  $w.bot.switch configure -text $paramlaunch(changelang) 
+  $w.bot.quit configure -text $paramlaunch(exit) 
+  set file_to_read  $env(ALLIANCE_TOP)/algue/main.cfg
+    } 
+  }
+
+#XXX
+#on efface tout le canvas
+
+    $w.princ.1.c delete all
+###########################
+
+# Debut du parssage
+# du fichier de config
+	
+	set y1 50;
+   set defautx1 55;
+   set x1	$defautx1
+
+	set file_config "$env(ALLIANCE_TOP)/algue/main.cfg"
+	
+ if [catch {open $file_to_read r} fichier] {
+             set mesg1 "L'erreur est humaine"
+             set mesg2 "Probleme a l'ouverture du fichier $file_config !"           
+             Dialogue.tcl .d $mesg1 $mesg2 error -1 SORTIE
+           } else {
+
+  set num 0
+   	
+	while {[gets $fichier ligne] >= 0} {
+
+      incr num
+                
+			set parametre [lrange $ligne 0 0] 
+         set val_parametre  [lrange $ligne 1 1]
+	      set allval_param   [lrange $ligne 1 end] 
+		
+		   set lengthval [string length $val_parametre ] 
+
+## On force la taille du texte ....
+  set allval_param [ string range $allval_param 0 70 ]
+
+  #  label  $w.princ.1.lbl$num -font $fontes(1) \
+  #  -text $allval_param -anchor w -foreground $color_label  -font $fontes(7) -width 60 
+     $w.princ.1.lbl$num configure -text $allval_param 
+
+
+
+#   set paramsend [string tolower $parametre]
+
+#	 button $w.princ.1.bout$num   -font $fontes(7) \
+#		 -text $parametre -command  "config_binaire $paramsend ${paramsend}.env" \
+#		 -foreground $color_boutton
+
+#	 pack $w.princ.1.lbl$num $w.princ.1.bout$num -side left  -expand 1 -padx 5 -pady 5 -ipadx 3 -ipady 3	 
+
+	 $w.princ.1.c create window $x1 $y1  -window $w.princ.1.bout$num  \
+    -width $widthboutton  -height $heigthboutton 
+
+   set x1 [expr $x1 + 360 ] ;
+
+	 $w.princ.1.c create window $x1 $y1  -window $w.princ.1.lbl$num  \
+    -width $widthlabel -height $heigthlabel 
+	 
+	set y1 [expr $y1 + 55]
+   set x1 $defautx1
+  }
+}
+
+	 
+}
+
+#fin procedure switchlang 
+# reconfiguration du language
+####################################3
+
+
+
+    frame  $w.bot  -relief raised -bd 1 
+	 pack   $w.bot  -side bottom -fill both
+
+    button $w.bot.quit  -font $fontes(1) -text "$paramlaunch(exit)" \
+          -command "destroy $w ; exit" -width 15
+			 
+    button $w.bot.switch  -font $fontes(1) -text "$paramlaunch(changelang)" \
+	 -command { switchlang } -width 15
+
+			 
+    pack  $w.bot.quit $w.bot.switch -side left -expand 1 -padx 9 -pady 6 -ipadx 6 -ipady 3 
+	 
+     $w.bot.quit  config -cursor {hand2}
+
+    raise       $w
