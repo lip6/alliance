@@ -1,0 +1,1153 @@
+% Dlxm Tutorial
+% Modified by czo (01/2000)
+% TODO : change old tools names logic/bop netoptim/glop
+% $Id: dlxm.tex,v 1.1 2000/01/20 10:24:51 czo Exp $
+
+\documentstyle[palatino]{article} 
+\special{papersize=210mm,297mm}     % A4 paper is what my printer likes
+\textheight 9.0in
+\textwidth  7.0in
+\topmargin  -0.0in
+\oddsidemargin  +0in
+\evensidemargin -0in
+\marginparwidth +0in
+\parskip 8pt plus 2pt minus 2pt     % space beetween paragraphe
+\parindent 2em                      % indentation of the first line
+\topsep 0pt                         % space beetween list and text
+\parsep 6pt                         % space beetween 2 par. in item
+\partopsep 0pt                      % space beetween 2 par. in item
+\itemsep 0pt                        % space beetween 2 items
+\def\Sup{\verb+>+}
+\def\Inf{\verb+<+}
+\newlength{\mylength}
+\def\S#1{\protect\makebox[\mylength][l]{\noindent#1}}
+\begin{document} 
+
+
+\begin{center}
+{\Large \bf DLX TUTORIAL}\\
+\today \\
+This tutorial requires about 6 hours in batch mode on a Sparc Station
+\end{center}
+
+\section{Introduction}
+
+\hspace{\parindent}
+ Welcome to the {\bf ALLIANCE CAD} system.
+This file contains a complete tutorial based on the design of the 32 bit microprocessor DLX.
+This tutorial does not focus on the processor architecture. The
+goal is to present the available CAD tools in the ALLIANCE 3.0 release (especially
+logic synthesis and the data path compiler).
+Beginners who are not familiar with ALLIANCE should start using the
+ADDACCU tutorial or the AMD tutorial.
+Each {\bf ALLIANCE} tool can operate as a standalone program but in this
+tutorial the tools are used according to a precise design flow.
+The starting point is a behavioural VHDL model. The output is a CIF file.
+
+The tools used in the design are:
+\begin {itemize}
+\item {\bf asimut} : {\bf VHDL} compiler and simulator.
+\item {\bf dlx\_asm} : DLX assembler.
+\item {\bf syf} : Finite State Machine compiler.
+\item {\bf logic} : Logic synthesizer
+\item {\bf netoptim} : Net list optimizer
+\item {\bf scr} : Standard Cell placer and router.
+\item {\bf fpgen} : Data path net list capture.
+\item {\bf dpr} : Data path placer and router.
+\item {\bf genlib} : Net list capture.
+\item {\bf bbr} : Block to block router.
+\item {\bf ring} : Core to pads router.
+\item {\bf lynx} : Layout to net list extractor.
+\item {\bf lvx} : Net list comparator.
+%\item {\bf tas} : Timing Analyser.
+\item {\bf s2r} : Symbolic to real layout converter.
+\end{itemize}
+
+You can get on-line information on any {\bf ALLIANCE} tool using the command :
+
+\fbox {
+\shortstack[l] {
+\bf man $<$tool name$>$
+}
+}
+
+DLXm is a 32 bit microprocessor with a micro-programmed internal architecture. The description of the DLX is given by J.L.Hennessy and D.A.Patterson in ``Computer Architecture, A quantitative Approach'', Morgan Kaufman Publishers, Inc. 1990.                                                            
+
+In order to simplify the task of validating the chip, an entire CPU board has been described in {\bf VHDL}. 
+
+Thus the simulations are done using small
+assembler programs which are stored in the CPU board's external memory.
+This tutorial shows you how to create the DLXm into four steps, 
+which must be followed in order to produce a valid chip.
+
+\begin {itemize}
+\item {\bf Step 1} : Behavioural Specification and Validation 
+\item {\bf Step 2} : Gate Level net list generation and validation 
+\item {\bf Step 3} : Physical place and route with extraction and validation 
+%\item {\bf Step 4} : Timing analysis
+\item {\bf Step 4} : Translation from symbolic layout to the target
+process
+\end{itemize}
+
+In order to build the chip, all source files are included with this tutorial (see Appendix).
+
+You will use the {\bf ALLIANCE} tools to validate these sources and to generate 
+first the gate level net list, then 
+the physical layout of the DLXm. The final output is a {\bf CIF} format physical layout file. This can be sent directly to a manufacturer for fabrication.
+
+All you have to do to build the chip is type the commands given in this tutorial. If you are feeling too lazy to type these commands by hand, you can build the entire chip automatically using the command :
+
+\fbox {
+\shortstack[l] {
+\bf $>$ make
+}
+}
+
+If you want to start again from scratch, you can type the command :
+
+\fbox {
+\shortstack[l] {
+\bf $>$ make clean
+}
+}
+
+which will remove all the generated files.
+
+The fully automatic chip generation requires about 6 hours on a SPARC station.
+If you have less time, you can also run separately the four main steps listed above, thanks to special entries in the makefile.
+These entries are referenced all along this tutorial.
+
+
+The {\bf ALLIANCE} tools use {\bf UNIX} environment variables. They are accessed by the {\bf UNIX} command {\em setenv}. For example:
+
+\fbox {
+\shortstack[l] {
+\bf $>$ setenv MBK\_IN\_LO vst\\
+\bf $>$ setenv MBK\_OUT\_LO vst\\
+\bf $>$ setenv MBK\_IN\_PH ap\\
+\bf $>$ setenv MBK\_OUT\_PH ap\\
+\bf $>$ setenv MBK\_WORK\_LIB .\\
+\bf $>$ setenv MBK\_CATAL\_NAME CATAL\\
+\bf $>$ setenv MBK\_CATA\_LIB \\
+\hspace*{0.2in}\bf \$(ALLIANCE\_TOP)/cells/scr:\\
+\hspace*{0.2in}\bf \$(ALLIANCE\_TOP)/cells/bsg:
+\$(ALLIANCE\_TOP)/cells/rfg:
+\$(ALLIANCE\_TOP)/cells/rsa:\\
+\hspace*{0.2 in}\bf  \$(ALLIANCE\_TOP)/cells/fitpath/fplib:\\
+\hspace*{0.2 in}\bf \$(ALLIANCE\_TOP)/cells/ring
+}
+}
+
+
+\begin{itemize}
+\item {\bf MBK\_IN\_LO}      : Logical input file format (and filename extension).
+\item {\bf MBK\_OUT\_LO}     : Logical output file format (and filename extension).
+\item {\bf MBK\_IN\_PH}      : Physical input file format (and filename extension).
+\item {\bf MBK\_OUT\_PH}     : Physical output file format (and filename extension).
+\item {\bf MBK\_CATAL\_NAME} : Name of the catalogue file in
+{\bf MBK\_WORK\_LIB} directory.
+\item {\bf MBK\_CATA\_LIB}   : Paths to the directories that are to be searched for read-only cell libraries.
+\item {\bf MBK\_WORK\_LIB}   : Directory where are saved the output files.
+\end{itemize}
+
+You can get on-line information on {\bf ALLIANCE } environment variables using the command :
+
+\fbox {
+\shortstack[l] {
+\bf man $<$ envir $>$
+}
+}
+
+Some of the path names may have to be modified, in order to correspond to your particular installation of {\bf ALLIANCE}. In this tutorial we will assume that the directory structure of the source files has not been altered.
+
+In this tutorial, the commands which are inside [ ] are preset. If you make the DLXm from the beginning to the end, you do not have to set again these environment variables.
+All operations should be executed in the root directory.
+
+
+
+
+\section{Simulation method for design validation}
+
+    \subsection{Behavioural model}
+
+The specification of the chip which you are going to build is given in
+the file {\bf dlxm\_chip.vbe} in the form of a {\bf VHDL} behavioural description. This allows simulations to be performed immediately.
+
+In order to simplify the task of validating the chip, an entire CPU board has been described in {\bf VHDL}. The CPU board interconnections are described in the file {\bf dlxm\_cpu.vst} using VHDL structural syntax. Each component is described in a separate file using VHDL behavioural syntax :
+
+\begin {itemize}
+\item {\bf dlxm\_dec.vbe} : Address decoder.
+\item {\bf sr64\_1a.vbe} : RAM.
+\item {\bf timer.vbe} : timer for external interrupts.
+\item {\bf roms.vbe} : Supervisor ROM.
+\item {\bf romu.vbe} : User ROM.
+\end{itemize}
+
+	\subsection{Validation Technique}
+
+In order to test the chip, a large number of short assembly language
+programs have been written. The programs were each designed to test
+one particular aspect of the chip (e.g. an instruction, or a
+register). Each works on the same principle: a test is performed, if
+test is OK, the program branches to a fixed address (defined as {\bf
+good}) and stops with the following message :\\
+{\bf ERROR : `` assert violation on cell dlxm\_dec : " ==== ok :
+simulation has ended with functional test good ===="\\}
+, if not, the program branches to another fixed address and stops with
+the following message :\\
+{\bf ERROR : `` assert violation on cell dlxm\_dec : " ==== ko :
+simulation has ended with functional test bad ===="\\}
+
+The programs are assembled using the command {\bf dlx\_asm}, which assembles the DLX mnemonics but, instead of generating object code as output, it generates the {\bf VHDL} behavioural description of a 256 byte ROM. It is therefore used to produce the {\bf romu.vbe} and {\bf roms.vbe} files for the board.
+
+
+
+    	\subsection{Simulation}
+
+
+The VHDL simulator {\bf asimut} can mix structural and behavioural descriptions :
+a special file,
+defined by the environment variable {\bf MBK\_CATAL\_NAME} (see {\em man catal}), tells the simulator which behavioural models are to be taken as leaf cells. 
+
+Simulation is used to check the initial behavioural description of the DLXm processor and the output results for each phase . 
+ However as simulation is time greedy, simulation is done in the tutorial with a single assembly program, to show the design flow and the tools as quickly as possible.
+Yet the reader must feel free to use all the provided programs for simulation.
+
+
+\section{Interactive Design}
+
+	\subsection{Behavioural Specification}
+
+Before starting the chip design, remember that all operations should be executed in the root directory.
+
+
+The circuit behaviour is described in the *.vbe files using the {\bf ALLIANCE} VHDL subset (see {\it man vhdl} and {\it man vbe}). 
+
+The assembly language program add000.u is used. To assemble it, do :
+
+\fbox {
+\shortstack[l] {
+\bf $>$ setenv MBK\_WORK\_LIB .\\
+\bf $>$ dlx\_asm add000.u romu\\
+\bf $>$ dlx\_asm add000.s roms
+}
+}
+
+\begin{itemize}
+\item
+{\bf add000.u} and {\bf add000.s} are the chosen example of assembly
+source files.
+\item
+{\bf romu} and {\bf roms} are the target files ({\bf romu.vbe} and
+{\bf roms.vbe}).
+\end{itemize}
+
+You can now perform the simulation :
+
+\fbox {
+\shortstack[l] {
+\bf $>$ setenv VH\_BEHSFX vbe\\ 
+\bf $>$ setenv MBK\_MAXERR 10 \\ 
+\bf $>$ setenv VH\_PATSFX pat \\ 
+\bf $>$ setenv MBK\_IN\_LO vst \\ 
+\bf $>$ setenv MBK\_CATAL\_NAME CATAL\_CPU\_CHIP \\ 
+\bf [$>$ setenv MBK\_WORK\_LIB .]\\ 
+\bf $>$ setenv MBK\_CATA\_LIB \\ 
+\hspace*{0.2in}\bf \$(ALLIANCE\_TOP)/cells/scr:\\ 
+\hspace*{0.2in}\bf \$(ALLIANCE\_TOP)/cells/bsg: \$(ALLIANCE\_TOP)/cells/rfg: \$(ALLIANCE\_TOP)/cells/rsa:\\ 
+\hspace*{0.2 in}\bf  \$(ALLIANCE\_TOP)/cells/fitpath/fplib:./mclib:\\ 
+\hspace*{0.2 in}\bf \$(ALLIANCE\_TOP)/cells/ring\\ 
+\bf $>$ asimut -l 1 -p 50 -bdd dlxm\_cpu dlxm\_cpu add000\_chip
+} 
+} 
+
+\begin{itemize} 
+\item
+{\bf -l 1} : size of the label in the {\bf dlxm\_cpu.pat} and the {\bf
+add000\_chip.pat} files.
+\item 
+{\bf -p 50} : simulation will use sets of 50 patterns (see {\it man
+asimut})
+\item
+{\bf -bdd} : simulation uses bdd representation
+\item
+{\bf dlxm\_cpu} : structural description of the board  ({\bf dlxm\_cpu.vst}) 
+\item
+{\bf dlxm\_cpu} : pattern input filename ({\bf dlxm\_cpu.pat}) 
+\item
+{\bf add000\_chip} : result filename ({\bf add000\_chip.pat}) 
+\end{itemize}
+
+You should get the message : \\
+{\bf ERROR : `` assert violation on cell dlxm\_dec : " ==== ok :
+simulation has ended with functional test good ===="}\\
+which means that the test has been performed correctly.
+
+The Status Register and the Program Counter are initialized thanks to
+the RESET input on the board and convenient assembly instructions in
+the superuser rom (see {\bf add000.s}).
+
+The result of the simulation is placed in the {\bf pat} file called
+{\bf add000\_chip.pat} . You can take a look at this file using your favorite viewer/editor. 
+
+The reader who is willing to do more simulation test should follow the same procedure :
+
+\begin{itemize}
+\item
+select a new assembly program (user and supervisor) in the {\bf stock\_asm} directory and copy it into the root directory    
+\item
+create a new romu.vbe and a new roms.vbe by assembling a source file.
+
+\item
+run asimut
+\item
+check the simulation result : \\
+{\bf ERROR : `` assert violation on cell dlxm\_dec : " ==== ok :
+simulation has ended with functional test good ===="\\}
+\end{itemize}
+
+
+All the output files resulting from operations of the paragraph 3.1 can be written automatically using the target {\bf functional} of the Makefile by typing :
+
+\fbox {
+\shortstack[l] {
+\bf $>$ Make functional 
+}
+}
+
+
+	\subsection{Structural Design}
+
+    		\subsubsection{Design Hierarchy}
+
+
+In this step, the structural descriptions of the chip ({\bf dlxm.vst}), and the core ({\bf core.vst}) are used.
+The chip is described as a core surrounded by pads.
+ The core is divided into two structural blocks: control and data
+ path, the control block being also divided into two structural blocks
+ : sequencer and status, each of which must be represented by its own behavioural description. The following source files are provided :
+
+\begin {itemize}
+\item
+{\bf dlxm\_chip.vst} : VHDL structural model of the dlxm chip instantiating core and pads.
+\item
+{\bf dlxm\_core.vst} : VHDL structural model of the core instantiating the data path,
+and the control.
+\item
+{\bf dlxm\_ctl.vst.h} : VHDL structural model of the control instantiating the 
+sequencer and the status (the control model ({\bf dlxm\_ctl.vst} being saved in the file
+{\bf dlxm\_ctl.vst.h} to prevent future erasing) .
+\item {\bf dlxm\_seq.fsm} : VHDL finite state machine model of the sequencer.
+\item {\bf dlxm\_sts.vbe} : VHDL behavioural model of the status.
+\item {\bf dlxm\_dpt.vbe} : VHDL behavioural model of the data path.
+\end{itemize}
+
+    		\subsubsection{Sequencer state assignment}
+
+The sequencer is written using a subset of {\bf VHDL} specifically designed for the description of finite state machines. You must therefore compile this into a VHDL data-flow behavioural model ({\bf vbe}) using the {\bf ALLIANCE} tool {\bf syf} :
+
+\fbox {
+\shortstack[l] {
+\bf [$>$ setenv MBK\_WORK\_LIB . ]\\
+\bf $>$ syf -s dlxm\_seq -of dlxm\_seq -scan -save
+}
+}
+
+\begin {itemize}
+\item {\bf -s} : uses a vertical encoding algorithm
+\item
+{\bf dlxm\_seq} : fsm source file ({\bf dlxm\_seq.fsm)}
+\item  
+{\bf -of dlxm\_seq} : output behavioural description ({\bf dlxm\_seq.vbe})
+\item
+{\bf -scan} : adds a scan-path to the state register.
+\item
+{\bf -save} : saves encoding result in {\bf dlxm\_seq.cod} file
+\end{itemize}
+
+		\subsubsection{Validation of the DLXm block view}
+
+You can then simulate the resulting model after having copied the
+structural description of the control in two blocks {\bf
+dlxm\_core.vst.h} :
+
+
+\fbox {
+\shortstack[l] {
+\bf $>$ cp dlxm\_ctl.vst.h dlxm\_ctl.vst \\
+\bf $>$ chmod 644 dlxm\_ctl.vst
+}
+}
+
+\fbox {
+\shortstack[l] {
+\bf [$>$ setenv VH\_BEHSFX vbe]\\
+\bf [$>$ setenv MBK\_MAXERR 10]\\
+\bf [$>$ setenv VH\_PATSFX pat]\\
+\bf [$>$ setenv MBK\_IN\_LO vst]\\
+\bf [$>$ setenv MBK\_WORK\_LIB . ]\\
+\bf [$>$ setenv MBK\_CATA\_LIB ...]\\
+\bf $>$ setenv MBK\_CATAL\_NAME CATAL\_CPU\_BLOCKS\\
+\bf $>$ asimut -l 1 -p 50 -bdd dlxm\_cpu dlxm\_cpu add000\_blocks
+} 
+} 
+
+\begin{itemize} 
+\item
+{\bf -l 1} : size of the label in the {\bf dlxm\_cpu.pat} and the {\bf
+add000\_blocks.pat} files.
+\item 
+{\bf -p 50} : simulation will use sets of 50 patterns (see {\it man
+asimut})
+\item
+{\bf -bdd} : simulation uses bdd representation
+\item
+{\bf dlxm\_cpu} : structural description of the board  ({\bf dlxm\_cpu.vst}) 
+\item
+{\bf dlxm\_cpu} : pattern input filename ({\bf dlxm\_cpu.pat}) 
+\item
+{\bf add000\_blocks} : result filename ({\bf add000\_blocks.pat}) 
+\end{itemize}
+
+You should get the message : \\
+{\bf ERROR : `` assert violation on cell dlxm\_dec : " ==== ok :
+simulation has ended with functional test good ===="}\\
+which means that the test has been performed correctly.
+
+The {\bf CATAL\_CPU\_BLOCKS} file tells {\bf asimut} to use the behavioural models for the three blocks data path, sequencer and status.
+
+
+    		\subsubsection{Data path compilation}
+
+The first stage in the synthesis of the structural description of the chip is the generation of the data path. The structural description of the data path is given in the source file {\bf dlxm\_dpt.c}.
+This textual description is equivalent to a schematic capture of the data path.
+This description uses a set of predefined macros (see {\em man fpgen}).
+ You must compile this using the {\bf ALLIANCE} data path generator
+ {\bf fpgen},
+ you will thus use the provided subdirectory {\bf mclib} to store the
+ generated operators:
+
+\fbox {
+\shortstack[l] {
+\bf [$>$ setenv MBK\_WORK\_LIB . ]\\
+\bf [$>$ setenv MBK\_CATA\_LIB ...]\\
+\bf [$>$ setenv MBK\_IN\_LO vst]\\
+\bf $>$ setenv MBK\_OUT\_LO vst\\
+\bf $>$ setenv MBK\_IN\_PH ap\\
+\bf $>$ setenv MBK\_OUT\_PH ap\\
+%\bf mkdir mclib\\
+\bf $>$ setenv FPGEN\_LIB ./mclib\\
+\bf $>$ fpgen dlxm\_dpt
+}
+}
+
+\begin{itemize}
+\item
+{\bf dlxm\_dpt} : input filename ({\bf dlxm\_dpt.c})
+\end{itemize}
+
+This generates a hierarchical {\bf VHDL}  net list of the
+data path {\bf dlxm\_dpt.vst} . The generated operators ({\bf
+vbe}, {\bf ap} and {\bf vst} formats) instantiated in {\bf
+dlxm\_dpt.vst} are stored 
+with their associated CATAL into
+the subdirectory {\bf ./mclib} defined by 
+the environment variable {\bf FPGEN\_LIB}.
+
+
+    		\subsubsection{Sequencer synthesis}
+
+A standard cell net list of the sequencer is synthesized by the logic synthesis tool {\bf logic}
+from the behavioural description contained in {\bf dlxm\_seq.vbe} :
+
+\fbox {
+\shortstack[l] {
+\bf [$>$ setenv MBK\_IN\_LO vst]\\
+\bf [$>$ setenv MBK\_OUT\_LO vst]\\
+\bf [$>$ setenv MBK\_WORK\_LIB . ]\\
+\bf $>$ setenv MBK\_TARGET\_LIB \$(ALLIANCE\_TOP)/cells/scr\\
+\bf $>$ logic -o dlxm\_seq dlxm\_seqo\\
+\bf $>$ logic -s dlxm\_seqo dlxm\_seq
+}
+}
+
+\begin{itemize}
+\item
+{\bf -o } : activates the behavioural optimizer and creates {\bf dlxm\_seqo.vbe}
+\item
+{\bf -s } : activates the standard cells mapper and creates {\bf dlxm\_seq.vst}
+\item
+{\bf dlxm\_seq} : input behavioural description for logic behavioural optimiser ({\bf dlxm\_seq.vbe})
+\item
+{\bf dlxm\_seqo} : behavioural optimized description ({\bf dlxm\_seqo.vbe})
+\item
+{\bf dlxm\_seq} : output gate net list description by logic ({\bf dlxm\_seq.vst})
+\end{itemize}
+
+
+This generates a VHDL gate net list {\bf dlxm\_seq.vst} using the
+standard cell library defined by the environment variable
+{\bf MBK\_TARGET\_LIB}.
+
+
+		\subsubsection{Status synthesis}
+
+A standard cell net list of the status block is synthesized from the
+behavioural description contained in {\bf dlxm\_sts.vbe}. This is
+done using {\bf logic} as for the sequencer.
+
+
+\fbox {
+\shortstack[l] {
+\bf [$>$ setenv MBK\_IN\_LO vst]\\
+\bf [$>$ setenv MBK\_OUT\_LO vst]\\
+\bf [$>$ setenv MBK\_WORK\_LIB . ]\\
+\bf [$>$ setenv MBK\_TARGET\_LIB \$(ALLIANCE\_TOP)/cells/scr]\\
+\bf $>$ logic -o dlxm\_sts dlxm\_stso\\
+\bf $>$ logic -s dlxm\_stso dlxm\_sts
+}
+}
+
+\begin{itemize}
+\item
+{\bf -o } : activates the behavioural optimizer and creates {\bf dlxm\_stso.vbe}
+\item
+{\bf -s } : activates the standard cells mapper and creates {\bf dlxm\_sts.vst}
+\item
+{\bf dlxm\_sts} : input behavioural description for logic behavioural optimiser ({\bf dlxm\_sts.vbe})
+\item
+{\bf dlxm\_stso} : behavioural optimized description ({\bf dlxm\_stso.vbe})
+\item
+{\bf dlxm\_sts} : output gate net list description by logic ({\bf dlxm\_sts.vst})
+\end{itemize}
+
+
+
+This generates a VHDL gate net list {\bf dlxm\_sts.vst} using the
+standard cell library defined by the environment variable
+{\bf MBK\_TARGET\_LIB}.
+
+    		\subsubsection{Control block generation }
+
+
+
+The logic synthesizer does not take care of fanout constraints. 
+In order to minimize delays
+you now use the {\bf ALLIANCE} tool {\bf netoptim}. This performs
+fan-out optimisation and buffering of a structural description in
+order to minimise propagation delays of critical paths. {\bf netoptim} 
+operates on the hierarchical view {\bf dlxm\_ctl.vst} and flattens it
+to the gate level, thus creating the gate-level {\bf dlxm\_ctl.vst}
+model (and erasing the hierarchical view {\bf dlxm\_ctl.vst}):
+
+\fbox {
+\shortstack[l] {
+\bf [$>$ setenv MBK\_WORK\_LIB . ]\\
+\bf [$>$ setenv MBK\_CATA\_LIB ...]\\
+\bf [$>$ setenv MBK\_IN\_LO vst]\\
+\bf [$>$ setenv MBK\_OUT\_LO vst]\\
+\bf $>$ setenv MBK\_VDD vdd \\
+\bf $>$ setenv MBK\_VSS vss \\
+\bf $>$ netoptim -g dlxm\_ctl dlxm\_ctl
+}
+}
+
+\begin{itemize}
+\item
+{\bf -g} : netoptim performs a global optimization
+\item
+{\bf dlxm\_ctl} : input structural description ({\bf dlxm\_ctl.vst})
+\item
+{\bf dlxm\_ctl} : output optimised structural description ({\bf dlxm\_ctl.vst})
+flattened to gate level.
+\end{itemize}
+
+		
+		\subsubsection{DLXm structural view validation}
+
+
+We have now a complete gate-level net list of the processor.
+This stage can be validated using {\bf asimut} :
+
+\fbox {
+\shortstack[l] {
+\bf [$>$ setenv MBK\_WORK\_LIB . ]\\
+\bf [$>$ setenv MBK\_CATA\_LIB ...]\\
+\bf [ $>$ setenv VH\_BEHSFX vbe]\\
+\bf [$>$ setenv MBK\_MAXERR 10]\\
+\bf [$>$ setenv VH\_PATSFX pat]\\
+\bf [$>$ setenv MBK\_IN\_LO vst]\\
+\bf $>$ setenv MBK\_CATAL\_NAME CATAL\_CPU\_GATES\\
+\bf $>$ asimut -l 1 -p 50 -bdd dlxm\_cpu dlxm\_cpu add000\_gates
+}
+}
+
+\begin{itemize} 
+\item
+{\bf -l 1} : size of the label in the {\bf dlxm\_cpu.pat} and the {\bf
+add000\_gates.pat} files.
+\item 
+{\bf -p 50} : simulation will use sets of 50 patterns (see {\it man
+asimut})
+\item
+{\bf -bdd} : simulation uses bdd representation
+\item
+{\bf dlxm\_cpu} : structural description of the board  ({\bf dlxm\_cpu.vst}) 
+\item
+{\bf dlxm\_cpu} : pattern input filename ({\bf dlxm\_cpu.pat}) 
+\item
+{\bf add000\_gates} : result filename ({\bf add000\_gates.pat}) 
+\end{itemize}
+
+You should get the message : \\
+{\bf ERROR : `` assert violation on cell dlxm\_dec : " ==== ok :
+simulation has ended with functional test good ===="}\\
+which means that the test has been performed correctly.
+
+The {\bf CATAL\_CPU\_GATES} file tells {\bf asimut} to use the
+behavioural models for the gates and for the generated blocks.
+
+
+		\subsubsection{Design for testability}
+
+All registers, except the 32 word register file, are in the scan-path :
+
+\begin{itemize}
+\item
+{\bf data path }: The structural description uses scanable registers.
+\item
+{\bf sequencer }: SYF has been used with the option {\bf -scan} that automatically uses scanable registers.
+\item
+{\bf status }: The behavioural description explicitly describes scanable registers.
+\end{itemize}
+
+Here we check the scan path with the simulator {\bf asimut} with a
+dedicated file that fills in the scan path and check the scan output.
+
+\fbox {
+\shortstack[l] {
+\bf [$>$ setenv VH\_PATSFX pat]\\
+\bf [ $>$ setenv VH\_BEHSFX vbe]\\
+\bf [$>$ setenv MBK\_MAXERR 10]\\
+\bf [$>$ setenv VH\_PATSFX pat]\\
+\bf [$>$ setenv MBK\_IN\_LO vst]\\
+\bf [$>$ setenv MBK\_CATAL\_NAME CATAL\_CPU\_GATES]\\
+\bf [$>$ setenv MBK\_WORK\_LIB . ]\\
+\bf [$>$ setenv MBK\_CATA\_LIB ...]\\
+\bf $>$ asimut -l 10 -p 50 -bdd dlxm\_cpu dlxm\_scan dlxm\_scan\_res
+}
+}
+
+\begin{itemize}
+\item
+{\bf -l 10} : size of the label in the {\bf dlxm\_scan.pat} and the {\bf
+dlxm\_scan\_res.pat} files.
+\item 
+{\bf -p 50} : simulation will use sets of 50 patterns (see {\it man
+asimut})
+\item
+{\bf -bdd} : simulation uses bdd representation
+\item
+{\bf dlxm\_cpu} : structural description of the board ({\bf dlxm\_cpu.vst})
+\item
+{\bf dlxm\_scan} : pattern input filename ({\bf dlxm\_scan.pat})
+\item
+{\bf dlxm\_scan\_res } : result filename ({\bf dlxm\_scan\_res.pat})
+\end{itemize}
+
+The output files resulting from commands of the paragraph 3.2, can be created automatically using the target {\bf structural} of the Makefile by typing:
+
+\fbox {
+\shortstack[l] {
+\bf $>$ Make structural
+}
+}
+
+	\subsection{Physical Layout}
+
+
+
+To get the symbolic layout description of the chip, you will :
+
+\begin{itemize}
+\item
+route the control block with the standard cells router {\bf scr}
+\item
+route the data path with  the specialized router {\bf dpr}
+\item
+route the data path and the control together with {\bf bbr} (block to
+block channel router)
+\item
+route the core to the pads with the {\bf ring} router
+\end{itemize}
+
+Each place and route step will be validated using the following method :
+
+\begin{itemize}
+\item
+extracting a net list from the symbolic layout file using {\bf lynx}
+\item
+comparing input net list and extracted net list with {\bf lvx}
+\end{itemize}
+
+
+
+    		\subsubsection{Control block routing}
+
+
+You must now use {\bf scr} (Standard Cell Router) to generate the physical layout
+of the control.
+We will use the ALLIANCE format for input and output symbolic layout by setting the appropriate environment variables :
+
+\fbox {
+\shortstack[l] {
+\bf [$>$ setenv MBK\_WORK\_LIB . ]\\
+\bf [$>$ setenv MBK\_CATA\_LIB ...]\\
+\bf [$>$ setenv MBK\_VDD vdd]\\
+\bf [$>$ setenv MBK\_VSS vss]\\
+\bf [$>$ setenv MBK\_IN\_LO vst]\\
+\bf [$>$ setenv MBK\_OUT\_LO vst]\\
+\bf [$>$ setenv MBK\_IN\_PH ap]\\
+\bf [$>$ setenv MBK\_OUT\_PH ap]\\
+\bf $>$ scr -p -r -l 5 -i 3000 -a 5 dlxm\_ctl
+}
+}
+
+\begin {itemize}
+\item {\bf -p} : Automatic placement.
+\item {\bf -r} : Perform routing.
+\item {\bf -l 5} : Number of rows.
+\item {\bf -i 3000} : Number of iterations.
+\item {\bf -a 5} : Number of vertical supplies (power and ground
+wires).
+\item {\bf dlxm\_ctl} : Input net list ({\bf dlxm\_ctl.vst})
+and connector placement parameter file ({\bf dlxm\_ctl.scr})
+\end{itemize}
+
+The router takes the net list specified in the file {\bf
+dlxm\_ctl.vst} and generates a physical layout in the file {\bf
+dlxm\_ctl.ap} following the connector
+parameter file requirements.
+
+In order to verify that no errors occured in the generation of the physical layout, we extract a net list from the layout using the {\bf ALLIANCE} tool {\bf lynx}, and then compare the result with the original net list using {\bf lvx}. 
+
+To avoid confusion between original and extracted net lists we use the {\bf al} format to represent extracted net lists. For {\bf lynx} to generate its output in this format, you must set the appropriate environment variable :
+
+\fbox {
+\shortstack[l] {
+\bf [$>$ setenv MBK\_WORK\_LIB . ]\\
+\bf [$>$ setenv MBK\_CATA\_LIB ...]\\
+\bf [$>$ setenv MBK\_IN\_PH ap]\\
+\bf $>$ setenv MBK\_OUT\_LO al\\
+%\bf $>$ setenv RDS\_TECHNO\_NAME $(ALLIANCE\_TOP)/etc/prol10.rds\\
+\bf $>$ lynx  dlxm\_ctl dlxm\_ctl
+}
+}
+
+\begin{itemize}
+\item
+{\bf dlxm\_ctl} : input file (symbolic layout) {\bf dlxm\_ctl.ap}
+\item
+{\bf dlxm\_ctl} : output file (extracted net list) {\bf dlxm\_ctl.al}
+\end{itemize}
+
+Then compare :
+
+\fbox {
+\shortstack[l] {
+\bf [$>$ setenv MBK\_WORK\_LIB . ]\\
+\bf [$>$ setenv MBK\_CATA\_LIB ...]\\
+\bf $>$ lvx vst al dlxm\_ctl dlxm\_ctl
+}
+}
+
+\begin{itemize}
+\item
+{\bf vst} and {\bf dlxm\_ctl} : input net list {\bf dlxm\_ctl.vst}
+\item
+{\bf al} and {\bf dlxm\_ctl} : extracted net list {\bf dlxm\_ctl.al}
+\end{itemize}
+
+And you should get the reply ``Net Lists are Identical''.
+
+
+    		\subsubsection{Routing the Data Path}
+
+The data path uses a special type of cell library which is designed to allow routing over the cells, thus saving a considerable amount of space compared with standard-cell implementation. For this routing you must use the {\bf ALLIANCE} tool {\bf dpr} (Data Path Router).
+
+
+
+\fbox {
+\shortstack[l] {
+\bf [$>$ setenv MBK\_WORK\_LIB . ]\\
+\bf [$>$ setenv MBK\_CATA\_LIB ...]\\
+\bf [$>$ setenv MBK\_VDD vdd]\\
+\bf [$>$ setenv MBK\_VSS vss]\\
+\bf [$>$ setenv MBK\_IN\_LO vst]\\
+\bf [$>$ setenv MBK\_IN\_PH ap]\\
+\bf [$>$ setenv MBK\_OUT\_PH ap]\\
+\bf $>$ dpr -o -p -r dlxm\_dpt dlxm\_dpt
+}
+}
+
+\begin {itemize}
+\item {\bf -o} : Placement optimizatiom.
+\item {\bf -p} : Automatic placement .
+\item {\bf -r} : Automatic  routing.
+\item {\bf dlxm\_dpt} : Output net list ({\bf dlxm\_dpt.ap}).
+\item {\bf dlxm\_dpt} : Input net list ({\bf dlxm\_dpt.vst}) and
+Connector placement parameter file {\bf
+dlxm\_dpt.dpr}.
+\end{itemize}
+
+The router takes the net list specified in the file {\bf
+dlxm\_dpt.vst} and generates a physical layout in the file {\bf
+dlxm\_dpt.ap} following the connector parameter file requirements. 
+
+
+Now repeat the verification procedure for the data path. 
+First the extraction :
+
+\fbox {
+\shortstack[l] {
+\bf [$>$ setenv MBK\_WORK\_LIB . ]\\
+\bf [$>$ setenv MBK\_CATA\_LIB ...]\\
+\bf [$>$ setenv MBK\_IN\_PH ap]\\
+\bf [$>$ setenv MBK\_OUT\_LO al]\\
+%\bf [$>$ setenv RDS\_TECHNO\_NAME $(ALLIANCE\_TOP)/etc/prol10.rds]\\
+\bf $>$ lynx dlxm\_dpt dlxm\_dpt
+}
+}
+
+\begin{itemize}
+\item
+{\bf dlxm\_dpt} : input file (symbolic layout) {\bf dlxm\_dpt.ap}
+\item
+{\bf dlxm\_dpt} : output file (extracted net list) {\bf dlxm\_dpt.al}
+\end{itemize}
+
+Then compare :
+
+\fbox {
+\shortstack[l] {
+\bf [$>$ setenv MBK\_WORK\_LIB . ]\\
+\bf [$>$ setenv MBK\_CATA\_LIB ...]\\
+\bf $>$ lvx vst al dlxm\_dpt dlxm\_dpt 
+}
+}
+
+\begin{itemize}
+\item
+{\bf vst} and {\bf dlxm\_dpt} : input net list {\bf dlxm\_dpt.vst}
+\item
+{\bf al} and {\bf dlxm\_dpt} : extracted net list {\bf dlxm\_dpt.al}
+\end{itemize}
+
+
+
+    		\subsubsection{Routing the Core}
+
+You must now interconnect the control block and the data path in order to generate the core.
+You will use {\bf ALLIANCE} tool {\bf bbr} to route them together.
+
+
+First of all, you generate a ``placement'' file, which tells {\bf bbr}
+how the blocks are physically orientated with respect to each other.
+The simplest way for you to do this is to use {\bf genlib} with the
+source file {\bf dlxm\_core.c}, which is provided:
+
+\fbox {
+\shortstack[l] {
+\bf [$>$ setenv MBK\_WORK\_LIB . ]\\
+\bf [$>$ setenv MBK\_CATA\_LIB ...]\\
+\bf $>$ genlib dlxm\_core
+}
+}
+
+\begin{itemize}
+\item
+{\bf dlxm\_core} : input file name {\bf dlxm\_core.c}
+\end{itemize}
+
+This generates the placement file {\bf dlxm\_core.ap}.
+
+
+The file format environment variables remain the same as before, so to produce a routed core all you have to do is :
+
+\fbox {
+\shortstack[l] {
+\bf [$>$ setenv MBK\_WORK\_LIB . ]\\
+\bf [$>$ setenv MBK\_CATA\_LIB ...]\\
+\bf [$>$ setenv MBK\_IN\_LO vst]\\
+\bf [$>$ setenv MBK\_IN\_PH ap]\\
+\bf [$>$ setenv MBK\_OUT\_PH ap]\\
+\bf $>$ bbr dlxm\_core -o dlxm\_core vdd 12 vss 12
+}
+}
+
+\begin {itemize}
+\item {\bf dlxm\_core} : Input net list {\bf dlxm\_core.vst} and
+placement file {\bf dlxm\_core.ap}.
+\item {\bf -o } : Output file {\bf dlxm\_core.ap} (erasing placement file).
+\item {\bf vdd 12 vss 12} : Width of power and ground wires.
+\end{itemize}
+
+
+You now have the file {\bf dlxm\_core.ap} containing the physical layout of the core.
+
+{\bf Verification of the Core}
+
+Now you perform the same verification process at the core level :
+
+\fbox {
+\shortstack[l] {
+\bf [$>$ setenv MBK\_WORK\_LIB . ]\\
+\bf [$>$ setenv MBK\_CATA\_LIB ...]\\
+\bf [$>$ setenv MBK\_IN\_PH ap]\\
+\bf [$>$ setenv MBK\_OUT\_LO al]\\
+%\bf [$>$ setenv RDS\_TECHNO\_NAME $(ALLIANCE\_TOP)/etc/prol10.rds]\\
+\bf $>$ lynx dlxm\_core dlxm\_core
+}
+}
+
+\begin{itemize}
+\item
+{\bf dlxm\_core} : input file (symbolic layout) {\bf dlxm\_core.ap}
+\item
+{\bf dlxm\_core} : output file (extracted net list) {\bf dlxm\_core.al}
+\end{itemize}
+
+Then compare :
+
+\fbox {
+\shortstack[l] {
+\bf [$>$ setenv MBK\_WORK\_LIB . ]\\
+\bf [$>$ setenv MBK\_CATA\_LIB ...]\\
+\bf $>$ lvx vst al dlxm\_core dlxm\_core
+}
+}
+
+\begin{itemize}
+\item
+{\bf vst} and {\bf dlxm\_core} : input net list {\bf dlxm\_core.vst}
+\item
+{\bf al} and {\bf dlxm\_core} : extracted net list {\bf dlxm\_core.al}
+\end{itemize}
+
+And again you should get the reply ``Net Lists are Identical''.
+
+
+
+    		\subsubsection{Routing the Chip}
+
+The final stage in generating the physical layout of the chip is to
+route the core to the pads using {\bf ring}. The pad placement depends
+on external constraints (see {\em man ring}) and is therefore defined
+in the file {\bf dlxm\_chip.rin}.
+
+Again the file format variables remain unchanged so you can now perform the routing :
+
+\fbox {
+\shortstack[l] {
+\bf [$>$ setenv MBK\_WORK\_LIB . ]\\
+\bf [$>$ setenv MBK\_CATAL\_NAME CATAL\\
+\bf [$>$ setenv MBK\_CATA\_LIB ...]\\
+\bf [$>$ setenv MBK\_IN\_LO vst]\\
+\bf [$>$ setenv MBK\_IN\_PH ap]\\
+\bf [$>$ setenv MBK\_OUT\_PH ap]\\
+\bf $>$ ring dlxm\_chip dlxm\_chip
+}
+}
+
+\begin{itemize}
+\item
+{\bf dlxm\_chip} : input netlist {\bf dlxm\_chip.vst} and placement
+file {\bf dlxm\_chip.rin}
+\item
+{\bf dlxm\_chip} : output symbolic layout file name {\bf
+dlxm\_chip.ap}
+\end{itemize}
+
+Thus a physical layout of the chip is generated in the file {\bf
+dlxm\_chip.ap}.
+
+ 
+{\bf Verification of the Chip}
+
+Finally you must verify at the chip level :
+
+\fbox {
+\shortstack[l] {
+\bf [$>$ setenv MBK\_WORK\_LIB . ]\\
+\bf [$>$ setenv MBK\_CATA\_LIB ...]\\
+\bf [$>$ setenv MBK\_IN\_PH ap]\\
+\bf [$>$ setenv MBK\_OUT\_LO al]\\
+%\bf [$>$ setenv RDS\_TECHNO\_NAME $(ALLIANCE\_TOP)/etc/prol10.rds]\\
+\bf $>$ lynx dlxm\_chip dlxm\_chip
+}
+}
+
+\begin{itemize}
+\item
+{\bf dlxm\_chip} : input file (symbolic layout) {\bf dlxm\_chip.ap}
+\item
+{\bf dlxm\_chip} : output file (extracted net list) {\bf dlxm\_chip.al}
+\end{itemize}
+
+
+Then compare :
+
+\fbox {
+\shortstack[l] {
+\bf [$>$ setenv MBK\_WORK\_LIB . ]\\
+\bf [$>$ setenv MBK\_CATA\_LIB ...]\\
+\bf $>$ lvx vst al dlxm\_chip dlxm\_chip
+}
+}
+
+
+\begin{itemize}
+\item
+{\bf vst} and {\bf dlxm\_chip} : input net list {\bf dlxm\_chip.vst}
+\item
+{\bf al} and {\bf dlxm\_chip} : extracted net list {\bf dlxm\_chip.al}
+\end{itemize}
+
+And if you get the reply ``Net Lists are Identical'' your entire chip has been correctly routed.
+
+You can visualize the chip using {\bf graal}. Use for example:
+
+\fbox {
+\shortstack[l] {
+\bf [$>$ setenv MBK\_CATA\_LIB ...]\\
+%\bf $>$ setenv RDS\_TECHNO\_NAME \$(ALLIANCE\_TOP)/etc/cmos\_5.rds\\
+\bf $>$ graal dlxm\_chip
+}
+}
+
+
+
+The output files resulting from commands of the paragraph 3.3 can be created automatically using the target {\bf physical} of the Makefile by typing:
+
+\fbox {
+\shortstack[l] {
+\bf $>$ Make physical
+}
+}
+
+
+\subsection{The Final Touch}
+
+The last step is to translate the symbolic layout (coordinates in lambda units) into a physical layout for the target CMOS process (two output formats are supported : CIF and GDSII). This task is done by {\bf s2r}, which performs symbolic to real expansion, gap filling, denotching, and instantiates preexisting layout cells (necessary for the pads).
+
+You must first define an environment variable with the name of a file containing the parameters of the target process (in our case a 1 micron process) 
+and then specify the cif format :
+
+
+\fbox {
+\shortstack[l] {
+\bf [$>$ setenv MBK\_WORK\_LIB . ]\\
+\bf [$>$ setenv MBK\_CATAL\_NAME CATAL\_CPU\_GATES]\\
+\bf [$>$ setenv MBK\_CATA\_LIB .:...]\\
+\bf [$>$ setenv MBK\_IN\_PH ap]\\
+\bf $>$ setenv RDS\_TECHNO\_NAME \$(ALLIANCE\_TOP)/etc/prol10.rds\\
+\bf $>$ setenv RDS\_OUT cif\\
+\bf $>$ setenv RDS\_IN cif
+}
+}
+
+The variable {\bf RDS\_IN} is required to specify the format of preexisting layout cells.
+
+Then to perform the conversion :
+
+\fbox {
+\shortstack[l] {
+\bf $>$ s2r  dlxm\_chip dlxm\_chip
+}
+}
+
+\begin{itemize}
+\item
+{\bf dlxm\_chip} : input symbolic layout file ({\bf dlxm\_chip.ap}).
+\item
+{\bf dlxm\_chip} : output physical layout file ({\bf dlxm\_chip.cif}).
+\end{itemize}
+
+The output files resulting from commands of the paragraph 3.4 can be written automatically using the target {\bf real} of the Makefile by typing:
+
+\fbox {
+\shortstack[l] {
+\bf $>$ Make real
+}
+}
+
+Congratulations$!$ The chip is ready for the foundry.
+
+
+\newpage
+
+\begin{center}
+{\Large \bf DLX TUTORIAL - APPENDIX}\\
+\today \\
+\end{center}
+
+You can find below all the source files for the DLX microprocessor.
+
+\begin{center}
+{\bf functional specification} 
+\end{center}
+\begin{itemize}
+\item {\bf dlxm\_cpu.vst} : VHDL structural model of the board instantiating RAM, ROM, timer, decoder, dlxm. 
+\item {\bf sr64\_1a.vbe}, 
+{\bf sr64\_8a.vst}  and
+{\bf sr64\_32a.vst} : Behavioural and structural description for the RAM .
+\item {\bf dlxm\_dec.vbe}  : VHDL behavioural description of the address decoder.
+\item {\bf timer.vbe}     : VHDL behavioural description of the timer.
+\item {\bf dlxm\_chip.vbe}        : VHDL behavioural description of the dlxm.
+\item {\bf add000.u and add000.s} : Short assembly language programs.
+\item {\bf CATAL\_CPU\_CHIP}    : List of behavioural models required for a simulation using the behavioural
+model of DLXm.
+\item {\bf dlxm\_cpu.pat}   : Pattern input file for testing various
+views of dlxm chip.
+\end{itemize}
+
+\begin{center}
+{\bf structural design} 
+\end{center}
+\begin{itemize}
+\item
+{\bf dlxm\_chip.vst} : VHDL structural model of the dlxm instantiating core and pads.
+\item
+{\bf dlxm\_core.vst} : VHDL structural model of the core instantiating
+the data path and the control.
+\item
+{\bf dlxm\_ctl.vst.h} : VHDL structural model of the control
+instantiating the sequencer and the status.
+\item
+{\bf dlxm\_seq.fsm} : Finite State Machine description for sequencer.
+\item {\bf dlxm\_dpt.vbe} : Behavioural description for data path.
+\item {\bf CATAL\_CPU\_BLOCKS}    : List of behavioural models required for a simulation using 
+behavioural descriptions  for data path, sequencer and status.
+\item {\bf dlxm\_dpt.c}   : Source code for data path generator.
+\item {\bf ./mclib } : Subdirectiry used by {\bf fpgen} to store
+the generated data path operators.
+\item {\bf dlxm\_sts.vbe} : Behavioural description for status and interrupts.
+%\item {\bf dlxm\_ctl.lax}        : Parameter file for {\bf netoptim}
+\item {\bf CATAL\_CPU\_GATES}    : List of behavioural models required for a simulation using 
+structural descriptions for data path, sequencer and status.
+\item {\bf dlxm\_scan.pat} : Pattern input file for scan path simulation.
+\end{itemize}
+
+\begin{center}
+{\bf physical layout} 
+\end{center}
+\begin{itemize}
+\item {\bf dlxm\_dpt.dpr} : Placement file for data path block
+connectors ({\bf dpr} tool)
+\item {\bf dlxm\_ctl.scr} : Placement file for control block connectors ({\bf scr} tool)
+\item {\bf dlxm\_core.c}        : Placement file for control and data path ({\bf bbr} tool)
+\item {\bf dlxm\_chip.rin}      : Placement file for dlxm pads ({\bf ring} tool)
+\end{itemize}
+
+\end{document}
+
