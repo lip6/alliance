@@ -58,13 +58,11 @@ unsigned char  mode  ;		/* complier mode			*/
 	/* begin parsing a new pattern file				*/
 	/* ###------------------------------------------------------### */
 
-fprintf( stdout, "ICI %s %d!!\n", __FILE__, __LINE__ );
     ptseq = pat_declpat (fp, ptseq);
 
     if ((ptseq != NULL) && (ptseq->ERRFLG == 0))
       {
       ptseq->NAME = namealloc (name);
-fprintf( stdout, "ICI %s %d!!\n", __FILE__, __LINE__ );
       ptseq       = pat_descpat (fp, ptseq, maxpat, mode);
       }
 
@@ -75,7 +73,6 @@ fprintf( stdout, "ICI %s %d!!\n", __FILE__, __LINE__ );
 	/* continue parsing						*/
 	/* ###------------------------------------------------------### */
 
-fprintf( stdout, "ICI %s %d!!\n", __FILE__, __LINE__ );
     ptseq = pat_descpat (fp, ptseq, maxpat, mode);
     }
 
