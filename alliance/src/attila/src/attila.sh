@@ -1,6 +1,6 @@
 #!/bin/sh
 #
-# $Id: attila.sh,v 1.13 2002/12/22 11:18:13 jpc Exp $
+# $Id: attila.sh,v 1.14 2003/02/06 13:18:51 fred Exp $
 #                                                                        
 # /------------------------------------------------------------------\
 # |                                                                  |
@@ -34,8 +34,8 @@
  {
    echo ""
    echo ""
-   echo "Usage : attila [-h] [-L] [-U] [-F] [-A]                          \\"
-   echo "               [--help] [--local] [--user] [--full] [--asim]     \\"
+   echo "Usage : attila [-h] [-L] [-U] [-F] [-A] [-S]                     \\"
+   echo "               [--help] [--local] [--user] [--full] [--asim] [--ssh] \\"
    echo "               [--prefix=<INSTALL_DIR>] [--builddir=<BUILD_DIR>] \\"
    echo "               <--tool=<name1> [--tool=<name2> [...]]            \\"
    echo "               [-c- <configure_arg> [...]]                       \\"
@@ -60,6 +60,9 @@
    echo "           NOTE : it will erase any previous installed version of"
    echo "         the tool. The temporary build directory (--builddir) will"
    echo "         also be erased."
+   echo "     o [-S|--ssh]  :"
+   echo "         Use ssh instead of rsh to connect to the rem-"
+   echo "         ote computers when compiling for several targets. "
    echo "     o [--prefix=<INSTALL_DIR>] :"
    echo "         Override the default top directory"
    echo "         where the tool will be installed. By defaults tools are"
