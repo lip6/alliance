@@ -52,7 +52,6 @@
 # include <stdio.h>
 # include <stdlib.h>
 # include <string.h>
-# include <malloc.h>
 # include "syf_fsm.h"
 # include "syf_env.h"
 # include "syf_fsm2fbh.h"

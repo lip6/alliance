@@ -1,5 +1,5 @@
 /*
- *  $Id: util_Defs.h,v 1.1 2002/04/29 13:40:55 jpc Exp $
+ *  $Id: util_Defs.h,v 1.2 2002/05/11 17:03:36 xtof Exp $
  *
  *  /----------------------------------------------------------------\
  *  |                                                                |
@@ -28,7 +28,6 @@
 #   include  <ctype.h>
 #   include  <string.h>
 #   include  <strings.h>
-#   include  <malloc.h>
 #   include  <math.h>
 
 

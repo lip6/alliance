@@ -16,7 +16,6 @@
 \------------------------------------------------------------*/
 
 # include <stdio.h>
-# include <malloc.h>
 # include <math.h>
 # include <time.h>
 # include <sys/types.h>

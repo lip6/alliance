@@ -13,7 +13,6 @@
 #include <stdio.h>
 #include <string.h>
 #include <ctype.h>
-#include <malloc.h>
 #include "mph.h"
 #include "mut.h"
 #include "rds.h"

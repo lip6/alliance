@@ -39,7 +39,6 @@
 #include <stdio.h>
 #include <string.h>
 #include <stdlib.h>
-#include <malloc.h>
 #include "mut.h"
 #include "aut.h"
 #include "abl.h"

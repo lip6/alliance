@@ -28,12 +28,11 @@
  * Modified by Czo <Olivier.Sirol@lip6.fr> 1997,98
  */
 
-#ident "$Id: mbk_sys.c,v 1.1 2002/03/08 13:51:05 fred Exp $"
+#ident "$Id: mbk_sys.c,v 1.2 2002/05/11 17:03:37 xtof Exp $"
 
 #include <stdio.h>
 #include <stdlib.h>
 #include <unistd.h>
-#include <malloc.h>
 #include <sys/types.h>
 #include <sys/stat.h>
 #include <sys/wait.h>

@@ -47,7 +47,6 @@ Boston, MA 02111-1307, USA.  */
 # include <stdio.h>
 # include <errno.h>
 # include <setjmp.h>
-# include <malloc.h>
 # include <string.h>
 # include <math.h>
 # include <stdlib.h>

@@ -39,8 +39,6 @@
 # ifndef AUT_ERROR_H
 # define AUT_ERROR_H
 
-# include <libgen.h>
-
 #ifndef __P
 # if defined(__STDC__) ||  defined(__GNUC__)
 #  define __P(x) x

@@ -39,7 +39,6 @@
 	
 #include <stdio.h>
 #include <string.h>
-#include <malloc.h>
 #include <mut.h>
 #include <mlo.h>
 #include "mvl_utype.h"

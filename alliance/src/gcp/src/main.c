@@ -25,7 +25,6 @@
 |                                                             |
 \------------------------------------------------------------*/
 # include <stdio.h>
-# include <malloc.h>
 
 # include "mut.h"
 # include "aut.h"
