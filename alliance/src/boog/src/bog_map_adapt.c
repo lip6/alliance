@@ -176,6 +176,10 @@ static chain_list* loc_adapt_abl(chain_list* expr, float C)
       
       /*take the first value*/
       for (port=cell->PORT; port; port=port->NEXT) if (port->C!=0) break;
+      if (!port)
+      {
+	 return expr;
+      }
       for (abl=ABL_CDR(expr); abl; abl=ABL_CDR(abl)) {
          ABL_CAR(abl)=loc_adapt_abl(ABL_CAR(abl),port->C);
       }
@@ -252,6 +256,10 @@ extern chain_list* adapt_abl(chain_list* expr)
       
       /*take the first value*/
       for (port=cell->PORT; port; port=port->NEXT) if (port->C!=0) break;
+      if (!port)
+      {
+   	return expr;
+      }
       for (abl=ABL_CDR(expr); abl; abl=ABL_CDR(abl)) {
          ABL_CAR(abl)=loc_adapt_abl(ABL_CAR(abl),port->C);
       }
