@@ -1,7 +1,7 @@
 
 // -*- C++ -*-
 //
-// $Id: MNet.cpp,v 1.7 2004/12/14 19:02:07 jpc Exp $
+// $Id: MNet.cpp,v 1.8 2005/02/17 14:47:27 jpc Exp $
 //
 //  /----------------------------------------------------------------\ 
 //  |                                                                |
@@ -260,14 +260,14 @@ void  CTerm::lockalone (bool global)
   if ( (coord.z() > 0) && !global ) return;
   if (  coord.onAB()) return;
 
-  cerr << "+ locking lone terminal : " << coord.node().data.owner->name
-       << " at " << coord
-       << endl;
+  //cerr << "+ locking lone terminal : " << coord.node().data.owner->name
+  //     << " at " << coord
+  //     << endl;
 
   // All terminal case, eat up z=1 (ALU2) if not already took.
   if (coord.z() == 0) {
     // Go to z=1 (ALU2).
-    cerr << "+   locking z=1          " << coord << endl;
+    //cerr << "+   locking z=1          " << coord << endl;
     newaccess ( coord.x()
               , coord.y()
               , 1
@@ -283,7 +283,7 @@ void  CTerm::lockalone (bool global)
 
   if (coord.z() < 2) {
     // Go to z=2 (ALU3).
-    cerr << "+   locking z=2          " << coord2 << endl;
+    //cerr << "+   locking z=2          " << coord2 << endl;
     newaccess ( coord2.x()
               , coord2.y()
               , 2
@@ -322,7 +322,7 @@ void  CTerm::lockalone (bool global)
 
       if (adjust) {
         // Adjust to the double grid pitch to z=2 (ALU3).
-        cerr << "+   locking z=2 (ADJUST) " << coord2 << endl;
+        //cerr << "+   locking z=2 (ADJUST) " << coord2 << endl;
         newaccess ( coord2.x()
                   , coord2.y()
                   , 2
@@ -335,7 +335,7 @@ void  CTerm::lockalone (bool global)
 
   if (coord.z() < 4) {
     // Go to z=3 (ALU3).
-    cerr << "+   locking z=3          " << coord2 << endl;
+    //cerr << "+   locking z=3          " << coord2 << endl;
     newaccess ( coord2.x()
               , coord2.y()
               , 3
