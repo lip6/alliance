@@ -1,4 +1,4 @@
-.\"   $Id: lvx.1,v 1.1 2002/03/20 17:07:59 xtof Exp $
+.\"   $Id: lvx.1,v 1.2 2002/05/21 07:17:52 xtof Exp $
 .\" @(#)lvx.l 0.0 92/11/27 UPMC; Author: Francois Nacabal
 .TH LVX 1 "October 1, 1997" "ASIM/LIP6" "ALLIANCE USER COMMANDS"
 .SH NAME
@@ -13,7 +13,7 @@ lvx \- Logical Versus eXtracted net-list comparator
 compares two gate-level or block level net-list. The goal is to compare
 a specification net-list (logical net-list), the input to a place and route tool,
 with the physical net-list (extracted net-list) obtained by the
-.BR lynx (1)
+.BR cougar (1)
 extractor.
 .br
 The net-list 1 is considered as the logical net-list and net-list 2 as the
@@ -159,7 +159,7 @@ contains the expected format of the netlist output.
 \f4MBK_CATAL_NAME\fR
 contains the name of the user cell catalog.
 .SH SEE ALSO
-.BR lynx (1),
+.BR cougar (1),
 .BR MBK_OUT_LO (1),
 .BR MBK_WORK_LIB (1),
 .BR MBK_CATA_LIB (1),
