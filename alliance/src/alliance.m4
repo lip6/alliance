@@ -1,13 +1,14 @@
 AC_DEFUN(AM_ALLIANCE,[
-  AC_ARG_WITH(alliance-prefix,
-    [  --with-alliance-prefix=PFX    Prefix where alliance is installed (optional)],
-    alliance_prefix="$withval", alliance_prefix="")
+  AC_ARG_WITH(alliance-top,
+    [  --with-alliance-top=ALLIANCE_TOP    Prefix where alliance is installed (optional)],
+    alliance_top="$withval", alliance_top="")
 
 
 AC_MSG_CHECKING(for alliance)
-if test x$alliance_prefix != x ; then
-  ALLIANCE_CFLAGS="-I$alliance_prefix/include"
-  ALLIANCE_LIBS="-L$alliance_prefix/lib"
+if test x$alliance_top != x ; then
+  ALLIANCE_CFLAGS="-I$alliance_top/include"
+  ALLIANCE_LIBS="-L$alliance_top/lib"
+  ALLIANCE_TOP="$alliance_top"
 else
   ALLIANCE_CFLAGS="-I${ALLIANCE_TOP}/include"
   ALLIANCE_LIBS="-L${ALLIANCE_TOP}/lib"
@@ -53,4 +54,5 @@ INSTALL_PROGRAM='${INSTALL} -m 775'
 AC_SUBST(INSTALL_PROGRAM)
 
 AC_DEFINE_UNQUOTED(ALLIANCE_VERSION, "5.0")
+AC_DEFINE_UNQUOTED(ALLIANCE_TOP, "$ALLIANCE_TOP")
 ])
