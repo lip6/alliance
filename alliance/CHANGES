@@ -8,7 +8,7 @@
 # NOTE: You can find the latest revision of this file at:
 # http://asim.lip6.fr/pub/alliance/unstable/cvstree/alliance/
 #
-# $Id: CHANGES,v 1.9 2002/02/13 16:36:23 czo Exp $
+# $Id: CHANGES,v 1.10 2002/02/21 11:04:52 czo Exp $
 
 This document lists the main differences between each Alliance's revisions.
 
@@ -33,6 +33,14 @@ ocp and ocr replace scr.
 
     removed cells:
     amg bsg dplib fplib grog padlib rage rf2lib rfg rflib rsa sc2sxlib sclib
+
+3/ Renamed tools
+
+lynx is renamed cougar
+ali is renamed ale
+
+This is to avoid name clash with well known internet tools
+(btw: we had the anteriority of the name lynx...)
 
 --------------------------------------------------------------------------------
 
