@@ -4553,22 +4553,6 @@ MACRO dp_ts_x4_buf
     SIZE      45.00 BY 100.00 ;
     SYMMETRY  Y ;
     SITE      core ;
-    PIN nenx
-        DIRECTION OUTPUT ;
-        PORT
-            LAYER L_ALU3 ;
-            RECT 24.00 59.00 26.00 61.00 ;
-            RECT 24.00 54.00 26.00 56.00 ;
-            RECT 24.00 49.00 26.00 51.00 ;
-            RECT 24.00 44.00 26.00 46.00 ;
-            RECT 24.00 39.00 26.00 41.00 ;
-            RECT 24.00 34.00 26.00 36.00 ;
-            RECT 24.00 29.00 26.00 31.00 ;
-            RECT 24.00 24.00 26.00 26.00 ;
-            RECT 24.00 19.00 26.00 21.00 ;
-            RECT 24.00 14.00 26.00 16.00 ;
-        END
-    END nenx
     PIN enx
         DIRECTION OUTPUT ;
         PORT
@@ -4585,6 +4569,22 @@ MACRO dp_ts_x4_buf
             RECT 34.00 14.00 36.00 16.00 ;
         END
     END enx
+    PIN nenx
+        DIRECTION OUTPUT ;
+        PORT
+            LAYER L_ALU3 ;
+            RECT 24.00 59.00 26.00 61.00 ;
+            RECT 24.00 54.00 26.00 56.00 ;
+            RECT 24.00 49.00 26.00 51.00 ;
+            RECT 24.00 44.00 26.00 46.00 ;
+            RECT 24.00 39.00 26.00 41.00 ;
+            RECT 24.00 34.00 26.00 36.00 ;
+            RECT 24.00 29.00 26.00 31.00 ;
+            RECT 24.00 24.00 26.00 26.00 ;
+            RECT 24.00 19.00 26.00 21.00 ;
+            RECT 24.00 14.00 26.00 16.00 ;
+        END
+    END nenx
     PIN en
         DIRECTION INPUT ;
         PORT
@@ -4733,9 +4733,10 @@ MACRO dp_ts_x4_buf
         RECT 34.00 89.00 36.00 91.00 ;
         RECT 39.00 89.00 43.50 91.00 ;
         LAYER L_ALU2 ;
-        RECT 24.00 14.00 37.00 16.00 ;
-        RECT 24.00 39.00 36.00 41.00 ;
         RECT 24.00 59.00 36.00 61.00 ;
+        RECT 24.00 39.00 36.00 41.00 ;
+        RECT 24.00 14.00 37.00 16.00 ;
+        RECT 33.00 14.00 37.00 16.00 ;
     END
 END dp_ts_x4_buf
 
