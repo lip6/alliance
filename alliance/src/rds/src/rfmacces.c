@@ -136,6 +136,41 @@ rdsrec_list *segmbkrds( Figure, Segment, Lynx )
          ( ( USE == RDS_USE_EXTRACT ) && (   Lynx ) ) ||
          ( ( USE == RDS_USE_DRC     ) && ( ! Lynx ) ) )
     {
+      if ( TRANS == RDS_TRANS_VWS )
+      {
+        long SHRINK = OFFSET;
+        switch ( Segment->TYPE )
+        {
+          case LEFT   : X1R = X1 - DLR;
+                        Y1R = Y1 - ( ( WS + DWR ) >> 1 );
+                        X2R = X2 + DLR - abs(SHRINK);
+                        Y2R = Y2 + ( ( WS + DWR ) >> 1 ) - abs(SHRINK);
+
+                      break;
+
+          case RIGHT  : X1R = X1 - DLR;
+                        Y1R = Y1 - ( ( WS + DWR ) >> 1 );
+                        X2R = X2 + DLR - abs(SHRINK);
+                        Y2R = Y2 + ( ( WS + DWR ) >> 1 ) - abs(SHRINK); 
+
+                      break;
+
+          case DOWN   : X1R = X1 - ( ( WS + DWR ) >> 1 );
+                        Y1R = Y1 - DLR;
+                        X2R = X2 + ( ( WS + DWR ) >> 1 ) - abs(SHRINK);
+                        Y2R = Y2 + DLR - abs(SHRINK);
+
+                      break;
+
+          case UP     : X1R = X1 - ( ( WS + DWR ) >> 1 );
+                        Y1R = Y1 - DLR;
+                        X2R = X2 + ( ( WS + DWR ) >> 1 ) - abs(SHRINK);
+                        Y2R = Y2 + DLR - abs(SHRINK);
+
+                      break;
+        }
+      }
+      else
       if ( TRANS == RDS_TRANS_VW )
       {
         switch ( Segment->TYPE )

@@ -273,7 +273,8 @@
     { "tpoly",        TPOLY            },
     { "tpoly2",       TPOLY2           },
     { "treat",        S2R_TREAT        },
-    { "vw",           RDS_TRANS_VW     }
+    { "vw",           RDS_TRANS_VW     },
+    { "vws",          RDS_TRANS_VWS    }
   };
   
 /*------------------------------------------------------------\

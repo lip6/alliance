@@ -79,8 +79,9 @@
 # define RDS_TRANS_VW         (unsigned char)0
 # define RDS_TRANS_LCW        (unsigned char)1
 # define RDS_TRANS_RCW        (unsigned char)2
+# define RDS_TRANS_VWS        (unsigned char)3
 
-# define RDS_MAX_TRANS        ( RDS_TRANS_RCW + 1 )
+# define RDS_MAX_TRANS        ( RDS_TRANS_VWS + 1 )
 
 # define MBK_REF_REF          0
 # define MBK_REF_CON          1
