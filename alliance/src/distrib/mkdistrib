@@ -4,11 +4,11 @@
 # Copyright (C) 1999, 2000 Czo <Olivier.Sirol@lip6.fr>
 # License: GPL (http://www.gnu.org/copyleft/gpl.html)
 # Started: April 2000
-# Last Change: Monday 01 July 2002, 13:36
-# Edit Time: 206:57:07
+# Last Change: Thursday 10 October 2002, 18:42
+# Edit Time: 207:26:11
 # Description:
 #
-# $Id: mkdistrib,v 1.7 2002/07/01 15:27:20 czo Exp $
+# $Id: mkdistrib,v 1.8 2002/10/10 16:42:58 czo Exp $
 #
 
 ###################################################################
@@ -20,6 +20,7 @@ ALC_DISTRIBDIR=/users/soft5/newlabo/distrib
 ALC_WKSLIST="bip beny"
 ALC_FTPDISTRIBDIR=/users/largo2/ftp/pub/alliance/distribution/5.0
 ALC_LOGFILE=/tmp/albuild.$$
+ALC_FULL_LOGFILE="$ALC_DISTRIBDIR/alliance-mkdistrib-$$.log"
 
 ALC_RELEASE=`date +%Y%m%d`
 ALC_VERSION=5.0
@@ -185,4 +186,4 @@ try cp -f "/dsk/l1/tmp/czo/rpm/RPMS/i386/$ALC_PACK.i386.rpm" $ALC_FTPDISTRIBDIR
 
 ) | perl -ne  '$|=1; printf("%s%s", "[m", $_)' ) 2>&1 | perl -ne  '$|=1; printf("%s%s%s", "[1;31;40m", $_, "[m")' 
 
-) 2>&1 | tee /tmp/mkdistrib-$$.tmp
+) 2>&1 | tee "$ALC_FULL_LOGFILE"
