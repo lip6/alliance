@@ -420,8 +420,9 @@ ctlform_list *addctlform( Figure, Name, Expr )
   ctlform_list *Form;
 
   Form = allocctlform();
+  Name = namealloc( Name );
 
-  Form->NAME     = namealloc( Name );;
+  Form->NAME     = Name;
   Form->VEX_EXPR = Expr;
 
   Form->PREV     = &Figure->FORM;
@@ -462,7 +463,8 @@ ctltype_list *addctltype( Figure, Name, Index,
 
   Type = allocctltype();
 
-  Type->NAME   = namealloc( Name );;
+  Name         = namealloc( Name );
+  Type->NAME   = Name;
   Type->NEXT   = Figure->TYPE;
   Type->LEFT   = Left;
   Type->RIGHT  = Right;
