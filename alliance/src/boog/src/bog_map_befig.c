@@ -59,6 +59,15 @@ static long index;
 
 
 /****************************************************************************/
+/* set   an unique index for losig in lofig under building                  */
+/****************************************************************************/
+extern void setindex(long new_index)
+{
+   index = new_index;
+}
+
+
+/****************************************************************************/
 /*return an unique index for losig in lofig under building                  */
 /****************************************************************************/
 extern long getindex()

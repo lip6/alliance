@@ -48,6 +48,11 @@
 extern long getindex __P (());
 
 /****************************************************************************/
+/* set   an unique index for losig in lofig under building                  */
+/****************************************************************************/
+extern void setindex __P ((long new_index));
+
+/****************************************************************************/
 /* return the losig named name in lofig under building                      */
 /****************************************************************************/
 extern losig_list* seeksignal __P ((char* name));

@@ -167,7 +167,7 @@ extern cell_list* addCell_bus(befig_list* befig, biabl_list* biabl)
 extern cell_list* addCell_register(befig_list* befig, biabl_list *biabl)
 {
    cell_list* cell, *list;
-   port_list* internal_reg_port=NULL, *port;
+   port_list* internal_reg_port=NULL;
 
    cell=addCell(befig);
 

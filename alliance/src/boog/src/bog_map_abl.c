@@ -93,6 +93,8 @@ static void addlofigchain(loins_list* loins)
 static losig_list* loc_map_abl(lofig_list *lofig, chain_list *abl)
 {
    losig_list* losig;
+   locon_list* locon;
+   loins_list* loinsStart;
    port_list* port, *top;
    chain_list* sigchain = NULL, *new, *pred=NULL;
    char* name;
@@ -102,7 +104,9 @@ static losig_list* loc_map_abl(lofig_list *lofig, chain_list *abl)
    cell_list* cell;
    losig_list* output_losig;
    loins_list* loins;
+   char memo;
    int master;
+   long delay;
 
    if (!abl || !lofig) {
       fprintf(stderr,"loc_map_abl: NULL pointer\n");
@@ -124,7 +128,8 @@ static losig_list* loc_map_abl(lofig_list *lofig, chain_list *abl)
    insname=loins_name(name);
    putdelay(insname,cell->DELAY); /*delay for loins*/
    putdelay(signame,cell->DELAY); /*delay for new signal*/
-   
+   delay = cell->DELAY;
+  
    /*output_losig */
    namechain=addchain(NULL,signame);
    output_losig=addlosig(lofig, getindex(), namechain, INTERNAL);
@@ -161,7 +166,32 @@ static losig_list* loc_map_abl(lofig_list *lofig, chain_list *abl)
 
    /*if cell doesn't exist but is composed by several cells, develop it*/
    if (cell->MODE=='A' || cell->MODE=='a') {
+      /*insertion de nouvelles instances, la premiere est supprimee*/
+      loinsStart=lofig->LOINS->NEXT;
+      memo=SEPAR;
+      SEPAR='_';
       flattenlofig(lofig,insname,YES/*change internal signal name*/);
+      SEPAR=memo;
+      /*put delay on new instances inserted*/
+      for ( loins=lofig->LOINS; loins!=loinsStart; loins=loins->NEXT )
+      {
+         signame=loins->INSNAME;
+         putdelay( signame, delay ); 
+         /*put delay on new signals inserted*/
+         for ( locon=loins->LOCON; locon; locon=locon->NEXT )
+         {
+            losig = locon->SIG;
+            /*remove added name on old signal*/
+            if ( losig->NAMECHAIN->NEXT ) 
+            {
+               losig->NAMECHAIN = losig->NAMECHAIN->NEXT;
+               continue;
+            }
+            signame=(char*)losig->NAMECHAIN->DATA;
+            putdelay( signame, delay ); 
+         }
+      }
+      setindex( lofig->LOSIG->INDEX + 1 );
    }
 
    AREA+=cell->AREA;
@@ -176,13 +206,17 @@ static losig_list* loc_map_abl(lofig_list *lofig, chain_list *abl)
 extern void map_abl(lofig_list *lofig, chain_list *abl, losig_list *output_losig)
 {
    losig_list* losig;
+   locon_list* locon;
+   loins_list* loinsStart;
    loins_list* loins;
    port_list* port, *top;
    chain_list* sigchain = NULL, *new, *pred=NULL;
    char* insname;
    char* signame;
    cell_list* cell;
+   char memo;
    int master;
+   long delay;
 
    if (!abl || !lofig) {
       fprintf(stderr,"map_abl: NULL pointer\n");
@@ -203,6 +237,7 @@ extern void map_abl(lofig_list *lofig, chain_list *abl, losig_list *output_losig
    signame=(char*)output_losig->NAMECHAIN->DATA;
    insname=loins_name(signame);
    putdelay(insname,cell->DELAY); /*delay for loins*/
+   delay = cell->DELAY;
    
    top=copyport(cell->PORT);  /*not to be disturb by recursion*/
    for (port=top; port; port=port->NEXT) {
@@ -234,7 +269,32 @@ extern void map_abl(lofig_list *lofig, chain_list *abl, losig_list *output_losig
    
    /*if cell doesn't exist but is composed by several cells, develop it*/
    if (cell->MODE=='A' || cell->MODE=='a') {
+      /*insertion de nouvelles instances, la premiere est supprimee*/
+      loinsStart=lofig->LOINS->NEXT;
+      memo=SEPAR;
+      SEPAR='_';
       flattenlofig(lofig,insname,YES/*change internal signal name*/);
+      SEPAR=memo;
+      /*put delay on new instances inserted*/
+      for ( loins=lofig->LOINS; loins!=loinsStart; loins=loins->NEXT )
+      {
+         signame=loins->INSNAME;
+         putdelay( signame, delay ); 
+         /*put delay on new signals inserted*/
+         for ( locon=loins->LOCON; locon; locon=locon->NEXT )
+         {
+            losig = locon->SIG;
+            /*remove added name on old signal*/
+            if ( losig->NAMECHAIN->NEXT ) 
+            {
+               losig->NAMECHAIN = losig->NAMECHAIN->NEXT;
+               continue;
+            }
+            signame=(char*)losig->NAMECHAIN->DATA;
+            putdelay( signame, delay ); 
+         }
+      }
+      setindex( lofig->LOSIG->INDEX + 1 );
    }   
 
    AREA+=cell->AREA;
@@ -247,14 +307,18 @@ extern void map_abl(lofig_list *lofig, chain_list *abl, losig_list *output_losig
 extern void map_bus(lofig_list* lofig, biabl_list* biabl, losig_list* output_losig)
 {
    losig_list* losig;
+   locon_list* locon;
+   loins_list* loinsStart;
    loins_list* loins;
    chain_list* sigchain = NULL, *new, *pred=NULL;
+   char* signame;
    char* insname;
    port_list* port, *top;
    cell_list* cell;
    char memo;
    int master;
    biabl_list* biabl_aux;
+   long delay;
 
    if (!biabl || !lofig) {
       fprintf(stderr,"map_bus: NULL pointer\n");
@@ -290,6 +354,7 @@ extern void map_bus(lofig_list* lofig, biabl_list* biabl, losig_list* output_los
 
    insname=loins_name(insname);
    putdelay(insname,cell->DELAY); /*delay for loins*/
+   delay = cell->DELAY;
    
    top=copyport(cell->PORT);
    for (port=top; port; port=port->NEXT) {
@@ -322,7 +387,32 @@ extern void map_bus(lofig_list* lofig, biabl_list* biabl, losig_list* output_los
    
    /*if cell doesn't exist but is composed by several cells, develop it*/
    if (cell->MODE=='A' || cell->MODE=='a') {
+      /*insertion de nouvelles instances, la premiere est supprimee*/
+      loinsStart=lofig->LOINS->NEXT;
+      memo=SEPAR;
+      SEPAR='_';
       flattenlofig(lofig,insname,YES/*change internal signal name*/);
+      SEPAR=memo;
+      /*put delay on new instances inserted*/
+      for ( loins=lofig->LOINS; loins!=loinsStart; loins=loins->NEXT )
+      {
+         signame=loins->INSNAME;
+         putdelay( signame, delay ); 
+         /*put delay on new signals inserted*/
+         for ( locon=loins->LOCON; locon; locon=locon->NEXT )
+         {
+            losig = locon->SIG;
+            /*remove added name on old signal*/
+            if ( losig->NAMECHAIN->NEXT ) 
+            {
+               losig->NAMECHAIN = losig->NAMECHAIN->NEXT;
+               continue;
+            }
+            signame=(char*)losig->NAMECHAIN->DATA;
+            putdelay( signame, delay ); 
+         }
+      }
+      setindex( lofig->LOSIG->INDEX + 1 );
    }
    
    AREA+=cell->AREA;
@@ -341,15 +431,19 @@ extern void map_bus(lofig_list* lofig, biabl_list* biabl, losig_list* output_los
 extern void map_register(lofig_list* lofig, biabl_list* biabl, losig_list* output_losig)   
 {
    losig_list* losig;
+   locon_list* locon;
    loins_list* loins;
+   loins_list* loinsStart;
    chain_list* sigchain = NULL, *new, *pred=NULL;
    port_list* port, *top;
+   char* signame;
    char* insname;
    char memo;
    cell_list* cell;
    int master;
    biabl_list* biabl_aux;
-   
+   long delay;
+  
    if (!biabl || !lofig) {
       fprintf(stderr,"map_register: NULL pointer\n");
       exit(1);
@@ -383,6 +477,7 @@ extern void map_register(lofig_list* lofig, biabl_list* biabl, losig_list* outpu
   
    insname=loins_name(insname);
    putdelay(insname,cell->DELAY); /*delay for loins*/
+   delay = cell->DELAY;
    
    top=copyport(cell->PORT);
    for (port=top; port; port=port->NEXT) {
@@ -415,7 +510,32 @@ extern void map_register(lofig_list* lofig, biabl_list* biabl, losig_list* outpu
 
    /*if cell doesn't exist but is composed by several cells, develop it*/
    if (cell->MODE=='A' || cell->MODE=='a') {
+      /*insertion de nouvelles instances, la premiere est supprimee*/
+      loinsStart=lofig->LOINS->NEXT;
+      memo=SEPAR;
+      SEPAR='_';
       flattenlofig(lofig,insname,YES/*change internal signal name*/);
+      SEPAR=memo;
+      /*put delay on new instances inserted*/
+      for ( loins=lofig->LOINS; loins!=loinsStart; loins=loins->NEXT )
+      {
+         signame=loins->INSNAME;
+         putdelay( signame, delay ); 
+         /*put delay on new signals inserted*/
+         for ( locon=loins->LOCON; locon; locon=locon->NEXT )
+         {
+            losig = locon->SIG;
+            /*remove added name on old signal*/
+            if ( losig->NAMECHAIN->NEXT ) 
+            {
+               losig->NAMECHAIN = losig->NAMECHAIN->NEXT;
+               continue;
+            }
+            signame=(char*)losig->NAMECHAIN->DATA;
+            putdelay( signame, delay ); 
+         }
+      }
+      setindex( lofig->LOSIG->INDEX + 1 );
    }
    
    AREA+=cell->AREA;
