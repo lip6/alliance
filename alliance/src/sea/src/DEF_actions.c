@@ -1,6 +1,6 @@
 
 /*
- *  $Id: DEF_actions.c,v 1.3 2003/06/26 17:00:39 jpc Exp $
+ *  $Id: DEF_actions.c,v 1.4 2004/09/29 21:40:46 jpc Exp $
  *
  *  /----------------------------------------------------------------\
  *  |                                                                |
@@ -424,6 +424,7 @@ extern void	 def_pin_start(char *pin_name, char *net_name)
 extern void	 def_pin_options()
 {
         char *netName;
+        char *pinName;
         char  orientCon;
         long  xCon, yCon, widthCon, lengthCon, fakeCon;
         long  xR1 , yR1 , xR2 , yR2;
@@ -435,18 +436,19 @@ extern void	 def_pin_options()
 
 
   netName = LV_tPin[LV_numPins - 1].netName;
+  pinName = LV_tPin[LV_numPins - 1].pinName;
 
 
   /* Process the logical terminal. */
 
   if (LV_pLoFig) {
     /* The logical terminal/signal pair must be created only once. */
-    if (!findlocon (LV_pLoFig, netName)) {
+    if (!findlocon (LV_pLoFig, pinName)) {
       pLoSig = addlosig (LV_pLoFig,
                          LV_mSig++,
-                         addchain (NULL, (void*)netName),
+                         addchain (NULL, (void*)pinName),
                          EXTERNAL);
-      addlocon (LV_pLoFig, netName, pLoSig, LV_direction);
+      addlocon (LV_pLoFig, pinName, pLoSig, LV_direction);
     }
   }
 
@@ -1601,25 +1603,25 @@ static void DEF_pinxyflat(apX_flat, apY_flat, aX, aY, aX_ins, aY_ins, aT)
 
 static void  LEF2MBK_setData()
 {
-  setDataLayer (0, "L_ALU1", ALU1, CALU1, MBKSCALE(1));
-  setDataLayer (1, "L_ALU2", ALU2, CALU2, MBKSCALE(2));
-  setDataLayer (2, "L_ALU3", ALU3, CALU3, MBKSCALE(2));
-  setDataLayer (3, "L_ALU4", ALU4, CALU4, MBKSCALE(2));
-  setDataLayer (4, "L_ALU5", ALU5, CALU5, MBKSCALE(2));
-  setDataLayer (5, "L_ALU6", ALU6, CALU6, MBKSCALE(2));
-  setDataLayer (6, "L_ALU7", ALU7, CALU7, MBKSCALE(2));
-  setDataLayer (7, "L_ALU8", ALU8, CALU8, MBKSCALE(2));
-  setDataLayer (8, "L_ALU9", ALU9, CALU9, MBKSCALE(2));
+  setDataLayer (0, "ALU1", ALU1, CALU1, MBKSCALE(1));
+  setDataLayer (1, "ALU2", ALU2, CALU2, MBKSCALE(2));
+  setDataLayer (2, "ALU3", ALU3, CALU3, MBKSCALE(2));
+  setDataLayer (3, "ALU4", ALU4, CALU4, MBKSCALE(2));
+  setDataLayer (4, "ALU5", ALU5, CALU5, MBKSCALE(2));
+  setDataLayer (5, "ALU6", ALU6, CALU6, MBKSCALE(2));
+  setDataLayer (6, "ALU7", ALU7, CALU7, MBKSCALE(2));
+  setDataLayer (7, "ALU8", ALU8, CALU8, MBKSCALE(2));
+  setDataLayer (8, "ALU9", ALU9, CALU9, MBKSCALE(2));
 
-  setDataCut (0, "L_CONT", CONT_POLY);
-  setDataCut (1, "L_VIA1", CONT_VIA);
-  setDataCut (2, "L_VIA2", CONT_VIA2);
-  setDataCut (3, "L_VIA3", CONT_VIA3);
-  setDataCut (4, "L_VIA4", CONT_VIA4);
-  setDataCut (5, "L_VIA5", CONT_VIA5);
-  setDataCut (6, "L_VIA6", CONT_VIA6);
-  setDataCut (7, "L_VIA7", CONT_VIA7);
-  setDataCut (8, "L_VIA8", CONT_VIA8);
+  setDataCut (0, "VIAP", CONT_POLY);
+  setDataCut (1, "VIA1", CONT_VIA);
+  setDataCut (2, "VIA2", CONT_VIA2);
+  setDataCut (3, "VIA3", CONT_VIA3);
+  setDataCut (4, "VIA4", CONT_VIA4);
+  setDataCut (5, "VIA5", CONT_VIA5);
+  setDataCut (6, "VIA6", CONT_VIA6);
+  setDataCut (7, "VIA7", CONT_VIA7);
+  setDataCut (8, "VIA8", CONT_VIA8);
 }
 
 

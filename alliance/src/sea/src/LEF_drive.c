@@ -1,5 +1,5 @@
 /*
- *  $Id: LEF_drive.c,v 1.3 2003/04/07 14:38:42 jpc Exp $
+ *  $Id: LEF_drive.c,v 1.4 2004/09/29 21:40:46 jpc Exp $
  *
  *  /----------------------------------------------------------------\
  *  |                                                                |
@@ -385,18 +385,18 @@ static char *LAYERtoa(acLAYER)
   char  acLAYER;
 {
   switch(acLAYER) {
-    case  ALU1: return("L_ALU1");
-    case  ALU2: return("L_ALU2");
-    case  ALU3: return("L_ALU3");
-    case  ALU4: return("L_ALU4");
-    case  ALU5: return("L_ALU5");
-    case  ALU6: return("L_ALU6");
-    case CALU1: return("L_ALU1");
-    case CALU2: return("L_ALU2");
-    case CALU3: return("L_ALU3");
-    case CALU4: return("L_ALU4");
-    case CALU5: return("L_ALU5");
-    case CALU6: return("L_ALU6");
+    case  ALU1: return("ALU1");
+    case  ALU2: return("ALU2");
+    case  ALU3: return("ALU3");
+    case  ALU4: return("ALU4");
+    case  ALU5: return("ALU5");
+    case  ALU6: return("ALU6");
+    case CALU1: return("ALU1");
+    case CALU2: return("ALU2");
+    case CALU3: return("ALU3");
+    case CALU4: return("ALU4");
+    case CALU5: return("ALU5");
+    case CALU6: return("ALU6");
   }
 
   return((char*)NULL);

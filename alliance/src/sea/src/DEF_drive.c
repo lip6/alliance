@@ -1,5 +1,5 @@
 /*
- *  $Id: DEF_drive.c,v 1.10 2003/06/26 17:00:39 jpc Exp $
+ *  $Id: DEF_drive.c,v 1.11 2004/09/29 21:40:46 jpc Exp $
  *
  *  /----------------------------------------------------------------\
  *  |                                                                |
@@ -103,11 +103,11 @@
   static struct    track_s *LV_track;
   static struct blockage_s *LV_blockage;
   static struct  authtable *LV_htTerm;
-  static              char  routingLayers3[256] = "L_ALU1 L_ALU2 L_ALU3";
+  static              char  routingLayers3[256] = "ALU1 ALU2 ALU3";
   static              char  routingLayers4[256] =
-                             "L_ALU1 L_ALU2 L_ALU3 L_ALU4";
+                             "ALU1 ALU2 ALU3 ALU4";
   static              char  routingLayers6[256] =
-                             "L_ALU1 L_ALU2 L_ALU3 L_ALU4 L_ALU5 L_ALU6";
+                             "ALU1 ALU2 ALU3 ALU4 ALU5 ALU6";
 
 
 /*  ------------------------------------------------------------------
@@ -995,7 +995,7 @@ static void  fprintBLOCKAGE()
         fprintf (DEF_FILE, "\n      NEW ");
 
       fprintf (DEF_FILE,
-               "L_ALU%ld %ld + SHAPE BLOCKAGEWIRE ( %ld %ld ) ( %ld * )",
+               "ALU%ld %ld + SHAPE BLOCKAGEWIRE ( %ld %ld ) ( %ld * )",
                layer,
                pBlockage->height,
                pBlockage->x,

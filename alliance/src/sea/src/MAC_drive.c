@@ -1,5 +1,5 @@
 /*
- *  $Id: MAC_drive.c,v 1.5 2003/06/26 17:00:39 jpc Exp $
+ *  $Id: MAC_drive.c,v 1.6 2004/09/29 21:40:46 jpc Exp $
  *
  *  /----------------------------------------------------------------\
  *  |                                                                |
@@ -106,8 +106,8 @@ extern void  macPlace(apPhfig, apLofig, macName, aPower, aFlags)
   if (aFlags & F_MAC_IOC) {
     fprintf (MAC_FILE, "   FILENAME \"%s.ioc\"\n", apLofig->NAME);
   }
-  fprintf (MAC_FILE, "   TOPBOTTOMLAYER L_ALU3\n");
-  fprintf (MAC_FILE, "   RIGHTLEFTLAYER L_ALU2\n");
+  fprintf (MAC_FILE, "   TOPBOTTOMLAYER ALU3\n");
+  fprintf (MAC_FILE, "   RIGHTLEFTLAYER ALU2\n");
   fprintf (MAC_FILE, "   ;\n\n");
 
 
@@ -192,8 +192,8 @@ extern void  macRoute(apPhfig, apLofig, macName, aPower, aFlags)
 /*     if (aFlags & F_MAC_IOC) { */
 /*       fprintf (MAC_FILE, "   FILENAME %s.ioc\n", apLofig->NAME); */
 /*     } */
-/*     fprintf (MAC_FILE, "   TOPBOTTOMLAYER L_ALU2\n"); */
-/*     fprintf (MAC_FILE, "   RIGHTLEFTLAYER L_ALU2\n"); */
+/*     fprintf (MAC_FILE, "   TOPBOTTOMLAYER ALU2\n"); */
+/*     fprintf (MAC_FILE, "   RIGHTLEFTLAYER ALU2\n"); */
 /*     fprintf (MAC_FILE, "   ;\n\n"); */
 /*   } */
 
@@ -202,7 +202,7 @@ extern void  macRoute(apPhfig, apLofig, macName, aPower, aFlags)
     /* Special routing : ALU1 horizontal stripes. */
     fprintf (MAC_FILE, " SROUTE FOLLOWPINS\n");
     fprintf (MAC_FILE, "   NET vdd NET vss\n");
-    fprintf (MAC_FILE, "   LAYER L_ALU1 WIDTH 600 FILL DIRECTION HORIZONTAL\n");
+    fprintf (MAC_FILE, "   LAYER ALU1 WIDTH 600 FILL DIRECTION HORIZONTAL\n");
     fprintf (MAC_FILE, "   AREA (%ld %ld) (%ld %ld)\n",
                        MBK2DEF_length (apPhfig->XAB1),
                        MBK2DEF_length (apPhfig->YAB1),
@@ -215,7 +215,7 @@ extern void  macRoute(apPhfig, apLofig, macName, aPower, aFlags)
     if (findphmodel (apPhfig, namealloc ("powmid_x0"))) {
       fprintf (MAC_FILE, " SROUTE FOLLOWPINS\n");
       fprintf (MAC_FILE, "   NET vdd NET vss\n");
-      fprintf (MAC_FILE, "   LAYER L_ALU3 WIDTH 1200 FILL DIRECTION VERTICAL\n");
+      fprintf (MAC_FILE, "   LAYER ALU3 WIDTH 1200 FILL DIRECTION VERTICAL\n");
       fprintf (MAC_FILE, "   AREA (%ld %ld) (%ld %ld)\n",
                          MBK2DEF_length (apPhfig->XAB1),
                          MBK2DEF_length (apPhfig->YAB1),

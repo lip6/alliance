@@ -1,5 +1,5 @@
 /*
- *  $Id: util_LEFDEF.c,v 1.2 2002/09/30 16:21:19 czo Exp $
+ *  $Id: util_LEFDEF.c,v 1.3 2004/09/29 21:40:46 jpc Exp $
  *
  *  /----------------------------------------------------------------\
  *  |                                                                |
@@ -576,30 +576,30 @@ extern char *DEF_layer2a(aLayer)
 
   __DBG (fprintf (stderr, "layer id %d\n", (int)aLayer); )
   switch (aLayer) {
-    case ALU1:      layerName = "L_ALU1"; break;
-    case ALU2:      layerName = "L_ALU2"; break;
-    case ALU3:      layerName = "L_ALU3"; break;
-    case ALU4:      layerName = "L_ALU4"; break;
-    case ALU5:      layerName = "L_ALU5"; break;
-    case ALU6:      layerName = "L_ALU6"; break;
-    case ALU7:      layerName = "L_ALU7"; break;
-    case ALU8:      layerName = "L_ALU8"; break;
-    case CALU1:     layerName = "L_ALU1"; break;
-    case CALU2:     layerName = "L_ALU2"; break;
-    case CALU3:     layerName = "L_ALU3"; break;
-    case CALU4:     layerName = "L_ALU4"; break;
-    case CALU5:     layerName = "L_ALU5"; break;
-    case CALU6:     layerName = "L_ALU6"; break;
-    case CALU7:     layerName = "L_ALU7"; break;
-    case CALU8:     layerName = "L_ALU8"; break;
-    case CONT_VIA:  layerName = "L_VIA1"; break;
-    case CONT_VIA2: layerName = "L_VIA2"; break;
-    case CONT_VIA3: layerName = "L_VIA3"; break;
-    case CONT_VIA4: layerName = "L_VIA4"; break;
-    case CONT_VIA5: layerName = "L_VIA5"; break;
-    case CONT_VIA6: layerName = "L_VIA6"; break;
-    case CONT_VIA7: layerName = "L_VIA7"; break;
-    default:   layerName = "L_MBK_ERROR"; break;
+    case ALU1:      layerName = "ALU1"; break;
+    case ALU2:      layerName = "ALU2"; break;
+    case ALU3:      layerName = "ALU3"; break;
+    case ALU4:      layerName = "ALU4"; break;
+    case ALU5:      layerName = "ALU5"; break;
+    case ALU6:      layerName = "ALU6"; break;
+    case ALU7:      layerName = "ALU7"; break;
+    case ALU8:      layerName = "ALU8"; break;
+    case CALU1:     layerName = "ALU1"; break;
+    case CALU2:     layerName = "ALU2"; break;
+    case CALU3:     layerName = "ALU3"; break;
+    case CALU4:     layerName = "ALU4"; break;
+    case CALU5:     layerName = "ALU5"; break;
+    case CALU6:     layerName = "ALU6"; break;
+    case CALU7:     layerName = "ALU7"; break;
+    case CALU8:     layerName = "ALU8"; break;
+    case CONT_VIA:  layerName = "VIA1"; break;
+    case CONT_VIA2: layerName = "VIA2"; break;
+    case CONT_VIA3: layerName = "VIA3"; break;
+    case CONT_VIA4: layerName = "VIA4"; break;
+    case CONT_VIA5: layerName = "VIA5"; break;
+    case CONT_VIA6: layerName = "VIA6"; break;
+    case CONT_VIA7: layerName = "VIA7"; break;
+    default:   layerName = "LAYER_MBK_ERROR"; break;
   }
 
   return (layerName);
