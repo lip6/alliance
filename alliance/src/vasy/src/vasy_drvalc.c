@@ -1588,7 +1588,19 @@ static void VasyDriveAllianceTreatDeclar( RtlFigure )
       AtomName   = GetVexAtomValue( VexDeclar );
 
       if ( VexInit != (vexexpr *)0 ) AtomValue = GetVexAtomValue( VexInit   );
-      else                           AtomValue = (char *)0;
+      else 
+      {
+#if 1  /** Francois Donnet: 16/01/2003: do not initialize by default
+       *** because someone else could do it in an upper hierachy.
+       *** It's better not to correct description and to let user
+       *** with it's own error than to build some...
+       **/
+         if ( ( RtlDeclar->DIR == RTL_DIR_INOUT           ) ) continue;
+#endif
+         
+         /*default init for outputs*/
+         AtomValue = (char *)0;
+      }
   
       for ( ScanPos = 0; ScanPos < VexDeclar->WIDTH; ScanPos++ )
       {
