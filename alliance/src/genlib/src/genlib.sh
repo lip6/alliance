@@ -1,6 +1,6 @@
 #!/bin/sh
 #
-# $Id: genlib.sh,v 1.7 2002/09/30 16:20:23 czo Exp $
+# $Id: genlib.sh,v 1.8 2002/10/15 17:09:49 jpc Exp $
 #                                                                        
 # /------------------------------------------------------------------\
 # |                                                                  |
@@ -248,7 +248,8 @@ cat << EOF > $MAKEFILE
   LOCAL_ALC_LVBE = -lBvl \\
                    -lBeh \\
                    -lBhl \\
-                   -lLog
+                   -lLog \\
+                   -lCst
   LOCAL_ALC_LMGN = -lMgn
   LOCAL_ALC_LMUT = -lMut
   LOCAL_ALC_LMLO = -lMlu \\
