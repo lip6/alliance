@@ -1,6 +1,6 @@
 #!/bin/sh
 #
-# $Id: genlib.sh,v 1.8 2002/10/15 17:09:49 jpc Exp $
+# $Id: genlib.sh,v 1.9 2002/10/24 10:28:32 hcl Exp $
 #                                                                        
 # /------------------------------------------------------------------\
 # |                                                                  |
@@ -292,7 +292,7 @@ $CSOURCE.o: $CSOURCE.c
 
 
 clean:
-	rm -f $CSOURCE $CSOURCE.o
+	rm -f $CSOURCE $CSOURCE.o $CSOURCE.exe
 
 
 EOF
@@ -346,7 +346,7 @@ EOF
 
  rm -f $MAKEFILE
 
- if [ "$KEEP_BIN"  != "y" ]; then rm -f $CSOURCE >> $CSOURCE.grr 2>&1; fi
+ if [ "$KEEP_BIN"  != "y" ]; then rm -f $CSOURCE $CSOURCE.exe >> $CSOURCE.grr 2>&1; fi
 
  if [ \( $exit_code -eq 0 \) -a \( "$KEEP_LOG" != "y" \) ]; then
    rm -f $CSOURCE.grr > /dev/null 2>&1
