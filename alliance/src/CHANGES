@@ -9,6 +9,36 @@
 This document lists the main differences between each Alliance's revisions.
 
 --------------------------------------------------------------------------------
+ALLIANCE revision 5.0 (2004/09/09)
+
+- Many Bugs fix in Loon and Boog, Graal, etc ...
+
+  + Bug fix in AP parser when using a SCALE_X > 100  (integer overflow)
+  + Bug fix and improvements of Ramlib and Rf2lib cells
+  + Bug fix in Graal for segment edition with a scale != 1 
+  + Bug fix in Loon (critical path delay computation)
+  + Bug fix in Loon (xsch driver crash)
+  + ...
+
+- Minor Sxlib cells modifications to match 0.13 micron techno rules
+
+  + see www.vlsitechnology.org for details
+
+- Graal improvements and new features :
+
+  + fractional values (min segment width) are now supported in the .graal file
+  + fractional values are now supported for segment/connector/transistors width
+  + full working edition on a grid < 1 lambda   
+
+- LAX format new feature :
+
+  + Delays and capacitances can now be specified usign floating point values.
+
+- VASY new feature :
+
+  + It accepts now 'after clauses' in concurrent signal assignements.
+
+--------------------------------------------------------------------------------
 ALLIANCE revision 5.0 (2004/07/31)
 
 
