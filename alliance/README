@@ -1,11 +1,11 @@
 # Alliance VLSI CAD System
+# Copyright (C) 1990, 2000 ASIM/LIP6/UPMC
 #
 # Home page          : http://www-asim.lip6.fr/alliance/
 # E-mail support     : mailto:alliance-support@asim.lip6.fr
-# ftp sites          : ftp://ftp.lip6.fr/lip6/softs/alliance/
-#                   or ftp://ftp-asim.lip6.fr/pub/alliance/
+# ftp site           : ftp://ftp-asim.lip6.fr/pub/alliance/
 #
-# $Id: README,v 1.3 1999/11/05 16:43:11 czo Exp $
+# $Id: README,v 1.4 2000/01/20 18:17:01 czo Exp $
 
 
 
@@ -14,23 +14,18 @@
 
 "Alliance VLSI CAD System" is free Software.
 
-Unlike versions of Alliance up to 3.1 that where released
-including sources, version 3.2 and up will not be available
-with the source code.
-
-Source is however still available, but only upon request to
-alliance-support@lip6.fr. The release of the source is now
-subject to a non disclosure agreement.
+Alliance is available under the terms of the GNU General Public License
+GPL (http://www.gnu.org/copyleft/gpl.html).
 
 You are welcome to use the software package even for commercial 
-designs whithout any fee. You are just required to mention : 
-"Designed with Alliance CAD system"
+designs without any fee. You are just required to mention : 
+
+" Designed with Alliance CAD system,
+  Copyright (C) 1991, 2000 Université Pierre et Marie Curie"
 
 You can get Alliance via anonymous FTP from ftp.lip6.fr
 
-       ftp://ftp.lip6.fr/lip6/softs/alliance/
-
-or     ftp://ftp-asim.lip6.fr/pub/alliance/
+       ftp://ftp-asim.lip6.fr/pub/alliance/
 
 
 
@@ -40,24 +35,27 @@ or     ftp://ftp-asim.lip6.fr/pub/alliance/
 
 You will have to download at least two files : one for the common files
 of Alliance (like cells library) and another containing binaries for
-your specific platform. Actually only Linux_elf, SunOS and Solaris
-are supported.
-
-alliance-3.2b-common.tar.gz                Files common to each platform *required*
-
-alliance-3.2b-i386-linux-2.0.30.tar.gz     Binaries Linux_elf
-
-alliance-3.2b-sparc-sunos-4.1.1.tar.gz     Binaries SunOS
-
-alliance-3.2b-sparc-solaris-2.5.1.tar.gz   Binaries Solaris
+your specific platform. As for now, only Linux, SunOS, Solaris and
+FreeBSD are available. A Windows 95/NT release should be out this
+year.
 
 
+alliance-X.XX-common.tar.gz               Files common to each platform *required*
 
+alliance-X.XX-i386-linux-Y.YY.tar.gz      Binaries Linux_elf
+
+alliance-X.XX-sparc-sunos-Y.YY.tar.gz     Binaries SunOS
+
+alliance-X.XX-sparc-solaris-Y.YY.tar.gz   Binaries Solaris
+
+
+where X.XX is the Alliance version number (e.g.: 3.2 for Alliance 3.2)
+and   Y.YY is the OS version number (e.g.: 4.1.4 for SunOS 4.1.4)
 
 # Installation :
 # ===================================================================
 
-You *dont* need to be root to install Alliance in a directory you *own*
+You *don't* need to be root to install Alliance in a directory you *own*
 
 In the example above I assume you have logged as root
 
@@ -67,11 +65,11 @@ In the example above I assume you have logged as root
 
 2/ Unpack the common package
 
-  > gunzip -c alliance-3.2b-common.tgz | tar -pvxf -
+  > gunzip -c alliance-X.XX-common.tgz | tar -xf -
 
 3/ Unpack one of the platform specific package
 
-  > gunzip -c alliance-3.2b-Linux_elf.tgz | tar -pvxf -
+  > gunzip -c alliance-X.XX-linux-Y.YY.tgz | tar -xf -
 
 4/ cd to alliance/share/etc and run the 'configure' script
    (This is the *only* script you need to run)
@@ -80,8 +78,7 @@ In the example above I assume you have logged as root
   > ./configure
 
 If you install Alliance on different platforms you'll
-need to run the 'configure' script on each of them
-
+need to run the 'configure' script on each of them.
 
 # Usage :
 # ===================================================================
@@ -93,19 +90,20 @@ in sh  > . [where you have installed Alliance]/alliance/share/etc/alc_env.sh
 
 in csh > source [where you have installed Alliance]/alliance/share/etc/alc_env.csh
 
-This could be done in system's profile (/etc/profile)...
-so that it would be done at user login
-
-This sets various default environement variables which could be changed by user
+This sets various default environment variables which could be changed by user
 later (Like MBK_OUT_LO to set the netlist output file format).
+
+If you are a SysAdmin, you should consider linking these scripts in 
+the system's profile (e.g.: /etc/profile.d/ on Linux) so that configuration
+would be done at user login.
 
 If you encounter problems, check the value of these variables in alc_env.[c]sh
 
-          $ALLIANCE_OS : actually Linux_elf
+          $ALLIANCE_OS : actually Linux
                            or SunOS
                            or Solaris
 
-          $ALLIANCE_TOP     : actually [where you have installed Alliance]/alliance/archi/Linux_elf
+          $ALLIANCE_TOP     : actually [where you have installed Alliance]/alliance/archi/Linux
                            or [where you have installed Alliance]/alliance/archi/SunOS
                            or [where you have installed Alliance]/alliance/archi/Solaris
 
@@ -113,3 +111,4 @@ That's all :-)
 
 
 # EOF
+

@@ -1,11 +1,11 @@
 # Alliance VLSI CAD System
+# Copyright (C) 1990, 2000 ASIM/LIP6/UPMC
 #
 # Home page          : http://www-asim.lip6.fr/alliance/
 # E-mail support     : mailto:alliance-support@asim.lip6.fr
 # ftp site           : ftp://ftp-asim.lip6.fr/pub/alliance/
 #
-# $Id: CHANGES,v 1.4 2000/01/20 17:07:07 czo Exp $
-# $Author: czo $
+# $Id: CHANGES,v 1.5 2000/01/20 18:17:02 czo Exp $
 
 This document lists the main differences between each Alliance's revisions.
 

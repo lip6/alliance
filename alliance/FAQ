@@ -1,17 +1,19 @@
 # Alliance VLSI CAD System
+# Copyright (C) 1990, 2000 ASIM/LIP6/UPMC
 #
 # Home page          : http://www-asim.lip6.fr/alliance/
 # E-mail support     : mailto:alliance-support@asim.lip6.fr
-# ftp sites          : ftp://ftp.lip6.fr/lip6/softs/alliance/
-#                   or ftp://ftp-asim.lip6.fr/pub/alliance/
+# ftp site           : ftp://ftp-asim.lip6.fr/pub/alliance/
 #
-# $Id: FAQ,v 1.1 1999/05/31 17:11:53 czo Exp $
+# $Id: FAQ,v 1.2 2000/01/20 18:17:01 czo Exp $
 
 --------------------------------------------------------------------------------
 
 FAQ (Frequently Asked Questions)
 This file contains the basic pointers to
 the different documents or manuals found in this release.
+
+--------------------------------------------------------------------------------
 
 Question  1: What is ALLIANCE ?
 Question  2: What is ALLIANCE general copyright policy ?
@@ -30,11 +32,12 @@ Question 12: How can I get in touch with the ALLIANCE team ?
 Question 1: What is ALLIANCE ?
 ------------------------------
 
+Alliance is a free VLSI CAD System.
 You can read a general description of the ALLIANCE tools and libraries
-by printing the PostScript files overview.ps located in the root 
+by printing the PostScript files overview.ps located in the doc
 directory:
 
-> lpr overview.ps
+> lpr share/doc/overview.ps
 
 
 Question 2: What is ALLIANCE general copyright policy ?
