@@ -45,6 +45,7 @@
 # include <signal.h>
 # include <stdlib.h>
 # include <unistd.h>
+# include <libgen.h>
 
 # include <mut.h>
 # include "aut.h"
@@ -118,8 +119,16 @@ char *autbasename( Name, Extension )
 {
   int   Index;
   char *NewName;
+  char *NewNameTmp;
 
-  NewName = basename( mbkstrdup( Name ) );
+  NewNameTmp = mbkstrdup( Name );
+
+  NewName = mbkstrdup (basename( NewNameTmp ) );
+  /* We copy the result of basename because basename */
+  /* can return a pointer to internal static storage */
+  /* space on systems like Darwin                    */
+
+  mbkfree(NewNameTmp);
 
   if ( Extension != (char *)0 )
   {
