@@ -1,0 +1,1068 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN">
+<HTML
+><HEAD
+><TITLE
+>attila</TITLE
+><META
+NAME="GENERATOR"
+CONTENT="Modular DocBook HTML Stylesheet Version 1.76b+
+"><LINK
+REL="HOME"
+TITLE=" Attila User's Manual "
+HREF="attila.html"><LINK
+REL="UP"
+TITLE="Alliance - attila User's Manual "
+HREF="ref_attila.html"><LINK
+REL="PREVIOUS"
+TITLE="Alliance - attila User's Manual "
+HREF="ref_attila.html"></HEAD
+><BODY
+CLASS="REFENTRY"
+BGCOLOR="#FFFFFF"
+TEXT="#000000"
+LINK="#0000FF"
+VLINK="#840084"
+ALINK="#0000FF"
+><DIV
+CLASS="NAVHEADER"
+><TABLE
+SUMMARY="Header navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TH
+COLSPAN="3"
+ALIGN="center"
+>Attila User's Manual</TH
+></TR
+><TR
+><TD
+WIDTH="10%"
+ALIGN="left"
+VALIGN="bottom"
+><A
+HREF="ref_attila.html"
+ACCESSKEY="P"
+>&#60;&#60;&#60; Previous</A
+></TD
+><TD
+WIDTH="80%"
+ALIGN="center"
+VALIGN="bottom"
+></TD
+><TD
+WIDTH="10%"
+ALIGN="right"
+VALIGN="bottom"
+>&nbsp;</TD
+></TR
+></TABLE
+><HR
+ALIGN="LEFT"
+WIDTH="100%"></DIV
+><H1
+><A
+NAME="ATTILA">attila</H1
+><DIV
+CLASS="REFNAMEDIV"
+><A
+NAME="AEN24"
+></A
+><H2
+>Name</H2
+> attila &nbsp;--&nbsp; A Tool Installer </DIV
+><DIV
+CLASS="REFSYNOPSISDIV"
+><A
+NAME="AEN27"><H2
+>Synopsis</H2
+><P
+><B
+CLASS="COMMAND"
+>attila</B
+> [-h] [-S] [-U] [-F] [-A]<BR> [--help] [--ssh] [--user] [--asim]<BR> [--prefix=<TT
+CLASS="REPLACEABLE"
+><I
+>INSTALL_DIR</I
+></TT
+>] [--builddir=<TT
+CLASS="REPLACEABLE"
+><I
+>BUILD_DIR</I
+></TT
+>]<BR> {--tool=<TT
+CLASS="REPLACEABLE"
+><I
+>name1</I
+></TT
+>} [--tool=<TT
+CLASS="REPLACEABLE"
+><I
+>name2</I
+></TT
+>...]</P
+></DIV
+><DIV
+CLASS="REFSECT1"
+><A
+NAME="AEN50"
+></A
+><H2
+> Description </H2
+><P
+> <TT
+CLASS="LITERAL"
+>attila</TT
+> automates the process of compiling
+    and installing one or more <I
+CLASS="EMPHASIS"
+>Alliance</I
+> tools. The 
+    tool can be installed either in the user's account (during the
+    devellopment stage) or in the <I
+CLASS="EMPHASIS"
+>Alliance</I
+> system
+    wide tree (for instance <TT
+CLASS="LITERAL"
+>/asim/alliance</TT
+>) when a
+    new version is made avalaible to all.
+    </P
+><P
+> <TT
+CLASS="LITERAL"
+>attila</TT
+> proceed with the following
+    steps :
+      <P
+></P
+><OL
+TYPE="1"
+><LI
+><P
+> Checks if the sources of tools are present in the
+          user's account. If not, check them out from the
+          <I
+CLASS="EMPHASIS"
+>Alliance</I
+> CVS tree. Note that you must
+          have access to it.
+          </P
+></LI
+><LI
+><P
+> In case of <TT
+CLASS="USERINPUT"
+><B
+>--asim</B
+></TT
+>
+          or <TT
+CLASS="USERINPUT"
+><B
+>--full</B
+></TT
+> installations,
+          <TT
+CLASS="LITERAL"
+>attila</TT
+> will fork itself on one Linux
+          computer (currently <TT
+CLASS="LITERAL"
+>bip</TT
+>) and on one Solaris
+          computer (<TT
+CLASS="LITERAL"
+>beny</TT
+>). As to connect on thoses
+          computer it will uses <TT
+CLASS="LITERAL"
+>rsh</TT
+> so you must setup
+          your <TT
+CLASS="LITERAL"
+>~/.rhosts</TT
+> to access them whithout
+          passwords. You also can uses <TT
+CLASS="LITERAL"
+>ssh</TT
+> (but the
+          procedure to allow automatic login is more complicated).
+          </P
+></LI
+><LI
+><P
+> Run <TT
+CLASS="LITERAL"
+>configure</TT
+> in the build
+          directory (see below).
+          </P
+></LI
+><LI
+><P
+> Install the tool in the local install directory (see below)
+          or in the system-wide <I
+CLASS="EMPHASIS"
+>Alliance</I
+> directory
+          rooted under <TT
+CLASS="LITERAL"
+>/asim/alliance</TT
+>.
+          </P
+></LI
+></OL
+>
+      <DIV
+CLASS="IMPORTANT"
+><P
+></P
+><TABLE
+CLASS="IMPORTANT"
+WIDTH="100%"
+BORDER="0"
+><TR
+><TD
+WIDTH="25"
+ALIGN="CENTER"
+VALIGN="TOP"
+><IMG
+SRC="./stylesheet-images/important.gif"
+HSPACE="5"
+ALT="Important"></TD
+><TH
+ALIGN="LEFT"
+VALIGN="CENTER"
+><B
+>After an <TT
+CLASS="LITERAL"
+>--asim</TT
+> install</B
+></TH
+></TR
+><TR
+><TD
+>&nbsp;</TD
+><TD
+ALIGN="LEFT"
+VALIGN="TOP"
+><P
+> the build directory tree of the tool will be removed to
+        avoid messing with further local installations.
+        </P
+></TD
+></TR
+></TABLE
+></DIV
+>
+    </P
+><DIV
+CLASS="REFSECT2"
+><A
+NAME="AEN84"
+></A
+><H3
+> Directory Structure </H3
+><P
+> <TT
+CLASS="LITERAL"
+>attila</TT
+> relies on the following tree
+      structure : (all paths below are given relative to the user's
+      home directory)
+      <P
+></P
+><UL
+><LI
+><P
+> <TT
+CLASS="LITERAL"
+>~/alliance/src</TT
+> where the tools sources
+          are to be found.
+          </P
+></LI
+><LI
+><P
+> <TT
+CLASS="LITERAL"
+>~/alliance/Linux/build/$TOOL</TT
+> : the top
+          directory under which the tool will be compiled for Linux.
+          This is where the <TT
+CLASS="LITERAL"
+>configure</TT
+> script will be run.
+          </P
+></LI
+><LI
+><P
+> <TT
+CLASS="LITERAL"
+>~/alliance/Linux/install</TT
+> : the top of
+          the install tree when the tool is compiled locally for Linux.
+          Under this directory you will found (at least) :
+          <TT
+CLASS="LITERAL"
+>./bin</TT
+>,
+          <TT
+CLASS="LITERAL"
+>./lib</TT
+> and <TT
+CLASS="LITERAL"
+>./include</TT
+>.
+           </P
+></LI
+><LI
+><P
+> <TT
+CLASS="LITERAL"
+>~/alliance/Solaris/build/$TOOL</TT
+> :
+          the tool's build directory for Solaris.
+          </P
+></LI
+><LI
+><P
+> <TT
+CLASS="LITERAL"
+>~/alliance/Solaris/install</TT
+> : top of the
+          local install tree for Solaris.
+          </P
+></LI
+></UL
+>
+      </P
+></DIV
+><DIV
+CLASS="REFSECT2"
+><A
+NAME="AEN108"
+></A
+><H3
+> CVS checkout </H3
+><P
+> If the sources of the requested tool(s) are not found under
+      <TT
+CLASS="LITERAL"
+>~/alliance/src/</TT
+> <TT
+CLASS="LITERAL"
+>attila</TT
+> will
+      try to check them out. So, as says above, you must have access
+      rights to the <I
+CLASS="EMPHASIS"
+>Alliance</I
+> CVS tree.
+      </P
+><P
+> In addition to the tool(s) sources, it will also checks for
+      the minimal set of files needed for <TT
+CLASS="LITERAL"
+>configure</TT
+> to
+      run. As for now :
+      <P
+></P
+><UL
+><LI
+><P
+> <TT
+CLASS="LITERAL"
+>autostuff</TT
+> </P
+></LI
+><LI
+><P
+> <TT
+CLASS="LITERAL"
+>alliance.m4</TT
+> </P
+></LI
+><LI
+><P
+> <TT
+CLASS="LITERAL"
+>motif.m4</TT
+> </P
+></LI
+><LI
+><P
+> <TT
+CLASS="LITERAL"
+>Makefile.am</TT
+> </P
+></LI
+></UL
+>
+      </P
+></DIV
+><DIV
+CLASS="REFSECT2"
+><A
+NAME="AEN129"
+></A
+><H3
+> Guessing <TT
+CLASS="LITERAL"
+>CVSROOT</TT
+> </H3
+><P
+> The root of the CVS tree will be set according to the
+      following rules :
+      <P
+></P
+><OL
+TYPE="1"
+><LI
+><P
+> Uses the user's environment variable
+          <TT
+CLASS="LITERAL"
+>CVSROOT</TT
+> if sets.
+          </P
+></LI
+><LI
+><P
+> Uses the <TT
+CLASS="LITERAL"
+>attila</TT
+> default value
+          sets in <TT
+CLASS="LITERAL"
+>attila.conf</TT
+> (variable
+          <TT
+CLASS="LITERAL"
+>ATTILA_CVSROOT</TT
+>).
+          </P
+></LI
+></OL
+>
+      </P
+></DIV
+></DIV
+><DIV
+CLASS="REFSECT1"
+><A
+NAME="AEN142"
+></A
+><H2
+> Guessing <TT
+CLASS="LITERAL"
+>ALLIANCE_TOP</TT
+> </H2
+><P
+> The root of the <TT
+CLASS="LITERAL"
+>Alliance</TT
+> installed distribution
+    tree will be set according to the following rules :
+    <P
+></P
+><OL
+TYPE="1"
+><LI
+><P
+> Uses the user's environment variable
+        <TT
+CLASS="LITERAL"
+>ALLIANCE_TOP</TT
+> if sets.
+        </P
+></LI
+><LI
+><P
+> Uses the <TT
+CLASS="LITERAL"
+>attila</TT
+> default value
+        sets in <TT
+CLASS="LITERAL"
+>attila</TT
+> itself (variable
+        <TT
+CLASS="LITERAL"
+>ATTILA_ALLIANCE_TOP</TT
+>).
+        </P
+><DIV
+CLASS="IMPORTANT"
+><P
+></P
+><TABLE
+CLASS="IMPORTANT"
+WIDTH="90%"
+BORDER="0"
+><TR
+><TD
+WIDTH="25"
+ALIGN="CENTER"
+VALIGN="TOP"
+><IMG
+SRC="./stylesheet-images/important.gif"
+HSPACE="5"
+ALT="Important"></TD
+><TH
+ALIGN="LEFT"
+VALIGN="CENTER"
+><B
+><TT
+CLASS="LITERAL"
+>ALLIANCE_TOP</TT
+></B
+></TH
+></TR
+><TR
+><TD
+>&nbsp;</TD
+><TD
+ALIGN="LEFT"
+VALIGN="TOP"
+><P
+> is set in <TT
+CLASS="LITERAL"
+>attila</TT
+> itself because its value
+          is a prerequisite to load the configuration file
+          <TT
+CLASS="LITERAL"
+>attila.conf</TT
+> which is in the directory
+          <TT
+CLASS="LITERAL"
+>$ALLIANCE_TOP/etc/</TT
+>.
+          </P
+></TD
+></TR
+></TABLE
+></DIV
+></LI
+></OL
+>
+    </P
+></DIV
+><DIV
+CLASS="REFSECT1"
+><A
+NAME="AEN163"
+></A
+><H2
+> Arguments </H2
+><P
+> <TT
+CLASS="LITERAL"
+>attila</TT
+> accepts the followings arguments :
+    <P
+></P
+><UL
+><LI
+><P
+> <TT
+CLASS="USERINPUT"
+><B
+>-h</B
+></TT
+>, <TT
+CLASS="USERINPUT"
+><B
+>--help</B
+></TT
+> :
+        print help.
+        </P
+></LI
+><LI
+><P
+> <TT
+CLASS="USERINPUT"
+><B
+>-S</B
+></TT
+>, <TT
+CLASS="USERINPUT"
+><B
+>--ssh</B
+></TT
+> :
+        uses <TT
+CLASS="LITERAL"
+>ssh</TT
+> instead of <TT
+CLASS="LITERAL"
+>rsh</TT
+> to
+        connect to the remote computers (in case of
+        <TT
+CLASS="USERINPUT"
+><B
+>--asim</B
+></TT
+> or <TT
+CLASS="USERINPUT"
+><B
+>--full</B
+></TT
+>).
+        </P
+></LI
+><LI
+><P
+> <TT
+CLASS="USERINPUT"
+><B
+>-U</B
+></TT
+>, <TT
+CLASS="USERINPUT"
+><B
+>--user</B
+></TT
+> :
+        perform a local installation.
+        </P
+></LI
+><LI
+><P
+> <TT
+CLASS="USERINPUT"
+><B
+>-F</B
+></TT
+>, <TT
+CLASS="USERINPUT"
+><B
+>--full</B
+></TT
+> :
+        install for all avalaibles architectures (currently Linux and
+        Solaris).
+        </P
+></LI
+><LI
+><P
+> <TT
+CLASS="USERINPUT"
+><B
+>-A</B
+></TT
+>, <TT
+CLASS="USERINPUT"
+><B
+>--asim</B
+></TT
+> :
+        install in the system-wide directory
+        (<TT
+CLASS="LITERAL"
+>/asim/alliance</TT
+>).
+        </P
+></LI
+><LI
+><P
+> <TT
+CLASS="USERINPUT"
+><B
+>--prefix=<TT
+CLASS="FILENAME"
+>INSTALL_DIR</TT
+></B
+></TT
+> :
+        override the default installation directory.
+        </P
+></LI
+><LI
+><P
+> <TT
+CLASS="USERINPUT"
+><B
+>--builddir=<TT
+CLASS="FILENAME"
+>BUILD_DIR</TT
+></B
+></TT
+> :
+        override the default building directory.
+        </P
+></LI
+><LI
+><P
+> <TT
+CLASS="USERINPUT"
+><B
+>--tool=<TT
+CLASS="FILENAME"
+>name1</TT
+></B
+></TT
+> :
+        name of the tool to be installed.
+        </P
+></LI
+></UL
+>
+    </P
+></DIV
+><DIV
+CLASS="REFSECT1"
+><A
+NAME="AEN205"
+></A
+><H2
+> Configuration file <TT
+CLASS="LITERAL"
+>attila.conf</TT
+> </H2
+><P
+> The configuration file is located in
+    <TT
+CLASS="LITERAL"
+>$ALLIANCE_TOP/etc</TT
+>. This file is to be read by the
+    <TT
+CLASS="LITERAL"
+>sh</TT
+> <I
+CLASS="EMPHASIS"
+>shell</I
+>. It sets up the
+    following variables :
+    <P
+></P
+><UL
+><LI
+><P
+> <TT
+CLASS="USERINPUT"
+><B
+>LINUX_TARGET</B
+></TT
+> : the computer where to
+        compile for the Linux architecture (default <TT
+CLASS="LITERAL"
+>bip</TT
+>).
+        </P
+></LI
+><LI
+><P
+> <TT
+CLASS="USERINPUT"
+><B
+>LINUX_CC</B
+></TT
+> : the name or full path to
+        to the <SPAN
+CLASS="ACRONYM"
+>C</SPAN
+> compiler for Linux system
+        (default <TT
+CLASS="LITERAL"
+>gcc3</TT
+>).
+        </P
+></LI
+><LI
+><P
+> <TT
+CLASS="USERINPUT"
+><B
+>LINUX_CXX</B
+></TT
+> : the name or full path to
+        to the <SPAN
+CLASS="ACRONYM"
+>C++</SPAN
+> compiler for Linux system
+        (default <TT
+CLASS="LITERAL"
+>g++3</TT
+>).
+        </P
+></LI
+><LI
+><P
+> <TT
+CLASS="USERINPUT"
+><B
+>SOLARIS_TARGET</B
+></TT
+> : the computer where to
+        compile for the Solaris architecture (default <TT
+CLASS="LITERAL"
+>beny</TT
+>).
+        </P
+></LI
+><LI
+><P
+> <TT
+CLASS="USERINPUT"
+><B
+>SOLARIS_CC</B
+></TT
+> : the name or full path to
+        to the <SPAN
+CLASS="ACRONYM"
+>C</SPAN
+> compiler for Solaris system
+        (default <TT
+CLASS="LITERAL"
+>/usr/local/gcc-3.0.4/bin/g++3</TT
+>).
+        </P
+></LI
+><LI
+><P
+> <TT
+CLASS="USERINPUT"
+><B
+>SOLARIS_CXX</B
+></TT
+> : the name or full path to
+        to the <SPAN
+CLASS="ACRONYM"
+>C++</SPAN
+> compiler for Solaris system
+        (default <TT
+CLASS="LITERAL"
+>/usr/local/gcc-3.0.4/bin/g++3</TT
+>).
+        </P
+></LI
+><LI
+><P
+> <TT
+CLASS="USERINPUT"
+><B
+>ATTILA_CVSROOT</B
+></TT
+> : the root of the
+        <I
+CLASS="EMPHASIS"
+>Alliance</I
+> CVS tree
+        (default <TT
+CLASS="LITERAL"
+>/users/outil/alliance/cvsroot</TT
+>).
+        </P
+></LI
+><LI
+><P
+> <TT
+CLASS="USERINPUT"
+><B
+>CVS_STARTUP_FILES</B
+></TT
+> : the minimal set of
+        files needed to run <TT
+CLASS="LITERAL"
+>configure</TT
+>.
+        </P
+></LI
+></UL
+>
+    </P
+></DIV
+><DIV
+CLASS="REFSECT1"
+><A
+NAME="AEN250"
+></A
+><H2
+> Examples </H2
+><P
+>    Compile &#38; install <TT
+CLASS="LITERAL"
+>nero</TT
+> tool on the local computer
+    (must be either a Linux or a Solaris one) :
+    <TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><PRE
+CLASS="SCREEN"
+>$ <TT
+CLASS="USERINPUT"
+><B
+>attila --tool=nero</B
+></TT
+>
+    </PRE
+></TD
+></TR
+></TABLE
+>
+    </P
+><P
+>    Compile &#38; install <TT
+CLASS="LITERAL"
+>nero</TT
+> tool for all architectures
+    (currently only Linux and Solaris are supported) :
+    <TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><PRE
+CLASS="SCREEN"
+>$ <TT
+CLASS="USERINPUT"
+><B
+>attila --full --tool=nero</B
+></TT
+>
+    </PRE
+></TD
+></TR
+></TABLE
+>
+    </P
+><P
+>    Compile &#38; install <TT
+CLASS="LITERAL"
+>nero</TT
+> tool in the system-wide
+    directory (a new version for everyone to use) :
+    <TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><PRE
+CLASS="SCREEN"
+>$ <TT
+CLASS="USERINPUT"
+><B
+>attila --asim --tool=nero</B
+></TT
+>
+    </PRE
+></TD
+></TR
+></TABLE
+>
+    </P
+><P
+>    Compile &#38; install <TT
+CLASS="LITERAL"
+>mbk</TT
+> the <TT
+CLASS="LITERAL"
+>genlib</TT
+>
+    (the order is significant) in a row for a local install on the current
+    computer :
+    <TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><PRE
+CLASS="SCREEN"
+>$ <TT
+CLASS="USERINPUT"
+><B
+>attila --tool=mbk --tool=genlib</B
+></TT
+>
+    </PRE
+></TD
+></TR
+></TABLE
+>
+    </P
+></DIV
+><DIV
+CLASS="NAVFOOTER"
+><HR
+ALIGN="LEFT"
+WIDTH="100%"><TABLE
+SUMMARY="Footer navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+><A
+HREF="ref_attila.html"
+ACCESSKEY="P"
+>&#60;&#60;&#60; Previous</A
+></TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="attila.html"
+ACCESSKEY="H"
+>Home</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+>&nbsp;</TD
+></TR
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+><I
+CLASS="EMPHASIS"
+>Alliance</I
+> - <TT
+CLASS="USERINPUT"
+><B
+>attila</B
+></TT
+> User's Manual</TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="ref_attila.html"
+ACCESSKEY="U"
+>Up</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+>&nbsp;</TD
+></TR
+></TABLE
+></DIV
+></BODY
+></HTML
+>
