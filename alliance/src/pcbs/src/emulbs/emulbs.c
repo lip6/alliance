@@ -42,10 +42,10 @@ static char* savePatBS_flag   = NULL;                /*sauvegarder pattern BS */
 /****************************************************************************/
 static void usage() 
 {
-fprintf(stdout,"
-%s   [ -hv ]  [ --pci | --parallel ]  [ -l <number> ]  [ -b <number> ] 
-       [ <source.PAT> [ <res.PAT> ] ]  [ -e <connections_file> [ -s <bs.PAT> ] ]
-",PROGRAM_NAME);
+fprintf(stdout,"\
+%s [ -hv ]  [ --pci | --parallel ]  [ -l <number> ]  [ -b <number> ] \
+     [ <source.PAT> [ <res.PAT> ] ]  [ -e <connections_file> [ -s <bs.PAT> ] ]",
+     PROGRAM_NAME);
 }
 
 
@@ -53,25 +53,24 @@ fprintf(stdout,"
 /****************************************************************************/
 static void help() 
 {
-fprintf(stdout,"
-%s   [ -hv ]  [ --pci | --parallel ]  [ -l <number> ]  [ -b <number> ] 
-       [ <source.PAT> [ <res.PAT> ] ]  [ -e <connections_file> [ -s <bs.PAT> ] ]
-        
-  -h,--help       Display this current message.
-  -v,--verbose    Display all warnings and actions.
-  -l,--load       Load only <number> patterns from <source.PAT> to save memory.
-  -b,--burst      Execute a burst of <number> boundary-scan patterns on device.
-  <source.PAT>    Functional or boundary-scan patterns to execute.
-  <res.PAT>       Functional or boundary-scan executed patterns.
-  -e,--emulbs     Load <connections_file> which describes the device connections
-                  between the chip and the test card to mute functional patterns
-                  <source.PAT> into boundary-scan patterns <bs.PAT>.
-  -s,--save       Save boundary-scan patterns in <bs.PAT>.
-  --pci           Check device, execute <source.PAT> on device by pci port
-                  and save result in <res.PAT>.
-  --parallel      Check device, execute <source.PAT> on device by parallel port
-                  and save result in <res.PAT>.
-",PROGRAM_NAME);
+fprintf(stdout,"\
+%s [ -hv ]  [ --pci | --parallel ]  [ -l <number> ]  [ -b <number> ] \n\
+   [ <source.PAT> [ <res.PAT> ] ]  [ -e <connections_file> [ -s <bs.PAT> ] ]\n\
+  -h,--help    Display this current message.\n\
+  -v,--verbose Display all warnings and actions.\n\
+  -l,--load    Load only <number> patterns from <source.PAT> to save memory.\n\
+  -b,--burst   Execute a burst of <number> boundary-scan patterns on device.\n\
+  <source.PAT> Functional or boundary-scan patterns to execute.\n\
+  <res.PAT>    Functional or boundary-scan executed patterns.\n\
+  -e,--emulbs  Load <connections_file> which describes the device connections\n\
+               between the chip and the test card to mute functional patterns\n\
+               <source.PAT> into boundary-scan patterns <bs.PAT>.\n\
+  -s,--save    Save boundary-scan patterns in <bs.PAT>.\n\
+  --pci        Check device, execute <source.PAT> on device by pci port\n\
+               and save result in <res.PAT>.\n\
+  --parallel   Check device, execute <source.PAT> on device by parallel port\n\
+               and save result in <res.PAT>.\n",
+PROGRAM_NAME);
 }
 
 

@@ -76,7 +76,7 @@ fprintf(stdout,"\
 \t\t\t--bsdl   <description.BSDL>\n\
 \t\tsee manual page for more information.\n\
   -x,--execute\tSend boundary scan patterns to the DUT hardware. It can be\n\
-\t\tcombinated with -e or -b options.
+\t\tcombinated with -e or -b options.\
 ",PROGRAM_NAME,PCBS_VERSION,PROGRAM_NAME,PROGRAM_NAME,PAT_LIMIT);
 }
 

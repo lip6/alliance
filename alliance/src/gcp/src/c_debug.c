@@ -42,7 +42,6 @@
 \------------------------------------------------------------*/
 
 # include <stdio.h>
-# include <varargs.h>
 # include <stdarg.h>
 # include <ctype.h>
 
