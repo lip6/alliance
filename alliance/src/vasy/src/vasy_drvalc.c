@@ -1348,7 +1348,7 @@ static void VasyAllianceTreatMap( RtlInst )
     {
       sprintf( Buffer, "rtl_map_%ld", VasyNumberDef++ );
     
-      if ( isvextypevector( Type ) )
+      if ( isvextypevector( RtlPort->BASE ) )
       {
         VexAtom = createvexatomvec( Buffer, VexActual->WIDTH - 1, 0 );
       }
