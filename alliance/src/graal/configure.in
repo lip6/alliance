@@ -203,4 +203,5 @@ AC_OUTPUT([
 Makefile
 src/Makefile
 man1/Makefile
+etc/Makefile
 ])
