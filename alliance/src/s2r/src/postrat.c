@@ -56,36 +56,6 @@
 #include "math.h"
 
 /*************************************************************************
- * bigstacked_layer : maximise layer patch in stacked via
- *************************************************************************/
-static void bigstacked_layer (model, layer_num)
-     rdsfig_list *model;
-     int layer_num;
-{
-  rdsrec_list *rectp;
-  long min_area = 6400;         // GET_S2R_MINAREA (layer_num);
-  long cpt = 0;
-
-  for (rectp = model->LAYERTAB[layer_num]; rectp; rectp = rectp->NEXT)
-  {
-    long a = rectp->DY * rectp->DX;
-    if ((rectp->DX == rectp->DY) && (a <= min_area))
-    {
-    double ma = sqrt (((double) min_area) / RDS_UNIT / RDS_UNIT);
-      cpt++;
-      min_area = a;
-    printf ("layer %d, model %s, min area %ld (%gx%g), %g, %g, %ld occurences\n", layer_num, model->NAME, min_area, ma, ma, 
-    ((double)rectp->X)/RDS_UNIT, ((double)rectp->Y)/RDS_UNIT, cpt);
-    }
-  }
-  if (cpt)
-  {
-    double ma = sqrt (((double) min_area) / RDS_UNIT / RDS_UNIT);
-    printf ("layer %d, model %s, min area %ld (%gx%g), %ld occurences\n", layer_num, model->NAME, min_area, ma, ma, cpt);
-  }
-}
-
-/*************************************************************************
  * resize_layer : extends the sides of all the rectangles in the specified
  *                layer in the specified model by the amount "qty" at each
  *                extreme.
@@ -994,7 +964,7 @@ static void addimp (model, verbose)
   rdsrec_list *r;
   int f = MBK_SEGMENT_MASK | RDS_FIG_REC_MASK;
 
-  if (model->INSTANCE == NULL)
+  if (model->INSTANCE == NULL && model->LAYERTAB[RDS_NWELL] != NULL)
   {
     for (r = model->LAYERTAB[RDS_NWELL]; r; r = r->NEXT)
       model->LAYERTAB[RDS_PIMP] = rds_rectangle_in (model->LAYERTAB[RDS_PIMP], r->X, r->Y, r->DX, r->DY, RDS_PIMP, f, NULL);
@@ -1137,25 +1107,6 @@ static void inv_resize (model)
    }
 }
 
-/******************************************************************************
- * bigstacked : maximise the stacked vias
- *****************************************************************************/
-static void bigstacked (model)
-     rdsfig_list *model;
-{
-  if (model->INSTANCE != NULL)
-  {
-    if (GET_S2R_POST_Y_OR_N (RDS_ALU2) == S2R_TREAT)
-      bigstacked_layer (model, RDS_ALU2);
-    if (GET_S2R_POST_Y_OR_N (RDS_ALU3) == S2R_TREAT)
-      bigstacked_layer (model, RDS_ALU3);
-    if (GET_S2R_POST_Y_OR_N (RDS_ALU4) == S2R_TREAT)
-      bigstacked_layer (model, RDS_ALU4);
-    if (GET_S2R_POST_Y_OR_N (RDS_ALU5) == S2R_TREAT)
-      bigstacked_layer (model, RDS_ALU5);
-  }
-}
-
 /*****************************************************************************
  * post_treat: post_treats the specified model.
  *             After completion it marks this model at this layer post_treated.
@@ -1203,7 +1154,6 @@ void post_treat (model, scotch_on_flag, verbose)
       inv_resize (model);
       addpwell (model, verbose);
       addimp (model, verbose);
-      bigstacked (model);
       mark_treat (model);
    }
 }
