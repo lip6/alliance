@@ -1,5 +1,5 @@
 /*
- *  $Id: dpgen_Macro.c,v 1.1 2002/04/29 13:40:54 jpc Exp $
+ *  $Id: dpgen_Macro.c,v 1.2 2002/06/17 09:40:27 fred Exp $
  *
  *  /----------------------------------------------------------------\
  *  |                                                                |
@@ -136,6 +136,9 @@ extern void  GENLIB_MACRO __FPV((long  aFunction, ...))
       dpgen_Adder (aFunction, F_ADDER_SIGN, aAL);
       break;
     case DPGEN_SHIFT:
+      dpgen_Shifter (aFunction, aAL);
+      break;
+    case DPGEN_SHROT:
       dpgen_Shifter (aFunction, aAL);
       break;
     case DPGEN_NUL:

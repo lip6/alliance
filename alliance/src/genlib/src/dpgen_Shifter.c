@@ -25,6 +25,11 @@
    Author: Frédéric Pétrot
    Date  : 1/10/2000
    $Log: dpgen_Shifter.c,v $
+   Revision 1.5  2002/06/17 09:40:27  fred
+   Adding DPGEN_SHROT to support both shifts and rotations.
+   Layout is quite larger when rotation is involved, so use only when
+   necessary.
+
    Revision 1.4  2002/06/14 15:40:29  fred
    Adding rotation.
    Some test this week end and that should be it.
@@ -91,7 +96,7 @@
 
 */
 
-static char rcsid[]="$Id: dpgen_Shifter.c,v 1.4 2002/06/14 15:40:29 fred Exp $";
+static char rcsid[]="$Id: dpgen_Shifter.c,v 1.5 2002/06/17 09:40:27 fred Exp $";
 
 
 #include  "util_Defs.h"
@@ -140,6 +145,8 @@ namegen(op)
 namegen(x)
 
 /* Behavior:
+   Shift: Shifter
+   Shrot: Includes also rotation
 
    o = (i op shamt);
 
@@ -164,16 +171,14 @@ extern void dpgen_Shifter(aFunction, aAL)
    int ops;
    char *LSB, *MSB; 
    char *MuxInput0, *MuxInput1, *MuxInput2;  /* Mux inputs */
+   char *Cell;
    int sym, mys;
 
    modelName =      va_arg (aAL, char*);
-   /* 0: Shifter
-      1: Includes also rotation */
    flags     =      va_arg (aAL, long );
-   flags     = 0;
    n         = (int)va_arg (aAL, long );
 
-   Slices    = ln2p(n - 1);
+   Slices    = ln2p(n);
 
    
 #define XX_NAME GENLIB_NAME
@@ -181,17 +186,14 @@ extern void dpgen_Shifter(aFunction, aAL)
 #define MX3(c0, c1, i0, i1, i2, q)  \
    GENLIB_LOINS("mx3_x2", XX_NAME("m_%d", SliceIndex * n + BitIndex), c0, c1, i0, i1, i2, q, "vdd", "vss", NULL)
 
-#define MX2(k, c0, i0, i1, q)  \
-   GENLIB_LOINS("mx2_x2", XX_NAME("c_%d", 2 * SliceIndex + k), c0, i0, i1, q, "vdd", "vss", NULL)
-
 #define A2(k, i0, i1, q)  \
    GENLIB_LOINS("a2_x2", XX_NAME("a_%d", k), i0, i1, q, "vdd", "vss", NULL)
 
 #define A3(k, i0, i1, i2, q)  \
    GENLIB_LOINS("a3_x2", XX_NAME("a3_%d", k), i0, i1, i2, q, "vdd", "vss", NULL)
 
-#define OA(k, i0, i1, i2, q)  \
-   GENLIB_LOINS("oa22_x4", XX_NAME("oa_%d", k), i0, i1, i2, q, "vdd", "vss", NULL)
+#define OA(i0, i1, i2, q)  \
+   GENLIB_LOINS("oa22_x4", XX_NAME("oa_%d", SliceIndex * n + BitIndex), i0, i1, i2, q, "vdd", "vss", NULL)
 
 #define O2(k, i0, i1, q)  \
    GENLIB_LOINS("o2_x2", XX_NAME("o_%d", k), i0, i1, q, "vdd", "vss", NULL)
@@ -199,7 +201,9 @@ extern void dpgen_Shifter(aFunction, aAL)
 #define INV(k, i, nq)  \
    GENLIB_LOINS("inv_x2", XX_NAME("i_%d", k), i, nq, "vdd", "vss", NULL)
 
-   if (flags == 0)
+#define SYM (BitIndex & 1 ? mys : sym)
+
+   if (aFunction == DPGEN_SHIFT)
       ops = 1;
    else 
       ops = 2;
@@ -218,11 +222,11 @@ extern void dpgen_Shifter(aFunction, aAL)
    MSB = "msb"; /* intermediate signal for arith sh */
 
    /* Arithmetic or input extension */
-   if (flags == 1) {
-      INV(123, op(2), "op2b");
-      A3(123, i(n - 1), "op2b", op(1), MSB);
+   if (aFunction == DPGEN_SHROT) {
+      INV(Slices, op(2), "op2b");
+      A3(Slices, i(n - 1), "op2b", op(1), MSB);
    } else {
-      A2(123, i(n - 1), op(1), MSB);
+      A2(0, i(n - 1), op(1), MSB);
    }
 
    /* Normalizing the input signals names */
@@ -234,9 +238,7 @@ extern void dpgen_Shifter(aFunction, aAL)
       for (BitIndex = 0; BitIndex < n; BitIndex++) {
          LeftIndex  = BitIndex - (1 << SliceIndex);
          RightIndex = BitIndex + (1 << SliceIndex);
-         printf("Slice: %d, Bit: %d, Li: %d, Ri: %d\n", SliceIndex,
-         BitIndex, LeftIndex, RightIndex);
-         if (flags == 0) {
+         if (aFunction == DPGEN_SHIFT) {
             MuxInput0  = LeftIndex >= 0 ? MuxOutput(SliceIndex * n + LeftIndex) : LSB;
             MuxInput1  = MuxOutput(SliceIndex * n + BitIndex);
             MuxInput2  = RightIndex < n ? MuxOutput(SliceIndex * n + RightIndex) : MSB;
@@ -245,15 +247,14 @@ extern void dpgen_Shifter(aFunction, aAL)
                MuxInput0  = MuxOutput(SliceIndex * n + LeftIndex);
             else {
                MuxInput0  = x(AndIndex);
-               A2(AndIndex, op(2), MuxOutput(SliceIndex * n + n + LeftIndex), x(AndIndex)); AndIndex++;
+               A2(SliceIndex * n + BitIndex, op(2), MuxOutput(SliceIndex * n + n + LeftIndex), x(AndIndex)); AndIndex++;
             }
             MuxInput1  = MuxOutput(SliceIndex * n + BitIndex);
             if (RightIndex < n)
                MuxInput2  = MuxOutput(SliceIndex * n + RightIndex);
             else {
                MuxInput2  = x(AndIndex);
-               //A2(AndIndex, op(2), MuxOutput(SliceIndex * n + RightIndex - n), x(AndIndex)); AndIndex++;
-               OA(AndIndex, op(2), MuxOutput(SliceIndex * n + RightIndex - n), MSB, x(AndIndex)); AndIndex++;
+               OA(op(2), MuxOutput(SliceIndex * n + RightIndex - n), MSB, x(AndIndex)); AndIndex++;
             }
          }
          MX3(c0(SliceIndex), c1(SliceIndex), MuxInput0,  MuxInput1, MuxInput2, MuxOutput((SliceIndex + 1) * n + BitIndex));
@@ -279,26 +280,199 @@ extern void dpgen_Shifter(aFunction, aAL)
       sym = NOSYM, mys = SYM_Y;
 
    GENLIB_DEF_PHSC(modelName);
-   GENLIB_SC_PLACE(XX_NAME("a_%d", 0), sym, 0, 0);
-   for (SliceIndex = 0; SliceIndex < Slices; SliceIndex++) {
-      GENLIB_SC_RIGHT(XX_NAME("i_%d", SliceIndex), sym);
-      GENLIB_SC_RIGHT(XX_NAME("o_%d", SliceIndex), sym);
-   }
-   GENLIB_DEF_PHINS("a_0");
+
    BitIndex = n - 1;
-   for (SliceIndex = 0; SliceIndex < Slices; SliceIndex++) {
-      if (SliceIndex == 0)
-         GENLIB_SC_BOTTOM(XX_NAME("m_%d", SliceIndex * n + BitIndex), mys);
-      else
-         GENLIB_SC_RIGHT(XX_NAME("m_%d", SliceIndex * n + BitIndex), mys);
+   SliceIndex = 0;
+   if (aFunction == DPGEN_SHROT) {
+      GENLIB_SC_PLACE(XX_NAME("oa_%d", SliceIndex * n + BitIndex), SYM, 0, 0);
+      GENLIB_SC_RIGHT(XX_NAME("m_%d", SliceIndex * n + BitIndex), SYM);
+   } else 
+      GENLIB_SC_PLACE(XX_NAME("m_%d", SliceIndex * n + BitIndex), SYM, 0, 0);
+
+   for (SliceIndex = 1; SliceIndex < Slices; SliceIndex++) {
+      if (aFunction == DPGEN_SHROT) {
+         GENLIB_SC_RIGHT(XX_NAME("oa_%d", SliceIndex * n + BitIndex), SYM);
+      }
+      GENLIB_SC_RIGHT(XX_NAME("m_%d", SliceIndex * n + BitIndex), SYM);
    }
+
    for (SliceIndex = 0; SliceIndex < Slices; SliceIndex++) {
-      GENLIB_DEF_PHINS(XX_NAME("m_%d", SliceIndex * n + n-1));
+      if (aFunction == DPGEN_SHROT) {
+         GENLIB_DEF_PHINS(XX_NAME("oa_%d", SliceIndex * n + n - 1));
+         for (BitIndex = n-1; BitIndex >= 0; BitIndex--) {
+         int l = 0, r = 0;
+            LeftIndex  = BitIndex - (1 << SliceIndex);
+            RightIndex = BitIndex + (1 << SliceIndex);
+            if (RightIndex >= n) {
+               if (BitIndex != n - 1)
+                  GENLIB_SC_BOTTOM(XX_NAME("oa_%d", SliceIndex * n + BitIndex), SYM);
+               r = 1;
+            }
+            if (LeftIndex < 0) {
+               if (r == 1) {
+                  GENLIB_SC_RIGHT(Cell = XX_NAME("a_%d", SliceIndex * n + BitIndex), SYM);
+                  GENLIB_DEF_PHINS(XX_NAME("oa_%d", SliceIndex * n + BitIndex));
+               } else
+                  GENLIB_SC_BOTTOM(XX_NAME("a_%d", SliceIndex * n + BitIndex), SYM);
+               l = 1;
+            }
+            if (l == 0 && r == 0)
+               GENLIB_PLACE_BOTTOM("tie_x0", XX_NAME("tie_%d", SliceIndex * n + BitIndex), SYM);
+         }
+      }
+      GENLIB_DEF_PHINS(XX_NAME("m_%d", SliceIndex * n + n - 1));
       for (BitIndex = n-2; BitIndex >= 0; BitIndex--) {
-         GENLIB_SC_BOTTOM(XX_NAME("m_%d", SliceIndex * n + BitIndex),
-               BitIndex & 1 ? mys : sym);
+         GENLIB_SC_BOTTOM(XX_NAME("m_%d", SliceIndex * n + BitIndex), SYM);
       }
    }
-   GENLIB_SAVE_PHSC();
+
+   if (flags & F_PLACE) {
+      BitIndex = n; /* Upper line, this is necessary for the computation of the symmetry */
+      SliceIndex = 0;
+      if (aFunction == DPGEN_SHROT) {
+         GENLIB_DEF_PHINS(XX_NAME("oa_%d", SliceIndex * n + n - 1));
+         GENLIB_SC_TOP(XX_NAME("i_%d", Slices), SYM);
+         GENLIB_SC_RIGHT(XX_NAME("a3_%d", Slices), SYM);
+
+      } else {
+         GENLIB_DEF_PHINS(XX_NAME("m_%d", SliceIndex * n + n - 1));
+         GENLIB_SC_TOP(XX_NAME("a_%d", 0), SYM);
+      }
+      for (SliceIndex = 0; SliceIndex < Slices; SliceIndex++) {
+         if (SliceIndex > 0)
+            if (aFunction == DPGEN_SHROT)
+               GENLIB_DEF_PHINS(XX_NAME("oa_%d", SliceIndex * n + n - 1));
+            else
+               GENLIB_DEF_PHINS(XX_NAME("m_%d", SliceIndex * n + n - 1));
+         if (SliceIndex == 0)
+            GENLIB_SC_RIGHT(XX_NAME("i_%d", SliceIndex), SYM);
+         else
+            GENLIB_SC_TOP(XX_NAME("i_%d", SliceIndex), SYM);
+         GENLIB_SC_RIGHT(XX_NAME("o_%d", SliceIndex), SYM);
+      }
+
+      /* I've done my best with genlib, but I need to realign overlapping
+       * cells using some more powerfull tools, ... */
+      {
+         phins_list *i, *f = getphins(WORK_PHFIG, Cell);
+         phfig_list *p = getphfig(f->FIGNAME, 'P');
+
+         for (i = WORK_PHFIG->PHINS; i; i = i->NEXT)
+            if (i->XINS == f->XINS)
+               if (!strncmp(i->INSNAME, "m_", 2))
+                  i->XINS += p->XAB2 - p->XAB1;
+      }
+
+      GENLIB_SAVE_PHSC();
+   }
+
+   if (flags & F_BEHAV) {
+      printf("Shifter behavior no yet implemented\n");
+   }
+
    freestr();
 }
+
+#ifdef DEBUG_DPGEN_SHIFT
+char *d2b(char *s, int x, int n)
+{
+   int i;
+
+   for (i = 0; i < n; i++)
+      s[i] = '0' + ((x >> (n - 1 - i)) & 1);
+   s[i] = 0;
+   return s;
+}
+
+int ln2p(int n)
+{
+int i = 0, j = n & 1;
+
+   if (n)
+      for (i = -1; n > 0; n >>= 1) {
+         j += (n & 1);
+         i++;
+      }
+   return i + (j > 1);
+}
+
+int main(int argc, char *argv[])
+{
+   int a, b, sh, op, i, n, l, r;
+   int mask;
+   char s[33], t[33], u[33], v[33];
+
+   if (argc != 3)
+      exit(1);
+
+   if (!strcmp(argv[1], "-s"))
+      r = 1;
+   else if (!strcmp(argv[1], "-r"))
+      r = 2;
+   else
+      exit(1);
+
+   n = atoi(argv[2]);
+
+   if (n == 0)
+      exit(1);
+
+   if (n < 32)
+      mask = ~(~0<<n); /* This bugs when n = 32! Why ? */
+   else 
+      mask = 0xffffffff; 
+   l = ln2p(n);
+
+   printf("in    op(%d downto 0);;\n", r);
+   printf("in    shamt(%d downto 0);;\n", l - 1);
+   printf("in    i(%d to 0);;\n", n - 1);
+   printf("out   o(%d to 0);;\n", n - 1);
+   printf("in    vdd;;\n");
+   printf("in    vss;\n");
+   printf("begin\n");
+
+   for (i = 0; i < 10000; i++) {
+      a  = random() & mask;
+      sh = random() & ~(~0<<l);
+      /* No tests for out of bound shift */
+      if (sh > n - 1)
+         sh = n - 1;
+      op = random() & ~(~0<<r);
+      switch (op) {
+         case 0:
+         case 2:
+         printf("# sll ");
+            b = (a << sh) & mask;
+            break;
+         case 1:
+         printf("# srl ");
+            b = (((unsigned int)a) >> sh) & mask;
+            break;
+         case 3:
+         printf("# sra ");
+            if (((1<<(n-1)) & a & mask) == (1<<(n-1)))
+               b = ((a >> sh) | (~0<<(n-sh))) & mask;
+            else 
+               b = (a >> sh) & mask;
+            break;
+         case 4:
+         case 6:
+         printf("# rol ");
+            b = ((a << sh) | (a >> (n - sh))) & mask;
+            break;
+         case 5:
+         case 7:
+         printf("# ror ");
+            b = ((a >> sh) | (a << (n - sh))) & mask;
+      }
+      a &= mask;
+      printf("\npat%04d: %s %s %s ?%s 1 0;\n", i,
+                                             d2b(u, op, r + 1),
+                                             d2b(v, sh, l),
+                                             d2b(s, a, n),
+                                             d2b(t, b, n));
+   }
+   printf("end;\n");
+   exit(0);
+}
+#endif

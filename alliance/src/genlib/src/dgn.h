@@ -1,5 +1,5 @@
 /*
- *  $Id: dgn.h,v 1.1 2002/04/29 13:40:54 jpc Exp $
+ *  $Id: dgn.h,v 1.2 2002/06/17 09:40:27 fred Exp $
  *
  *  /----------------------------------------------------------------\
  *  |                                                                |
@@ -97,7 +97,8 @@
 #   define        DPGEN_SFFT        40
 #   define        DPGEN_ROM2        41
 #   define        DPGEN_ROM4        42
-#   define        DPGEN_UNKNOWN     43
+#   define        DPGEN_SHROT       43
+#   define        DPGEN_UNKNOWN     44
 
 
 /*  ----------------------------------------------------------------------
