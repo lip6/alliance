@@ -1,5 +1,11 @@
 #!/bin/sh
 #$Log: autostuff,v $
+#Revision 1.11  2004/07/26 17:51:23  ludo
+#- operator '==' doesn't exists/not compatible with old /bin/sh version
+#  (such as the one installed under Solaris or Cygwin ...)
+#  Replaced by '=' and here in the context it doesn't matter
+#  (no need of a pattern string matching/comparison ...)
+#
 #Revision 1.10  2004/07/26 12:34:39  fred
 #Added a test on Makefile.am to avoid errors when making 'clean'.
 #Sources without Makefile.am in their top directory are now totally
@@ -34,10 +40,10 @@ dirs=$*
 fi
 newdirs=""
 for dir in $dirs; do
-  if [ "$dir" == "CVS"            ]; then continue; fi
-  if [ "$dir" == "autom4te.cache" ]; then continue; fi
-  if [ "$dir" == "Linux"          ]; then continue; fi
-  if [ "$dir" == "Solaris"        ]; then continue; fi
+  if [ "$dir" = "CVS"            ]; then continue; fi
+  if [ "$dir" = "autom4te.cache" ]; then continue; fi
+  if [ "$dir" = "Linux"          ]; then continue; fi
+  if [ "$dir" = "Solaris"        ]; then continue; fi
   if [ ! -f "$dir/Makefile.am"    ]; then continue; fi
   newdirs="$newdirs $dir"
 done
