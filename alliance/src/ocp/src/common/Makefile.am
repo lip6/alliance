@@ -1,6 +1,6 @@
 ## Process this file with automake to produce Makefile.in
 
-INCLUDES = @INCLUDES@ -I$(top_srcdir)/src/common
+INCLUDES = -I$(top_srcdir)/src/common
 
 noinst_LIBRARIES = libPCommon.a
 

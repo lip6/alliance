@@ -10,7 +10,7 @@ xfsm_LDADD = @LIBS@ @X_LIBS@ @LINK_MOTIF@ \
           -lFtl -lFks -lFvh -lFsm \
 	  -lBdd -lAbl -lAut -lMut
 
-INCLUDES = @INCLUDES@ @INCLUDE_MOTIF@
+INCLUDES = @INCLUDE_MOTIF@
 
 
 xfsm_SOURCES = \

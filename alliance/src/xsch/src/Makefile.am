@@ -10,7 +10,7 @@ xsch_LDADD = @LIBS@ @X_LIBS@ @LINK_MOTIF@ \
    -lScl -lMlu -lMal -lMcl -lMel -lMhl -lMsl -lMvl -lMgl -lMlo -lMut -lMgl -lAbv -lAbe \
    -lBdd -lAbl -lAut -lRcn -lm
 
-INCLUDES = @INCLUDES@ @INCLUDE_MOTIF@
+INCLUDES = @INCLUDE_MOTIF@
 
 xsch_SOURCES = \
 LIP6bw.h XME_dialog.c XME_dialog.h XME_edit.c XME_edit.h XME.h XME_menu.c XME_menu.h \

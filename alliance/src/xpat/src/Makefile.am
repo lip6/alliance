@@ -9,7 +9,7 @@ CFLAGS = @CFLAGS@ @X_CFLAGS@ -DXPAT_VERSION=\"@XPAT_VERSION@\" \
 xpat_LDADD = @LIBS@ @X_LIBS@ @LINK_MOTIF@ \
 	  -lPpt -lPhl -lPat -lAut -lMut
 
-INCLUDES = @INCLUDES@ @INCLUDE_MOTIF@
+INCLUDES = @INCLUDE_MOTIF@
 
 xpat_SOURCES = \
 LIP6bw.h XME_dialog.c XME_dialog.h XME_edit.c XME_edit.h \

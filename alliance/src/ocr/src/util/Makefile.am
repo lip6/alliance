@@ -1,6 +1,6 @@
 ## Process this file with automake to produce Makefile.in
 
-INCLUDES = @INCLUDES@ -I$(top_srcdir)/src/include 
+INCLUDES = -I$(top_srcdir)/src/include 
 
 noinst_LIBRARIES = libocrUtil.a
 

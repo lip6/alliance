@@ -2,7 +2,7 @@
 
 YACC = @YACC@ -d
 
-INCLUDES = @INCLUDES@ -I$(top_srcdir)/src/common -I$(top_srcdir)/src/placer
+INCLUDES = -I$(top_srcdir)/src/common -I$(top_srcdir)/src/placer
 
 bin_PROGRAMS = ocp
 

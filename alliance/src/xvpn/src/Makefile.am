@@ -9,7 +9,7 @@ CFLAGS = @CFLAGS@ @X_CFLAGS@ -DXVPN_VERSION=\"@XVPN_VERSION@\" \
 xvpn_LDADD = @LIBS@ @X_LIBS@ @LINK_MOTIF@ \
  -lVtl -lVvh -lVpd -lVpn -lVbl -lVbh -lVex -lAbl -lAut -lMut -lm
 
-INCLUDES = @INCLUDES@ @INCLUDE_MOTIF@
+INCLUDES = @INCLUDE_MOTIF@
 
 xvpn_SOURCES = \
 LIP6bw.h XME_dialog.c XME_dialog.h XME_edit.c XME_edit.h XME.h XME_menu.c \
