@@ -1,14 +1,14 @@
-.\"   $Id: GENLIB_DEF_PHFIG.3,v 1.1 2000/09/28 15:19:50 fred Exp $
-.\" @(#)DEF_PHFIG.3 2.11 91/08/22 ; Labo Cao-vlsi; Author : Frederic Petrot
+.\"   $Id: GENLIB_DEF_PHFIG.3,v 1.2 2000/09/28 15:25:49 fred Exp $
+.\" @(#)GENLIB_DEF_PHFIG.3 2.11 91/08/22 ; Labo Cao-vlsi; Author : Frederic Petrot
 .if t \{\
 .so man1/alc_contents.mac
 .XS \n%
 .ti 0.2i
-DEF_PHFIG
+GENLIB_DEF_PHFIG
 .XE \}
-.TH DEF_PHFIG 3 "October 1, 1997" "ASIM/LIP6" "PROCEDURAL GENERATION LANGUAGE"
+.TH GENLIB_DEF_PHFIG.3 "October 1, 1997" "ASIM/LIP6" "PROCEDURAL GENERATION LANGUAGE"
 .SH NAME
-DEF_PHFIG \- open a layout model as current figure
+GENLIB_DEF_PHFIG \- open a layout model as current figure
 .SH SYNOPSYS
 .nf
 .if n \{\
@@ -16,7 +16,7 @@ DEF_PHFIG \- open a layout model as current figure
 .if t \{\
 .ft CR \}
 #include <genlib.h>
-void DEF_PHFIG(cellname)
+void GENLIB_DEF_PHFIG(cellname)
 char \(**cellname;
 .ft R
 .fi
@@ -45,17 +45,17 @@ so be careful not to overwrite an existing file while saving later on.
 main()
 {
 	/\(** Create a figure to work on  \(**/
-	DEF_PHFIG("mycell");
+	GENLIB_DEF_PHFIG("mycell");
 	/\(** Place an instance \(**/
-	PLACE("mymodel","firstinstance", NOSYM,0L,0L);
+	GENLIB_PLACE("mymodel","firstinstance", NOSYM,0L,0L);
 	/\(** Save all that on disk \(**/
-	SAVE_PHFIG();
+	GENLIB_SAVE_PHFIG();
 }
 .ft R
 .fi
 .SH SEE ALSO
 .BR genlib (1),
-.BR DEF_PHSC (3).
+.BR GENLIB_DEF_PHSC (3).
 
 
 .so man1/alc_bug_report.1

@@ -1,21 +1,21 @@
-.\"   $Id: GENLIB_GET_REF_X.3,v 1.1 2000/09/28 15:19:53 fred Exp $
-.\" @(#)GET_REF_X.3 2.11 01/92; Labo Cao-vlsi; Author : Frederic Petrot
+.\"   $Id: GENLIB_GET_REF_X.3,v 1.2 2000/09/28 15:25:50 fred Exp $
+.\" @(#)GENLIB_GET_REF_X.3 2.11 01/92; Labo Cao-vlsi; Author : Frederic Petrot
 .if t \{\
 .so man1/alc_contents.mac
 .XS \n%
 .ti 0.2i
-GET_REF_X
+GENLIB_GET_REF_X
 .XE \}
-.TH GET_REF_X 3 "October 1, 1997" "ASIM/LIP6" "PROCEDURAL GENERATION LANGUAGE"
+.TH GENLIB_GET_REF_X.3 "October 1, 1997" "ASIM/LIP6" "PROCEDURAL GENERATION LANGUAGE"
 .SH NAME
-GET_REF_X \- retrieve the x coordinate of an instance reference
+GENLIB_GET_REF_X \- retrieve the x coordinate of an instance reference
 .SH SYNOPSYS
 .nf
 .if n \{\
 .ft B \}
 .if t \{\
 .ft CR \}
-long GET_REF_X(insname, refname)
+long GENLIB_GET_REF_X(insname, refname)
 char \(**insname, \(**refname;
 .ft R
 .fi
@@ -38,7 +38,7 @@ in the current figure
 .ft B \}
 .if t \{\
 .ft CR \}
-"GET_REF_X impossible : missing DEF_PHFIG"
+"GENLIB_GET_REF_X impossible : missing GENLIB_DEF_PHFIG"
 .ft R
 .RS
 No figure has been yet specified by a call to \fBDEF_PHFIG\fP. So it isn't
@@ -49,7 +49,7 @@ you must call \fBDEF_PHFIG\fP before any other layout action.
 .ft B \}
 .if t \{\
 .ft CR \}
-"GET_REF_X impossible : missing DEF_PHFIG"
+"GENLIB_GET_REF_X impossible : missing GENLIB_DEF_PHFIG"
 .ft R
 .RS
 No figure has been yet specified by a call to \fBDEF_PHFIG\fP. So it isn't
@@ -60,7 +60,7 @@ you must call \fBDEF_PHFIG\fP before any other layout action.
 .ft B \}
 .if t \{\
 .ft CR \}
-"GET_REF_X impossible : no abutment box"
+"GENLIB_GET_REF_X impossible : no abutment box"
 .ft R
 .RS
 The current figure does not have an \fIabutment box\fI. Use \fIDEF_AB\fP(3)
@@ -70,7 +70,7 @@ before this function.
 .ft B \}
 .if t \{\
 .ft CR \}
-"illegal GET_REF_X : orientation is XX"
+"illegal GENLIB_GET_REF_X : orientation is XX"
 .ft R
 .RS
 The \fIface\fP parameter does not have a legal value, but \fIXX\fP.
@@ -104,26 +104,26 @@ No reference called \fIrefname\fP exists in the model of the instance
 main()
 {
 	/\(** Create a figure to work on  \(**/
-	DEF_PHFIG("cell");
-	PLACE("gaci0_b", "r1", NOSYM, 23L, 54L);
+	GENLIB_DEF_PHFIG("cell");
+	GENLIB_PLACE("gaci0_b", "r1", NOSYM, 23L, 54L);
 	/\(** Put a reference \(**/
-	GET_REF_X("r1", "a_0", ALU2, 2, NORTH);
+	GENLIB_GET_REF_X("r1", "a_0", ALU2, 2, NORTH);
 	/\(** Save that on disk \(**/
-	SAVE_PHFIG();
+	GENLIB_SAVE_PHFIG();
 }
 .ft R
 .fi
 .SH SEE ALSO
 .BR genlib (1),
-.BR DEF_PHFIG (3),
-.BR SAVE_PHFIG (3),
-.BR PHREF (3),
-.BR PHSEG (3),
-.BR COPY_UP_REF (3),
-.BR COPY_UP_ALL_REF (3),
-.BR GET_REF_X (3),
-.BR GET_REF_X (3),
-.BR GET_REF_X (3).
+.BR GENLIB_DEF_PHFIG (3),
+.BR GENLIB_SAVE_PHFIG (3),
+.BR GENLIB_PHREF (3),
+.BR GENLIB_PHSEG (3),
+.BR GENLIB_COPY_UP_REF (3),
+.BR GENLIB_COPY_UP_ALL_REF (3),
+.BR GENLIB_GET_REF_X (3),
+.BR GENLIB_GET_REF_X (3),
+.BR GENLIB_GET_REF_X (3).
 
 
 .so man1/alc_bug_report.1

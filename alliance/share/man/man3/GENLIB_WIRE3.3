@@ -1,14 +1,14 @@
-.\"   $Id: GENLIB_WIRE3.3,v 1.1 2000/09/28 15:20:02 fred Exp $
-.\" @(#)WIRE3.3 2.11 91/08/22 ; Labo Cao-vlsi; Author : Frederic Petrot
+.\"   $Id: GENLIB_WIRE3.3,v 1.2 2000/09/28 15:25:56 fred Exp $
+.\" @(#)GENLIB_WIRE3.3 2.11 91/08/22 ; Labo Cao-vlsi; Author : Frederic Petrot
 .if t \{\
 .so man1/alc_contents.mac
 .XS \n%
 .ti 0.2i
-WIRE3
+GENLIB_WIRE3
 .XE \}
-.TH WIRE3 3 "October 1, 1997" "ASIM/LIP6" "PROCEDURAL GENERATION LANGUAGE"
+.TH GENLIB_WIRE3.3 "October 1, 1997" "ASIM/LIP6" "PROCEDURAL GENERATION LANGUAGE"
 .SH NAME
-WIRE3 \- place three physical segments in the current figure
+GENLIB_WIRE3 \- place three physical segments in the current figure
 .SH SYNOPSYS
 .nf
 .if n \{\
@@ -16,7 +16,7 @@ WIRE3 \- place three physical segments in the current figure
 .if t \{\
 .ft CR \}
 #include <genlib.h>
-void WIRE3(layer, width, ins1, con1, index1, ins2, con2, index2, x1, y1, x2, y2)
+void GENLIB_WIRE3(layer, width, ins1, con1, index1, ins2, con2, index2, x1, y1, x2, y2)
 char layer;
 long width;
 char \(**ins1, \(**con1, \(**ins2, \(**con2;
@@ -105,7 +105,7 @@ The \fIlayer\fP argument can take the following legal values :
 .ft B \}
 .if t \{\
 .ft CR \}
-"WIRE3 impossible : missing DEF_PHFIG"
+"GENLIB_WIRE3 impossible : missing GENLIB_DEF_PHFIG"
 .ft R
 .RS
 No figure has been yet specified by a call to \fBDEF_PHFIG\fP. So it isn't
@@ -127,7 +127,7 @@ relative coordinates, care must be taken to follow the previous rule.
 .ft B \}
 .if t \{\
 .ft CR \}
-"WIRE3 impossible : same name \fIconX\fP, for connector and reference in
+"GENLIB_WIRE3 impossible : same name \fIconX\fP, for connector and reference in
 \fIinsX\fP"
 .ft R
 .RS
@@ -156,28 +156,28 @@ long cellHeight;
 {
 	/* draw a wire made of 1, 2, or 3 segments, given from and to connectors
 	   or reference, and the x and y coordinates of each elbow points */
-	WIRE1(ALU1,1,"lastpg2","g2",1,"cabl31","sg",2);
-	WIRE3(ALU1,1,"cabl31","sp",2, "celout2", "cin", 1,
-			GET_CON_X("cabl31","sp",2),
-			GET_CON_Y("cabl31","sp",2) + cellHeight / 2,
-			GET_CON_X("celout2", "cin", 1),
-			GET_CON_Y("cabl31","sp",2) + cellHeight / 2);
-	WIRE1(POLY,1,"celout3","g",1,"celout2","co",0);
+	GENLIB_WIRE1(ALU1,1,"lastpg2","g2",1,"cabl31","sg",2);
+	GENLIB_WIRE3(ALU1,1,"cabl31","sp",2, "celout2", "cin", 1,
+			GENLIB_GET_CON_X("cabl31","sp",2),
+			GENLIB_GET_CON_Y("cabl31","sp",2) + cellHeight / 2,
+			GENLIB_GET_CON_X("celout2", "cin", 1),
+			GENLIB_GET_CON_Y("cabl31","sp",2) + cellHeight / 2);
+	GENLIB_WIRE1(POLY,1,"celout3","g",1,"celout2","co",0);
 }
 .ft R
 .fi
 .SH SEE ALSO
 .BR genlib (1),
-.BR DEF_PHFIG (3),
-.BR SAVE_PHFIG (3),
-.BR COPY_UP_SEG (3),
-.BR PHSEG (3),
-.BR THRU_H (3),
-.BR THRU_CON_H (3),
-.BR THRU_V (3),
-.BR THRU_CON_V (3),
-.BR WIRE1 (3),
-.BR WIRE2 (3).
+.BR GENLIB_DEF_PHFIG (3),
+.BR GENLIB_SAVE_PHFIG (3),
+.BR GENLIB_COPY_UP_SEG (3),
+.BR GENLIB_PHSEG (3),
+.BR GENLIB_THRU_H (3),
+.BR GENLIB_THRU_CON_H (3),
+.BR GENLIB_THRU_V (3),
+.BR GENLIB_THRU_CON_V (3),
+.BR GENLIB_WIRE1 (3),
+.BR GENLIB_WIRE2 (3).
 
 
 .so man1/alc_bug_report.1

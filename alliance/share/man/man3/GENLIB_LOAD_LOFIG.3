@@ -1,14 +1,14 @@
-.\"   $Id: GENLIB_LOAD_LOFIG.3,v 1.1 2000/09/28 15:19:53 fred Exp $
-.\" @(#)LOAD_LOFIG.3 2.11 91/08/22 ; Labo Cao-vlsi; Author : Frederic Petrot
+.\"   $Id: GENLIB_LOAD_LOFIG.3,v 1.2 2000/09/28 15:25:51 fred Exp $
+.\" @(#)GENLIB_LOAD_LOFIG.3 2.11 91/08/22 ; Labo Cao-vlsi; Author : Frederic Petrot
 .if t \{\
 .so man1/alc_contents.mac
 .XS \n%
 .ti 0.2i
-LOAD_LOFIG
+GENLIB_LOAD_LOFIG
 .XE \}
-.TH LOAD_LOFIG 3 "October 1, 1997" "ASIM/LIP6" "PROCEDURAL GENERATION LANGUAGE"
+.TH GENLIB_LOAD_LOFIG.3 "October 1, 1997" "ASIM/LIP6" "PROCEDURAL GENERATION LANGUAGE"
 .SH NAME
-LOAD_LOFIG \- loads a netlist form disk and opens it as current figure
+GENLIB_LOAD_LOFIG \- loads a netlist form disk and opens it as current figure
 .SH SYNOPSYS
 .nf
 .if n \{\
@@ -16,7 +16,7 @@ LOAD_LOFIG \- loads a netlist form disk and opens it as current figure
 .if t \{\
 .ft CR \}
 #include <genlib.h>
-void LOAD_LOFIG(cellname)
+void GENLIB_LOAD_LOFIG(cellname)
 char \(**cellname;
 .ft R
 .fi
@@ -41,18 +41,18 @@ So the next call to \fBSAVE_LOFIG\fP will save the cell called \fIcellname\fP.
 main()
 {
 	/\(** Loads the figure to work on  \(**/
-	LOAD_LOFIG("cell");
+	GENLIB_LOAD_LOFIG("cell");
 	/\(** Add an instance in cell \(**/
-	LOINS("model","instance", "sig1", "sig2", "sig3", "vdd", "vss", EOL);
+	GENLIB_LOINS("model","instance", "sig1", "sig2", "sig3", "vdd", "vss", EOL);
 	/\(** Save all that on disk \(**/
-	SAVE_LOFIG();
+	GENLIB_SAVE_LOFIG();
 }
 .ft R
 .fi
 .SH SEE ALSO
 .BR genlib (1),
-.BR DEF_LOFIG (3).
-.BR SAVE_LOFIG (3).
+.BR GENLIB_DEF_LOFIG (3).
+.BR GENLIB_SAVE_LOFIG (3).
 
 
 .so man1/alc_bug_report.1

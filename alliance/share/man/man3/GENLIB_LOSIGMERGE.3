@@ -1,14 +1,14 @@
-.\"   $Id: GENLIB_LOSIGMERGE.3,v 1.1 2000/09/28 15:19:55 fred Exp $
-.\" @(#)LOSIGMERGE.3 2.11 91/08/22 ; Labo Cao-vlsi; Author : Frederic Petrot
+.\"   $Id: GENLIB_LOSIGMERGE.3,v 1.2 2000/09/28 15:25:51 fred Exp $
+.\" @(#)GENLIB_LOSIGMERGE.3 2.11 91/08/22 ; Labo Cao-vlsi; Author : Frederic Petrot
 .if t \{\
 .so man1/alc_contents.mac
 .XS \n%
 .ti 0.2i
-LOSIGMERGE
+GENLIB_LOSIGMERGE
 .XE \}
-.TH LOSIGMERGE 3 "October 1, 1997" "ASIM/LIP6" "PROCEDURAL GENERATION LANGUAGE"
+.TH GENLIB_LOSIGMERGE.3 "October 1, 1997" "ASIM/LIP6" "PROCEDURAL GENERATION LANGUAGE"
 .SH NAME
-LOSIGMERGE \- merge two logical signals
+GENLIB_LOSIGMERGE \- merge two logical signals
 .SH SYNOPSYS
 .nf
 .if n \{\
@@ -16,7 +16,7 @@ LOSIGMERGE \- merge two logical signals
 .if t \{\
 .ft CR \}
 #include <genlib.h>
-void LOSIGMERGE(signal1, signal2)
+void GENLIB_LOSIGMERGE(signal1, signal2)
 char \(**signal1, \(**signal2;
 .ft R
 .fi
@@ -70,25 +70,25 @@ and call \fPFLATTEN_LOFIG\fP(3) just before saving.
 main()
 {
 	/\(** Create a figure to work on  \(**/
-	DEF_LOFIG("cell");
+	GENLIB_DEF_LOFIG("cell");
 	/\(** Define interface \(**
-	LOCON(...
+	GENLIB_LOCON(...
 	/\(** Place an instance \(**/
-	LOINS("no2_y" ,"no3" ,"a8_s" ,"a9_s" ,"new_no3_s" ,"vdd" ,"vss" ,0);
-	LOINS("no2_y" ,"no4" ,"a12_s" ,"a15_s" ,"no4_s" ,"vdd" ,"vss" ,0);
-	LOINS("a2_y" ,"a22" ,"no3_s" ,"no4_s" ,"a22_s" ,"vdd" ,"vss" ,0);
-	LOSIGMERGE("new_no3_s", "no3_s");
+	GENLIB_LOINS("no2_y" ,"no3" ,"a8_s" ,"a9_s" ,"new_no3_s" ,"vdd" ,"vss" ,0);
+	GENLIB_LOINS("no2_y" ,"no4" ,"a12_s" ,"a15_s" ,"no4_s" ,"vdd" ,"vss" ,0);
+	GENLIB_LOINS("a2_y" ,"a22" ,"no3_s" ,"no4_s" ,"a22_s" ,"vdd" ,"vss" ,0);
+	GENLIB_LOSIGMERGE("new_no3_s", "no3_s");
 	/\(** Save all that on disk \(**/
-	SAVE_LOFIG();
+	GENLIB_SAVE_LOFIG();
 }
 .ft R
 .fi
 .SH SEE ALSO
 .BR genlib (1),
-.BR LOINS (3),
-.BR LOCON (3),
-.BR FLATTEN_LOFIG (3),
-.BR SAVE_PHFIG (3).
+.BR GENLIB_LOINS (3),
+.BR GENLIB_LOCON (3),
+.BR GENLIB_FLATTEN_LOFIG (3),
+.BR GENLIB_SAVE_PHFIG (3).
 
 
 .so man1/alc_bug_report.1

@@ -1,14 +1,14 @@
-.\"   $Id: GENLIB_DEF_AB.3,v 1.1 2000/09/28 15:19:50 fred Exp $
-.\" @(#)DEF_AB.3 2.11 91/08/22; Labo Cao-vlsi; Author : Frederic Petrot
+.\"   $Id: GENLIB_DEF_AB.3,v 1.2 2000/09/28 15:25:48 fred Exp $
+.\" @(#)GENLIB_DEF_AB.3 2.11 91/08/22; Labo Cao-vlsi; Author : Frederic Petrot
 .if t \{\
 .so man1/alc_contents.mac
 .XS \n%
 .ti 0.2i
-DEF_AB
+GENLIB_DEF_AB
 .XE \}
-.TH DEF_AB 3 "October 1, 1997" "ASIM/LIP6" "PROCEDURAL GENERATION LANGUAGE"
+.TH GENLIB_DEF_AB.3 "October 1, 1997" "ASIM/LIP6" "PROCEDURAL GENERATION LANGUAGE"
 .SH NAME
-DEF_AB \- define a new \fIabutment box\fP to the current layout cell
+GENLIB_DEF_AB \- define a new \fIabutment box\fP to the current layout cell
 .SH SYNOPSYS
 .nf
 .if n \{\
@@ -16,7 +16,7 @@ DEF_AB \- define a new \fIabutment box\fP to the current layout cell
 .if t \{\
 .ft CR \}
 #include <genlib.h>
-void DEF_AB(dx1, dy1, dx2, dy2);
+void GENLIB_DEF_AB(dx1, dy1, dx2, dy2);
 long dx1, dy1, dx2, dy2;
 .ft R
 .fi
@@ -45,7 +45,7 @@ will be incorrect if \fBDEF_AB\fP isn't called, or properly defined.
 .ft B \}
 .if t \{\
 .ft CR \}
-"DEF_AB impossible : missing DEF_PHFIG"
+"GENLIB_DEF_AB impossible : missing GENLIB_DEF_PHFIG"
 .ft R
 .RS
 No figure has been yet specified by a call to \fBDEF_PHFIG\fP. So it isn't
@@ -62,22 +62,22 @@ you must call \fBDEF_PHFIG\fP before any other layout action.
 main()
 {
 	/\(** Create a figure to work on  \(**/
-	DEF_PHFIG("cell");
+	GENLIB_DEF_PHFIG("cell");
 	/\(** Place an instance \(**/
-	PLACE("model","i1", NOSYM,0L,0L);
-	PLACE("model","i2", NOSYM,120L,40L);
-	DEF_PHINS("i1");
-	PLACE_TOP("model2", "i3", NOSYM);
+	GENLIB_PLACE("model","i1", NOSYM,0L,0L);
+	GENLIB_PLACE("model","i2", NOSYM,120L,40L);
+	GENLIB_DEF_PHINS("i1");
+	GENLIB_PLACE_TOP("model2", "i3", NOSYM);
 	/\(** define the new abutment box as the standard envelop \(**/
-	DEF_AB(0, 0, 0, 0);
+	GENLIB_DEF_AB(0, 0, 0, 0);
 	/\(** Save all that on disk \(**/
-	SAVE_PHFIG();
+	GENLIB_SAVE_PHFIG();
 }
 .ft R
 .fi
 .SH SEE ALSO
 .BR genlib (1),
-.BR SAVE_PHFIG (3).
+.BR GENLIB_SAVE_PHFIG (3).
 
 
 .so man1/alc_bug_report.1

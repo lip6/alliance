@@ -1,12 +1,12 @@
-.\"   $Id: GENLIB_THRU_H.3,v 1.1 2000/09/28 15:20:01 fred Exp $
-.\" @(#)THRU_H.3 2.11 91/08/22 ; Labo Cao-vlsi; Author : Frederic Petrot
+.\"   $Id: GENLIB_THRU_H.3,v 1.2 2000/09/28 15:25:55 fred Exp $
+.\" @(#)GENLIB_THRU_H.3 2.11 91/08/22 ; Labo Cao-vlsi; Author : Frederic Petrot
 .if t \{\
 .so man1/alc_contents.mac
 .XS \n%
 .ti 0.2i
-THRU_H
+GENLIB_THRU_H
 .XE \}
-.TH THRU_H 3 "October 1, 1997" "ASIM/LIP6" "PROCEDURAL GENERATION LANGUAGE"
+.TH GENLIB_THRU_H.3 "October 1, 1997" "ASIM/LIP6" "PROCEDURAL GENERATION LANGUAGE"
 .SH NAME
 \fBTHRU_H\fP \- draw an horizontal wire from side to side of the
 \fIabutment box\fP of the current figure
@@ -17,7 +17,7 @@ THRU_H
 .if t \{\
 .ft CR \}
 #include <genlib.h>
-void THRU_H(layer, width, y)
+void GENLIB_THRU_H(layer, width, y)
 char layer;
 long width;
 long y;
@@ -85,7 +85,7 @@ The \fIlayer\fP argument can take the following legal values:
 .ft B \}
 .if t \{\
 .ft CR \}
-"THRU_H impossible : missing DEF_PHFIG"
+"GENLIB_THRU_H impossible : missing GENLIB_DEF_PHFIG"
 .ft R
 .RS
 No figure has been yet specified by a call to \fBDEF_PHFIG\fP. So it isn't
@@ -96,7 +96,7 @@ you must call \fBDEF_PHFIG\fP before any other layout action.
 .ft B \}
 .if t \{\
 .ft CR \}
-"THRU_H impossible : no or illegal abutment box"
+"GENLIB_THRU_H impossible : no or illegal abutment box"
 .ft R
 .RS
 The current figure has either no abutment box defined yet, or has a width
@@ -112,25 +112,25 @@ of zero. \fBDEF_AB\fP is to be called.
 main()
 {
 	/\(** Create a figure to work on  \(**/
-	DEF_PHFIG("cell");
+	GENLIB_DEF_PHFIG("cell");
 	.
 	.
 	.
-	DEF_AB(0L, 0L, 0L, 0L);
+	GENLIB_DEF_AB(0L, 0L, 0L, 0L);
 	/\(** Put a wire through the figure \(**/
-	THRU_H(TALU2, 1, 32L);
+	GENLIB_THRU_H(TALU2, 1, 32L);
 	/\(** Save that on disk \(**/
-	SAVE_PHFIG();
+	GENLIB_SAVE_PHFIG();
 }
 .ft R
 .fi
 .SH SEE ALSO
 .BR genlib (1),
-.BR DEF_PHFIG (3),
-.BR SAVE_PHFIG (3),
-.BR THRU_V (3),
-.BR THRU_CON_H (3),
-.BR THRU_CON_V (3).
+.BR GENLIB_DEF_PHFIG (3),
+.BR GENLIB_SAVE_PHFIG (3),
+.BR GENLIB_THRU_V (3),
+.BR GENLIB_THRU_CON_H (3),
+.BR GENLIB_THRU_CON_V (3).
 
 
 .so man1/alc_bug_report.1

@@ -1,14 +1,14 @@
-.\"   $Id: GENLIB_REVERSE_PHCON.3,v 1.1 2000/09/28 15:19:58 fred Exp $
-.\" @(#)REVERSE_PHCON.3 2.11 93/09/03 ; Labo Cao-vlsi; Author : Frederic Petrot
+.\"   $Id: GENLIB_REVERSE_PHCON.3,v 1.2 2000/09/28 15:25:54 fred Exp $
+.\" @(#)GENLIB_REVERSE_PHCON.3 2.11 93/09/03 ; Labo Cao-vlsi; Author : Frederic Petrot
 .if t \{\
 .so man1/alc_contents.mac
 .XS \n%
 .ti 0.2i
-REVERSE_PHCON
+GENLIB_REVERSE_PHCON
 .XE \}
-.TH REVERSE_PHCON 3 "October 1, 1997" "ASIM/LIP6" "PROCEDURAL GENERATION LANGUAGE"
+.TH GENLIB_REVERSE_PHCON.3 "October 1, 1997" "ASIM/LIP6" "PROCEDURAL GENERATION LANGUAGE"
 .SH NAME
-REVERSE_PHCON \- reverse the order of physical connectors on a bus.
+GENLIB_REVERSE_PHCON \- reverse the order of physical connectors on a bus.
 .SH SYNOPSYS
 .nf
 .if n \{\
@@ -16,7 +16,7 @@ REVERSE_PHCON \- reverse the order of physical connectors on a bus.
 .if t \{\
 .ft CR \}
 #include <genlib.h>
-void REVERSE_PHCON(basename)
+void GENLIB_REVERSE_PHCON(basename)
 char \(**basename;
 .ft R
 .fi
@@ -44,27 +44,27 @@ demand only before saving.
 #include <genlib.h>
 main()
 {
-	DEF_PHFIG("rom");
+	GENLIB_DEF_PHFIG("rom");
 	/\(** Create a figure to work on  \(**/
 	.
 	.
 	.
 	/\(** Reverse the bit ordering if needed \(**/
 	if (msb0)
-		REVERSE_PHCON("adr");
+		GENLIB_REVERSE_PHCON("adr");
 	/\(** Save all that on disk \(**/
-	SAVE_PHFIG();
+	GENLIB_SAVE_PHFIG();
 }
 .ft R
 .fi
 .SH SEE ALSO
 .BR genlib (1),
-.BR PHCON (3),
-.BR PHREF (3),
-.BR COPY_UP_CON (3),
-.BR COPY_UP_ALL_CON (3),
-.BR COPY_UP_CON_FACE (3),
-.BR COPY_UP_REF (3).
+.BR GENLIB_PHCON (3),
+.BR GENLIB_PHREF (3),
+.BR GENLIB_COPY_UP_CON (3),
+.BR GENLIB_COPY_UP_ALL_CON (3),
+.BR GENLIB_COPY_UP_CON_FACE (3),
+.BR GENLIB_COPY_UP_REF (3).
 
 
 .so man1/alc_bug_report.1

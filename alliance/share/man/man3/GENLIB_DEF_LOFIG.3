@@ -1,14 +1,14 @@
-.\"   $Id: GENLIB_DEF_LOFIG.3,v 1.1 2000/09/28 15:19:50 fred Exp $
-.\" @(#)DEF_LOFIG.3 2.11 91/08/22 ; Labo Cao-vlsi; Author : Frederic Petrot
+.\"   $Id: GENLIB_DEF_LOFIG.3,v 1.2 2000/09/28 15:25:49 fred Exp $
+.\" @(#)GENLIB_DEF_LOFIG.3 2.11 91/08/22 ; Labo Cao-vlsi; Author : Frederic Petrot
 .if t \{\
 .so man1/alc_contents.mac
 .XS \n%
 .ti 0.2i
-DEF_LOFIG
+GENLIB_DEF_LOFIG
 .XE \}
-.TH DEF_LOFIG 3 "October 1, 1997" "ASIM/LIP6" "PROCEDURAL GENERATION LANGUAGE"
+.TH GENLIB_DEF_LOFIG.3 "October 1, 1997" "ASIM/LIP6" "PROCEDURAL GENERATION LANGUAGE"
 .SH NAME
-DEF_LOFIG \- open a netlist model as current figure
+GENLIB_DEF_LOFIG \- open a netlist model as current figure
 .SH SYNOPSYS
 .nf
 .if n \{\
@@ -16,7 +16,7 @@ DEF_LOFIG \- open a netlist model as current figure
 .if t \{\
 .ft CR \}
 #include <genlib.h>
-void DEF_LOFIG(cellname)
+void GENLIB_DEF_LOFIG(cellname)
 char \(**cellname;
 .ft R
 .fi
@@ -45,17 +45,17 @@ so be careful not to overwrite an existing file while saving later on.
 main()
 {
 	/\(** Create a figure to work on  \(**/
-	DEF_LOFIG("cell");
+	GENLIB_DEF_LOFIG("cell");
 	/\(** Place an instance \(**/
-	LOINS("model","instance", "sig1", "sig2", "sig3", "vdd", "vss", EOL);
+	GENLIB_LOINS("model","instance", "sig1", "sig2", "sig3", "vdd", "vss", EOL);
 	/\(** Save all that on disk \(**/
-	SAVE_LOFIG();
+	GENLIB_SAVE_LOFIG();
 }
 .ft R
 .fi
 .SH SEE ALSO
 .BR genlib (1),
-.BR SAVE_LOFIG (3).
+.BR GENLIB_SAVE_LOFIG (3).
 
 
 .so man1/alc_bug_report.1

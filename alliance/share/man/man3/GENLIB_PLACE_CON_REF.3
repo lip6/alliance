@@ -1,14 +1,14 @@
-.\"   $Id: GENLIB_PLACE_CON_REF.3,v 1.1 2000/09/28 15:19:57 fred Exp $
-.\" @(#)PLACE_CON_REF.3 2.11 01/92; Labo Cao-vlsi; Author : Frederic Petrot
+.\"   $Id: GENLIB_PLACE_CON_REF.3,v 1.2 2000/09/28 15:25:53 fred Exp $
+.\" @(#)GENLIB_PLACE_CON_REF.3 2.11 01/92; Labo Cao-vlsi; Author : Frederic Petrot
 .if t \{\
 .so man1/alc_contents.mac
 .XS \n%
 .ti 0.2i
-PLACE_CON_REF
+GENLIB_PLACE_CON_REF
 .XE \}
-.TH PLACE_CON_REF 3 "October 1, 1997" "ASIM/LIP6" "PROCEDURAL GENERATION LANGUAGE"
+.TH GENLIB_PLACE_CON_REF.3 "October 1, 1997" "ASIM/LIP6" "PROCEDURAL GENERATION LANGUAGE"
 .SH NAME
-PLACE_CON_REF \- put a connector on top of a reference belonging an
+GENLIB_PLACE_CON_REF \- put a connector on top of a reference belonging an
 instance in the current figure
 .SH SYNOPSYS
 .nf
@@ -17,7 +17,7 @@ instance in the current figure
 .if t \{\
 .ft CR \}
 #include <genlib.h>
-void PLACE_CON_REF(insname, refname, conname, layer, width, face)
+void GENLIB_PLACE_CON_REF(insname, refname, conname, layer, width, face)
 char  \(**insname, \(**refname, \(**conname;
 char layer, face;
 long width;
@@ -81,7 +81,7 @@ for a connector placed on the left side of the cell.
 .ft B \}
 .if t \{\
 .ft CR \}
-"PLACE_CON_REF impossible : missing DEF_PHFIG"
+"GENLIB_PLACE_CON_REF impossible : missing GENLIB_DEF_PHFIG"
 .ft R
 .RS
 No figure has been yet specified by a call to \fBDEF_PHFIG\fP. So it isn't
@@ -92,7 +92,7 @@ you must call \fBDEF_PHFIG\fP before any other layout action.
 .ft B \}
 .if t \{\
 .ft CR \}
-"PLACE_CON_REF impossible : missing DEF_PHFIG"
+"GENLIB_PLACE_CON_REF impossible : missing GENLIB_DEF_PHFIG"
 .ft R
 .RS
 No figure has been yet specified by a call to \fBDEF_PHFIG\fP. So it isn't
@@ -103,7 +103,7 @@ you must call \fBDEF_PHFIG\fP before any other layout action.
 .ft B \}
 .if t \{\
 .ft CR \}
-"PLACE_CON_REF impossible : no abutment box"
+"GENLIB_PLACE_CON_REF impossible : no abutment box"
 .ft R
 .RS
 The current figure does not have an \fIabutment box\fI. Use \fIDEF_AB\fP(3)
@@ -113,7 +113,7 @@ before this function.
 .ft B \}
 .if t \{\
 .ft CR \}
-"illegal PLACE_CON_REF : orientation is XX"
+"illegal GENLIB_PLACE_CON_REF : orientation is XX"
 .ft R
 .RS
 The \fIface\fP parameter does not have a legal value, but \fIXX\fP.
@@ -147,26 +147,26 @@ No reference called \fIrefname\fP exists in the model of the instance
 main()
 {
 	/\(** Create a figure to work on  \(**/
-	DEF_PHFIG("cell");
-	PLACE("gaci0_b", "r1", NOSYM, 23L, 54L);
+	GENLIB_DEF_PHFIG("cell");
+	GENLIB_PLACE("gaci0_b", "r1", NOSYM, 23L, 54L);
 	/\(** Put a reference \(**/
-	PLACE_CON_REF("r1", "a_0", ALU2, 2, NORTH);
+	GENLIB_PLACE_CON_REF("r1", "a_0", ALU2, 2, NORTH);
 	/\(** Save that on disk \(**/
-	SAVE_PHFIG();
+	GENLIB_SAVE_PHFIG();
 }
 .ft R
 .fi
 .SH SEE ALSO
 .BR genlib (1),
-.BR DEF_PHFIG (3),
-.BR SAVE_PHFIG (3),
-.BR PHREF (3),
-.BR PHCON (3),
-.BR COPY_UP_REF (3),
-.BR COPY_UP_ALL_REF (3),
-.BR PLACE_CON_REF (3),
-.BR PLACE_SEG_REF (3),
-.BR PLACE_CON_REF (3).
+.BR GENLIB_DEF_PHFIG (3),
+.BR GENLIB_SAVE_PHFIG (3),
+.BR GENLIB_PHREF (3),
+.BR GENLIB_PHCON (3),
+.BR GENLIB_COPY_UP_REF (3),
+.BR GENLIB_COPY_UP_ALL_REF (3),
+.BR GENLIB_PLACE_CON_REF (3),
+.BR GENLIB_PLACE_SEG_REF (3),
+.BR GENLIB_PLACE_CON_REF (3).
 
 
 .so man1/alc_bug_report.1

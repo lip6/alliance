@@ -1,14 +1,14 @@
-.\"   $Id: GENLIB_BUS.3,v 1.1 2000/09/28 15:19:48 fred Exp $
-.\" @(#)BUS.3 2.11 91/08/22; Labo Cao-vlsi; Author : Frederic Petrot
+.\"   $Id: GENLIB_BUS.3,v 1.2 2000/09/28 15:25:48 fred Exp $
+.\" @(#)GENLIB_BUS.3 2.11 91/08/22; Labo Cao-vlsi; Author : Frederic Petrot
 .if t \{\
 .so man1/alc_contents.mac
 .XS \n%
 .ti 0.2i
-BUS
+GENLIB_BUS
 .XE \}
-.TH BUS 3 "October 1, 1997" "ASIM/LIP6" "PROCEDURAL GENERATION LANGUAGE"
+.TH GENLIB_BUS.3 "October 1, 1997" "ASIM/LIP6" "PROCEDURAL GENERATION LANGUAGE"
 .SH NAME
-BUS \- Creates a bus name for netlist
+GENLIB_BUS \- Creates a bus name for netlist
 .SH SYNOPSYS
 .nf
 .if n \{\
@@ -16,7 +16,7 @@ BUS \- Creates a bus name for netlist
 .if t \{\
 .ft CR \}
 #include <genlib.h>
-char \(**BUS(busname, from, to);
+char \(**GENLIB_BUS(busname, from, to);
 char \(**busname;
 long from, to;
 .ft R
@@ -61,20 +61,20 @@ main()
 int b = 0;
 int e = 12;
 	/\(** Create a figure to work on  \(**/
-	DEF_LOFIG("mycell");
+	GENLIB_DEF_LOFIG("mycell");
 	/\(** define interface  \(**/
-	LOCON(BUS("i", b, e), INPUT, BUS("sig", b, e);
-	LOCON("o[2:0]", OUTPUT, "sigout[4:6]");
+	GENLIB_LOCON(GENLIB_BUS("i", b, e), INPUT, BUS("sig", b, e);
+	GENLIB_LOCON("o[2:0]", OUTPUT, "sigout[4:6]");
 	/\(** Place an instance \(**/
-	LOINS("model","instance", BUS("sig", e/2), "sigout[6]", EOL);
+	GENLIB_LOINS("model","instance", GENLIB_BUS("sig", e/2), "sigout[6]", EOL);
 	/\(** Save all that on disk \(**/
-	SAVE_LOFIG();
+	GENLIB_SAVE_LOFIG();
 }
 .ft R
 .fi
 .SH SEE ALSO
 .BR genlib (1),
-.BR ELM (3).
+.BR GENLIB_ELM (3).
 
 
 .so man1/alc_bug_report.1

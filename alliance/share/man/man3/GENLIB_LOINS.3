@@ -1,14 +1,14 @@
-.\"   $Id: GENLIB_LOINS.3,v 1.1 2000/09/28 15:19:54 fred Exp $
-.\" @(#)LOINS.3 2.11 91/08/22; Labo Cao-vlsi; Author : Frederic Petrot
+.\"   $Id: GENLIB_LOINS.3,v 1.2 2000/09/28 15:25:51 fred Exp $
+.\" @(#)GENLIB_LOINS.3 2.11 91/08/22; Labo Cao-vlsi; Author : Frederic Petrot
 .if t \{\
 .so man1/alc_contents.mac
 .XS \n%
 .ti 0.2i
-LOINS
+GENLIB_LOINS
 .XE \}
-.TH LOINS 3 "October 1, 1997" "ASIM/LIP6" "PROCEDURAL GENERATION LANGUAGE"
+.TH GENLIB_LOINS.3 "October 1, 1997" "ASIM/LIP6" "PROCEDURAL GENERATION LANGUAGE"
 .SH NAME
-LOINS \- add a logical instance to the current figure
+GENLIB_LOINS \- add a logical instance to the current figure
 .SH SYNOPSYS
 .nf
 .if n \{\
@@ -16,7 +16,7 @@ LOINS \- add a logical instance to the current figure
 .if t \{\
 .ft CR \}
 #include <genlib.h>
-void LOINS(model, instance, sig1, sig2, ..., sign, EOL);
+void GENLIB_LOINS(model, instance, sig1, sig2, ..., sign, EOL);
 char \(**model, \(**instance;
 char \(**sig1, \(**sig2, ..., \(**sign;
 .ft R
@@ -65,7 +65,7 @@ documentation, for standard cell circuits.
 .ft B \}
 .if t \{\
 .ft CR \}
-"LOINS impossible : missing DEF_LOFIG"
+"GENLIB_LOINS impossible : missing GENLIB_DEF_LOFIG"
 .ft R
 .br
 .RS
@@ -78,7 +78,7 @@ netlist call.
 .ft B \}
 .if t \{\
 .ft CR \}
-"LOINS : Bad signal bus name"
+"GENLIB_LOINS : Bad signal bus name"
 .ft R
 .br
 .RS
@@ -129,20 +129,20 @@ describing the connectivity during the \fBLOINS\fP call.
 main()
 {
 	/\(** Create a figure to work on  \(**/
-	DEF_LOFIG("mycell");
+	GENLIB_DEF_LOFIG("mycell");
 	/\(** define interface  \(**/
-	LOCON("i", INPUT, "sig1");
-	LOCON("o", OUTPUT, "sig2");
+	GENLIB_LOCON("i", INPUT, "sig1");
+	GENLIB_LOCON("o", OUTPUT, "sig2");
 	/\(** Place an instance \(**/
-	LOINS("model","instance", "sig1", "sig2", EOL);
+	GENLIB_LOINS("model","instance", "sig1", "sig2", EOL);
 	/\(** Save all that on disk \(**/
-	SAVE_LOFIG();
+	GENLIB_SAVE_LOFIG();
 }
 .ft R
 .fi
 .SH SEE ALSO
 .BR genlib (1),
-.BR DEF_LOFIG (3),
+.BR GENLIB_DEF_LOFIG (3),
 .BR MBK_IN_LO (1),
 .BR MBK_CATA_LIB (1),
 .BR MBK_WORK_LIB (1).

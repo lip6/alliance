@@ -1,14 +1,14 @@
-.\"   $Id: GENLIB_PHREF.3,v 1.1 2000/09/28 15:19:56 fred Exp $
-.\" @(#)PHREF.3 2.11 91/08/22 ; Labo Cao-vlsi; Author : Frederic Petrot
+.\"   $Id: GENLIB_PHREF.3,v 1.2 2000/09/28 15:25:52 fred Exp $
+.\" @(#)GENLIB_PHREF.3 2.11 91/08/22 ; Labo Cao-vlsi; Author : Frederic Petrot
 .if t \{\
 .so man1/alc_contents.mac
 .XS \n%
 .ti 0.2i
-PHREF
+GENLIB_PHREF
 .XE \}
-.TH PHREF 3 "October 1, 1997" "ASIM/LIP6" "PROCEDURAL GENERATION LANGUAGE"
+.TH GENLIB_PHREF.3 "October 1, 1997" "ASIM/LIP6" "PROCEDURAL GENERATION LANGUAGE"
 .SH NAME
-PHREF \- place a physical reference in the current figure at absolute
+GENLIB_PHREF \- place a physical reference in the current figure at absolute
 coordinates
 .SH SYNOPSYS
 .nf
@@ -17,7 +17,7 @@ coordinates
 .if t \{\
 .ft CR \}
 #include <genlib.h>
-void PHREF(type, name, x, y)
+void GENLIB_PHREF(type, name, x, y)
 char \(**type, \(**name;
 long x, y;
 .ft R
@@ -54,7 +54,7 @@ for any other need from the designer.
 .ft B \}
 .if t \{\
 .ft CR \}
-"PHREF impossible : missing DEF_PHFIG"
+"GENLIB_PHREF impossible : missing GENLIB_DEF_PHFIG"
 .ft R
 .RS
 No figure has been yet specified by a call to \fBDEF_PHFIG\fP. So it isn't
@@ -71,25 +71,25 @@ you must call \fBDEF_PHFIG\fP before any other layout action.
 main()
 {
 	/\(** Create a figure to work on  \(**/
-	DEF_PHFIG("cell");
+	GENLIB_DEF_PHFIG("cell");
 	.
 	/\(** Put a reference \(**/
-	PHREF("ref_con", "in_a[0]", 102L, 10L);
+	GENLIB_PHREF("ref_con", "in_a[0]", 102L, 10L);
 	.
 	.
-	DEF_AB(0L, 0L, 0L, 0L);
+	GENLIB_DEF_AB(0L, 0L, 0L, 0L);
 	/\(** Save that on disk \(**/
-	SAVE_PHFIG();
+	GENLIB_SAVE_PHFIG();
 }
 .ft R
 .fi
 .SH SEE ALSO
 .BR genlib (1),
-.BR DEF_PHFIG (3),
-.BR SAVE_PHFIG (3),
-.BR PLACE_CON_REF (3),
-.BR PLACE_SEG_REF (3),
-.BR PLACE_VIA_REF (3).
+.BR GENLIB_DEF_PHFIG (3),
+.BR GENLIB_SAVE_PHFIG (3),
+.BR GENLIB_PLACE_CON_REF (3),
+.BR GENLIB_PLACE_SEG_REF (3),
+.BR GENLIB_PLACE_VIA_REF (3).
 
 
 .so man1/alc_bug_report.1

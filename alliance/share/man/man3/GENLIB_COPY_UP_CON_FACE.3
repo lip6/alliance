@@ -1,14 +1,14 @@
-.\"   $Id: GENLIB_COPY_UP_CON_FACE.3,v 1.1 2000/09/28 15:19:49 fred Exp $
-.\" @(#)COPY_UP_CON_FACE.3 2.11 91/08/22 ; Labo Cao-vlsi; Author : Frederic Petrot
+.\"   $Id: GENLIB_COPY_UP_CON_FACE.3,v 1.2 2000/09/28 15:25:48 fred Exp $
+.\" @(#)GENLIB_COPY_UP_CON_FACE.3 2.11 91/08/22 ; Labo Cao-vlsi; Author : Frederic Petrot
 .if t \{\
 .so man1/alc_contents.mac
 .XS \n%
 .ti 0.2i
-COPY_UP_CON_FACE
+GENLIB_COPY_UP_CON_FACE
 .XE \}
-.TH COPY_UP_CON_FACE 3 "October 1, 1997" "ASIM/LIP6" "PROCEDURAL GENERATION LANGUAGE"
+.TH GENLIB_COPY_UP_CON_FACE.3 "October 1, 1997" "ASIM/LIP6" "PROCEDURAL GENERATION LANGUAGE"
 .SH NAME
-COPY_UP_CON_FACE \- copy a physical connector from an instance in the
+GENLIB_COPY_UP_CON_FACE \- copy a physical connector from an instance in the
 current figure
 .SH SYNOPSYS
 .nf
@@ -17,7 +17,7 @@ current figure
 .if t \{\
 .ft CR \}
 #include <genlib.h>
-void COPY_UP_CON_FACE(face, conname, insname, newname)
+void GENLIB_COPY_UP_CON_FACE(face, conname, insname, newname)
 long index;
 char \(**insname;
 char \(**conname;
@@ -63,7 +63,7 @@ the connector layer.
 .ft B \}
 .if t \{\
 .ft CR \}
-"COPY_UP_CON_FACE impossible : missing DEF_PHFIG"
+"GENLIB_COPY_UP_CON_FACE impossible : missing GENLIB_DEF_PHFIG"
 .ft R
 .RS
 No figure has been yet specified by a call to \fBDEF_PHFIG\fP. So it isn't
@@ -74,7 +74,7 @@ you must call \fBDEF_PHFIG\fP before any other layout action.
 .ft B \}
 .if t \{\
 .ft CR \}
-"*** genlib error *** COPY_UP_CON_FACE impossible : connector \fIconname\fP face
+"*** genlib error *** GENLIB_COPY_UP_CON_FACE impossible : connector \fIconname\fP face
 \fIface\fP of instance \fIinsname\fP, \fIcurrent\fP figure doesn't exist"
 .ft R
 .RS
@@ -90,29 +90,29 @@ No connector matches both the \fIconname\fP and the \fIface\fP arguments.
 main()
 {
 	/\(** Create a figure to work on  \(**/
-	DEF_PHFIG("cell");
+	GENLIB_DEF_PHFIG("cell");
 	.
 	.
-	PLACE_LEFT("gaer0_f", "insN", SYMXY);
+	GENLIB_PLACE_LEFT("gaer0_f", "insN", SYMXY);
 	.
 	.
-	DEF_AB(0L, 0L, 0L, 0L);
+	GENLIB_DEF_AB(0L, 0L, 0L, 0L);
 	/\(** Put a connector \(**/
-	COPY_UP_CON_FACE("i0", 1, "insN", "inz0");
+	GENLIB_COPY_UP_CON_FACE("i0", 1, "insN", "inz0");
 	/\(** Save that on disk \(**/
-	SAVE_PHFIG();
+	GENLIB_SAVE_PHFIG();
 }
 .ft R
 .fi
 .SH SEE ALSO
 .BR genlib (1),
-.BR DEF_PHFIG (3),
-.BR SAVE_PHFIG (3),
-.BR COPY_UP_ALL_CON (3),
-.BR COPY_UP_CON (3),
-.BR PHCON (3),
-.BR THRU_CON_H (3),
-.BR THRU_CON_V (3).
+.BR GENLIB_DEF_PHFIG (3),
+.BR GENLIB_SAVE_PHFIG (3),
+.BR GENLIB_COPY_UP_ALL_CON (3),
+.BR GENLIB_COPY_UP_CON (3),
+.BR GENLIB_PHCON (3),
+.BR GENLIB_THRU_CON_H (3),
+.BR GENLIB_THRU_CON_V (3).
 
 
 .so man1/alc_bug_report.1

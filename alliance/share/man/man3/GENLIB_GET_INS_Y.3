@@ -1,21 +1,21 @@
-.\"   $Id: GENLIB_GET_INS_Y.3,v 1.1 2000/09/28 15:19:53 fred Exp $
-.\" @(#)GET_INS_Y.3 2.11 01/92; Labo Cao-vlsi; Author : Frederic Petrot
+.\"   $Id: GENLIB_GET_INS_Y.3,v 1.2 2000/09/28 15:25:50 fred Exp $
+.\" @(#)GENLIB_GET_INS_Y.3 2.11 01/92; Labo Cao-vlsi; Author : Frederic Petrot
 .if t \{\
 .so man1/alc_contents.mac
 .XS \n%
 .ti 0.2i
-GET_INS_Y
+GENLIB_GET_INS_Y
 .XE \}
-.TH GET_INS_Y 3 "October 1, 1997" "ASIM/LIP6" "PROCEDURAL GENERATION LANGUAGE"
+.TH GENLIB_GET_INS_Y.3 "October 1, 1997" "ASIM/LIP6" "PROCEDURAL GENERATION LANGUAGE"
 .SH NAME
-GET_INS_Y \- retrieve the y coordinate of an instance
+GENLIB_GET_INS_Y \- retrieve the y coordinate of an instance
 .SH SYNOPSYS
 .nf
 .if n \{\
 .ft B \}
 .if t \{\
 .ft CR \}
-long GET_INS_Y(insname)
+long GENLIB_GET_INS_Y(insname)
 char \(**insname;
 .ft R
 .fi
@@ -37,7 +37,7 @@ in the current figure
 .ft B \}
 .if t \{\
 .ft CR \}
-"GET_INS_Y impossible : missing DEF_PHFIG"
+"GENLIB_GET_INS_Y impossible : missing GENLIB_DEF_PHFIG"
 .ft R
 .RS
 No figure has been yet specified by a call to \fBDEF_PHFIG\fP. So it isn't
@@ -64,30 +64,30 @@ main()
 {
 long x, y;
 	/\(** Create a figure to work on  \(**/
-	DEF_PHFIG("cell");
-	PLACE("gaci0_b", "r1", NOSYM, 23L, 54L);
-	PLACE_TOP("gaci0_b", "r2", SYM_Y);
-	PLACE_RIGHT("gaci0_b", "r3", SYM_Y);
+	GENLIB_DEF_PHFIG("cell");
+	GENLIB_PLACE("gaci0_b", "r1", NOSYM, 23L, 54L);
+	GENLIB_PLACE_TOP("gaci0_b", "r2", SYM_Y);
+	GENLIB_PLACE_RIGHT("gaci0_b", "r3", SYM_Y);
 	/\(** Get a connector \(**/
-	x = GET_INS_X("r3");
-	y = GET_INS_Y("r3");
+	x = GENLIB_GET_INS_X("r3");
+	y = GENLIB_GET_INS_Y("r3");
 	.
 	.
 	/\(** Save that on disk \(**/
-	SAVE_PHFIG();
+	GENLIB_SAVE_PHFIG();
 }
 .ft R
 .fi
 .SH SEE ALSO
 .BR genlib (1),
-.BR DEF_PHFIG (3),
-.BR SAVE_PHFIG (3),
+.BR GENLIB_DEF_PHFIG (3),
+.BR GENLIB_SAVE_PHFIG (3),
 .BR PHINS (3),
-.BR GET_INS_X (3),
-.BR GET_CON_X (3),
-.BR GET_CON_Y (3).
-.BR GET_REF_X (3),
-.BR GET_REF_Y (3).
+.BR GENLIB_GET_INS_X (3),
+.BR GENLIB_GET_CON_X (3),
+.BR GENLIB_GET_CON_Y (3).
+.BR GENLIB_GET_REF_X (3),
+.BR GENLIB_GET_REF_Y (3).
 
 
 .so man1/alc_bug_report.1

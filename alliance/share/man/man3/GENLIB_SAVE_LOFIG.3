@@ -1,14 +1,14 @@
-.\"   $Id: GENLIB_SAVE_LOFIG.3,v 1.1 2000/09/28 15:19:58 fred Exp $
+.\"   $Id: GENLIB_SAVE_LOFIG.3,v 1.2 2000/09/28 15:25:54 fred Exp $
 .\" @(#)SAVE_LOFIOG.3 2.11 01/92; Labo Cao-vlsi; Author : Frederic Petrot
 .if t \{\
 .so man1/alc_contents.mac
 .XS \n%
 .ti 0.2i
-SAVE_LOFIG
+GENLIB_SAVE_LOFIG
 .XE \}
-.TH SAVE_LOFIG 3 "October 1, 1997" "ASIM/LIP6" "PROCEDURAL GENERATION LANGUAGE"
+.TH GENLIB_SAVE_LOFIG.3 "October 1, 1997" "ASIM/LIP6" "PROCEDURAL GENERATION LANGUAGE"
 .SH NAME
-SAVE_LOFIG \- save a netlist on disk
+GENLIB_SAVE_LOFIG \- save a netlist on disk
 .SH SYNOPSYS
 .nf
 .if n \{\
@@ -16,7 +16,7 @@ SAVE_LOFIG \- save a netlist on disk
 .if t \{\
 .ft CR \}
 #include <genlib.h>
-void SAVE_LOFIG();
+void GENLIB_SAVE_LOFIG();
 .ft R
 .fi
 .so man1/alc_origin.1
@@ -53,7 +53,7 @@ so be careful not to overwrite an existing file while saving.
 .ft B \}
 .if t \{\
 .ft CR \}
-"SAVE_LOFIG impossible : missing DEF_LOFIG"
+"GENLIB_SAVE_LOFIG impossible : missing GENLIB_DEF_LOFIG"
 .ft R
 .RS
 No figure has been yet specified by a call to \fBDEF_LOFIG\fP. So it isn't
@@ -70,20 +70,20 @@ netlist call.
 main()
 {
 	/\(** Create a figure to work on  \(**/
-	DEF_LOFIG("mycell");
+	GENLIB_DEF_LOFIG("mycell");
 	/\(** define interface  \(**/
-	LOCON("i", INPUT, "sig1");
-	LOCON("o", OUTPUT, "sig2");
+	GENLIB_LOCON("i", INPUT, "sig1");
+	GENLIB_LOCON("o", OUTPUT, "sig2");
 	/\(** Place an instance \(**/
-	LOINS("model","instance", "sig1", "sig2", EOL);
+	GENLIB_LOINS("model","instance", "sig1", "sig2", EOL);
 	/\(** Save all that on disk \(**/
-	SAVE_LOFIG();
+	GENLIB_SAVE_LOFIG();
 }
 .ft R
 .fi
 .SH SEE ALSO
 .BR genlib (1),
-.BR DEF_LOFIG(3),
+.BR GENLIB_DEF_LOFIG.3),
 .BR MBK_OUT_LO (1),
 .BR MBK_WORK_LIB (1).
 

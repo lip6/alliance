@@ -1,14 +1,14 @@
-.\"   $Id: GENLIB_PLACE.3,v 1.1 2000/09/28 15:19:56 fred Exp $
-.\" @(#)PLACE.3 2.11 91/08/22 ; Labo Cao-vlsi; Author : Frederic Petrot
+.\"   $Id: GENLIB_PLACE.3,v 1.2 2000/09/28 15:25:52 fred Exp $
+.\" @(#)GENLIB_PLACE.3 2.11 91/08/22 ; Labo Cao-vlsi; Author : Frederic Petrot
 .if t \{\
 .so man1/alc_contents.mac
 .XS \n%
 .ti 0.2i
-PLACE
+GENLIB_PLACE
 .XE \}
-.TH PLACE 3 "October 1, 1997" "ASIM/LIP6" "PROCEDURAL GENERATION LANGUAGE"
+.TH GENLIB_PLACE.3 "October 1, 1997" "ASIM/LIP6" "PROCEDURAL GENERATION LANGUAGE"
 .SH NAME
-PLACE \- place a physical instance in the current figure at absolute coordinates
+GENLIB_PLACE \- place a physical instance in the current figure at absolute coordinates
 .SH SYNOPSYS
 .nf
 .if n \{\
@@ -16,7 +16,7 @@ PLACE \- place a physical instance in the current figure at absolute coordinates
 .if t \{\
 .ft CR \}
 #include <genlib.h>
-void PLACE(modelname, insname, symetry, x, y)
+void GENLIB_PLACE(modelname, insname, symetry, x, y)
 char \(**modelname, \(**insname;
 char symetry;
 long x,y;
@@ -83,7 +83,7 @@ variable.
 .ft B \}
 .if t \{\
 .ft CR \}
-"PLACE impossible : missing DEF_PHFIG"
+"GENLIB_PLACE impossible : missing GENLIB_DEF_PHFIG"
 .ft R
 .RS
 No figure has been yet specified by a call to \fBDEF_PHFIG\fP. So it isn't
@@ -111,23 +111,23 @@ integer value \fBx\fP.
 main()
 {
 	/\(** Create a figure to work on  \(**/
-	DEF_PHFIG("cell");
+	GENLIB_DEF_PHFIG("cell");
 	/\(** Place two instances \(**/
-	PLACE("gapg0_b","ins1", NOSYM, 0L, 0L);
-	PLACE("gapg8_b","ins2", SYM_X, 80L, 100L);
+	GENLIB_PLACE("gapg0_b","ins1", NOSYM, 0L, 0L);
+	GENLIB_PLACE("gapg8_b","ins2", SYM_X, 80L, 100L);
 	/\(** Save all that on disk \(**/
-	SAVE_PHFIG();
+	GENLIB_SAVE_PHFIG();
 }
 .ft R
 .fi
 .SH SEE ALSO
 .BR genlib (1),
-.BR DEF_PHFIG (3),
-.BR SAVE_PHFIG (3),
-.BR PLACE_TOP (3),
-.BR PLACE_BOTTOM (3),
-.BR PLACE_LEFT (3),
-.BR PLACE_RIGHT (3),
+.BR GENLIB_DEF_PHFIG (3),
+.BR GENLIB_SAVE_PHFIG (3),
+.BR GENLIB_PLACE_TOP (3),
+.BR GENLIB_PLACE_BOTTOM (3),
+.BR GENLIB_PLACE_LEFT (3),
+.BR GENLIB_PLACE_RIGHT (3),
 .BR MBK_CATA_LIB (1),
 .BR MBK_WORK_LIB (1),
 .BR MBK_IN_PH (1).

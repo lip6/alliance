@@ -1,14 +1,14 @@
-.\"   $Id: GENLIB_PHSEG.3,v 1.1 2000/09/28 15:19:56 fred Exp $
-.\" @(#)PHSEG.3 2.11 91/08/22 ; Labo Cao-vlsi; Author : Frederic Petrot
+.\"   $Id: GENLIB_PHSEG.3,v 1.2 2000/09/28 15:25:52 fred Exp $
+.\" @(#)GENLIB_PHSEG.3 2.11 91/08/22 ; Labo Cao-vlsi; Author : Frederic Petrot
 .if t \{\
 .so man1/alc_contents.mac
 .XS \n%
 .ti 0.2i
-PHSEG
+GENLIB_PHSEG
 .XE \}
-.TH PHSEG 3 "October 1, 1997" "ASIM/LIP6" "PROCEDURAL GENERATION LANGUAGE"
+.TH GENLIB_PHSEG.3 "October 1, 1997" "ASIM/LIP6" "PROCEDURAL GENERATION LANGUAGE"
 .SH NAME
-PHSEG \- place a physical segment in the current figure at absolute coordinates
+GENLIB_PHSEG \- place a physical segment in the current figure at absolute coordinates
 .SH SYNOPSYS
 .nf
 .if n \{\
@@ -16,7 +16,7 @@ PHSEG \- place a physical segment in the current figure at absolute coordinates
 .if t \{\
 .ft CR \}
 #include <genlib.h>
-void PHSEG(layer, width, name, x1, y1, x2, y2)
+void GENLIB_PHSEG(layer, width, name, x1, y1, x2, y2)
 char layer;
 long width;
 char \(**name;
@@ -83,7 +83,7 @@ give a segment a name. To do so, just type "" as name.
 .ft B \}
 .if t \{\
 .ft CR \}
-"PHSEG impossible : missing DEF_PHFIG"
+"GENLIB_PHSEG impossible : missing GENLIB_DEF_PHFIG"
 .ft R
 .RS
 No figure has been yet specified by a call to \fBDEF_PHFIG\fP. So it isn't
@@ -111,26 +111,26 @@ A symbolic segment must be either vertical or horizontal, so either
 main()
 {
 	/\(** Create a figure to work on  \(**/
-	DEF_PHFIG("cell");
+	GENLIB_DEF_PHFIG("cell");
 	/\(** Put a segment \(**/
-	PHSEG(ALU1, 1, "", 0L, 0L, 12L, 0L);
+	GENLIB_PHSEG(ALU1, 1, "", 0L, 0L, 12L, 0L);
 	/\(** Save that on disk \(**/
-	SAVE_PHFIG();
+	GENLIB_SAVE_PHFIG();
 }
 .ft R
 .fi
 .SH SEE ALSO
 .BR genlib (1),
-.BR DEF_PHFIG (3),
-.BR SAVE_PHFIG (3),
-.BR COPY_UP_SEG (3),
-.BR THRU_H (3),
-.BR THRU_CON_H (3),
-.BR THRU_V (3),
-.BR THRU_CON_V (3),
-.BR WIRE1 (3),
-.BR WIRE2 (3),
-.BR WIRE3 (3).
+.BR GENLIB_DEF_PHFIG (3),
+.BR GENLIB_SAVE_PHFIG (3),
+.BR GENLIB_COPY_UP_SEG (3),
+.BR GENLIB_THRU_H (3),
+.BR GENLIB_THRU_CON_H (3),
+.BR GENLIB_THRU_V (3),
+.BR GENLIB_THRU_CON_V (3),
+.BR GENLIB_WIRE1 (3),
+.BR GENLIB_WIRE2 (3),
+.BR GENLIB_WIRE3 (3).
 
 
 .so man1/alc_bug_report.1

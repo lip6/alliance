@@ -1,14 +1,14 @@
-.\"   $Id: GENLIB_DEF_PHINS.3,v 1.1 2000/09/28 15:19:50 fred Exp $
-.\" @(#)DEF_PHINS.3 2.11 91/08/22; Labo Cao-vlsi; Author : Frederic Petrot
+.\"   $Id: GENLIB_DEF_PHINS.3,v 1.2 2000/09/28 15:25:49 fred Exp $
+.\" @(#)GENLIB_DEF_PHINS.3 2.11 91/08/22; Labo Cao-vlsi; Author : Frederic Petrot
 .if t \{\
 .so man1/alc_contents.mac
 .XS \n%
 .ti 0.2i
-DEF_PHINS
+GENLIB_DEF_PHINS
 .XE \}
-.TH DEF_PHINS 3 "October 1, 1997" "ASIM/LIP6" "PROCEDURAL GENERATION LANGUAGE"
+.TH GENLIB_DEF_PHINS.3 "October 1, 1997" "ASIM/LIP6" "PROCEDURAL GENERATION LANGUAGE"
 .SH NAME
-DEF_PHINS \- define a new reference instance
+GENLIB_DEF_PHINS \- define a new reference instance
 .SH SYNOPSYS
 .nf
 .if n \{\
@@ -16,7 +16,7 @@ DEF_PHINS \- define a new reference instance
 .if t \{\
 .ft CR \}
 #include <genlib.h>
-void DEF_PHINS(instancename);
+void GENLIB_DEF_PHINS(instancename);
 char \(**instancename;
 .ft R
 .fi
@@ -37,7 +37,7 @@ placed instance becomes automaticaly the "reference instance", if
 .ft B \}
 .if t \{\
 .ft CR \}
-"DEF_PHINS impossible : missing DEF_PHFIG"
+"GENLIB_DEF_PHINS impossible : missing GENLIB_DEF_PHFIG"
 .ft R
 .RS
 No figure has been yet specified by a call to \fBDEF_PHFIG\fP. So it isn't
@@ -64,30 +64,30 @@ so it's impossible do to any placement from it.
 main()
 {
 	/\(** Create a figure to work on  \(**/
-	DEF_PHFIG("cell");
+	GENLIB_DEF_PHFIG("cell");
 	/\(** Place an instance \(**/
-	PLACE("model","i1", NOSYM,0L,0L);
-	PLACE("model","i2", NOSYM,120L,40L);
-	DEF_PHINS("i1");
-	PLACE_TOP("model2", "i3", NOSYM);
-	DEF_AB(0, 0, 0, 0);
+	GENLIB_PLACE("model","i1", NOSYM,0L,0L);
+	GENLIB_PLACE("model","i2", NOSYM,120L,40L);
+	GENLIB_DEF_PHINS("i1");
+	GENLIB_PLACE_TOP("model2", "i3", NOSYM);
+	GENLIB_DEF_AB(0, 0, 0, 0);
 	/\(** Save all that on disk \(**/
-	SAVE_PHFIG();
+	GENLIB_SAVE_PHFIG();
 }
 .ft R
 .fi
 .SH SEE ALSO
 .BR genlib (1),
-.BR PLACE (3),
-.BR PLACE_TOP (3),
-.BR PLACE_RIGHT (3),
-.BR PLACE_LEFT (3),
-.BR PLACE_BOTTOM (3),
-.BR SC_PLACE (3),
-.BR SC_TOP (3),
-.BR SC_RIGHT (3),
-.BR SC_LEFT (3),
-.BR SC_BOTTOM (3).
+.BR GENLIB_PLACE (3),
+.BR GENLIB_PLACE_TOP (3),
+.BR GENLIB_PLACE_RIGHT (3),
+.BR GENLIB_PLACE_LEFT (3),
+.BR GENLIB_PLACE_BOTTOM (3),
+.BR GENLIB_SC_PLACE (3),
+.BR GENLIB_SC_TOP (3),
+.BR GENLIB_SC_RIGHT (3),
+.BR GENLIB_SC_LEFT (3),
+.BR GENLIB_SC_BOTTOM (3).
 
 
 .so man1/alc_bug_report.1

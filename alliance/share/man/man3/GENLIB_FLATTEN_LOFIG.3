@@ -1,14 +1,14 @@
-.\"   $Id: GENLIB_FLATTEN_LOFIG.3,v 1.1 2000/09/28 15:19:51 fred Exp $
-.\" @(#)FLATTEN_LOFIG.3 2.11 91/08/22; Labo Cao-vlsi; Author : Frederic Petrot
+.\"   $Id: GENLIB_FLATTEN_LOFIG.3,v 1.2 2000/09/28 15:25:50 fred Exp $
+.\" @(#)GENLIB_FLATTEN_LOFIG.3 2.11 91/08/22; Labo Cao-vlsi; Author : Frederic Petrot
 .if t \{\
 .so man1/alc_contents.mac
 .XS \n%
 .ti 0.2i
-FLATTEN_LOFIG
+GENLIB_FLATTEN_LOFIG
 .XE \}
-.TH FLATTEN_LOFIG 3 "October 1, 1997" "ASIM/LIP6" "PROCEDURAL GENERATION LANGUAGE"
+.TH GENLIB_FLATTEN_LOFIG.3 "October 1, 1997" "ASIM/LIP6" "PROCEDURAL GENERATION LANGUAGE"
 .SH NAME
-FLATTEN_LOFIG \- flatten an instance in the current netlist figure
+GENLIB_FLATTEN_LOFIG \- flatten an instance in the current netlist figure
 .SH SYNOPSYS
 .nf
 .if n \{\
@@ -16,7 +16,7 @@ FLATTEN_LOFIG \- flatten an instance in the current netlist figure
 .if t \{\
 .ft CR \}
 #include <genlib.h>
-void FLATTEN_LOFIG(insname,concat)
+void GENLIB_FLATTEN_LOFIG(insname,concat)
 char \(**insname;
 char concat;
 .ft R
@@ -55,23 +55,23 @@ figure some object with an already existing name.
 main()
 {
 	/\(** Create a figure to work on  \(**/
-	DEF_LOFIG("mycell");
+	GENLIB_DEF_LOFIG("mycell");
 	.
 	.
 	.
 	/\(** Place an instance \(**/
-	LOINS("model","instance", "sig1", "sig2", EOL);
+	GENLIB_LOINS("model","instance", "sig1", "sig2", EOL);
 	/\(** flatten an instance \(**/
-	FLATTEN_LOFIG("instance", YES);
+	GENLIB_FLATTEN_LOFIG("instance", YES);
 	/\(** Save all that on disk \(**/
-	SAVE_LOFIG();
+	GENLIB_SAVE_LOFIG();
 }
 .ft R
 .fi
 .SH SEE ALSO
 .BR genlib (1),
-.BR UNFLATTEN_LOFIG (3).
-.BR LOINS (3).
+.BR GENLIB_UNFLATTEN_LOFIG (3).
+.BR GENLIB_LOINS (3).
 
 
 .so man1/alc_bug_report.1

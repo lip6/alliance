@@ -1,14 +1,14 @@
-.\"   $Id: GENLIB_LOCON.3,v 1.1 2000/09/28 15:19:54 fred Exp $
-.\" @(#)LOCON.3 2.11 91/08/22; Labo Cao-vlsi; Author : Frederic Petrot
+.\"   $Id: GENLIB_LOCON.3,v 1.2 2000/09/28 15:25:51 fred Exp $
+.\" @(#)GENLIB_LOCON.3 2.11 91/08/22; Labo Cao-vlsi; Author : Frederic Petrot
 .if t \{\
 .so man1/alc_contents.mac
 .XS \n%
 .ti 0.2i
-LOCON
+GENLIB_LOCON
 .XE \}
-.TH LOCON 3 "October 1, 1997" "ASIM/LIP6" "PROCEDURAL GENERATION LANGUAGE"
+.TH GENLIB_LOCON.3 "October 1, 1997" "ASIM/LIP6" "PROCEDURAL GENERATION LANGUAGE"
 .SH NAME
-LOCON \- adds a logical connector to the current netlist figure
+GENLIB_LOCON \- adds a logical connector to the current netlist figure
 .SH SYNOPSYS
 .nf
 .if n \{\
@@ -16,7 +16,7 @@ LOCON \- adds a logical connector to the current netlist figure
 .if t \{\
 .ft CR \}
 #include <genlib.h>
-void LOCON(connector, direction, signal);
+void GENLIB_LOCON(connector, direction, signal);
 char \(**connector, \(**signal;
 char direction;
 .ft R
@@ -59,7 +59,7 @@ as transciever. That means \fBTRISTATE\fP input plus output.
 .ft B \}
 .if t \{\
 .ft CR \}
-"LOCON impossible : missing DEF_LOFIG"
+"GENLIB_LOCON impossible : missing GENLIB_DEF_LOFIG"
 .ft R
 .RS
 No figure has been yet specified by a call to \fBDEF_LOFIG\fP. So it isn't
@@ -70,7 +70,7 @@ netlist call.
 .ft B \}
 .if t \{\
 .ft CR \}
-"LOCON : Bad signal or connector bus name"
+"GENLIB_LOCON : Bad signal or connector bus name"
 .ft R
 .RS
 A signal or connector, described under a bus form, has an illegal syntax.
@@ -80,7 +80,7 @@ A signal or connector, described under a bus form, has an illegal syntax.
 .ft B \}
 .if t \{\
 .ft CR \}
-"LOCON : All LOCON should be defined befor any LOINS"
+"GENLIB_LOCON : All LOCON should be defined befor any GENLIB_LOINS"
 .ft R
 .RS
 A connector is added after instances. This is a methodological error.
@@ -90,7 +90,7 @@ Only move your \fBLOCON\fP before the first \fBLOINS\fP in your code.
 .ft B \}
 .if t \{\
 .ft CR \}
-"LOCON : different number of signals and connectors"
+"GENLIB_LOCON : different number of signals and connectors"
 .ft R
 .RS
 A bussed form of signal and connector has been used, but the width of
@@ -123,23 +123,23 @@ Only vhdl format fully supports the whole thing.
 main()
 {
 	/\(** Create a figure to work on  \(**/
-	DEF_LOFIG("mycell");
+	GENLIB_DEF_LOFIG("mycell");
 	/\(** define interface  \(**/
-	LOCON("i", INPUT, "sig1");
-	LOCON("o", OUTPUT, "sig2");
+	GENLIB_LOCON("i", INPUT, "sig1");
+	GENLIB_LOCON("o", OUTPUT, "sig2");
 	/\(** Place an instance \(**/
-	LOINS("model","instance", "sig1", "sig2", EOL);
+	GENLIB_LOINS("model","instance", "sig1", "sig2", EOL);
 	/\(** Save all that on disk \(**/
-	SAVE_LOFIG();
+	GENLIB_SAVE_LOFIG();
 }
 .ft R
 .fi
 .SH SEE ALSO
 .BR genlib (1),
-.BR BUS (3),
-.BR ELM (3),
-.BR LOSIG (3),
-.BR LOINS (3).
+.BR GENLIB_BUS (3),
+.BR GENLIB_ELM (3),
+.BR GENLIB_LOSIG (3),
+.BR GENLIB_LOINS (3).
 
 
 .so man1/alc_bug_report.1

@@ -1,14 +1,14 @@
-.\"   $Id: GENLIB_PHCON.3,v 1.1 2000/09/28 15:19:55 fred Exp $
-.\" @(#)PHCON.3 2.11 91/08/22 ; Labo Cao-vlsi; Author : Frederic Petrot
+.\"   $Id: GENLIB_PHCON.3,v 1.2 2000/09/28 15:25:52 fred Exp $
+.\" @(#)GENLIB_PHCON.3 2.11 91/08/22 ; Labo Cao-vlsi; Author : Frederic Petrot
 .if t \{\
 .so man1/alc_contents.mac
 .XS \n%
 .ti 0.2i
-PHCON
+GENLIB_PHCON
 .XE \}
-.TH PHCON 3 "October 1, 1997" "ASIM/LIP6" "PROCEDURAL GENERATION LANGUAGE"
+.TH GENLIB_PHCON.3 "October 1, 1997" "ASIM/LIP6" "PROCEDURAL GENERATION LANGUAGE"
 .SH NAME
-PHCON \- place a physical connector in the current figure at absolute coordinates
+GENLIB_PHCON \- place a physical connector in the current figure at absolute coordinates
 .SH SYNOPSYS
 .nf
 .if n \{\
@@ -16,7 +16,7 @@ PHCON \- place a physical connector in the current figure at absolute coordinate
 .if t \{\
 .ft CR \}
 #include <genlib.h>
-void PHCON(layer, width, name, orient, x, y)
+void GENLIB_PHCON(layer, width, name, orient, x, y)
 char layer;
 long width;
 char \(**name, orient;
@@ -121,7 +121,7 @@ bottom/left.
 .ft B \}
 .if t \{\
 .ft CR \}
-"PHCON impossible : missing DEF_PHFIG"
+"GENLIB_PHCON impossible : missing GENLIB_DEF_PHFIG"
 .ft R
 .RS
 No figure has been yet specified by a call to \fBDEF_PHFIG\fP. So it isn't
@@ -147,27 +147,27 @@ The \fIorient\fP parameter does not have a legal value, but \fIXX\fP.
 main()
 {
 	/\(** Create a figure to work on  \(**/
-	DEF_PHFIG("cell");
+	GENLIB_DEF_PHFIG("cell");
 	.
 	.
 	.
-	DEF_AB(0L, 0L, 0L, 0L);
+	GENLIB_DEF_AB(0L, 0L, 0L, 0L);
 	/\(** Put a connector \(**/
-	PHCON(ALU1, 1, "cin", SOUTH, 12L, 0L);
+	GENLIB_PHCON(ALU1, 1, "cin", SOUTH, 12L, 0L);
 	/\(** Save that on disk \(**/
-	SAVE_PHFIG();
+	GENLIB_SAVE_PHFIG();
 }
 .ft R
 .fi
 .SH SEE ALSO
 .BR genlib (1),
-.BR DEF_PHFIG (3),
-.BR SAVE_PHFIG (3),
-.BR COPY_UP_ALL_CON (3),
-.BR COPY_UP_CON (3),
-.BR COPY_UP_CON_FACE (3),
-.BR THRU_CON_H (3),
-.BR THRU_CON_V (3).
+.BR GENLIB_DEF_PHFIG (3),
+.BR GENLIB_SAVE_PHFIG (3),
+.BR GENLIB_COPY_UP_ALL_CON (3),
+.BR GENLIB_COPY_UP_CON (3),
+.BR GENLIB_COPY_UP_CON_FACE (3),
+.BR GENLIB_THRU_CON_H (3),
+.BR GENLIB_THRU_CON_V (3).
 
 
 .so man1/alc_bug_report.1

@@ -1,14 +1,14 @@
-.\"   $Id: GENLIB_SAVE_PHFIG.3,v 1.1 2000/09/28 15:19:59 fred Exp $
-.\" @(#)SAVE_PHFIG.3 2.11 91/08/22; Labo Cao-vlsi; Author : Frederic Petrot
+.\"   $Id: GENLIB_SAVE_PHFIG.3,v 1.2 2000/09/28 15:25:54 fred Exp $
+.\" @(#)GENLIB_SAVE_PHFIG.3 2.11 91/08/22; Labo Cao-vlsi; Author : Frederic Petrot
 .if t \{\
 .so man1/alc_contents.mac
 .XS \n%
 .ti 0.2i
-SAVE_PHFIG
+GENLIB_SAVE_PHFIG
 .XE \}
-.TH SAVE_PHFIG 3 "October 1, 1997" "ASIM/LIP6" "PROCEDURAL GENERATION LANGUAGE"
+.TH GENLIB_SAVE_PHFIG.3 "October 1, 1997" "ASIM/LIP6" "PROCEDURAL GENERATION LANGUAGE"
 .SH NAME
-SAVE_PHFIG \- save a layout on disk
+GENLIB_SAVE_PHFIG \- save a layout on disk
 .SH SYNOPSYS
 .nf
 .if n \{\
@@ -16,7 +16,7 @@ SAVE_PHFIG \- save a layout on disk
 .if t \{\
 .ft CR \}
 #include <genlib.h>
-void SAVE_PHFIG();
+void GENLIB_SAVE_PHFIG();
 .ft R
 .fi
 .so man1/alc_origin.1
@@ -49,7 +49,7 @@ so be careful not to overwrite an existing file while saving.
 .ft B \}
 .if t \{\
 .ft CR \}
-"SAVE_PHFIG impossible : missing DEF_PHFIG"
+"GENLIB_SAVE_PHFIG impossible : missing GENLIB_DEF_PHFIG"
 .ft R
 .RS
 No figure has been yet specified by a call to \fBDEF_PHFIG\fP. So it isn't
@@ -66,17 +66,17 @@ layout action.
 main()
 {
 	/\(** Create a figure to work on  \(**/
-	DEF_PHFIG("mycell");
+	GENLIB_DEF_PHFIG("mycell");
 	/\(** Place an instance \(**/
-	PLACE("mymodel","firstinstance", NOSYM,0L,0L);
+	GENLIB_PLACE("mymodel","firstinstance", NOSYM,0L,0L);
 	/\(** Save all that on disk \(**/
-	SAVE_PHFIG();
+	GENLIB_SAVE_PHFIG();
 }
 .ft R
 .fi
 .SH SEE ALSO
 .BR genlib (1),
-.BR SAVE_PHSC (3),
+.BR GENLIB_SAVE_PHSC (3),
 .BR MBK_OUT_PH (1),
 .BR MBK_WORK_LIB (1).
 

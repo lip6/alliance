@@ -1,14 +1,14 @@
-.\"   $Id: GENLIB_WIRE1.3,v 1.1 2000/09/28 15:20:01 fred Exp $
-.\" @(#)WIRE1.3 2.11 91/08/22 ; Labo Cao-vlsi; Author : Frederic Petrot
+.\"   $Id: GENLIB_WIRE1.3,v 1.2 2000/09/28 15:25:55 fred Exp $
+.\" @(#)GENLIB_WIRE1.3 2.11 91/08/22 ; Labo Cao-vlsi; Author : Frederic Petrot
 .if t \{\
 .so man1/alc_contents.mac
 .XS \n%
 .ti 0.2i
-WIRE1
+GENLIB_WIRE1
 .XE \}
-.TH WIRE1 3 "October 1, 1997" "ASIM/LIP6" "PROCEDURAL GENERATION LANGUAGE"
+.TH GENLIB_WIRE1.3 "October 1, 1997" "ASIM/LIP6" "PROCEDURAL GENERATION LANGUAGE"
 .SH NAME
-WIRE1 \- place a physical segment in the current figure
+GENLIB_WIRE1 \- place a physical segment in the current figure
 .SH SYNOPSYS
 .nf
 .if n \{\
@@ -16,7 +16,7 @@ WIRE1 \- place a physical segment in the current figure
 .if t \{\
 .ft CR \}
 #include <genlib.h>
-void WIRE1(layer, width, ins1, con1, index1, ins2, con2, index2)
+void GENLIB_WIRE1(layer, width, ins1, con1, index1, ins2, con2, index2)
 char layer;
 long width;
 char \(**ins1, \(**con1, \(**ins2, \(**con2;
@@ -97,7 +97,7 @@ The \fIlayer\fP argument can take the following legal values :
 .ft B \}
 .if t \{\
 .ft CR \}
-"WIRE1 impossible : missing DEF_PHFIG"
+"GENLIB_WIRE1 impossible : missing GENLIB_DEF_PHFIG"
 .ft R
 .RS
 No figure has been yet specified by a call to \fBDEF_PHFIG\fP. So it isn't
@@ -119,7 +119,7 @@ relative coordinates, care must be taken to follow the previous rule.
 .ft B \}
 .if t \{\
 .ft CR \}
-"WIRE1 impossible : same name \fIconX\fP, for connector and reference in
+"GENLIB_WIRE1 impossible : same name \fIconX\fP, for connector and reference in
 \fIinsX\fP"
 .ft R
 .RS
@@ -146,29 +146,29 @@ The instance called \fIinsX\fP does not currently belong to the figure.
 main()
 {
 	/\(** Create a figure to work on  \(**/
-	DEF_PHFIG("cell");
-	PLACE("gaci0_b", "r_addin_1", NOSYM, 0, 0);
-	PLACE_RIGHT("gapgn_b", "pg", NOSYM);
-	PLACE_RIGHT("gacin_b", "r_addin_2", NOSYM);
+	GENLIB_DEF_PHFIG("cell");
+	GENLIB_PLACE("gaci0_b", "r_addin_1", NOSYM, 0, 0);
+	GENLIB_PLACE_RIGHT("gapgn_b", "pg", NOSYM);
+	GENLIB_PLACE_RIGHT("gacin_b", "r_addin_2", NOSYM);
 	/\(** Draw a segment \(**/
-	WIRE1(ALU1, 1, "r_addin_1", "out", 0L, "r_addin_2", "in", 1L);
+	GENLIB_WIRE1(ALU1, 1, "r_addin_1", "out", 0L, "r_addin_2", "in", 1L);
 	/\(** Save that on disk \(**/
-	SAVE_PHFIG();
+	GENLIB_SAVE_PHFIG();
 }
 .ft R
 .fi
 .SH SEE ALSO
 .BR genlib (1),
-.BR DEF_PHFIG (3),
-.BR SAVE_PHFIG (3),
-.BR COPY_UP_SEG (3),
-.BR PHSEG (3),
-.BR THRU_H (3),
-.BR THRU_CON_H (3),
-.BR THRU_V (3),
-.BR THRU_CON_V (3),
-.BR WIRE2 (3),
-.BR WIRE3 (3).
+.BR GENLIB_DEF_PHFIG (3),
+.BR GENLIB_SAVE_PHFIG (3),
+.BR GENLIB_COPY_UP_SEG (3),
+.BR GENLIB_PHSEG (3),
+.BR GENLIB_THRU_H (3),
+.BR GENLIB_THRU_CON_H (3),
+.BR GENLIB_THRU_V (3),
+.BR GENLIB_THRU_CON_V (3),
+.BR GENLIB_WIRE2 (3),
+.BR GENLIB_WIRE3 (3).
 
 
 .so man1/alc_bug_report.1

@@ -1,14 +1,14 @@
-.\"   $Id: GENLIB_LOSIG.3,v 1.1 2000/09/28 15:19:55 fred Exp $
-.\" @(#)LOSIG.3 2.11 91/08/22 ; Labo Cao-vlsi; Author : Frederic Petrot
+.\"   $Id: GENLIB_LOSIG.3,v 1.2 2000/09/28 15:25:51 fred Exp $
+.\" @(#)GENLIB_LOSIG.3 2.11 91/08/22 ; Labo Cao-vlsi; Author : Frederic Petrot
 .if t \{\
 .so man1/alc_contents.mac
 .XS \n%
 .ti 0.2i
-LOSIG
+GENLIB_LOSIG
 .XE \}
-.TH LOSIG 3 "October 1, 1997" "ASIM/LIP6" "PROCEDURAL GENERATION LANGUAGE"
+.TH GENLIB_LOSIG.3 "October 1, 1997" "ASIM/LIP6" "PROCEDURAL GENERATION LANGUAGE"
 .SH NAME
-LOSIG \- declare an internal logical signal, or a vector of internal
+GENLIB_LOSIG \- declare an internal logical signal, or a vector of internal
 logical signals
 .SH SYNOPSYS
 .nf
@@ -17,7 +17,7 @@ logical signals
 .if t \{\
 .ft CR \}
 #include <genlib.h>
-void LOSIG(name)
+void GENLIB_LOSIG(name)
 char \(**name;
 .ft R
 .fi
@@ -52,27 +52,27 @@ of it.
 main()
 {
 	/\(** Create a figure to work on  \(**/
-	DEF_LOFIG("cell");
+	GENLIB_DEF_LOFIG("cell");
 	/\(** Define interface \(**
-	LOCON(...
+	GENLIB_LOCON(...
 	/\(** declare buses \(**/
-	LOSIG("grum[23:0]");
-	LOSIG("iconection[0:7]");
+	GENLIB_LOSIG("grum[23:0]");
+	GENLIB_LOSIG("iconection[0:7]");
 	/\(** Place an instance \(**/
-	LOINS("no2_y" ,"no3" ,"grum[12]" ,"a9_s" ,"new_no3_s" ,"vdd" ,"vss" ,0);
-	LOINS("no2_y" ,"no4" ,"a12_s" ,"grum[6]" ,"no4_s" ,"vdd" ,"vss" ,0);
-	LOINS("a2_y" ,"a22" ,"no3_s" ,"grum[15]" ,"a22_s" ,"vdd" ,"vss" ,0);
+	GENLIB_LOINS("no2_y" ,"no3" ,"grum[12]" ,"a9_s" ,"new_no3_s" ,"vdd" ,"vss" ,0);
+	GENLIB_LOINS("no2_y" ,"no4" ,"a12_s" ,"grum[6]" ,"no4_s" ,"vdd" ,"vss" ,0);
+	GENLIB_LOINS("a2_y" ,"a22" ,"no3_s" ,"grum[15]" ,"a22_s" ,"vdd" ,"vss" ,0);
 	/\(** Save all that on disk \(**/
-	SAVE_LOFIG();
+	GENLIB_SAVE_LOFIG();
 }
 .ft R
 .fi
 .SH SEE ALSO
 .BR genlib (1),
-.BR LOINS (3),
-.BR LOCON (3),
-.BR BUS (3),
-.BR ELM (3).
+.BR GENLIB_LOINS (3),
+.BR GENLIB_LOCON (3),
+.BR GENLIB_BUS (3),
+.BR GENLIB_ELM (3).
 
 
 .so man1/alc_bug_report.1

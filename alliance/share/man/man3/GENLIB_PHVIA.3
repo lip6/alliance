@@ -1,14 +1,14 @@
-.\"   $Id: GENLIB_PHVIA.3,v 1.1 2000/09/28 15:19:56 fred Exp $
-.\" @(#)PHVIA.3 2.11 91/08/22 ; Labo Cao-vlsi; Author : Frederic Petrot
+.\"   $Id: GENLIB_PHVIA.3,v 1.2 2000/09/28 15:25:52 fred Exp $
+.\" @(#)GENLIB_PHVIA.3 2.11 91/08/22 ; Labo Cao-vlsi; Author : Frederic Petrot
 .if t \{\
 .so man1/alc_contents.mac
 .XS \n%
 .ti 0.2i
-PHVIA
+GENLIB_PHVIA
 .XE \}
-.TH PHVIA 3 "October 1, 1997" "ASIM/LIP6" "PROCEDURAL GENERATION LANGUAGE"
+.TH GENLIB_PHVIA.3 "October 1, 1997" "ASIM/LIP6" "PROCEDURAL GENERATION LANGUAGE"
 .SH NAME
-PHVIA \- place a physical via in the current figure at absolute coordinates
+GENLIB_PHVIA \- place a physical via in the current figure at absolute coordinates
 .SH SYNOPSYS
 .nf
 .if n \{\
@@ -16,7 +16,7 @@ PHVIA \- place a physical via in the current figure at absolute coordinates
 .if t \{\
 .ft CR \}
 #include <genlib.h>
-void PHVIA(type, x, y)
+void GENLIB_PHVIA(type, x, y)
 char type;
 long x, y;
 .ft R
@@ -65,7 +65,7 @@ corner for L-shaped (and S-shaped) P transistor
 .ft B \}
 .if t \{\
 .ft CR \}
-"PHVIA impossible : missing DEF_PHFIG"
+"GENLIB_PHVIA impossible : missing GENLIB_DEF_PHFIG"
 .ft R
 .RS
 No figure has been yet specified by a call to \fBDEF_PHFIG\fP. So it isn't
@@ -91,23 +91,23 @@ The \fItype\fP parameter does not have a legal value, but \fIXX\fP.
 main()
 {
 	/\(** Create a figure to work on  \(**/
-	DEF_PHFIG("cell");
+	GENLIB_DEF_PHFIG("cell");
 	.
 	/\(** Put a via \(**/
-	PHVIA(CONT_VIA, 12L, 10L);
+	GENLIB_PHVIA(CONT_VIA, 12L, 10L);
 	.
 	.
-	DEF_AB(0L, 0L, 0L, 0L);
+	GENLIB_DEF_AB(0L, 0L, 0L, 0L);
 	/\(** Save that on disk \(**/
-	SAVE_PHFIG();
+	GENLIB_SAVE_PHFIG();
 }
 .ft R
 .fi
 .SH SEE ALSO
 .BR genlib (1),
-.BR DEF_PHFIG (3),
-.BR SAVE_PHFIG (3),
-.BR PLACE_VIA_REF (3).
+.BR GENLIB_DEF_PHFIG (3),
+.BR GENLIB_SAVE_PHFIG (3),
+.BR GENLIB_PLACE_VIA_REF (3).
 
 
 .so man1/alc_bug_report.1

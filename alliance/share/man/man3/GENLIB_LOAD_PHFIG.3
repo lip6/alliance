@@ -1,12 +1,12 @@
-.\"   $Id: GENLIB_LOAD_PHFIG.3,v 1.1 2000/09/28 15:19:54 fred Exp $
-.\" @(#)LOAD_PHFIG.3 2.11 91/08/22 ; Labo Cao-vlsi; Author : Frederic Petrot
+.\"   $Id: GENLIB_LOAD_PHFIG.3,v 1.2 2000/09/28 15:25:51 fred Exp $
+.\" @(#)GENLIB_LOAD_PHFIG.3 2.11 91/08/22 ; Labo Cao-vlsi; Author : Frederic Petrot
 .if t \{\
 .so man1/alc_contents.mac
 .XS \n%
 .ti 0.2i
-LOAD_PHFIG
+GENLIB_LOAD_PHFIG
 .XE \}
-.TH LOAD_PHFIG 3 "October 1, 1997" "ASIM/LIP6" "PROCEDURAL GENERATION LANGUAGE"
+.TH GENLIB_LOAD_PHFIG.3 "October 1, 1997" "ASIM/LIP6" "PROCEDURAL GENERATION LANGUAGE"
 .SH NAME
 \fBPHAD_PHFIG\fP \- loads a layout form disk and opens it as current figure
 .SH SYNOPSYS
@@ -16,7 +16,7 @@ LOAD_PHFIG
 .if t \{\
 .ft CR \}
 #include <genlib.h>
-void LOAD_PHFIG(cellname)
+void GENLIB_LOAD_PHFIG(cellname)
 char \(**cellname;
 .ft R
 .fi
@@ -41,18 +41,18 @@ So the next call to \fBSAVE_PHFIG\fP will save the cell called \fIcellname\fP.
 main()
 {
 	/\(** Loads the figure to work on  \(**/
-	LOAD_PHFIG("cell");
+	GENLIB_LOAD_PHFIG("cell");
 	/\(** Add an instance in cell \(**/
-	PLACE("model","instance", NOSYM, 200, 600);
+	GENLIB_PLACE("model","instance", NOSYM, 200, 600);
 	/\(** Save all that on disk \(**/
-	SAVE_PHFIG();
+	GENLIB_SAVE_PHFIG();
 }
 .ft R
 .fi
 .SH SEE ALSO
 .BR genlib (1),
-.BR DEF_PHFIG (3).
-.BR SAVE_PHFIG (3).
+.BR GENLIB_DEF_PHFIG (3).
+.BR GENLIB_SAVE_PHFIG (3).
 
 
 .so man1/alc_bug_report.1

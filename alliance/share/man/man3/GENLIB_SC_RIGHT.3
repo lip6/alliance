@@ -1,14 +1,14 @@
-.\"   $Id: GENLIB_SC_RIGHT.3,v 1.1 2000/09/28 15:20:00 fred Exp $
-.\" @(#)SC_RIGHT.3 2.11 91/08/22 ; Labo Cao-vlsi; Author : Frederic Petrot
+.\"   $Id: GENLIB_SC_RIGHT.3,v 1.2 2000/09/28 15:25:54 fred Exp $
+.\" @(#)GENLIB_SC_RIGHT.3 2.11 91/08/22 ; Labo Cao-vlsi; Author : Frederic Petrot
 .if t \{\
 .so man1/alc_contents.mac
 .XS \n%
 .ti 0.2i
-SC_RIGHT
+GENLIB_SC_RIGHT
 .XE \}
-.TH SC_RIGHT 3 "October 1, 1997" "ASIM/LIP6" "PROCEDURAL GENERATION LANGUAGE"
+.TH GENLIB_SC_RIGHT.3 "October 1, 1997" "ASIM/LIP6" "PROCEDURAL GENERATION LANGUAGE"
 .SH NAME
-SC_RIGHT \- place an instance in the current figure at the right of the
+GENLIB_SC_RIGHT \- place an instance in the current figure at the right of the
 "reference instance"
 .SH SYNOPSYS
 .nf
@@ -17,7 +17,7 @@ SC_RIGHT \- place an instance in the current figure at the right of the
 .if t \{\
 .ft CR \}
 #include <genlib.h>
-void SC_RIGHT(insname, symetry)
+void GENLIB_SC_RIGHT(insname, symetry)
 char \(**insname;
 char symetry;
 .ft R
@@ -71,7 +71,7 @@ Y becomes -Y, and then a negative 90 degrees rotation take place
 .ft B \}
 .if t \{\
 .ft CR \}
-"SC_RIGHT impossible : missing DEF_PHFIG"
+"GENLIB_SC_RIGHT impossible : missing GENLIB_DEF_PHFIG"
 .ft R
 .RS
 No figure has been yet specified by a call to \fBDEF_PHFIG\fP. So it isn't
@@ -82,7 +82,7 @@ you must call \fBDEF_PHFIG\fP before any other layout action.
 .ft B \}
 .if t \{\
 .ft CR \}
-"SC_RIGHT impossible : missing DEF_LOFIG"
+"GENLIB_SC_RIGHT impossible : missing GENLIB_DEF_LOFIG"
 .ft R
 .RS
 The current netlist figure is not define, so \fBSC_RIGHT\fP doesn't know
@@ -93,7 +93,7 @@ is to be performed to avoid this error.
 .ft B \}
 .if t \{\
 .ft CR \}
-"SC_RIGHT impossible : no logical instance insname"
+"GENLIB_SC_RIGHT impossible : no logical instance insname"
 .ft R
 .RS
 The instance \fIinsname\fP does not exist in the netlist representation
@@ -120,27 +120,27 @@ integer value \fBx\fP.
 main()
 {
 	/\(** Create a figure to work on  \(**/
-	DEF_PHSC("cell");
+	GENLIB_DEF_PHSC("cell");
 	/\(** Place two instances \(**/
-	SC_PLACE("ins1", NOSYM, 0L, 0L);
-	SC_RIGHT("ins2", SYM_X);
+	GENLIB_SC_PLACE("ins1", NOSYM, 0L, 0L);
+	GENLIB_SC_RIGHT("ins2", SYM_X);
 	/\(** Save all that on disk \(**/
-	SAVE_PHSC();
+	GENLIB_SAVE_PHSC();
 }
 .ft R
 .fi
 .SH SEE ALSO
 .BR genlib(1),
-.BR DEF_PHSC(3),
-.BR SAVE_PHSC(3),
-.BR SC_PLACE(3),
-.BR SC_TOP(3),
-.BR SC_BOTTOM(3),
-.BR SC_LEFT(3),
-.BR DEF_PHINS (3),
-.BR FLATTEN_PHFIG (3),
-.BR FLATTEN_ALL_PHINS (3),
-.BR LOINS(3).
+.BR GENLIB_DEF_PHSC.3),
+.BR GENLIB_SAVE_PHSC.3),
+.BR GENLIB_SC_PLACE.3),
+.BR GENLIB_SC_TOP.3),
+.BR GENLIB_SC_BOTTOM.3),
+.BR GENLIB_SC_LEFT.3),
+.BR GENLIB_DEF_PHINS (3),
+.BR GENLIB_FLATTEN_PHFIG (3),
+.BR GENLIB_FLATTEN_ALL_PHINS (3),
+.BR GENLIB_LOINS.3).
 
 
 .so man1/alc_bug_report.1

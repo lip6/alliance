@@ -1,14 +1,14 @@
-.\"   $Id: GENLIB_PLACE_RIGHT.3,v 1.1 2000/09/28 15:19:57 fred Exp $
-.\" @(#)PLACE_RIGHT.3 2.11 91/08/22 ; Labo Cao-vlsi; Author : Frederic Petrot
+.\"   $Id: GENLIB_PLACE_RIGHT.3,v 1.2 2000/09/28 15:25:53 fred Exp $
+.\" @(#)GENLIB_PLACE_RIGHT.3 2.11 91/08/22 ; Labo Cao-vlsi; Author : Frederic Petrot
 .if t \{\
 .so man1/alc_contents.mac
 .XS \n%
 .ti 0.2i
-PLACE_RIGHT
+GENLIB_PLACE_RIGHT
 .XE \}
-.TH PLACE_RIGHT 3 "October 1, 1997" "ASIM/LIP6" "PROCEDURAL GENERATION LANGUAGE"
+.TH GENLIB_PLACE_RIGHT.3 "October 1, 1997" "ASIM/LIP6" "PROCEDURAL GENERATION LANGUAGE"
 .SH NAME
-PLACE_RIGHT \- place a physical instance in the current figure at
+GENLIB_PLACE_RIGHT \- place a physical instance in the current figure at
 the right of the "reference instance"
 .SH SYNOPSYS
 .nf
@@ -17,7 +17,7 @@ the right of the "reference instance"
 .if t \{\
 .ft CR \}
 #include <genlib.h>
-void PLACE_RIGHT(modelname, insname, symetry)
+void GENLIB_PLACE_RIGHT(modelname, insname, symetry)
 char \(**modelname, \(**insname;
 char symetry;
 .ft R
@@ -82,7 +82,7 @@ variable.
 .ft B \}
 .if t \{\
 .ft CR \}
-"PLACE_RIGHT impossible : missing DEF_PHFIG"
+"GENLIB_PLACE_RIGHT impossible : missing GENLIB_DEF_PHFIG"
 .ft R
 .RS
 No figure has been yet specified by a call to \fBDEF_PHFIG\fP. So it isn't
@@ -93,7 +93,7 @@ you must call \fBDEF_PHFIG\fP before any other layout action.
 .ft B \}
 .if t \{\
 .ft CR \}
-"PLACE_RIGHT impossible : No previous instance"
+"GENLIB_PLACE_RIGHT impossible : No previous instance"
 .ft R
 .RS
 There are no instances placed in the current layout cell, so it's
@@ -119,23 +119,23 @@ integer value \fBx\fP.
 main()
 {
 	/\(** Create a figure to work on  \(**/
-	DEF_PHFIG("cell");
+	GENLIB_DEF_PHFIG("cell");
 	/\(** Place two instances \(**/
-	PLACE("rsa16","ins1", ROT_P, -5L, 5L);
-	PLACE_RIGHT("gnr32x16", "ins2", SYM_X);
+	GENLIB_PLACE("rsa16","ins1", ROT_P, -5L, 5L);
+	GENLIB_PLACE_RIGHT("gnr32x16", "ins2", SYM_X);
 	/\(** Save all that on disk \(**/
-	SAVE_PHFIG();
+	GENLIB_SAVE_PHFIG();
 }
 .ft R
 .fi
 .SH SEE ALSO
 .BR genlib (1),
-.BR DEF_PHFIG (3),
-.BR SAVE_PHFIG (3),
-.BR PLACE (3),
-.BR PLACE_TOP (3),
-.BR PLACE_BOTTOM (3),
-.BR PLACE_LEFT (3),
+.BR GENLIB_DEF_PHFIG (3),
+.BR GENLIB_SAVE_PHFIG (3),
+.BR GENLIB_PLACE (3),
+.BR GENLIB_PLACE_TOP (3),
+.BR GENLIB_PLACE_BOTTOM (3),
+.BR GENLIB_PLACE_LEFT (3),
 .BR MBK_CATA_LIB (1),
 .BR MBK_WORK_LIB (1),
 .BR MBK_IN_PH (1).

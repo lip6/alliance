@@ -1,14 +1,14 @@
-.\"   $Id: GENLIB_OUTLINE.3,v 1.1 2000/09/28 15:19:55 fred Exp $
-.\" @(#)OUTLINE.3 2.11 91/08/22; Labo Cao-vlsi; Author : Frederic Petrot
+.\"   $Id: GENLIB_OUTLINE.3,v 1.2 2000/09/28 15:25:52 fred Exp $
+.\" @(#)GENLIB_OUTLINE.3 2.11 91/08/22; Labo Cao-vlsi; Author : Frederic Petrot
 .if t \{\
 .so man1/alc_contents.mac
 .XS \n%
 .ti 0.2i
-OUTLINE
+GENLIB_OUTLINE
 .XE \}
-.TH OUTLINE 3 "October 1, 1997" "ASIM/LIP6" "PROCEDURAL GENERATION LANGUAGE"
+.TH GENLIB_OUTLINE.3 "October 1, 1997" "ASIM/LIP6" "PROCEDURAL GENERATION LANGUAGE"
 .SH NAME
-OUTLINE \- build an outline from the current layout cell
+GENLIB_OUTLINE \- build an outline from the current layout cell
 .SH SYNOPSYS
 .nf
 .if n \{\
@@ -16,7 +16,7 @@ OUTLINE \- build an outline from the current layout cell
 .if t \{\
 .ft CR \}
 #include <genlib.h>
-void OUTLINE();
+void GENLIB_OUTLINE();
 .ft R
 .fi
 .so man1/alc_origin.1
@@ -34,17 +34,17 @@ its connectors, references and feed through.
 main()
 {
 	/\(** Create a figure to work on  \(**/
-	DEF_PHFIG("cell");
+	GENLIB_DEF_PHFIG("cell");
 	/\(** Place an instance \(**/
-	PLACE("model","i1", NOSYM,0L,0L);
-	PLACE("model","i2", NOSYM,120L,40L);
-	DEF_PHINS("i1");
-	PLACE_TOP("model2", "i3", NOSYM);
+	GENLIB_PLACE("model","i1", NOSYM,0L,0L);
+	GENLIB_PLACE("model","i2", NOSYM,120L,40L);
+	GENLIB_DEF_PHINS("i1");
+	GENLIB_PLACE_TOP("model2", "i3", NOSYM);
 	/\(** define the new abutment box as the standard envelop \(**/
-	DEF_AB(0, 0, 0, 0);
-	OUTLINE();
+	GENLIB_DEF_AB(0, 0, 0, 0);
+	GENLIB_OUTLINE();
 	/\(** Save all that on disk \(**/
-	SAVE_PHFIG();
+	GENLIB_SAVE_PHFIG();
 }
 .ft R
 .fi

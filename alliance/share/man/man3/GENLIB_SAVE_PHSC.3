@@ -1,14 +1,14 @@
-.\"   $Id: GENLIB_SAVE_PHSC.3,v 1.1 2000/09/28 15:19:59 fred Exp $
-.\" @(#)SAVE_PHSC.3 2.11 91/08/22; Labo Cao-vlsi; Author : Frederic Petrot
+.\"   $Id: GENLIB_SAVE_PHSC.3,v 1.2 2000/09/28 15:25:54 fred Exp $
+.\" @(#)GENLIB_SAVE_PHSC.3 2.11 91/08/22; Labo Cao-vlsi; Author : Frederic Petrot
 .if t \{\
 .so man1/alc_contents.mac
 .XS \n%
 .ti 0.2i
-SAVE_PHSC
+GENLIB_SAVE_PHSC
 .XE \}
-.TH SAVE_PHSC 3 "October 1, 1997" "ASIM/LIP6" "PROCEDURAL GENERATION LANGUAGE"
+.TH GENLIB_SAVE_PHSC.3 "October 1, 1997" "ASIM/LIP6" "PROCEDURAL GENERATION LANGUAGE"
 .SH NAME
-SAVE_PHSC \- save a layout on disk
+GENLIB_SAVE_PHSC \- save a layout on disk
 .SH SYNOPSYS
 .nf
 .if n \{\
@@ -16,7 +16,7 @@ SAVE_PHSC \- save a layout on disk
 .if t \{\
 .ft CR \}
 #include <genlib.h>
-void SAVE_PHSC();
+void GENLIB_SAVE_PHSC();
 .ft R
 .fi
 .so man1/alc_origin.1
@@ -35,7 +35,7 @@ be careful not to overwrite some precious data.
 .ft B \}
 .if t \{\
 .ft CR \}
-"SAVE_PHSC impossible : missing DEF_PHFIG"
+"GENLIB_SAVE_PHSC impossible : missing GENLIB_DEF_PHFIG"
 .ft R
 .RS
 No figure has been yet specified by a call to \fBDEF_PHFIG\fP or
@@ -53,17 +53,17 @@ layout action.
 main()
 {
 	/\(** Create a physical figure to work on \(**/
-	DEF_PHSC("cell");
+	GENLIB_DEF_PHSC("cell");
 	/\(** Place an instance \(**/
-	SC_PLACE("finst", NOSYM,0L,0L);
+	GENLIB_SC_PLACE("finst", NOSYM,0L,0L);
 	/\(** Save all that on disk \(**/
-	SAVE_PHSC();
+	GENLIB_SAVE_PHSC();
 }
 .ft R
 .fi
 .SH SEE ALSO
 .BR genlib (1),
-.BR DEF_PHSC (3),
+.BR GENLIB_DEF_PHSC (3),
 .BR MBK_OUT_PH (1),
 .BR MBK_WORK_LIB (1).
 
