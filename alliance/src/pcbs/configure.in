@@ -1,0 +1,52 @@
+dnl Process this file with autoconf to produce a configure script.
+AC_INIT(src/pcbs/pcbs.c)
+
+
+EMULBS_MAJOR_VERSION=3
+EMULBS_MINOR_VERSION=1
+EMULBS_VERSION=$EMULBS_MAJOR_VERSION.$EMULBS_MINOR_VERSION
+
+AC_SUBST(EMULBS_MAJOR_VERSION)
+AC_SUBST(EMULBS_MINOR_VERSION)
+AC_SUBST(EMULBS_VERSION)
+
+PCBS_MAJOR_VERSION=2
+PCBS_MINOR_VERSION=1
+PCBS_VERSION=$PCBS_MAJOR_VERSION.$PCBS_MINOR_VERSION
+
+AC_SUBST(PCBS_MAJOR_VERSION)
+AC_SUBST(PCBS_MINOR_VERSION)
+AC_SUBST(PCBS_VERSION)
+
+# For automake.
+VERSION=$PCBS_VERSION
+PACKAGE=pcbs
+
+dnl Initialize automake stuff
+AM_INIT_AUTOMAKE($PACKAGE, $VERSION)
+
+dnl Checks for programs.
+AC_PROG_CC
+AC_PROG_RANLIB
+AM_PROG_LEX
+AC_PROG_YACC
+AC_PROG_MAKE_SET
+
+dnl Checks for libraries.
+dnl Check for -lm librarie.  These should always be present.
+AC_CHECK_LIB(m, exp)
+
+dnl Checks for typedefs, structures, and compiler characteristics.
+AC_C_CONST
+
+dnl path for libs and includes
+AM_ALLIANCE
+
+AC_OUTPUT([
+Makefile
+doc/Makefile
+src/Makefile
+src/pcbs/Makefile
+src/emulbs/Makefile
+src/bvl/Makefile
+])

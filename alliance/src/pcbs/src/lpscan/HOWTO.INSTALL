@@ -1,0 +1,178 @@
+------------------------------------------------------
+Comment installer le driver lpscan dans un noyau Linux
+------------------------------------------------------
+
+(c) 1997 Olivier Florent, d'apres le rapport de stage de Maitrise EEA,
+    de Juin 95 par Olivier Sirol et Philippe Olek
+2001 Francois Donnet version pour Linux 2.1 et plus
+
+
+REMARQUES :
+-----------
+ i/   Version du noyau utilisee : 2.2.10 et 2.4.9-21
+ ii/ On suppose que le lecteur sait compiler un noyau Linux
+ iii/  Il faut bien sur les droits 'root' pour compiler un noyau
+
+Marche a suivre :
+-----------------
+
+0/ Creer un repertoire /usr/src/linux/drivers/lpscan
+
+1/ Recopier les fichiers lpscan/lpscan.c
+                         lpscan/lpscan.h
+                         lpscan/Makefile
+                         lpscan/Config.in
+   dans ce repertoire
+
+2/ Creer un device /dev/lpscan0 :
+
+    2.1/ Choisir un MAJOR number libre en lisant le fichier 
+          /usr/src/linux/Documentation/devices.txt
+  
+          Actuellement (2.2.10), '60' est un MAJOR number libre.
+
+    2.2/ Creer le device de type char :
+
+          mknod /dev/lpscan0 c 60 0
+
+    2.3/ Donner les droits en lecture et ecriture a tout le monde :
+
+         chmod a+rwx /dev/lpscan0
+
+    2.4/ Modifier /usr/src/linux/drivers/lpscan/lpscan.h pour mettre le
+         MAJOR number choisi :
+
+         #define     MAJOR_LPSCAN        60
+
+3/ Modifier le Makefile /usr/src/linux/drivers/Makefile en rajoutant :
+
+    3.1/ ligne 12 dans le noyau 2.2.10
+    
+        ajouter 'lpscan' dans la liste 'ALL_SUB_DIRS := $(SUB_DIRS) ...'
+
+        noyau 2.4.9
+        ajouter 'lpscan' dans la liste 'mod_subdirs := ...'
+        
+
+    3.2/ Les 4 lignes suivantes : 
+         noyau 2.2.10
+         
+         # Ajout du driver lpscan
+         ifdef CONFIG_LPSCAN
+         SUB_DIRS += lpscan
+         endif
+
+         noyau 2.4.9
+
+         # Ajout du driver lpscan
+         ifdef CONFIG_LPSCAN
+         subdir-$(CONFIG_LPSCAN) += lpscan
+         endif
+
+4/ Modifier le Makefile /usr/src/linux/Makefile en rajoutant :
+
+    4.1/ Les 4 lignes suivantes : 
+
+         noyau 2.2.10
+         
+         # Ajout du driver lpscan
+         ifdef CONFIG_LPSCAN
+         DRIVERS := $(DRIVERS) drivers/lpscan/lpscan.a
+         endif
+
+         noyau 2.4.9
+
+         # Ajout du driver lpscan
+         ifdef CONFIG_LPSCAN
+         DRIVERS-$(CONFIG_LPSCAN) += drivers/lpscan/lpscan.a
+         endif
+
+5/ Modifier le fichier /usr/src/linux/drivers/char/mem.c
+
+   5.1/ Rajouter dans les declarations de fonctions les 3 lignes suivantes :
+
+         #ifdef CONFIG_LPSCAN
+         extern void lpscan_init(void);
+         #endif 
+
+   5.2/ Rajouter dans la fonction chr_dev_init() avant le return les 3 lignes 
+        suivantes :
+
+         #ifdef CONFIG_LPSCAN
+                 lpscan_init();
+         #endif
+
+6/ Rajouter a la fin du fichier /usr/src/linux/arch/i386/config.in les lignes 
+   suivantes :
+         mainmenu_option next_comment
+         comment 'LPSCAN support'
+         source drivers/lpscan/Config.in
+         
+         endmenu
+
+6/ definir la variable d'environement CONFIG_LPSCAN
+
+7/ faire un make xconfig dans le repertoire linux,
+   et cliquer sur le bouton CONFIG_LPSCAN et selectionner 'y' puis save & exit
+
+   ou bien faire un make config dans le repertoire linux,
+   et repondre 'Y' a CONFIG_LPSCAN
+
+8/ faire un make depend
+
+9/ faire un make bzImage (... et aller prendre un cafe !!)
+
+10/ Copier l'image du noyau compresse sur la racine avec un nom approprie. Par
+   exemple : 
+
+         cp /usr/src/linux/arch/i386/boot/bzImage /boot/vmlinuz-2.4.9+lpscan
+
+11/ Rajouter une entree pour ce noyau dans /etc/lilo.conf. Par exemple :
+
+      # Linux bootable partition config begins
+      image = /boot/vmlinuz-2.4.9+lpscan
+        root = /dev/hda2
+        label = lpscan
+        read-only 
+      # Linux bootable partition config ends
+
+12/ faire 'lilo'. On doit voir apparaitre une ligne 'lpscan' dans les noyaux 
+    installes.
+
+13/ Arreter le systeme, brancher la carte Boundary-Scan, rebooter en 
+    choisissant le bon noyau (lpscan) au boot
+
+14/ On doit apercevoir le message suivant au boot
+        lpscan_init: Driver LPSCAN carte parallele OK ########################
+        lpscan_init: Carte parallele presente
+
+15/ Si on possede un chip avec boundary-scan sur la carte, on peut faire
+    'pcbs -check' qui extrait du chip ses caracteristiques BS. Exemple avec
+    l'amd2901 : 
+
+      [14:40] testools@jaques 79> pcbs -check
+      
+                          @@@@@@@             @@@@@@@
+                            @@   @@             @@   @@
+                            @@    @@            @@    @@
+                            @@    @@    @@@     @@    @@   @@@@@@
+                            @@   @@   @@   @@   @@   @@   @@    @
+                            @@@@@    @@     @   @@@@@@    @@@
+                            @@       @@         @@    @@   @@@@
+                            @@       @@         @@     @@    @@@@
+                            @@       @@     @   @@     @@ @    @@@
+                            @@        @@   @@   @@    @@  @@    @@
+                          @@@@@@        @@@   @@@@@@@@    @ @@@@@
+      
+                              PC/Boundary-Scan Tester Platform
+      
+                           Alliance CAD System 3.0,      pcbs 1.0a
+                           Copyright (c) 1997, MASI, CAO-VLSI Team
+                           E-mail support:    cao-vlsi@masi.ibp.fr
+      
+      Checking DUT connected to /dev/lpscan0
+      INSTRUCTION Register seems to be 3 bits long
+      BYPASS register seems to be 1 bits long
+      BOUNDARY-SCAN register seems to be 46 bits long
+
+16/ ................ It's OK !
