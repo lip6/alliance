@@ -3,7 +3,7 @@
 .\" <http://shell.ipoline.com/~elmert/comp/docbook2X/> 
 .\" Please send any bug reports, improvements, comments, patches, 
 .\" etc. to Steve Cheng <steve@ggi-project.org>.
-.TH "DPGEN_FIFO" "3" "22 July 2004" "ASIM/LIP6" "Alliance - genlib User's Manual"
+.TH "DPGEN_FIFO" "3" "30 July 2004" "ASIM/LIP6" "Alliance - genlib User's Manual"
 
 .SH NAME
 DPGEN_FIFO \- FIFO Macro-Generator
@@ -21,7 +21,7 @@ How it works :
 .TP 0.2i
 \(bu
 datain0 and datain1 : the two write busses. Only one
-is used to actually write the register word, it is selected by
+is used to actually write the FIFO, it is selected by
 the sel signal.
 .TP 0.2i
 \(bu
@@ -30,13 +30,11 @@ the register word, otherwise it will be datain1\&.
 .TP 0.2i
 \(bu
 r, rok : set r when a word is requested, rok tells
-that a word has effectively been popped out of the FIFO (this is
-indicate an empty FIFO).
+that a word has effectively been popped (rok == not empty).
 .TP 0.2i
 \(bu
 w, wok : set w when a word is pushed, wok tells
-that the word has effectively been pushed in the FIFO (this is
-indicate that the FIFO is full).
+that the word has effectively been pushed (wok == not full).
 .SS "TERMINAL NAMES"
 .TP 3
 1. 

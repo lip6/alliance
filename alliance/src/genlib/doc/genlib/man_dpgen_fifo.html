@@ -169,7 +169,7 @@ CLASS="LITERAL"
 CLASS="LITERAL"
 >datain1</TT
 > : the two write busses. Only one
-        is used to actually write the register word, it is selected by
+        is used to actually write the FIFO, it is selected by
         the <TT
 CLASS="LITERAL"
 >sel</TT
@@ -209,8 +209,7 @@ CLASS="LITERAL"
 CLASS="LITERAL"
 >rok</TT
 > tells
-        that a word has effectively been popped out of the FIFO (this is
-        indicate an empty FIFO).
+        that a word has effectively been popped (rok == not empty).
         </P
 ></LI
 ><LI
@@ -228,8 +227,7 @@ CLASS="LITERAL"
 CLASS="LITERAL"
 >wok</TT
 > tells
-        that the word has effectively been pushed in the FIFO (this is
-        indicate that the FIFO is full).
+        that the word has effectively been pushed (wok == not full).
         </P
 ></LI
 ></UL
