@@ -1,0 +1,328 @@
+.\" ---------------------------------------------------------------------------
+.TH EXP 1.0 "March 18, 2002" "UPMC/ASIM/LIP6"
+.\" $Id: exp.1,v 1.1 2002/04/09 12:33:07 franck Exp $
+.\" @(#)02/02/18 UPMC/ASIM/LIP6; Author: Franck Wajsburt
+.\" ---------------------------------------------------------------------------
+.\" Main useful commands
+.\" --------------------
+.\" .TH Head and Foot of page 
+.\" .SH at the line begining is a Section Header
+.\" .SS at the line begining is a Sub-Section Header
+.\" .TP <num> allows to present a list of items, the nextline is the title,
+.\"     the following lines is the corpus shifted of <num> chars.
+.\"     if <num> is omited, the default value is 7
+.\" .so filename allows to include a filename (absolute or relative to MANPATH)
+.\" \fB is for  Bold font \fP is to return to Previous font 
+.\" \fI is to underlined or to change to Italic font
+.\" .B .I can be used for Bold or Italic, if place a the line beginning
+.\" .br at the line begining break the line, a blank line put a blank line
+.\" .nf Begins a Non-Formatted zone where each line-break is put as-is
+.\" .fi Returns to Formatted mode .nf/.fi is usefull for example to draw tables
+.\" ---------------------------------------------------------------------------
+
+.SH EXP
+.\" ---------------------------------------------------------------------------
+
+exp - a multiple expession calculator.
+
+.so man1/origin.1
+
+.SH SYNOPSIS
+.\" ---------------------------------------------------------------------------
+
+\fBexp\fP [\fB-v\fPn\fI0..4\fP] [\fB-o\fP \fIoutput-file\fP] [\fIinput-file\fP]
+
+.SH DESCRIPTION
+.\" ---------------------------------------------------------------------------
+
+Input is an ascii format file including numeric expessions with variables.
+Input file can includes other input files thanks to an inclusion directive.
+\fBexp\fP reads the input files to write it as is in the output file, but the 
+numeric expessions are replaced by their value. 
+
+.SH OPTIONS
+.\" ---------------------------------------------------------------------------
+
+.TP
+.B -v
+verbose mode 
+.br
+0 : quiet mode 
+.br
+1 : messages \fImess(...)\fP are printed
+.br
+2 : few statistics
+.br
+3 : all expressions are decomposed
+.br
+4 : yacc messages
+.TP
+.B -o \fIoutput-file\fP
+where \fBexp\fP writes (stdout by default).
+.TP
+.I input-file
+where \fBexp\fP reads (stdin by default).
+
+.SH EXP FORMAT FILES
+.\" ---------------------------------------------------------------------------
+
+Except the expessionsi and offline comments, the output file is identical to the
+flattened view of the input files whatever they are. 
+The expession forms can be either \fI[expessions]\fP or \fI{expessions}\fP.
+The first form is for floating point expessions, the second one is for
+integer expessions. By default, the print format is respectively %7.3f 
+and %4d (cf. \fIsprintf(3)\fP). 
+Offline comments begins with // and ends at the beginning of the next line.
+
+.I Examples
+.IP \(bu 3
+[ 3.0 + 12.1] \fIprint\fP 15.100 
+.IP \(bu 3
+{ 3.0 + 12.1} \fIprint\fP 15 
+.P
+
+It is possible to have more that one expession separated by \fI;\fP 
+(semi-column). All the expessions of a list are computed, but only the last 
+one is printed. If the last expession is empty, \fBexp\fP do not print 
+anything (see Examples section). 
+
+.I Examples
+.IP \(bu 3
+[ 6. *2.0;
+.br
+  3.0 + 12.1 ] \fIprint\fP 15.100 
+.IP \(bu 3
+[ 6. *2.0;
+.br
+  3.0 + 12.1; ] \fIprint\fP nothing 
+.P
+
+It is possible to have comments in expessions. A comment begins with \fI#\fP
+(diese) and ends to the carriage return.
+Comment in expression is not copied to the output file.
+
+.I Example
+.IP \(bu 3
+[ 3.0 + 12.1 # comment
+.br
+] \fIprint\fP 15.100 
+
+.SS Expessions
+.\" ----------
+
+Expession is a multi-level numeric expession using numbers, variables, 
+arithmetic operators and numeric functions. 
+
+.I Examples
+.IP \(bu 3
+[ i=3.0; i*12.1] \fIprint\fP 15.100 
+
+.IP \(bu 3 
+{i=3} \fIprint\fP 3
+.br
+{i++} \fIprint\fP 4
+.P
+
+.SS Arithmetic Operators 
+.\" --------------------
+The operators, in order of increasing priority, are
+
+.TP
+.B + - 
+Addition and subtraction.
+.TP
+.B * /
+Multiplication and division.
+.TP
+.B ++ --
+post-incrementation of 1, post-decrementation of 1.
+.TP
+.B ( )
+Grouping
+.TP
+.B =
+Variable affectation. The return value is the one affected.
+
+.SS Boolean Operators 
+.\" -----------------
+.TP
+.B  > <
+respectively greater than and lower than
+.TP
+.B  def(variable)
+True whenever variable is defined yet
+.TP
+.B  ndef(variable)
+True whenever variable is not defined yet
+
+.SS Variables
+.\" ---------
+
+Expession values may be stored in simple variables.
+.\" or one dimension arrays.  
+There are three forms of variable name.
+First, they can begin with a letter followed by any number of letters, digits 
+and underscores; second, they can begin with \fI"\fP (double quote) followed 
+by any number of any char and ended by a \fI"\fP; Third they can begin with 
+\fI\'\fP (quote) then a regular expression (see \fIregex(7)\fP) ended  
+by \fI\'\fP.  \fBexp\fP is case sensitive.
+.\" Array index is put between \fI()\fP.
+
+.I Examples
+.IP \(bu 3 
+[ VAR_1=3.0;                # first form
+.br
+  "variable numero 2"=12.0; # second form
+.br
+] \fIprint\fP nothing
+.IP \(bu 3 
+[ VAR_1 * "variable numero 2" ] \fIprint\fP 15.100
+.P
+
+When a variable appears in the right member of an affectation, \fBexp\fP 
+uses its value. If it has never been defined, this causes a fatal error.
+If it appears the left member, the first time it is automatically created 
+and its value is set, or its value is changed.
+
+.SS Special variables
+.\" -----------------
+
+\fBfloat_fmt\fP, \fBinteger_fmt\fP and \fBstring_fmt\fP special variables to 
+redefine print format of floats, integers and strings. Defaults are %7.3f,
+%-8s and %4d. Those variables are the only variables with a non numerical 
+value.
+
+.I Examples
+.IP \(bu 3 
+[\fBfloat_fmt\fP = "%7.1f";] \fIprint\fP nothing
+.IP \(bu 3 
+[ 3.0 + 12.1] \fIprint\fP 15.1
+.P
+
+\fBverbose\fP is the variable passed in argument list, which can be modified
+by the program itself.
+
+.I Examples \fP get details of expression calculation
+.IP \(bu 3
+[tmp = \fBverbose\fP; \fBverbose\fP = 3; \fI..expressions..\fP; 
+.br
+\fBverbose\fP = tmp;]
+.P
+
+.SS Numeric functions
+.\" -----------------
+
+Few numeric functions are available. The form is \fIfun(args)\fP.
+The arguments take the form of a list of expessions, separated with a \fI,\fP 
+(comma). The number of arguments depends on functions.
+It is possible to make a list of arguments with a regular expession
+(see \fIregex(7)\fP).
+Then all matching variable names are part of the list.
+.TP
+.B min\fI(args)\fP max\fI(args)\fP
+The minimum (resp. maximum) value of its arguments.
+
+.I Examples
+.RS 7
+.IP \(bu 3 
+[min(3.0,12.1)] \fIprint\fP 3.000
+.IP \(bu 3 
+[min('RW_ALU.*')] \fIprint\fP min value of all variables begining by RW_ALU
+.RE
+
+.TP
+.B inf\fI(step,val)\fP sup\fI(step,val)\fP 
+Two arguments. \fPinf\fP (resp. \fPsup\fP) function rounds the second argument
+(val) downwards (resp.  upwards) to an integer number of the first argument
+(step).   
+
+.I Examples
+.RS 7
+.IP \(bu 3 
+[step=0.3;value=1.6;inf(step,value)] \fIprint\fP 1.500
+.RE
+
+.SS Special functions and directives
+.\" --------------------------------
+
+.TP
+.B if\fI(condition, expr1, expr2, ...)\fP
+Calculates the condition if it is true (means greater than zero), the following 
+expressions are all calculated.
+.TP
+.B sort\fI(args)\fP rsort\fI(args)\fP
+\fBsort\fP (resp. reverse \fBrsort\fP) numerically all its arguments, each 
+argument must be a variable, not directly a numeric expession. The return 
+value is the sorted list of its arguments. 
+.TP
+.B message\fI(args)\fP
+writes its arguments to stdout using \fIfloat_fmt\fP, one argument per line. 
+The form is : 
+\fIvariable_name = value;\fP, 
+value is omitted if the variable has never been defined.
+.br
+.I Examples
+.RS 7
+.IP \(bu 3
+[message('"'this is a message'"');] \fIprint\fP 
+.br
+this is a message
+.IP \(bu 3
+[a1b=0; a2b=1O; a3b=5; message(a*b);] \fIprint\fP
+.br
+a1b      =  0.000 
+.br
+a2b      = 1O.000 
+.br
+a3b      =  5.000
+.IP \(bu 3
+[string_fmt=%6s; message(sort(a*b));] \fIprint\fP
+.br
+   a1b =  0.000 
+.br
+   a3b =  5.000
+.br
+   a2b = 1O.000 
+.RE
+
+.TP
+\fB#include "filename"\fP
+Opens the file in argument then returns to the current file as soon as the new
+one is empty.
+
+.SH EXAMPLES
+.\" ---------------------------------------------------------------------------
+
+.TP
+.B Input file
+.nf
+# this is a test file
+[ # few variables
+  WITDH = 2;
+  LENGTH = 25 ;
+]
+this message is unchanged but all expresions are computed
+  length_div_2 = [LENGTH/2]
+  length_mul_2 = {LENGTH*2}
+  result = [max ('leng.*')]
+.fi
+.TP
+.B Output file
+.nf
+# this is a test file
+
+this message is unchanged but all expresions are computed
+  length_div_2 =   12.500
+  length_mul_2 =   50
+  result =   12.500
+.fi
+
+.SH AUTHOR
+
+Written by Franck Wajsburt.
+
+.SH SEE ALSO
+
+Alliance .rds file uses \fBexp\fP to be generated. 
+
+.so man1/bug_report.1
