@@ -113,6 +113,12 @@ TABLE DREAL_RDS_LAYER_NAME
   RDS_VIA5     Via5    violet_red        Black
   RDS_ALU6     Alu6    violet            Black
   RDS_TALU6    Talu6   violet            Black
+  RDS_VIA6     Via6    red               Black
+  RDS_ALU7     Alu7    green             Black
+  RDS_TALU7    Talu7   green             Black
+  RDS_VIA7     Via7    blue              Black
+  RDS_ALU8     Alu8    red               Black
+  RDS_TALU8    Talu8   red               Black
   RDS_CPAS     Cpas    gray              Black
   RDS_REF      Ref     coral             Black
   RDS_ABOX     Abox    pink              Black
