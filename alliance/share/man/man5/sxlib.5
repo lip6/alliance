@@ -1,6 +1,5 @@
-.\" $Id: sxlib.5,v 1.4 1999/09/27 17:06:10 franck Exp $
+.\" $Id: sxlib.5,v 1.5 1999/09/28 07:21:23 franck Exp $
 .\" @(#)Labo.l 0.0 92/09/24 UPMC; Author: Franck Wajsburt
-.pl -.4
 .TH SXLIB 5 "September 16, 1999" "ASIM/LIP6" "CAO\-VLSI Reference Manual"
 .SH NAME
 .B sxlib - a portable CMOS Standard Cell Library
@@ -10,15 +9,28 @@
 
 \fBsxlib\fP library contains standard cells that have been developed at
 UPMC-ASIM/LIP6. This manual gives the list of available cells, with their
-behavior, width, maximum delay and input fan-in.
+behavior, width, maximum delay and input fan-in. This manual gives also 
+few thumb rules to help the user to well use the cells. The given delais
+are the maximum (that means worst case for a generic .35 micron process). 
+More precise delais can be found in ALLIANCE VHDL behavior files (.vbe file).
+Cell-name is built that way <behavior>_<output drive> 
+(see explanations below).
 
 .nf
-Three files are attached to each cell:-
-- Layout                cell-name.ap
-- Transistor net-list   cell-name.al
-- VHDL behavior         cell-name.vbe
+Four files are attached to each cell:-
+- ALLIANCE Layout ............... cell-name.ap
+- ALLIANCE Transistor net-list .. cell-name.al
+- ALLIANCE VHDL behavior ........ cell-name.vbe
+- Compiled HILO behavior ........ 0000000xx.dat
 
-Cell-name is built that way <behavior>_<output drive>.
+And few files more:-
+- CATAL ......................... ALLIANCE catalog file
+- sxlib.cct ..................... Cell definition for HILO CAD tools
+- CIRCUIT.idx ................... HILO catalog file
+- sxlib.lib ..................... Cell definition for Synopsys CAD tools
+- sxlib.db ...................... Compiled cell definition for Synopsys
+- sxlib.sdb ..................... Icon definition for Synopys
+
 .fi
 
 .SH PHYSICAL OUTLINE
@@ -29,6 +41,7 @@ mapping to a specific process CIF or GDS2 layout must be performed by the
 \fBs2r\fP tool (symbolic to real), which uses a value for the lambda
 (e.g. 1 lambda=0.3um).
 .nf
+
        _________________
    50 |       VDD       |
    45 |_________________|     x : place of virtual connector.
@@ -75,7 +88,7 @@ cells, but 0.6ns is a good approximation.
 The given delay is then a worst case (70degree, 2.7Volt, slow process,
 worst input), an idea of the typical delay can be obtain by dividing worst
 delay by 1.5, and best delay by dividing by 2.  More detailed data can be
-found in GENERIC data included in the VHDL files (.vbe). Examples can be 
+found in GENERIC data included in the VHDL files (.vbe). Examples can be
 found at the end of this manual.
 
 .SH OUTPUT DRIVE
@@ -101,7 +114,7 @@ not very good to under-load a cell because this leads to a signal overshoot.
 With the 0.35um process, a \fB1\fP lambda interconnect wire is about
 \fB0.15fF\fP, an average cell fan-in is 10fF. Then, if it needs about 50
 lambdas to connect 2 cells, an \fBx1\fP cell is able to drive about 7
-cells (125/(10+50*.15)=7). With 100 lambdas, 5 cells, with 750 lambdas 
+cells (125/(10+50*.15)=7). With 100 lambdas, 5 cells, with 750 lambdas
 only 2 cells.
 
 All this are indications.  Only a timing analysis on the extracted
@@ -123,6 +136,9 @@ the VHDL interface component is always the alphabetic order.
 [\fBn\fP]\fBmx\fP<i>      : [\fBn\fPot] \fBm\fPultiple\fBx\fPor <i> inputs with coded command
 [\fBn\fP][\fBsd\fP]\fBff\fP<i>  : [\fBn\fPot] [\fBs\fPtatic|\fBd\fPynamic] \fBf\fPlip-\fBf\fPlop <i> inputs
 [\fBn\fP]\fBoa\fP...      : [\fBn\fPot] \fBa\fPnd/\fBo\fPr function (see below)
+
+
+
 
 \fBand_or cell (lex grammar):-\fP
 
@@ -161,18 +177,21 @@ The delay is in nano-seconds. Remember this delay corresponds to the slower
 input+0.6ns. The behavior gives logic function. / means not, + means or, .
 means and, ^ means xor. Each input is followed by fan-in capacitance in fF,
 (e.g. i0<11> means i0 pin capacitance is 11fF).
-
 .nf
+
+
 \fB=================================================================\fP
 \fBWIDTH NAME    DELAY BEHAVIOR\fP
-\fB---------------------------------------------------------- BUFFER\fP
+\fB-------------------------------------------------------- INVERSOR\fP
  3 inv_x1      .7  nq <= /i<8>
  3 inv_x2      .7  nq <= /i<12>
  4 inv_x4      .7  nq <= /i<26>
  7 inv_x8      .7  nq <= /i<54>
+\fB---------------------------------------------------------- BUFFER\fP
  4 buf_x2     1.0   q <=  i<6>
  5 buf_x4     1.0   q <=  i<9>
  8 buf_x8     1.0   q <=  i<15>
+
 \fB------------------------------------------------------ THREE STATE\fP
  6 nts_x1      .8  IF (cmd<14>) nq <= /i<14>
  8 nts_x2      .9  IF (cmd<18>) nq <= /i<28>
@@ -204,11 +223,6 @@ means and, ^ means xor. Each input is followed by fan-in capacitance in fF,
 10 o3_x4      1.2   q <=  (i0<10>+i1<10>+i2<9>)
  7 o4_x2      1.2   q <=  (i0<10>+i1<10>+i2<10>+i3<9>)
  8 o4_x4      1.3   q <=  (i0<12>+i1<12>+i2<12>+i3<12>)
-\fB-------------------------------------------------------------- XOR\fP
- 9 nxr2_x1    1.1  nq <= /(i0<21>^i1<22>)
-11 nxr2_x4    1.2  nq <= /(i0<20>^i1<21>)
- 9 xr2_x1     1.0   q <=  (i0<21>^i1<22>)
-12 xr2_x4     1.2   q <=  (i0<20>^i1<21>)
 \fB--------------------------------------------------------- AND/OR 3\fP
  6 nao22_x1    .9  nq <= /((i0<14>+i1<14>).i2<14>)
 10 nao22_x4   1.3  nq <= /((i0<8>+i1<8>).i2<9>)
@@ -227,11 +241,19 @@ means and, ^ means xor. Each input is followed by fan-in capacitance in fF,
 10 ao2o22_x4  1.3  nq <=  ((i0<8>+i1<8>).(i2<8>+i3<8>))
  9 oa2a22_x1  1.2  nq <=  ((i0<8>.i1<8>)+(i2<8>.i3<8>))
 10 oa2a22_x4  1.4  nq <=  ((i0<8>.i1<8>)+(i2<8>.i3<8>))
+
+
+
 \fB------------------------------------------------------ MULTIPLEXER\fP
  7 nmx2_x1    1.0  nq <= /((i0<14>./cmd<21>)+(i1<14>.cmd))
 12 nmx2_x4    1.3  nq <= /((i0<8>./cmd<14>)+(i1<9>.cmd))
  9 mx2_x2     1.1   q <=  (i0<8>./cmd<17>)+(i1<9>.cmd)
 10 mx2_x4     1.3   q <=  (i0<8>./cmd<17>)+(i1<9>.cmd)
+\fB-------------------------------------------------------------- XOR\fP
+ 9 nxr2_x1    1.1  nq <= /(i0<21>^i1<22>)
+11 nxr2_x4    1.2  nq <= /(i0<20>^i1<21>)
+ 9 xr2_x1     1.0   q <=  (i0<21>^i1<22>)
+12 xr2_x4     1.2   q <=  (i0<20>^i1<21>)
 \fB-------------------------------------------------------- FLIP-FLOP\fP
 ."25 nsdff2_x4  1.0  IF RISE(ck<23>) nq <=/((i0<11>./cmd<13>)+(i1<7>.cmd))
 18 sff1_x4    1.7  IF RISE(ck<8>)   q <= i<8>
@@ -243,11 +265,6 @@ means and, ^ means xor. Each input is followed by fan-in capacitance in fF,
  1 rowend_x0    0  Empty cell
 \fB==================================================================\fP
 .fi
-
-.SH SEE ALSO
-
-\fB MBK_CATA_LIB (1), catal(1), scr(1), lynx(1), bop(1), glop(1), scmap(1),
-c4map(1), tas(1), yagle(1), genlib(1), ap(1), al(1), vbe(1)\fP
 
 .SH NEW CELLS
 
@@ -277,11 +294,11 @@ GENERIC (
   CONSTANT tplh_i1_nq    : NATURAL := 606;  -- propag. time in pico-sec
                                             -- from i1 falling
                                             -- to   nq rizing
-  CONSTANT rup_i1_nq     : NATURAL := 890;  -- resitance in Ohms when nq 
+  CONSTANT rup_i1_nq     : NATURAL := 890;  -- resitance in Ohms when nq
                                             -- rizing due to i1 change
   CONSTANT tphl_i1_nq    : NATURAL := 349;  -- propag time when nq falls
   CONSTANT rdown_i1_nq   : NATURAL := 800;  -- resist when nq falls
-  CONSTANT tplh_i0_nq    : NATURAL := 557;  -- idem for i0 
+  CONSTANT tplh_i0_nq    : NATURAL := 557;  -- idem for i0
   CONSTANT rup_i0_nq     : NATURAL := 890;
   CONSTANT tphl_i0_nq    : NATURAL := 408;
   CONSTANT rdown_i0_nq   : NATURAL := 800
@@ -294,4 +311,10 @@ PORT (
   vss    : in  BIT
 );
 .fi
+
+.SH SEE ALSO
+
+\fBMBK_CATA_LIB (1), catal(1), scr(1), lynx(1), bop(1), glop(1), scmap(1),
+c4map(1), tas(1), yagle(1), genlib(1), ap(1), al(1), vbe(1)\fP
+
 .so man1/alc_bug_report.1
