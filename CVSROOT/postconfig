@@ -5,15 +5,16 @@
 # License: GPL (http://www.gnu.org/copyleft/gpl.html)
 # Started: Sept 1999
 # Last Change: Thursday 07 September 2000, 11:12
-# Edit Time: 0:52:23
+# Edit Time: 0:52:27
 # Description:
 #
-# $Id: postconfig,v 1.48 2000/09/07 09:12:12 czo Exp $
+# $Id: postconfig,v 1.49 2000/09/07 09:12:51 czo Exp $
 #
 
 PATH=/asim/gnu/bin:/usr/ucb:/usr/etc:/usr/local/bin:/bin:/usr/bin:${PATH}
 TMPFILE=$1
 FINGER=`who am i | gawk '{gsub(/^[^\!]*\!/,""); print $1}'`
+
 
 (
 echo "===================================================================="
