@@ -132,6 +132,7 @@ void SyfFsmTreatOutput( FsmFigure, FbhFigure )
   syfout         *ScanSyfOut;
   syfregout      *OutArray;
   fbout_list     *FbhOut;
+  fbaux_list     *ScanAux;
   fbrin_list     *FbhRin;
   fbreg_list     *FbhReg;
   fbbiabl_list     *FbhBiAbl;
@@ -172,7 +173,21 @@ void SyfFsmTreatOutput( FsmFigure, FbhFigure )
         }
       }
 
-      FbhOut = fbh_addfbout( FbhOut, ScanOut->NAME, AblExpr, (bddnode *)0, 0 );
+      for ( ScanAux  = FbhFigure->BEAUX;
+            ScanAux != (fbaux_list *)0;
+            ScanAux  = ScanAux->NEXT )
+      {
+        if ( ScanAux->NAME == ScanOut->NAME ) break;
+      }
+
+      if ( ScanAux == (fbaux_list *)0 )
+      {
+        FbhOut = fbh_addfbout( FbhOut, ScanOut->NAME, AblExpr, (bddnode *)0, 0 );
+      }
+      else
+      {
+        ScanAux->ABL = AblExpr;
+      }
     }
   }
 
