@@ -7,7 +7,7 @@
 # Author: Frédéric Pétrot (fred@pasta.fr.ea)
 #         for version 0
 #
-# $Id: instool,v 1.21 1999/11/19 10:51:33 ludo Exp $
+# $Id: instool,v 1.22 1999/11/19 16:39:54 czo Exp $
 #
 
 
@@ -285,7 +285,6 @@ echo "   a message MUST be given for each installation"
                if [ $i = "SunOS" ] ; then
                   ssh heavy ranlib $LABO/archi/$i/$j/`basename $k`
                fi
-               chmod 664 $LABO/archi/$i/$j >> $BUG 2>&1
             done
          else
             cp $1/labo/$i/$j/* $LABO/archi/$i/$j >> $BUG 2>&1
