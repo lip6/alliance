@@ -39,7 +39,7 @@ ALL_X_LIBS = $(X_LDFLAGS) $(LIBXM) $(LIBXT) \
 
 
 xsch_LDADD = @ALLIANCE_LIBS@ $(ALL_X_LIBS) \
--lScl -lMlu -lMal -lMcl -lMel -lMhl -lMsl -lMvl \
+-lScl -lMlu -lMal -lMcl -lMel -lMhl -lMsl -lMvg \
 -lMgl -lMlo -lMut -lMgl -lAbv -lAbe \
 -lBdd -lAbl -lAut -lRcn
 
