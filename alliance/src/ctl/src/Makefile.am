@@ -1,7 +1,14 @@
 AM_CFLAGS           = @ALLIANCE_CFLAGS@
-lib_LIBRARIES       = libCtl.a
+lib_LTLIBRARIES       = libCtl.la
 include_HEADERS     = ctl.h
-libCtl_a_SOURCES    = \
+libCtl_la_SOURCES    = \
 ctladd.c    ctlalloc.h	ctlenv.c    ctlerror.h	ctl.h	     ctlview.c \
 ctladd.h    ctldel.c	ctlenv.h    ctlfree.c	ctlsearch.c  ctlview.h \
 ctlalloc.c  ctldel.h	ctlerror.c  ctlfree.h	ctlsearch.h
+
+
+LIBTOOL_DEPS = @LIBTOOL_DEPS@
+libtool: $(LIBTOOL_DEPS)
+	$(SHELL) ./config.status --recheck
+
+

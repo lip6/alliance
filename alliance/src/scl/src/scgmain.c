@@ -73,5 +73,15 @@ schfig_list *getschfig( FileName )
 
    char *FileName;
 {
+  /* Fonction non implantee: getschfig_from_lofig
   return ( getschfig_from_lofig( FileName ) );
+  */
+
+  fprintf(stderr,"Error, function getschfig (getschfig_from_lofig) unimplemented\n") ;
+  fprintf(stderr,"See scgmain.c, scl library\n") ;
+
+  exit(0) ;
+
+  return (schfig_list *)NULL ;
 }
+

@@ -1,9 +1,9 @@
 AM_CFLAGS           = @ALLIANCE_CFLAGS@ 
 AM_YFLAGS           =
 AM_LFLAGS           =
-lib_LIBRARIES       = libMgn.a
+lib_LTLIBRARIES       = libMgn.la
 include_HEADERS     = mgn.h mbkgen.h genlib.h dgn.h
-libMgn_a_SOURCES    = genlib.c \
+libMgn_la_SOURCES    = genlib.c \
                       debugon.h \
                       debugoff.h \
                       GNU_Defs.h \
@@ -33,3 +33,10 @@ genlib : ${srcdir}/genlib.sh
 	chmod a+x $@
 
 EXTRA_DIST = genlib.sh dpgen_ROM_code.h
+
+
+LIBTOOL_DEPS = @LIBTOOL_DEPS@
+libtool: $(LIBTOOL_DEPS)
+	$(SHELL) ./config.status --recheck
+
+

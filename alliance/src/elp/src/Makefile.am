@@ -1,9 +1,9 @@
 AM_CFLAGS           = @ALLIANCE_CFLAGS@ \
                       -DTECHNOLOGY=\"etc/prol.elp\" 
 
-lib_LIBRARIES       = libElp.a
+lib_LTLIBRARIES       = libElp.la
 include_HEADERS     = elp.h
-libElp_a_SOURCES    = elp_y.y elp_l.l \
+libElp_la_SOURCES    = elp_y.y elp_l.l \
 elp.c  elperror.c  elp.h
 
 CLEANFILES          = elp_y.c elp_y.h elp_l.c
@@ -13,3 +13,10 @@ elp_y.c elp_y.h : $(srcdir)/elp_y.y
 
 elp_l.c : $(srcdir)/elp_l.l elp_y.h
 	$(LEX) -t $(srcdir)/elp_l.l | sed -e "s/yy/elpyy/g" -e "s/YY/elpYY/g" > elp_l.c
+
+
+LIBTOOL_DEPS = @LIBTOOL_DEPS@
+libtool: $(LIBTOOL_DEPS)
+	$(SHELL) ./config.status --recheck
+
+

@@ -14,18 +14,33 @@ INCLUDES = -I$(top_builddir)/src/pcbs -I$(top_srcdir)/src/bvl \
 -I$(top_srcdir)/src/pcbs
 
 pcbs_LDADD = \
-	   -L$(top_builddir)/src/bvl -lBvl \
+	   -L$(top_builddir)/src/bvl ${top_builddir}/../bvl/src/libBvl.la \
      @ALLIANCE_LIBS@ \
-     -lMpu \
-     -lMlu \
-	  -lMlo \
-     -lBhl \
-	  -lBeh \
-     -lPpt \
-	  -lPhl \
-	  -lPat \
-     -lLog \
-	  -lMut
+     ${top_builddir}/../mbkal/src/libMal.la \
+     ${top_builddir}/../mbkap/src/libMap.la \
+     ${top_builddir}/../mbkvti/src/libMcl.la \
+     ${top_builddir}/../mbkvti/src/libMcp.la \
+     ${top_builddir}/../mbkedif/src/libMel.la \
+     ${top_builddir}/../mbkvrlog/src/libMgl.la \
+     ${top_builddir}/../mbkspice/src/libMsl.la \
+     ${top_builddir}/../mbkhilo/src/libMhl.la \
+     ${top_builddir}/../mbkvhdlg/src/libMvg.la \
+     ${top_builddir}/../mbkvhdl/src/libMvl.la \
+     ${top_builddir}/../genlib/src/libMgn.la \
+     ${top_builddir}/../mbkmg/src/libMmg.la \
+     ${top_builddir}/../mbk/src/libMph.la \
+     ${top_builddir}/../mbk/src/libRcn.la \
+     ${top_builddir}/../mbk/src/libMpu.la \
+     ${top_builddir}/../mbk/src/libMlu.la \
+     ${top_builddir}/../mbk/src/libMlo.la \
+     ${top_builddir}/../bhl/src/libBhl.la \
+     ${top_builddir}/../beh/src/libBeh.la \
+     ${top_builddir}/../ppt/src/libPpt.la \
+     ${top_builddir}/../phl/src/libPhl.la \
+     ${top_builddir}/../pat/src/libPat.la \
+     ${top_builddir}/../log/src/libLog.la \
+     ${top_builddir}/../asimut/src/libCst.la \
+     ${top_builddir}/../mbk/src/libMut.la
 	   
 pcbs_SOURCES = emul_y.y pga_y.c emul_l.c pga_l.c \
                bstools.c     parseur.c       \

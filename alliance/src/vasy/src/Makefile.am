@@ -5,8 +5,8 @@ bin_PROGRAMS = vasy
 AM_CFLAGS = @ALLIANCE_CFLAGS@ 
 
 vasy_LDADD = @ALLIANCE_LIBS@ \
-          -lRtd -lRtn -lVtl -lVvh -lVpd -lVpn -lVbl -lVbh \
-	  -lVex -lBdd -lAbl -lAut -lMut
+          ${top_builddir}/../rtd/src/libRtd.la ${top_builddir}/../rtn/src/libRtn.la ${top_builddir}/../vtl/src/libVtl.la ${top_builddir}/../vvh/src/libVvh.la ${top_builddir}/../vpd/src/libVpd.la ${top_builddir}/../vpn/src/libVpn.la ${top_builddir}/../vbl/src/libVbl.la ${top_builddir}/../vbh/src/libVbh.la \
+	  ${top_builddir}/../vex/src/libVex.la ${top_builddir}/../bdd/src/libBdd.la ${top_builddir}/../abl/src/libAbl.la ${top_builddir}/../aut/src/libAut.la ${top_builddir}/../mbk/src/libMut.la
 
 vasy_SOURCES = \
 vasy_analys.c     vasy_drvvlog.h    vasy_mulwait.c    vasy_redwait.h \

@@ -1,7 +1,7 @@
 AM_CFLAGS           = @ALLIANCE_CFLAGS@ 
-lib_LIBRARIES       = libPgn.a
+lib_LTLIBRARIES       = libPgn.la
 include_HEADERS     = genpat.h 
-libPgn_a_SOURCES    = AFFECT.c ARRAY.c CONV.c DECLAR.c DEF_GEN.c GETCPAT.c \
+libPgn_la_SOURCES    = AFFECT.c ARRAY.c CONV.c DECLAR.c DEF_GEN.c GETCPAT.c \
 		INIT.c LABEL.c  SAVE.c SAV_GEN.c SETTUNIT.c \
 		libpat_l.c libpat_l.h
 
@@ -13,3 +13,10 @@ genpat : ${srcdir}/genpat.sh
 	chmod a+x $@
 
 EXTRA_DIST = genpat.sh
+
+
+LIBTOOL_DEPS = @LIBTOOL_DEPS@
+libtool: $(LIBTOOL_DEPS)
+	$(SHELL) ./config.status --recheck
+
+

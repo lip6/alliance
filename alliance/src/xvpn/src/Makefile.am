@@ -38,7 +38,7 @@ ALL_X_LIBS = $(X_LDFLAGS) $(LIBXM) $(LIBXT) \
 
 
 xvpn_LDADD = @ALLIANCE_LIBS@ $(ALL_X_LIBS) \
- -lVtl -lVvh -lVpd -lVpn -lVbl -lVbh -lVex -lAbl -lAut -lMut
+ ${top_builddir}/../vtl/src/libVtl.la ${top_builddir}/../vvh/src/libVvh.la ${top_builddir}/../vpd/src/libVpd.la ${top_builddir}/../vpn/src/libVpn.la ${top_builddir}/../vbl/src/libVbl.la ${top_builddir}/../vbh/src/libVbh.la ${top_builddir}/../vex/src/libVex.la ${top_builddir}/../abl/src/libAbl.la ${top_builddir}/../aut/src/libAut.la ${top_builddir}/../mbk/src/libMut.la
 
 xvpn_SOURCES = \
 LIP6bw.h XME_dialog.c XME_dialog.h XME_edit.c XME_edit.h XME.h XME_menu.c \

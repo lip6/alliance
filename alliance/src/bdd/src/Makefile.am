@@ -1,7 +1,7 @@
 AM_CFLAGS           = @ALLIANCE_CFLAGS@ 
-lib_LIBRARIES       = libBdd.a
+lib_LTLIBRARIES       = libBdd.la
 include_HEADERS     = bdd.h
-libBdd_a_SOURCES    = \
+libBdd_la_SOURCES    = \
 bdd.h            bddenv.h         bddimply.h       bddsimpdc.h \
 bddalloc.c       bdderror.c       bddlog.c         bddsubst.c \
 bddalloc.h       bdderror.h       bddlog.h         bddsubst.h \
@@ -24,3 +24,10 @@ bddconvert.h     bddhnode.h       bddresize.h      bddvaraux.h \
 bdddump.c        bddhoper.c       bddsatisfy.c     \
 bdddump.h        bddhoper.h       bddsatisfy.h     \
 bddenv.c         bddimply.c       bddsimpdc.c
+
+
+LIBTOOL_DEPS = @LIBTOOL_DEPS@
+libtool: $(LIBTOOL_DEPS)
+	$(SHELL) ./config.status --recheck
+
+

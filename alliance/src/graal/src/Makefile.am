@@ -46,8 +46,8 @@ ALL_X_LIBS = $(X_LDFLAGS) $(LIBXM) $(LIBXT) $(LIBXPM) \
 
 
 graal_LDADD = @ALLIANCE_LIBS@ $(ALL_X_LIBS) \
--lVrd -lRtl -lRgs -lRcf -lRfm -lRpr -lRwi -lRut -lRds -lMpu \
--lMap -lMmg -lMcp -lMph -lMut
+${top_builddir}/../druc/src/libVrd.la ${top_builddir}/../rds/src/libRtl.la ${top_builddir}/../rdsgds/src/libRgs.la ${top_builddir}/../rdscif/src/libRcf.la ${top_builddir}/../rds/src/libRfm.la ${top_builddir}/../rds/src/libRpr.la ${top_builddir}/../rds/src/libRwi.la ${top_builddir}/../rds/src/libRut.la ${top_builddir}/../rds/src/libRds.la ${top_builddir}/../mbk/src/libMpu.la \
+${top_builddir}/../mbkap/src/libMap.la ${top_builddir}/../mbkmg/src/libMmg.la ${top_builddir}/../mbkvti/src/libMcp.la ${top_builddir}/../mbk/src/libMph.la ${top_builddir}/../mbk/src/libMut.la
 
 graal_SOURCES = \
 graal.c GMC_create.c GMC_create.h GMC_dialog.c GMC_dialog.h GMC.h GMC_menu.c GMC_menu.h \

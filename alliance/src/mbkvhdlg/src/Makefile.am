@@ -1,8 +1,8 @@
 YFLAGS           = -d
 AM_CFLAGS        = @ALLIANCE_CFLAGS@
-lib_LIBRARIES    = libMvg.a
+lib_LTLIBRARIES    = libMvg.la
 
-libMvg_a_SOURCES = mvl_drive.c mvl_parse.c mvl_util.c mvl_sspec.c \
+libMvg_la_SOURCES = mvl_drive.c mvl_parse.c mvl_util.c mvl_sspec.c \
                    mvl_scomp_y.y mvl_scomp_l.l \
                    mvl_drive.h mvl_parse.h mvl_scomp_y.h mvl_slex.h \
                    mvl_sspec.h mvl_stdef.h mvl_stype.h mvl_syacc.h \
@@ -20,15 +20,22 @@ mvl_scomp_l.c : $(srcdir)/mvl_scomp_l.l mvl_scomp_y.h
 bin_PROGRAMS     = x2vy
 x2vy_SOURCES     = x2vy_main.c
 x2vy_LDADD       = @ALLIANCE_LIBS@ \
-                   -lMlu \
-                   -lMcl \
-                   -lMel \
-                   -lMhl \
-                   -lMal \
-                   -lMsl \
-                   -lMgl \
-                   $(top_builddir)/src/libMvg.a \
-                   -lMlo \
-                   -lMut \
-                   -lRcn
+                   ${top_builddir}/../mbk/src/libMlu.la \
+                   ${top_builddir}/../mbkvti/src/libMcl.la \
+                   ${top_builddir}/../mbkedif/src/libMel.la \
+                   ${top_builddir}/../mbkhilo/src/libMhl.la \
+                   ${top_builddir}/../mbkal/src/libMal.la \
+                   ${top_builddir}/../mbkspice/src/libMsl.la \
+                   ${top_builddir}/../mbkvrlog/src/libMgl.la \
+                   $(top_builddir)/src/libMvg.la \
+                   ${top_builddir}/../mbk/src/libMlo.la \
+                   ${top_builddir}/../mbk/src/libMut.la \
+                   ${top_builddir}/../mbk/src/libRcn.la
+
+
+
+LIBTOOL_DEPS = @LIBTOOL_DEPS@
+libtool: $(LIBTOOL_DEPS)
+	$(SHELL) ./config.status --recheck
+
 

@@ -1,7 +1,7 @@
 AM_CFLAGS           = @ALLIANCE_CFLAGS@
-lib_LIBRARIES       = libBeh.a
+lib_LTLIBRARIES       = libBeh.la
 include_HEADERS     = beh.h
-libBeh_a_SOURCES    = \
+libBeh_la_SOURCES    = \
 beh_addbeaux.c	 beh_delbebus.c    beh_frebeaux.c  beh_message.c \
 beh_addbebus.c	 beh_delbebux.c    beh_frebebus.c  beh_rmvbeaux.c \
 beh_addbebux.c	 beh_delbeder.c    beh_frebebux.c  beh_rmvbebus.c \
@@ -19,3 +19,10 @@ beh_addbinod.c	 beh_dict.c	   beh_getgenva.c  beh_rplstable.c \
 beh_apdbeaux.c	 beh_error.c	   beh_getvers.c   beh_toolbug.c \
 beh_apdberin.c	 beh_expdelayed.c  beh_globals.c   beh_vhdlname.c \
 beh_delbeaux.c	 beh_expstable.c   beh.h	   beh_vhvector.c
+
+
+LIBTOOL_DEPS = @LIBTOOL_DEPS@
+libtool: $(LIBTOOL_DEPS)
+	$(SHELL) ./config.status --recheck
+
+

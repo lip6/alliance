@@ -39,8 +39,8 @@ ALL_X_LIBS = $(X_LDFLAGS) $(LIBXM) $(LIBXT) \
 
 
 xfsm_LDADD = @ALLIANCE_LIBS@ $(ALL_X_LIBS) \
-          -lFtl -lFks -lFvh -lFsm \
-	  -lBdd -lAbl -lAut -lMut
+          ${top_builddir}/../ftl/src/libFtl.la ${top_builddir}/../fks/src/libFks.la ${top_builddir}/../fvh/src/libFvh.la ${top_builddir}/../fsm/src/libFsm.la \
+	  ${top_builddir}/../bdd/src/libBdd.la ${top_builddir}/../abl/src/libAbl.la ${top_builddir}/../aut/src/libAut.la ${top_builddir}/../mbk/src/libMut.la
 
 xfsm_SOURCES = \
 LIP6bw.h        XME_search.c    XMS_panel.c     XMV_panel.h     XMX_panel.h \

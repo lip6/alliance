@@ -1,7 +1,7 @@
 AM_CFLAGS           = @ALLIANCE_CFLAGS@
-lib_LIBRARIES       = libCtp.a
+lib_LTLIBRARIES       = libCtp.la
 include_HEADERS     = ctp.h
-libCtp_a_SOURCES    = ctp_y.y ctp_l.l ctp.h  \
+libCtp_la_SOURCES    = ctp_y.y ctp_l.l ctp.h  \
 ctp_bedef.h  ctp_bspec.c  ctp_byacc.h  ctp_parse.c  ctp_util.h \
 ctp_blex.h   ctp_bspec.h  ctp_util.c   ctp_utype.h
 
@@ -16,7 +16,14 @@ ctp_l.c : $(srcdir)/ctp_l.l ctp_y.h
 EXTRA_PROGRAMS = ctptest
 
 ctptest_LDADD = @ALLIANCE_LIBS@ \
-                $(top_builddir)/src/libCtp.a \
-                -lCtl -lVex -lAut -lMut
+                $(top_builddir)/src/libCtp.la \
+                ${top_builddir}/../ctl/src/libCtl.la ${top_builddir}/../vex/src/libVex.la ${top_builddir}/../aut/src/libAut.la ${top_builddir}/../mbk/src/libMut.la
 
 ctptest_SOURCES = main.c
+
+
+LIBTOOL_DEPS = @LIBTOOL_DEPS@
+libtool: $(LIBTOOL_DEPS)
+	$(SHELL) ./config.status --recheck
+
+

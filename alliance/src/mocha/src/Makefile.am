@@ -5,8 +5,8 @@ bin_PROGRAMS = moka
 AM_CFLAGS = @ALLIANCE_CFLAGS@  -Wall
 
 moka_LDADD = @ALLIANCE_LIBS@ \
-          -lFtl -lFks -lFvh -lFsm \
-	  -lCtp -lCtl -lVex -lAbt -lAbv -lAbe -lBtr -lBdd -lAbl -lAut -lMut
+          ${top_builddir}/../ftl/src/libFtl.la ${top_builddir}/../fks/src/libFks.la ${top_builddir}/../fvh/src/libFvh.la ${top_builddir}/../fsm/src/libFsm.la \
+	  ${top_builddir}/../ctp/src/libCtp.la ${top_builddir}/../ctl/src/libCtl.la ${top_builddir}/../vex/src/libVex.la ${top_builddir}/../abt/src/libAbt.la ${top_builddir}/../abv/src/libAbv.la ${top_builddir}/../abe/src/libAbe.la ${top_builddir}/../btr/src/libBtr.la ${top_builddir}/../bdd/src/libBdd.la ${top_builddir}/../abl/src/libAbl.la ${top_builddir}/../aut/src/libAut.la ${top_builddir}/../mbk/src/libMut.la
 
 
 moka_SOURCES = \
