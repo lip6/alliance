@@ -36,10 +36,10 @@
 |                                                             |
 \------------------------------------------------------------*/
 
-#include MUT_H 
-#include AUT_H
-#include ABL_H 
-#include ABE_H
+#include "mut.h" 
+#include "aut.h"
+#include "abl.h" 
+#include "abe.h"
 
 static void loc_beh_viewablexprln( Expr )
 
