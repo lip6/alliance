@@ -86,7 +86,7 @@ static long              base ;
 %token        AFTER
 %token        ALIAS
 %token        ALL
-%token        _AND
+%token        tok_AND
 %token        ARCHITECTURE
 %token        ARRAY
 %token        ARG  
@@ -140,7 +140,7 @@ static long              base ;
 %token        _NEXT
 %token        _NOR
 %token        _NOT
-%token        _NULL
+%token        tok_NULL
 %token        OF
 %token        ON
 %token        OPEN
