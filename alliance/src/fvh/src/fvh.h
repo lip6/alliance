@@ -104,8 +104,8 @@ typedef struct fbreg		/* register				*/
   {
   struct fbreg  *NEXT;		/* next register			*/
   char          *NAME;		/* register's name			*/
-  struct biabl  *BIABL;		/* list of drivers (ABL)		*/
-  struct binode *BINODE;	/* list of drivers (BDD)		*/
+  struct fbbiabl  *BIABL;		/* list of drivers (ABL)		*/
+  struct fbbinode *BINODE;	/* list of drivers (BDD)		*/
   unsigned long  FLAG;
   unsigned long  LINE_NUM;
   void          *USER;
@@ -142,8 +142,8 @@ typedef struct fbbus		/* output port (BUS)			*/
   {
   struct fbbus	*NEXT;		/* next bus port			*/
   char		*NAME;		/* port's name				*/
-  struct biabl	*BIABL;		/* list of drivers (ABL)		*/
-  struct binode	*BINODE;	/* list of drivers (BDD)		*/
+  struct fbbiabl	*BIABL;		/* list of drivers (ABL)		*/
+  struct fbbinode	*BINODE;	/* list of drivers (BDD)		*/
   unsigned char  TYPE;		/* port's type : W or M			*/
   unsigned long  FLAG;
   unsigned long  LINE_NUM;
@@ -168,8 +168,8 @@ typedef struct fbbux		/* internal signal (BUS)		*/
   {	
   struct fbbux	*NEXT;		/* next signal				*/
   char		*NAME;		/* signal's name			*/
-  struct biabl	*BIABL;		/* list of drivers (ABL)		*/
-  struct binode	*BINODE;	/* list of drivers (BDD)		*/
+  struct fbbiabl	*BIABL;		/* list of drivers (ABL)		*/
+  struct fbbinode	*BINODE;	/* list of drivers (BDD)		*/
   unsigned char  TYPE;		/* signal's type : W or M		*/
   unsigned long  FLAG;
   unsigned long  LINE_NUM;
@@ -188,26 +188,26 @@ typedef struct fbpor		/* port					*/
   }
 fbpor_list;
 
-typedef struct biabl		/* couple of ABL			*/
+typedef struct fbbiabl		/* couple of ABL			*/
   {
-  struct biabl	*NEXT;		/* next couple				*/
+  struct fbbiabl	*NEXT;		/* next couple				*/
   char          *LABEL;		/* driver's label			*/
   struct chain	*CNDABL;	/* driver's connection condition (ABL)	*/
   struct chain	*VALABL;	/* equation of driven value (ABL)	*/
   unsigned long  LINE_NUM;
   void         *USER;
   }
-biabl_list;
+fbbiabl_list;
 
-typedef struct binode		/* couple of BDD			*/
+typedef struct fbbinode		/* couple of BDD			*/
   {
-  struct binode	*NEXT;	 	/* next figure				*/
+  struct fbbinode	*NEXT;	 	/* next figure				*/
   bddnode 	*CNDNODE;	/* driver's connection condition (BDD)	*/
   bddnode 	*VALNODE;	/* equation of driven value (BDD)	*/
   unsigned long  LINE_NUM;
   void         *USER;
   }
-binode_list;
+fbbinode_list;
 
 typedef struct fbrin		/* primary inputs			*/
   {
@@ -320,17 +320,17 @@ fbpgm_list;
 extern fbfig_list *FBL_HEADFIG;
 
   extern  struct fbaux * fbh_addfbaux __P((struct fbaux *lastfbaux, char *name, struct chain *abl_expr, bddnode *bdd_expr, unsigned char type));
-  extern  struct fbbux * fbh_addfbbux __P((struct fbbux *lastfbbux, char *name, struct biabl *biabl, struct binode *binode, char type));
-  extern  struct fbbus * fbh_addfbbus __P((struct fbbus *lastfbbus, char *name, struct biabl *biabl, struct binode *binode, char type));
+  extern  struct fbbux * fbh_addfbbux __P((struct fbbux *lastfbbux, char *name, struct fbbiabl *biabl, struct fbbinode *binode, char type));
+  extern  struct fbbus * fbh_addfbbus __P((struct fbbus *lastfbbus, char *name, struct fbbiabl *biabl, struct fbbinode *binode, char type));
   extern  struct fbfig * fbh_addfbfig __P((struct fbfig *lastfbfig, char *name));
   extern  struct fbgen * fbh_addfbgen __P((struct fbgen *lastfbgen, char *name, char *type, void *value ));
   extern  struct fbmsg * fbh_addfbmsg __P((struct fbmsg *lastfbmsg, char *label, char level, char *message, struct chain *abl_expr, bddnode *bdd_expr));
   extern  struct fbout * fbh_addfbout __P((struct fbout *lastfbout, char *name, struct chain *abl_expr, bddnode *bdd_expr, unsigned char type));
   extern  struct fbpor * fbh_addfbpor __P((struct fbpor *lastfbpor, char *name, char dir, unsigned char type));
-  extern  struct fbreg * fbh_addfbreg __P((struct fbreg *lastfbreg, char *name, struct biabl *biabl, struct binode *binode));
+  extern  struct fbreg * fbh_addfbreg __P((struct fbreg *lastfbreg, char *name, struct fbbiabl *biabl, struct fbbinode *binode));
   extern  struct fbrin * fbh_addfbrin __P((struct fbrin *lastfbrin, char *name));
-  extern  struct biabl * fbh_addbiabl __P((struct biabl *lastbiabl, char *label,struct chain *condition, struct chain *value));
-  extern struct binode * fbh_addbinode __P((struct binode *lastbinode, bddnode *condition, bddnode *value));
+  extern  struct fbbiabl * fbh_addbiabl __P((struct fbbiabl *lastbiabl, char *label,struct chain *condition, struct chain *value));
+  extern struct fbbinode * fbh_addbinode __P((struct fbbinode *lastbinode, bddnode *condition, bddnode *value));
   extern  struct ptype * fbh_addfbifs __P((struct ptype *lastptype, struct chain *abl));
   extern  struct ptype * fbh_addfbasg __P((struct ptype *lastptype, char *name, struct chain *abl, unsigned char type));
   extern  struct ptype * fbh_addfbcas __P((struct ptype *lastptype, struct chain *abl, unsigned char type));
@@ -348,8 +348,8 @@ extern fbfig_list *FBL_HEADFIG;
   extern  struct fbpor * fbh_delfbpor __P((struct fbpor *listfbpor, struct fbpor *ptfbpor));
   extern  struct fbreg * fbh_delfbreg __P((struct fbreg *listfbreg, struct fbreg *ptfbreg, char mode));
   extern  struct fbrin * fbh_delfbrin __P((struct fbrin *listfbrin, struct fbrin *ptfbrin));
-  extern  struct biabl * fbh_delbiabl __P((struct biabl *listbiabl, struct biabl *ptbiabl, char mode));
-  extern struct binode * fbh_delbinode __P((struct binode *listbinode, struct binode *ptbinode, char mode));
+  extern  struct fbbiabl * fbh_delbiabl __P((struct fbbiabl *listbiabl, struct fbbiabl *ptbiabl, char mode));
+  extern struct fbbinode * fbh_delbinode __P((struct fbbinode *listbinode, struct fbbinode *ptbinode, char mode));
   extern           void  fbh_frefbaux __P((struct fbaux *listfbaux));
   extern           void  fbh_frefbbux __P((struct fbbux *listfbbux));
   extern           void  fbh_frefbbus __P((struct fbbus *listfbbus));
@@ -361,8 +361,8 @@ extern fbfig_list *FBL_HEADFIG;
   extern           void  fbh_frefbreg __P((struct fbreg *listfbreg));
   extern           void  fbh_frefbrin __P((struct fbrin *listfbrin));
   extern           void  fbh_frefbpgm __P((struct fbpgm *listfbpgm));
-  extern           void  fbh_frebiabl __P((struct biabl *listbiabl));
-  extern           void  fbh_frebinode __P((struct binode *listbinode));
+  extern           void  fbh_frebiabl __P((struct fbbiabl *listbiabl));
+  extern           void  fbh_frebinode __P((struct fbbinode *listbinode));
   extern           void  fbh_frefbtyp __P((struct fbtyp *listfbtyp));
   extern          void * fbh_getgenval __P((struct fbgen *listfbgen, char *fbgenname));
   extern  struct fbaux * fbh_rmvfbaux __P((struct fbaux *listfbaux, char *fbauxname, char mode));

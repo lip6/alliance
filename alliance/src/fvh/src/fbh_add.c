@@ -105,12 +105,12 @@ unsigned char  type;          /* signal's type                */
 /* called func.     : namealloc, mbkalloc                         */
 /* ###--------------------------------------------------------------### */
 
-struct fbbus *fbh_addfbbus (lastfbbus, name, biabl, binode, type)
+struct fbbus *fbh_addfbbus (lastfbbus, name, fbbiabl, fbbinode, type)
 
 struct fbbus  *lastfbbus;     /* pointer on the last fbbus structure     */
 char          *name;          /* port's name                    */
-struct biabl  *biabl;          /* port's drivers (ABL)               */
-struct binode *binode;          /* port's drivers (BDD)               */
+struct fbbiabl  *fbbiabl;          /* port's drivers (ABL)               */
+struct fbbinode *fbbinode;          /* port's drivers (BDD)               */
 char           type;          /* port type mark (M or W)          */
 
   {
@@ -120,8 +120,8 @@ char           type;          /* port type mark (M or W)          */
 
   ptbus         = (struct fbbus *) mbkalloc (sizeof(struct fbbus));
   ptbus->NAME   = name;
-  ptbus->BIABL  = biabl;
-  ptbus->BINODE = binode;
+  ptbus->BIABL  = fbbiabl;
+  ptbus->BINODE = fbbinode;
   ptbus->TYPE   = type;
   ptbus->NEXT   = lastfbbus;
 
@@ -134,12 +134,12 @@ char           type;          /* port type mark (M or W)          */
 /* called func.     : namealloc, mbkalloc                         */
 /* ###--------------------------------------------------------------### */
 
-struct fbbux *fbh_addfbbux (lastfbbux, name, biabl, binode, type)
+struct fbbux *fbh_addfbbux (lastfbbux, name, fbbiabl, fbbinode, type)
 
 struct fbbux  *lastfbbux;     /* pointer on the last fbbux structure     */
 char          *name;          /* signal's name               */
-struct biabl  *biabl;          /* signal's expression (ABL)          */
-struct binode *binode;          /* signal's expression (BDD)          */
+struct fbbiabl  *fbbiabl;          /* signal's expression (ABL)          */
+struct fbbinode *fbbinode;          /* signal's expression (BDD)          */
 char           type;          /* signal's type mark (M or W)          */
 
   {
@@ -149,8 +149,8 @@ char           type;          /* signal's type mark (M or W)          */
 
   ptbux         = (struct fbbux *) mbkalloc (sizeof(struct fbbux));
   ptbux->NAME   = name;
-  ptbux->BIABL  = biabl;
-  ptbux->BINODE = binode;
+  ptbux->BIABL  = fbbiabl;
+  ptbux->BINODE = fbbinode;
   ptbux->TYPE   = type;
   ptbux->NEXT   = lastfbbux;
 
@@ -431,12 +431,12 @@ unsigned char  type;          /* signal's type (M or W)          */
 /* called func.     : namealloc, mbkalloc                         */
 /* ###--------------------------------------------------------------### */
 
-struct fbreg *fbh_addfbreg (lastfbreg, name, biabl, binode)
+struct fbreg *fbh_addfbreg (lastfbreg, name, fbbiabl, fbbinode)
 
 struct fbreg  *lastfbreg;     /* pointer on the last fbreg structure     */
 char          *name;          /* register's name               */
-struct biabl  *biabl;          /* register's drivers (ABL)          */
-struct binode *binode;          /* register's drivers (BDD)          */
+struct fbbiabl  *fbbiabl;          /* register's drivers (ABL)          */
+struct fbbinode *fbbinode;          /* register's drivers (BDD)          */
 /*unsigned char  type;           register's type               */
 
   {
@@ -446,8 +446,8 @@ struct binode *binode;          /* register's drivers (BDD)          */
 
   ptreg         = (struct fbreg *) mbkalloc (sizeof(struct fbreg));
   ptreg->NAME   = name;
-  ptreg->BIABL  = biabl;
-  ptreg->BINODE = binode;
+  ptreg->BIABL  = fbbiabl;
+  ptreg->BINODE = fbbinode;
   ptreg->NEXT   = lastfbreg;
 
   return (ptreg);
@@ -526,17 +526,17 @@ char           class;          /* type's class (E, I, A, S)          */
 /* called func.     : namealloc, mbkalloc                         */
 /* ###--------------------------------------------------------------### */
 
-struct biabl *fbh_addbiabl (lastbiabl, label, condition, value)
+struct fbbiabl *fbh_addbiabl (lastbiabl, label, condition, value)
 
-struct biabl *lastbiabl;     /* pointer on the last biabl structure     */
+struct fbbiabl *lastbiabl;     /* pointer on the last fbbiabl structure     */
 char         *label;          /* block's label               */
 struct chain *condition;     /* guard expression (ABL)          */
 struct chain *value;          /* value expression (ABL)          */
 
   {
-  struct biabl  *ptbiabl;
+  struct fbbiabl  *ptbiabl;
 
-  ptbiabl         = (struct biabl *) mbkalloc (sizeof(struct biabl));
+  ptbiabl         = (struct fbbiabl *) mbkalloc (sizeof(struct fbbiabl));
   label           = namealloc (label);
 
   ptbiabl->LABEL  = label;
@@ -553,16 +553,16 @@ struct chain *value;          /* value expression (ABL)          */
 /* called func.     : namealloc, mbkalloc                         */
 /* ###--------------------------------------------------------------### */
 
-struct binode *fbh_addbinode (lastbinode, condition, value)
+struct fbbinode *fbh_addbinode (lastbinode, condition, value)
 
-struct binode *lastbinode;     /* pointer on the last binode structure     */
+struct fbbinode *lastbinode;     /* pointer on the last fbbinode structure     */
 bddnode   *condition;     /* guard expression (BDD)          */
 bddnode   *value;          /* value expression (BDD)          */
 
   {
-  struct binode *ptbinode;
+  struct fbbinode *ptbinode;
 
-  ptbinode          = (struct binode *) mbkalloc (sizeof(struct binode));
+  ptbinode          = (struct fbbinode *) mbkalloc (sizeof(struct fbbinode));
   ptbinode->CNDNODE = condition;
   ptbinode->VALNODE = value;
   ptbinode->NEXT    = lastbinode;

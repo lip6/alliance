@@ -414,10 +414,10 @@ struct fbtyp *listfbtyp;	/* list of fbtyp to be deleted		*/
 
 void fbh_frebiabl (listbiabl)
 
-struct biabl *listbiabl;	/* list of biabl to be deleted		*/
+struct fbbiabl *listbiabl;	/* list of fbbiabl to be deleted		*/
 
   {
-  struct biabl *ptbiabl;
+  struct fbbiabl *ptbiabl;
 
 	/* ###------------------------------------------------------### */
 	/*    for each object of the list, first delete pointed objects	*/
@@ -445,10 +445,10 @@ struct biabl *listbiabl;	/* list of biabl to be deleted		*/
 
 void fbh_frebinode (listbinode)
 
-struct binode *listbinode;	/* list of binode to be deleted		*/
+struct fbbinode *listbinode;	/* list of fbbinode to be deleted		*/
 
   {
-  struct binode *ptbinode;
+  struct fbbinode *ptbinode;
 
 	/* ###------------------------------------------------------### */
 	/*    for each object of the list, first delete pointed objects	*/

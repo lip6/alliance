@@ -285,7 +285,7 @@ void vhdlsavefbarchi( pthedfbfig, synopsys )
   struct fbbus *ptfbbus   = 0;  /* current BEBUS pointer    */
   struct fbaux *ptfbaux   = 0;  /* current BEAUX pointer    */
   struct fbbux *ptfbbux   = 0;  /* current BEBUX pointer    */
-  struct biabl *ptbiabl   = 0;  /* current BIABL pointer    */
+  struct fbbiabl *ptbiabl   = 0;  /* current BIABL pointer    */
 
     /* ###------------------------------------------------------### */
     /*    Print out a concurrent assert statement for each BEMSG    */

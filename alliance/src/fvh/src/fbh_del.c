@@ -640,15 +640,15 @@ return(listfbrin);
 /* called func.    : mbkfree                        */
 /* ###--------------------------------------------------------------### */
 
-struct biabl *fbh_delbiabl (listbiabl, ptbiabl, mode)
+struct fbbiabl *fbh_delbiabl (listbiabl, ptbiabl, mode)
 
-struct biabl *listbiabl;    /* list of biabl containing the object    */
-struct biabl *ptbiabl;        /* pointer of the BIABL to be deleted    */
+struct fbbiabl *listbiabl;    /* list of fbbiabl containing the object    */
+struct fbbiabl *ptbiabl;        /* pointer of the BIABL to be deleted    */
 char          mode;        /* recursive delete or not (Y or N)    */
 
 {
-struct biabl  headabl;
-struct biabl *ptlastabl;
+struct fbbiabl  headabl;
+struct fbbiabl *ptlastabl;
 
 if ((listbiabl != 0) && (ptbiabl != 0))
   {
@@ -675,7 +675,7 @@ if ((listbiabl != 0) && (ptbiabl != 0))
     if (mode == 'N')
       {
       if ((ptbiabl->VALABL != 0) || (ptbiabl->CNDABL != 0))
-        (void) fprintf (stderr,"FBH_warning : biabl not empty\n");
+        (void) fprintf (stderr,"FBH_warning : fbbiabl not empty\n");
       }
     else
       {
@@ -701,15 +701,15 @@ return(listbiabl);
 /* called func.    : mbkfree                        */
 /* ###--------------------------------------------------------------### */
 
-struct binode *fbh_delbinode (listbinode, ptbinode, mode)
+struct fbbinode *fbh_delbinode (listbinode, ptbinode, mode)
 
-struct binode *listbinode;    /* list of binode containing the object    */
-struct binode *ptbinode;    /* pointer of the BINODE to be deleted    */
+struct fbbinode *listbinode;    /* list of fbbinode containing the object    */
+struct fbbinode *ptbinode;    /* pointer of the BINODE to be deleted    */
 char          mode;        /* recursive delete or not (Y or N)    */
 
 {
-struct binode  headnode;
-struct binode *ptlastnode;
+struct fbbinode  headnode;
+struct fbbinode *ptlastnode;
 
 if ((listbinode != 0) && (ptbinode != 0))
   {
@@ -736,7 +736,7 @@ if ((listbinode != 0) && (ptbinode != 0))
     if (mode == 'N')
       {
       if ((ptbinode->VALNODE != 0) || (ptbinode->CNDNODE != 0))
-        (void) fprintf (stderr,"FBH_warning : binode not empty\n");
+        (void) fprintf (stderr,"FBH_warning : fbbinode not empty\n");
       }
 
     ptlastnode->NEXT = ptbinode->NEXT;

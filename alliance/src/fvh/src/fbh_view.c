@@ -58,23 +58,23 @@ static void loc_fbh_viewablexprln( Expr )
 
 void fbh_viewbiabl( BiAbl )
 
-  biabl_list *BiAbl;
+  fbbiabl_list *BiAbl;
 {
-  if ( BiAbl == (biabl_list *)0 )
+  if ( BiAbl == (fbbiabl_list *)0 )
   {
     fprintf( stdout, "NULL\n" );
   }
   else
   {
-    while ( BiAbl != (biabl_list *)0 )
+    while ( BiAbl != (fbbiabl_list *)0 )
     {
-      fprintf( stdout, "--> biabl_list\n" );
+      fprintf( stdout, "--> fbbiabl_list\n" );
       fprintf( stdout, "    LABEL  : %s\n", BiAbl->LABEL );
       fprintf( stdout, "    CNDABL : " );
       loc_fbh_viewablexprln( BiAbl->CNDABL );
       fprintf( stdout, "    VALABL : " );
       loc_fbh_viewablexprln( BiAbl->VALABL );
-      fprintf( stdout, "<-- biabl_list\n" );
+      fprintf( stdout, "<-- fbbiabl_list\n" );
 
       BiAbl = BiAbl->NEXT;
     }
