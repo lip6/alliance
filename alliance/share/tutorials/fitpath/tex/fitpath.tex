@@ -1,0 +1,1410 @@
+%%%%%%%%%%%%%%%%%%%%
+%
+% Data-Path tutorial.
+% Author : Jean-Paul CHAPUT
+% Modified by czo for Alliance release 4.0 (01/2000)
+% TODO : no fully working, needs some adjustements
+% $Id: fitpath.tex,v 1.1 2000/01/20 15:19:51 czo Exp $
+%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+\documentstyle[epsf,a4,here]{article}
+%\documentstyle[epsf,a4]{article}
+%
+%
+% New Variables.
+%
+\def\at{\string @}
+\newlength{\sizeindentation}
+\setlength{\sizeindentation}{1cm}
+%
+%
+% Predefined Variables.
+%
+\setlength{\marginparwidth}{0cm}
+\setlength{\marginparsep}{0cm}
+\setlength{\oddsidemargin}{0.5cm}
+\setlength{\evensidemargin}{0.5cm}
+\setlength{\textwidth}{14.92cm}
+\setlength{\parindent}{\sizeindentation}
+%
+%
+% New Macros.
+%
+\newcommand{\doubleindent}{\indent\indent}
+\newcommand{\forceindent}{\hspace*{\sizeindentation}}
+%
+%
+% Predefined Words and Sentences.
+%
+\newcommand                {\C} {{\bf C}}
+\newcommand           {\column} {{\bf column}}
+\newcommand         {\operator} {{\bf operator}}
+\newcommand        {\operators} {{\bf operators}}
+\newcommand              {\dpr} {{\bf DPR}}
+\newcommand              {\lvx} {{\bf LVX}}
+\newcommand             {\lynx} {{\bf Lynx}}
+\newcommand             {\desb} {{\bf desb}}
+\newcommand             {\druc} {{\bf DRuC}}
+\newcommand            {\logic} {{\bf Logic}}
+\newcommand            {\proof} {{\bf proof}}
+\newcommand            {\fpgen} {{\bf FpGen}}
+\newcommand           {\genlib} {{\bf GenLib}}
+\newcommand           {\asimut} {{\bf ASimuT}}
+\newcommand         {\alliance} {{\bf Alliance}}
+\newcommand            {\dplib} {{\bf DPLib}}
+\newcommand            {\sclib} {{\bf SCLib}}
+\newcommand             {\EAST} {{\bf East}}
+\newcommand             {\WEST} {{\bf West}}
+\newcommand            {\NORTH} {{\bf North}}
+\newcommand          {\addaccu} {{\tt addaccu}}
+\newcommand              {\fal} {{\tt .al}}
+\newcommand             {\fvst} {{\tt .vst}}
+\newcommand          {\dprfile} {{\tt .dpr}}
+\newcommand         {\desbfile} {{\tt .inf}}
+\newcommand        {\sampledpt} {{\tt sample\_dpt}}
+\newcommand  {\sampledptsource} {{\tt sample\_dpt.c}}
+\newcommand         {\fpgenlib} {{\tt FPGEN\_LIB}}
+\newcommand       {\mbkcatalib} {{\tt MBK\_CATA\_LIB}}
+\newcommand         {\dpaddiif} {{\tt DP\_ADD2F}}
+\newcommand         {\DPADDIIF} {{\tt DP\_ADD2F}}
+\newcommand        {\DPMUXIICS} {{\tt DP\_MUX2CS}}
+\newcommand            {\DPNUL} {{\tt DP\_NUL}}
+\newcommand           {\DPPDFF} {{\tt DP\_PDFF}}
+\newcommand         {\DPIMPORT} {{\tt DP\_IMPORT}}
+\newcommand       {\DPDEFLOFIG} {{\tt DP\_DEFLOFIG}}
+\newcommand       {\DPSAVLOFIG} {{\tt DP\_SAVLOFIG}}
+\newcommand          {\netlist} {{\it netlist\,}}
+\newcommand           {\layout} {{\it layout\,}}
+\newcommand   {\layoutsymbolic} {{\it symbolic layout\,}}
+\newcommand         {\symbolic} {{\it symbolic\,}}
+\newcommand       {\behavioral} {{\it behavioral\,}}
+\newcommand     {\standartcell} {{\it Standart Cell\,}}
+\newcommand              {\drc} {{\it DRC\,}}
+\newcommand         {\datapath} {{\it data-path\,}}
+\newcommand        {\datapaths} {{\it data-paths\,}}
+\newcommand        {\gluelogic} {{\it glue logic\,}}
+\newcommand     {\datapathcomp} {{\it data-path compiler\,}}
+\newcommand            {\slice} {{\it slice\,}}
+\newcommand           {\slices} {{\it slices\,}}
+\newcommand            {\track} {{\it track\,}}
+\newcommand           {\tracks} {{\it tracks\,}}
+\newcommand            {\Width} {{\it Width\,}}
+\newcommand            {\Slice} {{\it Slice\,}}
+\newcommand      {\bourneshell} {{\it Bourne Shell\,}}
+%
+%
+% **************************** Corps du Document *****************************
+%
+ \begin{document}
+ \sloppy %\flushbottom
+  %
+  %
+  % ******************************** Title ********************************
+  %
+   \begin{titlepage}
+   {
+     \begin{center}
+       {\LARGE {\bf Alliance} {\sc CAD} System {\bf V.R}}\\*[0.3cm]
+       {\LARGE e-mail: {\tt cao-vlsi{\at}masi.ibp.fr}}\\*[8cm]
+       {\Huge Tutorial for the}\\*[0.4cm]
+       {\Huge Data-Path Compiler}\\*[8cm]
+       {\Large Jean-Paul C\sc{haput}}\\*[0.2cm]
+       {\Large February 24, 1995}
+     \end{center}
+   }
+   \end{titlepage}
+  %
+  %
+  % ************************* Table des Matieres **************************
+  %
+   \tableofcontents
+   \vfill
+   \listoffigures
+   \newpage
+  %
+  %
+  % **************************** Introduction *****************************
+  %
+   \section{Introduction}
+   \forceindent
+     This tutorial aims at teaching how to use \alliance\ {\sc CAD} tools
+   dedicated to the design of \datapaths. These tools are the followings~:
+   \begin{description}
+     \item[\fpgen]
+       : \netlist\ capture using textual mode, thanks to a
+       set of predefined \C\ functions.
+     \item[\dpr]
+       : Placer/Router associated with the \datapaths.
+   \end{description}
+   \forceindent
+     From this point on, the environment variable {\bf ALLIANCE\_TOP} represents the root
+   directory where the \alliance\ package is located.
+  %
+  %
+  % ************************** Premiere Partie ****************************
+  %
+   \section{{\it Data-Path}\ basics}
+  %
+  %
+  %  Data-Path Structure
+  % =====================
+  %
+   \subsection{Structure of a \datapath}
+   \forceindent
+     \datapathcomp\ are tools which are dedicated to the design of
+   microproccessor operative units. Inside a \datapath\ the basic
+   concept is no more the scalar cell (on 1 bit), but the \operator\
+   carrying out a vectorial treatment (on {\bf n bits}).\\
+   \indent
+     From a logical point of view, an \operator\ is made of a repetition
+   of {\bf n} cells more or less identical, each of those executing a one
+   bit treatment. It may also contain a cell dedicated to the amplification
+   of control signals. Physically, each cell is stacked vertically and
+   fill one \slice. The last two \slices are reserved to an amplification
+   cell, if needed. It can be talked about either \operator\ or \column,
+   this last term receiving a physical acceptance.\\
+   \indent
+     A \datapath\ is made of \operators\ stacked horizontally. It can be
+   represented as a bidimentionnal table in which columns are called
+   \operators\ and rows \slices.\\
+   \indent
+     Figure~\ref{schemadatapath} shows \datapaths\ structure.
+   \begin{figure}[hbtp]
+     \begin{center}
+       \leavevmode\epsfxsize.99\textwidth\epsffile{./sample_dpt-4.eps}
+     \end{center}
+     \caption{
+       \label{schemadatapath}
+       {\it \datapaths\ structure.}}
+   \end{figure}
+  %
+  %
+  %  Controls and Data Signals 
+  % ===========================
+  %
+   \subsection{Controls and datas signals}
+   \label{refctrldataterm}
+   \forceindent
+     In a \datapath, signals associated with \operator\ input/output buses
+   are called {\it datas} signals. They propagate horizontally through the
+   \datapath.\\
+   \indent
+     On the contrary, {\it control} signals are signals which command the
+   \operators, for instance, the bus select of a multiplexer ({\it ctrl\_sel}
+   of operator \DPMUXIICS). They propagate vertically inside a column.\\
+   \indent
+     Figure~\ref{ctrldata} shows the difference between {\it control terminals}
+   and {\it data terminals}.
+   \begin{figure}[H]
+     \begin{center}
+       \leavevmode\epsfxsize.6\textwidth\epsffile{./sample_dpt-6.eps}
+     \end{center}
+     \caption{
+       \label{ctrldata}
+       {\it Data terminals and control terminals.}}
+   \end{figure}
+   \indent
+     Data signals are routed horizontally, over \slices, thanks to 10
+   routing \tracks\ ({\tt cf} figure~\ref{schemadatapath}).
+   \\*[\bigskipamount]
+   {\bf Remark~:}\\*[\bigskipamount]
+   \indent
+     Only data terminals can be set on any side of the \datapath, using the
+   \dprfile\ file. Control terminals always appear on the \NORTH\ side of
+   the \datapath, at a predefined place.\\
+   \forceindent
+     Data terminals sets on the \NORTH\ side of the \datapath\ are also called
+   {\it Pseudo control terminals}.
+  %
+  %
+  %  structural Parameters Width and Slices
+  % ========================================
+  %
+   \subsection{Structural Parameters \Width\ and \Slice}
+   \begin{minipage}[t]{\textwidth}
+     \forceindent
+       In some cases we only wish to perform a treatment on a part of data
+     bus. We have to use a smaller scaled \operator\ in which empty \slices\
+     are to be found. In order to place cells inside the \column, we need
+     two values~:
+     \begin{tabbing}
+       \hspace{\sizeindentation} \= %
+       \hspace{1.5cm}      \= %
+       \hspace{0.4cm}      \= \kill
+       \> \Slice \> : \> The \slice\ were the first cell is put in the
+                         \column.\\
+       \> \Width \> : \> Effective width of the \operator.
+     \end{tabbing}
+    %\bigskip
+     Default values~:
+     \begin{tabbing}
+       \hspace{\sizeindentation} \= %
+       \hspace{2.5cm}      \= %
+       \hspace{0.4cm}      \= \kill
+       \> {\tt DEFAULT\_SLICE} \> : \> Null.\\
+       \> {\tt DEFAULT\_WIDTH} \> : \> Full width of the \datapath.\\
+       \> \> \> (set by the former \DPDEFLOFIG\ function call).
+     \end{tabbing}
+   \end{minipage}
+   \begin{figure}[H]
+     \begin{center}
+       \leavevmode\epsfysize.9\textwidth\epsffile{./sample_dpt-5.eps}
+     \end{center}
+     \nopagebreak
+     \caption{
+       \label{paramstruct}
+       {\it Structural parameters \Width\ and \Slice.}}
+   \end{figure}
+  %
+  %
+  % ************************** Deuxieme Partie ****************************
+  %
+   \section{First example~: \sampledpt}
+  %
+  %
+  %  Example Presentation
+  % ======================
+  %
+   \subsection{Presentation of the adder accumulator}
+   \forceindent
+     The given example in the \datapath\ tutorial is driven from the adder
+   accumulator showed in the \addaccu\ tutorial.\\*[\bigskipamount]
+   \forceindent
+     Differences from \addaccu\ tutorial~:
+   \begin{enumerate}
+     \samepage
+     \item
+       Data buses width are set from 4 to 8 bits.
+     \item
+       In order to show some special features of the \datapathcomp, a zero
+       detect has been implemented.
+     \item
+       The operator implementing sample register elements (\DPPDFF)
+       obligatory provide a {\it Write ENable} terminal and dual outputs
+       {\it q} and {\it nq}. So we add a {\it ctrl\_wen} terminal to the
+       circuit interface and a unused {\it data\_u} signal which doesn't
+       appear on the interface (for {\it nq}).
+     \item
+       As the former operator, the fast adder generator (\DPADDIIF)
+       obligatory provide {\it ncout} and {\it nover} outputs.
+   \end{enumerate}
+   \nopagebreak
+     Figure~\ref{schemasample} shows the whole architecture of the adder
+   accumulator.
+   \begin{figure}[H]
+     \vspace*{0.5cm}
+     \begin{center}
+       \leavevmode\epsfxsize.9\textwidth\epsffile{./sample_dpt-1.eps}
+     \end{center}
+     \nopagebreak
+     \caption{
+       \label{schemasample}
+       {\it Architecture of the adder accumulator.}}
+   \end{figure}
+  %
+  %
+  %  Simplificated Methodology
+  % ===========================
+  %
+   \subsection{Methodology}
+   \forceindent
+     As we wish not to present the whole design methodology of a circuit but
+   only the part related to \datapath, only a partial validation will be
+   given.\\
+   \nopagebreak
+   \indent
+     Figure~\ref{methosample}\ describe the partial methodology.\\
+   \begin{figure}[hbtp]
+     \begin{center}
+       \leavevmode\epsfysize.90\textheight\epsffile{./sample_dpt-3.eps}
+     \end{center}
+     \nopagebreak
+     \caption{
+       \label{methosample}
+       {\it Partial methodology of validation.}}
+   \end{figure}
+  %
+  %
+  %  Environment Set-Up
+  % ====================
+  %
+   \subsection{Environment set-up}
+   \forceindent
+     Before running any tool of the \alliance\ CAD system, some environment
+   variables must be set up\footnote{
+     Commands are given in \bourneshell.
+     }.
+   \begin{enumerate}
+     \item Input/output formats~:\\
+       \fbox{ \shortstack[l]{
+         \hspace*{13cm} \\
+         {\tt \$ MBK\_IN\_LO=vst} \\
+         {\tt \$ MBK\_OUT\_LO=vst} \\
+         {\tt \$ MBK\_IN\_PH=ap} \\
+         {\tt \$ MBK\_OUT\_PH=ap} \\
+         {\tt \$ export MBK\_IN\_LO MBK\_OUT\_LO MBK\_IN\_PH MBK\_OUT\_PH}
+       }}
+     \item Working directories~:\\
+       \fbox{ \shortstack[l]{
+         \hspace*{13cm} \\
+         {\tt \$ MBK\_WORK\_LIB=.} \\
+         {\tt \$ FPGEN\_LIB=./mclib} \\
+         {\tt \$ export MBK\_WORK\_LIB FPGEN\_LIB}
+       }}
+     \item Cell library paths~:\\
+       \fbox{ \shortstack[l]{
+         \hspace*{13cm} \\
+         {\tt \$ MBK\_CATA\_LIB=\$ALLIANCE\_TOP/cells/fitpath/fplib:\$ALLIANCE\_TOP/cells/rsa:\$FPGEN\_LIB} \\
+         {\tt \$ export MBK\_CATA\_LIB}
+       }}
+   \end{enumerate}
+  %
+  %
+  %  FpGen : Netlist Capture, Using Textual Mode
+  % =============================================
+  %
+   \subsection{FpGen : \netlist\ capture}
+       The \datapath\ \netlist\ is described thanks to a \C\ source file
+     which must contain the following sections~:
+     \begin{enumerate}
+       \Roman{enumi}
+       \setlength{\itemsep}{0cm}
+       \samepage
+       \item Header files to include~:
+       { \tt \begin{verbatim}
+#include  <genlib.h>
+#include  <fpgen.h>
+       \end{verbatim} \rm }
+       \pagebreak[1]
+       \item Opening the \datapath\ model (\netlist)~:
+       { \tt \begin{verbatim}
+main()
+{
+  DP_DEFLOFIG( "sample_dpt", 8, LSB_INDEX_ZERO );
+       \end{verbatim} \rm }
+       \DPDEFLOFIG\ parameters:
+       \begin{tabbing}
+         \hspace{\sizeindentation} \= %
+         \hspace{2.5cm}            \= %
+         \hspace{0.4cm}            \= \kill
+         \> {\tt "sample\_dpt"} \> : \> {\bf model name} of the \datapath.\\
+         \> {\tt 8} \> : \>  \datapath\ bus wide.\\
+         \> {\tt LSB\_INDEX\_ZERO} \> : \> Always set to this value.\\
+       \end{tabbing}
+       \pagebreak[1]
+       \item Terminal declarations~:
+       { \tt \begin{verbatim}
+  /* Control terminals declarations. */
+  DP_LOCON( "ctrl_sel"  , IN   , "ctrl_sel"   );
+  DP_LOCON( "ctrl_ck"   , IN   , "ctrl_ck"    );
+  DP_LOCON( "ctrl_wen"  , IN   , "ctrl_wen"   );
+  DP_LOCON( "ctrl_ncout",   OUT, "ctrl_ncout" );
+  DP_LOCON( "ctrl_nover",   OUT, "ctrl_nover" );
+  DP_LOCON( "ctrl_zero" ,   OUT, "ctrl_zero"  );
+
+  /* Data terminals declarations. */
+  DP_LOCON( "data_a[7:0]" , IN   , "data_a[7:0]" );
+  DP_LOCON( "data_b[7:0]" , IN   , "data_b[7:0]" );
+  DP_LOCON( "data_s[7:0]" , INOUT, "data_s[7:0]" );
+
+  /* Power supplies terminals. */
+  DP_LOCON( "vdd", IN   , "vdd" );
+  DP_LOCON( "vss", IN   , "vss" );
+       \end{verbatim} \rm }
+       \forceindent
+         The first string is associated to a terminal model name and the
+       second to the internal signal name to which it is connected. The
+       behavior of this function is similar to the {\tt LOCON} of \genlib.
+       \pagebreak[1]
+       \item Instanciation of the various \datapath\ \operators~:
+       { \tt \begin{verbatim}
+  /* Multiplexer. */
+  DP_MUX2CS( "multiplexer", 8, 0,
+             "ctrl_sel",
+             "data_b[7:0]",
+             "data_q[7:0]",
+             "data_m[7:0]",
+             EOL );
+
+  /* Fast Adder. */
+  DP_ADD2F( "adder",
+            "data_a[7:0]",
+            "data_m[7:0]",
+            "ctrl_ncout",
+            "ctrl_nover",
+            "data_s[7:0]",
+            EOL );
+
+  /* Zero Detect. */
+  DP_NUL( "zero", 8, 0,
+          "data_s[7:0]",
+          "ctrl_zero",
+          EOL );
+
+  /* Register. */
+  DP_PDFF( "memory", 8, 0,
+           "ctrl_wen",
+           "ctrl_ck",
+           "data_s[7:0]",
+           "data_q[7:0]",
+           "data_u[7:0]",  /* This bus is unused. */
+           EOL );
+       \end{verbatim} \rm }
+       \pagebreak[1]
+       \item Complete the model and save to the disk~:
+       { \tt \begin{verbatim}
+  DP_SAVLOFIG();
+
+  /* A good C program must always terminate by an "exit(0)". */
+  exit( 0 );
+}
+       \end{verbatim} \rm }
+     \end{enumerate}
+  %
+  %
+  %  FpGen : Netlist Generation
+  % ============================
+  %
+   \subsection{Generation of the \netlist}
+   \forceindent
+     After having writen the \C\ source file which describe the \netlist\ 
+   and correctly set up the environment, we just have to compile and
+   execute the former file. The \fpgen\ script file will do it for us,
+   so lets type the command~:
+   \\*[\bigskipamount]
+   \nopagebreak
+   \indent
+   \fbox{
+     \shortstack[l]{
+       \hspace*{13cm}\\
+       {\tt fpgen -v sample\_dpt }
+   }}\\*[\bigskipamount]
+   \nopagebreak
+   \indent
+     Which normally gives you~:%\\*[\bigskipamount]
+   \nopagebreak
+   \begin{figure}[H]
+     \begin{center}
+       \leavevmode\epsfxsize.55\textwidth\epsffile{./trace-fpgen-1.ps}
+     \end{center}
+   \end{figure}
+  %\centerline{\LARGE Trace de FpGen.}\\*[1cm]
+   {\bf Back to \mbkcatalib\ and \fpgenlib}
+   \\*[\bigskipamount]
+   \nopagebreak
+   \indent
+     Most of the \operators\ avalaible in \fpgen\ are built using
+   the leaf cell library {\tt \$ALLIANCE\_TOP/cells/fitpath/fplib}. However, some
+   \operators\, as \DPADDIIF, requires additionnal leaf cell
+   libraries. These dedicated libraries are noticed in the {\bf UNIX manual
+   pages} associated with \operators. In the case of \DPADDIIF\ the needed
+   library is {\tt \$ALLIANCE\_TOP/cells/rsa}.\\
+   \nopagebreak
+   \indent
+     So, \mbkcatalib\ must contain~:\\
+   \nopagebreak
+   \doubleindent
+       {\tt \$ALLIANCE\_TOP/cells/fitpath/fplib:\$ALLIANCE\_TOP/cells/rsa}\\*[\bigskipamount]
+   \indent
+     On the other hand, \fpgen\ creates not only the \datapath\ \netlist\ but
+   also the various views (\layout, \behavioral) of the \operators\
+   These auxiliary views are stored in the library pointed out
+   by the \fpgenlib\ environment variable. In our case, we choose
+   {\tt ./mclib}.
+  %
+  %
+  %  DPR : Placing and Routing
+  % ===========================
+  %
+   \subsection{Place and Route}
+   \begin{minipage}[t]{\textwidth}
+     \forceindent
+       To make \datapath\ \layout, run the place and route tool \dpr. The
+     command is~:\\*[\bigskipamount]
+     \forceindent
+     \fbox{
+       \shortstack[l]{
+         \hspace*{13cm}\\
+         {\tt dpr -v -p -r sample\_dpt sample\_dpt}
+     }}\\
+     \bigskip
+   \end{minipage}
+   \begin{minipage}[t]{\textwidth}
+     \forceindent
+       \dpr\ command line arguments\footnotemark~:
+     \begin{tabbing}
+       \samepage
+       \hspace{\sizeindentation} \= %
+       \hspace{0.5cm}      \= %
+       \hspace{2cm}        \= %
+       \hspace{0.4cm}      \= \kill
+       \> {\bf -v} \> \> : \> Verbose mode.\\
+       \> {\bf -p} \> \> : \> Activate the placement step.\\
+       \> {\bf -r} \> {\tt sample\_dpt} \> : \> Ask routing on \netlist\
+                                             {\tt sample\_dpt.vst}.\\
+       \> \> {\tt sample\_dpt} \> : \> Name of the file that holds the
+                                       place and routed \layout.
+     \end{tabbing}
+   \end{minipage}
+   \footnotetext{
+     For a more detailed description of \dpr\ command line arguments,
+     please refer to the {\bf UNIX} on line manual.
+     }
+   \forceindent
+     This normally produces~:\\*[1cm]
+   \nopagebreak
+   \begin{figure}[H]
+     \begin{center}
+       \leavevmode\epsfxsize.55\textwidth\epsffile{./trace-dpr-1.ps}
+     \end{center}
+   \end{figure}
+  %\centerline{\LARGE Trace de DPR.}\\*[1cm]
+   {\bf External terminal placement, \dprfile\ file}
+   \\*[\bigskipamount]
+   \nopagebreak
+   \indent
+     In addition to the \netlist, \dpr\ attempts to load an optional file
+   which contains some instruction about the way to place external data
+   terminals
+   \footnote{
+      For the definitions of data terminals and control terminals, please
+      refer~to~\S~\ref{refctrldataterm}.
+   }. The \dprfile\ file allows the designer to choose on which side put
+   the terminal, and for \EAST\ and \WEST\ sides, which \slice\ and which
+   \track.\\
+   \nopagebreak
+   \indent
+     file {\tt sample\_dpt.dpr} used in our example~:\\
+   \begin{minipage}[t]{\textwidth}
+   \begin{verbatim}
+#           Terminal :  Side  :  Slice  :  Track
+DP_LOCON   ctrl_zero   NORTH    DEFAULT   DEFAULT
+#
+#
+#           Terminal :  Side  :  Slice  :  Track
+DP_LOCON  data_a[7:0]   WEST    DEFAULT   DEFAULT
+DP_LOCON  data_b[7:0]   WEST    DEFAULT   DEFAULT
+DP_LOCON  data_s[7:0]   EAST    DEFAULT   DEFAULT
+#
+#
+# Number of vertical power refreshment.
+DP_POWER  1  50
+   \end{verbatim}
+   \end{minipage}
+   {\bf Back to \mbkcatalib}
+   \\*[\bigskipamount]
+   \nopagebreak
+   \indent
+     Place and route tool \dpr\ uses the various views of the operators
+   formerly stored by \fpgen\ inside the \fpgenlib\ library. This library
+   access path must be present in \mbkcatalib.
+   \nopagebreak
+   \indent
+     At the end, the complete \mbkcatalib\ is:\\
+   \doubleindent
+   \nopagebreak
+       {\tt \$ALLIANCE\_TOP/cells/fitpath/fplib:\$ALLIANCE\_TOP/cells/rsa:\$FPGEN\_LIB}
+  %
+  %
+  %  LYNX, LVX and DESB : Routage Validation
+  % =========================================
+  %
+   \subsection{Validation}
+    %
+    %
+    % Environnement set up for extraction.
+    %
+     \subsubsection{Environnement set up and validation}
+     \nopagebreak
+     \forceindent
+       All along the generation phasis we have used the \netlist\ format \fvst,
+     which stands for {\bf V}{\it HDL}\, {\bf ST}{\it ructural}\,. For the
+     validation phasis, we will use the \fal\ format. The \fal\ format is
+     dedicated to the extractions steps because it holds, in addition to
+     the logical informations (\netlist), some information driven from
+     the \layout, such as routing wire capacitances.
+     \\*[\bigskipamount]
+     \indent
+       Setting the new \netlist\ format~:\\
+     \nopagebreak
+     \indent
+     \fbox{ \shortstack[l]{
+       \hspace*{13cm} \\
+       {\tt \$ MBK\_IN\_LO=al} \\
+       {\tt \$ MBK\_OUT\_LO=al}
+     }}\\*[\bigskipamount]
+     \nopagebreak
+     \indent
+       Of course, the \layout\ file format remains unchanged.
+    %
+    %
+    % Routage Checking
+    %
+     \subsubsection{Routage Checking}
+     \begin{minipage}[t]{\textwidth}
+       \forceindent
+         The goal of this step is to ensure that the result of the
+       routing phasis is correct. This will be done in three steps~:
+       \begin{enumerate}
+         \item
+           Design rule checking, using the \symbolic\ \drc\ tool \druc.
+         \item
+           Extration of the gate \netlist\ from the \layout\ using \lynx.
+         \item
+           Checking coherency between the extracted \netlist\ (\fal\ format)
+           and the reference \netlist\ (\fvst\ format).
+       \end{enumerate}
+       \bigskip
+     \end{minipage}
+     {\bf Hierarchy management}
+     \\*[\bigskipamount]
+     \nopagebreak
+     \indent
+       In some cases, the routing tool \dpr\ is allowed to perform flattening
+     in the \layout\ view. As a consequence, \netlist\ extracted from the
+     \layout may have a different hierarchy than the reference \netlist.
+     In order to process to the validations, we ask to the tools involved
+     in the check to work at a gate level.
+     \\[\bigskipamount]
+     \begin{minipage}[t]{\textwidth}
+       {\bf DRuC : \symbolic\ desing rules checking}
+       \\*[\bigskipamount]
+       \forceindent
+       \fbox{ \shortstack[l]{
+         \hspace*{13cm} \\
+         {\tt \$ druc sample\_dpt}
+       }}%\\*[\bigskipamount]
+      %\vspace*{1cm}
+       \begin{figure}[H]
+         \begin{center}
+           \leavevmode\epsfxsize.55\textwidth\epsffile{./trace-druc-1.ps}
+         \end{center}
+       \end{figure}
+      %\centerline{\LARGE Trace de DRuC.}%\\*[1cm]
+     \end{minipage}
+     \begin{minipage}[t]{\textwidth}
+       {\bf Lynx : \netlist\ extraction}
+       \\*[\bigskipamount]
+       \forceindent
+       \fbox{ \shortstack[l]{
+         \hspace*{13cm} \\
+         {\tt \$ lynx -v -f sample\_dpt sample\_dpt\_gates}
+       }}%\\*[\bigskipamount]
+      %\vspace*{1cm}
+       \begin{figure}[H]
+         \begin{center}
+           \leavevmode\epsfxsize.55\textwidth\epsffile{./trace-lynx-1.ps}
+         \end{center}
+       \end{figure}
+      %\centerline{\LARGE Trace de Lynx.}\\*[1cm]
+     \end{minipage}
+     \begin{minipage}[t]{\textwidth}
+       {\bf LVX : \netlist\ comparisons}
+       \\*[\bigskipamount]
+       \forceindent
+       \fbox{ \shortstack[l]{
+         \hspace*{13cm} \\
+         {\tt \$ lvx vst al sample\_dpt sample\_dpt\_gates -f}
+       }}%\\*[\bigskipamount]
+      %\vspace*{1cm}
+       \begin{figure}[H]
+         \begin{center}
+           \leavevmode\epsfxsize.55\textwidth\epsffile{./trace-lvx-1.ps}
+         \end{center}
+       \end{figure}
+      %\centerline{\LARGE Trace de LVX.}
+     \end{minipage}
+    %
+    %
+    % Formal Proof.
+    %
+     \subsubsection{Formal proof}
+     \begin{minipage}[t]{\textwidth}
+       \forceindent
+         The goal of this phasis is to ensure that the \datapath\ we have
+       designed here is consistent with its specification. In our case,
+       the specification is the {\it VHDL behavioral} view
+       {\tt sample\_dpt.vbe}. Three steps are needed~:
+       \begin{enumerate}
+         \item
+            {\bf transistor} \netlist\ extraction from the \layout\ with
+            the \lynx\ tool.
+         \item
+            Restoration of a behavioral view {\tt sample\_dpt\_desb.vbe}
+            using the functional abstractor \desb.
+         \item
+            Formal proof between the behavioral model ({\tt sample\_dpt.vbe})
+            and the regenerated model ({\tt sample\_dpt\_desb.vbe}) using
+            the formal proofer tool \proof.
+       \end{enumerate}
+       \bigskip
+     \end{minipage}
+     \begin{minipage}[t]{\textwidth}
+       {\bf Register identification}
+       \\*[\bigskipamount]
+       \forceindent
+         The formal proof tool enforces that the memory elements of both
+       behavioral views must have the same names. As these names have
+       changed in the \layout, we must rename them. Fortunatly, the
+       functional abstractor \desb\ allow us to do so, via an
+       auxiliary file \desbfile.\\
+       \forceindent
+         The file {\tt sample\_dpt.inf} is supplied with the tutorial.
+     \end{minipage}
+     \begin{minipage}[t]{\textwidth}
+       {\bf Lynx : transistor \netlist\ extraction }
+       \\*[\bigskipamount]
+       \forceindent
+       \fbox{ \shortstack[l]{
+         \hspace*{13cm} \\
+         {\tt \$ lynx -v -t sample\_dpt sample\_dpt}
+       }}%\\*[\bigskipamount]
+      %\vspace*{1cm}
+       \begin{figure}[H]
+         \begin{center}
+           \leavevmode\epsfxsize.55\textwidth\epsffile{./trace-lynx-2.ps}
+         \end{center}
+       \end{figure}
+      %\centerline{\LARGE Trace de Lynx.}%\\*[1cm]
+     \end{minipage}
+     \begin{minipage}[t]{\textwidth}
+       {\bf DESB : Functional abstraction}\\*[\bigskipamount]
+       \forceindent
+       \fbox{ \shortstack[l]{
+         \hspace*{13cm} \\
+         {\tt \$ desb sample\_dpt sample\_dpt\_desb -v -i}
+       }}%\\*[\bigskipamount]
+      %\vspace*{1cm}
+       \begin{figure}[H]
+         \begin{center}
+           \leavevmode\epsfxsize.55\textwidth\epsffile{./trace-desb-1.ps}
+         \end{center}
+       \end{figure}
+      %\centerline{\LARGE Trace de DESB.}%\\*[1cm]
+     \end{minipage}
+     \begin{minipage}[t]{\textwidth}
+       {\bf Proof : Formal proof}\\*[\bigskipamount]
+       \forceindent
+       \fbox{ \shortstack[l]{
+         \hspace*{13cm} \\
+         {\tt \$ proof -d sample\_dpt sample\_dpt\_desb}
+       }}%\\*[\bigskipamount]
+      %\vspace*{1cm}
+       \begin{figure}[H]
+         \begin{center}
+           \leavevmode\epsfxsize.55\textwidth\epsffile{./trace-proof-1.ps}
+         \end{center}
+       \end{figure}
+      %\centerline{\LARGE Trace de Proof.}
+     \end{minipage}
+  %
+  %
+  % ************************* Troisieme Partie ****************************
+  %
+   \section{Advanced features}
+   \begin{minipage}[t]{\textwidth}
+     \forceindent
+       This section aims to present you some advanced features of \fpgen\ 
+     and \dpr\ tools. In the following examples, we do not describe the
+     whole procedure given for \sampledpt. We will limits ourselves to show
+     differences or novelties from the former methodology.
+   \end{minipage}
+  %
+  %  Placement
+  % ===========
+  %
+   \subsection{Placement}
+    %
+    %
+    % Initial Placement.
+    %
+     \subsubsection{Initial placement}
+     \begin{minipage}[t]{\textwidth}
+     \forceindent
+         The initial placement of \datapath\ operators is made from left to
+       rigth, following the order of instanciation used in the file
+       \sampledptsource. We have, starting from the left, the
+       followings operators~:
+       \begin{enumerate}
+         \item
+            Multiplexer generated by \DPMUXIICS.
+         \item
+            Adder generated by \DPADDIIF.
+         \item
+            Zero detect generated by \DPNUL.
+         \item
+            D flip-flop generated by \DPPDFF.
+       \end{enumerate}
+       Figure~\ref{placesample} shows initial placement.
+     \end{minipage}
+     \vspace*{0.5cm}
+     \begin{figure}[H]
+       \begin{center}
+         \leavevmode\epsfxsize.9\textwidth\epsffile{./sample_dpt-2.eps}
+       \end{center}
+       \nopagebreak
+       \caption{
+         \label{placesample}
+         {\it Initial placement.}}
+     \end{figure}
+     \indent
+       {\bf The order of instanciation of the operators in \C\ source file
+     is meaningful.} A \C\ source file intended to \fpgen/\dpr\ that
+     ignores it could produce \underline{non routable configurations}.\\
+     \forceindent
+       To avoid this kind of problems, we just have to group together the
+     instanciations of operators strongly connected.
+    %
+    %
+    % Placement Optimisation.
+    %
+     \subsubsection{Placement optimization}
+     \begin{minipage}[t]{\textwidth}
+       \forceindent
+         In the case of complex \datapath\ where the designer does not want
+       to check precisely the order of operators, placement optimizer inside
+       the router tool \dpr\ is avalaible. Roughly, the placement
+       optimizer swap operators trying to reduce the total length of
+       routing wires. This option is also interresting when the initial
+       placement is a non routable configuration. The optimizer is able
+       to detect such configuration in which case it attempts to reduce
+       the track density to make possible routage.\\
+       \forceindent
+         File {\tt place\_dpt.*} gives an example of placement optimization.
+       \bigskip
+     \end{minipage}
+     \begin{minipage}[t]{\textwidth}
+         Command to invoke \dpr\ in optimization mode~:
+       \\*[\bigskipamount]
+       \forceindent
+       \fbox{
+         \shortstack[l]{
+           \hspace*{13cm}\\
+           {\tt dpr -v -o -r -p place\_dpt place\_dpt}
+       }}\\*[\bigskipamount]
+       \forceindent
+         Arguments given to \dpr\footnotemark~:
+       \begin{tabbing}
+         \samepage
+         \hspace{\sizeindentation} \= %
+         \hspace{0.5cm}      \= %
+         \hspace{2cm}        \= %
+         \hspace{0.4cm}      \= \kill
+         \> {\bf -o} \> \> : \> Activate the placement optimizer.\\
+       \end{tabbing}
+     \end{minipage}
+     \footnotetext{
+       For a more detailed description of \dpr\ command line arguments,
+       please refer to the {\bf UNIX} on line manual.
+     }
+  %
+  %  User Customized Operators
+  % ===========================
+  %
+   \subsection{Designing customized operators}
+   \begin{minipage}[t]{\textwidth}
+     \forceindent
+       In this part we present the features allowing the user to design
+     his own \datapath\ operators. To build his operators the user must
+     resort to a dedicated leaf cell library~: \dplib\footnotemark.
+     \dplib\ offers the same functionnalities than the \standartcell\ library
+     \sclib.
+   \end{minipage}
+   \footnotetext{
+     On line manual of \dplib~: {\tt man dplib}, on line manuals of
+     cells~: {\tt man n1\_dp, man ms\_dp, ...}
+   }\\
+   \begin{minipage}[t]{\textwidth}
+     \forceindent
+       From a methodological point of view, using customized operators is
+     unfolding itself into two distinct phases~:
+     \begin{enumerate}
+       \item
+         Making of the operator using one of the following three methods~:
+       \begin{enumerate}
+         \item
+           Explicit building of a column using \genlib. The model name
+         must received a {\tt "\_us"} suffix.
+         \item
+           Synthesis of a block, using \logic. The model name must
+         received a {\tt "\_us"} suffix.
+         \item
+           Buiding a sub-\datapath\ using \fpgen. The model name must not
+         have a {\tt "\_us"}, {\tt "\_cl"} or {\tt "\_bk"} suffix.
+       \end{enumerate}
+       \item
+         Instanciation of the newly created operator inside the current
+       \datapath\ thanks to the \DPIMPORT\ function.
+     \end{enumerate}
+   \end{minipage}
+    %
+    %
+    % Environnement Variables.
+    %
+     \subsubsection{Environnement set up}
+     \doubleindent
+       We must add to \mbkcatalib\ the access path to the \dplib\ library~:\\
+     \nopagebreak
+     \indent
+     \fbox{ \shortstack[l]{
+       \hspace*{13cm} \\
+       { \tt \$ MBK\_CATA\_LIB=\$ALLIANCE\_TOP/cells/fitpath/dplib/ecpd10 }\\
+       { \tt \$ MBK\_CATA\_LIB=\$MBK\_CATA\_LIB:\$ALLIANCE\_TOP/cells/fitpath/fplib }\\
+       { \tt \$ MBK\_CATA\_LIB=\$MBK\_CATA\_LIB:\$ALLIANCE\_TOP/cells/rsa }\\
+       { \tt \$ MBK\_CATA\_LIB=\$MBK\_CATA\_LIB:\$FPGEN\_LIB }\\
+       { \tt \$ export MBK\_CATA\_LIB }
+     } }
+    %
+    %
+    % Single Column Operator.
+    %
+     \subsubsection{Single Column Operator}
+     \begin{minipage}[t]{\textwidth}
+       \forceindent
+         As an example, let us replace the zero detect provided by \fpgen\ 
+       (\DPNUL\ macro-function), by a designer build column.\\
+       \forceindent
+         The diagram of the zero detect we are going to build is shown in
+       figure~\ref{usercolschema}. The files {\tt usercol\_dpt.*} gives
+       an example of implementation.
+     \end{minipage}
+     \begin{figure}[H]
+       \begin{center}
+         \leavevmode\epsfxsize.4\textwidth\epsffile{./usercol_dpt-2.eps}
+       \end{center}
+       \nopagebreak
+       \caption{
+         \label{usercolschema}
+         {\it Zero detect diagram.}}
+     \end{figure}
+     \begin{description}
+       \samepage
+       \item
+         Description of zero detect using \genlib\ language~:
+         { \tt \begin{verbatim}
+static void  mkZeroDetect()
+{
+  DEF_LOFIG( "nul_us" );
+
+  LOCON(   "i0[7:0]", IN   ,   "i0[7:0]" );
+  LOCON( "zero"     ,   OUT, "zero"      );
+  LOCON(  "vdd"     , IN   ,  "vdd"      );
+  LOCON(  "vss"     , IN   ,  "vss"      );
+
+  LOINS( "no2_dp", "no2_0", "i0[0]", "i0[1]", "z2_0", "vdd", "vss", 0L );
+  LOINS( "no2_dp", "no2_2", "i0[2]", "i0[3]", "z2_1", "vdd", "vss", 0L );
+  LOINS( "no2_dp", "no2_4", "i0[4]", "i0[5]", "z2_2", "vdd", "vss", 0L );
+  LOINS( "no2_dp", "no2_6", "i0[6]", "i0[7]", "z2_3", "vdd", "vss", 0L );
+
+  LOINS( "na2_dp", "na2_1",  "z2_0",  "z2_1", "z4_0", "vdd", "vss", 0L );
+  LOINS( "na2_dp", "na2_5",  "z2_2",  "z2_3", "z4_1", "vdd", "vss", 0L );
+
+  LOINS( "no2_dp", "no2_3",  "z4_0",  "z4_1", "zero", "vdd", "vss", 0L );
+
+  SAVE_LOFIG();
+}
+         \end{verbatim} \rm }
+         \pagebreak[1]
+         \forceindent
+           As we can see, instance names of the zero detect must conform to
+         a specific syntax. The semantic of this syntax is that the suffix
+         of the instance name indicates to the \dpr\ placement stage on
+         which slice to set each instance. This agreement is recalled on the
+         figure~\ref{usercolschema}.
+         \pagebreak[3]
+       \item
+         Modification of the \C\ function describing the \datapath\ \netlist~:
+         { \tt \begin{verbatim}
+main()
+{
+  /* Generate the Zero Detect Column. */
+  mkZeroDetect();
+
+  /* Open a new Data-Path figure. */
+  DP_DEFLOFIG( "usercol_dpt", 8, LSB_INDEX_ZERO );
+
+  /* Interface description. */
+  /* ... */
+
+  /* Data-Path netlist description. */ 
+  /* Multiplexer ... */
+  /* Fast Adder ...  */
+
+  /* Zero Detect.    */
+  DP_IMPORT( "nul_us",
+             "zero",
+             "data_s[7:0]",
+             "ctrl_zero",
+             EOL );
+
+  /* Register ...    */
+
+  /* Terminate the netlist description, and save on disk. */
+  DP_SAVLOFIG();
+
+  exit(0);
+}
+       \end{verbatim} \rm }
+     \end{description}
+     \begin{minipage}[t]{\textwidth}
+       {\bf Remark~:}\\*[\bigskipamount]
+       \forceindent
+         The \fpgen\ and \genlib\ languages are made so that only one
+       \netlist\ is taken in the course of the description proccess. On the
+       other hand, to instanciate the model of zero detect with \DPIMPORT,
+       this model must be defined before. As a conclusion, we must call
+       the {\tt mkZeroDetect} function before the call to \DPDEFLOFIG.
+       \\*[\bigskipamount]
+       \forceindent
+         The sequence of commands invoked to generate and check this
+       example is the same as the one used in \sampledpt.
+     \end{minipage}
+    %
+    %
+    % Logical Synthesis of an operator.
+    %
+     \subsubsection{Logical synthesis of an operator}
+     \begin{minipage}[t]{\textwidth}
+       \forceindent
+         In this section we are going to replace the fast adder provided
+       by \DPADDIIF\ by a block generated by logical synthesis. The files
+       associated with this example are named {\tt synthese\_dpt.*}.
+       \bigskip
+     \end{minipage}
+     \begin{minipage}[t]{\textwidth}
+     {\bf Behavioral description of the adder~:}
+       { \tt \begin{verbatim}
+ENTITY  adder_us  IS
+  PORT(
+         a   : in    BIT_VECTOR(7 downto 0);
+         b   : in    BIT_VECTOR(7 downto 0);
+      cout_n :   out BIT;
+      over_n :   out BIT;
+         s   :   out BIT_VECTOR(7 downto 0);
+       vdd   : in    BIT;
+       vss   : in    BIT
+      );
+END  adder_us;
+
+ARCHITECTURE  behavior_data_flow  OF  adder_us  IS
+
+	SIGNAL cry : BIT_VECTOR(8 downto 0);
+
+BEGIN
+  cry(0) <= '0';
+  cry(8 downto 1) <=    (a and b)
+                     or (a and cry(7 downto 0))
+                     or (b and cry(7 downto 0));
+
+  s      <= a xor b xor cry(7 downto 0);
+  over_n <= not cry(7);
+  cout_n <= not cry(8);
+
+  ASSERT((vdd = '1') and (vss = '0'))
+    REPORT "Power supply is missing on adder_us"
+    SEVERITY WARNING;
+END  behavior_data_flow;
+       \end{verbatim} \rm }
+       \bigskip
+     \end{minipage}
+     \noindent
+     {\bf Remark~:}\\*[\bigskipamount]
+     \nopagebreak
+     \indent
+       As the terminal ordering is meaningful for instanciation with
+     \DPIMPORT, we adopt for the interface of {\tt adder\_us} the same
+     order as the one used in the operator provided by \DPADDIIF
+     \footnote{
+       For curious people, this operator is named {\tt "add2f\_8x8x0l\_bk"}.
+     }.\\*[\bigskipamount]
+     \begin{minipage}[t]{\textwidth}
+       {\bf Environment set up for logical synthesis~:}\\
+       \forceindent
+       \fbox{ \shortstack[l]{
+         \hspace*{13cm} \\
+         {\tt \$ MBK\_TARGET\_LIB=\$ALLIANCE\_TOP/cells/fitpath/dplib/ecpd10 }\\
+         {\tt \$ MBK\_NAME\_LOG="" }\\
+         {\tt \$ export MBK\_TARGET\_LIB MBK\_NAME\_LOG }
+       } }%\\*[\bigskipamount]
+     \bigskip
+     \end{minipage}
+     \begin{minipage}[t]{\textwidth}
+       {\bf Logic} : Optimization of behavioral equations.
+       \\*[\bigskipamount]
+       \forceindent
+       \fbox{ \shortstack[l]{
+         \hspace*{13cm} \\
+         {\tt \$ logic -o adder\_us adder\_us\_opt }
+       }}%\\*[\bigskipamount]
+      %\vspace*{1cm}
+       \begin{figure}[H]
+         \begin{center}
+           \leavevmode\epsfxsize.55\textwidth\epsffile{./trace-logic-1.ps}
+         \end{center}
+       \end{figure}
+      %\centerline{\LARGE Trace de Logic.}%\\*[1cm]
+     \end{minipage}
+     \begin{minipage}[t]{\textwidth}
+       {\bf Logic} : Logical synthesis of the \netlist\ starting from
+         previously optimized behavioral description.
+       \\*[\bigskipamount]
+       \forceindent
+       \fbox{ \shortstack[l]{
+         \hspace*{13cm} \\
+         {\tt \$ logic -s adder\_us\_opt adder\_us }
+       }}%\\*[\bigskipamount]
+      %\vspace*{1cm}
+       \begin{figure}[H]
+         \begin{center}
+           \leavevmode\epsfxsize.55\textwidth\epsffile{./trace-logic-2.ps}
+         \end{center}
+       \end{figure}
+      %\centerline{\LARGE Trace de Logic.}
+     \bigskip
+     \end{minipage}
+     \pagebreak[3]
+     \begin{description}
+       \samepage
+       \item
+         Modification of the \C\ function describing the \datapath\ \netlist~:
+         { \tt \begin{verbatim}
+main()
+{
+  /* Open a new Data-Path figure. */
+  DP_DEFLOFIG( "synthese_dpt", 8, LSB_INDEX_ZERO );
+
+  /* Interface description. */
+  /* ... */
+
+  /* Data-Path netlist description. */ 
+  /* Multiplexer ... */
+
+  /* Synthetized Adder. */
+  DP_IMPORT( "adder_us",
+             "adder",
+             "data_a[7:0]",
+             "data_m[7:0]",
+             "ctrl_ncout",
+             "ctrl_nover",
+             "data_s[7:0]",
+             EOL );
+
+  /* Zero Detect ... */
+  /* Register ...    */
+
+  /* Terminate the netlist description, and save on disk. */
+  DP_SAVLOFIG();
+
+  exit(0);
+}
+       \end{verbatim} \rm }
+       Further commands are the same as for \sampledpt.
+     \end{description}
+    %
+    %
+    % Sub-Data-Path.
+    %
+     \subsubsection{Hierarchical design~: sub-\datapath}
+     \begin{minipage}[t]{\textwidth}
+       \forceindent
+         As an illustration of the hierarchical design capabilities, we
+       have reshape the \netlist\ of the adder accumulator. In this new
+       \netlist, the adder (\DPADDIIF) and the zero detect have been put
+       together to make a sub-\datapath\ which we call {\tt alu\_dpt}.\\
+       \forceindent
+         Diagram of figure~\ref{schemahierarchy} shows modifications done to
+       the hierarchy. Files related to this example are named
+       {\tt "hierarchy\_dpt.*"}.
+     \end{minipage}
+     \vspace*{0.5cm}
+     \begin{figure}[H]
+       \begin{center}
+         \leavevmode\epsfxsize.90\textwidth\epsffile{./hierarchy_dpt-1.eps}
+       \end{center}
+       \nopagebreak
+       \caption{
+         \label{schemahierarchy}
+         {\it \netlist\ hierarchy.}}
+     \end{figure}
+     \begin{description}
+       \samepage
+       \item
+         Description of the sub-\datapath~:
+         { \tt \begin{verbatim}
+static void  mkSubDP()
+{
+  /* Open the ALU part of the Data-Path. */
+  DP_DEFLOFIG( "alu_dpt", 8, LSB_INDEX_ZERO );
+
+  /* Interface description. */
+
+  /* Control terminals declarations. */
+  DP_LOCON( "ctrl_ncout",   OUT, "ctrl_ncout" );
+  DP_LOCON( "ctrl_nover",   OUT, "ctrl_nover" );
+  DP_LOCON( "ctrl_zero" ,   OUT, "ctrl_zero"  );
+  /* Data terminals declarations. */
+  DP_LOCON( "data_a[7:0]" , IN   , "data_a[7:0]" );
+  DP_LOCON( "data_b[7:0]" , IN   , "data_b[7:0]" );
+  DP_LOCON( "data_s[7:0]" , INOUT, "data_s[7:0]" );
+  /* Power supplies terminals. */
+  DP_LOCON( "vdd", IN   , "vdd" );
+  DP_LOCON( "vss", IN   , "vss" );
+
+  /* Data-Path netlist description. */
+
+  /* Fast Adder. */
+  DP_ADD2F( "adder",
+            "data_a[7:0]",
+            "data_b[7:0]",
+            "ctrl_ncout",
+            "ctrl_nover",
+            "data_s[7:0]",
+            EOL );
+
+  /* Zero Detect. */
+  DP_NUL( "zero", 8, 0,
+          "data_s[7:0]",
+          "ctrl_zero",
+          EOL );
+
+
+  /* Terminate the netlist description, and save on disk. */
+  DP_SAVLOFIG();
+}
+         \end{verbatim} \rm }
+         \pagebreak[1]
+       \item
+         Modification of the \C\ function describing the \datapath\ \netlist~:
+         { \tt \begin{verbatim}
+main()
+{
+  /* Generate the Zero Detect Column. */
+  mkSubDP();
+
+  /* Open a new Data-Path figure. */
+  DP_DEFLOFIG( "hierarchy_dpt", 8, LSB_INDEX_ZERO );
+
+  /* Interface description. */
+  /* ... */
+
+  /* Data-Path netlist description. */ 
+  /* Multiplexer ... */
+
+  /* Sub-Data-Path. */
+  DP_IMPORT( "alu_dpt",
+             "alu",
+             "ctrl_ncout",
+             "ctrl_nover",
+             "ctrl_zero",
+             "data_a[7:0]",
+             "data_m[7:0]",
+             "data_s[7:0]",
+             EOL );
+
+  /* Register ...    */
+
+  /* Terminate the netlist description, and save on disk. */
+  DP_SAVLOFIG();
+
+  exit(0);
+}
+         \end{verbatim} \rm }
+         \pagebreak[1]
+       \item
+         Modification of the \dprfile\ file, add the following lines~:
+         { \tt \begin{verbatim}
+#         Model Name : Iterations : Height : CPC
+DP_GLUE    adder_us       5000         8      2
+         \end{verbatim} \rm }
+         \forceindent
+           The placement of \gluelogic\ blocks is automatically performed by
+         the router \dpr. The {\tt DP\_GLUE} command of the \dprfile\
+         allows a control on the way this placement will be done.\\
+         \forceindent
+           Parameters meanings~:
+         \begin{description}
+           \item[Iterations] gives the number of iteration the placement
+             algorithm will do.
+           \item[Height] height of the block (in \slices).
+           \item[CPC] Number of cells per \slice\ (inside a \column).
+             The greater the number, the smaller the surface used for the
+           block, on the other hand the routing becomes more difficult.
+           A good value is generally around 2--3.
+         \end{description}
+         \pagebreak[3]
+         \forceindent
+           Placement of \gluelogic\ blocks is systemetically performed at
+         each call of the router \dpr. As the placement of blocks coming
+         from logical synthesis can take a long time, and in the case
+         where we do several successive routing, we can prevent \dpr\ 
+         to place the block at each routing phasis. The router will use
+         the placement generated at a former iteration. To prevent
+         \dpr\ to place a block, just add in the \dprfile~:
+         { \tt \begin{verbatim}
+#         Model Name
+DP_KEEP    adder_us
+         \end{verbatim} \rm }
+         \forceindent
+           Further command are the same as for \sampledpt.
+     \end{description}
+     \begin{minipage}[t]{\textwidth}
+       {\bf Remark~:}\\*[\bigskipamount]
+       \forceindent
+         By the time the \DPDEFLOFIG\ function saves the \netlist\ on disk,
+       this \netlist is automatically flattened at "operator" level. In
+       our example, the sub-\datapath\ {\tt "alu\_dpt"} included
+       inside {\tt "hierarchy\_dpt"} will be flattened when the whole
+       \datapath\ will be terminated.\\
+       \forceindent
+         This behavior is needed by the fact that the router \dpr\ is not
+       able to manage the hierarchy. It only can route a \netlist\ made of
+       operators.\\
+       \forceindent
+         For the sake of clarity regarding the description of the \netlist\ 
+       we have chosen to adopt a hierarchical concept at \fpgen\ level.
+     \end{minipage}
+  %
+  %
+  % ************************* Quatrieme Partie ****************************
+  %
+   \newpage
+   \appendix
+   \section{Files provided with the tutorial}
+     Summary of the five examples~:
+   \begin{center}
+     \begin{tabular}[t]{|c|c|}
+       \hline
+       fichiers   & exemple                           \\
+       \hline
+       \hline
+       {\tt    sample\_dpt} & first exemple           \\
+       {\tt     place\_dpt} & placement optimization  \\
+       {\tt   usercol\_dpt} & customized column       \\
+       {\tt synthesis\_dpt} & syntesized block        \\
+       {\tt hierarchy\_dpt} & hierarchical design     \\
+       \hline
+     \end{tabular}\\
+     \bigskip
+   \end{center}
+     File associated to each example~:
+   \begin{center}
+     \begin{tabular}[t]{|c|c|}
+       \hline
+       extention  & type of file                \\
+       \hline
+       \hline
+       {\tt .sh}  & script in \bourneshell      \\
+       {\tt .c}   & \C\ source file for \fpgen  \\
+       {\tt .dpr} & auxiliary file for \dpr     \\
+       {\tt .inf} & auxiliary file for \desb    \\
+       \hline
+     \end{tabular}\\
+     \bigskip
+   \end{center}
+   In addition to the five shell scripts, a {\tt Makefile} is also provided.
+
+
+ \end{document}
+
