@@ -1,5 +1,5 @@
 #
-# $Id: se_defaults.mac,v 1.3 2000/11/14 14:39:20 czo Exp $
+# $Id: se_defaults.mac,v 1.4 2000/12/21 10:45:19 czo Exp $
 #
 # /------------------------------------------------------------------\
 # |                                                                  |
@@ -17,15 +17,17 @@
 #
 
 
- SET VARIABLE draw.swire.at              ON ;
- SET VARIABLE userlevel                  EXPERT ;
- SET VARIABLE Plan.RGrid.M1Offset        0 ;
- SET VARIABLE Plan.RGrid.M2Offset        0 ;
- SET VARIABLE Plan.RGrid.M3Offset        0 ;
- SET VARIABLE Plan.RGrid.M4Offset        0 ;
- SET VARIABLE Plan.Lowerleft.Origin      TRUE ;
- SET VARIABLE QPlace.Fix.Placed.Cell     TRUE ;
+ SET VARIABLE draw.swire.at               ON ;
+ SET VARIABLE userlevel                   EXPERT ;
+ SET VARIABLE Plan.RGrid.M1Offset         0 ;
+ SET VARIABLE Plan.RGrid.M2Offset         0 ;
+ SET VARIABLE Plan.RGrid.M3Offset         0 ;
+ SET VARIABLE Plan.RGrid.M4Offset         0 ;
+ SET VARIABLE Plan.Lowerleft.Origin       TRUE ;
+ SET VARIABLE QPlace.Fix.Placed.Cell      TRUE ;
  SET VARIABLE Qplace.Place.Pin.Preferred.Layer 
                 "(left L_ALU2)(right L_ALU2)(top L_ALU3)(bottom L_ALU3)" ;
- SET VARIABLE FRoute.AutoSearchAndRepair TRUE ;
- SET VARIABLE FRoute.Preroutes.Fixed     TRUE ;
+ SET VARIABLE GRoute.AutoGGrid            TRUE ;
+ SET VARIABLE GRoute.Check.Unmarked.Pgnet FALSE ;
+ SET VARIABLE FRoute.AutoSearchAndRepair  TRUE ;
+
