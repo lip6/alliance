@@ -1,7 +1,7 @@
 
 %define       name            alliance
 %define       ver             @VERSION@
-%define       tag             alpha.3
+%define       tag             alpha.4
 %define       release         1.asim.1
 %define       prefix          @prefix@
 
@@ -76,6 +76,11 @@ Sources of the Alliance VLSI CAD System, as you might guess...
 # Copy the sources in the install tree.
  mkdir -p %{buildroot}%{prefix}/src
  tar cf - * | (cd %{buildroot}%{prefix}/src; tar xvf -)
+
+# Copy the Alliance autoconf macros in the right place.
+ mkdir -p %{buildroot}/usr/share/aclocal
+ (cd %{buildroot}%{prefix}/src
+  cp alliance.m4 xpm.m4 motif.m4 %{buildroot}/usr/share/aclocal) 
 
 # Set execution rights on the alc_env.* batchs and adjust ALLIANCE_TOP.
 # This is not clean and has to be moved in the package itself in the
