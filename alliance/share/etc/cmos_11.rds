@@ -613,11 +613,12 @@ relation RDS_POLY , RDS_POLY (
 # Check the CHANNEL shapes
 #--------------------------
 caracterise CHANNEL (
-  regle 48 : notch >= 3. ;
+  regle 48 : notch >= 2. ;
 );
 relation CHANNEL , CHANNEL (
-  regle 49 : distance axiale min 3.;
+  regle 49 : distance axiale min 2.;
 );
+
 
 # Check the RDS_POLY distance
 #----------------------------
@@ -641,10 +642,10 @@ undefine NP_DIF;
 caracterise RDS_ALU1 (
   regle 51 : largeur >= 1. ;
   regle 52 : longueur_inter min 1. ;
-  regle 53 : notch >= 3. ;
+  regle 53 : notch >= 2.5 ;
 );
 relation RDS_ALU1 , RDS_ALU1 (
-  regle 54 : distance axiale min 3. ;
+  regle 54 : distance axiale min 2.5 ;
 );
 
 # Check RDS_ALU2 shapes
@@ -652,10 +653,10 @@ relation RDS_ALU1 , RDS_ALU1 (
 caracterise RDS_ALU2 (
   regle 55 : largeur >= 2. ;
   regle 56 : longueur_inter min 2. ;
-  regle 57 : notch >= 3. ;
+  regle 57 : notch >= 2. ;
 );
 relation RDS_ALU2 , RDS_ALU2 (
-  regle 58 : distance axiale min 3. ;
+  regle 58 : distance axiale min 2. ;
 );
 
 # Check RDS_ALU3 shapes
@@ -685,10 +686,10 @@ relation RDS_ALU4 , RDS_ALU4 (
 caracterise RDS_ALU5 (
   regle 80 : largeur >= 2. ;
   regle 81 : longueur_inter min 2. ;
-  regle 82 : notch >= 8. ;
+  regle 82 : notch >= 12. ;
 );
 relation RDS_ALU5 , RDS_ALU5 (
-  regle 83 : distance axiale min 8. ;
+  regle 83 : distance axiale min 12. ;
 );
 
 # Check RDS_ALU6 shapes
@@ -708,13 +709,13 @@ relation RDS_CONT , RDS_CONT (
   regle 67 : distance axiale >= 3. ;
 );
 relation RDS_VIA , RDS_VIA (
-  regle 68 : distance axiale >= 4. ;
+  regle 68 : distance axiale >= 3. ;
 );
 relation RDS_VIA2 , RDS_VIA2 (
-  regle 69 : distance axiale >= 4. ;
+  regle 69 : distance axiale >= 3. ;
 );
 relation RDS_VIA3 , RDS_VIA3 (
-  regle 70 : distance axiale >= 4. ;
+  regle 70 : distance axiale >= 3. ;
 );
 relation RDS_VIA4 , RDS_VIA4 (
   regle 88 : distance axiale >= 5. ;
@@ -796,17 +797,17 @@ DRC_COMMENT
 45 (RDS_POLY) minimum width 1. 
 46 (RDS_POLY) Manhatan distance min 2. 
 47 (RDS_POLY,RDS_POLY) Manhatan distance min 2.
-48 (CHANNEL) Manhatan distance min 3. 
-49 (CHANNEL,CHANNEL) Manhatan distance min 3.
+48 (CHANNEL) Manhatan distance min 2. 
+49 (CHANNEL,CHANNEL) Manhatan distance min 2.
 50 (RDS_POLY,RDS_POLY) Manhatan distance min 2.
 51 (RDS_ALU1) minimum width 1. 
 52 (RDS_ALU1) minimum width 1. 
-53 (RDS_ALU1) Manhatan distance min 3.
-54 (RDS_ALU1,RDS_ALU1) Manhatan distance min 3.
+53 (RDS_ALU1) Manhatan distance min 2.5
+54 (RDS_ALU1,RDS_ALU1) Manhatan distance min 2.5
 55 (RDS_ALU2) minimum width 2. 
 56 (RDS_ALU2) minimum width 2. 
-57 (RDS_ALU2) Manhatan distance min 3. 
-58 (RDS_ALU2,RDS_ALU2) Manhatan distance min 3. 
+57 (RDS_ALU2) Manhatan distance min 2. 
+58 (RDS_ALU2,RDS_ALU2) Manhatan distance min 2. 
 59 (RDS_ALU3) minimum width 2. 
 60 (RDS_ALU3) minimum width 2. 
 61 (RDS_ALU3) Manhatan distance min 3. 
@@ -816,9 +817,9 @@ DRC_COMMENT
 65 (RDS_ALU4) Manhatan distance min 3. 
 66 (RDS_ALU4,RDS_ALU4) Manhatan distance min 3. 
 67 (RDS_CONT,RDS_CONT) Manhatan distance min 3. 
-68 (RDS_VIA,RDS_VIA) Manhatan distance min 4. 
-69 (RDS_VIA2,RDS_VIA2) Manhatan distance min 4. 
-70 (RDS_VIA3,RDS_VIA3) Manhatan distance min 4. 
+68 (RDS_VIA,RDS_VIA) Manhatan distance min 3. 
+69 (RDS_VIA2,RDS_VIA2) Manhatan distance min 3. 
+70 (RDS_VIA3,RDS_VIA3) Manhatan distance min 3. 
 71 (RDS_CONT) minimum width 1. 
 72 (RDS_CONT) maximum length 1. 
 73 (RDS_VIA) minimum width 1. 
@@ -830,8 +831,8 @@ DRC_COMMENT
 79 (RDS_POLY,CONT_DIFF) Manhatan distance min 2. 
 80 (RDS_ALU5) minimum width 2. 
 81 (RDS_ALU5) minimum width 2. 
-82 (RDS_ALU5) Manhatan distance min 8. 
-83 (RDS_ALU5,RDS_ALU5) Manhatan distance min 8. 
+82 (RDS_ALU5) Manhatan distance min 12. 
+83 (RDS_ALU5,RDS_ALU5) Manhatan distance min 12. 
 84 (RDS_ALU6) minimum width 2. 
 85 (RDS_ALU6) minimum width 2. 
 86 (RDS_ALU6) Manhatan distance min 12. 
