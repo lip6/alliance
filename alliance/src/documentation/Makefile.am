@@ -390,7 +390,20 @@ nobase_examples_DATA = alliance-examples/addaccu16/Makefile \
                        alliance-examples/sqrt8/sm.vhdl \
                        alliance-examples/sqrt8/sqrt8.ioc \
                        alliance-examples/sqrt8/sqrt8.pat \
-                       alliance-examples/sqrt8/sqrt8.vhdl
+                       alliance-examples/sqrt8/sqrt8.vhdl \
+                       alliance-examples/tuner/README \
+                       alliance-examples/tuner/build_tuner \
+                       alliance-examples/tuner/circuit.c \
+                       alliance-examples/tuner/core.c \
+                       alliance-examples/tuner/fake05.dreal \
+                       alliance-examples/tuner/fake05.rds \
+                       alliance-examples/tuner/padreal.cif \
+                       alliance-examples/tuner/padreal.gds \
+                       alliance-examples/tuner/tuner-fr.pdf \
+                       alliance-examples/tuner/tuner.ioc \
+                       alliance-examples/tuner/tuner.rin \
+                       alliance-examples/tuner/tuner.vbe \
+                       alliance-examples/tuner/tuner_io.c 
 
 EXTRA_DIST = $(nobase_doc_DATA) $(nobase_examples_DATA)
 
