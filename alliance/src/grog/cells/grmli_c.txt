@@ -1,4 +1,0 @@
-cell : grmli_c
-Address lines inverter for the 512 words rom.
-The are build to drive less than a pif, and therefore are specific to these
-rom sizes.
