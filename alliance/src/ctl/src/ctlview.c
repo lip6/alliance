@@ -171,15 +171,6 @@ void viewctldecl( Decl )
     viewctlsym( &DeclSym[ Scan ] );
   }
 
-  if ( Decl->DIR >= CTL_MAX_DIR_TYPE )
-  {
-    fprintf( stdout, "\n\t\tDIR   : %d", (int)Decl->DIR  );
-  }
-  else
-  {
-    fprintf( stdout, "\n\t\tDIR   : %s", CTL_DIR_TYPE[ Decl->DIR ] );
-  }
-
   if ( Decl->TYPE >= CTL_MAX_DECLAR_TYPE )
   {
     fprintf( stdout, "\n\t\tTYPE  : %d", Decl->TYPE  );
@@ -189,27 +180,30 @@ void viewctldecl( Decl )
     fprintf( stdout, "\n\t\tTYPE  : %s", CTL_DECLAR_TYPE[ Decl->TYPE ] );
   }
 
-  if ( Decl->BASE >= VEX_MAX_TYPE )
-  {
-    fprintf( stdout, "\n\t\tBASE  : %d", Decl->BASE );
-  }
-  else
-  {
-    fprintf( stdout, "\n\t\tBASE  : %s", VEX_TYPE_NAME[ Decl->BASE ] );
-  }
-
-  if ( Decl->KIND >= CTL_MAX_KIND_TYPE )
-  {
-    fprintf( stdout, "\n\t\tKIND  : %d", Decl->KIND );
-  }
-  else
-  {
-    fprintf( stdout, "\n\t\tKIND  : %s", CTL_KIND_TYPE[ Decl->KIND ] );
-  }
-
   fprintf( stdout, "\n\t\tFLAGS : %lx", Decl->FLAGS );
   fprintf( stdout, "\n\t\tUSER  : %lx", (long)Decl->USER );
   fprintf( stdout, "\n<-- Declaration" );
+}
+
+/*------------------------------------------------------------\
+|                                                             |
+|                     Ctl View Type                           |
+|                                                             |
+\------------------------------------------------------------*/
+
+void viewctltype( Type )
+
+  ctltype_list *Type;
+{
+  fprintf( stdout, "\n--> Type" );
+
+  viewctlline( Type->LINE );
+
+  fprintf( stdout, "\n\t\tNAME     : %s",  Type->NAME );
+  fprintf( stdout, "\n\t\tFLAGS    : %lx", Type->FLAGS );
+  fprintf( stdout, "\n\t\tUSER     : %lx", (long)Type->USER );
+
+  fprintf( stdout, "\n<-- Type" );
 }
 
 /*------------------------------------------------------------\
@@ -218,7 +212,7 @@ void viewctldecl( Decl )
 |                                                             |
 \------------------------------------------------------------*/
 
-void viewctlact( Form )
+void viewctlform( Form )
 
   ctlform_list *Form;
 {
@@ -252,18 +246,28 @@ void viewctlfig( Figure )
 
   ctlfig_list *Figure;
 {
+  ctltype_list  *Type;
   ctlform_list  *Form;
   ctldecl_list  *Decl;
-  int            Type;
+  int            Index;
 
   fprintf( stdout, "\n--> Figure" );
   fprintf( stdout, "\n\tNAME            : %s", Figure->NAME  );
 
-  for ( Type = 0; Type < CTL_MAX_DECLAR_TYPE; Type++ )
-  {
-    fprintf( stdout, "\n\tDECLARATION %s : ", CTL_DECLAR_TYPE[ Type ]  );
+  fprintf( stdout, "\n\tTYPE : " );
 
-    for ( Decl  = Figure->DECLAR[ Type ];
+  for ( Type  = Figure->TYPE;
+        Type != (ctltype_list *)0;
+        Type  = Type->NEXT )
+  {
+    viewctltype( Type );
+  }
+
+  for ( Index = 0; Index < CTL_MAX_DECLAR_TYPE; Index++ )
+  {
+    fprintf( stdout, "\n\tDECLARATION %s : ", CTL_DECLAR_TYPE[ Index ]  );
+
+    for ( Decl  = Figure->DECLAR[ Index ];
           Decl != (ctldecl_list *)0;
           Decl  = Decl->NEXT )
     {

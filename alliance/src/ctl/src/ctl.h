@@ -51,39 +51,14 @@
 \------------------------------------------------------*/
 /*------------------------------------------------------\
 |                                                       |
-|                      Ctl Direction                    |
-|                                                       |
-\------------------------------------------------------*/
-
-# define CTL_DIR_IN         0
-# define CTL_DIR_OUT        1
-# define CTL_DIR_INOUT      2
-# define CTL_MAX_DIR_TYPE   3
-
-/*------------------------------------------------------\
-|                                                       |
-|                      Ctl Kind                         |
-|                                                       |
-\------------------------------------------------------*/
-
-# define CTL_KIND_NONE       0
-# define CTL_KIND_BUS        1
-# define CTL_KIND_REGISTER   2
-# define CTL_MAX_KIND_TYPE   3
-
-/*------------------------------------------------------\
-|                                                       |
 |                       Ctl Declar Type                 |
 |                                                       |
 \------------------------------------------------------*/
 
 # define CTL_DECLAR_ALL             0
-# define CTL_DECLAR_PORT            1
-# define CTL_DECLAR_SIGNAL          2
-# define CTL_DECLAR_VARIABLE        3
-# define CTL_DECLAR_DEFINE          4
-# define CTL_DECLAR_CONSTANT        5
-# define CTL_MAX_DECLAR_TYPE        6
+# define CTL_DECLAR_VARIABLE        1
+# define CTL_DECLAR_CONSTANT        2
+# define CTL_MAX_DECLAR_TYPE        3
 
 /*------------------------------------------------------\
 |                                                       |
@@ -101,87 +76,13 @@
 
 /*------------------------------------------------------\
 |                                                       |
-|                        Ctl Get Arc                    |
-|                                                       |
-\------------------------------------------------------*/
-
-# define GetCtlArc( C ) \
-   ((ctlarc *)( (C)->DATA ))
-
-# define GetCtlArcTargetPlace( A ) \
-   ((ctlplace_list *)( (ctlarc *)(A)->TARGET ))
-
-# define GetCtlArcSourcePlace( A ) \
-   ((ctlplace_list *)( (ctlarc *)(A)->SOURCE ))
-
-# define GetCtlArcTargetTrans( A ) \
-   ((ctltrans_list *)( (ctlarc *)(A)->TARGET ))
-
-# define GetCtlArcSourceTrans( A ) \
-   ((ctltrans_list *)( (ctlarc *)(A)->SOURCE ))
-
-/*------------------------------------------------------\
-|                                                       |
-|                        Ctl Add Arc                    |
-|                                                       |
-\------------------------------------------------------*/
-
-# define addctlarctrans( F, T, P ) \
-  (addctlarc( (F), (T), (P), CTL_ARC_TRANS_PLACE ))
-
-# define addctlarcplace( F, P, T ) \
-  (addctlarc( (F), (P), (T), CTL_ARC_PLACE_TRANS ))
-
-/*------------------------------------------------------\
-|                                                       |
-|                        Ctl Add Action                 |
-|                                                       |
-\------------------------------------------------------*/
-
-# define addctlactcall( F, T, E )  \
-  (addctlact( (F), (T), (vexexpr *)0, (E), CTL_ACT_CALL ))
-
-# define addctlactreturn( F, T, E ) \
-  (addctlact( (F), (T), (vexexpr *)0, (E), CTL_ACT_RETURN ))
-
-# define addctlactcallafter( F, T, P, E )  \
-  (addctlactafter( (F), (T), (P), (vexexpr *)0, (E), CTL_ACT_CALL ))
-
-# define addctlactreturnafter( F, T, P, E ) \
-  (addctlactafter( (F), (T), (P), (vexexpr *)0, (E), CTL_ACT_RETURN ))
-
-# define addctlactcallbefore( F, T, P, E )  \
-  (addctlactbefore( (F), (T), (P), (vexexpr *)0, (E), CTL_ACT_CALL ))
-
-# define addctlactreturnbefore( F, T, P, E ) \
-  (addctlactafter( (F), (T), (P), (vexexpr *)0, (E), CTL_ACT_RETURN ))
-
-# define addctlactcallfirst( F, T, E )  \
-  (addctlactfirst( (F), (T), (vexexpr *)0, (E), CTL_ACT_CALL ))
-
-# define addctlactreturnfirst( F, T, E ) \
-  (addctlactfirst( (F), (T), (vexexpr *)0, (E), CTL_ACT_RETURN ))
-
-
-/*------------------------------------------------------\
-|                                                       |
 |                        Ctl Get Number                 |
 |                                                       |
 \------------------------------------------------------*/
 
-# define GetCtlNumProc( F )     ((F)->HASH_PROCESS->NUMBER_ELEM)
-# define GetCtlNumFunc( F )     ((F)->HASH_FUNCTION->NUMBER_ELEM)
-# define GetCtlNumTrans( F )    ((F)->HASH_TRANS->NUMBER_ELEM)
-# define GetCtlNumPlace( F )    ((F)->HASH_PLACE->NUMBER_ELEM)
-# define GetCtlNumArc( F )      ((F)->HASH_ARC->NUMBER_ELEM)
-
 # define GetCtlNumDecl( F )     ((F)->HASH_DECLAR[ CTL_DECLAR_ALL      ]->NUMBER_ELEM)
-# define GetCtlNumDeclPort( F ) ((F)->HASH_DECLAR[ CTL_DECLAR_PORT     ]->NUMBER_ELEM)
-# define GetCtlNumDeclSig( F )  ((F)->HASH_DECLAR[ CTL_DECLAR_SIGNAL   ]->NUMBER_ELEM)
 # define GetCtlNumDeclVar( F )  ((F)->HASH_DECLAR[ CTL_DECLAR_VARIABLE ]->NUMBER_ELEM)
 # define GetCtlNumDeclCst( F )  ((F)->HASH_DECLAR[ CTL_DECLAR_CONSTANT ]->NUMBER_ELEM)
-# define GetCtlNumDeclDef( F )  ((F)->HASH_DECLAR[ CTL_DECLAR_DEFINE   ]->NUMBER_ELEM)
-# define GetCtlNumDeclArg( F )  ((F)->HASH_DECLAR[ CTL_DECLAR_ARGUMENT ]->NUMBER_ELEM)
 
 /*------------------------------------------------------\
 |                                                       |
@@ -189,20 +90,10 @@
 |                                                       |
 \------------------------------------------------------*/
 
-# define searchctlsymport( F, N, I ) \
-    (searchctlsym( (F), (N), (I), CTL_DECLAR_PORT ))
-# define searchctlsymsig( F, N, I ) \
-    (searchctlsym( (F), (N), (I), CTL_DECLAR_SIGNAL ))
 # define searchctlsymvar( F, N, I ) \
     (searchctlsym( (F), (N), (I), CTL_DECLAR_VARIABLE ))
 # define searchctlsymcst( F, N, I ) \
     (searchctlsym( (F), (N), (I), CTL_DECLAR_CONSTANT ))
-# define searchctlsymdef( F, N, I ) \
-    (searchctlsym( (F), (N), (I), CTL_DECLAR_DEFINE ))
-# define searchctlsymarg( F, N, I ) \
-    (searchctlsym( (F), (N) (I), CTL_DECLAR_ARGUMENT ))
-# define searchctlsymgen( F, N, I ) \
-    (searchctlsym( (F), (N), (I), CTL_DECLAR_GENERIC ))
 # define searchctlsymall( F, N, I ) \
     (searchctlsym( (F), (N), (I), CTL_DECLAR_ALL ))
 
@@ -212,23 +103,12 @@
 |                                                       |
 \------------------------------------------------------*/
 
-# define searchctldeclport( F, N ) \
-    (searchctldecl( (F), (N), CTL_DECLAR_PORT ))
-# define searchctldeclsig( F, N ) \
-    (searchctldecl( (F), (N), CTL_DECLAR_SIGNAL ))
 # define searchctldeclvar( F, N ) \
     (searchctldecl( (F), (N), CTL_DECLAR_VARIABLE ))
 # define searchctldeclcst( F, N ) \
     (searchctldecl( (F), (N), CTL_DECLAR_CONSTANT ))
-# define searchctldecldef( F, N ) \
-    (searchctldecl( (F), (N), CTL_DECLAR_DEFINE ))
-# define searchctldeclarg( F, N ) \
-    (searchctldecl( (F), (N), CTL_DECLAR_ARGUMENT ))
-# define searchctldeclgen( F, N ) \
-    (searchctldecl( (F), (N), CTL_DECLAR_GENERIC ))
 # define searchctldeclall( F, N ) \
     (searchctldecl( (F), (N), CTL_DECLAR_ALL ))
-
 
 /*------------------------------------------------------\
 |                                                       |
@@ -248,6 +128,24 @@
     long                 LINE;
 
   } ctlline_list;
+
+/*------------------------------------------------------\
+|                                                       |
+|                       Ctl Type                        |
+|                                                       |
+\------------------------------------------------------*/
+
+typedef struct ctltype_list
+{
+  struct ctltype_list *NEXT;
+  char                *NAME;
+  unsigned long        SIZE;
+  char               **VALUE;
+  ctlline_list        *LINE;
+  long                 FLAGS;
+  void                *USER;
+
+} ctltype_list;
 
 /*------------------------------------------------------\
 |                                                       |
@@ -278,10 +176,8 @@
     vexexpr              *VEX_ATOM;
     vexexpr              *VEX_INIT;
     ctlsym               *DECL_SYM;
-    unsigned char         DIR;
+    ctltype_list         *USER_TYPE;
     unsigned char         TYPE;
-    unsigned char         KIND;
-    unsigned char         BASE;
     ctlline_list         *LINE;
     long                  FLAGS;
     void                 *USER;
@@ -290,7 +186,7 @@
 
 /*------------------------------------------------------\
 |                                                       |
-|                    Ctl Formulae                       |
+|                    Ctl Formula                        |
 |                                                       |
 \------------------------------------------------------*/
 
@@ -316,6 +212,7 @@
   {
     struct ctlfig_list *NEXT;
     char               *NAME;
+    ctltype_list       *TYPE;
     ctlform_list       *FORM;
     ctldecl_list       *DECLAR[ CTL_MAX_DECLAR_TYPE ];
     authtable          *HASH_DECLAR[ CTL_MAX_DECLAR_TYPE ];
@@ -334,8 +231,6 @@
   extern ctlfig_list *HEAD_CTLFIG;
 
   extern char  *CTL_DECLAR_TYPE   [ CTL_MAX_DECLAR_TYPE ];
-  extern char  *CTL_DIR_TYPE      [ CTL_MAX_DIR_TYPE    ];
-  extern char  *CTL_KIND_TYPE     [ CTL_MAX_KIND_TYPE   ];
 
 /*------------------------------------------------------\
 |                                                       |
@@ -358,6 +253,7 @@
 
   extern   ctlfig_list *allocctlfig __P(());
   extern  ctlform_list *allocctlform __P(());
+  extern  ctltype_list *allocctltype __P(());
   extern  ctldecl_list *allocctldecl __P(());
   extern        ctlsym *allocctlsym __P((unsigned int Width));
   extern  ctlline_list *allocctlline __P(());
@@ -382,11 +278,11 @@
 
   extern  ctlfig_list *addctlfig __P((char *Name));
   extern ctlform_list *addctlform __P((ctlfig_list *Figure, char *Name, vexexpr *Expr));
+  extern ctltype_list *addctltype __P((ctlfig_list *Figure, char *Name));
 
-  extern ctldecl_list *addctldecl __P((ctlfig_list *Figure, vexexpr *Atom, unsigned char Type, unsigned char Base));
-  extern ctldecl_list *addctldeclport __P((ctlfig_list *Figure, vexexpr *Atom, unsigned char Base, unsigned char Dir, unsigned char Kind));
-  extern ctldecl_list *addctldeclsig __P((ctlfig_list *Figure, vexexpr *Atom, unsigned char Base, unsigned char Kind));
-  extern ctldecl_list *addctldeclcst __P((ctlfig_list *Figure, vexexpr *Atom, unsigned char Base));
+  extern ctldecl_list *addctldecl __P((ctlfig_list *Figure, vexexpr *Atom, unsigned char Type ));
+  extern ctldecl_list *addctldeclvar __P((ctlfig_list *Figure, vexexpr *Atom));
+  extern ctldecl_list *addctldeclcst __P((ctlfig_list *Figure, vexexpr *Atom));
 
   extern  ctlline_list *addctlline __P((ctlfig_list *Figure, ctlline_list **HeadLine, long Line));
   extern  ctlline_list *addctlfileline __P((ctlfig_list *Figure, ctlline_list **HeadLine, char *File, long Line));
@@ -408,6 +304,7 @@
 
   extern   ctlfig_list *searchctlfig __P((char *Name));
   extern  ctlform_list *searchctlform __P((ctlfig_list *Figure, char *Name));
+  extern  ctltype_list *searchctltype __P((ctlfig_list *Figure, char *Name));
   extern        ctlsym *searchctlsym __P((ctlfig_list *Figure, char *Name, short Index, unsigned char Type));
   extern  ctldecl_list *searchctldecl __P((ctlfig_list *Figure, char *Name, unsigned char Type));
 
@@ -431,6 +328,7 @@
   extern void  viewctlsym __P((ctlsym *Symbol));
   extern void  viewctldecl __P((ctldecl_list *Decl));
   extern void  viewctlform __P((ctlform_list *Form));
+  extern void  viewctltype __P((ctltype_list *Type));
   extern void  viewctlline __P((ctlline_list *Line));
 
 # endif

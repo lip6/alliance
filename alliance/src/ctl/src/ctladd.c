@@ -71,23 +71,8 @@
   char *CTL_DECLAR_TYPE[ CTL_MAX_DECLAR_TYPE ] =
   {
     "ALL",
-    "PORT",
-    "SIGNAL",
+    "VARIABLE",
     "CONSTANT"
-  };
-
-  char *CTL_KIND_TYPE[ CTL_MAX_KIND_TYPE ] =
-  {
-    "NONE",
-    "BUS",
-    "REGISTER"
-  };
-
-  char *CTL_DIR_TYPE[ CTL_MAX_DIR_TYPE ] =
-  {
-    "IN",
-    "OUT",
-    "INOUT"
   };
 
 /*------------------------------------------------------------\
@@ -133,12 +118,11 @@ ctlfig_list *addctlfig( Name )
 |                                                             |
 \------------------------------------------------------------*/
 
-static ctldecl_list *loc_addctldecl( Figure, Expr, Type, Base )
+static ctldecl_list *loc_addctldecl( Figure, Expr, Type )
 
   ctlfig_list   *Figure;
   vexexpr       *Expr;
   unsigned char  Type;
-  unsigned char  Base;
 {
   ctldecl_list  *Decl;
   ctldecl_list **PrevDecl;
@@ -198,7 +182,6 @@ static ctldecl_list *loc_addctldecl( Figure, Expr, Type, Base )
   Decl->VEX_ATOM  = Expr;
   Decl->DECL_SYM  = Sym;
   Decl->TYPE      = Type;
-  Decl->BASE      = Base;
   Decl->PREV      = &Figure->DECLAR[ Type ];
   Decl->NEXT      = *(Decl->PREV);
 
@@ -221,12 +204,11 @@ static ctldecl_list *loc_addctldecl( Figure, Expr, Type, Base )
 |                                                             |
 \------------------------------------------------------------*/
 
-ctldecl_list *addctldecl( Figure, Atom, Type, Base )
+ctldecl_list *addctldecl( Figure, Atom, Type )
 
   ctlfig_list   *Figure;
   vexexpr       *Atom;
   unsigned char  Type;
-  unsigned char  Base;
 {
   ctldecl_list *Decl;
   char         *Name;
@@ -241,76 +223,38 @@ ctldecl_list *addctldecl( Figure, Atom, Type, Base )
     ctlerror( CTL_DECLAR_EXIST_ERROR, Name, 0 );
   }
 
-  Decl = loc_addctldecl( Figure, Atom, Type, Base );
+  Decl = loc_addctldecl( Figure, Atom, Type );
 
   return( Decl );
 }
 
 /*------------------------------------------------------------\
 |                                                             |
-|                      Ctl Add Declaration Port               |
+|                     Ctl Add Declaration Variable            |
 |                                                             |
 \------------------------------------------------------------*/
 
-ctldecl_list *addctldeclport( Figure, Atom, Base, Dir, Kind )
+ctldecl_list *addctldeclvar( Figure, Atom )
 
    ctlfig_list   *Figure;
    vexexpr       *Atom;
-   unsigned char  Base;
-   unsigned char  Dir;
-   unsigned char  Kind;
 {
-  ctldecl_list *Port;
+  ctldecl_list *Constant;
   char         *Name;
 
   if ( ! IsVexNodeAtom( Atom ) ) Name = getvexarrayname( Atom );
   else                           Name = GetVexAtomValue( Atom );
 
-  Port = searchctldeclall( Figure, Name );
+  Constant = searchctldeclall( Figure, Name );
 
-  if ( Port != (ctldecl_list *)0 )
+  if ( Constant != (ctldecl_list *)0 )
   {
-    ctlerror( CTL_PORT_EXIST_ERROR, Name, 0 );
+    ctlerror( CTL_VARIABLE_EXIST_ERROR, Name, 0 );
   }
 
-  Port = loc_addctldecl( Figure, Atom, CTL_DECLAR_PORT, Base );
-  Port->DIR  = Dir;
-  Port->KIND = Kind;
+  Constant = loc_addctldecl( Figure, Atom, CTL_DECLAR_CONSTANT );
 
-  return( Port );
-}
-
-/*------------------------------------------------------------\
-|                                                             |
-|                     Ctl Add Declaration Signal              |
-|                                                             |
-\------------------------------------------------------------*/
-
-ctldecl_list *addctldeclsig( Figure, Atom, Base, Kind )
-
-   ctlfig_list   *Figure;
-   vexexpr       *Atom;
-   unsigned char  Base;
-   unsigned char  Kind;
-{
-  ctldecl_list *Signal;
-  char         *Name;
-
-  if ( ! IsVexNodeAtom( Atom ) ) Name = getvexarrayname( Atom );
-  else                           Name = GetVexAtomValue( Atom );
-
-  Signal = searchctldeclall( Figure, Name );
-
-  if ( Signal != (ctldecl_list *)0 )
-  {
-    ctlerror( CTL_SIGNAL_EXIST_ERROR, Name, 0 );
-  }
-
-  Signal = loc_addctldecl( Figure, Atom, CTL_DECLAR_SIGNAL, Base );
-  Signal->DIR  = CTL_DIR_INOUT;
-  Signal->KIND = Kind;
-
-  return( Signal );
+  return( Constant );
 }
 
 /*------------------------------------------------------------\
@@ -319,11 +263,10 @@ ctldecl_list *addctldeclsig( Figure, Atom, Base, Kind )
 |                                                             |
 \------------------------------------------------------------*/
 
-ctldecl_list *addctldeclcst( Figure, Atom, Base )
+ctldecl_list *addctldeclcst( Figure, Atom )
 
    ctlfig_list   *Figure;
    vexexpr       *Atom;
-   unsigned char  Base;
 {
   ctldecl_list *Constant;
   char         *Name;
@@ -338,8 +281,7 @@ ctldecl_list *addctldeclcst( Figure, Atom, Base )
     ctlerror( CTL_CONSTANT_EXIST_ERROR, Name, 0 );
   }
 
-  Constant = loc_addctldecl( Figure, Atom, CTL_DECLAR_CONSTANT, Base );
-  Constant->DIR  = CTL_DIR_IN;
+  Constant = loc_addctldecl( Figure, Atom, CTL_DECLAR_CONSTANT );
 
   return( Constant );
 }
@@ -423,4 +365,26 @@ ctlform_list *addctlform( Figure, Name, Expr )
   Figure->FORM = Form;
 
   return( Form );
+}
+
+/*------------------------------------------------------------\
+|                                                             |
+|                        Ctl Add Type                         |
+|                                                             |
+\------------------------------------------------------------*/
+
+ctltype_list *addctltype( Figure, Name )
+
+  ctlfig_list   *Figure;
+  char          *Name;
+{
+  ctltype_list *Type;
+
+  Type = allocctltype();
+
+  Type->NAME   = namealloc( Name );;
+  Type->NEXT   = Figure->TYPE;
+  Figure->TYPE = Type;
+
+  return( Type );
 }

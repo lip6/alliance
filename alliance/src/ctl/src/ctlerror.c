@@ -94,62 +94,20 @@ void ctl_error( Error, Text1, Text2, File, Line )
 
   switch( Error )
   {
-    case CTL_PROC_EXIST_ERROR :
-      fprintf( stderr, "process %s exists already\n", Text1 );
-    break;
-    case CTL_FUNC_EXIST_ERROR :
-      fprintf( stderr, "function %s exists already\n", Text1 );
-    break;
-    case CTL_PLACE_EXIST_ERROR :
-      fprintf( stderr, "place %s exists already\n", Text1 );
-    break;
-    case CTL_TRANS_EXIST_ERROR :
-      fprintf( stderr, "transition %s exists already\n", Text1 );
-    break;
-    case CTL_PORT_EXIST_ERROR :
-      fprintf( stderr, "port %s exists already\n", Text1 );
-    break;
-    case CTL_ARC_PLACE_EXIST_ERROR :
-      fprintf( stderr, "arc place %s to %s exists already\n", Text1, Text2 );
-    break;
-    case CTL_ARC_TRANS_EXIST_ERROR :
-      fprintf( stderr, "arc trans %s to %s exists already\n", Text1, Text2 );
-    break;
     case CTL_UNKNOWN_DECLAR_TYPE :
       fprintf( stderr, "unknown declar type %ld for %s\n", (long)Text1, Text2 );
-    break;
-    case CTL_SIGNAL_EXIST_ERROR :
-      fprintf( stderr, "signal %s exists already\n", Text1 );
     break;
     case CTL_VARIABLE_EXIST_ERROR :
       fprintf( stderr, "variable %s exists already\n", Text1 );
     break;
-    case CTL_DEFINE_EXIST_ERROR :
-      fprintf( stderr, "define %s exists already\n", Text1 );
-    break;
-    case CTL_ARGUMENT_EXIST_ERROR :
-      fprintf( stderr, "argument %s exists already\n", Text1 );
-    break;
     case CTL_CONSTANT_EXIST_ERROR :
       fprintf( stderr, "constant %s exists already\n", Text1 );
-    break;
-    case CTL_DEL_ARC_PLACE_ERROR :
-      fprintf( stderr, "unable to delete arc from place %s\n", Text1 );
-    break;
-    case CTL_DEL_ARC_TRANS_ERROR :
-      fprintf( stderr, "unable to delete arc from trans %s\n", Text1 );
-    break;
-    case CTL_TRANS_FATHER_UNKNOWN :
-      fprintf( stderr, "unknown father type %ld for transition %s\n", (long)Text1, Text2 );
     break;
     case CTL_DECLAR_EXIST_ERROR   :
       fprintf( stderr, "symbol %s already declared\n", Text1 );
     break;
     case CTL_BAD_DECLAR_TYPE   :
       fprintf( stderr, "bad declaration type %ld\n", (long)Text1 );
-    break;
-    case CTL_BAD_ASSIGN_TYPE   :
-      fprintf( stderr, "bad assign %s, type %ld\n", Text1, (long)Text2 );
     break;
     case CTL_UNDECLARED_SYMBOL   :
       fprintf( stderr, "undeclared symbol %s\n", Text1 );
@@ -159,15 +117,6 @@ void ctl_error( Error, Text1, Text2, File, Line )
     break;
     case CTL_ILLEGAL_INDEX_ERROR :
       fprintf( stderr, "illegal index for symbol %s %ld\n", Text1, (long)Text2 );
-    break;
-    case CTL_MOD_EXIST_ERROR :
-      fprintf( stderr, "model %s exists already\n", Text1 );
-    break;
-    case CTL_INS_EXIST_ERROR :
-      fprintf( stderr, "instance %s exists already\n", Text1 );
-    break;
-    case CTL_GENERIC_EXIST_ERROR :
-      fprintf( stderr, "generic %s exists already\n", Text1 );
     break;
     default :
 

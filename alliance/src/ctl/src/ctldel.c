@@ -140,6 +140,7 @@ int delctlfig( Name )
   ctlfig_list  **Previous;
   ctlform_list  *ScanForm;
   ctldecl_list  *ScanDecl;
+  ctltype_list  *ScanType;
   void          *Delete;
   int            Type;
 
@@ -174,6 +175,18 @@ int delctlfig( Name )
     ScanForm = ScanForm->NEXT;
   
     freectlform( Delete );
+  }
+
+  ScanType = Figure->TYPE;
+
+  while ( ScanType != (ctltype_list *)0 )
+  {
+    autfreeblock( ScanType->VALUE );
+
+    Delete   = (void *)( ScanType );
+    ScanType = ScanType->NEXT;
+  
+    freectltype( Delete );
   }
 
   for ( Type = 0; Type < CTL_MAX_DECLAR_TYPE; Type++ )

@@ -83,13 +83,24 @@ ctlfig_list *allocctlfig()
 
 /*------------------------------------------------------------\
 |                                                             |
-|                       Ctl Alloc Process                     |
+|                       Ctl Alloc Form                        |
 |                                                             |
 \------------------------------------------------------------*/
 
 ctlform_list *allocctlform()
 {
   return( (ctlform_list *)autallocheap( sizeof( ctlform_list ) ) );
+}
+
+/*------------------------------------------------------------\
+|                                                             |
+|                       Ctl Alloc Type                        |
+|                                                             |
+\------------------------------------------------------------*/
+
+ctltype_list *allocctltype()
+{
+  return( (ctltype_list *)autallocheap( sizeof( ctltype_list ) ) );
 }
 
 /*------------------------------------------------------------\
