@@ -68,7 +68,7 @@ void Usage (Name)
    fprintf (stderr, "\t-c\t: deletes top-level (c)onnectors, keeps all others\n");
    fprintf (stderr, "\t-C\t: keeps top-level (c)onnectors, deletes all others\n");
    fprintf (stderr, "\t-n\t: deletes all signal names, but connectors\n");
-   fprintf (stderr, "\t-s\t: (s)cotchs are not created\n");
+   fprintf (stderr, "\t-s\t: (s)cotchs are created\n");
    fprintf (stderr, "\t-1\t: only (1) level is translated, all otherwise.\n");
    fprintf (stderr, "\t-t\t: layout is just (t)ranslated, not post-treated\n");
    fprintf (stderr, "\t-r\t: black boxes are not (r)eplaced\n");
@@ -92,7 +92,7 @@ int main (argc, argv)
    int root_conn = 1;           /* keep top-level figure connectors by default */
    int sub_conn = 1;            /* keep sub-level figure connectors by default */
    int signal_name = 1;         /* keep signal names by default */
-   int scotch_on = 1;           /* scotchs are not created by default */
+   int scotch_on = 0;           /* scotchs are not created by default */
    int one_level = 0;           /* all hierarchy level translated by default */
    int do_post_treat = 1;       /* post-treatment is done by default */
    int do_replace_cells = 1;    /* cells_replacement is done by default */
@@ -138,7 +138,7 @@ int main (argc, argv)
                signal_name = 0;
                break;
             case 's':
-               scotch_on = 0;
+               scotch_on = 1;
                break;
             case '1':
                one_level = 1;
