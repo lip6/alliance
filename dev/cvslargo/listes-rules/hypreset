@@ -7,7 +7,7 @@
 # (C) Czo 1998,99
 # This code is released under GPL
 #
-# $Id: hypreset,v 1.1 2000/04/05 15:09:45 czo Exp $
+# $Id: hypreset,v 1.2 2000/06/06 15:34:00 czo Exp $
 #
 
 PATH=/asim/gnu/bin:/usr/ucb:/usr/etc:/bin:/usr/local/bin:${PATH}
@@ -15,6 +15,7 @@ TMPWORKDIR=/tmp/hypczo
 WML=/users/largo2/webmastr/wwwroot/mailing-lists
 LOCK=/usr/local/listes/.etc/rc.lock
 HMRC=/users/largo1/czo/cvslargo/listes-rules/hypermail/.hmrc 
+SPLIT=/users/largo1/czo/cvslargo/listes-rules
 
 #lock 
 touch $LOCK
@@ -31,15 +32,15 @@ then
 else
  echo "--> generating..."
 
+#for MBOX in alliance-support 
 for MBOX in alliance-programmers alliance-support alliance-users archi help
-#for MBOX in alliance-programmers 
 do
  echo "--> $MBOX..."
  mkdir -p "$TMPWORKDIR"
  cd "$WML/$MBOX"
  find . -type d -maxdepth 1 -mindepth 1 | xargs rm -fr dummy
 
-cat "$WML/$MBOX/$MBOX.mbox" | formail -s $WML/splitmailbyyear
+cat "$WML/$MBOX/$MBOX.mbox" | formail -s $SPLIT/splitmailbyyear
 
 echo %%%%%%%%%%%%%%%%%%%
 for YEARBOX in `find /tmp/hypczo -type f -printf "%P\n"`

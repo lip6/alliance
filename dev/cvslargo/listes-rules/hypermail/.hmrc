@@ -113,7 +113,7 @@ hm_showhtml = 0
 # Else set to 0 to have non-quoted lines word-wrap. Only takes effect
 # if hm_showhtml is set to 1.
 
-hm_showbr = 1
+hm_showbr = 0
 
 # hm_iquotes = [ 0 | 1 ]
 #
@@ -127,7 +127,7 @@ hm_iquotes = 1
 # Set to 1 if you want horizontal rules <HR> before and after
 # the articles. Set to 0 if you don't.
 
-hm_showhr = 1
+hm_showhr = 0
 
 # hm_overwrite = [ 0 | 1 ]
 #
@@ -226,7 +226,7 @@ hm_body = NONE
 # used to submit a new message to the list served by the hypermail archive.
 # "NONE" means don't use it.
 
-hm_hmail = hypermail@landfield.com
+hm_hmail = NONE
 
 # hm_ihtmlheader = [ path to index header template file | NONE ]
 #
