@@ -1,5 +1,5 @@
 /*
- *  $Id: dgn.h,v 1.2 2002/06/17 09:40:27 fred Exp $
+ *  $Id: dgn.h,v 1.3 2002/07/15 22:19:25 jpc Exp $
  *
  *  /----------------------------------------------------------------\
  *  |                                                                |
@@ -91,14 +91,17 @@
 #   define        DPGEN_RF2R0       34
 #   define        DPGEN_RF2D        35
 #   define        DPGEN_RF2DR0      36
-#   define        DPGEN_DFF         37
-#   define        DPGEN_DFFT        38
-#   define        DPGEN_SFF         39
-#   define        DPGEN_SFFT        40
-#   define        DPGEN_ROM2        41
-#   define        DPGEN_ROM4        42
-#   define        DPGEN_SHROT       43
-#   define        DPGEN_UNKNOWN     44
+#   define        DPGEN_RAM         37
+#   define        DPGEN_ROM         38
+#   define        DPGEN_ROMTS       39
+#   define        DPGEN_DFF         40
+#   define        DPGEN_DFFT        41
+#   define        DPGEN_SFF         42
+#   define        DPGEN_SFFT        43
+#   define        DPGEN_ROM2        44
+#   define        DPGEN_ROM4        45
+#   define        DPGEN_SHROT       46
+#   define        DPGEN_UNKNOWN     47
 
 
 /*  ----------------------------------------------------------------------

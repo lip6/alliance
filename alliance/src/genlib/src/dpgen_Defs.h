@@ -1,5 +1,5 @@
 /*
- *  $Id: dpgen_Defs.h,v 1.1 2002/04/29 13:40:54 jpc Exp $
+ *  $Id: dpgen_Defs.h,v 1.2 2002/07/15 22:19:25 jpc Exp $
  *
  *  /----------------------------------------------------------------\
  *  |                                                                |
@@ -61,6 +61,27 @@
  */
 
  extern void  dpgen_RF2 __FP((long aFunction, va_list aAL));
+
+
+/*  ----------------------------------------------------------------------
+ *  Module  :  "dpgen_RAM.c"
+ */
+
+ extern void  dpgen_RAM __FP((long aFunction, va_list aAL));
+
+
+/*  ----------------------------------------------------------------------
+ *  Module  :  "dpgen_ROM.c"
+ */
+
+ extern void  dpgen_ROM      __FP((long aFunction, va_list aAL));
+ extern void  dpgen_ROM_code __FP(( char *s
+                                  , long  nb
+                                  , long  nw
+                                  , long  r
+                                  , long  msb
+                                  , long *data
+                                  ));
 
 
 /*  ----------------------------------------------------------------------

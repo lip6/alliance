@@ -1,4 +1,6 @@
 AM_CFLAGS           = @ALLIANCE_CFLAGS@ 
+AM_YFLAGS           =
+AM_LFLAGS           =
 lib_LIBRARIES       = libMgn.a
 include_HEADERS     = mgn.h mbkgen.h genlib.h dgn.h
 libMgn_a_SOURCES    = genlib.c \
@@ -14,6 +16,9 @@ libMgn_a_SOURCES    = genlib.c \
                       dpgen_Regular.c \
                       dpgen_RF1.c \
                       dpgen_RF2.c \
+                      dpgen_RAM.c \
+                      dpgen_ROM.c \
+                      dpgen_ROM_code.y \
                       dpgen_Nul.c \
                       dpgen_Macro.c \
                       dpgen_Adder.c \
@@ -21,10 +26,10 @@ libMgn_a_SOURCES    = genlib.c \
                       dpgen_Shifter.c
 
 bin_SCRIPTS         = genlib
-CLEANFILES          = genlib
+CLEANFILES          = genlib y.output dpgen_ROM_code.c dpgen_ROM_code.h
 
 genlib : ${srcdir}/genlib.sh
-	${SED} 's,__ALLIANCE_INSTALL_DIR__,$(ALLIANCE_INSTALL_DIR),' $< > $@
+	${SED} 's,__ALLIANCE_INSTALL_DIR__,$(prefix),' $< > $@
 	chmod a+x $@
 
-EXTRA_DIST = genlib.sh
+EXTRA_DIST = genlib.sh dpgen_ROM_code.h

@@ -1,5 +1,5 @@
 /*
- *  $Id: dpgen_Macro.c,v 1.2 2002/06/17 09:40:27 fred Exp $
+ *  $Id: dpgen_Macro.c,v 1.3 2002/07/15 22:19:25 jpc Exp $
  *
  *  /----------------------------------------------------------------\
  *  |                                                                |
@@ -69,6 +69,8 @@ extern char *function_To_String(aFunction)
     case DPGEN_SHIFT:     return ("DPGEN_SHIFT");
     case DPGEN_NUL:       return ("DPGEN_NUL");
     case DPGEN_RF1:       return ("DPGEN_RF1");
+    case DPGEN_RAM:       return ("DPGEN_RAM");
+    case DPGEN_ROM:       return ("DPGEN_ROM");
     case DPGEN_FIFO:      return ("DPGEN_FIFO");
     default:              return ("unknown?!");
   }
@@ -88,7 +90,7 @@ extern void  GENLIB_MACRO __FPV((long  aFunction, ...))
 
   if (firstCall) {
     firstCall = FALSE;
-    util_init (C_VerboseLevel0, F_DUMPCORE, "dpgen");
+    util_init (C_VerboseLevel0, F_DUMPCORE, "genlib");
   }
 
 
@@ -171,10 +173,19 @@ extern void  GENLIB_MACRO __FPV((long  aFunction, ...))
     case DPGEN_RF2DR0:
       dpgen_RF2 (aFunction, aAL);
       break;
+    case DPGEN_RAM:
+      dpgen_RAM (aFunction, aAL);
+      break;
+    case DPGEN_ROM:
+      dpgen_ROM (aFunction, aAL);
+      break;
+    case DPGEN_ROMTS:
+      dpgen_ROM (aFunction, aAL);
+      break;
     default:
       eprinth (NULL);
       eprintf ("GENLIB_MACRO: Unknown function Id: %ld.\n", aFunction);
-      eprints ("  Please have a look to \"dgnVRR.h\" in which all ");
+      eprints ("  Please have a look to \"dgn.h\" in which all ");
       eprints (  "authorized\n   values are listed.\n");
       EXIT (1);
   }

@@ -1,6 +1,6 @@
 #!/bin/sh
 #
-# $Id: genlib.sh,v 1.5 2002/06/06 15:46:49 fred Exp $
+# $Id: genlib.sh,v 1.6 2002/07/15 22:19:26 jpc Exp $
 #                                                                        
 # /------------------------------------------------------------------\
 # |                                                                  |
@@ -218,6 +218,9 @@
    ALLIANCE_DEVEL_INCLUDE="-I${ALLIANCE_INSTALL_DIR}/include"
    ALLIANCE_DEVEL_LIB="-L${ALLIANCE_INSTALL_DIR}/lib"
    export ALLIANCE_INSTALL_DIR ALLIANCE_DEVEL_INCLUDE ALLIANCE_DEVEL_LIB
+
+   vecho 0    "  o  Switching to development environment :"
+   vecho 0    "     - ALLIANCE_INSTALL_DIR : ${ALLIANCE_INSTALL_DIR-not set}"
  fi
 
 
