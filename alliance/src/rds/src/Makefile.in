@@ -60,7 +60,10 @@ POST_UNINSTALL = :
 CC = @CC@
 INCLUDES = @INCLUDES@
 LDFLAGS = @LDFLAGS@
+MAKEINFO = @MAKEINFO@
+PACKAGE = @PACKAGE@
 RANLIB = @RANLIB@
+VERSION = @VERSION@
 
 lib_LIBRARIES = libRds.a                       libRut.a                       libRfm.a                       libRpr.a                       libRwi.a                       libRtl.a
 
@@ -106,9 +109,6 @@ HEADERS =  $(include_HEADERS)
 
 DIST_COMMON =  Makefile.am Makefile.in
 
-
-PACKAGE = @PACKAGE@
-VERSION = @VERSION@
 
 DISTFILES = $(DIST_COMMON) $(SOURCES) $(HEADERS) $(TEXINFOS) $(EXTRA_DIST)
 
@@ -271,7 +271,7 @@ distdir: $(DISTFILES)
 	@for file in $(DISTFILES); do \
 	  d=$(srcdir); \
 	  if test -d $$d/$$file; then \
-	    cp -pr $$/$$file $(distdir)/$$file; \
+	    cp -pr $$d/$$file $(distdir)/$$file; \
 	  else \
 	    test -f $(distdir)/$$file \
 	    || ln $$d/$$file $(distdir)/$$file 2> /dev/null \
