@@ -1,7 +1,7 @@
 
 // -*- C++ -*-
 //
-// $Id: AAstar.cpp,v 1.7 2002/10/31 09:30:00 hcl Exp $
+// $Id: AAstar.cpp,v 1.8 2002/11/17 16:40:13 jpc Exp $
 //
 //  /----------------------------------------------------------------\ 
 //  |                                                                |
@@ -311,6 +311,10 @@ void  CAStar::CNodeAS::successors (CNodeASSet &NS, CNet *net, CNodeAS *(*success
 
     if (neighbor.inside() && !neighbor.isnodehole()) {
 
+      // For z==0 (ALU1), the only allowed neighbor is the "top",
+      // as we must never use z==0 layer to route even contiguous pins.
+      if ((point.z() == 0) && edge < 5) continue;
+
       pNodeAS = AS (neighbor);
       if (!pNodeAS) {
         pNodeAS = new (NS) CNodeAS (neighbor);
@@ -556,9 +560,9 @@ void  CAStar::load (CNet *pNet, int delta, int expand)
   net->unroute ();
   _tree.addterm (*(net->terms[0]));
 
-  //cerr << "    Starting term := \""
-  //     << net->terms[0]->name
-  //     << "\"\n";
+  cdebug << "    Starting term := \""
+         << net->terms[0]->name
+         << "\"\n";
 }
 
 
@@ -650,10 +654,10 @@ bool  CAStar::nexttarget (void)
   for (i = 0; i < net->size; i++) {
     if (_tree.reached.find (i) == endSet) {
       _tree.settarget ( net->terms[i]->lowest() );
-      //cerr << "    Next target := \""
-      //     << net->terms[i]->name
-      //     << " (index := " << i << ")"
-      //     << endl;
+      cdebug << "    Next target := \""
+             << net->terms[i]->name
+             << " (index := " << i << ")"
+             << "\n";
       break;
     }
   }
@@ -816,7 +820,7 @@ void CAStar::dump (void)
   iterations_reroute = 0;
   iterations_kind    = &iterations_route;
 
-  //if (pNet->name == "ram_banc1_nadr2x") cdebug.on ();
+  //if (pNet->name == "cmdy_ts6") cdebug.on ();
 
   do {
     if (hysteresis) {
