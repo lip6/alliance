@@ -13,7 +13,8 @@ CFLAGS = @ALLIANCE_CFLAGS@ @X_CFLAGS@ -DDREAL_VERSION=\"@DREAL_VERSION@\" \
          -DDREAL_WINDOW_SIDE=\"DREAL_WINDOW_SIDE\" 
 
 dreal_LDADD = @ALLIANCE_LIBS@ @X_LIBS@ @LINK_MOTIF@ \
--lRtl -lRgs -lRcf -lRut -lRfm -lRpr -lRds -lMpu -lMap -lMmg -lMcp -lMph -lMut
+-lRtl -lRgs -lRcf -lRut -lRfm -lRpr -lRds -lMpu -lMap -lMmg -lMcp -lMph -lMut  \
+-lm
 
 
 INCLUDES = @INCLUDE_MOTIF@
