@@ -77,6 +77,21 @@ Sources of the Alliance VLSI CAD System, as you might guess...
  mkdir -p %{buildroot}%{prefix}/src
  tar cf - * | (cd %{buildroot}%{prefix}/src; tar xvf -)
 
+# Set execution rights on the alc_env.* batchs and adjust ALLIANCE_TOP.
+# This is not clean and has to be moved in the package itself in the
+# future.
+ chmod a+rx %{buildroot}%{prefix}/etc/alc_env.*
+ sed "s,ALLIANCE_TOP *= *\([^;]*\),ALLIANCE_TOP=%{prefix}," \
+    %{buildroot}%{prefix}/etc/alc_env.sh > \
+    %{buildroot}%{prefix}/etc/alc_env.sh.1
+ mv %{buildroot}%{prefix}/etc/alc_env.sh.1 \
+    %{buildroot}%{prefix}/etc/alc_env.sh
+ sed "s,ALLIANCE_TOP *\([^;]*\),ALLIANCE_TOP %{prefix}," \
+    %{buildroot}%{prefix}/etc/alc_env.csh > \
+    %{buildroot}%{prefix}/etc/alc_env.csh.1
+ mv %{buildroot}%{prefix}/etc/alc_env.csh.1 \
+    %{buildroot}%{prefix}/etc/alc_env.csh
+
 
 %post
  ln -sf %{prefix}/etc/alc_env.sh  /etc/profile.d
@@ -93,8 +108,15 @@ Sources of the Alliance VLSI CAD System, as you might guess...
 
 
 %files
+%attr(755, root, root) %{prefix}/etc/alc_env.*
+%{prefix}/etc/*.dreal
+%{prefix}/etc/*.graal
+%{prefix}/etc/*.rds
+%{prefix}/etc/*.elp
+%{prefix}/etc/*.cfg
+%{prefix}/etc/*.par
+%{prefix}/etc/*.scapin
 %{prefix}/cells/*
-%{prefix}/etc/*
 %{prefix}/bin/*
 %{prefix}/lib/*
 %{prefix}/include/*
