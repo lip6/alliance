@@ -1,5 +1,5 @@
 /*
- *  $Id: MAC_drive.c,v 1.4 2003/06/23 13:01:23 jpc Exp $
+ *  $Id: MAC_drive.c,v 1.5 2003/06/26 17:00:39 jpc Exp $
  *
  *  /----------------------------------------------------------------\
  *  |                                                                |
@@ -102,15 +102,13 @@ extern void  macPlace(apPhfig, apLofig, macName, aPower, aFlags)
   fprintf (MAC_FILE, " WINDOW FIT ;\n\n");
 
 
-  if (aFlags & F_MAC_FIXED_PINS) {
-    fprintf (MAC_FILE, " IOPLACE\n");
-    if (aFlags & F_MAC_IOC) {
-      fprintf (MAC_FILE, "   FILENAME %s.ioc\n", apLofig->NAME);
-    }
-    fprintf (MAC_FILE, "   TOPBOTTOMLAYER L_ALU2\n");
-    fprintf (MAC_FILE, "   RIGHTLEFTLAYER L_ALU2\n");
-    fprintf (MAC_FILE, "   ;\n\n");
+  fprintf (MAC_FILE, " IOPLACE\n");
+  if (aFlags & F_MAC_IOC) {
+    fprintf (MAC_FILE, "   FILENAME \"%s.ioc\"\n", apLofig->NAME);
   }
+  fprintf (MAC_FILE, "   TOPBOTTOMLAYER L_ALU3\n");
+  fprintf (MAC_FILE, "   RIGHTLEFTLAYER L_ALU2\n");
+  fprintf (MAC_FILE, "   ;\n\n");
 
 
   /* Power stripes made of "powmid_x0". */
@@ -130,7 +128,7 @@ extern void  macPlace(apPhfig, apLofig, macName, aPower, aFlags)
 
 
   /* Placement itself. */
-  fprintf (MAC_FILE, " SET VARIABLE Qplace.Place.Pin \"concurrent\" ;\n" );
+  fprintf (MAC_FILE, "#SET VARIABLE Qplace.Place.Pin \"concurrent\" ;\n" );
   fprintf (MAC_FILE, " QPLACE NOCONFIG ;\n\n");
 
 
@@ -189,15 +187,15 @@ extern void  macRoute(apPhfig, apLofig, macName, aPower, aFlags)
   if (aFlags & F_MAC_FILL_TIE) fillTie (apPhfig);
 
 
-  if (aFlags & F_MAC_FIXED_PINS) {
-    fprintf (MAC_FILE, " IOPLACE\n");
-    if (aFlags & F_MAC_IOC) {
-      fprintf (MAC_FILE, "   FILENAME %s.ioc\n", apLofig->NAME);
-    }
-    fprintf (MAC_FILE, "   TOPBOTTOMLAYER L_ALU2\n");
-    fprintf (MAC_FILE, "   RIGHTLEFTLAYER L_ALU2\n");
-    fprintf (MAC_FILE, "   ;\n\n");
-  }
+/*   if (aFlags & F_MAC_FIXED_PINS) { */
+/*     fprintf (MAC_FILE, " IOPLACE\n"); */
+/*     if (aFlags & F_MAC_IOC) { */
+/*       fprintf (MAC_FILE, "   FILENAME %s.ioc\n", apLofig->NAME); */
+/*     } */
+/*     fprintf (MAC_FILE, "   TOPBOTTOMLAYER L_ALU2\n"); */
+/*     fprintf (MAC_FILE, "   RIGHTLEFTLAYER L_ALU2\n"); */
+/*     fprintf (MAC_FILE, "   ;\n\n"); */
+/*   } */
 
 
   if (! (aFlags & F_MAC_NO_POWER)) {

@@ -1,6 +1,6 @@
 
 /*
- *  $Id: DEF_actions.c,v 1.2 2002/09/30 16:21:16 czo Exp $
+ *  $Id: DEF_actions.c,v 1.3 2003/06/26 17:00:39 jpc Exp $
  *
  *  /----------------------------------------------------------------\
  *  |                                                                |
@@ -560,9 +560,10 @@ extern void	 def_pin_options()
         break;
     } /* End of "switch (LV_orient)". */
 
-    if (!fakeCon) {
-      LV_ptLoseg->tLoseg[pElem->VALUE] = addloseg (
-           LV_ptLoseg->tLoseg[pElem->VALUE], LOSEG_SEGCON, (void*)pPhSeg);
+    if (!fakeCon || (LV_defFlags & F_DEF_KEEP_IOS)) {
+      if (!fakeCon)
+        LV_ptLoseg->tLoseg[pElem->VALUE] = addloseg (
+          LV_ptLoseg->tLoseg[pElem->VALUE], LOSEG_SEGCON, (void*)pPhSeg);
 
 
         /* Add the old-style terminal. */

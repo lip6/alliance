@@ -1,5 +1,5 @@
 /*
- *  $Id: a2DEF.c,v 1.2 2002/09/30 16:21:17 czo Exp $
+ *  $Id: a2DEF.c,v 1.3 2003/06/26 17:00:39 jpc Exp $
  *
  *  /----------------------------------------------------------------\
  *  |                                                                |
@@ -199,15 +199,19 @@ extern int main(argc, argv)
 
     /* Short options. */
     if (!strcmp (argv[i], "-c")) {
-      argFlags |=  A_FIXED_PINS;
-      defFlags |=  F_FIXED_PINS;
+      /* Deprecated.
+       * argFlags |=  A_FIXED_PINS;
+       * defFlags |=  F_FIXED_PINS;
+       */
       /*macFlags |=  F_MAC_FIXED_PINS;*/
       continue;
     }
 
     if (!strcmp (argv[i], "-b")) {
-      argFlags &= ~A_FIXED_PINS;
-      defFlags &= ~F_FIXED_PINS;
+      /* Deprecated.
+       * argFlags &= ~A_FIXED_PINS;
+       * defFlags &= ~F_FIXED_PINS;
+       */
       continue;
     }
 

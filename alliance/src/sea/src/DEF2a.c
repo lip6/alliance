@@ -1,5 +1,5 @@
 /*
- *  $Id: DEF2a.c,v 1.2 2002/09/30 16:21:16 czo Exp $
+ *  $Id: DEF2a.c,v 1.3 2003/06/26 17:00:39 jpc Exp $
  *
  *  /----------------------------------------------------------------\
  *  |                                                                |
@@ -32,6 +32,7 @@
 #  define        F_NO_IOS             0x00000010
 #  define        F_NO_INTERF          0x00000020
 #  define        F_MERGE_TERM         0x00000040
+#  define        F_KEEP_IOS           0x00000080
 #  define        M_OUTPUT            (F_PHFIG | F_LOFIG)
 
 
@@ -70,7 +71,7 @@
 static void  printHelp()
 {
   printf ("  o  Usage := \"DEF2a <-l|-p|-l -p>");
-  printf (                " [-v] [-V] [-h] [-s] [-b] [-i] [-r]\n");
+  printf (                " [-v] [-V] [-h] [-s] [-b] [-i] [-r] [-k]\n");
   printf ("                 <def> [<net_lay>]\"\n\n");
   printf ("  o  Options :\n");
   printf ("     [-v]          := Be verbose.\n");
@@ -83,6 +84,7 @@ static void  printHelp()
   printf ("     [-S]          := Shrink the abutment box.\n");
   printf ("     [-i]          := Do not build physical interface.\n");
   printf ("     [-r]          := Merge power terminals for ring.\n");
+  printf ("     [-k]          := Keep terminals.\n");
   printf ("     <def>         := Name of the input DEF file (mandatory).\n");
   printf ("     <net_lay>     := Name of the output netlist and/or layout.\n");
   printf ("\n" );
@@ -162,6 +164,8 @@ extern int main (argc, argv)
                                     LV_flags |= F_DEF_NO_INTERF; continue; } 
     if (!strcmp (argv[i], "-r"))  { defFlags |= F_MERGE_TERM;
                                     LV_flags |= F_DEF_MERGE_TERM; continue; } 
+    if (!strcmp (argv[i], "-k"))  { defFlags |= F_KEEP_IOS;
+                                    LV_flags |= F_DEF_KEEP_IOS; continue; } 
 
     if ((argC - i) > 2) {
       eprinth (NULL);

@@ -1,5 +1,5 @@
 /*
- *  $Id: DEF_drive.c,v 1.9 2003/04/07 14:38:42 jpc Exp $
+ *  $Id: DEF_drive.c,v 1.10 2003/06/26 17:00:39 jpc Exp $
  *
  *  /----------------------------------------------------------------\
  *  |                                                                |
@@ -1150,8 +1150,8 @@ static void  fprintPIN(apLocon, apPhcon, asState)
     fprintf(DEF_FILE, " + DIRECTION %s",
                        DIRtoa(MBK2DEF_locondir(apLocon)));
   
-  if (    (LV_Flags & F_FIXED_PINS)
-      &&  (strncmp(apLocon->NAME, "vddv", 4))
+  if (    /* (LV_Flags & F_FIXED_PINS) */
+      /*&&*/  (strncmp(apLocon->NAME, "vddv", 4))
       &&  (strncmp(apLocon->NAME, "vssv", 4))
       &&  !isvdd (apLocon->NAME)
       &&  !isvss (apLocon->NAME)) {

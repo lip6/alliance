@@ -1,6 +1,6 @@
 #!/bin/sh
 #
-# $Id: seplace.sh,v 1.3 2002/09/30 16:21:18 czo Exp $
+# $Id: seplace.sh,v 1.4 2003/06/26 17:00:39 jpc Exp $
 #
 # /------------------------------------------------------------------\
 # |                                                                  |
@@ -247,8 +247,8 @@
            ioc="n"
          argVL=""
      argLayers="-3"
-     argsA2DEF="-V -t -c -e"
-     argsDEF2A="-V -p -S -i -b"
+     argsA2DEF="-V -t -e"
+     argsDEF2A="-V -p -S -i"
        argsSEA="--batch --ansi"
 #      argsSEA="-V"
 
@@ -427,6 +427,7 @@
  if [ "$ioc" = "y" ]; then
    vecho 1 "  o  IO placement file is := \"$netlistName.ioc\"."
    argsA2DEF="$argsA2DEF --ioc"
+   argsDEF2A="$argsDEF2A -k"
  fi
 
 

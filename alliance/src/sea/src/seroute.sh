@@ -1,6 +1,6 @@
 #!/bin/sh
 #
-# $Id: seroute.sh,v 1.3 2002/09/30 16:21:18 czo Exp $
+# $Id: seroute.sh,v 1.4 2003/06/26 17:00:39 jpc Exp $
 #
 # /------------------------------------------------------------------\
 # |                                                                  |
@@ -387,7 +387,8 @@
 
  if [ "$core" = "y" ]; then
    vecho 1 "  o  The design will have pins."
-   argsA2DEF="$argsA2DEF -c"
+   vecho 0 "     \"--core\" is now obsolete."
+   #argsA2DEF="$argsA2DEF -c"
  fi
 
 

@@ -1,5 +1,5 @@
 /*
- *  $Id: DEF_grammar.h,v 1.2 2002/09/30 16:21:16 czo Exp $
+ *  $Id: DEF_grammar.h,v 1.3 2003/06/26 17:00:39 jpc Exp $
  *
  *  /----------------------------------------------------------------\
  *  |                                                                |
@@ -24,6 +24,7 @@
 #   define        F_DEF_NO_INTERF          0x00000004
 #   define        F_DEF_MERGE_TERM         0x00000008
 #   define        F_DEF_SHRINK             0x00000010
+#   define        F_DEF_KEEP_IOS           0x00000020
 
 
   extern void  defloadlophfig (lofig_list *apLoFig,
