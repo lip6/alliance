@@ -130,7 +130,9 @@
 %token <valu> CASE
 %token <valu> COMPONENT
 %token <valu> CONFIGURATION
-%token <valu> CONSTANT
+%token <valu> _DEFINE
+%token <valu> _ASSUME
+%token <valu> _INITIAL
 %token <text> CharacterLit
 %token <valu> Colon
 %token <valu> Comma
@@ -217,7 +219,6 @@
 %left                DoubleStar
 %right                ABS _NOT
 
-%type <list> .VarAsgn__expression.
 %type <list> expression
 %type <list> relation..AND__relation..
 %type <list> relation..OR__relation..
@@ -334,6 +335,8 @@ ctl_declarative_part
 block_declarative_item
        : constant_declaration
        | variable_declaration
+       | assumption_declaration
+       | initial_declaration
        | type_declaration
        | subtype_declaration
        | error
@@ -344,7 +347,7 @@ block_declarative_item
        ;
 
 constant_declaration
-       : CONSTANT
+       : _DEFINE
          Identifier
          Colon
          type_mark
@@ -411,19 +414,102 @@ constant_declaration
         }
        ;
 
+assumption_declaration
+       : _ASSUME
+         Identifier
+         constant_VarAsgn__expression
+         Semicolon_ERR
+        {
+          ctltype_list  *Type;
+          ctldecl_list  *CtlAss;
+          vexexpr       *VexValue;
+          chain_list    *HeadChain;
+          chain_list    *ScanChain;
+          ctp_vexstr    *VexStr;
+          short          Signed;
+          long           Left;
+          long           Right;
+          short          Width;
+          long           AttrLeft;
+          long           AttrRight;
+
+          VexValue = simpvexexpr( $3.VEX );
+
+          Type = val_type( "boolean" );
+
+          AttrLeft  = -1;
+          AttrRight = -1;
+
+          CtlAss  = (ctldecl_list *)ctp_addstr( 'A',0, Type,
+                 VEX_TYPE_BOOLEAN, 0, $2, AttrLeft,AttrRight,VexValue);
+
+          Signed = 0;
+          Left   = -1;
+          Right  = -1;
+
+          addtab(hshtab,$2,CTP_MODNAM,CTP_SYMDFN,CTP_CSTDFN);
+          addtab(hshtab,$2,CTP_MODNAM,CTP_TYPDFN,VEX_TYPE_BOOLEAN);
+          addtab(hshtab,$2,CTP_MODNAM,CTP_WMNDFN,Left);
+          addtab(hshtab,$2,CTP_MODNAM,CTP_WMXDFN,Right);
+          addtab(hshtab,$2,CTP_MODNAM,CTP_ATLDFN,AttrLeft);
+          addtab(hshtab,$2,CTP_MODNAM,CTP_ATRDFN,AttrRight);
+          addtab(hshtab,$2,CTP_MODNAM,CTP_LBLDFN,0);
+          addtab(hshtab,$2,CTP_MODNAM,CTP_PNTDFN,(long)CtlAss->VEX_ATOM);
+          addtab(hshtab,$2,CTP_MODNAM,CTP_SUNDFN,Signed );
+        }
+       ;
+
+initial_declaration
+       : _INITIAL
+         Identifier
+         constant_VarAsgn__expression
+         Semicolon_ERR
+        {
+          ctltype_list  *Type;
+          ctldecl_list  *CtlAss;
+          vexexpr       *VexValue;
+          chain_list    *HeadChain;
+          chain_list    *ScanChain;
+          ctp_vexstr    *VexStr;
+          short          Signed;
+          long           Left;
+          long           Right;
+          short          Width;
+          long           AttrLeft;
+          long           AttrRight;
+
+          VexValue = simpvexexpr( $3.VEX );
+
+          Type = val_type( "boolean" );
+
+          AttrLeft  = -1;
+          AttrRight = -1;
+
+          CtlAss  = (ctldecl_list *)ctp_addstr( 'I',0, Type,
+                 VEX_TYPE_BOOLEAN, 0, $2, AttrLeft,AttrRight,VexValue);
+
+          Signed = 0;
+          Left   = -1;
+          Right  = -1;
+
+          addtab(hshtab,$2,CTP_MODNAM,CTP_SYMDFN,CTP_CSTDFN);
+          addtab(hshtab,$2,CTP_MODNAM,CTP_TYPDFN,VEX_TYPE_BOOLEAN);
+          addtab(hshtab,$2,CTP_MODNAM,CTP_WMNDFN,Left);
+          addtab(hshtab,$2,CTP_MODNAM,CTP_WMXDFN,Right);
+          addtab(hshtab,$2,CTP_MODNAM,CTP_ATLDFN,AttrLeft);
+          addtab(hshtab,$2,CTP_MODNAM,CTP_ATRDFN,AttrRight);
+          addtab(hshtab,$2,CTP_MODNAM,CTP_LBLDFN,0);
+          addtab(hshtab,$2,CTP_MODNAM,CTP_PNTDFN,(long)CtlAss->VEX_ATOM);
+          addtab(hshtab,$2,CTP_MODNAM,CTP_SUNDFN,Signed );
+        }
+       ;
+
+
 constant_VarAsgn__expression
        : VarAsgn
          expression
                 { $$ = $2; }
        ;
-
-.VarAsgn__expression.
-        : /*empty*/
-        {  $$.VEX = NULL ;}
-        | VarAsgn
-          expression
-        {  $$ = $2 ;}
-        ;
 
 variable_declaration
         : _VARIABLE
@@ -431,7 +517,6 @@ variable_declaration
           Colon
           type_mark
           .constraint.
-          .VarAsgn__expression.
           Semicolon_ERR
           {
             char         *LocalName;
@@ -2070,7 +2155,7 @@ vexexpr      *exp;
 
   if ( object == 'C' )
   {
-    CtlDeclar = addctldeclcst( CTP_HEADFIG, vex_pnt );
+    CtlDeclar = addctldecldef( CTP_HEADFIG, vex_pnt );
     CtlDeclar->TYPE     = prtype;
     CtlDeclar->VEX_INIT = exp;
     addctlline( CTP_HEADFIG, &CtlDeclar->LINE, CTP_LINNUM );
@@ -2082,6 +2167,26 @@ vexexpr      *exp;
   {
     CtlDeclar = addctldeclvar( CTP_HEADFIG, vex_pnt );
     CtlDeclar->TYPE     = prtype;
+    addctlline( CTP_HEADFIG, &CtlDeclar->LINE, CTP_LINNUM );
+
+    pnt = (void *)CtlDeclar;
+  }
+  else
+  if ( object == 'A' )
+  {
+    CtlDeclar = addctldeclass( CTP_HEADFIG, vex_pnt );
+    CtlDeclar->TYPE     = prtype;
+    CtlDeclar->VEX_INIT = exp;
+    addctlline( CTP_HEADFIG, &CtlDeclar->LINE, CTP_LINNUM );
+
+    pnt = (void *)CtlDeclar;
+  }
+  else
+  if ( object == 'I' )
+  {
+    CtlDeclar = addctldeclinit( CTP_HEADFIG, vex_pnt );
+    CtlDeclar->TYPE     = prtype;
+    CtlDeclar->VEX_INIT = exp;
     addctlline( CTP_HEADFIG, &CtlDeclar->LINE, CTP_LINNUM );
 
     pnt = (void *)CtlDeclar;
