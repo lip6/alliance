@@ -8,7 +8,7 @@
 # NOTE: You can find the latest revision of this document at:
 # http://asim.lip6.fr/pub/alliance/latest-checkout/alliance/src
 #
-# $Id: README,v 1.4 2002/10/17 13:33:00 czo Exp $
+# $Id: README,v 1.5 2002/10/17 14:23:56 czo Exp $
 
 This file discuss about installation of Alliance on UNIX machines.
 
@@ -23,7 +23,12 @@ and build them.
 Note that for running some precompiled Alliance binaries you will need gcc and
 other gnu tools (gmake, gcc ...), X11R6.4 libraries (http://www.x.org/), Motif
 1.2 libraries. You can find a semi free Motif distribution at 
-http://www.motifzone.net/ and a free clone at http://www.lesstif.org/
+http://www.motifzone.net/ and a free clone at http://www.lesstif.org/.
+If you use Linux RedHat 7.1 you'll find 2 openmotif rpm in 
+ftp://asim.lip6.fr/pub/alliance/distribution/5.0/redist/rh7.1/
+If you use RedHat 7.3 or 8.0, install the 3 openmotif rpm found on the 
+RedHat cdroms (especially the openmotif21 rpm which is a compatibility library
+for Open Motif 2.1 that can be installed with the openmotif-2.2.
 
 
 Alliance naming scheme:
