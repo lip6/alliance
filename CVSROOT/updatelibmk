@@ -16,9 +16,12 @@
 #
 # Author : Olivier SIROL
 # Date   : April 1997 
-# $Id: updatelibmk,v 1.3 1999/09/21 15:01:54 czo Exp $
+# $Id: updatelibmk,v 1.4 1999/09/24 13:24:58 czo Exp $
 
 # DO_UPDATE: 0 chk only, 1 write file, 2 print stdout
+
+PATH=/asim/gnu/bin:/usr/ucb:/usr/etc:/bin:/usr/bin:/usr/local/bin:${PATH}
+export PATH
 
 DO_UPDATE=2
 
