@@ -1,0 +1,28 @@
+#!/bin/sh
+
+if  test "$1" = "clean" ; then
+   find . -name Makefile.in -exec rm {} \; -print
+   find . -name aclocal.m4 -exec rm {} \; -print
+   find . -name configure -exec rm {} \; -print
+   rm -f mkinstalldirs
+   rm -f missing
+   rm -f install-sh
+   exit
+fi 
+
+dirs=`\ls -1pd * | grep / | grep -v CVS`
+
+aclocal -I .
+automake --foreign --add-missing --copy
+autoconf
+
+for i in $dirs ; do
+   cd $i
+   if test -f configure.in ; then
+      aclocal -I .
+      automake --foreign
+      autoconf
+   fi
+   cd ..
+done
+exit 0
