@@ -85,6 +85,7 @@ class PPlacement {
 	bool		_boolPlot;
 	bool		_verbose;
 	bool		_prePlace;
+	bool		_eqMargin;
 	unsigned	_totalMoves;
 
 	// Placement caracteristics
@@ -110,12 +111,13 @@ class PPlacement {
     public:
 	PPlacement(bool conflg, bool ringflg, double rowmult, double binmult, double netmult,
 		bool iocfile, char *iocfilename, bool plotflg,
-		bool verbose, bool preflg, struct phfig* physfig,
+		bool verbose, bool preflg, bool eqmargin,
+		struct phfig* physfig,
 		char* filename):
 	    _prePlaceFig(physfig),
 	RowMult(rowmult), BinMult(binmult), NetMult(netmult),
 	_placeCons(conflg), _ringPlaceCons(ringflg), _iocFile(iocfile), _iocFileName(iocfilename),
-	_boolPlot(plotflg), _verbose(verbose), _prePlace(preflg),
+	_boolPlot(plotflg), _verbose(verbose), _prePlace(preflg), _eqMargin(eqmargin),
 	_totalMoves(0),_fileName(filename)
 	{}
 

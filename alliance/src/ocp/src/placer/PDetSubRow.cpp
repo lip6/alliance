@@ -33,7 +33,7 @@ PDetSubRow::PDetSubRow(PSubRow& subrow):
 }
 
 void
-PDetSubRow::ExpandInstances()
+PDetSubRow::ExpandInstances(const bool eqmargin)
 {
     unsigned nins = _detInsVector.size();
     double totalinssize = 0;
@@ -43,10 +43,26 @@ PDetSubRow::ExpandInstances()
     {
 	totalinssize += iit->GetWidth();
     }
+    //xtof: 06 05 2002
+    //changing the white space repartition
+    //We want the maximum 2-pitch spaces for bodie-tie insertion
+    
     double whitespace = GetWidth() - totalinssize;
-    double inswhitespace = (double)(int)(whitespace / nins);
-    double whitespaceremain = (double)(int)(whitespace
-	    - nins * inswhitespace + 0.5);
+    double inswhitespace = 0.0;
+    double whitespaceremain = 0.0;
+    if (eqmargin)
+    {
+	inswhitespace = (double)(int)(whitespace / nins);
+	whitespaceremain = (double)(int)(whitespace
+		- nins * inswhitespace + 0.5);
+    }
+    else
+    {
+	inswhitespace = (double)(int)(whitespace / (2 * nins));
+	inswhitespace *= 2;
+	whitespaceremain = (double)(int)(whitespace
+		- nins * inswhitespace + 0.5);
+    }
     for (PDetInsVector::iterator iit = _detInsVector.begin();
 	    iit != _detInsVector.end();
 	    iit++)
@@ -54,9 +70,24 @@ PDetSubRow::ExpandInstances()
 	iit->SetMarginWidth(iit->GetWidth() + inswhitespace);
     }
     PDetInsVector::iterator iit = _detInsVector.begin();
-    while (whitespaceremain-- > 0)
+    if (eqmargin)
     {
-	(iit++)->AddWhiteSpace();
+	while (whitespaceremain-- > 0.0)
+	{
+	    (iit++)->AddWhiteSpace();
+	}
+    }
+    else
+    {
+	while (whitespaceremain >= 2.0)
+	{
+	    (iit++)->AddDoubleWhiteSpace();
+	    whitespaceremain -= 2.0;
+	}
+	if (whitespaceremain > 0.0)
+	{
+	    (iit)->AddWhiteSpace();
+	}
     }
     
     double XPos = GetMinX();

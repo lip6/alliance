@@ -25,6 +25,8 @@ Usage()
 	 << "  in percentage of the cells area. " << endl
 	 << "  The resulting area will be equal to " << endl
 	 << "  CELL_AREA * (1 + <MARGIN>). Default value : 0.2" << endl
+	 << "o -eqmargin : The margin is equitably distributed between all cells" << endl
+	 << "  By default, we try to insert the maximum amount of 2-pitch tie cells" << endl
 	 << "o -partial <PARTIAL> : " << endl
 	 << "  The design is already partially placed (there must be a" << endl
 	 << "  physical view describing this partial placement)." << endl
@@ -52,6 +54,8 @@ main(int argc, char **argv)
     bool		RingFlg			= false; // Connectors
     bool		IocFlg			= false; // file for Connectors
     bool		VerboseFlg		= false; // verbose mode
+    bool		EqMarginFlg		= false; // don't try to maximise
+    							 // 2-pitch cells
     double		NetMult			= 0.8 ;
     double		BinMult			= 0.1 ;
     double		RowMult			= 0.1 ;
@@ -70,50 +74,53 @@ main(int argc, char **argv)
 	Usage();
 	exit(0);
     }
-    
-       for (int i=1; i<argc; i++) {
-            if (!strcmp (argv[i], "-help")) {
-	      HelpFlg = true;
-	    }
-	    
-	    else
-	    
-	    if (!strcmp (argv[i], "-v")) {
-	      if (i+2 < argc) VerboseFlg = true;
-	      else	      UsageFlg = true;
-	    }
-	    
-	    else
-	    
 
-	    if (!strcmp (argv[i], "-gnuplot")) {
-	      if (i+2 < argc) PlotFlg = true;
-	      else	      UsageFlg = true;
+    for (int i=1; i<argc; i++)
+    {
+	if (!strcmp (argv[i], "-help"))
+	{
+	    HelpFlg = true;
+	}
+	else
+	    if (!strcmp (argv[i], "-v"))
+	    {
+		if (i+2 < argc) VerboseFlg = true;
+		else	      UsageFlg = true;
 	    }
-	    
 	    else
-	    
-	      if (!strcmp (argv[i], "-c")) {
-	      if (i+2 < argc) ConFlg = true;
-	      else	      UsageFlg = true;
-	    }
-
-	      else
-		  if (!strcmp (argv[i], "-ring")) {
-		      if (i+2 < argc) RingFlg = true;
-		      else UsageFlg = true;
-		  }
-	    
-	    else
-            
-	    if (!strcmp (argv[i], "-r")) {
-	      if (i+3 < argc)
-	      {
-                if (!sscanf(argv[i+1], "%lg", &BBoxOccCostRatio))
+		if (!strcmp (argv[i], "-eqmargin"))
 		{
-	    	  cout << "WARNING : invalid argument for -r" << endl;
-		  UsageFlg = true;
+		    if (i+2 < argc) EqMarginFlg = true;
+		    else	      UsageFlg = true;
 		}
+		else
+		    if (!strcmp (argv[i], "-gnuplot"))
+		    {
+			if (i+2 < argc) PlotFlg = true;
+			else	      UsageFlg = true;
+		    }
+		    else
+			if (!strcmp (argv[i], "-c"))
+			{
+			    if (i+2 < argc) ConFlg = true;
+			    else	      UsageFlg = true;
+			}
+			else
+			    if (!strcmp (argv[i], "-ring"))
+			    {
+				if (i+2 < argc) RingFlg = true;
+				else UsageFlg = true;
+			    }
+			    else
+				if (!strcmp (argv[i], "-r"))
+				{
+				    if (i+3 < argc)
+				    {
+					if (!sscanf(argv[i+1], "%lg", &BBoxOccCostRatio))
+					{
+					    cout << "WARNING : invalid argument for -r" << endl;
+					    UsageFlg = true;
+					}
 	      } else {
 	    	cout << "WARNING : no file or argument given" << endl;
 		UsageFlg = true;
@@ -318,7 +325,8 @@ main(int argc, char **argv)
     // On fait le placement
     // ********************
     PPlacement Placement(ConFlg, RingFlg, RowMult, BinMult, NetMult,
-	IocFlg, IocFile,PlotFlg, VerboseFlg,PartialFlg,physicalfig, namefile);
+	IocFlg, IocFile, PlotFlg, VerboseFlg, PartialFlg, EqMarginFlg,
+	physicalfig, namefile);
     Placement.SetMargin(Margin);
     Placement.SetMaxDetLoop(MaxDetLoop);
     if (!RowFlg)

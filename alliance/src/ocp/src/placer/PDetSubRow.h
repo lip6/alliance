@@ -25,7 +25,7 @@ class PDetSubRow : public PContainer {
     bool		GetOrientation() const		{ return _orientation; }
     PDetInsVector&	GetInssVector() 		{ return _detInsVector; }
     const PDetInsVector& GetConstInssVector() const		{ return _detInsVector; }
-    void		ExpandInstances();
+    void		ExpandInstances(const bool eqmargin);
     bool		FinalOptimize();
     ostream&	Print(ostream& os) const;
     ofstream&	Plot(ofstream& out) const;

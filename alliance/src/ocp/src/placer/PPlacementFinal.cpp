@@ -63,9 +63,6 @@ PPlacement::PlaceFinal()
     }
 }
 
-// ======================================================================
-// double FinalInitialize()
-// ======================================================================
 void
 PPlacement::FinalInitialize()
 {
@@ -149,7 +146,7 @@ PPlacement::FinalInitialize()
     for (PDetSubRows::iterator dsrit = _detSubRows.begin();
 	    dsrit != _detSubRows.end(); dsrit++)
     {
-	dsrit->ExpandInstances();
+	dsrit->ExpandInstances(_eqMargin);
     }
 
     // Updating All _nets BBoxs
@@ -305,7 +302,7 @@ int PPlacement::AddRowend(struct phfig* physicalfig)
     long width = (long) ((insfig->XAB2 - insfig->XAB1) / PITCH);
     long height = (long) ((insfig->YAB2 - insfig->YAB1) / (PITCH * ROWHEIGHT));
     long posx = (long) ((It->XINS - _dx) / PITCH);
-    long posy = (long)((It->YINS - _dy)/ (PITCH * ROWHEIGHT));
+    long posy = (long)((It->YINS - _dy) / (PITCH * ROWHEIGHT));
 
     for (long ydecal=0 ; ydecal < height ; ydecal++)
     {

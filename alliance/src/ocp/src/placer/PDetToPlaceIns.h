@@ -28,6 +28,7 @@ class PDetToPlaceIns : public PIns {
     double		GetLeftCornerX() const			{ return _leftCorner.GetX(); }
     void		SetSubRow(PDetSubRow* subrow)		{ _subRow = subrow; }
     void		AddWhiteSpace()				{ ++_marginWidth; }
+    void		AddDoubleWhiteSpace()			{ _marginWidth += 2; }
     void		UnPlace()				{ _placed = false; }
     void		Place()					{ _placed = true; }
     bool		IsPlaced() const			{ return _placed; }
