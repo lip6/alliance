@@ -101,6 +101,8 @@ TABLE GRAAL_SEGMENT_NAME
   ALU4     Alu4   green            Black
   ALU5     Alu5   yellow           Black
   ALU6     Alu6   violet           Black
+  ALU7     Alu7   red              Black
+  ALU8     Alu7   blue             Black
   TPOLY    Tpoly  hot_pink         Black
   TALU1    Talu1  royal_blue       Black
   TALU2    Talu2  turquoise        Black
@@ -108,12 +110,16 @@ TABLE GRAAL_SEGMENT_NAME
   TALU4    Talu4  green            Black
   TALU5    Talu5  yellow           Black
   TALU6    Talu6  violet           Black
+  TALU7    Talu7  red              Black
+  TALU8    Talu7  blue             Black
   CALU1    CAlu1  royal_blue       Black
   CALU2    CAlu2  Cyan             Black
   CALU3    CAlu3  light_pink       Black
   CALU4    CAlu4  green            Black
   CALU5    CAlu5  yellow           Black
   CALU6    CAlu6  violet           Black
+  CALU7    CAlu7  red              Black
+  CALU8    CAlu8  blue             Black
 
 END
 
@@ -146,6 +152,8 @@ TABLE GRAAL_CONNECTOR_NAME
   ALU4     Alu4   green            Black
   ALU5     Alu5   yellow           Black
   ALU6     Alu6   violet           Black
+  ALU7     Alu7   red              Black
+  ALU8     Alu8   blue             Black
 
 END
 
@@ -173,6 +181,8 @@ TABLE GRAAL_SEGMENT_VALUE
   ALU4     2   1
   ALU5     2   1
   ALU6     2   1
+  ALU7     2   1
+  ALU8     2   1
   TPOLY    1   1
   TALU1    1   1
   TALU2    2   2
@@ -180,12 +190,16 @@ TABLE GRAAL_SEGMENT_VALUE
   TALU4    2   2
   TALU5    2   2
   TALU6    2   2
+  TALU7    2   2
+  TALU8    2   2
   CALU1    2   0
   CALU2    2   0
   CALU3    2   0
   CALU4    2   0
   CALU5    2   0
   CALU6    2   0
+  CALU7    2   0
+  CALU8    2   0
 
 END
 
@@ -221,6 +235,8 @@ TABLE GRAAL_VIA_NAME
   CONT_VIA3    Via_3-4     green            Black
   CONT_VIA4    Via_4-5     yellow           Black
   CONT_VIA5    Via_5-6     violet           Black
+  CONT_VIA6    Via_6-7     red              Black
+  CONT_VIA7    Via_7-8     blue             Black
   C_X_N        Cont_CxN    orange           Black
   C_X_P        Cont_CxP    orange           Black
 
@@ -341,6 +357,12 @@ TABLE GRAAL_RDS_LAYER_NAME
   RDS_VIA5     Via5    violet_red        Black
   RDS_ALU6     Alu6    violet            Black
   RDS_TALU6    Talu6   violet            Black
+  RDS_VIA6     Via6    red               Black
+  RDS_ALU7     Alu7    red               Black
+  RDS_TALU7    Talu7   red               Black
+  RDS_VIA7     Via7    blue              Black
+  RDS_ALU8     Alu8    blue              Black
+  RDS_TALU8    Talu8   blue              Black
   RDS_CPAS     Cpas    gray              Black
   RDS_REF      Ref     coral             Black
   RDS_ABOX     Abox    pink              Black
