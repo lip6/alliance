@@ -7,7 +7,7 @@
 # Author: Frédéric Pétrot (fred@pasta.fr.ea)
 #         for version 0
 #
-# $Id: instool,v 1.22 1999/11/19 16:39:54 czo Exp $
+# $Id: instool,v 1.23 2000/02/22 16:20:39 czo Exp $
 #
 
 
@@ -337,7 +337,6 @@ echo "   a message MUST be given for each installation"
 # mail alcteam
 #echo $* | mail -s "ALC : Install of `basename $1`"  alliance-programmers@asim.lip6.fr
 
-
 TMPFILE=/tmp/instool.$$
 FINGER=`who am i | gawk '{gsub(/^[^\!]*\!/,""); print $1}'`
 SUJ="Instool de `basename $1`"
@@ -361,6 +360,11 @@ echo "http://www-asim.lip6.fr/alliance/mailing-lists/"
 cat "$TMPFILE"  | mail -s "ALC : $SUJ" alliance-programmers@asim.lip6.fr
 
 rm -f "$TMPFILE" dummy
+
+echo "Launching chgrp and chmod ..."
+chmod -R ug+w /users/soft5/newlabo/alliance
+chgrp -R alliance /users/soft5/newlabo/alliance
+
 
 exit 0
 
