@@ -7,7 +7,7 @@
 #  Alliance CAD system environnement
 #  Usage (in C-shell) : > source alc_env.csh
 #  (C) 1997 Czo  -- <Olivier.Sirol@lip6.fr>
-#  $Id: alc_env.csh.in,v 1.4 2002/10/16 18:14:03 jpc Exp $
+#  $Id: alc_env.csh.in,v 1.5 2004/07/14 17:10:30 ludo Exp $
 #  Generated from alc_env.csh.in on @DATE@
 
 # $ALLIANCE_OS and $ALLIANCE_TOP are the only variables you will
@@ -20,7 +20,7 @@
 
 
 # Where the Alliance CAD is installed
- setenv ALLIANCE_TOP         @prefix@
+ setenv ALLIANCE_TOP         "@prefix@"
 
 
 # Alliance environment variables.
@@ -39,49 +39,49 @@
  setenv VH_PATSFX            pat
  setenv VH_DLYSFX            dly
  
- setenv MBK_CATA_LIB         .:$ALLIANCE_TOP/cells/sxlib
- setenv MBK_CATA_LIB         ${MBK_CATA_LIB}:$ALLIANCE_TOP/cells/dp_sxlib
- setenv MBK_CATA_LIB         ${MBK_CATA_LIB}:$ALLIANCE_TOP/cells/rflib
- setenv MBK_CATA_LIB         ${MBK_CATA_LIB}:$ALLIANCE_TOP/cells/romlib
- setenv MBK_CATA_LIB         ${MBK_CATA_LIB}:$ALLIANCE_TOP/cells/ramlib
- setenv MBK_CATA_LIB         ${MBK_CATA_LIB}:$ALLIANCE_TOP/cells/padlib
- setenv MBK_TARGET_LIB       $ALLIANCE_TOP/cells/sxlib
+ setenv MBK_CATA_LIB         ".:${ALLIANCE_TOP}/cells/sxlib"
+ setenv MBK_CATA_LIB         "${MBK_CATA_LIB}:${ALLIANCE_TOP}/cells/dp_sxlib"
+ setenv MBK_CATA_LIB         "${MBK_CATA_LIB}:${ALLIANCE_TOP}/cells/rflib"
+ setenv MBK_CATA_LIB         "${MBK_CATA_LIB}:${ALLIANCE_TOP}/cells/romlib"
+ setenv MBK_CATA_LIB         "${MBK_CATA_LIB}:${ALLIANCE_TOP}/cells/ramlib"
+ setenv MBK_CATA_LIB         "${MBK_CATA_LIB}:${ALLIANCE_TOP}/cells/padlib"
+ setenv MBK_TARGET_LIB       "${ALLIANCE_TOP}/cells/sxlib"
  setenv MBK_C4_LIB           ./cellsC4 
  
  setenv MBK_VDD              vdd
  setenv MBK_VSS              vss
  
- setenv XPAT_PARAM_NAME      $ALLIANCE_TOP/etc/xpat.par
- setenv XFSM_PARAM_NAME      $ALLIANCE_TOP/etc/xfsm.par
- setenv XSCH_PARAM_NAME      $ALLIANCE_TOP/etc/xsch.par
+ setenv XPAT_PARAM_NAME      "${ALLIANCE_TOP}/etc/xpat.par"
+ setenv XFSM_PARAM_NAME      "${ALLIANCE_TOP}/etc/xfsm.par"
+ setenv XSCH_PARAM_NAME      "${ALLIANCE_TOP}/etc/xsch.par"
  
  setenv RDS_IN               cif
  setenv RDS_OUT              cif
  
- setenv DREAL_TECHNO_NAME    $ALLIANCE_TOP/etc/cmos.dreal
- setenv GRAAL_TECHNO_NAME    $ALLIANCE_TOP/etc/cmos.graal
- setenv GENVIEW_TECHNO_NAME  $ALLIANCE_TOP/etc/cmos.genview
+ setenv DREAL_TECHNO_NAME    "${ALLIANCE_TOP}/etc/cmos.dreal"
+ setenv GRAAL_TECHNO_NAME    "${ALLIANCE_TOP}/etc/cmos.graal"
+ setenv GENVIEW_TECHNO_NAME  "${ALLIANCE_TOP}/etc/cmos.genview"
  
- setenv RDS_TECHNO_NAME      $ALLIANCE_TOP/etc/cmos.rds
- setenv ELP_TECHNO_NAME      $ALLIANCE_TOP/etc/prol.elp
+ setenv RDS_TECHNO_NAME      "${ALLIANCE_TOP}/etc/cmos.rds"
+ setenv ELP_TECHNO_NAME      "${ALLIANCE_TOP}/etc/prol.elp"
 
 
 # System environment variables.
  if ( $?PATH ) then
-   setenv PATH $ALLIANCE_TOP/bin:$PATH
+   setenv PATH "${ALLIANCE_TOP}/bin:$PATH"
  else
-   setenv PATH $ALLIANCE_TOP/bin
+   setenv PATH "${ALLIANCE_TOP}/bin"
  endif
 
 # Only needed on Solaris (included in /etc/ld.so.conf under Linux).
  if ( $?LD_LIBRARY_PATH ) then
-   setenv LD_LIBRARY_PATH $ALLIANCE_TOP/lib:$LD_LIBRARY_PATH
+   setenv LD_LIBRARY_PATH "${ALLIANCE_TOP}/lib:$LD_LIBRARY_PATH"
  else
-   setenv LD_LIBRARY_PATH $ALLIANCE_TOP/lib
+   setenv LD_LIBRARY_PATH "${ALLIANCE_TOP}/lib"
  endif
 
  if ( $?MANPATH ) then
-   setenv MANPATH $ALLIANCE_TOP/man:$MANPATH
+   setenv MANPATH "${ALLIANCE_TOP}/man:${MANPATH}"
  else
-   setenv MANPATH $ALLIANCE_TOP/man
+   setenv MANPATH "${ALLIANCE_TOP}/man"
  endif
