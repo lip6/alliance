@@ -1,5 +1,5 @@
 YFLAGS           = -d
-AM_CFLAGS        =
+AM_CFLAGS        = -I$(top_srcdir)/mbk/src
 lib_LTLIBRARIES    = libMvg.la
 
 libMvg_la_SOURCES = mvl_drive.c mvl_parse.c mvl_util.c mvl_sspec.c \
@@ -21,14 +21,14 @@ mvl_scomp_l.c : $(srcdir)/mvl_scomp_l.l mvl_scomp_y.h
 
 bin_PROGRAMS     = x2vy
 x2vy_SOURCES     = x2vy_main.c
-x2vy_LDADD       = -lMlu \
-                   -lMcl \
-                   -lMel \
-                   -lMhl \
-                   -lMal \
-                   -lMsl \
-                   -lMgl \
-                   -L. -lMvg \
+x2vy_LDADD       = -L$(top_srcdir)/mbk/src -lMlu \
+                   -L$(top_srcdir)/mbkvti/src -lMcl \
+                   -L$(top_srcdir)/mbkedif/src -lMel \
+                   -L$(top_srcdir)/mbkhilo/src -lMhl \
+                   -L$(top_srcdir)/mbkal/src -lMal \
+                   -L$(top_srcdir)/mbkspice/src -lMsl \
+                   -L$(top_srcdir)/mbkvrlog/src -lMgl \
+                   -L$(top_srcdir)/mbkvhdlg/src -L. -lMvg \
                    -lMlo \
                    -lMut \
                    -lRcn

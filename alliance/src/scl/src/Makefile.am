@@ -1,4 +1,6 @@
-AM_CFLAGS           =
+AM_CFLAGS           = -I$(top_srcdir)/mbk/src -I$(top_srcdir)/aut/src \
+-I$(top_srcdir)/abl/src -I$(top_srcdir)/bdd/src \
+-I$(top_srcdir)/abe/src
 lib_LTLIBRARIES       = libScl.la
 include_HEADERS     = scl.h
 libScl_la_SOURCES    = \

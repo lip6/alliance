@@ -1,4 +1,4 @@
-AM_CFLAGS           =
+AM_CFLAGS           = -I$(top_srcdir)/mbk/src -I$(top_srcdir)/aut/src -I$(top_srcdir)/abl/src -I$(top_srcdir)/bdd/src
 lib_LTLIBRARIES       = libFsm.la
 include_HEADERS     = fsm.h
 libFsm_la_SOURCES    = \

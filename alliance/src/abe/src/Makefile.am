@@ -1,4 +1,4 @@
-AM_CFLAGS           =
+AM_CFLAGS           = -I$(top_srcdir)/mbk/src -I$(top_srcdir)/aut/src -I$(top_srcdir)/abl/src
 lib_LTLIBRARIES       = libAbe.la
 include_HEADERS     = abe.h
 libAbe_la_SOURCES    = \

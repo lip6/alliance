@@ -378,6 +378,8 @@ dnl Infos extracted from phl/configure.in
 PHL_DLL_VERSION=1:9:0
 AC_SUBST(PHL_DLL_VERSION)
 
+dnl Infos extracted from gcp/configure.in
+
 dnl Infos extracted from druc/configure.in
 VRD_DLL_VERSION=3:4:0
 AC_SUBST(VRD_DLL_VERSION)
@@ -512,6 +514,14 @@ AC_SUBST(GRAAL_MINOR_VERSION)
 GRAAL_VERSION=$GRAAL_MAJOR_VERSION.$GRAAL_MINOR_VERSION
 AC_SUBST(GRAAL_VERSION)
 
+dnl Infos extracted from growstk/configure.in
+GROWSTK_MAJOR_VERSION=1
+AC_SUBST(GROWSTK_MAJOR_VERSION)
+GROWSTK_MINOR_VERSION=5
+AC_SUBST(GROWSTK_MINOR_VERSION)
+GROWSTK_VERSION=$GROWSTK_MAJOR_VERSION.$GROWSTK_MINOR_VERSION
+AC_SUBST(GROWSTK_VERSION)
+
 dnl Infos extracted from k2f/configure.in
 K2F_MAJOR_VERSION=1
 AC_SUBST(K2F_MAJOR_VERSION)
@@ -592,6 +602,14 @@ AC_SUBST(OCP_MINOR_VERSION)
 OCP_VERSION=$OCP_MAJOR_VERSION.$OCP_MINOR_VERSION
 AC_SUBST(OCP_VERSION)
 
+dnl Infos extracted from ocr/configure.in
+OCR_MAJOR_VERSION=1
+AC_SUBST(OCR_MAJOR_VERSION)
+OCR_MINOR_VERSION=0
+AC_SUBST(OCR_MINOR_VERSION)
+OCR_VERSION=$OCR_MAJOR_VERSION.$OCR_MINOR_VERSION
+AC_SUBST(OCR_VERSION)
+
 dnl Infos extracted from pat2spi/configure.in
 PAT2SPI_MAJOR_VERSION=1
 AC_SUBST(PAT2SPI_MAJOR_VERSION)
@@ -599,6 +617,20 @@ PAT2SPI_MINOR_VERSION=1
 AC_SUBST(PAT2SPI_MINOR_VERSION)
 PAT2SPI_VERSION=$PAT2SPI_MAJOR_VERSION.$PAT2SPI_MINOR_VERSION
 AC_SUBST(PAT2SPI_VERSION)
+
+dnl Infos extracted from pcbs/configure.in
+EMULBS_MAJOR_VERSION=3
+AC_SUBST(EMULBS_MAJOR_VERSION)
+EMULBS_MINOR_VERSION=2
+AC_SUBST(EMULBS_MINOR_VERSION)
+EMULBS_VERSION=$EMULBS_MAJOR_VERSION.$EMULBS_MINOR_VERSION
+AC_SUBST(EMULBS_VERSION)
+PCBS_MAJOR_VERSION=2
+AC_SUBST(PCBS_MAJOR_VERSION)
+PCBS_MINOR_VERSION=1
+AC_SUBST(PCBS_MINOR_VERSION)
+PCBS_VERSION=$PCBS_MAJOR_VERSION.$PCBS_MINOR_VERSION
+AC_SUBST(PCBS_VERSION)
 
 dnl Infos extracted from proof/configure.in
 PROOF_MAJOR_VERSION=4
@@ -656,6 +688,14 @@ AC_SUBST(VASY_MINOR_VERSION)
 VASY_VERSION=$VASY_MAJOR_VERSION.$VASY_MINOR_VERSION
 AC_SUBST(VASY_VERSION)
 
+dnl Infos extracted from vst2xnf/configure.in
+VST2XNF_MAJOR_VERSION=1
+AC_SUBST(VST2XNF_MAJOR_VERSION)
+VST2XNF_MINOR_VERSION=0
+AC_SUBST(VST2XNF_MINOR_VERSION)
+VST2XNF_VERSION=$VST2XNF_MAJOR_VERSION.$VST2XNF_MINOR_VERSION
+AC_SUBST(VST2XNF_VERSION)
+
 dnl Infos extracted from x2y/configure.in
 
 dnl Infos extracted from xfsm/configure.in
@@ -690,20 +730,21 @@ AC_SUBST(XVPN_MINOR_VERSION)
 XVPN_VERSION=$XVPN_MAJOR_VERSION.$XVPN_MINOR_VERSION
 AC_SUBST(XVPN_VERSION)
 
-TOOLSDIRS="mbk mbkal mbkap mbkedif mbkhilo mbkmg mbkspice mbkvhdl mbkvrlog mbkvti mbkvhdlg aut rds rdscif rdsgds elp abl bdd log btr vex ctl ctp abe abt abv fsm fks fvh ftl rtn rtd scl vbh vbl vpn vpd vvh vtl pat ppt phl druc beh bhl bvl  alcban asimut attila b2f boog boom cells distrib documentation dreal exp flatbeh flatlo flatph fmi fsp genlib genpat graal k2f l2p loon lvx lynx m2e mips_asm mocha nero ocp pat2spi proof ring s2r scapin sea syf vasy x2y xfsm xpat xsch xvpn"
+TOOLSDIRS="mbk mbkal mbkap mbkedif mbkhilo mbkmg mbkspice mbkvhdl mbkvrlog mbkvti mbkvhdlg aut rds rdscif rdsgds elp abl bdd log btr vex ctl ctp abe abt abv fsm fks fvh ftl rtn rtd scl vbh vbl vpn vpd vvh vtl pat ppt phl gcp druc beh bhl bvl  alcban asimut attila b2f boog boom cells distrib documentation dreal exp flatbeh flatlo flatph fmi fsp genlib genpat graal growstk k2f l2p loon lvx lynx m2e mips_asm mocha nero ocp ocr pat2spi pcbs proof ring s2r scapin sea syf vasy vst2xnf x2y xfsm xpat xsch xvpn"
 AC_SUBST(TOOLSDIRS)
 
 AC_OUTPUT([
 Makefile
+distrib/alliance.spec
 distrib/etc/alc_env.sh
 distrib/etc/alc_env.csh
 mbk/Makefile
 mbk/man1/Makefile
-mbk/man3/Makefile
 mbk/man5/Makefile
+mbk/man3/Makefile
 mbk/src/Makefile
-mbkal/Makefile
 mbkal/doc/Makefile
+mbkal/Makefile
 mbkal/src/Makefile
 mbkap/Makefile
 mbkap/src/Makefile
@@ -713,8 +754,8 @@ mbkhilo/Makefile
 mbkhilo/src/Makefile
 mbkmg/Makefile
 mbkmg/src/Makefile
-mbkspice/Makefile
 mbkspice/doc/Makefile
+mbkspice/Makefile
 mbkspice/etc/Makefile
 mbkspice/src/Makefile
 mbkvhdl/Makefile
@@ -795,13 +836,15 @@ vvh/Makefile
 vvh/src/Makefile
 vtl/Makefile
 vtl/src/Makefile
-pat/Makefile
 pat/doc/Makefile
+pat/Makefile
 pat/src/Makefile
 ppt/Makefile
 ppt/src/Makefile
 phl/Makefile
 phl/src/Makefile
+gcp/Makefile
+gcp/src/Makefile
 druc/Makefile
 druc/man1/Makefile
 druc/src/Makefile
@@ -818,49 +861,50 @@ alcban/src/Makefile
 asimut/Makefile
 asimut/man1/Makefile
 asimut/src/Makefile
-attila/Makefile
 attila/doc/Makefile
-attila/doc/attila/Makefile
 attila/doc/man1/Makefile
+attila/doc/attila/Makefile
+attila/Makefile
 attila/etc/Makefile
 attila/src/Makefile
 b2f/Makefile
 b2f/src/Makefile
-boog/Makefile
 boog/doc/Makefile
+boog/Makefile
 boog/src/Makefile
 boom/Makefile
 boom/man1/Makefile
 boom/src/Makefile
-cells/Makefile
 cells/doc/Makefile
+cells/Makefile
 cells/src/Makefile
+cells/src/sxlib/Makefile
+cells/src/rf2lib/Makefile
+cells/src/ramlib/Makefile
+cells/src/romlib/Makefile
+cells/src/rflib/Makefile
 cells/src/dp_sxlib/Makefile
 cells/src/padlib/Makefile
-cells/src/ramlib/Makefile
-cells/src/rflib/Makefile
-cells/src/romlib/Makefile
-cells/src/sxlib/Makefile
-distrib/Makefile
 distrib/doc/Makefile
+distrib/Makefile
 distrib/etc/Makefile
 documentation/Makefile
 documentation/tutorials/Makefile
 dreal/Makefile
-dreal/etc/Makefile
 dreal/man1/Makefile
+dreal/etc/Makefile
 dreal/src/Makefile
-exp/Makefile
 exp/doc/Makefile
+exp/Makefile
 exp/src/Makefile
-flatbeh/Makefile
 flatbeh/doc/Makefile
+flatbeh/Makefile
 flatbeh/src/Makefile
-flatlo/Makefile
 flatlo/doc/Makefile
+flatlo/Makefile
 flatlo/src/Makefile
-flatph/Makefile
 flatph/doc/Makefile
+flatph/Makefile
 flatph/src/Makefile
 fmi/Makefile
 fmi/man1/Makefile
@@ -868,70 +912,85 @@ fmi/src/Makefile
 fsp/Makefile
 fsp/man1/Makefile
 fsp/src/Makefile
-genlib/Makefile
 genlib/doc/Makefile
 genlib/doc/genlib/Makefile
+genlib/Makefile
 genlib/man1/Makefile
 genlib/man3/Makefile
 genlib/src/Makefile
-genpat/Makefile
 genpat/doc/Makefile
 genpat/doc/man1/Makefile
 genpat/doc/man3/Makefile
+genpat/Makefile
 genpat/src/Makefile
 graal/Makefile
-graal/etc/Makefile
 graal/man1/Makefile
+graal/etc/Makefile
 graal/src/Makefile
+growstk/Makefile
+growstk/src/Makefile
 k2f/Makefile
 k2f/man1/Makefile
 k2f/src/Makefile
 l2p/Makefile
 l2p/man1/Makefile
 l2p/src/Makefile
-loon/Makefile
 loon/doc/Makefile
+loon/Makefile
 loon/src/Makefile
-lvx/Makefile
 lvx/doc/Makefile
+lvx/Makefile
 lvx/src/Makefile
 lynx/Makefile
 lynx/man1/Makefile
 lynx/src/Makefile
-m2e/Makefile
 m2e/doc/Makefile
 m2e/doc/man1/Makefile
+m2e/Makefile
 m2e/src/Makefile
 mips_asm/Makefile
 mips_asm/src/Makefile
 mocha/Makefile
 mocha/man1/Makefile
 mocha/src/Makefile
-nero/Makefile
 nero/doc/Makefile
 nero/doc/man1/Makefile
 nero/doc/nero/Makefile
+nero/Makefile
 nero/src/Makefile
-ocp/Makefile
 ocp/doc/Makefile
+ocp/Makefile
 ocp/src/Makefile
-ocp/src/common/Makefile
 ocp/src/placer/Makefile
+ocp/src/common/Makefile
+ocr/doc/Makefile
+ocr/Makefile
+ocr/src/Makefile
+ocr/src/util/Makefile
+ocr/src/include/Makefile
+ocr/src/rout/Makefile
+ocr/src/seg/Makefile
 pat2spi/Makefile
 pat2spi/man1/Makefile
 pat2spi/src/Makefile
+pcbs/doc/Makefile
+pcbs/Makefile
+pcbs/src/Makefile
+pcbs/src/emulbs/Makefile
+pcbs/src/bvl/Makefile
+pcbs/src/pcbs/Makefile
 proof/Makefile
 proof/man1/Makefile
 proof/src/Makefile
-ring/Makefile
 ring/doc/Makefile
+ring/Makefile
 ring/src/Makefile
-s2r/Makefile
 s2r/doc/Makefile
+s2r/Makefile
 s2r/src/Makefile
 scapin/Makefile
-scapin/etc/Makefile
 scapin/man1/Makefile
+scapin/etc/Makefile
 scapin/src/Makefile
 sea/Makefile
 sea/etc/Makefile
@@ -943,19 +1002,21 @@ vasy/Makefile
 vasy/man1/Makefile
 vasy/man5/Makefile
 vasy/src/Makefile
-x2y/Makefile
+vst2xnf/Makefile
+vst2xnf/src/Makefile
 x2y/doc/Makefile
+x2y/Makefile
 x2y/src/Makefile
 xfsm/Makefile
 xfsm/etc/Makefile
 xfsm/src/Makefile
 xpat/Makefile
-xpat/etc/Makefile
 xpat/man1/Makefile
+xpat/etc/Makefile
 xpat/src/Makefile
 xsch/Makefile
-xsch/etc/Makefile
 xsch/man1/Makefile
+xsch/etc/Makefile
 xsch/src/Makefile
 xvpn/Makefile
 xvpn/etc/Makefile

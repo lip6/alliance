@@ -1,4 +1,4 @@
-AM_CFLAGS           =
+AM_CFLAGS           = -I$(top_srcdir)/mbk/src
 lib_LTLIBRARIES       = libPat.la
 include_HEADERS     = pat.h
 libPat_la_SOURCES    = \

@@ -2,6 +2,9 @@
 
 bin_PROGRAMS = graal
 AM_CFLAGS = @ALLIANCE_CFLAGS@ @X_CFLAGS@ \
+-I$(top_srcdir)/mbk/src \
+-I$(top_srcdir)/rds/src \
+-I$(top_srcdir)/druc/src \
          -DGRAAL_DEFAULT_TECHNO_NAME=\"etc/cmos.graal\" \
          -DGMS_FILE_NAME=\".graal.cfg\" \
          -DGRAAL_WINDOW_DX=\"GRAAL_WINDOW_DX\" \
@@ -46,6 +49,14 @@ ALL_X_LIBS = $(X_LDFLAGS) $(LIBXM) $(LIBXT) $(LIBXPM) \
 
 
 graal_LDADD = @ALLIANCE_LIBS@ $(ALL_X_LIBS) \
+-L$(top_srcdir)/druc/src \
+-L$(top_srcdir)/mbk/src \
+-L$(top_srcdir)/mbkap/src \
+-L$(top_srcdir)/mbkmg/src \
+-L$(top_srcdir)/mbkvti/src \
+-L$(top_srcdir)/rds/src \
+-L$(top_srcdir)/rdscif/src \
+-L$(top_srcdir)/rdsgds/src \
 -lVrd -lRtl -lRgs -lRcf -lRfm -lRpr -lRwi -lRut -lRds -lMpu \
 -lMap -lMmg -lMcp -lMph -lMut
 

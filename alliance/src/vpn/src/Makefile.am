@@ -1,4 +1,4 @@
-AM_CFLAGS           =
+AM_CFLAGS           = -I$(top_srcdir)/mbk/src -I$(top_srcdir)/aut/src -I$(top_srcdir)/vex/src
 lib_LTLIBRARIES       = libVpn.la
 include_HEADERS     = vpn.h
 libVpn_la_SOURCES    = \

@@ -1,4 +1,4 @@
-AM_CFLAGS =
+AM_CFLAGS = -I$(top_srcdir)/mbk/src
 lib_LTLIBRARIES       = libMmg.la
 libMmg_la_SOURCES    = mbk2mg.c mg2mbk_y.y mg2mbk_l.l mmg.h
 libMmg_la_LDFLAGS = -version-info @MMG_DLL_VERSION@

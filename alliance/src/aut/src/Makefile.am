@@ -1,4 +1,4 @@
-AM_CFLAGS           =
+AM_CFLAGS           = -I$(top_srcdir)/mbk/src
 lib_LTLIBRARIES     = libAut.la
 include_HEADERS     = aut.h
 libAut_la_SOURCES   =  autenv.h autfree.h     authash2.h    autsort.h \

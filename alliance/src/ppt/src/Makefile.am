@@ -1,4 +1,4 @@
-AM_CFLAGS           =
+AM_CFLAGS           = -I$(top_srcdir)/mbk/src -I$(top_srcdir)/pat/src
 
 lib_LTLIBRARIES       = libPpt.la
 include_HEADERS     = ppt.h

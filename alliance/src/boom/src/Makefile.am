@@ -2,9 +2,22 @@
 
 bin_PROGRAMS = boom
 
-AM_CFLAGS = @ALLIANCE_CFLAGS@ 
+AM_CFLAGS = @ALLIANCE_CFLAGS@ -I$(top_srcdir)/abe/src \
+-I$(top_srcdir)/abl/src \
+-I$(top_srcdir)/abt/src \
+-I$(top_srcdir)/abv/src \
+-I$(top_srcdir)/aut/src \
+-I$(top_srcdir)/bdd/src \
+-I$(top_srcdir)/mbk/src
 
 boom_LDADD = @ALLIANCE_LIBS@ \
+-L$(top_srcdir)/abv/src \
+-L$(top_srcdir)/abe/src \
+-L$(top_srcdir)/abt/src \
+-L$(top_srcdir)/bdd/src \
+-L$(top_srcdir)/abl/src \
+-L$(top_srcdir)/aut/src \
+-L$(top_srcdir)/mbk/src \
           -lAbv -lAbe -lAbt -lBdd -lAbl -lAut -lMut
 
 boom_SOURCES = \

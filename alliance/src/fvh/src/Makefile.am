@@ -1,4 +1,5 @@
-AM_CFLAGS           =
+AM_CFLAGS           = -I$(top_srcdir)/mbk/src -I$(top_srcdir)/aut/src -I$(top_srcdir)/abl/src -I$(top_srcdir)/bdd/src \
+-I$(top_srcdir)/fsm/src
 lib_LTLIBRARIES       = libFvh.la
 include_HEADERS     = fvh.h
 libFvh_la_SOURCES    = fbl_bcomp_y.y fbl_bcomp_l.l \

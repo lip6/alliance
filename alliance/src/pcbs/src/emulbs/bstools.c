@@ -15,6 +15,7 @@
 #include <sys/fcntl.h>
 #include <errno.h>
 #include <sys/ioctl.h>
+#include <sys/time.h>
 #include "global.h"
 
 #define LABEL_BS_SIZE 30     /*taille des labels des patterns BS sauvegardées*/
@@ -255,7 +256,7 @@ extern struct papat *hard_papat(struct papat *head, unsigned int burst_size)
 \*****************************************************************************/
 extern struct paseq* hard_paseq( struct paseq* pat, unsigned int burst_size, unsigned long *time_tck ) 
 {
-struct timeb  start_tck,end_tck;      /* to compute exec time */
+struct timeval  start_tck,end_tck;      /* to compute exec time */
 char         *tdi  = namealloc(TDI_NAME);
 char         *tms  = namealloc(TMS_NAME);
 char         *trst = namealloc(TRST_NAME);
@@ -265,7 +266,7 @@ int           count;
 struct paiol *ppaiol;
 
   /* envoie des patterns sur la carte */
-  ftime(&start_tck);
+  gettimeofday(&start_tck, NULL);
   
   fprintf(stdout,"\rExecuting %d patterns on %s...                               \r",
                  pat->PATNBR, current_lpscan_device() );
@@ -304,10 +305,10 @@ struct paiol *ppaiol;
   /*send to hard*/
   pat->CURPAT = loc_hard_papat( pat->CURPAT, burst_size );
   
-  ftime(&end_tck);
+  gettimeofday(&end_tck, NULL);
   
   *time_tck += 
-	 (end_tck.time-start_tck.time)*1000+end_tck.millitm-start_tck.millitm;
+	 (end_tck.tv_sec-start_tck.tv_sec)*1000+(end_tck.tv_usec-start_tck.tv_usec)/1000;
 
   return pat;  
 }
@@ -319,10 +320,10 @@ struct paiol *ppaiol;
 \*****************************************************************************/
 extern void save_patterns(char *file, struct paseq* pat, unsigned long *time_io) 
 {
-struct timeb start_io,end_io;      /* to compute exec time */
+struct timeval start_io,end_io;      /* to compute exec time */
 const char* entete  = PROGRAM_NAME " version " EMULBS_VERSION " for boundary scan";
 
-  ftime(&start_io);
+  gettimeofday(&start_io, NULL);
   
   fprintf(stdout,"\rSaving %d patterns in %s.pat...                               ",
                   pat->PATNBR, file);
@@ -347,9 +348,9 @@ const char* entete  = PROGRAM_NAME " version " EMULBS_VERSION " for boundary sca
     pat->CURCOM = NULL; 
   }  
   
-  ftime(&end_io);
+  gettimeofday(&end_io, NULL);
   
-  *time_io += (end_io.time-start_io.time)*1000 + end_io.millitm-start_io.millitm;
+  *time_io += (end_io.tv_sec-start_io.tv_sec)*1000 + (end_io.tv_usec-start_io.tv_usec)/1000;
 }
 
 
@@ -359,9 +360,9 @@ const char* entete  = PROGRAM_NAME " version " EMULBS_VERSION " for boundary sca
 \*****************************************************************************/
 extern struct paseq* load_patterns(char *file, struct paseq* pat, unsigned int nb_pat, unsigned long *time_io) 
 {
-struct timeb start_io,end_io;      /* to compute exec time */
+struct timeval start_io,end_io;      /* to compute exec time */
 
-  ftime(&start_io);
+  gettimeofday(&start_io, NULL);
   
   if (nb_pat <= 0 )
      fprintf(stdout,"\rLoading all patterns from %s.pat...                            ",
@@ -380,9 +381,9 @@ struct timeb start_io,end_io;      /* to compute exec time */
      exit( 1 );
   }
   
-  ftime(&end_io);
+  gettimeofday(&end_io, NULL);
   
-  *time_io += (end_io.time-start_io.time)*1000 + end_io.millitm-start_io.millitm;
+  *time_io += (end_io.tv_sec-start_io.tv_sec)*1000 + (end_io.tv_usec-start_io.tv_usec)/1000;
   
   return pat;  
 }
@@ -395,7 +396,7 @@ struct timeb start_io,end_io;      /* to compute exec time */
 \*****************************************************************************/
 extern void hard_paseq_file(char *scefile, char *resfile, unsigned int nb_pat, unsigned int burst_size) 
 {
-struct timeb start_prg,end_prg;      /* to compute exec time */
+struct timeval start_prg,end_prg;      /* to compute exec time */
 unsigned long time_tck=0,time_io=0,time_prg=0;       /* to compute exec time */
 struct paseq *pat = NULL;                                   /* for .pat file */
 int pat_tot = 0;
@@ -403,7 +404,7 @@ int pat_tot = 0;
   if ( !scefile ) return;
   if ( !execute_flag ) return;
   
-  ftime(&start_prg);
+  gettimeofday(&start_prg, NULL);
   
   open_port(burst_size);  /*  ouverture du port et reset BS */
   
@@ -420,9 +421,9 @@ int pat_tot = 0;
 
 
   /*temps*/
-  ftime(&end_prg);
+  gettimeofday(&end_prg, NULL);
   time_prg=
-       (end_prg.time-start_prg.time)*1000 + end_prg.millitm-start_prg.millitm;
+       (end_prg.tv_sec-start_prg.tv_sec)*1000 + (end_prg.tv_usec-start_prg.tv_usec)/1000;
   
   statistic(time_prg, time_tck, time_io, pat_tot );
 }

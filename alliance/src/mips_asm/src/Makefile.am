@@ -5,11 +5,17 @@ YACC = @YACC@ -d
 #INCLUDES = -I$(srcdir)
 
 AM_CXXFLAGS = @ALLIANCE_CFLAGS@
-AM_CFLAGS = @ALLIANCE_CFLAGS@
+AM_CFLAGS = @ALLIANCE_CFLAGS@ \
+-I$(top_srcdir)/beh/src \
+-I$(top_srcdir)/log/src \
+-I$(top_srcdir)/mbk/src
 
 bin_PROGRAMS = mips_asm
 
 mips_asm_LDADD = @ALLIANCE_LIBS@ \
+-L$(top_srcdir)/beh/src \
+-L$(top_srcdir)/log/src \
+-L$(top_srcdir)/mbk/src \
 	  -lBeh -lMut -lLog
 	   
 mips_asm_SOURCES = mips_defs.h mips_y.y mips_l.l mips_globals.c mips_lex.h mips_type.h mips_yacc.h mips_util.c

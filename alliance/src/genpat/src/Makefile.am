@@ -1,4 +1,8 @@
-AM_CFLAGS           =
+AM_CFLAGS           = -I$(top_srcdir)/mbk/src \
+-I$(top_srcdir)/pat/src \
+-I$(top_srcdir)/ppt/src \
+-I$(top_srcdir)/phl/src
+
 lib_LTLIBRARIES     = libPgn.la
 include_HEADERS     = genpat.h 
 libPgn_la_SOURCES   = AFFECT.c ARRAY.c CONV.c DECLAR.c DEF_GEN.c GETCPAT.c \

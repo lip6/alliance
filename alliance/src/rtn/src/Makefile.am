@@ -1,4 +1,4 @@
-AM_CFLAGS           =
+AM_CFLAGS           = -I$(top_srcdir)/mbk/src -I$(top_srcdir)/aut/src -I$(top_srcdir)/vex/src
 lib_LTLIBRARIES       = libRtn.la
 include_HEADERS     = rtn.h
 libRtn_la_SOURCES    = \

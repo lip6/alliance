@@ -1,4 +1,5 @@
-AM_CFLAGS           =
+AM_CFLAGS           = -I$(top_srcdir)/mbk/src -I$(top_srcdir)/aut/src -I$(top_srcdir)/abl/src -I$(top_srcdir)/bdd/src \
+-I$(top_srcdir)/abe/src
 lib_LTLIBRARIES     = libAbv.la
 include_HEADERS     = abv.h
 libAbv_la_SOURCES   = bvl_bcomp_y.y bvl_bcomp_l.l \

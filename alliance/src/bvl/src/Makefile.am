@@ -1,4 +1,4 @@
-AM_CFLAGS           =
+AM_CFLAGS           = -I$(top_srcdir)/mbk/src -I$(top_srcdir)/log/src -I$(top_srcdir)/beh/src -I$(top_srcdir)/bhl/src
 lib_LTLIBRARIES     = libBvl.la
 include_HEADERS     = bvl.h
 libBvl_la_SOURCES    = bvl_bcomp_y.y bvl_bcomp_l.l \

@@ -1,4 +1,4 @@
-AM_CFLAGS           =
+AM_CFLAGS           = -I$(top_srcdir)/mbk/src -I$(top_srcdir)/aut/src -I$(top_srcdir)/abl/src
 lib_LTLIBRARIES       = libBdd.la
 include_HEADERS     = bdd.h
 libBdd_la_SOURCES    = \

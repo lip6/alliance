@@ -1,4 +1,4 @@
-AM_CFLAGS           =
+AM_CFLAGS           = -I$(top_srcdir)/mbk/src -I$(top_srcdir)/aut/src
 lib_LTLIBRARIES       = libVex.la
 include_HEADERS     = vex.h
 libVex_la_SOURCES    = \

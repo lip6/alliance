@@ -1,4 +1,5 @@
-AM_CFLAGS =
+AM_CFLAGS = -I$(top_srcdir)/mbk/src -I$(top_srcdir)/log/src -I$(top_srcdir)/beh/src -I$(top_srcdir)/pat/src \
+-I$(top_srcdir)/bhl/src -I$(top_srcdir)/bvl/src -I$(top_srcdir)/ppt/src -I$(top_srcdir)/mlu/src
 
 lib_LTLIBRARIES       = libCst.la libSch.la
 include_HEADERS     = cst.h sch.h
@@ -24,7 +25,27 @@ libSch_la_LDFLAGS = -version-info @SCH_DLL_VERSION@
 bin_PROGRAMS = asimut
 
 asimut_LDADD = \
--L. libCst.la libSch.la -lMlu -lMal -lMcl -lMel -lMhl -lMgl -lMsl \
+-L. libCst.la libSch.la \
+-L$(top_srcdir)/mbkvti/src \
+-L$(top_srcdir)/mbkedif/src \
+-L$(top_srcdir)/mbkhilo/src \
+-L$(top_srcdir)/mbkvrlog/src \
+-L$(top_srcdir)/mbkspice/src \
+-L$(top_srcdir)/mbkvhdlg/src \
+-L$(top_srcdir)/mbk/src \
+-L$(top_srcdir)/mbk/src \
+-L$(top_srcdir)/bvl/src \
+-L$(top_srcdir)/bhl/src \
+-L$(top_srcdir)/beh/src \
+-L$(top_srcdir)/ppt/src \
+-L$(top_srcdir)/phl/src \
+-L$(top_srcdir)/pat/src \
+-L$(top_srcdir)/log/src \
+-L$(top_srcdir)/mbk/src \
+-L$(top_srcdir)/mbkal/src \
+-lMlu \
+-lMal \
+-lMcl -lMel -lMhl -lMgl -lMsl \
       -lMvg -lMlo -lRcn -lBvl -lBhl -lBeh -lPpt -lPhl -lPat -lLog -lMut
 
 asimut_SOURCES = \

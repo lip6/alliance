@@ -3,7 +3,13 @@
 bin_PROGRAMS = xvpn
 AM_CFLAGS = @ALLIANCE_CFLAGS@ @X_CFLAGS@ \
 	 -DXVPN_DEFAULT_PARAM_NAME=\"${ALLIANCE_TOP}/etc/xvpn.par\" \
-	 -DXMS_FILE_NAME=\".xvpn.cfg\"
+	 -DXMS_FILE_NAME=\".xvpn.cfg\" \
+-I$(top_srcdir)/aut/src \
+-I$(top_srcdir)/vex/src \
+-I$(top_srcdir)/vpn/src \
+-I$(top_srcdir)/vtl/src \
+-I$(top_srcdir)/abl/src \
+-I$(top_srcdir)/mbk/src
 
 # -----------------------------------------------------------------------------
 # X Libraries.
@@ -38,6 +44,16 @@ ALL_X_LIBS = $(X_LDFLAGS) $(LIBXM) $(LIBXT) \
 
 
 xvpn_LDADD = @ALLIANCE_LIBS@ $(ALL_X_LIBS) \
+-L$(top_srcdir)/abl/src \
+-L$(top_srcdir)/aut/src \
+-L$(top_srcdir)/mbk/src \
+-L$(top_srcdir)/vbh/src \
+-L$(top_srcdir)/vbl/src \
+-L$(top_srcdir)/vex/src \
+-L$(top_srcdir)/vpd/src \
+-L$(top_srcdir)/vpn/src \
+-L$(top_srcdir)/vtl/src \
+-L$(top_srcdir)/vvh/src \
  -lVtl -lVvh -lVpd -lVpn -lVbl -lVbh -lVex -lAbl -lAut -lMut
 
 xvpn_SOURCES = \

@@ -1,4 +1,4 @@
-AM_CFLAGS =
+AM_CFLAGS = -I$(top_srcdir)/mbk/src
 lib_LTLIBRARIES       = libMsl.la
 include_HEADERS     = msl.h
 libMsl_la_SOURCES    = spi_drive.c spi_drive.h spi_global.c spi_global.h \

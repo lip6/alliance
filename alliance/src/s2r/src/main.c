@@ -46,8 +46,8 @@
 #include <mut.h>
 #include <rds.h>
 #include <rwi.h>
-#include <rut.h>
 #include <rtl.h>
+#include <rut.h>
 #include <rfm.h>
 #include <rpr.h>
 

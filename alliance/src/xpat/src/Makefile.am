@@ -3,7 +3,11 @@
 bin_PROGRAMS = xpat
 AM_CFLAGS = @ALLIANCE_CFLAGS@ @X_CFLAGS@ \
 	 -DXPAT_DEFAULT_PARAM_NAME=\"${ALLIANCE_TOP}/etc/xpat.par\" \
-	 -DXMS_FILE_NAME=\".xpat.cfg\"
+	 -DXMS_FILE_NAME=\".xpat.cfg\" \
+-I$(top_srcdir)/aut/src \
+-I$(top_srcdir)/mbk/src \
+-I$(top_srcdir)/ppt/src \
+-I$(top_srcdir)/pat/src 
 
 # -----------------------------------------------------------------------------
 # X Libraries.
@@ -38,6 +42,11 @@ ALL_X_LIBS = $(X_LDFLAGS) $(LIBXM) $(LIBXT) \
 
 
 xpat_LDADD = @ALLIANCE_LIBS@ $(ALL_X_LIBS) \
+-L$(top_srcdir)/aut/src \
+-L$(top_srcdir)/mbk/src \
+-L$(top_srcdir)/pat/src \
+-L$(top_srcdir)/phl/src \
+-L$(top_srcdir)/ppt/src \
 	  -lPpt -lPhl -lPat -lAut -lMut
 
 xpat_SOURCES = \

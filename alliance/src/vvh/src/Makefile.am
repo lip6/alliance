@@ -1,4 +1,5 @@
-AM_CFLAGS           =
+AM_CFLAGS           = -I$(top_srcdir)/mbk/src -I$(top_srcdir)/aut/src -I$(top_srcdir)/vex/src \
+-I$(top_srcdir)/vpn/src -I$(top_srcdir)/vbh/src -I$(top_srcdir)/vbl/src
 lib_LTLIBRARIES       = libVvh.la
 include_HEADERS     = vvh.h
 libVvh_la_SOURCES    = \

@@ -8,7 +8,7 @@
 # Edit Time: 1:08:54
 # Description:
 #
-# $Id: build,v 1.5 2004/01/05 13:40:18 fred Exp $
+# $Id: build,v 1.6 2005/01/19 15:13:42 hcl Exp $
 #
 
 # The way the configure and Makefiles are written
@@ -41,8 +41,8 @@ echo "checking for GNU make..."
         fi
 
 export MAKE
-ALLIANCE_TOP=/opt/alliance
-export ALLIANCE_TOP
+#ALLIANCE_TOP=/opt/alliance
+#export ALLIANCE_TOP
 ./configure --prefix=$ALLIANCE_TOP
-$MAKE install
+$MAKE
 

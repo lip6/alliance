@@ -1,5 +1,5 @@
 YFLAGS           = -d
-AM_CFLAGS        =
+AM_CFLAGS        = -I$(top_srcdir)/mbk/src
 lib_LTLIBRARIES    = libMvl.la
 
 libMvl_la_SOURCES = mvl_drive.c  mvl_parse.h    mvl_sspec.c  mvl_syacc.h  mvl_utype.h \

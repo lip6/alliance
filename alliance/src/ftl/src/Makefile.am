@@ -1,4 +1,5 @@
-AM_CFLAGS           =
+AM_CFLAGS           = -I$(top_srcdir)/mbk/src -I$(top_srcdir)/aut/src -I$(top_srcdir)/abl/src -I$(top_srcdir)/bdd/src \
+-I$(top_srcdir)/fsm/src
 lib_LTLIBRARIES       = libFtl.la
 include_HEADERS     = ftl.h
 libFtl_la_SOURCES    = \

@@ -13,7 +13,7 @@
 /*####==============================================================####*/
 /****************************************************************************/
 #include "global.h"
-#include "time.h"
+#include <sys/time.h>
 /****************************************************************************/
 static Data *data=NULL;                   /*sert a la construction de pattern*/
 static int NbPat = 0;                                  /*numero de pattern bs*/
@@ -1063,7 +1063,7 @@ int traduire(sce, destSRC, destBS, sequence)
 char *sce,*destSRC,*destBS;
 unsigned int sequence;
 {
-struct timeb start_tck,end_tck,start_io,end_io,start_prg,end_prg;
+struct timeval start_tck,end_tck,start_io,end_io,start_prg,end_prg;
 unsigned long time_tck=0,time_io=0,time_prg=0;       /* to compute exec time */
 int nbr_pat=0;                                   /*nbr de patterns paralleles*/
 struct paseq *pat=NULL;                          /* vecteurs paralleles total*/
@@ -1071,26 +1071,26 @@ struct paseq *pat_bs=NULL;                         /* vecteurs Boundary Scan */
 unsigned int num_seq=1;              /*decoupage en plusieurs parties des PAT*/
 
 /***INITIALISATION ET COHERENCE***/
-  ftime(&start_prg);
+  gettimeofday(&start_prg,NULL);
 
   /* Lecture du fichier de patterns 'paralleles' et on les compte*/
   fprintf(stdout,"Loading from %s.pat...",sce);
   fflush(stdout);
-  ftime(&start_io);
+  gettimeofday(&start_io,NULL);
   if ((nbr_pat=compte_pat(sce))<0) 
     {fprintf(stderr,"Loading failed!\n");return 1;}
-  ftime(&end_io);
-  time_io+=(end_io.time-start_io.time)*1000 + end_io.millitm-start_io.millitm;
+  gettimeofday(&end_io,NULL);
+  time_io+=(end_io.tv_sec-start_io.tv_usec)*1000 + (end_io.tv_usec-start_io.tv_usec)/1000;
 
   fprintf(stdout," %d parallel patterns\n",nbr_pat);
   /*allocation minimum memoire sera decidee par utilisateur*/
   init_mem((sequence<nbr_pat&&sequence!=0)?sequence:nbr_pat);
   
   /*l'emulation multiplie par un facteur de l'ordre de 200 la taille des pat      --> mefiance avec la memoire procedure de chargement/dechargement*/
-  ftime(&start_io);
+  gettimeofday(&start_io,NULL);
   pat = pat_lodpaseq (sce, NULL, sequence, 0);
-  ftime(&end_io);
-  time_io+=(end_io.time-start_io.time)*1000 + end_io.millitm-start_io.millitm;
+  gettimeofday(&end_io,NULL);
+  time_io+=(end_io.tv_sec-start_io.tv_sec)*1000 + (end_io.tv_usec-start_io.tv_usec)/1000;
   if (pat==NULL || pat->ERRFLG) 
     {fprintf(stderr,"Loading failed!\n");return 1;}
   
@@ -1110,10 +1110,10 @@ CURRENT_PARALLEL_PATTERN_NUMBER=0;
   else  
     fprintf(stdout,"Translating pattern from parallel mode to BS mode...\n");
   /*les premieres patterns boundary scan d'initialisation de l'automate*/
-  ftime(&start_tck);                                            /*debut timer*/
+  gettimeofday(&start_tck,NULL);                                            /*debut timer*/
   pat_bs = DebutPaseq(pat,num_seq);
-  ftime(&end_tck);                                                /*fin timer*/
-  time_tck += (end_tck.time-start_tck.time) * 1000 + (end_tck.millitm-start_tck.millitm);
+  gettimeofday(&end_tck,NULL);                                                /*fin timer*/
+  time_tck += (end_tck.tv_sec-start_tck.tv_sec) * 1000 + (end_tck.tv_usec-start_tck.tv_usec)/1000;
   num_seq++;
 
 
@@ -1121,14 +1121,14 @@ CURRENT_PARALLEL_PATTERN_NUMBER=0;
   if (savePatSRC_flag || savePatBS_flag) {
        if (verbose_flag) fprintf(stdout,"Saving results...\n");
        else {fprintf(stdout,"Saving results...");fflush(stdout);}
-       ftime(&start_io);
+       gettimeofday(&start_io,NULL);
        if (savePatSRC_flag && pat_savpaseq(destSRC,pat,LABEL_FCL_SIZE)) 
             {fprintf(stderr,"saving file aborted!\n");return 1;}
        if (savePatBS_flag && pat_savpaseq(destBS,pat_bs,LABEL_BS_SIZE)) 
             {fprintf(stderr,"saving file aborted!\n");return 1;}
-       ftime(&end_io);
+       gettimeofday(&end_io,NULL);
        time_io+=
-	    (end_io.time-start_io.time)*1000 + end_io.millitm-start_io.millitm;
+	    (end_io.tv_sec-start_io.tv_sec)*1000 + (end_io.tv_usec-start_io.tv_usec)/1000;
   }
   mon_free(); /*liberation des labels de la structure*/
 
@@ -1154,33 +1154,33 @@ CURRENT_PARALLEL_PATTERN_NUMBER=0;
 
     /*la fct lodpaseq retourne toujours la pattern precedente suivie */
     /*des courantes*/
-    ftime(&start_io);
+    gettimeofday(&start_io,NULL);
     pat = pat_lodpaseq (sce, pat, sequence, 0);
-    ftime(&end_io);
-    time_io+=(end_io.time-start_io.time)*1000 +end_io.millitm-start_io.millitm;
+    gettimeofday(&end_io,NULL);
+    time_io+=(end_io.tv_sec-start_io.tv_sec)*1000 +(end_io.tv_usec-start_io.tv_usec)/1000;
     if (pat==NULL || pat->ERRFLG) 
       {fprintf(stderr,"Loading failed!\n");return 1;}
 
     /*traduction*/
     if (savePatBS_flag) pat_frepapat(pat_bs->CURPAT);
     pat_bs->CURPAT=NULL;
-    ftime(&start_tck);                                          /*debut timer*/
+    gettimeofday(&start_tck,NULL);                                          /*debut timer*/
     pat_bs = CorpsPaseq(pat,pat_bs,num_seq);
-    ftime(&end_tck);                                              /*fin timer*/
+    gettimeofday(&end_tck,NULL);                                              /*fin timer*/
     time_tck +=
-      (end_tck.time-start_tck.time)*1000 + (end_tck.millitm-start_tck.millitm);
+      (end_tck.tv_sec-start_tck.tv_sec)*1000 + (end_tck.tv_usec-start_tck.tv_usec)/1000;
     num_seq++;
     
     /*sauvegarde*/
     if (savePatSRC_flag || savePatBS_flag) {
-	 ftime(&start_io);
+	 gettimeofday(&start_io,NULL);
 	 if (savePatSRC_flag && pat_savpaseq(destSRC,pat,LABEL_FCL_SIZE)) 
 	      {fprintf(stderr,"saving file aborted!\n");return 1;}
 	 if (savePatBS_flag && pat_savpaseq(destBS,pat_bs,LABEL_BS_SIZE)) 
 	      {fprintf(stderr,"saving file aborted!\n");return 1;}
-	 ftime(&end_io);
+	 gettimeofday(&end_io,NULL);
 	 time_io+=
-	    (end_io.time-start_io.time)*1000 +end_io.millitm-start_io.millitm;
+	    (end_io.tv_sec-start_io.tv_sec)*1000 +(end_io.tv_usec-start_io.tv_usec)/1000;
     }
     mon_free();/*liberation des labels de la structure*/
   }
@@ -1203,9 +1203,9 @@ CURRENT_PARALLEL_PATTERN_NUMBER=0;
   else fprintf(stdout," ----------> %d ERRORS\n", EXECUTION_ERRORS);
 
   /*temps*/
-  ftime(&end_prg);
+  gettimeofday(&end_prg,NULL);
   time_prg=
-       (end_prg.time-start_prg.time)*1000 + end_prg.millitm-start_prg.millitm;
+       (end_prg.tv_sec-start_prg.tv_sec)*1000 + (end_prg.tv_usec-start_prg.tv_usec)/1000;
   affiche_time(time_prg);
   fprintf(stdout,"   but only ");fflush(stdout);
   affiche_time(time_tck);

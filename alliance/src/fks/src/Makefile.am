@@ -1,4 +1,5 @@
-AM_CFLAGS           =
+AM_CFLAGS           = -I$(top_srcdir)/mbk/src -I$(top_srcdir)/aut/src -I$(top_srcdir)/abl/src -I$(top_srcdir)/bdd/src \
+-I$(top_srcdir)/fsm/src
 lib_LTLIBRARIES       = libFks.la
 include_HEADERS     = fks.h
 libFks_la_SOURCES    = \

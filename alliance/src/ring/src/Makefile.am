@@ -2,11 +2,23 @@
 
 YACC = @YACC@ -d
 
-AM_CFLAGS = @ALLIANCE_CFLAGS@
+AM_CFLAGS = @ALLIANCE_CFLAGS@ -I$(top_srcdir)/mbk/src \
+-I$(top_srcdir)/genlib/src
 
 bin_PROGRAMS = ring
 
 ring_LDADD = @ALLIANCE_LIBS@ \
+-L$(top_srcdir)/genlib/src \
+-L$(top_srcdir)/mbk/src \
+-L$(top_srcdir)/mbkal/src \
+-L$(top_srcdir)/mbkap/src \
+-L$(top_srcdir)/mbkedif/src \
+-L$(top_srcdir)/mbkhilo/src \
+-L$(top_srcdir)/mbkmg/src \
+-L$(top_srcdir)/mbkspice/src \
+-L$(top_srcdir)/mbkvhdlg/src \
+-L$(top_srcdir)/mbkvrlog/src \
+-L$(top_srcdir)/mbkvti/src \
           -lMpu -lMlu \
 	  -lMcl -lMcp \
 	  -lMal -lMap \

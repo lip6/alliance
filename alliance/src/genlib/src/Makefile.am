@@ -1,4 +1,4 @@
-AM_CFLAGS           =
+AM_CFLAGS           = -I$(top_srcdir)/mbk/src
 AM_YFLAGS           =
 AM_LFLAGS           =
 lib_LTLIBRARIES     = libMgn.la

@@ -20,10 +20,16 @@ drucompi_l.c : $(srcdir)/drucompi_l.l drucompi_y.h
 
 bin_PROGRAMS = druc
 
-AM_CFLAGS =
+AM_CFLAGS = -I$(top_srcdir)/mbk/src -I$(top_srcdir)/rds/src
 
 druc_LDADD = -L. -lVrd \
--lRtl -lRgs -lRcf -lRfm -lRpr -lRwi -lRut -lRds -lMpu -lMcp -lMap -lMmg -lMph \
+-L$(top_srcdir)/rds/src -lRtl -lRgs \
+-L$(top_srcdir)/rdscif/src -lRcf -lRfm -lRpr -lRwi -lRut \
+-L$(top_srcdir)/rdsgds/src -lRds \
+-L$(top_srcdir)/mbk/src -lMpu \
+-L$(top_srcdir)/mbkvti/src -lMcp \
+-L$(top_srcdir)/mbkap/src -lMap \
+-L$(top_srcdir)/mbkmg/src -lMmg -lMph \
 -lMut
 
 druc_SOURCES = \

@@ -13,6 +13,7 @@
 /*####==============================================================####*/
 /****************************************************************************/
 #include "global.h"
+#include <sys/time.h>
 
 /**********************************Global*****************************************/
 
@@ -981,7 +982,7 @@ static struct paseq *FinPaseq(struct paseq *pat_bs)
 /* Creation des vecteurs Boundary Scan en n sequences*/
 void traduire(char *sce, char *destSRC, char *destBS, unsigned int nb_pat, unsigned int burst_size)
 {
-struct timeb start_prg,end_prg;
+struct timeval start_prg,end_prg;
 unsigned long time_tck=0,time_io=0,time_prg=0;       /* to compute exec time */
 struct paseq *pat=NULL;                          /* vecteurs paralleles total*/
 struct paseq *pat_bs;                         /* vecteurs Boundary Scan */
@@ -990,7 +991,7 @@ unsigned int pat_tot = 0;
   if ( !sce ) return;
 
   /***INITIALISATION ET COHERENCE***/
-  ftime(&start_prg);
+  gettimeofday(&start_prg, NULL);
 
   /*  ouverture du port et reset BS */
   if (execute_flag) open_port(burst_size);
@@ -1042,9 +1043,9 @@ unsigned int pat_tot = 0;
   if (execute_flag) close_port();
   
   /*temps*/
-  ftime(&end_prg);
+  gettimeofday(&end_prg, NULL);
   time_prg=
-       (end_prg.time-start_prg.time)*1000 + end_prg.millitm-start_prg.millitm;
+       (end_prg.tv_sec-start_prg.tv_sec)*1000 + (end_prg.tv_usec-start_prg.tv_usec)/1000;
 
   statistic( time_prg, time_tck, time_io, pat_tot);
 }

@@ -1,7 +1,9 @@
 ## Process this file with automake to produce Makefile.in
 
 bin_PROGRAMS = dreal
-AM_CFLAGS = @ALLIANCE_CFLAGS@ @X_CFLAGS@ \
+AM_CFLAGS = -I$(top_srcdir)/mbk/src \
+-I$(top_srcdir)/rds/src \
+@ALLIANCE_CFLAGS@ @X_CFLAGS@ \
          -DDREAL_DEFAULT_TECHNO_NAME=\"etc/cmos.dreal\" \
          -DGMS_FILE_NAME=\".dreal.cfg\" \
          -DDREAL_WINDOW_DX=\"DREAL_WINDOW_DX\" \
@@ -46,6 +48,13 @@ ALL_X_LIBS = $(X_LDFLAGS) $(LIBXM) $(LIBXT) $(LIBXPM) \
 
 
 dreal_LDADD = @ALLIANCE_LIBS@ $(ALL_X_LIBS) \
+-L$(top_srcdir)/mbk/src \
+-L$(top_srcdir)/mbkap/src \
+-L$(top_srcdir)/mbkmg/src \
+-L$(top_srcdir)/mbkvti/src \
+-L$(top_srcdir)/rds/src \
+-L$(top_srcdir)/rdscif/src \
+-L$(top_srcdir)/rdsgds/src \
 -lRtl -lRgs -lRcf -lRut -lRfm -lRpr -lRds -lMpu -lMap -lMmg -lMcp -lMph -lMut 
 
 

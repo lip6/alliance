@@ -14,6 +14,7 @@
 #undef DUMMY
 
 #include "global.h"
+#include <sys/time.h>
 
 /* FUNCTION DECL *******************************************************/
 static void checkLPT();
@@ -240,7 +241,7 @@ int send_pat_file(file,resfile,sequence)
 char *file,*resfile;
 unsigned int sequence;
 {
-struct timeb start_tck,end_tck,start_io,end_io,start_prg,end_prg;
+struct timeval start_tck,end_tck,start_io,end_io,start_prg,end_prg;
 unsigned long time_tck=0,time_io=0,time_prg=0;       /* to compute exec time */
 struct paseq *pat = NULL;                                   /* for .pat file */
 int process_error=0;                                              /* error ? */
@@ -248,24 +249,24 @@ int nbr_pat=0;                                    /*nbr de patterns bs total */
 
 
 /***INITIALISATION ET COHERENCE***/
-  ftime(&start_prg);
+  gettimeofday(&start_prg,NULL);
 
   /* Lecture du fichier de patterns 'paralleles' et on les compte*/
   fprintf(stdout,"Loading from %s.pat...",file);
   fflush(stdout);
-  ftime(&start_io);
+  gettimeofday(&start_io,NULL);
   if ((nbr_pat=compte_pat(file))<0) 
     {fprintf(stderr," Loading failed!\n");return 1;}
-  ftime(&end_io);
-  time_io+=(end_io.time-start_io.time)*1000 + end_io.millitm-start_io.millitm;
+  gettimeofday(&end_io,NULL);
+  time_io+=(end_io.tv_sec-start_io.tv_sec)*1000 + (end_io.tv_usec-start_io.tv_usec)/1000;
 
 
 
 /*les fichiers boundary scan sont grands donc partitionner*/
-  ftime(&start_io);
+  gettimeofday(&start_io,NULL);
   pat = pat_lodpaseq (file, NULL, sequence, 0);
-  ftime(&end_io);
-  time_io+=(end_io.time-start_io.time)*1000 + end_io.millitm-start_io.millitm;
+  gettimeofday(&end_io,NULL);
+  time_io+=(end_io.tv_sec-start_io.tv_sec)*1000 + (end_io.tv_usec-start_io.tv_usec)/1000;
   if (pat==NULL || pat->ERRFLG) 
     {fprintf(stderr,"Loading failed!\n");return 1;}
  
@@ -279,11 +280,11 @@ int nbr_pat=0;                                    /*nbr de patterns bs total */
   open_port();  /*  ouverture du port et reset BS */
 
   /* envoie des patterns sur la carte */
-  ftime(&start_tck);
+  gettimeofday(&start_tck,NULL);
   process_error += send_paseq(pat->CURPAT);
-  ftime(&end_tck);
+  gettimeofday(&end_tck,NULL);
   time_tck += 
-       (end_tck.time-start_tck.time)*1000 + end_tck.millitm-start_tck.millitm;
+       (end_tck.tv_sec-start_tck.tv_sec)*1000 + (end_tck.tv_usec-start_tck.tv_usec)/1000;
   pat_frepacom(pat->CURCOM);                /*commentaire debut fichier*/
   pat    -> CURCOM = pat_addpacom(NULL,ENTETE,0); 
 
@@ -302,20 +303,20 @@ int nbr_pat=0;                                    /*nbr de patterns bs total */
 		 (float)((float)(BSpat*100))/nbr_pat,BSpat);
 	 fflush(stdout);}
   
-       ftime(&start_io);
+       gettimeofday(&start_io,NULL);
        pat = pat_lodpaseq (file, pat, sequence, 0);
-       ftime(&end_io);
+       gettimeofday(&end_io,NULL);
        time_io+=
-	    (end_io.time-start_io.time)*1000 + end_io.millitm-start_io.millitm;
+	    (end_io.tv_sec-start_io.tv_sec)*1000 + (end_io.tv_usec-start_io.tv_usec)/1000;
        if (pat==NULL || pat->ERRFLG) 
           {fprintf(stderr,"Loading failed!\n");return 1;}
 
        /* envoie des patterns sur la carte */
-       ftime(&start_tck);
+       gettimeofday(&start_tck,NULL);
        process_error += send_paseq(pat->CURPAT->NEXT);/*du au n+1 patterns deja chargees par pat_lodpaseq*/
-       ftime(&end_tck);
+       gettimeofday(&end_tck,NULL);
        time_tck += 
-	 (end_tck.time-start_tck.time)*1000+end_tck.millitm-start_tck.millitm;
+	 (end_tck.tv_sec-start_tck.tv_sec)*1000+(end_tck.tv_usec-start_tck.tv_usec)/1000;
 
        /*sauvegarde*/
        if (savePatBS_flag) pat_savpaseq(resfile, pat, 20);     
@@ -337,9 +338,9 @@ int nbr_pat=0;                                    /*nbr de patterns bs total */
   else fprintf(stdout,"\rExecution of %s on DUT is successful\n",file);
 
   /*temps*/
-  ftime(&end_prg);
+  gettimeofday(&end_prg,NULL);
   time_prg=
-       (end_prg.time-start_prg.time)*1000 + end_prg.millitm-start_prg.millitm;
+       (end_prg.tv_sec-start_prg.tv_sec)*1000 + (end_prg.tv_usec-start_prg.tv_usec)/1000;
   affiche_time(time_prg);
   fprintf(stdout,"   but only ");fflush(stdout);
   affiche_time(time_tck);

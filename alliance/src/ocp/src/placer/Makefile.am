@@ -4,8 +4,8 @@ YACC = @YACC@ -d
 
 INCLUDES = -I$(srcdir)/../common
 
-AM_CXXFLAGS = @ALLIANCE_CFLAGS@
-AM_CFLAGS = @ALLIANCE_CFLAGS@
+AM_CXXFLAGS = @ALLIANCE_CFLAGS@ -I$(top_srcdir)/mbk/src
+AM_CFLAGS = @ALLIANCE_CFLAGS@ -I$(top_srcdir)/mbk/src
 
 bin_PROGRAMS = ocp
 
@@ -16,6 +16,16 @@ libOcp_a_SOURCES = PElem.cpp PIns.cpp PNet.cpp \
 
 ocp_LDADD = @ALLIANCE_LIBS@ \
 	  ../common/libPCommon.a \
+-L$(top_srcdir)/mbk/src \
+-L$(top_srcdir)/mbkal/src \
+-L$(top_srcdir)/mbkap/src \
+-L$(top_srcdir)/mbkedif/src \
+-L$(top_srcdir)/mbkhilo/src \
+-L$(top_srcdir)/mbkmg/src \
+-L$(top_srcdir)/mbkspice/src \
+-L$(top_srcdir)/mbkvhdlg/src \
+-L$(top_srcdir)/mbkvrlog/src \
+-L$(top_srcdir)/mbkvti/src \
           -lMpu -lMlu \
 	  -lMcl -lMcp \
 	  -lMal -lMap \

@@ -1,4 +1,4 @@
-AM_CFLAGS = @ALLIANCE_CFLAGS@
+AM_CFLAGS = -I$(top_srcdir)/mbk/src @ALLIANCE_CFLAGS@
 lib_LTLIBRARIES       = libMel.la
 libMel_la_SOURCES    = time.c driver.c parser_y.y parser_l.l
 libMel_la_LDFLAGS = -version-info @MEL_DLL_VERSION@

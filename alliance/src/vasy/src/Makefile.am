@@ -2,9 +2,33 @@
 
 bin_PROGRAMS = vasy
 
-AM_CFLAGS = @ALLIANCE_CFLAGS@ 
+AM_CFLAGS = @ALLIANCE_CFLAGS@ \
+-I$(top_srcdir)/abl/src \
+-I$(top_srcdir)/aut/src \
+-I$(top_srcdir)/bdd/src \
+-I$(top_srcdir)/mbk/src \
+-I$(top_srcdir)/rtd/src \
+-I$(top_srcdir)/rtn/src \
+-I$(top_srcdir)/vex/src \
+-I$(top_srcdir)/vbh/src \
+-I$(top_srcdir)/vbl/src \
+-I$(top_srcdir)/vpn/src \
+-I$(top_srcdir)/vtl/src
 
 vasy_LDADD = @ALLIANCE_LIBS@ \
+-L$(top_srcdir)/abl/src \
+-L$(top_srcdir)/aut/src \
+-L$(top_srcdir)/bdd/src \
+-L$(top_srcdir)/mbk/src \
+-L$(top_srcdir)/rtd/src \
+-L$(top_srcdir)/rtn/src \
+-L$(top_srcdir)/vbh/src \
+-L$(top_srcdir)/vbl/src \
+-L$(top_srcdir)/vex/src \
+-L$(top_srcdir)/vpd/src \
+-L$(top_srcdir)/vpn/src \
+-L$(top_srcdir)/vtl/src \
+-L$(top_srcdir)/vvh/src \
           -lRtd -lRtn -lVtl -lVvh -lVpd -lVpn -lVbl -lVbh \
 	  -lVex -lBdd -lAbl -lAut -lMut
 

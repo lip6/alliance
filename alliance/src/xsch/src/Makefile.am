@@ -3,8 +3,14 @@
 bin_PROGRAMS = xsch
 AM_CFLAGS = @ALLIANCE_CFLAGS@ @X_CFLAGS@ \
 	 -DXSCH_DEFAULT_PARAM_NAME=\"${ALLIANCE_TOP}/etc/xsch.par\" \
-	 -DXMS_FILE_NAME=\".xsch.cfg\"
-
+	 -DXMS_FILE_NAME=\".xsch.cfg\" \
+-I$(top_srcdir)/abe/src \
+-I$(top_srcdir)/abl/src \
+-I$(top_srcdir)/bdd/src \
+-I$(top_srcdir)/abv/src \
+-I$(top_srcdir)/aut/src \
+-I$(top_srcdir)/mbk/src \
+-I$(top_srcdir)/scl/src
 
 # -----------------------------------------------------------------------------
 # X Libraries.
@@ -39,6 +45,20 @@ ALL_X_LIBS = $(X_LDFLAGS) $(LIBXM) $(LIBXT) \
 
 
 xsch_LDADD = @ALLIANCE_LIBS@ $(ALL_X_LIBS) \
+-L$(top_srcdir)/abe/src \
+-L$(top_srcdir)/abl/src \
+-L$(top_srcdir)/abv/src \
+-L$(top_srcdir)/aut/src \
+-L$(top_srcdir)/bdd/src \
+-L$(top_srcdir)/mbk/src \
+-L$(top_srcdir)/mbkal/src \
+-L$(top_srcdir)/mbkedif/src \
+-L$(top_srcdir)/mbkhilo/src \
+-L$(top_srcdir)/mbkspice/src \
+-L$(top_srcdir)/mbkvhdlg/src \
+-L$(top_srcdir)/mbkvrlog/src \
+-L$(top_srcdir)/mbkvti/src \
+-L$(top_srcdir)/scl/src \
 -lScl -lMlu -lMal -lMcl -lMel -lMhl -lMsl -lMvg \
 -lMgl -lMlo -lMut -lMgl -lAbv -lAbe \
 -lBdd -lAbl -lAut -lRcn

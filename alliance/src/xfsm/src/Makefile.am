@@ -3,8 +3,13 @@
 bin_PROGRAMS = xfsm
 AM_CFLAGS = @ALLIANCE_CFLAGS@ @X_CFLAGS@ \
 	 -DXFSM_DEFAULT_PARAM_NAME=\"${ALLIANCE_TOP}/etc/xfsm.par\" \
-	 -DXMS_FILE_NAME=\".xfsm.cfg\"
-
+	 -DXMS_FILE_NAME=\".xfsm.cfg\" \
+-I$(top_srcdir)/abl/src \
+-I$(top_srcdir)/aut/src \
+-I$(top_srcdir)/bdd/src \
+-I$(top_srcdir)/fsm/src \
+-I$(top_srcdir)/ftl/src \
+-I$(top_srcdir)/mbk/src
 
 # -----------------------------------------------------------------------------
 # X Libraries.
@@ -39,6 +44,14 @@ ALL_X_LIBS = $(X_LDFLAGS) $(LIBXM) $(LIBXT) \
 
 
 xfsm_LDADD = @ALLIANCE_LIBS@ $(ALL_X_LIBS) \
+-L$(top_srcdir)/abl/src \
+-L$(top_srcdir)/aut/src \
+-L$(top_srcdir)/bdd/src \
+-L$(top_srcdir)/fks/src \
+-L$(top_srcdir)/fsm/src \
+-L$(top_srcdir)/ftl/src \
+-L$(top_srcdir)/fvh/src \
+-L$(top_srcdir)/mbk/src \
           -lFtl -lFks -lFvh -lFsm \
 	  -lBdd -lAbl -lAut -lMut
 

@@ -1,4 +1,4 @@
-AM_CFLAGS           = -DTECHNOLOGY=\"etc/prol.elp\" 
+AM_CFLAGS           = -DTECHNOLOGY=\"etc/prol.elp\" -I$(top_srcdir)/mbk/src
 
 lib_LTLIBRARIES       = libElp.la
 include_HEADERS     = elp.h

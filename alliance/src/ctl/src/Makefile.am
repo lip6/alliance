@@ -1,4 +1,4 @@
-AM_CFLAGS           = @ALLIANCE_CFLAGS@
+AM_CFLAGS           = @ALLIANCE_CFLAGS@ -I$(top_srcdir)/mbk/src -I$(top_srcdir)/aut/src -I$(top_srcdir)/vex/src
 lib_LTLIBRARIES       = libCtl.la
 include_HEADERS     = ctl.h
 libCtl_la_SOURCES    = \

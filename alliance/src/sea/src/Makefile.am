@@ -3,13 +3,26 @@
 AM_YFLAGS = -d -v -p DEF_grammar
 AM_LFLAGS = -s -f -8 -pp -PDEF_grammar -olex.yy.c
 
-AM_CFLAGS = @ALLIANCE_CFLAGS@
+AM_CFLAGS = @ALLIANCE_CFLAGS@ \
+-I$(top_srcdir)/aut/src \
+-I$(top_srcdir)/mbk/src
 
 bin_PROGRAMS = a2def def2a sxlib2lef
 bin_SCRIPTS  = sea seroute seplace a2lef 
 
 a2def_LDADD = @ALLIANCE_LIBS@ \
        ./libUtil.a \
+-L$(top_srcdir)/aut/src \
+-L$(top_srcdir)/mbk/src \
+-L$(top_srcdir)/mbkal/src \
+-L$(top_srcdir)/mbkap/src \
+-L$(top_srcdir)/mbkedif/src \
+-L$(top_srcdir)/mbkhilo/src \
+-L$(top_srcdir)/mbkmg/src \
+-L$(top_srcdir)/mbkspice/src \
+-L$(top_srcdir)/mbkvhdlg/src \
+-L$(top_srcdir)/mbkvrlog/src \
+-L$(top_srcdir)/mbkvti/src \
       -lMpu -lMlu \
       -lMcl -lMcp \
       -lMal -lMap \
@@ -25,6 +38,17 @@ a2def_LDADD = @ALLIANCE_LIBS@ \
 
 def2a_LDADD = @ALLIANCE_LIBS@ \
        ./libUtil.a \
+-L$(top_srcdir)/aut/src \
+-L$(top_srcdir)/mbk/src \
+-L$(top_srcdir)/mbkal/src \
+-L$(top_srcdir)/mbkap/src \
+-L$(top_srcdir)/mbkedif/src \
+-L$(top_srcdir)/mbkhilo/src \
+-L$(top_srcdir)/mbkmg/src \
+-L$(top_srcdir)/mbkspice/src \
+-L$(top_srcdir)/mbkvhdlg/src \
+-L$(top_srcdir)/mbkvrlog/src \
+-L$(top_srcdir)/mbkvti/src \
       -lMpu -lMlu \
       -lMcl -lMcp \
       -lMal -lMap \
@@ -40,6 +64,17 @@ def2a_LDADD = @ALLIANCE_LIBS@ \
 
 sxlib2lef_LDADD = @ALLIANCE_LIBS@ \
        ./libUtil.a \
+-L$(top_srcdir)/aut/src \
+-L$(top_srcdir)/mbk/src \
+-L$(top_srcdir)/mbkal/src \
+-L$(top_srcdir)/mbkap/src \
+-L$(top_srcdir)/mbkedif/src \
+-L$(top_srcdir)/mbkhilo/src \
+-L$(top_srcdir)/mbkmg/src \
+-L$(top_srcdir)/mbkspice/src \
+-L$(top_srcdir)/mbkvhdlg/src \
+-L$(top_srcdir)/mbkvrlog/src \
+-L$(top_srcdir)/mbkvti/src \
       -lMpu -lMlu \
       -lMcl -lMcp \
       -lMal -lMap \

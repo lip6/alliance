@@ -4,7 +4,7 @@ lib_LTLIBRARIES       = libRds.la \
                       libRpr.la \
                       libRwi.la \
                       libRtl.la
-AM_CFLAGS           = -DRTL_DEFAULT_TECHNO=\"etc/cmos.rds\" 
+AM_CFLAGS           = -DRTL_DEFAULT_TECHNO=\"etc/cmos.rds\" -I$(top_srcdir)/mbk/src
 
 include_HEADERS     = rds.h rfm.h rtl.h rwi.h rpr.h rut.h
 libRds_la_SOURCES    = rdsalloc.c rdsfree.c rdsadd.c rdsdel.c rdsview.c \

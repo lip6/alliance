@@ -2,7 +2,7 @@
 
 INCLUDES = -I$(srcdir)/../include 
 
-AM_CFLAGS = @ALLIANCE_CFLAGS@
+AM_CFLAGS = @ALLIANCE_CFLAGS@ -I$(top_srcdir)/mbk/src
 
 noinst_LIBRARIES = libocrUtil.a
 

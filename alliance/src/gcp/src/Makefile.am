@@ -1,4 +1,4 @@
-AM_CFLAGS           = @ALLIANCE_CFLAGS@ 
+AM_CFLAGS           = @ALLIANCE_CFLAGS@ -I$(top_srcdir)/mbk/src -I$(top_srcdir)/aut/src
 lib_LTLIBRARIES       = libGcp.la
 include_HEADERS     = gcp.h
 libGcp_la_SOURCES    = c_ccomp.y \

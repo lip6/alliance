@@ -1,4 +1,4 @@
-AM_CFLAGS           =
+AM_CFLAGS           = -I$(top_srcdir)/mbk/src -I$(top_srcdir)/aut/src -I$(top_srcdir)/vex/src -I$(top_srcdir)/ctl/src
 lib_LTLIBRARIES       = libCtp.la
 include_HEADERS     = ctp.h
 libCtp_la_SOURCES    = ctp_y.y ctp_l.l ctp.h  \

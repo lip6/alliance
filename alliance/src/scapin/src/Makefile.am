@@ -3,9 +3,20 @@
 bin_PROGRAMS = scapin
 
 AM_CFLAGS = @ALLIANCE_CFLAGS@ \
+-I$(top_srcdir)/aut/src \
+-I$(top_srcdir)/mbk/src \
          -DSCAPIN_DEFAULT_PARAM_NAME=\"etc/sxlib.scapin\"
 
 scapin_LDADD = @ALLIANCE_LIBS@ \
+-L$(top_srcdir)/aut/src \
+-L$(top_srcdir)/mbk/src \
+-L$(top_srcdir)/mbkal/src \
+-L$(top_srcdir)/mbkedif/src \
+-L$(top_srcdir)/mbkhilo/src \
+-L$(top_srcdir)/mbkspice/src \
+-L$(top_srcdir)/mbkvhdlg/src \
+-L$(top_srcdir)/mbkvrlog/src \
+-L$(top_srcdir)/mbkvti/src \
 -lMlu -lMcl -lMel -lMhl -lMvg -lMlo -lMut -lMal -lRcn -lMsl -lMgl -lAut
 
 scapin_SOURCES = \
