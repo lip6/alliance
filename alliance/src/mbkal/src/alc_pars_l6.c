@@ -28,9 +28,23 @@
 *  Updates     : June, 12th 1998                                               *
 *  Updates     : June, 30th 1998  Create unique name on losig where no one     *
 *                                 is provided.                                 *
+*  Updates     : AUGUST, 12th 2002, Pierre Nguyen Tuong                        *
 *  $Log: alc_pars_l6.c,v $
-*  Revision 1.1  2002/03/13 10:19:11  fred
-*  Initial revision
+*  Revision 1.2  2002/08/13 16:40:14  pnt
+*  Suite de l'introduction des objets analogiques capacite, resistance et self.
+*
+*  Modification du parser et du driver al.
+*
+*  Syntaxe:
+*  P type capa name tcon bcon node_tcon node_bcon           ---capacite
+*  R type resi name rcon1 rcon2 node_rcon1 node_rcon2       ---resistance
+*  L type self name scon1 scon2 node_scon1 node_scon2       ---inductance
+*
+*  Note:
+*  Q existe deja pour les capacites de type RC (rcn). On utilise P a la place.
+*
+*  Revision 1.1.1.1  2002/03/13 10:19:11  fred
+*  Importing MBKAL sources into the new CVS tree
 *
 *                                                                              *
 *******************************************************************************/
@@ -58,6 +72,10 @@
 #define MAL_SIG	0x00000040
 #define MAL_EOF	0x00000080
 #define MAL_HEA 0x00000100
+
+#define MAL_LOCAP  0x00000200
+#define MAL_LORES  0x00000400
+#define MAL_LOSELF 0x00000800
 
 /* Tampon de lecture */
 #define	MALBUFMAX 524288
@@ -95,6 +113,23 @@ losig_list*	decode_sig    __P(( lofig_list*, chain_list*, char*, int,
 lotrs_list*	decode_trs    __P(( lofig_list*, chain_list*, char*, int,
                                     int
                                  ));
+
+locap_list *decode_locap(lofig_list *ptfig,chain_list *line,char *fname,int mal_line,int version) ;
+
+/*
+locap_list*	decode_locap    __P(( lofig_list*, chain_list*, char*, int,
+                                    int
+                                 ));
+*/
+
+lores_list*	decode_lores    __P(( lofig_list*, chain_list*, char*, int,
+                                    int
+                                 ));
+
+loself_list*	decode_loself    __P(( lofig_list*, chain_list*, char*, int,
+                                    int
+                                 ));
+
 int		decode_int    __P(( char*, char*, int ));
 double		decode_float  __P(( char*, char*, int ));
 data_locon*	decode_locon  __P(( lofig_list*, chain_list*, char*, int ));
@@ -457,6 +492,288 @@ int              version;
 
 /******************************************************************************/
 
+locap_list *decode_locap(lofig_list *ptfig,chain_list *line,char *fname,int mal_line,int version)
+{
+  char       type   = -1   ;
+  losig_list *tcon  = NULL ;
+  losig_list *bcon  = NULL ;
+  int	     phtcon = 0    ;
+  int	     phbcon = 0    ;
+  locap_list *ptcap = NULL ;
+  int	     n      = 0    ;
+  char	     *name  = NULL ;
+  float      capa   = 0.0  ;
+
+  n = nbitem(line) ;
+  
+  /* Version 6 :  P type capa name tcon bcon node_tcon node_bcon */
+  
+  /***** type *****/
+
+  type = -1 ;
+
+  if(strcasecmp((char *)line -> DATA, "MIM") == 0)
+   {
+     type = CAPMIM ;
+   }
+
+  if(strcasecmp((char *)line -> DATA, "POLY_NWELL") == 0)
+   {
+     type = CAPPNWELL ; 
+   }
+
+  if(type == -1)
+    {
+      mal_error(fname,
+                mal_line,
+                "decode_locap()",
+	        "Unknown capacitor type [%s].\n",
+	        (char *)line -> DATA) ;
+    }
+
+  line   = line -> NEXT ;
+
+  /***** capa *****/
+
+  capa   = decode_float((char *)line -> DATA,fname,mal_line) ;
+  line   = line -> NEXT ;
+
+  /***** name *****/
+
+  name   = namealloc((char *)line -> DATA) ;
+  line   = line -> NEXT ;
+
+  /***** tcon bcon *****/
+
+  tcon   = givelosig(ptfig,decode_int((char *)line -> DATA,fname,mal_line)) ;
+  line   = line -> NEXT ;
+  
+  bcon   = givelosig(ptfig,decode_int((char *)line -> DATA,fname,mal_line)) ;
+  line   = line -> NEXT ;
+
+  /***** node_tcon node_bcon *****/
+
+  phtcon  = decode_int((char *)line -> DATA,fname,mal_line) ;
+  line    = line -> NEXT ;
+  
+  phbcon  = decode_int((char *)line -> DATA,fname,mal_line) ;
+  line    = line -> NEXT ;
+
+  ptcap  = addlocap(ptfig,type,capa,tcon,bcon,name) ;
+
+  if(phtcon)
+    {
+      if(!ptcap -> TCON -> SIG -> PRCN)
+	{
+          addlorcnet(ptcap -> TCON -> SIG) ;
+	}
+ 
+      setloconnode(ptcap -> TCON,phtcon) ;
+  }
+
+  if(phbcon)
+    {
+      if(!ptcap -> BCON -> SIG -> PRCN)
+        {
+          addlorcnet(ptcap -> BCON -> SIG) ;
+        }
+
+      setloconnode(ptcap -> BCON,phbcon) ;
+    }
+
+  return(ptcap) ;
+}
+
+/******************************************************************************/
+
+lores_list *decode_lores(lofig_list *ptfig,chain_list *line,char *fname,int mal_line,int version)
+{
+  char       type    = -1   ;
+  losig_list *rcon1  = NULL ;
+  losig_list *rcon2  = NULL ;
+  int	     phrcon1 = 0    ;
+  int	     phrcon2 = 0    ;
+  lores_list *ptres  = NULL ;
+  int	     n       = 0    ;
+  char	     *name   = NULL ;
+  float      resi    = 0.0  ;
+
+  n = nbitem(line) ;
+  
+  /* Version 6 :  R type resi name rcon1 rcon2 node_rcon1 node_rcon2 */
+  
+  /***** type *****/
+
+  type = -1 ;
+
+  if(strcasecmp((char *)line -> DATA, "MIM") == 0)
+   {
+     type = RESMIM ;
+   }
+
+  if(strcasecmp((char *)line -> DATA, "MIM") == 0)
+   {
+     type = RESMIM ; 
+   }
+
+  if(type == -1)
+    {
+      mal_error(fname,
+                mal_line,
+                "decode_lores()",
+	        "Unknown resistor type [%s].\n",
+	        (char *)line -> DATA) ;
+    }
+
+  line   = line -> NEXT ;
+
+  /***** resi *****/
+
+  resi   = decode_float((char *)line -> DATA,fname,mal_line) ;
+  line   = line -> NEXT ;
+
+  /***** name *****/
+
+  name   = namealloc((char *)line -> DATA) ;
+  line   = line -> NEXT ;
+
+  /***** rcon1 rcon2 *****/
+
+  rcon1   = givelosig(ptfig,decode_int((char *)line -> DATA,fname,mal_line)) ;
+  line   = line -> NEXT ;
+  
+  rcon2   = givelosig(ptfig,decode_int((char *)line -> DATA,fname,mal_line)) ;
+  line   = line -> NEXT ;
+
+  /***** node_rcon1 node_rcon2 *****/
+
+  phrcon1  = decode_int((char *)line -> DATA,fname,mal_line) ;
+  line    = line -> NEXT ;
+  
+  phrcon2  = decode_int((char *)line -> DATA,fname,mal_line) ;
+  line    = line -> NEXT ;
+
+  ptres  = addlores(ptfig,type,resi,rcon1,rcon2,name) ;
+
+  if(phrcon1)
+    {
+      if(!ptres -> RCON1 -> SIG -> PRCN)
+	{
+          addlorcnet(ptres -> RCON1 -> SIG) ;
+	}
+ 
+      setloconnode(ptres -> RCON1,phrcon1) ;
+  }
+
+  if(phrcon2)
+    {
+      if(!ptres -> RCON2 -> SIG -> PRCN)
+        {
+          addlorcnet(ptres -> RCON2 -> SIG) ;
+        }
+
+      setloconnode(ptres -> RCON2,phrcon2) ;
+    }
+
+  return(ptres) ;
+}
+
+/******************************************************************************/
+
+loself_list *decode_loself(lofig_list *ptfig,chain_list *line,char *fname,int mal_line,int version)
+{
+  char        type     = -1   ;
+  losig_list  *scon1   = NULL ;
+  losig_list  *scon2   = NULL ;
+  int	      phscon1  = 0    ;
+  int	      phscon2  = 0    ;
+  loself_list *ptself = NULL ;
+  int	      n        = 0    ;
+  char	      *name    = NULL ;
+  float       self     = 0.0  ;
+
+  n = nbitem(line) ;
+  
+  /* Version 6 :  L type self name scon1 scon2 node_scon1 node_scon2 */
+  
+  /***** type *****/
+
+  type = -1 ;
+
+  if(strcasecmp((char *)line -> DATA, "MIM") == 0)
+   {
+     type = SELFMIM ;
+   }
+
+  if(strcasecmp((char *)line -> DATA, "MIM") == 0)
+   {
+     type = SELFMIM ; 
+   }
+
+  if(type == -1)
+    {
+      mal_error(fname,
+                mal_line,
+                "decode_loself()",
+	        "Unknown inductor type [%s].\n",
+	        (char *)line -> DATA) ;
+    }
+
+  line   = line -> NEXT ;
+
+  /***** self *****/
+
+  self   = decode_float((char *)line -> DATA,fname,mal_line) ;
+  line   = line -> NEXT ;
+
+  /***** name *****/
+
+  name   = namealloc((char *)line -> DATA) ;
+  line   = line -> NEXT ;
+
+  /***** scon1 scon2 *****/
+
+  scon1   = givelosig(ptfig,decode_int((char *)line -> DATA,fname,mal_line)) ;
+  line   = line -> NEXT ;
+  
+  scon2   = givelosig(ptfig,decode_int((char *)line -> DATA,fname,mal_line)) ;
+  line   = line -> NEXT ;
+
+  /***** node_scon1 node_scon2 *****/
+
+  phscon1  = decode_int((char *)line -> DATA,fname,mal_line) ;
+  line    = line -> NEXT ;
+  
+  phscon2  = decode_int((char *)line -> DATA,fname,mal_line) ;
+  line    = line -> NEXT ;
+
+  ptself  = addloself(ptfig,type,self,scon1,scon2,name) ;
+
+  if(phscon1)
+    {
+      if(!ptself -> SCON1 -> SIG -> PRCN)
+	{
+          addlorcnet(ptself -> SCON1 -> SIG) ;
+	}
+ 
+      setloconnode(ptself -> SCON1,phscon1) ;
+  }
+
+  if(phscon2)
+    {
+      if(!ptself -> SCON2 -> SIG -> PRCN)
+        {
+          addlorcnet(ptself -> SCON2 -> SIG) ;
+        }
+
+      setloconnode(ptself -> SCON2,phscon2) ;
+    }
+
+  return(ptself) ;
+}
+
+/******************************************************************************/
+
 void		complete_ins( ptfig, ins, line, fname, mal_line )
 lofig_list	*ptfig;
 data_loins	*ins;
@@ -794,6 +1111,12 @@ int		 mal_line;
   if( strcasecmp( type, "Q"   ) == 0 ) return ( MAL_CAP );
   if( strcasecmp( type, "K"   ) == 0 ) return ( MAL_CTC );
   if( strcasecmp( type, "T"   ) == 0 ) return ( MAL_TRS );
+
+  /* Trucs analogiques. Q et K sont deja pris */
+  if( strcasecmp( type, "P"   ) == 0 ) return ( MAL_LOCAP );
+  if( strcasecmp( type, "R"   ) == 0 ) return ( MAL_LORES );
+  if( strcasecmp( type, "L"   ) == 0 ) return ( MAL_LOSELF);
+
   if( strcasecmp( type, "EOF" ) == 0 ) return ( MAL_EOF );
 
   mal_error( fname, mal_line, "type_line()", "Unknown element [%s].\n", type );
@@ -1199,7 +1522,22 @@ int              version;
         compose = 0;
         decode_trs( ptfig, line->NEXT, fname, mal_line, version );
         break;
+
+      case MAL_LOCAP :
+        compose = 0;
+        decode_locap( ptfig, line->NEXT, fname, mal_line, version );
+        break;
         
+      case MAL_LORES :
+        compose = 0;
+        decode_lores( ptfig, line->NEXT, fname, mal_line, version );
+        break;
+
+      case MAL_LOSELF :
+        compose = 0;
+        decode_loself( ptfig, line->NEXT, fname, mal_line, version );
+        break;
+
       case MAL_SIG:
         if( version == 6 )
           compose = MAL_WIR | MAL_CAP ;
@@ -1365,3 +1703,6 @@ void al_dbg_init( void )
     al_chain_lg[i]=0;
 }
 #endif
+
+
+

@@ -26,9 +26,23 @@
 * Tool        : Driver al                                                     *
 * Author(s)   : Gregoire AVOT and many others, ...                           *
 * Updates     : June, 12th 1998                                               *
+* Updates     : August, 12th 2002, Pierre Nguyen Tuong                        *
 * $Log: alc_driv_l.c,v $
-* Revision 1.1  2002/03/13 10:19:11  fred
-* Initial revision
+* Revision 1.2  2002/08/13 16:40:14  pnt
+* Suite de l'introduction des objets analogiques capacite, resistance et self.
+*
+* Modification du parser et du driver al.
+*
+* Syntaxe:
+* P type capa name tcon bcon node_tcon node_bcon           ---capacite
+* R type resi name rcon1 rcon2 node_rcon1 node_rcon2       ---resistance
+* L type self name scon1 scon2 node_scon1 node_scon2       ---inductance
+*
+* Note:
+* Q existe deja pour les capacites de type RC (rcn). On utilise P a la place.
+*
+* Revision 1.1.1.1  2002/03/13 10:19:11  fred
+* Importing MBKAL sources into the new CVS tree
 *                                                                        *
 *******************************************************************************/
 
@@ -79,6 +93,12 @@ char dir;
 			return "TRISTATE";
 		case TRANSCV :
 			return "TRANSCV";
+		case TRANSCV2 :
+			return "TRANSCV2";
+		case TRANSCV3 :
+			return "TRANSCV3";
+		case TRANSCV4 :
+			return "TRANSCV4";
 		default :
 			(void)fprintf(stderr,"\n*** mbk error *** savelofig (al) invalid connector direction : %c\n",dir);
 			return "UNKNOWN";
@@ -149,6 +169,9 @@ lofig_list * pfig;
 {
 	locon_list * pcon;
 	lotrs_list * ptrs;
+	locap_list  *pcap  = NULL ;
+	lores_list  *pres  = NULL ;
+	loself_list *pself = NULL ;
 	loins_list * pins;
 	losig_list * psig;
 	lorcnet_list * ptrcnet;
@@ -156,6 +179,14 @@ lofig_list * pfig;
 	chain_list * tmp;
 	num_list * num;
 	long index, indexg ,indexd, indexs, indexb;
+
+	long index_tcon  = 0L ;
+        long index_bcon  = 0L ;
+        long index_rcon1 = 0L ;
+        long index_rcon2 = 0L ;
+        long index_scon1 = 0L ;
+        long index_scon2 = 0L ;
+
 	FILE *in;
 	char nomfic[TAILLE_CHAINE];
 	char nomp[TAILLE_CHAINE];
@@ -180,6 +211,11 @@ lofig_list * pfig;
 	pfig->LOCON = (locon_list *)reverse((chain_list *)pfig->LOCON);
 	pfig->LOINS = (loins_list *)reverse((chain_list *)pfig->LOINS);
 	pfig->LOTRS = (lotrs_list *)reverse((chain_list *)pfig->LOTRS);
+
+	pfig -> LOCAP  = (locap_list *)reverse((chain_list *)pfig -> LOCAP) ;
+	pfig -> LORES  = (lores_list *)reverse((chain_list *)pfig -> LORES) ;
+	pfig -> LOSELF = (loself_list *)reverse((chain_list *)pfig -> LOSELF) ;
+
 	for(pins = pfig->LOINS ; pins ; pins = pins->NEXT)
     	{
 		pins->LOCON = (locon_list *)reverse((chain_list *)pins->LOCON);
@@ -230,7 +266,130 @@ lofig_list * pfig;
 		(void)fprintf(in,",%s",ptrs->TRNAME?ptrs->TRNAME:"noname");
 		(void)fprintf(in,"\n");
 	}
-/* write instances */
+
+
+	/* write capacitor */
+
+        tmpnum = NULL ;
+
+	for(pcap = pfig -> LOCAP ; pcap != NULL ; pcap = pcap -> NEXT)
+	  {
+            /* Q est deja pris pour les capacites de rcn */
+	    (void)fprintf(in,"P %s,%g,%s,%ld,%ld",
+			  (pcap -> TYPE == CAPMIM)?"MIM":"POLY_NWELL",
+			  pcap -> CAPA,
+			  pcap -> NAME?pcap -> NAME:"noname",
+			  pcap -> TCON -> SIG -> INDEX,
+			  pcap -> BCON -> SIG -> INDEX) ;
+
+	    if (!(tmpnum = pcap -> TCON -> PNODE))
+	      {
+		index_tcon = 0L ;
+	      }
+	    else
+	      {
+		index_tcon = tmpnum -> DATA ;
+	      }
+
+	    if (!(tmpnum = pcap -> BCON -> PNODE))
+	      {
+		index_bcon = 0L ;
+	      }
+	    else
+	      {
+		index_bcon = tmpnum -> DATA ;
+	      }
+
+
+	    if(index_tcon !=0L || index_bcon !=0L)
+	      {
+		(void)fprintf(in,",%ld,%ld",index_tcon,index_bcon) ;
+	      }
+
+	    (void)fprintf(in,"\n");
+	  }
+
+	/* Write resistor */
+
+        tmpnum = NULL ;
+
+	for(pres = pfig -> LORES ; pres != NULL ; pres = pres -> NEXT)
+	  {
+	    (void)fprintf(in,"R %s,%g,%s,%ld,%ld",
+			  (pres -> TYPE == RESMIM)?"MIM":"MIM",
+			  pres -> RESI,
+			  pres -> NAME?pres -> NAME:"noname",
+			  pres -> RCON1 -> SIG -> INDEX,
+			  pres -> RCON2 -> SIG -> INDEX) ;
+
+	    if (!(tmpnum = pres -> RCON1 -> PNODE))
+	      {
+		index_rcon1 = 0L ;
+	      }
+	    else
+	      {
+		index_rcon1 = tmpnum -> DATA ;
+	      }
+
+	    if (!(tmpnum = pres -> RCON2 -> PNODE))
+	      {
+		index_rcon2 = 0L ;
+	      }
+	    else
+	      {
+		index_rcon2 = tmpnum -> DATA ;
+	      }
+
+
+	    if(index_rcon1 !=0L || index_rcon2 !=0L)
+	      {
+		(void)fprintf(in,",%ld,%ld",index_rcon1,index_rcon2) ;
+	      }
+
+	    (void)fprintf(in,"\n");
+	  }
+
+	/* Write inductor */
+
+        tmpnum = NULL ;
+
+	for(pself = pfig -> LOSELF ; pself != NULL ; pself = pself -> NEXT)
+	  {
+	    (void)fprintf(in,"L %s,%g,%s,%ld,%ld",
+			  (pself -> TYPE == SELFMIM)?"MIM":"MIM",
+			  pself -> SELF,
+			  pself -> NAME?pself -> NAME:"noname",
+			  pself -> SCON1 -> SIG -> INDEX,
+			  pself -> SCON2 -> SIG -> INDEX) ;
+
+	    if (!(tmpnum = pself -> SCON1 -> PNODE))
+	      {
+		index_scon1 = 0L ;
+	      }
+	    else
+	      {
+		index_scon1 = tmpnum -> DATA ;
+	      }
+
+	    if (!(tmpnum = pself -> SCON2 -> PNODE))
+	      {
+		index_scon2 = 0L ;
+	      }
+	    else
+	      {
+		index_scon2 = tmpnum -> DATA ;
+	      }
+
+
+	    if(index_scon1 !=0L || index_scon2 !=0L)
+	      {
+		(void)fprintf(in,",%ld,%ld",index_scon1,index_scon2) ;
+	      }
+
+	    (void)fprintf(in,"\n");
+	  }
+
+	/* write instances */
 	for (pins = pfig->LOINS; pins != NULL; pins = pins->NEXT)
 	{
 		(void)fprintf(in,"I %s,%s\n",pins->FIGNAME,pins->INSNAME);
@@ -288,6 +447,9 @@ lofig_list * pfig;
 	pfig->LOCON = (locon_list *)reverse((chain_list *)pfig->LOCON);
 	pfig->LOINS = (loins_list *)reverse((chain_list *)pfig->LOINS);
 	pfig->LOTRS = (lotrs_list *)reverse((chain_list *)pfig->LOTRS);
+	pfig->LOCAP = (locap_list *)reverse((chain_list *)pfig->LOCAP);
+	pfig->LORES = (lores_list *)reverse((chain_list *)pfig->LORES);
+	pfig->LOSELF = (loself_list *)reverse((chain_list *)pfig->LOSELF);
 	for(pins = pfig->LOINS ; pins ; pins = pins->NEXT)
 	{
 		pins->LOCON = (locon_list *)reverse((chain_list *)pins->LOCON);
@@ -295,3 +457,10 @@ lofig_list * pfig;
         */
 
 }
+
+
+
+
+
+
+
