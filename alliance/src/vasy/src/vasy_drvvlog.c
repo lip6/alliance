@@ -578,7 +578,8 @@ static void VasyDriveVerilogPort( RtlFigure )
         RtlDeclar != (rtldecl_list *)NULL;
         RtlDeclar = RtlDeclar->NEXT )
   {
-     if ( ! IsVasyRtlDeclType( RtlDeclar, VASY_RTL_DECL_COMBINATORIAL ) )
+	  if ( IsVasyRtlDeclType( RtlDeclar, VASY_RTL_DECL_REGISTER )
+	    || IsVasyRtlDeclType( RtlDeclar, VASY_RTL_DECL_TRISTATE ) )
      {
        VexPort  = RtlDeclar->VEX_ATOM;
        PortName = GetVexAtomValue( VexPort );
