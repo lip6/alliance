@@ -1,5 +1,5 @@
 /*
- *  $Id: LEF_drive_sxlib.c,v 1.2 2002/09/30 16:21:17 czo Exp $
+ *  $Id: LEF_drive_sxlib.c,v 1.3 2003/04/04 16:23:32 xtof Exp $
  *
  *  /----------------------------------------------------------------\
  *  |                                                                |
@@ -617,6 +617,10 @@ static void  phref2PINS()
         /* Create a new pin named from "sIOName". */
         m_AddPin(LV_pMACRO->lPIN, sIOName);
         LV_pMACRO->lPIN->DIRECTION = MBK2DEF_locondir(pLoCon);
+	if (isck(sIOName))
+	{
+	    LV_pMACRO->lPIN->USE = C_USE_GROUND;
+	}
         m_AddPort(LV_pMACRO->lPIN->lPORT, C_PORTITEM_LAYER, ALU1);
 
         pPIN = LV_pMACRO->lPIN;
@@ -674,6 +678,10 @@ static void  phseg2PINS()
           /* Create a new pin named from "pPhSeg->NAME". */
           m_AddPin(LV_pMACRO->lPIN, pPhSeg->NAME);
           LV_pMACRO->lPIN->DIRECTION = MBK2DEF_locondir(pLoCon);
+	  if (isck(pPhSeg->NAME))
+	  {
+	      LV_pMACRO->lPIN->USE = C_USE_CLOCK;
+	  }
 
           pPIN = LV_pMACRO->lPIN;
         }
@@ -728,12 +736,14 @@ static void  sortPINS()
   ePIN_t *pHeadOUTPUT, *pTailOUTPUT;
   ePIN_t *pHeadINPUT , *pTailINPUT;
   ePIN_t *pHeadPOWER , *pTailPOWER;
+  ePIN_t *pHeadCLOCK , *pTailCLOCK;
 
 
   pHeadINOUT  = pTailINOUT  = (ePIN_t*)NULL;
   pHeadOUTPUT = pTailOUTPUT = (ePIN_t*)NULL;
   pHeadINPUT  = pTailINPUT  = (ePIN_t*)NULL;
   pHeadPOWER  = pTailPOWER  = (ePIN_t*)NULL;
+  pHeadCLOCK  = pTailCLOCK  = (ePIN_t*)NULL;
 
   for(pPIN = LV_pMACRO->lPIN; pPIN != (ePIN_t*)NULL;) {
     pTmp = pPIN;
@@ -744,6 +754,9 @@ static void  sortPINS()
       case C_USE_GROUND:
         insertPIN(&pHeadPOWER, &pTailPOWER, pTmp);
         continue;
+      case C_USE_CLOCK:
+	insertPIN(&pHeadCLOCK, &pTailCLOCK, pTmp);
+	continue;
     } /* End of "USE" switch. */
 
     switch(pTmp->DIRECTION) {
@@ -782,6 +795,10 @@ static void  sortPINS()
 
   if (pHeadPOWER != (ePIN_t*)NULL) {
     *ppHead = pHeadPOWER;  ppHead = &(pTailPOWER->Next);
+  }
+  
+  if (pHeadCLOCK != (ePIN_t*)NULL) {
+    *ppHead = pHeadCLOCK;  ppHead = &(pTailCLOCK->Next);
   }
 
   *ppHead = (ePIN_t*)NULL;

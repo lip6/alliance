@@ -1,5 +1,5 @@
 /*
- *  $Id: DEF_drive.c,v 1.6 2003/04/02 15:02:49 jpc Exp $
+ *  $Id: DEF_drive.c,v 1.7 2003/04/04 16:23:31 xtof Exp $
  *
  *  /----------------------------------------------------------------\
  *  |                                                                |
@@ -1144,6 +1144,8 @@ static void  fprintPIN(apLocon, apPhcon, asState)
      */
 
     fprintf(DEF_FILE, " + DIRECTION INPUT + USE GROUND");
+  } else if (isck(apLocon->NAME)) {
+    fprintf(DEF_FILE, " + DIRECTION INPUT + USE CLOCK");  
   } else 
     fprintf(DEF_FILE, " + DIRECTION %s",
                        DIRtoa(MBK2DEF_locondir(apLocon)));
@@ -1535,7 +1537,7 @@ static void  fprintNETS()
   for(pLoSig = LV_lofig->LOSIG, loSigNB = 0L;
       pLoSig != (losig_list*)NULL; pLoSig = pLoSig->NEXT) {
     sSig = getsigname(pLoSig);
-    if (isvdd(sSig) || isvss(sSig)) continue;
+    if (isvdd(sSig) || isvss(sSig) || isck(sSig)) continue;
 
     loSigNB += 1;
   }
@@ -1549,7 +1551,8 @@ static void  fprintNETS()
     sSig = getsigname(pLoSig);
     if (     isvdd(sSig) 
         ||   isvss(sSig)
-        || !strcmp(sSig, "cki")) continue;
+        ||   !strcmp(sSig, "cki")
+        ||   isck(sSig)) continue;
 
     fprintNET(pLoSig, C_USE_NONE);
   }
@@ -1579,7 +1582,8 @@ static void  fprintSPECIALNETS()
     sSig = getsigname(pLoSig);
     if (    !isvdd(sSig)
         &&  !isvss(sSig)
-        &&  strcmp(sSig, "cki")) continue;
+        &&  strcmp(sSig, "cki")
+        &&  !isck(sSig)) continue;
 
     loSigNB += 1;
   }
@@ -1597,6 +1601,7 @@ static void  fprintSPECIALNETS()
     if (  isvdd(sSig)       ) Use = C_USE_POWER;
     if (  isvss(sSig)       ) Use = C_USE_GROUND;
     if (!strcmp(sSig, "cki")) Use = C_USE_CLOCK;
+    if (  isck(sSig)        ) Use = C_USE_CLOCK;
     if (Use == C_USE_NONE) continue;
 
     fprintNET(pLoSig, Use);
