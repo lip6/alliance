@@ -28,7 +28,7 @@
  * Modified by Czo <Olivier.Sirol@lip6.fr> 1997,98
  */
 
-#ident "$Id: mbk_lo_util.c,v 1.2 2002/08/08 19:47:37 pnt Exp $"
+#ident "$Id: mbk_lo_util.c,v 1.3 2002/08/13 16:48:32 pnt Exp $"
 
 #include <stdio.h>
 #include <stdlib.h>
@@ -1979,7 +1979,10 @@ ptype_list *getptype();
             case TRISTATE :
                dir = TRANSCV;
                break;
-            case TRANSCV :
+            case TRANSCV  :
+            case TRANSCV2 :
+            case TRANSCV3 :
+            case TRANSCV4 :
                dir = TRANSCV;
                break;
             }
@@ -2010,7 +2013,10 @@ ptype_list *getptype();
                         getsigname(ec->SIG));
                ret = PROBLEM;
                break;
-            case TRANSCV :
+            case TRANSCV  :
+            case TRANSCV2 :
+            case TRANSCV3 :
+            case TRANSCV4 :
                dir = TRANSCV;
                fprintf(stderr, "Warning : signal %s have an OUT and a TRANSCV",
                         getsigname(ec->SIG));
@@ -2044,7 +2050,10 @@ ptype_list *getptype();
                         getsigname(ec->SIG));
                ret = PROBLEM;
                break;
-            case TRANSCV :
+            case TRANSCV  :
+            case TRANSCV2 :
+            case TRANSCV3 :
+            case TRANSCV4 :
                dir = INOUT;
                fprintf(stderr, "Warning : signal %s have an INOUT and a TRANSCV",
                         getsigname(ec->SIG));
@@ -2070,6 +2079,9 @@ ptype_list *getptype();
                dir = TRISTATE;
                break;
             case TRANSCV :
+            case TRANSCV2 :
+            case TRANSCV3 :
+            case TRANSCV4 :
                dir = TRANSCV;
                break;
             }
@@ -2095,12 +2107,19 @@ ptype_list *getptype();
             case TRISTATE :
                dir = TRISTATE;
                break;
-            case TRANSCV :
+            case TRANSCV  :
+            case TRANSCV2 :
+            case TRANSCV3 :
+            case TRANSCV4 :
                dir = TRANSCV;
                break;
             }
             break;
-         case TRANSCV :
+         case TRANSCV  :
+         case TRANSCV2 :
+         case TRANSCV3 :
+         case TRANSCV4 :
+
             switch (dir) {
             case IN :
                dir = TRANSCV;
@@ -2121,7 +2140,10 @@ ptype_list *getptype();
             case TRISTATE :
                dir = TRANSCV;
                break;
-            case TRANSCV :
+            case TRANSCV  :
+            case TRANSCV2 :
+            case TRANSCV3 :
+            case TRANSCV4 :
                dir = TRANSCV;
                break;
             }
