@@ -10,7 +10,6 @@ PORT (
 END rf_mid_mem_r0;
 
 ARCHITECTURE VBE OF rf_mid_mem_r0 IS
-  SIGNAL latch	 : REG_BIT REGISTER;
 
 BEGIN
   ASSERT (vdd and not (vss))
@@ -21,5 +20,6 @@ BEGIN
   BEGIN
     rbus <= GUARDED '0';
   END BLOCK label1;
+
 
 END;

@@ -2,9 +2,9 @@ ENTITY rf_dec_bufad2r IS
 PORT (
   i0     : in  BIT;
   i1     : in  BIT;
-  nq0  	 : out BIT;
+  nq0  	 : inout BIT;
   q0   	 : out BIT;
-  nq1  	 : out BIT;
+  nq1  	 : inout BIT;
   q1   	 : out BIT;
   vdd	 : in  BIT;
   vss	 : in  BIT
