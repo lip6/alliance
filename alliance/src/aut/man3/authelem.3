@@ -1,0 +1,40 @@
+.\"   $Id: authelem.3,v 1.1 2002/03/21 13:17:24 ludo Exp $
+.\" @(#)authelem.2 1.01 96/02/07 UPMC; Author: Jacomme Ludovic
+.TH AUTHELEM 3 "October 1, 1997" "ASIM/LIP6" "AUT STRUCTURE DEFINITIONS"
+.SH NAME
+authelem \- element in an hash table
+.SH DESCRIPTION
+The \fBauthelem\fP structure is used to describe an hash element.
+.LP
+The declarations needed to work on \fBauthelem\fP are available in the header file
+\fI"/labo/include/aut101.h"\fP, where '\fI101\fP' is the actual aut version.
+.LP
+The following C structure supports the description of an hash element :
+.RS
+.nf
+.if n \{\
+.ft B \}
+.if t \{\
+.ft CR \}
+.ta 3n 20n 30n
+  typedef struct authelem
+  {
+    char \(**KEY;
+    long  VALUE;
+  } authelem;
+.ft R
+.fi
+.RE
+.TP 20
+\fIKEY\fP
+ KEY is the hash element key, for example a name created with \fInamealloc\fP.
+.TP
+\fIVALUE\fP
+ VALUE is the value associated to the key \fIKEY\fP. 
+.SH SEE ALSO
+.BR aut (1),
+.BR authtable(3),
+
+
+.so man1/alc_bug_report.1
+
