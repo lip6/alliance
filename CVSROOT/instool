@@ -7,7 +7,7 @@
 # Author: Frédéric Pétrot (fred@pasta.fr.ea)
 #         for version 0
 #
-# $Id: instool,v 1.26 2001/07/03 14:07:44 czo Exp $
+# $Id: instool,v 1.27 2001/07/12 15:02:16 czo Exp $
 #
 
 
@@ -306,7 +306,7 @@ echo "   a message MUST be given for each installation"
             sleep 2
             echo "Still waiting, ..."
          done
-         updatelibmk $LABO/archi/SunOS > $TMPDIR/libraries.mk.$$
+         /users/outil/alliance/cvsroot/CVSROOT/updatelibmk $LABO/archi/Linux > $TMPDIR/libraries.mk.$$
          mv -f $ETC/libraries.mk $ETC/libraries.mk.$DATE
          if [ $? -ne 0 ] ; then 
             echo "`basename $0`: mv returned a non-zero exit status"
