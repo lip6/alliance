@@ -7,7 +7,7 @@
 # (C) Czo 1998,99
 # This code is released under GPL
 #
-# $Id: postconfig,v 1.20 2000/09/07 06:59:45 czo Exp $
+# $Id: postconfig,v 1.21 2000/09/07 07:01:59 czo Exp $
 #
 
 
@@ -52,10 +52,10 @@ printf("%s", MFILES)
 
 MAIL_SUBJECT=`echo "CVS loginfo, $UPDATE_DIR" | sed 's§alliance/§§' | sed 's§share/§§' | sed 's§sources/§§'`
 
-echo $UPDATE_DIR
-echo $UPDATE_IN
-echo $MAIL_SUBJECT
-echo $MODIFIED_FILES
+# echo $UPDATE_DIR
+# echo $UPDATE_IN
+# echo $MAIL_SUBJECT
+# echo $MODIFIED_FILES
 
 
 pwd
