@@ -665,11 +665,13 @@ static void TestCommandViewAssoc( String )
 
   BddAssoc = BddLocalSystem->ASSOC;
 
-  if ( BddAssoc != (bddassoc *)0 )
+  while ( BddAssoc != (bddassoc *)0 )
   {
-    fprintf( stdout, "--> viewassoc\n" );
+    fprintf( stdout, "--> viewassoc %d\n", BddAssoc->IDENT );
 
     viewbddassoc( (bddsystem *)0, BddAssoc, TestViewAssoc );
+
+    BddAssoc = BddAssoc->NEXT;
   }
 }
 

@@ -101,7 +101,7 @@ bddassoc *addbddassoc( BddSystem )
   AssocIdent =  0;
 
   while ( ( ScanAssoc        != (bddassoc *)0 ) &&
-          ( ScanAssoc->IDENT >  AssocIdent    ) )
+          ( ScanAssoc->IDENT >= AssocIdent    ) )
   {
     if ( AssocIdent == BDD_MAX_SHORT )
     {
