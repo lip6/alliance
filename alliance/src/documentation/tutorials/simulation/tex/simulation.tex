@@ -77,7 +77,7 @@ xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
                     {\Huge ALLIANCE TUTORIAL\\}
 	 {\large
                Pierre \& Marie Curie University \\
-                    year 2001 - 2002\\
+                    year 2001 - 2004\\
     }
     \vspace{1cm}
     {\huge
@@ -106,9 +106,11 @@ xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
 
 
 \newpage
-\large{ The goal of this tutorial is to allow a rapid use of some { \bf ALLIANCE } tools, developed at the LIP6 laboratory of Pierre and Marie Curie University.
+\large{ The purpose of this tutorial is to provide a quick turn of some { \bf
+ALLIANCE } tools, developed at the LIP6 laboratory of Pierre and Marie Curie
+University.
 
-The tutorial is composed of 3 great parts independent from each other:
+The tutorial is composed of 3 main parts independent from each other:
 
 \begin{itemize}\itemsep=-.8ex
 \item {VHDL modeling and simulation}
@@ -116,10 +118,12 @@ The tutorial is composed of 3 great parts independent from each other:
 \item {Place and route}
 \end{itemize}
 
-Before any handling you must ensure that all the environment variables are
-correctly positioned and that the Alliance
-tools are readily available when invoking them at the prompt. All
-the tools used in this tutorial are documented at least with a
+Before going further you must ensure that all the environment variables are
+properly set (source alcenv.sh or alcenv.csh file)
+and that the Alliance tools are available when invoking them at the shell
+prompt.
+
+All the tools used in this tutorial are documented at least with a
 manual page.
 
 \newpage
@@ -159,7 +163,7 @@ manual page.
 
 All the files used in this part are located in the \\ 
 \texttt{/tutorial/simulation/src} directory.\\
-This directory contents two subdirectories and one Makefile : 
+This directory contains two subdirectories and one Makefile : 
 \begin{itemize}
 \item The Makefile allows you to validate automatically the entire simulation part
 \item {\bf addaccu\_beh} = the behavioral description
@@ -301,19 +305,27 @@ If you do not wish to use the environment variables positioned by
 default, other environment variables can be used by {\bf ASIMUT}.
 
 \begin{sourcelisting}
- > MBK_WORK_LIB .
- > MBK_CATA_LIB .
+ > MBK_WORK_LIB = .
+ > MBK_CATA_LIB = .
  > MBK_CATAL_NAME = CATAL
  > MBK_IN_LO = VST
 \end{sourcelisting}
 
-under Bourne Shell :
+under Bash :
+\begin{sourcelisting}
+ > export var = value
+\end{sourcelisting}
 
+under standard Bourne Shell :
 \begin{sourcelisting}
  > var = value
  > export var
 \end{sourcelisting}
 
+under C Shell :
+\begin{sourcelisting}
+ > setenv var value
+\end{sourcelisting}
 
 The meaning of these variables is to be discovered in the {\bf
 man} of {\bf ASIMUT} tool.
@@ -375,14 +387,14 @@ results on the outputs are well those which you wait.
 \end{itemize}
 
 The file of resulting vectors must be seriously analyzed to check
-the results of simulation. It is possible to use the graphic
-visual display of patterns {\bf xpat} to analyze the results of
-simulation.
+the results of simulation. It is possible to use the graphical
+pattern viewer {\bf xpat} to analyze the results of
+the simulation.
 
 \subsection{Delays}
 
 The behavioral description written previously includes only
-affections zero-delay. It is however completely possible to
+zero-delay concurrent assignements. It is however possible to
 specify propagation times by using AFTER clauses, because the
 operations in a real circuit are not done instantaneously. For
 more details, do refer to the man for VBE files format.
@@ -412,9 +424,9 @@ with { \bf asimut }.
 
 The results obtained (result\_dly.pat) must be different from
 those obtained without AFTER clauses (result\_vbe.pat). To
-understand why, it is necessary to finely analyze the temporal
-behavior of your circuit. The step of 50 ns used for the vectors
-of test does not make it possible to precisely observe the
+understand why, it is necessary to deeply analyze the temporal
+behavior of your circuit. The step of 50 ns used for the test 
+vectors does not really make possible to observe the true
 temporal behavior of your circuit.  You can spy on all the
 transitions from an internal signal or an output by specifying
 this characteristic while declaring in the file of
@@ -536,7 +548,7 @@ each block followed by the attribute 'C' indicating that it is a
 basic element of the hierarchy. This shows you the importance of
 the {\bf CATAL} file which forces the simulator {\bf asimut} to
 use the behavioral sight of the components which are listed. You
-must position the environment variable :
+have to set the environment variable MBK\_IN\_LO:
 
 \begin{sourcelisting}
  > MBK_IN_LO = vst
@@ -580,13 +592,14 @@ be chosen among those available in the library of standard cells {
 \bf SXLIB }. For the functionality of the various cells and their
 interface, the sxlib man is available. The behavioral
 description of each cell is present in \\
-{\bf/asim/alliance/cells/sxlib }.
+{\bf /alliance/cells/sxlib }.
 
-You must position the environment variable { \bf MBK\_CATA\_LIB }
+You must set the environment variable { \bf MBK\_CATA\_LIB }
 to be able to reach these cells.
 
 \begin{commandline}
- > MBK_CATA_LIB . : /alliance/cells/sxlib
+ > MBK_CATA_LIB=/alliance/cells/sxlib
+ > export MBK_CATA_LIB
 \end{commandline}
 
 For each block adopt following methodology to replace the
