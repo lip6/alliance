@@ -14,3 +14,5 @@ dupablexpr.3             isablsimilarexpr.3       viewablexprfile.3 \
 flatablexpr.3            isablunaryoper.3         viewablexprstr.3 \
 freeablexpr.3            mapablanyexpr.3 \
 getablexprdepth.3        mapableveryexpr.3
+
+EXTRA_DIST = $(man_MANS)

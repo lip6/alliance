@@ -77,3 +77,4 @@ viewbddcircuit.3 \
 viewbddnode.3 \
 viewbddsystem.3 \
 viewbddsysteminfo.3
+EXTRA_DIST = $(man_MANS)

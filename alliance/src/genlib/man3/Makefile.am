@@ -57,3 +57,4 @@ man_MANS  = GENLIB_BUS.3 \
             GENLIB_WIRE1.3 \
             GENLIB_WIRE2.3 \
             GENLIB_WIRE3.3
+EXTRA_DIST = $(man_MANS)

@@ -53,3 +53,4 @@ man_MANS  = addrdsfig.3 \
             viewrfmref.3 \
             viewrfmseg.3 \
             viewrfmvia.3
+EXTRA_DIST = $(man_MANS)
