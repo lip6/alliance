@@ -7,7 +7,7 @@
 # (C) Czo 1998,99
 # This code is released under GPL
 #
-# $Id: postconfig,v 1.21 2000/09/07 07:01:59 czo Exp $
+# $Id: postconfig,v 1.22 2000/09/07 07:02:47 czo Exp $
 #
 
 
@@ -66,7 +66,7 @@ echo "Diff"
 echo ""
 
 cd $UPDATE_IN
-cvs diff $MODIFIED_FILES | head 50
+cvs diff $MODIFIED_FILES | head -50
 echo ""
 echo "===================================================================="
 echo "Ce message est envoyé au personnes abonnées à alliance-programmers"
