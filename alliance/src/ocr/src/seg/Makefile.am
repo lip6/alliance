@@ -1,6 +1,6 @@
 ## Process this file with automake to produce Makefile.in
 
-INCLUDES = -I$(top_srcdir)/src/include 
+INCLUDES = -I$(srcdir)/src/include 
 
 AM_CFLAGS = @ALLIANCE_CFLAGS@
 
