@@ -5,15 +5,11 @@ GENERIC (
   CONSTANT cin_b	 : NATURAL := 22;
   CONSTANT rdown_a_cout	 : NATURAL := 810;
   CONSTANT rdown_a_sout	 : NATURAL := 810;
-  CONSTANT rdown_a_sout	 : NATURAL := 810;
   CONSTANT rdown_b_cout	 : NATURAL := 810;
-  CONSTANT rdown_b_sout	 : NATURAL := 810;
   CONSTANT rdown_b_sout	 : NATURAL := 810;
   CONSTANT rup_a_cout	 : NATURAL := 890;
   CONSTANT rup_a_sout	 : NATURAL := 890;
-  CONSTANT rup_a_sout	 : NATURAL := 890;
   CONSTANT rup_b_cout	 : NATURAL := 890;
-  CONSTANT rup_b_sout	 : NATURAL := 890;
   CONSTANT rup_b_sout	 : NATURAL := 890;
   CONSTANT tphh_a_cout	 : NATURAL := 467;
   CONSTANT tpll_b_cout	 : NATURAL := 480;

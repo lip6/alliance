@@ -5,10 +5,8 @@ GENERIC (
   CONSTANT cin_i0	 : NATURAL := 8;
   CONSTANT cin_i1	 : NATURAL := 9;
   CONSTANT rdown_cmd_nq	 : NATURAL := 810;
-  CONSTANT rdown_cmd_nq	 : NATURAL := 810;
   CONSTANT rdown_i0_nq	 : NATURAL := 810;
   CONSTANT rdown_i1_nq	 : NATURAL := 810;
-  CONSTANT rup_cmd_nq	 : NATURAL := 890;
   CONSTANT rup_cmd_nq	 : NATURAL := 890;
   CONSTANT rup_i0_nq	 : NATURAL := 890;
   CONSTANT rup_i1_nq	 : NATURAL := 890;
