@@ -8,7 +8,7 @@
 # NOTE: You can find the latest revision of this document at:
 # http://asim.lip6.fr/pub/alliance/latest-checkout/alliance/src
 #
-# $Id: README,v 1.6 2003/01/06 15:38:51 czo Exp $
+# $Id: README,v 1.7 2003/02/28 10:56:09 czo Exp $
 
 This file discuss about installation of Alliance on UNIX machines.
 
@@ -66,10 +66,21 @@ libICE.so.6 libSM.so.6 libX11.so.6 libXext.so.6 libXm.so.2 libXp.so.6
 libXpm.so.4 libXt.so.6 libc.so.6 libm.so.6 libstdc++-libc6.2-2.so.3 /bin/sh
 libc.so.6(GLIBC_2.0) libc.so.6(GLIBC_2.1) libc.so.6(GLIBC_2.1.3)
 libm.so.6(GLIBC_2.0). 
-(You can generate the rpm for your platform by issuing :
- rpm -ta alliance-5.0-XXX.tar.gz)
 
-Get the latest rpm package,
+You can generate the rpm for your platform by issuing :
+ 1- if you are using rpm version < 4.1
+ rpm -ta alliance-5.0-XXX.tar.gz 
+ 
+ 2- if you are using rpm version < 4.1
+ mkdir /var/tmp/czo/rpm (czo is my login name)
+ cd /var/tmp/czo/rpm 
+ mkdir BUILD RPMS SOURCES SPECS SRPMS
+ rpmbuild -ta alliance-5.0-XXX.tar.gz 
+ 
+Or you can get the latest rpm package available on alliance site,
+Rpm named *.rpm are build on a modified RedHat 7.2 we use at lip6.
+Rpm named *-rh8.rpm are build on a up2date full install of RedHat 8o 
+
 log as root then type :
 
 > rpm -Uvh alliance-5.0-YYY.rpm
