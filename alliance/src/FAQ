@@ -8,7 +8,7 @@
 # NOTE: You can find the latest revision of this document at:
 # http://asim.lip6.fr/pub/alliance/latest-checkout/alliance/src
 #
-# $Id: FAQ,v 1.4 2002/10/17 13:33:00 czo Exp $
+# $Id: FAQ,v 1.5 2002/10/24 09:55:22 czo Exp $
 
 --------------------------------------------------------------------------------
 
@@ -25,6 +25,7 @@ Question  4: How to get started ?
 Question  5: What are the differences with the previous releases ?
 Question  6: What is the supported VHDL subset ?
 Question  7: What is the available online documentation ?
+Question  8: How can I get more complete documentation ?
 Question  9: Where are defined the symbolic layout rules ?
 Question  10: How is performed the mapping to a target process ?
 Question 11: What are the supported file formats ?/
@@ -67,7 +68,7 @@ Question 4: How to get started ?
 --------------------------------
 
 You can download a beta version of the Alliance 5.0 tutorials from cvs.
-ftp://asim.lip6.fr/pub/alliance/latest-checkout/alliance/src/tutorials.tgz
+ftp://asim.lip6.fr/pub/alliance/latest-checkout/alliance/src/documentation/tutorials.tgz
 
 Question 5: What are the differences with the previous releases ?
 ----------------------------------------------------------------
@@ -109,6 +110,13 @@ Each tools has its own manual.
 All the tools rely on the use of environment variables: all the relevant
 variables are listed in the `ENVIRONMENT VARIABLES' section of the manual
 page.
+
+Question  8: How can I get more complete documentation ?
+--------------------------------------------------------
+All the available documentation can be found in the documentation
+directory of the sources.
+See
+ftp://asim.lip6.fr/pub/alliance/latest-checkout/alliance/src/documentation/
 
 
 Question 9:  Where are defined the symbolic layout rules ?
