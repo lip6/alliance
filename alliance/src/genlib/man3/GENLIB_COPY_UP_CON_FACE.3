@@ -1,0 +1,119 @@
+.\"   $Id: GENLIB_COPY_UP_CON_FACE.3,v 1.1 2002/03/08 14:08:09 fred Exp $
+.\" @(#)GENLIB_COPY_UP_CON_FACE.3 2.11 91/08/22 ; Labo Cao-vlsi; Author : Frederic Petrot
+.if t \{\
+.so man1/alc_contents.mac
+.XS \n%
+.ti 0.2i
+GENLIB_COPY_UP_CON_FACE
+.XE \}
+.TH GENLIB_COPY_UP_CON_FACE.3 "October 1, 1997" "ASIM/LIP6" "PROCEDURAL GENERATION LANGUAGE"
+.SH NAME
+GENLIB_COPY_UP_CON_FACE \- copy a physical connector from an instance in the
+current figure
+.SH SYNOPSYS
+.nf
+.if n \{\
+.ft B \}
+.if t \{\
+.ft CR \}
+#include <genlib.h>
+void GENLIB_COPY_UP_CON_FACE(face, conname, insname, newname)
+long index;
+char \(**insname;
+char \(**conname;
+char \(**newname;
+.ft R
+.fi
+.so man1/alc_origin.1
+.SH PARAMETERS
+.TP 20
+\fIface\fP
+Connector face in the instance
+.TP
+\fIconname\fP
+Name of the connector in the instance model
+.TP
+\fIinsname\fP
+Name of the instance the connector belongs to
+.TP
+\fInewname\fP
+Name to be given to the connector in the current figure
+.SH DESCRIPTION
+\fBCOPY_UP_CON_FACE\fP copies a instance connector into the current layout
+figure, and gives to the new connector the name \fInewname\fP.
+The \fIface\fP and \fIconname\fP arguments are not suffiscient for non
+ambiguiously identify a single connector.
+So, if more than one connector matches these arguments, the behaviour described
+below is applied on all of them.
+.br
+Two behaviour are expected, depending on the instance connector location
+regarding the \fIabutment box\fP of the current figure.
+.TP 20
+Connector on the \fIabutment box\fP
+The figure connector is place right over the instance connector. The single
+connector is duplicated.
+.TP
+Connector inside the \fIabutment box\fP
+The instance connector face is computed in the figure, and then, the connector
+is duplicated \fIon\fP the given face, at the right coordinates for this face.
+Then a wire is drawn between the instance connector and the figure connector in
+the connector layer.
+.SH ERRORS
+.if n \{\
+.ft B \}
+.if t \{\
+.ft CR \}
+"GENLIB_COPY_UP_CON_FACE impossible : missing GENLIB_DEF_PHFIG"
+.ft R
+.RS
+No figure has been yet specified by a call to \fBDEF_PHFIG\fP. So it isn't
+possible to place a connector inside it.
+you must call \fBDEF_PHFIG\fP before any other layout action.
+.RE
+.if n \{\
+.ft B \}
+.if t \{\
+.ft CR \}
+"*** genlib error *** GENLIB_COPY_UP_CON_FACE impossible : connector \fIconname\fP face
+\fIface\fP of instance \fIinsname\fP, \fIcurrent\fP figure doesn't exist"
+.ft R
+.RS
+No connector matches both the \fIconname\fP and the \fIface\fP arguments.
+.RE
+.SH EXAMPLE
+.nf
+.if n \{\
+.ft B \}
+.if t \{\
+.ft CR \}
+#include <genlib.h>
+main()
+{
+	/\(** Create a figure to work on  \(**/
+	GENLIB_DEF_PHFIG("cell");
+	.
+	.
+	GENLIB_PLACE_LEFT("gaer0_f", "insN", SYMXY);
+	.
+	.
+	GENLIB_DEF_AB(0L, 0L, 0L, 0L);
+	/\(** Put a connector \(**/
+	GENLIB_COPY_UP_CON_FACE("i0", 1, "insN", "inz0");
+	/\(** Save that on disk \(**/
+	GENLIB_SAVE_PHFIG();
+}
+.ft R
+.fi
+.SH SEE ALSO
+.BR genlib (1),
+.BR GENLIB_DEF_PHFIG (3),
+.BR GENLIB_SAVE_PHFIG (3),
+.BR GENLIB_COPY_UP_ALL_CON (3),
+.BR GENLIB_COPY_UP_CON (3),
+.BR GENLIB_PHCON (3),
+.BR GENLIB_THRU_CON_H (3),
+.BR GENLIB_THRU_CON_V (3).
+
+
+.so man1/alc_bug_report.1
+

@@ -1,0 +1,110 @@
+.\"   $Id: GENLIB_GET_CON_Y.3,v 1.1 2002/03/08 14:08:10 fred Exp $
+.\" @(#)GENLIB_GET_CON_Y.3 2.11 01/92; Labo Cao-vlsi; Author : Frederic Petrot
+.if t \{\
+.so man1/alc_contents.mac
+.XS \n%
+.ti 0.2i
+GENLIB_GET_CON_Y
+.XE \}
+.TH GENLIB_GET_CON_Y.3 "October 1, 1997" "ASIM/LIP6" "PROCEDURAL GENERATION LANGUAGE"
+.SH NAME
+GENLIB_GET_CON_Y \- retrieve the x coordinate of an instance connector
+.SH SYNOPSYS
+.nf
+.if n \{\
+.ft B \}
+.if t \{\
+.ft CR \}
+long GENLIB_GET_CON_Y(insname, conname, index)
+char \(**insname, \(**conname;
+long index;
+.ft R
+.fi
+.so man1/alc_origin.1
+.SH PARAMETERS
+.TP 20
+\fIinsname\fP
+Name of the instance in the which the connector is to be searched for
+.TP
+\fIconname\fP
+Name of the connector
+.TP
+\fIindex\fP
+Connector index
+.SH DESCRIPTION
+\fBGET_CON_Y\fP looks for 
+the connector, \fIconname\fP, in the instance called \fIinsname\fP.
+Then it computes its absolute coordinates in the figure, and gives back the
+y coordinate.
+.SH RETURN VALUE
+The function returns a long int beeing the y position of the connector
+in the current figure
+.SH ERRORS
+.if n \{\
+.ft B \}
+.if t \{\
+.ft CR \}
+"GENLIB_GET_CON_Y impossible : missing GENLIB_DEF_PHFIG"
+.ft R
+.RS
+No figure has been yet specified by a call to \fBDEF_PHFIG\fP. So it isn't
+possible to place a connector inside it.
+you must call \fBDEF_PHFIG\fP before any other layout action.
+.RE
+.if n \{\
+.ft B \}
+.if t \{\
+.ft CR \}
+"illegal getphins : instance called \fIinsname\fP does not exist"
+.ft R
+.RS
+No instance called \fIinsname\fP exists in the current figure.
+.RE
+.if n \{\
+.ft B \}
+.if t \{\
+.ft CR \}
+"illegal getphcon : connectors \fIconname\fP, index \fIindex\fP does not exist"
+.ft R
+.RS
+No connector called \fIconname\fP exists in the model of the instance
+\fIinsname\fP.
+.RE
+.SH EXAMPLE
+.nf
+.if n \{\
+.ft B \}
+.if t \{\
+.ft CR \}
+#include <genlib.h>
+main()
+{
+long x, y;
+	/\(** Create a figure to work on  \(**/
+	GENLIB_DEF_PHFIG("cell");
+	GENLIB_PLACE("gaci0_b", "r1", NOSYM, 23L, 54L);
+	/\(** Get a connector \(**/
+	y = GENLIB_GET_CON_Y("r1", "a", 1);
+	.
+	.
+	GENLIB_PHVIA(x, y, CONT_VIA);
+	/\(** Save that on disk \(**/
+	GENLIB_SAVE_PHFIG();
+}
+.ft R
+.fi
+.SH SEE ALSO
+.BR genlib (1),
+.BR GENLIB_DEF_PHFIG (3),
+.BR GENLIB_SAVE_PHFIG (3),
+.BR GENLIB_PHCON (3),
+.BR GENLIB_PHSEG (3),
+.BR GENLIB_COPY_UP_CON (3),
+.BR GENLIB_COPY_UP_ALL_CON (3),
+.BR GENLIB_GET_CON_X (3),
+.BR GENLIB_GET_REF_X (3),
+.BR GENLIB_GET_REF_Y (3).
+
+
+.so man1/alc_bug_report.1
+
