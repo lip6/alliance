@@ -1,0 +1,19 @@
+dnl $Id: configure.in,v 1.1 2002/05/07 10:39:29 czo Exp $
+
+AC_INIT(etc/alc_env.csh)
+AM_INIT_AUTOMAKE(distrib, 1.0)
+
+AC_PROG_INSTALL
+AC_PROG_MAKE_SET
+
+AM_ALLIANCE
+
+AC_OUTPUT([
+Makefile
+doc/Makefile
+etc/Makefile
+etc/alc_env.sh
+etc/alc_env.csh
+])
+
+
