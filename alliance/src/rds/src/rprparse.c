@@ -126,6 +126,7 @@
   static keyword KeywordDefine [ RPR_MAX_KEYWORD ] =
  
   {
+    { "alcw",         RDS_TRANS_ALCW   },
     { "all",          RDS_USE_ALL      },
     { "alu1",         ALU1             },
     { "alu2",         ALU2             },
@@ -136,6 +137,7 @@
     { "alu7",         ALU7             },
     { "alu8",         ALU8             },
     { "alu9",         ALU9             },
+    { "arcw",         RDS_TRANS_ARCW   },
     { "c_x_n",        C_X_N            },
     { "c_x_p",        C_X_P            },
     { "calu1",        CALU1            },

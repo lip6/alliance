@@ -80,8 +80,10 @@
 # define RDS_TRANS_LCW        (unsigned char)1
 # define RDS_TRANS_RCW        (unsigned char)2
 # define RDS_TRANS_VWS        (unsigned char)3
+# define RDS_TRANS_ALCW       (unsigned char)4
+# define RDS_TRANS_ARCW       (unsigned char)5
 
-# define RDS_MAX_TRANS        ( RDS_TRANS_VWS + 1 )
+# define RDS_MAX_TRANS        ( RDS_TRANS_ARCW + 1 )
 
 # define MBK_REF_REF          0
 # define MBK_REF_CON          1

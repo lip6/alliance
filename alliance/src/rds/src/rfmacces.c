@@ -272,6 +272,50 @@ rdsrec_list *segmbkrds( Figure, Segment, Lynx )
                       break;
         }
       }
+      else
+      if ( TRANS == RDS_TRANS_ARCW )
+      {
+        switch ( Segment->TYPE )
+        {
+          case LEFT   :
+          case RIGHT  : X1R = X1 - DLR;
+                        Y1R = Y1 - (WS >> 1) - DWR - OFFSET;
+                        X2R = X2 + DLR;
+                        Y2R = Y2 - (WS >> 1) - OFFSET;
+
+                      break;
+
+          case DOWN   :
+          case UP     : X1R = X1 + (WS >> 1) + OFFSET;
+                        Y1R = Y1 - DLR;
+                        X2R = X2 + (WS >> 1) + DWR + OFFSET;
+                        Y2R = Y2 + DLR;
+
+                      break;
+        }
+      }
+      else
+      if ( TRANS == RDS_TRANS_ALCW )
+      {
+        switch ( Segment->TYPE )
+        {
+          case LEFT   :
+          case RIGHT  : X1R = X1 - DLR;
+                        Y1R = Y1 + (WS >> 1) + OFFSET;
+                        X2R = X2 + DLR;
+                        Y2R = Y2 + (WS >> 1) + DWR + OFFSET;
+
+                      break;
+
+          case DOWN   : 
+          case UP     : X1R = X1 - (WS >> 1) - DWR - OFFSET;
+                        Y1R = Y1 - DLR;
+                        X2R = X2 - (WS >> 1) - OFFSET;
+                        Y2R = Y2 + DLR;
+
+                      break;
+        }
+      }
     
       X1R = RfmRoundLow ( X1R );
       Y1R = RfmRoundLow ( Y1R );
