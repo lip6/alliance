@@ -10,6 +10,8 @@
 # The variables $ALLIANCE_* are set by
 # alc_env.[c]sh script or libraries.mk
 
+PROGRAM_SUFFIX=@PROGRAM_SUFFIX@
+
 GNU_LIB          = @GNU_LIB_LOC@
 GNU_INCLUDE      = @GNU_INC_LOC@
 
@@ -22,6 +24,7 @@ MOTIF_INCLUDE    = @GUI_INC_LOC@
 SHELL		= @SHELL@
 CSH		= @CSH@
 CP		= @CP@
+CAT		= @CAT@
 MV		= @MV@
 RM		= @RM@
 MKDIR		= @MKDIR@

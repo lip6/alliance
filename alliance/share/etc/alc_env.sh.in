@@ -6,7 +6,7 @@
 #  Alliance CAD system environnement
 #  Usage (in Bourne-shell) : > . alc_env.sh
 #  (C) 1997 Czo  -- <Olivier.Sirol@lip6.fr>
-#  $Id: alc_env.sh.in,v 1.3 1999/08/27 15:17:01 czo Exp $
+#  $Id: alc_env.sh.in,v 1.4 1999/09/09 15:42:00 czo Exp $
 #  Generated from alc_env.sh.in on @DATE@
 
 # $MACHINE and $TOP are the only variables you will
@@ -52,6 +52,11 @@ export MACHINE
 # Where the Alliance CAD is installed
 
  TOP=@TOP@/$MACHINE ;      export TOP
+
+# To come :
+
+ ALLIANCE_OS=$MACHINE;      export ALLIANCE_OS
+ ALLIANCE_TOP=$TOP;         export ALLIANCE_TOP
 
 # User def 
 

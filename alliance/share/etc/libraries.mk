@@ -8,6 +8,10 @@
 # The variables $TOP and $MACHINE are set by
 # alc_env.[c]sh script
 
+# ###---------------------------------------------------------###
+#    Common settings                                            #
+# ###---------------------------------------------------------###
+
 ALLIANCE_VERSION = '"3.5.7"'
 ALLIANCE_BIN     = $(TOP)/bin
 ALLIANCE_LIB     = $(TOP)/lib
@@ -16,14 +20,14 @@ ALLIANCE_CELLS   = $(TOP)/cells
 ALLIANCE_ETC     = $(TOP)/etc
 
 # distrib path
-#TARGET_BIN       = $(TOP)/bin
-#TARGET_LIB       = $(TOP)/lib
-#TARGET_INCLUDE   = $(TOP)/include
+TARGET_BIN       = $(TOP)/bin
+TARGET_LIB       = $(TOP)/lib
+TARGET_INCLUDE   = $(TOP)/include
 
 # develloppers path
-TARGET_BIN       = $(HOME)/labo/$(MACHINE)/bin
-TARGET_LIB       = $(HOME)/labo/$(MACHINE)/lib
-TARGET_INCLUDE   = $(HOME)/labo/$(MACHINE)/include
+#TARGET_BIN       = $(HOME)/labo/$(MACHINE)/bin
+#TARGET_LIB       = $(HOME)/labo/$(MACHINE)/lib
+#TARGET_INCLUDE   = $(HOME)/labo/$(MACHINE)/include
 
 # ###---------------------------------------------------------###
 #    general purpose utilities                                  #
@@ -366,29 +370,6 @@ VRD_LIB    = libVrd303.a
 VRD_H      =    vrd303.h
 
 # ###---------------------------------------------------------###
-#    user level functions for FPGEN                             #
-# ###---------------------------------------------------------###
-
-FGN_L      =  -lFgn114
-FGN_LIB    = libFgn114.a
-FGN_H        = Fgn107.h
-
-# ###---------------------------------------------------------###
-#    schematic assistant                                        #
-#                                                               #
-#      - saB : basic data structures                            #
-#      - sax : high level functions                             #
-# ###---------------------------------------------------------###
-
-SAB_L   =  -lSaB402
-SAB_LIB = libSaB402.a
-SAB_H   =    sab402.h
-
-SAX_L   =  -lSax102
-SAX_LIB = libSax102.a
-SAX_H   =    sax102.h
-
-# ###---------------------------------------------------------###
 #    Timing Analysis                                            #
 #                                                               #
 #      - ttv : basic timing data structures                     #
@@ -417,3 +398,6 @@ TAS_H      =    tas542.h
 FCL_L      =  -lFcl103
 FCL_LIB    = libFcl103.a
 FCL_H      =    fcl103.h
+
+# end of libraries.mk
+
