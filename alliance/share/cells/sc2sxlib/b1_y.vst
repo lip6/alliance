@@ -12,19 +12,36 @@ architecture structural of b1_y is
 Component buf_x4
    port (
       i  : in      bit;
+      q  : out     bit;
+      vdd : in      bit;
+      vss : in      bit
+ );
+end component;
+
+Component inv_x1
+   port (
+      i   : in      bit;
       nq  : out     bit;
       vdd : in      bit;
       vss : in      bit
  );
 end component;
 
+signal n1  : bit;
 
 begin
 
+u1 : inv_x1
+   port map (
+      i   => n1,
+      nq  => t,
+      vdd => vdd,
+      vss => vss
+   );
 u4 : buf_x4
    port map (
       i  => i,
-      nq  => t,
+      q  => n1,
       vdd => vdd,
       vss => vss
    );
