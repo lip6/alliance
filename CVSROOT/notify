@@ -12,5 +12,5 @@
 #ALL mail %s -s "CVS notification"
 
 
-ALL mail %s -s "ALC : CVS notify" 
+ALL PATH=/asim/gnu/bin:/usr/ucb:${PATH} ; export PATH ; mail %s -s "ALC : CVS notify" 
 
