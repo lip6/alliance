@@ -3,7 +3,7 @@
 # description   : Alliance Shared Libraries and Include Files   #
 # ###---------------------------------------------------------###
 
-# Last updated on on Friday 06 August 1999 at 13:48 MET DST
+# Last updated on on Tuesday 21 September 1999 at 16:47 MET DST
 
 # The variables $TOP and $MACHINE are set by
 # alc_env.[c]sh script
@@ -19,15 +19,16 @@ ALLIANCE_INCLUDE = $(TOP)/include
 ALLIANCE_CELLS   = $(TOP)/cells
 ALLIANCE_ETC     = $(TOP)/etc
 
-# distrib path
-TARGET_BIN       = $(TOP)/bin
-TARGET_LIB       = $(TOP)/lib
-TARGET_INCLUDE   = $(TOP)/include
+# distrib path is now set by make command line
+# when building alliance distrib (./build)
+#TARGET_BIN       = $(TOP)/bin
+#TARGET_LIB       = $(TOP)/lib
+#TARGET_INCLUDE   = $(TOP)/include
 
 # develloppers path
-#TARGET_BIN       = $(HOME)/labo/$(MACHINE)/bin
-#TARGET_LIB       = $(HOME)/labo/$(MACHINE)/lib
-#TARGET_INCLUDE   = $(HOME)/labo/$(MACHINE)/include
+TARGET_BIN       = $(HOME)/labo/$(MACHINE)/bin
+TARGET_LIB       = $(HOME)/labo/$(MACHINE)/lib
+TARGET_INCLUDE   = $(HOME)/labo/$(MACHINE)/include
 
 # ###---------------------------------------------------------###
 #    general purpose utilities                                  #
@@ -238,15 +239,15 @@ FTL_H      =    ftl103.h
 #      - pgn : user level functions for GENPAT                  #
 # ###---------------------------------------------------------###
 
-PAT_L      =  -lPat106
-PAT_LIB    = libPat106.a
-PAT_H      =    pat106.h
-PHL_L      =  -lPhl106
-PHL_LIB    = libPhl106.a
-PHL_H      =    phl106.h
-PPT_L      =  -lPpt106
-PPT_LIB    = libPpt106.a
-PPT_H      =    ppt106.h
+PAT_L      =  -lPat108
+PAT_LIB    = libPat108.a
+PAT_H      =    pat108.h
+PHL_L      =  -lPhl108
+PHL_LIB    = libPhl108.a
+PHL_H      =    phl108.h
+PPT_L      =  -lPpt108
+PPT_LIB    = libPpt108.a
+PPT_H      =    ppt108.h
 PGN_L      =  -lPgn102
 PGN_LIB    = libPgn102.a
 PGN_H      =    Pgn102.h
