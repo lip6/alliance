@@ -1,4 +1,4 @@
-.\"   $Id: ocp.1,v 1.1 2002/03/13 18:57:11 xtof Exp $
+.\"   $Id: ocp.1,v 1.2 2002/05/06 15:52:54 xtof Exp $
 .\" @(#)Labo.l 0.0 92/09/24 UPMC; Author: Christophe ALEXANDRE
 .pl -.4
 .TH OCP 1 "September 27, 2001" "ASIM/LIP6" "CAO\-VLSI Reference Manual"
@@ -63,6 +63,8 @@ The \fB-margin <MARGIN>\fP option allow to set The amount of free area added in 
 The resulting area will be equal to CELL_AREA * (1 + <MARGIN>).
 .br
 By default, the margin value is 0.2 (20%)
+.br
+\fB-eqmargin\fP option will distribute equitably the margin between cells. By default, the biggest possible number of 2-pitch tie cells is inserted. This is done to have the best well and bulk polarity.
 .br
 
 \fBNumber of rows\fP
