@@ -106,7 +106,17 @@
     3, /* VEX_INDEX_N   */
     0, /* VEX_OTHERS    */
     2, /* VEX_NUM_BIT   */
-    0  /* VEX_ABS       */
+    0, /* VEX_ABS       */
+    0, /* AF            */
+    0, /* AG            */
+    0, /* AX            */
+    2, /* AU            */
+    1, /* EF            */
+    1, /* EG            */
+    1, /* EX            */
+    2, /* EU            */
+    2, /* EQUIV         */
+    2  /* IMPLY         */
   };
 
   short VexOperArith[ VEX_MAX_OPERATOR ] =
@@ -150,7 +160,17 @@
     0, /* VEX_INDEX_N   */
     1, /* VEX_OTHERS    */
     0, /* VEX_NUM_BIT   */
-    1  /* VEX_ABS       */
+    1, /* VEX_ABS       */
+    0, /* AF            */
+    0, /* AG            */
+    0, /* AX            */
+    0, /* AU            */
+    0, /* EF            */
+    0, /* EG            */
+    0, /* EX            */
+    0, /* EU            */
+    0, /* EQUIV         */
+    0  /* IMPLY         */
   };
 
   short VexOperNegative[ VEX_MAX_OPERATOR ] =
@@ -195,6 +215,16 @@
     0, /* VEX_OTHERS    */
     0, /* VEX_NUM_BIT   */
     0, /* VEX_ABS       */
+    0, /* AF            */
+    0, /* AG            */
+    0, /* AX            */
+    0, /* AU            */
+    0, /* EF            */
+    0, /* EG            */
+    0, /* EX            */
+    0, /* EU            */
+    0, /* EQUIV         */
+    0  /* IMPLY         */
   };
 
   short VexTypeDivisible[ VEX_MAX_TYPE ] =

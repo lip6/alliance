@@ -288,7 +288,18 @@
 # define VEX_NUM_BIT         38
 # define VEX_ABS             39
 
-# define VEX_MAX_OPERATOR    40
+# define VEX_AF              40
+# define VEX_AG              41
+# define VEX_AX              42
+# define VEX_AU              43
+# define VEX_EF              44
+# define VEX_EG              45
+# define VEX_EX              46
+# define VEX_EU              47
+# define VEX_EQUIV           48
+# define VEX_IMPLY           49
+
+# define VEX_MAX_OPERATOR    50
 
 /*------------------------------------------------------\
 |                                                       |

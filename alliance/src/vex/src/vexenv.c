@@ -106,7 +106,17 @@
     "INDEX_N",
     "OTHERS =>",
     "NUM_BIT",
-    "ABS"
+    "ABS",
+    "AF",
+    "AG",
+    "AX",
+    "AU",
+    "EF",
+    "EG",
+    "EX",
+    "EU",
+    "<=>",
+    "==>"
   };
 
 /* A few declaration that should be in vexenv I believe, but I leave

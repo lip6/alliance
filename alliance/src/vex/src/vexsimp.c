@@ -125,7 +125,17 @@
      loc_simpvexnop,      /* VEX_INDEX_N   */
      loc_simpvexnop,      /* VEX_OTHERS    */
      loc_simpvexnumbit,   /* VEX_NUM_BIT   */
-     loc_simpvexabs       /* VEX_ABS       */
+     loc_simpvexabs,      /* VEX_ABS       */
+     loc_simpvexnop,      /* AF            */
+     loc_simpvexnop,      /* AG            */
+     loc_simpvexnop,      /* AX            */
+     loc_simpvexnop,      /* AU            */
+     loc_simpvexnop,      /* EF            */
+     loc_simpvexnop,      /* EG            */
+     loc_simpvexnop,      /* EX            */
+     loc_simpvexnop,      /* EU            */
+     loc_simpvexnop,      /* EQUIV         */
+     loc_simpvexnop       /* IMPLY         */
   };
 
   static short SimpBool3Table[ 3 ][ 3 ] =

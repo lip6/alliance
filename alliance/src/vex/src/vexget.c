@@ -108,7 +108,17 @@
     -1,         /* VEX_INDEX_N    */
     -1,         /* VEX_OTHERS     */
     -1,         /* VEX_NUM_BIT    */
-    -1          /* VEX_ABS        */
+    -1,         /* VEX_ABS        */
+    -1,         /* AF             */
+    -1,         /* AG             */
+    -1,         /* AX             */
+    -1,         /* AU             */
+    -1,         /* EF             */
+    -1,         /* EG             */
+    -1,         /* EX             */
+    -1,         /* EU             */
+    -1,         /* EQUIV          */
+    -1          /* IMPLY          */
   };
 
   short VexTypeScalar[ VEX_MAX_TYPE ] =
