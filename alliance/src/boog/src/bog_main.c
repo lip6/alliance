@@ -251,7 +251,7 @@ extern int main (int argc, char* argv[])
    bddenv();  /*for vhdlloadbefig() */
    
    alliancebanner_with_authors("BooG", VERSION " [2002/02/11]", "Binding and Optimizing On Gates", 
-                               "2000", "5.0"/*ALLIANCE_VERSION*/, "François Donnet");
+                               "2000", ALLIANCE_VERSION, "François Donnet");
     
    /*alliance env: extension netlist file (vst or al)*/
    fprintf(stdout,"        MBK_VDD        : %s\n",VDD);

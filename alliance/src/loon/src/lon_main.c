@@ -254,7 +254,7 @@ extern int main (int argc, char* argv[])
    
 
    alliancebanner_with_authors("LooN", VERSION " [2001/08/21]", "Local optimization on Nets", 
-                               "2000", "5.0"/*alliance version*/, "François Donnet");
+                               "2000", ALLIANCE_VERSION, "François Donnet");
     
    /*set options*/
    set_param(argc,argv);

@@ -63,7 +63,7 @@ char *outputFile;
 
 
 alliancebanner_with_authors("FlatBeh", VERSION " [2000/11/01]", "a netlist abstractor", "1993",
-               "5.0", "François DONNET, Huu Nghia VUONG");
+               ALLIANCE_VERSION, "François DONNET, Huu Nghia VUONG");
 
 if ((argc < 2) || (argc > 3))
    {
