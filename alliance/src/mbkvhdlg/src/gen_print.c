@@ -1,7 +1,10 @@
 /*
  * $Log: gen_print.c,v $
- * Revision 1.1  2002/04/26 09:51:07  ludo
- * Initial revision
+ * Revision 1.2  2002/04/26 12:54:30  ludo
+ * Hi
+ *
+ * Revision 1.1.1.1  2002/04/26 09:51:07  ludo
+ * Mise a plat de mbkvhdlg
  *
  * Revision 1.1.1.1  2002/04/11 08:54:52  fred
  * Importing mbkvhdlg into the new Alliance CVS tree
@@ -33,7 +36,7 @@
  *
  */
 
-#ident "$Id: gen_print.c,v 1.1 2002/04/26 09:51:07 ludo Exp $"
+#ident "$Id: gen_print.c,v 1.2 2002/04/26 12:54:30 ludo Exp $"
 #include <stdio.h>
 #include <string.h>
 #include <mut.h>
@@ -73,14 +76,6 @@ int i;
             fprintf(stdout,"Unknown logen type %d\n", g->TYPE);
             break;
       }
-      g=g->NEXT;
-   }
-}
-
-void debuglogen(logen_list *g, int level)
-{
-   while (g) {
-      printlogen(g, level);
       g=g->NEXT;
    }
 }
@@ -138,6 +133,15 @@ int i;
          fprintf(stdout,"Unknown logen type %d\n", g->TYPE);
    }
 }
+
+void debuglogen(logen_list *g, int level)
+{
+   while (g) {
+      printlogen(g, level);
+      g=g->NEXT;
+   }
+}
+
 
 #if 0
 static void printlogenvalue(logen_list *g)
