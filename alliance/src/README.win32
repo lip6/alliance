@@ -1,0 +1,55 @@
+# Alliance VLSI CAD System
+# Copyright (C) 1990, 2004 ASIM/LIP6/UPMC
+#
+# Home page          : http://asim.lip6.fr/alliance/
+# E-mail             : mailto:alliance-users@asim.lip6.fr
+# ftp site           : ftp://asim.lip6.fr/pub/alliance/
+#
+
+This file discuss about installation of Alliance on WINDOWS machines.
+
+
+===================================================================
+
+Alliance is designed to run on a Unix workstation, not in a 
+Windows environment, but you can install Cygwin to let your 
+Windows Workstation be more posix.
+
+Alliance works under Windows NT 4, 5, 5.1 (NT4/2000/XP). If you 
+use Windows 95 98 or Me, please consider upgrading to Linux.
+
+Before unpacking the alliance package, you have to install cygwin
+on your computer (http://www.cygwin.com)
+
+Run cygwin's setup (http://www.cygwin.com/setup.exe) and be sure 
+to install all development packages (gcc, X11, lesstif) in doubt
+install everything... it's worth the disk space...
+
+
+Unzip the binary archive under / cygwin directory:
+
+> cd /
+> unzip -x alliance-5.0-XXXX-win32-cygwin.zip
+
+
+
+# Usage :
+# ===================================================================
+
+Each user has to source /alliance/etc/alc_env.[c]sh to set Alliance environment
+variables to be able to run the Alliance tools.
+
+in sh  > . /alliance/etc/alc_env.sh
+
+in csh > source /alliance/etc/alc_env.csh
+
+This sets various default environment variables which could be changed by user
+later (Like MBK_OUT_LO to set the netlist output file format).
+
+Documentations are installed in /alliance/doc/, Tutorials are installed
+ in /alliance/tutorials, and you will find many circuit examples with
+associated makefile in /alliance/examples subdirectories.
+
+
+# EOF
+
