@@ -10,7 +10,7 @@ if  test "$1" = "clean" ; then
    exit
 fi 
 
-dirs=`\ls -1pd * | grep / | grep -v CVS`
+dirs=`\ls -l $srcdir | grep '^d' | awk '{print $NF}'`
 
 aclocal -I .
 automake --foreign --add-missing --copy
