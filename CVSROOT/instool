@@ -7,17 +7,17 @@
 # Author: Frédéric Pétrot (fred@pasta.fr.ea)
 #         for version 0
 #
-# $Id: instool,v 1.13 1999/10/15 16:38:24 czo Exp $
+# $Id: instool,v 1.14 1999/10/21 13:53:13 czo Exp $
 #
 
-PATH=/users/outil1/alliance/cvsroot/CVSROOT:/asim/gnu/bin:/usr/ucb:/usr/etc:/bin:/usr/bin:/usr/local/bin:${PATH}
+
+PATH=/users/outil1/alliance/cvsroot/CVSROOT:/asim/gnu/bin:/usr/local/bin:/usr/ucb:/usr/etc:/bin:/usr/bin:${PATH}
 export PATH
 
 #rsh ssh et .profile ...
+#DATE=`date +"%Y.%m.%d_%H.%M.%S"`
 
-# DATE=`/asim/gnu/bin/date +"%Y.%m.%d_%H.%M.%S"`
-
-DATE=`/asim/gnu/bin/date +"%Y.%m.%d"`
+DATE=`date +"%Y.%m.%d"`
 mkdir -p $HOME/tmp
 TMPDIR=$HOME/tmp
 LOG=$TMPDIR/`basename $0`.$$
