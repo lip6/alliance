@@ -67,7 +67,7 @@ void   sorttransistormos    __P(( lofig_list *ptfig,
                                   char *vdd
                                ));
 void   sortcircuit          __P(( lofig_list *ptfig, FILE *df ));
-void   tooutput             __P(()); /* va_list. */
+void   tooutput             __P(( FILE *, ...));
 int    sortconnecteur_ordre __P(( FILE *df, chain_list*, locon_list*, int ));
 
 #endif

@@ -15,7 +15,6 @@
 /* traitement des erreur elp                                                */
 /****************************************************************************/
 
-#include <stdarg.h>
 #include "elp.h"
 
 
@@ -36,10 +35,9 @@
 /* -------------------                                                       */
 /*    La fonction renvoie le numero de l'erreur.                             */
 /*****************************************************************************/
-elperrorFCT short elpError(errnum, ...)
-short errnum ;
+elperrorFCT short elpError(short errnum, ...)
 {
-va_list arg ;
+va_list arg;
 
 if(elpLang == elpENGLISH)
 fprintf(stderr,"\n!!! elp error: %d !!!\n",errnum) ;

@@ -911,7 +911,7 @@ void            tooutput( FILE *fd, ... )
   va_list       index;
   char          *fmt;
 
-  va_start( fd, index );
+  va_start( index, fd );
   
   fmt = va_arg( index, char* );
 

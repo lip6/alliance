@@ -15,7 +15,7 @@
 
 /* les inclusions */
 #include <stdio.h>
-#include <varargs.h>
+#include <stdarg.h>
 #include "mut.h"
 #include "mlo.h"
 #include "rcn.h"
@@ -117,4 +117,4 @@ extern float elpLotrsCapaGrid(lotrs_list *) ;
 extern int elpLofigCapaDiff(lofig_list *) ;
 extern int elpLofigCapaGrid(lofig_list *) ;
 extern int elpLofigShrink(lofig_list *) ;
-extern short elpError() ;
+extern short elpError(short, ...) ;

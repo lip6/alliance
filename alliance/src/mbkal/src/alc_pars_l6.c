@@ -30,6 +30,9 @@
 *                                 is provided.                                 *
 *  Updates     : AUGUST, 12th 2002, Pierre Nguyen Tuong                        *
 *  $Log: alc_pars_l6.c,v $
+*  Revision 1.9  2003/09/11 15:08:50  fred
+*  Correction on stdarg
+*
 *  Revision 1.8  2003/09/11 13:07:06  fred
 *  Changing varargs into stdarg, and updating the sources accordingly.
 *
@@ -172,7 +175,7 @@ float		decode_capa   __P(( losig_list*, chain_list*, char*, int ));
 int		type_line     __P(( chain_list*, char*, int ));
 chain_list*	read_line     __P(( FILE*, char*, int ));
 void		free_line     __P(( chain_list* ));
-void		mal_error     __P(());
+void		mal_error     __P(( char *, ...));
 void		chk_header    __P(( chain_list*, char*, int ));
 unsigned char	decode_layer  __P(( char*, char*, int ));
 data_loins*	decode_ins    __P(( chain_list*, char*, int ));
@@ -1289,12 +1292,11 @@ chain_list	*head;
 void		mal_error( char *fname, ... )
 {
   va_list	 index;
-  char		*fname;
   int		 line;
   char          *func;
   char          *fmt;
   
-  va_start( fname, index );
+  va_start( index, fname );
   fname = va_arg( index, char* );
   line  = va_arg( index, int   );
   func  = va_arg( index, char* );
