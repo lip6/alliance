@@ -1,4 +1,4 @@
-.\"   $Id: fsm.5,v 1.1 2002/03/20 14:26:45 ludo Exp $
+.\"   $Id: fsm.5,v 1.2 2002/08/02 10:46:22 ludo Exp $
 .\" @(#)FSM.5 2.1 Sep 24 1995 UPMC ; Jacomme L.
 .TH FSM 5 "October 1, 1997" "ASIM/LIP6" "VHDL subset of ASIM/LIP6/CAO-VLSI lab."
 
@@ -111,7 +111,7 @@ is enabled whenever clock changes.
 Both Level sensitive latches, and edge triggered flip flops can be used for
 state registers and stack implementation.
 .br
-.SH EXAMPLES
+.SH EXAMPLE
 .PP
 .nf
 Entity FSM_EX is
@@ -232,6 +232,113 @@ process(ck)
 end process;
 
 end auto;
+
+.SH MULTI FSM EXAMPLE
+.br
+It is possible to describe in the same description two or more FSM
+communicating each others throw internal signals as shown bellow.
+It is also possible to incorporate concurrent statements using VBE(5)
+VHDL coding style.
+.nf
+
+ENTITY multi_fsm is
+PORT 
+( ck       : in  BIT;
+  data_in  : in  BIT;
+  reset    : in  BIT; 
+  data_out : out BIT
+);
+END multi_fsm;
+
+
+ARCHITECTURE FSM OF multi_fsm is
+
+   TYPE A_ETAT_TYPE IS (A_E0, A_E1);
+   SIGNAL A_NS, A_CS : A_ETAT_TYPE;
+
+   TYPE B_ETAT_TYPE IS (B_E0, B_E1);
+   SIGNAL B_NS, B_CS : B_ETAT_TYPE;
+
+--PRAGMA CURRENT_STATE A_CS  FSM_A
+--PRAGMA NEXT_STATE A_NS     FSM_A
+--PRAGMA CLOCK ck            FSM_A
+--PRAGMA FIRST_STATE A_E0    FSM_A
+
+--PRAGMA CURRENT_STATE B_CS  FSM_B
+--PRAGMA NEXT_STATE B_NS     FSM_B
+--PRAGMA CLOCK ck            FSM_B
+--PRAGMA FIRST_STATE B_E0    FSM_B
+
+   SIGNAL ACK, REQ, DATA_INT : BIT;
+
+BEGIN
+
+A_1 : PROCESS ( A_CS, ACK )
+BEGIN
+  IF ( reset = '1' )
+  THEN A_NS     <= A_E0;
+       DATA_OUT <= '0';
+       REQ      <= '0';
+  ELSE
+  CASE A_CS is
+    WHEN A_E0 =>
+      IF ( ACK ='1') THEN A_NS <= A_E1;
+                     ELSE A_NS <= A_E0;
+      END IF;
+      DATA_OUT <= '0';
+      REQ      <= '1';
+    WHEN A_E1 =>
+      IF ( ACK ='1') THEN A_NS <= A_E1;
+                     ELSE A_NS <= A_E0;
+      END IF;
+      DATA_OUT <= DATA_INT;
+      REQ      <= '0';
+  END CASE;
+  END IF;
+END PROCESS A_1;
+
+A_2 : PROCESS( ck )
+BEGIN
+    IF ( ck = '1' AND NOT ck'STABLE )
+    THEN A_CS <= A_NS;
+    END IF;
+END PROCESS A_2;
+
+-------
+
+B_1 : PROCESS ( B_CS, ACK )
+BEGIN
+  IF ( reset = '1' )
+  THEN B_NS     <= B_E0;
+       DATA_INT <= '0';
+       ACK      <= '0';
+  ELSE
+  CASE B_CS is
+    WHEN B_E0 =>
+      IF ( REQ ='1') THEN B_NS <= B_E1;
+                     ELSE B_NS <= B_E0;
+      END IF;
+      DATA_INT <= '0';
+      ACK      <= '0';
+    WHEN B_E1 =>
+      IF ( REQ ='1') THEN B_NS <= B_E1;
+                     ELSE B_NS <= B_E0;
+      END IF;
+      DATA_INT <= DATA_IN;
+      ACK      <= '1';
+  END CASE;
+  END IF;
+END PROCESS B_1;
+
+B_2 : PROCESS( ck )
+BEGIN
+    IF ( ck = '1' AND NOT ck'STABLE )
+    THEN B_CS <= B_NS;
+    END IF;
+END PROCESS B_2;
+
+END FSM;
+
 
 .SH SEE ALSO
 .PP
