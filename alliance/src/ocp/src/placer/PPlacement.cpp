@@ -331,6 +331,7 @@ PPlacement::Init(lofig* fig, int NbRows)
 	cout << " o Number total of instances is ....  " << _fixedInss.size()+ _toPlaceInss.size() << endl;
 	cout << " o Number of instances to place is ....  " << _toPlaceInss.size() << endl;
 	cout << " o Number of instances already placed is ....  " << _fixedInss.size() << endl;
+	cout << " o Number of nets is .... " << _nets.size() << endl;
     }
     
     // getting NetList Caracteristics
