@@ -10,8 +10,12 @@
 /* ###--------------------------------------------------------------------### */
 /*
  * $Log: vel_drive.c,v $
- * Revision 1.1  2002/04/26 09:51:07  ludo
- * Initial revision
+ * Revision 1.2  2002/06/12 16:10:05  fred
+ * Bug due to the believe that a signal connected to a connector has the
+ * name of this connector corrected.
+ *
+ * Revision 1.1.1.1  2002/04/26 09:51:07  ludo
+ * Mise a plat de mbkvhdlg
  *
  * Revision 1.2  2002/04/16 07:24:51  fred
  * Adding modifications to handle limited generics in VHDL files.
@@ -59,7 +63,7 @@
  *
  */
 
-#ident "$Id: vel_drive.c,v 1.1 2002/04/26 09:51:07 ludo Exp $"
+#ident "$Id: vel_drive.c,v 1.2 2002/06/12 16:10:05 fred Exp $"
 
 #include <stdio.h>
 #include <string.h>
@@ -592,6 +596,17 @@ loins_list *i;
 /* #   mode = 2 : it drives a vhdl netlist (vhd) adding signals             # */
 /* #              to concatenate                                            # */
 /* ###--------------------------------------------------------------------### */
+static void cleanuplofig(lofig_list *f)
+{
+locon_list *c;
+chain_list *n;
+
+    for (c = f->LOCON; c != NULL; c = c->NEXT) {
+        n = addchain(NULL, c->NAME);
+        freechain(c->SIG->NAMECHAIN);
+        c->SIG->NAMECHAIN = n;
+    }
+}
 
 int vhdlsavevelofig(lofig_list *f, int mode)
 {
@@ -602,6 +617,7 @@ velosig *s;
 chain_list *ch;
 long index, signalSize;
 
+   cleanuplofig(f);
    makevelofig(f);
 
    p=getptype(f->USER, VEL_CON);
