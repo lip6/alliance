@@ -4,12 +4,8 @@ GENERIC (
   CONSTANT cin_i0	 : NATURAL := 20;
   CONSTANT cin_i1	 : NATURAL := 21;
   CONSTANT rdown_i0_q	 : NATURAL := 810;
-  CONSTANT rdown_i0_q	 : NATURAL := 810;
-  CONSTANT rdown_i1_q	 : NATURAL := 810;
   CONSTANT rdown_i1_q	 : NATURAL := 810;
   CONSTANT rup_i0_q	 : NATURAL := 890;
-  CONSTANT rup_i0_q	 : NATURAL := 890;
-  CONSTANT rup_i1_q	 : NATURAL := 890;
   CONSTANT rup_i1_q	 : NATURAL := 890;
   CONSTANT tphh_i1_q	 : NATURAL := 357;
   CONSTANT tphh_i0_q	 : NATURAL := 476;
