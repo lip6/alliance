@@ -298,7 +298,7 @@ extern int main (int argc, char* argv[])
    /*check coherence between LAX and lofig*/
    if (lax_file) {
       fprintf(stdout,"Controlling file '%s.lax'...\n",lax_file);
-      if (!coherencelax(lofig)) exit(1);
+      if (!coherencelaxlofig(lofig)) exit(1);
    }   
   
    /*read cell library*/

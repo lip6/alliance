@@ -22,7 +22,7 @@
  */
 
 /*
- * Tool    : SCmap and Loon - parameter file
+ * Tool    : SCmap and Boog - parameter file
  * Date    : 1991,92
  * Author  : Luc Burgun
  * Modified by Czo <Olivier.Sirol@lip6.fr> 1996,97
@@ -110,6 +110,13 @@ extern int getoptimlax __P (());
 /*          return 1 if lax matches with lofig                             */
 /* look if all referenced names are in lofig                               */
 /***************************************************************************/
-extern int coherencelax __P ((lofig_list* lofig));
+extern int coherencelaxlofig __P ((lofig_list* lofig));
+
+/***************************************************************************/
+/*          return 1 if lax matches with befig                             */
+/* lokk if all referenced names are in befig                               */
+/***************************************************************************/
+extern int coherencelaxbefig __P ((befig_list* befig));
+
 
 #endif
