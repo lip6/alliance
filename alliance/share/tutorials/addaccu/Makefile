@@ -85,7 +85,8 @@ core.ap : core.vst
 	MBK_IN_PH=ap ;\
 	MBK_OUT_PH=ap ;\
 	MBK_CATA_LIB=$(ALLIANCE_TOP)/cells/sclib:$(ALLIANCE_TOP)/cells/padlib ;\
-	export MBK_IN_LO MBK_IN_PH MBK_OUT_PH MBK_CATA_LIB ;\
+        SCR_SCLIB=1 ;\
+	export MBK_IN_LO MBK_IN_PH MBK_OUT_PH MBK_CATA_LIB SCR_SCLIB ;\
 	$(SCR) -p -r core 
 
 # ###---------------------------------------------------------###
@@ -95,7 +96,7 @@ core.ap : core.vst
 core.al : core.ap
 	MBK_IN_PH=ap ;\
 	MBK_OUT_LO=al ;\
-	RDS_TECHNO_NAME=$(ALLIANCE_TOP)/etc/cmos_7.rds ;\
+	RDS_TECHNO_NAME=$(ALLIANCE_TOP)/etc/cmos_10.rds ;\
 	MBK_CATA_LIB=$(ALLIANCE_TOP)/cells/sclib:$(ALLIANCE_TOP)/cells/padlib ;\
 	export MBK_IN_PH MBK_OUT_LO RDS_TECHNO_NAME MBK_CATA_LIB ;\
 	$(LYNX) -v core core
@@ -132,7 +133,7 @@ addaccu.ap : core.ap core.lvx addaccu.vst
 addaccu.al : addaccu.ap
 	MBK_IN_PH=ap ;\
 	MBK_OUT_LO=al ;\
-	RDS_TECHNO_NAME=$(ALLIANCE_TOP)/etc/cmos_7.rds ;\
+	RDS_TECHNO_NAME=$(ALLIANCE_TOP)/etc/cmos_10.rds ;\
 	MBK_CATA_LIB=$(ALLIANCE_TOP)/cells/sclib:$(ALLIANCE_TOP)/cells/padlib ;\
 	export MBK_IN_PH MBK_OUT_LO RDS_TECHNO_NAME MBK_CATA_LIB ;\
 	$(LYNX) -v addaccu addaccu
@@ -166,7 +167,7 @@ addaccue.vbe : addaccu.ap addaccue.inf
 	MBK_IN_PH=ap ;\
 	MBK_IN_LO=al ;\
 	MBK_OUT_LO=al ;\
-	RDS_TECHNO_NAME=$(ALLIANCE_TOP)/etc/cmos_7.rds ;\
+	RDS_TECHNO_NAME=$(ALLIANCE_TOP)/etc/cmos_10.rds ;\
 	MBK_CATA_LIB=$(ALLIANCE_TOP)/cells/sclib:$(ALLIANCE_TOP)/cells/padlib ;\
 	export MBK_IN_PH MBK_IN_LO MBK_OUT_LO RDS_TECHNO_NAME MBK_CATA_LIB ;\
 	$(LYNX) -v -t addaccu addaccue ;\
@@ -199,7 +200,7 @@ addaccu.proof : addaccue.vbe addaccu.vbe
 addaccu.drc : addaccu.ap
 	MBK_IN_PH=ap ;\
 	RDS_OUT=cif  ;\
-	RDS_TECHNO_NAME=$(ALLIANCE_TOP)/etc/cmos_7.rds ;\
+	RDS_TECHNO_NAME=$(ALLIANCE_TOP)/etc/cmos_10.rds ;\
 	MBK_CATA_LIB=$(ALLIANCE_TOP)/cells/sclib:$(ALLIANCE_TOP)/cells/padlib ;\
 	export MBK_IN_PH RDS_OUT RDS_TECHNO_NAME MBK_CATA_LIB ;\
 	$(DRUC) addaccu
@@ -235,7 +236,7 @@ clean:
 
 graal : addaccu.ap
 	MBK_IN_PH=ap ;\
-	RDS_TECHNO_NAME=$(ALLIANCE_TOP)/etc/cmos_7.rds ;\
+	RDS_TECHNO_NAME=$(ALLIANCE_TOP)/etc/cmos_10.rds ;\
 	MBK_CATA_LIB=$(ALLIANCE_TOP)/cells/sclib:$(ALLIANCE_TOP)/cells/padlib ;\
 	export MBK_IN_PH RDS_TECHNO_NAME MBK_CATA_LIB ;\
 	$(GRAAL) -l addaccu

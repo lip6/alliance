@@ -149,7 +149,7 @@ int i; /* We will build regular structure using a loop,  i is its index */
             "sel", NAME("mux[%d]", i),
             "vdd", "vss", 0);
 
-     LOINS("ms_y",  NAME("l%d", i),
+     LOINS("msdp2_y",  NAME("l%d", i),
            NAME("s[%d]", i), "ck", NAME("regout[%d]", i),
            "vdd", "vss", 0);
    }

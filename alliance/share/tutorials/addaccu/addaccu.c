@@ -24,7 +24,7 @@ int i;
 */
 
    LOINS ("pvsse_sp", "p15", "cki", "vdde", "vdd", "vsse", "vss", 0);
-   LOINS ("pvsse_sp", "p16", "cki", "vdde", "vdd", "vsse", "vss", 0);
+   LOINS ("pvdde_sp", "p16", "cki", "vdde", "vdd", "vsse", "vss", 0);
    LOINS ("pvddeck_sp", "p17", "clock", "cki", "vdde", "vdd", "vsse", "vss", 0);
    LOINS ("pvssi_sp", "p18", "cki", "vdde", "vdd", "vsse", "vss", 0);
    LOINS ("pvddi_sp", "p19", "cki", "vdde", "vdd", "vsse", "vss", 0);
