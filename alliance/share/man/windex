@@ -1,8 +1,7 @@
-ACTION, GENPAT Package
-AFFECT, GENPAT Package
-ALLIANCE VHDL Subset
+ACTION (3)  - GENPAT Package
+AFFECT (3)  - GENPAT Package
 AMG (1)              - Array Multiplior Generator
-ARRAY, GENPAT Package
+ARRAY (3)  - GENPAT Package
 BEH (3)              - Generic behavioural data structures
 BUS (3)              - Creates a bus name for netlist
 COPY_UP_ALL_CON (3)  - copy all physical connectors of an instance face in the current figure
@@ -11,9 +10,9 @@ COPY_UP_CON (3)      - copy a physical connector from an instance in the current
 COPY_UP_CON_FACE (3) - copy a physical connector from an instance in the current figure
 COPY_UP_REF (3)      - copy a physical reference from an instance in the current figure
 COPY_UP_SEG (3)      - copy a physical segment from an instance in the current figure
-DECLAR, GENPAT Package
+DECLAR (3) - GENPAT Package
 DEF_AB (3)           - define a new abutment box to the current layout cell
-DEF_GENPAT, GENPAT Package
+DEF_GENPAT(3) - GENPAT Package
 DEF_LOFIG (3)        - open a netlist model as current figure
 DEF_PHFIG (3)        - open a layout model as current figure
 DEF_PHINS (3)        - define a new reference instance
@@ -74,7 +73,7 @@ FLATTEN_ALL_PHINS (3) - flatten all instances in the current layout figure
 FLATTEN_LOFIG (3)    - flatten an instance in the current netlist figure
 FLATTEN_PHFIG (3)    - flatten an instance in the current layout figure
 FPLIB (5)            - Cells library for FITPATH dedicated generators.
-GETCPAT, GENPAT Package
+GETCPAT (3)  - GENPAT Package
 GET_CON_X (3)        - retrieve the x coordinate of an instance connector
 GET_CON_Y (3)        - retrieve the x coordinate of an instance connector
 GET_INS_X (3)        - retrieve the x coordinate of an instance
@@ -83,8 +82,8 @@ GET_REF_X (3)        - retrieve the x coordinate of an instance reference
 GET_REF_Y (3)        - retrieve the y coordinate of an instance reference
 HEIGHT (3)           - compute the height of a model
 INF (5)              - YAGLE and TAS information file
-INIT, GENPAT Package
-LABEL, GENPAT Package
+INIT (3)  - GENPAT Package
+LABEL (3)  - GENPAT Package
 LOAD_LOFIG (3)       - loads a netlist form disk and opens it as current figure
 LOCON (3)            - adds a logical connector to the current netlist figure
 LOINS (3)            - add a logical instance to the current figure
@@ -130,17 +129,17 @@ RDS_OUT (1)          - define the real layout output format of rds
 RDS_TECHNO_NAME (1)  - define the rds technology file
 REVERSE_PHCON (3)    - reverse the order of physical connectors on a bus.
 RING (1)             - PAD RING router
-SAVE, GENPAT Package
+SAVE (3) - GENPAT Package
 SAVE_LOFIG (3)       - save a netlist on disk
 SAVE_PHFIG (3)       - save a layout on disk
 SAVE_PHSC (3)        - save a layout on disk
-SAV_GENPAT, GENPAT Package
+SAV_GENPAT (3) - GENPAT Package
 SC_BOTTOM (3)        - place an instance in the current figure at the right of the "reference instance"
 SC_LEFT (3)          - place an instance in the current figure at the right of the "reference instance"
 SC_PLACE (3)         - place an instance in the current figure at absolute coordinates
 SC_RIGHT (3)         - place an instance in the current figure at the right of the "reference instance"
 SC_TOP (3)           - place an instance in the current figure at the right of the "reference instance"
-SETTUNIT, GENPAT Package
+SETTUNIT (3) - GENPAT Package
 SYF (1)              - Finite State Machine synthesizer.
 SymbolicChannelRouter (3) - routes a given channel on a Virtual grid
 SymbolicChannelRouter (3) - routes a given channel on a symbolic grid
@@ -169,7 +168,7 @@ abl (1)              - Prefixed representation for boolean functions
 ablToBddCct (3)      - converts an ABL into a BDD within a circuit
 aboxmbkrds (2)       - converts MBK abutment box to RDS rectangle
 aboxmbkrds (3)       - converts MBK abutment box to RDS rectangle
-action, GENPAT Package
+action (3) - GENPAT Package
 addHExpr (3)         - adds a new argument at the head of an operator expression.
 addInputCct (3)      - adds an input to a circuit
 addListBdd (3)       - adds a BDD to a chained list of BDDs
@@ -220,7 +219,7 @@ addrdsinsrec (2)     - adds a rectangle to an instance
 addrdsinsrec (3)     - adds a rectangle to an instance
 addrdsrecwindow (2)  - adds a rectangle in the windowing of rds structure.
 addrdsrecwindow (3)  - adds a rectangle in the windowing of rds structure.
-affect, GENPAT Package
+affect (3)  - GENPAT Package
 ai (5)               - Alliance icon format
 al (5)               - Alliance logical format
 alcbanner (1)        - Display a standardized banner for Alliance tools
@@ -257,7 +256,7 @@ applyrdssym (2)      - applies a transformation to a rectangle from a model
 applyrdssym (3)      - applies a transformation to a rectangle from a model
 apr (3)              - routing and placement functions
 arp (3)              - routing and placement functions
-array, GENPAT Package
+array (3) - GENPAT Package
 asimut (1)           - A simulation tool for hardware descriptions
 aut (1)              - Memory allocation, and hash tables management
 autallocblock (3)    - memory allocator
@@ -280,24 +279,58 @@ bebus (3)            - BEH data structure
 bebux (3)            - BEH data structure
 befig (3)            - BEH data structure
 begen (3)            - BEH data structure
-beh_addbeaux, beh_delbeaux, beh_rmvbeaux, beh_frebeaux
-beh_addbebus, beh_delbebus, beh_rmvbebus, beh_frebebus
-beh_addbebux, beh_delbebux, beh_rmvbebux, beh_frebebux
-beh_addbefig, beh_delbefig, beh_rmvbefig, beh_frebefig
-beh_addbegen, beh_delbegen, beh_rmvbegen, beh_frebegen
-beh_addbemsg, beh_delbemsg, beh_rmvbemsg, beh_frebemsg
-beh_addbeout, beh_delbeout, beh_rmvbeout, beh_frebeout
-beh_addbepor, beh_delbepor, beh_rmvbepor, beh_frebepor
-beh_addbereg, beh_delbereg, beh_rmvbereg, beh_frebereg
-beh_addberin, beh_delberin, beh_rmvberin, beh_freberin
-beh_addbiabl, beh_delbiabl, beh_frebiabl
-beh_addbinode, beh_delbinode, beh_frebinode
+beh_addbeaux (3)     - BEH function
+beh_delbeaux (3)     - BEH function
+beh_rmvbeaux (3)     - BEH function
+beh_frebeaux (3)     - BEH function
+beh_addbebus (3)     - BEH function
+beh_delbebus (3)     - BEH function
+beh_rmvbebus (3)     - BEH function
+beh_frebebus (3)     - BEH function
+beh_addbebux (3)     - BEH function
+beh_delbebux (3)     - BEH function
+beh_rmvbebux (3)     - BEH function
+beh_frebebux (3)     - BEH function
+beh_addbefig (3)
+beh_delbefig (3)
+beh_rmvbefig (3)
+beh_frebefig (3)     - BEH function
+beh_addbegen (3)
+beh_delbegen (3)
+beh_rmvbegen (3)
+beh_frebegen (3)     - BEH function
+beh_addbemsg (3)
+beh_delbemsg (3)
+beh_rmvbemsg (3)
+beh_frebemsg (3)     - BEH function
+beh_addbeout (3)
+beh_delbeout (3)
+beh_rmvbeout (3)
+beh_frebeout (3)     - BEH function
+beh_addbepor (3)
+beh_delbepor (3)
+beh_rmvbepor (3)
+beh_frebepor (3)     - BEH function
+beh_addbereg (3)
+beh_delbereg (3)
+beh_rmvbereg (3)
+beh_frebereg (3)     - BEH function
+beh_addberin (3)
+beh_delberin (3)
+beh_rmvberin (3)
+beh_freberin (3)     - BEH function
+beh_addbiabl (3)
+beh_delbiabl (3)
+beh_frebiabl (3)     - BEH function
+beh_addbinode (3)
+beh_delbinode (3)
+beh_frebinode (3)     - BEH function
 beh_debug (3)        - BEH structures displayer-debugger
 beh_depend (3)       - compute forward dependencies in a description
-beh_error
+beh_error (3)     - BEH function
 beh_makbdd (3)       - create a BDD for each expression in a description
 beh_makgex (3)       - create a GEX for each expression in a description
-beh_message
+beh_message (3)     - BEH function
 bemsg (3)            - BEH data structure
 beout (3)            - BEH data structure
 bepor (3)            - BEH data structure
@@ -326,7 +359,7 @@ clearbddsystemrefext (3) - clears the external references for all bdd nodes.
 clearbddsystemrefint (3) - clears the internal references for all bdd nodes.
 cmx2_y
 cofactorbddnode (3)  - computes the generalized cofactor.
-comment, GENPAT Package
+comment (3) - GENPAT Package
 composeBdd (3)       - substitutes an index by a BDD in another BDD
 composeCct (3)       - composes all the outputs within a circuit with a BDD
 composebddnode (3)   - substitutes a variable by a bdd in another bdd.
@@ -335,8 +368,8 @@ conmbkrds (2)        - converts MBK connector to RDS rectangle
 conmbkrds (3)        - converts MBK connector to RDS rectangle
 constraintBdd (3)    - restricts a BDD to another BDD
 constraintCct (3)    - restricts all the outputs within a circuit with a BDD constraint
-conv, GENPAT Package
-convcmp, GENPAT Package
+conv (3), GENPAT Package
+convcmp (3), GENPAT Package
 convertbddcircuitabl (3) - converts a bdd node to an abl expression.
 convertbddcircuitsumabl (3) - converts a bdd node to an abl expression.
 convertbddindexabl (3) - converts a bdd index to an abl expression.
@@ -365,7 +398,7 @@ cry_y
 d1_y
 decbddrefext (3)     - decrements the external reference of a bdd node.
 decbddrefint (3)     - decrements the internal reference of a bdd node.
-def_genpat, GENPAT Package
+def_genpat (3), GENPAT Package
 defab (3)            - defines the abutment box of a phfig
 delablexpr (3)       - deletes an expression.
 delablexprnum (3)    - deletes an operand in an expression.
@@ -468,7 +501,7 @@ gcNodeBdd (3)        - does a garbage collection
 gcNodeCct (3)        - does a garbage collection
 genbs (1)            - A IEEE 1149.1 Boundary-Scan Architecture Generator
 genlib (1)           - Procedural design language based upon C, along with its compiler
-genpat (1),          - A procedural pattern file generator
+genpat (1)           - A procedural pattern file generator
 genscan (1)          - scan path generator
 genview (1)          - genlib graphical source level debugger
 getablexprdepth (3)  - gives the depth of an expression.
@@ -517,7 +550,7 @@ incatalogfeed (3)    - test if cell belongs to the catalog file
 incataloggds (3)     - test if cell belongs to the catalog file
 incbddrefext (3)     - increments the external reference of a bdd node.
 incbddrefint (3)     - increments the internal reference of a bdd node.
-init, GENPAT Package
+init (3) - GENPAT Package
 initializeBdd (3)    - initializes the BDDs system
 initializeCct (3)    - creates a circuit
 insconmbkrds (2)     - adds in RDS instance all the connectors of MBK instance
@@ -713,17 +746,23 @@ papat (3)            - PAT data structure
 paseq (3)            - PAT data structure
 pat (5)              - Pattern description format
 pat2dwl, pattern translator from ALLIANCE CAD SYSTEM to HILO CAD SYSTEM
-pat_addpacom, pat_frepacom
-pat_addpaevt, pat_frepaevt
-pat_addpagrp
-pat_addpaini, pat_frepaini
-pat_addpaiol, pat_crtpaiol, pat_frepaiol
-pat_addpapat, pat_frepapat
-pat_addpaseq
+pat_addpacom (3)     - PAT function
+pat_frepacom (3)     - PAT function
+pat_addpaevt (3)     - PAT function
+pat_frepaevt (3)     - PAT function
+pat_addpagrp (3)     - PAT function
+pat_addpaini (3)     - PAT function
+pat_frepaini (3)     - PAT function
+pat_addpaiol (3)     - PAT function
+pat_crtpaiol (3)     - PAT function
+pat_frepaiol (3)    - PAT function
+pat_addpapat (3)    - PAT function
+pat_frepapat (3)    - PAT function
+pat_addpaseq (3)    - PAT function
 pat_debug (3)        - PAT structures displayer-debugger
 pat_lodpaseq (3)     - pattern file compiler
 pat_savpaseq (3)     - save pattern structures in a pattern description file
-patest, a pattern translator for test.
+patest (3) - a pattern translator for test.
 pck_sp
 phcon (3)            - mbk physical connector
 phfig (3)            - mbk physical figure
@@ -792,7 +831,7 @@ rsa (1)              - Recurrence Solver Adder generator
 rsa (3)              - call the Recurrence Solver Adder generator
 s2r (1)              - Process mapping from symbolic layout to physical layout
 satisfybddnode (3)   - finds a satisfying path for a bdd node.
-sav_genpat, GENPAT Package
+sav_genpat (3) - GENPAT Package
 savelofig (3)        - save a logical figure on disk
 savephfig (3)        - save a physical figure on disk
 saverdsfig (2)       - save a physical figure on disk.
@@ -817,7 +856,7 @@ segmbkrds (2)        - adds to RDS figure a segment from a MBK figure
 segmbkrds (3)        - adds to RDS figure a segment from a MBK figure
 setbddrefext (3)     - increments the external reference, and decrements the internal reference of a bdd node.
 sethtitem (3)        - test and set an item in an hash table.
-signal, GENPAT Package
+signal (3) - GENPAT Package
 simpablexpr (3)      - simplies an expression.
 simpbddnodedcoff (3) - simplifies a bdd with don't cares on its off-set part.
 simpbddnodedcon (3)  - simplifies a bdd with don't cares on its on-set part.
