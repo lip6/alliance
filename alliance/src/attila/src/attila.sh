@@ -1,6 +1,6 @@
 #!/bin/sh
 #
-# $Id: attila.sh,v 1.10 2002/11/11 20:47:31 jpc Exp $
+# $Id: attila.sh,v 1.11 2002/11/21 10:11:27 jpc Exp $
 #                                                                        
 # /------------------------------------------------------------------\
 # |                                                                  |
@@ -624,7 +624,7 @@
                S) RSH="ssh";;
                U) ASIM="n";;
                F) FULL="y";;
-               A) ASIM="n"; FULL="y";;
+               A) ASIM="y"; FULL="y";;
   
                *) echo "attila:error: Invalid option \`$CH'."
                   print_usage; exit 1;;
