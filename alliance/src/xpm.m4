@@ -154,7 +154,7 @@ fi
 #
 if test "$xpm_includes" != "" && test "$xpm_includes" != "$x_includes" && test "$xpm_includes" != "no"
 then
-X_CFLAGS="$xpm_includes $X_CFLAGS"
+X_CFLAGS="-I$xpm_includes $X_CFLAGS"
 fi
 if test "$xpm_libraries" != "" && test "$xpm_libraries" != "$x_libraries" && test "$xpm_libraries" != "no"
 then
@@ -171,7 +171,11 @@ xpm_includes_result="$xpm_includes"
 
 if test "$xpm_libraries_result" != "no" && test "$xpm_includes_result" != "no"
 then AC_DEFINE(HAVE_XPM)
+     LINK_XPM="-lXpm"
+else LINK_XPM=""
 fi
+
+AC_SUBST(LINK_XPM)
 
 test "$xpm_libraries_result" = "" && 
   xpm_libraries_result="in default path"
