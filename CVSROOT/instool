@@ -7,7 +7,7 @@
 # Author: Frédéric Pétrot (fred@pasta.fr.ea)
 #         for version 0
 #
-# $Id: instool,v 1.9 1999/10/15 10:01:11 czo Exp $
+# $Id: instool,v 1.10 1999/10/15 10:09:14 czo Exp $
 #
 
 PATH=/users/outil1/alliance/cvsroot/CVSROOT:/asim/gnu/bin:/usr/ucb:/usr/etc:/bin:/usr/bin:/usr/local/bin:${PATH}
@@ -15,10 +15,12 @@ export PATH
 
 #rsh ssh et .profile ...
 
-DATE=`/asim/gnu/bin/date +"%Y.%m.%d_%H.%M.%S"`
+# DATE=`/asim/gnu/bin/date +"%Y.%m.%d_%H.%M.%S"`
 
-LOG=$HOME/`basename $0`.$$
-BUG=$HOME/`basename $0`_bug.$$
+DATE=`/asim/gnu/bin/date +"%Y.%m.%d"`
+TMPDIR=$HOME/tmp
+LOG=$TMPDIR/`basename $0`.$$
+BUG=$TMPDIR/`basename $0`_bug.$$
 
 ALCTEAM="alliance-programmers@asim.lip6.fr"
 BUGTEAM="fred ludo czo"
@@ -56,7 +58,7 @@ echo "                  E-mail support:       cao-vlsi@lip6.fr"
 echo
 echo "News: "
 echo "   the include are shared"
-echo "   a log of all installations is available in $HOME/log"
+echo "   a log of all installations is available in $HOME/tmp"
 echo "   a message MUST be given for each installation"
 echo "   the default shell is now sh"
 
@@ -139,7 +141,7 @@ echo "   the default shell is now sh"
       exit 0
    fi
 
-   trap "rm -f $HOME/*.$$ $LOG; exit 0" 0 1 2 15
+   trap "rm -f $TMPDIR/*.$$ $LOG; exit 0" 0 1 2 15
    #trap "exit 12" 0 1 2 15
 
    if [ $verbose -ne 0 ] ; then
@@ -149,8 +151,8 @@ echo "   the default shell is now sh"
    b=0
    if [ ! ${bin:-0} -eq 0 ]; then
       for i in $TARGET ; do
-         ls -1 $1/labo/$i/bin > $HOME/$i.bin.$$ 2> /dev/null
-         if [ ! -s $HOME/$i.bin.$$ ] ; then
+         ls -1 $1/labo/$i/bin > $TMPDIR/$i.bin.$$ 2> /dev/null
+         if [ ! -s $TMPDIR/$i.bin.$$ ] ; then
             b=`expr $b + 1`
          fi
       done
@@ -165,32 +167,32 @@ echo "   the default shell is now sh"
    h=0
    if [ ! ${lib:-0} -eq 0 ]; then
       for i in $TARGET ; do
-         ls -1 $1/labo/$i/lib   > $HOME/$i.lib.$$ 2> /dev/null
-         ls -1 $1/labo/$i/lib/*.a | awk -F/ '{print $NF}' > $HOME/$i.lib.a.$$ 2> /dev/null
-         diff $HOME/$i.lib.$$ $HOME/$i.lib.a.$$ > /dev/null 2>&1
+         ls -1 $1/labo/$i/lib   > $TMPDIR/$i.lib.$$ 2> /dev/null
+         ls -1 $1/labo/$i/lib/*.a | awk -F/ '{print $NF}' > $TMPDIR/$i.lib.a.$$ 2> /dev/null
+         diff $TMPDIR/$i.lib.$$ $TMPDIR/$i.lib.a.$$ > /dev/null 2>&1
          if [ ! $? -eq 0 ] ; then
             echo "`basename $0` cannot install tool $1"
             echo "directory $1/labo/$i/lib contains files "
             echo "that do not end with .a"
             exit 7
          fi
-         ls -1 $1/labo/$i/include > $HOME/$i.inc.$$ 2> /dev/null
-         ls -1 $1/labo/$i/include/*.h | awk -F/ '{print $NF}' > $HOME/$i.inc.h.$$ 2> /dev/null
-         diff $HOME/$i.inc.$$ $HOME/$i.inc.h.$$ > /dev/null 2>&1
+         ls -1 $1/labo/$i/include > $TMPDIR/$i.inc.$$ 2> /dev/null
+         ls -1 $1/labo/$i/include/*.h | awk -F/ '{print $NF}' > $TMPDIR/$i.inc.h.$$ 2> /dev/null
+         diff $TMPDIR/$i.inc.$$ $TMPDIR/$i.inc.h.$$ > /dev/null 2>&1
          if [ ! $? -eq 0 ] ; then
             echo "`basename $0` cannot install tool $1"
             echo "directory $1/labo/$i/include contains files "
             echo "that do not end with .h"
             exit 7
          fi
-         if [ ! -s $HOME/$i.lib.$$ ] ; then
+         if [ ! -s $TMPDIR/$i.lib.$$ ] ; then
             l=`expr $l + 1`
          fi
-         if [ ! -s $HOME/$i.inc.$$ ] ; then
+         if [ ! -s $TMPDIR/$i.inc.$$ ] ; then
             h=`expr $h + 1`
          fi
-         if [ \( ! -s $HOME/$i.lib.$$ -a -s $HOME/$i.inc.$$ \) -o \
-                \( -s $HOME/$i.lib.$$ -a ! -s $HOME/$i.inc.$$ \) ] ; then
+         if [ \( ! -s $TMPDIR/$i.lib.$$ -a -s $TMPDIR/$i.inc.$$ \) -o \
+                \( -s $TMPDIR/$i.lib.$$ -a ! -s $TMPDIR/$i.inc.$$ \) ] ; then
             echo "`basename $0` cannot install tool $1"
             echo "Libraries requires includes and vice-versa"
             exit 7
@@ -218,13 +220,13 @@ echo "   the default shell is now sh"
    for i in $TARGET ; do
       for j in $TARGET ; do
          if [ ! ${bin:-0} -eq 0 ]; then
-            diff $HOME/$j.bin.$$ $HOME/$i.bin.$$ > /dev/null 2>&1
+            diff $TMPDIR/$j.bin.$$ $TMPDIR/$i.bin.$$ > /dev/null 2>&1
             bins=`expr $bins + $?`
          fi
          if [ ! ${lib:-0} -eq 0 ]; then
-            diff $HOME/$j.lib.$$ $HOME/$i.lib.$$ > /dev/null 2>&1
+            diff $TMPDIR/$j.lib.$$ $TMPDIR/$i.lib.$$ > /dev/null 2>&1
             libs=`expr $libs + $?`
-            diff $HOME/$j.inc.$$ $HOME/$i.inc.$$ > /dev/null 2>&1
+            diff $TMPDIR/$j.inc.$$ $TMPDIR/$i.inc.$$ > /dev/null 2>&1
             incs=`expr $incs + $?`
          fi
       done
@@ -310,15 +312,15 @@ echo "   the default shell is now sh"
    done
    for i in $DIR; do
       if [ $i = "lib" ] ; then 
-         if [ -f $HOME/libraries.mk.* ] ; then
+         if [ -f $TMPDIR/libraries.mk.* ] ; then
             echo "`basename $0`: Sorry, somebody is updating libraries.mk"
             echo "waiting until the update is done to finish"
          fi
-         while [ -f $HOME/libraries.mk.$$ ]; do
+         while [ -f $TMPDIR/libraries.mk.$$ ]; do
             sleep 2
             echo "Still waiting, ..."
          done
-         updatelibmk $LABO/archi/SunOS > $HOME/libraries.mk.$$
+         updatelibmk $LABO/archi/SunOS > $TMPDIR/libraries.mk.$$
          mv $ETC/libraries.mk $ETC/libraries.mk.$DATE
          if [ $? -ne 0 ] ; then 
             echo "`basename $0`: mv returned a non-zero exit status"
@@ -326,7 +328,7 @@ echo "   the default shell is now sh"
             echo "that sucks pretty much so I quit leaving things as is"
             exit 17
          fi
-         mv $HOME/libraries.mk.$$ $ETC/libraries.mk
+         mv $TMPDIR/libraries.mk.$$ $ETC/libraries.mk
          if [ $? -ne 0 ] ; then 
             echo "`basename $0`: mv returned a non-zero exit status"
             echo "while copying libraries.mk to libraries.mk.$$"
@@ -340,5 +342,5 @@ echo "   the default shell is now sh"
       mail -s "ALC : Problem while installing `basename $1`" $BUGTEAM < $BUG
    fi
    echo $* | mail -s "ALC : Install of `basename $1`" $ALCTEAM
-   cat $LOG >> $HOME/log/`basename $1`.log
+   cat $LOG >> $TMPDIR/tmp/`basename $1`.log
    exit 0
