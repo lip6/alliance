@@ -1,14 +1,31 @@
+
 TOP ( # IOs are ordered from left to right
+   (IOPIN x(7).0 );
+   (IOPIN x(6).0 );
+   (IOPIN x(5).0 );
+   (IOPIN x(4).0 );
    (IOPIN x(3).0 );
    (IOPIN x(2).0 );
    (IOPIN x(1).0 );
    (IOPIN x(0).0 );
+   (IOPIN y(7).0 );
+   (IOPIN y(6).0 );
+   (IOPIN y(5).0 );
+   (IOPIN y(4).0 );
    (IOPIN y(3).0 );
    (IOPIN y(2).0 );
    (IOPIN y(1).0 );
    (IOPIN y(0).0 );
 )
 BOTTOM ( # IOs are ordered from left to right
+   (IOPIN r(15).0 );
+   (IOPIN r(14).0 );
+   (IOPIN r(13).0 );
+   (IOPIN r(12).0 );
+   (IOPIN r(11).0 );
+   (IOPIN r(10).0 );
+   (IOPIN r(9).0 );
+   (IOPIN r(8).0 );
    (IOPIN r(7).0 );
    (IOPIN r(6).0 );
    (IOPIN r(5).0 );

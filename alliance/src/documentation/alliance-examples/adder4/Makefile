@@ -29,7 +29,6 @@ COUGAR = $(ALLIANCE_BIN)/cougar
 LVX    = $(ALLIANCE_BIN)/lvx
 DRUC   = $(ALLIANCE_BIN)/druc
 S2R    = $(ALLIANCE_BIN)/s2r
-BLAST  = $(ALLIANCE_BIN)/sblast
 
 DREAL  = $(ALLIANCE_BIN)/dreal
 GRAAL  = $(ALLIANCE_BIN)/graal

@@ -344,6 +344,6 @@ realclean : clean
 
 clean     :
 	$(RM) -f *.vst multi8_et.spi *.vbe res_*.pat *.boom *.done *.xsc *.gpl \
-                 *.ap *.drc *.dat *.gds blast.fin *.cif *.rep \
+                 *.ap *.drc *.dat *.gds *.cif *.rep \
 		 *.log *.out *.raw *.al
 	

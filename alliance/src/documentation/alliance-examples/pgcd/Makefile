@@ -96,14 +96,11 @@ ENV_NERO =  MBK_WORK_LIB=.; export MBK_WORK_LIB; \
            MBK_OUT_PH=ap; export MBK_OUT_PH; \
            MBK_CATAL_NAME=CATAL; export MBK_CATAL_NAME
 
-
-
 ENV_COUGAR_SPI =  MBK_WORK_LIB=.; export MBK_WORK_LIB; \
            MBK_IN_LO=spi; export MBK_IN_LO; \
 	   MBK_OUT_LO=spi; export MBK_OUT_LO; \
-           MBK_SPI_MODEL=$(SPI_MODEL); export MBK_SPI_MODEL; \
-           MBK_SPI_ONE_NODE_NORC="true"; export MBK_SPI_ONE_NODE_NORC; \
            MBK_SPI_NAMEDNODES="true"; export MBK_SPI_NAMEDNODES; \
+           MBK_SPI_MODEL=$(SPI_MODEL); export MBK_SPI_MODEL; \
            RDS_TECHNO_NAME=$(RDS_TECHNO); export RDS_TECHNO_NAME; \
            RDS_IN=cif; export RDS_IN; \
            RDS_OUT=cif; export RDS_OUT; \
@@ -146,7 +143,7 @@ ENV_S2R  = MBK_WORK_LIB=.; export MBK_WORK_LIB; \
            MBK_CATAL_NAME=CATAL; export MBK_CATAL_NAME
 
 
-all :  multi4.cif
+all :  pgcd.cif
 
 # /*------------------------------------------------------------\
 # |                                                             |
@@ -154,8 +151,9 @@ all :  multi4.cif
 # |                                                             |
 # \------------------------------------------------------------*/
 
-multi4.vbe : multi4.vhdl
-	$(ENV_VASY); $(VASY) -a -B -o -p -I vhdl multi4
+pgcd.vst calcul.vbe sequenceur.vbe pgcd_model.vbe : pgcd.vhdl calcul.vhdl \
+                sequenceur.vhdl pgcd.vhdl 
+	$(ENV_VASY); $(VASY) -a -B -o -p -I vhdl -H pgcd
 
 # /*------------------------------------------------------------\
 # |                                                             |
@@ -163,11 +161,13 @@ multi4.vbe : multi4.vhdl
 # |                                                             |
 # \------------------------------------------------------------*/
 
-res_vasy_1.pat : multi4.vbe
-	$(ENV_ASIMUT_VASY); $(ASIMUT) -b multi4 multi4 res_vasy_1 
+res_vasy_1.pat : pgcd.vst calcul.vbe \
+                 sequenceur.vbe pgcd_model.vbe
+	$(ENV_ASIMUT_VASY); $(ASIMUT) pgcd pgcd res_vasy_1 
 
-res_synth_1.pat : multi4.vst 
-	$(ENV_ASIMUT_SYNTH); $(ASIMUT) multi4 multi4 res_synth_1
+res_synth_1.pat : pgcd.vst calcul.vst \
+                 sequenceur.vst pgcd_model.vst
+	$(ENV_ASIMUT_SYNTH); $(ASIMUT) pgcd pgcd res_synth_1
 
 # /*------------------------------------------------------------\
 # |                                                             |
@@ -175,11 +175,18 @@ res_synth_1.pat : multi4.vst
 # |                                                             |
 # \------------------------------------------------------------*/
 
-boom.done : multi4_o.vbe
+boom.done : calcul_o.vbe sequenceur_o.vbe \
+            pgcd_model_o.vbe
 	@$(TOUCH) boom.done
 
-multi4_o.vbe : multi4.vbe multi4.boom res_vasy_1.pat
-	$(ENV_BOOM); $(BOOM) -VP multi4 multi4_o
+calcul_o.vbe : calcul.vbe calcul.boom res_vasy_1.pat
+	$(ENV_BOOM); $(BOOM) -VPA calcul calcul_o
+
+sequenceur_o.vbe : sequenceur.vbe sequenceur.boom res_vasy_1.pat
+	$(ENV_BOOM); $(BOOM) -VP sequenceur sequenceur_o
+
+pgcd_model_o.vbe : pgcd_model.vbe pgcd_model.boom res_vasy_1.pat
+	$(ENV_BOOM); $(BOOM) -VP pgcd_model pgcd_model_o
 
 # /*------------------------------------------------------------\
 # |                                                             |
@@ -187,11 +194,18 @@ multi4_o.vbe : multi4.vbe multi4.boom res_vasy_1.pat
 # |                                                             |
 # \------------------------------------------------------------*/
 
-boog.done : multi4_o.vst
+boog.done : calcul_o.vst sequenceur_o.vst \
+            pgcd_model_o.vst
 	@$(TOUCH) boog.done
 
-multi4_o.vst : multi4_o.vbe
-	$(ENV_BOOG); $(BOOG) multi4_o
+calcul_o.vst : calcul_o.vbe
+	$(ENV_BOOG); $(BOOG) calcul_o
+
+sequenceur_o.vst : sequenceur_o.vbe
+	$(ENV_BOOG); $(BOOG) sequenceur_o
+
+pgcd_model_o.vst : pgcd_model_o.vbe
+	$(ENV_BOOG); $(BOOG) pgcd_model_o
 
 # /*------------------------------------------------------------\
 # |                                                             |
@@ -199,11 +213,18 @@ multi4_o.vst : multi4_o.vbe
 # |                                                             |
 # \------------------------------------------------------------*/
 
-loon.done : multi4.vst
+loon.done : calcul.vst sequenceur.vst \
+            pgcd_model.vst
 	@$(TOUCH) loon.done
 
-multi4.vst : multi4_o.vst
-	$(ENV_LOON); $(LOON) multi4_o multi4
+calcul.vst : calcul_o.vst
+	$(ENV_LOON); $(LOON) calcul_o calcul
+
+sequenceur.vst : sequenceur_o.vst
+	$(ENV_LOON); $(LOON) sequenceur_o sequenceur
+
+pgcd_model.vst : pgcd_model_o.vst
+	$(ENV_LOON); $(LOON) pgcd_model_o pgcd_model
 
 # /*------------------------------------------------------------\
 # |                                                             |
@@ -211,8 +232,8 @@ multi4.vst : multi4_o.vst
 # |                                                             |
 # \------------------------------------------------------------*/
 
-multi4_p.ap : res_synth_1.pat
-	$(ENV_OCP); $(OCP) -v -gnuplot -ioc multi4  multi4 multi4_p
+pgcd_p.ap : res_synth_1.pat
+	$(ENV_OCP); $(OCP) -v -ioc pgcd -gnuplot  pgcd pgcd_p
 
 # /*------------------------------------------------------------\
 # |                                                             |
@@ -220,8 +241,8 @@ multi4_p.ap : res_synth_1.pat
 # |                                                             |
 # \------------------------------------------------------------*/
 
-multi4.ap : multi4_p.ap multi4.vst
-	$(ENV_NERO); $(NERO) -v -$(METAL_LEVEL) -p multi4_p multi4 multi4
+pgcd.ap : pgcd_p.ap pgcd.vst
+	$(ENV_NERO); $(NERO) -v -$(METAL_LEVEL) -p pgcd_p pgcd pgcd
 
 # /*------------------------------------------------------------\
 # |                                                             |
@@ -229,32 +250,20 @@ multi4.ap : multi4_p.ap multi4.vst
 # |                                                             |
 # \------------------------------------------------------------*/
 
-multi4_e.spi : multi4.ap
-	$(ENV_COUGAR_SPI); $(COUGAR) -v -ac multi4 multi4_e
+pgcd_e.spi : pgcd.ap
+	$(ENV_COUGAR_SPI); $(COUGAR) -v -ac pgcd pgcd_e
 
-multi4_erc.spi : multi4.ap
-	$(ENV_COUGAR_SPI); $(COUGAR) -v -ar multi4 multi4_erc
+pgcd_e.al : pgcd.ap
+	$(ENV_COUGAR); $(COUGAR) -v -ac pgcd pgcd_e
 
-multi4_erc.al : multi4.ap
-	$(ENV_COUGAR); $(COUGAR) -v -ar multi4 multi4_erc
+pgcd_et.al : pgcd.ap
+	$(ENV_COUGAR); $(COUGAR) -v -t -ac pgcd pgcd_et
 
-multi4_e.al : multi4.ap
-	$(ENV_COUGAR); $(COUGAR) -v -ac multi4 multi4_e
+pgcd_et.spi : pgcd.ap
+	$(ENV_COUGAR_SPI); $(COUGAR) -v -ac -t pgcd pgcd_et
 
-multi4_et.al : multi4.ap
-	$(ENV_COUGAR); $(COUGAR) -v -ac -t multi4 multi4_et
-
-multi4_et.spi : multi4.ap
-	$(ENV_COUGAR_SPI); $(COUGAR) -v -ac -t multi4 multi4_et
-
-multi4_er.al : multi4.cif
-	$(ENV_COUGAR); $(COUGAR) -v -r -t multi4 multi4_er
-
-multi4_real.al : multi4.ap
-	$(ENV_COUGAR); $(ENV_S2R); $(COUGAR) -v -ac multi4 multi4_real
-
-multi4_real_t.al : multi4.ap
-	$(ENV_COUGAR); $(ENV_S2R); $(COUGAR) -v -t -ac multi4 multi4_real_t
+pgcd_er.spi : pgcd.cif
+	$(ENV_COUGAR); $(COUGAR) -v -r -t pgcd pgcd_er
 
 # /*------------------------------------------------------------\
 # |                                                             |
@@ -262,8 +271,8 @@ multi4_real_t.al : multi4.ap
 # |                                                             |
 # \------------------------------------------------------------*/
 
-lvx.done : multi4.vst multi4_e.al multi4_e.spi
-	$(ENV_LVX); $(LVX) vst al multi4 multi4_e -f
+lvx.done : pgcd.vst pgcd_e.al  pgcd_e.spi
+	$(ENV_LVX); $(LVX) vst al pgcd pgcd_e -f
 	$(TOUCH) lvx.done
 
 # /*------------------------------------------------------------\
@@ -272,8 +281,8 @@ lvx.done : multi4.vst multi4_e.al multi4_e.spi
 # |                                                             |
 # \------------------------------------------------------------*/
 
-druc.done : lvx.done multi4.ap
-	$(ENV_DRUC); $(DRUC) multi4
+druc.done : lvx.done pgcd.ap
+	$(ENV_DRUC); $(DRUC) pgcd
 	$(TOUCH) druc.done
 
 # /*------------------------------------------------------------\
@@ -282,8 +291,8 @@ druc.done : lvx.done multi4.ap
 # |                                                             |
 # \------------------------------------------------------------*/
 
-multi4.cif : druc.done
-	$(ENV_S2R); $(S2R) -v multi4
+pgcd.cif : druc.done
+	$(ENV_S2R); $(S2R) -v -t pgcd
 
 # /*------------------------------------------------------------\
 # |                                                             |
@@ -291,44 +300,20 @@ multi4.cif : druc.done
 # |                                                             |
 # \------------------------------------------------------------*/
 
-graal :
-	$(ENV_S2R); $(GRAAL)
+graal: pgcd.ap
+	$(ENV_S2R); $(GRAAL) -l pgcd
 
-graal_multi4_p : multi4_p.ap
-	$(ENV_S2R); $(GRAAL) -l multi4_p
+xsch: pgcd.vst
+	$(ENV_LOON); $(XSCH) -l pgcd
 
-graal_multi4 : multi4.ap
-	$(ENV_S2R); $(GRAAL) -l multi4
+xscht: pgcd_et.al
+	$(ENV_COUGAR); $(XSCH) -l pgcd_et
 
-xsch:
-	$(ENV_LOON); $(XSCH)
-
-xsch_multi4_o : multi4.vst
-	$(ENV_LOON); $(XSCH) -l multi4_o
-
-xsch_multi4 : multi4.vst
-	$(ENV_LOON); $(XSCH) -l multi4
-
-xsch_multi4_e: multi4_e.al
-	$(ENV_COUGAR); $(XSCH) -l multi4_e
-
-xsch_multi4_et: multi4_et.al
-	$(ENV_COUGAR); $(XSCH) -l multi4_et
-
-xpat: 
-	$(ENV_ASIMUT_SYNTH); $(XPAT)
-
-xpat_synth: res_synth_1.pat
+xpat: res_synth_1.pat
 	$(ENV_ASIMUT_SYNTH); $(XPAT) -l res_synth_1
 
-xpat_vasy : res_vasy_1.pat
-	$(ENV_ASIMUT_SYNTH); $(XPAT) -l res_vasy_1
-
-dreal: 
-	$(ENV_S2R); $(DREAL)
-
-dreal_multi4 : multi4.cif
-	$(ENV_S2R); $(DREAL) -l multi4
+dreal: pgcd.cif
+	$(ENV_S2R); $(DREAL) -l pgcd
 
 
 # /*------------------------------------------------------------\
@@ -340,6 +325,6 @@ dreal_multi4 : multi4.cif
 realclean : clean
 
 clean     :
-	$(RM) -f *.vst multi4_e.spi multi4_et.spi *.vbe res_*.pat *.boom *.done *.xsc *.gpl \
-                 *.ap *.drc *.dat *.gds *.cif *.rep \
+	$(RM) -f *.vst pgcd_e.spi *.vbe res_*.pat *.boom *.done *.xsc *.gpl \
+                 *.ap *.drc *.dat *.gds *.cif *.rep *.stm-data *.stm-plot \
 		 *.log *.out *.raw *.al

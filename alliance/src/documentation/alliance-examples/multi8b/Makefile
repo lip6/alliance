@@ -146,7 +146,7 @@ ENV_S2R  = MBK_WORK_LIB=.; export MBK_WORK_LIB; \
            MBK_CATAL_NAME=CATAL; export MBK_CATAL_NAME
 
 
-all :  multi4.cif
+all :  multi8.cif
 
 # /*------------------------------------------------------------\
 # |                                                             |
@@ -154,8 +154,8 @@ all :  multi4.cif
 # |                                                             |
 # \------------------------------------------------------------*/
 
-multi4.vbe : multi4.vhdl
-	$(ENV_VASY); $(VASY) -a -B -o -p -I vhdl multi4
+multi8.vbe : multi8.vhdl
+	$(ENV_VASY); $(VASY) -a -B -o -p -I vhdl multi8
 
 # /*------------------------------------------------------------\
 # |                                                             |
@@ -163,11 +163,11 @@ multi4.vbe : multi4.vhdl
 # |                                                             |
 # \------------------------------------------------------------*/
 
-res_vasy_1.pat : multi4.vbe
-	$(ENV_ASIMUT_VASY); $(ASIMUT) -b multi4 multi4 res_vasy_1 
+res_vasy_1.pat : multi8.vbe
+	$(ENV_ASIMUT_VASY); $(ASIMUT) -b multi8 multi8 res_vasy_1 
 
-res_synth_1.pat : multi4.vst 
-	$(ENV_ASIMUT_SYNTH); $(ASIMUT) multi4 multi4 res_synth_1
+res_synth_1.pat : multi8.vst 
+	$(ENV_ASIMUT_SYNTH); $(ASIMUT) multi8 multi8 res_synth_1
 
 # /*------------------------------------------------------------\
 # |                                                             |
@@ -175,11 +175,11 @@ res_synth_1.pat : multi4.vst
 # |                                                             |
 # \------------------------------------------------------------*/
 
-boom.done : multi4_o.vbe
+boom.done : multi8_o.vbe
 	@$(TOUCH) boom.done
 
-multi4_o.vbe : multi4.vbe multi4.boom res_vasy_1.pat
-	$(ENV_BOOM); $(BOOM) -VP multi4 multi4_o
+multi8_o.vbe : multi8.vbe multi8.boom res_vasy_1.pat
+	$(ENV_BOOM); $(BOOM) -VP multi8 multi8_o
 
 # /*------------------------------------------------------------\
 # |                                                             |
@@ -187,11 +187,11 @@ multi4_o.vbe : multi4.vbe multi4.boom res_vasy_1.pat
 # |                                                             |
 # \------------------------------------------------------------*/
 
-boog.done : multi4_o.vst
+boog.done : multi8_o.vst
 	@$(TOUCH) boog.done
 
-multi4_o.vst : multi4_o.vbe
-	$(ENV_BOOG); $(BOOG) multi4_o
+multi8_o.vst : multi8_o.vbe
+	$(ENV_BOOG); $(BOOG) multi8_o
 
 # /*------------------------------------------------------------\
 # |                                                             |
@@ -199,11 +199,11 @@ multi4_o.vst : multi4_o.vbe
 # |                                                             |
 # \------------------------------------------------------------*/
 
-loon.done : multi4.vst
+loon.done : multi8.vst
 	@$(TOUCH) loon.done
 
-multi4.vst : multi4_o.vst
-	$(ENV_LOON); $(LOON) multi4_o multi4
+multi8.vst : multi8_o.vst
+	$(ENV_LOON); $(LOON) multi8_o multi8
 
 # /*------------------------------------------------------------\
 # |                                                             |
@@ -211,8 +211,8 @@ multi4.vst : multi4_o.vst
 # |                                                             |
 # \------------------------------------------------------------*/
 
-multi4_p.ap : res_synth_1.pat
-	$(ENV_OCP); $(OCP) -v -gnuplot -ioc multi4  multi4 multi4_p
+multi8_p.ap : res_synth_1.pat
+	$(ENV_OCP); $(OCP) -v -gnuplot -ioc multi8  multi8 multi8_p
 
 # /*------------------------------------------------------------\
 # |                                                             |
@@ -220,8 +220,8 @@ multi4_p.ap : res_synth_1.pat
 # |                                                             |
 # \------------------------------------------------------------*/
 
-multi4.ap : multi4_p.ap multi4.vst
-	$(ENV_NERO); $(NERO) -v -$(METAL_LEVEL) -p multi4_p multi4 multi4
+multi8.ap : multi8_p.ap multi8.vst
+	$(ENV_NERO); $(NERO) -v -$(METAL_LEVEL) -p multi8_p multi8 multi8
 
 # /*------------------------------------------------------------\
 # |                                                             |
@@ -229,32 +229,32 @@ multi4.ap : multi4_p.ap multi4.vst
 # |                                                             |
 # \------------------------------------------------------------*/
 
-multi4_e.spi : multi4.ap
-	$(ENV_COUGAR_SPI); $(COUGAR) -v -ac multi4 multi4_e
+multi8_e.spi : multi8.ap
+	$(ENV_COUGAR_SPI); $(COUGAR) -v -ac multi8 multi8_e
 
-multi4_erc.spi : multi4.ap
-	$(ENV_COUGAR_SPI); $(COUGAR) -v -ar multi4 multi4_erc
+multi8_erc.spi : multi8.ap
+	$(ENV_COUGAR_SPI); $(COUGAR) -v -ar multi8 multi8_erc
 
-multi4_erc.al : multi4.ap
-	$(ENV_COUGAR); $(COUGAR) -v -ar multi4 multi4_erc
+multi8_erc.al : multi8.ap
+	$(ENV_COUGAR); $(COUGAR) -v -ar multi8 multi8_erc
 
-multi4_e.al : multi4.ap
-	$(ENV_COUGAR); $(COUGAR) -v -ac multi4 multi4_e
+multi8_e.al : multi8.ap
+	$(ENV_COUGAR); $(COUGAR) -v -ac multi8 multi8_e
 
-multi4_et.al : multi4.ap
-	$(ENV_COUGAR); $(COUGAR) -v -ac -t multi4 multi4_et
+multi8_et.al : multi8.ap
+	$(ENV_COUGAR); $(COUGAR) -v -ac -t multi8 multi8_et
 
-multi4_et.spi : multi4.ap
-	$(ENV_COUGAR_SPI); $(COUGAR) -v -ac -t multi4 multi4_et
+multi8_et.spi : multi8.ap
+	$(ENV_COUGAR_SPI); $(COUGAR) -v -ac -t multi8 multi8_et
 
-multi4_er.al : multi4.cif
-	$(ENV_COUGAR); $(COUGAR) -v -r -t multi4 multi4_er
+multi8_er.al : multi8.cif
+	$(ENV_COUGAR); $(COUGAR) -v -r -t multi8 multi8_er
 
-multi4_real.al : multi4.ap
-	$(ENV_COUGAR); $(ENV_S2R); $(COUGAR) -v -ac multi4 multi4_real
+multi8_real.al : multi8.ap
+	$(ENV_COUGAR); $(ENV_S2R); $(COUGAR) -v -ac multi8 multi8_real
 
-multi4_real_t.al : multi4.ap
-	$(ENV_COUGAR); $(ENV_S2R); $(COUGAR) -v -t -ac multi4 multi4_real_t
+multi8_real_t.al : multi8.ap
+	$(ENV_COUGAR); $(ENV_S2R); $(COUGAR) -v -t -ac multi8 multi8_real_t
 
 # /*------------------------------------------------------------\
 # |                                                             |
@@ -262,8 +262,8 @@ multi4_real_t.al : multi4.ap
 # |                                                             |
 # \------------------------------------------------------------*/
 
-lvx.done : multi4.vst multi4_e.al multi4_e.spi
-	$(ENV_LVX); $(LVX) vst al multi4 multi4_e -f
+lvx.done : multi8.vst multi8_e.al multi8_e.spi
+	$(ENV_LVX); $(LVX) vst al multi8 multi8_e -f
 	$(TOUCH) lvx.done
 
 # /*------------------------------------------------------------\
@@ -272,8 +272,8 @@ lvx.done : multi4.vst multi4_e.al multi4_e.spi
 # |                                                             |
 # \------------------------------------------------------------*/
 
-druc.done : lvx.done multi4.ap
-	$(ENV_DRUC); $(DRUC) multi4
+druc.done : lvx.done multi8.ap
+	$(ENV_DRUC); $(DRUC) multi8
 	$(TOUCH) druc.done
 
 # /*------------------------------------------------------------\
@@ -282,8 +282,8 @@ druc.done : lvx.done multi4.ap
 # |                                                             |
 # \------------------------------------------------------------*/
 
-multi4.cif : druc.done
-	$(ENV_S2R); $(S2R) -v multi4
+multi8.cif : druc.done
+	$(ENV_S2R); $(S2R) -v multi8
 
 # /*------------------------------------------------------------\
 # |                                                             |
@@ -294,26 +294,26 @@ multi4.cif : druc.done
 graal :
 	$(ENV_S2R); $(GRAAL)
 
-graal_multi4_p : multi4_p.ap
-	$(ENV_S2R); $(GRAAL) -l multi4_p
+graal_multi8_p : multi8_p.ap
+	$(ENV_S2R); $(GRAAL) -l multi8_p
 
-graal_multi4 : multi4.ap
-	$(ENV_S2R); $(GRAAL) -l multi4
+graal_multi8 : multi8.ap
+	$(ENV_S2R); $(GRAAL) -l multi8
 
 xsch:
 	$(ENV_LOON); $(XSCH)
 
-xsch_multi4_o : multi4.vst
-	$(ENV_LOON); $(XSCH) -l multi4_o
+xsch_multi8_o : multi8.vst
+	$(ENV_LOON); $(XSCH) -l multi8_o
 
-xsch_multi4 : multi4.vst
-	$(ENV_LOON); $(XSCH) -l multi4
+xsch_multi8 : multi8.vst
+	$(ENV_LOON); $(XSCH) -l multi8
 
-xsch_multi4_e: multi4_e.al
-	$(ENV_COUGAR); $(XSCH) -l multi4_e
+xsch_multi8_e: multi8_e.al
+	$(ENV_COUGAR); $(XSCH) -l multi8_e
 
-xsch_multi4_et: multi4_et.al
-	$(ENV_COUGAR); $(XSCH) -l multi4_et
+xsch_multi8_et: multi8_et.al
+	$(ENV_COUGAR); $(XSCH) -l multi8_et
 
 xpat: 
 	$(ENV_ASIMUT_SYNTH); $(XPAT)
@@ -327,8 +327,8 @@ xpat_vasy : res_vasy_1.pat
 dreal: 
 	$(ENV_S2R); $(DREAL)
 
-dreal_multi4 : multi4.cif
-	$(ENV_S2R); $(DREAL) -l multi4
+dreal_multi8 : multi8.cif
+	$(ENV_S2R); $(DREAL) -l multi8
 
 
 # /*------------------------------------------------------------\
@@ -340,6 +340,6 @@ dreal_multi4 : multi4.cif
 realclean : clean
 
 clean     :
-	$(RM) -f *.vst multi4_e.spi multi4_et.spi *.vbe res_*.pat *.boom *.done *.xsc *.gpl \
+	$(RM) -f *.vst multi8_e.spi multi8_et.spi *.vbe res_*.pat *.boom *.done *.xsc *.gpl \
                  *.ap *.drc *.dat *.gds *.cif *.rep \
 		 *.log *.out *.raw *.al
