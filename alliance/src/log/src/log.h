@@ -30,7 +30,7 @@
 
 
 
-/* $Id: log.h,v 1.1 2002/04/03 13:13:25 ludo Exp $ */
+/* $Id: log.h,v 1.2 2002/04/03 14:55:08 ludo Exp $ */
 
 #ifndef LUC_LOG_H
 #define LUC_LOG_H
@@ -45,7 +45,7 @@
 #undef CONTRAINT
 #undef STABLE
 #undef RESTRICT
-#undef CNST 10
+#undef CNST
 
 #define OR 0
 #define AND 1
