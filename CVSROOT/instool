@@ -7,7 +7,7 @@
 # Author: Frédéric Pétrot (fred@pasta.fr.ea)
 #         for version 0
 #
-# $Id: instool,v 1.6 1999/09/24 15:20:28 czo Exp $
+# $Id: instool,v 1.7 1999/10/04 14:57:48 czo Exp $
 #
 
 PATH=/asim/gnu/bin:/usr/ucb:/usr/etc:/bin:/usr/bin:/usr/local/bin:${PATH}
@@ -55,9 +55,7 @@ echo "                  Copyright (c) now, MASI, CAO-VLSI Team"
 echo "                  E-mail support:       cao-vlsi@lip6.fr"
 echo
 echo "News: "
-echo "   the installed binaries are now suffixed '.new'"
 echo "   the include are shared"
-echo "   the authorized cells extensions are $CELL_EXTENSIONS"
 echo "   a log of all installations is available in $HOME/log"
 echo "   a message MUST be given for each installation"
 echo "   the default shell is now sh"
@@ -240,11 +238,10 @@ echo "   the default shell is now sh"
    fi
 
    echo "`basename $0`: Checking for space on disk :"
-   s=`du -s $1/labo/cells $1/labo/etc $1/labo/man \
-               2>/dev/null | tail -1 | cut -f 1`
+   s=`du -s $1/labo/cells $1/labo/etc $1/labo/man 2>/dev/null | tail -1 | cut -f 1`
    for i in $TARGET; do
       for j in $DIR; do
-         d=`du -s $1/labo/$i/$j | tail -1 | cut -f 1`
+         d=`du -s $1/labo/$i/$j 2>/dev/null | tail -1 | cut -f 1`
          s=`expr $s + $d`
       done
    done
