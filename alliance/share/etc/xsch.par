@@ -354,3 +354,28 @@ TABLE XSCH_ICON_CELL_ORAND
 
 END
 
+# /*------------------------------------------------------------\
+# |                                                             |
+# |                     Xsch Icon Cell Mux                      |
+# |                                                             |
+# \------------------------------------------------------------*/
+
+TABLE XSCH_ICON_CELL_MUX 
+
+# model  inputs               output number_sel number_in not_in not_out
+                              
+# SXLIB                       
+                              
+  mx2_x2 cmd,i0,i1            q      1          2         0      0
+  mx2_x4 cmd,i0,i1            q      1          2         0      0
+                              
+  mx3_x2 cmd0,cmd1,i0,i1,i2   q      2          3         0      0
+  mx3_x4 cmd0,cmd1,i0,i1,i2   q      2          3         0      0
+
+  nmx2_x1 cmd,i0,i1          nq      1          2         0      1
+  nmx2_x4 cmd,i0,i1          nq      1          2         0      1
+                             
+  nmx3_x1 cmd0,cmd1,i0,i1,i2 nq      2          3         0      1
+  nmx3_x4 cmd0,cmd1,i0,i1,i2 nq      2          3         0      1
+
+END
