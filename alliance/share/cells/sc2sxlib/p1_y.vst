@@ -12,7 +12,7 @@ architecture structural of p1_y is
 Component buf_x2
    port (
       i  : in      bit;
-      nq  : out     bit;
+      q  : out     bit;
       vdd : in      bit;
       vss : in      bit
  );
@@ -23,7 +23,7 @@ begin
 u4 : buf_x2
    port map (
       i  => i,
-      nq  => t,
+      q  => t,
       vdd => vdd,
       vss => vss
    );
