@@ -45,11 +45,11 @@
 # include <stdlib.h>
 # include <unistd.h>
 
-# include MUT_H
-# include AUT_H
-# include VEX_H
-# include RTN_H
-# include RTD_H
+# include "mut.h"
+# include "aut.h"
+# include "vex.h"
+# include "rtn.h"
+# include "rtd.h"
 
 # include "rtd_get.h"
 # include "rtd_error.h"
