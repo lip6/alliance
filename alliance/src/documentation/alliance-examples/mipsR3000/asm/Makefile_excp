@@ -1,0 +1,318 @@
+# Pierre Nguyen Tuong
+# 19 octobre 1999
+# Makefile pour l'automate ; verification des exceptions
+#
+# Derniere modification : 19 octobre 1999
+# Version : 1.0
+#
+
+
+tests	: excp
+
+excp	: exc00 exc01 exc02 exc03	\
+	  exc04 exc05 exc06 exc07	\
+	  exc08 exc09 exc10 exc11	\
+	  exc12 exc13 exc14 exc15	\
+	  exc16 exc17 exc18 exc19	\
+	  exc20 exc21 exc22 exc23	\
+	  exc24
+
+
+exc00	:
+	 @echo "**************************************************************************" >> res_test ; \
+	 cp exc000.e rome.e 										; \
+	 mips_asm rome.e rome toto > /dev/null								; \
+	 cp exc000.u rome.u 										; \
+	 mips_asm rome.u romu toto > /dev/null								; \
+	 ./go-bench.sh exc000 > tmp_test 									; \
+	 cat tmp_test											; \
+	 cat tmp_test >> res_test									; \
+	 echo "Test de mauvais alignement de data " >> res_test 					; \
+	 echo "Test de mauvais alignement de data "
+
+exc01:
+	 @cp exc001.e rome.e 										; \
+	 mips_asm rome.e rome toto > /dev/null  							; \
+	 cp exc001.u rome.u 										; \
+	 mips_asm rome.u romu toto > /dev/null  							; \
+	 ./go-bench.sh exc001 > tmp_test 									; \
+	 cat tmp_test											; \
+	 cat tmp_test >> res_test									; \
+	 echo "Test de ADES" >> res_test								; \
+	 echo "Test de ADES"
+
+
+exc02:
+	 @cp exc002.e rome.e 										; \
+	 mips_asm rome.e rome toto > /dev/null  							; \
+	 cp exc002.u rome.u 										; \
+	 mips_asm rome.u romu toto > /dev/null  							; \
+	 ./go-bench.sh exc002  > tmp_test 									; \
+	 cat tmp_test											; \
+	 cat tmp_test >> res_test									; \
+	 echo "Test d'OVERFLOW de sum de nb >0" >> res_test 						; \
+	 echo "Test d'OVERFLOW de sum de nb >0"
+
+
+exc03:
+	 @cp exc003.e rome.e 										; \
+	 mips_asm rome.e rome toto > /dev/null  							; \
+	 cp exc003.u rome.u 										; \
+	 mips_asm rome.u romu toto > /dev/null  							; \
+	 ./go-bench.sh exc003  > tmp_test 									; \
+	 cat tmp_test											; \
+	 cat tmp_test >> res_test									; \
+	 echo "Test d'OVERFLOW de sum de nb >0" >> res_test 						; \
+	 echo "Test d'OVERFLOW de sum de nb >0"
+
+
+exc04:
+	 @cp exc004.e rome.e 										; \
+	 mips_asm rome.e rome toto > /dev/null  							; \
+	 cp exc004.u rome.u 										; \
+	 mips_asm rome.u romu toto > /dev/null  							; \
+	 ./go-bench.sh exc004  > tmp_test 									; \
+	 cat tmp_test											; \
+	 cat tmp_test >> res_test									; \
+	 echo "Test d'OVERFLOW de sum de nb >0" >> res_test 						; \
+	 echo "Test d'OVERFLOW de sum de nb >0"
+
+
+exc05:
+	 @cp exc005.e rome.e 										; \
+	 mips_asm rome.e rome toto > /dev/null  							; \
+	 cp exc005.u rome.u 										; \
+	 mips_asm rome.u romu toto > /dev/null 								; \
+	 ./go-bench.sh exc005  > tmp_test 									; \
+	 cat tmp_test											; \
+	 cat tmp_test >> res_test									; \
+	 echo "Test d'OVERFLOW de sum de nb >0" >> res_test 						; \
+	 echo "Test d'OVERFLOW de sum de nb >0"
+
+
+exc06:
+	 @cp exc006.e rome.e 										; \
+	 mips_asm rome.e rome toto > /dev/null  							; \
+	 cp exc006.u rome.u 										; \
+	 mips_asm rome.u romu toto > /dev/null  							; \
+	 ./go-bench.sh exc006  > tmp_test 									; \
+	 cat tmp_test											; \
+	 cat tmp_test >> res_test									; \
+	 echo " illegal instruction address" >> res_test 						; \
+	 echo " illegal instruction address"
+
+
+exc07:
+	 @cp exc007.e rome.e 										; \
+	 mips_asm rome.e rome toto > /dev/null  							; \
+	 cp exc007.u rome.u 										; \
+	 mips_asm rome.u romu toto > /dev/null  							; \
+	 ./go-bench.sh exc007  > tmp_test 									; \
+	 cat tmp_test											; \
+	 cat tmp_test >> res_test									; \
+	 echo " Test de ADEL" >> res_test 								; \
+	 echo " Test de ADEL"
+
+
+exc08:
+	 @cp exc008.e rome.e 										; \
+	 mips_asm rome.e rome toto > /dev/null  							; \
+	 cp exc008.u rome.u 										; \
+	 mips_asm rome.u romu toto > /dev/null  							; \
+	 ./go-bench.sh exc008  > tmp_test 									; \
+	 cat tmp_test											; \
+	 cat tmp_test >> res_test									; \
+	 echo " Test de ADEL" >> res_test 								; \
+	 echo " Test de ADEL"
+
+
+exc09:
+	 @cp exc009.e rome.e 										; \
+	 mips_asm rome.e rome toto > /dev/null  							; \
+	 cp exc009.u rome.u 										; \
+	 mips_asm rome.u romu toto > /dev/null  							; \
+	 ./go-bench.sh exc009  > tmp_test 									; \
+	 cat tmp_test											; \
+	 cat tmp_test >> res_test									; \
+	 echo " ri (when executing a mfc0)" >> res_test 						; \
+	 echo " ri (when executing a mfc0)"
+
+
+exc10:
+	 @cp exc010.e rome.e 										; \
+	 mips_asm rome.e rome toto > /dev/null  							; \
+	 cp exc010.u rome.u 										; \
+	 mips_asm rome.u romu toto > /dev/null  							; \
+	 ./go-bench.sh exc010  > tmp_test 									; \
+	 cat tmp_test											; \
+	 cat tmp_test >> res_test									; \
+	 echo " ri" >> res_test 									; \
+	 echo " ri"
+
+
+exc11:
+	 @cp exc011.e rome.e 										; \
+	 mips_asm rome.e rome toto > /dev/null  							; \
+	 cp exc012.u rome.u 										; \
+	 mips_asm rome.u romu toto > /dev/null  							; \
+	 ./go-bench.sh exc011  > tmp_test 									; \
+	 cat tmp_test											; \
+	 cat tmp_test >> res_test									; \
+	 echo "adel (when loading a half-word) " >> res_test 						; \
+	 echo "adel (when loading a half-word) "
+
+
+exc12:
+	 @cp exc012.e rome.e 										; \
+	 mips_asm rome.e rome toto > /dev/null  							; \
+	 cp exc012.u rome.u 										; \
+	 mips_asm rome.u romu toto > /dev/null  							; \
+	 ./go-bench.sh exc012  > tmp_test 									; \
+	 cat tmp_test											; \
+	 cat tmp_test >> res_test									; \
+	 echo "ades (when storing a word) " >> res_test 						; \
+	 echo "ades (when storing a word) "
+
+
+exc13:
+	 @cp exc013.e rome.e 										; \
+	 mips_asm rome.e rome toto > /dev/null  							; \
+	 cp exc013.u rome.u 										; \
+	 mips_asm rome.u romu toto > /dev/null  							; \
+	 ./go-bench.sh exc013  > tmp_test 									; \
+	 cat tmp_test											; \
+	 cat tmp_test >> res_test									; \
+	 echo "sleep"   >> res_test 									; \
+	 echo "sleep"
+
+
+exc14:
+	 @cp exc014.e rome.e 										; \
+	 mips_asm rome.e rome toto > /dev/null  							; \
+	 cp exc014.u rome.u 										; \
+	 mips_asm rome.u romu toto > /dev/null  							; \
+	 ./go-bench.sh exc014  > tmp_test 									; \
+	 cat tmp_test											; \
+	 cat tmp_test >> res_test									; \
+	 echo "  data bus error" >> res_test 								; \
+	 echo "  data bus error"
+
+
+exc15:
+	 @cp exc015.e rome.e 										; \
+	 mips_asm rome.e rome toto > /dev/null  							; \
+	 cp exc015.u rome.u 										; \
+	 mips_asm rome.u romu toto > /dev/null  							; \
+	 ./go-bench.sh exc015  > tmp_test 									; \
+	 cat tmp_test											; \
+	 cat tmp_test >> res_test									; \
+	 echo " overflow (when adding positive numbers)" >> res_test 					; \
+	 echo " overflow (when adding positive numbers)"
+
+
+exc16:
+	 @cp exc016.e rome.e 										; \
+	 mips_asm rome.e rome toto > /dev/null  							; \
+	 cp exc016.u rome.u 										; \
+	 mips_asm rome.u romu toto > /dev/null  							; \
+	 ./go-bench.sh exc016  > tmp_test 									; \
+	 cat tmp_test											; \
+	 cat tmp_test >> res_test									; \
+	 echo " overflow (when adding positive numbers)" >> res_test 					; \
+	 echo " overflow (when adding positive numbers)"
+
+
+exc17:
+	 @cp exc017.e rome.e 										; \
+	 mips_asm rome.e rome toto > /dev/null  							; \
+	 cp exc017.u rome.u 										; \
+	 mips_asm rome.u romu toto > /dev/null  							; \
+	 ./go-bench.sh exc017  > tmp_test 									; \
+	 cat tmp_test											; \
+	 cat tmp_test >> res_test									; \
+	 echo "data bus error" >> res_test 								; \
+	 echo "data bus error"
+
+
+exc18:
+	 @cp exc018.e rome.e 										; \
+	 mips_asm rome.e rome toto > /dev/null  							; \
+	 cp exc018.u rome.u 										; \
+	 mips_asm rome.u romu toto > /dev/null  							; \
+	 ./go-bench.sh exc018  > tmp_test 									; \
+	 cat tmp_test											; \
+	 cat tmp_test >> res_test									; \
+	 echo "data bus error" >> res_test 								; \
+	 echo "data bus error"
+
+
+exc19:
+	 @cp exc019.e rome.e 										; \
+	 mips_asm rome.e rome toto > /dev/null  							; \
+	 cp exc019.u rome.u 										; \
+	 mips_asm rome.u romu toto > /dev/null  							; \
+	 ./go-bench.sh exc019  > tmp_test 									; \
+	 cat tmp_test											; \
+	 cat tmp_test >> res_test									; \
+	 echo "data bus error" >> res_test 								; \
+	 echo "data bus error"
+
+
+exc20:
+	 @cp exc020.e rome.e 										; \
+	 mips_asm rome.e rome toto > /dev/null  							; \
+	 cp exc020.u rome.u 										; \
+	 mips_asm rome.u romu toto > /dev/null  							; \
+	 ./go-bench.sh exc020  > tmp_test 									; \
+	 cat tmp_test											; \
+	 cat tmp_test >> res_test									; \
+	 echo "data bus error" >> res_test 								; \
+	 echo "data bus error"
+
+
+exc21:
+	 @cp exc021.e rome.e 										; \
+	 mips_asm rome.e rome toto > /dev/null  							; \
+	 cp exc021.u rome.u 										; \
+	 mips_asm rome.u romu toto > /dev/null  							; \
+	 ./go-bench.sh exc021  > tmp_test 									; \
+	 cat tmp_test											; \
+	 cat tmp_test >> res_test									; \
+	 echo "data bus error" >> res_test 								; \
+	 echo "data bus error"
+
+
+exc22:
+	 @cp exc022.e rome.e 										; \
+	 mips_asm rome.e rome toto > /dev/null  							; \
+	 cp exc022.u rome.u 										; \
+	 mips_asm rome.u romu toto > /dev/null  							; \
+	 ./go-bench.sh exc022 > tmp_test 									; \
+	 cat tmp_test											; \
+	 cat tmp_test >> res_test									; \
+	 echo "data bus error" >> res_test 								; \
+	 echo "data bus error"
+
+
+exc23:
+	 @cp exc023.e rome.e 										; \
+	 mips_asm rome.e rome toto > /dev/null  							; \
+	 cp exc023.u rome.u 										; \
+	 mips_asm rome.u romu toto > /dev/null  							; \
+	 ./go-bench.sh exc023  > tmp_test 									; \
+	 cat tmp_test											; \
+	 cat tmp_test >> res_test									; \
+	 echo "data bus error" >> res_test 								; \
+	 echo "data bus error"
+
+
+exc24:
+	 @cp exc024.e rome.e 										; \
+	 mips_asm rome.e rome toto > /dev/null  							; \
+	 cp exc024.u rome.u 										; \
+	 mips_asm rome.u romu toto > /dev/null  							; \
+	 ./go-bench.sh exc024  > tmp_test 									; \
+	 cat tmp_test											; \
+	 cat tmp_test >> res_test									; \
+	 echo "instruction bus error" >> res_test 							; \
+	 echo "instruction bus error"

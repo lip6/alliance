@@ -1,0 +1,391 @@
+# Pierre Nguyen Tuong
+# 19 octobre 1999
+# Makefile pour l'automate
+#
+# Derniere modification : 19 octobre 1999
+# Version : 1.0
+#
+
+
+tests	: bm 
+
+
+bm	: beq0 beq1 bgez0 bgez1 bgezal bgtz blez bltz bltzal bne0 bne1			\
+	lhi0 lhi1 jal0 jal1 jalr0 jalr1 lsb0 lsb1 lsb2 lsb3 lsb4 lsb5 lsb6 lsb7 	\
+	lsbu0 lsbu1 lsbu2 lsbu3 lsh0 lsh1 lsh2 lsh3 lshu0 lshu1 lsw0 lsw1 sltu0 	\
+	sltu1 sltu2 sltu3 sltu4 sltiu0 sltiu1 sltiu2 sltiu3 sltiu4 
+
+
+beq0 :  
+	 @echo "**************************************************************************" >> res_test ; \
+	 ./go-bench.sh beq000 > tmp_test									; \
+	 cat tmp_test											; \
+	 cat tmp_test >> res_test	 								; \
+	 echo "Test de beq 0" >> res_test 								; \
+	 echo "Test de beq 0"									
+
+beq1 :
+	 @./go-bench.sh beq001  > tmp_test 									; \
+	 cat tmp_test											; \
+	 cat tmp_test >> res_test 									; \
+	 echo "Test de beq 1" >> res_test 								; \
+	 echo "Test de beq 1"
+
+bgez0 :
+	 @./go-bench.sh bgez000  > tmp_test 									; \
+	 cat tmp_test											; \
+	 cat tmp_test >> res_test 									; \
+	 echo "Test de bgez0" >> res_test 								; \
+	 echo "Test de bgez0"
+
+
+bgez1 :
+	 @./go-bench.sh bgez001  > tmp_test 									; \
+	 cat tmp_test											; \
+	 cat tmp_test >> res_test 									; \
+	 echo "Test de bgez1" >> res_test 								; \
+	 echo "Test de bgez1"
+
+
+bgezal :
+	 @./go-bench.sh bgezal000  > tmp_test 									; \
+	 cat tmp_test											; \
+	 cat tmp_test >> res_test 									; \
+	 echo "Test de bgezal" >> res_test 								; \
+	 echo "Test de bgezal"
+
+
+bgtz :
+	 @./go-bench.sh bgtz000  > tmp_test  									; \
+	 cat tmp_test											; \
+	 cat tmp_test >> res_test 									; \
+	 echo "Test de bgtz" >> res_test 								; \
+	 echo "Test de bgtz"
+
+blez :
+	 @./go-bench.sh blez000  > tmp_test  									; \
+	 cat tmp_test											; \
+	 cat tmp_test >> res_test 									; \
+	 echo "Test de blez" >> res_test 								; \
+	 echo "Test de blez"
+
+
+bltz :
+	 @./go-bench.sh bltz000  > tmp_test  									; \
+	 cat tmp_test											; \
+	 cat tmp_test >> res_test									; \
+	 echo "Test de bltz" >> res_test 								; \
+	 echo "Test de bltz"
+
+
+bltzal :
+	 @./go-bench.sh bltzal000  > tmp_test 									; \
+	 cat tmp_test											; \
+	 cat tmp_test >> res_test 									; \
+	 echo "Test de bltzal" >> res_test 								; \
+	 echo "Test de bltzal"
+
+
+bne0 :
+	 @./go-bench.sh bne000  > tmp_test  									; \
+	 cat tmp_test											; \
+	 cat tmp_test >> res_test 									; \
+	 echo "Test de bne0" >> res_test 								; \
+	 echo "Test de bne0"
+
+
+bne1 :
+	 @./go-bench.sh bne001   > tmp_test  									; \
+	 cat tmp_test											; \
+	 cat tmp_test >> res_test 									; \
+	 echo "Test de bne1" >> res_test 								; \
+	 echo "Test de bne1"
+
+
+jal0 :
+	 @./go-bench.sh jal000   > tmp_test  									; \
+	 cat tmp_test											; \
+	 cat tmp_test >> res_test 									; \
+	 echo "Test de jal0" >> res_test 								; \
+	 echo "Test de jal0"
+
+
+jal1 :
+	 @./go-bench.sh jal001   > tmp_test  									; \
+	 cat tmp_test											; \
+	 cat tmp_test >> res_test 									; \
+	 echo "Test de jal1" >> res_test 								; \
+	 echo "Test de jal1"
+
+
+jalr0 :
+	 @./go-bench.sh jalr000   > tmp_test  									; \
+	 cat tmp_test											; \
+	 cat tmp_test >> res_test 									; \
+	 echo "Test de jalr0" >> res_test 								; \
+	 echo "Test de jalr0"
+
+
+jalr1 :
+	 @./go-bench.sh jalr001   > tmp_test  									; \
+	 cat tmp_test											; \
+	 cat tmp_test >> res_test 									; \
+	 echo "Test de jalr1" >> res_test 								; \
+	 echo "Test de jalr1"
+
+
+lhi0 :
+	 @./go-bench.sh lhi000   > tmp_test  									; \
+	 cat tmp_test											; \
+	 cat tmp_test >> res_test 									; \
+	 echo "Test de lhi0" >> res_test 								; \
+	 echo "Test de lhi0"
+
+
+lhi1 :
+	 @./go-bench.sh lhi001   > tmp_test  									; \
+	 cat tmp_test											; \
+	 cat tmp_test >> res_test 									; \
+	 echo "Test de lhi1" >> res_test 								; \
+	 echo "Test de lhi1"
+
+
+lsb0 :
+	 @./go-bench.sh lsb000  > tmp_test   									; \
+	 cat tmp_test											; \
+	 cat tmp_test >> res_test 									; \
+	 echo "Test de lsb0" >> res_test 								; \
+	 echo "Test de lsb0"
+
+
+lsb1 :
+	 @./go-bench.sh lsb001  > tmp_test   									; \
+	 cat tmp_test											; \
+	 cat tmp_test >> res_test 									; \
+	 echo "Test de lsb1" >> res_test 								; \
+	 echo "Test de lsb1"
+
+
+lsb2 :
+	 @./go-bench.sh lsb002   > tmp_test  									; \
+	 cat tmp_test											; \
+	 cat tmp_test >> res_test 									; \
+	 echo "Test de lsb2" >> res_test 								; \
+	 echo "Test de lsb2"
+
+
+lsb3 :
+	 @./go-bench.sh lsb003   > tmp_test  									; \
+	 cat tmp_test											; \
+	 cat tmp_test >> res_test 									; \
+	 echo "Test de lsb3" >> res_test 								; \
+	 echo "Test de lsb3"
+
+
+lsb4 :
+	 @./go-bench.sh lsb004  > tmp_test  	 								; \
+	 cat tmp_test											; \
+	 cat tmp_test >> res_test 									; \
+	 echo "Test de lsb4" >> res_test 								; \
+	 echo "Test de lsb4"
+
+
+lsb5 :
+	 @./go-bench.sh lsb005  > tmp_test   									; \
+	 cat tmp_test											; \
+	 cat tmp_test >> res_test 									; \
+	 echo "Test de lsb5" >> res_test 								; \
+	 echo "Test de lsb5"
+
+
+lsb6 :
+	 @./go-bench.sh lsb006   > tmp_test  									; \
+	 cat tmp_test											; \
+	 cat tmp_test >> res_test 									; \
+	 echo "Test de lsb6" >> res_test 								; \
+	 echo "Test de lsb6"
+
+
+lsb7 :
+	 @./go-bench.sh lsb007  > tmp_test   									; \
+	 cat tmp_test											; \
+	 cat tmp_test >> res_test 									; \
+	 echo "Test de lsb7" >> res_test 								; \
+	 echo "Test de lsb7"
+
+
+lsbu0 :
+	 @./go-bench.sh lsbu000  > tmp_test   									; \
+	 cat tmp_test											; \
+	 cat tmp_test >> res_test 									; \
+	 echo "Test de lsbu0" >> res_test 								; \
+	 echo "Test de lsbu0"
+
+
+lsbu1 :
+	 @./go-bench.sh lsbu001  > tmp_test  									; \
+	 cat tmp_test											; \
+	 cat tmp_test >> res_test 									; \
+	 echo "Test de lsbu1" >> res_test 								; \
+	 echo "Test de lsbu1"
+
+
+lsbu2 :
+	 @./go-bench.sh lsbu002  > tmp_test   									; \
+	 cat tmp_test											; \
+	 cat tmp_test >> res_test 									; \
+	 echo "Test de lsbu2" >> res_test 								; \
+	 echo "Test de lsbu2"
+
+
+lsbu3 :
+	 @./go-bench.sh lsbu003  > tmp_test  	 								; \
+	 cat tmp_test											; \
+	 cat tmp_test >> res_test 									; \
+	 echo "Test de lsbu3" >> res_test 								; \
+	 echo "Test de lsbu3"
+
+
+lsh0 :
+	 @./go-bench.sh lsh000  > tmp_test   									; \
+	 cat tmp_test											; \
+	 cat tmp_test >> res_test 									; \
+	 echo "Test de lsh0" >> res_test 								; \
+	 echo "Test de lsh0"
+
+
+lsh1 :
+	 @./go-bench.sh lsh001  > tmp_test   									; \
+	 cat tmp_test											; \
+	 cat tmp_test >> res_test 									; \
+	 echo "Test de lsh1 " >> res_test 								; \
+	 echo "Test de lsh1"
+
+
+lsh2 :
+	 @./go-bench.sh lsh002   > tmp_test  									; \
+	 cat tmp_test											; \
+	 cat tmp_test >> res_test 									; \
+	 echo "Test de lsh2" >> res_test 								; \
+	 echo "Test de lsh2"
+
+
+lsh3 :
+	 @./go-bench.sh lsh003  > tmp_test   									; \
+	 cat tmp_test											; \
+	 cat tmp_test >> res_test 									; \
+	 echo "Test de lsh3" >> res_test 								; \
+	 echo "Test de lsh3"
+
+
+lshu0 :
+	 @./go-bench.sh lshu000  > tmp_test   									; \
+	 cat tmp_test											; \
+	 cat tmp_test >> res_test 									; \
+	 echo "Test de lshu0" >> res_test 								; \
+	 echo "Test de lshu0"
+
+
+lshu1 :
+	 @./go-bench.sh lshu001   > tmp_test  									; \
+	 cat tmp_test											; \
+	 cat tmp_test >> res_test 									; \
+	 echo "Test de lshu1" >> res_test 								; \
+	 echo "Test de lshu1"
+
+
+lsw0 :
+	 @./go-bench.sh lsw000  > tmp_test   									; \
+	 cat tmp_test											; \
+	 cat tmp_test >> res_test 									; \
+	 echo "Test de lsw0" >> res_test 								; \
+	 echo "Test de lsw0"
+
+
+lsw1 :
+	 @./go-bench.sh lsw001   > tmp_test  									; \
+	 cat tmp_test											; \
+	 cat tmp_test >> res_test 									; \
+	 echo "Test de lsw1" >> res_test 								; \
+	 echo "Test de lsw1"
+
+
+sltu0 :
+	 @./go-bench.sh sltu000 > tmp_test 									; \
+	 cat tmp_test											; \
+	 cat tmp_test >> res_test 									; \
+	 echo "Test de sltu0" >> res_test 								; \
+	 echo "Test de sltu0"
+
+
+sltu1 :
+	 @./go-bench.sh sltu001   > tmp_test  									; \
+	 cat tmp_test											; \
+	 cat tmp_test >> res_test 									; \
+	 echo "Test de sltu1" >> res_test 								; \
+	 echo "Test de sltu1"
+
+
+
+sltu2 :
+	 @./go-bench.sh sltu002  > tmp_test   									; \
+	 cat tmp_test											; \
+	 cat tmp_test >> res_test 									; \
+	 echo "Test de sltu2" >> res_test 								; \
+	 echo "Test de sltu2"
+
+
+sltu3 :
+	 @./go-bench.sh sltu003   > tmp_test  									; \
+	 cat tmp_test											; \
+	 cat tmp_test >> res_test 									; \
+	 echo "Test de sltu3" >> res_test 								; \
+	 echo "Test de sltu3"
+
+
+sltu4 :
+	 @./go-bench.sh sltu004   > tmp_test  									; \
+	 cat tmp_test											; \
+	 cat tmp_test >> res_test 									; \
+	 echo "Test de sltu4" >> res_test 								; \
+	 echo "Test de sltu4"
+
+
+sltiu0 :
+	 @./go-bench.sh sltiu000  > tmp_test  									; \
+	 cat tmp_test											; \
+	 cat tmp_test >> res_test 									; \
+	 echo "Test de sltiu0" >> res_test 								; \
+	 echo "Test de sltiu0"
+
+
+sltiu1 :
+	 @./go-bench.sh sltiu001  > tmp_test  									; \
+	 cat tmp_test											; \
+	 cat tmp_test >> res_test 									; \
+	 echo "Test de sltiu1" >> res_test 								; \
+	 echo "Test de sltiu1"
+
+
+sltiu2 :
+	 @./go-bench.sh sltiu002  > tmp_test   									; \
+	 cat tmp_test											; \
+	 cat tmp_test >> res_test 									; \
+	 echo "Test de sltiu2" >> res_test 								; \
+	 echo "Test de sltiu2"
+
+
+sltiu3 :
+	 @./go-bench.sh sltiu003  > tmp_test  									; \
+	 cat tmp_test											; \
+	 cat tmp_test >> res_test 									; \
+	 echo "Test de sltiu3" >> res_test 								; \
+	 echo "Test de sltiu3"
+
+
+sltiu4 :
+	 @./go-bench.sh sltiu004  > tmp_test  									; \
+	 cat tmp_test											; \
+	 cat tmp_test >> res_test 									; \
+	 echo "Test de sltiu4" >> res_test 								; \
+	 echo "Test de sltiu4"

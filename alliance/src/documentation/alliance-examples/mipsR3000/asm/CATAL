@@ -1,0 +1,9 @@
+mips_dec	C
+mips_seqo	C
+mips_sts	C
+timer		C
+rome		C
+romr		C
+romu		C
+roms		C
+sr64_1a		C

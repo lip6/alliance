@@ -1,0 +1,47 @@
+
+;  ###----------------------------------------------------------------###
+;  # file	: blez000.u						#
+;  # date	: Nov  1996						#
+;  # descr.	: functional test for mips				#
+;  ###----------------------------------------------------------------###
+
+	;  ###--------------------------------------------------------###
+	;  #   conditional branch					#
+	;  ###--------------------------------------------------------###
+
+mask		.equ	0xffffffff
+mask1		.equ	0x0000ffff
+val1            .equ    0x00000001
+
+		.org	0x00400000
+		.start	init
+
+init :
+		loadi	r10, val1
+
+		blez	r10 , bad 
+		nop
+		
+     	        blez    r0 , test	
+		nop
+
+	        j       bad	
+		nop  
+
+test :
+		lui 	r10 , mask
+		addiu	r16 , r0  , mask1
+		or	r10 , r10 , r16
+		blez	r10 , good
+		j       bad	
+		nop	
+
+		.org	0x004000d0
+
+
+good:		j	good
+		nop
+bad:		j	bad
+		nop
+		.end
+

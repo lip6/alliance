@@ -1,0 +1,39 @@
+;  ###----------------------------------------------------------------###
+;  # file	: add003.u						#
+;  # date	: Mar 26 1996						#
+;  # descr.	: functional test for mips				#
+;  ###----------------------------------------------------------------###
+
+	;  ###--------------------------------------------------------###
+	;  #   signed addition						#
+	;  ###--------------------------------------------------------###
+
+val1		.equ	0xf1c1
+val2		.equ	0x1112
+
+		.org	0x00400000
+		.start	init
+
+init:
+		addi	r1 , r0 , val1
+		addi	r2 , r0 , val2
+
+		addi	r3 , r1 , 1
+		addi	r4 , r2 , 2
+		add	r17, r3 , r4
+
+		lui	r29     , (val1 + val2) + 3
+		sra	r29, r29, 16
+
+		beq	r29,r17, good
+		nop
+		j	bad
+		nop
+
+		.org	0x004000d0
+good:		j	good
+		nop
+bad:		j	bad
+		nop
+		.end
+

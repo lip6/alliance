@@ -1,0 +1,46 @@
+
+;  ###----------------------------------------------------------------###
+;  # file	: exc002.u						#
+;  # date	: Mar 26 1996						#
+;  # descr.	: functional test for mips				#
+;  ###----------------------------------------------------------------###
+
+	;  ###--------------------------------------------------------###
+	;  #   exceptions :						#
+	;  #     - overflow (when adding positive numbers)		#
+	;  ###--------------------------------------------------------###
+
+data		.equ	0x6234fe80		; a big positive data
+
+		.org	0x00400000
+		.start	init
+
+init:
+		loadi	r31, back_from_exception
+		loadi	r10, data		; big positive data in r10
+		loadi	r11, data		; same data in r11
+
+	;  ###--------------------------------------------------------###
+	;  #   addition generating an overflow				#
+	;  ###--------------------------------------------------------###
+
+		add	r10, r10, r10		; EXCEPTION (overflow)
+
+	;  ###--------------------------------------------------------###
+	;  #   after returning from exception check that r10 has not	#
+	;  # been altered						#
+	;  ###--------------------------------------------------------###
+
+back_from_exception:
+	        beq	r10, r11, good
+		nop
+		j	bad
+		nop
+
+		.org	0x004000d0
+good:		j	good
+		nop
+bad:		j	bad
+		nop
+		.end
+

@@ -1,0 +1,61 @@
+; ### --------------------------------------------------------------- ###
+; #									#
+; # file	: lsw000.u						#
+; # date	: Jan  5 1993						#
+; # description	: functional test for mips				#
+; #									#
+; ### --------------------------------------------------------------- ###
+
+	; ### ------------------------------------------------------- ###
+	; #   store data, data+1, data+2, ... in successive addresses	#
+	; # then load the stored data in an accumulator			#
+	; ### ------------------------------------------------------- ###
+
+address		.equ	0x40000004
+data		.equ	6976			; short data
+mask		.equ	0xffffffff		; short data
+loop_iter	.equ	3			; loop iteration number
+
+		.org	0x00400000
+		.start	init
+
+init:
+		loadi	r1 , address
+		addiu	r3 , r0 , loop_iter
+		addiu	r2 , r0 , data
+
+write_loop:	sw	r2, 0(r1 )
+		addiu	r2 , r2 , 1
+		lui	r13 , mask
+		addiu	r16, r0 , mask
+		or	r13 , r13 , r16
+		addu	r3  , r3  , r13
+		addiu	r1 , r1 , 4
+		bne	r3 , r0,write_loop
+
+		loadi	r1 , address
+		addu	r5 , r0 , r0
+		addiu	r3 , r0 , loop_iter
+
+read_loop:	lw	r4 , 0(r1 )
+		nop
+	        addiu   r5, r5, data	
+		addu	r3  , r3  , r13
+		bne	r3 , r0 ,read_loop
+		addiu	r1 , r1 , 4
+
+		loadi	r6 , ( 3 * data) 
+
+		beq	r6, r5 , good
+		nop
+		j	bad
+		nop
+
+		.org	0x004000d0
+good:		j	good
+		nop
+bad:		j	bad
+		nop
+
+		.end
+

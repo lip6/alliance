@@ -1,0 +1,49 @@
+
+;  ###----------------------------------------------------------------###
+;  # file	: exc009.u						#
+;  # date	: Mar 26 1996						#
+;  # descr.	: functional test for mips				#
+;  ###----------------------------------------------------------------###
+
+	;  ###--------------------------------------------------------###
+	;  #   exceptions :						#
+	;  #     - illegal instruction (when executing a mfc0)  	#
+	;  ###--------------------------------------------------------###
+
+data		.equ	0x324f6b71
+		.org	0x00400000
+		.start	init
+
+init:
+		loadi	r31, back_from_exception
+		loadi	r1 , data		; init. r2 with a data
+		loadi	r2 , data		; init. r3 with the same value
+
+	;  ###--------------------------------------------------------###
+	;  #   move SR into r1. This must generate an exception		#
+	;  # (coprocesseur inaccessible)				#
+	;  ###--------------------------------------------------------###
+
+		mfc0	r1 , status		; EXCEPTION (privileged)
+		nop
+
+	;  ###--------------------------------------------------------###
+	;  #   check that the load has faild and the content of the	#
+	;  # register has not been altered				#
+	;  ###--------------------------------------------------------###
+
+back_from_exception:
+		                   		; check that the move has failed
+		beq	r1 , r2 ,good		; jump to good if OK
+		nop
+		j	bad
+		nop
+
+		.org	0x004000d0
+good:		j	good
+		nop
+bad:		j	bad
+		nop
+
+		.end
+

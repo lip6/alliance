@@ -1,0 +1,51 @@
+
+;  ###----------------------------------------------------------------###
+;  # file	: exc008.u						#
+;  # date	: Mar 26 1996						#
+;  # descr.	: functional test for mips				#
+;  ###----------------------------------------------------------------###
+
+	;  ###--------------------------------------------------------###
+	;  #   exceptions :						#
+	;  #     - illegal data address (segment when loading)		#
+	;  ###--------------------------------------------------------###
+
+adr		.equ	0xC000003c		; data adr in system segment
+data		.equ	0x9043ad6b		; data
+
+		.org	0x00400000
+		.start	init
+
+init:
+		loadi	r31, back_from_exception
+		loadi	r1 , adr		; word's address
+		loadi	r2 , data		; init. r2 with a data
+		loadi	r3 , data		; init. r3 with the same value
+
+	;  ###--------------------------------------------------------###
+	;  #   load a word at a miss segmented address (data address	#
+	;  # segment exception)						#
+	;  ###--------------------------------------------------------###
+
+		lw	r2 , 0 (r1 )		; EXCEPTION (segment)
+
+	;  ###--------------------------------------------------------###
+	;  #   check that the load has faild and the content of the	#
+	;  # register has not been altered				#
+	;  ###--------------------------------------------------------###
+
+back_from_exception:
+		                  		; check that the lw has failed
+		beq	r2 ,r3, good		; jump to good if OK
+		nop
+		j	bad
+		nop
+
+		.org	0x004000d0
+good:		j	good
+		nop
+bad:		j	bad
+		nop
+
+		.end
+

@@ -1,0 +1,47 @@
+
+;  ###----------------------------------------------------------------###
+;  # file	: bgtz000.u						#
+;  # date	: Nov  1996						#
+;  # descr.	: functional test for mips				#
+;  ###----------------------------------------------------------------###
+
+	;  ###--------------------------------------------------------###
+	;  #   conditional branch					#
+ 	;  #   Branch if register is greater to zero                    #
+ 	;  #   the 3 cases are tested: greater or equal or lower        #	
+	;  ###--------------------------------------------------------###
+
+val3            .equ    0xffffffff
+val4            .equ    0x0000ffff
+val5           .equ    0x00000005
+		
+		.org	0x00400000
+		.start	init
+
+init :
+		lui     r11, val3
+		addiu	r16, r0  , val4 
+		or	r11, r11 , r16
+
+		bgtz	r0 , bad 
+		nop
+		
+     	        bgtz    r11 , bad	
+		nop  
+
+		addiu   r10 , r0 , val5
+		bgtz	r10 , good
+		nop
+
+	        j	bad	
+		nop	
+
+		.org	0x004000d0
+
+
+good:		j	good
+		nop
+bad:		j	bad
+		nop
+		.end
+

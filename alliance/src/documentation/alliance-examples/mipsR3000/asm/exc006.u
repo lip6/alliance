@@ -1,0 +1,37 @@
+
+;  ###----------------------------------------------------------------###
+;  # file	: exc006.u						#
+;  # date	: Mar 26 1996						#
+;  # descr.	: functional test for mips				#
+;  ###----------------------------------------------------------------###
+
+	;  ###--------------------------------------------------------###
+	;  #   exceptions :						#
+	;  #     - illegal instruction address (alignment)		#
+	;  ###--------------------------------------------------------###
+
+		.org	0x00400000
+		.start	init
+
+init:
+		loadi	r31, back_from_exception
+		loadi	r20, target_adr + 1	; missaligned address in r20
+target_adr:
+		jr	r20			; EXCEPTION (alignment)
+		nop
+
+	;  ###--------------------------------------------------------###
+	;  #   jump to good if returned from exception			#
+	;  ###--------------------------------------------------------###
+
+back_from_exception:
+		j	good
+		nop
+		
+		.org	0x004000d0
+good:		j	good
+		nop
+bad:		j	bad
+		nop
+		.end
+

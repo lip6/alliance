@@ -1,0 +1,39 @@
+;  ###----------------------------------------------------------------###
+;  # file	: add004.u						#
+;  # date	: Mar 26 1996						#
+;  # descr.	: functional test for mips				#
+;  ###----------------------------------------------------------------###
+
+	;  ###--------------------------------------------------------###
+	;  #   signed subtraction					#
+	;  ###--------------------------------------------------------###
+
+vai             .equ    1 
+limit		.equ	 7
+first		.equ	10
+
+		.org	0x00400000
+		.start	init
+
+init :
+		loadi	r1      , limit
+		loadi	r2      , first
+
+loop :
+                addi    r4,r0,vai
+		sub	r2 , r2 ,r4 
+		bne	r2 , r1,loop
+		nop
+
+		beq	r1,r2,good 
+		nop
+		j	bad
+		nop
+
+		.org	0x004000d0
+good:		j	good
+		nop
+bad:		j	bad
+		nop
+		.end
+

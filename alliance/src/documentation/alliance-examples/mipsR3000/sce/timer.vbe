@@ -1,0 +1,320 @@
+-- ### -------------------------------------------------------------- ###
+-- #									#
+-- # file	: timer.vbe						#
+-- # date	: Jul 21 1995						#
+-- # version	: v0.1							#
+-- #									#
+-- # origin	: this description has been developed by CAO-VLSI team	#
+-- #		  at MASI laboratory, University Pierre et Marie Curie	#
+-- #		  4 Place Jussieu 75252 Paris Cedex 05 - France		#
+-- #									#
+-- # descr.	: data flow description of a programable timer.		#
+-- #		- 7 compteurs 32 bits (6 int. et le reset)		#
+-- #		- un registre status					#
+-- #		  Fonctionnement: On met le nombre de cycles dans le	#
+-- #		  compteur associe, puis on passe le status a 1.	#
+-- #              Mis a part le reset qui reste actif seulement un 	#
+-- #              cycle, les autre lignes restent a l'etat bas tant	#
+-- #              que leur statut est a 1.				#
+-- ### -------------------------------------------------------------- ###
+
+entity TIMER is
+
+  port (
+    CK      : in    bit                         ;	-- external clock
+    FRZ     : in    bit                         ;	-- freeze
+    RESET_I : in    bit                         ;	-- reset input
+    SEL     : in    bit_vector ( 2 downto 0)    ;	-- register selection
+    DATA    : inout mux_vector (31 downto 0) bus;	-- data
+    RW      : in    bit                         ;	-- access mode
+    E_N     : in    bit                         ;	-- chip enable
+    RESET_O : out   bit                         ;	-- reset output (= TIMER_RESET OR RESET_I)
+    IRQ_N   : out   bit_vector(5 downto 0)	;       -- interrupt request
+    VDD     : in    bit                         ;	--
+    VSS     : in    bit                         	--
+    );
+
+end;
+
+architecture FUNCTIONAL of TIMER is
+
+  signal NOT_CK   : bit					;
+
+  signal CLK_SX   : bit                                 ;
+  -- Status Register
+  signal status_r : reg_vector( 6 downto 0) register 	;
+  signal status_wen : bit				;
+  -- Int Register 0 to 6
+  signal reg_0    : reg_vector(31 downto 0) register 	;
+  signal reg_1    : reg_vector(31 downto 0) register 	;
+  signal reg_2    : reg_vector(31 downto 0) register 	;
+  signal reg_3    : reg_vector(31 downto 0) register 	;
+  signal reg_4    : reg_vector(31 downto 0) register 	;
+  signal reg_5    : reg_vector(31 downto 0) register 	;
+
+  -- Write enable pour reg_0 a reg_5
+  signal reg0_wen : bit					;
+  signal reg1_wen : bit					;
+  signal reg2_wen : bit					;
+  signal reg3_wen : bit					;
+  signal reg4_wen : bit					;
+  signal reg5_wen : bit					;
+
+  -- Decrementation des registres
+  signal dec_0    : bit_vector( 31 downto 0)		;
+  signal dec_1    : bit_vector( 31 downto 0)		;
+  signal dec_2    : bit_vector( 31 downto 0)		;
+  signal dec_3    : bit_vector( 31 downto 0)		;
+  signal dec_4    : bit_vector( 31 downto 0)		;
+  signal dec_5    : bit_vector( 31 downto 0)		;
+  signal cry_0    : bit_vector( 32 downto 0)		;
+  signal cry_1    : bit_vector( 32 downto 0)		;
+  signal cry_2    : bit_vector( 32 downto 0)		;
+  signal cry_3    : bit_vector( 32 downto 0)		;
+  signal cry_4    : bit_vector( 32 downto 0)		;
+  signal cry_5    : bit_vector( 32 downto 0)		;
+
+  signal reset_dec: bit_vector( 31 downto 0)		;
+  signal reset_cry: bit_vector( 32 downto 0)		;
+
+  -- Reset register
+  signal reset_r  : reg_vector(31 downto 0) register 	;
+  signal reset_wen: bit					;
+  signal reset    : bit					;
+
+  -- IRQ : Pour visualiser dans le res.pat !!!
+  signal IRQ	  : bit_vector(5 downto 0)		;
+
+  signal reg0_in    : bit_vector( 31 downto 0)		;
+  signal reg1_in    : bit_vector( 31 downto 0)		;
+  signal reg2_in    : bit_vector( 31 downto 0)		;
+  signal reg3_in    : bit_vector( 31 downto 0)		;
+  signal reg4_in    : bit_vector( 31 downto 0)		;
+  signal reg5_in    : bit_vector( 31 downto 0)		;
+  signal reg_reset_in    : bit_vector( 31 downto 0)		;
+begin
+
+  NOT_CK     <= NOT(CK) ;
+
+  CLK_SX     <= NOT_CK and not FRZ;
+
+  reg0_wen   <= '1' when ((sel(2 downto 0)) = B"000" and (E_N = '0') and (rw = '0') and (status_r(0) = '0')) 
+                else '0' ;
+  reg1_wen   <= '1' when ((sel(2 downto 0)) = B"001" and (E_N = '0') and (rw = '0') and (status_r(1) = '0')) 
+                else '0' ;
+  reg2_wen   <= '1' when ((sel(2 downto 0)) = B"010" and (E_N = '0') and (rw = '0') and (status_r(2) = '0')) 
+                else '0' ;
+  reg3_wen   <= '1' when ((sel(2 downto 0)) = B"011" and (E_N = '0') and (rw = '0') and (status_r(3) = '0')) 
+                else '0' ;
+  reg4_wen   <= '1' when ((sel(2 downto 0)) = B"100" and (E_N = '0') and (rw = '0') and (status_r(4) = '0')) 
+                else '0' ;
+  reg5_wen   <= '1' when ((sel(2 downto 0)) = B"101" and (E_N = '0') and (rw = '0') and (status_r(5) = '0')) 
+                else '0' ;
+  reset_wen  <= '1' when ((sel(2 downto 0)) = B"110" and (E_N = '0') and (rw = '0') and (status_r(6) = '0')) 
+                else '0' ;
+
+  status_wen <= '1' when ((sel(2 downto 0)) = B"111" and (E_N = '0') and (rw = '0')) else '0' ;
+  
+  dec_0 (31 downto 0) <= not reg_0 xor cry_0 (31 downto 0);
+  cry_0 (32 downto 1) <=     reg_0 or  cry_0 (31 downto 0);
+  cry_0 (0)           <= '0';
+
+  assert (not(reg0_wen))
+  report  "====   writing data to reg_0  ===="
+  severity WARNING;
+     
+  with (((status_r(0) = '1') and not(reg_0 = X"00000000")) & reg0_wen & reset) select
+      reg0_in <= dec_0 when B"100",
+                  data when B"010",
+                  X"00000000" when B"001" | B"011" | B"101" | B"111",
+                  reg_0 when others;
+ 
+  count0 : block  (CLK_SX = '0' and not CLK_SX'STABLE)
+  begin
+    reg_0 <= guarded reg0_in;
+  end block ;
+   
+  --count00 : block (CLK_SX = '0' and not CLK_SX'STABLE and status_r(0) = '1' and not(reg_0 = X"00000000"))
+  --begin
+  --  reg_0 <= guarded dec_0 ;
+  --end block;
+  --count01 : block  (CLK_SX = '0' and not CLK_SX'STABLE and (reg0_wen = '1'))
+  --begin
+  --  reg_0 <= guarded data;
+  --end block ;
+
+  dec_1 (31 downto 0) <= not reg_1 xor cry_1 (31 downto 0);
+  cry_1 (32 downto 1) <=     reg_1 or  cry_1 (31 downto 0);
+  cry_1 (0)           <= '0';
+     
+  with (((status_r(1) = '1') and not(reg_1 = X"00000000")) & reg1_wen & reset) select
+      reg1_in <= dec_1 when B"100",
+                  data when B"010",
+                  X"00000000" when B"001" | B"011" | B"101" | B"111",
+                  reg_1 when others;
+ 
+  count1 : block  (CLK_SX = '0' and not CLK_SX'STABLE)
+  begin
+    reg_1 <= guarded reg1_in;
+  end block ;
+
+
+  --count10 : block (CLK_SX = '0' and not CLK_SX'STABLE and status_r(1) = '1' and not(reg_1 = X"00000000"))
+  --begin
+  --  reg_1 <= guarded dec_1 ;
+  --end block;
+  --count11 : block  (CLK_SX = '0' and not CLK_SX'STABLE and (reg1_wen = '1'))
+  --begin
+  --  reg_1 <= guarded data;
+  --end block ;
+
+  dec_2 (31 downto 0) <= not reg_2 xor cry_2 (31 downto 0);
+  cry_2 (32 downto 1) <=     reg_2 or  cry_2 (31 downto 0);
+  cry_2 (0)           <= '0';
+     
+  with (((status_r(2) = '1') and not(reg_2 = X"00000000")) & reg2_wen & reset) select
+      reg2_in <= dec_2 when B"100",
+                  data when B"010",
+                  X"00000000" when B"001" | B"011" | B"101" | B"111",
+                  reg_2 when others;
+ 
+  count2 : block  (CLK_SX = '0' and not CLK_SX'STABLE)
+  begin
+    reg_2 <= guarded reg2_in;
+  end block ;
+
+  --count20 : block (CLK_SX = '0' and not CLK_SX'STABLE and status_r(2) = '1' and not(reg_2 = X"00000000"))
+  --begin
+  --  reg_2 <= guarded dec_2 ;
+  --end block;
+  --count21 : block  (CLK_SX = '0' and not CLK_SX'STABLE and (reg2_wen = '1'))
+  --begin
+  --  reg_2 <= guarded data;
+  --end block ;
+
+  dec_3 (31 downto 0) <= not reg_3 xor cry_3 (31 downto 0);
+  cry_3 (32 downto 1) <=     reg_3 or  cry_3 (31 downto 0);
+  cry_3 (0)           <= '0';
+     
+  with (((status_r(3) = '1') and not(reg_3 = X"00000000")) & reg3_wen & reset) select
+      reg3_in <= dec_3 when B"100",
+                  data when B"010",
+                  X"00000000" when B"001" | B"011" | B"101" | B"111",
+                  reg_3 when others;
+ 
+  count3 : block  (CLK_SX = '0' and not CLK_SX'STABLE)
+  begin
+    reg_3 <= guarded reg3_in;
+  end block ;
+
+  --count30 : block (CLK_SX = '0' and not CLK_SX'STABLE and status_r(3) = '1' and not(reg_3 = X"00000000"))
+  --begin
+  --  reg_3 <= guarded dec_3 ;
+  --end block;
+  --count31 : block  (CLK_SX = '0' and not CLK_SX'STABLE and (reg3_wen = '1'))
+  --begin
+  --  reg_3 <= guarded data;
+  --end block ;
+
+  dec_4 (31 downto 0) <= not reg_4 xor cry_4 (31 downto 0);
+  cry_4 (32 downto 1) <=     reg_4 or  cry_4 (31 downto 0);
+  cry_4 (0)           <= '0';
+     
+  with (((status_r(4) = '1') and not(reg_4 = X"00000000")) & reg4_wen & reset) select
+      reg4_in <= dec_4 when B"100",
+                  data when B"010",
+                  X"00000000" when B"001" | B"011" | B"101" | B"111",
+                  reg_4 when others;
+ 
+  count4 : block  (CLK_SX = '0' and not CLK_SX'STABLE)
+  begin
+    reg_4 <= guarded reg4_in;
+  end block ;
+
+  --count40 : block (CLK_SX = '0' and not CLK_SX'STABLE and status_r(4) = '1' and not(reg_4 = X"00000000"))
+  --begin
+  --  reg_4 <= guarded dec_4 ;
+  --end block;
+  --count41 : block  (CLK_SX = '0' and not CLK_SX'STABLE and (reg4_wen = '1'))
+  --begin
+  --  reg_4 <= guarded data;
+  --end block ;
+
+  dec_5 (31 downto 0) <= not reg_5 xor cry_5 (31 downto 0);
+  cry_5 (32 downto 1) <=     reg_5 or  cry_5 (31 downto 0);
+  cry_5 (0)           <= '0';
+     
+  with (((status_r(5) = '1') and not(reg_5 = X"00000000")) & reg5_wen & reset) select
+      reg5_in <= dec_5 when B"100",
+                  data when B"010",
+                  X"00000000" when B"001" | B"011" | B"101" | B"111",
+                  reg_5 when others;
+ 
+  count5 : block  (CLK_SX = '0' and not CLK_SX'STABLE)
+  begin
+    reg_5 <= guarded reg5_in;
+  end block ;
+
+  --count50 : block (CLK_SX = '0' and not CLK_SX'STABLE and status_r(5) = '1' and not(reg_5 = X"00000000"))
+  --begin
+  --  reg_5 <= guarded dec_5 ;
+  --end block;
+  --count51 : block  (CLK_SX = '0' and not CLK_SX'STABLE and (reg5_wen = '1'))
+  --begin
+  --  reg_5 <= guarded data;
+  --end block ;
+
+  reset_dec (31 downto 0) <= not reset_r xor reset_cry (31 downto 0);
+  reset_cry (32 downto 1) <=     reset_r or  reset_cry (31 downto 0);
+  reset_cry (0)           <= '0';
+
+  with ((status_r(6) = '1') & reset_wen & reset) select
+      reg_reset_in <= reset_dec when B"100",
+                  data when B"010",
+                  X"00000000" when B"001" | B"011" | B"101" | B"111",
+                  reset_r when others;
+ 
+  reset_dec : block  (CLK_SX = '0' and not CLK_SX'STABLE)
+  begin
+    reset_r <= guarded reg_reset_in;
+  end block ;
+
+  --reset_dec : block (CLK_SX = '0' and not CLK_SX'STABLE and status_r(6) = '1')
+  --begin
+  --  reset_r <= guarded reset_dec ;
+  --end block;
+  --reset_wri : block  (CLK_SX = '0' and not CLK_SX'STABLE and (reset_wen = '1'))
+  --begin
+  --  reset_r <= guarded data;
+  --end block ;
+
+  -- reset du timer....
+  reset <= RESET_I or ((reset_r = X"0000_0000") and (status_r(6) = '1')) ;
+  --status_reset : block (CLK_SX = '0' and not CLK_SX'STABLE and status_wen and reset)
+  status_reset : block (CLK_SX = '0' and not CLK_SX'STABLE and reset)
+  begin
+    status_r <= guarded B"0000000" ;
+  end block ;
+
+  -- Ecriture du status
+  status_write : block (CLK_SX = '0' and not CLK_SX'STABLE and status_wen and not reset)
+  begin
+    status_r <= guarded data(6 downto 0) ;
+  end block ;
+
+  -- Affectation des sorties
+  status_read : block ((sel(2 downto 0)) = B"111" and (E_N = '0') and (rw = '1'))
+  begin
+      data <= guarded (B"0000_0000_0000_0000_0000_0000_0" & status_r) ;
+  end block ;
+  
+  IRQ(0) <= '0' when ((reg_0 = X"0000_0000") and (status_r(0) = '1')) else '1' ;
+  IRQ(1) <= '0' when ((reg_1 = X"0000_0000") and (status_r(1) = '1')) else '1' ;
+  IRQ(2) <= '0' when ((reg_2 = X"0000_0000") and (status_r(2) = '1')) else '1' ;
+  IRQ(3) <= '0' when ((reg_3 = X"0000_0000") and (status_r(3) = '1')) else '1' ;
+  IRQ(4) <= '0' when ((reg_4 = X"0000_0000") and (status_r(4) = '1')) else '1' ;
+  IRQ(5) <= '0' when ((reg_5 = X"0000_0000") and (status_r(5) = '1')) else '1' ;
+
+  IRQ_N    <= IRQ ;
+  RESET_O  <= reset ;
+end;

@@ -1,0 +1,40 @@
+
+;  ###----------------------------------------------------------------###
+;  # file	: exc024.u						#
+;  # date	: Mar 26 1996						#
+;  # descr.	: functional test for mips				#
+;  ###----------------------------------------------------------------###
+
+	;  ###--------------------------------------------------------###
+	;  #   exceptions :						#
+	;  #     - instruction bus error 				#
+	;  ###--------------------------------------------------------###
+
+adr		.equ	0x400000C8		; bus error address
+
+		.org	0x00400000
+		.start	init
+
+init:
+		loadi	r31 , good
+
+	;  ###--------------------------------------------------------###
+	;  #   jump at adr and dbe low (instruction bus error exception)#
+	;  #   berr is driven by mips_dec.vbe...			#
+	;  ###--------------------------------------------------------###
+
+		loadi	r1, adr
+		jr	r1			; EXCEPTION (instruction bus error)
+		nop
+
+		j	bad
+		nop
+
+		.org	0x004000D0
+good:		j	good
+		nop
+		.org	0x004000D8
+bad:		j	bad
+		nop
+
+		.end

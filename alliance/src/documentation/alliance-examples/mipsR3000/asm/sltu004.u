@@ -1,0 +1,34 @@
+;  ###----------------------------------------------------------------###
+;  #									#
+;  # file	: sltu004.u						#
+;  # date	: Nov 1996						#
+;  # descr.	: functional test for mips				#
+;  #									#
+;  ###----------------------------------------------------------------###
+
+	;  ###--------------------------------------------------------###
+	;  #   set if less than unsigned register			#
+	;  ###--------------------------------------------------------###
+
+data		.equ 	8	
+cste		.equ    1
+		.org	0x00400000
+		.start	init
+
+init:
+	   	addiu    r1 , r0 , cste	
+		addiu	r13, r0 ,   data   
+		addiu	r14, r0, data 
+		sltu	r14, r13,  r14 
+		beq	r14, r0 ,good
+		nop
+		j	bad
+		nop
+
+		.org	0x004000d0
+good:		j	good
+		nop
+bad:		j	bad
+		nop
+		.end
+

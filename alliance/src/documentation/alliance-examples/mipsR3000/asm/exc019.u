@@ -1,0 +1,50 @@
+
+;  ###----------------------------------------------------------------###
+;  # file	: exc019.u						#
+;  # date	: Mar 26 1996						#
+;  # descr.	: functional test for mips				#
+;  ###----------------------------------------------------------------###
+
+	;  ###--------------------------------------------------------###
+	;  #   exceptions :						#
+	;  #     - data bus error (when loading an unsigned half)	#
+	;  ###--------------------------------------------------------###
+
+adr		.equ	0x400000C8		; data bus error address
+data		.equ	0x9043ad6b		; data
+
+		.org	0x00400000
+		.start	init
+
+init:
+		loadi	r1 , adr		; word's address
+		loadi	r2 , data		; init. r2 with a data
+		loadi	r3 , data		; init. r3 with the same value
+
+	;  ###--------------------------------------------------------###
+	;  #   load an unsigned half and dbe low (data bus error 	#
+	;  # exception)	berr is driven by mips_dec.vbe...		#
+	;  ###--------------------------------------------------------###
+
+		lhu	r2 , 0 (r1 )		; EXCEPTION (data bus error)
+		nop
+
+	;  ###--------------------------------------------------------###
+	;  #   check that the load has faild and the content of the	#
+	;  # register has not been altered				#
+	;  ###--------------------------------------------------------###
+
+back_from_exception:
+		beq	r3 ,r2, good
+		nop
+		j	bad
+		nop
+
+		.org	0x004000D0
+good:		j	good
+		nop
+		.org	0x004000D8
+bad:		j	bad
+		nop
+
+		.end

@@ -1,0 +1,41 @@
+
+;  ###----------------------------------------------------------------###
+;  # file	: exc013.u						#
+;  # date	: Mar 26 1996						#
+;  # descr.	: functional test for mips				#
+;  ###----------------------------------------------------------------###
+
+	;  ###--------------------------------------------------------###
+	;  #   exceptions :						#
+	;  #     - illegal instruction (when executing a sleep)		#
+	;  ###--------------------------------------------------------###
+
+		.org	0x00400000
+		.start	init
+
+init:
+
+	;  ###--------------------------------------------------------###
+	;  #   Put the processor in SLEEP mode. This must generate an	#
+	;  # exception (privileged instruction)				#
+	;  ###--------------------------------------------------------###
+
+		nop
+		sleep				; EXCEPTION (privileged)
+
+		j	bad
+		nop
+
+
+back_from_exception:
+		j	good
+		nop
+
+		.org	0x004000d0
+good:		j	good
+		nop
+bad:		j	bad
+		nop
+
+		.end
+

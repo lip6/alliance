@@ -1,0 +1,33 @@
+;  ###----------------------------------------------------------------###
+;  # file	: srl001.u						#
+;  # date	: Jul  7 1995						#
+;  # descr.	: functional test for mips				#
+;  ###----------------------------------------------------------------###
+
+	;  ###--------------------------------------------------------###
+	;  #   shift right logical immediate				#
+	;  ###--------------------------------------------------------###
+
+shift_nbr	.equ	9
+data		.equ	0xfd71
+
+		.org	0x00400000
+		.start	init
+
+init:
+		loadi	r14, data
+		srl 	r14, r14, shift_nbr
+
+		addiu	r12, r0, (data & 0x0000ffff) >> shift_nbr
+		beq	r12, r14,good
+		nop
+		j	bad
+		nop
+
+		.org	0x004000d0
+good:		j	good
+		nop
+bad:		j	bad
+		nop
+		.end
+

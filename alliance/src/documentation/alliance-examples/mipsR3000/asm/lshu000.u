@@ -1,0 +1,38 @@
+;  ###----------------------------------------------------------------###
+;  #									#
+;  # file	: lshu000.u						#
+;  # date	: Sep 10 1995						#
+;  # descr.	: functional test for dlx				#
+;  #									#
+;  ###----------------------------------------------------------------###
+
+	;  ###--------------------------------------------------------###
+	;  #   load/store (unsigned) half word				#
+	;  ###--------------------------------------------------------###
+
+data		.equ	0x263a
+address		.equ	0x400000c4
+
+		.org	0x00400000
+		.start	init
+
+init:
+
+		addiu	r1 , r0 , data
+		loadi	r2 , address
+
+		sh	r1, 0(r2)
+		lhu	r3, 0(r2)
+		nop
+		beq	r1,r3, good
+		nop
+		j	bad
+		nop
+
+		.org	0x004000d0
+good:		j	good
+		nop
+bad:		j	bad
+		nop
+		.end
+

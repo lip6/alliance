@@ -1,0 +1,166 @@
+#      Copyright (c) 1997 by Cadence. All rights reserved.      
+###################################################################
+# In each of TOP()/BOTTOM()/LEFT()/RIGHT() section, there are     #
+# placed IOs. In the IGNORE() section, the IOs are ignored        #
+# by the IOPlacer. In every section, the IO syntax could be:      #
+#        for pin:       (IOPIN iopinName.0 );                       #
+#        for pad:       iopadName orientation ;                   #
+#        for space:     SPACE  value;                             #
+# The capital words are keywords. orientation is not required.    #
+# The value is the space between the IO above and the IO below it.#
+###################################################################
+
+BOTTOM ( # IOs are ordered from left to right
+   (IOPIN ck_ctl.0 );
+   (IOPIN test.0 );
+   (IOPIN ck_dpt.0 );
+   (IOPIN adr(31).0);
+   (IOPIN adr(30).0);
+   (IOPIN adr(29).0);
+   (IOPIN adr(28).0);
+   (IOPIN adr(27).0);
+   (IOPIN adr(26).0);
+   (IOPIN adr(25).0);
+   (IOPIN adr(24).0);
+   (IOPIN adr(23).0);
+   (IOPIN adr(22).0);
+   (IOPIN adr(21).0);
+   (IOPIN adr(20).0);
+   (IOPIN adr(19).0);
+   (IOPIN adr(18).0);
+   (IOPIN adr(17).0);
+   (IOPIN adr(16).0);
+   (IOPIN adr(15).0);
+   (IOPIN adr(14).0);
+   (IOPIN adr(13).0);
+   (IOPIN adr(12).0);
+   (IOPIN adr(11).0);
+   (IOPIN adr(10).0);
+   (IOPIN adr(9).0);
+   (IOPIN adr(8).0);
+   (IOPIN adr(7).0);
+   (IOPIN adr(6).0);
+   (IOPIN adr(5).0);
+   (IOPIN adr(4).0);
+   (IOPIN adr(3).0);
+   (IOPIN adr(2).0);
+   (IOPIN adr(1).0);
+   (IOPIN adr(0).0);
+   (IOPIN dataout(31).0);
+   (IOPIN dataout(30).0);
+   (IOPIN dataout(29).0);
+   (IOPIN dataout(28).0);
+   (IOPIN dataout(27).0);
+   (IOPIN dataout(26).0);
+   (IOPIN dataout(25).0);
+   (IOPIN dataout(24).0);
+   (IOPIN dataout(23).0);
+   (IOPIN dataout(22).0);
+   (IOPIN dataout(21).0);
+   (IOPIN dataout(20).0);
+   (IOPIN dataout(19).0);
+   (IOPIN dataout(18).0);
+   (IOPIN dataout(17).0);
+   (IOPIN dataout(16).0);
+   (IOPIN dataout(15).0);
+   (IOPIN dataout(14).0);
+   (IOPIN dataout(13).0);
+   (IOPIN dataout(12).0);
+   (IOPIN dataout(11).0);
+   (IOPIN dataout(10).0);
+   (IOPIN dataout(9).0);
+   (IOPIN dataout(8).0);
+   (IOPIN dataout(7).0);
+   (IOPIN dataout(6).0);
+   (IOPIN dataout(5).0);
+   (IOPIN dataout(4).0);
+   (IOPIN dataout(3).0);
+   (IOPIN dataout(2).0);
+   (IOPIN dataout(1).0);
+   (IOPIN dataout(0).0);
+   (IOPIN datain(31).0);
+   (IOPIN datain(30).0);
+   (IOPIN datain(29).0);
+   (IOPIN datain(28).0);
+   (IOPIN datain(27).0);
+   (IOPIN datain(26).0);
+   (IOPIN datain(25).0);
+   (IOPIN datain(24).0);
+   (IOPIN datain(23).0);
+   (IOPIN datain(22).0);
+   (IOPIN datain(21).0);
+   (IOPIN datain(20).0);
+   (IOPIN datain(19).0);
+   (IOPIN datain(18).0);
+   (IOPIN datain(17).0);
+   (IOPIN datain(16).0);
+   (IOPIN datain(15).0);
+   (IOPIN datain(14).0);
+   (IOPIN datain(13).0);
+   (IOPIN datain(12).0);
+   (IOPIN datain(11).0);
+   (IOPIN datain(10).0);
+   (IOPIN datain(9).0);
+   (IOPIN datain(8).0);
+   (IOPIN datain(7).0);
+   (IOPIN datain(6).0);
+   (IOPIN datain(5).0);
+   (IOPIN datain(4).0);
+   (IOPIN datain(3).0);
+   (IOPIN datain(2).0);
+   (IOPIN datain(1).0);
+   (IOPIN datain(0).0);
+   (IOPIN scout.0 );
+)
+     
+TOP ( # IOs are ordered from left to right
+   (IOPIN int(0).0 );
+   (IOPIN int(1).0 );
+   (IOPIN int(2).0 );
+   (IOPIN int(3).0 );
+   (IOPIN int(4).0 );
+   (IOPIN int(5).0 ); 
+   (IOPIN scin.0 );
+   (IOPIN reset.0 );
+   (IOPIN frz.0 );
+   (IOPIN w(0).0 );
+   (IOPIN w(1).0 );
+   (IOPIN rw.0 );
+   (IOPIN berr.0 );
+   (IOPIN rw_ctl(0).0 );
+   (IOPIN rw_ctl(1).0 );
+   (IOPIN rw_ctl(2).0 );
+   (IOPIN rw_ctl(3).0 );
+   (IOPIN rw_ctl(4).0 );
+   (IOPIN rw_ctl(5).0 );
+   (IOPIN rw_ctl(6).0 );
+   (IOPIN rw_ctl(7).0 );
+   (IOPIN rw_ctl(8).0 );
+   (IOPIN rw_ctl(9).0 );
+   (IOPIN rw_ctl(10).0 );
+   (IOPIN rw_ctl(11).0 );
+   (IOPIN rw_ctl(12).0 );
+   (IOPIN rw_ctl(13).0 );
+   (IOPIN rw_ctl(14).0 );
+   (IOPIN rw_ctl(15).0 );
+   (IOPIN frz_ctl(0).0 );
+   (IOPIN frz_ctl(1).0 );
+   (IOPIN frz_ctl(2).0 );
+   (IOPIN frz_ctl(3).0 );
+   (IOPIN frz_ctl(4).0 );
+   (IOPIN frz_ctl(5).0 );
+   (IOPIN frz_ctl(6).0 );
+   (IOPIN frz_ctl(7).0 );
+   (IOPIN frz_ctl(8).0 );
+   (IOPIN frz_ctl(9).0 );
+   (IOPIN frz_ctl(10).0 );
+   (IOPIN frz_ctl(11).0 );
+   (IOPIN frz_ctl(12).0 );
+   (IOPIN frz_ctl(13).0 );
+   (IOPIN frz_ctl(14).0 );
+   (IOPIN frz_ctl(15).0 );   
+
+)
+IGNORE ( # IOs are ignored(not placed) by IO Placer
+)
+

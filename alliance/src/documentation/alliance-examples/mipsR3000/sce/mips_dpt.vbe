@@ -1,0 +1,689 @@
+-- ###-------------------------------------------------------------###
+-- #                                                                 #
+-- # File    : "mips_dpt.vbe"                                        #
+-- # Date     : July 30, 2001.                                       #
+-- #                                                                 #
+-- ###-------------------------------------------------------------###
+
+
+ENTITY mips_dpt  IS
+PORT(
+    vdd            : in    bit;
+    vss            : in    bit;
+    test           : in    bit;
+    dpt_scin       : in    bit;
+    dpt_scout      : out   bit;
+    ck             : in    bit;
+    pc_wen         : in    bit;
+    ad_wen         : in    bit;
+    epc_wen        : in    bit;
+    bar_wen        : in    bit;
+    ir_wen         : in    bit;
+    dt_wen         : in    bit;
+    hi_wen         : in    bit;
+    lo_wen         : in    bit;
+    rf_wen         : in    bit;
+    rf_aw          : in    bit_vector(4 downto 0);
+    rf_ar          : in    bit_vector(4 downto 0);
+    opx_ts7        : in    bit;
+    opx_ts6        : in    bit;
+    opx_ts5        : in    bit;
+    opx_ts4        : in    bit;
+    opx_ts3        : in    bit;
+    opx_ts2        : in    bit;
+    opx_ts1        : in    bit;
+    opx_ts0        : in    bit;
+    opx_mx7        : in    bit;
+    opx_mx6        : in    bit;
+    opx_mx5        : in    bit;
+    opx_mx4        : in    bit;
+    opx_mx3        : in    bit;
+    opx_mx2        : in    bit;
+    opx_mx1        : in    bit;
+    opx_sign       : out   bit;
+    crsr_dpt_out   : out   bit_vector(15 downto 0);
+    crsr_sts_in    : in    bit_vector(15 downto 0);
+    opy_ts6        : in    bit;
+    opy_ts5        : in    bit;
+    opy_ts4        : in    bit;
+    opy_ts3        : in    bit;
+    opy_ts2        : in    bit;
+    opy_ts1        : in    bit;
+    opy_mx6        : in    bit;
+    opy_mx5        : in    bit;
+    opy_mx4        : in    bit;
+    opy_mx3        : in    bit;
+    opy_mx2        : in    bit;
+    opy_mx1        : in    bit;
+    opy_codop      : out   bit_vector(18 downto 0);
+    opy_rs         : out   bit_vector( 4 downto 0);
+    opy_rdrt       : out   bit_vector( 4 downto 0);
+    opy_rd         : out   bit_vector( 4 downto 0);
+    opy_sign       : out   bit;
+    data_in_dpt    : in    bit_vector(31 downto 0);
+    alu_mx5i0      : in    bit;
+    alu_mx4i0      : in    bit;
+    alu_mx3i0      : in    bit;
+    alu_mx2i0      : in    bit;
+    alu_mx2i1      : in    bit;
+    alu_mx1i2      : in    bit;
+    alu_mx1i1      : in    bit;
+    alu_mx1i0      : in    bit;
+    alu_mx0i0      : in    bit;
+    alu_byte       : in    bit;
+    alu_half       : in    bit;
+    alu_test_n     : in    bit;
+    alu_c31        : out   bit;
+    alu_c30        : out   bit;
+    alu_nul        : out   bit;
+    alu_sign       : out   bit;
+    data_out_dpt   : out   bit_vector(31 downto 0);
+    out_mx0i0      : in    bit;
+    out_adr        : out   bit_vector(31 downto 0);
+    alu_n_31       : inout bit;
+    alu_n_1        : inout bit;
+    alu_n_0        : inout bit;
+    adr_n_1        : inout bit;
+    adr_n_0        : inout bit
+);
+END mips_dpt;
+ARCHITECTURE fonctional  OF  mips_dpt IS
+    signal out_adr_n      : bit_vector(31 downto 0);
+    signal data_in_n      : bit_vector(31 downto 0);
+    signal data_outh_n    : bit_vector(31 downto 0);
+    signal data_outb_n    : bit_vector(31 downto 0);
+    constant r0           : bit_vector(31 downto 0) :=X"00000000";
+    signal rf_1           : reg_vector(31 downto 0) register;
+    signal rf_2           : reg_vector(31 downto 0) register;
+    signal rf_3           : reg_vector(31 downto 0) register;
+    signal rf_4           : reg_vector(31 downto 0) register;
+    signal rf_5           : reg_vector(31 downto 0) register;
+    signal rf_6           : reg_vector(31 downto 0) register;
+    signal rf_7           : reg_vector(31 downto 0) register;
+    signal rf_8           : reg_vector(31 downto 0) register;
+    signal rf_9           : reg_vector(31 downto 0) register;
+    signal rf_10          : reg_vector(31 downto 0) register;
+    signal rf_11          : reg_vector(31 downto 0) register;
+    signal rf_12          : reg_vector(31 downto 0) register;
+    signal rf_13          : reg_vector(31 downto 0) register;
+    signal rf_14          : reg_vector(31 downto 0) register;
+    signal rf_15          : reg_vector(31 downto 0) register;
+    signal rf_16          : reg_vector(31 downto 0) register;
+    signal rf_17          : reg_vector(31 downto 0) register;
+    signal rf_18          : reg_vector(31 downto 0) register;
+    signal rf_19          : reg_vector(31 downto 0) register;
+    signal rf_20          : reg_vector(31 downto 0) register;
+    signal rf_21          : reg_vector(31 downto 0) register;
+    signal rf_22          : reg_vector(31 downto 0) register;
+    signal rf_23          : reg_vector(31 downto 0) register;
+    signal rf_24          : reg_vector(31 downto 0) register;
+    signal rf_25          : reg_vector(31 downto 0) register;
+    signal rf_26          : reg_vector(31 downto 0) register;
+    signal rf_27          : reg_vector(31 downto 0) register;
+    signal rf_28          : reg_vector(31 downto 0) register;
+    signal rf_29          : reg_vector(31 downto 0) register;
+    signal rf_30          : reg_vector(31 downto 0) register;
+    signal rf_31          : reg_vector(31 downto 0) register;
+    signal rf_o           : bit_vector(31 downto 0);
+    signal pc             : reg_vector (31 downto 0) register;
+    signal epc            : reg_vector (31 downto 0) register;
+    signal bar            : reg_vector (31 downto 0) register;
+    signal pc4            : bit_vector (31 downto 0);
+    signal cr_s           : bit_vector (31 downto 0);
+    signal sr_s           : bit_vector (31 downto 0);
+    signal ad             : reg_vector (31 downto 0) register;
+    signal ir             : reg_vector (31 downto 0) register;
+    signal dt             : reg_vector (31 downto 0) register;
+    signal hi             : reg_vector (31 downto 0) register;
+    signal lo             : reg_vector (31 downto 0) register;
+    signal opy_conflict   : bit;
+    signal opy_nodriver   : bit;
+    signal opy_its6       : bit_vector(31 downto 0);
+    signal opy_its5       : bit_vector(31 downto 0);
+    signal opy_its4       : bit_vector(31 downto 0);
+    signal opy_its3       : bit_vector(31 downto 0);
+    signal opy_its2       : bit_vector(31 downto 0);
+    signal opy_its1       : bit_vector(31 downto 0);
+    signal opy_ots        : bit_vector(31 downto 0);
+    signal opy_out        : bit_vector(31 downto 0);
+    signal opy_dt         : bit_vector(31 downto 0);
+    signal opy_ir16       : bit_vector(31 downto 0);
+    signal opy_ir18       : bit_vector(31 downto 0);
+    signal opy_iru28      : bit_vector(31 downto 0);
+    signal opy_shamt      : bit_vector(31 downto 0);
+    signal opx_conflict   : bit;
+    signal opx_nodriver   : bit;
+    signal opx_its7       : bit_vector(31 downto 0);
+    signal opx_its6       : bit_vector(31 downto 0);
+    signal opx_its5       : bit_vector(31 downto 0);
+    signal opx_its4       : bit_vector(31 downto 0);
+    signal opx_its3       : bit_vector(31 downto 0);
+    signal opx_its2       : bit_vector(31 downto 0);
+    signal opx_its1       : bit_vector(31 downto 0);
+    signal opx_ots        : bit_vector(31 downto 0);
+    signal opx_out        : bit_vector(31 downto 0);
+    signal alu_out        : bit_vector(31 downto 0);
+    signal alu_nor        : bit_vector(31 downto 0);
+    signal alu_yop        : bit_vector(31 downto 0);
+    signal alu_cry        : bit_vector(32 downto 0);  
+    signal alu_sum        : bit_vector(31 downto 0);
+    signal alu_shsign     : bit_vector(31 downto 0);
+    signal alu_shright    : bit_vector(31 downto 0);
+    signal alu_shleft     : bit_vector(31 downto 0);
+    signal alu_shout      : bit_vector(31 downto 0);
+    signal rf_aw_wenabled : bit_vector(5 downto 0);
+    signal dt_mux_out     : bit_vector(31 downto 0);
+    signal ir_mux_out     : bit_vector(31 downto 0);
+    signal lo_mux_out     : bit_vector(31 downto 0);
+    signal bar_mux_out    : bit_vector(31 downto 0);
+    signal pc_mux_out     : bit_vector(31 downto 0);
+    signal epc_mux_out    : bit_vector(31 downto 0);
+    signal ad_mux_out     : bit_vector(31 downto 0);
+    signal hi_mux_out     : bit_vector(31 downto 0);
+
+BEGIN
+
+
+    -- ###--------------------------------------------------------###
+    -- #  checking power supplies                                   #
+    -- ###--------------------------------------------------------###
+
+    power : assert (vdd = '1' and vss = '0')
+    report "power supply missing on `mips` processor"
+    severity WARNING;
+
+    data_in_n <= NOT data_in_dpt;
+
+    -- ******************* X Operand  Description ********************
+
+    WITH opx_ts7 & opx_ts6 & opx_ts5 & opx_ts4 & opx_ts3 & opx_ts2 &
+         opx_ts1 & opx_ts0 SELECT
+
+         opx_conflict <= '1' WHEN  B"00000000"
+                                  |B"00000001"
+                                  |B"00000010"
+                                  |B"00000100"
+                                  |B"00001000"
+                                  |B"00010000"
+                                  |B"00100000"
+                                  |B"01000000"
+                                  |B"10000000",
+                         '0' WHEN OTHERS;
+
+    opx_nodriver <= '0' WHEN opx_ts7
+                           & opx_ts6
+                           & opx_ts5
+                           & opx_ts4
+                           & opx_ts3
+                           & opx_ts2
+                           & opx_ts1
+                           & opx_ts0 = B"00000000" ELSE '1';
+                                 
+    ASSERT(opx_conflict)
+        REPORT "More than one driver on the X operand three-state."
+        SEVERITY WARNING;
+    ASSERT(opx_nodriver)
+        REPORT "No driver on the X operand three-state."
+        SEVERITY WARNING;
+
+    opx_out  <= opx_ots;
+    opx_sign <= opx_out(31);
+    pc4      <= pc(31 downto 28 ) & X"0000000";
+
+    opx_its7 <= X"FFFFFFFF"  WHEN opx_mx7 ELSE not pc4;  
+    opx_its6 <= X"FFFF0000"  WHEN opx_mx6 ELSE not dt; 
+    opx_its5 <= X"7FFFFF7F"  WHEN opx_mx5 ELSE X"FFFFFFFF";  
+    opx_its4 <= not epc      WHEN opx_mx4 ELSE not bar;
+    opx_its3 <= not cr_s     WHEN opx_mx3 ELSE not  sr_s;
+    opx_its2 <= not lo       WHEN opx_mx2 ELSE not  hi;
+    opx_its1 <= not  ad      WHEN opx_mx1 ELSE not  pc;
+
+    opx_ots <= not opx_its7 WHEN opx_ts7='1' ELSE
+              not opx_its6 WHEN opx_ts6='1' ELSE
+              not opx_its5 WHEN opx_ts5='1' ELSE
+              not opx_its4 WHEN opx_ts4='1' ELSE
+              not opx_its3 WHEN opx_ts3='1' ELSE
+              not opx_its2 WHEN opx_ts2='1' ELSE
+              not opx_its1 WHEN opx_ts1='1' ELSE
+              rf_o;
+ 
+    -- ******************** Y Operand Description ********************
+    WITH opy_ts6 & opy_ts5 & opy_ts4 & opy_ts3 & opy_ts2 & opy_ts1 SELECT
+        opy_conflict <= '1' WHEN  B"000000"
+                                 |B"000001"
+                                 |B"000010"
+                                 |B"000100"
+                                 |B"001000"
+                                 |B"010000"
+                                 |B"100000",
+                        '0' WHEN OTHERS;
+
+    opy_nodriver <= '0' WHEN opy_ts6 &  opy_ts5 & opy_ts4 & opy_ts3
+                           & opy_ts2 & opy_ts1 = B"000000" ELSE
+                    '1';
+
+    ASSERT(opy_conflict)
+        REPORT "More than one driver on the Y operand three-state."
+        SEVERITY WARNING;
+    ASSERT(opy_nodriver)
+        REPORT "No driver on the Y operand three-state."
+        SEVERITY WARNING;
+
+    opy_codop(18 downto 0) <= ir(31 downto 26) & ir(25 ) & ir(23)
+                            & ir(13) & ir(12) & ir(11) & ir(16)
+                            & ir(20) & ir(5 downto 0);
+    opy_rs   (4 downto 0)  <= ir(25 downto 21);
+    opy_rdrt (4 downto 0)  <= ir(20 downto 16);
+    opy_rd   (4 downto 0)  <= ir(15 downto 11);
+    
+    opy_shamt(4 downto 0)  <= ir(10 downto 6);
+    opy_shamt(31 downto 5) <= X"FFFFFF" & B"111" when ir(10) = '1' ELSE
+                              X"000000" & B"000";
+
+    opy_ir16(15 downto  0) <= ir(15 downto 0);
+    opy_ir16(31 downto 16) <= X"FFFF" WHEN ir(15) = '1' ELSE
+                              X"0000";
+
+    opy_ir18( 1 downto  0) <= B"00";
+    opy_ir18(17 downto  2) <= ir(15 downto 0);
+    opy_ir18(31 downto 18) <= X"FFF" & B"11" WHEN ir(15) = '1' ELSE
+                              X"000" & B"00";
+
+    opy_iru28( 1 downto  0) <= B"00";
+    opy_iru28(27 downto  2) <= ir(25 downto 0);
+    opy_iru28(31 downto 28) <= X"0";
+
+    opy_dt  <= not data_in_n;
+     
+    opy_its6 <= X"FFFFFFE7"  WHEN opy_mx6 ELSE X"FFFFFFF7";
+    opy_its5 <= X"403FFFFF"  WHEN opy_mx5 ELSE not opy_shamt;
+    opy_its4 <= X"FFFFFFEF"  WHEN opy_mx4 ELSE  X"FFFFFFFB";
+    opy_its3 <= X"FFFFFFFF"  WHEN opy_mx3 ELSE not opy_ir16;
+    opy_its2 <= not opy_ir18 WHEN opy_mx2 ELSE not opy_iru28;
+    opy_its1 <= not  dt      WHEN opy_mx1 ELSE not  ad;
+
+    opy_ots <= not opy_its6 WHEN opy_ts6 ELSE
+               not opy_its5 WHEN opy_ts5 ELSE
+               not opy_its4 WHEN opy_ts4 ELSE
+               not opy_its3 WHEN opy_ts3 ELSE
+               not opy_its2 WHEN opy_ts2 ELSE
+               not opy_its1;
+ 
+    opy_out  <= opy_ots;
+    opy_sign <= opy_ots(31);
+
+    -- ******************* ALU Shifter Description *******************
+    WITH alu_mx1i0 & opx_out(31) SELECT
+    alu_shsign <= X"00000000" WHEN  B"00"
+                                  | B"01"
+                                  | B"10",
+                  X"FFFFFFFF" WHEN  B"11";
+
+    WITH opy_out(4 downto 0) SELECT
+    alu_shleft  <=
+            opx_out(31 downto 0)                        WHEN  B"00000",
+            opx_out(30 downto 0) & B"0"                 WHEN  B"00001",
+            opx_out(29 downto 0) & B"00"                WHEN  B"00010",
+            opx_out(28 downto 0) & B"000"               WHEN  B"00011",
+            opx_out(27 downto 0) & X"0"                 WHEN  B"00100",
+            opx_out(26 downto 0) & X"0" & B"0"          WHEN  B"00101",
+            opx_out(25 downto 0) & X"0" & B"00"         WHEN  B"00110",
+            opx_out(24 downto 0) & X"0" & B"000"        WHEN  B"00111",
+            opx_out(23 downto 0) & X"00"                WHEN  B"01000",
+            opx_out(22 downto 0) & X"00" & B"0"         WHEN  B"01001",
+            opx_out(21 downto 0) & X"00" & B"00"        WHEN  B"01010",
+            opx_out(20 downto 0) & X"00" & B"000"       WHEN  B"01011",
+            opx_out(19 downto 0) & X"000"               WHEN  B"01100",
+            opx_out(18 downto 0) & X"000" & B"0"        WHEN  B"01101",
+            opx_out(17 downto 0) & X"000" & B"00"       WHEN  B"01110",
+            opx_out(16 downto 0) & X"000" & B"000"      WHEN  B"01111",
+            opx_out(15 downto 0) & X"0000"              WHEN  B"10000",
+            opx_out(14 downto 0) & X"0000" & B"0"       WHEN  B"10001",
+            opx_out(13 downto 0) & X"0000" & B"00"      WHEN  B"10010",
+            opx_out(12 downto 0) & X"0000" & B"000"     WHEN  B"10011",
+            opx_out(11 downto 0) & X"00000"             WHEN  B"10100",
+            opx_out(10 downto 0) & X"00000" & B"0"      WHEN  B"10101",
+            opx_out(9  downto 0) & X"00000" & B"00"     WHEN  B"10110",
+            opx_out(8  downto 0) & X"00000" & B"000"    WHEN  B"10111",
+            opx_out(7  downto 0) & X"000000"            WHEN  B"11000",
+            opx_out(6  downto 0) & X"000000" & B"0"     WHEN  B"11001",
+            opx_out(5  downto 0) & X"000000" & B"00"    WHEN  B"11010",
+            opx_out(4  downto 0) & X"000000" & B"000"   WHEN  B"11011",
+            opx_out(3  downto 0) & X"0000000"           WHEN  B"11100",
+            opx_out(2  downto 0) & X"0000000" & B"0"    WHEN  B"11101",
+            opx_out(1  downto 0) & X"0000000" & B"00"   WHEN  B"11110",
+            opx_out(0)           & X"0000000" & B"000"  WHEN  B"11111";
+
+    WITH opy_out(4 downto 0) SELECT
+    alu_shright  <=
+                                  opx_out(31 downto 0)   WHEN  B"00000",
+            alu_shsign(0)       & opx_out(31 downto 1)   WHEN  B"00001",
+            alu_shsign(0 to  1) & opx_out(31 downto 2)   WHEN  B"00010",
+            alu_shsign(0 to  2) & opx_out(31 downto 3)   WHEN  B"00011",
+            alu_shsign(0 to  3) & opx_out(31 downto 4)   WHEN  B"00100",
+            alu_shsign(0 to  4) & opx_out(31 downto 5)   WHEN  B"00101",
+            alu_shsign(0 to  5) & opx_out(31 downto 6)   WHEN  B"00110",
+            alu_shsign(0 to  6) & opx_out(31 downto 7)   WHEN  B"00111",
+            alu_shsign(0 to  7) & opx_out(31 downto 8)   WHEN  B"01000",
+            alu_shsign(0 to  8) & opx_out(31 downto 9)   WHEN  B"01001",
+            alu_shsign(0 to  9) & opx_out(31 downto 10)  WHEN  B"01010",
+            alu_shsign(0 to 10) & opx_out(31 downto 11)  WHEN  B"01011",
+            alu_shsign(0 to 11) & opx_out(31 downto 12)  WHEN  B"01100",
+            alu_shsign(0 to 12) & opx_out(31 downto 13)  WHEN  B"01101",
+            alu_shsign(0 to 13) & opx_out(31 downto 14)  WHEN  B"01110",
+            alu_shsign(0 to 14) & opx_out(31 downto 15)  WHEN  B"01111",
+            alu_shsign(0 to 15) & opx_out(31 downto 16)  WHEN  B"10000",
+            alu_shsign(0 to 16) & opx_out(31 downto 17)  WHEN  B"10001",
+            alu_shsign(0 to 17) & opx_out(31 downto 18)  WHEN  B"10010",
+            alu_shsign(0 to 18) & opx_out(31 downto 19)  WHEN  B"10011",
+            alu_shsign(0 to 19) & opx_out(31 downto 20)  WHEN  B"10100",
+            alu_shsign(0 to 20) & opx_out(31 downto 21)  WHEN  B"10101",
+            alu_shsign(0 to 21) & opx_out(31 downto 22)  WHEN  B"10110",
+            alu_shsign(0 to 22) & opx_out(31 downto 23)  WHEN  B"10111",
+            alu_shsign(0 to 23) & opx_out(31 downto 24)  WHEN  B"11000",
+            alu_shsign(0 to 24) & opx_out(31 downto 25)  WHEN  B"11001",
+            alu_shsign(0 to 25) & opx_out(31 downto 26)  WHEN  B"11010",
+            alu_shsign(0 to 26) & opx_out(31 downto 27)  WHEN  B"11011",
+            alu_shsign(0 to 27) & opx_out(31 downto 28)  WHEN  B"11100",
+            alu_shsign(0 to 28) & opx_out(31 downto 29)  WHEN  B"11101",
+            alu_shsign(0 to 29) & opx_out(31 downto 30)  WHEN  B"11110",
+            alu_shsign(0 to 30) & opx_out(31)            WHEN  B"11111";
+
+    alu_shout <= alu_shleft WHEN alu_mx2i0 = '1' ELSE alu_shright;
+
+    -- ************ ALU Arythmetic Operations Description ************
+    alu_nor(31 downto 0) <= not(opx_out or opy_out);
+    alu_yop(31 downto 0) <= not opy_out WHEN alu_mx0i0 ELSE opy_out;
+    alu_cry(0)           <= alu_mx0i0;
+    alu_cry(32 downto 1) <= (opx_out and alu_yop             )
+                         or (opx_out and alu_cry(31 downto 0))
+                         or (alu_yop and alu_cry(31 downto 0));
+    alu_sum(31 downto 0) <=  opx_out xor alu_cry(31 downto 0) xor alu_yop;
+
+    -- ***************** ALU Multiplexer Description *****************
+    ASSERT(not (alu_mx2i1 xor alu_mx2i0))
+        REPORT "alu_mx2i1:0 must have the same value."
+        SEVERITY WARNING;
+    ASSERT(not((alu_mx1i2 xor alu_mx1i1) and (alu_mx1i1 xor alu_mx1i0)) )
+        REPORT "alu_mx1i2:1:0 must have the same value."
+        SEVERITY WARNING;
+
+    WITH alu_mx5i0 & alu_mx4i0 & alu_mx3i0 & alu_mx2i1 & alu_mx1i2  & alu_mx1i1 SELECT
+        alu_out <= X"0000000" & B"000" &  ( not alu_test_n ) 
+                              WHEN  B"000000"
+                                   |B"000001"
+                                   |B"000010"
+                                   |B"000011"
+                                   |B"000100"
+                                   |B"000101"
+                                   |B"000110"
+                                   |B"000111"
+                                   |B"001000"
+                                   |B"001001"
+                                   |B"001010"
+                                   |B"001011"
+                                   |B"001100"
+                                   |B"001101"
+                                   |B"001110"
+                                   |B"001111"
+                                   |B"010000"
+                                   |B"010001"
+                                   |B"010010"
+                                   |B"010011"
+                                   |B"010100"
+                                   |B"010101"
+                                   |B"010110"
+                                   |B"010111"
+                                   |B"011000"
+                                   |B"011001"
+                                   |B"011010"
+                                   |B"011011"
+                                   |B"011100"
+                                   |B"011101"
+                                   |B"011110"
+                                   |B"011111",
+                    alu_shout WHEN  B"100000"
+                                   |B"100001"
+                                   |B"100010"
+                                   |B"100011"
+                                   |B"100100"
+                                   |B"100101"
+                                   |B"100110"
+                                   |B"100111"
+                                   |B"101000"
+                                   |B"101001"
+                                   |B"101010"
+                                   |B"101011"
+                                   |B"101100"
+                                   |B"101101"
+                                   |B"101110"
+                                   |B"101111",
+          opx_out  or opy_out WHEN  B"110000"
+                                   |B"110001", 
+          opx_out and opy_out WHEN  B"110010"
+                                   |B"110011",
+          opx_out xor opy_out WHEN  B"110100"
+                                   |B"110101"
+                                   |B"110110"
+                                   |B"110111",
+          alu_nor             WHEN  B"111000"  
+                                   |B"111001"
+                                   |B"111010"
+                                   |B"111011",
+          alu_sum             WHEN  B"111110"  
+                                   |B"111100"
+                                   |B"111101"
+                                   |B"111111";
+                                   
+    -- ************* ALU Auxiliary Outputs Affectations **************
+    alu_nul  <= '1' WHEN (alu_sum(31 downto 0) = X"00000000") ELSE  '0';
+    alu_sign <=     alu_sum(31);
+    alu_c31  <= not alu_cry(32);
+    alu_c30  <= not alu_cry(31);
+        
+    WITH alu_byte SELECT
+        data_outb_n <= not ( alu_out( 7 downto 0)
+                          & alu_out( 7 downto 0)
+                          & alu_out( 7 downto 0)
+                          & alu_out( 7 downto 0)) WHEN '1',
+                      not   alu_out(31 downto 0)  WHEN '0';
+    WITH alu_half SELECT
+        data_outh_n <= not ( alu_out( 15 downto 0)
+                          & alu_out( 15 downto 0)) WHEN '1',
+                      not   alu_out(31 downto 0)  WHEN '0';
+
+    data_out_dpt <= not data_outh_n when (alu_half = '1') ELSE
+                    not data_outb_n;
+
+    -- *************** ADROUT Multiplexer Description ****************
+    WITH out_mx0i0 SELECT
+        out_adr_n <= not pc WHEN B"1",
+                     not ad WHEN B"0";
+
+    out_adr    <= not out_adr_n;
+    alu_n_0    <= not alu_out(0);  --   out_adr_n(0);
+    alu_n_1    <= not alu_out(1);  --    out_adr_n(1);
+    alu_n_31   <= not alu_out(31); --    out_adr_n(31);
+    adr_n_0    <=     out_adr_n(0);
+    adr_n_1    <=     out_adr_n(1);
+
+    -- ******************* PC register Description *******************
+
+    WITH test & pc_wen SELECT
+    pc_mux_out <= pc(30 downto 0) & dpt_scin  WHEN B"11",
+                  alu_out                     WHEN B"01",
+                  pc                          WHEN OTHERS;
+
+     ws_pc:BLOCK(ck='1' AND NOT ck'STABLE)
+     BEGIN
+         pc <= GUARDED pc_mux_out;
+     END BLOCK  ws_pc;
+
+    -- ******************* AD register Description *******************
+
+    WITH test & ad_wen SELECT
+    ad_mux_out <= ad(30 downto 0) & pc(31) WHEN B"11",
+                  alu_out                  WHEN B"01",
+                  ad                       WHEN OTHERS;
+
+    ws_ad:BLOCK(ck='1' AND NOT ck'STABLE)
+    BEGIN
+        ad <= GUARDED ad_mux_out;
+    END BLOCK  ws_ad;
+
+    -- ******************* EPC register Description *******************
+
+    WITH test & epc_wen SELECT
+    epc_mux_out <=  epc(30 downto 0) & ad(31) WHEN B"11",
+                    alu_out                   WHEN B"01",
+                    epc                       WHEN OTHERS;
+
+    ws_epc:BLOCK(ck='1' AND NOT ck'STABLE)
+    BEGIN
+        epc <= GUARDED epc_mux_out;
+    END BLOCK  ws_epc;
+
+    -- ******************* BAR register Description *******************
+
+    WITH test & bar_wen SELECT
+    bar_mux_out <= bar(30 downto 0) & epc(31) WHEN B"11",
+                   alu_out                    WHEN B"01",
+                   bar                        WHEN OTHERS;
+
+    ws_bar:BLOCK(ck='1' AND NOT ck'STABLE)
+    BEGIN
+        bar <= GUARDED bar_mux_out;
+    END BLOCK  ws_bar;
+
+    -- ******************* SR/CR register Description *******************
+
+    sr_s     <= X"0000" & crsr_sts_in;
+    cr_s     <= X"0000" & crsr_sts_in; 
+    crsr_dpt_out <= alu_out(15 downto 0);
+    
+    -- ******************* HI register Description *******************
+
+    WITH test & hi_wen SELECT
+    hi_mux_out <= hi(30 downto 0) & bar(31) WHEN B"11",
+                  alu_out                   WHEN B"01",
+                  hi                        WHEN OTHERS;
+
+    ws_hi:BLOCK(ck='1' AND NOT ck'STABLE)
+    BEGIN
+        hi <= GUARDED hi_mux_out;
+    END BLOCK  ws_hi;
+
+    -- ******************* LO register Description *******************
+
+    WITH test & lo_wen SELECT
+    lo_mux_out <= lo(30 downto 0) & hi(31) WHEN B"11",
+                  alu_out                  WHEN B"01",
+                  lo                       WHEN OTHERS;
+
+    ws_lo:BLOCK(ck='1' AND NOT ck'STABLE)
+    BEGIN
+        lo <= GUARDED lo_mux_out;
+    END BLOCK  ws_lo;
+
+    -- ******************* IR register Description *******************
+
+    WITH test & ir_wen SELECT
+    ir_mux_out <= ir(30 downto 0) & lo(31) WHEN B"11",
+                  not data_in_n            WHEN B"01",
+                  ir                       WHEN OTHERS;
+
+    ws_ir:BLOCK(ck='1' AND NOT ck'STABLE)
+    BEGIN
+        ir <= GUARDED ir_mux_out;
+    END BLOCK  ws_ir;
+
+    -- ******************* DT register Description *******************
+
+    WITH test & dt_wen SELECT
+    dt_mux_out <=  dt(30 downto 0) & ir(31)  WHEN B"11",
+                   opy_dt                    WHEN B"01",
+                   dt                        WHEN OTHERS;
+
+    ws_dt:BLOCK(ck='1' AND NOT ck'STABLE)
+    BEGIN
+        dt <= GUARDED dt_mux_out;
+    END BLOCK  ws_dt;
+
+    dpt_scout <= dt(31);
+
+    -- *************** register File (RF) Description ****************
+
+    rf_aw_wenabled <=  rf_aw & rf_wen;
+
+
+    wm_rf:BLOCK(ck = '1' AND NOT ck'STABLE)
+    BEGIN
+       rf_1  <= GUARDED alu_out WHEN  rf_aw_wenabled = B"000011"  ELSE  rf_1;
+       rf_2  <= GUARDED alu_out WHEN  rf_aw_wenabled = B"000101"  ELSE  rf_2;
+       rf_3  <= GUARDED alu_out WHEN  rf_aw_wenabled = B"000111"  ELSE  rf_3;
+       rf_4  <= GUARDED alu_out WHEN  rf_aw_wenabled = B"001001"  ELSE  rf_4;
+       rf_5  <= GUARDED alu_out WHEN  rf_aw_wenabled = B"001011"  ELSE  rf_5;
+       rf_6  <= GUARDED alu_out WHEN  rf_aw_wenabled = B"001101"  ELSE  rf_6;
+       rf_7  <= GUARDED alu_out WHEN  rf_aw_wenabled = B"001111"  ELSE  rf_7;
+       rf_8  <= GUARDED alu_out WHEN  rf_aw_wenabled = B"010001"  ELSE  rf_8;
+       rf_9  <= GUARDED alu_out WHEN  rf_aw_wenabled = B"010011"  ELSE  rf_9;
+       rf_10 <= GUARDED alu_out WHEN  rf_aw_wenabled = B"010101"  ELSE  rf_10;
+       rf_11 <= GUARDED alu_out WHEN  rf_aw_wenabled = B"010111"  ELSE  rf_11;
+       rf_12 <= GUARDED alu_out WHEN  rf_aw_wenabled = B"011001"  ELSE  rf_12;
+       rf_13 <= GUARDED alu_out WHEN  rf_aw_wenabled = B"011011"  ELSE  rf_13;
+       rf_14 <= GUARDED alu_out WHEN  rf_aw_wenabled = B"011101"  ELSE  rf_14;
+       rf_15 <= GUARDED alu_out WHEN  rf_aw_wenabled = B"011111"  ELSE  rf_15;
+       rf_16 <= GUARDED alu_out WHEN  rf_aw_wenabled = B"100001"  ELSE  rf_16;
+       rf_17 <= GUARDED alu_out WHEN  rf_aw_wenabled = B"100011"  ELSE  rf_17;
+       rf_18 <= GUARDED alu_out WHEN  rf_aw_wenabled = B"100101"  ELSE  rf_18;
+       rf_19 <= GUARDED alu_out WHEN  rf_aw_wenabled = B"100111"  ELSE  rf_19;
+       rf_20 <= GUARDED alu_out WHEN  rf_aw_wenabled = B"101001"  ELSE  rf_20;
+       rf_21 <= GUARDED alu_out WHEN  rf_aw_wenabled = B"101011"  ELSE  rf_21;
+       rf_22 <= GUARDED alu_out WHEN  rf_aw_wenabled = B"101101"  ELSE  rf_22;
+       rf_23 <= GUARDED alu_out WHEN  rf_aw_wenabled = B"101111"  ELSE  rf_23;
+       rf_24 <= GUARDED alu_out WHEN  rf_aw_wenabled = B"110001"  ELSE  rf_24;
+       rf_25 <= GUARDED alu_out WHEN  rf_aw_wenabled = B"110011"  ELSE  rf_25;
+       rf_26 <= GUARDED alu_out WHEN  rf_aw_wenabled = B"110101"  ELSE  rf_26;
+       rf_27 <= GUARDED alu_out WHEN  rf_aw_wenabled = B"110111"  ELSE  rf_27;
+       rf_28 <= GUARDED alu_out WHEN  rf_aw_wenabled = B"111001"  ELSE  rf_28;
+       rf_29 <= GUARDED alu_out WHEN  rf_aw_wenabled = B"111011"  ELSE  rf_29;
+       rf_30 <= GUARDED alu_out WHEN  rf_aw_wenabled = B"111101"  ELSE  rf_30;
+       rf_31 <= GUARDED alu_out WHEN  rf_aw_wenabled = B"111111"  ELSE  rf_31;
+    END BLOCK wm_rf;
+
+    WITH  rf_ar  SELECT
+        rf_o <= X"00000000"  WHEN  B"00000",
+                     rf_1    WHEN  B"00001",
+                     rf_2    WHEN  B"00010",
+                     rf_3    WHEN  B"00011",
+                     rf_4    WHEN  B"00100",
+                     rf_5    WHEN  B"00101",
+                     rf_6    WHEN  B"00110",
+                     rf_7    WHEN  B"00111",
+                     rf_8    WHEN  B"01000",
+                     rf_9    WHEN  B"01001",
+                     rf_10   WHEN  B"01010",
+                     rf_11   WHEN  B"01011",
+                     rf_12   WHEN  B"01100",
+                     rf_13   WHEN  B"01101",
+                     rf_14   WHEN  B"01110",
+                     rf_15   WHEN  B"01111",
+                     rf_16   WHEN  B"10000",
+                     rf_17   WHEN  B"10001",
+                     rf_18   WHEN  B"10010",
+                     rf_19   WHEN  B"10011",
+                     rf_20   WHEN  B"10100",
+                     rf_21   WHEN  B"10101",
+                     rf_22   WHEN  B"10110",
+                     rf_23   WHEN  B"10111",
+                     rf_24   WHEN  B"11000",
+                     rf_25   WHEN  B"11001",
+                     rf_26   WHEN  B"11010",
+                     rf_27   WHEN  B"11011",
+                     rf_28   WHEN  B"11100",
+                     rf_29   WHEN  B"11101",
+                     rf_30   WHEN  B"11110",
+                     rf_31   WHEN  B"11111";
+END  fonctional;
+
+

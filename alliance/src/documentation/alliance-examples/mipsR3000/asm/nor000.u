@@ -1,0 +1,40 @@
+;  ###----------------------------------------------------------------###
+;  # file	: nor000.u						#
+;  # date	: Apr  1 1993						#
+;  # descr.	: functional test for mips				#
+;  ###----------------------------------------------------------------###
+
+	;  ###--------------------------------------------------------###
+	;  #   logic nor						#
+	;  ###--------------------------------------------------------###
+
+const1		.equ	0xa5de56457
+const2		.equ	0x878f0105b
+const3		.equ    0x820a8ba0
+const4		.equ	-1
+
+		.org	0x00400000
+		.start	init
+
+init:
+		loadi	r14, const1
+		loadi	r19, const2
+		loadi	r9 , const3
+
+		nor	r20, r14, r19
+		bne	r9 , r20, bad
+		nop
+		nor	r9, r0, r0
+		loadi	r20, const4
+		beq     r9, r20, good
+		nop
+		j	bad
+		nop
+
+		.org	0x004000d0
+good:		j	good
+		nop
+bad:		j	bad
+		nop
+		.end
+

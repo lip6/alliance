@@ -1,0 +1,57 @@
+
+;  ###----------------------------------------------------------------###
+;  # file	: bgezal000.u						#
+;  # date	: nov 1996						#
+;  # descr.	: functional test for mips				#
+;  ###----------------------------------------------------------------###
+
+	;  ###--------------------------------------------------------###
+	;  #   Branch if greater or equal and link			#
+	;  #   We test when it's greater , when it's lower or equal and #
+	;  #   if it puts pc + 4 in r31 in all cases		        #
+	;  ###--------------------------------------------------------###
+
+const		.equ	0x00000002
+val1		.equ	0x00000001
+val2            .equ    0x00000002
+val3		.equ    0x00000008
+mask		.equ	0xffffffff
+mask1		.equ	0x0000ffff
+
+		.org	0x00400000
+
+		.start	init
+
+init:
+		loadi	r23, const
+		loadi	r24, (4 * const)
+
+		bgezal	r0, mul2
+		nop
+	        addiu   r1 , r0 , val1 	
+		bgezal	r1 , mul2   
+		nop
+		
+		lui	r1 , mask
+		addiu   r16, r0 , mask1
+		or	r1 , r1 , r16
+	        bgezal  r1 , bad
+	        addiu   r31, r31, val3	
+		jr      r31	
+		beq	r24 ,r23, good 
+		nop
+		j	bad
+		nop
+
+mul2 :
+		addu	r23, r23, r23
+		jr	r31
+		nop
+
+		.org	0x004000d0
+good:		j	good
+		nop
+bad:		j	bad
+		nop
+		.end
+

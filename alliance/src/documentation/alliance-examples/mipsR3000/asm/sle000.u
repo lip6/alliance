@@ -1,0 +1,33 @@
+;  ###----------------------------------------------------------------###
+;  # file	: sle000.u						#
+;  # date	: May 20 1995						#
+;  # descr.	: functional test for mips				#
+;  ###----------------------------------------------------------------###
+
+	;  ###--------------------------------------------------------###
+	;  #   set if less or equal (signed)				#
+	;  ###--------------------------------------------------------###
+
+data1		.equ	0x809065c0		; big negative data
+data2		.equ	0x60004d23		; positive data (d1 < d2)
+
+		.org	0x00400000
+		.start	init
+
+init:
+		loadi	r11, data1
+		loadi	r12, data2
+		slt	r14, r11, r12		; ri < rj => 1
+		addiu	r1, r0, 1
+		beq	r14, r1, good
+		nop
+		j	bad
+		nop
+
+		.org	0x004000d0
+good:		j	good
+		nop
+bad:		j	bad
+		nop
+		.end
+

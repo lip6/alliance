@@ -1,0 +1,56 @@
+;  ###----------------------------------------------------------------###
+;  # file	: it000.u						#
+;  # date	: Mar 26 1996						#
+;  # descr.	: functional test for mips				#
+;  ###----------------------------------------------------------------###
+
+	;  ###--------------------------------------------------------###
+	;  #   decrementation loop (with a hardware interrupt)		#
+	;  ###--------------------------------------------------------###
+
+timer_0		.equ	0x40000100
+timer_1		.equ	0x40000104
+timer_2		.equ	0x40000108
+timer_3		.equ	0x4000010C
+timer_4		.equ	0x40000110
+timer_5		.equ	0x40000114
+timer_rst	.equ	0x40000118
+timer_sts	.equ	0x4000011C
+
+value		.equ	0x0008
+v_sts		.equ    0x0001
+
+		.org	0x00400000
+		.start	init
+
+init:
+                loadi   r31, back_from_int
+		loadi	r1 , timer_0
+		addiu	r2 , r0 , value
+		sw      r2,0(r1)
+		loadi	r1 , timer_sts
+		addiu	r2 , r0 , v_sts
+		sw    r2,  0(r1)
+
+                addiu   r10, r0 , v_sts
+		lui	r20, 0xffff
+		addiu	r16, r0 , 0xfffa
+		or	r20, r16, r20
+loop:	
+                addu    r20,r10,r20
+        	bne	r20,r0,  loop
+                nop
+        	j	bad
+		nop
+
+back_from_int:
+		j	good
+		nop
+
+		.org	0x004000d0
+good:		j	good
+		nop
+bad:		j	bad
+		nop
+		.end
+

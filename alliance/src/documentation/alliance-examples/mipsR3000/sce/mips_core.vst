@@ -1,0 +1,408 @@
+-- VHDL structural description generated from `mips_core`
+--		date : Mon Jul 30 17:18:35 2001
+
+
+-- Entity Declaration
+
+ENTITY mips_core IS
+  PORT (
+  adr : out BIT_VECTOR (31 DOWNTO 0);	-- adr
+  datain : in BIT_VECTOR (31 DOWNTO 0);	-- datain
+  dataout : out BIT_VECTOR (31 DOWNTO 0);	-- dataout
+  int : in BIT_VECTOR (5 DOWNTO 0);	-- int
+  scin : in BIT;	-- scin
+  scout : out BIT;	-- scout
+  test : in BIT;	-- test
+  reset : in BIT;	-- reset
+  frz : in BIT;	-- frz
+  w : out BIT_VECTOR (0 TO 1);	-- w
+  rw : out BIT;	-- rw
+  berr : in BIT;	-- berr
+  rw_ctl : out BIT_VECTOR (15 DOWNTO 0);	-- rw_ctl
+  frz_ctl : out BIT_VECTOR (15 DOWNTO 0);	-- frz_ctl
+  ck_ctl : in BIT;	-- ck_ctl
+  ck_dpt : in BIT;	-- ck_dpt
+  vdd : in BIT;	-- vdd
+  vss : in BIT	-- vss
+  );
+END mips_core;
+
+-- Architecture Declaration
+
+ARCHITECTURE VST OF mips_core IS
+  COMPONENT mips_ctl
+    port (
+    ck : in BIT;	-- ck
+    frz : in BIT;	-- frz
+    reset : in BIT;	-- reset
+    scin : in BIT;	-- scin
+    scout : out BIT;	-- scout
+    test : in BIT;	-- test
+    berr : in BIT;	-- berr
+    w : out BIT_VECTOR(0 TO 1);	-- w
+    int : in BIT_VECTOR(5 DOWNTO 0);	-- int
+    rw_ctl : out BIT_VECTOR(15 DOWNTO 0);	-- rw_ctl
+    frz_ctl : out BIT_VECTOR(15 DOWNTO 0);	-- frz_ctl
+    wenable : out BIT_VECTOR(6 DOWNTO 0);	-- wenable
+    rf_aw : out BIT_VECTOR(4 DOWNTO 0);	-- rf_aw
+    rf_ar : out BIT_VECTOR(4 DOWNTO 0);	-- rf_ar
+    ctlopx : out BIT_VECTOR(8 DOWNTO 0);	-- ctlopx
+    ctlopy : out BIT_VECTOR(6 DOWNTO 0);	-- ctlopy
+    ctlalu : out BIT_VECTOR(5 DOWNTO 0);	-- ctlalu
+    ctlrw : out BIT_VECTOR(4 DOWNTO 1);	-- ctlrw
+    ctladr : out BIT;	-- ctladr
+    crsrout : out BIT_VECTOR(15 DOWNTO 0);	-- crsrout
+    alu_31_n : in BIT;	-- alu_31_n
+    alu_1_n : in BIT;	-- alu_1_n
+    alu_0_n : in BIT;	-- alu_0_n
+    adr_1_n : in BIT;	-- adr_1_n
+    adr_0_n : in BIT;	-- adr_0_n
+    crsrin : in BIT_VECTOR(15 DOWNTO 0);	-- crsrin
+    opx_sign : in BIT;	-- opx_sign
+    opy_sign : in BIT;	-- opy_sign
+    codop : in BIT_VECTOR(18 DOWNTO 0);	-- codop
+    rs : in BIT_VECTOR(4 DOWNTO 0);	-- rs
+    rd : in BIT_VECTOR(4 DOWNTO 0);	-- rd
+    rdrt : in BIT_VECTOR(4 DOWNTO 0);	-- rdrt
+    alu_test_n : out BIT;	-- alu_test_n
+    alu_c31_n : in BIT;	-- alu_c31_n
+    alu_c30_n : in BIT;	-- alu_c30_n
+    alu_nul : in BIT;	-- alu_nul
+    alu_sign : in BIT;	-- alu_sign
+    rw : out BIT;	-- rw
+    vdd : in BIT;	-- vdd
+    vss : in BIT	-- vss
+    );
+  END COMPONENT;
+
+  COMPONENT mips_dpt
+    port (
+    vdd : in BIT;	-- vdd
+    vss : in BIT;	-- vss
+    test : in BIT;	-- test
+    dpt_scin : in BIT;	-- dpt_scin
+    dpt_scout : out BIT;	-- dpt_scout
+    ck : in BIT;	-- ck
+    pc_wen : in BIT;	-- pc_wen
+    ad_wen : in BIT;	-- ad_wen
+    epc_wen : in BIT;	-- epc_wen
+    bar_wen : in BIT;	-- bar_wen
+    ir_wen : in BIT;	-- ir_wen
+    dt_wen : in BIT;	-- dt_wen
+    hi_wen : in BIT;	-- hi_wen
+    lo_wen : in BIT;	-- lo_wen
+    rf_wen : in BIT;	-- rf_wen
+    rf_aw : in BIT_VECTOR(4 DOWNTO 0);	-- rf_aw
+    rf_ar : in BIT_VECTOR(4 DOWNTO 0);	-- rf_ar
+    opx_ts7 : in BIT;	-- opx_ts7
+    opx_ts6 : in BIT;	-- opx_ts6
+    opx_ts5 : in BIT;	-- opx_ts5
+    opx_ts4 : in BIT;	-- opx_ts4
+    opx_ts3 : in BIT;	-- opx_ts3
+    opx_ts2 : in BIT;	-- opx_ts2
+    opx_ts1 : in BIT;	-- opx_ts1
+    opx_ts0 : in BIT;	-- opx_ts0
+    opx_mx7 : in BIT;	-- opx_mx7
+    opx_mx6 : in BIT;	-- opx_mx6
+    opx_mx5 : in BIT;	-- opx_mx5
+    opx_mx4 : in BIT;	-- opx_mx4
+    opx_mx3 : in BIT;	-- opx_mx3
+    opx_mx2 : in BIT;	-- opx_mx2
+    opx_mx1 : in BIT;	-- opx_mx1
+    opx_sign : out BIT;	-- opx_sign
+    crsr_dpt_out : out BIT_VECTOR(15 DOWNTO 0);	-- crsr_dpt_out
+    crsr_sts_in : in BIT_VECTOR(15 DOWNTO 0);	-- crsr_sts_in
+    opy_ts6 : in BIT;	-- opy_ts6
+    opy_ts5 : in BIT;	-- opy_ts5
+    opy_ts4 : in BIT;	-- opy_ts4
+    opy_ts3 : in BIT;	-- opy_ts3
+    opy_ts2 : in BIT;	-- opy_ts2
+    opy_ts1 : in BIT;	-- opy_ts1
+    opy_mx6 : in BIT;	-- opy_mx6
+    opy_mx5 : in BIT;	-- opy_mx5
+    opy_mx4 : in BIT;	-- opy_mx4
+    opy_mx3 : in BIT;	-- opy_mx3
+    opy_mx2 : in BIT;	-- opy_mx2
+    opy_mx1 : in BIT;	-- opy_mx1
+    opy_codop : out BIT_VECTOR(18 DOWNTO 0);	-- opy_codop
+    opy_rs : out BIT_VECTOR(4 DOWNTO 0);	-- opy_rs
+    opy_rdrt : out BIT_VECTOR(4 DOWNTO 0);	-- opy_rdrt
+    opy_rd : out BIT_VECTOR(4 DOWNTO 0);	-- opy_rd
+    opy_sign : out BIT;	-- opy_sign
+    data_in_dpt : in BIT_VECTOR(31 DOWNTO 0);	-- data_in_dpt
+    alu_mx5i0 : in BIT;	-- alu_mx5i0
+    alu_mx4i0 : in BIT;	-- alu_mx4i0
+    alu_mx3i0 : in BIT;	-- alu_mx3i0
+    alu_mx2i0 : in BIT;	-- alu_mx2i0
+    alu_mx2i1 : in BIT;	-- alu_mx2i1
+    alu_mx1i2 : in BIT;	-- alu_mx1i2
+    alu_mx1i1 : in BIT;	-- alu_mx1i1
+    alu_mx1i0 : in BIT;	-- alu_mx1i0
+    alu_mx0i0 : in BIT;	-- alu_mx0i0
+    alu_byte : in BIT;	-- alu_byte
+    alu_half : in BIT;	-- alu_half
+    alu_test_n : in BIT;	-- alu_test_n
+    alu_c31 : out BIT;	-- alu_c31
+    alu_c30 : out BIT;	-- alu_c30
+    alu_nul : out BIT;	-- alu_nul
+    alu_sign : out BIT;	-- alu_sign
+    data_out_dpt : out BIT_VECTOR(31 DOWNTO 0);	-- data_out_dpt
+    out_mx0i0 : in BIT;	-- out_mx0i0
+    out_adr : out BIT_VECTOR(31 DOWNTO 0);	-- out_adr
+    alu_n_31 : inout BIT;	-- alu_n_31
+    alu_n_1 : inout BIT;	-- alu_n_1
+    alu_n_0 : inout BIT;	-- alu_n_0
+    adr_n_1 : inout BIT;	-- adr_n_1
+    adr_n_0 : inout BIT	-- adr_n_0
+    );
+  END COMPONENT;
+
+  SIGNAL adr_0_n : BIT;	-- adr_0_n
+  SIGNAL adr_1_n : BIT;	-- adr_1_n
+  SIGNAL alu_0_n : BIT;	-- alu_0_n
+  SIGNAL alu_1_n : BIT;	-- alu_1_n
+  SIGNAL alu_31_n : BIT;	-- alu_31_n
+  SIGNAL alu_c30_n : BIT;	-- alu_c30_n
+  SIGNAL alu_c31_n : BIT;	-- alu_c31_n
+  SIGNAL alu_nul : BIT;	-- alu_nul
+  SIGNAL alu_sign : BIT;	-- alu_sign
+  SIGNAL alu_test_n : BIT;	-- alu_test_n
+  SIGNAL codop_0 : BIT;	-- codop 0
+  SIGNAL codop_1 : BIT;	-- codop 1
+  SIGNAL codop_2 : BIT;	-- codop 2
+  SIGNAL codop_3 : BIT;	-- codop 3
+  SIGNAL codop_4 : BIT;	-- codop 4
+  SIGNAL codop_5 : BIT;	-- codop 5
+  SIGNAL codop_6 : BIT;	-- codop 6
+  SIGNAL codop_7 : BIT;	-- codop 7
+  SIGNAL codop_8 : BIT;	-- codop 8
+  SIGNAL codop_9 : BIT;	-- codop 9
+  SIGNAL codop_10 : BIT;	-- codop 10
+  SIGNAL codop_11 : BIT;	-- codop 11
+  SIGNAL codop_12 : BIT;	-- codop 12
+  SIGNAL codop_13 : BIT;	-- codop 13
+  SIGNAL codop_14 : BIT;	-- codop 14
+  SIGNAL codop_15 : BIT;	-- codop 15
+  SIGNAL codop_16 : BIT;	-- codop 16
+  SIGNAL codop_17 : BIT;	-- codop 17
+  SIGNAL codop_18 : BIT;	-- codop 18
+  SIGNAL crsrin_0 : BIT;	-- crsrin 0
+  SIGNAL crsrin_1 : BIT;	-- crsrin 1
+  SIGNAL crsrin_2 : BIT;	-- crsrin 2
+  SIGNAL crsrin_3 : BIT;	-- crsrin 3
+  SIGNAL crsrin_4 : BIT;	-- crsrin 4
+  SIGNAL crsrin_5 : BIT;	-- crsrin 5
+  SIGNAL crsrin_6 : BIT;	-- crsrin 6
+  SIGNAL crsrin_7 : BIT;	-- crsrin 7
+  SIGNAL crsrin_8 : BIT;	-- crsrin 8
+  SIGNAL crsrin_9 : BIT;	-- crsrin 9
+  SIGNAL crsrin_10 : BIT;	-- crsrin 10
+  SIGNAL crsrin_11 : BIT;	-- crsrin 11
+  SIGNAL crsrin_12 : BIT;	-- crsrin 12
+  SIGNAL crsrin_13 : BIT;	-- crsrin 13
+  SIGNAL crsrin_14 : BIT;	-- crsrin 14
+  SIGNAL crsrin_15 : BIT;	-- crsrin 15
+  SIGNAL crsrout_0 : BIT;	-- crsrout 0
+  SIGNAL crsrout_1 : BIT;	-- crsrout 1
+  SIGNAL crsrout_2 : BIT;	-- crsrout 2
+  SIGNAL crsrout_3 : BIT;	-- crsrout 3
+  SIGNAL crsrout_4 : BIT;	-- crsrout 4
+  SIGNAL crsrout_5 : BIT;	-- crsrout 5
+  SIGNAL crsrout_6 : BIT;	-- crsrout 6
+  SIGNAL crsrout_7 : BIT;	-- crsrout 7
+  SIGNAL crsrout_8 : BIT;	-- crsrout 8
+  SIGNAL crsrout_9 : BIT;	-- crsrout 9
+  SIGNAL crsrout_10 : BIT;	-- crsrout 10
+  SIGNAL crsrout_11 : BIT;	-- crsrout 11
+  SIGNAL crsrout_12 : BIT;	-- crsrout 12
+  SIGNAL crsrout_13 : BIT;	-- crsrout 13
+  SIGNAL crsrout_14 : BIT;	-- crsrout 14
+  SIGNAL crsrout_15 : BIT;	-- crsrout 15
+  SIGNAL ctl_scout : BIT;	-- ctl_scout
+  SIGNAL ctladr : BIT;	-- ctladr
+  SIGNAL ctlalu_0 : BIT;	-- ctlalu 0
+  SIGNAL ctlalu_1 : BIT;	-- ctlalu 1
+  SIGNAL ctlalu_2 : BIT;	-- ctlalu 2
+  SIGNAL ctlalu_3 : BIT;	-- ctlalu 3
+  SIGNAL ctlalu_4 : BIT;	-- ctlalu 4
+  SIGNAL ctlalu_5 : BIT;	-- ctlalu 5
+  SIGNAL ctlopx_0 : BIT;	-- ctlopx 0
+  SIGNAL ctlopx_1 : BIT;	-- ctlopx 1
+  SIGNAL ctlopx_2 : BIT;	-- ctlopx 2
+  SIGNAL ctlopx_3 : BIT;	-- ctlopx 3
+  SIGNAL ctlopx_4 : BIT;	-- ctlopx 4
+  SIGNAL ctlopx_5 : BIT;	-- ctlopx 5
+  SIGNAL ctlopx_6 : BIT;	-- ctlopx 6
+  SIGNAL ctlopx_7 : BIT;	-- ctlopx 7
+  SIGNAL ctlopx_8 : BIT;	-- ctlopx 8
+  SIGNAL ctlopy_0 : BIT;	-- ctlopy 0
+  SIGNAL ctlopy_1 : BIT;	-- ctlopy 1
+  SIGNAL ctlopy_2 : BIT;	-- ctlopy 2
+  SIGNAL ctlopy_3 : BIT;	-- ctlopy 3
+  SIGNAL ctlopy_4 : BIT;	-- ctlopy 4
+  SIGNAL ctlopy_5 : BIT;	-- ctlopy 5
+  SIGNAL ctlopy_6 : BIT;	-- ctlopy 6
+  SIGNAL ctlrw_1 : BIT;	-- ctlrw 1
+  SIGNAL ctlrw_2 : BIT;	-- ctlrw 2
+  SIGNAL ctlrw_3 : BIT;	-- ctlrw 3
+  SIGNAL ctlrw_4 : BIT;	-- ctlrw 4
+  SIGNAL opx_sign : BIT;	-- opx_sign
+  SIGNAL opy_sign : BIT;	-- opy_sign
+  SIGNAL rd_0 : BIT;	-- rd 0
+  SIGNAL rd_1 : BIT;	-- rd 1
+  SIGNAL rd_2 : BIT;	-- rd 2
+  SIGNAL rd_3 : BIT;	-- rd 3
+  SIGNAL rd_4 : BIT;	-- rd 4
+  SIGNAL rdrt_0 : BIT;	-- rdrt 0
+  SIGNAL rdrt_1 : BIT;	-- rdrt 1
+  SIGNAL rdrt_2 : BIT;	-- rdrt 2
+  SIGNAL rdrt_3 : BIT;	-- rdrt 3
+  SIGNAL rdrt_4 : BIT;	-- rdrt 4
+  SIGNAL rf_ar_0 : BIT;	-- rf_ar 0
+  SIGNAL rf_ar_1 : BIT;	-- rf_ar 1
+  SIGNAL rf_ar_2 : BIT;	-- rf_ar 2
+  SIGNAL rf_ar_3 : BIT;	-- rf_ar 3
+  SIGNAL rf_ar_4 : BIT;	-- rf_ar 4
+  SIGNAL rf_aw_0 : BIT;	-- rf_aw 0
+  SIGNAL rf_aw_1 : BIT;	-- rf_aw 1
+  SIGNAL rf_aw_2 : BIT;	-- rf_aw 2
+  SIGNAL rf_aw_3 : BIT;	-- rf_aw 3
+  SIGNAL rf_aw_4 : BIT;	-- rf_aw 4
+  SIGNAL rs_0 : BIT;	-- rs 0
+  SIGNAL rs_1 : BIT;	-- rs 1
+  SIGNAL rs_2 : BIT;	-- rs 2
+  SIGNAL rs_3 : BIT;	-- rs 3
+  SIGNAL rs_4 : BIT;	-- rs 4
+  SIGNAL wenable_0 : BIT;	-- wenable 0
+  SIGNAL wenable_1 : BIT;	-- wenable 1
+  SIGNAL wenable_2 : BIT;	-- wenable 2
+  SIGNAL wenable_3 : BIT;	-- wenable 3
+  SIGNAL wenable_4 : BIT;	-- wenable 4
+  SIGNAL wenable_5 : BIT;	-- wenable 5
+  SIGNAL wenable_6 : BIT;	-- wenable 6
+
+BEGIN
+
+  ctl : mips_ctl
+    PORT MAP (
+    vss => vss,
+    vdd => vdd,
+    rw => rw,
+    alu_sign => alu_sign,
+    alu_nul => alu_nul,
+    alu_c30_n => alu_c30_n,
+    alu_c31_n => alu_c31_n,
+    alu_test_n => alu_test_n,
+    rdrt => rdrt_4& rdrt_3& rdrt_2& rdrt_1& rdrt_0,
+    rd => rd_4& rd_3& rd_2& rd_1& rd_0,
+    rs => rs_4& rs_3& rs_2& rs_1& rs_0,
+    codop => codop_18& codop_17& codop_16& codop_15& codop_14& codop_13& codop_12& codop_11& codop_10& codop_9& codop_8& codop_7& codop_6& codop_5& codop_4& codop_3& codop_2& codop_1& codop_0,
+    opy_sign => opy_sign,
+    opx_sign => opx_sign,
+    crsrin => crsrin_15& crsrin_14& crsrin_13& crsrin_12& crsrin_11& crsrin_10& crsrin_9& crsrin_8& crsrin_7& crsrin_6& crsrin_5& crsrin_4& crsrin_3& crsrin_2& crsrin_1& crsrin_0,
+    adr_0_n => adr_0_n,
+    adr_1_n => adr_1_n,
+    alu_0_n => alu_0_n,
+    alu_1_n => alu_1_n,
+    alu_31_n => alu_31_n,
+    crsrout => crsrout_15& crsrout_14& crsrout_13& crsrout_12& crsrout_11& crsrout_10& crsrout_9& crsrout_8& crsrout_7& crsrout_6& crsrout_5& crsrout_4& crsrout_3& crsrout_2& crsrout_1& crsrout_0,
+    ctladr => ctladr,
+    ctlrw => ctlrw_4& ctlrw_3& ctlrw_2& ctlrw_1,
+    ctlalu => ctlalu_5& ctlalu_4& ctlalu_3& ctlalu_2& ctlalu_1& ctlalu_0,
+    ctlopy => ctlopy_6& ctlopy_5& ctlopy_4& ctlopy_3& ctlopy_2& ctlopy_1& ctlopy_0,
+    ctlopx => ctlopx_8& ctlopx_7& ctlopx_6& ctlopx_5& ctlopx_4& ctlopx_3& ctlopx_2& ctlopx_1& ctlopx_0,
+    rf_ar => rf_ar_4& rf_ar_3& rf_ar_2& rf_ar_1& rf_ar_0,
+    rf_aw => rf_aw_4& rf_aw_3& rf_aw_2& rf_aw_1& rf_aw_0,
+    wenable => wenable_6& wenable_5& wenable_4& wenable_3& wenable_2& wenable_1& wenable_0,
+    frz_ctl => frz_ctl(15)& frz_ctl(14)& frz_ctl(13)& frz_ctl(12)& frz_ctl(11)& frz_ctl(10)& frz_ctl(9)& frz_ctl(8)& frz_ctl(7)& frz_ctl(6)& frz_ctl(5)& frz_ctl(4)& frz_ctl(3)& frz_ctl(2)& frz_ctl(1)& frz_ctl(0),
+    rw_ctl => rw_ctl(15)& rw_ctl(14)& rw_ctl(13)& rw_ctl(12)& rw_ctl(11)& rw_ctl(10)& rw_ctl(9)& rw_ctl(8)& rw_ctl(7)& rw_ctl(6)& rw_ctl(5)& rw_ctl(4)& rw_ctl(3)& rw_ctl(2)& rw_ctl(1)& rw_ctl(0),
+    int => int(5)& int(4)& int(3)& int(2)& int(1)& int(0),
+    w => w(0)& w(1),
+    berr => berr,
+    test => test,
+    scout => ctl_scout,
+    scin => scin,
+    reset => reset,
+    frz => frz,
+    ck => ck_ctl);
+  dpt : mips_dpt
+    PORT MAP (
+    adr_n_0 => adr_0_n,
+    adr_n_1 => adr_1_n,
+    alu_n_0 => alu_0_n,
+    alu_n_1 => alu_1_n,
+    alu_n_31 => alu_31_n,
+    out_adr => adr(31)& adr(30)& adr(29)& adr(28)& adr(27)& adr(26)& adr(25)& adr(24)& adr(23)& adr(22)& adr(21)& adr(20)& adr(19)& adr(18)& adr(17)& adr(16)& adr(15)& adr(14)& adr(13)& adr(12)& adr(11)& adr(10)& adr(9)& adr(8)& adr(7)& adr(6)& adr(5)& adr(4)& adr(3)& adr(2)& adr(1)& adr(0),
+    out_mx0i0 => ctladr,
+    data_out_dpt => dataout(31)& dataout(30)& dataout(29)& dataout(28)& dataout(27)& dataout(26)& dataout(25)& dataout(24)& dataout(23)& dataout(22)& dataout(21)& dataout(20)& dataout(19)& dataout(18)& dataout(17)& dataout(16)& dataout(15)& dataout(14)& dataout(13)& dataout(12)& dataout(11)& dataout(10)& dataout(9)& dataout(8)& dataout(7)& dataout(6)& dataout(5)& dataout(4)& dataout(3)& dataout(2)& dataout(1)& dataout(0),
+    alu_sign => alu_sign,
+    alu_nul => alu_nul,
+    alu_c30 => alu_c30_n,
+    alu_c31 => alu_c31_n,
+    alu_test_n => alu_test_n,
+    alu_half => ctlrw_2,
+    alu_byte => ctlrw_1,
+    alu_mx0i0 => ctlalu_0,
+    alu_mx1i0 => ctlalu_1,
+    alu_mx1i1 => ctlalu_1,
+    alu_mx1i2 => ctlalu_1,
+    alu_mx2i1 => ctlalu_2,
+    alu_mx2i0 => ctlalu_2,
+    alu_mx3i0 => ctlalu_3,
+    alu_mx4i0 => ctlalu_4,
+    alu_mx5i0 => ctlalu_5,
+    data_in_dpt => datain(31)& datain(30)& datain(29)& datain(28)& datain(27)& datain(26)& datain(25)& datain(24)& datain(23)& datain(22)& datain(21)& datain(20)& datain(19)& datain(18)& datain(17)& datain(16)& datain(15)& datain(14)& datain(13)& datain(12)& datain(11)& datain(10)& datain(9)& datain(8)& datain(7)& datain(6)& datain(5)& datain(4)& datain(3)& datain(2)& datain(1)& datain(0),
+    opy_sign => opy_sign,
+    opy_rd => rd_4& rd_3& rd_2& rd_1& rd_0,
+    opy_rdrt => rdrt_4& rdrt_3& rdrt_2& rdrt_1& rdrt_0,
+    opy_rs => rs_4& rs_3& rs_2& rs_1& rs_0,
+    opy_codop => codop_18& codop_17& codop_16& codop_15& codop_14& codop_13& codop_12& codop_11& codop_10& codop_9& codop_8& codop_7& codop_6& codop_5& codop_4& codop_3& codop_2& codop_1& codop_0,
+    opy_mx1 => ctlopy_0,
+    opy_mx2 => ctlopy_0,
+    opy_mx3 => ctlopy_0,
+    opy_mx4 => ctlopy_0,
+    opy_mx5 => ctlopy_0,
+    opy_mx6 => ctlopy_0,
+    opy_ts1 => ctlopy_1,
+    opy_ts2 => ctlopy_2,
+    opy_ts3 => ctlopy_3,
+    opy_ts4 => ctlopy_4,
+    opy_ts5 => ctlopy_5,
+    opy_ts6 => ctlopy_6,
+    crsr_sts_in => crsrout_15& crsrout_14& crsrout_13& crsrout_12& crsrout_11& crsrout_10& crsrout_9& crsrout_8& crsrout_7& crsrout_6& crsrout_5& crsrout_4& crsrout_3& crsrout_2& crsrout_1& crsrout_0,
+    crsr_dpt_out => crsrin_15& crsrin_14& crsrin_13& crsrin_12& crsrin_11& crsrin_10& crsrin_9& crsrin_8& crsrin_7& crsrin_6& crsrin_5& crsrin_4& crsrin_3& crsrin_2& crsrin_1& crsrin_0,
+    opx_sign => opx_sign,
+    opx_mx1 => ctlopx_0,
+    opx_mx2 => ctlopx_0,
+    opx_mx3 => ctlopx_0,
+    opx_mx4 => ctlopx_0,
+    opx_mx5 => ctlopx_0,
+    opx_mx6 => ctlopx_0,
+    opx_mx7 => ctlopx_0,
+    opx_ts0 => ctlopx_1,
+    opx_ts1 => ctlopx_2,
+    opx_ts2 => ctlopx_3,
+    opx_ts3 => ctlopx_4,
+    opx_ts4 => ctlopx_5,
+    opx_ts5 => ctlopx_6,
+    opx_ts6 => ctlopx_7,
+    opx_ts7 => ctlopx_8,
+    rf_ar => rf_ar_4& rf_ar_3& rf_ar_2& rf_ar_1& rf_ar_0,
+    rf_aw => rf_aw_4& rf_aw_3& rf_aw_2& rf_aw_1& rf_aw_0,
+    rf_wen => wenable_6,
+    lo_wen => wenable_2,
+    hi_wen => wenable_3,
+    dt_wen => ctlrw_3,
+    ir_wen => ctlrw_4,
+    bar_wen => wenable_1,
+    epc_wen => wenable_0,
+    ad_wen => wenable_4,
+    pc_wen => wenable_5,
+    ck => ck_dpt,
+    dpt_scout => scout,
+    dpt_scin => ctl_scout,
+    test => test,
+    vss => vss,
+    vdd => vdd);
+
+end VST;
