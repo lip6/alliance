@@ -47,9 +47,7 @@ The driver creates a Spice netlist of the \fILOFIG\fP passed as a parameter.  Th
 Environment variable considered are
 
 .RS
-.B MBK_SPI_TN
-
-.B MBK_SPI_TP
+.B MBK_SPI_MODEL
 
 .B MBK_SPI_NETNAME
 
@@ -74,9 +72,7 @@ The driver supports this feature.
 Environment variable considered are
 
 .RS
-.B MBK_SPI_TN
-
-.B MBK_SPI_TP
+.B MBK_SPI_MODEL
 
 .B MBK_SPI_NETNAME
 
@@ -95,14 +91,13 @@ Environment variable considered are
 
 .SH ENVIRONMENT VARIABLES
 
-.B MBK_SPI_TP
+.B MBK_SPI_MODEL
 
-.B MBK_SPI_TN
-
-Transistor model name. Default is 
-.I tp
-et
-.I tn.
+File name where transistors models are described. Syntax for file is :
+.RS
+MODELNAME N|P [FAST] [HVIO]
+.RE
+Blank lines are allowed, and line comment begin with a '#'.
 
 .B MBK_SPI_NETNAME
 
