@@ -102,17 +102,32 @@ CLASS="REPLACEABLE"
 ><I
 >name2</I
 ></TT
->...]<BR> {--rule=<TT
+>...]<BR> [-c- {<TT
 CLASS="REPLACEABLE"
 ><I
->rulename</I
+>configure_arg1</I
 ></TT
->}</P
+> }  [ <TT
+CLASS="REPLACEABLE"
+><I
+>configure_arg2</I
+></TT
+> ...] ]<BR> [-m- {<TT
+CLASS="REPLACEABLE"
+><I
+>make_arg1</I
+></TT
+>}  [<TT
+CLASS="REPLACEABLE"
+><I
+>make_arg2</I
+></TT
+>...] ]</P
 ></DIV
 ><DIV
 CLASS="REFSECT1"
 ><A
-NAME="AEN53"
+NAME="AEN62"
 ></A
 ><H2
 > Description </H2
@@ -280,7 +295,7 @@ VALIGN="TOP"
 ><DIV
 CLASS="REFSECT2"
 ><A
-NAME="AEN91"
+NAME="AEN100"
 ></A
 ><H3
 > Directory Structure </H3
@@ -362,7 +377,7 @@ CLASS="LITERAL"
 ><DIV
 CLASS="REFSECT2"
 ><A
-NAME="AEN115"
+NAME="AEN124"
 ></A
 ><H3
 > CVS checkout </H3
@@ -426,7 +441,7 @@ CLASS="LITERAL"
 ><DIV
 CLASS="REFSECT2"
 ><A
-NAME="AEN136"
+NAME="AEN145"
 ></A
 ><H3
 > Guessing <TT
@@ -473,7 +488,7 @@ CLASS="LITERAL"
 ><DIV
 CLASS="REFSECT1"
 ><A
-NAME="AEN149"
+NAME="AEN158"
 ></A
 ><H2
 > Guessing <TT
@@ -574,7 +589,7 @@ CLASS="LITERAL"
 ><DIV
 CLASS="REFSECT1"
 ><A
-NAME="AEN170"
+NAME="AEN179"
 ></A
 ><H2
 > Arguments </H2
@@ -736,29 +751,84 @@ CLASS="FILENAME"
 > <TT
 CLASS="USERINPUT"
 ><B
->--rule=<TT
+>-c- <TT
 CLASS="FILENAME"
->rulename</TT
+>configure_arg1</TT
 ></B
 ></TT
 > :
-        name of the rule to be passed to the <TT
+        all arguments following <TT
+CLASS="USERINPUT"
+><B
+>-c-</B
+></TT
+> (until a
+        <TT
+CLASS="USERINPUT"
+><B
+>-m-</B
+></TT
+> is encountered) are passed
+        <I
+CLASS="EMPHASIS"
+>as is</I
+> to the subsequent call to
+        <TT
+CLASS="LITERAL"
+>configure</TT
+>. For example, if you want to first
+        use your local libraries, give <TT
+CLASS="USERINPUT"
+><B
+>--enable-devel</B
+></TT
+>.
+        </P
+></LI
+><LI
+><P
+> <TT
+CLASS="USERINPUT"
+><B
+>-m- <TT
+CLASS="FILENAME"
+>make_arg1</TT
+></B
+></TT
+> :
+        all arguments following <TT
+CLASS="USERINPUT"
+><B
+>-m-</B
+></TT
+> are passed
+        <I
+CLASS="EMPHASIS"
+>as is</I
+> to the subsequent call to
+        <TT
 CLASS="LITERAL"
 >make</TT
-> command.
-        By default : <TT
+>. If no <TT
+CLASS="USERINPUT"
+><B
+>-m-</B
+></TT
+>
+        argument is given, then <TT
 CLASS="USERINPUT"
 ><B
 >install</B
 ></TT
->. In the unlikely
-        case you wants to remove a tool, you can pass
+> is
+        assumed. If you want to completly uninstall a tool and clean
+        it's build directory you can pass
         <TT
 CLASS="USERINPUT"
 ><B
->uninstall</B
+>uninstall clean</B
 ></TT
->.
+>
         </P
 ></LI
 ></UL
@@ -768,7 +838,7 @@ CLASS="USERINPUT"
 ><DIV
 CLASS="REFSECT1"
 ><A
-NAME="AEN219"
+NAME="AEN240"
 ></A
 ><H2
 > Configuration file <TT
@@ -931,7 +1001,7 @@ CLASS="LITERAL"
 ><DIV
 CLASS="REFSECT1"
 ><A
-NAME="AEN264"
+NAME="AEN285"
 ></A
 ><H2
 > Examples </H2
@@ -1017,7 +1087,7 @@ CLASS="USERINPUT"
 >    Compile &#38; install <TT
 CLASS="LITERAL"
 >mbk</TT
-> the <TT
+> then <TT
 CLASS="LITERAL"
 >genlib</TT
 >
@@ -1035,6 +1105,32 @@ CLASS="SCREEN"
 CLASS="USERINPUT"
 ><B
 >attila --tool=mbk --tool=genlib</B
+></TT
+>
+    </PRE
+></TD
+></TR
+></TABLE
+>
+    </P
+><P
+>    Compile <TT
+CLASS="LITERAL"
+>nero</TT
+> tool and link it against the locally
+    installed libraries (if any).
+    <TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><PRE
+CLASS="SCREEN"
+>$ <TT
+CLASS="USERINPUT"
+><B
+>attila --tool=nero -c- --enable-devel</B
 ></TT
 >
     </PRE
@@ -1066,7 +1162,7 @@ CLASS="SCREEN"
 >$ <TT
 CLASS="USERINPUT"
 ><B
->attila --asim --tool=poire --rule=uninstall</B
+>attila --asim --tool=poire -m- uninstall</B
 ></TT
 >
     </PRE

@@ -1,7 +1,7 @@
 
 SUBDIRS = attila
 
-pdfdir = $(DESTDIR)$(prefix)/doc/pdf
+pdfdir = $(prefix)/doc/pdf
 pdf_DATA = attila.pdf
 
 EXTRA_DIST = $(pdf_DATA) \

@@ -35,7 +35,9 @@
         <arg choice="req">--tool=<replaceable>name1</replaceable></arg>
         <arg rep="repeat">--tool=<replaceable>name2</replaceable></arg>
         <sbr>
-        <arg choice="req">--rule=<replaceable>rulename</replaceable></arg>
+        <arg>-c-<arg choice="req"><replaceable>configure_arg1</replaceable> </arg> <arg rep="repeat"> <replaceable>configure_arg2</replaceable> </arg> </arg>
+        <sbr>
+        <arg>-m-<arg choice="req"><replaceable>make_arg1</replaceable></arg> <arg rep="repeat"><replaceable>make_arg2</replaceable></arg> </arg>
     </cmdsynopsis>
   </refsynopsisdiv>
 
@@ -269,11 +271,23 @@
         </para>
       </listitem>
       <listitem>
-        <para> <userinput>--rule=<filename>rulename</filename></userinput>&nbsp;:
-        name of the rule to be passed to the <literal>make</literal> command.
-        By default&nbsp;: <userinput>install</userinput>. In the unlikely
-        case you wants to remove a tool, you can pass
-        <userinput>uninstall</userinput>.
+        <para> <userinput>-c- <filename>configure_arg1</filename></userinput>&nbsp;:
+        all arguments following <userinput>-c-</userinput> (until a
+        <userinput>-m-</userinput> is encountered) are passed
+        <emphasis>as is</emphasis> to the subsequent call to
+        <literal>configure</literal>. For example, if you want to first
+        use your local libraries, give <userinput>--enable-devel</userinput>.
+        </para>
+      </listitem>
+      <listitem>
+        <para> <userinput>-m- <filename>make_arg1</filename></userinput>&nbsp;:
+        all arguments following <userinput>-m-</userinput> are passed
+        <emphasis>as is</emphasis> to the subsequent call to
+        <literal>make</literal>. If no <userinput>-m-</userinput>
+        argument is given, then <userinput>install</userinput> is
+        assumed. If you want to completly uninstall a tool and clean
+        it's build directory you can pass
+        <userinput>uninstall clean</userinput>
         </para>
       </listitem>
     </itemizedlist>
@@ -365,7 +379,7 @@ $ <userinput>attila --asim --tool=nero</userinput>
     </screen>
     </para>
     <para>
-    Compile & install <literal>mbk</literal> the <literal>genlib</literal>
+    Compile & install <literal>mbk</literal> then <literal>genlib</literal>
     (the order is significant) in a row for a local install on the current
     computer&nbsp;:
     <screen>
@@ -373,10 +387,17 @@ $ <userinput>attila --tool=mbk --tool=genlib</userinput>
     </screen>
     </para>
     <para>
+    Compile <literal>nero</literal> tool and link it against the locally
+    installed libraries (if any).
+    <screen>
+$ <userinput>attila --tool=nero -c- --enable-devel</userinput>
+    </screen>
+    </para>
+    <para>
     Remove <literal>poire</literal> tool from the system-wide tree.
     (<literal>poire</literal> is the old name of <literal>nero</literal>).
     <screen>
-$ <userinput>attila --asim --tool=poire --rule=uninstall</userinput>
+$ <userinput>attila --asim --tool=poire -m- uninstall</userinput>
     </screen>
     </para>
 
