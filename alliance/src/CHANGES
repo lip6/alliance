@@ -1,19 +1,42 @@
-# Alliance VLSI CAD System
-# Copyright (C) 1990, 2002 ASIM/LIP6/UPMC
+# Alliance CAD System
+# Copyright (C) 1990-2004 ASIM/LIP6/UPMC
 #
-# Home page          : http://asim.lip6.fr/alliance/
+# Home page          : http://asim.lip6.fr/recherche/alliance/
 # E-mail             : mailto:alliance-users@asim.lip6.fr
 # ftp site           : ftp://asim.lip6.fr/pub/alliance/
 #
-# NOTE: You can find the latest revision of this document at:
-# http://asim.lip6.fr/pub/alliance/latest-checkout/alliance/src
-#
-# $Id: CHANGES,v 1.3 2002/10/17 10:04:09 czo Exp $
 
 This document lists the main differences between each Alliance's revisions.
 
 --------------------------------------------------------------------------------
+ALLIANCE revision 5.0 (2004/07/31)
 
+
+- Many bugs have been fixed in tool such as : VASY, Loon, Boog, OCR, LVX,
+  Spice driver or VST parser/driver etc ...
+
+- All the 50 tools have been ported to Cygwin and graphical tools such as 
+  Graal and Dreal are now fully/really working (no more bug with
+  Dialog boxes using Lesstif !)
+
+- New tool : Mips_asm to convert MIPS ASM to VHDL ROM description
+  (used with the MIPS circuit example)
+
+- All tutorials have been rewritten/updated
+
+- Man pages have been updated
+
+- More than 15 New complete circuit examples from VHDL up to layout 
+  including a makefile to generate each of them automatically !
+  This set of circuits include a MIPS R3000 ...
+
+- A new autoconf/automake directory structure, much more convenient 
+  and faster than before.
+
+- A new HTML documentation describing each tool and Alliance file 
+  formats used all over the design flow.
+
+--------------------------------------------------------------------------------
 ALLIANCE revision 5.0 (2002/05/03)
 
 1/ Large changes in the sources
