@@ -1,0 +1,14 @@
+#! /bin/sh
+
+VER=4.0.6
+
+tar czf alliance-$VER-common.tar.gz alliance/CHANGES alliance/COPYING-2.0 alliance/COPYING.LIB-2.0 alliance/FAQ alliance/LICENCE alliance/README alliance/share
+
+tar czf alliance-$VER-sources.tar.gz alliance/sources
+
+tar czf alliance-$VER-i386-linux-2.2.5-glibc2.tar.gz alliance/archi/Linux
+
+tar czf alliance-$VER-sparc-solaris-2.7.tar.gz alliance/archi/Solaris
+
+tar czf alliance-$VER-sparc-sunos-4.1.4.tar.gz alliance/archi/SunOS
+
