@@ -87,6 +87,11 @@ ablexpr *dupablexpr( Expr )
   ablexpr *ExprDup;
   ablexpr *ExprQueue;
 
+  if ( Expr == (ablexpr *)0 )
+  {
+    return ( Expr );
+  }
+
   if ( ABL_ATOM( Expr ) )
   {
     return( addchain( (ablexpr *)0, ABL_CAR( Expr ) ) );
