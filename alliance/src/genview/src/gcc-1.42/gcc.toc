@@ -1,0 +1,96 @@
+\unnumbchapentry {GNU GENERAL PUBLIC LICENSE}{1}
+\unnumbsecentry{Preamble}{1}
+\unnumbsecentry{TERMS AND CONDITIONS}{2}
+\unnumbsecentry{Appendix: How to Apply These Terms to Your New Programs}{5}
+\unnumbchapentry {Contributors to GNU CC}{7}
+\chapentry {Protect Your Freedom---Fight ``Look And Feel''}{1}{9}
+\chapentry {GNU CC Command Options}{2}{13}
+\chapentry {Installing GNU CC}{3}{27}
+\secentry {Compilation in a Separate Directory}{3}{1}{35}
+\secentry {Installing GNU CC on the Sun}{3}{2}{35}
+\secentry {Installing GNU CC on the 3b1}{3}{3}{36}
+\secentry {Installing GNU CC on SCO System V 3.2}{3}{4}{37}
+\secentry {Installing GNU CC on VMS}{3}{5}{37}
+\secentry {Installing GNU CC on HPUX}{3}{6}{40}
+\secentry {Installing GNU CC on an NCR Tower}{3}{7}{41}
+\chapentry {Known Causes of Trouble with GNU CC}{4}{43}
+\chapentry {How To Get Help with GNU CC}{5}{45}
+\chapentry {Incompatibilities of GNU CC}{6}{47}
+\chapentry {GNU Extensions to the C Language}{7}{51}
+\secentry {Statements and Declarations inside of Expressions}{7}{1}{51}
+\secentry {Naming an Expression's Type}{7}{2}{52}
+\secentry {Referring to a Type with \code {typeof}}{7}{3}{52}
+\secentry {Generalized Lvalues}{7}{4}{53}
+\secentry {Conditional Expressions with Omitted Middle-Operands}{7}{5}{55}
+\secentry {Arrays of Length Zero}{7}{6}{55}
+\secentry {Arrays of Variable Length}{7}{7}{56}
+\secentry {Non-Lvalue Arrays May Have Subscripts}{7}{8}{57}
+\secentry {Arithmetic on \code {void}-Pointers and Function Pointers}{7}{9}{57}
+\secentry {Non-Constant Initializers}{7}{10}{57}
+\secentry {Constructor Expressions}{7}{11}{58}
+\secentry {Declaring Attributes of Functions}{7}{12}{58}
+\secentry {Dollar Signs in Identifier Names}{7}{13}{59}
+\secentry {Inquiring about the Alignment of a Type or Variable}{7}{14}{60}
+\secentry {An Inline Function is As Fast As a Macro}{7}{15}{60}
+\secentry {Assembler Instructions with C Expression Operands}{7}{16}{62}
+\secentry {Controlling Names Used in Assembler Code}{7}{17}{65}
+\secentry {Variables in Specified Registers}{7}{18}{66}
+\subsecentry {Defining Global Register Variables}{7}{18}{1}{66}
+\subsecentry {Specifying Registers for Local Variables}{7}{18}{2}{68}
+\secentry {Alternate Keywords}{7}{19}{69}
+\chapentry {Reporting Bugs}{8}{71}
+\secentry {Have You Found a Bug?}{8}{1}{71}
+\secentry {How to Report Bugs}{8}{2}{72}
+\chapentry {GNU CC and Portability}{9}{77}
+\chapentry {Interfacing to GNU CC Output}{10}{79}
+\chapentry {Passes and Files of the Compiler}{11}{81}
+\chapentry {RTL Representation}{12}{87}
+\secentry {RTL Object Types}{12}{1}{87}
+\secentry {Access to Operands}{12}{2}{88}
+\secentry {Flags in an RTL Expression}{12}{3}{90}
+\secentry {Machine Modes}{12}{4}{92}
+\secentry {Constant Expression Types}{12}{5}{94}
+\secentry {Registers and Memory}{12}{6}{96}
+\secentry {RTL Expressions for Arithmetic}{12}{7}{98}
+\secentry {Comparison Operations}{12}{8}{100}
+\secentry {Bit-fields}{12}{9}{102}
+\secentry {Conversions}{12}{10}{102}
+\secentry {Declarations}{12}{11}{103}
+\secentry {Side Effect Expressions}{12}{12}{104}
+\secentry {Embedded Side-Effects on Addresses}{12}{13}{107}
+\secentry {Assembler Instructions as Expressions}{12}{14}{108}
+\secentry {Insns}{12}{15}{109}
+\secentry {RTL Representation of Function-Call Insns}{12}{16}{113}
+\secentry {Structure Sharing Assumptions}{12}{17}{114}
+\chapentry {Machine Descriptions}{13}{117}
+\secentry {Everything about Instruction Patterns}{13}{1}{117}
+\secentry {Example of \code {define{@fam @ttfam @tentt \char'137}insn}}{13}{2}{118}
+\secentry {RTL Template for Generating and Recognizing Insns}{13}{3}{119}
+\secentry {Output Templates and Operand Substitution}{13}{4}{122}
+\secentry {C Statements for Generating Assembler Output}{13}{5}{123}
+\secentry {Operand Constraints}{13}{6}{124}
+\subsecentry {Simple Constraints}{13}{6}{1}{124}
+\subsecentry {Multiple Alternative Constraints}{13}{6}{2}{128}
+\subsecentry {Register Class Preferences}{13}{6}{3}{129}
+\subsecentry {Constraint Modifier Characters}{13}{6}{4}{130}
+\subsecentry {Not Using Constraints}{13}{6}{5}{131}
+\secentry {Standard Names for Patterns Used in Generation}{13}{7}{131}
+\secentry {When the Order of Patterns Matters}{13}{8}{137}
+\secentry {Interdependence of Patterns}{13}{9}{137}
+\secentry {Defining Jump Instruction Patterns}{13}{10}{140}
+\secentry {Defining Machine-Specific Peephole Optimizers}{13}{11}{141}
+\secentry {Defining RTL Sequences for Code Generation}{13}{12}{144}
+\chapentry {Machine Description Macros}{14}{149}
+\secentry {Run-time Target Specification}{14}{1}{149}
+\secentry {Storage Layout}{14}{2}{150}
+\secentry {Register Usage}{14}{3}{152}
+\secentry {Register Classes}{14}{4}{157}
+\secentry {Describing Stack Layout}{14}{5}{161}
+\secentry {Implicit Use of Library Routines}{14}{6}{169}
+\secentry {Addressing Modes}{14}{7}{170}
+\secentry {Parameters for Delayed Branch Optimization}{14}{8}{172}
+\secentry {Condition Code Information}{14}{9}{173}
+\secentry {Cross Compilation and Floating-Point Format}{14}{10}{174}
+\secentry {Miscellaneous Parameters}{14}{11}{176}
+\secentry {Output of Assembler Code}{14}{12}{179}
+\chapentry {The Configuration File}{15}{191}
