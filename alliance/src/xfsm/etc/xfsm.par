@@ -1,0 +1,64 @@
+# /*------------------------------------------------------------\
+# |                                                             |
+# | Title      :       Parameters File for Xfsm                 |
+# |                                                             |
+# | Date       :             01.01.95                           |
+# |                                                             |
+# \------------------------------------------------------------*/
+# /*------------------------------------------------------------\
+# |                                                             |
+# |                           Unit                              |
+# |                                                             |
+# \------------------------------------------------------------*/
+
+DEFINE XFSM_UNIT  64
+
+# /*------------------------------------------------------------\
+# |                                                             |
+# |               Lower Grid Step in pixel by unit              |
+# |                                                             |
+# \------------------------------------------------------------*/
+
+DEFINE XFSM_LOWER_GRID_STEP 50
+
+# /*------------------------------------------------------------\
+# |                                                             |
+# |                        Xfsm Color                           |
+# |                                                             |
+# \------------------------------------------------------------*/
+
+DEFINE XFSM_CURSOR_COLOR_NAME      Gray
+DEFINE XFSM_BACKGROUND_COLOR_NAME  Black
+DEFINE XFSM_FOREGROUND_COLOR_NAME  White
+DEFINE XFSM_ACCEPT_COLOR_NAME      magenta
+DEFINE XFSM_CONNECT_COLOR_NAME     White
+
+# /*------------------------------------------------------------\
+# |                                                             |
+# |                  Xfsm Cursor Size in pixel                  |
+# |                                                             |
+# \------------------------------------------------------------*/
+
+DEFINE XFSM_CURSOR_SIZE 10 
+
+# /*------------------------------------------------------------\
+# |                                                             |
+# |                     Xfsm Layer Color                        |
+# |                                                             |
+# \------------------------------------------------------------*/
+
+TABLE XFSM_LAYER_NAME
+
+  0   Arc             Cyan              Black
+  1   Reset           red               Black
+  2   Initial         yellow            Black
+  3   Layer_3         pink              Black
+  4   Layer_4         lawn_green        Black
+  5   Layer_5         red               Black
+  6   Layer_6         yellow            Black
+  7   Layer_7         white             Black
+  8   Layer_8         pink              Black
+  9   Layer_9         red               Black
+
+
+END 

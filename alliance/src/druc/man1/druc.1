@@ -1,0 +1,519 @@
+.\"   $Id: druc.1,v 1.1 2002/03/29 17:39:32 ludo Exp $
+.\" @(#)Labo.l 1.2 93/12/08 UPMC; Author: Patrick RENNAUD
+.pl -.4
+.TH DRUC 1 "October 1, 1997" "ASIM/LIP6" "CAO\-VLSI Reference Manual"
+.SH NAME
+DRuC   - Design Rule Checker
+.so man1/alc_origin.1
+.SH SYNOPSIS
+.TP
+\fBdruc\fP \<\fIroot_name\fP\>
+.br
+.br
+.br
+.br
+.SH DESCRIPTION
+.br
+\fBDRuC\fP is a general parametrized VLSI design rule checker. 
+.br
+This tool replace the \fBVERSATIL\fP tool that is not anymore supported.
+.br
+This manual presents the layout rules for tle \fBALLIANCE\fP symbolic layout approach.
+The rules are described in a technology file defined by the environment variable \fB RDS_TECHNO_NAME\fP (see bellow).
+.br
+The root cell and all the instanciated cells (except the intanciated libraries cells) must be in the current directory.
+.br
+The default mode of \fBDRuC\fP is (currently) full flat: 
+it first flatten all the hierarchy in order to obtain a flat, rectangle level description.
+.br
+.fi
+.ft R
+.bp
+\fBO: LAYER NAME.\fP
+.br
+
+
+
+This section explicits the layer name used in the following rules.
+.br
+.br
+.nf
+.ie t \{\
+.ft CR \}
+.el \{\
+.ft B\}
+-  NWELL	: N well
+.br
+-  NTIE 	: N well polarisation
+.br
+-  PTIE 	: P substrat polarisation
+.br
+-  NDIF 	: N diffusion
+.br
+-  PDIF 	: P diffusion
+.br
+-  GATE 	: transistor gate
+.br
+-  POLY 	: polysilicon wire
+.br
+-  ALU1 	: first level of metal
+.br
+-  ALU2 	: second level of metal
+.br
+-  CONT 	: contact between ALU1 and POLY or DIFF
+.br
+-  VIA  	: contact between ALU1 and ALU2
+.br
+.fi
+.ft R
+.bp
+\fBI: LAYER WIDTH.\fP
+.br
+
+
+
+
+This class of rules deals with the width limits of a layer.
+and the conditions for equipotentiality between 
+two overlapping or abutting segments.
+.br
+.br
+.nf
+.ie t \{\
+.ft CR \}
+.el \{\
+.ft B\}
+
+rule  1 : 
+	the minimum width for a segment of NWELL is 4
+	corresponding error codes are : 100 101
+.br
+rule 2 :
+	the minimum width for a segment of NTIE  is 2
+	corresponding error code is : 119
+.br
+rule 3 :
+	the minimum width for a segment of PTIE  is 2
+	corresponding error codes are : 122 123
+.br
+rule 4 :
+	the minimum width for a segment of NDIF  is 2
+	corresponding error codes are : 140 141
+.br
+rule 5 :
+	the minimum width for a segment of PDIF  is 2
+	corresponding error codes are : 165 166
+.br
+rule 6 :
+	the minimum width for a segment of GATE  is 1
+	corresponding error codes are : 234 235
+.br
+rule 7 :
+	the minimum width for a segment of POLY  is 1
+	corresponding error codes are : 234 235
+.br
+rule 8 :
+	the minimum width for a segment of ALU1  is 1 
+	corresponding error codes are : 238 239
+.br
+rule 9 :
+	the minimum width for a segment of ALU2  is 2
+	corresponding error codes are : 242 243
+.br
+rule 10 :
+	the width of a CONT must be equal to 1
+	corresponding error codes are : 246 247
+.br
+rule 11 :
+	the width of a VIA must be equal to 1
+	corresponding error codes are : 261 262
+.br
+.fi
+.ft R
+.bp
+\fBII: FORBIDDEN OVERLAP\fP
+.br
+
+
+
+
+This class of rules specifies the forbidden overlaps between two layers. (The distance between them must be strictly positive)
+.br
+.br
+.nf
+.ie t \{\
+.ft CR \}
+.el \{\
+.ft B\}
+.br
+rule 12 :
+	contact between PTIE and NWELL is forbidden.
+	corresponding error codes are : 126 127 128 129 130 131
+.br
+rule 13 :
+	contact between PTIE and NTIE  is forbidden.
+	corresponding error codes are : 133 134 135 136 137 138
+.br
+rule 14 :
+	contact between NDIF and NWELL is forbidden.
+	corresponding error codes are : 144 145 146 147 148 149
+.br
+rule 15 :
+	contact between NDIF and NTIE  is forbidden.
+	corresponding error codes are : 151 152 153 154 155 156
+.br
+rule 16 :
+	contact between NDIF and PTIE  is forbidden.
+	corresponding error codes are : 158 159 160 161 162 163
+.br
+rule 17 :
+	contact between PDIF and NTIE  is forbidden.
+	corresponding error codes are : 169 170 171 172 173 174
+.br
+rule 18 :
+	contact between PDIF and PTIE  is forbidden.
+	corresponding error codes are : 176 177 178 179 180 181
+.br
+rule 19 :
+	contact between PDIF and NDIF  is forbidden.
+	corresponding error codes are : 183 184 185 186 187 188
+.br
+rule 20 :
+	contact between GATE and NTIE  is forbidden.
+	corresponding error codes are : 191 192 193 194 195 196
+.br
+rule 21 :
+	contact between GATE and PTIE  is forbidden.
+	corresponding error codes are : 198 199 200 201 202 203
+.br
+rule 22 :
+	contact between POLY and NTIE  is forbidden.
+	corresponding error codes are : 207 208 209 210 211 212
+.br
+rule 23 :
+	contact between POLY and PTIE  is forbidden.
+	corresponding error codes are : 214 215 216 217 218 219
+.br
+rule 24 :
+	contact between POLY and NDIF  is forbidden.
+	corresponding error codes are : 221 222 223 224 225 226
+.br
+rule 25 :
+	contact between POLY and PDIF  is forbidden.
+	corresponding error codes are : 228 229 230 231 232 233
+.bp
+.br
+rule 26 :
+	contact between CONT and GATE or POLY is forbidden.
+	corresponding error codes are : 249 250 251 252 253
+.br
+rule 27 :
+	contact between VIA and GATE   is forbidden.
+	corresponding error codes are : 264 265 266 267 268 269
+.br
+rule 28 :
+	contact between VIA and POLY   is forbidden.
+	corresponding error codes are : 271 272 273 274 275 276
+.br
+rule 29 :
+	contact between VIA and CONT   is forbidden.
+	corresponding error codes are : 278 279 280 281 282 283
+.br
+rule 30 :
+	contact between NTIE and NWELL is forbidden.
+	corresponding error code is : 109
+.br
+rule 31 :
+	contact between PDIF and NWELL is forbidden.
+	corresponding error code is : 117
+.br
+.fi
+.ft R
+.bp
+\fBIII: LAYER NOTCH.\fP
+.br
+
+
+
+
+This class of rules deals with the notch limits of a layer.
+.br
+.br
+.nf
+.ie t \{\
+.ft CR \}
+.el \{\
+.ft B\}
+.br
+rule 32 : 
+	the minimum notch for a segment of NWELL is 4
+	corresponding error code is : 102
+.br
+rule 33 :
+	the minimum notch for a segment of NTIE  is 2
+	corresponding error code is : 120
+.br
+rule 34 :
+	the minimum notch for a segment of PTIE  is 2
+	corresponding error code is : 124
+.br
+rule 35 :
+	the minimum notch for a segment of NDIF  is 2
+	corresponding error code is : 142
+.br
+rule 36 :
+	the minimum notch for a segment of PDIF  is 2
+	corresponding error code is : 167
+.br
+rule 37 :
+	the minimum notch for a segment of POLY  is 1
+	corresponding error code is : 236
+.br
+rule 38 :
+	the minimum notch for a segment of ALU1  is 2.5 
+	corresponding error code is : 240
+.br
+rule 39 :
+	the minimum notch for a segment of ALU2  is 2
+	corresponding error code is : 244
+.br
+.fi
+.ft R
+.bp
+\fBIV: MINIMUM SPACING\fP
+.br
+
+
+
+
+This class of rules specifies the minimum edge-to-edge distance allowed between
+two layers.
+.br
+.nf
+.ie t \{\
+.ft CR \}
+.el \{\
+.ft B\}
+rule 40 : 
+	the minimum distance between NWELL and NWELL is 12
+	corresponding error code is : 118
+.br
+rule 42 :
+	the minimum distance between NTIE  and NTIE  is 3
+	corresponding error code is : 121
+.br
+rule 43 : 
+	the minimum distance between PTIE  and NWELL is 7.5
+	corresponding error code is : 125
+.br
+rule 44 : 
+	the minimum distance between PTIE  and NTIE  is 8
+	corresponding error code is : 132
+.br
+rule 45 : 
+	the minimum distance between PTIE  and PTIE  is 3
+	corresponding error code is : 139
+.br
+rule 46 : 
+	the minimum distance between NDIF  and NWELL is 7.5
+	corresponding error code is : 143
+.br
+rule 47 :
+	the minimum distance between NDIF  and NTIE  is 8
+	corresponding error code is : 150
+.br
+rule 48 : 
+	the minimum distance between NDIF  and PTIE  is 3
+	corresponding error code is : 157
+.br
+rule 49 : 
+	the minimum distance between NDIF  and NDIF  is 3
+	corresponding error code is : 164
+.br
+rule 51 : 
+	the minimum distance between PDIF  and NTIE  is 3
+	corresponding error code is : 168
+.br
+rule 52 : 
+	the minimum distance between PDIF  and PTIE  is 8
+	corresponding error code is : 175
+.br
+rule 53 : 
+	the minimum distance between PDIF  and NDIF  is 8
+	corresponding error code is : 182
+.br
+rule 54 : 
+	the minimum distance between PDIF  and PDIF  is 3
+	corresponding error code is : 189
+.br
+rule 55 : 
+	the minimum distance between GATE  and NTIE  is 1
+	corresponding error code is : 190
+.br
+rule 56 : 
+	the minimum distance between GATE  and PTIE  is 1
+	corresponding error code is : 197
+.br
+rule 57 : 
+	the minimum distance between GATE  and NDIF  is 1
+	corresponding error code is : 204
+.br
+rule 58 : 
+	the minimum distance between GATE  and PDIF  is 1
+	corresponding error code is : 205
+.br
+rule 59 : 
+	the minimum distance between GATE  and GATE  is 2
+	corresponding error code is : 237
+.br
+rule 60 : 
+	the minimum distance between POLY  and NTIE  is 1
+	corresponding error code is : 206
+.br
+rule 61 : 
+	the minimum distance between POLY  and PTIE  is 1
+	corresponding error code is : 213
+.br
+rule 62 : 
+	the minimum distance between POLY  and NDIF  is 1
+	corresponding error code is : 220
+.br
+rule 63 : 
+	the minimum distance between POLY  and PDIF  is 1
+	corresponding error code is : 227
+.br
+rule 64 : 
+	the minimum distance between POLY  and GATE  is 2
+	corresponding error code is : 237
+.br
+rule 65 : 
+	the minimum distance between POLY  and POLY  is 2
+	corresponding error code is : 237
+.br
+rule 66 : 
+	the minimum distance between ALU1  and ALU1  is 2.5
+	corresponding error code is : 241
+.br
+rule 67 : 
+	the minimum distance between ALU2  and ALU2  is 2
+	corresponding error code is : 245
+.br
+rule 68 : 
+	the minimum distance between CONT  and CONT  is 3
+	corresponding error code is : 254
+.br
+.br
+rule 69 : 
+	the minimum distance between  VIA  and GATE  is 2
+	corresponding error code is : 263
+.br
+rule 70 : 
+	the minimum distance between  VIA  and POLY  is 2
+	corresponding error code is : 270
+.br
+rule 71 : 
+	the minimum distance between  VIA  and CONT  is 2
+	corresponding error code is : 277
+.br
+rule 72 : 
+	the minimum distance between  VIA  and VIA   is 3
+	corresponding error code is : 284
+.br
+rule 73 : 
+        the minimum distance between CONT and GATE or POLY is 1.5
+	corresponding error code is : 248
+.br
+.fi
+.ft R
+.bp
+	\fBV: TOTAL INCLUSION.\fP
+.br
+
+
+
+
+The last class of rules deals with the inclusion of a layer in another one.
+.br
+
+.br
+.nf
+.ie t \{\
+.ft CR \}
+.el \{\
+.ft B\}
+rule 74 : 
+	NTIE must be included in NWELL with a minimun margin of 0.5
+	corresponding error code is : 103
+.br
+rule 75 : 
+	PDIF must be included in NWELL with a minimun margin of 0.5
+	corresponding error code is : 110
+.br
+
+.br
+.fi
+.ft R
+.SH OPTIONS
+.br
+
+
+No optons are currently avalable.
+.br
+
+
+
+.SH FILES
+.br
+
+
+If design errors are found, \fBDRuC\fP produces the list of them in two files :
+
+.br
+.IP
+- \<\fIroot_name.drc\fP\>: 
+.br
+This ascii file contains the list of DRC violations.
+
+.br
+- \<\fIroot_name.iii\fP\>:
+.br
+This \fBgds\fP ro \fBcif\fp file contains only rectangles detected in violation.
+.br
+( suffix iii is defined with the environment )
+.br
+
+\fIRDS_OUT_PH\fP is default setted to gds.
+.br
+
+
+
+.SH ENVIRONMENT VARIABLES
+.br
+
+
+\fBDRuC\fP uses several environment variables:
+.ti 8
+- MBK_IN_PH       - defines the layout input format.
+.br
+.ti 8
+- RDS_OUT_PH       - defines the layout output format.
+.br
+.ti 8
+- RDS_TECHNO_NAME - defines the technology file.
+.br
+.ti 8
+- MBK_CATA_LIB - defines the catalog directory.
+.HP
+See the corresponding manual pages for further informations.
+
+
+
+.SH EXAMPLE
+	druc register
+.br
+
+
+
+
+.so man1/alc_bug_report.1
+

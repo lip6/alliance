@@ -1,0 +1,35 @@
+## Process this file with automake to produce Makefile.in
+
+bin_PROGRAMS = xsch
+CFLAGS = @CFLAGS@ @X_CFLAGS@ -DXSCH_VERSION=\"@XSCH_VERSION@\" \
+         -DXSCH_TOOL_NAME=\"xsch\" \
+	 -DXSCH_DEFAULT_PARAM_NAME=\"${ALLIANCE_TOP}/etc/xsch.par\" \
+	 -DXMS_FILE_NAME=\".xsch.cfg\"
+
+xsch_LDADD = @LIBS@ @X_LIBS@ @LINK_MOTIF@ \
+   -lScl -lMlu -lMal -lMcl -lMel -lMhl -lMsl -lMvl -lMgl -lMlo -lMut -lMgl -lAbv -lAbe \
+   -lBdd -lAbl -lAut -lRcn -lm
+
+INCLUDES = @INCLUDES@ @INCLUDE_MOTIF@
+
+xsch_SOURCES = \
+LIP6bw.h XME_dialog.c XME_dialog.h XME_edit.c XME_edit.h XME.h XME_menu.c XME_menu.h \
+XME_message.c XME_message.h XME_panel.c XME_panel.h XME_search.c XME_search.h \
+XME_select.c XME_select.h XMF_dialog.c XMF_dialog.h XMF_file.c XMF_file.h XMF.h \
+XMF_menu.c XMF_menu.h XMF_panel.c XMF_panel.h XMH.h XMH_help.c XMH_help.h \
+XMH_menu.c XMH_menu.h XMH_panel.c XMH_panel.h XMS_dialog.c XMS_dialog.h XMS.h \
+XMS_menu.c XMS_menu.h XMS_panel.c XMS_panel.h XMS_setup.c XMS_setup.h \
+XMT_dialog.c XMT_dialog.h XMT.h XMT_menu.c XMT_menu.h XMT_message.c \
+XMT_message.h XMT_panel.c XMT_panel.h XMT_tools.c XMT_tools.h XMV_dialog.c \
+XMV_dialog.h XMV.h XMV_map.c XMV_map.h XMV_menu.c XMV_menu.h XMV_message.c \
+XMV_message.h XMV_panel.c XMV_panel.h XMV_view.c XMV_view.h XMX_color.c \
+XMX_color.h XMX_cursor.c XMX_cursor.h XMX_dialog.c XMX_dialog.h XMX_event.c \
+XMX_event.h XMX_graphic.c XMX_graphic.h XMX_grid.c XMX_grid.h XMX.h XMX_icon.c \
+XMX_icon.h XMX_menu.c XMX_menu.h XMX_message.c XMX_message.h XMX_motif.c \
+XMX_motif.h XMX_panel.c XMX_panel.h XMX_view.c XMX_view.h XSB_error.c \
+XSB_error.h XSB.h XSB_parse.c XSB_parse.h XSB_share.c XSB_share.h XSC_bound.c \
+XSC_bound.h XSC_error.c XSC_error.h XSC.h xsch.c xsch.h XSC_object.c \
+XSC_object.h XSC_place.c XSC_place.h XSC_schem.c XSC_schem.h XSC_select.c \
+XSC_select.h XTB_cursor.c XTB_cursor.h XTB_dialog.c XTB_dialog.h XTB.h \
+XTB_icon.c XTB_icon.h XTB_menu.c XTB_menu.h XTB_panel.c XTB_panel.h \
+XTB_pixmap.c XTB_pixmap.h

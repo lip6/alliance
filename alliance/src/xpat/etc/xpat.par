@@ -1,0 +1,65 @@
+# /*------------------------------------------------------------\
+# |                                                             |
+# | Title      :       Parameters File for Xpat                 |
+# |                                                             |
+# | Author     :           Jacomme Ludovic                      |
+# |                                                             |
+# | Date       :             28.05.96                           |
+# |                                                             |
+# \------------------------------------------------------------*/
+# /*------------------------------------------------------------\
+# |                                                             |
+# |                           Unit                              |
+# |                                                             |
+# \------------------------------------------------------------*/
+
+DEFINE XPAT_UNIT  2
+
+# /*------------------------------------------------------------\
+# |                                                             |
+# |               Lower Grid Step in pixel by unit              |
+# |                                                             |
+# \------------------------------------------------------------*/
+
+DEFINE XPAT_LOWER_GRID_STEP 25
+
+# /*------------------------------------------------------------\
+# |                                                             |
+# |                        Xpat Color                           |
+# |                                                             |
+# \------------------------------------------------------------*/
+
+DEFINE XPAT_CURSOR_COLOR_NAME      Gray
+DEFINE XPAT_BACKGROUND_COLOR_NAME  Black
+DEFINE XPAT_FOREGROUND_COLOR_NAME  White
+DEFINE XPAT_ACCEPT_COLOR_NAME      magenta
+DEFINE XPAT_CONNECT_COLOR_NAME     White
+
+# /*------------------------------------------------------------\
+# |                                                             |
+# |                  Xpat Cursor Size in pixel                  |
+# |                                                             |
+# \------------------------------------------------------------*/
+
+DEFINE XPAT_CURSOR_SIZE 10 
+
+# /*------------------------------------------------------------\
+# |                                                             |
+# |                     Xpat Layer Color                        |
+# |                                                             |
+# \------------------------------------------------------------*/
+
+TABLE XPAT_LAYER_NAME
+
+  0   Zero            DeepSkyBlue       Black
+  1   One             red               Black
+  2   Down            Cyan              Black
+  3   Up              pink              Black
+  4   Dont_care       orchid            Black
+  5   Vector          MediumSlateBlue   Black
+  6   Unused          gray             Black
+  7   Unused          gray             Black
+  8   Unused          gray             Black
+  9   Unused          gray             Black
+
+END 

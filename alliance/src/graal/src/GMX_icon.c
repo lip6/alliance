@@ -1,0 +1,133 @@
+/*------------------------------------------------------------\
+|                                                             |
+| This file is part of the Alliance CAD System Copyright      |
+| (C) Laboratoire LIP6 - Département ASIM Universite P&M Curie|
+|                                                             |
+| Home page      : http://www-asim.lip6.fr/alliance/          |
+| E-mail support : mailto:alliance-support@asim.lip6.fr       |
+|                                                             |
+| This progam is  free software; you can redistribute it      |
+| and/or modify it under the  terms of the GNU General Public |
+| License as  published by the Free Software Foundation;      |
+| either version 2 of the License, or (at your option) any    |
+| later version.                                              |
+|                                                             |
+| Alliance VLSI  CAD System  is distributed  in the hope that |
+| it  will be useful, but WITHOUT  ANY WARRANTY;              |
+| without even the  implied warranty of MERCHANTABILITY or    |
+| FITNESS FOR A PARTICULAR PURPOSE. See the GNU General       |
+| Public License for more details.                            |
+|                                                             |
+| You should have received a copy  of the GNU General Public  |
+| License along with the GNU C Library; see the file COPYING. |
+| If not, write to the Free Software Foundation, Inc.,        |
+| 675 Mass Ave, Cambridge, MA 02139, USA.                     |
+|                                                             |
+\------------------------------------------------------------*/
+
+/*------------------------------------------------------------\
+|                                                             |
+| Tool    :                   GRAAL                           |
+|                                                             |
+| File    :                   Icon.c                          |
+|                                                             |
+| Author  :                Jacomme Ludovic                    |
+|                                                             |
+| Date    :                  28.03.95                         |
+|                                                             |
+\------------------------------------------------------------*/
+
+/*------------------------------------------------------------\
+|                                                             |
+|                         Include Files                       |
+|                                                             |
+\------------------------------------------------------------*/
+
+# include <stdio.h>
+# include <Xm/Xm.h>
+# include <Xm/PushB.h>
+# include <Xm/Form.h>
+# include <Xm/Frame.h>
+ 
+# include "mut.h"
+# include "mph.h"
+# include "rds.h"
+# include "rpr.h"
+# include "GSB.h"
+# include "GTB.h"
+# include "GMX.h"
+
+# include "GMX_icon.h"
+
+/*------------------------------------------------------------\
+|                                                             |
+|                           Constants                         |
+|                                                             |
+\------------------------------------------------------------*/
+/*------------------------------------------------------------\
+|                                                             |
+|                            Types                            |
+|                                                             |
+\------------------------------------------------------------*/
+/*------------------------------------------------------------\
+|                                                             |
+|                          Variables                          |
+|                                                             |
+\------------------------------------------------------------*/
+
+  static char IconBits[] = 
+
+  {
+    0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0xf0, 0x17, 0x00, 0x00, 0x00,
+    0x78, 0x00, 0x18, 0x1c, 0x00, 0x00, 0x00, 0x40, 0x00, 0x0c, 0x18, 0x00,
+    0x00, 0x00, 0x40, 0x00, 0x06, 0x10, 0x00, 0x00, 0x00, 0x40, 0x00, 0x02,
+    0x10, 0x00, 0x00, 0x00, 0x40, 0x00, 0x02, 0x00, 0x00, 0x00, 0x00, 0x40,
+    0x00, 0x02, 0x00, 0x00, 0x00, 0x00, 0x40, 0x00, 0x02, 0x80, 0x33, 0x7c,
+    0xf0, 0x41, 0x00, 0x02, 0x00, 0x4a, 0x86, 0x18, 0x42, 0x00, 0x02, 0x00,
+    0x46, 0x82, 0x08, 0x42, 0x00, 0x02, 0x7f, 0x02, 0x80, 0x00, 0x42, 0x00,
+    0x82, 0x13, 0x02, 0x80, 0x00, 0x42, 0x00, 0x82, 0x11, 0x02, 0xf8, 0xe0,
+    0x43, 0x00, 0x82, 0x10, 0x02, 0x86, 0x18, 0x42, 0x00, 0x02, 0x10, 0x02,
+    0x81, 0x04, 0x42, 0x00, 0x02, 0x10, 0x02, 0x81, 0x04, 0x42, 0x00, 0x06,
+    0x10, 0x02, 0x81, 0x04, 0x42, 0x00, 0x0c, 0x18, 0x02, 0x81, 0x04, 0x42,
+    0x00, 0x18, 0x0c, 0x02, 0x81, 0x04, 0x42, 0x00, 0xf0, 0x87, 0x0f, 0xfe,
+    0xf9, 0xf7, 0x01, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
+    0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
+    0x00, 0x00, 0x00, 0x07, 0x00, 0x00, 0x00, 0x00, 0x00, 0xc0, 0x18, 0x00,
+    0x00, 0x00, 0x00, 0x00, 0x20, 0x20, 0x00, 0x00, 0x00, 0x00, 0x00, 0x20,
+    0x20, 0x00, 0x00, 0x00, 0x80, 0x01, 0x10, 0x40, 0x00, 0x06, 0x00, 0x00,
+    0x02, 0x10, 0x40, 0x00, 0x01, 0x00, 0x00, 0x02, 0x10, 0x40, 0x00, 0x01,
+    0x00, 0x00, 0x06, 0x20, 0x20, 0x80, 0x01, 0x00, 0x00, 0x04, 0x20, 0x20,
+    0x80, 0x00, 0x00, 0x00, 0x0c, 0xc0, 0x18, 0xc0, 0x00, 0x00, 0x00, 0x78,
+    0x00, 0x07, 0x78, 0x00, 0x00, 0x00, 0xc0, 0x00, 0x00, 0x0c, 0x00, 0x00,
+    0x00, 0x80, 0x07, 0x80, 0x07, 0x00, 0x00, 0x00, 0x00, 0x0c, 0xc0, 0x00,
+    0x00, 0x00, 0x00, 0x00, 0xf8, 0x7f, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
+    0x03, 0x00, 0x00, 0x00, 0x00, 0x00, 0x80, 0x04, 0x00, 0x00, 0x00, 0x00,
+    0x00, 0x40, 0x08, 0x00, 0x00, 0x00, 0x00, 0x00, 0x30, 0x30, 0x00, 0x00,
+    0x00, 0x00, 0x00, 0x0c, 0xc0, 0x00, 0x00, 0x00, 0x00, 0x00, 0x02, 0x00,
+    0x01, 0x00, 0x00, 0x00, 0x80, 0x01, 0x00, 0x06, 0x00, 0x00, 0x00, 0xfe,
+    0xff, 0xff, 0xff, 0x01, 0x00, 0x80, 0x01, 0x00, 0x00, 0x00, 0x06, 0x00,
+    0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
+    0x00, 0x00
+  };
+
+/*------------------------------------------------------------\
+|                                                             |
+|                          Functions                          |
+|                                                             |
+\------------------------------------------------------------*/
+/*------------------------------------------------------------\
+|                                                             |
+|                    GraalInitializeIcon                      |
+|                                                             |
+\------------------------------------------------------------*/
+
+void GraalInitializeIcon()
+
+{
+  rdsbegin();
+
+  GraalSetIcon( GraalTopLevel, 
+                IconBits, IconWidth, IconHeight );
+
+  rdsend();
+}
