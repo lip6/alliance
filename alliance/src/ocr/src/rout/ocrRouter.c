@@ -1,8 +1,12 @@
 /*
    ### -------------------------------------------------- ### 
-   $Author: hcl $
-   $Date: 2002/06/27 09:09:01 $
+   $Author: ludo $
+   $Date: 2004/05/23 09:50:42 $
    $Log: ocrRouter.c,v $
+   Revision 1.8  2004/05/23 09:50:42  ludo
+   - Bug fix:  Segmentation fault when the input netlist has unconnected signals
+     Those unused nets are now removed from the input lofig after the flatten.
+
    Revision 1.7  2002/06/27 09:09:01  hcl
    Code d'erreur si tous les signaux ne sont pas routés.
 
@@ -177,6 +181,43 @@ phfig_list *readPhFig(char *i_sPhFigName)
     }
 
     return l_pPhFig;
+}
+
+lofig_list *readLoFig(char *i_sLoFigName)
+{
+  lofig_list *ScanLoFig;
+  losig_list *ScanLoSig;
+  losig_list *DelLoSig;
+  ptype_list *ScanPType;
+  chain_list *ScanChain;
+
+    ScanLoFig = getlofig(i_sLoFigName, 'A');
+    rflattenlofig( ScanLoFig, YES, YES);
+
+    display(LEVEL, DEBUG, "%s\n", "o Dual connectique ...");
+    // Création d'une vue duale de la connectique
+    lofigchain( ScanLoFig );
+
+    ScanLoSig = ScanLoFig->LOSIG;
+
+    while ( ScanLoSig != (losig_list *)0 )
+    {
+      ScanPType = getptype( ScanLoSig->USER, (long)LOFIGCHAIN);
+      DelLoSig  = ScanLoSig;
+      ScanLoSig = ScanLoSig->NEXT;
+
+      if ( ScanPType != (ptype_list *)0 )
+      {
+        ScanChain = (chain_list *)ScanPType->DATA;
+
+        if ( ScanChain == (chain_list *)0 )
+        {
+          dellosig( ScanLoFig, DelLoSig->INDEX );
+        }
+      }
+    }
+
+    return( ScanLoFig );
 }
 
 ocrSignal *findSignal(ocrRoutingDataBase * i_pDataBase,
@@ -1259,14 +1300,11 @@ int main(int argc, char **argv)
     // Lecture de la vue physique
     l_pPhFig = readPhFig(l_sPhFigName);
 
-    // Lecture de la vue logique
-    l_pLoFig = getlofig(l_sLoFigName, 'A');
-
-//FIXME::pas de reentrance
-    rflattenlofig(l_pLoFig, YES, YES);
-
     display(LEVEL, VERBOSE, "%s\n", "o Read .vst ...");
 
+    // Lecture de la vue logique
+    l_pLoFig = readLoFig(l_sLoFigName );
+    //
     l_pDataBase = initDataBase(l_pPhFig, l_pLoFig);
 
     // un peu de ménage.

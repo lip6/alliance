@@ -1,8 +1,12 @@
 /*
    ### -------------------------------------------------- ### 
-   $Author: hcl $
-   $Date: 2002/03/15 14:37:27 $
+   $Author: ludo $
+   $Date: 2004/05/23 09:50:43 $
    $Log: ocrInitDataBase.c,v $
+   Revision 1.2  2004/05/23 09:50:43  ludo
+   - Bug fix:  Segmentation fault when the input netlist has unconnected signals
+     Those unused nets are now removed from the input lofig after the flatten.
+
    Revision 1.1  2002/03/15 14:37:27  hcl
    Ca roule.
 
@@ -43,7 +47,7 @@
 #include "ocrInitDataBase.h"
 
 static char *res_id =
-    "$Id: ocrInitDataBase.c,v 1.1 2002/03/15 14:37:27 hcl Exp $";
+    "$Id: ocrInitDataBase.c,v 1.2 2004/05/23 09:50:43 ludo Exp $";
 
 extern ocrOption *g_pOption;
 #define LEVEL (g_pOption->LEVEL)
@@ -58,10 +62,6 @@ ocrRoutingDataBase *initDataBase(phfig_list * i_pPhFig,
 
     // Création de la base de donnée
     l_pDataBase = createDataBase(i_pPhFig);
-
-    // Création d'une vue duale de la connectique
-    lofigchain(i_pLoFig);
-    display(LEVEL, DEBUG, "%s\n", "o Dual connectique ...");
 
     // paramtères physiques de la grille 5*5 viacost=2 Layer paires = HORZ
     l_pDataBase->PARAM = setParameters(5, 5, 2, ocrHorizontal);
