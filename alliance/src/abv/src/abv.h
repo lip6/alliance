@@ -41,6 +41,14 @@
 extern "C" {
 #endif /* __cplusplus */
 
+#ifndef __P
+# if defined(__STDC__) ||  defined(__GNUC__) || defined(__cplusplus)
+#  define __P(x) x
+# else
+#  define __P(x) ()
+# endif
+#endif
+
 #define	ABV_TRACE_MASK    0x00000001	/* print messages when parsing	*/
 #define	ABV_KEEP_AUX_MASK 0x00000002	/* keep internal signals	*/
 #define ABV_SYNTH_MASK    0x00000004    /* special mode for synthesis   */
@@ -49,8 +57,8 @@ extern "C" {
 	/*    functions							*/
 	/* ###------------------------------------------------------### */
 
-extern struct befig *vhdlloadbefig ();
-extern void          vhdlsavebefig ();
+extern struct befig *vhdlloadbefig __P((struct befig *pt_befig, char *figname, int trace_mode));
+extern void          vhdlsavebefig __P((struct befig *pthedbefig, int trace_mode));
 
 #ifdef __cplusplus
 }
