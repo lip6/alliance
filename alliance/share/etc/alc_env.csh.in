@@ -6,7 +6,7 @@
 #  Alliance CAD system environnement
 #  Usage (in C-shell) : > source alc_env.csh
 #  (C) 1997 Czo  -- <Olivier.Sirol@lip6.fr>
-#  $Id: alc_env.csh.in,v 1.2 1999/08/26 18:47:42 czo Exp $
+#  $Id: alc_env.csh.in,v 1.3 1999/08/27 15:17:01 czo Exp $
 #  Generated from alc_env.csh.in on @DATE@
 
 # $MACHINE and $TOP are the only variables you will
@@ -14,16 +14,23 @@
 
 # Which platform for Alliance CAD
 
+# WARNING : if changing this remember to do it on the 3 config files :
+# configure.in alc_env.sh.in and alc_env.csh.in
+
 switch (`uname`)
- case Linux:
+ case Linux*:
   if ( `uname -r` =~ 1.* ) then
       setenv MACHINE Linux_aout
   else
+   if ( `uname -r` =~ 2.0* ) then
       setenv MACHINE Linux_elf
+   else
+      setenv MACHINE Linux
+   endif
   endif
  breaksw
 
- case SunOS:
+ case SunOS*:
   if ( `uname -r` =~ 5* ) then
       setenv MACHINE Solaris
   else
@@ -31,12 +38,33 @@ switch (`uname`)
   endif
  breaksw
 
- default:
+ case FreeBSD*:
+      setenv MACHINE FreeBSD
+ breaksw
+
+ case NetBSD*:
+      setenv MACHINE NetBSD
+ breaksw
+
+ case HP-UX*:
+      setenv MACHINE HPUX
+ breaksw
+
+ case OSF1*:
+      setenv MACHINE OSF
+ breaksw
+
+ case CYGWIN*:
+      setenv MACHINE CYGWIN
+ breaksw
+
+default:
   setenv MACHINE Unknown
  breaksw
 endsw
 
 setenv ALLIANCE_OS $MACHINE
+#echo $MACHINE
 
 # Where the Alliance CAD is installed
 

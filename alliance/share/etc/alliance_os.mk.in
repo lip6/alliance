@@ -16,7 +16,6 @@ GNU_INCLUDE      = @GNU_INC_LOC@
 X11_LIB          = . @X_LIBS@ @X_EXTRA_LIBS@ @X_PRE_LIBS@
 X11_INCLUDE      = . @X_CFLAGS@
 
-#You may need -lXintl
 MOTIF_LIB        = @GUI_LIB_LOC@
 MOTIF_INCLUDE    = @GUI_INC_LOC@
 

@@ -1,6 +1,6 @@
 # ###---------------------------------------------------------###
-# file		: libraries.mk					#
-# description	: Alliance Shared Libraries and Include Files	#
+# file          : libraries.mk                                  #
+# description   : Alliance Shared Libraries and Include Files   #
 # ###---------------------------------------------------------###
 
 # Last updated on on Friday 06 August 1999 at 13:48 MET DST
@@ -8,7 +8,7 @@
 # The variables $TOP and $MACHINE are set by
 # alc_env.[c]sh script
 
-ALLIANCE_VERSION = '"3.5.003"'
+ALLIANCE_VERSION = '"3.5.7"'
 ALLIANCE_BIN     = $(TOP)/bin
 ALLIANCE_LIB     = $(TOP)/lib
 ALLIANCE_INCLUDE = $(TOP)/include
@@ -26,7 +26,7 @@ TARGET_LIB       = $(HOME)/labo/$(MACHINE)/lib
 TARGET_INCLUDE   = $(HOME)/labo/$(MACHINE)/include
 
 # ###---------------------------------------------------------###
-#    general purpose utilities					#
+#    general purpose utilities                                  #
 # ###---------------------------------------------------------###
 
 MUT_L      =  -lMut325
@@ -34,10 +34,10 @@ MUT_LIB    = libMut325.a
 MUT_H      =    mut325.h
 
 # ###---------------------------------------------------------###
-#    functions related to cone net-list representation :	#
-#								#
-#      - cns : cone net_list					#
-#      - yag : cone extractor form transistor net-list		#
+#    functions related to cone net-list representation :        #
+#                                                               #
+#      - cns : cone net_list                                    #
+#      - yag : cone extractor form transistor net-list          #
 # ###---------------------------------------------------------###
 
 CNS_L      =  -lCns211
@@ -49,20 +49,20 @@ YAG_LIB    = libYag300.a
 YAG_H      =    yag300.h
 
 # ###---------------------------------------------------------###
-#    functions related to net-list representation :		#
-#								#
-#      - rcn : data structures for resistor representation	#
-#      - mlo : basic data structures				#
-#								#
-#      - mal : parser & driver for Al format			#
-#      - mcl : parser & driver for COMPASS net-lists		#
-#      - mel : parser & driver for EDIF				#
-#      - mgl :          driver for VERILOG net-lists		#
-#      - mhl :          driver for GHDL net-list		#
-#      - msl : parser & driver for SPICE			#
-#      - mvl : parser & driver for VHDL net-lists		#
-#								#
-#      - mlu : user level functions				#
+#    functions related to net-list representation :             #
+#                                                               #
+#      - rcn : data structures for resistor representation      #
+#      - mlo : basic data structures                            #
+#                                                               #
+#      - mal : parser & driver for Al format                    #
+#      - mcl : parser & driver for COMPASS net-lists            #
+#      - mel : parser & driver for EDIF                         #
+#      - mgl :          driver for VERILOG net-lists            #
+#      - mhl :          driver for GHDL net-list                #
+#      - msl : parser & driver for SPICE                        #
+#      - mvl : parser & driver for VHDL net-lists               #
+#                                                               #
+#      - mlu : user level functions                             #
 # ###---------------------------------------------------------###
 
 
@@ -101,15 +101,15 @@ MLU_LIB    = libMlu501.a
 MLU_H      =    mlu501.h
 
 # ###---------------------------------------------------------###
-#    functions related to symbolic layout representation :	#
-#								#
-#      - mph : basic data structures				#
-#								#
-#      - map : parser & driver for AP format			#
-#      - mcp : parser & driver for COMPASS Compose layout	#
-#      - mmg : parser & driver for MODGEN			#
-#								#
-#      - mpu : user level functions				#
+#    functions related to symbolic layout representation :      #
+#                                                               #
+#      - mph : basic data structures                            #
+#                                                               #
+#      - map : parser & driver for AP format                    #
+#      - mcp : parser & driver for COMPASS Compose layout       #
+#      - mmg : parser & driver for MODGEN                       #
+#                                                               #
+#      - mpu : user level functions                             #
 # ###---------------------------------------------------------###
 
 MPH_L      =  -lMph409
@@ -128,7 +128,7 @@ MPU_LIB    = libMpu405.a
 MPU_H      =    mpu405.h
 
 # ###---------------------------------------------------------###
-#    user level functions for GENLIB				#
+#    user level functions for GENLIB                            #
 # ###---------------------------------------------------------###
 
 MGN_L      =  -lMgn328
@@ -136,12 +136,12 @@ MGN_LIB    = libMgn328.a
 MGN_H      =    mgn328.h
 
 # ###---------------------------------------------------------###
-#    functions related to expression representation :		#
-#								#
-#      - aut : utilites						#
-#      - abl : lisp-like trees					#
-#      - bdd : binary decision diagram				#
-#      - gef : factorized expression representation		# 
+#    functions related to expression representation :           #
+#                                                               #
+#      - aut : utilites                                         #
+#      - abl : lisp-like trees                                  #
+#      - bdd : binary decision diagram                          #
+#      - gef : factorized expression representation             # 
 # ###---------------------------------------------------------###
 
 AUT_L      =  -lAut103
@@ -164,12 +164,12 @@ LOG_LIB    = liblog201.a
 LOG_H      =    log201.h
 
 # ###---------------------------------------------------------###
-#    functions related to another behavioural representation :	#
-#								#
-#      - abe : basic data structures				#
-#      - abt : high level functions				#
-#      - abv : parser & driver for Data-Flow VHDL and user	#
-#              level functions					#
+#    functions related to another behavioural representation :  #
+#                                                               #
+#      - abe : basic data structures                            #
+#      - abt : high level functions                             #
+#      - abv : parser & driver for Data-Flow VHDL and user      #
+#              level functions                                  #
 # ###---------------------------------------------------------###
 
 ABE_L      =  -lAbe200
@@ -183,12 +183,12 @@ ABV_LIB    = libAbv200.a
 ABV_H      =    abv200.h
 
 # ###---------------------------------------------------------###
-#    functions related to behavioural representation :		#
-#								#
-#      - beh : basic data structures				#
-#      - bhl : high level functions				#
-#      - bvl : parser & driver for Data-Flow VHDL and user	#
-#              level functions					#
+#    functions related to behavioural representation :          #
+#                                                               #
+#      - beh : basic data structures                            #
+#      - bhl : high level functions                             #
+#      - bvl : parser & driver for Data-Flow VHDL and user      #
+#              level functions                                  #
 # ###---------------------------------------------------------###
 
 BEH_L      =  -lBeh109
@@ -202,13 +202,13 @@ BVL_LIB    = libBvl111.a
 BVL_H      =    bvl111.h
 
 # ###---------------------------------------------------------###
-#    functions related to finite state machine representation :	#
-#								#
-#       - fsm : basic data structures				#
-#       - fbh : intermediate data structures			#
-#								#
-#       - fvh : VHDL parser					#
-#       - fks : KISS parser					#
+#    functions related to finite state machine representation : #
+#                                                               #
+#       - fsm : basic data structures                           #
+#       - fbh : intermediate data structures                    #
+#                                                               #
+#       - fvh : VHDL parser                                     #
+#       - fks : KISS parser                                     #
 # ###---------------------------------------------------------###
 
 FSM_L      =  -lFsm103
@@ -225,13 +225,13 @@ FTL_LIB    = libFtl103.a
 FTL_H      =    ftl103.h
 
 # ###---------------------------------------------------------###
-#    functions related to simulation patterns representation :	#
-#								#
-#      - pat : basic data structures				#
-#      - phl : high level functions				#
-#      - ppt : parser & driver for PAT format and user level	#
-#              functions					#
-#      - pgn : user level functions for GENPAT			#
+#    functions related to simulation patterns representation :  #
+#                                                               #
+#      - pat : basic data structures                            #
+#      - phl : high level functions                             #
+#      - ppt : parser & driver for PAT format and user level    #
+#              functions                                        #
+#      - pgn : user level functions for GENPAT                  #
 # ###---------------------------------------------------------###
 
 PAT_L      =  -lPat106
@@ -248,18 +248,18 @@ PGN_LIB    = libPgn102.a
 PGN_H      =    Pgn102.h
 
 # ###---------------------------------------------------------###
-#    functions related to physical (micron) layout :		#
-#								#
-#      - rds : basic data structures				#
-#      - rut : user level functions				#
-#								#
-#      - rdf : parser & driver for CIF format			#
-#      - rgs : parser & driver for GDSII format			#
-#      - rfm : physical layout from symbolic layout		#
-#      - rpr : parser for technology file			#
-#      - rwi : windowing functions				#
-#								#
-#      - rtl : user level functions				#
+#    functions related to physical (micron) layout :            #
+#                                                               #
+#      - rds : basic data structures                            #
+#      - rut : user level functions                             #
+#                                                               #
+#      - rdf : parser & driver for CIF format                   #
+#      - rgs : parser & driver for GDSII format                 #
+#      - rfm : physical layout from symbolic layout             #
+#      - rpr : parser for technology file                       #
+#      - rwi : windowing functions                              #
+#                                                               #
+#      - rtl : user level functions                             #
 # ###---------------------------------------------------------###
 
 RDS_L      =  -lRds209
@@ -289,14 +289,14 @@ RTL_LIB    = libRtl110.a
 RTL_H      =    rtl110.h
 
 # ###---------------------------------------------------------###
-#    functions related to icon representation :			#
-#								#
-#      - icn : basic data structures				#
-#								#
-#      - ica : parser & driver for Alliance icon format		#
-#      - icc : parser & driver for Compass  icon format		#
-#								#
-#      - icu : user level functions				#
+#    functions related to icon representation :                 #
+#                                                               #
+#      - icn : basic data structures                            #
+#                                                               #
+#      - ica : parser & driver for Alliance icon format         #
+#      - icc : parser & driver for Compass  icon format         #
+#                                                               #
+#      - icu : user level functions                             #
 # ###---------------------------------------------------------###
 
 ICN_L      =  -lIcn201
@@ -315,14 +315,14 @@ ICU_LIB    = libIcu201.a
 ICU_H      =    icu201.h
 
 # ###---------------------------------------------------------###
-#    functions related to portable blocks generators :		#
-#								#
-#      - gbs : barrel shifter					#
-#      - gga : fast adder					#
-#      - ggr : rom						#
-#      - grf : register file					#
-#      - gam : array pipelined multiplier			#
-#      - gfp : data path simple operators			#
+#    functions related to portable blocks generators :          #
+#                                                               #
+#      - gbs : barrel shifter                                   #
+#      - gga : fast adder                                       #
+#      - ggr : rom                                              #
+#      - grf : register file                                    #
+#      - gam : array pipelined multiplier                       #
+#      - gfp : data path simple operators                       #
 # ###---------------------------------------------------------###
 
 GBS_L      =  -lGbs201
@@ -350,7 +350,7 @@ GFP_LIB    = libGfp114.a
 GFP_H      =    gfp114.h
 
 # ###---------------------------------------------------------###
-#    place & route functions					#
+#    place & route functions                                    #
 # ###---------------------------------------------------------###
 
 APR_L      =  -lApr102
@@ -358,7 +358,7 @@ APR_LIB    = libApr102.a
 APR_H      =    apr102.h
 
 # ###---------------------------------------------------------###
-#    design rule checker functions				#
+#    design rule checker functions                              #
 # ###---------------------------------------------------------###
 
 VRD_L      =  -lVrd303
@@ -366,7 +366,7 @@ VRD_LIB    = libVrd303.a
 VRD_H      =    vrd303.h
 
 # ###---------------------------------------------------------###
-#    user level functions for FPGEN				#
+#    user level functions for FPGEN                             #
 # ###---------------------------------------------------------###
 
 FGN_L      =  -lFgn114
@@ -374,10 +374,10 @@ FGN_LIB    = libFgn114.a
 FGN_H        = Fgn107.h
 
 # ###---------------------------------------------------------###
-#    schematic assistant					#
-#								#
-#      - saB : basic data structures				#
-#      - sax : high level functions				#
+#    schematic assistant                                        #
+#                                                               #
+#      - saB : basic data structures                            #
+#      - sax : high level functions                             #
 # ###---------------------------------------------------------###
 
 SAB_L   =  -lSaB402
@@ -389,13 +389,13 @@ SAX_LIB = libSax102.a
 SAX_H   =    sax102.h
 
 # ###---------------------------------------------------------###
-#    Timing Analysis						#
-#								#
-#      - ttv : basic timing data structures			#
-#								#
-#      - inf : information file parser				#
-#      - elp : electrical parameters' file parser		#
-#      - tas : static delay analysis functions			#
+#    Timing Analysis                                            #
+#                                                               #
+#      - ttv : basic timing data structures                     #
+#                                                               #
+#      - inf : information file parser                          #
+#      - elp : electrical parameters' file parser               #
+#      - tas : static delay analysis functions                  #
 # ###---------------------------------------------------------###
 
 TTV_L      =  -lTtv110

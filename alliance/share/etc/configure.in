@@ -4,10 +4,10 @@
 #
 # Alliance CAD system configure.in 
 # (C) 1997 Czo  -- <Olivier.Sirol@lip6.fr>
-# $Id: configure.in,v 1.2 1999/08/26 18:47:42 czo Exp $
+# $Id: configure.in,v 1.3 1999/08/27 15:17:02 czo Exp $
 #
 
-AC_REVISION($Revision: 1.2 $)dnl
+AC_REVISION($Revision: 1.3 $)dnl
 
 AC_INIT(configure.in)
 
@@ -24,31 +24,38 @@ AC_MSG_CHECKING(for platform)
 
 # WARNING : if changing this remember to do it on the 3 config files :
 # configure.in alc_env.sh.in and alc_env.csh.in
+
 MACHINE=Unknown
  
- case `uname` in
+case `uname` in
 
-   Linux*) case `uname -r` in
-	    1.*)  MACHINE=Linux_aout ;;
-            2.0*) MACHINE=Linux_elf  ;;            
-	    *)    MACHINE=Linux  ;;
-	   esac ;;
+  Linux*) case `uname -r` in
+           1.*) MACHINE=Linux_aout ;;
+          2.0*) MACHINE=Linux_elf  ;;            
+             *) MACHINE=Linux  ;;
+          esac ;;
 
-   SunOS*) case `uname -r` in
-            5*)  MACHINE=Solaris ;;
-            *)   MACHINE=SunOS ;;
-	   esac ;;
+  SunOS*) case `uname -r` in
+            5*) MACHINE=Solaris ;;
+             *) MACHINE=SunOS ;;
+          esac ;;
 
-   FreeBSD*)     MACHINE=FreeBSD ;;
+  FreeBSD*)     MACHINE=FreeBSD ;;
 
-   HP-UX*)       MACHINE=HPUX ;;
+  NetBSD*)      MACHINE=NetBSD ;;
 
-   OSF1*)        MACHINE=OSF ;;
+  HP-UX*)       MACHINE=HPUX ;;
 
-   *)     MACHINE=Unknown ;;
+  OSF1*)        MACHINE=OSF ;;
 
- esac
- export MACHINE
+  CYGWIN*)      MACHINE=CYGWIN ;;
+
+  *)            MACHINE=Unknown ;;
+
+esac
+
+export MACHINE
+# echo $MACHINE
 
 AC_MSG_RESULT(Configuring Alliance VLSI CAD System on platform : $MACHINE)
 AC_SUBST(MACHINE)
@@ -263,7 +270,33 @@ fi
 AC_SUBST(GUI_INC_LOC)
 AC_SUBST(GUI_LIB_LOC)
 
+# Check if the motif lib needs libXintl to link ok
 
+OLD_LIBS=$LIBS
+OLD_CFLAGS=$CFLAGS
+LIBS="$LIBS -L$GUI_LIB_LOC -lXm $X_LIBS $X_EXTRA_LIBS $X_PRE_LIBS -lXt -lX11"
+CFLAGS="$CFLAGS $X_CFLAGS -I$GUI_INC_LOC"
+
+AC_MSG_CHECKING(if motif requires lXintl)
+AC_TRY_LINK([# include <Xm/Xm.h>
+# include <Xm/FileSB.h>
+# include <Xm/MessageB.h>
+# include <Xm/SelectioB.h>
+# include <Xm/SeparatoG.h>],
+[ XtAppContext app;
+  Widget toplevel;
+  XmString xm_string;
+  Arg args[1];
+  toplevel = XtVaAppInitialize(&app, "Demos", NULL, 0, NULL, NULL, NULL, NULL);
+  xm_string = XmStringCreateSimple("Vive Alliance");
+  XtSetArg(args[0], XmNmessageString, xm_string);
+  XmStringFree(xm_string);
+  XtAppMainLoop( app );],
+AC_MSG_RESULT(no OK),
+AC_MSG_RESULT(yes Xintl needed); X_PRE_LIBS="$X_PRE_LIBS -lXintl")
+
+LIBS=$OLD_LIBS
+CFLAGS=$OLD_CFLAGS
 
 # Check where usefull GNU libs are installed (readline)
 #AC_CHECK_LIB(readline, main, $TRUE,
@@ -331,7 +364,6 @@ AC_STDC_HEADERS
 AC_MSG_CHECKING(where the Alliance package was installed)
  TOP=`pwd | sed 's,share/etc$,archi,'`
  export TOP
-AC_MSG_RESULT(Alliance TOP is "$TOP"/"$MACHINE")
 AC_SUBST(TOP)
 
 DATE=`date`
@@ -351,7 +383,12 @@ rm -f config.cache
 
 #cat config.status | grep '^s%' | sed -e 's/^s%@//' -e 's/@%/ /' -e 's/%g$//' | sort | gawk '{printf("%-30s",$1) ; for (i=2 ; i<=NF ; i++) printf("%s ", $i); printf ("\n");}'
 
-echo Done...
+cat << EOF
+Done...
+Alliance is installed on $TOP/$MACHINE
+OS definitions are in $MACHINE.mk
+You'll need to 'source alc_env.csh'
+or '. alc_env.sh' whether you use csh or sh"
+EOF
 
-# EOF
-
+# end of configure
