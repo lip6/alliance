@@ -60,14 +60,14 @@ TABLE MBK_TO_RDS_VIA
     RDS_ACTIV     0.800  DRC\
     RDS_NIMP      1.400  DRC\
     RDS_NWELL     3.000  DRC\
-    RDS_PIMP      0.800  EXT  
+    RDS_NTIE      0.800  EXT  
   CONT_BODY_P              \
     RDS_ALU1      0.900  ALL\
     RDS_CONT      0.400  ALL\
     RDS_ACTIV     0.800  DRC\
     RDS_PIMP      1.400  DRC\
     RDS_PWELL     3.000  DRC\
-    RDS_NIMP      0.800  EXT  
+    RDS_PTIE      0.800  EXT  
   CONT_DIF_N               \
     RDS_ALU1      0.900  ALL\
     RDS_CONT      0.400  ALL\
