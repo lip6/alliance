@@ -393,24 +393,24 @@ int main (int ac, char *av[])
           }  
           if ((IsRdsObstacle(ScanRec) & OBSTACLE_NORTH) == 0)
           {  
-            NewRec->DY += Pitch; 
+            NewRec->DY += Pitch-RDS_LAMBDA; /* les fils font 4 lambdas pas 5*/
           } 
           else  
           if ((IsRdsObstacle(ScanRec) & OBSTACLE_EAST) == 0)
           {  
-            NewRec->DX += Pitch;
-            NewRec->X -= Pitch;
+            NewRec->DX += Pitch-RDS_LAMBDA;
+            NewRec->X -= Pitch-RDS_LAMBDA;
           } 
           else  
           if ((IsRdsObstacle(ScanRec) & OBSTACLE_SOUTH) == 0)
           {  
-            NewRec->DY += Pitch;
-            NewRec->Y -= Pitch;
+            NewRec->DY += Pitch-RDS_LAMBDA;
+            NewRec->Y -= Pitch-RDS_LAMBDA;
           } 
           else  
           if ((IsRdsObstacle(ScanRec) & OBSTACLE_WEST) == 0)
           {  
-            NewRec->DX += Pitch;
+            NewRec->DX += Pitch-RDS_LAMBDA;
           } 
           else
           {
@@ -473,13 +473,13 @@ int main (int ac, char *av[])
        int SHRINK_BOT, SHRINK_TOP;
        if (ScanRec->Y % Pitch == 0)
        {
-         SHRINK_BOT = 4;
+         SHRINK_BOT = 3;
          SHRINK_TOP = 1;
        }
        else
        {
          SHRINK_BOT = 1;
-         SHRINK_TOP = 4;
+         SHRINK_TOP = 3;
        }
        addphseg (PhFig, MbkLayer,
                   (SCALE_X * ScanRec->DX) / RDS_UNIT,
@@ -501,13 +501,13 @@ int main (int ac, char *av[])
        int SHRINK_RIG, SHRINK_LEF;
        if (ScanRec->X % Pitch == 0)
        {
-         SHRINK_RIG = 4;
+         SHRINK_RIG = 3;
          SHRINK_LEF = 1;
        }
        else
        {
          SHRINK_RIG = 1;
-         SHRINK_LEF = 4;
+         SHRINK_LEF = 3;
        }
        addphseg (PhFig, MbkLayer,
                  (SCALE_X * ScanRec->DY) / RDS_UNIT,
