@@ -1189,7 +1189,8 @@ begin
   RESET_R <= guarded RESET            when (FRZ = '0') else
                      RESET or RESET_R ;
 
-  IT_R    <= guarded not IT           when ((CTLRES_S = r_ss) and
+  IT_R    <= guarded "0000" when RESET='1' else
+                     not IT           when ((CTLRES_S = r_ss) and
                                             (FRZ      = '0' )    ) else
                      not IT or IT_R   ;
 end block;

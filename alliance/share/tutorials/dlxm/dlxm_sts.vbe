@@ -535,7 +535,7 @@ BEGIN
 
   -- rw is not inverted
 
-  rw       <= ctlrw_in( 0 );
+  rw       <= ctlrw_in( 0 ) when reset='0' else '0';
 
   -- byte
   -- non inverted
@@ -553,7 +553,7 @@ BEGIN
              "0000" ;
 
 
-  byte   <= byte_s WHEN excrqs_s = '0' ELSE
+  byte   <= byte_s WHEN (excrqs_s = '0') ELSE
             B"0000";
 
   --  scout output ( non inverted )

@@ -12,11 +12,14 @@ SHELL      = /bin/sh
 #
 ############################
 
-ASM        = $(ALLIANCE_TOP)/bin/dlx_asm 
-ASIMUT     = $(ALLIANCE_TOP)/bin/asimut
+# ASM        = $(ALLIANCE_TOP)/bin/dlx_asm 
+ASM        = ./dlx_asm_v0.2b
+# ASIMUT     = $(ALLIANCE_TOP)/bin/asimut
+ASIMUT     = ./asimut
 SYF        = $(ALLIANCE_TOP)/bin/syf
 BOP        = $(ALLIANCE_TOP)/bin/bop
 SCMAP      = $(ALLIANCE_TOP)/bin/scmap
+PROOF      = $(ALLIANCE_TOP)/bin/proof
 # GLOP       = $(ALLIANCE_TOP)/bin/glop
 GLOP       = echo
 FPGEN      = $(ALLIANCE_TOP)/bin/fpgen
@@ -29,6 +32,7 @@ DPR        = $(ALLIANCE_TOP)/bin/dpr
 BBR        = $(ALLIANCE_TOP)/bin/bbr
 RING_EXE   = $(ALLIANCE_TOP)/bin/ring
 S2R        = $(ALLIANCE_TOP)/bin/s2r
+TOUCH      = touch
 
 # XFSM = echo
 XFSM       = $(ALLIANCE_TOP)/bin/xfsm
@@ -56,7 +60,7 @@ GENVIEW = echo
 
 CELLS      = $(ALLIANCE_TOP)/cells
 
-SCR        = $(CELLS)/sclib
+SCR        = $(CELLS)/sxlib
 RING       = $(CELLS)/padlib
 FPLIB      = $(CELLS)/fplib
 RSA        = $(CELLS)/rsa
@@ -97,7 +101,7 @@ ENV_SL       = MBK_TARGET_LIB=$(SCR);       export MBK_TARGET_LIB;       \
                MBK_VSS=vss;                 export MBK_VSS
 
 # Set the Rectangle Data Structure environment
-ENV_RDS      = RDS_TECHNO_NAME=$(ALLIANCE_TOP)/etc/prol10_7.rds;                    \
+ENV_RDS      = RDS_TECHNO_NAME=$(ALLIANCE_TOP)/etc/prol10_11.rds;                    \
                                            export RDS_TECHNO_NAME;       \
                RDS_IN=cif;                 export RDS_IN;                \
                RDS_OUT=cif;                export RDS_OUT;               \
@@ -160,8 +164,6 @@ clean        : clean_sim      \
                clean_real
 
 clean_sim       :
-	rm -f romu.vbe
-	rm -f roms.vbe
 	rm -f add000_chip_pat
 	rm -f add000_blocks_pat
 	rm -f add000_gates_pat
@@ -170,13 +172,17 @@ clean_sim       :
 	rm -f add000_blocks.pat
 	rm -f add000_gates.pat
 	rm -f dlxm_scan_res.pat
+	rm -f romu.vbe
+	rm -f roms.vbe
 
 clean_struct     :
 	rm -f dlxm_seq.vbe
 	rm -f dlxm_seqo.vbe
+	rm -f dlxm_seqo_vbe
 	rm -f dlxm_seq.cod
 	rm -f dlxm_seq.vst
 	rm -f dlxm_stso.vbe 
+	rm -f dlxm_stso_vbe 
 	rm -f dlxm_sts.vst 
 	rm -f dlxm_ctl.vst
 	rm -f dlxm_dpt.vst
@@ -270,9 +276,9 @@ add000_chip_pat    : add000.u add000.s dlxm_chip.vbe
 	MBK_CATAL_NAME=CATAL_CPU_CHIP;  export MBK_CATAL_NAME;               \
 	$(ENV_VST);                                                          \
 	$(ENV_VH);                                                           \
-	$(ASM) add000.u romu romu2;                                          \
-	$(ASM) add000.s roms roms2;                                          \
-	$(ASIMUT) -l 1 -p 50 -bdd dlxm_cpu dlxm_cpu add000_chip
+	$(ASM) add000.u romu ;                                          \
+	$(ASM) add000.s roms ;                                          \
+	$(ASIMUT) -l 1 -p 50 -i 0 -zd -bdd dlxm_cpu dlxm_cpu add000_chip
 	touch add000_chip_pat
 
 ##########################################################################
@@ -311,7 +317,7 @@ add000_chip_pat    : add000.u add000.s dlxm_chip.vbe
 dlxm_seq.vbe : dlxm_seq.fsm
 	$(XFSM) -l dlxm_seq
 	MBK_WORK_LIB=.;             export MBK_WORK_LIB ;   \
-	$(SYF) -a -P -E dlxm_seq dlxm_seq
+	$(SYF) -a -E -P dlxm_seq dlxm_seq
 
 ####################################
 # Simulation of the dlxm described with pads and core in 2 blocks
@@ -344,11 +350,11 @@ add000_blocks_pat    : add000.u add000.s                    \
 	MBK_CATAL_NAME=CATAL_CPU_BLOCKS;             export MBK_CATAL_NAME;  \
 	$(ENV_VST);                                                          \
 	$(ENV_VH);                                                           \
-	$(ASM) add000.u romu romu2;                                                \
-	$(ASM) add000.s roms romu2;                                                \
+	$(ASM) add000.u romu ;                                                \
+	$(ASM) add000.s roms ;                                                \
 	cp dlxm_ctl.vst.h dlxm_ctl.vst;                        \
 	chmod 644 dlxm_ctl.vst;					\
-	$(ASIMUT) -l 1 -p 50 -bdd dlxm_cpu dlxm_cpu add000_blocks
+	$(ASIMUT) -l 1 -p 50 -i 0 -zd -bdd dlxm_cpu dlxm_cpu add000_blocks
 	touch add000_blocks_pat
 	$(XPAT) -l add000_blocks.pat
 
@@ -362,12 +368,19 @@ add000_blocks_pat    : add000.u add000.s                    \
 #
 ####################################
 
-dlxm_sts.vst : dlxm_sts.vbe
+dlxm_sts.vst : dlxm_stso_vbe
 	@ $(ENV_VST);                                                        \
 	$(ENV_SL);                                                           \
 	MBK_CATA_LIB=$(SCR);    export MBK_CATA_LIB;                         \
-	$(BOP) -o dlxm_sts dlxm_stso;                                      \
 	$(SCMAP) dlxm_stso dlxm_sts
+
+dlxm_stso_vbe : dlxm_sts.vbe
+	@ $(ENV_VST);                                                        \
+	$(ENV_SL);                                                           \
+	MBK_CATA_LIB=$(SCR);    export MBK_CATA_LIB;                         \
+	$(BOP) -o dlxm_sts dlxm_stso
+	$(PROOF) dlxm_sts dlxm_stso
+	$(TOUCH) dlxm_stso_vbe
 
 ####################################
 #
@@ -379,17 +392,19 @@ dlxm_sts.vst : dlxm_sts.vbe
 #
 ####################################
 
-dlxm_seq.vst : dlxm_seqo.vbe
+dlxm_seq.vst : dlxm_seqo_vbe
 	$(ENV_VST);                                                        \
 	$(ENV_SL);                                                           \
 	MBK_CATA_LIB=$(SCR);    export MBK_CATA_LIB;                         \
 	$(SCMAP) dlxm_seqo dlxm_seq
 
-dlxm_seqo.vbe : dlxm_seq.vbe
+dlxm_seqo_vbe : dlxm_seq.vbe
 	$(ENV_VST);                                                        \
 	$(ENV_SL);                                                           \
 	MBK_CATA_LIB=$(SCR);    export MBK_CATA_LIB;                         \
-	$(BOP) -o dlxm_seq dlxm_seqo;                                      \
+	$(BOP) -o dlxm_seq dlxm_seqo
+	$(PROOF) dlxm_seq dlxm_seqo
+	$(TOUCH) dlxm_seqo_vbe
 
 
 #####################################
@@ -454,9 +469,9 @@ add000_gates_pat    : add000.u  add000.s                \
 	MBK_CATAL_NAME=CATAL_CPU_GATES;    export MBK_CATAL_NAME;   \
 	$(ENV_VST);                                                 \
 	$(ENV_VH);                                                  \
-	$(ASM) add000.u romu romu2;                                 \
-	$(ASM) add000.s roms romu2;                                 \
-	$(ASIMUT) -l 1 -p 50 -bdd dlxm_cpu dlxm_cpu add000_gates
+	$(ASM) add000.u romu ;                                 \
+	$(ASM) add000.s roms ;                                 \
+	$(ASIMUT) -l 1 -p 50 -i 0 -zd -bdd dlxm_cpu dlxm_cpu add000_gates
 	touch add000_gates_pat
 
 ##########################################################################
@@ -489,9 +504,9 @@ dlxm_scan_res_pat : dlxm_scan.pat                     \
 	MBK_CATAL_NAME=CATAL_CPU_GATES;    export MBK_CATAL_NAME;   \
 	$(ENV_VST);                                                 \
 	$(ENV_VH);                                                  \
-	$(ASM) add000.u romu romu2;                                 \
-	$(ASM) add000.s roms romu2;                                 \
-	$(ASIMUT) -l 10 -p 50 -bdd dlxm_cpu dlxm_scan dlxm_scan_res
+	$(ASM) add000.u romu ;                                 \
+	$(ASM) add000.s roms ;                                 \
+	$(ASIMUT) -l 10 -p 50 -zd -bdd dlxm_cpu dlxm_scan dlxm_scan_res
 	touch dlxm_scan_res_pat
 
 ##########################################################################

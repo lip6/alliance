@@ -17,11 +17,11 @@
 	;  #   signed addition						#
 	;  ###--------------------------------------------------------###
 
-val1		.equ	0x000a
-val2		.equ	0x0002
+val1		equ	X"000a"
+val2		equ	X"0002"
 
-		.org	0x7fffff00
-		.start	init
+		org	X"7fffff00"
+		start	init
 
 init:
 
@@ -35,9 +35,9 @@ init:
 		j	bad
 		nop
 
-		.org	0x7ffffff0
-good:		j	good
+		org	X"7ffffff0"
+good 		j	good
 		nop
-bad:		j	bad
+bad 		j	bad
 		nop
-		.end
+		end

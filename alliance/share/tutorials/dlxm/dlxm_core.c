@@ -17,6 +17,7 @@
 */
 
 #include <genlib.h>
+#include <mgn328.h>
 
 main()
   {
