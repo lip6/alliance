@@ -29,7 +29,7 @@
         struct g_type dble;
 	};
 
-%token         _AND
+%token         tok_AND
 %token         _BEGIN
 %token         _END
 %token         _EQSym
@@ -48,7 +48,7 @@
 %token         _NEXT
 %token         _NOR
 %token         _NOT
-%token         _NULL
+%token         tok_NULL
 %token         _OR
 %token         _OUT
 %token         _XOR
@@ -157,7 +157,7 @@
 %token         WOR_BIT
 %token         WOR_VECTOR
 
-%left         _AND _OR _NAND _NOR _XOR
+%left         tok_AND _OR _NAND _NOR _XOR
 %left         _EQSym _NESym
 %left         _NOT
 
@@ -1489,11 +1489,11 @@ expression
 
 relation..AND__relation..
 	: relation
-	  _AND
+	  tok_AND
 	  relation
 		{ $$ = bvl_crtabl (AND ,$1 ,$3 ,-1,-1); }
 	| relation..AND__relation..
-	  _AND
+	  tok_AND
 	  relation
 		{ $$ = bvl_crtabl (AND ,$1 ,$3 ,-1,-1); }
 	;
