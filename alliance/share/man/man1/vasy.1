@@ -1,4 +1,4 @@
-.\"   $Id: vasy.1,v 1.1 1999/11/26 13:55:57 syf Exp $
+.\"   $Id: vasy.1,v 1.2 1999/12/15 18:40:02 syf Exp $
 .\" @(#)Labo.l 2.2 95/09/24 UPMC; Author: Jacomme L.
 .pl -.4
 .TH VASY 1 "November 26, 1999" "ASIM/LIP6" "CAO\-VLSI Reference Manual"
@@ -8,7 +8,7 @@ VASY \- VHDL Analyzer for Synthesis
 .so man1/alc_origin.1
 .SH SYNOPSIS
 .TP
-\f4vasy [-I input_format] \-V|v|a|s input_name [output_name]
+\f4vasy \-V|v|a|s|S [-I input_format] input_name [output_name]
 .br
 .SH DESCRIPTION
 .br
@@ -32,9 +32,9 @@ indicates the path to the read/write directory for the session.
 
 .SH OPTIONS
 .TP 10
-\f4\-I\fP
-Specifies the VHDL input format such as Alliance VHDL format \fBvbe\fP(5) or
-industrial VHDL format \fBvhd\fP.
+\f4\-V\fP
+Verbose mode on.
+Each step of the analysis is displayed on the standard output.
 .TP 10
 \f4\-v\fP
 Drives an equivalent description in \fBVerilog\fP format.
@@ -43,12 +43,15 @@ Drives an equivalent description in \fBVerilog\fP format.
 Drives an equivalent description in Alliance VHDL format \fBvbe\fP(5)
 .TP 10
 \f4\-s\fP
-Drives an equivalent VHDL description (with the extention \fB.syn\fP)
+Drives an equivalent VHDL description (with the extention \fB.vhd\fP)
 accepted by most of industrial synthesis tools.
 .TP 10
-\f4\-V\fP
-Verbose mode on.
-Each step of the analysis is displayed on the standard output.
+\f4\-S\fP
+Uses Std_logic instead of Bit (taken into account only with option -s).
+.TP 10
+\f4\-I\fP
+Specifies the VHDL input format such as Alliance VHDL format \fBvbe\fP(5) or
+industrial VHDL format \fBvhd\fP.
 .ti 7
 
 .SH SEE ALSO
