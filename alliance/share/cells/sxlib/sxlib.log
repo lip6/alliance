@@ -1,0 +1,568 @@
+
+---- beginning of Log file ----
+-- 
+-- COMPONENT PACKAGE FILE NAME        :    /users/soft3/synopsis/sxlib/sxlib_components.vhd
+-- 
+-- DATE CREATED :    Thu Feb 10 11:39:42 2000
+-- 
+-- LIBRARY      :    sxlib
+-- 
+-- REVISION     :    1.200000
+--
+-- TECHNOLOGY   :    cmos
+--
+-- TIME SCALE   :    1 ns
+--
+-- LOGIC SYSTEM :    IEEE-1164
+--
+-- NOTES        :    Timing_mesg(TRUE), Timing_xgen(FALSE), GLITCH_HANDLE
+--
+--------------------------------------------------------------
+1. Cell name: a2_x2
+Description: Combinational gate.
+Messages: 
+VHDL architecture "FTGS" created with:
+	3 simulation primitives.
+--------------------------------------------------------------
+2. Cell name: a2_x4
+Description: Combinational gate.
+Messages: 
+VHDL architecture "FTGS" created with:
+	3 simulation primitives.
+--------------------------------------------------------------
+3. Cell name: a3_x2
+Description: Combinational gate.
+Messages: 
+VHDL architecture "FTGS" created with:
+	4 simulation primitives.
+--------------------------------------------------------------
+4. Cell name: a3_x4
+Description: Combinational gate.
+Messages: 
+VHDL architecture "FTGS" created with:
+	4 simulation primitives.
+--------------------------------------------------------------
+5. Cell name: a4_x2
+Description: Combinational gate.
+Messages: 
+VHDL architecture "FTGS" created with:
+	5 simulation primitives.
+--------------------------------------------------------------
+6. Cell name: a4_x4
+Description: Combinational gate.
+Messages: 
+VHDL architecture "FTGS" created with:
+	5 simulation primitives.
+--------------------------------------------------------------
+7. Cell name: an12_x1
+Description: Combinational gate.
+Messages: 
+VHDL architecture "FTGS" created with:
+	3 simulation primitives.
+--------------------------------------------------------------
+8. Cell name: an12_x4
+Description: Combinational gate.
+Messages: 
+VHDL architecture "FTGS" created with:
+	3 simulation primitives.
+--------------------------------------------------------------
+9. Cell name: ao2o22_x2
+Description: Combinational gate.
+Messages: 
+VHDL architecture "FTGS" created with:
+	5 simulation primitives.
+--------------------------------------------------------------
+10. Cell name: ao2o22_x4
+Description: Combinational gate.
+Messages: 
+VHDL architecture "FTGS" created with:
+	5 simulation primitives.
+--------------------------------------------------------------
+11. Cell name: ao22_x2
+Description: Combinational gate.
+Messages: 
+VHDL architecture "FTGS" created with:
+	4 simulation primitives.
+--------------------------------------------------------------
+12. Cell name: ao22_x4
+Description: Combinational gate.
+Messages: 
+VHDL architecture "FTGS" created with:
+	4 simulation primitives.
+--------------------------------------------------------------
+13. Cell name: buf_x2
+Description: Combinational gate.
+Messages: 
+VHDL architecture "FTGS" created with:
+	2 simulation primitives.
+--------------------------------------------------------------
+14. Cell name: buf_x4
+Description: Combinational gate.
+Messages: 
+VHDL architecture "FTGS" created with:
+	2 simulation primitives.
+--------------------------------------------------------------
+15. Cell name: buf_x8
+Description: Combinational gate.
+Messages: 
+VHDL architecture "FTGS" created with:
+	2 simulation primitives.
+--------------------------------------------------------------
+16. Cell name: inv_x1
+Description: Combinational gate.
+Messages: 
+VHDL architecture "FTGS" created with:
+	2 simulation primitives.
+--------------------------------------------------------------
+17. Cell name: inv_x2
+Description: Combinational gate.
+Messages: 
+VHDL architecture "FTGS" created with:
+	2 simulation primitives.
+--------------------------------------------------------------
+18. Cell name: inv_x4
+Description: Combinational gate.
+Messages: 
+VHDL architecture "FTGS" created with:
+	2 simulation primitives.
+--------------------------------------------------------------
+19. Cell name: inv_x8
+Description: Combinational gate.
+Messages: 
+VHDL architecture "FTGS" created with:
+	2 simulation primitives.
+--------------------------------------------------------------
+20. Cell name: mx2_x2
+Description: Combinational gate.
+Messages: 
+VHDL architecture "FTGS" created with:
+	4 simulation primitives.
+--------------------------------------------------------------
+21. Cell name: mx2_x4
+Description: Combinational gate.
+Messages: 
+VHDL architecture "FTGS" created with:
+	4 simulation primitives.
+--------------------------------------------------------------
+22. Cell name: mx3_x2
+Description: Combinational gate.
+Messages: 
+VHDL architecture "FTGS" created with:
+	6 simulation primitives.
+--------------------------------------------------------------
+23. Cell name: mx3_x4
+Description: Combinational gate.
+Messages: 
+VHDL architecture "FTGS" created with:
+	6 simulation primitives.
+--------------------------------------------------------------
+24. Cell name: na2_x1
+Description: Combinational gate.
+Messages: 
+VHDL architecture "FTGS" created with:
+	3 simulation primitives.
+--------------------------------------------------------------
+25. Cell name: na2_x4
+Description: Combinational gate.
+Messages: 
+VHDL architecture "FTGS" created with:
+	3 simulation primitives.
+--------------------------------------------------------------
+26. Cell name: na3_x1
+Description: Combinational gate.
+Messages: 
+VHDL architecture "FTGS" created with:
+	4 simulation primitives.
+--------------------------------------------------------------
+27. Cell name: na3_x4
+Description: Combinational gate.
+Messages: 
+VHDL architecture "FTGS" created with:
+	4 simulation primitives.
+--------------------------------------------------------------
+28. Cell name: na4_x1
+Description: Combinational gate.
+Messages: 
+VHDL architecture "FTGS" created with:
+	5 simulation primitives.
+--------------------------------------------------------------
+29. Cell name: na4_x4
+Description: Combinational gate.
+Messages: 
+VHDL architecture "FTGS" created with:
+	5 simulation primitives.
+--------------------------------------------------------------
+30. Cell name: nao2o22_x1
+Description: Combinational gate.
+Messages: 
+VHDL architecture "FTGS" created with:
+	5 simulation primitives.
+--------------------------------------------------------------
+31. Cell name: nao2o22_x4
+Description: Combinational gate.
+Messages: 
+VHDL architecture "FTGS" created with:
+	5 simulation primitives.
+--------------------------------------------------------------
+32. Cell name: nao22_x1
+Description: Combinational gate.
+Messages: 
+VHDL architecture "FTGS" created with:
+	4 simulation primitives.
+--------------------------------------------------------------
+33. Cell name: nao22_x4
+Description: Combinational gate.
+Messages: 
+VHDL architecture "FTGS" created with:
+	4 simulation primitives.
+--------------------------------------------------------------
+34. Cell name: nmx2_x1
+Description: Combinational gate.
+Messages: 
+VHDL architecture "FTGS" created with:
+	4 simulation primitives.
+--------------------------------------------------------------
+35. Cell name: nmx2_x4
+Description: Combinational gate.
+Messages: 
+VHDL architecture "FTGS" created with:
+	4 simulation primitives.
+--------------------------------------------------------------
+36. Cell name: nmx3_x1
+Description: Combinational gate.
+Messages: 
+VHDL architecture "FTGS" created with:
+	6 simulation primitives.
+--------------------------------------------------------------
+37. Cell name: nmx3_x4
+Description: Combinational gate.
+Messages: 
+VHDL architecture "FTGS" created with:
+	6 simulation primitives.
+--------------------------------------------------------------
+38. Cell name: no2_x1
+Description: Combinational gate.
+Messages: 
+VHDL architecture "FTGS" created with:
+	3 simulation primitives.
+--------------------------------------------------------------
+39. Cell name: no2_x4
+Description: Combinational gate.
+Messages: 
+VHDL architecture "FTGS" created with:
+	3 simulation primitives.
+--------------------------------------------------------------
+40. Cell name: no3_x1
+Description: Combinational gate.
+Messages: 
+VHDL architecture "FTGS" created with:
+	4 simulation primitives.
+--------------------------------------------------------------
+41. Cell name: no3_x4
+Description: Combinational gate.
+Messages: 
+VHDL architecture "FTGS" created with:
+	4 simulation primitives.
+--------------------------------------------------------------
+42. Cell name: no4_x1
+Description: Combinational gate.
+Messages: 
+VHDL architecture "FTGS" created with:
+	5 simulation primitives.
+--------------------------------------------------------------
+43. Cell name: no4_x4
+Description: Combinational gate.
+Messages: 
+VHDL architecture "FTGS" created with:
+	5 simulation primitives.
+--------------------------------------------------------------
+44. Cell name: noa2a2a2a24_x1
+Description: Combinational gate.
+Messages: 
+VHDL architecture "FTGS" created with:
+	9 simulation primitives.
+--------------------------------------------------------------
+45. Cell name: noa2a2a2a24_x4
+Description: Combinational gate.
+Messages: 
+VHDL architecture "FTGS" created with:
+	9 simulation primitives.
+--------------------------------------------------------------
+46. Cell name: noa2a2a23_x1
+Description: Combinational gate.
+Messages: 
+VHDL architecture "FTGS" created with:
+	7 simulation primitives.
+--------------------------------------------------------------
+47. Cell name: noa2a2a23_x4
+Description: Combinational gate.
+Messages: 
+VHDL architecture "FTGS" created with:
+	7 simulation primitives.
+--------------------------------------------------------------
+48. Cell name: noa2a22_x1
+Description: Combinational gate.
+Messages: 
+VHDL architecture "FTGS" created with:
+	5 simulation primitives.
+--------------------------------------------------------------
+49. Cell name: noa2a22_x4
+Description: Combinational gate.
+Messages: 
+VHDL architecture "FTGS" created with:
+	5 simulation primitives.
+--------------------------------------------------------------
+50. Cell name: noa2ao222_x1
+Description: Combinational gate.
+Messages: 
+VHDL architecture "FTGS" created with:
+	6 simulation primitives.
+--------------------------------------------------------------
+51. Cell name: noa2ao222_x4
+Description: Combinational gate.
+Messages: 
+VHDL architecture "FTGS" created with:
+	6 simulation primitives.
+--------------------------------------------------------------
+52. Cell name: noa3ao322_x1
+Description: Combinational gate.
+Messages: 
+VHDL architecture "FTGS" created with:
+	8 simulation primitives.
+--------------------------------------------------------------
+53. Cell name: noa3ao322_x4
+Description: Combinational gate.
+Messages: 
+VHDL architecture "FTGS" created with:
+	8 simulation primitives.
+--------------------------------------------------------------
+54. Cell name: noa22_x1
+Description: Combinational gate.
+Messages: 
+VHDL architecture "FTGS" created with:
+	4 simulation primitives.
+--------------------------------------------------------------
+55. Cell name: noa22_x4
+Description: Combinational gate.
+Messages: 
+VHDL architecture "FTGS" created with:
+	4 simulation primitives.
+--------------------------------------------------------------
+56. Cell name: nts_x1
+Description: Combinational gate.
+Messages: 
+VHDL architecture "FTGS" created with:
+	3 simulation primitives.
+--------------------------------------------------------------
+57. Cell name: nts_x2
+Description: Combinational gate.
+Messages: 
+VHDL architecture "FTGS" created with:
+	3 simulation primitives.
+--------------------------------------------------------------
+58. Cell name: nxr2_x1
+Description: Combinational gate.
+Messages: 
+Warning: The 'nq' pin on the 'nxr2_x1' cell has duplicate timing arcs.
+	Only one of the timing arc is used. (DBVH-4)
+Warning: The 'nq' pin on the 'nxr2_x1' cell has duplicate timing arcs.
+	Only one of the timing arc is used. (DBVH-4)
+VHDL architecture "FTGS" created with:
+	3 simulation primitives.
+--------------------------------------------------------------
+59. Cell name: nxr2_x4
+Description: Combinational gate.
+Messages: 
+Warning: The 'nq' pin on the 'nxr2_x4' cell has duplicate timing arcs.
+	Only one of the timing arc is used. (DBVH-4)
+Warning: The 'nq' pin on the 'nxr2_x4' cell has duplicate timing arcs.
+	Only one of the timing arc is used. (DBVH-4)
+VHDL architecture "FTGS" created with:
+	3 simulation primitives.
+--------------------------------------------------------------
+60. Cell name: o2_x2
+Description: Combinational gate.
+Messages: 
+VHDL architecture "FTGS" created with:
+	3 simulation primitives.
+--------------------------------------------------------------
+61. Cell name: o2_x4
+Description: Combinational gate.
+Messages: 
+VHDL architecture "FTGS" created with:
+	3 simulation primitives.
+--------------------------------------------------------------
+62. Cell name: o3_x2
+Description: Combinational gate.
+Messages: 
+VHDL architecture "FTGS" created with:
+	4 simulation primitives.
+--------------------------------------------------------------
+63. Cell name: o3_x4
+Description: Combinational gate.
+Messages: 
+VHDL architecture "FTGS" created with:
+	4 simulation primitives.
+--------------------------------------------------------------
+64. Cell name: o4_x2
+Description: Combinational gate.
+Messages: 
+VHDL architecture "FTGS" created with:
+	5 simulation primitives.
+--------------------------------------------------------------
+65. Cell name: o4_x4
+Description: Combinational gate.
+Messages: 
+VHDL architecture "FTGS" created with:
+	5 simulation primitives.
+--------------------------------------------------------------
+66. Cell name: oa2a2a2a24_x2
+Description: Combinational gate.
+Messages: 
+VHDL architecture "FTGS" created with:
+	9 simulation primitives.
+--------------------------------------------------------------
+67. Cell name: oa2a2a2a24_x4
+Description: Combinational gate.
+Messages: 
+VHDL architecture "FTGS" created with:
+	9 simulation primitives.
+--------------------------------------------------------------
+68. Cell name: oa2a2a23_x2
+Description: Combinational gate.
+Messages: 
+VHDL architecture "FTGS" created with:
+	7 simulation primitives.
+--------------------------------------------------------------
+69. Cell name: oa2a2a23_x4
+Description: Combinational gate.
+Messages: 
+VHDL architecture "FTGS" created with:
+	7 simulation primitives.
+--------------------------------------------------------------
+70. Cell name: oa2a22_x2
+Description: Combinational gate.
+Messages: 
+VHDL architecture "FTGS" created with:
+	5 simulation primitives.
+--------------------------------------------------------------
+71. Cell name: oa2a22_x4
+Description: Combinational gate.
+Messages: 
+VHDL architecture "FTGS" created with:
+	5 simulation primitives.
+--------------------------------------------------------------
+72. Cell name: oa2ao222_x2
+Description: Combinational gate.
+Messages: 
+VHDL architecture "FTGS" created with:
+	6 simulation primitives.
+--------------------------------------------------------------
+73. Cell name: oa2ao222_x4
+Description: Combinational gate.
+Messages: 
+VHDL architecture "FTGS" created with:
+	6 simulation primitives.
+--------------------------------------------------------------
+74. Cell name: oa3ao322_x2
+Description: Combinational gate.
+Messages: 
+VHDL architecture "FTGS" created with:
+	8 simulation primitives.
+--------------------------------------------------------------
+75. Cell name: oa3ao322_x4
+Description: Combinational gate.
+Messages: 
+VHDL architecture "FTGS" created with:
+	8 simulation primitives.
+--------------------------------------------------------------
+76. Cell name: oa22_x2
+Description: Combinational gate.
+Messages: 
+VHDL architecture "FTGS" created with:
+	4 simulation primitives.
+--------------------------------------------------------------
+77. Cell name: oa22_x4
+Description: Combinational gate.
+Messages: 
+VHDL architecture "FTGS" created with:
+	4 simulation primitives.
+--------------------------------------------------------------
+78. Cell name: on12_x1
+Description: Combinational gate.
+Messages: 
+VHDL architecture "FTGS" created with:
+	3 simulation primitives.
+--------------------------------------------------------------
+79. Cell name: on12_x4
+Description: Combinational gate.
+Messages: 
+VHDL architecture "FTGS" created with:
+	3 simulation primitives.
+--------------------------------------------------------------
+80. Cell name: one_x0
+Description: Combinational gate.
+Messages: 
+VHDL architecture "FTGS" created with:
+	0 simulation primitives.
+--------------------------------------------------------------
+81. Cell name: sff1_x4
+Description: Flip-flop.
+Messages: 
+Warning: The 'thck_i' time is a nonpositive setup or hold constraint. (DBVH-21)
+VHDL architecture "FTGS" created with:
+	3 simulation primitives.
+--------------------------------------------------------------
+82. Cell name: sff2_x4
+Description: Flip-flop.
+Messages: 
+Warning: The 'thck_i0' time is a nonpositive setup or hold constraint. (DBVH-21)
+Warning: The 'thck_i1' time is a nonpositive setup or hold constraint. (DBVH-21)
+Warning: The 'thck_cmd' time is a nonpositive setup or hold constraint. (DBVH-21)
+VHDL architecture "FTGS" created with:
+	5 simulation primitives.
+--------------------------------------------------------------
+83. Cell name: ts_x4
+Description: Combinational gate.
+Messages: 
+VHDL architecture "FTGS" created with:
+	3 simulation primitives.
+--------------------------------------------------------------
+84. Cell name: ts_x8
+Description: Combinational gate.
+Messages: 
+VHDL architecture "FTGS" created with:
+	3 simulation primitives.
+--------------------------------------------------------------
+85. Cell name: xr2_x1
+Description: Combinational gate.
+Messages: 
+Warning: The 'q' pin on the 'xr2_x1' cell has duplicate timing arcs.
+	Only one of the timing arc is used. (DBVH-4)
+Warning: The 'q' pin on the 'xr2_x1' cell has duplicate timing arcs.
+	Only one of the timing arc is used. (DBVH-4)
+VHDL architecture "FTGS" created with:
+	3 simulation primitives.
+--------------------------------------------------------------
+86. Cell name: xr2_x4
+Description: Combinational gate.
+Messages: 
+Warning: The 'q' pin on the 'xr2_x4' cell has duplicate timing arcs.
+	Only one of the timing arc is used. (DBVH-4)
+Warning: The 'q' pin on the 'xr2_x4' cell has duplicate timing arcs.
+	Only one of the timing arc is used. (DBVH-4)
+VHDL architecture "FTGS" created with:
+	3 simulation primitives.
+--------------------------------------------------------------
+87. Cell name: zero_x0
+Description: Combinational gate.
+Messages: 
+VHDL architecture "FTGS" created with:
+	0 simulation primitives.
+--------------------------------------------------------------
+Results summary:
+  Total cells in library           = 87  
+  Total FTGS library cells created = 87  
+  Total FTGS library cells failed  = 0   
+
+---- end of log file ----
