@@ -3,7 +3,7 @@
 # description   : Alliance Shared Libraries and Include Files   #
 # ###---------------------------------------------------------###
 
-# $Id: libraries.mk,v 1.19 1999/11/22 14:38:43 czo Exp $
+# $Id: libraries.mk,v 1.20 2000/01/12 14:32:50 czo Exp $
 
 # The variables $ALLIANCE_TOP and $ALLIANCE_OS are set by
 # alc_env.[c]sh script
@@ -116,9 +116,9 @@ MLU_H      =    mlu501.h
 #      - mpu : user level functions                             #
 # ###---------------------------------------------------------###
 
-MPH_L      =  -lMph409
-MPH_LIB    = libMph409.a
-MPH_H      =    mph409.h
+MPH_L      =  -lMph410
+MPH_LIB    = libMph410.a
+MPH_H      =    mph410.h
 
 MAP_L      =  -lMap406
 MAP_LIB    = libMap406.a
@@ -127,9 +127,9 @@ MCP_LIB    = libMcp407.a
 MMG_L      =  -lMmg402
 MMG_LIB    = libMmg402.a
 
-MPU_L      =  -lMpu405
-MPU_LIB    = libMpu405.a
-MPU_H      =    mpu405.h
+MPU_L      =  -lMpu406
+MPU_LIB    = libMpu406.a
+MPU_H      =    mpu406.h
 
 # ###---------------------------------------------------------###
 #    user level functions for GENLIB                            #
