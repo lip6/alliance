@@ -9,16 +9,15 @@
 # http://asim.lip6.fr/pub/alliance/latest-checkout/alliance/src
 #
 
-This file discuss about installation of Alliance on Mac OS X (Darwin)
-machines.
+This file discuss about installation of Alliance on Mac OS X machines.
 
 ===================================================================
 
-Alliance has been succesfully build on Mac OS X.2 (Jaguar) (X.2.4)
+Alliance has been succesfully build on Mac OS X.2 (Jaguar) and Mac OS X.3 (Panther)
 This is what is needed to build ALLIANCE:
    * get the developer tools.
-     ( at least July 2002 version ... based on gcc 3)
-   * get Apple's X11.
+     ( install XCode, this will install gcc 3.3)
+   * get Apple's X11, install X11 SDK from XCode CD.
    * install the openmotif3 package using fink.
      (http://fink.sourceforge.net)
 
