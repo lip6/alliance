@@ -20,10 +20,13 @@
 #define OBSTACLE_WEST    0x10000000
 #define OBSTACLE_MASK    0xF0000000
 
-#define SetRdsNeedPatch(R) ((R)->FLAGS = ((R)->FLAGS | NEED_PATCH_MASK))
-#define IsRdsNeedPatch(R) ((R)->FLAGS & NEED_PATCH_MASK)
-#define SetRdsObstacle(R,O) ((R)->FLAGS = (R)->FLAGS | (O))
-#define IsRdsObstacle(R) ((R)->FLAGS & OBSTACLE_MASK)
+#define SetRdsNeedPatch(R)  ((R)->FLAGS = ((R)->FLAGS | NEED_PATCH_MASK))
+#define RazRdsNeedPatch(R)  ((R)->FLAGS = ((R)->FLAGS & ~NEED_PATCH_MASK))
+#define IsRdsNeedPatch(R)   ((R)->FLAGS & NEED_PATCH_MASK)
+
+#define SetRdsObstacle(R,O) ((R)->FLAGS = ((R)->FLAGS | (O)))
+#define RazRdsObstacle(R)   ((R)->FLAGS = ((R)->FLAGS & ~OBSTACLE_MASK))
+#define IsRdsObstacle(R)    ((R)->FLAGS & OBSTACLE_MASK)
 
 #define rds2mbklayer(L) (((L)==RDS_ALU2) ? ALU2 :\
                          ((L)==RDS_ALU3) ? ALU3 :\
@@ -181,7 +184,12 @@ int main (int ac, char *av[])
         /* scan all rectangles of the current window */
         WX = ScanRec->X / Window->SIDE;
         WY = ScanRec->Y / Window->SIDE;
-        if (verbose > 2) printf ("  WINDOW (%ld,%ld)\n", WX, WY);
+        if (verbose > 2) printf ("  WINDOW (%ld,%ld) ; (X1,Y1,X2,Y2)=(%.2f,%.2f,%.2f,%.2f) \n", 
+                                 WX, WY,
+                                 (float)(WX*Window->SIDE)/RDS_UNIT, 
+                                 (float)(WY*Window->SIDE)/RDS_UNIT,
+                                 (float)((WX+1)*Window->SIDE)/RDS_UNIT, 
+                                 (float)((WY+1)*Window->SIDE)/RDS_UNIT);
       
         Offset = (WY) * Window->DX + (WX);
         Win = Window->WINTAB + Offset;
@@ -204,7 +212,10 @@ int main (int ac, char *av[])
                   continue;
                 if (RecInTouch (ScanRec, WinScanRec)) 
                 {
-                  if (verbose > 3) printf ("  abort\n");
+                  if (verbose > 3) 
+                    printf ("  ABORT : X=%.2f, Y=%.2f, DX=%.2f, DY=%.2f is in touch\n", 
+                            (float)WinScanRec->X/RDS_UNIT, (float)WinScanRec->Y/RDS_UNIT, 
+                            (float)WinScanRec->DX/RDS_UNIT, (float)WinScanRec->DY/RDS_UNIT);
                   goto in_touch;
                 }  
                 if (verbose > 3)
@@ -227,15 +238,20 @@ int main (int ac, char *av[])
         RecEast->X = ScanRec->X - Pitch; RecEast->DX = ScanRec->DX + Pitch; RecEast->Y = ScanRec->Y; RecEast->DY = ScanRec->DY; 
         RecWest->X = ScanRec->X; RecWest->DX = ScanRec->DX + Pitch; RecWest->Y = ScanRec->Y; RecWest->DY = ScanRec->DY; 
       
-        for (BorderX = -1; BorderX < 1; BorderX++)
+        for (BorderX = -1; BorderX <= 1; BorderX++)
         {
           if (BorderX+WX == -1) continue;
           if (BorderX+WX == Window->DX +1) continue;
-          for (BorderY = -1; BorderY < 1; BorderY++)
+          for (BorderY = -1; BorderY <= 1; BorderY++)
           {
             if (BorderY+WY == -1) continue;
             if (BorderY+WY == Window->DY +1) continue;
-            if (verbose > 2) printf ("  NEIGHBOUR WINDOW (%ld,%ld)\n", WX+BorderX, WY+BorderY);
+            if (verbose > 2) printf ("  NEIGHBOUR WINDOW (%ld,%ld) ; (X1,Y1,X2,Y2)=(%.2f,%.2f,%.2f,%.2f) \n", 
+                                 WX+BorderX, WY+BorderY,
+                                 (float)((WX+BorderX)*Window->SIDE)/RDS_UNIT, 
+                                 (float)((WY+BorderY)*Window->SIDE)/RDS_UNIT,
+                                 (float)(((WX+BorderX)+1)*Window->SIDE)/RDS_UNIT, 
+                                 (float)(((WY+BorderY)+1)*Window->SIDE)/RDS_UNIT);
       
             Offset = (WY+BorderY) * Window->DX + (WX+BorderX);
             Win = Window->WINTAB + Offset;
@@ -257,8 +273,23 @@ int main (int ac, char *av[])
                        && (ScanRec->DX == WinScanRec->DX) 
                        && (ScanRec->DY == WinScanRec->DY) 
                        )
-                      continue;
+                      continue; // si c'est soit meme on continue 
                     
+                    // seance de ratrapage : on cherche dans les fenetres
+                    // voisines, si il n'y aurait pas des rectangles qui
+                    // touchent le rectangle en test MAIS QUI N'AURAIT PAS
+                    // ETE VU DANS LA FENETRE CENTRALE, EN PRINCIPE
+                    // C'EST IMPOSSIBLE MAIS JE L'AI VU
+                    if (RecInTouch (ScanRec, WinScanRec)) 
+                    {
+                      if (verbose > 3) 
+                        printf ("  ABORT : X=%.2f, Y=%.2f, DX=%.2f, DY=%.2f is in touch\n", 
+                                (float)WinScanRec->X/RDS_UNIT, (float)WinScanRec->Y/RDS_UNIT, 
+                                (float)WinScanRec->DX/RDS_UNIT, (float)WinScanRec->DY/RDS_UNIT);
+                      RazRdsNeedPatch (ScanRec);
+                      RazRdsObstacle (ScanRec);
+                      goto in_touch;
+                    }  
                     if (RecInTouch (RecNorth, WinScanRec))
                     {
                       SetRdsObstacle(ScanRec,OBSTACLE_NORTH);
@@ -361,24 +392,24 @@ int main (int ac, char *av[])
           }  
           if ((IsRdsObstacle(ScanRec) & OBSTACLE_NORTH) == 0)
           {  
-            NewRec->DY += Pitch;
+            NewRec->DY += Pitch-RDS_LAMBDA; /* les fils font 4 lambdas pas 5*/
           } 
           else  
           if ((IsRdsObstacle(ScanRec) & OBSTACLE_EAST) == 0)
           {  
-            NewRec->DX += Pitch;
-            NewRec->X -= Pitch;
+            NewRec->DX += Pitch-RDS_LAMBDA;
+            NewRec->X -= Pitch-RDS_LAMBDA;
           } 
           else  
           if ((IsRdsObstacle(ScanRec) & OBSTACLE_SOUTH) == 0)
           {  
-            NewRec->DY += Pitch;
-            NewRec->Y -= Pitch;
+            NewRec->DY += Pitch-RDS_LAMBDA;
+            NewRec->Y -= Pitch-RDS_LAMBDA;
           } 
           else  
           if ((IsRdsObstacle(ScanRec) & OBSTACLE_WEST) == 0)
           {  
-            NewRec->DX += Pitch;
+            NewRec->DX += Pitch-RDS_LAMBDA;
           } 
           else
           {
@@ -438,28 +469,50 @@ int main (int ac, char *av[])
 
      if (ScanRec->DX < ScanRec->DY)
      {
-      addphseg (PhFig, MbkLayer,
-                 (SCALE_X * ScanRec->DX) / RDS_UNIT,
-                 (SCALE_X * (ScanRec->X + ScanRec->DX / 2)) / RDS_UNIT , 
-                 (SCALE_X * (ScanRec->Y + RDS_LAMBDA)) / RDS_UNIT , 
-                 (SCALE_X * (ScanRec->X + ScanRec->DX / 2)) / RDS_UNIT , 
-                 (SCALE_X * (ScanRec->Y + ScanRec->DY - RDS_LAMBDA)) / RDS_UNIT , 
-                 NULL);
-      addphseg (PhFig, MbkLayer_bis,
-                 (SCALE_X * ScanRec->DX) / RDS_UNIT,
-                 (SCALE_X * (ScanRec->X + ScanRec->DX / 2)) / RDS_UNIT , 
-                 (SCALE_X * (ScanRec->Y + RDS_LAMBDA)) / RDS_UNIT , 
-                 (SCALE_X * (ScanRec->X + ScanRec->DX / 2)) / RDS_UNIT , 
-                 (SCALE_X * (ScanRec->Y + ScanRec->DY - RDS_LAMBDA)) / RDS_UNIT , 
-                 NULL);
+       int SHRINK_BOT, SHRINK_TOP;
+       if (ScanRec->Y % Pitch == 0)
+       {
+         SHRINK_BOT = 3;
+         SHRINK_TOP = 1;
+       }
+       else
+       {
+         SHRINK_BOT = 1;
+         SHRINK_TOP = 3;
+       }
+       addphseg (PhFig, MbkLayer,
+                  (SCALE_X * ScanRec->DX) / RDS_UNIT,
+                  (SCALE_X * (ScanRec->X + ScanRec->DX / 2)) / RDS_UNIT , 
+                  (SCALE_X * (ScanRec->Y + SHRINK_BOT * RDS_LAMBDA)) / RDS_UNIT , 
+                  (SCALE_X * (ScanRec->X + ScanRec->DX / 2)) / RDS_UNIT , 
+                  (SCALE_X * (ScanRec->Y + ScanRec->DY - SHRINK_TOP * RDS_LAMBDA)) / RDS_UNIT , 
+                  NULL);
+       addphseg (PhFig, MbkLayer_bis,
+                  (SCALE_X * ScanRec->DX) / RDS_UNIT,
+                  (SCALE_X * (ScanRec->X + ScanRec->DX / 2)) / RDS_UNIT , 
+                  (SCALE_X * (ScanRec->Y + RDS_LAMBDA)) / RDS_UNIT , 
+                  (SCALE_X * (ScanRec->X + ScanRec->DX / 2)) / RDS_UNIT , 
+                  (SCALE_X * (ScanRec->Y + ScanRec->DY - RDS_LAMBDA)) / RDS_UNIT , 
+                  NULL);
      }
      else  
      {  
+       int SHRINK_RIG, SHRINK_LEF;
+       if (ScanRec->X % Pitch == 0)
+       {
+         SHRINK_RIG = 3;
+         SHRINK_LEF = 1;
+       }
+       else
+       {
+         SHRINK_RIG = 1;
+         SHRINK_LEF = 3;
+       }
        addphseg (PhFig, MbkLayer,
                  (SCALE_X * ScanRec->DY) / RDS_UNIT,
-                 (SCALE_X * (ScanRec->X + RDS_LAMBDA)) / RDS_UNIT , 
+                 (SCALE_X * (ScanRec->X + SHRINK_RIG * RDS_LAMBDA)) / RDS_UNIT , 
                  (SCALE_X * (ScanRec->Y + ScanRec->DY / 2)) / RDS_UNIT , 
-                 (SCALE_X * (ScanRec->X + ScanRec->DX - RDS_LAMBDA)) / RDS_UNIT , 
+                 (SCALE_X * (ScanRec->X + ScanRec->DX - SHRINK_LEF * RDS_LAMBDA)) / RDS_UNIT , 
                  (SCALE_X * (ScanRec->Y + ScanRec->DY / 2)) / RDS_UNIT , 
                  NULL);
        addphseg (PhFig, MbkLayer_bis,
