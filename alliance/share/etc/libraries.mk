@@ -3,7 +3,7 @@
 # description   : Alliance Shared Libraries and Include Files   #
 # ###---------------------------------------------------------###
 
-# $Id: libraries.mk,v 1.10 1999/09/28 09:14:45 czo Exp $
+# $Id: libraries.mk,v 1.11 1999/10/12 13:41:59 czo Exp $
 
 # The variables $TOP and $MACHINE are set by
 # alc_env.[c]sh script
@@ -12,7 +12,7 @@
 #    Common settings                                            #
 # ###---------------------------------------------------------###
 
-ALLIANCE_VERSION = '"3.5.8"'
+ALLIANCE_VERSION = '"3.5.9"'
 ALLIANCE_BIN     = $(TOP)/bin
 ALLIANCE_LIB     = $(TOP)/lib
 ALLIANCE_INCLUDE = $(TOP)/include
@@ -187,9 +187,21 @@ ABV_LIB    = libAbv200.a
 ABV_H      =    abv200.h
 
 # ###---------------------------------------------------------###
+#    functions related to simulation scheduler :                #
+#                                                               #
+#      - sch : simulation scheduler                             #
+# ###---------------------------------------------------------###
+
+SCH_L      =  -lSch110
+SCH_LIB    = libSch110.a
+SCH_H      =    sch110.h
+
+
+# ###---------------------------------------------------------###
 #    functions related to behavioural representation :          #
 #                                                               #
 #      - beh : basic data structures                            #
+#      - cst : chain-like set treatment                         #
 #      - bhl : high level functions                             #
 #      - bvl : parser & driver for Data-Flow VHDL and user      #
 #              level functions                                  #
@@ -198,6 +210,9 @@ ABV_H      =    abv200.h
 BEH_L      =  -lBeh110
 BEH_LIB    = libBeh110.a
 BEH_H      =    beh110.h
+CST_L      =  -lCst100
+CST_LIB    = libCst100.a
+CST_H      =    cst100.h
 BHL_L      =  -lBhl110
 BHL_LIB    = libBhl110.a
 BHL_H      =    bhl110.h
@@ -341,9 +356,9 @@ GGR_L      =  -lGgr001
 GGR_LIB    = libGgr001.a
 GGR_H      =    ggr001.h
 
-GRF_L      =  -lGrf604
-GRF_LIB    = libGrf604.a
-GRF_H      =    grf604.h
+GRF_L      =  -lGrf605
+GRF_LIB    = libGrf605.a
+GRF_H      =    grf605.h
 
 GAM_L      =  -lGam000
 GAM_LIB    = libGam000.a
