@@ -66,9 +66,16 @@ static int is_input_used(char* input, chain_list* abl)
 /******************************************************************************/
 /*             seek if all inputs are used in abl                             */
 /******************************************************************************/
-static int used_inputs(befig_list* befig, chain_list* abl1, chain_list* abl2)
+static int used_inputs(befig_list* befig)
 {
    bepor_list* bepor;
+   bereg_list *bereg;
+   beaux_list *beaux;
+   bebus_list *bebus;
+   bebux_list *bebux;
+   beout_list *beout;
+   biabl_list *biabl;
+  
    
    /*all inputs should be used*/
    for (bepor=befig->BEPOR; bepor; bepor=bepor->NEXT) {
@@ -76,11 +83,55 @@ static int used_inputs(befig_list* befig, chain_list* abl1, chain_list* abl2)
       if (bepor->DIRECTION!=IN && bepor->DIRECTION!=INOUT
        && bepor->DIRECTION!=TRANSCV) continue;
       if (!isvdd(bepor->NAME) && !isvss(bepor->NAME)) {
-         if (!is_input_used(bepor->NAME,abl1) 
-          && !is_input_used(bepor->NAME,abl2)) {
-            fprintf(stderr,"BEH: %s input unused\n",bepor->NAME);
-            return 0;
+      
+         for ( beout = befig->BEOUT; beout; beout = beout->NEXT )
+         {
+            if ( is_input_used(bepor->NAME, beout->ABL) ) break;
          }
+         if ( beout ) continue;
+         
+         for ( beaux = befig->BEAUX; beaux; beaux = beaux->NEXT )
+         {
+            if ( is_input_used(bepor->NAME, beaux->ABL) ) break;
+         }
+         if ( beaux ) continue;
+         
+         for ( bebux = befig->BEBUX; bebux; bebux = bebux->NEXT )
+         {
+            for ( biabl = bebux->BIABL; biabl; biabl = biabl->NEXT )
+            {
+               if ( is_input_used(bepor->NAME, biabl->CNDABL) ) break;
+               if ( is_input_used(bepor->NAME, biabl->VALABL) ) break;
+            }
+            if ( biabl ) break;
+         }
+         if ( bebux ) continue;
+         
+         for ( bereg = befig->BEREG; bereg; bereg = bereg->NEXT )
+         {
+            for ( biabl = bereg->BIABL; biabl; biabl = biabl->NEXT )
+            {
+               if ( is_input_used(bepor->NAME, biabl->CNDABL) ) break;
+               if ( is_input_used(bepor->NAME, biabl->VALABL) ) break;
+            }
+            if ( biabl ) break;
+         }
+         if ( bereg ) continue;
+         
+         for ( bebus = befig->BEBUS; bebus; bebus = bebus->NEXT )
+         {
+            for ( biabl = bebus->BIABL; biabl; biabl = biabl->NEXT )
+            {
+               if ( is_input_used(bepor->NAME, biabl->CNDABL) ) break;
+               if ( is_input_used(bepor->NAME, biabl->VALABL) ) break;
+            }
+            if ( biabl ) break;
+         }
+         if ( bebus ) continue;
+         
+         fprintf(stderr,"BEH: %s input unused\n",bepor->NAME);
+         return 0;
+
       }
    }
    
@@ -89,12 +140,85 @@ static int used_inputs(befig_list* befig, chain_list* abl1, chain_list* abl2)
 
 
 /******************************************************************************/
+/******************************************************************************/
+static chain_list* format_subst_abl( chain_list* abl, beaux_list *BeauxSubst )
+{
+   chain_list *chain;
+
+   if (ABL_ATOM(abl)) {
+      char *value=ABL_ATOM_VALUE(abl);
+      if (value == BeauxSubst->NAME) return dupablexpr( BeauxSubst->ABL );
+      return abl;
+   }
+   
+   for (chain=ABL_CDR(abl); chain; chain=ABL_CDR(chain)) {
+      ABL_CAR(chain) = format_subst_abl( ABL_CAR( chain ), BeauxSubst );
+   }
+
+   return abl;  
+}
+
+/******************************************************************************/
+/******************************************************************************/
+static void format_subst_befig( befig_list *befig, beaux_list *BeauxSubst )
+{
+   bereg_list *bereg;
+   beaux_list *beaux;
+   bebus_list *bebus;
+   bebux_list *bebux;
+   beout_list *beout;
+   biabl_list *biabl;
+  
+   for ( beout = befig->BEOUT; beout; beout = beout->NEXT )
+   {
+      beout->ABL = format_subst_abl( beout->ABL, BeauxSubst );
+   }
+   for ( beaux = befig->BEAUX; beaux; beaux = beaux->NEXT )
+   {
+      if ( beaux == BeauxSubst ) continue;
+      beaux->ABL = format_subst_abl( beaux->ABL, BeauxSubst );
+   }
+   for ( bebux = befig->BEBUX; bebux; bebux = bebux->NEXT )
+   {
+      for ( biabl = bebux->BIABL; biabl; biabl = biabl->NEXT )
+      {
+         biabl->CNDABL = format_subst_abl( biabl->CNDABL, BeauxSubst );
+         biabl->VALABL = format_subst_abl( biabl->VALABL, BeauxSubst );
+      }
+   }
+   for ( bereg = befig->BEREG; bereg; bereg = bereg->NEXT )
+   {
+      for ( biabl = bereg->BIABL; biabl; biabl = biabl->NEXT )
+      {
+         biabl->CNDABL = format_subst_abl( biabl->CNDABL, BeauxSubst );
+         biabl->VALABL = format_subst_abl( biabl->VALABL, BeauxSubst );
+      }
+   }
+   for ( bebus = befig->BEBUS; bebus; bebus = bebus->NEXT )
+   {
+      for ( biabl = bebus->BIABL; biabl; biabl = biabl->NEXT )
+      {
+         biabl->CNDABL = format_subst_abl( biabl->CNDABL, BeauxSubst );
+         biabl->VALABL = format_subst_abl( biabl->VALABL, BeauxSubst );
+      }
+   }
+}
+
+
+
+/******************************************************************************/
 /*                         return 1 if format is ok                           */
 /******************************************************************************/
 extern int format_cell(befig_list* befig)
 {
+   beaux_list *beaux;
+   
    /*internal signal forbidden*/
-   if (befig->BEAUX) return 0;
+   for ( beaux = befig->BEAUX; beaux; beaux = beaux->NEXT )
+   {
+      format_subst_befig( befig, beaux );
+   }
+   befig->BEAUX = NULL;
 
    if (befig->BEREG) {
       /*only one register*/
@@ -116,8 +240,6 @@ extern int format_cell(befig_list* befig)
          befig->BEREG->BIABL->VALABL=simpablexpr(
                               createablnotexpr(befig->BEREG->BIABL->VALABL));
      }                                            
-      return used_inputs(befig,befig->BEREG->BIABL->CNDABL,
-                          befig->BEREG->BIABL->VALABL);
    }
    
    if (befig->BEBUS) {
@@ -127,8 +249,6 @@ extern int format_cell(befig_list* befig)
       if (!befig->BEBUS->BIABL || befig->BEBUS->BIABL->NEXT) return 0;
       /*one ouput: bebus*/
       if (befig->BEOUT) return 0;
-      return used_inputs(befig,befig->BEBUS->BIABL->CNDABL,
-                          befig->BEBUS->BIABL->VALABL);
    }
 
    if (befig->BEBUX) {
@@ -160,16 +280,15 @@ extern int format_cell(befig_list* befig)
       beh_frebeout(befig->BEOUT);
       befig->BEBUX=NULL;
       befig->BEOUT=NULL;
-      return used_inputs(befig,befig->BEBUS->BIABL->CNDABL,
-                          befig->BEBUS->BIABL->VALABL);
    }
 
    if (befig->BEOUT) {
-      /*one ouput: beout*/
-      if (!befig->BEOUT || befig->BEOUT->NEXT) return 0;
-      return used_inputs(befig,befig->BEOUT->ABL,NULL);
+      /*one kind of ouput: beout*/
+      if (  befig->BEBUS ) return 0;
    }
 
+   return used_inputs(befig);
+   
    /*illegal befig*/
    return 0;
 }
