@@ -341,10 +341,12 @@ struct paseq  *ptseq ;
 
   {
   extern FILE *pat_decl_y_in     ;
+  extern FILE *pat_desc_y_in     ;
   static int   call_nbr = 0;
 
   PAT_SEQPNT = ptseq;
   pat_decl_y_in        = fp;
+  pat_desc_y_in        = fp;
 
   PAT_INSPNT = NULL;
   PAT_COMPNT = NULL;

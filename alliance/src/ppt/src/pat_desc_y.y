@@ -627,6 +627,7 @@ unsigned char  mode  ;			/* the description style	*/
 
   struct papat *lastpat;
   extern FILE  *pat_desc_y_in;
+  extern FILE  *pat_decl_y_in;
   int           i      ;
 
   if ((ptseq == NULL) || (ptseq->ERRFLG != 0))
@@ -843,6 +844,7 @@ unsigned char  mode  ;			/* the description style	*/
       NAM_IDX    = 0            ;
 
       pat_desc_y_in       = fp;
+      pat_decl_y_in       = fp;
 
 	/* ###------------------------------------------------------### */
 	/*   call the parser and, prepare the returned structure	*/
