@@ -1,17 +1,19 @@
-.\"   $Id: druc.1,v 1.2 2004/07/27 19:15:56 fred Exp $
+.\"   $Id: druc.1,v 1.3 2004/07/27 19:26:45 fred Exp $
 .\" @(#)Labo.l 1.2 93/12/08 UPMC; Author: Patrick RENNAUD
-.pl -.4
-.TH DRUC 1 "October 1, 1997" "ASIM/LIP6" "CAO\-VLSI Reference Manual"
+.TH DRUC 1 "October 1, 1997" "ASIM/LIP6" "ALLIANCE USER COMMANDS"
 .SH NAME
-DRuC   - Design Rule Checker
-.so man1/alc_origin.1
+druc \- Design Rule Checker
 .SH SYNOPSIS
-.TP
-\fBdruc\fP \<\fIroot_name\fP\>
+.B druc
+.I input_name
+[
+.I \-v
+]
+[
+.I \-h
+]
 .br
-.br
-.br
-.br
+.so man1/alc_origin.1
 .SH DESCRIPTION
 .br
 \fBDRuC\fP is a general parametrized VLSI design rule checker. 
@@ -25,7 +27,18 @@ The root cell and all the instanciated cells (except the intanciated libraries c
 .br
 The default mode of \fBDRuC\fP is (currently) full flat: 
 it first flatten all the hierarchy in order to obtain a flat, rectangle level description.
-.br
+.SH OPTIONS
+.TP
+\-v
+Verbose mode on.
+Each step of the DRC is output on the standard output
+.TP
+\-h
+Hierarchical design rule checking.
+Generates lots of files locally, to be used by future invocation of
+druc.
+Don't ask me if and how this works, but since you also fetched the
+sources, ...
 .fi
 .ft R
 \fBO: LAYER NAME.\fP
