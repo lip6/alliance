@@ -206,6 +206,5 @@
 \------------------------------------------------------*/
 
   extern       bddnode * imagebtrtransrel __P((btrtransrel *TransRel, bddnode *StateSet));
-  bddnode   *preimagebtrtransrel();
 
 # endif 
