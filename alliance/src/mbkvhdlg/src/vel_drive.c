@@ -10,6 +10,9 @@
 /* ###--------------------------------------------------------------------### */
 /*
  * $Log: vel_drive.c,v $
+ * Revision 1.4  2002/12/06 09:56:05  fred
+ * Erasing a forgotten debug dump !
+ *
  * Revision 1.3  2002/12/06 08:52:53  fred
  * Adding better support to vectorized VHDL output.
  * The data structure doesn't follow the VHDL conventions, and this makes
@@ -70,7 +73,7 @@
  *
  */
 
-#ident "$Id: vel_drive.c,v 1.3 2002/12/06 08:52:53 fred Exp $"
+#ident "$Id: vel_drive.c,v 1.4 2002/12/06 09:56:05 fred Exp $"
 
 #include <stdio.h>
 #include <string.h>
@@ -726,7 +729,6 @@ its_first:
    }
 
    sortlosig(&f->LOSIG);
-   viewlofig(f);
 
    buildvelo(f);
 
