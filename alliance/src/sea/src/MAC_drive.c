@@ -1,5 +1,5 @@
 /*
- *  $Id: MAC_drive.c,v 1.2 2002/09/30 16:21:17 czo Exp $
+ *  $Id: MAC_drive.c,v 1.3 2003/06/19 16:36:58 jpc Exp $
  *
  *  /----------------------------------------------------------------\
  *  |                                                                |
@@ -98,6 +98,8 @@ extern void  macPlace(apPhfig, apLofig, macName, aPower, aFlags)
 
 
   /* Set a nice viewport. */
+  fprintf (MAC_FILE, " SET VARIABLE OUTPUT.LEF.DEF.BUSBITCHARACTERS \"()\" ;\n");
+  fprintf (MAC_FILE, " SET VARIABLE OUTPUT.LEF.DEF.DELIMITERS . ;\n\n");
   fprintf (MAC_FILE, " WINDOW FIT ;\n\n");
 
 
@@ -177,6 +179,8 @@ extern void  macRoute(apPhfig, apLofig, macName, aPower, aFlags)
 
 
   /* Set a nice viewport. */
+  fprintf (MAC_FILE, " SET VARIABLE OUTPUT.LEF.DEF.BUSBITCHARACTERS \"()\" ;\n");
+  fprintf (MAC_FILE, " SET VARIABLE OUTPUT.LEF.DEF.DELIMITERS . ;\n\n");
   fprintf (MAC_FILE, " WINDOW FIT ;\n\n");
 
 
