@@ -26,6 +26,7 @@
 .\" Author  : Luc Burgun, Pascale Allegre, Nathalie Dictus
 .\" Modified by Czo <Olivier.Sirol@lip6.fr> 1996,97
 .\" Modified by francois Donnet 2000
+.\" Modified by francois Donnet 2002
 .\" 
 .\" 
 .\" 
@@ -48,7 +49,7 @@ LooN \- Light optimizing on Nets.
 .SH DESCRIPTION
 .br
 \f4loon\fP is a CAD tool that permits to remove fanout problems within a gates netlist and to optimize the delay. The netlist can be hierarchical and is flattened if necessary. \f4loon\fP run in batch mode and a parameter file can be used (see man \f4lax\fP) to parametrize optimization by adding informations on outputs (fanin), inputs (fanout, delay) and by setting general parameters such as optimization level.
-\f4loon\fP permits to compute delays of gates in the netlist and gives the critical path in the netlist. The global optimization of \f4loon\fP performs gate repowering to decrease the critical path delay. No buffers are inserted at this state of development of \f4loon\fP.
+\f4loon\fP permits to compute delays of gates in the netlist and gives the critical path in the netlist. The global optimization of \f4loon\fP performs gate repowering to decrease the critical path delay and global capacitance. Buffers are only inserted in critical path.
 .br
 
 
