@@ -3623,11 +3623,11 @@ fi
 #AC_MSG_RESULT([kernel name : "$KERNEL_FILE"])
 
 
-################################################################### Alliance TOP
+################################################################### Alliance ALLIANCE_TOP
 echo $ac_n "checking where the Alliance package was installed""... $ac_c" 1>&6
 echo "configure:3629: checking where the Alliance package was installed" >&5
- TOP=`pwd | sed 's,share/etc$,archi,'`
- export TOP
+ ALLIANCE_TOP=`pwd | sed 's,share/etc$,archi,'`
+ export ALLIANCE_TOP
 
 
 DATE=`date`
@@ -3842,7 +3842,7 @@ s%@GUI_INC_LOC@%$GUI_INC_LOC%g
 s%@GUI_LIB_LOC@%$GUI_LIB_LOC%g
 s%@GNU_INC_LOC@%$GNU_INC_LOC%g
 s%@GNU_LIB_LOC@%$GNU_LIB_LOC%g
-s%@TOP@%$TOP%g
+s%@ALLIANCE_TOP@%$ALLIANCE_TOP%g
 s%@DATE@%$DATE%g
 s%@HOST@%$HOST%g
 
@@ -3962,7 +3962,7 @@ rm -f config.cache
 
 cat << EOF
 Done...
-Alliance is installed on $TOP/$ALLIANCE_OS
+Alliance is installed on $ALLIANCE_TOP/$ALLIANCE_OS
 OS definitions are in $ALLIANCE_OS.mk
 You'll need to 'source alc_env.csh'
 or '. alc_env.sh' whether you use csh or sh"

@@ -5,7 +5,7 @@
 # ftp sites          : ftp://ftp.lip6.fr/lip6/softs/alliance/
 #                   or ftp://ftp-asim.lip6.fr/pub/alliance/
 #
-# $Id: README,v 1.2 1999/11/05 16:03:16 czo Exp $
+# $Id: README,v 1.3 1999/11/05 16:43:11 czo Exp $
 
 
 
@@ -105,7 +105,7 @@ If you encounter problems, check the value of these variables in alc_env.[c]sh
                            or SunOS
                            or Solaris
 
-          $TOP     : actually [where you have installed Alliance]/alliance/archi/Linux_elf
+          $ALLIANCE_TOP     : actually [where you have installed Alliance]/alliance/archi/Linux_elf
                            or [where you have installed Alliance]/alliance/archi/SunOS
                            or [where you have installed Alliance]/alliance/archi/Solaris
 

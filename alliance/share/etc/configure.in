@@ -4,10 +4,10 @@
 #
 # Alliance CAD system configure.in 
 # (C) 1997 Czo  -- <Olivier.Sirol@lip6.fr>
-# $Id: configure.in,v 1.6 1999/11/05 16:03:18 czo Exp $
+# $Id: configure.in,v 1.7 1999/11/05 16:43:14 czo Exp $
 #
 
-AC_REVISION($Revision: 1.6 $)dnl
+AC_REVISION($Revision: 1.7 $)dnl
 
 AC_INIT(configure.in)
 
@@ -374,11 +374,11 @@ AC_STDC_HEADERS
 #AC_MSG_RESULT([kernel name : "$KERNEL_FILE"])
 
 
-################################################################### Alliance TOP
+################################################################### Alliance ALLIANCE_TOP
 AC_MSG_CHECKING(where the Alliance package was installed)
- TOP=`pwd | sed 's,share/etc$,archi,'`
- export TOP
-AC_SUBST(TOP)
+ ALLIANCE_TOP=`pwd | sed 's,share/etc$,archi,'`
+ export ALLIANCE_TOP
+AC_SUBST(ALLIANCE_TOP)
 
 DATE=`date`
 AC_SUBST(DATE)
@@ -399,7 +399,7 @@ rm -f config.cache
 
 cat << EOF
 Done...
-Alliance is installed on $TOP/$ALLIANCE_OS
+Alliance is installed on $ALLIANCE_TOP/$ALLIANCE_OS
 OS definitions are in $ALLIANCE_OS.mk
 You'll need to 'source alc_env.csh'
 or '. alc_env.sh' whether you use csh or sh"

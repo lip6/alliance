@@ -1,15 +1,15 @@
-#TOP    = /users/soft5/newlabo/Solaris
-ASIMUT = $(TOP)/bin/asimut
-GENLIB = $(TOP)/bin/genlib -v 
-SCR    = $(TOP)/bin/scr
-RING   = $(TOP)/bin/ring
-LYNX   = $(TOP)/bin/lynx
-LVX    = $(TOP)/bin/lvx
-YAGLE  = $(TOP)/bin/yagle
-PROOF  = $(TOP)/bin/proof
-DRUC   = $(TOP)/bin/druc
-GRAAL  = $(TOP)/bin/graal
-S2R    = $(TOP)/bin/s2r
+#ALLIANCE_TOP    = /users/soft5/newlabo/Solaris
+ASIMUT = $(ALLIANCE_TOP)/bin/asimut
+GENLIB = $(ALLIANCE_TOP)/bin/genlib -v 
+SCR    = $(ALLIANCE_TOP)/bin/scr
+RING   = $(ALLIANCE_TOP)/bin/ring
+LYNX   = $(ALLIANCE_TOP)/bin/lynx
+LVX    = $(ALLIANCE_TOP)/bin/lvx
+YAGLE  = $(ALLIANCE_TOP)/bin/yagle
+PROOF  = $(ALLIANCE_TOP)/bin/proof
+DRUC   = $(ALLIANCE_TOP)/bin/druc
+GRAAL  = $(ALLIANCE_TOP)/bin/graal
+S2R    = $(ALLIANCE_TOP)/bin/s2r
 
 # ### 
 # goal of the Makefile: doing the whole chip design and verification
@@ -45,7 +45,7 @@ specifications.pat : addaccu.vbe addaccu.pat
 core.vst : core.c
 	MBK_IN_LO=vst ;\
 	MBK_OUT_LO=vst ;\
-	MBK_CATA_LIB=$(TOP)/cells/sclib;\
+	MBK_CATA_LIB=$(ALLIANCE_TOP)/cells/sclib;\
 	export MBK_IN_LO MBK_OUT_LO MBK_CATA_LIB ;\
 	$(GENLIB) core
 
@@ -60,7 +60,7 @@ core.vst : core.c
 addaccu.vst : addaccu.c core.vst
 	MBK_IN_LO=vst ;\
 	MBK_OUT_LO=vst ;\
-	MBK_CATA_LIB=$(TOP)/cells/sclib:$(TOP)/cells/padlib ;\
+	MBK_CATA_LIB=$(ALLIANCE_TOP)/cells/sclib:$(ALLIANCE_TOP)/cells/padlib ;\
 	export MBK_IN_LO MBK_OUT_LO MBK_CATA_LIB ;\
 	$(GENLIB) addaccu
 
@@ -72,7 +72,7 @@ addaccu.vst : addaccu.c core.vst
 schema.pat : addaccu.vst addaccu.pat
 	MBK_IN_LO=vst ;\
 	MBK_OUT_LO=vst ;\
-	MBK_CATA_LIB=$(TOP)/cells/sclib:$(TOP)/cells/padlib ;\
+	MBK_CATA_LIB=$(ALLIANCE_TOP)/cells/sclib:$(ALLIANCE_TOP)/cells/padlib ;\
 	export MBK_IN_LO MBK_OUT_LO MBK_CATA_LIB ;\
 	$(ASIMUT) addaccu addaccu schema
 
@@ -84,7 +84,7 @@ core.ap : core.vst
 	MBK_IN_LO=vst ;\
 	MBK_IN_PH=ap ;\
 	MBK_OUT_PH=ap ;\
-	MBK_CATA_LIB=$(TOP)/cells/sclib:$(TOP)/cells/padlib ;\
+	MBK_CATA_LIB=$(ALLIANCE_TOP)/cells/sclib:$(ALLIANCE_TOP)/cells/padlib ;\
 	export MBK_IN_LO MBK_IN_PH MBK_OUT_PH MBK_CATA_LIB ;\
 	$(SCR) -p -r core 
 
@@ -95,8 +95,8 @@ core.ap : core.vst
 core.al : core.ap
 	MBK_IN_PH=ap ;\
 	MBK_OUT_LO=al ;\
-	RDS_TECHNO_NAME=$(TOP)/etc/cmos_7.rds ;\
-	MBK_CATA_LIB=$(TOP)/cells/sclib:$(TOP)/cells/padlib ;\
+	RDS_TECHNO_NAME=$(ALLIANCE_TOP)/etc/cmos_7.rds ;\
+	MBK_CATA_LIB=$(ALLIANCE_TOP)/cells/sclib:$(ALLIANCE_TOP)/cells/padlib ;\
 	export MBK_IN_PH MBK_OUT_LO RDS_TECHNO_NAME MBK_CATA_LIB ;\
 	$(LYNX) -v core core
 
@@ -106,7 +106,7 @@ core.al : core.ap
 # ###---------------------------------------------------------###
 
 core.lvx : core.al core.vst
-	MBK_CATA_LIB=$(TOP)/cells/sclib:$(TOP)/cells/padlib ;\
+	MBK_CATA_LIB=$(ALLIANCE_TOP)/cells/sclib:$(ALLIANCE_TOP)/cells/padlib ;\
 	export MBK_CATA_LIB ;\
 	$(LVX) vst al core core -f > core.lvx; \
 	cat core.lvx
@@ -120,7 +120,7 @@ addaccu.ap : core.ap core.lvx addaccu.vst
 	MBK_IN_LO=vst ;\
 	MBK_IN_PH=ap ;\
 	MBK_OUT_PH=ap ;\
-	MBK_CATA_LIB=$(TOP)/cells/sclib:$(TOP)/cells/padlib ;\
+	MBK_CATA_LIB=$(ALLIANCE_TOP)/cells/sclib:$(ALLIANCE_TOP)/cells/padlib ;\
 	MBK_SCALE_X=10; \
 	export MBK_SCALE_X MBK_IN_PH MBK_OUT_PH MBK_IN_LO MBK_CATA_LIB ;\
 	$(RING) addaccu addaccu
@@ -132,8 +132,8 @@ addaccu.ap : core.ap core.lvx addaccu.vst
 addaccu.al : addaccu.ap
 	MBK_IN_PH=ap ;\
 	MBK_OUT_LO=al ;\
-	RDS_TECHNO_NAME=$(TOP)/etc/cmos_7.rds ;\
-	MBK_CATA_LIB=$(TOP)/cells/sclib:$(TOP)/cells/padlib ;\
+	RDS_TECHNO_NAME=$(ALLIANCE_TOP)/etc/cmos_7.rds ;\
+	MBK_CATA_LIB=$(ALLIANCE_TOP)/cells/sclib:$(ALLIANCE_TOP)/cells/padlib ;\
 	export MBK_IN_PH MBK_OUT_LO RDS_TECHNO_NAME MBK_CATA_LIB ;\
 	$(LYNX) -v addaccu addaccu
 
@@ -153,7 +153,7 @@ addaccu.lvx : addaccu.al addaccu.vst
 extracted.pat : addaccu.al
 	MBK_IN_LO=al ;\
 	MBK_OUT_LO=al ;\
-	MBK_CATA_LIB=$(TOP)/cells/sclib:$(TOP)/cells/padlib ;\
+	MBK_CATA_LIB=$(ALLIANCE_TOP)/cells/sclib:$(ALLIANCE_TOP)/cells/padlib ;\
 	export MBK_IN_LO MBK_OUT_LO MBK_CATA_LIB ;\
 	$(ASIMUT) addaccu addaccu extracted
 
@@ -166,8 +166,8 @@ addaccue.vbe : addaccu.ap addaccue.inf
 	MBK_IN_PH=ap ;\
 	MBK_IN_LO=al ;\
 	MBK_OUT_LO=al ;\
-	RDS_TECHNO_NAME=$(TOP)/etc/cmos_7.rds ;\
-	MBK_CATA_LIB=$(TOP)/cells/sclib:$(TOP)/cells/padlib ;\
+	RDS_TECHNO_NAME=$(ALLIANCE_TOP)/etc/cmos_7.rds ;\
+	MBK_CATA_LIB=$(ALLIANCE_TOP)/cells/sclib:$(ALLIANCE_TOP)/cells/padlib ;\
 	export MBK_IN_PH MBK_IN_LO MBK_OUT_LO RDS_TECHNO_NAME MBK_CATA_LIB ;\
 	$(LYNX) -v -t addaccu addaccue ;\
 	$(YAGLE) addaccue -i -v
@@ -179,7 +179,7 @@ addaccue.vbe : addaccu.ap addaccue.inf
 abstracted.pat : addaccue.vbe
 	MBK_IN_LO=vst ;\
 	MBK_OUT_LO=vst ;\
-	MBK_CATA_LIB=$(TOP)/cells/sclib;\
+	MBK_CATA_LIB=$(ALLIANCE_TOP)/cells/sclib;\
 	export MBK_IN_LO MBK_OUT_LO MBK_CATA_LIB ;\
 	$(ASIMUT) -b addaccue addaccu abstracted
 
@@ -199,8 +199,8 @@ addaccu.proof : addaccue.vbe addaccu.vbe
 addaccu.drc : addaccu.ap
 	MBK_IN_PH=ap ;\
 	RDS_OUT=cif  ;\
-	RDS_TECHNO_NAME=$(TOP)/etc/cmos_7.rds ;\
-	MBK_CATA_LIB=$(TOP)/cells/sclib:$(TOP)/cells/padlib ;\
+	RDS_TECHNO_NAME=$(ALLIANCE_TOP)/etc/cmos_7.rds ;\
+	MBK_CATA_LIB=$(ALLIANCE_TOP)/cells/sclib:$(ALLIANCE_TOP)/cells/padlib ;\
 	export MBK_IN_PH RDS_OUT RDS_TECHNO_NAME MBK_CATA_LIB ;\
 	$(DRUC) addaccu
 
@@ -210,8 +210,8 @@ addaccu.drc : addaccu.ap
 
 addaccu.cif : addaccu.ap addaccu.drc
 	MBK_IN_PH=ap ;\
-	MBK_CATA_LIB=$(TOP)/cells/sclib:$(TOP)/cells/padlib ;\
-	RDS_TECHNO_NAME=$(TOP)/etc/prol10_7.rds ;\
+	MBK_CATA_LIB=$(ALLIANCE_TOP)/cells/sclib:$(ALLIANCE_TOP)/cells/padlib ;\
+	RDS_TECHNO_NAME=$(ALLIANCE_TOP)/etc/prol10_7.rds ;\
 	RDS_OUT=cif  ;\
 	RDS_IN=cif ;\
 	export MBK_IN_PH RDS_IN RDS_OUT RDS_TECHNO_NAME MBK_CATA_LIB ;\
@@ -235,8 +235,8 @@ clean:
 
 graal : addaccu.ap
 	MBK_IN_PH=ap ;\
-	RDS_TECHNO_NAME=$(TOP)/etc/cmos_7.rds ;\
-	MBK_CATA_LIB=$(TOP)/cells/sclib:$(TOP)/cells/padlib ;\
+	RDS_TECHNO_NAME=$(ALLIANCE_TOP)/etc/cmos_7.rds ;\
+	MBK_CATA_LIB=$(ALLIANCE_TOP)/cells/sclib:$(ALLIANCE_TOP)/cells/padlib ;\
 	export MBK_IN_PH RDS_TECHNO_NAME MBK_CATA_LIB ;\
 	$(GRAAL) -l addaccu
 

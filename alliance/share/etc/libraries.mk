@@ -3,9 +3,9 @@
 # description   : Alliance Shared Libraries and Include Files   #
 # ###---------------------------------------------------------###
 
-# $Id: libraries.mk,v 1.15 1999/11/05 16:03:19 czo Exp $
+# $Id: libraries.mk,v 1.16 1999/11/05 16:43:15 czo Exp $
 
-# The variables $TOP and $ALLIANCE_OS are set by
+# The variables $ALLIANCE_TOP and $ALLIANCE_OS are set by
 # alc_env.[c]sh script
 
 # ###---------------------------------------------------------###
@@ -13,15 +13,15 @@
 # ###---------------------------------------------------------###
 
 ALLIANCE_VERSION = '"4.0"'
-ALLIANCE_BIN     = $(TOP)/bin
-ALLIANCE_LIB     = $(TOP)/lib
-ALLIANCE_INCLUDE = $(TOP)/include
-ALLIANCE_CELLS   = $(TOP)/cells
-ALLIANCE_ETC     = $(TOP)/etc
+ALLIANCE_BIN     = $(ALLIANCE_TOP)/bin
+ALLIANCE_LIB     = $(ALLIANCE_TOP)/lib
+ALLIANCE_INCLUDE = $(ALLIANCE_TOP)/include
+ALLIANCE_CELLS   = $(ALLIANCE_TOP)/cells
+ALLIANCE_ETC     = $(ALLIANCE_TOP)/etc
 
 # distrib path is now set by make command line
 # when building alliance distrib (./build)
-#ALLIANCE_INSTALL_DIR     = $(TOP)
+#ALLIANCE_INSTALL_DIR     = $(ALLIANCE_TOP)
 # develloppers path
 ALLIANCE_INSTALL_DIR     = $(HOME)/labo/$(ALLIANCE_OS)
 
