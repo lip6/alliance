@@ -42,7 +42,7 @@ LooN \- Light optimizing on Nets.
 
 .SH SYNOPSIS
 .TP
-\f4loon\fP  [-hmxl] \fIinput_file\fP \fIoutput_file\fP  [\fIlax_file\fP]
+\f4loon\fP  [-hmxlo] \fIinput_file\fP \fIoutput_file\fP  [\fIlax_file\fP]
 .br
 
 .SH DESCRIPTION
@@ -82,6 +82,9 @@ Here is the default lax file (see the user's manual for further information abou
 .TP 10
 \f4\-h\fP
 Help mode. Displays possible uses of \f4loon\fP.
+.TP 10
+\f4\-o input_file\fP
+Overwrites the source file if no \fIoutput_file\fP is given. This can be usefull if you don't want several netlist files.
 .TP 10
 \f4\-m optim_mode\fP
 Optimization mode. Can be defined in lax file, it's only a shortcut to define it on command line. This mode number has an array defined between \fI0\fP and \fI4\fP. It indicates the way of optimization the user wants. If \fI0\fP is chosen, the circuit area will be improved. On the other hand, \fI4\fP will improve circuit delays. \fI2\fP is a medium value for optimization.
