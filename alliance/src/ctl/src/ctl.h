@@ -233,6 +233,7 @@
     ctltype_list       *TYPE;
     authtable          *HASH_TYPE;
     ctlform_list       *FORM;
+    ctlform_list      **LAST_FORM;
     authtable          *HASH_FORM;
     ctldecl_list       *DECLAR[ CTL_MAX_DECLAR_TYPE ];
     authtable          *HASH_DECLAR[ CTL_MAX_DECLAR_TYPE ];
@@ -338,7 +339,6 @@
 
   extern int  delctlfig __P((char *Name));
   extern int  delctlline __P((ctlfig_list *Figure, ctlline_list **PrevLine, ctlline_list *Line));
-  extern int  delctlform __P((ctlfig_list *Figure, ctlform_list *Form));
 
 /*------------------------------------------------------\
 |                                                       |

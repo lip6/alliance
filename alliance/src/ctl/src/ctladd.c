@@ -113,6 +113,7 @@ ctlfig_list *addctlfig( Name )
 
   Figure->HASH_FORM = createauthtable( 50 );
   Figure->HASH_TYPE = createauthtable( 50 );
+  Figure->LAST_FORM = &Figure->FORM;
 
   return( Figure );
 }
@@ -425,15 +426,9 @@ ctlform_list *addctlform( Figure, Name, Expr )
   Form->NAME     = Name;
   Form->VEX_EXPR = Expr;
 
-  Form->PREV     = &Figure->FORM;
-  Form->NEXT     = *(Form->PREV);
-
-  if ( Form->NEXT != (ctlform_list *)0 )
-  {
-    Form->NEXT->PREV = &Form->NEXT;
-  }
-
-  *(Form->PREV) = Form;
+  *Figure->LAST_FORM = Form;
+  Form->PREV         = Figure->LAST_FORM;
+  Figure->LAST_FORM  = &Form->NEXT;
 
   addauthelem( Figure->HASH_FORM, Name, (long)Form );
 
