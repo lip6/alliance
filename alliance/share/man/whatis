@@ -106,6 +106,7 @@ MBK_VDD (1)          - define the high level power name pattern
 MBK_VSS (1)          - define the ground power name pattern
 MBK_WORK_LIB (1)     - define the mbk working directory
 OUTLINE (3)          - build an outline from the current layout cell
+OpenVerticalChannel (3) - open a vertical channel in a phfig
 OpenVerticalChannel -open a vertical channel inside a phfig
 PAT (3)              - Generic pattern data structure
 PAT (5)              - Pattern description format
@@ -142,12 +143,12 @@ SC_TOP (3)           - place an instance in the current figure at the right of t
 SETTUNIT, GENPAT Package
 SYF (1)              - Finite State Machine synthesizer.
 SymbolicChannelRouter (3) - routes a given channel on a Virtual grid
+SymbolicChannelRouter (3) - routes a given channel on a symbolic grid
 THRU_CON_H (3)       - draw an horizontal wire from side to side of the abutment box of the current figure
 THRU_CON_V (3)       - draw a vertical wire with connectors from side to side of the abutment box of the current figure
 THRU_H (3)           - draw an horizontal wire from side to side of the abutment box of the current figure
 THRU_V (3)           - draw a vertical wire from side to side of the abutment box of the current figure
 UNFLATTEN_LOFIG (3)  - creates a hierarchy level from instances in the current logical figure
-VASY (1)             - VHDL Analyzer for Synthesis
 WIDTH (3)            - compute the width of a model
 WIRE1 (3)            - place a physical segment in the current figure
 WIRE2 (3)            - place two physical segments in the current figure
@@ -166,7 +167,9 @@ a4p_dp
 a4p_y
 abl (1)              - Prefixed representation for boolean functions
 ablToBddCct (3)      - converts an ABL into a BDD within a circuit
+aboxmbkrds (2)       - converts MBK abutment box to RDS rectangle
 aboxmbkrds (3)       - converts MBK abutment box to RDS rectangle
+action, GENPAT Package
 addHExpr (3)         - adds a new argument at the head of an operator expression.
 addInputCct (3)      - adds an input to a circuit
 addListBdd (3)       - adds a BDD to a chained list of BDDs
@@ -207,23 +210,36 @@ addphref (3)         - create a physical reference
 addphseg (3)         - create a physical segment
 addphvia (3)         - create a physical via
 addptype (3)         - create a ptype and add it to a ptype_list
+addrdsfig (2)        - adds a figure
 addrdsfig (3)        - adds a figure
+addrdsfigrec (2)     - adds a rectangle to a figure
 addrdsfigrec (3)     - adds a rectangle to a figure
+addrdsins (2)        - adds an instance to a figure
 addrdsins (3)        - adds an instance to a figure
+addrdsinsrec (2)     - adds a rectangle to an instance
 addrdsinsrec (3)     - adds a rectangle to an instance
+addrdsrecwindow (2)  - adds a rectangle in the windowing of rds structure.
 addrdsrecwindow (3)  - adds a rectangle in the windowing of rds structure.
+affect, GENPAT Package
 ai (5)               - Alliance icon format
 al (5)               - Alliance logical format
 alcbanner (1)        - Display a standardized banner for Alliance tools
 algue (1)            - ALliance Graphic User Environement
 ali (1)              - ALliance Information
 alliancebanner (3)   - display the standardized Alliance banner
+allocrdsfig (2)      - allocs memory for a figure
 allocrdsfig (3)      - allocs memory for a figure
+allocrdsins (2)      - allocates memory for an instance
 allocrdsins (3)      - allocates memory for an instance
+allocrdsrec (2)      - allocates memory for a rectangle
 allocrdsrec (3)      - allocates memory for a rectangle
+allocrdsrecwin (2)   - allocates a structure used to know windows which contains a rectangle.
 allocrdsrecwin (3)   - allocates a structure used to know windows which contains a rectangle.
+allocrdswin (2)      - allocates window's table
 allocrdswin (3)      - allocates window's table
+allocrdswindow (2)   - allocates a window structure
 allocrdswindow (3)   - allocates a window structure
+allocrdswinrec (2)   - allocates a structure used to create a list of tables of rectangles.
 allocrdswinrec (3)   - allocates a structure used to create a list of tables of rectangles.
 annup_dp
 annup_y
@@ -237,9 +253,11 @@ applybddnodeite (3)  - computes the IF-THEN-ELSE logical operation.
 applybddnodelist (3) - applies an opertor to a bdd nodes list.
 applybddnodenot (3)  - complements a bdd.
 applybddnodeterm (3) - applies an operator on two bdd nodes.
+applyrdssym (2)      - applies a transformation to a rectangle from a model
 applyrdssym (3)      - applies a transformation to a rectangle from a model
 apr (3)              - routing and placement functions
 arp (3)              - routing and placement functions
+array, GENPAT Package
 asimut (1)           - A simulation tool for hardware descriptions
 aut (1)              - Memory allocation, and hash tables management
 autallocblock (3)    - memory allocator
@@ -289,8 +307,11 @@ bgd (1)              - register file generator
 biabl (3)            - BEH data structure
 bigvia (3)           - draws a non minimal via as a bunch of vias
 binode (3)           - BEH data structure
+boog (1)             - Binding and Optimizing On Gates.
+boom (1)             - Boolean optimization of a logic level behavioural description (VHDL data flow)
 bop (1)              - boolean optimization of a logic level behavioural description (VHDL data flow)
 bsg (1)              - Barrel Shifter Generator
+buildrdswindow (2)   - builds windowing of a figure
 buildrdswindow (3)   - builds windowing of a figure
 buseg (1)            - Tristate generator for FITPATH data-path compiler.
 c4map (1)            - mapping of a behavioural description with the CMOS Complex Cell Compiler : C4.
@@ -310,6 +331,7 @@ composeBdd (3)       - substitutes an index by a BDD in another BDD
 composeCct (3)       - composes all the outputs within a circuit with a BDD
 composebddnode (3)   - substitutes a variable by a bdd in another bdd.
 concatname (3)       - concatenate two names with user separator
+conmbkrds (2)        - converts MBK connector to RDS rectangle
 conmbkrds (3)        - converts MBK connector to RDS rectangle
 constraintBdd (3)    - restricts a BDD to another BDD
 constraintCct (3)    - restricts all the outputs within a circuit with a BDD constraint
@@ -343,6 +365,7 @@ cry_y
 d1_y
 decbddrefext (3)     - decrements the external reference of a bdd node.
 decbddrefint (3)     - decrements the internal reference of a bdd node.
+def_genpat, GENPAT Package
 defab (3)            - defines the abutment box of a phfig
 delablexpr (3)       - deletes an expression.
 delablexprnum (3)    - deletes an operand in an expression.
@@ -371,10 +394,15 @@ delphref (3)         - delete a physical reference
 delphseg (3)         - delete a physical segment
 delphvia (3)         - delete a physical via
 delptype (3)         - delete an element of a ptype_list
+delrdsfig (2)        - deletes a figure
 delrdsfig (3)        - deletes a figure
+delrdsfigrec (2)     - deletes a rectangle of a figure
 delrdsfigrec (3)     - deletes a rectangle of a figure
+delrdsins (2)        - deletes an instance of a figure
 delrdsins (3)        - deletes an instance of a figure
+delrdsinsrec (2)     - deletes a rectangle of an instance
 delrdsinsrec (3)     - deletes a rectangle of an instance
+delrdsrecwindow (2)  - deletes a rectangle from the windowing of rds structure.
 delrdsrecwindow (3)  - deletes a rectangle from the windowing of rds structure.
 destroyBdd (3)       - removes the BDDs system
 destroyCct (3)       - removes a circuit
@@ -384,6 +412,7 @@ destroyauthtable (3) - destroys a simple hash table.
 destroybddassoc (3)  - frees all the variable associations.
 destroybddcircuit (3) - destroys a bdd circuit.
 destroybddsystem (3) - destroys a bdd system.
+destroyrdswindow (2) - destroys windowing of a figure
 destroyrdswindow (3) - destroys windowing of a figure
 devXor2Expr (3)      - converts XOR 2 to OR-AND
 devXorExpr (3)       - removes XOR in an expression
@@ -407,6 +436,7 @@ everyExpr (3)        - returns the value of a logical AND applied on the results
 existbddnodeassocoff (3) - computes an existantial quantification.
 existbddnodeassocon (3) - computes an existantial quantification.
 exprToChar (3)       - converts an expression into a string
+figmbkrds (2)        - converts MBK figure to RDS figure
 figmbkrds (3)        - converts MBK figure to RDS figure
 filepath (3)         - return the whole search path of a file
 flatArityExpr (3)    - flattens the operators of an expression
@@ -422,8 +452,11 @@ freechain (3)        - free a chain_list
 freelomodel (3)      - free a lofig_list for temporary models
 freenum (3)          - free a num_list
 freeptype (3)        - free a ptype_list
+freerdsfig (2)       - frees memory associated to a figure
 freerdsfig (3)       - frees memory associated to a figure
+freerdsins (2)       - frees memory associated to an instance
 freerdsins (3)       - frees memory associated to an instance
+freerdsrec (2)       - free memory associated to a rectangle
 freerdsrec (3)       - free memory associated to a rectangle
 fsm (1)              - Finite State Machine representation.
 fsm (5)              - Alliance VHDL Finite State Machine description subset.
@@ -461,7 +494,9 @@ getphfig (3)         - give back a pointer to a phfig
 getphins (3)         - retrieve a physical instance
 getphref (3)         - retrieve a physical reference
 getptype (3)         - retrieve a ptype from a ptype_list
+getrdsfig (2)        - gets a pointer to a figure called by its name.
 getrdsfig (3)        - gets a pointer to a figure called by its name.
+getrdsmodellist (2)  - gets model list of the instances of a figure
 getrdsmodellist (3)  - gets model list of the instances of a figure
 getsigname (3)       - choose a signal name in alias list
 givelosig (3)        - give a logical signal
@@ -479,14 +514,20 @@ incatalogfeed (3)    - test if cell belongs to the catalog file
 incataloggds (3)     - test if cell belongs to the catalog file
 incbddrefext (3)     - increments the external reference of a bdd node.
 incbddrefint (3)     - increments the internal reference of a bdd node.
+init, GENPAT Package
 initializeBdd (3)    - initializes the BDDs system
 initializeCct (3)    - creates a circuit
+insconmbkrds (2)     - adds in RDS instance all the connectors of MBK instance
 insconmbkrds (3)     - adds in RDS instance all the connectors of MBK instance
+insmbkrds (2)        - converts MBK figure to RDS figure
 insmbkrds (3)        - converts MBK figure to RDS figure
+insrefmbkrds (2)     - adds in RDS instance all the references of MBK instance.
 insrefmbkrds (3)     - adds in RDS instance all the references of MBK instance.
+inssegmbkrds (2)     - adds in RDS instance all the segments of MBK instance
 inssegmbkrds (3)     - adds in RDS instance all the segments of MBK instance
 instanceface (3)     - returns the face of a connector in a placed instance
 instr (3)            - find an occurence of a string in a string, starting at a specified character.
+insviambkrds (2)     - adds to RDS instance all the contacts from MBK instance
 insviambkrds (3)     - adds to RDS instance all the contacts from MBK instance
 intersectbddnode (3) - tests for an intersection between two bdd nodes.
 isablbinaryoper (3)  - tests if an operator is binary.
@@ -515,6 +556,7 @@ l5r_y
 l5s_y
 l6r_y
 l6s_y
+label, GENPAT Package
 lax (5)              - Parameter file for logic synthesis
 lengthExpr (3)       - returns the number of arguments in an expression
 librds (1)           - rds library description
@@ -525,7 +567,9 @@ librut (1)           - rut library description
 librwi (1)           - rwi library description
 loadlofig (3)        - load a new logical cell model from disk
 loadphfig (3)        - load a new physical cell model from disk
+loadrdsfig (2)       - give back a pointer to a figure
 loadrdsfig (3)       - give back a pointer to a figure
+loadrdsparam (2)     - load parameters from symbolic to real conversion.
 loadrdsparam (3)     - load parameters from symbolic to real conversion.
 locon (3)            - mbk logical connector
 lofig (3)            - mbk logical figure
@@ -560,6 +604,7 @@ mbkrealloc (3)       - mbk memory reallocator
 mbkunlink (3)        - delete a file in the WORK_LIBP.
 minExpr (3)          - returns the lowest argument of an operator expression.
 mlodebug (3)         - logical data structure contents debug function
+modelmbkrds (2)      - gets all models of instances contained in a figure.
 modelmbkrds (3)      - gets all models of instances contained in a figure.
 mphdebug (3)         - physical data structure contents debug function
 ms2_dp
@@ -684,6 +729,7 @@ phvia (3)            - mbk physical contact
 pi_sp
 piot_sp
 piotw_sp
+place (3)            - place the cells of a net list
 po_sp
 polarablexpr (3)     - moves inverters to the atomic level.
 polardupablexpr (3)  - duplicates an expression and moves down the inverters.
@@ -708,9 +754,13 @@ pvssi_sp
 pvssick_sp
 rage (1)             - Random Acess Memory(RAM) Generator
 rds (1)              - rds package
+rdsalloc (2)         - memory allocation function
 rdsalloc (3)         - memory allocation function
+rdsenv (2)           - set user preference
 rdsenv (3)           - set user preference
+rdsfree (2)          - free memory place
 rdsfree (3)          - free memory place
+refmbkrds (2)        - adds to RDS figure a references from a MBK figure
 refmbkrds (3)        - adds to RDS figure a references from a MBK figure
 register, GENPAT Package
 relprodbddnodeassoc (3) - computes a relational product.
@@ -728,16 +778,19 @@ restorealldir (3)    - restore all instances' connectors directions
 restoredirvbe (3)    - restore connectors directions from behavioral view
 restrictbddnode (3)  - substitutes a variable by a zero or one, in a bdd.
 reverse (3)          - reverse a list of chained elements
-rfg (1)              - register file generator - version 6.05
+rfg (1)              - register file generator
 rflattenlofig (3)    - recursivly flatten a figure
 rflattenphfig (3)    - recursivly flatten a figure
+roundrdsrec (2)      - adjusts a rectangle to lambda grid step
 roundrdsrec (3)      - adjusts a rectangle to lambda grid step
 rsa (1)              - Recurrence Solver Adder generator
 rsa (3)              - call the Recurrence Solver Adder generator
 s2r (1)              - Process mapping from symbolic layout to physical layout
 satisfybddnode (3)   - finds a satisfying path for a bdd node.
+sav_genpat, GENPAT Package
 savelofig (3)        - save a logical figure on disk
 savephfig (3)        - save a physical figure on disk
+saverdsfig (2)       - save a physical figure on disk.
 saverdsfig (3)       - save a physical figure on disk.
 sclib (5)            - a portable CMOS Standard Cell Library
 scmap (1)            - mapping of a behavioural description onto a standard cell library.
@@ -752,7 +805,9 @@ searchauth2elem (3)  - searches an element in the hash table.
 searchauthelem (3)   - searches an element in the hash table.
 searchbddcircuitin (3) - searchs an input in a bdd circuit.
 searchbddcircuitout (3) - searchs an output in a bdd circuit.
+searchrdsfig (2)     - searchs by name a figure in the list of figures
 searchrdsfig (3)     - searchs by name a figure in the list of figures
+segmbkrds (2)        - adds to RDS figure a segment from a MBK figure
 segmbkrds (3)        - adds to RDS figure a segment from a MBK figure
 setbddrefext (3)     - increments the external reference, and decrements the internal reference of a bdd node.
 sethtitem (3)        - test and set an item in an hash table.
@@ -799,10 +854,12 @@ unsetbddrefext (3)   - increments the internal reference, and decrements the ext
 upVarBdd (3)         - brings up an index in a BDD
 upVarCct (3)         - brings up the index of a primary input within a circuit
 upstr (3)            - convert a string to upper case
-vasy VHDL RTL subset.
-vbe VHDL behavioural subset.
+vasy (1)             - VHDL Analyzer for Synthesis
+vasy (5)             - VHDL Analyzer for Synthesis Subset
+vbe (5)              - VHDL behavioural subset.
 vhdlablname (3)      - returns a compatible VHDL name.
 vhdlablvector (3)    - gives the index and the name of a vectorized name.
+viambkrds (2)        - adds to RDS figure a contact from a MBK figure
 viambkrds (3)        - adds to RDS figure a contact from a MBK figure
 viewablexpr (3)      - displays an expression.
 viewablexprfile (3)  - displays an expression in a file.
@@ -826,17 +883,29 @@ viewphins (3)        - display elements of a phins_list
 viewphref (3)        - display elements of a phref_list
 viewphseg (3)        - display elements of a phseg_list
 viewphvia (3)        - display elements of a phvia_list
+viewrdsfig (2)       - view caracteristics of a figure
 viewrdsfig (3)       - view caracteristics of a figure
+viewrdsins (2)       - Displays caracteristics of an instance
 viewrdsins (3)       - Displays caracteristics of an instance
+viewrdsparam (2)     - displays tables in memory filled by loadrdsparam function.
 viewrdsparam (3)     - displays tables in memory filled by loadrdsparam function.
+viewrdsrec (2)       - Displays caracteristics of a rectangle
 viewrdsrec (3)       - Displays caracteristics of a rectangle
+viewrdswindow (2)    - displays caracteristics of the windowing.
 viewrdswindow (3)    - displays caracteristics of the windowing.
+viewrfmcon (2)       - displays connector caracteristics in MBK and RDS format.
 viewrfmcon (3)       - displays connector caracteristics in MBK and RDS format.
+viewrfmfig (2)       - displays figure caracteristics in MBK and RDS format.
 viewrfmfig (3)       - displays figure caracteristics in MBK and RDS format.
+viewrfmins (2)       - displays instance caracteristics in MBK and RDS format.
 viewrfmins (3)       - displays instance caracteristics in MBK and RDS format.
+viewrfmrec (2)       - displays rectangle caracteristics in RDS format.
 viewrfmrec (3)       - displays rectangle caracteristics in RDS format.
+viewrfmref (2)       - displays reference caracteristics in MBK and RDS format.
 viewrfmref (3)       - displays reference caracteristics in MBK and RDS format.
+viewrfmseg (2)       - displays segment caracteristics in MBK and RDS format.
 viewrfmseg (3)       - displays segment caracteristics in MBK and RDS format.
+viewrfmvia (2)       - displays contact caracteristics in MBK and RDS format.
 viewrfmvia (3)       - displays contact caracteristics in MBK and RDS format.
 vst VHDL structural subset.
 xmbk (1)             - A simple way to set alliance environnement variables

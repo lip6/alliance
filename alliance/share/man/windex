@@ -94,8 +94,11 @@ LOSIGMERGE (3)       - merge two logical signals
 LOTRS (3)            - adds a logical transistor to the current netlist figure
 MBK_CATAL_NAME (1)   - define the mbk catalog file
 MBK_CATA_LIB (1)     - define the mbk catalog directory
+MBK_FILTER_SFX (1)   - define the input/output filter suffixe.
+MBK_IN_FILTER (1)    - define the input filter
 MBK_IN_LO (1)        - define the logical input format of mbk and genlib
 MBK_IN_PH (1)        - define the physical input format of mbk and genlib
+MBK_OUT_FILTER (1)   - define the input filter
 MBK_OUT_LO (1)       - define the logical output format of mbk and genlib
 MBK_OUT_PH (1)       - define the physical output format of mbk and genlib
 MBK_SEPAR (1)        - define the separator character for hierarchy
@@ -137,6 +140,7 @@ SC_LEFT (3)          - place an instance in the current figure at the right of t
 SC_PLACE (3)         - place an instance in the current figure at absolute coordinates
 SC_RIGHT (3)         - place an instance in the current figure at the right of the "reference instance"
 SC_TOP (3)           - place an instance in the current figure at the right of the "reference instance"
+SETTUNIT, GENPAT Package
 SYF (1)              - Finite State Machine synthesizer.
 SymbolicChannelRouter (3) - routes a given channel on a Virtual grid
 SymbolicChannelRouter (3) - routes a given channel on a symbolic grid
@@ -220,6 +224,8 @@ affect, GENPAT Package
 ai (5)               - Alliance icon format
 al (5)               - Alliance logical format
 alcbanner (1)        - Display a standardized banner for Alliance tools
+algue (1)            - ALliance Graphic User Environement
+ali (1)              - ALliance Information
 alliancebanner (3)   - display the standardized Alliance banner
 allocrdsfig (2)      - allocs memory for a figure
 allocrdsfig (3)      - allocs memory for a figure
@@ -532,6 +538,7 @@ isablunaryoper (3)   - tests if an operator is unary.
 isbddvarinsupport (3) - tests if a variable appears in a bdd.
 isvdd -tells if a name contains the pattern defined by the user
 isvss -tells if a name contains the pattern defined by the user
+k2f, FSM translator ALLIANCE format from/to Berkeley format
 l1_y
 l1n_y
 l1x_y
@@ -817,6 +824,7 @@ sortExpr (3)         - sorts an expression
 sortautarray (3)     - heap sort.
 sortlocon (3)        - sort the logical connectors of a figure by name
 sortlosig (3)        - sort the logical signals of a figure by name
+spi (5)              - Alliance parser and driver for Spice netlist.
 substExpr (3)        - copies an expression by substituting a given atom by an expression
 substPhyExpr (3)     - substitutes an atomic expression by an expression within an operator expression
 substablexpr (3)     - substitutes a given atom by an expression.
