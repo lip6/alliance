@@ -45,7 +45,7 @@
 # include <stdio.h>
 # include <Xm/Xm.h>
 # include <Xm/PushBG.h>
-# ifdef AUTO_HAS_XPM
+# ifdef HAVE_XPM
 # include <X11/xpm.h>
 # endif
 
@@ -116,7 +116,7 @@ void DrealToolsSavePixmap( FileName )
 
   char *FileName;
 {
-# ifdef AUTO_HAS_XPM
+# ifdef HAVE_XPM
   XpmAttributes Attribute;
   char         *XpmFileName;
   int           Error;
