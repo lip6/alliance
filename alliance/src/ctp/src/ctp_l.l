@@ -62,7 +62,7 @@ static el_mc tab_mc []=
     {"abs"		,ABS},
     {"af"		,_AF},
     {"ag"		,_AG},
-    {"and"		,_AND},
+    {"and"		,tok_AND},
     {"array"		,ARRAY},
     {"assume"		,_ASSUME},
     {"au"		,_AU},

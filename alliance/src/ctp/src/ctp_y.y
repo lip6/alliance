@@ -78,7 +78,7 @@
 %token <valu> _EU
 %token <valu> Imply
 %token <valu> Equiv
-%token <valu> _AND
+%token <valu> tok_AND
 %token <valu> _BEGIN
 %token <valu> _END
 %token <valu> _EQSym
@@ -99,7 +99,6 @@
 %token <valu> _NEXT
 %token <valu> _NOR
 %token <valu> _NOT
-%token <valu> _NULL
 %token <valu> _OR
 %token <valu> _OUT
 %token <valu> _XOR
@@ -213,7 +212,7 @@
 %token <valu> WHILE
 %token <valu> WITH
 
-%left                _AND _OR _NAND _NOR _XOR Imply Equiv
+%left                tok_AND _OR _NAND _NOR _XOR Imply Equiv
 %left                _EQSym _NESym _LTSym _LESym _GTSym _GESym
 %left                Plus Minus Ampersand
 %left                Star Slash MOD REM
@@ -1072,13 +1071,13 @@ expression
 
 relation..AND__relation..
        : relation
-         _AND
+         tok_AND
          relation
          { 
            $$ = ctp_crtvex (VEX_AND ,$1 ,$3 ,-1,-1);
          } 
        | relation..AND__relation..
-         _AND
+         tok_AND
          relation
          { 
            $$ = ctp_crtvex (VEX_AND ,$1 ,$3 ,-1,-1);
