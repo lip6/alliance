@@ -21,7 +21,7 @@
  * Software Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
  */
 
-#ident "$Id: x2y.c,v 1.4 2003/11/15 21:26:19 jpc Exp $"
+#ident "$Id: x2y.c,v 1.5 2004/07/30 14:28:22 fred Exp $"
 #include <stdio.h>
 #include <string.h>
 #include "mut.h"
@@ -64,18 +64,18 @@ int main( argc, argv )
   if ( argc != 5 )
   {
     fprintf( stdout,
-"Syntax: x2y in_format out_format in_file out_file"
-"Where format is one of"
-"    al              ALLIANCE    netlist"
-"    ap              ALLIANCE    layout"
-"    cct             HILO        netlist"
-"    cp              VTI         layout"
-"    edi             EDIF        netlist or layout"
-"    fne             VTI         extracted netlist"
-"    hns             VTI         netlist"
-"    spi, sp, cir    SPICE       netlist"
-"    vlg             VERILOG     netlist"
-"    vst             VHDL        netlist"
+"Syntax: x2y in_format out_format in_file out_file\n"
+"Where format is one of:\n"
+"    al              ALLIANCE    netlist\n"
+"    ap              ALLIANCE    layout\n"
+"    cct             HILO        netlist\n"
+"    cp              VTI         layout\n"
+"    edi             EDIF        netlist or layout\n"
+"    fne             VTI         extracted netlist\n"
+"    hns             VTI         netlist\n"
+"    spi, sp, cir    SPICE       netlist\n"
+"    vlg             VERILOG     netlist\n"
+"    vst             VHDL        netlist\n"
  );
     return( 1 );
   }
