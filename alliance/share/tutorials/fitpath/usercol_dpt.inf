@@ -1,0 +1,4 @@
+RENAME
+  memory.pdff_*.memm_s : memory_m(*) ;
+  memory.pdff_*.mems_s : memory_s(*) ;
+END
