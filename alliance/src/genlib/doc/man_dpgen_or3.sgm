@@ -68,7 +68,7 @@
       <title> Behavior </title>
 
       <literallayout>
-q <= not(i0 or i1 or i2)
+q <= i0 or i1 or i2
       </literallayout>
 
     </refsect2>

@@ -1,6 +1,6 @@
 
 
-pkghtmldir = $(prefix)/doc/html/@PACKAGE@
+pkghtmldir = $(DESTDIR)$(prefix)/doc/html/@PACKAGE@
 pkghtml_DATA = \
                ./genlib.html \
                ./ref_genlib.html \

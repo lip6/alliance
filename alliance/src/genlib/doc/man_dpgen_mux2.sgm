@@ -24,6 +24,7 @@
           <paramdef>char *<parameter>modelname</parameter></paramdef>
           <paramdef>long <parameter>flags</parameter></paramdef>
           <paramdef>long <parameter>N</parameter></paramdef>
+          <paramdef>long <parameter>drive</parameter></paramdef>
       </funcprototype>
     </funcsynopsis>
   </refsynopsisdiv>
@@ -32,6 +33,8 @@
     <title> Description </title>
 
     <para> Generate a &N; bits two inputs multiplexer with named &modelname;.
+    </para>
+    <para> Valid &drive; are : 1, 2 or 4.
     </para>
 
     <refsect2>
@@ -80,6 +83,7 @@ q <= WITH cmd SELECT i0 WHEN '0',
 GENLIB_MACRO(DPGEN_MUX2, "model_mux2_32"
                        , F_BEHAV|F_PLACE
                        , 32
+                       , 1
                        );
 
 GENLIB_LOINS( "model_mux2_32"

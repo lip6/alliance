@@ -125,6 +125,11 @@ CLASS="PARAMETER"
 ><I
 >N</I
 ></TT
+>, long <TT
+CLASS="PARAMETER"
+><I
+>drive</I
+></TT
 >);</CODE
 ></P
 ><P
@@ -134,7 +139,7 @@ CLASS="PARAMETER"
 ><DIV
 CLASS="REFSECT1"
 ><A
-NAME="AEN2014"
+NAME="AEN2016"
 ></A
 ><H2
 > Description </H2
@@ -151,10 +156,18 @@ CLASS="REPLACEABLE"
 ></TT
 >.
     </P
+><P
+> Valid <TT
+CLASS="REPLACEABLE"
+><I
+>drive</I
+></TT
+> are : 1, 2 or 4.
+    </P
 ><DIV
 CLASS="REFSECT2"
 ><A
-NAME="AEN2019"
+NAME="AEN2023"
 ></A
 ><H3
 > Terminal Names </H3
@@ -224,7 +237,7 @@ CLASS="LITERAL"
 ><DIV
 CLASS="REFSECT2"
 ><A
-NAME="AEN2043"
+NAME="AEN2047"
 ></A
 ><H3
 > Behavior </H3
@@ -246,7 +259,7 @@ CLASS="SCREEN"
 ><DIV
 CLASS="REFSECT1"
 ><A
-NAME="AEN2046"
+NAME="AEN2050"
 ></A
 ><H2
 > Example </H2
@@ -262,6 +275,7 @@ CLASS="PROGRAMLISTING"
 >GENLIB_MACRO(DPGEN_MUX2, "model_mux2_32"
                        , F_BEHAV|F_PLACE
                        , 32
+                       , 1
                        );
 
 GENLIB_LOINS( "model_mux2_32"
@@ -282,7 +296,7 @@ GENLIB_LOINS( "model_mux2_32"
 ><DIV
 CLASS="REFSECT1"
 ><A
-NAME="AEN2050"
+NAME="AEN2054"
 ></A
 ><H2
 >See Also</H2
