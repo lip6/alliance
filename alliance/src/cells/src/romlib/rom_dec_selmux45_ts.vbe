@@ -20,7 +20,7 @@ PORT (
   mux5    : out BIT;
   sel5    : out BIT;
   enx     : out BIT;
-  nenx    : out BIT;
+  nenx    : inout BIT;
   vdd	  : in  BIT;
   vss	  : in  BIT
 );

@@ -32,12 +32,12 @@ BEGIN
   REPORT "power supply is missing on rom_data_outvss_ts"
   SEVERITY WARNING;
 
-  label : BLOCK (enx = '1')
+  q : BLOCK (enx = '1')
   BEGIN
   q <= GUARDED (mux0 and bit0) or (mux1 and bit1) or
                (mux2 and bit2) or (mux3 and bit3) or
                (mux4 and bit4) or (mux5 and bit5) or
                (mux6 and bit6) or (mux7 and bit7);  
-  END BLOCK label;
+  END BLOCK q;
 
 END;

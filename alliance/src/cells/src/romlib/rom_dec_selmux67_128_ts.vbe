@@ -15,13 +15,13 @@ PORT (
   a6      : in  BIT;
   selrom  : in  BIT;
   a6x     : out BIT;
-  na6x    : out BIT;
+  na6x    : inout BIT;
   mux6    : out BIT;
   sel6    : out BIT;
   mux7    : out BIT;
   sel7    : out BIT;
   enx     : out BIT;
-  nenx    : out BIT;
+  nenx    : inout BIT;
   vdd	  : in  BIT;
   vss	  : in  BIT
 );

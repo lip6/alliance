@@ -5,8 +5,8 @@ PORT (
   sel2    : in  BIT;
   sel3    : in  BIT;
   col     : in  BIT;
-  line2   : in  BIT;
-  line3   : in  BIT;
+  line2   : out  BIT;
+  line3   : out  BIT;
   vdd	  : in  BIT;
   vss	  : in  BIT
 );

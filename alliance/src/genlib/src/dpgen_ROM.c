@@ -182,7 +182,7 @@ GENLIB_DEF_LOFIG(model_name);
 GENLIB_LOCON("ck",IN,"ck");
 GENLIB_LOCON("selrom",IN,"selrom");
 GENLIB_LOCON(GENLIB_BUS("ad",adrange-1,0),IN,GENLIB_BUS("ad",adrange-1,0));
-GENLIB_LOCON(GENLIB_BUS("data",nbit-1,0),IN,GENLIB_BUS("data",nbit-1,0));
+GENLIB_LOCON(GENLIB_BUS("data",nbit-1,0),OUT,GENLIB_BUS("data",nbit-1,0));
 GENLIB_LOCON("vdd",IN,"vdd");
 GENLIB_LOCON("vss",IN,"vss");
 

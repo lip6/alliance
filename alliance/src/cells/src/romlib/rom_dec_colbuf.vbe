@@ -2,7 +2,7 @@ ENTITY rom_dec_colbuf IS
 PORT (
   a      : in  BIT;
   ax     : out BIT;
-  nax    : out BIT;
+  nax    : inout BIT;
   vdd	  : in  BIT;
   vss	  : in  BIT
 );

@@ -1,4 +1,10 @@
 
+VERSION             5.2 ;
+NAMESCASESENSITIVE  ON ;
+BUSBITCHARS         "()" ;
+DIVIDERCHAR         "." ;
+
+
 MACRO rom_data_insel
     CLASS     CORE ;
     ORIGIN    0.00 0.00 ;
@@ -84,19 +90,37 @@ MACRO rom_data_insel
             RECT 24.00 -1.00 26.00 1.00 ;
         END
     END prech
-    PIN vss
-        DIRECTION INOUT ;
-        USE ground ;
-        SHAPE FEEDTHRU ;
-    END vss
     PIN vdd
         DIRECTION INOUT ;
-        USE power ;
+        USE POWER ;
         SHAPE FEEDTHRU ;
+        PORT
+            LAYER L_ALU1 ;
+            WIDTH 6.00 ;
+            PATH 3.00 47.00 7.00 47.00 ;
+            LAYER L_ALU3 ;
+            WIDTH 12.00 ;
+            PATH 10.00 6.00 10.00 44.00 ;
+        END
     END vdd
+    PIN vss
+        DIRECTION INOUT ;
+        USE GROUND ;
+        SHAPE FEEDTHRU ;
+        PORT
+            LAYER L_ALU1 ;
+            WIDTH 6.00 ;
+            PATH 3.00 3.00 7.00 3.00 ;
+            LAYER L_ALU3 ;
+            WIDTH 2.00 ;
+            PATH 20.00 1.00 20.00 49.00 ;
+        END
+    END vss
     OBS
         LAYER L_ALU1 ;
-        RECT 1.50 1.50 28.50 48.50 ;
+        RECT 13.00 0.00 28.50 6.00 ;
+        RECT 1.50 9.00 28.50 41.00 ;
+        RECT 13.00 44.00 28.50 50.00 ;
         LAYER L_ALU2 ;
         RECT 4.00 49.00 11.00 51.00 ;
         RECT 14.00 -1.00 31.00 51.00 ;
@@ -189,19 +213,37 @@ MACRO rom_data_invss
             RECT 24.00 49.00 26.00 51.00 ;
         END
     END prech
-    PIN vss
-        DIRECTION INOUT ;
-        USE ground ;
-        SHAPE FEEDTHRU ;
-    END vss
     PIN vdd
         DIRECTION INOUT ;
-        USE power ;
+        USE POWER ;
         SHAPE FEEDTHRU ;
+        PORT
+            LAYER L_ALU1 ;
+            WIDTH 6.00 ;
+            PATH 3.00 47.00 7.00 47.00 ;
+            LAYER L_ALU3 ;
+            WIDTH 12.00 ;
+            PATH 10.00 6.00 10.00 44.00 ;
+        END
     END vdd
+    PIN vss
+        DIRECTION INOUT ;
+        USE GROUND ;
+        SHAPE FEEDTHRU ;
+        PORT
+            LAYER L_ALU1 ;
+            WIDTH 6.00 ;
+            PATH 3.00 3.00 7.00 3.00 ;
+            LAYER L_ALU3 ;
+            WIDTH 2.00 ;
+            PATH 20.00 1.00 20.00 49.00 ;
+        END
+    END vss
     OBS
         LAYER L_ALU1 ;
-        RECT 1.50 1.50 28.50 48.50 ;
+        RECT 13.00 0.00 28.50 6.00 ;
+        RECT 1.50 9.00 28.50 41.00 ;
+        RECT 13.00 44.00 28.50 50.00 ;
         LAYER L_ALU2 ;
         RECT 4.00 49.00 11.00 51.00 ;
         RECT 14.00 -1.00 31.00 51.00 ;
@@ -215,90 +257,6 @@ MACRO rom_data_midsel
     SIZE      25.00 BY 50.00 ;
     SYMMETRY  X Y ;
     SITE      core ;
-    PIN bit5
-        DIRECTION OUTPUT TRISTATE ;
-        PORT
-            LAYER L_ALU2 ;
-            RECT 24.00 34.00 26.00 36.00 ;
-            RECT 19.00 34.00 21.00 36.00 ;
-            RECT 14.00 34.00 16.00 36.00 ;
-            RECT 9.00 34.00 11.00 36.00 ;
-            RECT 4.00 34.00 6.00 36.00 ;
-            RECT -1.00 34.00 1.00 36.00 ;
-        END
-    END bit5
-    PIN bit4
-        DIRECTION OUTPUT TRISTATE ;
-        PORT
-            LAYER L_ALU2 ;
-            RECT 24.00 28.00 26.00 30.00 ;
-            RECT 19.00 28.00 21.00 30.00 ;
-            RECT 14.00 28.00 16.00 30.00 ;
-            RECT 9.00 28.00 11.00 30.00 ;
-            RECT 4.00 28.00 6.00 30.00 ;
-            RECT -1.00 28.00 1.00 30.00 ;
-        END
-    END bit4
-    PIN bit3
-        DIRECTION OUTPUT TRISTATE ;
-        PORT
-            LAYER L_ALU2 ;
-            RECT 24.00 22.00 26.00 24.00 ;
-            RECT 19.00 22.00 21.00 24.00 ;
-            RECT 14.00 22.00 16.00 24.00 ;
-            RECT 9.00 22.00 11.00 24.00 ;
-            RECT 4.00 22.00 6.00 24.00 ;
-            RECT -1.00 22.00 1.00 24.00 ;
-        END
-    END bit3
-    PIN bit0
-        DIRECTION OUTPUT TRISTATE ;
-        PORT
-            LAYER L_ALU2 ;
-            RECT 24.00 4.00 26.00 6.00 ;
-            RECT 19.00 4.00 21.00 6.00 ;
-            RECT 14.00 4.00 16.00 6.00 ;
-            RECT 9.00 4.00 11.00 6.00 ;
-            RECT 4.00 4.00 6.00 6.00 ;
-            RECT -1.00 4.00 1.00 6.00 ;
-        END
-    END bit0
-    PIN bit1
-        DIRECTION OUTPUT TRISTATE ;
-        PORT
-            LAYER L_ALU2 ;
-            RECT 24.00 10.00 26.00 12.00 ;
-            RECT 19.00 10.00 21.00 12.00 ;
-            RECT 14.00 10.00 16.00 12.00 ;
-            RECT 9.00 10.00 11.00 12.00 ;
-            RECT 4.00 10.00 6.00 12.00 ;
-            RECT -1.00 10.00 1.00 12.00 ;
-        END
-    END bit1
-    PIN bit2
-        DIRECTION OUTPUT TRISTATE ;
-        PORT
-            LAYER L_ALU2 ;
-            RECT 24.00 16.00 26.00 18.00 ;
-            RECT 19.00 16.00 21.00 18.00 ;
-            RECT 14.00 16.00 16.00 18.00 ;
-            RECT 9.00 16.00 11.00 18.00 ;
-            RECT 4.00 16.00 6.00 18.00 ;
-            RECT -1.00 16.00 1.00 18.00 ;
-        END
-    END bit2
-    PIN bit6
-        DIRECTION OUTPUT TRISTATE ;
-        PORT
-            LAYER L_ALU2 ;
-            RECT 24.00 40.00 26.00 42.00 ;
-            RECT 19.00 40.00 21.00 42.00 ;
-            RECT 14.00 40.00 16.00 42.00 ;
-            RECT 9.00 40.00 11.00 42.00 ;
-            RECT 4.00 40.00 6.00 42.00 ;
-            RECT -1.00 40.00 1.00 42.00 ;
-        END
-    END bit6
     PIN bit7
         DIRECTION OUTPUT TRISTATE ;
         PORT
@@ -311,27 +269,90 @@ MACRO rom_data_midsel
             RECT -1.00 46.00 1.00 48.00 ;
         END
     END bit7
-    PIN seld
-        DIRECTION INPUT ;
+    PIN bit6
+        DIRECTION OUTPUT TRISTATE ;
         PORT
-            LAYER L_ALU3 ;
-            RECT 19.00 -1.00 21.00 1.00 ;
+            LAYER L_ALU2 ;
+            RECT 24.00 40.00 26.00 42.00 ;
+            RECT 19.00 40.00 21.00 42.00 ;
+            RECT 14.00 40.00 16.00 42.00 ;
+            RECT 9.00 40.00 11.00 42.00 ;
+            RECT 4.00 40.00 6.00 42.00 ;
+            RECT -1.00 40.00 1.00 42.00 ;
         END
-    END seld
-    PIN selc
-        DIRECTION INPUT ;
+    END bit6
+    PIN bit2
+        DIRECTION OUTPUT TRISTATE ;
         PORT
-            LAYER L_ALU3 ;
-            RECT 14.00 -1.00 16.00 1.00 ;
+            LAYER L_ALU2 ;
+            RECT 24.00 16.00 26.00 18.00 ;
+            RECT 19.00 16.00 21.00 18.00 ;
+            RECT 14.00 16.00 16.00 18.00 ;
+            RECT 9.00 16.00 11.00 18.00 ;
+            RECT 4.00 16.00 6.00 18.00 ;
+            RECT -1.00 16.00 1.00 18.00 ;
         END
-    END selc
-    PIN selb
-        DIRECTION INPUT ;
+    END bit2
+    PIN bit1
+        DIRECTION OUTPUT TRISTATE ;
         PORT
-            LAYER L_ALU3 ;
-            RECT 9.00 -1.00 11.00 1.00 ;
+            LAYER L_ALU2 ;
+            RECT 24.00 10.00 26.00 12.00 ;
+            RECT 19.00 10.00 21.00 12.00 ;
+            RECT 14.00 10.00 16.00 12.00 ;
+            RECT 9.00 10.00 11.00 12.00 ;
+            RECT 4.00 10.00 6.00 12.00 ;
+            RECT -1.00 10.00 1.00 12.00 ;
         END
-    END selb
+    END bit1
+    PIN bit0
+        DIRECTION OUTPUT TRISTATE ;
+        PORT
+            LAYER L_ALU2 ;
+            RECT 24.00 4.00 26.00 6.00 ;
+            RECT 19.00 4.00 21.00 6.00 ;
+            RECT 14.00 4.00 16.00 6.00 ;
+            RECT 9.00 4.00 11.00 6.00 ;
+            RECT 4.00 4.00 6.00 6.00 ;
+            RECT -1.00 4.00 1.00 6.00 ;
+        END
+    END bit0
+    PIN bit3
+        DIRECTION OUTPUT TRISTATE ;
+        PORT
+            LAYER L_ALU2 ;
+            RECT 24.00 22.00 26.00 24.00 ;
+            RECT 19.00 22.00 21.00 24.00 ;
+            RECT 14.00 22.00 16.00 24.00 ;
+            RECT 9.00 22.00 11.00 24.00 ;
+            RECT 4.00 22.00 6.00 24.00 ;
+            RECT -1.00 22.00 1.00 24.00 ;
+        END
+    END bit3
+    PIN bit4
+        DIRECTION OUTPUT TRISTATE ;
+        PORT
+            LAYER L_ALU2 ;
+            RECT 24.00 28.00 26.00 30.00 ;
+            RECT 19.00 28.00 21.00 30.00 ;
+            RECT 14.00 28.00 16.00 30.00 ;
+            RECT 9.00 28.00 11.00 30.00 ;
+            RECT 4.00 28.00 6.00 30.00 ;
+            RECT -1.00 28.00 1.00 30.00 ;
+        END
+    END bit4
+    PIN bit5
+        DIRECTION OUTPUT TRISTATE ;
+        PORT
+            LAYER L_ALU2 ;
+            RECT 24.00 34.00 26.00 36.00 ;
+            RECT 19.00 34.00 21.00 36.00 ;
+            RECT 14.00 34.00 16.00 36.00 ;
+            RECT 9.00 34.00 11.00 36.00 ;
+            RECT 4.00 34.00 6.00 36.00 ;
+            RECT -1.00 34.00 1.00 36.00 ;
+        END
+    END bit5
     PIN sela
         DIRECTION INPUT ;
         PORT
@@ -339,19 +360,41 @@ MACRO rom_data_midsel
             RECT 4.00 -1.00 6.00 1.00 ;
         END
     END sela
+    PIN selb
+        DIRECTION INPUT ;
+        PORT
+            LAYER L_ALU3 ;
+            RECT 9.00 -1.00 11.00 1.00 ;
+        END
+    END selb
+    PIN selc
+        DIRECTION INPUT ;
+        PORT
+            LAYER L_ALU3 ;
+            RECT 14.00 -1.00 16.00 1.00 ;
+        END
+    END selc
+    PIN seld
+        DIRECTION INPUT ;
+        PORT
+            LAYER L_ALU3 ;
+            RECT 19.00 -1.00 21.00 1.00 ;
+        END
+    END seld
     PIN vss
         DIRECTION INOUT ;
-        USE ground ;
-        SHAPE FEEDTHRU ;
+        USE GROUND ;
+        SHAPE ABUTMENT ;
+        PORT
+            LAYER L_ALU3 ;
+            WIDTH 2.00 ;
+            PATH 0.00 1.00 0.00 49.00 ;
+            LAYER L_ALU3 ;
+            WIDTH 2.00 ;
+            PATH 25.00 1.00 25.00 49.00 ;
+        END
     END vss
-    PIN vdd
-        DIRECTION INOUT ;
-        USE power ;
-        SHAPE FEEDTHRU ;
-    END vdd
     OBS
-        LAYER L_ALU1 ;
-        RECT 1.50 1.50 23.50 48.50 ;
         LAYER L_ALU2 ;
         RECT -1.00 -1.00 26.00 51.00 ;
     END
@@ -490,17 +533,18 @@ MACRO rom_data_midvss
     END sela
     PIN vss
         DIRECTION INOUT ;
-        USE ground ;
-        SHAPE FEEDTHRU ;
+        USE GROUND ;
+        SHAPE ABUTMENT ;
+        PORT
+            LAYER L_ALU3 ;
+            WIDTH 2.00 ;
+            PATH 0.00 1.00 0.00 49.00 ;
+            LAYER L_ALU3 ;
+            WIDTH 2.00 ;
+            PATH 25.00 1.00 25.00 49.00 ;
+        END
     END vss
-    PIN vdd
-        DIRECTION INOUT ;
-        USE power ;
-        SHAPE FEEDTHRU ;
-    END vdd
     OBS
-        LAYER L_ALU1 ;
-        RECT 1.50 1.50 23.50 48.50 ;
         LAYER L_ALU2 ;
         RECT -1.00 -1.00 26.00 51.00 ;
     END
@@ -725,19 +769,38 @@ MACRO rom_data_outsel
             RECT 99.00 24.00 101.00 26.00 ;
         END
     END nprech
-    PIN vss
-        DIRECTION INOUT ;
-        USE ground ;
-        SHAPE FEEDTHRU ;
-    END vss
     PIN vdd
         DIRECTION INOUT ;
-        USE power ;
-        SHAPE FEEDTHRU ;
+        USE POWER ;
+        SHAPE ABUTMENT ;
+        PORT
+            LAYER L_ALU1 ;
+            WIDTH 6.00 ;
+            PATH 3.00 47.00 117.00 47.00 ;
+            LAYER L_ALU3 ;
+            WIDTH 2.00 ;
+            PATH 105.00 1.00 105.00 49.00 ;
+            LAYER L_ALU3 ;
+            WIDTH 2.00 ;
+            PATH 115.00 1.00 115.00 49.00 ;
+        END
     END vdd
+    PIN vss
+        DIRECTION INOUT ;
+        USE GROUND ;
+        SHAPE ABUTMENT ;
+        PORT
+            LAYER L_ALU1 ;
+            WIDTH 6.00 ;
+            PATH 3.00 3.00 117.00 3.00 ;
+            LAYER L_ALU3 ;
+            WIDTH 2.00 ;
+            PATH 95.00 1.00 95.00 49.00 ;
+        END
+    END vss
     OBS
         LAYER L_ALU1 ;
-        RECT 1.50 1.50 118.50 48.50 ;
+        RECT 1.50 9.00 118.50 41.00 ;
         LAYER L_ALU2 ;
         RECT 84.00 -1.00 96.00 1.00 ;
         RECT -1.00 -1.00 86.00 51.00 ;
@@ -986,19 +1049,41 @@ MACRO rom_data_outsel_ts
             RECT -1.00 10.00 1.00 12.00 ;
         END
     END bit1
-    PIN vss
-        DIRECTION INOUT ;
-        USE ground ;
-        SHAPE FEEDTHRU ;
-    END vss
     PIN vdd
         DIRECTION INOUT ;
-        USE power ;
-        SHAPE FEEDTHRU ;
+        USE POWER ;
+        SHAPE ABUTMENT ;
+        PORT
+            LAYER L_ALU1 ;
+            WIDTH 6.00 ;
+            PATH 3.00 47.00 137.00 47.00 ;
+            LAYER L_ALU3 ;
+            WIDTH 2.00 ;
+            PATH 115.00 1.00 115.00 49.00 ;
+            LAYER L_ALU3 ;
+            WIDTH 2.00 ;
+            PATH 135.00 1.00 135.00 49.00 ;
+        END
     END vdd
+    PIN vss
+        DIRECTION INOUT ;
+        USE GROUND ;
+        SHAPE ABUTMENT ;
+        PORT
+            LAYER L_ALU1 ;
+            WIDTH 6.00 ;
+            PATH 3.00 3.00 137.00 3.00 ;
+            LAYER L_ALU3 ;
+            WIDTH 2.00 ;
+            PATH 105.00 1.00 105.00 49.00 ;
+            LAYER L_ALU3 ;
+            WIDTH 2.00 ;
+            PATH 125.00 1.00 125.00 49.00 ;
+        END
+    END vss
     OBS
         LAYER L_ALU1 ;
-        RECT 1.50 1.50 138.50 48.50 ;
+        RECT 1.50 9.00 138.50 41.00 ;
         LAYER L_ALU2 ;
         RECT 84.00 14.00 121.00 16.00 ;
         RECT 87.00 14.00 121.00 16.00 ;
@@ -1228,19 +1313,38 @@ MACRO rom_data_outvss
             RECT -1.00 10.00 1.00 12.00 ;
         END
     END bit1
-    PIN vss
-        DIRECTION INOUT ;
-        USE ground ;
-        SHAPE FEEDTHRU ;
-    END vss
     PIN vdd
         DIRECTION INOUT ;
-        USE power ;
-        SHAPE FEEDTHRU ;
+        USE POWER ;
+        SHAPE ABUTMENT ;
+        PORT
+            LAYER L_ALU1 ;
+            WIDTH 6.00 ;
+            PATH 3.00 47.00 117.00 47.00 ;
+            LAYER L_ALU3 ;
+            WIDTH 2.00 ;
+            PATH 105.00 1.00 105.00 49.00 ;
+            LAYER L_ALU3 ;
+            WIDTH 2.00 ;
+            PATH 115.00 1.00 115.00 49.00 ;
+        END
     END vdd
+    PIN vss
+        DIRECTION INOUT ;
+        USE GROUND ;
+        SHAPE ABUTMENT ;
+        PORT
+            LAYER L_ALU1 ;
+            WIDTH 6.00 ;
+            PATH 3.00 3.00 117.00 3.00 ;
+            LAYER L_ALU3 ;
+            WIDTH 2.00 ;
+            PATH 95.00 1.00 95.00 49.00 ;
+        END
+    END vss
     OBS
         LAYER L_ALU1 ;
-        RECT 1.50 1.50 118.50 48.50 ;
+        RECT 1.50 9.00 118.50 41.00 ;
         LAYER L_ALU2 ;
         RECT 84.00 24.00 101.00 26.00 ;
         RECT 87.00 19.00 113.00 21.00 ;
@@ -1488,19 +1592,41 @@ MACRO rom_data_outvss_ts
             RECT -1.00 10.00 1.00 12.00 ;
         END
     END bit1
-    PIN vss
-        DIRECTION INOUT ;
-        USE ground ;
-        SHAPE FEEDTHRU ;
-    END vss
     PIN vdd
         DIRECTION INOUT ;
-        USE power ;
-        SHAPE FEEDTHRU ;
+        USE POWER ;
+        SHAPE ABUTMENT ;
+        PORT
+            LAYER L_ALU1 ;
+            WIDTH 6.00 ;
+            PATH 3.00 47.00 137.00 47.00 ;
+            LAYER L_ALU3 ;
+            WIDTH 2.00 ;
+            PATH 115.00 1.00 115.00 49.00 ;
+            LAYER L_ALU3 ;
+            WIDTH 2.00 ;
+            PATH 135.00 1.00 135.00 49.00 ;
+        END
     END vdd
+    PIN vss
+        DIRECTION INOUT ;
+        USE GROUND ;
+        SHAPE ABUTMENT ;
+        PORT
+            LAYER L_ALU1 ;
+            WIDTH 6.00 ;
+            PATH 3.00 3.00 137.00 3.00 ;
+            LAYER L_ALU3 ;
+            WIDTH 2.00 ;
+            PATH 105.00 1.00 105.00 49.00 ;
+            LAYER L_ALU3 ;
+            WIDTH 2.00 ;
+            PATH 125.00 1.00 125.00 49.00 ;
+        END
+    END vss
     OBS
         LAYER L_ALU1 ;
-        RECT 1.50 1.50 138.50 48.50 ;
+        RECT 1.50 9.00 138.50 41.00 ;
         LAYER L_ALU2 ;
         RECT 84.00 24.00 121.00 26.00 ;
         RECT 84.00 39.00 136.00 41.00 ;
@@ -1519,7 +1645,7 @@ MACRO rom_dec_adbuf
     SYMMETRY  X Y ;
     SITE      core ;
     PIN nadx
-        DIRECTION OUTPUT ;
+        DIRECTION INOUT ;
         PORT
             LAYER L_ALU2 ;
             RECT 9.00 34.00 11.00 36.00 ;
@@ -1541,19 +1667,35 @@ MACRO rom_dec_adbuf
             RECT 4.00 14.00 6.00 16.00 ;
         END
     END ad
-    PIN vss
-        DIRECTION INOUT ;
-        USE ground ;
-        SHAPE FEEDTHRU ;
-    END vss
     PIN vdd
         DIRECTION INOUT ;
-        USE power ;
-        SHAPE FEEDTHRU ;
+        USE POWER ;
+        SHAPE ABUTMENT ;
+        PORT
+            LAYER L_ALU1 ;
+            WIDTH 6.00 ;
+            PATH 3.00 47.00 27.00 47.00 ;
+            LAYER L_ALU3 ;
+            WIDTH 12.00 ;
+            PATH 10.00 6.00 10.00 44.00 ;
+        END
     END vdd
+    PIN vss
+        DIRECTION INOUT ;
+        USE GROUND ;
+        SHAPE ABUTMENT ;
+        PORT
+            LAYER L_ALU1 ;
+            WIDTH 6.00 ;
+            PATH 3.00 3.00 27.00 3.00 ;
+            LAYER L_ALU3 ;
+            WIDTH 2.00 ;
+            PATH 20.00 1.00 20.00 49.00 ;
+        END
+    END vss
     OBS
         LAYER L_ALU1 ;
-        RECT 1.50 1.50 28.50 48.50 ;
+        RECT 1.50 9.00 28.50 41.00 ;
         LAYER L_ALU2 ;
         RECT 9.00 39.00 26.00 41.00 ;
         RECT 20.00 39.00 26.00 41.00 ;
@@ -1589,19 +1731,38 @@ MACRO rom_dec_col2
             RECT 4.00 29.00 6.00 31.00 ;
         END
     END i0
-    PIN vss
-        DIRECTION INOUT ;
-        USE ground ;
-        SHAPE FEEDTHRU ;
-    END vss
     PIN vdd
         DIRECTION INOUT ;
-        USE power ;
-        SHAPE FEEDTHRU ;
+        USE POWER ;
+        SHAPE ABUTMENT ;
+        PORT
+            LAYER L_ALU1 ;
+            WIDTH 6.00 ;
+            PATH 3.00 47.00 47.00 47.00 ;
+        END
     END vdd
+    PIN vss
+        DIRECTION INOUT ;
+        USE GROUND ;
+        SHAPE ABUTMENT ;
+        PORT
+            LAYER L_ALU1 ;
+            WIDTH 6.00 ;
+            PATH 3.00 3.00 47.00 3.00 ;
+            LAYER L_ALU3 ;
+            WIDTH 2.00 ;
+            PATH 0.00 1.00 0.00 49.00 ;
+            LAYER L_ALU3 ;
+            WIDTH 2.00 ;
+            PATH 25.00 1.00 25.00 49.00 ;
+            LAYER L_ALU3 ;
+            WIDTH 2.00 ;
+            PATH 50.00 1.00 50.00 49.00 ;
+        END
+    END vss
     OBS
         LAYER L_ALU1 ;
-        RECT 1.50 1.50 48.50 48.50 ;
+        RECT 1.50 9.00 48.50 41.00 ;
         LAYER L_ALU2 ;
         RECT 4.00 29.00 31.00 31.00 ;
     END
@@ -1642,19 +1803,38 @@ MACRO rom_dec_col3
             RECT 9.00 29.00 11.00 31.00 ;
         END
     END i1
-    PIN vss
-        DIRECTION INOUT ;
-        USE ground ;
-        SHAPE FEEDTHRU ;
-    END vss
     PIN vdd
         DIRECTION INOUT ;
-        USE power ;
-        SHAPE FEEDTHRU ;
+        USE POWER ;
+        SHAPE ABUTMENT ;
+        PORT
+            LAYER L_ALU1 ;
+            WIDTH 6.00 ;
+            PATH 3.00 47.00 47.00 47.00 ;
+        END
     END vdd
+    PIN vss
+        DIRECTION INOUT ;
+        USE GROUND ;
+        SHAPE ABUTMENT ;
+        PORT
+            LAYER L_ALU1 ;
+            WIDTH 6.00 ;
+            PATH 3.00 3.00 47.00 3.00 ;
+            LAYER L_ALU3 ;
+            WIDTH 2.00 ;
+            PATH 0.00 1.00 0.00 49.00 ;
+            LAYER L_ALU3 ;
+            WIDTH 2.00 ;
+            PATH 25.00 1.00 25.00 49.00 ;
+            LAYER L_ALU3 ;
+            WIDTH 2.00 ;
+            PATH 50.00 1.00 50.00 49.00 ;
+        END
+    END vss
     OBS
         LAYER L_ALU1 ;
-        RECT 1.50 1.50 48.50 48.50 ;
+        RECT 1.50 9.00 48.50 41.00 ;
         LAYER L_ALU2 ;
         RECT 4.00 29.00 31.00 31.00 ;
     END
@@ -1702,19 +1882,38 @@ MACRO rom_dec_col4
             RECT 4.00 29.00 6.00 31.00 ;
         END
     END i0
-    PIN vss
-        DIRECTION INOUT ;
-        USE ground ;
-        SHAPE FEEDTHRU ;
-    END vss
     PIN vdd
         DIRECTION INOUT ;
-        USE power ;
-        SHAPE FEEDTHRU ;
+        USE POWER ;
+        SHAPE ABUTMENT ;
+        PORT
+            LAYER L_ALU1 ;
+            WIDTH 6.00 ;
+            PATH 3.00 47.00 47.00 47.00 ;
+        END
     END vdd
+    PIN vss
+        DIRECTION INOUT ;
+        USE GROUND ;
+        SHAPE ABUTMENT ;
+        PORT
+            LAYER L_ALU1 ;
+            WIDTH 6.00 ;
+            PATH 3.00 3.00 47.00 3.00 ;
+            LAYER L_ALU3 ;
+            WIDTH 2.00 ;
+            PATH 0.00 1.00 0.00 49.00 ;
+            LAYER L_ALU3 ;
+            WIDTH 2.00 ;
+            PATH 25.00 1.00 25.00 49.00 ;
+            LAYER L_ALU3 ;
+            WIDTH 2.00 ;
+            PATH 50.00 1.00 50.00 49.00 ;
+        END
+    END vss
     OBS
         LAYER L_ALU1 ;
-        RECT 1.50 1.50 48.50 48.50 ;
+        RECT 1.50 9.00 48.50 41.00 ;
         LAYER L_ALU2 ;
         RECT 29.00 29.00 41.00 31.00 ;
         RECT 4.00 29.00 41.00 31.00 ;
@@ -1730,7 +1929,7 @@ MACRO rom_dec_colbuf
     SYMMETRY  X Y ;
     SITE      core ;
     PIN nax
-        DIRECTION OUTPUT ;
+        DIRECTION INOUT ;
         PORT
             LAYER L_ALU3 ;
             RECT 19.00 29.00 21.00 31.00 ;
@@ -1750,19 +1949,29 @@ MACRO rom_dec_colbuf
             RECT 14.00 29.00 16.00 31.00 ;
         END
     END a
-    PIN vss
-        DIRECTION INOUT ;
-        USE ground ;
-        SHAPE FEEDTHRU ;
-    END vss
     PIN vdd
         DIRECTION INOUT ;
-        USE power ;
-        SHAPE FEEDTHRU ;
+        USE POWER ;
+        SHAPE ABUTMENT ;
+        PORT
+            LAYER L_ALU1 ;
+            WIDTH 6.00 ;
+            PATH 3.00 47.00 27.00 47.00 ;
+        END
     END vdd
+    PIN vss
+        DIRECTION INOUT ;
+        USE GROUND ;
+        SHAPE ABUTMENT ;
+        PORT
+            LAYER L_ALU1 ;
+            WIDTH 6.00 ;
+            PATH 3.00 3.00 27.00 3.00 ;
+        END
+    END vss
     OBS
         LAYER L_ALU1 ;
-        RECT 1.50 1.50 28.50 48.50 ;
+        RECT 1.50 9.00 28.50 41.00 ;
         LAYER L_ALU2 ;
         RECT 9.00 29.00 21.00 31.00 ;
     END
@@ -1775,6 +1984,20 @@ MACRO rom_dec_line01
     SIZE      50.00 BY 100.00 ;
     SYMMETRY  Y ;
     SITE      core ;
+    PIN line1
+        DIRECTION OUTPUT ;
+        PORT
+            LAYER L_ALU3 ;
+            RECT 29.00 19.00 31.00 21.00 ;
+        END
+    END line1
+    PIN line0
+        DIRECTION OUTPUT ;
+        PORT
+            LAYER L_ALU3 ;
+            RECT 4.00 79.00 6.00 81.00 ;
+        END
+    END line0
     PIN col
         DIRECTION INPUT ;
         PORT
@@ -1792,20 +2015,6 @@ MACRO rom_dec_line01
             RECT 29.00 24.00 31.00 26.00 ;
         END
     END col
-    PIN nck0
-        DIRECTION INPUT ;
-        PORT
-            LAYER L_ALU2 ;
-            RECT 14.00 9.00 16.00 11.00 ;
-        END
-    END nck0
-    PIN nck1
-        DIRECTION INPUT ;
-        PORT
-            LAYER L_ALU2 ;
-            RECT 39.00 89.00 41.00 91.00 ;
-        END
-    END nck1
     PIN sel1
         DIRECTION INPUT ;
         PORT
@@ -1820,33 +2029,61 @@ MACRO rom_dec_line01
             RECT 9.00 14.00 11.00 16.00 ;
         END
     END sel0
-    PIN line1
-        DIRECTION INPUT ;
-        PORT
-            LAYER L_ALU3 ;
-            RECT 29.00 19.00 31.00 21.00 ;
-        END
-    END line1
-    PIN line0
-        DIRECTION INPUT ;
-        PORT
-            LAYER L_ALU3 ;
-            RECT 4.00 79.00 6.00 81.00 ;
-        END
-    END line0
-    PIN vss
-        DIRECTION INOUT ;
-        USE ground ;
-        SHAPE FEEDTHRU ;
-    END vss
     PIN vdd
         DIRECTION INOUT ;
-        USE power ;
-        SHAPE FEEDTHRU ;
+        USE POWER ;
+        SHAPE ABUTMENT ;
+        PORT
+            LAYER L_ALU1 ;
+            WIDTH 6.00 ;
+            PATH 3.00 47.00 47.00 47.00 ;
+            LAYER L_ALU1 ;
+            WIDTH 6.00 ;
+            PATH 3.00 53.00 47.00 53.00 ;
+        END
     END vdd
+    PIN vss
+        DIRECTION INOUT ;
+        USE GROUND ;
+        SHAPE ABUTMENT ;
+        PORT
+            LAYER L_ALU1 ;
+            WIDTH 6.00 ;
+            PATH 3.00 3.00 47.00 3.00 ;
+            LAYER L_ALU1 ;
+            WIDTH 6.00 ;
+            PATH 3.00 97.00 47.00 97.00 ;
+            LAYER L_ALU3 ;
+            WIDTH 2.00 ;
+            PATH 0.00 1.00 0.00 99.00 ;
+            LAYER L_ALU3 ;
+            WIDTH 2.00 ;
+            PATH 25.00 1.00 25.00 99.00 ;
+            LAYER L_ALU3 ;
+            WIDTH 2.00 ;
+            PATH 50.00 1.00 50.00 99.00 ;
+        END
+    END vss
+    PIN nck0
+        DIRECTION INPUT ;
+        USE CLOCK ;
+        PORT
+            LAYER L_ALU2 ;
+            RECT 14.00 9.00 16.00 11.00 ;
+        END
+    END nck0
+    PIN nck1
+        DIRECTION INPUT ;
+        USE CLOCK ;
+        PORT
+            LAYER L_ALU2 ;
+            RECT 39.00 89.00 41.00 91.00 ;
+        END
+    END nck1
     OBS
         LAYER L_ALU1 ;
-        RECT 1.50 1.50 48.50 98.50 ;
+        RECT 1.50 9.00 48.50 41.00 ;
+        RECT 1.50 59.00 48.50 91.00 ;
         LAYER L_ALU2 ;
         RECT 4.00 24.00 31.00 26.00 ;
         RECT -1.00 19.00 51.00 21.00 ;
@@ -1863,6 +2100,20 @@ MACRO rom_dec_line23
     SIZE      50.00 BY 100.00 ;
     SYMMETRY  Y ;
     SITE      core ;
+    PIN line3
+        DIRECTION OUTPUT ;
+        PORT
+            LAYER L_ALU3 ;
+            RECT 34.00 19.00 36.00 21.00 ;
+        END
+    END line3
+    PIN line2
+        DIRECTION OUTPUT ;
+        PORT
+            LAYER L_ALU3 ;
+            RECT 9.00 79.00 11.00 81.00 ;
+        END
+    END line2
     PIN col
         DIRECTION INPUT ;
         PORT
@@ -1880,27 +2131,6 @@ MACRO rom_dec_line23
             RECT 29.00 24.00 31.00 26.00 ;
         END
     END col
-    PIN line3
-        DIRECTION INPUT ;
-        PORT
-            LAYER L_ALU3 ;
-            RECT 34.00 19.00 36.00 21.00 ;
-        END
-    END line3
-    PIN line2
-        DIRECTION INPUT ;
-        PORT
-            LAYER L_ALU3 ;
-            RECT 9.00 79.00 11.00 81.00 ;
-        END
-    END line2
-    PIN nck2
-        DIRECTION INPUT ;
-        PORT
-            LAYER L_ALU2 ;
-            RECT 14.00 9.00 16.00 11.00 ;
-        END
-    END nck2
     PIN sel2
         DIRECTION INPUT ;
         PORT
@@ -1915,26 +2145,61 @@ MACRO rom_dec_line23
             RECT 34.00 84.00 36.00 86.00 ;
         END
     END sel3
+    PIN vdd
+        DIRECTION INOUT ;
+        USE POWER ;
+        SHAPE ABUTMENT ;
+        PORT
+            LAYER L_ALU1 ;
+            WIDTH 6.00 ;
+            PATH 3.00 47.00 47.00 47.00 ;
+            LAYER L_ALU1 ;
+            WIDTH 6.00 ;
+            PATH 3.00 53.00 47.00 53.00 ;
+        END
+    END vdd
+    PIN vss
+        DIRECTION INOUT ;
+        USE GROUND ;
+        SHAPE ABUTMENT ;
+        PORT
+            LAYER L_ALU1 ;
+            WIDTH 6.00 ;
+            PATH 3.00 3.00 47.00 3.00 ;
+            LAYER L_ALU1 ;
+            WIDTH 6.00 ;
+            PATH 3.00 97.00 47.00 97.00 ;
+            LAYER L_ALU3 ;
+            WIDTH 2.00 ;
+            PATH 0.00 1.00 0.00 99.00 ;
+            LAYER L_ALU3 ;
+            WIDTH 2.00 ;
+            PATH 25.00 1.00 25.00 99.00 ;
+            LAYER L_ALU3 ;
+            WIDTH 2.00 ;
+            PATH 50.00 1.00 50.00 99.00 ;
+        END
+    END vss
+    PIN nck2
+        DIRECTION INPUT ;
+        USE CLOCK ;
+        PORT
+            LAYER L_ALU2 ;
+            RECT 14.00 9.00 16.00 11.00 ;
+        END
+    END nck2
     PIN nck3
         DIRECTION INPUT ;
+        USE CLOCK ;
         PORT
             LAYER L_ALU2 ;
             RECT 39.00 89.00 41.00 91.00 ;
         END
     END nck3
-    PIN vss
-        DIRECTION INOUT ;
-        USE ground ;
-        SHAPE FEEDTHRU ;
-    END vss
-    PIN vdd
-        DIRECTION INOUT ;
-        USE power ;
-        SHAPE FEEDTHRU ;
-    END vdd
     OBS
         LAYER L_ALU1 ;
-        RECT 1.50 1.50 48.50 98.50 ;
+        RECT 1.50 9.00 48.50 41.00 ;
+        RECT 1.50 59.00 48.50 91.00 ;
         LAYER L_ALU2 ;
         RECT 4.00 24.00 31.00 26.00 ;
         RECT -1.00 79.00 51.00 81.00 ;
@@ -1951,6 +2216,20 @@ MACRO rom_dec_line45
     SIZE      50.00 BY 100.00 ;
     SYMMETRY  Y ;
     SITE      core ;
+    PIN line4
+        DIRECTION OUTPUT ;
+        PORT
+            LAYER L_ALU3 ;
+            RECT 14.00 79.00 16.00 81.00 ;
+        END
+    END line4
+    PIN line5
+        DIRECTION OUTPUT ;
+        PORT
+            LAYER L_ALU3 ;
+            RECT 39.00 19.00 41.00 21.00 ;
+        END
+    END line5
     PIN col
         DIRECTION INPUT ;
         PORT
@@ -1968,20 +2247,6 @@ MACRO rom_dec_line45
             RECT 29.00 24.00 31.00 26.00 ;
         END
     END col
-    PIN nck4
-        DIRECTION INPUT ;
-        PORT
-            LAYER L_ALU2 ;
-            RECT 14.00 9.00 16.00 11.00 ;
-        END
-    END nck4
-    PIN nck5
-        DIRECTION INPUT ;
-        PORT
-            LAYER L_ALU2 ;
-            RECT 39.00 89.00 41.00 91.00 ;
-        END
-    END nck5
     PIN sel4
         DIRECTION INPUT ;
         PORT
@@ -1996,33 +2261,61 @@ MACRO rom_dec_line45
             RECT 34.00 84.00 36.00 86.00 ;
         END
     END sel5
-    PIN line4
-        DIRECTION INPUT ;
-        PORT
-            LAYER L_ALU3 ;
-            RECT 14.00 79.00 16.00 81.00 ;
-        END
-    END line4
-    PIN line5
-        DIRECTION INPUT ;
-        PORT
-            LAYER L_ALU3 ;
-            RECT 39.00 19.00 41.00 21.00 ;
-        END
-    END line5
-    PIN vss
-        DIRECTION INOUT ;
-        USE ground ;
-        SHAPE FEEDTHRU ;
-    END vss
     PIN vdd
         DIRECTION INOUT ;
-        USE power ;
-        SHAPE FEEDTHRU ;
+        USE POWER ;
+        SHAPE ABUTMENT ;
+        PORT
+            LAYER L_ALU1 ;
+            WIDTH 6.00 ;
+            PATH 3.00 47.00 47.00 47.00 ;
+            LAYER L_ALU1 ;
+            WIDTH 6.00 ;
+            PATH 3.00 53.00 47.00 53.00 ;
+        END
     END vdd
+    PIN vss
+        DIRECTION INOUT ;
+        USE GROUND ;
+        SHAPE ABUTMENT ;
+        PORT
+            LAYER L_ALU1 ;
+            WIDTH 6.00 ;
+            PATH 3.00 3.00 47.00 3.00 ;
+            LAYER L_ALU1 ;
+            WIDTH 6.00 ;
+            PATH 3.00 97.00 47.00 97.00 ;
+            LAYER L_ALU3 ;
+            WIDTH 2.00 ;
+            PATH 0.00 1.00 0.00 99.00 ;
+            LAYER L_ALU3 ;
+            WIDTH 2.00 ;
+            PATH 25.00 1.00 25.00 99.00 ;
+            LAYER L_ALU3 ;
+            WIDTH 2.00 ;
+            PATH 50.00 1.00 50.00 99.00 ;
+        END
+    END vss
+    PIN nck4
+        DIRECTION INPUT ;
+        USE CLOCK ;
+        PORT
+            LAYER L_ALU2 ;
+            RECT 14.00 9.00 16.00 11.00 ;
+        END
+    END nck4
+    PIN nck5
+        DIRECTION INPUT ;
+        USE CLOCK ;
+        PORT
+            LAYER L_ALU2 ;
+            RECT 39.00 89.00 41.00 91.00 ;
+        END
+    END nck5
     OBS
         LAYER L_ALU1 ;
-        RECT 1.50 1.50 48.50 98.50 ;
+        RECT 1.50 9.00 48.50 41.00 ;
+        RECT 1.50 59.00 48.50 91.00 ;
         LAYER L_ALU2 ;
         RECT 4.00 24.00 31.00 26.00 ;
         RECT -1.00 19.00 51.00 21.00 ;
@@ -2039,6 +2332,20 @@ MACRO rom_dec_line67
     SIZE      50.00 BY 100.00 ;
     SYMMETRY  Y ;
     SITE      core ;
+    PIN line6
+        DIRECTION OUTPUT ;
+        PORT
+            LAYER L_ALU3 ;
+            RECT 19.00 79.00 21.00 81.00 ;
+        END
+    END line6
+    PIN line7
+        DIRECTION OUTPUT ;
+        PORT
+            LAYER L_ALU3 ;
+            RECT 44.00 19.00 46.00 21.00 ;
+        END
+    END line7
     PIN col
         DIRECTION INPUT ;
         PORT
@@ -2056,20 +2363,6 @@ MACRO rom_dec_line67
             RECT 29.00 24.00 31.00 26.00 ;
         END
     END col
-    PIN nck6
-        DIRECTION INPUT ;
-        PORT
-            LAYER L_ALU2 ;
-            RECT 14.00 9.00 16.00 11.00 ;
-        END
-    END nck6
-    PIN nck7
-        DIRECTION INPUT ;
-        PORT
-            LAYER L_ALU2 ;
-            RECT 39.00 89.00 41.00 91.00 ;
-        END
-    END nck7
     PIN sel6
         DIRECTION INPUT ;
         PORT
@@ -2084,33 +2377,61 @@ MACRO rom_dec_line67
             RECT 34.00 84.00 36.00 86.00 ;
         END
     END sel7
-    PIN line6
-        DIRECTION INPUT ;
-        PORT
-            LAYER L_ALU3 ;
-            RECT 19.00 79.00 21.00 81.00 ;
-        END
-    END line6
-    PIN line7
-        DIRECTION INPUT ;
-        PORT
-            LAYER L_ALU3 ;
-            RECT 44.00 19.00 46.00 21.00 ;
-        END
-    END line7
-    PIN vss
-        DIRECTION INOUT ;
-        USE ground ;
-        SHAPE FEEDTHRU ;
-    END vss
     PIN vdd
         DIRECTION INOUT ;
-        USE power ;
-        SHAPE FEEDTHRU ;
+        USE POWER ;
+        SHAPE ABUTMENT ;
+        PORT
+            LAYER L_ALU1 ;
+            WIDTH 6.00 ;
+            PATH 3.00 47.00 47.00 47.00 ;
+            LAYER L_ALU1 ;
+            WIDTH 6.00 ;
+            PATH 3.00 53.00 47.00 53.00 ;
+        END
     END vdd
+    PIN vss
+        DIRECTION INOUT ;
+        USE GROUND ;
+        SHAPE ABUTMENT ;
+        PORT
+            LAYER L_ALU1 ;
+            WIDTH 6.00 ;
+            PATH 3.00 3.00 47.00 3.00 ;
+            LAYER L_ALU1 ;
+            WIDTH 6.00 ;
+            PATH 3.00 97.00 47.00 97.00 ;
+            LAYER L_ALU3 ;
+            WIDTH 2.00 ;
+            PATH 0.00 1.00 0.00 99.00 ;
+            LAYER L_ALU3 ;
+            WIDTH 2.00 ;
+            PATH 25.00 1.00 25.00 99.00 ;
+            LAYER L_ALU3 ;
+            WIDTH 2.00 ;
+            PATH 50.00 1.00 50.00 99.00 ;
+        END
+    END vss
+    PIN nck6
+        DIRECTION INPUT ;
+        USE CLOCK ;
+        PORT
+            LAYER L_ALU2 ;
+            RECT 14.00 9.00 16.00 11.00 ;
+        END
+    END nck6
+    PIN nck7
+        DIRECTION INPUT ;
+        USE CLOCK ;
+        PORT
+            LAYER L_ALU2 ;
+            RECT 39.00 89.00 41.00 91.00 ;
+        END
+    END nck7
     OBS
         LAYER L_ALU1 ;
-        RECT 1.50 1.50 48.50 98.50 ;
+        RECT 1.50 9.00 48.50 41.00 ;
+        RECT 1.50 59.00 48.50 91.00 ;
         LAYER L_ALU2 ;
         RECT 4.00 24.00 31.00 26.00 ;
         RECT -1.00 19.00 51.00 21.00 ;
@@ -2127,19 +2448,35 @@ MACRO rom_dec_nop
     SIZE      30.00 BY 50.00 ;
     SYMMETRY  X Y ;
     SITE      core ;
-    PIN vss
-        DIRECTION INOUT ;
-        USE ground ;
-        SHAPE FEEDTHRU ;
-    END vss
     PIN vdd
         DIRECTION INOUT ;
-        USE power ;
-        SHAPE FEEDTHRU ;
+        USE POWER ;
+        SHAPE ABUTMENT ;
+        PORT
+            LAYER L_ALU1 ;
+            WIDTH 6.00 ;
+            PATH 3.00 47.00 27.00 47.00 ;
+            LAYER L_ALU3 ;
+            WIDTH 12.00 ;
+            PATH 10.00 6.00 10.00 44.00 ;
+        END
     END vdd
+    PIN vss
+        DIRECTION INOUT ;
+        USE GROUND ;
+        SHAPE ABUTMENT ;
+        PORT
+            LAYER L_ALU1 ;
+            WIDTH 6.00 ;
+            PATH 3.00 3.00 27.00 3.00 ;
+            LAYER L_ALU3 ;
+            WIDTH 2.00 ;
+            PATH 20.00 1.00 20.00 49.00 ;
+        END
+    END vss
     OBS
         LAYER L_ALU1 ;
-        RECT 1.50 1.50 28.50 48.50 ;
+        RECT 1.50 9.00 28.50 41.00 ;
     END
 END rom_dec_nop
 
@@ -2150,17 +2487,8 @@ MACRO rom_dec_prech
     SIZE      30.00 BY 100.00 ;
     SYMMETRY  Y ;
     SITE      core ;
-    PIN nprech
-        DIRECTION OUTPUT ;
-        PORT
-            LAYER L_ALU2 ;
-            RECT 19.00 64.00 21.00 66.00 ;
-            RECT 14.00 64.00 16.00 66.00 ;
-            RECT 9.00 64.00 11.00 66.00 ;
-        END
-    END nprech
     PIN prech
-        DIRECTION OUTPUT ;
+        DIRECTION INOUT ;
         PORT
             LAYER L_ALU3 ;
             RECT 24.00 79.00 26.00 81.00 ;
@@ -2178,26 +2506,59 @@ MACRO rom_dec_prech
             RECT 24.00 19.00 26.00 21.00 ;
         END
     END prech
+    PIN nprech
+        DIRECTION OUTPUT ;
+        PORT
+            LAYER L_ALU2 ;
+            RECT 19.00 64.00 21.00 66.00 ;
+            RECT 14.00 64.00 16.00 66.00 ;
+            RECT 9.00 64.00 11.00 66.00 ;
+        END
+    END nprech
+    PIN vdd
+        DIRECTION INOUT ;
+        USE POWER ;
+        SHAPE ABUTMENT ;
+        PORT
+            LAYER L_ALU1 ;
+            WIDTH 6.00 ;
+            PATH 3.00 47.00 27.00 47.00 ;
+            LAYER L_ALU1 ;
+            WIDTH 6.00 ;
+            PATH 3.00 53.00 27.00 53.00 ;
+            LAYER L_ALU3 ;
+            WIDTH 12.00 ;
+            PATH 10.00 6.00 10.00 94.00 ;
+        END
+    END vdd
+    PIN vss
+        DIRECTION INOUT ;
+        USE GROUND ;
+        SHAPE ABUTMENT ;
+        PORT
+            LAYER L_ALU1 ;
+            WIDTH 6.00 ;
+            PATH 3.00 3.00 27.00 3.00 ;
+            LAYER L_ALU1 ;
+            WIDTH 6.00 ;
+            PATH 3.00 97.00 27.00 97.00 ;
+            LAYER L_ALU3 ;
+            WIDTH 2.00 ;
+            PATH 20.00 1.00 20.00 99.00 ;
+        END
+    END vss
     PIN nck
         DIRECTION INPUT ;
+        USE CLOCK ;
         PORT
             LAYER L_ALU2 ;
             RECT 14.00 9.00 16.00 11.00 ;
         END
     END nck
-    PIN vss
-        DIRECTION INOUT ;
-        USE ground ;
-        SHAPE FEEDTHRU ;
-    END vss
-    PIN vdd
-        DIRECTION INOUT ;
-        USE power ;
-        SHAPE FEEDTHRU ;
-    END vdd
     OBS
         LAYER L_ALU1 ;
-        RECT 1.50 1.50 28.50 98.50 ;
+        RECT 1.50 9.00 28.50 41.00 ;
+        RECT 1.50 59.00 28.50 91.00 ;
         LAYER L_ALU2 ;
         RECT 14.00 79.00 26.00 81.00 ;
         RECT 4.00 19.00 26.00 21.00 ;
@@ -2274,75 +2635,6 @@ MACRO rom_dec_selmux01
             RECT 4.00 14.00 6.00 16.00 ;
         END
     END sel0
-    PIN nck
-        DIRECTION OUTPUT ;
-        PORT
-            LAYER L_ALU3 ;
-            RECT 104.00 89.00 106.00 91.00 ;
-            RECT 104.00 84.00 106.00 86.00 ;
-            RECT 104.00 79.00 106.00 81.00 ;
-            RECT 104.00 74.00 106.00 76.00 ;
-            RECT 104.00 69.00 106.00 71.00 ;
-            RECT 104.00 64.00 106.00 66.00 ;
-            RECT 104.00 59.00 106.00 61.00 ;
-            RECT 104.00 54.00 106.00 56.00 ;
-            RECT 104.00 49.00 106.00 51.00 ;
-            RECT 104.00 44.00 106.00 46.00 ;
-            RECT 104.00 39.00 106.00 41.00 ;
-            RECT 104.00 34.00 106.00 36.00 ;
-            RECT 104.00 29.00 106.00 31.00 ;
-            RECT 104.00 24.00 106.00 26.00 ;
-            RECT 104.00 19.00 106.00 21.00 ;
-            RECT 104.00 14.00 106.00 16.00 ;
-            RECT 104.00 9.00 106.00 11.00 ;
-            LAYER L_ALU2 ;
-            RECT 109.00 9.00 111.00 11.00 ;
-            RECT 104.00 9.00 106.00 11.00 ;
-            RECT 99.00 9.00 101.00 11.00 ;
-            RECT 94.00 9.00 96.00 11.00 ;
-            RECT 89.00 9.00 91.00 11.00 ;
-            RECT 84.00 9.00 86.00 11.00 ;
-            RECT 79.00 9.00 81.00 11.00 ;
-            RECT 74.00 9.00 76.00 11.00 ;
-            RECT 69.00 9.00 71.00 11.00 ;
-            RECT 64.00 9.00 66.00 11.00 ;
-            RECT 59.00 9.00 61.00 11.00 ;
-            RECT 54.00 9.00 56.00 11.00 ;
-            RECT 49.00 9.00 51.00 11.00 ;
-            RECT 44.00 9.00 46.00 11.00 ;
-            RECT 39.00 9.00 41.00 11.00 ;
-            RECT 34.00 9.00 36.00 11.00 ;
-            RECT 29.00 9.00 31.00 11.00 ;
-            RECT 24.00 9.00 26.00 11.00 ;
-            RECT 19.00 9.00 21.00 11.00 ;
-            RECT 14.00 9.00 16.00 11.00 ;
-            RECT 9.00 9.00 11.00 11.00 ;
-            RECT 4.00 9.00 6.00 11.00 ;
-            LAYER L_ALU2 ;
-            RECT 109.00 89.00 111.00 91.00 ;
-            RECT 104.00 89.00 106.00 91.00 ;
-            RECT 99.00 89.00 101.00 91.00 ;
-            RECT 94.00 89.00 96.00 91.00 ;
-            RECT 89.00 89.00 91.00 91.00 ;
-            RECT 84.00 89.00 86.00 91.00 ;
-            RECT 79.00 89.00 81.00 91.00 ;
-            RECT 74.00 89.00 76.00 91.00 ;
-            RECT 69.00 89.00 71.00 91.00 ;
-            RECT 64.00 89.00 66.00 91.00 ;
-            RECT 59.00 89.00 61.00 91.00 ;
-            RECT 54.00 89.00 56.00 91.00 ;
-            RECT 49.00 89.00 51.00 91.00 ;
-            RECT 44.00 89.00 46.00 91.00 ;
-            RECT 39.00 89.00 41.00 91.00 ;
-            RECT 34.00 89.00 36.00 91.00 ;
-            RECT 29.00 89.00 31.00 91.00 ;
-            RECT 24.00 89.00 26.00 91.00 ;
-            RECT 19.00 89.00 21.00 91.00 ;
-            RECT 14.00 89.00 16.00 91.00 ;
-            RECT 9.00 89.00 11.00 91.00 ;
-            RECT 4.00 89.00 6.00 91.00 ;
-        END
-    END nck
     PIN selrom
         DIRECTION INPUT ;
         PORT
@@ -2358,23 +2650,6 @@ MACRO rom_dec_selmux01
             RECT 109.00 29.00 111.00 31.00 ;
         END
     END selrom
-    PIN ck
-        DIRECTION INPUT ;
-        PORT
-            LAYER L_ALU3 ;
-            RECT 114.00 74.00 116.00 76.00 ;
-            RECT 114.00 69.00 116.00 71.00 ;
-            RECT 114.00 64.00 116.00 66.00 ;
-            RECT 114.00 59.00 116.00 61.00 ;
-            RECT 114.00 54.00 116.00 56.00 ;
-            RECT 114.00 49.00 116.00 51.00 ;
-            RECT 114.00 44.00 116.00 46.00 ;
-            RECT 114.00 39.00 116.00 41.00 ;
-            RECT 114.00 34.00 116.00 36.00 ;
-            RECT 114.00 29.00 116.00 31.00 ;
-            RECT 114.00 24.00 116.00 26.00 ;
-        END
-    END ck
     PIN a0
         DIRECTION INPUT ;
         PORT
@@ -2637,151 +2912,53 @@ MACRO rom_dec_selmux01
             RECT 99.00 79.00 101.00 81.00 ;
         END
     END a5
-    PIN vss
-        DIRECTION INOUT ;
-        USE ground ;
-        SHAPE FEEDTHRU ;
-    END vss
     PIN vdd
         DIRECTION INOUT ;
-        USE power ;
-        SHAPE FEEDTHRU ;
+        USE POWER ;
+        SHAPE ABUTMENT ;
+        PORT
+            LAYER L_ALU1 ;
+            WIDTH 6.00 ;
+            PATH 3.00 47.00 117.00 47.00 ;
+            LAYER L_ALU1 ;
+            WIDTH 6.00 ;
+            PATH 3.00 53.00 117.00 53.00 ;
+        END
     END vdd
-    OBS
-        LAYER L_ALU1 ;
-        RECT 1.50 1.50 118.50 98.50 ;
-        LAYER L_ALU2 ;
-        RECT 64.00 79.00 96.00 81.00 ;
-        RECT 64.00 19.00 96.00 21.00 ;
-        RECT 9.00 59.00 66.00 61.00 ;
-        RECT 9.00 59.00 66.00 61.00 ;
-        RECT 79.00 69.00 111.00 71.00 ;
-        RECT 29.00 74.00 41.00 76.00 ;
-        RECT 44.00 79.00 51.00 81.00 ;
-        RECT 59.00 74.00 91.00 76.00 ;
-        RECT 4.00 69.00 36.00 71.00 ;
-        RECT 54.00 69.00 61.00 71.00 ;
-        RECT 59.00 24.00 91.00 26.00 ;
-        RECT 44.00 19.00 51.00 21.00 ;
-        RECT 29.00 24.00 41.00 26.00 ;
-        RECT 79.00 29.00 111.00 31.00 ;
-        RECT 9.00 29.00 36.00 31.00 ;
-        RECT 54.00 29.00 71.00 31.00 ;
-        RECT 9.00 39.00 85.00 41.00 ;
-        RECT 4.00 19.00 116.00 21.00 ;
-        RECT 4.00 24.00 116.00 26.00 ;
-        RECT 4.00 29.00 116.00 31.00 ;
-        RECT 4.00 39.00 116.00 41.00 ;
-        RECT 4.00 59.00 116.00 61.00 ;
-        RECT 4.00 69.00 116.00 71.00 ;
-        RECT 4.00 74.00 116.00 76.00 ;
-        RECT 4.00 79.00 116.00 81.00 ;
-    END
-END rom_dec_selmux01
-
-
-MACRO rom_dec_selmux01_ts
-    CLASS     CORE ;
-    ORIGIN    0.00 0.00 ;
-    SIZE      140.00 BY 100.00 ;
-    SYMMETRY  Y ;
-    SITE      core ;
-    PIN enx
-        DIRECTION OUTPUT ;
+    PIN vss
+        DIRECTION INOUT ;
+        USE GROUND ;
+        SHAPE ABUTMENT ;
+        PORT
+            LAYER L_ALU1 ;
+            WIDTH 6.00 ;
+            PATH 3.00 3.00 117.00 3.00 ;
+            LAYER L_ALU1 ;
+            WIDTH 6.00 ;
+            PATH 3.00 97.00 117.00 97.00 ;
+        END
+    END vss
+    PIN ck
+        DIRECTION INPUT ;
+        USE CLOCK ;
         PORT
             LAYER L_ALU3 ;
-            RECT 109.00 69.00 111.00 71.00 ;
-            RECT 109.00 64.00 111.00 66.00 ;
-            RECT 109.00 59.00 111.00 61.00 ;
-            RECT 109.00 54.00 111.00 56.00 ;
-            RECT 109.00 49.00 111.00 51.00 ;
-            RECT 109.00 44.00 111.00 46.00 ;
-            RECT 109.00 39.00 111.00 41.00 ;
-            RECT 109.00 34.00 111.00 36.00 ;
-            RECT 109.00 29.00 111.00 31.00 ;
+            RECT 114.00 74.00 116.00 76.00 ;
+            RECT 114.00 69.00 116.00 71.00 ;
+            RECT 114.00 64.00 116.00 66.00 ;
+            RECT 114.00 59.00 116.00 61.00 ;
+            RECT 114.00 54.00 116.00 56.00 ;
+            RECT 114.00 49.00 116.00 51.00 ;
+            RECT 114.00 44.00 116.00 46.00 ;
+            RECT 114.00 39.00 116.00 41.00 ;
+            RECT 114.00 34.00 116.00 36.00 ;
+            RECT 114.00 29.00 116.00 31.00 ;
+            RECT 114.00 24.00 116.00 26.00 ;
         END
-    END enx
-    PIN nenx
-        DIRECTION OUTPUT ;
-        PORT
-            LAYER L_ALU3 ;
-            RECT 119.00 74.00 121.00 76.00 ;
-            RECT 119.00 69.00 121.00 71.00 ;
-            RECT 119.00 64.00 121.00 66.00 ;
-            RECT 119.00 59.00 121.00 61.00 ;
-            RECT 119.00 54.00 121.00 56.00 ;
-            RECT 119.00 49.00 121.00 51.00 ;
-            RECT 119.00 44.00 121.00 46.00 ;
-            RECT 119.00 39.00 121.00 41.00 ;
-            RECT 119.00 34.00 121.00 36.00 ;
-            RECT 119.00 29.00 121.00 31.00 ;
-            RECT 119.00 24.00 121.00 26.00 ;
-        END
-    END nenx
-    PIN sel1
-        DIRECTION OUTPUT ;
-        PORT
-            LAYER L_ALU2 ;
-            RECT 89.00 84.00 91.00 86.00 ;
-            RECT 84.00 84.00 86.00 86.00 ;
-            RECT 79.00 84.00 81.00 86.00 ;
-            RECT 74.00 84.00 76.00 86.00 ;
-            RECT 69.00 84.00 71.00 86.00 ;
-            RECT 64.00 84.00 66.00 86.00 ;
-            RECT 59.00 84.00 61.00 86.00 ;
-            RECT 54.00 84.00 56.00 86.00 ;
-            RECT 49.00 84.00 51.00 86.00 ;
-            RECT 44.00 84.00 46.00 86.00 ;
-            RECT 39.00 84.00 41.00 86.00 ;
-            RECT 34.00 84.00 36.00 86.00 ;
-            RECT 29.00 84.00 31.00 86.00 ;
-            RECT 24.00 84.00 26.00 86.00 ;
-            RECT 19.00 84.00 21.00 86.00 ;
-            RECT 14.00 84.00 16.00 86.00 ;
-            RECT 9.00 84.00 11.00 86.00 ;
-            RECT 4.00 84.00 6.00 86.00 ;
-        END
-    END sel1
-    PIN mux1
-        DIRECTION OUTPUT ;
-        PORT
-            LAYER L_ALU3 ;
-            RECT 64.00 59.00 66.00 61.00 ;
-        END
-    END mux1
-    PIN mux0
-        DIRECTION OUTPUT ;
-        PORT
-            LAYER L_ALU3 ;
-            RECT 84.00 39.00 86.00 41.00 ;
-        END
-    END mux0
-    PIN sel0
-        DIRECTION OUTPUT ;
-        PORT
-            LAYER L_ALU2 ;
-            RECT 89.00 14.00 91.00 16.00 ;
-            RECT 84.00 14.00 86.00 16.00 ;
-            RECT 79.00 14.00 81.00 16.00 ;
-            RECT 74.00 14.00 76.00 16.00 ;
-            RECT 69.00 14.00 71.00 16.00 ;
-            RECT 64.00 14.00 66.00 16.00 ;
-            RECT 59.00 14.00 61.00 16.00 ;
-            RECT 54.00 14.00 56.00 16.00 ;
-            RECT 49.00 14.00 51.00 16.00 ;
-            RECT 44.00 14.00 46.00 16.00 ;
-            RECT 39.00 14.00 41.00 16.00 ;
-            RECT 34.00 14.00 36.00 16.00 ;
-            RECT 29.00 14.00 31.00 16.00 ;
-            RECT 24.00 14.00 26.00 16.00 ;
-            RECT 19.00 14.00 21.00 16.00 ;
-            RECT 14.00 14.00 16.00 16.00 ;
-            RECT 9.00 14.00 11.00 16.00 ;
-            RECT 4.00 14.00 6.00 16.00 ;
-        END
-    END sel0
+    END ck
     PIN nck
         DIRECTION OUTPUT ;
+        USE CLOCK ;
         PORT
             LAYER L_ALU3 ;
             RECT 104.00 89.00 106.00 91.00 ;
@@ -2849,23 +3026,140 @@ MACRO rom_dec_selmux01_ts
             RECT 4.00 89.00 6.00 91.00 ;
         END
     END nck
-    PIN ck
-        DIRECTION INPUT ;
+    OBS
+        LAYER L_ALU1 ;
+        RECT 1.50 9.00 118.50 41.00 ;
+        RECT 1.50 59.00 118.50 91.00 ;
+        LAYER L_ALU2 ;
+        RECT 64.00 79.00 96.00 81.00 ;
+        RECT 64.00 19.00 96.00 21.00 ;
+        RECT 9.00 59.00 66.00 61.00 ;
+        RECT 9.00 59.00 66.00 61.00 ;
+        RECT 79.00 69.00 111.00 71.00 ;
+        RECT 29.00 74.00 41.00 76.00 ;
+        RECT 44.00 79.00 51.00 81.00 ;
+        RECT 59.00 74.00 91.00 76.00 ;
+        RECT 4.00 69.00 36.00 71.00 ;
+        RECT 54.00 69.00 61.00 71.00 ;
+        RECT 59.00 24.00 91.00 26.00 ;
+        RECT 44.00 19.00 51.00 21.00 ;
+        RECT 29.00 24.00 41.00 26.00 ;
+        RECT 79.00 29.00 111.00 31.00 ;
+        RECT 9.00 29.00 36.00 31.00 ;
+        RECT 54.00 29.00 71.00 31.00 ;
+        RECT 9.00 39.00 85.00 41.00 ;
+        RECT 4.00 19.00 116.00 21.00 ;
+        RECT 4.00 24.00 116.00 26.00 ;
+        RECT 4.00 29.00 116.00 31.00 ;
+        RECT 4.00 39.00 116.00 41.00 ;
+        RECT 4.00 59.00 116.00 61.00 ;
+        RECT 4.00 69.00 116.00 71.00 ;
+        RECT 4.00 74.00 116.00 76.00 ;
+        RECT 4.00 79.00 116.00 81.00 ;
+    END
+END rom_dec_selmux01
+
+
+MACRO rom_dec_selmux01_ts
+    CLASS     CORE ;
+    ORIGIN    0.00 0.00 ;
+    SIZE      140.00 BY 100.00 ;
+    SYMMETRY  Y ;
+    SITE      core ;
+    PIN nenx
+        DIRECTION INOUT ;
         PORT
             LAYER L_ALU3 ;
-            RECT 114.00 74.00 116.00 76.00 ;
-            RECT 114.00 69.00 116.00 71.00 ;
-            RECT 114.00 64.00 116.00 66.00 ;
-            RECT 114.00 59.00 116.00 61.00 ;
-            RECT 114.00 54.00 116.00 56.00 ;
-            RECT 114.00 49.00 116.00 51.00 ;
-            RECT 114.00 44.00 116.00 46.00 ;
-            RECT 114.00 39.00 116.00 41.00 ;
-            RECT 114.00 34.00 116.00 36.00 ;
-            RECT 114.00 29.00 116.00 31.00 ;
-            RECT 114.00 24.00 116.00 26.00 ;
+            RECT 119.00 74.00 121.00 76.00 ;
+            RECT 119.00 69.00 121.00 71.00 ;
+            RECT 119.00 64.00 121.00 66.00 ;
+            RECT 119.00 59.00 121.00 61.00 ;
+            RECT 119.00 54.00 121.00 56.00 ;
+            RECT 119.00 49.00 121.00 51.00 ;
+            RECT 119.00 44.00 121.00 46.00 ;
+            RECT 119.00 39.00 121.00 41.00 ;
+            RECT 119.00 34.00 121.00 36.00 ;
+            RECT 119.00 29.00 121.00 31.00 ;
+            RECT 119.00 24.00 121.00 26.00 ;
         END
-    END ck
+    END nenx
+    PIN enx
+        DIRECTION OUTPUT ;
+        PORT
+            LAYER L_ALU3 ;
+            RECT 109.00 69.00 111.00 71.00 ;
+            RECT 109.00 64.00 111.00 66.00 ;
+            RECT 109.00 59.00 111.00 61.00 ;
+            RECT 109.00 54.00 111.00 56.00 ;
+            RECT 109.00 49.00 111.00 51.00 ;
+            RECT 109.00 44.00 111.00 46.00 ;
+            RECT 109.00 39.00 111.00 41.00 ;
+            RECT 109.00 34.00 111.00 36.00 ;
+            RECT 109.00 29.00 111.00 31.00 ;
+        END
+    END enx
+    PIN sel1
+        DIRECTION OUTPUT ;
+        PORT
+            LAYER L_ALU2 ;
+            RECT 89.00 84.00 91.00 86.00 ;
+            RECT 84.00 84.00 86.00 86.00 ;
+            RECT 79.00 84.00 81.00 86.00 ;
+            RECT 74.00 84.00 76.00 86.00 ;
+            RECT 69.00 84.00 71.00 86.00 ;
+            RECT 64.00 84.00 66.00 86.00 ;
+            RECT 59.00 84.00 61.00 86.00 ;
+            RECT 54.00 84.00 56.00 86.00 ;
+            RECT 49.00 84.00 51.00 86.00 ;
+            RECT 44.00 84.00 46.00 86.00 ;
+            RECT 39.00 84.00 41.00 86.00 ;
+            RECT 34.00 84.00 36.00 86.00 ;
+            RECT 29.00 84.00 31.00 86.00 ;
+            RECT 24.00 84.00 26.00 86.00 ;
+            RECT 19.00 84.00 21.00 86.00 ;
+            RECT 14.00 84.00 16.00 86.00 ;
+            RECT 9.00 84.00 11.00 86.00 ;
+            RECT 4.00 84.00 6.00 86.00 ;
+        END
+    END sel1
+    PIN mux1
+        DIRECTION OUTPUT ;
+        PORT
+            LAYER L_ALU3 ;
+            RECT 64.00 59.00 66.00 61.00 ;
+        END
+    END mux1
+    PIN mux0
+        DIRECTION OUTPUT ;
+        PORT
+            LAYER L_ALU3 ;
+            RECT 84.00 39.00 86.00 41.00 ;
+        END
+    END mux0
+    PIN sel0
+        DIRECTION OUTPUT ;
+        PORT
+            LAYER L_ALU2 ;
+            RECT 89.00 14.00 91.00 16.00 ;
+            RECT 84.00 14.00 86.00 16.00 ;
+            RECT 79.00 14.00 81.00 16.00 ;
+            RECT 74.00 14.00 76.00 16.00 ;
+            RECT 69.00 14.00 71.00 16.00 ;
+            RECT 64.00 14.00 66.00 16.00 ;
+            RECT 59.00 14.00 61.00 16.00 ;
+            RECT 54.00 14.00 56.00 16.00 ;
+            RECT 49.00 14.00 51.00 16.00 ;
+            RECT 44.00 14.00 46.00 16.00 ;
+            RECT 39.00 14.00 41.00 16.00 ;
+            RECT 34.00 14.00 36.00 16.00 ;
+            RECT 29.00 14.00 31.00 16.00 ;
+            RECT 24.00 14.00 26.00 16.00 ;
+            RECT 19.00 14.00 21.00 16.00 ;
+            RECT 14.00 14.00 16.00 16.00 ;
+            RECT 9.00 14.00 11.00 16.00 ;
+            RECT 4.00 14.00 6.00 16.00 ;
+        END
+    END sel0
     PIN selrom
         DIRECTION INPUT ;
         PORT
@@ -3147,19 +3441,130 @@ MACRO rom_dec_selmux01_ts
             RECT 99.00 79.00 101.00 81.00 ;
         END
     END a5
-    PIN vss
-        DIRECTION INOUT ;
-        USE ground ;
-        SHAPE FEEDTHRU ;
-    END vss
     PIN vdd
         DIRECTION INOUT ;
-        USE power ;
-        SHAPE FEEDTHRU ;
+        USE POWER ;
+        SHAPE ABUTMENT ;
+        PORT
+            LAYER L_ALU1 ;
+            WIDTH 6.00 ;
+            PATH 3.00 47.00 137.00 47.00 ;
+            LAYER L_ALU1 ;
+            WIDTH 6.00 ;
+            PATH 3.00 53.00 137.00 53.00 ;
+            LAYER L_ALU3 ;
+            WIDTH 2.00 ;
+            PATH 135.00 1.00 135.00 99.00 ;
+        END
     END vdd
+    PIN vss
+        DIRECTION INOUT ;
+        USE GROUND ;
+        SHAPE ABUTMENT ;
+        PORT
+            LAYER L_ALU1 ;
+            WIDTH 6.00 ;
+            PATH 3.00 3.00 137.00 3.00 ;
+            LAYER L_ALU1 ;
+            WIDTH 6.00 ;
+            PATH 3.00 97.00 137.00 97.00 ;
+            LAYER L_ALU3 ;
+            WIDTH 2.00 ;
+            PATH 125.00 1.00 125.00 99.00 ;
+        END
+    END vss
+    PIN ck
+        DIRECTION INPUT ;
+        USE CLOCK ;
+        PORT
+            LAYER L_ALU3 ;
+            RECT 114.00 74.00 116.00 76.00 ;
+            RECT 114.00 69.00 116.00 71.00 ;
+            RECT 114.00 64.00 116.00 66.00 ;
+            RECT 114.00 59.00 116.00 61.00 ;
+            RECT 114.00 54.00 116.00 56.00 ;
+            RECT 114.00 49.00 116.00 51.00 ;
+            RECT 114.00 44.00 116.00 46.00 ;
+            RECT 114.00 39.00 116.00 41.00 ;
+            RECT 114.00 34.00 116.00 36.00 ;
+            RECT 114.00 29.00 116.00 31.00 ;
+            RECT 114.00 24.00 116.00 26.00 ;
+        END
+    END ck
+    PIN nck
+        DIRECTION OUTPUT ;
+        USE CLOCK ;
+        PORT
+            LAYER L_ALU3 ;
+            RECT 104.00 89.00 106.00 91.00 ;
+            RECT 104.00 84.00 106.00 86.00 ;
+            RECT 104.00 79.00 106.00 81.00 ;
+            RECT 104.00 74.00 106.00 76.00 ;
+            RECT 104.00 69.00 106.00 71.00 ;
+            RECT 104.00 64.00 106.00 66.00 ;
+            RECT 104.00 59.00 106.00 61.00 ;
+            RECT 104.00 54.00 106.00 56.00 ;
+            RECT 104.00 49.00 106.00 51.00 ;
+            RECT 104.00 44.00 106.00 46.00 ;
+            RECT 104.00 39.00 106.00 41.00 ;
+            RECT 104.00 34.00 106.00 36.00 ;
+            RECT 104.00 29.00 106.00 31.00 ;
+            RECT 104.00 24.00 106.00 26.00 ;
+            RECT 104.00 19.00 106.00 21.00 ;
+            RECT 104.00 14.00 106.00 16.00 ;
+            RECT 104.00 9.00 106.00 11.00 ;
+            LAYER L_ALU2 ;
+            RECT 109.00 9.00 111.00 11.00 ;
+            RECT 104.00 9.00 106.00 11.00 ;
+            RECT 99.00 9.00 101.00 11.00 ;
+            RECT 94.00 9.00 96.00 11.00 ;
+            RECT 89.00 9.00 91.00 11.00 ;
+            RECT 84.00 9.00 86.00 11.00 ;
+            RECT 79.00 9.00 81.00 11.00 ;
+            RECT 74.00 9.00 76.00 11.00 ;
+            RECT 69.00 9.00 71.00 11.00 ;
+            RECT 64.00 9.00 66.00 11.00 ;
+            RECT 59.00 9.00 61.00 11.00 ;
+            RECT 54.00 9.00 56.00 11.00 ;
+            RECT 49.00 9.00 51.00 11.00 ;
+            RECT 44.00 9.00 46.00 11.00 ;
+            RECT 39.00 9.00 41.00 11.00 ;
+            RECT 34.00 9.00 36.00 11.00 ;
+            RECT 29.00 9.00 31.00 11.00 ;
+            RECT 24.00 9.00 26.00 11.00 ;
+            RECT 19.00 9.00 21.00 11.00 ;
+            RECT 14.00 9.00 16.00 11.00 ;
+            RECT 9.00 9.00 11.00 11.00 ;
+            RECT 4.00 9.00 6.00 11.00 ;
+            LAYER L_ALU2 ;
+            RECT 109.00 89.00 111.00 91.00 ;
+            RECT 104.00 89.00 106.00 91.00 ;
+            RECT 99.00 89.00 101.00 91.00 ;
+            RECT 94.00 89.00 96.00 91.00 ;
+            RECT 89.00 89.00 91.00 91.00 ;
+            RECT 84.00 89.00 86.00 91.00 ;
+            RECT 79.00 89.00 81.00 91.00 ;
+            RECT 74.00 89.00 76.00 91.00 ;
+            RECT 69.00 89.00 71.00 91.00 ;
+            RECT 64.00 89.00 66.00 91.00 ;
+            RECT 59.00 89.00 61.00 91.00 ;
+            RECT 54.00 89.00 56.00 91.00 ;
+            RECT 49.00 89.00 51.00 91.00 ;
+            RECT 44.00 89.00 46.00 91.00 ;
+            RECT 39.00 89.00 41.00 91.00 ;
+            RECT 34.00 89.00 36.00 91.00 ;
+            RECT 29.00 89.00 31.00 91.00 ;
+            RECT 24.00 89.00 26.00 91.00 ;
+            RECT 19.00 89.00 21.00 91.00 ;
+            RECT 14.00 89.00 16.00 91.00 ;
+            RECT 9.00 89.00 11.00 91.00 ;
+            RECT 4.00 89.00 6.00 91.00 ;
+        END
+    END nck
     OBS
         LAYER L_ALU1 ;
-        RECT 1.50 1.50 138.50 98.50 ;
+        RECT 1.50 9.00 138.50 41.00 ;
+        RECT 1.50 59.00 138.50 91.00 ;
         LAYER L_ALU2 ;
         RECT 119.00 24.00 136.00 26.00 ;
         RECT 119.00 74.00 136.00 76.00 ;
@@ -3260,75 +3665,6 @@ MACRO rom_dec_selmux23
             RECT 44.00 39.00 46.00 41.00 ;
         END
     END mux2
-    PIN nck
-        DIRECTION OUTPUT ;
-        PORT
-            LAYER L_ALU3 ;
-            RECT 104.00 89.00 106.00 91.00 ;
-            RECT 104.00 84.00 106.00 86.00 ;
-            RECT 104.00 79.00 106.00 81.00 ;
-            RECT 104.00 74.00 106.00 76.00 ;
-            RECT 104.00 69.00 106.00 71.00 ;
-            RECT 104.00 64.00 106.00 66.00 ;
-            RECT 104.00 59.00 106.00 61.00 ;
-            RECT 104.00 54.00 106.00 56.00 ;
-            RECT 104.00 49.00 106.00 51.00 ;
-            RECT 104.00 44.00 106.00 46.00 ;
-            RECT 104.00 39.00 106.00 41.00 ;
-            RECT 104.00 34.00 106.00 36.00 ;
-            RECT 104.00 29.00 106.00 31.00 ;
-            RECT 104.00 24.00 106.00 26.00 ;
-            RECT 104.00 19.00 106.00 21.00 ;
-            RECT 104.00 14.00 106.00 16.00 ;
-            RECT 104.00 9.00 106.00 11.00 ;
-            LAYER L_ALU2 ;
-            RECT 109.00 89.00 111.00 91.00 ;
-            RECT 104.00 89.00 106.00 91.00 ;
-            RECT 99.00 89.00 101.00 91.00 ;
-            RECT 94.00 89.00 96.00 91.00 ;
-            RECT 89.00 89.00 91.00 91.00 ;
-            RECT 84.00 89.00 86.00 91.00 ;
-            RECT 79.00 89.00 81.00 91.00 ;
-            RECT 74.00 89.00 76.00 91.00 ;
-            RECT 69.00 89.00 71.00 91.00 ;
-            RECT 64.00 89.00 66.00 91.00 ;
-            RECT 59.00 89.00 61.00 91.00 ;
-            RECT 54.00 89.00 56.00 91.00 ;
-            RECT 49.00 89.00 51.00 91.00 ;
-            RECT 44.00 89.00 46.00 91.00 ;
-            RECT 39.00 89.00 41.00 91.00 ;
-            RECT 34.00 89.00 36.00 91.00 ;
-            RECT 29.00 89.00 31.00 91.00 ;
-            RECT 24.00 89.00 26.00 91.00 ;
-            RECT 19.00 89.00 21.00 91.00 ;
-            RECT 14.00 89.00 16.00 91.00 ;
-            RECT 9.00 89.00 11.00 91.00 ;
-            RECT 4.00 89.00 6.00 91.00 ;
-            LAYER L_ALU2 ;
-            RECT 109.00 9.00 111.00 11.00 ;
-            RECT 104.00 9.00 106.00 11.00 ;
-            RECT 99.00 9.00 101.00 11.00 ;
-            RECT 94.00 9.00 96.00 11.00 ;
-            RECT 89.00 9.00 91.00 11.00 ;
-            RECT 84.00 9.00 86.00 11.00 ;
-            RECT 79.00 9.00 81.00 11.00 ;
-            RECT 74.00 9.00 76.00 11.00 ;
-            RECT 69.00 9.00 71.00 11.00 ;
-            RECT 64.00 9.00 66.00 11.00 ;
-            RECT 59.00 9.00 61.00 11.00 ;
-            RECT 54.00 9.00 56.00 11.00 ;
-            RECT 49.00 9.00 51.00 11.00 ;
-            RECT 44.00 9.00 46.00 11.00 ;
-            RECT 39.00 9.00 41.00 11.00 ;
-            RECT 34.00 9.00 36.00 11.00 ;
-            RECT 29.00 9.00 31.00 11.00 ;
-            RECT 24.00 9.00 26.00 11.00 ;
-            RECT 19.00 9.00 21.00 11.00 ;
-            RECT 14.00 9.00 16.00 11.00 ;
-            RECT 9.00 9.00 11.00 11.00 ;
-            RECT 4.00 9.00 6.00 11.00 ;
-        END
-    END nck
     PIN na4
         DIRECTION INPUT ;
         PORT
@@ -3559,23 +3895,6 @@ MACRO rom_dec_selmux23
             RECT 4.00 9.00 6.00 11.00 ;
         END
     END a0
-    PIN ck
-        DIRECTION INPUT ;
-        PORT
-            LAYER L_ALU3 ;
-            RECT 114.00 74.00 116.00 76.00 ;
-            RECT 114.00 69.00 116.00 71.00 ;
-            RECT 114.00 64.00 116.00 66.00 ;
-            RECT 114.00 59.00 116.00 61.00 ;
-            RECT 114.00 54.00 116.00 56.00 ;
-            RECT 114.00 49.00 116.00 51.00 ;
-            RECT 114.00 44.00 116.00 46.00 ;
-            RECT 114.00 39.00 116.00 41.00 ;
-            RECT 114.00 34.00 116.00 36.00 ;
-            RECT 114.00 29.00 116.00 31.00 ;
-            RECT 114.00 24.00 116.00 26.00 ;
-        END
-    END ck
     PIN selrom
         DIRECTION INPUT ;
         PORT
@@ -3637,71 +3956,72 @@ MACRO rom_dec_selmux23
             RECT 99.00 9.00 101.00 11.00 ;
         END
     END a5
-    PIN vss
-        DIRECTION INOUT ;
-        USE ground ;
-        SHAPE FEEDTHRU ;
-    END vss
     PIN vdd
         DIRECTION INOUT ;
-        USE power ;
-        SHAPE FEEDTHRU ;
+        USE POWER ;
+        SHAPE ABUTMENT ;
+        PORT
+            LAYER L_ALU1 ;
+            WIDTH 6.00 ;
+            PATH 3.00 47.00 117.00 47.00 ;
+            LAYER L_ALU1 ;
+            WIDTH 6.00 ;
+            PATH 3.00 53.00 117.00 53.00 ;
+        END
     END vdd
-    OBS
-        LAYER L_ALU1 ;
-        RECT 1.50 1.50 118.50 98.50 ;
-        LAYER L_ALU2 ;
-        RECT 4.00 79.00 116.00 81.00 ;
-        RECT 4.00 74.00 116.00 76.00 ;
-        RECT 4.00 69.00 116.00 71.00 ;
-        RECT 4.00 59.00 116.00 61.00 ;
-        RECT 4.00 39.00 116.00 41.00 ;
-        RECT 4.00 29.00 116.00 31.00 ;
-        RECT 4.00 24.00 116.00 26.00 ;
-        RECT 4.00 19.00 116.00 21.00 ;
-        RECT 64.00 19.00 96.00 21.00 ;
-        RECT 64.00 79.00 96.00 81.00 ;
-        RECT 19.00 74.00 41.00 76.00 ;
-        RECT 59.00 74.00 81.00 76.00 ;
-        RECT 59.00 24.00 81.00 26.00 ;
-        RECT 19.00 24.00 41.00 26.00 ;
-        RECT 9.00 39.00 46.00 41.00 ;
-        RECT 9.00 59.00 26.00 61.00 ;
-        RECT 54.00 29.00 71.00 31.00 ;
-        RECT 9.00 29.00 36.00 31.00 ;
-        RECT 79.00 29.00 111.00 31.00 ;
-        RECT 44.00 19.00 51.00 21.00 ;
-        RECT 54.00 69.00 61.00 71.00 ;
-        RECT 4.00 69.00 36.00 71.00 ;
-        RECT 44.00 79.00 51.00 81.00 ;
-        RECT 79.00 69.00 111.00 71.00 ;
-    END
-END rom_dec_selmux23
-
-
-MACRO rom_dec_selmux23_ts
-    CLASS     CORE ;
-    ORIGIN    0.00 0.00 ;
-    SIZE      140.00 BY 100.00 ;
-    SYMMETRY  Y ;
-    SITE      core ;
-    PIN mux3
-        DIRECTION OUTPUT ;
+    PIN vss
+        DIRECTION INOUT ;
+        USE GROUND ;
+        SHAPE ABUTMENT ;
+        PORT
+            LAYER L_ALU1 ;
+            WIDTH 6.00 ;
+            PATH 3.00 3.00 117.00 3.00 ;
+            LAYER L_ALU1 ;
+            WIDTH 6.00 ;
+            PATH 3.00 97.00 117.00 97.00 ;
+        END
+    END vss
+    PIN ck
+        DIRECTION INPUT ;
+        USE CLOCK ;
         PORT
             LAYER L_ALU3 ;
-            RECT 24.00 59.00 26.00 61.00 ;
+            RECT 114.00 74.00 116.00 76.00 ;
+            RECT 114.00 69.00 116.00 71.00 ;
+            RECT 114.00 64.00 116.00 66.00 ;
+            RECT 114.00 59.00 116.00 61.00 ;
+            RECT 114.00 54.00 116.00 56.00 ;
+            RECT 114.00 49.00 116.00 51.00 ;
+            RECT 114.00 44.00 116.00 46.00 ;
+            RECT 114.00 39.00 116.00 41.00 ;
+            RECT 114.00 34.00 116.00 36.00 ;
+            RECT 114.00 29.00 116.00 31.00 ;
+            RECT 114.00 24.00 116.00 26.00 ;
         END
-    END mux3
-    PIN mux2
-        DIRECTION OUTPUT ;
-        PORT
-            LAYER L_ALU3 ;
-            RECT 44.00 39.00 46.00 41.00 ;
-        END
-    END mux2
+    END ck
     PIN nck
         DIRECTION OUTPUT ;
+        USE CLOCK ;
         PORT
+            LAYER L_ALU3 ;
+            RECT 104.00 89.00 106.00 91.00 ;
+            RECT 104.00 84.00 106.00 86.00 ;
+            RECT 104.00 79.00 106.00 81.00 ;
+            RECT 104.00 74.00 106.00 76.00 ;
+            RECT 104.00 69.00 106.00 71.00 ;
+            RECT 104.00 64.00 106.00 66.00 ;
+            RECT 104.00 59.00 106.00 61.00 ;
+            RECT 104.00 54.00 106.00 56.00 ;
+            RECT 104.00 49.00 106.00 51.00 ;
+            RECT 104.00 44.00 106.00 46.00 ;
+            RECT 104.00 39.00 106.00 41.00 ;
+            RECT 104.00 34.00 106.00 36.00 ;
+            RECT 104.00 29.00 106.00 31.00 ;
+            RECT 104.00 24.00 106.00 26.00 ;
+            RECT 104.00 19.00 106.00 21.00 ;
+            RECT 104.00 14.00 106.00 16.00 ;
+            RECT 104.00 9.00 106.00 11.00 ;
             LAYER L_ALU2 ;
             RECT 109.00 89.00 111.00 91.00 ;
             RECT 104.00 89.00 106.00 91.00 ;
@@ -3748,26 +4068,78 @@ MACRO rom_dec_selmux23_ts
             RECT 14.00 9.00 16.00 11.00 ;
             RECT 9.00 9.00 11.00 11.00 ;
             RECT 4.00 9.00 6.00 11.00 ;
-            LAYER L_ALU3 ;
-            RECT 104.00 89.00 106.00 91.00 ;
-            RECT 104.00 84.00 106.00 86.00 ;
-            RECT 104.00 79.00 106.00 81.00 ;
-            RECT 104.00 74.00 106.00 76.00 ;
-            RECT 104.00 69.00 106.00 71.00 ;
-            RECT 104.00 64.00 106.00 66.00 ;
-            RECT 104.00 59.00 106.00 61.00 ;
-            RECT 104.00 54.00 106.00 56.00 ;
-            RECT 104.00 49.00 106.00 51.00 ;
-            RECT 104.00 44.00 106.00 46.00 ;
-            RECT 104.00 39.00 106.00 41.00 ;
-            RECT 104.00 34.00 106.00 36.00 ;
-            RECT 104.00 29.00 106.00 31.00 ;
-            RECT 104.00 24.00 106.00 26.00 ;
-            RECT 104.00 19.00 106.00 21.00 ;
-            RECT 104.00 14.00 106.00 16.00 ;
-            RECT 104.00 9.00 106.00 11.00 ;
         END
     END nck
+    OBS
+        LAYER L_ALU1 ;
+        RECT 1.50 9.00 118.50 41.00 ;
+        RECT 1.50 59.00 118.50 91.00 ;
+        LAYER L_ALU2 ;
+        RECT 4.00 79.00 116.00 81.00 ;
+        RECT 4.00 74.00 116.00 76.00 ;
+        RECT 4.00 69.00 116.00 71.00 ;
+        RECT 4.00 59.00 116.00 61.00 ;
+        RECT 4.00 39.00 116.00 41.00 ;
+        RECT 4.00 29.00 116.00 31.00 ;
+        RECT 4.00 24.00 116.00 26.00 ;
+        RECT 4.00 19.00 116.00 21.00 ;
+        RECT 64.00 19.00 96.00 21.00 ;
+        RECT 64.00 79.00 96.00 81.00 ;
+        RECT 19.00 74.00 41.00 76.00 ;
+        RECT 59.00 74.00 81.00 76.00 ;
+        RECT 59.00 24.00 81.00 26.00 ;
+        RECT 19.00 24.00 41.00 26.00 ;
+        RECT 9.00 39.00 46.00 41.00 ;
+        RECT 9.00 59.00 26.00 61.00 ;
+        RECT 54.00 29.00 71.00 31.00 ;
+        RECT 9.00 29.00 36.00 31.00 ;
+        RECT 79.00 29.00 111.00 31.00 ;
+        RECT 44.00 19.00 51.00 21.00 ;
+        RECT 54.00 69.00 61.00 71.00 ;
+        RECT 4.00 69.00 36.00 71.00 ;
+        RECT 44.00 79.00 51.00 81.00 ;
+        RECT 79.00 69.00 111.00 71.00 ;
+    END
+END rom_dec_selmux23
+
+
+MACRO rom_dec_selmux23_ts
+    CLASS     CORE ;
+    ORIGIN    0.00 0.00 ;
+    SIZE      140.00 BY 100.00 ;
+    SYMMETRY  Y ;
+    SITE      core ;
+    PIN nenx
+        DIRECTION INOUT ;
+        PORT
+            LAYER L_ALU3 ;
+            RECT 119.00 74.00 121.00 76.00 ;
+            RECT 119.00 69.00 121.00 71.00 ;
+            RECT 119.00 64.00 121.00 66.00 ;
+            RECT 119.00 59.00 121.00 61.00 ;
+            RECT 119.00 54.00 121.00 56.00 ;
+            RECT 119.00 49.00 121.00 51.00 ;
+            RECT 119.00 44.00 121.00 46.00 ;
+            RECT 119.00 39.00 121.00 41.00 ;
+            RECT 119.00 34.00 121.00 36.00 ;
+            RECT 119.00 29.00 121.00 31.00 ;
+            RECT 119.00 24.00 121.00 26.00 ;
+        END
+    END nenx
+    PIN mux3
+        DIRECTION OUTPUT ;
+        PORT
+            LAYER L_ALU3 ;
+            RECT 24.00 59.00 26.00 61.00 ;
+        END
+    END mux3
+    PIN mux2
+        DIRECTION OUTPUT ;
+        PORT
+            LAYER L_ALU3 ;
+            RECT 44.00 39.00 46.00 41.00 ;
+        END
+    END mux2
     PIN sel2
         DIRECTION OUTPUT ;
         PORT
@@ -3831,23 +4203,6 @@ MACRO rom_dec_selmux23_ts
             RECT 109.00 29.00 111.00 31.00 ;
         END
     END enx
-    PIN nenx
-        DIRECTION OUTPUT ;
-        PORT
-            LAYER L_ALU3 ;
-            RECT 119.00 74.00 121.00 76.00 ;
-            RECT 119.00 69.00 121.00 71.00 ;
-            RECT 119.00 64.00 121.00 66.00 ;
-            RECT 119.00 59.00 121.00 61.00 ;
-            RECT 119.00 54.00 121.00 56.00 ;
-            RECT 119.00 49.00 121.00 51.00 ;
-            RECT 119.00 44.00 121.00 46.00 ;
-            RECT 119.00 39.00 121.00 41.00 ;
-            RECT 119.00 34.00 121.00 36.00 ;
-            RECT 119.00 29.00 121.00 31.00 ;
-            RECT 119.00 24.00 121.00 26.00 ;
-        END
-    END nenx
     PIN na4
         DIRECTION INPUT ;
         PORT
@@ -4124,23 +4479,6 @@ MACRO rom_dec_selmux23_ts
             RECT 99.00 9.00 101.00 11.00 ;
         END
     END a5
-    PIN ck
-        DIRECTION INPUT ;
-        PORT
-            LAYER L_ALU3 ;
-            RECT 114.00 74.00 116.00 76.00 ;
-            RECT 114.00 69.00 116.00 71.00 ;
-            RECT 114.00 64.00 116.00 66.00 ;
-            RECT 114.00 59.00 116.00 61.00 ;
-            RECT 114.00 54.00 116.00 56.00 ;
-            RECT 114.00 49.00 116.00 51.00 ;
-            RECT 114.00 44.00 116.00 46.00 ;
-            RECT 114.00 39.00 116.00 41.00 ;
-            RECT 114.00 34.00 116.00 36.00 ;
-            RECT 114.00 29.00 116.00 31.00 ;
-            RECT 114.00 24.00 116.00 26.00 ;
-        END
-    END ck
     PIN selrom
         DIRECTION INPUT ;
         PORT
@@ -4160,19 +4498,130 @@ MACRO rom_dec_selmux23_ts
             RECT 129.00 19.00 131.00 21.00 ;
         END
     END selrom
-    PIN vss
-        DIRECTION INOUT ;
-        USE ground ;
-        SHAPE FEEDTHRU ;
-    END vss
     PIN vdd
         DIRECTION INOUT ;
-        USE power ;
-        SHAPE FEEDTHRU ;
+        USE POWER ;
+        SHAPE ABUTMENT ;
+        PORT
+            LAYER L_ALU1 ;
+            WIDTH 6.00 ;
+            PATH 3.00 47.00 137.00 47.00 ;
+            LAYER L_ALU1 ;
+            WIDTH 6.00 ;
+            PATH 3.00 53.00 137.00 53.00 ;
+            LAYER L_ALU3 ;
+            WIDTH 2.00 ;
+            PATH 135.00 1.00 135.00 99.00 ;
+        END
     END vdd
+    PIN vss
+        DIRECTION INOUT ;
+        USE GROUND ;
+        SHAPE ABUTMENT ;
+        PORT
+            LAYER L_ALU1 ;
+            WIDTH 6.00 ;
+            PATH 3.00 3.00 137.00 3.00 ;
+            LAYER L_ALU1 ;
+            WIDTH 6.00 ;
+            PATH 3.00 97.00 137.00 97.00 ;
+            LAYER L_ALU3 ;
+            WIDTH 2.00 ;
+            PATH 125.00 1.00 125.00 99.00 ;
+        END
+    END vss
+    PIN nck
+        DIRECTION OUTPUT ;
+        USE CLOCK ;
+        PORT
+            LAYER L_ALU2 ;
+            RECT 109.00 89.00 111.00 91.00 ;
+            RECT 104.00 89.00 106.00 91.00 ;
+            RECT 99.00 89.00 101.00 91.00 ;
+            RECT 94.00 89.00 96.00 91.00 ;
+            RECT 89.00 89.00 91.00 91.00 ;
+            RECT 84.00 89.00 86.00 91.00 ;
+            RECT 79.00 89.00 81.00 91.00 ;
+            RECT 74.00 89.00 76.00 91.00 ;
+            RECT 69.00 89.00 71.00 91.00 ;
+            RECT 64.00 89.00 66.00 91.00 ;
+            RECT 59.00 89.00 61.00 91.00 ;
+            RECT 54.00 89.00 56.00 91.00 ;
+            RECT 49.00 89.00 51.00 91.00 ;
+            RECT 44.00 89.00 46.00 91.00 ;
+            RECT 39.00 89.00 41.00 91.00 ;
+            RECT 34.00 89.00 36.00 91.00 ;
+            RECT 29.00 89.00 31.00 91.00 ;
+            RECT 24.00 89.00 26.00 91.00 ;
+            RECT 19.00 89.00 21.00 91.00 ;
+            RECT 14.00 89.00 16.00 91.00 ;
+            RECT 9.00 89.00 11.00 91.00 ;
+            RECT 4.00 89.00 6.00 91.00 ;
+            LAYER L_ALU2 ;
+            RECT 109.00 9.00 111.00 11.00 ;
+            RECT 104.00 9.00 106.00 11.00 ;
+            RECT 99.00 9.00 101.00 11.00 ;
+            RECT 94.00 9.00 96.00 11.00 ;
+            RECT 89.00 9.00 91.00 11.00 ;
+            RECT 84.00 9.00 86.00 11.00 ;
+            RECT 79.00 9.00 81.00 11.00 ;
+            RECT 74.00 9.00 76.00 11.00 ;
+            RECT 69.00 9.00 71.00 11.00 ;
+            RECT 64.00 9.00 66.00 11.00 ;
+            RECT 59.00 9.00 61.00 11.00 ;
+            RECT 54.00 9.00 56.00 11.00 ;
+            RECT 49.00 9.00 51.00 11.00 ;
+            RECT 44.00 9.00 46.00 11.00 ;
+            RECT 39.00 9.00 41.00 11.00 ;
+            RECT 34.00 9.00 36.00 11.00 ;
+            RECT 29.00 9.00 31.00 11.00 ;
+            RECT 24.00 9.00 26.00 11.00 ;
+            RECT 19.00 9.00 21.00 11.00 ;
+            RECT 14.00 9.00 16.00 11.00 ;
+            RECT 9.00 9.00 11.00 11.00 ;
+            RECT 4.00 9.00 6.00 11.00 ;
+            LAYER L_ALU3 ;
+            RECT 104.00 89.00 106.00 91.00 ;
+            RECT 104.00 84.00 106.00 86.00 ;
+            RECT 104.00 79.00 106.00 81.00 ;
+            RECT 104.00 74.00 106.00 76.00 ;
+            RECT 104.00 69.00 106.00 71.00 ;
+            RECT 104.00 64.00 106.00 66.00 ;
+            RECT 104.00 59.00 106.00 61.00 ;
+            RECT 104.00 54.00 106.00 56.00 ;
+            RECT 104.00 49.00 106.00 51.00 ;
+            RECT 104.00 44.00 106.00 46.00 ;
+            RECT 104.00 39.00 106.00 41.00 ;
+            RECT 104.00 34.00 106.00 36.00 ;
+            RECT 104.00 29.00 106.00 31.00 ;
+            RECT 104.00 24.00 106.00 26.00 ;
+            RECT 104.00 19.00 106.00 21.00 ;
+            RECT 104.00 14.00 106.00 16.00 ;
+            RECT 104.00 9.00 106.00 11.00 ;
+        END
+    END nck
+    PIN ck
+        DIRECTION INPUT ;
+        USE CLOCK ;
+        PORT
+            LAYER L_ALU3 ;
+            RECT 114.00 74.00 116.00 76.00 ;
+            RECT 114.00 69.00 116.00 71.00 ;
+            RECT 114.00 64.00 116.00 66.00 ;
+            RECT 114.00 59.00 116.00 61.00 ;
+            RECT 114.00 54.00 116.00 56.00 ;
+            RECT 114.00 49.00 116.00 51.00 ;
+            RECT 114.00 44.00 116.00 46.00 ;
+            RECT 114.00 39.00 116.00 41.00 ;
+            RECT 114.00 34.00 116.00 36.00 ;
+            RECT 114.00 29.00 116.00 31.00 ;
+            RECT 114.00 24.00 116.00 26.00 ;
+        END
+    END ck
     OBS
         LAYER L_ALU1 ;
-        RECT 1.50 1.50 138.50 98.50 ;
+        RECT 1.50 9.00 138.50 41.00 ;
+        RECT 1.50 59.00 138.50 91.00 ;
         LAYER L_ALU2 ;
         RECT 79.00 29.00 125.00 31.00 ;
         RECT 79.00 69.00 125.00 71.00 ;
@@ -4210,75 +4659,6 @@ MACRO rom_dec_selmux45
     SIZE      120.00 BY 100.00 ;
     SYMMETRY  Y ;
     SITE      core ;
-    PIN nck
-        DIRECTION OUTPUT ;
-        PORT
-            LAYER L_ALU2 ;
-            RECT 109.00 9.00 111.00 11.00 ;
-            RECT 104.00 9.00 106.00 11.00 ;
-            RECT 99.00 9.00 101.00 11.00 ;
-            RECT 94.00 9.00 96.00 11.00 ;
-            RECT 89.00 9.00 91.00 11.00 ;
-            RECT 84.00 9.00 86.00 11.00 ;
-            RECT 79.00 9.00 81.00 11.00 ;
-            RECT 74.00 9.00 76.00 11.00 ;
-            RECT 69.00 9.00 71.00 11.00 ;
-            RECT 64.00 9.00 66.00 11.00 ;
-            RECT 59.00 9.00 61.00 11.00 ;
-            RECT 54.00 9.00 56.00 11.00 ;
-            RECT 49.00 9.00 51.00 11.00 ;
-            RECT 44.00 9.00 46.00 11.00 ;
-            RECT 39.00 9.00 41.00 11.00 ;
-            RECT 34.00 9.00 36.00 11.00 ;
-            RECT 29.00 9.00 31.00 11.00 ;
-            RECT 24.00 9.00 26.00 11.00 ;
-            RECT 19.00 9.00 21.00 11.00 ;
-            RECT 14.00 9.00 16.00 11.00 ;
-            RECT 9.00 9.00 11.00 11.00 ;
-            RECT 4.00 9.00 6.00 11.00 ;
-            LAYER L_ALU2 ;
-            RECT 109.00 89.00 111.00 91.00 ;
-            RECT 104.00 89.00 106.00 91.00 ;
-            RECT 99.00 89.00 101.00 91.00 ;
-            RECT 94.00 89.00 96.00 91.00 ;
-            RECT 89.00 89.00 91.00 91.00 ;
-            RECT 84.00 89.00 86.00 91.00 ;
-            RECT 79.00 89.00 81.00 91.00 ;
-            RECT 74.00 89.00 76.00 91.00 ;
-            RECT 69.00 89.00 71.00 91.00 ;
-            RECT 64.00 89.00 66.00 91.00 ;
-            RECT 59.00 89.00 61.00 91.00 ;
-            RECT 54.00 89.00 56.00 91.00 ;
-            RECT 49.00 89.00 51.00 91.00 ;
-            RECT 44.00 89.00 46.00 91.00 ;
-            RECT 39.00 89.00 41.00 91.00 ;
-            RECT 34.00 89.00 36.00 91.00 ;
-            RECT 29.00 89.00 31.00 91.00 ;
-            RECT 24.00 89.00 26.00 91.00 ;
-            RECT 19.00 89.00 21.00 91.00 ;
-            RECT 14.00 89.00 16.00 91.00 ;
-            RECT 9.00 89.00 11.00 91.00 ;
-            RECT 4.00 89.00 6.00 91.00 ;
-            LAYER L_ALU3 ;
-            RECT 104.00 89.00 106.00 91.00 ;
-            RECT 104.00 84.00 106.00 86.00 ;
-            RECT 104.00 79.00 106.00 81.00 ;
-            RECT 104.00 74.00 106.00 76.00 ;
-            RECT 104.00 69.00 106.00 71.00 ;
-            RECT 104.00 64.00 106.00 66.00 ;
-            RECT 104.00 59.00 106.00 61.00 ;
-            RECT 104.00 54.00 106.00 56.00 ;
-            RECT 104.00 49.00 106.00 51.00 ;
-            RECT 104.00 44.00 106.00 46.00 ;
-            RECT 104.00 39.00 106.00 41.00 ;
-            RECT 104.00 34.00 106.00 36.00 ;
-            RECT 104.00 29.00 106.00 31.00 ;
-            RECT 104.00 24.00 106.00 26.00 ;
-            RECT 104.00 19.00 106.00 21.00 ;
-            RECT 104.00 14.00 106.00 16.00 ;
-            RECT 104.00 9.00 106.00 11.00 ;
-        END
-    END nck
     PIN sel4
         DIRECTION OUTPUT ;
         PORT
@@ -4402,23 +4782,6 @@ MACRO rom_dec_selmux45
             RECT 109.00 29.00 111.00 31.00 ;
         END
     END selrom
-    PIN ck
-        DIRECTION INPUT ;
-        PORT
-            LAYER L_ALU3 ;
-            RECT 114.00 74.00 116.00 76.00 ;
-            RECT 114.00 69.00 116.00 71.00 ;
-            RECT 114.00 64.00 116.00 66.00 ;
-            RECT 114.00 59.00 116.00 61.00 ;
-            RECT 114.00 54.00 116.00 56.00 ;
-            RECT 114.00 49.00 116.00 51.00 ;
-            RECT 114.00 44.00 116.00 46.00 ;
-            RECT 114.00 39.00 116.00 41.00 ;
-            RECT 114.00 34.00 116.00 36.00 ;
-            RECT 114.00 29.00 116.00 31.00 ;
-            RECT 114.00 24.00 116.00 26.00 ;
-        END
-    END ck
     PIN a0
         DIRECTION INPUT ;
         PORT
@@ -4649,19 +5012,124 @@ MACRO rom_dec_selmux45
             RECT 89.00 9.00 91.00 11.00 ;
         END
     END na4
-    PIN vss
-        DIRECTION INOUT ;
-        USE ground ;
-        SHAPE FEEDTHRU ;
-    END vss
     PIN vdd
         DIRECTION INOUT ;
-        USE power ;
-        SHAPE FEEDTHRU ;
+        USE POWER ;
+        SHAPE ABUTMENT ;
+        PORT
+            LAYER L_ALU1 ;
+            WIDTH 6.00 ;
+            PATH 3.00 47.00 117.00 47.00 ;
+            LAYER L_ALU1 ;
+            WIDTH 6.00 ;
+            PATH 3.00 53.00 117.00 53.00 ;
+        END
     END vdd
+    PIN vss
+        DIRECTION INOUT ;
+        USE GROUND ;
+        SHAPE ABUTMENT ;
+        PORT
+            LAYER L_ALU1 ;
+            WIDTH 6.00 ;
+            PATH 3.00 3.00 117.00 3.00 ;
+            LAYER L_ALU1 ;
+            WIDTH 6.00 ;
+            PATH 3.00 97.00 117.00 97.00 ;
+        END
+    END vss
+    PIN ck
+        DIRECTION INPUT ;
+        USE CLOCK ;
+        PORT
+            LAYER L_ALU3 ;
+            RECT 114.00 74.00 116.00 76.00 ;
+            RECT 114.00 69.00 116.00 71.00 ;
+            RECT 114.00 64.00 116.00 66.00 ;
+            RECT 114.00 59.00 116.00 61.00 ;
+            RECT 114.00 54.00 116.00 56.00 ;
+            RECT 114.00 49.00 116.00 51.00 ;
+            RECT 114.00 44.00 116.00 46.00 ;
+            RECT 114.00 39.00 116.00 41.00 ;
+            RECT 114.00 34.00 116.00 36.00 ;
+            RECT 114.00 29.00 116.00 31.00 ;
+            RECT 114.00 24.00 116.00 26.00 ;
+        END
+    END ck
+    PIN nck
+        DIRECTION OUTPUT ;
+        USE CLOCK ;
+        PORT
+            LAYER L_ALU2 ;
+            RECT 109.00 9.00 111.00 11.00 ;
+            RECT 104.00 9.00 106.00 11.00 ;
+            RECT 99.00 9.00 101.00 11.00 ;
+            RECT 94.00 9.00 96.00 11.00 ;
+            RECT 89.00 9.00 91.00 11.00 ;
+            RECT 84.00 9.00 86.00 11.00 ;
+            RECT 79.00 9.00 81.00 11.00 ;
+            RECT 74.00 9.00 76.00 11.00 ;
+            RECT 69.00 9.00 71.00 11.00 ;
+            RECT 64.00 9.00 66.00 11.00 ;
+            RECT 59.00 9.00 61.00 11.00 ;
+            RECT 54.00 9.00 56.00 11.00 ;
+            RECT 49.00 9.00 51.00 11.00 ;
+            RECT 44.00 9.00 46.00 11.00 ;
+            RECT 39.00 9.00 41.00 11.00 ;
+            RECT 34.00 9.00 36.00 11.00 ;
+            RECT 29.00 9.00 31.00 11.00 ;
+            RECT 24.00 9.00 26.00 11.00 ;
+            RECT 19.00 9.00 21.00 11.00 ;
+            RECT 14.00 9.00 16.00 11.00 ;
+            RECT 9.00 9.00 11.00 11.00 ;
+            RECT 4.00 9.00 6.00 11.00 ;
+            LAYER L_ALU2 ;
+            RECT 109.00 89.00 111.00 91.00 ;
+            RECT 104.00 89.00 106.00 91.00 ;
+            RECT 99.00 89.00 101.00 91.00 ;
+            RECT 94.00 89.00 96.00 91.00 ;
+            RECT 89.00 89.00 91.00 91.00 ;
+            RECT 84.00 89.00 86.00 91.00 ;
+            RECT 79.00 89.00 81.00 91.00 ;
+            RECT 74.00 89.00 76.00 91.00 ;
+            RECT 69.00 89.00 71.00 91.00 ;
+            RECT 64.00 89.00 66.00 91.00 ;
+            RECT 59.00 89.00 61.00 91.00 ;
+            RECT 54.00 89.00 56.00 91.00 ;
+            RECT 49.00 89.00 51.00 91.00 ;
+            RECT 44.00 89.00 46.00 91.00 ;
+            RECT 39.00 89.00 41.00 91.00 ;
+            RECT 34.00 89.00 36.00 91.00 ;
+            RECT 29.00 89.00 31.00 91.00 ;
+            RECT 24.00 89.00 26.00 91.00 ;
+            RECT 19.00 89.00 21.00 91.00 ;
+            RECT 14.00 89.00 16.00 91.00 ;
+            RECT 9.00 89.00 11.00 91.00 ;
+            RECT 4.00 89.00 6.00 91.00 ;
+            LAYER L_ALU3 ;
+            RECT 104.00 89.00 106.00 91.00 ;
+            RECT 104.00 84.00 106.00 86.00 ;
+            RECT 104.00 79.00 106.00 81.00 ;
+            RECT 104.00 74.00 106.00 76.00 ;
+            RECT 104.00 69.00 106.00 71.00 ;
+            RECT 104.00 64.00 106.00 66.00 ;
+            RECT 104.00 59.00 106.00 61.00 ;
+            RECT 104.00 54.00 106.00 56.00 ;
+            RECT 104.00 49.00 106.00 51.00 ;
+            RECT 104.00 44.00 106.00 46.00 ;
+            RECT 104.00 39.00 106.00 41.00 ;
+            RECT 104.00 34.00 106.00 36.00 ;
+            RECT 104.00 29.00 106.00 31.00 ;
+            RECT 104.00 24.00 106.00 26.00 ;
+            RECT 104.00 19.00 106.00 21.00 ;
+            RECT 104.00 14.00 106.00 16.00 ;
+            RECT 104.00 9.00 106.00 11.00 ;
+        END
+    END nck
     OBS
         LAYER L_ALU1 ;
-        RECT 1.50 1.50 118.50 98.50 ;
+        RECT 1.50 9.00 118.50 41.00 ;
+        RECT 1.50 59.00 118.50 91.00 ;
         LAYER L_ALU2 ;
         RECT 39.00 79.00 46.00 81.00 ;
         RECT 39.00 19.00 46.00 21.00 ;
@@ -4697,75 +5165,23 @@ MACRO rom_dec_selmux45_ts
     SIZE      140.00 BY 100.00 ;
     SYMMETRY  Y ;
     SITE      core ;
-    PIN nck
-        DIRECTION OUTPUT ;
+    PIN nenx
+        DIRECTION INOUT ;
         PORT
-            LAYER L_ALU2 ;
-            RECT 109.00 89.00 111.00 91.00 ;
-            RECT 104.00 89.00 106.00 91.00 ;
-            RECT 99.00 89.00 101.00 91.00 ;
-            RECT 94.00 89.00 96.00 91.00 ;
-            RECT 89.00 89.00 91.00 91.00 ;
-            RECT 84.00 89.00 86.00 91.00 ;
-            RECT 79.00 89.00 81.00 91.00 ;
-            RECT 74.00 89.00 76.00 91.00 ;
-            RECT 69.00 89.00 71.00 91.00 ;
-            RECT 64.00 89.00 66.00 91.00 ;
-            RECT 59.00 89.00 61.00 91.00 ;
-            RECT 54.00 89.00 56.00 91.00 ;
-            RECT 49.00 89.00 51.00 91.00 ;
-            RECT 44.00 89.00 46.00 91.00 ;
-            RECT 39.00 89.00 41.00 91.00 ;
-            RECT 34.00 89.00 36.00 91.00 ;
-            RECT 29.00 89.00 31.00 91.00 ;
-            RECT 24.00 89.00 26.00 91.00 ;
-            RECT 19.00 89.00 21.00 91.00 ;
-            RECT 14.00 89.00 16.00 91.00 ;
-            RECT 9.00 89.00 11.00 91.00 ;
-            RECT 4.00 89.00 6.00 91.00 ;
-            LAYER L_ALU2 ;
-            RECT 109.00 9.00 111.00 11.00 ;
-            RECT 104.00 9.00 106.00 11.00 ;
-            RECT 99.00 9.00 101.00 11.00 ;
-            RECT 94.00 9.00 96.00 11.00 ;
-            RECT 89.00 9.00 91.00 11.00 ;
-            RECT 84.00 9.00 86.00 11.00 ;
-            RECT 79.00 9.00 81.00 11.00 ;
-            RECT 74.00 9.00 76.00 11.00 ;
-            RECT 69.00 9.00 71.00 11.00 ;
-            RECT 64.00 9.00 66.00 11.00 ;
-            RECT 59.00 9.00 61.00 11.00 ;
-            RECT 54.00 9.00 56.00 11.00 ;
-            RECT 49.00 9.00 51.00 11.00 ;
-            RECT 44.00 9.00 46.00 11.00 ;
-            RECT 39.00 9.00 41.00 11.00 ;
-            RECT 34.00 9.00 36.00 11.00 ;
-            RECT 29.00 9.00 31.00 11.00 ;
-            RECT 24.00 9.00 26.00 11.00 ;
-            RECT 19.00 9.00 21.00 11.00 ;
-            RECT 14.00 9.00 16.00 11.00 ;
-            RECT 9.00 9.00 11.00 11.00 ;
-            RECT 4.00 9.00 6.00 11.00 ;
             LAYER L_ALU3 ;
-            RECT 104.00 89.00 106.00 91.00 ;
-            RECT 104.00 84.00 106.00 86.00 ;
-            RECT 104.00 79.00 106.00 81.00 ;
-            RECT 104.00 74.00 106.00 76.00 ;
-            RECT 104.00 69.00 106.00 71.00 ;
-            RECT 104.00 64.00 106.00 66.00 ;
-            RECT 104.00 59.00 106.00 61.00 ;
-            RECT 104.00 54.00 106.00 56.00 ;
-            RECT 104.00 49.00 106.00 51.00 ;
-            RECT 104.00 44.00 106.00 46.00 ;
-            RECT 104.00 39.00 106.00 41.00 ;
-            RECT 104.00 34.00 106.00 36.00 ;
-            RECT 104.00 29.00 106.00 31.00 ;
-            RECT 104.00 24.00 106.00 26.00 ;
-            RECT 104.00 19.00 106.00 21.00 ;
-            RECT 104.00 14.00 106.00 16.00 ;
-            RECT 104.00 9.00 106.00 11.00 ;
+            RECT 119.00 74.00 121.00 76.00 ;
+            RECT 119.00 69.00 121.00 71.00 ;
+            RECT 119.00 64.00 121.00 66.00 ;
+            RECT 119.00 59.00 121.00 61.00 ;
+            RECT 119.00 54.00 121.00 56.00 ;
+            RECT 119.00 49.00 121.00 51.00 ;
+            RECT 119.00 44.00 121.00 46.00 ;
+            RECT 119.00 39.00 121.00 41.00 ;
+            RECT 119.00 34.00 121.00 36.00 ;
+            RECT 119.00 29.00 121.00 31.00 ;
+            RECT 119.00 24.00 121.00 26.00 ;
         END
-    END nck
+    END nenx
     PIN sel4
         DIRECTION OUTPUT ;
         PORT
@@ -4828,23 +5244,6 @@ MACRO rom_dec_selmux45_ts
             RECT 54.00 59.00 56.00 61.00 ;
         END
     END mux5
-    PIN nenx
-        DIRECTION OUTPUT ;
-        PORT
-            LAYER L_ALU3 ;
-            RECT 119.00 74.00 121.00 76.00 ;
-            RECT 119.00 69.00 121.00 71.00 ;
-            RECT 119.00 64.00 121.00 66.00 ;
-            RECT 119.00 59.00 121.00 61.00 ;
-            RECT 119.00 54.00 121.00 56.00 ;
-            RECT 119.00 49.00 121.00 51.00 ;
-            RECT 119.00 44.00 121.00 46.00 ;
-            RECT 119.00 39.00 121.00 41.00 ;
-            RECT 119.00 34.00 121.00 36.00 ;
-            RECT 119.00 29.00 121.00 31.00 ;
-            RECT 119.00 24.00 121.00 26.00 ;
-        END
-    END nenx
     PIN enx
         DIRECTION OUTPUT ;
         PORT
@@ -5153,8 +5552,111 @@ MACRO rom_dec_selmux45_ts
             RECT 129.00 19.00 131.00 21.00 ;
         END
     END selrom
+    PIN vdd
+        DIRECTION INOUT ;
+        USE POWER ;
+        SHAPE ABUTMENT ;
+        PORT
+            LAYER L_ALU1 ;
+            WIDTH 6.00 ;
+            PATH 3.00 47.00 137.00 47.00 ;
+            LAYER L_ALU1 ;
+            WIDTH 6.00 ;
+            PATH 3.00 53.00 137.00 53.00 ;
+            LAYER L_ALU3 ;
+            WIDTH 2.00 ;
+            PATH 135.00 1.00 135.00 99.00 ;
+        END
+    END vdd
+    PIN vss
+        DIRECTION INOUT ;
+        USE GROUND ;
+        SHAPE ABUTMENT ;
+        PORT
+            LAYER L_ALU1 ;
+            WIDTH 6.00 ;
+            PATH 3.00 3.00 137.00 3.00 ;
+            LAYER L_ALU1 ;
+            WIDTH 6.00 ;
+            PATH 3.00 97.00 137.00 97.00 ;
+            LAYER L_ALU3 ;
+            WIDTH 2.00 ;
+            PATH 125.00 1.00 125.00 99.00 ;
+        END
+    END vss
+    PIN nck
+        DIRECTION OUTPUT ;
+        USE CLOCK ;
+        PORT
+            LAYER L_ALU2 ;
+            RECT 109.00 89.00 111.00 91.00 ;
+            RECT 104.00 89.00 106.00 91.00 ;
+            RECT 99.00 89.00 101.00 91.00 ;
+            RECT 94.00 89.00 96.00 91.00 ;
+            RECT 89.00 89.00 91.00 91.00 ;
+            RECT 84.00 89.00 86.00 91.00 ;
+            RECT 79.00 89.00 81.00 91.00 ;
+            RECT 74.00 89.00 76.00 91.00 ;
+            RECT 69.00 89.00 71.00 91.00 ;
+            RECT 64.00 89.00 66.00 91.00 ;
+            RECT 59.00 89.00 61.00 91.00 ;
+            RECT 54.00 89.00 56.00 91.00 ;
+            RECT 49.00 89.00 51.00 91.00 ;
+            RECT 44.00 89.00 46.00 91.00 ;
+            RECT 39.00 89.00 41.00 91.00 ;
+            RECT 34.00 89.00 36.00 91.00 ;
+            RECT 29.00 89.00 31.00 91.00 ;
+            RECT 24.00 89.00 26.00 91.00 ;
+            RECT 19.00 89.00 21.00 91.00 ;
+            RECT 14.00 89.00 16.00 91.00 ;
+            RECT 9.00 89.00 11.00 91.00 ;
+            RECT 4.00 89.00 6.00 91.00 ;
+            LAYER L_ALU2 ;
+            RECT 109.00 9.00 111.00 11.00 ;
+            RECT 104.00 9.00 106.00 11.00 ;
+            RECT 99.00 9.00 101.00 11.00 ;
+            RECT 94.00 9.00 96.00 11.00 ;
+            RECT 89.00 9.00 91.00 11.00 ;
+            RECT 84.00 9.00 86.00 11.00 ;
+            RECT 79.00 9.00 81.00 11.00 ;
+            RECT 74.00 9.00 76.00 11.00 ;
+            RECT 69.00 9.00 71.00 11.00 ;
+            RECT 64.00 9.00 66.00 11.00 ;
+            RECT 59.00 9.00 61.00 11.00 ;
+            RECT 54.00 9.00 56.00 11.00 ;
+            RECT 49.00 9.00 51.00 11.00 ;
+            RECT 44.00 9.00 46.00 11.00 ;
+            RECT 39.00 9.00 41.00 11.00 ;
+            RECT 34.00 9.00 36.00 11.00 ;
+            RECT 29.00 9.00 31.00 11.00 ;
+            RECT 24.00 9.00 26.00 11.00 ;
+            RECT 19.00 9.00 21.00 11.00 ;
+            RECT 14.00 9.00 16.00 11.00 ;
+            RECT 9.00 9.00 11.00 11.00 ;
+            RECT 4.00 9.00 6.00 11.00 ;
+            LAYER L_ALU3 ;
+            RECT 104.00 89.00 106.00 91.00 ;
+            RECT 104.00 84.00 106.00 86.00 ;
+            RECT 104.00 79.00 106.00 81.00 ;
+            RECT 104.00 74.00 106.00 76.00 ;
+            RECT 104.00 69.00 106.00 71.00 ;
+            RECT 104.00 64.00 106.00 66.00 ;
+            RECT 104.00 59.00 106.00 61.00 ;
+            RECT 104.00 54.00 106.00 56.00 ;
+            RECT 104.00 49.00 106.00 51.00 ;
+            RECT 104.00 44.00 106.00 46.00 ;
+            RECT 104.00 39.00 106.00 41.00 ;
+            RECT 104.00 34.00 106.00 36.00 ;
+            RECT 104.00 29.00 106.00 31.00 ;
+            RECT 104.00 24.00 106.00 26.00 ;
+            RECT 104.00 19.00 106.00 21.00 ;
+            RECT 104.00 14.00 106.00 16.00 ;
+            RECT 104.00 9.00 106.00 11.00 ;
+        END
+    END nck
     PIN ck
         DIRECTION INPUT ;
+        USE CLOCK ;
         PORT
             LAYER L_ALU3 ;
             RECT 114.00 74.00 116.00 76.00 ;
@@ -5170,19 +5672,10 @@ MACRO rom_dec_selmux45_ts
             RECT 114.00 24.00 116.00 26.00 ;
         END
     END ck
-    PIN vss
-        DIRECTION INOUT ;
-        USE ground ;
-        SHAPE FEEDTHRU ;
-    END vss
-    PIN vdd
-        DIRECTION INOUT ;
-        USE power ;
-        SHAPE FEEDTHRU ;
-    END vdd
     OBS
         LAYER L_ALU1 ;
-        RECT 1.50 1.50 138.50 98.50 ;
+        RECT 1.50 9.00 138.50 41.00 ;
+        RECT 1.50 59.00 138.50 91.00 ;
         LAYER L_ALU2 ;
         RECT 4.00 69.00 136.00 71.00 ;
         RECT 4.00 29.00 136.00 31.00 ;
@@ -5282,75 +5775,6 @@ MACRO rom_dec_selmux67
             RECT 4.00 14.00 6.00 16.00 ;
         END
     END sel6
-    PIN nck
-        DIRECTION OUTPUT ;
-        PORT
-            LAYER L_ALU3 ;
-            RECT 104.00 89.00 106.00 91.00 ;
-            RECT 104.00 84.00 106.00 86.00 ;
-            RECT 104.00 79.00 106.00 81.00 ;
-            RECT 104.00 74.00 106.00 76.00 ;
-            RECT 104.00 69.00 106.00 71.00 ;
-            RECT 104.00 64.00 106.00 66.00 ;
-            RECT 104.00 59.00 106.00 61.00 ;
-            RECT 104.00 54.00 106.00 56.00 ;
-            RECT 104.00 49.00 106.00 51.00 ;
-            RECT 104.00 44.00 106.00 46.00 ;
-            RECT 104.00 39.00 106.00 41.00 ;
-            RECT 104.00 34.00 106.00 36.00 ;
-            RECT 104.00 29.00 106.00 31.00 ;
-            RECT 104.00 24.00 106.00 26.00 ;
-            RECT 104.00 19.00 106.00 21.00 ;
-            RECT 104.00 14.00 106.00 16.00 ;
-            RECT 104.00 9.00 106.00 11.00 ;
-            LAYER L_ALU2 ;
-            RECT 109.00 89.00 111.00 91.00 ;
-            RECT 104.00 89.00 106.00 91.00 ;
-            RECT 99.00 89.00 101.00 91.00 ;
-            RECT 94.00 89.00 96.00 91.00 ;
-            RECT 89.00 89.00 91.00 91.00 ;
-            RECT 84.00 89.00 86.00 91.00 ;
-            RECT 79.00 89.00 81.00 91.00 ;
-            RECT 74.00 89.00 76.00 91.00 ;
-            RECT 69.00 89.00 71.00 91.00 ;
-            RECT 64.00 89.00 66.00 91.00 ;
-            RECT 59.00 89.00 61.00 91.00 ;
-            RECT 54.00 89.00 56.00 91.00 ;
-            RECT 49.00 89.00 51.00 91.00 ;
-            RECT 44.00 89.00 46.00 91.00 ;
-            RECT 39.00 89.00 41.00 91.00 ;
-            RECT 34.00 89.00 36.00 91.00 ;
-            RECT 29.00 89.00 31.00 91.00 ;
-            RECT 24.00 89.00 26.00 91.00 ;
-            RECT 19.00 89.00 21.00 91.00 ;
-            RECT 14.00 89.00 16.00 91.00 ;
-            RECT 9.00 89.00 11.00 91.00 ;
-            RECT 4.00 89.00 6.00 91.00 ;
-            LAYER L_ALU2 ;
-            RECT 109.00 9.00 111.00 11.00 ;
-            RECT 104.00 9.00 106.00 11.00 ;
-            RECT 99.00 9.00 101.00 11.00 ;
-            RECT 94.00 9.00 96.00 11.00 ;
-            RECT 89.00 9.00 91.00 11.00 ;
-            RECT 84.00 9.00 86.00 11.00 ;
-            RECT 79.00 9.00 81.00 11.00 ;
-            RECT 74.00 9.00 76.00 11.00 ;
-            RECT 69.00 9.00 71.00 11.00 ;
-            RECT 64.00 9.00 66.00 11.00 ;
-            RECT 59.00 9.00 61.00 11.00 ;
-            RECT 54.00 9.00 56.00 11.00 ;
-            RECT 49.00 9.00 51.00 11.00 ;
-            RECT 44.00 9.00 46.00 11.00 ;
-            RECT 39.00 9.00 41.00 11.00 ;
-            RECT 34.00 9.00 36.00 11.00 ;
-            RECT 29.00 9.00 31.00 11.00 ;
-            RECT 24.00 9.00 26.00 11.00 ;
-            RECT 19.00 9.00 21.00 11.00 ;
-            RECT 14.00 9.00 16.00 11.00 ;
-            RECT 9.00 9.00 11.00 11.00 ;
-            RECT 4.00 9.00 6.00 11.00 ;
-        END
-    END nck
     PIN selrom
         DIRECTION INPUT ;
         PORT
@@ -5366,23 +5790,6 @@ MACRO rom_dec_selmux67
             RECT 109.00 29.00 111.00 31.00 ;
         END
     END selrom
-    PIN ck
-        DIRECTION INPUT ;
-        PORT
-            LAYER L_ALU3 ;
-            RECT 114.00 74.00 116.00 76.00 ;
-            RECT 114.00 69.00 116.00 71.00 ;
-            RECT 114.00 64.00 116.00 66.00 ;
-            RECT 114.00 59.00 116.00 61.00 ;
-            RECT 114.00 54.00 116.00 56.00 ;
-            RECT 114.00 49.00 116.00 51.00 ;
-            RECT 114.00 44.00 116.00 46.00 ;
-            RECT 114.00 39.00 116.00 41.00 ;
-            RECT 114.00 34.00 116.00 36.00 ;
-            RECT 114.00 29.00 116.00 31.00 ;
-            RECT 114.00 24.00 116.00 26.00 ;
-        END
-    END ck
     PIN a0
         DIRECTION INPUT ;
         PORT
@@ -5659,19 +6066,124 @@ MACRO rom_dec_selmux67
             RECT 94.00 9.00 96.00 11.00 ;
         END
     END na5
-    PIN vss
-        DIRECTION INOUT ;
-        USE ground ;
-        SHAPE FEEDTHRU ;
-    END vss
     PIN vdd
         DIRECTION INOUT ;
-        USE power ;
-        SHAPE FEEDTHRU ;
+        USE POWER ;
+        SHAPE ABUTMENT ;
+        PORT
+            LAYER L_ALU1 ;
+            WIDTH 6.00 ;
+            PATH 3.00 47.00 117.00 47.00 ;
+            LAYER L_ALU1 ;
+            WIDTH 6.00 ;
+            PATH 3.00 53.00 117.00 53.00 ;
+        END
     END vdd
+    PIN vss
+        DIRECTION INOUT ;
+        USE GROUND ;
+        SHAPE ABUTMENT ;
+        PORT
+            LAYER L_ALU1 ;
+            WIDTH 6.00 ;
+            PATH 3.00 3.00 117.00 3.00 ;
+            LAYER L_ALU1 ;
+            WIDTH 6.00 ;
+            PATH 3.00 97.00 117.00 97.00 ;
+        END
+    END vss
+    PIN ck
+        DIRECTION INPUT ;
+        USE CLOCK ;
+        PORT
+            LAYER L_ALU3 ;
+            RECT 114.00 74.00 116.00 76.00 ;
+            RECT 114.00 69.00 116.00 71.00 ;
+            RECT 114.00 64.00 116.00 66.00 ;
+            RECT 114.00 59.00 116.00 61.00 ;
+            RECT 114.00 54.00 116.00 56.00 ;
+            RECT 114.00 49.00 116.00 51.00 ;
+            RECT 114.00 44.00 116.00 46.00 ;
+            RECT 114.00 39.00 116.00 41.00 ;
+            RECT 114.00 34.00 116.00 36.00 ;
+            RECT 114.00 29.00 116.00 31.00 ;
+            RECT 114.00 24.00 116.00 26.00 ;
+        END
+    END ck
+    PIN nck
+        DIRECTION OUTPUT ;
+        USE CLOCK ;
+        PORT
+            LAYER L_ALU3 ;
+            RECT 104.00 89.00 106.00 91.00 ;
+            RECT 104.00 84.00 106.00 86.00 ;
+            RECT 104.00 79.00 106.00 81.00 ;
+            RECT 104.00 74.00 106.00 76.00 ;
+            RECT 104.00 69.00 106.00 71.00 ;
+            RECT 104.00 64.00 106.00 66.00 ;
+            RECT 104.00 59.00 106.00 61.00 ;
+            RECT 104.00 54.00 106.00 56.00 ;
+            RECT 104.00 49.00 106.00 51.00 ;
+            RECT 104.00 44.00 106.00 46.00 ;
+            RECT 104.00 39.00 106.00 41.00 ;
+            RECT 104.00 34.00 106.00 36.00 ;
+            RECT 104.00 29.00 106.00 31.00 ;
+            RECT 104.00 24.00 106.00 26.00 ;
+            RECT 104.00 19.00 106.00 21.00 ;
+            RECT 104.00 14.00 106.00 16.00 ;
+            RECT 104.00 9.00 106.00 11.00 ;
+            LAYER L_ALU2 ;
+            RECT 109.00 89.00 111.00 91.00 ;
+            RECT 104.00 89.00 106.00 91.00 ;
+            RECT 99.00 89.00 101.00 91.00 ;
+            RECT 94.00 89.00 96.00 91.00 ;
+            RECT 89.00 89.00 91.00 91.00 ;
+            RECT 84.00 89.00 86.00 91.00 ;
+            RECT 79.00 89.00 81.00 91.00 ;
+            RECT 74.00 89.00 76.00 91.00 ;
+            RECT 69.00 89.00 71.00 91.00 ;
+            RECT 64.00 89.00 66.00 91.00 ;
+            RECT 59.00 89.00 61.00 91.00 ;
+            RECT 54.00 89.00 56.00 91.00 ;
+            RECT 49.00 89.00 51.00 91.00 ;
+            RECT 44.00 89.00 46.00 91.00 ;
+            RECT 39.00 89.00 41.00 91.00 ;
+            RECT 34.00 89.00 36.00 91.00 ;
+            RECT 29.00 89.00 31.00 91.00 ;
+            RECT 24.00 89.00 26.00 91.00 ;
+            RECT 19.00 89.00 21.00 91.00 ;
+            RECT 14.00 89.00 16.00 91.00 ;
+            RECT 9.00 89.00 11.00 91.00 ;
+            RECT 4.00 89.00 6.00 91.00 ;
+            LAYER L_ALU2 ;
+            RECT 109.00 9.00 111.00 11.00 ;
+            RECT 104.00 9.00 106.00 11.00 ;
+            RECT 99.00 9.00 101.00 11.00 ;
+            RECT 94.00 9.00 96.00 11.00 ;
+            RECT 89.00 9.00 91.00 11.00 ;
+            RECT 84.00 9.00 86.00 11.00 ;
+            RECT 79.00 9.00 81.00 11.00 ;
+            RECT 74.00 9.00 76.00 11.00 ;
+            RECT 69.00 9.00 71.00 11.00 ;
+            RECT 64.00 9.00 66.00 11.00 ;
+            RECT 59.00 9.00 61.00 11.00 ;
+            RECT 54.00 9.00 56.00 11.00 ;
+            RECT 49.00 9.00 51.00 11.00 ;
+            RECT 44.00 9.00 46.00 11.00 ;
+            RECT 39.00 9.00 41.00 11.00 ;
+            RECT 34.00 9.00 36.00 11.00 ;
+            RECT 29.00 9.00 31.00 11.00 ;
+            RECT 24.00 9.00 26.00 11.00 ;
+            RECT 19.00 9.00 21.00 11.00 ;
+            RECT 14.00 9.00 16.00 11.00 ;
+            RECT 9.00 9.00 11.00 11.00 ;
+            RECT 4.00 9.00 6.00 11.00 ;
+        END
+    END nck
     OBS
         LAYER L_ALU1 ;
-        RECT 1.50 1.50 118.50 98.50 ;
+        RECT 1.50 9.00 118.50 41.00 ;
+        RECT 1.50 59.00 118.50 91.00 ;
         LAYER L_ALU2 ;
         RECT 4.00 79.00 116.00 81.00 ;
         RECT 4.00 74.00 116.00 76.00 ;
@@ -5707,6 +6219,35 @@ MACRO rom_dec_selmux67_128
     SIZE      120.00 BY 100.00 ;
     SYMMETRY  Y ;
     SITE      core ;
+    PIN na6x
+        DIRECTION INOUT ;
+        PORT
+            LAYER L_ALU2 ;
+            RECT 114.00 34.00 116.00 36.00 ;
+            RECT 109.00 34.00 111.00 36.00 ;
+            RECT 104.00 34.00 106.00 36.00 ;
+            RECT 99.00 34.00 101.00 36.00 ;
+            RECT 94.00 34.00 96.00 36.00 ;
+            RECT 89.00 34.00 91.00 36.00 ;
+            RECT 84.00 34.00 86.00 36.00 ;
+            RECT 79.00 34.00 81.00 36.00 ;
+            RECT 74.00 34.00 76.00 36.00 ;
+            RECT 69.00 34.00 71.00 36.00 ;
+            RECT 64.00 34.00 66.00 36.00 ;
+            RECT 59.00 34.00 61.00 36.00 ;
+            RECT 54.00 34.00 56.00 36.00 ;
+            RECT 49.00 34.00 51.00 36.00 ;
+            RECT 44.00 34.00 46.00 36.00 ;
+            RECT 39.00 34.00 41.00 36.00 ;
+            RECT 34.00 34.00 36.00 36.00 ;
+            RECT 29.00 34.00 31.00 36.00 ;
+            RECT 24.00 34.00 26.00 36.00 ;
+            RECT 19.00 34.00 21.00 36.00 ;
+            RECT 14.00 34.00 16.00 36.00 ;
+            RECT 9.00 34.00 11.00 36.00 ;
+            RECT 4.00 34.00 6.00 36.00 ;
+        END
+    END na6x
     PIN a6x
         DIRECTION OUTPUT ;
         PORT
@@ -5735,35 +6276,6 @@ MACRO rom_dec_selmux67_128
             RECT 4.00 64.00 6.00 66.00 ;
         END
     END a6x
-    PIN na6x
-        DIRECTION OUTPUT ;
-        PORT
-            LAYER L_ALU2 ;
-            RECT 114.00 34.00 116.00 36.00 ;
-            RECT 109.00 34.00 111.00 36.00 ;
-            RECT 104.00 34.00 106.00 36.00 ;
-            RECT 99.00 34.00 101.00 36.00 ;
-            RECT 94.00 34.00 96.00 36.00 ;
-            RECT 89.00 34.00 91.00 36.00 ;
-            RECT 84.00 34.00 86.00 36.00 ;
-            RECT 79.00 34.00 81.00 36.00 ;
-            RECT 74.00 34.00 76.00 36.00 ;
-            RECT 69.00 34.00 71.00 36.00 ;
-            RECT 64.00 34.00 66.00 36.00 ;
-            RECT 59.00 34.00 61.00 36.00 ;
-            RECT 54.00 34.00 56.00 36.00 ;
-            RECT 49.00 34.00 51.00 36.00 ;
-            RECT 44.00 34.00 46.00 36.00 ;
-            RECT 39.00 34.00 41.00 36.00 ;
-            RECT 34.00 34.00 36.00 36.00 ;
-            RECT 29.00 34.00 31.00 36.00 ;
-            RECT 24.00 34.00 26.00 36.00 ;
-            RECT 19.00 34.00 21.00 36.00 ;
-            RECT 14.00 34.00 16.00 36.00 ;
-            RECT 9.00 34.00 11.00 36.00 ;
-            RECT 4.00 34.00 6.00 36.00 ;
-        END
-    END na6x
     PIN mux6
         DIRECTION OUTPUT ;
         PORT
@@ -6130,19 +6642,36 @@ MACRO rom_dec_selmux67_128
             RECT 94.00 9.00 96.00 11.00 ;
         END
     END na5
-    PIN vss
-        DIRECTION INOUT ;
-        USE ground ;
-        SHAPE FEEDTHRU ;
-    END vss
     PIN vdd
         DIRECTION INOUT ;
-        USE power ;
-        SHAPE FEEDTHRU ;
+        USE POWER ;
+        SHAPE ABUTMENT ;
+        PORT
+            LAYER L_ALU1 ;
+            WIDTH 6.00 ;
+            PATH 3.00 47.00 117.00 47.00 ;
+            LAYER L_ALU1 ;
+            WIDTH 6.00 ;
+            PATH 3.00 53.00 117.00 53.00 ;
+        END
     END vdd
+    PIN vss
+        DIRECTION INOUT ;
+        USE GROUND ;
+        SHAPE ABUTMENT ;
+        PORT
+            LAYER L_ALU1 ;
+            WIDTH 6.00 ;
+            PATH 3.00 3.00 117.00 3.00 ;
+            LAYER L_ALU1 ;
+            WIDTH 6.00 ;
+            PATH 3.00 97.00 117.00 97.00 ;
+        END
+    END vss
     OBS
         LAYER L_ALU1 ;
-        RECT 1.50 1.50 118.50 98.50 ;
+        RECT 1.50 9.00 118.50 41.00 ;
+        RECT 1.50 59.00 118.50 91.00 ;
         LAYER L_ALU2 ;
         RECT 4.00 74.00 116.00 76.00 ;
         RECT 4.00 69.00 116.00 71.00 ;
@@ -6181,6 +6710,52 @@ MACRO rom_dec_selmux67_128_ts
     SIZE      140.00 BY 100.00 ;
     SYMMETRY  Y ;
     SITE      core ;
+    PIN na6x
+        DIRECTION INOUT ;
+        PORT
+            LAYER L_ALU2 ;
+            RECT 114.00 64.00 116.00 66.00 ;
+            RECT 109.00 64.00 111.00 66.00 ;
+            RECT 104.00 64.00 106.00 66.00 ;
+            RECT 99.00 64.00 101.00 66.00 ;
+            RECT 94.00 64.00 96.00 66.00 ;
+            RECT 89.00 64.00 91.00 66.00 ;
+            RECT 84.00 64.00 86.00 66.00 ;
+            RECT 79.00 64.00 81.00 66.00 ;
+            RECT 74.00 64.00 76.00 66.00 ;
+            RECT 69.00 64.00 71.00 66.00 ;
+            RECT 64.00 64.00 66.00 66.00 ;
+            RECT 59.00 64.00 61.00 66.00 ;
+            RECT 54.00 64.00 56.00 66.00 ;
+            RECT 49.00 64.00 51.00 66.00 ;
+            RECT 44.00 64.00 46.00 66.00 ;
+            RECT 39.00 64.00 41.00 66.00 ;
+            RECT 34.00 64.00 36.00 66.00 ;
+            RECT 29.00 64.00 31.00 66.00 ;
+            RECT 24.00 64.00 26.00 66.00 ;
+            RECT 19.00 64.00 21.00 66.00 ;
+            RECT 14.00 64.00 16.00 66.00 ;
+            RECT 9.00 64.00 11.00 66.00 ;
+            RECT 4.00 64.00 6.00 66.00 ;
+        END
+    END na6x
+    PIN nenx
+        DIRECTION INOUT ;
+        PORT
+            LAYER L_ALU3 ;
+            RECT 119.00 74.00 121.00 76.00 ;
+            RECT 119.00 69.00 121.00 71.00 ;
+            RECT 119.00 64.00 121.00 66.00 ;
+            RECT 119.00 59.00 121.00 61.00 ;
+            RECT 119.00 54.00 121.00 56.00 ;
+            RECT 119.00 49.00 121.00 51.00 ;
+            RECT 119.00 44.00 121.00 46.00 ;
+            RECT 119.00 39.00 121.00 41.00 ;
+            RECT 119.00 34.00 121.00 36.00 ;
+            RECT 119.00 29.00 121.00 31.00 ;
+            RECT 119.00 24.00 121.00 26.00 ;
+        END
+    END nenx
     PIN a6x
         DIRECTION OUTPUT ;
         PORT
@@ -6209,35 +6784,6 @@ MACRO rom_dec_selmux67_128_ts
             RECT 4.00 34.00 6.00 36.00 ;
         END
     END a6x
-    PIN na6x
-        DIRECTION OUTPUT ;
-        PORT
-            LAYER L_ALU2 ;
-            RECT 114.00 64.00 116.00 66.00 ;
-            RECT 109.00 64.00 111.00 66.00 ;
-            RECT 104.00 64.00 106.00 66.00 ;
-            RECT 99.00 64.00 101.00 66.00 ;
-            RECT 94.00 64.00 96.00 66.00 ;
-            RECT 89.00 64.00 91.00 66.00 ;
-            RECT 84.00 64.00 86.00 66.00 ;
-            RECT 79.00 64.00 81.00 66.00 ;
-            RECT 74.00 64.00 76.00 66.00 ;
-            RECT 69.00 64.00 71.00 66.00 ;
-            RECT 64.00 64.00 66.00 66.00 ;
-            RECT 59.00 64.00 61.00 66.00 ;
-            RECT 54.00 64.00 56.00 66.00 ;
-            RECT 49.00 64.00 51.00 66.00 ;
-            RECT 44.00 64.00 46.00 66.00 ;
-            RECT 39.00 64.00 41.00 66.00 ;
-            RECT 34.00 64.00 36.00 66.00 ;
-            RECT 29.00 64.00 31.00 66.00 ;
-            RECT 24.00 64.00 26.00 66.00 ;
-            RECT 19.00 64.00 21.00 66.00 ;
-            RECT 14.00 64.00 16.00 66.00 ;
-            RECT 9.00 64.00 11.00 66.00 ;
-            RECT 4.00 64.00 6.00 66.00 ;
-        END
-    END na6x
     PIN mux6
         DIRECTION OUTPUT ;
         PORT
@@ -6300,23 +6846,6 @@ MACRO rom_dec_selmux67_128_ts
             RECT 4.00 14.00 6.00 16.00 ;
         END
     END sel6
-    PIN nenx
-        DIRECTION OUTPUT ;
-        PORT
-            LAYER L_ALU3 ;
-            RECT 119.00 74.00 121.00 76.00 ;
-            RECT 119.00 69.00 121.00 71.00 ;
-            RECT 119.00 64.00 121.00 66.00 ;
-            RECT 119.00 59.00 121.00 61.00 ;
-            RECT 119.00 54.00 121.00 56.00 ;
-            RECT 119.00 49.00 121.00 51.00 ;
-            RECT 119.00 44.00 121.00 46.00 ;
-            RECT 119.00 39.00 121.00 41.00 ;
-            RECT 119.00 34.00 121.00 36.00 ;
-            RECT 119.00 29.00 121.00 31.00 ;
-            RECT 119.00 24.00 121.00 26.00 ;
-        END
-    END nenx
     PIN enx
         DIRECTION OUTPUT ;
         PORT
@@ -6639,19 +7168,42 @@ MACRO rom_dec_selmux67_128_ts
             RECT 129.00 19.00 131.00 21.00 ;
         END
     END selrom
-    PIN vss
-        DIRECTION INOUT ;
-        USE ground ;
-        SHAPE FEEDTHRU ;
-    END vss
     PIN vdd
         DIRECTION INOUT ;
-        USE power ;
-        SHAPE FEEDTHRU ;
+        USE POWER ;
+        SHAPE ABUTMENT ;
+        PORT
+            LAYER L_ALU1 ;
+            WIDTH 6.00 ;
+            PATH 3.00 47.00 137.00 47.00 ;
+            LAYER L_ALU1 ;
+            WIDTH 6.00 ;
+            PATH 3.00 53.00 137.00 53.00 ;
+            LAYER L_ALU3 ;
+            WIDTH 2.00 ;
+            PATH 135.00 1.00 135.00 99.00 ;
+        END
     END vdd
+    PIN vss
+        DIRECTION INOUT ;
+        USE GROUND ;
+        SHAPE ABUTMENT ;
+        PORT
+            LAYER L_ALU1 ;
+            WIDTH 6.00 ;
+            PATH 3.00 3.00 137.00 3.00 ;
+            LAYER L_ALU1 ;
+            WIDTH 6.00 ;
+            PATH 3.00 97.00 137.00 97.00 ;
+            LAYER L_ALU3 ;
+            WIDTH 2.00 ;
+            PATH 125.00 1.00 125.00 99.00 ;
+        END
+    END vss
     OBS
         LAYER L_ALU1 ;
-        RECT 1.50 1.50 138.50 98.50 ;
+        RECT 1.50 9.00 138.50 41.00 ;
+        RECT 1.50 59.00 138.50 91.00 ;
         LAYER L_ALU2 ;
         RECT 79.00 69.00 125.00 71.00 ;
         RECT 79.00 29.00 125.00 31.00 ;
@@ -6692,23 +7244,8 @@ MACRO rom_dec_selmux67_ts
     SIZE      140.00 BY 100.00 ;
     SYMMETRY  Y ;
     SITE      core ;
-    PIN enx
-        DIRECTION OUTPUT ;
-        PORT
-            LAYER L_ALU3 ;
-            RECT 109.00 69.00 111.00 71.00 ;
-            RECT 109.00 64.00 111.00 66.00 ;
-            RECT 109.00 59.00 111.00 61.00 ;
-            RECT 109.00 54.00 111.00 56.00 ;
-            RECT 109.00 49.00 111.00 51.00 ;
-            RECT 109.00 44.00 111.00 46.00 ;
-            RECT 109.00 39.00 111.00 41.00 ;
-            RECT 109.00 34.00 111.00 36.00 ;
-            RECT 109.00 29.00 111.00 31.00 ;
-        END
-    END enx
     PIN nenx
-        DIRECTION OUTPUT ;
+        DIRECTION INOUT ;
         PORT
             LAYER L_ALU3 ;
             RECT 119.00 74.00 121.00 76.00 ;
@@ -6724,75 +7261,21 @@ MACRO rom_dec_selmux67_ts
             RECT 119.00 24.00 121.00 26.00 ;
         END
     END nenx
-    PIN nck
+    PIN enx
         DIRECTION OUTPUT ;
         PORT
-            LAYER L_ALU2 ;
-            RECT 109.00 89.00 111.00 91.00 ;
-            RECT 104.00 89.00 106.00 91.00 ;
-            RECT 99.00 89.00 101.00 91.00 ;
-            RECT 94.00 89.00 96.00 91.00 ;
-            RECT 89.00 89.00 91.00 91.00 ;
-            RECT 84.00 89.00 86.00 91.00 ;
-            RECT 79.00 89.00 81.00 91.00 ;
-            RECT 74.00 89.00 76.00 91.00 ;
-            RECT 69.00 89.00 71.00 91.00 ;
-            RECT 64.00 89.00 66.00 91.00 ;
-            RECT 59.00 89.00 61.00 91.00 ;
-            RECT 54.00 89.00 56.00 91.00 ;
-            RECT 49.00 89.00 51.00 91.00 ;
-            RECT 44.00 89.00 46.00 91.00 ;
-            RECT 39.00 89.00 41.00 91.00 ;
-            RECT 34.00 89.00 36.00 91.00 ;
-            RECT 29.00 89.00 31.00 91.00 ;
-            RECT 24.00 89.00 26.00 91.00 ;
-            RECT 19.00 89.00 21.00 91.00 ;
-            RECT 14.00 89.00 16.00 91.00 ;
-            RECT 9.00 89.00 11.00 91.00 ;
-            RECT 4.00 89.00 6.00 91.00 ;
-            LAYER L_ALU2 ;
-            RECT 109.00 9.00 111.00 11.00 ;
-            RECT 104.00 9.00 106.00 11.00 ;
-            RECT 99.00 9.00 101.00 11.00 ;
-            RECT 94.00 9.00 96.00 11.00 ;
-            RECT 89.00 9.00 91.00 11.00 ;
-            RECT 84.00 9.00 86.00 11.00 ;
-            RECT 79.00 9.00 81.00 11.00 ;
-            RECT 74.00 9.00 76.00 11.00 ;
-            RECT 69.00 9.00 71.00 11.00 ;
-            RECT 64.00 9.00 66.00 11.00 ;
-            RECT 59.00 9.00 61.00 11.00 ;
-            RECT 54.00 9.00 56.00 11.00 ;
-            RECT 49.00 9.00 51.00 11.00 ;
-            RECT 44.00 9.00 46.00 11.00 ;
-            RECT 39.00 9.00 41.00 11.00 ;
-            RECT 34.00 9.00 36.00 11.00 ;
-            RECT 29.00 9.00 31.00 11.00 ;
-            RECT 24.00 9.00 26.00 11.00 ;
-            RECT 19.00 9.00 21.00 11.00 ;
-            RECT 14.00 9.00 16.00 11.00 ;
-            RECT 9.00 9.00 11.00 11.00 ;
-            RECT 4.00 9.00 6.00 11.00 ;
             LAYER L_ALU3 ;
-            RECT 104.00 89.00 106.00 91.00 ;
-            RECT 104.00 84.00 106.00 86.00 ;
-            RECT 104.00 79.00 106.00 81.00 ;
-            RECT 104.00 74.00 106.00 76.00 ;
-            RECT 104.00 69.00 106.00 71.00 ;
-            RECT 104.00 64.00 106.00 66.00 ;
-            RECT 104.00 59.00 106.00 61.00 ;
-            RECT 104.00 54.00 106.00 56.00 ;
-            RECT 104.00 49.00 106.00 51.00 ;
-            RECT 104.00 44.00 106.00 46.00 ;
-            RECT 104.00 39.00 106.00 41.00 ;
-            RECT 104.00 34.00 106.00 36.00 ;
-            RECT 104.00 29.00 106.00 31.00 ;
-            RECT 104.00 24.00 106.00 26.00 ;
-            RECT 104.00 19.00 106.00 21.00 ;
-            RECT 104.00 14.00 106.00 16.00 ;
-            RECT 104.00 9.00 106.00 11.00 ;
+            RECT 109.00 69.00 111.00 71.00 ;
+            RECT 109.00 64.00 111.00 66.00 ;
+            RECT 109.00 59.00 111.00 61.00 ;
+            RECT 109.00 54.00 111.00 56.00 ;
+            RECT 109.00 49.00 111.00 51.00 ;
+            RECT 109.00 44.00 111.00 46.00 ;
+            RECT 109.00 39.00 111.00 41.00 ;
+            RECT 109.00 34.00 111.00 36.00 ;
+            RECT 109.00 29.00 111.00 31.00 ;
         END
-    END nck
+    END enx
     PIN sel6
         DIRECTION OUTPUT ;
         PORT
@@ -7150,8 +7633,111 @@ MACRO rom_dec_selmux67_ts
             RECT 94.00 9.00 96.00 11.00 ;
         END
     END na5
+    PIN vdd
+        DIRECTION INOUT ;
+        USE POWER ;
+        SHAPE ABUTMENT ;
+        PORT
+            LAYER L_ALU1 ;
+            WIDTH 6.00 ;
+            PATH 3.00 47.00 137.00 47.00 ;
+            LAYER L_ALU1 ;
+            WIDTH 6.00 ;
+            PATH 3.00 53.00 137.00 53.00 ;
+            LAYER L_ALU3 ;
+            WIDTH 2.00 ;
+            PATH 135.00 1.00 135.00 99.00 ;
+        END
+    END vdd
+    PIN vss
+        DIRECTION INOUT ;
+        USE GROUND ;
+        SHAPE ABUTMENT ;
+        PORT
+            LAYER L_ALU1 ;
+            WIDTH 6.00 ;
+            PATH 3.00 3.00 137.00 3.00 ;
+            LAYER L_ALU1 ;
+            WIDTH 6.00 ;
+            PATH 3.00 97.00 137.00 97.00 ;
+            LAYER L_ALU3 ;
+            WIDTH 2.00 ;
+            PATH 125.00 1.00 125.00 99.00 ;
+        END
+    END vss
+    PIN nck
+        DIRECTION OUTPUT ;
+        USE CLOCK ;
+        PORT
+            LAYER L_ALU2 ;
+            RECT 109.00 89.00 111.00 91.00 ;
+            RECT 104.00 89.00 106.00 91.00 ;
+            RECT 99.00 89.00 101.00 91.00 ;
+            RECT 94.00 89.00 96.00 91.00 ;
+            RECT 89.00 89.00 91.00 91.00 ;
+            RECT 84.00 89.00 86.00 91.00 ;
+            RECT 79.00 89.00 81.00 91.00 ;
+            RECT 74.00 89.00 76.00 91.00 ;
+            RECT 69.00 89.00 71.00 91.00 ;
+            RECT 64.00 89.00 66.00 91.00 ;
+            RECT 59.00 89.00 61.00 91.00 ;
+            RECT 54.00 89.00 56.00 91.00 ;
+            RECT 49.00 89.00 51.00 91.00 ;
+            RECT 44.00 89.00 46.00 91.00 ;
+            RECT 39.00 89.00 41.00 91.00 ;
+            RECT 34.00 89.00 36.00 91.00 ;
+            RECT 29.00 89.00 31.00 91.00 ;
+            RECT 24.00 89.00 26.00 91.00 ;
+            RECT 19.00 89.00 21.00 91.00 ;
+            RECT 14.00 89.00 16.00 91.00 ;
+            RECT 9.00 89.00 11.00 91.00 ;
+            RECT 4.00 89.00 6.00 91.00 ;
+            LAYER L_ALU2 ;
+            RECT 109.00 9.00 111.00 11.00 ;
+            RECT 104.00 9.00 106.00 11.00 ;
+            RECT 99.00 9.00 101.00 11.00 ;
+            RECT 94.00 9.00 96.00 11.00 ;
+            RECT 89.00 9.00 91.00 11.00 ;
+            RECT 84.00 9.00 86.00 11.00 ;
+            RECT 79.00 9.00 81.00 11.00 ;
+            RECT 74.00 9.00 76.00 11.00 ;
+            RECT 69.00 9.00 71.00 11.00 ;
+            RECT 64.00 9.00 66.00 11.00 ;
+            RECT 59.00 9.00 61.00 11.00 ;
+            RECT 54.00 9.00 56.00 11.00 ;
+            RECT 49.00 9.00 51.00 11.00 ;
+            RECT 44.00 9.00 46.00 11.00 ;
+            RECT 39.00 9.00 41.00 11.00 ;
+            RECT 34.00 9.00 36.00 11.00 ;
+            RECT 29.00 9.00 31.00 11.00 ;
+            RECT 24.00 9.00 26.00 11.00 ;
+            RECT 19.00 9.00 21.00 11.00 ;
+            RECT 14.00 9.00 16.00 11.00 ;
+            RECT 9.00 9.00 11.00 11.00 ;
+            RECT 4.00 9.00 6.00 11.00 ;
+            LAYER L_ALU3 ;
+            RECT 104.00 89.00 106.00 91.00 ;
+            RECT 104.00 84.00 106.00 86.00 ;
+            RECT 104.00 79.00 106.00 81.00 ;
+            RECT 104.00 74.00 106.00 76.00 ;
+            RECT 104.00 69.00 106.00 71.00 ;
+            RECT 104.00 64.00 106.00 66.00 ;
+            RECT 104.00 59.00 106.00 61.00 ;
+            RECT 104.00 54.00 106.00 56.00 ;
+            RECT 104.00 49.00 106.00 51.00 ;
+            RECT 104.00 44.00 106.00 46.00 ;
+            RECT 104.00 39.00 106.00 41.00 ;
+            RECT 104.00 34.00 106.00 36.00 ;
+            RECT 104.00 29.00 106.00 31.00 ;
+            RECT 104.00 24.00 106.00 26.00 ;
+            RECT 104.00 19.00 106.00 21.00 ;
+            RECT 104.00 14.00 106.00 16.00 ;
+            RECT 104.00 9.00 106.00 11.00 ;
+        END
+    END nck
     PIN ck
         DIRECTION INPUT ;
+        USE CLOCK ;
         PORT
             LAYER L_ALU3 ;
             RECT 114.00 74.00 116.00 76.00 ;
@@ -7167,19 +7753,10 @@ MACRO rom_dec_selmux67_ts
             RECT 114.00 24.00 116.00 26.00 ;
         END
     END ck
-    PIN vss
-        DIRECTION INOUT ;
-        USE ground ;
-        SHAPE FEEDTHRU ;
-    END vss
-    PIN vdd
-        DIRECTION INOUT ;
-        USE power ;
-        SHAPE FEEDTHRU ;
-    END vdd
     OBS
         LAYER L_ALU1 ;
-        RECT 1.50 1.50 138.50 98.50 ;
+        RECT 1.50 9.00 138.50 41.00 ;
+        RECT 1.50 59.00 138.50 91.00 ;
         LAYER L_ALU2 ;
         RECT 4.00 29.00 136.00 31.00 ;
         RECT 4.00 69.00 136.00 71.00 ;

@@ -2,7 +2,7 @@ ENTITY rom_dec_adbuf IS
 PORT (
   ad     : in  BIT;
   adx    : out BIT;
-  nadx   : out BIT;
+  nadx   : inout BIT;
   vdd    : in  BIT;
   vss    : in  BIT
 );

@@ -1,7 +1,7 @@
 ENTITY rom_dec_prech IS
 PORT (
   nck    : in  BIT;
-  prech  : out BIT;
+  prech  : inout BIT;
   nprech : out BIT;
   vdd    : in  BIT;
   vss    : in  BIT
