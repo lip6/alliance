@@ -4,8 +4,7 @@ bin_SCRIPTS         = attila
 CLEANFILES          = attila
 
 attila : ${srcdir}/attila.sh
-	${SED} 's,__ALLIANCE_INSTALL_DIR__,$(prefix),' $< > $@
-	chmod a+x $@
+	${SED} 's,="__ALLIANCE_INSTALL_DIR__"$$,="$(prefix)",' $< > $@
 
 EXTRA_DIST = attila.sh
 
