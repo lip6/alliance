@@ -212,6 +212,7 @@ static void format_subst_befig( befig_list *befig, beaux_list *BeauxSubst )
 extern int format_cell(befig_list* befig)
 {
    beaux_list *beaux;
+   biabl_list *biabl;
    
    /*internal signal forbidden*/
    for ( beaux = befig->BEAUX; beaux; beaux = beaux->NEXT )
@@ -223,8 +224,10 @@ extern int format_cell(befig_list* befig)
    if (befig->BEREG) {
       /*only one register*/
       if (befig->BEREG->NEXT || befig->BEBUS || befig->BEBUX) return 0;
+#if 0  /*to accept multiple condition block*/
       /*only one condition*/
       if (!befig->BEREG->BIABL || befig->BEREG->BIABL->NEXT) return 0;
+#endif
       /*one ouput*/
       if (!befig->BEOUT || befig->BEOUT->NEXT) return 0;
       /*  forbid logic on output */ 
@@ -237,8 +240,9 @@ extern int format_cell(befig_list* befig)
          /* output <= not reg;    ->  move not to register value*/
          freeablexpr(befig->BEOUT->ABL);
          befig->BEOUT->ABL=createablatom(befig->BEREG->NAME);
-         befig->BEREG->BIABL->VALABL=simpablexpr(
-                              createablnotexpr(befig->BEREG->BIABL->VALABL));
+         for (biabl=befig->BEREG->BIABL; biabl; biabl=biabl->NEXT) {
+            biabl->VALABL=simpablexpr(createablnotexpr(biabl->VALABL));
+         }   
      }                                            
    }
    

@@ -148,6 +148,9 @@ extern int pattern_matching(chain_list* expr, chain_list* pattern)
 /****************************************************************************/
 extern int compare_befig(befig_list* befig1, befig_list* befig2)
 {
+   biabl_list *biabl1;
+   biabl_list *biabl2;
+
    if (befig1->BEBUS) {
       if (!befig2->BEBUS) return 0;
       return isablequalexpr(befig1->BEBUS->BIABL->VALABL,befig2->BEBUS->BIABL->VALABL) && isablequalexpr(befig1->BEBUS->BIABL->CNDABL,befig2->BEBUS->BIABL->CNDABL);
@@ -155,8 +158,27 @@ extern int compare_befig(befig_list* befig1, befig_list* befig2)
    else if (befig1->BEREG) {
       if (!befig2->BEREG) return 0;
       /*flip-flop or latch*/
-      if (getptype(befig1->BEREG->BIABL->USER,ABL_STABLE)!=getptype(befig2->BEREG->BIABL->USER,ABL_STABLE)) return 0;
-      return isablequalexpr(befig1->BEREG->BIABL->VALABL,befig2->BEREG->BIABL->VALABL) && isablequalexpr(befig1->BEREG->BIABL->CNDABL,befig2->BEREG->BIABL->CNDABL);
+      for ( biabl1 = befig1->BEREG->BIABL; biabl1; biabl1 = biabl1->NEXT )
+      {
+         for ( biabl2 = befig2->BEREG->BIABL; biabl2; biabl2 = biabl2->NEXT )
+         {
+            if ( getptype(biabl1->USER,ABL_STABLE)!=getptype(biabl2->USER,ABL_STABLE) ) continue;
+            if ( isablequalexpr(biabl1->VALABL,biabl2->VALABL) && isablequalexpr(biabl1->CNDABL,biabl2->CNDABL) ) break;
+         }
+         /*equivalence not found*/
+         if ( !biabl2 ) return 0;
+      }
+      for ( biabl2 = befig2->BEREG->BIABL; biabl2; biabl2 = biabl2->NEXT )
+      {
+         for ( biabl1 = befig1->BEREG->BIABL; biabl1; biabl1 = biabl1->NEXT )
+         {
+            if ( getptype(biabl1->USER,ABL_STABLE)!=getptype(biabl2->USER,ABL_STABLE) ) continue;
+            if ( isablequalexpr(biabl1->VALABL,biabl2->VALABL) && isablequalexpr(biabl1->CNDABL,biabl2->CNDABL) ) break;
+         }
+         /*equivalence not found*/
+         if ( !biabl1 ) return 0;
+      }
+      return 1;
    }
    else if (befig1->BEOUT) {
       if (!befig2->BEOUT) return 0;

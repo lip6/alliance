@@ -111,12 +111,14 @@ static int loc_format_register(bereg_list* bereg)
       exit(1);
    }
 
+#if 0 /*to accept multiple condition block*/
    /*only one condition authorized*/
    if (bereg->BIABL->NEXT) {
       fprintf(stderr,"BEH: several conditions aren't accepted on register %s\n",
             bereg->NAME);
       return 0;            
    }
+#endif
 
    /*anyway control all condition block*/
    for (biabl=bereg->BIABL; biabl; biabl=biabl->NEXT) {
