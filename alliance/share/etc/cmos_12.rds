@@ -81,6 +81,7 @@ TABLE MBK_TO_RDS_SEGMENT
            RDS_ACTIV  VW -1.5  5.0  0.0  ALL \
            RDS_NWELL  VW -1.0  5.0  0.0  ALL 
   POLY     RDS_POLY   VW  0.5  0.0  0.0  ALL
+  POLY2    RDS_POLY2  VW  0.5  0.0  0.0  ALL
   ALU1     RDS_ALU1   VW  0.5  0.0  0.0  ALL
   ALU2     RDS_ALU2   VW  1.0  0.0  0.0  ALL
   ALU3     RDS_ALU3   VW  1.0  0.0  0.0  ALL
@@ -113,6 +114,7 @@ END
 TABLE MBK_TO_RDS_CONNECTOR
 
   POLY    RDS_POLY  .5  0  
+  POLY2   RDS_POLY2 .5  0  
   ALU1    RDS_ALU1  .5  0  
   ALU2    RDS_ALU2 1.0  0  
   ALU3    RDS_ALU3 1.0  0  
@@ -150,6 +152,7 @@ TABLE MBK_TO_RDS_VIA
   CONT_DIF_N   RDS_ALU1 2 ALL  RDS_CONT 1 ALL  RDS_NDIF 3 ALL
   CONT_DIF_P   RDS_ALU1 2 ALL  RDS_CONT 1 ALL  RDS_PDIF 3 ALL  RDS_NWELL 4 ALL
   CONT_POLY    RDS_ALU1 2 ALL  RDS_CONT 1 ALL  RDS_POLY 3 ALL
+  CONT_POLY2   RDS_ALU1 2 ALL  RDS_CONT 1 ALL  RDS_POLY2 3 ALL
   CONT_VIA     RDS_ALU1 2 ALL  RDS_VIA1 1 ALL  RDS_ALU2 2 ALL
   CONT_VIA2    RDS_ALU2 2 ALL  RDS_VIA2 1 ALL  RDS_ALU3 2 ALL
   CONT_VIA3    RDS_ALU3 2 ALL  RDS_VIA3 1 ALL  RDS_ALU4 2 ALL
@@ -234,6 +237,7 @@ TABLE LYNX_GRAPH
   RDS_PTIE  RDS_CONT RDS_PTIE
 
   RDS_POLY  RDS_CONT RDS_POLY 
+  RDS_POLY2  RDS_CONT RDS_POLY2 
   RDS_CONT  RDS_PDIF RDS_NDIF RDS_POLY RDS_PTIE  RDS_NTIE RDS_ALU1 RDS_CONT
   RDS_ALU1  RDS_CONT RDS_VIA1 RDS_ALU1 RDS_VALU1 RDS_ALU1
   RDS_VALU1 RDS_CONT RDS_VIA1 RDS_ALU1 RDS_VALU1
@@ -260,6 +264,7 @@ END
 TABLE LYNX_CAPA
 
   RDS_POLY    1.00e-04    1.00e-04
+  RDS_POLY2   1.00e-04    1.00e-04
   RDS_ALU1    0.50e-04    0.90e-04
   RDS_ALU2    0.25e-04    0.95e-04
   RDS_ALU3    0.25e-04    0.95e-04
@@ -279,6 +284,7 @@ END
 TABLE LYNX_RESISTOR
 
   RDS_POLY    50.0
+  RDS_POLY2   50.0
   RDS_ALU1     0.1
   RDS_ALU2     0.05
   RDS_ALU3     0.05
@@ -358,6 +364,7 @@ TABLE S2R_MINIMUM_LAYER_WIDTH
   RDS_NTIE    2
   RDS_PTIE    2
   RDS_POLY    1
+  RDS_POLY2   1
   RDS_TPOLY   1
   RDS_CONT    1
   RDS_ALU1    1
@@ -392,6 +399,7 @@ TABLE CIF_LAYER
   RDS_NTIE     LNTIE
   RDS_PTIE     LPTIE
   RDS_POLY     LPOLY
+  RDS_POLY2    LPOLY2
   RDS_TPOLY    LTPOLY
   RDS_CONT     LCONT
   RDS_ALU1     LALU1
@@ -429,6 +437,7 @@ TABLE GDS_LAYER
   RDS_NTIE     5
   RDS_PTIE     6
   RDS_POLY     7
+  RDS_POLY2    8
   RDS_TPOLY    9
   RDS_CONT    10
   RDS_ALU1    11
@@ -476,6 +485,7 @@ layer RDS_VIA3 1.;
 layer RDS_VIA4 1.;
 layer RDS_VIA5 1.;
 layer RDS_POLY 1.;
+layer RDS_POLY2 1.;
 layer RDS_ALU1 1.;
 layer RDS_ALU2 2.;
 layer RDS_ALU3 2.;
@@ -755,6 +765,30 @@ caracterise RDS_VIA5 (
   regle 93 : longueur <= 1. ;
 );
 
+# Check the POLY2 shapes
+#-----------------------
+caracterise RDS_POLY2 (
+  regle 94 : largeur >= 1. ;
+  regle 95 : longueur_inter min 1. ;
+  regle 96 : notch >= 5. ;
+);
+relation RDS_POLY2 , RDS_POLY2 (
+  regle 97 : distance axiale min 5. ;
+);
+
+# Check RDS_POLY2 is really included inside RDS_POLY1
+#----------------------------------------------------
+relation RDS_POLY , RDS_POLY2 (
+  regle 98 : distance axiale < 0.;
+  regle 99 : enveloppe inferieure min 5. ;
+  regle 100 : marge longueur_inter < 0. ;
+  regle 101 : croix longueur_inter < 0. ;
+  regle 102 : intersection longueur_inter < 0. ;
+  regle 103 : extension longueur_inter < 0. ;
+  regle 104 : inclusion longueur_inter < 0. ;
+);
+
+
 fin regles
 DRC_COMMENT
 1 (RDS_NWELL) minimum width 4. 
@@ -850,5 +884,16 @@ DRC_COMMENT
 91 (RDS_VIA4) maximum length 1. 
 92 (RDS_VIA5) minimum width 1. 
 93 (RDS_VIA5) maximum length 1. 
+94 (RDS_POLY2) minimum width 1. 
+95 (RDS_POLY2) minimum width 1. 
+96 (RDS_POLY2) Manhatan distance min 5. 
+97 (RDS_POLY2,POLY2) Manhatan distance min 5. 
+98 (RDS_POLY,RDS_POLY2) POLY2 must be enclosed by POLY of 5. 
+99 (RDS_POLY,RDS_POLY2) POLY2 must be enclosed by POLY of 5. 
+100 (RDS_POLY,RDS_POLY2) POLY2 must be enclosed by POLY of 5. 
+101 (RDS_POLY,RDS_POLY2) POLY2 must be enclosed by POLY of 5. 
+102 (RDS_POLY,RDS_POLY2) POLY2 must be enclosed by POLY of 5. 
+103 (RDS_POLY,RDS_POLY2) POLY2 must be enclosed by POLY of 5. 
+104 (RDS_POLY,RDS_POLY2) POLY2 must be enclosed by POLY of 5. 
 END_DRC_COMMENT
 END_DRC_RULES

@@ -94,6 +94,7 @@ TABLE GRAAL_SEGMENT_NAME
   NTIE     Ntie   spring_green     Black
   PTIE     Ptie   light_goldenrod  Black
   POLY     Poly   red              Black
+  POLY2    Poly2  orange           Black
   ALU1     Alu1   royal_blue       Black
   ALU2     Alu2   Cyan             Black
   ALU3     Alu3   light_pink       Black
@@ -138,6 +139,7 @@ END
 TABLE GRAAL_CONNECTOR_NAME
 
   POLY     Poly   red              Black
+  POLY2    Poly2  orange           Black
   ALU1     Alu1   royal_blue       Black
   ALU2     Alu2   Cyan             Black
   ALU3     Alu3   light_pink       Black
@@ -164,6 +166,7 @@ TABLE GRAAL_SEGMENT_VALUE
   NTRANS   1   4
   PTRANS   1   4
   POLY     1   1
+  POLY2    1   1
   ALU1     1   1
   ALU2     2   1
   ALU3     2   1
@@ -181,8 +184,8 @@ TABLE GRAAL_SEGMENT_VALUE
   CALU2    2   0
   CALU3    2   0
   CALU4    2   0
-  CALU5    4   0
-  CALU6    4   0
+  CALU5    2   0
+  CALU6    2   0
 
 END
 
@@ -212,6 +215,7 @@ TABLE GRAAL_VIA_NAME
   CONT_BODY_N  Cont_NTie   spring_green     Black
   CONT_BODY_P  Cont_PTie   light_goldenrod  Black
   CONT_POLY    Cont_Poly   red              Black
+  CONT_POLY2   Cont_Poly2  orange           Black
   CONT_VIA     Via_1-2     cyan             Black
   CONT_VIA2    Via_2-3     light_pink       Black
   CONT_VIA3    Via_3-4     green            Black
@@ -312,6 +316,7 @@ TABLE GRAAL_RDS_LAYER_NAME
   RDS_NTIE     Ntie    spring_green      Black
   RDS_PTIE     Ptie    light_goldenrod   Black
   RDS_POLY     Poly    red               Black
+  RDS_POLY2    Poly2   orange            Black
   RDS_VPOLY    VPoly   coral             Black
   RDS_GATE     Gate    orange            Black
   RDS_TPOLY    Tpoly   hot_pink          Black
