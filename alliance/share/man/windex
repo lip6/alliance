@@ -828,6 +828,7 @@ supportChain_listBdd (3) - returns a chained list of nodes that are used in a gi
 supportChain_listExpr (3) - returns the support of an expression in a chain_list.
 supportPtype_listExpr (3) - returns the support of an expression in a ptype_list.
 swapbddvar (3)       - swaps two contiguous variables.
+sxlib (5)            - a portable CMOS Standard Cell Library
 tas (1)              - A switch level static timing analyzer for CMOS circuits
 testbddcircuit (3)   - debugs a bdd circuit.
 tie_y
