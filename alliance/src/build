@@ -4,11 +4,11 @@
 # Author: Czo <Olivier.Sirol@lip6.fr>
 # License: GPL (http://www.gnu.org/copyleft/gpl.html)
 # Started: Oct 2002
-# Last Change: Wednesday 09 October 2002, 18:39
-# Edit Time: 0:24:13
+# Last Change: Monday 16 December 2002, 15:08
+# Edit Time: 1:08:54
 # Description:
 #
-# $Id: build,v 1.1 2002/10/09 16:41:43 czo Exp $
+# $Id: build,v 1.2 2002/12/16 14:09:04 czo Exp $
 #
 
 # The way the configure and Makefiles are written
@@ -18,7 +18,31 @@
 # To avoid make problems, please use gnu make (gmake)
 # The fowllowing commands builds the full package from scratch.
 
-export ALLIANCE_TOP=/usr/local/alliance
+
+
+
+echo "checking for GNU make..."
+
+  _cv_gnu_make_command='' ;
+                for a in "$MAKE" make gmake gnumake ; do
+                        if test -z "$a" ; then continue ; fi ;
+                        if  ( sh -c "$a --version" 2> /dev/null | grep GNU  2>&1 > /dev/null ) ;  then
+                                _cv_gnu_make_command=$a ;
+                                break;
+                        fi
+                done ;
+
+        if test  "x$_cv_gnu_make_command" != "x"  ; then
+                MAKE=$_cv_gnu_make_command;
+                echo "found, $_cv_gnu_make_command";
+        else
+                MAKE=make;
+                echo "Not found, using make";
+        fi
+
+export MAKE
+ALLIANCE_TOP=/usr/local/alliance
+export ALLIANCE_TOP
 ./configure --prefix=$ALLIANCE_TOP
-gmake install
+$MAKE install
 
