@@ -1,7 +1,7 @@
 
 // -*- C++ -*-
 //
-// $Id: MMBK.cpp,v 1.3 2002/10/17 21:57:27 jpc Exp $
+// $Id: MMBK.cpp,v 1.4 2002/10/24 07:51:33 hcl Exp $
 //
 // /-----------------------------------------------------------------\ 
 // |                                                                 |
@@ -421,7 +421,7 @@ CLofig::~CLofig (void)
 // -------------------------------------------------------------------
 // Method :  "CLofig::rflatten()".
 
-void CLofig::rflatten (char concat=YES, char catal=YES)
+void CLofig::rflatten (char concat, char catal)
 {
   loins_list *pLoins;
 
@@ -517,7 +517,7 @@ CPhfig::~CPhfig (void)
 // -------------------------------------------------------------------
 // Method :  "CPhfig::rflatten()".
 
-void CPhfig::rflatten (char concat=YES, char catal=YES)
+void CPhfig::rflatten (char concat, char catal)
 {
   phins_list *pPhins;
 
@@ -591,8 +591,8 @@ void CPhfig::saveas (string &name)
 
 CIns::CIns ( loins_list *lo
            , phins_list *ph
-           , phfig_list *mod=NULL
-           , phfig_list *fig=NULL
+           , phfig_list *mod
+           , phfig_list *fig
            )
 {
   loins = lo;

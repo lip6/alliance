@@ -1,7 +1,7 @@
 
 // -*- C++ -*-
 //
-// $Id: MPri.cpp,v 1.3 2002/10/17 21:57:27 jpc Exp $
+// $Id: MPri.cpp,v 1.4 2002/10/24 07:51:33 hcl Exp $
 //
 //  /----------------------------------------------------------------\ 
 //  |                                                                |
@@ -111,7 +111,7 @@ char CMatrixPri::nextPri (char curpri)
 // -------------------------------------------------------------------
 // Method  :  "CMatrixPri::load()".
 
-void CMatrixPri::load (CNet &net, bool global, int expand=0)
+void CMatrixPri::load (CNet &net, bool global, int expand)
 {
    list<CDRGrid::iterator>::iterator   itNode, beginNode, endNode;
   queue<CDRGrid::iterator*>            queue1, queue2;

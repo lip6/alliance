@@ -1,7 +1,7 @@
 
 // -*- C++ -*-
 //
-// $Id: AAstar.cpp,v 1.4 2002/10/17 21:57:27 jpc Exp $
+// $Id: AAstar.cpp,v 1.5 2002/10/24 07:51:33 hcl Exp $
 //
 //  /----------------------------------------------------------------\ 
 //  |                                                                |
@@ -517,7 +517,7 @@ void  CAStar::clear (void)
 // -------------------------------------------------------------------
 // Modifiers  :  "CAStar::load()".
 
-void  CAStar::load (CNet *pNet, int delta=0, int expand=0)
+void  CAStar::load (CNet *pNet, int delta, int expand)
 {
   net        = pNet;
 

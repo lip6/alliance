@@ -1,7 +1,7 @@
 
 // -*- C++ -*-
 //
-// $Id: MNet.cpp,v 1.3 2002/10/17 21:57:27 jpc Exp $
+// $Id: MNet.cpp,v 1.4 2002/10/24 07:51:33 hcl Exp $
 //
 //  /----------------------------------------------------------------\ 
 //  |                                                                |
@@ -214,7 +214,7 @@ void  CTerm::newaccess (CRect &rect, int z, int ident, CNet *net)
 // -------------------------------------------------------------------
 // Method  :  "CTerm::lockalone()".
 
-void  CTerm::lockalone (bool global=false)
+void  CTerm::lockalone (bool global)
 {
   CDRGrid::iterator  coord;
                 int  zCoord, zMax, z;
@@ -283,7 +283,7 @@ ostream  &operator<< (ostream &o, CTerm &self)
 // -------------------------------------------------------------------
 // Constructor  :  "CNet::CNet()".
 
-CNet::CNet (CDRGrid *drgrid, string netName="noname")
+CNet::CNet (CDRGrid *drgrid, string netName)
 {
   name     = netName;
   external = false;

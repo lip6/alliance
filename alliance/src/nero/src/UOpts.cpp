@@ -1,7 +1,7 @@
 
 // -*- C++ -*-
 //
-// $Id: UOpts.cpp,v 1.1 2002/10/02 21:23:49 jpc Exp $
+// $Id: UOpts.cpp,v 1.2 2002/10/24 07:51:33 hcl Exp $
 //
 //  /----------------------------------------------------------------\ 
 //  |                                                                |
@@ -59,10 +59,10 @@ ostream &operator<< (ostream &o, const COpts::COpt *self)
 // Modifier  :  "COpts::add()".
 
 void COpts::add ( string key_short
-                , string key_long
-                , bool   arg=false
-                , string val=""
-                ) throw (except_done)
+                     , string key_long
+                     , bool   arg
+                     , string val
+                     ) throw (except_done)
 {
   long  key_index;
 
