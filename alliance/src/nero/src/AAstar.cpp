@@ -1,7 +1,7 @@
 
 // -*- C++ -*-
 //
-// $Id: AAstar.cpp,v 1.2 2002/10/13 14:22:47 jpc Exp $
+// $Id: AAstar.cpp,v 1.3 2002/10/15 14:35:36 jpc Exp $
 //
 //  /----------------------------------------------------------------\ 
 //  |                                                                |
@@ -768,7 +768,7 @@ void CAStar::dump (void)
   iterations_reroute = 0;
   iterations_kind    = &iterations_route;
 
-  //if (pNet->name == "nbus0_30") cdebug.on ();
+  //if (pNet->name == "c2 0") cdebug.on ();
 
   do {
     if (hysteresis) {

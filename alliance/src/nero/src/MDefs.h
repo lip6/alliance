@@ -1,7 +1,7 @@
 
 // -*- C++ -*-
 //
-// $Id: MDefs.h,v 1.1 2002/10/02 21:23:47 jpc Exp $
+// $Id: MDefs.h,v 1.2 2002/10/15 14:35:37 jpc Exp $
 //
 // /-----------------------------------------------------------------\ 
 // |                                                                 |
@@ -451,7 +451,7 @@
     public: void clear    (void);
     public: void load     (CNet &net, bool global, int expand=0);
     public: bool take     (int pri, int index);
-    public: void findfree (int index);
+    public: void findfree (int index, CNet &net);
 
     // Internal methods.
     private: char  nextPri (char curpri);

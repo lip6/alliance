@@ -1,7 +1,7 @@
 
 // -*- C++ -*-
 //
-// $Id: RMBK.cpp,v 1.2 2002/10/13 14:22:47 jpc Exp $
+// $Id: RMBK.cpp,v 1.3 2002/10/15 14:35:37 jpc Exp $
 //
 //  /----------------------------------------------------------------\ 
 //  |                                                                |
@@ -249,6 +249,18 @@ void  CRBox::mbkload (MBK::CFig *mbkfig, int z, int rtype)
     if (   (MBK::ISVDD ((char*)sig_name.c_str ()) != 0)
         || (MBK::ISVSS ((char*)sig_name.c_str ()) != 0)) continue;
 
+    // In the case of external terminals, override the signal name by
+    // the terminal name.
+    pChain = (MBK::chain_list*)(MBK::getptype (pSig->USER, LOFIGCHAIN)->DATA);
+    for (; pChain != NULL; pChain = pChain->NEXT) {
+      pLocon = (MBK::locon_list *)(pChain->DATA);
+
+      if (pLocon->TYPE == EXTERNAL) {
+        sig_name = pLocon->NAME;
+        break;;
+      }
+    }
+
     pNet = getnet (sig_name);
 
     // Process each terminal of the signal.
@@ -259,7 +271,6 @@ void  CRBox::mbkload (MBK::CFig *mbkfig, int z, int rtype)
 
       if (pLocon->TYPE == EXTERNAL) {
         pNet->external = true;
-
 
         continue;
       }
