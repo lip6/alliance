@@ -558,7 +558,7 @@ void XvpnDisplaySelectList( Message )
   else
   {
     Label = XmStringCreateSimple( Message );
-    XmListAddItem( XvpnEditSelectButton[ 0 ].BUTTON , Label , NULL );
+    XmListAddItem( XvpnEditSelectButton[ 0 ].BUTTON , Label , 0 );
     XmStringFree( Label );
   }
 

@@ -195,12 +195,12 @@ void XfsmSetLibraryList()
         Index++ )
   {
     Label = XmStringCreateSimple( XFSM_CATA_LIB[ Index ] );
-    XmListAddItem( XfsmLibraryList , Label , NULL );
+    XmListAddItem( XfsmLibraryList , Label , 0 );
     XmStringFree( Label );
   }
 
   Label = XmStringCreateSimple( XFSM_WORK_LIB );
-  XmListAddItem( XfsmLibraryList , Label , NULL );
+  XmListAddItem( XfsmLibraryList , Label , 0 );
   XmStringFree( Label );
 
   XFSM_DEFAULT_LIB = (char *)NULL;

@@ -487,7 +487,7 @@ void XpatDisplaySelectList( Message )
   else
   {
     Label = XmStringCreateSimple( Message );
-    XmListAddItem( XpatEditSelectButton[ 0 ].BUTTON , Label , NULL );
+    XmListAddItem( XpatEditSelectButton[ 0 ].BUTTON , Label , 0 );
     XmStringFree( Label );
   }
 

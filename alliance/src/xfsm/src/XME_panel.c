@@ -489,7 +489,7 @@ void XfsmDisplaySelectList( Message )
   else
   {
     Label = XmStringCreateSimple( Message );
-    XmListAddItem( XfsmEditSelectButton[ 0 ].BUTTON , Label , NULL );
+    XmListAddItem( XfsmEditSelectButton[ 0 ].BUTTON , Label , 0 );
     XmStringFree( Label );
   }
 

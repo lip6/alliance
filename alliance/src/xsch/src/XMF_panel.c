@@ -194,12 +194,12 @@ void XschSetLibraryList()
         Index++ )
   {
     Label = XmStringCreateSimple( XSCH_CATA_LIB[ Index ] );
-    XmListAddItem( XschLibraryList , Label , NULL );
+    XmListAddItem( XschLibraryList , Label , 0 );
     XmStringFree( Label );
   }
 
   Label = XmStringCreateSimple( XSCH_WORK_LIB );
-  XmListAddItem( XschLibraryList , Label , NULL );
+  XmListAddItem( XschLibraryList , Label , 0 );
   XmStringFree( Label );
 
   XSCH_DEFAULT_LIB = (char *)NULL;

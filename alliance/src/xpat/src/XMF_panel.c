@@ -193,12 +193,12 @@ void XpatSetLibraryList()
         Index++ )
   {
     Label = XmStringCreateSimple( XPAT_CATA_LIB[ Index ] );
-    XmListAddItem( XpatLibraryList , Label , NULL );
+    XmListAddItem( XpatLibraryList , Label , 0 );
     XmStringFree( Label );
   }
 
   Label = XmStringCreateSimple( XPAT_WORK_LIB );
-  XmListAddItem( XpatLibraryList , Label , NULL );
+  XmListAddItem( XpatLibraryList , Label , 0 );
   XmStringFree( Label );
 
   XPAT_DEFAULT_LIB = (char *)NULL;

@@ -491,7 +491,7 @@ void XschDisplaySelectList( Message )
   else
   {
     Label = XmStringCreateSimple( Message );
-    XmListAddItem( XschEditSelectButton[ 0 ].BUTTON , Label , NULL );
+    XmListAddItem( XschEditSelectButton[ 0 ].BUTTON , Label , 0 );
     XmStringFree( Label );
   }
 
