@@ -77,5 +77,6 @@ extern void inccapacitance __P ((char* name, double capacitance));
 /***************************************************************************/
 extern void putcapacitance __P ((char* name, double capacitance));
 
+extern int addsignalifnotexist __P(( char *name ));
 
 #endif

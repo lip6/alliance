@@ -183,12 +183,11 @@ loc_addnamelist( lax_name_list *head, char *name )
 int 
 loc_getdouble( FILE *Pfile, int c, double *PValue )
 {
-  double Value = 0.0;
   char   Buffer[ 32 ];
-  int    Index = 0;
+  int    Index;
 
-  Buffer[ 0 ] = '\0';
   *PValue = 0.0;
+  Index   = 0;
 
   while ( ( isdigit( c ) ) || 
           ( c == '.'     ) || 
@@ -202,6 +201,8 @@ loc_getdouble( FILE *Pfile, int c, double *PValue )
     Buffer[ Index++ ] = c;
     c = fgetc( Pfile );
   }
+
+  Buffer[ Index ] = '\0';
 
   if ( Index > 0 ) *PValue = atof( Buffer );
 

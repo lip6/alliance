@@ -137,7 +137,7 @@ static void putsignal(signal_list* signal, char* name)
 /* search a signal in hash table                                           */
 /*if doesn't exist, create the signal if create param is 1                 */
 /***************************************************************************/
-static signal_list* getsignal(char *name, int create)
+signal_list* getsignal(char *name, int create)
 {
    authelem* elem;
    signal_list* signal;
@@ -268,6 +268,14 @@ extern void putcapacitance(char* name, double capacitance)
    signal=getsignal(name,1/*if doesn't exist create it*/);
    signal->C=capacitance;
    if (signal->C<0) signal->C=0;
+}
+
+/* LUDO */
+
+int
+addsignalifnotexist( char *name )
+{
+  return ( getsignal( name, 1 ) != (signal_list *)0 );
 }
 
 

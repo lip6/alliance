@@ -164,6 +164,7 @@ extern void save_xsch(FILE* xsch_stream, lofig_list* lofig, ptype_list* long_pat
          autexit(1);
       }
       signame=losig->NAMECHAIN->DATA;
+      addsignalifnotexist( signame );
       
       if (isvdd(signame) || isvss(signame)) continue;
       
