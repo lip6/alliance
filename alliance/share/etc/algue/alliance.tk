@@ -26,7 +26,7 @@
     }
   }
  
-  set alcgraph $env(ALLIANCE_TOP)/algue
+  set alcgraph $env(ALLIANCE_TOP)/etc/algue
 
   lappend auto_path   $alcgraph
  
@@ -224,7 +224,7 @@ proc config_binaire { executable file_config } {
  global liste_variables
  global dir_env_file
 
-set dir_env_file $env(ALLIANCE_TOP)/algue
+set dir_env_file $env(ALLIANCE_TOP)/etc/algue
 
  global liste_topack
 
@@ -713,23 +713,17 @@ eval "exec chmod 755 $filewrite"
  
      pack $w.haut.1.c   -expand true -side left  -fill both  
      
-	  set chemin $env(ALLIANCE_TOP)/algue/asim.gif
+	  set chemin $env(ALLIANCE_TOP)/etc/algue/asim.gif
      set imh [image create photo -file $chemin]
  
-	  $w.haut.1.c create image  70 55 -image $imh
+	  $w.haut.1.c create image  70 40 -image $imh
 
-	  set chemin $env(ALLIANCE_TOP)/algue/asimtxt.gif
-     set imh [image create photo -file $chemin]
- 
-	  $w.haut.1.c create image  70 15 -image $imh
-
-
-     set chemin $env(ALLIANCE_TOP)/algue/alliance.gif
+     set chemin $env(ALLIANCE_TOP)/etc/algue/alliance.gif
      set imh [image create photo -file $chemin]
  
 	  $w.haut.1.c create image  370 40 -image $imh
 
-     set chemin $env(ALLIANCE_TOP)/algue/lip6.gif
+     set chemin $env(ALLIANCE_TOP)/etc/algue/lip6.gif
      set imh [image create photo -file $chemin]
  
 	  $w.haut.1.c create image  660 40 -image $imh
@@ -762,7 +756,7 @@ eval "exec chmod 755 $filewrite"
    set defautx1 55;
    set x1	$defautx1
 	
-	set file_config "$env(ALLIANCE_TOP)/algue/main.cfg"
+	set file_config "$env(ALLIANCE_TOP)/etc/algue/main.cfg"
 	
  
    canvas $w.princ.1.c -relief flat -borderwidth 0 -background #fff \
@@ -854,7 +848,7 @@ global  widthlabel  heigthlabel
   set  paramlaunch(exit) "EXIT"
   $w.bot.switch configure -text $paramlaunch(changelang) 
   $w.bot.quit configure -text $paramlaunch(exit) 
-  set file_to_read $env(ALLIANCE_TOP)/algue/maine.cfg
+  set file_to_read $env(ALLIANCE_TOP)/etc/algue/maine.cfg
   }
   "anglais" {
   set currentlang "francais"
@@ -862,7 +856,7 @@ global  widthlabel  heigthlabel
   set  paramlaunch(exit) "SORTIE"
   $w.bot.switch configure -text $paramlaunch(changelang) 
   $w.bot.quit configure -text $paramlaunch(exit) 
-  set file_to_read  $env(ALLIANCE_TOP)/algue/main.cfg
+  set file_to_read  $env(ALLIANCE_TOP)/etc/algue/main.cfg
     } 
   }
 
@@ -879,7 +873,7 @@ global  widthlabel  heigthlabel
    set defautx1 55;
    set x1	$defautx1
 
-	set file_config "$env(ALLIANCE_TOP)/algue/main.cfg"
+	set file_config "$env(ALLIANCE_TOP)/etc/algue/main.cfg"
 	
  if [catch {open $file_to_read r} fichier] {
              set mesg1 "L'erreur est humaine"
