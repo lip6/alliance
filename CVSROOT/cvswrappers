@@ -116,6 +116,3 @@
 *.[Xx][Ll][Ss]  -k b -m COPY
 *.[Xx][Pp][Mm]  -k b -m COPY
 *.[Zz][Ii][Pp]  -k b -m COPY
-*.  -k b -m COPY
-
-
