@@ -1,9 +1,0 @@
-# file used by the RING tool 
-# placement of the pads on the different sides of the chip 
-
-north(a3 a2 a1 a0 b3 b2 b1 b0 vdde_p0 d3 d2 d1 d0)
-west(cin np ng r0 r3 vddi_p1  y0 y1 y2 y3 vsse_p0 noe )
-south(  scout i8 i7 i6 vsse_ck i5 i4 i3 i2 i1 i0 ck)
-# east(vsse_ck  signe ovr cout zero fonc vssi_p1 test  scin q0 q3)
-east(signe ovr cout zero fonc  vssi_p1 test  scin q0 q3)
-
