@@ -16,7 +16,7 @@ dreal_LDADD = @LIBS@ @X_LIBS@ @LINK_MOTIF@ \
 -lRtl -lRgs -lRcf -lRut -lRfm -lRpr -lRds -lMpu -lMap -lMmg -lMcp -lMph -lMut
 
 
-INCLUDES = @INCLUDES@ @INCLUDE_MOTIF@
+INCLUDES = @INCLUDE_MOTIF@
 
 dreal_SOURCES = \
 dreal.c dreal.h GMC_create.c GMC_create.h GMC_dialog.c GMC_dialog.h GMC.h \

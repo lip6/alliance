@@ -16,7 +16,7 @@ graal_LDADD = @LIBS@ @X_LIBS@ @LINK_MOTIF@ \
 -lVrd -lRtl -lRgs -lRcf -lRfm -lRpr -lRwi -lRut -lRds -lMpu \
 -lMap -lMmg -lMcp -lMph -lMut -lm
 
-INCLUDES = @INCLUDES@ @INCLUDE_MOTIF@
+INCLUDES = @INCLUDE_MOTIF@
 
 graal_SOURCES = \
 GMC_create.c GMC_create.h GMC_dialog.c GMC_dialog.h GMC.h GMC_menu.c GMC_menu.h \
