@@ -1,6 +1,5 @@
-#ALLIANCE_TOP    = /users/soft5/newlabo/Solaris
 ASIMUT = $(ALLIANCE_TOP)/bin/asimut
-GENLIB = $(ALLIANCE_TOP)/bin/genlib -v 
+GENLIB = $(ALLIANCE_TOP)/bin/genlib -v -k
 SCR    = $(ALLIANCE_TOP)/bin/scr
 RING   = $(ALLIANCE_TOP)/bin/ring
 LYNX   = $(ALLIANCE_TOP)/bin/lynx
@@ -9,6 +8,7 @@ YAGLE  = $(ALLIANCE_TOP)/bin/yagle
 PROOF  = $(ALLIANCE_TOP)/bin/proof
 DRUC   = $(ALLIANCE_TOP)/bin/druc
 GRAAL  = $(ALLIANCE_TOP)/bin/graal
+DREAL  = $(ALLIANCE_TOP)/bin/dreal
 S2R    = $(ALLIANCE_TOP)/bin/s2r
 
 # ### 
@@ -23,7 +23,7 @@ all: specifications.pat addaccu.proof addaccu.cif
 	@echo "##                                            ##" 
 	@echo "################################################"
 	@echo " " 
-	@echo "Please run 'dreal -l addaccu' to see the layout." 
+	@echo "Run 'make dreal' to see the layout." 
 	@echo " " 
 
 
@@ -85,7 +85,7 @@ core.ap : core.vst
 	MBK_IN_PH=ap ;\
 	MBK_OUT_PH=ap ;\
 	MBK_CATA_LIB=$(ALLIANCE_TOP)/cells/sclib:$(ALLIANCE_TOP)/cells/padlib ;\
-        SCR_SCLIB=1 ;\
+        SCR_SCLIB=1  ;\
 	export MBK_IN_LO MBK_IN_PH MBK_OUT_PH MBK_CATA_LIB SCR_SCLIB ;\
 	$(SCR) -p -r core 
 
@@ -144,7 +144,7 @@ addaccu.al : addaccu.ap
 # ###---------------------------------------------------------###
 
 addaccu.lvx : addaccu.al addaccu.vst
-	$(LVX) vst al addaccu > addaccu.lvx
+	$(LVX) vst al addaccu addaccu > addaccu.lvx
 	cat addaccu.lvx
 
 # ###---------------------------------------------------------###
@@ -240,4 +240,17 @@ graal : addaccu.ap
 	MBK_CATA_LIB=$(ALLIANCE_TOP)/cells/sclib:$(ALLIANCE_TOP)/cells/padlib ;\
 	export MBK_IN_PH RDS_TECHNO_NAME MBK_CATA_LIB ;\
 	$(GRAAL) -l addaccu
+
+# ###---------------------------------------------------------###
+# look at the circuit under dreal                               #
+# ###---------------------------------------------------------###
+
+dreal : addaccu.cif
+	MBK_IN_PH=ap ;\
+	MBK_CATA_LIB=$(ALLIANCE_TOP)/cells/sclib:$(ALLIANCE_TOP)/cells/padlib ;\
+	RDS_TECHNO_NAME=$(ALLIANCE_TOP)/etc/prol05.rds ;\
+	RDS_OUT=cif  ;\
+	RDS_IN=cif ;\
+	export MBK_IN_PH RDS_IN RDS_OUT RDS_TECHNO_NAME MBK_CATA_LIB ;\
+	$(DREAL) -l addaccu
 

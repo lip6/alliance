@@ -180,9 +180,10 @@ heart.ap : asimut_vst
 	MBK_IN_LO=vst ;\
 	MBK_WORK_LIB=. ;\
 	MBK_CATA_LIB=.:$(ALLIANCE_TOP)/cells/sclib:$(ALLIANCE_TOP)/cells/padlib;\
-	export MBK_IN_PH MBK_OUT_PH MBK_IN_LO MBK_WORK_LIB MBK_CATA_LIB;\
+        SCR_SCLIB=1 ;\
+	export MBK_IN_PH MBK_OUT_PH MBK_IN_LO MBK_WORK_LIB MBK_CATA_LIB SCR_SCLIB ;\
 	$(SCR) -p -r heart;\
-	$(GRAAL) -l heart
+#	$(GRAAL) -l heart
 
 #################################################################
 #   ASIMUT                                                      #

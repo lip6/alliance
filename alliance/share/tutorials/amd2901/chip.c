@@ -236,10 +236,10 @@ LOINS ("a2_y","a231sa","fonc_mode","waccu","a231s","vdd","vss",0);
 LOINS ("o2_y","o26sa","test_mode","a231s","w","vdd","vss",0);
 
 
-LOINS ("ms2_y","m3","shacc3","q[2]","test_mode","ckin","q[3]","vdd","vss",0);
-LOINS ("ms2_y","m2","shacc2","q[1]","test_mode","ckin","q[2]","vdd","vss",0);
-LOINS ("ms2_y","m1","shacc1","q[0]","test_mode","ckin","q[1]","vdd","vss",0);
-LOINS ("ms2_y","m0","shacc0","scin","test_mode","ckin","q[0]","vdd","vss",0);
+LOINS ("ms2dp2_y","m3","shacc3","q[2]","test_mode","ckin","q[3]","vdd","vss",0);
+LOINS ("ms2dp2_y","m2","shacc2","q[1]","test_mode","ckin","q[2]","vdd","vss",0);
+LOINS ("ms2dp2_y","m1","shacc1","q[0]","test_mode","ckin","q[1]","vdd","vss",0);
+LOINS ("ms2dp2_y","m0","shacc0","scin","test_mode","ckin","q[0]","vdd","vss",0);
 
 SAVE_LOFIG();
 
@@ -522,76 +522,76 @@ LOINS ("a2_y","c1","enable","b1","ck1","vdd","vss",0);
 /* building of the "memory-space" */
 
 /* bit slice 3 */
-LOINS ("ms_y","m_16_3","shram3","ck16","s316","vdd","vss",0);
-LOINS ("ms_y","m_15_3","shram3","ck15","s315","vdd","vss",0);
-LOINS ("ms_y","m_14_3","shram3","ck14","s314","vdd","vss",0);
-LOINS ("ms_y","m_13_3","shram3","ck13","s313","vdd","vss",0);
-LOINS ("ms_y","m_12_3","shram3","ck12","s312","vdd","vss",0);
-LOINS ("ms_y","m_11_3","shram3","ck11","s311","vdd","vss",0);
-LOINS ("ms_y","m_10_3","shram3","ck10","s310","vdd","vss",0);
-LOINS ("ms_y","m_9_3","shram3","ck9","s39","vdd","vss",0);
-LOINS ("ms_y","m_8_3","shram3","ck8","s38","vdd","vss",0);
-LOINS ("ms_y","m_7_3","shram3","ck7","s37","vdd","vss",0);
-LOINS ("ms_y","m_6_3","shram3","ck6","s36","vdd","vss",0);
-LOINS ("ms_y","m_5_3","shram3","ck5","s35","vdd","vss",0);
-LOINS ("ms_y","m_4_3","shram3","ck4","s34","vdd","vss",0);
-LOINS ("ms_y","m_3_3","shram3","ck3","s33","vdd","vss",0);
-LOINS ("ms_y","m_2_3","shram3","ck2","s32","vdd","vss",0);
-LOINS ("ms_y","m_1_3","shram3","ck1","s31","vdd","vss",0);
+LOINS ("msdp2_y","m_16_3","shram3","ck16","s316","vdd","vss",0);
+LOINS ("msdp2_y","m_15_3","shram3","ck15","s315","vdd","vss",0);
+LOINS ("msdp2_y","m_14_3","shram3","ck14","s314","vdd","vss",0);
+LOINS ("msdp2_y","m_13_3","shram3","ck13","s313","vdd","vss",0);
+LOINS ("msdp2_y","m_12_3","shram3","ck12","s312","vdd","vss",0);
+LOINS ("msdp2_y","m_11_3","shram3","ck11","s311","vdd","vss",0);
+LOINS ("msdp2_y","m_10_3","shram3","ck10","s310","vdd","vss",0);
+LOINS ("msdp2_y","m_9_3","shram3","ck9","s39","vdd","vss",0);
+LOINS ("msdp2_y","m_8_3","shram3","ck8","s38","vdd","vss",0);
+LOINS ("msdp2_y","m_7_3","shram3","ck7","s37","vdd","vss",0);
+LOINS ("msdp2_y","m_6_3","shram3","ck6","s36","vdd","vss",0);
+LOINS ("msdp2_y","m_5_3","shram3","ck5","s35","vdd","vss",0);
+LOINS ("msdp2_y","m_4_3","shram3","ck4","s34","vdd","vss",0);
+LOINS ("msdp2_y","m_3_3","shram3","ck3","s33","vdd","vss",0);
+LOINS ("msdp2_y","m_2_3","shram3","ck2","s32","vdd","vss",0);
+LOINS ("msdp2_y","m_1_3","shram3","ck1","s31","vdd","vss",0);
 
 /* bit slice 2 */
-LOINS ("ms_y","m_16_2","shram2","ck16","s216","vdd","vss",0);
-LOINS ("ms_y","m_15_2","shram2","ck15","s215","vdd","vss",0);
-LOINS ("ms_y","m_14_2","shram2","ck14","s214","vdd","vss",0);
-LOINS ("ms_y","m_13_2","shram2","ck13","s213","vdd","vss",0);
-LOINS ("ms_y","m_12_2","shram2","ck12","s212","vdd","vss",0);
-LOINS ("ms_y","m_11_2","shram2","ck11","s211","vdd","vss",0);
-LOINS ("ms_y","m_10_2","shram2","ck10","s210","vdd","vss",0);
-LOINS ("ms_y","m_9_2","shram2","ck9","s29","vdd","vss",0);
-LOINS ("ms_y","m_8_2","shram2","ck8","s28","vdd","vss",0);
-LOINS ("ms_y","m_7_2","shram2","ck7","s27","vdd","vss",0);
-LOINS ("ms_y","m_6_2","shram2","ck6","s26","vdd","vss",0);
-LOINS ("ms_y","m_5_2","shram2","ck5","s25","vdd","vss",0);
-LOINS ("ms_y","m_4_2","shram2","ck4","s24","vdd","vss",0);
-LOINS ("ms_y","m_3_2","shram2","ck3","s23","vdd","vss",0);
-LOINS ("ms_y","m_2_2","shram2","ck2","s22","vdd","vss",0);
-LOINS ("ms_y","m_1_2","shram2","ck1","s21","vdd","vss",0);
+LOINS ("msdp2_y","m_16_2","shram2","ck16","s216","vdd","vss",0);
+LOINS ("msdp2_y","m_15_2","shram2","ck15","s215","vdd","vss",0);
+LOINS ("msdp2_y","m_14_2","shram2","ck14","s214","vdd","vss",0);
+LOINS ("msdp2_y","m_13_2","shram2","ck13","s213","vdd","vss",0);
+LOINS ("msdp2_y","m_12_2","shram2","ck12","s212","vdd","vss",0);
+LOINS ("msdp2_y","m_11_2","shram2","ck11","s211","vdd","vss",0);
+LOINS ("msdp2_y","m_10_2","shram2","ck10","s210","vdd","vss",0);
+LOINS ("msdp2_y","m_9_2","shram2","ck9","s29","vdd","vss",0);
+LOINS ("msdp2_y","m_8_2","shram2","ck8","s28","vdd","vss",0);
+LOINS ("msdp2_y","m_7_2","shram2","ck7","s27","vdd","vss",0);
+LOINS ("msdp2_y","m_6_2","shram2","ck6","s26","vdd","vss",0);
+LOINS ("msdp2_y","m_5_2","shram2","ck5","s25","vdd","vss",0);
+LOINS ("msdp2_y","m_4_2","shram2","ck4","s24","vdd","vss",0);
+LOINS ("msdp2_y","m_3_2","shram2","ck3","s23","vdd","vss",0);
+LOINS ("msdp2_y","m_2_2","shram2","ck2","s22","vdd","vss",0);
+LOINS ("msdp2_y","m_1_2","shram2","ck1","s21","vdd","vss",0);
 
 /* bit slice 1 */
-LOINS ("ms_y","m_16_1","shram1","ck16","s116","vdd","vss",0);
-LOINS ("ms_y","m_15_1","shram1","ck15","s115","vdd","vss",0);
-LOINS ("ms_y","m_14_1","shram1","ck14","s114","vdd","vss",0);
-LOINS ("ms_y","m_13_1","shram1","ck13","s113","vdd","vss",0);
-LOINS ("ms_y","m_12_1","shram1","ck12","s112","vdd","vss",0);
-LOINS ("ms_y","m_11_1","shram1","ck11","s111","vdd","vss",0);
-LOINS ("ms_y","m_10_1","shram1","ck10","s110","vdd","vss",0);
-LOINS ("ms_y","m_9_1","shram1","ck9","s19","vdd","vss",0);
-LOINS ("ms_y","m_8_1","shram1","ck8","s18","vdd","vss",0);
-LOINS ("ms_y","m_7_1","shram1","ck7","s17","vdd","vss",0);
-LOINS ("ms_y","m_6_1","shram1","ck6","s16","vdd","vss",0);
-LOINS ("ms_y","m_5_1","shram1","ck5","s15","vdd","vss",0);
-LOINS ("ms_y","m_4_1","shram1","ck4","s14","vdd","vss",0);
-LOINS ("ms_y","m_3_1","shram1","ck3","s13","vdd","vss",0);
-LOINS ("ms_y","m_2_1","shram1","ck2","s12","vdd","vss",0);
-LOINS ("ms_y","m_1_1","shram1","ck1","s11","vdd","vss",0);
+LOINS ("msdp2_y","m_16_1","shram1","ck16","s116","vdd","vss",0);
+LOINS ("msdp2_y","m_15_1","shram1","ck15","s115","vdd","vss",0);
+LOINS ("msdp2_y","m_14_1","shram1","ck14","s114","vdd","vss",0);
+LOINS ("msdp2_y","m_13_1","shram1","ck13","s113","vdd","vss",0);
+LOINS ("msdp2_y","m_12_1","shram1","ck12","s112","vdd","vss",0);
+LOINS ("msdp2_y","m_11_1","shram1","ck11","s111","vdd","vss",0);
+LOINS ("msdp2_y","m_10_1","shram1","ck10","s110","vdd","vss",0);
+LOINS ("msdp2_y","m_9_1","shram1","ck9","s19","vdd","vss",0);
+LOINS ("msdp2_y","m_8_1","shram1","ck8","s18","vdd","vss",0);
+LOINS ("msdp2_y","m_7_1","shram1","ck7","s17","vdd","vss",0);
+LOINS ("msdp2_y","m_6_1","shram1","ck6","s16","vdd","vss",0);
+LOINS ("msdp2_y","m_5_1","shram1","ck5","s15","vdd","vss",0);
+LOINS ("msdp2_y","m_4_1","shram1","ck4","s14","vdd","vss",0);
+LOINS ("msdp2_y","m_3_1","shram1","ck3","s13","vdd","vss",0);
+LOINS ("msdp2_y","m_2_1","shram1","ck2","s12","vdd","vss",0);
+LOINS ("msdp2_y","m_1_1","shram1","ck1","s11","vdd","vss",0);
 
 /* bit slice 0 */
-LOINS ("ms_y","m_16_0","shram0","ck16","s016","vdd","vss",0);
-LOINS ("ms_y","m_15_0","shram0","ck15","s015","vdd","vss",0);
-LOINS ("ms_y","m_14_0","shram0","ck14","s014","vdd","vss",0);
-LOINS ("ms_y","m_13_0","shram0","ck13","s013","vdd","vss",0);
-LOINS ("ms_y","m_12_0","shram0","ck12","s012","vdd","vss",0);
-LOINS ("ms_y","m_11_0","shram0","ck11","s011","vdd","vss",0);
-LOINS ("ms_y","m_10_0","shram0","ck10","s010","vdd","vss",0);
-LOINS ("ms_y","m_9_0","shram0","ck9","s09","vdd","vss",0);
-LOINS ("ms_y","m_8_0","shram0","ck8","s08","vdd","vss",0);
-LOINS ("ms_y","m_7_0","shram0","ck7","s07","vdd","vss",0);
-LOINS ("ms_y","m_6_0","shram0","ck6","s06","vdd","vss",0);
-LOINS ("ms_y","m_5_0","shram0","ck5","s05","vdd","vss",0);
-LOINS ("ms_y","m_4_0","shram0","ck4","s04","vdd","vss",0);
-LOINS ("ms_y","m_3_0","shram0","ck3","s03","vdd","vss",0);
-LOINS ("ms_y","m_2_0","shram0","ck2","s02","vdd","vss",0);
-LOINS ("ms_y","m_1_0","shram0","ck1","s01","vdd","vss",0);
+LOINS ("msdp2_y","m_16_0","shram0","ck16","s016","vdd","vss",0);
+LOINS ("msdp2_y","m_15_0","shram0","ck15","s015","vdd","vss",0);
+LOINS ("msdp2_y","m_14_0","shram0","ck14","s014","vdd","vss",0);
+LOINS ("msdp2_y","m_13_0","shram0","ck13","s013","vdd","vss",0);
+LOINS ("msdp2_y","m_12_0","shram0","ck12","s012","vdd","vss",0);
+LOINS ("msdp2_y","m_11_0","shram0","ck11","s011","vdd","vss",0);
+LOINS ("msdp2_y","m_10_0","shram0","ck10","s010","vdd","vss",0);
+LOINS ("msdp2_y","m_9_0","shram0","ck9","s09","vdd","vss",0);
+LOINS ("msdp2_y","m_8_0","shram0","ck8","s08","vdd","vss",0);
+LOINS ("msdp2_y","m_7_0","shram0","ck7","s07","vdd","vss",0);
+LOINS ("msdp2_y","m_6_0","shram0","ck6","s06","vdd","vss",0);
+LOINS ("msdp2_y","m_5_0","shram0","ck5","s05","vdd","vss",0);
+LOINS ("msdp2_y","m_4_0","shram0","ck4","s04","vdd","vss",0);
+LOINS ("msdp2_y","m_3_0","shram0","ck3","s03","vdd","vss",0);
+LOINS ("msdp2_y","m_2_0","shram0","ck2","s02","vdd","vss",0);
+LOINS ("msdp2_y","m_1_0","shram0","ck1","s01","vdd","vss",0);
 
 /* reading of the a-addressed word */
 
