@@ -1,8 +1,5 @@
 #!/bin/sh
 
-PATH=/asim/gnu/bin:/usr/ucb:/usr/etc:/bin:/usr/bin:/usr/local/bin:${PATH}
-export PATH
-
 #DATE=`date +"%Y.%m.%d_%H.%M.%S"`
 DATE=`date +"%Y.%m.%d"`
 

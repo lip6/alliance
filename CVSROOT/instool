@@ -7,12 +7,9 @@
 # Author: Frédéric Pétrot (fred@pasta.fr.ea)
 #         for version 0
 #
-# $Id: instool,v 1.24 2000/06/15 10:17:22 czo Exp $
+# $Id: instool,v 1.25 2001/05/22 14:19:45 czo Exp $
 #
 
-
-PATH=/users/outil/alliance/cvsroot/CVSROOT:/asim/gnu/bin:/usr/ucb:/usr/etc:/usr/local/bin:/bin:/usr/bin:${PATH}
-export PATH
 
 #rsh ssh et .profile ...
 #DATE=`date +"%Y.%m.%d_%H.%M.%S"`
