@@ -1,53 +1,86 @@
 #!/bin/sh
 #
-# Filename: mkdistrib
-# Copyright (C) 1999, 2000 Czo <Olivier.Sirol@lip6.fr>
+# Copyright (C) 1999, 2000, 2001, 2002, 2003 Czo <Olivier.Sirol@lip6.fr>
 # License: GPL (http://www.gnu.org/copyleft/gpl.html)
-# Started: April 2000
-# Last Change: Wednesday 10 December 2003, 16:49
-# Edit Time: 208:03:15
-# Description:
 #
-# $Id: mkdistrib,v 1.13 2004/07/13 22:41:21 alliance Exp $
+# $Id: mkdistrib,v 1.14 2004/07/16 21:18:15 jpc Exp $
+#
+# /------------------------------------------------------------------\
+# |                                                                  |
+# |        A l l i a n c e   C A D   S y s t e m                     |
+# |   W e b   D i s t r i b u t i o n   B u i l d e r                |
+# |                                                                  |
+# |  Author    :                         Olivier Sirol               |
+# |  E-mail    :           alliance-users@asim.lip6.fr               |
+# | ================================================================ |
+# |  sh script :         "./mkdistrib"                               |
+# | **************************************************************** |
+# |  U p d a t e s                                                   |
+# |                                                                  |
+# |  16 Jun 2004 :                                                   |
+# |    Major update by Jean-Paul Chaput.                             |
+# |                                                                  |
+# \------------------------------------------------------------------/
 #
 
 
-###################################################################
 #set -x
 #set -v
 
-ALC_DISTRIBDIR=/users/soft5/newlabo/distrib
-
-solaris=sparc-solaris-2.9
-linux=i386-linux-2.6.6
-
-ALC_WKSLIST="tsunami funk"
-ALC_FTPDISTRIBDIR=/users/largo2/ftp/pub/alliance/distribution/5.0
-ALC_LOGFILE=/tmp/albuild.$$
-ALC_FULL_LOGFILE="$ALC_DISTRIBDIR/amkdistrib.log"
-
-ALC_RELEASE=`date +%Y%m%d`
-ALC_VERSION=5.0
-
-ALC_DIR="alliance-$ALC_VERSION"
-ALC_PACK="$ALC_DIR-$ALC_RELEASE"
-
-ALC_TMPDIR=tmp-$$
-ALC_TMPBUILD=tmpbuild-$$
-ALC_TMPINSTALL=tmpinstall-$$
-ALC_TMPALLIANCE=alliance-tmp-$$
-
-ALC_TMPDESTDIR=tmpdestdir-$$
-ALC_TMPBUILDDIR=tmpbuilddir-$$
-
-CVSROOT=/users/outil/alliance/cvsroot
-export CVSROOT
 
 
-###################################################################
 
-fail() {
-echo -e "\
+# --------------------------------------------------------------------
+# Internal variables.
+
+
+      DISTRIBDIR=/users/outil/alliance/distrib
+   FTPDISTRIBDIR=/users/largo2/ftp/pub/alliance/distribution/5.0
+         CVSROOT=/users/outil/alliance/cvsroot
+
+         Solaris=sparc-solaris-2.9
+           Linux=i386-linux-2.6.6
+
+   MKDISTRIB_PID="$$"
+#  MKDISTRIB_PID="26882"
+
+         TARGETS="purcell funk"
+#        TARGETS=""
+   TARGETLOGFILE=/tmp/alliance-build.$MKDISTRIB_PID
+         LOGFILE="$DISTRIBDIR/mkdistrib-run.log"
+
+         RELEASE=`date +%Y%m%d`
+#        RELEASE=20040715
+         VERSION=5.0
+
+            NAME="alliance-$VERSION"
+            PACK="$NAME-$RELEASE"
+
+          TMPDIR=tmp-$MKDISTRIB_PID
+     TMPBUILDDIR=build-$MKDISTRIB_PID
+   TMPINSTALLDIR=install-$MKDISTRIB_PID
+     TMPALLIANCE=alliance-$MKDISTRIB_PID
+      TMPDESTDIR=dest-$MKDISTRIB_PID
+
+      RPM_MACROS="$HOME/.rpmmacros"
+      RPM_TOPDIR="$DISTRIBDIR/rpm"
+
+ export CVSROOT
+
+
+
+
+# /------------------------------------------------------------------\
+# |                      Functions Definitions                       |
+# \------------------------------------------------------------------/
+
+
+# --------------------------------------------------------------------
+# Function  :  "fail()".
+
+ fail ()
+ {
+   echo -e "\
                                                              \n\
                                                              \n\
                    @@@@@@@@@        @      @@@@@@ @@@@@@     \n\
@@ -61,11 +94,18 @@ echo -e "\
                      @@         @      @@    @@     @@      @\n\
                      @@         @      @@    @@     @@     @ \n\
                    @@@@@@     @@@@    @@@@ @@@@@@ @@@@@@@@@@ "
-echo ""
-}
+   echo ""
+ }
 
-pass() {
-echo -e "\
+
+
+
+# --------------------------------------------------------------------
+# Function  :  "pass()".
+
+ pass ()
+ {
+   echo -e "\
                                                               \n\
                                                               \n\
                    @@@@@@@          @        @@@@ @    @@@@ @ \n\
@@ -79,138 +119,165 @@ echo -e "\
                      @@         @      @@  @@     @@ @@     @@\n\
                      @@         @      @@  @@@    @  @@@    @ \n\
                    @@@@@@     @@@@    @@@@ @  @@@@   @  @@@@  "
-echo ""
-}
-
-try1() {
-((
-echo "--> TRY $*"
-$* 
-EXECEXIT=$?
-if [ $EXECEXIT != 0 ] ; then 
-  fail
-  echo " <-- ERROR: $*"
-  exit $EXECEXIT
-else
-  echo " <-- OK: $*"
-fi
-) | perl -ne  'printf("%s%s", "[m", $_)' ) 2>&1 | perl -ne  'printf("%s%s%s", "[1;31;40m", $_, "[m")' 
-}
-
-try() {
-echo "--> TRY $*"
-$* 
-EXECEXIT=$?
-if [ $EXECEXIT != 0 ] ; then 
-  fail
-  echo " <-- ERROR: $*"
-  exit $EXECEXIT
-else
-  echo " <-- OK: $*"
-fi
-}
-
-
-echo "%%%%%%%%%%%%%%% mk-distrib"
-try cd $ALC_DISTRIBDIR
-
-###################################################################
-(
-((
-
-echo "%%%%%%%%%%%%%%% Removing old test..."
-mkdir $ALC_TMPDIR
-mv alliance* tmpdestdir-* tmpbuilddir-* $ALC_TMPDIR
-rm -fr  $ALC_TMPDIR &
-
-echo "%%%%%%%%%%%%%%% Checkout CVS sources..."
-cvs co -P alliance/src || (echo "CVS ERROR, exiting" ; exit 4)
-
-try ./alliance/src/.asim
-
-perl -pi -e "s§AC_DEFINE_UNQUOTED.*ALLIANCE_VERSION.*§AC_DEFINE_UNQUOTED(ALLIANCE_VERSION, \"$ALC_VERSION \[$ALC_RELEASE\]\")§" alliance/src/alliance.m4
-
-#perl -p -e "s§MYSPEC_VERSION§$ALC_VERSION§ ; s§MYSPEC_RELEASE§$ALC_RELEASE§" alliance/src/distrib/myspec > alliance/src/distrib/alliance.spec
-
-
-echo "%%%%%%%%%%%%%%% Makedist, generation de alliance-5.0.tar.gz"
-
-try cd alliance/src
-
-try ./autostuff
-cd ..
-mkdir $ALC_TMPBUILD
-mkdir $ALC_TMPINSTALL
-try cd $ALC_TMPBUILD
-
-export ALLIANCE_TOP=$ALC_DISTRIBDIR/alliance/$ALC_TMPINSTALL
-export ALLIANCE_TOP
-
-try ../src/configure --prefix=$ALLIANCE_TOP
-
-try make install
-try make distcheck
-
-mv "$ALC_DIR.tar.gz" "$ALC_PACK.tar.gz"
-mv -f "$ALC_PACK.tar.gz" ../..
-
-cd ../..
-
-mv alliance $ALC_TMPALLIANCE
-(chmod -R 777 $ALC_TMPALLIANCE ; rm -fr $ALC_TMPALLIANCE)&
-
-RPM_MACROS="$HOME/.rpmmacros"
-RPM_TOPDIR="`pwd`/rpm"
-rm -f $RPM_MACROS
-echo "%_topdir   $RPM_TOPDIR"     >> $RPM_MACROS
-echo "%_tmppath  %{_topdir}/tmp"  >> $RPM_MACROS
-for dir in $RPM_TOPDIR             \
-           $RPM_TOPDIR/SPECS       \
-           $RPM_TOPDIR/SOURCES     \
-           $RPM_TOPDIR/BUILD       \
-           $RPM_TOPDIR/SRPMS       \
-           $RPM_TOPDIR/RPMS/noarch \
-           $RPM_TOPDIR/RPMS/i386   \
-           $RPM_TOPDIR/tmp
-do
-  if [ ! -d "$dir" ]; then mkdir -p $dir; fi
-done
+   echo ""
+ }
 
 
 
 
+# --------------------------------------------------------------------
+# Function  :  "part()".
 
-try tar -xvzf "$ALC_PACK.tar.gz"
-
-ALLIANCE_TOP=/opt/alliance-$ALC_VERSION
-export ALLIANCE_TOP
-
-for WKS in $ALC_WKSLIST
-do
-try mkdir $ALC_TMPDESTDIR-$WKS $ALC_TMPBUILDDIR-$WKS
-ssh -n $WKS "cd $ALC_DISTRIBDIR/$ALC_TMPBUILDDIR-$WKS ; \
-ALLIANCE_TOP=$ALC_DISTRIBDIR/$ALC_TMPDESTDIR-$WKS/opt/alliance-$ALC_VERSION ; \
-export ALLIANCE_TOP ; \
-../$ALC_DIR/configure --prefix=/opt/alliance-$ALC_VERSION ; \
-gmake DESTDIR=$ALC_DISTRIBDIR/$ALC_TMPDESTDIR-$WKS install && echo Alliance_compilation_OK"  2>&1 | tee $ALC_LOGFILE
-try grep Alliance_compilation_OK $ALC_LOGFILE
-try cd $ALC_DISTRIBDIR/$ALC_TMPDESTDIR-$WKS/opt
-try tar chozf $ALC_DISTRIBDIR/$ALC_PACK-$WKS.tar.gz alliance-$ALC_VERSION
-try cd $ALC_DISTRIBDIR
-done
-
-try mv $ALC_PACK-tsunami.tar.gz $ALC_PACK-$linux.tar.gz
-try mv $ALC_PACK-funk.tar.gz $ALC_PACK-$solaris.tar.gz
-try rpmbuild -ta --clean --define "release $ALC_RELEASE" $ALC_PACK.tar.gz
-
-try cp -f "$ALC_PACK.tar.gz" $ALC_FTPDISTRIBDIR
-try cp -f "$ALC_PACK-$linux.tar.gz" $ALC_FTPDISTRIBDIR
-try cp -f "$ALC_PACK-$solaris.tar.gz" $ALC_FTPDISTRIBDIR
-
-try cp -fp $RPM_TOPDIR/RPMS/i386/alliance*.rpm $ALC_FTPDISTRIBDIR
-try cp -fp $RPM_TOPDIR/SRPMS/alliance*.rpm $ALC_FTPDISTRIBDIR
+ part ()
+ {
+   echo ""
+   echo "----------------------------------------------------------------------"
+   echo "$*"
+   echo ""
+ }
 
 
-) | perl -ne  '$|=1; printf("%s%s", "[m", $_)' ) 2>&1 | perl -ne  '$|=1; printf("%s%s%s", "[1;31;40m", $_, "[m")' 
 
-) 2>&1 | tee "$ALC_FULL_LOGFILE"
+
+# --------------------------------------------------------------------
+# Function  :  "try()".
+
+ try ()
+ {
+   echo "Running Command :"
+   echo "  $*"
+
+   $* 
+   EXITCODE=$?
+   if [ $EXITCODE != 0 ]; then 
+     echo "[ERROR] Command failed :"
+     echo "  $*"
+     fail
+     exit $EXITCODE
+   fi
+ }
+
+
+
+
+# /------------------------------------------------------------------\
+# |                  Main Part of the Shell Script                   |
+# \------------------------------------------------------------------/
+
+
+
+ part "mkdistrib Started."
+ try cd $DISTRIBDIR
+
+
+(((
+
+ part "Removing Any Previous Run."
+ mkdir $TMPDIR
+ mv alliance* dest-* build-* $TMPDIR
+ rm -rf $TMPDIR &
+
+
+ part "Checkout Sources From CVS."
+ try cvs co -P alliance/src
+
+# Remove undistributed tools.
+ try ./alliance/src/.asim
+
+ perl -pi -e "s§AC_DEFINE_UNQUOTED.*ALLIANCE_VERSION.*§AC_DEFINE_UNQUOTED(ALLIANCE_VERSION, \"$VERSION \[$RELEASE\]\")§" alliance/src/alliance.m4
+
+
+ part "Building alliance-$VERSION.tar.gz [make dist]."
+ try cd alliance/src
+
+ try ./autostuff
+ cd ..
+ mkdir $TMPBUILDDIR
+ mkdir $TMPINSTALLDIR
+ try cd $TMPBUILDDIR
+
+ ALLIANCE_TOP=/opt/alliance-$VERSION
+ export ALLIANCE_TOP
+
+ try ../src/configure --prefix=$ALLIANCE_TOP
+ try make DESTDIR="$DISTRIBDIR/alliance/$TMPINSTALLDIR" install
+#try make distcheck
+ try make dist
+
+ mv "$NAME.tar.gz" "$PACK.tar.gz"
+ mv -f "$PACK.tar.gz" ../..
+
+ cd ../..
+
+ mv alliance $TMPALLIANCE
+ (chmod -R 777 $TMPALLIANCE ; rm -fr $TMPALLIANCE) &
+
+ try tar -xvzf "$PACK.tar.gz"
+
+
+ for TARGET in $TARGETS
+ do
+   part "Building Package on Target $TARGET."
+   try mkdir -p $TMPDESTDIR/$TARGET $TMPBUILDDIR/$TARGET
+
+   ssh -n $TARGET \
+     "cd $DISTRIBDIR/$TMPBUILDDIR/$TARGET ; \
+      ALLIANCE_TOP=$ALLIANCE_TOP ; export ALLIANCE_TOP ; \
+      MAKE=gmake; export MAKE; \
+      PATH=${PATH}:/usr/ccs/bin; export PATH; \
+      ../../$NAME/configure --prefix=$ALLIANCE_TOP ; \
+      gmake DESTDIR=$DISTRIBDIR/$TMPDESTDIR/$TARGET install \
+        && echo Alliance_compilation_OK"  2>&1 | tee $TARGETLOGFILE
+   try grep Alliance_compilation_OK $TARGETLOGFILE
+   try cd $DISTRIBDIR/$TMPDESTDIR/$TARGET
+   try tar chozf $DISTRIBDIR/$PACK-$TARGET.tar.gz opt/alliance-$VERSION
+   try cd $DISTRIBDIR
+ done
+
+ try mv $PACK-purcell.tar.gz $PACK-$Linux.tar.gz
+ try mv $PACK-funk.tar.gz $PACK-$Solaris.tar.gz
+
+
+ part "Building RPM packages."
+
+ rm -f $RPM_MACROS
+ echo "%_topdir   $RPM_TOPDIR"     >> $RPM_MACROS
+ echo "%_tmppath  %{_topdir}/tmp"  >> $RPM_MACROS
+ for dir in $RPM_TOPDIR             \
+            $RPM_TOPDIR/SPECS       \
+            $RPM_TOPDIR/SOURCES     \
+            $RPM_TOPDIR/BUILD       \
+            $RPM_TOPDIR/SRPMS       \
+            $RPM_TOPDIR/RPMS/noarch \
+            $RPM_TOPDIR/RPMS/i386   \
+            $RPM_TOPDIR/tmp
+ do
+   if [ ! -d "$dir" ]; then try mkdir -p $dir; fi
+ done
+ try cd rpm/SOURCES
+ try ln -f ../../$PACK.tar.gz alliance-$VERSION.tar.gz
+ try cd ../SPECS
+ try cp -f ../../$NAME/distrib/alliance.spec .
+ try cd ..
+ rpmbuild -ba --clean --define "release $RELEASE" SPECS/alliance.spec
+ EXITCODE=$?
+ if [ $EXITCODE -ne 0 ]; then
+   echo "[ERROR] Command failed :"
+   echo "  rpmbuild -ba --clean --define "release $RELEASE" SPECS/alliance.spec"
+   fail
+   exit $EXITCODE
+ fi
+
+
+ try cp -f "$PACK.tar.gz"          $FTPDISTRIBDIR
+ try cp -f "$PACK-$Linux.tar.gz"   $FTPDISTRIBDIR
+ try cp -f "$PACK-$Solaris.tar.gz" $FTPDISTRIBDIR
+
+ try cp -fp $RPM_TOPDIR/RPMS/i386/alliance*.rpm $FTPDISTRIBDIR
+ try cp -fp $RPM_TOPDIR/SRPMS/alliance*.rpm     $FTPDISTRIBDIR
+
+
+)      | perl -ne  '$|=1; printf("%s%s",   "[m", $_)' \
+) 2>&1 | perl -ne  '$|=1; printf("%s%s%s", "[1;31;40m", $_, "[m")'
+) 2>&1 > $LOGFILE
+
