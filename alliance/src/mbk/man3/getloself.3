@@ -1,0 +1,77 @@
+.\"   $Id: getloself.3,v 1.1 2002/08/14 21:56:40 pnt Exp $
+.\" @(#)getloself.2 2.11 2002/08/14 ; Labo LIP6/ASIM cao-vlsi; Author : Pierre Nguyen Tuong
+.if t \{\
+.so man1/alc_contents.mac
+.XS \n%
+.ti 0.2i
+getloself
+.XE
+.XS2 \n%
+.ti 0.2i
+getloself
+.XE2 \}
+.TH GETLOSELF 3 "August 14, 2002" "ASIM/LIP6" "MBK LOGICAL FUNCTIONS"
+.SH NAME
+getloself \- retrieve a logical inductor
+.so man1/alc_origin.1
+.SH SYNOPSYS
+.nf
+.if n \{\
+.ft B \}
+.if t \{\
+.ft CR \}
+#include "mlo.h"
+
+loself_list \(**getloself(ptfig,name)
+lofig_list \(**ptfig ;
+const char \(**name ;
+.ft R
+.fi
+.SH PARAMETERS
+.TP 20
+\fIptfig\fP
+Pointer to the figure in which the inductor should be seeked
+.TP
+\fIname\fP
+Instance name of the inductor
+.SH DESCRIPTION
+\fBgetloself\fP looks in the list of inductors of the logical model pointed
+to by \fIptfig\fP for a inductor identified by its instance \fIname\fP.
+.SH RETURN VALUE
+\fBgetloself\fP returns a pointer to the given inductor.
+.SH ERRORS
+.if n \{\
+.ft B \}
+.if t \{\
+.ft CR \}
+"\(**\(**\(** mbk error \(**\(**\(** getloself impossible :
+inductor \fIname\fP doesn't exist in figure \fIptfig \-> NAME\fP"
+.ft R
+.RS
+No inductor matches the name. 
+.RE
+.SH EXAMPLE
+.ta 3n 6n 9n 12n 15n 18n 21n
+.nf
+.if n \{\
+.ft B \}
+.if t \{\
+.ft CR \}
+#include "mlo.h"
+
+loself_list \(**exist(char \(**figname,char \(**selfname)
+{
+  return getloself(getlofig(figname),selfname) ;
+}
+.ft R
+.fi
+.SH SEE ALSO
+.BR mbk (1),
+.BR lofig (3),
+.BR loself (3),
+.BR addloself (3),
+.BR delloself (3).
+
+
+.so man1/alc_bug_report.1
+
