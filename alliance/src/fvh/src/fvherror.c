@@ -104,7 +104,8 @@ void fvh_error( Error, Text, Value, File, Line )
       fprintf( stderr, "Illegal default output assignation\n" );
     break;
     case FVH_ERROR_NO_STATE :
-      fprintf( stderr, "Number of state is zero in \"%s\"\n", Text );
+      fprintf( stderr, "Number of state is zero in \"%s\" (FSM %s)\n",
+               Text, (char *)Value );
     break;
     case FVH_ERROR_CONTROL_TYPE :
       fprintf( stderr, "Bad control type size in \"%s\" line %ld\n",  Text, Value );
@@ -155,7 +156,8 @@ void fvh_error( Error, Text, Value, File, Line )
       fprintf( stderr, "Illegal output \"%s\" assignation line %ld\n",  Text, Value );
     break;
     case FVH_ERROR_MISSING_CLOCK_PORT :
-      fprintf( stderr, "Missing clock declaration in figure \"%s\"\n",  Text );
+      fprintf( stderr, "Missing clock declaration in figure \"%s\" (fsm %s)\n",
+          Text, (char *)Value );
     break;
     case FVH_ERROR_STACK_SIZE_ZERO :
       fprintf( stderr, "Size of stack is zero in \"%s\"\n",  Text );
@@ -176,11 +178,20 @@ void fvh_error( Error, Text, Value, File, Line )
       fprintf( stderr, "Illegal IF condition line %ld\n", Value );
     break;
     case FVH_ERROR_TWO_PROCESS :
-      fprintf( stderr, "Should have two process in figure \"%s\"\n", Text );
+      fprintf( stderr, "Should have two process for each FSM in figure \"%s\"\n", Text );
     break;
     case FVH_ERROR_ILLEGAL_PROCESS_BODY :
-      fprintf( stderr, "Illegal body structure for process \"%s\" line %ld\n", Text, Value );
+      fprintf( stderr, "Illegal body structure for process \"%s\" line %ld\n",
+          Text, Value );
     break;
+    case FVH_ERROR_PRAGMA_SPECIFICATION :
+      fprintf( stderr, "Illegal pragma specification in figure \"%s\"\n", Text );
+    break;
+    case FVH_ERROR_BAD_PROCESS :
+      fprintf( stderr, "Process \"%s\" not compatible with the FSM VHDL subset in figure \"%s\"\n", Text, (char *)Value );
+    break;
+    case FVH_ERROR_NOT_YET_IMPLEMENTED :
+      fprintf( stderr, "Multi FSM driver not yet implemented for figure \"%s\"\n", Text );
     default :
       fprintf( stderr, "Internal error number %d\n", Error );
   }

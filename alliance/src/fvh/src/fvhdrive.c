@@ -642,6 +642,11 @@ void vhdlsavefsmfig( FsmFigure )
     fvherror( FVH_ERROR_OPEN_FILE, FsmFigure->NAME, 0 );
   }
 
+  if ( IsFsmFigMulti( FsmFigure ) )
+  {
+    fvherror( FVH_ERROR_NOT_YET_IMPLEMENTED, FsmFigure->NAME, 0 );
+  }
+
   VhdlWriteHeader( FsmFigure );
   VhdlWriteEntity( FsmFigure );
   VhdlWriteArchitecture( FsmFigure );

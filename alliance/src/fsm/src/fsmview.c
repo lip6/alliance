@@ -338,9 +338,13 @@ void viewfsmfig( Figure )
   fprintf( stdout, "\n\tNUMBER_TRANS : %ld", Figure->NUMBER_TRANS );
   fprintf( stdout, "\n\tNUMBER_STACK : %ld", Figure->NUMBER_STACK );
   fprintf( stdout, "\n\tSTACK_SIZE   : %ld", Figure->STACK_SIZE   );
-  fprintf( stdout, "\n\tCLOCK        : %s", Figure->CLOCK   );
+  fprintf( stdout, "\n\tCLOCK        : %s", Figure->CLOCK ? Figure->CLOCK : "NULL" );
   fprintf( stdout, "\n\tCLOCK_ABL    : " );
-  viewablexpr( Figure->CLOCK_ABL, ABL_VIEW_VHDL );
+
+  if ( Figure->CLOCK_ABL != (ablexpr *)0 )
+  {
+    viewablexpr( Figure->CLOCK_ABL, ABL_VIEW_VHDL );
+  }
 
   fprintf( stdout, "\n\tPORT : " );
 

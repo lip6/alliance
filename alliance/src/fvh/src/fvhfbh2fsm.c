@@ -54,6 +54,8 @@
 # include "fvherror.h"
 # include "fvhfbh2fsm.h"
 
+/* # define DEBUG  */
+
 /*------------------------------------------------------------\
 |                                                             |
 |                           Constants                         |
@@ -80,7 +82,6 @@
 
   static char *FvhStackControlKeyword[ FSM_MAX_CTRL ];
 
-  static char *FvhClockName;
   static char *FvhCurrentStateName;
   static char *FvhNextStateName;
   static char *FvhFirstStateName;
@@ -103,6 +104,9 @@
 
   static char  FvhWhenCondition   = 0;
   static char  FvhStarStateLocout = 0;
+
+  static fbpcsinfo   *FvhProcInfo    = (fbpcsinfo   *)0;
+  static fvhfig_list *FvhHeadFigList = (fvhfig_list *)0;
 
 
 /*------------------------------------------------------------\
@@ -132,24 +136,6 @@ void FvhInitializeKeyword()
     FvhStackControlKeyword[ FSM_CTRL_PUSH ] = namealloc( "push" );
     FvhStackControlKeyword[ FSM_CTRL_POP  ] = namealloc( "pop"  );
   }
-
-  FvhClockName        = FvhClockKeyword;
-  FvhCurrentStateName = FvhCurrentStateKeyword;
-  FvhReturnStateName  = FvhReturnStateKeyword;
-  FvhNextStateName    = FvhNextStateKeyword;
-  FvhFirstStateName   = FvhFirstStateKeyword;
-  FvhControlName      = FvhControlKeyword;
-
-  FvhStackControlName[ FSM_CTRL_NOP  ] = FvhStackControlKeyword[ FSM_CTRL_NOP  ];
-  FvhStackControlName[ FSM_CTRL_PUSH ] = FvhStackControlKeyword[ FSM_CTRL_PUSH ];
-  FvhStackControlName[ FSM_CTRL_POP  ] = FvhStackControlKeyword[ FSM_CTRL_POP  ];
-
-
-  FvhStateType   = (fbtyp_list *)0;
-  FvhControlType = (fbtyp_list *)0;
-
-  FvhStarStateLocout = 0;
-  FvhWhenCondition   = 0;
 }
 
 /*------------------------------------------------------------\
@@ -204,69 +190,209 @@ int FvhFbhGetStack( Name )
 
 /*------------------------------------------------------------\
 |                                                             |
+|                       FvhFbhAddFigList                      |
+|                                                             |
+\------------------------------------------------------------*/
+
+static fvhfig_list *FvhFbhAddFigList( Name ) 
+
+  char *Name;
+{
+  fvhfig_list *ScanFigList;
+
+  ScanFigList = (fvhfig_list *)autallocheap( sizeof( fvhfig_list ) );
+
+  ScanFigList->NAME = Name;
+  ScanFigList->NEXT = FvhHeadFigList;
+  FvhHeadFigList    = ScanFigList;
+
+  ScanFigList->CLOCK         = FvhClockKeyword;
+  ScanFigList->CURRENT_STATE = FvhCurrentStateKeyword;
+  ScanFigList->NEXT_STATE    = FvhNextStateKeyword;
+  ScanFigList->FIRST_STATE   = FvhFirstStateKeyword;
+  ScanFigList->RETURN_STATE  = FvhReturnStateKeyword;
+  ScanFigList->CONTROL       = FvhControlKeyword;
+
+  ScanFigList->STACK_CONTROL[ FSM_CTRL_NOP  ] = FvhStackControlKeyword[ FSM_CTRL_NOP  ];
+  ScanFigList->STACK_CONTROL[ FSM_CTRL_PUSH ] = FvhStackControlKeyword[ FSM_CTRL_PUSH ];
+  ScanFigList->STACK_CONTROL[ FSM_CTRL_POP  ] = FvhStackControlKeyword[ FSM_CTRL_POP  ];
+
+  return( ScanFigList );
+}
+
+/*------------------------------------------------------------\
+|                                                             |
+|                       FvhFbhFreeFigList                     |
+|                                                             |
+\------------------------------------------------------------*/
+
+static void FvhFbhFreeFigList()
+{
+  fvhfig_list *DelFigList;
+
+  while ( FvhHeadFigList != (fvhfig_list *)0 )
+  {
+    DelFigList     = FvhHeadFigList;
+    FvhHeadFigList = FvhHeadFigList->NEXT;
+
+    autfreeheap( DelFigList, sizeof( fvhfig_list ) );
+  }
+}
+
+/*------------------------------------------------------------\
+|                                                             |
 |                       FvhFbhTreatPragma                     |
 |                                                             |
 \------------------------------------------------------------*/
 
-void FvhFbhTreatPragma( FbhFigure, FsmFigure )
+void FvhFbhTreatPragma( FbhFigure, FsmFigure, NumberProc )
 
   fbfig_list  *FbhFigure;
   fsmfig_list *FsmFigure;
+  int          NumberProc;
 {
-  fbpgm_list *ScanPragma;
+  fbpgm_list  *ScanPragma;
+  fvhfig_list *ScanFigList;
+  char        *Value;
+  char        *NewValue;
+  int          First;
+  int          NumberValue;
+
+  FvhHeadFigList = (fvhfig_list *)0;
+
+  if ( NumberProc > 2 )
+  { 
+    SetFsmFigMulti( FsmFigure );
+
+    NumberValue = 0; 
+
+    for ( ScanPragma  = FbhFigure->BEPGM;
+          ScanPragma != (fbpgm_list *)0;
+          ScanPragma  = ScanPragma->NEXT )
+    {
+      Value = ScanPragma->VALUE;
+
+      if ( Value == (void *)0 )
+      {
+        fvherror( FVH_ERROR_PRAGMA_SPECIFICATION, FbhFigure->NAME, 0 );
+      }
+
+      for ( ScanFigList  = FvhHeadFigList;
+            ScanFigList != (fvhfig_list *)0;
+            ScanFigList  = ScanFigList->NEXT )
+      {
+        if ( ScanFigList->NAME == Value ) break;
+      }
+
+      if ( ScanFigList == (fvhfig_list *)0 )
+      {
+        ScanFigList = FvhFbhAddFigList( Value );
+        NumberValue++;
+      }
+    }
+
+    if ( ( NumberValue * 2 ) != NumberProc )
+    {
+      fvherror( FVH_ERROR_PRAGMA_SPECIFICATION, FbhFigure->NAME, 0 );
+    }
+  }
+  else
+  {
+    Value = (char *)0;
+    First = 1;
+
+    for ( ScanPragma  = FbhFigure->BEPGM;
+          ScanPragma != (fbpgm_list *)0;
+          ScanPragma  = ScanPragma->NEXT )
+    {
+      if ( First )
+      {
+        Value    = (char *)ScanPragma->VALUE;
+        First    = 0;
+      }
+
+      NewValue = (char *)ScanPragma->VALUE;
+
+      if ( Value != NewValue )
+      {
+        fvherror( FVH_ERROR_PRAGMA_SPECIFICATION, FbhFigure->NAME, 0 );
+      }
+    }
+
+    if ( Value == (char *)0 )
+    {
+      Value = FbhFigure->NAME;
+    }
+
+    FvhFbhAddFigList( Value );
+
+    for ( ScanPragma  = FbhFigure->BEPGM;
+          ScanPragma != (fbpgm_list *)0;
+          ScanPragma  = ScanPragma->NEXT )
+    {
+      ScanPragma->VALUE = (void *)Value;
+    }
+  }
 
   for ( ScanPragma  = FbhFigure->BEPGM; 
         ScanPragma != (fbpgm_list *)0;
         ScanPragma  = ScanPragma->NEXT )
   {
-    if ( ScanPragma->NAME != (char *)0 )
+    Value = (char *)ScanPragma->VALUE;
+
+    for ( ScanFigList  = FvhHeadFigList;
+          ScanFigList != (fvhfig_list *)0;
+          ScanFigList  = ScanFigList->NEXT )
     {
-      if ( ScanPragma->TYPE == FvhCurrentStateKeyword )
-      {
-        FvhCurrentStateName = ScanPragma->NAME;
-      }
-      else 
-      if ( ScanPragma->TYPE == FvhNextStateKeyword )
-      {
-        FvhNextStateName = ScanPragma->NAME;
-      }
-      else 
-      if ( ScanPragma->TYPE == FvhFirstStateKeyword )
-      {
-        FvhFirstStateName = ScanPragma->NAME;
-      }
-      else 
-      if ( ScanPragma->TYPE == FvhReturnStateKeyword )
-      {
-        FvhReturnStateName = ScanPragma->NAME;
-      }
-      else 
-      if ( ScanPragma->TYPE == FvhControlKeyword )
-      {
-        FvhControlName = ScanPragma->NAME;
-      }
-      else 
-      if ( ScanPragma->TYPE == FvhClockKeyword )
-      {
-        FvhClockName = ScanPragma->NAME;
-      }
-      else 
-      if ( ScanPragma->TYPE == FvhStackControlKeyword[ FSM_CTRL_NOP ] )
-      {
-        FvhStackControlName[ FSM_CTRL_NOP ] = ScanPragma->NAME;
-      }
-      else 
-      if ( ScanPragma->TYPE == FvhStackControlKeyword[ FSM_CTRL_PUSH ] )
-      {
-        FvhStackControlName[ FSM_CTRL_PUSH ] = ScanPragma->NAME;
-      }
-      else
-      if ( ScanPragma->TYPE == FvhStackControlKeyword[ FSM_CTRL_POP ] )
-      {
-        FvhStackControlName[ FSM_CTRL_POP ] = ScanPragma->NAME;
-      }
+      if ( ScanFigList->NAME == Value ) break;
     }
 
+    if ( ScanPragma->TYPE == FvhCurrentStateKeyword )
+    {
+      ScanFigList->CURRENT_STATE = ScanPragma->NAME;
+    }
+    else 
+    if ( ScanPragma->TYPE == FvhNextStateKeyword )
+    {
+      ScanFigList->NEXT_STATE = ScanPragma->NAME;
+    }
+    else 
+    if ( ScanPragma->TYPE == FvhFirstStateKeyword )
+    {
+      ScanFigList->FIRST_STATE = ScanPragma->NAME;
+    }
+    else 
+    if ( ScanPragma->TYPE == FvhReturnStateKeyword )
+    {
+      ScanFigList->RETURN_STATE = ScanPragma->NAME;
+    }
+    else 
+    if ( ScanPragma->TYPE == FvhControlKeyword )
+    {
+      ScanFigList->CONTROL = ScanPragma->NAME;
+    }
+    else 
+    if ( ScanPragma->TYPE == FvhClockKeyword )
+    {
+      ScanFigList->CLOCK = ScanPragma->NAME;
+    }
+    else 
+    if ( ScanPragma->TYPE == FvhStackControlKeyword[ FSM_CTRL_NOP ] )
+    {
+      ScanFigList->STACK_CONTROL[ FSM_CTRL_NOP ] = ScanPragma->NAME;
+    }
+    else 
+    if ( ScanPragma->TYPE == FvhStackControlKeyword[ FSM_CTRL_PUSH ] )
+    {
+      ScanFigList->STACK_CONTROL[ FSM_CTRL_PUSH ] = ScanPragma->NAME;
+    }
+    else
+    if ( ScanPragma->TYPE == FvhStackControlKeyword[ FSM_CTRL_POP ] )
+    {
+      ScanFigList->STACK_CONTROL[ FSM_CTRL_POP ] = ScanPragma->NAME;
+    }
+
+    /* SHOULD BE DONE BETTER !! */
     FsmFigure->PRAGMA = addptype( FsmFigure->PRAGMA,
                                   (long)ScanPragma->TYPE,
                                   ScanPragma->NAME );
@@ -284,10 +410,15 @@ void FvhFbhTreatAux( FbhFigure, FsmFigure )
   fbfig_list *FbhFigure;
   fsmfig_list    *FsmFigure;
 {
-  fbaux_list *ScanAux;
-  fbout_list *ScanOut;
+  authelem     *Element;
+  fbpcs_list   *Process;
+  fbpcsinfo    *ProcInfo;
+  fsmfig_list  *Figure;
+  fvhfig_list  *ScanFigList;
+  fbaux_list   *ScanAux;
+  fbout_list   *ScanOut;
+  fbtyp_list   *Type;
 
-  int         StateType;
   int         Index;
   int         MixedFsmRtl;
 
@@ -312,106 +443,268 @@ void FvhFbhTreatAux( FbhFigure, FsmFigure )
     }
   }
 
-  StateType = 0;
-
   for ( ScanAux  = FbhFigure->BEAUX; 
         ScanAux != (fbaux_list *)0;
         ScanAux  = ScanAux->NEXT )
   {
-    if ( ScanAux->NAME == FvhCurrentStateName )
+    for ( ScanFigList  = FvhHeadFigList;
+          ScanFigList != (fvhfig_list *)0;
+          ScanFigList  = ScanFigList->NEXT )
     {
-      StateType    = ScanAux->TYPE;
-      FvhStateType = ( FbhFigure->BETYP + StateType - 1 );
-
-      ClearFbhAssignByFsm( ScanAux );
-    }
-    else
-    if ( ScanAux->NAME == FvhControlName )
-    {
-      FvhControlType = ( FbhFigure->BETYP + ScanAux->TYPE - 1 );
-
-      if ( FvhControlType->SIZE != FSM_MAX_CTRL )
+      if ( ScanAux->NAME == ScanFigList->CURRENT_STATE )
       {
-        fvherror( FVH_ERROR_CONTROL_TYPE, FbhFigure->NAME, FvhControlType->USER );
-      }
+        ScanFigList->STATE_TYPE = ( FbhFigure->BETYP + ScanAux->TYPE - 1 );
+        ClearFbhAssignByFsm( ScanAux );
 
-      ClearFbhAssignByFsm( ScanAux );
+        break;
+      }
+      else
+      if ( ScanAux->NAME == ScanFigList->CONTROL )
+      {
+        Type = ( FbhFigure->BETYP + ScanAux->TYPE - 1 );
+        ScanFigList->CONTROL_TYPE = Type;
+
+        if ( Type->SIZE != FSM_MAX_CTRL )
+        {
+          fvherror( FVH_ERROR_CONTROL_TYPE, FbhFigure->NAME, Type->LINE_NUM );
+        }
+
+        ClearFbhAssignByFsm( ScanAux );
+
+        break;
+      }
+      else
+      if ( ScanAux->NAME == ScanFigList->NEXT_STATE )
+      {
+        ClearFbhAssignByFsm( ScanAux );
+
+        break;
+      }
     }
-    else
-    if ( ScanAux->NAME == FvhNextStateName )
-    {
-      ClearFbhAssignByFsm( ScanAux );
-    }
-    else
+
+    if ( ScanFigList == (fvhfig_list *)0 )
     {
       MixedFsmRtl = 1;
     }
   }
 
-  if ( ( FvhStateType       == (fbtyp_list *)0 ) ||
-       ( FvhStateType->SIZE == 0                      ) )
+  for ( ScanFigList  = FvhHeadFigList;
+        ScanFigList != (fvhfig_list *)0;
+        ScanFigList  = ScanFigList->NEXT )
   {
-    fvherror( FVH_ERROR_NO_STATE, FbhFigure->NAME, 0 );
-  }
-
-  FsmFigure->STAR_STATE = addfsmstate( FsmFigure, "*" );
-  SetFsmStarState( FsmFigure->STAR_STATE );
-
-  for ( Index = 0; Index < FvhStateType->SIZE; Index++ )
-  {
-    if ( FvhStateType->VALUE[ Index ] == FvhFirstStateName )
+    if ( ( ScanFigList->STATE_TYPE       == (fbtyp_list *)0 ) ||
+         ( ScanFigList->STATE_TYPE->SIZE == 0               ) )
     {
-      FsmFigure->FIRST_STATE = addfsmstate( FsmFigure, FvhFirstStateName );
-      SetFsmFirstState( FsmFigure->FIRST_STATE );
-    }
-    else
-    {
-      addfsmstate( FsmFigure, FvhStateType->VALUE[ Index ] );
+      fvherror( FVH_ERROR_NO_STATE, FbhFigure->NAME, ScanFigList->NAME );
     }
   }
 
-  if ( FvhDefaultStackName != (chain_list *)0 )
+  if ( ! IsFsmFigMulti( FsmFigure ) )
   {
-    freechain( FvhDefaultStackName );
-    FvhDefaultStackName = (chain_list *)0;
+    FvhHeadFigList->FSM_FIGURE = FsmFigure;
   }
- 
-  if ( FvhControlType != (fbtyp_list *)0 )
+
+  for ( ScanFigList  = FvhHeadFigList;
+        ScanFigList != (fvhfig_list *)0;
+        ScanFigList  = ScanFigList->NEXT) 
   {
-    FsmFigure->STACK_SIZE = 1;
+    Figure = ScanFigList->FSM_FIGURE;
 
-    FvhDefaultStackSize = 0;
-    FvhStackPushSize    = 0;
-    FvhStackPopSize     = 0;
-    FvhDefaultStackName = (chain_list *)0;
-
-    for ( ScanAux = FbhFigure->BEAUX;
-          ScanAux != (fbaux_list *)0;
-          ScanAux  = ScanAux->NEXT )
+    if ( Figure == (fsmfig_list *)0 )
     {
-      if ( ScanAux->TYPE == StateType )
+      Figure = addfsmfig( ScanFigList->NAME );
+      ScanFigList->FSM_FIGURE = Figure;
+      FsmFigure->MULTI = addchain( FsmFigure->MULTI, (void *)Figure );
+    }
+
+    Figure->STAR_STATE = addfsmstate( Figure, "*" );
+    SetFsmStarState( Figure->STAR_STATE );
+
+    Type = ScanFigList->STATE_TYPE;
+
+    for ( Index = 0; Index < Type->SIZE; Index++ )
+    {
+      if ( Type->VALUE[ Index ] == ScanFigList->FIRST_STATE )
       {
-        if ( ( ScanAux->NAME != FvhCurrentStateName ) &&
-             ( ScanAux->NAME != FvhNextStateName    ) &&
-             ( ScanAux->NAME != FvhReturnStateName  ) )
-        {
-          FvhDefaultStackSize++;
-
-          FvhDefaultStackName = addchain( FvhDefaultStackName, (void *)ScanAux->NAME );
-        }
+        Figure->FIRST_STATE = addfsmstate( Figure, ScanFigList->FIRST_STATE );
+        SetFsmFirstState( Figure->FIRST_STATE );
+      }
+      else
+      {
+        addfsmstate( Figure, Type->VALUE[ Index ] );
       }
     }
 
-    if ( FvhDefaultStackSize == 0 )
+  /* TO BE DONE !!!!!!
+    if ( FvhDefaultStackName != (chain_list *)0 )
     {
-      fvherror( FVH_ERROR_STACK_SIZE_ZERO, FsmFigure->NAME, 0 );
+      freechain( FvhDefaultStackName );
+      FvhDefaultStackName = (chain_list *)0;
     }
+   
+    if ( FvhControlType != (fbtyp_list *)0 )
+    {
+      FsmFigure->STACK_SIZE = 1;
+  
+      FvhDefaultStackSize = 0;
+      FvhStackPushSize    = 0;
+      FvhStackPopSize     = 0;
+      FvhDefaultStackName = (chain_list *)0;
+  
+      for ( ScanAux = FbhFigure->BEAUX;
+            ScanAux != (fbaux_list *)0;
+            ScanAux  = ScanAux->NEXT )
+      {
+        if ( ScanAux->TYPE == StateType )
+        {
+          if ( ( ScanAux->NAME != FvhCurrentStateName ) &&
+               ( ScanAux->NAME != FvhNextStateName    ) &&
+               ( ScanAux->NAME != FvhReturnStateName  ) )
+          {
+            FvhDefaultStackSize++;
+  
+            FvhDefaultStackName = addchain( FvhDefaultStackName, (void *)ScanAux->NAME );
+          }
+        }
+      }
+  
+      if ( FvhDefaultStackSize == 0 )
+      {
+        fvherror( FVH_ERROR_STACK_SIZE_ZERO, FsmFigure->NAME, 0 );
+      }
+    }
+    */
+
+    for ( Process  = FbhFigure->BEPCS;
+          Process != (fbpcs_list *)0;
+          Process  = Process->NEXT )
+    {
+      if ( Process->FLAG ) continue;
+
+      ProcInfo = (fbpcsinfo *)Process->USER;
+      Element  = searchauthelem( ProcInfo->HASH_READ, ScanFigList->CURRENT_STATE );
+
+      if ( Element != (authelem *)0 )
+      {
+        Element = searchauthelem( ProcInfo->HASH_WRITE, ScanFigList->NEXT_STATE );
+
+        if ( ( Element                   == (authelem *)0 ) ||
+             ( ScanFigList->PROCESS_MAIN != (fbpcs_list *)0 ) )
+        {
+          fvherror( FVH_ERROR_BAD_PROCESS, FsmFigure->NAME, Process->LABEL );
+        }
+
+        ScanFigList->PROCESS_MAIN = Process;
+        Process->FLAG = 1;
+      }
+      else
+      {
+        Element = searchauthelem( ProcInfo->HASH_WRITE, ScanFigList->CURRENT_STATE );
+
+        if ( Element != (authelem *)0 )
+        {
+          Element = searchauthelem( ProcInfo->HASH_READ, ScanFigList->NEXT_STATE );
+
+          if ( ( Element                     == (authelem *)0 ) ||
+               ( ScanFigList->PROCESS_CLOCK != (fbpcs_list *)0 ) )
+          {
+            fvherror( FVH_ERROR_BAD_PROCESS, FsmFigure->NAME, Process->LABEL );
+          }
+
+          ScanFigList->PROCESS_CLOCK = Process;
+          Process->FLAG = 1;
+        }
+      }
+    }
+  }
+
+  for ( Process  = FbhFigure->BEPCS;
+        Process != (fbpcs_list *)0;
+        Process  = Process->NEXT )
+  {
+    if ( ! Process->FLAG )
+    {
+      fvherror( FVH_ERROR_BAD_PROCESS, FsmFigure->NAME, Process->LABEL );
+    }
+
+    Process->FLAG = 0;
   }
 
   if ( MixedFsmRtl )
   {
     SetFsmFigMixedRtl( FsmFigure );
     FsmFigure->FIGURE = (void *)FbhFigure;
+  }
+}
+
+/*------------------------------------------------------------\
+|                                                             |
+|                     FvhFbhTreatMultiPort                    |
+|                                                             |
+\------------------------------------------------------------*/
+
+void FvhFbhTreatMultiPort( FsmFigure, Process, ScanFigList )
+
+  fsmfig_list *FsmFigure;
+  fbpcs_list  *Process;
+  fvhfig_list *ScanFigList;
+{
+  fsmfig_list  *Figure;
+  fbpcsinfo    *ProcInfo;
+  chain_list   *ScanChain;
+  fsmport_list *FsmPort;
+  char         *Name;
+
+  Figure   = ScanFigList->FSM_FIGURE;
+  ProcInfo = (fbpcsinfo *)Process->USER;
+
+  for ( ScanChain  = ProcInfo->READ_LIST;
+        ScanChain != (chain_list *)0;
+        ScanChain  = ScanChain->NEXT )
+  {
+    Name = (char *)ScanChain->DATA;
+
+    if ( ( Name != ScanFigList->CLOCK         ) &&
+         ( Name != ScanFigList->CURRENT_STATE ) &&
+         ( Name != ScanFigList->NEXT_STATE    ) &&
+         ( Name != ScanFigList->CONTROL       ) )
+    {
+      FsmPort = searchfsmport( FsmFigure, Name );
+
+      if ( FsmPort != (fsmport_list *)0 )
+      {
+        addfsmin( Figure, Name );
+
+        if ( searchfsmport( Figure, Name ) == (fsmport_list *)0 )
+        {
+          addfsmport( Figure, FsmPort->NAME, FsmPort->DIR, FsmPort->TYPE );
+        }
+      }
+    }
+  }
+
+  for ( ScanChain  = ProcInfo->WRITE_LIST;
+        ScanChain != (chain_list *)0;
+        ScanChain  = ScanChain->NEXT )
+  {
+    Name = (char *)ScanChain->DATA;
+
+    if ( ( Name != ScanFigList->CURRENT_STATE ) &&
+         ( Name != ScanFigList->NEXT_STATE    ) &&
+         ( Name != ScanFigList->CONTROL       ) )
+    {
+      FsmPort = searchfsmport( FsmFigure, Name );
+
+      if ( FsmPort != (fsmport_list *)0 )
+      {
+        addfsmout( Figure, Name );
+
+        if ( searchfsmport( Figure, Name ) == (fsmport_list *)0 )
+        {
+          addfsmport( Figure, FsmPort->NAME, FsmPort->DIR, FsmPort->TYPE );
+        }
+      }
+    }
   }
 }
 
@@ -426,6 +719,7 @@ void FvhFbhTreatPort( FbhFigure, FsmFigure )
   fbfig_list *FbhFigure;
   fsmfig_list    *FsmFigure;
 {
+  fvhfig_list *ScanFigList;
   fbpor_list  *ScanPort;
   fbaux_list  *ScanAux;
   fbaux_list  *FreeAux;
@@ -438,6 +732,7 @@ void FvhFbhTreatPort( FbhFigure, FsmFigure )
   fbreg_list  *ScanReg;
   fbbux_list  *ScanBux;
   fbbus_list  *ScanBus;
+  char         IsClock;
   char         ClockOk;
   char         Direction;
 
@@ -451,11 +746,19 @@ void FvhFbhTreatPort( FbhFigure, FsmFigure )
     {
       if ( ScanPort->DIRECTION != 'O' )
       {
-        if ( ScanPort->NAME == FvhClockName )
+        IsClock = 0;
+
+        for ( ScanFigList  = FvhHeadFigList;
+              ScanFigList != (fvhfig_list *)0;
+              ScanFigList  = ScanFigList->NEXT )
         {
-          ClockOk = 1;
+          if ( ScanPort->NAME == ScanFigList->CLOCK )
+          {
+            ScanFigList->CLOCK_OK = 1; IsClock = 1;
+          }
         }
-        else
+
+        if ( ! IsClock )
         {
           addfsmin( FsmFigure, ScanPort->NAME );
         }
@@ -477,11 +780,19 @@ void FvhFbhTreatPort( FbhFigure, FsmFigure )
     {
       if ( ScanPort->DIRECTION != 'O' )
       {
-        if ( ScanPort->NAME == FvhClockName )
+        IsClock = 0;
+
+        for ( ScanFigList  = FvhHeadFigList;
+              ScanFigList != (fvhfig_list *)0;
+              ScanFigList  = ScanFigList->NEXT )
         {
-          ClockOk = 1;
+          if ( ScanPort->NAME == ScanFigList->CLOCK )
+          {
+            ScanFigList->CLOCK_OK = 1; IsClock = 1;
+          }
         }
-        else
+
+        if ( ! IsClock )
         {
           addfsmin( FsmFigure, ScanPort->NAME );
         }
@@ -494,15 +805,30 @@ void FvhFbhTreatPort( FbhFigure, FsmFigure )
           ScanAux != (fbaux_list *)0;
           ScanAux  = ScanAux->NEXT )
     {
-      if ( ( ScanAux->NAME == FvhNextStateName    ) ||
-           ( ScanAux->NAME == FvhCurrentStateName ) ||
-           ( ScanAux->NAME == FvhReturnStateName  ) ) continue;
-
-      if ( ScanAux->NAME == FvhClockName )
+      for ( ScanFigList  = FvhHeadFigList;
+            ScanFigList != (fvhfig_list *)0;
+            ScanFigList  = ScanFigList->NEXT )
       {
-        ClockOk = 1;
+        if ( ( ScanAux->NAME == ScanFigList->NEXT_STATE    ) ||
+             ( ScanAux->NAME == ScanFigList->CURRENT_STATE ) ||
+             ( ScanAux->NAME == ScanFigList->RETURN_STATE  ) ) break;
       }
-      else
+
+      if ( ScanFigList != (fvhfig_list *)0 ) continue;
+
+      IsClock = 0;
+
+      for ( ScanFigList  = FvhHeadFigList;
+            ScanFigList != (fvhfig_list *)0;
+            ScanFigList  = ScanFigList->NEXT )
+      {
+        if ( ScanAux->NAME == ScanFigList->CLOCK )
+        {
+          ScanFigList->CLOCK_OK = 1; IsClock = 1;
+        }
+      }
+
+      if ( ! IsClock )
       {
         addfsmin( FsmFigure, ScanAux->NAME );
       }
@@ -553,7 +879,6 @@ void FvhFbhTreatPort( FbhFigure, FsmFigure )
       addfsmin( FsmFigure, ScanBus->NAME );
       addfsmport( FsmFigure, ScanBus->NAME, 'I', ScanBus->TYPE );
     }
-
 /*
 ** Clean Up the FbhFigure !
 */
@@ -609,9 +934,25 @@ void FvhFbhTreatPort( FbhFigure, FsmFigure )
     fbh_frefbout( ListOut );
   }
 
-  if ( ClockOk != 1 )
+  for ( ScanFigList  = FvhHeadFigList;
+        ScanFigList != (fvhfig_list *)0;
+        ScanFigList  = ScanFigList->NEXT )
   {
-    fvherror( FVH_ERROR_MISSING_CLOCK_PORT, FsmFigure->NAME, 0 );
+    if ( ! ScanFigList->CLOCK_OK )
+    {
+      fvherror( FVH_ERROR_MISSING_CLOCK_PORT, FsmFigure->NAME, ScanFigList->NAME );
+    }
+  }
+
+  if ( IsFsmFigMulti( FsmFigure ) )
+  {
+    for ( ScanFigList  = FvhHeadFigList;
+          ScanFigList != (fvhfig_list *)0;
+          ScanFigList  = ScanFigList->NEXT) 
+    {
+      FvhFbhTreatMultiPort( FsmFigure, ScanFigList->PROCESS_CLOCK, ScanFigList );
+      FvhFbhTreatMultiPort( FsmFigure, ScanFigList->PROCESS_MAIN , ScanFigList );
+    }
   }
 }
 
@@ -641,7 +982,7 @@ void FvhFbhTreatIf( FbhFigure, FsmFigure,   ScanIfs,
 */
   if ( isablnameinexpr( ScanIfs->CND, ABL_ATOM_NAME_DC ) )
   {
-    fvherror( FVH_ERROR_ILLEGAL_IF_CONDITION, (char *)0, ScanIfs->USER );
+    fvherror( FVH_ERROR_ILLEGAL_IF_CONDITION, (char *)0, ScanIfs->LINE_NUM );
   }
 
   NewEquation = dupablexpr( ScanIfs->CND );
@@ -710,7 +1051,7 @@ void FvhFbhTreatAsg( FbhFigure, FsmFigure,   ScanAsg,
   {
     if ( ! FvhTreatMainProcess )
     {
-      fvherror( FVH_ERROR_IN_CLOCK_PROCESS, ScanAsg->NAME, ScanAsg->USER );
+      fvherror( FVH_ERROR_IN_CLOCK_PROCESS, ScanAsg->NAME, ScanAsg->LINE_NUM );
     }
 
     NewEquationDc = (ablexpr    *)0;
@@ -724,7 +1065,7 @@ void FvhFbhTreatAsg( FbhFigure, FsmFigure,   ScanAsg,
       {
         if ( isablnameinexpr( ScanAsg->ABL, ABL_ATOM_NAME_DC ) )
         {
-          fvherror( FVH_ERROR_ILLEGAL_OUT_ASSIGN, ScanAsg->NAME, ScanAsg->USER );
+          fvherror( FVH_ERROR_ILLEGAL_OUT_ASSIGN, ScanAsg->NAME, ScanAsg->LINE_NUM );
         }
 
         NewEquation = optimablbinexpr( ABL_AND, 
@@ -759,14 +1100,14 @@ void FvhFbhTreatAsg( FbhFigure, FsmFigure,   ScanAsg,
     {
       if ( *PStateFrom == (fsmstate_list *)0 )
       {
-        fvherror( FVH_ERROR_ILLEGAL_OUT_ASSIGN, ScanAsg->NAME, ScanAsg->USER );
+        fvherror( FVH_ERROR_ILLEGAL_OUT_ASSIGN, ScanAsg->NAME, ScanAsg->LINE_NUM );
       }
 
       if ( ! ABL_ATOM( ScanAsg->ABL ) )
       {
         if ( isablnameinexpr( ScanAsg->ABL, ABL_ATOM_NAME_DC ) )
         {
-          fvherror( FVH_ERROR_ILLEGAL_OUT_ASSIGN, ScanAsg->NAME, ScanAsg->USER );
+          fvherror( FVH_ERROR_ILLEGAL_OUT_ASSIGN, ScanAsg->NAME, ScanAsg->LINE_NUM );
         }
 
         NewEquation = dupablexpr( ScanAsg->ABL );
@@ -822,7 +1163,7 @@ void FvhFbhTreatAsg( FbhFigure, FsmFigure,   ScanAsg,
       {
         if ( ! FvhTreatMainProcess )
         {
-          fvherror( FVH_ERROR_IN_CLOCK_PROCESS, FvhNextStateName, ScanAsg->USER );
+          fvherror( FVH_ERROR_IN_CLOCK_PROCESS, FvhNextStateName, ScanAsg->LINE_NUM );
         }
 
         *PStateTo = searchfsmstate( FsmFigure, ABL_ATOM_VALUE( ScanAsg->ABL ) );
@@ -842,7 +1183,7 @@ void FvhFbhTreatAsg( FbhFigure, FsmFigure,   ScanAsg,
                    ( ABL_ATOM_VALUE( ScanAsg->ABL ) != FvhStackHeadName ) )
               {
                 fvherror( FVH_ERROR_ILLEGAL_STACK_ASSIGN, 
-                          ABL_ATOM_VALUE( ScanAsg->ABL ), ScanAsg->USER );
+                          ABL_ATOM_VALUE( ScanAsg->ABL ), ScanAsg->LINE_NUM );
               }
 
               *PStateTo        = FsmFigure->STAR_STATE;
@@ -851,12 +1192,12 @@ void FvhFbhTreatAsg( FbhFigure, FsmFigure,   ScanAsg,
             else
             {
               fvherror( FVH_ERROR_ILLEGAL_STACK_ASSIGN,
-                        ABL_ATOM_VALUE( ScanAsg->ABL ), ScanAsg->USER );
+                        ABL_ATOM_VALUE( ScanAsg->ABL ), ScanAsg->LINE_NUM );
             }
           }
           else
           {
-            fvherror( FVH_ERROR_ILLEGAL_STATE_ASSIGN, ScanAsg->NAME, ScanAsg->USER );
+            fvherror( FVH_ERROR_ILLEGAL_STATE_ASSIGN, ScanAsg->NAME, ScanAsg->LINE_NUM );
           }
         }
         else
@@ -887,20 +1228,20 @@ void FvhFbhTreatAsg( FbhFigure, FsmFigure,   ScanAsg,
         if ( ( FvhTreatMainProcess  ) ||
              ( FvhTreatStateControl ) )
         {
-          fvherror( FVH_ERROR_IN_MAIN_PROCESS, ScanAsg->NAME, ScanAsg->USER );
+          fvherror( FVH_ERROR_IN_MAIN_PROCESS, ScanAsg->NAME, ScanAsg->LINE_NUM );
         }
 /*
 **  CURRENT_STATE <= NEXT_STATE
 */
         if ( ABL_ATOM_VALUE( ScanAsg->ABL ) != FvhNextStateName )
         {
-          fvherror( FVH_ERROR_ILLEGAL_STATE_ASSIGN, ScanAsg->NAME, ScanAsg->USER );
+          fvherror( FVH_ERROR_ILLEGAL_STATE_ASSIGN, ScanAsg->NAME, ScanAsg->LINE_NUM );
         }
         else
         {
           if ( Equation == (ablexpr    *)0 )
           {
-            fvherror( FVH_ERROR_NO_CONTROL_CONDITION, FsmFigure->NAME, ScanAsg->USER );
+            fvherror( FVH_ERROR_NO_CONTROL_CONDITION, FsmFigure->NAME, ScanAsg->LINE_NUM );
           }
 
           FsmFigure->CLOCK_ABL = dupablexpr( Equation );
@@ -914,7 +1255,7 @@ void FvhFbhTreatAsg( FbhFigure, FsmFigure,   ScanAsg,
         {
           if ( ! FvhTreatMainProcess )
           {
-            fvherror( FVH_ERROR_IN_CLOCK_PROCESS, FvhReturnStateName, ScanAsg->USER );
+            fvherror( FVH_ERROR_IN_CLOCK_PROCESS, FvhReturnStateName, ScanAsg->LINE_NUM );
           }
 /*
 **  RETURN_STATE <= E(i)
@@ -926,26 +1267,26 @@ void FvhFbhTreatAsg( FbhFigure, FsmFigure,   ScanAsg,
 
             if ( *PReturn == (fsmstate_list *)0 )
             {
-              fvherror( FVH_ERROR_ILLEGAL_STATE_ASSIGN, ScanAsg->NAME, ScanAsg->USER );
+              fvherror( FVH_ERROR_ILLEGAL_STATE_ASSIGN, ScanAsg->NAME, ScanAsg->LINE_NUM );
             }
           }
           else
           {
-            fvherror( FVH_ERROR_ILLEGAL_STATE_ASSIGN, ScanAsg->NAME, ScanAsg->USER );
+            fvherror( FVH_ERROR_ILLEGAL_STATE_ASSIGN, ScanAsg->NAME, ScanAsg->LINE_NUM );
           }
         }
         else
         {
           if ( FvhTreatMainProcess )
           {
-            fvherror( FVH_ERROR_IN_MAIN_PROCESS, ScanAsg->NAME, ScanAsg->USER );
+            fvherror( FVH_ERROR_IN_MAIN_PROCESS, ScanAsg->NAME, ScanAsg->LINE_NUM );
           }
 
           Stack = FvhFbhGetStack( ScanAsg->NAME );
 
           if ( Stack == -1 )
           {
-            fvherror( FVH_ERROR_ILLEGAL_STACK_ASSIGN, ScanAsg->NAME, ScanAsg->USER );
+            fvherror( FVH_ERROR_ILLEGAL_STACK_ASSIGN, ScanAsg->NAME, ScanAsg->LINE_NUM );
           }
 
           if ( ABL_ATOM_VALUE( ScanAsg->ABL ) == FvhReturnStateName )
@@ -957,7 +1298,7 @@ void FvhFbhTreatAsg( FbhFigure, FsmFigure,   ScanAsg,
                  ( ( FvhStackHeadName != (char *)0  ) &&
                    ( FvhStackHeadName != ScanAsg->NAME ) ) )
             {
-              fvherror( FVH_ERROR_ILLEGAL_STACK_ASSIGN, ScanAsg->NAME, ScanAsg->USER );
+              fvherror( FVH_ERROR_ILLEGAL_STACK_ASSIGN, ScanAsg->NAME, ScanAsg->LINE_NUM );
             }
 
             FvhStackPushSize = FvhStackPushSize + 1;
@@ -979,7 +1320,7 @@ void FvhFbhTreatAsg( FbhFigure, FsmFigure,   ScanAsg,
                 if ( *PControl != FSM_CTRL_POP )
                 {
                   fvherror( FVH_ERROR_ILLEGAL_STACK_ASSIGN,
-                            ABL_ATOM_VALUE( ScanAsg->ABL ), ScanAsg->USER );
+                            ABL_ATOM_VALUE( ScanAsg->ABL ), ScanAsg->LINE_NUM );
                 }
               }
 /*
@@ -996,25 +1337,25 @@ void FvhFbhTreatAsg( FbhFigure, FsmFigure,   ScanAsg,
               }
               else
               {
-                fvherror( FVH_ERROR_ILLEGAL_STACK_ASSIGN, ScanAsg->NAME, ScanAsg->USER );
+                fvherror( FVH_ERROR_ILLEGAL_STACK_ASSIGN, ScanAsg->NAME, ScanAsg->LINE_NUM );
               }
             }
             else
             {
               fvherror( FVH_ERROR_ILLEGAL_STACK_ASSIGN,
-                        ABL_ATOM_VALUE( ScanAsg->ABL ), ScanAsg->USER );
+                        ABL_ATOM_VALUE( ScanAsg->ABL ), ScanAsg->LINE_NUM );
             }
           }
         }
       }
       else
       {
-        fvherror( FVH_ERROR_ILLEGAL_STATE_ASSIGN, ScanAsg->NAME, ScanAsg->USER );
+        fvherror( FVH_ERROR_ILLEGAL_STATE_ASSIGN, ScanAsg->NAME, ScanAsg->LINE_NUM );
       }
     }
     else
     {
-      fvherror( FVH_ERROR_ILLEGAL_STATE_ASSIGN, ScanAsg->NAME, ScanAsg->USER );
+      fvherror( FVH_ERROR_ILLEGAL_STATE_ASSIGN, ScanAsg->NAME, ScanAsg->LINE_NUM );
     }
   }
   else
@@ -1031,30 +1372,30 @@ void FvhFbhTreatAsg( FbhFigure, FsmFigure,   ScanAsg,
         {
           if ( ! FvhTreatMainProcess )
           {
-            fvherror( FVH_ERROR_IN_CLOCK_PROCESS, FvhControlName, ScanAsg->USER );
+            fvherror( FVH_ERROR_IN_CLOCK_PROCESS, FvhControlName, ScanAsg->LINE_NUM );
           }
 
           *PControl = FvhFbhGetControl( ABL_ATOM_VALUE( ScanAsg->ABL ) );
         }
         else
         {
-          fvherror( FVH_ERROR_ILLEGAL_ASSIGNATION, ScanAsg->NAME, ScanAsg->USER );
+          fvherror( FVH_ERROR_ILLEGAL_ASSIGNATION, ScanAsg->NAME, ScanAsg->LINE_NUM );
         }
       }
       else
       {
-        fvherror( FVH_ERROR_ILLEGAL_ASSIGNATION, ScanAsg->NAME, ScanAsg->USER );
+        fvherror( FVH_ERROR_ILLEGAL_ASSIGNATION, ScanAsg->NAME, ScanAsg->LINE_NUM );
       }
     }
     else
     {
       fvherror( FVH_ERROR_ILLEGAL_CONTROL_ASSIGN, 
-                ABL_ATOM_VALUE( ScanAsg->ABL ), ScanAsg->USER );
+                ABL_ATOM_VALUE( ScanAsg->ABL ), ScanAsg->LINE_NUM );
     }
   }
   else
   {
-    fvherror( FVH_ERROR_ILLEGAL_ASSIGNATION, ScanAsg->NAME, ScanAsg->USER );
+    fvherror( FVH_ERROR_ILLEGAL_ASSIGNATION, ScanAsg->NAME, ScanAsg->LINE_NUM );
   }
 }
 
@@ -1103,7 +1444,7 @@ void FvhFbhTreatWhen( FbhFigure,  FsmFigure,   ScanCase,
       {
         if ( ! FvhTreatMainProcess )
         {
-          fvherror( FVH_ERROR_IN_CLOCK_PROCESS, FvhCurrentStateName, ScanCase->USER );
+          fvherror( FVH_ERROR_IN_CLOCK_PROCESS, FvhCurrentStateName, ScanCase->LINE_NUM );
         }
 /*
 **  WHEN E(i) =>
@@ -1124,13 +1465,13 @@ void FvhFbhTreatWhen( FbhFigure,  FsmFigure,   ScanCase,
       }
       else
       {
-        fvherror( FVH_ERROR_ILLEGAL_CASE, ScanType->NAME, ScanCase->USER );
+        fvherror( FVH_ERROR_ILLEGAL_CASE, ScanType->NAME, ScanCase->LINE_NUM );
       }
     }
     else
     {
       fvherror( FVH_ERROR_ILLEGAL_STATE, 
-                ABL_ATOM_VALUE( ScanCase->ABL ), ScanCase->USER );
+                ABL_ATOM_VALUE( ScanCase->ABL ), ScanCase->LINE_NUM );
     }
   }
   else
@@ -1143,7 +1484,7 @@ void FvhFbhTreatWhen( FbhFigure,  FsmFigure,   ScanCase,
       {
         if ( FvhTreatMainProcess )
         {
-          fvherror( FVH_ERROR_IN_MAIN_PROCESS, FvhControlName, ScanCase->USER );
+          fvherror( FVH_ERROR_IN_MAIN_PROCESS, FvhControlName, ScanCase->LINE_NUM );
         }
 /*
 **  WHEN CTRL =>
@@ -1166,18 +1507,18 @@ void FvhFbhTreatWhen( FbhFigure,  FsmFigure,   ScanCase,
       }
       else
       {
-        fvherror( FVH_ERROR_ILLEGAL_CASE, ScanType->NAME, ScanCase->USER );
+        fvherror( FVH_ERROR_ILLEGAL_CASE, ScanType->NAME, ScanCase->LINE_NUM );
       }
     }
     else
     {
       fvherror( FVH_ERROR_ILLEGAL_CONTROL, 
-                ABL_ATOM_VALUE( ScanCase->ABL ), ScanCase->USER );
+                ABL_ATOM_VALUE( ScanCase->ABL ), ScanCase->LINE_NUM );
     }
   }
   else
   {
-    fvherror( FVH_ERROR_ILLEGAL_CASE, ScanType->NAME, ScanCase->USER );
+    fvherror( FVH_ERROR_ILLEGAL_CASE, ScanType->NAME, ScanCase->LINE_NUM );
   }
 }
 
@@ -1294,162 +1635,157 @@ void FvhFbhTreatProcess( FbhFigure, FsmFigure )
   fbfig_list  *FbhFigure;
   fsmfig_list *FsmFigure;
 {
-  fbpcs_list *ScanProc;
-  chain_list *ScanSens;
-  fbpcs_list *MainProc;
-  fbpcs_list *ClockProc;
-  ptype_list *ScanInst;
-  fbifs_list *ScanIf;
-  char        SensCurrent;
+  fsmfig_list *Figure;
+  fvhfig_list *ScanFigList;
+  fbpcs_list  *ScanProc;
+  chain_list  *ScanSens;
+  fbpcs_list  *MainProc;
+  fbpcs_list  *ClockProc;
+  ptype_list  *ScanInst;
+  fbifs_list  *ScanIf;
+  char         SensCurrent;
 
-  MainProc = (fbpcs_list *)0;
-
-  FvhStackHeadName     = (char *)0;
-  FvhTreatStackControl = 0;
-  FvhTreatStateControl = 0;
-  FvhTreatMainProcess  = 0;
-/*
-** First Verify there are two VHDL process
-*/
-  ScanProc = FbhFigure->BEPCS;
-
-  if ( ( ScanProc             == (fbpcs_list *)0 ) ||
-       ( ScanProc->NEXT       == (fbpcs_list *)0 ) ||
-       ( ScanProc->NEXT->NEXT != (fbpcs_list *)0 ) )
+  for ( ScanFigList  = FvhHeadFigList;
+        ScanFigList != (fvhfig_list *)0;
+        ScanFigList  = ScanFigList->NEXT )
   {
-    fvherror( FVH_ERROR_TWO_PROCESS, FsmFigure->NAME, 0 );
-  }
+    Figure    = ScanFigList->FSM_FIGURE;
+    MainProc  = ScanFigList->PROCESS_MAIN;
+    ClockProc = ScanFigList->PROCESS_CLOCK;
 
-  ClockProc = (fbpcs_list *)0;
-/*
-** Find the clock process 
-*/
-  for ( ScanProc  = FbhFigure->BEPCS;
-        ScanProc != (fbpcs_list *)0;
-        ScanProc  = ScanProc->NEXT )
-  {
-    ScanSens = ScanProc->SENSITIVITY;
+    FvhStackHeadName     = (char *)0;
+    FvhTreatStackControl = 0;
+    FvhTreatStateControl = 0;
+    FvhTreatMainProcess  = 0;
 
-    if ( ScanSens == (chain_list *)0 )
+    ScanSens = ClockProc->SENSITIVITY;
+
+    if ( ( ScanSens       != (chain_list *)0            ) &&
+         ( ScanSens->NEXT == (chain_list *)0            ) &&
+         ( ScanSens->DATA == (void *)ScanFigList->CLOCK ) )
     {
-      fvherror( FVH_ERROR_PROCESS_SENSITIVITY, ScanProc->LABEL, ScanProc->USER );
+      Figure->CLOCK = ScanFigList->CLOCK;
     }
-
-    if ( ( ScanSens->NEXT == (chain_list *)0      ) &&
-         ( ScanSens->DATA == (void *)FvhClockName ) )
+    else
     {
-      FsmFigure->CLOCK = FvhClockName;
-
-      ClockProc = ScanProc; break;
+      fvherror( FVH_ERROR_PROCESS_SENSITIVITY, ClockProc->LABEL, ClockProc->LINE_NUM );
     }
-  }
-
-  if ( ClockProc == (fbpcs_list *)0 )
-  {
-    fvherror( FVH_ERROR_CLOCK_PROCESS, FsmFigure->NAME, 0 );
-  }
-
-  if ( FbhFigure->BEPCS == ClockProc )
-  {
-    MainProc = ClockProc->NEXT;
-  }
-  else
-  {
-    MainProc = FbhFigure->BEPCS;
-  }
 /*
 ** Verify the sensitivity list of the main process (to be done better)
 */
-  SensCurrent = 0;
+    SensCurrent = 0;
 
-  for ( ScanSens  = MainProc->SENSITIVITY;
-        ScanSens != (chain_list *)0;
-        ScanSens  = ScanSens->NEXT )
-  {
-    if ( ScanSens->DATA == (void *)FvhCurrentStateName )
+    for ( ScanSens  = MainProc->SENSITIVITY;
+          ScanSens != (chain_list *)0;
+          ScanSens  = ScanSens->NEXT )
     {
-      SensCurrent = 1;
+      if ( ScanSens->DATA == (void *)ScanFigList->CURRENT_STATE )
+      {
+        SensCurrent = 1;
+      }
     }
-  }
 
-  if ( ! SensCurrent )
-  {
-    fvherror( FVH_ERROR_MISSING_SIGNAL, FvhCurrentStateName, ScanProc->USER );
-  }
+    if ( ! SensCurrent )
+    {
+      fvherror( FVH_ERROR_MISSING_SIGNAL,
+                ScanFigList->CURRENT_STATE, ScanProc->LINE_NUM );
+    }
 /*
 ** Check the body of the clock process
 */
-  ScanInst = ClockProc->INSTRUCTION;
+    ScanInst = ClockProc->INSTRUCTION;
 
-  if ( ( ScanInst       == (ptype_list *)0 ) ||
-       ( ScanInst->NEXT != (ptype_list *)0 ) ||
-       ( ScanInst->TYPE != FBH_BEIFS       ) )
-  {
-    fvherror( FVH_ERROR_ILLEGAL_PROCESS_BODY, ClockProc->LABEL, ClockProc->USER );
-  }
+    if ( ( ScanInst       == (ptype_list *)0 ) ||
+         ( ScanInst->NEXT != (ptype_list *)0 ) ||
+         ( ScanInst->TYPE != FBH_BEIFS       ) )
+    {
+      fvherror( FVH_ERROR_ILLEGAL_PROCESS_BODY, ClockProc->LABEL, ClockProc->LINE_NUM );
+    }
 
-  ScanIf = (fbifs_list *)ScanInst->DATA;
+    ScanIf = (fbifs_list *)ScanInst->DATA;
 
-  if ( ( ScanIf->CNDTRUE  == (ptype_list *)0 ) ||
-       ( ScanIf->CNDFALSE != (ptype_list *)0 ) )
-  {
-    fvherror( FVH_ERROR_ILLEGAL_PROCESS_BODY, ClockProc->LABEL, ClockProc->USER );
-  }
+    if ( ( ScanIf->CNDTRUE  == (ptype_list *)0 ) ||
+         ( ScanIf->CNDFALSE != (ptype_list *)0 ) )
+    {
+      fvherror( FVH_ERROR_ILLEGAL_PROCESS_BODY, ClockProc->LABEL, ClockProc->LINE_NUM );
+    }
 /*
 ** Check the body of the main process
 */
-  ScanInst = MainProc->INSTRUCTION;
+    ScanInst = MainProc->INSTRUCTION;
 
-  if ( ScanInst == (ptype_list *)0 )
-  {
-    fvherror( FVH_ERROR_ILLEGAL_PROCESS_BODY, MainProc->LABEL, MainProc->USER );
-  }
-
-  for ( ScanInst  = MainProc->INSTRUCTION;
-        ScanInst != (ptype_list *)0;
-        ScanInst  = ScanInst->NEXT )
-  {
-    if ( ( ScanInst->TYPE != FBH_BEIFS ) &&
-         ( ScanInst->TYPE != FBH_BECAS ) )
+    if ( ScanInst == (ptype_list *)0 )
     {
-      fvherror( FVH_ERROR_ILLEGAL_PROCESS_BODY, MainProc->LABEL, MainProc->USER );
-    }
-  }
-
-  for ( ScanProc  = FbhFigure->BEPCS;
-        ScanProc != (fbpcs_list *)0;
-        ScanProc  = ScanProc->NEXT )
-  {
-    if ( ScanProc == MainProc )
-    {
-      FvhTreatMainProcess = 1;
+      fvherror( FVH_ERROR_ILLEGAL_PROCESS_BODY, MainProc->LABEL, MainProc->LINE_NUM );
     }
 
-    FvhFbhTreatInstruction( FbhFigure, FsmFigure, ScanProc->INSTRUCTION,
-                            (fsmstate_list *)0, (fsmstate_list *)0,
-                            (fsmstate_list *)0, -1, (ablexpr    *)0 );
-  }
-
-  if ( ! FvhTreatStateControl )
-  {
-    fvherror( FVH_ERROR_MISSING_STATE_CONTROL, FsmFigure->NAME, 0 );
-  }
-
-  if ( FsmFigure->STACK_SIZE )
-  {
-    if ( ! FvhTreatStackControl )
+    for ( ScanInst  = MainProc->INSTRUCTION;
+          ScanInst != (ptype_list *)0;
+          ScanInst  = ScanInst->NEXT )
     {
-      fvherror( FVH_ERROR_MISSING_STACK_CONTROL, FsmFigure->NAME, 0 );
+      if ( ( ScanInst->TYPE != FBH_BEIFS ) &&
+           ( ScanInst->TYPE != FBH_BECAS ) )
+      {
+        fvherror( FVH_ERROR_ILLEGAL_PROCESS_BODY, MainProc->LABEL, MainProc->LINE_NUM );
+      }
     }
 
-    if ( ( FvhStackPushSize > FvhDefaultStackSize  ) ||
-         ( FvhStackPopSize  > FvhDefaultStackSize  ) ||
-         ( FvhStackPopSize != FvhStackPushSize - 1 ) )
+    FvhCurrentStateName = ScanFigList->CURRENT_STATE;
+    FvhNextStateName    = ScanFigList->NEXT_STATE;
+    FvhFirstStateName   = ScanFigList->FIRST_STATE;
+    FvhReturnStateName  = ScanFigList->RETURN_STATE;
+    FvhControlName      = ScanFigList->CONTROL;
+
+    FvhStackControlName[ FSM_CTRL_NOP  ] = ScanFigList->STACK_CONTROL[ FSM_CTRL_NOP  ];
+    FvhStackControlName[ FSM_CTRL_POP  ] = ScanFigList->STACK_CONTROL[ FSM_CTRL_POP  ];
+    FvhStackControlName[ FSM_CTRL_PUSH ] = ScanFigList->STACK_CONTROL[ FSM_CTRL_PUSH ];
+
+    FvhStateType   = ScanFigList->STATE_TYPE;
+    FvhControlType = ScanFigList->CONTROL_TYPE;
+
+    FvhStarStateLocout   = 0;
+    FvhWhenCondition     = 0;
+    FvhTreatStateControl = 0;
+    FvhDefaultStackSize  = 0;
+    FvhStackPushSize     = 0;
+    FvhStackPopSize      = 0;
+
+    FvhTreatMainProcess  = 1;
+
+    FvhFbhTreatInstruction( FbhFigure, Figure, MainProc->INSTRUCTION,
+                              (fsmstate_list *)0, (fsmstate_list *)0,
+                              (fsmstate_list *)0, -1, (ablexpr    *)0 );
+
+    FvhTreatMainProcess = 0;
+
+    FvhFbhTreatInstruction( FbhFigure, Figure, ClockProc->INSTRUCTION,
+                              (fsmstate_list *)0, (fsmstate_list *)0,
+                              (fsmstate_list *)0, -1, (ablexpr    *)0 );
+
+    if ( ! FvhTreatStateControl )
     {
-      fvherror( FVH_ERROR_BAD_STACK_CONTROL, FsmFigure->NAME, 0 );
+      fvherror( FVH_ERROR_MISSING_STATE_CONTROL, Figure->NAME, 0 );
     }
 
-    FsmFigure->STACK_SIZE = FvhStackPushSize;
+    if ( Figure->STACK_SIZE )
+    {
+      if ( ! FvhTreatStackControl )
+      {
+        fvherror( FVH_ERROR_MISSING_STACK_CONTROL, Figure->NAME, 0 );
+      }
+
+      if ( ( FvhStackPushSize > FvhDefaultStackSize  ) ||
+           ( FvhStackPopSize  > FvhDefaultStackSize  ) ||
+           ( FvhStackPopSize != FvhStackPushSize - 1 ) )
+      {
+        fvherror( FVH_ERROR_BAD_STACK_CONTROL, Figure->NAME, 0 );
+      }
+
+      Figure->STACK_SIZE = FvhStackPushSize;
+    }
+
+    ScanFigList->WHEN_CONDITION    = FvhWhenCondition;
+    ScanFigList->STAR_STATE_LOCOUT = FvhStarStateLocout;
   }
 }
 
@@ -1463,58 +1799,221 @@ void FvhFbhPostTreat( FsmFigure )
 
   fsmfig_list *FsmFigure;
 {
+  fvhfig_list   *ScanFigList;
+  fsmfig_list   *Figure;
   fsmstate_list *StarState;
   chain_list    *StarChain;
   fsmtrans_list *ScanTrans;
   ablexpr       *Equation;
 
-  if ( ! FvhWhenCondition )
+  for ( ScanFigList  = FvhHeadFigList;
+        ScanFigList != (fvhfig_list *)0;
+        ScanFigList  = ScanFigList->NEXT )
   {
-    if ( FvhStarStateLocout )
+    if ( ! ScanFigList->WHEN_CONDITION )
     {
-      fvherror( FVH_ERROR_ILLEGAL_DEFAULT_ASSIGN, (char *)0, 0 );
-    }
+      Figure = ScanFigList->FSM_FIGURE;
 
-    StarState = FsmFigure->STAR_STATE;
-    Equation  = createabloper( ABL_OR );
-
-    for ( StarChain  = StarState->FROM;
-          StarChain != (chain_list *)0;
-          StarChain  = StarChain->NEXT )
-    {
-      ScanTrans = (fsmtrans_list *)StarChain->DATA;
-      addablhexpr( Equation, dupablexpr( ScanTrans->ABL ) );
-    }
-
-    if ( ABL_CDR( Equation ) == (ablexpr    *)0 )
-    {
+      if ( ScanFigList->STAR_STATE_LOCOUT )
+      {
+        fvherror( FVH_ERROR_ILLEGAL_DEFAULT_ASSIGN, (char *)0, 0 );
+      }
+  
+      StarState = Figure->STAR_STATE;
+      Equation  = createabloper( ABL_OR );
+  
+      for ( StarChain  = StarState->FROM;
+            StarChain != (chain_list *)0;
+            StarChain  = StarChain->NEXT )
+      {
+        ScanTrans = (fsmtrans_list *)StarChain->DATA;
+        addablhexpr( Equation, dupablexpr( ScanTrans->ABL ) );
+      }
+  
+      if ( ABL_CDR( Equation ) == (ablexpr    *)0 )
+      {
+        delablexpr( Equation );
+  
+        continue;
+      }
+      else
+      if ( ABL_CDDR( Equation ) == (ablexpr    *)0 )
+      {
+        StarChain = ABL_CADR( Equation );
+        ABL_CADR( Equation ) = (ablexpr    *)0;
+        freeablexpr( Equation );
+        Equation = StarChain;
+      }
+  
+      Equation = optimablnotexpr( Equation );
+  
+      for ( ScanTrans  = Figure->TRANS;
+            ScanTrans != (fsmtrans_list *)0;
+            ScanTrans  = ScanTrans->NEXT )
+      {
+        if ( IsFsmStarTrans( ScanTrans ) ) continue;
+  
+        ScanTrans->ABL = optimablbinexpr( ABL_AND, 
+                                           ScanTrans->ABL,
+                                           dupablexpr( Equation ) );
+      }
+  
       delablexpr( Equation );
-
-      return;
     }
-    else
-    if ( ABL_CDDR( Equation ) == (ablexpr    *)0 )
+  }
+}
+
+/*------------------------------------------------------------\
+|                                                             |
+|                          FvhFbhScanLeftExpr                 |
+|                                                             |
+\------------------------------------------------------------*/
+
+static void FvhFbhScanLeftExpr( Target )
+
+  char *Target;
+{
+  authelem *Element;
+
+  Element = searchauthelem( FvhProcInfo->HASH_WRITE, Target );
+
+  if ( Element == (authelem *)0 )
+  {
+    FvhProcInfo->WRITE_LIST = addchain( FvhProcInfo->WRITE_LIST, Target );
+    addauthelem( FvhProcInfo->HASH_WRITE, Target, 0 );
+  }
+}
+
+/*------------------------------------------------------------\
+|                                                             |
+|                          FvhFbhScanRightExpr                |
+|                                                             |
+\------------------------------------------------------------*/
+
+static void FvhFbhScanRightExpr( Expr )
+
+  ablexpr *Expr;
+{
+  authelem *Element;
+  char     *Value;
+
+  if ( ABL_ATOM( Expr ) )
+  {
+    Value = ABL_ATOM_VALUE( Expr );
+
+    if ( ( Value != ABL_ATOM_NAME_ONE  ) &&
+         ( Value != ABL_ATOM_NAME_ZERO ) &&
+         ( Value != ABL_ATOM_NAME_DC   ) )
     {
-      StarChain = ABL_CADR( Equation );
-      ABL_CADR( Equation ) = (ablexpr    *)0;
-      freeablexpr( Equation );
-      Equation = StarChain;
+      Element = searchauthelem( FvhProcInfo->HASH_READ, Value );
+
+      if ( Element == (authelem *)0 )
+      {
+        FvhProcInfo->READ_LIST = addchain( FvhProcInfo->READ_LIST, Value );
+        addauthelem( FvhProcInfo->HASH_READ, Value, 0 );
+      }
     }
-
-    Equation = optimablnotexpr( Equation );
-
-    for ( ScanTrans  = FsmFigure->TRANS;
-          ScanTrans != (fsmtrans_list *)0;
-          ScanTrans  = ScanTrans->NEXT )
+  }
+  else
+  {
+    while ( ( Expr = ABL_CDR( Expr ) ) != (ablexpr *)0 )
     {
-      if ( IsFsmStarTrans( ScanTrans ) ) continue;
-
-      ScanTrans->ABL = optimablbinexpr( ABL_AND, 
-                                         ScanTrans->ABL,
-                                         dupablexpr( Equation ) );
+      FvhFbhScanRightExpr( ABL_CAR( Expr ) );
     }
+  }
+}
 
-    delablexpr( Equation );
+/*------------------------------------------------------------\
+|                                                             |
+|                          FvhFbhScanProcess                  |
+|                                                             |
+\------------------------------------------------------------*/
+
+static int FvhFbhScanProcess( FbhFigure, FsmFigure )
+
+  fbfig_list  *FbhFigure;
+  fsmfig_list *FsmFigure;
+{
+  fbpcs_list *ScanProcess;
+  fbpcsinfo  *ProcInfo;
+  int         Number;
+
+  Number = 0;
+
+  for ( ScanProcess  = FbhFigure->BEPCS;
+        ScanProcess != (fbpcs_list *)0;
+        ScanProcess  = ScanProcess->NEXT ) 
+  {
+    ProcInfo = (fbpcsinfo *)autallocheap( sizeof( fbpcsinfo ) ); 
+    ProcInfo->HASH_READ  = createauthtable( 50 );
+    ProcInfo->HASH_WRITE = createauthtable( 50 );
+    ScanProcess->USER = (void *)ProcInfo;
+
+    FvhProcInfo = ProcInfo;
+
+    FbhScanExprProcess( ScanProcess, FvhFbhScanLeftExpr, FvhFbhScanRightExpr );
+
+# ifdef DEBUG
+    {
+      chain_list *ScanList;
+
+      fprintf( stdout, "Process %s:\n", ScanProcess->LABEL );
+
+      fprintf( stdout, "READ\n" );
+      for ( ScanList  = ProcInfo->READ_LIST;
+            ScanList != (chain_list *)0;
+            ScanList  = ScanList->NEXT )
+      {
+        fprintf( stdout, "%s\n", (char *)ScanList->DATA );
+      }
+
+      fprintf( stdout, "WRITE\n" );
+      for ( ScanList  = ProcInfo->WRITE_LIST;
+            ScanList != (chain_list *)0;
+            ScanList  = ScanList->NEXT )
+      {
+        fprintf( stdout, "%s\n", (char *)ScanList->DATA );
+      }
+    }
+# endif
+
+    Number++;
+  }
+
+  if ( Number & 1 )
+  {
+    fvherror( FVH_ERROR_TWO_PROCESS, FsmFigure->NAME, 0 );
+  }
+
+  return( Number );
+}
+
+/*------------------------------------------------------------\
+|                                                             |
+|                          FvhFbhCleanProcess                 |
+|                                                             |
+\------------------------------------------------------------*/
+
+static void FvhFbhCleanProcess( FbhFigure )
+
+  fbfig_list *FbhFigure;
+{
+  fbpcs_list *ScanProcess;
+  fbpcsinfo  *ProcInfo;
+
+  for ( ScanProcess  = FbhFigure->BEPCS;
+        ScanProcess != (fbpcs_list *)0;
+        ScanProcess  = ScanProcess->NEXT ) 
+  {
+    ProcInfo = (fbpcsinfo *)ScanProcess->USER;
+    ScanProcess->USER = (void *)0;
+    destroyauthtable( ProcInfo->HASH_READ  );
+    destroyauthtable( ProcInfo->HASH_WRITE );
+
+    freechain( ProcInfo->READ_LIST  );
+    freechain( ProcInfo->WRITE_LIST );
+
+    autfreeheap( ProcInfo, sizeof( fbpcsinfo ) );
   }
 }
   
@@ -1529,16 +2028,53 @@ fsmfig_list *FvhFbh2Fsm( FbhFigure, FsmFigure )
   fbfig_list  *FbhFigure;
   fsmfig_list *FsmFigure;
 {
+  int Number;
+
   FvhInitializeKeyword();
 
   FsmFigure->NAME = FbhFigure->NAME;
 
-  FvhFbhTreatPragma( FbhFigure, FsmFigure );
+  Number = FvhFbhScanProcess( FbhFigure, FsmFigure );
+  FvhFbhTreatPragma( FbhFigure, FsmFigure, Number );
+
   FvhFbhTreatAux( FbhFigure, FsmFigure );
   FvhFbhTreatPort( FbhFigure, FsmFigure );
   FvhFbhTreatProcess( FbhFigure, FsmFigure );
 
   FvhFbhPostTreat( FsmFigure );
+
+  FvhFbhCleanProcess( FbhFigure );
+  FvhFbhFreeFigList();
+
+# ifdef DEBUG
+
+  {
+    chain_list  *ScanChain;
+    fsmfig_list *Figure;
+
+    if ( IsFsmFigMulti( FsmFigure ) )
+    {
+      fprintf( stdout, "MULTI FSM !!!\n" );
+      viewfsmfig( FsmFigure );
+
+      for ( ScanChain  = FsmFigure->MULTI;
+            ScanChain != (chain_list *)0;
+            ScanChain  = ScanChain->NEXT )
+      {
+        Figure = (fsmfig_list *)ScanChain->DATA;
+
+        fprintf( stdout, "--------------------------\n" );
+        viewfsmfig( Figure );
+        fprintf( stdout, "--------------------------\n" );
+      }
+    }
+    else
+    {
+      viewfsmfig( FsmFigure );
+    }
+  }
+
+# endif
 
   return( FsmFigure );
 }

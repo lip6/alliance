@@ -109,6 +109,7 @@
 \------------------------------------------------------*/
 
 # define FSM_MIXED_RTL_MASK  (long)( 0x0001 )
+# define FSM_MULTI_MASK      (long)( 0x0002 )
 
 /*------------------------------------------------------\
 |                                                       |
@@ -158,6 +159,10 @@
 # define IsFsmFigMixedRtl( F )    ( (F)->FLAGS &   FSM_MIXED_RTL_MASK )
 # define SetFsmFigMixedRtl( F )   ( (F)->FLAGS |=  FSM_MIXED_RTL_MASK )
 # define ClearFsmFigMixedRtl( F ) ( (F)->FLAGS &= ~FSM_MIXED_RTL_MASK )
+
+# define IsFsmFigMulti( F )    ( (F)->FLAGS &   FSM_MULTI_MASK )
+# define SetFsmFigMulti( F )   ( (F)->FLAGS |=  FSM_MULTI_MASK )
+# define ClearFsmFigMulti( F ) ( (F)->FLAGS &= ~FSM_MULTI_MASK )
 
 /*------------------------------------------------------\
 |                                                       |
@@ -334,6 +339,7 @@
     long                FLAGS;
     ptype_list         *PRAGMA;
 
+    chain_list         *MULTI;
     void               *FIGURE;
     void               *USER;
     

@@ -82,6 +82,9 @@
 # define FVH_ERROR_CLOCK_PROCESS          30
 # define FVH_ERROR_MISSING_SIGNAL         31
 # define FVH_ERROR_ILLEGAL_PROCESS_BODY   32
+# define FVH_ERROR_PRAGMA_SPECIFICATION   33
+# define FVH_ERROR_BAD_PROCESS            34
+# define FVH_ERROR_NOT_YET_IMPLEMENTED    35
 
 /*------------------------------------------------------------\
 |                                                             |

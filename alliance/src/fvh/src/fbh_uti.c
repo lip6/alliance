@@ -24,11 +24,7 @@
 | 675 Mass Ave, Cambridge, MA 02139, USA.                     |
 |                                                             |
 \------------------------------------------------------------*/
-/***************************************************************************
-* Fonctions utiles pour fbfig : optimisation des abl d'un fbfig, evaluation *
-* du cout . . .                               *
-*           Le 01/09/92.
-****************************************************************************/
+
 #include <stdio.h>
 #include "mut.h"
 #include "aut.h"
@@ -36,138 +32,109 @@
 #include "bdd.h"
 #include "fvh.h"
 
-/*------------------------------------------------------------------------i
-fsp_mapCarExprFbh  : applique une fonction de conversion sur chaque expression
-                  d'une fbfig 
----------------------------------------------------------------------------
-retour    : un void.
----------------------------------------------------------------------------*/
-void fsp_mapCarExprFbh(fbh,func)
+static void (*FbhFuncLeft)();
+static void (*FbhFuncRight)();
 
-fbfig_list *fbh;
-chain_list *(*func)();
+static void FbhScanExprInstruction();
+
+/*------------------------------------------------------------\
+|                                                             |
+|                         FbhScanExprIf                       |
+|                                                             |
+\------------------------------------------------------------*/
+
+void FbhScanExprIf( ScanIf )
+
+  fbifs_list *ScanIf;
 {
-fbout_list *out;
-fbreg_list *reg;
-fbbus_list *bus;
-fbbux_list *bux;
-biabl_list *biabl;
-fbaux_list *aux;
+  FbhFuncRight( ScanIf->CND );
 
-
-aux = fbh->BEAUX;
-while (aux) 
-   {
-   if (aux->ABL)
-      {
-      aux->ABL = (*func)(aux->ABL);
-      }
-   aux = aux->NEXT;
-   }
-
-out = fbh->BEOUT;
-while (out) 
-   {
-   if (out->ABL)
-      {
-      out->ABL = (*func)(out->ABL);
-      }
-   out = out->NEXT;
-   }
-
-reg = fbh->BEREG;
-while (reg) 
-   {
-   biabl = reg->BIABL;
-   while (biabl)
-      {
-      if (biabl->CNDABL && biabl->VALABL)
-         {
-         biabl->CNDABL = (*func)(biabl->CNDABL);
-         biabl->VALABL = (*func)(biabl->VALABL);
-         }
-      biabl = biabl->NEXT;
-      }
-   reg = reg->NEXT;
-   }
-
-bus = fbh->BEBUS;
-while (bus) 
-   {
-   biabl = bus->BIABL;
-   while (biabl)
-      {
-      if (biabl->CNDABL && biabl->VALABL)
-         {
-         biabl->CNDABL = (*func)(biabl->CNDABL);
-         biabl->VALABL = (*func)(biabl->VALABL);
-         }
-      biabl = biabl->NEXT;
-      }
-   bus = bus->NEXT;
-   }
-
-bux = fbh->BEBUX;
-while (bux) 
-   {
-   biabl = bux->BIABL;
-   while (biabl)
-      {
-      if (biabl->CNDABL && biabl->VALABL)
-         {
-         biabl->CNDABL = (*func)(biabl->CNDABL);
-         biabl->VALABL = (*func)(biabl->VALABL);
-         }
-      biabl = biabl->NEXT;
-      }
-   bux = bux->NEXT;
-   }
+  FbhScanExprInstruction( ScanIf->CNDTRUE  );
+  FbhScanExprInstruction( ScanIf->CNDFALSE );
 }
 
-/*-----------------------------------------------------------------------
-fbrinToChain_list : forme une chaine liste des entrees.
-          prend l'odre d'apparition.
------------------------------------------------------------------------
-parametres        : fbh.
----------------------------------------------------------------------------
-retour      : un pointeur de chain_list.
----------------------------------------------------------------------------*/
-chain_list *fbrinToChain_list(fbh)
-fbfig_list *fbh;
-{
-fbrin_list *in;
-chain_list *lst;
- 
-in = fbh->BERIN;    /* entrees primaires */
-lst = 0;
+/*------------------------------------------------------------\
+|                                                             |
+|                         FbhScanExprAsg                      |
+|                                                             |
+\------------------------------------------------------------*/
 
-while (in)
+void FbhScanExprAsg( ScanAsg )
+
+  fbasg_list *ScanAsg;
+{
+  FbhFuncLeft( ScanAsg->NAME );
+  FbhFuncRight( ScanAsg->ABL );
+}
+
+/*------------------------------------------------------------\
+|                                                             |
+|                          FbhScanExprWhen                    |
+|                                                             |
+\------------------------------------------------------------*/
+
+
+static void FbhScanExprWhen( ScanCase )
+
+  fbcas_list  *ScanCase;
+{
+  char *ChoiceValue;
+  int   Index;
+
+  FbhFuncRight( ScanCase->ABL );
+
+  for ( Index = 0; Index < ScanCase->SIZE; Index++ )
   {
-     lst = addchain(lst,(void *)in->NAME);
-   in = in->NEXT;
-   };
-  
-  return(lst);
+    ChoiceValue = ScanCase->CHOICE[ Index ].VALUE;
+
+    FbhScanExprInstruction( ScanCase->CHOICE[ Index ].INSTRUCTION );
+  }
 }
 
-/*-------------------------------------------------------------------------
-fsp_countInputFbh   : compte les entrees d'un circuit (fbrin)
----------------------------------------------------------------------------
-retour    : un int.
----------------------------------------------------------------------------*/
+/*------------------------------------------------------------\
+|                                                             |
+|                        FbhScanExprInstruction               |
+|                                                             |
+\------------------------------------------------------------*/
 
-int fsp_countInputFbh(fbh)
-fbfig_list *fbh;
+static void FbhScanExprInstruction( Instruction )
+
+  ptype_list *Instruction;
 {
-fbrin_list *in;
-int count = 0;
+  ptype_list     *ScanIns;
 
-in = fbh->BERIN;  /* entrees primaires */
-while (in)
-   {
-   in = in->NEXT;
-   count++;
-   };
+  for ( ScanIns  = Instruction;
+        ScanIns != (ptype_list *)0;
+        ScanIns  = ScanIns->NEXT )
+  {
+    switch ( ScanIns->TYPE )
+    {
+      case FBH_BECAS : FbhScanExprWhen( ScanIns->DATA );
+      break;
 
-return(count);
+      case FBH_BEIFS : FbhScanExprIf( ScanIns->DATA );
+      break;
+
+      case FBH_BEASG : FbhScanExprAsg( ScanIns->DATA );
+      break;
+    }
+  }
+}
+
+/*------------------------------------------------------------\
+|                                                             |
+|                      FbhScanExprProcess                     |
+|                                                             |
+\------------------------------------------------------------*/
+
+void FbhScanExprProcess( Process, FuncLeft, FuncRight )
+
+fbpcs_list *Process;
+void      (*FuncLeft)();
+void      (*FuncRight)();
+{
+  FbhFuncLeft  = FuncLeft;
+  FbhFuncRight = FuncRight;
+
+  FbhScanExprInstruction( Process->INSTRUCTION );
 }

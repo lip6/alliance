@@ -211,6 +211,8 @@ int delfsmfig( Name )
   destroyauthtable( Figure->HASH_STATE  );
   destroyauth2table( Figure->HASH_TRANS );
 
+  freechain( Figure->MULTI );
+
   freefsmfig( Figure );
 
   return( 1 );

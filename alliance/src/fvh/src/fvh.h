@@ -93,7 +93,7 @@ typedef struct fbfig		/* fbhaviour figure			*/
   struct fbpcs   *BEPCS;	/* list of processes			*/
   struct bddcircuit  *CIRCUI;	/* Circuit's pointer used for BDDs	*/
   struct ptype   *USER;		/* reserved for user's applications	*/
-  unsigned char   FLAG;		/* error flags				*/
+  unsigned long   FLAG;		/* error flags				*/
   unsigned char   TYPE;		/* type of the description (not used)	*/
   struct fbtyp   *BETYP;	/* list of declared types		*/
   struct fbpgm   *BEPGM;	/* list of pragmas			*/
@@ -106,7 +106,8 @@ typedef struct fbreg		/* register				*/
   char          *NAME;		/* register's name			*/
   struct biabl  *BIABL;		/* list of drivers (ABL)		*/
   struct binode *BINODE;	/* list of drivers (BDD)		*/
-  unsigned char  FLAG;
+  unsigned long  FLAG;
+  unsigned long  LINE_NUM;
   void          *USER;
   }
 fbreg_list;
@@ -119,6 +120,7 @@ typedef struct fbmsg		/* assert instruction			*/
   char		*MESSAGE;	/* assertion's message			*/
   struct chain	*ABL;		/* assertion's condition (ABL)		*/
   bddnode 	*NODE;		/* assertion's condition (BDD)		*/
+  unsigned long  LINE_NUM;
   void          *USER;
   }
 fbmsg_list;
@@ -130,7 +132,8 @@ typedef struct fbout		/* output port				*/
   struct chain	*ABL;		/* port's equation (ABL)		*/
   bddnode 	*NODE;		/* port's equation (BDD)		*/
   unsigned char  TYPE;		/* port's type				*/
-  unsigned char  FLAG;
+  unsigned long  FLAG;
+  unsigned long  LINE_NUM;
   void          *USER;
   }
 fbout_list;
@@ -142,7 +145,8 @@ typedef struct fbbus		/* output port (BUS)			*/
   struct biabl	*BIABL;		/* list of drivers (ABL)		*/
   struct binode	*BINODE;	/* list of drivers (BDD)		*/
   unsigned char  TYPE;		/* port's type : W or M			*/
-  unsigned char  FLAG;
+  unsigned long  FLAG;
+  unsigned long  LINE_NUM;
   void          *USER;
   }
 fbbus_list;
@@ -154,7 +158,8 @@ typedef struct fbaux		/* auxiliary signal			*/
   struct chain	*ABL;		/* signal's equation (ABL)		*/
   bddnode 	*NODE;		/* signal's equation (BDD)		*/
   unsigned char  TYPE;		/* signal's type			*/
-  unsigned char  FLAG;
+  unsigned long  FLAG;
+  unsigned long  LINE_NUM;
   void          *USER;
   }
 fbaux_list;
@@ -166,7 +171,8 @@ typedef struct fbbux		/* internal signal (BUS)		*/
   struct biabl	*BIABL;		/* list of drivers (ABL)		*/
   struct binode	*BINODE;	/* list of drivers (BDD)		*/
   unsigned char  TYPE;		/* signal's type : W or M		*/
-  unsigned char  FLAG;
+  unsigned long  FLAG;
+  unsigned long  LINE_NUM;
   void          *USER;
   }
 fbbux_list;
@@ -177,6 +183,7 @@ typedef struct fbpor		/* port					*/
   char         *NAME;		/* port's name				*/
   char          DIRECTION;	/* port's mode (same as LOCON)		*/
   unsigned char TYPE;		/* port's type (B, M or W)		*/
+  unsigned long  LINE_NUM;
   void          *USER;
   }
 fbpor_list;
@@ -187,6 +194,7 @@ typedef struct biabl		/* couple of ABL			*/
   char          *LABEL;		/* driver's label			*/
   struct chain	*CNDABL;	/* driver's connection condition (ABL)	*/
   struct chain	*VALABL;	/* equation of driven value (ABL)	*/
+  unsigned long  LINE_NUM;
   void         *USER;
   }
 biabl_list;
@@ -196,6 +204,7 @@ typedef struct binode		/* couple of BDD			*/
   struct binode	*NEXT;	 	/* next figure				*/
   bddnode 	*CNDNODE;	/* driver's connection condition (BDD)	*/
   bddnode 	*VALNODE;	/* equation of driven value (BDD)	*/
+  unsigned long  LINE_NUM;
   void         *USER;
   }
 binode_list;
@@ -204,6 +213,7 @@ typedef struct fbrin		/* primary inputs			*/
   {
   struct fbrin *NEXT;		/* next input				*/
   char         *NAME;		/* input's name				*/
+  unsigned long  LINE_NUM;
   void         *USER;
   }
 fbrin_list;
@@ -214,6 +224,7 @@ typedef struct fbgen		/* generic				*/
   char 	        *NAME;		/* generic's name			*/
   char          *TYPE;		/* generic type's name			*/
   void          *VALUE;		/* generic's value			*/
+  unsigned long  LINE_NUM;
   void         *USER;
   }
 fbgen_list;
@@ -225,7 +236,8 @@ typedef struct fbpcs		/* process				*/
   struct chain *SENSITIVITY;	/* list of sensitivity			*/
   struct ptype *INSTRUCTION;	/* list of instructions			*/
   struct chain *OUTPUTS;	/* list of assigned signals		*/
-  unsigned char FLAG;		/* flag (not used)			*/
+  unsigned long LINE_NUM;
+  unsigned long FLAG;		/* flag (not used)			*/
   void         *USER;
   }
 fbpcs_list;
@@ -235,6 +247,7 @@ typedef struct fbifs		/* if statement				*/
   struct chain *CND;		/* condition (abl)			*/
   struct ptype *CNDTRUE;	/* list of instructions when true	*/
   struct ptype *CNDFALSE;	/* list of instructions when false	*/
+  unsigned long  LINE_NUM;
   void         *USER;
   }
 fbifs_list;
@@ -244,6 +257,7 @@ typedef struct fbasg		/* signal assignment statement		*/
   char          *NAME;		/* target's name			*/
   struct chain  *ABL;		/* condition (abl)			*/
   unsigned char  TYPE;		/* signal's type			*/
+  unsigned long  LINE_NUM;
   void         *USER;
   }
 fbasg_list;
@@ -254,6 +268,7 @@ typedef struct fbcas		/* case statement			*/
   struct fbcho  *CHOICE;	/* table of choices			*/
   unsigned char  TYPE;		/* expression's type			*/
   unsigned int   SIZE;		/* size of choices' table		*/
+  unsigned long  LINE_NUM;
   void          *USER;
   }
 fbcas_list;
@@ -263,6 +278,7 @@ typedef struct fbcho		/* a choice in a case instruction	*/
   char         *VALUE;		/* the value of the choice		*/
   unsigned int  SIZE;		/* size of the value in byte		*/
   struct ptype *INSTRUCTION;	/* list of instructions			*/
+  unsigned long  LINE_NUM;
   void          *USER;
   }
 fbcho_list;
@@ -280,6 +296,7 @@ typedef struct fbtyp		/* type or subtype			*/
   unsigned char   INDEX;	/* the type of the index for an array	*/
   unsigned char   BASE;		/* the base type or element's type	*/
   unsigned char   RESOLV;	/* index of resolution function		*/
+  unsigned long  LINE_NUM;
   void           *USER;
   }
 fbtyp_list;
@@ -290,6 +307,7 @@ typedef struct fbpgm		/* pragma				*/
   char         *TYPE;		/* prgma's type				*/
   char         *NAME;		/* object's name			*/
   void         *VALUE;		/* prgma's content			*/
+  unsigned long  LINE_NUM;
   void         *USER;
   }
 fbpgm_list;
@@ -383,5 +401,11 @@ extern void vhdlsavefbdecl __P(( fbfig_list *pthedfbfig, int synopsys ));
 extern void vhdlsavefbport __P(( fbfig_list *pthedfbfig, int synopsys ));
 extern void vhdlsavefbarchi __P(( fbfig_list *pthedfbfig, int synopsys ));
   extern FILE *FblDriveFile;
+
+	/* ###------------------------------------------------------### */
+	/*    Tools
+	/* ###------------------------------------------------------### */
+
+extern void FbhScanExprProcess __P(( fbpcs_list *Process, void (*FuncLeft)(), void (*FuncRight)()));
 
 #endif

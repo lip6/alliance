@@ -362,6 +362,9 @@ char *str1;
     case 85:
       (void) fprintf (stderr,"when choice is empty in case statement \n");
       break;
+    case 86:
+      (void) fprintf (stderr,"bad pragma\n");
+      break;
 
     case 100:
       (void) fprintf (stderr,"cannot find `%s`\n",str1);

@@ -825,12 +825,24 @@ pragma_declaration
 	:  Pragma
 		{
 		char pragma[30];
-		char type[30];
-		char name[30];
-		 sscanf((char *)$1,"-- %s %s %s", pragma,type,name);
+		char type[128];
+		char name[128];
+		char value[128];
+		char *pt;
+		int  field;
 
-                        FBL_BEFPNT->BEPGM = fbh_addfbpgm(FBL_BEFPNT->BEPGM,type,name,0);
-                        FBL_BEFPNT->BEPGM->USER = (void *)FBL_LINNUM;
+		 field = sscanf((char *)$1,"-- %s %s %s %s", pragma,type,name,value);
+
+		if ( field == 3 ) pt = (void *)0;
+		else
+		if ( field == 4 ) pt = namealloc( value );
+		else
+		{
+                  fbl_error (86,0);
+		}
+		
+                        FBL_BEFPNT->BEPGM = fbh_addfbpgm(FBL_BEFPNT->BEPGM,type,name,pt);
+                        FBL_BEFPNT->BEPGM->LINE_NUM = FBL_LINNUM;
 		}
 		;
 
@@ -927,7 +939,7 @@ full_type_declaration
 		{
 		FBL_BEFPNT->BETYP =  fbh_addfbtyp(FBL_BEFPNT->BETYP,$2,$4.LEFT,
 		 $4.RIGHT,$4.VALUE,$4.SIZE,$4.BYTE,$4.BASE,$4.INDEX,$4.RESOLV,$4.CLASS); 
-                FBL_BEFPNT->BETYP->USER = (void *)FBL_LINNUM;
+                FBL_BEFPNT->BETYP->LINE_NUM = FBL_LINNUM;
    		addtab(hshtab,$2,FBL_MODNAM,FBL_SIGDFN,FBL_TPEDFN);
    		addtab(hshtab,$2,FBL_MODNAM,FBL_LBLDFN,$4.CLASS);
    	        addtab(hshtab,$2,FBL_MODNAM,FBL_TYPDFN,FBL_NUMTYP);
@@ -954,7 +966,7 @@ subtype_declaration
 		{
 		FBL_BEFPNT->BETYP =  fbh_addfbtyp(FBL_BEFPNT->BETYP,$2,$4.LEFT,
 		 $4.RIGHT,$4.VALUE,$4.SIZE,$4.BYTE,$4.BASE,$4.INDEX,$4.RESOLV,$4.CLASS); 
-                FBL_BEFPNT->BETYP->USER = (void *)FBL_LINNUM;
+                FBL_BEFPNT->BETYP->LINE_NUM = FBL_LINNUM;
    		addtab(hshtab,$2,FBL_MODNAM,FBL_SIGDFN,FBL_TPEDFN);
    		addtab(hshtab,$2,FBL_MODNAM,FBL_LBLDFN,$4.CLASS);
    	        addtab(hshtab,$2,FBL_MODNAM,FBL_TYPDFN,FBL_NUMTYP);
@@ -1849,7 +1861,7 @@ unlabeled_process_statement
 	{FBL_NM1LST = 0 ;}
 	  .sensitivity_list.
 		{ FBL_BEFPNT->BEPCS = fbh_addfbpcs(FBL_BEFPNT->BEPCS,FBL_LBLNAM,FBL_NM1LST,0,0,0); 
-                  FBL_BEFPNT->BEPCS->USER = (void *)FBL_LINNUM;
+                  FBL_BEFPNT->BEPCS->LINE_NUM = FBL_LINNUM;
 		  FBL_NM1LST = 0; }	
           process_declarative_part
 	  _BEGIN
@@ -1959,7 +1971,7 @@ assertion_statement
 	  Semicolon_ERR
 		{   
                     FBL_BEFPNT->BEMSG  = fbh_addfbmsg(FBL_BEFPNT->BEMSG,0,$4,$3,$2.LIST_ABL->DATA,0);
-                    FBL_BEFPNT->BEMSG->USER = (void *)FBL_LINNUM;
+                    FBL_BEFPNT->BEMSG->LINE_NUM = FBL_LINNUM;
 		}
 	;
 
@@ -2088,7 +2100,7 @@ signal_assignment_statement
                         if (i >= in_bound)
                           {
                          *pnt =fbh_addfbasg(*pnt,newname, (struct chain *)abl_pnt->DATA,type);
-                         ((struct fbasg *)((*pnt)->DATA))->USER = (void *)FBL_LINNUM;
+                         ((struct fbasg *)((*pnt)->DATA))->LINE_NUM = FBL_LINNUM;
                           abl_pnt = abl_pnt->NEXT;
                 
                           addauthelem( FBL_HASH_ASG_FSM, newname, 1 );
@@ -2100,7 +2112,7 @@ signal_assignment_statement
 		else
                   {
                     *pnt = fbh_addfbasg(*pnt,$1.NAME,abl_pnt->DATA,type);
-                    ((struct fbasg *)((*pnt)->DATA))->USER = (void *)FBL_LINNUM;
+                    ((struct fbasg *)((*pnt)->DATA))->LINE_NUM = FBL_LINNUM;
                   }
 	        }
 		}
@@ -2119,7 +2131,7 @@ if_statement
 		    struct ptype **pnt;
 		    pnt = (struct ptype**)FBL_NM1LST->DATA;
 		    *pnt = fbh_addfbifs(*pnt,$2.LIST_ABL->DATA);
-                    ((struct fbifs *)((*pnt)->DATA))->USER = (void *)FBL_LINNUM;
+                    ((struct fbifs *)((*pnt)->DATA))->LINE_NUM = FBL_LINNUM;
 	            FBL_NM1LST = addchain(FBL_NM1LST,&(((struct fbifs*)(*pnt)->DATA)->CNDTRUE));
 		}
 	  sequence_of_statements
@@ -2150,7 +2162,7 @@ if_statement
 		    struct ptype **pnt;
 		    pnt = (struct ptype**)FBL_NM1LST->DATA;
 		    *pnt = fbh_addfbifs(*pnt,$3.LIST_ABL->DATA);
-                    ((struct fbifs *)((*pnt)->DATA))->USER = (void *)FBL_LINNUM;
+                    ((struct fbifs *)((*pnt)->DATA))->LINE_NUM = FBL_LINNUM;
 	            FBL_NM1LST = addchain(FBL_NM1LST,(void*)&((struct fbifs*)(*pnt)->DATA)->CNDTRUE);	
 		}
 	  sequence_of_statements
@@ -2197,12 +2209,13 @@ case_statement
 		    /*fbcas = (struct fbcas *)mbkalloc(sizeof(struct fbcas));
 		    fbcas->CHOICE = 0;
 		    fbcas->USER   = 0;		
+		    fbcas->LINE_NUM   = 0;		
 		    fbcas->SIZE   = 0;		
 		    fbcas->TYPE = $2.TYPE;
 		    fbcas->ABL = $2.LIST_ABL->DATA;*/
 		    FBL_OTHPNT  = 0;	
 		*pnt = fbh_addfbcas(*pnt,$2.LIST_ABL->DATA,$2.TYPE);	
-                    ((struct fbcas *)((*pnt)->DATA))->USER = (void *)FBL_LINNUM;
+                    ((struct fbcas *)((*pnt)->DATA))->LINE_NUM = FBL_LINNUM;
 	            FBL_NM1LST = addchain(FBL_NM1LST,(void*)&(((struct fbcas*)((*pnt)->DATA))->SIZE));
 	            FBL_NM1LST = addchain(FBL_NM1LST,(void*)&(((struct fbcas*)(*pnt)->DATA)->CHOICE));
 		} 
@@ -2897,7 +2910,7 @@ attribute_name
                     ptabl = (struct chain*)expr2.LIST_ABL->DATA;
                     FBL_BEFPNT->BEDLY = fbh_addfbaux(FBL_BEFPNT->BEDLY,lclname,
                                                      ptabl,0,type);
-                    FBL_BEFPNT->BEDLY->USER = (void *)FBL_LINNUM;
+                    FBL_BEFPNT->BEDLY->LINE_NUM = FBL_LINNUM;
                     /* LUDO addtab (hshtab,$1,FBL_MODNAM,FBL_STBDFN,1); */
                     addtab (hshtab,lclname,FBL_MODNAM,FBL_WMNDFN,-1);
                     addtab (hshtab,lclname,FBL_MODNAM,FBL_WMXDFN,-1);
@@ -3397,37 +3410,37 @@ short         right;
       if (porflg == 1)
       {
         ptfig->BEPOR = fbh_addfbpor (ptfig->BEPOR,extname,lclmod,lcltyp);
-        ptfig->BEPOR->USER = (void *)FBL_LINNUM;
+        ptfig->BEPOR->LINE_NUM = FBL_LINNUM;
       }
       if (rinflg == 1)
       {
         ptfig->BERIN = fbh_addfbrin (ptfig->BERIN,extname);
-        ptfig->BERIN->USER = (void *)FBL_LINNUM;
+        ptfig->BERIN->LINE_NUM = FBL_LINNUM;
       }
       if (outflg == 1)
       {
         ptfig->BEOUT = fbh_addfbout (ptfig->BEOUT,extname,0,0,lcltyp);
-        ptfig->BEOUT->USER = (void *)FBL_LINNUM;
+        ptfig->BEOUT->LINE_NUM = FBL_LINNUM;
       }
       if (busflg == 1)
       {
         ptfig->BEBUS = fbh_addfbbus (ptfig->BEBUS,extname,0,0,lcltyp);
-        ptfig->BEBUS->USER = (void *)FBL_LINNUM;
+        ptfig->BEBUS->LINE_NUM = FBL_LINNUM;
       }
       if (auxflg == 1)
       {
         ptfig->BEAUX = fbh_addfbaux (ptfig->BEAUX,extname,0,0,lcltyp);
-        ptfig->BEAUX->USER = (void *)FBL_LINNUM;
+        ptfig->BEAUX->LINE_NUM = FBL_LINNUM;
       }
       if (buxflg == 1)
       {
         ptfig->BEBUX = fbh_addfbbux (ptfig->BEBUX,extname,0,0,lcltyp);
-        ptfig->BEBUX->USER = (void *)FBL_LINNUM;
+        ptfig->BEBUX->LINE_NUM = FBL_LINNUM;
       }
       if (regflg == 1)
       {
         ptfig->BEREG = fbh_addfbreg (ptfig->BEREG,extname,0,0);
-        ptfig->BEREG->USER = (void *)FBL_LINNUM;
+        ptfig->BEREG->LINE_NUM = FBL_LINNUM;
       }
       }
     }
@@ -3440,37 +3453,37 @@ short         right;
     if (porflg == 1)
     {
       ptfig->BEPOR = fbh_addfbpor (ptfig->BEPOR,name,lclmod,lcltyp);
-      ptfig->BEPOR->USER = (void *)FBL_LINNUM;
+      ptfig->BEPOR->LINE_NUM = FBL_LINNUM;
     }
     if (rinflg == 1)
     {
       ptfig->BERIN = fbh_addfbrin (ptfig->BERIN,name);
-      ptfig->BERIN->USER = (void *)FBL_LINNUM;
+      ptfig->BERIN->LINE_NUM = FBL_LINNUM;
     }
     if (outflg == 1)
     {
       ptfig->BEOUT = fbh_addfbout (ptfig->BEOUT,name,0,0,lcltyp);
-      ptfig->BEOUT->USER = (void *)FBL_LINNUM;
+      ptfig->BEOUT->LINE_NUM = FBL_LINNUM;
     }
     if (busflg == 1)
     {
       ptfig->BEBUS = fbh_addfbbus (ptfig->BEBUS,name,0,0,lcltyp);
-      ptfig->BEBUS->USER = (void *)FBL_LINNUM;
+      ptfig->BEBUS->LINE_NUM = FBL_LINNUM;
     }
     if (auxflg == 1)
     {
       ptfig->BEAUX = fbh_addfbaux (ptfig->BEAUX,name,0,0,lcltyp);
-      ptfig->BEAUX->USER = (void *)FBL_LINNUM;
+      ptfig->BEAUX->LINE_NUM = FBL_LINNUM;
     }
     if (buxflg == 1)
     {
       ptfig->BEBUX = fbh_addfbbux (ptfig->BEBUX,name,0,0,lcltyp);
-      ptfig->BEBUX->USER = (void *)FBL_LINNUM;
+      ptfig->BEBUX->LINE_NUM = FBL_LINNUM;
     }
     if (regflg == 1)
     {
       ptfig->BEREG = fbh_addfbreg (ptfig->BEREG,name,0,0);
-      ptfig->BEREG->USER = (void *)FBL_LINNUM;
+      ptfig->BEREG->LINE_NUM = FBL_LINNUM;
     }
 
     }

@@ -62,6 +62,38 @@
 |                            Types                            |
 |                                                             |
 \------------------------------------------------------------*/
+
+  typedef struct fbpcsinfo
+  {
+    chain_list *READ_LIST;
+    chain_list *WRITE_LIST;
+    authtable  *HASH_READ;
+    authtable  *HASH_WRITE;
+
+  } fbpcsinfo;
+
+  typedef struct fvhfig_list
+  {
+    struct fvhfig_list *NEXT;
+    char               *NAME;
+    fsmfig_list        *FSM_FIGURE;
+    fbpcs_list         *PROCESS_CLOCK;
+    fbpcs_list         *PROCESS_MAIN;
+    char               *CLOCK;
+    char               *CURRENT_STATE;
+    char               *NEXT_STATE;
+    char               *FIRST_STATE;
+    char               *RETURN_STATE;
+    char               *CONTROL;
+    char               *STACK_CONTROL[ FSM_MAX_CTRL ];
+    fbtyp_list         *STATE_TYPE;
+    fbtyp_list         *CONTROL_TYPE;
+    unsigned char       CLOCK_OK;
+    unsigned char       WHEN_CONDITION;
+    unsigned char       STAR_STATE_LOCOUT;
+
+  } fvhfig_list;
+
 /*------------------------------------------------------------\
 |                                                             |
 |                          Variables                          |
