@@ -147,7 +147,7 @@ static long              base ;
 %token        _OR
 %token        OTHERS
 %token        _OUT
-%token        PACKAGE
+%token        _PACKAGE
 %token        PORT
 %token        POSITIVE
 %token        PROCEDURE
