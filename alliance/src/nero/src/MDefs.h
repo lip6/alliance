@@ -1,7 +1,7 @@
 
 // -*- C++ -*-
 //
-// $Id: MDefs.h,v 1.5 2002/11/04 14:43:08 jpc Exp $
+// $Id: MDefs.h,v 1.6 2004/07/23 08:50:05 jpc Exp $
 //
 // /-----------------------------------------------------------------\ 
 // |                                                                 |
@@ -173,7 +173,7 @@
     // Matrix hollow level class ---------------------------------
 
     public: struct _CHollow {
- 
+
       typedef map<int, __CNode__*>  _CRow;
       typedef map<int, _CRow>       _CLayer;
 

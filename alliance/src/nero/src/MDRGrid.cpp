@@ -1,7 +1,7 @@
 
 // -*- C++ -*-
 //
-// $Id: MDRGrid.cpp,v 1.3 2002/10/29 18:46:03 jpc Exp $
+// $Id: MDRGrid.cpp,v 1.4 2004/07/23 08:50:04 jpc Exp $
 //
 //  /----------------------------------------------------------------\ 
 //  |                                                                |
@@ -429,8 +429,8 @@ int  CDRGrid::dz (int index, int d)
 template<class __CNode__>
 TMatrix<__CNode__>::_CHollow::~_CHollow (void)
 {
-    _CRow::iterator  itRow;
-  _CLayer::iterator  itLayer;
+  typename   _CRow::iterator  itRow;
+  typename _CLayer::iterator  itLayer;
 
 
   for (itLayer  = nodes.begin ();
@@ -451,8 +451,8 @@ TMatrix<__CNode__>::_CHollow::~_CHollow (void)
 template<class __CNode__>
 __CNode__ &TMatrix<__CNode__>::_CHollow::add (int x, int y)
 {
-    _CRow::iterator  itRow;
-  _CLayer::iterator  itLayer;
+  typename   _CRow::iterator  itRow;
+  typename _CLayer::iterator  itLayer;
 
 
   itLayer = nodes.find (x);
@@ -473,8 +473,8 @@ __CNode__ &TMatrix<__CNode__>::_CHollow::add (int x, int y)
 template<class __CNode__>
 __CNode__ *TMatrix<__CNode__>::_CHollow::get (int x, int y)
 {
-    _CRow::iterator  itRow;
-  _CLayer::iterator  itLayer;
+  typename   _CRow::iterator  itRow;
+  typename _CLayer::iterator  itLayer;
 
 
   itLayer = nodes.find (x);

@@ -1,7 +1,7 @@
 
 // -*- C++ -*-
 //
-// $Id: USys.cpp,v 1.2 2002/10/17 21:57:27 jpc Exp $
+// $Id: USys.cpp,v 1.3 2004/07/23 08:50:05 jpc Exp $
 //
 //  /----------------------------------------------------------------\ 
 //  |                                                                |
@@ -177,7 +177,7 @@ CHeader CHeader::operator() (string m)
 // -------------------------------------------------------------------
 // Function (friend)  :  "operator<<()".
 
-inline ostream &operator<< (ostream &o, const CHeader &self)
+ostream &operator<< (ostream &o, const CHeader &self)
 {
   o << self._header;
   if (self._message.size ())
