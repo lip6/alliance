@@ -1,4 +1,4 @@
-# $Id: Makefile.am,v 1.3 2002/05/02 15:00:16 czo Exp $
+# $Id: Makefile.am,v 1.4 2002/05/02 15:18:19 czo Exp $
 
 AM_CFLAGS = @ALLIANCE_CFLAGS@ 
 
@@ -9,7 +9,8 @@ x2y_LDADD = @ALLIANCE_LIBS@ \
 	  -lMcl -lMcp \
 	  -lMal -lMap \
 	  -lMsl \
-	  -lMel -lMgl \
+	  -lMel \
+          -lMgl \
 	  -lMhl \
 	  -lMvl \
 	  -lMmg \
