@@ -5,7 +5,7 @@
 # ftp sites          : ftp://ftp.lip6.fr/lip6/softs/alliance/
 #                   or ftp://ftp-asim.lip6.fr/pub/alliance/
 #
-# $Id: LICENCE,v 1.1 1999/05/31 17:11:53 czo Exp $
+# $Id: LICENCE,v 1.2 1999/11/08 12:33:37 czo Exp $
 
 
 
@@ -52,6 +52,7 @@
                             Contents copyrighted by
 
                                  Nizar ABDALLAH
+                                Mourad ABERBOUR
                                Pascale ALLEGRE
                                  Amara AMARA
                               Gregoire AVOT
@@ -69,6 +70,7 @@
                                 Julien DUNOYER
                                Olivier FLORENT
                                  Alain GREINER
+                                  Amar GUETTAF
                                  Amjad HAJJAR
                                Mokhtar HIRECH
                                Ludovic JACOMME
