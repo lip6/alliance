@@ -403,7 +403,7 @@ extern void vhdlsavefbarchi __P(( fbfig_list *pthedfbfig, int synopsys ));
   extern FILE *FblDriveFile;
 
 	/* ###------------------------------------------------------### */
-	/*    Tools
+	/*    Tools */
 	/* ###------------------------------------------------------### */
 
 extern void FbhScanExprProcess __P(( fbpcs_list *Process, void (*FuncLeft)(), void (*FuncRight)()));
