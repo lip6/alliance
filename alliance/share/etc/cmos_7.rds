@@ -652,15 +652,15 @@ caracterise RDS_VIA2 (
   regle 75 : largeur >= 1. ;
   regle 76 : longueur <= 1. ;
 );
-caracterise RDS_VIA4 (
+caracterise RDS_VIA3 (
   regle 77 : largeur >= 1. ;
   regle 78 : longueur <= 1. ;
 );
-caracterise RDS_VIA5 (
+caracterise RDS_VIA4 (
   regle 90 : largeur >= 1. ;
   regle 91 : longueur <= 1. ;
 );
-caracterise RDS_VIA6 (
+caracterise RDS_VIA5 (
   regle 92 : largeur >= 1. ;
   regle 93 : longueur <= 1. ;
 );
