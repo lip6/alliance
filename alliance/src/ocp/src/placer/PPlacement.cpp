@@ -1049,8 +1049,9 @@ PPlacement::PlotStat()
 {
     ofstream out("stat.gpl");
 
-  out << "set title 'all stats'\n#set terminal postscript color solid\n"
-    << "set output 'stat.ps'" << endl
+  out << "set title 'all stats'" << endl
+    << "#set terminal postscript color solid" << endl
+    << "#set output 'stat.ps'" << endl
     << "plot 'alldata.dat' using 1:2 title 'temperature' with lines,"
     << "'alldata.dat' using 1:3 title 'cost' with lines,"
     << "'alldata.dat' using 1:4 title 'rowcost' with lines,"
