@@ -1,0 +1,30 @@
+.\" Alliance man
+.\" Author: Czo <Olivier.Sirol@lip6.fr>
+.\" $Id: MBK_TRACE_GETENV.1,v 1.1 2001/11/02 14:51:10 czo Exp $
+.TH MBK_TRACE_GETENV 1 "$Date: 2001/11/02 14:51:10 $" "ASIM/LIP6" "MBK ENVIRONMENT VARIABLES"
+.SH NAME
+\fBMBK_TRACE_GETENV\fP \- defines getenv() debug output
+
+.so man1/alc_origin.1
+
+.SH SYNOPSIS
+.TP
+.TP
+Bourne Shell : \fBMBK_TRACE_GETENV\fR=\fIyes\fR; export MBK_TRACE_GETENV
+.TP
+C-shell : sentenv \f4MBK_TRACE_GETENV\fR \fIyes\fR
+
+.SH DESCRIPTION
+If \fBMBK_TRACE_GETENV\fR is set to "yes", all alliance tools will print debug info to stdout each time a  getenv() syscall is done.
+
+.SH OUTPUT EXAMPLE
+.RS
+\f4--- mbk --- mbkgetenv VH_PATSFX : pat\fR
+
+.SH SEE ALSO
+.PP
+.BR mbk(1)
+.BR mbkgetenv(3).
+
+.so man1/alc_bug_report.1
+
