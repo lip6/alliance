@@ -27,14 +27,14 @@ struct eqstr
 
 class PPlacement {
     public:
-	typedef vector<PRow>	PRows;
+	typedef vector<PRow*>	PRows;
 	typedef vector<PONet*> PONets;
 	typedef vector<PToPlaceIns*> PToPlaceInss;
 	typedef vector<PFixedIns*> PFixedInss;
 	typedef vector<PCon*> PCons;
 	typedef vector <bool> PrePlaceRow;
 	typedef vector<PrePlaceRow> PrePlaceTab;
-	typedef vector<PDetSubRow> PDetSubRows;
+	typedef vector<PDetSubRow*> PDetSubRows;
 
     private:
 	typedef map<double, unsigned, less<double> > PRowsYMax;
@@ -47,8 +47,8 @@ class PPlacement {
 	typedef hash_map<const char*, PDetToPlaceIns*, hash<const char*>, eqstr> PDetInsMap;
 
 	PBBox		BBox;
-	int			_dx;
-	int			_dy;
+	int		_dx;
+	int		_dy;
 
 	lofig*		_fig;   
 	phfig*		_prePlaceFig;

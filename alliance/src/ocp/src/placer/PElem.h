@@ -30,7 +30,7 @@ class PElem {
     double		GetPosY() const				{ return GetPos().GetY(); }
     
     virtual ostream&	Print(ostream& os) const = 0;
-    void			DescribeOn(ostream& os) const;
+    void		DescribeOn(ostream& os) const;
 };
 
 static inline ostream& operator<<(ostream& os, const PElem& elem) {

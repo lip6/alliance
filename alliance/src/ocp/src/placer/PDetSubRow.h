@@ -12,7 +12,7 @@ class PSubRow;
 class PDetSubRow : public PContainer {
 
   public:
-   typedef vector<PDetToPlaceIns> PDetInsVector;
+   typedef vector<PDetToPlaceIns*> PDetInsVector;
   
   private:
 
@@ -22,6 +22,7 @@ class PDetSubRow : public PContainer {
 
   public:
     			PDetSubRow(PSubRow& subrow);
+			~PDetSubRow();
     bool		GetOrientation() const		{ return _orientation; }
     PDetInsVector&	GetInssVector() 		{ return _detInsVector; }
     const PDetInsVector& GetConstInssVector() const		{ return _detInsVector; }

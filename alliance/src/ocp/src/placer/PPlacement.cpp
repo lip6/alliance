@@ -54,6 +54,20 @@ PPlacement::~PPlacement()
     {
 	delete *nit;
     }
+
+    for (PRows::iterator rit = _rows.begin();
+	    rit != _rows.end();
+	    rit++)
+    {
+	delete *rit;
+    }
+
+    for (PDetSubRows::iterator srit = _detSubRows.begin();
+	    srit != _detSubRows.end();
+	    srit++)
+    {
+	delete *srit;
+    }
 }
 
 void
@@ -391,7 +405,7 @@ PPlacement::Init(lofig* fig, int NbRows)
     // Insertion of instances on rows
     vector<PToPlaceIns*>::iterator iptfirst = ClassedInss.begin();
     PRows::iterator rfirst = _rows.begin();
-    PRow::PSubRows::iterator subrfirst = rfirst->GetSubRows().begin();
+    PRow::PSubRows::iterator subrfirst = (*rfirst)->GetSubRows().begin();
     
     PIns* InsInserting = *iptfirst;
     while(1) {
@@ -405,10 +419,10 @@ PPlacement::Init(lofig* fig, int NbRows)
             // end of insertion
         }
 
-	if (subrfirst == rfirst->GetSubRows().end()
+	if (subrfirst == (*rfirst)->GetSubRows().end()
 		&& (++rfirst != _rows.end()))
 	{
-	    subrfirst = rfirst->GetSubRows().begin();
+	    subrfirst = (*rfirst)->GetSubRows().begin();
 	}
 	
         if (rfirst == _rows.end()) 
@@ -417,21 +431,21 @@ PPlacement::Init(lofig* fig, int NbRows)
             {
                 InsInserting = *iptfirst;
                 rfirst = _rows.begin();
-		subrfirst = rfirst->GetSubRows().begin();
+		subrfirst = (*rfirst)->GetSubRows().begin();
             }
             else
             {
                 // insertion of instances with respect of Bins margin
                 // did not succed, inserting what's left.
                 rfirst = _rows.begin();
-		subrfirst = rfirst->GetSubRows().begin();
-                NbOfBins = subrfirst->GetNBins();
+		subrfirst = (*rfirst)->GetSubRows().begin();
+                NbOfBins = (*subrfirst)->GetNBins();
                 BinNumber = 0;
                 while (iptfirst != ClassedInss.end()) {
                     if ((*iptfirst)->GetWidth() <=
-                            subrfirst->GetWidth() - subrfirst->GetSize())
+                           (*subrfirst)->GetWidth() - (*subrfirst)->GetSize())
                     {
-                        subrfirst->ForceIns(**(iptfirst++), BinNumber++);
+                        (*subrfirst)->ForceIns(**(iptfirst++), BinNumber++);
                     }
                     else
                         BinNumber++;
@@ -439,15 +453,15 @@ PPlacement::Init(lofig* fig, int NbRows)
                     {
                         subrfirst++;
                         BinNumber = 0;
-			if (subrfirst != rfirst->GetSubRows().end())
-			    NbOfBins = subrfirst->GetNBins();
+			if (subrfirst != (*rfirst)->GetSubRows().end())
+			    NbOfBins = (*subrfirst)->GetNBins();
                     }
 
-		    if (subrfirst == rfirst->GetSubRows().end()
+		    if (subrfirst == (*rfirst)->GetSubRows().end()
 			    && (++rfirst != _rows.end()))
 		    {
-			subrfirst = rfirst->GetSubRows().begin();
-			NbOfBins = subrfirst->GetNBins();
+			subrfirst = (*rfirst)->GetSubRows().begin();
+			NbOfBins = (*subrfirst)->GetNBins();
 		    }
 		    
                     if (rfirst == _rows.end())
@@ -462,19 +476,19 @@ PPlacement::Init(lofig* fig, int NbRows)
                             exit(1);
                         }
                         rfirst = _rows.begin();
-			subrfirst = rfirst->GetSubRows().begin();
+			subrfirst = (*rfirst)->GetSubRows().begin();
                         InsInserting = *iptfirst;
                     }
                 }
             }
         }
-        NbOfBins = subrfirst->GetNBins();
+        NbOfBins = (*subrfirst)->GetNBins();
         BinNumber = 0;
         while ((iptfirst != ClassedInss.end())
                 && (BinNumber < NbOfBins)
-                && ((*iptfirst)->GetWidth() <= subrfirst->GetCapa() - subrfirst->GetSize()))
+                && ((*iptfirst)->GetWidth() <= (*subrfirst)->GetCapa() - (*subrfirst)->GetSize()))
         {
-            if (subrfirst->InsertIns(**iptfirst, BinNumber++))
+            if ((*subrfirst)->InsertIns(**iptfirst, BinNumber++))
 	    {
                 iptfirst++;
 	    }
@@ -839,9 +853,9 @@ PPlacement::PlotInstances(ofstream& out) const
 {
   
   out << "#rows" << endl;
-  for (PRows::const_iterator RowIt=_rows.begin(); RowIt!=_rows.end(); RowIt++)
+  for (PRows::const_iterator rit=_rows.begin(); rit!=_rows.end(); rit++)
   {
-      RowIt->Plot(out);
+      (*rit)->Plot(out);
   }
   out << "EOF" << endl;
   out << "#to place instances" << endl;
@@ -885,9 +899,9 @@ PPlacement::PlotAll(char* output) const
     PlotInstances(out);
   
     out << "#nets" << endl;
-    for (PONets::const_iterator NetIt=_nets.begin(); NetIt!=_nets.end(); NetIt++)
+    for (PONets::const_iterator nit=_nets.begin(); nit!=_nets.end(); nit++)
     {
-	(*NetIt)->Plot(out);
+	(*nit)->Plot(out);
     }
     out << "EOF" << endl << "pause -1 'press any key'" << endl;
 }
@@ -924,33 +938,33 @@ PPlacement::PlotFinal(char* output) const
     out << "EOF" << endl;
 
     out << "#subrows" << endl;
-    for (PDetSubRows::const_iterator SRowIt = _detSubRows.begin() ;
-	  SRowIt != _detSubRows.end() ;
-	  SRowIt++)
+    for (PDetSubRows::const_iterator srit = _detSubRows.begin() ;
+	  srit != _detSubRows.end() ;
+	  srit++)
     {
-	SRowIt->Plot(out);
+	(*srit)->Plot(out);
     }
     out << "EOF" << endl;
 
     out << "#instances" << endl;
 
-    for (PDetSubRows::const_iterator SRowIt = _detSubRows.begin() ;
-	    SRowIt != _detSubRows.end() ;
-	    SRowIt++)
+    for (PDetSubRows::const_iterator srit = _detSubRows.begin() ;
+	    srit != _detSubRows.end() ;
+	    srit++)
     {
-	for (PDetSubRow::PDetInsVector::const_iterator InsIt = SRowIt->GetConstInssVector().begin() ;
-		InsIt != SRowIt->GetConstInssVector().end() ;
-		InsIt++)
+	for (PDetSubRow::PDetInsVector::const_iterator iit = (*srit)->GetConstInssVector().begin() ;
+		iit != (*srit)->GetConstInssVector().end() ;
+		iit++)
 	{
-	    InsIt->Plot(out);
+	    (*iit)->Plot(out);
 	}
     }
     out << "EOF" << endl;
     out << "#nets" << endl;
 
-    for (PONets::const_iterator NetIt=_nets.begin(); NetIt!=_nets.end(); NetIt++)
+    for (PONets::const_iterator nit=_nets.begin(); nit!=_nets.end(); nit++)
     {
-	(*NetIt)->Plot(out);
+	(*nit)->Plot(out);
     }
     out << "EOF" << endl << "pause -1 'press any key'" << endl;
 }
@@ -996,24 +1010,24 @@ PPlacement::PlotOnlyBins(char* output) const
 
     if (_totalMoves != 0)
     {
-	for (PRows::const_iterator RowIt=_rows.begin(); RowIt!=_rows.end(); RowIt++)
+	for (PRows::const_iterator rit=_rows.begin(); rit!=_rows.end(); rit++)
 	{
-	    RowIt->PlotLabel(out, _totalMoves);
+	    (*rit)->PlotLabel(out, _totalMoves);
 	}
     }
 
     out << "plot [:][:] '-' w l 1, '-' w l 2" << endl << "#bins" << endl;
-    for (PRows::const_iterator RowIt=_rows.begin(); RowIt!=_rows.end(); RowIt++)
+    for (PRows::const_iterator rit=_rows.begin(); rit!=_rows.end(); rit++)
     {
-	RowIt->Plot(out);
+	(*rit)->Plot(out);
     }
 
     out << "EOF" << endl;
     out << "#preplaced instances" << endl;
-    for (PFixedInss::const_iterator insit = _fixedInss.begin();
-	    insit != _fixedInss.end(); insit++)
+    for (PFixedInss::const_iterator iit = _fixedInss.begin();
+	    iit != _fixedInss.end(); iit++)
     {
-	(*insit)->Plot(out);
+	(*iit)->Plot(out);
     }
     out << "EOF" << endl;
     out << "pause -1 'press any key'" << endl;
@@ -1233,27 +1247,27 @@ PPlacement::InitPlace(int NbRows)
     _rowZeroOrientation = RowOrientation;
     for (int i = 0; i < NRows; i++)
     {
-	_rows.push_back(PRow(1));
+	_rows.push_back(new PRow(1));
         double XMin = 0.0;
-	_rows.back().Init(Y, XMin, *this, RowOrientation);
+	_rows.back()->Init(Y, XMin, *this, RowOrientation);
 	_rowsYMax[Y + ROWHEIGHT] = rowidx;
 	_rowsYMinInv[Y] = rowidx;
 	++rowidx;
-	PSubRow& subrow = _rows.back()._subRows[0];
-	subrow.Init(&(_rows.back()), Y, XMin, rowwidth, _margin, 
+	PSubRow& subrow = *(_rows.back()->_subRows[0]);
+	subrow.Init(_rows.back(), Y, XMin, rowwidth, _margin, 
 		_binsMaxWidth, _binsMinWidth);
-	_rows.back()._subRowsXMax[rowwidth + XMin] = 0;
-	_rows.back()._subRowsXMaxInv[rowwidth + XMin] = 0;
+	_rows.back()->_subRowsXMax[rowwidth + XMin] = 0;
+	_rows.back()->_subRowsXMaxInv[rowwidth + XMin] = 0;
         Y += ROWHEIGHT;
 	RowOrientation = !RowOrientation;
     }
 
     // Computing Placement BBox
     double MaxX = 0.0, MaxY = 0.0, RowMaxX, RowMaxY;
-    for (PRows::iterator rfirst = _rows.begin(); rfirst != _rows.end(); rfirst++)
+    for (PRows::iterator rit = _rows.begin(); rit != _rows.end(); rit++)
     {
-        RowMaxX = rfirst->GetMaxX();
-        RowMaxY = rfirst->GetMaxY();
+        RowMaxX = (*rit)->GetMaxX();
+        RowMaxY = (*rit)->GetMaxY();
         if (MaxX < RowMaxX)
             MaxX = RowMaxX;
         if (MaxY < RowMaxY)
@@ -1414,11 +1428,11 @@ PPlacement::InitPlaceWithPrePlace()
 	  int numsubrows = CheckCreateRow(tabpreplace, yit, Width);
 	  if (numsubrows > 0)
 	  {
-	    _rows.push_back(PRow(*this, (double)(yit * ROWHEIGHT), Width, numsubrows, orientation));
+	    _rows.push_back(new PRow(*this, (double)(yit * ROWHEIGHT), Width, numsubrows, orientation));
 	    _rowsYMax[(yit + 1) * ROWHEIGHT] = numrows;
 	    _rowsYMinInv[yit * ROWHEIGHT] = numrows;
 	    ++numrows;
-	    CreateSubRows(&_rows.back(), tabpreplace, yit, numsubrows, Width);
+	    CreateSubRows(_rows.back(), tabpreplace, yit, numsubrows, Width);
 	  }
 	  orientation = !orientation;
 	}
@@ -1459,7 +1473,7 @@ PPlacement::CreateSubRows(PRow* row, PrePlaceTab& tabpreplace,
 
     if ( (xmax - xmin) >= _binsMinWidth)
     {
-	row->_subRows[subrowscreated].Init(row, (double)(coordy * ROWHEIGHT), (double)xmin,(double)xmax,
+	row->_subRows[subrowscreated]->Init(row, (double)(coordy * ROWHEIGHT), (double)xmin,(double)xmax,
 		(double)_margin, _binsMaxWidth, _binsMinWidth);
 	row->_subRowsXMax[(double)xmax] = subrowscreated;
 	++subrowscreated;
@@ -1529,5 +1543,5 @@ PPlacement::GetRow(const PRow* row, const double dist)
     PRowsYMax::iterator rsup = _rowsYMinInv.upper_bound(bornesup);
 
     unsigned randidx = rinf->second + (unsigned)((double)(rsup->second - rinf->second + 1) * (rand() / (RAND_MAX+1.0)));
-    return _rows[randidx];
+    return *_rows[randidx];
 }

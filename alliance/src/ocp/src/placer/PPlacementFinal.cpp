@@ -69,11 +69,11 @@ PPlacement::FinalInitialize()
     unsigned nbsubrows = 0;
     for (PRows::iterator rit = _rows.begin(); rit != _rows.end(); rit++)
     {
-	for (PRow::PSubRows::iterator srit = rit->GetSubRows().begin();
-		srit != rit->GetSubRows().end();
+	for (PRow::PSubRows::iterator srit = (*rit)->GetSubRows().begin();
+		srit != (*rit)->GetSubRows().end();
 		srit++)
 	{
-	    if (srit->GetNIns() > 0)
+	    if ((*srit)->GetNIns() > 0)
 		++nbsubrows;
 	}
     }
@@ -81,12 +81,12 @@ PPlacement::FinalInitialize()
 
     for (PRows::iterator rit = _rows.begin(); rit != _rows.end(); rit++)
     {
-	for (PRow::PSubRows::iterator srit = rit->GetSubRows().begin();
-		srit != rit->GetSubRows().end();
+	for (PRow::PSubRows::iterator srit = (*rit)->GetSubRows().begin();
+		srit != (*rit)->GetSubRows().end();
 		srit++)
 	{
-	    if (srit->GetNIns() > 0)
-		_detSubRows.push_back(PDetSubRow(*srit));
+	    if ((*srit)->GetNIns() > 0)
+		_detSubRows.push_back(new PDetSubRow(**srit));
 	}
     }
 
@@ -95,11 +95,12 @@ PPlacement::FinalInitialize()
     for (PDetSubRows::iterator dsrit = _detSubRows.begin();
 	    dsrit != _detSubRows.end(); dsrit++)
     {
-	for (PDetSubRow::PDetInsVector::iterator it = dsrit->GetInssVector().begin();
-		it != dsrit->GetInssVector().end(); it++)
+	for (PDetSubRow::PDetInsVector::iterator it = (*dsrit)->GetInssVector().begin();
+		it != (*dsrit)->GetInssVector().end();
+		it++)
 	{
-	    pdetinsmap[it->GetInstance()->INSNAME] = &(*it);
-	    it->SetSubRow(&(*dsrit));
+	    pdetinsmap[(*it)->GetInstance()->INSNAME] = *it;
+	    (*it)->SetSubRow(*dsrit);
 	}
     }
 
@@ -144,7 +145,7 @@ PPlacement::FinalInitialize()
     for (PDetSubRows::iterator dsrit = _detSubRows.begin();
 	    dsrit != _detSubRows.end(); dsrit++)
     {
-	dsrit->ExpandInstances(_eqMargin);
+	(*dsrit)->ExpandInstances(_eqMargin);
     }
 
     // Updating All _nets BBoxs
@@ -195,7 +196,7 @@ PPlacement::FinalOptimize()
 	for (PDetSubRows::iterator dsrit = _detSubRows.begin();
 		dsrit != _detSubRows.end(); dsrit++)
 	{
-	    if (dsrit->FinalOptimize())
+	    if ((*dsrit)->FinalOptimize())
 	    {
 		ContinueCondition = true;
 		OptimizationResult = true;
@@ -238,10 +239,10 @@ PPlacement::Save()
     for (PDetSubRows::iterator dsrit = _detSubRows.begin();
 	    dsrit != _detSubRows.end(); dsrit++)
     {
-	for (PDetSubRow::PDetInsVector::iterator it = dsrit->GetInssVector().begin();
-		it != dsrit->GetInssVector().end(); it++)
+	for (PDetSubRow::PDetInsVector::iterator it = (*dsrit)->GetInssVector().begin();
+		it != (*dsrit)->GetInssVector().end(); it++)
 	{
-	    it->Save(physicalfig, _dx, _dy);
+	    (*it)->Save(physicalfig, _dx, _dy);
 	}
     }
 

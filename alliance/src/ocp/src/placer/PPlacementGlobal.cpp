@@ -88,9 +88,9 @@ double
 PPlacement::GetRowCost()
 {
     double RowCost = 0.0;
-    for (PRows::iterator RowIt = _rows.begin(); RowIt != _rows.end(); RowIt++)
+    for (PRows::iterator rit = _rows.begin(); rit != _rows.end(); rit++)
     {
-	RowCost += RowIt->GetSubRowCost();
+	RowCost += (*rit)->GetSubRowCost();
     }
     return RowCost;
 }
@@ -100,9 +100,9 @@ PPlacement::GetBinCost()
 {
     double BinCost = 0.0;
 
-    for (PRows::iterator RowIt = _rows.begin(); RowIt != _rows.end(); RowIt++)
+    for (PRows::iterator rit = _rows.begin(); rit != _rows.end(); rit++)
     {
-	BinCost += RowIt->GetBinCost();
+	BinCost += (*rit)->GetBinCost();
     }
     return BinCost;
 }

@@ -16,7 +16,7 @@ class PSubRow : public PContainer {
     friend class PRow;
 
   public:
-   typedef vector <PBin> PBins;
+   typedef vector <PBin*> PBins;
    typedef map <double, unsigned> PBinsXMax;
   
   private:

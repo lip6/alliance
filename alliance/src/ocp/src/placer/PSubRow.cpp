@@ -9,7 +9,12 @@ PSubRow::PSubRow()
 {}
 
 PSubRow::~PSubRow()
-{}
+{
+    for (PBins::iterator bit = _bins.begin();
+	    bit !=_bins.end();
+	    bit++)
+	delete *bit;
+}
 
 unsigned
 PSubRow::GetNBins() const
@@ -52,21 +57,21 @@ PSubRow::Init(PRow* row, double y, double minx, double maxx, double margin, doub
     _bins.reserve(_nBins);
     for (unsigned binnumber = 0; binnumber < _nBins; binnumber++)
     {
-        _bins.push_back(PBin());
+        _bins.push_back(new PBin());
         binbbox.SetMinX(xpos);
 	if (modulo > 0)
 	{
-	  xpos += (binswidth+1);
-          binbbox.SetMaxX(xpos);
-	  modulo--;
+	    xpos += (binswidth+1);
+	    binbbox.SetMaxX(xpos);
+	    modulo--;
 	}
 	else
 	{
-	  xpos += binswidth;
-          binbbox.SetMaxX(xpos);
+	    xpos += binswidth;
+	    binbbox.SetMaxX(xpos);
 	}
 	_binsXMax[xpos] = binnumber;
-        _bins.back().Init(binbbox, binscapa, *this);
+        _bins.back()->Init(binbbox, binscapa, *this);
     }
     _row->MergeBBox(_bBox);
 }
@@ -74,25 +79,25 @@ PSubRow::Init(PRow* row, double y, double minx, double maxx, double margin, doub
 PBin&
 PSubRow::GetBin(const double X)
 {
-    if (X >= _bins.rbegin()->GetMaxX())
-	return *(_bins.rbegin());
+    if (X >= (*_bins.rbegin())->GetMaxX())
+	return **(_bins.rbegin());
 
-    if (X <= _bins.begin()->GetMinX())
-	return *(_bins.begin());
+    if (X <= (*_bins.begin())->GetMinX())
+	return **(_bins.begin());
 
     PBinsXMax::iterator srpos = _binsXMax.upper_bound(X);
-    return _bins[srpos->second];
+    return *_bins[srpos->second];
 }
     
 bool
 PSubRow::InsertIns(PToPlaceIns& Ins, int BinNumber)
 {
-    if ((_bins[BinNumber].GetCapa() - _bins[BinNumber].GetSize())
+    if ((_bins[BinNumber]->GetCapa() - _bins[BinNumber]->GetSize())
             < Ins.GetWidth())
         return false;
     else
     {
-        _bins[BinNumber].AddIns(&Ins);
+        _bins[BinNumber]->AddIns(&Ins);
         return true;
     }
 }
@@ -101,15 +106,15 @@ unsigned
 PSubRow::GetNIns() const
 {
     unsigned nins = 0;
-    for (PBins::const_iterator BinIt=_bins.begin(); BinIt!=_bins.end(); BinIt++)
-	nins += BinIt->GetNIns();
+    for (PBins::const_iterator bit =_bins.begin(); bit !=_bins.end(); bit++)
+	nins += (*bit)->GetNIns();
     return nins;
 }
     
 void
 PSubRow::ForceIns(PToPlaceIns& Ins, int BinNumber)
 {
-    _bins[BinNumber].AddIns(&Ins);
+    _bins[BinNumber]->AddIns(&Ins);
 }
 
 #ifndef Abs
@@ -119,9 +124,9 @@ double
 PSubRow::GetBinCost() const
 {
     double BinCost = 0.0;
-    for (PBins::const_iterator BinIt = _bins.begin(); BinIt != _bins.end(); BinIt++)
+    for (PBins::const_iterator bit = _bins.begin(); bit != _bins.end(); bit++)
     {
-        BinCost += Abs(BinIt->GetSize() - BinIt->GetCapa());
+        BinCost += Abs((*bit)->GetSize() - (*bit)->GetCapa());
     }
     return BinCost;
 }
@@ -129,9 +134,9 @@ PSubRow::GetBinCost() const
 ofstream& 
 PSubRow::Plot(ofstream& out) const
 {
-  for (PBins::const_iterator BinIt=_bins.begin(); BinIt!=_bins.end(); BinIt++)
+  for (PBins::const_iterator bit=_bins.begin(); bit!=_bins.end(); bit++)
   {
-      BinIt->Plot(out);
+      (*bit)->Plot(out);
   }
   return out;
 }
@@ -139,11 +144,11 @@ PSubRow::Plot(ofstream& out) const
 ofstream& 
 PSubRow::PlotLabel(ofstream& out, unsigned TotalMoves) const
 {
-    for (PBins::const_iterator BinIt=_bins.begin(); BinIt!=_bins.end(); BinIt++)
-  {
-      BinIt->PlotLabel(out, TotalMoves);
-  }
-  return out;
+    for (PBins::const_iterator bit=_bins.begin(); bit!=_bins.end(); bit++)
+    {
+	(*bit)->PlotLabel(out, TotalMoves);
+    }
+    return out;
 }
 
 ostream&

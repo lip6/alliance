@@ -6,6 +6,12 @@
 PRow::PRow(unsigned nbofsubrows)
     : PContainer(), _subRows(nbofsubrows)
 {
+    for (PSubRows::iterator srit=_subRows.begin();
+	    srit!=_subRows.end();
+	    srit++)
+    {
+	*srit = new PSubRow();
+    }
 }
 
 PRow::PRow(PPlacement& placement,
@@ -17,6 +23,18 @@ PRow::PRow(PPlacement& placement,
       _subRows(nbofsubrows),
       _orientation(orientation)
 {
+    for (PSubRows::iterator srit=_subRows.begin();
+	    srit!=_subRows.end();
+	    srit++)
+	*srit = new PSubRow();
+}
+
+PRow::~PRow()
+{
+    for (PSubRows::iterator srit=_subRows.begin();
+	    srit!=_subRows.end();
+	    srit++)
+	delete *srit;
 }
 
 void
@@ -41,7 +59,7 @@ PRow::GetBinCost() const
     double bincost = 0.0;
     for (PSubRows::const_iterator srit = _subRows.begin(); srit != _subRows.end(); srit++)
     {
-	bincost += srit->GetBinCost();
+	bincost += (*srit)->GetBinCost();
     }
     return bincost;
 }
@@ -52,7 +70,7 @@ PRow::GetSubRowCost() const
     double subrowcost = 0.0;
     for (PSubRows::const_iterator srit = _subRows.begin(); srit != _subRows.end(); srit++)
     {
-	subrowcost += Abs(srit->GetSize() - srit->GetCapa());
+	subrowcost += Abs((*srit)->GetSize() - (*srit)->GetCapa());
     }
     return subrowcost;
 }
@@ -62,7 +80,7 @@ PRow::GetSubRow(const double X)
 {
     // s'il y a un seul subrow on le renvoie direct
     if (_subRows.size() == 1)
-	return _subRows[0];
+	return *_subRows[0];
 
     // si il n'y a rien a droite
     PSubRowsXMax::iterator right = _subRowsXMax.lower_bound(X);
@@ -71,33 +89,33 @@ PRow::GetSubRow(const double X)
     if (right == _subRowsXMax.end())
     {
 	assert(left != _subRowsXMaxInv.end());
-	return _subRows[left->second];
+	return *_subRows[left->second];
     }
 
     // si on est tombe direct dans un subrow...
-    double rightminx = _subRows[right->second].GetMinX();
+    double rightminx = _subRows[right->second]->GetMinX();
     if (X > rightminx)
-	return _subRows[right->second];
+	return *_subRows[right->second];
     
 
     // si il n'y a rien a gauche...
     if (left == _subRowsXMaxInv.end())
     {
 	assert(right != _subRowsXMax.end());
-	return _subRows[right->second];
+	return *_subRows[right->second];
     }
 
     // on est au milieu de deux subrows, on
     // renvoie le plus proche.
 
-    if ((X - _subRows[left->second].GetMaxX())
-	    > (_subRows[right->second].GetMinX() - X))
+    if ((X - _subRows[left->second]->GetMaxX())
+	    > (_subRows[right->second]->GetMinX() - X))
     {
-	return _subRows[right->second];
+	return *_subRows[right->second];
     }
     else
     {
-	return _subRows[left->second];
+	return *_subRows[left->second];
     }
 }
 
@@ -106,7 +124,7 @@ PRow::Plot(ofstream& out) const
 {
   for (PSubRows::const_iterator srit=_subRows.begin(); srit!=_subRows.end(); srit++)
   {
-      srit->Plot(out);
+      (*srit)->Plot(out);
   }
   return out;
 }
@@ -115,10 +133,10 @@ ofstream&
 PRow::PlotLabel(ofstream& out, unsigned TotalMoves) const
 {
     for (PSubRows::const_iterator srit=_subRows.begin(); srit!=_subRows.end(); srit++)
-  {
-      srit->PlotLabel(out, TotalMoves);
-  }
-  return out;
+    {
+	(*srit)->PlotLabel(out, TotalMoves);
+    }
+    return out;
 }
 ostream&
 PRow::Print(ostream& os) const

@@ -4,6 +4,13 @@
 #include "PDetPlacement.h"
 #include <algorithm>
 
+PDetSubRow::~PDetSubRow()
+{
+    for (PDetInsVector::iterator iit = _detInsVector.begin();
+	    iit != _detInsVector.end(); iit++)
+	delete *iit;
+}
+
 PDetSubRow::PDetSubRow(PSubRow& subrow):
 	PContainer(subrow.GetBBox()),
 	_orientation(subrow.GetOrientation())
@@ -14,7 +21,7 @@ PDetSubRow::PDetSubRow(PSubRow& subrow):
 	    bit != subrow.GetBins().end();
 	    bit++)
     {
-	nbins += bit->GetToPlaceInss().size();
+	nbins += (*bit)->GetToPlaceInss().size();
     }
     _detInsVector.reserve(nbins);
 
@@ -23,11 +30,11 @@ PDetSubRow::PDetSubRow(PSubRow& subrow):
 	    bit != subrow.GetBins().end();
 	    bit++)
     {
-	for (PBin::PToPlaceInss::iterator iit = bit->GetToPlaceInss().begin();
-		iit != bit->GetToPlaceInss().end();
+	for (PBin::PToPlaceInss::iterator iit = (*bit)->GetToPlaceInss().begin();
+		iit != (*bit)->GetToPlaceInss().end();
 		iit++)
 	{
-	    _detInsVector.push_back(PDetToPlaceIns(*iit));
+	    _detInsVector.push_back(new PDetToPlaceIns(*iit));
 	}
     }
 }
@@ -41,7 +48,7 @@ PDetSubRow::ExpandInstances(const bool eqmargin)
 	    iit != _detInsVector.end();
 	    iit++)
     {
-	totalinssize += iit->GetWidth();
+	totalinssize += (*iit)->GetWidth();
     }
     //xtof: 06 05 2002
     //changing the white space repartition
@@ -67,26 +74,26 @@ PDetSubRow::ExpandInstances(const bool eqmargin)
 	    iit != _detInsVector.end();
 	    iit++)
     {
-	iit->SetMarginWidth(iit->GetWidth() + inswhitespace);
+	(*iit)->SetMarginWidth((*iit)->GetWidth() + inswhitespace);
     }
     PDetInsVector::iterator iit = _detInsVector.begin();
     if (eqmargin)
     {
 	while (whitespaceremain-- > 0.0)
 	{
-	    (iit++)->AddWhiteSpace();
+	    (*iit++)->AddWhiteSpace();
 	}
     }
     else
     {
 	while (whitespaceremain >= 2.0)
 	{
-	    (iit++)->AddDoubleWhiteSpace();
+	    (*iit++)->AddDoubleWhiteSpace();
 	    whitespaceremain -= 2.0;
 	}
 	if (whitespaceremain > 0.0)
 	{
-	    (iit)->AddWhiteSpace();
+	    (*iit)->AddWhiteSpace();
 	}
     }
     
@@ -95,8 +102,8 @@ PDetSubRow::ExpandInstances(const bool eqmargin)
 	    iit != _detInsVector.end();
 	    iit++)
     {
-	iit->SetLeftCornerX(XPos);
-	XPos += iit->GetMarginWidth();
+	(*iit)->SetLeftCornerX(XPos);
+	XPos += (*iit)->GetMarginWidth();
     }
 }
 
@@ -126,7 +133,7 @@ PDetSubRow::FinalOptimize()
     for (PDetInsVector::iterator iit = _detInsVector.begin();
 	    iit != _detInsVector.end(); iit++)
     {
-	insvector.push_back(&(*iit));
+	insvector.push_back(*iit);
     }
     sort(insvector.begin(), insvector.end(), CompareInsPosition(insvector));
     PDetPlacement::Problem problem;

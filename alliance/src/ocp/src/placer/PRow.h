@@ -17,7 +17,7 @@ class PRow : public PContainer
     friend class PPlacement;
 
   public:
-   typedef vector <PSubRow> PSubRows; 
+   typedef vector <PSubRow*> PSubRows; 
    typedef map<double, unsigned, less<double> > PSubRowsXMax;
    typedef map<double, unsigned, greater<double> > PSubRowsXMaxInv;
   
@@ -32,6 +32,7 @@ class PRow : public PContainer
                         PRow(unsigned nbofsubrows);
 			PRow(PPlacement& placement, const double ymin, const double xmax,
 			    const unsigned nbofsubrows, const bool orientation);
+			~PRow();
 
     void                Init(double Y, double MinX, PPlacement &Placement, const bool RowOrientation);
     bool		GetOrientation() const		{ return _orientation; }
