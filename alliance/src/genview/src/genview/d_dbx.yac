@@ -1,0 +1,628 @@
+%{
+/* dbx syntax parser : Frederic Petrot, december 91 */
+/* version 1.0 written in C and failed because of my lack of knowledge */
+/* in writting recursive grammar parsers */
+/* lexical analyser in C, very context dependant */
+/* rules analyse, yacc */
+/* syntax extracted from a sample of outputs of C headers and files */
+/* thru the use of gcc -S -g */
+#include <stdio.h>
+#include <string.h>
+#include MUT_H
+#include "d_dbx.h"
+
+#define TERMINAL    0
+#define STRUCTURE   1 /* also good for union, only fields address change */
+#define TYPEDEF     4
+#define POINTER     8
+#define ARRAY       16
+#define FUNCTION    32
+#define ENUMERATION 64
+#define XREF        128
+
+static char *dbx_line; /* dbx line to be analyzed, not splitted by '\\' */
+
+PTVARIABLE firstVariable = NULL; /* list of variables */
+PTSTRUCT firstStruct = NULL; /* list of structures */
+static PTSTRUCT gst; /* current global structure to work on */
+static PTSTRUCT ost; /* previous global structure to work on */
+static PTSTRUCT fst; /* previous global structure to work on */
+static PTVARIABLE gv; /* current global variable to work on */
+static PTELEMENT elm, e; /* current element */
+
+static char *name; /* current structure/variable name */
+static int varAddress;
+static int varClass;
+static PTELEMENT create_element();
+static PTSTRUCT create_struct();
+static void delete_struct();
+static PTVARIABLE create_variable();
+static void fill_dbx_info();
+static int yylex();
+%}
+
+%union {
+   int integer;
+   char string[255]; /* why 255? Good question! */
+}
+
+%token <string> SYMBOL
+%token <integer> INTEGER FLAG
+%type <integer> type class
+%type <string> line dbx list lists /* to make flex happy! */
+
+%%
+
+dbx      : line
+         | SYMBOL /* needed for file name header only! */
+         ;
+
+line     :  SYMBOL { name = $1;} ':' class type
+            {
+               switch ($4) {
+                  case 'T': /* that's only a structure definition */
+                  case 't': /* or some informations for casts, not variables */
+                     break;
+                  case 'G':
+                     if (gst && gst->object == STRUCTURE)
+                        break;
+                  default : /* we now have a variable to create */
+                     gv = create_variable(mbkstrdup(name), $4, $5, getsize($5));
+                     /* address is given as argument */
+                     /* class is also given as argument for address offset */
+               }
+            }
+         ;
+
+class    :  { $$ = 0; /* automatic variable */}
+         |  FLAG
+            { $$ = $1; /* type given in the string */}
+         ;
+
+type     :  INTEGER
+            {
+               /* this is a terminal element of a rule
+                  either typeNumber or typeFrom */
+               $$ = $1; /* just give it back */
+            }
+         |  INTEGER '=' '*' type
+            {
+               ost = gst; /* stack for imbricated declarations : push */
+               gst = create_struct("*", $1, $4, POINTER, 32);
+               if (fst == NULL)
+                  fst = gst;
+               if (ost)
+                  gst = ost; /* stack for imbricated declarations : pop */
+               else {
+                  gst = fst;
+                  fst = NULL;
+               }
+               $$ = $1;
+            }
+         |  INTEGER '=' 'f' type
+            {
+               ost = gst; /* stack for imbricated declarations : push */
+               gst = create_struct("function", $1, $4, FUNCTION, 32);
+               if (fst == NULL)
+                  fst = gst;
+               if (ost)
+                  ost = gst; /* stack for imbricated declarations : push */
+               else {
+                  gst = fst;
+                  fst = NULL;
+               }
+               $$ = $1;
+            }
+         |  INTEGER '=' 'e' lists ';'
+            {
+               /* enum are better than #define since symbolic values may
+                  be used for debug. Later on, perhaps */
+            }
+         |  INTEGER '=' 'x' SYMBOL ':'
+            {
+               /* xref are not neccessay but no easy to get rid of */
+               /* keep same type value for all fields */
+            }
+         |  INTEGER '=' 's' INTEGER fields
+            {
+               ost = gst; /* stack for imbricated declarations : push */
+               delete_struct($1); /* if it has existed, it's thru xref */
+               gst = create_struct(mbkstrdup(name), $1, TERMINAL, STRUCTURE, $4);
+               gst->member = elm;
+               elm = NULL;
+               if (fst == NULL)
+                  fst = gst;
+               if (ost)
+                  gst = ost; /* stack for imbricated declarations : pop */
+               else {
+                  gst = fst;
+                  fst = NULL;
+               }
+               $$ = $1;
+            }
+         |  INTEGER '=' 'u' INTEGER fields
+            {
+               ost = gst; /* stack for imbricated declarations : push */
+               delete_struct($1); /* if it has existed, it's thru xref */
+               gst = create_struct(mbkstrdup(name), $1, TERMINAL, STRUCTURE, $4);
+               gst->member = elm;
+               elm = NULL;
+               if (fst == NULL)
+                  fst = gst;
+               if (ost)
+                  gst = ost; /* stack for imbricated declarations : pop */
+               else {
+                  gst = fst;
+                  fst = NULL;
+               }
+               $$ = $1;
+            }
+         |  INTEGER '=' 'a' ';' INTEGER ';' INTEGER ';' type
+            {
+               ost = gst; /* stack for imbricated declarations : push */
+               gst = create_struct("array", $1, $9, ARRAY, ($7 + 1) * 8);
+               if (fst == NULL)
+                  fst = gst;
+               if (ost)
+                  gst = ost; /* stack for imbricated declarations : pop */
+               else {
+                  gst = fst;
+                  fst = NULL;
+               }
+               $$ = $1;
+            }
+         ;
+
+fields   :  field
+         |  field fields
+         ;
+
+field    :  SYMBOL ':' type ',' INTEGER ',' INTEGER ';'  
+            {
+            PTELEMENT pel;
+
+               pel = create_element(mbkstrdup($1), $3, $5, $7);
+               if (!elm)
+                  elm = pel;
+               else {
+                  for (e = elm; e->next; e = e->next); /* find last */
+                  e->next = pel;
+               }
+            }
+         |  SYMBOL ':' type ',' INTEGER ',' INTEGER ';' ';' 
+            {
+            PTELEMENT pel;
+
+               pel = create_element(mbkstrdup($1), $3, $5, $7);
+               if (!elm)
+                  elm = pel;
+               else {
+                  for (e = elm; e->next; e = e->next); /* find last */
+                  e->next = pel;
+               }
+            }
+         ;
+
+lists    :  list       /* enumeration are skipped */
+         |  list lists /* just parse them */
+         ;
+
+list     :  SYMBOL ':' INTEGER ','
+         ;
+
+%%
+
+/* memory allocating routines */
+static PTELEMENT create_element(name, number, address, size)
+char *name;
+int number, address, size;
+{
+PTELEMENT member;
+   
+   member = (PTELEMENT)mbkalloc(sizeof(ELEMENT));
+   member->name = name;
+   member->typeNumber = number;
+   member->address = address;
+   member->size = size;
+   member->next = NULL;
+
+   return member;
+}
+
+static PTSTRUCT create_struct(name, number, from, type, size)
+char *name;
+int number, from, type, size;
+{
+static PTSTRUCT lastStruct;
+PTSTRUCT s;
+
+   for (s = firstStruct; s; s = s->next)
+      if (s->typeNumber == number)
+         fprintf(stderr, "Type already there (%d)!\n", number);
+
+   s = (PTSTRUCT)mbkalloc(sizeof(STRUCT));
+   s->name = name;
+   s->typeNumber = number;
+   s->typeFrom = from;
+   s->object = type;
+   s->size = size;
+   s->member = NULL;
+   s->next = NULL;
+   /* order may be interesting for array and pointer printout */
+   if (!firstStruct) /* first add */
+      lastStruct = firstStruct = s;
+   else { /* insert in end of list */
+      lastStruct->next = s;
+      lastStruct = s;
+   }
+   return s;
+}
+
+static void delete_struct(number)
+int number;
+{
+PTSTRUCT s, ps;
+
+   for (s = firstStruct; s; ps = s, s = s->next)
+      if (s->typeNumber == number)
+         break;
+
+   if (!s)
+      return;  
+   else if (s == firstStruct)
+      firstStruct = s->next;
+   else
+      ps->next = s->next;
+   mbkfree((void *)s->name);
+   mbkfree((void *)s);
+}
+
+static PTVARIABLE create_variable(name, scope, number, size)
+char *name;
+int scope, number, size;
+{
+static PTVARIABLE lastVariable; /* add at then end, order needed */
+PTVARIABLE v;
+ 
+   v =(PTVARIABLE)mbkalloc(sizeof(VARIABLE));
+   v->name = name;
+   v->typeNumber = number;
+   v->size = size;
+   v->address = varAddress;
+   v->class = varClass; /* both needed because of static arrays */
+   v->scope = scope;    /* and variables that must be distinguished */
+   v->next = NULL;
+   /* must have the same order than declaration, for 'main' parameters */
+   if (!firstVariable) /* first add */
+      lastVariable = firstVariable = v;
+   else { /* insert in end of list */
+      lastVariable->next = v;
+      lastVariable = v;
+   }
+   return v;
+}
+
+/* check if a type is a C terminal one, simplify the grammar because of void */
+int isknowntype(s)
+char *s;
+{
+int i = 0;
+   while (*s && *s != ':')
+      yylval.string[i++] = *s++;
+   yylval.string[i] = '\0';
+
+   if (!strcmp(yylval.string, "int")
+         || !strcmp(yylval.string, "char")
+         || !strcmp(yylval.string, "longint")
+         || !strcmp(yylval.string, "unsignedint")
+         || !strcmp(yylval.string, "longunsignedint")
+         || !strcmp(yylval.string, "shortint")
+         || !strcmp(yylval.string, "longlongint")
+         || !strcmp(yylval.string, "shortunsignedint")
+         || !strcmp(yylval.string, "longlongunsignedint")
+         || !strcmp(yylval.string, "signedchar")
+         || !strcmp(yylval.string, "unsignedchar")
+         || !strcmp(yylval.string, "float")
+         || !strcmp(yylval.string, "double")
+         || !strcmp(yylval.string, "longdouble")
+         || !strcmp(yylval.string, "void"))
+      return 1;
+   return 0;
+}
+
+int getsize(type)
+int type;
+{
+PTSTRUCT s;
+
+   if (type < 13) /* gcc predefined types, all coded on 32 bits */
+      return 32; /* even if only part of the 32 bits are used */
+   else if (type == 13 || type == 14)
+      return 64; /* 'double' size for the machine */
+   else if (type == 15) /* that's 'void' */
+      return 0;
+
+   for (s = firstStruct; s; s = s->next)
+      if (s->typeNumber == type)
+         return s->size;
+
+   fprintf(stderr, "Error : variable with undefined type (%d)!\n", type);
+   EXIT(-5);
+}
+
+static void fill_dbx_info(str)
+char *str;
+{
+char *t = str, *s = str, *u;
+static int length;
+static char *buffer; /* contains what is to be parsed */
+ 
+   /* kill spaces in the line, needed because of default: in yylex */
+   while (*t)
+      if (!isspace(*t))
+         *s++ = *t++;
+      else
+         t++;
+   *s = '\0';
+
+   if (*(s - 2)  == '\\') {
+      *(s - 2) = '\0';
+      if (!length) {
+         length = t - str + 1;
+         buffer = (char *)mbkalloc(length);
+         strcpy(buffer, str);
+      } else {
+         length += t - str + 1;
+         buffer = mbkrealloc(buffer, length);
+         strcat(buffer, str);
+      }
+      mbkfree((void *)str);
+      return; /* get more information for structure filling */
+   } else if (length
+              && *(s - 1) == ';'
+              && (*(s - 2) == ';' || *(s - 2) == ',')) {
+      length += t - str + 1;
+      buffer = mbkrealloc(buffer, length);
+      strcat(buffer, str);
+      mbkfree((void *)str);
+      length = 0;
+      dbx_line = buffer; /* since it's end of structure, globalize it! */
+   } else if (isknowntype(str)) { /* skip terminal types */
+      mbkfree((void *)str);
+      return;
+   } else 
+      dbx_line = str; /* globalize it! */
+   u = dbx_line;
+   yyparse();
+   mbkfree((void *)u);
+}
+
+/* lexical analyser */
+static int yylex()
+{
+static char c;
+int i = 0;
+char *s = dbx_line; /* remember where to start from */
+
+   switch (*s) {
+      case '\0':
+
+#ifdef OUT
+         printf("\n\n");
+#endif
+
+         return -1; /* expected by yacc as end of entries */
+
+      case ';':
+      case ',': /* easy, because such symbols are not legal in C identifiers */
+      case ':':
+      case '=':
+      case '*':
+
+#ifdef OUT
+         printf("(%c)", *s);
+         if (*s == ';' && c == ';')
+            printf("\n\n");
+#endif
+
+         return c = *dbx_line++;
+
+      case 'T':
+      case 't':
+      case 'S':
+      case 'V':
+      case 'G':
+      case 'p':
+      case 'F':
+         if (c == ':') { /* context dependant return value : storage class */
+
+#ifdef OUT
+            printf("FLAG(%c)", *s);
+#endif
+            yylval.integer = c = *dbx_line++;
+            return FLAG;
+         }
+
+         c = *s; /* just to warrant correctness of state */
+         while (*s && *s != ':')
+            yylval.string[i++] = *s++;
+         yylval.string[i] = '\0';
+         dbx_line = s;
+
+#ifdef OUT
+         printf("SYMBOL{%s}", yylval.string);
+#endif
+
+         return SYMBOL;
+
+      case 's':
+      case 'u':
+      case 'e':
+         if (c == '=') { /* context dependant return value : storage class */
+
+#ifdef OUT
+            printf("(%c)", *s);
+#endif
+            return c = *dbx_line++;
+         }
+
+         c = *s; /* just to warrant correctness of state */
+         while (*s && *s != ':')
+            yylval.string[i++] = *s++;
+         yylval.string[i] = '\0';
+         dbx_line = s; /* points on ':' now */
+
+#ifdef OUT
+         printf("SYMBOL{%s}", yylval.string);
+#endif
+
+         return SYMBOL;
+
+      case 'f':
+         if (c == ':') { /* context dependant return value : storage class */
+
+#ifdef OUT
+            printf("FLAG(%c)", *s);
+#endif
+            yylval.integer = c = *dbx_line++;
+            return FLAG;
+         }
+         if (c == '=') { /* context dependant return value : storage class */
+
+#ifdef OUT
+            printf("(%c)", *s);
+#endif
+            return c = *dbx_line++;
+         }
+
+         c = *s; /* just to warrant correctness of state */
+         while (*s && *s != ':')
+            yylval.string[i++] = *s++;
+         yylval.string[i] = '\0';
+         dbx_line = s; /* points on ':' now */
+
+#ifdef OUT
+         printf("SYMBOL{%s}", yylval.string);
+#endif
+
+         return SYMBOL;
+
+      case 'a':
+      case 'x':
+      case 'r':
+         if (c == '=') { /* context dependant return value : storage class */
+            c = *s;
+            if (c == 'a')
+               dbx_line += 3; /* skip 'ar1' : always here */
+            else
+               dbx_line += 2; /* skip 'u', 's' or 1, unnecessary information */
+
+#ifdef OUT
+            printf("(%c)", c);
+#endif
+            return c;
+         }
+
+         c = *s; /* just to warrant correctness of state */
+         while (*s && *s != ':')
+            yylval.string[i++] = *s++;
+         yylval.string[i] = '\0';
+         dbx_line = s; /* points on ':' now */
+
+#ifdef OUT
+         printf("SYMBOL{%s}", yylval.string);
+#endif
+
+         return SYMBOL;
+
+      case '-': /* what a shit of a syntax, this dbx */
+         s++; /* skip it an go to numbers */
+      case '0':
+      case '1':
+      case '2':
+      case '3':
+      case '4':
+      case '5':
+      case '6':
+      case '7':
+      case '8':
+      case '9':
+         c = *s; /* just to warrant correctness of state */
+         while (isdigit(*s++)); /* skip digits */
+         yylval.integer = atoi(dbx_line); /* counts only digits */
+         dbx_line = --s; /* points at end of numbers */
+
+#ifdef OUT
+         printf("INTEGER[%d]", yylval.integer);
+#endif
+
+         return INTEGER;
+
+      default:
+         c = *s; /* just to warrant correctness of state */
+         while (*s && *s != ':')
+            yylval.string[i++] = *s++;
+         yylval.string[i] = '\0';
+         dbx_line = s; /* points on ':' now */
+
+#ifdef OUT
+         printf("SYMBOL{%s}", yylval.string);
+#endif
+
+         return SYMBOL;
+   }
+}
+
+yyerror(s)
+{
+   fflush(stdout);
+   fprintf(stderr, "syntax error on line %s, char '%c'\n",
+            dbx_line, yychar);
+   EXIT(-6);
+}
+
+/*******************************************************************************
+* free space concerned with dbx informations                                   *
+*******************************************************************************/
+free_dbx_info()
+{
+PTVARIABLE var, v;
+PTSTRUCT str, s;
+PTELEMENT elm, e;
+
+   /* Do not free memory yet as it dumps a core */
+   firstVariable = NULL;
+   firstStruct = NULL;
+
+   for (var = firstVariable; var; var = v) {
+      v = var->next;
+      mbkfree((void *)var->name);
+      mbkfree((void *)var);
+   }
+
+   for (str = firstStruct; str; str = s) {
+      s = str->next;
+      elm = str->member;
+      while (elm) {
+         e = elm->next;
+         mbkfree((void *)elm->name);
+         mbkfree((void *)elm);
+         elm = e;
+      }
+      mbkfree((void *)str->name);
+      mbkfree((void *)str);
+   }
+
+   /* need to be null before any dbx stuff */
+   firstVariable = NULL;
+   firstStruct = NULL;
+}
+
+AnalysDebug(str, class, address)
+char *str;
+int class, address;
+{
+   varClass = class;
+   varAddress = address;
+   fill_dbx_info(str);
+}
