@@ -2611,7 +2611,7 @@ void **now, *next;
 /*******************************************************************************
 * logical user functions                                                       *
 *******************************************************************************/
-#include <varargs.h>
+#include <stdarg.h>
 
 long  num_index = 0;
 
@@ -2708,18 +2708,16 @@ int external; /* more that one external connector on the same net? */
 /*******************************************************************************
 * function LOINS                                                               *
 *******************************************************************************/
-void genLOINS(va_alist)
-va_dcl
+void genLOINS(char *insname, ...)
 {
 losig_list *ptsig;
 chain_list *ptchain = NULL, *ptchain1, *ptchain2 = NULL , *ptchain3;
 va_list arg;
-char *figname, *insname, *signame;
+char *figname, *signame;
 lofig_list *ptfig;
 
-   va_start(arg);
+   va_start(arg, instance);
    figname = namealloc(va_arg(arg, char *));
-   insname = va_arg(arg, char *);
    if (WORK_LOFIG == NULL) {
       (void)fflush(stdout);
       (void)fputs("*** genlib error ***\n", stderr);
@@ -2938,11 +2936,10 @@ void genLOINSA(char *model, char *instance, char *signals[])
 /*******************************************************************************
 * function LOINSE                                                              *
 *******************************************************************************/
-void genLOINSE(va_alist)
-va_dcl
+void genLOINSE(char *insname, ...)
 {
 va_list arg;
-char *figname, *insname, *signame;
+char *figname, *signame;
 lofig_list  *ptfig;
 char con[100], sig[100];
 int icon, jcon, isig, jsig;
@@ -2961,10 +2958,9 @@ chain_list *ptchain = NULL;
       EXIT(1);
    }
 
-   va_start(arg);
+   va_start(arg, insname);
    figname = namealloc(va_arg(arg, char *));
    ptfig = getlofig(figname, 'P');
-   insname = va_arg(arg, char *);
    if (hassep(insname)) {
       (void)fflush(stdout);
       (void)fputs("*** genlib error ***\nIllegal LOINSE : the ", stderr);
@@ -3448,6 +3444,37 @@ chain_list *chain;
    }
 #endif
    (void)dellosig(WORK_LOFIG, ls2->INDEX);
+}
+
+/*******************************************************************************
+* function LOGEN                                                               *
+*******************************************************************************/
+void genLOGEN(char *name, int type)
+{
+ptype_list *p = getptype(WORK_LOFIG->USER, LOGEN);
+
+   if (!p)
+      p = addptype(WORK_LOFIG->USER, LOGEN, NULL);
+
+   p->DATA = addlogen(name, type);
+}
+
+/*******************************************************************************
+* function SETLOGEN                                                               *
+*******************************************************************************/
+void genSETLOGEN(char *instance, char *name, ...)
+{
+va_list ap; /* We have a single argument, but of unknown type yet! */
+lofig_list *f = getlofig();
+ptype_list *p;
+
+   va_start(ap, name);
+
+ptype_list *p = getptype(WORK_LOFIG->USER, LOGEN);
+   if (!p)
+      p = addptype(WORK_LOFIG->USER, LOGEN, NULL);
+
+   p->DATA = addlogen(name, type);
 }
 
 /*******************************************************************************

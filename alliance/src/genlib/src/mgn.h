@@ -108,6 +108,8 @@ extern void genSC_TOP();
 extern void genSC_BOTTOM();
 extern void genSC_CHANNEL();
 extern void genSC_CON_CHANNEL();
+extern void genLOGEN();
+extern void genSETLOGEN();
 /*******************************************************************************
 * name forming functions, for both views                                       *
 *******************************************************************************/
@@ -228,6 +230,8 @@ extern char *genNAME();
 #define GENLIB_LOINS                             genLOINS
 #define GENLIB_LOINSE                            genLOINSE
 #define GENLIB_LOINSA                            genLOINSA
+#define GENLIB_LOGEN                             genLOGEN
+#define GENLIB_SETLOGEN                          genSETLOGEN
 #define GENLIB_LOTRS(type,width,length,grid,source,drain) \
             genLOTRS(type,(long)((width)*SCALE_X), \
                      (long)((length)*SCALE_X),grid,source,drain)
@@ -350,3 +354,31 @@ extern char *genNAME();
 #define CONT_VIA68 VIA68
 #define CONT_VIA69 VIA69
 #define CONT_VIA79 VIA79
+
+/* Quick and dirty hack as required */
+#define LOGEN 21
+
+#define INTEGER_GEN   2
+#define STRING_GEN    4
+
+typedef struct logen
+{
+   struct logen *NEXT;
+   char         *NAME;
+   char          TYPE;
+   union {
+      char          CHAR;
+      long           VAL;
+      char         *TEXT;
+      struct logen *LIST;
+   }            VALUE;
+   char           TAG;
+} logen_list;
+
+extern logen_list *addlogen(logen_list *,char *);
+extern logen_list *getlogen(logen_list *,char *);
+extern logen_list *duplogen(logen_list *,logen_list *, char *);
+extern logen_list *chklogen(logen_list *,logen_list *, char *, char *);
+extern logen_list *dellogen(logen_list *, char *name);
+
+/* End of hack */
