@@ -1,5 +1,5 @@
 //
-// $Id: dpgen_RF2.c,v 1.1 2002/04/29 13:40:54 jpc Exp $
+// $Id: dpgen_RF2.c,v 1.2 2004/09/06 13:48:43 jpc Exp $
 //
 // auteur Alain Greiner
 //
@@ -295,7 +295,7 @@ for (j=0;j<nmot;j+=2){
 	}
 GENLIB_PLACE_RIGHT("rf2_out_buf","outbuf",NOSYM);
 	GENLIB_LOINS("rf2_out_buf","outbuf",
-	"ck",
+	"ckok",
 	"nck",
 	"xcks",
 	"vdd",
