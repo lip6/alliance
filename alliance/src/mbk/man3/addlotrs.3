@@ -1,4 +1,4 @@
-.\"   $Id: addlotrs.3,v 1.1 2002/03/08 13:51:01 fred Exp $
+.\"   $Id: addlotrs.3,v 1.2 2002/08/06 14:17:24 pnt Exp $
 .\" @(#)addlotrs.2 2.11 91/08/22 ; Labo masi cao-vlsi; Author : Frederic Petrot
 .if t \{\
 .so man1/alc_contents.mac
@@ -10,7 +10,7 @@ addlotrs
 .ti 0.2i
 addlotrs
 .XE2 \}
-.TH ADDLOTRS 3 "October 1, 1997" "ASIM/LIP6" "MBK LOGICAL FUNCTIONS"
+.TH ADDLOTRS 3 "August 6, 2002" "ASIM/LIP6" "MBK LOGICAL FUNCTIONS"
 .SH NAME
 addlotrs \- create a logical transistor
 .so man1/alc_origin.1
@@ -24,14 +24,15 @@ addlotrs \- create a logical transistor
 #include "mlo.3"
 lotrs_list \(**addlotrs(ptfig, type, x, y, width, length,
 		ps, pd, xs, xd,
-		ptgrid, ptsource, ptdrain)
+		ptgrid, ptsource, ptdrain, ptbulk, name)
 lofig_list \(**ptfig;
 char type;
 long x, y;
 unsigned short width, length;
 unsigned short ps, pd;
 unsigned short xs, xd;
-losig_list \(**ptgrid, \(**ptsource, \(**ptdrain;
+losig_list \(**ptgrid, \(**ptsource, \(**ptdrain, \(**ptbulk;
+const char \(**name;
 .ft R
 .fi
 .SH PARAMETERS
@@ -63,12 +64,18 @@ Pointer to the signal to be connected on the transistor source
 .TP
 \fIptdrain\fP
 Pointer to the signal to be connected on the transistor drain
+.TP
+\fIptbulk\fP
+Pointer to the signal to be connected on the transistor bulk
+.TP
+\fIname\fP
+Transistor instance name
 .SH DESCRIPTION
 \fBaddlotrs\fP creates a new transistor, and adds it to the
 list of transistors pointed to by \fIptfig\->LOTRS\fP. The new transistor is 
 added in front of the list, and becomes itself the list head.
 .br
-The \fItype\fP parameter can take two values :
+The \fItype\fP parameter can take six values :
 .RS
 .TP 20
 \fBTRANSN\fP
@@ -76,6 +83,18 @@ for a N channel transistor
 .TP
 \fBTRANSP\fP
 for a P channel transistor
+.TP
+\fBTRANSN_FAST\fP
+for a high speed N channel transistor
+.TP
+\fBTRANSP_FAST\fP
+for a high speed P channel transistor
+.TP
+\fBTRANSN_HVIO\fP
+for a low leakage N channel transistor
+.TP
+\fBTRANSP_HVIO\fP
+for a low leakage P channel transistor
 .RE
 .LP
 The \fIx\fP, \fIy\fP, \fIwidth\fP , \fIlength\fP, \fIps\fP, \fIpd\fP,
@@ -83,10 +102,10 @@ The \fIx\fP, \fIy\fP, \fIwidth\fP , \fIlength\fP, \fIps\fP, \fIpd\fP,
 respectivly the \fIX\fP, \fIY\fP, \fIWIDTH\fP, \fILENGTH\fP, \fIPS\fP,
 \fIPD\fP, \fIXS\fP and \fIXD\fP fields.
 .br
-Three connectors are created each time a transistor is added, and the
-\fIptgrid\fP, \fIptsource\fP and \fIptdrain\fP \fBlosig\fPs are attached to
+Four connectors are created each time a transistor is added, and the
+\fIptgrid\fP, \fIptsource\fP, \fIptdrain\fP and \fIptbulk\fP \fBlosig\fPs are attached to
 the \fISIG\fP field of the \fBlocon\fP of the appropriate connector. The
-connectors names are \fIgrid\fP, \fIsource\fP and \fIdrain\fP, their
+connectors names are \fIgrid\fP, \fIsource\fP, \fIdrain\fP and \fIbulk\fP, their
 direction, \fIDIR\fP, are set to \fB'T'\fP, and their \fITYPE\fP \fBINTERNAL\fP.
 For details on the structures, see \fBlocon\fP(3) and \fBlotrs\fR(3).
 .SH RETURN VALUE
@@ -118,8 +137,8 @@ losig_list \(**in, \(**out, \(**vdd, \(**vss;
 	addlocon(pt, "out", out = givelosig(pt, 1), OUT);
 	addlocon(pt, "vdd", vdd = givelosig(pt, 2), IN);
 	addlocon(pt, "vss", vdd = givelosig(pt, 3), IN);
-	addlotrs(pt, TRANSN, 0, 0, 6, 1, in, vss, out);
-	addlotrs(pt, TRANSP, 0, 0, 12, 1, in, vdd, out);
+	addlotrs(pt, TRANSN, 0, 0, 6, 1, in, vss, out, vss, trn_n1_y);
+	addlotrs(pt, TRANSP, 0, 0, 12, 1, in, vdd, out, vdd, trp_n1_y);
 }
 .ft R
 .fi

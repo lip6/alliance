@@ -1,4 +1,4 @@
-.\"   $Id: lotrs.3,v 1.1 2002/03/08 13:51:03 fred Exp $
+.\"   $Id: lotrs.3,v 1.2 2002/08/06 14:17:24 pnt Exp $
 .\" @(#)lotrs.l 0.0 90/22/08 UPMC; Author: Frederic Petrot
 .if t \{\
 .so man1/alc_contents.mac
@@ -10,7 +10,7 @@ lotrs
 .ti 0.2i
 lotrs
 .XE2 \}
-.TH LOTRS 3 "October 1, 1997" "ASIM/LIP6" "MBK LOGICAL STRUCTURE DEFINITIONS"
+.TH LOTRS 3 "August 6, 2002" "ASIM/LIP6" "MBK LOGICAL STRUCTURE DEFINITIONS"
 .SH NAME
 lotrs \- mbk logical transistor
 .SH DESCRIPTION
@@ -20,7 +20,7 @@ result of layout extractions. Since the only target technology is CMOS, only
 NMOS and PMOS transistors are used.
 .LP
 The declarations needed to work on \fBlotrs\fP are available in the header file
-\fI"/labo/include/mlo404.h"\fP, where '\fI404\fP' is the actual mbk version.
+\fI"/labo/include/mlo.h"\fP.
 .LP
 The following C structure supports the description of the logical transistor :
 .RS
@@ -35,6 +35,8 @@ typedef struct lotrs {
 	struct locon	\(**DRAIN;
 	struct locon	\(**GRID; 
 	struct locon	\(**SOURCE;
+	struct locon	\(**BULK;
+	char	\(**TRNAME;
 	long	X,Y;
 	unsigned short	WIDTH, LENGTH;
 	unsigned short	PS, PD;
@@ -61,6 +63,13 @@ of course unique. See \fBlocon\fP(3) for details.
 Pointer to the source connector of the transistor. This connector is,
 of course unique. See \fBlocon\fP(3) for details.
 .TP
+\fIBULK\fP
+Pointer to the bulk connector of the transistor. This connector is,
+of course unique. See \fBlocon\fP(3) for details.
+.TP
+\fITRNAME\fP
+Transistor instance name
+.TP
 \fIX, Y\fP
 Coordinates of the transistor in a layout. These informations have sens only if
 the transistor netlist is the result of a layout extraction. They are
@@ -83,7 +92,7 @@ transistor grid width in micron, then
 \fIlotrs->XS = As / Width * SCALE_X\fP
 .TP
 \fITYPE\fP
-Canal type of the transistor. Two legal values are available :
+Canal type of the transistor. Six legal values are available :
 .RS
 .TP 20
 \fBTRANSN\fP
@@ -91,6 +100,18 @@ N type MOS transistor
 .TP
 \fBTRANSP\fP
 P type MOS transistor
+.TP
+\fBTRANSN_FAST\fP
+High speed N type MOS transistor
+.TP
+\fBTRANSP_FAST\fP
+High speed P type MOS transistor
+.TP
+\fBTRANSN_HVIO\fP
+Low Leakage N type MOS transistor
+.TP
+\fBTRANSP_HVIO\fP
+Low Leakage P type MOS transistor
 .RE
 .TP
 \fIUSER\fP
@@ -99,9 +120,8 @@ that is a general purpose
 pointer used to share informations on the transistor.
 .TP
 Remark :
-The transistors do not have a bulk connector, since in integrated techniques
-NMOS transistor bulk is always set to ground, and PMOS transistor bulk is
-always set to positive supply.
+In integrated techniques, NMOS transistor bulk for digital circuits is always set to ground, and
+PMOS transistor bulk for digital circuits is always set to positive supply.
 .SH SEE ALSO
 .BR mbk (1),
 .BR addlotrs (3),
