@@ -1,5 +1,5 @@
 /*
- *  $Id: LEF_drive_sxlib.c,v 1.3 2003/04/04 16:23:32 xtof Exp $
+ *  $Id: LEF_drive_sxlib.c,v 1.4 2003/05/19 16:16:41 jpc Exp $
  *
  *  /----------------------------------------------------------------\
  *  |                                                                |
@@ -7,7 +7,7 @@
  *  |  S i l i c o n   E n s e m b l e / A l l i a n c e             |
  *  |                                                                |
  *  |  Author    :                      Jean-Paul CHAPUT             |
- *  |  E-mail    :         alliance-users@asim.lip6.fr             |
+ *  |  E-mail    :           alliance-users@asim.lip6.fr             |
  *  | ============================================================== |
  *  |  C Module  :         "./LEF_drive_sxlib.c"                     |
  *  | ************************************************************** |
@@ -50,8 +50,11 @@
  */
 
  typedef struct eGrid_s {
-             long  x;
-             long  y;
+             long  x0;
+             long  y0;
+             long  x1;
+             long  y1;
+             long  isPoint;
    struct eGrid_s *Next;
  } eGrid_t;
 
@@ -76,9 +79,13 @@
 
 static   long       getLayerExt   __FP((char aLayer));
 static  eGrid_t    *getTGrid      __FP((eGrid_t **aptGrid, long aX, long aY));
-static  eGrid_t    *addTGrid      __FP((eGrid_t **aptGrid, long aX, long aY));
-static   void       phseg2TGrid   __FP((eGrid_t **aptGrid,
-                                     phseg_list  *apPhSeg));
+static  eGrid_t    *addTGrid      __FP((eGrid_t **aptGrid,
+                                        long      aX0,
+                                        long      aY0,
+                                        long      aX1,
+                                        long      aY2));
+static   void       phseg2TGrid   __FP((eGrid_t    **aptGrid,
+                                        phseg_list  *apPhSeg));
 static   void       TGrid2PORT    __FP((ePORT_t **aplPORT, eGrid_t *aptGrid));
 static   char      *refCon2Name   __FP((char *asRefCon));
 static    int       onGrid        __FP((long aX, long aY));
@@ -148,8 +155,10 @@ static eGrid_t *getTGrid(aptGrid, aX, aY)
   eGrid_t *pGrid;
 
 
-  for(pGrid = *aptGrid; pGrid != (eGrid_t*)NULL; pGrid = pGrid->Next)
-    if ((pGrid->x == aX) && (pGrid->y == aY)) return(pGrid);
+  for(pGrid = *aptGrid; pGrid != (eGrid_t*)NULL; pGrid = pGrid->Next) {
+    if (!pGrid->isPoint) continue;
+    if ((pGrid->x0 == aX) && (pGrid->y0 == aY)) return(pGrid);
+  }
 
   return((eGrid_t*)NULL);
 }
@@ -159,19 +168,27 @@ static eGrid_t *getTGrid(aptGrid, aX, aY)
  *  Function  :  "addTGrid()".
  */
 
-static eGrid_t *addTGrid(aptGrid, aX, aY)
+static eGrid_t *addTGrid(aptGrid, aX0, aY0, aX1, aY1)
   eGrid_t  **aptGrid;
-   long    aX, aY;
+     long    aX0, aY0, aX1, aY1;
 {
-  eGrid_t *pGrid;
+  eGrid_t *pGrid = NULL;
+  long     isPoint;
 
 
-  pGrid = getTGrid(aptGrid, aX, aY);
-  if (pGrid != (eGrid_t*)NULL) return(pGrid);
+  isPoint = (aX0 == aX1) && (aY0 == aY1);
 
-  pGrid    = (eGrid_t*)malloc(sizeof(eGrid_t));
-  pGrid->x = aX;
-  pGrid->y = aY;
+  if ( isPoint ) {
+    pGrid = getTGrid(aptGrid, aX0, aY0);
+    if (pGrid != (eGrid_t*)NULL) return(pGrid);
+  }
+
+  pGrid          = (eGrid_t*)malloc(sizeof(eGrid_t));
+  pGrid->x0      = aX0;
+  pGrid->y0      = aY0;
+  pGrid->x1      = aX1;
+  pGrid->y1      = aY1;
+  pGrid->isPoint = isPoint;
 
   pGrid->Next = *aptGrid;
   *aptGrid    = pGrid;
@@ -206,8 +223,11 @@ static void  phseg2TGrid(aptGrid, apPhSeg)
     yMin = apPhSeg->Y1;
     if (apPhSeg->Y1 % YGRID) yMin += YGRID - (apPhSeg->Y1 % YGRID);
 
-    for(y = yMin; y <= yMax; y += YGRID) {
-      addTGrid(aptGrid, apPhSeg->X1, y);
+    if (LV_flags & F_NO_SPLIT_TERM) {
+      addTGrid(aptGrid, apPhSeg->X1, yMin, apPhSeg->X1, yMax);
+    } else {
+      for(y = yMin; y <= yMax; y += YGRID)
+        addTGrid(aptGrid, apPhSeg->X1, y, apPhSeg->X1, y);
     }
   } else {
     if (!(LV_flags & F_ALLOW_OFFGRID)) {
@@ -224,8 +244,12 @@ static void  phseg2TGrid(aptGrid, apPhSeg)
     yMin = apPhSeg->X1;
     if (apPhSeg->X1 % XGRID) yMin += XGRID - (apPhSeg->X1 % XGRID);
 
-    for(y = yMin; y <= yMax; y += XGRID) {
-      addTGrid(aptGrid, y, apPhSeg->Y1);
+    if (LV_flags & F_NO_SPLIT_TERM) {
+      addTGrid(aptGrid, yMin, apPhSeg->Y1, yMax, apPhSeg->Y1);
+    } else {
+      for(y = yMin; y <= yMax; y += XGRID) {
+        addTGrid(aptGrid, y, apPhSeg->Y1, y, apPhSeg->Y1);
+      }
     }
   }
 }
@@ -244,10 +268,10 @@ static void  TGrid2PORT(aplPORT, aptGrid)
 
   for(pGrid = aptGrid; pGrid != NULL; pGrid = pGrid->Next) {
     m_AddPort((*aplPORT), C_PORTITEM_RECT,
-      m_AddRect(pGrid->x - WIDTH_CALUx / 2,
-                pGrid->y - WIDTH_CALUx / 2,
-                pGrid->x + WIDTH_CALUx / 2,
-                pGrid->y + WIDTH_CALUx / 2));
+      m_AddRect(pGrid->x0 - WIDTH_CALUx / 2,
+                pGrid->y0 - WIDTH_CALUx / 2,
+                pGrid->x1 + WIDTH_CALUx / 2,
+                pGrid->y1 + WIDTH_CALUx / 2));
   } /* End of "pGrid" loop. */
 }
 
@@ -610,7 +634,8 @@ static void  phref2PINS()
       }
 
       /* Add to the list of holes in the obstacle grid. */
-      addTGrid(&LV_tHolesALU1, pPhRef->XREF, pPhRef->YREF);
+      addTGrid(&LV_tHolesALU1, pPhRef->XREF, pPhRef->YREF,
+                               pPhRef->XREF, pPhRef->YREF);
 
       if ((pPIN = getPIN(LV_pMACRO, sIOName)) == (ePIN_t*)NULL) {
 
@@ -678,11 +703,9 @@ static void  phseg2PINS()
           /* Create a new pin named from "pPhSeg->NAME". */
           m_AddPin(LV_pMACRO->lPIN, pPhSeg->NAME);
           LV_pMACRO->lPIN->DIRECTION = MBK2DEF_locondir(pLoCon);
-	  if (isck(pPhSeg->NAME))
-	  {
-	      LV_pMACRO->lPIN->USE = C_USE_CLOCK;
-	  }
-
+          if (isck(pPhSeg->NAME))
+            LV_pMACRO->lPIN->USE = C_USE_CLOCK;
+          
           pPIN = LV_pMACRO->lPIN;
         }
 

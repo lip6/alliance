@@ -1,6 +1,6 @@
 #!/bin/sh
 #
-# $Id: a2lef.sh,v 1.4 2003/04/02 14:13:13 jpc Exp $
+# $Id: a2lef.sh,v 1.5 2003/05/19 16:16:41 jpc Exp $
 #
 # /------------------------------------------------------------------\
 # |                                                                  |
@@ -8,7 +8,7 @@
 # |  S i l i c o n   E n s e m b l e / A l l i a n c e               |
 # |                                                                  |
 # |  Author    :                      Jean-Paul CHAPUT               |
-# |  E-mail    :         alliance-users@asim.lip6.fr               |
+# |  E-mail    :           alliance-users@asim.lip6.fr               |
 # | ================================================================ |
 # |  Script    :         "./a2LEF.sh"                                |
 # | **************************************************************** |
@@ -70,15 +70,15 @@
  {
    echo ""
    echo ""
-   echo "Usage: a2LEF.sh [--verbose] [--very-verbose] [--help]             \\"
-   echo "                [--allow-offgrid] [--fake-power]                  \\"
-   echo "                <--techno <tech_file> >                           \\"
-   echo "                <--library <lib_dir> [--library <lib_dir>]>       \\"
-   echo "                <--lef <lef_file> >                               \\"
+   echo "Usage: a2LEF.sh [--verbose] [--very-verbose] [--help]              \\"
+   echo "                [--allow-offgrid] [--fake-power] [--no-split-term] \\"
+   echo "                <--techno <tech_file> >                            \\"
+   echo "                <--library <lib_dir> [--library <lib_dir>]>        \\"
+   echo "                <--lef <lef_file> >                                \\"
    echo "                <--cell <cell_name> >"
-   echo "       a2LEF.sh [-vVhop] <-t <tech_file> >                        \\"
-   echo "                         <-l <lib_dir> [-l <lib_dir>]>            \\"
-   echo "                         <-L <lef_file> >                         \\"
+   echo "       a2LEF.sh [-vVhop] <-t <tech_file> >                         \\"
+   echo "                         <-l <lib_dir> [-l <lib_dir>]>             \\"
+   echo "                         <-L <lef_file> >                          \\"
    echo "                         <-c <cell_name> > "
    echo ""
    echo "Options:"
@@ -86,6 +86,7 @@
    echo "    o [--verbose|-v]             : be verbose."
    echo "    o [--very-verbose|-V]        : be very verbose :-)."
    echo "    o [--allow-offgrid|-o]       : allow terminals to be offgrid."
+   echo "    o [--no-split-term|-T]       : do not split terminals segments."
    echo "    o [--fake-power|-p]          : do not attempt to generate"
    echo "        PORT geometries for power pins."
    echo "    o <--techno|-t <tech_file> > : location of the LEF techno header."
@@ -241,6 +242,7 @@
      --very-verbose)  VL=2;;
      --allow-offgrid) sx2lef_args="$sx2lef_args -o";;
      --fake-power)    sx2lef_args="$sx2lef_args -p";;
+     --no-split-term) sx2lef_args="$sx2lef_args -t";;
 
      --techno)
              if [ $# -ge 2 ]; then
@@ -302,6 +304,7 @@
              V) VL=2;;
              o) sx2lef_args="$sx2lef_args -o";;
              p) sx2lef_args="$sx2lef_args -p";;
+             T) sx2lef_args="$sx2lef_args -t";;
 
              t) if [ $# -ge 2 ]; then
                   techFile="$2"

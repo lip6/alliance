@@ -1,5 +1,5 @@
 /*
- *  $Id: sxlib2LEF.c,v 1.2 2002/09/30 16:21:18 czo Exp $
+ *  $Id: sxlib2LEF.c,v 1.3 2003/05/19 16:16:41 jpc Exp $
  *
  *  /----------------------------------------------------------------\
  *  |                                                                |
@@ -47,6 +47,7 @@ static void  printHelp()
   printf("     -h            := Print this message.\n");
   printf("     -o            := Allow offgrid terminals.\n");
   printf("     -p            := Do not generate power PORT geometries.\n");
+  printf("     -t            := Do not split terminals in grid points.\n");
   printf("\n" );
 }
 
@@ -85,6 +86,7 @@ extern int main(argc, argv)
     if (!strcmp(argv[i], "-V")) { VL       = C_VerboseLevel2; continue; }
     if (!strcmp(argv[i], "-o")) { sxFlags |= F_ALLOW_OFFGRID; continue; }
     if (!strcmp(argv[i], "-p")) { sxFlags |= F_NO_POWER_GEOM; continue; }
+    if (!strcmp(argv[i], "-t")) { sxFlags |= F_NO_SPLIT_TERM; continue; }
 
     break;
   }

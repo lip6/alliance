@@ -1,5 +1,5 @@
 /*
- *  $Id: LEF_drive_sxlib.h,v 1.2 2002/09/30 16:21:17 czo Exp $
+ *  $Id: LEF_drive_sxlib.h,v 1.3 2003/05/19 16:16:41 jpc Exp $
  *
  *  /----------------------------------------------------------------\
  *  |                                                                |
@@ -25,6 +25,7 @@
 #   define  F_NO_POWER_GEOM        0x00000002
 #   define  F_POWER_ABUTMENT       0x00000004
 #   define  F_POWER_FEEDTHRU       0x00000008
+#   define  F_NO_SPLIT_TERM        0x00000010
 
 
   extern void  lefsavesxlophfig (struct lofig *apLofig,
