@@ -26,7 +26,8 @@
  * Date    : 05/08/93
  * Author  : Frederic Petrot <Frederic.Petrot@lip6.fr>
  * Modified by Czo <Olivier.Sirol@lip6.fr> 1997,98
- * $Id: mlu.h,v 1.3 2002/06/01 15:51:29 ac Exp $
+ * Modified by pnt <Pierre.Nguyen-Tuong@lip6.fr> 2002
+ * $Id: mlu.h,v 1.4 2002/08/08 19:47:37 pnt Exp $
  */
 
 #ifndef _MLU_H_
@@ -69,7 +70,18 @@ extern "C" {
   extern            int  restoredirvbe __P((lofig_list *lof));
   extern            int  guessextdir __P((lofig_list *lof));
   extern            int  restorealldir __P((lofig_list *lf));
-  
+
+/*************************** Analogical world ***************************************/
+
+extern locap_list *duplocaplst __P((locap_list *locap_ptr))    ;
+extern locap_list *duplocap __P((locap_list *locap_ptr))       ;
+extern lores_list *duploreslst __P((lores_list *lores_ptr))    ;
+extern lores_list *duplores __P((lores_list *lores_ptr))       ;
+extern loself_list *duploselflst __P((loself_list *loself_ptr)) ;
+extern loself_list *duploself __P((loself_list *loself_ptr))    ;
+
+/************************************************************************************/
+
 #ifdef __cplusplus
 }
 #endif /* __cplusplus */

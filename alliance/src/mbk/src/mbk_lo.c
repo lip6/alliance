@@ -27,9 +27,10 @@
  * Author  : Frederic Petrot <Frederic.Petrot@lip6.fr>
  * Modified by Czo <Olivier.Sirol@lip6.fr> 1997,98
  * Modified by <Gregoire.Avot@lip6.fr> 1997,98
+ * Modified by pnt <Pierre.Nguyen-Tuong@lip6.fr> 2002
  */
 
-#ident "$Id: mbk_lo.c,v 1.1 2002/03/08 13:51:05 fred Exp $"
+#ident "$Id: mbk_lo.c,v 1.2 2002/08/08 19:47:37 pnt Exp $"
 
 #include <stdio.h>
 #include <unistd.h>
@@ -73,6 +74,9 @@ char *name;
    ptfig->MODELCHAIN  = NULL;
    ptfig->LOINS  = NULL;
    ptfig->LOTRS  = NULL;
+   ptfig->LOCAP  = NULL;
+   ptfig->LORES  = NULL;
+   ptfig->LOSELF = NULL;
    ptfig->LOCON  = NULL;
    ptfig->LOSIG  = NULL;
    ptfig->BKSIG  = NULL;
@@ -111,6 +115,9 @@ char *name = namealloc(fname);
      fig->MODELCHAIN = NULL;
      fig->LOINS = NULL;
      fig->LOTRS = NULL;
+     fig->LOCAP = NULL;
+     fig->LORES = NULL;
+     fig->LOSELF = NULL;
      fig->LOCON = NULL;
      fig->LOSIG = NULL;
      fig->BKSIG = NULL;
@@ -443,6 +450,9 @@ losig_list *ptsig;
 loins_list *ptins;
 locon_list *ptcon;
 lotrs_list *pttrs;
+locap_list *ptcap;
+lores_list *ptres;
+loself_list *ptself;
 ptype_list *pt;
 char       *name = namealloc(fname);
 
@@ -503,6 +513,46 @@ void *ptold=NULL, *ptt;
     dellotrsuser( pttrs );
       mbkfree((void *)pttrs);
    }
+
+   for(ptcap = ptfig -> LOCAP ; ptcap != NULL ; ptcap = (locap_list *)ptold)
+      {
+        delloconuser(ptcap -> TCON) ;
+        delloconuser(ptcap -> BCON) ;
+
+        mbkfree((void *)ptcap -> TCON) ;
+        mbkfree((void *)ptcap -> BCON) ;
+        ptold = (void *)ptcap -> NEXT ;
+
+        dellocapuser(ptcap) ;
+        mbkfree((void *)ptcap) ;
+      }
+
+   for(ptres = ptfig -> LORES ; ptres != NULL ; ptres = (lores_list *)ptold)
+      {
+        delloconuser(ptres -> RCON1) ;
+        delloconuser(ptres -> RCON2) ;
+
+        mbkfree((void *)ptres -> RCON1) ;
+        mbkfree((void *)ptres -> RCON2) ;
+        ptold = (void *)ptres -> NEXT ;
+
+        delloresuser(ptres) ;
+        mbkfree((void *)ptres) ;
+      }
+
+   for(ptself = ptfig -> LOSELF ; ptself != NULL ; ptself = (loself_list *)ptold)
+      {
+        delloconuser(ptself -> SCON1) ;
+        delloconuser(ptself -> SCON2) ;
+
+        mbkfree((void *)ptself -> SCON1) ;
+        mbkfree((void *)ptself -> SCON2) ;
+        ptold = (void *)ptself -> NEXT ;
+
+        delloselfuser(ptself) ;
+        mbkfree((void *)ptself) ;
+      }
+
   dellofiguser( ptfig );
    freechain(ptfig->MODELCHAIN);
    mbkfree((void *)ptfig);
@@ -842,6 +892,9 @@ locon_list *ptcon = NULL;
 losig_list *ptsig = NULL;
 loins_list *ptins = NULL;
 lotrs_list *pttrs = NULL;
+locap_list *ptcap = NULL;
+lores_list *ptres = NULL;
+loself_list *ptself = NULL;
 ptype_list *ptype = NULL;
 
    if (ptfig->MODE == 'P') {
@@ -903,8 +956,48 @@ ptype_list *ptype = NULL;
                                         (void *)pttrs->BULK);
       }
    }
+
+   /*  scan capacitor list   */
+
+   for(ptcap = ptfig -> LOCAP ; ptcap != NULL ; ptcap = ptcap -> NEXT)
+     {
+       ptsig = ptcap -> TCON -> SIG ;
+       ptype = getptype(ptsig -> USER,(long)LOFIGCHAIN) ;
+       ptype -> DATA = (void *)addchain((chain_list *)ptype -> DATA,(void *)ptcap -> TCON) ;
+
+       ptsig = ptcap -> BCON -> SIG ;
+       ptype = getptype(ptsig -> USER,(long)LOFIGCHAIN) ;
+       ptype -> DATA = (void *)addchain((chain_list *)ptype -> DATA,(void *)ptcap -> BCON) ;
+     }
+
+   /*  scan resistor list   */
+
+   for(ptres = ptfig -> LORES ; ptres != NULL ; ptres = ptres -> NEXT)
+     {
+       ptsig = ptres -> RCON1 -> SIG ;
+       ptype = getptype(ptsig -> USER,(long)LOFIGCHAIN) ;
+       ptype -> DATA = (void *)addchain((chain_list *)ptype -> DATA,(void *)ptres -> RCON1) ;
+
+       ptsig = ptres -> RCON2 -> SIG ;
+       ptype = getptype(ptsig -> USER,(long)LOFIGCHAIN) ;
+       ptype -> DATA = (void *)addchain((chain_list *)ptype -> DATA,(void *)ptres -> RCON2) ;
+     }
+
+   /*  scan inductor list   */
+
+   for(ptself = ptfig -> LOSELF ; ptself != NULL ; ptself = ptself -> NEXT)
+     {
+       ptsig = ptself -> SCON1 -> SIG ;
+       ptype = getptype(ptsig -> USER,(long)LOFIGCHAIN) ;
+       ptype -> DATA = (void *)addchain((chain_list *)ptype -> DATA,(void *)ptself -> SCON1) ;
+
+       ptsig = ptself -> SCON2 -> SIG ;
+       ptype = getptype(ptsig -> USER,(long)LOFIGCHAIN) ;
+       ptype -> DATA = (void *)addchain((chain_list *)ptype -> DATA,(void *)ptself -> SCON2) ;
+     }
+
    if (DEBUG_MODE == 'Y')
-      (void)printf("--- mbk --- lofigchain %s\n", ptfig->NAME);
+     (void)printf("--- mbk --- lofigchain %s\n", ptfig -> NAME) ;
 }
 
 /*******************************************************************************
@@ -966,6 +1059,9 @@ locon_list *ptcon;
 losig_list *ptsig;
 loins_list *ptins;
 lotrs_list *pttrs;
+locap_list *ptcap;
+lores_list *ptres;
+loself_list *ptself;
 chain_list *scanchain;
 ptype_list *pt;
 
@@ -1005,6 +1101,42 @@ ptype_list *pt;
       (void)printf("   |---empty transistor list\n");
    else for (pttrs = ptfig->LOTRS; pttrs; pttrs = pttrs->NEXT)
       viewlotrs(pttrs);
+
+   if(ptfig -> LOCAP == NULL)
+     {
+       (void)printf("   |---empty capacitor list\n") ;
+     }
+   else
+     {
+       for(ptcap = ptfig -> LOCAP ; ptcap ; ptcap = ptcap -> NEXT)
+	 {
+           viewlocap(ptcap) ;
+	 }
+     }
+
+   if(ptfig -> LORES == NULL)
+     {
+       (void)printf("   |---empty resistor list\n") ;
+     }
+   else
+     {
+       for(ptres = ptfig -> LORES ; ptres ; ptres = ptres -> NEXT)
+	 {
+           viewlores(ptres) ;
+	 }
+     }
+
+   if(ptfig -> LOSELF == NULL)
+     {
+       (void)printf("   |---empty inductor list\n") ;
+     }
+   else
+     {
+       for(ptself = ptfig -> LOSELF ; ptself ; ptself = ptself -> NEXT)
+	 {
+           viewloself(ptself) ;
+	 }
+     }
 
    if (ptfig->USER != NULL)
         {
@@ -1154,6 +1286,15 @@ num_list    *scannum;
                                         case 'T':
                                                 printf( "(T%c : %s) ",((lotrs_list*)((locon_list*)ptchain->DATA)->ROOT)->TYPE==TRANSN?'N':'P',((lotrs_list*)((locon_list*)ptchain->DATA)->ROOT)->TRNAME ? ((lotrs_list*)((locon_list*)ptchain->DATA)->ROOT)->TRNAME : "No name" );
                                                 break;
+                                        case 'C':
+                                                printf( "(C%s : %s) ",((locap_list*)((locon_list*)ptchain->DATA)->ROOT)->TYPE==CAPMIM?"CAPMIM":"CAPPNWELL",((locap_list*)((locon_list*)ptchain->DATA)->ROOT)-> NAME ? ((locap_list*)((locon_list*)ptchain->DATA)->ROOT)->NAME : "No name" );
+                                                break;
+                                        case 'R':
+                                                printf( "(C%s : %s) ",((lores_list*)((locon_list*)ptchain->DATA)->ROOT)->TYPE==RESMIM?"RESMIM":"RESMIM",((lores_list*)((locon_list*)ptchain->DATA)->ROOT)-> NAME ? ((lores_list*)((locon_list*)ptchain->DATA)->ROOT)->NAME : "No name" );
+                                                break;
+                                        case 'S':
+                                                printf( "(C%s : %s) ",((loself_list*)((locon_list*)ptchain->DATA)->ROOT)->TYPE==SELFMIM?"SELFMIM":"SELFMIM",((loself_list*)((locon_list*)ptchain->DATA)->ROOT)-> NAME ? ((loself_list*)((locon_list*)ptchain->DATA)->ROOT)->NAME : "No name" );
+                                                break;
                                         case 'I':
                                                 printf( "(I : %s) ",((loins_list*)((locon_list*)ptchain->DATA)->ROOT)->INSNAME ? ((loins_list*)((locon_list*)ptchain->DATA)->ROOT)->INSNAME : "No name" );
                                                 break;
@@ -1292,6 +1433,18 @@ else
     case 'T':
    (void)printf("   |   |    |---root    : %s\n" , 
                      ((lotrs_list*)(ptcon->ROOT))->TRNAME?((lotrs_list*)(ptcon->ROOT))->TRNAME:"no transistor name" );
+        break;
+    case 'C':
+   (void)printf("   |   |    |---root    : %s\n" , 
+                     ((locap_list*)(ptcon->ROOT))->NAME?((locap_list*)(ptcon->ROOT))->NAME:"no capacitor name" );
+        break;
+    case 'R':
+   (void)printf("   |   |    |---root    : %s\n" , 
+                     ((lores_list*)(ptcon->ROOT))->NAME?((lores_list*)(ptcon->ROOT))->NAME:"no resistor name" );
+        break;
+    case 'S':
+   (void)printf("   |   |    |---root    : %s\n" , 
+                     ((loself_list*)(ptcon->ROOT))->NAME?((loself_list*)(ptcon->ROOT))->NAME:"no inductor name" );
         break;
     default:
    (void)printf("   |   |    |---root    : *** BAD TYPE ***\n" );
@@ -1572,3 +1725,701 @@ void dellosiguser(losig_list *ptlosig)
       prev = scanptype;
   }
 }
+
+/***********************************************************************************************/
+/*********************************** Analogical World ******************************************/
+/***********************************************************************************************/
+
+/*********************************** Capacitor : add *******************************************/
+
+locap_list *addlocap(lofig_list *ptfig,char type,double capa,losig_list *pttplate,
+                     losig_list *ptbplate,char *name)
+{
+  static char *tplate = NULL ;
+  static char *bplate = NULL ;
+  locap_list  *ptcap  = NULL ;
+  locon_list  *ptcon  = NULL ;
+
+  tplate = namealloc("tplate");
+  bplate = namealloc("bplate");
+
+  if((type != CAPMIM) && (type != CAPPNWELL))
+    {
+      (void)fflush(stdout) ;
+      (void)fprintf(stderr, "*** mbk error ***\n") ;
+      (void)fprintf(stderr, "  illegal capacitor type : %ld\n",(long)type) ;
+      EXIT(1) ;
+    }
+
+   ptcap = (locap_list *)mbkalloc(sizeof(locap_list)) ;
+   ptcap -> TYPE  = type ;
+   ptcap -> NEXT  = ptfig -> LOCAP ;
+   ptfig -> LOCAP = ptcap ;
+   ptcap -> USER  = NULL ;
+
+   ptcon = (locon_list *)mbkalloc(sizeof(locon_list));
+   ptcon -> NAME      = tplate ;
+   ptcon -> SIG       = pttplate ;
+   ptcon -> ROOT      = (void *)ptcap ;
+   ptcon -> TYPE      = TRANSCV2 ;
+   ptcon -> DIRECTION = INTERNAL ;
+   ptcon -> USER      = NULL ;
+   ptcon -> PNODE     = NULL ;
+   ptcap -> TCON      = ptcon ;
+   
+   ptcon = (locon_list *)mbkalloc(sizeof(locon_list)) ;
+   ptcon -> NAME      = bplate ;
+   ptcon -> SIG       = ptbplate ;
+   ptcon -> ROOT      = (void *)ptcap ;
+   ptcon -> TYPE      = TRANSCV2 ;
+   ptcon -> DIRECTION = INTERNAL ;
+   ptcon -> USER      = NULL ;
+   ptcon -> PNODE     = NULL ;
+   ptcap -> BCON      = ptcon ;
+   
+   /* No check is done for capacitor name unicity */
+   ptcap -> NAME = namealloc(name) ;
+
+   if(TRACE_MODE == 'Y')
+     {
+       (void)fprintf(stdout,"--- mbk --- addlocap  : %s\n",type == CAPMIM ? "CAPMIM" : "CAPPNWELL") ;
+     }
+
+   return ptcap ;
+}
+
+/*********************************** Capacitor : del *******************************************/
+
+int dellocap(lofig_list *ptfig,locap_list  *ptcap)
+{
+  locap_list  *pt    = NULL ;
+  locap_list  *ptsav = NULL ;
+
+  for(pt = ptfig -> LOCAP ; pt != NULL ; pt = pt -> NEXT)
+    {
+      if(pt == ptcap)
+	{
+          break ;
+	}
+
+      ptsav = pt ;
+   }
+
+  if(pt == NULL)
+    {
+      return 0 ;
+    }
+  else
+    {
+      if(pt == ptfig -> LOCAP)
+	{
+          ptfig -> LOCAP = pt -> NEXT ;
+	}
+      else
+	{
+          ptsav -> NEXT = pt -> NEXT ;
+	}
+    }
+
+  if(pt -> TCON -> PNODE)
+    {
+      delrcnlocon(pt -> TCON) ;
+    }
+
+  delloconuser(pt -> TCON) ;
+  mbkfree((void *)pt -> TCON) ;
+
+  if(pt -> BCON -> PNODE)
+    {
+      delrcnlocon(pt -> BCON) ;
+    }
+
+  delloconuser(pt -> BCON) ;
+  mbkfree((void *)pt -> BCON) ;
+
+  dellocapuser(pt) ;
+  mbkfree((void *)pt) ;
+
+  if(TRACE_MODE == 'Y')
+    {
+      (void)fprintf(stdout, "--- mbk --- dellocap  : \n") ;
+    }
+
+  return 1 ;
+}  
+
+/*********************************** Capacitor : getlocap **************************************/
+
+locap_list *getlocap(lofig_list *ptfig, const char *cname)
+{
+  locap_list *ptcap = NULL ;
+  char       *name  = namealloc(cname) ;
+
+  for(ptcap = ptfig -> LOCAP ; ptcap != NULL ; ptcap = ptcap -> NEXT)
+    {
+      if(ptcap -> NAME == name)
+	{
+          return ptcap ;
+	}
+    }
+
+  (void)fflush(stdout) ;
+  (void)fprintf(stderr,"*** mbk error ***\n") ;
+  (void)fprintf(stderr,"getlocap impossible :\n") ;
+  (void)fprintf(stderr,"capacitor %s doesn't exist in figure %s\n",name,ptfig -> NAME) ;
+  EXIT(1) ;
+
+  return NULL ; /* never reached */
+}
+
+/*********************************** Capacitor : viewlocap *************************************/
+
+void viewlocap(locap_list  *ptcap)
+{ 
+  (void)printf("   |---capacitor\n") ;
+  (void)printf("   |   |---type  : %s\n",IsCapMIM(ptcap->TYPE)?"MIM":"POLY/NWELL") ;
+
+  if(ptcap -> NAME != NULL)
+    {
+      (void)printf("   |   |---name : %s\n", ptcap -> NAME) ;
+    }
+  else
+    {
+      (void)printf("   |   |---no name\n") ;
+    }
+
+  if(ptcap -> TCON == NULL)
+    {
+      (void)printf("   |   |--- !!! no signal on top plate !!! \n") ;
+    }
+  else
+    {
+      viewloinscon(ptcap -> TCON) ;
+    }
+
+  if(ptcap -> BCON == NULL)
+    {
+      (void)printf("   |   |--- !!! no signal on bottom plate !!! \n") ;
+    }
+  else
+    {
+      viewloinscon(ptcap -> BCON) ;
+    }
+
+   (void)printf("   |   |---capa   : %ld\n", ptcap -> CAPA) ;
+
+  if(ptcap -> USER != NULL)
+    {
+      (void)printf("   |   |---non empty USER field\n") ;
+    }
+
+   (void)printf("   |\n") ;
+}
+
+/*********************************** Capacitor : dellocapuser **********************************/
+
+void dellocapuser(locap_list *ptlocap)
+{
+  ptype_list *scanptype = NULL ;
+  ptype_list *next      = NULL ;
+  ptype_list *prev      = NULL ;
+  int         del       = 0    ;
+ 
+  for(scanptype = ptlocap -> USER ; scanptype != NULL ; scanptype = next)
+    {
+      next = scanptype -> NEXT ;
+      del = 0 ;
+
+      switch(scanptype -> TYPE)
+	{
+	case LOCAP_INFO : mbkfree(scanptype -> DATA) ;
+	                  del = 1 ;
+                          break ;
+	default :
+#ifdef MBK_TRACE_BAD_PTYPE
+	  fprintf( stderr, "WARNING in delloconuser() : unknown ptype %ld\n",scanptype -> TYPE) ;
+#endif
+	}
+
+      if(del)
+	{
+	  if(prev != NULL)
+	    {
+	      ptlocap -> USER = next ;
+	    }
+	  else
+	    {
+	      prev -> NEXT = next ;
+	    }
+
+	  scanptype -> NEXT = NULL ;
+	  freeptype(scanptype ) ;
+	}
+      else
+	{
+	  prev = scanptype ;
+	}
+    }
+}
+
+/*********************************** Resistor : add ********************************************/
+
+lores_list *addlores(lofig_list *ptfig,char type,double resi,losig_list *ptrcon1,
+                     losig_list *ptrcon2,char *name)
+{
+  static char *rcon1 = NULL ;
+  static char *rcon2 = NULL ;
+  lores_list  *ptres  = NULL ;
+  locon_list  *ptcon  = NULL ;
+
+  rcon1 = namealloc("rcon1");
+  rcon2 = namealloc("rcon2");
+
+  if((type != RESMIM) && (type != RESMIM))
+    {
+      (void)fflush(stdout) ;
+      (void)fprintf(stderr, "*** mbk error ***\n") ;
+      (void)fprintf(stderr, "  illegal resistor type : %ld\n",(long)type) ;
+      EXIT(1) ;
+    }
+
+   ptres = (lores_list *)mbkalloc(sizeof(lores_list)) ;
+   ptres -> TYPE  = type ;
+   ptres -> NEXT  = ptfig -> LORES ;
+   ptfig -> LORES = ptres ;
+   ptres -> USER  = NULL ;
+
+   ptcon = (locon_list *)mbkalloc(sizeof(locon_list));
+   ptcon -> NAME      = rcon1 ;
+   ptcon -> SIG       = ptrcon1 ;
+   ptcon -> ROOT      = (void *)ptres ;
+   ptcon -> TYPE      = TRANSCV3 ;
+   ptcon -> DIRECTION = INTERNAL ;
+   ptcon -> USER      = NULL ;
+   ptcon -> PNODE     = NULL ;
+   ptres -> RCON1      = ptcon ;
+   
+   ptcon = (locon_list *)mbkalloc(sizeof(locon_list)) ;
+   ptcon -> NAME      = rcon2 ;
+   ptcon -> SIG       = ptrcon2 ;
+   ptcon -> ROOT      = (void *)ptres ;
+   ptcon -> TYPE      = TRANSCV3 ;
+   ptcon -> DIRECTION = INTERNAL ;
+   ptcon -> USER      = NULL ;
+   ptcon -> PNODE     = NULL ;
+   ptres -> RCON2      = ptcon ;
+   
+   /* No check is done for resistor name unicity */
+   ptres -> NAME = namealloc(name) ;
+
+   if(TRACE_MODE == 'Y')
+     {
+       (void)fprintf(stdout,"--- mbk --- addlores  : %s\n",type == RESMIM ? "RESMIM" : "RESMIM") ;
+     }
+
+   return ptres ;
+}
+
+/*********************************** Resistor : del ********************************************/
+
+int dellores(lofig_list *ptfig,lores_list  *ptres)
+{
+  lores_list  *pt    = NULL ;
+  lores_list  *ptsav = NULL ;
+
+  for(pt = ptfig -> LORES ; pt != NULL ; pt = pt -> NEXT)
+    {
+      if(pt == ptres)
+	{
+          break ;
+	}
+
+      ptsav = pt ;
+   }
+
+  if(pt == NULL)
+    {
+      return 0 ;
+    }
+  else
+    {
+      if(pt == ptfig -> LORES)
+	{
+          ptfig -> LORES = pt -> NEXT ;
+	}
+      else
+	{
+          ptsav -> NEXT = pt -> NEXT ;
+	}
+    }
+
+  if(pt -> RCON1 -> PNODE)
+    {
+      delrcnlocon(pt -> RCON1) ;
+    }
+
+  delloconuser(pt -> RCON1) ;
+  mbkfree((void *)pt -> RCON1) ;
+
+  if(pt -> RCON2 -> PNODE)
+    {
+      delrcnlocon(pt -> RCON2) ;
+    }
+
+  delloconuser(pt -> RCON2) ;
+  mbkfree((void *)pt -> RCON2) ;
+
+  delloresuser(pt) ;
+  mbkfree((void *)pt) ;
+
+  if(TRACE_MODE == 'Y')
+    {
+      (void)fprintf(stdout, "--- mbk --- dellores  : \n") ;
+    }
+
+  return 1 ;
+}  
+
+/*********************************** Resistor : getlores ***************************************/
+
+lores_list *getlores(lofig_list *ptfig, const char *cname)
+{
+  lores_list *ptres = NULL ;
+  char       *name  = namealloc(cname) ;
+
+  for(ptres = ptfig -> LORES ; ptres != NULL ; ptres = ptres -> NEXT)
+    {
+      if(ptres -> NAME == name)
+	{
+          return ptres ;
+	}
+    }
+
+  (void)fflush(stdout) ;
+  (void)fprintf(stderr,"*** mbk error ***\n") ;
+  (void)fprintf(stderr,"getlores impossible :\n") ;
+  (void)fprintf(stderr,"resistor %s doesn't exist in figure %s\n",name,ptfig -> NAME) ;
+  EXIT(1) ;
+
+  return NULL ; /* never reached */
+}
+
+/*********************************** Resistor : viewlores ***************************************/
+
+void viewlores(lores_list  *ptres)
+{ 
+  (void)printf("   |---resistor\n") ;
+  (void)printf("   |   |---type  : %s\n",IsResMIM(ptres->TYPE)?"MIM":"POLY/NWELL") ;
+
+  if(ptres -> NAME != NULL)
+    {
+      (void)printf("   |   |---name : %s\n", ptres -> NAME) ;
+    }
+  else
+    {
+      (void)printf("   |   |---no name\n") ;
+    }
+
+  if(ptres -> RCON1 == NULL)
+    {
+      (void)printf("   |   |--- !!! no signal on first connector !!! \n") ;
+    }
+  else
+    {
+      viewloinscon(ptres -> RCON1) ;
+    }
+
+  if(ptres -> RCON2 == NULL)
+    {
+      (void)printf("   |   |--- !!! no signal on second connector !!! \n") ;
+    }
+  else
+    {
+      viewloinscon(ptres -> RCON2) ;
+    }
+
+   (void)printf("   |   |---resi   : %ld\n", ptres -> RESI) ;
+
+  if(ptres -> USER != NULL)
+    {
+      (void)printf("   |   |---non empty USER field\n") ;
+    }
+
+   (void)printf("   |\n") ;
+}
+
+/*********************************** Resistor : delloresuser ***********************************/
+
+void delloresuser(lores_list *ptlores)
+{
+  ptype_list *scanptype = NULL ;
+  ptype_list *next      = NULL ;
+  ptype_list *prev      = NULL ;
+  int         del       = 0    ;
+ 
+  for(scanptype = ptlores -> USER ; scanptype != NULL ; scanptype = next)
+    {
+      next = scanptype -> NEXT ;
+      del = 0 ;
+
+      switch(scanptype -> TYPE)
+	{
+	case LORES_INFO : mbkfree(scanptype -> DATA) ;
+	                  del = 1 ;
+                          break ;
+	default :
+#ifdef MBK_TRACE_BAD_PTYPE
+	  fprintf( stderr, "WARNING in delloconuser() : unknown ptype %ld\n",scanptype -> TYPE) ;
+#endif
+	}
+
+      if(del)
+	{
+	  if(prev != NULL)
+	    {
+	      ptlores -> USER = next ;
+	    }
+	  else
+	    {
+	      prev -> NEXT = next ;
+	    }
+
+	  scanptype -> NEXT = NULL ;
+	  freeptype(scanptype ) ;
+	}
+      else
+	{
+	  prev = scanptype ;
+	}
+    }
+}
+
+/*********************************** Inductor : add ********************************************/
+
+loself_list *addloself(lofig_list *ptfig,char type,double self,losig_list *ptscon1,
+                     losig_list *ptscon2,char *name)
+{
+  static char *scon1 = NULL ;
+  static char *scon2 = NULL ;
+  loself_list  *ptself  = NULL ;
+  locon_list  *ptcon  = NULL ;
+
+  scon1 = namealloc("scon1");
+  scon2 = namealloc("scon2");
+
+  if((type != SELFMIM) && (type != SELFMIM))
+    {
+      (void)fflush(stdout) ;
+      (void)fprintf(stderr, "*** mbk error ***\n") ;
+      (void)fprintf(stderr, "  illegal inductor type : %ld\n",(long)type) ;
+      EXIT(1) ;
+    }
+
+   ptself = (loself_list *)mbkalloc(sizeof(loself_list)) ;
+   ptself -> TYPE  = type ;
+   ptself -> NEXT  = ptfig -> LOSELF ;
+   ptfig -> LOSELF = ptself ;
+   ptself -> USER  = NULL ;
+
+   ptcon = (locon_list *)mbkalloc(sizeof(locon_list));
+   ptcon -> NAME      = scon1 ;
+   ptcon -> SIG       = ptscon1 ;
+   ptcon -> ROOT      = (void *)ptself ;
+   ptcon -> TYPE      = TRANSCV4 ;
+   ptcon -> DIRECTION = INTERNAL ;
+   ptcon -> USER      = NULL ;
+   ptcon -> PNODE     = NULL ;
+   ptself -> SCON1      = ptcon ;
+   
+   ptcon = (locon_list *)mbkalloc(sizeof(locon_list)) ;
+   ptcon -> NAME      = scon2 ;
+   ptcon -> SIG       = ptscon2 ;
+   ptcon -> ROOT      = (void *)ptself ;
+   ptcon -> TYPE      = TRANSCV4 ;
+   ptcon -> DIRECTION = INTERNAL ;
+   ptcon -> USER      = NULL ;
+   ptcon -> PNODE     = NULL ;
+   ptself -> SCON2      = ptcon ;
+   
+   /* No check is done for inductor name unicity */
+   ptself -> NAME = namealloc(name) ;
+
+   if(TRACE_MODE == 'Y')
+     {
+       (void)fprintf(stdout,"--- mbk --- addloself  : %s\n",type == SELFMIM ? "SELFMIM" : "SELFMIM") ;
+     }
+
+   return ptself ;
+}
+
+/*********************************** Inductor : del ********************************************/
+
+int delloself(lofig_list *ptfig,loself_list  *ptself)
+{
+  loself_list  *pt    = NULL ;
+  loself_list  *ptsav = NULL ;
+
+  for(pt = ptfig -> LOSELF ; pt != NULL ; pt = pt -> NEXT)
+    {
+      if(pt == ptself)
+	{
+          break ;
+	}
+
+      ptsav = pt ;
+   }
+
+  if(pt == NULL)
+    {
+      return 0 ;
+    }
+  else
+    {
+      if(pt == ptfig -> LOSELF)
+	{
+          ptfig -> LOSELF = pt -> NEXT ;
+	}
+      else
+	{
+          ptsav -> NEXT = pt -> NEXT ;
+	}
+    }
+
+  if(pt -> SCON1 -> PNODE)
+    {
+      delrcnlocon(pt -> SCON1) ;
+    }
+
+  delloconuser(pt -> SCON1) ;
+  mbkfree((void *)pt -> SCON1) ;
+
+  if(pt -> SCON2 -> PNODE)
+    {
+      delrcnlocon(pt -> SCON2) ;
+    }
+
+  delloconuser(pt -> SCON2) ;
+  mbkfree((void *)pt -> SCON2) ;
+
+  delloselfuser(pt) ;
+  mbkfree((void *)pt) ;
+
+  if(TRACE_MODE == 'Y')
+    {
+      (void)fprintf(stdout, "--- mbk --- delloself  : \n") ;
+    }
+
+  return 1 ;
+}  
+
+/*********************************** Inductor : getloself ***************************************/
+
+loself_list *getloself(lofig_list *ptfig, const char *cname)
+{
+  loself_list *ptself = NULL ;
+  char       *name  = namealloc(cname) ;
+
+  for(ptself = ptfig -> LOSELF ; ptself != NULL ; ptself = ptself -> NEXT)
+    {
+      if(ptself -> NAME == name)
+	{
+          return ptself ;
+	}
+    }
+
+  (void)fflush(stdout) ;
+  (void)fprintf(stderr,"*** mbk error ***\n") ;
+  (void)fprintf(stderr,"getloself impossible :\n") ;
+  (void)fprintf(stderr,"inductor %s doesn't exist in figure %s\n",name,ptfig -> NAME) ;
+  EXIT(1) ;
+
+  return NULL ; /* never reached */
+}
+
+/*********************************** Inductor : viewloself ***************************************/
+
+void viewloself(loself_list *ptself)
+{ 
+  (void)printf("   |---inductor\n") ;
+  (void)printf("   |   |---type  : %s\n",IsSelfMIM(ptself->TYPE)?"MIM":"POLY/NWELL") ;
+
+  if(ptself -> NAME != NULL)
+    {
+      (void)printf("   |   |---name : %s\n", ptself -> NAME) ;
+    }
+  else
+    {
+      (void)printf("   |   |---no name\n") ;
+    }
+
+  if(ptself -> SCON1 == NULL)
+    {
+      (void)printf("   |   |--- !!! no signal on first connector !!! \n") ;
+    }
+  else
+    {
+      viewloinscon(ptself -> SCON1) ;
+    }
+
+  if(ptself -> SCON2 == NULL)
+    {
+      (void)printf("   |   |--- !!! no signal on second connector !!! \n") ;
+    }
+  else
+    {
+      viewloinscon(ptself -> SCON2) ;
+    }
+
+   (void)printf("   |   |---self   : %ld\n", ptself -> SELF) ;
+
+  if(ptself -> USER != NULL)
+    {
+      (void)printf("   |   |---non empty USER field\n") ;
+    }
+
+   (void)printf("   |\n") ;
+}
+
+/*********************************** Inductor : delloselfuser ***********************************/
+
+void delloselfuser(loself_list *ptloself)
+{
+  ptype_list *scanptype = NULL ;
+  ptype_list *next      = NULL ;
+  ptype_list *prev      = NULL ;
+  int         del       = 0    ;
+ 
+  for(scanptype = ptloself -> USER ; scanptype != NULL ; scanptype = next)
+    {
+      next = scanptype -> NEXT ;
+      del = 0 ;
+
+      switch(scanptype -> TYPE)
+	{
+	default :
+#ifdef MBK_TRACE_BAD_PTYPE
+	  fprintf( stderr, "WARNING in delloconuser() : unknown ptype %ld\n",scanptype -> TYPE) ;
+#endif
+	}
+
+      if(del)
+	{
+	  if(prev != NULL)
+	    {
+	      ptloself -> USER = next ;
+	    }
+	  else
+	    {
+	      prev -> NEXT = next ;
+	    }
+
+	  scanptype -> NEXT = NULL ;
+	  freeptype(scanptype ) ;
+	}
+      else
+	{
+	  prev = scanptype ;
+	}
+    }
+}
+

@@ -28,7 +28,7 @@
  * Modified by Czo <Olivier.Sirol@lip6.fr> 1997,98
  */
 
-#ident "$Id: mbk_lo_util.c,v 1.1 2002/03/08 13:51:05 fred Exp $"
+#ident "$Id: mbk_lo_util.c,v 1.2 2002/08/08 19:47:37 pnt Exp $"
 
 #include <stdio.h>
 #include <stdlib.h>
@@ -71,6 +71,9 @@ char *figname = namealloc(fname);
       ptfig->MODELCHAIN  = NULL;
       ptfig->LOINS  = NULL;
       ptfig->LOTRS  = NULL;
+      ptfig->LOCAP  = NULL;
+      ptfig->LORES  = NULL;
+      ptfig->LOSELF = NULL;
       ptfig->LOCON  = NULL;
       ptfig->LOSIG  = NULL;
       ptfig->BKSIG  = NULL;
@@ -186,6 +189,9 @@ void flattenlofig(lofig_list *ptfig, const char *iname, char concat)
   int                    verif;
 
   lotrs_list            *scantrs;
+  locap_list            *scancap;
+  lores_list            *scanres;
+  loself_list           *scanself;
   loins_list            *scanins;
 
   int                    i;
@@ -941,6 +947,90 @@ while(ptfig->LOINS != NULL)
           scanchain->DATA = concatname( insname, (char*)(scanchain->DATA) );
       }
     }
+
+    for(scancap = figins -> LOCAP ; scancap != NULL ; scancap = scancap -> NEXT)
+      {
+        if(scancap -> NAME != NULL)
+	  {
+            scancap -> NAME = concatname(insname,scancap -> NAME) ;
+	  }
+
+        ptptype = getptype(scancap -> TCON -> USER,PNODENAME) ;
+
+        if(ptptype)
+          {
+             for(scanchain = (chain_list *)(ptptype -> DATA) ; scanchain ; scanchain = scanchain->NEXT)
+	       {
+                 scanchain -> DATA = concatname(insname,(char *)(scanchain -> DATA)) ;
+	       }
+	  }
+      
+	ptptype = getptype( scancap -> BCON -> USER,PNODENAME) ;
+
+	if(ptptype)
+	  {
+	    for(scanchain = (chain_list *)(ptptype -> DATA) ; scanchain ; scanchain = scanchain->NEXT)
+	      {
+		scanchain -> DATA = concatname(insname,(char *)(scanchain -> DATA)) ;
+	      }
+	  }
+      }
+
+    for(scanres = figins -> LORES ; scanres != NULL ; scanres = scanres -> NEXT)
+      {
+        if(scanres -> NAME != NULL)
+	  {
+            scanres -> NAME = concatname(insname,scanres -> NAME) ;
+	  }
+
+        ptptype = getptype(scanres -> RCON1 -> USER,PNODENAME) ;
+
+        if(ptptype)
+          {
+             for(scanchain = (chain_list *)(ptptype -> DATA) ; scanchain ; scanchain = scanchain->NEXT)
+	       {
+                 scanchain -> DATA = concatname(insname,(char *)(scanchain -> DATA)) ;
+	       }
+	  }
+      
+	ptptype = getptype( scanres -> RCON2 -> USER,PNODENAME) ;
+
+	if(ptptype)
+	  {
+	    for(scanchain = (chain_list *)(ptptype -> DATA) ; scanchain ; scanchain = scanchain->NEXT)
+	      {
+		scanchain -> DATA = concatname(insname,(char *)(scanchain -> DATA)) ;
+	      }
+	  }
+      }
+
+    for(scanself = figins -> LOSELF ; scanself != NULL ; scanself = scanself -> NEXT)
+      {
+        if(scanself -> NAME != NULL)
+	  {
+            scanself -> NAME = concatname(insname,scanself -> NAME) ;
+	  }
+
+        ptptype = getptype(scanself -> SCON1 -> USER,PNODENAME) ;
+
+        if(ptptype)
+          {
+             for(scanchain = (chain_list *)(ptptype -> DATA) ; scanchain ; scanchain = scanchain->NEXT)
+	       {
+                 scanchain -> DATA = concatname(insname,(char *)(scanchain -> DATA)) ;
+	       }
+	  }
+      
+	ptptype = getptype( scanself -> SCON2 -> USER,PNODENAME) ;
+
+	if(ptptype)
+	  {
+	    for(scanchain = (chain_list *)(ptptype -> DATA) ; scanchain ; scanchain = scanchain->NEXT)
+	      {
+		scanchain -> DATA = concatname(insname,(char *)(scanchain -> DATA)) ;
+	      }
+	  }
+      }
   }
  
   for( scanins = figins->LOINS ; scanins ; scanins = scanins->NEXT )
@@ -959,8 +1049,22 @@ while(ptfig->LOINS != NULL)
   ptfig->LOTRS = (lotrs_list*)append( (chain_list*)figins->LOTRS,
                                       (chain_list*)ptfig->LOTRS );
 
+  ptfig->LOCAP = (locap_list*)append( (chain_list*)figins->LOCAP,
+                                      (chain_list*)ptfig->LOCAP );
+
+  ptfig->LORES = (lores_list*)append( (chain_list*)figins->LORES,
+                                      (chain_list*)ptfig->LORES );
+
+  ptfig->LOSELF = (loself_list*)append( (chain_list*)figins->LOSELF,
+                                      (chain_list*)ptfig->LOSELF );
+
   figins->LOINS = NULL;
   figins->LOTRS = NULL;
+
+  figins->LOCAP = NULL;
+  figins->LORES = NULL;
+  figins->LOSELF = NULL;
+
 
   for( scanlocon = figins->LOCON ; scanlocon ; scanlocon = nextlocon )
   {
@@ -989,6 +1093,9 @@ while(ptfig->LOINS != NULL)
       figins->BKSIG          ||
       figins->LOINS          ||
       figins->LOTRS          ||
+      figins->LOCAP          ||
+      figins->LORES          ||
+      figins->LOSELF         ||
       figins->USER              )
   {
     fflush( stdout );
@@ -2124,7 +2231,18 @@ struct typoin           /* structure used by dast_dbg */
 #define VHD_ptypeDFN 34
 #define VHD_dataDFN 35
 
-#define VHD_MAXDFN 37
+#define VHD_locapDFN 36
+#define VHD_loresDFN 37
+#define VHD_loselfDFN 38
+#define VHD_tconDFN 39
+#define VHD_bconDFN 40
+#define VHD_rcon1DFN 41
+#define VHD_rcon2DFN 42
+#define VHD_scon1DFN 43
+#define VHD_scon2DFN 44
+
+#define VHD_MAXDFN 45
+
 static int vhd_getcmd();
 static int vhd_hash();
 
@@ -2162,6 +2280,10 @@ char  *stru_name;
   struct loins *loins_pnt;
   struct lotrs *lotrs_pnt;
 
+  struct locap  *locap_pnt;
+  struct lores  *lores_pnt;
+  struct loself *loself_pnt;
+
 key[VHD_lofigDFN]      = vhd_hash ("lofig");
 key[VHD_nextDFN]       = vhd_hash ("next");
 key[VHD_modelchainDFN] = vhd_hash ("modelchain");
@@ -2192,6 +2314,16 @@ key[VHD_namechainDFN]  = vhd_hash ("namechain");
 key[VHD_capaDFN]       = vhd_hash ("capa");
 key[VHD_indexDFN]      = vhd_hash ("index");
 key[VHD_ptypeDFN]      = vhd_hash ("ptype");
+
+key[VHD_locapDFN]      = vhd_hash ("locap");
+key[VHD_loresDFN]      = vhd_hash ("lores");
+key[VHD_loselfDFN]     = vhd_hash ("loself");
+key[VHD_tconDFN]       = vhd_hash ("tcon");
+key[VHD_bconDFN]       = vhd_hash ("bcon");
+key[VHD_rcon1DFN]      = vhd_hash ("rcon1");
+key[VHD_rcon2DFN]      = vhd_hash ("rcon2");
+key[VHD_scon1DFN]      = vhd_hash ("scon1");
+key[VHD_scon2DFN]      = vhd_hash ("scon2");
 
    /* ###------------------------------------------------------### */
    /*    Set of predefined commands          */
@@ -2311,6 +2443,27 @@ key[VHD_ptypeDFN]      = vhd_hash ("ptype");
         nxt[VHD_lotrsDFN] = (void *)lofig_pnt->LOTRS;
         typ[VHD_lotrsDFN] = VHD_lotrsDFN;
         }
+
+      if (lofig_pnt->LOCAP != NULL)
+        {
+        tab[VHD_locapDFN] = avail;
+        nxt[VHD_locapDFN] = (void *)lofig_pnt->LOCAP;
+        typ[VHD_locapDFN] = VHD_locapDFN;
+        }
+      if (lofig_pnt->LORES != NULL)
+        {
+        tab[VHD_loresDFN] = avail;
+        nxt[VHD_loresDFN] = (void *)lofig_pnt->LORES;
+        typ[VHD_loresDFN] = VHD_loresDFN;
+        }
+      if (lofig_pnt->LOSELF != NULL)
+        {
+        tab[VHD_loselfDFN] = avail;
+        nxt[VHD_loselfDFN] = (void *)lofig_pnt->LOSELF;
+        typ[VHD_loselfDFN] = VHD_loselfDFN;
+        }
+
+
       if (lofig_pnt->USER != NULL)
         {
         tab[VHD_userDFN] = avail;
@@ -2333,6 +2486,11 @@ key[VHD_ptypeDFN]      = vhd_hash ("ptype");
       (void)printf ("-> bksig       : %s\n",tab[VHD_bksigDFN]);
       (void)printf ("-> loins       : %s\n",tab[VHD_loinsDFN]);
       (void)printf ("-> lotrs       : %s\n",tab[VHD_lotrsDFN]);
+
+      (void)printf ("-> locap       : %s\n",tab[VHD_locapDFN]);
+      (void)printf ("-> lores       : %s\n",tab[VHD_loresDFN]);
+      (void)printf ("-> loself      : %s\n",tab[VHD_loselfDFN]);
+
       (void)printf ("-> user        : %s\n",tab[VHD_userDFN]);
       (void)printf ("-> next        : %s\n",tab[VHD_nextDFN]);
 
@@ -2394,6 +2552,126 @@ key[VHD_ptypeDFN]      = vhd_hash ("ptype");
       (void)printf ("-> next        : %s\n",tab[VHD_nextDFN]);
 
       break;
+
+
+    case (VHD_locapDFN):
+
+      /* ###--------- locap ---------### */
+
+      locap_pnt = (struct locap *)(current_pnt.data);
+
+      if (locap_pnt->NEXT != NULL)
+        {
+        tab[VHD_nextDFN] = avail;
+        nxt[VHD_nextDFN] = (void *)locap_pnt->NEXT;
+        typ[VHD_nextDFN] = VHD_locapDFN;
+        }
+      if (locap_pnt->TCON != NULL)
+        {
+        tab[VHD_tconDFN] = avail;
+        nxt[VHD_tconDFN] = (void *)locap_pnt->TCON;
+        typ[VHD_tconDFN] = VHD_loconDFN;
+        }
+      if (locap_pnt->BCON != NULL)
+        {
+        tab[VHD_bconDFN] = avail;
+        nxt[VHD_bconDFN] = (void *)locap_pnt->BCON;
+        typ[VHD_bconDFN] = VHD_loconDFN;
+        }
+      if (locap_pnt->USER != NULL)
+        {
+        tab[VHD_userDFN] = avail;
+        nxt[VHD_userDFN] = (void *)locap_pnt->USER;
+        typ[VHD_userDFN] = VHD_ptypeDFN;
+        }
+
+      (void)printf ("-> tcon        : %s\n",tab[VHD_tconDFN]);
+      (void)printf ("-> bcon        : %s\n",tab[VHD_bconDFN]);
+      (void)printf ("   type        : %c\n",locap_pnt->TYPE);
+      (void)printf ("-> user        : %s\n",tab[VHD_userDFN]);
+      (void)printf ("-> next        : %s\n",tab[VHD_nextDFN]);
+
+      break;
+
+
+    case (VHD_loresDFN):
+
+      /* ###--------- lores ---------### */
+
+      lores_pnt = (struct lores *)(current_pnt.data);
+
+      if (lores_pnt->NEXT != NULL)
+        {
+        tab[VHD_nextDFN] = avail;
+        nxt[VHD_nextDFN] = (void *)lores_pnt->NEXT;
+        typ[VHD_nextDFN] = VHD_loresDFN;
+        }
+      if (lores_pnt->RCON1 != NULL)
+        {
+        tab[VHD_rcon1DFN] = avail;
+        nxt[VHD_rcon1DFN] = (void *)lores_pnt->RCON1;
+        typ[VHD_rcon1DFN] = VHD_loconDFN;
+        }
+      if (lores_pnt->RCON2 != NULL)
+        {
+        tab[VHD_rcon2DFN] = avail;
+        nxt[VHD_rcon2DFN] = (void *)lores_pnt->RCON2;
+        typ[VHD_rcon2DFN] = VHD_loconDFN;
+        }
+      if (lores_pnt->USER != NULL)
+        {
+        tab[VHD_userDFN] = avail;
+        nxt[VHD_userDFN] = (void *)lores_pnt->USER;
+        typ[VHD_userDFN] = VHD_ptypeDFN;
+        }
+
+      (void)printf ("-> rcon1       : %s\n",tab[VHD_rcon1DFN]);
+      (void)printf ("-> rcon2       : %s\n",tab[VHD_rcon2DFN]);
+      (void)printf ("   type        : %c\n",lores_pnt->TYPE);
+      (void)printf ("-> user        : %s\n",tab[VHD_userDFN]);
+      (void)printf ("-> next        : %s\n",tab[VHD_nextDFN]);
+
+      break;
+
+    case (VHD_loselfDFN):
+
+      /* ###--------- loself ---------### */
+
+      loself_pnt = (struct loself *)(current_pnt.data);
+
+      if (loself_pnt->NEXT != NULL)
+        {
+        tab[VHD_nextDFN] = avail;
+        nxt[VHD_nextDFN] = (void *)loself_pnt->NEXT;
+        typ[VHD_nextDFN] = VHD_loselfDFN;
+        }
+      if (loself_pnt->SCON1 != NULL)
+        {
+        tab[VHD_scon1DFN] = avail;
+        nxt[VHD_scon1DFN] = (void *)loself_pnt->SCON1;
+        typ[VHD_scon1DFN] = VHD_loconDFN;
+        }
+      if (loself_pnt->SCON2 != NULL)
+        {
+        tab[VHD_scon2DFN] = avail;
+        nxt[VHD_scon2DFN] = (void *)loself_pnt->SCON2;
+        typ[VHD_scon2DFN] = VHD_loconDFN;
+        }
+      if (loself_pnt->USER != NULL)
+        {
+        tab[VHD_userDFN] = avail;
+        nxt[VHD_userDFN] = (void *)loself_pnt->USER;
+        typ[VHD_userDFN] = VHD_ptypeDFN;
+        }
+
+      (void)printf ("-> scon1       : %s\n",tab[VHD_scon1DFN]);
+      (void)printf ("-> scon2       : %s\n",tab[VHD_scon2DFN]);
+      (void)printf ("   type        : %c\n",loself_pnt->TYPE);
+      (void)printf ("-> user        : %s\n",tab[VHD_userDFN]);
+      (void)printf ("-> next        : %s\n",tab[VHD_nextDFN]);
+
+      break;
+
 
     case (VHD_loinsDFN):
 
@@ -2974,7 +3252,7 @@ lofig_list *lofig_ptr;
 /*  contents : duplicate a lofig and return a pointer on the new  */
 /*        structure.                      */
 /*  called func. : mbkalloc(), dupchainlst(),            */
-/*  note : the LOCON, LOSIG, BKSIG, LOINS, LOTRS pointers are     */
+/*  note : the LOCON, LOSIG, BKSIG, LOINS, LOTRS, LOCAP, LORES, LOSELF pointers are     */
 /*         also duplicated                */
 /*##------------------------------------------------------------------##*/
 
@@ -2994,6 +3272,9 @@ lofig_list *lofig_ptr;
   lofig_rpt->BKSIG      = lofig_ptr->BKSIG;
   lofig_rpt->LOINS      = lofig_ptr->LOINS;
   lofig_rpt->LOTRS      = lofig_ptr->LOTRS;
+  lofig_rpt->LOCAP      = lofig_ptr->LOCAP;
+  lofig_rpt->LORES      = lofig_ptr->LORES;
+  lofig_rpt->LOSELF     = lofig_ptr->LOSELF;
   lofig_rpt->NAME       = lofig_ptr->NAME;
   lofig_rpt->MODE       = lofig_ptr->MODE;
 
@@ -3017,6 +3298,9 @@ lofig_list *lofig_ptr;
   locon_list *locon_pt = NULL;
   loins_list *loins_pt = NULL;
   lotrs_list *lotrs_pt = NULL;
+  locap_list *locap_pt = NULL;
+  lores_list *lores_pt = NULL;
+  loself_list *loself_pt = NULL;
   losig_list *losig_pt = NULL;
   chain_list *headctc;
   chain_list *scanchain;
@@ -3029,6 +3313,10 @@ lofig_list *lofig_ptr;
   lofig_rpt->LOCON      = duploconlst(lofig_rpt->LOCON);
   lofig_rpt->LOINS      = duploinslst(lofig_rpt->LOINS);
   lofig_rpt->LOTRS      = duplotrslst(lofig_rpt->LOTRS);
+
+  lofig_rpt->LOCAP      = duplocaplst(lofig_rpt->LOCAP);
+  lofig_rpt->LORES      = duploreslst(lofig_rpt->LORES);
+  lofig_rpt->LOSELF     = duploselflst(lofig_rpt->LOSELF);
 
   /* Now verify and restitute the coherence of the figure   */
 
@@ -3089,6 +3377,146 @@ lofig_list *lofig_ptr;
 
     lotrs_pt = lotrs_pt->NEXT;
     }
+
+
+  /* Restitute coherence in the LOCAP List */ 
+  locap_pt = lofig_rpt->LOCAP;
+  while(locap_pt != NULL)
+    {
+    locap_pt->TCON   = duplocon(locap_pt->TCON);
+    locon_pt = locap_pt->TCON;
+    while(locon_pt != NULL)
+      {
+      index       = (locon_pt->SIG)->INDEX;
+      locon_pt->SIG  = getlosig(lofig_rpt, index);
+      locon_pt->ROOT = (void *)locap_pt;
+      
+      locon_pt = locon_pt->NEXT;
+      }
+
+    locap_pt->BCON  = duplocon(locap_pt->BCON);
+    locon_pt = locap_pt->BCON;
+    while(locon_pt != NULL)
+      {
+      index       = (locon_pt->SIG)->INDEX;
+      locon_pt->SIG  = getlosig(lofig_rpt, index);
+      locon_pt->ROOT = (void *)locap_pt;
+      
+      locon_pt = locon_pt->NEXT;
+      }
+
+    while(locon_pt != NULL)
+      {
+      if( locon_pt->SIG )
+        {
+        index     = (locon_pt->SIG)->INDEX;
+        locon_pt->SIG   = getlosig(lofig_rpt, index);
+   }
+      else
+        {
+   locon_pt->SIG   = NULL;
+   }
+      locon_pt->ROOT = (void *)locap_pt;
+      
+      locon_pt = locon_pt->NEXT;
+      }
+
+    locap_pt = locap_pt->NEXT;
+    }
+
+
+  /* Restitute coherence in the LORES List */ 
+  lores_pt = lofig_rpt->LORES;
+  while(lores_pt != NULL)
+    {
+    lores_pt->RCON1   = duplocon(lores_pt->RCON1);
+    locon_pt = lores_pt->RCON1;
+    while(locon_pt != NULL)
+      {
+      index       = (locon_pt->SIG)->INDEX;
+      locon_pt->SIG  = getlosig(lofig_rpt, index);
+      locon_pt->ROOT = (void *)lores_pt;
+      
+      locon_pt = locon_pt->NEXT;
+      }
+
+    lores_pt->RCON2  = duplocon(lores_pt->RCON2);
+    locon_pt = lores_pt->RCON2;
+    while(locon_pt != NULL)
+      {
+      index       = (locon_pt->SIG)->INDEX;
+      locon_pt->SIG  = getlosig(lofig_rpt, index);
+      locon_pt->ROOT = (void *)lores_pt;
+      
+      locon_pt = locon_pt->NEXT;
+      }
+
+    while(locon_pt != NULL)
+      {
+      if( locon_pt->SIG )
+        {
+        index     = (locon_pt->SIG)->INDEX;
+        locon_pt->SIG   = getlosig(lofig_rpt, index);
+   }
+      else
+        {
+   locon_pt->SIG   = NULL;
+   }
+      locon_pt->ROOT = (void *)lores_pt;
+      
+      locon_pt = locon_pt->NEXT;
+      }
+
+    lores_pt = lores_pt->NEXT;
+    }
+
+
+  /* Selftitute coherence in the LOSELF List */ 
+  loself_pt = lofig_rpt->LOSELF;
+  while(loself_pt != NULL)
+    {
+    loself_pt->SCON1   = duplocon(loself_pt->SCON1);
+    locon_pt = loself_pt->SCON1;
+    while(locon_pt != NULL)
+      {
+      index       = (locon_pt->SIG)->INDEX;
+      locon_pt->SIG  = getlosig(lofig_rpt, index);
+      locon_pt->ROOT = (void *)loself_pt;
+      
+      locon_pt = locon_pt->NEXT;
+      }
+
+    loself_pt->SCON2  = duplocon(loself_pt->SCON2);
+    locon_pt = loself_pt->SCON2;
+    while(locon_pt != NULL)
+      {
+      index       = (locon_pt->SIG)->INDEX;
+      locon_pt->SIG  = getlosig(lofig_rpt, index);
+      locon_pt->ROOT = (void *)loself_pt;
+      
+      locon_pt = locon_pt->NEXT;
+      }
+
+    while(locon_pt != NULL)
+      {
+      if( locon_pt->SIG )
+        {
+        index     = (locon_pt->SIG)->INDEX;
+        locon_pt->SIG   = getlosig(lofig_rpt, index);
+   }
+      else
+        {
+   locon_pt->SIG   = NULL;
+   }
+      locon_pt->ROOT = (void *)loself_pt;
+      
+      locon_pt = locon_pt->NEXT;
+      }
+
+    loself_pt = loself_pt->NEXT;
+    }
+
+
 
   /* Restitute coherence in the LOINS List */ 
   loins_pt = lofig_rpt->LOINS;
@@ -3337,3 +3765,162 @@ its_first:
    delht(table);
    return 0;
 }
+
+/*************************** Analogical world ***************************************/
+
+/*##------------------------------------------------------------------##*/
+/*  Function : duplocaplst()                 */
+/*  contents : duplicate a locap list and return a pointer on the new   */
+/*             structure.                 */
+/*  called func. : duplocap(), reverse(),          */
+/*##------------------------------------------------------------------##*/
+
+locap_list *duplocaplst(locap_ptr)
+locap_list *locap_ptr;
+  {
+  locap_list *locap_rpt = NULL;     /* Returned locap pointer  */
+  locap_list *locap_tmpptr = NULL;  /* Temporary pointer       */
+
+  while(locap_ptr != NULL)
+    {
+    locap_tmpptr       = duplocap(locap_ptr);
+    locap_tmpptr->NEXT = locap_rpt;
+    locap_rpt          = locap_tmpptr;
+
+    locap_ptr          = locap_ptr->NEXT;
+    }
+  locap_rpt = (locap_list *)reverse((chain_list *)locap_rpt);
+  return(locap_rpt);
+  }
+
+/*##------------------------------------------------------------------##*/
+/*  Function : duplocap()                 */
+/*  contents : duplicate a locap and return a pointer on the new  */
+/*        structure.                      */
+/*  called func. : mbkalloc(), duplocon()             */
+/*  note : the TCON, BCON pointers are also duplicated   */
+/*##------------------------------------------------------------------##*/
+
+locap_list *duplocap(locap_ptr)
+locap_list *locap_ptr;
+  {
+  locap_list *locap_rpt = NULL;     /* Returned locap pointer  */
+
+  locap_rpt             = (locap_list *)mbkalloc(sizeof(locap_list));
+  locap_rpt->NEXT       = NULL;
+  locap_rpt->NAME       = locap_ptr->NAME;
+  locap_rpt->TCON       = locap_ptr->TCON;
+  locap_rpt->BCON       = locap_ptr->BCON;
+  locap_rpt->TYPE       = locap_ptr->TYPE;
+  locap_rpt->CAPA       = locap_ptr->CAPA;
+  locap_rpt->USER       = NULL;     /* The ptype_list is not duplicated */
+
+  return(locap_rpt);
+  }      
+
+
+/*##------------------------------------------------------------------##*/
+/*  Function : duploreslst()                 */
+/*  contents : duplicate a lores list and return a pointer on the new   */
+/*             structure.                 */
+/*  called func. : duplores(), reverse(),          */
+/*##------------------------------------------------------------------##*/
+
+lores_list *duploreslst(lores_ptr)
+lores_list *lores_ptr;
+  {
+  lores_list *lores_rpt = NULL;     /* Returned lores pointer  */
+  lores_list *lores_tmpptr = NULL;  /* Temporary pointer       */
+
+  while(lores_ptr != NULL)
+    {
+    lores_tmpptr       = duplores(lores_ptr);
+    lores_tmpptr->NEXT = lores_rpt;
+    lores_rpt          = lores_tmpptr;
+
+    lores_ptr          = lores_ptr->NEXT;
+    }
+  lores_rpt = (lores_list *)reverse((chain_list *)lores_rpt);
+  return(lores_rpt);
+  }
+
+/*##------------------------------------------------------------------##*/
+/*  Function : duplores()                 */
+/*  contents : duplicate a lores and return a pointer on the new  */
+/*        structure.                      */
+/*  called func. : mbkalloc(), duplocon()             */
+/*  note : the RCON1, RCON2 pointers are also duplicated   */
+/*##------------------------------------------------------------------##*/
+
+lores_list *duplores(lores_ptr)
+lores_list *lores_ptr;
+  {
+  lores_list *lores_rpt = NULL;     /* Returned lores pointer  */
+
+  lores_rpt             = (lores_list *)mbkalloc(sizeof(lores_list));
+  lores_rpt->NEXT       = NULL;
+  lores_rpt->NAME       = lores_ptr->NAME;
+  lores_rpt->RCON1      = lores_ptr->RCON1;
+  lores_rpt->RCON2      = lores_ptr->RCON2;
+  lores_rpt->TYPE       = lores_ptr->TYPE;
+  lores_rpt->RESI       = lores_ptr->RESI;
+  lores_rpt->USER       = NULL;     /* The ptype_list is not duplicated */
+
+  return(lores_rpt);
+  }      
+
+
+/*##------------------------------------------------------------------##*/
+/*  Function : duploselflst()                 */
+/*  contents : duplicate a loself list and return a pointer on the new   */
+/*             structure.                 */
+/*  called func. : duploself(), reverse(),          */
+/*##------------------------------------------------------------------##*/
+
+loself_list *duploselflst(loself_ptr)
+loself_list *loself_ptr;
+  {
+  loself_list *loself_rpt = NULL;     /* Returned loself pointer  */
+  loself_list *loself_tmpptr = NULL;  /* Temporary pointer       */
+
+  while(loself_ptr != NULL)
+    {
+    loself_tmpptr       = duploself(loself_ptr);
+    loself_tmpptr->NEXT = loself_rpt;
+    loself_rpt          = loself_tmpptr;
+
+    loself_ptr          = loself_ptr->NEXT;
+    }
+  loself_rpt = (loself_list *)reverse((chain_list *)loself_rpt);
+  return(loself_rpt);
+  }
+
+/*##------------------------------------------------------------------##*/
+/*  Function : duploself()                 */
+/*  contents : duplicate a loself and return a pointer on the new  */
+/*        structure.                      */
+/*  called func. : mbkalloc(), duplocon()             */
+/*  note : the RCON1, RCON2 pointers are also duplicated   */
+/*##------------------------------------------------------------------##*/
+
+loself_list *duploself(loself_ptr)
+loself_list *loself_ptr;
+  {
+  loself_list *loself_rpt = NULL;     /* Returned loself pointer  */
+
+  loself_rpt             = (loself_list *)mbkalloc(sizeof(loself_list));
+  loself_rpt->NEXT       = NULL;
+  loself_rpt->NAME       = loself_ptr->NAME;
+  loself_rpt->SCON1      = loself_ptr->SCON1;
+  loself_rpt->SCON2      = loself_ptr->SCON2;
+  loself_rpt->TYPE       = loself_ptr->TYPE;
+  loself_rpt->SELF       = loself_ptr->SELF;
+  loself_rpt->USER       = NULL;     /* The ptype_list is not duplicated */
+
+  return(loself_rpt);
+  }      
+
+
+
+
+

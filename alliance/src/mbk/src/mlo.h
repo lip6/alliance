@@ -26,7 +26,8 @@
  * Date    : 05/08/93
  * Author  : Frederic Petrot <Frederic.Petrot@lip6.fr>
  * Modified by Czo <Olivier.Sirol@lip6.fr> 1997,98
- * $Id: mlo.h,v 1.3 2002/06/01 15:51:29 ac Exp $
+ * Modified by pnt <Pierre.Nguyen-Tuong@lip6.fr> 2002
+ * $Id: mlo.h,v 1.4 2002/08/08 19:47:37 pnt Exp $
  */
 
 #ifndef _MLO_H_
@@ -73,6 +74,9 @@ extern "C" {
 #define UNKNOWN     'X'
 #define TRISTATE    'Z'
 #define TRANSCV     'T'
+#define TRANSCV2    'C'
+#define TRANSCV3    'R'
+#define TRANSCV4    'S'
 
 /*******************************************************************************
 * netlist structures types                                                     *
@@ -86,6 +90,9 @@ struct losig  *LOSIG;                         /* signal list head             */
 struct ptype  *BKSIG;                         /* signal block list head       */
 struct loins  *LOINS;                         /* instance list head           */
 struct lotrs  *LOTRS;                         /* transistor list head         */
+struct locap  *LOCAP      ;                   /* capacitance list head        */
+struct lores  *LORES      ;                   /* resistance list head         */
+struct loself *LOSELF     ;                   /* inductor list head           */
 char          *NAME;                          /* figure name (unique)         */
 char           MODE;                           /* 'A' or 'P'                  */
 struct ptype  *USER;                          /* Application specific         */
@@ -143,6 +150,126 @@ struct ptype  *USER;                           /* application specific        */
 }
 losig_list;
 
+
+/************************************************************************************/
+/************************* Analogical specific structures ***************************/
+/************************************************************************************/
+
+/********************** Complementary transitor informations ************************/
+
+/* The structure is put in the USER field of the transistor */
+/* with the LOTRS_INFO ptype                                */
+
+#define LOTRS_INFO 200208071                       /* USER field code               */
+
+typedef struct s_lotrs_info
+  {
+    double AS,AD              ;                    /* Source and drain area         */
+    double PS,PD              ;                    /* Source and drain perimeter    */
+    int    M                  ;                    /* Number of fingers             */
+  } lotrs_info                ;
+
+
+/********************************* Capacitance **************************************/
+
+#define CAPMIM    0                                /* Metal-Inter-Metal type        */
+#define CAPPNWELL 1                                /* Poly-NWell type               */
+
+#define IsCapMIM(type)    ((type == CAPMIM)    ? 1 : 0)
+#define IsCapPNWELL(type) ((type == CAPPNWELL) ? 1 : 0)
+
+typedef struct locap                               /* analog capacitance            */
+  {
+    struct locap  *NEXT       ;                    /* next capacitor                */
+    struct locon  *TCON       ;                    /* top plate connector           */
+    struct locon  *BCON       ;                    /* bottom plate connector        */
+    char          *NAME       ;                    /* capacitor instance name       */
+    double        CAPA        ;                    /* capacitor value (unite FF)    */
+    char          TYPE        ;                    /* capacitor type                */
+    struct ptype  *USER       ;                    /* application specific          */
+  } locap_list                ;
+
+
+/************************* Complementary capacitance information ********************/
+
+/* The structure is put in the USER field of the capacitance */
+/* with the LOCAP_INFO ptype                                 */
+
+#define LOCAP_INFO 200208072                       /* USER field code               */
+
+typedef struct s_locap_info
+  {
+    union
+       {
+         struct
+          {
+            double AT,AB      ;                    /* Top and bottom plate area     */
+            double PT,PB      ;                    /* Top et bottom plate perimeter */
+          } mim               ;
+         struct
+          {
+            double L,W        ;                    /* POLY/NWELL capacitance        */
+          } pnwell            ;
+       } data                 ;
+  } locap_info                ;
+
+
+/*********************************** Resistor ***************************************/
+
+#define RESMIM    0                                /* Metal-Inter-Metal type        */
+
+#define IsResMIM(type)    ((type == RESMIM)    ? 1 : 0)
+
+
+typedef struct lores                               /* analog resistor               */
+  {
+    struct lores  *NEXT       ;                    /* next resistor                 */
+    struct locon  *RCON1      ;                    /* first connector               */
+    struct locon  *RCON2      ;                    /* second connector              */
+    char          *NAME       ;                    /* resistor instance name        */
+    double        RESI        ;                    /* resistance value (ohms)       */
+    char          TYPE        ;                    /* resistor type                 */
+    struct ptype  *USER       ;                    /* application specific          */
+} lores_list                  ;
+
+
+/*************************** Complementary resistor information *********************/
+
+/* The structure is put in the USER field of the resistor */
+/* with the LORES_INFO ptype                              */
+
+#define LORES_INFO 200208073                       /* USER field code               */
+
+typedef struct s_lores_info
+  {
+    double L,W                ;
+  } lores_info                ;
+
+
+/************************************ Inductor **************************************/
+
+#define SELFMIM    0                               /* Metal-Inter-Metal type        */
+
+#define IsSelfMIM(type)    ((type == SELFMIM)    ? 1 : 0)
+
+typedef struct loself                              /* analog inductor               */
+  {
+    struct loself *NEXT       ;                    /* next inductor                 */
+    struct locon  *SCON1      ;                    /* first connector               */
+    struct locon  *SCON2      ;                    /* second connector              */
+    char          *NAME       ;                    /* inductor instance name        */
+    double        SELF        ;                    /* inductance value (unite H)    */
+    char          TYPE        ;                    /* inductor type                 */
+    struct ptype  *USER       ;                    /* application specific          */
+} loself_list                 ;
+
+
+
+/************************************************************************************/
+/************************************************************************************/
+/************************************************************************************/
+
+
 /*******************************************************************************
 * externals for mbk netlist view                                               *
 *******************************************************************************/
@@ -178,6 +305,28 @@ losig_list;
   extern           void  delloinsuser __P((loins_list*));
   extern           void  delloconuser __P((locon_list*));
   extern           void  dellofiguser __P((lofig_list*));
+
+/*************************** Analogical world ***************************************/
+
+extern locap_list *addlocap __P((lofig_list *ptfig,char type,double capa,losig_list *pttplate,
+                                 losig_list *ptbplate,char *name))                                                       ;
+extern int dellocap __P((lofig_list *ptfig,locap_list *ptcap))                                                           ;
+extern locap_list *getlocap __P((lofig_list *ptfig,const char *name))                                                    ;
+extern void dellocapuser __P((locap_list *))                                                                             ;
+
+extern lores_list *addlores __P((lofig_list *ptfig,char type,double resi,losig_list *ptrcon1,
+                                 losig_list *ptrcon2,char *name))                                                        ;
+extern int dellores __P((lofig_list *ptfig,lores_list *ptres))                                                           ;
+extern lores_list *getlores __P((lofig_list *ptfig,const char *name))                                                    ;
+extern void delloresuser __P((lores_list *))                                                                             ;
+
+extern loself_list *addloself __P((lofig_list *ptfig,char type,double self,losig_list *ptscon1,
+                                   losig_list *ptscon2,char *name))                                                      ;
+extern int delloself __P((lofig_list *ptfig,loself_list *ptself))                                                        ;
+extern loself_list *getloself __P((lofig_list *ptfig,const char *name))                                                  ;
+extern void delloselfuser __P((loself_list *))                                                                           ;
+
+/************************************************************************************/
 
 #ifdef __cplusplus
 }

@@ -26,10 +26,11 @@
  * Date    : 06/03/92
  * Author  : Frederic Petrot <Frederic.Petrot@lip6.fr>
  * Modified by Czo <Olivier.Sirol@lip6.fr> 1997,98
- * $Id: mbk_lo_util.h,v 1.1 2002/03/08 13:51:05 fred Exp $
+ * Modified by pnt <Pierre.Nguyen-Tuong@lip6.fr> 2002
+ * $Id: mbk_lo_util.h,v 1.2 2002/08/08 19:47:37 pnt Exp $
  */
 
-/* $Id: mbk_lo_util.h,v 1.1 2002/03/08 13:51:05 fred Exp $ */
+/* $Id: mbk_lo_util.h,v 1.2 2002/08/08 19:47:37 pnt Exp $ */
 
 #ifndef _MBK_LO_UTIL_H_
 #define _MBK_LO_UTIL_H_
@@ -61,6 +62,17 @@ lofig_list *givelofig();
   extern    lofig_list * duplofiglst __P((lofig_list *lofig_ptr));
   extern    lofig_list * duplofig __P((lofig_list *lofig_ptr));
   extern    lofig_list * rduplofig __P((lofig_list *lofig_ptr));
+
+/*************************** Analogical world ***************************************/
+
+extern locap_list *duplocaplst __P((locap_list *locap_ptr))    ;
+extern locap_list *duplocap __P((locap_list *locap_ptr))       ;
+extern lores_list *duploreslst __P((lores_list *lores_ptr))    ;
+extern lores_list *duplores __P((lores_list *lores_ptr))       ;
+extern loself_list *duploselflst __P((loself_list *loself_ptr)) ;
+extern loself_list *duploself __P((loself_list *loself_ptr))    ;
+
+/************************************************************************************/
 
 #endif
 

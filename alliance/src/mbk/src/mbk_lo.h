@@ -26,7 +26,8 @@
  * Date    : 18/12/91
  * Author  : Frederic Petrot <Frederic.Petrot@lip6.fr>
  * Modified by Czo <Olivier.Sirol@lip6.fr> 1997,98
- * $Id: mbk_lo.h,v 1.1 2002/03/08 13:51:05 fred Exp $
+ * Modified by pnt <Pierre.Nguyen-Tuong@lip6.fr> 2002
+ * $Id: mbk_lo.h,v 1.2 2002/08/08 19:47:37 pnt Exp $
  */
 
 #ifndef _MBK_LO_H_
@@ -68,6 +69,30 @@
   extern           void  viewlosig __P((losig_list *ptsig));
   extern           void  viewlotrs __P((lotrs_list *pttrs));
   
+/*************************** Analogical world ***************************************/
+
+extern locap_list *addlocap __P((lofig_list *ptfig,char type,double capa,losig_list *pttplate,
+                                 losig_list *ptbplate,char *name))                                                       ;
+extern int dellocap __P((lofig_list *ptfig,locap_list *ptcap))                                                           ;
+extern locap_list *getlocap __P((lofig_list *ptfig,const char *name))                                                    ;
+extern void dellocapuser __P((locap_list *))                                                                             ;
+extern void  viewlocap __P((locap_list *ptcap))                                                                          ;
+
+extern lores_list *addlores __P((lofig_list *ptfig,char type,double resi,losig_list *ptrcon1,
+                                 losig_list *ptrcon2,char *name))                                                        ;
+extern int dellores __P((lofig_list *ptfig,lores_list *ptres))                                                           ;
+extern lores_list *getlores __P((lofig_list *ptfig,const char *name))                                                    ;
+extern void delloresuser __P((lores_list *))                                                                             ;
+extern void  viewlores __P((lores_list *ptres))                                                                          ;
+
+extern loself_list *addloself __P((lofig_list *ptfig,char type,double self,losig_list *ptscon1,
+                                   losig_list *ptscon2,char *name))                                                      ;
+extern int delloself __P((lofig_list *ptfig,loself_list *ptself))                                                        ;
+extern loself_list *getloself __P((lofig_list *ptfig,const char *name))                                                  ;
+extern void delloselfuser __P((loself_list *))                                                                           ;
+extern void  viewloself __P((loself_list *ptself))                                                                       ;
+
+/************************************************************************************/
 
 #endif
 
