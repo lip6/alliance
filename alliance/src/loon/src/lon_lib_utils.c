@@ -403,7 +403,8 @@ extern cell_list* getCellbuffer()
       befig=cell->BEFIG;
       if (befig->BEREG || befig->BEBUS || !befig->BEOUT) continue;
       /*simple affect*/
-      if (ABL_ATOM(befig->BEOUT->ABL)) {
+      if (ABL_ATOM(befig->BEOUT->ABL) && ABL_ATOM_VALUE(befig->BEOUT->ABL)!=getablatomone() 
+       && ABL_ATOM_VALUE(befig->BEOUT->ABL)!=getablatomzero() ) {
          best=cell;
          for (cell=cell->NEXT; cell; cell=cell->NEXT) {
             if (best->AREA>cell->AREA) cell=best;
