@@ -1,4 +1,4 @@
-.\"   $Id: graal.1,v 1.2 1999/11/05 14:23:30 syf Exp $
+.\"   $Id: graal.1,v 1.3 1999/11/22 15:29:55 syf Exp $
 .\" @(#)graal 1.07 94/10/10 UPMC/ASIM/LIP6/CAO-VLSI "
 .TH GRAAL 1 "October 1, 1997" "ASIM/LIP6" "ALLIANCE Reference Manual"
 .SH NAME
@@ -97,12 +97,29 @@ left button.
 .B Tools
 \f4Equi\fP : highlight all objects electrically connected to a given object.
 .br
-\f4Flat\fP : not available.
+\f4Flat\fP : virtual hierarchy flattening of an instance
+(display all visible objects inside a given instance). 
 .br
-\f4Peek\fP : virtual hierarchy flattening (display all visible objects
-inside a given window). 
+\f4UnFlat\fP : undo the virtual flattening of an instance
+(done before with the Flat command)
+.br
+\f4Peek\fP : virtual hierarchy flattening 
+(display all visible objects inside a given window). 
+.br
+\f4UnPeek\fP : undo the virtual flattening of a window
+(done before with the Peek command)
 .br
 \f4Druc\fP : call the design rule checker in a given window.
+.br
+\f4RealFlat\fP : real hierarchy flattening of instances included in a window
+(this command can not be undone, and should be used very carefully)
+.br
+\f4Hierarchy\fP : navigate into the current figure hierarchy
+.br
+\f4Load Error\fP : load a real layout file and superpose it to the current figure.
+.br
+\f4Message\fP : display the last error messages
+
 
 .TP 10
 .B Setup
