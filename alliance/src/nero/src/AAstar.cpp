@@ -1,7 +1,7 @@
 
 // -*- C++ -*-
 //
-// $Id: AAstar.cpp,v 1.8 2002/11/17 16:40:13 jpc Exp $
+// $Id: AAstar.cpp,v 1.9 2004/12/14 19:02:07 jpc Exp $
 //
 //  /----------------------------------------------------------------\ 
 //  |                                                                |
@@ -554,7 +554,7 @@ void  CAStar::load (CNet *pNet, int delta, int expand)
   _skip = false;
   if (net->size < 2) { _skip = true; return; }
 
-  _drgrid->pri->load (*pNet, _netsched->rglobal && pNet->global(), expand);
+  _drgrid->pri->load (*pNet, pNet->global(_netsched->rglobal), expand);
   _drgrid->pri->delta = delta;
 
   net->unroute ();

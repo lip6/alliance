@@ -1,7 +1,7 @@
 
 // -*- C++ -*-
 //
-// $Id: MNet.cpp,v 1.6 2002/11/04 14:43:08 jpc Exp $
+// $Id: MNet.cpp,v 1.7 2004/12/14 19:02:07 jpc Exp $
 //
 //  /----------------------------------------------------------------\ 
 //  |                                                                |
@@ -146,7 +146,6 @@ CNode *CTerm::newaccess (int x, int y, int z, int ident, CNet *net)
 
   CNode *pNode;
 
-
   coord = net->_drgrid->origin;
   coord.set (x, y, z);
 
@@ -171,7 +170,14 @@ CNode *CTerm::newaccess (int x, int y, int z, int ident, CNet *net)
 
     // Check if the node belongs to another terminal of this net.
     // If so, send a merging exception to CNet::newaccess ().
-    if (pNode->getid () != ident) throw merge_term ( pNode->getid () );
+    if (pNode->getid () != ident) throw merge_term ( pNode->getid()
+                                                   , pNode->data.owner->terms[pNode->getid()]->name
+                                                   , pNode->data.owner->terms[ident]->name
+                                                   , net->name
+                                                   , coord.x()
+                                                   , coord.y()
+                                                   , coord.z()
+                                                   );
 
     return (NULL);
   }
@@ -246,7 +252,6 @@ void  CTerm::lockalone (bool global)
                 int  z, i;
                bool  adjust;
 
-
   if (nodes.size() != 1) return;
 
   coord  = nodes.back ();
@@ -255,14 +260,14 @@ void  CTerm::lockalone (bool global)
   if ( (coord.z() > 0) && !global ) return;
   if (  coord.onAB()) return;
 
-  //cerr << "+ locking lone terminal : " << coord.node().data.owner->name
-  //     << " at " << coord
-  //     << endl;
+  cerr << "+ locking lone terminal : " << coord.node().data.owner->name
+       << " at " << coord
+       << endl;
 
   // All terminal case, eat up z=1 (ALU2) if not already took.
   if (coord.z() == 0) {
     // Go to z=1 (ALU2).
-    //cerr << "+   locking z=1          " << coord << endl;
+    cerr << "+   locking z=1          " << coord << endl;
     newaccess ( coord.x()
               , coord.y()
               , 1
@@ -278,7 +283,7 @@ void  CTerm::lockalone (bool global)
 
   if (coord.z() < 2) {
     // Go to z=2 (ALU3).
-    //cerr << "+   locking z=2          " << coord2 << endl;
+    cerr << "+   locking z=2          " << coord2 << endl;
     newaccess ( coord2.x()
               , coord2.y()
               , 2
@@ -317,7 +322,7 @@ void  CTerm::lockalone (bool global)
 
       if (adjust) {
         // Adjust to the double grid pitch to z=2 (ALU3).
-        //cerr << "+   locking z=2 (ADJUST) " << coord2 << endl;
+        cerr << "+   locking z=2 (ADJUST) " << coord2 << endl;
         newaccess ( coord2.x()
                   , coord2.y()
                   , 2
@@ -330,7 +335,7 @@ void  CTerm::lockalone (bool global)
 
   if (coord.z() < 4) {
     // Go to z=3 (ALU3).
-    //cerr << "+   locking z=3          " << coord2 << endl;
+    cerr << "+   locking z=3          " << coord2 << endl;
     newaccess ( coord2.x()
               , coord2.y()
               , 3
@@ -426,6 +431,17 @@ bool CNet::operator< (CNet &other)
 
 
 // -------------------------------------------------------------------
+// Method  :  "CNet::global()".
+
+bool CNet::global (bool rglobal)
+{
+  return ((bb.hp >= D::GLOBAL_HP) && rglobal);
+}
+
+
+
+
+// -------------------------------------------------------------------
 // Method  :  "CNet::newaccess()".
 
 void CNet::newaccess (string termName, int x, int y, int z)
@@ -504,12 +520,12 @@ void CNet::newaccess (string termName, CRect &rect, int z)
 // -------------------------------------------------------------------
 // Method  :  "CNet::lockalone()".
 
-void CNet::lockalone (void)
+void CNet::lockalone (bool rglobal)
 {
   int  id;
 
   
-  for (id = 0; id < size; id++) terms[id]->lockalone (global());
+  for (id = 0; id < size; id++) terms[id]->lockalone (global(rglobal));
 }
 
 

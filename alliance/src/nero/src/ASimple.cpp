@@ -1,7 +1,7 @@
 
 // -*- C++ -*-
 //
-// $Id: ASimple.cpp,v 1.2 2002/10/13 14:22:47 jpc Exp $
+// $Id: ASimple.cpp,v 1.3 2004/12/14 19:02:07 jpc Exp $
 //
 //  /----------------------------------------------------------------\ 
 //  |                                                                |
@@ -41,11 +41,11 @@ void CASimple::CQueue::load (MNet *nets, bool rglobal, bool global)
   endNet = nets->end();
   for (itNet = nets->begin(); itNet != endNet; itNet++) {
     // Global routing stage.
-    if ( rglobal && global && (itNet->second->global()) )
+    if ( global && (itNet->second->global(rglobal)) )
       push (itNet->second);
 
     // Local routing stage.
-    if ( !rglobal || ( !global && !(itNet->second->global()) ) )
+    if ( !rglobal || ( !global && !(itNet->second->global(true)) ) )
       push (itNet->second);
   }
 }
@@ -113,7 +113,7 @@ void CASimple::global (void)
   // Locking global signals.
   endNet = nets->end();
   for (itNet = nets->begin(); itNet != endNet; itNet++) {
-    if ( itNet->second->global() ) itNet->second->locktree();
+    if ( itNet->second->global(rglobal) ) itNet->second->locktree();
   }
 }
 

@@ -1,7 +1,7 @@
 
 // -*- C++ -*-
 //
-// $Id: nero.cpp,v 1.5 2002/11/17 16:40:14 jpc Exp $
+// $Id: nero.cpp,v 1.6 2004/12/14 19:02:07 jpc Exp $
 //
 //  /----------------------------------------------------------------\ 
 //  |                                                                |
@@ -273,7 +273,7 @@ int  main (int argc, char *argv[])
     exit (1);
   }
   catch (except_done &e) {
-    //cerr << e.what () << endl;
+    cerr << e.what () << endl;
 
     emergency ();
     exit (1);

@@ -1,7 +1,7 @@
 
 // -*- C++ -*-
 //
-// $Id: MDefs.h,v 1.6 2004/07/23 08:50:05 jpc Exp $
+// $Id: MDefs.h,v 1.7 2004/12/14 19:02:07 jpc Exp $
 //
 // /-----------------------------------------------------------------\ 
 // |                                                                 |
@@ -540,14 +540,32 @@
   class merge_term : public except_done {
 
     // Attributes.
-    public: int  id;
+            string  message;
+    public: int     id;
 
     // Constructor.
-    public: merge_term (int mergeid) { id = mergeid; }
+    public: merge_term ( int ident
+                       , string& tn1
+                       , string& tn2
+                       , string& nn
+                       , long x
+                       , long y
+                       , long z
+                       )
+              : id(ident)
+            {
+              ostringstream m;
+              m << "Terminals \"" << tn1 << "\" and \"" << tn2 << "\" of net \"" << nn 
+                << "\" overlaps at " << "(" << x << "," << y << "," << z << ")";
+              message = m.str();
+            }
+
+    // Destructor.
+    public: ~merge_term (void) throw () { };
 
     // Overridables.
     public: const char* what () const throw () {
-              return ((char*)"Terminal must be merged.");
+              return (message.c_str());
             }
   };
 
@@ -667,13 +685,13 @@
     public: bool operator< (CNet &other);
 
     // Accessor.
-    public: bool global (void) { return (bb.hp >= D::GLOBAL_HP); }
+    public: bool global (bool rglobal);
 
     // Modifiers.
     public: void newaccess (string termName, int x, int y, int z);
     public: void newaccess (string termName, CRect &rect, int z);
     public: void order     (void);
-    public: void lockalone (void);
+    public: void lockalone (bool rglobal);
     public: void locktree  (void);
     public: void unroute   (void);
 

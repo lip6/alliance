@@ -1,7 +1,7 @@
 
 // -*- C++ -*-
 //
-// $Id: RMBK.cpp,v 1.6 2002/11/04 14:43:08 jpc Exp $
+// $Id: RMBK.cpp,v 1.7 2004/12/14 19:02:07 jpc Exp $
 //
 //  /----------------------------------------------------------------\ 
 //  |                                                                |
@@ -327,7 +327,7 @@ void  CRBox::mbkload (MBK::CFig *mbkfig, int z, int zup, int rtype)
 
     // Reorder terminals (nearest).
     pNet->order     ();
-    pNet->lockalone ();
+    pNet->lockalone (rglobal);
     
     cdebug << "+            " << pNet->bb << ".\n";
   } // End of "pSig" (signal) loop.
