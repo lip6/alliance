@@ -5,7 +5,7 @@
 # E-mail support     : mailto:alliance-support@asim.lip6.fr
 # ftp site           : ftp://ftp-asim.lip6.fr/pub/alliance/
 #
-# $Id: README,v 1.7 2000/02/10 15:43:35 czo Exp $
+# $Id: README,v 1.8 2000/02/11 10:20:11 czo Exp $
 
 
 # Alliance 
@@ -36,8 +36,12 @@ You can get Alliance via anonymous FTP from ftp.lip6.fr
 
 
 
-# Downloading
+# Downloading binary distribution :
 # ===================================================================
+
+If you don't find the exact precompiled package for your system, please
+consider downloading the sources and recompile them. Please read
+sources/README
 
 Note that for running some precompiled Alliance binaries you will need gcc and
 other gnu tools (gmake, gawk ...), X11R6.4 libraries (http://www.x.org/), Motif
@@ -50,7 +54,7 @@ Gziped tar format :
 
 You will have to download at least two files : one for the common files of
 Alliance (like cells library) and another containing binaries for your specific
-platform. Binaries for Linux, SunOS, Solaris and FreeBSD platforms are
+platform. Binaries for Linux RedHat 6, SunOS, Solaris and FreeBSD platforms are
 available.
 
 download alliance-X.XX-common.tar.gz   Files common to each platform *required*
@@ -77,7 +81,7 @@ Available for Windows 95/98/NT4 (the common package is included)
 download alliance-X.XX-cygwin.exe
 
 
-# Installation :
+# Installation of binary distribution
 # ===================================================================
 
 Gziped tar format :
@@ -140,7 +144,10 @@ To install alliance, just run alliance-X.XX-cygwin.exe
 
 > start alliance-X.XX-cygwin.exe
 
-It is strongly recommanded to install alliance in : C:\alliance
+It is strongly recommanded to install alliance in : 
+
+               c:\usr\local\alliance
+
 The install program will choose default path for you.
 
 It is recommanded to use the "bash" shell instead of the default
@@ -148,8 +155,7 @@ Windows shell ("command.com" on Windows 95/98 and "cmd.exe" on NT)
 (bash comes with cygwin-b20-full.exe)
 
 In a Cygwin environment, paths are written like in unix
-use '/' instead of '\'
-
+use '/' instead of '\'. ie : use bash as you would do on unix
 
 # Usage :
 # ===================================================================
