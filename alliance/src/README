@@ -5,156 +5,90 @@
 # E-mail             : mailto:alliance-users@asim.lip6.fr
 # ftp site           : ftp://asim.lip6.fr/pub/alliance/
 #
-# NOTE: You can find the latest revision of this file at:
-# http://asim.lip6.fr/pub/alliance/unstable/cvstree/alliance/
+# NOTE: You can find the latest revision of this document at:
+# http://asim.lip6.fr/pub/alliance/latest-checkout/alliance/src
 #
-# $Id: README,v 1.2 2002/09/30 16:19:35 czo Exp $
-
-##########################################################
-# WARNING: This file needs to rewritten for Alliance 5.0 
-##########################################################
+# $Id: README,v 1.3 2002/10/17 10:04:09 czo Exp $
 
 This file discuss about installation of Alliance on UNIX machines.
-If you are interrested in intalling Alliance under Windows please 
-read README.win32 and if you are interrested in rebuilding Alliance
-from sources please read sources/README.sources
-
-# Alliance 
-# ===================================================================
-           
-                        Alliance VLSI CAD System 
-           Copyright (C) Laboratoire LIP6 - Département ASIM
-                    Universite Pierre et Marie Curie
-                            4, place Jussieu
-                          75252 Paris Cedex 05
-                                 France
 
 
-              "Alliance VLSI CAD System" is free Software.
-
-Alliance is available under the terms  of the GNU General Public License
-GPL (http://www.gnu.org/copyleft/gpl.html).
-
-You are welcome to use the software package even for commercial designs 
-without any fee. You are just required to mention :                     
-
-"Designed with Alliance CAD system, Copyright (C) 1991, 2000 Université
-                         Pierre et Marie Curie"
-
-You can get Alliance via anonymous FTP from ftp.lip6.fr
-
-       ftp://ftp-asim.lip6.fr/pub/alliance/
-
-
-
-# Downloading binary distribution :
+# Downloading and installing binary distribution :
 # ===================================================================
 
-If you don't find the exact precompiled package for your system, please
-consider downloading the sources and recompile them. Please read
-sources/README
+If you don't find the exact precompiled package for your system, or if you 
+have trouble with a package, please consider downloading the sources 
+and build them. 
 
 Note that for running some precompiled Alliance binaries you will need gcc and
-other gnu tools (gmake, gawk ...), X11R6.4 libraries (http://www.x.org/), Motif
-1.2 libraries (You can find a free Motif clone at http://www.lesstif.org/) Rpms
-for linux RedHat 6 of lesstif-0.88 are available at
-ftp://ftp-asim.lip6.fr/pub/alliance/redist/
+other gnu tools (gmake, gcc ...), X11R6.4 libraries (http://www.x.org/), Motif
+1.2 libraries. You can find a semi free Motif distribution at 
+http://www.motifzone.net/ and a free clone at http://www.lesstif.org/
 
 
-Gziped tar format ( for Linux, SunOS, Solaris and FreeBSD ) :
----------------------------------------------------------
+Alliance naming scheme:
+=======================
 
-You will have to download at least two files : one for the common files of
-Alliance (like cells library) and another containing binaries for your specific
-platform. 
+- sources: alliance-XXX-YYY.tar.gz
+    where:
+        XXX = Alliance version number. eg 5.0
+        YYY = Alliance release number, wich is the date of the build. eg 20020624
 
-In the fowlowing filenames X.XX is the Alliance version number 
-(e.g.: 3.2 for Alliance 3.2) and Y.YY is the OS version number 
-(e.g.: 4.1.4 for SunOS 4.1.4)
+- binaries: alliance-XXX-YYY-ZZZ.KKK
+    where:
+        XXX, YYY = same as above.
+        ZZZ = indicate the platform target
+        KKK = archive type (gzipped tar or rpm)
 
-- alliance-X.XX-common.tar.gz : Files common to each platform *required*
 
-- alliance-X.XX-i386-linux-Y.YY.tar.gz : binary package for Linux 
-  ( pre-compiled on a Linux RedHat 6.0 with Lesstif 0.88 )
+To install a tar.gz package (*nix)
+----------------------------------
 
-- alliance-X.XX-i386-freebsd-Y.YY.tar.gz : binary package for FreeBSD
-  ( pre-compiled on a FreeBSD 3.4 with Lesstif 0.88 )
-  
-- alliance-X.XX-sparc-sunos-Y.YY.tar.gz : binary package for SunOS
-  ( pre-compiled on a SunOS 4.1.4 with Motif 1.2 and X11R6.4 )
-  
-- alliance-X.XX-sparc-solaris-Y.YY.tar.gz : binary package for Solaris
-  ( pre-compiled on a Solaris 2.7 with dt/Motif 1.2 and X11R6.4 )
+Get the latest binary package for your platform, 
+log as root then type :
 
-Rpm format ( for Linux RedHat 6.0 / 6.1 ) :
+> cd /usr/local
+> tar -xzf /mnt/cdrom/alliance-5.0-XXX-YYY.tar.gz
+> ln -s /usr/local/alliance/share/etc/alc_env.csh /etc/profile.d/
+> ln -s /usr/local/alliance/share/etc/alc_env.sh /etc/profile.d/
+
+
+To install a .rpm package (Linux redHat 7+)
 -------------------------------------------
 
-Pre-compiled on a Linux RedHat 6.0 with Lesstif 0.88, it works on 
-Linux RedHat 6.0 and 6.1 (the common package is included)
+This rpm has been build on a modified RedHat 7.1 and requires: ld-linux.so.2 libICE.so.6 libSM.so.6 libX11.so.6 libXext.so.6 libXm.so.2 libXp.so.6 libXpm.so.4 libXt.so.6 libc.so.6 libm.so.6 libstdc++-libc6.2-2.so.3 /bin/sh libc.so.6(GLIBC_2.0) libc.so.6(GLIBC_2.1) libc.so.6(GLIBC_2.1.3) libm.so.6(GLIBC_2.0). (You can generate the rpm for your platform by issuing : rpm -ta alliance-5.0-XXX.tar.gz)
 
-- alliance-X.XX-i386-asimYY.rpm
+Get the latest rpm package,
+log as root then type :
+
+> rpm -Uvh alliance-5.0-YYY.rpm
 
 
-# Installation of binary distribution
+# Building from the sources :
 # ===================================================================
 
-Gziped tar format :
--------------------
+Alliance's sources are now conforming to GNU's automake/autoconf.
 
-You *don't* need to be root to install Alliance in a directory you *own*
+1/ Get the latest alliance-5.0-YYY.tar.gz archive.
 
-In the example above I assume you have logged as root
+2/ Unarchive it
 
-1/ cd to the directory where you want to install Alliance
+> tar xzf alliance-5.0-XXX.tar.gz
 
-  > cd /usr/local
+3/ The install stage has to be done at the same time 
+   as the make itself : the way the configure and Makefiles 
+   are written implies that you do a "make install" in one 
+   step rather than a "make" followed by a "make install"
 
-2/ Unpack the common package
+   To avoid make problems, please use gnu make (gmake)
+   The fowllowing commands builds the full package from scratch.
 
-  > gunzip -c alliance-X.XX-common.tgz | tar -xf -
+> export ALLIANCE_TOP=/usr/local/alliance
+> ./configure --prefix=$ALLIANCE_TOP
+> gmake install
 
-3/ Unpack one of the platform specific package
+All this is done by a script called ./build in the alliance directory.
 
-  > gunzip -c alliance-X.XX-linux-Y.YY.tgz | tar -xf -
-
-4/ cd to alliance/share/etc and run the 'configure' script
-   (This is the *only* script you need to run)
-
-  > cd alliance/share/etc
-  > ./configure
-
-If your OS is recognized as "Unknown", you will need to edit 
-configure.in alc_env.sh.in and alc_env.csh.in and run autoconf
-for that those script use a good $ALLIANCE_OS name. If 
-libraries (X11, Motif/LessTiff, readline ...) or tools (sed, 
-gawk, ...) are missing, you will have to install them.
-
-If you install Alliance on different platforms you'll
-need to run the 'configure' script on each of them.
-
-
-configure options:
-
-* Architecture dependant
---enable-system64                 for a 64-bit compilation (only to be used
-                                  on a 64-bit system)
-
-* Libraries
-Default is static libraries. But you can also generate dynamic libraries:
-
---enable-shared --disable-static  for shared libraries only
---enable-shared                   for shared and static libraries 
-
-
-For more options, type ./configure --help
-
-
-Linux Rpm :
------------
-
-Note that the Linux RedHat 6 rpm installs Alliance in "/usr/local/alliance"
-
-> rpm -Uvh alliance-X.XX-i386-asimYY.rpm
 
 
 # Usage :
@@ -174,19 +108,6 @@ If you are a SysAdmin, you should consider linking these scripts in
 the system's profile (e.g.: /etc/profile.d/ on Linux) so that configuration
 would be done at user login.
 
-If you encounter problems, check the value of these variables in alc_env.[c]sh
-
-          $ALLIANCE_OS : actually Linux
-                           or SunOS
-                           or Solaris
-
-          $ALLIANCE_TOP     : actually [where you have installed Alliance]/alliance/archi/Linux
-                           or [where you have installed Alliance]/alliance/archi/SunOS
-                           or [where you have installed Alliance]/alliance/archi/Solaris
-
-That's all :-)
-
-To start, you can read the files README, README.win32 and FAQ
 
 # EOF
 
