@@ -71,7 +71,7 @@
 #include "mbkgen.h"
 #define __GENLIB__
 #include "mgn.h"
-static char rcsid[] = "$Id: genlib.c,v 1.11 2003/01/31 15:53:39 fred Exp $";
+static char rcsid[] = "$Id: genlib.c,v 1.12 2003/02/06 09:52:14 fred Exp $";
 
 /*******************************************************************************
 * global variables used in genlib                                              *
@@ -937,6 +937,7 @@ phfig_list *ptnewfig;
 phins_list *ptins;
 phseg_list *ptseg;
 long x1, x2, y1, y2;
+int  found = 0;
 chain_list *c = NULL;
 
    if (WORK_PHFIG == NULL) {
@@ -961,9 +962,10 @@ chain_list *c = NULL;
          c = addchain(c, addphseg(WORK_PHFIG, ptseg->LAYER, ptseg->WIDTH,
                                   x1, y1, x2, y2, checkname(newname)));
                                
+         found = 1;
       }
    }
-   if (c == NULL) {
+   if (!found) {
       (void)fflush(stdout);
       (void)fputs("*** genlib error ***\nCOPY_UP_SEG impossible :", stderr);
       (void)fprintf(stderr, " segment %s doesn't exist in instance %s\n",
