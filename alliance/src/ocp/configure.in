@@ -9,10 +9,6 @@ AC_SUBST(OCP_MAJOR_VERSION)
 AC_SUBST(OCP_MINOR_VERSION)
 AC_SUBST(OCP_VERSION)
 
-# libtool versioning
-# LT_RELEASE=$OCP_MAJOR_VERSION.$OCP_MINOR_VERSION
-# AC_SUBST(LT_RELEASE)
-
 # For automake.
 VERSION=$OCP_VERSION
 PACKAGE=ocp
@@ -29,30 +25,14 @@ AM_PROG_LEX
 AC_PROG_YACC
 AC_PROG_MAKE_SET
 
-changequote(,)dnl
-INCLUDES=-I${ALLIANCE_TOP}/include
-LDFLAGS=-L${ALLIANCE_TOP}/lib
-changequote([,])dnl
-
-AC_SUBST(INCLUDES)
-AC_SUBST(LDFLAGS)
-
-dnl changequote(,)dnl
-dnl INSTALL_DATA = ${INSTALL} -m 664
-dnl changequote([,])dnl
-dnl AC_SUBST(INSTALL_DATA)
-
 dnl Checks for libraries.
 dnl Check for -lm librarie.  These should always be present.
-AC_CHECK_LIB(m, exp, LIBM="-lm")
-AC_SUBST(LIBM)
-
-dnl Checks for header files.
+AC_CHECK_LIB(m, exp)
 
 dnl Checks for typedefs, structures, and compiler characteristics.
 AC_C_CONST
 
-dnl Checks for library functions.
+AM_ALLIANCE
 
 AC_OUTPUT([
 Makefile

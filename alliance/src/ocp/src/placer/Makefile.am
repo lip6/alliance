@@ -11,7 +11,7 @@ noinst_LIBRARIES = libOcp.a
 libOcp_a_SOURCES = PElem.cpp PIns.cpp PNet.cpp \
 		   PCon.cpp
 
-ocp_LDADD = @LIBS@ @LIBM@ \
+ocp_LDADD = @LIBS@ \
 	   $(top_builddir)/src/common/libPCommon.a \
           -lMpu -lMlu \
 	  -lMcl -lMcp \
