@@ -7,7 +7,7 @@
 # Author: Frédéric Pétrot (fred@pasta.fr.ea)
 #         for version 0
 #
-# $Id: instool,v 1.25 2001/05/22 14:19:45 czo Exp $
+# $Id: instool,v 1.26 2001/07/03 14:07:44 czo Exp $
 #
 
 
@@ -335,7 +335,7 @@ echo "   a message MUST be given for each installation"
 #echo $* | mail -s "ALC : Install of `basename $1`"  alliance-programmers@asim.lip6.fr
 
 TMPFILE=/tmp/instool.$$
-FINGER=`who am i | gawk '{gsub(/^[^\!]*\!/,""); print $1}'`
+FINGER=`who am i | awk '{gsub(/^[^\!]*\!/,""); print $1}'`
 SUJ="Instool de `basename $1`"
 
 (
@@ -358,10 +358,10 @@ cat "$TMPFILE"  | mail -s "ALC : $SUJ" alliance-programmers@asim.lip6.fr
 
 rm -f "$TMPFILE" dummy
 
-echo "Launching chgrp and chmod ..."
-chmod -R ug+w /users/soft5/newlabo/alliance
-chgrp -R alliance /users/soft5/newlabo/alliance
-
+# echo "Launching chgrp and chmod ..."
+# chgrp -R 30101 /users/soft5/newlabo/alliance-4.5.0
+# chmod -R ug+rw /users/soft5/newlabo/alliance-4.5.0
+# find /users/soft5/newlabo/alliance-4.5.0 -type d | xargs chmod 2775
 
 exit 0
 
