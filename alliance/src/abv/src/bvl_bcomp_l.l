@@ -335,7 +335,7 @@ char  *key;
     addhtitem (pt_hash, namealloc("others")       , OTHERS       );
     addhtitem (pt_hash, namealloc("out")          , _OUT         );
 
-    addhtitem (pt_hash, namealloc("package")      , PACKAGE      );
+    addhtitem (pt_hash, namealloc("package")      , _PACKAGE      );
     addhtitem (pt_hash, namealloc("port")         , PORT         );
     addhtitem (pt_hash, namealloc("procedure")    , PROCEDURE    );
     addhtitem (pt_hash, namealloc("process")      , PROCESS      );
