@@ -375,7 +375,7 @@ int main (int ac, char *av[])
           NewRec->DX = ScanRec->DX;
           NewRec->DY = ScanRec->DY;
           NewRec->FLAGS = ScanRec->FLAGS;
-          NewRec->NAME = NULL;
+          NewRec->NAME = ScanRec->NAME;
           NewRec->USER = NULL;
           
           if (verbose > 1)
@@ -487,7 +487,7 @@ int main (int ac, char *av[])
                   (SCALE_X * (ScanRec->Y + SHRINK_BOT * RDS_LAMBDA)) / RDS_UNIT , 
                   (SCALE_X * (ScanRec->X + ScanRec->DX / 2)) / RDS_UNIT , 
                   (SCALE_X * (ScanRec->Y + ScanRec->DY - SHRINK_TOP * RDS_LAMBDA)) / RDS_UNIT , 
-                  NULL);
+                  ScanRec->NAME);
        addphseg (PhFig, MbkLayer_bis,
                   (SCALE_X * ScanRec->DX) / RDS_UNIT,
                   (SCALE_X * (ScanRec->X + ScanRec->DX / 2)) / RDS_UNIT , 
@@ -515,7 +515,7 @@ int main (int ac, char *av[])
                  (SCALE_X * (ScanRec->Y + ScanRec->DY / 2)) / RDS_UNIT , 
                  (SCALE_X * (ScanRec->X + ScanRec->DX - SHRINK_LEF * RDS_LAMBDA)) / RDS_UNIT , 
                  (SCALE_X * (ScanRec->Y + ScanRec->DY / 2)) / RDS_UNIT , 
-                 NULL);
+                 ScanRec->NAME);
        addphseg (PhFig, MbkLayer_bis,
                  (SCALE_X * ScanRec->DY) / RDS_UNIT,
                  (SCALE_X * (ScanRec->X + RDS_LAMBDA)) / RDS_UNIT , 
