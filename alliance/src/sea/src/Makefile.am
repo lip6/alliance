@@ -16,7 +16,7 @@ a2def_LDADD = @ALLIANCE_LIBS@ \
       -lMsl \
       -lMel -lMgl \
       -lMhl \
-      -lMvg \
+      -lMvl \
       -lMmg \
       -lMlo \
       -lMph -lMut \
@@ -31,7 +31,7 @@ def2a_LDADD = @ALLIANCE_LIBS@ \
       -lMsl \
       -lMel -lMgl \
       -lMhl \
-      -lMvg \
+      -lMvl \
       -lMmg \
       -lMlo \
       -lMph -lMut \
@@ -46,7 +46,7 @@ sxlib2lef_LDADD = @ALLIANCE_LIBS@ \
       -lMsl \
       -lMel -lMgl \
       -lMhl \
-      -lMvg \
+      -lMvl \
       -lMmg \
       -lMlo \
       -lMph -lMut \

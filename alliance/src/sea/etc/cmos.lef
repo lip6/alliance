@@ -1,5 +1,5 @@
 #
-# $Id: cmos.lef,v 1.2 2002/10/03 17:14:02 xtof Exp $
+# $Id: cmos.lef,v 1.3 2003/04/02 13:42:13 jpc Exp $
 #
 # /------------------------------------------------------------------\
 # |                                                                  |
@@ -7,7 +7,7 @@
 # |  S i l i c o n   E n s e m b l e / A l l i a n c e               |
 # |                                                                  |
 # |  Author    :                      Jean-Paul CHAPUT               |
-# |  E-mail    :         alliance-users@asim.lip6.fr               |
+# |  E-mail    :         alliance-users@asim.lip6.fr                 |
 # | ================================================================ |
 # |  LEF       :         "./cmos_12.lef"                             |
 # | **************************************************************** |
@@ -16,9 +16,11 @@
 # \------------------------------------------------------------------/
 #
 
-VERSION 5.1 ;
 
+VERSION               5.2 ;
 NAMESCASESENSITIVE    ON ;
+BUSBITCHARS           "()" ;
+DIVIDERCHAR           "." ;
 
 #NOWIREEXTENSIONATPIN ON ;
 

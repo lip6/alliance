@@ -1,6 +1,6 @@
 #!/bin/sh
 #
-# $Id: a2lef.sh,v 1.2 2002/09/30 16:21:17 czo Exp $
+# $Id: a2lef.sh,v 1.3 2003/04/02 13:42:18 jpc Exp $
 #
 # /------------------------------------------------------------------\
 # |                                                                  |
@@ -196,6 +196,22 @@
 
 
 # --------------------------------------------------------------------
+# Function : `openLib()'.
+
+ openLib()
+ {
+   aLEF="$1"
+
+   echo ""                            >> $aLEF
+   echo "VERSION            5.2 ;"    >> $aLEF
+   echo "NAMECASESENSITIVE  ON ;"     >> $aLEF
+   echo "BUSBITCHARS        \"()\" ;" >> $aLEF
+   echo "BIVIDERCHAR        \".\" ;"  >> $aLEF
+   echo ""                            >> $aLEF
+ }
+
+
+# --------------------------------------------------------------------
 # Function : `closeLib()'.
 
  closeLib()
@@ -384,6 +400,8 @@
   # Library Generation.
   
    rm -f $lefFile > /dev/null 2>&1
+
+   openLib $lefFile
   
    for libDir in $lLibDir; do
      buildLib $libDir $lefFile
