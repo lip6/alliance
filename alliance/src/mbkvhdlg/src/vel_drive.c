@@ -10,6 +10,13 @@
 /* ###--------------------------------------------------------------------### */
 /*
  * $Log: vel_drive.c,v $
+ * Revision 1.3  2002/12/06 08:52:53  fred
+ * Adding better support to vectorized VHDL output.
+ * The data structure doesn't follow the VHDL conventions, and this makes
+ * it hard to produce correct vectorized output from that.
+ * There are still some issues, such as bit with different types that are
+ * not handled correctly.
+ *
  * Revision 1.2  2002/06/12 16:10:05  fred
  * Bug due to the believe that a signal connected to a connector has the
  * name of this connector corrected.
@@ -63,7 +70,7 @@
  *
  */
 
-#ident "$Id: vel_drive.c,v 1.2 2002/06/12 16:10:05 fred Exp $"
+#ident "$Id: vel_drive.c,v 1.3 2002/12/06 08:52:53 fred Exp $"
 
 #include <stdio.h>
 #include <string.h>
@@ -566,6 +573,160 @@ void makevelofig(lofig_list *f)
 {
 ptype_list *p;
 loins_list *i;
+losig_list *s;
+locon_list *c;
+char       *cn;
+char       *sn, *t, *r = NULL;
+int first = 1, previous=0, delta=0, current=0;
+char       Buffer0[1024];
+int        sigi = 0;
+
+
+   /* Ensure that connector and internal signal names are not
+    * identical, and correct this prior to build the velofig.
+    * This nice check is in O(nc * ns), because I dont feel like
+    * building hash tables and all that stuff to speed up things.
+    * I may have to if this is really awful */
+
+   for (c = f->LOCON; c; c = c->NEXT) {
+      cn = vectorradical(c->NAME);
+      for (s = f->LOSIG; s; s = s->NEXT) {
+         if (s->TYPE == INTERNAL) {
+            t = getsigname(s);
+            sn = vectorradical(t);
+            if (!strcmp(cn, sn)) {
+               char newname[1024];
+               sprintf(newname, "%sfr%ded %d", sn, delta, vectorindex(t));
+               fprintf(stdout, "External name conflicts with Internal name:"
+                               " Changing %s into %s\n", t, newname);
+               freechain(s->NAMECHAIN);
+               s->NAMECHAIN = addchain(NULL, namealloc(newname));
+               if (r && strcmp(r, sn)) {
+                  r = sn;
+                  delta++;
+               }
+            }
+         }
+      }
+   }
+
+   /* Computes currently max signal index */
+   for (s = f->LOSIG; s; s = s->NEXT)
+      sigi = sigi > s->INDEX ? sigi : s->INDEX;
+
+   delta = 0;
+
+   /* Check that internal signal vectors do not have holes, and if they
+    * have holes, fill them.
+    * TODO: Check also that two signals do not have the same name, as the
+    * signal identifier is an index, not a name. */
+   /* Code borrowed from checkloconorder, that I wrote so long ago */
+   sortlosig(&f->LOSIG);
+   s = f->LOSIG;
+   while (s) {
+      /* Don't have the right to modify the interface */
+      if (s->TYPE == EXTERNAL) {
+         s = s->NEXT;
+         continue;
+      }
+      sn = getsigname(s);
+      if ((r = strchr(sn, ' ')) == NULL) {
+avoid_redundancy:
+         first = 1;
+         s = s->NEXT;
+      } else {
+         while (s) {
+            int i = 1;
+            /* redundancy :
+               I'ven't found an elegant way to do that, too bad. */
+            sn = getsigname(s);
+            if (!r)
+               if ((r = strchr(sn, ' ')) == NULL)
+                  goto avoid_redundancy;
+            /* Temporary change :
+               alter the string contents just a microsecond. */
+            *r = '\0';
+            strcpy(Buffer0, sn);
+            *r = ' ';
+            while (*(r + i) && isdigit((int)*(r + i)))
+               i++;
+            if (*(r + i)) {
+               (void)fflush(stdout);
+               (void)fprintf(stderr, "*** mbk error ***\n");
+               (void)fprintf(stderr,
+                     "the radical %s has a spurious vectorized value %s (%s)\n",
+                     Buffer0, r + 1, sn);
+               EXIT(1);
+            }
+            current = atoi(r + 1);
+            r = NULL;
+            /* first :
+               the name is not yet known. so I store it.
+               we do that each time a new vector is encountered. */
+            if (first) {
+its_first:
+               t = namealloc(Buffer0);
+               delta = first = 0;
+               previous = current;
+               s = s->NEXT;
+            } else { /* let's see if it's a good vhdl legal vector */
+               /* its a new vector :
+                  in fact this vector follows an other vector! */
+               if (t != namealloc(Buffer0))
+                  goto its_first;
+               if (!delta)
+                  delta = previous - current;
+               else if (delta != previous - current) {
+                  /* This would mean that the sort failed, so I'll not
+                   * treat this case */
+                  (void)fflush(stdout);
+                  (void)fprintf(stderr, "*** mbk error ***\n");
+                  (void)fprintf(stderr,
+                              "the radical %s is not vectorized properly,",
+                              Buffer0);
+                  (void)fprintf(stderr,
+                              " %s %d follows %s %d\n", Buffer0, previous,
+                                                         Buffer0, current);
+                  EXIT(1);
+               }
+               if (delta != 1 && delta != -1) {
+                  if (delta < 0)
+                     for (i = previous + 1; i < current; i++) {
+                     char newname[1024];
+                        sprintf(newname, "%s %d", t, i);
+                        addlosig(f, ++sigi, addchain(NULL, namealloc(newname)),
+                                 s->TYPE);
+                        fprintf(stdout, "Adding signal '%s'\n", newname);
+                     }
+                  else
+                     for (i = previous - 1; i > current; i--) {
+                     char newname[1024];
+                        sprintf(newname, "%s %d", t, i);
+                        addlosig(f, ++sigi, addchain(NULL, namealloc(newname)),
+                                 s->TYPE);
+                        fprintf(stdout, "Adding signal '%s'\n", newname);
+                     }
+#if 0
+                  (void)fflush(stdout);
+                  (void)fprintf(stderr, "*** mbk error ***\n");
+                  (void)fprintf(stderr,
+                              "the radical %s is not vectorized properly,",
+                              sn);
+                  (void)fprintf(stderr,
+                              " %s %d follows %s %d\n", Buffer0, previous,
+                                                         Buffer0, current);
+                  EXIT(1);
+#endif
+               }
+               previous = current;
+               s = s->NEXT;
+            }
+         }
+      }
+   }
+
+   sortlosig(&f->LOSIG);
+   viewlofig(f);
 
    buildvelo(f);
 
