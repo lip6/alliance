@@ -558,8 +558,9 @@ static int insert_buffer(losig_list* losig, lofig_list* lofig, int optim_level, 
       /*verify no change on timing*/
       delay=critical_delay(lofig);
       capa=getcapacitance(losig->NAMECHAIN->DATA);
-      if ((int)capa!=(int)init_capa || (int)delay!=(int)best_delay 
-       || (int)init_delay!=(int)getdelay(losig->NAMECHAIN->DATA)) {
+      //01/09/2004 xtof's modification: rounding problem
+      if ((int)(capa + 0.5)!=(int)(init_capa + 0.5) || (int)(delay + 0.5)!=(int)(best_delay + 0.5) 
+       || (int)(init_delay + 0.5)!=(int)(getdelay(losig->NAMECHAIN->DATA) + 0.5)) {
          fprintf(stderr,
          "insert_buffer: compute error %e!=%e fF   %f!=%f ps    %f!=%f ps\n",
          capa,init_capa,delay,best_delay, init_delay, getdelay(losig->NAMECHAIN->DATA));
