@@ -10,7 +10,7 @@ AM_CFLAGS = @ALLIANCE_CFLAGS@
 bin_PROGRAMS = mips_asm
 
 mips_asm_LDADD = @ALLIANCE_LIBS@ \
-	  -lBeh -lMut
+	  -lBeh -lMut -lLog
 	   
 mips_asm_SOURCES = mips_defs.h mips_y.y mips_l.l mips_globals.c mips_lex.h mips_type.h mips_yacc.h mips_util.c
 
