@@ -41,21 +41,28 @@
 /*                                                                          */
 /****************************************************************************/
 /* $Log: lvx.c,v $
-/* Revision 1.3  2002/09/30 16:20:46  czo
-/* support/users
+/* Revision 1.4  2004/05/22 14:26:08  ludo
+/* Now, by default LVX does not check unassigned signals between the two input netlists.
+/* (this feature is usefull/mandatory with the new VST driver that adds sometimes unused
+/* signals to have consitent VHDL vectors declaration)
+/* The command line option '-u' permits to behave like it was before and then check
+/* also unassigned signals.
 /*
-/* Revision 1.2  2002/03/22 09:45:47  xtof
-/* ALLIANCE_VERSION
-/*
-/* Revision 1.1.1.1  2002/03/20 17:07:59  xtof
-/* importing lvx ....
-/*
-/* Revision 1.2  2000/10/23 16:33:37  syf
-/* Big bug dans LVX (a se demander comment ca a pu marcher un jour ...)
-/*
-/* Revision 1.1.1.1  1998/10/02 15:25:15  alliance
-/* Imported by czo
-/*
+ * Revision 1.3  2002/09/30 16:20:46  czo
+ * support/users
+ *
+ * Revision 1.2  2002/03/22 09:45:47  xtof
+ * ALLIANCE_VERSION
+ *
+ * Revision 1.1.1.1  2002/03/20 17:07:59  xtof
+ * importing lvx ....
+ *
+ * Revision 1.2  2000/10/23 16:33:37  syf
+ * Big bug dans LVX (a se demander comment ca a pu marcher un jour ...)
+ *
+ * Revision 1.1.1.1  1998/10/02 15:25:15  alliance
+ * Imported by czo
+ *
  * Revision 2.23  1994/01/19  14:57:20  lvx
  * Now the -f option will not print invalid parameter
  *
@@ -88,7 +95,7 @@
  *
  */
 
-static char rcsid[] = "$Id: lvx.c,v 1.3 2002/09/30 16:20:46 czo Exp $" ;
+static char rcsid[] = "$Id: lvx.c,v 1.4 2004/05/22 14:26:08 ludo Exp $" ;
 
 #include <stdio.h>
 #include <string.h>
@@ -162,6 +169,7 @@ long int     loins_time;
 long int     locon_time;
 long int     total_time;
 
+int flag_chk_unusig = FALSE;
 int unusig_flag = FALSE;
 int     exitcode = 2;
 
@@ -884,7 +892,7 @@ unsigned char mark;
 */
      ptchain = (chain_list *)(ptype->DATA);
      if (ptchain == NULL) {
-        unusig_flag = TRUE; 
+	if ( flag_chk_unusig ) unusig_flag = TRUE; 
 	continue;
         }
 
@@ -1757,7 +1765,7 @@ char **argv;
  presentation ();
 
  if (argc < 5) {
-    printf ("\nUsage : lvx <format1> <format2> <filename1> <filename2> [-a] [-o] [-f]\n");
+    printf ("\nUsage : lvx <format1> <format2> <filename1> <filename2> [-a] [-o] [-f] [-u]\n");
     printf (  "            [-i <paramfile>] [-t <cell_name> <cell_name> ...]\n\n");
     exit (2);
     }
@@ -1802,6 +1810,8 @@ char **argv;
                            delins (lofig1, argv[count]);
                            delins (lofig2, argv[count]);
                            }
+                     break;
+          case 'u' : flag_chk_unusig = TRUE;
                      break;
           default  : printf ("\n***** Invalid option '%s'\n\n", option); continue;
           } 

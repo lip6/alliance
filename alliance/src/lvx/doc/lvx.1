@@ -1,11 +1,11 @@
-.\"   $Id: lvx.1,v 1.2 2002/05/21 07:17:52 xtof Exp $
+.\"   $Id: lvx.1,v 1.3 2004/05/22 14:26:07 ludo Exp $
 .\" @(#)lvx.l 0.0 92/11/27 UPMC; Author: Francois Nacabal
 .TH LVX 1 "October 1, 1997" "ASIM/LIP6" "ALLIANCE USER COMMANDS"
 .SH NAME
 lvx \- Logical Versus eXtracted net-list comparator 
 .SH SYNOPSIS
 .TP
-\fBlvx \fIformat1 format2 filename1 filename2 \fB[ -a ] [ -o ] [ -f ]\fR
+\fBlvx \fIformat1 format2 filename1 filename2 \fB[ -a ] [ -u ] [ -o ] [ -f ]\fR
 .br
 .so man1/alc_origin.1
 .SH DESCRIPTION
@@ -123,6 +123,11 @@ one
 and one
 .I VSS
 \&.
+.TP
+.B "-u"
+This option force 
+.B lvx 
+to check the consistency of unassigned signals between the two netlists.
 .TP
 .B "-f"
 The two net-lists are flattened to the leaf cells contained in the catalog
