@@ -1,4 +1,4 @@
-.\"   $Id: vasy.1,v 1.6 2000/03/09 18:45:34 syf Exp $
+.\"   $Id: vasy.1,v 1.7 2000/03/13 16:11:19 syf Exp $
 .\" @(#)Labo.l 2.2 95/09/24 UPMC; Author: Jacomme L.
 .pl -.4
 .TH VASY 1 "November 26, 1999" "ASIM/LIP6" "CAO\-VLSI Reference Manual"
@@ -8,7 +8,7 @@ VASY \- VHDL Analyzer for Synthesis
 .so man1/alc_origin.1
 .SH SYNOPSIS
 .TP
-\f4vasy \-V|p|a|v|s|S|H [-I format] [-P file] filename [outname]
+\f4vasy \-V|p|a|v|s|o|S|H [-I form] [-P file] filename [outname]
 .br
 .SH DESCRIPTION
 .br
@@ -60,6 +60,9 @@ Specifies the VHDL input format such as Alliance VHDL format \fBvbe\fP(5),
 In a structural description, all model of instances are recursively analyzed.
 (By default \fBVASY\fp analyzes only models with generic parameters)
 The leaves cells are defined by a special file (see catal(5) for details).
+.TP 10
+\f4\-o\fP
+Authorizes to overwrite existing files.
 .TP 10
 \f4\-p\fP
 Adds power supply connectors (vdd and vss). Usefull option to enter in Alliance.
