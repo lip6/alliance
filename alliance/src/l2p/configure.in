@@ -27,6 +27,7 @@ dnl Checks for typedefs, structures, and compiler characteristics.
 AC_C_CONST
 
 AC_CHECK_LIB(m, floor)
+AC_CHECK_LIB(gen,basename)
 
 AM_ALLIANCE
 

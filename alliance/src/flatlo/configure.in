@@ -1,4 +1,4 @@
-dnl $Id: configure.in,v 1.1 2002/04/29 14:15:47 czo Exp $
+dnl $Id: configure.in,v 1.2 2002/09/09 20:53:22 pnt Exp $
 
 AC_INIT(src/flatlo.c)
 AM_INIT_AUTOMAKE(flatlo, 1.4)
@@ -9,6 +9,8 @@ AC_PROG_CPP
 AC_PROG_MAKE_SET
 AC_HEADER_STDC
 AC_C_CONST
+
+AC_CHECK_LIB(gen,basename)
 
 AM_ALLIANCE
 
