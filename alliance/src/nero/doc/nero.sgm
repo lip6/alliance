@@ -1,0 +1,49 @@
+
+
+<!DOCTYPE Book PUBLIC "-//OASIS//DTD DocBook V4.1//EN" [ 
+
+
+<!ENTITY man-nero  SYSTEM "man_nero.sgm">
+
+
+<!ENTITY Alliance         "<emphasis>Alliance</emphasis>">
+<!ENTITY Nero             "<emphasis>Nero</emphasis>">
+<!ENTITY nero             "<userinput>nero</userinput>">
+
+
+]>
+
+
+<book lang="en">
+  <?dbhtml filename="nero.html">
+
+  <bookinfo>
+    <title> Nero User's Manual </title>
+    <date> September, 27 2002 </date>
+    <authorgroup>
+      <author>
+        <firstname> Jean-Paul </firstname>
+        <surname> Chaput </surname>
+        <affiliation>
+          <jobtitle> System Administrator </jobtitle>
+          <orgname> Pierre &amp; Marie Curie University, LIP6 </orgname>
+          <orgdiv> ASIM Department </orgdiv>
+        </affiliation>
+      </author>
+    </authorgroup>
+    <releaseinfo> September 2002 / 20020924.1 </releaseinfo>
+    <pubdate> September 2002 </pubdate>
+  </bookinfo>
+
+
+  <reference id="ref-nero">
+    <?dbhtml filename="ref_nero.html">
+
+    <title>&Alliance; - &nero; User's Manual </title>
+
+    &man-nero;
+
+
+  </reference>
+
+</book>
