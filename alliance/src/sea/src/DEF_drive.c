@@ -1,5 +1,5 @@
 /*
- *  $Id: DEF_drive.c,v 1.1 2002/04/25 16:16:20 jpc Exp $
+ *  $Id: DEF_drive.c,v 1.2 2002/07/16 09:57:00 jpc Exp $
  *
  *  /----------------------------------------------------------------\
  *  |                                                                |
@@ -1342,7 +1342,7 @@ static void  fprintWIRESEG(apPhseg, aFlags)
 {
   fprintf (DEF_FILE, "%s ", DEF_layer2a (apPhseg->LAYER));
 
-  if (aFlags & F_SEG_WIDTH)
+  if ((aFlags & F_SEG_WIDTH) || (apPhseg->WIDTH > MBKSCALE(2)))
     fprintf (DEF_FILE, "%ld ", MBK2DEF_length (apPhseg->WIDTH));
 
   if (aFlags & F_SEG_STRIPE)
