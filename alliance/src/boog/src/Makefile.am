@@ -5,7 +5,7 @@ AM_CFLAGS = @ALLIANCE_CFLAGS@
 bin_PROGRAMS = boog
 
 boog_LDADD = @ALLIANCE_LIBS@ \
-          -lAbv -lAbe -lAbt -lMlu -lMcl -lMal -lMsl -lMhl -lMel -lMvl -lMgl -lRcn -lMlo -lBdd -lAbl -lAut -lMut
+          -lAbv -lAbe -lAbt -lMlu -lMcl -lMal -lMsl -lMhl -lMel -lMvg -lMgl -lRcn -lMlo -lBdd -lAbl -lAut -lMut
 	   
 boog_SOURCES = \
 bog_lax_param.c            bog_map_adapt.h            bog_normalize_simplify.h \
