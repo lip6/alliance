@@ -1,7 +1,7 @@
 
 // -*- C++ -*-
 //
-// $Id: MDefs.h,v 1.4 2002/10/29 18:46:03 jpc Exp $
+// $Id: MDefs.h,v 1.5 2002/11/04 14:43:08 jpc Exp $
 //
 // /-----------------------------------------------------------------\ 
 // |                                                                 |
@@ -535,6 +535,26 @@
 
 
   // ---------------------------------------------------------------
+  // Terminal merging exception.
+
+  class merge_term : public except_done {
+
+    // Attributes.
+    public: int  id;
+
+    // Constructor.
+    public: merge_term (int mergeid) { id = mergeid; }
+
+    // Overridables.
+    public: const char* what () const throw () {
+              return ((char*)"Terminal must be merged.");
+            }
+  };
+
+
+
+
+  // ---------------------------------------------------------------
   // Terminal class.
 
   class CTerm {
@@ -558,8 +578,9 @@
 
     // Modifiers.
     public: CNode *newaccess (int x, int y, int z, int ident, CNet *net)
-                     throw (dup_term, bad_grab);
+                     throw (dup_term, bad_grab, merge_term);
     public: void   newaccess (CRect &rect, int z, int ident, CNet *net);
+    public: void   merge     (CTerm *other, int ident, CNet *net);
     public: void   lockalone (bool global=false);
     public: void   setid     (int ident);
 

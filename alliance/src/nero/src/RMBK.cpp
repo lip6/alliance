@@ -1,7 +1,7 @@
 
 // -*- C++ -*-
 //
-// $Id: RMBK.cpp,v 1.5 2002/10/29 18:46:03 jpc Exp $
+// $Id: RMBK.cpp,v 1.6 2002/11/04 14:43:08 jpc Exp $
 //
 //  /----------------------------------------------------------------\ 
 //  |                                                                |
@@ -111,6 +111,44 @@ void  CRBox::mbkload (MBK::CFig *mbkfig, int z, int zup, int rtype)
   rect = new MBK::CXRect (fig->XAB1(), fig->YAB1());
 
 
+  cmess2 << "     o  Loading external terminals.\n";
+
+  // Browse layout for terminals.
+  for (pPhcon = fig->phfig.fig->PHCON; pPhcon != NULL; pPhcon = pPhcon->NEXT) {
+    if (fig->lofig.signals.find(pPhcon->NAME) == endSig) {
+      cerr << hwarn ("")
+           << "  The terminal \"" << pPhcon->NAME << "\" at ("
+           << MBK::UNSCALE (pPhcon->XCON) << ","
+           << MBK::UNSCALE (pPhcon->YCON) << ") layer "
+           << MBK::layer2a (pPhcon->LAYER) << "\n"
+           << "  do not not belong to any logical signal : ignored.\n";
+
+      continue;
+    }
+
+    pNet = getnet (pPhcon->NAME);
+
+    term_name  = "external.";
+    term_name += pPhcon->NAME;
+
+    flatSeg.X1    = pPhcon->XCON;
+    flatSeg.Y1    = pPhcon->YCON;
+    flatSeg.X2    = pPhcon->XCON;
+    flatSeg.Y2    = pPhcon->YCON;
+    flatSeg.WIDTH = MBK::env.layer2width (pPhcon->LAYER);
+    flatSeg.LAYER = pPhcon->LAYER;
+    flatSeg.NAME  = pPhcon->NAME;
+
+    rect->setSeg  (flatSeg);
+
+    pNet->newaccess ( term_name
+                    , rect->grid
+                    , MBK::env.layer2z (pPhcon->LAYER)
+                    );
+
+  }
+
+
   cmess2 << "     o  Finding obstacles.\n";
 
 
@@ -198,42 +236,6 @@ void  CRBox::mbkload (MBK::CFig *mbkfig, int z, int zup, int rtype)
     rect->setSeg (flatSeg);
 
     drgrid->nodes->obstacle (rect->grid, MBK::env.layer2z (flatSeg.LAYER));
-  }
-
-
-  // Browse layout for terminals.
-  for (pPhcon = fig->phfig.fig->PHCON; pPhcon != NULL; pPhcon = pPhcon->NEXT) {
-    if (fig->lofig.signals.find(pPhcon->NAME) == endSig) {
-      cerr << hwarn ("")
-           << "  The terminal \"" << pPhcon->NAME << "\" at ("
-           << MBK::UNSCALE (pPhcon->XCON) << ","
-           << MBK::UNSCALE (pPhcon->YCON) << ") layer "
-           << MBK::layer2a (pPhcon->LAYER) << "\n"
-           << "  do not not belong to any logical signal : ignored.\n";
-
-      continue;
-    }
-
-    pNet = getnet (pPhcon->NAME);
-
-    term_name  = "external.";
-    term_name += pPhcon->NAME;
-
-    flatSeg.X1    = pPhcon->XCON;
-    flatSeg.Y1    = pPhcon->YCON;
-    flatSeg.X2    = pPhcon->XCON;
-    flatSeg.Y2    = pPhcon->YCON;
-    flatSeg.WIDTH = MBK::env.layer2width (pPhcon->LAYER);
-    flatSeg.LAYER = pPhcon->LAYER;
-    flatSeg.NAME  = pPhcon->NAME;
-
-    rect->setSeg  (flatSeg);
-
-    pNet->newaccess ( term_name
-                    , rect->grid
-                    , MBK::env.layer2z (pPhcon->LAYER)
-                    );
-
   }
 
 

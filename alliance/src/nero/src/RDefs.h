@@ -1,7 +1,7 @@
 
 // -*- C++ -*-
 //
-// $Id: RDefs.h,v 1.2 2002/10/29 18:46:03 jpc Exp $
+// $Id: RDefs.h,v 1.3 2002/11/04 14:43:08 jpc Exp $
 //
 // /-----------------------------------------------------------------\ 
 // |                                                                 |
@@ -58,6 +58,8 @@
     public: ~CRBox (void);
 
     // Modifiers.
+    public: CNet *findnet (string &signame);
+    public: CNet *findnet (char *signame);
     public: CNet *getnet  (string &signame);
     public: CNet *getnet  (char *signame);
     public: void  mbkload (MBK::CFig *mbkfig, int z, int zup, int rtype);

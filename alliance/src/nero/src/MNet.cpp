@@ -1,7 +1,7 @@
 
 // -*- C++ -*-
 //
-// $Id: MNet.cpp,v 1.5 2002/10/29 18:46:03 jpc Exp $
+// $Id: MNet.cpp,v 1.6 2002/11/04 14:43:08 jpc Exp $
 //
 //  /----------------------------------------------------------------\ 
 //  |                                                                |
@@ -50,11 +50,11 @@ CTerm::~CTerm (void)
   //list<CNode*>::iterator  pNode;
 
 
-  //for (pNode = nodes.begin (); pNode != nodes.end (); pNode++) {
-  //  if ((*pNode)->coord.z() == 0) delete (*pNode);
-  //}
+  //for (pNode = nodes.begin (); pNode != nodes.end (); pNode++)
+  //  (*pNode)->ungrab ();
 
   nodes.clear ();
+  rects.clear ();
 }
 
 
@@ -139,7 +139,7 @@ CDRGrid::iterator &CTerm::lowest (void)
 // Method  :  "CTerm::newaccess()".
 
 CNode *CTerm::newaccess (int x, int y, int z, int ident, CNet *net)
-  throw (dup_term, bad_grab)
+  throw (dup_term, bad_grab, merge_term)
 {
   list<CDRGrid::iterator>::iterator  itNode;
        CDRGrid::iterator             coord;
@@ -150,30 +150,38 @@ CNode *CTerm::newaccess (int x, int y, int z, int ident, CNet *net)
   coord = net->_drgrid->origin;
   coord.set (x, y, z);
 
-  // Check if the node is already in the list...
-  for (itNode = nodes.begin (); itNode != nodes.end (); itNode++) {
-    if (*itNode == coord) {
-      throw dup_term (name, *itNode);
-    }
-  }
-
   pNode = &coord.node ();
   if ((z == 0) && coord.isnodehole()) {
     pNode = &coord.addnode ();
   }
 
-  // Check if the node has already been took by another terminal.
-  if (pNode->data.owner && (pNode->data.owner != net))
-    throw bad_grab ( pNode->data.owner->terms[pNode->getid()]->name
-                   , net->name
-                   , coord.x()
-                   , coord.y()
-                   , coord.z()
-                   , 0
-                   , pNode->data.pri
-                   , pNode->terminal()
-                   , pNode->data.ident
-                   );
+  if (pNode->data.owner) {
+    // Check if the node has already been took by another terminal.
+    if (pNode->data.owner != net)
+      throw bad_grab ( pNode->data.owner->terms[pNode->getid()]->name
+                     , net->name
+                     , coord.x()
+                     , coord.y()
+                     , coord.z()
+                     , 0
+                     , pNode->data.pri
+                     , pNode->terminal()
+                     , pNode->data.ident
+                     );
+
+    // Check if the node belongs to another terminal of this net.
+    // If so, send a merging exception to CNet::newaccess ().
+    if (pNode->getid () != ident) throw merge_term ( pNode->getid () );
+
+    return (NULL);
+  }
+
+  // Check if the node is already in the list (this should never appens !)
+  for (itNode = nodes.begin (); itNode != nodes.end (); itNode++) {
+    if (*itNode == coord) {
+      throw dup_term (name, *itNode);
+    }
+  }
 
   pNode->data.owner    = net;
   pNode->data.obstacle = false;
@@ -206,6 +214,23 @@ void  CTerm::newaccess (CRect &rect, int z, int ident, CNet *net)
   // if ((rect.x1 != rect.x2) || (rect.y1 != rect.y2))
   // No! Store all ALU1 rectangles.
   rects.push_back (rect);
+}
+
+
+
+
+// -------------------------------------------------------------------
+// Method  :  "CTerm::merge()".
+
+void CTerm::merge (CTerm *other, int ident, CNet *Net)
+{
+  list<CDRGrid::iterator>::iterator  coord;
+
+
+  for (coord = other->nodes.begin (); coord != other->nodes.end (); coord++) {
+    (*coord).node().setid (ident);
+    nodes.push_back (*coord);
+  }
 }
 
 
@@ -423,7 +448,7 @@ void CNet::newaccess (string termName, int x, int y, int z)
 void CNet::newaccess (string termName, CRect &rect, int z)
 {
   CCoord  coord;
-  int     id;
+  int     id, mergeid;
 
 
   // Find the terminal in the table.
@@ -440,7 +465,31 @@ void CNet::newaccess (string termName, CRect &rect, int z)
   }
 
   // Add the access to the terminal & update the bounding box.
-  terms[id]->newaccess (rect, z, id, this);
+  do {
+    mergeid = INT_MAX;
+
+    try {
+      terms[id]->newaccess (rect, z, id, this);
+    }
+
+    catch (merge_term &e) {
+      mergeid = e.id;
+
+      // Merge terminals ...
+      terms[mergeid]->merge (terms[id], mergeid, this);
+
+      // Erase the merged terminal.
+      delete terms[id];
+      terms.erase (terms.begin () + id);
+
+      size -= 1;
+
+      // Re-computes the terminal's ids.
+      for (id = 0; id < size; id++) terms[id]->setid (id);
+
+      id = mergeid;
+    }
+  } while (mergeid != INT_MAX);
 
   // Update the bounding box.
   bb.merge (coord.set (rect.x1, rect.y1, z));

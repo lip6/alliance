@@ -1,7 +1,7 @@
 
 // -*- C++ -*-
 //
-// $Id: RBox.cpp,v 1.2 2002/10/29 18:46:03 jpc Exp $
+// $Id: RBox.cpp,v 1.3 2002/11/04 14:43:08 jpc Exp $
 //
 //  /----------------------------------------------------------------\ 
 //  |                                                                |
@@ -163,6 +163,46 @@ CRBox::CRBox (int rtype, bool debug)
 void CRBox::route (void)
 {
   netsched->run (rglobal);
+}
+
+
+
+
+// -------------------------------------------------------------------
+// Method  :  "CRBox::findnet()".
+
+CNet *CRBox::findnet (char *signame)
+{
+  string  name;
+
+
+  name = signame;
+
+  return (findnet(name));
+}
+
+
+
+
+// -------------------------------------------------------------------
+// Method  :  "CRBox::findnet()".
+
+CNet *CRBox::findnet (string &signame)
+{
+  MNet::iterator  itNet, endNet;
+            CNet *pNet;
+
+
+  endNet = nets.end  ();
+  itNet  = nets.find (signame);
+
+  if (itNet == endNet) {
+    pNet = NULL;
+  } else
+    pNet = itNet->second;
+
+
+  return (pNet);
 }
 
 
