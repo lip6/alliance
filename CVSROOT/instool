@@ -7,7 +7,7 @@
 # Author: Frédéric Pétrot (fred@pasta.fr.ea)
 #         for version 0
 #
-# $Id: instool,v 1.17 1999/11/04 13:51:22 czo Exp $
+# $Id: instool,v 1.18 1999/11/04 13:53:11 czo Exp $
 #
 
 
@@ -37,7 +37,7 @@ ETC=$LABO/share/etc
 MANS=$LABO/share/man
 
 umask 002
-alcbanner "Instoll" "0.0 alpha" "Alliance Tools Installation Script" "1999"
+alcbanner "Instool" "0.0 alpha" "Alliance Tools Installation Script" "1999"
 echo ""
 echo ""
 echo "News: "
