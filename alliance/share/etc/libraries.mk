@@ -3,7 +3,7 @@
 # description   : Alliance Shared Libraries and Include Files   #
 # ###---------------------------------------------------------###
 
-# $Id: libraries.mk,v 1.24 2000/02/01 13:38:07 czo Exp $
+# $Id: libraries.mk,v 1.25 2000/02/11 12:53:38 czo Exp $
 
 # The variables $ALLIANCE_TOP and $ALLIANCE_OS are set by
 # alc_env.[c]sh script
@@ -116,20 +116,20 @@ MLU_H      =    mlu501.h
 #      - mpu : user level functions                             #
 # ###---------------------------------------------------------###
 
-MPH_L      =  -lMph410
-MPH_LIB    = libMph410.a
-MPH_H      =    mph410.h
+MPH_L      =  -lMph411
+MPH_LIB    = libMph411.a
+MPH_H      =    mph411.h
 
-MAP_L      =  -lMap406
-MAP_LIB    = libMap406.a
-MCP_L      =  -lMcp407
-MCP_LIB    = libMcp407.a
+MAP_L      =  -lMap407
+MAP_LIB    = libMap407.a
+MCP_L      =  -lMcp408
+MCP_LIB    = libMcp408.a
 MMG_L      =  -lMmg402
 MMG_LIB    = libMmg402.a
 
-MPU_L      =  -lMpu406
-MPU_LIB    = libMpu406.a
-MPU_H      =    mpu406.h
+MPU_L      =  -lMpu407
+MPU_LIB    = libMpu407.a
+MPU_H      =    mpu407.h
 
 # ###---------------------------------------------------------###
 #    user level functions for GENLIB                            #
@@ -291,9 +291,9 @@ RUT_H      =    rut208.h
 
 RCF_L      =  -lRcf111
 RCF_LIB    = libRcf111.a
-RFM_L      =  -lRfm210
-RFM_LIB    = libRfm210.a
-RFM_H      =    rfm210.h
+RFM_L      =  -lRfm211
+RFM_LIB    = libRfm211.a
+RFM_H      =    rfm211.h
 RGS_L      =  -lRgs112
 RGS_LIB    = libRgs112.a
 RPR_L      =  -lRpr213
