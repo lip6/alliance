@@ -217,7 +217,7 @@ PPlacement::Init(lofig* fig, int NbRows)
 	    pnetmap[sig->INDEX] = net;
 	}
 	else {
-       cerr << " o Special Net detected : " << getsigname(sig) << endl;
+	    cerr << " o Special Net detected : " << getsigname(sig) << endl;
 	}
     }
 
@@ -1089,7 +1089,7 @@ PPlacement::GenerateConsPlacement()
     if (faces[1])
     {
 	interval = (maxy - miny) / faces[1];
-	spaceLeft = (maxx - minx) % faces[1];
+	spaceLeft = (maxy - miny) % faces[1];
 	pos = miny + interval / 2;
 	while(faces[1]--)
 	{
@@ -1121,7 +1121,7 @@ PPlacement::GenerateConsPlacement()
     if (faces[3])
     {
 	interval = (maxy - miny) / faces[3];
-	spaceLeft = (maxx - minx) % faces[3];
+	spaceLeft = (maxy - miny) % faces[3];
 	pos = miny + interval / 2;
 	while(faces[3]--)
 	{
