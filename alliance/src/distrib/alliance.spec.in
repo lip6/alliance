@@ -158,6 +158,7 @@ Sources of the Alliance VLSI CAD System, as you might guess...
 
 %files tutorials
 %{prefix}/tutorials
+%{prefix}/examples
 %{prefix}/doc/overview
 %{prefix}/doc/design-flow
 %{prefix}/doc/alliance-run

@@ -3,7 +3,7 @@
 # Copyright (C) 1999, 2000, 2001, 2002, 2003 Czo <Olivier.Sirol@lip6.fr>
 # License: GPL (http://www.gnu.org/copyleft/gpl.html)
 #
-# $Id: mkdistrib,v 1.15 2004/07/17 09:32:05 jpc Exp $
+# $Id: mkdistrib,v 1.16 2004/07/17 22:36:07 jpc Exp $
 #
 # /------------------------------------------------------------------\
 # |                                                                  |
@@ -45,7 +45,7 @@
 #  MKDISTRIB_PID="26882"
 
          TARGETS="purcell funk"
-#        TARGETS=""
+#        TARGETS="funk"
    TARGETLOGFILE=/tmp/alliance-build.$MKDISTRIB_PID
          LOGFILE="$DISTRIBDIR/mkdistrib-run.log"
 
@@ -201,7 +201,7 @@
 
  try ../src/configure --prefix=$ALLIANCE_TOP
  try make DESTDIR="$DISTRIBDIR/alliance/$TMPINSTALLDIR" install
-#try make distcheck
+ #try make distcheck
  try make dist
 
  mv "$NAME.tar.gz" "$PACK.tar.gz"
@@ -223,9 +223,9 @@
    ssh -n $TARGET \
      "cd $DISTRIBDIR/$TMPBUILDDIR/$TARGET; \
       ALLIANCE_TOP=$ALLIANCE_TOP; export ALLIANCE_TOP; \
-      CPPFLAGS=-I$DISTRIBDIR/$TMPDESTDIR/$TARGET/include; export CPPFLAGS; \
-      CFLAGS=-I$DISTRIBDIR/$TMPDESTDIR/$TARGET/include; export CFLAGS; \
-      LIBS=-L$DISTRIBDIR/$TMPDESTDIR/$TARGET/lib; export LIBS; \
+      CPPFLAGS=-I$DISTRIBDIR/$TMPDESTDIR/$TARGET$ALLIANCE_TOP/include; export CPPFLAGS; \
+      CFLAGS=-I$DISTRIBDIR/$TMPDESTDIR/$TARGET$ALLIANCE_TOP/include; export CFLAGS; \
+      LIBS=-L$DISTRIBDIR/$TMPDESTDIR/$TARGET$ALLIANCE_TOP/lib; export LIBS; \
       MAKE=gmake; export MAKE; \
       PATH=${PATH}:/usr/ccs/bin; export PATH; \
       ../../$NAME/configure --prefix=$ALLIANCE_TOP --enable-alc-shared; \
