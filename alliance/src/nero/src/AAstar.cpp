@@ -1,7 +1,7 @@
 
 // -*- C++ -*-
 //
-// $Id: AAstar.cpp,v 1.6 2002/10/29 18:46:03 jpc Exp $
+// $Id: AAstar.cpp,v 1.7 2002/10/31 09:30:00 hcl Exp $
 //
 //  /----------------------------------------------------------------\ 
 //  |                                                                |
@@ -753,7 +753,7 @@ bool CAStar::search (void)
 
   catch (trapped_astar &e) {
     abort ();
-    cmess2 << "              > AStar unable to found a path.\n";
+    cmess2 << "              > AStar unable to find a path.\n";
 
     //check (false);
   }
