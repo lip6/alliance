@@ -2,7 +2,7 @@ CFLAGS              = @CFLAGS@ \
                       -DALLIANCE_TOP=\"${ALLIANCE_TOP}\"
 lib_LIBRARIES       = libBdd.a
 include_HEADERS     = bdd.h
-libAbl_a_SOURCES    = \
+libBdd_a_SOURCES    = \
 bdd.h            bddenv.h         bddimply.h       bddsimpdc.h \
 bddalloc.c       bdderror.c       bddlog.c         bddsubst.c \
 bddalloc.h       bdderror.h       bddlog.h         bddsubst.h \
