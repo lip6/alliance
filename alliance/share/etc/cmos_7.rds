@@ -381,6 +381,8 @@ layer RDS_CONT 1.;
 layer RDS_VIA1 1.;
 layer RDS_VIA2 1.;
 layer RDS_VIA3 1.;
+layer RDS_VIA4 1.;
+layer RDS_VIA5 1.;
 layer RDS_POLY 1.;
 layer RDS_ALU1 1.;
 layer RDS_ALU2 2.;
