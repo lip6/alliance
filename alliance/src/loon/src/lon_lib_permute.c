@@ -296,6 +296,7 @@ extern chain_list* permutations(befig_list* befig)
    chain_list* port=NULL;
    chain_list* groupchain=NULL;
    bepor_list* bepor;
+   biabl_list* biabl;
   
    /*build group of variables which can be permuted*/
    if (befig->BEBUS) {
