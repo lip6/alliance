@@ -154,6 +154,46 @@ TABLE MBK_TO_RDS_VIA
 END
 
 ##-------------------------------------------------------------------
+# TABLE MBK_TO_RDS_BIGVIA_HOLE :
+#
+# MBK via      RDS Hole        
+# name         name  side step mode
+##-------------------------------------------------------------------
+
+TABLE MBK_TO_RDS_BIGVIA_HOLE
+
+# CONT_VIA  RDS_VIA1 1 2 ALL
+
+END
+
+##-------------------------------------------------------------------
+# TABLE MBK_TO_RDS_BIGVIA_METAL :
+#
+# MBK via      RDS layer 1                      ...
+# name         name  delta-width overlap mode
+##-------------------------------------------------------------------
+
+TABLE MBK_TO_RDS_BIGVIA_METAL
+
+# CONT_VIA  RDS_ALU1 3 4 ALL RDS_ALU2 4 5 ALL
+
+END 
+
+##-------------------------------------------------------------------
+# TABLE MBK_TO_RDS_TURNVIA :
+#
+# MBK via      RDS layer 1                      ...
+# name         name  delta-width overlap mode
+##-------------------------------------------------------------------
+
+TABLE MBK_TO_RDS_TURNVIA
+
+# CONT_TURN1 
+
+END
+
+
+##-------------------------------------------------------------------
 # TABLE LYNX_GRAPH :
 #
 # RDS layer   Rds layer 1   Rds layer 2    ...
