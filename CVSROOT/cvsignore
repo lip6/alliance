@@ -71,7 +71,6 @@ core
 .*.swp
 Makefile.in
 aclocal.m4
-configure.in
 configure
 missing
 mkinstalldirs
