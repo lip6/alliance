@@ -21,7 +21,7 @@
  * Software Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
  */
 
-#ident "$Author: czo $ $Date: 2002/09/30 16:20:57 $ $Revision: 1.2 $"
+#ident "$Author: fred $ $Date: 2004/07/28 12:04:23 $ $Revision: 1.3 $"
 
 /*******************************************************************************
 *                                                                              *
@@ -173,8 +173,8 @@ char             mode;
   if( SPI_VERBOSE )
   {
     printf( "Parser Spice compile le %s a %s\n", __DATE__, __TIME__ );
-    printf( "Revision     : %s\n", "$Revision: 1.2 $" );
-    printf( "Date         : %s\n", "$Date: 2002/09/30 16:20:57 $"     );
+    printf( "Revision     : %s\n", "$Revision: 1.3 $" );
+    printf( "Date         : %s\n", "$Date: 2004/07/28 12:04:23 $"     );
     
     printf( "Separateur   : '%c'\n", SPI_SEPAR  );
     printf( "Nom de noeud : %s\n", SPI_NETNAME  );
@@ -315,6 +315,22 @@ ginterf         *teteinterf;
     }
     else
     {
+      lofig_list *lf;
+      const char *name = namealloc(ptcir->NOM);
+      /* Check that a model has not yet been read, otherwise (wrongly)
+       * assumes that the models having the same name are identical.
+       * I issue a warning because this suck.
+       * I should preprend a prefix and use the prefixed name, but
+       * since it is the first and probably last time that I hack this
+       * code, I'll live with this on my conscience ;-) */
+      for (lf = HEAD_LOFIG; lf ; lf = lf->NEXT) {
+         if (lf->NAME == name) {
+            fprintf(stderr, "Warning: skipping model '%s' as it has already"
+                            " been loaded\n", name);
+            goto skip;
+         }
+      }
+
       /* Si la figure est vide, on ne construit pas la lofig correspondante */
       if( ptcir->RESI  ||
           ptcir->VALIM ||
@@ -334,7 +350,7 @@ ginterf         *teteinterf;
         newfig->USER = constphinterf( newfig->USER, teteinterf );
       }
       else
-        if( SPI_VERBOSE )
+skip:   if( SPI_VERBOSE )
           printf( "Ne construit pas la figure %s.\n", ptcir->NOM );
     }
 
