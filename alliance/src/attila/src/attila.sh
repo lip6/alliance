@@ -1,6 +1,6 @@
 #!/bin/sh
 #
-# $Id: attila.sh,v 1.5 2002/10/04 14:06:28 jpc Exp $
+# $Id: attila.sh,v 1.6 2002/10/04 16:43:26 jpc Exp $
 #                                                                        
 # /------------------------------------------------------------------\
 # |                                                                  |
@@ -631,8 +631,8 @@ if [ "$FULL" = "y" ]; then
    ENVIRONMENT=""
    ENVIRONMENT="$ENVIRONMENT ALLIANCE_TOP=$ALLIANCE_TOP; export ALLIANCE_TOP;"
 
-   $RSH   $LINUX_TARGET "$ENVIRONMENT $SELF $ARGS"
-   $RSH $SOLARIS_TARGET ". /etc/profile; $ENVIRONMENT $SELF $ARGS"
+   $RSH   $LINUX_TARGET "/bin/bash -c \"$ENVIRONMENT $SELF $ARGS\""
+   $RSH $SOLARIS_TARGET "/bin/bash -c \". /etc/profile; $ENVIRONMENT $SELF $ARGS\""
  else
   # Out of recursion...
    compile_tool
