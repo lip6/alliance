@@ -593,19 +593,18 @@ relation ANY_N_DIF , ANY_P_DIF (
   regle 41 : inclusion longueur_inter < 0. ;
 );
 
-# Check RDS_POLY is distant from ANY_DIF
-#---------------------------------------
-relation RDS_POLY , ANY_P_DIF (
-  regle 42 : distance axiale >= 1. ;
-);
-relation RDS_POLY , ANY_N_DIF (
-  regle 43 : distance axiale >= 1. ;
-);
-
 undefine ANY_P_DIF;
 undefine ANY_N_DIF;
 
 define RDS_NDIF , RDS_PDIF union -> NP_DIF;
+
+# Check RDS_POLY related to NP_DIF
+#---------------------------------
+relation RDS_POLY , NP_DIF (
+  regle 42 : distance axiale >= 1. ;
+  regle 43 : intersection longueur_inter < 0. ;
+);
+
 define NP_DIF , RDS_POLY intersection -> CHANNEL;
 
 # Check the RDS_POLY shapes
@@ -619,6 +618,7 @@ relation RDS_POLY , RDS_POLY (
   regle 47 : distance axiale min 2.;
 );
 
+define NP_DIF , RDS_CONT intersection -> CONT_DIFF;
 # Check the CHANNEL shapes
 #--------------------------
 caracterise CHANNEL (
@@ -630,7 +630,12 @@ relation CHANNEL , CHANNEL (
 
 undefine CHANNEL;
 
-define NP_DIF , RDS_CONT intersection -> CONT_DIFF;
+# Check RDS_POLY is distant from ACTIV ZONE of TRANSISTOR
+#--------------------------------------------------------
+relation RDS_POLY , RDS_ACTIV (
+  regle 79 : distance axiale >= 1. ;
+);
+
 relation RDS_POLY , CONT_DIFF (
   regle 50 : distance axiale >= 2. ;
 );
@@ -750,11 +755,6 @@ caracterise RDS_VIA5 (
   regle 93 : longueur <= 1. ;
 );
 
-# Check RDS_POLY is distant from ACTIV ZONE of TRANSISTOR
-#--------------------------------------------------------
-relation RDS_POLY , RDS_ACTIV (
-  regle 94 : distance axiale >= 1. ;
-);
 fin regles
 DRC_COMMENT
 1 (RDS_NWELL) minimum width 4. 
@@ -799,7 +799,7 @@ DRC_COMMENT
 40 (ANY_N_DIF,ANY_P_DIF) must never been in contact
 41 (ANY_N_DIF,ANY_P_DIF) must never been in contact
 42 (RDS_POLY,ANY_N_DIF) Manhatan distance min 1. 
-43 (RDS_POLY,ANY_P_DIF) Manhatan distance min 1. 
+43 (RDS_POLY,NP_DIF) bad intersection
 44 (RDS_POLY) minimum width 1. 
 45 (RDS_POLY) minimum width 1. 
 46 (RDS_POLY) Manhatan distance min 2. 
@@ -835,6 +835,7 @@ DRC_COMMENT
 76 (RDS_VIA2) maximum length 1. 
 77 (RDS_VIA3) minimum width 1. 
 78 (RDS_VIA3) maximum length 1. 
+79 (RDS_POLY,RDS_ACTIV) Manhatan distance min 1. 
 80 (RDS_ALU5) minimum width 2. 
 81 (RDS_ALU5) minimum width 2. 
 82 (RDS_ALU5) Manhatan distance min 8. 
@@ -849,6 +850,5 @@ DRC_COMMENT
 91 (RDS_VIA4) maximum length 1. 
 92 (RDS_VIA5) minimum width 1. 
 93 (RDS_VIA5) maximum length 1. 
-94 (RDS_POLY,RDS_ACTIV) Manhatan distance min 1. 
 END_DRC_COMMENT
 END_DRC_RULES
