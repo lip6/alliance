@@ -750,7 +750,7 @@ static void XschDrawTransistor( X1r, Y1r, X2r, Y2r, Ycr, Obj )
              XschDrawGC,
              x1, y0 - cs, x1, y2 + cs );
 
-  if ( ( Obj->ARG1 ) == 0 )
+  if ( ( Obj->ARG1 ) == 1 ) /* This is TRANSN */
   {
      /* Output line : centered vertically */
      XDrawLine( XschGraphicDisplay, XschGraphicPixmap, XschDrawGC,
