@@ -92,13 +92,17 @@
 
     "<Btn1Down>:      CallbackEvent(  0 )\n\
      <Btn3Down>:      CallbackEvent(  1 )\n\
+     Shift<Btn4Down>: CallbackEvent(  7 )\n\
+     Shift<Btn5Down>: CallbackEvent(  8 )\n\
+     Ctrl<Btn4Down>:  CallbackEvent(  9 )\n\
+     Ctrl<Btn5Down>:  CallbackEvent( 10 )\n\
+     <Btn4Down>:      CallbackEvent(  5 )\n\
+     <Btn5Down>:      CallbackEvent(  6 )\n\
      <Motion>:        CallbackEvent(  2 )\n\
      <EnterWindow>:   CallbackEvent(  3 )\n\
      <LeaveWindow>:   CallbackEvent(  4 )\n\
      <Key>osfUp:      CallbackEvent(  5 )\n\
-     <Btn4Down>:      CallbackEvent(  5 )\n\
      <Key>osfDown:    CallbackEvent(  6 )\n\
-     <Btn5Down>:      CallbackEvent(  6 )\n\
      <Key>osfLeft:    CallbackEvent(  7 )\n\
      <Key>osfRight:   CallbackEvent(  8 )\n\
      <Key>Z:          CallbackEvent(  9 )\n\
