@@ -357,8 +357,13 @@ extern void addCell(befig_list* befig)
    
    /*search same behaviour*/
    for (chain=CELLS; chain; chain=chain->NEXT) {
+      int x;
       cell= (cell_list*) chain->DATA;
-      if (compare_befig(cell->BEFIG,befig)) break;
+printf("+ %s %s\n", cell->BEFIG->NAME, befig->NAME);
+      x = compare_befig(cell->BEFIG,
+                        befig);
+printf("- %s %s\n", cell->BEFIG->NAME, befig->NAME);
+      if (x) break;
    }
    
    /*insert cell*/

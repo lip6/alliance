@@ -36,7 +36,7 @@
 .TH LOON 1 "Sept 01 2000"  "ASIM/LIP6" "CAO\-VLSI Reference Manual"
 .SH NAME
 .TP
-LooN \- Light optimizing on Nets.
+LooN \- Local optimizations of Nets.
 
 
 .so man1/alc_origin.1
@@ -48,8 +48,18 @@ LooN \- Light optimizing on Nets.
 
 .SH DESCRIPTION
 .br
-\f4loon\fP is a CAD tool that permits to remove fanout problems within a gates netlist and to optimize the delay. The netlist can be hierarchical and is flattened if necessary. \f4loon\fP run in batch mode and a parameter file can be used (see man \f4lax\fP) to parametrize optimization by adding informations on outputs (fanin), inputs (fanout, delay) and by setting general parameters such as optimization level.
-\f4loon\fP permits to compute delays of gates in the netlist and gives the critical path in the netlist. The global optimization of \f4loon\fP performs gate repowering to decrease the critical path delay and global capacitance. Buffers are only inserted in critical path.
+\f4loon\fP is a CAD tool that allows to remove fanout problems within a
+gate netlist and also to optimize the delay.
+The netlist can be hierarchical and is flattened if necessary.
+\f4loon\fP runs in batch mode and a parameter file can be used
+(see man \f4lax\fP) to parametrize optimization by adding informations
+on outputs (fanin), inputs (fanout, delay) and by setting general
+parameters such as optimization level.
+\f4loon\fP permits to compute delays of gates in the netlist and gives
+the critical path in the netlist.
+The global optimization of \f4loon\fP performs gate repowering to
+decrease the critical path delay and global capacitance.
+Buffers are only inserted in critical path.
 .br
 
 
