@@ -7,7 +7,7 @@
 # (C) Czo 1998,99
 # This code is released under GPL
 #
-# $Id: postconfig,v 1.4 1999/09/16 18:25:01 czo Exp $
+# $Id: postconfig,v 1.5 1999/09/16 18:30:35 czo Exp $
 #
 
 
@@ -19,6 +19,7 @@ FINGER=`who am i | gawk '{gsub(/^[^!]*!/,""); print $1}'`
 echo "===================================================================="
 echo "Modification le : `date`"
 echo "Par             : $FINGER"
+echo "===================================================================="
 echo ""
 cat 
 ) > "$TMPFILE"  
