@@ -1,6 +1,21 @@
 #!/usr/local/bin/perl
 # (C) Copyright 1997,98 Czo <mailto:Olivier.Sirol@asim.lip6.fr>
 # Parts (C) A.Fenyo
+
+BEGIN {
+        
+        # Use the CGI::Carp module and import the carpout() function.
+        #
+        use CGI::Carp qw(carpout);
+        
+        # Send warnings and die messages to the browser.
+        #
+        carpout(STDOUT);
+        
+}
+
+
+
 use CGI;
 use POSIX;
 
@@ -8,16 +23,18 @@ use POSIX;
 # SCRIPT_FILENAME = /users/largo2/webmastr/wwwroot/cgi-bin/printenv.cgi
 
 
-$ASIM_HEADER=`/bin/cat /users/largo2/webmastr/wwwroot/ssi/asim.header/index.gb.html`;
-$ASIM_FOOTER=`/bin/cat /users/largo2/webmastr/wwwroot/ssi/asim.footer/index.gb.html`;
-$SEARCH_HEADER=`/bin/cat /users/largo2/webmastr/wwwroot/ssi/search.header/index.gb.html`;
-$SEARCH_MIDDLE=`/bin/cat /users/largo2/webmastr/wwwroot/ssi/search.middle/index.gb.html`;
-$SEARCH_FOOTER=`/bin/cat /users/largo2/webmastr/wwwroot/ssi/search.footer/index.gb.html`;
+$ASIM_HEADER=`/bin/cat /users/largo2/webmastr/wwwroot/slash/ssi/asim_header.html`;
+$ASIM_FOOTER=`/bin/cat /users/largo2/webmastr/wwwroot/slash/ssi/asim_footer.html`;
+$SEARCH_HEADER=`/bin/cat /users/largo2/webmastr/wwwroot/slash/ssi/search_header.html`;
+$SEARCH_MIDDLE=`/bin/cat /users/largo2/webmastr/wwwroot/slash/ssi/search_middle.html`;
+$SEARCH_FOOTER=`/bin/cat /users/largo2/webmastr/wwwroot/slash/ssi/search_footer.html`;
 
 $lock = "/tmp/search.lock";
-$log = "/users/largo2/webmastr/wwwroot/cgi-bin/private/search.log";
+$log = "/users/largo2/webmastr/wwwroot/slash/cgi-bin/private/search.log";
   
 print "Content-type: text/html\n\n";
+
+#unlink("$lock");
 
 $query = new CGI;
 
@@ -45,20 +62,20 @@ foreach $word (@words) {
 $scope = $query->param('ComboSearchList');
 
   if ( $scope eq "Alliance Mailling Lists" ) {
-  $scopefile = "/users/largo2/webmastr/wwwroot/cgi-bin/alml.dat";
+  $scopefile = "/users/largo2/webmastr/wwwroot/slash/cgi-bin/alml.dat";
   } elsif ( $scope eq "Alliance" ) {
-  $scopefile = "/users/largo2/webmastr/wwwroot/cgi-bin/alliance.dat";
+  $scopefile = "/users/largo2/webmastr/wwwroot/slash/cgi-bin/alliance.dat";
   } elsif ( $scope eq "Education" ) {
-  $scopefile = "/users/largo2/webmastr/wwwroot/cgi-bin/education.dat";
+  $scopefile = "/users/largo2/webmastr/wwwroot/slash/cgi-bin/education.dat";
   } elsif ( $scope eq "Mpc" ) {
-  $scopefile = "/users/largo2/webmastr/wwwroot/cgi-bin/mpc.dat";
+  $scopefile = "/users/largo2/webmastr/wwwroot/slash/cgi-bin/mpc.dat";
   } elsif ( $scope eq "Multimedia" ) {
-  $scopefile = "/users/largo2/webmastr/wwwroot/cgi-bin/multimedia.dat";
+  $scopefile = "/users/largo2/webmastr/wwwroot/slash/cgi-bin/multimedia.dat";
   } elsif ( $scope eq "Publications" ) {
-  $scopefile = "/users/largo2/webmastr/wwwroot/cgi-bin/publications.dat";
+  $scopefile = "/users/largo2/webmastr/wwwroot/slash/cgi-bin/publications.dat";
   } elsif ( $scope eq "Personal pages" ) {
-  $scopefile = "/users/largo2/webmastr/wwwroot/cgi-bin/users.dat";
-  } else { $scopefile = "/users/largo2/webmastr/wwwroot/cgi-bin/allsite.dat";
+  $scopefile = "/users/largo2/webmastr/wwwroot/slash/cgi-bin/users.dat";
+  } else { $scopefile = "/users/largo2/webmastr/wwwroot/slash/cgi-bin/allsite.dat";
   }
 
 
@@ -169,6 +186,7 @@ close(RESULT);
 print "$SEARCH_FOOTER\n$ASIM_FOOTER\n";
 
 
+
 # REMOTE_ADDR = 132.227.103.10
 # HTTP_X_FORWARDED_FOR = 132.227.103.10
 
@@ -180,12 +198,12 @@ $CLIENT = $ENV{"REMOTE_ADDR"};
 
 
 $TIME=strftime("%Y/%m/%d %H:%M:%S",localtime());
-open(LOCK,">$lock") || die "Can't open lock : $!";
+open(LOCK,">$lock") || warn "Can't open lock : $!";
 close (LOCK);
 open(SORTIE, ">>$log") || die "Can't open log : $!";
 print SORTIE "$TIME	$CLIENT	\"$scope\"	\"$str\"	$nmatch\n";;
 close (SORTIE);
-unlink("$lock") || die "Can't delete lock : $!";
+unlink("$lock") || warn "Can't delete lock : $!";
 
 }
 
