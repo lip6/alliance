@@ -1,14 +1,14 @@
 # Alliance VLSI CAD System
 # Copyright (C) 1990, 2002 ASIM/LIP6/UPMC
 #
-# Home page          : http://asim.lip6.fr/alliance/
+# Home page          : http://asim.lip6.fr/recherche/alliance/
 # E-mail             : mailto:alliance-users@asim.lip6.fr
 # ftp site           : ftp://asim.lip6.fr/pub/alliance/
 #
 # NOTE: You can find the latest revision of this document at:
 # http://asim.lip6.fr/pub/alliance/latest-checkout/alliance/src
 #
-# $Id: README,v 1.8 2003/12/10 15:32:40 czo Exp $
+# $Id: README,v 1.9 2004/07/26 14:50:22 fred Exp $
 
 This file discuss about installation of Alliance on UNIX machines.
 
@@ -114,7 +114,7 @@ Alliance's sources are now conforming to GNU's automake/autoconf.
    step rather than a "make" followed by a "make install"
 
    To avoid make problems, please use gnu make (gmake)
-   The fowllowing commands builds the full package from scratch.
+   The following commands builds the full package from scratch.
 
 > export ALLIANCE_TOP=/usr/local/alliance
 > ./configure --prefix=$ALLIANCE_TOP
@@ -122,7 +122,54 @@ Alliance's sources are now conforming to GNU's automake/autoconf.
 
 All this is done by a script called ./build in the alliance directory.
 
+# Building from the cvs tree :
+# ===================================================================
 
+This explains how to proceed from the Alliance CVS tree.
+
+1/ Get the latest alliance release on the ASIM CVS server.
+   To checkout the Alliance CVS tree, you have to first login
+   onto the cvs server using the following command:
+> cvs -d :pserver:anoncvs@asim.lip6.fr:/cvsroot login
+   At the CVS password prompt answer:
+> anoncvs
+   This has to be done only once. Then to actually retrieve the latest
+   version of the sources, issue the command:
+> cvs -d :pserver:anoncvs@asim.lip6.fr:/cvsroot co alliance
+   To update your files once on a while (usually when we have done minor
+   bug corrections, that you can be aware of by reading the alliance-users
+   mailing list once on a while), cd into your alliance top directory
+   and type :
+> cvs update -d -P
+
+2/ Remove some directories from the Alliance tree. These directories
+   contain tools that may be helpfull but are not maintained anymore,
+   so they will likely not compile.
+   Assuming Alliance sources reside in "~fred/alliance", do:
+> cd src
+> source .asim
+
+3/ We recommand not to build the tool in the source directory.
+   Also, the install stage has to be done at the same time 
+   as the make itself : the way the configure and Makefiles 
+   are written implies that you do a "make install" in one 
+   step rather than a "make" followed by a "make install"
+
+   To avoid make problems, please use gnu make (gmake)
+
+   Assuming user "fred" did the cvs checkout in "~fred/alliance", the
+   following commands builds the full package from scratch in the
+   '/opt/alliance/objects' and installs it in '/opt/alliance'.
+> su root
+> mkdir /opt/alliance
+> chown fred /opt/alliance
+> logout
+> cd /opt/alliance
+> mkdir objects
+> cd objects
+> export ALLIANCE_TOP=/opt/alliance
+> ~fred/alliance/src/configure --prefix=$ALLIANCE_TOP
+> gmake install
 
 # Usage :
 # ===================================================================
