@@ -39,9 +39,9 @@ Unzip the binary archive under / cygwin directory:
 Each user has to source /alliance/etc/alc_env.[c]sh to set Alliance environment
 variables to be able to run the Alliance tools.
 
-in sh  > . /alliance/etc/alc_env.sh
+using sh  > . /alliance/etc/alc_env.sh
 
-in csh > source /alliance/etc/alc_env.csh
+using csh > source /alliance/etc/alc_env.csh
 
 This sets various default environment variables which could be changed by user
 later (Like MBK_OUT_LO to set the netlist output file format).
@@ -49,6 +49,20 @@ later (Like MBK_OUT_LO to set the netlist output file format).
 Documentations are installed in /alliance/doc/, Tutorials are installed
  in /alliance/tutorials, and you will find many circuit examples with
 associated makefile in /alliance/examples subdirectories.
+
+# Graphic tools
+# ===================================================================
+
+In order to use graphic tools such as graal or dreal you must have 
+an X server running and not to forget to set properly the DISPLAY
+environment variable.
+
+You can use Xwin.exe (the cygwin X server) as follows :
+> /usr/X11R6/bin/Xwin.exe -multiwindow -nodecoration & 
+> export DISPLAY=:0
+
+And then launch graal :
+> graal
 
 
 # EOF
