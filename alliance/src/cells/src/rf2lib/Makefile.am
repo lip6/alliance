@@ -1,8 +1,9 @@
-# $Id: Makefile.am,v 1.1 2004/08/31 12:24:59 jpc Exp $
+# $Id: Makefile.am,v 1.2 2004/09/29 21:50:28 jpc Exp $
 
 rf2libdir=$(prefix)/cells/rf2lib
 
 rf2lib_DATA=CATAL \
+    rf2lib.lef \
     rf2_dec_bufad0.ap \
     rf2_dec_bufad0.vbe \
     rf2_dec_bufad1_l.ap \
