@@ -8,9 +8,10 @@
 
 .SH SYNOPSIS
 .PP
-   \f4pcbs\fP   [ -hvc ]  [ \-l <\fInumber\fP> ]  [ -b <\fInumber\fP> ] [ <\fIsource.PAT\fP> ]
+   \f4pcbs\fP   [ -hv ]  [ \-\-pci | \-\-parallel ] 
+                [ -l <\fInumber\fP> ]  [ -b <\fInumber\fP> ] 
+                [ <\fIsource.PAT\fP>  [ <\fIres.PAT\fP> ] ]
                 [ -e <\fIconnections_file\fP> [ -s <\fIbs.PAT\fP> ] ]
-                [ \-\-pci <\fIres.PAT\fP> | \-\-parallel <\fIres.PAT\fP> ]
         
 
 .SH DESCRIPTION
@@ -58,10 +59,6 @@ Help mode. Displays possible uses of \f4pcbs\fP.
 Verbose mode. Dump executed patterns as \f4asimut\fP.
 
 .TP 10
-\f4\-c,\-\-check\fP
-Check the boundary scan device by sending some patterns. It's able to guess the kind of boundary-scan card is in use (instruction length, bypass length, boundary-scan length).
-
-.TP 10
 \f4\-l,\-\-load\fP <number>
 Do not load all patterns in memory but do it by sequences of <number> patterns.
 Boundary-scan patterns are well known to be huge. It's a way to save memory.
@@ -81,13 +78,15 @@ Save the produced boundary-scan patterns in the file <bs.PAT>.
 This option should be used with \f4\-e,\-\-emulbs\fP.
 
 .TP 10
-\f4\--pci\fP <res.PAT>
+\f4\--pci\fP 
 To select the pci port where the test card is connected.
+First check the device. Then if files exist:
 Results of testing <source.PAT> will be saved in the file <res.PAT>.
 
 .TP 10
-\f4\--parallel\fP <res.PAT>
+\f4\--parallel\fP 
 To select the parallel port where the test card is connected.
+First check the device. Then if files exist:
 Results of testing <source.PAT> will be saved in the file <res.PAT>.
 
 
