@@ -6,7 +6,7 @@
 #
 # (C) Czo 1998,99
 # This code is released under GPL
-# $Id: multiconf,v 1.1 2000/09/22 15:03:48 czo Exp $
+# $Id: multiconf,v 1.2 2001/05/18 14:37:16 czo Exp $
 #
 
 
@@ -22,7 +22,7 @@ TMPFILE=/tmp/albuild.$$
 
 ALLIANCEDIR=`pwd`
 
-for WKS in fusion fado fox
+for WKS in beny bip
 
 do
 echo "Configuring $WKS..."
