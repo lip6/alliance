@@ -6,14 +6,14 @@
 # Copyright (C) 1997, 2000 Czo <Olivier.Sirol@lip6.fr>
 # License: GPL (http://www.gnu.org/copyleft/gpl.html)
 # Started: Feb 1997
-# Last Change: Friday 22 September 2000, 16:42
-# Edit Time: 1:41:45
+# Last Change: Friday 22 September 2000, 16:46
+# Edit Time: 1:43:21
 # Description: Alliance CAD system configure.in 
 #
-# $Id: configure.in,v 1.20 2000/09/22 14:50:02 czo Exp $
+# $Id: configure.in,v 1.21 2000/09/22 14:54:08 czo Exp $
 #
 
-AC_REVISION($Revision: 1.20 $)dnl
+AC_REVISION($Revision: 1.21 $)dnl
 
 AC_INIT(configure.in)
 
@@ -492,7 +492,6 @@ else
     HAVEXPM="NOXPM"
   else
     HAVEXPM="XPM"
-    AUTO_HAS="$AUTO_HAS -DAUTO_HAS_XPM"
   fi
   if test -n "$vt_xpm_includes"; then
     XPM_CFLAGS="-I$vt_xpm_includes"
@@ -500,6 +499,7 @@ else
   XPM_LIBS="-lXpm"
   if test -n "$vt_xpm_libraries"; then
     XPM_LIBS="-L$vt_xpm_libraries $XPM_LIBS"
+    AUTO_HAS="$AUTO_HAS -DAUTO_HAS_XPM"
   fi
 fi
 

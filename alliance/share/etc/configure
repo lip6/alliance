@@ -1,6 +1,6 @@
 #! /bin/sh
 
-# From configure.in Revision: 1.19 
+# From configure.in Revision: 1.20 
 # Guess values for system-dependent variables and create Makefiles.
 # Generated automatically using autoconf version 2.13 
 # Copyright (C) 1992, 93, 94, 95, 96 Free Software Foundation, Inc.
@@ -3898,7 +3898,6 @@ rm -f conftest*
     HAVEXPM="NOXPM"
   else
     HAVEXPM="XPM"
-    AUTO_HAS="$AUTO_HAS -DAUTO_HAS_XPM"
   fi
   if test -n "$vt_xpm_includes"; then
     XPM_CFLAGS="-I$vt_xpm_includes"
@@ -3906,6 +3905,7 @@ rm -f conftest*
   XPM_LIBS="-lXpm"
   if test -n "$vt_xpm_libraries"; then
     XPM_LIBS="-L$vt_xpm_libraries $XPM_LIBS"
+    AUTO_HAS="$AUTO_HAS -DAUTO_HAS_XPM"
   fi
 fi
 
