@@ -5,36 +5,39 @@ export PATH
 
 #DATE=`date +"%Y.%m.%d_%H.%M.%S"`
 DATE=`date +"%Y.%m.%d"`
-LABO=/users/soft5/newlabo/alliance
+
+INSTALL_FROM=/users/soft5/newlabo/test/alliance
+
+INSTALL_TO=/users/soft5/newlabo/alliance
 
 COPYTHIS=\*
 #COPYTHIS=asimut
 
-cd /users/soft5/newlabo/cvstree/alliance/archi
+cd $INSTALL_FROM/archi
 
 for ARCHI in Linux_elf Linux SunOS Solaris
  do
- for FILE in /users/soft5/newlabo/cvstree/alliance/archi/$ARCHI/bin/$COPYTHIS
+ for FILE in $INSTALL_FROM/archi/$ARCHI/bin/$COPYTHIS
  do
 #    echo %%%%%% $FILE
-    cp -f $FILE /users/soft5/newlabo/alliance/archi/$ARCHI/bin/`basename $FILE`.$DATE
-    chmod ug+rw /users/soft5/newlabo/alliance/archi/$ARCHI/bin/`basename $FILE`.$DATE
-    ln -f -s /users/soft5/newlabo/alliance/archi/$ARCHI/bin/`basename $FILE`.$DATE /users/soft5/newlabo/alliance/archi/$ARCHI/bin/`basename $FILE`
-    chmod ug+rw /users/soft5/newlabo/alliance/archi/$ARCHI/bin/`basename $FILE`
+    cp -f $FILE $INSTALL_TO/archi/$ARCHI/bin/`basename $FILE`.$DATE
+    chmod ug+rw $INSTALL_TO/archi/$ARCHI/bin/`basename $FILE`.$DATE
+    ln -f -s $INSTALL_TO/archi/$ARCHI/bin/`basename $FILE`.$DATE $INSTALL_TO/archi/$ARCHI/bin/`basename $FILE`
+    chmod ug+rw $INSTALL_TO/archi/$ARCHI/bin/`basename $FILE`
 done
 
-  for TRUC in /users/soft5/newlabo/cvstree/alliance/archi/$ARCHI/lib/$COPYTHIS
+  for TRUC in $INSTALL_FROM/archi/$ARCHI/lib/$COPYTHIS
   do
 #    echo %%%%%% $TRUC
-    cp -f $TRUC /users/soft5/newlabo/alliance/archi/$ARCHI/lib/`basename $TRUC`
-    chmod ug+rw /users/soft5/newlabo/alliance/archi/$ARCHI/lib/`basename $TRUC`
+    cp -f $TRUC $INSTALL_TO/archi/$ARCHI/lib/`basename $TRUC`
+    chmod ug+rw $INSTALL_TO/archi/$ARCHI/lib/`basename $TRUC`
   done
 
-  for TRUC in /users/soft5/newlabo/cvstree/alliance/archi/$ARCHI/include/$COPYTHIS
+  for TRUC in $INSTALL_FROM/archi/$ARCHI/include/$COPYTHIS
   do
 #    echo %%%%%% $TRUC
-    cp -f $TRUC /users/soft5/newlabo/alliance/archi/$ARCHI/include/`basename $TRUC`
-    chmod ug+rw /users/soft5/newlabo/alliance/archi/$ARCHI/include/`basename $TRUC`
+    cp -f $TRUC $INSTALL_TO/archi/$ARCHI/include/`basename $TRUC`
+    chmod ug+rw $INSTALL_TO/archi/$ARCHI/include/`basename $TRUC`
   done
 
 done
