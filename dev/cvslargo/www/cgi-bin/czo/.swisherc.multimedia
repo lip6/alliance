@@ -1,0 +1,229 @@
+# swish-e configuration file
+# 
+# Filename: .swisherc.multimedia
+# Copyright (C) 1999, 2000 Czo <Olivier.Sirol@lip6.fr>
+# License: GPL (http://www.gnu.org/copyleft/gpl.html)
+# Started: April 2000
+# Last Change: Friday 12 May 2000, 14:59
+# Edit Time: 0:19:30
+# Description: swish-e -c /users/largo1/czo/cvslargo/www/cgi-bin/czo/.swisherc.alliance
+#
+# $Id: .swisherc.multimedia,v 1.1 2000/06/06 16:50:14 czo Exp $
+#
+
+# DIRECTIVES COMMON to  HTTP and FILESYSTEM METHODS
+###################################################
+
+IndexDir /users/largo2/webmastr/wwwroot/multimedia
+
+IndexFile /users/largo1/czo/cvslargo/www/cgi-bin/czo/multimedia.dat
+
+ReplaceRules replace "/users/largo2/webmastr/wwwroot"  "http://www-asim.lip6.fr"
+
+IndexName           "Asim Lab. index"
+IndexDescription    "Index by Czo" 
+IndexPointer        "http://www-asim.lip6.fr/"
+IndexAdmin          "Czo [Olivier SIROL] <Olivier.Sirol@lip6.fr>"
+
+
+# YOU SHOULD NOT CHANGE BELOW. Czo.
+#######################################################
+
+# DIRECTIVES COMMON to  HTTP and FILESYSTEM METHODS
+###################################################
+# WINDOWS USERS NOTE:
+#	Specify ALL files and directory paths in the
+#	the config file using the forward slash, as
+#	in /thisdirectory.	
+#
+###################################################
+
+# IndexDir http://www.lib.berkeley.edu/~ghill/spider.html
+# For the FileSystem Method:
+# This is a space-separated list of files and
+# directories you want indexed. You can specify
+# more than one of these directives.
+#
+# For the HTTP Method:
+# Use the URL's from which you want the spidering
+# to begin.
+# NOTE: use  hmtl files rather than  directories
+# for this method.
+
+# IndexFile /home/ghill/swishRon/dir1/myindex1
+# This is what the generated index file will be.
+
+# IndexName "Improvement index"
+# IndexDescription "This is an index to test bug fixes in swish." 
+# IndexPointer "http://sunsite/~ghill/swish/index.html"
+# IndexAdmin "Giulia Hill, (ghill@library.berkeley.edu)"
+# Extra information you can include in the index file.
+
+MetaNames first author
+# List of all the meta names used in the file to index, must be on one line.
+# If no metanames DO NOT deleted the line.
+
+IndexReport 3
+# This is how detailed you want reporting. You can specify numbers
+# 0 to 3 - 0 is totally silent, 3 is the most verbose.
+
+FollowSymLinks no
+# Put "yes" to follow symbolic links in indexing, else "no".
+
+#UseStemming no
+# Put yes to apply word stemming algorithm during indexing,
+# else no. See the manual for info about stemming. Default is 
+# no.
+
+#PropertyNames author
+# List of meta tags names that can be retrieved with the -p option.
+# Index size increases as by the formula in the manual.
+# Comment out if no PropertyNames. Case insensitive
+
+IgnoreTotalWordCountWhenRanking yes
+# Put yes to ignore the total number of words in the file
+# when calculating ranking. Often better with merges and
+# small files. Default is no.
+
+#ReplaceRules remove "ghill/"
+#ReplaceRules replace "[a-z_0-9]*_m.*\.html" "index.html"
+#ReplaceRules replace "/ghill" "moreghillmore"
+# ReplaceRules allow you to make changes to file pathnames
+# before they're indexed. This directive uses C library
+# regex.h regular expressions.
+# NOTE: do not use replace <string> "" to remove a string,
+# use remove <string> instead - you might get a core dump otherwise.
+
+MinWordLimit 2
+# Set the minimum length of an indexable word. Every shorter word
+# will not be indexed.
+# Commenting out the line will give the defaults
+
+#MaxWordLimit 5
+# Set the maximum length of an indexable word. Every longer word
+# will not be indexed.
+# Commenting out the line will give the defaults
+
+#WordCharacters abcdefghijklmnopqrstuvwxyz\&#;0123456789.@|,-'"[](~!@$%^{}_+?
+# WORDCHARS is a string of characters which SWISH permits to
+# be in words. Any strings which do not include these characters
+# will not be indexed. You can choose from any character in
+# the following string:
+#
+# abcdefghijklmnopqrstuvwxyz0123456789_\|/-+=?!@$%^'"`~,.[]{}()
+#
+# Note that if you omit "0123456789&#;" you will not be able to
+# index HTML entities. DO NOT use the asterisk (*), lesser than
+# and greater than signs (<), (>), or colon (:).
+#
+# Including any of these four characters may cause funny things to happen.
+# NOTE: Do not escape \ nor " and they cannot be the first letter in the string
+# Commenting out the line will give the defaults
+
+#BeginCharacters m"
+# Of the characters that you decide can go into words, this is
+# a list of characters that words can begin with. It should be
+# a subset of (or equal to) WordCharacters
+# Same rule of syntax as for WordCharacters
+
+#EndCharacters \"\
+# Of the characters that you decide can go into words, this is
+# a list of characters that words can begin with. It should be
+# a subset of (or equal to) WordCharacters
+# Same rule of syntax as for WordCharacters
+
+# IgnoreLastChar 
+# Array that contains the char that, if considered valid in the middle of 
+# a word need to be disreguarded when at the end. It is important to also
+# set the given char's in the ENDCHARS array, otherwise the word will not
+# be indexed because considered invalid.
+# Commenting out the line will give the defaults
+# NOTE: if " is the first char in the string it needs to be escaped with \
+# Do not escape otherwise
+
+# IgnoreFirstChar 
+# Array that contains the char that, if considered valid in the middle of
+# a word need to be disreguarded when at the beginning. This was to solve
+# the problem of parenthesis when there is no space between ( and the
+# beginning of the word.
+# Remember to add the char's to the BEGINCHARS list also.
+# Commenting out the line will give the defaults
+# NOTE: if " is the first char in the string it needs to be escaped with \
+# Do not escape otherwise
+
+IgnoreLimit 50 1000
+# This automatically omits words that appear too often in the files
+# (these words are called stopwords). Specify a whole percentage
+# and a number, such as "80 256". This omits words that occur in
+# over 80% of the files and appear in over 256 files. Comment out
+# to turn of auto-stopwording.
+
+#IgnoreWords SwishDefault
+# The IgnoreWords option allows you to specify words to ignore.
+# Comment out for no stopwords; the word "SwishDefault" will
+# include a list of default stopwords. Words should be separated by spaces
+# and may span multiple directives.
+
+IndexComments 0
+# This option allows the user decide if to index the comments in the files
+# default is 1. Set to 0 if comment indexing is not required.
+
+##################################
+# DIRECTIVES for FILESYSTEMS ONLY 
+# Comment out if using HTTP
+###################################
+
+#IndexOnly .html .q
+# Only files with these suffixes will be indexed.
+
+NoContents .gif .xbm .au .mov .mpg .pdf .ps .jpg .jpeg 
+NoContents .gz .Z .tar .tgz .mbox .hqx .zip .ZIP .HQX .ARJ .arj .bin .dat
+NoContents .exe
+# Files with these suffixes will not have their contents indexed -
+# only their file names will be indexed.
+
+FileRules pathname contains CVS RCS cgi-bin tmp
+FileRules pathname contains .*dir1
+FileRules pathname contains private
+FileRules filename contains % ~ .bak .orig .old old. #
+#FileRules title contains construction example pointers
+FileRules directory contains .htaccess
+#FileRules filename is index
+# Files matching the above criteria will *not* be indexed.
+# The patter matching uses the C library regex.h 
+
+################################
+# DIRECTIVES for HTTP METHOD ONLY
+# Comment out if using FILESYSTEM
+##################################
+
+#MaxDepth 15
+#(default 5)  This defines how many links the spider should
+#follow before stopping.  A value of 0 configures the spider to
+#traverse all links
+
+#Delay 60
+#(default 60)  The number of seconds to wait between issuing
+#requests to a server.
+
+#TmpDir /tmp/
+#(default /var/tmp)  The location of a writeable temp directory
+#on your system.  The HTTP access method tells the Perl helper to place
+#its files there.
+
+#SpiderDirectory ./
+#(default ./)  The location of the Perl helper
+#script.  Remember, if you use a relative directory, it is relative to
+#your directory when you run SWISH-E, not to the directory that SWISH-E
+#is in.
+
+#EquivalentServer http://asim.lip6.fr http://www-asim.lip6.fr
+# EquivalentServer http://sunsite.berkeley.edu:2000 http://sunsite.berkeley.edu
+#(default nothing)  This allows you to deal with
+#servers that use respond to multiple DNS names.  Each line should have
+#a list of all the method/names that should be considered equivalent. 
+#If you have multiple directives, each one defines its own set of equivalent
+#servers.
+
+
+
