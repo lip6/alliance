@@ -1,0 +1,9 @@
+# Encoding figure "digicoder"
+-r 3
+s_warn	6
+s_open	5
+s_wait	0
+s3	4
+s2	2
+s1	3
+s0	7

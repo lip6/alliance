@@ -1,0 +1,9 @@
+# Encoding figure "digicodes"
+-o 7
+s_warn	0	1
+s_open	1	2
+s_wait	2	4
+s3	3	8
+s2	4	10
+s1	5	20
+s0	6	40

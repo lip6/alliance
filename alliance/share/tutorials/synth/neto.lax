@@ -1,0 +1,15 @@
+## Mode
+#M{2}
+## Level
+#L{2}
+## Number Transistor N
+#N{4}
+## Number Transistor P
+#P{4}
+## Fanout factor
+#T{1000}
+##Outputs capacitance
+#C{
+porte:1000;
+alarme:1000;
+}
