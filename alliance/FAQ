@@ -1,11 +1,18 @@
 # Alliance VLSI CAD System
-# Copyright (C) 1990, 2000 ASIM/LIP6/UPMC
+# Copyright (C) 1990, 2002 ASIM/LIP6/UPMC
 #
-# Home page          : http://www-asim.lip6.fr/alliance/
+# Home page          : http://asim.lip6.fr/alliance/
 # E-mail support     : mailto:alliance-support@asim.lip6.fr
-# ftp site           : ftp://ftp-asim.lip6.fr/pub/alliance/
+# ftp site           : ftp://asim.lip6.fr/pub/alliance/
 #
-# $Id: FAQ,v 1.6 2000/02/01 14:05:39 czo Exp $
+# NOTE: You can find the latest revision of this file at:
+# http://asim.lip6.fr/pub/alliance/unstable/cvstree/alliance/
+#
+# $Id: FAQ,v 1.7 2002/02/13 16:36:23 czo Exp $
+
+##########################################################
+# WARNING: This file needs to rewritten for Alliance 5.0 
+##########################################################
 
 --------------------------------------------------------------------------------
 
