@@ -19,7 +19,7 @@
 
 
 # Installation Dependent Variables.
-           TOP=/labo
+#           ALLIANCE_TOP=/labo
 
 
 # FpGen Macro-Operators Library.
@@ -32,7 +32,7 @@
     MBK_OUT_PH=ap;      export MBK_OUT_PH
     MBK_OUT_LO=vst;     export MBK_OUT_LO
   MBK_WORK_LIB=.;       export MBK_WORK_LIB
-  MBK_CATA_LIB=$TOP/cells/fitpath/fplib:$TOP/cells/rsa:$FPGEN_LIB
+  MBK_CATA_LIB=$ALLIANCE_TOP/cells/fitpath/fplib:$ALLIANCE_TOP/cells/rsa:$FPGEN_LIB
                         export MBK_CATA_LIB
 MBK_CATAL_NAME=CATAL;   export MBK_CATAL_NAME
        MBK_VDD=vdd;     export MBK_VDD

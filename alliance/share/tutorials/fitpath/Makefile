@@ -101,7 +101,8 @@ MBK_AP   = MBK_OUT_PH=ap;  export MBK_OUT_PH; MBK_IN_PH=ap;  export MBK_IN_PH
 
 
 help:
-	@echo 'Makefile:'; \
+	@mkdir $(FPGEN_LIB) ;\
+         echo 'Makefile:'; \
 	 echo '';          \
 	 echo '  "$$ make all"       : run all examples.';                \
 	 echo '  "$$ make sample"    : run the more sample example.';     \
@@ -519,27 +520,6 @@ usercol_proof: sample_dpt.vbe usercol_dpt_desb.vbe
 # =============================
 #
 clean:
-	rm -Rf *_desb.vbe  \
-			 *_opt.vbe  \
-			  *_bk.vbe  \
-			  *_cl.vbe  \
-				 *.vst  \
-				 *.hns  \
-				 *.fne  \
-				 *.err  \
-				 *.grr  \
-				 *.frr  \
-				 *.rep  \
-				 *.drc  \
-				 *.gds  \
-				 *.cif  \
-				 *.fcf  \
-				 *.deb  \
-				 *.dsbr \
-				 *.al   \
-				 *.ap   \
-				 *.cp   \
-			 CATAL      \
-			  core      \
-			  Makefile-* \
-	$(FPGEN_LIB)/*
+	rm -Rf *_desb.vbe  *_opt.vbe  *_bk.vbe  *_cl.vbe  *.vst  *.hns  *.fne \
+        *.err  *.grr  *.frr  *.rep  *.drc  *.gds  *.cif  *.fcf  *.deb  *.dsbr \
+        *.al   *.ap   *.cp   CATAL      core      Makefile-* $(FPGEN_LIB)/*

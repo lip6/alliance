@@ -19,7 +19,7 @@
 
 
 # Installation Dependent Variables.
-           TOP=/labo
+           ALLIANCE_TOP=/labo
 
 # FpGen Macro-Operators Library.
      FPGEN_LIB=./mclib; export FPGEN_LIB
@@ -31,15 +31,15 @@
     MBK_OUT_LO=hns;     export MBK_OUT_LO
   MBK_WORK_LIB=.;       export MBK_WORK_LIB
   MBK_CATA_LIB=$FPGEN_LIB
-  MBK_CATA_LIB=$MBK_CATA_LIB:$TOP/cells/fitpath/fplib
-  MBK_CATA_LIB=$MBK_CATA_LIB:$TOP/cells/fitpath/dplib/ecpd10
+  MBK_CATA_LIB=$MBK_CATA_LIB:$ALLIANCE_TOP/cells/fitpath/fplib
+  MBK_CATA_LIB=$MBK_CATA_LIB:$ALLIANCE_TOP/cells/fitpath/dplib
                         export MBK_CATA_LIB
 MBK_CATAL_NAME=CATAL;   export MBK_CATAL_NAME
        MBK_VDD=vdd;     export MBK_VDD
        MBK_VSS=vss;     export MBK_VSS
 
 # LOGIC Environment Variables.
-MBK_TARGET_LIB=$TOP/cells/fitpath/dplib/ecpd10
+MBK_TARGET_LIB=$ALLIANCE_TOP/cells/fitpath/dplib
                         export MBK_TARGET_LIB
   MBK_NAME_LOG="";      export MBK_NAME_LOG
 
