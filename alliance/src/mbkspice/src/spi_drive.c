@@ -41,6 +41,7 @@
 #include <stdarg.h>
 #include <time.h>
 #include <ctype.h>
+#include <string.h>
 #include <mut.h>
 #include <mlo.h>
 #include <rcn.h>
@@ -69,6 +70,34 @@ char            SPI_NAMEDNODES;
 #define SPI_NONODES (-1l)
 #define SPI_MAXSTATICNAME 16
 
+char *spivecname( char *name )
+{
+  char        *new_name;
+  char        *blank;
+  unsigned int length;
+  unsigned int pos_blank;
+
+  if ( name != (char *)0 )
+  {
+    blank = strchr( name, ' ' );
+    if ( blank != (char *)0 )
+    {
+      length    = strlen( name );
+      pos_blank = blank - name;
+      new_name = (char *)mbkalloc( (length + 2) * sizeof(char) );
+      strcpy(new_name, name);
+      new_name[ pos_blank ] = '[';
+      new_name[ length    ] = ']';
+      new_name[ length + 1] = '\0';
+
+      name = namealloc( new_name );
+      mbkfree( new_name );
+    }
+  }
+
+  return( name );
+}
+
 char*           spinamednode( losig, node )
 losig_list      *losig;
 long            node;
@@ -86,13 +115,13 @@ long            node;
   if( SPI_NAMEDNODES == TRUE ) {
     if( node == SPI_NONODES ) {
       if( losig->NAMECHAIN )
-        sprintf( names[curnames], "%s", (char*)(losig->NAMECHAIN->DATA) );
+        sprintf( names[curnames], "%s", spivecname( (char*)(losig->NAMECHAIN->DATA)));
       else
         sprintf( names[curnames], "sig%ld", losig->INDEX );
     }
     else {
       if( losig->NAMECHAIN ) {
-        sprintf( names[curnames], "%s%c%ld", (char*)(losig->NAMECHAIN->DATA),
+        sprintf( names[curnames], "%s%c%ld", spivecname((char*)(losig->NAMECHAIN->DATA)),
                                              SEPAR,
                                              node
                );
