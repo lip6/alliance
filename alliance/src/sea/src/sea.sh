@@ -1,6 +1,6 @@
 #!/bin/sh
 #
-# $Id: sea.sh,v 1.5 2003/05/30 12:33:17 jpc Exp $
+# $Id: sea.sh,v 1.6 2005/03/18 12:18:09 jpc Exp $
 #
 # /------------------------------------------------------------------\
 # |                                                                  |
@@ -101,7 +101,7 @@
 
  set_SE_env()
  {
-   OPUS_DIR=/users/soft2/cds/DSMSE-5.3; export  OPUS_DIR
+   OPUS_DIR=/users/soft/opus/5/Solaris/DSMSE-5.4; export  OPUS_DIR
 
    PATH=${PATH}:${OPUS_DIR}/tools/bin
    PATH=${PATH}:${OPUS_DIR}/tools.sun4v/bin
