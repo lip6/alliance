@@ -3,7 +3,7 @@
 % Author : Frederic Petrot
 % Modified by : Olivier Sirol
 % Modified by : Ludovic Jacomme
-% $Id: overview.tex,v 1.4 2004/07/15 11:19:39 ludo Exp $
+% $Id: overview.tex,v 1.5 2004/07/20 13:32:37 xtof Exp $
 %
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \documentclass{article}
@@ -430,25 +430,6 @@ these technologies.
       abutment boxes.  
       \texttt{Genlib} is mainly used to build parameterized netlist and
       layout generators.
-
-\item \texttt{genview} is a debugging tool for the development of the
-      layout view of parameterized generators.
-      It is a graphical environment that integrates a \texttt{genlib}
-      interpreter, a step by step debugger, and a window in the which 
-      the circuit under construction is visualized.
-      All the parameterized generators of \textbf{Alliance} have been
-      developed using this tool.
-      Part of the \textit{ROM} generator \texttt{grog} under construction
-      is shown figure~\ref{genview}.
-      
-      \begin{figure}\center
-%      ,angle=-90}
-         \leavevmode\psfig{file=genview.eps,width=5cm}         
-         \caption{\label{genview}A typical run of \texttt{genview}.}
-      \end{figure}
-
-      \texttt{Genview} uses the GNU \texttt{gcc} compiler parameterized for
-      a virtual architecture as basis to its \texttt{genlib} interpreter.
 
 \item \texttt{dpgen} is a language that has moreorless the same
       functionalities as \texttt{genlib}, but it is dedicated to datapath
