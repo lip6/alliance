@@ -1,5 +1,5 @@
 /*
- *  $Id: MAC_drive.c,v 1.3 2003/06/19 16:36:58 jpc Exp $
+ *  $Id: MAC_drive.c,v 1.4 2003/06/23 13:01:23 jpc Exp $
  *
  *  /----------------------------------------------------------------\
  *  |                                                                |
@@ -98,8 +98,7 @@ extern void  macPlace(apPhfig, apLofig, macName, aPower, aFlags)
 
 
   /* Set a nice viewport. */
-  fprintf (MAC_FILE, " SET VARIABLE OUTPUT.LEF.DEF.BUSBITCHARACTERS \"()\" ;\n");
-  fprintf (MAC_FILE, " SET VARIABLE OUTPUT.LEF.DEF.DELIMITERS . ;\n\n");
+  /*fprintf (MAC_FILE, " SET VARIABLE SDF.HIERARCHY.DIVIDER     . ;\n\n");*/
   fprintf (MAC_FILE, " WINDOW FIT ;\n\n");
 
 
@@ -140,6 +139,8 @@ extern void  macPlace(apPhfig, apLofig, macName, aPower, aFlags)
 
 
   /* Save the placement file. */
+  fprintf (MAC_FILE, " SET VARIABLE OUTPUT.LEF.DEF.BUSBITCHARACTERS \"()\" ;\n");
+  fprintf (MAC_FILE, " SET VARIABLE OUTPUT.LEF.DEF.DELIMITERS . ;\n");
   fprintf (MAC_FILE, " OUTPUT DEF FILENAME %s_p.def ;\n\n", apLofig->NAME);
 
 
