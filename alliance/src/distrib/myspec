@@ -4,7 +4,7 @@
 # rpm -ba /var/tmp/czo/rpm/SPECS/alliance.spec
 # avec $HOME/.rpmmacros :
 # %_topdir    /var/tmp/czo/rpm
-# $Id: myspec,v 1.1 2002/06/25 14:09:38 czo Exp $
+# $Id: myspec,v 1.2 2002/06/28 10:36:09 czo Exp $
 
 %define  name     alliance
 %define  prefix   /usr/local/alliance
@@ -45,16 +45,11 @@ microprocessor and 400 000 transistors IEEE Gigabit HSL Router.
 # As we use libraries for tools that we build in the same run, we have to
 # do the "install" step within the "build" step.
 
- export     CPPFLAGS="-I%{buildroot}%{prefix}/include"
- export         LIBS="-L%{buildroot}%{prefix}/lib"
- export ALLIANCE_TOP=%{prefix}
+ALLIANCE_TOP=%{buildroot}/%{prefix}
+export ALLIANCE_TOP
 
- mkdir %{_os}
- cd %{_os}
- ../configure --prefix=%{prefix}
- make DESTDIR=%{buildroot} install
- cd ..
- rm -r %{_os}
+./configure --prefix=%{prefix}
+make DESTDIR=%{buildroot} install
 
 %post
  ln -sf %{prefix}/etc/alc_env.sh  /etc/profile.d
