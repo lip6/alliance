@@ -37,6 +37,10 @@
 # ifndef ABL_102_H
 # define ABL_102_H
 
+#ifdef __cplusplus
+extern "C" {
+#endif /* __cplusplus */
+
 # ifndef __P
 # if defined(__STDC__) ||  defined(__GNUC__)
 #  define __P(x) x
@@ -386,5 +390,9 @@
   extern           void  viewablexprfileln __P((FILE *AblFile, ablexpr *Expr, int Mode));
   extern          char * viewablexprstr __P((ablexpr *Expr, int Mode));
   extern          char * viewablexprstrln __P((ablexpr *Expr, int Mode));
+
+#ifdef __cplusplus
+}
+#endif /* __cplusplus */
 
 # endif
