@@ -8,7 +8,7 @@
 # NOTE: You can find the latest revision of this document at:
 # http://asim.lip6.fr/pub/alliance/latest-checkout/alliance/src
 #
-# $Id: README,v 1.5 2002/10/17 14:23:56 czo Exp $
+# $Id: README,v 1.6 2003/01/06 15:38:51 czo Exp $
 
 This file discuss about installation of Alliance on UNIX machines.
 
@@ -54,8 +54,8 @@ log as root then type :
 
 > cd /usr/local
 > tar -xzf /mnt/cdrom/alliance-5.0-XXX-YYY.tar.gz
-> ln -s /usr/local/alliance/share/etc/alc_env.csh /etc/profile.d/
-> ln -s /usr/local/alliance/share/etc/alc_env.sh /etc/profile.d/
+> ln -s /usr/local/alliance/etc/alc_env.csh /etc/profile.d/
+> ln -s /usr/local/alliance/etc/alc_env.sh /etc/profile.d/
 
 
 To install a .rpm package (Linux redHat 7+)
@@ -108,9 +108,9 @@ All this is done by a script called ./build in the alliance directory.
 Each user has to source alc_env.[c]sh to set Alliance environment
 variables to be able to run the Alliance tools.
 
-in sh  > . [where you have installed Alliance]/alliance/share/etc/alc_env.sh
+in sh  > . [where you have installed Alliance]/alliance/etc/alc_env.sh
 
-in csh > source [where you have installed Alliance]/alliance/share/etc/alc_env.csh
+in csh > source [where you have installed Alliance]/alliance/etc/alc_env.csh
 
 This sets various default environment variables which could be changed by user
 later (Like MBK_OUT_LO to set the netlist output file format).
