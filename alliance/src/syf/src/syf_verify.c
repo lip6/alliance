@@ -902,9 +902,6 @@ void SyfFsmTreatReset( FsmFigure )
     SumStar   = applybddnode( (bddsystem *)0, ABL_OR, SumStar, TransCond );
   }
 
-  addbddcircuitout( (bddcircuit *)0, "hello", SumStar );
-  testbddcircuit( (bddcircuit *)0 );
-
   decbddrefext( SumStar );
   SumStar = applybddnodenot( (bddsystem *)0, SumStar );
 
