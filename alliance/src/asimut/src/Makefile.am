@@ -21,7 +21,7 @@ sch_bug.c	sch_Free.c    sch_GoNTim.c   sch_message.c
 bin_PROGRAMS = asimut
 
 asimut_LDADD = @ALLIANCE_LIBS@ \
--L.  -lMlu -lMal -lMcl -lMel -lMhl -lMgl -lMsl -lMvl -lMlo -lRcn \
+-L.  -lMlu -lMal -lMcl -lMel -lMhl -lMgl -lMsl -lMvg -lMlo -lRcn \
      -lBvl -lBhl -lBeh -lPpt -lPhl -lPat -lSch -lLog -lMut
 
 asimut_SOURCES = \
