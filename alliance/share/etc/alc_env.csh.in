@@ -6,7 +6,7 @@
 #  Alliance CAD system environnement
 #  Usage (in C-shell) : > source alc_env.csh
 #  (C) 1997 Czo  -- <Olivier.Sirol@lip6.fr>
-#  $Id: alc_env.csh.in,v 1.9 1999/11/22 14:36:25 czo Exp $
+#  $Id: alc_env.csh.in,v 1.10 1999/11/22 15:43:10 czo Exp $
 #  Generated from alc_env.csh.in on @DATE@
 
 # $ALLIANCE_OS and $ALLIANCE_TOP are the only variables you will
@@ -63,13 +63,9 @@ default:
  breaksw
 endsw
 
-setenv ALLIANCE_OS $ALLIANCE_OS
-#echo $ALLIANCE_OS
-
 # Where the Alliance CAD is installed
 
 setenv ALLIANCE_TOP @ALLIANCE_TOP@/$ALLIANCE_OS
-setenv ALLIANCE_TOP $ALLIANCE_TOP
 
 # User def 
 
