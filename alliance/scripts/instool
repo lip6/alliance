@@ -7,13 +7,14 @@
 # Author: Frédéric Pétrot (fred@pasta.fr.ea)
 #         for version 0
 #
-# $Id: instool,v 1.1 1998/10/21 16:42:57 alliance Exp $
+# $Id: instool,v 1.2 1999/02/01 13:51:39 alliance Exp $
 #
 
 SYS=`uname -a | awk '{print $1}'`
 VER=`uname -a | awk '{print $3}' | awk -F. '{print $1}'`
 NOD=`uname -n`
       
+# depends vraiement de l'archi...est n'a ete teste que sur trash...
 
    if [ ! $NOD = "trash" ] ; then
       echo "Please, run this script from trash"
