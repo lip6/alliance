@@ -22,6 +22,6 @@ bddcompose.c     bddheath.c       bddreorder.c     bddvar.c \
 bddcompose.h     bddheath.h       bddreorder.h     bddvar.h \
 bddconvert.c     bddhnode.c       bddresize.c      bddvaraux.c \
 bddconvert.h     bddhnode.h       bddresize.h      bddvaraux.h \
-bdddump.c        bddhoper.c       bddsatisfy.c     bddvartree.c \
-bdddump.h        bddhoper.h       bddsatisfy.h     bddvartree.h \
+bdddump.c        bddhoper.c       bddsatisfy.c     \
+bdddump.h        bddhoper.h       bddsatisfy.h     \
 bddenv.c         bddimply.c       bddsimpdc.c
