@@ -31,5 +31,6 @@ END a3_x2;
 ARCHITECTURE behaviour_data_flow OF a3_x2 IS
 
 BEGIN
-  q <= ((i0 and i1) and i2) after 1125 ps;
+1125
+q <= ((i0 and i1) and i2) after 1100 ps;
 END;

@@ -28,7 +28,8 @@ BEGIN
 
   label0 : BLOCK (cmd = '1')
   BEGIN
-    nq <= GUARDED not (i) after 928 ps;
+928
+nq <= GUARDED not (i) after 900 ps;
   END BLOCK label0;
 
 END;

@@ -33,5 +33,6 @@ END xr2_x1;
 ARCHITECTURE behaviour_data_flow OF xr2_x1 IS
 
 BEGIN
-  q <= (i0 xor i1) after 1002 ps;
+1002
+q <= (i0 xor i1) after 1000 ps;
 END;

@@ -19,5 +19,6 @@ END buf_x8;
 ARCHITECTURE behaviour_data_flow OF buf_x8 IS
 
 BEGIN
-  q <= i after 995 ps;
+995
+q <= i after 1000 ps;
 END;

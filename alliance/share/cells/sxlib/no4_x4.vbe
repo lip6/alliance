@@ -37,5 +37,6 @@ END no4_x4;
 ARCHITECTURE behaviour_data_flow OF no4_x4 IS
 
 BEGIN
-  nq <= not ((((i0 or i1) or i2) or i3)) after 1415 ps;
+1415
+nq <= not ((((i0 or i1) or i2) or i3)) after 1400 ps;
 END;

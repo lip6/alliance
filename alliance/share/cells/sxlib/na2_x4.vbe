@@ -25,5 +25,6 @@ END na2_x4;
 ARCHITECTURE behaviour_data_flow OF na2_x4 IS
 
 BEGIN
-  nq <= not ((i0 and i1)) after 1206 ps;
+1206
+nq <= not ((i0 and i1)) after 1200 ps;
 END;

@@ -25,5 +25,6 @@ END o2_x2;
 ARCHITECTURE behaviour_data_flow OF o2_x2 IS
 
 BEGIN
-  q <= (i0 or i1) after 1003 ps;
+1003
+q <= (i0 or i1) after 1000 ps;
 END;

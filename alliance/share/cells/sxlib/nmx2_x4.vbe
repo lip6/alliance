@@ -35,5 +35,6 @@ END nmx2_x4;
 ARCHITECTURE behaviour_data_flow OF nmx2_x4 IS
 
 BEGIN
-  nq <= not (((i0 and not (cmd)) or (i1 and cmd))) after 1300 ps;
+1300
+nq <= not (((i0 and not (cmd)) or (i1 and cmd))) after 1300 ps;
 END;

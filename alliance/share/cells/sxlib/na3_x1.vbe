@@ -31,5 +31,6 @@ END na3_x1;
 ARCHITECTURE behaviour_data_flow OF na3_x1 IS
 
 BEGIN
-  nq <= not (((i0 and i1) and i2)) after 969 ps;
+969
+nq <= not (((i0 and i1) and i2)) after 1000 ps;
 END;

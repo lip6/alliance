@@ -35,5 +35,6 @@ END mx2_x4;
 ARCHITECTURE behaviour_data_flow OF mx2_x4 IS
 
 BEGIN
-  q <= ((i1 and cmd) or (not (cmd) and i0)) after 1245 ps;
+1245
+q <= ((i1 and cmd) or (not (cmd) and i0)) after 1200 ps;
 END;

@@ -32,5 +32,6 @@ BEGIN
     sff_m <= GUARDED i;
   END BLOCK label0;
 
-  q <= sff_m after 1685 ps;
+1685
+q <= sff_m after 1700 ps;
 END;
