@@ -1,0 +1,70 @@
+.\"   $Id: dellotrs.3,v 1.1 2002/03/08 13:51:01 fred Exp $
+.\" @(#)dellotrs.2 2.11 91/08/22 ; Labo masi cao-vlsi; Author : Frederic Petrot
+.if t \{\
+.so man1/alc_contents.mac
+.XS \n%
+.ti 0.2i
+dellotrs
+.XE
+.XS2 \n%
+.ti 0.2i
+dellotrs
+.XE2 \}
+.TH DELLOTRS 3 "October 1, 1997" "ASIM/LIP6" "MBK LOGICAL FUNCTIONS"
+.SH NAME
+dellotrs \- delete a logical transistor
+.so man1/alc_origin.1
+.SH SYNOPSYS
+.nf
+.if n \{\
+.ft B \}
+.if t \{\
+.ft CR \}
+#include "mlo.h"
+int dellotrs(ptfig, pttrs)
+lofig_list \(**ptfig;
+lotrs_list \(**pttrs;
+.ft R
+.fi
+.SH PARAMETERS
+.TP 20
+\fIptfig\fP
+Pointer to the figure in which the transistor should be deleted
+.TP
+\fIpttrs\fP
+Pointer to the transistor to be deleted.
+.SH DESCRIPTION
+\fBdellotrs\fP delete the transistor pointed to by \fIpttrs\fP in the figure 
+pointed to by \fIptfig\fP. 
+The list consistency is maintainded, and the space freed. The transistor
+connectors are also freed, since if the transistor disapear,
+no more connections can occur on it.
+.SH RETURN VALUE
+\fBdellotrs\fP returns \fB1\fP if the transistor has been deleted, \fB0\fP
+if the transistor pointer does nit exists in the list.
+.SH EXAMPLE
+.ta 3n 6n 9n 12n 15n 18n 21n
+.nf
+.if n \{\
+.ft B \}
+.if t \{\
+.ft CR \}
+#include "mlo.h"
+char \(**was_existing(ptfig, pttrs)
+lofig_list \(**ptfig;
+lotrs_list \(**pttrs;
+{
+   return dellotrs(ptfig, pttrs) ? "you just killed it!"
+                                 : "wasn't here anyway"; 
+}
+.ft R
+.fi
+.SH SEE ALSO
+.BR mbk (1),
+.BR lofig (3),
+.BR lotrs (3),
+.BR addlotrs (3).
+
+
+.so man1/alc_bug_report.1
+

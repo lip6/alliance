@@ -1,0 +1,77 @@
+.\"   $Id: getphref.3,v 1.1 2002/03/08 13:51:02 fred Exp $
+.\" @(#)getphref.2 2.11 91/08/22 ; Labo masi cao-vlsi; Author : Frederic Petrot
+.if t \{\
+.so man1/alc_contents.mac
+.XS \n%
+.ti 0.2i
+getphref
+.XE
+.XS0 \n%
+.ti 0.2i
+getphref
+.XE0 \}
+.TH GETPHREF 3 "October 1, 1997" "ASIM/LIP6" "MBK PHYSICAL FUNCTIONS"
+.SH NAME
+getphref \- retrieve a physical reference
+.so man1/alc_origin.1
+.SH SYNOPSYS
+.nf
+.if n \{\
+.ft B \}
+.if t \{\
+.ft CR \}
+#include "mph.h"
+phref_list \(**getphref(ptfig, refname)
+phfig_list \(**ptfig;
+char \(**refname;
+.ft R
+.fi
+.SH PARAMETERS
+.TP 20
+\fIptfig\fP
+Pointer to the figure in which the reference should be seeked
+.TP
+\fIrefname\fP
+Name of the reference
+.SH DESCRIPTION
+\fBgetphref\fP looks in the list of references of the physical model pointed
+to by \fIptfig\fP for a reference identified by its \fIrefname\fP.
+.SH RETURN VALUE
+\fBgetphref\fP returns a pointer to the reference that matches the
+\fIrefname\fP.
+.SH ERROR
+.if n \{\
+.ft B \}
+.if t \{\
+.ft CR \}
+"\(**\(**\(** mbk error \(**\(**\(** illegal getphref reference \fIrefname\fP doesn't exist
+in figure \fIptfig\->NAME\fP" 
+.ft R
+.RS
+No reference is called \fIrefname\fP in the figure. 
+.RE
+.SH EXAMPLE
+.ta 3n 6n 9n 12n 15n 18n 21n
+.nf
+.if n \{\
+.ft B \}
+.if t \{\
+.ft CR \}
+#include "mph.h"
+phref_list \(**exist(figname, refname)
+char \(**figname, \(**refname;
+{
+   return getphref(getphfig(figname), refname);   
+}
+.ft R
+.fi
+.SH SEE ALSO
+.BR mbk (1),
+.BR phfig (3),
+.BR phref (3),
+.BR addphref (3),
+.BR delphref (3).
+
+
+.so man1/alc_bug_report.1
+

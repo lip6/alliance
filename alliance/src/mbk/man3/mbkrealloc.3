@@ -1,0 +1,83 @@
+.\"   $Id: mbkrealloc.3,v 1.1 2002/03/08 13:51:03 fred Exp $
+.\" @(#)mbkrealloc.2 2.11 91/08/22 ; Labo masi cao-vlsi; Author : Frederic Petrot
+.if t \{\
+.so man1/alc_contents.mac
+.XS \n%
+.ti 0.2i
+mbkrealloc
+.XE
+.XS4 \n%
+.ti 0.2i
+mbkrealloc
+.XE4 \}
+.TH MBKREALLOC 3 "October 1, 1997" "ASIM/LIP6" "MBK UTILITY FUNCTIONS"
+.SH NAME
+mbkrealloc \- mbk memory reallocator
+.so man1/alc_origin.1
+.SH SYNOPSYS
+.nf
+.if n \{\
+.ft B \}
+.if t \{\
+.ft CR \}
+#include "mut.h"
+void \(**mbkrealloc(pt, bytes)
+void \(**pt;
+unsigned int bytes;
+.ft R
+.fi
+.SH PARAMETERS
+.TP 20
+\fIpt\fP
+Pointer to an already allocated area, allocated using \fBmbkalloc\P
+.TP 20
+\fIbytes\fP
+Number of memory bytes to be contiguously allocated
+.SH DESCRIPTION
+\fBmbkrealloc\fP returns a block of \fIbytes\fP length, for any purpose.
+It increases or decreases the size of the area, and return a pointer to
+the new block.
+It is now a day only an encapsulation of the system \fBrealloc\fP function,
+but may evolve to a special allocator in the future. Its use is strongly
+encouraged.
+.TP 20
+Remark :
+a global variable, \fBlong mbkrealloc_stat\fP, updates the number of allocated
+bytes, and may be accessed by anyone to see the amount of allocated memory.
+.SH RETURN VALUE
+\fBmbkrealloc\fP returns a pointer to a \fIbytes\fP long block.
+.SH ERROR
+.if n \{\
+.ft B \}
+.if t \{\
+.ft CR \}
+"\(**\(**\(** mbk error \(**\(**\(** mbkrealloc impossible : not enough memory"
+.ft R
+.RS
+System break can't be moved anymore, no more memory can be retrieved from
+the system.
+.RE
+.SH EXAMPLE
+.ta 3n 6n 9n 12n 15n 18n 21n
+.nf
+.if n \{\
+.ft B \}
+.if t \{\
+.ft CR \}
+#include "mut.h"
+char \(**concatstring(t, s);
+{
+	t = (char \(**)mbkrealloc(strlen(t) + strlen(s) + 1);
+	strcat(t, s);
+	return t;
+}
+.ft R
+.fi
+.SH SEE ALSO
+.BR mbk (1),
+.BR mbkalloc (3),
+.BR mbkfree (3).
+
+
+.so man1/alc_bug_report.1
+

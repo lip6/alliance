@@ -1,0 +1,78 @@
+.\"   $Id: getloins.3,v 1.1 2002/03/08 13:51:02 fred Exp $
+.\" @(#)getloins.2 2.11 91/08/22 ; Labo masi cao-vlsi; Author : Frederic Petrot
+.if t \{\
+.so man1/alc_contents.mac
+.XS \n%
+.ti 0.2i
+getloins
+.XE
+.XS2 \n%
+.ti 0.2i
+getloins
+.XE2 \}
+.TH GETLOINS 3 "October 1, 1997" "ASIM/LIP6" "MBK LOGICAL FUNCTIONS"
+.SH NAME
+getloins \- retrieve a logical instance
+.so man1/alc_origin.1
+.SH SYNOPSYS
+.nf
+.if n \{\
+.ft B \}
+.if t \{\
+.ft CR \}
+#include "mlo.h"
+loins_list \(**getloins(ptfig, name)
+lofig_list \(**ptfig;
+char \(**name;
+.ft R
+.fi
+.SH PARAMETERS
+.TP 20
+\fIptfig\fP
+Pointer to the figure in which the instance should be seeked
+.TP
+\fIname\fP
+Name of the instance
+.SH DESCRIPTION
+\fBgetloins\fP looks in the list of instances of the logical model pointed
+to by \fIptfig\fP for a instance identified by its \fIname\fP. This instance
+is unique, since the \fIname\fP is the instance identifier.
+.SH RETURN VALUE
+\fBgetloins\fP returns a pointer to the instance that matches the
+\fIname\fP.
+.SH ERRORS
+.if n \{\
+.ft B \}
+.if t \{\
+.ft CR \}
+"\(**\(**\(** mbk error \(**\(**\(** illegal getloins instance \fIname\fP doesn't exist
+in figure \fIptfig\->NAME\fP" 
+.ft R
+.RS
+No instance is called \fIname\fP in the figure. 
+.RE
+.SH EXAMPLE
+.ta 3n 6n 9n 12n 15n 18n 21n
+.nf
+.if n \{\
+.ft B \}
+.if t \{\
+.ft CR \}
+#include "mlo.h"
+loins_list \(**get_ins_by_name(figname, insname)
+char \(**figname, \(**insname;
+{
+   return getloins(getlofig(figname), insname);   
+}
+.ft R
+.fi
+.SH SEE ALSO
+.BR mbk (1),
+.BR lofig (3),
+.BR loins (3),
+.BR addloins (3),
+.BR delloins (3).
+
+
+.so man1/alc_bug_report.1
+

@@ -1,0 +1,71 @@
+.\"   $Id: delht.3,v 1.1 2002/03/08 13:51:01 fred Exp $
+.\" @(#)delht.2 7.01 92/08/22 ; Labo masi cao-vlsi; Author : Luc Burgun
+.\" slightly modified by Fred Petrot for mbk adaptation on 22/06/92
+.if t \{\
+.so man1/alc_contents.mac
+.XS \n%
+.ti 0.2i
+delht
+.XE
+.XS4 \n%
+.ti 0.2i
+delht
+.XE4 \}
+.TH DELHT 3 "October 1, 1997" "ASIM/LIP6" "MBK HASH TABLE MANAGEMENT FUNCTIONS"
+.SH NAME
+delht \- removes an hash table
+.so man1/alc_origin.1
+.SH SYNOPSYS
+.nf
+#include "mut.h"
+void delht(table)
+ht \(**table;
+.fi
+.SH PARAMETER
+.TP 20
+\fItable\fP
+Hash table pointer
+.SH DESCRIPTION
+\fBdelht()\fP removes the hash table pointed to by \fItable\fP from
+memory.
+.SH EXAMPLE
+.ta 3n 6n 9n 12n 15n 18n 21n
+.nf
+.if n \{\
+.ft B \}
+.if t \{\
+.ft CR \}
+#include "mut.h"
+checksigname(p)
+lofig_list \(**p;
+{
+ht \(**h; 
+int i;
+char \(**amatla;
+	for (i = 0, ptsig = p->LOSIG; ptsig; i++, ptsig = ptsig->NEXT);
+	h = addht(i);
+	for (ptcon = p->LOCON; ptcon; ptcon = ptcon->NEXT)
+		addhtitem(h, ptcon->NAME, 0);
+	for (ptsig = p->LOSIG; ptsig; ptsig = ptsig->NEXT) {
+		if (ptsig->TYPE == INTERNAL) {
+			amatla = getsigname(ptsig);
+			if (!sethtitem(h, amatla, 0)) {
+				printf("N %s;\\n", amatla);
+			}
+		}
+	}
+	delht(h);
+}
+.ft R
+.fi
+.SH SEE ALSO
+.BR mbk (1),
+.BR addht (3),
+.BR addhtitem (3),
+.BR gethtitem (3),
+.BR delhtitem (3),
+.BR viewht (3).
+
+
+.so man1/alc_bug_report.1
+

@@ -1,0 +1,39 @@
+.\"   $Id: MBK_IN_FILTER.1,v 1.1 2002/03/08 13:51:04 fred Exp $
+
+.TH MBK_IN_FILTER 1 "October 1, 1999" "ASIM/LIP6" "MBK ENVIRONMENT VARIABLES"
+
+.SH NAME
+MBK_IN_FILTER \- define the input filter
+
+.so man1/alc_origin.1
+
+.SH DESCRIPTION
+\fBMBK_IN_FILTER\fP set the input filter for reading compressed Alliance files.
+Filter is typically a string containing filename and options. This filter
+must read compressed data flow on it standard input and write non compressed
+data flow on it standard output. Files are taken in the first directory where
+they are found according to the environment variable \fbMBK_CATA_LIB\fb. If a
+file compressed version and a file non compressed version exist booth in the
+same directory, the non compressed is opended, and a warning message is
+supllyed. To activate filters, variable \fbMBK_FILTER_SFX\fb must be set.
+
+.SH EXAMPLE
+.nf
+.if n \{\
+.ft B \}
+.if t \{\
+.ft CR \}
+Opening compressed files with gzip :
+	setenv MBK_IN_FILTER "/asim/gnu/bin/gunzip -c"
+	setenv MBK_FILTER_SFX ".gz"
+.ft R
+.fi
+.SH SEE ALSO
+.BR mbk (1),
+.BR MBK_FILTER_SFX (1),
+.BR MBK_OUT_FILTER (1),
+.BR mbkenv (3).
+
+
+.so man1/alc_bug_report.1
+

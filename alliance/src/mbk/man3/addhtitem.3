@@ -1,0 +1,91 @@
+.\"   $Id: addhtitem.3,v 1.1 2002/03/08 13:51:00 fred Exp $
+.\" @(#)addhtitem.2 7.01 92/08/22 ; Labo masi cao-vlsi; Author : Luc Burgun
+.\" slightly modified by Fred Petrot for mbk adaptation on 22/06/92
+.if t \{\
+.so man1/alc_contents.mac
+.XS \n%
+.ti 0.2i
+addhtitem
+.XE
+.XS4 \n%
+.ti 0.2i
+addhtitem
+.XE4 \}
+.TH ADDHTITEM 3 "October 1, 1997" "ASIM/LIP6" "MBK HASH TABLE MANAGEMENT FUNCTIONS"
+.SH NAME
+addhtitem \- adds a new item in a hash table.
+.so man1/alc_origin.1
+.SH SYNOPSYS
+.if n \{\
+.ft B \}
+.if t \{\
+.ft CR \}
+.nf
+#include "mut.h"
+void addhtitem(table, key, value)
+ht \(**table;
+void \(**key;
+int value;
+.fi
+.ft R
+.SH PARAMETERS
+.TP 20
+\fItable\fP
+Hash table pointer
+.TP 20
+\fIkey\fP
+Key used by the hash coding function to add the item
+.TP 20
+\fIvalue\fP
+Value associated with the key
+.SH DESCRIPTION
+\fBaddhtitem()\fP adds a new item in the hash table pointed to by \fItable\fP.
+If the key already exists, the old value is changed to the new one.
+\fIValue\fP must be distinct from \fBEMPTYHT\fP and \fBDELETEHT\fP.
+The length of the table increases automatically when the length given
+in \fBaddht()\fP leads to a performance shut down.
+.SH EXAMPLE
+.ta 3n 6n 9n 12n 15n 18n 21n
+.if n \{\
+.ft B \}
+.if t \{\
+.ft CR \}
+.nf
+#include "mut.h"
+#include "mlo.h"
+void conHenter(h, ptfig)
+ht \(**h;
+lofig_list \(**ptfig;
+{
+locon_list \(**ptcon;
+	/\(** since connector names are unique, add them without check \(**/
+	for (ptcon = p->LOCON; ptcon; ptcon = ptcon->NEXT)
+		addhtitem(h, ptcon->NAME, 0);
+}
+.fi
+.ft R
+.SH ERRORS
+.if n \{\
+.ft B \}
+.if t \{\
+.ft CR \}
+"\(**\(**\(** mbk error \(**\(**\(** addhtitem impossible :
+value is \fBEMPTYHT\fP or \fBDELETEHT\fP"
+.ft R
+.RS
+The values \fBEMPTYHT\fP, \fI-1\fP,  and \fBDELETEHT\fP, \fI-2\fP,
+are reserved for internal use, sorry.
+.SH DIAGNOSTICS
+The value must be distinct from \fI-1\fP and \fI-2\fP.
+.SH SEE ALSO
+.BR mbk (1),
+.BR addht (3),
+.BR delht (3),
+.BR gethtitem (3),
+.BR sethtitem (3),
+.BR delhtitem (3),
+.BR viewht (3).
+
+
+.so man1/alc_bug_report.1
+

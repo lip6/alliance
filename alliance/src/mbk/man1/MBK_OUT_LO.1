@@ -1,0 +1,70 @@
+.\"   $Id: MBK_OUT_LO.1,v 1.1 2002/03/08 13:51:05 fred Exp $
+.\" @(#)MBK_OUT_LO.8 2.11 91/08/22; Labo Cao-vlsi; Author : Frederic Petrot
+.if t \{\
+.so man1/alc_contents.mac
+.XS \n%
+.ti 0.2i
+MBK_OUT_LO
+.XE \}
+.TH MBK_OUT_LO 1 "October 1, 1997" "ASIM/LIP6" "MBK ENVIRONMENT VARIABLES"
+.SH NAME
+MBK_OUT_LO \- define the logical output format of mbk and genlib
+.SH SYNOPSYS
+.nf
+.if n \{\
+.ft B \}
+.if t \{\
+.ft CR \}
+c-shell running
+setenv MBK_OUT_LO format
+.ft R
+.fi
+.so man1/alc_origin.1
+.SH PARAMETERS
+.TP 20
+\fIparam\fP
+pwet
+.SH DESCRIPTION
+\fBMBK_OUT_LO\fP sets the logical output format of the mbk data structure.
+The files resulting of the work on mbk will have the given format. 
+.TP
+valid formats are :
+\- \fBal\fP, \fBalx\fP, that are alliance logical formats
+.br
+\- \fBcct\fP, that is genrad hilo netlist format
+.br
+\- \fBedi\fP, that is edif standart netlist format
+.br
+\- \fBhns\fP, \fBfns\fP, \fBfne\fP, \fBfdn\fP, \fBhdn\fP, that are vti logical
+formats
+.br
+\- \fBspi\fP, that's spice netlist
+.br
+\- \fBvst\fP, that is structural vhdl description
+.SH ERRORS
+.if n \{\
+.ft B \}
+.if t \{\
+.ft CR \}
+"MBK_OUT_LO : 'xxx' unknown format"
+.ft R
+.RS
+The argument given to the setenv is not a legal logical output format for mbk.
+You must changed it before any other action.
+.SH EXAMPLE
+.nf
+.if n \{\
+.ft B \}
+.if t \{\
+.ft CR \}
+	setenv MBK_OUT_LO al
+.ft R
+.fi
+.SH SEE ALSO
+.BR mbk (1),
+.BR genlib (1),
+.BR MBK_IN_LO (1).
+
+
+.so man1/alc_bug_report.1
+

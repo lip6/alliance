@@ -1,0 +1,79 @@
+.\"   $Id: isvdd.3,v 1.1 2002/03/08 13:51:02 fred Exp $
+.\" @(#)isvdd.2 2.11 91/08/22 ; Labo masi cao-vlsi; Author : Frederic Petrot
+.if t \{\
+.so man1/alc_contents.mac
+.XS \n%
+.ti 0.2i
+isvdd
+.XE
+.XS4 \n%
+.ti 0.2i
+isvdd
+.XE4 \}
+.TH ISVDD 3 "October 1, 1997" "ASIM/LIP6" "MBK UTILITY FUNCTIONS"
+.SH NAME
+isvdd \-tells if a name contains the pattern defined by the user
+.so man1/alc_origin.1
+.SH SYNOPSYS
+.nf
+.if n \{\
+.ft B \}
+.if t \{\
+.ft CR \}
+#include "mut.h"
+void isvdd(s)
+char \(**s;
+.ft R
+.fi
+.SH PARAMETER
+.TP 20
+\fIs\fP
+Pointer to the string to be check as power high
+.SH DESCRIPTION
+\fBisvdd\fP searches an occurence of the string defined by the \fBMBK_VDD\fP(1)
+environment variable in the string \fIs\fP.
+If this string is not set by the user, its default value is "vdd".
+.SH RETURN VALUE
+\fBisvdd\fP return \fBNULL\fP the pattern is not present 
+If the pattern is found, a value different from \fBNULL\fP is returned.
+.SH EXAMPLE
+.ta 3n 6n 9n 12n 15n 18n 21n
+.nf
+.if n \{\
+.ft B \}
+.if t \{\
+.ft CR \}
+#include "mut.h"
+#include "mlo.h"
+find_a_vdd(f)
+lofig_list *f;
+{
+locon_list *c;
+losig_list *s;
+	/* first check connectors */
+	for (c = f->LOCON; c; c = c->NEXT) {
+		if (isvdd(c->NAME))
+			return c->SIG;
+		if (isvdd(getsigname(c->SIG)))
+			return c->SIG;
+	}
+	/* then check internal signals */
+	for (s = f->LOSIG; s; s = s->NEXT)
+		if (s->TYPE == INTERNAL)
+			if (isvdd(getsigname(s)))
+				return s;
+	return NULL;
+}
+.ft R
+.fi
+.SH SEE ALSO
+.BR mbk (1),
+.BR mbkenv (3),
+.BR instr (3),
+.BR isvss (3),
+.BR MBK_VDD (1),
+.BR MBK_VSS (1).
+
+
+.so man1/alc_bug_report.1
+

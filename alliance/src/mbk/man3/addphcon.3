@@ -1,0 +1,140 @@
+.\"   $Id: addphcon.3,v 1.1 2002/03/08 13:51:01 fred Exp $
+.\" @(#)addphcon.2 2.11 91/08/22 ; Labo masi cao-vlsi; Author : Frederic Petrot
+.if t \{\
+.so man1/alc_contents.mac
+.XS \n%
+.ti 0.2i
+addphcon
+.XE
+.XS0 \n%
+.ti 0.2i
+addphcon
+.XE0 \}
+.TH ADDPHCON 3 "October 1, 1997" "ASIM/LIP6" "MBK PHYSICAL FUNCTIONS"
+.SH NAME
+addphcon \- create a physical connector
+.so man1/alc_origin.1
+.SH SYNOPSYS
+.nf
+.if n \{\
+.ft B \}
+.if t \{\
+.ft CR \}
+#include "mph.h"
+phcon_list \(**addphcon(ptfig, orient, conname, x, y, layer, width)
+phfig_list \(**ptfig;
+char orient;
+char \(**conname;
+long x, y;
+char layer;
+long width;
+.ft R
+.fi
+.SH PARAMETERS
+.TP 20
+\fIptfig\fP
+Pointer to the figure in which the connector should be added
+.TP
+\fIorient\fP
+Face of the connector
+.TP
+\fIconname\fP
+Name of the connector
+.TP
+\fIx, y\fP
+Absolute connector coordinates
+.TP
+\fIlayer\fP
+Connector symbolic layer
+.TP
+\fIwidth\fP
+Connector symbolic width
+.SH DESCRIPTION
+\fBaddphcon\fP creates a new connector called \fIconname\fP and adds it to the
+list of connectors pointed to by \fIptfig\->PHCON\fP. The new connector is 
+added in front of the list, and becomes itself the list head. 
+.br
+The parameters \fIconname\fP, \fIorient\fP, \fIx\fP, \fIy\fP, \fIlayer\fP, 
+\fIwidth\fP fill respectivly the \fINAME\fP, \fIORIENT\fP, \fIXCON\fP,
+\fIYCON\fP, \fILAYER\fP, \fIWIDTH\fP fields of the \fIphcon\fP structure.
+See \fBphcon\fR(3) for details.
+.br
+The \fIINDEX\fP field is computed by the \fBaddphcon\fP function in order to
+warranty index unicity. A topological sort is performed, checking \fIx\fP,
+then \fIy\fP, then the \fIlayer\fP. So for a given figure, each connector will
+have a constant \fIINDEX\fP.
+.br
+The \fIx\fP, \fIy\fP coordinates must be placed inside the \fIbutment box\fP
+of the figure.
+.br 
+The \fIwidth\fP is a layer extension that takes place in parallel to the 
+connector face.
+.br
+For a list of valid \fIorient\fP and \fIlayer\fPs, see
+\fBlocon\fR(3).
+.SH RETURN VALUE
+\fBaddphcon\fP returns a pointer to the newly created connector.
+.SH ERRORS
+.if n \{\
+.ft B \}
+.if t \{\
+.ft CR \}
+"\(**\(**\(** mbk error \(**\(**\(** illegal addphcon unknow layer \fIlayer\fP in \fIconname\fP"
+.ft R
+.RS
+The \fIlayer\fP parameter is out of range, and does not represent a legal
+symbolic layer. See \fBlocon\fP(3) for a complete list of layers.
+.RE
+.if n \{\
+.ft B \}
+.if t \{\
+.ft CR \}
+"\(**\(**\(** mbk error \(**\(**\(** illegal addphcon connector \fIconname\fP not in
+abutment box"
+.ft R
+.RS
+The connector coordinates are not included in the rectangle of the figure 
+\fIabutment\fP box. This means that the \fIabutment box\fP field of the
+\fIphfig\fP must be filled befor any call to \fBaddphcon\fP.
+.RE
+.if n \{\
+.ft B \}
+.if t \{\
+.ft CR \}
+"\(**\(**\(** mbk error \(**\(**\(** illegal addphcon orientation is \fIorient\fP in 
+\fIconname\fP"
+.ft R
+.RS
+The \fIorient\fP parameter is not in the set of legal values. See 
+\fBlocon\fP(3) for the complete list of orientations.
+.RE
+.SH EXAMPLE
+.ta 3n 6n 9n 12n 15n 18n 21n
+.nf
+.if n \{\
+.ft B \}
+.if t \{\
+.ft CR \}
+#include "mph.h"
+phcon_list \(**du_con(ptfig, ptcon) /\(** duplicate connector \(**/
+phfig_list \(**ptfig;
+phcon_list \(**ptcon;
+{
+   /\(** the index depends from what's in ptfig\->PHCON, not from me \(**/
+   return addphcon(ptfig, ptcon\->ORIENT, ptcon\->NAME,
+                   ptcon\->XCON, ptcon\->YCON,
+                   ptcon\->LAYER, ptcon\->WIDTH);
+}
+.ft R
+.fi
+.SH SEE ALSO
+.BR mbk (1),
+.BR phfig (3),
+.BR phcon (3),
+.BR getphcon (3),
+.BR delphcon (3),
+.BR locon (3).
+
+
+.so man1/alc_bug_report.1
+

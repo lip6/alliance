@@ -1,0 +1,91 @@
+.\"   $Id: addptype.3,v 1.1 2002/03/08 13:51:01 fred Exp $
+.\" @(#)addptype.2 2.11 91/08/22 ; Labo masi cao-vlsi; Author : Frederic Petrot
+.if t \{\
+.so man1/alc_contents.mac
+.XS \n%
+.ti 0.2i
+addptype
+.XE
+.XS4 \n%
+.ti 0.2i
+addptype
+.XE4 \}
+.TH ADDPTYPE 3 "October 1, 1997" "ASIM/LIP6" "MBK UTILITY FUNCTIONS"
+.SH NAME
+addptype \- create a \fBptype\fP and add it to a \fBptype_list\fP
+.so man1/alc_origin.1
+.SH SYNOPSYS
+.nf
+.if n \{\
+.ft B \}
+.if t \{\
+.ft CR \}
+#include "mut.h"
+ptype_list \(**addptype(pthead,type,ptdata)
+ptype_list \(**pthead;
+void \(**ptdata;
+long type;
+.ft R
+.fi
+.SH PARAMETERS
+.TP 20
+\fIpthead\fP
+Pointer to a \fBptype\fP list
+.TP
+\fItype\fP
+Flag indicating the pointer owner
+.TP
+\fIptdata\fP
+Generic pointer to any kind of information
+.SH DESCRIPTION
+\fBaddptype\fP creates a new \fBptype\fP element and adds it to the
+front of the list pointed to by \fIpthead\fP, and becomes itself the list head.
+.br
+The \fBptype_list\fPs are mosty used to create lists of homogeneous
+elements in mbk, but also for trees, graphs, and so on.
+.br
+The \fItype\fP argument indicates the pointer type, at the C type meaning,
+for its owner.
+.br
+The \fItype\fPs allow to access the pointers with adequat cast, and for example
+to share informations in the \fIUSER\fP fields of mbk structures. 
+.br
+The \fIptdata\fP points to any kind of list or may itself be a value, if proper
+cast is performed at compilation time, and fills the \fIDATA\fP field of the
+\fBptype\fP structure.
+For details on the structure, see \fBptype\fR(3).
+.SH RETURN VALUE
+\fBaddptype\fP returns a pointer to the new head of list.
+.SH EXAMPLE
+.ta 3n 6n 9n 12n 15n 18n 21n
+.nf
+.if n \{\
+.ft B \}
+.if t \{\
+.ft CR \}
+#include "mut.h"
+#include "mph.h"
+void corner(ptfig, name)
+phfig_list \(**ptfig;
+char \(**name;
+{
+phins_list \(**i = getphins(ptfig, name);
+num_list \(**ptnum;
+phfig_list \(**model;
+	model = getphfig(i\->FIGNAME);
+	ptnum = addnum((num_list \(**)NULL, model\->X2 - model\->X1);
+	ptnum = addnum(ptnum, model\->Y2 - model\->Y1);
+	i\->USER = addptype(i\->USER, (long)PLACEABOX, (void \(**)ptnum);
+}	
+.ft R
+.fi
+.SH SEE ALSO
+.BR mbk (1),
+.BR ptype (3),
+.BR freeptype (3),
+.BR getptype (3),
+.BR delptype (3).
+
+
+.so man1/alc_bug_report.1
+

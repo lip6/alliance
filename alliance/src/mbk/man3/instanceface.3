@@ -1,0 +1,80 @@
+.\"   $Id: instanceface.3,v 1.1 2002/03/08 13:51:02 fred Exp $
+.\" @(#)instanceface.2 2.11 91/08/22 ; Labo masi cao-vlsi; Author : Frederic Petrot
+.if t \{\
+.so man1/alc_contents.mac
+.XS \n%
+.ti 0.2i
+instanceface
+.XE
+.XS1 \n%
+.ti 0.2i
+instanceface
+.XE1 \}
+.TH INSTANCEFACE 3 "October 1, 1997" "ASIM/LIP6" "MBK PHYSICAL UTILITY FUNCTIONS"
+.SH NAME
+instanceface \- returns the face of a connector in a placed instance
+.so man1/alc_origin.1
+.SH SYNOPSYS
+.nf
+.if n \{\
+.ft B \}
+.if t \{\
+.ft CR \}
+#include "mph.h"
+void \(**instanceface(modelface, symmetry)
+char modelface, symmetry;
+.ft R
+.fi
+.SH PARAMETERS
+.TP 20
+\fImodelface\fP
+Face of a connector in its figure.
+.TP 20
+\fIsymmetry\fP
+Geometrical operation applied to the instanciation of the figure.
+.SH DESCRIPTION
+\fBinstanceface\fP determines the orientation of a connector in an instance of
+its model.
+.SH EXAMPLE
+.ta 3n 6n 9n 12n 15n 18n 21n
+.nf
+.if n \{\
+.ft B \}
+.if t \{\
+.ft CR \}
+#include "mph.h"
+char channelFace(channelDir, i, c)
+char channelDir;
+phins_list *i;
+phcon_list *c;
+{
+	if (channelDir == VER)
+		switch (instanceface(c->ORIENT, i->TRANSF)) {
+			case EAST :
+				return WEST;
+			case WEST :
+				return EAST;
+			default :
+				return instanceface(c->ORIENT, i->TRANSF);
+		}
+	else
+		switch (instanceface(c->ORIENT, i->TRANSF)) {
+			case NORTH :
+				return SOUTH;
+			case SOUTH :
+				return NORTH;
+			default :
+				return instanceface(c->ORIENT, i->TRANSF);
+		}
+}
+.ft R
+.fi
+.SH SEE ALSO
+.BR mbk (1),
+.BR phcon (3),
+.BR phfig (3),
+.BR phins (3).
+
+
+.so man1/alc_bug_report.1
+

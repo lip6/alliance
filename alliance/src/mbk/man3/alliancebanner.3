@@ -1,0 +1,72 @@
+.\"   $Id: alliancebanner.3,v 1.1 2002/03/08 13:51:01 fred Exp $
+.\" @(#)alliancebanner.2 2.11 91/08/22 ; Labo masi cao-vlsi; Author : Frederic Petrot
+.ie t \{\
+.fp 4 C \}
+.el \{\
+.fp 4 B \}
+.TH ALLIANCEBANNER 3 "October 1, 1997" "ASIM/LIP6" "MBK UTILITY FUNCTIONS"
+.SH NAME
+alliancebanner \- display the standardized Alliance banner
+.so man1/alc_origin.1
+.SH SYNOPSYS
+.nf
+.ft 4
+#include "mut.h"
+void alliancebanner(tool, tv, comment, date, av)
+char \(**tool, \(**tv, \(**comment, \(**date, \(**av;
+.ft R
+.fi
+.SH PARAMETERS
+.TP 20
+\f4tool\fP
+Name of the tool.
+This is what will be displayed as banner.
+.TP 20
+\f4tv\fP
+Tool version.
+.TP 20
+\f4comment\fP
+Indicates the tool's usefulness.
+.TP 20
+\f4date\fP
+Copyright dates.
+.TP 20
+\f4av\fP
+Alliance version.
+.SH DESCRIPTION
+\fBalliancebanner\fP ouputs on \f4stdout\fR a standardized banner with
+the name of the tool in large letters, and a cartouche containing some
+informations about the Alliance CAD system.
+This function is to be used by all the Alliance tools, and expect a
+display 80 columns wide.
+.SH EXAMPLE
+.ta 3n 6n 9n 12n 15n 18n 21n
+.nf
+.ft 4
+#include "ba315n.h"
+#define nfloptitle(name) \\
+        alliancebanner("nFloP", VERSION,\\
+                       "not a FloorPlan router", "92, 93",\\
+                       ALLIANCE_VERSION)
+.ft R
+.fi
+.SH SEE ALSO
+.BR alliance (1).
+
+
+.SH DIAGNOSTICS
+\f4alliancebanner: Error: Resulting size bigger than 80 columns not allowed\fR
+.RS
+The \fItool\fR argument must be such that its resulting size isn't wider that
+80 culumns.
+This means, since the character set is proportional, that the longest name
+to be output is about 8 characters long.
+.RE
+\f4alliancebanner: Error: Character out of [0-9A-Za-z] range\fR
+.RS
+The \fItool\fR parameter has a non allowed character in it.
+For simplicity purposes, only numbers and letters are accepted.
+.RE
+
+.so man1/alc_bug_report.1
+

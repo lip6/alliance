@@ -1,0 +1,30 @@
+.TH MBKGETENV 3 "$Date: 2002/03/08 13:51:03 $" "ASIM/LIP6" "MBK UTILITY FUNCTIONS"
+.SH NAME
+\fBmbkgetenv\fP \- get an environment variable
+
+.so man1/alc_origin.1
+
+.SH SYNOPSIS
+.nf
+.B #include "MUT_H"
+.sp
+.BI "char *mbkgetenv(const char *" name );
+.fi
+.SH DESCRIPTION
+The \fBmbkgetenv()\fP function searches the environment list for a string
+that matches the string pointed to by \fIname\fP.  The strings are of
+the form \fIname = value\fP.
+.SH "RETURN VALUE"
+The \fBmbkgetenv()\fP function returns a pointer to the value in the
+environment, or NULL if there is no match.
+If \fBMBK_TRACE_GETENV\fR is set to "yes", mbkgetenv() will print debug info to stdout before thre real getenv() syscall is done.
+
+.SH SEE ALSO
+.PP
+.BR mbk(1)
+.BR MBK_TRACE_GETENV(1)
+.BR getenv(3).
+
+.so man1/alc_bug_report.1
+
+

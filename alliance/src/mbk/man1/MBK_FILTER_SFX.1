@@ -1,0 +1,33 @@
+.\"   $Id: MBK_FILTER_SFX.1,v 1.1 2002/03/08 13:51:04 fred Exp $
+
+.TH MBK_FILTER_SFX 1 "October 1, 1999" "ASIM/LIP6" "MBK ENVIRONMENT VARIABLES"
+
+.SH NAME
+MBK_FILTER_SFX \- define the input\/output filter suffixe.
+
+.so man1/alc_origin.1
+
+.SH DESCRIPTION
+\fBMBK_FILTER_SFX\fP tells to Alliance the extention set by compression tools.
+This variable must be set in order to activate filters. Note the leading points
+of extention must be set if necessary.
+
+.SH EXAMPLE
+.nf
+.if n \{\
+.ft B \}
+.if t \{\
+.ft CR \}
+For compressed files with gzip :
+	setenv MBK_FILTER_SFX ".gz"
+.ft R
+.fi
+.SH SEE ALSO
+.BR mbk (1),
+.BR MBK_IN_FILTER (1),
+.BR MBK_OUT_FILTER (1),
+.BR mbkenv (3).
+
+
+.so man1/alc_bug_report.1
+

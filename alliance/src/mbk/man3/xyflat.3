@@ -1,0 +1,90 @@
+.\"   $Id: xyflat.3,v 1.1 2002/03/08 13:51:04 fred Exp $
+.\" @(#)xyflat.2 2.11 91/08/22 ; Labo masi cao-vlsi; Author : Frederic Petrot
+.if t \{\
+.so man1/alc_contents.mac
+.XS \n%
+.ti 0.2i
+xyflat
+.XE \}
+.TH XYFLAT 3 "October 1, 1997" "ASIM/LIP6" "MBK PHYSICAL FUNCTIONS"
+.SH NAME
+xyflat \- compute hierarchical coordinates
+.so man1/alc_origin.1
+.SH SYNOPSYS
+.nf
+.if n \{\
+.ft B \}
+.if t \{\
+.ft CR \}
+#include "mph.h"
+void xyflat(xout, yout, x, y, xins, yins, x1, y1, x2, y2, trsf)
+long \(**xout, \(**yout;
+long x, y;
+long xins, yins;
+long x1, y1, x2, y2;
+char trsf;
+.ft R
+.fi
+.SH PARAMETERS
+.TP 20
+\fIxout, yout\fP
+Values filled by the function call, return values, that represent coordinates
+of the point in the figure
+.TP
+\fIx, y\fP
+Coordinates of a point in the instance
+.TP
+\fIxins, yins\fP
+Coordinates of the lower left corner of the instance
+.TP
+\fIx1, y1, x2, y2\fP
+Coordinates of the \fIabutment box\fP of the model of the instance
+.TP
+\fItrsf\fP
+Geometrical operation applied to the instance
+.SH DESCRIPTION
+\fBxyflat\fP computes coordinates relative to a model of instance in order to
+give them in figure coordinates, taking care of the transformation performed
+on the instance.
+.br
+This function is very useful when flattening, or getting coordinates of an
+object belonging to an istance at figure level.
+.br
+Care must be taken that the \fIx1, y1, x2, y2\fP parameters are \fInot\fP the
+current figure \fIabutment box\fP coordinates, but the instance model
+\fIabutment box\fP coordinates.
+.SH EXAMPLE
+.ta 3n 6n 9n 12n 15n 18n 21n
+.nf
+.if n \{\
+.ft B \}
+.if t \{\
+.ft CR \}
+#include "mph.h"
+long GET_CON_X(insname, conname, index)
+char \(**insname, \(**conname;
+long index;
+{
+phfig_list \(**ptfig; /\(** pointer on model of instance called insname \(**/
+phins_list \(**ptins; /\(** pointer on instance called insname \(**/
+phcon_list \(**ptcon; /\(** pointer on the conname called con inside ptins \(**/
+long x_con, y_con; /\(** return values, y_con here for beauty \(**/
+	ptins = getphins(WORK_PHFIG, insname);
+	ptfig = getphfig(ptins\->FIGNAME, 'P');
+	ptcon = getphcon(ptfig, conname, index);
+	xyflat(&x_con, &y_con, ptcon\->XCON, ptcon\->YCON,
+		ptins\->XINS, ptins\->YIINS,
+		ptfig\->XAB1, ptfig\->YAB1, ptfig\->XAB2, ptfig\->YAB2,
+		ptins\->TRANSF);
+	return x_con;
+}
+.ft R
+.fi
+.SH SEE ALSO
+.BR mbk (1),
+.BR phfig (3),
+.BR phins (3).
+
+
+.so man1/alc_bug_report.1
+
