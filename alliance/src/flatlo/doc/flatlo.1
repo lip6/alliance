@@ -1,4 +1,4 @@
-.\" $Id: flatlo.1,v 1.1 2002/04/29 14:15:48 czo Exp $
+.\" $Id: flatlo.1,v 1.2 2002/11/27 10:31:51 hcl Exp $
 .TH FLATLO 1 "October 1, 1997" "ASIM/LIP6" "ALLIANCE USER COMMANDS"
 
 .SH NAME
@@ -9,14 +9,43 @@
 
 .SH SYNOPSIS
 .TP
-\f4flatlo\fR \fIin_format out_format in_file out_file\fR
+\fBflatlo\fP [\fBoption\fP] \fIlogical_figure\fR [\fIinstance\fR] \fIoutput_name\fR
 
 .SH DESCRIPTION
 \f4flatlo\fR FLATen LOgical figure
 
+.PP
+\fBflatlo\fR logical_figure instance output_name
+.BR
+        flattens "instance" in "logical_figure"
+.PP
+\fBflatlo\fR -r logical_figure output_name
+.BR
+        flattens logical_figure to the catalog
+.PP
+\fBflatlo\fR -t logical_figure output_name
+.BR
+        flattens logical_figure to the transistors
+
+.SH ENVIRONMENT VARIABLES
+.TP 20
+\fIMBK_CATA_LIB\fP
+list of directories containing descriptions. 
+The default path is the current directory (see mbk(1)).
+.TP 20
+\fIMBK_CATAL_NAME\fP
+Indicates the file where the behavioral description files are given. This serves
+to flatbeh to stop the flatten of the structural root circuit.(see mbk(1))
+.TP 20
+\fIMBK_IN_LO\fP
+file extension for structural entity. (see mbk(1))
+.TP 20
+\fIMBK_IN_OUT\fP
+file extension for structural entity. (see mbk(1))
+
 .SH SEE ALSO
 .PP
-.BR mbk(1)
+flatph(1), mbk(1)
 
 .so man1/alc_bug_report.1
 
