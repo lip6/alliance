@@ -23,15 +23,25 @@ BEGIN
 
   ckmux <= nop or inc or (not nreset);
   
-  label0 : BLOCK (ckmux = '1')
+  label0 : BLOCK (nop = '1')
   BEGIN
-    latchm <= GUARDED ((inc and ptm1) or (pt and nop) or (not nreset));
+    latchm <= GUARDED pt ;
   END BLOCK label0;
 
-  label1 : BLOCK (cks = '1')
+  label1 : BLOCK (inc = '1')
+  BEGIN
+    latchm <= GUARDED ptm1 ;
+  END BLOCK label1;
+
+  label2 : BLOCK (nreset = '0')
+  BEGIN
+    latchm <= GUARDED '1' ;
+  END BLOCK label2;
+
+  labels : BLOCK (cks = '1')
   BEGIN
     latchs <= GUARDED (not latchm);
-  END BLOCK label1;
+  END BLOCK labels;
 
   pt <= (not latchs);
 
