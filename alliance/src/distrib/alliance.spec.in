@@ -146,6 +146,7 @@ Sources of the Alliance VLSI CAD System, as you might guess...
 %{prefix}/etc/*.cfg
 %{prefix}/etc/*.par
 %{prefix}/etc/*.scapin
+%{prefix}/etc/*.conf
 %{prefix}/cells/*
 %{prefix}/bin/*
 %{prefix}/lib/*
