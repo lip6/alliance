@@ -1,4 +1,4 @@
-.\"   $Id: rfg.1,v 1.1 1999/05/31 17:30:14 alliance Exp $
+.\"   $Id: rfg.1,v 1.2 1999/10/13 15:24:08 franck Exp $
 .\" @(#)Labo.l 6.04 95/03/02 UPMC; Author: Laurent WINCKEL
 .TH RFG 1 "October 1, 1997" "ASIM/LIP6" "ALLIANCE USER COMMANDS"
 .SH NAME
@@ -14,7 +14,8 @@ rfg \- register file generator
 .B rfg
 .I bits words busses ro|rs|ds|ba
 .br
-.B [ -ff ] 
+.B [ -ffd ] 
+.B [ -ffu ] 
 .B [ -id ] 
 .B [ -lp ] 
 .B [ -wel|-weh ] 
@@ -81,8 +82,11 @@ This block has the same size and the same connectors interface as the block gene
 .B ba
 Generates a complete register file with address decoders.
 .TP
-.B -ff
-Adds output latches then the generated register file work like a edge triggered flip-flop rather than a level sensitive latch.
+.B -ffd
+Adds output latches then the generated register file work like a falling edge triggered flip-flop rather than a level sensitive latch.
+.TP
+.B -ffu
+Adds output latches then the generated register file work like a rizing edge triggered flip-flop rather than a level sensitive latch.
 .TP
 .B -id
 Inverts data polarity between input bus and output busses.
