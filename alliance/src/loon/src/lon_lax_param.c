@@ -32,7 +32,7 @@
 
 
 
-#ident "$Id: lon_lax_param.c,v 1.2 2002/09/30 16:20:44 czo Exp $"
+#ident "$Id: lon_lax_param.c,v 1.3 2004/07/31 02:23:09 ludo Exp $"
 
 /****************************************************************************/
 /*    Produit :  synthese logique (gestion du fichier de parametres)        */
@@ -45,6 +45,7 @@
 #include <string.h>
 
 #include <mut.h>
+#include <aut.h>
 #include <abl.h>
 #include <mlo.h>
 #include <abe.h>
@@ -112,7 +113,7 @@ static char* parseName (char* VHDL_name)
   char *p;
   char *Found;
 
-  p = (char *) mbkalloc (strlen (VHDL_name) + 1);
+  p = (char *) autallocblock (strlen (VHDL_name) + 1);
 
   strcpy (p, VHDL_name);
 
@@ -139,7 +140,7 @@ static char* driveName (char* IO_name)
 /*
    fprintf(stdout,"init %s-\n", IO_name);
  */
-  Found = mbkalloc (strlen (IO_name) + 2);
+  Found = (char *)autallocblock (strlen (IO_name) + 2);
   Found = strchr (IO_name, ' ');
 
   if (Found != NULL)
@@ -147,7 +148,7 @@ static char* driveName (char* IO_name)
 /*
    fprintf(stdout,"init %s, Found =%s-\n", IO_name, Found);
  */
-      p = mbkalloc (strlen (IO_name) + 2);
+      p = autallocblock (strlen (IO_name) + 2);
       sprintf (p, "%s)", IO_name);
       Found = strchr (p, ' ');
       Found[0] = '(';
@@ -195,7 +196,7 @@ static lax* loadlax (char* FileName)
   int i, n;
   lax* loadparam;
 
-  loadparam = (lax*) mbkalloc (sizeof (lax));
+  loadparam = (lax*) autallocblock (sizeof (lax));
   resetlax (loadparam);
 
   if ((Pfile = fopen (FileName, "rt")) != NULL)
@@ -1174,7 +1175,7 @@ extern void parsefilelax(char *filename)
    
    /*build the real filename*/
    size=strlen(filename);
-   name=(char*) mbkalloc(size+strlen(".lax")+1);
+   name=(char*) autallocblock(size+strlen(".lax")+1);
    name=strcpy(name,filename);
    name[size]='.'; name[size+1]='l'; name[size+2]='a'; name[size+3]='x'; 
    name[size+4]='\0';   
@@ -1189,7 +1190,7 @@ extern void parsefilelax(char *filename)
 /******************************************************************************/
 extern void defaultlax(int mode_optim)
 {
-  LAX = (lax*) mbkalloc (sizeof (lax));
+  LAX = (lax*) autallocblock (sizeof (lax));
   resetlax (LAX);
   LAX->mode=mode_optim;
 }

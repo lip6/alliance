@@ -33,6 +33,7 @@
 #include <mlo.h>
 #include <abl.h>
 #include <abe.h>
+#include <aut.h>
 #include "lon_lax_param.h"
 #include "lon_signal_name.h"
 #include "lon_lib_matching.h"
@@ -60,7 +61,7 @@ static port_list* newport()
    int i;
 
    if (!PORT) {
-      PORT=mbkalloc(BLOCK*sizeof(port_list));
+      PORT=(port_list *)autallocblock(BLOCK*sizeof(port_list));
       new=PORT;
       for (i = 1; i < BLOCK; i++) {
          new->NEXT = new + 1;
@@ -139,7 +140,7 @@ extern cell_list* copyCell(cell_list* old)
 {
    cell_list* cell;
 
-   cell=(cell_list*) mbkalloc(sizeof(cell_list));
+   cell=(cell_list*) autallocblock(sizeof(cell_list));
 
    cell->BEFIG=old->BEFIG;
    cell->NAME=old->NAME;
@@ -215,7 +216,7 @@ static cell_list* properties_addCell(befig_list* befig, lofig_list *lofig)
    losig_list* losig;
 
 
-   cell=(cell_list*) mbkalloc(sizeof(cell_list));
+   cell=(cell_list*) autallocblock(sizeof(cell_list));
 
    cell->NAME=lofig->NAME;
    cell->AREA=getgenericarea(befig);
@@ -317,7 +318,7 @@ extern cell_list* createCell(befig_list* befig)
    bepor_list* bepor;
 
 
-   cell=(cell_list*) mbkalloc(sizeof(cell_list));
+   cell=(cell_list*) autallocblock(sizeof(cell_list));
 
    cell->NAME=befig->NAME;
    cell->AREA=getgenericarea(befig);
@@ -406,7 +407,6 @@ extern cell_list* getCellbuffer()
    chain_list* chain;
    cell_list* cell, *best;
    befig_list* befig;
-
    for (chain=CELLS; chain; chain=chain->NEXT) {
       cell=(cell_list*) chain->DATA;
       befig=cell->BEFIG;
@@ -416,7 +416,7 @@ extern cell_list* getCellbuffer()
        && ABL_ATOM_VALUE(befig->BEOUT->ABL)!=getablatomzero() ) {
          best=cell;
          for (cell=cell->NEXT; cell; cell=cell->NEXT) {
-            if (best->AREA>cell->AREA) cell=best;
+            if (best->AREA>cell->AREA) best=cell;
          }
          return best;
       }  
