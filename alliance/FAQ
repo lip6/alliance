@@ -5,7 +5,7 @@
 # E-mail support     : mailto:alliance-support@asim.lip6.fr
 # ftp site           : ftp://ftp-asim.lip6.fr/pub/alliance/
 #
-# $Id: FAQ,v 1.3 2000/01/24 17:46:51 czo Exp $
+# $Id: FAQ,v 1.4 2000/01/25 15:36:03 czo Exp $
 
 --------------------------------------------------------------------------------
 
@@ -26,8 +26,9 @@ Question  8: Where are defined the symbolic layout rules ?
 Question  9: How is performed the mapping to a target process ?
 Question 10: How can I get a complete paper documentation ?
 Question 11: What are the supported file formats ?
-Question 12: How can I get in touch with the ALLIANCE team ?
-Question 13: How can I get Alliance ?
+Question 12: Where are TAS and YAGLE ?
+Question 13: How can I get in touch with the ALLIANCE team ?
+Question 14: How can I get Alliance ?
 
 Question 1: What is ALLIANCE ?
 ------------------------------
@@ -62,7 +63,7 @@ Question 3: How to install ALLIANCE ?
 
 You can compile the sources or use precompiled binary package.
 
-Binary packcages are available for :
+Binary packages are available for :
 	- i386 Linux
 	- sparc SunOS 4.1.1
 	- sparc Solaris 5.7
@@ -82,7 +83,7 @@ You can find 4 separate tutorials in the tutorials directory:
 WARNING : These tutorials are not fully working and must be modified to
           work with Alliance 4.0 (especially the dlx), but we have 
           decided to release them even though they are not fully 
-          functionnal. They will be upgraded as soon as we have time.
+          functional. They will be upgraded as soon as we have time.
 
 1/ ADDACCU
    The design of a very simple chip (adder/accumulator) to get started
@@ -134,7 +135,7 @@ This gives you the VHDL subset supported for structural descriptions.
 > man vbe
 
 This gives you the data-flow behavioral subset supported by the simulator
-ASIMUT, the logic synthesis tools BOP and SCMAP and the formal prover PROOF.
+ASIMUT, the logic synthesis tools BOP and SCMAP and the formal proffer PROOF.
 
 > man fsm
 
@@ -162,20 +163,20 @@ page.
 > man fpmap       # logic synthesis tool for FPGA
 > man genlib      # procedural net-list generation language
 > man genpat      # procedural pattern generation language
-> man genview     # interactive block genreator debugger
+> man genview     # interactive block generator debugger
 > man graal       # graphic layout editor
-> man l2p         # layout to postcript translation tool
-> man bop         # boolean optimizer
+> man l2p         # layout to PostScript translation tool
+> man bop         # Boolean optimizer
 > man lvx         # net-list comparator
 > man lynx        # layout extractor
-> man glop        # net-list optimiser
-> man proof       # VHDL description's formal proover
+> man glop        # net-list optimizer
+> man proof       # VHDL description's formal proffer
 > man ring        # router between core & pads
 > man s2r         # symbolic layout to real mask expander
 > man scmap       # standard cell mapping
 > man scr         # standard cells place & route
 > man syf         # finite state machine synthesis tool
-> man tas         # static timing analyser
+> man tas         # static timing analyzer
 > man yagle       # functional abstractor
 
 2) cell libraries
@@ -209,7 +210,7 @@ page.
 
 > man catal       # use of the catalog file
 > man prol        # technology file
-> man mbkenv      # main environement variables
+> man mbkenv      # main environment variables
 
 
 Question 8:  Where are defined the symbolic layout rules ?
@@ -269,13 +270,23 @@ COMPASS           .hns      INPUT   OUTPUT
 HILO              .cct              OUTPUT
 VERILOG           .vlg              OUTPUT
 
-4/ behavioural view
+4/ behavioral view
 
 VHDL (data-flow)  .vbe      INPUT   OUTPUT
 VHDL (FSM)        .fsm      INPUT
 
 
-Question 12: How can I get in touch with the ALLIANCE team ?
+Question 12: Where are TAS and YAGLE ?
+--------------------------------------
+
+HITAS (Hierarchical timing analysis) and YAGLE (Functional abstraction)
+are now commercially distributed by Avertec (http://www.avertec.com/)
+These tools are however available in binary from at Avertec web site.
+A local copy can be found at 
+ftp://ftp-asim.lip6.fr/pub/alliance/contrib/avertec/
+
+
+Question 13: How can I get in touch with the ALLIANCE team ?
 ------------------------------------------------------------
 
 Web:
@@ -300,7 +311,7 @@ Fax:
 +33 1 44 27 72 80
 
 
-Question 13: How can I get Alliance ?
+Question 14: How can I get Alliance ?
 -------------------------------------
 
 You can get Alliance via anonymous FTP from 
@@ -322,3 +333,4 @@ Université Pierre et Marie Curie
 France
 
 # EOF
+
