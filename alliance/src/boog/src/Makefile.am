@@ -1,7 +1,6 @@
 ## Process this file with automake to produce Makefile.in
 
-CFLAGS = @ALLIANCE_CFLAGS@ \
-         -DALLIANCE_TOP=\"${ALLIANCE_TOP}\"
+AM_CFLAGS = @ALLIANCE_CFLAGS@ 
 
 bin_PROGRAMS = boog
 

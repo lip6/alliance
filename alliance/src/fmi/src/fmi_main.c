@@ -113,7 +113,7 @@ int main( argc, argv )
 
   int    FlagVerbose = 0;
 
-  alliancebanner_with_contrib( "FMI", FMI_VERSION, "FSM Minimization", "2000",
+  alliancebanner_with_contrib( "FMI", VERSION, "FSM Minimization", "2000",
       ALLIANCE_VERSION, "Frédéric Pétrot, Ludovic Jacomme", "Jean-Marie Alexandre" );
 
   mbkenv();

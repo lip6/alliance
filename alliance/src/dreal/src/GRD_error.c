@@ -203,11 +203,11 @@ void DrealInitializeErrorMessage( Debug )
 
   if ( DrealNormalMode )
   {
-    sprintf( DrealOutFileName, "/tmp/%s_out_%d", DREAL_TOOL_NAME, getpid() ); 
+    sprintf( DrealOutFileName, "/tmp/%s_out_%d", PACKAGE, getpid() ); 
   }
 
-  sprintf( DrealErrFileName, "/tmp/%s_err_%d", DREAL_TOOL_NAME, getpid() );
-  sprintf( DrealAllFileName, "/tmp/%s_all_%d", DREAL_TOOL_NAME, getpid() );
+  sprintf( DrealErrFileName, "/tmp/%s_err_%d", PACKAGE, getpid() );
+  sprintf( DrealAllFileName, "/tmp/%s_all_%d", PACKAGE, getpid() );
 
   DrealStreamErr = freopen( DrealErrFileName, "w+", stderr);
   DrealStreamAll = fopen  ( DrealAllFileName, "w+"        );

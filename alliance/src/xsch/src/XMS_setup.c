@@ -147,7 +147,7 @@ void XschWriteTopLevelValues()
   Values[1] = Values[1] - XSCH_TOPLEVEL_TRANSLATE_Y;
   Values[4] = 1;
   
-  fprintf( FileConfig, "VERSION: %s\n", XSCH_VERSION );
+  fprintf( FileConfig, "VERSION: %s\n", VERSION );
   fprintf( FileConfig, "X: %d, Y: %d, WIDTH: %d, HEIGHT: %d, MANAGED: %d\n",
            Values[0], Values[1], Values[2], Values[3], Values[4] );
 
@@ -234,7 +234,7 @@ char XschReadTopLevelValues()
 
   fscanf( FileConfig, "VERSION: %s\n", Version );
 
-  if ( strcmp( Version, XSCH_VERSION ) )
+  if ( strcmp( Version, VERSION ) )
   {
     autend();
     return( 0 );

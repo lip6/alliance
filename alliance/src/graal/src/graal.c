@@ -88,7 +88,7 @@
 
 void GraalPresent()
 {
-  alliancebanner_with_authors( "Graal", GRAAL_VERSION,
+  alliancebanner_with_authors( "Graal", VERSION,
                   "Graphic layout editor", "1999",
                   ALLIANCE_VERSION,
                   "Ludovic Jacomme and Frederic Venot" );

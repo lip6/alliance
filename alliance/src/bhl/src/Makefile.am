@@ -1,5 +1,4 @@
-CFLAGS              = @ALLIANCE_CFLAGS@ \
-                      -DALLIANCE_TOP=\"${ALLIANCE_TOP}\"
+AM_CFLAGS           = @ALLIANCE_CFLAGS@
 lib_LIBRARIES       = libBhl.a
 include_HEADERS     = bhl.h
 libBhl_a_SOURCES    = \

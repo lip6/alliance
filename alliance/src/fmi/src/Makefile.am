@@ -2,7 +2,7 @@
 
 bin_PROGRAMS = fmi
 
-CFLAGS = @ALLIANCE_CFLAGS@ -DFMI_VERSION=\"@FMI_VERSION@\"
+AM_CFLAGS = @ALLIANCE_CFLAGS@ 
 
 fmi_LDADD = @ALLIANCE_LIBS@ \
           -lFtl -lFks -lFvh -lFsm \

@@ -1,5 +1,4 @@
-CFLAGS              = @ALLIANCE_CFLAGS@ \
-                      -DALLIANCE_TOP=\"${ALLIANCE_TOP}\"
+AM_CFLAGS           = @ALLIANCE_CFLAGS@
 lib_LIBRARIES       = libAbt.a
 include_HEADERS     = abt.h
 libAbt_a_SOURCES    = \

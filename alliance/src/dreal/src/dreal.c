@@ -88,7 +88,7 @@
 
 void DrealPresent()
 {
-  alliancebanner_with_authors( "Dreal", DREAL_VERSION,
+  alliancebanner_with_authors( "Dreal", VERSION,
                   "Design  Real layout", "1999",
                   ALLIANCE_VERSION, "Ludovic Jacomme" );
 }

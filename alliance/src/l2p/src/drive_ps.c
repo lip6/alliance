@@ -46,7 +46,7 @@
 /* printer.                                                                 */
 /****************************************************************************/
 
-#ident "$Id: drive_ps.c,v 1.2 2002/04/03 15:31:13 ludo Exp $"
+#ident "$Id: drive_ps.c,v 1.3 2002/04/09 13:45:21 xtof Exp $"
 
 #define DRIVE2PS
 
@@ -375,7 +375,7 @@ rps_par *p;
 		pg->ps_x, pg->ps_y, pg->ps_x+pg->ps_w,
 		pg->ps_y+pg->ps_h);
 		rps_put (pg, buf);
-		sprintf (buf, "%%%%Creator: Rps v%s", L2P_VERSION);
+		sprintf (buf, "%%%%Creator: Rps v%s", VERSION);
 		sprintf (buf, "%s with%s\n", buf, p->cmdline);
 		rps_put (pg, buf);
 		sprintf (buf, "%%SCALE=%f\n", p->tops);
@@ -449,7 +449,7 @@ rps_par *p;
 			pg->ps_x, pg->ps_y, pg->ps_x+pg->ps_w,
 			pg->ps_y+pg->ps_h);
 			rps_put (pg, buf);
-			sprintf (buf, "%%%%Creator: Rps v%s", L2P_VERSION);
+			sprintf (buf, "%%%%Creator: Rps v%s", VERSION);
 			sprintf (buf, "%s with%s\n", buf, p->cmdline);
 			rps_put (pg, buf);
 			sprintf (buf, "%%SCALE=%f\n", p->tops);

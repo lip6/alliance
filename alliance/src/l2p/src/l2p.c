@@ -39,7 +39,7 @@
 /*                                                                          */
 /****************************************************************************/
 
-#ident "$Id: l2p.c,v 1.2 2002/04/03 15:31:13 ludo Exp $"
+#ident "$Id: l2p.c,v 1.3 2002/04/09 13:45:21 xtof Exp $"
 
 #include <stdio.h>
 #include <stdlib.h>
@@ -107,7 +107,7 @@ struct rps_param	*param;
 			exit (0);
 		};
 	};
-	alliancebanner ("L2P",L2P_VERSION,
+	alliancebanner ("L2P",VERSION,
 		"(L)ayout to(2) (P)aper: A tool for PostScript plots",
 		"1994",ALLIANCE_VERSION);
 	if (argc == 1) {

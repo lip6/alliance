@@ -263,7 +263,7 @@ void XfsmBuildPresentPanel()
                  XmNactivateCallback,
                  XfsmExitDialogCallback, NULL );
 
-  sprintf( Buffer, "\nGraphic FSM Viewer\nVersion %s", XFSM_VERSION );
+  sprintf( Buffer, "\nGraphic FSM Viewer\nVersion %s", VERSION );
 
   PanelString = XmStringCreateLtoR( Buffer, "Panel_charset2" );
 

@@ -1,5 +1,4 @@
-CFLAGS              = @ALLIANCE_CFLAGS@ \
-                      -DALLIANCE_TOP=\"${ALLIANCE_TOP}\"
+AM_CFLAGS           = @ALLIANCE_CFLAGS@
 lib_LIBRARIES       = libVpn.a
 include_HEADERS     = vpn.h
 libVpn_a_SOURCES    = \

@@ -262,7 +262,7 @@ void XpatBuildPresentPanel()
                  XmNactivateCallback,
                  XpatExitDialogCallback, NULL );
 
-  sprintf( Buffer, "\nGraphic Pattern Viewer\nVersion %s", XPAT_VERSION );
+  sprintf( Buffer, "\nGraphic Pattern Viewer\nVersion %s", VERSION );
 
   PanelString = XmStringCreateLtoR( Buffer, "Panel_charset2" );
 

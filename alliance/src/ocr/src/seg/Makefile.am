@@ -2,7 +2,7 @@
 
 INCLUDES = -I$(top_srcdir)/src/include 
 
-CFLAGS = @CFLAGS@ @ALLIANCE_CFLAGS@
+AM_CFLAGS = @ALLIANCE_CFLAGS@
 
 noinst_LIBRARIES = libocrPath.a
 

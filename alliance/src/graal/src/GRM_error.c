@@ -203,11 +203,11 @@ void GraalInitializeErrorMessage( Debug )
 
   if ( GraalNormalMode )
   {
-    sprintf( GraalOutFileName, "/tmp/%s_out_%d", GRAAL_TOOL_NAME, getpid() ); 
+    sprintf( GraalOutFileName, "/tmp/%s_out_%d", PACKAGE, getpid() ); 
   }
 
-  sprintf( GraalErrFileName, "/tmp/%s_err_%d", GRAAL_TOOL_NAME, getpid() );
-  sprintf( GraalAllFileName, "/tmp/%s_all_%d", GRAAL_TOOL_NAME, getpid() );
+  sprintf( GraalErrFileName, "/tmp/%s_err_%d", PACKAGE, getpid() );
+  sprintf( GraalAllFileName, "/tmp/%s_all_%d", PACKAGE, getpid() );
 
   GraalStreamErr = freopen( GraalErrFileName, "w+", stderr);
   GraalStreamAll = fopen  ( GraalAllFileName, "w+"        );

@@ -2,7 +2,7 @@
 
 bin_PROGRAMS = loon
 
-CFLAGS = @CFLAGS@ @ALLIANCE_CFLAGS@
+AM_CFLAGS = @ALLIANCE_CFLAGS@
 
 loon_LDADD = @ALLIANCE_LIBS@ \
           -lAbv -lAbe -lAbt -lMlu -lMcl -lMal -lMsl -lMhl -lMel -lMvl -lMgl -lRcn -lMlo -lBdd -lAbl -lAut -lMut

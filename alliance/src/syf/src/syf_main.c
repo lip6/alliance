@@ -157,7 +157,7 @@ int main( argc, argv )
   int   FlagFormat    = 0;
 
   alliancebanner_with_authors( 
-      "SYF", SYF_VERSION, "FSM Synthesizer", "1995",
+      "SYF", VERSION, "FSM Synthesizer", "1995",
       ALLIANCE_VERSION, "Ludovic Jacomme and Chaker Sarwary" );
 
   mbkenv();

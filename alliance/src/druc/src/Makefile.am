@@ -18,11 +18,11 @@ drucompi_l.c : $(srcdir)/drucompi_l.l drucompi_y.h
 
 bin_PROGRAMS = druc
 
-CFLAGS = @ALLIANCE_CFLAGS@
+AM_CFLAGS = @ALLIANCE_CFLAGS@
 
 druc_LDADD = @ALLIANCE_LIBS@ \
 -L. -lVrd -lRtl -lRgs -lRcf -lRfm -lRpr -lRwi -lRut -lRds -lMpu -lMcp -lMap -lMmg -lMph \
--lMut -lm
+-lMut
 
 druc_SOURCES = \
 drucbath.c drucbath.h

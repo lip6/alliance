@@ -39,7 +39,7 @@ LIBS="$ac_save_LIBS"
     AC_MSG_RESULT(no)
     AC_MSG_ERROR(Please install alliance
     or verify your ALLIANCE_TOP variable
-    or use configure with the --with-alliance-prefix option)
+    or use configure with the --with-alliance-top option)
    ALLIANCE_CFLAGS=""
    ALLIANCE_LIBS=""
 dnl ifelse([$2], , :, [$2])

@@ -87,7 +87,7 @@
 
 void XvpnPresent()
 {
-  alliancebanner_with_authors( "Xvpn", XVPN_VERSION,
+  alliancebanner_with_authors( "Xvpn", VERSION,
                   "Graphic Petri Nets Viewer", "1996",
                   ALLIANCE_VERSION, "Ludovic Jacomme" );
 }

@@ -1,5 +1,4 @@
-CFLAGS              = @ALLIANCE_CFLAGS@ \
-                      -DALLIANCE_TOP=\"${ALLIANCE_TOP}\"
+AM_CFLAGS           = @ALLIANCE_CFLAGS@
 lib_LIBRARIES       = libVex.a
 include_HEADERS     = vex.h
 libVex_a_SOURCES    = \

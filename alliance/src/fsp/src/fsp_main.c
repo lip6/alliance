@@ -120,7 +120,7 @@ int main( argc, argv )
   int    FlagVerbose = 0;
   int    FlagDebug   = 0;
 
-  alliancebanner_with_authors( "FSP", FSP_VERSION, "FSM formal Proof", "1999",
+  alliancebanner_with_authors( "FSP", VERSION, "FSM formal Proof", "1999",
       ALLIANCE_VERSION, "Ludovic Jacomme" );
 
   mbkenv();

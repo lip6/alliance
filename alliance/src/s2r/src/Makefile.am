@@ -2,7 +2,7 @@
 
 bin_PROGRAMS = s2r 
 
-CFLAGS = @CFLAGS@ @ALLIANCE_CFLAGS@
+AM_CFLAGS = @ALLIANCE_CFLAGS@
 
 s2r_LDADD = @ALLIANCE_LIBS@ \
           -lMpu -lMcp -lMap -lMmg \

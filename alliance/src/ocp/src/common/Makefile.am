@@ -2,7 +2,7 @@
 
 INCLUDES = -I$(top_srcdir)/src/common
 
-CXXFLAGS = @ALLIANCE_CFLAGS@
+AM_CXXFLAGS = @ALLIANCE_CFLAGS@
 
 noinst_LIBRARIES = libPCommon.a
 

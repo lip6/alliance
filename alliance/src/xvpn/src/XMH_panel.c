@@ -259,7 +259,7 @@ void XvpnBuildPresentPanel()
                  XmNactivateCallback,
                  XvpnExitDialogCallback, NULL );
 
-  sprintf( Buffer, "\nGraphic Petri Nets Viewer\nVersion %s", XVPN_VERSION );
+  sprintf( Buffer, "\nGraphic Petri Nets Viewer\nVersion %s", VERSION );
 
   PanelString = XmStringCreateLtoR( Buffer, "Panel_charset2" );
 

@@ -149,7 +149,7 @@ void DrealWriteTopLevelValues()
   Values[1] = Values[1] - DREAL_TOPLEVEL_TRANSLATE_Y;
   Values[4] = 1;
   
-  fprintf( FileConfig, "VERSION: %s\n", DREAL_VERSION );
+  fprintf( FileConfig, "VERSION: %s\n", VERSION );
   fprintf( FileConfig, "X: %d, Y: %d, WIDTH: %d, HEIGHT: %d, MANAGED: %d\n",
            Values[0], Values[1], Values[2], Values[3], Values[4] );
 
@@ -241,7 +241,7 @@ char DrealReadTopLevelValues()
 
   fscanf( FileConfig, "VERSION: %s\n", Version );
 
-  if ( strcmp( Version, DREAL_VERSION ) )
+  if ( strcmp( Version, VERSION ) )
   {
     rdsend();
     return( 0 );

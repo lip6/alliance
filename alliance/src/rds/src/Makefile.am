@@ -4,9 +4,8 @@ lib_LIBRARIES       = libRds.a \
                       libRpr.a \
                       libRwi.a \
                       libRtl.a
-CFLAGS              = @ALLIANCE_CFLAGS@ \
-                      -DRTL_DEFAULT_TECHNO=\"etc/cmos_12.rds\" \
-                      -DALLIANCE_TOP=\"${ALLIANCE_TOP}\"
+AM_CFLAGS           = @ALLIANCE_CFLAGS@ \
+                      -DRTL_DEFAULT_TECHNO=\"etc/cmos_12.rds\" 
 
 include_HEADERS     = rds.h rfm.h rtl.h rwi.h rpr.h rut.h
 libRds_a_SOURCES    = rdsalloc.c rdsfree.c rdsadd.c rdsdel.c rdsview.c \

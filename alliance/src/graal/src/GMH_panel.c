@@ -265,7 +265,7 @@ void GraalBuildPresentPanel()
                  XmNactivateCallback,
                  GraalExitDialogCallback, NULL );
 
-  sprintf( Buffer, "\nGraphic layout editor\nVersion %s", GRAAL_VERSION );
+  sprintf( Buffer, "\nGraphic layout editor\nVersion %s", VERSION );
 
   PanelString = XmStringCreateLtoR( Buffer, "Panel_charset2" );
 

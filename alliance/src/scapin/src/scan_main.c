@@ -124,7 +124,7 @@ int main( argc, argv )
   int   FlagBuffer  = 0;
 
   alliancebanner_with_contrib( 
-      "Scapin", SCAPIN_VERSION, "SCAn Path INsertion", "2000", ALLIANCE_VERSION,
+      "Scapin", VERSION, "SCAn Path INsertion", "2000", ALLIANCE_VERSION,
       "Ludovic Jacomme", "Ilhem Kazi Tani" );
 
   mbkenv();

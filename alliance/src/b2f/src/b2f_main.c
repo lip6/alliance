@@ -127,7 +127,7 @@ int main( argc, argv )
   char  *StringInitial = (char *)0;
 
   alliancebanner_with_authors(
-      "B2F", B2F_VERSION, "Translator Behavior To FSM Format", 
+      "B2F", VERSION, "Translator Behavior To FSM Format", 
       "1999", ALLIANCE_VERSION, "Ludovic Jacomme" );
   mbkenv();
   autenv();

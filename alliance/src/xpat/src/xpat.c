@@ -85,7 +85,7 @@
 
 void XpatPresent()
 {
-  alliancebanner_with_contrib( "Xpat", XPAT_VERSION,
+  alliancebanner_with_contrib( "Xpat", VERSION,
                   "Graphic Pattern Viewer", "1999",
                   ALLIANCE_VERSION, "Ludovic Jacomme", "Julien Dunoyer" );
 }

@@ -1,7 +1,7 @@
 ## Process this file with automake to produce Makefile.in
 bin_PROGRAMS = lvx
 
-CFLAGS = @CFLAGS@ @ALLIANCE_CFLAGS@
+AM_CFLAGS = @ALLIANCE_CFLAGS@
 
 lvx_LDADD = @ALLIANCE_LIBS@ \
           -lMlu \

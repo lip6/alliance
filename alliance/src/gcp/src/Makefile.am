@@ -1,5 +1,4 @@
-CFLAGS              = @ALLIANCE_CFLAGS@ \
-                      -DALLIANCE_TOP=\"${ALLIANCE_TOP}\"
+AM_CFLAGS           = @ALLIANCE_CFLAGS@ 
 lib_LIBRARIES       = libGcp.a
 include_HEADERS     = gcp.h
 libGcp_a_SOURCES    = c_ccomp.y \

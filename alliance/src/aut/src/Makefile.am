@@ -1,5 +1,4 @@
-CFLAGS              = @ALLIANCE_CFLAGS@ \
-                      -DALLIANCE_TOP=\"${ALLIANCE_TOP}\"
+AM_CFLAGS           = @ALLIANCE_CFLAGS@ 
 lib_LIBRARIES       = libAut.a
 include_HEADERS     = aut.h
 libAut_a_SOURCES    = autenv.h autfree.h     authash2.h    autsort.h \

@@ -1,9 +1,7 @@
 ## Process this file with automake to produce Makefile.in
 
 bin_PROGRAMS = graal
-CFLAGS = @ALLIANCE_CFLAGS@ @X_CFLAGS@ -DGRAAL_VERSION=\"@GRAAL_VERSION@\" \
-         -DGRAAL_TOOL_NAME=\"graal\" \
-         -DALLIANCE_TOP=\"${ALLIANCE_TOP}\" \
+AM_CFLAGS = @ALLIANCE_CFLAGS@ @X_CFLAGS@ \
          -DGRAAL_DEFAULT_TECHNO_NAME=\"etc/cmos_12.graal\" \
          -DGMS_FILE_NAME=\".graal.cfg\" \
          -DGRAAL_WINDOW_DX=\"GRAAL_WINDOW_DX\" \
@@ -14,7 +12,7 @@ CFLAGS = @ALLIANCE_CFLAGS@ @X_CFLAGS@ -DGRAAL_VERSION=\"@GRAAL_VERSION@\" \
 
 graal_LDADD = @ALLIANCE_LIBS@ @X_LIBS@ @LINK_MOTIF@ \
 -lVrd -lRtl -lRgs -lRcf -lRfm -lRpr -lRwi -lRut -lRds -lMpu \
--lMap -lMmg -lMcp -lMph -lMut -lm
+-lMap -lMmg -lMcp -lMph -lMut
 
 INCLUDES = @INCLUDE_MOTIF@
 

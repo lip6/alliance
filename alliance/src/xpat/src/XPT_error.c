@@ -157,11 +157,11 @@ void XpatInitializeErrorMessage( Debug )
 
   if ( XpatNormalMode )
   {
-    sprintf( XpatOutFileName, "/tmp/%s_out_%d", XPAT_TOOL_NAME, getpid() ); 
+    sprintf( XpatOutFileName, "/tmp/%s_out_%d", PACKAGE, getpid() ); 
   }
 
-  sprintf( XpatErrFileName, "/tmp/%s_err_%d", XPAT_TOOL_NAME, getpid() );
-  sprintf( XpatAllFileName, "/tmp/%s_all_%d", XPAT_TOOL_NAME, getpid() );
+  sprintf( XpatErrFileName, "/tmp/%s_err_%d", PACKAGE, getpid() );
+  sprintf( XpatAllFileName, "/tmp/%s_all_%d", PACKAGE, getpid() );
 
   XpatStreamErr = freopen( XpatErrFileName, "w+", stderr);
   XpatStreamAll = fopen  ( XpatAllFileName, "w+"        );

@@ -2,10 +2,10 @@
 
 bin_PROGRAMS = boom
 
-CFLAGS = @ALLIANCE_CFLAGS@ -DBOOM_VERSION=\"@BOOM_VERSION@\"
+AM_CFLAGS = @ALLIANCE_CFLAGS@ 
 
 boom_LDADD = @ALLIANCE_LIBS@ \
-          -lAbv -lAbe -lAbt -lBdd -lAbl -lAut -lMut -lm
+          -lAbv -lAbe -lAbt -lBdd -lAbl -lAut -lMut
 
 boom_SOURCES = \
 boom_abl.c        boom_cost.h       boom_main.c       boom_procrast.h \

@@ -260,7 +260,7 @@ void XschBuildPresentPanel()
                  XmNactivateCallback,
                  XschExitDialogCallback, NULL );
 
-  sprintf( Buffer, "\nGraphic Schematic Viewer\nVersion %s", XSCH_VERSION );
+  sprintf( Buffer, "\nGraphic Schematic Viewer\nVersion %s", VERSION );
 
   PanelString = XmStringCreateLtoR( Buffer, "Panel_charset2" );
 

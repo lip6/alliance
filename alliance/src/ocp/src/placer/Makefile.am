@@ -4,8 +4,8 @@ YACC = @YACC@ -d
 
 INCLUDES = -I$(top_srcdir)/src/common -I$(top_srcdir)/src/placer
 
-CXXFLAGS = @CXXFLAGS@ @ALLIANCE_CFLAGS@
-CFLAGS = @CFLAGS@ @ALLIANCE_CFLAGS@
+AM_CXXFLAGS = @ALLIANCE_CFLAGS@
+AM_CFLAGS = @ALLIANCE_CFLAGS@
 
 bin_PROGRAMS = ocp
 

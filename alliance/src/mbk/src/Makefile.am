@@ -1,4 +1,4 @@
-CFLAGS = @ALLIANCE_CFLAGS@
+AM_CFLAGS = @ALLIANCE_CFLAGS@
 lib_LIBRARIES       = libMph.a libMpu.a libMlo.a libMlu.a libMut.a libRcn.a
 include_HEADERS     = mlu.h mlo.h mpu.h mph.h mut.h rcn.h
 libMph_a_SOURCES    = mbk_ph.c mbk_ph.h

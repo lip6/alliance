@@ -261,7 +261,7 @@ void DrealBuildPresentPanel()
                  XmNactivateCallback,
                  DrealExitDialogCallback, NULL );
 
-  sprintf( Buffer, "\nDesign Real layout\nVersion %s", DREAL_VERSION );
+  sprintf( Buffer, "\nDesign Real layout\nVersion %s", VERSION );
 
   PanelString = XmStringCreateLtoR( Buffer, "Panel_charset2" );
 

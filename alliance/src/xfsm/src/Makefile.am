@@ -1,8 +1,7 @@
 ## Process this file with automake to produce Makefile.in
 
 bin_PROGRAMS = xfsm
-CFLAGS = @ALLIANCE_CFLAGS@ @X_CFLAGS@ -DXFSM_VERSION=\"@XFSM_VERSION@\" \
-         -DXFSM_TOOL_NAME=\"xfsm\" \
+AM_CFLAGS = @ALLIANCE_CFLAGS@ @X_CFLAGS@ \
 	 -DXFSM_DEFAULT_PARAM_NAME=\"${ALLIANCE_TOP}/etc/xfsm.par\" \
 	 -DXMS_FILE_NAME=\".xfsm.cfg\"
 

@@ -1,14 +1,13 @@
 ## Process this file with automake to produce Makefile.in
 
 bin_PROGRAMS = xsch
-CFLAGS = @ALLIANCE_CFLAGS@ @X_CFLAGS@ -DXSCH_VERSION=\"@XSCH_VERSION@\" \
-         -DXSCH_TOOL_NAME=\"xsch\" \
+AM_CFLAGS = @ALLIANCE_CFLAGS@ @X_CFLAGS@ \
 	 -DXSCH_DEFAULT_PARAM_NAME=\"${ALLIANCE_TOP}/etc/xsch.par\" \
 	 -DXMS_FILE_NAME=\".xsch.cfg\"
 
 xsch_LDADD = @ALLIANCE_LIBS@ @X_LIBS@ @LINK_MOTIF@ \
    -lScl -lMlu -lMal -lMcl -lMel -lMhl -lMsl -lMvl -lMgl -lMlo -lMut -lMgl -lAbv -lAbe \
-   -lBdd -lAbl -lAut -lRcn -lm
+   -lBdd -lAbl -lAut -lRcn
 
 INCLUDES = @INCLUDE_MOTIF@
 

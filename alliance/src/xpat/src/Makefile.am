@@ -1,8 +1,7 @@
 ## Process this file with automake to produce Makefile.in
 
 bin_PROGRAMS = xpat
-CFLAGS = @ALLIANCE_CFLAGS@ @X_CFLAGS@ -DXPAT_VERSION=\"@XPAT_VERSION@\" \
-         -DXPAT_TOOL_NAME=\"xpat\" \
+AM_CFLAGS = @ALLIANCE_CFLAGS@ @X_CFLAGS@ \
 	 -DXPAT_DEFAULT_PARAM_NAME=\"${ALLIANCE_TOP}/etc/xpat.par\" \
 	 -DXMS_FILE_NAME=\".xpat.cfg\"
 

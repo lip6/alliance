@@ -1,4 +1,4 @@
-CFLAGS = @ALLIANCE_CFLAGS@
+AM_CFLAGS = @ALLIANCE_CFLAGS@
 lib_LIBRARIES       = libMel.a
 libMel_a_SOURCES    = time.c driver.c parser_y.y parser_l.l
 CLEANFILES          = parser_y.c parser_y.h parser_l.c

@@ -159,11 +159,11 @@ void XvpnInitializeErrorMessage( Debug )
 
   if ( XvpnNormalMode )
   {
-    sprintf( XvpnOutFileName, "/tmp/%s_out_%d", XVPN_TOOL_NAME, (int)getpid() ); 
+    sprintf( XvpnOutFileName, "/tmp/%s_out_%d", PACKAGE, (int)getpid() ); 
   }
 
-  sprintf( XvpnErrFileName, "/tmp/%s_err_%d", XVPN_TOOL_NAME, (int)getpid() );
-  sprintf( XvpnAllFileName, "/tmp/%s_all_%d", XVPN_TOOL_NAME, (int)getpid() );
+  sprintf( XvpnErrFileName, "/tmp/%s_err_%d", PACKAGE, (int)getpid() );
+  sprintf( XvpnAllFileName, "/tmp/%s_all_%d", PACKAGE, (int)getpid() );
 
   XvpnStreamErr = freopen( XvpnErrFileName, "w+", stderr);
   XvpnStreamAll = fopen  ( XvpnAllFileName, "w+"        );

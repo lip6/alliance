@@ -1,5 +1,4 @@
-CFLAGS              = @ALLIANCE_CFLAGS@ \
-                      -DALLIANCE_TOP=\"${ALLIANCE_TOP}\"
+AM_CFLAGS           = @ALLIANCE_CFLAGS@ 
 lib_LIBRARIES       = libAbl.a
 include_HEADERS     = abl.h
 libAbl_a_SOURCES    = abldel.h       ablflat.h      abloptim.h     ablunflat.h \

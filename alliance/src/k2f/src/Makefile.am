@@ -2,7 +2,7 @@
 
 bin_PROGRAMS = k2f
 
-CFLAGS = @ALLIANCE_CFLAGS@ -DK2F_VERSION=\"@K2F_VERSION@\"
+AM_CFLAGS = @ALLIANCE_CFLAGS@ 
 
 k2f_LDADD = @ALLIANCE_LIBS@ \
           -lFtl -lFks -lFvh -lFsm \

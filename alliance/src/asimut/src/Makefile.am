@@ -1,4 +1,4 @@
-CFLAGS = @ALLIANCE_CFLAGS@
+AM_CFLAGS = @ALLIANCE_CFLAGS@
 
 lib_LIBRARIES       = libCst.a libSch.a
 include_HEADERS     = cst.h sch.h

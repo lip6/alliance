@@ -85,7 +85,7 @@
 
 void XschPresent()
 {
-  alliancebanner_with_contrib( "Xsch", XSCH_VERSION,
+  alliancebanner_with_contrib( "Xsch", VERSION,
                   "Graphical Schematic Viewer", "2000",
                   ALLIANCE_VERSION, "Ludovic Jacomme",
                   "B.Miramond, F.Petrot, S.Picault" );

@@ -159,11 +159,11 @@ void XfsmInitializeErrorMessage( Debug )
 
   if ( XfsmNormalMode )
   {
-    sprintf( XfsmOutFileName, "/tmp/%s_out_%d", XFSM_TOOL_NAME, getpid() ); 
+    sprintf( XfsmOutFileName, "/tmp/%s_out_%d", PACKAGE, getpid() ); 
   }
 
-  sprintf( XfsmErrFileName, "/tmp/%s_err_%d", XFSM_TOOL_NAME, getpid() );
-  sprintf( XfsmAllFileName, "/tmp/%s_all_%d", XFSM_TOOL_NAME, getpid() );
+  sprintf( XfsmErrFileName, "/tmp/%s_err_%d", PACKAGE, getpid() );
+  sprintf( XfsmAllFileName, "/tmp/%s_all_%d", PACKAGE, getpid() );
 
   XfsmStreamErr = freopen( XfsmErrFileName, "w+", stderr);
   XfsmStreamAll = fopen  ( XfsmAllFileName, "w+"        );

@@ -157,11 +157,11 @@ void XschInitializeErrorMessage( Debug )
 
   if ( XschNormalMode )
   {
-    sprintf( XschOutFileName, "/tmp/%s_out_%d", XSCH_TOOL_NAME, getpid() ); 
+    sprintf( XschOutFileName, "/tmp/%s_out_%d", PACKAGE, getpid() ); 
   }
 
-  sprintf( XschErrFileName, "/tmp/%s_err_%d", XSCH_TOOL_NAME, getpid() );
-  sprintf( XschAllFileName, "/tmp/%s_all_%d", XSCH_TOOL_NAME, getpid() );
+  sprintf( XschErrFileName, "/tmp/%s_err_%d", PACKAGE, getpid() );
+  sprintf( XschAllFileName, "/tmp/%s_all_%d", PACKAGE, getpid() );
 
   XschStreamErr = freopen( XschErrFileName, "w+", stderr);
   XschStreamAll = fopen  ( XschAllFileName, "w+"        );

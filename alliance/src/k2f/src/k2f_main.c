@@ -109,7 +109,7 @@ int main( argc, argv )
   char  *OutputFormat;
   int    Number;
 
-  alliancebanner_with_authors( "K2F", K2F_VERSION,
+  alliancebanner_with_authors( "K2F", VERSION,
       "Translator Kiss <-> FSM Format", "1996", ALLIANCE_VERSION,
       "Ludovic Jacomme" );
 

@@ -1,4 +1,4 @@
-CFLAGS = @ALLIANCE_CFLAGS@
+AM_CFLAGS = @ALLIANCE_CFLAGS@
 lib_LIBRARIES       = libMmg.a
 libMmg_a_SOURCES    = mbk2mg.c mg2mbk_y.y mg2mbk_l.l mmg.h
 CLEANFILES          = mg2mbk_y.c mg2mbk_y.h mg2mbk_l.c

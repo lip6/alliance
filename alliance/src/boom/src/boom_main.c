@@ -153,7 +153,7 @@ int main( argc, argv )
   int Iteration         = 0;
   int Amplitude         = 0;
 
-  alliancebanner_with_authors( "BooM", BOOM_VERSION, "BOOlean Minimization", 
+  alliancebanner_with_authors( "BooM", VERSION, "BOOlean Minimization", 
                   "2000", ALLIANCE_VERSION, "Ludovic Jacomme" );
   mbkenv();
   autenv();

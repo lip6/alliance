@@ -263,7 +263,7 @@ int main( argc, argv )
 
 
   alliancebanner_with_contrib(
-      "VASY", VASY_VERSION, "VHDL Analyzer for SYnthesis",
+      "VASY", VERSION, "VHDL Analyzer for SYnthesis",
       "2000", ALLIANCE_VERSION, "Ludovic Jacomme", "Frederic Petrot" );
 
   mbkenv();

@@ -88,7 +88,7 @@
 
 void XfsmPresent()
 {
-  alliancebanner_with_authors( "Xfsm", XFSM_VERSION,
+  alliancebanner_with_authors( "Xfsm", VERSION,
                   "Graphic FSM Viewer", "1995",
                   ALLIANCE_VERSION, "Ludovic Jacomme" );
 }

@@ -2,19 +2,19 @@
 
 bin_PROGRAMS = lynx flatrds
 
-CFLAGS = @CFLAGS@ @ALLIANCE_CFLAGS@ -DLYNX_VERSION=\"@LYNX_VERSION@\"
+AM_CFLAGS = @ALLIANCE_CFLAGS@ 
 
 lynx_LDADD = @ALLIANCE_LIBS@ \
  -lMlu -lMpu -lMap -lMmg -lMcp -lMcl -lMel \
  -lMhl -lMvl -lMlo -lMph -lMut -lMal -lRcn \
  -lMsl -lMgl \
- -lRtl -lRgs -lRcf -lRfm -lRpr -lRwi -lRut -lRds -lm
+ -lRtl -lRgs -lRcf -lRfm -lRpr -lRwi -lRut -lRds
 
 flatrds_LDADD = @ALLIANCE_LIBS@ \
  -lMlu -lMpu -lMap -lMmg -lMcp -lMcl -lMel \
  -lMhl -lMvl -lMlo -lMph -lMut -lMal -lRcn \
  -lMsl -lMgl \
- -lRtl -lRgs -lRcf -lRfm -lRpr -lRwi -lRut -lRds -lm
+ -lRtl -lRgs -lRcf -lRfm -lRpr -lRwi -lRut -lRds
 
 flatrds_SOURCES = flatrds.c
 
