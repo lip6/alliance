@@ -16,6 +16,7 @@ ring_LDADD = @ALLIANCE_LIBS@ \
 	  -lMvg \
 	  -lMgn \
 	  -lMmg \
+	  -lMvg \
 	  -lMlo \
 	  -lMph -lMut \
 	  -lRcn 
