@@ -1,11 +1,11 @@
 
-You will find here 4 separate tutorials :
+You will find here 5 separate tutorials :
 (Please read overview.ps before)
 
 WARNING : These tutorials are not fully working and must be modified to
           work with Alliance 4.0 (especially the dlx), but we have 
           decided to release them even though they are not fully 
-          functionnal. They will be upgraded as soon as we have time.
+          functional. They will be upgraded as soon as we have time.
 
 1/ ADDACCU
    The design of a very simple chip (adder/accumulator) to get started
@@ -19,12 +19,19 @@ WARNING : These tutorials are not fully working and must be modified to
 
    >cd tutorials/amd2901
 
-3/ Data Path
+4/ Synthesis
+   Building simple door code using the Finite State Machine synthesizer (syf).
+
+   >cd tutorials/synth
+
+4/ Data Path
    Building simple data paths using on a procedural data path generator
    (fpgen) and a data path place and route tool (dpr).
 
    >cd tutorials/fitpath
 
-4/ DlxM
+5/ DlxM
    A complete tutorial based on the design of the 32 bit microprocessor DLX.
+
+
 
