@@ -21,31 +21,27 @@
  * Software Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
  */
 
-#ident "$Id: x2y.c,v 1.2 2002/09/30 16:21:35 czo Exp $"
+#ident "$Id: x2y.c,v 1.3 2003/05/20 13:28:39 czo Exp $"
 #include <stdio.h>
 #include <string.h>
 #include "mut.h"
 #include "mlo.h"
 #include "mph.h"
 
-/***********************************************************************
-	CP		layout VTI
-	HNS	 	netlist VTI
-	FNE	 	extracted netlist VTI
-??	FDN	 	extracted netlist DAX
-??	HDN	 	extracted hierarchical netlist DAX
+/*
 
-	AP	 	layout ALLIANCE
-	AL	 	netlist ALLIANCE
+al              ALLIANCE    netlist
+ap              ALLIANCE    layout
+cct             HILO        netlist
+cp              VTI         layout
+edi             EDIF        netlist or layout
+fne             VTI         extracted netlist
+hns             VTI         netlist
+spi, sp, cir    SPICE       netlist
+vlg             VERILOG     netlist
+vst             VHDL        netlist
 
-	EDI	 	netlist or layout EDIF
-
-	CCT	 	structurel HILO
-	VST	 	structurel VHDL 
-
-	SPI	 	structurel SPICE 
-***********************************************************************/
-
+ */
 
 int main( argc, argv )
 
@@ -67,7 +63,20 @@ int main( argc, argv )
 
   if ( argc != 5 )
   {
-    fprintf( stdout, "\tSyntax: x2y in_format out_format in_file out_file\n" );
+    fprintf( stdout, "
+Syntax: x2y in_format out_format in_file out_file
+Where format is one of
+    al              ALLIANCE    netlist
+    ap              ALLIANCE    layout
+    cct             HILO        netlist
+    cp              VTI         layout
+    edi             EDIF        netlist or layout
+    fne             VTI         extracted netlist
+    hns             VTI         netlist
+    spi, sp, cir    SPICE       netlist
+    vlg             VERILOG     netlist
+    vst             VHDL        netlist
+" );
     return( 1 );
   }
 

@@ -1,4 +1,4 @@
-.\" $Id: x2y.1,v 1.1 2002/04/29 14:15:51 czo Exp $
+.\" $Id: x2y.1,v 1.2 2003/05/20 13:28:39 czo Exp $
 .TH X2Y 1 "October 1, 1997" "ASIM/LIP6" "ALLIANCE USER COMMANDS"
 
 .SH NAME
@@ -12,11 +12,35 @@
 \f4x2y\fR \fIin_format out_format in_file out_file\fR
 
 .SH DESCRIPTION
-\f4x2y\fR is a netlist format converter
+
+\f4x2y\fR is a netlist format converter 
+
+.PP
+.br
+ al              ALLIANCE    netlist
+.br
+ ap              ALLIANCE    layout
+.br
+ cct             HILO        netlist
+.br
+ cp              VTI         layout
+.br
+ edi             EDIF        netlist or layout
+.br
+ fne             VTI         extracted netlist
+.br
+ hns             VTI         netlist
+.br
+ spi, sp, cir    SPICE       netlist
+.br
+ vlg             VERILOG     netlist
+.br
+ vst             VHDL        netlist
 
 .SH SEE ALSO
 .PP
-.BR mbk(1)
+.br
+ mbk(1)
 
 .so man1/alc_bug_report.1
 
