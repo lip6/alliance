@@ -1,25 +1,16 @@
-# Generic Makefile for TeTeX projet
-# (C) 1999, Czo
-# $Id: Makefile,v 1.2 2004/07/14 22:37:14 ludo Exp $
-
-MYFILE=start
+# start 
 
 %.eps : %.fig
 	fig2dev -L ps -c -p dummy $*.fig $*.eps
 
-distrib : clean ps        
-	ps2pdf $(MYFILE).ps
-	cp -f $(MYFILE).ps ..
-	cp -f $(MYFILE).pdf ..
-	$(MAKE) clean
+distrib : start.pdf
+	cp start.pdf ..
 
+start.pdf : start.dvi
+	dvipdf start.dvi
 
-view : ps
-	gv $(MYFILE).ps
-        
-ps   : $(MYFILE).tex
-	latex $(MYFILE).tex
-	dvips $(MYFILE).dvi -o $(MYFILE).ps
+start.dvi : start.tex
+	latex start.tex
 
 clean :
 	rm -f $(MYFILE).ps $(MYFILE).pdf *.log *.dvi *.aux
