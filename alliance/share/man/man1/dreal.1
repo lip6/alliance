@@ -1,19 +1,17 @@
-.\" @(#)dreal 1.03 94/10/10 UPMC/MASI/CAO-VLSI "
-.TH DREAL 1 "Febuary 28, 1995" "Release 3.0" "ALLIANCE Reference Manual"
+.\"   $Id: dreal.1,v 1.2 1999/11/05 14:23:29 syf Exp $
+.\" @(#)dreal 1.07 94/10/10 UPMC/ASIM/LIP6/CAO-VLSI "
+.TH DREAL 1 "October 1, 1997" "ASIM/LIP6" "ALLIANCE Reference Manual"
 .SH NAME
 dreal \- Graphic real layout viewer
 .SH SYNOPSIS
-dreal 
-.SH ORIGIN
-This software belongs to the
-.B ALLIANCE
-CAD system from the
+.B dreal 
+[\-l file_name]
+[\-xor]
+[\-debug]
+[\-install]
+[\-force]
 .br
-CAO-VLSI team at MASI laboratory, University P. et M. Curie
-.br
-4, place Jussieu ; 75252 PARIS Cedex 05 ; FRANCE
-.br
-Fax: (44-1) 44.27.62.86 ; E-mail: cao-vlsi@masi.ibp.fr
+.so man1/alc_origin.1
 .SH DESCRIPTION
 .B Dreal
 is a hierarchical real layout viewer. All functionnalities can be
@@ -74,8 +72,6 @@ indicates the path to the RDS configuration file used by Dreal.
 .SH SEE ALSO
 mbk(1), MBK_CATA_LIB(8), RDS_IN(1), RDS_TECHNO_NAME(1)
 
-.SH DIAGNOSTICS
-Please report bugs, problems and suggestions to
-.B cao-vlsi@masi.ibp.fr
+.so man1/alc_bug_report.1
 
 
