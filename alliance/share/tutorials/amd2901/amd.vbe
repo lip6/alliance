@@ -198,8 +198,7 @@ WITH i(5 DOWNTO 3) SELECT
 ovr <= c_sumrs(3) XOR c_sumrs(2) WHEN "000",
        c_difsr(3) XOR c_difsr(2) WHEN "001",
        c_difrs(3) XOR c_difrs(2) WHEN "010",
-       'd'                       WHEN OTHERS;
---       '0'                       WHEN OTHERS;
+       '0'                       WHEN OTHERS;
 --
 --
 WITH i(5 DOWNTO 3) SELECT

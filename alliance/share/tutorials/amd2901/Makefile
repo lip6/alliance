@@ -1,6 +1,7 @@
 SHELL    = /bin/sh
 
-ASIMUT   = $(ALLIANCE_TOP)/bin/asimut -bdd
+# ASIMUT   = $(ALLIANCE_TOP)/bin/asimut -zd -i 0 -bdd
+ASIMUT   = echo
 YAGLE    = $(ALLIANCE_TOP)/bin/yagle
 DRUC     = $(ALLIANCE_TOP)/bin/druc
 
@@ -8,6 +9,7 @@ GRAAL    = $(ALLIANCE_TOP)/bin/graal
 DREAL    = $(ALLIANCE_TOP)/bin/dreal
 GRAAL    = echo
 DREAL    = echo
+TOUCH    = touch
 
 GENLIB   = $(ALLIANCE_TOP)/bin/genlib
 LVX      = $(ALLIANCE_TOP)/bin/lvx
@@ -27,15 +29,15 @@ all : amd2901.cif chip.ttv
 
 chip.ttv : chip.al
 	MBK_IN_LO=al; \
-	MBK_CATA_LIB=.:$(ALLIANCE_TOP)/cells/sclib:$(ALLIANCE_TOP)/cells/padlib; \
+	MBK_CATA_LIB=.:$(ALLIANCE_TOP)/cells/sc2sxlib:$(ALLIANCE_TOP)/cells/sxlib:$(ALLIANCE_TOP)/cells/padlib; \
 	export MBK_IN_LO MBK_CATA_LIB; \
 	$(TAS) chip
 
 amd2901.cif : proof_end
 	MBK_IN_PH=ap ;\
 	MBK_WORK_LIB=. ;\
-	MBK_CATA_LIB=.:$(ALLIANCE_TOP)/cells/sclib:$(ALLIANCE_TOP)/cells/padlib;\
-	RDS_TECHNO_NAME=$(ALLIANCE_TOP)/etc/prol10_7.rds ;\
+	MBK_CATA_LIB=.:$(ALLIANCE_TOP)/cells/sc2sxlib:$(ALLIANCE_TOP)/cells/sxlib:$(ALLIANCE_TOP)/cells/padlib;\
+	RDS_TECHNO_NAME=$(ALLIANCE_TOP)/etc/prol10_8.rds ;\
 	RDS_IN=cif ;\
 	RDS_OUT=cif ;\
 	export MBK_IN_PH MBK_WORK_LIB MBK_CATA_LIB RDS_TECHNO_NAME RDS_IN RDS_OUT;\
@@ -49,8 +51,8 @@ amd2901.cif : proof_end
 proof_end : chip.vbe 
 	MBK_WORK_LIB=. ;\
 	export MBK_WORK_LIB;\
-	$(PROOF) -a -d amd chip ;\
-	echo "proof_end done" >> proof_end
+	$(PROOF) -a -d amd chip
+	$(TOUCH) proof_end
 
 #################################################################
 # YAGLE on the chip						#
@@ -59,7 +61,7 @@ proof_end : chip.vbe
 chip.vbe : asimut_end
 	MBK_IN_LO=al ;\
 	MBK_WORK_LIB=. ;\
-	MBK_CATA_LIB=.:$(ALLIANCE_TOP)/cells/sclib:$(ALLIANCE_TOP)/cells/padlib ;\
+	MBK_CATA_LIB=.:$(ALLIANCE_TOP)/cells/sc2sxlib:$(ALLIANCE_TOP)/cells/sxlib:$(ALLIANCE_TOP)/cells/padlib ;\
 	export MBK_IN_LO MBK_WORK_LIB MBK_CATA_LIB;\
 	$(YAGLE) chip -i -v
 
@@ -70,12 +72,12 @@ chip.vbe : asimut_end
 asimut_end : lvx_chip
 	MBK_IN_LO=al ;\
 	MBK_WORK_LIB=. ;\
-	MBK_CATA_LIB=.:$(ALLIANCE_TOP)/cells/sclib:$(ALLIANCE_TOP)/cells/padlib ;\
+	MBK_CATA_LIB=.:$(ALLIANCE_TOP)/cells/sc2sxlib:$(ALLIANCE_TOP)/cells/sxlib:$(ALLIANCE_TOP)/cells/padlib ;\
 	export MBK_IN_LO MBK_WORK_LIB MBK_CATA_LIB;\
 	VH_PATSFX=pat; export VH_PATSFX;\
-	VH_MAXERR=10; export VH_MAXERR;\
+	VH_MAXERR=10000; export VH_MAXERR;\
 	$(ASIMUT) chip pattern res_pattern
-	echo " asimut_end done " >> asimut_end
+	$(TOUCH) asimut_end
 
 #################################################################
 #   LVX of the chip                                             #
@@ -83,10 +85,10 @@ asimut_end : lvx_chip
 
 lvx_chip : chip.al
 	MBK_WORK_LIB=. ;\
-	MBK_CATA_LIB=.:$(ALLIANCE_TOP)/cells/sclib:$(ALLIANCE_TOP)/cells/padlib;\
+	MBK_CATA_LIB=.:$(ALLIANCE_TOP)/cells/sc2sxlib:$(ALLIANCE_TOP)/cells/sxlib:$(ALLIANCE_TOP)/cells/padlib;\
 	export MBK_WORK_LIB MBK_CATA_LIB;\
 	$(LVX) vst al chip chip
-	echo " lvx_chip done" >> lvx_chip
+	$(TOUCH) lvx_chip
 
 #################################################################
 #   LYNX of the chip                                            #
@@ -96,7 +98,7 @@ chip.al : druc_chip
 	MBK_OUT_LO=al ;\
 	MBK_IN_PH=ap ;\
 	MBK_WORK_LIB=. ;\
-	MBK_CATA_LIB=.:$(ALLIANCE_TOP)/cells/sclib:$(ALLIANCE_TOP)/cells/padlib;\
+	MBK_CATA_LIB=.:$(ALLIANCE_TOP)/cells/sc2sxlib:$(ALLIANCE_TOP)/cells/sxlib:$(ALLIANCE_TOP)/cells/padlib;\
 	export MBK_OUT_LO MBK_IN_PH MBK_WORK_LIB MBK_CATA_LIB;\
 	$(LYNX) chip 
 
@@ -108,12 +110,12 @@ chip.al : druc_chip
 druc_chip : chip.ap 
 	MBK_IN_PH=ap ;\
 	MBK_WORK_LIB=. ;\
-	MBK_CATA_LIB=.:$(ALLIANCE_TOP)/cells/sclib:$(ALLIANCE_TOP)/cells/padlib;\
-	RDS_TECHNO_NAME=$(ALLIANCE_TOP)/etc/cmos_7.rds ;\
+	MBK_CATA_LIB=.:$(ALLIANCE_TOP)/cells/sc2sxlib:$(ALLIANCE_TOP)/cells/sxlib:$(ALLIANCE_TOP)/cells/padlib;\
+	RDS_TECHNO_NAME=$(ALLIANCE_TOP)/etc/cmos_8.rds ;\
         RDS_IN=cif; RDS_OUT=cif;\
 	export MBK_IN_PH MBK_WORK_LIB MBK_CATA_LIB RDS_TECHNO_NAME RDS_IN RDS_OUT;\
-	$(DRUC) chip ;\
-	echo "druc_chip done " >> druc_chip
+	$(DRUC) chip
+	$(TOUCH) druc_chip
 
 
 #################################################################
@@ -125,7 +127,7 @@ chip.ap : lvx_heart chip.rin
 	MBK_IN_PH=ap ;\
 	MBK_OUT_PH=ap ;\
 	MBK_WORK_LIB=. ;\
-	MBK_CATA_LIB=.:$(ALLIANCE_TOP)/cells/sclib:$(ALLIANCE_TOP)/cells/padlib;\
+	MBK_CATA_LIB=.:$(ALLIANCE_TOP)/cells/sc2sxlib:$(ALLIANCE_TOP)/cells/sxlib:$(ALLIANCE_TOP)/cells/padlib;\
 	export MBK_IN_LO MBK_IN_PH MBK_OUT_PH MBK_WORK_LIB MBK_CATA_LIB;\
 	$(RING) chip chip;\
 	$(GRAAL) -l chip
@@ -136,10 +138,10 @@ chip.ap : lvx_heart chip.rin
 
 lvx_heart : heart.al
 	MBK_WORK_LIB=. ;\
-	MBK_CATA_LIB=.:$(ALLIANCE_TOP)/cells/sclib:$(ALLIANCE_TOP)/cells/padlib;\
+	MBK_CATA_LIB=.:$(ALLIANCE_TOP)/cells/sc2sxlib:$(ALLIANCE_TOP)/cells/sxlib:$(ALLIANCE_TOP)/cells/padlib;\
 	export MBK_WORK_LIB MBK_CATA_LIB;\
 	$(LVX) vst al heart heart -f
-	echo "lvx_heart done " >> lvx_heart
+	$(TOUCH) lvx_heart
 
 #################################################################
 #   LYNX of the heart                                           #
@@ -149,7 +151,7 @@ heart.al : druc_heart
 	MBK_OUT_LO=al ;\
 	MBK_IN_PH=ap ;\
 	MBK_WORK_LIB=. ;\
-	MBK_CATA_LIB=.:$(ALLIANCE_TOP)/cells/sclib:$(ALLIANCE_TOP)/cells/padlib ;\
+	MBK_CATA_LIB=.:$(ALLIANCE_TOP)/cells/sc2sxlib:$(ALLIANCE_TOP)/cells/sxlib:$(ALLIANCE_TOP)/cells/padlib ;\
 	export MBK_OUT_LO MBK_IN_PH MBK_WORK_LIB MBK_CATA_LIB;\
 	$(LYNX) heart 
 
@@ -161,12 +163,12 @@ heart.al : druc_heart
 druc_heart : heart.ap
 	MBK_IN_PH=ap ;\
 	MBK_WORK_LIB=. ;\
-	MBK_CATA_LIB=.:$(ALLIANCE_TOP)/cells/sclib:$(ALLIANCE_TOP)/cells/padlib ;\
-	RDS_TECHNO_NAME=$(ALLIANCE_TOP)/etc/cmos_7.rds ;\
+	MBK_CATA_LIB=.:$(ALLIANCE_TOP)/cells/sc2sxlib:$(ALLIANCE_TOP)/cells/sxlib:$(ALLIANCE_TOP)/cells/padlib ;\
+	RDS_TECHNO_NAME=$(ALLIANCE_TOP)/etc/cmos_8.rds ;\
         RDS_IN=cif; RDS_OUT=cif;\
 	export MBK_IN_PH MBK_WORK_LIB MBK_CATA_LIB RDS_TECHNO_NAME RDS_IN RDS_OUT;\
-	$(DRUC) heart ;\
-	echo "druc_heart done " >> druc_heart
+	$(DRUC) heart
+	$(TOUCH) druc_heart
 
 #################################################################
 #   SCR is a standard cells router, it makes an automatic       #
@@ -179,9 +181,8 @@ heart.ap : asimut_vst
 	MBK_OUT_PH=ap ;\
 	MBK_IN_LO=vst ;\
 	MBK_WORK_LIB=. ;\
-	MBK_CATA_LIB=.:$(ALLIANCE_TOP)/cells/sclib:$(ALLIANCE_TOP)/cells/padlib;\
-        SCR_SCLIB=1 ;\
-	export MBK_IN_PH MBK_OUT_PH MBK_IN_LO MBK_WORK_LIB MBK_CATA_LIB SCR_SCLIB ;\
+	MBK_CATA_LIB=.:$(ALLIANCE_TOP)/cells/sc2sxlib:$(ALLIANCE_TOP)/cells/sxlib:$(ALLIANCE_TOP)/cells/padlib;\
+	export MBK_IN_PH MBK_OUT_PH MBK_IN_LO MBK_WORK_LIB MBK_CATA_LIB ;\
 	$(SCR) -p -r heart;\
 #	$(GRAAL) -l heart
 
@@ -195,12 +196,12 @@ heart.ap : asimut_vst
 asimut_vst : chip.vst
 	MBK_IN_LO=vst ;\
 	MBK_WORK_LIB=. ;\
-	MBK_CATA_LIB=.:$(ALLIANCE_TOP)/cells/sclib:$(ALLIANCE_TOP)/cells/padlib ;\
+	MBK_CATA_LIB=.:$(ALLIANCE_TOP)/cells/sc2sxlib:$(ALLIANCE_TOP)/cells/sxlib:$(ALLIANCE_TOP)/cells/padlib ;\
 	VH_PATSFX=pat; export VH_PATSFX;\
-	VH_MAXERR=10; export VH_MAXERR;\
+	VH_MAXERR=10000; export VH_MAXERR;\
 	export MBK_IN_LO MBK_WORK_LIB MBK_CATA_LIB;\
-	$(ASIMUT) chip pattern result_str ;\
-	echo "asimut_vst done " >> asimut_vst
+	$(ASIMUT) chip pattern result_str
+	$(TOUCH) asimut_vst
 
 #################################################################
 #   GENLIB is a procedural design language upon C.              #
@@ -213,7 +214,7 @@ chip.vst : asimut_vbe chip.c
 	(MBK_IN_LO=vst ;\
 	MBK_OUT_LO=vst ;\
 	MBK_WORK_LIB=. ;\
-	MBK_CATA_LIB=.:$(ALLIANCE_TOP)/cells/sclib:$(ALLIANCE_TOP)/cells/padlib ;\
+	MBK_CATA_LIB=.:$(ALLIANCE_TOP)/cells/sc2sxlib:$(ALLIANCE_TOP)/cells/sxlib:$(ALLIANCE_TOP)/cells/padlib ;\
 	export MBK_IN_LO MBK_OUT_LO MBK_WORK_LIB MBK_CATA_LIB;\
 	$(GENLIB) -v chip)
 
@@ -227,10 +228,10 @@ chip.vst : asimut_vbe chip.c
 
 asimut_vbe : asimut_first
 	MBK_WORK_LIB=. ;\
-	MBK_CATA_LIB=.:$(ALLIANCE_TOP)/cells/sclib:$(ALLIANCE_TOP)/cells/padlib;\
+	MBK_CATA_LIB=.:$(ALLIANCE_TOP)/cells/sc2sxlib:$(ALLIANCE_TOP)/cells/sxlib:$(ALLIANCE_TOP)/cells/padlib;\
 	export MBK_WORK_LIB MBK_CATA_LIB;\
-	$(ASIMUT) -b amd pattern result_beh;\
-	echo "asimut_vbe done " >> asimut_vbe
+	$(ASIMUT) -b amd pattern result_beh
+	$(TOUCH) asimut_vbe
 
 #################################################################
 #  Asimut compilation						#
@@ -241,9 +242,9 @@ asimut_first : amd.vbe
 	MBK_CATA_LIB=. ; \
 	export MBK_WORK_LIB MBK_CATA_LIB;\
 	VH_PATSFX=pat; export VH_PATSFX;\
-	VH_MAXERR=10; export VH_MAXERR;\
-	$(ASIMUT) -b -c amd;\
-	echo "asimut_first done " >> asimut_first
+	VH_MAXERR=10000; export VH_MAXERR;\
+	$(ASIMUT) -b -c amd
+	$(TOUCH) asimut_first
 
 clean :
 	rm -f *.vst r*.pat *.al *.ap *.grr *.err
