@@ -2,10 +2,8 @@
 
 bin_PROGRAMS = boom
 
-CFLAGS = @ALLIANCE_CFLAGS@ -DBOOM_VERSION=\"@BOOM_VERSION@\"
-
-boom_LDADD = @ALLIANCE_LIBS@ \
-          -lAbv -lAbe -lAbt -lBdd -lAbl -lAut -lMut -lm
+boom_LDADD = @LIBS@ \
+          -lAbv -lAbe -lAbt -lBdd -lAbl -lAut -lMut
 
 boom_SOURCES = \
 boom_abl.c        boom_cost.h       boom_main.c       boom_procrast.h \
@@ -21,5 +19,5 @@ boom_bdd.h        boom_gradient.c   boom_param.h      boom_top.c \
 boom_burgun.c     boom_gradient.h   boom_parse.c      boom_top.h \
 boom_burgun.h     boom_hash.c       boom_parse.h      boom_window.c \
 boom_check.c      boom_hash.h       boom_post.c       boom_window.h \
-boom_check.h      boom_post.h \
-boom_cost.c       boom_procrast.c
+boom_check.h      boom_logic.c      boom_post.h \
+boom_cost.c       boom_logic.h      boom_procrast.c

@@ -1,0 +1,480 @@
+%{
+#include <stdio.h>
+#include "d_codes.h"
+#include "d_asm.h"
+#include "d_dbx.h"
+
+/* structure instruction */
+typedef union {
+	struct {
+		unsigned char code_inst;
+		char mode_op[3];
+		int  op[3];
+	} inst;
+	char tab_inst[16];
+} INST, *PINST;
+
+INST inst;		/* instruction en cours de codage */
+int num_op;		/* numero de l'operande en cours de traitement */
+int nb_op_suiv;	/* nobre d'operandes codees a la suite de l'inst. */
+
+typedef union {
+	char  *str;
+	char   car;
+	int    val;
+	double dbl;
+} OP_DIR;
+
+ptfonc First_fonction = 0;
+ptfonc function, save_function = 0;
+
+OP_DIR	op_dir[5];
+int     nb_op_dir;
+
+int  taille_code = 0; 	/* taille du code engendre */
+int  taille_data = 0;  /* taille des donnees */
+
+int  new_taille_code; 	/* variables tampon */
+int  new_taille_data;
+
+BOOL InData = FALSE;   /* indique si l'on traite du code ou des datas */
+
+extern unsigned char *I_Code;	/* bloc memoire contenant le binaire */
+extern int  taille_max_code;	/* taille du bloc pour le code */
+	/* bloc contenant les variables globales et statiques */
+extern unsigned char *I_Data;
+extern int  taille_max_data;   /* taille du bloc des variables */
+extern PSYMB TabSymb;		/* table des symboles */
+
+int i,j;			/* variables pour les boucles */
+
+char *nom_glob = "";	/* nom suivant le dernier .global */
+char *nom_fonc;	/* nom de la fonction courante    */
+%}
+
+%union {
+	int val;
+	char *str;
+	double fl;
+}
+
+%token VIRGULE DEUX_PTS IMMEDIAT DIRECT IND_DEB IND_FIN
+%token SYMBL LIGNE_DIR BLOC DATA ALIGN TEXT GLOBL ASCII STATIC SKIP
+%token COMM CHAR STRING INT_DIR SHORT FLOAT DOUBLE STRING_DIR FILE_DIR VERSION
+%token <str> STRING NAME ETIQ
+%token <val> NOMBRE CODE_OP SIGN REGISTRE
+%token <fl>  FLOTTANT
+
+%type  <val> etiq nombre_arg deb_lig int_arg
+%type  <val> chaine signe global case
+
+%start prog
+
+%%
+
+prog:			prolog lignes
+				;
+
+prolog:		FILE_DIR STRING VERSION STRING
+				{
+					mbkfree($2);
+					mbkfree($4);
+				}
+				;
+
+lignes:		lignes directive
+				| lignes inst
+				| lignes case
+				|
+				;
+
+deb_lig :	etiq {$$ = $1;}
+				| {$$ = -1 ;}
+				;
+
+etiq: 		etiq ETIQ
+				{
+					/*mbkfree($1);  never used, but previously allocated */
+					if (InData) {
+						$$ = GereTabSymb($2, taille_data, TRUE);
+						mbkfree($2);
+					} else {
+						$$ = GereTabSymb($2, taille_code, FALSE);
+                  /* can't figure out why this code was here!
+						if (!strcmp(nom_glob, $2))
+							nom_fonc = $2;
+						else
+						*/
+							mbkfree($2);
+					}	
+				}
+				| ETIQ
+				{
+					if (InData) {
+						$$ = GereTabSymb($1, taille_data, TRUE);
+						mbkfree($1);
+			   	} else {
+						$$ = GereTabSymb($1, taille_code, FALSE);
+						if (!strcmp(nom_glob, $1)) {
+							nom_fonc = $1;
+							for (function = First_fonction; function;
+									function = function->next_fonc)
+								save_function = function;
+
+							function = (ptfonc)mbkalloc(sizeof(fonc));
+							function->name = nom_fonc;
+							function->code_adr = taille_code;
+							function->next_fonc = 0;
+							if (save_function)
+								save_function->next_fonc = function;
+							else
+								First_fonction = function;
+						} else
+							mbkfree($1);
+					}
+				}
+				;
+
+inst:			deb_lig CODE_OP
+				{
+					num_op = 0 ;
+					nb_op_suiv = 0 ;
+					inst.inst.code_inst = $2 ;
+				}
+				operandes
+				{
+					new_taille_code =
+						IncTailleTab(&taille_code, (nb_op_suiv+1) * 4,
+											&taille_max_code, BLOC_CODE, &I_Code, 4);
+					GereTabSymb(SymbInTab($1), taille_code, FALSE);
+					for (j = 0, i = taille_code; i < taille_code+4+nb_op_suiv*4;)
+						I_Code[i++] = inst.tab_inst[j++];
+					taille_code = new_taille_code;
+				}
+				;
+
+operandes:	| operandes VIRGULE op
+				| op
+				;
+
+op:			immediat
+				| direct
+				| reg
+				| lab_dep
+				| reg_ind
+				| reg_ind_d
+				;
+
+nombre_arg:	signe NOMBRE
+				{
+					$$ = $1 == '-' ? -$2 : $2;
+				}
+				;
+
+int_arg:		nombre_arg
+				{
+					$$ = $1;
+				}
+				| IMMEDIAT chaine
+				{
+					IncTailleTab(&taille_data, 0, &taille_max_data,
+										BLOC_DATA, &I_Data, 4);
+					AddRef(taille_data, 0, FALSE);
+					$$ = $2;
+				}
+				| chaine nombre_arg
+				{
+					IncTailleTab(&taille_data, 0, &taille_max_data,
+										BLOC_DATA, &I_Data, 4);
+					AddRef(taille_data, $2 ,FALSE);
+					$$ = $2;
+				}
+				;
+
+immediat:	IMMEDIAT nombre_arg
+				{
+					inst.inst.mode_op[num_op] = MODE_IMM;
+					inst.inst.op[nb_op_suiv] = $2;
+					num_op++;
+					nb_op_suiv++;
+				}
+				| IMMEDIAT FLOTTANT
+				{
+					inst.inst.mode_op[num_op] = MODE_IMM;
+					*((float *)&(inst.inst.op[nb_op_suiv])) = (float)$2;
+					num_op++;
+					nb_op_suiv++;
+				}
+				| IMMEDIAT chaine
+				{
+					inst.inst.mode_op[num_op] = MODE_IMM;
+					inst.inst.op[nb_op_suiv] = $2 ;
+					AddRef(taille_code+4+nb_op_suiv * 4,0,TRUE);
+					num_op++;
+					nb_op_suiv++;
+				}
+				| chaine
+				{
+					inst.inst.mode_op[num_op] = MODE_IMM;
+					inst.inst.op[nb_op_suiv] = $1;
+					AddRef(taille_code+4+nb_op_suiv * 4,0,TRUE);
+					num_op++;
+					nb_op_suiv++;
+				}
+				;
+		
+direct:		DIRECT nombre_arg
+				{
+					inst.inst.mode_op[num_op] = MODE_DIRECT;
+					inst.inst.op[nb_op_suiv] = $2;
+					num_op++;
+					nb_op_suiv++;
+				}
+				| DIRECT chaine
+				{
+					inst.inst.mode_op[num_op] = MODE_DIRECT;
+					inst.inst.op[nb_op_suiv] = $2;
+					AddRef(taille_code+4+nb_op_suiv * 4,0,TRUE);
+					num_op++;
+					nb_op_suiv++;
+				}
+				;
+
+
+lab_dep:		IMMEDIAT chaine nombre_arg
+				{
+					inst.inst.mode_op[num_op] = MODE_IMM;
+					inst.inst.op[nb_op_suiv] = $2;
+					AddRef(taille_code+4+nb_op_suiv*4, $3 ,TRUE);
+					num_op++;
+					nb_op_suiv++;
+				}
+				| DIRECT chaine  nombre_arg
+				{
+					inst.inst.mode_op[num_op] = MODE_DIRECT;
+					inst.inst.op[nb_op_suiv] = $2;
+					AddRef(taille_code+4+nb_op_suiv*4, $3 ,TRUE);
+					num_op++;
+					nb_op_suiv++;
+				}
+				;
+		
+reg:			REGISTRE
+				{
+					inst.inst.mode_op[num_op] = MODE_REG | $1;
+					num_op++;
+				}
+
+reg_ind:		IND_DEB reg IND_FIN
+				{
+					inst.inst.mode_op[num_op-1] &= 0x1F;
+					inst.inst.mode_op[num_op-1] |= MODE_IND_REG;
+				}
+				;
+
+signe:		{$$ = ' ';}
+				| SIGN {$$ = $1;}
+				;
+
+reg_ind_d:	nombre_arg reg_ind
+				{
+					inst.inst.mode_op[num_op-1] |= MODE_IND_REG_D;
+					inst.inst.op[nb_op_suiv] = $1;
+					nb_op_suiv++;
+				}
+					
+directive:	deb_lig code_dir
+				{
+					GereTabSymb(SymbInTab($1), taille_code, FALSE);
+					nb_op_dir = 0;
+				}
+				op_dir
+				| deb_lig SYMBL
+				{
+					GereTabSymb(SymbInTab($1), taille_code, FALSE);
+					nb_op_dir = 0;
+				}
+				 op_dir
+				{
+					/* memory :
+					   op_dir[0].str is freed inside d_dbx.yac, because it's
+					   easier when I read more than a single line. */
+					AnalysDebug(op_dir[0].str, op_dir[1].val, op_dir[4].val);
+				}
+				| deb_lig CHAR {nb_op_dir = 0;} op_dir
+				{
+					new_taille_data =
+							IncTailleTab(&taille_data, 1, &taille_max_data,
+												BLOC_DATA, &I_Data, 1);
+					I_Data[taille_data] = (char)op_dir[0].val;
+					GereTabSymb(SymbInTab($1), taille_data, TRUE);
+					taille_data = new_taille_data;
+				}
+				| deb_lig SHORT {nb_op_dir = 0;} op_dir
+				{
+					new_taille_data =
+							IncTailleTab(&taille_data, 2, &taille_max_data,
+												BLOC_DATA, &I_Data, 4);
+					GereTabSymb(SymbInTab($1), taille_data, TRUE);
+					*((short *)&(I_Data[taille_data])) =(short)op_dir[0].val;
+					taille_data = new_taille_data;
+				}
+				| deb_lig INT_DIR int_arg
+				{
+					new_taille_data =
+							IncTailleTab(&taille_data, 4, &taille_max_data,
+												BLOC_DATA, &I_Data, 4);
+					GereTabSymb(SymbInTab($1), taille_data, TRUE);
+					*((int *)&(I_Data[taille_data])) = $3;
+					taille_data = new_taille_data;
+				}
+				| deb_lig INT_DIR chaine
+				{
+					new_taille_data =
+							IncTailleTab(&taille_data, 4, &taille_max_data,
+												BLOC_DATA, &I_Data, 4);
+					GereTabSymb(SymbInTab($1), taille_data, TRUE);
+					AddRef(taille_data, 0, FALSE);
+					*((int *)&(I_Data[taille_data])) = $3;
+					taille_data = new_taille_data;
+				}
+				| deb_lig FLOAT {nb_op_dir = 0;} op_dir
+				{
+					new_taille_data =
+							IncTailleTab(&taille_data, 4, &taille_max_data,
+												BLOC_DATA, &I_Data, 4);
+					GereTabSymb(SymbInTab($1), taille_data, TRUE);
+					*((float *)&(I_Data[taille_data]))=(float)op_dir[0].dbl;
+					taille_data = new_taille_data;
+				}
+				| deb_lig DOUBLE {nb_op_dir = 0;} op_dir
+				{
+					new_taille_data =
+							IncTailleTab(&taille_data, 8, &taille_max_data,
+												BLOC_DATA, &I_Data, 4);
+					GereTabSymb(SymbInTab($1), taille_data, TRUE);
+					*((double *)&(I_Data[taille_data])) = op_dir[0].dbl;
+					taille_data = new_taille_data;
+				}
+				| deb_lig STRING_DIR {nb_op_dir = 0;} op_dir
+				{
+					ConvOct(op_dir[0].str, op_dir[0].str);
+					new_taille_data =
+							IncTailleTab(&taille_data, strlen(op_dir[0].str) + 1,
+												&taille_max_data, BLOC_DATA, &I_Data, 1);
+					strcpy(&(I_Data[taille_data]), op_dir[0].str);
+					I_Data[taille_data + strlen(op_dir[0].str) + 1] =  '\0';
+					GereTabSymb(SymbInTab($1), taille_data, TRUE);
+					taille_data = new_taille_data;
+					mbkfree((void *)op_dir[0].str);
+				}
+				| deb_lig ALIGN { nb_op_dir = 0;} op_dir
+				{
+					if (InData) {
+						if (taille_data % op_dir[0].val)
+							taille_data = IncTailleTab(&taille_data,
+									((taille_data + op_dir[0].val - 1) / op_dir[0].val)
+										* op_dir[0].val-taille_data,
+									&taille_max_data, BLOC_DATA, &I_Data, 1);
+					} else {
+						if (taille_code % op_dir[0].val)
+							taille_code = IncTailleTab(&taille_code,
+									((taille_code + op_dir[0].val - 1) / op_dir[0].val)
+										* op_dir[0].val - taille_code,
+									&taille_max_code, BLOC_CODE, &I_Code, 1);
+					}
+				}
+				| deb_lig SKIP {nb_op_dir = 0;} op_dir
+				{
+					if(InData)
+						taille_data =
+							IncTailleTab(&taille_data, op_dir[0].val,
+												&taille_max_data, BLOC_DATA, &I_Data, 1);
+				  	else
+						taille_code =
+							IncTailleTab(&taille_code, op_dir[0].val,
+												&taille_max_code, BLOC_CODE, &I_Code, 1);
+				}
+				| deb_lig COMM {nb_op_dir = 0;} op_dir
+				{
+					new_taille_data =
+							IncTailleTab(&taille_data, op_dir[1].val,
+												&taille_max_data, BLOC_DATA, &I_Data, 4);
+					GereTabSymb(SymbInTab(op_dir[0].val), taille_data, TRUE);
+					GereTabSymb(SymbInTab($1), taille_data, TRUE);
+					taille_data = new_taille_data;
+				}
+				| deb_lig LIGNE_DIR {nb_op_dir = 0;} op_dir
+				{
+					new_taille_code =
+							IncTailleTab(&taille_code, 4, &taille_max_code,
+												BLOC_CODE, &I_Code, 4);
+					I_Code[taille_code] = LIGNE;
+					*((unsigned short *)&(I_Code[taille_code + 2])) = op_dir[2].val;
+					GereTabSymb(SymbInTab($1), taille_code, FALSE);
+					taille_code = new_taille_code;
+				}
+				| global {nom_glob = SymbInTab($1);}
+				| DATA   {InData = TRUE;}
+				| TEXT   {InData = FALSE;}
+				;
+
+op_dir:		op_dir  VIRGULE suite_op_dir
+				| suite_op_dir
+				;
+
+suite_op_dir:	signe NOMBRE
+				{
+					op_dir[nb_op_dir].val = $1 == '-' ? -$2 : $2;
+					nb_op_dir++;
+				}	
+				| STRING          {op_dir[nb_op_dir].str = $1; nb_op_dir++;}
+				| FLOTTANT        {op_dir[nb_op_dir].dbl = $1; nb_op_dir++;}
+				| IMMEDIAT chaine {op_dir[nb_op_dir].val = $2; nb_op_dir++;}
+				| chaine          {op_dir[nb_op_dir].val = $1; nb_op_dir++;}
+				;
+
+code_dir:	BLOC
+				| ASCII
+				| STATIC
+				;
+
+global:		GLOBL chaine {$$ = $2;}
+				;
+
+chaine:		NAME
+				{
+					if (inst.inst.code_inst <= CALL && inst.inst.code_inst >= BRA) {
+						$$ = GereTabSymb($1, -1, FALSE);
+						mbkfree((void *)$1);
+					} else {
+						$$ = GereTabSymb($1, -1, UNKNOWN);
+						mbkfree((void *)$1);
+					}
+				}
+				;
+
+case:			etiq branchs
+				;
+
+branchs:		branchs chaine
+				{
+					new_taille_code =
+							IncTailleTab(&taille_code, 4, &taille_max_code,
+													BLOC_CODE, &I_Code, 4);
+					*((int *)&(I_Code[taille_code])) = $2;
+					AddRef(taille_code, 0 , TRUE);
+					taille_code = new_taille_code;
+				}
+				| chaine
+				{
+					new_taille_code =
+							IncTailleTab(&taille_code, 4, &taille_max_code,
+												BLOC_CODE, &I_Code, 4);
+					*((int *)&(I_Code[taille_code])) = $1;
+					AddRef(taille_code, 0, TRUE);
+					taille_code = new_taille_code;
+				}
+				;
+
+%%

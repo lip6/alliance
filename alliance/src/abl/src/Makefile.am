@@ -1,5 +1,5 @@
-CFLAGS              = @ALLIANCE_CFLAGS@ \
-                      -DALLIANCE_TOP=\"${ALLIANCE_TOP}\"
+INCLUDES            = -I$(top_srcdir)/../mbk/src \
+                      -I$(top_srcdir)/../aut/src
 lib_LIBRARIES       = libAbl.a
 include_HEADERS     = abl.h
 libAbl_a_SOURCES    = abldel.h       ablflat.h      abloptim.h     ablunflat.h \

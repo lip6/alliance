@@ -1,0 +1,6 @@
+##Used by boog and loon
+#M{4}
+## Set the Optimisation Level (1..5)
+## 1 : poor optimisation - small computation time
+## 5 : best optimisation - long computation time
+#L{5}

@@ -34,10 +34,10 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
-#include "mut.h"
-#include "aut.h"
-#include "vex.h"
-#include "vbh.h"
+#include MUT_H
+#include AUT_H
+#include VEX_H
+#include VBH_H
 
 #include "vbl_utype.h"
 #include "vbl_bedef.h"
@@ -517,7 +517,7 @@ package_declaration
            int size=0;
            struct vbtyp *vbtyp_pnt;
              VBL_BEFPNT->NAME = $2;
-             VBL_BEFPNT->IS_PACKAGE = 1;
+             VBL_BEFPNT->PACKAGE = 1;
            VBL_MODNAM = $2;
 
            vbtyp_pnt = VBL_BEFPNT->BETYP;
@@ -570,7 +570,7 @@ package_declaration
                       ScanPkgFig != (vbfig_list *)0;
                       ScanPkgFig  = ScanPkgFig->NEXT )
                 {
-                  if ( ( ScanPkgFig->IS_PACKAGE                         ) &&
+                  if ( ( ScanPkgFig->PACKAGE                         ) &&
                        ( ScanPkgFig->NAME == (char *)ScanChain->DATA ) )
                   {
                     for ( PackList  = VBL_BEFPNT->PACK_LIST;
@@ -1959,7 +1959,7 @@ entity_declaration
                       ScanPkgFig != (vbfig_list *)0;
                       ScanPkgFig  = ScanPkgFig->NEXT )
                 {
-                  if ( ( ScanPkgFig->IS_PACKAGE                         ) &&
+                  if ( ( ScanPkgFig->PACKAGE                         ) &&
                        ( ScanPkgFig->NAME == (char *)ScanChain->DATA ) )
                   {
                     for ( PackList  = VBL_BEFPNT->PACK_LIST;

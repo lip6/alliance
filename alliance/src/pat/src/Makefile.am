@@ -1,4 +1,4 @@
-CFLAGS              = @ALLIANCE_CFLAGS@ \
+CFLAGS              = @CFLAGS@ \
                       -DALLIANCE_TOP=\"${ALLIANCE_TOP}\"
 lib_LIBRARIES       = libPat.a
 include_HEADERS     = pat.h

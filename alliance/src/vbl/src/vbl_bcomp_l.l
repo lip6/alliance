@@ -29,10 +29,10 @@
 #include <string.h>
 #include <stdlib.h>
 #include <ctype.h>
-#include "mut.h"
-#include "aut.h"
-#include "vex.h"
-#include "vbh.h"
+#include MUT_H
+#include AUT_H
+#include VEX_H
+#include VBH_H
 
 typedef struct vbl_expr
 {
@@ -59,7 +59,7 @@ struct g_type
   char FLAG;
 };
 
-#include "vbl_bcomp_y.h"
+#include "vbl_bcompyac.h"
 #include "vbl_bedef.h"
 #include "vbl_blex.h"
 

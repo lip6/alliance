@@ -29,10 +29,6 @@
 *                                                                              *
 * Modified, rewritten and maintained by Frederic Petrot since september 1990   *
 * Modified by Gregoire Avot : RC wire support.                                 *
-* $Log: drive_vti_l.c,v $
-* Revision 1.2  2002/03/14 12:34:30  fred
-* Using new headers
-*                                                                        *
 *******************************************************************************/
 
 #define RCN_FLAG_USER_27 ((unsigned char) 0x00000020)
@@ -44,10 +40,10 @@
 #include <stdlib.h>
 #include <time.h>
 #include "drive_vti_l.h"
-#include <mut.h>
-#include <mlo.h>
-#include <mlu.h>
-#include <rcn.h>
+#include MUT_H
+#include MLO_H
+#include MLU_H
+#include RCN_H
 
 /*******************************************************************************
 * needed to allow edition with vi on big interfaces instances                  *

@@ -2,11 +2,9 @@
 
 bin_PROGRAMS = vasy
 
-CFLAGS = @ALLIANCE_CFLAGS@ -DVASY_VERSION=\"@VASY_VERSION@\"
-
-vasy_LDADD = @ALLIANCE_LIBS@ \
+vasy_LDADD = @LIBS@ \
           -lRtd -lRtn -lVtl -lVvh -lVpd -lVpn -lVbl -lVbh \
-	  -lVex -lBdd -lAbl -lAut -lMut
+	  -lVex -lBdd -lAbl -lAut -lMut \
 
 vasy_SOURCES = \
 vasy_analys.c     vasy_drvvlog.h    vasy_mulwait.c    vasy_redwait.h \

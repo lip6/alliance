@@ -1,0 +1,3 @@
+cell : grmob_c
+Output buffer of the 512 words rom.
+The buffer is designed to drive up to a two pif load.

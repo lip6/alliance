@@ -45,8 +45,8 @@
 # include <stdlib.h>
 # include <string.h>
 
-# include "mut.h"
-# include "aut.h"
+# include MUT_H
+# include AUT_H
 
 # include "rtd_error.h"
 

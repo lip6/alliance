@@ -41,11 +41,8 @@
 /*                                                                          */
 /****************************************************************************/
 /* $Log: lvx.c,v $
-/* Revision 1.2  2002/03/22 09:45:47  xtof
-/* ALLIANCE_VERSION
-/*
-/* Revision 1.1.1.1  2002/03/20 17:07:59  xtof
-/* importing lvx ....
+/* Revision 1.1  2002/03/20 17:07:59  xtof
+/* Initial revision
 /*
 /* Revision 1.2  2000/10/23 16:33:37  syf
 /* Big bug dans LVX (a se demander comment ca a pu marcher un jour ...)
@@ -85,7 +82,7 @@
  *
  */
 
-static char rcsid[] = "$Id: lvx.c,v 1.2 2002/03/22 09:45:47 xtof Exp $" ;
+static char rcsid[] = "$Id: lvx.c,v 1.1 2002/03/20 17:07:59 xtof Exp $" ;
 
 #include <stdio.h>
 #include <string.h>
@@ -1725,7 +1722,7 @@ char *filename;
 
  sscanf( rcsid, "$Id: lvx.c,v %s", revision ) ;
 
- alliancebanner("LVX",revision,"Gate Netlist Comparator","1992",ALLIANCE_VERSION);
+ alliancebanner("LVX",revision,"Gate Netlist Comparator","1992","5.0");
 
 }
 

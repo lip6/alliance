@@ -1,0 +1,3 @@
+cell : grrobh_c
+This is the three state output buffer structure.
+Is meant for 2 pifs driving.

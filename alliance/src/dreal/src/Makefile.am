@@ -1,7 +1,7 @@
 ## Process this file with automake to produce Makefile.in
 
 bin_PROGRAMS = dreal
-CFLAGS = @ALLIANCE_CFLAGS@ @X_CFLAGS@ -DDREAL_VERSION=\"@DREAL_VERSION@\" \
+CFLAGS = @CFLAGS@ @X_CFLAGS@ -DDREAL_VERSION=\"@DREAL_VERSION@\" \
          -DDREAL_TOOL_NAME=\"dreal\" \
          -DALLIANCE_TOP=\"${ALLIANCE_TOP}\" \
          -DDREAL_DEFAULT_TECHNO_NAME=\"etc/cmos_7.dreal\" \
@@ -12,11 +12,11 @@ CFLAGS = @ALLIANCE_CFLAGS@ @X_CFLAGS@ -DDREAL_VERSION=\"@DREAL_VERSION@\" \
          -DDREAL_WINDOW_YMIN=\"DREAL_WINDOW_YMIN\" \
          -DDREAL_WINDOW_SIDE=\"DREAL_WINDOW_SIDE\" 
 
-dreal_LDADD = @ALLIANCE_LIBS@ @X_LIBS@ @LINK_MOTIF@ \
+dreal_LDADD = @LIBS@ @X_LIBS@ @LINK_MOTIF@ \
 -lRtl -lRgs -lRcf -lRut -lRfm -lRpr -lRds -lMpu -lMap -lMmg -lMcp -lMph -lMut
 
 
-INCLUDES = @INCLUDE_MOTIF@
+INCLUDES = @INCLUDES@ @INCLUDE_MOTIF@
 
 dreal_SOURCES = \
 dreal.c dreal.h GMC_create.c GMC_create.h GMC_dialog.c GMC_dialog.h GMC.h \

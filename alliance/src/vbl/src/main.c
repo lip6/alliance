@@ -27,11 +27,11 @@
 # include <stdio.h>
 # include <malloc.h>
 
-# include "mut.h"
-# include "aut.h"
-# include "vex.h"
-# include "vbh.h"
-# include "vbl.h"
+# include MUT_H
+# include AUT_H
+# include VEX_H
+# include VBH_H
+# include VBL_H
 
 # ifdef VBL_DEBUG
   extern int vbl_y_debug;

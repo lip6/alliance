@@ -1,0 +1,481 @@
+#! /bin/sh
+# Install modified versions of certain ANSI-incompatible system header files
+# which are fixed to work correctly with ANSI C
+# and placed in a directory that GNU C will search.
+# This works properly on a Sun in system version 3.4;
+# for other versions, you had better check.
+
+# Directory containing the original header files.
+INCLUDES=${2-${INCLUDES-/usr/include}}
+
+# Directory in which to store the results.
+LIB=${LIB-/usr/local/lib/gcc-include}
+
+# Make sure it exists.
+if [ ! -d $LIB ]; then
+  mkdir $LIB || exit 1
+fi
+
+# Determine whether this system has symbolic links.
+if ln -s X $LIB/ShouldNotExist 2>/dev/null; then
+  rm -f $LIB/ShouldNotExist
+  LINKS=true
+else
+  LINKS=false
+fi
+
+echo Finding directories and links to directories
+cd ${INCLUDES}
+# Find all directories and all symlinks that point to directories.
+# Put the list in $files.
+# Each time we find a symlink, add it to newdirs
+# so that we do another find within the dir the link points to.
+# Note that $files may have duplicates in it;
+# later parts of this file are supposed to ignore them.
+dirs="."
+levels=2
+while [ -n "$dirs" ] && [ $levels -gt 0 ]
+do
+    levels=`expr $levels - 1`
+    newdirs=
+    for d in $dirs
+    do
+	echo " Searching $INCLUDES/$d"
+	if [ "$d" != . ]
+	then
+	    d=$d/.
+	fi
+
+	# Find all directories under $d, relative to $d, excluding $d itself.
+        files="$files `find $d -type d -print | \
+		       sed -e '/\/\.$/d' -e '/^\.$/d'`"
+	# Find all links to directories.
+	# Using `-exec test -d' in find fails on some systems,
+	# and trying to run test via sh fails on others,
+	# so this is the simplest alternative left.
+	# First find all the links, then test each one.
+	theselinks=
+	$LINKS && \
+	  theselinks=`find $d -type l -print`
+	for d1 in $theselinks --dummy--
+	do
+	    # If the link points to a directory,
+	    # add that dir to $newdirs
+	    if [ -d $d1 ]
+	    then
+		newdirs="$newdirs $d1"
+	    fi
+	done
+    done
+
+    files="$files $newdirs"
+    dirs="$newdirs"
+done
+
+dirs=
+echo "All directories (including links to directories):"
+echo $files
+
+for file in $files; do
+  rm -rf $LIB/$file
+  if [ ! -d $LIB/$file ]
+  then mkdir $LIB/$file
+  fi
+done
+mkdir $LIB/root
+
+# treetops gets an alternating list
+# of old directories to copy
+# and the new directories to copy to.
+treetops="${INCLUDES} ${LIB}"
+
+if $LINKS; then
+  echo 'Making symbolic directory links'
+  for file in $files; do
+    dest=`ls -ld $file | sed -n 's/.*-> //p'`
+    if [ "$dest" ]; then    
+      cwd=`pwd`
+      # In case $dest is relative, get to $file's dir first.
+      cd ${INCLUDES}
+      cd `echo ./$file | sed -n 's&[^/]*$&&p'`
+      # Check that the target directory exists.
+      # Redirections changed to avoid bug in sh on Ultrix.
+      (cd $dest) > /dev/null 2>&1
+      if [ $? = 0 ]; then
+	cd $dest
+	# X gets the dir that the link actually leads to.
+	x=`pwd`
+	# If a link points to ., make a similar link to .
+	if [ $x = $INCLUDES ]; then
+	  echo $file '->' . ': Making link'
+	  rm -fr ${LIB}/$file > /dev/null 2>&1
+	  ln -s . ${LIB}/$file > /dev/null 2>&1
+	# If link leads back into ${INCLUDES},
+	# make a similar link here.
+	elif expr $x : "${INCLUDES}/.*" > /dev/null; then
+	  # Y gets the actual target dir name, relative to ${INCLUDES}.
+	  y=`echo $x | sed -n "s&${INCLUDES}/&&p"`
+	  echo $file '->' $y ': Making link'
+	  rm -fr ${LIB}/$file > /dev/null 2>&1
+	  ln -s ${LIB}/$y ${LIB}/$file > /dev/null 2>&1
+	else
+	  # If the link is to a dir $target outside ${INCLUDES},
+	  # repoint the link at ${INCLUDES}/root$target
+	  # and process $target into ${INCLUDES}/root$target
+	  # treat this directory as if it actually contained the files.
+	  echo $file '->' root$x ': Making link'
+	  if [ -d $LIB/root$x ]
+	  then true
+	  else
+	    dirname=root$x/
+	    dirmade=.
+	    cd $LIB
+	    while [ x$dirname != x ]; do
+	      component=`echo $dirname | sed -e 's|/.*$||'`
+	      mkdir $component >/dev/null 2>&1
+	      cd $component
+	      dirmade=$dirmade/$component
+	      dirname=`echo $dirname | sed -e 's|[^/]*/||'`
+	    done
+	  fi
+	  rm -fr ${LIB}/$file > /dev/null 2>&1
+	  ln -s ${LIB}/root$x ${LIB}/$file > /dev/null 2>&1
+	  treetops="$treetops $x ${LIB}/root$x"
+	fi
+      fi
+      cd $cwd
+    fi
+  done
+fi
+
+set - $treetops
+while [ $# != 0 ]; do
+  # $1 is an old directory to copy, and $2 is the new directory to copy to.
+  cd ${INCLUDES}
+  cd $1
+# The same dir can appear more than once in treetops.
+# There's no need to scan it more than once.
+  if [ -f $2/DONE ]
+  then
+    files=
+  else
+    touch $2/DONE
+    echo Fixing directory $1 into $2
+# Check .h files which are symlinks as well as those which are files.
+# A link to a header file will not be processed by anything but this.
+    if $LINKS; then
+      files=`find . -name '*.h' \( -type f -o -type l \) -print`
+    else
+      files=`find . -name '*.h' -type f -print`
+    fi
+    echo Checking header files
+  fi
+# Note that BSD43_* are used on recent MIPS systems.
+  for file in $files; do
+# This call to egrep is essential, since checking a file with egrep
+# is much faster than actually trying to fix it.
+# It is also essential that most files *not* match!
+# Thus, matching every #endif is unacceptable.
+# But the argument to egrep must be kept small, or many versions of egrep
+# won't be able to handle it.
+# rms: I removed `|#[el].*if.*[^/ 	]' because it made egrep fail.
+    if egrep '[ 	_]_IO|CTRL|#define.NULL|#[el]*if.*([0-9]|sparc|vax|sun|pyr)' $file > /dev/null; then
+      echo Fixing $file
+      if [ -r $file ]; then
+	cp $file $2/$file >/dev/null 2>&1	\
+	|| echo "Can't copy $file"
+	chmod +w $2/$file
+# Following two lines removed.
+#	  s%^\([ 	]*#[ 	]*endif[ 	]*\)\([^/ 	].*\)$%\1/* \2 */%
+#	  s%^\([ 	]*#[ 	]*else[ 	]*\)\([^/ 	].*\)$%\1/* \2 */%
+
+	sed -e '
+				   :loop
+	  /\\$/			N
+	  /\\$/			b loop
+	  /[ 	]_IO[A-Z]*[ 	]*(/	s/(\(.\),/('\''\1'\'',/
+	  /[ 	]BSD43__IO[A-Z]*[ 	]*(/	s/(\(.\),/('\''\1'\'',/
+	  /#define._IO/			s/'\''x'\''/x/g
+	  /#define.BSD43__IO/		s/'\''x'\''/x/g
+	  /[^A-Z]CTRL[ 	]*(/		s/\([^'\'']\))/'\''\1'\'')/
+	  /#define.CTRL/		s/'\''c'\''/c/g
+	  /#define._CTRL/		s/'\''c'\''/c/g
+	  /#define.BSD43_CTRL/		s/'\''c'\''/c/g
+	  /#if.* m68k$/			s/m68k/__m68k__/g
+	  /#if.*defined *(m68k)/	s/m68k/__m68k__/g
+	' $2/$file > $2/$file.sed
+	mv $2/$file.sed $2/$file
+	if cmp $file $2/$file >/dev/null 2>&1; then
+	   echo Deleting $2/$file\; no fixes were needed.
+	   rm $2/$file
+	fi
+      fi
+    fi
+  done
+  shift; shift
+done
+
+cd ${INCLUDES}
+
+# Fix one other error in this file: a mismatched quote not inside a C comment.
+file=sundev/vuid_event.h
+if [ -r $file ]; then
+  if [ ! -r ${LIB}/$file ]; then
+    cp $file ${LIB}/$file >/dev/null 2>&1	\
+    || echo "Can't copy $file"
+    chmod +w ${LIB}/$file
+  fi
+fi
+
+if [ -r ${LIB}/$file ]; then
+  echo Fixing $file comment
+  ex ${LIB}/$file <<EOF
+  g/doesn't/s/doesn't/does not/
+  wq
+EOF
+  if cmp $file ${LIB}/$file >/dev/null 2>&1; then
+    echo Deleting ${LIB}/$file\; no fixes were needed.
+    rm ${LIB}/$file
+  fi
+fi
+
+# Fix this Sun file to avoid intefering with stddef.h.
+
+file=sys/stdtypes.h
+if [ -r $file ]; then
+  if [ ! -r ${LIB}/$file ]; then
+    cp $file ${LIB}/$file >/dev/null 2>&1	\
+    || echo "Can't copy $file"
+    chmod +w ${LIB}/$file
+  fi
+fi
+
+if [ -r ${LIB}/$file ]; then
+  echo Fixing $file comment
+  ex ${LIB}/$file <<EOF
+  /size_t.*;/
+  i
+#ifndef _SIZE_T
+#define _SIZE_T
+.
+  /size_t/+1
+  i
+#endif
+.
+  /ptrdiff_t.*;/
+  i
+#ifndef _PTRDIFF_T
+#define _PTRDIFF_T
+.
+  /ptrdiff_t/+1
+  i
+#endif
+.
+  /wchar_t.*;/
+  i
+#ifndef _WCHAR_T
+#define _WCHAR_T
+.
+  /wchar_t/+1
+  i
+#endif
+.
+  wq
+EOF
+  if cmp $file ${LIB}/$file >/dev/null 2>&1; then
+    echo Deleting ${LIB}/$file\; no fixes were needed.
+    rm ${LIB}/$file
+  fi
+fi
+
+# Fix an error in this file: a missing semi-colon at the end of the statsswtch
+# structure definition.
+file=rpcsvc/rstat.h
+if [ -r $file ]; then
+  if [ ! -r ${LIB}/$file ]; then
+    cp $file ${LIB}/$file >/dev/null 2>&1	\
+    || echo "Can't copy $file"
+    chmod +w ${LIB}/$file
+  fi
+fi
+
+if [ -r ${LIB}/$file ]; then
+  echo Fixing $file, definition of statsswtch
+  ex ${LIB}/$file <<EOF
+  g/boottime$/s//&;/
+  wq
+EOF
+  if cmp $file ${LIB}/$file >/dev/null 2>&1; then
+    echo Deleting ${LIB}/$file\; no fixes were needed.
+    rm ${LIB}/$file
+  fi
+fi
+
+# Fix an error in this file: a missing semi-colon at the end of the nodeent
+# structure definition.
+file=netdnet/dnetdb.h
+if [ -r $file ]; then
+  if [ ! -r ${LIB}/$file ]; then
+    cp $file ${LIB}/$file >/dev/null 2>&1	\
+    || echo "Can't copy $file"
+    chmod +w ${LIB}/$file
+  fi
+fi
+
+if [ -r ${LIB}/$file ]; then
+  echo Fixing $file, definition of nodeent
+  ex ${LIB}/$file <<EOF
+  g/na_addr/s//&;/
+  wq
+EOF
+  if cmp $file ${LIB}/$file >/dev/null 2>&1; then
+    echo Deleting ${LIB}/$file\; no fixes were needed.
+    rm ${LIB}/$file
+  fi
+fi
+
+# Check for bad #ifdef line (in Ultrix 4.1)
+
+file=sys/file.h
+if [ -r $file ]; then
+  if [ ! -r ${LIB}/$file ]; then
+    mkdir ${LIB}/rpcsvc 2>&-
+    cp $file ${LIB}/$file >/dev/null 2>&1	\
+    || echo "Can't copy $file"
+    chmod +w ${LIB}/$file
+  fi
+fi
+
+if [ -r ${LIB}/$file ]; then
+  echo Fixing $file, bad \#ifdef line
+  ex ${LIB}/$file <<EOF
+  g/^#ifdef KERNEL && !defined/
+  s/#ifdef KERNEL && !defined/#if defined(KERNEL) \&\& !defined/
+  wq
+EOF
+  if cmp $file ${LIB}/$file >/dev/null 2>&1; then
+    echo Deleting ${LIB}/$file\; no fixes were needed.
+    rm ${LIB}/$file
+  fi
+fi
+
+# Check for superfluous `static' (in Ultrix 4.2)
+
+file=machine/cpu.h
+if [ -r $file ]; then
+  if [ ! -r ${LIB}/$file ]; then
+    mkdir ${LIB}/machine 2>&-
+    cp $file ${LIB}/$file >/dev/null 2>&1	\
+    || echo "Can't copy $file"
+    chmod +w ${LIB}/$file
+  fi
+fi
+
+if [ -r ${LIB}/$file ]; then
+  echo Fixing $file, superfluous static
+  ex ${LIB}/$file <<EOF
+  g/^static struct tlb_pid_state/
+  s/static//
+  wq
+EOF
+  if cmp $file ${LIB}/$file >/dev/null 2>&1; then
+    echo Deleting ${LIB}/$file\; no fixes were needed.
+    rm ${LIB}/$file
+  else
+# This file has an alternative name, mips/cpu.h.  Fix that name, too.
+    if cmp machine/cpu.h mips/cpu.h > /dev/null 2>& 1; then
+      mkdir ${LIB}/mips 2>&-
+      ln ${LIB}/$file ${LIB}/mips/cpu.h 
+    fi
+  fi
+fi
+
+# Deal with yet another challenge, this in X11/Xmu.h
+file=X11/Xmu.h
+if [ -r $file ]; then
+  if [ ! -r ${LIB}/$file ]; then
+    mkdir ${LIB}/X11 2>&-
+    cp $file ${LIB}/$file >/dev/null 2>&1	\
+    || echo "Can't copy $file"
+    chmod +w ${LIB}/$file
+  fi
+fi
+
+if [ -r ${LIB}/$file ]; then
+  echo Fixing $file sprintf declaration
+  ex ${LIB}/$file <<EOF
+  /^extern char \*	sprintf();$/c
+#ifndef __STDC__
+extern char *	sprintf();
+#endif /* !defined __STDC__ */
+.
+  wq
+EOF
+  if cmp $file ${LIB}/$file >/dev/null 2>&1; then
+    echo Deleting ${LIB}/$file\; no fixes were needed.
+    rm ${LIB}/$file
+  fi
+fi
+
+# Check for missing ';' in struct
+
+file=netinet/ip.h
+if [ -r $file ]; then
+  if [ ! -r ${LIB}/$file ]; then
+    mkdir ${LIB}/netinet 2>&-
+    sed -e '/^struct/,/^};/s/}$/};/' $file > ${LIB}/$file
+    cmp $file ${LIB}/$file >/dev/null 2>&1 && rm -f ${LIB}/$file
+  fi
+fi
+
+# Fix the CAT macro in memvar.h.
+
+file=pixrect/memvar.h
+if [ -r $file ]; then
+  if [ ! -r ${LIB}/$file ]; then
+    mkdir ${LIB}/pixrect 2>&-
+    sed -e '/^#define.CAT(a,b)/ i\
+#ifdef __STDC__ \
+#define CAT(a,b) a##b\
+#else
+/^#define.CAT(a,b)/ a\
+#endif
+' $file > ${LIB}/$file
+    cmp $file ${LIB}/$file >/dev/null 2>&1 && rm -f ${LIB}/$file
+  fi
+fi
+
+# Check for yet more missing ';' in struct (in SunOS 4.0.x)
+
+file=rpcsvc/rusers.h
+if [ -r $file ]; then
+  if [ ! -r ${LIB}/$file ]; then
+    mkdir ${LIB}/rpcsvc 2>&-
+    sed -e '/^struct/,/^};/s/_cnt$/_cnt;/' $file > ${LIB}/$file
+    cmp $file ${LIB}/$file >/dev/null 2>&1 && rm -f ${LIB}/$file
+  fi
+fi
+
+echo 'Removing unneeded directories:'
+cd $LIB
+files=`find . -type d -print | sort -r`
+for file in $files; do
+  rmdir $LIB/$file > /dev/null 2>&1
+done
+
+if $LINKS; then
+  echo 'Making internal symbolic non-directory links'
+  cd ${INCLUDES}
+  files=`find . -type l -print`
+  for file in $files; do
+    dest=`ls -ld $file | sed -n 's/.*-> //p'`
+    if expr "$dest" : '[^/].*' > /dev/null; then    
+      target=${LIB}/`echo file | sed "s|[^/]*\$|$dest|"`
+      if [ -f $target ]; then
+        ln -s $dest ${LIB}/$file >/dev/null 2>&1
+      fi
+    fi
+  done
+fi
+
+exit 0

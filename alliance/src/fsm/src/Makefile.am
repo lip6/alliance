@@ -1,4 +1,4 @@
-CFLAGS              = @ALLIANCE_CFLAGS@ \
+CFLAGS              = @CFLAGS@ \
                       -DALLIANCE_TOP=\"${ALLIANCE_TOP}\"
 lib_LIBRARIES       = libFsm.a
 include_HEADERS     = fsm.h

@@ -1,0 +1,83 @@
+.\"   $Id: setloself.3,v 1.1 2002/08/16 18:40:25 pnt Exp $
+.\" @(#)setloself.2 2.11 2002/08/14 ; Labo LIP6/ASIM cao-vlsi; Author : Pierre Nguyen Tuong
+.if t \{\
+.so man1/alc_contents.mac
+.XS \n%
+.ti 0.2i
+setloself
+.XE
+.XS2 \n%
+.ti 0.2i
+setloself
+.XE2 \}
+.TH SETLOSELF 3 "August 14, 2002" "ASIM/LIP6" "MBK LOGICAL FUNCTIONS"
+.SH NAME
+setloself \- set the inductance value of a logical inductor
+.so man1/alc_origin.1
+.SH SYNOPSYS
+.nf
+.if n \{\
+.ft B \}
+.if t \{\
+.ft CR \}
+#include "mlo.h"
+
+void setloself(ptfig,name,newself)
+lofig_list \(**ptfig ;
+const char \(**name ;
+double newself ;
+.ft R
+.fi
+.SH PARAMETERS
+.TP 20
+\fIptfig\fP
+Pointer to the figure in which the inductor should be seeked
+.TP
+\fIname\fP
+Instance name of the inductor
+.TP
+\fInewself\fP
+New inductance value
+.SH DESCRIPTION
+\fBsetloself\fP looks in the list of inductors of the logical model pointed
+to by \fIptfig\fP for a inductor identified by its instance \fIname\fP and set
+the SELF field to the newself value.
+.SH RETURN VALUE
+None
+.SH ERRORS
+.if n \{\
+.ft B \}
+.if t \{\
+.ft CR \}
+"\(**\(**\(** mbk error \(**\(**\(** setloself impossible :
+inductor \fIname\fP doesn't exist in figure \fIptfig \-> NAME\fP"
+.ft R
+.RS
+No inductor matches the name. 
+.RE
+.SH EXAMPLE
+.ta 3n 6n 9n 12n 15n 18n 21n
+.nf
+.if n \{\
+.ft B \}
+.if t \{\
+.ft CR \}
+#include "mlo.h"
+
+void set_loself_value(char \(**figname,char \(**selfname,double newself)
+{
+  setloself(getlofig(figname),selfname,newself) ;
+}
+.ft R
+.fi
+.SH SEE ALSO
+.BR mbk (1),
+.BR lofig (3),
+.BR loself (3),
+.BR addloself (3),
+.BR getloself (3),
+.BR delloself (3).
+
+
+.so man1/alc_bug_report.1
+

@@ -1,0 +1,57 @@
+.\"   $Id: proof.1,v 1.1 2002/04/18 12:47:46 ludo Exp $
+.\" @(#)Labo.l 1.2 91/11/01 UPMC; Author: BURGUN L.
+.pl -.4
+.TH PROOF 1 "October 1, 1997" "ASIM/LIP6" "CAO\-VLSI Reference Manual"
+.SH NAME
+.TP
+proof    
+\- Formal proof between two behavioural descriptions
+.so man1/alc_origin.1
+.SH SYNOPSIS
+.TP
+\fBproof\fP [\fI-a\fP] [\fI-d\fP]  \fIfile1\fP  \fIfile2\fP
+.br
+.SH DESCRIPTION
+.br
+Made to run on a data-flow description, \fBproof\fP supports the same subset of VHDL as asimut and bop and scmap (for further informations about this subset, please call the VHDL manual). \fBproof\fP uses a Reduced Ordered Binary Decision Diagrams representation that permits the designer to prove easily the functionnal equivalence between two behavioral descriptions. 
+\fBproof\fP is generally used in order to compare a behavioural specification with an extracted behaviour obtained by \fByagle\fP.
+.br
+In default mode, a collapsing phase is done on the description by removing all the auxiliary signals (the BDD of the outputs, the registers and the buses are described from the inputs or the registers). The two descriptions must contain the same ressources (signals register with the same name). 
+It is possible to use the \fI.inf\fP file in \fByagle\fP to rename the registers in the extracted behavioural description (see man \fByagle\fP). The datas and the commands (the guarded expressions) must match separatly. The buses corresponding to completely specified logical functions are represented by a logical multiplexor in both descriptions.
+The two descriptions must have the same interface (VHDL entity), if they do not, the formal \fBproof\fP is stopped.
+.br 
+\fBproof\fP only uses two system environment variables related to the work directory. 
+.br
+.SH ENVIRONMENT VARIABLES
+.br
+.HP
+.ti 7
+\fIMBK_WORK_LIB\fP gives the path for the behavioral descriptions. The default value is the current directory.
+.br
+.HP
+.ti 7
+\fIMBK_CATA_LIB\fP gives some auxiliary pathes for the behavioral descriptions. The default value is the current directory.
+.SH OPTIONS
+.br
+Options may be given in any order before the filenames.
+.HP
+.ti 7
+\-a
+This option asks \fBproof\fP to keep the common auxiliary signals. \fBproof\fP keeps all intermediate signals that have the same name in both descriptions (A common signal is considered as an input and an output of each description). This option can be useful for descriptions containing large equations. It may be used when \fBproof\fP has failed or if you want to debug in step by step mode the two different descriptions.
+.HP
+.ti 7
+\-d
+The program displays errors when the behavioral descriptions are different. Equations are displayed when it's possible.
+.br
+.SH EXAMPLE
+.br
+	proof -a -d adder1 adder2
+
+.SH SEE ALSO
+.br
+ \fBbop\fP (1), \fBglop\fP (1), \fBscmap\fP (1), \fBc4map\fP (1),
+\fBasimut\fP(1), \fBvhdl\fP(5), \fByagle\fP(1), \fBvbe\fP(5).
+
+
+.so man1/alc_bug_report.1
+

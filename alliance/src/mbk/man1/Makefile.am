@@ -12,4 +12,3 @@ man_MANS  = MBK_CATAL_NAME.1 \
             MBK_VDD.1 \
             MBK_VSS.1 \
             MBK_WORK_LIB.1
-EXTRA_DIST = $(man_MANS)

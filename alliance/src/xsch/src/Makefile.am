@@ -1,16 +1,16 @@
 ## Process this file with automake to produce Makefile.in
 
 bin_PROGRAMS = xsch
-CFLAGS = @ALLIANCE_CFLAGS@ @X_CFLAGS@ -DXSCH_VERSION=\"@XSCH_VERSION@\" \
+CFLAGS = @CFLAGS@ @X_CFLAGS@ -DXSCH_VERSION=\"@XSCH_VERSION@\" \
          -DXSCH_TOOL_NAME=\"xsch\" \
 	 -DXSCH_DEFAULT_PARAM_NAME=\"${ALLIANCE_TOP}/etc/xsch.par\" \
 	 -DXMS_FILE_NAME=\".xsch.cfg\"
 
-xsch_LDADD = @ALLIANCE_LIBS@ @X_LIBS@ @LINK_MOTIF@ \
+xsch_LDADD = @LIBS@ @X_LIBS@ @LINK_MOTIF@ \
    -lScl -lMlu -lMal -lMcl -lMel -lMhl -lMsl -lMvl -lMgl -lMlo -lMut -lMgl -lAbv -lAbe \
    -lBdd -lAbl -lAut -lRcn -lm
 
-INCLUDES = @INCLUDE_MOTIF@
+INCLUDES = @INCLUDES@ @INCLUDE_MOTIF@
 
 xsch_SOURCES = \
 LIP6bw.h XME_dialog.c XME_dialog.h XME_edit.c XME_edit.h XME.h XME_menu.c XME_menu.h \

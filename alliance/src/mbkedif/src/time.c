@@ -23,11 +23,6 @@
  
 /*
  * gives time the format edif wants
- * $Log: time.c,v $
- * Revision 1.2  2002/03/14 12:36:30  fred
- * Makes the correct substitutions in lex and yacc generated files.
- * Fixing includes in dot c files
- *
  */
 
 #include <stdio.h>

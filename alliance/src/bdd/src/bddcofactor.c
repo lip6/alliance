@@ -41,10 +41,10 @@
 |                                                             |
 \------------------------------------------------------------*/
 
-# include "mut.h"
-# include "aut.h"
-# include "abl.h"
-# include "bdd.h"
+# include MUT_H
+# include AUT_H
+# include ABL_H
+# include BDD_H
 
 # include <stdio.h>
 # include "bddcofactor.h"

@@ -36,10 +36,10 @@
 /* ###--------------------------------------------------------------### */
 
 #include <stdio.h>
-#include "mut.h"
-#include "aut.h"
-#include "abl.h"
-#include "abe.h"
+#include MUT_H
+#include AUT_H
+#include ABL_H
+#include ABE_H
 
 /* ###--------------------------------------------------------------### */
 /* function	: beh_addbeaux						*/

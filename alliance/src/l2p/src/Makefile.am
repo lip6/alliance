@@ -2,14 +2,14 @@
 
 bin_PROGRAMS = l2p
 
-CFLAGS = @ALLIANCE_CFLAGS@ -DL2P_VERSION=\"@L2P_VERSION@\"
+CFLAGS = @CFLAGS@ -DL2P_VERSION=\"@L2P_VERSION@\"
 
-l2p_LDADD = @ALLIANCE_LIBS@ \
+l2p_LDADD = @LIBS@ \
  -lMlu -lMpu -lMap -lMmg -lMcp -lMcl -lMel \
  -lMhl -lMvl -lMlo -lMph -lMut -lMal -lRcn \
  -lMsl -lMgl \
  -lRtl -lRgs -lRcf -lRfm -lRpr -lRwi -lRut -lRds 
 
-l2p_SOURCES = \
+lynx_SOURCES = \
 drive_ps.c  rps_inc.h   tmp_man.c \
 dict_color.ps  l2p.c	   tmp_dict.c

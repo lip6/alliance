@@ -42,12 +42,12 @@
 |                                                             |
 \------------------------------------------------------------*/
 
-# include "mut.h"
-# include "aut.h"
-# include "abl.h"
-# include "bdd.h"
-# include "abe.h"
-# include "abt.h"
+# include MUT_H
+# include AUT_H
+# include ABL_H
+# include BDD_H
+# include ABE_H
+# include ABT_H
 
 # include <stdio.h>
 # include "boom_error.h"

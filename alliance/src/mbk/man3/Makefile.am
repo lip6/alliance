@@ -131,4 +131,3 @@ man_MANS  = addcapa.3 \
             viewphseg.3 \
             viewphvia.3 \
             xyflat.3
-EXTRA_DIST = $(man_MANS)

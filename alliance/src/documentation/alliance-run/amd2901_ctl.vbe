@@ -1,0 +1,249 @@
+ENTITY  amd2901_ctl  IS
+
+PORT(
+	-- Input/Output from and to the data-path.
+		
+	
+	-- Command for selecting operands R and S.
+	ops_mx :   out BIT_VECTOR(2 downto 0);
+	opr_mx :   out BIT_VECTOR(1 downto 0);
+
+	-- ALU commands and auxiliary terminals.
+	alu_k    :   out BIT_VECTOR(4 downto 0);
+	alu_cout : in    BIT;
+	alu_over : in    BIT;
+
+	-- RAM, ACCU shifter commands and auxiliary terminals.
+	-- ("acc_sh" is same as "ram_sh")
+	    ram_sh   :   out BIT_VECTOR(1 downto 0);
+
+	-- Output multiplexer commnand (for X bus).
+	out_mx :   out BIT;
+
+	-- ACCU controls terminals.
+	-- ("acc_ck", "acc_test" and "acc_scin" directly comes from the plots)
+	acc_wen    :   out BIT;
+
+	-- Data bus terminals.
+	alu_f  : in    BIT_VECTOR(3 downto 0);
+	alu_np : in    BIT_VECTOR(3 downto 0);
+	alu_ng : in    BIT_VECTOR(3 downto 0);
+ 
+
+	-- Input/Output from and to the plots.
+
+
+	-- Test terminals from/to plots.
+	core_test   : in    BIT;
+	core_fonc   : in    BIT;
+
+	-- ALU terminals from/to plots.
+	-- core_ncout :   out BIT;
+	core_np    :   out BIT;
+	core_ng    :   out BIT;
+	core_over  :   out BIT;
+	core_zero :   out BIT;
+	-- core_nsign :   out BIT;
+
+	-- RAM, ACCU shifter terminals from/to plots.
+	-- RAM and ACCU I/O plots controls.
+	core_sh_right    :   out BIT;
+	core_sh_left     :   out BIT;
+
+	-- Data bus terminals from/to the plots.
+	i : in    BIT_VECTOR(8 downto 0);
+
+	noe : in  BIT;
+	oe  : out BIT;
+-- -
+--	ram_wri : out BIT;
+
+	-- + 
+        	a : in BIT_VECTOR(3 downto 0);
+        	b : in BIT_VECTOR(3 downto 0);
+
+        	deca : out BIT_VECTOR(15 downto 0);
+        	decb : out BIT_VECTOR(15 downto 0);
+        	decwb : out BIT_VECTOR(15 downto 0);
+ 
+	-- Power supply connectors.
+	vdd : in    BIT;
+	vss : in    BIT
+
+	-- - 
+
+	);
+
+END amd2901_ctl;
+ 
+
+ARCHITECTURE  behavior_data_flow  OF  amd2901_ctl  IS
+
+	-- Internals bus.
+	SIGNAL alu_p       : BIT_VECTOR(3 downto 0);
+	SIGNAL alu_g       : BIT_VECTOR(3 downto 0);
+	-- Internals signals.
+	SIGNAL  fonc_mode  : BIT;
+	SIGNAL  ram_wri  : BIT;
+	SIGNAL interm : BIT_VECTOR (15 downto 0);
+BEGIN
+
+
+	-- ******************** Miscellaneous controls *******************
+
+
+	-- Select between normal and test mode.
+	fonc_mode <= core_fonc and (not core_test);
+
+
+	-- *************** ACCU and RAM multiplexer control **************
+       
+	WITH i(8 DOWNTO 6) SELECT
+		ram_sh <= "00" WHEN  B"110"
+						   | B"111",
+				  "01" WHEN  B"100"
+						   | B"101",
+				  "11" WHEN  OTHERS;
+ 
+
+	-- ******************** S multiplexer control ********************
+
+	WITH i(2 downto 0) SELECT
+		ops_mx <= "000" WHEN  B"110",
+				  "000" WHEN  B"010",
+				  "000" WHEN  B"000",
+				  "010" WHEN  B"101"
+							| B"100",
+				  "001" WHEN  B"001",
+				  "001" WHEN  B"011",
+				  "100" WHEN  B"111";
+
+
+	-- ******************** R multiplexer control ********************
+       
+	WITH i(2 downto 0) SELECT
+		opr_mx <= "11" WHEN  B"100"
+						   | B"010"
+						   | B"011",
+				  "01" WHEN  B"101"
+						   | B"110"
+						   | B"111",
+				  "00" WHEN  B"000"
+						   | B"001";
+
+
+	-- ******************** X multiplexer control ********************
+       
+	WITH i(8 downto 6) SELECT
+		out_mx <= "1" WHEN  B"010",
+				  "0" WHEN  OTHERS;
+ 
+
+	-- ************************* ALU control *************************
+
+	-- ALU commands.
+	alu_k(4) <= (    i(5)  or (    i(4) and i(3)));
+	alu_k(3) <= (not i(5) and (    i(4) and i(3)));
+	alu_k(2) <= (    i(5) and  not i(4)) ;
+	alu_k(1) <=      i(5) xor      i(4);
+	alu_k(0) <=      i(5) xor               i(3);
+
+	-- Compute of ALU flags.
+	-- Propagate.
+	alu_p(3 downto 0) <= not alu_np(3 downto 0);   
+	core_np <=        not ( alu_p(0)
+			  and alu_p(1)
+			  and alu_p(2)
+			  and alu_p(3));
+	
+	-- Generate.
+	alu_g(3 downto 0) <= not alu_ng(3 downto 0);   
+	core_ng <=     not ( alu_g(3) 
+			  or (alu_p(3) and alu_g(2)) 
+			  or (alu_p(3) and alu_p(2) and alu_g(1)) 
+			  or (alu_p(3) and alu_p(2) and alu_p(1) and alu_g(0)));
+
+	-- Sign, zero, overflow and carry out.
+	-- core_nsign <= not alu_f(3);
+    core_zero <= not ( alu_f(3)
+				  or alu_f(2)
+				  or alu_f(1)
+				  or alu_f(0));
+    core_over <= alu_cout xor alu_over;
+
+
+	-- ************************* ACCU control ************************
+
+	-- Compute of ACCU write enable.
+	acc_wen <= (not i(6)) and ((not i(7)) or i(8));
+
+	-- ACCU shifter I/O.
+	-- 	 acc_i_up    <= not core_acc_i_nup;
+	-- 	 acc_i_down  <= not core_acc_i_ndown;
+	-- core_acc_o_nup   <= not      acc_scout;
+	-- core_acc_o_ndown <= not      acc_q_down;
+
+
+	-- ************************** RAM control ************************
+
+
+	-- Compute of RAM write enable.
+	ram_wri <= fonc_mode and (i(8) or i(7));
+
+	-- RAM and ACCU I/O plots controls.
+    core_sh_right <= i(8) and (not i(7));
+    core_sh_left  <= i(8) and      i(7) ;
+	-- RAM shifter I/O.
+	-- 	 ram_i_up    <= not core_ram_i_nup;
+	-- 	 ram_i_down  <= not core_ram_i_ndown;
+	-- core_ram_o_ndown <= not      alu_f(0);
+	-- core_ram_o_nup   <= not      alu_f(3);
+
+    oe <= not noe;
+
+	-- + 
+
+	WITH a(3 downto 0) SELECT
+		deca<= 	B"0000000000000001" WHEN X"0",
+			B"0000000000000010" WHEN X"1",
+			B"0000000000000100" WHEN X"2",
+			B"0000000000001000" WHEN X"3",
+			B"0000000000010000" WHEN X"4",
+			B"0000000000100000" WHEN X"5",
+			B"0000000001000000" WHEN X"6",
+			B"0000000010000000" WHEN X"7",
+			B"0000000100000000" WHEN X"8",
+			B"0000001000000000" WHEN X"9",
+			B"0000010000000000" WHEN X"A",
+			B"0000100000000000" WHEN X"B",
+			B"0001000000000000" WHEN X"C",
+			B"0010000000000000" WHEN X"D",
+			B"0100000000000000" WHEN X"E",
+			B"1000000000000000" WHEN OTHERS;
+	WITH b(3 downto 0) SELECT
+		interm<= 	B"0000000000000001" WHEN X"0",
+			B"0000000000000010" WHEN X"1",
+			B"0000000000000100" WHEN X"2",
+			B"0000000000001000" WHEN X"3",
+			B"0000000000010000" WHEN X"4",
+			B"0000000000100000" WHEN X"5",
+			B"0000000001000000" WHEN X"6",
+			B"0000000010000000" WHEN X"7",
+			B"0000000100000000" WHEN X"8",
+			B"0000001000000000" WHEN X"9",
+			B"0000010000000000" WHEN X"A",
+			B"0000100000000000" WHEN X"B",
+			B"0001000000000000" WHEN X"C",
+			B"0010000000000000" WHEN X"D",
+			B"0100000000000000" WHEN X"E",
+			B"1000000000000000" WHEN OTHERS;
+
+	decb <= interm;
+
+	WITH ram_wri SELECT
+		decwb<= 	interm WHEN B"1",
+			B"0000000000000000" WHEN OTHERS;
+
+END  behavior_data_flow;
+ 
+

@@ -41,11 +41,11 @@
 |                                                             |
 \------------------------------------------------------------*/
 
-# include "mut.h"
-# include "aut.h"
-# include "vex.h"
-# include "vbh.h"
-# include "vbl.h"
+# include MUT_H
+# include AUT_H
+# include VEX_H
+# include VBH_H
+# include VBL_H
 
 # include <stdio.h>
 # include <stdlib.h>
@@ -183,7 +183,7 @@ void getvbpkg( FileName, Extention )
       {
         VbhFigure = getvbfiggenmap( PhysicalName, Extention, (vbmap_list *)0 );
 
-        if ( ! VbhFigure->IS_PACKAGE )
+        if ( ! VbhFigure->PACKAGE )
         {
           fprintf( stdout, "ERROR file %s is not a package\n", PhysicalName );
           autexit( 1 );

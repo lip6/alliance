@@ -18,9 +18,9 @@ drucompi_l.c : $(srcdir)/drucompi_l.l drucompi_y.h
 
 bin_PROGRAMS = druc
 
-CFLAGS = @ALLIANCE_CFLAGS@
+CFLAGS = @CFLAGS@ -DBOOM_VERSION=\"@BOOM_VERSION@\"
 
-druc_LDADD = @ALLIANCE_LIBS@ \
+druc_LDADD = @LIBS@ \
 -L. -lVrd -lRtl -lRgs -lRcf -lRfm -lRpr -lRwi -lRut -lRds -lMpu -lMcp -lMap -lMmg -lMph \
 -lMut -lm
 

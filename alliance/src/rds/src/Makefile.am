@@ -4,7 +4,7 @@ lib_LIBRARIES       = libRds.a \
                       libRpr.a \
                       libRwi.a \
                       libRtl.a
-CFLAGS              = @ALLIANCE_CFLAGS@ \
+CFLAGS              = @CFLAGS@ \
                       -DRTL_DEFAULT_TECHNO=\"etc/cmos_12.rds\" \
                       -DALLIANCE_TOP=\"${ALLIANCE_TOP}\"
 

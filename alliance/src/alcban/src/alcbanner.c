@@ -28,7 +28,7 @@
  * Author  : Czo <Olivier.Sirol@lip6.fr>
  */
 
-#ident "$Id: alcbanner.c,v 1.2 2002/04/04 14:08:54 ludo Exp $"
+#ident "$Id: alcbanner.c,v 1.1 2002/04/04 13:43:26 ludo Exp $"
 
 
 /*
@@ -49,7 +49,7 @@
 extern char *optarg;
 extern int optind, opterr, optopt;
 
-#include "mut.h"
+#include MUT_H
 
 
 /*

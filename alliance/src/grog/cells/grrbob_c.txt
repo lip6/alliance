@@ -1,0 +1,2 @@
+cell : grrbob_c
+Leftmost body tie line for pwell polarisation for alignment with the array.

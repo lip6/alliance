@@ -47,11 +47,11 @@
 # include <stdlib.h>
 # include <string.h>
 
-# include "mut.h"
-# include "aut.h"
-# include "abl.h"
-# include "bdd.h"
-# include "fsm.h"
+# include MUT_H
+# include AUT_H
+# include ABL_H
+# include BDD_H
+# include FSM_H
 
 # include "syf_env.h"
 # include "syf_fsm.h"

@@ -1,15 +1,15 @@
 ## Process this file with automake to produce Makefile.in
 
 bin_PROGRAMS = xpat
-CFLAGS = @ALLIANCE_CFLAGS@ @X_CFLAGS@ -DXPAT_VERSION=\"@XPAT_VERSION@\" \
+CFLAGS = @CFLAGS@ @X_CFLAGS@ -DXPAT_VERSION=\"@XPAT_VERSION@\" \
          -DXPAT_TOOL_NAME=\"xpat\" \
 	 -DXPAT_DEFAULT_PARAM_NAME=\"${ALLIANCE_TOP}/etc/xpat.par\" \
 	 -DXMS_FILE_NAME=\".xpat.cfg\"
 
-xpat_LDADD = @ALLIANCE_LIBS@ @X_LIBS@ @LINK_MOTIF@ \
+xpat_LDADD = @LIBS@ @X_LIBS@ @LINK_MOTIF@ \
 	  -lPpt -lPhl -lPat -lAut -lMut
 
-INCLUDES = @INCLUDE_MOTIF@
+INCLUDES = @INCLUDES@ @INCLUDE_MOTIF@
 
 xpat_SOURCES = \
 LIP6bw.h XME_dialog.c XME_dialog.h XME_edit.c XME_edit.h \

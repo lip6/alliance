@@ -1,15 +1,15 @@
 ## Process this file with automake to produce Makefile.in
 
 bin_PROGRAMS = xvpn
-CFLAGS = @ALLIANCE_CFLAGS@ @X_CFLAGS@ -DXVPN_VERSION=\"@XVPN_VERSION@\" \
+CFLAGS = @CFLAGS@ @X_CFLAGS@ -DXVPN_VERSION=\"@XVPN_VERSION@\" \
          -DXVPN_TOOL_NAME=\"xvpn\" \
 	 -DXVPN_DEFAULT_PARAM_NAME=\"${ALLIANCE_TOP}/etc/xvpn.par\" \
 	 -DXMS_FILE_NAME=\".xvpn.cfg\"
 
-xvpn_LDADD = @ALLIANCE_LIBS@ @X_LIBS@ @LINK_MOTIF@ \
+xvpn_LDADD = @LIBS@ @X_LIBS@ @LINK_MOTIF@ \
  -lVtl -lVvh -lVpd -lVpn -lVbl -lVbh -lVex -lAbl -lAut -lMut -lm
 
-INCLUDES = @INCLUDE_MOTIF@
+INCLUDES = @INCLUDES@ @INCLUDE_MOTIF@
 
 xvpn_SOURCES = \
 LIP6bw.h XME_dialog.c XME_dialog.h XME_edit.c XME_edit.h XME.h XME_menu.c \

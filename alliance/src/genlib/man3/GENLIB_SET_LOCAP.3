@@ -1,0 +1,98 @@
+.\"   $Id: GENLIB_SET_LOCAP.3,v 1.1 2002/08/16 19:15:02 pnt Exp $
+.\" @(#)GENLIB_SET_LOCAP.2 2.11 2002/08/14 ; Labo LIP6/ASIM cao-vlsi; Author : Pierre Nguyen Tuong
+.if t \{\
+.so man1/alc_contents.mac
+.XS \n%
+.ti 0.2i
+GENLIB_SET_LOCAP
+.XE
+.XS2 \n%
+.ti 0.2i
+GENLIB_SET_LOCAP
+.XE2 \}
+.TH GENLIB_SET_LOCAP 3 "August 14, 2002" "ASIM/LIP6" "MBK LOGICAL FUNCTIONS"
+.SH NAME
+GENLIB_SET_LOCAP \- set the capacitance value of a logical capacitor, after its creation.
+.so man1/alc_origin.1
+.SH SYNOPSYS
+.nf
+.if n \{\
+.ft B \}
+.if t \{\
+.ft CR \}
+#include "mlo.h"
+
+void GENLIB_SET_LOCAP(figname,capname,newcapa)
+char \(**figname ;
+char \(**capname ;
+double newcapa ;
+.ft R
+.fi
+.SH PARAMETERS
+.TP 20
+\fIfigname\fP
+Name of the logical figure
+.TP
+\fIcapname\fP
+Instance name of the capacitor
+.TP
+\fInewcapa\fP
+New capacitance value
+.SH DESCRIPTION
+\fBGENLIB_SET_LOCAP\fP looks in the list of capacitors of the logical model \fIfigname\fP
+for a capacitor identified by its instance \fIcapname\fP and set
+the CAPA field to the newcapa value.
+.SH RETURN VALUE
+None
+.SH ERRORS
+.if n \{\
+.ft B \}
+.if t \{\
+.ft CR \}
+"\(**\(**\(** mbk error \(**\(**\(** getlocap impossible :
+capacitor \fIname\fP doesn't exist in figure \fIptfig \-> NAME\fP"
+.ft R
+.RS
+No capacitor matches the name. 
+.RE
+.SH EXAMPLE
+.ta 3n 6n 9n 12n 15n 18n 21n
+.nf
+.if n \{\
+.ft B \}
+.if t \{\
+.ft CR \}
+#include <genlib.h>
+
+int main(int argc,char \(**argv[])
+{
+  /\(** Create a figure to work on, a parallel capacitor \(**/
+  GENLIB_DEF_LOFIG("parallel_cap") ;
+
+  /\(** Define interface \(**/
+  GENLIB_LOCON("i",IN,"input") ;
+  GENLIB_LOCON("f",OUT,"output") ;
+
+  /\(** Add capacitors \(**/
+  GENLIB_LOCAP(CAPMIM,5.1,"input","output","cap1") ;
+  GENLIB_LOCAP(CAPMIM,5.2,"input","output","cap2") ;
+
+  /* Modify capacitors value */
+  GENLIB_SET_LOCAP("parallel_cap","cap1",6.2) ;
+  GENLIB_SET_LOCAP("parallel_cap","cap2",6.3) ;
+
+  /\(** Save all that on disk \(**/
+  GENLIB_SAVE_LOFIG() ;
+
+  return 0 ;
+}
+.ft R
+.fi
+.SH SEE ALSO
+.BR mbk (1),
+.BR GENLIB_DEF_LOFIG (3),
+.BR GENLIB_LOCAP(3)
+
+
+.so man1/alc_bug_report.1
+

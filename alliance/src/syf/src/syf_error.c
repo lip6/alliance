@@ -41,8 +41,8 @@
 |                                                             |
 \------------------------------------------------------------*/
 
-# include "mut.h"
-# include "aut.h"
+# include MUT_H
+# include AUT_H
 
 # include <stdio.h>
 # include <string.h>

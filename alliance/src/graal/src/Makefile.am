@@ -1,7 +1,7 @@
 ## Process this file with automake to produce Makefile.in
 
 bin_PROGRAMS = graal
-CFLAGS = @ALLIANCE_CFLAGS@ @X_CFLAGS@ -DGRAAL_VERSION=\"@GRAAL_VERSION@\" \
+CFLAGS = @CFLAGS@ @X_CFLAGS@ -DGRAAL_VERSION=\"@GRAAL_VERSION@\" \
          -DGRAAL_TOOL_NAME=\"graal\" \
          -DALLIANCE_TOP=\"${ALLIANCE_TOP}\" \
          -DGRAAL_DEFAULT_TECHNO_NAME=\"etc/cmos_12.graal\" \
@@ -12,11 +12,11 @@ CFLAGS = @ALLIANCE_CFLAGS@ @X_CFLAGS@ -DGRAAL_VERSION=\"@GRAAL_VERSION@\" \
          -DGRAAL_WINDOW_YMIN=\"GRAAL_WINDOW_YMIN\" \
          -DGRAAL_WINDOW_SIDE=\"GRAAL_WINDOW_SIDE\" 
 
-graal_LDADD = @ALLIANCE_LIBS@ @X_LIBS@ @LINK_MOTIF@ \
+graal_LDADD = @LIBS@ @X_LIBS@ @LINK_MOTIF@ \
 -lVrd -lRtl -lRgs -lRcf -lRfm -lRpr -lRwi -lRut -lRds -lMpu \
 -lMap -lMmg -lMcp -lMph -lMut -lm
 
-INCLUDES = @INCLUDE_MOTIF@
+INCLUDES = @INCLUDES@ @INCLUDE_MOTIF@
 
 graal_SOURCES = \
 GMC_create.c GMC_create.h GMC_dialog.c GMC_dialog.h GMC.h GMC_menu.c GMC_menu.h \

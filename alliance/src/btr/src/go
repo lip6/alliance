@@ -1,0 +1,10 @@
+for I in *[ch]
+do
+  sed -e 's/\<AUT_H\>/\"aut.h\"/g' \
+      -e 's/\<MUT_H\>/\"mut.h\"/g' \
+      -e 's/\<ABL_H\>/\"abl.h\"/g' \
+      -e 's/\<BTR_H\>/\"btr.h\"/g' \
+      -e 's/\<BDD_H\>/\"bdd.h\"/g' $I > 1
+  mv 1 $I 
+done
+

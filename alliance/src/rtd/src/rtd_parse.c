@@ -41,11 +41,11 @@
 |                                                             |
 \------------------------------------------------------------*/
 
-# include "mut.h"
-# include "aut.h"
-# include "vex.h"
-# include "rtn.h"
-# include "rtd.h"
+# include MUT_H
+# include AUT_H
+# include VEX_H
+# include RTN_H
+# include RTD_H
 
 # include <stdio.h>
 # include <stdlib.h>
