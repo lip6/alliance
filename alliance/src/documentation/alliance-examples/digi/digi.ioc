@@ -1,0 +1,16 @@
+
+TOP ( # IOs are ordered from left to right
+   (IOPIN ck.0 );
+   (IOPIN jour.0 );
+   (IOPIN reset.0 );
+   (IOPIN i(3).0 );
+   (IOPIN i(2).0 );
+   (IOPIN i(1).0 );
+   (IOPIN i(0).0 );
+)
+BOTTOM ( # IOs are ordered from left to right
+   (IOPIN porte.0 );
+   (IOPIN alarm.0 );
+)
+IGNORE ( # IOs are ignored(not placed) by IO Placer
+)
