@@ -36,13 +36,7 @@
 #include "lon_lib_matching.h"
 
 
-/*size of memory block*/
-#define BLOCK 256
-
-static authtable* HTABLE;
-
-
-
+static authtable* HTABLE = NULL;
 
 /******************************************************************************/
 /* return 0, if there is already a variable with pattern                      */
@@ -59,7 +53,7 @@ static int relation_between(chain_list* expr, char* pattern)
       else return 0;
    }
 
-   addauthelem(HTABLE, pattern,(int)expr);
+   addauthelem(HTABLE, pattern,(long)expr);
    return 1;
 }
 
@@ -131,13 +125,23 @@ extern int pattern_matching(chain_list* expr, chain_list* pattern)
       exit(1);
    }
 
-   HTABLE=createauthtable (BLOCK);
+   if ( HTABLE == (authtable *)0 )
+   {
+     HTABLE=createauthtable ( 13 );  
+   }
+   else
+   {
+     resetauthtable( HTABLE );
+   }
 
    ret=loc_pattern_matching(expr,pattern);
 
-   /*free table*/
-   destroyauthtable(HTABLE);
-   HTABLE=NULL;
+
+   if ( HTABLE->TABLE_SIZE > 50 )
+   {
+     destroyauthtable( HTABLE );
+     HTABLE = (authtable *)0;
+   }
 
    return ret;
 }
