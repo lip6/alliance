@@ -398,14 +398,14 @@ TABLE XSCH_ICON_CELL_ANDOR
   noa2a2a2a24_x1   i0,i1,i2,i3,i4,i5,i6,i7  nq  8  0 1
   noa2a2a2a24_x4   i0,i1,i2,i3,i4,i5,i6,i7  nq  8  0 1
 
-  oa22_x2          i0,i1,i2                  q  3  0 1
-  oa22_x4          i0,i1,i2                  q  3  0 1
-  oa2a22_x2        i0,i1,i2,i3               q  4  0 1
-  oa2a22_x4        i0,i1,i2,i3               q  4  0 1
-  oa2a2a23_x2      i0,i1,i2,i3,i4,i5         q  6  0 1
-  oa2a2a23_x4      i0,i1,i2,i3,i4,i5         q  6  0 1
-  oa2a2a2a24_x2    i0,i1,i2,i3,i4,i5,i6,i7   q  8  0 1
-  oa2a2a2a24_x4    i0,i1,i2,i3,i4,i5,i6,i7   q  8  0 1
+  oa22_x2          i0,i1,i2                  q  3  0 0
+  oa22_x4          i0,i1,i2                  q  3  0 0
+  oa2a22_x2        i0,i1,i2,i3               q  4  0 0
+  oa2a22_x4        i0,i1,i2,i3               q  4  0 0
+  oa2a2a23_x2      i0,i1,i2,i3,i4,i5         q  6  0 0
+  oa2a2a23_x4      i0,i1,i2,i3,i4,i5         q  6  0 0
+  oa2a2a2a24_x2    i0,i1,i2,i3,i4,i5,i6,i7   q  8  0 0
+  oa2a2a2a24_x4    i0,i1,i2,i3,i4,i5,i6,i7   q  8  0 0
 
 
 # SCLIB
