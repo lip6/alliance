@@ -294,6 +294,7 @@ echo "AC_SUBST(TOOLSDIRS)"                   >> configure.in
 echo ""                                      >> configure.in
 echo "AC_OUTPUT(["                           >> configure.in
 echo "Makefile"                              >> configure.in
+echo "distrib/alliance.spec"                 >> configure.in
 echo "distrib/etc/alc_env.sh"                >> configure.in
 echo "distrib/etc/alc_env.csh"               >> configure.in
 for template in $AC_OUTPUT; do
