@@ -2,6 +2,8 @@
 
 bin_PROGRAMS = syf
 
+CFLAGS = @CFLAGS@ -DSYF_VERSION=\"@SYF_VERSION@\"
+
 syf_LDADD = @LIBS@ \
           -lFtl -lFks -lFvh -lFsm \
 	  -lBdd -lAbl -lAut -lMut

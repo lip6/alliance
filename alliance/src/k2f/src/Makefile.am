@@ -2,6 +2,8 @@
 
 bin_PROGRAMS = k2f
 
+CFLAGS = @CFLAGS@ -DK2F_VERSION=\"@K2F_VERSION@\"
+
 k2f_LDADD = @LIBS@ \
           -lFtl -lFks -lFvh -lFsm \
 	  -lBdd -lAbl -lAut -lMut

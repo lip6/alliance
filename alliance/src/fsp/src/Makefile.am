@@ -2,6 +2,8 @@
 
 bin_PROGRAMS = fsp
 
+CFLAGS = @CFLAGS@ -DFSP_VERSION=\"@FSP_VERSION@\"
+
 fsp_LDADD = @LIBS@ \
           -lFtl -lFks -lFvh -lFsm \
 	  -lBdd -lAbl -lAut -lMut
