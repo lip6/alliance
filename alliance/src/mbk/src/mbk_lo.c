@@ -30,7 +30,7 @@
  * Modified by pnt <Pierre.Nguyen-Tuong@lip6.fr> 2002
  */
 
-#ident "$Id: mbk_lo.c,v 1.2 2002/08/08 19:47:37 pnt Exp $"
+#ident "$Id: mbk_lo.c,v 1.3 2002/08/13 16:51:36 pnt Exp $"
 
 #include <stdio.h>
 #include <unistd.h>
@@ -1286,13 +1286,13 @@ num_list    *scannum;
                                         case 'T':
                                                 printf( "(T%c : %s) ",((lotrs_list*)((locon_list*)ptchain->DATA)->ROOT)->TYPE==TRANSN?'N':'P',((lotrs_list*)((locon_list*)ptchain->DATA)->ROOT)->TRNAME ? ((lotrs_list*)((locon_list*)ptchain->DATA)->ROOT)->TRNAME : "No name" );
                                                 break;
-                                        case 'C':
+                                        case 'P':
                                                 printf( "(C%s : %s) ",((locap_list*)((locon_list*)ptchain->DATA)->ROOT)->TYPE==CAPMIM?"CAPMIM":"CAPPNWELL",((locap_list*)((locon_list*)ptchain->DATA)->ROOT)-> NAME ? ((locap_list*)((locon_list*)ptchain->DATA)->ROOT)->NAME : "No name" );
                                                 break;
                                         case 'R':
                                                 printf( "(C%s : %s) ",((lores_list*)((locon_list*)ptchain->DATA)->ROOT)->TYPE==RESMIM?"RESMIM":"RESMIM",((lores_list*)((locon_list*)ptchain->DATA)->ROOT)-> NAME ? ((lores_list*)((locon_list*)ptchain->DATA)->ROOT)->NAME : "No name" );
                                                 break;
-                                        case 'S':
+                                        case 'L':
                                                 printf( "(C%s : %s) ",((loself_list*)((locon_list*)ptchain->DATA)->ROOT)->TYPE==SELFMIM?"SELFMIM":"SELFMIM",((loself_list*)((locon_list*)ptchain->DATA)->ROOT)-> NAME ? ((loself_list*)((locon_list*)ptchain->DATA)->ROOT)->NAME : "No name" );
                                                 break;
                                         case 'I':

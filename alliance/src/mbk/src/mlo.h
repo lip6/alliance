@@ -27,7 +27,7 @@
  * Author  : Frederic Petrot <Frederic.Petrot@lip6.fr>
  * Modified by Czo <Olivier.Sirol@lip6.fr> 1997,98
  * Modified by pnt <Pierre.Nguyen-Tuong@lip6.fr> 2002
- * $Id: mlo.h,v 1.4 2002/08/08 19:47:37 pnt Exp $
+ * $Id: mlo.h,v 1.5 2002/08/13 16:51:36 pnt Exp $
  */
 
 #ifndef _MLO_H_
@@ -74,9 +74,9 @@ extern "C" {
 #define UNKNOWN     'X'
 #define TRISTATE    'Z'
 #define TRANSCV     'T'
-#define TRANSCV2    'C'
+#define TRANSCV2    'P'
 #define TRANSCV3    'R'
-#define TRANSCV4    'S'
+#define TRANSCV4    'L'
 
 /*******************************************************************************
 * netlist structures types                                                     *
