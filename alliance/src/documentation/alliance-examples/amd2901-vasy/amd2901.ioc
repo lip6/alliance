@@ -1,0 +1,59 @@
+#      Copyright (c) 1997 by Cadence. All rights reserved.      
+###################################################################
+# In each of TOP()/BOTTOM()/LEFT()/RIGHT() section, there are     #
+# placed IOs. In the IGNORE() section, the IOs are ignored        #
+# by the IOPlacer. In every section, the IO syntax could be:      #
+#        for pin:       (IOPIN iopinName.0 );                       #
+#        for pad:       iopadName orientation ;                   #
+#        for space:     SPACE  value;                             #
+# The capital words are keywords. orientation is not required.    #
+# The value is the space between the IO above and the IO below it.#
+###################################################################
+
+TOP ( # IOs are ordered from left to right
+   (IOPIN ck.0 );
+   (IOPIN i(8).0 );
+   (IOPIN i(7).0 );
+   (IOPIN i(6).0 );
+   (IOPIN i(5).0 );
+   (IOPIN i(4).0 );
+   (IOPIN i(3).0 );
+   (IOPIN i(2).0 );
+   (IOPIN i(1).0 );
+   (IOPIN i(0).0 );
+   (IOPIN r0_in.0 );
+   (IOPIN r0_out.0 );
+   (IOPIN r3_in.0 );
+   (IOPIN r3_out.0 );
+   (IOPIN d(3).0 );
+   (IOPIN d(2).0 );
+   (IOPIN d(1).0 );
+   (IOPIN d(0).0 );
+   (IOPIN cin.0 );
+)
+BOTTOM ( # IOs are ordered from left to right
+   (IOPIN ovr.0 );
+   (IOPIN zero.0 );
+   (IOPIN signe.0 );
+   (IOPIN np.0 );
+   (IOPIN ng.0 );
+   (IOPIN cout.0 );
+   (IOPIN y(3).0 );
+   (IOPIN y(2).0 );
+   (IOPIN y(1).0 );
+   (IOPIN y(0).0 );
+   (IOPIN q0_in.0 );
+   (IOPIN q0_out.0 );
+   (IOPIN q3_in.0 );
+   (IOPIN q3_out.0 );
+   (IOPIN a(3).0 );
+   (IOPIN a(2).0 );
+   (IOPIN a(1).0 );
+   (IOPIN a(0).0 );
+   (IOPIN b(3).0 );
+   (IOPIN b(2).0 );
+   (IOPIN b(1).0 );
+   (IOPIN b(0).0 );
+)
+IGNORE ( # IOs are ignored(not placed) by IO Placer
+)
