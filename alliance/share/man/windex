@@ -440,9 +440,10 @@ figmbkrds (2)        - converts MBK figure to RDS figure
 figmbkrds (3)        - converts MBK figure to RDS figure
 filepath (3)         - return the whole search path of a file
 flatArityExpr (3)    - flattens the operators of an expression
-flatPolarityExpr (3) - translates the inverters of an expression to the level of atomic expressions
 flatablexpr (3)      - merges the operators of an expression
+flatbeh (1)          - Synthetizes a behavioral description from a structural description
 flatenphfig (3)      - flatten a instance in a figure
+flatPolarityExpr (3) - translates the inverters of an expression to the level of atomic expressions
 flattenlofig (3)     - flatten a instance in a logical figure
 fpgen (1)            - Procedural language for Data-Path synthesis based upon C.
 fpmap (1)            - fpga mapper of a logic level behavioural description (VHDL data flow)
@@ -577,6 +578,7 @@ lofigchain (3)       - creates a netlist in terms of connectors on signals
 log (1)              - logical representations for boolean functions and utilities.
 log (3)              - logical representations for boolean functions and utilities.
 loins (3)            - mbk logical instance
+loon (1)             - Light optimizing on Nets
 losig (3)            - mbk logical signal
 lotrs (3)            - mbk logical transistor
 lvx (1)              - Logical Versus eXtracted net-list comparator
@@ -707,6 +709,7 @@ paini (3)            - PAT data structure
 paiol (3)            - PAT data structure
 papat (3)            - PAT data structure
 paseq (3)            - PAT data structure
+pat (5)              - Pattern description format
 pat2dwl, pattern translator from ALLIANCE CAD SYSTEM to HILO CAD SYSTEM
 pat_addpacom, pat_frepacom
 pat_addpaevt, pat_frepaevt
@@ -792,6 +795,7 @@ savelofig (3)        - save a logical figure on disk
 savephfig (3)        - save a physical figure on disk
 saverdsfig (2)       - save a physical figure on disk.
 saverdsfig (3)       - save a physical figure on disk.
+scapin (1)           - Scan Path insertion
 sclib (5)            - a portable CMOS Standard Cell Library
 scmap (1)            - mapping of a behavioural description onto a standard cell library.
 scr (1)              - Standard Cell Router
@@ -837,6 +841,7 @@ supportChain_listExpr (3) - returns the support of an expression in a chain_list
 supportPtype_listExpr (3) - returns the support of an expression in a ptype_list.
 swapbddvar (3)       - swaps two contiguous variables.
 sxlib (5)            - a portable CMOS Standard Cell Library
+syf (1)              - Finite State Machine synthesizer
 tas (1)              - A switch level static timing analyzer for CMOS circuits
 testbddcircuit (3)   - debugs a bdd circuit.
 tie_y
@@ -907,14 +912,14 @@ viewrfmseg (2)       - displays segment caracteristics in MBK and RDS format.
 viewrfmseg (3)       - displays segment caracteristics in MBK and RDS format.
 viewrfmvia (2)       - displays contact caracteristics in MBK and RDS format.
 viewrfmvia (3)       - displays contact caracteristics in MBK and RDS format.
-vst VHDL structural subset.
+vst (5)              - VHDL structural subset.
 xmbk (1)             - A simple way to set alliance environnement variables
 xpat (1)             - A graphical pattern viewer
-xr2_dp
-xr2_y
+xr2_dp (5)
+xr2_y (5)
 xsch (1)             - A graphical schematic viewer
 xyflat (3)           - compute hierarchical coordinates
 yagle (1)            - Disassembly and functional abstraction of CMOS circuits
-zbli_y
-zero_dp
-zero_y
+zbli_y (5)
+zero_dp (5)
+zero_y (5)
