@@ -7,7 +7,7 @@
 #  Alliance CAD system environnement
 #  Usage (in C-shell) : > source alc_env.csh
 #  (C) 1997 Czo  -- <Olivier.Sirol@lip6.fr>
-#  $Id: alc_env.csh.in,v 1.3 2002/07/16 10:11:21 jpc Exp $
+#  $Id: alc_env.csh.in,v 1.4 2002/10/16 18:14:03 jpc Exp $
 #  Generated from alc_env.csh.in on @DATE@
 
 # $ALLIANCE_OS and $ALLIANCE_TOP are the only variables you will
@@ -71,6 +71,13 @@
    setenv PATH $ALLIANCE_TOP/bin:$PATH
  else
    setenv PATH $ALLIANCE_TOP/bin
+ endif
+
+# Only needed on Solaris (included in /etc/ld.so.conf under Linux).
+ if ( $?LD_LIBRARY_PATH ) then
+   setenv LD_LIBRARY_PATH $ALLIANCE_TOP/lib:$LD_LIBRARY_PATH
+ else
+   setenv LD_LIBRARY_PATH $ALLIANCE_TOP/lib
  endif
 
  if ( $?MANPATH ) then
