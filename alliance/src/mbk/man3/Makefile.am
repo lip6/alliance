@@ -81,6 +81,7 @@ man_MANS  = addcapa.3 \
             instr.3 \
             isvdd.3 \
             isvss.3 \
+	    isck.3 \
             loadlofig.3 \
             loadphfig.3 \
             locon.3 \
