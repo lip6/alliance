@@ -1,3 +1,10 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%
+% Author : Frederic Petrot
+% Modified by : Olivier Sirol
+% $Id: overview.tex,v 1.2 2000/03/16 09:51:43 czo Exp $
+%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \documentclass{article}
 \usepackage{t1enc,isolatin1}
 \usepackage{palatino,psfig,here}
@@ -29,7 +36,9 @@ Laboratoire d'Informatique de Paris 6\\
 Université Pierre et Marie Curie\\
 4, Place Jussieu 75252 Paris Cedex 05,\\
 France\\
-\texttt{alliance-support@asim.lip6.fr}
+\texttt{http://www-asim.lip6.fr/alliance/}
+\texttt{ftp://ftp-asim.lip6.fr/pub/alliance/}
+\texttt{mailto:alliance-support@asim.lip6.fr}
 \end{center}
 
 %%%%%%%%%%%%%%%%%%%%%%%%
@@ -50,10 +59,15 @@ After introducing briefly the design methodology, we outline the
 functionnality of the tools.
 Experiemental results conclude the presentation.
 
-\textbf{Alliance} runs on any \textbf{Unix} system.
-It is freely available on \texttt{ftp}, and includes binaries, leaf
+\textbf{Alliance} runs on any \textbf{Unix} system and has been recently
+ported to \textbf{Windows} NT.
+It is freely available on \texttt{ftp}, 
+and includes binaries, leaf
 cells libraries, on-line documentation, and tutorials.
 \rm\end{quote}
+
+
+
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %
@@ -61,12 +75,12 @@ cells libraries, on-line documentation, and tutorials.
 \section{Introduction}
 
 The \textbf{Alliance} package is the result of a ten years effort 
-spent at the former \textbf{MASI} Laboratory of the Pierre et Marie 
-Curie University (UPMC), in Paris.
+spent at the \textbf{LIP6} Laboratory (formerly \textbf{MASI}) 
+of the Pierre et Marie Curie University (UPMC), in Paris.
 During these years, our major goal was to provide our undergraduate 
 and graduate students with a complete CAD framework, designed to 
 assist them in digital \textbf{VLSI} \textbf{CMOS} course.
-The \textit{Architecture} team at \textbf{MASI} focuses its activity on 
+The \textit{Architecture} team at \textbf{LIP6} focuses its activity on 
 two key issues: computer architectures using high complexity ASICs, 
 and innovative CAD tools for \textbf{VLSI} design.
 Strong interaction exists between the people working on computer 
@@ -81,9 +95,15 @@ that are not available within commercial CAD systems, such as
 functional abstraction or static timing 
 analysis, and standard design/validation tools.
 
-\textbf{Alliance} source code is available under the GNU Public License GPL.
-For any questions please mail to : 
+\textbf{Alliance} VLSI CAD System is free software. Binaries, source code and 
+cells libraries are freely available under the GNU General Public Licence (\textbf{GPL}).
+You are welcome to use the software package even for commercial designs whithout 
+any fee. You are just required to mention : "Designed with Alliance © LIP6/Université 
+Pierre et Marie Curie". For any questions please mail to : 
 \texttt{alliance-support@lip6.fr}.
+
+
+
 %%%%%%%%%%%%%%%%%%%%%
 %
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -353,7 +373,7 @@ together around the basic behavioral, structural and physical
 data structures.
 
 \begin{figure}\center
-\leavevmode\psfig{file=tools.eps,width=.5\textwidth}
+\leavevmode\psfig{file=tools.eps,width=8cm}
 \caption{\label{tools}How the tools are linked on the data structures.}
 \end{figure}
 
@@ -391,6 +411,53 @@ these technologies.
       This allows to perform functional tests when the circuits comes
       back from the foundry.
 
+\item \texttt{glop} is a gate level netlist optimizer.
+      If the output of the logic synthesis takes into account the
+      internal delays of the cells during the mapping phase, it 
+      doesn't take into account the fan-out problems.
+      \texttt{Netoptim} work is to ensure that the drive capabilities of
+      all cells are correct, and to try to minimize the delays on the
+      critical pathes in inserting buffers where appropriate.
+
+\item \texttt{genlib} is a procedural language for netlist capture and 
+      placement description (there is no schematic editor in the
+      \textbf{Alliance} system).
+      \texttt{Genlib} provides a consistent set of \textbf{C} 
+      primitives, giving the designers the ability to describe 
+      \textbf{VLSI} circuit netlists in terms of terminals, signals 
+      and instances, or circuit topologies in terms of placement of 
+      abutment boxes.  
+      \texttt{Genlib} is mainly used to build parameterized netlist and
+      layout generators.
+
+\item \texttt{genview} is a debugging tool for the development of the
+      layout view of parameterized generators.
+      It is a graphical environment that integrates a \texttt{genlib}
+      interpreter, a step by step debugger, and a window in the which 
+      the circuit under construction is visualized.
+      All the parameterized generators of \textbf{Alliance} have been
+      developed using this tool.
+      Part of the \textit{ROM} generator \texttt{grog} under construction
+      is shown figure~\ref{genview}.
+      
+      \begin{figure}\center
+%      ,angle=-90}
+         \leavevmode\psfig{file=genview.eps,width=5cm}         
+         \caption{\label{genview}A typical run of \texttt{genview}.}
+      \end{figure}
+
+      \texttt{Genview} uses the GNU \texttt{gcc} compiler parameterized for
+      a virtual architecture as basis to its \texttt{genlib} interpreter.
+
+\item \texttt{fpgen} is a language that has moreorless the same
+      functionalities as \texttt{genlib}, but it is dedicated to datapath
+      description.
+      Its primary difference with \texttt{genlib} is that it allows to
+      manipulate vectors of cells, like 32 two inputs \texttt{nand} gates
+      or a 32 bits adder.
+      It contains many primitives that greatly simplify the
+      description of operative parts, in an optimized manner.
+
 \item \texttt{bop} is a logic optimizer and logic synthesis tool.
       The input file is a behavioral description of the circuit using 
       the same \textbf{VHDL} subset as the logic simulator.
@@ -420,50 +487,6 @@ these technologies.
       The output of \texttt{syf} is to be synthesized into a netlsit of
       gates using \texttt{scmap}.
 
-\item \texttt{glop} is a gate level netlist optimizer.
-      If the output of the logic synthesis takes into account the
-      internal delays of the cells during the mapping phase, it 
-      doesn't take into account the fan-out problems.
-      \texttt{Netoptim} work is to ensure that the drive capabilities of
-      all cells are correct, and to try to minimize the delays on the
-      critical pathes in inserting buffers where appropriate.
-
-\item \texttt{genlib} is a procedural language for netlist capture and 
-      placement description (there is no schematic editor in the
-      \textbf{Alliance} system).
-      \texttt{Genlib} provides a consistent set of \textbf{C} 
-      primitives, giving the designers the ability to describe 
-      \textbf{VLSI} circuit netlists in terms of terminals, signals 
-      and instances, or circuit topologies in terms of placement of 
-      abutment boxes.  
-      \texttt{Genlib} is mainly used to build parameterized netlist and
-      layout generators.
-
-\item \texttt{genview} is a debugging tool for the development of the
-      layout view of parameterized generators.
-      It is a graphical environment that integrates a \texttt{genlib}
-      interpreter, a step by step debugger, and a window in the which 
-      the circuit under construction is visualized.
-      All the parameterized generators of \textbf{Alliance} have been
-      developed using this tool.
-      Part of the \textit{ROM} generator \texttt{grog} under construction
-      is shown figure~\ref{genview}.
-%      \begin{figure}\center
-%         \leavevmode\psfig{file=/users/cao4/fred/tex/spi/genview.ps,width=12cm,angle=-90}
-%         \caption{\label{genview}A typical run of \texttt{genview}.}
-%      \end{figure}
-      \texttt{Genview} uses the GNU \texttt{gcc} compiler parameterized for
-      a virtual architecture as basis to its \texttt{genlib} interpreter.
-
-\item \texttt{fpgen} is a language that has moreorless the same
-      functionalities as \texttt{genlib}, but it is dedicated to datapath
-      description.
-      Its primary difference with \texttt{genlib} is that it allows to
-      manipulate vectors of cells, like 32 two inputs \texttt{nand} gates
-      or a 32 bits adder.
-      It contains many primitives that greatly simplify the
-      description of operative parts, in an optimized manner.
-
 \item \texttt{scr} is a place and route tool for standard-cells.
       The placement system is based on simulated annealing.
       The channel router is an adaptation of the greedy router of
@@ -475,20 +498,16 @@ these technologies.
       instanciated) or flattened (channels are inserted) chip core 
       layout without external pads.  
       A specialized router is used for core to pad routing.
-%      \begin{figure}\center
-%         \leavevmode\psfig{file=/users/cao4/fred/tex/spi/scr.ps,width=12cm}
-%         \caption{\label{scr} A very small standard cell circuit.}
-%      \end{figure}
-
+      
 \item \texttt{Dpr} is a place and route tool for bit slice oriented 
       datapath.
       It privilegies the direct connexions between cells, and allows
       to used optimized blocks, like a fast multiplier or a register
       file, within the datapath.
-%   \begin{figure}\center
-%   \leavevmode\psfig{file=/users/cao4/fred/tex/spi/dpt.ps,width=12cm,angle=-90}
-%   \caption{\label{dpr} Part of a datapath.}
-%   \end{figure}
+      \begin{figure}\center
+      \leavevmode\psfig{file=datapath.eps,width=5cm}
+      \caption{\label{dpr} Part of a datapath.}
+      \end{figure}
       Most parameterized generators available in \textbf{Alliance} follow
       the bit-slice structure of this datapath compiler.
       This tool allows to mix some glue logic directly within a
@@ -556,11 +575,15 @@ these technologies.
       library or transistor patterns.  
       Furthermore, the use of a purely algorithmic approach compared
       to a pattern matching one implies a huge gain in performance.
+      Yagle is not anymore part of Alliance, but is freely available 
+      at \texttt{http://www.avertec.com}.
 
 \item \texttt{tas} is a static timing analyzer.
       It takes as input a transistor netlist and produces a file
       containing all the combinatorial paths of the circuit,
-      the critical path being outlined.
+      the critical path being outlined. 
+      Tas is not anymore part of Alliance, but is freely available 
+      at \texttt{http://www.avertec.com}.
 
 \item \texttt{proof} performs a formal comparison between two data
       flow \textbf{VHDL} descriptions that share the same register set.
@@ -574,10 +597,11 @@ these technologies.
       It provides an on-line \textbf{DRC} and automatic display of 
       equipotential nets.
       Editing a cell under \texttt{graal} is shown figure~\ref{graal}.
-%      \begin{figure}\center
-%         \leavevmode\psfig{file=/users/cao4/fred/tex/spi/graal.ps,width=12cm}
-%         \caption{\label{graal}Editing some custom layout using \texttt{graal}.}
-%      \end{figure}
+      
+       \begin{figure}\center
+          \leavevmode\psfig{file=graal.eps,width=5cm}
+          \caption{\label{graal}Editing some custom layout using \texttt{graal}.}
+       \end{figure}
 
 \item \texttt{L2p} creates a Postscript file from a layout, symbolic or
       real.
@@ -968,10 +992,10 @@ Project         & transistors & Functionality\\
 \caption{\label{chip}Various chips designed with \textbf{Alliance}.}
 \end{figure}
 
-%\begin{figure}\center
-%\psfig{file=/users/cao4/fred/tex/spi/stacs.ps}
-%\caption{\label{stacs} The 875 000 VLIW StaCS processor.}
-%\end{figure}
+\begin{figure}\center
+\leavevmode\psfig{file=stacs.eps,width=5cm}
+\caption{\label{stacs} The 875 000 VLIW StaCS processor.}
+\end{figure}
 
 The three largest circuits described in table~\ref{chip} use not only 
 standard-cells but also parameterized generators for regular blocks 
@@ -993,7 +1017,7 @@ First, we simply can't afford 50 high end workstations to run
 commercial CAD systems like \textbf{Compass}, \textbf{Mentor Graphics} or 
 \textbf{Cadence}.
 Second, both the \textbf{Compass} and \textbf{Cadence} system have been 
-used in research project at \textbf{MASI}.
+used in research project at \textbf{LIP6}.
 They are powerful and sophisticated environments but are much too 
 complex for novice undergraduate students.
 The great advantage of the \textbf{Alliance} CAD system is that we 
@@ -1008,12 +1032,14 @@ layout level.
 
 The \textbf{Alliance} package is now in use all over the world, and more
 than 250 sites have registered today.
-It is available through anonymous \texttt{ftp} at \texttt{ftp.lip6.fr}, under
-the \texttt{/lip6/softs/alliance} directory.
+It is available through anonymous \texttt{ftp} at  
+ftp://ftp-asim.lip6.fr/pub/alliance/distribution/, 
+or through a \texttt{Web} browser at 
+http://www-asim.lip6.fr/pub/alliance/distribution/.
 
 There is an \textbf{Alliance} mailing list, where users can share their
 views and problems, and our team is always ready to answer questions.
-The address of this mailing list is \texttt{alliance@asim.lip6.fr}.
+The address of this mailing list is alliance-users@asim.lip6.fr.
 The support of \textbf{Alliance} can be joined at
 \texttt{alliance-support@asim.lip6.fr}.
 
