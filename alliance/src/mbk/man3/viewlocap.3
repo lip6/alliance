@@ -1,0 +1,74 @@
+.\"   $Id: viewlocap.3,v 1.1 2002/08/14 22:16:17 pnt Exp $
+.\" @(#)viewlocap.2 2.11 2002/08/14 ; Labo LIP6/ASIM; Author : Pierre Nguyen Tuong
+
+.if t \{\
+.so man1/alc_contents.mac
+.XS \n%
+.ti 0.2i
+viewlocap
+.XE
+.XS2 \n%
+.ti 0.2i
+viewlocap
+.XE2 \}
+
+.TH VIEWLOCAP 3 "August 14, 2002" "ASIM/LIP6" "MBK LOGICAL FUNCTIONS"
+.SH NAME
+viewlocap \- display elements of a \fBlocap_list\fP
+.so man1/alc_origin.1
+.SH SYNOPSYS
+.nf
+.if n \{\
+.ft B \}
+.if t \{\
+.ft CR \}
+#include "mlo.h"
+
+void viewlocap(ptcap)
+locap_list \(**ptcap ;
+.ft R
+.fi
+.SH PARAMETER
+.TP 20
+\fIptcap\fP
+Pointer to the \fBlocap\fP to be scaned
+.SH DESCRIPTION
+\fBviewlocap\fP scans all the primary elements of the \fBlocap_list\fP 
+loaded in ram, and displays a textual output of the data strcuture contents.
+.br
+Its use is mostly for debugging purposes, and educational ones, since the
+output is quite verbose, even if very easy to understand.
+.SH EXAMPLE
+.ta 3n 6n 9n 12n 15n 18n 21n
+.nf
+.if n \{\
+.ft B \}
+.if t \{\
+.ft CR \}
+#include <stdio.h>
+#include "mlo.h"
+
+void view_cap(lofig_list \(**ptfig)
+{
+  locap_list \(**cap = NULL ;
+
+  for(cap = ptfig \-> LOCAP ; cap != NULL ; cap = cap \-> NEXT)
+	{
+	  viewlocap(cap) ;
+	}
+}
+.ft R
+.fi
+.SH SEE ALSO
+.BR mbk (1),
+.BR locap (3),
+.BR viewlo (3),
+.BR viewlofig (3),
+.BR viewlocap (3),
+.BR viewlosig (3),
+.BR viewloinscon (3),
+.BR viewlofigcon (3).
+
+
+.so man1/alc_bug_report.1
+

@@ -1,0 +1,69 @@
+.\"   $Id: delloself.3,v 1.1 2002/08/14 21:47:48 pnt Exp $
+.\" @(#)delloself.2 2.11 91/08/22 ; Labo LIP6/ASIM cao-vlsi; Author : Pierre Nguyen Tuong
+.if t \{\
+.so man1/alc_contents.mac
+.XS \n%
+.ti 0.2i
+delloself
+.XE
+.XS2 \n%
+.ti 0.2i
+delloself
+.XE2 \}
+.TH DELLOSELF 3 "August 14, 2002" "ASIM/LIP6" "MBK LOGICAL FUNCTIONS"
+.SH NAME
+delloself \- delete a logical inductor
+.so man1/alc_origin.1
+.SH SYNOPSYS
+.nf
+.if n \{\
+.ft B \}
+.if t \{\
+.ft CR \}
+#include "mlo.h"
+
+int delloself(ptfig,ptself)
+lofig_list \(**ptfig ;
+loself_list \(**ptself ;
+.ft R
+.fi
+.SH PARAMETERS
+.TP 20
+\fIptfig\fP
+Pointer to the figure in which the inductor should be deleted
+.TP
+\fIptself\fP
+Pointer to the inductor to be deleted.
+.SH DESCRIPTION
+\fBdelloself\fP delete the inductor pointed to by \fIptself\fP in the figure 
+pointed to by \fIptfig\fP. 
+The list consistency is maintainded, and the space freed. The inductor
+connectors are also freed, since if the inductor disapear,
+no more connections can occur on it.
+.SH RETURN VALUE
+\fBdelloself\fP returns \fB1\fP if the inductor has been deleted, \fB0\fP
+if the inductor pointer does not exists in the list.
+.SH EXAMPLE
+.ta 3n 6n 9n 12n 15n 18n 21n
+.nf
+.if n \{\
+.ft B \}
+.if t \{\
+.ft CR \}
+#include "mlo.h"
+
+char \(**was_existing(lofig_list \(**ptfig,loself_list \(**ptself)
+{
+  return delloself(ptfig,ptself) ? "you just killed it!" : "wasn't here anyway" ; 
+}
+.ft R
+.fi
+.SH SEE ALSO
+.BR mbk (1),
+.BR lofig (3),
+.BR loself (3),
+.BR addloself (3).
+
+
+.so man1/alc_bug_report.1
+

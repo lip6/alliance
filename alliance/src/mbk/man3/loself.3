@@ -1,0 +1,86 @@
+.\"   $Id: loself.3,v 1.1 2002/08/14 20:41:56 pnt Exp $
+.\" @(#)loself.l 0.0 90/22/08 UPMC; Author: Pierre Nguyen Tuong
+.if t \{\
+.so man1/alc_contents.mac
+.XS \n%
+.ti 0.2i
+loself
+.XE
+.XS2 \n%
+.ti 0.2i
+loself
+.XE2 \}
+.TH LOSELF 3 "August 14, 2002" "ASIM/LIP6" "MBK LOGICAL STRUCTURE DEFINITIONS"
+.SH NAME
+loself \- mbk logical inductor
+.SH DESCRIPTION
+The \fBloself\fP is used to describe a logical inductor. The created inductor
+is a functional logical inductor, not a parasitic inductor.
+For the time being, only MIM (i.e. metal) inductor type is supported.
+.LP
+The declarations needed to work on \fBloself\fP are available in the header file
+\fI"/labo/include/mlo.h"\fP.
+.LP
+The following C structure supports the description of the logical inductor :
+
+.RS
+.nf
+.if n \{\
+.ft B \}
+.if t \{\
+.ft CR \}
+.ta 3n 20n 30n
+typedef struct loself
+	{
+	  struct loself	\(**NEXT  ;
+	  struct locon	\(**SCON1 ;
+	  struct locon	\(**SCON2 ; 
+	  char	\(**NAME  ;
+	  double	SELF   ;
+	  char	TYPE   ;
+	  struct ptype	\(**USER  ;
+	} loself_list	       ;
+.ft R
+.fi
+.RE
+.TP 20
+\fINEXT\fP
+Pointer to the next \fBloself\fP of the list.
+.TP
+\fISCON1\fP
+Pointer to the scon1 connector of the inductor. This connector is,
+of course unique. See \fBlocon\fP(3) for details.
+.TP
+\fISCON2\fP
+Pointer to the scon2 connector of the inductor. This connector is,
+of course unique. See \fBlocon\fP(3) for details.
+.TP
+\fINAME\fP
+Inductor instance name
+.TP
+\fISELF\fP
+Inductance value
+.TP
+\fITYPE\fP
+Layer type of the inductor. One legal values is available :
+.RS
+.TP 20
+\fBSELFMIM\fP
+Metal inductor.
+.RE
+.TP
+\fIUSER\fP
+Pointer to a ptype list, see \fBptype\fP(3) for details, 
+that is a general purpose
+pointer used to share informations on the inductor.
+.SH SEE ALSO
+.BR mbk (1),
+.BR addloself (3),
+.BR delloself (3),
+.BR locon (3),
+.BR lofig (3),
+.BR ptype (3).
+
+
+.so man1/alc_bug_report.1
+

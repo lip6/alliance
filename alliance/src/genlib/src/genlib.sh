@@ -1,6 +1,6 @@
 #!/bin/sh
 #
-# $Id: genlib.sh,v 1.5 2002/06/06 15:46:49 fred Exp $
+# $Id: genlib.sh,v 1.4 2002/05/28 16:22:13 jpc Exp $
 #                                                                        
 # /------------------------------------------------------------------\
 # |                                                                  |
@@ -310,8 +310,6 @@ EOF
    if [ $KEEP_MAKEFILE != "y" ]; then rm -f $MAKEFILE; fi
 
    echo "genlib:error: Compilation failed."
-   echo "error messages:"
-   cat $CSOURCE.grr
    exit $exit_code
 
  else

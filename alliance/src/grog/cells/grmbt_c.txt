@@ -1,2 +1,0 @@
-cell : grmbt_c
-512 words rom output buffer through route.

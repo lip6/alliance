@@ -1,19 +1,16 @@
 #!/bin/sh
 #
-# Filename: mkdistrib
+# Filename: build
 # Copyright (C) 1999, 2000 Czo <Olivier.Sirol@lip6.fr>
 # License: GPL (http://www.gnu.org/copyleft/gpl.html)
 # Started: April 2000
-# Last Change: Thursday 06 June 2002, 14:45
-# Edit Time: 127:43:45
+# Last Change: Thursday 30 May 2002, 16:55
+# Edit Time: 97:50:46
 # Description:
 #
-# $Id: mkdistrib,v 1.3 2002/06/06 12:46:26 czo Exp $
+# $Id: mkdistrib,v 1.1 2002/05/30 14:57:50 czo Exp $
 #
 
-###################################################################
-
-DISTRIBDIR=/users/soft5/newlabo/distrib
 
 WKSLIST="bip beny"
 FTPDISTRIBDIR=/users/largo2/ftp/pub/alliance/unstable/distribution
@@ -25,7 +22,7 @@ ALC_VER="5.0"
 ALC_DIR="alliance-$ALC_VER"
 ALC_PACK="$ALC_DIR-$DATE"
 
-ALC_TMPDIR=tmp-$$
+TMPDIR=tmp-$$
 TMPBUILD=tmpbuild-$$
 TMPINSTALL=tmpinstall-$$
 TMPALLIANCE=alliance-tmp-$$
@@ -36,87 +33,33 @@ TMPBUILDDIR=tmpbuilddir-$$
 CVSROOT=/users/outil/alliance/cvsroot
 export CVSROOT
 
-
-###################################################################
-
-fail() {
-echo -e "\
-                                                             \n\
-                                                             \n\
-                   @@@@@@@@@        @      @@@@@@ @@@@@@     \n\
-                     @@    @        @        @@     @@       \n\
-                     @@     @      @@@       @@     @@       \n\
-                     @@            @@@       @@     @@       \n\
-                     @@   @       @  @@      @@     @@       \n\
-                     @@@@@@       @  @@      @@     @@       \n\
-                     @@   @      @    @@     @@     @@       \n\
-                     @@          @@@@@@@     @@     @@       \n\
-                     @@         @      @@    @@     @@      @\n\
-                     @@         @      @@    @@     @@     @ \n\
-                   @@@@@@     @@@@    @@@@ @@@@@@ @@@@@@@@@@ "
-echo ""
-}
-
-pass() {
-echo -e "\
-                                                              \n\
-                                                              \n\
-                   @@@@@@@          @        @@@@ @    @@@@ @ \n\
-                     @@   @@        @       @    @@   @    @@ \n\
-                     @@    @@      @@@     @@     @  @@     @ \n\
-                     @@    @@      @@@     @@@       @@@      \n\
-                     @@   @@      @  @@     @@@@      @@@@    \n\
-                     @@@@@        @  @@       @@@@      @@@@  \n\
-                     @@          @    @@        @@@       @@@ \n\
-                     @@          @@@@@@@   @      @@ @      @@\n\
-                     @@         @      @@  @@     @@ @@     @@\n\
-                     @@         @      @@  @@@    @  @@@    @ \n\
-                   @@@@@@     @@@@    @@@@ @  @@@@   @  @@@@  "
-echo ""
-}
-
-try() {
-$*
-EXECEXIT=$?
-if [ $EXECEXIT != 0 ] ; then 
-  fail
-  echo "TRYFAIL $*"
-  exit $EXECEXIT
-else
-  echo "TRYOK $*"
-fi
-
-}
-
-###################################################################
 echo "--> mk-distrib"
 
-try cd $DISTRIBDIR
+cd /users/soft5/newlabo/distrib || exit 4
 
 echo "--> Removing old test..."
-mkdir $ALC_TMPDIR
-mv alliance* tmpdestdir-* tmpbuilddir-* $ALC_TMPDIR
-rm -fr  $ALC_TMPDIR &
+mv alliance $TMPDIR
+rm -fr  $TMPDIR &
 
 echo "--> Checkout CVS sources..."
-cvs co -P -r TAG_DISTRIB alliance/src
+cvs co -P alliance
 
 echo "--> Makedist, generation de alliance-5.0.tar.gz"
 
-try cd alliance/src
+cd alliance/src || exit 4
 
-try ./autostuff
+./autostuff
 cd ..
-mkdir $TMPBUILD
-mkdir $TMPINSTALL
-try cd $TMPBUILD
+mkdir TMPBUILD
+mkdir TMPINSTALL
+cd TMPBUILD
 
-export ALLIANCE_TOP=$DISTRIBDIR/alliance/$TMPINSTALL
+export ALLIANCE_TOP=/users/soft5/newlabo/distrib/alliance/TMPINSTALL
 
-try ../src/configure --prefix=$ALLIANCE_TOP
+../src/configure --prefix=$ALLIANCE_TOP
 
-try make install
-try make distcheck
+make install
+make distcheck
 
 mv "$ALC_DIR.tar.gz" "$ALC_PACK.tar.gz"
 cp -f "$ALC_PACK.tar.gz" $FTPDISTRIBDIR
@@ -127,22 +70,27 @@ cd ../..
 mv alliance $TMPALLIANCE
 (chmod -R 777 $TMPALLIANCE ; rm -fr $TMPALLIANCE)&
 
-try tar -xvzf "$ALC_PACK.tar.gz"
+tar -xvzf "$ALC_PACK.tar.gz"
 
-for WKS in $WKSLIST
+
+for WKS in WKSLIST
 do
+    mkdir $TMPDESTDIR-$WKS $TMPBUILDDIR-$WKS
 
-mkdir $TMPDESTDIR-$WKS $TMPBUILDDIR-$WKS
-ssh -n $WKS "cd $DISTRIBDIR/$TMPBUILDDIR-$WKS ; \
-export ALLIANCE_TOP=$DISTRIBDIR/$TMPDESTDIR-$WKS/usr/local/alliance; \
-echo "%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% $ALLIANCE_TOP" ; \
-../$ALC_DIR/configure --prefix=/usr/local/alliance ; \
-make DESTDIR=$ALLIANCE_TOP install"  2>&1 | tee $LOGFILE
+
+ssh -n $WKS "cd $TMPBUILDDIR-$WKS ; \
+export ALLIANCE_TOP=/usr/local/alliance ; \
+../$ALC_DIR/src/configure --prefix=$ALLIANCE_TOP ; \
+make DESTDIR="$TMPDESTDIR-$WKS$ALLIANCE_TOP" install"  2>&1 | tee $LOGFILE
 
 done
 
 echo "done..."
 echo "###########   O K pour tout le monde   #############"
+
+
+
+
 
 
 
