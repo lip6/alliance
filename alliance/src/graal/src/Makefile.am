@@ -19,7 +19,7 @@ graal_LDADD = @ALLIANCE_LIBS@ @X_LIBS@ @LINK_MOTIF@ \
 INCLUDES = @INCLUDE_MOTIF@
 
 graal_SOURCES = \
-GMC_create.c GMC_create.h GMC_dialog.c GMC_dialog.h GMC.h GMC_menu.c GMC_menu.h \
+graal.c GMC_create.c GMC_create.h GMC_dialog.c GMC_dialog.h GMC.h GMC_menu.c GMC_menu.h \
 GMC_message.c GMC_message.h GMC_panel.c GMC_panel.h GME_dialog.c GME_dialog.h \
 GME_edit.c GME_edit.h GME.h GME_menu.c GME_menu.h GME_message.c GME_message.h \
 GME_modify.c GME_modify.h GME_panel.c GME_panel.h GME_search.c GME_search.h \
@@ -34,7 +34,7 @@ GMV_message.c GMV_message.h GMV_panel.c GMV_panel.h GMV_view.c GMV_view.h \
 GMX_color.c GMX_color.h GMX_cursor.c GMX_cursor.h GMX_dialog.c GMX_dialog.h \
 GMX_event.c GMX_event.h GMX_graphic.c GMX_graphic.h GMX_grid.c GMX_grid.h GMX.h \
 GMX_icon.c GMX_icon.h GMX_menu.c GMX_menu.h GMX_message.c GMX_message.h \
-GMX_motif.c GMX_motif.h GMX_panel.c GMX_panel.h GMX_view.c GMX_view.h graal.c \
+GMX_motif.c GMX_motif.h GMX_panel.c GMX_panel.h GMX_view.c GMX_view.h \
 graal.h GRM_connector.c GRM_connector.h GRM_druc.c GRM_druc.h GRM_equi.c \
 GRM_equi.h GRM_error.c GRM_error.h GRM.h GRM_mbkrds.c GRM_mbkrds.h GRM_peek.c \
 GRM_peek.h GRM_search.c GRM_search.h GRM_select.c GRM_select.h GRM_undo.c \

@@ -8,7 +8,7 @@ l2p_LDADD = @ALLIANCE_LIBS@ \
  -lMlu -lMpu -lMap -lMmg -lMcp -lMcl -lMel \
  -lMhl -lMvl -lMlo -lMph -lMut -lMal -lRcn \
  -lMsl -lMgl \
- -lRtl -lRgs -lRcf -lRfm -lRpr -lRwi -lRut -lRds 
+ -lRtl -lRgs -lRcf -lRfm -lRpr -lRwi -lRut -lRds  -lm
 
 l2p_SOURCES = \
 drive_ps.c  rps_inc.h   tmp_man.c \
