@@ -1,5 +1,5 @@
 /*
- *  $Id: DEF_drive.c,v 1.5 2002/10/03 16:53:52 jpc Exp $
+ *  $Id: DEF_drive.c,v 1.6 2003/04/02 15:02:49 jpc Exp $
  *
  *  /----------------------------------------------------------------\
  *  |                                                                |
@@ -1614,7 +1614,10 @@ static void  fprintSPECIALNETS()
 
 static void  fprintDEF()
 {
-  fprintf (DEF_FILE, "DESIGN %s ;\n\n\n"                   , LV_name);
+  fprintf (DEF_FILE, "VERSION             5.2 ;\n");
+  fprintf (DEF_FILE, "NAMESCASESENSITIVE  ON ;\n");
+  fprintf (DEF_FILE, "BUSBITCHARS         \"()\" ;\n");
+  fprintf (DEF_FILE, "DIVIDERCHAR         \".\" ;\n\n");
   fprintf (DEF_FILE, "    TECHNOLOGY %s ;\n\n"             , "cmos");
   fprintf (DEF_FILE, "    UNITS DISTANCE MICRONS %ld ;\n", DEF_UNITS_MICRONS);
 
