@@ -186,11 +186,11 @@ amd2901_o.vbe : amd2901.vbe amd2901.boom res_vasy_1.pat
 # |                                                             |
 # \------------------------------------------------------------*/
 
-boog.done : amd2901_o.vst
+boog.done : amd2901.vst
 	@$(TOUCH) boog.done
 
-amd2901_o.vst : amd2901_o.vbe
-	$(ENV_BOOG); $(BOOG) amd2901_o
+amd2901.vst : amd2901_o.vbe
+	$(ENV_BOOG); $(BOOG) amd2901_o amd2901
 
 # /*------------------------------------------------------------\
 # |                                                             |
@@ -201,8 +201,8 @@ amd2901_o.vst : amd2901_o.vbe
 loon.done : amd2901.vst
 	@$(TOUCH) loon.done
 
-amd2901.vst : amd2901_o.vst
-	$(ENV_LOON); $(LOON) amd2901_o amd2901
+# amd2901.vst : amd2901_o.vst
+#	$(ENV_LOON); $(LOON) amd2901_o amd2901
 
 # /*------------------------------------------------------------\
 # |                                                             |
