@@ -67,7 +67,7 @@
 \------------------------------------------------------------*/
 
 # define fsmerror( E, V ) \
-  (fsm_error( (int)(E), (char *)(V), basename(__FILE__), __LINE__ ))
+  (fsm_error( (int)(E), (char *)(V), autbasename(__FILE__,NULL), __LINE__ ))
 
 /*------------------------------------------------------------\
 |                                                             |
