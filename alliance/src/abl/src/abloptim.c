@@ -189,7 +189,7 @@ ablexpr *optimablnotexpr( Expr )
     else
     if ( NotOper != -1 )
     {
-      ABL_OPER( Expr ) = NotOper;
+      SET_ABL_OPER( Expr, NotOper );
       return( Expr );
     }
   }

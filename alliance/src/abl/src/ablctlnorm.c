@@ -111,7 +111,7 @@ static ablexpr *local_normablctl( Expr )
     if ( NormExpr != ABL_CADR( Expr ) )
       ABL_CADR( Expr ) = NormExpr;
     ABL_CADR( Expr ) = createablnotexpr( ABL_CADR( Expr ) );
-    ABL_OPER( Expr ) = ABL_EX;
+    SET_ABL_OPER( Expr, ABL_EX );
     NormExpr = createablnotexpr( Expr );
     return( NormExpr );
   }
@@ -143,7 +143,7 @@ static ablexpr *local_normablctl( Expr )
     if ( NormExpr != ABL_CADR( Expr ) )
       ABL_CADR( Expr ) = NormExpr;
     ABL_CADR( Expr ) = createablnotexpr( ABL_CADR( Expr ) );
-    ABL_OPER( Expr ) = ABL_EG;
+    SET_ABL_OPER( Expr, ABL_EG );
     NormExpr = createablnotexpr( Expr );
     return( NormExpr );
   }
@@ -157,7 +157,7 @@ static ablexpr *local_normablctl( Expr )
     if ( NormExpr != ABL_CADR( Expr ) )
       ABL_CADR( Expr ) = NormExpr;
     ABL_CADR( Expr ) = createablnotexpr( ABL_CADR( Expr ) );
-    ABL_OPER( Expr ) = ABL_EF;
+    SET_ABL_OPER( Expr, ABL_EF );
     NormExpr = createablnotexpr( Expr );
     NormExpr = local_normablctl( NormExpr );
     return( NormExpr );

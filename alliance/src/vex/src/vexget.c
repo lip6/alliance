@@ -184,7 +184,7 @@ int getvexintnumbit( Size )
   if ( Size <  0 ) return( 0 );
   if ( Size == 0 ) return( 1 );
 
-  Mask = 1L << 31;
+  Mask = 1U << 31;
 
   for ( NumberBit = 32; NumberBit > 0; NumberBit-- )
   {

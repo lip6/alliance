@@ -412,7 +412,7 @@ vexexpr *createvexatomlongarray( Array, Size, Width, Signed )
   {
     Width = MaxWidth;
     Index = 0;
-    Mask  = 1L << 31;
+    Mask  = 1U << 31;
 
     Integer = Array[ 0 ];
 
@@ -431,7 +431,7 @@ vexexpr *createvexatomlongarray( Array, Size, Width, Signed )
             if ( Index == Size ) break;
 
             Integer = Array[ Index ];
-            Mask    = 1L << 31;
+            Mask    = 1U << 31;
           }
         }
   
@@ -453,7 +453,7 @@ vexexpr *createvexatomlongarray( Array, Size, Width, Signed )
           if ( Index == Size ) break;
 
           Integer = Array[ Index ];
-          Mask    = 1L << 31;
+          Mask    = 1U << 31;
         }
       }
 
@@ -470,7 +470,7 @@ vexexpr *createvexatomlongarray( Array, Size, Width, Signed )
 
   Scan  = 1;
   Index = Size - ((Width + 31) / 32);
-  Mask  = 1L << ((Width - 1) % 32);
+  Mask  = 1U << ((Width - 1) % 32);
 
   do
   {
@@ -482,7 +482,7 @@ vexexpr *createvexatomlongarray( Array, Size, Width, Signed )
 
     if ( Mask == 0 )
     {
-      Mask = 1L << 31; Index++;
+      Mask = 1U << 31; Index++;
     }
   }
   while ( Index < Size );

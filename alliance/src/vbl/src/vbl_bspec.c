@@ -1012,7 +1012,7 @@ int   right;
 
              if ( Value != 0 )
              {
-               Mask = 1L << 31;
+               Mask = 1U << 31;
 
                if ( src[ 0 ] == '-' )
                {

@@ -99,7 +99,7 @@ ablexpr *unflatablexpr( Expr )
         if ( Polar != ABL_POLAR_POSITIVE )
         {
           Oper = getablopernot( Oper );
-          ABL_OPER( Expr ) = Oper;
+          SET_ABL_OPER( Expr, Oper );
 
           ScanExpr = createabloper( ABL_NOT );
           addablhexpr( ScanExpr, Expr );

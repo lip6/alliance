@@ -312,7 +312,7 @@ ablexpr *loc_simpablexpr( Expr )
   if ( getabloperpolar( Oper ) == ABL_POLAR_NEGATIVE )
   {
     Oper = getablopernot( Oper );
-    ABL_OPER( Expr ) = Oper;
+    SET_ABL_OPER( Expr, Oper );
     Negative = 1;
   }
   else

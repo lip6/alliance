@@ -129,6 +129,7 @@
 # define ABL_ATOM( E )       ( ( E )->NEXT == (ablexpr *)0 )
 # define ABL_ATOM_VALUE( E ) ( (char *)( ( E )->DATA ) )
 # define ABL_OPER( E )       ( (long)( ( ABL_CAR( ( E ) ) )->DATA ) )
+# define SET_ABL_OPER( E,O ) ( ( ABL_CAR( (E) )->DATA = (void *)(O) ) )
 
 /*------------------------------------------------------\
 |                                                       |

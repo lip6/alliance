@@ -85,10 +85,10 @@ int SyfGetNumberBit( Value )
 
   long Value;
 {
-  long Mask;
-  int  NumberBit;
+  unsigned long Mask;
+  int           NumberBit;
   
-  Mask = 1 << 31;
+  Mask = 1U << 31;
 
   for ( NumberBit = 32; NumberBit > 0; NumberBit-- )
   {

@@ -239,7 +239,7 @@ ablexpr *polarablexpr( Expr, Polar )
     if ( AblPolarOperTable[ Oper ][ 2 ] ==  1 ) Polar = ! Polar;
     if ( AblPolarOperTable[ Oper ][ 2 ] == -1 ) Polar = ABL_POLAR_POSITIVE;
 
-    ABL_OPER( Expr ) = NewOper;
+    SET_ABL_OPER( Expr, NewOper );
     ScanExpr         = Expr;
 
     while ( ( ScanExpr = ABL_CDR( ScanExpr ) ) != (ablexpr *)0 )
