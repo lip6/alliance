@@ -1,4 +1,4 @@
-.\"   $Id: ocp.1,v 1.1 2001/09/27 15:08:09 mai0009 Exp $
+.\"   $Id: ocp.1,v 1.2 2001/12/17 13:53:47 xtof Exp $
 .\" @(#)Labo.l 0.0 92/09/24 UPMC; Author: Christophe ALEXANDRE
 .pl -.4
 .TH OCP 1 "September 27, 2001" "ASIM/LIP6" "CAO\-VLSI Reference Manual"
@@ -44,10 +44,12 @@ The optional placement file must be given by the user. It must have an extension
 .br
 The placement of connectors can be also specified.
 .br
-There are two ways to place connectors in a physical view :
+There are three ways to place connectors in a physical view :
 .br
 .br
 \fB-c\fP option will automaticaly place the connectors randomly. The auto placement will set connectors on each side of the abutment box.
+.br
+\fB-ring\fP option will automaticaly place the connectors randomly but only on the north and south side. This option is temporary and is provided for the ring pad placement tool.
 .br
 \fB-ioc <NAME>\fP option will place connectors as specified by the <NAME>.ioc given file.
 .br
