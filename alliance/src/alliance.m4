@@ -7,6 +7,10 @@ AC_ARG_ENABLE(system64,
               --enable-system64   enable compilation on 64 bits systems (default is 32 bits),
               AC_DEFINE(SYSTEM64))
 
+AC_DISABLE_SHARED
+AC_PROG_LIBTOOL
+AC_SUBST(LIBTOOL_DEPS)
+
 AC_MSG_CHECKING(for alliance)
 if test x$alliance_top != x ; then
   ALLIANCE_CFLAGS="-I$alliance_top/include"
