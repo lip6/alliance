@@ -25,6 +25,9 @@
    Author: Frédéric Pétrot
    Date  : 1/10/2000
    $Log: dpgen_Shifter.c,v $
+   Revision 1.2  2002/06/12 16:11:08  fred
+   Minor editing modifications
+
    Revision 1.1  2002/04/29 13:40:54  jpc
    Merging GenLib & DpGen.
 
@@ -80,12 +83,12 @@
 
 */
 
-static char rcsid[]="$Id: dpgen_Shifter.c,v 1.1 2002/04/29 13:40:54 jpc Exp $";
+static char rcsid[]="$Id: dpgen_Shifter.c,v 1.2 2002/06/12 16:11:08 fred Exp $";
 
 
-# include   "util_Defs.h"
-# include  "dpgen_Defs.h"
-# include  "dgn.h"
+#include  "util_Defs.h"
+#include  "dpgen_Defs.h"
+#include  "dgn.h"
 
 
 int ln2p(int n)
@@ -100,7 +103,7 @@ int i = 0, j = n & 1;
    return i + (j > 1);
 }
 
-chain_list *c; /* To free the allocated names */
+static chain_list *c; /* To free the allocated names */
 
 void freestr()
 {
