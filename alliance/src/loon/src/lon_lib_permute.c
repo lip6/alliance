@@ -299,12 +299,18 @@ extern chain_list* permutations(befig_list* befig)
   
    /*build group of variables which can be permuted*/
    if (befig->BEBUS) {
-      groupchain=permute_variable(NULL,befig->BEBUS->BIABL->CNDABL);
-      groupchain=permute_variable(groupchain,befig->BEBUS->BIABL->VALABL);
+      for (biabl = befig->BEBUS->BIABL; biabl; biabl = biabl->NEXT ) 
+      {
+         groupchain=permute_variable(groupchain,biabl->CNDABL);
+         groupchain=permute_variable(groupchain,biabl->VALABL);
+      }
    }
    else if (befig->BEREG) {
-      groupchain=permute_variable(NULL,befig->BEREG->BIABL->CNDABL);
-      groupchain=permute_variable(groupchain,befig->BEREG->BIABL->VALABL);
+      for (biabl = befig->BEREG->BIABL; biabl; biabl = biabl->NEXT ) 
+      {
+         groupchain=permute_variable(groupchain,biabl->CNDABL);
+         groupchain=permute_variable(groupchain,biabl->VALABL);
+      }
    }
    else if (befig->BEOUT) {
       groupchain=permute_variable(NULL,befig->BEOUT->ABL);

@@ -41,6 +41,14 @@
 #include "lon_signal_critical.h"
 
 
+/***************************************************************************/
+/* Global Variables                                                        */
+/***************************************************************************/
+
+static authtable *ControlLoop;
+
+
+
 
 /***************************************************************************/
 /*return the signal with the highest delay                                 */
@@ -107,6 +115,7 @@ static ptype_list* search_long_path(losig_list* losig, int ck_include)
    ptype_list* ptype, *ret;
    double max_delay=-1, delay;
    cell_list* cell;
+   biabl_list* biabl;
 
    if (!losig) {
       fprintf(stderr,"search_long_path: NULL pointer\n");
@@ -117,7 +126,19 @@ static ptype_list* search_long_path(losig_list* losig, int ck_include)
       fprintf(stderr,"search_long_path: no losig name\n");
       exit(1);
    }
+
    signame=(char*) losig->NAMECHAIN->DATA;
+   
+
+   /*control combinational loop, not to recurse infinitively*/
+   if ( searchauthelem( ControlLoop, (char*) losig ) )
+   {
+      fprintf(stderr,"Warning: combinational loop on signal %s\n", signame );
+      return ret;
+   }
+   
+   addauthelem( ControlLoop, (char*) losig, 1 );
+
    
    /*search drivers*/
    ptype=getptype(losig->USER,LOFIGCHAIN);
@@ -158,12 +179,16 @@ static ptype_list* search_long_path(losig_list* losig, int ck_include)
    }
    befig=cell->BEFIG;
    if (befig->BEREG) {
-      ptype=getptype(befig->BEREG->BIABL->USER,ABL_STABLE);
-      if (ptype) {
-         /*do not include clock in path*/
-         if (!ck_include) return ret;
-         reg=1;
-         ck=ptype->DATA;
+      for ( biabl = cell->BEFIG->BEREG->BIABL; biabl; biabl = biabl->NEXT )
+      {
+         ptype=getptype(biabl->USER,ABL_STABLE);
+         if (ptype) {
+            /*do not include clock in path*/
+            if (!ck_include) return ret;
+            reg=1;
+            ck=ptype->DATA;
+            break;
+         }
       }
    }
    
@@ -210,11 +235,19 @@ static ptype_list* search_long_path(losig_list* losig, int ck_include)
 extern ptype_list* critical_path(lofig_list* lofig)
 {
    losig_list* losig;
+   ptype_list* ret;
    
    losig=critical_output(lofig);
    /*lofig is empty*/
    if (!losig) return NULL;
-   return (ptype_list*) reverse( (chain_list*) search_long_path(losig,1));
+   
+   ControlLoop = createauthtable( 100 );
+   
+   ret = (ptype_list*) reverse( (chain_list*) search_long_path(losig,1));
+   
+   destroyauthtable( ControlLoop );
+
+   return ret;
 }
 
 
@@ -225,11 +258,19 @@ extern ptype_list* critical_path(lofig_list* lofig)
 extern ptype_list* critical_path_without_clock(lofig_list* lofig)
 {
    losig_list* losig;
+   ptype_list* ret;
    
    losig=critical_output(lofig);
    /*lofig is empty*/
    if (!losig) return NULL;
-   return (ptype_list*) reverse( (chain_list*) search_long_path(losig,0));
+   
+   ControlLoop = createauthtable( 100 );
+   
+   ret = (ptype_list*) reverse( (chain_list*) search_long_path(losig,0));
+   
+   destroyauthtable( ControlLoop );
+
+   return ret;
 }
 
 

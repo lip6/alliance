@@ -104,6 +104,7 @@ extern double loins_max_T(loins_list* loins)
    port_list* port;
    locon_list* locon;
    char* input;
+   biabl_list* biabl;
    
    if (!loins) {
       fprintf(stderr,"loins_max_T: NULL pointer\n");
@@ -120,10 +121,15 @@ extern double loins_max_T(loins_list* loins)
    
    /*is-it a flip-flop?*/
    if (cell->BEFIG->BEREG) {
-      ptype=getptype(cell->BEFIG->BEREG->BIABL->USER,ABL_STABLE);
-      if (ptype) {
-         flip_flop=1;
-         ck=(char*) ptype->DATA;
+      for ( biabl = cell->BEFIG->BEREG->BIABL; biabl; biabl = biabl->NEXT )
+      {
+         ptype=getptype(biabl->USER,ABL_STABLE);
+         if (ptype) 
+         {
+            flip_flop=1;
+            ck=(char*) ptype->DATA;
+            break;
+         }
       }
    }
    
@@ -179,6 +185,7 @@ extern double loins_max_RC(loins_list* loins, char* output)
    port_list* port;
    locon_list* locon;
    char* input;
+   biabl_list* biabl;
    
    if (!loins || !output) {
       fprintf(stderr,"loins_max_RC: NULL pointer\n");
@@ -195,10 +202,15 @@ extern double loins_max_RC(loins_list* loins, char* output)
    
    /*is-it a flip-flop?*/
    if (cell->BEFIG->BEREG) {
-      ptype=getptype(cell->BEFIG->BEREG->BIABL->USER,ABL_STABLE);
-      if (ptype) {
-         flip_flop=1;
-         ck=(char*) ptype->DATA;
+      for ( biabl = cell->BEFIG->BEREG->BIABL; biabl; biabl = biabl->NEXT )
+      {
+         ptype=getptype(biabl->USER,ABL_STABLE);
+         if (ptype) 
+         {
+            flip_flop=1;
+            ck=(char*) ptype->DATA;
+            break;
+         }
       }
    }
    
@@ -254,6 +266,7 @@ extern double loins_delay(loins_list* loins, char* output)
    port_list* port;
    locon_list* locon;
    char* input;
+   biabl_list* biabl;
    
    if (!loins || !output) {
       fprintf(stderr,"loins_delay: NULL pointer\n");
@@ -270,10 +283,15 @@ extern double loins_delay(loins_list* loins, char* output)
    
    /*is-it a flip-flop?*/
    if (cell->BEFIG->BEREG) {
-      ptype=getptype(cell->BEFIG->BEREG->BIABL->USER,ABL_STABLE);
-      if (ptype) {
-         flip_flop=1;
-         ck=(char*) ptype->DATA;
+      for ( biabl = cell->BEFIG->BEREG->BIABL; biabl; biabl = biabl->NEXT )
+      {
+         ptype=getptype(biabl->USER,ABL_STABLE);
+         if (ptype) 
+         {
+            flip_flop=1;
+            ck=(char*) ptype->DATA;
+            break;
+         }
       }
    }
    
