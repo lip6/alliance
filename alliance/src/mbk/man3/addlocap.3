@@ -1,4 +1,4 @@
-.\"   $Id: addlocap.3,v 1.1 2002/08/14 20:06:42 pnt Exp $
+.\"   $Id: addlocap.3,v 1.2 2002/08/14 20:41:56 pnt Exp $
 .\" @(#)addlocap.2 2.11 91/08/22 ; Labo ASIM cao-vlsi; Author : Pierre Nguyen Tuong
 .if t \{\
 .so man1/alc_contents.mac
@@ -40,7 +40,7 @@ Pointer to the figure in which the capacitor should be added
 Capacitor type
 .TP
 \fIcapa\fP
-Capacitor value in Farads
+Capacitance value in Farads
 .TP
 \fItcon\fP
 Pointer to the signal to be connected on the capacitor top plate
@@ -65,7 +65,7 @@ for a metal/metal capacitor (the top plate and the bottom plate layers are diffe
 for a POLY/NWELL capacitor (if available in the technology). The top plate layer is POLY, bottom plate is NWELL.
 .RE
 .LP
-The \fIcapa\fP\ argument is the capacitor value in Farads.
+The \fIcapa\fP\ argument is the capacitance value in Farads.
 .br
 Two connectors are created each time a capacitor is added, and the
 \fItcon\fP and \fIbcon\fP \fBlosigs\fP are attached to
