@@ -1,5 +1,5 @@
 #
-# $Id: se_defaults.mac,v 1.1 2000/09/01 17:07:26 jpc Exp $
+# $Id: se_defaults.mac,v 1.2 2000/09/07 16:19:20 jpc Exp $
 #
 # /------------------------------------------------------------------\
 # |                                                                  |
@@ -23,5 +23,8 @@
  SET VARIABLE Plan.RGrid.M2Offset        0 ;
  SET VARIABLE Plan.RGrid.M3Offset        0 ;
  SET VARIABLE Plan.RGrid.M4Offset        0 ;
+ SET VARIABLE Plan.Lowerleft.Origin      TRUE ;
  SET VARIABLE QPlace.Fix.Placed.Cell     TRUE ;
+ SET VARIABLE Qplace.Place.Pin.Preferred.Layer 
+                "(left L_ALU2)(right L_ALU2)(top L_ALU3)(bottom L_ALU3)" ;
  SET VARIABLE FRoute.AutoSearchAndRepair TRUE ;
