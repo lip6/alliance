@@ -22,7 +22,7 @@
 #mail %s -s "ALC: CVS notify" alcteam@asim.lip6.fr
 
 ALL	(echo ""; who am i; echo %s; date; cat) >> $CVSROOT/CVSROOT/log-commit
-ALL	( PATH=/asim/gnu/bin:/usr/ucb:$PATH ; export PATH ; echo ""; who am i; echo %s; date; cat) | mail -s "ALC : CVS loginfo" alcteam@asim.lip6.fr
+ALL	(echo ""; who am i; echo %s; date; cat) | mail -s "ALC : CVS loginfo" alcteam@asim.lip6.fr
 ALL	(date ; cat ; (sleep 2 ; cd /users/outil1/alliance/latest ; cvs -q update -d ) &) >> $CVSROOT/CVSROOT/log-latest 2>&1
 ^CVSROOT	(echo ""; who am i; echo %s; date; cat) >> $CVSROOT/CVSROOT/log-cvsroot
 
