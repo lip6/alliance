@@ -26,7 +26,7 @@
  * Date    : 31/08/93
  * Author  : Frederic Petrot <Frederic.Petrot@lip6.fr>
  * Modified by Czo <Olivier.Sirol@lip6.fr> 1997,98
- * $Id: mut.h,v 1.1 2002/03/08 13:51:05 fred Exp $
+ * $Id: mut.h,v 1.2 2002/04/25 14:16:32 ludo Exp $
  */
 
 #ifndef _MUT_H_
@@ -35,6 +35,7 @@
 #include <stdio.h>
 #include <unistd.h>
 #include <signal.h>
+#include <libgen.h>
 
 #ifndef __P
 # if defined(__STDC__) ||  defined(__GNUC__)
