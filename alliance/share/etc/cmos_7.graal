@@ -162,15 +162,15 @@ TABLE GRAAL_SEGMENT_VALUE
   ALU2     2   2
   ALU3     2   2
   ALU4     2   2
-  ALU5     2   2
-  ALU6     2   2
+  ALU5     4   4
+  ALU6     4   4
   TPOLY    1   1
   TALU1    1   1
   TALU2    2   2
   TALU3    2   2
   TALU4    2   2
-  TALU5    2   2
-  TALU6    2   2
+  TALU5    4   4
+  TALU6    4   4
 
 END
 
