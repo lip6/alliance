@@ -5062,6 +5062,7 @@ unlabeled_selected_signal_assignment
         | ...waveform__WHEN__choices..
           Comma
           waveform__WHEN__choices
+        ;
 
 waveform__WHEN__choices
         : waveform
@@ -5862,6 +5863,7 @@ procedure_call_statement
             ptvbcal = vbh_addvbcal( VexFunc, VBL_LINNUM );
             *pnt = addptype( *pnt, VBH_BECAL, ptvbcal );
           }
+        ;
 
 signal_assignment_statement
        : target
