@@ -10,8 +10,8 @@ AM_CFLAGS        = @ALLIANCE_CFLAGS@
 bin_PROGRAMS     = nero pdv
 #noinst_PROGRAMS  = debug
 
-nero_LDADD         = @ALLIANCE_LIBS@          \
-                   $(top_builddir)/src/libU.a \
+nero_LDADD         = -L$(libdir) @ALLIANCE_LIBS@  \
+                   $(top_builddir)/src/libU.a     \
                    -lMpu -lMlu  \
                    -lMcl -lMcp  \
                    -lMal -lMap  \

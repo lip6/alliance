@@ -1,6 +1,6 @@
 
 
-pkghtmldir = $(prefix)/doc/html/@PACKAGE@
+pkghtmldir = $(DESTDIR)$(prefix)/doc/html/@PACKAGE@
 pkghtml_DATA = \
                ./nero.html \
                ./ref_nero.html \
@@ -9,4 +9,4 @@ pkghtml_DATA = \
 EXTRA_DIST = $(pkghtml_DATA)
 
 install-data-hook:
-	chmod -R g+w $(prefix)/doc/html/@PACKAGE@
+	chmod -R g+w $(DESTDIR)$(prefix)/doc/html/@PACKAGE@
