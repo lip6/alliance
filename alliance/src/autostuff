@@ -1,5 +1,11 @@
 #!/bin/sh
+###################################################
+## Possible arguments: 
+##  - clean : to sweap all built files
+##  - dirs  : to build only in dirs
+###################################################
 
+## Is it a clean
 if  test "$1" = "clean" ; then
    find . -name Makefile.in -exec rm {} \; -print
    find . -name aclocal.m4 -exec rm {} \; -print
@@ -10,12 +16,20 @@ if  test "$1" = "clean" ; then
    exit
 fi 
 
-dirs=`\ls -l $srcdir | grep '^d' | awk '{print $NF}'`
 
+## take parameters for directories or take all dirs by default
+if [ $# -eq 0 ] ; then
+dirs=`\ls -l $srcdir | grep '^d' | awk '{print $NF}'`
+else
+dirs=$*
+fi
+
+## root first
 aclocal -I .
 automake --foreign --add-missing --copy
 autoconf
 
+## autoconf all dirs
 for i in $dirs ; do
    cd $i
    if test -f configure.in ; then
@@ -26,4 +40,5 @@ for i in $dirs ; do
    fi
    cd ..
 done
+
 exit 0
