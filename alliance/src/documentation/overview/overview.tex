@@ -2,7 +2,8 @@
 %
 % Author : Frederic Petrot
 % Modified by : Olivier Sirol
-% $Id: overview.tex,v 1.1 2002/10/24 14:50:16 czo Exp $
+% Modified by : Ludovic Jacomme
+% $Id: overview.tex,v 1.2 2004/07/09 21:55:20 ludo Exp $
 %
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \documentclass{article}
@@ -38,7 +39,7 @@ Université Pierre et Marie Curie\\
 France\\
 \texttt{http://www-asim.lip6.fr/alliance/}\\*
 \texttt{ftp://ftp-asim.lip6.fr/pub/alliance/}\\*
-\texttt{mailto:alliance-support@asim.lip6.fr}\\*
+\texttt{mailto:alliance-users@asim.lip6.fr}\\*
 \end{center}
 
 %%%%%%%%%%%%%%%%%%%%%%%%
@@ -100,7 +101,7 @@ cells libraries are freely available under the GNU General Public Licence (\text
 You are welcome to use the software package even for commercial designs whithout 
 any fee. You are just required to mention : "Designed with Alliance © LIP6/Université 
 Pierre et Marie Curie". For any questions please mail to : 
-\texttt{alliance-support@asim.lip6.fr}.
+\texttt{alliance-users@asim.lip6.fr}.
 
 
 
@@ -232,6 +233,11 @@ It is not very easy to modelize an architecture using this subset,
 but it has the great advantage of allowing simulation, logic synthesis
 and bit level formal proof on the same files.
 
+A \textbf{VHDL} analyzer called \texttt{vasy} can be used to 
+automatically convert most common \textbf{VHDL} descriptions 
+(using for example IEEE 1164 packages) to the
+restricted Alliance subsets (\texttt{vbe} and \texttt{vst}).
+
 Patterns, \textbf{VHDL} simulation stimuli, are described in a specific 
 formalism that can be captured using a dedicated language \texttt{genpat}.
 Once a \textbf{VHDL} behavioral description written and a set of test vectors 
@@ -260,15 +266,15 @@ The advantage of such an approach is that designers do not have to
 learn several language with specific syntax and semantics.
 
 Usually, the main behavior is partitionned in several sub-behaviors.
-Some are described recursively using the \texttt{genlib} language, other
-using \texttt{dpgen}, and the other ones can be directly synthesized 
-from a \textbf{VHDL} description of the corresponding sub-behaviors.
+Some are described recursively using the \texttt{genlib} language
+and the other ones can be directly synthesized from a \textbf{VHDL} 
+description of the corresponding sub-behaviors.
 The \texttt{boog} tool takes an \textbf{RTL} description and 
 generates a netlist of standard cell gates.
 An other subset of \textbf{VHDL} allows to capture finite state machines.
 This subset, called \texttt{fsm}, can be translated into a 
 \textbf{RTL} description using the tool \texttt{syf}, and then the 
-resulting description optimized usign \texttt{boom} and finally 
+resulting description optimized using \texttt{boom} and finally 
 syntesized as a netlist using once more \texttt{boog}.
 
 Since \texttt{asimut} can operate on both \textbf{RTL} and structural views,
@@ -284,15 +290,14 @@ behavioral validation.
 Once the circuit netlist has been captured and validated, each leaf of
 the hierarchy has to be physically implemented.
 A netlist issued from \texttt{boog} is usually placed and routed using
-the standard cell router \texttt{scr}.
+the over cell router \texttt{nero}.
 If the netlist has been captured using \texttt{genlib} and if it has a
 high degree of regularity, it can be placed manually for optimisation
 using other \texttt{genlib} functions.
-The netlist resulting from the use of \texttt{dpgen} are placed and
-routed using the datapath router \texttt{dpr}.
 
-These part can be assembled together using a gridless channel router
-called \texttt{bbr}, and this generates what we call a \textit{core}.
+The different parts can be placed and assembled together using 
+\texttt{ocp} and routed using overcell router called \texttt{nero},
+ and this generates what we call a \textit{core}.
 The circuit core is now ready to be connected to external pads.
 The core-to-pads router, \texttt{ring}, aims at doing this operation 
 automatically, provided the user has given an appropriate netlist and
@@ -319,26 +324,18 @@ The correctness of the design rules is checked using the design rule
 checker \texttt{druc}.
 
 An extracted netlist can be obtained from the resulting layout.
-\texttt{Lynx}, the layout extractor operates on both hierarchical and 
+\texttt{Cougar}, the layout extractor operates on both hierarchical and 
 flattened layout and can output both flattened netlists (transistor 
 netlist) and hierarchical netlists.
-The transistor netlist is the input of the \texttt{yagle} functional 
-abstractor.
-\texttt{Yagle} provides a \textbf{VHDL} data-flow behavioral 
-description, identical to the one that feeds \texttt{asimut},  from 
-the transistor netlist of a circuit.
-The resulting behavior can be compared to the initial specifications
-using either \texttt{asimut} with the functionnal vectors used for the
-validation of the behavioral specification, or formally proved
-equivalent, thanks to the formal proof analyzer \texttt{proof}.
+The transistor netlist can be the input of a spice simulator.
 
 When extracted hierarchically, the resulting netlist can be compared 
 with the original netlist by using the \texttt{lvx} tool.
-\texttt{Lvx}, that stands for Logical Versus Extracted, is a netlist 
+\texttt{lvx}, that stands for Logical Versus Extracted, is a netlist 
 comparator that matches every design object found in both netlists.
 
-The critical path of the circuit, and an estimate of its delay, can be
-obtained using the static timming analyzer \texttt{tas}.
+The critical path of the circuit is evaluated using a commercial
+static timming analyzer, as \textbf{Alliance} doesn't provided one.
 
 %%%%%%%%%%%%%%%%%%%%%
 %
@@ -382,7 +379,7 @@ symbolic layout approach.
 All the library of the system use this approach successfully.
 Layouts have been targetted to ES2 2$\mu$m, 1.5$\mu$m, 1.2$\mu$m,
 1.0$\mu$m and 0.7$\mu$m technologies, the AMS 1.2$\mu$m technology and
-SGS-Thomson 0.5$\mu$m technology.
+SGS-Thomson 0.5$\mu$m, 0.35$\mu$m technologies.
 Chips have been fabricated successfully through the \textbf{CMP} services on
 these technologies.
 
@@ -392,6 +389,11 @@ these technologies.
 \subsection{Tools}
 
 \begin{itemize}
+\item \texttt{vasy} is a \textbf{VHDL} analyzer and convertor.
+      The supported \textbf{VHDL} subset is closed to commercial synthesizer
+      tools such as Synopsys. It converts automatically \textbf{VHDL} 
+      descriptions to the restricted \textbf{VHDL} subsets of Alliance tools.
+
 \item \texttt{asimut} is a \textbf{VHDL} logic simulator.
       The supported \textbf{VHDL} subset allows both structural and behavioral 
       data-flow description (without timing information).  
@@ -451,12 +453,13 @@ these technologies.
 
 \item \texttt{dpgen} is a language that has moreorless the same
       functionalities as \texttt{genlib}, but it is dedicated to datapath
-      description.
+      description. 
       Its primary difference with \texttt{genlib} is that it allows to
       manipulate vectors of cells, like 32 two inputs \texttt{nand} gates
       or a 32 bits adder.
       It contains many primitives that greatly simplify the
       description of operative parts, in an optimized manner.
+      \texttt{dpgen} has been recently merged with \texttt{genlib}.
 
 \item \texttt{boom} is a logic optimizer and logic synthesis tool.
       The input file is a behavioral description of the circuit using 
@@ -471,11 +474,6 @@ these technologies.
       standard-cell library, as long as a \textbf{VHDL} data-flow
       description is provided with each cell.
 
-\item \texttt{c4map} is a logic synthesis tool.
-      It has the same functionnality than \texttt{boog}, but runs 
-      without a predefined standard-cell library, thanks to an 
-      internal cell compiler.
-
 \item \texttt{syf} is a finite state machine synthesizer.
       More precisely, \texttt{syf} assigns values to the symbolic states
       used for the automaton description, and aims at minimizing the
@@ -487,38 +485,14 @@ these technologies.
       The output of \texttt{syf} is to be synthesized into a netlsit of
       gates using \texttt{boog}.
 
-\item \texttt{scr} is a place and route tool for standard-cells.
+\item \texttt{ocp} is a placer for standard-cells.
       The placement system is based on simulated annealing.
-      The channel router is an adaptation of the greedy router of
-      Rivest-Fidducia.
-      Feed-throughs and power routing wires are automatically 
-      inserted where needed.
-      The input is a netlist of gates.
-      The output is either an hierarchical (channels are 
-      instanciated) or flattened (channels are inserted) chip core 
+
+\item \texttt{nero} is an over cell router. The input is a netlist of gates
+      and a placement file.
+      The output is an hierarchical chip core 
       layout without external pads.  
       A specialized router is used for core to pad routing.
-      
-\item \texttt{Dpr} is a place and route tool for bit slice oriented 
-      datapath.
-      It privilegies the direct connexions between cells, and allows
-      to used optimized blocks, like a fast multiplier or a register
-      file, within the datapath.
-      \begin{figure}\center
-      \leavevmode\psfig{file=datapath.eps,width=5cm}
-      \caption{\label{dpr} Part of a datapath.}
-      \end{figure}
-      Most parameterized generators available in \textbf{Alliance} follow
-      the bit-slice structure of this datapath compiler.
-      This tool allows to mix some glue logic directly within a
-      datapath.
-      This functionnality doesn't exist in commercial tools.
-
-\item \texttt{bbr} is a gridless channel router that allows to route
-      together two blocks having different topologies.
-      For example the control part of a microprocessor realized in
-      standard cell, and its operative part done as a datapath.
-      \texttt{Bbr} is pretty tricky, and should be used with care.
 
 \item \texttt{Ring} is a specific router dedicated to the final routing 
       of chip core and input/output pads.
@@ -547,48 +521,23 @@ these technologies.
       This correctness must be ensured in order for \texttt{s2r} to
       produce a layout compatible with the target silicon foundry.
 
-\item \texttt{Lynx} is a layout extractor.
+\item \texttt{Cougar} is a layout extractor.
       The input is a - possibly hierarchical - layout.
       The layout can be either symbolic or real.
-      The output is an extracted netlist with parasitic capacitances.
+      The output is an extracted netlist with parasitic capacitances 
+      and optionally resistors.
       The resulting netlist can either be hierarchical or flattened 
-      (transistor netlist).
-
+      (up to transistor level netlist).
 
 \item \texttt{Lvx} is a logical versus extracted net-compare tool.
       The result of a run indicates if the two netlist match together,
       or if there are different.
       Note that \texttt{lvx} doesn't work at the transistor level.
 
-\item \texttt{yagle} is a functional asbtractor/disassembler for
-      \textbf{CMOS} circuits.
-      It provides a \textbf{VHDL} Data-Flow behavioral description from 
-      the transistor netlist of a circuit, by first extracting a 
-      pseudo-gate netlist, and second translating each pseudo-gate in
-      boolean equations.
-      The input file is a - possibly extracted - flattened transistor 
-      netlist.
-      The output is a simulable behavioral \textbf{VHDL} model 
-      (data-flow without timing informations).
-      \texttt{Yagle} can be distinguished from commercial CAD 
-      abstractors by the fact that it does not need a predefined cell 
-      library or transistor patterns.  
-      Furthermore, the use of a purely algorithmic approach compared
-      to a pattern matching one implies a huge gain in performance.
-      Yagle is not anymore part of Alliance, but is freely available 
-      at \texttt{http://www.avertec.com}.
-
-\item \texttt{tas} is a static timing analyzer.
-      It takes as input a transistor netlist and produces a file
-      containing all the combinatorial paths of the circuit,
-      the critical path being outlined. 
-      Tas is not anymore part of Alliance, but is freely available 
-      at \texttt{http://www.avertec.com}.
-
 \item \texttt{proof} performs a formal comparison between two data
       flow \textbf{VHDL} descriptions that share the same register set.
       \texttt{Proof} supports the same subset of \textbf{VHDL} as 
-      \texttt{asimut}, \texttt{boom}, \texttt{boog} and \texttt{yagle}.
+      \texttt{asimut}, \texttt{boom}, \texttt{boog}.
 
 \item \texttt{graal} is an hierarchical symbolic layout editor.
       It requires a X-Window graphical environment and the Motif libraries.
@@ -603,8 +552,11 @@ these technologies.
           \caption{\label{graal}Editing some custom layout using \texttt{graal}.}
        \end{figure}
 
-\item \texttt{L2p} creates a Postscript file from a layout, symbolic or
-      real.
+\item \texttt{dreal} is a real layout editor (rectangles in micron) .
+      It requires a X-Window graphical environment and the Motif libraries.
+
+\item there are many other tools not described here.
+
 \end{itemize}
 
 %%%%%%%%%%%%%%%%%%%%%%%
@@ -642,8 +594,8 @@ except for the power supply and NWELL.Cells can be abutted in all directions
 whenever the supply is well connected and connectors are always placed on 
 the 5x5 grid. 
 They are supposed to be used with a usual standard cells place and
-route tool, such as \textbf{Alliance}'s \texttt{scr}, \textbf{Compass} or
-\textbf{Cadence}.
+route tools, such as \textbf{Alliance}'s \texttt{ocp} and \texttt{nero}, 
+\textbf{Compass} or \textbf{Cadence}.
 These cells are to be used primary for glue logic, since optimized
 operators can be obtained using dedicated generators, as stated 
 paragraph~\ref{gene}.
@@ -651,18 +603,18 @@ The \texttt{logic} tool can map a behaviral VHDL onto this library.
 %%%%%%%%%%%%%%%%%%
 %%
 %%%%%%%%%%
-\subsubsection{Datapath libraries}
+\subsubsection{Datapath libraries: (This part of the document is not up to date !)}
 \label{gene}
 
 There are two kinds of datapath libraries:
 \begin{itemize}
-\item \texttt{dplib} is a cell library dedicated to high density data-paths.
-      It must be used in conjunction with the data-path tools
-      \texttt{dpgen} and \texttt{dpr}.
-      The cells in \texttt{dplib} have the same functionnalities as the
-      ones in \texttt{sclib}, but have a topology that is usable only
+\item \texttt{dp\_sxlib} is a cell library dedicated to high density data-paths.
+      It must be used in conjunction with the data-path tool
+      \texttt{dpgen}.
+      The cells in \texttt{dp\_sxlib} have the same functionnalities as the
+      ones in \texttt{sxlib}, but have a topology that is usable only
       within a datapath.
-      \texttt{Boog} can also map a behavior onto the \texttt{dplib}
+      \texttt{Boog} can also map a behavior onto the \texttt{dp\_sxlib}
       library.
       
 \item \texttt{fplib} is a set of above 30 regular functions that are
@@ -946,7 +898,7 @@ used.
 
 These projects range from medium complexity ASICs developed in 6 
 months by a couple of designers \textbf{Data-safe}, \textbf{TNT},
-\textbf{Smal}, \textbf{Rf264},etc...) to high complexity circuits
+\textbf{Smal}, \textbf{Rf264},etc... to high complexity circuits
 (\textbf{FRISC}, \textbf{Multick}, \textbf{StaCS}, \textbf{Rapid2}, \textbf{Rcube}) 
 developed by a team of PhD students.
 
@@ -1023,7 +975,7 @@ views and problems, and our team is always ready to answer questions.
 The address of this mailing list is 
 \texttt{alliance-users@asim.} \texttt{lip6.fr}.
 The support of \textbf{Alliance} can be joined at
-\texttt{alliance-support@asim.lip6.fr}.
+\texttt{alliance-users@asim.lip6.fr}.
 
 %%%%%%%%%%%%%%%%
 %

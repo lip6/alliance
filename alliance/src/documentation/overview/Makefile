@@ -1,6 +1,6 @@
 # Generic Makefile for TeTeX projet
 # (C) 1999, Czo
-# $Id: Makefile,v 1.1 2002/10/24 14:50:16 czo Exp $
+# $Id: Makefile,v 1.2 2004/07/09 21:55:20 ludo Exp $
 
 MYFILE=overview
 
@@ -21,7 +21,7 @@ ps   : $(MYFILE).tex
 	dvips $(MYFILE).dvi -o $(MYFILE).ps
 
 distrib : all
-	ps2pdf $(MYFILE).ps
+	dvipdf $(MYFILE).dvi
 	cp -f $(MYFILE).ps ..
 	cp -f $(MYFILE).pdf ..
 	$(MAKE) clean
