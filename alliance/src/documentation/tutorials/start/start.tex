@@ -5,7 +5,7 @@
 % Version for Alliance releases 2.0 and up by Frederic Petrot
 % Modified by czo for Alliance release 4.0 (01/2000)
 % TODO : no fully working, needs some adjustements
-% $Id: start.tex,v 1.1 2002/10/24 14:49:52 czo Exp $
+% $Id: start.tex,v 1.2 2004/07/14 22:37:14 ludo Exp $
 %
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \documentclass{article}
@@ -64,7 +64,7 @@ tools, whose use is briefly explained in the tutorials.
 These texts are meant to be simple and comprehensive, and are to be used
 to get \emph{into} the system.
 Should something be unclear or wrong, please indicate this by sending
-an e-mail to \texttt{alliance-support@lip6.fr}.
+an e-mail to \texttt{alliance-users@asim.lip6.fr}.
 \rm
 \end{quote}
 \end{center}
@@ -73,38 +73,34 @@ an e-mail to \texttt{alliance-support@lip6.fr}.
 \section{Introduction}
 In these tutorials, you will learn the practical use of some basic
 \textbf{Alliance} tools by building some very simple circuits from scratch.
-It is recommended that you read the \texttt{overview.ps} file before
+It is recommended that you read the \texttt{overview.pdf} file before
 proceeding, as it describes the main steps of the design conceptually.
 
 \section{Before starting}
 In those tutorials you will learn the practical use of the following 
 \textbf{Alliance} tools :
 
-In the first tutorial (tutorial1/ directory) :
+In the first tutorial (simulation/ directory) :
 \begin{itemize}
 \item \textbf{asimut} : VHDL compiler and simulator.
 \item \textbf{genpat} : patterns generator.
 \item \textbf{genlib} : Netlist capture.
+\item \textbf{xpat}   : Graphical pattern viewer.
 \end{itemize}
 
-In the second tutorial (tutorial2/ directory) :
+In the second tutorial (place\_route/ directory) :
 \begin{itemize}
-\item \textbf{scr}  : Standard cell placer and router.
-\item \textbf{druc} : Design rule checker.
-\item \textbf{ring} : Core to pads router.
-\item \textbf{lynx} : Symbolic layout extractor.
-\item \textbf{lvx}  : Netlist comparator.
-\item \textbf{graal}: Graphic layout editor.
+\item \textbf{ocp}    : Standard cell placer.
+\item \textbf{ocr}    : Over cell router (obsolete)
+\item \textbf{nero}   : Over cell router
+\item \textbf{druc}   : Design rule checker.
+\item \textbf{ring}   : Core to pads router.
+\item \textbf{cougar} : Symbolic layout extractor.
+\item \textbf{lvx}    : Netlist comparator.
+\item \textbf{graal}  : Graphic layout editor.
 \end{itemize}
 
-In the third tutorial (tutorial3/ directory) :
-\begin{itemize}
-\item \textbf{yagle} : Functionnal abstractor.
-\item \textbf{proof} : Formal proof between two behavioral descriptions.
-\item \textbf{tas} : Timing analysis static.
-\end{itemize}
-
-In the forth tutorial (tutorial5/ directory) :
+In the forth tutorial (synthesis/ directory) :
 \begin{itemize}
 \item \textbf{syf}  : Finite state machine synthesizer.
 \item \textbf{boom} : Boolean optimization of a logic level behavioral 
@@ -120,13 +116,13 @@ If you run a \texttt{c-like} shell, like \texttt{csh} or \texttt{tcsh},
 try to run the following command :
 
 \begin{phraseverbatim}
-~alp/addaccu %-) source /usr/local/alliance/share/etc/alc_env.csh
+~alp/addaccu %-) source /alliance/etc/alc_env.csh
 \end{phraseverbatim}
 
 Otherwise, if you run a \texttt{sh-like} shell, try to run the following 
 command :
 \begin{phraseverbatim}
-~alp/addaccu %-) source /usr/local/alliance/share/etc/alc_env.sh
+~alp/addaccu %-) source /alliance/alc_env.sh
 \end{phraseverbatim}
 \\
 Before we proceed to the tutorial, you must make sure that the
@@ -138,72 +134,6 @@ The prompt in represented in the following text by the symbol~:
 \end{phraseverbatim}
 In this system, \texttt{alp} is the user, \texttt{addaccu} is the current
 directory, and \texttt{\%-)} is supposed to give us courage!
-
-Try issuing the following command to check that \textbf{Alliance} is
-correctly installed:
-
-\begin{phraseverbatim}
-~alp/addaccu %-) ali
-\end{phraseverbatim}
-
-If everything is working, you get the following result:
-\begin{figure}[H]\center\leavevmode
-\begin{framedverbatim}
-
-                                 @      @@@@      @
-                                 @        @@     @@@
-                                @@@       @@      @
-                                @@@       @@
-                               @  @@      @@   @@@@
-                               @  @@      @@     @@
-                              @    @@     @@     @@
-                              @@@@@@@     @@     @@
-                             @      @@    @@     @@
-                             @      @@    @@     @@
-                           @@@@    @@@@ @@@@@@ @@@@@@
-
-                              ALliance Information
-
-                  Alliance CAD System 4.0.8,            ali 1.0
-                  Copyright (c) 1999-2001,       ASIM/LIP6/UPMC
-                  E-mail support: alliance-support@asim.lip6.fr
-
-
-Alliance settings :
-
-ALLIANCE_OS      = Linux
-ALLIANCE_TOP     = /usr/local/alliance/archi/Linux
-ALLIANCE_VERSION = '"4.0.8"'
-
-DREAL_TECHNO_NAME=/usr/local/alliance/archi/Linux/etc/cmos_7.dreal
-ELP_TECHNO_NAME=/usr/local/alliance/archi/Linux/etc/prol10_11.elp
-GENVIEW_TECHNO_NAME=/usr/local/alliance/archi/Linux/etc/cmos_11.genview
-GRAAL_TECHNO_NAME=/usr/local/alliance/archi/Linux/etc/cmos_11.graal
-MBK_C4_LIB=./cellsC4
-MBK_CATAL_NAME=CATAL
-MBK_CATA_LIB=.:/usr/local/alliance/archi/Linux/cells/sxlib:/usr/local/alliance/a
-rchi/Linux/cells/padlib
-MBK_IN_LO=vst
-MBK_IN_PH=ap
-MBK_OUT_LO=vst
-MBK_OUT_PH=ap
-MBK_SCALE_X=100
-MBK_TARGET_LIB=/usr/local/alliance/archi/Linux/cells/sxlib
-MBK_VDD=vdd
-MBK_VSS=vss
-MBK_WORK_LIB=.
-RDS_TECHNO_NAME=/usr/local/alliance/archi/Linux/etc/cmos_11.rds
-VH_BEHSFX=vbe
-VH_DLYSFX=dly
-VH_MAXERR=10
-VH_PATSFX=pat
-XFSM_PARAM_NAME=/usr/local/alliance/archi/Linux/etc/xfsm.par
-XPAT_PARAM_NAME=/usr/local/alliance/archi/Linux/etc/xpat.par
-XSCH_PARAM_NAME=/usr/local/alliance/archi/Linux/etc/xsch.par
-\end{framedverbatim}
-\caption{\textbf{Alliance} environment variables.}
-\label{ali}
-\end{figure}
 
 \section{Execution environment set up}
 Later, before you will start examining alliance tools, you will probably want 
@@ -221,22 +151,20 @@ MBK_OUT_PH=ap
 MBK_CATAL_NAME=CATAL
 MBK_SCALE_X=100
 MBK_VSS=vss
-MBK_CATA_LIB=.:/usr/local/alliance/archi/Linux/cells/sxlib:
-			/usr/local/alliance/archi/Linux/cells/padlib
+MBK_CATA_LIB=.:/alliance/cells/sxlib:/alliance/cells/padlib
 MBK_WORK_LIB=.
 MBK_VDD=vdd
 MBK_C4_LIB=./cellsC4
 MBK_IN_LO=vst
 MBK_IN_PH=ap
-MBK_TARGET_LIB=/usr/local/alliance/archi/Linux/cells/sxlib
+MBK_TARGET_LIB=/alliance/cells/sxlib
 MBK_OUT_LO=vst
 \end{framedverbatim}
 \caption{\label{mbk} \texttt{MBK} environment variables.}
 \end{figure}
 
-In figure \ref{mbk} you can see all of them. All these variables are documented 
-at least with a manual page. However, some variables are documented in each 
-tutorial.
+All these variables are documented at least with a manual page. However, some
+variables are documented in each tutorial.
 
 \section{File Formats}
 One of the interesting features of \textbf{Alliance} is that different 
@@ -254,11 +182,15 @@ So, prior to generate a specification netlist, you shall type:
 ~alp/addaccu %-) setenv MBK_OUT_LO vst
 \end{phraseverbatim}
 
+Otherwise, if you are running a \texttt{sh-like} shell:
+\begin{phraseverbatim}
+~alp/addaccu %-) MBK_OUT_LO=vst; export MBK_OUT_LO
+\end{phraseverbatim}
+
 But if you wish to extract a netlist from the layout then you'll do:
 \begin{phraseverbatim}
 ~alp/addaccu %-) setenv MBK_OUT_LO al
 \end{phraseverbatim}
-
 
 You are now ready to actually do all tutorials.
 \end{document}
