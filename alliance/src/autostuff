@@ -34,6 +34,10 @@ for i in $dirs ; do
    cd $i
    if test -f configure.in ; then
       echo entering $i ...
+      if grep "^AM_PROG_LIBTOOL" configure.in >/dev/null; then
+      echo "Running libtoolize..."
+      libtoolize --force --copy --automake
+      fi
       aclocal -I . -I ..
       automake --foreign
       autoconf
