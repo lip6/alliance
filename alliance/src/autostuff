@@ -1,4 +1,10 @@
 #!/bin/sh
+#$Log: autostuff,v $
+#Revision 1.10  2004/07/26 12:34:39  fred
+#Added a test on Makefile.am to avoid errors when making 'clean'.
+#Sources without Makefile.am in their top directory are now totally
+#ignored.
+#
 ###################################################
 ## Possible arguments: 
 ##  - clean : to sweap all built files
@@ -32,6 +38,7 @@ for dir in $dirs; do
   if [ "$dir" == "autom4te.cache" ]; then continue; fi
   if [ "$dir" == "Linux"          ]; then continue; fi
   if [ "$dir" == "Solaris"        ]; then continue; fi
+  if [ ! -f "$dir/Makefile.am"    ]; then continue; fi
   newdirs="$newdirs $dir"
 done
 dirs="$newdirs"
