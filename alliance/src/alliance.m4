@@ -3,6 +3,9 @@ AC_DEFUN(AM_ALLIANCE,[
     [  --with-alliance-top=ALLIANCE_TOP    Prefix where alliance is installed (optional)],
     alliance_top="$withval", alliance_top="")
 
+AC_ARG_ENABLE(system64,
+              --enable-system64   enable compilation on 64 bits systems (default is 32 bits),
+              AC_DEFINE(SYSTEM64))
 
 AC_MSG_CHECKING(for alliance)
 if test x$alliance_top != x ; then
@@ -56,4 +59,5 @@ AC_SUBST(INSTALL_PROGRAM)
 
 AC_DEFINE_UNQUOTED(ALLIANCE_VERSION, "5.0")
 AC_DEFINE_UNQUOTED(ALLIANCE_TOP, "$ALLIANCE_TOP")
+
 ])
