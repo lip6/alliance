@@ -1,2 +1,3 @@
 install-data-local:
-	$(INSTALL_DATA) $(srcdir)/cmos.rds @ALLIANCE_TOP@/etc/cmos.rds
+	$(mkinstalldirs) $(DESTDIR)$(sysconfdir) 
+	$(INSTALL_DATA) $(srcdir)/cmos.rds $(DESTDIR)$(sysconfdir)/cmos.rds
