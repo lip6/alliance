@@ -5,10 +5,10 @@
 # License: GPL (http://www.gnu.org/copyleft/gpl.html)
 # Started: Sept 1999
 # Last Change: Thursday 07 September 2000, 09:38
-# Edit Time: 0:14:21
+# Edit Time: 0:14:22
 # Description:
 #
-# $Id: postconfig,v 1.29 2000/09/07 07:38:18 czo Exp $
+# $Id: postconfig,v 1.30 2000/09/07 07:38:42 czo Exp $
 #
 
 PATH=/asim/gnu/bin:/usr/ucb:/usr/etc:/usr/local/bin:/bin:/usr/bin:${PATH}
@@ -66,7 +66,7 @@ echo "Diff"
 echo ""
 
 cd $UPDATE_IN
-# cvs diff $MODIFIED_FILES | head -50
+cvs diff $MODIFIED_FILES | head -50
 echo ""
 echo "===================================================================="
 echo "Ce message est envoyé au personnes abonnées à alliance-programmers"
