@@ -8,7 +8,7 @@
 # Edit Time: 208:03:15
 # Description:
 #
-# $Id: mkdistrib,v 1.12 2003/12/10 15:50:05 czo Exp $
+# $Id: mkdistrib,v 1.13 2004/07/13 22:41:21 alliance Exp $
 #
 
 
@@ -19,9 +19,9 @@
 ALC_DISTRIBDIR=/users/soft5/newlabo/distrib
 
 solaris=sparc-solaris-2.9
-linux=i386-linux-2.4.9
+linux=i386-linux-2.6.6
 
-ALC_WKSLIST="bip beny"
+ALC_WKSLIST="tsunami funk"
 ALC_FTPDISTRIBDIR=/users/largo2/ftp/pub/alliance/distribution/5.0
 ALC_LOGFILE=/tmp/albuild.$$
 ALC_FULL_LOGFILE="$ALC_DISTRIBDIR/amkdistrib.log"
@@ -130,7 +130,7 @@ try ./alliance/src/.asim
 
 perl -pi -e "s§AC_DEFINE_UNQUOTED.*ALLIANCE_VERSION.*§AC_DEFINE_UNQUOTED(ALLIANCE_VERSION, \"$ALC_VERSION \[$ALC_RELEASE\]\")§" alliance/src/alliance.m4
 
-perl -p -e "s§MYSPEC_VERSION§$ALC_VERSION§ ; s§MYSPEC_RELEASE§$ALC_RELEASE§" alliance/src/distrib/myspec > alliance/src/distrib/alliance.spec
+#perl -p -e "s§MYSPEC_VERSION§$ALC_VERSION§ ; s§MYSPEC_RELEASE§$ALC_RELEASE§" alliance/src/distrib/myspec > alliance/src/distrib/alliance.spec
 
 
 echo "%%%%%%%%%%%%%%% Makedist, generation de alliance-5.0.tar.gz"
@@ -159,40 +159,56 @@ cd ../..
 mv alliance $ALC_TMPALLIANCE
 (chmod -R 777 $ALC_TMPALLIANCE ; rm -fr $ALC_TMPALLIANCE)&
 
+RPM_MACROS="$HOME/.rpmmacros"
+RPM_TOPDIR="`pwd`/rpm"
+rm -f $RPM_MACROS
+echo "%_topdir   $RPM_TOPDIR"     >> $RPM_MACROS
+echo "%_tmppath  %{_topdir}/tmp"  >> $RPM_MACROS
+for dir in $RPM_TOPDIR             \
+           $RPM_TOPDIR/SPECS       \
+           $RPM_TOPDIR/SOURCES     \
+           $RPM_TOPDIR/BUILD       \
+           $RPM_TOPDIR/SRPMS       \
+           $RPM_TOPDIR/RPMS/noarch \
+           $RPM_TOPDIR/RPMS/i386   \
+           $RPM_TOPDIR/tmp
+do
+  if [ ! -d "$dir" ]; then mkdir -p $dir; fi
+done
+
+
+
+
+
 try tar -xvzf "$ALC_PACK.tar.gz"
 
-ALLIANCE_TOP=/usr/local/alliance
+ALLIANCE_TOP=/opt/alliance-$ALC_VERSION
 export ALLIANCE_TOP
 
 for WKS in $ALC_WKSLIST
 do
 try mkdir $ALC_TMPDESTDIR-$WKS $ALC_TMPBUILDDIR-$WKS
 ssh -n $WKS "cd $ALC_DISTRIBDIR/$ALC_TMPBUILDDIR-$WKS ; \
-ALLIANCE_TOP=$ALC_DISTRIBDIR/$ALC_TMPDESTDIR-$WKS/usr/local/alliance ; \
+ALLIANCE_TOP=$ALC_DISTRIBDIR/$ALC_TMPDESTDIR-$WKS/opt/alliance-$ALC_VERSION ; \
 export ALLIANCE_TOP ; \
-../$ALC_DIR/configure --prefix=/usr/local/alliance ; \
+../$ALC_DIR/configure --prefix=/opt/alliance-$ALC_VERSION ; \
 gmake DESTDIR=$ALC_DISTRIBDIR/$ALC_TMPDESTDIR-$WKS install && echo Alliance_compilation_OK"  2>&1 | tee $ALC_LOGFILE
 try grep Alliance_compilation_OK $ALC_LOGFILE
-try cd $ALC_DISTRIBDIR/$ALC_TMPDESTDIR-$WKS/usr/local
-try tar chozf $ALC_DISTRIBDIR/$ALC_PACK-$WKS.tar.gz alliance
+try cd $ALC_DISTRIBDIR/$ALC_TMPDESTDIR-$WKS/opt
+try tar chozf $ALC_DISTRIBDIR/$ALC_PACK-$WKS.tar.gz alliance-$ALC_VERSION
 try cd $ALC_DISTRIBDIR
 done
 
-try mv $ALC_PACK-bip.tar.gz $ALC_PACK-$linux.tar.gz
-try mv $ALC_PACK-beny.tar.gz $ALC_PACK-$solaris.tar.gz
-
-# plus de generation rpm, cp ceux de jpc
-# try rpm -ta $ALC_PACK.tar.gz
+try mv $ALC_PACK-tsunami.tar.gz $ALC_PACK-$linux.tar.gz
+try mv $ALC_PACK-funk.tar.gz $ALC_PACK-$solaris.tar.gz
+try rpmbuild -ta --clean --define "release $ALC_RELEASE" $ALC_PACK.tar.gz
 
 try cp -f "$ALC_PACK.tar.gz" $ALC_FTPDISTRIBDIR
 try cp -f "$ALC_PACK-$linux.tar.gz" $ALC_FTPDISTRIBDIR
 try cp -f "$ALC_PACK-$solaris.tar.gz" $ALC_FTPDISTRIBDIR
 
-# plus de generation rpm, cp ceux de jpc
-# try cp -f "/dsk/l1/tmp/czo/rpm/RPMS/i386/$ALC_PACK.i386.rpm" $ALC_FTPDISTRIBDIR
-
-#try cp -fp /usr/src/redhat/RPMS/i386/alliance*.rpm $ALC_FTPDISTRIBDIR
-#try cp -fp /usr/src/redhat/SRPMS/alliance*.rpm $ALC_FTPDISTRIBDIR
+try cp -fp $RPM_TOPDIR/RPMS/i386/alliance*.rpm $ALC_FTPDISTRIBDIR
+try cp -fp $RPM_TOPDIR/SRPMS/alliance*.rpm $ALC_FTPDISTRIBDIR
 
 
 ) | perl -ne  '$|=1; printf("%s%s", "[m", $_)' ) 2>&1 | perl -ne  '$|=1; printf("%s%s%s", "[1;31;40m", $_, "[m")' 
