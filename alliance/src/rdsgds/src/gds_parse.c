@@ -144,7 +144,8 @@ static node_list *HEAD_NODE;  /* text list in the GDS file */
       if ( ( X >= Scan->X            ) &&  
            ( Y >= Scan->Y            ) &&  
            ( X <= Scan->X + Scan->DX ) &&
-           ( Y <= Scan->Y + Scan->DY ) )
+           ( Y <= Scan->Y + Scan->DY ) &&
+           IsRdsReference (Scan))
       {
         return Scan;
       }
@@ -401,6 +402,22 @@ char texte[8];
    pv_emet_warning(pv_model->NAME, "Unknown GDS layer in technology file :", texte);
    return -1;
 }
+
+static int
+   pv_gdslayer_iscon(layer)
+int layer;
+{
+int rds_layer;
+char texte[8];
+
+   if (layer != -1)
+      for (rds_layer = 0; rds_layer < RDS_MAX_LAYER; rds_layer++) {
+         if (GET_GDS_CONNECTOR_LAYER(rds_layer) == layer)
+            return 1;
+      }
+   return 0;
+}
+
 
 /*********
 *
@@ -662,16 +679,18 @@ static int
    pv_construit_rectangle(fp)
 FILE *fp;
 {
-   hinfo_type     infobuf;
-   int      retour;
-   int      taille;
-   char     poubelle[TRASHSIZE], texte[64];
-   coord_t     *coord_tab, *new_coord_tab;
-   unsigned coord_nb, new_coord_nb;
-   short    gds_layer;
-   char     rds_layer = 0;
-   int      i, FLAG = 0;
-   int      error = FALSE;
+   hinfo_type   infobuf;
+   int          retour;
+   int          taille;
+   char         poubelle[TRASHSIZE], texte[64];
+   coord_t      *coord_tab, *new_coord_tab;
+   unsigned     coord_nb, new_coord_nb;
+   short        gds_layer;
+   char         rds_layer = 0;
+   long         rds_type = 0;
+   int          i, FLAG = 0;
+   int          error = FALSE;
+   rdsrec_list *Rec, *Tangle;
 
    while ((retour = fread((char *)&infobuf, sizeof(hinfo_type), 1, fp)) == 1) {
       if (islittle()) {
@@ -685,6 +704,8 @@ FILE *fp;
             gds_layer = swaps(gds_layer);
          rds_layer = pv_gdslayer_to_symb(gds_layer);
          if (rds_layer == (char)-1) FLAG = -1;
+         if (pv_gdslayer_iscon(gds_layer))
+            rds_type = MBK_CONNECTOR_MASK;
          break;
       case XY :
          taille = infobuf.size - sizeof(hinfo_type);
@@ -725,13 +746,22 @@ FILE *fp;
             break;
          }
          free((char *)coord_tab);
+         Tangle = pv_model->LAYERTAB[(int)rds_layer];
          diag2rec(pv_model, rds_layer, new_coord_tab, new_coord_nb);
-         if (pv_model->LAYERTAB[(int)rds_layer] == (rdsrec_list *)NULL) {
+         if (pv_model->LAYERTAB[(int)rds_layer] == Tangle) {
             pv_init_error();
             pv_error.v_error = ENOMEM;
             pv_error.v_textp = "(diag2rec)";
             pv_give_error("construit_rectangle");
             error = TRUE;
+         } else {
+           if (rds_type == MBK_CONNECTOR_MASK)
+              for (Rec = pv_model->LAYERTAB[(int)rds_layer];
+                   Rec != Tangle;
+                   Rec = Rec->NEXT) {
+                 SetRdsReference(Rec);
+                 SetRdsRefCon(Rec);
+              }
          }
          free((char *)new_coord_tab);
          break;
@@ -1062,7 +1092,7 @@ rdsrec_list  *Rec;
             break;
          case -1 :   /* erreur non bloquante.   */
             if (flag != -1) flag = -2;
-         pv_emet_warning(pv_model->NAME,
+               pv_emet_warning(pv_model->NAME,
                "This model will not be included into the data structure",
                (char *)NULL);
          delrdsfig(pv_model->NAME);
@@ -1127,7 +1157,8 @@ rdsrec_list  *Rec;
                pv_emet_warning(Figure->NAME, "Unconnected node :",
                             poubelle);
             }
-            else Rec->NAME = ScanNode->NAME;
+            else
+               Rec->NAME = ScanNode->NAME;
          }
          GdsFreeNode();
 
