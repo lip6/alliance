@@ -35,7 +35,8 @@ AC_PROG_MAKE_SET
 dnl Checks for libraries.
 dnl Check for -lm librarie.  These should always be present.
 AC_CHECK_LIB(m, exp)
-AC_CHECK_LIB(gen,basename)
+AC_CHECK_LIB(gen, basename)
+AC_CHECK_LIB(iberty, basename)
 
 dnl Checks for typedefs, structures, and compiler characteristics.
 AC_C_CONST

@@ -22,7 +22,8 @@ AC_PROG_MAKE_SET
 
 dnl Checks for typedefs, structures, and compiler characteristics.
 AC_C_CONST
-AC_CHECK_LIB(gen,basename)
+AC_CHECK_LIB(gen, basename)
+AC_CHECK_LIB(iberty, basename)
 
 dnl For alliance path lib and includes
 AM_ALLIANCE
