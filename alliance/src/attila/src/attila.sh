@@ -1,6 +1,6 @@
 #!/bin/sh
 #
-# $Id: attila.sh,v 1.8 2002/10/13 19:39:33 jpc Exp $
+# $Id: attila.sh,v 1.9 2002/10/17 22:42:09 jpc Exp $
 #                                                                        
 # /------------------------------------------------------------------\
 # |                                                                  |
@@ -450,9 +450,11 @@
 
    echo "  o  Building & installing requested tools."
    for TOOL in $TOOLS; do
-     echo "     - Making autostuff for $TOOL."
      cd  $HOME/alliance/src
-     ./autostuff $TOOL
+     if [ ! -f "$TOOL/Makefile.in" ]; then
+       echo "     - Making autostuff for $TOOL."
+       ./autostuff $TOOL
+     fi
 
      cd $BUILD_DIR
      if [ ! -d $TOOL ]; then
