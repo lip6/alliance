@@ -1,0 +1,94 @@
+.\"   $Id: GENLIB_DEF_PHINS.3,v 1.1 2000/09/28 15:19:50 fred Exp $
+.\" @(#)DEF_PHINS.3 2.11 91/08/22; Labo Cao-vlsi; Author : Frederic Petrot
+.if t \{\
+.so man1/alc_contents.mac
+.XS \n%
+.ti 0.2i
+DEF_PHINS
+.XE \}
+.TH DEF_PHINS 3 "October 1, 1997" "ASIM/LIP6" "PROCEDURAL GENERATION LANGUAGE"
+.SH NAME
+DEF_PHINS \- define a new reference instance
+.SH SYNOPSYS
+.nf
+.if n \{\
+.ft B \}
+.if t \{\
+.ft CR \}
+#include <genlib.h>
+void DEF_PHINS(instancename);
+char \(**instancename;
+.ft R
+.fi
+.so man1/alc_origin.1
+.SH PARAMETERS
+.TP 20
+\fIinstancename\fP
+Defines the instance called \fIinstancename\fP as the new "reference instance" 
+.SH DESCRIPTION
+\fBDEF_PHINS\fP define the new "reference instance", used as starting point
+in the relative placement functions of genlib. It's regarding the \fBabutment
+box\fP of the instance \fIinstancename\fP that the next instance is going to be
+placed, if using the appropriate functions. Notice that the more recently
+placed instance becomes automaticaly the "reference instance", if 
+\fBDEF_PHINS\fP isn't called.
+.SH ERRORS
+.if n \{\
+.ft B \}
+.if t \{\
+.ft CR \}
+"DEF_PHINS impossible : missing DEF_PHFIG"
+.ft R
+.RS
+No figure has been yet specified by a call to \fBDEF_PHFIG\fP. So it isn't
+possible to refer to an instance inside it.
+you must call \fBDEF_PHFIG\fP before any other layout action.
+.RE
+.if n \{\
+.ft B \}
+.if t \{\
+.ft CR \}
+"instance instancename doesn't exist in current figure"
+.ft R
+.RS
+The instance \fIinstancename\fP hasn't currently been placed in the figure,
+so it's impossible do to any placement from it. 
+.RE
+.SH EXAMPLE
+.nf
+.if n \{\
+.ft B \}
+.if t \{\
+.ft CR \}
+#include <genlib.h>
+main()
+{
+	/\(** Create a figure to work on  \(**/
+	DEF_PHFIG("cell");
+	/\(** Place an instance \(**/
+	PLACE("model","i1", NOSYM,0L,0L);
+	PLACE("model","i2", NOSYM,120L,40L);
+	DEF_PHINS("i1");
+	PLACE_TOP("model2", "i3", NOSYM);
+	DEF_AB(0, 0, 0, 0);
+	/\(** Save all that on disk \(**/
+	SAVE_PHFIG();
+}
+.ft R
+.fi
+.SH SEE ALSO
+.BR genlib (1),
+.BR PLACE (3),
+.BR PLACE_TOP (3),
+.BR PLACE_RIGHT (3),
+.BR PLACE_LEFT (3),
+.BR PLACE_BOTTOM (3),
+.BR SC_PLACE (3),
+.BR SC_TOP (3),
+.BR SC_RIGHT (3),
+.BR SC_LEFT (3),
+.BR SC_BOTTOM (3).
+
+
+.so man1/alc_bug_report.1
+

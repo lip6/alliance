@@ -1,0 +1,92 @@
+.\"   $Id: GENLIB_LOTRS.3,v 1.1 2000/09/28 15:19:55 fred Exp $
+.\" @(#)LOTRS.3 2.11 91/08/22; Labo Cao-vlsi; Author : Frederic Petrot
+.if t \{\
+.so man1/alc_contents.mac
+.XS \n%
+.ti 0.2i
+LOTRS
+.XE \}
+.TH LOTRS 3 "October 1, 1997" "ASIM/LIP6" "PROCEDURAL GENERATION LANGUAGE"
+.SH NAME
+LOTRS \- adds a logical transistor to the current netlist figure
+.SH SYNOPSYS
+.nf
+.if n \{\
+.ft B \}
+.if t \{\
+.ft CR \}
+#include <genlib.h>
+void LOTRS(type,width,length,grid,source,drain)
+char type;
+long width, length;
+char \(**grid, \(**source, \(**drain;
+.ft R
+.fi
+.so man1/alc_origin.1
+.SH PARAMETERS
+.TP 20
+\fItype\fP
+Type of the transistor to be created in the current figure
+.TP
+\fIwidth, length\fP
+Size of the transistor
+.TP
+\fIgrid, source, drain\fP
+Name of the signals on which the given transitor connector are to be linked
+.SH DESCRIPTION
+\fBLOTRS\fP add a logical transistor to the current
+working figure. This transitor has each of its pin logicaly linked to the signal
+adequat signal given as parameter.
+The \fItype\fP attribut may take the following values:
+.TP
+\fBTRANSN\fP
+for a N type mos transistor.
+.TP
+\fBTRANSP\fP 
+for a P type mos transistor.
+.SH ERROR
+.if n \{\
+.ft B \}
+.if t \{\
+.ft CR \}
+"LOTRS impossible : missing DEF_LOFIG"
+.ft R
+.RS
+No figure has been yet specified by a call to \fBDEF_LOFIG\fP. So it isn't
+possible to add anything. you must call \fBDEF_LOFIG\fP before any other
+netlist call.
+.RE
+.SH EXAMPLE
+.nf
+.if n \{\
+.ft B \}
+.if t \{\
+.ft CR \}
+#include <genlib.h>
+main()
+{
+	/\(** Create a figure to work on, an inverter  \(**/
+	DEF_LOFIG("n1");
+	/\(** define interface  \(**/
+	LOCON("i", IN, "input");
+	LOCON("f", OUT, "output");
+	LOCON("vdd", IN, "vdd");
+	LOCON("vss", IN, "vss");
+	/\(** Place transistors \(**/
+	LOTRS(TRANSP, 5, 4, "input", "vdd", "output");
+	LOTRS(TRANSN, 2, 4, "input", "vss", "output");
+	/\(** Save all that on disk \(**/
+	SAVE_LOFIG();
+}
+.ft R
+.fi
+.SH SEE ALSO
+.BR genlib (1),
+.BR BUS (3),
+.BR ELM (3),
+.BR LOINS (3),
+.BR LOCON (3).
+
+
+.so man1/alc_bug_report.1
+

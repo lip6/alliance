@@ -1,0 +1,92 @@
+.\"   $Id: GENLIB_SAVE_LOFIG.3,v 1.1 2000/09/28 15:19:58 fred Exp $
+.\" @(#)SAVE_LOFIOG.3 2.11 01/92; Labo Cao-vlsi; Author : Frederic Petrot
+.if t \{\
+.so man1/alc_contents.mac
+.XS \n%
+.ti 0.2i
+SAVE_LOFIG
+.XE \}
+.TH SAVE_LOFIG 3 "October 1, 1997" "ASIM/LIP6" "PROCEDURAL GENERATION LANGUAGE"
+.SH NAME
+SAVE_LOFIG \- save a netlist on disk
+.SH SYNOPSYS
+.nf
+.if n \{\
+.ft B \}
+.if t \{\
+.ft CR \}
+#include <genlib.h>
+void SAVE_LOFIG();
+.ft R
+.fi
+.so man1/alc_origin.1
+.SH DESCRIPTION
+\fBSAVE_LOFIG\fP saves the current working figure previously definded by
+a \fBDEF_LOFIG\fP call. \fBSAVE_LOFIG\fP uses environment variables to
+choose the file format and the path to the file.
+\fBMBK_OUT_LO\fP set up the output file format, the valid ones beeing :
+.RS
+\fBhns
+.br
+fne
+.br
+al
+.br
+alx\fP
+.RE
+you could for example do :
+.br
+.RS
+\fBsetenv MBK_OUT_LO al\fP
+.RE
+\fBMBK_WORK_LIB\fP set up the output file path. Any valid unix path is
+ok.
+.br
+for example :
+.RS
+\fBsetenv MBK_WORK_LIB ~fred/booth/genlib\fP
+.RE
+\fBSAVE_LOFIG\fP doesn't look on disk for the figure \fIcellname\fP, 
+so be careful not to overwrite an existing file while saving.
+.SH ERROR
+.if n \{\
+.ft B \}
+.if t \{\
+.ft CR \}
+"SAVE_LOFIG impossible : missing DEF_LOFIG"
+.ft R
+.RS
+No figure has been yet specified by a call to \fBDEF_LOFIG\fP. So it isn't
+possible to save anything. you must call \fBDEF_LOFIG\fP before any other
+netlist call.
+.RE
+.SH EXAMPLE
+.nf
+.if n \{\
+.ft B \}
+.if t \{\
+.ft CR \}
+#include <genlib.h>
+main()
+{
+	/\(** Create a figure to work on  \(**/
+	DEF_LOFIG("mycell");
+	/\(** define interface  \(**/
+	LOCON("i", INPUT, "sig1");
+	LOCON("o", OUTPUT, "sig2");
+	/\(** Place an instance \(**/
+	LOINS("model","instance", "sig1", "sig2", EOL);
+	/\(** Save all that on disk \(**/
+	SAVE_LOFIG();
+}
+.ft R
+.fi
+.SH SEE ALSO
+.BR genlib (1),
+.BR DEF_LOFIG(3),
+.BR MBK_OUT_LO (1),
+.BR MBK_WORK_LIB (1).
+
+
+.so man1/alc_bug_report.1
+
