@@ -14,7 +14,7 @@ The Makefile set environement variables properly and run Alliance tools,
 following each step of the design flow from VHDL up to real layout in a
  pseudo 0.35 techno.
 
-The environement variable ALLIANCE_TOP as to be set.
+The environement variable ALLIANCE_TOP has to be set.
 
 The main targets of the makefile are listed below (following the design flow).
 
