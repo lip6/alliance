@@ -6,7 +6,7 @@
 #  Alliance CAD system environnement
 #  Usage (in C-shell) : > source alc_env.csh
 #  (C) 1997 Czo  -- <Olivier.Sirol@lip6.fr>
-#  $Id: alc_env.csh.in,v 1.10 1999/11/22 15:43:10 czo Exp $
+#  $Id: alc_env.csh.in,v 1.11 2000/02/11 15:43:27 czo Exp $
 #  Generated from alc_env.csh.in on @DATE@
 
 # $ALLIANCE_OS and $ALLIANCE_TOP are the only variables you will
@@ -116,7 +116,7 @@ endif
 if $?MANPATH then
  setenv MANPATH $ALLIANCE_TOP/man:$MANPATH
 else
- setenv MANPATH $ALLIANCE_TOP/man
+ setenv MANPATH $ALLIANCE_TOP/man:/usr/share/man:/usr/man:/usr/local/man:/usr/X11R6/man:/usr/lib/perl5/man
 endif
 
 # EOF 
