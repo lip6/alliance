@@ -26,10 +26,10 @@
 \------------------------------------------------------------*/
 # include <stdio.h>
 
-# include MUT_H
-# include AUT_H
-# include ABL_H
-# include BDD_H
+# include "mut.h"
+# include "aut.h"
+# include "abl.h"
+# include "bdd.h"
 
 int main( argc, argv )
 
