@@ -1,6 +1,6 @@
 #!/bin/sh
 #
-# $Id: attila.sh,v 1.11 2002/11/21 10:11:27 jpc Exp $
+# $Id: attila.sh,v 1.12 2002/11/27 21:21:20 jpc Exp $
 #                                                                        
 # /------------------------------------------------------------------\
 # |                                                                  |
@@ -582,7 +582,7 @@
 
      "attila") case $1 in
       # Long arguments.
-       --help)        print_help;
+       --help)        print_usage;
                       exit 0;;
        --ssh)         RSH="ssh";;
        --user)        ASIM="n";;
