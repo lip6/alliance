@@ -30,6 +30,12 @@
 *                                 is provided.                                 *
 *  Updates     : AUGUST, 12th 2002, Pierre Nguyen Tuong                        *
 *  $Log: alc_pars_l6.c,v $
+*  Revision 1.5  2002/10/09 09:18:37  xtof
+*  Dans la fonction read_line, deux buffers de 524288 caracteres etaient
+*  declares. En fonction de la taille max de la pile, dans certains
+*  cas cela peut faire mal ... Je mets donc la taille à 1024,
+*  ce qui me semble plus raisonnable et suffisant.
+*
 *  Revision 1.4  2002/09/30 16:20:52  czo
 *  support/users
 *
@@ -95,7 +101,7 @@
 #define MAL_LOSELF 0x00000800
 
 /* Tampon de lecture */
-#define	MALBUFMAX 524288
+#define	MALBUFMAX 1024
 
 /* ptype sur losig -> verification unicite du signal */
 #define MALDEFINED 11223344
