@@ -64,4 +64,4 @@ extern ablexpr     *bddToAbl () ;
   extern           void  fbl_toolbug __P((int code, char *str1, char *str2, int nbr1));
 
 # define fbl_error( C, S ) \
-  fprintf( stderr, "%s.%d: ", basename(__FILE__),__LINE__ ); loc_fbl_error( C, S );
+  fprintf( stderr, "%s.%d: ", autbasename(__FILE__,NULL),__LINE__ ); loc_fbl_error( C, S );

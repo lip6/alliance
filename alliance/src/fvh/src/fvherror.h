@@ -98,9 +98,9 @@
 \------------------------------------------------------------*/
 
 # define fvherror( E, T, V ) \
-  (fvh_error((int)(E),(char *)(T),(long)(V),basename(__FILE__),__LINE__))
+  (fvh_error((int)(E),(char *)(T),(long)(V),autbasename(__FILE__,NULL),__LINE__))
 # define fvhwarning( E, T, V ) \
-  (fvh_warning((int)(E),(char *)(T),(long)(V),basename(__FILE__),__LINE__))
+  (fvh_warning((int)(E),(char *)(T),(long)(V),autbasename(__FILE__,NULL),__LINE__))
 
 /*------------------------------------------------------------\
 |                                                             |

@@ -69,7 +69,7 @@
 |                                                             |
 \------------------------------------------------------------*/
 
-# define fkserror( E, V ) (fks_error( (int)(E), (char *)(V), basename(__FILE__), __LINE__ ))
+# define fkserror( E, V ) (fks_error( (int)(E), (char *)(V), autbasename(__FILE__,NULL), __LINE__ ))
 
 /*------------------------------------------------------------\
 |                                                             |
