@@ -25,6 +25,10 @@
    Author: Frédéric Pétrot
    Date  : 1/10/2000
    $Log: dpgen_Shifter.c,v $
+   Revision 1.6  2002/06/28 15:55:00  fred
+   Fixing a bug (discovered by Christophe Alexandre): trying to compact a
+   shifter even when no rotation was asked for not anymore performed.
+
    Revision 1.5  2002/06/17 09:40:27  fred
    Adding DPGEN_SHROT to support both shifts and rotations.
    Layout is quite larger when rotation is involved, so use only when
@@ -96,7 +100,7 @@
 
 */
 
-static char rcsid[]="$Id: dpgen_Shifter.c,v 1.5 2002/06/17 09:40:27 fred Exp $";
+static char rcsid[]="$Id: dpgen_Shifter.c,v 1.6 2002/06/28 15:55:00 fred Exp $";
 
 
 #include  "util_Defs.h"
@@ -352,8 +356,10 @@ extern void dpgen_Shifter(aFunction, aAL)
       }
 
       /* I've done my best with genlib, but I need to realign overlapping
-       * cells using some more powerfull tools, ... */
-      {
+       * cells using some more powerfull tools, ...
+       * This is done only for the last column, in order to keep the
+       * vertical alignement constraints. */
+      if (aFunction == DPGEN_SHROT) {
          phins_list *i, *f = getphins(WORK_PHFIG, Cell);
          phfig_list *p = getphfig(f->FIGNAME, 'P');
 
