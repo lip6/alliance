@@ -1,4 +1,4 @@
-.\"   $Id: vasy.1,v 1.3 1999/12/17 14:07:01 syf Exp $
+.\"   $Id: vasy.1,v 1.4 2000/02/11 10:47:08 syf Exp $
 .\" @(#)Labo.l 2.2 95/09/24 UPMC; Author: Jacomme L.
 .pl -.4
 .TH VASY 1 "November 26, 1999" "ASIM/LIP6" "CAO\-VLSI Reference Manual"
@@ -40,7 +40,7 @@ Each step of the analysis is displayed on the standard output.
 Drives an equivalent description in \fBVerilog\fP format.
 .TP 10
 \f4\-a\fP
-Drives an equivalent description in Alliance VHDL format \fBvbe\fP(5)
+Drives an equivalent description in Alliance VHDL format \fBvbe\fP(5) or \fBvst\fP(5)
 .TP 10
 \f4\-s\fP
 Drives an equivalent VHDL description (with the extention \fB.vhd\fP)
@@ -50,8 +50,8 @@ accepted by most of industrial synthesis tools.
 Uses Std_logic instead of Bit (taken into account only with option -s).
 .TP 10
 \f4\-I\fP
-Specifies the VHDL input format such as Alliance VHDL format \fBvbe\fP(5) or
-industrial VHDL format \fBvhd\fP.
+Specifies the VHDL input format such as Alliance VHDL format \fBvbe\fP(5),
+\fBvst\fP(5) or industrial VHDL format \fBvhd\fP or \fBvhdl\fP.
 .ti 7
 
 .SH SEE ALSO
