@@ -1,0 +1,91 @@
+.TH XPAT 1 "September 1, 2000" "ASIM/LIP6" "ALLIANCE Reference Manual"
+.SH NAME
+xpat \- graphic pattern viewer
+.SH SYNOPSIS
+.B xpat
+[\-l file_name]
+[\-xor]
+[\-install]
+[\-force]
+.br
+.so man1/alc_origin.1
+.SH DESCRIPTION
+.B Xpat
+is a pattern viewer. All functionnalities can be
+accessed through different menus.
+.B Xpat
+works under Motif and X11r6.
+When entering 
+.B Xpat,
+the main window appears and shows 5 different
+menus on the top bar. These menus can be entered by simply clicking on the
+mouse left button. Here is the description of these menus.
+
+.TP 10
+.B File
+\f4Open\fP : load an existing pattern file (see pat(5)).
+.br
+\f4Quit\fP : quit xpat.
+
+.TP 10
+.B Edit
+\f4Identify\fP : identify a selected pattern.
+.br
+\f4Connected\fP : highlight a selected pattern.
+.br
+\f4Search\fP : search a pattern.
+
+.TP 10   
+.B View
+\f4Zoom\fP : perform zoom in, zoom out, center, fit, refresh on figure.
+.br
+\f4Layer\fP : select types of layers displayed.
+.br
+\f4Map\fP : show cursor position in the entire figure.
+.br
+\f4Arrows\fP : show arrows for moving at the grid step.
+.br
+\f4Grid\fP : Set the X,Y step of the grid if displayed.
+
+.TP 10
+.B Tools
+\f4Message\fP : display the last error messages
+
+.TP 10
+.B Setup
+Save or load a user defined configuration of default displayed menus.
+
+.SH SPECIAL KEYS
+.TP
++/-
+Increase or decrease the time scale.
+
+.SH OPTIONS
+.TP
+\-l file_name
+Load the pattern file file_name (without extention .pat)
+.TP
+\-xor 
+Two graphic cursor methods can be used, invert or xor.
+.TP
+\-force
+this option force all graphical objects to be displayed. 
+.TP
+\-install
+Switch to a private color map.
+
+.SH ENVIRONMENT VARIABLES
+.TP
+.B MBK_WORK_LIB
+indicates the path to the read directory for the session.
+.TP
+.B XPAT_PARAM_NAME (optionnal)
+indicates the path to the parameter file used by Xpat.
+.TP
+
+.SH SEE ALSO
+mbk(1), MBK_WORK_LIB(1), PAT(5), asimut(1)
+
+
+.so man1/alc_bug_report.1
+
