@@ -6,7 +6,7 @@
 |                                                             |
 | Authors :                 Pierre Vittet                     |
 |                    Modified by Jacomme Ludovic              |
-| Date    :                   04/07/93                        |
+| Date    :                   07/06/04                        |
 |                                                             |
 \------------------------------------------------------------*/
 /*------------------------------------------------------------\
@@ -43,7 +43,10 @@
 |                                                             |
 \------------------------------------------------------------*/
 
-int FIRST_MODEL;
+  static short FIRST_MODEL;
+
+  static short GDS_EXPERT_DRIVER_MODE = 0;
+  static short GDS_FIRST_MODEL_MODE   = 0;
   
 /*------------------------------------------------------------\
 |                                                             |
@@ -318,8 +321,6 @@ short        datatype = 0;
 int          bool = FALSE;
 coord_t      tab[6]; /* last one reserved for text */
 
-
-
    /* A connectors is written using a specific layer from now on:
     * this implies a simple change of layer */
    if ((IsRdsConExter(rect) || IsRdsRefCon (rect)) && !IsRdsVia(rect))
@@ -375,9 +376,7 @@ coord_t      tab[6]; /* last one reserved for text */
       we drive the text: nodes should be sufficients.
       Frederic Petrot: 10/04/96 */
    /* sauve uniquement les noms du premier model (le pere) 18/04/2002 FW */
-   /* if (FIRST_MODEL && rect->NAME != NULL) { */
-   if ((IsRdsConExter(rect) || IsRdsRefCon (rect)) && rect->NAME != NULL) {
-      
+   if (FIRST_MODEL && rect->NAME != NULL) {
       /* on a besoin de mettre des crochets autour des index de vecteur
        * 26/06/2002 FW */
       char *pindex;
@@ -432,6 +431,7 @@ coord_t      tab[6]; /* last one reserved for text */
 *  SAUVE_INSTANCE
 *
 ***/
+
 static int
    pv_sauve_instance( inst, fp )
 rdsins_list *inst;
@@ -439,14 +439,16 @@ FILE  *fp;
 {
    register int numb;
    hinfo_type infobuf;
-   int     bool = FALSE;
+   int     bool;
    char    *gds_angle;
    short   ref_x_axis;
+   short   prop_attr;
    double  rds_angle;
    ushort  strans;
 
    entete(SREF, 0);
 
+   bool = FALSE;
    numb = strlen(inst->FIGNAME);
    if ( (numb % 2) != 0 ) {/* Si la longueur du nom est impaire, on la rend paire   */
       numb += 1;  /* car chaque enregistrement doit comporter un nombre */
@@ -498,6 +500,33 @@ FILE  *fp;
       controle(1);
       numb = fwrite((char *)&inst->Y, sizeof(long), 1, fp);
       controle(1);
+   }
+
+   if ( GDS_EXPERT_DRIVER_MODE )
+   {
+/* LUDO */
+     entete(PROPATTR,sizeof(ushort));
+     prop_attr = 120;
+     if (islittle()) prop_attr = swaps( prop_attr );
+     numb = fwrite((char *)&prop_attr, sizeof(ushort), 1, fp);
+     controle(1);
+   
+     bool = FALSE;
+     numb = strlen(inst->INSNAME);
+     if ( (numb % 2) != 0 ) {/* Si la longueur du nom est impaire, on la rend paire   */
+        numb += 1;  /* car chaque enregistrement doit comporter un nombre */
+        bool = TRUE;   /* pair de caracteres dans un fichier GDS.      */
+     }
+     entete(PROPVALUE, numb * sizeof(char));
+     if (fputs(inst->INSNAME, fp) < 0 ) {
+        pv_init_error();
+        pv_error.v_error = ENOSPACE;
+        (void)fclose(fp);
+        pv_give_error("sauve_instance");
+        return(-1);
+     }
+     if (bool) cadre;
+/* END_LUDO */
    }
 
    entete(ENDEL, 0);
@@ -577,7 +606,7 @@ date_type  *date;
  void gdssaverdsfig( Figure )
 
     rdsfig_list *Figure;
- {
+{
 int bool = FALSE;
 register int numb;
 register FILE *fp;
@@ -595,6 +624,17 @@ ptype_list *model_list;
 *  pointeur sur la figure pere a sauver; son nom servira a creer
 *  le nom de la librairie GDS (nom interne)
 */
+   GDS_FIRST_MODEL_MODE = 0;
+   GDS_EXPERT_DRIVER_MODE = 0;
+
+   if ( getenv( "RDS_GDS_FIRST_MODEL_MODE") ) GDS_FIRST_MODEL_MODE = 1;
+
+   if ( getenv( "RDS_GDS_EXPERT_DRIVER" ) )
+   {
+     GDS_EXPERT_DRIVER_MODE = 1;
+     GDS_FIRST_MODEL_MODE   = 0;
+   }
+
    model_list = (ptype_list *)reverse((chain_list *)getrdsmodellist(Figure));
 
    if ( (fp = mbkfopen(Figure->NAME, "gds", "w")) == NULL ) {
@@ -691,7 +731,7 @@ ptype_list *model_list;
       if (pv_sauve_modele((rdsfig_list *)model_list->DATA, fp, &date) < 0)
          EXIT(1);
       model_list = model_list->NEXT;
-      FIRST_MODEL = 0;
+      if ( GDS_FIRST_MODEL_MODE ) FIRST_MODEL = 0;
    }
 
    entete(ENDLIB, 0);
