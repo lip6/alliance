@@ -1,4 +1,4 @@
-# $Id: Makefile.am,v 1.2 2002/04/29 15:36:08 xtof Exp $
+# $Id: Makefile.am,v 1.3 2002/05/02 15:00:16 czo Exp $
 
 AM_CFLAGS = @ALLIANCE_CFLAGS@ 
 
@@ -14,7 +14,8 @@ x2y_LDADD = @ALLIANCE_LIBS@ \
 	  -lMvl \
 	  -lMmg \
 	  -lMlo \
-	  -lMph -lMut \
+	  -lMph \
+          -lMut \
 	  -lRcn 
 	  
 x2y_SOURCES = x2y.c
