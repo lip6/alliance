@@ -10,6 +10,10 @@
 /* ###--------------------------------------------------------------------### */
 /*
  * $Log: vel_drive.c,v $
+ * Revision 1.6  2002/12/12 14:49:49  fred
+ * Adding corrections to generate (hopefully) correct VHDL netlists with
+ * generics.
+ *
  * Revision 1.5  2002/12/10 11:39:05  fred
  * Adding correct generation of uncomplete vectors.
  *
@@ -76,7 +80,7 @@
  *
  */
 
-#ident "$Id: vel_drive.c,v 1.5 2002/12/10 11:39:05 fred Exp $"
+#ident "$Id: vel_drive.c,v 1.6 2002/12/12 14:49:49 fred Exp $"
 
 #include <stdio.h>
 #include <string.h>
@@ -436,6 +440,13 @@ int length, j;
       {
       logen_list *g;
       ptype_list *p;
+      loins_list *ins;
+
+         for (m=mod; m; m=m->NEXT) {
+            ins=(loins_list *)m->DATA;
+            if (ins->MODELNAME == i->MODELNAME)
+               break;
+         }
 
          p=getptype(i->USER,LOGEN);
          if (p)  {
@@ -622,8 +633,17 @@ int        sigi = 0;
       sigi = sigi > s->INDEX ? sigi : s->INDEX;
       if (s->TYPE == INTERNAL) {
          char *name = getsigname(s);
-         freechain(s->NAMECHAIN);
-         s->NAMECHAIN = addchain(NULL, mkvhdlname(name));
+         int  i, t; /* This sucks and I'm not very proud of that, but really,
+                    at least it should work */
+         for (t = 0, i = 0; name[i] != 0; i++)
+            if (name[i] == SEPAR) {
+               name[i]='_'; /* Shaaaaaaaame on meeeeeeeeee */
+               t = 1;
+            }
+         if (t) {
+            freechain(s->NAMECHAIN);
+            s->NAMECHAIN = addchain(NULL, name);
+         }
       }
    }
 
