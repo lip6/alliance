@@ -1,2 +1,3 @@
 install-data-local:
-	$(INSTALL_DATA) $(srcdir)/sxlib.scapin @ALLIANCE_TOP@/etc/sxlib.scapin
+	$(mkinstalldirs) $(DESTDIR)$(sysconfdir) 
+	$(INSTALL_DATA) $(srcdir)/sxlib.scapin $(DESTDIR)$(sysconfdir)/sxlib.scapin

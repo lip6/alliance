@@ -1,2 +1,3 @@
 install-data-local:
-	$(INSTALL_DATA) $(srcdir)/xsch.par @ALLIANCE_TOP@/etc/xsch.par
+	$(mkinstalldirs) $(DESTDIR)$(sysconfdir) 
+	$(INSTALL_DATA) $(srcdir)/xsch.par $(DESTDIR)$(sysconfdir)/xsch.par

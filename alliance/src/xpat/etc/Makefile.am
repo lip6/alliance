@@ -1,2 +1,3 @@
 install-data-local:
-	$(INSTALL_DATA) $(srcdir)/xpat.par @ALLIANCE_TOP@/etc/xpat.par
+	$(mkinstalldirs) $(DESTDIR)$(sysconfdir) 
+	$(INSTALL_DATA) $(srcdir)/xpat.par $(DESTDIR)$(sysconfdir)/xpat.par

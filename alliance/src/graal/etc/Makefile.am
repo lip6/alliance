@@ -1,2 +1,3 @@
 install-data-local:
-	$(INSTALL_DATA) $(srcdir)/cmos.graal @ALLIANCE_TOP@/etc/cmos.graal
+	$(mkinstalldirs) $(DESTDIR)$(sysconfdir) 
+	$(INSTALL_DATA) $(srcdir)/cmos.graal $(DESTDIR)$(sysconfdir)/cmos.graal
