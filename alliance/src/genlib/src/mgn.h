@@ -108,7 +108,7 @@ extern void genSC_TOP();
 extern void genSC_BOTTOM();
 extern void genSC_CHANNEL();
 extern void genSC_CON_CHANNEL();
-extern void genLOGEN(char *, int, ...);;
+extern void genLOGEN(char *, int, ...);
 extern void genSETLOGEN(char *, char *, ...);
 
 /********************************* Analogical world ************************************/
