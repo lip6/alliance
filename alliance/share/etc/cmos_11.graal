@@ -231,7 +231,13 @@ END
 TABLE GRAAL_BIGVIA_NAME
 
   CONT_VIA     Big_Via_1-2  cyan       Black
+  CONT_VIA2    Big_Via_2-3  light_pink Black
+  CONT_VIA3    Big_Via_3-4  green      Black
+
   CONT_TURN1   Turn_Via_1   royal_blue Black
+  CONT_TURN2   Turn_Via_2   Cyan       Black
+  CONT_TURN3   Turn_Via_3   light_pink Black
+  CONT_TURN4   Turn_Via_4   green      Black
 
 END
 
@@ -244,7 +250,13 @@ END
 TABLE GRAAL_BIGVIA_VALUE
 
   CONT_VIA     2
-  CONT_TURN1   1
+  CONT_VIA2    2
+  CONT_VIA3    2
+
+  CONT_TURN1   2
+  CONT_TURN2   2
+  CONT_TURN3   2
+  CONT_TURN4   2
 
 END
 
