@@ -8,14 +8,6 @@ MACRO dp_dff_scan_x4
     PIN q
         DIRECTION OUTPUT ;
         PORT
-            LAYER L_ALU1 ;
-            RECT 89.00 39.00 91.00 41.00 ;
-            RECT 89.00 34.00 91.00 36.00 ;
-            RECT 89.00 29.00 91.00 31.00 ;
-            RECT 89.00 24.00 91.00 26.00 ;
-            RECT 89.00 19.00 91.00 21.00 ;
-            RECT 89.00 14.00 91.00 16.00 ;
-            RECT 89.00 9.00 91.00 11.00 ;
             LAYER L_ALU2 ;
             RECT 89.00 24.00 91.00 26.00 ;
             RECT 84.00 24.00 86.00 26.00 ;
@@ -30,53 +22,23 @@ MACRO dp_dff_scan_x4
             RECT 39.00 24.00 41.00 26.00 ;
             RECT 34.00 24.00 36.00 26.00 ;
             RECT 29.00 24.00 31.00 26.00 ;
+            LAYER L_ALU1 ;
+            RECT 89.00 39.00 91.00 41.00 ;
+            RECT 89.00 34.00 91.00 36.00 ;
+            RECT 89.00 29.00 91.00 31.00 ;
+            RECT 89.00 24.00 91.00 26.00 ;
+            RECT 89.00 19.00 91.00 21.00 ;
+            RECT 89.00 14.00 91.00 16.00 ;
+            RECT 89.00 9.00 91.00 11.00 ;
         END
     END q
-    PIN ckx
+    PIN nckx
         DIRECTION INPUT ;
         PORT
             LAYER L_ALU3 ;
-            RECT 74.00 19.00 76.00 21.00 ;
+            RECT 59.00 19.00 61.00 21.00 ;
         END
-    END ckx
-    PIN scanx
-        DIRECTION INPUT ;
-        PORT
-            LAYER L_ALU3 ;
-            RECT 49.00 19.00 51.00 21.00 ;
-        END
-    END scanx
-    PIN nscanx
-        DIRECTION INPUT ;
-        PORT
-            LAYER L_ALU3 ;
-            RECT 39.00 19.00 41.00 21.00 ;
-        END
-    END nscanx
-    PIN nwenx
-        DIRECTION INPUT ;
-        PORT
-            LAYER L_ALU3 ;
-            RECT 24.00 19.00 26.00 21.00 ;
-        END
-    END nwenx
-    PIN wenx
-        DIRECTION INPUT ;
-        PORT
-            LAYER L_ALU3 ;
-            RECT 14.00 19.00 16.00 21.00 ;
-        END
-    END wenx
-    PIN scin
-        DIRECTION INPUT ;
-        PORT
-            LAYER L_ALU1 ;
-            RECT 54.00 29.00 56.00 31.00 ;
-            RECT 54.00 24.00 56.00 26.00 ;
-            RECT 54.00 19.00 56.00 21.00 ;
-            RECT 54.00 14.00 56.00 16.00 ;
-        END
-    END scin
+    END nckx
     PIN i
         DIRECTION INPUT ;
         PORT
@@ -90,13 +52,51 @@ MACRO dp_dff_scan_x4
             RECT 9.00 9.00 11.00 11.00 ;
         END
     END i
-    PIN nckx
+    PIN scin
+        DIRECTION INPUT ;
+        PORT
+            LAYER L_ALU1 ;
+            RECT 54.00 29.00 56.00 31.00 ;
+            RECT 54.00 24.00 56.00 26.00 ;
+            RECT 54.00 19.00 56.00 21.00 ;
+            RECT 54.00 14.00 56.00 16.00 ;
+        END
+    END scin
+    PIN wenx
         DIRECTION INPUT ;
         PORT
             LAYER L_ALU3 ;
-            RECT 59.00 19.00 61.00 21.00 ;
+            RECT 14.00 19.00 16.00 21.00 ;
         END
-    END nckx
+    END wenx
+    PIN nwenx
+        DIRECTION INPUT ;
+        PORT
+            LAYER L_ALU3 ;
+            RECT 24.00 19.00 26.00 21.00 ;
+        END
+    END nwenx
+    PIN nscanx
+        DIRECTION INPUT ;
+        PORT
+            LAYER L_ALU3 ;
+            RECT 39.00 19.00 41.00 21.00 ;
+        END
+    END nscanx
+    PIN scanx
+        DIRECTION INPUT ;
+        PORT
+            LAYER L_ALU3 ;
+            RECT 49.00 19.00 51.00 21.00 ;
+        END
+    END scanx
+    PIN ckx
+        DIRECTION INPUT ;
+        PORT
+            LAYER L_ALU3 ;
+            RECT 74.00 19.00 76.00 21.00 ;
+        END
+    END ckx
     PIN vdd
         DIRECTION INOUT ;
         USE power ;
@@ -253,8 +253,7 @@ MACRO dp_dff_scan_x4
         RECT 89.00 39.00 91.00 41.00 ;
         RECT 94.00 39.00 98.50 41.00 ;
         LAYER L_ALU2 ;
-        RECT 59.00 19.00 76.00 21.00 ;
-        RECT 14.00 19.00 51.00 21.00 ;
+        RECT 14.00 19.00 76.00 21.00 ;
     END
 END dp_dff_scan_x4
 
@@ -265,99 +264,6 @@ MACRO dp_dff_scan_x4_buf
     SIZE      100.00 BY 100.00 ;
     SYMMETRY  Y ;
     SITE      core ;
-    PIN ckx
-        DIRECTION OUTPUT ;
-        PORT
-            LAYER L_ALU3 ;
-            RECT 74.00 59.00 76.00 61.00 ;
-            RECT 74.00 54.00 76.00 56.00 ;
-            RECT 74.00 49.00 76.00 51.00 ;
-            RECT 74.00 44.00 76.00 46.00 ;
-            RECT 74.00 39.00 76.00 41.00 ;
-            RECT 74.00 34.00 76.00 36.00 ;
-            RECT 74.00 29.00 76.00 31.00 ;
-            RECT 74.00 24.00 76.00 26.00 ;
-            RECT 74.00 19.00 76.00 21.00 ;
-            RECT 74.00 14.00 76.00 16.00 ;
-        END
-    END ckx
-    PIN scout
-        DIRECTION OUTPUT ;
-        PORT
-            LAYER L_ALU1 ;
-            RECT 89.00 39.00 91.00 41.00 ;
-            RECT 89.00 34.00 91.00 36.00 ;
-            RECT 89.00 29.00 91.00 31.00 ;
-            RECT 89.00 24.00 91.00 26.00 ;
-            RECT 89.00 19.00 91.00 21.00 ;
-            RECT 89.00 14.00 91.00 16.00 ;
-            RECT 89.00 9.00 91.00 11.00 ;
-        END
-    END scout
-    PIN wenx
-        DIRECTION OUTPUT ;
-        PORT
-            LAYER L_ALU3 ;
-            RECT 14.00 59.00 16.00 61.00 ;
-            RECT 14.00 54.00 16.00 56.00 ;
-            RECT 14.00 49.00 16.00 51.00 ;
-            RECT 14.00 44.00 16.00 46.00 ;
-            RECT 14.00 39.00 16.00 41.00 ;
-            RECT 14.00 34.00 16.00 36.00 ;
-            RECT 14.00 29.00 16.00 31.00 ;
-            RECT 14.00 24.00 16.00 26.00 ;
-            RECT 14.00 19.00 16.00 21.00 ;
-            RECT 14.00 14.00 16.00 16.00 ;
-        END
-    END wenx
-    PIN nwenx
-        DIRECTION OUTPUT ;
-        PORT
-            LAYER L_ALU3 ;
-            RECT 24.00 59.00 26.00 61.00 ;
-            RECT 24.00 54.00 26.00 56.00 ;
-            RECT 24.00 49.00 26.00 51.00 ;
-            RECT 24.00 44.00 26.00 46.00 ;
-            RECT 24.00 39.00 26.00 41.00 ;
-            RECT 24.00 34.00 26.00 36.00 ;
-            RECT 24.00 29.00 26.00 31.00 ;
-            RECT 24.00 24.00 26.00 26.00 ;
-            RECT 24.00 19.00 26.00 21.00 ;
-            RECT 24.00 14.00 26.00 16.00 ;
-        END
-    END nwenx
-    PIN nscanx
-        DIRECTION OUTPUT ;
-        PORT
-            LAYER L_ALU3 ;
-            RECT 39.00 59.00 41.00 61.00 ;
-            RECT 39.00 54.00 41.00 56.00 ;
-            RECT 39.00 49.00 41.00 51.00 ;
-            RECT 39.00 44.00 41.00 46.00 ;
-            RECT 39.00 39.00 41.00 41.00 ;
-            RECT 39.00 34.00 41.00 36.00 ;
-            RECT 39.00 29.00 41.00 31.00 ;
-            RECT 39.00 24.00 41.00 26.00 ;
-            RECT 39.00 19.00 41.00 21.00 ;
-            RECT 39.00 14.00 41.00 16.00 ;
-        END
-    END nscanx
-    PIN scanx
-        DIRECTION OUTPUT ;
-        PORT
-            LAYER L_ALU3 ;
-            RECT 49.00 59.00 51.00 61.00 ;
-            RECT 49.00 54.00 51.00 56.00 ;
-            RECT 49.00 49.00 51.00 51.00 ;
-            RECT 49.00 44.00 51.00 46.00 ;
-            RECT 49.00 39.00 51.00 41.00 ;
-            RECT 49.00 34.00 51.00 36.00 ;
-            RECT 49.00 29.00 51.00 31.00 ;
-            RECT 49.00 24.00 51.00 26.00 ;
-            RECT 49.00 19.00 51.00 21.00 ;
-            RECT 49.00 14.00 51.00 16.00 ;
-        END
-    END scanx
     PIN nckx
         DIRECTION OUTPUT ;
         PORT
@@ -374,27 +280,99 @@ MACRO dp_dff_scan_x4_buf
             RECT 64.00 14.00 66.00 16.00 ;
         END
     END nckx
-    PIN scin
-        DIRECTION INPUT ;
+    PIN scanx
+        DIRECTION OUTPUT ;
+        PORT
+            LAYER L_ALU3 ;
+            RECT 49.00 59.00 51.00 61.00 ;
+            RECT 49.00 54.00 51.00 56.00 ;
+            RECT 49.00 49.00 51.00 51.00 ;
+            RECT 49.00 44.00 51.00 46.00 ;
+            RECT 49.00 39.00 51.00 41.00 ;
+            RECT 49.00 34.00 51.00 36.00 ;
+            RECT 49.00 29.00 51.00 31.00 ;
+            RECT 49.00 24.00 51.00 26.00 ;
+            RECT 49.00 19.00 51.00 21.00 ;
+            RECT 49.00 14.00 51.00 16.00 ;
+        END
+    END scanx
+    PIN nscanx
+        DIRECTION OUTPUT ;
+        PORT
+            LAYER L_ALU3 ;
+            RECT 39.00 59.00 41.00 61.00 ;
+            RECT 39.00 54.00 41.00 56.00 ;
+            RECT 39.00 49.00 41.00 51.00 ;
+            RECT 39.00 44.00 41.00 46.00 ;
+            RECT 39.00 39.00 41.00 41.00 ;
+            RECT 39.00 34.00 41.00 36.00 ;
+            RECT 39.00 29.00 41.00 31.00 ;
+            RECT 39.00 24.00 41.00 26.00 ;
+            RECT 39.00 19.00 41.00 21.00 ;
+            RECT 39.00 14.00 41.00 16.00 ;
+        END
+    END nscanx
+    PIN nwenx
+        DIRECTION OUTPUT ;
+        PORT
+            LAYER L_ALU3 ;
+            RECT 24.00 59.00 26.00 61.00 ;
+            RECT 24.00 54.00 26.00 56.00 ;
+            RECT 24.00 49.00 26.00 51.00 ;
+            RECT 24.00 44.00 26.00 46.00 ;
+            RECT 24.00 39.00 26.00 41.00 ;
+            RECT 24.00 34.00 26.00 36.00 ;
+            RECT 24.00 29.00 26.00 31.00 ;
+            RECT 24.00 24.00 26.00 26.00 ;
+            RECT 24.00 19.00 26.00 21.00 ;
+            RECT 24.00 14.00 26.00 16.00 ;
+        END
+    END nwenx
+    PIN wenx
+        DIRECTION OUTPUT ;
+        PORT
+            LAYER L_ALU3 ;
+            RECT 14.00 59.00 16.00 61.00 ;
+            RECT 14.00 54.00 16.00 56.00 ;
+            RECT 14.00 49.00 16.00 51.00 ;
+            RECT 14.00 44.00 16.00 46.00 ;
+            RECT 14.00 39.00 16.00 41.00 ;
+            RECT 14.00 34.00 16.00 36.00 ;
+            RECT 14.00 29.00 16.00 31.00 ;
+            RECT 14.00 24.00 16.00 26.00 ;
+            RECT 14.00 19.00 16.00 21.00 ;
+            RECT 14.00 14.00 16.00 16.00 ;
+        END
+    END wenx
+    PIN scout
+        DIRECTION OUTPUT ;
         PORT
             LAYER L_ALU1 ;
-            RECT 94.00 69.00 96.00 71.00 ;
+            RECT 89.00 39.00 91.00 41.00 ;
+            RECT 89.00 34.00 91.00 36.00 ;
+            RECT 89.00 29.00 91.00 31.00 ;
+            RECT 89.00 24.00 91.00 26.00 ;
+            RECT 89.00 19.00 91.00 21.00 ;
+            RECT 89.00 14.00 91.00 16.00 ;
+            RECT 89.00 9.00 91.00 11.00 ;
         END
-    END scin
-    PIN ck
-        DIRECTION INPUT ;
+    END scout
+    PIN ckx
+        DIRECTION OUTPUT ;
         PORT
-            LAYER L_ALU1 ;
-            RECT 69.00 84.00 71.00 86.00 ;
+            LAYER L_ALU3 ;
+            RECT 74.00 59.00 76.00 61.00 ;
+            RECT 74.00 54.00 76.00 56.00 ;
+            RECT 74.00 49.00 76.00 51.00 ;
+            RECT 74.00 44.00 76.00 46.00 ;
+            RECT 74.00 39.00 76.00 41.00 ;
+            RECT 74.00 34.00 76.00 36.00 ;
+            RECT 74.00 29.00 76.00 31.00 ;
+            RECT 74.00 24.00 76.00 26.00 ;
+            RECT 74.00 19.00 76.00 21.00 ;
+            RECT 74.00 14.00 76.00 16.00 ;
         END
-    END ck
-    PIN scan
-        DIRECTION INPUT ;
-        PORT
-            LAYER L_ALU1 ;
-            RECT 44.00 84.00 46.00 86.00 ;
-        END
-    END scan
+    END ckx
     PIN wen
         DIRECTION INPUT ;
         PORT
@@ -402,6 +380,27 @@ MACRO dp_dff_scan_x4_buf
             RECT 19.00 84.00 21.00 86.00 ;
         END
     END wen
+    PIN scan
+        DIRECTION INPUT ;
+        PORT
+            LAYER L_ALU1 ;
+            RECT 44.00 84.00 46.00 86.00 ;
+        END
+    END scan
+    PIN ck
+        DIRECTION INPUT ;
+        PORT
+            LAYER L_ALU1 ;
+            RECT 69.00 84.00 71.00 86.00 ;
+        END
+    END ck
+    PIN scin
+        DIRECTION INPUT ;
+        PORT
+            LAYER L_ALU1 ;
+            RECT 94.00 69.00 96.00 71.00 ;
+        END
+    END scin
     PIN vdd
         DIRECTION INOUT ;
         USE power ;
@@ -696,6 +695,10 @@ MACRO dp_dff_scan_x4_buf
         RECT 84.00 89.00 86.00 91.00 ;
         RECT 89.00 89.00 91.00 91.00 ;
         RECT 94.00 89.00 98.50 91.00 ;
+        LAYER L_ALU2 ;
+        RECT 14.00 59.00 76.00 61.00 ;
+        RECT 14.00 39.00 76.00 41.00 ;
+        RECT 14.00 14.00 76.00 16.00 ;
     END
 END dp_dff_scan_x4_buf
 
@@ -894,54 +897,6 @@ MACRO dp_dff_x4_buf
     SIZE      70.00 BY 100.00 ;
     SYMMETRY  Y ;
     SITE      core ;
-    PIN ckx
-        DIRECTION OUTPUT ;
-        PORT
-            LAYER L_ALU3 ;
-            RECT 44.00 59.00 46.00 61.00 ;
-            RECT 44.00 54.00 46.00 56.00 ;
-            RECT 44.00 49.00 46.00 51.00 ;
-            RECT 44.00 44.00 46.00 46.00 ;
-            RECT 44.00 39.00 46.00 41.00 ;
-            RECT 44.00 34.00 46.00 36.00 ;
-            RECT 44.00 29.00 46.00 31.00 ;
-            RECT 44.00 24.00 46.00 26.00 ;
-            RECT 44.00 19.00 46.00 21.00 ;
-            RECT 44.00 14.00 46.00 16.00 ;
-        END
-    END ckx
-    PIN nckx
-        DIRECTION OUTPUT ;
-        PORT
-            LAYER L_ALU3 ;
-            RECT 34.00 59.00 36.00 61.00 ;
-            RECT 34.00 54.00 36.00 56.00 ;
-            RECT 34.00 49.00 36.00 51.00 ;
-            RECT 34.00 44.00 36.00 46.00 ;
-            RECT 34.00 39.00 36.00 41.00 ;
-            RECT 34.00 34.00 36.00 36.00 ;
-            RECT 34.00 29.00 36.00 31.00 ;
-            RECT 34.00 24.00 36.00 26.00 ;
-            RECT 34.00 19.00 36.00 21.00 ;
-            RECT 34.00 14.00 36.00 16.00 ;
-        END
-    END nckx
-    PIN nwenx
-        DIRECTION OUTPUT ;
-        PORT
-            LAYER L_ALU3 ;
-            RECT 19.00 59.00 21.00 61.00 ;
-            RECT 19.00 54.00 21.00 56.00 ;
-            RECT 19.00 49.00 21.00 51.00 ;
-            RECT 19.00 44.00 21.00 46.00 ;
-            RECT 19.00 39.00 21.00 41.00 ;
-            RECT 19.00 34.00 21.00 36.00 ;
-            RECT 19.00 29.00 21.00 31.00 ;
-            RECT 19.00 24.00 21.00 26.00 ;
-            RECT 19.00 19.00 21.00 21.00 ;
-            RECT 19.00 14.00 21.00 16.00 ;
-        END
-    END nwenx
     PIN wenx
         DIRECTION OUTPUT ;
         PORT
@@ -958,13 +913,54 @@ MACRO dp_dff_x4_buf
             RECT 9.00 14.00 11.00 16.00 ;
         END
     END wenx
-    PIN ck
-        DIRECTION INPUT ;
+    PIN nwenx
+        DIRECTION OUTPUT ;
         PORT
-            LAYER L_ALU1 ;
-            RECT 39.00 84.00 41.00 86.00 ;
+            LAYER L_ALU3 ;
+            RECT 19.00 59.00 21.00 61.00 ;
+            RECT 19.00 54.00 21.00 56.00 ;
+            RECT 19.00 49.00 21.00 51.00 ;
+            RECT 19.00 44.00 21.00 46.00 ;
+            RECT 19.00 39.00 21.00 41.00 ;
+            RECT 19.00 34.00 21.00 36.00 ;
+            RECT 19.00 29.00 21.00 31.00 ;
+            RECT 19.00 24.00 21.00 26.00 ;
+            RECT 19.00 19.00 21.00 21.00 ;
+            RECT 19.00 14.00 21.00 16.00 ;
         END
-    END ck
+    END nwenx
+    PIN nckx
+        DIRECTION OUTPUT ;
+        PORT
+            LAYER L_ALU3 ;
+            RECT 34.00 59.00 36.00 61.00 ;
+            RECT 34.00 54.00 36.00 56.00 ;
+            RECT 34.00 49.00 36.00 51.00 ;
+            RECT 34.00 44.00 36.00 46.00 ;
+            RECT 34.00 39.00 36.00 41.00 ;
+            RECT 34.00 34.00 36.00 36.00 ;
+            RECT 34.00 29.00 36.00 31.00 ;
+            RECT 34.00 24.00 36.00 26.00 ;
+            RECT 34.00 19.00 36.00 21.00 ;
+            RECT 34.00 14.00 36.00 16.00 ;
+        END
+    END nckx
+    PIN ckx
+        DIRECTION OUTPUT ;
+        PORT
+            LAYER L_ALU3 ;
+            RECT 44.00 59.00 46.00 61.00 ;
+            RECT 44.00 54.00 46.00 56.00 ;
+            RECT 44.00 49.00 46.00 51.00 ;
+            RECT 44.00 44.00 46.00 46.00 ;
+            RECT 44.00 39.00 46.00 41.00 ;
+            RECT 44.00 34.00 46.00 36.00 ;
+            RECT 44.00 29.00 46.00 31.00 ;
+            RECT 44.00 24.00 46.00 26.00 ;
+            RECT 44.00 19.00 46.00 21.00 ;
+            RECT 44.00 14.00 46.00 16.00 ;
+        END
+    END ckx
     PIN wen
         DIRECTION INPUT ;
         PORT
@@ -972,6 +968,13 @@ MACRO dp_dff_x4_buf
             RECT 14.00 84.00 16.00 86.00 ;
         END
     END wen
+    PIN ck
+        DIRECTION INPUT ;
+        PORT
+            LAYER L_ALU1 ;
+            RECT 39.00 84.00 41.00 86.00 ;
+        END
+    END ck
     PIN vdd
         DIRECTION INOUT ;
         USE power ;
@@ -1182,6 +1185,10 @@ MACRO dp_dff_x4_buf
         RECT 54.00 89.00 56.00 91.00 ;
         RECT 59.00 89.00 61.00 91.00 ;
         RECT 64.00 89.00 68.50 91.00 ;
+        LAYER L_ALU2 ;
+        RECT 9.00 14.00 46.00 16.00 ;
+        RECT 9.00 39.00 46.00 41.00 ;
+        RECT 9.00 59.00 46.00 61.00 ;
     END
 END dp_dff_x4_buf
 
@@ -1327,22 +1334,6 @@ MACRO dp_mux_x2_buf
     SIZE      40.00 BY 100.00 ;
     SYMMETRY  Y ;
     SITE      core ;
-    PIN sel0
-        DIRECTION OUTPUT ;
-        PORT
-            LAYER L_ALU3 ;
-            RECT 29.00 59.00 31.00 61.00 ;
-            RECT 29.00 54.00 31.00 56.00 ;
-            RECT 29.00 49.00 31.00 51.00 ;
-            RECT 29.00 44.00 31.00 46.00 ;
-            RECT 29.00 39.00 31.00 41.00 ;
-            RECT 29.00 34.00 31.00 36.00 ;
-            RECT 29.00 29.00 31.00 31.00 ;
-            RECT 29.00 24.00 31.00 26.00 ;
-            RECT 29.00 19.00 31.00 21.00 ;
-            RECT 29.00 14.00 31.00 16.00 ;
-        END
-    END sel0
     PIN sel1
         DIRECTION OUTPUT ;
         PORT
@@ -1359,6 +1350,22 @@ MACRO dp_mux_x2_buf
             RECT 19.00 14.00 21.00 16.00 ;
         END
     END sel1
+    PIN sel0
+        DIRECTION OUTPUT ;
+        PORT
+            LAYER L_ALU3 ;
+            RECT 29.00 59.00 31.00 61.00 ;
+            RECT 29.00 54.00 31.00 56.00 ;
+            RECT 29.00 49.00 31.00 51.00 ;
+            RECT 29.00 44.00 31.00 46.00 ;
+            RECT 29.00 39.00 31.00 41.00 ;
+            RECT 29.00 34.00 31.00 36.00 ;
+            RECT 29.00 29.00 31.00 31.00 ;
+            RECT 29.00 24.00 31.00 26.00 ;
+            RECT 29.00 19.00 31.00 21.00 ;
+            RECT 29.00 14.00 31.00 16.00 ;
+        END
+    END sel0
     PIN sel
         DIRECTION INPUT ;
         PORT
@@ -1492,6 +1499,10 @@ MACRO dp_mux_x2_buf
         RECT 24.00 89.00 26.00 91.00 ;
         RECT 29.00 89.00 31.00 91.00 ;
         RECT 34.00 89.00 38.50 91.00 ;
+        LAYER L_ALU2 ;
+        RECT 19.00 14.00 31.00 16.00 ;
+        RECT 19.00 39.00 31.00 41.00 ;
+        RECT 19.00 59.00 31.00 61.00 ;
     END
 END dp_mux_x2_buf
 
@@ -1644,22 +1655,6 @@ MACRO dp_mux_x4_buf
     SIZE      45.00 BY 100.00 ;
     SYMMETRY  Y ;
     SITE      core ;
-    PIN sel0
-        DIRECTION OUTPUT ;
-        PORT
-            LAYER L_ALU3 ;
-            RECT 34.00 59.00 36.00 61.00 ;
-            RECT 34.00 54.00 36.00 56.00 ;
-            RECT 34.00 49.00 36.00 51.00 ;
-            RECT 34.00 44.00 36.00 46.00 ;
-            RECT 34.00 39.00 36.00 41.00 ;
-            RECT 34.00 34.00 36.00 36.00 ;
-            RECT 34.00 29.00 36.00 31.00 ;
-            RECT 34.00 24.00 36.00 26.00 ;
-            RECT 34.00 19.00 36.00 21.00 ;
-            RECT 34.00 14.00 36.00 16.00 ;
-        END
-    END sel0
     PIN sel1
         DIRECTION OUTPUT ;
         PORT
@@ -1676,6 +1671,22 @@ MACRO dp_mux_x4_buf
             RECT 24.00 14.00 26.00 16.00 ;
         END
     END sel1
+    PIN sel0
+        DIRECTION OUTPUT ;
+        PORT
+            LAYER L_ALU3 ;
+            RECT 34.00 59.00 36.00 61.00 ;
+            RECT 34.00 54.00 36.00 56.00 ;
+            RECT 34.00 49.00 36.00 51.00 ;
+            RECT 34.00 44.00 36.00 46.00 ;
+            RECT 34.00 39.00 36.00 41.00 ;
+            RECT 34.00 34.00 36.00 36.00 ;
+            RECT 34.00 29.00 36.00 31.00 ;
+            RECT 34.00 24.00 36.00 26.00 ;
+            RECT 34.00 19.00 36.00 21.00 ;
+            RECT 34.00 14.00 36.00 16.00 ;
+        END
+    END sel0
     PIN sel
         DIRECTION INPUT ;
         PORT
@@ -1823,6 +1834,10 @@ MACRO dp_mux_x4_buf
         RECT 29.00 89.00 31.00 91.00 ;
         RECT 34.00 89.00 36.00 91.00 ;
         RECT 39.00 89.00 43.50 91.00 ;
+        LAYER L_ALU2 ;
+        RECT 24.00 14.00 36.00 16.00 ;
+        RECT 24.00 39.00 36.00 41.00 ;
+        RECT 24.00 59.00 36.00 61.00 ;
     END
 END dp_mux_x4_buf
 
@@ -1954,22 +1969,6 @@ MACRO dp_nmux_x1_buf
     SIZE      30.00 BY 100.00 ;
     SYMMETRY  Y ;
     SITE      core ;
-    PIN sel0
-        DIRECTION OUTPUT ;
-        PORT
-            LAYER L_ALU3 ;
-            RECT 19.00 59.00 21.00 61.00 ;
-            RECT 19.00 54.00 21.00 56.00 ;
-            RECT 19.00 49.00 21.00 51.00 ;
-            RECT 19.00 44.00 21.00 46.00 ;
-            RECT 19.00 39.00 21.00 41.00 ;
-            RECT 19.00 34.00 21.00 36.00 ;
-            RECT 19.00 29.00 21.00 31.00 ;
-            RECT 19.00 24.00 21.00 26.00 ;
-            RECT 19.00 19.00 21.00 21.00 ;
-            RECT 19.00 14.00 21.00 16.00 ;
-        END
-    END sel0
     PIN sel1
         DIRECTION OUTPUT ;
         PORT
@@ -1986,6 +1985,22 @@ MACRO dp_nmux_x1_buf
             RECT 9.00 14.00 11.00 16.00 ;
         END
     END sel1
+    PIN sel0
+        DIRECTION OUTPUT ;
+        PORT
+            LAYER L_ALU3 ;
+            RECT 19.00 59.00 21.00 61.00 ;
+            RECT 19.00 54.00 21.00 56.00 ;
+            RECT 19.00 49.00 21.00 51.00 ;
+            RECT 19.00 44.00 21.00 46.00 ;
+            RECT 19.00 39.00 21.00 41.00 ;
+            RECT 19.00 34.00 21.00 36.00 ;
+            RECT 19.00 29.00 21.00 31.00 ;
+            RECT 19.00 24.00 21.00 26.00 ;
+            RECT 19.00 19.00 21.00 21.00 ;
+            RECT 19.00 14.00 21.00 16.00 ;
+        END
+    END sel0
     PIN sel
         DIRECTION INPUT ;
         PORT
@@ -2091,6 +2106,10 @@ MACRO dp_nmux_x1_buf
         RECT 14.00 89.00 16.00 91.00 ;
         RECT 19.00 89.00 21.00 91.00 ;
         RECT 24.00 89.00 28.50 91.00 ;
+        LAYER L_ALU2 ;
+        RECT 9.00 14.00 21.00 16.00 ;
+        RECT 9.00 39.00 21.00 41.00 ;
+        RECT 9.00 59.00 21.00 61.00 ;
     END
 END dp_nmux_x1_buf
 
@@ -2114,20 +2133,6 @@ MACRO dp_nts_x2
             RECT 14.00 9.00 16.00 11.00 ;
         END
     END nq
-    PIN nenx
-        DIRECTION INPUT ;
-        PORT
-            LAYER L_ALU3 ;
-            RECT 9.00 19.00 11.00 21.00 ;
-        END
-    END nenx
-    PIN enx
-        DIRECTION INPUT ;
-        PORT
-            LAYER L_ALU3 ;
-            RECT 19.00 19.00 21.00 21.00 ;
-        END
-    END enx
     PIN i
         DIRECTION INPUT ;
         PORT
@@ -2141,6 +2146,20 @@ MACRO dp_nts_x2
             RECT 4.00 9.00 6.00 11.00 ;
         END
     END i
+    PIN enx
+        DIRECTION INPUT ;
+        PORT
+            LAYER L_ALU3 ;
+            RECT 19.00 19.00 21.00 21.00 ;
+        END
+    END enx
+    PIN nenx
+        DIRECTION INPUT ;
+        PORT
+            LAYER L_ALU3 ;
+            RECT 9.00 19.00 11.00 21.00 ;
+        END
+    END nenx
     PIN vdd
         DIRECTION INOUT ;
         USE power ;
@@ -2210,22 +2229,6 @@ MACRO dp_nts_x2_buf
     SIZE      30.00 BY 100.00 ;
     SYMMETRY  Y ;
     SITE      core ;
-    PIN enx
-        DIRECTION OUTPUT ;
-        PORT
-            LAYER L_ALU3 ;
-            RECT 19.00 59.00 21.00 61.00 ;
-            RECT 19.00 54.00 21.00 56.00 ;
-            RECT 19.00 49.00 21.00 51.00 ;
-            RECT 19.00 44.00 21.00 46.00 ;
-            RECT 19.00 39.00 21.00 41.00 ;
-            RECT 19.00 34.00 21.00 36.00 ;
-            RECT 19.00 29.00 21.00 31.00 ;
-            RECT 19.00 24.00 21.00 26.00 ;
-            RECT 19.00 19.00 21.00 21.00 ;
-            RECT 19.00 14.00 21.00 16.00 ;
-        END
-    END enx
     PIN nenx
         DIRECTION OUTPUT ;
         PORT
@@ -2242,6 +2245,22 @@ MACRO dp_nts_x2_buf
             RECT 9.00 14.00 11.00 16.00 ;
         END
     END nenx
+    PIN enx
+        DIRECTION OUTPUT ;
+        PORT
+            LAYER L_ALU3 ;
+            RECT 19.00 59.00 21.00 61.00 ;
+            RECT 19.00 54.00 21.00 56.00 ;
+            RECT 19.00 49.00 21.00 51.00 ;
+            RECT 19.00 44.00 21.00 46.00 ;
+            RECT 19.00 39.00 21.00 41.00 ;
+            RECT 19.00 34.00 21.00 36.00 ;
+            RECT 19.00 29.00 21.00 31.00 ;
+            RECT 19.00 24.00 21.00 26.00 ;
+            RECT 19.00 19.00 21.00 21.00 ;
+            RECT 19.00 14.00 21.00 16.00 ;
+        END
+    END enx
     PIN en
         DIRECTION INPUT ;
         PORT
@@ -2347,6 +2366,10 @@ MACRO dp_nts_x2_buf
         RECT 14.00 89.00 16.00 91.00 ;
         RECT 19.00 89.00 21.00 91.00 ;
         RECT 24.00 89.00 28.50 91.00 ;
+        LAYER L_ALU2 ;
+        RECT 9.00 14.00 21.00 16.00 ;
+        RECT 9.00 39.00 21.00 41.00 ;
+        RECT 9.00 59.00 21.00 61.00 ;
     END
 END dp_nts_x2_buf
 
@@ -2464,6 +2487,10 @@ MACRO dp_rom2_buf
         RECT 9.00 89.00 11.00 91.00 ;
         RECT 14.00 89.00 16.00 91.00 ;
         RECT 19.00 89.00 23.50 91.00 ;
+        LAYER L_ALU2 ;
+        RECT 3.00 14.00 17.00 16.00 ;
+        RECT 3.00 39.00 17.00 41.00 ;
+        RECT 3.00 59.00 17.00 61.00 ;
     END
 END dp_rom2_buf
 
@@ -3037,6 +3064,14 @@ MACRO dp_sff_scan_x4
     PIN q
         DIRECTION OUTPUT ;
         PORT
+            LAYER L_ALU1 ;
+            RECT 109.00 39.00 111.00 41.00 ;
+            RECT 109.00 34.00 111.00 36.00 ;
+            RECT 109.00 29.00 111.00 31.00 ;
+            RECT 109.00 24.00 111.00 26.00 ;
+            RECT 109.00 19.00 111.00 21.00 ;
+            RECT 109.00 14.00 111.00 16.00 ;
+            RECT 109.00 9.00 111.00 11.00 ;
             LAYER L_ALU2 ;
             RECT 109.00 19.00 111.00 21.00 ;
             RECT 104.00 19.00 106.00 21.00 ;
@@ -3055,16 +3090,60 @@ MACRO dp_sff_scan_x4
             RECT 39.00 19.00 41.00 21.00 ;
             RECT 34.00 19.00 36.00 21.00 ;
             RECT 29.00 19.00 31.00 21.00 ;
-            LAYER L_ALU1 ;
-            RECT 109.00 39.00 111.00 41.00 ;
-            RECT 109.00 34.00 111.00 36.00 ;
-            RECT 109.00 29.00 111.00 31.00 ;
-            RECT 109.00 24.00 111.00 26.00 ;
-            RECT 109.00 19.00 111.00 21.00 ;
-            RECT 109.00 14.00 111.00 16.00 ;
-            RECT 109.00 9.00 111.00 11.00 ;
         END
     END q
+    PIN wenx
+        DIRECTION INPUT ;
+        PORT
+            LAYER L_ALU3 ;
+            RECT 24.00 19.00 26.00 21.00 ;
+        END
+    END wenx
+    PIN nwenx
+        DIRECTION INPUT ;
+        PORT
+            LAYER L_ALU3 ;
+            RECT 14.00 19.00 16.00 21.00 ;
+        END
+    END nwenx
+    PIN nscanx
+        DIRECTION INPUT ;
+        PORT
+            LAYER L_ALU3 ;
+            RECT 39.00 24.00 41.00 26.00 ;
+        END
+    END nscanx
+    PIN scanx
+        DIRECTION INPUT ;
+        PORT
+            LAYER L_ALU3 ;
+            RECT 49.00 24.00 51.00 26.00 ;
+        END
+    END scanx
+    PIN nckx
+        DIRECTION INPUT ;
+        PORT
+            LAYER L_ALU3 ;
+            RECT 64.00 24.00 66.00 26.00 ;
+        END
+    END nckx
+    PIN ckx
+        DIRECTION INPUT ;
+        PORT
+            LAYER L_ALU3 ;
+            RECT 74.00 24.00 76.00 26.00 ;
+        END
+    END ckx
+    PIN scin
+        DIRECTION INPUT ;
+        PORT
+            LAYER L_ALU1 ;
+            RECT 54.00 29.00 56.00 31.00 ;
+            RECT 54.00 24.00 56.00 26.00 ;
+            RECT 54.00 19.00 56.00 21.00 ;
+            RECT 54.00 14.00 56.00 16.00 ;
+        END
+    END scin
     PIN i
         DIRECTION INPUT ;
         PORT
@@ -3078,58 +3157,6 @@ MACRO dp_sff_scan_x4
             RECT 9.00 9.00 11.00 11.00 ;
         END
     END i
-    PIN scin
-        DIRECTION INPUT ;
-        PORT
-            LAYER L_ALU1 ;
-            RECT 54.00 29.00 56.00 31.00 ;
-            RECT 54.00 24.00 56.00 26.00 ;
-            RECT 54.00 19.00 56.00 21.00 ;
-            RECT 54.00 14.00 56.00 16.00 ;
-        END
-    END scin
-    PIN ckx
-        DIRECTION INPUT ;
-        PORT
-            LAYER L_ALU3 ;
-            RECT 74.00 24.00 76.00 26.00 ;
-        END
-    END ckx
-    PIN nckx
-        DIRECTION INPUT ;
-        PORT
-            LAYER L_ALU3 ;
-            RECT 64.00 24.00 66.00 26.00 ;
-        END
-    END nckx
-    PIN scanx
-        DIRECTION INPUT ;
-        PORT
-            LAYER L_ALU3 ;
-            RECT 49.00 24.00 51.00 26.00 ;
-        END
-    END scanx
-    PIN nscanx
-        DIRECTION INPUT ;
-        PORT
-            LAYER L_ALU3 ;
-            RECT 39.00 24.00 41.00 26.00 ;
-        END
-    END nscanx
-    PIN nwenx
-        DIRECTION INPUT ;
-        PORT
-            LAYER L_ALU3 ;
-            RECT 14.00 19.00 16.00 21.00 ;
-        END
-    END nwenx
-    PIN wenx
-        DIRECTION INPUT ;
-        PORT
-            LAYER L_ALU3 ;
-            RECT 24.00 19.00 26.00 21.00 ;
-        END
-    END wenx
     PIN vdd
         DIRECTION INOUT ;
         USE power ;
@@ -3314,9 +3341,10 @@ MACRO dp_sff_scan_x4
         RECT 109.00 39.00 111.00 41.00 ;
         RECT 114.00 39.00 118.50 41.00 ;
         LAYER L_ALU2 ;
-        RECT 4.00 24.00 36.00 26.00 ;
-        RECT 74.00 24.00 81.00 26.00 ;
         RECT 4.00 24.00 81.00 26.00 ;
+        RECT 74.00 24.00 81.00 26.00 ;
+        RECT 4.00 24.00 36.00 26.00 ;
+        RECT 14.00 19.00 26.00 21.00 ;
     END
 END dp_sff_scan_x4
 
@@ -3327,70 +3355,34 @@ MACRO dp_sff_scan_x4_buf
     SIZE      120.00 BY 100.00 ;
     SYMMETRY  Y ;
     SITE      core ;
-    PIN nwenx
+    PIN scout
+        DIRECTION OUTPUT ;
+        PORT
+            LAYER L_ALU1 ;
+            RECT 104.00 39.00 106.00 41.00 ;
+            RECT 104.00 34.00 106.00 36.00 ;
+            RECT 104.00 29.00 106.00 31.00 ;
+            RECT 104.00 24.00 106.00 26.00 ;
+            RECT 104.00 19.00 106.00 21.00 ;
+            RECT 104.00 14.00 106.00 16.00 ;
+            RECT 104.00 9.00 106.00 11.00 ;
+        END
+    END scout
+    PIN ckx
         DIRECTION OUTPUT ;
         PORT
             LAYER L_ALU3 ;
-            RECT 14.00 59.00 16.00 61.00 ;
-            RECT 14.00 54.00 16.00 56.00 ;
-            RECT 14.00 49.00 16.00 51.00 ;
-            RECT 14.00 44.00 16.00 46.00 ;
-            RECT 14.00 39.00 16.00 41.00 ;
-            RECT 14.00 34.00 16.00 36.00 ;
-            RECT 14.00 29.00 16.00 31.00 ;
-            RECT 14.00 24.00 16.00 26.00 ;
-            RECT 14.00 19.00 16.00 21.00 ;
-            RECT 14.00 14.00 16.00 16.00 ;
+            RECT 74.00 59.00 76.00 61.00 ;
+            RECT 74.00 54.00 76.00 56.00 ;
+            RECT 74.00 49.00 76.00 51.00 ;
+            RECT 74.00 44.00 76.00 46.00 ;
+            RECT 74.00 39.00 76.00 41.00 ;
+            RECT 74.00 34.00 76.00 36.00 ;
+            RECT 74.00 29.00 76.00 31.00 ;
+            RECT 74.00 24.00 76.00 26.00 ;
+            RECT 74.00 19.00 76.00 21.00 ;
         END
-    END nwenx
-    PIN wenx
-        DIRECTION OUTPUT ;
-        PORT
-            LAYER L_ALU3 ;
-            RECT 24.00 59.00 26.00 61.00 ;
-            RECT 24.00 54.00 26.00 56.00 ;
-            RECT 24.00 49.00 26.00 51.00 ;
-            RECT 24.00 44.00 26.00 46.00 ;
-            RECT 24.00 39.00 26.00 41.00 ;
-            RECT 24.00 34.00 26.00 36.00 ;
-            RECT 24.00 29.00 26.00 31.00 ;
-            RECT 24.00 24.00 26.00 26.00 ;
-            RECT 24.00 19.00 26.00 21.00 ;
-            RECT 24.00 14.00 26.00 16.00 ;
-        END
-    END wenx
-    PIN nscanx
-        DIRECTION OUTPUT ;
-        PORT
-            LAYER L_ALU3 ;
-            RECT 39.00 59.00 41.00 61.00 ;
-            RECT 39.00 54.00 41.00 56.00 ;
-            RECT 39.00 49.00 41.00 51.00 ;
-            RECT 39.00 44.00 41.00 46.00 ;
-            RECT 39.00 39.00 41.00 41.00 ;
-            RECT 39.00 34.00 41.00 36.00 ;
-            RECT 39.00 29.00 41.00 31.00 ;
-            RECT 39.00 24.00 41.00 26.00 ;
-            RECT 39.00 19.00 41.00 21.00 ;
-            RECT 39.00 14.00 41.00 16.00 ;
-        END
-    END nscanx
-    PIN scanx
-        DIRECTION OUTPUT ;
-        PORT
-            LAYER L_ALU3 ;
-            RECT 49.00 59.00 51.00 61.00 ;
-            RECT 49.00 54.00 51.00 56.00 ;
-            RECT 49.00 49.00 51.00 51.00 ;
-            RECT 49.00 44.00 51.00 46.00 ;
-            RECT 49.00 39.00 51.00 41.00 ;
-            RECT 49.00 34.00 51.00 36.00 ;
-            RECT 49.00 29.00 51.00 31.00 ;
-            RECT 49.00 24.00 51.00 26.00 ;
-            RECT 49.00 19.00 51.00 21.00 ;
-            RECT 49.00 14.00 51.00 16.00 ;
-        END
-    END scanx
+    END ckx
     PIN nckx
         DIRECTION OUTPUT ;
         PORT
@@ -3407,55 +3399,70 @@ MACRO dp_sff_scan_x4_buf
             RECT 64.00 14.00 66.00 16.00 ;
         END
     END nckx
-    PIN ckx
+    PIN scanx
         DIRECTION OUTPUT ;
         PORT
             LAYER L_ALU3 ;
-            RECT 74.00 59.00 76.00 61.00 ;
-            RECT 74.00 54.00 76.00 56.00 ;
-            RECT 74.00 49.00 76.00 51.00 ;
-            RECT 74.00 44.00 76.00 46.00 ;
-            RECT 74.00 39.00 76.00 41.00 ;
-            RECT 74.00 34.00 76.00 36.00 ;
-            RECT 74.00 29.00 76.00 31.00 ;
-            RECT 74.00 24.00 76.00 26.00 ;
-            RECT 74.00 19.00 76.00 21.00 ;
+            RECT 49.00 59.00 51.00 61.00 ;
+            RECT 49.00 54.00 51.00 56.00 ;
+            RECT 49.00 49.00 51.00 51.00 ;
+            RECT 49.00 44.00 51.00 46.00 ;
+            RECT 49.00 39.00 51.00 41.00 ;
+            RECT 49.00 34.00 51.00 36.00 ;
+            RECT 49.00 29.00 51.00 31.00 ;
+            RECT 49.00 24.00 51.00 26.00 ;
+            RECT 49.00 19.00 51.00 21.00 ;
+            RECT 49.00 14.00 51.00 16.00 ;
         END
-    END ckx
-    PIN scout
+    END scanx
+    PIN nscanx
         DIRECTION OUTPUT ;
         PORT
-            LAYER L_ALU1 ;
-            RECT 104.00 39.00 106.00 41.00 ;
-            RECT 104.00 34.00 106.00 36.00 ;
-            RECT 104.00 29.00 106.00 31.00 ;
-            RECT 104.00 24.00 106.00 26.00 ;
-            RECT 104.00 19.00 106.00 21.00 ;
-            RECT 104.00 14.00 106.00 16.00 ;
-            RECT 104.00 9.00 106.00 11.00 ;
+            LAYER L_ALU3 ;
+            RECT 39.00 59.00 41.00 61.00 ;
+            RECT 39.00 54.00 41.00 56.00 ;
+            RECT 39.00 49.00 41.00 51.00 ;
+            RECT 39.00 44.00 41.00 46.00 ;
+            RECT 39.00 39.00 41.00 41.00 ;
+            RECT 39.00 34.00 41.00 36.00 ;
+            RECT 39.00 29.00 41.00 31.00 ;
+            RECT 39.00 24.00 41.00 26.00 ;
+            RECT 39.00 19.00 41.00 21.00 ;
+            RECT 39.00 14.00 41.00 16.00 ;
         END
-    END scout
-    PIN scin
-        DIRECTION INPUT ;
+    END nscanx
+    PIN wenx
+        DIRECTION OUTPUT ;
         PORT
-            LAYER L_ALU1 ;
-            RECT 89.00 64.00 91.00 66.00 ;
+            LAYER L_ALU3 ;
+            RECT 24.00 59.00 26.00 61.00 ;
+            RECT 24.00 54.00 26.00 56.00 ;
+            RECT 24.00 49.00 26.00 51.00 ;
+            RECT 24.00 44.00 26.00 46.00 ;
+            RECT 24.00 39.00 26.00 41.00 ;
+            RECT 24.00 34.00 26.00 36.00 ;
+            RECT 24.00 29.00 26.00 31.00 ;
+            RECT 24.00 24.00 26.00 26.00 ;
+            RECT 24.00 19.00 26.00 21.00 ;
+            RECT 24.00 14.00 26.00 16.00 ;
         END
-    END scin
-    PIN wen
-        DIRECTION INPUT ;
+    END wenx
+    PIN nwenx
+        DIRECTION OUTPUT ;
         PORT
-            LAYER L_ALU1 ;
-            RECT 19.00 84.00 21.00 86.00 ;
+            LAYER L_ALU3 ;
+            RECT 14.00 59.00 16.00 61.00 ;
+            RECT 14.00 54.00 16.00 56.00 ;
+            RECT 14.00 49.00 16.00 51.00 ;
+            RECT 14.00 44.00 16.00 46.00 ;
+            RECT 14.00 39.00 16.00 41.00 ;
+            RECT 14.00 34.00 16.00 36.00 ;
+            RECT 14.00 29.00 16.00 31.00 ;
+            RECT 14.00 24.00 16.00 26.00 ;
+            RECT 14.00 19.00 16.00 21.00 ;
+            RECT 14.00 14.00 16.00 16.00 ;
         END
-    END wen
-    PIN scan
-        DIRECTION INPUT ;
-        PORT
-            LAYER L_ALU1 ;
-            RECT 44.00 84.00 46.00 86.00 ;
-        END
-    END scan
+    END nwenx
     PIN ck
         DIRECTION INPUT ;
         PORT
@@ -3463,6 +3470,27 @@ MACRO dp_sff_scan_x4_buf
             RECT 69.00 84.00 71.00 86.00 ;
         END
     END ck
+    PIN scan
+        DIRECTION INPUT ;
+        PORT
+            LAYER L_ALU1 ;
+            RECT 44.00 84.00 46.00 86.00 ;
+        END
+    END scan
+    PIN wen
+        DIRECTION INPUT ;
+        PORT
+            LAYER L_ALU1 ;
+            RECT 19.00 84.00 21.00 86.00 ;
+        END
+    END wen
+    PIN scin
+        DIRECTION INPUT ;
+        PORT
+            LAYER L_ALU1 ;
+            RECT 89.00 64.00 91.00 66.00 ;
+        END
+    END scin
     PIN vdd
         DIRECTION INOUT ;
         USE power ;
@@ -3813,6 +3841,10 @@ MACRO dp_sff_scan_x4_buf
         RECT 104.00 89.00 106.00 91.00 ;
         RECT 109.00 89.00 111.00 91.00 ;
         RECT 114.00 89.00 118.50 91.00 ;
+        LAYER L_ALU2 ;
+        RECT 14.00 14.00 76.00 16.00 ;
+        RECT 14.00 39.00 76.00 41.00 ;
+        RECT 14.00 59.00 76.00 61.00 ;
     END
 END dp_sff_scan_x4_buf
 
@@ -4033,54 +4065,6 @@ MACRO dp_sff_x4_buf
     SIZE      90.00 BY 100.00 ;
     SYMMETRY  Y ;
     SITE      core ;
-    PIN wenx
-        DIRECTION OUTPUT ;
-        PORT
-            LAYER L_ALU3 ;
-            RECT 19.00 59.00 21.00 61.00 ;
-            RECT 19.00 54.00 21.00 56.00 ;
-            RECT 19.00 49.00 21.00 51.00 ;
-            RECT 19.00 44.00 21.00 46.00 ;
-            RECT 19.00 39.00 21.00 41.00 ;
-            RECT 19.00 34.00 21.00 36.00 ;
-            RECT 19.00 29.00 21.00 31.00 ;
-            RECT 19.00 24.00 21.00 26.00 ;
-            RECT 19.00 19.00 21.00 21.00 ;
-            RECT 19.00 14.00 21.00 16.00 ;
-        END
-    END wenx
-    PIN nwenx
-        DIRECTION OUTPUT ;
-        PORT
-            LAYER L_ALU3 ;
-            RECT 9.00 59.00 11.00 61.00 ;
-            RECT 9.00 54.00 11.00 56.00 ;
-            RECT 9.00 49.00 11.00 51.00 ;
-            RECT 9.00 44.00 11.00 46.00 ;
-            RECT 9.00 39.00 11.00 41.00 ;
-            RECT 9.00 34.00 11.00 36.00 ;
-            RECT 9.00 29.00 11.00 31.00 ;
-            RECT 9.00 24.00 11.00 26.00 ;
-            RECT 9.00 19.00 11.00 21.00 ;
-            RECT 9.00 14.00 11.00 16.00 ;
-        END
-    END nwenx
-    PIN ckx
-        DIRECTION OUTPUT ;
-        PORT
-            LAYER L_ALU3 ;
-            RECT 44.00 59.00 46.00 61.00 ;
-            RECT 44.00 54.00 46.00 56.00 ;
-            RECT 44.00 49.00 46.00 51.00 ;
-            RECT 44.00 44.00 46.00 46.00 ;
-            RECT 44.00 39.00 46.00 41.00 ;
-            RECT 44.00 34.00 46.00 36.00 ;
-            RECT 44.00 29.00 46.00 31.00 ;
-            RECT 44.00 24.00 46.00 26.00 ;
-            RECT 44.00 19.00 46.00 21.00 ;
-            RECT 44.00 14.00 46.00 16.00 ;
-        END
-    END ckx
     PIN nckx
         DIRECTION OUTPUT ;
         PORT
@@ -4097,13 +4081,54 @@ MACRO dp_sff_x4_buf
             RECT 34.00 14.00 36.00 16.00 ;
         END
     END nckx
-    PIN ck
-        DIRECTION INPUT ;
+    PIN ckx
+        DIRECTION OUTPUT ;
         PORT
-            LAYER L_ALU1 ;
-            RECT 39.00 84.00 41.00 86.00 ;
+            LAYER L_ALU3 ;
+            RECT 44.00 59.00 46.00 61.00 ;
+            RECT 44.00 54.00 46.00 56.00 ;
+            RECT 44.00 49.00 46.00 51.00 ;
+            RECT 44.00 44.00 46.00 46.00 ;
+            RECT 44.00 39.00 46.00 41.00 ;
+            RECT 44.00 34.00 46.00 36.00 ;
+            RECT 44.00 29.00 46.00 31.00 ;
+            RECT 44.00 24.00 46.00 26.00 ;
+            RECT 44.00 19.00 46.00 21.00 ;
+            RECT 44.00 14.00 46.00 16.00 ;
         END
-    END ck
+    END ckx
+    PIN nwenx
+        DIRECTION OUTPUT ;
+        PORT
+            LAYER L_ALU3 ;
+            RECT 9.00 59.00 11.00 61.00 ;
+            RECT 9.00 54.00 11.00 56.00 ;
+            RECT 9.00 49.00 11.00 51.00 ;
+            RECT 9.00 44.00 11.00 46.00 ;
+            RECT 9.00 39.00 11.00 41.00 ;
+            RECT 9.00 34.00 11.00 36.00 ;
+            RECT 9.00 29.00 11.00 31.00 ;
+            RECT 9.00 24.00 11.00 26.00 ;
+            RECT 9.00 19.00 11.00 21.00 ;
+            RECT 9.00 14.00 11.00 16.00 ;
+        END
+    END nwenx
+    PIN wenx
+        DIRECTION OUTPUT ;
+        PORT
+            LAYER L_ALU3 ;
+            RECT 19.00 59.00 21.00 61.00 ;
+            RECT 19.00 54.00 21.00 56.00 ;
+            RECT 19.00 49.00 21.00 51.00 ;
+            RECT 19.00 44.00 21.00 46.00 ;
+            RECT 19.00 39.00 21.00 41.00 ;
+            RECT 19.00 34.00 21.00 36.00 ;
+            RECT 19.00 29.00 21.00 31.00 ;
+            RECT 19.00 24.00 21.00 26.00 ;
+            RECT 19.00 19.00 21.00 21.00 ;
+            RECT 19.00 14.00 21.00 16.00 ;
+        END
+    END wenx
     PIN wen
         DIRECTION INPUT ;
         PORT
@@ -4111,6 +4136,13 @@ MACRO dp_sff_x4_buf
             RECT 14.00 84.00 16.00 86.00 ;
         END
     END wen
+    PIN ck
+        DIRECTION INPUT ;
+        PORT
+            LAYER L_ALU1 ;
+            RECT 39.00 84.00 41.00 86.00 ;
+        END
+    END ck
     PIN vdd
         DIRECTION INOUT ;
         USE power ;
@@ -4377,6 +4409,10 @@ MACRO dp_sff_x4_buf
         RECT 74.00 89.00 76.00 91.00 ;
         RECT 79.00 89.00 81.00 91.00 ;
         RECT 84.00 89.00 88.50 91.00 ;
+        LAYER L_ALU2 ;
+        RECT 9.00 14.00 46.00 16.00 ;
+        RECT 9.00 39.00 46.00 41.00 ;
+        RECT 9.00 59.00 46.00 61.00 ;
     END
 END dp_sff_x4_buf
 
@@ -4517,22 +4553,6 @@ MACRO dp_ts_x4_buf
     SIZE      45.00 BY 100.00 ;
     SYMMETRY  Y ;
     SITE      core ;
-    PIN enx
-        DIRECTION OUTPUT ;
-        PORT
-            LAYER L_ALU3 ;
-            RECT 34.00 59.00 36.00 61.00 ;
-            RECT 34.00 54.00 36.00 56.00 ;
-            RECT 34.00 49.00 36.00 51.00 ;
-            RECT 34.00 44.00 36.00 46.00 ;
-            RECT 34.00 39.00 36.00 41.00 ;
-            RECT 34.00 34.00 36.00 36.00 ;
-            RECT 34.00 29.00 36.00 31.00 ;
-            RECT 34.00 24.00 36.00 26.00 ;
-            RECT 34.00 19.00 36.00 21.00 ;
-            RECT 34.00 14.00 36.00 16.00 ;
-        END
-    END enx
     PIN nenx
         DIRECTION OUTPUT ;
         PORT
@@ -4549,6 +4569,22 @@ MACRO dp_ts_x4_buf
             RECT 24.00 14.00 26.00 16.00 ;
         END
     END nenx
+    PIN enx
+        DIRECTION OUTPUT ;
+        PORT
+            LAYER L_ALU3 ;
+            RECT 34.00 59.00 36.00 61.00 ;
+            RECT 34.00 54.00 36.00 56.00 ;
+            RECT 34.00 49.00 36.00 51.00 ;
+            RECT 34.00 44.00 36.00 46.00 ;
+            RECT 34.00 39.00 36.00 41.00 ;
+            RECT 34.00 34.00 36.00 36.00 ;
+            RECT 34.00 29.00 36.00 31.00 ;
+            RECT 34.00 24.00 36.00 26.00 ;
+            RECT 34.00 19.00 36.00 21.00 ;
+            RECT 34.00 14.00 36.00 16.00 ;
+        END
+    END enx
     PIN en
         DIRECTION INPUT ;
         PORT
@@ -4696,6 +4732,10 @@ MACRO dp_ts_x4_buf
         RECT 29.00 89.00 31.00 91.00 ;
         RECT 34.00 89.00 36.00 91.00 ;
         RECT 39.00 89.00 43.50 91.00 ;
+        LAYER L_ALU2 ;
+        RECT 24.00 14.00 37.00 16.00 ;
+        RECT 24.00 39.00 36.00 41.00 ;
+        RECT 24.00 59.00 36.00 61.00 ;
     END
 END dp_ts_x4_buf
 
@@ -4850,22 +4890,6 @@ MACRO dp_ts_x8_buf
     SIZE      55.00 BY 100.00 ;
     SYMMETRY  Y ;
     SITE      core ;
-    PIN enx
-        DIRECTION OUTPUT ;
-        PORT
-            LAYER L_ALU3 ;
-            RECT 34.00 59.00 36.00 61.00 ;
-            RECT 34.00 54.00 36.00 56.00 ;
-            RECT 34.00 49.00 36.00 51.00 ;
-            RECT 34.00 44.00 36.00 46.00 ;
-            RECT 34.00 39.00 36.00 41.00 ;
-            RECT 34.00 34.00 36.00 36.00 ;
-            RECT 34.00 29.00 36.00 31.00 ;
-            RECT 34.00 24.00 36.00 26.00 ;
-            RECT 34.00 19.00 36.00 21.00 ;
-            RECT 34.00 14.00 36.00 16.00 ;
-        END
-    END enx
     PIN nenx
         DIRECTION OUTPUT ;
         PORT
@@ -4882,6 +4906,22 @@ MACRO dp_ts_x8_buf
             RECT 24.00 14.00 26.00 16.00 ;
         END
     END nenx
+    PIN enx
+        DIRECTION OUTPUT ;
+        PORT
+            LAYER L_ALU3 ;
+            RECT 34.00 59.00 36.00 61.00 ;
+            RECT 34.00 54.00 36.00 56.00 ;
+            RECT 34.00 49.00 36.00 51.00 ;
+            RECT 34.00 44.00 36.00 46.00 ;
+            RECT 34.00 39.00 36.00 41.00 ;
+            RECT 34.00 34.00 36.00 36.00 ;
+            RECT 34.00 29.00 36.00 31.00 ;
+            RECT 34.00 24.00 36.00 26.00 ;
+            RECT 34.00 19.00 36.00 21.00 ;
+            RECT 34.00 14.00 36.00 16.00 ;
+        END
+    END enx
     PIN en
         DIRECTION INPUT ;
         PORT
@@ -5057,6 +5097,10 @@ MACRO dp_ts_x8_buf
         RECT 29.00 89.00 31.00 91.00 ;
         RECT 34.00 89.00 36.00 91.00 ;
         RECT 39.00 89.00 43.50 91.00 ;
+        LAYER L_ALU2 ;
+        RECT 24.00 14.00 36.00 16.00 ;
+        RECT 24.00 39.00 36.00 41.00 ;
+        RECT 24.00 59.00 36.00 61.00 ;
     END
 END dp_ts_x8_buf
 
