@@ -1,8 +1,11 @@
 /*
    ### -------------------------------------------------- ### 
    $Author: hcl $
-   $Date: 2002/03/20 13:25:50 $
+   $Date: 2002/03/22 09:41:09 $
    $Log: ocrRouter.c,v $
+   Revision 1.3  2002/03/22 09:41:09  hcl
+   ALLIANCE_VERSION
+
    Revision 1.2  2002/03/20 13:25:50  hcl
    SymX bug.
 
@@ -343,8 +346,8 @@ void countFreeVC(ocrRoutingDataBase * i_pDataBase)
             for (l_pVirCon = l_pCon->VIR_CON_LIST; l_pVirCon;
                  l_pVirCon = l_pVirCon->NEXT) {
                 if (l_pVirCon->Z > 0)
-                    //goto fin_lpcon;
-                    continue;
+                    goto fin_lpcon;
+                    //continue;
                 //      l_pSeg = getWSegment (l_pGrid, l_pVirCon->X, l_pVirCon->Y, l_pVirCon->Z - 1);
                 //else
                 l_pSeg = getWSegmentCV(l_pGrid, l_pVirCon);
@@ -1256,7 +1259,7 @@ int main(int argc, char **argv)
     // initialisation de MBK
     mbkenv();
     
-    alliancebanner ("OCR", VERSION, "An Over-the-cell router for standard cells", "2001", "5.0");
+    alliancebanner ("OCR", VERSION, "An Over-the-cell router for standard cells", "2001", ALLIANCE_VERSION);
 
     if (argc < 2) {
         dumpOption();
