@@ -8,7 +8,7 @@
 # NOTE: You can find the latest revision of this file at:
 # http://asim.lip6.fr/pub/alliance/unstable/cvstree/alliance/
 #
-# $Id: README,v 1.12 2002/02/13 16:36:24 czo Exp $
+# $Id: README,v 1.13 2002/09/23 15:34:07 pnt Exp $
 
 ##########################################################
 # WARNING: This file needs to rewritten for Alliance 5.0 
@@ -131,6 +131,22 @@ gawk, ...) are missing, you will have to install them.
 
 If you install Alliance on different platforms you'll
 need to run the 'configure' script on each of them.
+
+
+configure options:
+
+* Architecture dependant
+--enable-system64                 for a 64-bit compilation (only to be used
+                                  on a 64-bit system)
+
+* Libraries
+Default is static libraries. But you can also generate dynamic libraries:
+
+--enable-shared --disable-static  for shared libraries only
+--enable-shared                   for shared and static libraries 
+
+
+For more options, type ./configure --help
 
 
 Linux Rpm :

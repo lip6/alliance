@@ -5,7 +5,7 @@
 # E-mail support     : mailto:alliance-users@asim.lip6.fr           #
 # ftp site           : ftp://asim.lip6.fr/pub/alliance/             #
 #                                                                   #
-# $Id: README.IRIX,v 1.1 2002/09/18 18:57:43 pnt Exp $              #
+# $Id: README.IRIX,v 1.2 2002/09/23 15:34:07 pnt Exp $              #
                                                                     
   This file discuss about installation of Alliance on IRIX machines.
 
@@ -227,19 +227,27 @@ run the configure script.
 For the N32 interface:
 
 | cd /usr/local/alliance/build/IRIX
-| ../../src/configure --prefix=/usr/local/alliance/archi/IRIX --with-stabs
+| ../../src/configure --prefix=/usr/local/alliance/archi/IRIX --with-stabs --enable-shared --disable-static
 
 For the N64 interface:
 
 | cd /usr/local/alliance/build/IRIX64
-| ../../src/configure --prefix=/usr/local/alliance/archi/IRIX64 --with-stabs --enable-system64
+| ../../src/configure --prefix=/usr/local/alliance/archi/IRIX64 --with-stabs --enable-system64 --enable-shared --disable-static
 
 
-Notes : the --prefix option allows you to choose the installation directory.
+configure options:
+ --prefix                          allows you to choose the installation directory.
 
-      : the --with-stabs allows you to debug in dwarf format and g++ (default on SGI)
+ --with-stabs                      allows you to debug in dwarf format and g++ (default on SGI)
 
-      : the --enable-system64 allows you to compile on a 64-bit architecture
+ --enable-system64                 for a 64-bit compilation (only to be used on a 64-bit system)
+
+ --enable-shared --disable-static  for shared libraries only (Default is static libraries)
+
+ --enable-shared                   for shared and static libraries (Default is static libraries)
+
+
+For more options, type ./configure --help
 
 
 Then run gmake :
@@ -268,7 +276,7 @@ IRIX 6.5.15f
 autoconf
 automake
 aclocal
-configure options: --prefix, --with-stabs, --enable-system64 on a 64-bit architecture
+configure options: --prefix, --with-stabs, --enable-system64, --enable-shared, --disable-static
 gnu gcc and gnu c++ compiler
 gcc option: -gdwarf-2
 freeware installed
