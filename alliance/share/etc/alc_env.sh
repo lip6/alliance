@@ -6,31 +6,46 @@
 #  Alliance CAD system environnement
 #  Usage (in Bourne-shell) : > . alc_env.sh
 #  (C) 1997 Czo  -- <Olivier.Sirol@lip6.fr>
-#  $Id: alc_env.sh,v 1.1 1999/05/31 17:30:30 alliance Exp $
-#  Generated from alc_env.sh.in on Mon Sep 28 13:20:39 MET DST 1998
+#  $Id: alc_env.sh,v 1.2 1999/08/26 18:47:42 czo Exp $
+#  Generated from alc_env.sh.in on Thu Aug 26 20:45:26 CEST 1999
 
 # $MACHINE and $TOP are the only variables you will
 # have to modify if something goes wrong
 
 # Which platform for Alliance CAD
 
- case `uname` in
-   Linux*) case `uname -r` in
-	    1.*) MACHINE=Linux_aout ;;
-	    *)   MACHINE=Linux_elf  ;;
-	   esac ;;
-   SunOS*) case `uname -r` in
-            5*)  MACHINE=Solaris ;;
-            *)   MACHINE=SunOS ;;
-	   esac ;;
-   *)     MACHINE=Unknown ;;
- esac
- export MACHINE
+# WARNING : if changing this remember to do it on the 3 config files :
+# configure.in alc_env.sh.in and alc_env.csh.in
 
+MACHINE=Unknown
+ 
+case `uname` in
+
+  Linux*) case `uname -r` in
+           1.*) MACHINE=Linux_aout ;;
+          2.0*) MACHINE=Linux_elf  ;;            
+             *) MACHINE=Linux  ;;
+          esac ;;
+
+  SunOS*) case `uname -r` in
+            5*) MACHINE=Solaris ;;
+             *) MACHINE=SunOS ;;
+          esac ;;
+
+  FreeBSD*)     MACHINE=FreeBSD ;;
+
+  HP-UX*)       MACHINE=HPUX ;;
+
+  OSF1*)        MACHINE=OSF ;;
+
+  *)     MACHINE=Unknown ;;
+
+esac
+export MACHINE
 
 # Where the Alliance CAD is installed
 
- TOP=/users/soft5/newlabo/alliance/archi/$MACHINE ;      export TOP
+ TOP=/alliance/alliance/archi/$MACHINE ;      export TOP
 
 # User def 
 
@@ -44,13 +59,16 @@
 
        MBK_SCALE_X=10;                    export MBK_SCALE_X
 
-	 VH_MAXERR=10;			  export VH_MAXERR
-	 VH_BEHSFX=vbe;			  export VH_BEHSFX
-	 VH_PATSFX=pat;			  export VH_PATSFX
+          VH_MAXERR=10;                   export VH_MAXERR
+         VH_BEHSFX=vbe;                   export VH_BEHSFX
+         VH_PATSFX=pat;                   export VH_PATSFX
 
       MBK_CATA_LIB=.:$TOP/cells/sclib;    export MBK_CATA_LIB
     MBK_TARGET_LIB=$TOP/cells/sclib;      export MBK_TARGET_LIB
         MBK_C4_LIB=./cellsC4;             export MBK_C4_LIB
+
+           MBK_VDD=vdd                    export MBK_VDD
+           MBK_VSS=vss                    export MBK_VSS
 
    XPAT_PARAM_NAME=$TOP/etc/xpat.par;     export XPAT_PARAM_NAME
    XFSM_PARAM_NAME=$TOP/etc/xfsm.par;     export XFSM_PARAM_NAME
@@ -68,21 +86,6 @@ PATH=$TOP/bin:$PATH
 export PATH
 MANPATH=$TOP/man:$MANPATH
 export MANPATH
-
-
-# Show results
-if [ "$PS1" != "" ]; then
-  if [ ! $PS1 = "\$" ]; then
-#	alias xmbk='eval `\xmbk -c`'
-#	cat /users/soft5/newlabo/motd
-        echo ""
-        echo "Alliance settings :"
-        echo ""
-        echo "    MACHINE = $MACHINE"
-        echo "    TOP     = $TOP"
-        echo ""
-  fi
-fi
 
 # EOF 
 

@@ -1,9 +1,13 @@
-# -*- Mode: Shell-script -*-
-# configure.in for Alliance CAD system
-# $Id: configure.in,v 1.1 1999/05/31 17:30:30 alliance Exp $
+#             ,,,
+#            (o o)
+####=====oOO--(_)--OOO=========================================####
+#
+# Alliance CAD system configure.in 
+# (C) 1997 Czo  -- <Olivier.Sirol@lip6.fr>
+# $Id: configure.in,v 1.2 1999/08/26 18:47:42 czo Exp $
 #
 
-AC_REVISION($Revision: 1.1 $)dnl
+AC_REVISION($Revision: 1.2 $)dnl
 
 AC_INIT(configure.in)
 
@@ -17,25 +21,39 @@ AC_PREFIX_DEFAULT(/usr/local/alliance)
 
 # Which platform for Alliance CAD
 AC_MSG_CHECKING(for platform)
+
+# WARNING : if changing this remember to do it on the 3 config files :
+# configure.in alc_env.sh.in and alc_env.csh.in
+MACHINE=Unknown
+ 
  case `uname` in
+
    Linux*) case `uname -r` in
-	    1.*) MACHINE=Linux_aout ;;
-	    *)   MACHINE=Linux_elf  ;;
+	    1.*)  MACHINE=Linux_aout ;;
+            2.0*) MACHINE=Linux_elf  ;;            
+	    *)    MACHINE=Linux  ;;
 	   esac ;;
+
    SunOS*) case `uname -r` in
             5*)  MACHINE=Solaris ;;
             *)   MACHINE=SunOS ;;
 	   esac ;;
+
+   FreeBSD*)     MACHINE=FreeBSD ;;
+
+   HP-UX*)       MACHINE=HPUX ;;
+
+   OSF1*)        MACHINE=OSF ;;
+
    *)     MACHINE=Unknown ;;
+
  esac
  export MACHINE
+
 AC_MSG_RESULT(Configuring Alliance VLSI CAD System on platform : $MACHINE)
 AC_SUBST(MACHINE)
 
 AC_PROG_MAKE_SET
-
-ALLIANCE_VERSION=3.2b
-AC_SUBST(ALLIANCE_VERSION)
 
 ################################################################## Binaries
 AC_CHECKING(%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% Binaries)
@@ -137,7 +155,7 @@ AC_PATH_PROG(SH,      sh)
 if test "$SH" != sh ; then
     SHELL=$SH
 else
-    SHELL=/bin/shkvjdkjvdf
+    SHELL=/bin/sh
 fi
 AC_SUBST(SHELL)
 
@@ -311,9 +329,9 @@ AC_STDC_HEADERS
 
 ################################################################### Alliance TOP
 AC_MSG_CHECKING(where the Alliance package was installed)
- TOP=`pwd | sed 's/share\/etc$/archi/'`
+ TOP=`pwd | sed 's,share/etc$,archi,'`
  export TOP
-AC_MSG_RESULT(Alliance TOP is "$TOP")
+AC_MSG_RESULT(Alliance TOP is "$TOP"/"$MACHINE")
 AC_SUBST(TOP)
 
 DATE=`date`
@@ -322,10 +340,11 @@ AC_SUBST(DATE)
 HOST=`uname -a`
 AC_SUBST(HOST)
 
-# create the 
-cp machine.mk.in $MACHINE.mk.in
+# create output files
 
-AC_OUTPUT($MACHINE.mk alc_env.sh alc_env.csh)
+AC_OUTPUT(alliance_os.mk alc_env.sh alc_env.csh)
+
+mv alliance_os.mk $MACHINE.mk
 
 # remove  config cache
 rm -f config.cache

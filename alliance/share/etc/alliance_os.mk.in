@@ -7,29 +7,11 @@
 # file		: @MACHINE@.mk
 #
 
-# The variables $TOP and $MACHINE are set by
-# alc_env.[c]sh script
-
-ALLIANCE_VERSION = '"@ALLIANCE_VERSION@"'
-ALLIANCE_BIN     = $(TOP)/bin
-ALLIANCE_LIB     = $(TOP)/lib
-ALLIANCE_INCLUDE = $(TOP)/include
-ALLIANCE_CELLS   = $(TOP)/cells
-ALLIANCE_ETC     = $(TOP)/etc
-
-# distrib path
-TARGET_BIN       = $(TOP)/bin
-TARGET_LIB       = $(TOP)/lib
-TARGET_INCLUDE   = $(TOP)/include
-
-# develloppers path
-#TARGET_BIN       = $(HOME)/labo/$(MACHINE)/bin
-#TARGET_LIB       = $(HOME)/labo/$(MACHINE)/lib
-#TARGET_INCLUDE   = $(HOME)/labo/$(MACHINE)/include
+# The variables $ALLIANCE_* are set by
+# alc_env.[c]sh script or libraries.mk
 
 GNU_LIB          = @GNU_LIB_LOC@
 GNU_INCLUDE      = @GNU_INC_LOC@
-
 
 X11_LIB          = . @X_LIBS@ @X_EXTRA_LIBS@ @X_PRE_LIBS@
 X11_INCLUDE      = . @X_CFLAGS@
