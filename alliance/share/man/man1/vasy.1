@@ -1,4 +1,4 @@
-.\"   $Id: vasy.1,v 1.7 2000/03/13 16:11:19 syf Exp $
+.\"   $Id: vasy.1,v 1.8 2000/04/12 13:28:32 syf Exp $
 .\" @(#)Labo.l 2.2 95/09/24 UPMC; Author: Jacomme L.
 .pl -.4
 .TH VASY 1 "November 26, 1999" "ASIM/LIP6" "CAO\-VLSI Reference Manual"
@@ -8,7 +8,7 @@ VASY \- VHDL Analyzer for Synthesis
 .so man1/alc_origin.1
 .SH SYNOPSIS
 .TP
-\f4vasy \-V|p|a|v|s|o|S|H [-I form] [-P file] filename [outname]
+\f4vasy [\-VpavsoipSHL] [\-C num] [\-E num] [\-I format] [\-P file] filename [outname]
 .br
 .SH DESCRIPTION
 .br
@@ -43,7 +43,11 @@ Each step of the analysis is displayed on the standard output.
 Drives an equivalent description in \fBVerilog\fP format.
 .TP 10
 \f4\-a\fP
-Drives an equivalent description in Alliance VHDL format \fBvbe\fP(5) or \fBvst\fP(5)
+Drives an equivalent description in Alliance VHDL format \fBvbe\fP(5) and/or
+\fBvst\fP(5).
+We can note that with this option, all arithmetic operators are expanded in an
+equivalent set of boolean expressions, because these operators don't belong to
+the Alliance VHDL subset.
 .TP 10
 \f4\-s\fP
 Drives an equivalent VHDL description (with the extention \fB.vhd\fP)
@@ -52,14 +56,17 @@ accepted by most of industrial synthesis tools.
 \f4\-S\fP
 Uses Std_logic instead of Bit (taken into account only with option -s).
 .TP 10
-\f4\-I\fP
+\f4\-i\fP
+Drives initial signal values (taken into account only with option -s).
+.TP 10
+\f4\-I format\fP
 Specifies the VHDL input format such as Alliance VHDL format \fBvbe\fP(5),
 \fBvst\fP(5) or industrial VHDL format \fBvhd\fP or \fBvhdl\fP.
 .TP 10
 \f4\-H\fP
 In a structural description, all model of instances are recursively analyzed.
 (By default \fBVASY\fp analyzes only models with generic parameters)
-The leaves cells are defined by a special file (see catal(5) for details).
+The leaves cells are defined by a file called CATAL (see catal(5) for details).
 .TP 10
 \f4\-o\fP
 Authorizes to overwrite existing files.
@@ -67,7 +74,22 @@ Authorizes to overwrite existing files.
 \f4\-p\fP
 Adds power supply connectors (vdd and vss). Usefull option to enter in Alliance.
 .TP 10
-\f4\-P\fP
+\f4\-C num\fP
+When the size of the adder is greater or equal to \fBnum\fP a Carry Look Ahead
+adder is generated, instead of a Ripple Carry adder.
+(taken into account only with option -a).
+.TP 10
+\f4\-E num\fP
+Comparators are expanded in an equivalent set of boolean expressions, when their
+size is greater than \fBnum\fP 
+(taken into account only with option -a).
+.TP 10
+\f4\-L\fP
+A file .lax (see lax(5) for details) is generated. This file contains the list of 
+all signals that must be kept during the synthesis step, using \fBbop\fP (see
+bop(1) for details). (taken into account only with option -a).
+.TP 10
+\f4\-P file\fP
 Specifies a file containing a list of logical and physical package name:
 .nf
 # Example
@@ -81,7 +103,9 @@ work.components.all : pkg_components
 .BR vbe (5),
 .BR vhdl (5),
 .BR catal (5).
+.BR lax (5).
 .BR asimut (1),
+.BR bop (1),
 .BR MBK_WORK_LIB (1).
 .BR MBK_CATA_LIB (1).
 .BR MBK_CATAL_NAME (1).
