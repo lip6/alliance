@@ -88,5 +88,6 @@ extern int                vbl_intSize();
 extern int                vbl_vextonum();
 extern vbtyp_list *vbl_getbasetype();
   extern void               vbl_error();
+  extern void               vbl_warning();
   extern int                vbl_tobin();
 

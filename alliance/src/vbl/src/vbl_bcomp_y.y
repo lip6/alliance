@@ -48,9 +48,12 @@
 # define my_fprintf fprintf( stdout, "%s %d : ", basename(__FILE__), __LINE__ ); fprintf
 # define my_vbl_error(N,V) \
    do { fprintf( stderr, "%s %d : ", basename(__FILE__), __LINE__); vbl_error(N,V); } while(0)
+# define my_vbl_warning(N,V) \
+   do { fprintf( stderr, "%s %d : ", basename(__FILE__), __LINE__); vbl_warning(N,V); } while(0)
 #else
 # define my_fprintf   fprintf
 # define my_vbl_error vbl_error
+# define my_vbl_warning vbl_warning
 #endif
 
 #ifdef VBL_DEBUG
@@ -6043,9 +6046,28 @@ signal_assignment_statement
        ;
 
 waveform_element
-       : expression
-              { $$ = $1; }
-       ;
+	: expression
+	  .AFTER__delay_expression.
+		{
+		$$ = $1;
+		}
+	;
+
+.AFTER__delay_expression.
+	: /*empty*/
+		{ }
+	| AFTER
+	  delay_expression
+		{ 
+                  my_vbl_warning( 0, "after clauses ignored !" );
+                }
+	;
+
+delay_expression
+	: AbstractLit
+	  time_label
+		{ }
+	;
 
 if_statement
        : IF

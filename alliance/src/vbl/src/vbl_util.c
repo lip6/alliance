@@ -502,6 +502,9 @@ char *str1;
       break;
     }
 
+   fprintf( stderr, 
+           "Note that errors might also be due to unsupported statements\n" );
+
   if (VBL_ERRFLG > VBL_MXRDFN)
     {
     (void) fprintf (stderr,"Too many errors. Cannot continue further more\n");
@@ -510,6 +513,26 @@ char *str1;
     }
 
   autexit(1);
+}
+
+void vbl_warning (code,str1)
+
+int   code;
+char *str1;
+
+{
+  (void)fprintf (stderr,"Warning %d line %ld in file %s :",code,VBL_LINNUM, VBL_FILENAME);
+
+  switch (code)
+    {
+    case 0:
+      (void) fprintf (stderr," %s\n", str1);
+      break;
+
+    default:
+      (void) fprintf (stderr, "unknown warning\n");
+      break;
+    }
 }
 
 /* ###--------------------------------------------------------------### */
