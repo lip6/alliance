@@ -1,7 +1,0 @@
-default density = 2500.00;
-default p('1') = 0.25;
-
-
-in vdd   : p('1') = 1.0;
-in vss   : p('1') = 0.0;
-in reset : p('1') = 0.10;

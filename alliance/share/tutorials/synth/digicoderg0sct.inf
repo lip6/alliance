@@ -1,9 +1,0 @@
-rename
-current_state_6.sff_m : current_state(6);
-current_state_5.sff_m : current_state(5);
-current_state_4.sff_m : current_state(4);
-current_state_3.sff_m : current_state(3);
-current_state_2.sff_m : current_state(2);
-current_state_1.sff_m : current_state(1);
-current_state_0.sff_m : current_state(0);
-end
