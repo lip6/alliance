@@ -3,7 +3,7 @@
 # description	: Alliance Shared Libraries and Include Files	#
 # ###---------------------------------------------------------###
 
-# Last updated on on Monday 31 May 1999 at 13:57 MET DST
+# Last updated on on Monday 19 July 1999 at 13:18 MET DST
 
 # The variables $TOP and $MACHINE are set by
 # alc_env.[c]sh script
@@ -162,6 +162,25 @@ BDD_H      =    bdd103.h
 LOG_L      =  -llog201
 LOG_LIB    = liblog201.a
 LOG_H      =    log201.h
+
+# ###---------------------------------------------------------###
+#    functions related to another behavioural representation :	#
+#								#
+#      - abe : basic data structures				#
+#      - abt : high level functions				#
+#      - abv : parser & driver for Data-Flow VHDL and user	#
+#              level functions					#
+# ###---------------------------------------------------------###
+
+ABE_L      =  -lAbe200
+ABE_LIB    = libAbe200.a
+ABE_H      =    abe200.h
+ABT_L      =  -lAbt200
+ABT_LIB    = libAbt200.a
+ABT_H      =    abt200.h
+ABV_L      =  -lAbv200
+ABV_LIB    = libAbv200.a
+ABV_H      =    abv200.h
 
 # ###---------------------------------------------------------###
 #    functions related to behavioural representation :		#
