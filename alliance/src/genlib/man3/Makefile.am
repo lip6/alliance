@@ -56,5 +56,41 @@ man_MANS  = GENLIB_BUS.3 \
             GENLIB_UNFLATTEN_LOFIG.3 \
             GENLIB_WIRE1.3 \
             GENLIB_WIRE2.3 \
-            GENLIB_WIRE3.3
+            GENLIB_WIRE3.3 \
+            GENLIB_MACRO.3 \
+            DPGEN_ADSB2F.3 \
+            DPGEN_AND2.3 \
+            DPGEN_AND3.3 \
+            DPGEN_AND4.3 \
+            DPGEN_BUFF.3 \
+            DPGEN_BUSE.3 \
+            DPGEN_CONST.3 \
+            DPGEN_DFF.3 \
+            DPGEN_DFFT.3 \
+            DPGEN_INV.3 \
+            DPGEN_MUX2.3 \
+            DPGEN_NAND2.3 \
+            DPGEN_NAND2MASK.3 \
+            DPGEN_NAND3.3 \
+            DPGEN_NAND4.3 \
+            DPGEN_NBUSE.3 \
+            DPGEN_NMUX2.3 \
+            DPGEN_NOR2.3 \
+            DPGEN_NOR2MASK.3 \
+            DPGEN_NOR3.3 \
+            DPGEN_NOR4.3 \
+            DPGEN_NUL.3 \
+            DPGEN_OR2.3 \
+            DPGEN_OR3.3 \
+            DPGEN_OR4.3 \
+            DPGEN_RF1.3 \
+            DPGEN_RF1D.3 \
+            DPGEN_ROM2.3 \
+            DPGEN_ROM4.3 \
+            DPGEN_SFF.3 \
+            DPGEN_SFFT.3 \
+            DPGEN_SHIFT.3 \
+            DPGEN_XNOR2.3 \
+            DPGEN_XNOR2MASK.3 \
+            DPGEN_XOR2.3
 EXTRA_DIST = $(man_MANS)

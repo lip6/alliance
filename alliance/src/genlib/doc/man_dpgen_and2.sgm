@@ -1,0 +1,100 @@
+
+
+  <refentry id="DPGEN-AND2">
+  <?dbhtml filename="man_dpgen_and2.html">
+
+  <refmeta>
+    <refentrytitle>DPGEN_AND2</refentrytitle>
+    <manvolnum>3</manvolnum>
+    <refmiscinfo>ASIM/LIP6</refmiscinfo>
+  </refmeta>
+
+  <refnamediv>
+    <refname> DPGEN_AND2 </refname>
+    <refpurpose> AND2 Macro-Generator </refpurpose>
+  </refnamediv>
+
+
+  <refsynopsisdiv>
+    <funcsynopsis>
+      <funcsynopsisinfo>#include  &lt;genlib.h&gt;</funcsynopsisinfo>
+      <funcprototype>
+        <funcdef>void <function>GENLIB_MACRO</function></funcdef>
+          <paramdef>DPGEN_AND2</paramdef>
+          <paramdef>char *<parameter>modelname</parameter></paramdef>
+          <paramdef>long <parameter>flags</parameter></paramdef>
+          <paramdef>long <parameter>N</parameter></paramdef>
+          <paramdef>long <parameter>drive</parameter></paramdef>
+      </funcprototype>
+    </funcsynopsis>
+  </refsynopsisdiv>
+
+  <refsect1>
+    <title> Description </title>
+
+    <para> Generate a &N; bits two inputs AND with an output power of &drive;
+    named &modelname;.
+    </para>
+    <para> Valid &drive; are : 2 or 4.
+    </para>
+
+    <refsect2>
+      <title> Terminal Names </title>
+
+      <orderedlist>
+        <listitem>
+          <para> <literal>i1</literal> : input. </para>
+        </listitem>
+        <listitem>
+          <para> <literal>i0</literal> : input. </para>
+        </listitem>
+        <listitem>
+          <para> <literal>q</literal> : output. </para>
+        </listitem>
+        <listitem>
+          <para> <literal>vdd</literal> : power. </para>
+        </listitem>
+        <listitem>
+          <para> <literal>vss</literal> : ground. </para>
+        </listitem>
+      </orderedlist>
+
+    </refsect2>
+
+    <refsect2>
+      <title> Behavior </title>
+
+      <literallayout>
+q <= i0 and i1
+      </literallayout>
+
+    </refsect2>
+
+  </refsect1>
+
+  <refsect1>
+    <title> Example </title>
+
+    <para>
+    <programlisting>
+GENLIB_MACRO(DPGEN_AND2, "model_and2_32"
+                       , F_BEHAV|F_PLACE
+                       , 32
+                       , 2
+                       );
+
+GENLIB_LOINS( "model_and2_32"
+            , "instance1_and2_32"
+            , "i1[31:0]"
+            , "i0[31:0]"
+            ,  "q[31:0]"
+            , "vdd", "vss", NULL
+            );
+    </programlisting>
+    </para>
+
+  </refsect1>
+
+  &man-dpgen-see-also;
+
+  </refentry>

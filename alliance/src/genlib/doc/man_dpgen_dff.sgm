@@ -1,0 +1,101 @@
+
+
+  <refentry id="DPGEN-DFF">
+  <?dbhtml filename="man_dpgen_dff.html">
+
+  <refmeta>
+    <refentrytitle>DPGEN_DFF</refentrytitle>
+    <manvolnum>3</manvolnum>
+    <refmiscinfo>ASIM/LIP6</refmiscinfo>
+  </refmeta>
+
+  <refnamediv>
+    <refname> DPGEN_DFF </refname>
+    <refpurpose> Dynamic Flip-Flop Macro-Generator </refpurpose>
+  </refnamediv>
+
+
+  <refsynopsisdiv>
+    <funcsynopsis>
+      <funcsynopsisinfo>#include  &lt;genlib.h&gt;</funcsynopsisinfo>
+      <funcprototype>
+        <funcdef>void <function>GENLIB_MACRO</function></funcdef>
+          <paramdef>DPGEN_DFF</paramdef>
+          <paramdef>char *<parameter>modelname</parameter></paramdef>
+          <paramdef>long <parameter>flags</parameter></paramdef>
+          <paramdef>long <parameter>N</parameter></paramdef>
+      </funcprototype>
+    </funcsynopsis>
+  </refsynopsisdiv>
+
+  <refsect1>
+    <title> Description </title>
+
+    <para> Generate a &N; bits dynamic flip-flop named &modelname;.
+    The two latches of this flip-flop are dynamic, i.e. the data is stored
+    in a capacitor.
+    </para>
+    <para> How it works :
+    <itemizedlist>
+      <listitem>
+        <para> &wen; when set to &one; enables the writing of the
+        flip-flop.
+        </para>
+      </listitem>
+    </itemizedlist>
+    </para>
+
+    <refsect2>
+      <title> Terminal Names </title>
+
+      <orderedlist>
+        <listitem>
+          <para> &wen; : write enable (1 bit). </para>
+        </listitem>
+        <listitem>
+          <para> &ck; : clock signal (1 bit). </para>
+        </listitem>
+        <listitem>
+          <para> &i0; : data input (&N; bits). </para>
+        </listitem>
+        <listitem>
+          <para> &q; : output (&N; bits). </para>
+        </listitem>
+        <listitem>
+          <para> &vdd; : power. </para>
+        </listitem>
+        <listitem>
+          <para> &vss; : ground. </para>
+        </listitem>
+      </orderedlist>
+
+    </refsect2>
+
+  </refsect1>
+
+  <refsect1>
+    <title> Example </title>
+
+    <para>
+    <programlisting>
+GENLIB_MACRO(DPGEN_DFF, "model_dff_32"
+                      , F_BEHAV|F_PLACE
+                      , 32
+                      );
+
+GENLIB_LOINS( "model_dff_32"
+            , "instance1_dff_32"
+            , "wen"
+            , "ck"
+            , "i0[31:0]"
+            ,  "q[31:0]"
+            , "vdd", "vss", NULL
+            );
+    </programlisting>
+    </para>
+
+  </refsect1>
+
+  &man-dpgen-see-also;
+
+  </refentry>

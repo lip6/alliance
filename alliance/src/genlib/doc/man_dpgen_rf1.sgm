@@ -1,0 +1,135 @@
+
+
+  <refentry id="DPGEN-RF1">
+  <?dbhtml filename="man_dpgen_rf1.html">
+
+  <refmeta>
+    <refentrytitle>DPGEN_RF1</refentrytitle>
+    <manvolnum>3</manvolnum>
+    <refmiscinfo>ASIM/LIP6</refmiscinfo>
+  </refmeta>
+
+  <refnamediv>
+    <refname> DPGEN_RF1 </refname>
+    <refname> DPGEN_RF1R0 </refname>
+    <refpurpose> Register File Macro-Generator </refpurpose>
+  </refnamediv>
+
+
+  <refsynopsisdiv>
+    <funcsynopsis>
+      <funcsynopsisinfo>#include  &lt;genlib.h&gt;</funcsynopsisinfo>
+      <funcprototype>
+        <funcdef>void <function>GENLIB_MACRO</function></funcdef>
+          <paramdef>DPGEN_RF1</paramdef>
+          <paramdef>char *<parameter>modelname</parameter></paramdef>
+          <paramdef>long <parameter>flags</parameter></paramdef>
+          <paramdef>long <parameter>N</parameter></paramdef>
+      </funcprototype>
+      <funcprototype>
+        <funcdef>void <function>GENLIB_MACRO</function></funcdef>
+          <paramdef>DPGEN_RF1R0</paramdef>
+          <paramdef>char *<parameter>modelname</parameter></paramdef>
+          <paramdef>long <parameter>flags</parameter></paramdef>
+          <paramdef>long <parameter>N</parameter></paramdef>
+      </funcprototype>
+    </funcsynopsis>
+  </refsynopsisdiv>
+
+  <refsect1>
+    <title> Description </title>
+
+    <para> Generate a register file of &regNumber; words of &N; bits
+    whitout decoder named &modelname;. The &DPGEN-RF1R0; variant differs
+    from the &DPGEN-RF1; in that the register of address zero is stuck to
+    zero. You can write into it, it will not change the value. When read,
+    it will always return zero.
+    </para>
+    <para> How it works :
+    <itemizedlist>
+      <listitem>
+        <para> &datain0; and &datain1; : the two write busses. Only one
+        is used to actually write the register word, it is selected by
+        the &sel; signal.
+        </para>
+      </listitem>
+      <listitem>
+        <para> &sel; : when set to &zero; the &datain0; is used to write
+        the register word, otherwise it will be &datain1;.
+        </para>
+      </listitem>
+      <listitem>
+        <para> &selr;, &selw; : this register file have no decoder, so
+        &selr; have a bus width equal to &regNumber;. One bit for each word.
+        </para>
+      </listitem>
+    </itemizedlist>
+    </para>
+
+    <refsect2>
+      <title> Terminal Names </title>
+
+      <orderedlist>
+        <listitem>
+          <para> &ckok; : clock signal (input, 1 bit). </para>
+        </listitem>
+        <listitem>
+          <para> &sel; : select the write bus (input, 1 bit). </para>
+        </listitem>
+        <listitem>
+          <para> &selr; : the decoded read address (input, &regNumber; bits). </para>
+        </listitem>
+        <listitem>
+          <para> &selw; : the decoded write address (input, &regNumber; bits). </para>
+        </listitem>
+        <listitem>
+          <para> &datain0; :  first write bus (input, &N; bits). </para>
+        </listitem>
+        <listitem>
+          <para> &datain1; :  second write bus (input, &N; bits). </para>
+        </listitem>
+        <listitem>
+          <para> &dataout; : read bus (output, &N; bits). </para>
+        </listitem>
+        <listitem>
+          <para> &vdd; : power. </para>
+        </listitem>
+        <listitem>
+          <para> &vss; : ground. </para>
+        </listitem>
+      </orderedlist>
+
+    </refsect2>
+
+  </refsect1>
+
+  <refsect1>
+    <title> Example </title>
+
+    <para>
+    <programlisting>
+GENLIB_MACRO(DPGEN_RF1, "model_rf1x8_32"
+                      , F_BEHAV|F_PLACE
+                      , 32  /* Words size.      */
+                      , 8   /* Number of words. */
+                      );
+
+GENLIB_LOINS( "model_rf1x8_32"
+            , "instance1_rf1_32"
+            , "ckok"
+            , "sel"
+            , "selr[7:0]"
+            , "selw[7:0]"
+            , "datain0[31:0]"
+            , "datain1[31:0]"
+            , "dataout[31:0]"
+            , "vdd", "vss", NULL
+            );
+    </programlisting>
+    </para>
+
+  </refsect1>
+
+  &man-dpgen-see-also;
+
+  </refentry>

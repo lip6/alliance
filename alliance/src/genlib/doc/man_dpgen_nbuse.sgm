@@ -1,0 +1,102 @@
+
+
+  <refentry id="DPGEN-NBUSE">
+  <?dbhtml filename="man_dpgen_nbuse.html">
+
+  <refmeta>
+    <refentrytitle>DPGEN_NBUSE</refentrytitle>
+    <manvolnum>3</manvolnum>
+    <refmiscinfo>ASIM/LIP6</refmiscinfo>
+  </refmeta>
+
+  <refnamediv>
+    <refname> DPGEN_NBUSE </refname>
+    <refpurpose> Tristate Macro-Generator </refpurpose>
+  </refnamediv>
+
+
+  <refsynopsisdiv>
+    <funcsynopsis>
+      <funcsynopsisinfo>#include  &lt;genlib.h&gt;</funcsynopsisinfo>
+      <funcprototype>
+        <funcdef>void <function>GENLIB_MACRO</function></funcdef>
+          <paramdef>DPGEN_NBUSE</paramdef>
+          <paramdef>char *<parameter>modelname</parameter></paramdef>
+          <paramdef>long <parameter>flags</parameter></paramdef>
+          <paramdef>long <parameter>N</parameter></paramdef>
+      </funcprototype>
+    </funcsynopsis>
+  </refsynopsisdiv>
+
+  <refsect1>
+    <title> Description </title>
+
+    <para> Generate a &N; bits two inputs tristate with a complemented
+    output named &modelname;.
+    </para>
+
+    <refsect2>
+      <title> Terminal Names </title>
+
+      <orderedlist>
+        <listitem>
+          <para> <literal>cmd</literal> : select (1 bit). </para>
+        </listitem>
+        <listitem>
+          <para> <literal>i1</literal> : input (&N; bits). </para>
+        </listitem>
+        <listitem>
+          <para> <literal>i0</literal> : input (&N; bits). </para>
+        </listitem>
+        <listitem>
+          <para> <literal>nq</literal> : output (&N; bits). </para>
+        </listitem>
+        <listitem>
+          <para> <literal>vdd</literal> : power. </para>
+        </listitem>
+        <listitem>
+          <para> <literal>vss</literal> : ground. </para>
+        </listitem>
+      </orderedlist>
+
+    </refsect2>
+
+    <refsect2>
+      <title> Behavior </title>
+
+<screen>
+nts:BLOCK(cmd = '1') BEGIN
+    nq <= GUARDED not(i0);
+END
+</screen>
+
+    </refsect2>
+
+  </refsect1>
+
+  <refsect1>
+    <title> Example </title>
+
+    <para>
+    <programlisting>
+GENLIB_MACRO(DPGEN_NBUSE, "model_nbuse_32"
+                        , F_BEHAV|F_PLACE
+                        , 32
+                        );
+
+GENLIB_LOINS( "model_nbuse_32"
+            , "instance1_nbuse_32"
+            , "cmd"
+            , "i1[31:0]"
+            , "i0[31:0]"
+            , "nq[31:0]"
+            , "vdd", "vss", NULL
+            );
+    </programlisting>
+    </para>
+
+  </refsect1>
+
+  &man-dpgen-see-also;
+
+  </refentry>

@@ -1,0 +1,89 @@
+
+
+  <refentry id="DPGEN-CONST">
+  <?dbhtml filename="man_dpgen_const.html">
+
+  <refmeta>
+    <refentrytitle>DPGEN_CONST</refentrytitle>
+    <manvolnum>3</manvolnum>
+    <refmiscinfo>ASIM/LIP6</refmiscinfo>
+  </refmeta>
+
+  <refnamediv>
+    <refname> DPGEN_CONST </refname>
+    <refpurpose> Constant Macro-Generator </refpurpose>
+  </refnamediv>
+
+
+  <refsynopsisdiv>
+    <funcsynopsis>
+      <funcsynopsisinfo>#include  &lt;genlib.h&gt;</funcsynopsisinfo>
+      <funcprototype>
+        <funcdef>void <function>GENLIB_MACRO</function></funcdef>
+          <paramdef>DPGEN_CONST</paramdef>
+          <paramdef>char *<parameter>modelname</parameter></paramdef>
+          <paramdef>long <parameter>flags</parameter></paramdef>
+          <paramdef>long <parameter>N</parameter></paramdef>
+          <paramdef>char *<parameter>constVal0</parameter></paramdef>
+      </funcprototype>
+    </funcsynopsis>
+  </refsynopsisdiv>
+
+  <refsect1>
+    <title> Description </title>
+
+    <para> Generate a &N; bits constant named &modelname;.
+    </para>
+
+    <refsect2>
+      <title> Terminal Names </title>
+
+      <orderedlist>
+        <listitem>
+          <para> &q; : the constant (output, &N; bit). </para>
+        </listitem>
+        <listitem>
+          <para> <literal>vdd</literal> : power. </para>
+        </listitem>
+        <listitem>
+          <para> <literal>vss</literal> : ground. </para>
+        </listitem>
+      </orderedlist>
+
+    </refsect2>
+
+    <refsect2>
+      <title> Behavior </title>
+
+      <screen>
+q <= constVal;
+      </screen>
+
+    </refsect2>
+
+  </refsect1>
+
+  <refsect1>
+    <title> Example </title>
+
+    <para>
+    <programlisting>
+GENLIB_MACRO(DPGEN_CONST, "model_const_0xFFFF0000"
+                       , F_BEHAV|F_PLACE
+                       , 4
+                       , "0xFFFF0000"  /* A string! */
+                       );
+
+GENLIB_LOINS( "model_const_0xFFFF0000"
+            , "instance1_const_0xFFFF0000"
+            , "q[31:0]"
+            , "vdd", "vss", NULL
+            );
+    </programlisting>
+    </para>
+
+  </refsect1>
+
+  &man-dpgen-see-also;
+
+  </refentry>

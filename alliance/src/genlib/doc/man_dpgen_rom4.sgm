@@ -1,0 +1,106 @@
+
+
+  <refentry id="DPGEN-ROM4">
+  <?dbhtml filename="man_dpgen_rom4.html">
+
+  <refmeta>
+    <refentrytitle>DPGEN_ROM4</refentrytitle>
+    <manvolnum>3</manvolnum>
+    <refmiscinfo>ASIM/LIP6</refmiscinfo>
+  </refmeta>
+
+  <refnamediv>
+    <refname> DPGEN_ROM4 </refname>
+    <refpurpose> 4 words ROM Macro-Generator </refpurpose>
+  </refnamediv>
+
+
+  <refsynopsisdiv>
+    <funcsynopsis>
+      <funcsynopsisinfo>#include  &lt;genlib.h&gt;</funcsynopsisinfo>
+      <funcprototype>
+        <funcdef>void <function>GENLIB_MACRO</function></funcdef>
+          <paramdef>DPGEN_ROM4</paramdef>
+          <paramdef>char *<parameter>modelname</parameter></paramdef>
+          <paramdef>long <parameter>flags</parameter></paramdef>
+          <paramdef>long <parameter>N</parameter></paramdef>
+          <paramdef>char *<parameter>constVal0</parameter></paramdef>
+          <paramdef>char *<parameter>constVal1</parameter></paramdef>
+          <paramdef>char *<parameter>constVal2</parameter></paramdef>
+          <paramdef>char *<parameter>constVal3</parameter></paramdef>
+      </funcprototype>
+    </funcsynopsis>
+  </refsynopsisdiv>
+
+  <refsect1>
+    <title> Description </title>
+
+    <para> Generate a &N; bits 2 words optimized ROM named &modelname;.
+    </para>
+
+    <refsect2>
+      <title> Terminal Names </title>
+
+      <orderedlist>
+        <listitem>
+          <para> &sel1; : upper bit of the address (input, 1 bits). </para>
+        </listitem>
+        <listitem>
+          <para> &sel0; : lower bit of the address (input, 1 bits). </para>
+        </listitem>
+        <listitem>
+          <para> &q; : the selected word (output, &N; bit). </para>
+        </listitem>
+        <listitem>
+          <para> <literal>vdd</literal> : power. </para>
+        </listitem>
+        <listitem>
+          <para> <literal>vss</literal> : ground. </para>
+        </listitem>
+      </orderedlist>
+
+    </refsect2>
+
+    <refsect2>
+      <title> Behavior </title>
+
+      <screen>
+q <= WITH sel1 & sel0 SELECT contsVal0  WHEN B"00",
+                             contsVal1  WHEN B"01",
+                             contsVal2  WHEN B"10",
+                             constVal3  WHEN B"11";
+      </screen>
+
+    </refsect2>
+
+  </refsect1>
+
+  <refsect1>
+    <title> Example </title>
+
+    <para>
+    <programlisting>
+GENLIB_MACRO(DPGEN_ROM4, "model_rom4_set1_16"
+                       , F_BEHAV|F_PLACE
+                       , 4
+                       , "0xFF00"  /* A string! */
+                       , "0xCCCC"  /* A string! */
+                       , "0xF0F0"  /* A string! */
+                       , "0xAAAA"  /* A string! */
+                       );
+
+GENLIB_LOINS( "model_rom4_set1_16"
+            , "instance1_rom4_set1_16"
+            , "sel1"
+            , "sel0"
+            , "q[31:0]"
+            , "vdd", "vss", NULL
+            );
+    </programlisting>
+    </para>
+
+  </refsect1>
+
+  &man-dpgen-see-also;
+
+  </refentry>

@@ -1,0 +1,121 @@
+
+
+  <refentry id="DPGEN-XNOR2MASK">
+  <?dbhtml filename="man_dpgen_xnor2mask.html">
+
+  <refmeta>
+    <refentrytitle>DPGEN_XNOR2MASK</refentrytitle>
+    <manvolnum>3</manvolnum>
+    <refmiscinfo>ASIM/LIP6</refmiscinfo>
+  </refmeta>
+
+  <refnamediv>
+    <refname> DPGEN_XNOR2MASK </refname>
+    <refpurpose> Programmable Mask Macro-Generator </refpurpose>
+  </refnamediv>
+
+
+  <refsynopsisdiv>
+    <funcsynopsis>
+      <funcsynopsisinfo>#include  &lt;genlib.h&gt;</funcsynopsisinfo>
+      <funcprototype>
+        <funcdef>void <function>GENLIB_MACRO</function></funcdef>
+          <paramdef>DPGEN_XNOR2MASK</paramdef>
+          <paramdef>char *<parameter>modelname</parameter></paramdef>
+          <paramdef>long <parameter>flags</parameter></paramdef>
+          <paramdef>long <parameter>N</parameter></paramdef>
+          <paramdef>char *<parameter>constVal</parameter></paramdef>
+      </funcprototype>
+    </funcsynopsis>
+  </refsynopsisdiv>
+
+  <refsect1>
+    <title> Description </title>
+
+    <para> Generate a &N; bits conditionnal XNOR mask named &modelname;.
+    </para>
+    <para> How it works :
+    <itemizedlist>
+      <listitem>
+        <para> if the &cmd; signal is set to &zero;, the mask is NOT
+        applied, so the whole operator behave like an inverter. 
+        </para>
+      </listitem>
+      <listitem>
+        <para> if the &cmd; signal is set to &one;, the mask IS
+        applied, the output is the <emphasis>complemented</emphasis>
+        result of the input value <emphasis>XORed</emphasis> with the mask
+        (suplied by &constVal;).
+        </para>
+      </listitem>
+    </itemizedlist>
+    </para>
+    <para> The constant &constVal; is given to the macro-generator
+    call, therefore the value cannot be changed afterward : it's
+    hard wired in the operator.
+    </para>
+    <para> A common error is to give a real C constant for the
+    &constVal; argument. Be aware that it is a character string.
+    </para>
+
+    <refsect2>
+      <title> Terminal Names </title>
+
+      <orderedlist>
+        <listitem>
+          <para> <literal>cmd</literal> : mask control (1 bit). </para>
+        </listitem>
+        <listitem>
+          <para> <literal>i0</literal> : input (&N; bits). </para>
+        </listitem>
+        <listitem>
+          <para> <literal>q</literal> : output (&N; bits). </para>
+        </listitem>
+        <listitem>
+          <para> <literal>vdd</literal> : power. </para>
+        </listitem>
+        <listitem>
+          <para> <literal>vss</literal> : ground. </para>
+        </listitem>
+      </orderedlist>
+
+    </refsect2>
+
+    <refsect2>
+      <title> Behavior </title>
+
+<screen>
+nq <= WITH cmd SELECT not(i0)                 WHEN '0',
+                      not(i0 xor X"0000FFFF") WHEN '1';
+   </screen>
+
+    </refsect2>
+
+  </refsect1>
+
+  <refsect1>
+    <title> Example </title>
+
+    <para>
+    <programlisting>
+GENLIB_MACRO(DPGEN_XNOR2MASK, "model_xnor2mask_0000FFFF_32"
+                            , F_BEHAV|F_PLACE
+                            , 32
+                            , "0x0000FFFF" /* A string! */
+                            );
+
+GENLIB_LOINS( "model_xnor2mask_0000FFFF_32"
+            , "instance1_xnor2mask_32"
+            , "cmd"
+            , "i0[31:0]"
+            ,  "q[31:0]"
+            , "vdd", "vss", NULL
+            );
+    </programlisting>
+    </para>
+
+  </refsect1>
+
+  &man-dpgen-see-also;
+
+  </refentry>

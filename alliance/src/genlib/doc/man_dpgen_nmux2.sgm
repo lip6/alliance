@@ -1,0 +1,105 @@
+
+
+  <refentry id="DPGEN-NMUX2">
+  <?dbhtml filename="man_dpgen_nmux2.html">
+
+  <refmeta>
+    <refentrytitle>DPGEN_NMUX2</refentrytitle>
+    <manvolnum>3</manvolnum>
+    <refmiscinfo>ASIM/LIP6</refmiscinfo>
+  </refmeta>
+
+  <refnamediv>
+    <refname> DPGEN_NMUX2 </refname>
+    <refpurpose> Multiplexer Macro-Generator </refpurpose>
+  </refnamediv>
+
+
+  <refsynopsisdiv>
+    <funcsynopsis>
+      <funcsynopsisinfo>#include  &lt;genlib.h&gt;</funcsynopsisinfo>
+      <funcprototype>
+        <funcdef>void <function>GENLIB_MACRO</function></funcdef>
+          <paramdef>DPGEN_NMUX2</paramdef>
+          <paramdef>char *<parameter>modelname</parameter></paramdef>
+          <paramdef>long <parameter>flags</parameter></paramdef>
+          <paramdef>long <parameter>N</parameter></paramdef>
+          <paramdef>long <parameter>drive</parameter></paramdef>
+      </funcprototype>
+    </funcsynopsis>
+  </refsynopsisdiv>
+
+  <refsect1>
+    <title> Description </title>
+
+    <para> Generate a &N; bits two inputs multiplexer with a complemented
+    output and a power of &drive; named &modelname;.
+    </para>
+    <para> Valid &drive; are : 2 or 4.
+    </para>
+
+    <refsect2>
+      <title> Terminal Names </title>
+
+      <orderedlist>
+        <listitem>
+          <para> <literal>cmd</literal> : select (1 bit). </para>
+        </listitem>
+        <listitem>
+          <para> <literal>i1</literal> : input (&N; bits). </para>
+        </listitem>
+        <listitem>
+          <para> <literal>i0</literal> : input (&N; bits). </para>
+        </listitem>
+        <listitem>
+          <para> <literal>nq</literal> : output (&N; bits). </para>
+        </listitem>
+        <listitem>
+          <para> <literal>vdd</literal> : power. </para>
+        </listitem>
+        <listitem>
+          <para> <literal>vss</literal> : ground. </para>
+        </listitem>
+      </orderedlist>
+
+    </refsect2>
+
+    <refsect2>
+      <title> Behavior </title>
+
+<screen>
+nq <= WITH cmd SELECT not i0 WHEN '0',
+                      not i1 WHEN '1'; 
+</screen>
+
+    </refsect2>
+
+  </refsect1>
+
+  <refsect1>
+    <title> Example </title>
+
+    <para>
+    <programlisting>
+GENLIB_MACRO(DPGEN_NMUX2, "model_nmux2_32"
+                        , F_BEHAV|F_PLACE
+                        , 32
+                        , 2
+                        );
+
+GENLIB_LOINS( "model_nmux2_32"
+            , "instance1_nmux2_32"
+            , "cmd"
+            , "i1[31:0]"
+            , "i0[31:0]"
+            , "nq[31:0]"
+            , "vdd", "vss", NULL
+            );
+    </programlisting>
+    </para>
+
+  </refsect1>
+
+  &man-dpgen-see-also;
+
+  </refentry>

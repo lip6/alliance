@@ -1,0 +1,378 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN">
+<HTML
+><HEAD
+><TITLE
+>DPGEN_NBUSE</TITLE
+><META
+NAME="GENERATOR"
+CONTENT="Modular DocBook HTML Stylesheet Version 1.76b+
+"><LINK
+REL="HOME"
+TITLE=" GenLib User's Manual "
+HREF="genlib.html"><LINK
+REL="UP"
+TITLE="Alliance - genlib User's Manual "
+HREF="ref_genlib.html"><LINK
+REL="PREVIOUS"
+TITLE="DPGEN_MUX2"
+HREF="man_dpgen_mux2.html"><LINK
+REL="NEXT"
+TITLE="DPGEN_BUSE"
+HREF="man_dpgen_buse.html"></HEAD
+><BODY
+CLASS="REFENTRY"
+BGCOLOR="#FFFFFF"
+TEXT="#000000"
+LINK="#0000FF"
+VLINK="#840084"
+ALINK="#0000FF"
+><DIV
+CLASS="NAVHEADER"
+><TABLE
+SUMMARY="Header navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TH
+COLSPAN="3"
+ALIGN="center"
+>GenLib User's Manual</TH
+></TR
+><TR
+><TD
+WIDTH="10%"
+ALIGN="left"
+VALIGN="bottom"
+><A
+HREF="man_dpgen_mux2.html"
+ACCESSKEY="P"
+>&#60;&#60;&#60; Previous</A
+></TD
+><TD
+WIDTH="80%"
+ALIGN="center"
+VALIGN="bottom"
+></TD
+><TD
+WIDTH="10%"
+ALIGN="right"
+VALIGN="bottom"
+><A
+HREF="man_dpgen_buse.html"
+ACCESSKEY="N"
+>Next &#62;&#62;&#62;</A
+></TD
+></TR
+></TABLE
+><HR
+ALIGN="LEFT"
+WIDTH="100%"></DIV
+><H1
+><A
+NAME="DPGEN-NBUSE">DPGEN_NBUSE</H1
+><DIV
+CLASS="REFNAMEDIV"
+><A
+NAME="AEN2060"
+></A
+><H2
+>Name</H2
+> DPGEN_NBUSE &nbsp;--&nbsp; Tristate Macro-Generator </DIV
+><DIV
+CLASS="REFSYNOPSISDIV"
+><A
+NAME="AEN2063"><H2
+>Synopsis</H2
+><DIV
+CLASS="FUNCSYNOPSIS"
+><A
+NAME="AEN2064"><P
+></P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><PRE
+CLASS="FUNCSYNOPSISINFO"
+>#include  &#60;genlib.h&#62;</PRE
+></TD
+></TR
+></TABLE
+><P
+><CODE
+><CODE
+CLASS="FUNCDEF"
+>void <TT
+CLASS="FUNCTION"
+>GENLIB_MACRO</TT
+></CODE
+>(DPGEN_NBUSE, char *<TT
+CLASS="PARAMETER"
+><I
+>modelname</I
+></TT
+>, long <TT
+CLASS="PARAMETER"
+><I
+>flags</I
+></TT
+>, long <TT
+CLASS="PARAMETER"
+><I
+>N</I
+></TT
+>);</CODE
+></P
+><P
+></P
+></DIV
+></DIV
+><DIV
+CLASS="REFSECT1"
+><A
+NAME="AEN2076"
+></A
+><H2
+> Description </H2
+><P
+> Generate a <TT
+CLASS="REPLACEABLE"
+><I
+>N</I
+></TT
+> bits two inputs tristate with a complemented
+    output named <TT
+CLASS="REPLACEABLE"
+><I
+>modelname</I
+></TT
+>.
+    </P
+><DIV
+CLASS="REFSECT2"
+><A
+NAME="AEN2081"
+></A
+><H3
+> Terminal Names </H3
+><P
+></P
+><OL
+TYPE="1"
+><LI
+><P
+> <TT
+CLASS="LITERAL"
+>cmd</TT
+> : select (1 bit). </P
+></LI
+><LI
+><P
+> <TT
+CLASS="LITERAL"
+>i1</TT
+> : input (<TT
+CLASS="REPLACEABLE"
+><I
+>N</I
+></TT
+> bits). </P
+></LI
+><LI
+><P
+> <TT
+CLASS="LITERAL"
+>i0</TT
+> : input (<TT
+CLASS="REPLACEABLE"
+><I
+>N</I
+></TT
+> bits). </P
+></LI
+><LI
+><P
+> <TT
+CLASS="LITERAL"
+>nq</TT
+> : output (<TT
+CLASS="REPLACEABLE"
+><I
+>N</I
+></TT
+> bits). </P
+></LI
+><LI
+><P
+> <TT
+CLASS="LITERAL"
+>vdd</TT
+> : power. </P
+></LI
+><LI
+><P
+> <TT
+CLASS="LITERAL"
+>vss</TT
+> : ground. </P
+></LI
+></OL
+></DIV
+><DIV
+CLASS="REFSECT2"
+><A
+NAME="AEN2105"
+></A
+><H3
+> Behavior </H3
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><PRE
+CLASS="SCREEN"
+>nts:BLOCK(cmd = '1') BEGIN
+    nq &#60;= GUARDED not(i0);
+END</PRE
+></TD
+></TR
+></TABLE
+></DIV
+></DIV
+><DIV
+CLASS="REFSECT1"
+><A
+NAME="AEN2108"
+></A
+><H2
+> Example </H2
+><P
+>    <TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><PRE
+CLASS="PROGRAMLISTING"
+>GENLIB_MACRO(DPGEN_NBUSE, "model_nbuse_32"
+                        , F_BEHAV|F_PLACE
+                        , 32
+                        );
+
+GENLIB_LOINS( "model_nbuse_32"
+            , "instance1_nbuse_32"
+            , "cmd"
+            , "i1[31:0]"
+            , "i0[31:0]"
+            , "nq[31:0]"
+            , "vdd", "vss", NULL
+            );
+    </PRE
+></TD
+></TR
+></TABLE
+>
+    </P
+></DIV
+><DIV
+CLASS="REFSECT1"
+><A
+NAME="AEN2112"
+></A
+><H2
+>See Also</H2
+><P
+>      <A
+HREF="man_genlib_macro.html"
+><SPAN
+CLASS="CITEREFENTRY"
+><SPAN
+CLASS="REFENTRYTITLE"
+>GENLIB_MACRO</SPAN
+>(3)</SPAN
+></A
+>,
+      <A
+HREF="man_genlib.html"
+><SPAN
+CLASS="CITEREFENTRY"
+><SPAN
+CLASS="REFENTRYTITLE"
+>genlib</SPAN
+>(1)</SPAN
+></A
+>
+    </P
+></DIV
+><DIV
+CLASS="NAVFOOTER"
+><HR
+ALIGN="LEFT"
+WIDTH="100%"><TABLE
+SUMMARY="Footer navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+><A
+HREF="man_dpgen_mux2.html"
+ACCESSKEY="P"
+>&#60;&#60;&#60; Previous</A
+></TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="genlib.html"
+ACCESSKEY="H"
+>Home</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+><A
+HREF="man_dpgen_buse.html"
+ACCESSKEY="N"
+>Next &#62;&#62;&#62;</A
+></TD
+></TR
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+>DPGEN_MUX2</TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="ref_genlib.html"
+ACCESSKEY="U"
+>Up</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+>DPGEN_BUSE</TD
+></TR
+></TABLE
+></DIV
+></BODY
+></HTML
+>

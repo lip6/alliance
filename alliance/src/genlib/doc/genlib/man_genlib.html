@@ -1,0 +1,1199 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN">
+<HTML
+><HEAD
+><TITLE
+>genlib</TITLE
+><META
+NAME="GENERATOR"
+CONTENT="Modular DocBook HTML Stylesheet Version 1.76b+
+"><LINK
+REL="HOME"
+TITLE=" GenLib User's Manual "
+HREF="genlib.html"><LINK
+REL="UP"
+TITLE="Alliance - genlib User's Manual "
+HREF="ref_genlib.html"><LINK
+REL="PREVIOUS"
+TITLE="Alliance - genlib User's Manual "
+HREF="ref_genlib.html"><LINK
+REL="NEXT"
+TITLE="GENLIB_MACRO"
+HREF="man_genlib_macro.html"></HEAD
+><BODY
+CLASS="REFENTRY"
+BGCOLOR="#FFFFFF"
+TEXT="#000000"
+LINK="#0000FF"
+VLINK="#840084"
+ALINK="#0000FF"
+><DIV
+CLASS="NAVHEADER"
+><TABLE
+SUMMARY="Header navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TH
+COLSPAN="3"
+ALIGN="center"
+>GenLib User's Manual</TH
+></TR
+><TR
+><TD
+WIDTH="10%"
+ALIGN="left"
+VALIGN="bottom"
+><A
+HREF="ref_genlib.html"
+ACCESSKEY="P"
+>&#60;&#60;&#60; Previous</A
+></TD
+><TD
+WIDTH="80%"
+ALIGN="center"
+VALIGN="bottom"
+></TD
+><TD
+WIDTH="10%"
+ALIGN="right"
+VALIGN="bottom"
+><A
+HREF="man_genlib_macro.html"
+ACCESSKEY="N"
+>Next &#62;&#62;&#62;</A
+></TD
+></TR
+></TABLE
+><HR
+ALIGN="LEFT"
+WIDTH="100%"></DIV
+><H1
+><A
+NAME="GENLIB">genlib</H1
+><DIV
+CLASS="REFNAMEDIV"
+><A
+NAME="AEN31"
+></A
+><H2
+>Name</H2
+> genlib &nbsp;--&nbsp; Procedural design language based upon C. </DIV
+><DIV
+CLASS="REFSECT1"
+><A
+NAME="AEN34"
+></A
+><H2
+> Description </H2
+><P
+> <I
+CLASS="EMPHASIS"
+>genlib</I
+> is a set of C functions dedicated to procedural
+    generation purposes. From a user point of view, genlib is a circuit's
+    description  language that allows standard C programming flow control,
+    variable use, and specialized functions in order to handle vlsi
+    objects.
+    </P
+><P
+> Based upon the <I
+CLASS="EMPHASIS"
+>Alliance</I
+> <I
+CLASS="EMPHASIS"
+>mbk</I
+> data structures, the <I
+CLASS="EMPHASIS"
+>genlib</I
+>
+    language gives the  user  the  ability  to  describe  both netlist
+    and layout views, thus allowing both standard cell and full custom
+    approachs.
+    </P
+><DIV
+CLASS="REFSECT2"
+><A
+NAME="AEN42"
+></A
+><H3
+> Netlist capture </H3
+><P
+> It is a hierachical structural description of a circuit in
+      terms of connectors (I/Os), signals (nets), and instances.
+      </P
+><P
+> The function calls used to handle the netlist view are :
+      <P
+></P
+><UL
+><LI
+><P
+><SPAN
+CLASS="CITEREFENTRY"
+><SPAN
+CLASS="REFENTRYTITLE"
+>GENLIB_DEF_LOFIG</SPAN
+>(3)</SPAN
+></P
+></LI
+><LI
+><P
+><SPAN
+CLASS="CITEREFENTRY"
+><SPAN
+CLASS="REFENTRYTITLE"
+>GENLIB_SAVE_LOFIG</SPAN
+>(3)</SPAN
+></P
+></LI
+><LI
+><P
+><SPAN
+CLASS="CITEREFENTRY"
+><SPAN
+CLASS="REFENTRYTITLE"
+>GENLIB_LOINS</SPAN
+>(3)</SPAN
+></P
+></LI
+><LI
+><P
+><SPAN
+CLASS="CITEREFENTRY"
+><SPAN
+CLASS="REFENTRYTITLE"
+>GENLIB_LOCON</SPAN
+>(3)</SPAN
+></P
+></LI
+><LI
+><P
+><SPAN
+CLASS="CITEREFENTRY"
+><SPAN
+CLASS="REFENTRYTITLE"
+>GENLIB_LOSIG</SPAN
+>(3)</SPAN
+></P
+></LI
+><LI
+><P
+><SPAN
+CLASS="CITEREFENTRY"
+><SPAN
+CLASS="REFENTRYTITLE"
+>GENLIB_FLATTEN_LOFIG</SPAN
+>(3)</SPAN
+></P
+></LI
+></UL
+>
+      Some facilities, in order to create vectors are also available :
+      <P
+></P
+><UL
+><LI
+><P
+><SPAN
+CLASS="CITEREFENTRY"
+><SPAN
+CLASS="REFENTRYTITLE"
+>GENLIB_BUS</SPAN
+>(3)</SPAN
+></P
+></LI
+><LI
+><P
+><SPAN
+CLASS="CITEREFENTRY"
+><SPAN
+CLASS="REFENTRYTITLE"
+>GENLIB_ELM</SPAN
+>(3)</SPAN
+></P
+></LI
+></UL
+>
+      </P
+></DIV
+><DIV
+CLASS="REFSECT2"
+><A
+NAME="AEN88"
+></A
+><H3
+> Standard cell placement </H3
+><P
+>The following functions allows to define a placement file
+      for a standard cell design. This file can be used by the standard
+      cell router <SPAN
+CLASS="CITEREFENTRY"
+><SPAN
+CLASS="REFENTRYTITLE"
+>ocr</SPAN
+>(1)</SPAN
+> :
+      <P
+></P
+><UL
+><LI
+><P
+><SPAN
+CLASS="CITEREFENTRY"
+><SPAN
+CLASS="REFENTRYTITLE"
+>GENLIB_DEF_PHSC</SPAN
+>(3)</SPAN
+></P
+></LI
+><LI
+><P
+><SPAN
+CLASS="CITEREFENTRY"
+><SPAN
+CLASS="REFENTRYTITLE"
+>GENLIB_SAVE_PHSC</SPAN
+>(3)</SPAN
+></P
+></LI
+><LI
+><P
+><SPAN
+CLASS="CITEREFENTRY"
+><SPAN
+CLASS="REFENTRYTITLE"
+>GENLIB_SC_PLACE</SPAN
+>(3)</SPAN
+></P
+></LI
+><LI
+><P
+><SPAN
+CLASS="CITEREFENTRY"
+><SPAN
+CLASS="REFENTRYTITLE"
+>GENLIB_SC_RIGHT</SPAN
+>(3)</SPAN
+></P
+></LI
+><LI
+><P
+><SPAN
+CLASS="CITEREFENTRY"
+><SPAN
+CLASS="REFENTRYTITLE"
+>GENLIB_SC_TOP</SPAN
+>(3)</SPAN
+></P
+></LI
+><LI
+><P
+><SPAN
+CLASS="CITEREFENTRY"
+><SPAN
+CLASS="REFENTRYTITLE"
+>GENLIB_SC_LEFT</SPAN
+>(3)</SPAN
+></P
+></LI
+><LI
+><P
+><SPAN
+CLASS="CITEREFENTRY"
+><SPAN
+CLASS="REFENTRYTITLE"
+>GENLIB_SC_BOTTOM</SPAN
+>(3)</SPAN
+></P
+></LI
+></UL
+>
+      </P
+></DIV
+><DIV
+CLASS="REFSECT2"
+><A
+NAME="AEN130"
+></A
+><H3
+> Full custom symbolic layout </H3
+><P
+> Those functions are dedicated to optimized full custom
+      procedural layout. In order to provide some process independance,
+      <I
+CLASS="EMPHASIS"
+>Alliance</I
+> uses a symbolic layout approach (fixed grid without
+      compaction).
+      </P
+><P
+> The symbolic objects are segments (wires), vias (contacts),
+      connectors (I/Os), references and instances. For more informations,
+      see
+      <SPAN
+CLASS="CITEREFENTRY"
+><SPAN
+CLASS="REFENTRYTITLE"
+>phseg</SPAN
+>(1)</SPAN
+>,
+      <SPAN
+CLASS="CITEREFENTRY"
+><SPAN
+CLASS="REFENTRYTITLE"
+>phvia</SPAN
+>(1)</SPAN
+>,
+      <SPAN
+CLASS="CITEREFENTRY"
+><SPAN
+CLASS="REFENTRYTITLE"
+>phcon</SPAN
+>(1)</SPAN
+>,
+      <SPAN
+CLASS="CITEREFENTRY"
+><SPAN
+CLASS="REFENTRYTITLE"
+>phref</SPAN
+>(1)</SPAN
+>,
+      <SPAN
+CLASS="CITEREFENTRY"
+><SPAN
+CLASS="REFENTRYTITLE"
+>phins</SPAN
+>(1)</SPAN
+>
+      and <SPAN
+CLASS="CITEREFENTRY"
+><SPAN
+CLASS="REFENTRYTITLE"
+>alc</SPAN
+>(1)</SPAN
+>.
+      <P
+></P
+><UL
+><LI
+><P
+><SPAN
+CLASS="CITEREFENTRY"
+><SPAN
+CLASS="REFENTRYTITLE"
+>GENLIB_DEF_PHFIG</SPAN
+>(3)</SPAN
+></P
+></LI
+><LI
+><P
+><SPAN
+CLASS="CITEREFENTRY"
+><SPAN
+CLASS="REFENTRYTITLE"
+>GENLIB_SAVE_PHFIG</SPAN
+>(3)</SPAN
+></P
+></LI
+><LI
+><P
+><SPAN
+CLASS="CITEREFENTRY"
+><SPAN
+CLASS="REFENTRYTITLE"
+>GENLIB_DEF_AB</SPAN
+>(3)</SPAN
+></P
+></LI
+><LI
+><P
+><SPAN
+CLASS="CITEREFENTRY"
+><SPAN
+CLASS="REFENTRYTITLE"
+>GENLIB_DEF_PHINS</SPAN
+>(3)</SPAN
+></P
+></LI
+><LI
+><P
+><SPAN
+CLASS="CITEREFENTRY"
+><SPAN
+CLASS="REFENTRYTITLE"
+>GENLIB_PHCON</SPAN
+>(3)</SPAN
+></P
+></LI
+><LI
+><P
+><SPAN
+CLASS="CITEREFENTRY"
+><SPAN
+CLASS="REFENTRYTITLE"
+>GENLIB_COPY_UP_CON</SPAN
+>(3)</SPAN
+></P
+></LI
+><LI
+><P
+><SPAN
+CLASS="CITEREFENTRY"
+><SPAN
+CLASS="REFENTRYTITLE"
+>GENLIB_COPY_UP_CON_FACE</SPAN
+>(3)</SPAN
+></P
+></LI
+><LI
+><P
+><SPAN
+CLASS="CITEREFENTRY"
+><SPAN
+CLASS="REFENTRYTITLE"
+>GENLIB_COPY_UP_ALL_CON</SPAN
+>(3)</SPAN
+></P
+></LI
+><LI
+><P
+><SPAN
+CLASS="CITEREFENTRY"
+><SPAN
+CLASS="REFENTRYTITLE"
+>GENLIB_PHSEG</SPAN
+>(3)</SPAN
+></P
+></LI
+><LI
+><P
+><SPAN
+CLASS="CITEREFENTRY"
+><SPAN
+CLASS="REFENTRYTITLE"
+>GENLIB_COPY_UP_SEG</SPAN
+>(3)</SPAN
+></P
+></LI
+><LI
+><P
+><SPAN
+CLASS="CITEREFENTRY"
+><SPAN
+CLASS="REFENTRYTITLE"
+>GENLIB_THRU_H</SPAN
+>(3)</SPAN
+></P
+></LI
+><LI
+><P
+><SPAN
+CLASS="CITEREFENTRY"
+><SPAN
+CLASS="REFENTRYTITLE"
+>GENLIB_THRU_V</SPAN
+>(3)</SPAN
+></P
+></LI
+><LI
+><P
+><SPAN
+CLASS="CITEREFENTRY"
+><SPAN
+CLASS="REFENTRYTITLE"
+>GENLIB_THRU_CON_H</SPAN
+>(3)</SPAN
+></P
+></LI
+><LI
+><P
+><SPAN
+CLASS="CITEREFENTRY"
+><SPAN
+CLASS="REFENTRYTITLE"
+>GENLIB_THRU_CON_V</SPAN
+>(3)</SPAN
+></P
+></LI
+><LI
+><P
+><SPAN
+CLASS="CITEREFENTRY"
+><SPAN
+CLASS="REFENTRYTITLE"
+>GENLIB_WIRE1</SPAN
+>(3)</SPAN
+></P
+></LI
+><LI
+><P
+><SPAN
+CLASS="CITEREFENTRY"
+><SPAN
+CLASS="REFENTRYTITLE"
+>GENLIB_WIRE2</SPAN
+>(3)</SPAN
+></P
+></LI
+><LI
+><P
+><SPAN
+CLASS="CITEREFENTRY"
+><SPAN
+CLASS="REFENTRYTITLE"
+>GENLIB_WIRE3</SPAN
+>(3)</SPAN
+></P
+></LI
+><LI
+><P
+><SPAN
+CLASS="CITEREFENTRY"
+><SPAN
+CLASS="REFENTRYTITLE"
+>GENLIB_PHVIA</SPAN
+>(3)</SPAN
+></P
+></LI
+><LI
+><P
+><SPAN
+CLASS="CITEREFENTRY"
+><SPAN
+CLASS="REFENTRYTITLE"
+>GENLIB_PLACE</SPAN
+>(3)</SPAN
+></P
+></LI
+><LI
+><P
+><SPAN
+CLASS="CITEREFENTRY"
+><SPAN
+CLASS="REFENTRYTITLE"
+>GENLIB_PLACE_RIGHT</SPAN
+>(3)</SPAN
+></P
+></LI
+><LI
+><P
+><SPAN
+CLASS="CITEREFENTRY"
+><SPAN
+CLASS="REFENTRYTITLE"
+>GENLIB_PLACE_TOP</SPAN
+>(3)</SPAN
+></P
+></LI
+><LI
+><P
+><SPAN
+CLASS="CITEREFENTRY"
+><SPAN
+CLASS="REFENTRYTITLE"
+>GENLIB_PLACE_LEFT</SPAN
+>(3)</SPAN
+></P
+></LI
+><LI
+><P
+><SPAN
+CLASS="CITEREFENTRY"
+><SPAN
+CLASS="REFENTRYTITLE"
+>GENLIB_PLACE_BOTTOM</SPAN
+>(3)</SPAN
+></P
+></LI
+><LI
+><P
+><SPAN
+CLASS="CITEREFENTRY"
+><SPAN
+CLASS="REFENTRYTITLE"
+>GENLIB_PLACE_ON</SPAN
+>(3)</SPAN
+></P
+></LI
+><LI
+><P
+><SPAN
+CLASS="CITEREFENTRY"
+><SPAN
+CLASS="REFENTRYTITLE"
+>GENLIB_PHREF</SPAN
+>(3)</SPAN
+></P
+></LI
+><LI
+><P
+><SPAN
+CLASS="CITEREFENTRY"
+><SPAN
+CLASS="REFENTRYTITLE"
+>GENLIB_COPY_UP_REF</SPAN
+>(3)</SPAN
+></P
+></LI
+><LI
+><P
+><SPAN
+CLASS="CITEREFENTRY"
+><SPAN
+CLASS="REFENTRYTITLE"
+>GENLIB_COPY_UP_ALL_REF</SPAN
+>(3)</SPAN
+></P
+></LI
+><LI
+><P
+><SPAN
+CLASS="CITEREFENTRY"
+><SPAN
+CLASS="REFENTRYTITLE"
+>GENLIB_PLACE_VIA_REF</SPAN
+>(3)</SPAN
+></P
+></LI
+><LI
+><P
+><SPAN
+CLASS="CITEREFENTRY"
+><SPAN
+CLASS="REFENTRYTITLE"
+>GENLIB_PLACE_CON_REF</SPAN
+>(3)</SPAN
+></P
+></LI
+><LI
+><P
+><SPAN
+CLASS="CITEREFENTRY"
+><SPAN
+CLASS="REFENTRYTITLE"
+>GENLIB_PLACE_SEG_REF</SPAN
+>(3)</SPAN
+></P
+></LI
+><LI
+><P
+><SPAN
+CLASS="CITEREFENTRY"
+><SPAN
+CLASS="REFENTRYTITLE"
+>GENLIB_FLATTEN_PHFIG</SPAN
+>(3)</SPAN
+></P
+></LI
+><LI
+><P
+><SPAN
+CLASS="CITEREFENTRY"
+><SPAN
+CLASS="REFENTRYTITLE"
+>GENLIB_GET_REF_X</SPAN
+>(3)</SPAN
+></P
+></LI
+><LI
+><P
+><SPAN
+CLASS="CITEREFENTRY"
+><SPAN
+CLASS="REFENTRYTITLE"
+>GENLIB_GET_REF_Y</SPAN
+>(3)</SPAN
+></P
+></LI
+><LI
+><P
+><SPAN
+CLASS="CITEREFENTRY"
+><SPAN
+CLASS="REFENTRYTITLE"
+>GENLIB_GET_CON_X</SPAN
+>(3)</SPAN
+></P
+></LI
+><LI
+><P
+><SPAN
+CLASS="CITEREFENTRY"
+><SPAN
+CLASS="REFENTRYTITLE"
+>GENLIB_GET_CON_Y</SPAN
+>(3)</SPAN
+></P
+></LI
+><LI
+><P
+><SPAN
+CLASS="CITEREFENTRY"
+><SPAN
+CLASS="REFENTRYTITLE"
+>GENLIB_HEIGHT</SPAN
+>(3)</SPAN
+></P
+></LI
+><LI
+><P
+><SPAN
+CLASS="CITEREFENTRY"
+><SPAN
+CLASS="REFENTRYTITLE"
+>GENLIB_WIDTH</SPAN
+>(3)</SPAN
+></P
+></LI
+></UL
+>
+      In order to have information about each of these functions, use
+      the online documentation with <SPAN
+CLASS="CITEREFENTRY"
+><SPAN
+CLASS="REFENTRYTITLE"
+>man</SPAN
+>(1)</SPAN
+>, as in
+      <TT
+CLASS="FILENAME"
+>man function-name</TT
+>.
+      </P
+><P
+> It is strongly recommended to read some books on C
+      programming, in order to take full advantage of the C flow
+      control possibilities, as it may greatly reduce  the  size
+      of a <I
+CLASS="EMPHASIS"
+>genlib</I
+> source code.
+      </P
+></DIV
+></DIV
+><DIV
+CLASS="REFSECT1"
+><A
+NAME="AEN345"
+></A
+><H2
+> ENVIRONMENT VARIABLES </H2
+><P
+>      <P
+></P
+><UL
+><LI
+><P
+>          <SPAN
+CLASS="CITEREFENTRY"
+><SPAN
+CLASS="REFENTRYTITLE"
+>MBK_IN_LO</SPAN
+>(1)</SPAN
+>,
+          default value : <TT
+CLASS="LITERAL"
+>al</TT
+>
+          </P
+></LI
+><LI
+><P
+>          <SPAN
+CLASS="CITEREFENTRY"
+><SPAN
+CLASS="REFENTRYTITLE"
+>MBK_OUT_LO</SPAN
+>(1)</SPAN
+>,
+          default value : <TT
+CLASS="LITERAL"
+>al</TT
+>
+          </P
+></LI
+><LI
+><P
+>          <SPAN
+CLASS="CITEREFENTRY"
+><SPAN
+CLASS="REFENTRYTITLE"
+>MBK_IN_PH</SPAN
+>(1)</SPAN
+>,
+          default value : <TT
+CLASS="LITERAL"
+>ap</TT
+>
+          </P
+></LI
+><LI
+><P
+>          <SPAN
+CLASS="CITEREFENTRY"
+><SPAN
+CLASS="REFENTRYTITLE"
+>MBK_OUT_LO</SPAN
+>(1)</SPAN
+>,
+          default value : <TT
+CLASS="LITERAL"
+>ap</TT
+>
+          </P
+></LI
+><LI
+><P
+>          <SPAN
+CLASS="CITEREFENTRY"
+><SPAN
+CLASS="REFENTRYTITLE"
+>MBK_CATA_LIB</SPAN
+>(1)</SPAN
+>,
+          default value : <TT
+CLASS="LITERAL"
+>.</TT
+>
+          </P
+></LI
+><LI
+><P
+>          <SPAN
+CLASS="CITEREFENTRY"
+><SPAN
+CLASS="REFENTRYTITLE"
+>MBK_WORK_LIB</SPAN
+>(1)</SPAN
+>,
+          default value : <TT
+CLASS="LITERAL"
+>.</TT
+>
+          </P
+></LI
+><LI
+><P
+>          <SPAN
+CLASS="CITEREFENTRY"
+><SPAN
+CLASS="REFENTRYTITLE"
+>MBK_CATAL_NAME</SPAN
+>(1)</SPAN
+>,
+          default value : <TT
+CLASS="LITERAL"
+>CATAL</TT
+>
+          </P
+></LI
+></UL
+>
+      
+    See the corresponding manual pages for further informations.
+    </P
+><P
+> In  order to compile and execute a <I
+CLASS="EMPHASIS"
+>genlib</I
+> file, one has to
+    call <I
+CLASS="EMPHASIS"
+>genlib</I
+> with one argument, that is the <I
+CLASS="EMPHASIS"
+>genlib</I
+> source file.
+    The source file must have a .c extension, but the extension should
+    not be mentionned on the command line.
+    </P
+><P
+> The names used in genlib, as arguments to genlib functions,
+    should be alphanumerical, including the underscore. They also are not
+    case sensitive, so <TT
+CLASS="LITERAL"
+>VDD</TT
+> is equivalent to <TT
+CLASS="LITERAL"
+>vdd</TT
+>. Vectorized connectors
+    or signal can be declareds using the <TT
+CLASS="LITERAL"
+>[n:m]</TT
+> construct.
+    </P
+></DIV
+><DIV
+CLASS="REFSECT1"
+><A
+NAME="AEN399"
+></A
+><H2
+>Synopsis</H2
+><P
+><B
+CLASS="COMMAND"
+>genlib</B
+> [        <TT
+CLASS="OPTION"
+>-cklmnv</TT
+>
+      ] [--no-rm-core] [--keep-makefile] [--keep-exec] [--keep-log] [--no-exec] [--verbose] {program} [-e <TT
+CLASS="REPLACEABLE"
+><I
+>program_args</I
+></TT
+>]</P
+><DIV
+CLASS="REFSECT2"
+><A
+NAME="AEN414"
+></A
+><H3
+> Options </H3
+><P
+>      <P
+></P
+><UL
+><LI
+><P
+> <TT
+CLASS="LITERAL"
+>&#60;program&#62;</TT
+> : the name of the C file containing the
+          <I
+CLASS="EMPHASIS"
+>genlib</I
+> program, whitout extention. Mandatory argument.
+          </P
+></LI
+><LI
+><P
+> <TT
+CLASS="LITERAL"
+>[--no-rm-core|-c]</TT
+> : in case of core dump, do not remove
+          the generated core file. This option must be used with
+          <TT
+CLASS="LITERAL"
+>[--keep-exec|-k]</TT
+>.
+          </P
+></LI
+><LI
+><P
+> <TT
+CLASS="LITERAL"
+>[--keep-makefile|-m]</TT
+> : do not erase the generated makefile
+          after execution.
+          </P
+></LI
+><LI
+><P
+> <TT
+CLASS="LITERAL"
+>[--keep-exec|-k]</TT
+> : keep the generated executable after the
+          <I
+CLASS="EMPHASIS"
+>genlib</I
+> run.
+          </P
+></LI
+><LI
+><P
+> <TT
+CLASS="LITERAL"
+>[--keep-log|-l]</TT
+> : do not erase the log file after a successfull
+          completion (the log is keeped after a faulty run).
+          </P
+></LI
+><LI
+><P
+> <TT
+CLASS="LITERAL"
+>[--no-exec|-n]</TT
+> : do not run the generated program. Should be
+          used with <TT
+CLASS="LITERAL"
+>[--keep-exec|-k]</TT
+>.
+          </P
+></LI
+><LI
+><P
+> <TT
+CLASS="LITERAL"
+>[--no-verbose|-v]</TT
+> : self explanatory.
+          </P
+></LI
+><LI
+><P
+> <TT
+CLASS="LITERAL"
+>[-e]</TT
+> : all the following arguments are handled to the
+          compiled program.
+          </P
+></LI
+></UL
+>
+      </P
+></DIV
+></DIV
+><DIV
+CLASS="REFSECT1"
+><A
+NAME="AEN446"
+></A
+><H2
+>Examples</H2
+><DIV
+CLASS="INFORMALEXAMPLE"
+><A
+NAME="AEN448"><P
+></P
+><P
+> Compile and run a file <TT
+CLASS="FILENAME"
+>amd2901.c</TT
+> :
+      <TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><PRE
+CLASS="SCREEN"
+>genlib -v amd2901
+      </PRE
+></TD
+></TR
+></TABLE
+>
+      </P
+><P
+></P
+></DIV
+></DIV
+><DIV
+CLASS="REFSECT1"
+><A
+NAME="AEN452"
+></A
+><H2
+>See Also</H2
+><P
+>      <SPAN
+CLASS="CITEREFENTRY"
+><SPAN
+CLASS="REFENTRYTITLE"
+>mbk</SPAN
+>(1)</SPAN
+>,
+    </P
+></DIV
+><DIV
+CLASS="REFSECT1"
+><A
+NAME="AEN458"
+></A
+><H2
+>Diagnostic</H2
+><P
+> Many errors may occur while executing the source file,  so
+    refer to the proper genlib function manual for more. When an error
+    occur, <I
+CLASS="EMPHASIS"
+>genlib</I
+> left a log file <TT
+CLASS="FILENAME"
+>&#60;program&#62;.grr</TT
+>.
+    As <TT
+CLASS="FILENAME"
+>&#60;program&#62;.c</TT
+> is a C program, all
+    syntatic C error can occurs...
+    </P
+><P
+> All genlib functions are listed below alphabetically sorted.
+    </P
+></DIV
+><DIV
+CLASS="NAVFOOTER"
+><HR
+ALIGN="LEFT"
+WIDTH="100%"><TABLE
+SUMMARY="Footer navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+><A
+HREF="ref_genlib.html"
+ACCESSKEY="P"
+>&#60;&#60;&#60; Previous</A
+></TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="genlib.html"
+ACCESSKEY="H"
+>Home</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+><A
+HREF="man_genlib_macro.html"
+ACCESSKEY="N"
+>Next &#62;&#62;&#62;</A
+></TD
+></TR
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+><I
+CLASS="EMPHASIS"
+>Alliance</I
+> - <I
+CLASS="EMPHASIS"
+>genlib</I
+> User's Manual</TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="ref_genlib.html"
+ACCESSKEY="U"
+>Up</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+>GENLIB_MACRO</TD
+></TR
+></TABLE
+></DIV
+></BODY
+></HTML
+>

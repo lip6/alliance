@@ -1,0 +1,206 @@
+
+
+<!DOCTYPE Book PUBLIC "-//OASIS//DTD DocBook V4.1//EN" [ 
+
+
+<!ENTITY man-genlib          SYSTEM "man_genlib.sgm">
+<!ENTITY man-genlib-macro    SYSTEM "man_genlib_macro.sgm">
+<!ENTITY man-dpgen-inv       SYSTEM "man_dpgen_inv.sgm">
+<!ENTITY man-dpgen-buff      SYSTEM "man_dpgen_buff.sgm">
+<!ENTITY man-dpgen-nand2     SYSTEM "man_dpgen_nand2.sgm">
+<!ENTITY man-dpgen-nand3     SYSTEM "man_dpgen_nand3.sgm">
+<!ENTITY man-dpgen-nand4     SYSTEM "man_dpgen_nand4.sgm">
+<!ENTITY man-dpgen-and2      SYSTEM "man_dpgen_and2.sgm">
+<!ENTITY man-dpgen-and3      SYSTEM "man_dpgen_and3.sgm">
+<!ENTITY man-dpgen-and4      SYSTEM "man_dpgen_and4.sgm">
+<!ENTITY man-dpgen-nor2      SYSTEM "man_dpgen_nor2.sgm">
+<!ENTITY man-dpgen-nor3      SYSTEM "man_dpgen_nor3.sgm">
+<!ENTITY man-dpgen-nor4      SYSTEM "man_dpgen_nor4.sgm">
+<!ENTITY man-dpgen-or2       SYSTEM "man_dpgen_or2.sgm">
+<!ENTITY man-dpgen-or3       SYSTEM "man_dpgen_or3.sgm">
+<!ENTITY man-dpgen-or4       SYSTEM "man_dpgen_or4.sgm">
+<!ENTITY man-dpgen-xnor2     SYSTEM "man_dpgen_xnor2.sgm">
+<!ENTITY man-dpgen-xor2      SYSTEM "man_dpgen_xor2.sgm">
+<!ENTITY man-dpgen-nmux2     SYSTEM "man_dpgen_nmux2.sgm">
+<!ENTITY man-dpgen-mux2      SYSTEM "man_dpgen_mux2.sgm">
+<!ENTITY man-dpgen-nbuse     SYSTEM "man_dpgen_nbuse.sgm">
+<!ENTITY man-dpgen-buse      SYSTEM "man_dpgen_buse.sgm">
+<!ENTITY man-dpgen-nand2mask SYSTEM "man_dpgen_nand2mask.sgm">
+<!ENTITY man-dpgen-nor2mask  SYSTEM "man_dpgen_nor2mask.sgm">
+<!ENTITY man-dpgen-xnor2mask SYSTEM "man_dpgen_xnor2mask.sgm">
+<!ENTITY man-dpgen-adsb2f    SYSTEM "man_dpgen_adsb2f.sgm">
+<!ENTITY man-dpgen-shift     SYSTEM "man_dpgen_shift.sgm">
+<!ENTITY man-dpgen-nul       SYSTEM "man_dpgen_nul.sgm">
+<!ENTITY man-dpgen-const     SYSTEM "man_dpgen_const.sgm">
+<!ENTITY man-dpgen-rom2      SYSTEM "man_dpgen_rom2.sgm">
+<!ENTITY man-dpgen-rom4      SYSTEM "man_dpgen_rom4.sgm">
+<!ENTITY man-dpgen-rf1       SYSTEM "man_dpgen_rf1.sgm">
+<!ENTITY man-dpgen-rf1d      SYSTEM "man_dpgen_rf1d.sgm">
+<!ENTITY man-dpgen-dff       SYSTEM "man_dpgen_dff.sgm">
+<!ENTITY man-dpgen-dfft      SYSTEM "man_dpgen_dfft.sgm">
+<!ENTITY man-dpgen-sff       SYSTEM "man_dpgen_sff.sgm">
+<!ENTITY man-dpgen-sfft      SYSTEM "man_dpgen_sfft.sgm">
+<!ENTITY man-dpgen-see-also  SYSTEM "man_dpgen_see_also.sgm">
+
+
+<!ENTITY mbk                "<emphasis>mbk</emphasis>">
+<!ENTITY genlib             "<emphasis>genlib</emphasis>">
+<!ENTITY Alliance           "<emphasis>Alliance</emphasis>">
+<!ENTITY VHDL               "<emphasis>VHDL</emphasis>">
+<!ENTITY MSB                "<acronym>MSB</acronym>">
+<!ENTITY LSB                "<acronym>LSB</acronym>">
+<!ENTITY IBM                "<acronym>IBM</acronym>">
+<!ENTITY FIFO               "<acronym>FIFO</acronym>">
+<!ENTITY VDD                "<literal>VDD</literal>">
+<!ENTITY vdd                "<literal>vdd</literal>">
+<!ENTITY vss                "<literal>vss</literal>">
+<!ENTITY op                 "<literal>op</literal>">
+<!ENTITY ck                 "<literal>ck</literal>">
+<!ENTITY ckok               "<literal>ckok</literal>">
+<!ENTITY wen                "<literal>wen</literal>">
+<!ENTITY ren                "<literal>ren</literal>">
+<!ENTITY scan               "<literal>scan</literal>">
+<!ENTITY scin               "<literal>scin</literal>">
+<!ENTITY scout              "<literal>scout</literal>">
+<!ENTITY cmd                "<literal>cmd</literal>">
+<!ENTITY datain0            "<literal>datain0</literal>">
+<!ENTITY datain1            "<literal>datain1</literal>">
+<!ENTITY dataout            "<literal>dataout</literal>">
+<!ENTITY adr                "<literal>adr</literal>">
+<!ENTITY adw                "<literal>adw</literal>">
+<!ENTITY sel                "<literal>sel</literal>">
+<!ENTITY selr               "<literal>selr</literal>">
+<!ENTITY selw               "<literal>selw</literal>">
+<!ENTITY sel1               "<literal>sel1</literal>">
+<!ENTITY sel0               "<literal>sel0</literal>">
+<!ENTITY shamt              "<literal>shamt</literal>">
+<!ENTITY add-sub            "<literal>add_sub</literal>">
+<!ENTITY c32                "<literal>c32</literal>">
+<!ENTITY c31                "<literal>c31</literal>">
+<!ENTITY i0                 "<literal>i0</literal>">
+<!ENTITY i1                 "<literal>i1</literal>">
+<!ENTITY nq                 "<literal>nq</literal>">
+<!ENTITY q                  "<literal>q</literal>">
+<!ENTITY one                "<literal>'1'</literal>">
+<!ENTITY zero               "<literal>'0'</literal>">
+
+<!ENTITY arg-no-rm-core     "<literal>[--no-rm-core|-c]</literal>">
+<!ENTITY arg-keep-exec      "<literal>[--keep-exec|-k]</literal>">
+<!ENTITY arg-keep-makefile  "<literal>[--keep-makefile|-m]</literal>">
+<!ENTITY arg-keep-log       "<literal>[--keep-log|-l]</literal>">
+<!ENTITY arg-no-exec        "<literal>[--no-exec|-n]</literal>">
+<!ENTITY arg-verbose        "<literal>[--no-verbose|-v]</literal>">
+<!ENTITY arg-e              "<literal>[-e]</literal>">
+<!ENTITY arg-program        "<literal>&lt;program&gt;</literal>">
+
+<!ENTITY GENLIB-MACRO       "<emphasis>GENLIB_MACRO()</emphasis>">
+<!ENTITY arg-function       "<literal>long  <replaceable>function</replaceable></literal>">
+<!ENTITY arg-modelname      "<literal>char* <replaceable>modelname</replaceable></literal>">
+<!ENTITY arg-flags          "<literal>long  <replaceable>flags</replaceable></literal>">
+<!ENTITY arg-N              "<literal>long  <replaceable>N</replaceable></literal>">
+<!ENTITY arg-drive          "<literal>long  <replaceable>drive</replaceable></literal>">
+<!ENTITY arg-regNumber      "<literal>long  <replaceable>regNumber</replaceable></literal>">
+<!ENTITY arg-constVal       "<literal>char* <replaceable>constval</replaceable></literal>">
+<!ENTITY modelname          "<replaceable>modelname</replaceable>">
+<!ENTITY drive              "<replaceable>drive</replaceable>">
+<!ENTITY N                  "<replaceable>N</replaceable>">
+<!ENTITY Y                  "<replaceable>Y</replaceable>">
+<!ENTITY regNumber          "<replaceable>regNumber</replaceable>">
+<!ENTITY constVal           "<replaceable>constVal</replaceable>">
+<!ENTITY constVal0          "<replaceable>constVal0</replaceable>">
+<!ENTITY constVal1          "<replaceable>constVal1</replaceable>">
+<!ENTITY constVal2          "<replaceable>constVal2</replaceable>">
+<!ENTITY constVal3          "<replaceable>constVal3</replaceable>">
+<!ENTITY F-PLACE            "<literal>F_PLACE</literal>">
+<!ENTITY F-BEHAV            "<literal>F_BEHAV</literal>">
+<!ENTITY F-LSB-FIRST        "<literal>F_LSB_FIRST</literal>">
+<!ENTITY F-MSB-FIRST        "<literal>F_MSB_FIRST</literal>">
+<!ENTITY DPGEN-RF1          "<literal>DPGEN_RF1</literal>">
+<!ENTITY DPGEN-RF1R0        "<literal>DPGEN_RF1R0</literal>">
+<!ENTITY DPGEN-RF1D         "<literal>DPGEN_RF1D</literal>">
+<!ENTITY DPGEN-RF1DR0       "<literal>DPGEN_RF1DR0</literal>">
+
+<!ENTITY CONST-GENLIB-MUX2  "<literal>GENLIB_MUX2</literal>">
+
+
+]>
+
+
+<book lang="en">
+  <?dbhtml filename="genlib.html">
+
+  <bookinfo>
+    <title> GenLib User's Manual </title>
+    <date> May, 16 2002 </date>
+    <authorgroup>
+      <author>
+        <firstname> Jean-Paul </firstname>
+        <surname> Chaput </surname>
+        <affiliation>
+          <jobtitle> System Administrator </jobtitle>
+          <orgname> Pierre &amp; Marie Curie University, LIP6 </orgname>
+          <orgdiv> ASIM Department </orgdiv>
+        </affiliation>
+      </author>
+      <author>
+        <firstname> Frédéric </firstname>
+        <surname> Pétrot </surname>
+        <affiliation>
+          <jobtitle> Professor Assistant </jobtitle>
+          <orgname> Pierre &amp; Marie Curie University, LIP6 </orgname>
+          <orgdiv> ASIM Department </orgdiv>
+        </affiliation>
+      </author>
+    </authorgroup>
+    <releaseinfo> June 2002 / 20020516.1 </releaseinfo>
+    <pubdate> June 2002 </pubdate>
+  </bookinfo>
+
+
+  <reference id="ref-genlib">
+    <?dbhtml filename="ref_genlib.html">
+
+    <title>&Alliance; - &genlib; User's Manual </title>
+
+    &man-genlib;
+    &man-genlib-macro;
+    &man-dpgen-inv;
+    &man-dpgen-buff;
+    &man-dpgen-nand2;
+    &man-dpgen-nand3;
+    &man-dpgen-nand4;
+    &man-dpgen-and2;
+    &man-dpgen-and3;
+    &man-dpgen-and4;
+    &man-dpgen-nor2;
+    &man-dpgen-nor3;
+    &man-dpgen-nor4;
+    &man-dpgen-or2;
+    &man-dpgen-or3;
+    &man-dpgen-or4;
+    &man-dpgen-xnor2;
+    &man-dpgen-xor2;
+    &man-dpgen-nmux2;
+    &man-dpgen-mux2;
+    &man-dpgen-nbuse;
+    &man-dpgen-buse;
+    &man-dpgen-nand2mask;
+    &man-dpgen-nor2mask;
+    &man-dpgen-xnor2mask;
+    &man-dpgen-adsb2f;
+    &man-dpgen-shift;
+    &man-dpgen-nul;
+    &man-dpgen-const;
+    &man-dpgen-rom2;
+    &man-dpgen-rom4;
+    &man-dpgen-rf1;
+    &man-dpgen-rf1d;
+    &man-dpgen-dff;
+    &man-dpgen-dfft;
+    &man-dpgen-sff;
+    &man-dpgen-sfft;
+
+
+  </reference>
+
+</book>
