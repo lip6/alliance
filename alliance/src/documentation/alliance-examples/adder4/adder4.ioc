@@ -1,0 +1,30 @@
+#      Copyright (c) 1997 by Cadence. All rights reserved.      
+###################################################################
+# In each of TOP()/BOTTOM()/LEFT()/RIGHT() section, there are     #
+# placed IOs. In the IGNORE() section, the IOs are ignored        #
+# by the IOPlacer. In every section, the IO syntax could be:      #
+#        for pin:       (IOPIN iopinName.0 );                       #
+#        for pad:       iopadName orientation ;                   #
+#        for space:     SPACE  value;                             #
+# The capital words are keywords. orientation is not required.    #
+# The value is the space between the IO above and the IO below it.#
+###################################################################
+
+TOP ( # IOs are ordered from left to right
+   (IOPIN a(3).0 );
+   (IOPIN a(2).0 );
+   (IOPIN a(1).0 );
+   (IOPIN a(0).0 );
+   (IOPIN b(3).0 );
+   (IOPIN b(2).0 );
+   (IOPIN b(1).0 );
+   (IOPIN b(0).0 );
+)
+BOTTOM ( # IOs are ordered from left to right
+   (IOPIN result(3).0 );
+   (IOPIN result(2).0 );
+   (IOPIN result(1).0 );
+   (IOPIN result(0).0 );
+)
+IGNORE ( # IOs are ignored(not placed) by IO Placer
+)
