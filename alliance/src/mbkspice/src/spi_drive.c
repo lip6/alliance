@@ -653,30 +653,31 @@ char            *vdd;
     }
 
     tooutput( df, "%s ", spitransmodel( scantrs->TYPE ) );
+#define SCALED(x,y) (double)((double)(x)/(double)(y))
 
     if(scantrs->LENGTH!=0)
-      tooutput( df, "L=%gU ", (float)scantrs->LENGTH/SCALE_X );
+      tooutput( df, "L=%gU ", SCALED(scantrs->LENGTH, SCALE_X));
 
     if(scantrs->WIDTH!=0)
-      tooutput( df, "W=%gU ", (float)scantrs->WIDTH/SCALE_X );
+      tooutput( df, "W=%gU ", SCALED(scantrs->WIDTH, SCALE_X));
     
     if( scantrs->XS != 0 )
       tooutput( df,
                 "AS=%gP ",
-                (float) scantrs->XS * scantrs->WIDTH / ( SCALE_X * SCALE_X )
+                SCALED(scantrs->XS * scantrs->WIDTH,  SCALE_X * SCALE_X)
               );
 
     if( scantrs->XD != 0 )
       tooutput( df,
                 "AD=%gP ",
-                (float) scantrs->XD * scantrs->WIDTH / ( SCALE_X * SCALE_X )
+                SCALED(scantrs->XD * scantrs->WIDTH,  SCALE_X * SCALE_X)
               );
 
     if( scantrs->PS != 0 )
-      tooutput( df, "PS=%gU ", (float)scantrs->PS/SCALE_X );
+      tooutput( df, "PS=%gU ", SCALED(scantrs->PS, SCALE_X));
  
     if( scantrs->PD != 0 )
-      tooutput( df, "PD=%gU ", (float)scantrs->PD/SCALE_X );
+      tooutput( df, "PD=%gU ", SCALED(scantrs->PD, SCALE_X));
 
     tooutput( df, "\n" );
   }

@@ -30,6 +30,10 @@
 *                                 is provided.                                 *
 *  Updates     : AUGUST, 12th 2002, Pierre Nguyen Tuong                        *
 *  $Log: alc_pars_l6.c,v $
+*  Revision 1.6  2003/01/14 12:02:23  fred
+*  Corrected a bug in electrical dimensions of the transistors when
+*  parsing al file: eg a 0.35 in al became a 0.34 in spice! Argh!
+*
 *  Revision 1.5  2002/10/09 09:18:37  xtof
 *  Dans la fonction read_line, deux buffers de 524288 caracteres etaient
 *  declares. En fonction de la taille max de la pile, dans certains
@@ -396,10 +400,10 @@ int              version;
 	     );
   line   = line->NEXT;
 
-  l      = decode_float( (char*)line->DATA, fname, mal_line ) * (double)SCALE_X ;
+  l      = .5 + decode_float( (char*)line->DATA, fname, mal_line ) * (double)SCALE_X ;
   line   = line->NEXT;
   
-  w      = decode_float( (char*)line->DATA, fname, mal_line ) * (double)SCALE_X ;
+  w      = .5 + decode_float( (char*)line->DATA, fname, mal_line ) * (double)SCALE_X ;
   line   = line->NEXT;
 
   drain  = givelosig( ptfig, decode_int( (char*)line->DATA, fname, mal_line ) );
@@ -422,22 +426,22 @@ int              version;
     line   = line->NEXT;
   }
 
-  xs   = decode_float( (char*)line->DATA, fname, mal_line ) * (double)SCALE_X ;
+  xs   = .5 + decode_float( (char*)line->DATA, fname, mal_line ) * (double)SCALE_X ;
   line = line->NEXT;
   
-  xd   = decode_float( (char*)line->DATA, fname, mal_line ) * (double)SCALE_X ;
+  xd   = .5 + decode_float( (char*)line->DATA, fname, mal_line ) * (double)SCALE_X ;
   line = line->NEXT;
   
-  ps   = decode_float( (char*)line->DATA, fname, mal_line ) * (double)SCALE_X ;
+  ps   = .5 + decode_float( (char*)line->DATA, fname, mal_line ) * (double)SCALE_X ;
   line = line->NEXT;
   
-  pd   = decode_float( (char*)line->DATA, fname, mal_line ) * (double)SCALE_X ;
+  pd   = .5 + decode_float( (char*)line->DATA, fname, mal_line ) * (double)SCALE_X ;
   line = line->NEXT;
   
-  x    = decode_float( (char*)line->DATA, fname, mal_line ) * (double)SCALE_X ;
+  x    = .5 + decode_float( (char*)line->DATA, fname, mal_line ) * (double)SCALE_X ;
   line = line->NEXT;
   
-  y    = decode_float( (char*)line->DATA, fname, mal_line ) * (double)SCALE_X ;
+  y    = .5 + decode_float( (char*)line->DATA, fname, mal_line ) * (double)SCALE_X ;
   line = line->NEXT;
 
   phdrain  = 0;
