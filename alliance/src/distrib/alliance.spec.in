@@ -79,7 +79,7 @@ Sources of the Alliance VLSI CAD System, as you might guess...
 
 # Copy the Alliance autoconf macros in the right place.
  mkdir -p %{buildroot}/usr/share/aclocal
- (cd %{buildroot}%{prefix}/src
+ (cd %{buildroot}%{prefix}/src; \
   cp alliance.m4 xpm.m4 motif.m4 %{buildroot}/usr/share/aclocal) 
 
 # Set execution rights on the alc_env.* batchs and adjust ALLIANCE_TOP.
@@ -133,9 +133,14 @@ Sources of the Alliance VLSI CAD System, as you might guess...
 
 %files sources
 %{prefix}/src
+/usr/share/aclocal/*.m4
 
 
 %changelog
+* Wed Jul 17 2002  Jean-Paul.Chaput <Jean-Paul.Chaput@lip6.fr>
+- Moved autoconf m4 macros to /usr/share/aclocal.
+- Synched with the current CVS version of Alliance.
+
 * Fri May 31 2002  Jean-Paul.Chaput <Jean-Paul.Chaput@lip6.fr>
 - GenPat added.
 - GenLib docs added.
