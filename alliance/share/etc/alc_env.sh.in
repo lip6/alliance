@@ -6,7 +6,7 @@
 #  Alliance CAD system environnement
 #  Usage (in Bourne-shell) : > . alc_env.sh
 #  (C) 1997 Czo  -- <Olivier.Sirol@lip6.fr>
-#  $Id: alc_env.sh.in,v 1.4 1999/09/09 15:42:00 czo Exp $
+#  $Id: alc_env.sh.in,v 1.5 1999/09/24 17:38:54 czo Exp $
 #  Generated from alc_env.sh.in on @DATE@
 
 # $MACHINE and $TOP are the only variables you will
@@ -73,8 +73,9 @@ export MACHINE
           VH_MAXERR=10;                   export VH_MAXERR
          VH_BEHSFX=vbe;                   export VH_BEHSFX
          VH_PATSFX=pat;                   export VH_PATSFX
+         VH_DLYSFX=dly;                   export VH_DLYSFX
 
-      MBK_CATA_LIB=.:$TOP/cells/sclib;    export MBK_CATA_LIB
+      MBK_CATA_LIB=.:$TOP/cells/sclib:$TOP/cells/padlib;    export MBK_CATA_LIB
     MBK_TARGET_LIB=$TOP/cells/sclib;      export MBK_TARGET_LIB
         MBK_C4_LIB=./cellsC4;             export MBK_C4_LIB
 
