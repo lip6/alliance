@@ -1,4 +1,4 @@
-.\"   $Id: syf.1,v 1.2 2000/09/06 09:18:41 francois Exp $
+.\"   $Id: syf.1,v 1.3 2000/09/06 09:24:19 francois Exp $
 .\" @(#)Labo.l 2.2 95/09/24 UPMC; Author: Jacomme L.
 .pl -.4
 .TH SYF 1 "October 1, 1997" "ASIM/LIP6" "CAO\-VLSI Reference Manual"
@@ -65,7 +65,7 @@ This file has the same syntax as <input_name>.enc file which is used by \-u opti
 With this option \fBsyf\fp places registers on the outputs.
 .TP 10
 \f4\-P\fP
-Implements a scan-path for the state registers, stack registers and possibly output registers. Scan-path mechanism is directely included in states decoder. Users should use /f4scapin/fP (see manual page) for a correct insertion of scan-path in a netlist.
+Implements a scan-path for the state registers, stack registers and possibly output registers. Scan-path mechanism is directely included in states decoder. Users should use \fBscapin\fP(5) for a correct insertion of a scan-path in a netlist.
 Please check \fBfsm\fP(5) for information about scan-path descriptions.
 .TP 10
 \f4\-R\fP
@@ -102,6 +102,10 @@ Two files will be generated, a states encoding file dlx_ctrls.enc and a VHDL dat
 .BR fsm (5),
 .BR vbe (5),
 .BR vhdl (5),
+.BR boom (1),
+.BR boog (1),
+.BR loon (1),
+.BR scapin (1),
 .BR bop (1),
 .BR glop (1),
 .BR scmap (1),
