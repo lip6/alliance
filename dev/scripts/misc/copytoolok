@@ -1,8 +1,0 @@
-#!/bin/sh
-
-TOOL_HOME=`eval echo ~$1`
-cp -rp $TOOL_HOME/labo/sce/ $1
-cp -rp $TOOL_HOME/labo/sce/ ../../old/labo_11_97/$1
-ln  -s $TOOL_HOME/labo/sce/ ../../old/current/$1
-
-

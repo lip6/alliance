@@ -1,2 +1,0 @@
-cell : grmbob_c
-512 word rom body ties to be abuted with the output buffers.
