@@ -10,7 +10,8 @@ bin_PROGRAMS = pcbs
 
 CLEANFILES          =  emul_y.c emul_y.h pga_y.c pga_y.h pga_l.c emul_l.c y.tab.c y.tab.h
 
-INCLUDES = -I$(top_builddir)/src/pcbs -I$(top_srcdir)/src/bvl
+INCLUDES = -I$(top_builddir)/src/pcbs -I$(top_srcdir)/src/bvl \
+-I$(top_srcdir)/src/pcbs
 
 pcbs_LDADD = \
 	   -L$(top_builddir)/src/bvl -lBvl \
