@@ -1,4 +1,4 @@
-.\" $Id: sxlib.5,v 1.1 1999/09/22 13:52:10 czo Exp $
+.\" $Id: sxlib.5,v 1.2 1999/09/24 18:25:00 franck Exp $
 .\" @(#)Labo.l 0.0 92/09/24 UPMC; Author: Franck Wajsburt
 .pl -.4
 .TH SXLIB 5 "September 16, 1999" "ASIM/LIP6" "CAO\-VLSI Reference Manual"
@@ -75,7 +75,8 @@ cells, but 0.6ns is a good approximation.
 The given delay is then a worst case (70degree, 2.7Volt, slow process,
 worst input), an idea of the typical delay can be obtain by dividing worst
 delay by 1.5, and best delay by dividing by 2.  More detailed data can be
-found in VHDL (.vbe) files.
+found in GENERIC data included in the VHDL files (.vbe). Examples can be 
+found at the end of this manual.
 
 .SH OUTPUT DRIVE
 
@@ -164,68 +165,68 @@ means and, ^ means xor. Each input is followed by fan-in capacitance in fF,
 \fB=================================================================\fP
 \fBWIDTH NAME    DELAY BEHAVIOR\fP
 \fB---------------------------------------------------------- BUFFER\fP
- 3 inv_x1      .73  nq <= /i<8>
- 3 inv_x2      .76  nq <= /i<12>
- 4 inv_x4      .74  nq <= /i<26>
- 7 inv_x8      .73  nq <= /i<54>
- 4 buf_x2     1.00   q <=  i<6>
- 5 buf_x4     1.00   q <=  i<9>
- 8 buf_x8     1.00   q <=  i<15>
+ 3 inv_x1      .7  nq <= /i<8>
+ 3 inv_x2      .7  nq <= /i<12>
+ 4 inv_x4      .7  nq <= /i<26>
+ 7 inv_x8      .7  nq <= /i<54>
+ 4 buf_x2     1.0   q <=  i<6>
+ 5 buf_x4     1.0   q <=  i<9>
+ 8 buf_x8     1.0   q <=  i<15>
 \fB------------------------------------------------------ THREE STATE\fP
- 6 nts_x1      .85  IF (cmd<14>) nq <= /i<14>
- 8 nts_x2      .93  IF (cmd<18>) nq <= /i<28>
-10 ts_x4      1.08  IF (cmd<19>)  q <= i<8>
-13 ts_x8      1.21  IF (cmd<19>)  q <= i<8>
+ 6 nts_x1      .8  IF (cmd<14>) nq <= /i<14>
+ 8 nts_x2      .9  IF (cmd<18>) nq <= /i<28>
+10 ts_x4      1.1  IF (cmd<19>)  q <= i<8>
+13 ts_x8      1.2  IF (cmd<19>)  q <= i<8>
 \fB-------------------------------------------------------------- AND\fP
- 4 na2_x1      .88  nq <= /(i0<11>.i1<11>)
- 7 na2_x4     1.19  nq <= /(i0<10>.i1<10>)
- 5 na3_x1      .96  nq <= /(i0<11>.i1<11>.i2<11>)
- 8 na3_x4     1.28  nq <= /(i0<10>.i1<10>.i2<10>)
- 6 na4_x1     1.02  nq <= /(i0<10>.i1<11>.i2<11>.i3<11>)
-10 na4_x4     1.36  nq <= /(i0<10>.i1<11>.i2<11>.i3<11>)
- 5 a2_x2      1.03   q <=  (i0<9>.i1<11>)
- 6 a2_x4      1.11   q <=  (i0<9>.i1<11>)
- 6 a3_x2      1.11   q <=  (i0<10>.i1<10>.i2<10>)
- 7 a3_x4      1.18   q <=  (i0<10>.i1<10>.i2<10>)
- 7 a4_x2      1.17   q <=  (i0<10>.i1<10>.i2<10>.i3<10>)
- 8 a4_x4      1.24   q <=  (i0<10>.i1<10>.i2<10>.i3<10>)
+ 4 na2_x1      .9  nq <= /(i0<11>.i1<11>)
+ 7 na2_x4     1.2  nq <= /(i0<10>.i1<10>)
+ 5 na3_x1     1.0  nq <= /(i0<11>.i1<11>.i2<11>)
+ 8 na3_x4     1.3  nq <= /(i0<10>.i1<10>.i2<10>)
+ 6 na4_x1     1.0  nq <= /(i0<10>.i1<11>.i2<11>.i3<11>)
+10 na4_x4     1.4  nq <= /(i0<10>.i1<11>.i2<11>.i3<11>)
+ 5 a2_x2      1.0   q <=  (i0<9>.i1<11>)
+ 6 a2_x4      1.1   q <=  (i0<9>.i1<11>)
+ 6 a3_x2      1.1   q <=  (i0<10>.i1<10>.i2<10>)
+ 7 a3_x4      1.2   q <=  (i0<10>.i1<10>.i2<10>)
+ 7 a4_x2      1.2   q <=  (i0<10>.i1<10>.i2<10>.i3<10>)
+ 8 a4_x4      1.3   q <=  (i0<10>.i1<10>.i2<10>.i3<10>)
 \fB--------------------------------------------------------------- OR\fP
- 4 no2_x1      .89  nq <= /(i0<12>+i1<12>)
- 8 no2_x4     1.20  nq <= /(i0<12>+i1<11>)
- 5 no3_x1     1.00  nq <= /(i0<12>+i1<12>+i2<12>)
- 8 no3_x4     1.31  nq <= /(i0<12>+i1<12>+i2<11>)
- 6 no4_x1     1.09  nq <= /(i0<12>+i1<12>+i2<12>+i3<12>)
-10 no4_x4     1.40  nq <= /(i0<12>+i1<12>+i2<12>+i3<12>)
- 5 o2_x2      1.00   q <=  (i0<10>+i1<10>)
- 6 o2_x4      1.08   q <=  (i0<10>+i1<10>)
- 6 o3_x2      1.10   q <=  (i0<10>+i1<10>+i2<9>)
-10 o3_x4      1.21   q <=  (i0<10>+i1<10>+i2<9>)
- 7 o4_x2      1.22   q <=  (i0<10>+i1<10>+i2<10>+i3<9>)
- 8 o4_x4      1.30   q <=  (i0<12>+i1<12>+i2<12>+i3<12>)
+ 4 no2_x1      .9  nq <= /(i0<12>+i1<12>)
+ 8 no2_x4     1.2  nq <= /(i0<12>+i1<11>)
+ 5 no3_x1     1.0  nq <= /(i0<12>+i1<12>+i2<12>)
+ 8 no3_x4     1.3  nq <= /(i0<12>+i1<12>+i2<11>)
+ 6 no4_x1     1.1  nq <= /(i0<12>+i1<12>+i2<12>+i3<12>)
+10 no4_x4     1.4  nq <= /(i0<12>+i1<12>+i2<12>+i3<12>)
+ 5 o2_x2      1.0   q <=  (i0<10>+i1<10>)
+ 6 o2_x4      1.1   q <=  (i0<10>+i1<10>)
+ 6 o3_x2      1.1   q <=  (i0<10>+i1<10>+i2<9>)
+10 o3_x4      1.2   q <=  (i0<10>+i1<10>+i2<9>)
+ 7 o4_x2      1.2   q <=  (i0<10>+i1<10>+i2<10>+i3<9>)
+ 8 o4_x4      1.3   q <=  (i0<12>+i1<12>+i2<12>+i3<12>)
 \fB-------------------------------------------------------------- XOR\fP
- 9 nxr2_x1    1.09  nq <= /(i0<21>^i1<22>)
-11 nxr2_x4    1.15  nq <= /(i0<20>^i1<21>)
- 9 xr2_x1     1.00   q <=  (i0<21>^i1<22>)
-12 xr2_x4     1.24   q <=  (i0<20>^i1<21>)
+ 9 nxr2_x1    1.1  nq <= /(i0<21>^i1<22>)
+11 nxr2_x4    1.2  nq <= /(i0<20>^i1<21>)
+ 9 xr2_x1     1.0   q <=  (i0<21>^i1<22>)
+12 xr2_x4     1.2   q <=  (i0<20>^i1<21>)
 \fB----------------------------------------------------------- AND/OR\fP
- 7 nao2o22_x1  .97  nq <= /((i0<14>+i1<14>).(i2<14>+i3<14>))
-11 nao2o22_x4 1.39  nq <= /((i0<8>+i1<8>).(i2<8>+i3<8>))
- 7 noa2a22_x1  .96  nq <= /((i0<14>.i1<14>)+(i2<14>.i3<14>))
-11 noa2a22_x4 1.39  nq <= /((i0<8>.i1<8>)+(i2<8>.i3<8>))
+ 7 nao2o22_x1 1.0  nq <= /((i0<14>+i1<14>).(i2<14>+i3<14>))
+11 nao2o22_x4 1.4  nq <= /((i0<8>+i1<8>).(i2<8>+i3<8>))
+ 7 noa2a22_x1 1.0  nq <= /((i0<14>.i1<14>)+(i2<14>.i3<14>))
+11 noa2a22_x4 1.4  nq <= /((i0<8>.i1<8>)+(i2<8>.i3<8>))
 \fB------------------------------------------------------ MULTIPLEXER\fP
- 7 nmx2_x1    1.00  nq <= /((i0<14>./cmd<21>)+(i1<14>.cmd))
-12 nmx2_x4    1.29  nq <= /((i0<8>./cmd<14>)+(i1<9>.cmd))
- 9 mx2_x2     1.12   q <=  (i0<8>./cmd<17>)+(i1<9>.cmd)
-10 mx2_x4     1.28   q <=  (i0<8>./cmd<17>)+(i1<9>.cmd)
+ 7 nmx2_x1    1.0  nq <= /((i0<14>./cmd<21>)+(i1<14>.cmd))
+12 nmx2_x4    1.3  nq <= /((i0<8>./cmd<14>)+(i1<9>.cmd))
+ 9 mx2_x2     1.1   q <=  (i0<8>./cmd<17>)+(i1<9>.cmd)
+10 mx2_x4     1.3   q <=  (i0<8>./cmd<17>)+(i1<9>.cmd)
 \fB-------------------------------------------------------- FLIP-FLOP\fP
-."25 nsdff2_x4  1.04  IF RISE(ck<23>) nq <=/((i0<11>./cmd<13>)+(i1<7>.cmd))
-18 sff1_x4    1.68  IF RISE(ck<8>)   q <= i<8>
-24 sff2_x4    1.93  IF RISE(ck<8>)   q <= ((i0<8>./cmd<16>)+(i1<7>.cmd))
+."25 nsdff2_x4  1.0  IF RISE(ck<23>) nq <=/((i0<11>./cmd<13>)+(i1<7>.cmd))
+18 sff1_x4    1.7  IF RISE(ck<8>)   q <= i<8>
+24 sff2_x4    1.9  IF RISE(ck<8>)   q <= ((i0<8>./cmd<16>)+(i1<7>.cmd))
 \fB---------------------------------------------------------- SPECIAL\fP
- 3 zero_x0       0  nq <= '0'
- 3 one_x0        0   q <= '1'
- 2 tie_x0        0  Body tie cell
- 1 rowend_x0     0  Empty cell
+ 3 zero_x0      0  nq <= '0'
+ 3 one_x0       0   q <= '1'
+ 2 tie_x0       0  Body tie cell
+ 1 rowend_x0    0  Empty cell
 \fB==================================================================\fP
 .fi
 
@@ -234,7 +235,7 @@ means and, ^ means xor. Each input is followed by fan-in capacitance in fF,
 \fB MBK_CATA_LIB (1), catal(1), scr(1), lynx(1), bop(1), glop(1), scmap(1),
 c4map(1), tas(1), yagle(1), genlib(1), ap(1), al(1), vbe(1)\fP
 
-.SH NOTES
+.SH NEW CELLS
 
 It is possible to add new cells in the library just by providing the 3
 files .ap, .al and .vbe in the standard cell directory.  The layout view
@@ -249,4 +250,34 @@ files.
 If you develop new cells, please send the corresponding files
 to alliance\-support@asim.lip6.fr
 
+.SH VHDL FILES
+
+You can find below the commented VHDL GENERIC for the na2_x4 cell.
+.nf
+ENTITY na2_x4 IS
+GENERIC (
+  CONSTANT area          : NATURAL := 1750; -- lamba * lambda
+  CONSTANT transistors   : NATURAL := 10;   -- number of
+  CONSTANT cin_i0        : NATURAL := 10;   -- femto Farad for i0
+  CONSTANT cin_i1        : NATURAL := 10;   -- femto Farad for i1
+  CONSTANT tplh_i1_nq    : NATURAL := 606;  -- propag. time in pico-sec
+                                            -- from i1 falling
+                                            -- to   nq rizing
+  CONSTANT rup_i1_nq     : NATURAL := 890;  -- resitance in Ohms when nq 
+                                            -- rizing due to i1 change
+  CONSTANT tphl_i1_nq    : NATURAL := 349;  -- propag time when nq falls
+  CONSTANT rdown_i1_nq   : NATURAL := 800;  -- resist when nq falls
+  CONSTANT tplh_i0_nq    : NATURAL := 557;  -- idem for i0 
+  CONSTANT rup_i0_nq     : NATURAL := 890;
+  CONSTANT tphl_i0_nq    : NATURAL := 408;
+  CONSTANT rdown_i0_nq   : NATURAL := 800
+);
+PORT (
+  i0     : in  BIT;
+  i1     : in  BIT;
+  nq     : out BIT;
+  vdd    : in  BIT;
+  vss    : in  BIT
+);
+.fi
 .so man1/alc_bug_report.1
