@@ -1,5 +1,5 @@
 #!/bin/sh 
-# $Id: genpat.sh,v 1.2 2002/10/24 10:30:25 hcl Exp $
+# $Id: genpat.sh,v 1.3 2004/07/27 18:24:48 fred Exp $
 
 #set -v 
 #set -x
@@ -77,11 +77,11 @@ EOF
 		echo "Compiling, ..."
 	fi
 
-   make -f $makefile > $name.grr 2>&1
+   make -f $makefile > $name.gpt 2>&1
 
    if [ ! $? -eq 0 ]; then 
       echo "Compilation failed!"
-      cat $name.grr
+      cat $name.gpt
 		exit 1
 	fi
 
@@ -107,10 +107,10 @@ EOF
 	fi
 
    if [ $keep -eq 0 ] ; then
-		rm $name $name.exe;
+		rm -f $name $name.exe;
 	fi
 
-   rm $name.o $name.grr $makefile > /dev/null 2>&1
+   rm -f $name.o $name.gpt $makefile > /dev/null 2>&1
 
    exit $exit_code
 
