@@ -1,6 +1,6 @@
 #!/bin/sh
 #
-# $Id: attila.sh,v 1.9 2002/10/17 22:42:09 jpc Exp $
+# $Id: attila.sh,v 1.10 2002/11/11 20:47:31 jpc Exp $
 #                                                                        
 # /------------------------------------------------------------------\
 # |                                                                  |
@@ -194,6 +194,26 @@
 
 
 
+
+# --------------------------------------------------------------------
+# Function  :  `switch_os()'.
+
+ switch_os ()
+ {
+   TOP_PATH="$1"
+
+   SUBST_PATH="$TOP_PATH"
+   for _OS in $ALL_OSS; do
+     SUBST_PATH=`echo $SUBST_PATH | sed "s,$_OS,__OS__,"`
+   done
+
+   SUBST_PATH=`echo $SUBST_PATH | sed "s,__OS__,$ALLIANCE_OS,"`
+
+   echo "$SUBST_PATH"
+ }
+
+
+
 # --------------------------------------------------------------------
 # Function  :  `load_conf()'.
 #
@@ -208,6 +228,11 @@
 
  load_conf ()
  {
+   ALLIANCE_OS=`guess_os`
+   echo "  o  Guessed OS : $ALLIANCE_OS"
+
+   ALLIANCE_TOP=`switch_os $ALLIANCE_TOP`
+
    echo "  o  Loading configuration file."
 
    if [ "$ATTILA_ALLIANCE_TOP" = "__ALLIANCE_INSTALL_DIR__" ]; then
@@ -375,7 +400,6 @@
 
    echo "  o  Compilation environment."
 
-   ALLIANCE_OS=`guess_os`
    case "$ALLIANCE_OS" in
      "Linux")   MAKE="make";;
      "Solaris") MAKE="gmake";;
@@ -508,6 +532,7 @@
 # Internal variables.
 
 
+             ALL_OSS="Linux Solaris"
                   CC=gcc
                  CXX=g++
               export CC CXX
