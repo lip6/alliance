@@ -1,18 +1,18 @@
 -- Entity Declaration
 
-ENTITY inversor IS
+ENTITY inv IS
   PORT (
   i : in BIT;	-- i
   nq : out BIT;	-- nq
   vdd : in BIT;	-- vdd
   vss : in BIT	-- vss
   );
-end inversor;
+end inv;
 
 
 -- Architecture Declaration
 
-ARCHITECTURE data_flow OF inversor IS
+ARCHITECTURE data_flow OF inv IS
 
 BEGIN
   

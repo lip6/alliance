@@ -1,8 +1,6 @@
 
 
-     ALLIANCE_TOP = /asim/alliance
-      TECHNO_REAL = prol10
-
+#    ALLIANCE_TOP = /alliance
 
 #
 # /------------------------------------------------------------------\
@@ -11,7 +9,7 @@
 #
 
 # Standart System binary access paths.
- STANDART_BIN  = /usr/local/bin:/labo/gnu/bin:/usr/bin:/bin
+ STANDART_BIN  = /usr/local/bin:/usr/bin:/bin
  STANDART_PATH = PATH=$(STANDART_BIN); export PATH
 
 # Standart Alliance binary access paths.
@@ -99,7 +97,7 @@
    GENLIB = $(MBK_GENERAT_ENV);$(ALLIANCE_BIN)/genlib
    GENPAT = $(MBK_GENERAT_ENV); $(ALLIANCE_BIN)/genpat
       OCP = $(MBK_GENERAT_ENV); $(ALLIANCE_BIN)/ocp 
-      OCR = $(MBK_GENERAT_ENV); $(ALLIANCE_BIN)/ocr 
+     NERO = $(MBK_GENERAT_ENV); $(ALLIANCE_BIN)/nero 
      RING = $(MBK_GENERAT_ENV); $(ALLIANCE_BIN)/ring
     GRAAL = $(MBK_GENERAT_ENV); $(ALLIANCE_BIN)/graal
     XSCH  = $(MBK_GENERAT_ENV); $(ALLIANCE_BIN)/xsch
@@ -161,14 +159,13 @@ amd2901_ctl.vst : amd2901_ctl_boog.vst
 
 amd2901_core_p.ap: amd2901_core.vst amd2901_core_place.ap amd2901_core.ioc
 	$(OCP) -v -gnuplot -partial amd2901_core_place -ioc amd2901_core amd2901_core amd2901_core_p
-#	$(OCP) -v -gnuplot -partial amd2901_core_place -ring amd2901_core amd2901_core_p
 
 druc_ocp: amd2901_core_p.ap
 	$(DRUC) amd2901_core_p
 	$(TOUCH) druc_ocp
 
 amd2901_core.ap: druc_ocp
-	$(OCR) -P amd2901_core_p -L amd2901_core -O amd2901_core -l 3 -v -i 30
+	$(NERO) -v -2 -p amd2901_core_p amd2901_core amd2901_core
 
 amd2901_core.al: amd2901_core.ap
 	$(MBK_EXTRACT_ENV); $(COUGAR) -v -f amd2901_core amd2901_core
