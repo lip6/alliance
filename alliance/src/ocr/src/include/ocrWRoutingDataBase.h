@@ -4,8 +4,11 @@
 /*
    ### -------------------------------------------------- ### 
    $Author: hcl $
-   $Date: 2002/03/15 14:37:16 $
+   $Date: 2002/04/25 13:41:27 $
    $Log: ocrWRoutingDataBase.h,v $
+   Revision 1.2  2002/04/25 13:41:27  hcl
+   New ripup/reroute loop, bug-kill (CALU&TALU).
+
    Revision 1.1  2002/03/15 14:37:16  hcl
    Ca roule.
 
@@ -102,7 +105,7 @@ typedef struct ocrWSegment
     /* list of pointer used for backtracking */
     struct ocrWSegment *ROOT;
     /* temporarily chaining */
-    struct ocrWSegment *AUX;
+    //struct ocrWSegment *AUX;
     
     /* Pointer used for chaining equi */
     struct ocrWSegment *NEXT;
@@ -189,9 +192,10 @@ typedef struct ocrSignal
     ocrVirtualConnector *VIA;
     ocrVirtualConnector *GLOBAL;
 
-    ocrNaturalShort WIN;
     ocrNaturalInt NB_CON;
     ocrNaturalInt TYPE;
+    ocrNaturalShort WIN;
+    ocrNaturalShort HARD;
     ocrNaturalShort PRIORITY;
     ocrNaturalShort INTEXT;
     ocrConnector *CON_LIST;

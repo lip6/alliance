@@ -1,8 +1,11 @@
 /*
    ### -------------------------------------------------- ### 
    $Author: hcl $
-   $Date: 2002/03/15 14:37:22 $
+   $Date: 2002/04/25 13:41:33 $
    $Log: ocrWPlaneLabeling.c,v $
+   Revision 1.2  2002/04/25 13:41:33  hcl
+   New ripup/reroute loop, bug-kill (CALU&TALU).
+
    Revision 1.1  2002/03/15 14:37:22  hcl
    Ca roule.
 
@@ -59,7 +62,7 @@
 #define OFFSET(x)   ( (ocrNaturalInt) (x)->KEY )
 
 static char *res_id =
-    "$Id: ocrWPlaneLabeling.c,v 1.1 2002/03/15 14:37:22 hcl Exp $";
+    "$Id: ocrWPlaneLabeling.c,v 1.2 2002/04/25 13:41:33 hcl Exp $";
 
 typedef struct ocrSubWSegment {
     ocrWSegment *SEGMENT;
@@ -614,7 +617,9 @@ processNextDeltaAgain(ocrRoutingParameters * param,
 **/
 
 static inline void labelPlaneProcess(ocrRoutingParameters * param, ocrWRoutingGrid * grid, ocrNaturalInt xtarget, ocrNaturalInt ytarget, rbtree * labeling_status, ocrNaturalInt event_line, ocrNaturalInt labeling_line,       // ligne courante du scheduler
-                                     ocrNaturalInt delta_sce, ocrNaturalInt delta_dest, ocrNaturalInt plane_dest,       // z
+                                     ocrNaturalInt delta_sce,
+                                     ocrNaturalInt delta_dest,
+                                     ocrNaturalInt plane_dest,       // z
                                      chain_list ** labeled_segment_list,
                                      chain_list **
                                      next_delta_sub_segment_list,

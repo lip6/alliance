@@ -4,8 +4,11 @@
 /*
    ### -------------------------------------------------- ###
    $Author: hcl $
-   $Date: 2002/03/15 14:37:14 $
+   $Date: 2002/04/25 13:41:27 $
    $Log: ocrAstar.h,v $
+   Revision 1.2  2002/04/25 13:41:27  hcl
+   New ripup/reroute loop, bug-kill (CALU&TALU).
+
    Revision 1.1  2002/03/15 14:37:14  hcl
    Ca roule.
 
@@ -20,6 +23,9 @@
 
 #define AS_K_SEG             0
 #define AS_K_EQUI            1
+
+void init_Astar (ocrRoutingDataBase *db);
+ocrNaturalInt dig_around ();
 
 ocrNaturalInt find_path_astar (ocrRoutingParameters * p_param,
                       ocrWRoutingGrid * p_grid,

@@ -1,38 +1,46 @@
 /*
    ### -------------------------------------------------- ### 
    $Author: hcl $
-   $Date: 2002/04/10 12:56:54 $
+   $Date: 2002/04/25 13:41:32 $
 
    $Log: ocrAstar.cpp,v $
-   Revision 1.2  2002/04/10 12:56:54  hcl
-   bouh
+   Revision 1.3  2002/04/25 13:41:32  hcl
+   New ripup/reroute loop, bug-kill (CALU&TALU).
 
 
    ### -------------------------------------------------- ### 
 */
 
 extern "C" {
-#include <assert.h>
-#include <stdlib.h>
-#include "mut.h"
-#include "mlo.h"
-#include "mlu.h"
-#include "mph.h"
-#include "mpu.h"
-#include "ocr.h"
-#include "ocrUtil.h"
-#include "ocrWRoutingDataBase.h"
-#include "ocrWindow.h"
-#include "mbk_tree.h"
-#include "ocrWRoutingUtil.h"
-#include "ocrWRouting.h"
-#include "ocrNpoints.h"
-#include "display.h"
-#include "ocrAstar.h"
+    #include <assert.h>
+    #include <stdlib.h>
+    #include "mut.h"
+    #include "mlo.h"
+    #include "mlu.h"
+    #include "mph.h"
+    #include "mpu.h"
+    #include "ocr.h"
+    #include "ocrUtil.h"
+    #include "ocrWRoutingDataBase.h"
+    #include "ocrWindow.h"
+    #include "mbk_tree.h"
+    #include "ocrWRoutingUtil.h"
+    #include "ocrWRouting.h"
+    #include "ocrNpoints.h"
+    #include "ocrConnectorUtil.h"
+    #include "display.h"
+    #include "ocrAstar.h"
 }
 
 #include <set>
 #include <list>
+
+ocrNaturalInt reRoute (
+        ocrRoutingDataBase * i_pDataBase,
+        ocrRoutingParameters * i_pParam,
+        ocrSignal * i_pSignal
+        )
+;
 
 using namespace std;
 
@@ -67,6 +75,8 @@ struct is_a_better_seg {
 typedef set<ocrWSegment*, is_a_better_seg> ocrSegmentKeySet;
 typedef set<ocrWSegment *> ocrSegmentAdrSet;
 /*********************************************************************/
+#define FINDNPATH findPathNPoints
+
 #define TAG_UNDEF            0
 #define TAG_KEEP             1
 #define TAG_CLEAN            2
@@ -89,6 +99,8 @@ ocrNaturalInt CUR_SIG_INDEX = 0;
 
 ocrWSegment *ze_best = NULL;
 ocrWSegment *ze_target = NULL;
+
+ocrNaturalInt ripup = 1;
 
 //ocrNaturalInt (*kost)(ocrWSegment *, ocrWSegment *);
 
@@ -387,13 +399,14 @@ ocrWSegment *explore_equi (ocrWSegment *segment_source, ocrWSegment *segment_tar
     
     assert (segment_source != segment_target);
     /*display (LEVEL, DEBUG, "d starting exploration\n");*/
+debut:
 
     segment_source->COST = 0;
     segment_source->H = eval_equi (segment_source, segment_target);
     segment_source->HCOST = segment_source->H + 1000000;
     segment_source->TAG = TAG_TERRA;
     segment_source->ROOT = NULL;
-    segment_source->AUX = NULL;
+    //segment_source->AUX = NULL;
     ze_best = segment_source;
 
     terra_incognita.insert(segment_source);
@@ -484,8 +497,15 @@ ocrWSegment *explore_equi (ocrWSegment *segment_source, ocrWSegment *segment_tar
     } /* while */
 
     /* Failed */
+    
+    /* dig the path to the target */
     clean_tag ();
 
+    if (dig_around ()) {
+        return NULL;
+    }
+    clean_tag ();
+    goto debut;
     /*display (LEVEL, DEBUG, "d exploration failed\n");*/
 
 
@@ -518,13 +538,16 @@ ocrSignal *findSignal(ocrNaturalInt i_uIndex)
                       (suspect->TAG != TAG_TERRA)                              \
                      )                                                         \
                   {                                                            \
-                      suspect->TAG = TAG_TERRA;                                \
-                      suspect->COST = ze_best->COST + kost (ze_best, suspect); \
-                      suspect->H = eval_equi (suspect, ze_target);             \
-                      suspects.insert (suspect);                               \
+                      if (((findSignal (suspect->SIGNAL_INDEX))->HARD) < 2)    \
+                      {                                                        \
+                          suspect->TAG = TAG_TERRA;                            \
+                          suspect->COST = ze_best->COST + kost (ze_best, suspect); \
+                          suspect->H = eval_equi (suspect, ze_target);         \
+                          suspects.insert (suspect);                           \
+                      }                                                        \
                   }
 
-void dig_around () {
+ocrNaturalInt dig_around () {
     ocrWSegment *suspect;
     ocrSignal *victime;
 
@@ -578,6 +601,7 @@ void dig_around () {
     } /* end for i */
 
     if (suspects.empty()) {
+        return 1;
         abort ();
     }
 
@@ -585,17 +609,18 @@ void dig_around () {
         victime = findSignal((*suspects.begin())->SIGNAL_INDEX);
         suspects.erase (suspects.begin());
 
-        deleteEquipotentielle(param, grid, victime);
-
         if (victime) {
+            deleteEquipotentielle(param, grid, victime);
             ocr_db->RIPUP = addchain (ocr_db->RIPUP, (void *) victime);
             deleteEquipotentielle(param, grid, victime);
             victime->SEGMENT = NULL;
             victime->ROUTED = 0;
             ocr_db->NB_ROUTED--;
-            //unMarkSegmentAsFree(ocr_db, victime, victime->INDEX);
+            unMarkSegmentAsFree(ocr_db, victime, victime->INDEX);
+            display (LEVEL, VVERB, "\no rip up signal %s", victime->NAME);
+            countFreeVC (ocr_db);
+            goto fin;
         }
-        //countFreeVC (ocr_db);
 
         /*
             detruire equipotentielle victime
@@ -604,9 +629,11 @@ void dig_around () {
         */
     } while ( !(suspects.empty()) );
 
+fin:
+
     clean_tag_set (suspects);
 
-    return;
+    return 0;
 }
 
 
@@ -747,6 +774,61 @@ ocrNaturalInt check_path (ocrSignal *i_pSignal) {
     return dist;
 }
 
+/* reroutage */
+ocrNaturalInt re_route () {
+    ocrSignal *l_pSignal;
+    ocrNaturalInt l_uLength;
+    ocrNaturalInt l_uReturnValue = 1;
+    chain_list *l_pSignalList;
+    ocrConnector *l_pCon;
+
+
+
+    ripup = 0;
+
+    // tant qu'il reste des signaux à re router
+    l_pSignalList = ocr_db->RIPUP;
+    while (l_pSignalList) {
+
+        l_pSignal = (ocrSignal *) l_pSignalList->DATA;
+
+//    fprintf (stdout, "reRoute : Routage du signal %ld \n",
+        //             l_pSignal->INDEX);
+        markSegmentAsFree(ocr_db, l_pSignal, l_pSignal->INDEX);
+        for (l_pCon = l_pSignal->CON_LIST; l_pCon; l_pCon = l_pCon->NEXT) {
+            if (l_pCon->critVC) {
+                unProtectVC(ocr_db, l_pCon->critVC);
+            }
+        }
+        l_uLength = FINDNPATH(param, ocr_db->GRID,
+                              l_pSignal,
+                              NULL); 
+
+        if (l_uLength == OCRNATURALINT_MAX) {
+            l_uReturnValue = 0;
+            display(LEVEL, VVERB, "o Echec reRoute %ld\n", l_pSignal->INDEX);
+            l_pSignal->ROUTED = 2;
+
+            deleteEquipotentielle(param, ocr_db->GRID, l_pSignal);
+
+            l_pSignal->SEGMENT = NULL;
+
+            ocr_db->NB_UNROUTED++;
+            l_pSignal->PRIORITY = ocr_db->NB_IT+1;
+        } else {
+            ocr_db->NB_ROUTED++;
+            l_pSignal->ROUTED = 1;
+        }
+        unMarkSegmentAsFree(ocr_db, l_pSignal, l_pSignal->INDEX);
+
+        l_pSignalList = l_pSignalList->NEXT;
+    }
+
+    freechain(ocr_db->RIPUP);
+    ocr_db->RIPUP = NULL;
+    ripup = 1;
+    return l_uReturnValue;
+}
 
 ocrNaturalInt find_path_astar (ocrRoutingParameters * p_param,
                       ocrWRoutingGrid * p_grid,
@@ -809,6 +891,9 @@ ocrNaturalInt find_path_astar (ocrRoutingParameters * p_param,
     if ((segment_source != segment_dest) && (!isObstructed(segment_source))) {
         switch (mode) {
             case AS_K_SEG: //path = explore (segment_source, segment_dest);
+                           segment_dest->SIGNAL_INDEX = CUR_SIG_INDEX;
+                           path = explore_equi (segment_source, segment_dest);
+                           segment_dest->SIGNAL_INDEX = WSEGMENT_FREE;
                            break;
             case AS_K_EQUI: assert (i_pSignal->SEGMENT);
                             //ze_best = NULL;
@@ -850,6 +935,9 @@ ocrNaturalInt find_path_astar (ocrRoutingParameters * p_param,
                           i_pSignal
                          );
 
+    //unMarkSegmentAsFree(ocr_db, i_pSignal, i_pSignal->INDEX);
+
+    //re_route ();
 
     /*assert (((check_dist = check_path (i_pSignal)), dist == check_dist));*/
 

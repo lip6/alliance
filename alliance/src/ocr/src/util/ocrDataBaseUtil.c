@@ -1,8 +1,11 @@
 /*
    ### -------------------------------------------------- ### 
    $Author: hcl $
-   $Date: 2002/03/15 14:37:26 $
+   $Date: 2002/04/25 13:41:34 $
    $Log: ocrDataBaseUtil.c,v $
+   Revision 1.2  2002/04/25 13:41:34  hcl
+   New ripup/reroute loop, bug-kill (CALU&TALU).
+
    Revision 1.1  2002/03/15 14:37:26  hcl
    Ca roule.
 
@@ -41,7 +44,7 @@
 #include "display.h"
 
 static char *res_id =
-    "$Id: ocrDataBaseUtil.c,v 1.1 2002/03/15 14:37:26 hcl Exp $";
+    "$Id: ocrDataBaseUtil.c,v 1.2 2002/04/25 13:41:34 hcl Exp $";
 extern ocrOption *g_pOption;
 #define LEVEL (g_pOption->LEVEL)
 
@@ -298,6 +301,8 @@ ocrSignal *createSignal(losig_list * i_pLoSig)
     l_pSignal->SEGMENT = NULL;
     l_pSignal->VIA = NULL;
     l_pSignal->GLOBAL = NULL;
+
+    l_pSignal->HARD = 0;
 
     l_pSignal->WIN = 0;
     l_pSignal->TYPE = 0;

@@ -1,8 +1,11 @@
 /*
    ### -------------------------------------------------- ### 
    $Author: hcl $
-   $Date: 2002/03/15 14:37:27 $
+   $Date: 2002/04/25 13:41:34 $
    $Log: ocrSignalUtil.c,v $
+   Revision 1.2  2002/04/25 13:41:34  hcl
+   New ripup/reroute loop, bug-kill (CALU&TALU).
+
    Revision 1.1  2002/03/15 14:37:27  hcl
    Ca roule.
 
@@ -44,7 +47,7 @@
 #include "ocrConnectorUtil.h"
 
 static char *res_id =
-    "$Id: ocrSignalUtil.c,v 1.1 2002/03/15 14:37:27 hcl Exp $";
+    "$Id: ocrSignalUtil.c,v 1.2 2002/04/25 13:41:34 hcl Exp $";
 
 extern ocrOption *g_pOption;
 
@@ -136,11 +139,10 @@ int funcPriorityRandom(const void *a, const void *b)
 int funcPriorityCon(const void *a, const void *b)
 {
     if ((*(ocrSignal **) b)->PRIORITY == (*(ocrSignal **) a)->PRIORITY)
-        return (*(ocrSignal **) b)->NB_CON - (*(ocrSignal **) a)->NB_CON;
-    //return (*(ocrSignal **) a)->NB_CON - (*(ocrSignal **) b)->NB_CON;
+        //return (*(ocrSignal **) b)->NB_CON - (*(ocrSignal **) a)->NB_CON;
+        return (*(ocrSignal **) a)->NB_CON - (*(ocrSignal **) b)->NB_CON;
     else
-        return (*(ocrSignal **) b)->PRIORITY -
-            (*(ocrSignal **) a)->PRIORITY;
+        return (*(ocrSignal **) b)->PRIORITY - (*(ocrSignal **) a)->PRIORITY;
 }
 
 /**

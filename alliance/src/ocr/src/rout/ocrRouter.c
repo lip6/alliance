@@ -1,10 +1,10 @@
 /*
    ### -------------------------------------------------- ### 
    $Author: hcl $
-   $Date: 2002/04/10 12:56:55 $
+   $Date: 2002/04/25 13:41:32 $
    $Log: ocrRouter.c,v $
-   Revision 1.5  2002/04/10 12:56:55  hcl
-   bouh
+   Revision 1.6  2002/04/25 13:41:32  hcl
+   New ripup/reroute loop, bug-kill (CALU&TALU).
 
    Revision 1.4  2002/04/03 09:52:19  hcl
    A little bit of C++.
@@ -191,116 +191,6 @@ ocrSignal *findSignal(ocrRoutingDataBase * i_pDataBase,
     return NULL;
 }
 
-/* protection des connecteurs isoles */
-void
-protectVC(ocrRoutingDataBase * i_pDataBase,
-          ocrVirtualConnector * i_pVirCon)
-{
-    ocrWSegment *l_pSeg;
-    ocrWRoutingGrid *l_pGrid = i_pDataBase->GRID;
-    int z = 0;
-
-    //if (i_pVirCon->Z > 0)
-    //      z = i_pVirCon->Z - 1;
-    z = i_pVirCon->Z;
-
-    //l_pSeg = getWSegmentCV (l_pGrid, i_pVirCon);
-
-    //for (z = i_pVirCon->Z ; z <= i_pDataBase->NB_OF_LAYERS ; z++) {
-
-    l_pSeg = getWSegment(l_pGrid, i_pVirCon->X, i_pVirCon->Y, z);
-    if (l_pSeg->SIGNAL_INDEX != WSEGMENT_FREE)
-        return;
-    if (getWSegDirection(i_pDataBase->PARAM, l_pSeg) == ocrHorizontal)
-        l_pSeg =
-            splitWSegment(i_pDataBase->PARAM, l_pGrid, l_pSeg,
-                          i_pVirCon->X, i_pVirCon->X, WSEGMENT_OBSTACLE);
-    else
-        l_pSeg =
-            splitWSegment(i_pDataBase->PARAM, l_pGrid, l_pSeg,
-                          i_pVirCon->Y, i_pVirCon->Y, WSEGMENT_OBSTACLE);
-
-    //}
-
-
-    return;
-}
-
-
-void
-unProtectVC(ocrRoutingDataBase * i_pDataBase,
-            ocrVirtualConnector * i_pVirCon)
-{
-    ocrWSegment *l_pSeg, *seg1, *seg2;
-    ocrWRoutingGrid *l_pGrid = i_pDataBase->GRID;
-    int z = 0, i;
-
-    //if (i_pVirCon->Z > 0)
-    //      z = i_pVirCon->Z - 1;
-    z = i_pVirCon->Z;
-
-    //for (z = i_pVirCon->Z ; z <= i_pDataBase->NB_OF_LAYERS ; z++) {
-    //l_pSeg = getWSegmentCV (l_pGrid, i_pVirCon);
-    l_pSeg = getWSegment(l_pGrid, i_pVirCon->X, i_pVirCon->Y, z);
-
-
-    if (l_pSeg->SIGNAL_INDEX == WSEGMENT_OBSTACLE) {
-        //deleteSegment (i_pDataBase->PARAM, l_pGrid, l_pSeg);
-        l_pSeg->SIGNAL_INDEX = WSEGMENT_FREE;
-
-        // Fusion des segments libres
-        //mergeWSegment (i_pDataBase, l_pGrid, l_pSeg);
-        //return;
-        if (getWSegDirection(i_pDataBase->PARAM, l_pSeg) == ocrHorizontal) {
-            //printf("deprotect (%ld,%ld,%d):", 5 * i_pVirCon->X, 5 * i_pVirCon->Y, z);
-            seg1 = getWSegment(l_pGrid, i_pVirCon->X - 1, i_pVirCon->Y, z);
-            if (seg1->SIGNAL_INDEX == WSEGMENT_FREE) {
-                l_pSeg->P_MIN = seg1->P_MIN;
-                //printf ("G%ld;", seg1->P_MIN * 5);
-                //mbkfree (seg1);
-                //freeWSegment (seg1);
-            }
-
-            seg2 = getWSegment(l_pGrid, i_pVirCon->X + 1, i_pVirCon->Y, z);
-            if (seg2->SIGNAL_INDEX == WSEGMENT_FREE) {
-                l_pSeg->P_MAX = seg2->P_MAX;
-                //printf ("D%ld.", seg2->P_MAX * 5);
-                //freeWSegment (seg2);
-                //freeWSegment (seg2);
-                //mbkfree (seg2);
-            }
-            for (i = l_pSeg->P_MIN; i <= l_pSeg->P_MAX; i++)
-                setWGrid(l_pGrid, l_pSeg, i, i_pVirCon->Y, z);
-            //printf ("\n");
-        } else {
-            seg1 = getWSegment(l_pGrid, i_pVirCon->X, i_pVirCon->Y - 1, z);
-            if (seg1->SIGNAL_INDEX == WSEGMENT_FREE) {
-                l_pSeg->P_MIN = seg1->P_MIN;
-                //mbkfree (seg1);
-                //freeWSegment (seg1);
-            }
-
-            seg2 = getWSegment(l_pGrid, i_pVirCon->X, i_pVirCon->Y + 1, z);
-            if (seg2->SIGNAL_INDEX == WSEGMENT_FREE) {
-                l_pSeg->P_MAX = seg2->P_MAX;
-                //freeWSegment (seg2);
-                //mbkfree (seg2);
-            }
-            for (i = l_pSeg->P_MIN; i <= l_pSeg->P_MAX; i++)
-                setWGrid(l_pGrid, l_pSeg, i_pVirCon->X, i, z);
-
-
-        }
-
-
-    } else {
-        //printf ("non - de - protection !\n");
-    }
-    //}
-
-    return;
-}
-
 void noCritVC(ocrRoutingDataBase * i_pDataBase)
 {
 
@@ -323,61 +213,6 @@ void noCritVC(ocrRoutingDataBase * i_pDataBase)
     return;
 }
 
-void countFreeVC(ocrRoutingDataBase * i_pDataBase)
-{
-
-    ocrNaturalInt i;
-    ocrWRoutingGrid *l_pGrid = i_pDataBase->GRID;
-
-    // tous les sigs
-    for (i = 0; i < i_pDataBase->NB_SIGNAL; i++) {
-        ocrConnector *l_pCon;
-
-        if (i_pDataBase->SIGNAL[i]->ROUTED
-            || i_pDataBase->SIGNAL[i]->NICHT_ZU_ROUTIEREN)
-            continue;
-
-        // tous les cons
-        for (l_pCon = i_pDataBase->SIGNAL[i]->CON_LIST; l_pCon;
-             l_pCon = l_pCon->NEXT) {
-            ocrVirtualConnector *l_pVirCon;
-            ocrWSegment *l_pSeg;
-            if (l_pCon->critVC) {
-                protectVC(i_pDataBase, l_pCon->critVC);
-                //continue;
-                goto fin_lpcon;
-            }
-            // tous les vircons
-            l_pCon->NB_VC = 0;
-            for (l_pVirCon = l_pCon->VIR_CON_LIST; l_pVirCon;
-                 l_pVirCon = l_pVirCon->NEXT) {
-                if (l_pVirCon->Z > 0)
-                    goto fin_lpcon;
-                    //continue;
-                //      l_pSeg = getWSegment (l_pGrid, l_pVirCon->X, l_pVirCon->Y, l_pVirCon->Z - 1);
-                //else
-                l_pSeg = getWSegmentCV(l_pGrid, l_pVirCon);
-                if (l_pSeg->SIGNAL_INDEX == WSEGMENT_FREE) {
-                    l_pCon->critVC = l_pVirCon;
-                    (l_pCon->NB_VC)++;
-                }
-            }
-
-            if (l_pCon->NB_VC == 1) {
-                protectVC(i_pDataBase, l_pCon->critVC);
-            } else {
-                l_pCon->critVC = NULL;
-            }
-          fin_lpcon:
-        }
-    }
-// maj con->NB_VC
-
-
-    return;
-}
-
-
 
 /**
  * route les signaux dans l'ordre :
@@ -398,7 +233,8 @@ reRoute(ocrRoutingDataBase * i_pDataBase,
     chain_list *l_pSignalList;
     ocrConnector *l_pCon;
 
-
+    if (i_pSignal == NULL)
+        goto skip;
     // routage du signal désigné par i_pSignal
     //  fprintf (stdout, "reRoute : Routage du signal %ld \n",
     //         i_pSignal->INDEX);
@@ -417,9 +253,11 @@ reRoute(ocrRoutingDataBase * i_pDataBase,
 
         i_pSignal->ROUTED = 1;
 
+        display(LEVEL, VVERB, "o rerouted %s\n", i_pSignal->NAME);
+
     } else {
         l_uReturnValue = 0;
-        display(LEVEL, VVERB, "o Echec reRoute %ld\n", i_pSignal->INDEX);
+        display(LEVEL, VVERB, "o Failed to reroute %s\n", i_pSignal->NAME);
 
         i_pSignal->ROUTED = 2;
         deleteEquipotentielle(i_pParam, i_pDataBase->GRID, i_pSignal);
@@ -430,11 +268,17 @@ reRoute(ocrRoutingDataBase * i_pDataBase,
     }
     unMarkSegmentAsFree(i_pDataBase, i_pSignal, i_pSignal->INDEX);      // XXX
 
+skip:
+
     // tant qu'il reste des signaux à re router
     l_pSignalList = i_pDataBase->RIPUP;
     while (l_pSignalList) {
 
         l_pSignal = (ocrSignal *) l_pSignalList->DATA;
+        if (l_pSignal->ROUTED == 1) {
+            l_pSignalList = l_pSignalList->NEXT;
+            continue;
+        }
 
 //    fprintf (stdout, "reRoute : Routage du signal %ld \n",
         //             l_pSignal->INDEX);
@@ -444,30 +288,35 @@ reRoute(ocrRoutingDataBase * i_pDataBase,
                 unProtectVC(i_pDataBase, l_pCon->critVC);
             }
         }
+        display(LEVEL, VVERB, "o Rerouting %s\n", l_pSignal->NAME);
         l_uLength = FINDNPATH(i_pParam, i_pDataBase->GRID,
                               l_pSignal,
-                              i_pDataBase->WINDOWS[i_pSignal->WIN]);
+                              i_pDataBase->WINDOWS[l_pSignal->WIN]);
+
+        l_pSignalList = i_pDataBase->RIPUP;
 
         if (l_uLength == OCRNATURALINT_MAX) {
             l_uReturnValue = 0;
-            display(LEVEL, VVERB, "o Echec reRoute %ld\n", l_pSignal->INDEX);
+            display(LEVEL, VVERB, "\n--- failed to reroute %s\n", l_pSignal->NAME);
             l_pSignal->ROUTED = 2;
 
-            deleteEquipotentielle(i_pParam, i_pDataBase->GRID, l_pSignal);
+            ripUp2 (i_pDataBase, i_pParam, l_pSignal);
+            //deleteEquipotentielle(i_pParam, i_pDataBase->GRID, l_pSignal);
 
-            l_pSignal->SEGMENT = NULL;
+            //l_pSignal->SEGMENT = NULL;
 
-            i_pDataBase->NB_UNROUTED++;
+            //i_pDataBase->NB_UNROUTED++;
             l_pSignal->PRIORITY = i_pDataBase->NB_IT+1;
-            //i_pSignal->PRIORITY = i_pDataBase->NB_IT;
-//        l_pSignal->PRIORITY ++;
         } else {
             i_pDataBase->NB_ROUTED++;
             l_pSignal->ROUTED = 1;
+            l_pSignal->HARD ++;
+            display(LEVEL, VVERB, "+++ %s rerouted\n", l_pSignal->NAME);
         }
         unMarkSegmentAsFree(i_pDataBase, l_pSignal, l_pSignal->INDEX);  // XXX
+        countFreeVC(i_pDataBase);
 
-        l_pSignalList = l_pSignalList->NEXT;
+        //l_pSignalList = l_pSignalList->NEXT;
     }
 
     freechain(i_pDataBase->RIPUP);
@@ -576,7 +425,7 @@ ripUp2(ocrRoutingDataBase * i_pDataBase,
                                                      l_pVirCon)->
                                        SIGNAL_INDEX);
                 if (l_pSignal)
-                    if (l_pSignal != i_pSignal) {
+                    if ( (l_pSignal != i_pSignal) && (!(l_pSignal->HARD)) ) {
                         // ajoute le signal dans la liste à re-router.
                         i_pDataBase->RIPUP = addchain(i_pDataBase->RIPUP,
                                                       (void *) l_pSignal);
@@ -1091,6 +940,7 @@ routingWindow(ocrRoutingDataBase * i_pDataBase, phfig_list * i_pPhFig)
                     l_pSignal->ROUTED = 1;
                     i_pDataBase->NB_ROUTED++;
                     display(LEVEL, VVERB, "\t\t\tok\n");
+
                     //return 1; // XXX for debug...
                     
                 } else {
@@ -1136,6 +986,7 @@ routingWindow(ocrRoutingDataBase * i_pDataBase, phfig_list * i_pPhFig)
                 // LOOP pour reperer les connecteurs isoles.
                 countFreeVC(i_pDataBase);
             }
+        reRoute(i_pDataBase, i_pDataBase->PARAM, NULL);
 
         display(LEVEL, VERBOSE, "o It = %ld Sig = %ld Failures : %ld\n",
                 i_pDataBase->NB_IT,

@@ -1,8 +1,11 @@
 /*
    ### -------------------------------------------------- ### 
    $Author: hcl $
-   $Date: 2002/03/20 13:25:57 $
+   $Date: 2002/04/25 13:41:34 $
    $Log: ocrConnectorUtil.c,v $
+   Revision 1.3  2002/04/25 13:41:34  hcl
+   New ripup/reroute loop, bug-kill (CALU&TALU).
+
    Revision 1.2  2002/03/20 13:25:57  hcl
    SymX bug.
 
@@ -99,6 +102,61 @@ distBetween2VirCon(ocrVirtualConnector * l_pVirCon1,
 //    }
 //}
 //
+
+
+void countFreeVC(ocrRoutingDataBase * i_pDataBase)
+{
+
+    ocrNaturalInt i;
+    ocrWRoutingGrid *l_pGrid = i_pDataBase->GRID;
+
+    // tous les sigs
+    for (i = 0; i < i_pDataBase->NB_SIGNAL; i++) {
+        ocrConnector *l_pCon;
+
+        if (i_pDataBase->SIGNAL[i]->ROUTED
+            || i_pDataBase->SIGNAL[i]->NICHT_ZU_ROUTIEREN)
+            continue;
+
+        // tous les cons
+        for (l_pCon = i_pDataBase->SIGNAL[i]->CON_LIST; l_pCon;
+             l_pCon = l_pCon->NEXT) {
+            ocrVirtualConnector *l_pVirCon;
+            ocrWSegment *l_pSeg;
+            if (l_pCon->critVC) {
+                protectVC(i_pDataBase, l_pCon->critVC);
+                //continue;
+                goto fin_lpcon;
+            }
+            // tous les vircons
+            l_pCon->NB_VC = 0;
+            for (l_pVirCon = l_pCon->VIR_CON_LIST; l_pVirCon;
+                 l_pVirCon = l_pVirCon->NEXT) {
+                if (l_pVirCon->Z > 0)
+                    goto fin_lpcon;
+                    //continue;
+                //      l_pSeg = getWSegment (l_pGrid, l_pVirCon->X, l_pVirCon->Y, l_pVirCon->Z - 1);
+                //else
+                l_pSeg = getWSegmentCV(l_pGrid, l_pVirCon);
+                if (l_pSeg->SIGNAL_INDEX == WSEGMENT_FREE) {
+                    l_pCon->critVC = l_pVirCon;
+                    (l_pCon->NB_VC)++;
+                }
+            }
+
+            if (l_pCon->NB_VC == 1) {
+                protectVC(i_pDataBase, l_pCon->critVC);
+            } else {
+                l_pCon->critVC = NULL;
+            }
+          fin_lpcon:
+        }
+    }
+// maj con->NB_VC
+
+
+    return;
+}
 
 
 
@@ -451,10 +509,14 @@ chooseInternalConnector(ocrWRoutingGrid * i_pGrid,
         i_pCon2->CON->TAG++;
 
 //   printf ("con : %ld con2 : %ld\n", l_uCon, l_uCon2);
-    if (!l_uCon)
+    if (!l_uCon) {
+        display (LEVEL, DEBUG, "\n failed for CON1 : %s\n", i_pCon->NAME);
         return OCR_BAD_CON1;
-    if (!l_uCon2)
+    }
+    if (!l_uCon2) {
+        display (LEVEL, DEBUG, "\n failed for CON2 : %s\n", i_pCon2->NAME);
         return OCR_BAD_CON2;
+    }
     return OCR_OK;
 }
 
@@ -489,10 +551,120 @@ chooseInternalConnector2(ocrWRoutingGrid * i_pGrid,
 
 
 
+
+
+/* protection des connecteurs isoles */
+void
+protectVC(ocrRoutingDataBase * i_pDataBase,
+          ocrVirtualConnector * i_pVirCon)
+{
+    ocrWSegment *l_pSeg;
+    ocrWRoutingGrid *l_pGrid = i_pDataBase->GRID;
+    int z = 0;
+
+    //if (i_pVirCon->Z > 0)
+    //      z = i_pVirCon->Z - 1;
+    z = i_pVirCon->Z;
+
+    //l_pSeg = getWSegmentCV (l_pGrid, i_pVirCon);
+
+    //for (z = i_pVirCon->Z ; z <= i_pDataBase->NB_OF_LAYERS ; z++) {
+
+    l_pSeg = getWSegment(l_pGrid, i_pVirCon->X, i_pVirCon->Y, z);
+    if (l_pSeg->SIGNAL_INDEX != WSEGMENT_FREE)
+        return;
+    if (getWSegDirection(i_pDataBase->PARAM, l_pSeg) == ocrHorizontal)
+        l_pSeg =
+            splitWSegment(i_pDataBase->PARAM, l_pGrid, l_pSeg,
+                          i_pVirCon->X, i_pVirCon->X, WSEGMENT_OBSTACLE);
+    else
+        l_pSeg =
+            splitWSegment(i_pDataBase->PARAM, l_pGrid, l_pSeg,
+                          i_pVirCon->Y, i_pVirCon->Y, WSEGMENT_OBSTACLE);
+
+    //}
+
+
+    return;
+}
+
+
+void
+unProtectVC(ocrRoutingDataBase * i_pDataBase,
+            ocrVirtualConnector * i_pVirCon)
+{
+    ocrWSegment *l_pSeg, *seg1, *seg2;
+    ocrWRoutingGrid *l_pGrid = i_pDataBase->GRID;
+    int z = 0, i;
+
+    //if (i_pVirCon->Z > 0)
+    //      z = i_pVirCon->Z - 1;
+    z = i_pVirCon->Z;
+
+    //for (z = i_pVirCon->Z ; z <= i_pDataBase->NB_OF_LAYERS ; z++) {
+    //l_pSeg = getWSegmentCV (l_pGrid, i_pVirCon);
+    l_pSeg = getWSegment(l_pGrid, i_pVirCon->X, i_pVirCon->Y, z);
+
+
+    if (l_pSeg->SIGNAL_INDEX == WSEGMENT_OBSTACLE) {
+        //deleteSegment (i_pDataBase->PARAM, l_pGrid, l_pSeg);
+        l_pSeg->SIGNAL_INDEX = WSEGMENT_FREE;
+
+        // Fusion des segments libres
+        //mergeWSegment (i_pDataBase, l_pGrid, l_pSeg);
+        //return;
+        if (getWSegDirection(i_pDataBase->PARAM, l_pSeg) == ocrHorizontal) {
+            //printf("deprotect (%ld,%ld,%d):", 5 * i_pVirCon->X, 5 * i_pVirCon->Y, z);
+            seg1 = getWSegment(l_pGrid, i_pVirCon->X - 1, i_pVirCon->Y, z);
+            if (seg1->SIGNAL_INDEX == WSEGMENT_FREE) {
+                l_pSeg->P_MIN = seg1->P_MIN;
+                //printf ("G%ld;", seg1->P_MIN * 5);
+                //mbkfree (seg1);
+                //freeWSegment (seg1);
+            }
+
+            seg2 = getWSegment(l_pGrid, i_pVirCon->X + 1, i_pVirCon->Y, z);
+            if (seg2->SIGNAL_INDEX == WSEGMENT_FREE) {
+                l_pSeg->P_MAX = seg2->P_MAX;
+                //printf ("D%ld.", seg2->P_MAX * 5);
+                //freeWSegment (seg2);
+                //freeWSegment (seg2);
+                //mbkfree (seg2);
+            }
+            for (i = l_pSeg->P_MIN; i <= l_pSeg->P_MAX; i++)
+                setWGrid(l_pGrid, l_pSeg, i, i_pVirCon->Y, z);
+            //printf ("\n");
+        } else {
+            seg1 = getWSegment(l_pGrid, i_pVirCon->X, i_pVirCon->Y - 1, z);
+            if (seg1->SIGNAL_INDEX == WSEGMENT_FREE) {
+                l_pSeg->P_MIN = seg1->P_MIN;
+                //mbkfree (seg1);
+                //freeWSegment (seg1);
+            }
+
+            seg2 = getWSegment(l_pGrid, i_pVirCon->X, i_pVirCon->Y + 1, z);
+            if (seg2->SIGNAL_INDEX == WSEGMENT_FREE) {
+                l_pSeg->P_MAX = seg2->P_MAX;
+                //freeWSegment (seg2);
+                //mbkfree (seg2);
+            }
+            for (i = l_pSeg->P_MIN; i <= l_pSeg->P_MAX; i++)
+                setWGrid(l_pGrid, l_pSeg, i_pVirCon->X, i, z);
+
+
+        }
+
+
+    } else {
+        //printf ("non - de - protection !\n");
+    }
+    //}
+
+    return;
+}
+
+
 /* Marquage de segments */
-
-// XXX XXX XXX XXX XXX XXX XXX XXX
-
 
 void
 markSegmentAsFree(ocrRoutingDataBase * i_pDataBase, ocrSignal * i_pSignal,

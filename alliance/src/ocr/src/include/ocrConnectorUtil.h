@@ -4,8 +4,11 @@
 /*
    ### -------------------------------------------------- ### 
    $Author: hcl $
-   $Date: 2002/03/15 14:37:14 $
+   $Date: 2002/04/25 13:41:27 $
    $Log: ocrConnectorUtil.h,v $
+   Revision 1.2  2002/04/25 13:41:27  hcl
+   New ripup/reroute loop, bug-kill (CALU&TALU).
+
    Revision 1.1  2002/03/15 14:37:14  hcl
    Ca roule.
 
@@ -70,4 +73,20 @@ deleteConVirInConVirList (ocrVirtualConnector ** io_VirConList,
 ocrNaturalInt
 isCriticalConnector (ocrWRoutingGrid * i_pGrid,
 					 ocrConnector * i_pCon);
+
+void
+markSegmentAsFree(ocrRoutingDataBase * i_pDataBase, ocrSignal * i_pSignal,
+                  ocrNaturalInt INDEX);
+
+void
+unMarkSegmentAsFree(ocrRoutingDataBase * i_pDataBase,
+                    ocrSignal * i_pSignal, ocrNaturalInt INDEX);
+
+void
+protectVC(ocrRoutingDataBase * i_pDataBase,
+          ocrVirtualConnector * i_pVirCon);
+void
+unProtectVC(ocrRoutingDataBase * i_pDataBase,
+          ocrVirtualConnector * i_pVirCon);
+void countFreeVC(ocrRoutingDataBase * i_pDataBase);
 #endif /* _OCRCONNECTORUTIL_H_ */

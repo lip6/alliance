@@ -1,8 +1,11 @@
 /*
    ### -------------------------------------------------- ### 
    $Author: hcl $
-   $Date: 2002/03/20 13:25:56 $
+   $Date: 2002/04/25 13:41:33 $
    $Log: ocrWRoutingUtil.c,v $
+   Revision 1.3  2002/04/25 13:41:33  hcl
+   New ripup/reroute loop, bug-kill (CALU&TALU).
+
    Revision 1.2  2002/03/20 13:25:56  hcl
    SymX bug.
 
@@ -466,16 +469,39 @@ void add_phseg_to_grid(ocrRoutingDataBase * i_pDataBase,
          ((!(layer % 2)
            && (i_pDataBase->PARAM->EVEN_LAYERS_DIRECTION == ocrVertical)))))
     {
+        ocrNaturalInt j;
         // Layer Horizontal
+
         for (i = y1; i <= y2; i++) {
 #ifdef OCR_DEBUG
             printf("Adding horiz X=%d; Y1=%d; layer=%d\n", x1, i, layer);
 #endif
 
-            seg = getWSegment(i_pDataBase->GRID, x1, i, layer);
-            seg =
-                splitWSegment(i_pDataBase->PARAM, i_pDataBase->GRID, seg,
-                              x1, x2, WSEGMENT_OBSTACLE);
+            if (mode) { // CALU
+                seg = getWSegment(i_pDataBase->GRID, x1, i, layer);
+                seg = splitWSegment
+                    (
+                     i_pDataBase->PARAM,
+                     i_pDataBase->GRID,
+                     seg, x1, x2,
+                     WSEGMENT_OBSTACLE
+                    )
+                    ;
+            } else { // TALU
+
+                for (j = x1; j <= x2; j++) {
+                    seg = getWSegment(i_pDataBase->GRID, j, i, layer);
+                    if (seg->SIGNAL_INDEX == WSEGMENT_FREE)
+                        seg = splitWSegment
+                            (
+                             i_pDataBase->PARAM,
+                             i_pDataBase->GRID,
+                             seg, j, j,
+                             WSEGMENT_OBSTACLE
+                            )
+                           ;
+                }
+            }
 
             //if (mode) {
             // CALU
@@ -485,15 +511,24 @@ void add_phseg_to_grid(ocrRoutingDataBase * i_pDataBase,
 
 
     } else {
+        ocrNaturalInt j;
         // Layer Vertical
         for (i = x1; i <= x2; i++) {
 #ifdef OCR_DEBUG
             printf("Adding vert X=%d; Y1=%d; layer=%d\n", i, y1, layer);
 #endif
-            seg = getWSegment(i_pDataBase->GRID, i, y1, layer);
-            seg =
-                splitWSegment(i_pDataBase->PARAM, i_pDataBase->GRID, seg,
-                              y1, y2, WSEGMENT_OBSTACLE);
+            for (j = y1; j <= y2; j++) {
+                seg = getWSegment(i_pDataBase->GRID, i, j, layer);
+                if (seg->SIGNAL_INDEX == WSEGMENT_FREE)
+                    seg = splitWSegment
+                        (
+                         i_pDataBase->PARAM,
+                         i_pDataBase->GRID,
+                         seg, j, j,
+                         WSEGMENT_OBSTACLE
+                        )
+                        ;
+            }
             //if (mode) {
             // CALU
             //      setWSegmentName (seg, i_pPhSeg->NAME);
@@ -743,7 +778,7 @@ ocrWSegment *createWSegment(ocrNaturalInt offset,
     // obstacle list
     //pt->OBSTACLE = NULL;
 
-    pt->AUX = NULL;
+    //pt->AUX = NULL;
     pt->NEXT = NULL;
     pt->ROOT = NULL;
 

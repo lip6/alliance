@@ -1,8 +1,11 @@
 /*
    ### -------------------------------------------------- ### 
    $Author: hcl $
-   $Date: 2002/03/20 13:25:50 $
+   $Date: 2002/04/25 13:41:31 $
    $Log: findNPointsPath.c,v $
+   Revision 1.3  2002/04/25 13:41:31  hcl
+   New ripup/reroute loop, bug-kill (CALU&TALU).
+
    Revision 1.2  2002/03/20 13:25:50  hcl
    SymX bug.
 
@@ -86,7 +89,7 @@
 #include "ocrAstar.h"
 
 static char *res_id =
-    "$Id: findNPointsPath.c,v 1.2 2002/03/20 13:25:50 hcl Exp $";
+    "$Id: findNPointsPath.c,v 1.3 2002/04/25 13:41:31 hcl Exp $";
 
 #define MAX_HT 500
 
@@ -717,7 +720,7 @@ ocrNaturalInt biroute (ocrRoutingParameters *i_pParam,
             }
             break;
         case 1:
-            display (LEVEL, DEBUG, "\no Launching A*\n");
+            /*display (LEVEL, DEBUG, "\no Launching A*\n");*/
             if (l_pCon2) {
                 l_uLength = find_path_astar(i_pParam, i_pGrid,
                                             l_pCon1->CON->X,
@@ -817,8 +820,8 @@ findPathNPoints(ocrRoutingParameters * i_pParam,
         l_bOk = chooseInternalConnector(i_pGrid, con1, con2, 0);
 
         if (l_bOk != OCR_OK) {
-            display(LEVEL, DEBUG, "%s\n%s%ld\n",
-                    "o No more connectors :", "  unable to route ", i_pSignal->INDEX);
+            display(LEVEL, DEBUG, "%s\n%s%s\n",
+                    "o No more connectors :", "  unable to route ", i_pSignal->NAME);
             return OCRNATURALINT_MAX;
         }
 
