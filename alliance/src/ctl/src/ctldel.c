@@ -181,8 +181,6 @@ int delctlfig( Name )
 
   while ( ScanType != (ctltype_list *)0 )
   {
-    autfreeblock( ScanType->VALUE );
-
     Delete   = (void *)( ScanType );
     ScanType = ScanType->NEXT;
   

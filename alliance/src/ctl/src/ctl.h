@@ -139,8 +139,8 @@
   {
     struct ctltype_list *NEXT;
     char                *NAME;
-    unsigned long        LEFT;
-    unsigned long        RIGHT;
+    long                 LEFT;
+    long                 RIGHT;
     unsigned long        SIZE;
     char               **VALUE;
     char                 CLASS;
@@ -284,7 +284,7 @@
 
   extern  ctlfig_list *addctlfig __P((char *Name));
   extern ctlform_list *addctlform __P((ctlfig_list *Figure, char *Name, vexexpr *Expr));
-  extern ctltype_list *addctltype __P((ctlfig_list *Figure, char *Name));
+  extern ctltype_list *addctltype __P((ctlfig_list *Figure, char *Name, unsigned long Index, long Left, long Right, unsigned long Size, char **Value, char Class, ctltype_list *Base));
 
   extern ctldecl_list *addctldecl __P((ctlfig_list *Figure, vexexpr *Atom, unsigned char Type ));
   extern ctldecl_list *addctldeclvar __P((ctlfig_list *Figure, vexexpr *Atom));

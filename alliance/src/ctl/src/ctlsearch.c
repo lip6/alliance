@@ -224,3 +224,28 @@ ctlform_list *searchctlform( Figure, Name )
   return( Form );
 }
 
+/*------------------------------------------------------------\
+|                                                             |
+|                        Ctl Search Type                      |
+|                                                             |
+\------------------------------------------------------------*/
+
+ctltype_list *searchctltype( Figure, Name )
+
+  ctlfig_list *Figure;
+  char        *Name;
+{
+  ctltype_list *Type;
+
+  Name = namealloc( Name );
+
+  for ( Type  = Figure->TYPE;
+        Type != (ctltype_list *)0;
+        Type  = Type->NEXT )
+  {
+    if ( Type->NAME == Name ) break;
+  }
+
+  return( Type );
+}
+

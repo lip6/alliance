@@ -252,7 +252,7 @@ ctldecl_list *addctldeclvar( Figure, Atom )
     ctlerror( CTL_VARIABLE_EXIST_ERROR, Name, 0 );
   }
 
-  Constant = loc_addctldecl( Figure, Atom, CTL_DECLAR_CONSTANT );
+  Constant = loc_addctldecl( Figure, Atom, CTL_DECLAR_VARIABLE );
 
   return( Constant );
 }
@@ -361,8 +361,15 @@ ctlform_list *addctlform( Figure, Name, Expr )
   Form->NAME     = namealloc( Name );;
   Form->VEX_EXPR = Expr;
 
-  Form->NEXT   = Figure->FORM;
-  Figure->FORM = Form;
+  Form->PREV     = &Figure->FORM;
+  Form->NEXT     = *(Form->PREV);
+
+  if ( Form->NEXT != (ctlform_list *)0 )
+  {
+    Form->NEXT->PREV = &Form->NEXT;
+  }
+
+  *(Form->PREV) = Form;
 
   return( Form );
 }
@@ -373,10 +380,18 @@ ctlform_list *addctlform( Figure, Name, Expr )
 |                                                             |
 \------------------------------------------------------------*/
 
-ctltype_list *addctltype( Figure, Name )
+ctltype_list *addctltype( Figure, Name, Index, 
+                          Left, Right, Size, Value, Class, Base )
 
-  ctlfig_list   *Figure;
-  char          *Name;
+  ctlfig_list    *Figure;
+  char           *Name;
+  unsigned long   Index;
+  long            Left;
+  long            Right;
+  unsigned long   Size;
+  char          **Value;
+  char            Class;
+  ctltype_list   *Base;
 {
   ctltype_list *Type;
 
@@ -384,7 +399,103 @@ ctltype_list *addctltype( Figure, Name )
 
   Type->NAME   = namealloc( Name );;
   Type->NEXT   = Figure->TYPE;
+  Type->LEFT   = Left;
+  Type->RIGHT  = Right;
+  Type->SIZE   = Size;
+  Type->VALUE  = Value;
+  Type->CLASS  = Class;
+  Type->INDEX  = Index;
+  Type->BASE   = Base;
   Figure->TYPE = Type;
 
   return( Type );
+}
+
+/*------------------------------------------------------------\
+|                                                             |
+|                  Ctl Add Predefined Type                    |
+|                                                             |
+\------------------------------------------------------------*/
+
+void addctlpredefinedtype( Figure )
+
+  ctlfig_list *Figure;
+{
+  static char         *bit_vl[2];
+  static char         *boolean_vl[2];
+  static char         *severity_vl[2];
+  static char         *std_ulogic_vl[9];
+
+  ctltype_list        *TypeBit;
+  ctltype_list        *TypeReg;
+  ctltype_list        *TypeMux;
+  ctltype_list        *TypeWor;
+  ctltype_list        *TypeInt;
+  ctltype_list        *TypeStd_logic;
+  ctltype_list        *TypeStd_ulogic;
+  ctltype_list        *TypeCharacter;
+
+  boolean_vl[0] = namealloc ("false");
+  boolean_vl[1] = namealloc ("true");
+
+  bit_vl[0] = namealloc ("'0'");
+  bit_vl[1] = namealloc ("'1'");
+
+  severity_vl[0] = namealloc ("warning");
+  severity_vl[1] = namealloc ("error");
+
+  std_ulogic_vl[ 0 ] = namealloc("'u'");
+  std_ulogic_vl[ 1 ] = namealloc("'x'");
+  std_ulogic_vl[ 2 ] = namealloc("'0'");
+  std_ulogic_vl[ 3 ] = namealloc("'1'");
+  std_ulogic_vl[ 4 ] = namealloc("'z'");
+  std_ulogic_vl[ 5 ] = namealloc("'w'");
+  std_ulogic_vl[ 6 ] = namealloc("'l'");
+  std_ulogic_vl[ 7 ] = namealloc("'h'");
+  std_ulogic_vl[ 8 ] = namealloc("'-'");
+
+  addctltype( Figure, "severity_level",
+              VEX_TYPE_SEVERITY, 0, 1, 2, severity_vl, 'E', NULL );
+
+  addctltype( Figure, "boolean",
+              VEX_TYPE_BOOLEAN , 0, 1, 2, boolean_vl, 'E', NULL );
+
+  TypeBit = addctltype( Figure, "bit",
+              VEX_TYPE_BIT     , 0, 1, 2, bit_vl    , 'E', NULL );
+
+
+  TypeCharacter = addctltype( Figure, "character",
+              VEX_TYPE_CHARACTER, 0, 127,  0, NULL  , 'E', NULL );
+
+  addctltype( Figure, "string",
+              VEX_TYPE_STRING, 0, 0x7fffffff, 0, NULL,  'U', TypeCharacter );
+
+  TypeInt = addctltype( Figure, "integer",
+              VEX_TYPE_INTEGER, 0x80000000, 0x7fffffff, 0, NULL, 'I', NULL );
+
+  addctltype( Figure, "natural",
+              VEX_TYPE_NATURAL, 0 ,0x7fffffff, 0, NULL, 'I', NULL );
+
+  addctltype( Figure, "bit_vector",
+              VEX_TYPE_BIT_VECTOR, 0, 0x7fffffff, 0, NULL, 'U', TypeBit );
+
+  TypeStd_ulogic = addctltype( Figure, "std_ulogic",
+              VEX_TYPE_STD_ULOGIC, 0, 8, 9, std_ulogic_vl, 'E', NULL );
+
+  TypeStd_logic = addctltype( Figure, "std_logic",
+              VEX_TYPE_STD_LOGIC , 0, 8, 9, std_ulogic_vl, 'E', NULL );
+
+  addctltype( Figure, "std_ulogic_vector",
+              VEX_TYPE_STD_ULOGIC_VECTOR,
+              0,0x7fffffff, 0, NULL, 'U', TypeStd_ulogic );
+
+  addctltype( Figure,"std_logic_vector",
+              VEX_TYPE_STD_LOGIC_VECTOR, 0,0x7fffffff, 0, NULL,
+              'U',TypeStd_logic );
+
+  addctltype( Figure,"unsigned",
+              VEX_TYPE_UNSIGNED, 0,0x7fffffff, 0, NULL, 'U', TypeStd_logic );
+
+  addctltype( Figure,"signed",
+              VEX_TYPE_SIGNED, 0,0x7fffffff, 0, NULL, 'U', TypeStd_logic );
 }
