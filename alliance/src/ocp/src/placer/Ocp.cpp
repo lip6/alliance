@@ -33,6 +33,75 @@ Usage()
 	 << "default : <NL> = 2" << endl;
 }
 
+static void
+PrintEnv()
+{
+    char* allianceTop = mbkgetenv("ALLIANCE_TOP");
+    char* mbkInLo = mbkgetenv("MBK_IN_LO");
+    char* mbkOutLo = mbkgetenv("MBK_OUT_LO");
+    char* mbkInPh = mbkgetenv("MBK_IN_PH");
+    char* mbkOutPh = mbkgetenv("MBK_OUT_PH");
+    char* mbkVss = mbkgetenv("MBK_VSS");
+    char* mbkVdd = mbkgetenv("MBK_VDD");
+    char* mbkCatalName = mbkgetenv("MBK_CATAL_NAME");
+    char* mbkCataLib = mbkgetenv("MBK_CATA_LIB");
+    cout << "o ALLIANCE environment:" << endl;
+    if (allianceTop)
+	cout << "  o ALLIANCE_TOP   : " << allianceTop << endl;
+    else
+	cout << "  o Warning: no ALLIANCE_TOP variable set ...." << endl;
+    cout << "o MBK environment:" << endl;
+    if (mbkInLo)
+	cout << "  o MBK_IN_LO      : " << mbkInLo << endl;
+    else
+	cout << "  o Warning: no MBK_IN_LO variable set ...." << endl;
+    if (mbkOutLo)
+	cout << "  o MBK_OUT_LO     : " << mbkOutLo << endl;
+    else
+	cout << "  o Warning: no MBK_OUT_LO variable set ...." << endl;
+    if (mbkInPh)
+	cout << "  o MBK_IN_PH      : " << mbkInPh << endl;
+    else
+	cout << "  o Warning: no MBK_IN_PH variable set ...." << endl;
+    if (mbkOutPh)
+	cout << "  o MBK_OUT_PH     : " << mbkOutPh << endl;
+    else
+	cout << "  o Warning: no MBK_OUT_PH variable set ...." << endl;
+    if (mbkVss)
+	cout << "  o MBK_VSS        : " << mbkVss << endl;
+    else
+	cout << "  o Warning: no MBK_VSS variable set ...." << endl;
+    if (mbkVdd)
+	cout << "  o MBK_VDD        : " << mbkVdd << endl;
+    else
+	cout << "  o Warning: no MBK_VDD variable set ...." << endl;
+    if (mbkCatalName)
+	cout << "  o MBK_CATAL_NAME : " << mbkCatalName << endl;
+    else
+	cout << "  o Warning: no MBK_CATAL_NAME variable set ...." << endl;
+    if (mbkCataLib)
+    {
+	cout << "  o MBK_CATA_LIB   : ";
+	while (*mbkCataLib !=  '\0')
+	{
+	    while ((*mbkCataLib != '\0') && (*mbkCataLib !=  ':'))
+	    {
+		cout << *mbkCataLib++;
+	    }
+	    if (*mbkCataLib == ':')
+	    {
+		cout << endl << "                     ";
+		++mbkCataLib;
+	    }
+	    else
+		cout << endl;
+	}
+    }
+    else
+	cout << "  o Warning: no MBK_CATA_LIB variable set ...." << endl;
+    cout << endl;
+}
+
 int
 main(int argc, char **argv)
 {
@@ -308,6 +377,9 @@ main(int argc, char **argv)
         Usage();
         exit (1);
     }
+
+    if (VerboseFlg)
+	PrintEnv();
 
     // Initializations
     // ***************
