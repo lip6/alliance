@@ -42,8 +42,8 @@
       </listitem>
       <listitem>
         <para> Operation can be either signed or unsigned. In unsigned
-        mode &c32; is the overflow, in unsigned mode you have to compute
-        overflow by <emphasis>XORing</emphasis> &c32; and &c31;.
+        mode &c31; is the overflow, in unsigned mode you have to compute
+        overflow by <emphasis>XORing</emphasis> &c31; and &c30;.
         </para>
       </listitem>
     </itemizedlist>
@@ -59,12 +59,12 @@
           </para>
         </listitem>
         <listitem>
-          <para> &c32; : carry out. In unsigned mode, this is the
+          <para> &c31; : carry out. In unsigned mode, this is the
           overflow (output, 1 bits). </para>
         </listitem>
         <listitem>
-          <para> &c31; : used to compute overflow in signed mode :
-          <literal>overflow := c32 xor c31</literal> (output, 1 bits).
+          <para> &c30; : used to compute overflow in signed mode :
+          <literal>overflow := c31 xor c30</literal> (output, 1 bits).
           </para>
         </listitem>
         <listitem>
