@@ -21,5 +21,5 @@
 #^CVSROOT	(echo ""; who am i; echo %s; date; cat) >> $CVSROOT/CVSROOT/log-cvsroot
 #ALL	(date ; cat ; (sleep 2 ; cd /users/outil/alliance/latest ; cvs -q update -d ) &) >> $CVSROOT/CVSROOT/log-latest 2>&1
 
-ALL	( cat > /dev/null 2>&1 ; echo "Taper Ctrl-C peut avoir des consequences facheuses :-)" )
+ALL	( cat > /dev/null 2>&1 ; echo "Sur Solaris, utilisez /usr/ucb/mail car /bin/mail ne comprends pas le switch '-s subject'. Pour ce faire mettez '/usr/ucb' avant '/bin' dans votre PATH" )
 ALL	/users/outil/alliance/cvsroot/CVSROOT/postconfig
