@@ -3,17 +3,25 @@
 DATE=`/asim/gnu/bin/date +"%Y.%m.%d_%H.%M.%S"`
 LABO=/users/soft5/newlabo/alliance
 
-for ARCHI in Linux_elf SunOS Solaris
+for ARCHI in Linux_elf Linux SunOS Solaris
  do
- for FILE in /users/outil1/alliance/alliance/archi/$ARCHI/bin/*
+ for FILE in /users/soft5/newlabo/cvstree/alliance/archi/$ARCHI/bin/*
  do
     echo %%%%%% $FILE
     cp -f $FILE /users/soft5/newlabo/alliance/archi/$ARCHI/bin/`basename $FILE`.$DATE
     ln -f -s /users/soft5/newlabo/alliance/archi/$ARCHI/bin/`basename $FILE`.$DATE /users/soft5/newlabo/alliance/archi/$ARCHI/bin/`basename $FILE`
-    done
-  for TRUC in lib include
-  do
-    cp -f /users/outil1/alliance/alliance/archi/$ARCHI/$TRUC/* /users/soft5/newlabo/alliance/archi/$ARCHI/$TRUC
-  done
- done
+done
 
+  for TRUC in /users/soft5/newlabo/cvstree/alliance/archi/$ARCHI/lib/*
+  do
+    echo %%%%%% $TRUC
+    cp -f $TRUC /users/soft5/newlabo/alliance/archi/$ARCHI/lib/`basename $TRUC`
+  done
+
+  for TRUC in /users/soft5/newlabo/cvstree/alliance/archi/$ARCHI/include/*
+  do
+    echo %%%%%% $TRUC
+    cp -f $TRUC /users/soft5/newlabo/alliance/archi/$ARCHI/include/`basename $TRUC`
+  done
+
+done
