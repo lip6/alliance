@@ -11,13 +11,56 @@ MOKA \-  Model checker ancestor
 .br
 .SH DESCRIPTION
 .br
-\fBmoka\fp is a CTL model checker.
+\fBmoka\fP is a CTL model checker.
 .br
 
 Made to run on FSM or RTL descriptions, \fBmoka\fP supports the same VHDL subset 
-as syf or boom (for further informations about this subset see SYF(1), FSM(5), VBE(5) ).
-\fBmoka\fP uses a Reduced Ordered Binary Decision Diagrams representation and 
-verifies CTL formulae  (see CTL(5) for CTL file format details).
+as syf or boom (for further informations about this subset see SYF(1), BOOM(1), FSM(5), VBE(5) ).
+Nevertheless \fBmoka\fP imposes that each register of the behavioral description have
+the same clock condition and that there are no tristate or multiplexed buses.
+In particular VHDL type MUX_BIT and WOR_BIT aren't not supported.
+.br
+First of all \fBmoka\fP build the fonction transition of the FSM using
+a Reduced Ordered Binary Decision Diagrams representation.
+.br
+It then applies the initial condition to find the first state (keyword INITIAL
+in the CTL(5) file format).
+.br
+After it computes a symbolic simulation of the FSM in order
+to find all reachable states. This computation takes into account the 
+assumptions conditions (ASSUME keyword in the CTL(5) file format).
+.br
+\fBmoka\fP finally verifies one by one each CTL formulae.
+(see CTL(5) for CTL file format details).
+
+.SH CTL OPERATORS
+.PP
+For each CTL sub-expression \fBmoka\fP will return the set of states that verifies
+the formula. For example EX(p) will return the set of reachable states that verifies
+EX(p).
+.br
+CTL operators :
+.RS
+.br
+EX(p) : returns all states which have almost one primary state successor that
+verifies \fBp\fP.
+.br
+EU(p,q) : returns all states that are the root of almost one path, such that \fBp\fP is true 
+until \fBq\fP is always true.
+.br
+EG(p) : returns all states that are the root of almost one path, such that \fBp\fP is always true.
+.br
+AX(p) : returns all states which have all their primary state successor that
+verifies \fBp\fP.
+.br
+AU(p,q) : returns all states that are the root of only pathes from which \fBp\fP is true 
+until \fBq\fP is always true.
+.br
+AG(p) : returns all states that are the root of only pathes, such that \fBp\fP is always true.
+
+.RE
+
+.br
 
 .SH ENVIRONMENT VARIABLES
 .br
@@ -40,7 +83,8 @@ standard output.
 .br
 \-D
 Sets debug mode on. Each step of the model checking is detailed on the
-standard output.
+standard output. In particular all states set are displayed for each
+CTL sub-expression.
 
 .br
 \-B
