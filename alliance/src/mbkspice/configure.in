@@ -25,7 +25,7 @@ dnl           Almost ten years since I wrote this stuff, I just can't
 dnl           believe it
 dnl Date    : 01/02/2002
 dnl Author  : Frederic Petrot <Frederic.Petrot@lip6.fr>
-dnl $Id: configure.in,v 1.1 2002/03/13 17:58:33 fred Exp $
+dnl $Id: configure.in,v 1.2 2002/03/20 11:10:35 fred Exp $
 dnl
 dnl
 AC_INIT(src/spi_parse.c)
@@ -37,14 +37,7 @@ AC_CHECK_HEADERS(strings.h unistd.h)
 AC_C_CONST
 AC_PROG_RANLIB
 
-changequote(,)dnl
-INCLUDES=-I${ALLIANCE_TOP}/include
-LDFLAGS=-L${ALLIANCE_TOP}/lib
-changequote([,])dnl
-
-AC_SUBST(INCLUDES)
-AC_SUBST(LDFLAGS)
-
+AM_ALLIANCE
 
 AC_OUTPUT([
 Makefile

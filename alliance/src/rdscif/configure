@@ -1349,9 +1349,15 @@ else
 fi
 
 
+echo 'ALLIANCE configuration ....'
 INCLUDES=-I${ALLIANCE_TOP}/include
 LDFLAGS=-L${ALLIANCE_TOP}/lib
 
+
+
+INSTALL_DATA='${INSTALL} -m 664'
+
+INSTALL_PROGRAM='${INSTALL} -m 775'
 
 
 
