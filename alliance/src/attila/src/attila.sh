@@ -1,6 +1,6 @@
 #!/bin/sh
 #
-# $Id: attila.sh,v 1.17 2003/10/29 16:08:54 xtof Exp $
+# $Id: attila.sh,v 1.18 2004/07/24 22:40:33 jpc Exp $
 #                                                                        
 # /------------------------------------------------------------------\
 # |                                                                  |
@@ -14,6 +14,9 @@
 # | **************************************************************** |
 # |  U p d a t e s                                                   |
 # | $Log: attila.sh,v $
+# | Revision 1.18  2004/07/24 22:40:33  jpc
+# | La nouvelle config a trois architectures : Linux.FC2, Linux.RH71 et Solaris.
+# |
 # | Revision 1.17  2003/10/29 16:08:54  xtof
 # | changing target machine for installations
 # |
@@ -177,9 +180,10 @@
  guess_os ()
  {
    case "`uname -sr`" in
-     Linux*)    echo "Linux";;
-     SunOS\ 5*) echo "Solaris";;
-     *)         echo "`uname -sr`";;
+     Linux\ 2.4.9*) echo "Linux.RH71";;
+     Linux\ 2.6.6*) echo "Linux.FC2";;
+     SunOS\ 5*)     echo "Solaris";;
+     *)             echo "`uname -sr`";;
    esac
  }
 
@@ -192,16 +196,21 @@
  guess_gcc ()
  {
    case "$1" in
-     "Linux")   if which gcc3 > /dev/null 2>&1; then
-                  CXX=g++3
-                   CC=gcc3
-                fi
-                ;;
-     "Solaris") if [ -x /usr/local/gcc-3.0.4/bin/gcc ]; then
-                  CXX=/usr/local/gcc-3.0.4/bin/g++
-                   CC=/usr/local/gcc-3.0.4/bin/gcc
-                fi
-                ;;
+     "Linux.RH71") if which gcc > /dev/null 2>&1; then
+                     CXX=$LINUX_RH71_CXX
+                      CC=$LINUX_RH71_CC
+                   fi
+                   ;;
+     "Linux.FC2")  if which gcc > /dev/null 2>&1; then
+                     CXX=$LINUX_FC2_CXX
+                      CC=$LINUX_FC2_CC
+                   fi
+                   ;;
+     "Solaris")    if [ -x "$SOLARIS_CC" ]; then
+                     CXX=$SOLARIS_CXX
+                      CC=$SOLARIS_CC
+                   fi
+                   ;;
    esac
  }
 
@@ -414,8 +423,9 @@
    echo "  o  Compilation environment."
 
    case "$ALLIANCE_OS" in
-     "Linux")   MAKE="make";;
-     "Solaris") MAKE="gmake";;
+     "Linux.RH71") MAKE="make";;
+     "Linux.FC2")  MAKE="make";;
+     "Solaris")    MAKE="gmake";;
      *) echo "attila: \"$ALLIANCE_OS\" is not supported, only Linux & Solaris"
         echo "        are."
 
@@ -423,7 +433,9 @@
    esac
    export MAKE
 
+   echo "     - TARGET      := `hostname`"
    echo "     - OS          := $ALLIANCE_OS"
+   echo "     - ID          := `id`"
    echo "     - MAKE        := $MAKE"
 
    guess_gcc $ALLIANCE_OS
@@ -475,10 +487,10 @@
      done
    fi
 
-   if [ ! -f Makefile.in -o ! -f configure ]; then
-     echo "  o  Running autostuff for Alliance top directory."
-     ./autostuff
-   fi
+  #if [ ! -f Makefile.in -o ! -f configure ]; then
+  #  echo "  o  Running autostuff for Alliance top directory."
+  #  ./autostuff
+  #fi
 
    if [ ! -d $BUILD_DIR ]; then
      echo "  o  Creating build directory $BUILD_DIR"
@@ -496,8 +508,16 @@
    for TOOL in $TOOLS; do
      cd  $HOME/alliance/src
      if [ ! -f "$TOOL/Makefile.in" -o ! -f "$TOOL/configure" ]; then
-       echo "     - Running autostuff for $TOOL."
-       ./autostuff $TOOL
+       echo "     - Running autostools for $TOOL."
+      #./autostuff $TOOL
+       cd $TOOL
+       aclocal -I . -I ..
+       if grep "^AM_PROG_LIBTOOL" configure.in >/dev/null; then
+          libtoolize --force --copy --automake
+       fi
+       automake --add-missing --copy --foreign
+       autoconf
+       cd ..
      fi
 
      cd $BUILD_DIR
@@ -539,20 +559,24 @@
 
    CVS_STARTUP_FILES=""
 
- LINUX_TARGET="fa"
-     LINUX_CC="gcc3"
-    LINUX_CXX="g++3"
+ LINUX_RH71_TARGET="fa"
+     LINUX_RH71_CC="gcc3"
+    LINUX_RH71_CXX="g++3"
 
- SOLARIS_TARGET="beny"
-     SOLARIS_CC="/usr/local/gcc-3.0.4/bin/gcc3"
-    SOLARIS_CXX="/usr/local/gcc-3.0.4/bin/g++3"
+  LINUX_FC2_TARGET="tsunami"
+      LINUX_FC2_CC="gcc"
+     LINUX_FC2_CXX="g++"
+
+    SOLARIS_TARGET="funk"
+        SOLARIS_CC="/usr/local/bin/gcc"
+       SOLARIS_CXX="/usr/local/bin/g++"
 
 
 # --------------------------------------------------------------------
 # Internal variables.
 
 
-             ALL_OSS="Linux Solaris"
+             ALL_OSS="Linux.RH71 Linux.FC2 Solaris"
                   CC=gcc
                  CXX=g++
               export CC CXX
@@ -726,8 +750,9 @@
    ENVIRONMENT=""
    ENVIRONMENT="$ENVIRONMENT ALLIANCE_TOP=$ALLIANCE_TOP; export ALLIANCE_TOP;"
 
-   $RSH   $LINUX_TARGET "/bin/bash -c \"$ENVIRONMENT $SELF $ARGS\""
-   $RSH $SOLARIS_TARGET "/bin/bash -c \". /etc/profile; $ENVIRONMENT $SELF $ARGS\""
+   $RSH $LINUX_FC2_TARGET  "/bin/bash -c \"$ENVIRONMENT $SELF $ARGS\""
+   $RSH $LINUX_RH71_TARGET "/bin/bash -c \"$ENVIRONMENT $SELF $ARGS\""
+   $RSH $SOLARIS_TARGET    "/bin/bash -c \". /etc/profile; $ENVIRONMENT $SELF $ARGS\""
  else
   # Out of recursion...
    compile_tool
