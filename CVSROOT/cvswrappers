@@ -67,6 +67,8 @@
 # xls
 # xpm
 # zip
+# vor
+# sdw
 # 
 # 
 
@@ -116,3 +118,5 @@
 *.[Xx][Ll][Ss]  -k b -m COPY
 *.[Xx][Pp][Mm]  -k b -m COPY
 *.[Zz][Ii][Pp]  -k b -m COPY
+*.[Vv][Oo][Rr]  -k b -m COPY
+*.[Ss][Dd][Ww]  -k b -m COPY
