@@ -6,14 +6,14 @@
 # Copyright (C) 1997, 2000 Czo <Olivier.Sirol@lip6.fr>
 # License: GPL (http://www.gnu.org/copyleft/gpl.html)
 # Started: Feb 1997
-# Last Change: Friday 22 September 2000, 16:33
-# Edit Time: 1:36:20
+# Last Change: Friday 22 September 2000, 16:42
+# Edit Time: 1:41:45
 # Description: Alliance CAD system configure.in 
 #
-# $Id: configure.in,v 1.19 2000/09/22 14:41:41 czo Exp $
+# $Id: configure.in,v 1.20 2000/09/22 14:50:02 czo Exp $
 #
 
-AC_REVISION($Revision: 1.19 $)dnl
+AC_REVISION($Revision: 1.20 $)dnl
 
 AC_INIT(configure.in)
 
@@ -487,11 +487,12 @@ else
 	vt_xpm_includes=$vt_xpm_includes vt_xpm_libraries=$vt_xpm_libraries \
 	vt_xpm_include_X11=$vt_xpm_include_X11"
   eval "$ac_cv_have_xpm"
-  AC_MSG_RESULT([-I$vt_xpm_includes -L$vt_xpm_libraries])
+  AC_MSG_RESULT([header:$vt_xpm_includes lib:$vt_xpm_libraries])
   if test -n "$vt_xpm_includes"; then
     HAVEXPM="NOXPM"
   else
     HAVEXPM="XPM"
+    AUTO_HAS="$AUTO_HAS -DAUTO_HAS_XPM"
   fi
   if test -n "$vt_xpm_includes"; then
     XPM_CFLAGS="-I$vt_xpm_includes"
@@ -629,16 +630,12 @@ fi
 ])
 
 VT_FIND_LIBXPM
-AUTO_HAS="$AUTO_HAS -DAUTO_HAS_XPM"
 
 XPM_CFLAGS_LOC="$XPM_CFLAGS"
 XPM_LIBS_LOC="$XPM_LIBS"
 
 AC_SUBST(XPM_LIBS_LOC)
 AC_SUBST(XPM_CFLAGS_LOC)
-
-CZO="king"
-AC_SUBST(CZO)
 
 # Check where usefull GNU libs are installed (readline)
 #AC_CHECK_LIB(readline, main, $TRUE,
