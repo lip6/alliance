@@ -602,10 +602,10 @@ relation RDS_ALU4 , RDS_ALU4 (
 caracterise RDS_ALU5 (
   regle 80 : largeur >= 2. ;
   regle 81 : longueur_inter min 2. ;
-  regle 82 : notch >= 12. ;
+  regle 82 : notch >= 8. ;
 );
 relation RDS_ALU5 , RDS_ALU5 (
-  regle 83 : distance axiale min 12. ;
+  regle 83 : distance axiale min 8. ;
 );
 
 # Check RDS_ALU6 shapes
@@ -747,8 +747,8 @@ DRC_COMMENT
 79 (RDS_POLY,CONT_DIFF) Manhatan distance min 2. 
 80 (RDS_ALU5) minimum width 2. 
 81 (RDS_ALU5) minimum width 2. 
-82 (RDS_ALU5) Manhatan distance min 12. 
-83 (RDS_ALU5,RDS_ALU5) Manhatan distance min 12. 
+82 (RDS_ALU5) Manhatan distance min 8. 
+83 (RDS_ALU5,RDS_ALU5) Manhatan distance min 8. 
 84 (RDS_ALU6) minimum width 2. 
 85 (RDS_ALU6) minimum width 2. 
 86 (RDS_ALU6) Manhatan distance min 12. 
