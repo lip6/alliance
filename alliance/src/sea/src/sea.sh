@@ -1,6 +1,6 @@
 #!/bin/sh
 #
-# $Id: sea.sh,v 1.1 2002/04/25 16:16:20 jpc Exp $
+# $Id: sea.sh,v 1.2 2002/05/30 13:49:48 jpc Exp $
 #
 # /------------------------------------------------------------------\
 # |                                                                  |
@@ -375,13 +375,8 @@
    echo "              environment."
    exit 1
  fi
- if [ -z "$ALLIANCE_OS" ]; then
-   echo "sea.sh:error: \$ALLIANCE_OS is not set, please set your Alliance"
-   echo "              environment."
-   exit 1
- fi
 
- if [ "$ALLIANCE_OS" != "Solaris" ]; then
+ if [ "`uname`" != "SunOS" ]; then
    echo "sea.sh:error: Must be run only under Solaris OS."
    echo "              (current OS : \"$ALLIANCE_OS\")"
    exit 1
@@ -389,7 +384,7 @@
 
 
  if [ "$devel" = "y" ]; then
-   ALLIANCE_TOP="/users/cao/jpc/alliance/archi/$ALLIANCE_OS"
+   ALLIANCE_TOP="/users/cao/jpc/alliance/Solaris"
 
    echo "WARNING:"
    echo "WARNING: You are using the developement version."

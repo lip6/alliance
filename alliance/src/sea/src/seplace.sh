@@ -1,6 +1,6 @@
 #!/bin/sh
 #
-# $Id: seplace.sh,v 1.1 2002/04/25 16:16:20 jpc Exp $
+# $Id: seplace.sh,v 1.2 2002/05/30 13:49:48 jpc Exp $
 #
 # /------------------------------------------------------------------\
 # |                                                                  |
@@ -130,7 +130,6 @@
  {
    vecho 1    "  o  Current Alliance environment:"
    vecho 1    "     - ALLIANCE_TOP    : ${ALLIANCE_TOP-not set}"
-   vecho 1    "     - ALLIANCE_OS     : ${ALLIANCE_OS-not set}"
    vecho 1    "  o  Current MBK environment:"
    vecho 1    "     - MBK_IN_LO       : ${MBK_IN_LO-not set}"
    vecho 1    "     - MBK_OUT_LO      : ${MBK_OUT_LO-not set}"

@@ -7399,6 +7399,9 @@ MACRO powmid_x0
     OBS
         LAYER L_ALU1 ;
         RECT 1.50 9.00 33.50 41.00 ;
+        LAYER L_ALU2 ;
+        RECT 4.00 49.00 16.00 51.00 ;
+        RECT 19.00 -1.00 31.00 1.00 ;
     END
 END powmid_x0
 
