@@ -1,8 +1,11 @@
 /*
    ### -------------------------------------------------- ### 
    $Author: hcl $
-   $Date: 2002/03/20 13:25:57 $
+   $Date: 2002/06/27 09:09:09 $
    $Log: ocrWindow.c,v $
+   Revision 1.3  2002/06/27 09:09:09  hcl
+   Code d'erreur si tous les signaux ne sont pas routés.
+
    Revision 1.2  2002/03/20 13:25:57  hcl
    SymX bug.
 
@@ -48,7 +51,7 @@
 #include "ocrConnectorUtil.h"
 
 static char *res_id =
-    "$Id: ocrWindow.c,v 1.2 2002/03/20 13:25:57 hcl Exp $";
+    "$Id: ocrWindow.c,v 1.3 2002/06/27 09:09:09 hcl Exp $";
 
 extern ocrOption *g_pOption;
 
@@ -601,7 +604,6 @@ void initWindow(ocrRoutingDataBase * i_pDataBase)
         }
     }
 
-#if 0
     i_pDataBase->WINDOWS[0] = newWindow(0);
     i_pDataBase->WINDOWS[1] = newWindow(1);
     i_pDataBase->WINDOWS[0]->XMIN = 0;
@@ -612,7 +614,6 @@ void initWindow(ocrRoutingDataBase * i_pDataBase)
     i_pDataBase->WINDOWS[1]->YMIN = 0;
     i_pDataBase->WINDOWS[1]->XMAX = (i_pDataBase->XAB2 - i_pDataBase->XAB1) / (PITCH * SCALE_X);
     i_pDataBase->WINDOWS[1]->YMAX = (i_pDataBase->YAB2 - i_pDataBase->YAB1) / (PITCH * SCALE_X);
-#endif
 }
 
 /**

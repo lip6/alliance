@@ -1,8 +1,11 @@
 /*
    ### -------------------------------------------------- ### 
    $Author: hcl $
-   $Date: 2002/04/25 13:41:33 $
+   $Date: 2002/06/27 09:09:05 $
    $Log: ocrWRoutingUtil.c,v $
+   Revision 1.4  2002/06/27 09:09:05  hcl
+   Code d'erreur si tous les signaux ne sont pas routés.
+
    Revision 1.3  2002/04/25 13:41:33  hcl
    New ripup/reroute loop, bug-kill (CALU&TALU).
 
@@ -124,6 +127,7 @@ void initWGrid(ocrWRoutingGrid * i_pGrid, ocrRoutingParameters * i_pParam)
 {
     ocrNaturalInt l_uLayer, i, j;
     ocrWSegment *l_pSegment;
+
 
     // création de segments libres de longueur MAX pour chaque noeud
     for (l_uLayer = 0; l_uLayer < i_pGrid->NB_OF_LAYERS; l_uLayer++)

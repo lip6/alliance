@@ -1,8 +1,11 @@
 /*
    ### -------------------------------------------------- ### 
    $Author: hcl $
-   $Date: 2002/06/26 13:28:52 $
+   $Date: 2002/06/27 09:09:01 $
    $Log: findNPointsPath.c,v $
+   Revision 1.5  2002/06/27 09:09:01  hcl
+   Code d'erreur si tous les signaux ne sont pas routés.
+
    Revision 1.4  2002/06/26 13:28:52  hcl
    bug hunter
 
@@ -92,7 +95,7 @@
 #include "ocrAstar.h"
 
 static char *res_id =
-    "$Id: findNPointsPath.c,v 1.4 2002/06/26 13:28:52 hcl Exp $";
+    "$Id: findNPointsPath.c,v 1.5 2002/06/27 09:09:01 hcl Exp $";
 
 #define MAX_HT 500
 
@@ -841,6 +844,7 @@ findPathNPoints(ocrRoutingParameters * i_pParam,
 #endif
 
         /* routage bipoint */
+        
         l_uLength = biroute (i_pParam, i_pGrid, con1, con2, i_pSignal, AS_K_SEG);
 
 #if 0
@@ -988,7 +992,25 @@ findPathNPoints(ocrRoutingParameters * i_pParam,
                     return OCRNATURALINT_MAX;
                 }
 
-                l_uLength = biroute (i_pParam, i_pGrid, l_pCon->NEXT, &l_NewCon, i_pSignal, AS_K_EQUI);
+                switch (g_pOption->ALGO) {
+                    case 1: l_uLength = biroute (
+                                    i_pParam,
+                                    i_pGrid,
+                                    l_pCon->NEXT,
+                                    NULL,
+                                    i_pSignal,
+                                    AS_K_EQUI);
+                            break;
+                    case 0: l_uLength = biroute (
+                                    i_pParam,
+                                    i_pGrid,
+                                    l_pCon->NEXT,
+                                    &l_NewCon,
+                                    i_pSignal,
+                                    AS_K_EQUI);
+                            break;
+                }
+                /*l_uLength = biroute (i_pParam, i_pGrid, l_pCon->NEXT, &l_NewCon, i_pSignal, AS_K_EQUI);*/
 #if 0
 
                 display(LEVEL, DEBUG, "(%ld,%ld,%d) -> (%ld,%ld,%d)\n",

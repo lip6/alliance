@@ -1,8 +1,11 @@
 /*
    ### -------------------------------------------------- ### 
    $Author: hcl $
-   $Date: 2002/04/25 13:41:32 $
+   $Date: 2002/06/27 09:09:01 $
    $Log: ocrRouter.c,v $
+   Revision 1.7  2002/06/27 09:09:01  hcl
+   Code d'erreur si tous les signaux ne sont pas routés.
+
    Revision 1.6  2002/04/25 13:41:32  hcl
    New ripup/reroute loop, bug-kill (CALU&TALU).
 
@@ -1043,7 +1046,8 @@ routingWindow(ocrRoutingDataBase * i_pDataBase, phfig_list * i_pPhFig)
         if (!chk)
             display (LEVEL, INFO, " none\n");
     }
-    return wire_len;
+    //return wire_len;
+    return i_pDataBase->NB_UNROUTED;
 }
 
 void
@@ -1117,6 +1121,7 @@ int main(int argc, char **argv)
     char *out_name;
     ocrNaturalInt start_with_vss = 0;
     ocrNaturalInt sym_y = 0;
+    ocrNaturalInt failures = 0;
 
 
     // initialisation de MBK
@@ -1288,7 +1293,7 @@ int main(int argc, char **argv)
                             l_pDataBase->NB_SIGNAL, ORDER_PRIORITY_CON);
 
             // dumpDataBase (l_pDataBase,stdout);
-            routingWindow(l_pDataBase, l_pPhFig);
+            failures = routingWindow(l_pDataBase, l_pPhFig);
             //linkWindow(l_pDataBase, i);
 
             deleteWindowArray(l_pDataBase, i);
@@ -1310,5 +1315,6 @@ int main(int argc, char **argv)
     }
 
     deleteDataBase(l_pDataBase);
-    return 0;
+    //return 0;
+    return failures;
 }
