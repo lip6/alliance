@@ -1,7 +1,7 @@
 
 // -*- C++ -*-
 //
-// $Id: MDRGrid.cpp,v 1.4 2004/07/23 08:50:04 jpc Exp $
+// $Id: MDRGrid.cpp,v 1.5 2005/02/17 15:34:44 jpc Exp $
 //
 //  /----------------------------------------------------------------\ 
 //  |                                                                |
@@ -496,7 +496,7 @@ template<class __CNode__>
 TMatrix<__CNode__>::TMatrix (CDRGrid *drgrid)
 {
   _drgrid = drgrid;
-  _grid   = new (__CNode__) [_drgrid->size];
+  _grid   = new __CNode__ [_drgrid->size];
 }
 
 

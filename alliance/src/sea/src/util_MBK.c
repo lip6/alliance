@@ -1,6 +1,6 @@
 
 /*
- *  $Id: util_MBK.c,v 1.4 2003/10/28 14:42:05 xtof Exp $
+ *  $Id: util_MBK.c,v 1.5 2005/02/17 15:34:44 jpc Exp $
  *
  *  /----------------------------------------------------------------\
  *  |                                                                |
@@ -1087,11 +1087,11 @@ extern long  cmpSigName(apLoSig, asName)
  *  Function  :  "addInsLoCon()".
  */
 
-extern locon_list *addInsLoCon(apIns, asName, apSig, aDir)
-  loins_list *apIns;
-        char *asName;
-  losig_list *apSig;
-        char  aDir;
+extern struct locon *addInsLoCon(apIns, asName, apSig, aDir)
+  struct loins *apIns;
+          char *asName;
+  struct losig *apSig;
+          char  aDir;
 {
   locon_list *pCon;
         char *sName;

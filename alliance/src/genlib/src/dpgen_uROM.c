@@ -1,5 +1,5 @@
 /*
- *  $Id: dpgen_uROM.c,v 1.2 2002/09/30 16:20:22 czo Exp $
+ *  $Id: dpgen_uROM.c,v 1.3 2005/02/17 15:34:44 jpc Exp $
  *
  *  /----------------------------------------------------------------\
  *  |                                                                |
@@ -113,6 +113,7 @@ static long  set_iLeafCell ()
     case DPGEN_ROM4: LV_iLeafCell += CELLS_ROM2;
     case DPGEN_ROM2: 
     default:
+      break;
   }
 
   return (LV_iLeafCell);

@@ -46,7 +46,7 @@
 /* printer.                                                                 */
 /****************************************************************************/
 
-#ident "$Id: drive_ps.c,v 1.4 2002/09/30 16:20:42 czo Exp $"
+#ident "$Id: drive_ps.c,v 1.5 2005/02/17 15:34:44 jpc Exp $"
 
 #define DRIVE2PS
 
@@ -510,6 +510,34 @@ int l;
 };
 
 /* - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - */
+void stonrec (ax,ay,aw,ah,ar,ap)
+double ax,ay,aw,ah;
+rdsrec_list *ar;
+rps_pge *ap;
+{
+	list_rnm        *recpno;
+
+	if (!p.norectname && ar->NAME!=NULL && !IsRdsConInter(ar)) {
+		if ((IsRdsConExter(ar) && p.noconame) ||
+		    (IsRdsReference(ar) && p.norefname) ||
+		    (IsRdsInstance(ar) && p.noinstname) ||
+		    (IsRdsSegment(ar) && p.nosegname) ) {
+		}
+		else {
+			recpno=(list_rnm *) mbkalloc (sizeof(list_rnm));
+			recpno->x=(int)(ax+(aw/2.0));
+			recpno->y=(int)(ay+(ah/2.0));
+			recpno->rot=RDS_NO;
+			if ((ah > aw) && IsRdsInstance(ar)) recpno->rot=RDS_YES;
+			recpno->lirec=ar;
+			recpno->next=ap->prpnom;
+			ap->prpnom=recpno;
+		};
+	};
+	return;
+};
+
+/* - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - */
 void rps_filter_rec (r)
 rdsrec_list	*r;
 {
@@ -568,34 +596,6 @@ rdsrec_list	*r;
 			stonrec(px,py,pw,ph,r,pg);
 		};
 	};
-};
-
-/* - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - */
-void stonrec (ax,ay,aw,ah,ar,ap)
-double ax,ay,aw,ah;
-rdsrec_list *ar;
-rps_pge *ap;
-{
-	list_rnm        *recpno;
-
-	if (!p.norectname && ar->NAME!=NULL && !IsRdsConInter(ar)) {
-		if ((IsRdsConExter(ar) && p.noconame) ||
-		    (IsRdsReference(ar) && p.norefname) ||
-		    (IsRdsInstance(ar) && p.noinstname) ||
-		    (IsRdsSegment(ar) && p.nosegname) ) {
-		}
-		else {
-			recpno=(list_rnm *) mbkalloc (sizeof(list_rnm));
-			recpno->x=(int)(ax+(aw/2.0));
-			recpno->y=(int)(ay+(ah/2.0));
-			recpno->rot=RDS_NO;
-			if ((ah > aw) && IsRdsInstance(ar)) recpno->rot=RDS_YES;
-			recpno->lirec=ar;
-			recpno->next=ap->prpnom;
-			ap->prpnom=recpno;
-		};
-	};
-	return;
 };
 
 /* - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - */

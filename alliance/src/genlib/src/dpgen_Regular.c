@@ -1,5 +1,5 @@
 /*
- *  $Id: dpgen_Regular.c,v 1.2 2002/09/30 16:20:22 czo Exp $
+ *  $Id: dpgen_Regular.c,v 1.3 2005/02/17 15:34:44 jpc Exp $
  *
  *  /----------------------------------------------------------------\
  *  |                                                                |
@@ -257,6 +257,7 @@ static long  set_iLeafCell ()
     case DPGEN_BUFF:      LV_iLeafCell += CELLS_INV;
     case DPGEN_INV:
     default:
+      break;
   }
 
   return (LV_iLeafCell);
@@ -1057,6 +1058,7 @@ static void  VHDL_entity ()
       fprintf (LV_FILE, "%14s : in    BIT_VECTOR %s;\n", "i0", sBusWide);
       break;
     case DPGEN_CONST:
+      break;
   }
 
 
@@ -1506,6 +1508,7 @@ extern void  dpgen_Regular (aFunction, aAL)
     case DPGEN_DFFT:
     case DPGEN_SFF:
     case DPGEN_SFFT:
+      break;
   }
 
 

@@ -1,5 +1,5 @@
 /*
- *  $Id: util_Defs.h,v 1.4 2002/09/30 16:21:18 czo Exp $
+ *  $Id: util_Defs.h,v 1.5 2005/02/17 15:34:44 jpc Exp $
  *
  *  /----------------------------------------------------------------\
  *  |                                                                |
@@ -370,22 +370,22 @@
  } ePow_t;
 
 
-  extern struct ePow_s *addPow     __FP((struct ePow_s **applPow,
-                                                  long   aY,
-                                                  long   aW,
-                                                  char  *aName,
-                                                  char   aType,
-                                                  char   aDir));
+  extern ePow_t *addPow     __FP((ePow_t **applPow,
+                                    long   aY,
+                                    long   aW,
+                                    char  *aName,
+                                    char   aType,
+                                    char   aDir));
   extern void           freePow    __FP((struct ePow_s *aplPow));
   extern struct ePow_s *getPow     __FP((struct ePow_s *aplPow, long aY));
   extern void           mergeXPow  __FP((struct ePow_s *apPow,
                                                   long  axMin,
                                                   long  axMax,
                                                   long  aW));
-  extern struct ePow_s *buildPow   __FP((struct phfig *apPhfig,
-                                                 char  aLayer,
-                                                 char  aDir,
-                                                 char *asSuffix));
+  extern ePow_t *buildPow   __FP((phfig_list *apPhfig,
+                                        char  aLayer,
+                                        char  aDir,
+                                        char *asSuffix));
   extern          void  powToCon   __FP(( struct phfig *apPhfig,
                                                   char  aLayer,
                                                   char  aDir,

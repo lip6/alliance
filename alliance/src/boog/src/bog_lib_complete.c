@@ -168,7 +168,7 @@ static int addgeneric(chain_list *abl, befig_list* befig, int area, float R, flo
 
    if ( !abl )
    {
-      fprintf(stderr,__FUNCTION__ ": NULL pointer\n");
+      fprintf(stderr,"addgeneric() : NULL pointer\n");
       exit(1);
    }
 
