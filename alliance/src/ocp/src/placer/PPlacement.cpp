@@ -1048,7 +1048,8 @@ PPlacement::GenerateConsPlacement()
     //creation d'un placement aleatoire des connecteurs.
     unsigned faces[4];
     double aspectRatio = GetWidth() / GetHeight();
-    unsigned nbConsNorthSouth = (unsigned)((_cons.size() / 2) * aspectRatio);
+    double repartition = aspectRatio + 1.0;
+    unsigned nbConsNorthSouth = (unsigned)( aspectRatio * _cons.size() / repartition);
     unsigned nbConsEastWest = _cons.size() - nbConsNorthSouth;
     
     //faces north est sud ouest
@@ -1069,55 +1070,67 @@ PPlacement::GenerateConsPlacement()
     int spaceLeft = 0;
     
     //placement au nord.
-    interval = (maxx - minx) / faces[0];
-    spaceLeft = (maxx - minx) % faces[0];
-    pos = minx + interval / 2;
-    while(faces[0]--)
+    if (faces[0])
     {
-	if (spaceLeft-- > 0)
-	    pos += 1;
-	(*cit)->SetOrient(NORTH);
-	(*cit++)->SetPos(PPos(pos , maxy));
-	pos += interval;
+	interval = (maxx - minx) / faces[0];
+	spaceLeft = (maxx - minx) % faces[0];
+	pos = minx + interval / 2;
+	while(faces[0]--)
+	{
+	    if (spaceLeft-- > 0)
+		pos += 1;
+	    (*cit)->SetOrient(NORTH);
+	    (*cit++)->SetPos(PPos(pos , maxy));
+	    pos += interval;
+	}
     }
     
     //placement a l'est.
-    interval = (maxy - miny) / faces[1];
-    spaceLeft = (maxx - minx) % faces[1];
-    pos = miny + interval / 2;
-    while(faces[1]--)
+    if (faces[1])
     {
-	if (spaceLeft-- > 0)
-	    pos += 1;
-	(*cit)->SetOrient(EAST);
-	(*cit++)->SetPos(PPos(maxx , pos));
-	pos += interval;
+	interval = (maxy - miny) / faces[1];
+	spaceLeft = (maxx - minx) % faces[1];
+	pos = miny + interval / 2;
+	while(faces[1]--)
+	{
+	    if (spaceLeft-- > 0)
+		pos += 1;
+	    (*cit)->SetOrient(EAST);
+	    (*cit++)->SetPos(PPos(maxx , pos));
+	    pos += interval;
+	}
     }
     
     //placement au sud.
-    interval = (maxx - minx) / faces[2];
-    spaceLeft = (maxx - minx) % faces[2];
-    pos = minx + interval / 2;
-    while(faces[2]--)
+    if (faces[2])
     {
-	if (spaceLeft-- > 0)
-	    pos += 1;
-	(*cit)->SetOrient(SOUTH);
-	(*cit++)->SetPos(PPos(pos , miny));
-	pos += interval;
+	interval = (maxx - minx) / faces[2];
+	spaceLeft = (maxx - minx) % faces[2];
+	pos = minx + interval / 2;
+	while(faces[2]--)
+	{
+	    if (spaceLeft-- > 0)
+		pos += 1;
+	    (*cit)->SetOrient(SOUTH);
+	    (*cit++)->SetPos(PPos(pos , miny));
+	    pos += interval;
+	}
     }
     
     //placement a l'ouest.
-    interval = (maxy - miny) / faces[3];
-    spaceLeft = (maxx - minx) % faces[3];
-    pos = miny + interval / 2;
-    while(faces[3]--)
+    if (faces[3])
     {
-	if (spaceLeft-- > 0)
-	    pos += 1;
-	(*cit)->SetOrient(WEST);
-	(*cit++)->SetPos(PPos(minx , pos));
-	pos += interval;
+	interval = (maxy - miny) / faces[3];
+	spaceLeft = (maxx - minx) % faces[3];
+	pos = miny + interval / 2;
+	while(faces[3]--)
+	{
+	    if (spaceLeft-- > 0)
+		pos += 1;
+	    (*cit)->SetOrient(WEST);
+	    (*cit++)->SetPos(PPos(minx , pos));
+	    pos += interval;
+	}
     }
 }
 
@@ -1150,29 +1163,35 @@ PPlacement::GenerateRingConsPlacement()
     int spaceLeft = 0;
     
     //placement au nord.
-    interval = (maxx - minx) / faces[0];
-    spaceLeft = (maxx - minx) % faces[0];
-    pos = minx + interval / 2;
-    while(faces[0]--)
+    if (faces[0])
     {
-	if (spaceLeft-- > 0)
-	    pos += 1;
-	(*cit)->SetOrient(NORTH);
-	(*cit++)->SetPos(PPos(pos , maxy));
-	pos += interval;
+	interval = (maxx - minx) / faces[0];
+	spaceLeft = (maxx - minx) % faces[0];
+	pos = minx + interval / 2;
+	while(faces[0]--)
+	{
+	    if (spaceLeft-- > 0)
+		pos += 1;
+	    (*cit)->SetOrient(NORTH);
+	    (*cit++)->SetPos(PPos(pos , maxy));
+	    pos += interval;
+	}
     }
     
     //placement au sud.
-    interval = (maxx - minx) / faces[1];
-    spaceLeft = (maxx - minx) % faces[1];
-    pos = minx + interval / 2;
-    while(faces[1]--)
+    if (faces[1])
     {
-	if (spaceLeft-- > 0)
-	    pos += 1;
-	(*cit)->SetOrient(SOUTH);
-	(*cit++)->SetPos(PPos(pos , miny));
-	pos += interval;
+	interval = (maxx - minx) / faces[1];
+	spaceLeft = (maxx - minx) % faces[1];
+	pos = minx + interval / 2;
+	while(faces[1]--)
+	{
+	    if (spaceLeft-- > 0)
+		pos += 1;
+	    (*cit)->SetOrient(SOUTH);
+	    (*cit++)->SetPos(PPos(pos , miny));
+	    pos += interval;
+	}
     }
 }
     
