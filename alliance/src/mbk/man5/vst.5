@@ -1,0 +1,104 @@
+.\"   $Id: vst.5,v 1.1 2002/09/24 08:44:44 czo Exp $
+.\" @(#)VST.5 1.0 Jan 28 1992 UPMC ; VUONG H.N.
+.TH VST 5 "October 1, 1997" "ASIM/LIP6" "VHDL subset of ASIM/LIP6/CAO-VLSI lab."
+
+.SH NAME
+.PP
+\fBvst\fP
+.br
+VHDL structural subset.
+
+.so man1/alc_origin.1
+.SH DESCRIPTION
+.PP
+This document describes the ALLIANCE VHDL subset for structural descriptions.
+
+.PP
+The declaration part of a structural description includes signal decalarations
+and component declarations.
+
+.PP
+An internal signal can be declared of any type supported by the present VHDL
+subset except reg_bit and reg_vector.
+
+.PP
+A component must be declared with exactly the same port description as in its
+entity specification. This means that local ports are to be declared with the
+same name, type and kind and in the same order.
+
+.PP
+A structural description is a set of component instanciation statements.
+Instances' ports are connected to each other trough signals in a port map
+specification. Both explicit and implicit port map specifications are supported
+by the ALLIANCE VHDL subset.
+
+.PP
+The present version of the VHDL compiler does not allow unconnected ports (the
+\fIopen\fP mode is not supported).
+
+.PP
+Only the concatenation operator (&) can be used in the actual part (effective
+signal conntected to a formal port) of a port map specification.
+
+.SH EXAMPLES
+.PP
+Here is the description of an adder with an accumulator register.
+
+.nf
+entity add_accu is
+port (
+  clk      : in  bit;
+  command  : in  bit;
+  data_in  : in  bit_vector (31 downto 0);
+  data_out : out bit_vector (31 downto 0);
+  cry_out  : out bit;
+  vdd      : in  bit;
+  vss      : in  bit
+  );
+end add_accu;
+
+architecture structural of add_accu is
+
+signal eff_data  : bit_vector (31 downto 0);		-- effective operande
+signal adder_out : bit_vector (31 downto 0);		-- adder's result
+signal accu_out  : bit_vector (31 downto 0);		-- accumulator
+
+component adder 
+port (a   : in  bit_vector (31 downto 0);
+      b   : in  bit_vector (31 downto 0);
+      res : out bit_vector (31 downto 0));
+end component;
+
+component and_32
+port (a   : in  bit_vector (31 downto 0);
+      cmd : in  bit;
+      res : out bit_vector (31 downto 0));
+end component;
+
+component falling_edge_reg
+port (din  : in  bit_vector (31 downto 0);
+      clk  : in  bit;
+      dout : out bit_vector (31 downto 0));
+end component;
+
+begin
+
+  my_adder : adder
+  port map (a => eff_data, b => accu_out, res => adder_out);
+
+  my_mux   : and_32
+  port map (cmd => command, a => accu_out, res => eff_data);
+
+  my_reg   : falling_edge_reg
+  port map (din => adder_out, clk => clk, dout => accu_out);
+
+end;
+.fi
+
+.SH SEE ALSO
+.PP
+vhdl(5), vbe(5), asimut(1)
+
+
+.so man1/alc_bug_report.1
+
