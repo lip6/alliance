@@ -6,14 +6,14 @@
 # Copyright (C) 1997, 2000 Czo <Olivier.Sirol@lip6.fr>
 # License: GPL (http://www.gnu.org/copyleft/gpl.html)
 # Started: Feb 1997
-# Last Change: Wednesday 24 January 2001, 18:40
-# Edit Time: 5:03:59
+# Last Change: Friday 18 May 2001, 18:01
+# Edit Time: 5:05:26
 # Description: Alliance CAD system configure.in 
 #
-# $Id: configure.in,v 1.23 2001/01/24 17:43:06 czo Exp $
+# $Id: configure.in,v 1.24 2001/05/18 16:07:48 czo Exp $
 #
 
-AC_REVISION($Revision: 1.23 $)dnl
+AC_REVISION($Revision: 1.24 $)dnl
 
 AC_INIT(configure.in)
 
@@ -309,9 +309,10 @@ MOTIF_LIB_LOC="-L$GUI_LIB_LOC -lXm"
 
 # Try static link on Linux
 # TODO: faire pareil pour Xpm, voir gvim???
+# ERRORLinux !!!! ca marche pas Xm a besoin de -lXp (pb xfsm)
 
     if test -f "$GUI_LIB_LOC/libXm.a"; then
-      if test "$ALLIANCE_OS" = Linux; then
+      if test "$ALLIANCE_OS" = ERRORLinux; then
           MOTIF_LIB_LOC="$GUI_LIB_LOC/libXm.a"
       fi
     fi
