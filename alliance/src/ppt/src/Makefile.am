@@ -26,7 +26,7 @@ pat_desc_y.c pat_desc_y.h : $(srcdir)/pat_desc_y.y
 	sed -e "s/yy/pat_decl_y_/g" -e "s/YY/PAT_DECL_Y_/g" > pat_desc_y.h
 
 #sed -e "s/yy/pat_desc_y_/g" -e "s/YY/PAT_DESC_Y_/g" > pat_desc_y.c && sed -e "s/yy/pat_desc_y_/g" -e "s/YY/PAT_DESC_Y_/g" y.tab.h > pat_desc_y.h
-# sed -e "s/yyin/pat_decl_y_/g" -e "s/yylex/pat_decl_y_lex/g" y.tab.c | \
+# sed -e "s/yyin/pat_decl_y_/g" -e "s/yylex/pat_decl_y_lex/g" y.tab.c | 
 
 pat_desc_l.c : $(srcdir)/pat_desc_l.l pat_desc_y.h
 	$(LEX) -t $(srcdir)/pat_desc_l.l | sed -e "s/yy/pat_desc_y_/g" -e "s/YY/PAT_DESC_Y_/g" > pat_desc_l.c
