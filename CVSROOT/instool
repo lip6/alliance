@@ -7,7 +7,7 @@
 # Author: Frédéric Pétrot (fred@pasta.fr.ea)
 #         for version 0
 #
-# $Id: instool,v 1.10 1999/10/15 10:09:14 czo Exp $
+# $Id: instool,v 1.11 1999/10/15 10:11:39 czo Exp $
 #
 
 PATH=/users/outil1/alliance/cvsroot/CVSROOT:/asim/gnu/bin:/usr/ucb:/usr/etc:/bin:/usr/bin:/usr/local/bin:${PATH}
@@ -342,5 +342,5 @@ echo "   the default shell is now sh"
       mail -s "ALC : Problem while installing `basename $1`" $BUGTEAM < $BUG
    fi
    echo $* | mail -s "ALC : Install of `basename $1`" $ALCTEAM
-   cat $LOG >> $TMPDIR/tmp/`basename $1`.log
+   cat $LOG >> $TMPDIR/`basename $1`.log
    exit 0
