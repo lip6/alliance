@@ -478,6 +478,7 @@ void MochaSyfFsmEncode( FsmFigure, FlagVerbose )
 
   NumberState = FsmFigure->NUMBER_STATE;
   NumberBit   = MochaSyfGetNumberBit( NumberState - 1 );
+
   CodeMax     = ( 1 << NumberBit );
 
   CodeArray = (mochasyfcode *)autallocblock( sizeof( mochasyfcode ) * CodeMax );
@@ -498,7 +499,10 @@ void MochaSyfFsmEncode( FsmFigure, FlagVerbose )
   {
     MOCHA_SYF_STATE( ScanState )->CODE = &CodeArray[ NumberState - Index - 1 ];
 
-    CodeArray[ Index ].USED  = 1;
+    CodeArray[ NumberState - Index - 1 ].USED  = 1;
+
+    fprintf( stdout, "ScanState %s Code %ld\n",
+            ScanState->NAME, CodeArray[ NumberState - Index - 1 ].VALUE );
 
     ScanState = ScanState->NEXT;
     Index     = Index + 1;

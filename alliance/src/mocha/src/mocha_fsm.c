@@ -118,24 +118,8 @@ void MochaCompileFsm( MochaFigure, FileName, FlagVerbose )
   {
     if ( IsFsmFigMixedRtl( FsmFigure ) )
     {
-      fprintf( stdout, "\t\t--> Mixed DataFlow / Fsm\n\n" );
+      fprintf( stdout, "\t\tMixed DataFlow / Fsm\n\n" );
     }
-
-    for ( ScanChain  = FsmFigure->MULTI;
-          ScanChain != (chain_list *)0;
-          ScanChain  = ScanChain->NEXT )
-    {
-      ScanFigure = (fsmfig_list *)ScanChain->DATA;
-
-      fprintf( stdout, "\t\t--> Name    : %s\n" , ScanFigure->NAME         );
-      fprintf( stdout, "\t\t--> States  : %ld\n", ScanFigure->NUMBER_STATE );
-      fprintf( stdout, "\t\t--> Inputs  : %ld\n", ScanFigure->NUMBER_IN    );
-      fprintf( stdout, "\t\t--> Outputs : %ld\n", ScanFigure->NUMBER_OUT   );
-      fprintf( stdout, "\t\t--> Edges   : %ld\n", ScanFigure->NUMBER_TRANS );
-      fprintf( stdout, "\n" );
-    }
-
-    fprintf( stdout, "\t\t--> Encode FSM figure\n" );
   }
 
   for ( ScanChain  = FsmFigure->MULTI;
@@ -143,6 +127,12 @@ void MochaCompileFsm( MochaFigure, FileName, FlagVerbose )
         ScanChain  = ScanChain->NEXT )
   {
     ScanFigure = (fsmfig_list *)ScanChain->DATA;
+
+    if ( FlagVerbose )
+    {
+      fprintf( stdout, "\t    --> Encoding FSM figure %s\n", ScanFigure->NAME );
+    }
+
     MochaSyfFsmEncode( ScanFigure, FlagVerbose );
   }
 
