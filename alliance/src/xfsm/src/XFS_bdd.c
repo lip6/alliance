@@ -132,20 +132,34 @@ void XfsmSimplifyFigure( FsmFigure )
 
   fsmfig_list *FsmFigure;
 {
+  chain_list     *ScanChain;
+  fsmfig_list    *ScanFigure;
   bddsystem      *BddSystem;
   bddcircuit     *BddCircuit;
 
-  BddSystem = createbddsystem( XFSM_BDD_VAR_NODE, 
-                               XFSM_BDD_OPER_NODE, 1000, XFSM_BDD_MAX_NODE );
+  if ( ! IsFsmFigMulti( FsmFigure ) )
+  {
+    FsmFigure->MULTI = addchain( (chain_list *)0, FsmFigure );
+  }
 
-  reorderbddsystemdynamic( BddSystem, XFSM_BDD_REORDER_FUNC,
-                           XFSM_BDD_REORDER_LOW, XFSM_BDD_REORDER_RATIO );
+  for ( ScanChain  = FsmFigure->MULTI;
+        ScanChain != (chain_list *)0;
+        ScanChain  = ScanChain->NEXT )
+  {
+    ScanFigure = (fsmfig_list *)ScanChain->DATA;
 
-  BddCircuit = XfsmMakeBddCircuit( BddSystem, FsmFigure );
-  convertfsmbddnodeabl( FsmFigure );
-
-  destroybddcircuit( BddCircuit );
-  destroybddsystem( BddSystem );
-
-   FsmFigure->CIRCUIT = (bddcircuit *)0;
+    BddSystem = createbddsystem( XFSM_BDD_VAR_NODE, 
+                                 XFSM_BDD_OPER_NODE, 1000, XFSM_BDD_MAX_NODE );
+  
+    reorderbddsystemdynamic( BddSystem, XFSM_BDD_REORDER_FUNC,
+                             XFSM_BDD_REORDER_LOW, XFSM_BDD_REORDER_RATIO );
+  
+    BddCircuit = XfsmMakeBddCircuit( BddSystem, ScanFigure );
+    convertfsmbddnodeabl( ScanFigure );
+  
+    destroybddcircuit( BddCircuit );
+    destroybddsystem( BddSystem );
+  
+    ScanFigure->CIRCUIT = (bddcircuit *)0;
+  }
 }

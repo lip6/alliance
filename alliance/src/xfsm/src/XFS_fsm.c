@@ -166,7 +166,10 @@ fsmfig_list *Xfsmgetfsmfig( FileName )
 
   if ( FigureFsm != (fsmfig_list *)NULL )
   {
-    delfsmfig( FigureFsm->NAME );
+    while ( HEAD_FSMFIG != (fsmfig_list *)0 )
+    {
+      delfsmfig( HEAD_FSMFIG->NAME );
+    }
   }
 
   autend();

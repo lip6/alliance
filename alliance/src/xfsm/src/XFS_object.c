@@ -597,6 +597,8 @@ long XfsmPlaceState( FsmState, X, Y )
 
 xfsmfig_list *XfsmAddFigure()
 {
+  fsmfig_list   *FigureFsm;
+  chain_list    *ScanChain;
   fsmstate_list *ScanState;
   void          *Pointer;
   long           X;
@@ -609,39 +611,46 @@ xfsmfig_list *XfsmAddFigure()
   X = 0;
   XfsmScanStepX1 = 0;
   XfsmScanStepX2 = 0;
-
-  if ( XfsmFigureFsm->FIRST_STATE != (fsmstate_list *)0 )
+  
+  for ( ScanChain  = XfsmFigureFsm->MULTI;
+        ScanChain != (chain_list *)0;
+        ScanChain  = ScanChain->NEXT )
   {
-    X = 15 + XfsmPlaceState( XfsmFigureFsm->FIRST_STATE, X, 0 );
-  }
+    FigureFsm = (fsmfig_list *)ScanChain->DATA;
 
-  if ( XfsmFigureFsm->STAR_STATE != (fsmstate_list *)0 )
-  {
-    ScanState = XfsmFigureFsm->STAR_STATE;
-    if ( ScanState->USER == (void *)0 )
+    if ( FigureFsm->FIRST_STATE != (fsmstate_list *)0 )
     {
-      X = 15 + XfsmPlaceState( ScanState, X, 0 );
+      X = 15 + XfsmPlaceState( FigureFsm->FIRST_STATE, X, 0 );
     }
-  }
-
-  for ( ScanState  = XfsmFigureFsm->STATE;
-        ScanState != (fsmstate_list *)0;
-        ScanState  = ScanState->NEXT )
-  {
-    if ( ScanState->USER == (void *)0 )
+  
+    if ( FigureFsm->STAR_STATE != (fsmstate_list *)0 )
     {
-      X = 15 + XfsmPlaceState( ScanState, X, 0 );
+      ScanState = FigureFsm->STAR_STATE;
+      if ( ScanState->USER == (void *)0 )
+      {
+        X = 15 + XfsmPlaceState( ScanState, X, 0 );
+      }
     }
-  }
-
-  for ( ScanState  = XfsmFigureFsm->STATE;
-        ScanState != (fsmstate_list *)0;
-        ScanState  = ScanState->NEXT )
-  {
-    Pointer = ScanState->USER;
-    ScanState->USER = (void *)(((xfsmcoord *)Pointer)->OBJECT);
-
-    autfreeheap( Pointer, sizeof( xfsmcoord ) );
+  
+    for ( ScanState  = FigureFsm->STATE;
+          ScanState != (fsmstate_list *)0;
+          ScanState  = ScanState->NEXT )
+    {
+      if ( ScanState->USER == (void *)0 )
+      {
+        X = 15 + XfsmPlaceState( ScanState, X, 0 );
+      }
+    }
+  
+    for ( ScanState  = FigureFsm->STATE;
+          ScanState != (fsmstate_list *)0;
+          ScanState  = ScanState->NEXT )
+    {
+      Pointer = ScanState->USER;
+      ScanState->USER = (void *)(((xfsmcoord *)Pointer)->OBJECT);
+  
+      autfreeheap( Pointer, sizeof( xfsmcoord ) );
+    }
   }
 
   autend();
@@ -723,7 +732,10 @@ void XfsmDelFigure()
 
   XfsmFreeFigure( XfsmFigure );
 
-  delfsmfig( XfsmFigureFsm->NAME );
+  while ( HEAD_FSMFIG != (fsmfig_list *)0 )
+  {
+    delfsmfig( HEAD_FSMFIG->NAME );
+  }
 
   XfsmFigure    = (xfsmfig_list *)0;
   XfsmFigureFsm = (fsmfig_list  *)0;
