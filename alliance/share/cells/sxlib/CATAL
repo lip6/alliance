@@ -51,3 +51,7 @@ xr2_x4 C
 zero_x0 C
 one_x0.ap F
 zero_x0.ap F
+rowend_x0 C
+tie_x0 C
+rowend_x0 F
+tie_x0 F
