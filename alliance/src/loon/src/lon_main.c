@@ -382,15 +382,6 @@ extern int main (int argc, char* argv[])
    fprintf(stdout,"%ld ps\n",(long) getmaxRC(lofig));
  
  
-   /*saving file*/
-   if (output_file) {
-      fprintf(stdout,"Saving file '%s.%s'...\n",output_file,mbk_out_lo);
-      lofig->NAME=output_file;
-      savelofig(lofig);  /*change la lofigchain en mode .al*/
-      lofigchain(lofig);
-   }
-   
-  
    if (verbose_mode) {
       ptype_list* ptype, *ptype2, *new_percentage, *new_model;
       losig_list* losig;
@@ -456,6 +447,14 @@ extern int main (int argc, char* argv[])
             }
          }
       }
+   }
+   
+   /*saving file*/
+   if (output_file) {
+      fprintf(stdout,"Saving file '%s.%s'...\n",output_file,mbk_out_lo);
+      lofig->NAME=output_file;
+      savelofig(lofig);  /*change la lofigchain en mode .al*/
+      lofigchain(lofig);
    }
    
    
