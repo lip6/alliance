@@ -37,7 +37,7 @@
     <itemizedlist>
       <listitem>
         <para> &datain0; and &datain1; : the two write busses. Only one
-        is used to actually write the register word, it is selected by
+        is used to actually write the FIFO, it is selected by
         the &sel; signal.
         </para>
       </listitem>
@@ -48,14 +48,12 @@
       </listitem>
       <listitem>
         <para> &r;, &rok; : set &r; when a word is requested, &rok; tells
-        that a word has effectively been popped out of the FIFO (this is
-        indicate an empty FIFO).
+        that a word has effectively been popped (rok == not empty).
         </para>
       </listitem>
       <listitem>
         <para> &w;, &wok; : set &w; when a word is pushed, &wok; tells
-        that the word has effectively been pushed in the FIFO (this is
-        indicate that the FIFO is full).
+        that the word has effectively been pushed (wok == not full).
         </para>
       </listitem>
     </itemizedlist>
