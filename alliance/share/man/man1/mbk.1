@@ -1,4 +1,4 @@
-.\"   $Id: mbk.1,v 1.1 1999/05/31 17:30:14 alliance Exp $
+.\"   $Id: mbk.1,v 1.2 2000/11/20 12:43:38 gregoire Exp $
 .\" @(#)mbk.l 0.0 90/22/08 UPMC; Author : Frederic Petrot
 .if t \{\
 .so man1/alc_contents.mac
@@ -443,6 +443,17 @@ an equality of pointers
 \fBmbkps\fP
 \- display informations on utilized memory and time spend on a process
 .RE
+.TP 10
+\-child process :
+.RS
+.TP 20
+\fBmbkwaitpid\fP
+\- wait for a particular child process
+.TP
+\fBmbksetautoackchld\fP
+\- tells Alliance library to automatically handle the terminaison a particular
+process
+.RE
 .RE
 .sp
 .LP
@@ -593,7 +604,9 @@ libMutnnn.a :
 \fBaddhtitem\fP,
 \fBdelhtitem\fP,
 \fBgethtitem\fP,
-\fBsethtitem\fP.
+\fBsethtitem\fP,
+\fBmbkwaitpid\fP,
+\fBmbksetautoackchld\fP.
 .LP
 The libraries are organized in such a way that no cycle can appear through
 calls.

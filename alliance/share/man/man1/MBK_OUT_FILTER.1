@@ -1,4 +1,4 @@
-.\"   $Id: MBK_OUT_FILTER.1,v 1.1 1999/10/13 09:57:13 czo Exp $
+.\"   $Id: MBK_OUT_FILTER.1,v 1.2 2000/11/20 12:43:37 gregoire Exp $
 
 .TH MBK_OUT_FILTER 1 "October 1, 1999" "ASIM/LIP6" "MBK ENVIRONMENT VARIABLES"
 
@@ -8,7 +8,14 @@ MBK_OUT_FILTER \- define the input filter
 .so man1/alc_origin.1
 
 .SH DESCRIPTION
-\fBMBK_OUT_FILTER\fP sets the input filter
+\fBMBK_OUT_FILTER\fP sets the output filter for writting compressed Alliance
+files. Filter is typically a string containing filename and options. This filter
+must read non compressed data flow on it standard input and write compressed
+data flow on it standard output. If a non compressed version of a file exist in
+the same target directory the designer want the save a file's compressed
+version, to ensure that file will be read later and not the non compressed one,
+the non compressed file is DELETED.  To activate filters, variable
+MBK_FILTER_SFX must be set.
 
 .SH EXAMPLE
 .nf
@@ -16,13 +23,16 @@ MBK_OUT_FILTER \- define the input filter
 .ft B \}
 .if t \{\
 .ft CR \}
+Writing compressed files with gzip :
 	setenv MBK_OUT_FILTER "/asim/gnu/bin/gzip -c"
+	setenv MBK_FILTER_SFX ".gz"
 .ft R
 .fi
 .SH SEE ALSO
 .BR mbk (1),
 .BR MBK_FILTER_SFX (1),
-.BR MBK_IN_FILTER (1).
+.BR MBK_IN_FILTER (1),
+.BR mbkenv (1).
 
 
 .so man1/alc_bug_report.1
