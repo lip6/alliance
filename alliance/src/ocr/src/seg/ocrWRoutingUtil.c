@@ -1,8 +1,11 @@
 /*
    ### -------------------------------------------------- ### 
    $Author: hcl $
-   $Date: 2002/07/03 12:38:16 $
+   $Date: 2002/07/16 12:03:55 $
    $Log: ocrWRoutingUtil.c,v $
+   Revision 1.7  2002/07/16 12:03:55  hcl
+   bug...
+
    Revision 1.6  2002/07/03 12:38:16  hcl
    rien
 
@@ -201,7 +204,7 @@ void initWGrid(ocrWRoutingGrid * i_pGrid, ocrRoutingParameters * i_pParam)
     }
 
 #if 0
-    /* contraintes de distances min entre ALU5-ALU5 et ALU6-ALU6
+    /* contraintes de distances min entre ALU5-ALU5 et ALU6-ALU6 */
     if (i_pGrid->NB_OF_LAYERS > 2) {
         for (l_uLayer = 3; l_uLayer < i_pGrid->NB_OF_LAYERS; l_uLayer++)
 
