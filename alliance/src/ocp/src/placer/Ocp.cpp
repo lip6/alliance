@@ -370,9 +370,7 @@ main(int argc, char **argv)
     if ( Margin < 0.15 )
     {
       cerr << " o Ocp Warning : the value of margin: "
-	   << Margin << " cannot be respected..." << endl
-	   << " o value forced to 0.15 !!" << endl; 
-      Margin = 0.15;
+	   << Margin << " is very low... Try a value around 0.15 ..." << endl;
     }
 
     if ( Margin > 3 )
