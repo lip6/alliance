@@ -109,3 +109,7 @@ message      [Mm][Ee][Ss][Ss][Aa][Gg][Ee]
 .                  {ECHO;}
 %%
 
+int yywrap(void)
+{
+   return 1;
+}
