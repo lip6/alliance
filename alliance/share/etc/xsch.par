@@ -224,7 +224,6 @@ TABLE XSCH_ICON_CELL_TRISTATE
   nts_x1    cmd,i        nq  0 1
   nts_x2    cmd,i        nq  0 1
 
-# ts_x4     cmd,i         q  0 0
   ts_x4     cmd,i         q  0 0
   ts_x8     cmd,i         q  0 0
 
@@ -263,3 +262,95 @@ TABLE XSCH_ICON_CELL_REGISTER
   ms2dp4_y  di,si,se,ck               t 4 0 1  0  2
   
 END
+
+# /*------------------------------------------------------------\
+# |                                                             |
+# |                     Xsch Icon Cell One                      |
+# |                                                             |
+# \------------------------------------------------------------*/
+
+TABLE XSCH_ICON_CELL_CONSTANT 
+
+# model  outputs number_out value
+
+# SXLIB
+  one_x0    q  1 1
+  zero_x0  nq  1 0
+
+# SCLIB
+  one_y     t  1 1
+  zero_y    f  1 0
+  
+END
+
+# /*------------------------------------------------------------\
+# |                                                             |
+# |                     Xsch Icon Cell And_Or                   |
+# |                                                             |
+# \------------------------------------------------------------*/
+
+TABLE XSCH_ICON_CELL_ANDOR 
+
+# model      inputs  output number_in  not_in not_out
+
+# SXLIB
+
+  ao22_x2    i0,i1,i2     q  3          0     0
+  ao22_x4    i0,i1,i2     q  3          0     0
+  ao2o22_x2  i0,i1,i2,i3  q  4          0     0
+  ao2o22_x4  i0,i1,i2,i3  q  4          0     0
+                          
+  nao22_x1   i0,i1,i2    nq  3          0     1
+  nao22_x4   i0,i1,i2    nq  3          0     1
+  nao2o22_x1 i0,i1,i2,i3 nq  4          0     1
+  nao2o22_x4 i0,i1,i2,i3 nq  4          0     1
+
+# SCLIB
+
+  mx2_y      i0,l0,i1,l1              t  4   0   0
+  mx2p_y     i0,l0,i1,l1              t  4   0   0
+  mx3_y      i0,l0,i1,l1,i2,l2        t  6   0   0
+  mx4_y      i0,l0,i1,l1,i2,l2,i3,l3  t  8   0   0
+  nmx2_y     j0,i0,j1,i1              t  4   0   1
+  nao3_y     i0,i1,i2                 f  3   0   1
+  
+END
+
+# /*------------------------------------------------------------\
+# |                                                             |
+# |                     Xsch Icon Cell Or_And                   |
+# |                                                             |
+# \------------------------------------------------------------*/
+
+TABLE XSCH_ICON_CELL_ORAND 
+
+# model      inputs  output number_in  not_in   not_out
+
+# SXLIB
+
+  noa22_x1         i0,i1,i2                 nq  3  0 1
+  noa22_x4         i0,i1,i2                 nq  3  0 1
+  noa2a22_x1       i0,i1,i2,i3              nq  4  0 1
+  noa2a22_x4       i0,i1,i2,i3              nq  4  0 1
+  noa2a2a23_x1     i0,i1,i2,i3,i4,i5        nq  6  0 1
+  noa2a2a23_x4     i0,i1,i2,i3,i4,i5        nq  6  0 1
+  noa2a2a2a24_x1   i0,i1,i2,i3,i4,i5,i6,i7  nq  8  0 1
+  noa2a2a2a24_x4   i0,i1,i2,i3,i4,i5,i6,i7  nq  8  0 1
+
+  oa22_x2          i0,i1,i2                  q  3  0 1
+  oa22_x4          i0,i1,i2                  q  3  0 1
+  oa2a22_x2        i0,i1,i2,i3               q  4  0 1
+  oa2a22_x4        i0,i1,i2,i3               q  4  0 1
+  oa2a2a23_x2      i0,i1,i2,i3,i4,i5         q  6  0 1
+  oa2a2a23_x4      i0,i1,i2,i3,i4,i5         q  6  0 1
+  oa2a2a2a24_x2    i0,i1,i2,i3,i4,i5,i6,i7   q  8  0 1
+  oa2a2a2a24_x4    i0,i1,i2,i3,i4,i5,i6,i7   q  8  0 1
+
+
+# SCLIB
+
+   noa3_y          i0,i1,i2                  f  3  0 1
+   annup_y         i1,i2,i3,i4               f  4  0 1
+
+END
+
