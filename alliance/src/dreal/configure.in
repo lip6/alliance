@@ -1,0 +1,36 @@
+dnl Process this file with autoconf to produce a configure script.
+AC_INIT(src/dreal.c)
+
+DREAL_MAJOR_VERSION=1
+DREAL_MINOR_VERSION=14
+DREAL_VERSION=$DREAL_MAJOR_VERSION.$DREAL_MINOR_VERSION
+
+AC_SUBST(DREAL_MAJOR_VERSION)
+AC_SUBST(DREAL_MINOR_VERSION)
+AC_SUBST(DREAL_VERSION)
+
+# For automake.
+VERSION=$DREAL_VERSION
+PACKAGE=dreal
+
+dnl Initialize automake stuff
+AM_INIT_AUTOMAKE($PACKAGE, $VERSION)
+
+dnl Checks for programs.
+AC_PROG_CC
+AM_PROG_LEX
+AC_PROG_YACC
+AC_PROG_RANLIB
+AC_PROG_MAKE_SET
+AC_FIND_MOTIF
+
+dnl Checks for typedefs, structures, and compiler characteristics.
+AC_C_CONST
+
+AM_ALLIANCE
+
+AC_OUTPUT([
+Makefile
+src/Makefile
+man1/Makefile
+])

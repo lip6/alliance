@@ -1,0 +1,77 @@
+.\"   $Id: dreal.1,v 1.1 2002/03/29 17:40:13 ludo Exp $
+.\" @(#)dreal 1.07 94/10/10 UPMC/ASIM/LIP6/CAO-VLSI "
+.TH DREAL 1 "October 1, 1997" "ASIM/LIP6" "ALLIANCE Reference Manual"
+.SH NAME
+dreal \- Graphic real layout viewer
+.SH SYNOPSIS
+.B dreal 
+[\-l file_name]
+[\-xor]
+[\-debug]
+[\-install]
+[\-force]
+.br
+.so man1/alc_origin.1
+.SH DESCRIPTION
+.B Dreal
+is a hierarchical real layout viewer. All functionnalities can be
+accessed through different menus.
+.B Dreal
+works under Motif and X11r5.
+When entering 
+.B Dreal,
+the main window appears and shows 4 different
+menus on the top bar.These menus can be entered by simply clicking on the
+mouse left button. Here is the description of these menus.
+
+.TP 10
+.B File
+\f4Open\fP : load an existing cell.
+.br
+\f4Quit\fP : quit dreal.
+
+.TP 10   
+.B View
+\f4Zoom\fP : perform zoom in, zoom out, center, fit, refresh on figure.
+.br
+\f4Layer\fP : select types of layers displayed.
+.br
+\f4Map\fP : show cursor position in the entire figure.
+.br
+\f4Arrows\fP : show arrows for moving at the grid step.
+.br
+\f4Grid\fP : Set the X,Y step of the grid if displayed.
+
+.TP 10
+.B Tools
+\f4Flatten\fP : flatten the current figure.
+.br
+\f4Message\fP : display the last error messages.
+
+.TP 10
+.B Setup
+Save or load a user defined configuration of default displayed menus.
+
+.SH ENVIRONMENT VARIABLES
+.TP
+.B MBK_CATA_LIB
+indicates the path to the read only libraries to be used. 
+.TP
+.B MBK_WORK_LIB
+indicates the path to the read directory for the session.
+.TP
+.B RDS_IN
+indicates the file format to be used for the cell.
+.TP
+.B DREAL_TECHNO_NAME (optionnal)
+indicates the path to the techno name file used by Dreal.
+.TP
+.B RDS_TECHNO_NAME (optionnal)
+indicates the path to the RDS configuration file used by Dreal.
+
+.SH SEE ALSO
+mbk(1), MBK_CATA_LIB(8), RDS_IN(1), RDS_TECHNO_NAME(1)
+
+.so man1/alc_bug_report.1
+
+
