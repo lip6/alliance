@@ -69,5 +69,11 @@ core
 .make.state
 .nse_depinfo
 .*.swp
+Makefile.in
+aclocal.m4
+configure.in
+missing
+mkinstalldirs
+install-sh
 
 # --- EOF ---
