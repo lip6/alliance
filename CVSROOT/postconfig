@@ -7,7 +7,7 @@
 # (C) Czo 1998,99
 # This code is released under GPL
 #
-# $Id: postconfig,v 1.7 1999/09/17 17:47:08 czo Exp $
+# $Id: postconfig,v 1.8 1999/09/20 15:04:45 czo Exp $
 #
 
 
@@ -32,7 +32,7 @@ cat "$TMPFILE"  | mail -s "ALC : CVS loginfo" alliance-programmers@asim.lip6.fr
 # devrait marcher...
 #chgrp -R alliance /users/outil1/alliance/cvsroot
 cd /users/outil1/alliance/latest 
-cvs -q update -d
+cvs -q update -d &
 #chgrp -R alliance /users/outil1/alliance/latest
 
 
