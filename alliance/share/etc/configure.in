@@ -6,14 +6,14 @@
 # Copyright (C) 1997, 2000 Czo <Olivier.Sirol@lip6.fr>
 # License: GPL (http://www.gnu.org/copyleft/gpl.html)
 # Started: Feb 1997
-# Last Change: Friday 18 May 2001, 18:01
-# Edit Time: 5:05:26
+# Last Change: Thursday 25 October 2001, 11:23
+# Edit Time: 5:06:06
 # Description: Alliance CAD system configure.in 
 #
-# $Id: configure.in,v 1.24 2001/05/18 16:07:48 czo Exp $
+# $Id: configure.in,v 1.25 2001/10/25 09:28:34 czo Exp $
 #
 
-AC_REVISION($Revision: 1.24 $)dnl
+AC_REVISION($Revision: 1.25 $)dnl
 
 AC_INIT(configure.in)
 
@@ -553,6 +553,7 @@ AC_SUBST(HOST)
 AC_OUTPUT(alliance_os.mk alc_env.sh alc_env.csh alc_env.bat)
 
 mv alliance_os.mk $ALLIANCE_OS.mk
+chmod +x alc_env.sh alc_env.csh alc_env.bat
 
 # remove  config cache
 rm -f config.cache

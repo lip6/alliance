@@ -1,6 +1,6 @@
 #! /bin/sh
 
-# From configure.in Revision: 1.23 
+# From configure.in Revision: 1.24 
 # Guess values for system-dependent variables and create Makefiles.
 # Generated automatically using autoconf version 2.13 
 # Copyright (C) 1992, 93, 94, 95, 96 Free Software Foundation, Inc.
@@ -4253,6 +4253,7 @@ test "$no_create" = yes || ${CONFIG_SHELL-/bin/sh} $CONFIG_STATUS || exit 1
 
 
 mv alliance_os.mk $ALLIANCE_OS.mk
+chmod +x alc_env.sh alc_env.csh alc_env.bat
 
 # remove  config cache
 rm -f config.cache
