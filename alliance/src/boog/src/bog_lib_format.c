@@ -94,14 +94,73 @@ static int used_inputs(befig_list* befig, chain_list* abl, biabl_list* biabl)
 
 
 /******************************************************************************/
+/******************************************************************************/
+static chain_list* format_subst_abl( chain_list* abl, beaux_list *BeauxSubst )
+{
+   chain_list *chain;
+
+   if (ABL_ATOM(abl)) {
+      char *value=ABL_ATOM_VALUE(abl);
+      if (value == BeauxSubst->NAME) return dupablexpr( BeauxSubst->ABL );
+      return abl;
+   }
+   
+   for (chain=ABL_CDR(abl); chain; chain=ABL_CDR(chain)) {
+      ABL_CAR(chain) = format_subst_abl( ABL_CAR( chain ), BeauxSubst );
+   }
+
+   return abl;  
+}
+
+/******************************************************************************/
+/******************************************************************************/
+static void format_subst_befig( befig_list *befig, beaux_list *BeauxSubst )
+{
+   bereg_list *bereg;
+   beaux_list *beaux;
+   bebus_list *bebus;
+   biabl_list *biabl;
+  
+   for ( beaux = befig->BEAUX; beaux; beaux = beaux->NEXT )
+   {
+      if ( beaux == BeauxSubst ) continue;
+      beaux->ABL = format_subst_abl( beaux->ABL, BeauxSubst );
+   }
+   for ( bereg = befig->BEREG; bereg; bereg = bereg->NEXT )
+   {
+      for ( biabl = bereg->BIABL; biabl; biabl = biabl->NEXT )
+      {
+         biabl->CNDABL = format_subst_abl( biabl->CNDABL, BeauxSubst );
+         biabl->VALABL = format_subst_abl( biabl->VALABL, BeauxSubst );
+      }
+   }
+   for ( bebus = befig->BEBUS; bebus; bebus = bebus->NEXT )
+   {
+      for ( biabl = bebus->BIABL; biabl; biabl = biabl->NEXT )
+      {
+         biabl->CNDABL = format_subst_abl( biabl->CNDABL, BeauxSubst );
+         biabl->VALABL = format_subst_abl( biabl->VALABL, BeauxSubst );
+      }
+   }
+}
+
+
+
+/******************************************************************************/
 /*                         return 1 if format is ok                           */
 /******************************************************************************/
 extern int format_cell(befig_list* befig)
 {
    biabl_list* biabl;
+   beaux_list* beaux;
 
    /*internal signal forbidden*/
-   if (befig->BEAUX) return 0;
+   for ( beaux = befig->BEAUX; beaux; beaux = beaux->NEXT )
+   {
+      format_subst_befig( befig, beaux );
+   }
+   befig->BEAUX = NULL;
+
 
    if (befig->BEREG) {
       /*only one register*/
