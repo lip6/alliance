@@ -33,8 +33,8 @@
 /*									*/
 /* ###--------------------------------------------------------------### */
 
-#ifndef VBH_DEFINE
-#define VBH_DEFINE
+#ifndef VBH_DEFINE_H
+#define VBH_DEFINE_H
 
 	/* ###------------------------------------------------------### */
 	/*    defines							*/
@@ -183,7 +183,7 @@ typedef struct vbfig		/* behaviour figure			*/
   struct vbins   *BEINS;        /* list of instance                     */
   struct ptype   *USER;		/* reserved for user's applications	*/
   chain_list     *PACK_LIST;    /* list of used packages                */
-  unsigned char   PACKAGE;      /* package figure ?                     */
+  unsigned char   IS_PACKAGE;      /* package figure ?                     */
   char            FLAG;		/* error flags				*/
   }
 vbfig_list;

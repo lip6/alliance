@@ -825,7 +825,7 @@ void vbh_viewvbfig( Figure )
 
   fprintf( stdout, "NAME: %s\n", Figure->NAME );
   fprintf( stdout, "FLAG: %d\n", Figure->FLAG );
-  fprintf( stdout, "PACK: %d\n", Figure->PACKAGE );
+  fprintf( stdout, "PACK: %d\n", Figure->IS_PACKAGE );
 
   fprintf( stdout, "PACK_LIST\n" );
 
