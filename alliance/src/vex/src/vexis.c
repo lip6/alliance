@@ -107,16 +107,16 @@
     0, /* VEX_OTHERS    */
     2, /* VEX_NUM_BIT   */
     0, /* VEX_ABS       */
-    0, /* AF            */
-    0, /* AG            */
-    0, /* AX            */
-    2, /* AU            */
-    1, /* EF            */
-    1, /* EG            */
-    1, /* EX            */
-    2, /* EU            */
-    2, /* EQUIV         */
-    2  /* IMPLY         */
+    0, /* VEX_AF        */
+    0, /* VEX_AG        */
+    0, /* VEX_AX        */
+    2, /* VEX_AU        */
+    0, /* VEX_EF        */
+    0, /* VEX_EG        */
+    0, /* VEX_EX        */
+    2, /* VEX_EU        */
+    2, /* VEX_EQUIV     */
+    2  /* VEX_IMPLY     */
   };
 
   short VexOperArith[ VEX_MAX_OPERATOR ] =
