@@ -5,7 +5,7 @@
 # E-mail support     : mailto:alliance-users@asim.lip6.fr           #
 # ftp site           : ftp://asim.lip6.fr/pub/alliance/             #
 #                                                                   #
-# $Id: README.IRIX,v 1.1 2002/09/24 08:34:31 czo Exp $              #
+# $Id: README.IRIX,v 1.2 2002/09/24 20:11:13 pnt Exp $              #
                                                                     
   This file discuss about installation of Alliance on IRIX machines.
 
@@ -136,13 +136,13 @@ If you get "IRIX64", then use the N64 libraries.
 
 For a N32 compilation, set up the following compilation environment:
 
-| setenv CC       /usr/freeware/bin/gcc                             (optional)
-| setenv CXX      /usr/freeware/bin/g++                             (optional)
 | setenv CFLAGS   "-mabi=n32 -mips3 -gdwarf-2"
 | setenv OFLAGS   "-mabi=n32 -mips3"
 | setenv CXXFLAGS "-mabi=n32 -mips3"
 | setenv SGI_ABI  n32
 | setenv LDFLAGS  "-L/usr/freeware/lib32 -L/usr/freeware/lib32/X11" (optional)
+| setenv CC       "/usr/freeware/bin/gcc $CFLAGS"
+| setenv CXX      "/usr/freeware/bin/g++ $CXXFLAGS"
 
 
 We assume that the library path is set thru the LD_LIBRAYN32_PATH variable, for
@@ -165,13 +165,13 @@ example:
 
 For a N64 compilation, set up the following compilation environment:
 
-| setenv CC       /usr/freeware/bin/gcc                             (optional)
-| setenv CXX      /usr/freeware/bin/g++                             (optional)
 | setenv CFLAGS   "-mabi=64 -mips4 -gdwarf-2"
 | setenv OFLAGS   "-mabi=64 -mips4"
 | setenv CXXFLAGS "-mabi=64 -mips4"
 | setenv SGI_ABI  64
 | setenv LDFLAGS  "-L/usr/freeware/lib64 -L/usr/freeware/lib64/X11" (optional)
+| setenv CC       "/usr/freeware/bin/gcc $CFLAGS"
+| setenv CXX      "/usr/freeware/bin/g++ $CXXFLAGS"
 
 
 We assume that the library path is set thru the LD_LIBRAY64_PATH variable, for
