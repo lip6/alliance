@@ -1,4 +1,4 @@
-.\"   $Id: asimut.1,v 1.2 1999/09/24 14:12:12 simcity Exp $
+.\"   $Id: asimut.1,v 1.3 1999/10/05 09:48:32 simcity Exp $
 .\" @(#)asimut.1 1.92  Nov 30 1995 UPMC; Pirouz BAZARGAN SABET
 .TH ASIMUT 1 "October 1, 1997" "ASIM/LIP6" "cao\-vlsi reference manual"
 
@@ -125,14 +125,14 @@ ascii file (suffixed .cor) and a binary save file (suffixed .sav) which can
 be used as initialization file in a further session. If the \fI\-nores\fP
 option is specified a pattern file is also produced.
 .TP 20
-\fI\-d[sbpldc]\fP
+\fI\-dbg[sbpldc]\fP
 call the debugger (developper usage)
 .TP 20
-\fI\-defaultdelay\fP
+\fI\-defaultdelay (\-dd)\fP
 only null delays (no after clause in the VHDL file) are changed if
 backannotated delays or fixed delays are specified.
 .TP 20
-\fI\-fixeddelay value\fP
+\fI\-fixeddelay value (\-fd value)\fP
 all delays of the description are fixed to \fIvalue\fP.
 .TP 20
 \fI\-h\fP
@@ -170,6 +170,9 @@ trace signals when making BDDs (developper usage).
 .TP 20
 \fI\-transport\fP
 use transport delay model (default is inertial).
+.TP 20
+\fI\-zerodelay (\-zd)\fP
+all the delays of the VHDL description are supposed to be null delays.
 
 .SH EXAMPLE
 .PP
