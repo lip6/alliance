@@ -59,6 +59,7 @@ The logic level behavioural description (.vbe file) uses the same VHDL subset as
 Some constraints due to hardware mapping exist. These attributes are only supported by technology mapping onto a standard cell library as \f4sxlib\fP.
 .br
 For the register signal description, only one condition statement must appear. STABLE must be strictely used as a negativ motion and joined to clock setup value. Setup can be on high or low value, but it would be worthy to choose it accordingly with hardware register cell.
+.br
 \fI# Example\fP
         label: BLOCK (NOT ck 'STABLE and ck='1')
         BEGIN
