@@ -25,6 +25,9 @@
    Author: Frédéric Pétrot
    Date  : 1/10/2000
    $Log: dpgen_Shifter.c,v $
+   Revision 1.3  2002/06/13 15:38:39  fred
+   Starting implementation of rotatation, not yet usable.
+
    Revision 1.2  2002/06/12 16:11:08  fred
    Minor editing modifications
 
@@ -83,7 +86,7 @@
 
 */
 
-static char rcsid[]="$Id: dpgen_Shifter.c,v 1.2 2002/06/12 16:11:08 fred Exp $";
+static char rcsid[]="$Id: dpgen_Shifter.c,v 1.3 2002/06/13 15:38:39 fred Exp $";
 
 
 #include  "util_Defs.h"
@@ -129,15 +132,18 @@ namegen(c0)
 namegen(c1)
 namegen(shamt)
 namegen(op)
+namegen(x)
 
 /* Behavior:
 
    o = (i op shamt);
 
    where op is :
-   X0 : logical left shift
-   01 : logical right shift
-   11 : arithmetical right shift
+  0X0 : logical left shift
+  001 : logical right shift
+  011 : arithmetical right shift
+  1X0 : left rotation
+  1X1 : right rotation
 */
 extern void dpgen_Shifter(aFunction, aAL)
      long  aFunction;
@@ -149,15 +155,21 @@ extern void dpgen_Shifter(aFunction, aAL)
    int Slices;
    int BitIndex, SliceIndex;
    int LeftIndex, RightIndex;
+   int AndIndex = 0;
+   int ops;
    char *LSB, *MSB; 
    char *MuxInput0, *MuxInput1, *MuxInput2;  /* Mux inputs */
    int sym, mys;
 
    modelName =      va_arg (aAL, char*);
+   /* 0: Shifter
+      1: Includes also rotation */
    flags     =      va_arg (aAL, long );
+   flags     = 0;
    n         = (int)va_arg (aAL, long );
 
    Slices    = ln2p(n - 1);
+
    
 #define XX_NAME GENLIB_NAME
 
@@ -176,9 +188,14 @@ extern void dpgen_Shifter(aFunction, aAL)
 #define INV(k, i, nq)  \
    GENLIB_LOINS("inv_x2", XX_NAME("i_%d", k), i, nq, "vdd", "vss", NULL)
 
+   if (flags == 0)
+      ops = 1;
+   else 
+      ops = 2;
+
    GENLIB_DEF_LOFIG(modelName);
 
-   GENLIB_LOCON(GENLIB_BUS("op", 1, 0), 'I', GENLIB_BUS("op", 1, 0));
+   GENLIB_LOCON(GENLIB_BUS("op", ops, 0), 'I', GENLIB_BUS("op", ops, 0));
    GENLIB_LOCON(GENLIB_BUS("shamt", Slices - 1, 0), 'I', GENLIB_BUS("shamt", Slices - 1, 0));
    GENLIB_LOCON(GENLIB_BUS("i", n - 1, 0), 'I', GENLIB_BUS("i", n - 1, 0));
    GENLIB_LOCON(GENLIB_BUS("o", n - 1, 0), 'O', GENLIB_BUS("o", n - 1, 0));
@@ -190,7 +207,8 @@ extern void dpgen_Shifter(aFunction, aAL)
    MSB = "msb"; /* intermediate signal for arith sh */
 
    /* Arithmetic extension */
-   A2(0, MuxOutput(n - 1), op(1), MSB);
+   if (flags == 0)
+      A2(AndIndex++, MuxOutput(n - 1), op(1), MSB);
 
    /* Normalizing the input signals names */
    for (BitIndex = 0; BitIndex < n; BitIndex++)
@@ -201,9 +219,25 @@ extern void dpgen_Shifter(aFunction, aAL)
       for (BitIndex = 0; BitIndex < n; BitIndex++) {
          LeftIndex  = BitIndex - (1 << SliceIndex);
          RightIndex = BitIndex + (1 << SliceIndex);
-         MuxInput0  = LeftIndex >= 0 ? MuxOutput(SliceIndex * n + LeftIndex) : LSB;
-         MuxInput1  = MuxOutput(SliceIndex * n + BitIndex);
-         MuxInput2  = RightIndex < n ? MuxOutput(SliceIndex * n + RightIndex) : MSB;
+         if (flags == 0) {
+            MuxInput0  = LeftIndex >= 0 ? MuxOutput(SliceIndex * n + LeftIndex) : LSB;
+            MuxInput1  = MuxOutput(SliceIndex * n + BitIndex);
+            MuxInput2  = RightIndex < n ? MuxOutput(SliceIndex * n + RightIndex) : MSB;
+         } else {
+            if (LeftIndex >= 0)
+               MuxInput0  = MuxOutput(SliceIndex * n + LeftIndex);
+            else {
+               MuxInput0  = x(AndIndex);
+               A2(AndIndex, op(2), MuxOutput(SliceIndex * n + n - 1), x(AndIndex)); AndIndex++;
+            }
+            MuxInput1  = MuxOutput(SliceIndex * n + BitIndex);
+            if (RightIndex < n)
+               MuxInput2  = MuxOutput(SliceIndex * n + RightIndex);
+            else {
+               MuxInput2  = x(AndIndex);
+               A2(AndIndex, op(2), MuxOutput(SliceIndex * n + n - 1), x(AndIndex)); AndIndex++;
+            }
+         }
          MX3(c0(SliceIndex), c1(SliceIndex), MuxInput0,  MuxInput1, MuxInput2, MuxOutput((SliceIndex + 1) * n + BitIndex));
       }
    }
