@@ -63,3 +63,6 @@ rfl2b_c C
 rflo1b_c C
 rflo2b_c C
 rfspe_c C
+rfalckmod_c C
+rfblomod_c C
+rfbslmod_c C
