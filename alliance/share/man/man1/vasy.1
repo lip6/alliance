@@ -1,4 +1,4 @@
-.\"   $Id: vasy.1,v 1.2 1999/12/15 18:40:02 syf Exp $
+.\"   $Id: vasy.1,v 1.3 1999/12/17 14:07:01 syf Exp $
 .\" @(#)Labo.l 2.2 95/09/24 UPMC; Author: Jacomme L.
 .pl -.4
 .TH VASY 1 "November 26, 1999" "ASIM/LIP6" "CAO\-VLSI Reference Manual"
@@ -14,9 +14,9 @@ VASY \- VHDL Analyzer for Synthesis
 .br
 \fBVASY\fp is a VHDL Analyzer for Synthesis.
 \fBVASY\fp performs a semantic analysis of a VHDL RTL description 
-\fBinput_name\fP (with a VHDL subset much more extended than the Alliance one)
-and identifies with precision all the memorizing elements and tristate
-buffers.
+\fBinput_name\fP, with a VHDL subset much more extended than the Alliance one
+(see vasy(5) for more details), and identifies with precision all the 
+memorizing elements and tristate buffers.
 .br
 After this analysis, \fBVASY\fp drives an equivalent description
 \fBoutput_name\fP (in Verilog or VHDL format) accepted by most of
@@ -55,6 +55,7 @@ industrial VHDL format \fBvhd\fP.
 .ti 7
 
 .SH SEE ALSO
+.BR vasy (5),
 .BR vbe (5),
 .BR vhdl (5),
 .BR asimut (1),
