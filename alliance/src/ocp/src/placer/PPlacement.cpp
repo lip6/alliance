@@ -355,7 +355,13 @@ PPlacement::Init(lofig* fig, int NbRows)
     {
 	InitPlaceWithPrePlace();
 	if (_nInsToPlace > 0)
-	    assert (_rows.begin() != _rows.end());
+	{
+	    if (_rows.begin() == _rows.end())
+	    {
+		cout << " o ERROR: No SPACE to place instances ....." << endl;
+		exit(1);
+	    }
+	}
     }
     else
 	if (_nInsToPlace > 0)
@@ -1255,16 +1261,18 @@ PPlacement::InitPlaceWithPrePlace()
 
     // VERIFICATION OF THE PREPLACEMENT
     // abutment box
-    if (Width % PITCH != 0) {
-      cerr << " o ERROR : abutment box's width must be a multiple of 5 lambdas"
-	<< endl;
-      exit(1);
+    if (Width % PITCH != 0)
+    {
+	cerr << " o ERROR : abutment box's width must be a multiple of 5 lambdas"
+	    << endl;
+	exit(1);
     }
     
-    if (Height % (PITCH * ROWHEIGHT) != 0) {
-      cerr << " o ERROR : abutment box's height must be a multiple of 50 lambdas"
-	<< endl;
-      exit(1);
+    if (Height % (PITCH * ROWHEIGHT) != 0)
+    {
+	cerr << " o ERROR : abutment box's height must be a multiple of 50 lambdas"
+	    << endl;
+	exit(1);
     }
     
     Width =(int)(Width / PITCH);
@@ -1305,29 +1313,29 @@ PPlacement::InitPlaceWithPrePlace()
 	pinsheight = (int)(pinsheight / PITCH);			// hauteur ramene au pitch
 	int pinsheightrow = (int)(pinsheight / ROWHEIGHT);	// hauteur ramene a l'unite
 								// (taille des lignes)
-	int ypos = (int)((pins->YINS - _dy) /  PITCH);		// position en y ramene au pitch
-	int xpos = (int)((pins->XINS - _dx) /PITCH);		// position en x ramene au pitch
+	int ypos = (int)((pins->YINS - _dy) / PITCH);		// position en y ramene au pitch
+	int xpos = (int)((pins->XINS - _dx) / PITCH);		// position en x ramene au pitch
 	int ycoord = (int)(ypos / ROWHEIGHT);			// position en y ramene a l'unite
 
 	if ((pins->YINS - _dy) % 50 != 0)
 	{
-	  cerr << " o ERROR : in preplacement file : y position of "
-	    << pins->INSNAME << " is incorrect" << endl;
-	  exit (1);
+	    cerr << " o ERROR : in preplacement file : y position of "
+		<< pins->INSNAME << " is incorrect" << endl;
+	    exit (1);
 	}
 
 	if ((pins->XINS - _dx) % 5 != 0)
 	{
-	  cerr << " o ERROR : in preplacement file : x position of "
-	    << pins->INSNAME << " is incorrect" << endl;
-	  exit (1);
+	    cerr << " o ERROR : in preplacement file : x position of "
+		<< pins->INSNAME << " is incorrect" << endl;
+	    exit (1);
 	}
 
 	if (   (pins->TRANSF == ROT_P) || (pins->TRANSF == ROT_M)
 	    || (pins->TRANSF == SY_RP) || (pins->TRANSF == SY_RM) )
 	{
-	  cerr << " o ERROR : " << pins->INSNAME << " : incorrect rotation" << endl;
-	  exit(1);
+	    cerr << " o ERROR : " << pins->INSNAME << " : incorrect rotation" << endl;
+	    exit(1);
 	}
 	
 	// check if orientation of instance matches
@@ -1349,7 +1357,7 @@ PPlacement::InitPlaceWithPrePlace()
 	{
 	  for (int xit = xpos; xit < xpos + pinswidth; xit++)
 	  {
-	    if (   (xit > Width) || (yit > Height)
+	    if (   (xit > Width - 1) || (yit > Height - 1)
 		|| (xit < 0    ) || (yit < 0     ) )
 	    {
 	      cerr << " o ERROR : " << pins->INSNAME
