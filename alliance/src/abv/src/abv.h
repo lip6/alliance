@@ -37,6 +37,10 @@
 #ifndef ABV_BVLDEF
 #define ABV_BVLDEF
 
+#ifdef __cplusplus
+extern "C" {
+#endif /* __cplusplus */
+
 #define	ABV_TRACE_MASK    0x00000001	/* print messages when parsing	*/
 #define	ABV_KEEP_AUX_MASK 0x00000002	/* keep internal signals	*/
 #define ABV_SYNTH_MASK    0x00000004    /* special mode for synthesis   */
@@ -47,5 +51,9 @@
 
 extern struct befig *vhdlloadbefig ();
 extern void          vhdlsavebefig ();
+
+#ifdef __cplusplus
+}
+#endif /* __cplusplus */
 
 #endif

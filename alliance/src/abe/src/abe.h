@@ -37,6 +37,10 @@
 #ifndef ABE_BEHDEF
 #define ABE_BEHDEF
 
+#ifdef __cplusplus
+extern "C" {
+#endif /* __cplusplus */
+
         /* ###------------------------------------------------------### */
         /*    defines                                                   */
         /* ###------------------------------------------------------### */
@@ -317,5 +321,9 @@ extern void           beh_fretab   ();
 extern int            beh_error    ();
 extern void           beh_message  ();
 extern void           beh_toolbug  ();
+
+#ifdef __cplusplus
+}
+#endif /* __cplusplus */
 
 #endif
