@@ -34,10 +34,10 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
-#include MUT_H
-#include AUT_H
-#include VEX_H
-#include VBH_H
+#include "mut.h"
+#include "aut.h"
+#include "vex.h"
+#include "vbh.h"
 
 #include "vbl_utype.h"
 #include "vbl_bedef.h"
