@@ -1,12 +1,9 @@
-ACTION, GENPAT Package
-AFFECT, GENPAT Package
-ALLIANCE VHDL Subset
-AMG (1)              - Array Multiplior Generator
-ARRAY, GENPAT Package
+ACTION (3) - GENPAT Package
+AFFECT (3) - GENPAT Package
+AMG (1)    - Array Multiplior Generator
+ARRAY (3)  - GENPAT Package
 BEH (3)              - Generic behavioural data structures
-BOOM (1)             - BOOlean Minimization
 BUS (3)              - Creates a bus name for netlist
-BooG (1)             - Binding and Optimizing On Gates.
 COPY_UP_ALL_CON (3)  - copy all physical connectors of an instance face in the current figure
 COPY_UP_ALL_REF (3)  - copy a several physical reference from an instance in the current figure
 COPY_UP_CON (3)      - copy a physical connector from an instance in the current figure
@@ -146,8 +143,8 @@ GET_REF_X (3)        - retrieve the x coordinate of an instance reference
 GET_REF_Y (3)        - retrieve the y coordinate of an instance reference
 HEIGHT (3)           - compute the height of a model
 INF (5)              - YAGLE and TAS information file
-INIT, GENPAT Package
-LABEL, GENPAT Package
+INIT (3) -  GENPAT Package
+LABEL (3) -  GENPAT Package
 LOAD_LOFIG (3)       - loads a netlist form disk and opens it as current figure
 LOCON (3)            - adds a logical connector to the current netlist figure
 LOINS (3)            - add a logical instance to the current figure
@@ -155,7 +152,6 @@ LOINSE (3)           - add a logical instance to the current figure, with explic
 LOSIG (3)            - declare an internal logical signal, or a vector of internal logical signals
 LOSIGMERGE (3)       - merge two logical signals
 LOTRS (3)            - adds a logical transistor to the current netlist figure
-LooN (1)             - Light optimizing on Nets.
 MBK_CATAL_NAME (1)   - define the mbk catalog file
 MBK_CATA_LIB (1)     - define the mbk catalog directory
 MBK_FILTER_SFX (1)   - define the input/output filter suffixe.
@@ -216,18 +212,18 @@ WIDTH (3)            - compute the width of a model
 WIRE1 (3)            - place a physical segment in the current figure
 WIRE2 (3)            - place two physical segments in the current figure
 WIRE3 (3)            - place three physical segments in the current figure
-a2_dp
-a2_y
-a2p_dp
-a2p_y
-a3_dp
-a3_y
-a3p_dp
-a3p_y
-a4_dp
-a4_y
-a4p_dp
-a4p_y
+a2_dp (5)
+a2_y (5)
+a2p_dp (5)
+a2p_y (5)
+a3_dp (5)
+a3_y (5)
+a3p_dp (5)
+a3p_y (5)
+a4_dp (5)
+a4_y (5)
+a4p_dp (5)
+a4p_y (5)
 abl (1)              - Prefixed representation for boolean functions
 ablToBddCct (3)      - converts an ABL into a BDD within a circuit
 aboxmbkrds (3)       - converts MBK abutment box to RDS rectangle
@@ -289,8 +285,8 @@ allocrdsrecwin (3)   - allocates a structure used to know windows which contains
 allocrdswin (3)      - allocates window's table
 allocrdswindow (3)   - allocates a window structure
 allocrdswinrec (3)   - allocates a structure used to create a list of tables of rectangles.
-annup_dp
-annup_y
+annup_dp (5)
+annup_y (5)
 anyExpr (3)          - returns the value of a logical OR applied on the results of the application of a function on the arguments of an operator expression
 ap (5)               - Alliance physical format
 append (3)           - append a chain_list to an other chain_list
@@ -315,8 +311,8 @@ auth2table (3)       - hash table structure
 authelem (3)         - element in an hash table
 authtable (3)        - hash table structure
 autresizeblock (3)   - resizes a memory block
-b1_dp
-b1_y
+b1_dp (5)
+b1_y (5)
 bbr (1)              - A pitchless channel router for preplaced two blocks floorplan
 bdd (1)              - Mutli Reduced Ordered Binary Decision Diagrams
 bdd (1)              - Ordered binary decision diagrams representation
@@ -353,6 +349,8 @@ bgd (1)              - register file generator
 biabl (3)            - BEH data structure
 bigvia (3)           - draws a non minimal via as a bunch of vias
 binode (3)           - BEH data structure
+boog (1)             - Binding and Optimizing On Gates.
+boom (1)             - BOOlean Minimization
 bop (1)              - boolean optimization of a logic level behavioural description (VHDL data flow)
 bsg (1)              - Barrel Shifter Generator
 buildrdswindow (3)   - builds windowing of a figure
@@ -367,9 +365,9 @@ checkloconorder (3)  - checks the consistency of a list of logical connectors
 clearbddsystemref (3) - clears the references for all bdd nodes.
 clearbddsystemrefext (3) - clears the external references for all bdd nodes.
 clearbddsystemrefint (3) - clears the internal references for all bdd nodes.
-cmx2_y
+cmx2_y (5)
 cofactorbddnode (3)  - computes the generalized cofactor.
-comment, GENPAT Package
+comment (3) - GENPAT Package
 composeBdd (3)       - substitutes an index by a BDD in another BDD
 composeCct (3)       - composes all the outputs within a circuit with a BDD
 composebddnode (3)   - substitutes a variable by a bdd in another bdd.
@@ -377,8 +375,8 @@ concatname (3)       - concatenate two names with user separator
 conmbkrds (3)        - converts MBK connector to RDS rectangle
 constraintBdd (3)    - restricts a BDD to another BDD
 constraintCct (3)    - restricts all the outputs within a circuit with a BDD constraint
-conv, GENPAT Package
-convcmp, GENPAT Package
+conv (3) - GENPAT Package
+convcmp (3) - , GENPAT Package
 convertbddcircuitabl (3) - converts a bdd node to an abl expression.
 convertbddcircuitsumabl (3) - converts a bdd node to an abl expression.
 convertbddindexabl (3) - converts a bdd index to an abl expression.
@@ -402,9 +400,9 @@ createauth2table (3) - creates an hash table with two keys.
 createauthtable (3)  - creates a simple hash table.
 createbddcircuit (3) - creates a bdd circuit.
 createbddsystem (3)  - creates a bdd system.
-cry_dp
-cry_y
-d1_y
+cry_dp (5)
+cry_y (5)
+d1_y (5)
 decbddrefext (3)     - decrements the external reference of a bdd node.
 decbddrefint (3)     - decrements the internal reference of a bdd node.
 defab (3)            - defines the abutment box of a phfig
@@ -565,23 +563,23 @@ isbddvarinsupport (3) - tests if a variable appears in a bdd.
 isvdd -tells if a name contains the pattern defined by the user
 isvss -tells if a name contains the pattern defined by the user
 k2f, FSM translator ALLIANCE format from/to Berkeley format
-l1_y
-l1n_y
-l1x_y
-l2_y
-l2n_y
+l1_y (5)
+l1n_y (5)
+l1x_y (5)
+l2_y (5)
+l2n_y (5)
 l2p (1)              - Creates a PostScript file from a symbolic layout file, or from a physical layout file.
-l3_y
-l3r_y
-l3s_y
-l4_y
-l4r_y
-l4s_y
-l5_y
-l5r_y
-l5s_y
-l6r_y
-l6s_y
+l3_y (5)
+l3r_y (5)
+l3s_y (5)
+l4_y (5)
+l4r_y (5)
+l4s_y (5)
+l5_y (5)
+l5r_y (5)
+l5s_y (5)
+l6r_y (5)
+l6s_y (5)
 lax (5)              - Parameter file for logic synthesis
 lengthExpr (3)       - returns the number of arguments in an expression
 librds (1)           - rds library description
@@ -600,6 +598,7 @@ lofigchain (3)       - creates a netlist in terms of connectors on signals
 log (1)              - logical representations for boolean functions and utilities.
 log (3)              - logical representations for boolean functions and utilities.
 loins (3)            - mbk logical instance
+loon (1)             - Light optimizing on Nets.
 losig (3)            - mbk logical signal
 lotrs (3)            - mbk logical transistor
 lvx (1)              - Logical Versus eXtracted net-list comparator
@@ -629,77 +628,77 @@ minExpr (3)          - returns the lowest argument of an operator expression.
 mlodebug (3)         - logical data structure contents debug function
 modelmbkrds (3)      - gets all models of instances contained in a figure.
 mphdebug (3)         - physical data structure contents debug function
-ms2_dp
-ms2_y
-ms2n_dp
-ms2n_y
-ms2rx_dp
-ms2rx_y
-ms2sx_dp
-ms2sx_y
-ms2x_dp
-ms2x_y
-ms_dp
-ms_y
-msn_dp
-msn_y
-msrx_dp
-msrx_y
-mssx_dp
-mssx_y
-msx_dp
-msx_y
-mx2_dp
-mx2_y
-mx2p_dp
-mx2p_y
-mx3_dp
-mx3_y
-mx4_y
-n1_dp
-n1_y
-na2_dp
-na2_y
-na2p_dp
-na2p_y
-na3_dp
-na3_y
-na3p_dp
-na3p_y
-na4_dp
-na4_y
+ms2_dp (5)
+ms2_y (5)
+ms2n_dp (5)
+ms2n_y (5)
+ms2rx_dp (5)
+ms2rx_y (5)
+ms2sx_dp (5)
+ms2sx_y (5)
+ms2x_dp (5)
+ms2x_y (5)
+ms_dp (5)
+ms_y (5)
+msn_dp (5)
+msn_y (5)
+msrx_dp (5)
+msrx_y (5)
+mssx_dp (5)
+mssx_y (5)
+msx_dp (5)
+msx_y (5)
+mx2_dp (5)
+mx2_y (5)
+mx2p_dp (5)
+mx2p_y (5)
+mx3_dp (5)
+mx3_y (5)
+mx4_y (5)
+n1_dp (5)
+n1_y (5)
+na2_dp (5)
+na2_y (5)
+na2p_dp (5)
+na2p_y (5)
+na3_dp (5)
+na3_y (5)
+na3p_dp (5)
+na3p_y (5)
+na4_dp (5)
+na4_y (5)
 namealloc (3)        - hash table for strings
 namefind (3)         - hash table for strings
 nameindex (3)        - concatenate a name and index with user separator
-nao3_dp
-nao3_y
-nao4_dp
-nao4_y
+nao3_dp (5)
+nao3_y (5)
+nao4_dp (5)
+nao4_y (5)
 naturalstrcmp (3)    - compare string in alphabetical order for letters and numerical for digits.
-ndrv_dp
-ndrv_y
-neou4_dp
-nmx2_dp
-nmx2_y
-no2_dp
-no2_y
-no3_dp
-no3_y
-noa3_dp
-noa3_y
-noa4_dp
-noa4_y
-nop2_dp
-nop2_y
-nop3_dp
-nop3_y
+ndrv_dp (5)
+ndrv_y (5)
+neou4_dp (5)
+nmx2_dp (5)
+nmx2_y (5)
+no2_dp (5)
+no2_y (5)
+no3_dp (5)
+no3_y (5)
+noa3_dp (5)
+noa3_y (5)
+noa4_dp (5)
+noa4_y (5)
+nop2_dp (5)
+nop2_y (5)
+nop3_dp (5)
+nop3_y (5)
 normExpr (3)         - normalizes an expression
 notBdd (3)           - complements a BDD
 notExpr (3)          - complements an expressio and eventually does a simplification
-noue4_dp
-noue4_y
-np1_dp
-np1_y
+noue4_dp (5)
+noue4_y (5)
+np1_dp (5)
+np1_y (5)
 num (3)              - mbk list of number
 numberAtomExpr (3)   - returns the number of atoms in an expression
 numberNodeAllBdd (3) - count the number of nodes used in the BDD system
@@ -707,21 +706,21 @@ numberNodeBdd (3)    - computes the number of nodes used in a BDD
 numberNodeCct (3)    - counts the number of nodes used within a circuit
 numberOccExpr (3)    - returns the number of time an atom appears in an expression.
 numberOperBinExpr (3) - returns the number of equivalent binary operators in an expression
-nxr2_dp
-nxr2_y
-o2_dp
-o2_y
-o3_dp
-o3_y
-one_dp
-one_y
-op2_dp
-op2_y
-op3_dp
-op3_y
+nxr2_dp (5)
+nxr2_y (5)
+o2_dp (5)
+o2_y (5)
+o3_dp (5)
+o3_y (5)
+one_dp (5)
+one_y (5)
+op2_dp (5)
+op2_y (5)
+op3_dp (5)
+op3_y (5)
 operToChar (3)       - converts an operator number into an operator string
-p1_dp
-p1_y
+p1_dp (5)
+p1_y (5)
 pacom (3)            - PAT data structure
 paevt (3)            - PAT data structure
 pagrp (3)            - PAT data structure
@@ -730,13 +729,13 @@ paiol (3)            - PAT data structure
 papat (3)            - PAT data structure
 paseq (3)            - PAT data structure
 pat2dwl, pattern translator from ALLIANCE CAD SYSTEM to HILO CAD SYSTEM
-pat_addpacom, pat_frepacom
-pat_addpaevt, pat_frepaevt
-pat_addpagrp
-pat_addpaini, pat_frepaini
-pat_addpaiol, pat_crtpaiol, pat_frepaiol
-pat_addpapat, pat_frepapat
-pat_addpaseq
+pat_addpacom (3) pat_frepacom
+pat_addpaevt (3) pat_frepaevt
+pat_addpagrp (3)
+pat_addpaini (3)  pat_frepaini
+pat_addpaiol (3)  pat_crtpaiol, pat_frepaiol
+pat_addpapat (3)  pat_frepapat
+pat_addpaseq (3)
 pat_debug (3)        - PAT structures displayer-debugger
 pat_lodpaseq (3)     - pattern file compiler
 pat_savpaseq (3)     - save pattern structures in a pattern description file
@@ -748,31 +747,31 @@ phins (3)            - mbk physical instance
 phref (3)            - mbk physical reference
 phseg (3)            - mbk physical segment
 phvia (3)            - mbk physical contact
-pi_sp
-piot_sp
-piotw_sp
-po_sp
+pi_sp (5)
+piot_sp (5)
+piotw_sp (5)
+po_sp (5)
 polarablexpr (3)     - moves inverters to the atomic level.
 polardupablexpr (3)  - duplicates an expression and moves down the inverters.
-port, GENPAT Package
-pot_sp
-potw_sp
-pow_sp
-process, GENPAT Package
+port (3)             - GENPAT Package
+pot_sp (5)
+potw_sp (5)
+pow_sp (5)
+process (3) - GENPAT Package
 profAOExpr (3)       - returns the depth of an expression without taking the inverters into account.
 profExpr (3)         - returns the depth of an expression.
 prol (5)             - define the rules for symbolic to real layout translation
 proof (1)            - Formal proof between two behavioural descriptions
 proofCct (3)         - checks the equivalence of two circuits
 ptype (3)            - mbk list of typed pointers
-pvdde_sp
-pvddeck_sp
-pvddi_sp
-pvddick_sp
-pvsse_sp
-pvsseck_sp
-pvssi_sp
-pvssick_sp
+pvdde_sp (5)
+pvddeck_sp (5)
+pvddi_sp (5)
+pvddick_sp (5)
+pvsse_sp (5)
+pvsseck_sp (5)
+pvssi_sp (5)
+pvssick_sp (5)
 rage (1)             - Random Acess Memory(RAM) Generator
 rds (1)              - rds package
 rdsalloc (3)         - memory allocation function
@@ -852,13 +851,13 @@ swapbddvar (3)       - swaps two contiguous variables.
 sxlib (5)            - a portable CMOS Standard Cell Library
 tas (1)              - A switch level static timing analyzer for CMOS circuits
 testbddcircuit (3)   - debugs a bdd circuit.
-tie_y
+tie_y (5)
 tpl (5)              - LV500 Template description format.
-ts_dp
-ts_y
-tsn_dp
-tsn_y
-tsp_y
+ts_dp (5)
+ts_y (5)
+tsn_dp (5)
+tsn_y (5)
+tsp_y (5)
 ttv (5)              - The timing analyzer tas report : 'general perfmodule' format.
 unflatablexpr (3)    - unflats the operators of an expression
 unflattenlofig (3)   - creates a hierarchy level from instances of a figure
@@ -867,8 +866,8 @@ unsetbddrefext (3)   - increments the internal reference, and decrements the ext
 upVarBdd (3)         - brings up an index in a BDD
 upVarCct (3)         - brings up the index of a primary input within a circuit
 upstr (3)            - convert a string to upper case
-vasy VHDL RTL subset.
-vbe VHDL behavioural subset.
+vasy (5)             - VHDL RTL subset.
+vbe (5)              - VHDL behavioural subset.
 vhdlablname (3)      - returns a compatible VHDL name.
 vhdlablvector (3)    - gives the index and the name of a vectorized name.
 viambkrds (3)        - adds to RDS figure a contact from a MBK figure
@@ -909,11 +908,11 @@ viewrfmvia (3)       - displays contact caracteristics in MBK and RDS format.
 vst VHDL structural subset.
 xmbk (1)             - A simple way to set alliance environnement variables
 xpat (1)             - graphic pattern viewer
-xr2_dp
-xr2_y
+xr2_dp (5)
+xr2_y (5)
 xsch (1)             - graphical schematic viewer
 xyflat (3)           - compute hierarchical coordinates
 yagle (1)            - Disassembly and functional abstraction of CMOS circuits
-zbli_y
-zero_dp
-zero_y
+zbli_y (5)
+zero_dp (5)
+zero_y (5)
