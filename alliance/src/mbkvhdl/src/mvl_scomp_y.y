@@ -78,7 +78,7 @@ static struct lofig *MVL_CHDHED = NULL;	/* childs list                  */
 %token        AFTER
 %token        ALIAS
 %token        ALL
-%token        _AND
+%token        tok_AND
 %token        ARCHITECTURE
 %token        ARRAY
 %token        ASSERT
@@ -128,7 +128,7 @@ static struct lofig *MVL_CHDHED = NULL;	/* childs list                  */
 %token        _NEXT
 %token        _NOR
 %token        _NOT
-%token        _NULL
+%token        tok_NULL
 %token        OF
 %token        ON
 %token        OPEN
