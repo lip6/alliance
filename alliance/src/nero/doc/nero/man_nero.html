@@ -5,8 +5,7 @@
 >nero</TITLE
 ><META
 NAME="GENERATOR"
-CONTENT="Modular DocBook HTML Stylesheet Version 1.76b+
-"><LINK
+CONTENT="Modular DocBook HTML Stylesheet Version 1.7"><LINK
 REL="HOME"
 TITLE=" Nero User's Manual "
 HREF="nero.html"><LINK
@@ -64,7 +63,9 @@ ALIGN="LEFT"
 WIDTH="100%"></DIV
 ><H1
 ><A
-NAME="NERO">nero</H1
+NAME="NERO"
+></A
+>nero</H1
 ><DIV
 CLASS="REFNAMEDIV"
 ><A
@@ -76,27 +77,23 @@ NAME="AEN24"
 ><DIV
 CLASS="REFSYNOPSISDIV"
 ><A
-NAME="AEN27"><H2
+NAME="AEN27"
+></A
+><H2
 >Synopsis</H2
 ><P
 ><B
 CLASS="COMMAND"
 >nero</B
-> [-h] [-v] [-V] [-c] [-2] [-3] [-4] [-5] [-6] [-L] [-G]<BR> [--help] [--verbose] [--very-verbose] [--core-dump] [--local] [--global]<BR> [-p <TT
+> [-h] [-v] [-V] [-c] [-2] [-3] [-4] [-5] [-6] [-L] [-G]<BR> [--help] [--verbose] [--very-verbose] [--core-dump] [--local] [--global]<BR> [-p <VAR
 CLASS="REPLACEABLE"
-><I
->placement</I
-></TT
->] {<TT
+>placement</VAR
+>] {<VAR
 CLASS="REPLACEABLE"
-><I
->netlist</I
-></TT
->} {<TT
+>netlist</VAR
+>} {<VAR
 CLASS="REPLACEABLE"
-><I
->layout</I
-></TT
+>layout</VAR
 >}</P
 ></DIV
 ><DIV
@@ -165,11 +162,9 @@ CLASS="FILENAME"
 >netlist</TT
 > : the name of
         the design, whithout any extention. Please note that unless a
-        <TT
+        <KBD
 CLASS="USERINPUT"
-><B
->-p</B
-></TT
+>-p</KBD
 > <TT
 CLASS="FILENAME"
 >placement</TT
@@ -202,64 +197,48 @@ CLASS="LITERAL"
 ><UL
 ><LI
 ><P
-> <TT
+> <KBD
 CLASS="USERINPUT"
-><B
->-h</B
-></TT
->, <TT
+>-h</KBD
+>, <KBD
 CLASS="USERINPUT"
-><B
->--help</B
-></TT
+>--help</KBD
 > :
         print help.
         </P
 ></LI
 ><LI
 ><P
-> <TT
+> <KBD
 CLASS="USERINPUT"
-><B
->-v</B
-></TT
->, <TT
+>-v</KBD
+>, <KBD
 CLASS="USERINPUT"
-><B
->--verbose</B
-></TT
+>--verbose</KBD
 > :
         be verbose.
         </P
 ></LI
 ><LI
 ><P
-> <TT
+> <KBD
 CLASS="USERINPUT"
-><B
->-V</B
-></TT
->, <TT
+>-V</KBD
+>, <KBD
 CLASS="USERINPUT"
-><B
->--very-verbose</B
-></TT
+>--very-verbose</KBD
 > :
         be unbearably verbose.
         </P
 ></LI
 ><LI
 ><P
-> <TT
+> <KBD
 CLASS="USERINPUT"
-><B
->-c</B
-></TT
->, <TT
+>-c</KBD
+>, <KBD
 CLASS="USERINPUT"
-><B
->--core-dump</B
-></TT
+>--core-dump</KBD
 > :
         do not prevent the generation of core dumps in case of a crash.
         Mostly used during the development stage.
@@ -267,35 +246,25 @@ CLASS="USERINPUT"
 ></LI
 ><LI
 ><P
-> <TT
+> <KBD
 CLASS="USERINPUT"
-><B
->-2</B
-></TT
+>-2</KBD
 >,
-               <TT
+               <KBD
 CLASS="USERINPUT"
-><B
->-3</B
-></TT
+>-3</KBD
 >,
-               <TT
+               <KBD
 CLASS="USERINPUT"
-><B
->-4</B
-></TT
+>-4</KBD
 >,
-               <TT
+               <KBD
 CLASS="USERINPUT"
-><B
->-5</B
-></TT
+>-5</KBD
 >,
-               <TT
+               <KBD
 CLASS="USERINPUT"
-><B
->-6</B
-></TT
+>-6</KBD
 > : set the numbers of layers
         used for routing. The default for small designs is 2 and 4 for big
         ones. When global routing took place, the router will uses at least
@@ -304,16 +273,12 @@ CLASS="USERINPUT"
 ></LI
 ><LI
 ><P
-> <TT
+> <KBD
 CLASS="USERINPUT"
-><B
->-L</B
-></TT
->, <TT
+>-L</KBD
+>, <KBD
 CLASS="USERINPUT"
-><B
->--local</B
-></TT
+>--local</KBD
 > :
         turn off the global routing stage, whatever the size of the design.
         Be warned that this will enormously slow down the routing process.
@@ -321,36 +286,28 @@ CLASS="USERINPUT"
 ></LI
 ><LI
 ><P
-> <TT
+> <KBD
 CLASS="USERINPUT"
-><B
->-G</B
-></TT
->, <TT
+>-G</KBD
+>, <KBD
 CLASS="USERINPUT"
-><B
->--global</B
-></TT
+>--global</KBD
 > :
         turn on the global routing regardless of the size of the design.
         </P
 ></LI
 ><LI
 ><P
-> <TT
+> <KBD
 CLASS="USERINPUT"
-><B
->-p</B
-></TT
+>-p</KBD
 > <TT
 CLASS="FILENAME"
 >placement</TT
 >,
-        <TT
+        <KBD
 CLASS="USERINPUT"
-><B
->--place</B
-></TT
+>--place</KBD
 > <TT
 CLASS="FILENAME"
 >placement</TT
@@ -391,29 +348,21 @@ WIDTH="100%"
 ><TD
 ><PRE
 CLASS="SCREEN"
->$ <TT
+>$ <KBD
 CLASS="USERINPUT"
-><B
->export MBK_IN_LO=vst</B
-></TT
+>export MBK_IN_LO=vst</KBD
 >
-$ <TT
+$ <KBD
 CLASS="USERINPUT"
-><B
->export MBK_IN_PH=ap</B
-></TT
+>export MBK_IN_PH=ap</KBD
 >
-$ <TT
+$ <KBD
 CLASS="USERINPUT"
-><B
->export MBK_OUT_PH=ap</B
-></TT
+>export MBK_OUT_PH=ap</KBD
 >
-$ <TT
+$ <KBD
 CLASS="USERINPUT"
-><B
->nero -V --place amd2901_core_p amd2901_core amd2901_core_r</B
-></TT
+>nero -V --place amd2901_core_p amd2901_core amd2901_core_r</KBD
 >
     </PRE
 ></TD
@@ -531,11 +480,9 @@ VALIGN="top"
 ><I
 CLASS="EMPHASIS"
 >Alliance</I
-> - <TT
+> - <KBD
 CLASS="USERINPUT"
-><B
->nero</B
-></TT
+>nero</KBD
 > User's Manual</TD
 ><TD
 WIDTH="34%"
