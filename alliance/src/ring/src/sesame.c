@@ -457,7 +457,7 @@ void usage ()
 /*------------------------------------------------------------------------*/
 void banner()
 {
-    alliancebanner("RinG", VERSION, "PAD ring router", "1991", "5.0");
+    alliancebanner("RinG", VERSION, "PAD ring router", "1991", ALLIANCE_VERSION);
 }
 
 /*----------------------------------------------------------------------*/
