@@ -22,9 +22,11 @@ dnl Software Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
 dnl
 dnl
 AC_INIT(src/genpat.sh)
+PGN_DLL_VERSION=3:3:0
+AC_SUBST(PGN_DLL_VERSION)
 AM_INIT_AUTOMAKE(genpat, 3.3)
 AC_PROG_CC
-AC_PROG_RANLIB
+AM_PROG_LIBTOOL
 AC_CHECK_PROG(SED, sed, sed)
 AM_PROG_LEX
 AC_PROG_YACC

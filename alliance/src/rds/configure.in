@@ -1,5 +1,4 @@
 dnl
-/* 
 dnl This file is part of the Alliance CAD System
 dnl Copyright (C) Laboratoire LIP6 - Département ASIM
 dnl Universite Pierre et Marie Curie
@@ -26,16 +25,28 @@ dnl           Almost ten years since I wrote this stuff, I just can't
 dnl           believe it
 dnl Date    : 01/02/2002
 dnl Author  : Frederic Petrot <Frederic.Petrot@lip6.fr>
-dnl $Id: configure.in,v 1.4 2002/09/30 16:21:07 czo Exp $
+dnl $Id: configure.in,v 1.5 2002/10/16 18:04:28 jpc Exp $
 dnl
 dnl
 AC_INIT(src/rds.h)
+RDS_DLL_VERSION=2:1:0
+RUT_DLL_VERSION=2:1:0
+RFM_DLL_VERSION=2:1:0
+RPR_DLL_VERSION=2:1:0
+RWI_DLL_VERSION=2:1:0
+RTL_DLL_VERSION=2:1:0
+AC_SUBST(RDS_DLL_VERSION)
+AC_SUBST(RUT_DLL_VERSION)
+AC_SUBST(RFM_DLL_VERSION)
+AC_SUBST(RPR_DLL_VERSION)
+AC_SUBST(RWI_DLL_VERSION)
+AC_SUBST(RTL_DLL_VERSION)
 AM_INIT_AUTOMAKE(rds, 2.1)
 AC_PROG_INSTALL
 AC_PROG_CC
 AC_HEADER_STDC
 AC_C_CONST
-AC_PROG_RANLIB
+AM_PROG_LIBTOOL
 AM_ALLIANCE
 
 AC_OUTPUT([

@@ -19,14 +19,12 @@ AM_INIT_AUTOMAKE($PACKAGE, $VERSION)
 dnl Checks for programs.
 AC_PROG_CC
 AC_PROG_CXX
-AC_PROG_RANLIB
+AM_PROG_LIBTOOL
 AC_PROG_MAKE_SET
 
 dnl Checks for libraries.
 AM_ALLIANCE
 AC_CHECK_LIB(m, sqrt)
-AC_CHECK_LIB(gen, basename)
-AC_CHECK_LIB(iberty, basename)
 
 dnl Checks for typedefs, structures, and compiler characteristics.
 AC_C_CONST

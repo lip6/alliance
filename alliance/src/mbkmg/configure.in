@@ -25,10 +25,12 @@ dnl           Almost ten years since I wrote this stuff, I just can't
 dnl           believe it
 dnl Date    : 01/02/2002
 dnl Author  : Frederic Petrot <Frederic.Petrot@lip6.fr>
-dnl $Id: configure.in,v 1.3 2002/09/30 16:20:55 czo Exp $
+dnl $Id: configure.in,v 1.4 2002/10/16 18:04:26 jpc Exp $
 dnl
 dnl
 AC_INIT(src/mbk2mg.c)
+MMG_DLL_VERSION=1:0:0
+AC_SUBST(MMG_DLL_VERSION)
 AM_INIT_AUTOMAKE(mbkmg, 1.0)
 AC_PROG_INSTALL
 AC_PROG_CC
@@ -37,7 +39,7 @@ AM_PROG_LEX
 AC_HEADER_STDC
 AC_CHECK_HEADERS(strings.h unistd.h)
 AC_C_CONST
-AC_PROG_RANLIB
+AM_PROG_LIBTOOL
 
 AM_ALLIANCE
 

@@ -19,7 +19,7 @@ AM_INIT_AUTOMAKE($PACKAGE, $VERSION)
 dnl Checks for programs.
 AC_PROG_CXX
 AC_PROG_CC
-AC_PROG_RANLIB
+AM_PROG_LIBTOOL
 ALC_CXX_PROBLEMATIC_OLD_VERSION
 AM_PROG_LEX
 AC_PROG_YACC
@@ -28,8 +28,6 @@ AC_PROG_MAKE_SET
 dnl Checks for libraries.
 dnl Check for -lm librarie.  These should always be present.
 AC_CHECK_LIB(m, exp)
-AC_CHECK_LIB(gen, basename)
-AC_CHECK_LIB(iberty, basename)
 
 AM_ALLIANCE
 

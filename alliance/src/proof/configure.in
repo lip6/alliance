@@ -20,15 +20,13 @@ dnl Checks for programs.
 AC_PROG_CC
 AM_PROG_LEX
 AC_PROG_YACC
-AC_PROG_RANLIB
+AM_PROG_LIBTOOL
 AC_PROG_MAKE_SET
 
 dnl Checks for typedefs, structures, and compiler characteristics.
 AC_C_CONST
 
 AC_CHECK_LIB(m, exp)
-AC_CHECK_LIB(gen, basename)
-AC_CHECK_LIB(iberty, basename)
 
 AM_ALLIANCE
 
