@@ -170,6 +170,9 @@ Sources of the Alliance VLSI CAD System, as you might guess...
 
 
 %changelog
+* Thu Feb 17 2005 Jean-Paul.Chaput <Jean-Paul.Chaput@lip6.fr>
+- Synch with current version: bug & compliance with gcc 3.4.x.
+
 * Fri Jul 16 2004 Jean-Paul.Chaput <Jean-Paul.Chaput@lip6.fr>
 - Added Tutorial sub-package (now managed by autoconf/automake).
 - Removed release tag, must be given at compile time using the
