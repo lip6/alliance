@@ -25,6 +25,11 @@
    Author: Frédéric Pétrot
    Date  : 1/10/2000
    $Log: dpgen_Shifter.c,v $
+   Revision 1.8  2003/01/31 15:53:39  fred
+   COPY_UP_SEG now copies all segments of a given name.
+   This is particularly useful for CXXX layer types
+   Makes two functions static in Shifter to avoid polluting the namespace
+
    Revision 1.7  2002/09/30 16:20:22  czo
    support/users
 
@@ -103,7 +108,7 @@
 
 */
 
-static char rcsid[]="$Id: dpgen_Shifter.c,v 1.7 2002/09/30 16:20:22 czo Exp $";
+static char rcsid[]="$Id: dpgen_Shifter.c,v 1.8 2003/01/31 15:53:39 fred Exp $";
 
 
 #include  "util_Defs.h"
@@ -111,7 +116,7 @@ static char rcsid[]="$Id: dpgen_Shifter.c,v 1.7 2002/09/30 16:20:22 czo Exp $";
 #include  "dgn.h"
 
 
-int ln2p(int n)
+static int ln2p(int n)
 {
 int i = 0, j = n & 1;
 
@@ -125,7 +130,7 @@ int i = 0, j = n & 1;
 
 static chain_list *c; /* To free the allocated names */
 
-void freestr()
+static void freestr()
 {
    chain_list *cc;
    for (cc = c; cc; cc = cc->NEXT)

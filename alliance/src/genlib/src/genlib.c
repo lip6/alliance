@@ -71,7 +71,7 @@
 #include "mbkgen.h"
 #define __GENLIB__
 #include "mgn.h"
-static char rcsid[] = "$Id: genlib.c,v 1.10 2002/09/30 16:20:22 czo Exp $";
+static char rcsid[] = "$Id: genlib.c,v 1.11 2003/01/31 15:53:39 fred Exp $";
 
 /*******************************************************************************
 * global variables used in genlib                                              *
@@ -937,6 +937,7 @@ phfig_list *ptnewfig;
 phins_list *ptins;
 phseg_list *ptseg;
 long x1, x2, y1, y2;
+chain_list *c = NULL;
 
    if (WORK_PHFIG == NULL) {
       (void)fflush(stdout);
@@ -949,10 +950,20 @@ long x1, x2, y1, y2;
    locname = namealloc(checkname(locname));
 
    for (ptseg = ptnewfig->PHSEG; ptseg; ptseg = ptseg->NEXT) {
-      if (ptseg->NAME == locname)
-         break;
+      if (ptseg->NAME == locname) {
+         /*  create new segment  */
+         xyflat(&x1, &y1, ptseg->X1, ptseg->Y1, ptins->XINS, ptins->YINS,
+                 ptnewfig->XAB1, ptnewfig->YAB1, ptnewfig->XAB2, ptnewfig->YAB2,
+                 ptins->TRANSF);
+         xyflat(&x2, &y2, ptseg->X2, ptseg->Y2, ptins->XINS, ptins->YINS,
+                 ptnewfig->XAB1, ptnewfig->YAB1, ptnewfig->XAB2, ptnewfig->YAB2,
+                 ptins->TRANSF);
+         c = addchain(c, addphseg(WORK_PHFIG, ptseg->LAYER, ptseg->WIDTH,
+                                  x1, y1, x2, y2, checkname(newname)));
+                               
+      }
    }
-   if (ptseg == NULL) {
+   if (c == NULL) {
       (void)fflush(stdout);
       (void)fputs("*** genlib error ***\nCOPY_UP_SEG impossible :", stderr);
       (void)fprintf(stderr, " segment %s doesn't exist in instance %s\n",
@@ -960,17 +971,7 @@ long x1, x2, y1, y2;
       EXIT(1);
    }
 
-   /*  create segment  */
-   xyflat(&x1, &y1, ptseg->X1, ptseg->Y1, ptins->XINS, ptins->YINS,
-           ptnewfig->XAB1, ptnewfig->YAB1, ptnewfig->XAB2, ptnewfig->YAB2,
-           ptins->TRANSF);
-   xyflat(&x2, &y2, ptseg->X2, ptseg->Y2, ptins->XINS, ptins->YINS,
-           ptnewfig->XAB1, ptnewfig->YAB1, ptnewfig->XAB2, ptnewfig->YAB2,
-           ptins->TRANSF);
-   return addptype(NULL, MBK_SEGMENT,
-             addchain(NULL,
-                addphseg(WORK_PHFIG, ptseg->LAYER, ptseg->WIDTH,
-                         x1, y1, x2, y2, checkname(newname))));
+   return addptype(NULL, MBK_SEGMENT, c);
 }
 
 /*******************************************************************************
