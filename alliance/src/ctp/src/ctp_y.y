@@ -212,12 +212,12 @@
 %token <valu> WHILE
 %token <valu> WITH
 
-%left                _AND _OR _NAND _NOR _XOR
+%left                _AND _OR _NAND _NOR _XOR Imply Equiv
 %left                _EQSym _NESym _LTSym _LESym _GTSym _GESym
 %left                Plus Minus Ampersand
 %left                Star Slash MOD REM
 %left                DoubleStar
-%right                ABS _NOT
+%right               ABS _NOT _AF _AG _AX _EF _EG _EX
 
 %type <list> expression
 %type <list> relation..AND__relation..
@@ -1080,17 +1080,23 @@ relation.NAND_NOR_NXOR_relation.
          { 
            $$ = ctp_crtvex (VEX_IFT,$1 ,$3 ,-1,-1);
          }
-       | relation
-         _AU
+       | _EU
+         LeftParen
          relation
+         Comma
+         relation
+	 RightParen_ERR
          { 
-           $$ = ctp_crtvex (VEX_AU,$1 ,$3 ,-1,-1);
+           $$ = ctp_crtvex (VEX_EU,$3 ,$5 ,-1,-1);
          }
-       | relation
-         _EU
+       | _AU
+         LeftParen
          relation
+         Comma
+         relation
+	 RightParen_ERR
          { 
-           $$ = ctp_crtvex (VEX_EU,$1 ,$3 ,-1,-1);
+           $$ = ctp_crtvex (VEX_AU,$3 ,$5 ,-1,-1);
          }
        ;
 
