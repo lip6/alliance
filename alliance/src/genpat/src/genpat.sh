@@ -1,5 +1,5 @@
 #!/bin/sh 
-# $Id: genpat.sh,v 1.1 2002/05/30 13:28:15 xtof Exp $
+# $Id: genpat.sh,v 1.2 2002/10/24 10:30:25 hcl Exp $
 
 #set -v 
 #set -x
@@ -107,7 +107,7 @@ EOF
 	fi
 
    if [ $keep -eq 0 ] ; then
-		rm $name;
+		rm $name $name.exe;
 	fi
 
    rm $name.o $name.grr $makefile > /dev/null 2>&1
