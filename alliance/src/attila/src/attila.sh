@@ -1,6 +1,6 @@
 #!/bin/sh
 #
-# $Id: attila.sh,v 1.15 2003/04/04 09:22:40 jpc Exp $
+# $Id: attila.sh,v 1.16 2003/10/03 11:36:00 fred Exp $
 #                                                                        
 # /------------------------------------------------------------------\
 # |                                                                  |
@@ -13,7 +13,11 @@
 # |  sh script :         "./attila"                                  |
 # | **************************************************************** |
 # |  U p d a t e s                                                   |
-# |                                                                  |
+# | $Log: attila.sh,v $
+# | Revision 1.16  2003/10/03 11:36:00  fred
+# | Adding bip: in front of the ATTILA_CVS_ROOT, in order to be able to
+# | retrieve Alliance form machines that do not mount the usual disks.
+# |                                                                 |
 # \------------------------------------------------------------------/
 #
 
