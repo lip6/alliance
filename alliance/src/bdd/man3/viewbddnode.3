@@ -1,0 +1,68 @@
+.\"   $Id: viewbddnode.3,v 1.1 2002/03/18 11:26:51 ludo Exp $
+.\" @(#)viewbddnode.2 2.7 96/07/02 ; Labo masi cao-vlsi; Author : Jacomme Ludovic
+.TH VIEWBDDNODE 3 "October 1, 1997" "ASIM/LIP6" "BDD FUNCTIONS"
+.SH NAME
+viewbddnode \- displays a \fBbdd\fP node.
+.so man1/alc_origin.1
+.SH SYNOPSYS
+.nf
+.if n \{\
+.ft B \}
+.if t \{\
+.ft CR \}
+#include "bdd101.h"
+void viewbddnode( BddSystem, BddNode )
+  bddsystem \(**BddSystem;
+  bddnode   \(**BddNode;
+.ft R
+.fi
+.SH PARAMETERS
+.TP 20
+\fIBddSystem\fP
+The \fBbdd\fP system.
+.TP
+\fIBddNode\fP
+The \fBbdd\fP node to display.
+.SH DESCRIPTION
+\fBviewbddnode\fP displays the node \fIBddNode\fP, in the \fBbdd\fP system
+\fIBddSystem\fP.
+If a null pointer is given, the default \fBbdd\fP system is used.
+.br
+.SH RETURN VALUE
+\fBviewbddnode\fP returns nothing.
+.SH EXAMPLE
+.ta 3n 6n 9n 12n 15n 18n 21n
+.nf
+.if n \{\
+.ft B \}
+.if t \{\
+.ft CR \}
+#include "bdd101.h"
+   bddsystem  \(**BddSystem;
+   bddcircuit \(**BddCircuit;
+   bddnode    \(**BddNode;
+   chain_list \(**Expr;
+   BddSystem  = createbddsystem( 100, 1000, 100, 50000 );
+   BddCircuit = createbddcircuit( "hello_world", 10, 10, BddSystem );
+   addbddcircuitin( (bddcircuit \(**)0, "i0", 0, BDD_IN_MODE_FIRST );
+   addbddcircuitin( (bddcircuit \(**)0, "i1", 0, BDD_IN_MODE_FIRST );
+   BddNode = applybddnode( (bddsystem \(**)0,
+                           ABL_AND,
+                           searchbddcircuitin( (bddcircuit \(**)0, "i0" ),
+                           searchbddcircuitin( (bddcircuit \(**)0, "i1" ) );
+   Expr = convertbddcircuitabl( (bddcircuit \(**)0, BddNode );
+   /* displays (i0 and i1) */
+   viewablexpr( Expr, ABL_VIEW_VHDL );
+   freeablexpr( Expr );
+   /* displays Node VAR: 0  INDEX: 2  MARK: 0  REF_EXT: 1  REF_INT: 0 */
+   viewbddnode( (bddsystem \(**)0, BddNode );
+   destroybddsystem( (bddsystem \(**)0 );
+   destroybddcircuit( (bddcircuit \(**)0 );
+.ft R
+.fi
+.SH SEE ALSO
+.BR bdd (1)
+
+
+.so man1/alc_bug_report.1
+

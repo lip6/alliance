@@ -1,0 +1,78 @@
+.\"   $Id: applybddnodeite.3,v 1.1 2002/03/18 11:26:50 ludo Exp $
+.\" @(#)applybddnodeite.2 2.7 96/07/02 ; Labo masi cao-vlsi; Author : Jacomme Ludovic
+.TH APPLYBDDNODEITE 3 "October 1, 1997" "ASIM/LIP6" "BDD FUNCTIONS"
+.SH NAME
+applybddnodeite \- computes the IF-THEN-ELSE logical operation.
+
+.so man1/alc_origin.1
+.SH SYNOPSYS
+.nf
+.if n \{\
+.ft B \}
+.if t \{\
+.ft CR \}
+#include "bdd101.h"
+bddnode \(**applybddnodeite( BddSystem, BddIf, BddThen, BddElse )
+  bddnode   \(**BddSystem;
+  bddnode   \(**BddIf;
+  bddnode   \(**BddThen;
+  bddnode   \(**BddElse;
+.ft R
+.fi
+.SH PARAMETERS
+.TP 20
+\fIBddSystem\fP
+The \fBbdd\fP system.
+.TP
+\fIBddIf\fP
+The IF \fBbdd\fP node.
+.TP
+\fIBddThen\fP
+The THEN \fBbdd\fP node.
+.TP
+\fIBddElse\fP
+The ELSE \fBbdd\fP node.
+.SH DESCRIPTION
+\fBapplybddnodeite\fP computes the following logical function
+(\fIBddIf\fP AND \fIBddThen\fP) OR ((NOT \fIBddIf\fP) AND \fIBddElse\fP)
+in the \fBbdd\fP system \fIBddSystem\fP.
+If a null pointer is given, the default \fBbdd\fP system is used.
+.br
+.SH RETURN VALUE
+\fBapplybddnodeite\fP returns a pointer to the resulting \fBbdd\fP node
+with its number of external reference incremented.
+.SH EXAMPLE
+.ta 3n 6n 9n 12n 15n 18n 21n
+.nf
+.if n \{\
+.ft B \}
+.if t \{\
+.ft CR \}
+#include "bdd101.h"
+   bddsystem  \(**BddSystem;
+   bddcircuit \(**BddCircuit;
+   bddnode    \(**BddNode;
+   chain_list \(**Expr;
+   BddSystem  = createbddsystem( 100, 1000, 100, 50000 );
+   BddCircuit = createbddcircuit( "hello_world", 10, 10, BddSystem );
+   addbddcircuitin( (bddcircuit \(**)0, "i0", 0, BDD_IN_MODE_FIRST );
+   addbddcircuitin( (bddcircuit \(**)0, "i1", 0, BDD_IN_MODE_FIRST );
+   addbddcircuitin( (bddcircuit \(**)0, "i2", 0, BDD_IN_MODE_FIRST );
+   BddNode = applybddnodeite( (bddsystem \(**)0,
+                              searchbddcircuitin( (bddcircuit \(**)0, "i0" ),
+                              searchbddcircuitin( (bddcircuit \(**)0, "i1" ),
+                              searchbddcircuitin( (bddcircuit \(**)0, "i2" ) );
+   Expr = convertbddcircuitabl( (bddcircuit \(**)0, BddNode );
+   /* displays ((i0 and i1) or ((not i0) and i2) */
+   viewablexpr( Expr, ABL_VIEW_VHDL );
+   freeablexpr( Expr );
+   destroybddsystem( (bddsystem \(**)0 );
+   destroybddcircuit( (bddcircuit \(**)0 );
+.ft R
+.fi
+.SH SEE ALSO
+.BR bdd (1)
+
+
+.so man1/alc_bug_report.1
+
