@@ -168,7 +168,7 @@ END
 
 TABLE MBK_TO_RDS_BIGVIA_HOLE
 
-# CONT_VIA  RDS_VIA1 1 2 ALL
+CONT_VIA  RDS_VIA1 1 4 ALL
 
 END
 
@@ -181,7 +181,7 @@ END
 
 TABLE MBK_TO_RDS_BIGVIA_METAL
 
-# CONT_VIA  RDS_ALU1 3 4 ALL RDS_ALU2 4 5 ALL
+CONT_VIA  RDS_ALU1 0.0 0.5 ALL RDS_ALU2 0.0 0.5 ALL
 
 END 
 
@@ -189,12 +189,12 @@ END
 # TABLE MBK_TO_RDS_TURNVIA :
 #
 # MBK via      RDS layer 1                      ...
-# name         name  delta-width overlap mode
+# name         name  DWR MODE
 ##-------------------------------------------------------------------
 
 TABLE MBK_TO_RDS_TURNVIA
 
-# CONT_TURN1 
+CONT_TURN1 RDS_ALU1 0 ALL
 
 END
 
