@@ -3,7 +3,7 @@
 # description   : Alliance Shared Libraries and Include Files   #
 # ###---------------------------------------------------------###
 
-# Last updated on on Tuesday 21 September 1999 at 18:03 MET DST
+# $Id: libraries.mk,v 1.10 1999/09/28 09:14:45 czo Exp $
 
 # The variables $TOP and $MACHINE are set by
 # alc_env.[c]sh script
@@ -12,7 +12,7 @@
 #    Common settings                                            #
 # ###---------------------------------------------------------###
 
-ALLIANCE_VERSION = '"3.5.7"'
+ALLIANCE_VERSION = '"3.5.8"'
 ALLIANCE_BIN     = $(TOP)/bin
 ALLIANCE_LIB     = $(TOP)/lib
 ALLIANCE_INCLUDE = $(TOP)/include
@@ -156,9 +156,9 @@ ABL_L      =  -lAbl103
 ABL_LIB    = libAbl103.a
 ABL_H      =    abl103.h
 
-BDD_L      =  -lBdd103
-BDD_LIB    = libBdd103.a
-BDD_H      =    bdd103.h
+BDD_L      =  -lBdd104
+BDD_LIB    = libBdd104.a
+BDD_H      =    bdd104.h
 
 # attention il s'agit de la lib luc
 # ne pas utiliser avec aut abl bdd : utiliser log102...
@@ -357,9 +357,9 @@ GFP_H      =    gfp115.h
 #    place & route functions                                    #
 # ###---------------------------------------------------------###
 
-APR_L      =  -lApr102
-APR_LIB    = libApr102.a
-APR_H      =    apr102.h
+APR_L      =  -lApr103
+APR_LIB    = libApr103.a
+APR_H      =    apr103.h
 
 # ###---------------------------------------------------------###
 #    design rule checker functions                              #
