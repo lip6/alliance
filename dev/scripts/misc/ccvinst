@@ -1,0 +1,4 @@
+rcp -p  mi:/users/outil/ccv/labo/leo/bin/* bliss:/users/bliss4/bin 
+rcp -pr mi:/users/outil/ccv/labo/leo/lib/* bliss:/users/bliss4/lib/gnu/gcc
+rcp -p  mi:/users/outil/ccv/labo/etc/gnu/* bliss:/users/bliss4/etc/gnu
+rcp -pr mi:/users/outil/ccv/labo/etc/emacs/* bliss:/users/bliss4/etc/emacs

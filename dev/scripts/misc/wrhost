@@ -1,0 +1,12 @@
+#! /bin/sh
+
+for REP in rage testools yagle mbkspice alcban bdd icones sl amg bsg lvx rfg ring rsa s2r flop genlib genview grog mbk mbkmg mbkvti rds2ps lynx dpr fitpath mbkap elp mbkal rcn tas genpat pat dreal druc graal rds rdscif rdsgds syf mbkvrlog mbkedif mbkhilo cns asimut asm beh behvhdl mbkvhdl gscr scr
+
+do 
+
+#echo %%%%%%%%%%%%%%% $REP
+AA=`eval echo ~$REP`
+ls -al $AA/.rhosts
+grep czo $AA/.rhosts 
+done
+

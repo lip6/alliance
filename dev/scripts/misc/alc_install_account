@@ -1,0 +1,127 @@
+#!/bin/sh
+# -*- Mode: shell-script -*-
+#
+# Script to install 1 Alliance account
+#
+# Author : Olivier SIROL
+# Date   : Jul 1997 
+# $Id: alc_install_account,v 1.1 1999/09/09 14:24:53 czo Exp $
+# 
+# Ex d'appel : "alc_install_account testools"
+# Installe sur HOUSE tous les 
+#         |- labo -----------+- Solaris --------+- bin 
+#         |                  |                  |- include 
+#         |                  |                  |- lib 
+#         |                  |                  `- obj 
+# Si il existe la meme chose dans bin et lib (include doit etre un lien comme man)
+# pour toutes les archi, on installe...
+# $MACHINE
+#           SunOS
+#           Solaris
+#           Linux_elf
+#           Linux_aout
+#
+# Les binaires sont renomes en .new
+#
+# Copie de tout ce qu'on installe dans tous les spool (donc binaire.new aussi)
+# cf `alc_update_spool` pour des commentaires a propos de spool
+#
+
+
+
+# le nom du compte a installer
+ACCOUNT_NAME=$1
+
+ALC_HOUSE=/users/soft5/newlabo/
+SPOOL_DIR=$ALC_HOUSE/alc_spool/
+
+ALL_HOSTS="bechet opera morton"
+ALL_MACHINE="Solaris SunOS Linux_elf Linux_aout"
+ALL_REP="bin lib include"
+
+
+
+function fail {
+echo -e "\
+                                                             \n\
+                                                             \n\
+                   @@@@@@@@@        @      @@@@@@ @@@@@@     \n\
+                     @@    @        @        @@     @@       \n\
+                     @@     @      @@@       @@     @@       \n\
+                     @@            @@@       @@     @@       \n\
+                     @@   @       @  @@      @@     @@       \n\
+                     @@@@@@       @  @@      @@     @@       \n\
+                     @@   @      @    @@     @@     @@       \n\
+                     @@          @@@@@@@     @@     @@       \n\
+                     @@         @      @@    @@     @@      @\n\
+                     @@         @      @@    @@     @@     @ \n\
+                   @@@@@@     @@@@    @@@@ @@@@@@ @@@@@@@@@@ "
+exit 1
+}
+
+function pass {
+echo -e "\
+                                                              \n\
+                                                              \n\
+                   @@@@@@@          @        @@@@ @    @@@@ @ \n\
+                     @@   @@        @       @    @@   @    @@ \n\
+                     @@    @@      @@@     @@     @  @@     @ \n\
+                     @@    @@      @@@     @@@       @@@      \n\
+                     @@   @@      @  @@     @@@@      @@@@    \n\
+                     @@@@@        @  @@       @@@@      @@@@  \n\
+                     @@          @    @@        @@@       @@@ \n\
+                     @@          @@@@@@@   @      @@ @      @@\n\
+                     @@         @      @@  @@     @@ @@     @@\n\
+                     @@         @      @@  @@@    @  @@@    @ \n\
+                   @@@@@@     @@@@    @@@@ @  @@@@   @  @@@@  "
+}
+
+
+
+if [ $# -lt 1 ] ; then 
+     echo "Usage : `basename  $0` XXX"
+     echo "where XXX is the account name you want to install"
+     exit 1
+fi
+
+# Verifier quil y a la meme chose pour toute les $ALL_MACHINE
+#    for FILE in `find ....$REP -type f`
+#    do
+#    done
+
+for THIS_MACHINE in $ALL_MACHINE
+do
+    for THIS_REP in $ALL_REP
+    do
+#!!!!!!!!!!!!!!!!!!! l'expansion du tilde marche pas faut faire man 
+# et je part en turquie!
+	echo find ~$ACCOUNT_NAME/labo/$THIS_MACHINE/$THIS_REP -type f
+	for FILE in `find ~$ACCOUNT_NAME/labo/$THIS_MACHINE/$THIS_REP -type f`
+	do
+	FILENAME=`basename $FILE`
+	echo cp $FILE $ALC_HOUSE/$THIS_REP/
+	if [ $? -ne 0 ] ; then
+	    fail
+	fi
+	echo chmod ... $ALC_HOUSE/$THIS_REP/$FILENAME
+
+    # update spool
+    for THIS_HOST in $ALL_HOSTS
+	do
+	    echo touch $SPOOL_DIR/$THIS_HOST/$THIS_REP/$FILENAME
+	done
+	done
+    done
+done
+
+# alc_update_libraries.mk $ALC_HOUSE/Solaris
+
+pass
+
+# il faut tout mailer a alc_team
+#
+# peut etre plus de :
+#    if [ $? -ne 0 ] ; then
+#	fail
+#   fi
+

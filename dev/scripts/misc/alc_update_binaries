@@ -1,0 +1,106 @@
+#!/bin/sh
+# -*- Mode: shell-script -*-
+#
+# Script to update Alliance binaries
+# toto.old <- toto <- toto.new
+#
+# Author : Olivier SIROL
+# Date   : Jul 1997 
+# $Id: alc_update_binaries,v 1.1 1999/09/09 14:24:53 czo Exp $
+#
+# Ex d'appel : "alc_update_binaries genscan"
+# Sur HOUSE seulement : toto.old <- toto <- toto.new
+# Copie dans le spool...
+
+# le nom de l'exec a renomer
+BIN_NAME=$1
+
+ALC_HOUSE=/users/soft5/newlabo/
+SPOOL_DIR=$ALC_HOUSE/alc_spool/
+
+ALL_HOSTS="bechet opera morton"
+ALL_MACHINE="Solaris SunOS Linux_elf"
+
+
+
+fail() {
+echo -e "\
+                                                             \n\
+                                                             \n\
+                   @@@@@@@@@        @      @@@@@@ @@@@@@     \n\
+                     @@    @        @        @@     @@       \n\
+                     @@     @      @@@       @@     @@       \n\
+                     @@            @@@       @@     @@       \n\
+                     @@   @       @  @@      @@     @@       \n\
+                     @@@@@@       @  @@      @@     @@       \n\
+                     @@   @      @    @@     @@     @@       \n\
+                     @@          @@@@@@@     @@     @@       \n\
+                     @@         @      @@    @@     @@      @\n\
+                     @@         @      @@    @@     @@     @ \n\
+                   @@@@@@     @@@@    @@@@ @@@@@@ @@@@@@@@@@ "
+exit 1
+}
+
+pass() {
+echo -e "\
+                                                              \n\
+                                                              \n\
+                   @@@@@@@          @        @@@@ @    @@@@ @ \n\
+                     @@   @@        @       @    @@   @    @@ \n\
+                     @@    @@      @@@     @@     @  @@     @ \n\
+                     @@    @@      @@@     @@@       @@@      \n\
+                     @@   @@      @  @@     @@@@      @@@@    \n\
+                     @@@@@        @  @@       @@@@      @@@@  \n\
+                     @@          @    @@        @@@       @@@ \n\
+                     @@          @@@@@@@   @      @@ @      @@\n\
+                     @@         @      @@  @@     @@ @@     @@\n\
+                     @@         @      @@  @@@    @  @@@    @ \n\
+                   @@@@@@     @@@@    @@@@ @  @@@@   @  @@@@  "
+}
+
+
+if [ $# -lt 1 ] ; then 
+     echo "Usage : `basename  $0` XXX"
+     echo "where XXX is the tool exec name"
+     exit 1
+fi
+
+# toto.old <- toto <- toto.new
+for THIS_MACHINE in $ALL_MACHINE
+do
+    OLD_NAME=$ALC_HOUSE/$THIS_MACHINE/bin/$BIN_NAME.old
+    CURRENT_NAME=$ALC_HOUSE/$THIS_MACHINE/bin/$BIN_NAME
+    NEW_NAME=$ALC_HOUSE/$THIS_MACHINE/bin/$BIN_NAME.new
+    TMP_NAME=$ALC_HOUSE/$THIS_MACHINE/bin/$BIN_NAME.tmp
+
+    # copie (en cas de disk full)
+    echo cp $NEW_NAME $TMP_NAME
+    if [ $? -ne 0 ] ; then
+	fail
+    fi
+
+    echo rm $OLD_NAME
+    echo mv $CURRENT_NAME $OLD_NAME
+    echo mv $NEW_NAME $CURRENT_NAME
+    echo mv $TMP_NAME $NEW_NAME 
+done
+
+# update spool
+for THIS_HOST in $ALL_HOSTS
+do
+    echo touch $SPOOL_DIR/$THIS_HOST/bin/$OLD_NAME
+    echo touch $SPOOL_DIR/$THIS_HOST/bin/$CURRENT_NAME
+    echo touch $SPOOL_DIR/$THIS_HOST/bin/$NEW_NAME
+done
+
+
+pass
+
+# il faut tout mailer a alc_team
+#
+# peut etre plus de :
+#    if [ $? -ne 0 ] ; then
+#	fail
+#   fi
+
+

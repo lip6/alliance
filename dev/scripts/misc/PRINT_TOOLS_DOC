@@ -1,0 +1,110 @@
+#! /bin/csh
+
+if ( $#argv != 1 ) then
+  echo "PRINT_TOOLS_DOC needs to know the printer device you are using"
+  echo "Example :"
+  echo "$ PRINT_TOOLS_DOC sparc"
+  echo "if your printer is named 'sparc'."
+  exit
+endif
+
+# list of tools
+
+lpr -P$1 -h alliance_doc/alligator_c.ps
+lpr -P$1 -h fpga/alligator.ps
+
+lpr -P$1 -h alliance_doc/amg_c.ps
+lpr -P$1 -h amg/amg.ps
+
+lpr -P$1 -h alliance_doc/asimut_c.ps
+lpr -P$1 -h asimut/asimut.ps
+
+lpr -P$1 -h alliance_doc/bbr_c.ps
+lpr -P$1 -h flop/bbr.ps
+
+lpr -P$1 -h alliance_doc/bsg_c.ps
+lpr -P$1 -h bsg/bsg.ps
+
+lpr -P$1 -h alliance_doc/cheops_c.ps
+lpr -P$1 -h cheops/IKHUM.ps
+lpr -P$1 -h cheops/XKHUM0.ps
+lpr -P$1 -h cheops/XKHUM1.ps
+lpr -P$1 -h cheops/XKHUM2.ps
+lpr -P$1 -h cheops/XKHUM3.ps
+lpr -P$1 -h cheops/XKHUM4.ps
+lpr -P$1 -h cheops/XKHUM5.ps
+
+lpr -P$1 -h alliance_doc/desb_c.ps
+lpr -P$1 -h desb/userManual.ps
+
+lpr -P$1 -h alliance_doc/dlx_asm_c.ps
+lpr -P$1 -h asm/dlx_asm.ps
+
+lpr -P$1 -h alliance_doc/dpr_c.ps
+lpr -P$1 -h dpr/dpr.ps
+
+lpr -P$1 -h alliance_doc/dreal_c.ps
+lpr -P$1 -h dreal/dreal.ps
+
+lpr -P$1 -h alliance_doc/druc_c.ps
+lpr -P$1 -h druc/druc.ps
+
+lpr -P$1 -h alliance_doc/fpgen_c.ps
+lpr -P$1 -h fitpath/fpgen.ps
+
+lpr -P$1 -h alliance_doc/genlib_c.ps
+lpr -P$1 -h genlib/genlib.ps
+
+lpr -P$1 -h alliance_doc/genpat_c.ps
+lpr -P$1 -h genpat/genpat.ps
+
+lpr -P$1 -h alliance_doc/genview_c.ps
+lpr -P$1 -h genview/genview.ps
+
+lpr -P$1 -h alliance_doc/graal_c.ps
+lpr -P$1 -h graal/graal.ps
+
+lpr -P$1 -h alliance_doc/grog_c.ps
+lpr -P$1 -h grog/grog.ps
+
+lpr -P$1 -h alliance_doc/l2p_c.ps
+lpr -P$1 -h rds2ps/l2p.ps
+
+lpr -P$1 -h alliance_doc/logic_c.ps
+lpr -P$1 -h sl/logic.ps
+
+lpr -P$1 -h alliance_doc/lvx_c.ps
+lpr -P$1 -h lvx/lvx.ps
+
+lpr -P$1 -h alliance_doc/lynx_c.ps
+lpr -P$1 -h lynx/lynx.ps
+
+lpr -P$1 -h alliance_doc/netoptim_c.ps
+lpr -P$1 -h netoptim/netoptim.ps
+
+lpr -P$1 -h alliance_doc/proof_c.ps
+lpr -P$1 -h proof/proof.ps
+
+lpr -P$1 -h alliance_doc/rage_c.ps
+lpr -P$1 -h rage/rage.ps
+
+lpr -P$1 -h alliance_doc/rfg_c.ps
+lpr -P$1 -h rfg/rfg.ps
+
+lpr -P$1 -h alliance_doc/ring_c.ps
+lpr -P$1 -h ring/ring.ps
+
+lpr -P$1 -h alliance_doc/rsa_c.ps
+lpr -P$1 -h rsa/rsa.ps
+
+lpr -P$1 -h alliance_doc/s2r_c.ps
+lpr -P$1 -h s2r/s2r.ps
+
+lpr -P$1 -h alliance_doc/scr_c.ps
+lpr -P$1 -h scr/scr.ps
+
+lpr -P$1 -h alliance_doc/syf_c.ps
+lpr -P$1 -h syf/syf.ps
+
+lpr -P$1 -h alliance_doc/tas_c.ps
+lpr -P$1 -h tas/tas.ps

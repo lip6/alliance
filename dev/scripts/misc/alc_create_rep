@@ -1,0 +1,29 @@
+#! /bin/sh
+# Cree l'arborescence classique $HOME/labo et $HOME/dev
+# $Id: alc_create_rep,v 1.1 1999/09/09 14:24:53 czo Exp $
+
+
+# labo + dev
+for ROOT in labo dev
+do
+    echo "==> making rep in $HOME/$ROOT"
+
+    for REP in 1 3 5
+    do
+	mkdir -p $HOME/$ROOT/man/man$REP
+    done
+
+    mkdir -p $HOME/$ROOT/doc
+    mkdir -p $HOME/$ROOT/sce
+
+done
+
+# labo seulement
+ROOT=labo
+for ARCHI in Linux_elf Solaris SunOS
+do
+  for REP in bin obj lib include
+  do
+   mkdir -p $HOME/labo/$ARCHI/$REP
+  done
+done

@@ -1,0 +1,5 @@
+rm alliance-3.2a-Linux_elf.tgz
+rm alliance-3.2a-common.tgz
+cp alliance/README alliance.README
+tar cvzf alliance-3.2a-Linux_elf.tgz alliance/archi/Linux_elf/ &
+tar cvzf alliance-3.2a-common.tgz alliance/CHANGES alliance/LICENCE alliance/FAQ alliance/README alliance/overview.ps alliance/share/ &

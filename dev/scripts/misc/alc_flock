@@ -1,0 +1,43 @@
+#!/bin/sh
+# -*- Mode: shell-script -*-
+#
+# Script to using a lock file
+#
+# Author : Olivier SIROL
+# Date   : Sep 1997 
+# $Id: alc_flock,v 1.1 1999/09/09 14:24:53 czo Exp $
+# 
+
+LOCK_FILE=/users/cao3/sirol/toto
+LOCK_HOST=silver
+
+trap "rm -f $LOCK_FILE ; exit 0" 0 1 2 15
+
+getlock() {
+
+while [ X`rsh $LOCK_HOST /users/cao3/sirol/local/Linux_elf/bin/shlock -f $LOCK_FILE -p 1`Y = XLOCKEDY ] ;
+    do
+	echo "$LOCK_FILE is locked, waiting 2 sec..."
+	sleep 2
+    done
+
+echo "Creating lock file : $LOCK_FILE"
+
+}
+
+
+
+rmlock() {
+echo "Removing lock file : $LOCK_FILE"
+rsh $LOCK_HOST rm -f $LOCK_FILE ;
+}
+
+
+
+# main
+
+#getlock 2> /dev/null 
+getlock
+sleep 5
+rmlock
+

@@ -1,0 +1,34 @@
+#! /bin/csh
+
+if ( $#argv != 1 ) then
+  echo "PRINT_CELLS_DOC needs to know the printer device you are using"
+  echo "Example:"
+  echo "$ PRINT_CELLS_DOC sparc"
+  echo "if your printer is named 'sparc'."
+  exit
+endif
+
+# miscellaneous
+
+lpr -P$1 alliance_doc/padlib_c.ps
+lpr -P$1 ring/padlib.ps
+
+foreach i ( ring/*_p.ps )
+  echo $i
+  lpr -P$1 -h $i
+end
+
+lpr -P$1 alliance_doc/sclib_c.ps
+lpr -P$1 scr/sclib.ps
+
+foreach i ( scr/*_y.ps )
+  echo $i
+  lpr -P$1 -h $i
+
+lpr -P$1 alliance_doc/dplib_c.ps
+lpr -P$1 fitpath/dplib.ps
+
+foreach i ( fitpath/*_dp.ps )
+  echo $i
+  lpr -P$1 -h $i
+end

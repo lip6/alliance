@@ -1,0 +1,257 @@
+alcteam :
+--------
+
+Gregoire.Avot@asim.lip6.fr
+Mourad.Aberbour@asim.lip6.fr
+Pirouz.Bazargan-Sabet@asim.lip6.fr
+Abdelhafid.Bouaraoua@asim.lip6.fr
+Arnaud.Caron@asim.lip6.fr
+Jean-Paul.Chaput@asim.lip6.fr
+Anne.Derieux@asim.lip6.fr
+Gilles-Eric.Descamps@asim.lip6.fr
+Karim.Dioury@asim.lip6.fr
+Olivier.Florent@asim.lip6.fr
+Alain.Greiner@asim.lip6.fr
+Ludovic.Jacomme@asim.lip6.fr
+Anthony.Lester@asim.lip6.fr
+Frederic.Petrot@asim.lip6.fr
+Housseine.Rejouan@asim.lip6.fr
+Olivier.Sirol@asim.lip6.fr
+Huu-Nghia.Vuong@asim.lip6.fr
+Franck.Wajsburt@asim.lip6.fr
+
+
+
+La liste des mots cles pour les differentes architectures :
+
+> - SunOS       (mi, roll)
+> - Solaris     (adagio, opera)
+> - Linux_aout  (gallus, leonin)
+> - Linux_elf   (parker, cherry)
+
+
+        Plusieurs remarques:
+
+              o Nous avons decide de retirer tout ce qui concerne les
+                outils et les librarires AsGa de la prochaine version.
+
+              o Nous avons decide de retirer tout ce qui concerne les
+                Icons de la prochaine version d'Alliance.
+
+              o Il s'avere que tres peu de librairies n'ont pas de
+                responsable (voir la liste ci-dessous).
+
+
+
+
+
+
+RESPONSABLES OUTILS et BIBLIOTHEQUES ALLIANCE
+
+(Juin 1997)
+
+BIBLIOTHEQUES (les numeros de version ne sont pas significatifs)
+
+Abl101.a        / L.Jacomme     / manipulation ABL (SYF / YEAP)
+Apr102.a        / H.Rejouan     / fonctions placement/:routage (SCR / BBR)
+Aut101.a        / L.Jacomme     / Utilitaires pour ABL (SYF / YEAP)
+Bdd101.a        / L.Jacomme     / BDD  (SYF / YEAP)
+Beh109.a        / P.Bazargan    / fonctions de creation/destruction befig
+Bhl109.a        / P.Bazargan    / fonctions d'acces befig
+Bvl111.a        / P.Bazargan    / parser-driver fichier .vbe <-> befig
+Cns200.a        / A.Lester      / fonctions d'acces cnsfig
+Elp104.a        / K.Dioury      / parser fichier .elp (TAS)
+Fcl100.a        / A.Lester      / reconnaissance formes (YAGLE)
+Fgn107.a        / J.P. Chaput   / langage FPGEN
+Fks101.a        / L.Jacomme     / parser fichier .kiss2 -> fsmfig
+Fsm101.a        / L.Jacomme     / fonctions d'acces fsmfig
+Ftl101.a        / L.Jacomme     / choix du parser fsmfig
+Fvh101.a        / L.Jacomme     / parser fichier .fsm (3e partie)
+Gam000.a        / Franck        / generateur AMG
+Gbs201.a        / Franck        / generateur BSG
+Gfp107.a        / J.P. Chaput   / generateurs FPLIB
+Gga300.a        / Franck        / generateur RSA
+Ggr001.a        / F.Petrot      / genrateur GROG
+Grf604.a        / P.Bazargan    / generateur RFG
+lInf109.a       / A.Lester      / parser fichier .inf   (YAGLE et TAS)
+Mal500.a        / K.Dioury      / parser-driver fichier .al <-> lofig
+Map403.a        / J.P. Chaput   / parser-driver fichier .ap <-> phfig
+Mcl408.a        / F.Petrot      / parser-driver fichier .hnl <-> lofig
+Mgl100.a        / M.Aberbour    / driver verilog .vlg <- lofig
+Mcp402.a        / F.Petrot      / parser-driver fichier .cp <-> lofig
+Mel406.a        / O.Florent     / parser-driver EDIF <-> lofig
+Mgn324.a        / F.Petrot      / langage GENLIB
+Mhl403.a        / O.Florent     / driver lofig -> HILO
+Mlo406.a        / F.Petrot      / fonctions d'acces lofig
+Mlu413.a        / F.Petrot      / utilitaires lofig
+Mmg402.a        / F.Petrot      / parser-driver MODGEN <-> phfig
+Mph402.a        / F.Petrot      / fonctions d'acces phfig
+Mpu404.a        / F.Petrot      / utilitaires phfig
+Msl614.a        / A.Lester      / parser-driver SPICE <-> lofig
+Mut317.a        / F.Petrot      / utilitaires MBK
+Mvl409.a        / P.Bazargan    / parser-driver .vst
+Pat106.a        / P.Bazargan/   / fonctions creation/destruction structure pat
+Pgn101.a        / K.Vuong       / langage GENPAT/
+Phl106.a        / P.Bazargan    / fonctions acces structure pat
+Ppt106.a        / P.Bazargan    / parser-driver fichier .pat <-> structure pat
+Pwl100.a        / O.Florent     / driver patterns HILO
+Rcf108.a        / L.Jacomme     / parser-driver fichier .cif <-> rdsfig
+Rcn102.a        / K.Dioury      / representation des resistances dans la lofig
+Rds206.a        / L.Jacomme     / fonctions d'acces rdsfig
+Rfm207.a        / L.Jacomme     / expansion symbolique rectangles
+Rgs109.a        / L.Jacomme     / parser-driver fichier .gds <-> rdsfig
+Rpr209.a        / L.Jacomme     / parser fichier .rds (S2R / LYNX)
+Rps103.a        / GED           / driver rdsfig-> postscript
+Rtl107.a        / L.Jacomme     / choix parser rdsfig
+Rut205.a        / L.Jacomme     / utilitaires rdsfig
+Rwi106.a        / L.Jacomme     / fenetrage rdsfig
+Tas510.a        / K.Dioury      / Calcul delais elementaires pour TAS
+Ttv100.a        / K.Dioury      / parser-driver .ttv et fonctions d'acces ttvfig
+Vrd300.a        / L.Jacomme     / DRUC pour GRAAL
+Yag200.a        / A.Lester      / fonctions de desassemblage (YAGLE / TAS)
+log200.a        / O.Sirol       / ABL et BDD (LOGIC / ASIMUT)
+
+OUTILS
+
+alligator       A. Caron
+amg             Franck
+asimut          P. Bazargan
+bbr             F. Petrot
+bsg             Franck
+dlxasm          P. Bazargan
+dpr             J.P. Chaput
+dreal           L. Jacomme
+druc            L. Jacomme
+genlib          F. Petrot
+genpat          H.N. Vuong
+genscan         A. Guettaf
+genview         F. Petrot
+graal           L. Jacomme
+grog            F. Petrot
+l2p             GED
+logic           O. Sirol
+lvx             Franck
+lynx            G. Avot
+netoptim        O. Sirol
+padlib          F. Wajsburt
+proof           O. Sirol
+rage            A. Bouaraoua
+rfg             Franck
+ring            F. Wajburt
+rsa             Franck
+s2r             F. Wajsburt
+sclib           A. Derieux
+scr             H. Rejouan
+syf             L. Jacomme
+tas             K. Dioury
+yagle           A.Lester
+
+
+
+
+Dans l'ordre make
+
+
+MBK     = mbk
+
+RCN     = rcn
+
+MBK_LO  = mbkal mbkedif mbkhilo mbkspice mbkvhdl mbkvti
+
+MBK_PH  = mbkap mbkmg mbkvti mbkvrlog
+
+BDD     = bdd
+
+BEH	= beh
+
+BEHV    = behvhdl
+
+APR     = gscr
+
+PAT     = pat
+
+RDS     = rds
+
+RDS_GEN = rdscif rdsgds
+
+ELP     = elp
+
+ICON    = icones
+
+GENLIB  = genlib
+
+RSA     = rsa
+
+BLC_GEN = bsg rfg
+
+amg
+asimut
+
+e-mail :
+
+
+mbk	 fred
+rcn	 karim
+mbkal	 karim
+mbkedif	 olivier  rhosts
+mbkhilo	 olivier  rhosts dev
+mbkspice antony   rhosts dev
+mbkvhdl	 pirouz   rhosts dev
+mbkvti	 fred     rhosts
+mbkvrlog mourad
+mbkap	 jpc      
+mbkmg	 fred
+bdd	 czo      rhosts
+beh	 pirouz 
+behvhdl	 pirouz   rhosts
+gscr	 rejouan  rhosts
+pat	 kiki     rhosts
+rds	 ludo
+rdscif	 ludo
+rdsgds	 ludo
+elp	 karim
+icones	 czo      rhosts
+cns	 pascal
+alcban  czo
+genlib	 fred
+
+rsa	 franck   rhosts
+bsg	 franck   rhosts
+rfg      franck   rhosts
+amg	 franck   rhosts
+
+asimut	 pirouz   rhosts
+asm      pirouz   rhosts
+
+fitpath  jpc
+dpr      jpc
+druc	 ludo
+syf	 ludo
+dreal	 ludo
+graal	 ludo
+rage	 ab
+genview	 fred
+flop	 fred
+grog	 fred
+rds2ps	 ged (l2p)
+scr	 rejouan
+lvx	 franck
+ring	 franck
+s2r	 franck
+lynx	 gregoire
+genpat	 kiki
+sl	 czo
+yagle	 anthony
+tas	 karim
+
+testools amar
+flatbeh  czo
+mbktools czo
+
+
+
+################################
+
+sclib	anne
+fpga	ac
+

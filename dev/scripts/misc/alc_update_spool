@@ -1,0 +1,93 @@
+#!/bin/sh
+# -*- Mode: shell-script -*-
+#
+# Script to update files on local disks
+#
+# Author : Olivier SIROL
+# Date   : Jul 1997 
+# $Id: alc_update_spool,v 1.1 1999/09/09 14:24:53 czo Exp $
+#
+# Sur chaque machine concernee ce fichier 
+# devrait tourner en crontab
+#
+# Sur HOUSE il y a l'arboressence complete pour toutes
+# les machines qui ont alliance en local
+#         |-alc_spool----------+- bechet --------+- bin 
+#         |                                      |- include 
+#         |                                      |- lib 
+#         |                                      `- etc
+# 
+
+
+
+ALC_HOUSE=/users/soft5/newlabo/
+SPOOL_DIR=$ALC_HOUSE/alc_spool/
+ALL_REP="bin lib include etc"
+THIS_HOST=bechet
+THIS_MACHINE=Linux_elf
+
+function fail {
+echo -e "\
+                                                             \n\
+                                                             \n\
+                   @@@@@@@@@        @      @@@@@@ @@@@@@     \n\
+                     @@    @        @        @@     @@       \n\
+                     @@     @      @@@       @@     @@       \n\
+                     @@            @@@       @@     @@       \n\
+                     @@   @       @  @@      @@     @@       \n\
+                     @@@@@@       @  @@      @@     @@       \n\
+                     @@   @      @    @@     @@     @@       \n\
+                     @@          @@@@@@@     @@     @@       \n\
+                     @@         @      @@    @@     @@      @\n\
+                     @@         @      @@    @@     @@     @ \n\
+                   @@@@@@     @@@@    @@@@ @@@@@@ @@@@@@@@@@ "
+exit 1
+}
+
+function pass {
+echo -e "\
+                                                              \n\
+                                                              \n\
+                   @@@@@@@          @        @@@@ @    @@@@ @ \n\
+                     @@   @@        @       @    @@   @    @@ \n\
+                     @@    @@      @@@     @@     @  @@     @ \n\
+                     @@    @@      @@@     @@@       @@@      \n\
+                     @@   @@      @  @@     @@@@      @@@@    \n\
+                     @@@@@        @  @@       @@@@      @@@@  \n\
+                     @@          @    @@        @@@       @@@ \n\
+                     @@          @@@@@@@   @      @@ @      @@\n\
+                     @@         @      @@  @@     @@ @@     @@\n\
+                     @@         @      @@  @@@    @  @@@    @ \n\
+                   @@@@@@     @@@@    @@@@ @  @@@@   @  @@@@  "
+}
+
+
+# ATTENTION gnu find de moins de dix ans!!!!!!!!!!
+
+for REP in $ALL_REP
+do
+#    echo find $SPOOL_DIR/$THIS_HOST/$REP -type f
+    for FILE in `find $SPOOL_DIR/$THIS_HOST/$REP -type f`
+    do
+#    rcp house:/labo/$THIS_MACHINE ...
+#	echo $FILE
+	FILENAME=`basename $FILE`
+#	echo $FILENAME
+	echo cp $ALC_HOUSE/$THIS_MACHINE/$REP/$FILENAME /labo/$REP/
+	if [ $? -ne 0 ] ; then
+	    fail
+	fi
+	echo rm $FILE
+    done
+done
+
+pass
+
+# il faut tout mailer a alc_team
+#
+# peut etre plus de :
+#    if [ $? -ne 0 ] ; then
+#	fail
+#   fi
+
+

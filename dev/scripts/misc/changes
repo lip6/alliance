@@ -1,0 +1,216 @@
+
+
+                       Ca y est, les man d'alliance sont remis a jour...
+                       Ils sont installes dans newlabo, les vieux sont toujours dans /labo
+
+                       Les changements :
+
+                       1)IMPORTANT
+
+                       Il n'y a plus de man 2 ni de man 8
+
+                       <<<<<<<<<<<<<<<<<< On utilse seulement les man 1 3 5 >>>>>>>>>>>>>>>>>
+
+                       en effet voici a quoi correspond le chiffre :
+                               man 1 : User commands --> man de'executables + var d'environnement
+                               man 3 : Subroutines   --> fonctions C des lib Alliance
+                               man 5 : File formats  --> +cellules
+
+                       Pour les curieux :
+                       man 2 : system call
+                       man 4 : Devices
+                       man 6 : games
+                       man 7 : misc
+                       man 8 : Sys Admin
+
+
+                       2)les sed :
+                       - man 2,8 --> 3,1
+                       - desb  --> yagle
+                       - logic --> bop ou scmap ou c4map
+                       - MASI  --> ASIM/LIP6
+
+                       3)Il y a 1 fichier commun a tous les man pour ORIGIN.
+
+                       4)Il y a 1 fichier commun a tous les man pour BUG REPORT.
+
+                       5)Ils sont tous dates du 1 oct 1997
+
+                       Il vous faut recuperer les votres et les mettre dans vos compte outil!!!
+
+
+                       A la demande generale (au moins 1 personne) je vous rappelle
+                       l'arborescence d'un compte outil :
+
+
+                        toolrep -+- dev ------------+- doc 
+                                 |                  |- man ------------+- man1 
+                                 |                  |                  |- man3 
+                                 |                  |                  `- man5 
+                                 |                  `- sce 
+                                 |- labo -----------+- doc 
+                                 |                  |- Linux_elf ------+- bin 
+                                 |                  |                  |- include 
+                                 |                  |                  |- lib 
+                                 |                  |                  `- obj 
+                                 |                  |- man ------------+- man1 
+                                 |                  |                  |- man3 
+                                 |                  |                  `- man5 
+                                 |                  |- sce 
+                                 |                  |- Solaris --------+- bin 
+                                 |                  |                  |- include 
+                                 |                  |                  |- lib 
+                                 |                  |                  `- obj 
+                                 |                  `- SunOS ----------+- bin 
+                                 |                                     |- include 
+                                 |                                     |- lib 
+
+
+                       J'ai ecrit 3 scripts si cela vous interresse :
+
+                        /users/cao3/sirol/dev/distrib/alc_create_rep* : pour creer l'arbo ci
+                       dessu
+
+                        /users/cao3/sirol/dev/distrib/alc_dev2labo*   : pour copier dev dans
+                       labo et 
+                                                                       faire les liens des obj/
+
+                        /users/cao3/sirol/dev/distrib/alc_build_all*  : pour rsh et make sur
+                       les 3 archi
+
+
+                       Rappel sur les Makefiles :
+
+                       0- On utilise plus de fichiers DISTRIB ou target distrib...
+
+                       1- la premiere target est "all", ainsi 
+                        > make
+                        est equivallent a
+                        > make all
+
+                       2- Il faut une target "clean" qui efface les *~ *.o ....
+                          mais PAS les bin ou libs installees : cest le role
+                          de "distclean"
+
+                       3- Il faut une target "distclean" qui fait clean + efface
+                          tout ce qui a ete installe...
+                           
+
+
+
+
+
+
+A PROPOS DE LA DISTRIB 3.2b
+
+Bonjour,
+
+Voici un resume de ce qu'il reste a faire :
+
+0) Pour les ingenieurs system
+
+        1- Installer une nouvelle distrib Linux_elf sur tous les PC
+           (ensig et recher) (pourquoi pas la RedHat 4.2)
+        2- Installer MOTIF 1.2 en STATIQUE et dynamique sur tous les PC
+           (Denis : Le cd Xaccel/CDE modifie les lib X11 : Attention)
+
+I) Alliance distrib 
+
+Evidement, je ne fais pas trop d'illusions sur ce qui sera fait dans 
+une semaine. Je serais donc ammene a faire des modif des sources, des
+mans
+et autres fichiers. Pour ne pas avoir a faire ca a chaque distrib,
+ajoutez moi dans votre .rhost (+sirol). Merci
+
+        0- Nouvaux outils 
+        
+           Logic disparait au profit de :
+                   logic -o -> booloptim
+                   logic -l -> booloptim -l
+                   logic -s -> scmap
+                   logic -c -> c4map
+
+           Deux nouvaux outils X (merci ludo) :
+                   xpat : waveform viewer
+                   xfsm : fsm viewer
+
+           
+
+        1- Il serait bien que tout le monde teste rapidement son/ses
+outils respectif 
+        sur la nouvelle distrib :
+
+        Pour compiler :
+         > setenv TOP /users/soft5/newlabo/$MACHINE
+        avec $MACHINE => Linux_elf, Solaris et SunOS
+
+        Pour installer:
+         > instool ~testools
+
+
+        2- Il y a plusieurs fichiers a changer dans la distrib :
+        
+                COPYING
+                COPYING.LIB       -->  on est plus GPL !
+
+                LIBRARIES.ps
+                MAPPING.ps
+                OVERVIEW.ps      --> qui s'en occupe?
+                Il serait bienvenu, qu'overview.ps explique la methode
+generale
+                utilisee avec alliance :
+                - ecriture vhdl
+                - simul
+                - optim bool
+                - mapping ......
+                           
+                TAPELABEL.ps      --> etiquettes, on verra plus tard...
+
+
+        3- Je m'occupe des tutoriaux (avec l'aide de ludo)
+           Mise a jour et validation.
+        
+        4- Le repertoire DOC, disparait momentanement.
+           suite a la prochaine distrib...
+
+        5- Je m'occupe des man pages, je prends ceux qui sont installes,
+           et je les mets a jour...Pour la prochaine distrib,
+           jespere que tout le monde aura modifie son Makefile 
+           pour qu'il installe les mans
+
+
+        6- Sources 
+           - Chaque parser/driver doit avoir son propre include. De
+cette facon, toute
+             library aura un .h correspondant. Pour de prochaines
+distrib il serait
+             TRES BIEN que tout le monde utilise des prototypes (j'en
+reparlerais)
+
+           - Reecriture de genlib, genpat et fpgen : Idee : chaque
+script ecrit puis
+           execute un Makefile (au lieu de lancer gcc). C'est une tres
+bonne chose, 
+           a mon avis de les changer, je ne sais pas si cela pourra etre
+fait a temps.
+
+           -Alliance banner : personne est d'accord avec ce que je
+disait :-(
+            je rformulerais qqchose plus tard (c'etait juste dans un
+souci 
+            d'homogeneite)
+
+
+RESUME :
+- .h / parser / driver
+- s'assurer que les sources compilent sur toutes 
+  les archi et $TOP=newlabo (avec gcc)
+- Ecrire ou revoir les fichiers de la racine de la distrib.
+
+
+ Voila, surtout n'hesitez pas a me contacter rapidement, pour me dire
+        1- c'est bon, moi mes comptes y sont a jour et tout marche...
+        2- #@!~|#, jai pas le temps de faire tout ca..
+
+Merci a tous!!!
+
