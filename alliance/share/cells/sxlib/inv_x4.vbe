@@ -1,12 +1,12 @@
 ENTITY inv_x4 IS
 GENERIC (
   CONSTANT area 	 : NATURAL := 1000;
-  CONSTANT transistors	 : NATURAL := 4;
   CONSTANT cin_i	 : NATURAL := 26;
-  CONSTANT tplh_i_nq	 : NATURAL := 142;
+  CONSTANT rdown_i_nq	 : NATURAL := 810;
   CONSTANT rup_i_nq	 : NATURAL := 1060;
-  CONSTANT tphl_i_nq	 : NATURAL := 70;
-  CONSTANT rdown_i_nq	 : NATURAL := 800
+  CONSTANT tphl_i_nq	 : NATURAL := 71;
+  CONSTANT tplh_i_nq	 : NATURAL := 143;
+  CONSTANT transistors	 : NATURAL := 4
 );
 PORT (
   i	 : in  BIT;

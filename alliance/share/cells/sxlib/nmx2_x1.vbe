@@ -1,26 +1,26 @@
 ENTITY nmx2_x1 IS
 GENERIC (
   CONSTANT area 	 : NATURAL := 1750;
-  CONSTANT transistors	 : NATURAL := 10;
   CONSTANT cin_cmd	 : NATURAL := 21;
   CONSTANT cin_i0	 : NATURAL := 14;
   CONSTANT cin_i1	 : NATURAL := 14;
-  CONSTANT tplh_cmd_nq	 : NATURAL := 286;
-  CONSTANT rup_cmd_nq	 : NATURAL := 3200;
-  CONSTANT tphh_cmd_nq	 : NATURAL := 377;
-  CONSTANT rup_cmd_nq	 : NATURAL := 3200;
-  CONSTANT tphl_cmd_nq	 : NATURAL := 215;
-  CONSTANT rdown_cmd_nq	 : NATURAL := 2820;
-  CONSTANT tpll_cmd_nq	 : NATURAL := 409;
-  CONSTANT rdown_cmd_nq	 : NATURAL := 2820;
-  CONSTANT tplh_i1_nq	 : NATURAL := 255;
-  CONSTANT rup_i1_nq	 : NATURAL := 3200;
-  CONSTANT tphl_i1_nq	 : NATURAL := 214;
-  CONSTANT rdown_i1_nq	 : NATURAL := 2820;
-  CONSTANT tplh_i0_nq	 : NATURAL := 255;
-  CONSTANT rup_i0_nq	 : NATURAL := 3200;
-  CONSTANT tphl_i0_nq	 : NATURAL := 214;
-  CONSTANT rdown_i0_nq	 : NATURAL := 2820
+  CONSTANT rdown_cmd_nq	 : NATURAL := 2850;
+  CONSTANT rdown_cmd_nq	 : NATURAL := 2850;
+  CONSTANT rdown_i0_nq	 : NATURAL := 2850;
+  CONSTANT rdown_i1_nq	 : NATURAL := 2850;
+  CONSTANT rup_cmd_nq	 : NATURAL := 3210;
+  CONSTANT rup_cmd_nq	 : NATURAL := 3210;
+  CONSTANT rup_i0_nq	 : NATURAL := 3210;
+  CONSTANT rup_i1_nq	 : NATURAL := 3210;
+  CONSTANT tphl_i0_nq	 : NATURAL := 217;
+  CONSTANT tphl_i1_nq	 : NATURAL := 217;
+  CONSTANT tphl_cmd_nq	 : NATURAL := 218;
+  CONSTANT tplh_i0_nq	 : NATURAL := 256;
+  CONSTANT tplh_i1_nq	 : NATURAL := 256;
+  CONSTANT tplh_cmd_nq	 : NATURAL := 287;
+  CONSTANT tphh_cmd_nq	 : NATURAL := 379;
+  CONSTANT tpll_cmd_nq	 : NATURAL := 410;
+  CONSTANT transistors	 : NATURAL := 10
 );
 PORT (
   cmd	 : in  BIT;

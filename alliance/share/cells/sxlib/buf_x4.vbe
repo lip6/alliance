@@ -1,12 +1,12 @@
 ENTITY buf_x4 IS
 GENERIC (
   CONSTANT area 	 : NATURAL := 1250;
-  CONSTANT transistors	 : NATURAL := 6;
   CONSTANT cin_i	 : NATURAL := 9;
-  CONSTANT tphh_i_q	 : NATURAL := 377;
+  CONSTANT rdown_i_q	 : NATURAL := 810;
   CONSTANT rup_i_q	 : NATURAL := 890;
-  CONSTANT tpll_i_q	 : NATURAL := 408;
-  CONSTANT rdown_i_q	 : NATURAL := 800
+  CONSTANT tphh_i_q	 : NATURAL := 379;
+  CONSTANT tpll_i_q	 : NATURAL := 409;
+  CONSTANT transistors	 : NATURAL := 6
 );
 PORT (
   i	 : in  BIT;

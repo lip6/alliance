@@ -1,25 +1,25 @@
 ENTITY nxr2_x4 IS
 GENERIC (
   CONSTANT area 	 : NATURAL := 3000;
-  CONSTANT transistors	 : NATURAL := 16;
   CONSTANT cin_i0	 : NATURAL := 20;
   CONSTANT cin_i1	 : NATURAL := 21;
-  CONSTANT tphh_i0_nq	 : NATURAL := 465;
+  CONSTANT rdown_i0_nq	 : NATURAL := 810;
+  CONSTANT rdown_i0_nq	 : NATURAL := 810;
+  CONSTANT rdown_i1_nq	 : NATURAL := 810;
+  CONSTANT rdown_i1_nq	 : NATURAL := 810;
   CONSTANT rup_i0_nq	 : NATURAL := 890;
-  CONSTANT tplh_i0_nq	 : NATURAL := 548;
   CONSTANT rup_i0_nq	 : NATURAL := 890;
-  CONSTANT tpll_i0_nq	 : NATURAL := 479;
-  CONSTANT rdown_i0_nq	 : NATURAL := 800;
-  CONSTANT tphl_i0_nq	 : NATURAL := 517;
-  CONSTANT rdown_i0_nq	 : NATURAL := 800;
-  CONSTANT tphh_i1_nq	 : NATURAL := 563;
   CONSTANT rup_i1_nq	 : NATURAL := 890;
-  CONSTANT tplh_i1_nq	 : NATURAL := 540;
   CONSTANT rup_i1_nq	 : NATURAL := 890;
-  CONSTANT tpll_i1_nq	 : NATURAL := 451;
-  CONSTANT rdown_i1_nq	 : NATURAL := 800;
-  CONSTANT tphl_i1_nq	 : NATURAL := 549;
-  CONSTANT rdown_i1_nq	 : NATURAL := 800
+  CONSTANT tpll_i1_nq	 : NATURAL := 453;
+  CONSTANT tphh_i0_nq	 : NATURAL := 469;
+  CONSTANT tpll_i0_nq	 : NATURAL := 481;
+  CONSTANT tphl_i0_nq	 : NATURAL := 522;
+  CONSTANT tplh_i1_nq	 : NATURAL := 542;
+  CONSTANT tphl_i1_nq	 : NATURAL := 553;
+  CONSTANT tplh_i0_nq	 : NATURAL := 553;
+  CONSTANT tphh_i1_nq	 : NATURAL := 568;
+  CONSTANT transistors	 : NATURAL := 16
 );
 PORT (
   i0	 : in  BIT;

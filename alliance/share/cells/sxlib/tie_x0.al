@@ -1,5 +1,5 @@
 V ALLIANCE : 6
-H tie_x0,L,27/ 9/99
+H tie_x0,L,15/10/99
 C vdd,IN,EXTERNAL,5
 C vss,IN,EXTERNAL,2
 S 7,INTERNAL

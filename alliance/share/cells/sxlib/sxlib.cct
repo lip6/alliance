@@ -58,6 +58,24 @@ Circuit a4_x4 (
  );
 WIRE q := (((i0 and i1) and i2) and i3) ;
 EndCircuit
+Circuit an12_x1 (
+ Input    i0 ,
+ Input    i1 ,
+ Output   q ,
+ Supply1  vdd ,
+ Supply0  vss 
+ );
+WIRE q := (not i0 and i1) ;
+EndCircuit
+Circuit an12_x4 (
+ Input    i0 ,
+ Input    i1 ,
+ Output   q ,
+ Supply1  vdd ,
+ Supply0  vss 
+ );
+WIRE q := (not i0 and i1) ;
+EndCircuit
 Circuit ao22_x2 (
  Input    i0 ,
  Input    i1 ,
@@ -124,6 +142,70 @@ Circuit buf_x8 (
  );
 WIRE q := i ;
 EndCircuit
+Circuit fulladder_x2 (
+ Input    a1 ,
+ Input    a2 ,
+ Input    a3 ,
+ Input    a4 ,
+ Input    b1 ,
+ Input    b2 ,
+ Input    b3 ,
+ Input    b4 ,
+ Input    cin1 ,
+ Input    cin2 ,
+ Input    cin3 ,
+ Output   cout ,
+ Output   sout ,
+ Supply1  vdd ,
+ Supply0  vss 
+ );
+WIRE ncout := not ((a1 and b1) or ((a2 or b2) and cin1)) ;
+WIRE sout := (((a3 and b3) and cin2) or (((a4 or b4) or cin3) and ncout)) ;
+WIRE cout := not ncout ;
+EndCircuit
+Circuit fulladder_x4 (
+ Input    a1 ,
+ Input    a2 ,
+ Input    a3 ,
+ Input    a4 ,
+ Input    b1 ,
+ Input    b2 ,
+ Input    b3 ,
+ Input    b4 ,
+ Input    cin1 ,
+ Input    cin2 ,
+ Input    cin3 ,
+ Output   cout ,
+ Output   sout ,
+ Supply1  vdd ,
+ Supply0  vss 
+ );
+WIRE ncout := not ((a1 and b1) or ((a2 or b2) and cin1)) ;
+WIRE sout := (((a3 and b3) and cin2) or (((a4 or b4) or cin3) and ncout)) ;
+WIRE cout := not ncout ;
+EndCircuit
+Circuit halfadder_x2 (
+ Input    a ,
+ Input    b ,
+ Output   cout ,
+ Output   sout ,
+ Supply1  vdd ,
+ Supply0  vss 
+ );
+WIRE sout := (a xor b) ;
+WIRE cout := (a and b) ;
+EndCircuit
+Circuit halfadder_x4 (
+ Input    a ,
+ Input    b ,
+ Output   cout ,
+ Output   sout ,
+ Supply1  vdd ,
+ Supply0  vss 
+ );
+WIRE sout := (a xor b) ;
+WIRE cout := (a and b) ;
+EndCircuit
 Circuit inv_x1 (
  Input    i ,
  Output   nq ,
@@ -175,6 +257,30 @@ Circuit mx2_x4 (
  Supply0  vss 
  );
 WIRE q := ((i1 and cmd) or (not cmd and i0)) ;
+EndCircuit
+Circuit mx3_x2 (
+ Input    cmd0 ,
+ Input    cmd1 ,
+ Input    i0 ,
+ Input    i1 ,
+ Input    i2 ,
+ Output   q ,
+ Supply1  vdd ,
+ Supply0  vss 
+ );
+WIRE q := ((not cmd0 and i0) or (cmd0 and ((cmd1 and i1) or (not cmd1 and i2)))) ;
+EndCircuit
+Circuit mx3_x4 (
+ Input    cmd0 ,
+ Input    cmd1 ,
+ Input    i0 ,
+ Input    i1 ,
+ Input    i2 ,
+ Output   q ,
+ Supply1  vdd ,
+ Supply0  vss 
+ );
+WIRE q := ((not cmd0 and i0) or (cmd0 and ((cmd1 and i1) or (not cmd1 and i2)))) ;
 EndCircuit
 Circuit na2_x1 (
  Input    i0 ,
@@ -298,6 +404,30 @@ Circuit nmx2_x4 (
  );
 WIRE nq := not ((i0 and not cmd) or (i1 and cmd)) ;
 EndCircuit
+Circuit nmx3_x1 (
+ Input    cmd0 ,
+ Input    cmd1 ,
+ Input    i0 ,
+ Input    i1 ,
+ Input    i2 ,
+ Output   nq ,
+ Supply1  vdd ,
+ Supply0  vss 
+ );
+WIRE nq := not ((not cmd0 and i0) or (cmd0 and ((cmd1 and i1) or (not cmd1 and i2)))) ;
+EndCircuit
+Circuit nmx3_x4 (
+ Input    cmd0 ,
+ Input    cmd1 ,
+ Input    i0 ,
+ Input    i1 ,
+ Input    i2 ,
+ Output   nq ,
+ Supply1  vdd ,
+ Supply0  vss 
+ );
+WIRE nq := not ((not cmd0 and i0) or (cmd0 and ((cmd1 and i1) or (not cmd1 and i2)))) ;
+EndCircuit
 Circuit no2_x1 (
  Input    i0 ,
  Input    i1 ,
@@ -399,6 +529,114 @@ Circuit noa2a22_x4 (
  Supply0  vss 
  );
 WIRE nq := not ((i0 and i1) or (i2 and i3)) ;
+EndCircuit
+Circuit noa2a2a23_x1 (
+ Input    i0 ,
+ Input    i1 ,
+ Input    i2 ,
+ Input    i3 ,
+ Input    i4 ,
+ Input    i5 ,
+ Output   nq ,
+ Supply1  vdd ,
+ Supply0  vss 
+ );
+WIRE nq := not (((i0 and i1) or (i2 and i3)) or (i4 and i5)) ;
+EndCircuit
+Circuit noa2a2a23_x4 (
+ Input    i0 ,
+ Input    i1 ,
+ Input    i2 ,
+ Input    i3 ,
+ Input    i4 ,
+ Input    i5 ,
+ Output   nq ,
+ Supply1  vdd ,
+ Supply0  vss 
+ );
+WIRE nq := not (((i0 and i1) or (i2 and i3)) or (i4 and i5)) ;
+EndCircuit
+Circuit noa2a2a2a24_x1 (
+ Input    i0 ,
+ Input    i1 ,
+ Input    i2 ,
+ Input    i3 ,
+ Input    i4 ,
+ Input    i5 ,
+ Input    i6 ,
+ Input    i7 ,
+ Output   nq ,
+ Supply1  vdd ,
+ Supply0  vss 
+ );
+WIRE nq := not ((((i0 and i1) or (i2 and i3)) or (i4 and i5)) or (i6 and i7)) ;
+EndCircuit
+Circuit noa2a2a2a24_x4 (
+ Input    i0 ,
+ Input    i1 ,
+ Input    i2 ,
+ Input    i3 ,
+ Input    i4 ,
+ Input    i5 ,
+ Input    i6 ,
+ Input    i7 ,
+ Output   nq ,
+ Supply1  vdd ,
+ Supply0  vss 
+ );
+WIRE nq := not ((((i0 and i1) or (i2 and i3)) or (i4 and i5)) or (i6 and i7)) ;
+EndCircuit
+Circuit noa2ao222_x1 (
+ Input    i0 ,
+ Input    i1 ,
+ Input    i2 ,
+ Input    i3 ,
+ Input    i4 ,
+ Output   nq ,
+ Supply1  vdd ,
+ Supply0  vss 
+ );
+WIRE nq := not ((i0 and i1) or ((i2 or i3) and i4)) ;
+EndCircuit
+Circuit noa2ao222_x4 (
+ Input    i0 ,
+ Input    i1 ,
+ Input    i2 ,
+ Input    i3 ,
+ Input    i4 ,
+ Output   nq ,
+ Supply1  vdd ,
+ Supply0  vss 
+ );
+WIRE nq := not ((i0 and i1) or ((i2 or i3) and i4)) ;
+EndCircuit
+Circuit noa3ao322_x1 (
+ Input    i0 ,
+ Input    i1 ,
+ Input    i2 ,
+ Input    i3 ,
+ Input    i4 ,
+ Input    i5 ,
+ Input    i6 ,
+ Output   nq ,
+ Supply1  vdd ,
+ Supply0  vss 
+ );
+WIRE nq := not (((i0 and i1) and i2) or (((i3 or i4) or i5) and i6)) ;
+EndCircuit
+Circuit noa3ao322_x4 (
+ Input    i0 ,
+ Input    i1 ,
+ Input    i2 ,
+ Input    i3 ,
+ Input    i4 ,
+ Input    i5 ,
+ Input    i6 ,
+ Output   nq ,
+ Supply1  vdd ,
+ Supply0  vss 
+ );
+WIRE nq := not (((i0 and i1) and i2) or (((i3 or i4) or i5) and i6)) ;
 EndCircuit
 Circuit nts_x1 (
  Input    cmd ,
@@ -544,6 +782,132 @@ Circuit oa2a22_x4 (
  );
 WIRE q := ((i0 and i1) or (i2 and i3)) ;
 EndCircuit
+Circuit oa2a2a23_x2 (
+ Input    i0 ,
+ Input    i1 ,
+ Input    i2 ,
+ Input    i3 ,
+ Input    i4 ,
+ Input    i5 ,
+ Output   q ,
+ Supply1  vdd ,
+ Supply0  vss 
+ );
+WIRE q := (((i0 and i1) or (i2 and i3)) or (i4 and i5)) ;
+EndCircuit
+Circuit oa2a2a23_x4 (
+ Input    i0 ,
+ Input    i1 ,
+ Input    i2 ,
+ Input    i3 ,
+ Input    i4 ,
+ Input    i5 ,
+ Output   q ,
+ Supply1  vdd ,
+ Supply0  vss 
+ );
+WIRE q := (((i0 and i1) or (i2 and i3)) or (i4 and i5)) ;
+EndCircuit
+Circuit oa2a2a2a24_x2 (
+ Input    i0 ,
+ Input    i1 ,
+ Input    i2 ,
+ Input    i3 ,
+ Input    i4 ,
+ Input    i5 ,
+ Input    i6 ,
+ Input    i7 ,
+ Output   q ,
+ Supply1  vdd ,
+ Supply0  vss 
+ );
+WIRE q := ((((i0 and i1) or (i2 and i3)) or (i4 and i5)) or (i6 and i7)) ;
+EndCircuit
+Circuit oa2a2a2a24_x4 (
+ Input    i0 ,
+ Input    i1 ,
+ Input    i2 ,
+ Input    i3 ,
+ Input    i4 ,
+ Input    i5 ,
+ Input    i6 ,
+ Input    i7 ,
+ Output   q ,
+ Supply1  vdd ,
+ Supply0  vss 
+ );
+WIRE q := ((((i0 and i1) or (i2 and i3)) or (i4 and i5)) or (i6 and i7)) ;
+EndCircuit
+Circuit oa2ao222_x2 (
+ Input    i0 ,
+ Input    i1 ,
+ Input    i2 ,
+ Input    i3 ,
+ Input    i4 ,
+ Output   q ,
+ Supply1  vdd ,
+ Supply0  vss 
+ );
+WIRE q := ((i0 and i1) or (i4 and (i2 or i3))) ;
+EndCircuit
+Circuit oa2ao222_x4 (
+ Input    i0 ,
+ Input    i1 ,
+ Input    i2 ,
+ Input    i3 ,
+ Input    i4 ,
+ Output   q ,
+ Supply1  vdd ,
+ Supply0  vss 
+ );
+WIRE q := ((i0 and i1) or (i4 and (i2 or i3))) ;
+EndCircuit
+Circuit oa3ao322_x2 (
+ Input    i0 ,
+ Input    i1 ,
+ Input    i2 ,
+ Input    i3 ,
+ Input    i4 ,
+ Input    i5 ,
+ Input    i6 ,
+ Output   q ,
+ Supply1  vdd ,
+ Supply0  vss 
+ );
+WIRE q := (((i0 and i1) and i2) or (i6 and ((i3 or i4) or i5))) ;
+EndCircuit
+Circuit oa3ao322_x4 (
+ Input    i0 ,
+ Input    i1 ,
+ Input    i2 ,
+ Input    i3 ,
+ Input    i4 ,
+ Input    i5 ,
+ Input    i6 ,
+ Output   q ,
+ Supply1  vdd ,
+ Supply0  vss 
+ );
+WIRE q := (((i0 and i1) and i2) or (i6 and ((i3 or i4) or i5))) ;
+EndCircuit
+Circuit on12_x1 (
+ Input    i0 ,
+ Input    i1 ,
+ Output   q ,
+ Supply1  vdd ,
+ Supply0  vss 
+ );
+WIRE q := (not i0 or i1) ;
+EndCircuit
+Circuit on12_x4 (
+ Input    i0 ,
+ Input    i1 ,
+ Output   q ,
+ Supply1  vdd ,
+ Supply0  vss 
+ );
+WIRE q := (not i0 or i1) ;
+EndCircuit
 Circuit one_x0 (
  Output   q ,
  Supply1  vdd ,
@@ -580,6 +944,22 @@ Circuit sff2_x4 (
 WIRE sff_m_bcond_0 := ck ;
 REGISTER (1,1) sff_m ; 
 WHEN sff_m_bcond_0 (0 TO 1) DO sff_m := ((i1 and cmd) or (i0 and not cmd)) ;
+WIRE q := sff_m ;
+EndCircuit
+Circuit sff3_x4 (
+ Input    ck ,
+ Input    cmd0 ,
+ Input    cmd1 ,
+ Input    i0 ,
+ Input    i1 ,
+ Input    i2 ,
+ Output   q ,
+ Supply1  vdd ,
+ Supply0  vss 
+ );
+WIRE sff_m_bcond_0 := ck ;
+REGISTER (1,1) sff_m ; 
+WHEN sff_m_bcond_0 (0 TO 1) DO sff_m := ((not cmd0 and i0) or (cmd0 and ((cmd1 and i1) or (not cmd1 and i2)))) ;
 WIRE q := sff_m ;
 EndCircuit
 Circuit tie_x0 (

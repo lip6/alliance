@@ -1,12 +1,12 @@
 ENTITY inv_x8 IS
 GENERIC (
   CONSTANT area 	 : NATURAL := 1750;
-  CONSTANT transistors	 : NATURAL := 8;
   CONSTANT cin_i	 : NATURAL := 54;
-  CONSTANT tplh_i_nq	 : NATURAL := 132;
-  CONSTANT rup_i_nq	 : NATURAL := 440;
-  CONSTANT tphl_i_nq	 : NATURAL := 84;
-  CONSTANT rdown_i_nq	 : NATURAL := 400
+  CONSTANT rdown_i_nq	 : NATURAL := 400;
+  CONSTANT rup_i_nq	 : NATURAL := 450;
+  CONSTANT tphl_i_nq	 : NATURAL := 86;
+  CONSTANT tplh_i_nq	 : NATURAL := 133;
+  CONSTANT transistors	 : NATURAL := 8
 );
 PORT (
   i	 : in  BIT;

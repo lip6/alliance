@@ -1,17 +1,17 @@
 ENTITY sff1_x4 IS
 GENERIC (
-  CONSTANT area 	 : NATURAL := 450000;
-  CONSTANT transistors	 : NATURAL := 26;
+  CONSTANT area 	 : NATURAL := 4500;
   CONSTANT cin_ck	 : NATURAL := 8;
   CONSTANT cin_i	 : NATURAL := 8;
-  CONSTANT thr_i_ck	 : NATURAL := 0;
-  CONSTANT thf_i_ck	 : NATURAL := 0;
-  CONSTANT tsr_i_ck	 : NATURAL := 476;
-  CONSTANT tsf_i_ck	 : NATURAL := 585;
-  CONSTANT tar_ck_q	 : NATURAL := 500;
-  CONSTANT taf_ck_q	 : NATURAL := 500;
+  CONSTANT rdown_ck_q	 : NATURAL := 800;
   CONSTANT rup_ck_q	 : NATURAL := 890;
-  CONSTANT rdown_ck_q	 : NATURAL := 800
+  CONSTANT taf_ck_q	 : NATURAL := 500;
+  CONSTANT tar_ck_q	 : NATURAL := 500;
+  CONSTANT thf_i_ck	 : NATURAL := 0;
+  CONSTANT thr_i_ck	 : NATURAL := 0;
+  CONSTANT transistors	 : NATURAL := 26;
+  CONSTANT tsf_i_ck	 : NATURAL := 585;
+  CONSTANT tsr_i_ck	 : NATURAL := 476
 );
 PORT (
   ck	 : in  BIT;
@@ -28,12 +28,12 @@ ARCHITECTURE VBE OF sff1_x4 IS
 BEGIN
   ASSERT (vdd and not (vss))
   REPORT "power supply is missing on sff1_x4"
-  SEVERITY WARNING;      
+  SEVERITY WARNING;
 
   label0 : BLOCK ((ck and not (ck'STABLE)) = '1')
   BEGIN
     sff_m <= GUARDED i;
   END BLOCK label0;
 
-  q <= sff_m after 700 ps;
+  q <= sff_m after 1700 ps;
 END;

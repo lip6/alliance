@@ -1,27 +1,27 @@
 ENTITY ao2o22_x2 IS
 GENERIC (
   CONSTANT area 	 : NATURAL := 2250;
-  CONSTANT transistors	 : NATURAL := 10;
   CONSTANT cin_i0	 : NATURAL := 8;
   CONSTANT cin_i1	 : NATURAL := 8;
   CONSTANT cin_i2	 : NATURAL := 8;
   CONSTANT cin_i3	 : NATURAL := 8;
-  CONSTANT tphh_i0_q	 : NATURAL := 569;
-  CONSTANT rup_i0_q	 : NATURAL := 1780;
-  CONSTANT tpll_i0_q	 : NATURAL := 450;
-  CONSTANT rdown_i0_q	 : NATURAL := 1600;
-  CONSTANT tphh_i1_q	 : NATURAL := 505;
-  CONSTANT rup_i1_q	 : NATURAL := 1780;
-  CONSTANT tpll_i1_q	 : NATURAL := 540;
-  CONSTANT rdown_i1_q	 : NATURAL := 1600;
-  CONSTANT tphh_i3_q	 : NATURAL := 485;
-  CONSTANT rup_i3_q	 : NATURAL := 1780;
-  CONSTANT tpll_i3_q	 : NATURAL := 524;
-  CONSTANT rdown_i3_q	 : NATURAL := 1600;
-  CONSTANT tphh_i2_q	 : NATURAL := 429;
-  CONSTANT rup_i2_q	 : NATURAL := 1780;
-  CONSTANT tpll_i2_q	 : NATURAL := 625;
-  CONSTANT rdown_i2_q	 : NATURAL := 1600
+  CONSTANT rdown_i0_q	 : NATURAL := 1620;
+  CONSTANT rdown_i1_q	 : NATURAL := 1620;
+  CONSTANT rdown_i2_q	 : NATURAL := 1620;
+  CONSTANT rdown_i3_q	 : NATURAL := 1620;
+  CONSTANT rup_i0_q	 : NATURAL := 1790;
+  CONSTANT rup_i1_q	 : NATURAL := 1790;
+  CONSTANT rup_i2_q	 : NATURAL := 1790;
+  CONSTANT rup_i3_q	 : NATURAL := 1790;
+  CONSTANT tphh_i2_q	 : NATURAL := 432;
+  CONSTANT tpll_i0_q	 : NATURAL := 451;
+  CONSTANT tphh_i3_q	 : NATURAL := 488;
+  CONSTANT tphh_i1_q	 : NATURAL := 508;
+  CONSTANT tpll_i3_q	 : NATURAL := 526;
+  CONSTANT tpll_i1_q	 : NATURAL := 542;
+  CONSTANT tphh_i0_q	 : NATURAL := 572;
+  CONSTANT tpll_i2_q	 : NATURAL := 627;
+  CONSTANT transistors	 : NATURAL := 10
 );
 PORT (
   i0	 : in  BIT;

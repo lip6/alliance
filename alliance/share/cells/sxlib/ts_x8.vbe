@@ -1,17 +1,17 @@
 ENTITY ts_x8 IS
 GENERIC (
   CONSTANT area 	 : NATURAL := 2860;
-  CONSTANT transistors	 : NATURAL := 16;
   CONSTANT cin_cmd	 : NATURAL := 19;
   CONSTANT cin_i	 : NATURAL := 8;
-  CONSTANT tphh_cmd_q	 : NATURAL := 622;
-  CONSTANT rup_cmd_q	 : NATURAL := 440;
-  CONSTANT tphl_cmd_q	 : NATURAL := 456;
   CONSTANT rdown_cmd_q	 : NATURAL := 400;
-  CONSTANT tphh_i_q	 : NATURAL := 609;
-  CONSTANT rup_i_q	 : NATURAL := 440;
-  CONSTANT tpll_i_q	 : NATURAL := 559;
-  CONSTANT rdown_i_q	 : NATURAL := 400
+  CONSTANT rdown_i_q	 : NATURAL := 400;
+  CONSTANT rup_cmd_q	 : NATURAL := 450;
+  CONSTANT rup_i_q	 : NATURAL := 450;
+  CONSTANT tphl_cmd_q	 : NATURAL := 466;
+  CONSTANT tpll_i_q	 : NATURAL := 569;
+  CONSTANT tphh_i_q	 : NATURAL := 613;
+  CONSTANT tphh_cmd_q	 : NATURAL := 626;
+  CONSTANT transistors	 : NATURAL := 16
 );
 PORT (
   cmd	 : in  BIT;

@@ -1,22 +1,22 @@
 ENTITY o3_x2 IS
 GENERIC (
   CONSTANT area 	 : NATURAL := 1500;
-  CONSTANT transistors	 : NATURAL := 8;
   CONSTANT cin_i0	 : NATURAL := 10;
   CONSTANT cin_i1	 : NATURAL := 10;
   CONSTANT cin_i2	 : NATURAL := 9;
-  CONSTANT tphh_i0_q	 : NATURAL := 491;
-  CONSTANT rup_i0_q	 : NATURAL := 1780;
-  CONSTANT tpll_i0_q	 : NATURAL := 405;
-  CONSTANT rdown_i0_q	 : NATURAL := 1600;
-  CONSTANT tphh_i1_q	 : NATURAL := 427;
-  CONSTANT rup_i1_q	 : NATURAL := 1780;
-  CONSTANT tpll_i1_q	 : NATURAL := 480;
-  CONSTANT rdown_i1_q	 : NATURAL := 1600;
-  CONSTANT tphh_i2_q	 : NATURAL := 358;
-  CONSTANT rup_i2_q	 : NATURAL := 1780;
-  CONSTANT tpll_i2_q	 : NATURAL := 504;
-  CONSTANT rdown_i2_q	 : NATURAL := 1600
+  CONSTANT rdown_i0_q	 : NATURAL := 1620;
+  CONSTANT rdown_i1_q	 : NATURAL := 1620;
+  CONSTANT rdown_i2_q	 : NATURAL := 1620;
+  CONSTANT rup_i0_q	 : NATURAL := 1790;
+  CONSTANT rup_i1_q	 : NATURAL := 1790;
+  CONSTANT rup_i2_q	 : NATURAL := 1790;
+  CONSTANT tphh_i2_q	 : NATURAL := 360;
+  CONSTANT tpll_i0_q	 : NATURAL := 407;
+  CONSTANT tphh_i1_q	 : NATURAL := 430;
+  CONSTANT tpll_i1_q	 : NATURAL := 482;
+  CONSTANT tphh_i0_q	 : NATURAL := 494;
+  CONSTANT tpll_i2_q	 : NATURAL := 506;
+  CONSTANT transistors	 : NATURAL := 8
 );
 PORT (
   i0	 : in  BIT;

@@ -1,17 +1,17 @@
 ENTITY nts_x1 IS
 GENERIC (
   CONSTANT area 	 : NATURAL := 1500;
-  CONSTANT transistors	 : NATURAL := 6;
   CONSTANT cin_cmd	 : NATURAL := 14;
   CONSTANT cin_i	 : NATURAL := 14;
-  CONSTANT tplh_i_nq	 : NATURAL := 200;
-  CONSTANT rup_i_nq	 : NATURAL := 3200;
-  CONSTANT tphl_i_nq	 : NATURAL := 166;
-  CONSTANT rdown_i_nq	 : NATURAL := 2820;
-  CONSTANT tphh_cmd_nq	 : NATURAL := 248;
-  CONSTANT rup_cmd_nq	 : NATURAL := 3200;
-  CONSTANT tphl_cmd_nq	 : NATURAL := 40;
-  CONSTANT rdown_cmd_nq	 : NATURAL := 2820
+  CONSTANT rdown_cmd_nq	 : NATURAL := 2850;
+  CONSTANT rdown_i_nq	 : NATURAL := 2850;
+  CONSTANT rup_cmd_nq	 : NATURAL := 3210;
+  CONSTANT rup_i_nq	 : NATURAL := 3210;
+  CONSTANT tphl_cmd_nq	 : NATURAL := 41;
+  CONSTANT tphl_i_nq	 : NATURAL := 169;
+  CONSTANT tplh_i_nq	 : NATURAL := 201;
+  CONSTANT tphh_cmd_nq	 : NATURAL := 249;
+  CONSTANT transistors	 : NATURAL := 6
 );
 PORT (
   cmd	 : in  BIT;
