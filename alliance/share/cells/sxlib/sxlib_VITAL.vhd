@@ -8148,7 +8148,7 @@ entity one_x0 is
       MsgOn: Boolean := True);
 
    port(
-      q                              :	out   STD_ULOGIC := 'H');
+      q                              :	out   STD_ULOGIC := '1');
 attribute VITAL_LEVEL0 of one_x0 : entity is TRUE;
 end one_x0;
 
@@ -8173,7 +8173,7 @@ begin
    --------------------
    --  BEHAVIOR SECTION
    --------------------
-   q <= 'H';
+   q <= '1';
 
 
 end VITAL;
@@ -8902,7 +8902,7 @@ entity zero_x0 is
       MsgOn: Boolean := True);
 
    port(
-      nq                             :	out   STD_ULOGIC := 'L');
+      nq                             :	out   STD_ULOGIC := '0');
 attribute VITAL_LEVEL0 of zero_x0 : entity is TRUE;
 end zero_x0;
 
@@ -8927,7 +8927,7 @@ begin
    --------------------
    --  BEHAVIOR SECTION
    --------------------
-   nq <= 'L';
+   nq <= '0';
 
 
 end VITAL;

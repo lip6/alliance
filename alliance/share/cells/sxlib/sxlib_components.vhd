@@ -2503,7 +2503,7 @@ component one_x0
 
 -- synopsys translate_on
    port(
-      q                              :	out   STD_LOGIC := 'H');
+      q                              :	out   STD_LOGIC := '1');
 end component;
 
 
@@ -2668,7 +2668,7 @@ component zero_x0
 
 -- synopsys translate_on
    port(
-      nq                             :	out   STD_LOGIC := 'L');
+      nq                             :	out   STD_LOGIC := '0');
 end component;
 
 

@@ -11379,7 +11379,7 @@ entity one_x0 is
       Timing_xgen: Boolean := False);
 
    port(
-      q                              :	out   STD_LOGIC := 'H');
+      q                              :	out   STD_LOGIC := '1');
 end one_x0;
 
 -- architecture body --
@@ -11405,7 +11405,7 @@ architecture FTGS of one_x0 is
 begin
 
    -- Netlist
-   q <= 'H';
+   q <= '1';
 
 end FTGS;
 
@@ -12180,7 +12180,7 @@ entity zero_x0 is
       Timing_xgen: Boolean := False);
 
    port(
-      nq                             :	out   STD_LOGIC := 'L');
+      nq                             :	out   STD_LOGIC := '0');
 end zero_x0;
 
 -- architecture body --
@@ -12206,7 +12206,7 @@ architecture FTGS of zero_x0 is
 begin
 
    -- Netlist
-   nq <= 'L';
+   nq <= '0';
 
 end FTGS;
 
