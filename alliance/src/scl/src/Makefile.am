@@ -1,6 +1,6 @@
 CFLAGS              = @CFLAGS@ \
                       -DALLIANCE_TOP=\"${ALLIANCE_TOP}\"
-lib_LIBRARIES       = libscl.a
+lib_LIBRARIES       = libScl.a
 include_HEADERS     = scl.h
 libScl_a_SOURCES    = \
 scgmain.h	schenv.c    schget.h   scpadd.h    scpfree.c \
