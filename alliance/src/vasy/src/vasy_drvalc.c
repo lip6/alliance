@@ -691,6 +691,9 @@ static vexexpr *VasyAllianceExtendSignVex( VexExpr, Width )
 
       RtlDeclar->KIND = RTL_KIND_NONE;
       RtlDeclar->DIR  = RTL_DIR_INOUT;
+
+      SetVasyRtlDeclarRead( RtlDeclar );
+      SetVasyRtlDeclarAsg( RtlDeclar );
     
       RtlAssign = addrtlasg( VasyRtlFigure, dupvexexpr( VexAtom ), RTL_ASG_COMBINATORIAL );
       RtlAssign->VEX_DATA = VexExpr;
@@ -709,6 +712,9 @@ static vexexpr *VasyAllianceExtendSignVex( VexExpr, Width )
 
       RtlDeclar->KIND = RTL_KIND_NONE;
       RtlDeclar->DIR  = RTL_DIR_INOUT;
+
+      SetVasyRtlDeclarRead( RtlDeclar );
+      SetVasyRtlDeclarAsg( RtlDeclar );
     }
     
     if ( VexExpr->WIDTH < Width )
