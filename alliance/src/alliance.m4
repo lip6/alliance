@@ -11,8 +11,8 @@ else
    echo 'Bad directory for ${ALLIANCE_TOP} =' ${ALLIANCE_TOP}
    exit 1
 fi
-INCLUDES=-I${ALLIANCE_TOP}/include
-LIBS=-L${ALLIANCE_TOP}/lib
+INCLUDES="-I${ALLIANCE_TOP}/include $INCLUDES"
+LIBS="-L${ALLIANCE_TOP}/lib $LIBS"
 AC_SUBST(INCLUDES)
 AC_SUBST(LIBS)
 
