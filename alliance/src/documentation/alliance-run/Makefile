@@ -1,4 +1,3 @@
-     ALLIANCE_TOP = /asim/alliance
       TECHNO_REAL = prol10
 
 
@@ -90,8 +89,7 @@
     PROOF = $(MBK_EXTRACT_ENV); $(ALLIANCE_BIN)/proof
    GENLIB = $(MBK_GENERAT_ENV);$(ALLIANCE_BIN)/genlib
    GENPAT = $(MBK_GENERAT_ENV); $(ALLIANCE_BIN)/genpat
-#      OCP = $(MBK_GENERAT_ENV); $(ALLIANCE_BIN)/ocp 
-      OCP = $(MBK_GENERAT_ENV); /users/cao/xtof/alliance/Linux/install/bin/ocp 
+      OCP = $(MBK_GENERAT_ENV); $(ALLIANCE_BIN)/ocp 
      NERO = $(MBK_GENERAT_ENV); $(ALLIANCE_BIN)/nero
      RING = $(MBK_GENERAT_ENV); $(ALLIANCE_BIN)/ring
     GRAAL = $(MBK_GENERAT_ENV); $(ALLIANCE_BIN)/graal
