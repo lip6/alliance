@@ -166,7 +166,7 @@ AC_SUBST(XM_LIBS)
 dnl
 dnl
 dnl Check for Motif properties
-LIBS="$LIBS ${XM_LIBS} ${X_PRE_LIBS} ${XP_LIBS} ${XPM_LIBS} ${XEXT_LIBS} ${XT_LIBS} ${XEXT_LIBS} ${X11_LIBS} ${X_EXTRA_LIBS}"
+LIBS="$LIBS ${XM_LIBS} ${XP_LIBS} ${XPM_LIBS} ${XEXT_LIBS} ${XT_LIBS} ${X_PRE_LIBS} ${X11_LIBS} ${X_EXTRA_LIBS}"
 dnl
 dnl
 dnl
