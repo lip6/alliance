@@ -1,12 +1,12 @@
-# $Id: Makefile.am,v 1.3 2002/05/02 09:06:38 xtof Exp $
+# $Id: Makefile.am,v 1.4 2002/05/02 14:15:10 czo Exp $
 
-sxlibvbedir  = $(pkgdatadir)/sxlib
-sxlibapdir   = $(pkgdatadir)/sxlib
-sxlibaldir   = $(pkgdatadir)/sxlib
-sxlibdatdir  = $(pkgdatadir)/sxlib
-sxlibvhddir  = $(pkgdatadir)/sxlib
-sxlibetcdir = $(pkgdatadir)/sxlib
-sxlibsymdir = $(pkgdatadir)/sxlib
+sxlibvbedir=$(DESTDIR)$(prefix)/cells/sxlib
+sxlibapdir=$(DESTDIR)$(prefix)/cells/sxlib
+sxlibaldir=$(DESTDIR)$(prefix)/cells/sxlib
+sxlibdatdir=$(DESTDIR)$(prefix)/cells/sxlib
+sxlibvhddir=$(DESTDIR)$(prefix)/cells/sxlib
+sxlibetcdir=$(DESTDIR)$(prefix)/cells/sxlib
+sxlibsymdir=$(DESTDIR)$(prefix)/cells/sxlib
 
 sxlibvbe_DATA = a2_x2.vbe a2_x4.vbe a3_x2.vbe a3_x4.vbe \
 a4_x2.vbe a4_x4.vbe an12_x1.vbe an12_x4.vbe ao22_x2.vbe \
