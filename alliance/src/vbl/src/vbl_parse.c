@@ -185,7 +185,7 @@ void getvbpkg( FileName, Extention )
 
         if ( ! VbhFigure->IS_PACKAGE )
         {
-          fprintf( stdout, "ERROR file %s is not a package\n", PhysicalName );
+          fprintf( stdout, "ERROR file %s.pkg is not a package\n", PhysicalName );
           autexit( 1 );
         }
 
@@ -200,7 +200,7 @@ void getvbpkg( FileName, Extention )
   }
   else
   {
-    fprintf( stdout, "Error opening package file list %s\n", FileName );
+    fprintf( stdout, "Error opening package file list %s.pkg\n", FileName );
     autexit( 1 );
   }
 }
