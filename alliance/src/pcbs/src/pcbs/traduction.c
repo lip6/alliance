@@ -1088,7 +1088,7 @@ unsigned int num_seq=1;              /*decoupage en plusieurs parties des PAT*/
   
   /*l'emulation multiplie par un facteur de l'ordre de 200 la taille des pat      --> mefiance avec la memoire procedure de chargement/dechargement*/
   ftime(&start_io);
-  pat = pat_lodpaseq (sce, NULL, sequence);
+  pat = pat_lodpaseq (sce, NULL, sequence, 0);
   ftime(&end_io);
   time_io+=(end_io.time-start_io.time)*1000 + end_io.millitm-start_io.millitm;
   if (pat==NULL || pat->ERRFLG) 
@@ -1155,7 +1155,7 @@ CURRENT_PARALLEL_PATTERN_NUMBER=0;
     /*la fct lodpaseq retourne toujours la pattern precedente suivie */
     /*des courantes*/
     ftime(&start_io);
-    pat = pat_lodpaseq (sce, pat, sequence);
+    pat = pat_lodpaseq (sce, pat, sequence, 0);
     ftime(&end_io);
     time_io+=(end_io.time-start_io.time)*1000 +end_io.millitm-start_io.millitm;
     if (pat==NULL || pat->ERRFLG) 

@@ -263,7 +263,7 @@ int nbr_pat=0;                                    /*nbr de patterns bs total */
 
 /*les fichiers boundary scan sont grands donc partitionner*/
   ftime(&start_io);
-  pat = pat_lodpaseq (file, NULL, sequence);
+  pat = pat_lodpaseq (file, NULL, sequence, 0);
   ftime(&end_io);
   time_io+=(end_io.time-start_io.time)*1000 + end_io.millitm-start_io.millitm;
   if (pat==NULL || pat->ERRFLG) 
@@ -303,7 +303,7 @@ int nbr_pat=0;                                    /*nbr de patterns bs total */
 	 fflush(stdout);}
   
        ftime(&start_io);
-       pat = pat_lodpaseq (file, pat, sequence);
+       pat = pat_lodpaseq (file, pat, sequence, 0);
        ftime(&end_io);
        time_io+=
 	    (end_io.time-start_io.time)*1000 + end_io.millitm-start_io.millitm;

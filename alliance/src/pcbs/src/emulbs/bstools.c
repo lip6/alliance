@@ -369,7 +369,7 @@ struct timeb start_io,end_io;      /* to compute exec time */
   fflush(stdout);
   
  
-  pat = pat_lodpaseq (file, pat, nb_pat);
+  pat = pat_lodpaseq (file, pat, nb_pat, 0);
   
   if ( pat==NULL || pat->ERRFLG ) 
   {
