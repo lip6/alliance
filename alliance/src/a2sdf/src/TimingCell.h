@@ -1,6 +1,7 @@
 #ifndef __TIMING_CELL_H
 #define __TIMING_CELL_H
 
+#include <string>
 #include <iostream>
 #include <fstream>
 #include <map>
