@@ -135,7 +135,7 @@ static struct lofig *MVL_CHDHED = NULL;	/* childs list                  */
 %token        _OR
 %token        OTHERS
 %token        _OUT
-%token        PACKAGE
+%token        _PACKAGE
 %token        PORT
 %token        PROCEDURE
 %token        PROCESS
