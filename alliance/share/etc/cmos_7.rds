@@ -639,8 +639,8 @@ DRC_COMMENT
 50 (RDS_POLY,RDS_POLY) distance axiale min 2.
 51 (RDS_ALU1) largeur min 1. 
 52 (RDS_ALU1) largeur min 1. 
-53 (RDS_ALU1) distance axiale min 2.5 
-54 (RDS_ALU1,RDS_ALU1) distance axiale min 2.5 
+53 (RDS_ALU1) distance axiale min 3.
+54 (RDS_ALU1,RDS_ALU1) distance axiale min 3.
 55 (RDS_ALU2) largeur min 2. 
 56 (RDS_ALU2) largeur min 2. 
 57 (RDS_ALU2) distance axiale min 3. 
