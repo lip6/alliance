@@ -1,5 +1,5 @@
 /*
- *  $Id: util_Sys.c,v 1.1 2002/04/29 13:40:55 jpc Exp $
+ *  $Id: util_Sys.c,v 1.2 2002/09/16 12:52:04 jpc Exp $
  *
  *  /----------------------------------------------------------------\
  *  |                                                                |
@@ -120,7 +120,7 @@ static void  trapSig(aSig)
 extern void  trapInit()
 {
   /* Set the trap function for the ERROR signal. */
-  if (ssignal (C_SIGERR, trapSig) == SIG_ERR) { trapSig (C_SIGTFLT); }
+  /* if (ssignal (C_SIGERR, trapSig) == SIG_ERR) { trapSig (C_SIGTFLT); } */
 
   /* Set the trap function for SIGTERM signal. */
   if (signal(SIGTERM, trapSig) == SIG_ERR) { trapSig (C_SIGTFLT); }
@@ -136,11 +136,13 @@ extern void  trapInit()
  *  Function  :  "sendGSignal()".
  */
 
-extern void  sendGSignal(aSig)
-  int aSig;
-{
-  gsignal (aSig);
-}
+/*
+ * extern void  sendGSignal(aSig)
+ *   int aSig;
+ * {
+ *   gsignal (aSig);
+ * }
+ */
 
 
 /*  ------------------------------------------------------------------
