@@ -157,7 +157,9 @@ static int distribCell(befig_list* befig)
          if (cell->AREA==getgenericarea(befig)) break; /*insert new*/
 
          /*remove old cells because they are bigger*/
-         fprintf(stderr,"Mapping Warning: Cell '%s' isn't supported\n",cell->NAME);
+#if 0
+         fprintf(stderr,"Mapping Warning: a smaller cell than '%s' exists\n",cell->NAME);
+#endif         
          old_cell=cell->NAME;
          pred=NULL;
          for (cell=cells_lib ; cell; cell=cell->NEXT) {
@@ -229,7 +231,9 @@ static int distribCell(befig_list* befig)
          if (cell->AREA==getgenericarea(befig)) break; /*insert new*/
 
          /*remove old cells because they are bigger*/
-         fprintf(stderr,"Mapping Warning: Cell '%s' isn't supported\n",cell->NAME);
+#if 0
+         fprintf(stderr,"Mapping Warning: a smaller cell than '%s' exists\n",cell->NAME);
+#endif         
          old_cell=cell->NAME;
          pred=NULL;
          for (cell=cells_lib ; cell; cell=cell->NEXT) {
@@ -272,7 +276,9 @@ static int distribCell(befig_list* befig)
                if (cell->AREA<getgenericarea(befig)) return 0;
                if (cell->AREA==getgenericarea(befig)) break; /*insert new*/
                /*remove old cells because they are bigger*/
-               fprintf(stderr,"Mapping Warning: Cell '%s' isn't supported\n",cell->NAME);
+#if 0
+               fprintf(stderr,"Mapping Warning: a smaller cell than '%s' exists\n",cell->NAME);
+#endif         
                old_cell=cell->NAME;
                pred=NULL;
                for (cell=cells_lib ; cell; cell=cell->NEXT) {
