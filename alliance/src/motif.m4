@@ -14,7 +14,7 @@ dnl
 dnl The LINK_MOTIF and INCLUDE_MOTIF variables should be fit to put on
 dnl your application's link line in your Makefile.
 dnl
-dnl Oleo CVS $Id: motif.m4,v 1.1 2002/04/10 12:50:03 ludo Exp $
+dnl Oleo CVS $Id: motif.m4,v 1.2 2002/05/06 17:49:05 xtof Exp $
 dnl
 AC_DEFUN(AC_FIND_MOTIF,
 [
@@ -75,12 +75,14 @@ ac_cv_motif_includes=
 # /usr/include/X11* are used on HP-UX (X and Athena).
 # /usr/dt is used on Solaris (Motif).
 # /usr/openwin is used on Solaris (X and Athena).
+# /sw/include is used on Darwin (Mac OS X) with fink installation.
 # Other directories are just guesses.
 for dir in "$x_includes" "${prefix}/include" /usr/include /usr/local/include \
            /usr/include/Motif2.0 /usr/include/Motif1.2 /usr/include/Motif1.1 \
            /usr/include/X11R6 /usr/include/X11R5 /usr/include/X11R4 \
            /usr/dt/include /usr/openwin/include \
            /usr/dt/*/include /opt/*/include /usr/include/Motif* \
+	   /sw/include \
            "${prefix}"/*/include /usr/*/include /usr/local/*/include \
            "${prefix}"/include/* /usr/include/* /usr/local/include/*; do
 if test -f "$dir/Xm/Xm.h"; then
@@ -129,6 +131,7 @@ ac_cv_motif_libraries=
 # /usr/dt is used on Solaris (Motif).
 # /usr/lesstif is used on Linux (Lesstif).
 # /usr/openwin is used on Solaris (X and Athena).
+# /sw/lib is used on Darwin (Mac OS X) with fink installation.
 # Other directories are just guesses.
 for dir in "$x_libraries" "${prefix}/lib" /usr/lib /usr/local/lib \
            /usr/lib/Motif2.0 /usr/lib/Motif1.2 /usr/lib/Motif1.1 \
@@ -136,6 +139,7 @@ for dir in "$x_libraries" "${prefix}/lib" /usr/lib /usr/local/lib \
            /usr/dt/lib /usr/openwin/lib \
            /usr/dt/*/lib /opt/*/lib /usr/lib/Motif* \
            /usr/lesstif*/lib /usr/lib/Lesstif* \
+	   /sw/lib \
            "${prefix}"/*/lib /usr/*/lib /usr/local/*/lib \
            "${prefix}"/lib/* /usr/lib/* /usr/local/lib/*; do
 if test -d "$dir" && test "`ls $dir/libXm.* 2> /dev/null`" != ""; then
@@ -153,6 +157,21 @@ LDFLAGS="$ac_motif_save_LDFLAGS"
 #
 MOTIF_LIBRARIES="$ac_cv_motif_libraries"
 fi
+# Add Motif definitions to X flags
+#
+if test "$MOTIF_INCLUDES" != "" && test "$MOTIF_INCLUDES" != "$x_includes" && test "$MOTIF_INCLUDES" != "no"
+then
+X_CFLAGS="-I$MOTIF_INCLUDES $X_CFLAGS"
+fi
+if test "$MOTIF_LIBRARIES" != "" && test "$MOTIF_LIBRARIES" != "$x_libraries" && test "$MOTIF_LIBRARIES" != "no"
+then
+case "$X_LIBS" in
+  *-R\ *) X_LIBS="-L$MOTIF_LIBRARIES -R $MOTIF_LIBRARIES $X_LIBS";;
+  *-R*)   X_LIBS="-L$MOTIF_LIBRARIES -R$MOTIF_LIBRARIES $X_LIBS";;
+  *)      X_LIBS="-L$MOTIF_LIBRARIES $X_LIBS";;
+esac
+fi
+#
 #
 # Provide an easier way to link
 #
