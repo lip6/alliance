@@ -302,6 +302,7 @@ biabl (3)            - BEH data structure
 bigvia (3)           - draws a non minimal via as a bunch of vias
 binode (3)           - BEH data structure
 boog (1)             - Binding and Optimizing On Gates.
+boom (1)             - Boolean optimization of a logic level behavioural description (VHDL data flow)
 bop (1)              - boolean optimization of a logic level behavioural description (VHDL data flow)
 bsg (1)              - Barrel Shifter Generator
 buildrdswindow (2)   - builds windowing of a figure
