@@ -392,10 +392,7 @@ void FvhFbhTreatPragma( FbhFigure, FsmFigure, NumberProc )
       ScanFigList->STACK_CONTROL[ FSM_CTRL_POP ] = ScanPragma->NAME;
     }
 
-    /* SHOULD BE DONE BETTER !! */
-    FsmFigure->PRAGMA = addptype( FsmFigure->PRAGMA,
-                                  (long)ScanPragma->TYPE,
-                                  ScanPragma->NAME );
+    addfsmpragma( FsmFigure, ScanPragma->TYPE, ScanPragma->NAME, ScanPragma->VALUE );
   }
 }
 
@@ -515,6 +512,8 @@ void FvhFbhTreatAux( FbhFigure, FsmFigure )
       Figure = addfsmfig( ScanFigList->NAME );
       ScanFigList->FSM_FIGURE = Figure;
       FsmFigure->MULTI = addchain( FsmFigure->MULTI, (void *)Figure );
+
+      SetFsmFigMultiLeaf( Figure );
     }
 
     Figure->STAR_STATE = addfsmstate( Figure, "*" );
@@ -1859,6 +1858,17 @@ void FvhFbhPostTreat( FsmFigure )
       }
   
       delablexpr( Equation );
+    }
+
+    if ( IsFsmFigMulti( FsmFigure ) )
+    {
+      Figure = ScanFigList->FSM_FIGURE;
+
+      addfsmpragma( Figure, FvhClockKeyword       , ScanFigList->CLOCK        , ScanFigList->NAME );
+      addfsmpragma( Figure, FvhCurrentStateKeyword, ScanFigList->CURRENT_STATE, ScanFigList->NAME );
+      addfsmpragma( Figure, FvhNextStateKeyword   , ScanFigList->NEXT_STATE   , ScanFigList->NAME );
+      addfsmpragma( Figure, FvhFirstStateKeyword  , ScanFigList->FIRST_STATE  , ScanFigList->NAME );
+      /* TO BE DONE for STACK */
     }
   }
 }

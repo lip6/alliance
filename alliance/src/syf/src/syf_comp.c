@@ -90,6 +90,8 @@ static void SyfRemoveStable( Expr )
 
   ablexpr *Expr;
 {
+  if ( Expr == (ablexpr *)0 ) return;
+
   if ( ! ABL_ATOM( Expr ) )
   {
     if ( ABL_OPER( Expr ) == ABL_STABLE )
@@ -125,7 +127,8 @@ fsmfig_list *SyfCompile( FileName, FlagScan, FlagSynopsys )
   char  FlagSynopsys;
 {
   fsmfig_list *FsmFigure;
-  syfinfo     *SyfInfo;
+  fsmfig_list *ScanFigure;
+  chain_list  *ScanChain;
 
   if ( FSM_IN == FSM_VHDL_FORMAT )
   {
@@ -138,8 +141,16 @@ fsmfig_list *SyfCompile( FileName, FlagScan, FlagSynopsys )
  
   if ( FlagSynopsys )
   {
-    SyfInfo = FSM_SYF_INFO( FsmFigure );
     SyfRemoveStable( FsmFigure->CLOCK_ABL );
+
+    for ( ScanChain  = FsmFigure->MULTI;
+          ScanChain != (chain_list *)0;
+          ScanChain  = ScanChain->NEXT )
+    {
+      ScanFigure = (fsmfig_list *)ScanChain->DATA;
+
+      SyfRemoveStable( ScanFigure->CLOCK_ABL );
+    }
   }
 
   return( FsmFigure );

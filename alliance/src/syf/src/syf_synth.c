@@ -1533,9 +1533,9 @@ void SyfSynthFsmInit( FsmFigure )
 
   for ( Index = 0; Index < RegMax; Index++ )
   {
-    sprintf( Buffer, "%s %ld", SyfInfo->CURRENT_STATE, Index );
+    sprintf( Buffer, "%s_%s %ld", FsmFigure->NAME, SyfInfo->CURRENT_STATE, Index );
     RegArray[ Index ].NAME_OUT = namealloc( Buffer );
-    sprintf( Buffer, "%s %ld", SyfInfo->NEXT_STATE, Index );
+    sprintf( Buffer, "%s_%s %ld", FsmFigure->NAME, SyfInfo->NEXT_STATE, Index );
     RegArray[ Index ].NAME_IN = namealloc( Buffer );
     RegArray[ Index ].NAME_MASTER = RegArray[ Index ].NAME_OUT;
   }
@@ -1558,7 +1558,7 @@ void SyfSynthFsmInit( FsmFigure )
 
     for ( Index = 0; Index < OutMax; Index++ )
     {
-      sprintf( Buffer, "regouts_%ld", Index );
+      sprintf( Buffer, "%s_regouts_%ld", FsmFigure->NAME, Index );
       OutArray[ Index ].NAME_OUT = namealloc( Buffer );
       OutArray[ Index ].NAME_MASTER = OutArray[ Index ].NAME_OUT;
     }
@@ -1576,7 +1576,7 @@ void SyfSynthFsmInit( FsmFigure )
 
     for ( Index = 0; Index < CtrlMax; Index++ )
     {
-      sprintf( Buffer, "ctrl_%s", FSM_CTRL_NAME[ Index ] );
+      sprintf( Buffer, "%s_ctrl_%s", FsmFigure->NAME, FSM_CTRL_NAME[ Index ] );
       CtrlArray[ Index ].NAME = namealloc( Buffer );
     }
 
@@ -1589,7 +1589,7 @@ void SyfSynthFsmInit( FsmFigure )
     {
       for ( ScanBit = 0; ScanBit < SyfInfo->NUMBER_REG; ScanBit++ )
       {
-        sprintf( Buffer, "stacks_%ld_%ld", Stack, ScanBit );
+        sprintf( Buffer, "%s_stacks_%ld_%ld", FsmFigure->NAME, Stack, ScanBit );
         StackArray[ Index ].NAME_OUT = namealloc( Buffer );
         StackArray[ Index ].NAME_MASTER = StackArray[ Index ].NAME_OUT;
 

@@ -102,6 +102,8 @@ int delfsmfig( Name )
   fsmstack_list  *DelStack;
   fsmlocout_list *Locout;
   fsmlocout_list *DelLocout;
+  fsmpragma_list *ScanPragma;
+  fsmpragma_list *DelPragma;
 
   Name     = namealloc( Name );
   Previous = &HEAD_FSMFIG;
@@ -200,9 +202,14 @@ int delfsmfig( Name )
     freefsmstack( DelStack );
   }
 
-  if ( Figure->PRAGMA != (ptype_list *)0 )
+  ScanPragma = Figure->PRAGMA;
+
+  while ( ScanPragma != (fsmpragma_list *)0 )
   {
-    freeptype( Figure->PRAGMA );
+    DelPragma  = ScanPragma;
+    ScanPragma = ScanPragma->NEXT;
+
+    freefsmpragma( DelPragma );
   }
 
   destroyauthtable( Figure->HASH_PORT   );

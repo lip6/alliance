@@ -148,40 +148,24 @@ syfstate *Syfaddfsmsyfstate( Figure, State )
 {
   syfstate *SyfState;
   syfinfo  *SyfInfo;
-  char     *Buffer;
-  int       Length;
+  char      Buffer[ 1024 ];
 
   SyfInfo = FSM_SYF_INFO( Figure );
 
   SyfState    = (void *)autallocblock( sizeof( syfstate ) );
   State->USER = (void *)SyfState;
 
-  Length = strlen( State->NAME ) + strlen( SyfInfo->CURRENT_STATE );
-  Buffer = autallocblock( Length + 2 );
-
-  sprintf( Buffer, "%s_%s", SyfInfo->CURRENT_STATE, State->NAME );
+  sprintf( Buffer, "%s_%s_%s", Figure->NAME, SyfInfo->CURRENT_STATE, State->NAME );
   SyfState->CURRENT_NAME = namealloc( Buffer );
 
-  autfreeblock( Buffer );
-
-  Length = strlen( State->NAME ) + strlen( SyfInfo->RETURN_STATE );
-  Buffer = autallocblock( Length + 2 );
-
-  sprintf( Buffer, "%s_%s", SyfInfo->RETURN_STATE, State->NAME );
+  sprintf( Buffer, "%s_%s_%s", Figure->NAME, SyfInfo->RETURN_STATE, State->NAME );
   SyfState->RETURN_NAME = namealloc( Buffer );
 
-  autfreeblock( Buffer );
-
-  Length = strlen( State->NAME ) + strlen( SyfInfo->NEXT_STATE );
-  Buffer = autallocblock( Length + 5 );
-
-  sprintf( Buffer, "%s_%s", SyfInfo->NEXT_STATE, State->NAME );
+  sprintf( Buffer, "%s_%s_%s", Figure->NAME, SyfInfo->NEXT_STATE, State->NAME );
   SyfState->NEXT_NAME = namealloc( Buffer );
 
-  sprintf( Buffer, "%s_in_%s", SyfInfo->NEXT_STATE, State->NAME );
+  sprintf( Buffer, "%s_%s_in_%s", Figure->NAME, SyfInfo->NEXT_STATE, State->NAME );
   SyfState->NEXT_IN_NAME = namealloc( Buffer );
-
-  autfreeblock( Buffer );
 
   return( SyfState );
 }

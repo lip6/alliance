@@ -87,7 +87,6 @@ void SyfFsmTreatPort( FsmFigure, FbhFigure )
    fsmfig_list *FsmFigure;
    fbfig_list  *FbhFigure;
 {
-  syfinfo         *SyfInfo;
   fbpor_list      *FbhPort;
   fbrin_list      *FbhRin;
   fsmport_list    *ScanPort;
@@ -97,7 +96,6 @@ void SyfFsmTreatPort( FsmFigure, FbhFigure )
     return;
   }
 
-  SyfInfo = FSM_SYF_INFO( FsmFigure );
   FbhPort = (fbpor_list *)0;
   FbhRin  = FbhFigure->BERIN;
 
@@ -381,7 +379,9 @@ fbfig_list *SyfFsm2Fbh( FsmFigure )
 
   fsmfig_list *FsmFigure;
 {
-  fbfig_list *FbhFigure;
+  fsmfig_list *ScanFigure;
+  chain_list  *ScanChain;
+  fbfig_list  *FbhFigure;
 
   if ( ! IsFsmFigMixedRtl( FsmFigure ) )
   {
@@ -393,9 +393,17 @@ fbfig_list *SyfFsm2Fbh( FsmFigure )
   }
 
   SyfFsmTreatPort( FsmFigure, FbhFigure );
-  SyfFsmTreatOutput( FsmFigure, FbhFigure );
-  SyfFsmTreatRegister( FsmFigure, FbhFigure );
-  SyfFsmTreatAux( FsmFigure, FbhFigure );
+
+  for ( ScanChain  = FsmFigure->MULTI;
+        ScanChain != (chain_list *)0;
+        ScanChain  = ScanChain->NEXT )
+  {
+    ScanFigure = (fsmfig_list *)ScanChain->DATA;
+
+    SyfFsmTreatOutput( ScanFigure, FbhFigure );
+    SyfFsmTreatRegister( ScanFigure, FbhFigure );
+    SyfFsmTreatAux( ScanFigure, FbhFigure );
+  }
 
   return( FbhFigure );
 }

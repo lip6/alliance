@@ -335,6 +335,36 @@ fsmlocout_list *addfsmlocout( State, Output, Equation, EquationDC )
 
 /*------------------------------------------------------------\
 |                                                             |
+|                         Fsm Add Pragma                      |
+|                                                             |
+\------------------------------------------------------------*/
+
+fsmpragma_list *addfsmpragma( Figure, Type, Name, Value )
+
+   fsmfig_list   *Figure;
+   char          *Type;
+   char          *Name;
+   char          *Value;
+{
+  fsmpragma_list *Pragma;
+
+  Type  = namealloc( Type  );
+  Name  = namealloc( Name  );
+  Value = namealloc( Value );
+
+  Pragma = allocfsmpragma();
+
+  Pragma->TYPE    = namealloc( Type  );
+  Pragma->NAME    = namealloc( Name  );
+  Pragma->VALUE   = namealloc( Value );
+  Pragma->NEXT    = Figure->PRAGMA;
+  Figure->PRAGMA  = Pragma;
+
+  return( Pragma );
+}
+
+/*------------------------------------------------------------\
+|                                                             |
 |                         Fsm Add Output                      |
 |                                                             |
 \------------------------------------------------------------*/

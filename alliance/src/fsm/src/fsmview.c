@@ -209,6 +209,27 @@ void viewfsmtrans( Trans )
 
 /*------------------------------------------------------------\
 |                                                             |
+|                     Fsm View Pragma                         |
+|                                                             |
+\------------------------------------------------------------*/
+
+void viewfsmpragma( Pragma )
+
+  fsmpragma_list *Pragma;
+{
+  fprintf( stdout, "\n--> Pragma" );
+  fprintf( stdout, "\n\t\tFLAGS : %lx", Pragma->FLAGS );
+  fprintf( stdout, "\n\t\tUSER  : %lx", (long)Pragma->USER );
+
+  fprintf( stdout, "\n\t\tTYPE  : %s", Pragma->TYPE  ? Pragma->TYPE  : "NULL"  );
+  fprintf( stdout, "\n\t\tNAME  : %s", Pragma->NAME  ? Pragma->NAME  : "NULL"  );
+  fprintf( stdout, "\n\t\tVALUE : %s", Pragma->VALUE ? Pragma->VALUE : "NULL"  );
+
+  fprintf( stdout, "\n<-- Pragma" );
+}
+
+/*------------------------------------------------------------\
+|                                                             |
 |                     Fsm View Stack                          |
 |                                                             |
 \------------------------------------------------------------*/
@@ -320,12 +341,13 @@ void viewfsmfig( Figure )
 
   fsmfig_list *Figure;
 {
-  fsmstate_list *State;
-  fsmtrans_list *Trans;
-  fsmstack_list *Stack;
-  fsmin_list    *Input;
-  fsmout_list   *Output;
-  fsmport_list  *Port;
+  fsmstate_list  *State;
+  fsmtrans_list  *Trans;
+  fsmstack_list  *Stack;
+  fsmpragma_list *Pragma;
+  fsmin_list     *Input;
+  fsmout_list    *Output;
+  fsmport_list   *Port;
 
   fprintf( stdout, "\n--> Figure" );
   fprintf( stdout, "\n\tNAME : %s", Figure->NAME  );
@@ -345,6 +367,16 @@ void viewfsmfig( Figure )
   {
     viewablexpr( Figure->CLOCK_ABL, ABL_VIEW_VHDL );
   }
+
+  fprintf( stdout, "\n\tPRAGMA : " );
+
+  for ( Pragma  = Figure->PRAGMA;
+        Pragma != (fsmpragma_list *)0;
+        Pragma  = Pragma->NEXT )
+  {
+    viewfsmpragma( Pragma );
+  }
+
 
   fprintf( stdout, "\n\tPORT : " );
 

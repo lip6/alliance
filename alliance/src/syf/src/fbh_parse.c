@@ -200,71 +200,71 @@ void SyfFbhTreatPragma( FsmFigure )
 
   fsmfig_list *FsmFigure;
 {
-  ptype_list *ScanPragma;
-  syfinfo    *SyfInfo;
-  char       *PragmaType;
+  fsmpragma_list *ScanPragma;
+  syfinfo        *SyfInfo;
+  char           *PragmaType;
 
   SyfInfo = FSM_SYF_INFO( FsmFigure );
 
   for ( ScanPragma  = FsmFigure->PRAGMA;
-        ScanPragma != (ptype_list *)0;
+        ScanPragma != (fsmpragma_list *)0;
         ScanPragma  = ScanPragma->NEXT )
   {
-    PragmaType = (char *)ScanPragma->TYPE;
+    PragmaType = ScanPragma->TYPE;
 
     if ( PragmaType == SyfCurrentStateKeyword )
     {
-      SyfCurrentStateName = ScanPragma->DATA;
+      SyfCurrentStateName = ScanPragma->NAME;
     }
     else 
     if ( PragmaType == SyfNextStateKeyword )
     {
-      SyfNextStateName = ScanPragma->DATA;
+      SyfNextStateName = ScanPragma->NAME;
     }
     else 
     if ( PragmaType == SyfReturnStateKeyword )
     {
-      SyfReturnStateName = ScanPragma->DATA;
+      SyfReturnStateName = ScanPragma->NAME;
     }
     else 
     if ( PragmaType == SyfControlKeyword )
     {
-      SyfControlName = ScanPragma->DATA;
+      SyfControlName = ScanPragma->NAME;
     }
     else 
     if ( PragmaType == SyfClockKeyword )
     {
-      SyfClockName = ScanPragma->DATA;
+      SyfClockName = ScanPragma->NAME;
     }
     else 
     if ( PragmaType == SyfStackControlKeyword[ FSM_CTRL_NOP ] )
     {
-      SyfStackControlName[ FSM_CTRL_NOP ] = ScanPragma->DATA;
+      SyfStackControlName[ FSM_CTRL_NOP ] = ScanPragma->NAME;
     }
     else 
     if ( PragmaType == SyfStackControlKeyword[ FSM_CTRL_PUSH ] )
     {
-      SyfStackControlName[ FSM_CTRL_PUSH ] = ScanPragma->DATA;
+      SyfStackControlName[ FSM_CTRL_PUSH ] = ScanPragma->NAME;
     }
     else
     if ( PragmaType == SyfStackControlKeyword[ FSM_CTRL_POP ] )
     {
-      SyfStackControlName[ FSM_CTRL_POP ] = ScanPragma->DATA;
+      SyfStackControlName[ FSM_CTRL_POP ] = ScanPragma->NAME;
     }
     else 
     if ( PragmaType == SyfScanInKeyword )
     {
-      SyfScanInName = ScanPragma->DATA;
+      SyfScanInName = ScanPragma->NAME;
     }
     else 
     if ( PragmaType == SyfScanOutKeyword )
     {
-      SyfScanOutName = ScanPragma->DATA;
+      SyfScanOutName = ScanPragma->NAME;
     }
     else 
     if ( PragmaType == SyfScanTestKeyword )
     {
-      SyfScanTestName = ScanPragma->DATA;
+      SyfScanTestName = ScanPragma->NAME;
     }
   }
 
@@ -289,42 +289,66 @@ fsmfig_list *SyfFbhParse( Name, FlagScan )
   char  FlagScan;
 {
   fsmfig_list    *FsmFigure;
+  fsmfig_list    *ScanFigure;
+  chain_list     *ScanChain;
   syfinfo        *SyfInfo;
   fsmstate_list  *ScanState;
 
   SyfInitializeKeyword();
 
   FsmFigure = Syfaddfsmfig( Name );
-  SyfInfo   = FSM_SYF_INFO( FsmFigure );
-
-  SyfInfo->SCAN_PATH = FlagScan;
 
   loadfsmfig( FsmFigure, Name );
 
-  ScanState = FsmFigure->STAR_STATE;
-
-  if ( ScanState != (fsmstate_list *)0 )
+  if ( IsFsmFigMulti( FsmFigure ) )
   {
-    *ScanState->PREV = ScanState->NEXT;
-
-    if ( ScanState->NEXT != (fsmstate_list *)0 )
+    for ( ScanChain  = FsmFigure->MULTI;
+          ScanChain != (chain_list *)0;
+          ScanChain  = ScanChain->NEXT )
     {
-      ScanState->NEXT->PREV = ScanState->PREV;
+      ScanFigure = (fsmfig_list *)ScanChain->DATA; 
+      SyfInfo = Syfaddfsmsyfinfo( ScanFigure );
     }
-
-    FsmFigure->NUMBER_STATE--;
+  }
+  else
+  {
+    FsmFigure->MULTI = addchain( (chain_list *)0, FsmFigure );
   }
 
-  SyfInfo->STACK = ( FsmFigure->STACK_SIZE != 0 );
-
-  SyfFbhTreatPragma( FsmFigure );
-  SyfFbhTreatPort( FsmFigure );
-
-  for ( ScanState  = FsmFigure->STATE;
-        ScanState != (fsmstate_list *)0;
-        ScanState  = ScanState->NEXT )
+  for ( ScanChain  = FsmFigure->MULTI;
+        ScanChain != (chain_list *)0;
+        ScanChain  = ScanChain->NEXT )
   {
-    Syfaddfsmsyfstate( FsmFigure, ScanState );
+    ScanFigure = (fsmfig_list *)ScanChain->DATA;
+    SyfInfo    = FSM_SYF_INFO( ScanFigure );
+
+    SyfInfo->SCAN_PATH = FlagScan;
+  
+    ScanState = ScanFigure->STAR_STATE;
+  
+    if ( ScanState != (fsmstate_list *)0 )
+    {
+      *ScanState->PREV = ScanState->NEXT;
+  
+      if ( ScanState->NEXT != (fsmstate_list *)0 )
+      {
+        ScanState->NEXT->PREV = ScanState->PREV;
+      }
+  
+      ScanFigure->NUMBER_STATE--;
+    }
+  
+    SyfInfo->STACK = ( ScanFigure->STACK_SIZE != 0 );
+  
+    SyfFbhTreatPragma( ScanFigure );
+    SyfFbhTreatPort( ScanFigure );
+  
+    for ( ScanState  = ScanFigure->STATE;
+          ScanState != (fsmstate_list *)0;
+          ScanState  = ScanState->NEXT )
+    {
+      Syfaddfsmsyfstate( ScanFigure, ScanState );
+    }
   }
 
   return( FsmFigure );

@@ -91,14 +91,15 @@ void SyfFsmUserSaveCode( FsmFigure, FileName )
   fsmfig_list *FsmFigure;
   char        *FileName;
 {
+  fsmfig_list   *ScanFigure;
   FILE          *UserFile;
   fsmstate_list *ScanState;
+  chain_list    *ScanChain;
   syfinfo       *SyfInfo;
   long           Value;
   long           Bit;
   char           OneHot;
 
-  SyfInfo  = FSM_SYF_INFO( FsmFigure );
   UserFile = mbkfopen( FileName, "enc", "w" );
 
   if ( UserFile == (FILE *)0 )
@@ -106,38 +107,46 @@ void SyfFsmUserSaveCode( FsmFigure, FileName )
     SyfError( SYF_ERROR_OPEN_FILE, FileName );
   }
 
-  fprintf( UserFile, "# Encoding figure \"%s\"\n", FsmFigure->NAME );
-  fprintf( UserFile, "-%c %ld\n"  , SyfInfo->ENCODE, SyfInfo->NUMBER_BIT );
-
-  OneHot = ( SyfInfo->ENCODE == SYF_ENCODE_ONE_HOT );
-
-  for ( ScanState  = FsmFigure->STATE;
-        ScanState != (fsmstate_list *)0;
-        ScanState  = ScanState->NEXT )
+  for ( ScanChain  = FsmFigure->MULTI;
+        ScanChain != (chain_list *)0;
+        ScanChain  = ScanChain->NEXT )
   {
-    Value = FSM_SYF_STATE( ScanState )->CODE->VALUE;
-
-    fprintf( UserFile,"%s\t%lX", ScanState->NAME, Value );
-
-    if ( OneHot )
+    ScanFigure = (fsmfig_list *)ScanChain->DATA;
+    SyfInfo  = FSM_SYF_INFO( ScanFigure );
+  
+    fprintf( UserFile, "# Encoding figure \"%s\"\n", ScanFigure->NAME );
+    fprintf( UserFile, "-%s %c %ld\n"  , ScanFigure->NAME, SyfInfo->ENCODE, SyfInfo->NUMBER_BIT );
+  
+    OneHot = ( SyfInfo->ENCODE == SYF_ENCODE_ONE_HOT );
+  
+    for ( ScanState  = ScanFigure->STATE;
+          ScanState != (fsmstate_list *)0;
+          ScanState  = ScanState->NEXT )
     {
-      Bit = Value & 0x03;
-
-      fprintf( UserFile, "\t%lX", (long)( 1 << Bit ) );
-
-      Value = Value - Bit;
-
-      while ( Value > 0 )
+      Value = FSM_SYF_STATE( ScanState )->CODE->VALUE;
+  
+      fprintf( UserFile,"%s\t%lX", ScanState->NAME, Value );
+  
+      if ( OneHot )
       {
-        Value = Value - 4;
-
-        fprintf( UserFile, "0" );
+        Bit = Value & 0x03;
+  
+        fprintf( UserFile, "\t%lX", (long)( 1 << Bit ) );
+  
+        Value = Value - Bit;
+  
+        while ( Value > 0 )
+        {
+          Value = Value - 4;
+  
+          fprintf( UserFile, "0" );
+        }
       }
+  
+      if ( IsFsmFirstState( ScanState ) ) fprintf( UserFile, "\tFirst state" );
+  
+      fprintf( UserFile, "\n" );
     }
-
-    if ( IsFsmFirstState( ScanState ) ) fprintf( UserFile, "\tFirst state" );
-
-    fprintf( UserFile, "\n" );
   }
 
   fclose( UserFile );
@@ -163,6 +172,8 @@ void SyfFsmUserEncode( FsmFigure, FileName )
   authtable     *HashTable;
   authelem      *Element;
   char          *StateName;
+  char          *ScanName;
+  char          *FigureName;
   unsigned long  StateCode;
   long           NumberState;
   long           NumberBit;
@@ -170,6 +181,8 @@ void SyfFsmUserEncode( FsmFigure, FileName )
   unsigned long  CodeMax;
   long           Index;
   long           Error;
+  long           Skip;
+
 
   SyfInfo     = FSM_SYF_INFO( FsmFigure );
   CodeMax     = SyfInfo->NUMBER_CODE;
@@ -199,6 +212,7 @@ void SyfFsmUserEncode( FsmFigure, FileName )
 
   CurrentLine = 1;
   Error       = 0;
+  Skip        = 1;
 
   while ( fgets( SyfUserBuffer, 
                  SYF_USER_BUFFER_SIZE,
@@ -213,112 +227,142 @@ void SyfFsmUserEncode( FsmFigure, FileName )
 
     if ( ScanBuffer[ 0 ] == '-' )
     {
-      if ( ScanBuffer[ 1 ] == SYF_ENCODE_ONE_HOT )
-      {
-        CodeMax = NumberState;
+      ScanBuffer = ScanBuffer + 1;
+      ScanName   = strchr( ScanBuffer, ' ' );
 
-        autfreeblock( (char *)CodeArray );
-        CodeArray = (syfcode *)autallocblock( sizeof( syfcode ) * CodeMax );
-
-        SyfInfo->CODE_ARRAY  = CodeArray;
-        SyfInfo->NUMBER_CODE = CodeMax;
-        SyfInfo->NUMBER_BIT  = CodeMax;
-        SyfInfo->ENCODE      = SYF_ENCODE_ONE_HOT;
-
-        for ( Index = 0; Index < CodeMax; Index++ )
-        {
-          CodeArray[ Index ].VALUE = Index;
-        }
-      }
-      else
-      if ( ScanBuffer[ 1 ] == SYF_ENCODE_FRANCK )
-      {
-        NumberBit = atoi( &ScanBuffer[ 2 ] );
-
-        if ( ( NumberBit > SyfInfo->NUMBER_BIT ) &&
-             ( NumberBit < 32                  ) )
-        {
-          CodeMax = 1 << NumberBit;
-
-          autfreeblock( (char *)CodeArray );
-          CodeArray = (syfcode *)autallocblock( sizeof( syfcode ) * NumberState );
-
-          SyfInfo->CODE_ARRAY  = CodeArray;
-          SyfInfo->NUMBER_CODE = NumberState;
-          SyfInfo->NUMBER_BIT  = NumberBit;
-          SyfInfo->ENCODE      = SYF_ENCODE_FRANCK;
-        }
-        else
-        {
-          Error = SYF_ERROR_SYNTAX; break;
-        }
-      }
-    }
-    else
-    if ( ( ScanBuffer[ 0 ] != '#'  ) &&
-         ( ScanBuffer[ 0 ] != '\0' ) )
-    {
-      StateCode = -1;
-      StateName = (char *)0;
-
-      for ( Index = 0; ScanBuffer[ Index ] != '\0'; Index++ )
-      {
-        if ( ( isspace( ScanBuffer[ Index ] )  ) &&
-             ( ScanBuffer[ Index + 1 ] != '\0' ) )
-        {
-          StateName = ScanBuffer;
-          ScanBuffer[ Index ] = '\0';
-          sscanf( ScanBuffer + Index + 1, "%lx", &StateCode );
-
-          break;
-        }
-      }
-
-      if ( StateName == (char *)0 )
+      if ( ScanName == (char *)0 )
       {
         Error = SYF_ERROR_SYNTAX; break;
       }
 
-      if ( ( (long)StateCode < 0  ) ||
-           ( StateCode >= CodeMax ) )
+      *ScanName  = '\0';
+      FigureName = namealloc( ScanBuffer );
+      ScanBuffer = ScanName + 1;  
+
+      if ( FigureName == FsmFigure->NAME )
       {
-        Error = SYF_ERROR_WRONG_CODE; break;
-      }
-
-      StateName = namealloc( StateName );
-      Element   = searchauthelem( HashTable, StateName );
-
-      if ( Element == (authelem *)0 )
-      {
-        Error = SYF_ERROR_UNKNOWN_STATE; break;
-      }
-
-      ScanState    = (fsmstate_list *)Element->VALUE;
-      ScanSyfState = FSM_SYF_STATE( ScanState );
-
-      if ( ScanSyfState->CODE != (syfcode *)0 )
-      {
-        Error = SYF_ERROR_DUPLICATE_CODE; break;
-      }
-
-      if ( SyfInfo->ENCODE != SYF_ENCODE_FRANCK )
-      {
-        if ( CodeArray[ StateCode ].USED )
+        if ( ScanBuffer[ 0 ] == SYF_ENCODE_ONE_HOT )
         {
-          Error = SYF_ERROR_DUPLICATE_CODE; break;
+          CodeMax = NumberState;
+  
+          autfreeblock( (char *)CodeArray );
+          CodeArray = (syfcode *)autallocblock( sizeof( syfcode ) * CodeMax );
+  
+          SyfInfo->CODE_ARRAY  = CodeArray;
+          SyfInfo->NUMBER_CODE = CodeMax;
+          SyfInfo->NUMBER_BIT  = CodeMax;
+          SyfInfo->ENCODE      = SYF_ENCODE_ONE_HOT;
+  
+          for ( Index = 0; Index < CodeMax; Index++ )
+          {
+            CodeArray[ Index ].VALUE = Index;
+          }
+  
+          Skip = 0;
         }
-
-        CodeArray[ StateCode ].USED  = 1;
-        ScanSyfState->CODE = &CodeArray[ StateCode ];
+        else
+        if ( ScanBuffer[ 0 ] == SYF_ENCODE_FRANCK )
+        {
+          NumberBit = atoi( &ScanBuffer[ 2 ] );
+  
+          if ( ( NumberBit > SyfInfo->NUMBER_BIT ) &&
+               ( NumberBit < 32                  ) )
+          {
+            CodeMax = 1 << NumberBit;
+  
+            autfreeblock( (char *)CodeArray );
+            CodeArray = (syfcode *)autallocblock( sizeof( syfcode ) * NumberState );
+  
+            SyfInfo->CODE_ARRAY  = CodeArray;
+            SyfInfo->NUMBER_CODE = NumberState;
+            SyfInfo->NUMBER_BIT  = NumberBit;
+            SyfInfo->ENCODE      = SYF_ENCODE_FRANCK;
+          
+            Skip = 0;
+          }
+          else
+          {
+            Error = SYF_ERROR_SYNTAX; break;
+          }
+        }
+        else
+        {
+          Skip = 0; 
+        }
       }
       else
       {
-        CodeArray[ NumberState - 1 ].USED  = 1;
-        CodeArray[ NumberState - 1 ].VALUE = StateCode;
-        ScanSyfState->CODE = &CodeArray[ NumberState - 1 ];
+        Skip = 1;
       }
-
-      NumberState--;
+    }
+    else
+    if ( ! Skip )
+    {
+      if ( ( ScanBuffer[ 0 ] != '#'  ) &&
+           ( ScanBuffer[ 0 ] != '\0' ) )
+      {
+        StateCode = -1;
+        StateName = (char *)0;
+  
+        for ( Index = 0; ScanBuffer[ Index ] != '\0'; Index++ )
+        {
+          if ( ( isspace( ScanBuffer[ Index ] )  ) &&
+               ( ScanBuffer[ Index + 1 ] != '\0' ) )
+          {
+            StateName = ScanBuffer;
+            ScanBuffer[ Index ] = '\0';
+            sscanf( ScanBuffer + Index + 1, "%lx", &StateCode );
+  
+            break;
+          }
+        }
+  
+        if ( StateName == (char *)0 )
+        {
+          Error = SYF_ERROR_SYNTAX; break;
+        }
+  
+        if ( ( (long)StateCode < 0  ) ||
+             ( StateCode >= CodeMax ) )
+        {
+          Error = SYF_ERROR_WRONG_CODE; break;
+        }
+  
+        StateName = namealloc( StateName );
+        Element   = searchauthelem( HashTable, StateName );
+  
+        if ( Element == (authelem *)0 )
+        {
+          Error = SYF_ERROR_UNKNOWN_STATE; break;
+        }
+  
+        ScanState    = (fsmstate_list *)Element->VALUE;
+        ScanSyfState = FSM_SYF_STATE( ScanState );
+  
+        if ( ScanSyfState->CODE != (syfcode *)0 )
+        {
+          Error = SYF_ERROR_DUPLICATE_CODE; break;
+        }
+  
+        if ( SyfInfo->ENCODE != SYF_ENCODE_FRANCK )
+        {
+          if ( CodeArray[ StateCode ].USED )
+          {
+            Error = SYF_ERROR_DUPLICATE_CODE; break;
+          }
+  
+          CodeArray[ StateCode ].USED  = 1;
+          ScanSyfState->CODE = &CodeArray[ StateCode ];
+        }
+        else
+        {
+          CodeArray[ NumberState - 1 ].USED  = 1;
+          CodeArray[ NumberState - 1 ].VALUE = StateCode;
+          ScanSyfState->CODE = &CodeArray[ NumberState - 1 ];
+        }
+  
+        NumberState--;
+      }
     }
 
     CurrentLine++;

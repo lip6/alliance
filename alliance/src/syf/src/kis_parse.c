@@ -152,5 +152,7 @@ fsmfig_list *SyfKissParse( Name, FlagScan )
     Syfaddfsmsyfout( ScanOut );
   }
 
+  FsmFigure->MULTI = addchain( (chain_list *)0, FsmFigure );
+
   return( FsmFigure );
 }

@@ -135,13 +135,15 @@ int main( argc, argv )
    int   argc;
    char *argv[];
 {
-  char       *InputFileName;
-  char       *OutputFileName;
-  char       *FileName;
-  long        Literals;
-  int         Number;
-  int         Index;
-  char        Option;
+  chain_list  *ScanChain;
+  fsmfig_list *FsmFigure;
+  char        *InputFileName;
+  char        *OutputFileName;
+  char        *FileName;
+  long         Literals;
+  int          Number;
+  int          Index;
+  char         Option;
 
   int   FlagSave      = 0;
   int   FlagScan      = 0;
@@ -254,8 +256,6 @@ int main( argc, argv )
 
   SyfFsmFigure = SyfCompile( InputFileName, FlagScan, FlagFormat );
 
-  SyfFsmFigure->NAME = namealloc( OutputFileName );
-
   if ( FlagInvPolar )
   {
     if ( FlagVerbose )
@@ -263,7 +263,13 @@ int main( argc, argv )
       fprintf( stdout, "\t\t--> Check FSM figure outputs\n" );
     }
 
-    SyfFsmOutputPolarity( SyfFsmFigure );
+    for ( ScanChain  = SyfFsmFigure->MULTI;
+          ScanChain != (chain_list *)0;
+          ScanChain  = ScanChain->NEXT )
+    {
+      FsmFigure = (fsmfig_list *)ScanChain->DATA;
+      SyfFsmOutputPolarity( FsmFigure );
+    }
   }
 
   if ( FlagVerbose )
@@ -274,21 +280,39 @@ int main( argc, argv )
     }
   }
 
-  SyfFsmSimplify( SyfFsmFigure, FlagSimplify );
+  for ( ScanChain  = SyfFsmFigure->MULTI;
+        ScanChain != (chain_list *)0;
+        ScanChain  = ScanChain->NEXT )
+  {
+    FsmFigure = (fsmfig_list *)ScanChain->DATA;
+    SyfFsmSimplify( FsmFigure, FlagSimplify );
+  }
 
   if ( FlagVerbose )
   {
     fprintf( stdout, "\t\t--> Verify FSM figure\n" );
   }
 
-  SyfFsmVerify( SyfFsmFigure, FlagCheck );
+  for ( ScanChain  = SyfFsmFigure->MULTI;
+        ScanChain != (chain_list *)0;
+        ScanChain  = ScanChain->NEXT )
+  {
+    FsmFigure = (fsmfig_list *)ScanChain->DATA;
+    SyfFsmVerify( FsmFigure, FlagCheck );
+  }
 
   if ( FlagVerbose )
   {
     fprintf( stdout, "\t\t--> Identify reset conditions\n" );
   }
 
-  SyfFsmTreatReset( SyfFsmFigure );
+  for ( ScanChain  = SyfFsmFigure->MULTI;
+        ScanChain != (chain_list *)0;
+        ScanChain  = ScanChain->NEXT )
+  {
+    FsmFigure = (fsmfig_list *)ScanChain->DATA;
+    SyfFsmTreatReset( FsmFigure );
+  }
 
   if ( FlagVerbose )
   {
@@ -298,17 +322,33 @@ int main( argc, argv )
     {
       fprintf( stdout, "\t\t--> Mixed DataFlow / Fsm\n\n" );
     }
-    fprintf( stdout, "\t\t--> States  : %ld\n", SyfFsmFigure->NUMBER_STATE );
-    fprintf( stdout, "\t\t--> Inputs  : %ld\n", SyfFsmFigure->NUMBER_IN    );
-    fprintf( stdout, "\t\t--> Outputs : %ld\n", SyfFsmFigure->NUMBER_OUT   );
-    fprintf( stdout, "\t\t--> Edges   : %ld\n", SyfFsmFigure->NUMBER_TRANS );
-    fprintf( stdout, "\t\t--> Stacks  : %ld\n", SyfFsmFigure->NUMBER_STACK );
-    fprintf( stdout, "\n" );
+
+    for ( ScanChain  = SyfFsmFigure->MULTI;
+          ScanChain != (chain_list *)0;
+          ScanChain  = ScanChain->NEXT )
+    {
+      FsmFigure = (fsmfig_list *)ScanChain->DATA;
+
+      fprintf( stdout, "\t\t--> Name    : %s\n" , FsmFigure->NAME         );
+      fprintf( stdout, "\t\t--> States  : %ld\n", FsmFigure->NUMBER_STATE );
+      fprintf( stdout, "\t\t--> Inputs  : %ld\n", FsmFigure->NUMBER_IN    );
+      fprintf( stdout, "\t\t--> Outputs : %ld\n", FsmFigure->NUMBER_OUT   );
+      fprintf( stdout, "\t\t--> Edges   : %ld\n", FsmFigure->NUMBER_TRANS );
+      fprintf( stdout, "\t\t--> Stacks  : %ld\n", FsmFigure->NUMBER_STACK );
+      fprintf( stdout, "\n" );
+    }
+
     fprintf( stdout, "\t\t--> Encode FSM figure\n" );
   }
 
-  SyfFsmEncode( SyfFsmFigure, FlagCode, FlagVerbose,
-                FlagDc, FlagRegOut, FlagMustCost, InputFileName );
+  for ( ScanChain  = SyfFsmFigure->MULTI;
+        ScanChain != (chain_list *)0;
+        ScanChain  = ScanChain->NEXT )
+  {
+    FsmFigure = (fsmfig_list *)ScanChain->DATA;
+    SyfFsmEncode( FsmFigure, FlagCode, FlagVerbose,
+                  FlagDc, FlagRegOut, FlagMustCost, InputFileName );
+  }
 
   if ( FlagSave )
   {
@@ -325,9 +365,15 @@ int main( argc, argv )
     fprintf( stdout, "\t\t--> Translate FSM to BEH\n" );
   }
 
-  SyfSynthFsmInit( SyfFsmFigure );
-  SyfSynthCode2Abl( SyfFsmFigure, FlagDc );
-  SyfSynthFsm2Abl( SyfFsmFigure );
+  for ( ScanChain  = SyfFsmFigure->MULTI;
+        ScanChain != (chain_list *)0;
+        ScanChain  = ScanChain->NEXT )
+  {
+    FsmFigure = (fsmfig_list *)ScanChain->DATA;
+    SyfSynthFsmInit( FsmFigure );
+    SyfSynthCode2Abl( FsmFigure, FlagDc );
+    SyfSynthFsm2Abl( FsmFigure );
+  }
 
   SyfFbhFigure = SyfFsm2Fbh( SyfFsmFigure );
 
@@ -348,6 +394,8 @@ int main( argc, argv )
   }
 
   fprintf( stdout, "\t\t--> Save BEH file %s\n\n", OutputFileName );
+
+  SyfFbhFigure->NAME = namealloc( OutputFileName );
 
   vhdlsavefbfig( SyfFbhFigure, OutputFileName, FlagFormat );
 

@@ -110,6 +110,7 @@
 
 # define FSM_MIXED_RTL_MASK  (long)( 0x0001 )
 # define FSM_MULTI_MASK      (long)( 0x0002 )
+# define FSM_MULTI_LEAF_MASK (long)( 0x0004 )
 
 /*------------------------------------------------------\
 |                                                       |
@@ -163,6 +164,10 @@
 # define IsFsmFigMulti( F )    ( (F)->FLAGS &   FSM_MULTI_MASK )
 # define SetFsmFigMulti( F )   ( (F)->FLAGS |=  FSM_MULTI_MASK )
 # define ClearFsmFigMulti( F ) ( (F)->FLAGS &= ~FSM_MULTI_MASK )
+
+# define IsFsmFigMultiLeaf( F )    ( (F)->FLAGS &   FSM_MULTI_LEAF_MASK )
+# define SetFsmFigMultiLeaf( F )   ( (F)->FLAGS |=  FSM_MULTI_LEAF_MASK )
+# define ClearFsmFigMultiLeaf( F ) ( (F)->FLAGS &= ~FSM_MULTI_LEAF_MASK )
 
 /*------------------------------------------------------\
 |                                                       |
@@ -299,6 +304,23 @@
 
 /*------------------------------------------------------\
 |                                                       |
+|                     Fsm Pragma List                   |
+|                                                       |
+\------------------------------------------------------*/
+
+  typedef struct fsmpragma_list
+  {
+    struct fsmpragma_list *NEXT;
+    char                  *TYPE;
+    char                  *NAME;
+    char                  *VALUE;
+    long                   FLAGS;
+    void                  *USER;
+
+  } fsmpragma_list;
+
+/*------------------------------------------------------\
+|                                                       |
 |                   Fsm Figure List                     |
 |                                                       |
 \------------------------------------------------------*/
@@ -337,7 +359,7 @@
     bddcircuit         *CIRCUIT;
 
     long                FLAGS;
-    ptype_list         *PRAGMA;
+    fsmpragma_list     *PRAGMA;
 
     chain_list         *MULTI;
     void               *FIGURE;
@@ -373,6 +395,7 @@
   extern fsmlocout_list * allocfsmlocout __P(());
   extern   fsmout_list * allocfsmout __P(());
   extern    fsmin_list * allocfsmin __P(());
+  extern fsmpragma_list * allocfsmpragma __P(());
   extern  fsmport_list * allocfsmport __P(());
 
 /*------------------------------------------------------\
@@ -388,6 +411,7 @@
   extern           void  freefsmlocout __P((fsmlocout_list *Locout));
   extern           void  freefsmout __P((fsmout_list *Output));
   extern           void  freefsmin __P((fsmin_list *Input));
+  extern           void  freefsmpragma __P((fsmpragma_list *Pragma));
   extern           void  freefsmport __P((fsmport_list *Port));
 
 /*------------------------------------------------------\
@@ -403,6 +427,7 @@
   extern fsmlocout_list * addfsmlocout __P((fsmstate_list *State, fsmout_list *Output, ablexpr *Equation, ablexpr *EquationDC));
   extern   fsmout_list * addfsmout __P((fsmfig_list *Figure, char *Name));
   extern    fsmin_list * addfsmin __P((fsmfig_list *Figure, char *Name));
+  extern  fsmpragma_list * addfsmpragma __P((fsmfig_list *Figure, char *Type, char *Name, char *Value ));
   extern  fsmport_list * addfsmport __P((fsmfig_list *Figure, char *Name, char Dir, char Type));
 
 /*------------------------------------------------------\
