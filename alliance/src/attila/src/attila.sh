@@ -1,6 +1,6 @@
 #!/bin/sh
 #
-# $Id: attila.sh,v 1.19 2004/07/29 07:50:31 alliance Exp $
+# $Id: attila.sh,v 1.20 2004/08/31 08:44:45 jpc Exp $
 #                                                                        
 # /------------------------------------------------------------------\
 # |                                                                  |
@@ -14,6 +14,10 @@
 # | **************************************************************** |
 # |  U p d a t e s                                                   |
 # | $Log: attila.sh,v $
+# | Revision 1.20  2004/08/31 08:44:45  jpc
+# | Be less strict in the OS guessing : Fedora Core can change the kernel revision
+# | number...
+# |
 # | Revision 1.19  2004/07/29 07:50:31  alliance
 # | Adding the dynamic link flag for Alliance libraries when installing for
 # | ASIM, since this is required in any case for this type of install
@@ -185,7 +189,7 @@
  {
    case "`uname -sr`" in
      Linux\ 2.4.9*) echo "Linux.RH71";;
-     Linux\ 2.6.6*) echo "Linux.FC2";;
+     Linux\ 2.6.*)  echo "Linux.FC2";;
      SunOS\ 5*)     echo "Solaris";;
      *)             echo "`uname -sr`";;
    esac
