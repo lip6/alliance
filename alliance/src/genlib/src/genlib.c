@@ -2705,16 +2705,16 @@ int external; /* more that one external connector on the same net? */
 /*******************************************************************************
 * function LOINS                                                               *
 *******************************************************************************/
-void genLOINS(char *insname, ...)
+void genLOINS(char *figname, ...)
 {
 losig_list *ptsig;
 chain_list *ptchain = NULL, *ptchain1, *ptchain2 = NULL , *ptchain3;
 va_list arg;
-char *figname, *signame;
+char *insname, *signame;
 lofig_list *ptfig;
 
-   va_start(arg, insname);
-   figname = namealloc(va_arg(arg, char *));
+   va_start(arg, figname);
+   insname = namealloc(va_arg(arg, char *));
    if (WORK_LOFIG == NULL) {
       (void)fflush(stdout);
       (void)fputs("*** genlib error ***\n", stderr);
@@ -2933,10 +2933,10 @@ void genLOINSA(char *model, char *instance, char *signals[])
 /*******************************************************************************
 * function LOINSE                                                              *
 *******************************************************************************/
-void genLOINSE(char *insname, ...)
+void genLOINSE(char *figname, ...)
 {
 va_list arg;
-char *figname, *signame;
+char *insname, *signame;
 lofig_list  *ptfig;
 char con[100], sig[100];
 int icon, jcon, isig, jsig;
@@ -2955,9 +2955,9 @@ chain_list *ptchain = NULL;
       EXIT(1);
    }
 
-   va_start(arg, insname);
-   figname = namealloc(va_arg(arg, char *));
+   va_start(arg, figname);
    ptfig = getlofig(figname, 'P');
+   insname = namealloc(va_arg(arg, char *));
    if (hassep(insname)) {
       (void)fflush(stdout);
       (void)fputs("*** genlib error ***\nIllegal LOINSE : the ", stderr);

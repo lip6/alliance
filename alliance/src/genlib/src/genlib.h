@@ -8,4 +8,5 @@
 #include <mpu.h>
 #include "mgn.h"
 #include "mbkgen.h"
+#include "dgn.h"
 #endif
