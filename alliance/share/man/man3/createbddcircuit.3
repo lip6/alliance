@@ -1,0 +1,66 @@
+.\"   $Id: createbddcircuit.3,v 1.1 1999/05/31 17:30:19 alliance Exp $
+.\" @(#)createbddcircuit.2 2.7 96/07/02 ; Labo masi cao-vlsi; Author : Jacomme Ludovic
+.TH CREATEBDDCIRCUIT 3 "October 1, 1997" "ASIM/LIP6" "BDD FUNCTIONS"
+.SH NAME
+createbddcircuit \- creates a \fBbdd\fP circuit.
+.so man1/alc_origin.1
+.SH SYNOPSYS
+.nf
+.if n \{\
+.ft B \}
+.if t \{\
+.ft CR \}
+#include "bdd101.h"
+  bddcircuit \(**createbddcircuit( Name, NumberIn, NumberOut, BddSystem )
+  char      \(**Name;
+  long       NumberIn;
+  long       NumberOut;
+  bddsystem \(**BddSystem;
+.ft R
+.fi
+.SH PARAMETERS
+.TP 20
+\fIName\fP
+Name of the \fBbdd\fP circuit.
+.TP
+\fINumberIn\fP
+Number of inputs.
+.TP
+\fINumberOut\fP
+Number of outputs.
+.TP
+\fIBddSystem\fP
+The \fBbdd\fP system to work on.
+.SH DESCRIPTION
+\fBcreatebddcircuit\fP creates a \fBbdd\fP circuit with the name \fIName\fP,
+with \fINumberIn\fP inputs, and \fINumberOut\fP outputs.
+This \fBbdd\fP circuit will use the \fBbdd\fP system \fIBddSystem\fP.
+If a null pointer is given, the default \fBbdd\fP system is used.
+.br
+.SH RETURN VALUE
+\fBcreatebddcircuit\fP returns a pointer to the \fBbdd\fP circuit created.
+.SH EXAMPLE
+.ta 3n 6n 9n 12n 15n 18n 21n
+.nf
+.if n \{\
+.ft B \}
+.if t \{\
+.ft CR \}
+#include "bdd101.h"
+   bddsystem  \(**BddSystem;
+   bddcircuit \(**BddCircuit;
+   BddSystem  = createbddsystem( 100, 1000, 100, 50000 );
+   BddCircuit = createbddcircuit( "hello_world", 10, 10, BddSystem );
+   ...
+   destroybddsystem( (bddsystem \(**)0 );
+   destroybddcircuit( (bddcircuit \(**)0 );
+.ft R
+.fi
+.SH SEE ALSO
+.BR bdd (1),
+.BR resetbddcircuit(3),
+.BR destroybddcircuit(3).
+
+
+.so man1/alc_bug_report.1
+

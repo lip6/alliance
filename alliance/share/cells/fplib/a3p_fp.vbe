@@ -1,0 +1,20 @@
+entity a3p_fp is  
+
+   port 
+     (
+i0 : in bit ;
+i1 : in bit ;
+i2 : in bit ;
+no : inout bit ;
+o : out bit ;
+vdd : in bit ;
+vss : in bit 
+     );
+   end a3p_fp ;
+
+architecture FUNCTIONNAL of a3p_fp is 
+
+begin
+no <= not (i0 and i1 and i2) ;
+o <= not no ;
+end FUNCTIONNAL ;

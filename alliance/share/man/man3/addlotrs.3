@@ -1,0 +1,135 @@
+.\"   $Id: addlotrs.3,v 1.1 1999/05/31 17:30:17 alliance Exp $
+.\" @(#)addlotrs.2 2.11 91/08/22 ; Labo masi cao-vlsi; Author : Frederic Petrot
+.if t \{\
+.so man1/alc_contents.mac
+.XS \n%
+.ti 0.2i
+addlotrs
+.XE
+.XS2 \n%
+.ti 0.2i
+addlotrs
+.XE2 \}
+.TH ADDLOTRS 3 "October 1, 1997" "ASIM/LIP6" "MBK LOGICAL FUNCTIONS"
+.SH NAME
+addlotrs \- create a logical transistor
+.so man1/alc_origin.1
+.SH SYNOPSYS
+.nf
+.if n \{\
+.ft B \}
+.if t \{\
+.ft CR \}
+.ta 3n 23n
+#include "mlo404.3"
+lotrs_list \(**addlotrs(ptfig, type, x, y, width, length,
+		ps, pd, xs, xd,
+		ptgrid, ptsource, ptdrain)
+lofig_list \(**ptfig;
+char type;
+long x, y;
+unsigned short width, length;
+unsigned short ps, pd;
+unsigned short xs, xd;
+losig_list \(**ptgrid, \(**ptsource, \(**ptdrain;
+.ft R
+.fi
+.SH PARAMETERS
+.TP 20
+\fIptfig\fP
+Pointer to the figure in which the transistor should be added
+.TP
+\fItype\fP
+transistor type
+.TP
+\fIx, y\fP
+Transistor coordinates
+.TP
+\fIwidth, length\fP
+Transistor grid width and length
+.TP
+\fIps, pd\fP
+Perimeters of the source and drain
+.TP
+\fIxs, xd\fP
+Values to compute the areas of the source and drain, see \fBlotrs\fP(3)
+for the effective area computation
+.TP
+\fIptgrid\fP
+Pointer to the signal to be connected on the transistor grid
+.TP
+\fIptsource\fP
+Pointer to the signal to be connected on the transistor source
+.TP
+\fIptdrain\fP
+Pointer to the signal to be connected on the transistor drain
+.SH DESCRIPTION
+\fBaddlotrs\fP creates a new transistor, and adds it to the
+list of transistors pointed to by \fIptfig\->LOTRS\fP. The new transistor is 
+added in front of the list, and becomes itself the list head.
+.br
+The \fItype\fP parameter can take two values :
+.RS
+.TP 20
+\fBTRANSN\fP
+for a N channel transistor
+.TP
+\fBTRANSP\fP
+for a P channel transistor
+.RE
+.LP
+The \fIx\fP, \fIy\fP, \fIwidth\fP , \fIlength\fP, \fIps\fP, \fIpd\fP,
+\fIxs\fP and \fIxd\fP,  arguments fill
+respectivly the \fIX\fP, \fIY\fP, \fIWIDTH\fP, \fILENGTH\fP, \fIPS\fP,
+\fIPD\fP, \fIXS\fP and \fIXD\fP fields.
+.br
+Three connectors are created each time a transistor is added, and the
+\fIptgrid\fP, \fIptsource\fP and \fIptdrain\fP \fBlosig\fPs are attached to
+the \fISIG\fP field of the \fBlocon\fP of the appropriate connector. The
+connectors names are \fIgrid\fP, \fIsource\fP and \fIdrain\fP, their
+direction, \fIDIR\fP, are set to \fB'T'\fP, and their \fITYPE\fP \fBINTERNAL\fP.
+For details on the structures, see \fBlocon\fP(3) and \fBlotrs\fR(3).
+.SH RETURN VALUE
+\fBaddlotrs\fP returns a pointer to the newly created transistor.
+.SH ERRORS
+.if n \{\
+.ft B \}
+.if t \{\
+.ft CR \}
+"\(**\(**\(** mbk error \(**\(**\(** illegal transistor type : \fItype\fP"
+.ft R
+.RS
+The \fItype\fP is not legal a legal transistor type.
+.RE
+.SH EXAMPLE
+.ta 3n 6n 9n 12n 15n 18n 21n
+.nf
+.if n \{\
+.ft B \}
+.if t \{\
+.ft CR \}
+#include "mlo404.h"
+void n1_y() /\(** transistor netlist of an inverter \(**/
+{
+lofig_list \(**pt;
+losig_list \(**in, \(**out, \(**vdd, \(**vss;
+	pt = addlofig("n1_y");
+	addlocon(pt, "in", in = givelosig(pt, 0), IN);
+	addlocon(pt, "out", out = givelosig(pt, 1), OUT);
+	addlocon(pt, "vdd", vdd = givelosig(pt, 2), IN);
+	addlocon(pt, "vss", vdd = givelosig(pt, 3), IN);
+	addlotrs(pt, TRANSN, 0, 0, 6, 1, in, vss, out);
+	addlotrs(pt, TRANSP, 0, 0, 12, 1, in, vdd, out);
+}
+.ft R
+.fi
+.SH SEE ALSO
+.BR mbk (1),
+.BR lofig (3),
+.BR lotrs (3),
+.BR locon (3),
+.BR dellotrs (3).
+
+
+.so man1/alc_bug_report.1
+

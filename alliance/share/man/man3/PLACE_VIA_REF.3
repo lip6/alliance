@@ -1,0 +1,130 @@
+.\"   $Id: PLACE_VIA_REF.3,v 1.1 1999/05/31 17:30:16 alliance Exp $
+.\" @(#)PLACE_VIA_REF.3 2.11 01/92; Labo Cao-vlsi; Author : Frederic Petrot
+.if t \{\
+.so man1/alc_contents.mac
+.XS \n%
+.ti 0.2i
+PLACE_VIA_REF
+.XE \}
+.TH PLACE_VIA_REF 3 "October 1, 1997" "ASIM/LIP6" "PROCEDURAL GENERATION LANGUAGE"
+.SH NAME
+PLACE_VIA_REF \- put a via on top of a reference belonging to an instance
+in the current figure
+.SH SYNOPSYS
+.nf
+.if n \{\
+.ft B \}
+.if t \{\
+.ft CR \}
+#include <genlib.h>
+void PLACE_VIA_REF(insname, refname, viatype)
+char  \(**insname, \(**refname;
+char viatype;
+.ft R
+.fi
+.so man1/alc_origin.1
+.SH PARAMETERS
+.TP 20
+\fIinsname\fP
+Name of the instance in the which the reference is to be searched for
+.TP
+\fIrefname\fP
+Name of the reference to be used as target point
+.TP
+\fIviatype\fP
+Type of via to be placed
+.SH DESCRIPTION
+\fBPLACE_VIA_REF\fP places a via of type \fIviatype\fP on top of the specified
+reference, \fIrefname\fP, in the instance called \fIinsname\fP.
+This function may be used to generate many cells from a single one, in order
+to "program" decoders for example, or in conjuction with \fBPLACE_SEG_REF\fP(3)
+or \fBPLACE_CON_REF\fP(3) to translate virtual connectors into fixed ones.
+.br
+The \fIviatype\fP argument may take the following legal values:
+.TP 20
+\fBCONT_POLY\fP 
+links \fBPOLY\fP and \fBALU1\fP
+.TP
+\fBCONT_DIF_N\fP 
+links \fBNDIF\fP and \fBALU1\fP
+.TP
+\fBCONT_DIF_P\fP 
+links \fBPDIF\fP and \fBALU1\fP
+.TP
+\fBCONT_BODY_N\fP 
+links \fBNTIE\fP and \fBALU1\fP
+.TP
+\fBCONT_BODY_P\fP 
+links \fBPTIE\fP and \fBALU1\fP
+.TP
+\fBCONT_VIA\fP 
+links \fBALU1\fP and \fBALU2\fP
+.TP
+\fBCONT_VIA2\fP 
+links \fBALU2\fP and \fBALU3\fP
+.SH ERRORS
+.if n \{\
+.ft B \}
+.if t \{\
+.ft CR \}
+"PLACE_VIA_REF impossible : missing DEF_PHFIG"
+.ft R
+.RS
+No figure has been yet specified by a call to \fBDEF_PHFIG\fP. So it isn't
+possible to place a reference inside it.
+you must call \fBDEF_PHFIG\fP before any other layout action.
+.RE
+.if n \{\
+.ft B \}
+.if t \{\
+.ft CR \}
+"illegal getphins : instance \fIinsname\fP does not exist"
+.ft R
+.RS
+The instance called \fIinsname\fP does not currently belong to the figure.
+.RE
+.if n \{\
+.ft B \}
+.if t \{\
+.ft CR \}
+"illegal getphref : references called \fIrefname\fP does not exist"
+.ft R
+.RS
+No reference called \fIrefname\fP exists in the model of the instance
+\fIinsname\fP.
+.RE
+.SH EXAMPLE
+.nf
+.if n \{\
+.ft B \}
+.if t \{\
+.ft CR \}
+#include <genlib.h>
+main()
+{
+	/\(** Create a figure to work on  \(**/
+	DEF_PHFIG("cell");
+	PLACE("gaci0_b", "r1", NOSYM, 23L, 54L);
+	/\(** Put a reference \(**/
+	PLACE_VIA_REF("a_0", "r1", CONT_VIA);
+	/\(** Save that on disk \(**/
+	SAVE_PHFIG();
+}
+.ft R
+.fi
+.SH SEE ALSO
+.BR dpr (1),
+.BR genlib (1),
+.BR DEF_PHFIG (3),
+.BR SAVE_PHFIG (3),
+.BR PHREF (3),
+.BR PHVIA (3),
+.BR COPY_UP_REF (3),
+.BR COPY_UP_ALL_REF (3),
+.BR PLACE_CON_REF (3),
+.BR PLACE_SEG_REF (3),
+.BR PLACE_VIA_REF (3).
+
+
+.so man1/alc_bug_report.1
+

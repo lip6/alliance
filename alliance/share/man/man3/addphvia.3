@@ -1,0 +1,91 @@
+.\"   $Id: addphvia.3,v 1.1 1999/05/31 17:30:17 alliance Exp $
+.\" @(#)addphvia.2 2.11 91/08/22 ; Labo masi cao-vlsi; Author : Frederic Petrot
+.if t \{\
+.so man1/alc_contents.mac
+.XS \n%
+.ti 0.2i
+addphvia
+.XE
+.XS0 \n%
+.ti 0.2i
+addphvia
+.XE0 \}
+.TH ADDPHVIA 3 "October 1, 1997" "ASIM/LIP6" "MBK PHYSICAL FUNCTIONS"
+.SH NAME
+addphvia \- create a physical via
+.so man1/alc_origin.1
+.SH SYNOPSYS
+.nf
+.if n \{\
+.ft B \}
+.if t \{\
+.ft CR \}
+#include "mph402.h"
+phvia_list \(**addphvia(ptfig, viatype, x, y)
+phfig_list \(**ptfig;
+char viatype;
+long x, y;
+.ft R
+.fi
+.SH PARAMETERS
+.TP 20
+\fIptfig\fP
+Pointer to the figure in which the via should be added
+.TP
+\fIviatype\fP
+Contact type
+.TP
+\fIx, y\fP
+Coordinates of the center of the via.
+.SH DESCRIPTION
+\fBaddphvia\fP creates a new via whose center is at the given coordinates,
+and adds it to the
+list of vias pointed to by \fIptfig\->PHVIA\fP. The new via is 
+added in front of the list, and becomes itself the list head.
+.br
+The parameters \fIviatype\fP, \fIx\fP and \fIy\fP fill respectivly
+the \fITYPE\fP, \fIXVIA\fP and \fIYVIA\fP fields of the \fIphvia\fP structure.
+.br
+For a list of valid \fIviatype\fPs, and details on the structure, see
+\fBphvia\fR(3).
+.SH RETURN VALUE
+\fBaddphvia\fP returns a pointer to the newly created via.
+.SH ERRORS
+.if n \{\
+.ft B \}
+.if t \{\
+.ft CR \}
+"\(**\(**\(** mbk error \(**\(**\(** illegal addphvia viatype : \fIviatype\fP at
+\fIx\fP, \fIy\fP"
+.ft R
+.RS
+The via type is not a predefined contact. For a list of legal via types,
+see \fBphvia\fP(3).
+.RE
+.SH EXAMPLE
+.ta 3n 6n 9n 12n 15n 18n 21n
+.nf
+.if n \{\
+.ft B \}
+.if t \{\
+.ft CR \}
+#include "mph402.h"
+phvia_list \(**via_dup(pfd, pfs) /\(** duplicate vias \(**/
+phfig_list \(**pfd, \(**pfs;
+{
+phvia_list \(**pv;
+	for (pv = pfs\->phvia; pv != NULL; pv = pv\->NEXT)
+		addphvia(pfd, pv\->TYPE, ps\->XVIA, ps\->YVIA);
+	return pfd\->PHVIA;
+}
+.ft R
+.fi
+.SH SEE ALSO
+.BR mbk (1),
+.BR phfig (3),
+.BR phvia (3),
+.BR delphvia (3).
+
+
+.so man1/alc_bug_report.1
+

@@ -1,0 +1,49 @@
+.\"   $Id: begen.3,v 1.1 1999/05/31 17:30:18 alliance Exp $
+.\" @(#)begen.2 108 Feb 15 1995 UPMC; Pirouz BAZARGAN SABET
+.TH BEGEN 3 "October 1, 1997" "ASIM/LIP6" "cao\-vlsi reference manual"
+
+.so man1/alc_origin.1
+.SH NAME
+.PP
+\fBbegen\fP - BEH data structure
+
+.SH DESCRIPTION
+.PP
+\fIbegen\fP is a data structure used in \fBBEH\fP to represent a one\-bit
+global constant relative to the circuit. A \fBbegen\fP list must be ordered
+in the reverse order of the constant declarations in the text file.
+For an array, each element is represented by a single structure.
+These are organized in the reverse order of the array\'s range declaration.
+\fIbegen\fP has been designed to be used in a simply chained list.
+
+.PP
+A \fIbegen\fP structure is composed of the following fields.
+
+.TP 25
+\fI(char *) NAME\fP
+the constant\'s name. For an array\'s element, the name is the array\'s
+identifier added to the element\'s index seperated by a \' \' (blank space).
+This string is supposed been produced by \fBnamealloc()\fP
+.TP 25
+\fI(char *) TYPE\fP
+constant\'s type. This string is supposed been produced by \fBnamealloc()\fP
+Up to now only \fInatural\fP type is legal.
+.TP 25
+\fI(void *) VALUE\fP
+constant\'s value
+.TP 25
+\fI(struct begen *) NEXT\fP
+next begen
+
+.PP
+It is to be noticed that \fBbegen\fP list can be accessed in a \fBbefig\fP
+through the USER field.
+
+.SH SEE ALSO
+.PP
+beh(3), befig(3), beh_addbegen(3), beh_delbegen(3), beh_frebegen(3),
+beh_rmvbegen(3), namealloc(3)
+
+
+.so man1/alc_bug_report.1
+

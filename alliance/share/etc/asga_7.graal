@@ -1,0 +1,239 @@
+# /*---------------------------------------------------------------------------\
+# |                                                                            |
+# | Title      :      Parameter File for Graal : asga_7.graal                  |
+# |                                                                            |
+# | Technology :      Asga (symbolic grid)                                     |
+# |                                                                            |
+# | Date       :      July 02 1995                                             |
+# |                                                                            |
+# \---------------------------------------------------------------------------*/
+# /*---------------------------\
+# |                            |
+# | Graal Peek Bound in lambda |
+# |                            |
+# \---------------------------*/
+
+DEFINE GRAAL_PEEK_BOUND 7
+
+# /*-----------------------------------\
+# |                                    |
+# | Lower Grid Step in pixel by lambda |
+# |                                    |
+# \-----------------------------------*/
+
+DEFINE GRAAL_LOWER_GRID_STEP 10
+
+# /*------------------------------------------\
+# |                                           |
+# | Lower Figure Text Step in pixel by lambda |
+# |                                           |
+# \------------------------------------------*/
+
+DEFINE GRAAL_LOWER_FIGURE_STEP 1
+
+# /*--------------------------------------------\
+# |                                             |
+# | Lower Instance Text Step in pixel by lambda |
+# |                                             |
+# \--------------------------------------------*/
+
+DEFINE GRAAL_LOWER_INSTANCE_STEP 1
+
+# /*---------------------------------------------\
+# |                                              |
+# | Lower Connector Text Step in pixel by lambda |
+# |                                              |
+# \---------------------------------------------*/
+
+DEFINE GRAAL_LOWER_CONNECTOR_STEP 5
+
+# /*-------------------------------------------\
+# |                                            |
+# | Lower Segment Text Step in pixel by lambda |
+# |                                            |
+# \-------------------------------------------*/
+
+DEFINE GRAAL_LOWER_SEGMENT_STEP 7
+
+# /*---------------------------------------------\
+# |                                              |
+# | Lower Reference Text Step in pixel by lambda |
+# |                                              |
+# \---------------------------------------------*/
+
+DEFINE GRAAL_LOWER_REFERENCE_STEP 10
+
+# /*------------------------------------------------------------\
+# |                                                             |
+# |                 Graal Cursor Color Name                     |
+# |                                                             |
+# \------------------------------------------------------------*/
+
+DEFINE GRAAL_CURSOR_COLOR_NAME  Black
+
+# /*------------------------------------------------------------\
+# |                                                             |
+# |                 Graal Cursor Size in pixel                  |
+# |                                                             |
+# \------------------------------------------------------------*/
+
+DEFINE GRAAL_CURSOR_SIZE 10
+
+# /*----------------------------------------------------------------\
+# |                                                                 |
+# | Segment, Panel Button Label, Foreground Color, Background Color |
+# |                                                                 |
+# \----------------------------------------------------------------*/
+
+TABLE GRAAL_SEGMENT_NAME
+
+  NDIF     Ohm    lawn_green       Black
+  POLY     Gate   red              Black
+  ALU1     Alu1   royal_blue       Black
+  ALU2     Alu2   Cyan             Black
+  ALU3     Alu3   peach_puff       Black
+  TPOLY    Tgate  light_pink       Black
+  TALU1    Talu1  light_steel_blue Black
+  TALU2    Talu2  light_cyan       Black
+  TALU3    Talu3  bisque           Black
+
+END
+
+TABLE GRAAL_TRANSISTOR_NAME
+
+  NTRANS   Etrans lawn_green       Black
+  PTRANS   Trans0 yellow           Black
+  NWELL    Dtrans pink             Black
+
+END
+
+# /*------------------------------------------------------------------\
+# |                                                                   |
+# | Connector, Panel Button Label, Foreground Color, Background Color |
+# |                                                                   |
+# \------------------------------------------------------------------*/
+
+TABLE GRAAL_CONNECTOR_NAME
+
+  NDIF     Ohm    lawn_green       Black
+  POLY     Gate   red              Black
+  ALU1     Alu1   royal_blue       Black
+  ALU2     Alu2   Cyan             Black
+  ALU3     Alu3   peach_puff       Black
+
+END
+
+# /*---------------------------------------------\
+# |                                              |
+# | Minimun Length and Width of symbolic Segment |
+# |                                              |
+# \---------------------------------------------*/
+
+TABLE GRAAL_SEGMENT_VALUE
+
+  NDIF     2   1
+  NTRANS   1   6
+  PTRANS   1   6
+  NWELL    1   6
+  POLY     1   1
+  ALU1     1   1
+  ALU2     2   1
+  ALU3     5   1
+  TPOLY    1   1
+  TALU1    1   1
+  TALU2    2   1
+  TALU3    5   1
+
+END
+
+# /*------------------------------------------------------------------\
+# |                                                                   |
+# | Reference, Panel Button Label, Foreground Color, Background Color |
+# |                                                                   |
+# \------------------------------------------------------------------*/
+
+TABLE GRAAL_REFERENCE_NAME
+
+  REF_CON  Ref_Con Cyan Black
+  REF_REF  Ref_Ref red  Black
+
+END
+
+# /*------------------------------------------------------------\
+# |                                                             |
+# | Via, Panel Button Label, Foreground Color, Background Color |
+# |                                                             |
+# \------------------------------------------------------------*/
+
+TABLE GRAAL_VIA_NAME
+
+  CONT_DIF_N   Cont_Ohm    lawn_green    Black
+  CONT_POLY    Cont_Gate   red           Black
+  CONT_VIA     Cont_Via    deep_sky_blue Black
+  CONT_VIA2    Cont_Via2   chocolate     Black
+  CONT_VIA3    Cont_Via3   snow4         Black
+
+END
+
+# /*--------------------------------------------------------------------\
+# |                                                                     |
+# | Orientation, Panel Button Label, Foreground Color, Background Color |
+# |                                                                     |
+# \--------------------------------------------------------------------*/
+
+TABLE GRAAL_ORIENT_NAME 
+
+  NORTH  North   lawn_green  Black
+  SOUTH  South   yellow      Black
+  EAST   East    tan         Black
+  WEST   West    red         Black
+
+END
+
+# /*-----------------------------------------------------------------\
+# |                                                                  |
+# | Symmetry, Panel Button Label, Foreground Color, Background Color |
+# |                                                                  |
+# \-----------------------------------------------------------------*/
+
+TABLE GRAAL_SYMMETRY_NAME
+
+  NOSYM No_Sym  LightBlue         Black
+  SYM_X Sym_X   turquoise         Black
+  SYM_Y Sym_Y   cyan              Black
+  SYMXY Sym_XY  LightCyan         Black
+  ROT_P Rot_P   MediumAquamarine  Black
+  ROT_M Rot_M   aquamarine        Black
+  SY_RP Sym_RP  green             Black
+  SY_RM Sym_RM  MediumSpringGreen Black
+
+END
+
+# /*-------------------------------------------------------------------\
+# |                                                                    |
+# | View Layer, Panel Button Label, Foreground Color, Background Color |
+# |                                                                    |
+# \-------------------------------------------------------------------*/
+
+TABLE GRAAL_RDS_LAYER_NAME
+
+  RDS_NDIF     Ohm     lawn_green        Black
+  RDS_ACTIV    Active  brown             Black
+  RDS_NIMP     Nimp    forest_green      Black
+  RDS_POLY     Gate    red               Black
+  RDS_TPOLY    Tgate   light_pink        Black
+  RDS_CONT     Cont    dark_violet       Black
+  RDS_ALU1     Alu1    royal_blue        Black
+  RDS_TALU1    Talu1   light_steel_blue  Black
+  RDS_VIA1     Via1    deep_sky_blue     Black
+  RDS_ALU2     Alu2    Cyan              Black
+  RDS_TALU2    Talu2   light_cyan        Black
+  RDS_VIA2     Via2    chocolate         Black
+  RDS_ALU3     Alu3    peach_puff        Black
+  RDS_TALU3    Talu3   bisque            Black
+  RDS_VIA3     Via3    snow4             Black
+  RDS_ALU4     Alu4    aquamarine        Black
+  RDS_REF      Ref     coral             Black
+  RDS_ABOX     Abox    pink              Black
+
+END

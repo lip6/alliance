@@ -1,0 +1,42 @@
+.\"   $Id: createAtom.3,v 1.1 1999/05/31 17:30:19 alliance Exp $
+.\" @(#)createAtom.2 7.01 92/08/22 ; Labo masi cao-vlsi; Author : Luc Burgun
+.TH CREATEATOM 3 "October 1, 1997" "ASIM/LIP6" "ABL functions"
+.so man1/alc_origin.1
+.SH NAME
+\fBcreateAtom\fP \- creates an atomic expression.
+.SH SYNOPSYS
+.nf
+#include "logmmm.h"
+chain_list *createAtom(name)
+char *name;
+.fi
+.SH PARAMETER
+.TP 20
+\fIname\fP
+Name of the atom.
+.SH DESCRIPTION
+\fBcreateAtom()\fP creates an atomic expression. This function uses the \fBnamealloc()\fP function to speed up the treatements and minimize the memory space.
+.SH EXAMPLE
+.nf
+#include "mutnnn.h"		/* mbk utilities */
+#include "logmmm.h"
+chain_list *atom; 
+atom = createAtom("var1");
+displayExpr(atom);
+/* it will display
+var1
+*/
+freeExpr(atom);
+.fi
+.SH SEE ALSO
+.BR log (1),
+.BR abl (1),
+.BR createExpr (3),
+.BR notExpr (3),
+.BR createBinExpr (3),
+.BR addQExpr (3),
+.BR addHExpr(3),
+.BR freeExpr(3).
+
+.so man1/alc_bug_report.1
+

@@ -1,0 +1,200 @@
+.\"   $Id: mbk2ps.1,v 1.1 1999/05/31 17:30:14 alliance Exp $
+.\" @(#)Labo.l 0.0 90/22/08 UPMC; Author: Frederic Petrot
+.pl -.4
+.TH MBK2PS 1 "October 1, 1997" "ASIM/LIP6" "CAO\-VLSI Reference Manual"
+.SH NAME
+.TP
+mbk2ps
+\- Creates a PostScript file from a symbolic layout cell
+.so man1/alc_origin.1
+.SH SYNOPSIS
+.TP
+\fBmbk2ps\fP \fIcellname\fP
+.br
+[\fB-b\fP] [\fB-c\fP] [\fB-cn\fP] [\fB-fl\fP] [\fB-m\fP] [\fB-i\fP]
+[\fB-in\fP] [\fB-p\fP] [\fB-r\fP] [\fB-rn\fP] [\fB-rot\fP] [\fB-s\fP] 
+[\fB-si\fP] [\fB-sn\fP] [\fB-v\fP] [\fB-mn\fP]
+.br
+[\fB-f\fP \fIX0,Y0,X1,Y1\fP] [\fB-l\fP \fIlayernumber=patternnumber\fP]
+[\fB-sc\fP \fIscale\fP] [\fB-fs\fP \fIfontsize\fP]
+.br
+.SH DESCRIPTION
+The need for a clean output on paper of designs is an important issue in
+every day designer's life, and also in a more long term sight, to archive
+and give information about old design, or to build a complete documentation,
+for a standard cell library for example.
+.br
+In order to be as device independant and powerfull as possible, the choosen
+output file format is \fBPostScript\fP, since many today's device,
+laser printers, plotters, graphical terminals, etc, support it.
+.br
+The input file format is given by an environment variable
+.B MBK_IN_PH
+that gives the appropriate symbolic layout file format.
+The possible values are 
+.I cp, ap.
+See mbk(1) for details.
+.br
+The path to the input file is set up by two environment variables
+\fBMBK_WORK_LIB\fP(3) and if not found in the directory then the directory 
+pointed by \fBMBK_CATA_LIB\fP(3) is then searched through.
+The output of \fImbk2ps\fP is a \fBPostScript\fP file with the name 
+\fBcellname.ps\fP in the current directory. The resulting file can be then
+used on any adequat device.
+.br
+At invocation time, the first argument must be the \fIcellname\fP.
+The options can be given in any order beside this restriction.
+.SH OPTIONS
+With no options, mbk2ps generate a "standard file", with all options off.
+This is ok for leaf cells output, but not for hierarchical circuit.
+.TP
+\-b
+inhibits the drawing of the abutment box.
+.TP
+\-c 
+inhibits the drawing of the connectors.
+.TP
+\-cn 
+inhibits the drawing of the connectors names.
+.TP
+\-i 
+inhibits the drawing of the instances.
+.TP
+\-in 
+inhibits the drawing of the instances names.
+.TP
+\-r 
+inhibits the drawing of the references.
+.TP
+\-rn 
+inhibits the drawing of the references names.
+.TP
+\-s 
+inhibits the drawing of the segments.
+.TP
+\-sn 
+inhibits the drawing of the segments names.
+.TP
+\-v 
+inhibits the drawing of the vias.
+.TP
+\-mn 
+if the \-in option is not active, this option writes the name of the instance's
+model, not the instance one.
+It implies that either the \fIinstance\fP name is written, or its \fImodel\fP
+name, but not both of them at once.
+.TP
+\-f \fIX0,Y0,X1,Y1\fB
+gives the frame coordinates, in dot units, on the page.
+You may give any number, but no check will be performed to ensure it fits on
+a particular paper size, since many devices can be used for plotting.
+The default values are {(20, 40), (570, 820)}, and are meant to
+be used with A4 paper.
+.TP
+\-fl 
+flattens the cell to the catalog level. Recommended mainly for
+routed circuits that have more than one hierarchical level.
+.TP
+\-fs fontsize
+uses the \fIfontsize\fP argument as the new size for the font
+used to print objects names. If \fIfontsize\fP is not specified,
+then the value twelve is used by default. If \fIfontsize\fP is smaller
+than four, then four is used.
+.TP
+\-l \fIlayernumber=patternnumber\fP
+affects a pattern, given by it's number in the \fBpatternfont.ps\fP
+file, to a layer, given by it's number in the \fBmbk.h\fP file.
+The patterns by default are the one recommanded, so if you're not a genius
+in \fBPostScript\fP, avoid this option.
+.TP
+\-m 
+do not merge rectangles of a same layer in a polygon. This options is
+automatically turned on when circuits have instances, since the algorithm
+is quit time consuming, and not useful then.
+.TP
+\-p 
+do not fill the polygons and rectangles with a pattern.
+This option is more than strongly recommended when translating big circuits.
+The gained time factor is approximatly 35! Do not use it for leaf cells, or
+you won't understand them.
+.TP
+\-rot 
+rotates the figure from plus 90 degrees before output. Notice that this
+rotation is perfomed in memory, not in the generated \fBPostScript\fP file.
+.TP
+\-sc scale
+uses the \fIscale\fP argument as the new scale factor for
+printing. If \fIscale\fP is not specified, then the scale will be choosen
+to best fit the page.
+.TP
+\-si 
+executes silently. If not specified, a banner appears on the screen,
+and some internals informations are displayed at the end of the
+process, giving the actual scale, frame, name, etc.
+.TP
+patternsheet
+.br
+if \fBcellname\fP is "pattersheet", without quotes, then \fImbk2ps\fP
+generates a demonstration file, called \fBpatternsheet.ps\fP
+that draws a segment in each layer with its name and pattern, and
+also each contact with its name. This can be done once in order to
+have a reference for all the future uses of this tool.
+.SH EXAMPLES
+.TP
+You should first have a correct execution environment :
+.nf
+\fBsetenv MBK_IN_PH cp
+setenv MBK_WORK_LIB ~fred/mbk/mbk2ps
+setenv MBK_CATA_LIB /labo/cells/scr\fP
+.fi
+.TP
+\fImbk2ps n1_y\fP
+will create a \fBn1_y.ps\fP file in the current directory the "standard" way.
+.TP
+\fImbk2ps na2_y -sc 1.1\fP
+will create a \fBna2_y.ps\fP file in the current
+directory with a scale of 1.1 (in arbitrary unit!). Don't get afraid,
+\fImbk2ps\fP gives back a value for each plot. This option is useful when
+you want to plot many cells with the same scale, as in a
+library document.
+.TP
+\fImbk2ps bigcell -rot -fl -m -p -in -sn -fs 4\fP
+will create a \fBbigcell.ps\fP
+file in the current directory with a 90 degrees rotation, a flatten to the
+catalog, no patterns, nor segments names, nor instance names, and without
+merging the layers, with a font size of 4, that is the minimun allowed value.
+Tipically, this is what you would do for a routed
+circuit.
+.TP
+\fImbk2ps z2l_y -f 20,40,820,1160\fP
+will create a \fBz2l_y.ps\fP file in the current directory with a frame
+choosen to fit on an A3 paper. Just find the printer now!
+.SH SEE ALSO
+.BR mbk(1),
+.BR MBK_IN_PH(3),
+.BR MBK_CATA_LIB(3),
+.BR MBK_WORK_LIB(3),
+.BR MBK_CATAL_NAME(3),
+.BR pageview(1),
+.BR lpr(1).
+
+
+.SH DIAGNOSTICS
+.br
+Merging algorithm, that makes a polygone from a bunch of crossing rectangles
+fails if a loop exists.
+Do use the \fI-m\fP options in order to avoid it.
+.br
+The generated \fBPostScript\fP is version 2.0. It may not run with 1.0
+interpreters, due to the use of new structure conventions.
+.br
+The pattern filling algorithm is written in \fBPostScript\fP, and when
+interpreted, may take a lot of time on big circuits. Even a printer
+timeout error can occur on machine having to few Kbytes of ram. This is
+\fBnot\fP a \fImbk2ps\fP generated \fBPostScript\fP error,
+but a misuse of it.
+If such a problem occurs, just use the \fI\-p\fP option.
+
+
+.so man1/alc_bug_report.1
+

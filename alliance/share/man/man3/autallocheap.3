@@ -1,0 +1,68 @@
+.\"   $Id: autallocheap.3,v 1.1 1999/05/31 17:30:18 alliance Exp $
+.\" @(#)autallocheap.2 2.7 96/07/02 ; Labo masi cao-vlsi; Author : Jacomme Ludovic
+.TH AUTALLOCHEAP 3 "October 1, 1997" "ASIM/LIP6" "AUT FUNCTIONS"
+.SH NAME
+autallocheap \- heap memory allocator
+.so man1/alc_origin.1
+.SH SYNOPSYS
+.nf
+.if n \{\
+.ft B \}
+.if t \{\
+.ft CR \}
+#include "aut101.h"
+char *autallocheap( Size )
+   unsigned int Size;
+.ft R
+.fi
+.SH PARAMETERS
+.TP 20
+\fISize\fP
+Number of memory bytes to be contiguously allocated
+.SH DESCRIPTION
+\fBautallocheap\fP returns a block of \fISize\fP bytes length,
+allocated on the heap. The memory block is set to zero.
+Its use is strongly encouraged when the \fISize\fP is very small.
+.br
+.SH RETURN VALUE
+\fBautallocheap\fP returns a pointer to a \fISize\fP bytes long block.
+.SH ERRORS
+.if n \{\
+.ft B \}
+.if t \{\
+.ft CR \}
+"autalloc: alloc error, can't continue !"
+.ft R
+.RS
+System break can't be moved anymore, no more memory can be retrieved from the system.
+.SH EXAMPLE
+.ta 3n 6n 9n 12n 15n 18n 21n
+.nf
+.if n \{\
+.ft B \}
+.if t \{\
+.ft CR \}
+#include "aut101.h"
+typedef struct bipointer
+{
+  struct bipointer \(**NEXT;
+  void             \(**DATA; 
+} bipointer;
+bipointer \(**addbipointer( Data );
+  void \(**Data;
+{
+  bipointer \(**Bp = (bipointer \(**)autallocheap( sizeof( bipointer ) );
+  Bp->DATA = Data; return Bp;
+}
+.ft R
+.fi
+.SH SEE ALSO
+.BR aut(1),
+.BR autresizeblock(3),
+.BR autallocblock(3),
+.BR autfreeblock(3),
+.BR autfreeheap(3).
+
+
+.so man1/alc_bug_report.1
+

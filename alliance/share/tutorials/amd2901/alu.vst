@@ -1,0 +1,776 @@
+-- VHDL structural description generated from `alu`
+--		date : Sun Sep 27 12:27:24 1998
+
+
+-- Entity Declaration
+
+ENTITY alu IS
+  PORT (
+  r : in BIT_VECTOR (3 DOWNTO 0);	-- r
+  s : in BIT_VECTOR (3 DOWNTO 0);	-- s
+  alu_out : out BIT_VECTOR (3 DOWNTO 0);	-- alu_out
+  cin : in BIT;	-- cin
+  cout : out BIT;	-- cout
+  np : out BIT;	-- np
+  ng : out BIT;	-- ng
+  signe : out BIT;	-- signe
+  zero : out BIT;	-- zero
+  ovr : out BIT;	-- ovr
+  i : in BIT_VECTOR (5 DOWNTO 3);	-- i
+  vdd : in BIT;	-- vdd
+  vss : in BIT	-- vss
+  );
+END alu;
+
+-- Architecture Declaration
+
+ARCHITECTURE VST OF alu IS
+  COMPONENT na3_y
+    port (
+    i0 : in BIT;	-- i0
+    i1 : in BIT;	-- i1
+    i2 : in BIT;	-- i2
+    f : out BIT;	-- f
+    vdd : in BIT;	-- vdd
+    vss : in BIT	-- vss
+    );
+  END COMPONENT;
+
+  COMPONENT nxr2_y
+    port (
+    i0 : in BIT;	-- i0
+    i1 : in BIT;	-- i1
+    f : out BIT;	-- f
+    vdd : in BIT;	-- vdd
+    vss : in BIT	-- vss
+    );
+  END COMPONENT;
+
+  COMPONENT np1_y
+    port (
+    i : in BIT;	-- i
+    f : out BIT;	-- f
+    vdd : in BIT;	-- vdd
+    vss : in BIT	-- vss
+    );
+  END COMPONENT;
+
+  COMPONENT no3_y
+    port (
+    i0 : in BIT;	-- i0
+    i1 : in BIT;	-- i1
+    i2 : in BIT;	-- i2
+    f : out BIT;	-- f
+    vdd : in BIT;	-- vdd
+    vss : in BIT	-- vss
+    );
+  END COMPONENT;
+
+  COMPONENT na2_y
+    port (
+    i0 : in BIT;	-- i0
+    i1 : in BIT;	-- i1
+    f : out BIT;	-- f
+    vdd : in BIT;	-- vdd
+    vss : in BIT	-- vss
+    );
+  END COMPONENT;
+
+  COMPONENT no2_y
+    port (
+    i0 : in BIT;	-- i0
+    i1 : in BIT;	-- i1
+    f : out BIT;	-- f
+    vdd : in BIT;	-- vdd
+    vss : in BIT	-- vss
+    );
+  END COMPONENT;
+
+  COMPONENT xr2_y
+    port (
+    i0 : in BIT;	-- i0
+    i1 : in BIT;	-- i1
+    t : out BIT;	-- t
+    vdd : in BIT;	-- vdd
+    vss : in BIT	-- vss
+    );
+  END COMPONENT;
+
+  COMPONENT n1_y
+    port (
+    i : in BIT;	-- i
+    f : out BIT;	-- f
+    vdd : in BIT;	-- vdd
+    vss : in BIT	-- vss
+    );
+  END COMPONENT;
+
+  COMPONENT a2_y
+    port (
+    i0 : in BIT;	-- i0
+    i1 : in BIT;	-- i1
+    t : out BIT;	-- t
+    vdd : in BIT;	-- vdd
+    vss : in BIT	-- vss
+    );
+  END COMPONENT;
+
+  SIGNAL cout0 : BIT;	-- cout0
+  SIGNAL cout1 : BIT;	-- cout1
+  SIGNAL cout2 : BIT;	-- cout2
+  SIGNAL couta : BIT;	-- couta
+  SIGNAL fb0 : BIT;	-- fb0
+  SIGNAL fb1 : BIT;	-- fb1
+  SIGNAL fb2 : BIT;	-- fb2
+  SIGNAL flag : BIT;	-- flag
+  SIGNAL flag1 : BIT;	-- flag1
+  SIGNAL g : BIT;	-- g
+  SIGNAL gb0 : BIT;	-- gb0
+  SIGNAL gb1 : BIT;	-- gb1
+  SIGNAL gb2 : BIT;	-- gb2
+  SIGNAL gb3 : BIT;	-- gb3
+  SIGNAL genf : BIT;	-- genf
+  SIGNAL n0 : BIT;	-- n0
+  SIGNAL n1 : BIT;	-- n1
+  SIGNAL n2 : BIT;	-- n2
+  SIGNAL n3 : BIT;	-- n3
+  SIGNAL n4 : BIT;	-- n4
+  SIGNAL na0_csb : BIT;	-- na0_csb
+  SIGNAL na1_csb : BIT;	-- na1_csb
+  SIGNAL na20 : BIT;	-- na20
+  SIGNAL na21 : BIT;	-- na21
+  SIGNAL na22 : BIT;	-- na22
+  SIGNAL na23 : BIT;	-- na23
+  SIGNAL na_csh : BIT;	-- na_csh
+  SIGNAL ngb0 : BIT;	-- ngb0
+  SIGNAL ngb3 : BIT;	-- ngb3
+  SIGNAL ngen : BIT;	-- ngen
+  SIGNAL ni5 : BIT;	-- ni5
+  SIGNAL nn0 : BIT;	-- nn0
+  SIGNAL nn1 : BIT;	-- nn1
+  SIGNAL nn3 : BIT;	-- nn3
+  SIGNAL no20 : BIT;	-- no20
+  SIGNAL no21 : BIT;	-- no21
+  SIGNAL no22 : BIT;	-- no22
+  SIGNAL no23 : BIT;	-- no23
+  SIGNAL no2_csh : BIT;	-- no2_csh
+  SIGNAL no30 : BIT;	-- no30
+  SIGNAL no30_csh : BIT;	-- no30_csh
+  SIGNAL no31 : BIT;	-- no31
+  SIGNAL no31_csh : BIT;	-- no31_csh
+  SIGNAL no32 : BIT;	-- no32
+  SIGNAL no32_csh : BIT;	-- no32_csh
+  SIGNAL no33 : BIT;	-- no33
+  SIGNAL no40 : BIT;	-- no40
+  SIGNAL no41 : BIT;	-- no41
+  SIGNAL no42 : BIT;	-- no42
+  SIGNAL no43 : BIT;	-- no43
+  SIGNAL not0 : BIT;	-- not0
+  SIGNAL not1 : BIT;	-- not1
+  SIGNAL not2 : BIT;	-- not2
+  SIGNAL not3 : BIT;	-- not3
+  SIGNAL npb0 : BIT;	-- npb0
+  SIGNAL nprop : BIT;	-- nprop
+  SIGNAL p : BIT;	-- p
+  SIGNAL pb0 : BIT;	-- pb0
+  SIGNAL pb1 : BIT;	-- pb1
+  SIGNAL pb2 : BIT;	-- pb2
+  SIGNAL pb3 : BIT;	-- pb3
+  SIGNAL propf : BIT;	-- propf
+  SIGNAL signea : BIT;	-- signea
+  SIGNAL x00 : BIT;	-- x00
+  SIGNAL x01 : BIT;	-- x01
+  SIGNAL x02 : BIT;	-- x02
+  SIGNAL x03 : BIT;	-- x03
+  SIGNAL x10 : BIT;	-- x10
+  SIGNAL x11 : BIT;	-- x11
+  SIGNAL x12 : BIT;	-- x12
+  SIGNAL x13 : BIT;	-- x13
+  SIGNAL x20 : BIT;	-- x20
+  SIGNAL x21 : BIT;	-- x21
+  SIGNAL x22 : BIT;	-- x22
+  SIGNAL x23 : BIT;	-- x23
+
+BEGIN
+
+  xor0_a0 : xr2_y
+    PORT MAP (
+    vss => vss,
+    vdd => vdd,
+    t => x00,
+    i1 => n0,
+    i0 => r(0));
+  xor1_a0 : xr2_y
+    PORT MAP (
+    vss => vss,
+    vdd => vdd,
+    t => x10,
+    i1 => n1,
+    i0 => s(0));
+  nand0_a0 : na2_y
+    PORT MAP (
+    vss => vss,
+    vdd => vdd,
+    f => gb0,
+    i1 => x10,
+    i0 => x00);
+  nor1_a0 : no2_y
+    PORT MAP (
+    vss => vss,
+    vdd => vdd,
+    f => pb0,
+    i1 => x10,
+    i0 => x00);
+  nand1_a0 : na2_y
+    PORT MAP (
+    vss => vss,
+    vdd => vdd,
+    f => cout0,
+    i1 => na20,
+    i0 => gb0);
+  not_a0 : n1_y
+    PORT MAP (
+    vss => vss,
+    vdd => vdd,
+    f => not0,
+    i => pb0);
+  nand2_a0 : na2_y
+    PORT MAP (
+    vss => vss,
+    vdd => vdd,
+    f => na20,
+    i1 => cin,
+    i0 => not0);
+  nor2_a0 : no2_y
+    PORT MAP (
+    vss => vss,
+    vdd => vdd,
+    f => no20,
+    i1 => gb0,
+    i0 => n2);
+  nor3_a0 : no2_y
+    PORT MAP (
+    vss => vss,
+    vdd => vdd,
+    f => no30,
+    i1 => pb0,
+    i0 => n3);
+  nor4_a0 : no2_y
+    PORT MAP (
+    vss => vss,
+    vdd => vdd,
+    f => no40,
+    i1 => cin,
+    i0 => n4);
+  xor2_a0 : xr2_y
+    PORT MAP (
+    vss => vss,
+    vdd => vdd,
+    t => x20,
+    i1 => no30,
+    i0 => no20);
+  xor3_a0 : xr2_y
+    PORT MAP (
+    vss => vss,
+    vdd => vdd,
+    t => fb0,
+    i1 => no40,
+    i0 => x20);
+  xor0_a1 : xr2_y
+    PORT MAP (
+    vss => vss,
+    vdd => vdd,
+    t => x01,
+    i1 => n0,
+    i0 => r(1));
+  xor1_a1 : xr2_y
+    PORT MAP (
+    vss => vss,
+    vdd => vdd,
+    t => x11,
+    i1 => n1,
+    i0 => s(1));
+  nand0_a1 : na2_y
+    PORT MAP (
+    vss => vss,
+    vdd => vdd,
+    f => gb1,
+    i1 => x11,
+    i0 => x01);
+  nor1_a1 : no2_y
+    PORT MAP (
+    vss => vss,
+    vdd => vdd,
+    f => pb1,
+    i1 => x11,
+    i0 => x01);
+  nand1_a1 : na2_y
+    PORT MAP (
+    vss => vss,
+    vdd => vdd,
+    f => cout1,
+    i1 => na21,
+    i0 => gb1);
+  not_a1 : n1_y
+    PORT MAP (
+    vss => vss,
+    vdd => vdd,
+    f => not1,
+    i => pb1);
+  nand2_a1 : na2_y
+    PORT MAP (
+    vss => vss,
+    vdd => vdd,
+    f => na21,
+    i1 => cout0,
+    i0 => not1);
+  nor2_a1 : no2_y
+    PORT MAP (
+    vss => vss,
+    vdd => vdd,
+    f => no21,
+    i1 => gb1,
+    i0 => n2);
+  nor3_a1 : no2_y
+    PORT MAP (
+    vss => vss,
+    vdd => vdd,
+    f => no31,
+    i1 => pb1,
+    i0 => n3);
+  nor4_a1 : no2_y
+    PORT MAP (
+    vss => vss,
+    vdd => vdd,
+    f => no41,
+    i1 => cout0,
+    i0 => n4);
+  xor2_a1 : xr2_y
+    PORT MAP (
+    vss => vss,
+    vdd => vdd,
+    t => x21,
+    i1 => no31,
+    i0 => no21);
+  xor3_a1 : xr2_y
+    PORT MAP (
+    vss => vss,
+    vdd => vdd,
+    t => fb1,
+    i1 => no41,
+    i0 => x21);
+  xor0_a2 : xr2_y
+    PORT MAP (
+    vss => vss,
+    vdd => vdd,
+    t => x02,
+    i1 => n0,
+    i0 => r(2));
+  xor1_a2 : xr2_y
+    PORT MAP (
+    vss => vss,
+    vdd => vdd,
+    t => x12,
+    i1 => n1,
+    i0 => s(2));
+  nand0_a2 : na2_y
+    PORT MAP (
+    vss => vss,
+    vdd => vdd,
+    f => gb2,
+    i1 => x12,
+    i0 => x02);
+  nor1_a2 : no2_y
+    PORT MAP (
+    vss => vss,
+    vdd => vdd,
+    f => pb2,
+    i1 => x12,
+    i0 => x02);
+  nand1_a2 : na2_y
+    PORT MAP (
+    vss => vss,
+    vdd => vdd,
+    f => cout2,
+    i1 => na22,
+    i0 => gb2);
+  not_a2 : n1_y
+    PORT MAP (
+    vss => vss,
+    vdd => vdd,
+    f => not2,
+    i => pb2);
+  nand2_a2 : na2_y
+    PORT MAP (
+    vss => vss,
+    vdd => vdd,
+    f => na22,
+    i1 => cout1,
+    i0 => not2);
+  nor2_a2 : no2_y
+    PORT MAP (
+    vss => vss,
+    vdd => vdd,
+    f => no22,
+    i1 => gb2,
+    i0 => n2);
+  nor3_a2 : no2_y
+    PORT MAP (
+    vss => vss,
+    vdd => vdd,
+    f => no32,
+    i1 => pb2,
+    i0 => n3);
+  nor4_a2 : no2_y
+    PORT MAP (
+    vss => vss,
+    vdd => vdd,
+    f => no42,
+    i1 => cout1,
+    i0 => n4);
+  xor2_a2 : xr2_y
+    PORT MAP (
+    vss => vss,
+    vdd => vdd,
+    t => x22,
+    i1 => no32,
+    i0 => no22);
+  xor3_a2 : xr2_y
+    PORT MAP (
+    vss => vss,
+    vdd => vdd,
+    t => fb2,
+    i1 => no42,
+    i0 => x22);
+  xor0_a3 : xr2_y
+    PORT MAP (
+    vss => vss,
+    vdd => vdd,
+    t => x03,
+    i1 => n0,
+    i0 => r(3));
+  xor1_a3 : xr2_y
+    PORT MAP (
+    vss => vss,
+    vdd => vdd,
+    t => x13,
+    i1 => n1,
+    i0 => s(3));
+  nand0_a3 : na2_y
+    PORT MAP (
+    vss => vss,
+    vdd => vdd,
+    f => gb3,
+    i1 => x13,
+    i0 => x03);
+  nor1_a3 : no2_y
+    PORT MAP (
+    vss => vss,
+    vdd => vdd,
+    f => pb3,
+    i1 => x13,
+    i0 => x03);
+  nand1_a3 : na2_y
+    PORT MAP (
+    vss => vss,
+    vdd => vdd,
+    f => couta,
+    i1 => na23,
+    i0 => gb3);
+  not_a3 : n1_y
+    PORT MAP (
+    vss => vss,
+    vdd => vdd,
+    f => not3,
+    i => pb3);
+  nand2_a3 : na2_y
+    PORT MAP (
+    vss => vss,
+    vdd => vdd,
+    f => na23,
+    i1 => cout2,
+    i0 => not3);
+  nor2_a3 : no2_y
+    PORT MAP (
+    vss => vss,
+    vdd => vdd,
+    f => no23,
+    i1 => gb3,
+    i0 => n2);
+  nor3_a3 : no2_y
+    PORT MAP (
+    vss => vss,
+    vdd => vdd,
+    f => no33,
+    i1 => pb3,
+    i0 => n3);
+  nor4_a3 : no2_y
+    PORT MAP (
+    vss => vss,
+    vdd => vdd,
+    f => no43,
+    i1 => cout2,
+    i0 => n4);
+  xor2_a3 : xr2_y
+    PORT MAP (
+    vss => vss,
+    vdd => vdd,
+    t => x23,
+    i1 => no33,
+    i0 => no23);
+  xor3_a3 : xr2_y
+    PORT MAP (
+    vss => vss,
+    vdd => vdd,
+    t => signea,
+    i1 => no43,
+    i0 => x23);
+  not5_d : n1_y
+    PORT MAP (
+    vss => vss,
+    vdd => vdd,
+    f => ni5,
+    i => i(5));
+  nand3_d : na3_y
+    PORT MAP (
+    vss => vss,
+    vdd => vdd,
+    f => nn3,
+    i2 => ni5,
+    i1 => i(4),
+    i0 => i(3));
+  nor_d : no2_y
+    PORT MAP (
+    vss => vss,
+    vdd => vdd,
+    f => n2,
+    i1 => ni5,
+    i0 => i(4));
+  nxor4_d : nxr2_y
+    PORT MAP (
+    vss => vss,
+    vdd => vdd,
+    f => nn1,
+    i1 => i(5),
+    i0 => i(4));
+  nxor3_d : nxr2_y
+    PORT MAP (
+    vss => vss,
+    vdd => vdd,
+    f => nn0,
+    i1 => i(5),
+    i0 => i(3));
+  nand_d : na2_y
+    PORT MAP (
+    vss => vss,
+    vdd => vdd,
+    f => n4,
+    i1 => nn3,
+    i0 => ni5);
+  not0_d : n1_y
+    PORT MAP (
+    vss => vss,
+    vdd => vdd,
+    f => n3,
+    i => nn3);
+  notp4_d : np1_y
+    PORT MAP (
+    vss => vss,
+    vdd => vdd,
+    f => n1,
+    i => nn1);
+  notp3_d : np1_y
+    PORT MAP (
+    vss => vss,
+    vdd => vdd,
+    f => n0,
+    i => nn0);
+  naflag1 : na2_y
+    PORT MAP (
+    vss => vss,
+    vdd => vdd,
+    f => flag1,
+    i1 => i(3),
+    i0 => i(4));
+  naflag : a2_y
+    PORT MAP (
+    vss => vss,
+    vdd => vdd,
+    t => flag,
+    i1 => flag1,
+    i0 => ni5);
+  not0_csh : n1_y
+    PORT MAP (
+    vss => vss,
+    vdd => vdd,
+    f => npb0,
+    i => pb0);
+  not1_csh : n1_y
+    PORT MAP (
+    vss => vss,
+    vdd => vdd,
+    f => ngb0,
+    i => gb0);
+  not2_csh : n1_y
+    PORT MAP (
+    vss => vss,
+    vdd => vdd,
+    f => ngb3,
+    i => gb3);
+  npf : n1_y
+    PORT MAP (
+    vss => vss,
+    vdd => vdd,
+    f => propf,
+    i => nprop);
+  npg : n1_y
+    PORT MAP (
+    vss => vss,
+    vdd => vdd,
+    f => genf,
+    i => ngen);
+  npflag : a2_y
+    PORT MAP (
+    vss => vss,
+    vdd => vdd,
+    t => p,
+    i1 => flag,
+    i0 => propf);
+  ngflag : a2_y
+    PORT MAP (
+    vss => vss,
+    vdd => vdd,
+    t => g,
+    i1 => flag,
+    i0 => genf);
+  nor0_csh : no3_y
+    PORT MAP (
+    vss => vss,
+    vdd => vdd,
+    f => no30_csh,
+    i2 => pb1,
+    i1 => pb2,
+    i0 => pb3);
+  nor1_csh : no3_y
+    PORT MAP (
+    vss => vss,
+    vdd => vdd,
+    f => no31_csh,
+    i2 => pb3,
+    i1 => pb2,
+    i0 => gb1);
+  nor2_csh : no3_y
+    PORT MAP (
+    vss => vss,
+    vdd => vdd,
+    f => no32_csh,
+    i2 => ngb3,
+    i1 => no31_csh,
+    i0 => no2_csh);
+  nand0_csh : na2_y
+    PORT MAP (
+    vss => vss,
+    vdd => vdd,
+    f => nprop,
+    i1 => no30_csh,
+    i0 => npb0);
+  nand1_csh : na2_y
+    PORT MAP (
+    vss => vss,
+    vdd => vdd,
+    f => na_csh,
+    i1 => no30_csh,
+    i0 => ngb0);
+  nor_csh : no2_y
+    PORT MAP (
+    vss => vss,
+    vdd => vdd,
+    f => no2_csh,
+    i1 => pb3,
+    i0 => gb2);
+  and_csh : a2_y
+    PORT MAP (
+    vss => vss,
+    vdd => vdd,
+    t => ngen,
+    i1 => no32_csh,
+    i0 => na_csh);
+  nand0_csb : na2_y
+    PORT MAP (
+    vss => vss,
+    vdd => vdd,
+    f => na0_csb,
+    i1 => fb1,
+    i0 => fb0);
+  nand1_csb : na2_y
+    PORT MAP (
+    vss => vss,
+    vdd => vdd,
+    f => na1_csb,
+    i1 => signea,
+    i0 => fb2);
+  nor_csb : no2_y
+    PORT MAP (
+    vss => vss,
+    vdd => vdd,
+    f => zero,
+    i1 => na1_csb,
+    i0 => na0_csb);
+  xor_csb : xr2_y
+    PORT MAP (
+    vss => vss,
+    vdd => vdd,
+    t => ovr,
+    i1 => couta,
+    i0 => cout2);
+  not0_csb : n1_y
+    PORT MAP (
+    vss => vss,
+    vdd => vdd,
+    f => alu_out(0),
+    i => fb0);
+  not1_csb : n1_y
+    PORT MAP (
+    vss => vss,
+    vdd => vdd,
+    f => alu_out(1),
+    i => fb1);
+  not2_csb : n1_y
+    PORT MAP (
+    vss => vss,
+    vdd => vdd,
+    f => alu_out(2),
+    i => fb2);
+  not3_csb : n1_y
+    PORT MAP (
+    vss => vss,
+    vdd => vdd,
+    f => alu_out(3),
+    i => signea);
+  not4_csb : n1_y
+    PORT MAP (
+    vss => vss,
+    vdd => vdd,
+    f => signe,
+    i => signea);
+  not0_p : n1_y
+    PORT MAP (
+    vss => vss,
+    vdd => vdd,
+    f => np,
+    i => p);
+  not0_g : n1_y
+    PORT MAP (
+    vss => vss,
+    vdd => vdd,
+    f => ng,
+    i => g);
+  coutflag : a2_y
+    PORT MAP (
+    vss => vss,
+    vdd => vdd,
+    t => cout,
+    i1 => flag,
+    i0 => couta);
+
+end VST;

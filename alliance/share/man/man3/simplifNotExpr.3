@@ -1,0 +1,51 @@
+.\"   $Id: simplifNotExpr.3,v 1.1 1999/05/31 17:30:25 alliance Exp $
+.\" @(#)simplifNotExpr.2 7.01 92/08/22 ; Labo masi cao-vlsi; Author : Luc Burgun
+.TH SIMPLIFNOTEXPR 3 "October 1, 1997" "ASIM/LIP6" "ABL functions"
+.so man1/alc_origin.1
+.SH NAME
+\fBsimplifNotExpr\fP \- makes simplifications on an expression including inverters
+.SH SYNOPSYS
+.nf
+#include "logmmm.h"
+chain_list *simplifNotExpr(expr)
+chain_list *expr;
+.fi
+.SH PARAMETER
+.TP 20
+\fIexpr\fP
+expression to simplify
+.SH DESCRIPTION
+\fBsimplifNotExpr()\fP makes simplifications by applying the following rule :
+.br
+.TP
+(not (not a)) --> a
+.SH EXAMPLE
+.nf
+#include "mutnnn.h"		/* mbk utilities */
+#include "logmmm.h"
+chain_list *expr1,*expr2; 
+
+/* let's suppose that expr1 = (OR (NOT (NOT a)) (NOT (NOT (NOT b)))) */
+
+expr2 = simplifNotExpr(expr1); 
+displayExpr(expr2);
+/* it will display
+(OR a (NOT b))
+*/
+freeExpr(expr1);
+freeExpr(expr2);
+.fi
+.SH SEE ALSO
+.BR log (1),
+.BR abl (1),
+.BR simplifExpr10 (3),
+.BR devXorExpr (3),
+.BR devXor2Expr (3),
+.BR notExpr (3),
+.BR flatPolarityExpr (3),
+.BR flatArityExpr (3),
+.BR sortExpr(3),
+.BR normExpr(3).
+
+.so man1/alc_bug_report.1
+

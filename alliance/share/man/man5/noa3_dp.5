@@ -1,0 +1,76 @@
+.\"   $Id: noa3_dp.5,v 1.1 1999/05/31 17:30:28 alliance Exp $
+.TH NOA3_DP 5 "October 1, 1997" "ASIM/LIP6" "FITPATH - User Cell Library"
+.so man1/alc_origin.1
+.SH NAME
+\fBnoa3_dp\fP
+.SH SYNOPSIS
+.ft CR
+.nf
+\fIGenLib Call :\fP
+    LOINS( "noa3_dp", "insname", "i0", "i1", "i2", "f", "vdd", "vss", 0L );
+.fi
+.ft R
+.SH DESCRIPTION
+\fIVHDL Behavioral description :\fP
+.ft CR
+.nf
+
+-- Interface declaration.
+ENTITY  noa3_dp  IS
+  PORT(
+         i0 : in        BIT;
+         i1 : in        BIT;
+         i2 : in        BIT;
+          f :   out     BIT;
+        vdd : in        BIT;
+        vss : in        BIT
+      );
+END  noa3_dp;
+
+-- Architecture declaration.
+ARCHITECTURE  behavior_data_flow  OF  noa3_dp  IS
+
+BEGIN
+  -- Logical equations.
+  f     <= ((i0 or i1) nand i2);
+END  behavior_data_flow;
+.fi
+.ft R
+
+\fIPhysical features :\fP
+.br
+.ta +4n
+	Cell wide : 24 lambdas, or 4 pitchs.
+.br
+
+\fITiming characteristics :\fP
+.br
+.ta +6n  +2n  +6n +6nR +1n    +12nR +1n
+
+i2	:	cin	=	53	(fF)
+.br
+		tplh	=	746	(ps) +	2998	(ohms) x Cload (pF)
+.br
+		tphl	=	378	(ps) +	1860	(ohms) x Cload (pF)
+.br
+
+i1	:	cin	=	67	(fF)
+.br
+		tplh	=	897	(ps) +	2979	(ohms) x Cload (pF)
+.br
+		tphl	=	544	(ps) +	1860	(ohms) x Cload (pF)
+.br
+
+i0	:	cin	=	67	(fF)
+.br
+		tplh	=	963	(ps) +	2979	(ohms) x Cload (pF)
+.br
+		tphl	=	384	(ps) +	1860	(ohms) x Cload (pF)
+.br
+.SH SEE ALSO
+.ft B
+dplib(1), fpgen(1), scmap(1)
+.ft R
+
+.so man1/alc_bug_report.1
+

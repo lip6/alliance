@@ -1,0 +1,81 @@
+.\"   $Id: addht.3,v 1.1 1999/05/31 17:30:17 alliance Exp $
+.\" @(#)addht.2 7.01 92/08/22 ; Labo masi cao-vlsi; Author : Luc Burgun
+.\" slightly modified by Fred Petrot for mbk adaptation on 22/06/92
+.if t \{\
+.so man1/alc_contents.mac
+.XS \n%
+.ti 0.2i
+addht
+.XE
+.XS4 \n%
+.ti 0.2i
+addht
+.XE4 \}
+.TH ADDHT 3 "October 1, 1997" "ASIM/LIP6" "MBK HASH TABLE MANAGEMENT FUNCTIONS"
+.SH NAME
+addht \- create an hash table
+.so man1/alc_origin.1
+.SH SYNOPSYS
+.if n \{\
+.ft B \}
+.if t \{\
+.ft CR \}
+.nf
+#include "mut315.h"
+ht \(**addht(len)
+unsigned int len;
+.fi
+.ft R
+.SH PARAMETER
+.TP 20
+\fIlen\fP
+Number of entries in the hash table
+.SH DESCRIPTION
+\fBaddht()\fP creates a new hash table in memory.
+\fIlen\fP is an estimate of the maximum number of entries that the
+table will contain.
+This number may be automatically adjusted when using access functions
+by a dynamic reallocation, in order to warranty fast access time.
+.SH EXAMPLE
+.ta 3n 6n 9n 12n 15n 18n 21n
+.nf
+.if n \{\
+.ft B \}
+.if t \{\
+.ft CR \}
+#include "mut315.h"
+ht \(**sigHtable(ptfig) /\(** h table suitable for signals \(**/
+lofig_list \(**ptfig;
+{
+losig_list \(**ptsig = ptfig->LOSIG;
+unsigned int i = 0;
+	while (ptsig) {
+		i++;
+		ptsig = ptsig->NEXT;
+	}
+	return addht(i);
+}
+.ft R
+.fi
+.SH ERROR
+.if n \{\
+.ft B \}
+.if t \{\
+.ft CR \}
+"\(**\(**\(** mbk error \(**\(**\(** illegal addht : \fIlen\fP is '0'"
+.ft R
+.RS
+The hash table size cannot be zero, guess why!
+.RE
+.SH SEE ALSO
+.BR mbk (1),
+.BR delht (3),
+.BR addhtitem (3),
+.BR gethtitem (3),
+.BR sethtitem (3),
+.BR delhtitem (3),
+.BR viewht (3).
+
+
+.so man1/alc_bug_report.1
+

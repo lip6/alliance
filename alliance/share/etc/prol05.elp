@@ -1,0 +1,58 @@
+#Fichier de parametrisation de TAS, HCMOS05, LEVEL 3, ST-SPICE
+#Les parametres sont calcules en tenant compte des shrinks
+#Par DIOURY karim, le 15/06/1995
+
+Technologie : prol05 Version : 2.0
+
+#Reference Simulator
+ESIM  = ST-SPICE
+MODEL = MOS
+LEVEL = 3.0
+
+#shrink parameters (micron)
+DLN = 0.058
+DLP = 0.015
+DWN = -0.068
+DWP = -0.008
+
+#transistor characteristics
+#NMOS
+VTN = 0.709
+BN  = 1.2177
+AN  = 7.63e-5
+RNT = 13764.0
+
+#PMOS
+VTP = 0.676
+BP  = 0.3302
+AP  = 1.65e-05
+RPT = 34740.0
+
+#general parameters
+VDDmax = 3.0
+VTHR   = 1.5
+VSSdeg = 0.952
+VDDdeg = 2.05
+TEMP   = 70.0
+
+#dynamic capacitance: grid capacitance (in pF/u and pF/u2)
+CGSN = 2704.0e-6
+CGSP = 2704.0e-6
+CGPN = 430.0e-6
+CGPP = 380.0e-6
+
+#dynamic capacitance: drain capacitance (in pF/u and pF/u2)
+CDSN = 840.0e-6
+CDSP = 915.0e-6
+CDPN = 270.0e-6
+CDPP = 220.0e-6
+CDWN = 430.0e-6
+CDWP = 380.0e-6
+
+#dynamic capacitance: source capacitance (in pF/u and pF/u2)
+CSSN = 840.0e-6
+CSSP = 915.0e-6
+CSPN = 270.0e-6
+CSPP = 220.0e-6
+CSWN = 430.0e-6
+CSWP = 380.0e-6

@@ -1,0 +1,50 @@
+-- This cell caracterized by prol05.elp technologie file
+-- VHDL data flow description generated from `noa3_y`
+--		date : Wed Oct  7 12:20:56 1998
+
+
+-- Entity Declaration
+
+ENTITY noa3_y IS
+  GENERIC (
+    CONSTANT area : NATURAL := 100800;	-- area
+    CONSTANT transistors : NATURAL := 6;	-- transistors
+    CONSTANT cin_i2 : NATURAL := 35;	-- cin_i2
+    CONSTANT cin_i1 : NATURAL := 46;	-- cin_i1
+    CONSTANT cin_i0 : NATURAL := 46;	-- cin_i0
+    CONSTANT tplh_i2_f : NATURAL := 447;	-- tplh_i2_f
+    CONSTANT rup_i2_f : NATURAL := 2450;	-- rup_i2_f
+    CONSTANT tphl_i2_f : NATURAL := 323;	-- tphl_i2_f
+    CONSTANT rdown_i2_f : NATURAL := 2440;	-- rdown_i2_f
+    CONSTANT tplh_i0_f : NATURAL := 494;	-- tplh_i0_f
+    CONSTANT rup_i0_f : NATURAL := 2700;	-- rup_i0_f
+    CONSTANT tphl_i0_f : NATURAL := 444;	-- tphl_i0_f
+    CONSTANT rdown_i0_f : NATURAL := 2440;	-- rdown_i0_f
+    CONSTANT tplh_i1_f : NATURAL := 641;	-- tplh_i1_f
+    CONSTANT rup_i1_f : NATURAL := 2700;	-- rup_i1_f
+    CONSTANT tphl_i1_f : NATURAL := 311;	-- tphl_i1_f
+    CONSTANT rdown_i1_f : NATURAL := 2440	-- rdown_i1_f
+  );
+  PORT (
+  i0 : in BIT;	-- i0
+  i1 : in BIT;	-- i1
+  i2 : in BIT;	-- i2
+  f : out BIT;	-- f
+  vdd : in BIT;	-- vdd
+  vss : in BIT	-- vss
+  );
+END noa3_y;
+
+
+-- Architecture Declaration
+
+ARCHITECTURE VBE OF noa3_y IS
+
+BEGIN
+  ASSERT ((vdd and not (vss)) = '1')
+    REPORT "power supply is missing on noa3_y"
+    SEVERITY WARNING;
+
+
+f <= ((i0 or i1) nand i2);
+END;

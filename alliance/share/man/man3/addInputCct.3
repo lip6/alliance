@@ -1,0 +1,58 @@
+.\"   $Id: addInputCct.3,v 1.1 1999/05/31 17:30:16 alliance Exp $
+.\" @(#)addInputCct.2 7.01 92/08/22 ; Labo masi cao-vlsi; Author : Luc Burgun
+.TH ADDINPUTCCT 3 "October 1, 1997" "ASIM/LIP6" "BDD functions"
+.so man1/alc_origin.1
+.SH NAME
+\fBaddInputCct\fP \- adds an input to a circuit 
+.SH SYNOPSYS
+.nf
+#include "logmmm.h"
+short addInputCct(pC,name)
+pCircuit pC;
+char *name;
+.fi
+.SH PARAMETERS
+.TP 20
+\fIpC\fP
+Circuit 
+.TP 20
+\fIname\fP
+name to add
+.SH DESCRIPTION
+\fBaddInputCct()\fP adds a primary input \fIname\fP to \fIpC\fP. This function returns the associated index.
+.SH EXAMPLE
+.nf
+#include "mutnnn.h"		/* mbk utilities */
+#include "logmmm.h"
+pCircuit pC;
+
+initializeBdd(SMALL_BDD);
+pC = initializeCct("circuit 1",10,10);
+
+addInputCct(pC,"a");
+addInputCct(pC,"b");
+
+displayCct(pC,1);
+
+/* it will display 
+************* DISPLAY circuit 1 **********
+INPUT = a	INDEX = 2
+INPUT = b	INDEX = 3
+--------- NUMBER OF INPUTS = 2
+--------- NUMBER OF OUTPUTS = 0
+******************************************
+*/
+
+destroyCct(pC);
+destroyBdd(1);
+.fi
+.SH SEE ALSO
+.BR log (1),
+.BR bdd (1),
+.BR searchInputCct (3),
+.BR cpOrderCct (3),
+.bc searchOutputCct (3),
+.BR addOutputCct (3).
+
+.so man1/alc_bug_report.1
+

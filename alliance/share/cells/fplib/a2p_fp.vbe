@@ -1,0 +1,19 @@
+entity a2p_fp is  
+
+   port 
+     (
+i0 : in bit ;
+i1 : in bit ;
+no : inout bit ;
+o : out bit ;
+vdd : in bit ;
+vss : in bit 
+     );
+   end a2p_fp ;
+
+architecture FUNCTIONNAL of a2p_fp is 
+
+begin
+no <= not(i0 and i1) ;
+o <= not no ;
+end FUNCTIONNAL ;

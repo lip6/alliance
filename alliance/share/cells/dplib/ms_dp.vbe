@@ -1,0 +1,44 @@
+-- VHDL data flow description generated from `ms_dp`
+--		date : Thu Oct 30 18:00:58 1997
+
+
+-- Entity Declaration
+
+ENTITY ms_dp IS
+  GENERIC (
+    CONSTANT area : NATURAL := 3960;	-- area
+    CONSTANT transistors : NATURAL := 18;	-- transistors
+    CONSTANT cin_i : NATURAL := 46;	-- cin_i
+    CONSTANT cin_l : NATURAL := 72;	-- cin_l
+    CONSTANT thr_i_l : NATURAL := 0;	-- thr_i_l
+    CONSTANT thf_i_l : NATURAL := 0;	-- thf_i_l
+    CONSTANT tsr_i_l : NATURAL := 839;	-- tsr_i_l
+    CONSTANT tsf_i_l : NATURAL := 539;	-- tsf_i_l
+    CONSTANT tar_l_t : NATURAL := 898;	-- tar_l_t
+    CONSTANT taf_l_t : NATURAL := 664;	-- taf_l_t
+    CONSTANT rup_l_t : NATURAL := 1060;	-- rup_l_t
+    CONSTANT rdown_l_t : NATURAL := 1550	-- rdown_l_t
+  );
+  PORT (
+  i : in BIT;	-- i
+  l : in BIT;	-- l
+  t : out BIT;	-- t
+  vdd : in BIT;	-- vdd
+  vss : in BIT	-- vss
+  );
+END ms_dp;
+
+
+-- Architecture Declaration
+
+ARCHITECTURE behaviour_data_flow OF ms_dp IS
+  SIGNAL dff_s : REG_BIT REGISTER;	-- dff_s
+
+BEGIN
+  label0 : BLOCK ((not (l) and not (l'STABLE)) = '1')
+  BEGIN
+    dff_s <= GUARDED not (i);
+  END BLOCK label0;
+
+t <= not (dff_s);
+END;

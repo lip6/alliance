@@ -1,0 +1,54 @@
+.\"   $Id: unflatablexpr.3,v 1.1 1999/05/31 17:30:25 alliance Exp $
+.\" @(#)unflatablexpr.2 2.7 96/07/02 ; Labo masi cao-vlsi; Author : Jacomme Ludovic
+.TH UNFLATABLEXPR 3 "October 1, 1997" "ASIM/LIP6" "ABL FUNCTIONS"
+.SH NAME
+unflatablexpr \- unflats the operators of an expression
+.so man1/alc_origin.1
+.SH SYNOPSYS
+.nf
+.if n \{\
+.ft B \}
+.if t \{\
+.ft CR \}
+#include "abl101.h"
+void unflatablexpr( Expr )
+  chain_list \(**Expr;
+.ft R
+.fi
+.SH PARAMETERS
+.TP 20
+\fIExpr\fP
+Expression to unflat.
+.SH DESCRIPTION
+\fBunflatablexpr\fP modifies all the operators in \fIExpr\fP in order
+to have exclusively binary or unary operators.
+.br
+.SH RETURN VALUE
+\fBunflatablexpr\fP returns the modified expression.
+.SH EXAMPLE
+.ta 3n 6n 9n 12n 15n 18n 21n
+.nf
+.if n \{\
+.ft B \}
+.if t \{\
+.ft CR \}
+#include "abl101.h"
+  chain_list \(**Expr1;
+  chain_list \(**Expr2;
+  Expr1 = createbinexpr( ABL_OR, 
+                         createablatom( "a" ),
+                         createablatom( "b" ) );
+  addablqexpr( Expr1, createablatom( "c" ) );
+  Expr2 = unflatablexpr( dupablexpr( Expr1 ) );
+  /* displays ((a or b) or c) (a or b or c) */
+  viewablexpr( Expr2, ABL_VIEW_VHDL );
+  viewablexpr( Expr1, ABL_VIEW_VHDL );
+.ft R
+.fi
+.SH SEE ALSO
+.BR abl (1),
+.BR ununflatablexpr(3).
+
+
+.so man1/alc_bug_report.1
+

@@ -1,0 +1,70 @@
+.\"   $Id: viewlotrs.3,v 1.1 1999/05/31 17:30:26 alliance Exp $
+.\" @(#)viewlotrs.2 2.11 91/08/22 ; Labo masi cao-vlsi; Author : Frederic Petrot
+
+.if t \{\
+.so man1/alc_contents.mac
+.XS \n%
+.ti 0.2i
+viewlotrs
+.XE
+.XS2 \n%
+.ti 0.2i
+viewlotrs
+.XE2 \}
+
+.TH VIEWLOTRS 3 "October 1, 1997" "ASIM/LIP6" "MBK LOGICAL FUNCTIONS"
+.SH NAME
+viewlotrs \- display elements of a \fBlotrs_list\fP
+.so man1/alc_origin.1
+.SH SYNOPSYS
+.nf
+.if n \{\
+.ft B \}
+.if t \{\
+.ft CR \}
+#include "mlo404.h"
+void viewlotrs(pttrs)
+lotrs_list \(**pttrs;
+.ft R
+.fi
+.SH PARAMETER
+.TP 20
+\fIpttrs\fP
+Pointer to the \fBlotrs\fP to be scaned
+.SH DESCRIPTION
+\fBviewlotrs\fP scans all the primary elements of the \fBlotrs_list\fP 
+loaded in ram, and displays a textual output of the data strcuture contents.
+.br
+Its use is mostly for debugging purposes, and educational ones, since the
+output is quite verbose, even if very easy to understand.
+.SH EXAMPLE
+.ta 3n 6n 9n 12n 15n 18n 21n
+.nf
+.if n \{\
+.ft B \}
+.if t \{\
+.ft CR \}
+#include <stdio.h>
+#include "mlo404.h"
+void view_trs(ptfig)
+lofig_list \(**ptfig;
+{
+lotrs_list \(**trs;
+	for (trs = ptfig\->LOTRS; trs; trs = trs\->NEXT)
+		viewlotrs(trs);
+}
+.ft R
+.fi
+.SH SEE ALSO
+.BR mbk (1),
+.BR lotrs (3),
+.BR viewlo (3),
+.BR viewlofig (3),
+.BR viewlotrs (3),
+.BR viewlosig (3),
+.BR viewloinscon (3),
+.BR viewlofigcon (3).
+
+
+.so man1/alc_bug_report.1
+

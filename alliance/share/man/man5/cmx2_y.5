@@ -1,0 +1,42 @@
+.\"   $Id: cmx2_y.5,v 1.1 1999/05/31 17:30:26 alliance Exp $
+.pl -.4
+.TH CMX2_Y 5 "October 1, 1997" "ASIM/LIP6" "STANDARD-CELL LIBRARY"
+.SH NAME
+.B cmx2_y
+.so man1/alc_origin.1
+.SH SYNOPSIS
+.B Genlib call :
+.br
+  LOINS("cmx2_y","name","i0","i1","c","t","vdd","vss",0);
+.SH DESCRIPTION
+.I - Interface
+   entity cmx2_y is
+     port(
+        i0 : in bit;
+        i1 : in bit;
+        c : in bit;
+        t : out bit;
+        vdd : in bit;
+        vss : in bit);
+.br
+.I - Logical description
+.br
+    t <= ((i0 and c) or (i1 and not c));
+   
+.br
+.I - Physical features
+   number of grids : 9
+   number of feed-through : 5
+.br
+   
+.I - Timing caracteristics
+.br
+   i0 : 46 (fF)
+.br
+   i1 : 46 (fF)
+.br
+   c : 88 (fF)
+.br
+
+.so man1/alc_bug_report.1
+

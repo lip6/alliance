@@ -1,0 +1,245 @@
+-- VHDL data flow description generated from `addaccue`
+--		date : Sun Sep 27 12:26:21 1998
+
+
+-- Entity Declaration
+
+ENTITY addaccue IS
+  PORT (
+  vsse : in BIT;	-- vsse
+  vss : in BIT;	-- vss
+  vdde : in BIT;	-- vdde
+  vdd : in BIT;	-- vdd
+  sel : in BIT;	-- sel
+  s : out bit_vector(3 DOWNTO 0) ;	-- s
+  ck : in BIT;	-- ck
+  b : in bit_vector(3 DOWNTO 0) ;	-- b
+  a : in bit_vector(3 DOWNTO 0) 	-- a
+  );
+END addaccue;
+
+
+-- Architecture Declaration
+
+ARCHITECTURE VBE OF addaccue IS
+  SIGNAL reg : REG_VECTOR(3 DOWNTO 0) REGISTER;	-- reg
+  SIGNAL mbk_sig12 : BIT;		-- mbk_sig12
+  SIGNAL mbk_sig15 : BIT;		-- mbk_sig15
+  SIGNAL mbk_sig14 : BIT;		-- mbk_sig14
+  SIGNAL ss_2 : BIT;		-- ss_2
+  SIGNAL mbk_sig20 : BIT;		-- mbk_sig20
+  SIGNAL mbk_sig22 : BIT;		-- mbk_sig22
+  SIGNAL mbk_sig23 : BIT;		-- mbk_sig23
+  SIGNAL ss_3 : BIT;		-- ss_3
+  SIGNAL mbk_sig149 : BIT;		-- mbk_sig149
+  SIGNAL selsel : BIT;		-- selsel
+  SIGNAL p17_logic_ck : BIT;		-- p17.logic.ck
+  SIGNAL mbk_sig152 : BIT;		-- mbk_sig152
+  SIGNAL mbk_sig10 : BIT;		-- mbk_sig10
+  SIGNAL aa_0 : BIT;		-- aa_0
+  SIGNAL mbk_sig18 : BIT;		-- mbk_sig18
+  SIGNAL aa_1 : BIT;		-- aa_1
+  SIGNAL mbk_sig91 : BIT;		-- mbk_sig91
+  SIGNAL aa_2 : BIT;		-- aa_2
+  SIGNAL mbk_sig151 : BIT;		-- mbk_sig151
+  SIGNAL aa_3 : BIT;		-- aa_3
+  SIGNAL mbk_sig155 : BIT;		-- mbk_sig155
+  SIGNAL bb_0 : BIT;		-- bb_0
+  SIGNAL mbk_sig5 : BIT;		-- mbk_sig5
+  SIGNAL clock : BIT;		-- clock
+  SIGNAL mbk_sig156 : BIT;		-- mbk_sig156
+  SIGNAL bb_1 : BIT;		-- bb_1
+  SIGNAL mbk_sig158 : BIT;		-- mbk_sig158
+  SIGNAL bb_2 : BIT;		-- bb_2
+  SIGNAL mbk_sig160 : BIT;		-- mbk_sig160
+  SIGNAL bb_3 : BIT;		-- bb_3
+  SIGNAL mbk_sig164 : BIT;		-- mbk_sig164
+  SIGNAL mbk_sig162 : BIT;		-- mbk_sig162
+  SIGNAL mbk_sig163 : BIT;		-- mbk_sig163
+  SIGNAL ss_0 : BIT;		-- ss_0
+  SIGNAL mbk_sig165 : BIT;		-- mbk_sig165
+  SIGNAL mbk_sig166 : BIT;		-- mbk_sig166
+  SIGNAL mbk_sig167 : BIT;		-- mbk_sig167
+  SIGNAL ss_1 : BIT;		-- ss_1
+  SIGNAL core_mux_3 : BIT;		-- core.mux_3
+  SIGNAL mbk_sig133 : BIT;		-- mbk_sig133
+  SIGNAL core_int_9 : BIT;		-- core.int_9
+  SIGNAL mbk_sig130 : BIT;		-- mbk_sig130
+  SIGNAL core_carry_2 : BIT;		-- core.carry_2
+  SIGNAL core_int_7 : BIT;		-- core.int_7
+  SIGNAL mbk_sig129 : BIT;		-- mbk_sig129
+  SIGNAL core_int_8 : BIT;		-- core.int_8
+  SIGNAL core_int_6 : BIT;		-- core.int_6
+  SIGNAL core_int_5 : BIT;		-- core.int_5
+  SIGNAL mbk_sig127 : BIT;		-- mbk_sig127
+  SIGNAL core_carry_1 : BIT;		-- core.carry_1
+  SIGNAL mbk_sig126 : BIT;		-- mbk_sig126
+  SIGNAL mbk_sig123 : BIT;		-- mbk_sig123
+  SIGNAL core_mux_2 : BIT;		-- core.mux_2
+  SIGNAL core_int_3 : BIT;		-- core.int_3
+  SIGNAL mbk_sig121 : BIT;		-- mbk_sig121
+  SIGNAL core_int_4 : BIT;		-- core.int_4
+  SIGNAL core_int_2 : BIT;		-- core.int_2
+  SIGNAL mbk_sig120 : BIT;		-- mbk_sig120
+  SIGNAL core_carry_0 : BIT;		-- core.carry_0
+  SIGNAL mbk_sig118 : BIT;		-- mbk_sig118
+  SIGNAL core_mux_1 : BIT;		-- core.mux_1
+  SIGNAL core_regout_2 : BIT;		-- core.regout_2
+  SIGNAL mbk_sig107 : BIT;		-- mbk_sig107
+  SIGNAL core_mux_0 : BIT;		-- core.mux_0
+  SIGNAL mbk_sig104 : BIT;		-- mbk_sig104
+  SIGNAL core_regout_0 : BIT;		-- core.regout_0
+  SIGNAL core_nsel : BIT;		-- core.nsel
+  SIGNAL mbk_sig76 : BIT;		-- mbk_sig76
+  SIGNAL core_regout_3 : BIT;		-- core.regout_3
+  SIGNAL mbk_sig63 : BIT;		-- mbk_sig63
+  SIGNAL mbk_sig65 : BIT;		-- mbk_sig65
+  SIGNAL mbk_sig57 : BIT;		-- mbk_sig57
+  SIGNAL mbk_sig56 : BIT;		-- mbk_sig56
+  SIGNAL mbk_sig51 : BIT;		-- mbk_sig51
+  SIGNAL core_int_1 : BIT;		-- core.int_1
+  SIGNAL mbk_sig46 : BIT;		-- mbk_sig46
+  SIGNAL core_regout_1 : BIT;		-- core.regout_1
+  SIGNAL mbk_sig43 : BIT;		-- mbk_sig43
+  SIGNAL mbk_sig36 : BIT;		-- mbk_sig36
+  SIGNAL mbk_sig35 : BIT;		-- mbk_sig35
+  SIGNAL mbk_sig75 : BIT;		-- mbk_sig75
+  SIGNAL mbk_sig103 : BIT;		-- mbk_sig103
+  SIGNAL mbk_sig115 : BIT;		-- mbk_sig115
+  SIGNAL mbk_sig30 : BIT;		-- mbk_sig30
+  SIGNAL mbk_sig71 : BIT;		-- mbk_sig71
+  SIGNAL mbk_sig97 : BIT;		-- mbk_sig97
+  SIGNAL mbk_sig109 : BIT;		-- mbk_sig109
+  SIGNAL yag_zero : BIT;		-- yag_zero
+  SIGNAL yag_one : BIT;		-- yag_one
+
+BEGIN
+  yag_one <= '1';
+  yag_zero <= '0';
+  mbk_sig109 <= not (ss_2);
+  mbk_sig97 <= not (ss_0);
+  mbk_sig71 <= not (ss_3);
+  mbk_sig30 <= not (ss_1);
+  mbk_sig115 <= not (reg (2));
+  mbk_sig103 <= not (reg (0));
+  mbk_sig75 <= not (reg (3));
+  mbk_sig35 <= not (reg (1));
+  mbk_sig36 <= (not (core_int_1) and not (core_carry_0));
+  mbk_sig43 <= ((not (selsel) and not (aa_0)) or (not (selsel) and not (core_nsel))
+or (not (core_regout_0) and not (aa_0)) or (not (core_regout_0)
+and not (core_nsel)));
+  core_regout_1 <= not (reg (1));
+  mbk_sig46 <= ((not (selsel) and not (aa_1)) or (not (selsel) and not (core_nsel))
+or (not (core_regout_1) and not (aa_1)) or (not (core_regout_1)
+and not (core_nsel)));
+  core_int_1 <= ((not (mbk_sig51) and not (bb_1)) or (not (mbk_sig51) and not
+(core_mux_1)));
+  mbk_sig51 <= (not (core_mux_1) and not (bb_1));
+  mbk_sig56 <= (not (core_mux_1) or not (bb_1));
+  mbk_sig57 <= ((not (selsel) and not (aa_2)) or (not (selsel) and not (core_nsel))
+or (not (core_regout_2) and not (aa_2)) or (not (core_regout_2)
+and not (core_nsel)));
+  mbk_sig65 <= (not (core_mux_2) or not (bb_2));
+  mbk_sig63 <= (not (core_mux_2) and not (bb_2));
+  core_regout_3 <= not (reg (3));
+  mbk_sig76 <= ((not (selsel) and not (aa_3)) or (not (selsel) and not (core_nsel))
+or (not (core_regout_3) and not (aa_3)) or (not (core_regout_3)
+and not (core_nsel)));
+  core_nsel <= not (selsel);
+  core_regout_0 <= not (reg (0));
+  mbk_sig104 <= (not (core_mux_0) and not (bb_0));
+  core_mux_0 <= not (mbk_sig43);
+  mbk_sig107 <= (not (core_mux_0) or not (bb_0));
+  core_regout_2 <= not (reg (2));
+  core_mux_1 <= not (mbk_sig46);
+  mbk_sig118 <= (not (core_mux_1) or not (core_carry_0));
+  core_carry_0 <= not (mbk_sig107);
+  mbk_sig120 <= (not (bb_1) or not (core_carry_0));
+  core_int_2 <= not (mbk_sig56);
+  core_int_4 <= not (mbk_sig120);
+  mbk_sig121 <= (not (core_int_4) and not (core_int_3) and not (core_int_2));
+  core_int_3 <= not (mbk_sig118);
+  core_mux_2 <= not (mbk_sig57);
+  mbk_sig123 <= (not (core_mux_2) or not (core_carry_1));
+  mbk_sig126 <= (not (bb_2) or not (core_carry_1));
+  core_carry_1 <= not (mbk_sig121);
+  mbk_sig127 <= (not (core_int_5) and not (core_carry_1));
+  core_int_5 <= ((not (mbk_sig63) and not (bb_2)) or (not (mbk_sig63) and not
+(core_mux_2)));
+  core_int_6 <= not (mbk_sig65);
+  core_int_8 <= not (mbk_sig126);
+  mbk_sig129 <= (not (core_int_8) and not (core_int_7) and not (core_int_6));
+  core_int_7 <= not (mbk_sig123);
+  core_carry_2 <= not (mbk_sig129);
+  mbk_sig130 <= (not (core_int_9) and not (core_carry_2));
+  core_int_9 <= ((not (mbk_sig133) and not (bb_3)) or (not (mbk_sig133) and not
+(core_mux_3)));
+  mbk_sig133 <= (not (core_mux_3) and not (bb_3));
+  core_mux_3 <= not (mbk_sig76);
+  ss_1 <= ((not (mbk_sig36) and not (core_carry_0)) or (not (mbk_sig36)
+and not (core_int_1)));
+  mbk_sig167 <= not (ss_1);
+  mbk_sig166 <= not (mbk_sig167);
+  mbk_sig165 <= not (mbk_sig166);
+  ss_0 <= ((not (mbk_sig104) and not (bb_0)) or (not (mbk_sig104) and not
+(core_mux_0)));
+  mbk_sig163 <= not (ss_0);
+  mbk_sig162 <= not (mbk_sig163);
+  mbk_sig164 <= not (mbk_sig162);
+  bb_3 <= not (mbk_sig160);
+  mbk_sig160 <= not (b (3));
+  bb_2 <= not (mbk_sig158);
+  mbk_sig158 <= not (b (2));
+  bb_1 <= not (mbk_sig156);
+  mbk_sig156 <= not (b (1));
+  clock <= not (mbk_sig5);
+  mbk_sig5 <= not (p17_logic_ck);
+  bb_0 <= not (mbk_sig155);
+  mbk_sig155 <= not (b (0));
+  aa_3 <= not (mbk_sig151);
+  mbk_sig151 <= not (a (3));
+  aa_2 <= not (mbk_sig91);
+  mbk_sig91 <= not (a (2));
+  aa_1 <= not (mbk_sig18);
+  mbk_sig18 <= not (a (1));
+  aa_0 <= not (mbk_sig10);
+  mbk_sig10 <= not (a (0));
+  mbk_sig152 <= not (ck);
+  p17_logic_ck <= not (mbk_sig152);
+  selsel <= not (mbk_sig149);
+  mbk_sig149 <= not (sel);
+  ss_3 <= ((not (mbk_sig130) and not (core_carry_2)) or (not (mbk_sig130)
+and not (core_int_9)));
+  mbk_sig23 <= not (ss_3);
+  mbk_sig22 <= not (mbk_sig23);
+  mbk_sig20 <= not (mbk_sig22);
+  ss_2 <= ((not (mbk_sig127) and not (core_carry_1)) or (not (mbk_sig127)
+and not (core_int_5)));
+  mbk_sig14 <= not (ss_2);
+  mbk_sig15 <= not (mbk_sig14);
+  mbk_sig12 <= not (mbk_sig15);
+  label0 : BLOCK ((not (clock) and not (clock'STABLE)) = '1')
+  BEGIN
+    reg (0) <= GUARDED mbk_sig97;
+  END BLOCK label0;
+  label1 : BLOCK ((not (clock) and not (clock'STABLE)) = '1')
+  BEGIN
+    reg (1) <= GUARDED mbk_sig30;
+  END BLOCK label1;
+  label2 : BLOCK ((not (clock) and not (clock'STABLE)) = '1')
+  BEGIN
+    reg (2) <= GUARDED mbk_sig109;
+  END BLOCK label2;
+  label3 : BLOCK ((not (clock) and not (clock'STABLE)) = '1')
+  BEGIN
+    reg (3) <= GUARDED mbk_sig71;
+  END BLOCK label3;
+
+s (0) <= not (mbk_sig164);
+
+s (1) <= not (mbk_sig165);
+
+s (2) <= not (mbk_sig12);
+
+s (3) <= not (mbk_sig20);
+END;

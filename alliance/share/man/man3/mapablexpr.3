@@ -1,0 +1,64 @@
+.\"   $Id: mapablexpr.3,v 1.1 1999/05/31 17:30:23 alliance Exp $
+.\" @(#)mapablexpr.2 2.7 96/07/02 ; Labo masi cao-vlsi; Author : Jacomme Ludovic
+.TH MAPABLEXPR 3 "October 1, 1997" "ASIM/LIP6" "ABL FUNCTIONS"
+.SH NAME
+mapablexpr \- applies a function to all operands.
+.so man1/alc_origin.1
+.SH SYNOPSYS
+.nf
+.if n \{\
+.ft B \}
+.if t \{\
+.ft CR \}
+#include "abl101.h"
+void mapablexpr( Function, Expr )
+  void      (\(**Function)();
+  chain_list \(**Expr;
+.ft R
+.fi
+.SH PARAMETERS
+.TP 20
+.TP
+\fIFunction\fP
+Function name to apply to all operands.
+.TP
+\fIExpr\fP
+Expression to scan.
+.SH DESCRIPTION
+\fBmapablexpr\fP applies \fIFunction\fP to all operands of \fIExpr\fP.
+.br
+.SH RETURN VALUE
+\fBmapablexpr\fP returns nothing.
+.SH EXAMPLE
+.ta 3n 6n 9n 12n 15n 18n 21n
+.nf
+.if n \{\
+.ft B \}
+.if t \{\
+.ft CR \}
+#include "abl101.h"
+   void MapFunction( MapExpr )
+     chain_list \(**MapExpr;
+   {
+     if ( ABL_ATOM( MapExpr ) )
+     {
+       printf( stdout, "%s", ABL_ATOM_VALUE( MapExpr ) );
+     }
+     else
+     {
+       mapablexpr( MapFunction, MapExpr );
+     }
+   }
+   ...
+   chain_list \(**Expr;
+   ...
+   mapablexpr( MapFunction, Expr );
+   ...
+.ft R
+.fi
+.SH SEE ALSO
+.BR abl (1)
+
+
+.so man1/alc_bug_report.1
+

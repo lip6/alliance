@@ -1,0 +1,71 @@
+.\"   $Id: funpacom.3,v 1.1 1999/05/31 17:30:21 alliance Exp $
+.\" @(#)funpacom.2 106 Sep 30 1996 UPMC ; VUONG Huu-Nghia 
+.TH FUNPACOM 3 "October 1, 1997" "ASIM/LIP6" "PAT functions"
+
+.so man1/alc_origin.1
+.SH NAME
+.PP
+\fBpat_addpacom, pat_frepacom\fP
+
+.SH SYNOPSYS
+.PP
+.nf
+struct pacom *pat_addpacom (lastpacom, text, position)
+struct pacom *lastpacom;
+char         *text;
+unsigned short position;
+
+void pat_frepacom (listpacom)
+struct pacom *listpacom;
+
+.fi
+
+.SH PARAMETERS
+.PP
+.TP 10
+\fIlastpacom\fP
+pointer on the last pacom structure
+.TP 10
+\fItext\fP
+text of the comment
+.TP 10
+\fIposition\fP
+number of statements (input\-output declaration or pattern) to be printed
+before the comment line
+.TP 10
+\fIlistpacom\fP
+list of pacom structures to be deleted
+
+.SH DESCRIPTION
+.PP
+A pacom is a data structure representing a comment read from the pattern
+description file to be reproduced in the result file at the same place.
+
+.PP
+\fBpat_addpacom()\fP adds a pacom structure at the top of a list of pacom
+structures. The function returns the pointer of the new list.
+No check is made by this function.
+
+.PP
+\fBpat_frepacom()\fP deletes a list of pacom structures. If the list to be
+deleted is an empty list (NULL pointer), no action is produced. No check is
+made by this function.
+
+.SH EXAMPLE
+.PP
+.nf
+#include <pat106.h>
+
+struct pacom *list;
+
+list = pat_addpacom (list,"This is a comment",10);
+pat_frepacom (list);
+.fi
+
+.SH SEE ALSO
+.PP
+libpat(3), pacom(3)
+
+
+.so man1/alc_bug_report.1
+

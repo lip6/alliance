@@ -1,0 +1,68 @@
+.\"   $Id: na2_dp.5,v 1.1 1999/05/31 17:30:27 alliance Exp $
+.TH NA2_DP 5 "October 1, 1997" "ASIM/LIP6" "FITPATH - User Cell Library"
+.so man1/alc_origin.1
+.SH NAME
+\fBna2_dp\fP
+.SH SYNOPSIS
+.ft CR
+.nf
+\fIGenLib Call :\fP
+    LOINS( "na2_dp", "insname", "i0", "i1", "o", "vdd", "vss", 0L );
+.fi
+.ft R
+.SH DESCRIPTION
+\fIVHDL Behavioral description :\fP
+.ft CR
+.nf
+
+-- Interface declaration.
+ENTITY  na2_dp  IS
+  PORT(
+         i0 : in        BIT;
+         i1 : in        BIT;
+          o :   out     BIT;
+        vdd : in        BIT;
+        vss : in        BIT
+      );
+END  na2_dp;
+
+-- Architecture declaration.
+ARCHITECTURE  behavior_data_flow  OF  na2_dp  IS
+
+BEGIN
+  -- Logical equations.
+  o     <= not (i0 and i1);
+END  behavior_data_flow;
+.fi
+.ft R
+
+\fIPhysical features :\fP
+.br
+.ta +4n
+	Cell wide : 18 lambdas, or 3 pitchs.
+.br
+
+\fITiming characteristics :\fP
+.br
+.ta +6n  +2n  +6n +6nR +1n    +12nR +1n
+
+i1	:	cin	=	54	(fF)
+.br
+		tplh	=	672	(ps) +	2998	(ohms) x Cload (pF)
+.br
+		tphl	=	301	(ps) +	1803	(ohms) x Cload (pF)
+.br
+
+i0	:	cin	=	54	(fF)
+.br
+		tplh	=	776	(ps) +	2998	(ohms) x Cload (pF)
+.br
+		tphl	=	250	(ps) +	1803	(ohms) x Cload (pF)
+.br
+.SH SEE ALSO
+.ft B
+dplib(1), fpgen(1), scmap(1)
+.ft R
+
+.so man1/alc_bug_report.1
+

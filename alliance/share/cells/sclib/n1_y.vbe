@@ -1,0 +1,38 @@
+-- This cell caracterized by prol05.elp technologie file
+-- VHDL data flow description generated from `n1_y`
+--		date : Wed Oct  7 12:12:19 1998
+
+
+-- Entity Declaration
+
+ENTITY n1_y IS
+  GENERIC (
+    CONSTANT area : NATURAL := 50400;	-- area
+    CONSTANT transistors : NATURAL := 2;	-- transistors
+    CONSTANT cin_i : NATURAL := 28;	-- cin_i
+    CONSTANT tplh_i_f : NATURAL := 270;	-- tplh_i_f
+    CONSTANT rup_i_f : NATURAL := 2450;	-- rup_i_f
+    CONSTANT tphl_i_f : NATURAL := 211;	-- tphl_i_f
+    CONSTANT rdown_i_f : NATURAL := 2490	-- rdown_i_f
+  );
+  PORT (
+  i : in BIT;	-- i
+  f : out BIT;	-- f
+  vdd : in BIT;	-- vdd
+  vss : in BIT	-- vss
+  );
+END n1_y;
+
+
+-- Architecture Declaration
+
+ARCHITECTURE VBE OF n1_y IS
+
+BEGIN
+  ASSERT ((vdd and not (vss)) = '1')
+    REPORT "power supply is missing on n1_y"
+    SEVERITY WARNING;
+
+
+f <= not (i);
+END;

@@ -1,0 +1,97 @@
+.\"   $Id: paiol.3,v 1.1 1999/05/31 17:30:23 alliance Exp $
+.\" @(#)paiol.2 106 Sep 30 1996 UPMC; Pirouz BAZARGAN SABET
+.TH PAIOL 3 "October 1, 1997" "ASIM/LIP6" "cao\-vlsi reference manual"
+
+.so man1/alc_origin.1
+.SH NAME
+.PP
+\fBpaiol\fP - PAT data structure
+
+.SH DESCRIPTION
+.PP
+\fIpaiol\fP is a data structure used in \fBPAT\fP to represent a one\-bit
+input\-output. \fIpagrp\fP has been designed to be used in a simply chained
+list. For more efficient accessibility a \fIpaiol\fP list must be organized
+as a table (to allow indexed addressing).
+
+.PP
+A \fIpaiol\fP structure is composed of the following fields.
+
+.TP 20
+\fI(char *) NAME\fP
+the input\-output\'s name. For an actual array\'s element, the name is the
+array\'s identifier added to the element\'s index seperated by a \' \'
+(blank space).  This string is supposed been produced by \fBnamealloc()\fP.
+.TP 20
+\fI(char) FORMAT\fP
+the read\-write format: \fBX\fP (hexa.), \fBO\fP (octal) and, \fBB\fP (binary
+scalar)
+.TP 20
+\fI(char) BLANK\fP
+number of blank column to be printed after the value
+.TP 20
+\fI(char) VALUE\fP
+not used
+.TP 20
+\fI(char) MODE\fP
+the input\-output\'s mode. This flag is first, setup by the compiler:
+.RS
+.TP 5
+I
+input\-output declared as in
+.TP 5
+O
+input\-output declared as out
+.TP
+T
+input\-output declared as inout
+.TP 5
+S
+input\-output declared as signal
+.TP 5
+R
+input\-output declared as register
+.TP 5
+then modified by the linker (Asimut simulation tool) :
+.TP 5
+I
+I \- port of mode in
+.TP 5
+B
+O \- simple port of mode inout
+.TP 5
+O
+O \- simple port of mode out
+.TP 5
+Z
+O \- bused port of mode out
+.TP 5
+T
+T \- bused port of mode inout
+.TP 5
+S
+S \- simple behavioural signal
+.TP 5
+W
+S \- simple structural signal
+.TP 5
+X
+S \- bused structural signal
+.TP 5
+U
+S \- bused behavioural signal
+.TP 5
+R
+R \- behavioural signal of kind register
+.RE
+.TP 20
+\fI(struct paiol *) NEXT\fP
+next paiol
+
+.SH SEE ALSO
+.PP
+libpat(3), pat(5), namealloc(3)
+
+
+.so man1/alc_bug_report.1
+

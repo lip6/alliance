@@ -1,0 +1,39 @@
+.\"   $Id: def_genpat.3,v 1.1 1999/05/31 17:30:19 alliance Exp $
+.\" @(#)DEF_GENPAT.2 1.9  UPMC ; VUONG H.N.
+.TH DEF_GENPAT 3 "October 1, 1997" "ASIM/LIP6" "GENPAT functions"
+
+.SH NAME
+.PP
+\fBdef_genpat\fP, GENPAT Package
+
+.so man1/alc_origin.1
+.SH SYNOPSYS
+.PP
+.nf
+def_genpat("ident");
+.fi
+
+.SH PARAMETERS
+.PP
+.TP 10
+\fIident\fP
+Output file's name.
+
+.SH DESCRIPTION
+.PP
+Gives the output file's name.
+
+.SH EXAMPLE
+.PP
+.nf
+def_genpat("kiki");
+declares the output file's name as kiki.<VH_PATSFX>, usually kiki.pat.
+.fi
+
+.SH SEE ALSO
+.PP
+sav_genpat(3), genpat(1), pat(5)
+
+
+.so man1/alc_bug_report.1
+

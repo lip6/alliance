@@ -1,0 +1,58 @@
+.\"   $Id: searchInputCct.3,v 1.1 1999/05/31 17:30:24 alliance Exp $
+.\" @(#)searchInputCct.2 7.01 92/08/22 ; Labo masi cao-vlsi; Author : Luc Burgun
+.TH SEARCHINPUTCCT 3 "October 1, 1997" "ASIM/LIP6" "BDD functions"
+.so man1/alc_origin.1
+.SH NAME
+\fBsearchInputCct\fP \- searches for the index number associated to an input.
+.SH SYNOPSYS
+.nf
+#include "logmmm.h"
+short searchInputCct(pC,name)
+pCircuit pC;
+char *name;
+.fi
+.SH PARAMETERS
+.TP 20
+\fIpC\fP
+Circuit 
+.TP 20
+\fIname\fP
+name to look for
+.SH DESCRIPTION
+\fBsearchInputCct()\fP searches for the index associated to \fIname\fP. This function returns \fIEMPTYTH\fP if the primary input doesn't exist in \fIpC\fP.
+.SH EXAMPLE
+.nf
+#include "mutnnn.h"		/* mbk utilities */
+#include "logmmm.h"
+short index;
+pCircuit pC;
+
+initializeBdd(SMALL_BDD);
+pC = initializeCct("circuit 1",10,10);
+
+addInputCct(pC,"a");
+addInputCct(pC,"b");
+
+index = searchInputCct(pC,"a");
+printf("index(a) = %d",index);
+index = searchInputCct(pC,"c");
+printf("index(c) = %d",index);
+
+/* it will display 
+index(a) = 2
+index(c) = -1
+*/
+
+destroyCct(pC);
+destroyBdd(1);
+.fi
+.SH SEE ALSO
+.BR log (1),
+.BR bdd (1),
+.BR addInputCct (3),
+.BR cpOrderCct (3),
+.BR searchOutputCct (3),
+.BR addOutputCct (3).
+
+.so man1/alc_bug_report.1
+

@@ -1,0 +1,68 @@
+.\"   $Id: initializeCct.3,v 1.1 1999/05/31 17:30:22 alliance Exp $
+.\" @(#)initializeCct.2 7.01 92/08/22 ; Labo masi cao-vlsi; Author : Luc Burgun
+.TH INITIALIZECCT 3 "October 1, 1997" "ASIM/LIP6" "BDD functions"
+.so man1/alc_origin.1
+.SH NAME
+\fBinitializeCct\fP \- creates a circuit 
+.SH SYNOPSYS
+.nf
+#include "logmmm.h"
+pCircuit initializeCct(name,numberInput,numberOutput)
+char *name;
+int numberInput;
+int numberOutput;
+.fi
+.SH PARAMETERS
+.TP 20
+\fIname\fP
+name to add
+.TP 20
+\fInumberInput\fP
+number of inputs
+.TP 20
+\fInumberOutput\fP
+number of outputs
+.SH DESCRIPTION
+\fBinitializeCct()\fP creates a circuit. This function returns a circuit pointer that is allocated. 
+.SH EXAMPLE
+.nf
+#include "mutnnn.h"		/* mbk utilities */
+#include "logmmm.h"
+pCircuit pC;
+chain_list *expr;
+
+initializeBdd(SMALL_BDD);
+pC = initializeCct("circuit 1",10,10);
+
+addInputCct(pC,"a");
+addInputCct(pC,"b");
+
+	/* let's suppose that expr = (OR a b) */
+
+addOuputCct(pC,"s1",one);
+addOuputCct(pC,"s2",ablToBddCct(pC,expr));
+
+displayBdd(pC,1)
+
+/* it will display 
+************* DISPLAY circuit 1 **********
+INPUT = a	INDEX = 2
+INPUT = b	INDEX = 3
+--------- NUMBER OF INPUTS = 2
+OUTPUT = s1	s1 = 1
+OUTPUT = s2	s2 = (OR a b)
+--------- NUMBER OF OUTPUTS = 2
+******************************************
+*/
+
+destroyCct(pC);
+destroyBdd(1);
+.fi
+.SH SEE ALSO
+.BR log (1),
+.BR bdd (1),
+.BR resetCct (3),
+.BR destroyCct (3).
+
+.so man1/alc_bug_report.1
+

@@ -1,0 +1,170 @@
+# /*------------------------------------------------------------\
+# |                                                             |
+# | Title      :      Parameters File for Genview               |
+# |                                                             |
+# | Technology :               Cmos                             |
+# |                                                             |
+# | Date       :             17.08.95                           |
+# |                                                             |
+# \------------------------------------------------------------*/
+# /*------------------------------------------------------------\
+# |                                                             |
+# |               Genview Peek Bound in lambda                  |
+# |                                                             |
+# \------------------------------------------------------------*/
+
+DEFINE GENVIEW_PEEK_BOUND 7
+
+# /*------------------------------------------------------------\
+# |                                                             |
+# |                       Segment name                          |
+# |                                                             |
+# \------------------------------------------------------------*/
+
+TABLE GENVIEW_SEGMENT_NAME
+
+  NWELL    Nwell  
+  PWELL    Pwell 
+  NDIF     Ndif 
+  PDIF     Pdif 
+  NTIE     Ntie
+  PTIE     Ptie
+  NTRANS   Ntrans
+  PTRANS   Ptrans
+  POLY     Poly
+  ALU1     Alu1
+  ALU2     Alu2
+  ALU3     Alu3
+  TPOLY    Tpoly
+  TALU1    Talu1
+  TALU2    Talu2
+  TALU3    Talu3
+
+END
+
+# /*------------------------------------------------------------\
+# |                                                             |
+# |                     Connector Name                          |
+# |                                                             |
+# \------------------------------------------------------------*/
+
+TABLE GENVIEW_CONNECTOR_NAME
+
+  POLY     Poly
+  ALU1     Alu1
+  ALU2     Alu2
+  ALU3     Alu3
+
+END
+
+# /*------------------------------------------------------------\
+# |                                                             |
+# |                      Reference Name                         |
+# |                                                             |
+# \------------------------------------------------------------*/
+
+TABLE GENVIEW_REFERENCE_NAME
+
+  REF_REF  Ref_Ref
+  REF_CON  Ref_Con
+
+END
+
+# /*------------------------------------------------------------\
+# |                                                             |
+# |                          Via Name                           |
+# |                                                             |
+# \------------------------------------------------------------*/
+
+TABLE GENVIEW_VIA_NAME
+
+  CONT_DIF_N   Cont_DifN
+  CONT_DIF_P   Cont_DifP
+  CONT_BODY_N  Cont_BodyN
+  CONT_BODY_P  Cont_BodyP
+  CONT_POLY    Cont_Poly
+  CONT_VIA     Cont_Via 
+  CONT_VIA2    Cont_Via2
+  C_X_N        Cont_CxN
+  C_X_P        Cont_CxP
+
+END
+
+# /*------------------------------------------------------------\
+# |                                                             |
+# |                    Connector Orient Name                    |
+# |                                                             |
+# \------------------------------------------------------------*/
+
+TABLE GENVIEW_ORIENT_NAME 
+
+  NORTH  North
+  SOUTH  South
+  EAST   East 
+  WEST   West
+
+END
+
+# /*------------------------------------------------------------\
+# |                                                             |
+# |                          Symmetry Name                      |
+# |                                                             |
+# \------------------------------------------------------------*/
+
+TABLE GENVIEW_SYMMETRY_NAME
+
+  NOSYM No_Sym
+  SYM_X Sym_X
+  SYM_Y Sym_Y
+  SYMXY Sym_XY
+  ROT_P Rot_P
+  ROT_M Rot_M
+  SY_RP Sym_RP
+  SY_RM Sym_RM
+
+END
+
+# /*------------------------------------------------------------\
+# |                                                             |
+# |                   Rds Layer Name and Color                  |
+# |                                                             |
+# \------------------------------------------------------------*/
+
+TABLE GENVIEW_RDS_LAYER_NAME
+
+  RDS_NWELL    Nwell   tan              
+  RDS_PWELL    Pwell   light_yellow     
+  RDS_NIMP     Nimp    forest_green     
+  RDS_PIMP     Pimp    goldenrod        
+  RDS_ACTIV    Activ   brown            
+  RDS_NDIF     Ndif    lawn_green       
+  RDS_PDIF     Pdif    yellow           
+  RDS_NTIE     Ntie    spring_green     
+  RDS_PTIE     Ptie    light_goldenrod  
+  RDS_POLY     Poly    red              
+  RDS_VPOLY    VPoly   coral            
+  RDS_GATE     Gate    orange           
+  RDS_TPOLY    Tpoly   light_pink       
+  RDS_CONT     Cont    dark_violet      
+  RDS_TCONT    TCont   orchid           
+  RDS_ALU1     Alu1    royal_blue       
+  RDS_VALU1    VAlu1   sky_blue         
+  RDS_TALU1    Talu1   light_steel_blue 
+  RDS_VIA1     Via1    deep_sky_blue    
+  RDS_TVIA1    TVia1   dodger_blue      
+  RDS_ALU2     Alu2    Cyan             
+  RDS_VALU2    VAlu2   turquoise        
+  RDS_TALU2    Talu2   light_cyan       
+  RDS_VIA2     Via2    chocolate        
+  RDS_TVIA2    TVia2   sandy_brown      
+  RDS_ALU3     Alu3    peach_puff       
+  RDS_VALU3    VAlu3   dark_salmon      
+  RDS_TALU3    Talu3   bisque           
+  RDS_CPAS     Cpas    gray             
+  RDS_REF      Ref     coral            
+  RDS_USER0    User0   White
+  RDS_USER1    User1   Gray
+  RDS_USER2    User2   Gray
+  RDS_ABOX     Abox    pink             
+
+END

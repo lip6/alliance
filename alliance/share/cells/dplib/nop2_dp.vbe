@@ -1,0 +1,39 @@
+-- VHDL data flow description generated from `nop2_dp`
+--		date : Thu Oct 30 17:21:25 1997
+
+
+-- Entity Declaration
+
+ENTITY nop2_dp IS
+  GENERIC (
+    CONSTANT area : NATURAL := 2160;	-- area
+    CONSTANT transistors : NATURAL := 8;	-- transistors
+    CONSTANT cin_i0 : NATURAL := 63;	-- cin_i0
+    CONSTANT cin_i1 : NATURAL := 63;	-- cin_i1
+    CONSTANT tplh_i1_o : NATURAL := 1440;	-- tplh_i1_o
+    CONSTANT rup_i1_o : NATURAL := 1060;	-- rup_i1_o
+    CONSTANT tphl_i1_o : NATURAL := 1666;	-- tphl_i1_o
+    CONSTANT rdown_i1_o : NATURAL := 1120;	-- rdown_i1_o
+    CONSTANT tplh_i0_o : NATURAL := 1544;	-- tplh_i0_o
+    CONSTANT rup_i0_o : NATURAL := 1060;	-- rup_i0_o
+    CONSTANT tphl_i0_o : NATURAL := 1322;	-- tphl_i0_o
+    CONSTANT rdown_i0_o : NATURAL := 1120	-- rdown_i0_o
+  );
+  PORT (
+  i0 : in BIT;	-- i0
+  i1 : in BIT;	-- i1
+  o : out BIT;	-- o
+  vdd : in BIT;	-- vdd
+  vss : in BIT	-- vss
+  );
+END nop2_dp;
+
+
+-- Architecture Declaration
+
+ARCHITECTURE behaviour_data_flow OF nop2_dp IS
+
+BEGIN
+
+o <= not ((i0 or i1));
+END;

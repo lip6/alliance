@@ -1,0 +1,87 @@
+.\"   $Id: flattenphfig.3,v 1.1 1999/05/31 17:30:21 alliance Exp $
+.\" @(#)flatenphfig.2 2.11 91/08/22 ; Labo masi cao-vlsi; Author : Frederic Petrot
+.if t \{\
+.so man1/alc_contents.mac
+.XS \n%
+.ti 0.2i
+flattenphfig
+.XE
+.XS1 \n%
+.ti 0.2i
+flattenphfig
+.XE1 \}
+.TH FLATTENPHFIG 3 "October 1, 1997" "ASIM/LIP6" "MBK PHYSICAL UTILITY FUNCTIONS"
+.SH NAME
+flatenphfig \- flatten a instance in a figure 
+.so man1/alc_origin.1
+.SH SYNOPSYS
+.nf
+.if n \{\
+.ft B \}
+.if t \{\
+.ft CR \}
+#include "mph403.h"
+void flatenphfig(ptfig, insname, concat)
+phfig_list \(**ptfig;
+char \(**insname;
+char concat;
+.ft R
+.fi
+.SH PARAMETERS
+.TP 20
+\fIptfig\fP
+Pointer to a physical figure
+.TP
+\fIinsname\fP
+Name of the instance to be flattened
+.TP
+\fIconcat\fP
+Name generation mode
+.SH DESCRIPTION
+\fBflatenphfig\fP flattens the instance called \fIinsname\fP in the figure
+pointed to by \fIptfig\fP. Flattening means incorporating the
+contents of the instance in the figure and removing it from its instance list.
+.br
+the \fIconcat\fP argument can take either the value \fBYES\fP in which case the
+name of the object comming from the instance are named
+\fIinsname'X'objectname\fP, where \fI'X'\fP is the caracter set int the
+\fBMBK_SEPAR\fP(1) environment variable, or the value \fBNO\fP, and then the
+object name remains inchanged. This is quite dangerous since name unicity is
+no more warrantied, and may cause the flatten to fail. See \fBMBK_SEPAR(1)\fP,
+\fBmbkenv(3)\fP and \fBconcatname(3)\fP for details.
+.SH ERRORS
+No errors can directly result from a call to \fBflatenphfig\fP, but since it
+uses many other mbk functions, it may be an error starting point.
+.SH EXAMPLE
+.ta 3n 6n 9n 12n 15n 18n 21n
+.nf
+.if n \{\
+.ft B \}
+.if t \{\
+.ft CR \}
+#include "mph403.h"
+void flatten_na2_y_s(ptfig)
+phfig_list \(**ptfig;
+{
+phins_list \(**pt;
+	for (pt = ptfig\->PHINS; pt; pt = pt\->NEXT) /\(** scan instance list \(**/
+		if (!strcmp(pt\->FIGNAME, "na2_y"))
+			flatenphfig(ptfig, pt\->INSNAME, NO);
+}
+.ft R
+.fi
+.SH SEE ALSO
+.BR mbk (1),
+.BR mbkenv (3),
+.BR phfig (3),
+.BR addphfig (3),
+.BR getphfig (3),
+.BR delphfig (3),
+.BR loadphfig (3),
+.BR savephfig (3),
+.BR rflatenphfig (3),
+.BR MBK_SEPAR (1).
+
+
+.so man1/alc_bug_report.1
+

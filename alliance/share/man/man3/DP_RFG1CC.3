@@ -1,0 +1,69 @@
+.\"   $Id: DP_RFG1CC.3,v 1.1 1999/05/31 17:30:15 alliance Exp $
+.TH DP_RFG1CC 3 "October 1, 1997" "ASIM/LIP6" "FITPATH Macro-Functions"
+.so man1/alc_origin.1
+.SH NAME
+\fBDP_RFG1CC\fP - Register File
+.SH SYNOPSYS
+.ft CR
+.nf
+#include  <fpgen.h>
+
+void  DP_RFG1CC( 
+    char *InstName,  /*            Instance name             */
+    long  RegNB   ,  /*         Number of Registers          */
+
+    char *SigAr   ,  /*  IN          Read data adress   CTRL */
+    char *SigWe   ,  /*  IN         Write enable        CTRL */
+    char *SigAw   ,  /*  IN         Write data adress   CTRL */
+    char *BusI    ,  /*  IN         Write data input    DATA */
+    char *BusO    ,  /* OUT   Direct read data output   DATA */
+    char *SigCk   ,  /*  IN              Clock input    DATA */
+               EOL);
+.fi
+.ft R
+.SH DESCRIPTION
+.ta 4m
+	\fBDP_RFG1CC\fP creates a one-read and one-write register file of
+\fIRegNB\fP registers and then instanciates it with the name \fIInstName\fP.
+The register bit-size is the full wide of the current data-path, set by the 
+previous call to the function \fBDP_DEFLOFIG\fP. The first register R0 is
+a normal register.
+.br
+	The environment variable \fBMBK_CATA_LIB\fP have to contain an additionnal
+library path when using this macro-function, see \fBfpgen(1)\fP for more
+details.
+.br
+.SH CHARACTERISTICS
+.ta +15n +2n +2n
+Operator wide	:	Depends on the data-path wide and \fBRegNB\fP.
+.SH EXAMPLE
+.ft CR
+.nf
+DP_RFG1CC("rfg0_instance0", 8, "read_adress[2:0]" ,
+                                "pin_wen"         ,
+                              "write_adress[2:0]" ,
+                                "data_input[31:0]", 
+                               "data_output[31:0]",
+                                "pin_ck"          , EOL);
+	
+.fi
+.ft R
+.SH SEE ALSO
+.ft B
+rfg(1)
+,
+fpgen(1), dpr(1), genlib(1), mbk(1),
+DP_DEFLOFIG(3), DP_SAVLOFIG(3), DP_LOCON(3), DP_IMPORT(3),
+DP_INV(3), DP_BUSE(3), DP_AND2(3), DP_NAND2(3), DP_AND3(3), DP_NAND3(3),
+DP_OR2(3), DP_NOR2(3), DP_OR3(3), DP_NOR3(3), DP_XOR2(3), DP_XNOR2(3),
+DP_NAND2MASK(3), DP_NOR2MASK(3), DP_XNOR2MASK(3), DP_CONST(3),
+DP_NMUX2CS(3), DP_MUX2CS(3), DP_MUX3CS(3), DP_MUX4CS(3), DP_MUX5CS(3),
+DP_BUSE(3), DP_NBUSE(3), DP_ADD2F(3), DP_ADSB2F(3),
+DP_SHIFT(3), DP_MULT(3), DP_MULTP(3), DP_NUL(3),
+DP_PDFF(3), DP_PDFFR(3), DP_PDFFT(3), DP_PDFFRT(3),
+DP_RFG1C0(3), DP_RFG1CC(3), DP_RFG2C0(3), DP_RFG2CC(3)
+,
+
+
+.so man1/alc_bug_report.1
+

@@ -1,0 +1,75 @@
+.\"   $Id: incatalog.3,v 1.1 1999/05/31 17:30:22 alliance Exp $
+.\" @(#)incatalog.2 2.11 91/08/22 ; Labo masi cao-vlsi; Author : Frederic Petrot
+.if t \{\
+.so man1/alc_contents.mac
+.XS \n%
+.ti 0.2i
+incatalog
+.XE
+.XS4 \n%
+.ti 0.2i
+incatalog
+.XE4 \}
+.TH INCATALOG 3 "October 1, 1997" "ASIM/LIP6" "MBK UTILITY FUNCTIONS"
+.SH NAME
+incatalog \- test if cell belongs to the catalog file
+.so man1/alc_origin.1
+.SH SYNOPSYS
+.nf
+.if n \{\
+.ft B \}
+.if t \{\
+.ft CR \}
+#include "mut315.h"
+int incatalog(figname)
+char \(**figname;
+.ft R
+.fi
+.SH PARAMETER
+.TP 20
+\fIfigname\fP
+Name of the cell to be checked
+.SH DESCRIPTION
+\fBincatalog\fP checks a cell represented by its \fIfigname\fP beeing
+present in the catalog file with the \fB'C'\fP attribut.
+.br
+This means that when flattening, the hierachy destruction stops when
+encountering a cell belonging to the catalog.
+This is meant for both logical and physical views, of course.
+.br
+The catalog is the sum of all the catalogs of the cells libraries specified
+in the \fBMBK_CATA_LIB\fP(1) and \fBMBK_WORK_LIB\fP(1).
+The catalogs of the \fBMBK_CATA_LIB\fP(1) are the files called \fBCATAL\fP,
+and the \fBMBK_WORK_LIB\fP(1) is by default \fBCATAL\fP but can be changed
+to \fBMBK_CATAL_NAME\fP(1).
+.SH RETURN VALUE
+\fBincatalog\fP returns \fB0\fP if the cell does not belong to the catalog
+with the \fB'C'\fP attribut,
+a value different from \fB0\fP if it does.
+.SH EXAMPLE
+.ta 3n 6n 9n 12n 15n 18n 21n
+.nf
+.if n \{\
+.ft B \}
+.if t \{\
+.ft CR \}
+#include "mut315.h"
+char \(**tell_if_incatalog(name)
+char \(**name;
+{
+	return incatalog(name) ? "Jawohl, mein Herr" : "Nein, danke";
+}
+.ft R
+.fi
+.SH SEE ALSO
+.BR mbk (1),
+.BR incatalogfeed (3),
+.BR incatalogdelete (3),
+.BR incataloggds (3),
+.BR MBK_CATAL_NAME (1),
+.BR MBK_CATA_LIB (1),
+.BR MBK_WORK_LIB (1).
+
+
+.so man1/alc_bug_report.1
+

@@ -1,0 +1,50 @@
+.\"   $Id: profAOExpr.3,v 1.1 1999/05/31 17:30:24 alliance Exp $
+.\" @(#)profAOExpr.2 7.01 92/08/22 ; Labo masi cao-vlsi; Author : Luc Burgun
+.TH PROFAOEXPR 3 "October 1, 1997" "ASIM/LIP6" "ABL functions"
+.so man1/alc_origin.1
+.SH NAME
+\fBprofAOExpr\fP \- returns the depth of an expression without taking the inverters into account. 
+.SH SYNOPSYS
+.nf
+#include "logmmm.h"
+int profAOExpr(expr)
+chain_list *expr;
+.fi
+.SH PARAMETER
+.TP 20
+\fIexpr\fP
+expression
+.SH DESCRIPTION
+\fBprofAOExpr()\fP returns the depth of \fIexpr\fP without taking the inverters into account.
+.SH EXAMPLE
+.nf
+#include "mutnnn.h"		/* mbk utilities */
+#include "logmmm.h"
+chain_list *expr1,*expr2;
+expr1 = createExpr(OR);
+addQExpr(expr1, notExpr(createAtom("a")));
+addQExpr(expr1,createAtom("b"));
+expr2 = createAtom("c");
+printf("%d  %d\n",profAOExpr(expr2), profAOExpr(notExpr(expr2)));
+printf("%d  %d\n", profExpr(expr1), profAOExpr(expr1));
+/* it will display
+0  0
+2  1
+*/
+freeExpr(expr1);
+freeExpr(expr2);
+.fi
+.SH SEE ALSO
+.BR log (1),
+.BR abl (1),
+.BR profExpr (3),
+.BR lengthExpr (3),
+.BR numberAtomExpr (3),
+.BR numberOccExpr (3),
+.BR equalExpr (3),
+.BR equalVarExpr (3),
+.BR searchExpr (3),
+.BR searchOperExpr (3).
+
+.so man1/alc_bug_report.1
+

@@ -1,0 +1,95 @@
+.\"   $Id: mphdebug.3,v 1.1 1999/05/31 17:30:23 alliance Exp $
+.\" @(#)mphdebug.2 2.11 91/08/22 ; Labo masi cao-vlsi; Author : Frederic Petrot
+.if t \{\
+.so man1/alc_contents.mac
+.XS \n%
+.ti 0.2i
+mphdebug
+.XE
+.XS1 \n%
+.ti 0.2i
+mphdebug
+.XE1 \}
+.TH MPHDEBUG 3 "October 1, 1997" "ASIM/LIP6" "MBK PHYSICAL UTILITY FUNCTIONS"
+.SH NAME
+mphdebug \- physical data structure contents debug function
+.so man1/alc_origin.1
+.SH SYNOPSYS
+.nf
+.if n \{\
+.ft B \}
+.if t \{\
+.ft CR \}
+#include "mph403.h"
+void mphdebug(headpointer, structurename)
+void \(**headpointer;
+char \(**structurename;
+.ft R
+.fi
+.SH PARAMETER
+.TP 20
+\fIheadpointer\fP
+Pointer to a structure to be displayed
+.TP 20
+\fIstructurename\fP
+Name of the structure to be explored
+.SH DESCRIPTION
+\fBmphdebug\fP allows a user interactive visualisation of the internal contents
+of the physical view of \fBmbk\fP.
+.br
+Through the use of a small, but convenient, textual user interface, a step
+by step exploration of each fields of the data structure is made available.
+However, if the structure is big, it may be painful to use.
+.br
+First of all, the contents of the expected struture is displayed, with
+its fields named as they appear in the appropriate header file.
+Then the user is prompted by a `>>' for an input.
+.br
+The input may be either a field name, or a predefined symbol.
+Field names are to be typed the way they are displayed.
+Predefined symbols are:
+.TP 20
+\fI_exit\fP
+that quit the current debugging session.
+.TP
+\fI_up\fP
+that comes back to the previous structure.
+.TP
+\fI_top\fP
+returns to the root of the function invocation.
+.TP
+\fI_stop\fP
+puts kind of a tag at the current position in the structure.
+It will be available later on to return to this position.
+.TP
+\fI_back\fP
+returns to the previous \fI_stop\fP position.
+.LP
+The debugger functions are easy to understand, so just try it!
+.SH EXAMPLE
+.ta 3n 6n 9n 12n 15n 18n 21n
+.nf
+.if n \{\
+.ft B \}
+.if t \{\
+.ft CR \}
+#include "mph403.h"
+void scan_na2_y()
+{
+	getphfig("na2_y", 'A');
+	mphdebug(HEAD_PHFIG, "phfig");
+}
+.ft R
+.fi
+.SH SEE ALSO
+.BR mbk (1),
+.BR phfig (3),
+.BR phcon (3),
+.BR phins (3),
+.BR phvia (3),
+.BR phref (3),
+.BR mlodebug (3).
+
+
+.so man1/alc_bug_report.1
+

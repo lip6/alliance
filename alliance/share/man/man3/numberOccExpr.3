@@ -1,0 +1,53 @@
+.\"   $Id: numberOccExpr.3,v 1.1 1999/05/31 17:30:23 alliance Exp $
+.\" @(#)numberOccExpr.2 7.01 92/08/22 ; Labo masi cao-vlsi; Author : Luc Burgun
+.TH NUMBEROCCEXPR 3 "October 1, 1997" "ASIM/LIP6" "ABL functions"
+.so man1/alc_origin.1
+.SH NAME
+\fBnumberOccExpr\fP \- returns the number of time an atom appears in an expression. 
+.SH SYNOPSYS
+.nf
+#include "logmmm.h"
+int numberOccExpr(expr,name)
+chain_list *expr;
+char *name;
+.fi
+.SH PARAMETERS
+.TP 20
+\fIexpr\fP
+expression
+.TP 20
+\fIname\fP
+name of the atom 
+.SH DESCRIPTION
+\fBnumberOccExpr()\fP returns the number of time \fIname\fP appears in \fIexpr\fP.
+.SH EXAMPLE
+.nf
+#include "mutnnn.h"		/* mbk utilities */
+#include "logmmm.h"
+chain_list *expr1,*expr2;
+expr1 = createExpr(OR);
+addQExpr(expr1,createAtom("a"));
+addQExpr(expr1,createAtom("b"));
+expr2 = createExpr(OR);
+addQExpr(expr2,createAtom("c"));
+addQExpr(expr2,createAtom("a"));
+addQExpr(expr1,expr2);
+printf("%d",numberOccExpr(expr1));
+/* it will display
+2
+*/
+freeExpr(expr1);	/* don't free expr2 ! */
+.fi
+.SH SEE ALSO
+.BR log (1),
+.BR abl (1),
+.BR numberAtomExpr (3),
+.BR profExpr (3),
+.BR lengthExpr (3),
+.BR equalExpr (3),
+.BR equalVarExpr (3),
+.BR searchExpr (3),
+.BR searchOperExpr (3).
+
+.so man1/alc_bug_report.1
+

@@ -1,0 +1,105 @@
+.\"   $Id: librfm.1,v 1.1 1999/05/31 17:30:14 alliance Exp $
+.\" @(#)librfm.1 0.0 93/18/08 UPMC
+.if t \{\
+.so man1/alc_contents.mac
+.XS \n%
+.ti 0.2i
+librfm
+.XE
+.XS0 \n%
+.ti 0.2i
+librfm
+.XE0 \}
+.TH LIBRFM 1 "October 1, 1997" "ASIM/LIP6" "RDS LIBRARY VERSION 202"
+.SH NAME
+librfm \- rfm library description
+.SH DESCRIPTION
+.IP I)
+Description of the macros
+.PP
+\-  long RfmRoundLow(X)
+.br
+    long X;
+.RS
+.PP
+Permits to get the lower grid step of the value \'X\' in parameter.
+.RE
+.PP
+\-  long RfmRoundHigh(X)
+.br
+    long X;
+.RS
+.PP
+Permits to get the higher grid step of the value \'X\' in parameter.
+.RE
+.IP II)
+Functions of Rfm library
+.TP
+\fIsegmbkrds\fP
+Converts a MBK segment to RDS segment.
+.TP
+\fIviambkrds\fP
+Converts a MBK contact to RDS contact.
+.TP
+\fIrefmbkrds\fP
+Converts a MBK reference to RDS reference.
+.TP
+\fIconmbkrds\fP
+Converts a MBK connector to RDS connector.
+.TP
+\fIaboxmbkrds\fP
+Converts a MBK abutment box to RDS abutment box.
+.TP
+\fIinsconmbkrds\fP
+Converts all MBK connectors of an MBK instance to RDS connectors of RDS instance corresponding.
+.TP
+\fIinsrefmbkrds\fP
+Converts all MBK references of an MBK instance to RDS references of RDS instance corresponding.
+.TP
+\fIinssegmbkrds\fP
+Converts all MBK segments of an MBK instance to RDS segments of RDS instance corresponding.
+.TP
+\fIinsmbkrds\fP
+Converts an MBK instance to RDS instance.
+.TP
+\fIfigmbkrds\fP
+Converts a MBK figure to RDS figure.
+.TP
+\fImodelmbkrds\fP
+Gets list of models contained in a figure
+.TP
+\fIviewrfmrec\fP
+Displays caracteristics of an object using a rectangle of this object.
+.TP
+\fIviewrfmseg\fP
+Displays caracteristics of a segment to MBK and RDS format.
+.TP
+\fIviewrfmvia\fP
+Displays caracteristics of a contact to MBK and RDS format.
+.TP
+\fIviewrfmref\fP
+Displays caracteristics of a reference to MBK and RDS format.
+.TP
+\fIviewrfmcon\fP
+Displays caracteristics of a connector to MBK and RDS format.
+.TP
+\fIviewrfmins\fP
+Displays caracteristics of an instance to MBK and RDS format.
+.TP
+\fIviewrfmfig\fP
+Displays caracteristics of a figure to MBK and RDS format.
+.TP
+\fIroundrdsrec\fP
+adjusts a rectangle to lambda grid step.
+.ft R
+.fi
+.SH SEE ALSO
+.BR librds,
+.BR librpr,
+.BR librtl,
+.BR librut,
+.BR librwi
+
+
+.so man1/alc_bug_report.1
+

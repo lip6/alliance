@@ -1,0 +1,50 @@
+.\"   $Id: exprToChar.3,v 1.1 1999/05/31 17:30:21 alliance Exp $
+.\" @(#)exprToChar.2 7.01 92/08/22 ; Labo masi cao-vlsi; Author : Luc Burgun
+.TH EXPRTOCHAR 3 "October 1, 1997" "ASIM/LIP6" "ABL functions"
+.so man1/alc_origin.1
+.SH NAME
+\fBexprToChar\fP \- converts an expression into a string 
+.SH SYNOPSYS
+.nf
+#include "logmmm.h"
+char *exprToChar(expr,mode)
+chain_list *expr;
+int mode;
+.fi
+.SH PARAMETERS
+.TP 20
+\fIexpr\fP
+Expression to convert. 
+.TP 20
+\fImode\fP
+Infixed or prefixed.
+.SH DESCRIPTION
+\fBexprToChar()\fP converts \fIexpr\fP into a string. if \fImode = 0\fP, the function is in a prefixed notation mode, if \fImode = 1\fP then in infixed notation mode.
+.SH EXAMPLE
+.nf
+#include "mutnnn.h"		/* mbk utilities */
+#include "logmmm.h"
+chain_list *expr;
+expr = createExpr(OR);
+addQExpr(expr,createAtom("a"));
+addQExpr(expr,createAtom("b"));
+printf("%s",exprToChar(expr,1));
+printf("%s",exprToChar(expr,0));
+/* it will display
+(a OR b)
+(OR a b)
+*/
+freeExpr(expr);
+.fi
+.SH SEE ALSO
+.BR log (1),
+.BR abl (1),
+.BR charToExpr (3),
+.BR displayExpr (3),
+.BR displayInfExpr (3),
+.BR charToOper (3),
+.BR operToChar (3),
+.BR identExpr (3).
+
+.so man1/alc_bug_report.1
+

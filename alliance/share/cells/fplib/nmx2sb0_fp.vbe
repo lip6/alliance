@@ -1,0 +1,44 @@
+-- VHDL data flow description generated from `nmx2sb0_fp`
+--		date : Fri Oct 14 11:49:30 1994
+
+
+-- Entity Declaration
+
+ENTITY nmx2sb0_fp IS
+  GENERIC (
+    CONSTANT area : NATURAL := 2880;	-- area
+    CONSTANT cin_sel0 : NATURAL := 195;	-- cin_sel0
+    CONSTANT tphl_sel0 : NATURAL := 507;	-- tphl_sel0
+    CONSTANT rdown_sel0 : NATURAL := 522;	-- rdown_sel0
+    CONSTANT tplh_sel0 : NATURAL := 712;	-- tplh_sel0
+    CONSTANT rup_sel0 : NATURAL := 720;	-- rup_sel0
+    CONSTANT tpll_sel0 : NATURAL := 1798;	-- tpll_sel0
+    CONSTANT rdown_sel0 : NATURAL := 522;	-- rdown_sel0
+    CONSTANT tphh_sel0 : NATURAL := 1567;	-- tphh_sel0
+    CONSTANT rup_sel0 : NATURAL := 720	-- rup_sel0
+  );
+  PORT (
+  sel0 : in BIT;	-- sel0
+  s0i0 : out BIT;	-- s0i0
+  s1i0 : out BIT;	-- s1i0
+  vdd : in BIT;	-- vdd
+  vss : in BIT;	-- vss
+  vss1 : in BIT	-- vss1
+  );
+END nmx2sb0_fp;
+
+
+-- Architecture Declaration
+
+ARCHITECTURE behaviour_data_flow OF nmx2sb0_fp IS
+
+BEGIN
+  ASSERT ((vdd and not (vss)) = '1')
+    REPORT "power supply is missing on nmx2sb0_fp."
+    SEVERITY WARNING;
+
+
+s1i0 <= sel0;
+
+s0i0 <= not (sel0);
+END;

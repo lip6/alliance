@@ -1,0 +1,51 @@
+.\"   $Id: searchTH.3,v 1.1 1999/05/31 17:30:25 alliance Exp $
+.\" @(#)searchTH.2 7.01 92/08/22 ; Labo masi cao-vlsi; Author : Luc Burgun
+.TH SEARCHTH 3 "October 1, 1997" "ASIM/LIP6" "Hash table functions"
+.so man1/alc_origin.1
+.SH NAME
+\fBsearchTH\fP \- searches an item in a hash table.
+.SH SYNOPSYS
+.nf
+#include "logmmm.h"
+int searchTH(pTable,key)
+pTH pTable;
+char *key;
+.fi
+.SH PARAMETERS
+.TP 20
+\fIpTable\fP
+Hash table.
+.TP 20
+\fIkey\fP
+Key used by the hash coding function.
+.SH DESCRIPTION
+\fBsearchTH()\fP searches an item in \fIpTable\fP. If the key exists, the associated value is returned, if it doesn't, the function returns -1 (EMPTYTH).
+.SH EXAMPLE
+.nf
+#include "mutnnn.h"
+#include "logmmm.h"
+pTH mytable; 
+int val;
+
+mytable = createTH(100); 
+addTH(mytable,namealloc("var1"),0);
+val = searchTH(mytable,namealloc("var1"));
+	/* val = 0 */
+val = searchTH(mytable,namealloc("var2"));
+	/* val = -1 */
+if (val != EMPTYTH)
+   printf("found !");
+else
+   printf("var2 doesn't exist in mytable!");
+.fi
+.SH SEE ALSO
+.BR log (1),
+.BR tsh (1),
+.BR createTH (3),
+.BR destroyTH (3),
+.BR addTH (3),
+.BR deleteTH (3),
+.BR displayTH (3).
+
+.so man1/alc_bug_report.1
+

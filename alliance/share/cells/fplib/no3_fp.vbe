@@ -1,0 +1,18 @@
+entity no3_fp is  
+
+   port 
+     (
+i0 : in bit ;
+i1 : in bit ;
+i2 : in bit ;
+o : out bit ;
+vdd : in bit ;
+vss : in bit 
+     );
+   end no3_fp ;
+
+architecture FUNCTIONNAL of no3_fp is 
+
+begin
+o <= not(i2 or i1 or i0) ;
+end FUNCTIONNAL ;

@@ -1,0 +1,50 @@
+
+-- ###-------------------------------------------------------------###
+-- #                                                                 #
+-- #         Alliance CAD System V.R                                 #
+-- #          FitPath Package V.RR                                   #
+-- #                                                                 #
+-- # Copyright(c) 94-AA, MASI, CAO-VLSI Team                         #
+-- #                                                                 #
+-- # Author      :          Jean-Paul CHAPUT                         #
+-- # E-mail      :      cao-vlsi@masi.ibp.fr                         #
+-- # *************************************************************** #
+-- #   Date      :      October 31 1994.                             #
+-- #                                                                 #
+-- # Theoretical VHDL data flow description of cell "z2t3w0p_fp". #
+-- # --------------------------------------------------------------- #
+-- # Cell Family :                                                   #
+-- #                                                                 #
+-- ###-------------------------------------------------------------###
+
+
+-- Entity Declaration.
+
+ENTITY  z2t3w0p_fp  IS
+	PORT(
+		z16_down : in    BIT;
+		z16_up   : in    BIT;
+		i3       : in    BIT;
+		zero     :   out BIT;
+		vdd      : in    BIT;
+		vss      : in    BIT
+	);
+END  z2t3w0p_fp;
+
+
+-- Architecture declaration.
+
+ARCHITECTURE  behavior_data_flow  OF  z2t3w0p_fp  IS
+
+
+BEGIN
+	zero <= z16_down nor z16_up;
+
+    ASSERT(vdd = '1')
+    	REPORT "Power supply vdd of z2t3w0p_fp badly connected."
+	    SEVERITY WARNING;
+
+    ASSERT(vss = '0')
+    	REPORT "Power supply vss of z2t3w0p_fp badly connected."
+	    SEVERITY WARNING;
+END  behavior_data_flow;

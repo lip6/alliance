@@ -1,0 +1,106 @@
+.\"   $Id: DP_LOCON.3,v 1.1 1999/05/31 17:30:15 alliance Exp $
+.TH DP_LOCON 3 "October 1, 1997" "ASIM/LIP6" "FITPATH Macro-Functions"
+.so man1/alc_origin.1
+.SH NAME
+\fBDP_LOCON\fP -  Logical connector
+.SH SYNOPSYS
+.ft CR
+.nf
+#include <genlib.h>
+#include <fpgen.h>
+
+void DP_LOCON(
+     char *aCon,  /*       Connector name       */
+     char  aDir,  /* Direction of the connector */
+     char *aSig); /*    Internal signal name    */
+.ft R
+.fi
+.SH ARGUMENTS
+.in +14n
+.ta +14n
+.ti -14n
+\fIaCon\fP	Name of the connector to be created in the current figure.
+.br
+
+.ti -14n
+\fIaDir\fP	Indicates the connector behavior regarding signal propagation.
+The available values are listed below, they are the same as in the
+\fBgenlib(1)\fP description language :
+.br
+.ta +12nR +1n +2n
+-	\fBIN\fP	:	Input.
+.br
+-	\fBOUT\fP	:	Output.
+.br
+-	\fBINOUT\fP	:	Input/output.
+.br
+-	\fBUNKNOW\fP	:	If one doesn't know what it is.
+.br
+-	\fBTRISTATE\fP	:	High impedance output.
+.br
+-	\fBTRANSV\fP	:	Transceiver, that means \fBTRISTATE\fP input plus
+output.
+.br
+
+.ta +14n
+.ti -14n
+\fIaSig\fP	Name of the internal signal with which the connector is
+linked. For better understanding this name could by the same as given for
+\fIaCon\fP.
+.br
+
+.ta +14n
+.in -14n
+.SH DESCRIPTION
+.ta +4n
+	\fBDP_LOCON\fP add a logical connector \fIaCon\fP to the interface of
+the actual working figure. This connector is logicaly linked to the signal
+\fIaSig\fP.
+.br
+	All the \fBDP_LOCON\fP function calls must immediatly follow the
+\fBDP_DEFLOFIG\fP function call.
+.bp
+.SH EXAMPLE
+.ft CR
+.nf
+#include  <genlib.h>
+#include  <fpgen.h>
+ 
+ 
+main()
+{
+    /* Create a new data-path figure names "my_sweet_data_path". */
+    DP_DEFLOFIG("my_sweet_data_path", 32, LSB_INDEX_ZERO);
+
+    /* Data-path connectors declaration. */
+    DP_LOCON("pin_ctrl1"      , IN   , "pin_ctrl1"      );
+    DP_LOCON("bus_data1[31:0]", IN   , "bus_data1[31:0]");
+    DP_LOCON("pin_data2[31]"  ,   OUT, "pin_data2[31]"  );
+
+    DP_LOCON(BUS("bus_data3",31,0), IN   ,BUS("bus_data2",31,0));
+	DP_LOCON(ELM("pin_data4",31  )    OUT,ELM("pin_data4",31  ));
+
+    /* Data-path netlist description, using macro-functions. */
+
+    /* Save the model on disk. */
+    DP_SAVLOFIG();
+}
+.fi
+.ft R
+.SH SEE ALSO
+.ft B
+fpgen(1), dpr(1), genlib(1), mbk(1),
+DP_DEFLOFIG(3), DP_SAVLOFIG(3), DP_LOCON(3), DP_IMPORT(3),
+DP_INV(3), DP_BUSE(3), DP_AND2(3), DP_NAND2(3), DP_AND3(3), DP_NAND3(3),
+DP_OR2(3), DP_NOR2(3), DP_OR3(3), DP_NOR3(3), DP_XOR2(3), DP_XNOR2(3),
+DP_NAND2MASK(3), DP_NOR2MASK(3), DP_XNOR2MASK(3), DP_CONST(3),
+DP_NMUX2CS(3), DP_MUX2CS(3), DP_MUX3CS(3), DP_MUX4CS(3), DP_MUX5CS(3),
+DP_BUSE(3), DP_NBUSE(3), DP_ADD2F(3), DP_ADSB2F(3),
+DP_SHIFT(3), DP_MULT(3), DP_MULTP(3), DP_NUL(3),
+DP_PDFF(3), DP_PDFFR(3), DP_PDFFT(3), DP_PDFFRT(3),
+DP_RFG1C0(3), DP_RFG1CC(3), DP_RFG2C0(3), DP_RFG2CC(3)
+,
+
+
+.so man1/alc_bug_report.1
+

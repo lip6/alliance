@@ -1,0 +1,10 @@
+#cell1 amoutpbot_c idps_symb hnSchematic 0 v7r5.6
+# 25-Jan-94 14:17 25-Jan-94 14:17 mbkvti400 * .
+H 1 ;
+B 0 5 ;
+X 1 1 lsb ;
+X 2 2 mnext ;
+X 3 3 msb ;
+X 4 4 vdd ;
+X 5 5 vss ;
+E ;

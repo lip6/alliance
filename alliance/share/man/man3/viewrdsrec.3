@@ -1,0 +1,81 @@
+.\"   $Id: viewrdsrec.3,v 1.1 1999/05/31 17:30:26 alliance Exp $
+.\" @(#)viewrdsrec.1 1.11 93/08/18 ; Labo masi cao-vlsi
+.if t \{\
+.so man1/alc_contents.mac
+.XS \n%
+.ti 0.2i
+viewrdsrec
+.XE
+.XS0 \n%
+.ti 0.2i
+viewrdsrec
+.XE0 \}
+.TH VIEWRDSREC 3 "October 1, 1997" "ASIM/LIP6" "RDS PHYSICAL FUNCTIONS"
+.SH NAME
+viewrdsrec \- Displays caracteristics of a rectangle
+.so man1/alc_origin.1
+.SH SYNOPSYS
+.nf
+.if n \{\
+.ft B \}
+.if t \{\
+.ft CR \}
+ #include "rdsnnn.h"
+  void viewrdsrec( Rectangle )
+   rdsrec_list \(**Rectangle;
+.ft R
+.fi
+.SH PARAMETERS
+\fIRectangle\fP
+The rectangle to display. 
+.SH DESCRIPTION
+The \fIviewrdsrec\fP function displays rectangle's caracteristics :
+.RS
+.TP 20
+\- its coordinates (X,Y,DX,DY)
+.TP
+\- its Layer
+.TP
+\- its name
+.TP
+\- its field FLAGS 
+.RE
+.SH RETURN VALUE
+nothing
+.SH ERRORS
+none
+.SH EXAMPLE
+.ta 3n 6n 9n 12n 15n 18n 21n
+.nf
+.if n \{\
+.ft B \}
+.if t \{\
+.ft CR \}
+        #include "mutnnn.h"
+        #include "rdsnnn.h"
+        #include "rtlnnn.h"
+           main()
+          {
+            rdsfig_list \(**Figure;
+            rdsrec_list \(**Rectangle;
+            mbkenv();
+            rdsenv();
+            loadrdsparam();
+            Figure = addrdsfig ("core",sizeof ( UserStruct ) );
+            Rectangle =
+             addrdsfigrec(Figure,"Alu1",RDS_ALU1,2,4,12,1);
+            /\(**
+              visualization of rectangle's caracteristics 
+            \(**/
+            /* */ \fBviewrdsrec\fP ( Rectangle );
+          }
+.ft R
+.fi
+.SH SEE ALSO
+.BR librds,
+.BR viewrdsfig,
+.BR viewrdsins
+
+
+.so man1/alc_bug_report.1
+

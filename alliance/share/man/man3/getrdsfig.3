@@ -1,0 +1,88 @@
+.\"   $Id: getrdsfig.3,v 1.1 1999/05/31 17:30:22 alliance Exp $
+.\" @(#)getrdsfig.1 1.11 93/08/18 ; Labo masi cao-vlsi
+.if t \{\
+.so man1/alc_contents.mac
+.XS \n%
+.ti 0.2i
+getrdsfig
+.XE
+.XS0 \n%
+.ti 0.2i
+getrdsfig
+.XE0 \}
+.TH GETRDSFIG 3 "October 1, 1997" "ASIM/LIP6" "RDS PHYSICAL FUNCTIONS"
+.SH NAME
+getrdsfig \- gets a pointer to a figure called by its name.
+.so man1/alc_origin.1
+.SH SYNOPSYS
+.nf
+.if n \{\
+.ft B \}
+.if t \{\
+.ft CR \}
+#include "rtlnnn.h"
+ rdsfig_list \(**getrdsfig( Name, Mode, Size )
+    char        \(**Name;
+    char         Mode;
+    unsigned int Size;
+.ft R
+.fi
+.SH PARAMETER
+.TP 20
+\fIName\fP
+Name of the Rds figure to get.
+.TP
+\fIMODE\fP :  
+Caracter indicating the status of the figure in memory.
+.PP
+This field can take three values :
+.RS
+.TP
+\fI\'A\'\fP
+All the cell is loaded in ram (The figure, its rectangles and its instances empty).
+.TP
+\fI\'P\'\fP
+Only information concerning the model interface is present, that means : connectors, the abutment box and through routes of the figure.
+.TP
+\fI\'V\'\fP
+Visualization mode : all is loaded in RAM : The figure, its rectangles, its instances and the rectangles of its instances.
+.RE
+.TP
+\fISize\fP
+Size of the additionnal user structure if it exists.
+.SH DESCRIPTION
+The \fIgetrdsfig\fP function gets a rds figure by its name. If the figure is already in memory then a pointer is returned. If the figure isn't loaded in memory then it's loaded in memory totaly or partialy according to the value of the field \'Mode\'. The parameter 'Size' is necessary to know the size of the structure added to the rdsrec_list structure. If the user structure doesn't exist then field \'Size\' has to be set to 0L.
+.SH RETURN VALUE
+The pointer to the figure is returned.
+.SH ERRORS
+UNKNOWN
+.SH EXAMPLE
+.ta 3n 6n 9n 12n 15n 18n 21n
+.nf
+.if n \{\
+.ft B \}
+.if t \{\
+.ft CR \}
+        #include "mutnnn.h"
+        #include "rdsnnn.h"
+        #include "rtlnnn.h"
+        main()
+         {
+           rdsfig_list \(**RdsFigure;
+           rdsfig_list \(**GetFigure;
+           mbkenv();
+           rdsenv();
+           loadrdsparam();
+           loadrdsfig(RdsFigure, "core", 'A');
+           GetFigure = \fBgetrdsfig\fP ( "core" ,'A', 0 );
+         }
+.ft R
+.fi
+.SH SEE ALSO
+.BR librtl,
+.BR loadrdsfig,
+.BR rdsenv
+
+
+.so man1/alc_bug_report.1
+

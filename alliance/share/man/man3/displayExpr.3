@@ -1,0 +1,59 @@
+.\"   $Id: displayExpr.3,v 1.1 1999/05/31 17:30:20 alliance Exp $
+.\" @(#)displayExpr.2 7.01 92/08/22 ; Labo masi cao-vlsi; Author : Luc Burgun
+.TH DISPLAYEXPR 3 "October 1, 1997" "ASIM/LIP6" "ABL functions"
+.so man1/alc_origin.1
+.SH NAME
+\fBdisplayExpr\fP \- displays an expression in a prefixed notation. 
+.SH SYNOPSYS
+.nf
+#include "logmmm.h"
+void displayExpr(expr)
+chain_list *expr;
+.fi
+.SH PARAMETER
+.TP 20
+\fIexpr\fP
+Expression to display.
+.SH DESCRIPTION
+\fBdisplayExpr()\fP displays on the screen \fIexpr\fP in a prefixed notation. 
+.SH EXAMPLE
+.nf
+#include "mutnnn.h"		/* mbk utilities */
+#include "logmmm.h"
+chain_list *expr;
+expr = createExpr(OR);
+addQExpr(expr,createAtom("a"));
+addQExpr(expr,createAtom("b"));
+displayExpr(expr);
+/* it will display
+(OR a b)
+*/
+freeExpr(expr);
+.fi
+.SH PROGRAM
+.nf
+void displayExpr(expr)
+chain_list *expr;
+
+if (ATOM(expr))		/* atomic treatement */
+   printf(" %s",VALUE_ATOM(expr));
+else
+   {			/* go through the arguments */
+   printf("(%s",operToChar(OPER(expr)));
+   while (expr = CDR(expr))
+      displayExpr(CAR(expr));
+   printf(")");
+   }
+}
+.fi
+.SH SEE ALSO
+.BR log (1),
+.BR abl (1),
+.BR displayInfExpr (3),
+.BR exprToChar (3),
+.BR charToOper (3),
+.BR operToChar (3),
+.BR identExpr (3).
+
+.so man1/alc_bug_report.1
+

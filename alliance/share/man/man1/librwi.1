@@ -1,0 +1,239 @@
+.\"   $Id: librwi.1,v 1.1 1999/05/31 17:30:14 alliance Exp $
+.\" @(#)librwi.1 0.0 93/18/08 UPMC
+.if t \{\
+.so man1/alc_contents.mac
+.XS \n%
+.ti 0.2i
+librwi
+.XE
+.XS0 \n%
+.ti 0.2i
+librwi
+.XE0 \}
+.TH LIBRWI 1 "October 1, 1997" "ASIM/LIP6" "RWI LIBRARY VERSION 103"
+.SH NAME
+librwi \- rwi library description
+.SH DESCRIPTION
+.IP
+.IP I)
+DATA STRUCTURES USED
+.RS
+.IP A)
+The rdswinrec_list structure
+.PP
+The rdswinrec_list structure is used to create list of rectangles's tables. Each table contains a maximum of RWI_MAX_REC pointers to rdsrec_list structure.
+.PP
+.RS
+.nf
+.if n \{\
+.ft B \}
+.if t \{\
+.ft CR \}
+.ta 3n 20n 30n
+typedef struct rdswinrec_list
+  {
+    struct rdswinrec_list \(**NEXT;
+    rdsrec_list           \(**RECTAB[ RWI_MAX_REC ];
+  } rdswinrec_list;
+.ft R
+.fi
+.RE
+.PP
+Description of the structure's fields :
+.TP
+\fINEXT\fP
+Pointer to the next table of tables's list.
+.TP
+\fIRECTAB\fP
+Table of rectangles.
+.IP B)
+The rdswin_list structure
+.PP
+The rdswin_list permits to create a window which contains the rectangles. This structure is used to make the windowing of the rds structure. Windowing permits fastly acces to rectangles of the data base.
+.PP
+.RS
+.nf
+.if n \{\
+.ft B \}
+.if t \{\
+.ft CR \}
+.ta 3n 20n 30n
+typedef struct rdswin_list
+  {
+    struct rdswinrec_list \(**LAYERTAB[ RWI_MAX_LAYER ];
+  } rdswin_list;
+.ft R
+.fi
+.RE
+.PP
+Description of the structure's fields :
+.TP
+\fILAYERTAB\fP
+It's a table of pointers on rectangles's tables. Each entry of the table corresponds to a determinated RDS layer. The size of the table is defined by the constant RWI_MAX_LAYER which is the number of possible layers. 
+.IP C)
+The rdsrecwin_list structure
+.PP
+The rdsrecwin_list structure permits for a rectangle to know the windows which it belongs. In the rdsrec_list structure, there is no field destinated to point to this structure. Some functions of the Rwi library use the field \'USER\' but it may be also used by functions of the Rfm library. So, the user has to save the \'USER\' field by creating an additionnal structure to the rdsrec_list structure to put the new pointer (during this operation, the field \'USER\' must be saved in a temporary variable). 
+.PP
+.RS
+.nf
+.if n \{\
+.ft B \}
+.if t \{\
+.ft CR \}
+.ta 3n 20n 30n
+typedef struct rdsrecwin_list
+  {
+    struct rdsrecwin_list \(**NEXT;
+    struct rdswin_list    \(**WINDOW;
+  } rdsrecwin_list;
+.ft R
+.fi
+.RE
+.PP
+Description of the structure's fields :
+.TP
+\fINEXT\fP
+Pointer to the next item whitch belongs to the list of rdsrecwin_list structure.
+.TP
+\fIWINDOW\fP
+Pointer to the window at which belongs the rectangle.
+.IP D)
+The rdswindow structure
+.PP
+The rdswindow structure permits to set a windowing to the rds data structure.
+.PP
+.RS
+.nf
+.if n \{\
+.ft B \}
+.if t \{\
+.ft CR \}
+.ta 3n 20n 30n
+typedef struct rdswindow
+  {
+    long          XMIN;
+    long          YMIN;
+    long          XMAX;
+    long          YMAX;
+    long          MASK;
+    long          DX;
+    long          DY;
+    long          SIDE;
+    long          SIZE;
+    rdswin_list  \(**WINTAB;
+  } rdswindow;
+.ft R
+.fi
+.RE
+.PP
+Description of the structure's fields :
+.TP
+\fIXMIN\fP
+Position in lambda of the lower left corner of the windowing table to the X axis. 
+.TP
+\fIYMIN\fP
+Position in lambda of the lower left corner of the windowing table to the Y axis.
+.TP
+\fIXMAX\fP
+Position in lambda of the upper right corner of the windowing table to the X axis.
+.TP
+\fIYMAX\fP
+Position in lambda of the upper right corner of the windowing table to the Y axis.
+.TP
+\fIMASK\fP
+Number of rectangles in the windowing.
+.TP
+\fIDX\fP
+Width of the table in number of windows.
+.TP
+\fIDY\fP
+Height of the table in number of windows.
+.TP
+\fISIDE\fP
+size of the side of a window (which is a square) in lambda.
+.TP
+\fISIZE\fP
+Number of windows contained in the table.
+.TP
+\fIWINTAB\fP
+Pointer to the table of windows.
+.RE
+.IP II)
+Description of constants of the library
+.TP
+\fIRWI_MAX_REC\fP
+Maximum number of rectangles contained in a table used in the rdswinrec_list structure.
+.TP
+\fIRWI_MAX_LAYER\fP
+Number of possible layers. 
+.TP
+\fIRDS_ONE_WINDOW\fP
+This constant is used to determinate if a rectangle belongs to one or many windows.
+.IP III)
+Description of the macros
+.PP
+\- char IsRdsOneWindow( Rectangle )
+.br
+   rdsrec_list \(**Rectangle;  
+.RS
+.PP
+Tests if the rectangle belongs to a window :
+.br
+If true, then value 1 is returned else value 0 is returned (the rectangle belongs to many windows).
+.RE
+.PP
+\- void SetRdsOneWindow( Rectangle )
+.br
+   rdsrec_list \(**Rectangle;
+.RS
+.PP
+Sets the field \'FLAGS\' of the rectangle to mean that the rectangle belongs to one window.
+.RE
+.PP
+\- void ClearRdsOneWindow( Rectangle )
+.br
+rdsrec_list \(**Rectangle;
+.RS
+.PP
+Sets the field \'FLAGS\' of the rectangle to mean that the rectangle belongs to many windows.
+.RE
+.IP IV)
+Function of the libRwi library
+.TP
+\fIallocrdswinrec\fP
+allocates a structure used to create a list of tables of rectangles.
+.TP
+\fIallocrdsrecwin\fP
+allocates a structure used to know windows which contain a rectangle.
+.TP
+\fIallocrdswin\fP
+allocates table of windows
+.TP
+\fIallocrdswindow\fP
+allocates a window structure
+.TP
+\fIaddrdsrecwindow\fP
+adds a rectangle in the windowing of rds structure. 
+.TP
+\fIdelrdsrecwindow\fP
+deletes a rectangle from the windowing of rds structure.
+.TP
+\fIbuildrdswindow\fP
+builds windowing of a figure
+.TP
+\fIdestroyrdswindow\fP
+destroys windowing of a figure
+.TP
+\fIviewrdswindow\fP
+Displays caracteristics of all the windowing
+.SH SEE ALSO
+.BR librds,
+.BR librfm,
+.BR librpr,
+.BR librut,
+.BR librtl
+
+
+.so man1/alc_bug_report.1
+

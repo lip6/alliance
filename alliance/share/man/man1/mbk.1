@@ -1,0 +1,654 @@
+.\"   $Id: mbk.1,v 1.1 1999/05/31 17:30:14 alliance Exp $
+.\" @(#)mbk.l 0.0 90/22/08 UPMC; Author : Frederic Petrot
+.if t \{\
+.so man1/alc_contents.mac
+.XS \n%
+\fBPresentation of generic \fIlayout\fP and \fInetlist\fP data structures\fR
+.XE \}
+.TH MBK 1 "October 1, 1997" "ASIM/LIP6" "ALLIANCE MBK LIBRARIES"
+.SH NAME
+mbk \- generic layout and netlist data structures
+.so man1/alc_origin.1
+.SH DESCRIPTION
+mbk is a generic data structure supporting vlsi concepts. It covers
+two distinct areas of representation of a circuit :
+.TP
+the \fInetlist\fP view :
+This is a structural representation of circuits, in terms of logical gates and
+interconnections between gates.
+.TP
+the \fIsymbolic layout\fP view :
+This is a drawing matter, and describes the objects from a geometrical 
+and topological point of view.
+.LP
+The goal of mbk is to have a single data structure, with fixed meaning well
+defined on each objects. So any tools that needs to work on netlist or
+symbolic layout views can be build upon it.
+.LP
+For each object, a set of functions is defined in order to add, delete and get
+it. Some other functions are higher level, but very useful, so they are also
+given in the standard libraries.
+.TP
+The \fInetlist\fP view manipulates :
+.RS
+.TP 20
+\-figures :
+Models of cells.
+.TP
+\-instances :
+Needed to build up a hierarchy.
+.TP
+\-connectors :
+Terminals used to describe interconnections.
+.TP
+\-signals :
+Interconnecting nets between the connectors.
+.TP
+\-transistors :
+Terminal elements of a netlist.
+.TP
+\-capacitances :
+Define the load of a signal.
+.RE
+.TP
+The \fIlayout\fP view uses :
+.RS
+.TP 20
+\-figures :
+Models of cells.
+.TP
+\-instances :
+Needed to build up a hierarchy.
+.TP
+\-connectors :
+Terminals that should match the ones given in the netlist view.
+.TP
+\-vias :
+Realise the contact between two separate layout levels.
+.TP
+\-references :
+Allow to name a point in order to use it later on.
+.TP
+\-segments :
+Basical wires.
+.RE
+.LP
+Each of these elements does possess access functions.
+.TP
+\fInetlist\fP view :
+.RS
+.TP 10
+\-figures :
+.RS
+.TP 20
+\fBaddlofig\fP
+\- create a new structural cell model
+.TP
+\fBaddlomodel\fP
+\- create a temporary logical model and add it to a list
+.TP
+\fBflattenlofig\fP
+\- flatten an instance in a logical figure
+.TP
+\fBfreelomodel\fP
+\- free a \fBlofig_list\fP for temporary models
+.TP
+\fBgetlofig\fP
+\- give back a pointer to a \fIlofig\fP
+.TP
+\fBgetlomodel\fP
+\- retrieve a model from a \fBlofig_list\fP
+.TP
+\fBloadlofig\fP
+\- load a new logical cell model from disk
+.TP
+\fBrflattenlofig\fP
+\- recursivly flatten a figure
+.TP
+\fBsavelofig\fP
+\- save a logical figure on disk
+.TP
+\fBviewlo\fP
+\- scan all \fBlofig_list\fPs and display their elements
+.TP
+\fBviewlofig\fP
+\- display elements of a \fBlofig_list\fP
+.RE
+.TP
+\-instances :
+.RS
+.TP 20
+\fBaddloins\fP
+\- create a logical instance
+.TP
+\fBdelloins\fP
+\- delete a logical instance
+.TP
+\fBgetloins\fP
+\- retrieve a logical instance
+.TP
+\fBviewloins\fP
+\- display elements of a \fBloins_list\fP
+.RE
+.TP
+\-connectors :
+.RS
+.TP 20
+\fBaddlocon\fP
+\- create a logical connector
+.TP
+\fBdellocon\fP
+\- delete a logical connector
+.TP
+\fBgetlocon\fP
+\- retrieve a logical connector
+.TP
+\fBsortlocon\fP
+\- sort a set of logical connectors by name
+.TP
+\fBcheckloconorder\fP
+\- check a list of connector towards mbk consistency rules
+.TP
+\fBviewlofigcon\fP
+\- display elements of a \fBlocon_list\fP attached to a figure
+.TP
+\fBviewloinscon\fP
+\- display elements of a \fBlocon_list\fP attached to an instance
+.RE
+.TP
+\-signals :
+.RS
+.TP 20
+\fBaddlosig\fP
+\- create a logical signal
+.TP
+\fBdellosig\fP
+\- delete a logical signal
+.TP
+\fBgetlosig\fP
+\- retrieve a logical signal
+.TP
+\fBgivelosig\fP
+\- give a logical signal
+.TP
+\fBgetsigname\fP
+\- choose a signal name in alias list
+.TP
+\fBsortlosig\fP
+\- sort a list of signals by name
+.TP
+\fBlofigchain\fP
+\- creates a netlist in terms of connectors on signals
+.TP
+\fBviewlosig\fP
+\- display elements of a \fBlosig_list\fP
+.RE
+.TP
+\-transistors :
+.RS
+.TP 20
+\fBaddlotrs\fP
+\- create a logical transistor
+.TP
+\fBdellotrs\fP
+\- delete a logical transistor
+.TP
+\fBviewlotrs\fP
+\- display elements of a \fBlotrs_list\fP
+.RE
+.TP
+\-capacitances :
+.RS
+.TP 20
+\fBaddcapa\fP
+\- add a capacitance to a signal
+.RE
+.RE
+.TP
+\fIlayout\fP view :
+.RS
+.TP 10
+\-figures :
+.RS
+.TP 20
+\fBaddphfig\fP
+\- create a new physical cell model
+.TP
+\fBdelphfig\fP
+\- delete and free a physical figure
+.TP
+\fBflattenphfig\fP
+\- flatten an instance in a figure
+.TP
+\fBgetphfig\fP
+\- give back a pointer to a \fIphfig\fP
+.TP
+\fBloadphfig\fP
+\- load a new physical cell model from disk
+.TP
+\fBrflattenphfig\fP
+\- recursivly flatten a figure
+.TP
+\fBsavephfig\fP
+\- save a physical figure on disk
+.TP
+\fBxyflat\fP
+\- compute hierarchical coordinates
+.TP
+\fBviewph\fP
+\- display all the \fBphfig_list\fPs and their elements
+.TP
+\fBviewphfig\fP
+\- display elements of a \fBphfig_list\fP
+.RE
+.TP
+\-instances :
+.RS
+.TP 20
+\fBaddphins\fP
+\- create a physical instance
+.TP
+\fBdelphins\fP
+\- delete a physical instance
+.TP
+\fBgetphins\fP
+\- retrieve a physical instance
+.TP
+\fBgetphins\fP
+\- retrieve a physical instance
+.TP
+\fBviewphins\fP
+\- display elements of a \fBphins_list\fP
+.RE
+.TP
+\-connectors :
+.RS
+.TP 20
+\fBaddphcon\fP
+\- create a physical connector
+.TP
+\fBdelphcon\fP
+\- delete a physical connector
+.TP
+\fBgetphcon\fP
+\- retrieve a physical connector
+.TP
+\fBinstanceface\fP
+\- give the face of a connector in a placed instance
+.TP
+\fBviewphcon\fP
+\- display elements of a \fBphcon_list\fP
+.RE
+.TP
+\-vias :
+.RS
+.TP 20
+\fBaddphvia\fP
+\- create a physical via
+.TP 20
+\fBbigvia\fP
+\- create a bunch of vias
+.TP
+\fBdelphvia\fP
+\- delete a physical via
+.TP
+\fBviewphvia\fP
+\- display elements of a \fBphvia_list\fP
+.RE
+.TP
+\-references :
+.RS
+.TP 20
+\fBaddphref\fP
+\- create a physical reference
+.TP
+\fBdelphref\fP
+\- delete a physical reference
+.TP
+\fBgetphref\fP
+\- retrieve a physical reference
+.TP
+\fBviewphref\fP
+\- display elements of a \fBphref_list\fP
+.RE
+.TP
+\-segments :
+.RS
+.TP 20
+\fBaddphseg\fP
+\- create a physical segment
+.TP
+\fBdelphseg\fP
+\- delete a physical segment
+.TP
+\fBviewphseg\fP
+\- display elements of a \fBphseg_list\fP
+.RE
+.RE
+\fBmbk\fP also has a set of utilities functions that does not deal with
+netlist nor layout, but that may be useful when working on these views.
+.TP
+helpful functions on :
+.RS
+.TP 10
+\-chain list :
+.RS
+.TP 20
+\fBaddchain\fP
+\- create a chain element, much like lisp cons
+.TP
+\fBdelchain\fP
+\- delete an element of a chain
+.TP
+\fBfreechain\fP
+\- delete an entire chain
+.RE
+.TP 10
+\-typed list :
+.RS
+.TP 20
+\fBaddptype\fP
+\- create a typed pointer list element
+.TP
+\fBdelptype\fP
+\- delete an element of a typed list
+.TP
+\fBfreeptype\fP
+\- delete an entire typed list
+.RE
+.TP 10
+\-numerical list :
+.RS
+.TP 20
+\fBaddnum\fP
+\- create a numerical list element
+.TP
+\fBdelnum\fP
+\- delete an element of a typed list
+.TP
+\fBfreenum\fP
+\- delete an entire typed list
+.RE
+.TP 10
+\- hash tables :
+.RS
+.TP 20
+\fBaddht\fP
+\- create an hash table
+.TP
+\fBdelht\fP
+\- delete an hash table
+.TP
+\fBviewht\fP
+\- dumps an hash table
+.TP 20
+\fBaddhtitem\fP
+\- add an item in an hash table
+.TP
+\fBdelhtitem\fP
+\- delete an item in an hash table
+.TP
+\fBgethtitem\fP
+\- retrieve an item in an hash table
+.TP
+\fBsethtitem\fP
+\- test and set an item in an hash table
+.RE
+.TP 10
+\-strings :
+.RS
+.TP 20
+\fBnamealloc\fP
+\- fill a dictionnary that ensures that equivalence with strcmp implies
+an equality of pointers
+.TP
+\fBupstr\fP
+\- uppercase a string
+.TP
+\fBdownstr\fP
+\- lowercase a string
+.TP
+\fBinstr\fP
+\- search a string into a string
+.TP
+\fBnaturalstrcmp\fP
+\- compare strings regarding aphabetical and numerical values.
+.RE
+.TP 10
+\-files :
+.RS
+.TP 20
+\fBmbkfopen\fP
+\- open a file regarding mbk environment
+.TP
+\fBmbkunlink\fP
+\- erase a file regarding mbk environement
+.TP
+\fBfilepath\fP
+\- give the absolute name of a file being used in mbk
+.RE
+.TP 10
+\-memory :
+.RS
+.TP 20
+\fBmbkalloc\fP
+\- allocate memory, like \fBmalloc\fP(3V)
+.TP
+\fBmbkrealloc\fP
+\- reallocate memory, like \fBrealloc\fP(3V)
+.TP
+\fBmbkfree\fP
+\- free memory, like \fBfree\fP(3V)
+.TP
+\fBmbkps\fP
+\- display informations on utilized memory and time spend on a process
+.RE
+.RE
+.sp
+.LP
+In order to use mbk, concepts on library use are needed. And since this
+library is under development, the code is subject to change.
+.br
+To enable work, a static version is always present for the user on disk.
+Libraries and header files are suffixed by a number, and the programmer can
+choose to work with earlier versions than the actual one.
+But it is recommended
+to adapt its software to the libraries as soon as possible to see possible
+problems before old libraries destruction.
+.LP
+A \fImakefile\fP is necessary for all mbk applications.
+This is required because any soft must be easily recompilable, and knowing
+the needed libraries for an mbk based program is not an easy matter.
+It can't be achieved an other way, so do use \fImakefile\fP.
+.LP
+The file format parsers and drivers are not integrated into mbk, and each of
+them is a specific library. So if a parser or driver changes it is not needed
+to recompile mbk, because function prototypes are well define.
+Only a relink of the application is needed.
+.LP
+In terms of software organisation, mbk is splitted in five libraries for the
+basic functions, three header files for structure and variable declarations,
+and as many parsers drivers as needed, now a days two for physical view, and
+six for structural one.
+.br
+It is to be noticed that library version numbers are not the same for each
+of them, since they may evolve differently.
+For ease sake, version number will nevertheless always be represented by
+three numbers : \fInnn\fP, for current version.
+.LP
+Here follows the list of the libraries and their contents.
+It is the dual representation of what was given previously for each function.
+.TP 20
+libMphnnn.a :
+\fBaddphfig\fP,
+\fBdefab\fP,
+\fBdelphfig\fP,
+\fBxyflat\fP,
+\fBviewph\fP,
+\fBviewphfig\fP,
+\fBaddphcon\fP,
+\fBdelphcon\fP,
+\fBgetphcon\fP,
+\fBviewphcon\fP,
+\fBaddphins\fP,
+\fBgetphins\fP,
+\fBdelphins\fP,
+\fBviewphins\fP,
+\fBaddphseg\fP,
+\fBdelphseg\fP,
+\fBviewphseg\fP,
+\fBaddphvia\fP,
+\fBdelphvia\fP,
+\fBviewphvia\fP,
+\fBaddphref\fP,
+\fBdelphref\fP,
+\fBgetphref\fP,
+\fBviewphref\fP.
+.TP 20
+libMpunnn.a :
+\fBgetphfig\fP,
+\fBloadphfig\fP,
+\fBsavephfig\fP,
+\fBflattenphfig\fP,
+\fBrflattenphfig\fP,
+\fBbigvia\fP,
+\fBinstanceface\fP,
+\fBmphdebug\fP.
+.TP 20
+libMlonnn.a :
+\fBaddlofig\fP,
+\fBaddlomodel\fP,
+\fBfreelomodel\fP,
+\fBgetlomodel\fP,
+\fBviewlo\fP,
+\fBviewlofig\fP,
+\fBaddlocon\fP,
+\fBdellocon\fP,
+\fBgetlocon\fP,
+\fBviewlofigcon\fP,
+\fBviewloinscon\fP,
+\fBaddloins\fP,
+\fBdelloins\fP,
+\fBgetloins\fP,
+\fBviewloins\fP,
+\fBaddcapa\fP,
+\fBaddlosig\fP,
+\fBdellosig\fP,
+\fBgetlosig\fP,
+\fBgetsigname\fP,
+\fBlofigchain\fP,
+\fBviewlosig\fP,
+\fBaddlotrs\fP,
+\fBdellotrs\fP,
+\fBviewlotrs\fP.
+.TP 20
+libMlunnn.a :
+\fBgetlofig\fP,
+\fBloadlofig\fP,
+\fBsavelofig\fP,
+\fBflattenlofig\fP,
+\fBrflattenlofig\fP,
+\fBsortlosig\fP,
+\fBgivelosig\fP,
+\fBsortlocon\fP,
+\fBcheckloconorder\fP,
+\fBmlodebug\fP.
+.TP 20
+libMutnnn.a :
+\fBmbkenv\fP,
+\fBnamealloc\fP,
+\fBnameindex\fP,
+\fBconcatname\fP,
+\fBdownstr\fP,
+\fBupstr\fP,
+\fBinstr\fP,
+\fBnaturalstrcmp\fP,
+\fBincatalog\fP,
+\fBincatalogfeed\fP,
+\fBincataloggds\fP,
+\fBincatalogdelete\fP,
+\fBmbkalloc\fP,
+\fBmbkrealloc\fP,
+\fBmbkfree\fP,
+\fBmbkfopen\fP,
+\fBmbkunlink\fP,
+\fBfilepath\fP,
+\fBmbkps\fP,
+\fBaddchain\fP,
+\fBappend\fP,
+\fBdelchain\fP,
+\fBfreechain\fP,
+\fBreverse\fP,
+\fBaddptype\fP,
+\fBdelptype\fP,
+\fBfreeptype\fP,
+\fBgetptype\fP,
+\fBnum\fP,
+\fBaddnum\fP,
+\fBdelnum\fP,
+\fBfreenum\fP,
+\fBaddht\fP,
+\fBdelht\fP,
+\fBviewht\fP,
+\fBaddhtitem\fP,
+\fBdelhtitem\fP,
+\fBgethtitem\fP,
+\fBsethtitem\fP.
+.LP
+The libraries are organized in such a way that no cycle can appear through
+calls.
+It means that if a given library, let's say One, has a function that performs
+a call to a function in an other library, Two, then none of the functions of
+Two do call functions that belong to One.
+.br
+When linking, the order of the libraries matters, and should be given from
+the upper level one, to the basical one. See the examples for needed order.
+.SH REMARKS
+In order for the tools using mbk to work properly, some consistency rules are
+to be ensured.
+Most of these rules are explained in the \fBman\fP(1) page of each data
+structure, but some are more general, and should be mentioned.
+.TP 20
+Netlist layout consistency
+The most import rules are :
+.RS
+Two physical connectors internally linked must have the same name.
+This name is the logical name.
+.br
+A logical connector may only be connected on a single signal, and two
+external logical connectors may not be on the same signal.
+.RE
+.TP 20
+Name identifiers
+The names are \fInot\fP case sensitive.
+The names must begin with a letter followed by a letter, a number or an
+underscore.
+Two underscores cant be contiguous, and the name cannot be ended with an
+underscore.
+.SH EXAMPLE
+Let's suppose that actual mbk version is 'nnn'.
+In order to use physical view, one needs something like that in its
+\fImakefile\fP :
+.RS
+.ft B
+.ad l
+HEADER = -I/labo/include -DMPH_H='"mphnnn.h"' -DMUT_H='"mutnnn.h"'
+LIB = -L/labo/lib -lMphnnn -lMpunnn -lMcpnnn -lMapnnn -lMutnnn
+.ad n
+.ft R
+.RE
+For logical view, the \fImakefile\fP should look like that :
+.RS
+.ft B
+.ad l
+HEADER = -I/labo/include -DMLO_H='"mlonnn.h"' -DMUT_H='"mutnnn.h"'
+LIB = -L/labo/lib -lMlonnn -lMlunnn -lMclnnn -lMalnnn -lMvlnnn -lMelnnn -lMslnnn -Mhlnnn -lMutnnn
+.ad n
+.ft R
+.RE
+If needed to work on both, just concatenate both \fBHEADER\fP and both \fBLIB\fP.
+.SH SEE ALSO
+.BR genlib (1).
+
+.so man1/alc_bug_report.1
+

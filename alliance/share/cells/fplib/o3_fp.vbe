@@ -1,0 +1,20 @@
+entity o3_fp is  
+
+   port 
+     (
+i0 : in bit ;
+i1 : in bit ;
+i2 : in bit ;
+no : inout bit ;
+o : out bit ;
+vdd : in bit ;
+vss : in bit 
+     );
+   end o3_fp ;
+
+architecture FUNCTIONNAL of o3_fp is 
+
+begin
+no <= not(i0 or i1 or i2) ;
+o <= not no ;
+end FUNCTIONNAL ;

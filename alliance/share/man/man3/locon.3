@@ -1,0 +1,119 @@
+.\"   $Id: locon.3,v 1.1 1999/05/31 17:30:22 alliance Exp $
+.\" @(#)locon.l 0.0 90/22/08 UPMC; Author: Frederic Petrot
+.if t \{\
+.so man1/alc_contents.mac
+.XS \n%
+.ti 0.2i
+locon
+.XE
+.XS2 \n%
+.ti 0.2i
+locon
+.XE2 \}
+.TH LOCON 3 "October 1, 1997" "ASIM/LIP6" "MBK LOGICAL STRUCTURE DEFINITIONS"
+.SH NAME
+locon \- mbk logical connector 
+.SH DESCRIPTION
+The \fBlocon\fP is used to describe a connector of the logical view	
+of a figure. Connectors are describing the cell interface, and are the link
+between its physical and logical views, so the names must be the same. 
+.LP
+The declarations needed to work on \fBlocon\fP are available in the header file
+\fI"/labo/include/mlo404.h"\fP, where '\fI404\fP' is the actual mbk version.
+.LP
+The following C structure supports the description of the logical connector :
+.RS
+.nf
+.if n \{\
+.ft B \}
+.if t \{\
+.ft CR \}
+.ta 3n 20n 30n
+typedef struct locon {
+	struct locon	\(**NEXT;
+	char	\(**NAME;
+	struct losig	\(**SIG;
+	void	\(**ROOT;
+	char	DIRECTION;
+	char	TYPE;
+	struct ptype	\(**USER;
+} locon_list;
+.ft R
+.fi
+.RE
+.TP 20
+\fINEXT\fP
+Pointer to the next \fBlocon\fP of the list.
+.TP
+\fINAME\fP
+Name of the connector. It identifies the connector, so it should unique in a
+given logical figure. A logical connector with a given name correspond to the
+physical connector or connectors of this name.
+.TP
+\fISIG\fP
+Pointer to the signal linked to the connector. This signal is, of course, 
+unique. See \fBlosig\fP(3) for details. 
+.TP
+\fIROOT\fP
+Pointer to the object it belongs to. This object may be either a \fBlofig\fP,
+or a \fBloins\fP, depending on the type of the connector.
+See \fBlofig\fP(3) and \fBloins\fP for details.
+.TP
+\fIDIRECTION\fP
+This indicates the way of the information going through the connector.
+Six directions are legal :
+.RS
+.TP 20
+\fBIN\fP
+input
+.TP
+\fBOUT\fP
+output
+.TP
+\fBINOUT\fP
+input and output
+.TP
+\fBUNKNOWN\fP
+no information is available
+.TP
+\fBTRISTATE\fP
+tristate output
+.TP
+\fBTRANSCV\fP
+tristate output and input
+.RE   
+.fi
+.TP
+\fITYPE\fP
+Character indicating if the connector belongs to a model or an instance. It
+can take two values :
+.RS
+.TP 20
+\fBEXTERNAL\fP
+for figure connectors
+.TP
+\fBINTERNAL\fP
+for instance connectors
+.LP
+The \fITYPE\fP is needed to appropriatly cast the \fIROOT\fP field, and must
+be approriatly filled by the parsers. A misuse of it may cause strange
+behaviours.
+.RE
+.TP
+\fIUSER\fP
+Pointer to a ptype list, see \fBptype\fP for details, that is a general purpose
+pointer used to share informations on the connector.
+.SH SEE ALSO
+.BR mbk(1),
+.BR mbk(3),
+.BR addlocon (3),
+.BR getlocon (3),
+.BR dellocon (3),
+.BR losig (3),
+.BR ptype (3),
+.BR loins (3),
+.BR lofig (3).
+
+
+.so man1/alc_bug_report.1
+

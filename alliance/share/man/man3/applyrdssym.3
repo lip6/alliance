@@ -1,0 +1,116 @@
+.\"   $Id: applyrdssym.3,v 1.1 1999/05/31 17:30:17 alliance Exp $
+.\" @(#)applyrdssym.1 1.11 93/08/18 ; Labo masi cao-vlsi
+.if t \{\
+.so man1/alc_contents.mac
+.XS \n%
+.ti 0.2i
+applyrdssym
+.XE
+.XS0 \n%
+.ti 0.2i
+applyrdssym
+.XE0 \}
+.TH APPLYRDSSYM 3 "October 1, 1997" "ASIM/LIP6" "RDS PHYSICAL FUNCTIONS"
+.SH NAME
+applyrdssym \- applies a transformation to a rectangle from a model
+.so man1/alc_origin.1
+.SH SYNOPSYS
+.nf
+.if n \{\
+.ft B \}
+.if t \{\
+.ft CR \}
+#include "rutnnn.h"
+void applyrdssym( X, Y, Dx, Dy, Xins, Yins, Sym )
+      long  \(**X;
+      long  \(**Y;
+      long  \(**Dx;
+      long  \(**Dy;
+      long  Xins;
+      long  Yins;
+      char  Sym;
+.ft R
+.fi
+.SH PARAMETER
+.TP 20
+\fIX,Y,Dx,Dy\fP : 
+Coordinates  of the rectangle (of a model) to modify.
+.TP
+\fIXins,Yins\fP :
+Position where the instance has to be set.
+.TP
+\fISym\fP :
+Symmetry applied to the instance.
+.SH DESCRIPTION
+The \fIapplyrdssym\fP function sets coordinates of a rectangle (which belongs to a model) relative to the figure which contains the instance of this model. When the field \'\fBMODE\fP\' of a figure is set to the value \'A\' then only the figure and its instances empty are loaded in memory. So, if the user wants to load a rectangle of an instance in memory, he has to get the model of the instance and use the applyrdssym function. For mode information about loading modes of a figure in memory, see librds.
+.SH RETURN VALUE
+The coordinates (\fBX,Y,DX,DY\fP) of the rectangle are modified.
+.SH ERRORS
+none
+.SH EXAMPLE
+.ta 3n 6n 9n 12n 15n 18n 21n
+.nf
+.if n \{\
+.ft B \}
+.if t \{\
+.ft CR \}
+        #include "mphnnn.h"
+        #include "mutnnn.h"
+        #include "rdsnnn.h"
+        #include "rutnnn.h"
+        #include "rtlnnn.h"
+       typedef struct UserStruct
+         {
+           void \(**USER1;
+         } UserStruct;
+        main()
+         {
+           rdsfig_list \(**Figure;
+           rdsfig_list \(**Instance;
+           rdsfig_list \(**InstanceModel;
+           rdsrec_list \(**Rectangle;
+           rdsrec_list \(**InsRectangle;
+           char         Layer;
+            mbkenv();
+            rdsenv();
+            loadrdsparam();
+            RdsFigure = addrdsfig ("core",sizeof ( UserStruct ) );
+            Instance = addrdsins (RdsFigure,"na2_y","and2",RDS_SYM_X,8,6);
+            /\(** loads instance model \(**/
+            InstanceModel = getrdsfig(
+                                       Instance->FIGNAME,
+                                       'A',
+                                       sizeof ( UserStruct )
+                                     );
+            /\(** gets one rectangle of the model (layer ALU1) \(**/ 
+            if ( InstanceModel->LAYERTAB[RDS_ALU1] != (rdsrec_list\(**) NULL )
+              Rectangle = InstanceModel->LAYERTAB[RDS_ALU1];
+            else exit(1);
+            /\(** Displays rectangle coordinates relative to the model \(**/
+            viewrdsrec ( Rectangle ); 
+            /\(** adds the rectangle in the instance \(**/
+            Layer = GetRdsLayer ( Rectangle ); 
+            InsRectangle = 
+              addrdsinsrec ( Instance, Rectangle->NAME, Layer,
+                             Rectangle->X, Rectangle->Y,
+                             Rectangle->DX, Rectangle->DY );
+           /\(** apply symmetry \(**/
+           /\(**\(**/ \fBapplyrdssym\fP(
+                             &InsRectangle->X,&InsRectangle->Y,
+                             &InsRectangle->DX,&InsRectangle->DY, 
+                             Instance->X,Instance->Y,Instance->TRANSF
+                           );
+           /\(** Displays rectangle coordinates relative to the figure \(**/
+           viewrdsrec ( InsRectangle );
+         }
+.ft R
+.fi
+.SH SEE ALSO
+.BR librut,
+.BR librds,
+.BR addrdsins,
+.BR addrdsinsrec
+
+
+.so man1/alc_bug_report.1
+

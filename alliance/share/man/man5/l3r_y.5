@@ -1,0 +1,76 @@
+.\"   $Id: l3r_y.5,v 1.1 1999/05/31 17:30:27 alliance Exp $
+.pl -.4
+.TH L3R_Y 5 "October 1, 1997" "ASIM/LIP6" "STANDARD-CELL LIBRARY"
+.SH NAME
+.B l3r_y
+.so man1/alc_origin.1
+.SH SYNOPSIS
+.B Genlib call :
+.br
+  LOINS("l3r_y","name","i0","l0","i1","l1","l2","t","vdd","vss",0);
+.SH DESCRIPTION
+.I - Interface
+   entity l3r_y is
+     port(
+        i0 : in bit;
+        l0 : in bit;
+        i1 : in bit;
+        l1 : in bit;
+        l2 : in bit;
+        t : out bit;
+        vdd : in bit;
+        vss : in bit);
+.br
+.I - Logical description
+.br
+   label2 : block (l2 = '1')
+.br
+   begin
+.br
+     mpx_s <= guarded '0';
+.br
+   end block;
+.br
+   
+   label1 : block (l1 = '1')
+.br
+   begin
+.br
+     mpx_s <= guarded i1;
+.br
+   end block;
+.br
+   
+   label0 : block (l0 = '1')
+.br
+   begin
+.br
+     mpx_s <= guarded i0;
+.br
+   end block;
+.br
+   
+    t <= mpx_s;
+   
+.br
+.I - Physical features
+   number of grids : 8
+   number of feed-through : 2
+.br
+   
+.I - Timing caracteristics
+.br
+   i0 : 108 (fF)
+.br
+   l0 : 24 (fF)
+.br
+   i1 : 107 (fF)
+.br
+   l1 : 25 (fF)
+.br
+   l2 : 23 (fF)
+.br
+.br
+
+.so man1/alc_bug_report.1
+

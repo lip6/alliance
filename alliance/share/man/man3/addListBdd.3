@@ -1,0 +1,63 @@
+.\"   $Id: addListBdd.3,v 1.1 1999/05/31 17:30:16 alliance Exp $
+.\" @(#)addListBdd.2 7.01 92/08/22 ; Labo masi cao-vlsi; Author : Luc Burgun
+.TH ADDLISTBDD 3 "October 1, 1997" "ASIM/LIP6" "BDD functions"
+.so man1/alc_origin.1
+.SH NAME
+\fBaddListBdd\fP \- adds a BDD to a chained list of BDDs
+.SH SYNOPSYS
+.nf
+#include "logmmm.h"
+chain_list *addListBdd(pt,pBdd)
+chain_list *pt;
+pNode pBdd;
+.fi
+.SH PARAMETERS
+.TP 20
+\fIpt\fP
+old \fIchain_list\fP pointer
+.TP 20
+\fIpBdd\fP
+BDD to add
+.SH DESCRIPTION
+\fBaddListBdd()\fP adds \fIpBdd\fP to \fIpt\fP. This function computes an optimal reordering on \fIpt\fP that minimizes the number of nodes when the \fBapplyBdd()\fP function is called. 
+.SH EXAMPLE
+.nf
+#include "mutnnn.h"		/* mbk utilities */
+#include "logmmm.h"
+pNode nodeA,nodeB,nodeC;
+pNode res;
+chain_list *pt;
+
+initializeBdd(SMALL_BDD);
+nodeA = createNodeTermBdd(3);
+nodeB = createNodeTermBdd(3);
+nodeC = createNodeTermBdd(4);
+pt = NULL;
+pt = addListBdd(pt,nodeA);
+pt = addListBdd(pt,nodeB);
+pt = addListBdd(pt,nodeC);
+res = applyBdd(OR,pt);
+displayBdd(res,1);
+
+/* it will display 
+@res    INDEX = 4   LOW = @inter   HIGH = ONE
+@inter  INDEX = 3   LOW = @nodeA   HIGH = ONE
+@nodeA  INDEX = 2   LOW = ZERO	   HIGH = ONE
+*/
+/* total number of nodes = 5 */
+	
+destroyBdd(1);
+.fi
+.SH SEE ALSO
+.BR log (1),
+.BR bdd (1),
+.BR addListBdd (3),
+.BR addListBdd (3),
+.BR notBdd (3),
+.BR constraintBdd (3),
+.BR composeBdd (3),
+.BR displayBdd (3),
+.BR createNodeTermBdd (3).
+
+.so man1/alc_bug_report.1
+

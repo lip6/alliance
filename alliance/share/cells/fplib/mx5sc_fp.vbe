@@ -1,0 +1,88 @@
+--  Theoretical VHDL data flow description of cell `mx5sc_fp`
+--             DataPath cell LibrarY
+--               date : /07/1994
+
+-- Entity Declaration
+
+ENTITY mx5sc_fp IS
+  PORT (
+    s1i1  :  IN BIT;
+    s0i1  :  IN BIT;
+    s0i0  :  IN BIT;
+    s1i0  :  IN BIT;
+    s3i0  :  IN BIT;
+    s2i0  :  IN BIT;
+    s4i0  :  IN BIT;
+    s5i0  :  IN BIT;
+    i3  :  IN BIT;
+    i2  :  IN BIT;
+    i0  :  IN BIT;
+    i1  :  IN BIT;
+    i4  :  IN BIT;
+    o   : OUT BIT;
+    vdd :  IN BIT;
+    vss :  IN BIT
+    );
+END mx5sc_fp;
+
+
+-- Architecture Declaration
+
+ARCHITECTURE behaviour_data_flow OF mx5sc_fp IS
+
+SIGNAL no  : MUX_BIT BUS;
+SIGNAL o01 : MUX_BIT BUS;
+SIGNAL o23 : MUX_BIT BUS;
+SIGNAL o45 : MUX_BIT BUS;
+
+BEGIN
+o <= (not no) ;
+ 
+  w1:BLOCK(((not s1i1 and not i2) or (not s0i1 and not i3)) = '1') 
+    BEGIN
+         o01 <= GUARDED '1';
+    END BLOCK w1;
+
+    w0:BLOCK(((s1i1 and i3) or (s0i1 and i2)) = '1') 
+    BEGIN
+         o01 <= GUARDED '0';
+    END BLOCK w0;
+
+
+  w2:BLOCK(((not s0i0 and not i1) or (not s1i0 and not i0)) = '1') 
+    BEGIN
+         o23 <= GUARDED '1';
+    END BLOCK w2;
+
+    w3:BLOCK(((s0i0 and i0) or (s1i0 and i1)) = '1') 
+    BEGIN
+         o23 <= GUARDED '0';
+    END BLOCK w3;
+
+
+  w4:BLOCK(((not s3i0 and not o23) or (not s2i0 and not o01)) = '1') 
+    BEGIN
+         o45 <= GUARDED '1';
+    END BLOCK w4;
+
+    w5:BLOCK(((s3i0 and o01) or (s2i0 and o23)) = '1') 
+    BEGIN
+         o45 <= GUARDED '0';
+    END BLOCK w5;
+
+  w6:BLOCK(((not s4i0 and not i4) or (not s5i0 and not o45)) = '1') 
+    BEGIN
+         no <= GUARDED '1';
+    END BLOCK w6;
+
+    w7:BLOCK(((s4i0 and o45) or (s5i0 and i4)) = '1') 
+    BEGIN
+         no <= GUARDED '0';
+    END BLOCK w7;
+
+
+
+    ASSERT ((vdd = '1') and (vss = '0'))
+    REPORT "Power supply is missing on mx5sc_fp"
+    SEVERITY WARNING;
+END;

@@ -1,0 +1,115 @@
+.\"   $Id: syf.1,v 1.1 1999/05/31 17:30:14 alliance Exp $
+.\" @(#)Labo.l 2.2 95/09/24 UPMC; Author: Jacomme L.
+.pl -.4
+.TH SYF 1 "October 1, 1997" "ASIM/LIP6" "CAO\-VLSI Reference Manual"
+.SH NAME
+.TP
+SYF \- Finite State Machine synthesizer.
+.so man1/alc_origin.1
+.SH SYNOPSIS
+.TP
+\f4syf \-a|j|m|u|o|r [\-CDEOPRSTV] input_name [output_name]
+.br
+.SH DESCRIPTION
+.br
+\fBsyf\fp is a Finite State Machine synthesizer.
+\fBsyf\fp allows a fast generation of VHDL Data Flow description (see \fBvbe\fP(5))
+from a VHDL Finite State Machine description (see \fBfsm\fP(5)).
+The input FSM specification can use an internal STACK.
+Both MOORE and MEALEY FSMs can be synthesized, with output registers if desired.
+For a MOORE FSM, a timing\-optimized implementation that emulates a ROM with microsequencer
+is possible.
+A scan-path for the state registers can also be implemented.
+.br
+
+.SH ENVIRONMENT VARIABLES
+.br
+.TP 10
+\f4MBK_WORK_LIB\fR(1)
+indicates the path to the read/write directory for the session.
+.br
+
+.SH OPTIONS
+.TP 10
+\f4\-a\fP
+Uses "Asp" as encoding algorithm.
+.TP 10
+\f4\-j\fP
+Uses "Jedi" as encoding algorithm.
+.TP 10
+\f4\-m\fP
+Uses "Mustang" as encoding algorithm.
+.TP 10
+\f4\-u\fP
+Uses an encoding given by user through <input_name>.enc file.
+In this file, a line started by a # character is a comment.
+A valid line contains one state name followed by its hexadecimal code.
+.TP 10
+\f4\-o\fP
+Uses the one hot encoding algorithm.
+.TP 10
+\f4\-r\fP
+Uses distinct random numbers for state encoding.
+.TP 10
+\f4\-C\fP
+Checks the transition's consistency.
+.TP 10
+\f4\-D\fP
+With this option \fBsyf\fP doesn't optimize unused, i.e Don't Care, codes.
+.TP 10
+\f4\-E\fP
+Saves the encoding result in the <output_name>.enc.
+This file has the same syntax as <input_name>.enc file which is used by \-u option.
+.TP 10
+\f4\-O\fP
+With this option \fBsyf\fp places registers on the outputs.
+.TP 10
+\f4\-P\fP
+Implements a scan-path for the state registers, stack registers and possibly output registers.
+Please check \fBfsm\fP(5) for information about scan-path descriptions.
+.TP 10
+\f4\-R\fP
+This option is only available for MOORE FSM. With this option, \fBsyf\fP emulate
+s a ROM with micro\-sequencer implementation : there is no combinatorial logic between
+the state registers and the FSM outputs.
+This can be mandatory for external timing constraints.
+See \fBfsm\fP(5) and \fBgrog\fP(1) for more on ROM descriptions.
+.TP 10
+\f4\-S\fP
+With this option \fBsyf\fp doesn't take into account the cost of the transitions to compute
+an encoding.
+.TP 10
+\f4\-V\fP
+Verbose mode on.
+Each step of the FSM synthesis is displayed on the standard output, along with some statistics.
+.ti 7
+.SH EXAMPLE
+.br
+Environment variables:
+.br
+.ti 7
+setenv MBK_WORK_LIB /alliance/tutorials/dlxm
+.br
+.ti 7
+
+\fBsyf\fP is called as follow (the dlx_ctrl.fsm is already created in /alliance/tutorials/dlxm) :
+
+.ti 7
+\fBsyf\fP -sE dlx_ctrl
+
+Two files will be generated, a states encoding file dlx_ctrls.enc and a VHDL data flow file /alliance/tutorials/dlxm/dlx_ctrls.vbe
+.SH SEE ALSO
+.BR fsm (5),
+.BR vbe (5),
+.BR vhdl (5),
+.BR bop (1),
+.BR glop (1),
+.BR scmap (1),
+.BR c4map (1),
+.BR asimut (1),
+.BR proof (1),
+.BR MBK_WORK_LIB (1).
+
+
+.so man1/alc_bug_report.1
+

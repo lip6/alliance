@@ -1,0 +1,63 @@
+.\"   $Id: mssx_y.5,v 1.1 1999/05/31 17:30:27 alliance Exp $
+.pl -.4
+.TH MSSX_Y 5 "October 1, 1997" "ASIM/LIP6" "STANDARD-CELL LIBRARY"
+.SH NAME
+.B mssx_y
+.so man1/alc_origin.1
+.SH SYNOPSIS
+.B Genlib call :
+.br
+  LOINS("mssx_y","name","i","l","s","t","f","vdd","vss",0);
+.SH DESCRIPTION
+.I - Interface
+   entity mssx_y is
+     port(
+        i : in bit;
+        l : in bit;
+        s : in bit;
+        t : out bit;
+        f : out bit;
+        vdd : in bit;
+        vss : in bit);
+.br
+.I - Logical description
+.br
+   label1 : block ((not l and not l'stable ) = '1')
+.br
+   begin
+.br
+     dff_s <= guarded not i;
+.br
+   end block;
+.br
+   
+   label0 : block (s = '1')
+.br
+   begin
+.br
+     dff_s <= guarded '0';
+.br
+   end block;
+.br
+   
+    f <= dff_s;
+    t <= not dff_s;
+   
+.br
+.I - Physical features
+   number of grids : 16
+   number of feed-through : 11
+.br
+   
+.I - Timing caracteristics
+.br
+   i : 47 (fF)
+.br
+   l : 83 (fF)
+.br
+   s : 28 (fF)
+.br
+.br
+
+.so man1/alc_bug_report.1
+

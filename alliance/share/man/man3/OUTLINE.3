@@ -1,0 +1,56 @@
+.\"   $Id: OUTLINE.3,v 1.1 1999/05/31 17:30:16 alliance Exp $
+.\" @(#)OUTLINE.3 2.11 91/08/22; Labo Cao-vlsi; Author : Frederic Petrot
+.if t \{\
+.so man1/alc_contents.mac
+.XS \n%
+.ti 0.2i
+OUTLINE
+.XE \}
+.TH OUTLINE 3 "October 1, 1997" "ASIM/LIP6" "PROCEDURAL GENERATION LANGUAGE"
+.SH NAME
+OUTLINE \- build an outline from the current layout cell
+.SH SYNOPSYS
+.nf
+.if n \{\
+.ft B \}
+.if t \{\
+.ft CR \}
+#include <genlib.h>
+void OUTLINE();
+.ft R
+.fi
+.so man1/alc_origin.1
+.SH DESCRIPTION
+\fBOUTLINE\fP build a black box from a layout.
+After a call to \fBOUTLINE\fP, the figure has only its abutment box,
+its connectors, references and feed through.
+.SH EXAMPLE
+.nf
+.if n \{\
+.ft B \}
+.if t \{\
+.ft CR \}
+#include <genlib.h>
+main()
+{
+	/\(** Create a figure to work on  \(**/
+	DEF_PHFIG("cell");
+	/\(** Place an instance \(**/
+	PLACE("model","i1", NOSYM,0L,0L);
+	PLACE("model","i2", NOSYM,120L,40L);
+	DEF_PHINS("i1");
+	PLACE_TOP("model2", "i3", NOSYM);
+	/\(** define the new abutment box as the standard envelop \(**/
+	DEF_AB(0, 0, 0, 0);
+	OUTLINE();
+	/\(** Save all that on disk \(**/
+	SAVE_PHFIG();
+}
+.ft R
+.fi
+.SH SEE ALSO
+.BR genlib (1).
+
+
+.so man1/alc_bug_report.1
+

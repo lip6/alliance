@@ -1,0 +1,90 @@
+.\"   $Id: aboxmbkrds.3,v 1.1 1999/05/31 17:30:16 alliance Exp $
+.\" @(#)aboxmbkrds.1 1.11 93/08/18 ; Labo masi cao-vlsi
+.if t \{\
+.so man1/alc_contents.mac
+.XS \n%
+.ti 0.2i
+aboxmbkrds
+.XE
+.XS0 \n%
+.ti 0.2i
+aboxmbkrds
+.XE0 \}
+.TH ABOXMBKRDS 3 "October 1, 1997" "ASIM/LIP6" "RDS PHYSICAL FUNCTIONS"
+.SH NAME
+ aboxmbkrds \- converts MBK abutment box to RDS rectangle
+.so man1/alc_origin.1
+.SH SYNOPSYS
+.nf
+.if n \{\
+.ft B \}
+.if t \{\
+.ft CR \}
+#include "rfmnnn.h"
+ rdsrec_list \(**aboxmbkrds( FigureMbk, FigureRds )
+   phfig_list  \(**FigureMbk;
+   rdsfig_list \(**FigureRds;
+.ft R
+.fi
+.SH PARAMETER
+.TP 20
+\fIFigureMbk\fP
+Figure Mbk which contains the abutment box.
+.TP
+\fIFigureRds\fP
+Figure Rds which has to receive the abutment box.
+.SH DESCRIPTION
+The \fIaboxmbkrds\fP function adds to the RDS figure the abutment box from the MBK figure after conversion to the Rds format. 
+.SH RETURN VALUE
+If the abutment box of the MBK figure exists then the function returns the pointer to the Rds rectangle (abox) created. If it doesn't exist then NULL pointer is returned.
+.SH ERRORS
+.if n \{\
+.ft B \}
+.if t \{\
+.ft CR \}
+"Rds202: rdsalloc error, can't continue !"
+.ft R
+.RS
+it's impossible to allocate the memory size desired
+.SH EXAMPLE
+.ta 3n 6n 9n 12n 15n 18n 21n
+.nf
+.if n \{\
+.ft B \}
+.if t \{\
+.ft CR \}
+        #include "mphnnn.h"
+        #include "mutnnn.h"
+        #include "rdsnnn.h"
+        #include "rfmnnn.h"
+        #include "rtlnnn.h"
+        typedef struct UserStruct
+         {
+           char \(**STRING;
+           void \(**USER1;
+         } UserStruct;
+        main()
+          {
+            phfig_list  \(**MbkFigure;
+            rdsfig_list \(**RdsFigure;
+            rdsrec_list \(**RdsAbox;
+            mbkenv();
+            rdsenv();
+            loadrdsparam();
+            /\(** creates MbkFigure Named "core" \(**/
+            MbkFigure        = addphfig("core"); 
+            /\(** creates RdsFigure named "core_2" \(**/
+            RdsFigure        = addrdsfig("core_2",sizeof(UserStruct));
+            /\(** Adds Abox of MbkFigure to Rds Figure \(**/
+            RdsAbox          = \fBaboxmbkrds\fP ( MbkFigure, RdsFigure );
+            . . .
+          }
+.ft R
+.fi
+.SH SEE ALSO
+.BR librfm,
+.BR loadrdsparam
+
+
+.so man1/alc_bug_report.1
+

@@ -1,0 +1,52 @@
+.\"   $Id: process.3,v 1.1 1999/05/31 17:30:24 alliance Exp $
+.\" @(#)PROCESS.2 1.9 UPMC ; VUONG H.N.
+.TH PROCESS 3 "October 1, 1997" "ASIM/LIP6" "GENPAT functions"
+
+.SH NAME
+.PP
+\fBprocess\fP, GENPAT Package
+
+.so man1/alc_origin.1
+.SH SYNOPSYS
+.PP
+.nf
+void process_name(parameter, ...)
+int/char/char * parameter;
+  {
+  ...
+  }
+.fi
+
+.SH DESCRIPTION
+.PP
+PROCESS permit to describe routine (C Language meaning), but with the subset of C language of GENPAT. They are always of type void (declared explicitely), they can't access to the variables of the parents and of the environment.
+
+.SH EXAMPLE
+.PP
+.nf
+void horloge_1(pat,ckm,cks)
+int pat;
+int ckm,cks;
+  {
+  affect(conv(pat),"ck",conv(ckm),0);
+  affect(conv(pat+1),"ck",conv(cks),0);
+  }
+
+void horloge_2(pat)
+int pat;
+  {
+  for(i=0;i<10;i=i+2)
+    {
+    affect(conv(pat+i),"ck","1",0);
+    affect(conv(pat+i+1),"ck",ZERO_B,0);
+    }
+  }
+
+.fi
+
+.SH SEE ALSO
+genpat(1), pat(5)
+
+
+.so man1/alc_bug_report.1
+

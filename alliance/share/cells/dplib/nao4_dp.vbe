@@ -1,0 +1,51 @@
+-- VHDL data flow description generated from `nao4_dp`
+--		date : Thu Oct 30 17:34:01 1997
+
+
+-- Entity Declaration
+
+ENTITY nao4_dp IS
+  GENERIC (
+    CONSTANT area : NATURAL := 1800;	-- area
+    CONSTANT transistors : NATURAL := 8;	-- transistors
+    CONSTANT cin_i : NATURAL := 61;	-- cin_i
+    CONSTANT cin_i0 : NATURAL := 78;	-- cin_i0
+    CONSTANT cin_i1 : NATURAL := 78;	-- cin_i1
+    CONSTANT cin_i2 : NATURAL := 78;	-- cin_i2
+    CONSTANT tplh_i2_f : NATURAL := 1067;	-- tplh_i2_f
+    CONSTANT rup_i2_f : NATURAL := 2230;	-- rup_i2_f
+    CONSTANT tphl_i2_f : NATURAL := 991;	-- tphl_i2_f
+    CONSTANT rdown_i2_f : NATURAL := 2020;	-- rdown_i2_f
+    CONSTANT tplh_i1_f : NATURAL := 917;	-- tplh_i1_f
+    CONSTANT rup_i1_f : NATURAL := 2230;	-- rup_i1_f
+    CONSTANT tphl_i1_f : NATURAL := 1090;	-- tphl_i1_f
+    CONSTANT rdown_i1_f : NATURAL := 2020;	-- rdown_i1_f
+    CONSTANT tplh_i0_f : NATURAL := 762;	-- tplh_i0_f
+    CONSTANT rup_i0_f : NATURAL := 2230;	-- rup_i0_f
+    CONSTANT tphl_i0_f : NATURAL := 1142;	-- tphl_i0_f
+    CONSTANT rdown_i0_f : NATURAL := 2020;	-- rdown_i0_f
+    CONSTANT tplh_i_f : NATURAL := 693;	-- tplh_i_f
+    CONSTANT rup_i_f : NATURAL := 2230;	-- rup_i_f
+    CONSTANT tphl_i_f : NATURAL := 526;	-- tphl_i_f
+    CONSTANT rdown_i_f : NATURAL := 2050	-- rdown_i_f
+  );
+  PORT (
+  i : in BIT;	-- i
+  i0 : in BIT;	-- i0
+  i1 : in BIT;	-- i1
+  i2 : in BIT;	-- i2
+  f : out BIT;	-- f
+  vdd : in BIT;	-- vdd
+  vss : in BIT	-- vss
+  );
+END nao4_dp;
+
+
+-- Architecture Declaration
+
+ARCHITECTURE behaviour_data_flow OF nao4_dp IS
+
+BEGIN
+
+f <= (not (i) and not (((i0 and i1) and i2)));
+END;

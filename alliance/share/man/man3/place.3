@@ -1,0 +1,262 @@
+.\"   $Id: place.3,v 1.1 1999/05/31 17:30:24 alliance Exp $
+.\" @(#)place.1 1.0 93/07/29 ; Labo masi cao-vlsi; Author : Xavier Picat
+.TH PLACE 3 "October 1, 1997" "ASIM/LIP6" "APR FUNCTIONS"
+.SH NAME
+place \- place the cells of a net list
+.so man1/alc_origin.1
+.SH SYNOPSYS
+.nf
+.if n \{\
+.ft B \}
+.if t \{\
+.ft CR \}
+#include "aprnnn.h"
+placement_fig \fB*place\fP(ptlofig, 
+			  nbmodif, 
+			  nbrow, 
+			  weightx, 
+			  weighty, 
+			  weightrows, 
+			  weightcon, 
+			  connectors)
+lofig_list		*ptlofig;
+unsigned long	nbmodif;
+unsigned long	nbrow;
+unsigned long	weightx;
+unsigned long	weighty;
+unsigned long	weightrows;
+long			weightcon;
+PlaceConList	*connectors;
+.br
+.SH PARAMETERS
+.TP 15
+\fIptlofig\fP
+logical view to place
+.TP 15
+\fInbmodif\fP
+how many times the placer must try for a better placement
+.TP 15
+\fInbrow\fP
+number of rows the figure must have
+.TP 15
+\fIweightx\fP
+weight of horizontal distances in the cost function
+.TP 15
+\fIweighty\fP
+weight of vertical distances in the cost function
+.TP 15
+\fIweightrows\fP
+weight of the length disparities in the cost function
+.TP 15
+\fIweightcon\fP
+weight of the distances to the external connectors in the cost function
+.TP 15
+\fIconnectors\fP
+constraints on the external connectors placement
+.br
+.SH DESCRIPTION
+\fBplace\fP tries to place the instances of the logical view, in order to minimize the cost function.
+.br
+.TP 15
+\fIptlofig\fP
+logical view to place
+.TP 15
+\fInbmodif\fP
+The greater \fInbmodif\fP, the better the placement (that is, the smallest the circuit will be after routing). The time used to place the view is proportionnal to \fInbmodif\fP, it also depends on the number of instances contained in the logical view. With \fInbmodif\fP = 1000 :
+.br
+      80 instances(cells) -> 25 s
+.br
+     450 instances(cells) -> 40 s
+.br
+If \fInbmodif\fP is lesser than the number of cells, it is set to that number, in order to avoid very bad placement.
+.br
+.TP 15
+\fInbrow\fP 
+Number of rows on which the cells must be placed. If it equals 0, the program computes a value which will, hopefully, give a square shape.
+.br
+.bp
+.PP
+Here is the cost function used, in order to help you understand the use of the \fIweight\fP parameters:
+.br
+   TotalCost = SignalsCost + (RowsCost*2)^\fIweightrows\fP
+.br
+SignalsCost = HorizontalCost*2^\fIweightx\fP + VerticalCost*2^\fIweighty\fP + ConnectorsCost*2^\fIweightcon\fP
+.br
+.TP 20
+          HorizontalCost
+is an estimation to the total length of all the signals on the x axis (in lambdas).
+.TP 20
+          VerticalCost
+is an estimation to the total length of all the signals on the y axis (in lambdas).
+.TP 20
+          RowsCost
+represents the inequality of the Rows width (in lambdas).
+.TP 20
+          ConnectorsCost
+represents the total length of all the signals which are connected to a connector.
+.TP 20
+\fIweightx, weight\fP
+All the cost coefficients are used as power of 2. So take care not to give a too big value to these parameters : neither \fIweightx\fP, nor \fIweighty\fP should be greater than 10(2^10 = 1024), because on big circuits it could result in an overflow during the TotalCost computing. In case of overflow, the area improvement will be low (<30%) wathever value of \fInbmodif\fP.
+.TP 20
+\fIweightrows\fP
+must not be larger than 3, larger values, will result in a very, very, bad placement.
+.TP 20
+\fIconnectors\fP
+Describe where some connectors shall be placed. If it is NULL, the \fIweightcon\fP parameter isn't taken in account.
+.br
+.PP
+The PlaceConList structure contains the connectors placement constraints :
+.br
+typedef struct	{
+.IP
+	CaracConList *NEXT;
+.br
+	char		*NAME;
+.br
+	long		USER;
+.br
+	} CaracConList;
+.br
+.fi
+.TP 15
+\fINEXT\fP
+Pointer to the next connector placed on the same face.
+.br
+.TP 15
+\fINAME\fP
+Name of the connector; it must be present in the lofig_list.
+.br
+.TP 15
+\fIUSER\fP
+Row on which the connector must be placed. Take care that if you don't set the number of rows(\fInbrow\fP), you may place a connector on a row which doesn't exist (because if \fInbrow\fP = 0, the placer compute a value for \fInbrow\fP which may be too small).
+.br
+.PP
+typedef struct	{
+.IP
+	CaracConList	*NORTH_CON;
+.br
+	CaracConList	*SOUTH_CON;
+.br
+	CaracConList	*WEST_CON;
+.br
+	CaracConList	*EAST_CON;
+.br
+	long		VER_FEED;
+.br
+	long		HOR_FEED;
+.br
+	} PlaceConList
+.br
+.TP 15
+\fINORTH_CON\fP, \fISOUTH_CON\fP, \fIWEST_CON\fP, \fIEAST_CON\fP
+All these fields point to a \fICaracConList\fP which tells the placer on which face the connectors of the concerned list are placed. One or all of these fields may be NULL.
+.br
+.TP 15
+\fIVER_FEED\fP, \fIHOR_FEED\fP
+These fields are ignored by the placer.
+.br
+.bp
+.PP
+The \fIplacement_fig\fP structure contains the cell placement given by the optimization procedure:
+.br
+typedef struct	{
+.IP
+	row_elt   *Rows;
+.br
+	long       NbRow;
+.br
+	cell_list *Cells;
+.br
+	long       NbCells;
+.br
+	} placement_fig
+.br
+.TP 15
+\fIRows\fP, \fINbRow\fP
+Pointer to an array of \fINbRow\fP(=\fInbrow\fP if it wasn't null) \fIrow_elt\fP elements. Don't forget to free this array, allocated by \fBplace\fP, with a call to \fBmbkfree\fP.
+.br
+.TP 15
+\fICells\fP,\fINbCells\fP
+Pointer to an array of \fINbCells\fP \fIcell_list\fP elements. The main purpose of the field is to allow you to free this array, allocated by \fBplace\fP, with a call to \fBmbkfree\fP. The \fIhead\fP and \fItail\fP fields of the \fIrow_elt\fP structure point to an element of these array. All the elements of this array are chained together. So it cannot be freed until you have used it.
+.PP
+typedef struct	{
+.IP
+	cell_list *head;
+.br
+	cell_list *tail;
+.br
+	long       width;
+.br
+	} row_elt;
+.br
+.TP 15
+\fIhead\fP, \fItail\fP
+Pointer to the first and the last cells of the row.
+.br
+.TP 15
+\fIwidth\fP
+width of the row
+.PP
+typedef struct	{
+.br
+		cell_list  *next;
+.br
+		cell_list  *prev;
+.br
+		long        width;
+.br
+		long        x;
+.br
+		long        y;
+.br
+		long        row;
+.br
+		loins_list *ins;
+.br
+		void       *first;
+.br
+		} cell_list
+.IP "\fInext\fP, \fIprev\fP" 10n
+These fields hold a pointer to the next and the previous cell in the row \fIrow\fP.
+.br
+.IP "\fIwidth\fP" 
+width of the cell (in lambda).
+.br
+.IP "\fIx\fP, \fIy\fP"
+Position of the center of the cell. Do not rely on these values, as they aren't really the coordinates of the instance (they are only used to speed-up the placement processing).
+.br
+.IP "\fIrow\fP"
+In which row the cell is in.
+.br
+.IP "\fIins\fP"
+Pointer to the \fIloins_list\fP associated to the cell (taken from the \fIlofig_list\fP).
+.br
+.IP "\fIfirst\fP"
+Undocumented.
+Width of the row (it is this value which determines the RowsCost).
+.br
+.SH EXAMPLE
+#include "aprnnn.h"
+.br
+phfig_list *place_the_fig(ptlofig)
+.br
+lofig_list *ptlofig;
+.br
+{
+.br
+	return (Placer2scr(ptlofig->NAME,
+.br
+			Place(ptlofig,1000,4,0,7,5,5,LeadPlaceConList));
+.br
+}
+.br
+.SH SEE ALSO
+.BR mbkfree(1), 
+.BR loins(1), 
+.BR lofig(1),
+.BR scr(1)
+.BR apr(3)
+.br
+
+.so man1/alc_bug_report.1
+

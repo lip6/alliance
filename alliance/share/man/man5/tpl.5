@@ -1,0 +1,108 @@
+.\"   $Id: tpl.5,v 1.1 1999/05/31 17:30:28 alliance Exp $
+.\" @(#)tpl.5 1.0 Oct 05 1994 UPMC; Author: FLORENT O.
+.TH TPL 5 "October 1, 1997" "ASIM/LIP6" "CAO\-VLSI Reference Manual"
+.SH NAME
+.PP
+\fBtpl\fP \- LV500 Template description format. 
+
+.so man1/alc_origin.1
+.SH DESCRIPTION
+.PP
+The TPL format is used by \fBpatest\fP with PAT format to produce a MSA file 
+readable by the LV500 tester.
+It provides two types of informations:
+.RS
+.PP
+\- Timing characteristics of the pattern file.
+.br
+\- Wiring description of the chip.
+.RE 
+
+.SH THE FORMAT
+.SS Timing characteristics
+
+First, \fBclock\fP signal must be declared using a declaration of the form:
+.RS
+
+\fICLOCK\fP input_output_name [\fIformat\fP] ;
+.RE
+
+where \fIformat\fP is either \fIR0\fP (default value) or \fIR1\fP. 
+R0 represents an active HIGH signal, and R1 an active LOW signal.
+There can be severals clock signals.
+
+Then each combination of the "clock" signals in the pattern file must be
+associated with 5 timing indications in nano\-seconds.
+The order in wich this 5 timing indications are described is indicated 
+in a line of the form:
+
+\fIPARAM CYCLE DELAY WIDTH FORCE COMPARE\fP ; 
+
+This line if followed by the timing indications associated to each 
+combination of the "clock" signals :
+
+\fIPHASE\fP "<phase_description>" time1 time2 time3 time4 time5 ;
+
+The signification of each timing indication is :
+
+.TP 10
+\fBCYCLE\fP
+The pattern length.
+.TP 10
+\fBDELAY\fP
+The time when "clock" signals rise (or fall) from the beginning of the pattern.
+.TP 10
+\fBWIDTH\fP
+The length of the high (or low) state of "clock" signals.
+.TP 10
+\fBFORCE\fP
+The time when inputs signals change their values from the beginning of the pattern.
+.TP 10
+\fBCOMPARE\fP
+The time when outputs are checked from the beginning of the pattern.
+
+.SS Wiring description
+
+Each logical connector of the chip must be associated with its physical
+sector and channel on the tester using :
+
+\fIPIN\fP <input_output_name> <sector>.<channel> ;
+
+All the logical connector must be listed here. The list is end whith a
+\fB"end ;"\fP statement.
+
+.SH EXAMPLE
+
+.nf
+
+## My circuit is a latch design, with two clocks
+## active high: the master clock and the slave clock
+CLOCK	ckm		R0;
+CLOCK	cks		R0;
+
+## In my pattern file, I cannot find a combination 
+## of ckm/cks different from the two following one :
+## '10' : loading master latches
+## '01' : loading slave  latches
+PARAM          CYCLE   DELAY   WIDTH  FORCE   COMPARE ;
+PHASE   '10'   200     50      100    10      160     ;
+PHASE   '01'   200     40       50    10      160     ;
+
+## my chip is a 7 pin chip.
+PIN   ckm   0.0 ;
+PIN   cks   0.a ;
+PIN   in1   0.f ;
+PIN   in2   1.1 ;
+PIN   out   0.b ;
+PIN   vdd   3.0 ;
+PIN   vss   0.c ;
+end ;
+.fi
+
+.SH SEE ALSO
+.PP
+patest(1), pat(5)
+
+
+.so man1/alc_bug_report.1
+

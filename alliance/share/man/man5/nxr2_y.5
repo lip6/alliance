@@ -1,0 +1,39 @@
+.\"   $Id: nxr2_y.5,v 1.1 1999/05/31 17:30:28 alliance Exp $
+.pl -.4
+.TH NXR2_Y 5 "October 1, 1997" "ASIM/LIP6" "STANDARD-CELL LIBRARY"
+.SH NAME
+.B nxr2_y
+.so man1/alc_origin.1
+.SH SYNOPSIS
+.B Genlib call :
+.br
+  LOINS("nxr2_y","name","i0","i1","f","vdd","vss",0);
+.SH DESCRIPTION
+.I - Interface
+   entity nxr2_y is
+     port(
+        i0 : in bit;
+        i1 : in bit;
+        f : out bit;
+        vdd : in bit;
+        vss : in bit);
+.br
+.I - Logical description
+.br
+    f <= not (i0 xor i1);
+   
+.br
+.I - Physical features
+   number of grids : 7
+   number of feed-through : 4
+.br
+   
+.I - Timing caracteristics
+.br
+   i0 : 126 (fF)
+.br
+   i1 : 127 (fF)
+.br
+
+.so man1/alc_bug_report.1
+

@@ -1,0 +1,105 @@
+.\"   $Id: grog.3,v 1.1 1999/05/31 17:30:20 alliance Exp $
+.\" @(#)grog.2 2.11 91/08/22 ; Labo masi cao-vlsi; Author : Frederic Petrot
+.ie t \{\
+.fp 4 C \}
+.el \{\
+.fp 4 B \}
+.TH GROG 3 "October 1, 1997" "ASIM/LIP6" "MBK PHYSICAL FUNCTIONS"
+.SH NAME
+grog \- call the \fIROM\fP generator
+.so man1/alc_origin.1
+.SH SYNOPSYS
+.nf
+.if n \{\
+.ft B \}
+.if t \{\
+.ft CR \}
+#include "ggr000.h"
+char \(**grog(name, nb, nw, codefile, tr, hz, r, msb,
+           layout, logicalbox, vhdl, pattern, icon,
+           physicalbox, datasheet)
+char \(**name, \(**codefile;
+long nb, nw, tr, hz, r, msb, layout, logicalbox,
+     vhdl, pat, icon, physicalbox, datasheet;
+.ft R
+.fi
+.SH PARAMETER
+.TP 20
+\fIname\fP
+Name of the generated block.
+.TP 20
+\fInb\fP
+Number of bits of the \fIROM\fR.
+This number ranges from 1 to 64 inclusive.
+.TP 20
+\fInw\fP
+Number of words of the \fIROM\fR.
+The acceptables values are 64, 128, 256, 512 * n, where n belongs to {1,...,8}
+.TP 20
+\fIcodefile\fP
+Name of the file that contains the values to be poked in the \fIROM\fR.
+.TP 20
+\fItr\fP
+Ask for feed through every bit line if not set to zero.
+.TP 20
+\fIhz\fP
+Ask for three state buffer if not set to zero.
+.TP 20
+\fIr\fP
+Ask for output order from right to left if not zero.
+.TP 20
+\fImsb0\fP
+Indicate that \f4a[0]\fR is the most significant bit if not zero.
+.TP 20
+\fIlayout\fP
+If not zero, generate the layout.
+.TP 20
+\fIlogicalbox\fP
+If not zero, generate the interface of the netlist.
+.TP 20
+\fIvhdl\fP
+If not zero, generate the behavior.
+.TP 20
+\fIpattern\fP
+If not zero, generate the pattern for simulation.
+.TP 20
+\fIicon\fP
+If not zero, generate the icon.
+.TP 20
+\fIphysicalbox\fP
+If not zero, generate an outline of the layout.
+.TP 20
+\fIdatasheet\fP
+If not zero, generate the datasheet.
+.SH DESCRIPTION
+\fBgrog\fP is a library function that allows to directly call \f4grog\fR(1),
+the \fBAlliance\fR \fIROM\fR generator from a programm.
+Details on the arguments can be found in the \f4grog\fR(1) manual.
+.SH OUTPUT FILES
+.TP 20
+\fIname\fR.\f4xx\fR
+Layout, netlist and icon views.
+For these views, the suffixes depend on the
+\f4MBK_OUT_PH\fR(1), \f4MBK_OUT_LO\fR(1) and \f4ICON_OUT\fR
+environment variables.
+The \fIname\fP is either the one specified by the user, or an internally
+generated one prefixed by \f4r\fIwords\f4x\fIbits\fR.
+.TP
+\fIname\fR.\f4vbe\fR
+\fIvhdl\fR behavior.
+.TP
+\fIname\fR.\f4pat\fR
+Set of patterns for validation.
+.TP
+\fIname\fR.\f4dts\fR
+Datasheet.
+.SH SEE ALSO
+.BR mbk (1),
+.BR genlib (1),
+.BR grog (1),
+.BR rfg (3),
+.BR bsg (3),
+.BR rsa (3).
+
+.so man1/alc_bug_report.1
+

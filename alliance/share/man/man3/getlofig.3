@@ -1,0 +1,81 @@
+.\"   $Id: getlofig.3,v 1.1 1999/05/31 17:30:21 alliance Exp $
+.\" @(#)getlofig.2 2.11 91/08/22 ; Labo masi cao-vlsi; Author : Frederic Petrot
+.if t \{\
+.so man1/alc_contents.mac
+.XS \n%
+.ti 0.2i
+getlofig
+.XE
+.XS3 \n%
+.ti 0.2i
+getlofig
+.XE3 \}
+.TH GETLOFIG 3 "October 1, 1997" "ASIM/LIP6" "MBK LOGICAL UTILITY FUNCTIONS"
+.SH NAME
+getlofig \- give back a pointer to a \fIlofig\fP 
+.so man1/alc_origin.1
+.SH SYNOPSYS
+.nf
+.if n \{\
+.ft B \}
+.if t \{\
+.ft CR \}
+#include "mlo412.h"
+lofig_list \(**getlofig(figname, mode)
+char \(**figname;
+char mode;
+.ft R
+.fi
+.SH PARAMETERS
+.TP 20
+\fIfigname\fP
+Name of the figure to be created
+.TP
+\fImode\fP
+Demanded mode for the figure
+.SH DESCRIPTION
+\fBgetlofig\fP returns a pointer to the figure called \fIfigname\fP with the
+warranty that the expected information is present in memory.
+.br
+If \fImode\fP is \fB'A'\fP then the figure has all its lists filled, else
+the figure may either be complete or interface only.
+.br
+This function allows to completly mask disk access for applications
+programs. If the figure is in memory, with the specified \fImode\fP,
+then the function returns the appropriate pointer. Else, the function performs
+a call to the \fBloadlofig(3)\fP and returns a pointer to the loaded
+figure.
+.SH RETURN VALUE
+\fBgetlofig\fP returns a pointer to the wanted figure.
+.SH ERRORS
+\fBgetlofig\fP cannot give any errors, but the subsequent calls it performs
+to parsers do. So the source of trouble may be the call to \fBgetlofig\fP.
+See \fBloadlofig\fP(3) for details.
+.SH EXAMPLE
+.ta 3n 6n 9n 12n 15n 18n 21n
+.nf
+.if n \{\
+.ft B \}
+.if t \{\
+.ft CR \}
+#include "mlo412.h"
+lofig_list \(**na2_y()
+{
+	/\(** find in memory or load from disk na2_y \(**/
+	return getlofig("na2_y", 'A');
+}
+.ft R
+.fi
+.SH SEE ALSO
+.BR mbk (1),
+.BR lofig (3),
+.BR addlofig (3),
+.BR dellofig (3),
+.BR loadlofig (3),
+.BR savelofig (3),
+.BR flattenlofig (3),
+.BR rflattenlofig (3).
+
+
+.so man1/alc_bug_report.1
+

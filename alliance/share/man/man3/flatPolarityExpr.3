@@ -1,0 +1,65 @@
+.\"   $Id: flatPolarityExpr.3,v 1.1 1999/05/31 17:30:21 alliance Exp $
+.\" @(#)flatPolarityExpr.2 7.01 92/08/22 ; Labo masi cao-vlsi; Author : Luc Burgun
+.TH FLATPOLARITYEXPR 3 "October 1, 1997" "ASIM/LIP6" "ABL functions"
+.so man1/alc_origin.1
+.SH NAME
+\fBflatPolarityExpr\fP \- translates the inverters of an expression to the level of atomic expressions 
+.SH SYNOPSYS
+.nf
+#include "logmmm.h"
+chain_list *flatPolarityExpr(expr,sign)
+chain_list *expr;
+int sign;
+.fi
+.SH PARAMETERS
+.TP 20
+\fIexpr\fP
+expression to transform
+.TP 20
+\fIsign\fP
+expression or expression inverted
+.SH DESCRIPTION
+\fBflatPolarityExpr()\fP creates a new ABL in which inverters are translated to the level of atomic expressions by applying Morgan's laws and simplification law. If \fIsign = 0\fP the function returns the transformed expression after having complemented it.
+.nf
+\fITranformation law\fP
+- (NOT (NOT a))   --> a
+- (NOT (AND a b)) --> (OR (NOT a) (NOT b))
+- (NOT (OR a b))  --> (AND (NOT a) (NOT b))
+.fi
+.SH EXAMPLE
+.nf
+#include "mutnnn.h"		/* mbk utilities */
+#include "logmmm.h"
+chain_list *expr1,*expr2,*expr3; 
+expr1 = createExpr(OR);
+addQExpr(expr1,createAtom("a"));
+addQExpr(expr1,createAtom("b"));
+expr1 = notExpr(expr1);
+expr2 = flatPolarityExpr(expr1,0);
+expr3 = flatPolarityExpr(expr1,1);
+displayExpr(expr1);
+displayExpr(expr2);
+displayExpr(expr3);
+/* it will display
+(NOT (OR a b))
+(AND (NOT a) (NOT b))
+(OR a b)
+*/
+freeExpr(expr1);
+freeExpr(expr2);
+freeExpr(expr3);
+.fi
+.SH SEE ALSO
+.BR log (1),
+.BR abl (1),
+.BR copyExpr (3),
+.BR substExpr (3),
+.BR substPhyExpr (3),
+.BR flatArityExpr (3),
+.BR maxExpr (3),
+.BR minExpr (3),
+.BR sortExpr (3),
+.BR normExpr (3).
+
+.so man1/alc_bug_report.1
+

@@ -1,0 +1,46 @@
+.\"   $Id: MBK_VSS.1,v 1.1 1999/05/31 17:30:13 alliance Exp $
+.\" @(#)MBK_VSS.8 2.11 91/08/22; Labo Cao-vlsi; Author : Frederic Petrot
+.if t \{\
+.so man1/alc_contents.mac
+.XS \n%
+.ti 0.2i
+MBK_VSS
+.XE \}
+.TH MBK_VSS 1 "October 1, 1997" "ASIM/LIP6" "MBK ENVIRONMENT VARIABLES"
+.SH NAME
+MBK_VSS \- define the ground power name pattern
+.SH SYNOPSYS
+.nf
+.if n \{\
+.ft B \}
+.if t \{\
+.ft CR \}
+c-shell running
+setenv MBK_VSS groundname
+.ft R
+.fi
+.so man1/alc_origin.1
+.SH DESCRIPTION
+\fBMBK_VSS\fP sets the pattern to be matched in a name to indicate a
+ground node for the tools based upon
+Its default value is \fBvss\fP.
+Therefore all names of the form `*\fBvss\fP*' in indicates a ground node.
+.SH EXAMPLE
+.nf
+.if n \{\
+.ft B \}
+.if t \{\
+.ft CR \}
+	setenv MBK_VSS gnd
+.ft R
+.fi
+.SH SEE ALSO
+.BR mbk (1),
+.BR genlib (1),
+.BR isvss (3),
+.BR isvdd (3),
+.BR MBK_VDD (1).
+
+
+.so man1/alc_bug_report.1
+

@@ -1,0 +1,242 @@
+.\"   $Id: fsm.5,v 1.1 1999/05/31 17:30:26 alliance Exp $
+.\" @(#)FSM.5 2.1 Sep 24 1995 UPMC ; Jacomme L.
+.TH FSM 5 "October 1, 1997" "ASIM/LIP6" "VHDL subset of ASIM/LIP6/CAO-VLSI lab."
+
+.SH NAME
+.PP
+\fBfsm\fP - Alliance VHDL Finite State Machine description subset.
+
+.so man1/alc_origin.1
+.SH DESCRIPTION
+.PP
+This document describes the Alliance VHDL subset for Finite State Machine description.
+
+.br
+This FSM subset is neither accepted by the logic simulator \fBasimut\fP(1),
+nor the formal prover \fBproof\fP(1).
+
+.br
+This VHDL subset is defined to enable classical MOORE and MEALEY synchronous
+finite state machine description as well as stack FSM description (see \fBsyf\fP(1) 
+for further information about this kind of FSM).
+.br
+A FSM description is made of two and only two processes.
+Connectors and signals can only be of \fBin\fP, \fBout\fP, and two user defined
+enumerated types.
+Vectors of \fBin\fP and \fBout\fP types are also allowed.
+.br
+FSM's states and stack control signals must be declared as enumerated type.
+.br
+For the scan-path, three more signals are required :
+.RS
+- scan_test: in bit
+.br
+- scan_in: in bit
+.br
+- scan_out: out bit
+.RE
+.br
+For a ROM implementation, the vdd and vss signals must be explicitely declared as :
+.RS
+.br
+- rom_vdd : in bit
+.br
+- rom_vss : in bit
+.SH
+These signals, declared in the interface, are not used or assigned in the FSM description.
+The '-P' option of \fBsyf\fP(1) allows scan-path implementation.
+.br
+.PP
+Pragmas :
+.br
+.RS
+A pragma is a comment that gives necessary informations to the synthesis and formal
+proof tools.
+.br
+
+Three pragmas are used, their generic names are :
+.br
+.RS
+- CLOCK : External clock signal name.
+.br
+- CURRENT_STATE : Current State name.
+.br
+- NEXT_STATE : Next State name.
+.SH
+Ten other pragmas are optional.
+.br
+Three pragmas are required only for scan-path implementation.
+.br
+.RS
+- SCAN_TEST : Enable test mode (scan-path).
+.br
+- SCAN_IN : scan-path input.
+.br
+- SCAN_OUT : scan-path output.
+.br
+.SH
+Five others are used only in a STACK FSM.
+.br
+.RS
+- RETURN_STATE : Return State name.
+.br
+- CONTROL : Stack Control signal name.
+.br
+- POP : POP operation on the stack.
+.br
+- PUSH : PUSH operation on the stack.
+.br
+- NOP : NOP operation on the stack.
+.SH
+The last ones for ROM implementation
+.RS
+- ROM_VDD : Name of the vdd signal of the ROM.
+.br
+- ROM_VSS :Name of the vss signal of the ROM.
+
+.SH
+.br
+Two different processes are used : The first process, called state process,
+allows to describe state transition and outputs generation.
+It is not controlled by the clock.
+The second process is controlled by the clock and descibes the state 
+register and stack registers modifications. 
+.br
+State process sensitivity list contains inputs and CURRENT_STATE, it means 
+that the state process is activated when the CURRENT_STATE or an input signal changes. 
+A case statement is used to describe, for each state, the next state and outputs.
+.br
+The second process sensitivity list contains the clock signal, so this process 
+is enabled whenever clock changes.
+Both Level sensitive latches, and falling edge triggered flip flops can be used for
+state registers and stack implementation.
+.br
+.SH EXAMPLES
+.PP
+.nf
+Entity FSM_EX is
+
+port(
+   ck    : in bit ;
+   reset :in bit;
+   t_mode:in bit;
+   s_in  :in bit;
+   i     :in bit;
+   s_out :out bit;
+   o     :out bit
+);
+End FSM_EX;
+
+architecture auto of FSM_EX is
+
+type STATE_TYPE is (S0,S1,S2,S3,S4,S5);
+type CONTROL is (PUSH,POP,NOP);
+
+-- pragma CLOCK ck
+-- pragma CURRENT_STATE CURRENT_STATE
+-- pragma NEXT_STATE NEXT_STATE
+-- pragma RETURN_STATE RETURN_STATE
+-- pragma CONTROL CTRL
+-- pragma PUSH PUSH
+-- pragma POP POP
+-- pragma NOP NOP
+-- pragma SCAN_TEST t_mode
+-- pragma SCAN_IN s_in
+-- pragma SCAN_OUT s_out
+
+signal CURRENT_STATE, NEXT_STATE, RETURN_STATE : STATE_TYPE;
+signal CTRL : CONTROL;
+signal STACK_0, STACK_1 : STATE_TYPE ;
+
+
+begin 
+  
+PROCESS(CURRENT_STATE,I,reset)
+  begin
+    if(reset) then
+      NEXT_STATE <= S0 ;
+      o <= '0' ;
+  else
+      case CURRENT_STATE is
+        WHEN S0 =>
+        NEXT_STATE <= S1;
+        RETURN_STATE <= S5;
+        CTRL <= PUSH;
+
+        o <= '0';
+
+        WHEN S1 =>
+        if (I = '1') then
+          NEXT_STATE <= S2;
+          CTRL <= NOP;
+        else
+          NEXT_STATE <= S3;
+          CTRL <= NOP;
+        end if;
+
+        o <= '0';
+
+        WHEN S2 =>
+        NEXT_STATE <= S4;
+        CTRL <= NOP;
+
+        o <= '0';
+
+        WHEN S3 =>
+        NEXT_STATE <= S4;
+        CTRL <= NOP;
+
+        o <= '0';
+
+        WHEN S4 =>
+        NEXT_STATE <= STACK_0;
+        CTRL <= POP;
+
+        o <= '1';
+
+        WHEN S5 =>
+        if (I = '1') then
+          NEXT_STATE <= S1;
+          RETURN_STATE <= S0 ;
+          CTRL <= PUSH;
+        else
+          NEXT_STATE <= S5;
+          CTRL <= NOP;
+        end if ;
+
+        o <= '0';
+
+       WHEN others =>
+        assert ('1')
+        report "illegal state";
+
+    end case;
+  end if ;
+end process;
+
+process(ck) 
+  begin
+    if(ck = '0' and not ck' stable) then
+      CURRENT_STATE <= NEXT_STATE;
+      case CTRL is
+        WHEN POP =>
+          STACK_0 <= STACK_1;
+
+        WHEN PUSH =>
+          STACK_1 <= STACK_0;
+          STACK_0 <= RETURN_STATE;
+        WHEN NOP =>
+          NULL;
+      end case;
+    end if;
+end process;
+
+end auto;
+
+.SH SEE ALSO
+.PP
+\fBvbe\fP(5), \fBsyf\fP(1)
+
+
+.so man1/alc_bug_report.1
+

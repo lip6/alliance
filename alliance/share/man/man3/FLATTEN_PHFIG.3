@@ -1,0 +1,77 @@
+.\"   $Id: FLATTEN_PHFIG.3,v 1.1 1999/05/31 17:30:15 alliance Exp $
+.\" @(#)FLATTEN_PHFIG.3 2.11 91/08/22; Labo Cao-vlsi; Author : Frederic Petrot
+.if t \{\
+.so man1/alc_contents.mac
+.XS \n%
+.ti 0.2i
+FLATTEN_PHFIG
+.XE \}
+.TH FLATTEN_PHFIG 3 "October 1, 1997" "ASIM/LIP6" "PROCEDURAL GENERATION LANGUAGE"
+.SH NAME
+FLATTEN_PHFIG \- flatten an instance in the current layout figure
+.SH SYNOPSYS
+.nf
+.if n \{\
+.ft B \}
+.if t \{\
+.ft CR \}
+#include <genlib.h>
+void FLATTEN_PHFIG(insname,concat)
+char \(**insname;
+char concat;
+.ft R
+.fi
+.so man1/alc_origin.1
+.SH PARAMETERS
+.TP 20
+\fIinsname\fP
+Name of the instance to be flattened
+.TP
+\fIconcat\fP
+Indicate whether or not to concatenate instance name to instance' objects name
+.SH DESCRIPTION
+\fBFLATTEN_PHFIG\fP inserts the contents of an instance, but its connectors,
+in the current figure, and then destroys the instance.
+.br
+The \fIconcat\fP parameter may take two values:
+.TP 20
+\fBYES\fP
+to concatenate object name with instance names.
+.TP
+\fBNO\fP 
+to copy object names.
+.LP
+In most case, the \fIconcat\fP value must be \fBYES\fP, in order to warranty
+the unicity of names in the figure.
+It may otherwise fail, because the function would try to add in the current
+figure some object with an already existing name.
+.SH EXAMPLE
+.nf
+.if n \{\
+.ft B \}
+.if t \{\
+.ft CR \}
+#include <genlib.h>
+main()
+{
+	/\(** Create a figure to work on  \(**/
+	DEF_PHFIG("mycell");
+	.
+	.
+	.
+	/\(** Place an instance \(**/
+	PLACE("model","instance", SYM_X, 0, 0);
+	/\(** flatten an instance \(**/
+	FLATTEN_PHFIG("instance", YES);
+	/\(** Save all that on disk \(**/
+	SAVE_PHFIG();
+}
+.ft R
+.fi
+.SH SEE ALSO
+.BR genlib (1),
+.BR LOINS (3).
+
+
+.so man1/alc_bug_report.1
+

@@ -1,0 +1,79 @@
+.\"   $Id: delauthelem.3,v 1.1 1999/05/31 17:30:20 alliance Exp $
+.\" @(#)delauthelem.2 2.7 96/07/02 ; Labo masi cao-vlsi; Author : Jacomme Ludovic
+.TH DELAUTHELEM 3 "October 1, 1997" "ASIM/LIP6" "AUT FUNCTIONS"
+.SH NAME
+delauthelem \- deletes an element in the hash table.
+.so man1/alc_origin.1
+.SH SYNOPSYS
+.nf
+.if n \{\
+.ft B \}
+.if t \{\
+.ft CR \}
+#include "aut101.h"
+int delauthelem( HashTable, Key )
+  authtable \(**HashTable;
+  char      \(**Key;
+.ft R
+.fi
+.SH PARAMETERS
+.TP 20
+\fIHashTable\fP
+Pointer to the hash table where to delete an element.
+.TP
+\fIKey\fP
+The hash element key.
+.SH DESCRIPTION
+\fBdelauthelem\fP deletes the element associated to the key \fIKey\fP
+in the hash table.
+.br
+.SH RETURN VALUE
+if the element can be found \fBdelauthelem\fP returns 1 and 0 otherwise.
+.SH ERRORS
+.if n \{\
+.ft B \}
+.if t \{\
+.ft CR \}
+"authash: hash key 0 error !"
+.ft R
+.RS
+The key \fIKey\fP of the hash table must be a valid pointer.
+.SH EXAMPLE
+.ta 3n 6n 9n 12n 15n 18n 21n
+.nf
+.if n \{\
+.ft B \}
+.if t \{\
+.ft CR \}
+#include "aut101.h"
+   authtable \(**HashTable;
+   void add_dictionary( Name )
+     \(** Name;
+   {
+     addauthelem( HashTable, namealloc( Name ), 0 );
+   }
+   void del_dictionary( Name )
+     \(** Name;
+   {
+     delauthelem( HashTable, namealloc( Name ) );
+   }
+   ...
+   HashTable = createauthtable( 1000 );
+   add_dictionary( "hello" );
+   ...
+   del_dictionary( "hello" );
+   ...
+   destroyauthtable( HashTable );
+.ft R
+.fi
+.SH SEE ALSO
+.BR aut (1)
+.BR destroyauthtable(3),
+.BR resetauthtable(3),
+.BR createauthtable(3),
+.BR searchauthelem(3),
+.BR addauthelem(3).
+
+
+.so man1/alc_bug_report.1
+

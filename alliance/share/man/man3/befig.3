@@ -1,0 +1,78 @@
+.\"   $Id: befig.3,v 1.1 1999/05/31 17:30:18 alliance Exp $
+.\" @(#)befig.2 108 Feb 15 1995 UPMC; Pirouz BAZARGAN SABET
+.TH BEFIG 3 "October 1, 1997" "ASIM/LIP6" "cao\-vlsi reference manual"
+
+.so man1/alc_origin.1
+.SH NAME
+.PP
+\fBbefig\fP - BEH data structure
+
+.SH DESCRIPTION
+.PP
+\fIbefig\fP is a data structure used in \fBBEH\fP to represent a complete
+behavioural description of a circuit. \fIbefig\fP has been designed to be
+used in a simply chained list.
+
+.PP
+A \fIbefig\fP structure is composed of the following fields.
+
+.TP 25
+\fI(char *) NAME\fP
+the circuit\'s name. This string is supposed been produced by \fBnamealloc()\fP
+.TP 25
+\fI(struct bepor *) BEPOR\fP
+list of ordered ports
+.TP 25
+\fI(struct begen *) BEGEN\fP
+list of generic data
+.TP 25
+\fI(struct beout *) BEOUT\fP
+list of simple output ports (a port is said to be an output when there is at
+least one driver inside the circuit setting its value)
+.TP 25
+\fI(struct bebus *) BEBUS\fP
+list of bused output ports (a port is said to be an output when there is at
+least one driver inside the circuit setting its value)
+.TP 25
+\fI(struct berin *) BERIN\fP
+list of inputs (is considered as input an input port or an internal register)
+.TP 25
+\fI(struct beaux *) BEAUX\fP
+list of internal simple signals
+.TP 25
+\fI(struct beaux *) BEDLY\fP
+list of delayed signals
+.TP 25
+\fI(struct bebux *) BEBUX\fP
+list of internal bused signals
+.TP 25
+\fI(struct bereg *) BEREG\fP
+list of internal registers
+.TP 25
+\fI(struct bemsg *) BEMSG\fP
+list of conditions noticed by the circuit\'s designer that are to be checked to
+insure a correct usage of the circuit
+.TP 25
+\fI(char) ERRFLG\fP
+error flag : set to 0 for a coherent errorless befig
+.TP 25
+\fI(char) TYPE\fP
+type of the description (not used)
+.TP 25
+\fI(struct circuit *) CIRCUI\fP
+circuit pointer used when expressions are represented with BDDs
+.TP 25
+\fI(struct ptype *) USER\fP
+user defined data
+.TP 25
+\fI(struct befig *) NEXT\fP
+next befig
+
+.SH SEE ALSO
+.PP
+bdd(1), beh(3), beh_addbefig(3), beh_delbefig(3), beh_frebefig(3),
+beh_rmvbefig(3), namealloc(3)
+
+
+.so man1/alc_bug_report.1
+

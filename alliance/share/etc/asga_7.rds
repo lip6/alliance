@@ -1,0 +1,996 @@
+#===============================================================================
+#
+#                          ALLIANCE VLSI CAD SYSTEM
+#                (R)ectangle (D)ata (S)tructure parameter file for GaAs
+#            (c) copyright 1995 Laboratoire UPMC/MASI/CAO-VLSI   
+#                           all rights reserved                 
+#                    e-mail     : cao-vlsi@masi.ibp.fr            
+#
+#                    file       : asga_6.rds
+#                    version    : 6
+#                    last modif : July 02, 1995
+#
+#===============================================================================
+
+#-------------------------------------------------------------------------------
+# Title of the file : Symbolic to Symbolic on a 'one lambda equals lambda
+# microns' basis for Vitesse 0.8 micron GaAs technology
+#
+#-------------------------------------------------------------------------------
+#
+# Description of the file :
+# This file contains all the needed parameters to translate a symbolic layout to
+# a real layout. 
+#
+#-------------------------------------------------------------------------------
+#
+# Note : all numeric values are in microns unless otherwise indicated.
+#
+#-------------------------------------------------------------------------------
+#
+# General information :
+# A few words on symbolic layout versus real layout :
+#
+#   Symbolic layout is used to ease the designers work by using objects that
+#   have a well specified semantic.
+#   The C data structure used for the internal representation of these objects
+#   is called ``MBK'', and comprehends, on a strictly layout point of view :
+#
+#     - Connectors, they are the terminals for routers, simulation tools, etc...
+#       these MBK primitives may be:
+#                     NWELL       N type bulk connector
+#                     PWELL       P type bulk connector
+#                     NTIE        N type implant in P bulk connector
+#                     PTIE        P type implant in N bulk connector
+#                     NDIF        N type diffusion connector
+#                     PDIF        P type diffusion connector
+#                     NTRANS      N type transistor connector
+#                     PTRANS      P type transistor connector
+#                     POLY        polysilicon connector
+#                     ALU1        first metal connector
+#                     ALU2        second metal connector
+#                     ALU3        third metal connector
+#                     TPOLY       polysilicon through route connector
+#                     TALU1       first metal through route connector
+#                     TALU2       second metal through route connector
+#                     TALU3       third metal through route connector
+#
+#     - Segments, they are runs of a layer for leaf cells construction and
+#       for routing; these may be:
+#                     NWELL       N type bulk segment
+#                     PWELL       P type bulk segment
+#                     NTIE        N type implant in P bulk segment
+#                     PTIE        P type implant in N bulk segment
+#                     NDIF        N type diffusion segment
+#                     PDIF        P type diffusion segment
+#                     NTRANS      N type transistor segment
+#                     PTRANS      P type transistor segment
+#                     POLY        polysilicon segment
+#                     ALU1        first metal segment
+#                     ALU2        second metal segment
+#                     ALU3        third metal segment
+#                     TPOLY       polysilicon through route segment
+#                     TALU1       first metal through route segment
+#                     TALU2       second metal through route segment
+#                     TALU3       third metal through route segment
+#       note that transistors also are considered as segments.
+#
+#     - References, for assigning a name to a symbolic object; these may be:
+#                     REF_CON     used for multi-access connectors
+#                     REF_REF     used for any other purpose
+#
+#     - Vias, for connecting two segments of distinct layers together; these
+#       MBK primitives may be:
+#                     CONT_BODY_P connects PWELL and ALU1
+#                     CONT_BODY_N connects NWELL and ALU1
+#                     CONT_DIF_N  connects NDIF and ALU1
+#                     CONT_DIF_P  connects PDIF and ALU1
+#                     CONT_POLY   connects POLY and ALU1
+#                     CONT_VIA    connects ALU1 and ALU2
+#                     CONT_VIA2   connects ALU2 and ALU3
+#                     CONT_VIA3   connects ALU3 and ALU4
+#                     C_X_N       L shaped N transistor corner filling
+#                     C_X_P       L shaped P transistor corner filling
+#
+#   Factories usually only understand real layout which is given in terms of
+#   rectangles or polygons. And some tools work only with rectangles. The data
+#   structure based on such rectangles is called ``RDS'', for Rectangle Data
+#   Structure. Extractors and DRCs also need rectangles to work on. Here is the
+#   complete set of RDS layers:
+#                     RDS_NWELL   N type bulk
+#                     RDS_PWELL   P type bulk
+#                     RDS_NTIE    N type implant in P type bulk
+#                     RDS_PTIE    P type implant in N type bulk
+#                     RDS_NDIF    N type diffusion
+#                     RDS_PDIF    P type diffusion
+#                     RDS_ACTIV   active area layer
+#                     RDS_NIMP    N type implant
+#                     RDS_PIMP    P type implant
+#                     RDS_POLY    polysilicon
+#                     RDS_TPOLY   polysilicon through route
+#                     RDS_CONT    contact hole in isolation between a low
+#                                 level layer and first metal
+#                     RDS_GATE    transistor gate layer
+#                     RDS_ALU1    first metal
+#                     RDS_TALU1   first metal through route
+#                     RDS_VIA1    via hole in isolation between first metal
+#                                 and second metal
+#                     RDS_ALU2    second metal
+#                     RDS_TALU2   second metal through route
+#                     RDS_VIA2    via hole in isolation between second metal
+#                                 and third metal
+#                     RDS_ALU3    third metal
+#                     RDS_TALU3   third metal through route
+#                     RDS_VIA3    via hole in isolation between third metal
+#                                 and fourth metal
+#                     RDS_ALU4    fourth metal
+#                     RDS_CPAS    passivation contact layer
+#                     RDS_REF     virtual layer for the representation of
+#                                 symbolic references
+#                     RDS_USER0   user oriented layer
+#                     RDS_USER1   user oriented layer
+#                     RDS_USER2   user oriented layer
+#                     RDS_ABOX    virtual layer containing information on the
+#                                 abutment box of a model
+#
+#   (Refer to documentation for more information)
+#-------------------------------------------------------------------------------
+
+#-------------------------------------------------------------------------------
+# physical_grid :
+#
+#   Warning : physical_grid must be the first value to be declared.
+#
+#   Most technolgies require that a layout be aligned on a physical grid. This
+#   implies that all the coordinates and values given here after have to be
+#   multiples of the value physical_grid. Misaligned objects in an input figure
+#   is a problem that some tools like s2r solve by allowing themselves to expand
+#   the width of these objects to have them snap to the grid.
+#-------------------------------------------------------------------------------
+
+DEFINE PHYSICAL_GRID 0.5
+
+#-------------------------------------------------------------------------------
+# lambda : 
+#
+#   Defines the value of lambda in the real or pseudo real (1 lambda = 1 micron)
+#   technology. It is chosen, after a carefull observation of real design
+#   rules.
+#
+#   (Refer to documentation for more information)
+#-------------------------------------------------------------------------------
+
+DEFINE LAMBDA 1.0
+
+#-------------------------------------------------------------------------------
+# mbk_to_rds_segment table :
+#
+# This table describes how to translate one symbolic segment (MBK data
+# structure) to 1, 2, 3 or more physical rectangles (RDS data structure).
+#
+# o A transistor segment (MBK NTRANS or PTRANS layer) will generate in
+#   general 3 to 6 rectangles (RDS_ACTIV, RDS_NIMP, RDS_POLY, [RDS_NDIF]*2).
+#
+# o An ohmic metal segment (MBK NDIF layer) will generate 2 rectangles 
+#   (RDS_ACTIV, RDS_NDIF).
+#
+# o All other MBK layers will generate one rectangle.
+#
+# For each physical rectangle (RDS layer) generated from an MBK segment, five
+# parameters are given :
+#   - the RDS layer
+#   - the type of offset of the rectangle : (L)eft, (R)igth, (U)p, (D)own, or
+#     ()no offset
+#   - the type of width of the rectangle : variable width (VW) or constant
+#     width (CW)
+#   - the physical length extension : DLR 
+#   and
+#   - the physical width oversize   : DWR for variable width rectangles
+#   or
+#   - the physical width            :  WR for constant width rectangles
+#   and
+#   - the value of the offset which is defined as the distance between the
+#     edge of the RDS rectangle being processed that is closest to the center
+#     of the given segment and the (R)ight or (L)eft edge of that segment
+#   - the tool(s) concerned by the given translation. This parameter is needed
+#     for Alliance editor graal (DRC) and extractor lynx (EXT) that require a
+#     special transistor representation in order to properly detect
+#     equipotential signals (i.e. no possible equipotential signal propagation
+#     under transistors)
+#
+# The physical length of a rectangle is then given by :
+#   - Physical LENGTH = Symbolic LENGTH * lambda + (2 * DLR)
+#
+# The physical width of a variable width rectangle is then given by :
+#   - Physical WIDTH  = Symbolic WIDTH  * lambda + DWR
+#
+# The physical width of a constant width rectangle is then given by :
+#   - Physical WIDTH  = WR
+#
+# Note that most cases concern variable width rectangles where as constant
+# width rectangles are rarely encountered.
+#
+# This table is defined as follows :
+# The first column gives the MBK layer name that needs to be translated, the
+# following columns each represent an RDS layer with its associated parameters
+# described above. It is important that the first RDS layer of each composed
+# segment be the most representative, that it stands as the back bone of the
+# segment.
+#
+# MBK    RDS layer i
+# name   name  type  DLR  (D)WR  OFFSET  TOOL\
+#        name  type  DLR  (D)WR  OFFSET  TOOL\
+#        ...
+#        name  type  DLR  (D)WR  OFFSET  TOOL
+#-------------------------------------------------------------------------------
+
+TABLE MBK_TO_RDS_SEGMENT
+
+  NDIF    RDS_NDIF   VW  1.0  0.0  0.0  ALL
+  NTRANS  RDS_POLY   VW  0.0  0.0  0.0  ALL \
+          RDS_NDIF  LCW -2.0  2.0  1.5  ALL \
+          RDS_NDIF  RCW -2.0  2.0  1.5  ALL \
+          RDS_ACTIV  VW -2.0  7.0  0.0  ALL 
+# this layer is present only for educational and aesthetical purposes
+  NWELL   RDS_POLY   VW  0.0  0.0  0.0  ALL \
+          RDS_NDIF  LCW -2.0  2.0  1.5  ALL \
+          RDS_NDIF  RCW -2.0  2.0  1.5  ALL \
+          RDS_ACTIV LCW -2.0  3.0  0.5  ALL \
+          RDS_ACTIV RCW -2.0  3.0  0.5  ALL \
+          RDS_NIMP   VW -1.5  1.0  0.0  ALL
+ # these 3 layers are present only for educational and aesthetical purposes
+  PTRANS  RDS_POLY   VW  0.0  0.0  0.0  ALL \
+          RDS_POLY  RCW  0.0  1.5  0.0  ALL \
+          RDS_NDIF  LCW -2.0  2.0  1.5  ALL \
+          RDS_NDIF  RCW -2.0  3.5  0.0  ALL \
+          RDS_ACTIV LCW -2.0  3.0  0.5  ALL \
+          RDS_ACTIV RCW -2.0  1.5  2.0  ALL \
+          RDS_NIMP   VW -1.5  1.0  0.0  ALL \
+          RDS_NIMP  RCW -1.5  2.0  0.0  ALL
+# these 4 last layers are present only for educational and aesthetical purposes
+  POLY    RDS_POLY   VW  0.5  0.0  0.0  ALL
+  ALU1    RDS_ALU1   VW  0.5  0.0  0.0  ALL
+  ALU2    RDS_ALU2   VW  1.0  0.0  0.0  ALL
+  ALU3    RDS_ALU3   VW  2.5  0.0  0.0  ALL
+  TPOLY   RDS_TPOLY  VW  0.5  0.0  0.0  ALL
+  TALU1   RDS_TALU1  VW  0.5  0.0  0.0  ALL
+  TALU2   RDS_TALU2  VW  1.0  0.0  0.0  ALL
+  TALU3   RDS_TALU3  VW  2.5  0.0  0.0  ALL
+
+END
+
+#-------------------------------------------------------------------------------
+# mbk_to_rds_connector table :
+#
+# This table explains how to translate symbolic connectors.
+#
+# one symbolic connector (MBK data structure) is translated into one physical
+# rectangle (RDS data structure) using 3 parameters :
+#   - RDS layer
+#   - physical width oversize                             : DWR 
+#   - physical extension on each side of the ABUTMENT BOX : DER 
+#
+# Physical WIDTH  = Symbolic WIDTH  * lambda + DWR
+# Physical EXTENSION = 2 * DER
+#
+# This table is defined below :
+# The first column is the MBK layer name to be translated, after which there is
+# an RDS layer name, it's DWR value and it's DER value.
+#
+# MBK    RDS layer 
+# name   name     DER DWR 
+#-------------------------------------------------------------------------------
+
+TABLE MBK_TO_RDS_CONNECTOR
+
+  NDIF    RDS_NDIF  1.0  0
+  POLY    RDS_POLY  0.5  0  
+  ALU1    RDS_ALU1  0.5  0  
+  ALU2    RDS_ALU2  1.0  0  
+  ALU3    RDS_ALU3  2.5  0  
+
+END
+
+#-------------------------------------------------------------------------------
+# mbk_to_rds_reference table :
+#
+# This table explains how to translate symbolic references. These references,
+# both translated into an RDS_REF RDS layer offer the possibility to associate
+# a name to a point (a couple of coordinates). The REF_CON primitive is
+# exclusively used for the naming of vias while the other primitive is
+# reserved for any other naming purpose.
+#
+# (Refer to documentation for more information)
+#
+# MBK reference   RDS layer
+# name            name  width
+#-------------------------------------------------------------------------------
+
+TABLE MBK_TO_RDS_REFERENCE
+
+  REF_CON  RDS_REF    1
+  REF_REF  RDS_REF    1
+
+END
+
+#-------------------------------------------------------------------------------
+# mbk_to_rds_via table :
+#
+# This table describes how to translate one symbolic via or primitive, (MBK
+# data structure) into 2, 3 or 4 physical rectangles (RDS data structure).
+#
+# This table is defined as follows :
+# The first column is the MBK via name to translate, after which comes a certain
+# number of groups of 2 columns. In a group the first column is the RDS layer
+# name, the second one is the RDS layer width.
+#
+# MBK via      RDS layer 1  RDS  layer 2  RDS  layer 3  RDS layer 4      
+# name         name  width  name   width  name   width  name  width  
+#-------------------------------------------------------------------------------
+
+TABLE MBK_TO_RDS_VIA
+
+  CONT_DIF_N  RDS_NDIF 2.0 ALL RDS_CONT 1.0 ALL RDS_ALU1 1.0 ALL
+  CONT_POLY   RDS_POLY 2.0 ALL RDS_CONT 1.0 ALL RDS_ALU1 1.0 ALL
+  CONT_VIA    RDS_ALU1 2.0 ALL RDS_VIA1 2.0 ALL RDS_ALU2 3.0 ALL
+  CONT_VIA2   RDS_ALU2 5.0 ALL RDS_VIA2 3.0 ALL RDS_ALU3 5.0 ALL
+  CONT_VIA3   RDS_ALU3 6.0 ALL RDS_VIA3 4.0 ALL RDS_ALU4 10.0 ALL
+
+END
+
+#-------------------------------------------------------------------------------
+# lynx_graph table :
+#
+# This table gives all the possible interconnections between RDS layers for
+# the propagation of equipotential signals. Each line in this table is to be
+# read independently as follows : RDS layer of first column is connected to
+# an RDS layer of another column if they overlap or touch. This table is useful
+# to any tool requirering equipotential analysis like lynx or graal.
+#-------------------------------------------------------------------------------
+
+TABLE LYNX_GRAPH
+ 
+  RDS_NDIF  RDS_POLY  RDS_CONT  RDS_NDIF
+  RDS_POLY  RDS_NDIF  RDS_CONT  RDS_POLY
+  RDS_CONT  RDS_NDIF  RDS_POLY  RDS_ALU1  RDS_CONT
+  RDS_ALU1  RDS_CONT  RDS_VIA1  RDS_REF   RDS_ALU1
+  RDS_VIA1  RDS_ALU1  RDS_ALU2  RDS_VIA1
+  RDS_ALU2  RDS_VIA1  RDS_VIA2  RDS_ALU2
+  RDS_VIA2  RDS_ALU2  RDS_ALU3  RDS_VIA2
+  RDS_ALU3  RDS_VIA2  RDS_VIA3  RDS_ALU3
+  RDS_VIA3  RDS_ALU3  RDS_ALU4  RDS_VIA3
+  RDS_ALU4  RDS_VIA3  RDS_ALU4
+  RDS_REF   RDS_ALU1  RDS_REF
+  
+END
+
+#-------------------------------------------------------------------------------
+# lynx_capa table : 
+#
+# RDS layer   Capacitance
+# name        pF / Lambda^2
+#-------------------------------------------------------------------------------
+ 
+TABLE LYNX_CAPA
+
+  RDS_POLY  	0.791e-04
+  RDS_ALU1  	0.574e-04
+  RDS_ALU2  	0.347e-04
+  RDS_ALU3  	0.227e-04
+  RDS_ALU4  	0.083e-04
+  
+END
+
+#---------------------------------------------------------------------
+# TABLE LYNX_RESISTOR :
+#
+# RDS layer   Surface resistor
+# name        Ohm / Micron^2
+#---------------------------------------------------------------------
+
+TABLE LYNX_RESISTOR
+END
+
+#-------------------------------------------------------------------------------
+# lynx_transistor table : 
+#
+# MBK layer		RDS layer	Corner junction
+# name			name			name
+#-------------------------------------------------------------------------------
+ 
+TABLE LYNX_TRANSISTOR
+
+  NTRANS  NTRANS  C_X_N  RDS_POLY  RDS_NDIF  RDS_ACTIV
+  PTRANS  PTRANS  C_X_P  RDS_POLY  RDS_NDIF  RDS_ACTIV
+  NWELL	  PTRANS  C_X_N  RDS_POLY  RDS_NDIF  NULL     
+  
+END
+
+#-------------------------------------------------------------------------------
+# lynx_diffusion table :
+#
+# RDS layer RDS layer
+# name      name    
+#-------------------------------------------------------------------------------
+
+TABLE LYNX_DIFFUSION
+END
+
+#-------------------------------------------------------------------------------
+# cif_layer table :
+# 
+# Equivalency table between RDS layer names and cif layer names.
+# RDS/cif parser and driver typically need this table.
+#-------------------------------------------------------------------------------
+
+TABLE CIF_LAYER
+
+  RDS_NDIF     LNDIF
+  RDS_NIMP     LNIMP
+  RDS_ACTIV    LACTIV
+  RDS_POLY     LPOLY
+  RDS_TPOLY    LTPOLY
+  RDS_CONT     LCONT
+  RDS_ALU1     LALU1
+  RDS_TALU1    LTALU1
+  RDS_VIA1     LVIA1
+  RDS_ALU2     LALU2
+  RDS_TALU2    LTALU2
+  RDS_VIA2     LVIA2
+  RDS_ALU3     LALU3
+  RDS_TALU3    LTALU3
+  RDS_VIA3     LVIA3
+  RDS_ALU4     LALU4
+  RDS_REF      LREF
+
+END
+
+#-------------------------------------------------------------------------------
+# gds_layer table :
+#
+# Equivalency table between RDS layer names and gds layer number.
+# RDS/gds parser and driver typically need this table.
+#-------------------------------------------------------------------------------
+
+TABLE GDS_LAYER
+
+  RDS_NDIF     1
+  RDS_NIMP     2
+  RDS_ACTIV    3
+  RDS_POLY     4
+  RDS_TPOLY    5
+  RDS_CONT     6
+  RDS_ALU1     7
+  RDS_TALU1    8
+  RDS_VIA1     9
+  RDS_ALU2     10
+  RDS_TALU2    11
+  RDS_VIA2     12
+  RDS_ALU3     13
+  RDS_TALU3    14
+  RDS_VIA3     15
+  RDS_ALU4     16
+  RDS_REF      17
+
+END
+
+#-------------------------------------------------------------------------------
+# oversize_denotch table :
+#
+# This table contains the oversize value needed to erase notches. All the
+# rectangles in the same RDS layer are oversized by this value and then merged
+# all together and finally undersized by the same value.
+#
+# For some RDS layers, like RDS_NWELL, RDS_NIMP and RDS_PIMP, if two rectangles
+# are separated from a distance that is smaller or equal to the minimun spacing
+# design rule, then they must be merged as a single one. In this case, the
+# oversize value is equal to the minimum spacing rule between two edges of the
+# same layer divided by 2. 
+#
+# Some other RDS layers, like RDS_ALU1, ..., must not be merged. In this case,
+# the oversize value is equal to the minimum spacing rule between two edges of
+# the same layer divided by 2, minus the physical grid. 
+#
+# Some layers never create notches, such as RDS_VIA1 or RDS_CONT, so the
+# oversize value is null.
+#
+# This table is useful for tools like s2r that work on a real level.
+#-------------------------------------------------------------------------------
+
+TABLE S2R_OVERSIZE_DENOTCH
+
+# RDS_NDIF    0
+# RDS_ACTIV   0
+# RDS_NIMP    0
+# RDS_POLY    0
+# RDS_TPOLY   0
+# RDS_CONT    0
+# RDS_ALU1    0
+# RDS_TALU1   0
+# RDS_VIA1    0
+# RDS_ALU2    0
+# RDS_TALU2   0
+# RDS_VIA2    0
+# RDS_ALU3    0
+# RDS_TALU3   0
+# RDS_VIA3    0
+# RDS_ALU4    0
+# RDS_CPAS    0
+# RDS_REF     0
+# RDS_USER0   0
+# RDS_USER1   0
+# RDS_USER2   0
+# RDS_ABOX    0
+
+END
+
+#-------------------------------------------------------------------------------
+# bloc_ring_width table :
+#
+# The normal ring width is the minimum spacing design rule between 2 segments of
+# the same RDS layer. 
+#
+# A zero means that no ring is wanted for that RDS layer. 
+#
+# s2r for example must merge segments to erase notches even if those segments
+# are in two different hierarchical level blocs, for example, two blocs abuted
+# side by side. So, it must be able to fetch segments inside blocs. It is not
+# needed to flatten the entire bloc, only a ring is necessary. The ring is
+# computed from the abutment box edges or from the envelope edges of the
+# overlapping blocs.
+#
+# This table is useful for tools like s2r and druc that work on a real level.
+#-------------------------------------------------------------------------------
+
+TABLE S2R_BLOC_RING_WIDTH
+
+  RDS_NDIF    2.0
+  RDS_ACTIV   0
+  RDS_NIMP    0
+  RDS_POLY    2.0
+  RDS_TPOLY   0
+#  RDS_CONT    2.0
+  RDS_ALU1    2.5
+  RDS_TALU1   0
+#  RDS_VIA1    3.0 
+  RDS_ALU2    2.0
+  RDS_TALU2   0
+#  RDS_VIA2    3.0
+  RDS_ALU3    6.0
+  RDS_TALU3   0 
+#  RDS_VIA3    4.0
+  RDS_ALU4    0
+  RDS_CPAS    0
+  RDS_REF     0 
+  RDS_USER0   0
+  RDS_USER1   0
+  RDS_USER2   0
+  RDS_ABOX    0 
+
+END
+
+#-------------------------------------------------------------------------------
+# minimum_layer_width table :
+#
+# This table contains the minimum width of each RDS layer. It is used by s2r for
+# example to avoid creating rectangles having widths that are below the required
+# minimum, during the merging operation.
+#
+# A zero can be specified, when it is certain that the given layer will not be
+# merged.
+#
+# This table is useful for tools like s2r and druc that work on a real level.
+#-------------------------------------------------------------------------------
+
+TABLE S2R_MINIMUM_LAYER_WIDTH
+
+  RDS_NDIF    2.0
+  RDS_ACTIV   0
+  RDS_NIMP    0
+  RDS_POLY    1.0
+  RDS_TPOLY   0
+  RDS_CONT    1.0
+  RDS_ALU1    1.0
+  RDS_TALU1   0
+  RDS_VIA1    1.0
+  RDS_ALU2    2.0
+  RDS_TALU2   0
+  RDS_VIA2    3.0
+  RDS_ALU3    5.0
+  RDS_TALU3   0
+  RDS_VIA3    4.0
+  RDS_ALU4    0
+  RDS_CPAS    0
+  RDS_REF     0
+  RDS_USER0   0
+  RDS_USER1   0
+  RDS_USER2   0
+  RDS_ABOX    0
+
+END
+
+#-------------------------------------------------------------------------------
+# s2r_post_treat table :
+#
+# This table tells s2r which RDS layers must be post-treated. And more
+# specificaly if a layer is only to be be translated, or if it has to be
+# translated and then post-treated.
+# To translate means to translate and fit from symbolic to real.
+# To post-treat means that it should also be merged with its neighbours.
+# For example, it is not necessary to merge cut layers such as RDS_CONT. 
+#
+# If set to NOTREAT, the first parameter indicates a translation.
+# If set to TREAT, then the layer is translated and then post-treated.
+#
+# To post-treat creates problems with implantation layers. It is possible to
+# have a good symbolic layout (no symbolic design rule errors), and have a
+# resulting layout with drc violations; this case is usually the result of a
+# poor post-treatement. This is due to the fact that these layers do not exist
+# in symbolic, so it is not possible to apply to them any symbolic drc
+# verifications. If two rectangles of these layers are too close (less than a
+# given value), they must be merged. Generally, there is no problem, but when
+# corners are too near it is impossible to merge with the classical algorithms :
+#     expand,
+#     merge, 
+#     shrink.
+# Rectangles, known as scotches, are in such a case created for merging.
+# Here is an example :
+#
+#   +--------+              +--------+             +-----+--+
+#   |////////|              |////////|             |/////|//|
+#   |//+--+//|              |//+--+//|             |//+--|//|
+#   |//|  |//|    gives ->  |//|  |//|       or -> |//|  |//|
+#   |//+--+//|              +-----------+          |//+--|//|
+#   |////////|              |///////////|          |/////|//|
+#   +--------+              +--------+//|          +-----|//|     
+#       ^    +--------+              |//|-----+          |//+--------+
+#       |    |////////|              |//|/////|          |///////////|
+#       o--->|//+--+//|              |//|--+//|          +-----------+
+#       |    |//|  |//|              |//|  |//|             |//|  |//|
+#   implant  |//+--+//|              |//|--+//|             |//|--+//|
+#    areas   |////////|              |//|/////|             |//|/////|
+#            +--------+              +--+-----+             +--+-----+
+#
+#   An N implantation layer should not overlap a P implantation layer. We say
+#   that P implantations and N implantations are complementary. A scotch will
+#   not be created if it intersects with any of the rectangles of the
+#   complementary layers.
+#
+#   If a record contains in the second field an RDS layer that is different
+#   from NULL, it indicates the complementary layer. This implies that if it
+#   is a layer that might need scotches the algorithm will try not to intersect
+#   with it when creating scotches.
+#-------------------------------------------------------------------------------
+
+TABLE S2R_POST_TREAT
+
+  RDS_NDIF         TREAT NULL
+  RDS_ACTIV      NOTREAT NULL
+  RDS_NIMP       NOTREAT NULL
+  RDS_POLY         TREAT NULL
+  RDS_TPOLY      NOTREAT NULL
+  RDS_CONT       NOTREAT NULL
+  RDS_ALU1         TREAT NULL
+  RDS_TALU1      NOTREAT NULL
+  RDS_VIA1       NOTREAT NULL
+  RDS_ALU2         TREAT NULL
+  RDS_TALU2      NOTREAT NULL
+  RDS_VIA2       NOTREAT NULL
+  RDS_ALU3         TREAT NULL
+  RDS_TALU3      NOTREAT NULL
+  RDS_VIA3       NOTREAT NULL
+  RDS_ALU4       NOTREAT NULL
+  RDS_CPAS       NOTREAT NULL
+  RDS_REF        NOTREAT NULL
+  RDS_USER0      NOTREAT NULL
+  RDS_USER1      NOTREAT NULL
+  RDS_USER2      NOTREAT NULL
+  RDS_ABOX       NOTREAT NULL
+
+END
+DRC_RULES
+layer RDS_ACTIV 2.0;
+layer RDS_POLY  1.0;
+layer RDS_NDIF  2.0;
+layer RDS_ALU1  1.0;
+layer RDS_CONT  1.0;
+layer RDS_ALU2  2.0;
+layer RDS_VIA1  2.0;
+layer RDS_ALU3  5.0;
+layer RDS_VIA2  3.0;
+layer RDS_VIA3  4.0;
+
+regles
+
+caracterise RDS_POLY (
+    regle 100 : longueur_inter min 1.0;
+    regle 101 : notch >= 2.0;
+);
+
+relation RDS_POLY, RDS_POLY (
+    regle 102 : distance axiale min 2.0;
+);
+
+relation RDS_POLY, RDS_NDIF (
+    regle 103 : distance axiale min 1.5;
+    regle 104 : enveloppe inferieure min 1.0;
+    regle 105 : marge penetre_inter min 1.5;
+    regle 106 : marge inferieure min 1.0;
+    regle 107 : croix perpendiculaire_inter min 1.5;
+    regle 108 : croix longueur_min min 1.0;
+);
+
+relation RDS_POLY, RDS_NDIF (
+    regle 109 : intersection longueur_inter min 2.0;
+    regle 110 : intersection largeur_inter min 1.5;
+    regle 111 : intersection inferieure min 1.0;
+    regle 112 : extension largeur_inter min 1.5;
+    regle 113 : extension longueur_min min 1.0;
+);
+
+caracterise RDS_NDIF (
+    regle 120 : longueur_inter min 2.0;
+    regle 121 : notch >= 2.0;
+);
+
+relation RDS_NDIF, RDS_NDIF (
+    regle 122 : distance axiale min 2.0;
+);
+
+relation RDS_NDIF, RDS_POLY (
+    regle 123 : enveloppe superieure min 2.0;
+    regle 124 : enveloppe inferieure min 1.0;
+    regle 125 : enveloppe largeur_inter min 1.5;
+    regle 126 : marge longueur_max min 2.0;
+    regle 127 : marge inferieure min 1.0;
+);
+
+relation RDS_NDIF, RDS_POLY (
+    regle 128 : croix longueur_max min 2.0;
+    regle 129 : croix longueur_min min 1.0;
+    regle 130 : intersection longueur_max min 2.0;
+    regle 131 : intersection largeur_min min 1.0;
+    regle 132 : extension longueur_min min 2.0;
+);
+
+caracterise RDS_ALU1 (
+    regle 140 : longueur_inter min 1.0;
+    regle 141 : notch >= 3.0;
+);
+
+relation RDS_ALU1, RDS_ALU1 (
+    regle 142 : distance axiale min 3.0;
+);
+
+caracterise RDS_CONT (
+    regle 160 : longueur_inter min 1.0;
+    regle 161 : notch >= 2.0;
+);
+
+relation RDS_CONT, RDS_CONT (
+    regle 162 : distance axiale min 2.0;
+);
+
+define RDS_CONT, RDS_POLY inclusion  -> CONTinPOLY;
+
+relation CONTinPOLY, CONTinPOLY (
+    regle 163 : distance axiale min 4.0;
+);
+
+define RDS_CONT, RDS_NDIF inclusion -> CONTinNDIF;
+
+relation RDS_NDIF, CONTinNDIF (
+    regle 170 : distance axiale min 3.0;
+);
+
+#relation RDS_ACTIV, CONTinNDIF (
+#    regle 171 : distance axiale <> 2.5;
+#);
+
+relation CONTinNDIF, CONTinPOLY (
+    regle 172 : distance axiale min 4.0;
+);
+
+relation CONTinNDIF, CONTinNDIF (
+    regle 173 : distance axiale min 4.0;
+);
+
+define RDS_CONT, CONTinNDIF exclusion -> CONT_NDIF;
+
+relation CONT_NDIF, RDS_NDIF (
+    regle 174 : distance axiale min 1.0;
+    regle 175 : enveloppe surface_inter < 0.0;
+    regle 176 : marge surface_inter < 0.0;
+    regle 177 : croix surface_inter < 0.0;
+    regle 178 : intersection surface_inter < 0.0;
+    regle 179 : extension surface_inter < 0.0;
+);
+
+undefine CONT_NDIF;
+undefine CONTinNDIF;
+undefine CONTinPOLY;
+
+caracterise RDS_VIA1 (
+    regle 180 : longueur < 6.0;
+    regle 181 : longueur_inter min 2.0;
+    regle 182 : notch >= 2.0;
+);
+
+relation RDS_VIA1, RDS_VIA1 (
+    regle 183 : distance axiale min 2.0;
+);
+
+relation RDS_VIA1, RDS_CONT (
+    regle 184 : distance axiale min 1.5;
+    regle 185 : enveloppe longueur_inter < 0.0;
+    regle 186 : marge longueur_inter < 0.0;
+    regle 187 : croix longueur_inter < 0.0;
+    regle 188 : intersection longueur_inter < 0.0;
+    regle 189 : extension longueur_inter < 0.0;
+    regle 190 : inclusion longueur_inter < 0.0;
+);
+
+caracterise RDS_ALU2 (
+    regle 200 : longueur_inter min 2.0;
+    regle 201 : notch >= 2.0;
+);
+
+relation RDS_ALU2, RDS_ALU2 (
+    regle 202 : distance axiale min 2.0;
+);
+
+caracterise RDS_VIA2 (
+    regle 220 : longueur_inter min 3.0;
+    regle 221 : notch >= 3.0;
+);
+
+relation RDS_VIA2, RDS_VIA2 (
+    regle 222 : distance axiale min 3.0;
+);
+
+relation RDS_VIA2, RDS_VIA1 (
+    regle 223 : distance axiale min 1.0;
+    regle 224 : enveloppe longueur_inter < 0.0;
+    regle 225 : marge longueur_inter < 0.0;
+    regle 226 : croix longueur_inter < 0.0;
+    regle 227 : intersection longueur_inter < 0.0;
+    regle 228 : extension longueur_inter < 0.0;
+    regle 229 : inclusion longueur_inter < 0.0;
+);
+
+caracterise RDS_ALU3 (
+    regle 240 : longueur_inter min 5.0;
+    regle 241 : notch >= 6.0;
+);
+
+relation RDS_ALU3, RDS_ALU3 (
+    regle 242 : distance axiale min 6.0;
+);
+
+relation RDS_VIA1, RDS_ALU3 (
+    regle 250 : enveloppe superieure max 3.0;
+    regle 251 : marge superieure max 3.0;
+    regle 252 : croix longueur_max max 3.0;
+    regle 253 : intersection superieure max 3.0;
+    regle 254 : extension longueur_max max 3.0;
+);
+
+caracterise RDS_VIA3 (
+    regle 260 : longueur_inter min 4.0;
+    regle 261 : notch >= 4.0;
+);
+
+relation RDS_VIA3, RDS_VIA3 (
+    regle 262 : distance axiale min 4.0;
+);
+
+define RDS_NDIF, RDS_POLY intersection -> CONT_O;
+
+relation CONT_O, RDS_CONT (
+    regle 300 : marge frontale min 2.0;
+    regle 301 : enveloppe inferieure min 2.0;
+);
+
+define RDS_CONT, RDS_NDIF inclusion -> CONTinNDIF;
+
+relation CONT_O, CONTinNDIF (
+    regle 302 : distance axiale min 1.0;
+    regle 303 : croix surface_inter < 0.0;
+    regle 304 : intersection surface_inter < 0.0;
+    regle 305 : extension surface_inter < 0.0;
+    regle 306 : inclusion longueur_inter < 0.0;
+);
+
+undefine CONTinNDIF;
+undefine CONT_O;
+
+fin regles
+END_DRC_RULES
+DRC_COMMENT
+END_DRC_COMMENT
+100 error : minimum Gate intersection width is 1.0
+101 error : minimum Gate notch is 2.0
+102 error : minimum Gate/Gate edge to edge distance is 2.0
+103 error : minimum Gate/Ohm edge to edge distance is 1.5
+104 error : minimum Gate/Ohm extension is 1.0 for a contact0 structure
+105 warning : minimum Gate/Ohm intersection geometry is 1.5 x 2.0 for a contact0 structure
+106 error : minimum Gate/Ohm extension is 1.0 for a contact0 structure
+107 warning : minimum Gate/Ohm intersection geometry is 1.5 x 2.0 for a contact0 structure
+108 error : minimum Gate/Ohm extension is 1.0 for a contact0 structure
+109 warning : minimum Gate/Ohm intersection geometry is 1.5 x 2.0 for a contact0 structure
+110 warning : minimum Gate/Ohm intersection geometry is 1.5 x 2.0 for a contact0 structure
+111 error : minimum Gate/Ohm extension is 1.0 for a contact0 structure
+112 warning : minimum Gate/Ohm intersection geometry is 1.5 x 2.0 for a contact0 structure
+113 error : minimum Gate/Ohm extension is 1.0 for a contact0 structure
+120 error : minimum Ohm intersection width is 2.0
+121 error : minimum Ohm notch is 2.0
+122 error : minimum Ohm/Ohm edge to edge distance is 2.0
+123 error : Ohm/Gate extension must be at least 2.0 on one of the largest side of a contact0 structure
+124 error : minimum Ohm/Gate extension is 1.0 for a contact0 structure
+125 warning : minimum Gate/Ohm intersection geometry is 1.5 x 2.0 for a contact0 structure
+126 error : Ohm/Gate extension must be at least 2.0 on one of the largest side of a contact0 structure
+127 error : minimum Ohm/Gate extension is 1.0 for a contact0 structure
+128 error : Ohm/Gate extension must be at least 2.0 on one of the largest side of a contact0 structure
+129 error : minimum Ohm/Gate extension is 1.0 for a contact0 structure
+130 error : Ohm/Gate extension must be at least 2.0 on one of the largest side of a contact0 structure
+131 error : minimum Ohm/Gate extension is 1.0 for a contact0 structure
+132 error : Ohm/Gate extension must be at least 2.0 on one of the largest side of a contact0 structure
+140 error : minimum Alu1 intersection width is 1.0
+141 error : minimum Alu1 notch is 3.0
+142 error : minimum Alu1/Alu1 edge to edge distance is 3.0
+160 error : minimum via1 intersection width is 1.0
+161 error : minimum via1 notch is 2.0
+162 error : minimum via1/via1 edge to edge distance is 2.0
+163 error : minimum Cont_Gate/Cont_Gate edge to edge distance is 3.0
+170 error : minimum Cont_Ohm/Ohm edge to edge distance is 2.5
+#171 error : minimum Cont_Ohm/Active edge to edge distance is 2.5
+172 error : minimum Cont_Ohm/Cont_Gate edge to edge distance is 3.0
+173 error : minimum Cont_Ohm/Cont_Ohm edge to edge distance is 3.0
+174 error : minimum via1/Ohm edge to edge distance is 1.0
+175 error : via1 must be either completely internal to or external to Ohm
+176 error : via1 must be either completely internal to or external to Ohm
+177 error : via1 must be either completely internal to or external to Ohm
+178 error : via1 must be either completely internal to or external to Ohm
+179 error : via1 must be either completely internal to or external to Ohm
+180 warning : maximum geometry of intersecting via2s is 5 x 5
+181 error : minimum via2 intersection width is 2.0
+182 error : minimum via2 notch is 2.0
+183 error : minimum via2/via2 edge to edge distance is 2.0
+184 error : minimum via2/via1 edge to edge distance is 1.5
+185 error : via1 may not be nested in via2
+186 error : via2 and via1 may not intersect
+187 error : via2 and via1 may not intersect
+188 error : via2 and via1 may not intersect
+189 error : via2 and via1 may not intersect
+190 error : via2 may not be nested in via1
+200 error : minimum Alu2 intersection width is 2.0
+201 error : minimum Alu2 notch is 2.0
+202 error : minimum Alu2/Alu2 edge to edge distance is 2.0
+220 error : minimum via3 intersection width is 3.0
+221 error : minimum via3 notch is 3.0
+222 error : minimum via3/via3 edge to edge distance is 3.0
+223 error : minimum via3/via2 edge to edge distance is 1.0
+224 error : via2 may not be nested in via3
+225 error : via3 and via2 may not intersect
+226 error : via3 and via2 may not intersect
+227 error : via3 and via2 may not intersect
+228 error : via3 and via2 may not intersect
+229 error : via3 may not be nested in via2
+240 error : minimum Alu3 intersection width is 5.0
+241 error : minimum Alu3 notch is 6.0
+242 error : minimum Alu3/Alu3 edge to edge distance is 6.0
+250 error : minimum via2/Alu3 extension may not exceed 3
+251 error : minimum via2/Alu3 extension may not exceed 3
+252 error : minimum via2/Alu3 extension may not exceed 3
+253 error : minimum via2/Alu3 extension may not exceed 3
+254 error : minimum via2/Alu3 extension may not exceed 3
+260 error : minimum via4 intersection width is 4.0
+261 error : minimum via4 notch is 4.0
+262 error : minimum via4/via4 edge to edge distance is 4.0
+300 error : minimum cont0/via1 frontal extension is 2.0
+301 error : minimum cont0/via1 extension is 2.0
+302 error : minimum cont0/via1 edge to edge distance is 1.0
+303 error : contact0 and via1 may not intersect in this way
+304 error : contact0 and via1 may not intersect in this way
+305 error : contact0 and via1 may not intersect in this way
+306 error : contact0 and via1 may not intersect in this way

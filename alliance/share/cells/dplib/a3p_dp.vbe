@@ -1,0 +1,49 @@
+-- VHDL data flow description generated from `a3p_dp`
+--		date : Thu Oct 30 16:51:56 1997
+
+
+-- Entity Declaration
+
+ENTITY a3p_dp IS
+  GENERIC (
+    CONSTANT area : NATURAL := 1800;	-- area
+    CONSTANT transistors : NATURAL := 8;	-- transistors
+    CONSTANT cin_i0 : NATURAL := 55;	-- cin_i0
+    CONSTANT cin_i1 : NATURAL := 56;	-- cin_i1
+    CONSTANT cin_i2 : NATURAL := 55;	-- cin_i2
+    CONSTANT tphh_i0_o : NATURAL := 1426;	-- tphh_i0_o
+    CONSTANT rup_i0_o : NATURAL := 1060;	-- rup_i0_o
+    CONSTANT tpll_i0_o : NATURAL := 1161;	-- tpll_i0_o
+    CONSTANT rdown_i0_o : NATURAL := 1120;	-- rdown_i0_o
+    CONSTANT tphh_i1_o : NATURAL := 1384;	-- tphh_i1_o
+    CONSTANT rup_i1_o : NATURAL := 1060;	-- rup_i1_o
+    CONSTANT tpll_i1_o : NATURAL := 1273;	-- tpll_i1_o
+    CONSTANT rdown_i1_o : NATURAL := 1120;	-- rdown_i1_o
+    CONSTANT tphh_i2_o : NATURAL := 1292;	-- tphh_i2_o
+    CONSTANT rup_i2_o : NATURAL := 1060;	-- rup_i2_o
+    CONSTANT tpll_i2_o : NATURAL := 1379;	-- tpll_i2_o
+    CONSTANT rdown_i2_o : NATURAL := 1120	-- rdown_i2_o
+  );
+  PORT (
+  i0 : in BIT;	-- i0
+  i1 : in BIT;	-- i1
+  i2 : in BIT;	-- i2
+  o : out BIT;	-- o
+  vdd : in BIT;	-- vdd
+  vss : in BIT	-- vss
+  );
+END a3p_dp;
+
+
+-- Architecture Declaration
+
+ARCHITECTURE behaviour_data_flow OF a3p_dp IS
+
+BEGIN
+  ASSERT ((vdd and not (vss)) = '1')
+    REPORT "power supply is missing on a3p_dp"
+    SEVERITY WARNING;
+
+
+o <= ((i0 and i1) and i2);
+END;

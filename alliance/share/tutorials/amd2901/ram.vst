@@ -1,0 +1,2791 @@
+-- VHDL structural description generated from `ram`
+--		date : Sun Sep 27 12:27:25 1998
+
+
+-- Entity Declaration
+
+ENTITY ram IS
+  PORT (
+  a : in BIT_VECTOR (3 DOWNTO 0);	-- a
+  b : in BIT_VECTOR (3 DOWNTO 0);	-- b
+  alu_out : in BIT_VECTOR (3 DOWNTO 0);	-- alu_out
+  fonc_mode : in BIT;	-- fonc_mode
+  r0 : in BIT;	-- r0
+  r3 : in BIT;	-- r3
+  s0 : out BIT;	-- s0
+  s3 : out BIT;	-- s3
+  decaldr : out BIT;	-- decaldr
+  decalgr : out BIT;	-- decalgr
+  ra : out BIT_VECTOR (3 DOWNTO 0);	-- ra
+  rb : out BIT_VECTOR (3 DOWNTO 0);	-- rb
+  i : in BIT_VECTOR (8 DOWNTO 7);	-- i
+  ck : in BIT;	-- ck
+  vdd : in BIT;	-- vdd
+  vss : in BIT	-- vss
+  );
+END ram;
+
+-- Architecture Declaration
+
+ARCHITECTURE VST OF ram IS
+  COMPONENT b1_y
+    port (
+    i : in BIT;	-- i
+    t : out BIT;	-- t
+    vdd : in BIT;	-- vdd
+    vss : in BIT	-- vss
+    );
+  END COMPONENT;
+
+  COMPONENT o2_y
+    port (
+    i0 : in BIT;	-- i0
+    i1 : in BIT;	-- i1
+    t : out BIT;	-- t
+    vdd : in BIT;	-- vdd
+    vss : in BIT	-- vss
+    );
+  END COMPONENT;
+
+  COMPONENT a2p_y
+    port (
+    i0 : in BIT;	-- i0
+    i1 : in BIT;	-- i1
+    t : out BIT;	-- t
+    vdd : in BIT;	-- vdd
+    vss : in BIT	-- vss
+    );
+  END COMPONENT;
+
+  COMPONENT o3_y
+    port (
+    i0 : in BIT;	-- i0
+    i1 : in BIT;	-- i1
+    i2 : in BIT;	-- i2
+    t : out BIT;	-- t
+    vdd : in BIT;	-- vdd
+    vss : in BIT	-- vss
+    );
+  END COMPONENT;
+
+  COMPONENT np1_y
+    port (
+    i : in BIT;	-- i
+    f : out BIT;	-- f
+    vdd : in BIT;	-- vdd
+    vss : in BIT	-- vss
+    );
+  END COMPONENT;
+
+  COMPONENT n1_y
+    port (
+    i : in BIT;	-- i
+    f : out BIT;	-- f
+    vdd : in BIT;	-- vdd
+    vss : in BIT	-- vss
+    );
+  END COMPONENT;
+
+  COMPONENT a2_y
+    port (
+    i0 : in BIT;	-- i0
+    i1 : in BIT;	-- i1
+    t : out BIT;	-- t
+    vdd : in BIT;	-- vdd
+    vss : in BIT	-- vss
+    );
+  END COMPONENT;
+
+  COMPONENT ms_y
+    port (
+    i : in BIT;	-- i
+    l : in BIT;	-- l
+    t : out BIT;	-- t
+    vdd : in BIT;	-- vdd
+    vss : in BIT	-- vss
+    );
+  END COMPONENT;
+
+  COMPONENT na2_y
+    port (
+    i0 : in BIT;	-- i0
+    i1 : in BIT;	-- i1
+    f : out BIT;	-- f
+    vdd : in BIT;	-- vdd
+    vss : in BIT	-- vss
+    );
+  END COMPONENT;
+
+  COMPONENT a4_y
+    port (
+    i0 : in BIT;	-- i0
+    i1 : in BIT;	-- i1
+    i2 : in BIT;	-- i2
+    i3 : in BIT;	-- i3
+    t : out BIT;	-- t
+    vdd : in BIT;	-- vdd
+    vss : in BIT	-- vss
+    );
+  END COMPONENT;
+
+  COMPONENT na4_y
+    port (
+    i0 : in BIT;	-- i0
+    i1 : in BIT;	-- i1
+    i2 : in BIT;	-- i2
+    i3 : in BIT;	-- i3
+    f : out BIT;	-- f
+    vdd : in BIT;	-- vdd
+    vss : in BIT	-- vss
+    );
+  END COMPONENT;
+
+  SIGNAL a010s : BIT;	-- a010s
+  SIGNAL a011s : BIT;	-- a011s
+  SIGNAL a012s : BIT;	-- a012s
+  SIGNAL a013s : BIT;	-- a013s
+  SIGNAL a014s : BIT;	-- a014s
+  SIGNAL a015s : BIT;	-- a015s
+  SIGNAL a016s : BIT;	-- a016s
+  SIGNAL a01s : BIT;	-- a01s
+  SIGNAL a02s : BIT;	-- a02s
+  SIGNAL a03s : BIT;	-- a03s
+  SIGNAL a04s : BIT;	-- a04s
+  SIGNAL a05s : BIT;	-- a05s
+  SIGNAL a06s : BIT;	-- a06s
+  SIGNAL a07s : BIT;	-- a07s
+  SIGNAL a08s : BIT;	-- a08s
+  SIGNAL a09s : BIT;	-- a09s
+  SIGNAL a1 : BIT;	-- a1
+  SIGNAL a10 : BIT;	-- a10
+  SIGNAL a11 : BIT;	-- a11
+  SIGNAL a110s : BIT;	-- a110s
+  SIGNAL a111s : BIT;	-- a111s
+  SIGNAL a112s : BIT;	-- a112s
+  SIGNAL a113s : BIT;	-- a113s
+  SIGNAL a114s : BIT;	-- a114s
+  SIGNAL a115s : BIT;	-- a115s
+  SIGNAL a116s : BIT;	-- a116s
+  SIGNAL a11s : BIT;	-- a11s
+  SIGNAL a12 : BIT;	-- a12
+  SIGNAL a12s : BIT;	-- a12s
+  SIGNAL a13 : BIT;	-- a13
+  SIGNAL a13s : BIT;	-- a13s
+  SIGNAL a14 : BIT;	-- a14
+  SIGNAL a14s : BIT;	-- a14s
+  SIGNAL a15 : BIT;	-- a15
+  SIGNAL a15s : BIT;	-- a15s
+  SIGNAL a16 : BIT;	-- a16
+  SIGNAL a16s : BIT;	-- a16s
+  SIGNAL a17s : BIT;	-- a17s
+  SIGNAL a18s : BIT;	-- a18s
+  SIGNAL a19s : BIT;	-- a19s
+  SIGNAL a2 : BIT;	-- a2
+  SIGNAL a210s : BIT;	-- a210s
+  SIGNAL a210sh : BIT;	-- a210sh
+  SIGNAL a211s : BIT;	-- a211s
+  SIGNAL a211sh : BIT;	-- a211sh
+  SIGNAL a212s : BIT;	-- a212s
+  SIGNAL a212sh : BIT;	-- a212sh
+  SIGNAL a213s : BIT;	-- a213s
+  SIGNAL a213sh : BIT;	-- a213sh
+  SIGNAL a214s : BIT;	-- a214s
+  SIGNAL a214sh : BIT;	-- a214sh
+  SIGNAL a215s : BIT;	-- a215s
+  SIGNAL a216s : BIT;	-- a216s
+  SIGNAL a21s : BIT;	-- a21s
+  SIGNAL a22s : BIT;	-- a22s
+  SIGNAL a23s : BIT;	-- a23s
+  SIGNAL a23sh : BIT;	-- a23sh
+  SIGNAL a24s : BIT;	-- a24s
+  SIGNAL a24sh : BIT;	-- a24sh
+  SIGNAL a25s : BIT;	-- a25s
+  SIGNAL a25sh : BIT;	-- a25sh
+  SIGNAL a26s : BIT;	-- a26s
+  SIGNAL a26sh : BIT;	-- a26sh
+  SIGNAL a27s : BIT;	-- a27s
+  SIGNAL a27sh : BIT;	-- a27sh
+  SIGNAL a28s : BIT;	-- a28s
+  SIGNAL a28sh : BIT;	-- a28sh
+  SIGNAL a29s : BIT;	-- a29s
+  SIGNAL a29sh : BIT;	-- a29sh
+  SIGNAL a3 : BIT;	-- a3
+  SIGNAL a310s : BIT;	-- a310s
+  SIGNAL a311s : BIT;	-- a311s
+  SIGNAL a312s : BIT;	-- a312s
+  SIGNAL a313s : BIT;	-- a313s
+  SIGNAL a314s : BIT;	-- a314s
+  SIGNAL a315s : BIT;	-- a315s
+  SIGNAL a316s : BIT;	-- a316s
+  SIGNAL a31s : BIT;	-- a31s
+  SIGNAL a32s : BIT;	-- a32s
+  SIGNAL a33s : BIT;	-- a33s
+  SIGNAL a34s : BIT;	-- a34s
+  SIGNAL a35s : BIT;	-- a35s
+  SIGNAL a36s : BIT;	-- a36s
+  SIGNAL a37s : BIT;	-- a37s
+  SIGNAL a38s : BIT;	-- a38s
+  SIGNAL a39s : BIT;	-- a39s
+  SIGNAL a4 : BIT;	-- a4
+  SIGNAL a5 : BIT;	-- a5
+  SIGNAL a6 : BIT;	-- a6
+  SIGNAL a7 : BIT;	-- a7
+  SIGNAL a8 : BIT;	-- a8
+  SIGNAL a9 : BIT;	-- a9
+  SIGNAL b010s : BIT;	-- b010s
+  SIGNAL b011s : BIT;	-- b011s
+  SIGNAL b012s : BIT;	-- b012s
+  SIGNAL b013s : BIT;	-- b013s
+  SIGNAL b014s : BIT;	-- b014s
+  SIGNAL b015s : BIT;	-- b015s
+  SIGNAL b016s : BIT;	-- b016s
+  SIGNAL b01s : BIT;	-- b01s
+  SIGNAL b02s : BIT;	-- b02s
+  SIGNAL b03s : BIT;	-- b03s
+  SIGNAL b04s : BIT;	-- b04s
+  SIGNAL b05s : BIT;	-- b05s
+  SIGNAL b06s : BIT;	-- b06s
+  SIGNAL b07s : BIT;	-- b07s
+  SIGNAL b08s : BIT;	-- b08s
+  SIGNAL b09s : BIT;	-- b09s
+  SIGNAL b1 : BIT;	-- b1
+  SIGNAL b10 : BIT;	-- b10
+  SIGNAL b11 : BIT;	-- b11
+  SIGNAL b110s : BIT;	-- b110s
+  SIGNAL b111s : BIT;	-- b111s
+  SIGNAL b112s : BIT;	-- b112s
+  SIGNAL b113s : BIT;	-- b113s
+  SIGNAL b114s : BIT;	-- b114s
+  SIGNAL b115s : BIT;	-- b115s
+  SIGNAL b116s : BIT;	-- b116s
+  SIGNAL b11s : BIT;	-- b11s
+  SIGNAL b12 : BIT;	-- b12
+  SIGNAL b12s : BIT;	-- b12s
+  SIGNAL b13 : BIT;	-- b13
+  SIGNAL b13s : BIT;	-- b13s
+  SIGNAL b14 : BIT;	-- b14
+  SIGNAL b14s : BIT;	-- b14s
+  SIGNAL b15 : BIT;	-- b15
+  SIGNAL b15s : BIT;	-- b15s
+  SIGNAL b16 : BIT;	-- b16
+  SIGNAL b16s : BIT;	-- b16s
+  SIGNAL b17s : BIT;	-- b17s
+  SIGNAL b18s : BIT;	-- b18s
+  SIGNAL b19s : BIT;	-- b19s
+  SIGNAL b2 : BIT;	-- b2
+  SIGNAL b210s : BIT;	-- b210s
+  SIGNAL b211s : BIT;	-- b211s
+  SIGNAL b212s : BIT;	-- b212s
+  SIGNAL b213s : BIT;	-- b213s
+  SIGNAL b214s : BIT;	-- b214s
+  SIGNAL b215s : BIT;	-- b215s
+  SIGNAL b216s : BIT;	-- b216s
+  SIGNAL b21s : BIT;	-- b21s
+  SIGNAL b22s : BIT;	-- b22s
+  SIGNAL b23s : BIT;	-- b23s
+  SIGNAL b24s : BIT;	-- b24s
+  SIGNAL b25s : BIT;	-- b25s
+  SIGNAL b26s : BIT;	-- b26s
+  SIGNAL b27s : BIT;	-- b27s
+  SIGNAL b28s : BIT;	-- b28s
+  SIGNAL b29s : BIT;	-- b29s
+  SIGNAL b3 : BIT;	-- b3
+  SIGNAL b310s : BIT;	-- b310s
+  SIGNAL b311s : BIT;	-- b311s
+  SIGNAL b312s : BIT;	-- b312s
+  SIGNAL b313s : BIT;	-- b313s
+  SIGNAL b314s : BIT;	-- b314s
+  SIGNAL b315s : BIT;	-- b315s
+  SIGNAL b316s : BIT;	-- b316s
+  SIGNAL b31s : BIT;	-- b31s
+  SIGNAL b32s : BIT;	-- b32s
+  SIGNAL b33s : BIT;	-- b33s
+  SIGNAL b34s : BIT;	-- b34s
+  SIGNAL b35s : BIT;	-- b35s
+  SIGNAL b36s : BIT;	-- b36s
+  SIGNAL b37s : BIT;	-- b37s
+  SIGNAL b38s : BIT;	-- b38s
+  SIGNAL b39s : BIT;	-- b39s
+  SIGNAL b4 : BIT;	-- b4
+  SIGNAL b5 : BIT;	-- b5
+  SIGNAL b6 : BIT;	-- b6
+  SIGNAL b7 : BIT;	-- b7
+  SIGNAL b8 : BIT;	-- b8
+  SIGNAL b9 : BIT;	-- b9
+  SIGNAL ck1 : BIT;	-- ck1
+  SIGNAL ck10 : BIT;	-- ck10
+  SIGNAL ck11 : BIT;	-- ck11
+  SIGNAL ck12 : BIT;	-- ck12
+  SIGNAL ck13 : BIT;	-- ck13
+  SIGNAL ck14 : BIT;	-- ck14
+  SIGNAL ck15 : BIT;	-- ck15
+  SIGNAL ck16 : BIT;	-- ck16
+  SIGNAL ck2 : BIT;	-- ck2
+  SIGNAL ck3 : BIT;	-- ck3
+  SIGNAL ck4 : BIT;	-- ck4
+  SIGNAL ck5 : BIT;	-- ck5
+  SIGNAL ck6 : BIT;	-- ck6
+  SIGNAL ck7 : BIT;	-- ck7
+  SIGNAL ck8 : BIT;	-- ck8
+  SIGNAL ck9 : BIT;	-- ck9
+  SIGNAL decaldra : BIT;	-- decaldra
+  SIGNAL decalgra : BIT;	-- decalgra
+  SIGNAL decalnr : BIT;	-- decalnr
+  SIGNAL enable : BIT;	-- enable
+  SIGNAL na0 : BIT;	-- na0
+  SIGNAL na1 : BIT;	-- na1
+  SIGNAL na2 : BIT;	-- na2
+  SIGNAL na3 : BIT;	-- na3
+  SIGNAL nb0 : BIT;	-- nb0
+  SIGNAL nb1 : BIT;	-- nb1
+  SIGNAL nb2 : BIT;	-- nb2
+  SIGNAL nb3 : BIT;	-- nb3
+  SIGNAL ni7 : BIT;	-- ni7
+  SIGNAL o21s : BIT;	-- o21s
+  SIGNAL oa410s : BIT;	-- oa410s
+  SIGNAL oa411s : BIT;	-- oa411s
+  SIGNAL oa412s : BIT;	-- oa412s
+  SIGNAL oa413s : BIT;	-- oa413s
+  SIGNAL oa420s : BIT;	-- oa420s
+  SIGNAL oa421s : BIT;	-- oa421s
+  SIGNAL oa422s : BIT;	-- oa422s
+  SIGNAL oa423s : BIT;	-- oa423s
+  SIGNAL oa430s : BIT;	-- oa430s
+  SIGNAL oa431s : BIT;	-- oa431s
+  SIGNAL oa432s : BIT;	-- oa432s
+  SIGNAL oa433s : BIT;	-- oa433s
+  SIGNAL oa440s : BIT;	-- oa440s
+  SIGNAL oa441s : BIT;	-- oa441s
+  SIGNAL oa442s : BIT;	-- oa442s
+  SIGNAL oa443s : BIT;	-- oa443s
+  SIGNAL ob410s : BIT;	-- ob410s
+  SIGNAL ob411s : BIT;	-- ob411s
+  SIGNAL ob412s : BIT;	-- ob412s
+  SIGNAL ob413s : BIT;	-- ob413s
+  SIGNAL ob420s : BIT;	-- ob420s
+  SIGNAL ob421s : BIT;	-- ob421s
+  SIGNAL ob422s : BIT;	-- ob422s
+  SIGNAL ob423s : BIT;	-- ob423s
+  SIGNAL ob430s : BIT;	-- ob430s
+  SIGNAL ob431s : BIT;	-- ob431s
+  SIGNAL ob432s : BIT;	-- ob432s
+  SIGNAL ob433s : BIT;	-- ob433s
+  SIGNAL ob440s : BIT;	-- ob440s
+  SIGNAL ob441s : BIT;	-- ob441s
+  SIGNAL ob442s : BIT;	-- ob442s
+  SIGNAL ob443s : BIT;	-- ob443s
+  SIGNAL s01 : BIT;	-- s01
+  SIGNAL s010 : BIT;	-- s010
+  SIGNAL s011 : BIT;	-- s011
+  SIGNAL s012 : BIT;	-- s012
+  SIGNAL s013 : BIT;	-- s013
+  SIGNAL s014 : BIT;	-- s014
+  SIGNAL s015 : BIT;	-- s015
+  SIGNAL s016 : BIT;	-- s016
+  SIGNAL s02 : BIT;	-- s02
+  SIGNAL s03 : BIT;	-- s03
+  SIGNAL s04 : BIT;	-- s04
+  SIGNAL s05 : BIT;	-- s05
+  SIGNAL s06 : BIT;	-- s06
+  SIGNAL s07 : BIT;	-- s07
+  SIGNAL s08 : BIT;	-- s08
+  SIGNAL s09 : BIT;	-- s09
+  SIGNAL s11 : BIT;	-- s11
+  SIGNAL s110 : BIT;	-- s110
+  SIGNAL s111 : BIT;	-- s111
+  SIGNAL s112 : BIT;	-- s112
+  SIGNAL s113 : BIT;	-- s113
+  SIGNAL s114 : BIT;	-- s114
+  SIGNAL s115 : BIT;	-- s115
+  SIGNAL s116 : BIT;	-- s116
+  SIGNAL s12 : BIT;	-- s12
+  SIGNAL s13 : BIT;	-- s13
+  SIGNAL s14 : BIT;	-- s14
+  SIGNAL s15 : BIT;	-- s15
+  SIGNAL s16 : BIT;	-- s16
+  SIGNAL s17 : BIT;	-- s17
+  SIGNAL s18 : BIT;	-- s18
+  SIGNAL s19 : BIT;	-- s19
+  SIGNAL s21 : BIT;	-- s21
+  SIGNAL s210 : BIT;	-- s210
+  SIGNAL s211 : BIT;	-- s211
+  SIGNAL s212 : BIT;	-- s212
+  SIGNAL s213 : BIT;	-- s213
+  SIGNAL s214 : BIT;	-- s214
+  SIGNAL s215 : BIT;	-- s215
+  SIGNAL s216 : BIT;	-- s216
+  SIGNAL s22 : BIT;	-- s22
+  SIGNAL s23 : BIT;	-- s23
+  SIGNAL s24 : BIT;	-- s24
+  SIGNAL s25 : BIT;	-- s25
+  SIGNAL s26 : BIT;	-- s26
+  SIGNAL s27 : BIT;	-- s27
+  SIGNAL s28 : BIT;	-- s28
+  SIGNAL s29 : BIT;	-- s29
+  SIGNAL s31 : BIT;	-- s31
+  SIGNAL s310 : BIT;	-- s310
+  SIGNAL s311 : BIT;	-- s311
+  SIGNAL s312 : BIT;	-- s312
+  SIGNAL s313 : BIT;	-- s313
+  SIGNAL s314 : BIT;	-- s314
+  SIGNAL s315 : BIT;	-- s315
+  SIGNAL s316 : BIT;	-- s316
+  SIGNAL s32 : BIT;	-- s32
+  SIGNAL s33 : BIT;	-- s33
+  SIGNAL s34 : BIT;	-- s34
+  SIGNAL s35 : BIT;	-- s35
+  SIGNAL s36 : BIT;	-- s36
+  SIGNAL s37 : BIT;	-- s37
+  SIGNAL s38 : BIT;	-- s38
+  SIGNAL s39 : BIT;	-- s39
+  SIGNAL shram0 : BIT;	-- shram0
+  SIGNAL shram1 : BIT;	-- shram1
+  SIGNAL shram2 : BIT;	-- shram2
+  SIGNAL shram3 : BIT;	-- shram3
+  SIGNAL wram : BIT;	-- wram
+
+BEGIN
+
+  n11ra : n1_y
+    PORT MAP (
+    vss => vss,
+    vdd => vdd,
+    f => decalnr,
+    i => i(8));
+  n12ra : n1_y
+    PORT MAP (
+    vss => vss,
+    vdd => vdd,
+    f => ni7,
+    i => i(7));
+  a21r : a2_y
+    PORT MAP (
+    vss => vss,
+    vdd => vdd,
+    t => decaldra,
+    i1 => ni7,
+    i0 => i(8));
+  bufdecaldr : b1_y
+    PORT MAP (
+    vss => vss,
+    vdd => vdd,
+    t => decaldr,
+    i => decaldra);
+  bufdecalgr : b1_y
+    PORT MAP (
+    vss => vss,
+    vdd => vdd,
+    t => decalgr,
+    i => decalgra);
+  a22r : a2_y
+    PORT MAP (
+    vss => vss,
+    vdd => vdd,
+    t => decalgra,
+    i1 => i(7),
+    i0 => i(8));
+  o21r : o2_y
+    PORT MAP (
+    vss => vss,
+    vdd => vdd,
+    t => o21s,
+    i1 => i(7),
+    i0 => i(8));
+  a215r : a2_y
+    PORT MAP (
+    vss => vss,
+    vdd => vdd,
+    t => wram,
+    i1 => o21s,
+    i0 => fonc_mode);
+  a216r : a2p_y
+    PORT MAP (
+    vss => vss,
+    vdd => vdd,
+    t => enable,
+    i1 => wram,
+    i0 => ck);
+  a232r : a2_y
+    PORT MAP (
+    vss => vss,
+    vdd => vdd,
+    t => s3,
+    i1 => alu_out(3),
+    i0 => decalgra);
+  a233r : a2_y
+    PORT MAP (
+    vss => vss,
+    vdd => vdd,
+    t => s0,
+    i1 => alu_out(0),
+    i0 => decaldra);
+  a23r : a2_y
+    PORT MAP (
+    vss => vss,
+    vdd => vdd,
+    t => a23sh,
+    i1 => decalgra,
+    i0 => alu_out(2));
+  a24r : a2_y
+    PORT MAP (
+    vss => vss,
+    vdd => vdd,
+    t => a24sh,
+    i1 => decalnr,
+    i0 => alu_out(3));
+  a25r : a2_y
+    PORT MAP (
+    vss => vss,
+    vdd => vdd,
+    t => a25sh,
+    i1 => decaldra,
+    i0 => r3);
+  a26r : a2_y
+    PORT MAP (
+    vss => vss,
+    vdd => vdd,
+    t => a26sh,
+    i1 => decalgra,
+    i0 => alu_out(1));
+  a27r : a2_y
+    PORT MAP (
+    vss => vss,
+    vdd => vdd,
+    t => a27sh,
+    i1 => decalnr,
+    i0 => alu_out(2));
+  a28r : a2_y
+    PORT MAP (
+    vss => vss,
+    vdd => vdd,
+    t => a28sh,
+    i1 => decaldra,
+    i0 => alu_out(3));
+  a29r : a2_y
+    PORT MAP (
+    vss => vss,
+    vdd => vdd,
+    t => a29sh,
+    i1 => decalgra,
+    i0 => alu_out(0));
+  a210r : a2_y
+    PORT MAP (
+    vss => vss,
+    vdd => vdd,
+    t => a210sh,
+    i1 => decalnr,
+    i0 => alu_out(1));
+  a211r : a2_y
+    PORT MAP (
+    vss => vss,
+    vdd => vdd,
+    t => a211sh,
+    i1 => decaldra,
+    i0 => alu_out(2));
+  a212r : a2_y
+    PORT MAP (
+    vss => vss,
+    vdd => vdd,
+    t => a212sh,
+    i1 => decalgra,
+    i0 => r0);
+  a213r : a2_y
+    PORT MAP (
+    vss => vss,
+    vdd => vdd,
+    t => a213sh,
+    i1 => decalnr,
+    i0 => alu_out(0));
+  a214r : a2_y
+    PORT MAP (
+    vss => vss,
+    vdd => vdd,
+    t => a214sh,
+    i1 => decaldra,
+    i0 => alu_out(1));
+  o31r : o3_y
+    PORT MAP (
+    vss => vss,
+    vdd => vdd,
+    t => shram3,
+    i2 => a25sh,
+    i1 => a24sh,
+    i0 => a23sh);
+  o32r : o3_y
+    PORT MAP (
+    vss => vss,
+    vdd => vdd,
+    t => shram2,
+    i2 => a28sh,
+    i1 => a27sh,
+    i0 => a26sh);
+  o33r : o3_y
+    PORT MAP (
+    vss => vss,
+    vdd => vdd,
+    t => shram1,
+    i2 => a211sh,
+    i1 => a210sh,
+    i0 => a29sh);
+  o34r : o3_y
+    PORT MAP (
+    vss => vss,
+    vdd => vdd,
+    t => shram0,
+    i2 => a214sh,
+    i1 => a213sh,
+    i0 => a212sh);
+  n15r : np1_y
+    PORT MAP (
+    vss => vss,
+    vdd => vdd,
+    f => na0,
+    i => a(0));
+  n16r : np1_y
+    PORT MAP (
+    vss => vss,
+    vdd => vdd,
+    f => na1,
+    i => a(1));
+  n17r : np1_y
+    PORT MAP (
+    vss => vss,
+    vdd => vdd,
+    f => na2,
+    i => a(2));
+  n18r : np1_y
+    PORT MAP (
+    vss => vss,
+    vdd => vdd,
+    f => na3,
+    i => a(3));
+  a41r : a4_y
+    PORT MAP (
+    vss => vss,
+    vdd => vdd,
+    t => a1,
+    i3 => na0,
+    i2 => na1,
+    i1 => na2,
+    i0 => na3);
+  a42r : a4_y
+    PORT MAP (
+    vss => vss,
+    vdd => vdd,
+    t => a2,
+    i3 => a(0),
+    i2 => na1,
+    i1 => na2,
+    i0 => na3);
+  a43r : a4_y
+    PORT MAP (
+    vss => vss,
+    vdd => vdd,
+    t => a3,
+    i3 => na0,
+    i2 => a(1),
+    i1 => na2,
+    i0 => na3);
+  a44r : a4_y
+    PORT MAP (
+    vss => vss,
+    vdd => vdd,
+    t => a4,
+    i3 => a(0),
+    i2 => a(1),
+    i1 => na2,
+    i0 => na3);
+  a45r : a4_y
+    PORT MAP (
+    vss => vss,
+    vdd => vdd,
+    t => a5,
+    i3 => na0,
+    i2 => na1,
+    i1 => a(2),
+    i0 => na3);
+  a46r : a4_y
+    PORT MAP (
+    vss => vss,
+    vdd => vdd,
+    t => a6,
+    i3 => a(0),
+    i2 => na1,
+    i1 => a(2),
+    i0 => na3);
+  a47r : a4_y
+    PORT MAP (
+    vss => vss,
+    vdd => vdd,
+    t => a7,
+    i3 => na0,
+    i2 => a(1),
+    i1 => a(2),
+    i0 => na3);
+  a48r : a4_y
+    PORT MAP (
+    vss => vss,
+    vdd => vdd,
+    t => a8,
+    i3 => a(0),
+    i2 => a(1),
+    i1 => a(2),
+    i0 => na3);
+  a49r : a4_y
+    PORT MAP (
+    vss => vss,
+    vdd => vdd,
+    t => a9,
+    i3 => na0,
+    i2 => na1,
+    i1 => na2,
+    i0 => a(3));
+  a410r : a4_y
+    PORT MAP (
+    vss => vss,
+    vdd => vdd,
+    t => a10,
+    i3 => a(0),
+    i2 => na1,
+    i1 => na2,
+    i0 => a(3));
+  a411r : a4_y
+    PORT MAP (
+    vss => vss,
+    vdd => vdd,
+    t => a11,
+    i3 => na0,
+    i2 => a(1),
+    i1 => na2,
+    i0 => a(3));
+  a412r : a4_y
+    PORT MAP (
+    vss => vss,
+    vdd => vdd,
+    t => a12,
+    i3 => a(0),
+    i2 => a(1),
+    i1 => na2,
+    i0 => a(3));
+  a413r : a4_y
+    PORT MAP (
+    vss => vss,
+    vdd => vdd,
+    t => a13,
+    i3 => na0,
+    i2 => na1,
+    i1 => a(2),
+    i0 => a(3));
+  a414r : a4_y
+    PORT MAP (
+    vss => vss,
+    vdd => vdd,
+    t => a14,
+    i3 => a(0),
+    i2 => na1,
+    i1 => a(2),
+    i0 => a(3));
+  a415r : a4_y
+    PORT MAP (
+    vss => vss,
+    vdd => vdd,
+    t => a15,
+    i3 => na0,
+    i2 => a(1),
+    i1 => a(2),
+    i0 => a(3));
+  a416r : a4_y
+    PORT MAP (
+    vss => vss,
+    vdd => vdd,
+    t => a16,
+    i3 => a(0),
+    i2 => a(1),
+    i1 => a(2),
+    i0 => a(3));
+  n111r : n1_y
+    PORT MAP (
+    vss => vss,
+    vdd => vdd,
+    f => nb0,
+    i => b(0));
+  n112r : n1_y
+    PORT MAP (
+    vss => vss,
+    vdd => vdd,
+    f => nb1,
+    i => b(1));
+  n113r : n1_y
+    PORT MAP (
+    vss => vss,
+    vdd => vdd,
+    f => nb2,
+    i => b(2));
+  n114r : n1_y
+    PORT MAP (
+    vss => vss,
+    vdd => vdd,
+    f => nb3,
+    i => b(3));
+  b41r : a4_y
+    PORT MAP (
+    vss => vss,
+    vdd => vdd,
+    t => b1,
+    i3 => nb0,
+    i2 => nb1,
+    i1 => nb2,
+    i0 => nb3);
+  b42r : a4_y
+    PORT MAP (
+    vss => vss,
+    vdd => vdd,
+    t => b2,
+    i3 => b(0),
+    i2 => nb1,
+    i1 => nb2,
+    i0 => nb3);
+  b43r : a4_y
+    PORT MAP (
+    vss => vss,
+    vdd => vdd,
+    t => b3,
+    i3 => nb0,
+    i2 => b(1),
+    i1 => nb2,
+    i0 => nb3);
+  b44r : a4_y
+    PORT MAP (
+    vss => vss,
+    vdd => vdd,
+    t => b4,
+    i3 => b(0),
+    i2 => b(1),
+    i1 => nb2,
+    i0 => nb3);
+  b45r : a4_y
+    PORT MAP (
+    vss => vss,
+    vdd => vdd,
+    t => b5,
+    i3 => nb0,
+    i2 => nb1,
+    i1 => b(2),
+    i0 => nb3);
+  b46r : a4_y
+    PORT MAP (
+    vss => vss,
+    vdd => vdd,
+    t => b6,
+    i3 => b(0),
+    i2 => nb1,
+    i1 => b(2),
+    i0 => nb3);
+  b47r : a4_y
+    PORT MAP (
+    vss => vss,
+    vdd => vdd,
+    t => b7,
+    i3 => nb0,
+    i2 => b(1),
+    i1 => b(2),
+    i0 => nb3);
+  b48r : a4_y
+    PORT MAP (
+    vss => vss,
+    vdd => vdd,
+    t => b8,
+    i3 => b(0),
+    i2 => b(1),
+    i1 => b(2),
+    i0 => nb3);
+  b49r : a4_y
+    PORT MAP (
+    vss => vss,
+    vdd => vdd,
+    t => b9,
+    i3 => nb0,
+    i2 => nb1,
+    i1 => nb2,
+    i0 => b(3));
+  b410r : a4_y
+    PORT MAP (
+    vss => vss,
+    vdd => vdd,
+    t => b10,
+    i3 => b(0),
+    i2 => nb1,
+    i1 => nb2,
+    i0 => b(3));
+  b411r : a4_y
+    PORT MAP (
+    vss => vss,
+    vdd => vdd,
+    t => b11,
+    i3 => nb0,
+    i2 => b(1),
+    i1 => nb2,
+    i0 => b(3));
+  b412r : a4_y
+    PORT MAP (
+    vss => vss,
+    vdd => vdd,
+    t => b12,
+    i3 => b(0),
+    i2 => b(1),
+    i1 => nb2,
+    i0 => b(3));
+  b413r : a4_y
+    PORT MAP (
+    vss => vss,
+    vdd => vdd,
+    t => b13,
+    i3 => nb0,
+    i2 => nb1,
+    i1 => b(2),
+    i0 => b(3));
+  b414r : a4_y
+    PORT MAP (
+    vss => vss,
+    vdd => vdd,
+    t => b14,
+    i3 => b(0),
+    i2 => nb1,
+    i1 => b(2),
+    i0 => b(3));
+  b415r : a4_y
+    PORT MAP (
+    vss => vss,
+    vdd => vdd,
+    t => b15,
+    i3 => nb0,
+    i2 => b(1),
+    i1 => b(2),
+    i0 => b(3));
+  b416r : a4_y
+    PORT MAP (
+    vss => vss,
+    vdd => vdd,
+    t => b16,
+    i3 => b(0),
+    i2 => b(1),
+    i1 => b(2),
+    i0 => b(3));
+  c16 : a2_y
+    PORT MAP (
+    vss => vss,
+    vdd => vdd,
+    t => ck16,
+    i1 => b16,
+    i0 => enable);
+  c15 : a2_y
+    PORT MAP (
+    vss => vss,
+    vdd => vdd,
+    t => ck15,
+    i1 => b15,
+    i0 => enable);
+  c14 : a2_y
+    PORT MAP (
+    vss => vss,
+    vdd => vdd,
+    t => ck14,
+    i1 => b14,
+    i0 => enable);
+  c13 : a2_y
+    PORT MAP (
+    vss => vss,
+    vdd => vdd,
+    t => ck13,
+    i1 => b13,
+    i0 => enable);
+  c12 : a2_y
+    PORT MAP (
+    vss => vss,
+    vdd => vdd,
+    t => ck12,
+    i1 => b12,
+    i0 => enable);
+  c11 : a2_y
+    PORT MAP (
+    vss => vss,
+    vdd => vdd,
+    t => ck11,
+    i1 => b11,
+    i0 => enable);
+  c10 : a2_y
+    PORT MAP (
+    vss => vss,
+    vdd => vdd,
+    t => ck10,
+    i1 => b10,
+    i0 => enable);
+  c9 : a2_y
+    PORT MAP (
+    vss => vss,
+    vdd => vdd,
+    t => ck9,
+    i1 => b9,
+    i0 => enable);
+  c8 : a2_y
+    PORT MAP (
+    vss => vss,
+    vdd => vdd,
+    t => ck8,
+    i1 => b8,
+    i0 => enable);
+  c7 : a2_y
+    PORT MAP (
+    vss => vss,
+    vdd => vdd,
+    t => ck7,
+    i1 => b7,
+    i0 => enable);
+  c6 : a2_y
+    PORT MAP (
+    vss => vss,
+    vdd => vdd,
+    t => ck6,
+    i1 => b6,
+    i0 => enable);
+  c5 : a2_y
+    PORT MAP (
+    vss => vss,
+    vdd => vdd,
+    t => ck5,
+    i1 => b5,
+    i0 => enable);
+  c4 : a2_y
+    PORT MAP (
+    vss => vss,
+    vdd => vdd,
+    t => ck4,
+    i1 => b4,
+    i0 => enable);
+  c3 : a2_y
+    PORT MAP (
+    vss => vss,
+    vdd => vdd,
+    t => ck3,
+    i1 => b3,
+    i0 => enable);
+  c2 : a2_y
+    PORT MAP (
+    vss => vss,
+    vdd => vdd,
+    t => ck2,
+    i1 => b2,
+    i0 => enable);
+  c1 : a2_y
+    PORT MAP (
+    vss => vss,
+    vdd => vdd,
+    t => ck1,
+    i1 => b1,
+    i0 => enable);
+  m_16_3 : ms_y
+    PORT MAP (
+    vss => vss,
+    vdd => vdd,
+    t => s316,
+    l => ck16,
+    i => shram3);
+  m_15_3 : ms_y
+    PORT MAP (
+    vss => vss,
+    vdd => vdd,
+    t => s315,
+    l => ck15,
+    i => shram3);
+  m_14_3 : ms_y
+    PORT MAP (
+    vss => vss,
+    vdd => vdd,
+    t => s314,
+    l => ck14,
+    i => shram3);
+  m_13_3 : ms_y
+    PORT MAP (
+    vss => vss,
+    vdd => vdd,
+    t => s313,
+    l => ck13,
+    i => shram3);
+  m_12_3 : ms_y
+    PORT MAP (
+    vss => vss,
+    vdd => vdd,
+    t => s312,
+    l => ck12,
+    i => shram3);
+  m_11_3 : ms_y
+    PORT MAP (
+    vss => vss,
+    vdd => vdd,
+    t => s311,
+    l => ck11,
+    i => shram3);
+  m_10_3 : ms_y
+    PORT MAP (
+    vss => vss,
+    vdd => vdd,
+    t => s310,
+    l => ck10,
+    i => shram3);
+  m_9_3 : ms_y
+    PORT MAP (
+    vss => vss,
+    vdd => vdd,
+    t => s39,
+    l => ck9,
+    i => shram3);
+  m_8_3 : ms_y
+    PORT MAP (
+    vss => vss,
+    vdd => vdd,
+    t => s38,
+    l => ck8,
+    i => shram3);
+  m_7_3 : ms_y
+    PORT MAP (
+    vss => vss,
+    vdd => vdd,
+    t => s37,
+    l => ck7,
+    i => shram3);
+  m_6_3 : ms_y
+    PORT MAP (
+    vss => vss,
+    vdd => vdd,
+    t => s36,
+    l => ck6,
+    i => shram3);
+  m_5_3 : ms_y
+    PORT MAP (
+    vss => vss,
+    vdd => vdd,
+    t => s35,
+    l => ck5,
+    i => shram3);
+  m_4_3 : ms_y
+    PORT MAP (
+    vss => vss,
+    vdd => vdd,
+    t => s34,
+    l => ck4,
+    i => shram3);
+  m_3_3 : ms_y
+    PORT MAP (
+    vss => vss,
+    vdd => vdd,
+    t => s33,
+    l => ck3,
+    i => shram3);
+  m_2_3 : ms_y
+    PORT MAP (
+    vss => vss,
+    vdd => vdd,
+    t => s32,
+    l => ck2,
+    i => shram3);
+  m_1_3 : ms_y
+    PORT MAP (
+    vss => vss,
+    vdd => vdd,
+    t => s31,
+    l => ck1,
+    i => shram3);
+  m_16_2 : ms_y
+    PORT MAP (
+    vss => vss,
+    vdd => vdd,
+    t => s216,
+    l => ck16,
+    i => shram2);
+  m_15_2 : ms_y
+    PORT MAP (
+    vss => vss,
+    vdd => vdd,
+    t => s215,
+    l => ck15,
+    i => shram2);
+  m_14_2 : ms_y
+    PORT MAP (
+    vss => vss,
+    vdd => vdd,
+    t => s214,
+    l => ck14,
+    i => shram2);
+  m_13_2 : ms_y
+    PORT MAP (
+    vss => vss,
+    vdd => vdd,
+    t => s213,
+    l => ck13,
+    i => shram2);
+  m_12_2 : ms_y
+    PORT MAP (
+    vss => vss,
+    vdd => vdd,
+    t => s212,
+    l => ck12,
+    i => shram2);
+  m_11_2 : ms_y
+    PORT MAP (
+    vss => vss,
+    vdd => vdd,
+    t => s211,
+    l => ck11,
+    i => shram2);
+  m_10_2 : ms_y
+    PORT MAP (
+    vss => vss,
+    vdd => vdd,
+    t => s210,
+    l => ck10,
+    i => shram2);
+  m_9_2 : ms_y
+    PORT MAP (
+    vss => vss,
+    vdd => vdd,
+    t => s29,
+    l => ck9,
+    i => shram2);
+  m_8_2 : ms_y
+    PORT MAP (
+    vss => vss,
+    vdd => vdd,
+    t => s28,
+    l => ck8,
+    i => shram2);
+  m_7_2 : ms_y
+    PORT MAP (
+    vss => vss,
+    vdd => vdd,
+    t => s27,
+    l => ck7,
+    i => shram2);
+  m_6_2 : ms_y
+    PORT MAP (
+    vss => vss,
+    vdd => vdd,
+    t => s26,
+    l => ck6,
+    i => shram2);
+  m_5_2 : ms_y
+    PORT MAP (
+    vss => vss,
+    vdd => vdd,
+    t => s25,
+    l => ck5,
+    i => shram2);
+  m_4_2 : ms_y
+    PORT MAP (
+    vss => vss,
+    vdd => vdd,
+    t => s24,
+    l => ck4,
+    i => shram2);
+  m_3_2 : ms_y
+    PORT MAP (
+    vss => vss,
+    vdd => vdd,
+    t => s23,
+    l => ck3,
+    i => shram2);
+  m_2_2 : ms_y
+    PORT MAP (
+    vss => vss,
+    vdd => vdd,
+    t => s22,
+    l => ck2,
+    i => shram2);
+  m_1_2 : ms_y
+    PORT MAP (
+    vss => vss,
+    vdd => vdd,
+    t => s21,
+    l => ck1,
+    i => shram2);
+  m_16_1 : ms_y
+    PORT MAP (
+    vss => vss,
+    vdd => vdd,
+    t => s116,
+    l => ck16,
+    i => shram1);
+  m_15_1 : ms_y
+    PORT MAP (
+    vss => vss,
+    vdd => vdd,
+    t => s115,
+    l => ck15,
+    i => shram1);
+  m_14_1 : ms_y
+    PORT MAP (
+    vss => vss,
+    vdd => vdd,
+    t => s114,
+    l => ck14,
+    i => shram1);
+  m_13_1 : ms_y
+    PORT MAP (
+    vss => vss,
+    vdd => vdd,
+    t => s113,
+    l => ck13,
+    i => shram1);
+  m_12_1 : ms_y
+    PORT MAP (
+    vss => vss,
+    vdd => vdd,
+    t => s112,
+    l => ck12,
+    i => shram1);
+  m_11_1 : ms_y
+    PORT MAP (
+    vss => vss,
+    vdd => vdd,
+    t => s111,
+    l => ck11,
+    i => shram1);
+  m_10_1 : ms_y
+    PORT MAP (
+    vss => vss,
+    vdd => vdd,
+    t => s110,
+    l => ck10,
+    i => shram1);
+  m_9_1 : ms_y
+    PORT MAP (
+    vss => vss,
+    vdd => vdd,
+    t => s19,
+    l => ck9,
+    i => shram1);
+  m_8_1 : ms_y
+    PORT MAP (
+    vss => vss,
+    vdd => vdd,
+    t => s18,
+    l => ck8,
+    i => shram1);
+  m_7_1 : ms_y
+    PORT MAP (
+    vss => vss,
+    vdd => vdd,
+    t => s17,
+    l => ck7,
+    i => shram1);
+  m_6_1 : ms_y
+    PORT MAP (
+    vss => vss,
+    vdd => vdd,
+    t => s16,
+    l => ck6,
+    i => shram1);
+  m_5_1 : ms_y
+    PORT MAP (
+    vss => vss,
+    vdd => vdd,
+    t => s15,
+    l => ck5,
+    i => shram1);
+  m_4_1 : ms_y
+    PORT MAP (
+    vss => vss,
+    vdd => vdd,
+    t => s14,
+    l => ck4,
+    i => shram1);
+  m_3_1 : ms_y
+    PORT MAP (
+    vss => vss,
+    vdd => vdd,
+    t => s13,
+    l => ck3,
+    i => shram1);
+  m_2_1 : ms_y
+    PORT MAP (
+    vss => vss,
+    vdd => vdd,
+    t => s12,
+    l => ck2,
+    i => shram1);
+  m_1_1 : ms_y
+    PORT MAP (
+    vss => vss,
+    vdd => vdd,
+    t => s11,
+    l => ck1,
+    i => shram1);
+  m_16_0 : ms_y
+    PORT MAP (
+    vss => vss,
+    vdd => vdd,
+    t => s016,
+    l => ck16,
+    i => shram0);
+  m_15_0 : ms_y
+    PORT MAP (
+    vss => vss,
+    vdd => vdd,
+    t => s015,
+    l => ck15,
+    i => shram0);
+  m_14_0 : ms_y
+    PORT MAP (
+    vss => vss,
+    vdd => vdd,
+    t => s014,
+    l => ck14,
+    i => shram0);
+  m_13_0 : ms_y
+    PORT MAP (
+    vss => vss,
+    vdd => vdd,
+    t => s013,
+    l => ck13,
+    i => shram0);
+  m_12_0 : ms_y
+    PORT MAP (
+    vss => vss,
+    vdd => vdd,
+    t => s012,
+    l => ck12,
+    i => shram0);
+  m_11_0 : ms_y
+    PORT MAP (
+    vss => vss,
+    vdd => vdd,
+    t => s011,
+    l => ck11,
+    i => shram0);
+  m_10_0 : ms_y
+    PORT MAP (
+    vss => vss,
+    vdd => vdd,
+    t => s010,
+    l => ck10,
+    i => shram0);
+  m_9_0 : ms_y
+    PORT MAP (
+    vss => vss,
+    vdd => vdd,
+    t => s09,
+    l => ck9,
+    i => shram0);
+  m_8_0 : ms_y
+    PORT MAP (
+    vss => vss,
+    vdd => vdd,
+    t => s08,
+    l => ck8,
+    i => shram0);
+  m_7_0 : ms_y
+    PORT MAP (
+    vss => vss,
+    vdd => vdd,
+    t => s07,
+    l => ck7,
+    i => shram0);
+  m_6_0 : ms_y
+    PORT MAP (
+    vss => vss,
+    vdd => vdd,
+    t => s06,
+    l => ck6,
+    i => shram0);
+  m_5_0 : ms_y
+    PORT MAP (
+    vss => vss,
+    vdd => vdd,
+    t => s05,
+    l => ck5,
+    i => shram0);
+  m_4_0 : ms_y
+    PORT MAP (
+    vss => vss,
+    vdd => vdd,
+    t => s04,
+    l => ck4,
+    i => shram0);
+  m_3_0 : ms_y
+    PORT MAP (
+    vss => vss,
+    vdd => vdd,
+    t => s03,
+    l => ck3,
+    i => shram0);
+  m_2_0 : ms_y
+    PORT MAP (
+    vss => vss,
+    vdd => vdd,
+    t => s02,
+    l => ck2,
+    i => shram0);
+  m_1_0 : ms_y
+    PORT MAP (
+    vss => vss,
+    vdd => vdd,
+    t => s01,
+    l => ck1,
+    i => shram0);
+  am316 : na2_y
+    PORT MAP (
+    vss => vss,
+    vdd => vdd,
+    f => a316s,
+    i1 => s316,
+    i0 => a16);
+  am315 : na2_y
+    PORT MAP (
+    vss => vss,
+    vdd => vdd,
+    f => a315s,
+    i1 => s315,
+    i0 => a15);
+  am314 : na2_y
+    PORT MAP (
+    vss => vss,
+    vdd => vdd,
+    f => a314s,
+    i1 => s314,
+    i0 => a14);
+  am313 : na2_y
+    PORT MAP (
+    vss => vss,
+    vdd => vdd,
+    f => a313s,
+    i1 => s313,
+    i0 => a13);
+  am312 : na2_y
+    PORT MAP (
+    vss => vss,
+    vdd => vdd,
+    f => a312s,
+    i1 => s312,
+    i0 => a12);
+  am311 : na2_y
+    PORT MAP (
+    vss => vss,
+    vdd => vdd,
+    f => a311s,
+    i1 => s311,
+    i0 => a11);
+  am310 : na2_y
+    PORT MAP (
+    vss => vss,
+    vdd => vdd,
+    f => a310s,
+    i1 => s310,
+    i0 => a10);
+  am39 : na2_y
+    PORT MAP (
+    vss => vss,
+    vdd => vdd,
+    f => a39s,
+    i1 => s39,
+    i0 => a9);
+  am38 : na2_y
+    PORT MAP (
+    vss => vss,
+    vdd => vdd,
+    f => a38s,
+    i1 => s38,
+    i0 => a8);
+  am37 : na2_y
+    PORT MAP (
+    vss => vss,
+    vdd => vdd,
+    f => a37s,
+    i1 => s37,
+    i0 => a7);
+  am36 : na2_y
+    PORT MAP (
+    vss => vss,
+    vdd => vdd,
+    f => a36s,
+    i1 => s36,
+    i0 => a6);
+  am35 : na2_y
+    PORT MAP (
+    vss => vss,
+    vdd => vdd,
+    f => a35s,
+    i1 => s35,
+    i0 => a5);
+  am34 : na2_y
+    PORT MAP (
+    vss => vss,
+    vdd => vdd,
+    f => a34s,
+    i1 => s34,
+    i0 => a4);
+  am33 : na2_y
+    PORT MAP (
+    vss => vss,
+    vdd => vdd,
+    f => a33s,
+    i1 => s33,
+    i0 => a3);
+  am32 : na2_y
+    PORT MAP (
+    vss => vss,
+    vdd => vdd,
+    f => a32s,
+    i1 => s32,
+    i0 => a2);
+  am31 : na2_y
+    PORT MAP (
+    vss => vss,
+    vdd => vdd,
+    f => a31s,
+    i1 => s31,
+    i0 => a1);
+  oa413 : a4_y
+    PORT MAP (
+    vss => vss,
+    vdd => vdd,
+    t => oa413s,
+    i3 => a313s,
+    i2 => a314s,
+    i1 => a315s,
+    i0 => a316s);
+  oa423 : a4_y
+    PORT MAP (
+    vss => vss,
+    vdd => vdd,
+    t => oa423s,
+    i3 => a39s,
+    i2 => a310s,
+    i1 => a311s,
+    i0 => a312s);
+  oa433 : a4_y
+    PORT MAP (
+    vss => vss,
+    vdd => vdd,
+    t => oa433s,
+    i3 => a35s,
+    i2 => a36s,
+    i1 => a37s,
+    i0 => a38s);
+  oa443 : a4_y
+    PORT MAP (
+    vss => vss,
+    vdd => vdd,
+    t => oa443s,
+    i3 => a31s,
+    i2 => a32s,
+    i1 => a33s,
+    i0 => a34s);
+  oa453 : na4_y
+    PORT MAP (
+    vss => vss,
+    vdd => vdd,
+    f => ra(3),
+    i3 => oa443s,
+    i2 => oa433s,
+    i1 => oa423s,
+    i0 => oa413s);
+  am216 : na2_y
+    PORT MAP (
+    vss => vss,
+    vdd => vdd,
+    f => a216s,
+    i1 => s216,
+    i0 => a16);
+  am215 : na2_y
+    PORT MAP (
+    vss => vss,
+    vdd => vdd,
+    f => a215s,
+    i1 => s215,
+    i0 => a15);
+  am214 : na2_y
+    PORT MAP (
+    vss => vss,
+    vdd => vdd,
+    f => a214s,
+    i1 => s214,
+    i0 => a14);
+  am213 : na2_y
+    PORT MAP (
+    vss => vss,
+    vdd => vdd,
+    f => a213s,
+    i1 => s213,
+    i0 => a13);
+  am212 : na2_y
+    PORT MAP (
+    vss => vss,
+    vdd => vdd,
+    f => a212s,
+    i1 => s212,
+    i0 => a12);
+  am211 : na2_y
+    PORT MAP (
+    vss => vss,
+    vdd => vdd,
+    f => a211s,
+    i1 => s211,
+    i0 => a11);
+  am210 : na2_y
+    PORT MAP (
+    vss => vss,
+    vdd => vdd,
+    f => a210s,
+    i1 => s210,
+    i0 => a10);
+  am29 : na2_y
+    PORT MAP (
+    vss => vss,
+    vdd => vdd,
+    f => a29s,
+    i1 => s29,
+    i0 => a9);
+  am28 : na2_y
+    PORT MAP (
+    vss => vss,
+    vdd => vdd,
+    f => a28s,
+    i1 => s28,
+    i0 => a8);
+  am27 : na2_y
+    PORT MAP (
+    vss => vss,
+    vdd => vdd,
+    f => a27s,
+    i1 => s27,
+    i0 => a7);
+  am26 : na2_y
+    PORT MAP (
+    vss => vss,
+    vdd => vdd,
+    f => a26s,
+    i1 => s26,
+    i0 => a6);
+  am25 : na2_y
+    PORT MAP (
+    vss => vss,
+    vdd => vdd,
+    f => a25s,
+    i1 => s25,
+    i0 => a5);
+  am24 : na2_y
+    PORT MAP (
+    vss => vss,
+    vdd => vdd,
+    f => a24s,
+    i1 => s24,
+    i0 => a4);
+  am23 : na2_y
+    PORT MAP (
+    vss => vss,
+    vdd => vdd,
+    f => a23s,
+    i1 => s23,
+    i0 => a3);
+  am22 : na2_y
+    PORT MAP (
+    vss => vss,
+    vdd => vdd,
+    f => a22s,
+    i1 => s22,
+    i0 => a2);
+  am21 : na2_y
+    PORT MAP (
+    vss => vss,
+    vdd => vdd,
+    f => a21s,
+    i1 => s21,
+    i0 => a1);
+  oa412 : a4_y
+    PORT MAP (
+    vss => vss,
+    vdd => vdd,
+    t => oa412s,
+    i3 => a213s,
+    i2 => a214s,
+    i1 => a215s,
+    i0 => a216s);
+  oa422 : a4_y
+    PORT MAP (
+    vss => vss,
+    vdd => vdd,
+    t => oa422s,
+    i3 => a29s,
+    i2 => a210s,
+    i1 => a211s,
+    i0 => a212s);
+  oa432 : a4_y
+    PORT MAP (
+    vss => vss,
+    vdd => vdd,
+    t => oa432s,
+    i3 => a25s,
+    i2 => a26s,
+    i1 => a27s,
+    i0 => a28s);
+  oa442 : a4_y
+    PORT MAP (
+    vss => vss,
+    vdd => vdd,
+    t => oa442s,
+    i3 => a21s,
+    i2 => a22s,
+    i1 => a23s,
+    i0 => a24s);
+  oa452 : na4_y
+    PORT MAP (
+    vss => vss,
+    vdd => vdd,
+    f => ra(2),
+    i3 => oa442s,
+    i2 => oa432s,
+    i1 => oa422s,
+    i0 => oa412s);
+  am116 : na2_y
+    PORT MAP (
+    vss => vss,
+    vdd => vdd,
+    f => a116s,
+    i1 => s116,
+    i0 => a16);
+  am115 : na2_y
+    PORT MAP (
+    vss => vss,
+    vdd => vdd,
+    f => a115s,
+    i1 => s115,
+    i0 => a15);
+  am114 : na2_y
+    PORT MAP (
+    vss => vss,
+    vdd => vdd,
+    f => a114s,
+    i1 => s114,
+    i0 => a14);
+  am113 : na2_y
+    PORT MAP (
+    vss => vss,
+    vdd => vdd,
+    f => a113s,
+    i1 => s113,
+    i0 => a13);
+  am112 : na2_y
+    PORT MAP (
+    vss => vss,
+    vdd => vdd,
+    f => a112s,
+    i1 => s112,
+    i0 => a12);
+  am111 : na2_y
+    PORT MAP (
+    vss => vss,
+    vdd => vdd,
+    f => a111s,
+    i1 => s111,
+    i0 => a11);
+  am110 : na2_y
+    PORT MAP (
+    vss => vss,
+    vdd => vdd,
+    f => a110s,
+    i1 => s110,
+    i0 => a10);
+  am19 : na2_y
+    PORT MAP (
+    vss => vss,
+    vdd => vdd,
+    f => a19s,
+    i1 => s19,
+    i0 => a9);
+  am18 : na2_y
+    PORT MAP (
+    vss => vss,
+    vdd => vdd,
+    f => a18s,
+    i1 => s18,
+    i0 => a8);
+  am17 : na2_y
+    PORT MAP (
+    vss => vss,
+    vdd => vdd,
+    f => a17s,
+    i1 => s17,
+    i0 => a7);
+  am16 : na2_y
+    PORT MAP (
+    vss => vss,
+    vdd => vdd,
+    f => a16s,
+    i1 => s16,
+    i0 => a6);
+  am15 : na2_y
+    PORT MAP (
+    vss => vss,
+    vdd => vdd,
+    f => a15s,
+    i1 => s15,
+    i0 => a5);
+  am14 : na2_y
+    PORT MAP (
+    vss => vss,
+    vdd => vdd,
+    f => a14s,
+    i1 => s14,
+    i0 => a4);
+  am13 : na2_y
+    PORT MAP (
+    vss => vss,
+    vdd => vdd,
+    f => a13s,
+    i1 => s13,
+    i0 => a3);
+  am12 : na2_y
+    PORT MAP (
+    vss => vss,
+    vdd => vdd,
+    f => a12s,
+    i1 => s12,
+    i0 => a2);
+  am11 : na2_y
+    PORT MAP (
+    vss => vss,
+    vdd => vdd,
+    f => a11s,
+    i1 => s11,
+    i0 => a1);
+  oa411 : a4_y
+    PORT MAP (
+    vss => vss,
+    vdd => vdd,
+    t => oa411s,
+    i3 => a113s,
+    i2 => a114s,
+    i1 => a115s,
+    i0 => a116s);
+  oa421 : a4_y
+    PORT MAP (
+    vss => vss,
+    vdd => vdd,
+    t => oa421s,
+    i3 => a19s,
+    i2 => a110s,
+    i1 => a111s,
+    i0 => a112s);
+  oa431 : a4_y
+    PORT MAP (
+    vss => vss,
+    vdd => vdd,
+    t => oa431s,
+    i3 => a15s,
+    i2 => a16s,
+    i1 => a17s,
+    i0 => a18s);
+  oa441 : a4_y
+    PORT MAP (
+    vss => vss,
+    vdd => vdd,
+    t => oa441s,
+    i3 => a11s,
+    i2 => a12s,
+    i1 => a13s,
+    i0 => a14s);
+  oa451 : na4_y
+    PORT MAP (
+    vss => vss,
+    vdd => vdd,
+    f => ra(1),
+    i3 => oa441s,
+    i2 => oa431s,
+    i1 => oa421s,
+    i0 => oa411s);
+  am016 : na2_y
+    PORT MAP (
+    vss => vss,
+    vdd => vdd,
+    f => a016s,
+    i1 => s016,
+    i0 => a16);
+  am015 : na2_y
+    PORT MAP (
+    vss => vss,
+    vdd => vdd,
+    f => a015s,
+    i1 => s015,
+    i0 => a15);
+  am014 : na2_y
+    PORT MAP (
+    vss => vss,
+    vdd => vdd,
+    f => a014s,
+    i1 => s014,
+    i0 => a14);
+  am013 : na2_y
+    PORT MAP (
+    vss => vss,
+    vdd => vdd,
+    f => a013s,
+    i1 => s013,
+    i0 => a13);
+  am012 : na2_y
+    PORT MAP (
+    vss => vss,
+    vdd => vdd,
+    f => a012s,
+    i1 => s012,
+    i0 => a12);
+  am011 : na2_y
+    PORT MAP (
+    vss => vss,
+    vdd => vdd,
+    f => a011s,
+    i1 => s011,
+    i0 => a11);
+  am010 : na2_y
+    PORT MAP (
+    vss => vss,
+    vdd => vdd,
+    f => a010s,
+    i1 => s010,
+    i0 => a10);
+  am09 : na2_y
+    PORT MAP (
+    vss => vss,
+    vdd => vdd,
+    f => a09s,
+    i1 => s09,
+    i0 => a9);
+  am08 : na2_y
+    PORT MAP (
+    vss => vss,
+    vdd => vdd,
+    f => a08s,
+    i1 => s08,
+    i0 => a8);
+  am07 : na2_y
+    PORT MAP (
+    vss => vss,
+    vdd => vdd,
+    f => a07s,
+    i1 => s07,
+    i0 => a7);
+  am06 : na2_y
+    PORT MAP (
+    vss => vss,
+    vdd => vdd,
+    f => a06s,
+    i1 => s06,
+    i0 => a6);
+  am05 : na2_y
+    PORT MAP (
+    vss => vss,
+    vdd => vdd,
+    f => a05s,
+    i1 => s05,
+    i0 => a5);
+  am04 : na2_y
+    PORT MAP (
+    vss => vss,
+    vdd => vdd,
+    f => a04s,
+    i1 => s04,
+    i0 => a4);
+  am03 : na2_y
+    PORT MAP (
+    vss => vss,
+    vdd => vdd,
+    f => a03s,
+    i1 => s03,
+    i0 => a3);
+  am02 : na2_y
+    PORT MAP (
+    vss => vss,
+    vdd => vdd,
+    f => a02s,
+    i1 => s02,
+    i0 => a2);
+  am01 : na2_y
+    PORT MAP (
+    vss => vss,
+    vdd => vdd,
+    f => a01s,
+    i1 => s01,
+    i0 => a1);
+  oa410 : a4_y
+    PORT MAP (
+    vss => vss,
+    vdd => vdd,
+    t => oa410s,
+    i3 => a013s,
+    i2 => a014s,
+    i1 => a015s,
+    i0 => a016s);
+  oa420 : a4_y
+    PORT MAP (
+    vss => vss,
+    vdd => vdd,
+    t => oa420s,
+    i3 => a09s,
+    i2 => a010s,
+    i1 => a011s,
+    i0 => a012s);
+  oa430 : a4_y
+    PORT MAP (
+    vss => vss,
+    vdd => vdd,
+    t => oa430s,
+    i3 => a05s,
+    i2 => a06s,
+    i1 => a07s,
+    i0 => a08s);
+  oa440 : a4_y
+    PORT MAP (
+    vss => vss,
+    vdd => vdd,
+    t => oa440s,
+    i3 => a01s,
+    i2 => a02s,
+    i1 => a03s,
+    i0 => a04s);
+  oa450 : na4_y
+    PORT MAP (
+    vss => vss,
+    vdd => vdd,
+    f => ra(0),
+    i3 => oa440s,
+    i2 => oa430s,
+    i1 => oa420s,
+    i0 => oa410s);
+  bm316 : na2_y
+    PORT MAP (
+    vss => vss,
+    vdd => vdd,
+    f => b316s,
+    i1 => s316,
+    i0 => b16);
+  bm315 : na2_y
+    PORT MAP (
+    vss => vss,
+    vdd => vdd,
+    f => b315s,
+    i1 => s315,
+    i0 => b15);
+  bm314 : na2_y
+    PORT MAP (
+    vss => vss,
+    vdd => vdd,
+    f => b314s,
+    i1 => s314,
+    i0 => b14);
+  bm313 : na2_y
+    PORT MAP (
+    vss => vss,
+    vdd => vdd,
+    f => b313s,
+    i1 => s313,
+    i0 => b13);
+  bm312 : na2_y
+    PORT MAP (
+    vss => vss,
+    vdd => vdd,
+    f => b312s,
+    i1 => s312,
+    i0 => b12);
+  bm311 : na2_y
+    PORT MAP (
+    vss => vss,
+    vdd => vdd,
+    f => b311s,
+    i1 => s311,
+    i0 => b11);
+  bm310 : na2_y
+    PORT MAP (
+    vss => vss,
+    vdd => vdd,
+    f => b310s,
+    i1 => s310,
+    i0 => b10);
+  bm39 : na2_y
+    PORT MAP (
+    vss => vss,
+    vdd => vdd,
+    f => b39s,
+    i1 => s39,
+    i0 => b9);
+  bm38 : na2_y
+    PORT MAP (
+    vss => vss,
+    vdd => vdd,
+    f => b38s,
+    i1 => s38,
+    i0 => b8);
+  bm37 : na2_y
+    PORT MAP (
+    vss => vss,
+    vdd => vdd,
+    f => b37s,
+    i1 => s37,
+    i0 => b7);
+  bm36 : na2_y
+    PORT MAP (
+    vss => vss,
+    vdd => vdd,
+    f => b36s,
+    i1 => s36,
+    i0 => b6);
+  bm35 : na2_y
+    PORT MAP (
+    vss => vss,
+    vdd => vdd,
+    f => b35s,
+    i1 => s35,
+    i0 => b5);
+  bm34 : na2_y
+    PORT MAP (
+    vss => vss,
+    vdd => vdd,
+    f => b34s,
+    i1 => s34,
+    i0 => b4);
+  bm33 : na2_y
+    PORT MAP (
+    vss => vss,
+    vdd => vdd,
+    f => b33s,
+    i1 => s33,
+    i0 => b3);
+  bm32 : na2_y
+    PORT MAP (
+    vss => vss,
+    vdd => vdd,
+    f => b32s,
+    i1 => s32,
+    i0 => b2);
+  bm31 : na2_y
+    PORT MAP (
+    vss => vss,
+    vdd => vdd,
+    f => b31s,
+    i1 => s31,
+    i0 => b1);
+  ob413 : a4_y
+    PORT MAP (
+    vss => vss,
+    vdd => vdd,
+    t => ob413s,
+    i3 => b313s,
+    i2 => b314s,
+    i1 => b315s,
+    i0 => b316s);
+  ob423 : a4_y
+    PORT MAP (
+    vss => vss,
+    vdd => vdd,
+    t => ob423s,
+    i3 => b39s,
+    i2 => b310s,
+    i1 => b311s,
+    i0 => b312s);
+  ob433 : a4_y
+    PORT MAP (
+    vss => vss,
+    vdd => vdd,
+    t => ob433s,
+    i3 => b35s,
+    i2 => b36s,
+    i1 => b37s,
+    i0 => b38s);
+  ob443 : a4_y
+    PORT MAP (
+    vss => vss,
+    vdd => vdd,
+    t => ob443s,
+    i3 => b31s,
+    i2 => b32s,
+    i1 => b33s,
+    i0 => b34s);
+  ob453 : na4_y
+    PORT MAP (
+    vss => vss,
+    vdd => vdd,
+    f => rb(3),
+    i3 => ob443s,
+    i2 => ob433s,
+    i1 => ob423s,
+    i0 => ob413s);
+  bm216 : na2_y
+    PORT MAP (
+    vss => vss,
+    vdd => vdd,
+    f => b216s,
+    i1 => s216,
+    i0 => b16);
+  bm215 : na2_y
+    PORT MAP (
+    vss => vss,
+    vdd => vdd,
+    f => b215s,
+    i1 => s215,
+    i0 => b15);
+  bm214 : na2_y
+    PORT MAP (
+    vss => vss,
+    vdd => vdd,
+    f => b214s,
+    i1 => s214,
+    i0 => b14);
+  bm213 : na2_y
+    PORT MAP (
+    vss => vss,
+    vdd => vdd,
+    f => b213s,
+    i1 => s213,
+    i0 => b13);
+  bm212 : na2_y
+    PORT MAP (
+    vss => vss,
+    vdd => vdd,
+    f => b212s,
+    i1 => s212,
+    i0 => b12);
+  bm211 : na2_y
+    PORT MAP (
+    vss => vss,
+    vdd => vdd,
+    f => b211s,
+    i1 => s211,
+    i0 => b11);
+  bm210 : na2_y
+    PORT MAP (
+    vss => vss,
+    vdd => vdd,
+    f => b210s,
+    i1 => s210,
+    i0 => b10);
+  bm29 : na2_y
+    PORT MAP (
+    vss => vss,
+    vdd => vdd,
+    f => b29s,
+    i1 => s29,
+    i0 => b9);
+  bm28 : na2_y
+    PORT MAP (
+    vss => vss,
+    vdd => vdd,
+    f => b28s,
+    i1 => s28,
+    i0 => b8);
+  bm27 : na2_y
+    PORT MAP (
+    vss => vss,
+    vdd => vdd,
+    f => b27s,
+    i1 => s27,
+    i0 => b7);
+  bm26 : na2_y
+    PORT MAP (
+    vss => vss,
+    vdd => vdd,
+    f => b26s,
+    i1 => s26,
+    i0 => b6);
+  bm25 : na2_y
+    PORT MAP (
+    vss => vss,
+    vdd => vdd,
+    f => b25s,
+    i1 => s25,
+    i0 => b5);
+  bm24 : na2_y
+    PORT MAP (
+    vss => vss,
+    vdd => vdd,
+    f => b24s,
+    i1 => s24,
+    i0 => b4);
+  bm23 : na2_y
+    PORT MAP (
+    vss => vss,
+    vdd => vdd,
+    f => b23s,
+    i1 => s23,
+    i0 => b3);
+  bm22 : na2_y
+    PORT MAP (
+    vss => vss,
+    vdd => vdd,
+    f => b22s,
+    i1 => s22,
+    i0 => b2);
+  bm21 : na2_y
+    PORT MAP (
+    vss => vss,
+    vdd => vdd,
+    f => b21s,
+    i1 => s21,
+    i0 => b1);
+  ob412 : a4_y
+    PORT MAP (
+    vss => vss,
+    vdd => vdd,
+    t => ob412s,
+    i3 => b213s,
+    i2 => b214s,
+    i1 => b215s,
+    i0 => b216s);
+  ob422 : a4_y
+    PORT MAP (
+    vss => vss,
+    vdd => vdd,
+    t => ob422s,
+    i3 => b29s,
+    i2 => b210s,
+    i1 => b211s,
+    i0 => b212s);
+  ob432 : a4_y
+    PORT MAP (
+    vss => vss,
+    vdd => vdd,
+    t => ob432s,
+    i3 => b25s,
+    i2 => b26s,
+    i1 => b27s,
+    i0 => b28s);
+  ob442 : a4_y
+    PORT MAP (
+    vss => vss,
+    vdd => vdd,
+    t => ob442s,
+    i3 => b21s,
+    i2 => b22s,
+    i1 => b23s,
+    i0 => b24s);
+  ob452 : na4_y
+    PORT MAP (
+    vss => vss,
+    vdd => vdd,
+    f => rb(2),
+    i3 => ob442s,
+    i2 => ob432s,
+    i1 => ob422s,
+    i0 => ob412s);
+  bm116 : na2_y
+    PORT MAP (
+    vss => vss,
+    vdd => vdd,
+    f => b116s,
+    i1 => s116,
+    i0 => b16);
+  bm115 : na2_y
+    PORT MAP (
+    vss => vss,
+    vdd => vdd,
+    f => b115s,
+    i1 => s115,
+    i0 => b15);
+  bm114 : na2_y
+    PORT MAP (
+    vss => vss,
+    vdd => vdd,
+    f => b114s,
+    i1 => s114,
+    i0 => b14);
+  bm113 : na2_y
+    PORT MAP (
+    vss => vss,
+    vdd => vdd,
+    f => b113s,
+    i1 => s113,
+    i0 => b13);
+  bm112 : na2_y
+    PORT MAP (
+    vss => vss,
+    vdd => vdd,
+    f => b112s,
+    i1 => s112,
+    i0 => b12);
+  bm111 : na2_y
+    PORT MAP (
+    vss => vss,
+    vdd => vdd,
+    f => b111s,
+    i1 => s111,
+    i0 => b11);
+  bm110 : na2_y
+    PORT MAP (
+    vss => vss,
+    vdd => vdd,
+    f => b110s,
+    i1 => s110,
+    i0 => b10);
+  bm19 : na2_y
+    PORT MAP (
+    vss => vss,
+    vdd => vdd,
+    f => b19s,
+    i1 => s19,
+    i0 => b9);
+  bm18 : na2_y
+    PORT MAP (
+    vss => vss,
+    vdd => vdd,
+    f => b18s,
+    i1 => s18,
+    i0 => b8);
+  bm17 : na2_y
+    PORT MAP (
+    vss => vss,
+    vdd => vdd,
+    f => b17s,
+    i1 => s17,
+    i0 => b7);
+  bm16 : na2_y
+    PORT MAP (
+    vss => vss,
+    vdd => vdd,
+    f => b16s,
+    i1 => s16,
+    i0 => b6);
+  bm15 : na2_y
+    PORT MAP (
+    vss => vss,
+    vdd => vdd,
+    f => b15s,
+    i1 => s15,
+    i0 => b5);
+  bm14 : na2_y
+    PORT MAP (
+    vss => vss,
+    vdd => vdd,
+    f => b14s,
+    i1 => s14,
+    i0 => b4);
+  bm13 : na2_y
+    PORT MAP (
+    vss => vss,
+    vdd => vdd,
+    f => b13s,
+    i1 => s13,
+    i0 => b3);
+  bm12 : na2_y
+    PORT MAP (
+    vss => vss,
+    vdd => vdd,
+    f => b12s,
+    i1 => s12,
+    i0 => b2);
+  bm11 : na2_y
+    PORT MAP (
+    vss => vss,
+    vdd => vdd,
+    f => b11s,
+    i1 => s11,
+    i0 => b1);
+  ob411 : a4_y
+    PORT MAP (
+    vss => vss,
+    vdd => vdd,
+    t => ob411s,
+    i3 => b113s,
+    i2 => b114s,
+    i1 => b115s,
+    i0 => b116s);
+  ob421 : a4_y
+    PORT MAP (
+    vss => vss,
+    vdd => vdd,
+    t => ob421s,
+    i3 => b19s,
+    i2 => b110s,
+    i1 => b111s,
+    i0 => b112s);
+  ob431 : a4_y
+    PORT MAP (
+    vss => vss,
+    vdd => vdd,
+    t => ob431s,
+    i3 => b15s,
+    i2 => b16s,
+    i1 => b17s,
+    i0 => b18s);
+  ob441 : a4_y
+    PORT MAP (
+    vss => vss,
+    vdd => vdd,
+    t => ob441s,
+    i3 => b11s,
+    i2 => b12s,
+    i1 => b13s,
+    i0 => b14s);
+  ob451 : na4_y
+    PORT MAP (
+    vss => vss,
+    vdd => vdd,
+    f => rb(1),
+    i3 => ob441s,
+    i2 => ob431s,
+    i1 => ob421s,
+    i0 => ob411s);
+  bm016 : na2_y
+    PORT MAP (
+    vss => vss,
+    vdd => vdd,
+    f => b016s,
+    i1 => s016,
+    i0 => b16);
+  bm015 : na2_y
+    PORT MAP (
+    vss => vss,
+    vdd => vdd,
+    f => b015s,
+    i1 => s015,
+    i0 => b15);
+  bm014 : na2_y
+    PORT MAP (
+    vss => vss,
+    vdd => vdd,
+    f => b014s,
+    i1 => s014,
+    i0 => b14);
+  bm013 : na2_y
+    PORT MAP (
+    vss => vss,
+    vdd => vdd,
+    f => b013s,
+    i1 => s013,
+    i0 => b13);
+  bm012 : na2_y
+    PORT MAP (
+    vss => vss,
+    vdd => vdd,
+    f => b012s,
+    i1 => s012,
+    i0 => b12);
+  bm011 : na2_y
+    PORT MAP (
+    vss => vss,
+    vdd => vdd,
+    f => b011s,
+    i1 => s011,
+    i0 => b11);
+  bm010 : na2_y
+    PORT MAP (
+    vss => vss,
+    vdd => vdd,
+    f => b010s,
+    i1 => s010,
+    i0 => b10);
+  bm09 : na2_y
+    PORT MAP (
+    vss => vss,
+    vdd => vdd,
+    f => b09s,
+    i1 => s09,
+    i0 => b9);
+  bm08 : na2_y
+    PORT MAP (
+    vss => vss,
+    vdd => vdd,
+    f => b08s,
+    i1 => s08,
+    i0 => b8);
+  bm07 : na2_y
+    PORT MAP (
+    vss => vss,
+    vdd => vdd,
+    f => b07s,
+    i1 => s07,
+    i0 => b7);
+  bm06 : na2_y
+    PORT MAP (
+    vss => vss,
+    vdd => vdd,
+    f => b06s,
+    i1 => s06,
+    i0 => b6);
+  bm05 : na2_y
+    PORT MAP (
+    vss => vss,
+    vdd => vdd,
+    f => b05s,
+    i1 => s05,
+    i0 => b5);
+  bm04 : na2_y
+    PORT MAP (
+    vss => vss,
+    vdd => vdd,
+    f => b04s,
+    i1 => s04,
+    i0 => b4);
+  bm03 : na2_y
+    PORT MAP (
+    vss => vss,
+    vdd => vdd,
+    f => b03s,
+    i1 => s03,
+    i0 => b3);
+  bm02 : na2_y
+    PORT MAP (
+    vss => vss,
+    vdd => vdd,
+    f => b02s,
+    i1 => s02,
+    i0 => b2);
+  bm01 : na2_y
+    PORT MAP (
+    vss => vss,
+    vdd => vdd,
+    f => b01s,
+    i1 => s01,
+    i0 => b1);
+  ob410 : a4_y
+    PORT MAP (
+    vss => vss,
+    vdd => vdd,
+    t => ob410s,
+    i3 => b013s,
+    i2 => b014s,
+    i1 => b015s,
+    i0 => b016s);
+  ob420 : a4_y
+    PORT MAP (
+    vss => vss,
+    vdd => vdd,
+    t => ob420s,
+    i3 => b09s,
+    i2 => b010s,
+    i1 => b011s,
+    i0 => b012s);
+  ob430 : a4_y
+    PORT MAP (
+    vss => vss,
+    vdd => vdd,
+    t => ob430s,
+    i3 => b05s,
+    i2 => b06s,
+    i1 => b07s,
+    i0 => b08s);
+  ob440 : a4_y
+    PORT MAP (
+    vss => vss,
+    vdd => vdd,
+    t => ob440s,
+    i3 => b01s,
+    i2 => b02s,
+    i1 => b03s,
+    i0 => b04s);
+  ob450 : na4_y
+    PORT MAP (
+    vss => vss,
+    vdd => vdd,
+    f => rb(0),
+    i3 => ob440s,
+    i2 => ob430s,
+    i1 => ob420s,
+    i0 => ob410s);
+
+end VST;

@@ -1,0 +1,68 @@
+.\"   $Id: cpOrderCct.3,v 1.1 1999/05/31 17:30:19 alliance Exp $
+.\" @(#)cpOrderCct.2 7.01 92/08/22 ; Labo masi cao-vlsi; Author : Luc Burgun
+.TH CPORDERCCT 3 "October 1, 1997" "ASIM/LIP6" "BDD functions"
+.so man1/alc_origin.1
+.SH NAME
+\fBcpOrderCct\fP \- copies the association order of the inputs with the indexes in another circuit
+.SH SYNOPSYS
+.nf
+#include "logmmm.h"
+void cpOrderCct(pC1,pC2)
+pCircuit pC1;
+pCircuit pC2;
+.fi
+.SH PARAMETERS
+.TP 20
+\fIpC1\fP
+circuit from which the order is copied
+.TP 20
+\fIpC2\fP
+circuit that recieves the new order 
+.SH DESCRIPTION
+\fBcpOrderCct()\fP copies the association order of \fIpC1\fP in \fIpC2\fP. 
+.SH EXAMPLE
+.nf
+#include "mutnnn.h"		/* mbk utilities */
+#include "logmmm.h"
+pCircuit pC;
+pCircuit pCp;
+
+displayBdd(SMALL_BDD);
+pC = initializeCct("circuit 1",10,10);
+pCp = initializeCct("circuit 1p",10,10);
+
+addInputCct(pC,"a");
+addInputCct(pC,"b");
+
+cpOrderCct(pC,pCp)
+
+displayCct(pC,1)
+displayCct(pCp,1)
+
+/* it will display 
+************* DISPLAY circuit 1 **********
+INPUT = a	INDEX = 2
+INPUT = b	INDEX = 3
+--------- NUMBER OF INPUTS = 2
+--------- NUMBER OF OUTPUTS = 0
+******************************************
+************* DISPLAY circuit 1p **********
+INPUT = a	INDEX = 2
+INPUT = b	INDEX = 3
+--------- NUMBER OF INPUTS = 2
+--------- NUMBER OF OUTPUTS = 0
+******************************************
+*/
+
+destroyCct(pC);
+destroyCct(pCp);
+destroyBdd(1);
+.fi
+.SH SEE ALSO
+.BR log (1),
+.BR bdd (1),
+.BR addInputCct (3),
+.BR searchInputCct (3).
+
+.so man1/alc_bug_report.1
+

@@ -1,0 +1,33 @@
+.\"   $Id: one_y.5,v 1.1 1999/05/31 17:30:28 alliance Exp $
+.pl -.4
+.TH ONE_Y 5 "October 1, 1997" "ASIM/LIP6" "STANDARD-CELL LIBRARY"
+.SH NAME
+.B one_y
+.so man1/alc_origin.1
+.SH SYNOPSIS
+.B Genlib call :
+.br
+  LOINS("one_y","name","t","vdd","vss",0);
+.SH DESCRIPTION
+.I - Interface
+   entity one_y is
+     port(
+        t : out bit;
+        vdd : in bit;
+        vss : in bit);
+.br
+.I - Logical description
+.br
+    t <= '1';
+   
+.br
+.I - Physical features
+   number of grids : 2
+   number of feed-through : 1
+.br
+   
+.I - Timing caracteristics
+.br
+
+.so man1/alc_bug_report.1
+

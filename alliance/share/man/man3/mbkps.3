@@ -1,0 +1,77 @@
+.\"   $Id: mbkps.3,v 1.1 1999/05/31 17:30:23 alliance Exp $
+.\" @(#)mbkps.2 2.11 91/08/22 ; Labo masi cao-vlsi; Author : Frederic Petrot
+.if t \{\
+.so man1/alc_contents.mac
+.XS \n%
+.ti 0.2i
+mbkps
+.XE
+.XS4 \n%
+.ti 0.2i
+mbkps
+.XE4 \}
+.TH MBKPS 3 "October 1, 1997" "ASIM/LIP6" "MBK UTILITY FUNCTIONS"
+.SH NAME
+mbkps \- mbk process state
+.so man1/alc_origin.1
+.SH SYNOPSYS
+.nf
+.if n \{\
+.ft B \}
+.if t \{\
+.ft CR \}
+#include "mut315.h"
+void mbkps()
+.ft R
+.fi
+.SH DESCRIPTION
+\fBmbkps\fP does some functions calls and gathers informations about
+time and memory spend during a program run.
+encouraged.
+.SH EXAMPLE
+.ta 3n 6n 9n 12n 15n 18n 21n
+.nf
+.if n \{\
+.ft B \}
+.if t \{\
+.ft CR \}
+#include "mut315.h"
+#include "mlo315.h"
+lofig_list \(**check_flat(pt)
+lofig_list \(**pt;
+{
+	mbkps();
+	pt = rflattenlofig(pt, YES, NO);
+	mbkps();
+	return pt;
+}
+.ft R
+.fi
+that would output something like :
+.nf
+.if n \{\
+.ft B \}
+.if t \{\
+.ft CR \}
+mbk stats          : 1 call
+user     time      : 0 sec
+system   time      : 0 sec
+real     size      : 504 k
+mbkalloc peak size : 68 k
+mallinfo size      : 96 k
+mbk stats          : 2 call
+user     time      : 1 sec
+system   time      : 0 sec
+real     size      : 924 k
+mbkalloc peak size : 2560 k
+mallinfo size      : 512 k
+.ft R
+.fi
+.SH SEE ALSO
+.BR mbk (1),
+.BR getrusage (3),
+.BR mallinfo (3V).
+
+
+.so man1/alc_bug_report.1
+

@@ -1,0 +1,37 @@
+-- VHDL data flow description generated from `ndrv_dp`
+--		date : Thu Oct 30 16:38:53 1997
+
+
+-- Entity Declaration
+
+ENTITY ndrv_dp IS
+  GENERIC (
+    CONSTANT area : NATURAL := 1080;	-- area
+    CONSTANT transistors : NATURAL := 4;	-- transistors
+    CONSTANT cin_i : NATURAL := 138;	-- cin_i
+    CONSTANT tplh_i_o : NATURAL := 394;	-- tplh_i_o
+    CONSTANT rup_i_o : NATURAL := 550;	-- rup_i_o
+    CONSTANT tphl_i_o : NATURAL := 263;	-- tphl_i_o
+    CONSTANT rdown_i_o : NATURAL := 610	-- rdown_i_o
+  );
+  PORT (
+  i : in BIT;	-- i
+  o : out BIT;	-- o
+  vdd : in BIT;	-- vdd
+  vss : in BIT	-- vss
+  );
+END ndrv_dp;
+
+
+-- Architecture Declaration
+
+ARCHITECTURE behaviour_data_flow OF ndrv_dp IS
+
+BEGIN
+  ASSERT ((vdd and not (vss)) = '1')
+    REPORT "power supply is missing on ndrv_dp"
+    SEVERITY WARNING;
+
+
+o <= not (i);
+END;

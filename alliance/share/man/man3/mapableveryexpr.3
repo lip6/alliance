@@ -1,0 +1,68 @@
+.\"   $Id: mapableveryexpr.3,v 1.1 1999/05/31 17:30:23 alliance Exp $
+.\" @(#)mapableveryexpr.2 2.7 96/07/02 ; Labo masi cao-vlsi; Author : Jacomme Ludovic
+.TH MAPABLEVERYEXPR 3 "October 1, 1997" "ASIM/LIP6" "ABL FUNCTIONS"
+.SH NAME
+mapableveryexpr \- applies a function to all operands.
+.so man1/alc_origin.1
+.SH SYNOPSYS
+.nf
+.if n \{\
+.ft B \}
+.if t \{\
+.ft CR \}
+#include "abl101.h"
+int mapableveryexpr( Function, Expr )
+  void      (\(**Function)();
+  chain_list \(**Expr;
+.ft R
+.fi
+.SH PARAMETERS
+.TP 20
+.TP
+\fIFunction\fP
+Function name to apply to all operands.
+.TP
+\fIExpr\fP
+Expression to scan.
+.SH DESCRIPTION
+\fBmapableveryexpr\fP applies \fIFunction\fP to all operands of \fIExpr\fP.
+.br
+.SH RETURN VALUE
+\fBmapableveryexpr\fP returns the value of a logical AND applied on
+the results of the application of the function on the arguments of
+the expression \fIExpr\fP.
+.SH EXAMPLE
+.ta 3n 6n 9n 12n 15n 18n 21n
+.nf
+.if n \{\
+.ft B \}
+.if t \{\
+.ft CR \}
+#include "abl101.h"
+   int MapFunction( MapExpr )
+     chain_list \(**MapExpr;
+   {
+     if ( ABL_ATOM( MapExpr ) )
+     {
+       if ( ABL_ATOM_VALUE( MapExpr ) == getablatomzero() )
+       {
+         return( 1 );
+       }
+     }
+     return( 0 );
+   }
+   ...
+   chain_list \(**Expr;
+   ...
+   mapableveryexpr( MapFunction, Expr );
+   ...
+.ft R
+.fi
+.SH SEE ALSO
+.BR abl (1),
+.BR mapablexpr(3),
+.BR mapablanyexpr(3).
+
+
+.so man1/alc_bug_report.1
+

@@ -1,0 +1,53 @@
+.\"   $Id: beh_depend.3,v 1.1 1999/05/31 17:30:18 alliance Exp $
+.\" @(#)beh_depend.3 109 Oct 15 1995 UPMC ; Pirouz BAZARGAN SABET
+.TH BEH_DEPEND 3 "October 1, 1997" "ASIM/LIP6" "BHL functions"
+
+.so man1/alc_origin.1
+.SH NAME
+.PP
+\fBbeh_depend\fP \- compute forward dependencies in a description
+
+.SH SYNOPSYS
+.PP
+.nf
+void beh_depend (fig_pnt)
+struct befig *fig_pnt;
+.fi
+
+.SH PARAMETERS
+.PP
+.TP 10
+\fIfig_pnt\fP
+pointer of the BEFIG structure
+
+.SH DESCRIPTION
+.PP
+\fBbeh_depend()\fP analyzes the forward dependencies in a whole description
+(a BEFIG). Forward dependency means, for each input finding out the set of
+outputs that depend on it.
+
+.PP
+\fIfig_pnt\fP represents the pointer of the description to be analyzed.
+
+.PP
+After the analysis is acheived, \fBbeh_depend\fP produces a set of dependency
+lists for each input. Each dependency list is a list of pointers to those
+outputs that depends on the input. A seprate list is produced for each type
+of outputs (BEOUT, BEREG, BEAUX, BEBUX, BEMSG, BEDLY, BEBUS).
+
+.SH EXAMPLE
+.PP
+.nf
+#include <beh109.h>
+struct befig *befig_pnt;
+
+beh_depend (befig_pnt);
+.fi
+
+.SH SEE ALSO
+.PP
+beh(3), befig(3), berin(3), beaux(3), bereg(3), beh_debug(3)
+
+
+.so man1/alc_bug_report.1
+

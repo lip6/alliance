@@ -1,0 +1,59 @@
+.\"   $Id: berin.3,v 1.1 1999/05/31 17:30:19 alliance Exp $
+.\" @(#)berin.2 108 Feb 15 1995 UPMC; Pirouz BAZARGAN SABET
+.TH BERIN 3 "October 1, 1997" "ASIM/LIP6" "cao\-vlsi reference manual"
+
+.so man1/alc_origin.1
+.SH NAME
+.PP
+\fBberin\fP - BEH data structure
+
+.SH DESCRIPTION
+.PP
+\fIberin\fP is a data structure used in \fBBEH\fP to represent a one\-bit
+input signal. For an array, each element is represented by a single structure.
+Is considered as input signal either an input port of circuit (a port is said
+input when its value is readable inside the circuit) or, an internal register.
+An internal signal can also be considered as an input. \fIberin\fP has been
+designed to be used in a simply chained list.
+
+.PP
+A \fIberin\fP structure is composed of the following fields.
+
+.TP 25
+\fI(char *) NAME\fP
+the object\'s name. For an array\'s element, the name is the array\'s identifier
+added to the element\'s index seperated by a \' \' (blank space).
+This string is supposed been produced by \fBnamealloc()\fP
+.TP 25
+\fI(struct chain *) OUT_REF\fP
+list of simple out ports that depend on the current input.
+.TP 25
+\fI(struct chain *) BUS_REF\fP
+list of bussed out ports that depend on the current input.
+.TP 25
+\fI(struct chain *) AUX_REF\fP
+list of simple internal signals that depend on the current input.
+.TP 25
+\fI(struct chain *) BUX_REF\fP
+list of bussed internal signals that depend on the current input.
+.TP 25
+\fI(struct chain *) REG_REF\fP
+list of internal registers that depend on the current input.
+.TP 25
+\fI(struct chain *) MSG_REF\fP
+list of internal assert statements that depend on the current input.
+.TP 25
+\fI(struct chain *) DLY_REF\fP
+list of delayed internal signals that depend on the current input.
+.TP 25
+\fI(struct berin *) NEXT\fP
+next berin
+
+.SH SEE ALSO
+.PP
+beh(3), beh_addberin(3), beh_delberin(3), beh_freberin(3),
+beh_rmvberin(3), namealloc(3)
+
+
+.so man1/alc_bug_report.1
+

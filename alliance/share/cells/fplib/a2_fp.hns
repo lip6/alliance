@@ -1,0 +1,22 @@
+#cell2 * a2_fp hns * 1 CMOS 1024 v8r4.4
+# "19-Nov-97 GMT" "16:35:50 GMT" "19-Nov-97 GMT" "16:35:50 GMT" fitpath * .
+H 3;
+B 4 6;
+P 1 nchwidth 4;
+P 2 nchlength 2;
+P 3 pchwidth 6;
+P 4 pchlength 2;
+X 3 1 I0;
+X 1 2 I1;
+X 6 3 NO;
+X 4 4 O;
+X 2 5 VDD;
+X 5 6 VSS;
+G 7 BULK;
+T E u6 @ 6 1 .1146E-01 3 8 6 5;
+T P u5 @ 6 1 .1146E-01 3 2 6 2;
+T E u7 @ 6 1 .1146E-01 1 5 8 5;
+T P u4 @ 6 1 .1146E-01 1 2 6 2;
+T P u8 @ 12 1 .2292E-01 6 2 4 2;
+T E u9 @ 6 1 .1146E-01 6 5 4 5;
+E;

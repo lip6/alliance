@@ -1,0 +1,80 @@
+.\"   $Id: viewrdswindow.3,v 1.1 1999/05/31 17:30:26 alliance Exp $
+.\" @(#)viewrdswindow.1 1.11 93/08/18 ; Labo masi cao-vlsi
+.if t \{\
+.so man1/alc_contents.mac
+.XS \n%
+.ti 0.2i
+viewrdswindow
+.XE
+.XS0 \n%
+.ti 0.2i
+viewrdswindow
+.XE0 \}
+.TH VIEWRDSWINDOW 3 "October 1, 1997" "ASIM/LIP6" "RDS PHYSICAL FUNCTIONS"
+.SH NAME
+viewrdswindow \- displays caracteristics of the windowing. 
+.so man1/alc_origin.1
+.SH SYNOPSYS
+.nf
+.if n \{\
+.ft B \}
+.if t \{\
+.ft CR \}
+#include "rwinnn.h"
+void viewrdswindow( RdsWindow )
+   rdswindow \(**RdsWindow;
+.ft R
+.fi
+.SH PARAMETER
+\fIRdsWindow\fP :
+The head of the windowing of the RDS structure.
+.SH DESCRIPTION
+The \fIviewrdswindow\fP function displays :
+.PP
+Caracteristics of the windowing (number of windows, width, height,size of a window,...).
+.br
+Size and position of each window.
+.br
+All the rectangles of each window.
+.SH RETURN VALUE
+nothing
+.SH ERRORS
+none
+.SH EXAMPLE
+.ta 3n 6n 9n 12n 15n 18n 21n
+.nf
+.if n \{\
+.ft B \}
+.if t \{\
+.ft CR \}
+        #include "mphnnn.h"
+        #include "mutnnn.h"
+        #include "rdsnnn.h"
+        #include "rfmnnn.h"
+        #include "rwinnn.h"
+        #include "rtlnnn.h"
+        main()
+          {
+            phfig_list     \(**MbkFigure;
+            rdsfig_list    \(**RdsFigure;
+            rdswindow      \(**Window;
+            mbkenv();
+            rdsenv();
+            loadrdsparam();
+            MbkFigure = getphfig("na2_y",'A');
+            RdsFigure = figmbkrds(MbkFigure,0,0);
+            Window    =  buildrdswindow ( RdsFigure );
+            /\(** \(**/ \fBviewrdswindow\fP ( Window );
+            . . .
+          }
+.ft R
+.fi
+.SH SEE ALSO
+.BR librwi,
+.BR buildrdswindow,
+.BR destroyrdswindow,
+.BR allocrdswindow
+
+
+.so man1/alc_bug_report.1
+

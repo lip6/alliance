@@ -1,0 +1,43 @@
+.\"   $Id: displayInfExpr.3,v 1.1 1999/05/31 17:30:20 alliance Exp $
+.\" @(#)displayInfExpr.2 7.01 92/08/22 ; Labo masi cao-vlsi; Author : Luc Burgun
+.TH DISPLAYINFEXPR 3 "October 1, 1997" "ASIM/LIP6" "ABL functions"
+.so man1/alc_origin.1
+.SH NAME
+\fBdisplayInfExpr\fP \- displays an expression in infixed notation. 
+.SH SYNOPSYS
+.nf
+#include "logmmm.h"
+void displayInfExpr(expr)
+chain_list *expr;
+.fi
+.SH PARAMETER
+.TP 20
+\fIexpr\fP
+Expression to display.
+.SH DESCRIPTION
+\fBdisplayInfExpr()\fP displays on the screen \fIexpr\fP in infixed notation. 
+.SH EXAMPLE
+.nf
+#include "mutnnn.h"		/* mbk utilities */
+#include "logmmm.h"
+chain_list *expr;
+expr = createExpr(OR);
+addQExpr(expr,createAtom("a"));
+addQExpr(expr,createAtom("b"));
+displayInfExpr(expr);
+/* it will display
+(a OR b)
+*/
+freeExpr(expr);
+.fi
+.SH SEE ALSO
+.BR log (1),
+.BR abl (1),
+.BR displayExpr (3),
+.BR exprToChar (3),
+.BR charToOper (3),
+.BR operToChar (3),
+.BR identExpr (3).
+
+.so man1/alc_bug_report.1
+

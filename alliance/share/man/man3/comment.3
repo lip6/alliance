@@ -1,0 +1,39 @@
+.\"   $Id: comment.3,v 1.1 1999/05/31 17:30:19 alliance Exp $
+.\" @(#)COMMENT.2 1.9  UPMC ; VUONG H.N.
+.TH COMMENT 3 "October 1, 1997" "ASIM/LIP6" "GENPAT functions"
+
+.SH NAME
+.PP
+\fBcomment\fP, GENPAT Package
+
+.so man1/alc_origin.1
+.SH SYNOPSYS
+.PP
+.nf
+comment("chain of char");
+.fi
+
+.SH PARAMETERS
+.PP
+.TP 10
+\fIchain of char\fP
+The COMMENT asked.
+
+.SH DESCRIPTION
+.PP
+the comment is inserted in the output file in the list of pattern where it
+is declared.
+
+.SH EXAMPLE
+.PP
+.nf
+comment("This is my first comment");
+.fi
+
+.SH SEE ALSO
+.PP
+genpat(1), pat(5)
+
+
+.so man1/alc_bug_report.1
+

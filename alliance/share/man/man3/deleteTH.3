@@ -1,0 +1,51 @@
+.\"   $Id: deleteTH.3,v 1.1 1999/05/31 17:30:20 alliance Exp $
+.\" @(#)deleteTH.2 7.01 92/08/22 ; Labo masi cao-vlsi; Author : Luc Burgun
+.TH DELETETH 3 "October 1, 1997" "ASIM/LIP6" "Hash table functions"
+.so man1/alc_origin.1
+.SH NAME
+\fBdeleteTH\fP \- removes an item in a hash table.
+.SH SYNOPSYS
+.nf
+#include "logmmm.h"
+int deleteTH(pTable,key)
+pTH pTable;
+char *key;
+.fi
+.SH PARAMETERS
+.TP 20
+\fIpTable\fP
+Hash table.
+.TP 20
+\fIkey\fP
+Key used by the hash coding function.
+.SH DESCRIPTION
+\fBdeleteTH()\fP removes an item in \fIpTable\fP. If the key doesn't exist, the function returns EMPTYTH, if it does then its associated value. 
+.SH EXAMPLE
+.nf
+#include "mutnnn.h"
+#include "logmmm.h"
+pTH mytable; 
+int val;
+
+mytable = createTH(100); 
+addTH(mytable,namealloc("var1"),0);
+addTH(mytable,namealloc("var2"),1);
+val = deleteTH(mytable,namealloc("var1"));
+	/* val = 0 */
+val = deleteTH(mytable,namealloc("var3"));
+	/* val = -1  EMPTYTH */
+val = deleteTH(mytable,namealloc("var2"));
+	/* val = 1 */
+	/* mytable is empty */
+.fi
+.SH SEE ALSO
+.BR log (1),
+.BR tsh (1),
+.BR createTH (3),
+.BR destroyTH (3),
+.BR searchTH (3),
+.BR addTH (3),
+.BR displayTH (3).
+
+.so man1/alc_bug_report.1
+

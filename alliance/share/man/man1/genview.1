@@ -1,0 +1,294 @@
+.\"   $Id: genview.1,v 1.1 1999/05/31 17:30:13 alliance Exp $
+.\" @(#)genview.l 0.0 90/22/08 UPMC; Author: Frederic Petrot
+.\" make a choice for Bold font thru the entire doc
+.ie t \{\
+.fp 4 C \}
+.el \{\
+.fp 4 B \}
+.TH GENVIEW 1 "October 1, 1997" "ASIM/LIP6" "ALLIANCE USER COMMANDS"
+.SH NAME
+genview \- genlib graphical source level debugger
+.SH SYNOPSYS
+\f4genview [ \-s \fIsource_file\f4 ] [ \-l \fIlayout_file\f4 ]
+.RS 8n
+[ \-ge \fI<height>x<width>[{+}x{+}y]\f4 ]
+.br
+[ \-gt \fI<height>x<width>[{+}x{+}y]\f4 ]
+.br
+[ \-gv \fI<height>x<width>[{+}x{+}y]\f4 ]\fR
+.RE
+.so man1/alc_origin.1
+.SH DESCRIPTION
+\f4Genview\fP is a graphical source level debugger for the \fIcao-vlsi\fP
+procedural generation language \f4genlib\fR.
+\f4Genview\fR stands for procedural \f4Gen\fPerator \f4View\fPer,
+because its primary
+use is to help debug parametrable layout generator programs.
+Since \f4genlib\fP is a superset of the \f4C\fP language, de facto
+\f4genview\fP is a \f4C\fP debugger that contains a specific dictionary for
+\f4genlib\fP's functions.
+.br
+\f4Genview\fP works under X11r4, and is made of, at least, three distinct
+windows, each of them having a given behaviour:
+.TP 10
+Edit Window
+This window allows the user to edit a source file under a \f4vi\fR-like editor.
+It is \fInot\fR \f4vi\fR, so only the basical and most used functions have
+been implemented.
+.br
+No meta-characters can be used, things like `\f4c$\fR' or `\f4cw\fR', or
+`\f4.\fR' are not available.
+But this is not so much of a restriction, since they are far less used than
+`\f4i\fR', `\f4a\fR' or `\f4o\fR'.
+.br
+The menu of the Edit window is, let's say, the main menu of the application.
+It contains three separate items, each of them made up of some buttons.
+They could be called System, Interpret and trace.
+.RS 5
+
+System:
+.TP 10
+`load'
+enables to load a \f4C\fP source file from disk.
+The complete path to the file is expected, either absolu or relative, but
+no meta-characters may be used.
+.TP 10
+`save'
+enables to save an edited file to the disk.
+The constrains are the same as for loading.
+.TP 10
+`shell'
+runs either a shell command if given as parameter, or runs an
+\fIxterm\fP if no arguments are given in the dialog box.
+.TP 10
+`exit'
+kills genview.
+The state of the source files is not check before exiting, so make sure you
+are up to date.
+.RE
+.RS 5
+
+Interpret:
+.TP 10
+`compile'
+just calls the compiler for syntax checks.
+Currently, this button is desactivated.
+No actions are performed if clicked.
+.TP 10
+`run'
+calls the compiler, if the file has not yet been compiled,
+then the interpreter, and executes all the file, if
+no break points are present.
+If a break point is encountered, then an other click on run go to the next
+break point or the end of file.
+.TP 10
+`step'
+calls the compiler, if the file has not yet been compiled, and
+goes to the \fImain\fP position in the code.
+Then further clicks on `step' will execute the source file statement by
+statement, entering inside local function calls.
+.TP 10
+`next'
+is like `step', but executes call all at once.
+.TP 10
+`start'
+goes back to \fImain\fP if clicked while interpreting.
+.TP 10
+`params'
+is used to set the \fImain\fP arguments, for parametrable generators.
+This function bugs today, so please avoid using it.
+.RE
+.RS 5
+
+Trace:
+.TP 10
+`set/unset bp'
+is a flip-flop that either sets or unsets, depending of the
+previous state of the line, a break point on a given line.
+The line is choosen by the cursor position in the `Edit window'.
+Take care not to put a break point on a `\f4{\fR' or `\f4}\fR', or
+something like that,
+since it will not be taken into account at execution time.
+Choose a \f4C\fP control statement, or a function call.
+.TP 10
+`clear all bps'
+clears all previously sets break points.
+.TP 10
+`set trace'
+tells the interpreter to print out in the `Trace window' the
+value of the given variable.
+To name a variable, give, if it is a global one, it name as argument.
+If it is a local one, just concatenate the function name with the variable
+name, separeted by a semi-colon.
+This function is not entirely bug free.
+Do not use it with the argument of the \fImain\fP, because this is most
+likely to fail.
+.TP 10
+`unset trace'
+tells the interpreter no to trace anymore a given variable.
+.RE
+.TP 10
+Trace Window
+The Trace window is an output window in the which are redirected all
+system and \f4genlib\fP errors, and also user messages given through
+\fIprintf\fP since it represent both \fIstderr\fP and \fPstdout\fP.
+.br
+It is much simpler than the other windows, and possesses four buttons, that
+allow to scroll through it:
+.RS 5
+.TP 10
+`line up'
+scrolls up one line at a time.
+.TP 10
+`line down'
+scrolls down one line at a time.
+.TP 10
+`page up'
+for one page up.
+.TP 10
+`page down'
+for one page down.
+.RE
+.TP 10
+View Window
+The View window is an output window that contains the drawing of the layout
+beeing textualy described in genlib.
+It may also be used to simply load a symbolic layout cell, for looking at it
+only.
+This is not a symbolic layout editor.
+It contains many buttons needed to modify circuit coordinates and scale.
+.RS 5
+.TP 10
+`in'
+allows to change the scale.
+Push down the leftmost button of the mouse, and move it.
+It defines a one pixel box that represents the new window to be displayed.
+As soon as the button is released, the windows changes.
+.TP 10
+`out'
+comes back to the window defined by the previous `in'.
+.TP 10
+`fit'
+center the circuit, with appropriate scale, so it occupies the whole window.
+.TP 10
+`zoom'
+enlarges the scale, center of the window beeing left unchanged.
+The `scale factor' can be defined by clicking into and moving the rectangle of
+the right hand side icon of `zoom'.
+.TP 10
+`mooz'
+reduces the scale, center of the window beeing left unchanged.
+The `scale factor' can be defined by clicking into and moving the rectangle of
+the right hand side icon of `zoom'.
+.TP 10
+`lock'
+explicits the entire window to transistor level.
+Please do no use this function on an entire big circuit, because it is very
+time and memory consuming, and does not give any informations but artistic ones.
+.TP 10
+`peek'
+explicits the user defined window to transistor level.
+Push down the leftmost button of the mouse, and move it.
+It defines a one pixel box that represents the new window to be displayed.
+As soon as the button is released, the windows changes.
+.TP 10
+`pan'
+move the window in both `x' and `y' direction over the circuit.
+Push down the leftmost button of the mouse, and move it.
+A line is drawn, and as soon as the button is released, the windows changes.
+The begining point of the line beeing placed at the end point after the
+operation.
+If this is not really clear, just try it!
+.TP 10
+`refresh'
+redraws the entire screen.
+.TP 10
+`inspect'
+gives a textual output of the screen contents in a window opened for it.
+This window has scrolling buttons, so see `Trace window' for the motions.
+.TP 10
+`^ > v <'
+move the screen over the circuit.
+.TP 10
+`setup'
+opens a window that allows to choose users preferences.
+Moreless self explanatory.
+.TP 10
+`load'
+loads a layout cell directly from disk.
+.TP 10
+`map'
+draws the overall abutment box of the circuit.
+Clicking in it will move the circuit to the given point.
+.TP 10
+`x y'
+indicate current circuit absolute coordinates.
+Clicking in this button will allow the user to set them to a desired value.
+.TP 10
+`dx dy'
+indicate relatives coordinates regarding the most recent mouse click.
+.RE
+
+As most graphical tool, using it will be much easier than using this
+documentation, so just try it.
+.SH OPTIONS
+.TP 10
+\f4\-s\fP \fIsourcefile\fP
+tells genview to load a source file in its `Edit window' when starting.
+the source file may be any 32-127 ascii file.
+The file is to be given with its extension and path if needed.
+But only file sufixed by `.c' are to be interpreted.
+.TP 10
+\f4\-l\fP \fIlayoutfile\fP
+tells genview to load a layout file in its `View window' when starting.
+The file name is given without extension.
+.TP 10
+\f4\-ge\fP \fI<height>x<width>[{+}x{+}y]\fP
+opens the `Edit window' at \fIx\fP and \fIy\fP coordinates with the given
+\fIheight\fP and \fIwidth\fP.
+This is for customisation, but it is recommanded to use \fIas it is\fP because
+it is what esxperience has shown to be more practical.
+.TP 10
+\f4\-gt\fP \fI<height>x<width>[{+}x{+}y]\fP
+opens the `Trace window' at \fIx\fP and \fIy\fP coordinates with the given
+\fIheight\fP and \fIwidth\fP.
+.TP 10
+\f4\-gv\fP \fI<height>x<width>[{+}x{+}y]\fP
+opens the `View window' at \fIx\fP and \fIy\fP coordinates with the given
+\fIheight\fP and \fIwidth\fP.
+.SH EXAMPLE
+genview -s rsa.c -l gapg0_b
+.SH ENVIRONMENT VARIABLES
+.TP
+\f4MBK_CATA_LIB\fR(1)
+indicates the path to the read only libraries to be used under \f4genview\fR.
+.TP
+\f4MBK_WORK_LIB\fR(1)
+indicates the path to the read/write directory for the session.
+.TP
+\f4MBK_IN_PH\fR(1)
+indicates the file format to be used for the leaf cells.
+.TP
+\f4MBK_OUT_PH\fR(1)
+indicates the file format to be used for the generated blocks.
+
+.SH SEE ALSO
+.BR mbk (1).
+.BR genlib (1).
+
+.SH DIAGNOSTICS
+In order to work, \f4genview\fP must have read/write access on a directory
+called `/usr/tmp'.
+It will else fail at any compilation or inspect attempt.
+.br
+\f4Genview\fP does not allows rotations in placed instances.
+This is because it has been written for full custom generator debug, and such
+geometrical operations are not used in this context.
+This is the only known incompatibility with \f4genlib\fP.
+.br
+The use of \fImain\fP arguments is not entirely debugged, and may lead to
+a software exception.
+
+
+.so man1/alc_bug_report.1
+

@@ -1,0 +1,54 @@
+.\"   $Id: searchNumExpr.3,v 1.1 1999/05/31 17:30:24 alliance Exp $
+.\" @(#)searchNumExpr.2 7.01 92/08/22 ; Labo masi cao-vlsi; Author : Luc Burgun
+.TH SEARCHNUMEXPR 3 "October 1, 1997" "ASIM/LIP6" "ABL functions"
+.so man1/alc_origin.1
+.SH NAME
+\fBsearchNumExpr\fP \- fetches the i-th argument in an operator expression. 
+.SH SYNOPSYS
+.nf
+#include "logmmm.h"
+chain_list *searchNumExpr(expr,i)
+chain_list *expr;
+int i;
+.fi
+.SH PARAMETERS
+.TP 20
+\fIexpr\fP
+expression
+.TP 20
+\fIi\fP
+index of the argument
+.SH DESCRIPTION
+\fBsearchNumExpr()\fP fetches the \fIi-th\fP argument of \fIexpr\fP. As an \fIarray\fP of C-programming, the indedx of the first argument is 0. This function returns an argument that isn't duplicated. 
+.SH EXAMPLE
+.nf
+#include "mutnnn.h"		/* mbk utilities */
+#include "logmmm.h"
+chain_list *expr; 
+expr = createExpr(OR);
+addQExpr(expr,createAtom("a"));
+addQExpr(expr,createAtom("b"));
+displayExpr(searchNumExpr(expr,1));
+/* it will display
+b
+*/
+freeExpr(expr);
+.fi
+.SH ERROR
+"searchNumExpr : error - index out of bound"
+.br
+index i must be included between 0 and \fIlengthExpr(expr)-1\fP.
+.SH SEE ALSO
+.BR log (1),
+.BR abl (1),
+.BR deleteNumExpr (3),
+.BR searchOperExpr (3),
+.BR equalExpr (3),
+.BR equalVarExpr (3),
+.BR lengthExpr (3),
+.BR profExpr (3),
+.BR numberAtomExpr (3),
+.BR numberOccExpr (3).
+
+.so man1/alc_bug_report.1
+

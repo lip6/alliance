@@ -1,0 +1,365 @@
+-- VHDL structural description generated from `muxe`
+--		date : Sun Sep 27 12:27:24 1998
+
+
+-- Entity Declaration
+
+ENTITY muxe IS
+  PORT (
+  ra : in BIT_VECTOR (3 DOWNTO 0);	-- ra
+  rb : in BIT_VECTOR (3 DOWNTO 0);	-- rb
+  q : in BIT_VECTOR (3 DOWNTO 0);	-- q
+  d : in BIT_VECTOR (3 DOWNTO 0);	-- d
+  r : out BIT_VECTOR (3 DOWNTO 0);	-- r
+  s : out BIT_VECTOR (3 DOWNTO 0);	-- s
+  i : in BIT_VECTOR (2 DOWNTO 0);	-- i
+  vdd : in BIT;	-- vdd
+  vss : in BIT	-- vss
+  );
+END muxe;
+
+-- Architecture Declaration
+
+ARCHITECTURE VST OF muxe IS
+  COMPONENT n1_y
+    port (
+    i : in BIT;	-- i
+    f : out BIT;	-- f
+    vdd : in BIT;	-- vdd
+    vss : in BIT	-- vss
+    );
+  END COMPONENT;
+
+  COMPONENT a2_y
+    port (
+    i0 : in BIT;	-- i0
+    i1 : in BIT;	-- i1
+    t : out BIT;	-- t
+    vdd : in BIT;	-- vdd
+    vss : in BIT	-- vss
+    );
+  END COMPONENT;
+
+  COMPONENT o3_y
+    port (
+    i0 : in BIT;	-- i0
+    i1 : in BIT;	-- i1
+    i2 : in BIT;	-- i2
+    t : out BIT;	-- t
+    vdd : in BIT;	-- vdd
+    vss : in BIT	-- vss
+    );
+  END COMPONENT;
+
+  COMPONENT o2_y
+    port (
+    i0 : in BIT;	-- i0
+    i1 : in BIT;	-- i1
+    t : out BIT;	-- t
+    vdd : in BIT;	-- vdd
+    vss : in BIT	-- vss
+    );
+  END COMPONENT;
+
+  SIGNAL ni0 : BIT;	-- ni0
+  SIGNAL ni1 : BIT;	-- ni1
+  SIGNAL ni2 : BIT;	-- ni2
+  SIGNAL o21s : BIT;	-- o21s
+  SIGNAL o22s : BIT;	-- o22s
+  SIGNAL selar : BIT;	-- selar
+  SIGNAL selas : BIT;	-- selas
+  SIGNAL selbs : BIT;	-- selbs
+  SIGNAL seldr : BIT;	-- seldr
+  SIGNAL selqs : BIT;	-- selqs
+  SIGNAL sra0 : BIT;	-- sra0
+  SIGNAL sra1 : BIT;	-- sra1
+  SIGNAL sra2 : BIT;	-- sra2
+  SIGNAL sra3 : BIT;	-- sra3
+  SIGNAL srb0 : BIT;	-- srb0
+  SIGNAL srb1 : BIT;	-- srb1
+  SIGNAL srb2 : BIT;	-- srb2
+  SIGNAL srb3 : BIT;	-- srb3
+  SIGNAL srq0 : BIT;	-- srq0
+  SIGNAL srq1 : BIT;	-- srq1
+  SIGNAL srq2 : BIT;	-- srq2
+  SIGNAL srq3 : BIT;	-- srq3
+  SIGNAL ssa0 : BIT;	-- ssa0
+  SIGNAL ssa1 : BIT;	-- ssa1
+  SIGNAL ssa2 : BIT;	-- ssa2
+  SIGNAL ssa3 : BIT;	-- ssa3
+  SIGNAL ssd0 : BIT;	-- ssd0
+  SIGNAL ssd1 : BIT;	-- ssd1
+  SIGNAL ssd2 : BIT;	-- ssd2
+  SIGNAL ssd3 : BIT;	-- ssd3
+
+BEGIN
+
+  n11me : n1_y
+    PORT MAP (
+    vss => vss,
+    vdd => vdd,
+    f => ni2,
+    i => i(2));
+  n12me : n1_y
+    PORT MAP (
+    vss => vss,
+    vdd => vdd,
+    f => ni1,
+    i => i(1));
+  n13me : n1_y
+    PORT MAP (
+    vss => vss,
+    vdd => vdd,
+    f => ni0,
+    i => i(0));
+  a21me : a2_y
+    PORT MAP (
+    vss => vss,
+    vdd => vdd,
+    t => selas,
+    i1 => i(2),
+    i0 => ni1);
+  a22me : a2_y
+    PORT MAP (
+    vss => vss,
+    vdd => vdd,
+    t => selbs,
+    i1 => i(0),
+    i0 => ni2);
+  o21me : o2_y
+    PORT MAP (
+    vss => vss,
+    vdd => vdd,
+    t => o21s,
+    i1 => ni2,
+    i0 => i(1));
+  a23me : a2_y
+    PORT MAP (
+    vss => vss,
+    vdd => vdd,
+    t => selar,
+    i1 => ni1,
+    i0 => ni2);
+  o22me : o2_y
+    PORT MAP (
+    vss => vss,
+    vdd => vdd,
+    t => o22s,
+    i1 => i(0),
+    i0 => i(1));
+  a24me : a2_y
+    PORT MAP (
+    vss => vss,
+    vdd => vdd,
+    t => selqs,
+    i1 => ni0,
+    i0 => o21s);
+  a25me : a2_y
+    PORT MAP (
+    vss => vss,
+    vdd => vdd,
+    t => seldr,
+    i1 => i(2),
+    i0 => o22s);
+  a26ms : a2_y
+    PORT MAP (
+    vss => vss,
+    vdd => vdd,
+    t => srb0,
+    i1 => selbs,
+    i0 => rb(0));
+  a27ms : a2_y
+    PORT MAP (
+    vss => vss,
+    vdd => vdd,
+    t => srb1,
+    i1 => selbs,
+    i0 => rb(1));
+  a28ms : a2_y
+    PORT MAP (
+    vss => vss,
+    vdd => vdd,
+    t => srb2,
+    i1 => selbs,
+    i0 => rb(2));
+  a29ms : a2_y
+    PORT MAP (
+    vss => vss,
+    vdd => vdd,
+    t => srb3,
+    i1 => selbs,
+    i0 => rb(3));
+  a210ms : a2_y
+    PORT MAP (
+    vss => vss,
+    vdd => vdd,
+    t => sra0,
+    i1 => selas,
+    i0 => ra(0));
+  a211ms : a2_y
+    PORT MAP (
+    vss => vss,
+    vdd => vdd,
+    t => sra1,
+    i1 => selas,
+    i0 => ra(1));
+  a212ms : a2_y
+    PORT MAP (
+    vss => vss,
+    vdd => vdd,
+    t => sra2,
+    i1 => selas,
+    i0 => ra(2));
+  a213ms : a2_y
+    PORT MAP (
+    vss => vss,
+    vdd => vdd,
+    t => sra3,
+    i1 => selas,
+    i0 => ra(3));
+  a214ms : a2_y
+    PORT MAP (
+    vss => vss,
+    vdd => vdd,
+    t => ssa0,
+    i1 => selar,
+    i0 => ra(0));
+  a215ms : a2_y
+    PORT MAP (
+    vss => vss,
+    vdd => vdd,
+    t => ssa1,
+    i1 => selar,
+    i0 => ra(1));
+  a216ms : a2_y
+    PORT MAP (
+    vss => vss,
+    vdd => vdd,
+    t => ssa2,
+    i1 => selar,
+    i0 => ra(2));
+  a217ms : a2_y
+    PORT MAP (
+    vss => vss,
+    vdd => vdd,
+    t => ssa3,
+    i1 => selar,
+    i0 => ra(3));
+  a218ms : a2_y
+    PORT MAP (
+    vss => vss,
+    vdd => vdd,
+    t => srq0,
+    i1 => selqs,
+    i0 => q(0));
+  a219ms : a2_y
+    PORT MAP (
+    vss => vss,
+    vdd => vdd,
+    t => srq1,
+    i1 => selqs,
+    i0 => q(1));
+  a220ms : a2_y
+    PORT MAP (
+    vss => vss,
+    vdd => vdd,
+    t => srq2,
+    i1 => selqs,
+    i0 => q(2));
+  a221ms : a2_y
+    PORT MAP (
+    vss => vss,
+    vdd => vdd,
+    t => srq3,
+    i1 => selqs,
+    i0 => q(3));
+  a222ms : a2_y
+    PORT MAP (
+    vss => vss,
+    vdd => vdd,
+    t => ssd0,
+    i1 => seldr,
+    i0 => d(0));
+  a223ms : a2_y
+    PORT MAP (
+    vss => vss,
+    vdd => vdd,
+    t => ssd1,
+    i1 => seldr,
+    i0 => d(1));
+  a224ms : a2_y
+    PORT MAP (
+    vss => vss,
+    vdd => vdd,
+    t => ssd2,
+    i1 => seldr,
+    i0 => d(2));
+  a225ms : a2_y
+    PORT MAP (
+    vss => vss,
+    vdd => vdd,
+    t => ssd3,
+    i1 => seldr,
+    i0 => d(3));
+  o31ms : o3_y
+    PORT MAP (
+    vss => vss,
+    vdd => vdd,
+    t => s(0),
+    i2 => srq0,
+    i1 => sra0,
+    i0 => srb0);
+  o32ms : o3_y
+    PORT MAP (
+    vss => vss,
+    vdd => vdd,
+    t => s(1),
+    i2 => srq1,
+    i1 => sra1,
+    i0 => srb1);
+  o33ms : o3_y
+    PORT MAP (
+    vss => vss,
+    vdd => vdd,
+    t => s(2),
+    i2 => srq2,
+    i1 => sra2,
+    i0 => srb2);
+  o34ms : o3_y
+    PORT MAP (
+    vss => vss,
+    vdd => vdd,
+    t => s(3),
+    i2 => srq3,
+    i1 => sra3,
+    i0 => srb3);
+  o23ms : o2_y
+    PORT MAP (
+    vss => vss,
+    vdd => vdd,
+    t => r(0),
+    i1 => ssd0,
+    i0 => ssa0);
+  o24ms : o2_y
+    PORT MAP (
+    vss => vss,
+    vdd => vdd,
+    t => r(1),
+    i1 => ssd1,
+    i0 => ssa1);
+  o25ms : o2_y
+    PORT MAP (
+    vss => vss,
+    vdd => vdd,
+    t => r(2),
+    i1 => ssd2,
+    i0 => ssa2);
+  o26ms : o2_y
+    PORT MAP (
+    vss => vss,
+    vdd => vdd,
+    t => r(3),
+    i1 => ssd3,
+    i0 => ssa3);
+
+end VST;

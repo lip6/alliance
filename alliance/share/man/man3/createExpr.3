@@ -1,0 +1,46 @@
+.\"   $Id: createExpr.3,v 1.1 1999/05/31 17:30:19 alliance Exp $
+.\" @(#)createExpr.2 7.01 92/08/22 ; Labo masi cao-vlsi; Author : Luc Burgun
+.TH CREATEEXPR 3 "October 1, 1997" "ASIM/LIP6" "ABL functions"
+.so man1/alc_origin.1
+.SH NAME
+\fBcreateExpr\fP \- creates the head of an operator expression.
+.SH SYNOPSYS
+.nf
+#include "logmmm.h"
+chain_list *createExpr(oper)
+short oper;
+.fi
+.SH PARAMETER
+.TP 20
+\fIoper\fP
+Operator number (OR,AND,XOR,NAND,NOR...).
+.SH DESCRIPTION
+\fBcreateExpr()\fP creates the head of an operator expression (arity = 0). After that it's possible to add arguments with the \fBaddHExpr()\fP or \fBaddQExpr()\fP functions.
+.SH EXAMPLE
+.nf
+#include "mutnnn.h"		/* mbk utilities */
+#include "logmmm.h"
+chain_list *expr; 
+expr = createExpr(OR);
+displayExpr(expr);
+/* it will display
+(OR)
+*/
+freeExpr(expr);
+.fi
+.SH ERROR
+"createExpr : error - unknown operator"
+.br
+The operator number must be included between \fIMIN_OPER\fP and \fIMAX_OPER\fP.
+.SH SEE ALSO
+.BR log (1),
+.BR abl (1),
+.BR createAtom (3),
+.BR notExpr (3),
+.BR createBinExpr (3),
+.BR addQExpr (3),
+.BR addHExpr (3),
+.BR freeExpr (3).
+
+.so man1/alc_bug_report.1
+

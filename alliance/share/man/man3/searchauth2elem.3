@@ -1,0 +1,92 @@
+.\"   $Id: searchauth2elem.3,v 1.1 1999/05/31 17:30:25 alliance Exp $
+.\" @(#)searchauth2elem.2 2.7 96/07/02 ; Labo masi cao-vlsi; Author : Jacomme Ludovic
+.TH SEARCHAUTH2ELEM 3 "October 1, 1997" "ASIM/LIP6" "AUT FUNCTIONS"
+.SH NAME
+searchauth2elem \-  searches an element in the hash table.
+.so man1/alc_origin.1
+.SH SYNOPSYS
+.nf
+.if n \{\
+.ft B \}
+.if t \{\
+.ft CR \}
+#include "aut101.h"
+auth2elem \(**searchauth2elem( HashTable, Key1, Key2 )
+  auth2table \(**HashTable;
+  char      \(**Key1;
+  char      \(**Key2;
+.ft R
+.fi
+.SH PARAMETERS
+.TP 20
+\fIHashTable\fP
+Pointer to the hash table where to search an element.
+.TP
+\fIKey1\fP
+The first hash element key.
+.TP
+\fIKey2\fP
+The second hash element key.
+.SH DESCRIPTION
+\fBsearchauth2elem\fP searches the element associated to the two keys \fIKey1\fP
+and \fIKey2\fP in the hash table.
+.br
+.SH RETURN VALUE
+if the element can be found \fBsearchauth2elem\fP returns a pointer to this element
+and a null pointer otherwise.
+.SH ERRORS
+.if n \{\
+.ft B \}
+.if t \{\
+.ft CR \}
+"auth2ash: hash key 0 error !"
+.ft R
+.RS
+The two keys \fIKey1\fP and \fIKey2\fP must be valid pointers.
+.SH EXAMPLE
+.ta 3n 6n 9n 12n 15n 18n 21n
+.nf
+.if n \{\
+.ft B \}
+.if t \{\
+.ft CR \}
+#include "aut101.h"
+   auth2table \(**HashTable;
+   void add_dictionary( Name1, Name2 )
+     \(** Name1;
+     \(** Name2;
+   {
+     addauth2elem( HashTable, 
+                   namealloc( Name1 ),
+                   namealloc( Name2 ), 0 );
+   }
+   int search_dictionary( Name1, Name2 )
+     \(** Name1;
+     \(** Name2;
+   {
+     auth2elem \(**HashElement;
+     HashElement = searchauth2elem( HashTable,
+                                    namealloc( Name1 ),
+                                    namealloc( Name2 ) );
+     return( HashElement != (auth2elem \(**0) );
+   }
+   ...
+   HashTable = createauth2table( 1000 );
+   add_dictionary( "hello", "world" );
+   ...
+   if ( search_dictionary( "hello", "world" ) )
+   ...
+   destroyauth2table( HashTable );
+.ft R
+.fi
+.SH SEE ALSO
+.BR aut (1)
+.BR destroyauth2table(3),
+.BR resetauth2table(3),
+.BR createauth2table(3),
+.BR addhauth2elem(3),
+.BR delauth2elem(3).
+
+
+.so man1/alc_bug_report.1
+

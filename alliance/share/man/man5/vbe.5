@@ -1,0 +1,262 @@
+.\"   $Id: vbe.5,v 1.1 1999/05/31 17:30:28 alliance Exp $
+.\" @(#)VBE.5 1.0 Jan 28 1992 UPMC ; VUONG H.N.
+.TH VBE 5 "October 1, 1997" "ASIM/LIP6" "VHDL subset of ASIM/LIP6/CAO-VLSI lab."
+
+.SH NAME
+.PP
+\fBvbe\fP
+.br
+VHDL behavioural subset.
+
+.so man1/alc_origin.1
+.SH DESCRIPTION
+.PP
+This document describes the ALLIANCE VHDL subset for behavioural data
+flow descriptions.
+
+.PP
+\fBCONCURRENT STATEMENTS\fP
+.br
+In a data flow architecture only concurrent statements (except \fIprocess\fP)
+are supported. All sequential statements including loops, signal assignment,
+etc .. are to be banished.
+
+.PP
+Allowed conncurrent statements are:
+.RS
+simple signal assignment
+.br
+conditional signal assignment
+.br
+selected signal assignment
+.br
+concurrent assert statement
+.br
+block statement
+.RE
+
+.PP
+\fBBUSES\fP
+.br
+When using concurrent statements, an ordinary signal can be assigned only once.
+The value of the signal must be explicitly defined by the signal assignment
+(for example, in a selected signal assignment the value of the target signal
+is to be defined for \fBevery\fP value that the select expression can take).
+
+.PP
+The above constraint may be felt as a hard restriction when designing
+distributed controled hardware (precharged line, distributed multiplexer,
+etc ...). To hurdle this, VHDL uses a special feature: guarded-resolved signals.
+
+.PP
+A resolved signal is a signal declared with a resolved subtype (see vhdl(5)). 
+A resolved subtype is a type combined with a resolution function. A resolved
+signal can be assigned by multiple signal assignments. Depending on the value
+of each driver, the resolution function determines the effective value of the
+signal.
+
+.PP
+A guarded signal is a resolved signal with drivers that can be disconntected.
+A guarded signal must be assigned inside a \fIblock\fP statement through a
+\fIguarded\fP signal assignment.
+
+.PP
+A distributed multiplexer may be described as :
+.nf
+
+signal Distributed_Mux : mux_bit bus;
+
+begin
+
+first_driver_of_mux : block (Sel1 = '1')
+begin
+  Distributed_Mux <= guarded Data1;
+end block;
+
+second_driver_of_mux : block (Sel2 = '1')
+begin
+  Distributed_Mux <= guarded Data2;
+end block;
+
+.fi
+
+.PP
+\fBLATCHES and REGISTERS\fP
+.br
+Sequential elements must be explicitly declared using the type \fIreg_bit\fP
+or \fIreg_vector\fP (and must be of kind \fIregister\fP). A sequential element
+must be assigned inside a \fIblock\fP statement by a \fIguarded\fP signal
+assignment.
+
+.PP
+Falling edge triggered D flip flop :
+.nf
+
+signal Reg : reg_bit register;
+
+begin
+
+flip_flop : block (ck = '0' and not ck'STABLE)
+begin
+  Reg <= guarded Din;
+end block;
+.fi
+
+.PP
+Level sensitive latch:
+.nf
+
+signal Reg : reg_bit register;
+
+begin
+
+latch : block (ck = '1')
+begin
+  Lat <= guarded D;in
+end block;
+.fi
+
+.PP
+In both cases, the guard expression must depend only on one signal if the
+description is to be processed by the logic synthetizer (bop + scmap).
+
+.PP
+The following operators are only supported: \fBnot, and, or, xor, nor, nand,
+&, =, /=\fP
+
+.PP
+They can be applied on all types supported by the subset. Other standard VHDL
+operators (+, -, >, <, ...) have not been implemented in the present release.
+
+.PP
+\fBTIMING\fP
+.br
+A VHDL description can be used for:
+.RS
+a) validation of a specification (behavioural)
+.br
+b) direct synthesis of hardware (behavioural)
+.br
+c) validation of a structural netlist
+.RE
+
+.PP
+Detailed timing information is not available at design time (cases a and b).
+.PP
+For an extracted netlist (case c) the detailed timing analysis is performed
+by a specific tool: the static timing analyser TAS (not delivered in the
+present version of ALLIANCE).
+
+.PP
+Thus, timing specification is not supported by the ALLIANCE VHDL subset.
+Simulation is performed in zero delay mode.
+
+.PP
+\fBASSERT STATEMENT\fP
+.br
+Only two severity levels are supported in concurrent
+assert statements:
+.TP 15
+\fBwarning\fP
+print a warning message if the assert condition is not satisfied.
+.TP 15
+\fBerror\fP
+print an error message if the assert condition is not satisfied. Then, stop
+the simulation.
+
+.PP
+Assert statements are ignored by the logic synthesis tool.
+
+.PP
+\fBDON'T CARE\fP
+.br
+A special feature has been introduced in order to allow "don't care"
+specification when the logic synthtizer is targeted (\fB Beware : this feature
+is incompatible with the IEEE VHDL standard !!\fP).
+
+.PP
+An output can be assigned to the value 'D' (don't care). This is taken into
+account by the logic synthesis tool in the optimization process. When the value
+of an output is 'D' the logic synthesis tool may turn it into a '1' or a '0'.
+
+.PP
+A 'D' value is understood as a '0' by the logic simulator (asimut).
+
+.PP
+\fBARRAIES\fP
+.br
+Arraies other than bit_vector, reg_vector, mux_vector and wor_vector are not
+supported.
+
+.SH EXAMPLES
+.PP
+Here is the description of an adder with an accumulator register.
+
+.nf
+entity add_accu is
+port (
+  clk      : in  bit;
+  command  : in  bit;
+  data_in  : in  bit_vector (31 downto 0);
+  data_out : out bit_vector (31 downto 0);
+  cry_out  : out bit;
+  vdd      : in  bit;
+  vss      : in  bit
+  );
+end add_accu;
+
+architecture data_flow of add_accu is
+
+signal eff_data  : bit_vector (31 downto 0);		-- effective operande
+signal adder_out : bit_vector (31 downto 0);		-- adder's result
+signal adder_cry : bit_vector (32 downto 0);		-- adder's carry
+signal accum_reg : reg_vector (31 downto 0) register;	-- accumulator
+
+constant initialize : bit := '0';
+constant accumulate : bit := '1';
+
+begin
+
+  -- select the effective operand
+
+  with command select
+  eff_data <= X"0000_0000" when initialize,
+              accum_reg    when accumulate;
+
+  -- compute the result out of the adder
+
+  adder_out               <= eff_data xor data_in xor adder_cry;
+  adder_cry (0)           <= '0';
+  adder_cry (32 downto 1) <= (eff_data and adder_cry (31 downto 0)) or
+                             (data_in  and adder_cry (31 downto 0)) or
+                             (aff_data and data_in                ) ;
+
+  -- write the result into the register on the falling edge of clk
+
+  write : block (clk = '0' and not clk'STABLE)
+  begin
+    accum_reg <= guarded adder_out;
+  end block;
+
+  -- assign outputs
+
+  cry_out  <= adder_cry (32);
+  data_out <= accum_reg     ;
+
+  -- check power supply
+
+  assert (vdd = '1' and vss = '0')
+  report "power sypply is missing"
+  severity ERROR;
+
+end;
+
+.fi
+
+.SH SEE ALSO
+.PP
+vhdl(5), vst(5), bop(1), glop(1), scmap(1), c4map(1), asimut(1), proof(1), yagle(1)
+
+
+.so man1/alc_bug_report.1
+

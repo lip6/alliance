@@ -1,0 +1,50 @@
+-- This cell caracterized by prol05.elp technologie file
+-- VHDL data flow description generated from `cry_y`
+--		date : Wed Oct  7 12:08:02 1998
+
+
+-- Entity Declaration
+
+ENTITY cry_y IS
+  GENERIC (
+    CONSTANT area : NATURAL := 151200;	-- area
+    CONSTANT transistors : NATURAL := 10;	-- transistors
+    CONSTANT cin_si : NATURAL := 32;	-- cin_si
+    CONSTANT cin_ci : NATURAL := 61;	-- cin_ci
+    CONSTANT cin_pi : NATURAL := 62;	-- cin_pi
+    CONSTANT tplh_ci_f : NATURAL := 854;	-- tplh_ci_f
+    CONSTANT rup_ci_f : NATURAL := 4710;	-- rup_ci_f
+    CONSTANT tphl_ci_f : NATURAL := 546;	-- tphl_ci_f
+    CONSTANT rdown_ci_f : NATURAL := 3480;	-- rdown_ci_f
+    CONSTANT tplh_pi_f : NATURAL := 751;	-- tplh_pi_f
+    CONSTANT rup_pi_f : NATURAL := 4710;	-- rup_pi_f
+    CONSTANT tphl_pi_f : NATURAL := 637;	-- tphl_pi_f
+    CONSTANT rdown_pi_f : NATURAL := 3480;	-- rdown_pi_f
+    CONSTANT tplh_si_f : NATURAL := 631;	-- tplh_si_f
+    CONSTANT rup_si_f : NATURAL := 4710;	-- rup_si_f
+    CONSTANT tphl_si_f : NATURAL := 414;	-- tphl_si_f
+    CONSTANT rdown_si_f : NATURAL := 3480	-- rdown_si_f
+  );
+  PORT (
+  pi : in BIT;	-- pi
+  ci : in BIT;	-- ci
+  si : in BIT;	-- si
+  f : out BIT;	-- f
+  vdd : in BIT;	-- vdd
+  vss : in BIT	-- vss
+  );
+END cry_y;
+
+
+-- Architecture Declaration
+
+ARCHITECTURE VBE OF cry_y IS
+
+BEGIN
+  ASSERT ((vdd and not (vss)) = '1')
+    REPORT "power supply is missing on cry_y"
+    SEVERITY WARNING;
+
+
+f <= not (((si and ci) or (pi and (si or ci))));
+END;

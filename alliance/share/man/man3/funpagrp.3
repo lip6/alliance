@@ -1,0 +1,66 @@
+.\"   $Id: funpagrp.3,v 1.1 1999/05/31 17:30:21 alliance Exp $
+.\" @(#)funpagrp.2 106 Sep 30 1996 UPMC ; VUONG Huu\-Nghia 
+.TH FUNPAGRP 3 "October 1, 1997" "ASIM/LIP6" "PAT functions"
+
+.so man1/alc_origin.1
+.SH NAME
+.PP
+\fBpat_addpagrp\fP
+
+.SH SYNOPSYS
+.PP
+.nf
+struct pagrp *pat_addpagrp (lastpagrp, name, length, index, flag)
+struct pagrp *lastpagrp;
+char *name;
+unsigned short length;
+unsigned short index;
+short flag;
+.fi
+
+.SH PARAMETERS
+.PP
+.TP 10
+\fIlastpagrp\fP
+pointer on the last pagrp structure
+.TP 10
+\fIname\fP
+array\'s name
+.TP 10
+\fIlength\fP
+array\'s number of bit
+.TP 10
+\fIindex\fP
+index of the first paiol of the array
+.TP 10
+\fIflag\fP
+set to 0 for an actual array and to 1 for a virtual one
+
+.SH DESCRIPTION
+.PP
+A pagrp is a data structure representing an actual or virtual array. 
+
+.PP
+\fBpat_addpagrp()\fP adds a pagrp structure at the top of a list of pagrp
+structures. The name registered in the pagrp is produced by \fBnamealloc()\fP.
+The function returns the pointer of the new list. No check is made by
+this function.
+
+.SH EXAMPLE
+.PP
+.nf
+#include <pat106.h>
+
+struct pagrp *list;
+char *name;
+
+list = pat_addpagrp (list, "INA", 32, 10, 0);
+.fi
+
+.SH SEE ALSO
+.PP
+libpat(3), pagrp(3), namealloc(3)
+
+
+.so man1/alc_bug_report.1
+

@@ -1,0 +1,43 @@
+-- VHDL data flow description generated from `a2p_dp`
+--		date : Thu Oct 30 16:47:46 1997
+
+
+-- Entity Declaration
+
+ENTITY a2p_dp IS
+  GENERIC (
+    CONSTANT area : NATURAL := 1440;	-- area
+    CONSTANT transistors : NATURAL := 6;	-- transistors
+    CONSTANT cin_i0 : NATURAL := 48;	-- cin_i0
+    CONSTANT cin_i1 : NATURAL := 46;	-- cin_i1
+    CONSTANT tphh_i0_o : NATURAL := 999;	-- tphh_i0_o
+    CONSTANT rup_i0_o : NATURAL := 1060;	-- rup_i0_o
+    CONSTANT tpll_i0_o : NATURAL := 1121;	-- tpll_i0_o
+    CONSTANT rdown_i0_o : NATURAL := 1120;	-- rdown_i0_o
+    CONSTANT tphh_i1_o : NATURAL := 905;	-- tphh_i1_o
+    CONSTANT rup_i1_o : NATURAL := 1060;	-- rup_i1_o
+    CONSTANT tpll_i1_o : NATURAL := 1247;	-- tpll_i1_o
+    CONSTANT rdown_i1_o : NATURAL := 1120	-- rdown_i1_o
+  );
+  PORT (
+  i0 : in BIT;	-- i0
+  i1 : in BIT;	-- i1
+  o : out BIT;	-- o
+  vdd : in BIT;	-- vdd
+  vss : in BIT	-- vss
+  );
+END a2p_dp;
+
+
+-- Architecture Declaration
+
+ARCHITECTURE behaviour_data_flow OF a2p_dp IS
+
+BEGIN
+  ASSERT ((vdd and not (vss)) = '1')
+    REPORT "power supply is missing on a2p_dp"
+    SEVERITY WARNING;
+
+
+o <= (i0 and i1);
+END;

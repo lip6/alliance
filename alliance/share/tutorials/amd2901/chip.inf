@@ -1,0 +1,27 @@
+
+RENAME
+# -------- RAM --------
+heart.block5.m_16_*.dff_s : ram15(*) ;
+heart.block5.m_15_*.dff_s : ram14(*) ;
+heart.block5.m_14_*.dff_s : ram13(*) ;
+heart.block5.m_13_*.dff_s : ram12(*) ;
+heart.block5.m_12_*.dff_s : ram11(*) ;
+heart.block5.m_11_*.dff_s : ram10(*) ;
+heart.block5.m_10_*.dff_s : ram9(*) ;
+heart.block5.m_9_*.dff_s : ram8(*) ;
+heart.block5.m_8_*.dff_s : ram7(*) ;
+heart.block5.m_7_*.dff_s : ram6(*) ;
+heart.block5.m_6_*.dff_s : ram5(*) ;
+heart.block5.m_5_*.dff_s : ram4(*) ;
+heart.block5.m_4_*.dff_s : ram3(*) ;
+heart.block5.m_3_*.dff_s : ram2(*) ;
+heart.block5.m_2_*.dff_s : ram1(*) ;
+heart.block5.m_1_*.dff_s : ram0(*) ;
+
+# -------- ACCU --------
+heart.block4.m*.dff_s : accu(*) ;
+
+# -------- ALU --------
+heart.r_* : r_* ;
+heart.s_* : s_* ;
+END 

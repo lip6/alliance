@@ -1,0 +1,72 @@
+.\"   $Id: delloins.3,v 1.1 1999/05/31 17:30:20 alliance Exp $
+.\" @(#)delloins.2 2.11 91/08/22 ; Labo masi cao-vlsi; Author : Frederic Petrot
+.if t \{\
+.so man1/alc_contents.mac
+.XS \n%
+.ti 0.2i
+delloins
+.XE
+.XS2 \n%
+.ti 0.2i
+delloins
+.XE2 \}
+.TH DELLOINS 3 "October 1, 1997" "ASIM/LIP6" "MBK LOGICAL FUNCTIONS"
+.SH NAME
+delloins \- delete a logical instance
+.so man1/alc_origin.1
+.SH SYNOPSYS
+.nf
+.if n \{\
+.ft B \}
+.if t \{\
+.ft CR \}
+#include "mlo404.h"
+int delloins(ptfig, insname)
+lofig_list \(**ptfig;
+char \(**insname;
+.ft R
+.fi
+.SH PARAMETERS
+.TP 20
+\fIptfig\fP
+Pointer to the figure in which the instance should be deleted
+.TP
+\fIinsname\fP
+Name of the instance to be deleted.
+.SH DESCRIPTION
+\fBdelloins\fP delete the instance called \fIinsname\fP in the figure 
+pointed to by \fIptfig\fP. This instance is warrantied to be unique, because
+its name is an identifier at the given hierarchical level.
+The list consistency is maintainded, and the space freed. The instance
+connectors are also freed, since if the instance disapear, no more connections
+can occur on it.
+.SH RETURN VALUE
+\fBdelloins\fP returns \fB1\fP if the instance has been deleted, \fB0\fP
+if no such instance exists in the list.
+.SH EXAMPLE
+.ta 3n 6n 9n 12n 15n 18n 21n
+.nf
+.if n \{\
+.ft B \}
+.if t \{\
+.ft CR \}
+#include "mlo404.h"
+char \(**was_existing(ptfig, insname)
+lofig_list \(**ptfig;
+char \(**insname;
+{
+   return delloins(ptfig, insname) ? "you just killed it!"
+                                 : "wasn't here anyway"; 
+}
+.ft R
+.fi
+.SH SEE ALSO
+.BR mbk (1),
+.BR lofig (3),
+.BR loins (3),
+.BR addloins (3),
+.BR getloins (3).
+
+
+.so man1/alc_bug_report.1
+

@@ -1,0 +1,63 @@
+.\"   $Id: DP_AND2.3,v 1.1 1999/05/31 17:30:15 alliance Exp $
+.TH DP_AND2 3 "October 1, 1997" "ASIM/LIP6" "FITPATH Macro-Functions"
+.so man1/alc_origin.1
+.SH NAME
+\fBDP_AND2\fP - Logical and 2.
+.SH SYNOPSYS
+.ft CR
+.nf
+#include  <fpgen.h>
+
+void  DP_AND2( 	
+    char *InstName,  /*              Instance name              */
+    long  Width   ,  /*             Number of bits              */
+    long  Slice   ,  /*        Index of the bottom slice        */
+
+    long  Drive   ,  /*           Fanout : among 1 or 2         */
+    char *BusI0   ,  /*  IN          First Operand         DATA */
+    char *BusI1   ,  /*  IN         Second Operand         DATA */
+    char *BusO    ,  /* OUT         Direct Result output   DATA */
+    char *BusNO   ,  /* OUT   Complemented Result output   DATA */
+               EOL);
+.fi
+.ft R
+.SH DESCRIPTION
+.ta 4m +4n +10nR +2n +2n
+	\fBDP_AND2\fP creates a logical and 2 of \fIWidth\fP
+bits and then instanciates it with the name \fIInstName\fP. The maximal
+authorized value for \fIWidth\fP is the full width of the current 
+data-path, set by the previous call to the function \fBDP_DEFLOFIG\fP.
+In the layout the leaf cells are placed on the slices numbered from
+\fISlice\fP to \fISlice\fB+\fIWidth\fB-1\fR (the bottom slice of the
+whole data-path is numbered zero).
+.br
+.SH CHARACTERISTICS
+.ta +15n +2n +2n
+Operator wide	:	\fB24 lambdas\fP.
+.SH EXAMPLE
+.ft CR
+.nf
+DP_AND2("and2_instance0", 32, 
+                           0, 1, "input_i0[31:0]", 
+                                 "input_i1[31:0]", 
+                                 "output_o[31:0]",
+                                "output_no[31:0]", EOL);
+.fi
+.ft R
+.SH SEE ALSO
+.ft B
+fpgen(1), dpr(1), genlib(1), mbk(1),
+DP_DEFLOFIG(3), DP_SAVLOFIG(3), DP_LOCON(3), DP_IMPORT(3),
+DP_INV(3), DP_BUSE(3), DP_AND2(3), DP_NAND2(3), DP_AND3(3), DP_NAND3(3),
+DP_OR2(3), DP_NOR2(3), DP_OR3(3), DP_NOR3(3), DP_XOR2(3), DP_XNOR2(3),
+DP_NAND2MASK(3), DP_NOR2MASK(3), DP_XNOR2MASK(3), DP_CONST(3),
+DP_NMUX2CS(3), DP_MUX2CS(3), DP_MUX3CS(3), DP_MUX4CS(3), DP_MUX5CS(3),
+DP_BUSE(3), DP_NBUSE(3), DP_ADD2F(3), DP_ADSB2F(3),
+DP_SHIFT(3), DP_MULT(3), DP_MULTP(3), DP_NUL(3),
+DP_PDFF(3), DP_PDFFR(3), DP_PDFFT(3), DP_PDFFRT(3),
+DP_RFG1C0(3), DP_RFG1CC(3), DP_RFG2C0(3), DP_RFG2CC(3)
+,
+
+
+.so man1/alc_bug_report.1
+

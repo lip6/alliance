@@ -1,0 +1,54 @@
+.\"   $Id: init.3,v 1.1 1999/05/31 17:30:22 alliance Exp $
+.\" @(#)INIT.2 1.9  UPMC ; VUONG H.N.
+.TH INIT 3 "October 1, 1997" "ASIM/LIP6" "GENPAT functions"
+
+.SH NAME
+.PP
+\fBinit\fP, GENPAT Package
+
+.so man1/alc_origin.1
+.SH SYNOPSYS
+.PP
+.nf
+init("pattern_nb","ident","value", ... ,0);
+.fi
+
+.SH PARAMETERS
+.PP
+.TP 10
+\fIpattern_nb\fP
+pattern number which may be either : decimal (absolute number of pattern)
+or + decimal ( relative number of pattern) or converted with CONV(integer
+or variable or expression returning an integer).
+.TP 10
+\fIident\fP
+Either the name of a bused register or a simple register. Path-name must be
+specified by the syntax : instance1.instance11.name
+.TP 10
+\fIvalue\fP
+Tha value associated with the signal which may be either a based number (ex.
+0B011 or 0H3F) or a constant or a converted with CONV(integer or variable
+or expression returning an integer).
+
+.SH DESCRIPTION
+.PP
+Initialize registers at indicated values.
+
+.SH EXAMPLE
+.PP
+.nf
+init("0","regt","0B1",0);
+At pattern 0 the signal regt or the components of the vector named 
+regt receive "1"
+
+init("+0","y 3 downto 0","0xF",0);
+At pattern +0, (current pattern), the vector y composed of 
+y 3, y 2, y 1, y 0 is affected with the value 15 in decimal or F in hexadecimal.
+Nota : The vector y has not yet been described, so it is entirely described here.
+.fi
+
+.SH SEE ALSO
+genpat(1), pat(5)
+
+.so man1/alc_bug_report.1
+

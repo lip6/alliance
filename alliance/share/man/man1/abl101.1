@@ -1,0 +1,310 @@
+.\"   $Id: abl101.1,v 1.1 1999/05/31 17:30:13 alliance Exp $
+.\" @(#)abl.1 1.01 96/02/07 UPMC; Author : Jacomme Ludovic
+.TH ABL101 1 "October 1, 1997" "ASIM/LIP6" "ALLIANCE ABL LIBRARY"
+.SH NAME
+abl \- Prefixed representation for boolean functions
+.so man1/alc_origin.1
+.SH DESCRIPTION
+\fBabl\fP is a library that enables to represent a boolean
+function in a LISP-like form. An \fIABL\fP is a prefixed representation
+for a boolean function having standard operators as ABL_NOT, ABL_AND, ABL_OR,
+ABL_XOR, ABL_NAND, ABL_NOR, ABL_NXOR and CTL operators as ABL_AF, ABL_AG, ABL_AX,
+ABL_AU, ABL_EF, ABL_EG, ABL_EX and ABL_EU.
+An ABL is only made up of doublets. A doublet is composed of two fields 
+wich are accessible by \fIABL_CAR\fP and \fIABL_CDR\fP macro-functions.
+A doublet is implemented with a \fImbk\fP \fIchain_list\fP.
+"Expression" is the generic term for a boolean function represented by an ABL.
+An expression can be an atomic expression or an operator expression.
+The function \fBf = a\fP is represented by an atomic expression whereas
+\fBf = (or a b)\fP is represented by an operator expression.
+An atomic expression is made up of a single doublet having 
+the \fINEXT\fP pointer equal to NULL
+and \fIDATA\fP pointer equal to the identifier pointer.
+A constant atomic expression is an atomic expression having the 
+string "'0'", "'1'" or "'d'" as identifier.
+An operator expression is more complicated than an atomic expression.
+It's a list of items, the first item is the head operator of the expression and
+the following items are the arguments of the expression.
+It's possible to go trough the arguments by calling \fIABL_CDR\fP.
+Then each argument is accessible by \fIABL_CAR\fP.
+An argument can be recursively an atomic or an operator expression.
+The arity of an operator expression is the number of arguments of the first level.
+
+.TP
+Macro-functions :
+.TP 20
+.br
+\fBABL_CDR( E )\fP
+\- gives the \fINEXT\fP field of a \fIchain_list\fP.
+.TP
+\fBABL_CAR( E )\fP
+\- gives the \fIDATA\fP field of a \fIchain_list\fP.
+.TP
+\fBABL_CADR( E )\fP
+\- gives the \fINEXT->DATA\fP field.
+.TP
+\fBABL_CDDR( E )\fP
+\- gives the \fINEXT->NEXT\fP field.
+.TP
+\fBABL_ATOM( E )\fP
+\- True if the expression is atomic.
+.TP
+\fBABL_ATOM_VALUE( E )\fP
+\- Value of an atom in an expression.
+.TP
+\fBABL_OPER( E )\fP
+\- Operator number in an expression.
+
+.TP
+Functions :
+.TP 20
+.br
+\fBaddablqexpr\fP
+\- appends an expression to another one.
+.TP
+\fBaddablhexpr\fP
+\- adds an expression in the head of another one.
+.TP
+\fBcreateablatom\fP
+\- creates an atomic expression.
+.TP
+\fBcreateabloper\fP
+\- creates a the head of an operator expression. 
+.TP
+\fBcreateablbinexpr\fP
+\- creates a binary expression.
+.TP
+\fBcreateablnotexpr\fP
+\- complements an expression.
+.TP
+\fBcreateablxorbinexpr\fP
+\- creates an 'xor' or 'xnor' operator expression.
+.TP
+\fBcreateablunaryexpr\fP
+\- creates an unary expression.
+.TP
+\fBdelablexpr\fP
+\- deletes an expression.
+.TP
+\fBdelablexprnum\fP
+\- deletes a specified operand.
+.TP
+\fBdevdupablxorexpr\fP
+\- duplicates and develops 'xor', 'nxor'.
+.TP
+\fBdevablxorexpr\fP
+\- develops 'xor', 'xnor'.
+.TP
+\fBdupablexpr\fP
+\- duplicates an expression.
+.TP
+\fBflatablexpr\fP
+\- merges the operators of an expression.
+.TP
+\fBfreeablexpr\fP
+\- deletes an expression.
+.TP
+\fBgetablopername\fP
+\- gives the name of an operator number.
+.TP
+\fBgetabloperuppername\fP
+\- gives the upper name of an operator number.
+.TP
+\fBgetabloperpolar\fP
+\- gives the polarity of an operator.
+.TP
+\fBgetablopernot\fP
+\- gives the complement of an operator.
+.TP
+\fBgetabloperbyname\fP
+\- gives the operator number using a name.
+.TP
+\fBgetablatomone\fP
+\- gives the name "'1'"
+.TP
+\fBgetablatomzero\fP
+\- gives the name "'0'"
+.TP
+\fBgetablatomdc\fP
+\- gives the name "'d'"
+.TP
+\fBgetablexprdepth\fP
+\- returns the depth of an expression.
+.TP
+\fBgetablexprlength\fP
+\- returns the length of an expression.
+.TP
+\fBgetablexprnumatom\fP
+\- returns the number of atom in an expression.
+.TP
+\fBgetablexprnumbinoper\fP
+\- returns the number of binary operator.
+.TP
+\fBgetablexprsupport\fP
+\- gives the support of an expression.
+.TP
+\fBgetablexprnumocc\fP
+\- gives the number of occurent of a name.
+.TP
+\fBgetablexprmax\fP
+\- applies a maximum cost function.
+.TP
+\fBgetablexprmin\fP
+\- applies a minimum cost function.
+.TP
+\fBgetablexprnum\fP
+\- returns a specified operand.
+.TP
+\fBinitablatomname\fP
+\- initialize atom static name.
+.TP
+\fBinitablopername\fP
+\- initialize operator static name.
+.TP
+\fBinitabloperbinary\fP
+\- sets the binary operator mode on.
+.TP
+\fBinitablname\fP
+\- initialize all the static names.
+.TP
+\fBisablunaryoper\fP
+\- tests if an operator is unary.
+.TP
+\fBisablbinaryoper\fP
+\- tests if an operator is binary.
+.TP
+\fBisabloperinexpr\fP
+\- tests if an oper appears in an expression.
+.TP
+\fBisablnameinexpr\fP
+\- tests if a name appears in an expression.
+.TP
+\fBisablequalexpr\fP
+\- tests if two expressions are equals.
+.TP
+\fBisablsimilarexpr\fP
+\- tests if two expressions are similars.
+.TP
+\fBmapablexpr\fP
+\- applies a function to the operand's expression.
+.TP
+\fBmapabloperexpr\fP
+\- applies a function to the operand's expression.
+.TP
+\fBmapablanyexpr\fP
+\- applies a function to the operand's expression.
+.TP
+\fBmapableveryexpr\fP
+\- applies a function to the operand's expression.
+.TP
+\fBpolardupablexpr\fP
+\- moves and duplicates inverters to the atomic level.
+.TP
+\fBpolarablexpr\fP
+\- moves inverters to the atomic level.
+.TP
+\fBsimpdupablexpr\fP
+\- duplicates and simplifies an expression.
+.TP
+\fBsimpablexpr\fP
+\- simplifies an expression.
+.TP
+\fBstrablexpr\fP
+\- parses a prefixed string an creates expression.
+.TP
+\fBsubstablexpr\fP
+\- substitutes an expression in another one.
+.TP
+\fBsubstdupablexpr\fP
+\- duplicates and substitutes an expression in another one.
+.TP
+\fBunflatablexpr\fP
+\- unflats the operators of an expression.
+.TP
+\fBvhdlablname\fP
+\- returns a compatible VHDL name.
+.TP
+\fBvhdlablvector\fP
+\- gives the index and the name of a vector.
+.TP
+\fBviewablexprfile\fP
+\- displays an expression in a file.
+.TP
+\fBviewablexpr\fP
+\- displays an expression.
+.TP
+\fBviewablexprstr\fP
+\- displays an expression in a string.
+
+.TP 0
+libAbl101.a :
+
+\fBaddablqexpr\fP,
+\fBaddablhexpr\fP,
+\fBcreateablatom\fP,
+\fBcreateabloper\fP,
+\fBcreateablbinexpr\fP,
+\fBcreateablnotexpr\fP,
+\fBcreateablxorbinexpr\fP,
+\fBcreateablunaryexpr\fP,
+\fBnormablctlexpr\fP,
+\fBsimpablctlexpr\fP,
+\fBdelablexpr\fP,
+\fBdelablexprnum\fP,
+\fBdevdupablxorexpr\fP,
+\fBdevablxorexpr\fP,
+\fBdupablexpr\fP,
+\fBflatablexpr\fP,
+\fBfreeablexpr\fP,
+\fBgetablopername\fP,
+\fBgetabloperuppername\fP,
+\fBgetabloperpolar\fP,
+\fBgetablopernot\fP,
+\fBgetabloperbyname\fP,
+\fBgetablatomone\fP,
+\fBgetablatomzero\fP,
+\fBgetablatomdc\fP,
+\fBgetablexprdepth\fP,
+\fBgetablexprlength\fP,
+\fBgetablexprnumatom\fP,
+\fBgetablexprnumbinoper\fP,
+\fBgetablexprsupport\fP,
+\fBgetablexprnumocc\fP,
+\fBgetablexprmax\fP,
+\fBgetablexprmin\fP,
+\fBgetablexprnum\fP,
+\fBinitablatomname\fP,
+\fBinitablopername\fP,
+\fBinitabloperbinary\fP,
+\fBinitablname\fP,
+\fBisablunaryoper\fP,
+\fBisablbinaryoper\fP,
+\fBisabloperinexpr\fP,
+\fBisablnameinexpr\fP,
+\fBisablequalexpr\fP,
+\fBisablsimilarexpr\fP,
+\fBmapablexpr\fP,
+\fBmapabloperexpr\fP,
+\fBmapablanyexpr\fP,
+\fBmapableveryexpr\fP,
+\fBpolardupablexpr\fP,
+\fBpolarablexpr\fP,
+\fBsimpdupexpr\fP,
+\fBsimpdupablexpr\fP,
+\fBsimpablexpr\fP,
+\fBstrablexpr\fP,
+\fBsubstablexpr\fP,
+\fBsubstdupablexpr\fP,
+\fBunflatablexpr\fP,
+\fBvhdlablname\fP,
+\fBvhdlablvector\fP,
+\fBviewablexprfile\fP,
+\fBviewablexpr\fP,
+\fBviewablexprstr\fP.
+
+.SH SEE ALSO
+.BR \fBmbk\fP(1),
+.BR \fBaut\fP(1).
+
+.so man1/alc_bug_report.1
+

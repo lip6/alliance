@@ -1,0 +1,137 @@
+.\"   $Id: dplib.5,v 1.1 1999/05/31 17:30:26 alliance Exp $
+.TH DPLIB 5 "October 1, 1997" "ASIM/LIP6" "FITPATH - User Cell Library"
+.so man1/alc_origin.1
+.SH NAME
+\fBdplib\fP \- Cell library for data-path custom operators.
+.SH DESCRIPTION
+.ta  4n +4n +2n
+	With the cells of the \fBdplib\fP library, a designer can do the two
+following things :
+.br
+		\fB-\fP	Build heterogeneous operators using \fBGenLib(1)\fP.
+.br
+		\fB-\fP	Synthetize blocs of glue logic using \fBscmap(1)\fP.
+.br
+
+	The functionality set of the cells is nearly the same as the \fBsclib\fP
+library. All cell terminals are of the \fIDATA\fP type. As all cells of
+the \fBAlliance\fP CAD system, the layout use the \fIsymbolic layout\fP
+approach.
+.br
+	In order to use this library you must include his access path in the
+\fBMBK_CATA_LIB\fP environment variable. Notice that this access path
+depend on where you have install the \fBAlliance\fP distribution package.
+.br
+
+.ta  4n +2n +9n +2n
+	For each cell, six files are provided :
+.br
+	\fB-\fP	\fIcell\fP.vbe	:	VHDL behavioral description.
+.br
+	\fB-\fP	\fIcell\fP.ap	:	Symbolic layout.
+.br
+	\fB-\fP	\fIcell\fP.al	:	Transistor netlist, for timing analysis.
+.br
+	\fB-\fP	\fIcell\fP.ai	:	Icon.
+.br
+	\fB-\fP	\fIcell\fP.5	:	Manual file.
+.br
+	\fB-\fP	\fIcell\fP.ps	:	Postscript documentation.
+.br
+
+.nf
+.ta +10n +2n +12n
+.cs R 16
+\fBDrivers :\fP
+b1_dp	:	(drive = 2)	o <= i;
+p1_dp	:	(drive = 4)	o <= i;
+n1_dp	:	(drive = 1)	o <= not( i );
+np1_dp	:	(drive = 2)	o <= not( i );
+ndrv_dp	:	(drive = 4)	o <= not( i );
+
+\fBBoolean functions :\fP
+a2_dp	:	(drive = 1)	o <=     i0 and i1;
+a2p_dp	:	(drive = 2)	o <=     i0 and i1;
+na2_dp	:	(drive = 1)	o <= not(i0 and i1);
+na2p_dp	:	(drive = 2)	o <= not(i0 and i1);
+
+a3_dp	:	(drive = 1)	o <=     i0 and i1 and i2;
+a3p_dp	:	(drive = 2)	o <=     i0 and i1 and i2;
+na3_dp	:	(drive = 1)	o <= not(i0 and i1 and i2);
+na3p_dp	:	(drive = 2)	o <= not(i0 and i1 and i2);
+
+a4_dp	:	(drive = 1)	o <=     i0 and i1 and i2 and i3;
+a4p_dp	:	(drive = 2)	o <=     i0 and i1 and i2 and i3;
+na4_dp	:	(drive = 1)	o <= not(i0 and i1 and i2 and i3);
+
+o2_dp	:	(drive = 1)	o <=     i0 or i1;
+op2_dp	:	(drive = 2)	o <=     i0 or i1;
+no2_dp	:	(drive = 1)	o <= not(i0 or i1);
+nop2_dp	:	(drive = 2)	o <= not(i0 or i1);
+.bp
+o3_dp	:	(drive = 1)	o <=     i0 or i1 or i2;
+op3_dp	:	(drive = 2)	o <=     i0 or i1 or i2;
+no3_dp	:	(drive = 1)	o <= not(i0 or i1 or i2);
+nop3_dp	:	(drive = 2)	o <= not(i0 or i1 or i2);
+
+xr2_dp	:	(drive = 1)	o <=     i0 xor i1;
+nxr2_dp	:	(drive = 1)	o <= not(i0 xor i1);
+
+noa3_dp	:	(drive = 1)	f <= not((i0  or i1) and i2);
+nao3_dp	:	(drive = 1)	f <= not((i0 and i1)  or i2);
+noa4_dp	:	(drive = 1)	f <= not((i0  or i1   or i2) and i3);
+nao4_dp	:	(drive = 1)	f <= not((i0 and i1  and i2)  or i);
+
+noue4_dp	:	(drive = 1)	f <= not((i0  or i1) and  i2 and i3);
+neou4_dp	:	(drive = 1)	f <= not((i0 and i1)  or (i2  or i3));
+
+annup_dp	:	(drive = 1)	o <= not((i0 or i1) and (i2 or i3));
+
+.cs R
+\fBMultiplexer :\fP
+mx2_dp	:	(drive = 1)	2 input mux, two controls.
+mx2_dp	:	(drive = 2)	2 input mux, two controls.
+nmx2_dp	:	(drive = 1)	2 input mux, two controls, complemented output.
+
+mx3_dp	:	(drive = 1)	3 input mux, three controls.
+
+\fBTristates :\fP
+ts_dp	:		Tristate with direct output.
+tsn_dp	:		Tristate with complemented output.
+
+\fBMemory components :\fP
+ms_dp	:		D Flip-Flop.
+msn_dp	:		D Flip-Flop, complemented output.
+msx_dp	:		D Flip-Flop, dual output.
+mssx_dp	:		D Flip-Flop, dual output, set.
+msrx_dp	:		D Flip-Flop, dual output, reset.
+
+ms2_dp	:		D Flip-Flop, scan-path.
+ms2n_dp	:		D Flip-Flop, scan-path, complemented output.
+ms2x_dp	:		D Flip-Flop, scan-path, dual output.
+ms2sx_dp	:		D Flip-Flop, scan-path, dual output, set.
+ms2rx_dp	:		D Flip-Flop, scan-path, dual output, reset.
+.bp
+\fBMiscellaneous :\fP
+one_dp	:		Pull down.
+zero_dp	:		Pull up.
+
+cry_dp	:		Carry part of the full adder.
+sum_dp	:		Sum part of the full adder.
+.SH SEE ALSO
+.ft B
+sclib(1), scmap(1),
+fpgen(1), dpr(1), genlib(1), mbk(1),
+DP_DEFLOFIG(3), DP_SAVLOFIG(3), DP_LOCON(3), DP_IMPORT(3),
+DP_INV(3), DP_BUSE(3), DP_AND2(3), DP_NAND2(3), DP_AND3(3), DP_NAND3(3),
+DP_OR2(3), DP_NOR2(3), DP_OR3(3), DP_NOR3(3), DP_XOR2(3), DP_XNOR2(3),
+DP_NAND2MASK(3), DP_NOR2MASK(3), DP_XNOR2MASK(3), DP_CONST(3),
+DP_NMUX2CS(3), DP_MUX2CS(3), DP_MUX3CS(3), DP_MUX4CS(3), DP_MUX5CS(3),
+DP_BUSE(3), DP_NBUSE(3), DP_ADD2F(3), DP_ADSB2F(3),
+DP_SHIFT(3), DP_MULT(3), DP_MULTP(3), DP_NUL(3),
+DP_PDFF(3), DP_PDFFR(3), DP_PDFFT(3), DP_PDFFRT(3),
+DP_RFG1C0(3), DP_RFG1CC(3), DP_RFG2C0(3), DP_RFG2CC(3)
+,
+
+.so man1/alc_bug_report.1
+

@@ -1,0 +1,47 @@
+.\"   $Id: tsn_y.5,v 1.1 1999/05/31 17:30:28 alliance Exp $
+.pl -.4
+.TH TSN_Y 5 "October 1, 1997" "ASIM/LIP6" "STANDARD-CELL LIBRARY"
+.SH NAME
+.B tsn_y
+.so man1/alc_origin.1
+.SH SYNOPSIS
+.B Genlib call :
+.br
+  LOINS("tsn_y","name","i","v","f","vdd","vss",0);
+.SH DESCRIPTION
+.I - Interface
+   entity tsn_y is
+     port(
+        i : in bit;
+        v : in bit;
+        f : mux_bit;
+        vdd : in bit;
+        vss : in bit);
+.br
+.I - Logical description
+.br
+   label0 : block (v = '1')
+.br
+   begin
+.br
+     f <= guarded not i;
+.br
+   end block;
+.br
+   
+   
+.br
+.I - Physical features
+   number of grids : 4
+   number of feed-through : 1
+.br
+   
+.I - Timing caracteristics
+.br
+   i : 78 (fF)
+.br
+   v : 72 (fF)
+.br
+
+.so man1/alc_bug_report.1
+

@@ -1,0 +1,68 @@
+.\"   $Id: viewphvia.3,v 1.1 1999/05/31 17:30:26 alliance Exp $
+.\" @(#)viewphvia.2 2.11 91/08/22 ; Labo masi cao-vlsi; Author : Frederic Petrot
+.if t \{\
+.so man1/alc_contents.mac
+.XS \n%
+.ti 0.2i
+viewphvia
+.XE
+.XS0 \n%
+.ti 0.2i
+viewphvia
+.XE0 \}
+.so man1/alc_origin.1
+.SH NAME
+viewphvia \- display elements of a \fBphvia_list\fP
+.SH SYNOPSYS
+.nf
+.if n \{\
+.ft B \}
+.if t \{\
+.ft CR \}
+#include "mph402.h"
+void viewphvia(pt)
+phvia_list \(**pt;
+.ft R
+.fi
+.SH PARAMETER
+.TP 20
+\fIpt\fP
+Pointer to the \fBphvia\fP to be scaned
+.SH DESCRIPTION
+\fBviewphvia\fP scans all the primary elements of the \fBphvia_list\fP 
+pointed to by \fIpt\fP, and displays a textual output of the data strcuture
+contents.
+.br
+Its use is mostly for debugging purposes, and educational ones, since the
+output is quite verbose, even if very easy to understand.
+.SH EXAMPLE
+.ta 3n 6n 9n 12n 15n 18n 21n
+.nf
+.if n \{\
+.ft B \}
+.if t \{\
+.ft CR \}
+#include <stdio.h>
+#include "mph402.h"
+void view_via(ptfig)
+phfig_list \(**ptfig;
+{
+phvia_list \(**via;
+	for (via = ptfig\->PHVIA; via; via = via\->NEXT)
+		viewphvia(via);
+}
+.ft R
+.fi
+.SH SEE ALSO
+.BR mbk (1),
+.BR phvia (3),
+.BR viewph (3),
+.BR viewphfig (3),
+.BR viewphseg (3),
+.BR viewphref (3),
+.BR viewphins (3),
+.BR viewphcon (3).
+
+
+.so man1/alc_bug_report.1
+

@@ -1,0 +1,53 @@
+.\"   $Id: resetauth2table.3,v 1.1 1999/05/31 17:30:24 alliance Exp $
+.\" @(#)resetauth2table.2 2.7 96/07/02 ; Labo masi cao-vlsi; Author : Jacomme Ludovic
+.TH RESETAUTH2TABLE 3 "October 1, 1997" "ASIM/LIP6" "AUT FUNCTIONS"
+.SH NAME
+resetauth2table \- resets an hash table with two keys.
+.so man1/alc_origin.1
+.SH SYNOPSYS
+.nf
+.if n \{\
+.ft B \}
+.if t \{\
+.ft CR \}
+#include "aut101.h"
+void resetauth2table( HashTable )
+  auth2table \(**HashTable;
+.ft R
+.fi
+.SH PARAMETERS
+.TP 20
+\fIHashTable\fP
+Pointer to the hash table to reset.
+.SH DESCRIPTION
+\fBresetauth2table\fP sets the hash table contents to zero.
+.br
+.SH RETURN VALUE
+\fBresetauth2table\fP returns nothing.
+.SH EXAMPLE
+.ta 3n 6n 9n 12n 15n 18n 21n
+.nf
+.if n \{\
+.ft B \}
+.if t \{\
+.ft CR \}
+#include "aut101.h"
+   auth2table \(**HashTable;
+   HashTable = createauth2table( 1000 );
+   ...
+   resetauth2table( HashTable );
+   ...
+   destroyauth2table( HashTable );
+.ft R
+.fi
+.SH SEE ALSO
+.BR aut (1)
+.BR createauth2table(3),
+.BR destroyauth2table(3),
+.BR addauth2elem(3),
+.BR searchauth2elem(3),
+.BR delauth2elem(3).
+
+
+.so man1/alc_bug_report.1
+

@@ -1,0 +1,68 @@
+.\"   $Id: constraintCct.3,v 1.1 1999/05/31 17:30:19 alliance Exp $
+.\" @(#)constraintCct.2 7.01 92/08/22 ; Labo masi cao-vlsi; Author : Luc Burgun
+.TH CONSTRAINTCCT 3 "October 1, 1997" "ASIM/LIP6" "BDD functions"
+.so man1/alc_origin.1
+.SH NAME
+\fBconstraintCct\fP \- restricts all the outputs within a circuit with a BDD constraint
+.SH SYNOPSYS
+.nf
+#include "logmmm.h"
+void constraintCct(pC,pBdd)
+pCircuit pC;
+pNode pBdd;
+.fi
+.SH PARAMETERS
+.TP 20
+\fIpC\fP
+Circuit in which is made the restriction
+.TP 20
+\fIpBdd\fP
+BDD constraint 
+.SH DESCRIPTION
+\fBconstraintCct()\fP restricts the boolean space to the sub-space corresponding to the on-set of \fIpBdd\fP. This function can be called when a primary input is stuck at 0 or 1. 
+.SH EXAMPLE
+.nf
+#include "mutnnn.h"		/* mbk utilities */
+#include "logmmm.h"
+chain_list *expr;
+pNode res;
+pCircuit pC;
+
+initializeBdd(SMALL_BDD);
+pC = initializeCct("circuit 1",10,10);
+
+addInputCct(pC,"a");
+addInputCct(pC,"b");
+
+addOutputCct(pC,"s",applyBinBdd(XOR,
+                        createNodeTermBdd(searchInputCct(pC,"a")),
+                        createNodeTermBdd(searchInputCct(pC,"b"))));
+
+	/* b is stuck at 1 */
+
+constraintCct(pC,createNodeTermBdd(searchInputCct(pC,"b")));
+
+displayCct(pC,1);
+
+/* it will display 
+************* DISPLAY circuit 1 *********
+INPUT = a	INDEX = 2 
+INPUT = b	INDEX = 3 
+----------- NUMBER OF INPUTS = 2
+OUTPUT = s	s = (NOT a)
+----------- NUMBER OF OUTPUTS = 1
+*****************************************
+*/
+
+destroyCct(pC);
+destroyBdd(1);
+.fi
+.SH SEE ALSO
+.BR log (1),
+.BR bdd (1),
+.BR abl (1),
+.BR upVarCct (3),
+.BR composeCct (3).
+
+.so man1/alc_bug_report.1
+

@@ -1,0 +1,58 @@
+.\"   $Id: minExpr.3,v 1.1 1999/05/31 17:30:23 alliance Exp $
+.\" @(#)minExpr.2 7.01 92/08/22 ; Labo masi cao-vlsi; Author : Luc Burgun
+.TH MINEXPR 3 "October 1, 1997" "ASIM/LIP6" "ABL functions"
+.so man1/alc_origin.1
+.SH NAME
+\fBminExpr\fP \- returns the lowest argument of an operator expression.
+.SH SYNOPSYS
+.nf
+#include "logmmm.h"
+chain_list *minExpr(expr,func)
+chain_list *expr;
+int (*func)();
+.fi
+.SH PARAMETERS
+.TP 20
+\fIexpr\fP
+operator expression
+.TP 20
+\fIfunc\fP
+integer function
+.SH DESCRIPTION
+\fBminExpr()\fP returns the lowest argument found by using the integer function \fIfunc()\fP. This function doesn't copy the returned argument.
+.SH EXAMPLE
+.nf
+#include "mutnnn.h"		/* mbk utilities */
+#include "logmmm.h"
+chain_list *expr1,*expr2,*expr3; 
+expr1 = createExpr(OR);
+addQExpr(expr1,createAtom("a"));
+addQExpr(expr1,createAtom("b"));
+expr2 = createExpr(AND);
+addQExpr(expr2,createAtom("c"));
+addQExpr(expr2,createAtom("d"));
+addQExpr(expr1,expr2);
+displayExpr(expr1);
+expr3 = minExpr(expr1,numberAtomExpr);
+displayExpr(expr3);
+
+/* it will display
+(OR a b (AND c d))
+a
+*/
+freeExpr(expr1);	/* don't free expr3 or expr2 ! */
+.fi
+.SH SEE ALSO
+.BR log (1),
+.BR abl (1),
+.BR sortExpr (3),
+.BR maxExpr (3),
+.BR copyExpr (3),
+.BR substExpr (3),
+.BR substPhyExpr (3),
+.BR flatArityExpr (3),
+.BR flatPolarityExpr (3),
+.BR normExpr (3).
+
+.so man1/alc_bug_report.1
+

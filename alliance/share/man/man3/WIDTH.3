@@ -1,0 +1,62 @@
+.\"   $Id: WIDTH.3,v 1.1 1999/05/31 17:30:16 alliance Exp $
+.\" @(#)WIDTH.3 2.11 91/08/22 ; Labo Cao-vlsi; Author : Frederic Petrot
+.if t \{\
+.so man1/alc_contents.mac
+.XS \n%
+.ti 0.2i
+WIDTH
+.XE \}
+.TH WIDTH 3 "October 1, 1997" "ASIM/LIP6" "PROCEDURAL GENERATION LANGUAGE"
+.SH NAME
+WIDTH \- compute the width of a model
+.SH SYNOPSYS
+.nf
+.if n \{\
+.ft B \}
+.if t \{\
+.ft CR \}
+#include <genlib.h>
+long WIDTH(cellname)
+char \(**cellname;
+.ft R
+.fi
+.so man1/alc_origin.1
+.SH PARAMETERS
+.TP 20
+\fIcellname\fP
+Name of the cell which width is needed
+.SH DESCRIPTION
+\fBWIDTH\fP looks for the figure called \fIcellname\fP on memory, and then on
+disk. When found, the figure \fIabutment box\fP width is calculated, and
+returned.
+.SH RETURN VALUE
+\fBWIDTH\fP returns a long int beeing the cell \fIabutment box\fP width.
+.SH EXAMPLE
+.nf
+.if n \{\
+.ft B \}
+.if t \{\
+.ft CR \}
+#include <genlib.h>
+long cellWidth;
+main()
+{
+	cellWidth = WIDTH("n1_y");
+	DEF_PHFIG("pwet");
+	.
+	.
+	.
+	PLACE("na2_y","ins1", NOSYM, 0L, 4 * cellWidth);
+	/\(** Save all that on disk \(**/
+	DEF_AB(0L, 0L, 0L, 0L);
+	SAVE_PHFIG();
+}
+.ft R
+.fi
+.SH SEE ALSO
+.BR genlib (1),
+.BR HEIGHT (3).
+
+
+.so man1/alc_bug_report.1
+

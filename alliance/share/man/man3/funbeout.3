@@ -1,0 +1,106 @@
+.\"   $Id: funbeout.3,v 1.1 1999/05/31 17:30:21 alliance Exp $
+.\" @(#)beout.2 108 Feb 15 1995 UPMC ; Pirouz BAZARGAN SABET
+.TH FUNBEOUT 3 "October 1, 1997" "ASIM/LIP6" "BEH functions"
+
+.so man1/alc_origin.1
+.SH NAME
+.PP
+\fBbeh_addbeout , beh_delbeout , beh_rmvbeout , beh_frebeout\fP
+
+.SH SYNOPSYS
+.PP
+.nf
+struct beout *beh_addbeout (list, name, abl, bdd)
+struct beout *list;
+char *name;
+struct chain *abl;
+struct node *bdd;
+
+struct beout *beh_delbeout (list, pnt, mode)
+struct beout *list;
+struct beout *pnt;
+char mode;
+
+struct beout *beh_rmvbeout (list, name, mode)
+struct beout *list;
+char *name;
+char mode;
+
+void beh_frebeout (list)
+struct beout *list;
+.fi
+
+.SH PARAMETERS
+.PP
+.TP 10
+\fIlist\fP
+pointer of a list of beout structures
+.TP 10
+\fIname\fP
+name of the output port to be added to or removed from the list
+.TP 10
+\fIabl\fP
+the abl representing the expression of the output port
+.TP 10
+\fIbdd\fP
+the bdd representing the expression of the output port
+.TP 10
+\fIpnt\fP
+pointer of the beout structure to be removed from the list
+.TP 10
+\fImode\fP
+recursive mode (Y or N)
+
+.SH DESCRIPTION
+.PP
+A beout is a data structure representing a one\-bit simple output port.
+
+.PP
+\fBbeh_addbeout()\fP adds a beout structure at the top of a list of beout
+structures. The name registred in the beout structure is produced by
+\fBnamealloc()\fP. The function returns the pointer of the new list.
+No checks are made by this function.
+
+.PP
+\fBbeh_delbeout()\fP deletes a beout structure (pointed by \fIpnt\fP) from a
+list of beout structures. The function returns the pointer of the new list. No
+action is made if the structure pointed by \fIpnt\fP doesn't belong to the list.
+If \fImode\fP is set to 'Y' all objects (abl) pointed by the beout will also
+be deleted. If \fImode\fP is set to 'N' and there is any object (abl) pointed
+by the structure a warning message is printed on the standard error output.
+
+.PP
+\fBbeh_rmvbeout()\fP deletes a beout structure (named \fIname\fP) from a list
+of beout structures. \fIname\fP is supposed to be produced by \fBnamealloc()\fP.
+The function returns the pointer of the new list.
+No action is made if no structure named \fIname\fP has been found in the list.
+If \fImode\fP is set to 'Y' all objects (abl) pointed by the beout will also
+be deleted. If \fImode\fP is set to 'N' and there is any object (abl) pointed
+by the structure a warning message is printed on the standard error output.
+
+.PP
+\fBbeh_frebeout()\fP deletes a list of beout structures (pointed by
+\fIlist\fP) and all objects (abl) pointed by any beout structure of the list.
+No action is made if \fIlist\fP is an empty list (NULL pointer).
+No checks are made by this function.
+
+.SH EXAMPLE
+.PP
+.nf
+#include <beh108.h>
+
+struct beout *list;
+char *name;
+
+name = namealloc ("carry_out");
+list = beh_addbeout (list,"sum_0", NULL, NULL);
+list = beh_rmvbeout (list,name);
+.fi
+
+.SH SEE ALSO
+.PP
+beh(3), log(1), beout(3), namealloc(3)
+
+
+.so man1/alc_bug_report.1
+

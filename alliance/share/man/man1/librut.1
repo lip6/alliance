@@ -1,0 +1,71 @@
+.\"   $Id: librut.1,v 1.1 1999/05/31 17:30:14 alliance Exp $
+.\" @(#)librut.1 0.0 93/18/08 UPMC
+.if t \{\
+.so man1/alc_contents.mac
+.XS \n%
+.ti 0.2i
+libut
+.XE
+.XS0 \n%
+.ti 0.2i
+libut
+.XE0 \}
+.TH LIBRUT 1 "October 1, 1997" "ASIM/LIP6" "RUT LIBRARY"
+.SH NAME
+librut \- rut library description
+.SH DESCRIPTION
+.IP I)
+DATA STRUCTURES USED
+.PP
+.RS
+.nf
+.if n \{\
+.ft B \}
+.if t \{\
+.ft CR \}
+.ta 3n 20n 30n
+ typedef struct coord_t
+  {
+    long X;
+    long Y;
+  } coord_t;
+.ft R
+.fi
+.RE
+.PP
+The structure \fIcoord_t\fP is a data structure used to have a couple of coordinates.
+.IP II)
+Description of the macros
+.PP
+\-  char CheckPhysicalGridAligned(c)
+.br
+    long  c;
+.RS
+.PP
+Tests if the integer \'c\' is a multiple of the grid step.
+.br
+If true, then value \fB0\fP is returned else value \fB1\fP is returned.
+.RE
+.IP III)
+Functions of LibRut library
+.TP
+\fIsearchrdsfig\fP
+Searchs a figure by its name in the figure's list in memory
+.TP
+\fIgetrdsmodellist\fP
+Gets models's list of instances of a figure.
+.TP
+\fIapplyrdssym\fP
+applies a transformation to a rectangle from a model.
+.ft R
+.fi
+.SH SEE ALSO
+.BR librds,
+.BR librfm,
+.BR librpr,
+.BR librtl,
+.BR librwi
+
+
+.so man1/alc_bug_report.1
+

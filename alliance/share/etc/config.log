@@ -1,0 +1,108 @@
+This file contains any messages produced by compilers while
+running configure, to aid debugging if configure makes a mistake.
+
+configure:537: checking for platform
+configure:554: checking whether make sets ${MAKE}
+configure:586: checking %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% Binaries
+configure:598: checking for gcc
+configure:675: checking whether the C compiler (gcc -O ) works
+configure:689: gcc -o conftest -O   conftest.c  1>&5
+configure:709: checking whether the C compiler (gcc -O ) is a cross-compiler
+configure:714: checking whether we are using GNU C
+configure:723: gcc -E conftest.c
+configure:738: checking whether gcc accepts -g
+configure:769: checking for gcc
+configure:800: checking how to run the C preprocessor
+configure:821: gcc -E  conftest.c >/dev/null 2>conftest.out
+configure:870: checking for gmake
+configure:901: checking for make
+configure:947: checking for bison
+configure:979: checking for flex
+configure:1012: checking for yywrap in -lfl
+configure:1031: gcc -o conftest -O4 -Wall   conftest.c -lfl   1>&5
+configure:1054: checking lex output file root
+configure:1075: checking whether yytext is a pointer
+configure:1094: gcc -o conftest -O4 -Wall   conftest.c  -lfl 1>&5
+configure:1125: checking for flex
+configure:1158: checking for bison
+configure:1192: checking whether ln -s works
+configure:1218: checking for ar
+configure:1253: checking for autoconf
+configure:1284: checking for autoheader
+configure:1315: checking for automake
+configure:1347: checking for gawk
+configure:1378: checking for awk
+configure:1413: checking for cat
+configure:1444: checking for chmod
+configure:1475: checking for cp
+configure:1506: checking for csh
+configure:1537: checking for cut
+configure:1568: checking for echo
+configure:1599: checking for false
+configure:1630: checking for find
+configure:1661: checking for grep
+configure:1692: checking for hostname
+configure:1723: checking for ld
+configure:1754: checking for lndir
+configure:1785: checking for ls
+configure:1816: checking for mkdir
+configure:1847: checking for mv
+configure:1878: checking for perl
+configure:1909: checking for ranlib
+configure:1940: checking for rm
+configure:1971: checking for sed
+configure:2003: checking for sh
+configure:2041: checking for strip
+configure:2072: checking for test
+configure:2103: checking for touch
+configure:2134: checking for tr
+configure:2165: checking for true
+configure:2196: checking for wc
+configure:2260: checking %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%  Headers and Libraries...
+configure:2275: checking for X
+configure:2589: checking for dnet_ntoa in -ldnet
+configure:2608: gcc -o conftest -O4 -Wall   conftest.c -ldnet   1>&5
+ld: cannot open -ldnet: No such file or directory
+configure: failed program was:
+#line 2597 "configure"
+#include "confdefs.h"
+/* Override any gcc2 internal prototype to avoid an error.  */
+/* We use char because int might match the return type of a gcc2
+    builtin and then its argument prototype would still apply.  */
+char dnet_ntoa();
+
+int main() {
+dnet_ntoa()
+; return 0; }
+configure:2630: checking for dnet_ntoa in -ldnet_stub
+configure:2649: gcc -o conftest -O4 -Wall   conftest.c -ldnet_stub   1>&5
+ld: cannot open -ldnet_stub: No such file or directory
+configure: failed program was:
+#line 2638 "configure"
+#include "confdefs.h"
+/* Override any gcc2 internal prototype to avoid an error.  */
+/* We use char because int might match the return type of a gcc2
+    builtin and then its argument prototype would still apply.  */
+char dnet_ntoa();
+
+int main() {
+dnet_ntoa()
+; return 0; }
+configure:2678: checking for gethostbyname
+configure:2706: gcc -o conftest -O4 -Wall   conftest.c  1>&5
+configure:2776: checking for connect
+configure:2804: gcc -o conftest -O4 -Wall   conftest.c  1>&5
+configure:2868: checking for remove
+configure:2896: gcc -o conftest -O4 -Wall   conftest.c  1>&5
+configure:2960: checking for shmat
+configure:2988: gcc -o conftest -O4 -Wall   conftest.c  1>&5
+configure:3061: checking for IceConnectionNumber in -lICE
+configure:3080: gcc -o conftest -O4 -Wall   -L/usr/X11R6/lib conftest.c -lICE   1>&5
+configure:3113: checking for location of Motif GUI includes
+configure:3136: checking for location of Motif GUI libs
+configure:3171: checking for location of GNU includes
+configure:3193: checking for location of GNU libs
+configure:3216: checking for ANSI C header files
+configure:3229: gcc -E  conftest.c >/dev/null 2>conftest.out
+configure:3296: gcc -o conftest -O4 -Wall   conftest.c  1>&5
+configure:3329: checking where the Alliance package was installed

@@ -1,0 +1,44 @@
+-- This cell caracterized by prol05.elp technologie file
+-- VHDL data flow description generated from `nop2_y`
+--		date : Wed Oct  7 12:22:24 1998
+
+
+-- Entity Declaration
+
+ENTITY nop2_y IS
+  GENERIC (
+    CONSTANT area : NATURAL := 151200;	-- area
+    CONSTANT transistors : NATURAL := 8;	-- transistors
+    CONSTANT cin_i1 : NATURAL := 40;	-- cin_i1
+    CONSTANT cin_i0 : NATURAL := 40;	-- cin_i0
+    CONSTANT tplh_i1_f : NATURAL := 801;	-- tplh_i1_f
+    CONSTANT rup_i1_f : NATURAL := 1300;	-- rup_i1_f
+    CONSTANT tphl_i1_f : NATURAL := 998;	-- tphl_i1_f
+    CONSTANT rdown_i1_f : NATURAL := 1270;	-- rdown_i1_f
+    CONSTANT tplh_i0_f : NATURAL := 920;	-- tplh_i0_f
+    CONSTANT rup_i0_f : NATURAL := 1300;	-- rup_i0_f
+    CONSTANT tphl_i0_f : NATURAL := 836;	-- tphl_i0_f
+    CONSTANT rdown_i0_f : NATURAL := 1270	-- rdown_i0_f
+  );
+  PORT (
+  i0 : in BIT;	-- i0
+  i1 : in BIT;	-- i1
+  f : out BIT;	-- f
+  vdd : in BIT;	-- vdd
+  vss : in BIT	-- vss
+  );
+END nop2_y;
+
+
+-- Architecture Declaration
+
+ARCHITECTURE VBE OF nop2_y IS
+
+BEGIN
+  ASSERT ((vdd and not (vss)) = '1')
+    REPORT "power supply is missing on nop2_y"
+    SEVERITY WARNING;
+
+
+f <= (i0 nor i1);
+END;

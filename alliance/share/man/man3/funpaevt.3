@@ -1,0 +1,69 @@
+.\"   $Id: funpaevt.3,v 1.1 1999/05/31 17:30:21 alliance Exp $
+.\" @(#)paevt.2 106 Sep 30 1996 UPMC ; VUONG Huu-Nghia 
+.TH FUNPAEVT 3 "October 1, 1997" "ASIM/LIP6" "PAT functions"
+
+.so man1/alc_origin.1
+.SH NAME
+.PP
+\fBpat_addpaevt, pat_frepaevt\fP
+
+.SH SYNOPSYS
+.PP
+.nf
+struct paevt *pat_addpaevt (lastpaevt, index, usrval)
+struct paevt *lastpaevt;
+unsigned short index;
+char          usrval;
+
+void pat_frepaevt (listpaevt)
+struct paevt *listpaevt;
+
+.fi
+
+.SH PARAMETERS
+.PP
+.TP 10
+\fIlastpaevt\fP
+pointer on the last paevt structure
+.TP 10
+\fIindex\fP
+index of the input-output
+.TP 10
+\fIusrval\fP
+user predicted value
+.TP 10
+\fIlistpaevt\fP
+list of paevt structures to be deleted
+
+.SH DESCRIPTION
+.PP
+A paevt is a data structure representing an event on a one-bit input-output. 
+
+.PP
+\fBpat_addpaevt()\fP adds a paevt structure at the top of a list of paevt
+structures. The function returns the pointer of the new list.
+No check is made by this function.
+
+.PP
+\fBpat_frepaevt()\fP deletes a list of paevt structures. If the list to be
+deleted is an empty list (NULL pointer), no action is produced. No check is
+made by this function.
+
+.SH EXAMPLE
+.PP
+.nf
+#include <pat106.h>
+
+struct paevt *list;
+
+list = pat_addpaevt (list, 10, '+');
+pat_frepaevt (list);
+.fi
+
+.SH SEE ALSO
+.PP
+libpat(3), paevt(3)
+
+
+.so man1/alc_bug_report.1
+

@@ -1,0 +1,112 @@
+.\"                ,,,
+.\"               (o o)
+.\"  ####=====oOO--(_)--OOO=========================================####
+.\"  ##                                                               ##
+.\"  ##   This file is part of FPT : A Formal Proof Toolkit           ##
+.\"  ##   (C) 1996, MASI, CAO-VLSI Team                               ##
+.\"  ##                                                               ##
+.\"  ##   File            :  magic.1 (manual file)                    ##
+.\"  ##   Author          :  Olivier SIROL                            ##
+.\"  ##   Date            :  Sep 1996                                 ##
+.\"  ##                                                               ##
+.\"  ##   E-mail support  :  cao-vlsi@masi.ibp.fr                     ##
+.\"  ##                                                               ##
+.\"  ####===========================================================####
+.\" 
+.\" 
+.\"   $Id: xmbk.1,v 1.1 1999/05/31 17:30:14 alliance Exp $
+.\" 
+.\" 
+
+.TH XMBK 1 "October 1, 1997" "ASIM/LIP6" "cao\-vlsi reference manual"
+.SH NAME
+.I xmbk
+\-  A simple way to set alliance environnement variables
+
+.so man1/alc_origin.1
+
+.SH SYNOPSIS
+
+.TP
+\fBxmbk\fP [\fI-h\fP] [\fI-u\fP] [\fI-c\fP]
+.br
+
+.SH DESCRIPTION
+.I Xmbk
+is a graphical interactive tool that let you set some environment variables 
+used by Alliance CAD tools whitin the shell session it has been executed.
+.I Xmbk
+lets you also save this environnement in a script file for later use.
+.sp
+This program is self explanatory : baloon help will appear when leaving the
+cursor on an environnement variable name.
+.sp
+.I Xmbk
+prints shell commands for setting these environment variables.
+For this output to take effect, \fIxmbk\fP must either be evaluated
+as part of the command line (usually done with a shell alias or function) or
+else redirected to a file which can then be read in.  From the C shell (usually
+known as \fI/bin/csh\fP), the following alias could be defined in the 
+user's \fI.cshrc\fP (Don't forget the '\\' before the word xmbk to avoid alias loop.) :
+
+.sp
+.nf
+        %  alias xmbk 'eval \fC`\fP\\xmbk\fC -c\fP`'
+.fi
+.sp
+When he wants to change its Alliance Environment, the user would type:
+.sp
+.nf
+        %  xmbk
+.fi
+.sp
+Users of versions of the Bourne shell (usually known as \fI/bin/sh\fP) that 
+don't have command
+functions will need to send the output to a temporary file and the read it back
+in with the ``.'' command ('eval' should work whith bash the same way as csh) :
+.sp
+.nf
+        $  xmbk > /tmp/out
+        $  .\0/tmp/out
+.fi
+.SH OPTIONS
+The following options may be used with \fIxmbk\fP:
+.TP 8
+.B \-u
+This option indicates that Bourne shell commands should be generated.
+.TP 8
+.B \-c
+This option indicates that C shell commands should be generated.
+
+
+.SH FILES
+.TP 15
+~/.profile
+user's alias for the command.
+.TP 15
+~/.cshrc
+user's alias for the command.
+
+
+
+.SH SEE ALSO
+.br
+\fBcsh\fP(1),
+\fBtcsh\fP(1),
+\fBsh\fP(1),
+\fBbash\fP(1),
+\fBMBK_IN_LO\fP(1),
+\fBMBK_IN_PH\fP(1),
+\fBMBK_OUT_LO\fP(1),
+\fBMBK_OUT_PH\fP(1),
+\fBMBK_CATA_LIB\fP(1),
+\fBMBK_CATAL_NAME\fP(1),
+\fBMBK_TARGET_LIB\fP(1),
+\fBMBK_WORK_LIB\fP(1),
+\fBMBK_VDD\fP(1),
+\fBMBK_VSS\fP(1),
+\fBELP_TECHNO_NAME\fP(1),
+\fBRDS_TECHNO_NAME\fP(1)
+
+.so man1/alc_bug_report.1
+

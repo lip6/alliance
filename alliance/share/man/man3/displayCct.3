@@ -1,0 +1,65 @@
+.\"   $Id: displayCct.3,v 1.1 1999/05/31 17:30:20 alliance Exp $
+.\" @(#)displayCct.2 7.01 92/08/22 ; Labo masi cao-vlsi; Author : Luc Burgun
+.TH DISPLAYCCT 3 "October 1, 1997" "ASIM/LIP6" "BDD functions"
+.so man1/alc_origin.1
+.SH NAME
+\fBdisplayCct\fP \- displays a circuit 
+.SH SYNOPSYS
+.nf
+#include "logmmm.h"
+void displayCct(pC,mode)
+pCircuit pC;
+int mode;
+.fi
+.SH PARAMETERS
+.TP 20
+\fIpC\fP
+circuit to display
+.TP 20
+\fImode\fP
+displaying mode
+.SH DESCRIPTION
+\fBdisplayCct()\fP displays on the screen all the informations concerning \fIpC\fP (number of inputs, index input, number of outputs, BDD associated). if \fImode = 0\fP the BDDs are display with the \fBdisplayBdd()\fP function, if it does, the BDDs are convert into ABLs and the ABL are displayed.
+.SH EXAMPLE
+.nf
+#include "mutnnn.h"		/* mbk utilities */
+#include "logmmm.h"
+pCircuit pC;
+chain_list *expr;
+
+displayBdd(SMALL_BDD);
+pC = initializeCct("circuit 1",10,10);
+
+addInputCct(pC,"a");
+addInputCct(pC,"b");
+
+	/* let's suppose that expr = (OR a b) */
+
+addOuputCct(pC,"s1",one);
+addOuputCct(pC,"s2",ablToBddCct(pC,expr));
+
+displayCct(pC,1)
+
+/* it will display 
+************* DISPLAY circuit 1 **********
+INPUT = a	INDEX = 2
+INPUT = b	INDEX = 3
+--------- NUMBER OF INPUTS = 2
+OUTPUT = s1	s1 = 1
+OUTPUT = s2	s2 = (OR a b)
+--------- NUMBER OF OUTPUTS = 2
+******************************************
+*/
+
+destroyCct(pC);
+destroyBdd(1);
+.fi
+.SH SEE ALSO
+.BR log (1),
+.BR bdd (1),
+.BR initializeCct (3),
+.BR resetCct (3),
+.BR destroyCct (3).
+
+.so man1/alc_bug_report.1
+

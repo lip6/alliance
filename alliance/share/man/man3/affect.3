@@ -1,0 +1,49 @@
+.\"   $Id: affect.3,v 1.1 1999/05/31 17:30:17 alliance Exp $
+.\" @(#)AFFECT.2 1.9 Oct 16 1992 UPMC ; VUONG H.N.
+.TH AFFECT 3 "October 1, 1997" "ASIM/LIP6" "GENPAT functions"
+
+.SH NAME
+.PP
+\fBaffect\fP, GENPAT Package
+
+.so man1/alc_origin.1
+.SH SYNOPSYS
+.PP
+.nf
+affect("pattern_nb","ident","value", ... ,0);
+.fi
+
+.SH PARAMETERS
+.PP
+.TP 10
+\fIpattern_nb\fP
+pattern number which may be either : decimal (absolute number of pattern)
+or + decimal ( relative number of pattern) or converted with CONV(integer
+or variable or expression returning an integer).
+.TP 10
+\fIident\fP
+Either the name of a bused signal or a scalar.
+.TP 10
+\fIvalue\fP
+Tha value associated with the signal which may be either a based number (ex.
+0B011 or 0H3F) or a constant or a converted with conv or convcmp(integer or variable
+or expression returning an integer).
+
+.SH DESCRIPTION
+.PP
+Affect values to elements of type PORT, SIGNAL and ARRAY.
+
+.SH EXAMPLES
+.PP
+.nf
+affect("0","b","0B1",0);
+At pattern 0 the PORT b(3 downto 0) receive "0001"
+.fi
+
+.SH SEE ALSO
+.PP
+genpat(1); pat(5)
+
+
+.so man1/alc_bug_report.1
+

@@ -1,0 +1,60 @@
+.\"   $Id: p1_dp.5,v 1.1 1999/05/31 17:30:28 alliance Exp $
+.TH P1_DP 5 "October 1, 1997" "ASIM/LIP6" "FITPATH - User Cell Library"
+.so man1/alc_origin.1
+.SH NAME
+\fBp1_dp\fP
+.SH SYNOPSIS
+.ft CR
+.nf
+\fIGenLib Call :\fP
+    LOINS( "p1_dp", "insname", "i", "o", "vdd", "vss", 0L );
+.fi
+.ft R
+.SH DESCRIPTION
+\fIVHDL Behavioral description :\fP
+.ft CR
+.nf
+
+-- Interface declaration.
+ENTITY  p1_dp  IS
+  PORT(
+          i : in        BIT;
+          o :   out     BIT;
+        vdd : in        BIT;
+        vss : in        BIT
+      );
+END  p1_dp;
+
+-- Architecture declaration.
+ARCHITECTURE  behavior_data_flow  OF  p1_dp  IS
+
+BEGIN
+  -- Logical equations.
+  o     <= i;
+END  behavior_data_flow;
+.fi
+.ft R
+
+\fIPhysical features :\fP
+.br
+.ta +4n
+	Cell wide : 18 lambdas, or 3 pitchs.
+.br
+
+\fITiming characteristics :\fP
+.br
+.ta +6n  +2n  +6n +6nR +1n    +12nR +1n
+
+i	:	cin	=	43	(fF)
+.br
+		tphh	=	752	(ps) +	1699	(ohms) x Cload (pF)
+.br
+		tpll	=	900	(ps) +	1314	(ohms) x Cload (pF)
+.br
+.SH SEE ALSO
+.ft B
+dplib(1), fpgen(1), scmap(1)
+.ft R
+
+.so man1/alc_bug_report.1
+

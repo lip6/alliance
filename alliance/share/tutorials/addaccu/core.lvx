@@ -1,0 +1,42 @@
+
+                       @@@@@@      @@@@    @@@ @@@@   @@@@
+                         @@         @@      @   @@     @  
+                         @@         @@      @    @@   @   
+                         @@          @@    @      @@ @    
+                         @@          @@    @       @@     
+                         @@           @@  @        @@     
+                         @@           @@  @        @@@    
+                         @@            @@@        @  @@   
+                         @@      @     @@@       @    @@  
+                         @@     @       @       @      @@ 
+                       @@@@@@@@@@       @      @@@    @@@@
+
+                             Gate Netlist Comparator
+
+                  Alliance CAD System 3.5,             lvx 2.23
+                  Copyright (c) 1992-1998,       ASIM/LIP6/UPMC
+                  E-mail support: alliance-support@asim.lip6.fr
+
+
+
+***** Loading and flattening core (vst)...
+
+***** Loading and flattening core (al)...
+
+
+***** Compare Terminals ..............
+***** O.K.	(0 sec)
+
+***** Compare Instances ..........
+***** O.K.	(0 sec)
+
+***** Compare Connections ............
+***** O.K.	(0 sec)
+
+===== Terminals .......... 16    
+===== Instances .......... 25    
+===== Connectors ......... 150   
+
+
+***** Netlists are Identical. *****	(0 sec)
+

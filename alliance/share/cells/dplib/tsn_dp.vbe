@@ -1,0 +1,45 @@
+-- VHDL data flow description generated from `tsn_dp`
+--		date : Thu Oct 30 17:58:23 1997
+
+
+-- Entity Declaration
+
+ENTITY tsn_dp IS
+  GENERIC (
+    CONSTANT area : NATURAL := 1440;	-- area
+    CONSTANT transistors : NATURAL := 6;	-- transistors
+    CONSTANT cin_i : NATURAL := 70;	-- cin_i
+    CONSTANT cin_v : NATURAL := 70;	-- cin_v
+    CONSTANT tphh_v_o : NATURAL := 847;	-- tphh_v_o
+    CONSTANT rup_v_o : NATURAL := 2230;	-- rup_v_o
+    CONSTANT tphl_v_o : NATURAL := 318;	-- tphl_v_o
+    CONSTANT rdown_v_o : NATURAL := 1920;	-- rdown_v_o
+    CONSTANT tplh_i_o : NATURAL := 697;	-- tplh_i_o
+    CONSTANT rup_i_o : NATURAL := 2230;	-- rup_i_o
+    CONSTANT tphl_i_o : NATURAL := 651;	-- tphl_i_o
+    CONSTANT rdown_i_o : NATURAL := 1920	-- rdown_i_o
+  );
+  PORT (
+  i : in BIT;	-- i
+  o : out MUX_BIT BUS;	-- o
+  v : in BIT;	-- v
+  vdd : in BIT;	-- vdd
+  vss : in BIT	-- vss
+  );
+END tsn_dp;
+
+
+-- Architecture Declaration
+
+ARCHITECTURE behaviour_data_flow OF tsn_dp IS
+
+BEGIN
+  ASSERT ((vdd and not (vss)) = '1')
+    REPORT "power supply is missing on tsn_dp."
+    SEVERITY WARNING;
+
+	label0 : BLOCK (v = '1')
+	BEGIN
+	o <= GUARDED not (i);
+	END BLOCK label0;
+END;

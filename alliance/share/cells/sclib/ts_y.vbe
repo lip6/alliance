@@ -1,0 +1,46 @@
+-- This cell caracterized by prol05.elp technologie file
+-- VHDL data flow description generated from `ts_y`
+--		date : Wed Oct  7 12:31:58 1998
+
+
+-- Entity Declaration
+
+ENTITY ts_y IS
+  GENERIC (
+    CONSTANT area : NATURAL := 201600;	-- area
+    CONSTANT transistors : NATURAL := 12;	-- transistors
+    CONSTANT cin_v : NATURAL := 57;	-- cin_v
+    CONSTANT cin_i : NATURAL := 32;	-- cin_i
+    CONSTANT tphh_v_t : NATURAL := 879;	-- tphh_v_t
+    CONSTANT rup_v_t : NATURAL := 650;	-- rup_v_t
+    CONSTANT tphl_v_t : NATURAL := 841;	-- tphl_v_t
+    CONSTANT rdown_v_t : NATURAL := 640;	-- rdown_v_t
+    CONSTANT tphh_i_t : NATURAL := 841;	-- tphh_i_t
+    CONSTANT rup_i_t : NATURAL := 650;	-- rup_i_t
+    CONSTANT tpll_i_t : NATURAL := 787;	-- tpll_i_t
+    CONSTANT rdown_i_t : NATURAL := 640	-- rdown_i_t
+  );
+  PORT (
+  i : in BIT;	-- i
+  v : in BIT;	-- v
+  t : out MUX_BIT BUS;	-- t
+  vdd : in BIT;	-- vdd
+  vss : in BIT	-- vss
+  );
+END ts_y;
+
+
+-- Architecture Declaration
+
+ARCHITECTURE VBE OF ts_y IS
+
+BEGIN
+  ASSERT ((vdd and not (vss)) = '1')
+    REPORT "power supply is missing on ts_y"
+    SEVERITY WARNING;
+
+	label0 : BLOCK (v = '1')
+	BEGIN
+	t <= GUARDED i;
+	END BLOCK label0;
+END;

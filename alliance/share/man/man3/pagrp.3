@@ -1,0 +1,42 @@
+.\"   $Id: pagrp.3,v 1.1 1999/05/31 17:30:23 alliance Exp $
+.\" @(#)pagrp.2 106 Sep 30 1996 UPMC; Pirouz BAZARGAN SABET
+.TH PAGRP 3 "October 1, 1997" "ASIM/LIP6" "cao\-vlsi reference manual"
+
+.so man1/alc_origin.1
+.SH NAME
+.PP
+\fBpagrp\fP - PAT data structure
+
+.SH DESCRIPTION
+.PP
+\fIpagrp\fP is a data structure used in \fBPAT\fP to represent an actual or
+virtual array. \fIpagrp\fP has been designed to be used in a simply chained
+list.
+
+.PP
+A \fIpagrp\fP structure is composed of the following fields.
+
+.TP 25
+\fI(char *) NAME\fP
+the array\'s name. This string is supposed been produced by \fBnamealloc()\fP
+.TP 25
+\fI(unsigned short) LENGTH\fP
+the array\'s range
+.TP 25
+\fI(unsigned short) FINDEX\fP
+the index of the first \fIpaiol\fP data structure corresponding to the first
+element of the array.
+.TP 25
+\fI(short) FLAG\fP
+set to 0 (zero) for an actual array and to 1 (one) for a virtual array.
+.TP 25
+\fI(struct pagrp *) NEXT\fP
+next pagrp
+
+.SH SEE ALSO
+.PP
+libpat(3), pat(5), namealloc(3)
+
+
+.so man1/alc_bug_report.1
+

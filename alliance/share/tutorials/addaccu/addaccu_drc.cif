@@ -1,0 +1,12 @@
+(rds to CIF driver version 1.03
+technology /asim/alliance/etc/cmos_7.rds
+Sun Sep 27 12:26:41 1998
+addaccu_drc
+czo);
+
+DS1 50 2;
+9 addaccu_drc;
+DF;
+
+C1;
+E 

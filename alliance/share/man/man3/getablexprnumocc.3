@@ -1,0 +1,52 @@
+.\"   $Id: getablexprnumocc.3,v 1.1 1999/05/31 17:30:21 alliance Exp $
+.\" @(#)getablexprnumocc.2 2.7 96/07/02 ; Labo masi cao-vlsi; Author : Jacomme Ludovic
+.TH GETABLEXPRNUMOCC 3 "October 1, 1997" "ASIM/LIP6" "ABL FUNCTIONS"
+.SH NAME
+getablexprnumocc \- how many times a name appears in an expression.
+.so man1/alc_origin.1
+.SH SYNOPSYS
+.nf
+.if n \{\
+.ft B \}
+.if t \{\
+.ft CR \}
+#include "abl101.h"
+long getablexprnumocc( Expr, Name )
+  chain_list \(**Expr;
+  char       \(**Name;
+.ft R
+.fi
+.SH PARAMETERS
+.TP 20
+\fIExpr\fP
+Expression.
+.TP
+\fIName\fP
+Name to find.
+.SH DESCRIPTION
+\fBgetablexprnumocc\fP gives the number of occurents of \fIName\fP in \fIExpr\fP.
+.br
+.SH RETURN VALUE
+\fBgetablexprnumocc\fP returns number of occurents of \fIName\fP in \fIExpr\fP.
+.SH EXAMPLE
+.ta 3n 6n 9n 12n 15n 18n 21n
+.nf
+.if n \{\
+.ft B \}
+.if t \{\
+.ft CR \}
+#include "abl101.h"
+  chain_list \(**Expr;
+  Expr = createablbinexpr( ABL_AND,
+                           createablatom( "a" ),
+                           createablatom( "b" ) );
+  /* displays 1 */
+  printf( "%d", getablexprnumocc( Expr, "a" ) );
+.ft R
+.fi
+.SH SEE ALSO
+.BR abl (1)
+
+
+.so man1/alc_bug_report.1
+

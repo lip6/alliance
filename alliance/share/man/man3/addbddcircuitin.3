@@ -1,0 +1,96 @@
+.\"   $Id: addbddcircuitin.3,v 1.1 1999/05/31 17:30:17 alliance Exp $
+.\" @(#)addbddcircuitin.2 2.7 96/07/02 ; Labo masi cao-vlsi; Author : Jacomme Ludovic
+.TH ADDBDDCIRCUITIN 3 "October 1, 1997" "ASIM/LIP6" "BDD FUNCTIONS"
+.SH NAME
+addbddcircuitin \- adds an input in a \fBbdd\fP circuit.
+.so man1/alc_origin.1
+.SH SYNOPSYS
+.nf
+.if n \{\
+.ft B \}
+.if t \{\
+.ft CR \}
+#include "bdd101.h"
+bddnode \(**addbddcircuitin( BddCircuit, InputName, Index, Mode )
+  bddcircuit \(**BddCircuit;
+  char       \(**InputName;
+  bddindex    Index;
+  long        Mode;
+.ft R
+.fi
+.SH PARAMETERS
+.TP 20
+\fIBddCircuit\fP
+The \fBbdd\fP circuit.
+.TP
+\fIInputName\fP
+The name of the input.
+.TP
+\fIIndex\fP
+The \fBbdd\fP index of the input.
+.TP
+\fIMode\fP
+The mode.
+.SH DESCRIPTION
+\fBaddbddcircuitin\fP adds an input \fIInputName\fP in the \fBbdd\fP circuit
+\fIBddCircuit\fP. If a null pointer is given, the default \fBbdd\fP circuit is used.
+If the input \fIInputName\fP exists already, its node pointer is returned.
+The \fIMode\fP parameter specifies how to create the new variable associated
+to the name \fIInputName\fP. The \fIIndex\fP parameter is used with the 
+BDD_IN_MODE_BEFORE and BDD_IN_MODE_AFTER mode. 
+The \fIMode\fP parameter can takes the following values  :
+.TP 20
+BDD_IN_MODE_FIRST
+adds a variable before all others.
+.TP
+BDD_IN_MODE_LAST
+adds a variable after all others.
+.TP
+BDD_IN_MODE_BEFORE
+adds a variable before the one specified by \fIIndex\fP.
+.TP
+BDD_IN_MODE_AFTER
+adds a variable after the one specified by \fIIndex\fP.
+.TP
+BDD_IN_MODE_IMPOSE
+if this flag is set, only the variables found in the \fIBddCircuit\fP
+are taken into account. It permits to merge variables from different
+circuit working on the same \fBbdd\fP system.
+.br
+.SH RETURN VALUE
+\fBaddbddcircuitin\fP returns a pointer to the new created node.
+.SH ERRORS
+.if n \{\
+.ft B \}
+.if t \{\
+.ft CR \}
+"unknwon in mode xxx error !"
+.ft R
+.RS
+The \fIMode\fP parameter must be defined.
+.SH EXAMPLE
+.ta 3n 6n 9n 12n 15n 18n 21n
+.nf
+.if n \{\
+.ft B \}
+.if t \{\
+.ft CR \}
+#include "bdd101.h"
+   bddsystem  \(**BddSystem;
+   bddcircuit \(**BddCircuit;
+   bddnode    \(**BddNode;
+   BddSystem  = createbddsystem( 100, 1000, 100, 50000 );
+   BddCircuit = createbddcircuit( "hello_world", 10, 10, BddSystem );
+   addbddcircuitin ( (bddcircuit \(**)0, "i0", 0, BDD_IN_MODE_FIRST );
+   ...
+   BddNode = searchbddcircuitin( (bddcircuit \(**)0, "i0" );
+   destroybddsystem( (bddsystem \(**)0 );
+   destroybddcircuit( (bddcircuit \(**)0 );
+.ft R
+.fi
+.SH SEE ALSO
+.BR bdd (1)
+
+
+.so man1/alc_bug_report.1
+

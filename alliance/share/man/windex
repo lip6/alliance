@@ -1,0 +1,905 @@
+ACTION, GENPAT Package
+AFFECT, GENPAT Package
+ALLIANCE VHDL Subset
+AMG (1)              - Array Multiplior Generator
+ARRAY, GENPAT Package
+BEH (3)              - Generic behavioural data structures
+BUS (3)              - Creates a bus name for netlist
+COPY_UP_ALL_CON (3)  - copy all physical connectors of an instance face in the current figure
+COPY_UP_ALL_REF (3)  - copy a several physical reference from an instance in the current figure
+COPY_UP_CON (3)      - copy a physical connector from an instance in the current figure
+COPY_UP_CON_FACE (3) - copy a physical connector from an instance in the current figure
+COPY_UP_REF (3)      - copy a physical reference from an instance in the current figure
+COPY_UP_SEG (3)      - copy a physical segment from an instance in the current figure
+DECLAR, GENPAT Package
+DEF_AB (3)           - define a new abutment box to the current layout cell
+DEF_GENPAT, GENPAT Package
+DEF_LOFIG (3)        - open a netlist model as current figure
+DEF_PHFIG (3)        - open a layout model as current figure
+DEF_PHINS (3)        - define a new reference instance
+DEF_PHSC (3)         - load a netlist and open a layout model as current figure
+DLX_ASM (1)          - assembly language for DLX processor
+DPR (1)              - Placer-Router for Datapath Compiler
+DP_ADD2F (3)         - Adder-Substractor
+DP_ADSB2 (3)         - adder-substractor
+DP_ADSB2F (3)        - Adder-Substractor
+DP_AND2 (3)          - Logical and 2.
+DP_AND3 (3)          - logical and 3
+DP_BUFF (3)          - inverter
+DP_BUSE (3)          - Tristate with direct output.
+DP_CONST (3)         - Constant Generator
+DP_DEFLOFIG (3)      - Open a new Data-Path figure/model.
+DP_IMPORT (3)        - Add a new data-path component inside the current data-path.
+DP_INV (3)           - inverter
+DP_LOCON (3)         - Logical connector
+DP_MULT (3)          - Unpipelined array multiplier.
+DP_MULTP (3)         - Unpipelined array multiplier.
+DP_MUX2CS (3)        - 2 input multiplexer.
+DP_MUX3CD (3)        - 3 input multiplexer.
+DP_MUX3CS (3)        - 3 input multiplexer.
+DP_MUX4CS (3)        - 4 input multiplexer.
+DP_MUX5CS (3)        - 5 input multiplexer.
+DP_NAND2 (3)         - logical not and 2
+DP_NAND2MASK (3)     - Logical not and 2 controllable mask.
+DP_NAND3 (3)         - logical not and 3
+DP_NBUSE (3)         - Tristate with complemented output.
+DP_NMUX2CS (3)       - 2 input multiplexer, with complemented output.
+DP_NOR2 (3)          - logical not or 2
+DP_NOR2MASK (3)      - Logical not or 2 controllable mask.
+DP_NOR3 (3)          - logical not or 3
+DP_NUL (3)           - Zero Detect
+DP_OR2 (3)           - logical or 2
+DP_OR3 (3)           - logical or 3
+DP_PDFF (3)          - D Flip-Flop with write enable.
+DP_PDFFQ (3)         - D Flip-Flop with write enable.
+DP_PDFFR (3)         - D Flip-Flop with write enable and reset.
+DP_PDFFRT (3)        - D Flip-Flop with scan-path, write enable and reset.
+DP_PDFFT (3)         - D Flip-Flop with scan-path and write enable.
+DP_PDFFTQ (3)        - D Flip-Flop with scan-path and write enable.
+DP_RFG1C0 (3)        - Register File
+DP_RFG1CC (3)        - Register File
+DP_RFG2C0 (3)        - Register File
+DP_RFG2CC (3)        - Register File
+DP_SAVLOFIG (3)      - Save Data-Path figure/model.
+DP_SHIFT (3)         - Barrel Shifter
+DP_TRACE (3)         - Eanble/disable trace mode.
+DP_XNOR2 (3)         - logical not exclusive or 2
+DP_XNOR2MASK (3)     - Logical not exclusive or 2 controllable mask.
+DP_XOR2 (3)          - logical exclusive or 2
+DRuC (1)             - Design Rule Checker
+ELM (3)              - Creates a single element bus name for netlist
+FCL (5)              - Transistor net-list pattern-matching library
+FLATTEN_ALL_LOINS (3) - flatten all instances in the current netlist figure
+FLATTEN_ALL_PHINS (3) - flatten all instances in the current layout figure
+FLATTEN_LOFIG (3)    - flatten an instance in the current netlist figure
+FLATTEN_PHFIG (3)    - flatten an instance in the current layout figure
+FPLIB (5)            - Cells library for FITPATH dedicated generators.
+GETCPAT, GENPAT Package
+GET_CON_X (3)        - retrieve the x coordinate of an instance connector
+GET_CON_Y (3)        - retrieve the x coordinate of an instance connector
+GET_INS_X (3)        - retrieve the x coordinate of an instance
+GET_INS_Y (3)        - retrieve the y coordinate of an instance
+GET_REF_X (3)        - retrieve the x coordinate of an instance reference
+GET_REF_Y (3)        - retrieve the y coordinate of an instance reference
+HEIGHT (3)           - compute the height of a model
+INF (5)              - YAGLE and TAS information file
+INIT, GENPAT Package
+LABEL, GENPAT Package
+LOAD_LOFIG (3)       - loads a netlist form disk and opens it as current figure
+LOCON (3)            - adds a logical connector to the current netlist figure
+LOINS (3)            - add a logical instance to the current figure
+LOINSE (3)           - add a logical instance to the current figure, with explicit connections
+LOSIG (3)            - declare an internal logical signal, or a vector of internal logical signals
+LOSIGMERGE (3)       - merge two logical signals
+LOTRS (3)            - adds a logical transistor to the current netlist figure
+MBK_CATAL_NAME (1)   - define the mbk catalog file
+MBK_CATA_LIB (1)     - define the mbk catalog directory
+MBK_IN_LO (1)        - define the logical input format of mbk and genlib
+MBK_IN_PH (1)        - define the physical input format of mbk and genlib
+MBK_OUT_LO (1)       - define the logical output format of mbk and genlib
+MBK_OUT_PH (1)       - define the physical output format of mbk and genlib
+MBK_SEPAR (1)        - define the separator character for hierarchy
+MBK_VDD (1)          - define the high level power name pattern
+MBK_VSS (1)          - define the ground power name pattern
+MBK_WORK_LIB (1)     - define the mbk working directory
+OUTLINE (3)          - build an outline from the current layout cell
+OpenVerticalChannel (3) - open a vertical channel in a phfig
+OpenVerticalChannel -open a vertical channel inside a phfig
+PAT (3)              - Generic pattern data structure
+PAT (5)              - Pattern description format
+PHAD_PHFIG (3)       - loads a layout form disk and opens it as current figure
+PHCON (3)            - place a physical connector in the current figure at absolute coordinates
+PHREF (3)            - place a physical reference in the current figure at absolute coordinates
+PHSEG (3)            - place a physical segment in the current figure at absolute coordinates
+PHVIA (3)            - place a physical via in the current figure at absolute coordinates
+PLACE (3)            - place a physical instance in the current figure at absolute coordinates
+PLACE_BOTTOM (3)     - place a physical instance in the current figure under the "reference instance"
+PLACE_CON_REF (3)    - put a connector on top of a reference belonging an instance in the current figure
+PLACE_LEFT (3)       - place a physical instance in the current figure at the left of the "reference instance"
+PLACE_ON (3)         - place a physical instance in the current figure matching connectors
+PLACE_RIGHT (3)      - place a physical instance in the current figure at the right of the "reference instance"
+PLACE_SEG_REF (3)    - put a segment on a reference belonging an instance in the current figure
+PLACE_TOP (3)        - place a physical instance in the current figure on the top of the "reference instance"
+PLACE_VIA_REF (3)    - put a via on top of a reference belonging to an instance in the current figure
+PMExpr (3)           - returns 1 if the pattern matching is possible between two expressions.
+RDS_IN (1)           - define the real layout input file format of rds
+RDS_OUT (1)          - define the real layout output format of rds
+RDS_TECHNO_NAME (1)  - define the rds technology file
+REVERSE_PHCON (3)    - reverse the order of physical connectors on a bus.
+RING (1)             - PAD RING router
+SAVE, GENPAT Package
+SAVE_LOFIG (3)       - save a netlist on disk
+SAVE_PHFIG (3)       - save a layout on disk
+SAVE_PHSC (3)        - save a layout on disk
+SAV_GENPAT, GENPAT Package
+SC_BOTTOM (3)        - place an instance in the current figure at the right of the "reference instance"
+SC_LEFT (3)          - place an instance in the current figure at the right of the "reference instance"
+SC_PLACE (3)         - place an instance in the current figure at absolute coordinates
+SC_RIGHT (3)         - place an instance in the current figure at the right of the "reference instance"
+SC_TOP (3)           - place an instance in the current figure at the right of the "reference instance"
+SYF (1)              - Finite State Machine synthesizer.
+SymbolicChannelRouter (3) - routes a given channel on a Virtual grid
+SymbolicChannelRouter (3) - routes a given channel on a symbolic grid
+THRU_CON_H (3)       - draw an horizontal wire from side to side of the abutment box of the current figure
+THRU_CON_V (3)       - draw a vertical wire with connectors from side to side of the abutment box of the current figure
+THRU_H (3)           - draw an horizontal wire from side to side of the abutment box of the current figure
+THRU_V (3)           - draw a vertical wire from side to side of the abutment box of the current figure
+UNFLATTEN_LOFIG (3)  - creates a hierarchy level from instances in the current logical figure
+WIDTH (3)            - compute the width of a model
+WIRE1 (3)            - place a physical segment in the current figure
+WIRE2 (3)            - place two physical segments in the current figure
+WIRE3 (3)            - place three physical segments in the current figure
+a2_dp
+a2_y
+a2p_dp
+a2p_y
+a3_dp
+a3_y
+a3p_dp
+a3p_y
+a4_dp
+a4_y
+a4p_dp
+a4p_y
+abl (1)              - Prefixed representation for boolean functions
+ablToBddCct (3)      - converts an ABL into a BDD within a circuit
+aboxmbkrds (2)       - converts MBK abutment box to RDS rectangle
+aboxmbkrds (3)       - converts MBK abutment box to RDS rectangle
+action, GENPAT Package
+addHExpr (3)         - adds a new argument at the head of an operator expression.
+addInputCct (3)      - adds an input to a circuit
+addListBdd (3)       - adds a BDD to a chained list of BDDs
+addOuputCct (3)      - adds an ouput associated to a BDD in a circuit
+addQExpr (3)         - adds a new argument at the queue of an operator expression.
+addTH (3)            - adds a new item in a hash table.
+addablhexpr (3)      - adds a new argument in head of an expression.
+addablqexpr (3)      - adds a new argument in queue of an expression.
+addauth2elem (3)     - adds an element in the hash table.
+addauthelem (3)      - adds an element in the hash table.
+addbddassoc (3)      - creates a new association variables.
+addbddcircuitabl (3) - converts an abl expression to a bdd node.
+addbddcircuitin (3)  - adds an input in a bdd circuit.
+addbddcircuitout (3) - adds an output in a bdd circuit.
+addbddnode (3)       - adds a new bdd node in the bdd system.
+addbddnodeassoc (3)  - adds a bdd node in a variable association.
+addbddnodelist (3)   - adds a node in a chain_list.
+addbddvar (3)        - adds a new variable in the bdd system.
+addbddvarafter (3)   - adds a new variable, after an existing one.
+addbddvarbefore (3)  - adds a new variable, before an existing one.
+addbddvarfirst (3)   - adds a new variable, before all others.
+addbddvarlast (3)    - adds a new variable, after all others.
+addcapa (3)          - add a capacitance to a signal
+addchain (3)         - create a chain and add it to a list
+addht (3)            - create an hash table
+addhtitem (3)        - adds a new item in a hash table.
+addlocon (3)         - create a logical connector
+addlofig (3)         - create a new structural cell model
+addloins (3)         - create a logical instance
+addlomodel (3)       - create a tempotary logical model and add it to a list
+addlosig (3)         - create a logical signal
+addlotrs (3)         - create a logical transistor
+addnum (3)           - create a num and add it to a list
+addphcon (3)         - create a physical connector
+addphfig (3)         - create a new physical cell model
+addphins (3)         - create a physical instance
+addphref (3)         - create a physical reference
+addphseg (3)         - create a physical segment
+addphvia (3)         - create a physical via
+addptype (3)         - create a ptype and add it to a ptype_list
+addrdsfig (2)        - adds a figure
+addrdsfig (3)        - adds a figure
+addrdsfigrec (2)     - adds a rectangle to a figure
+addrdsfigrec (3)     - adds a rectangle to a figure
+addrdsins (2)        - adds an instance to a figure
+addrdsins (3)        - adds an instance to a figure
+addrdsinsrec (2)     - adds a rectangle to an instance
+addrdsinsrec (3)     - adds a rectangle to an instance
+addrdsrecwindow (2)  - adds a rectangle in the windowing of rds structure.
+addrdsrecwindow (3)  - adds a rectangle in the windowing of rds structure.
+affect, GENPAT Package
+ai (5)               - Alliance icon format
+al (5)               - Alliance logical format
+alcbanner (1)        - Display a standardized banner for Alliance tools
+alliancebanner (3)   - display the standardized Alliance banner
+allocrdsfig (2)      - allocs memory for a figure
+allocrdsfig (3)      - allocs memory for a figure
+allocrdsins (2)      - allocates memory for an instance
+allocrdsins (3)      - allocates memory for an instance
+allocrdsrec (2)      - allocates memory for a rectangle
+allocrdsrec (3)      - allocates memory for a rectangle
+allocrdsrecwin (2)   - allocates a structure used to know windows which contains a rectangle.
+allocrdsrecwin (3)   - allocates a structure used to know windows which contains a rectangle.
+allocrdswin (2)      - allocates window's table
+allocrdswin (3)      - allocates window's table
+allocrdswindow (2)   - allocates a window structure
+allocrdswindow (3)   - allocates a window structure
+allocrdswinrec (2)   - allocates a structure used to create a list of tables of rectangles.
+allocrdswinrec (3)   - allocates a structure used to create a list of tables of rectangles.
+annup_dp
+annup_y
+anyExpr (3)          - returns the value of a logical OR applied on the results of the application of a function on the arguments of an operator expression
+ap (5)               - Alliance physical format
+append (3)           - append a chain_list to an other chain_list
+applyBdd (3)         - applies an operator to a list of BDD.
+applyBinBdd (3)      - applies an operator to two BDD.
+applybddnode (3)     - applies an operator on two bdd nodes.
+applybddnodeite (3)  - computes the IF-THEN-ELSE logical operation.
+applybddnodelist (3) - applies an opertor to a bdd nodes list.
+applybddnodenot (3)  - complements a bdd.
+applybddnodeterm (3) - applies an operator on two bdd nodes.
+applyrdssym (2)      - applies a transformation to a rectangle from a model
+applyrdssym (3)      - applies a transformation to a rectangle from a model
+apr (3)              - routing and placement functions
+arp (3)              - routing and placement functions
+array, GENPAT Package
+asimut (1)           - A simulation tool for hardware descriptions
+aut (1)              - Memory allocation, and hash tables management
+autallocblock (3)    - memory allocator
+autallocheap (3)     - heap memory allocator
+autfreeblock (3)     - releases a memory block
+autfreeheap (3)      - releases a memory block, and put it on the heap.
+auth2elem (3)        - element in an hash table with two keys.
+auth2table (3)       - hash table structure
+authelem (3)         - element in an hash table
+authtable (3)        - hash table structure
+autresizeblock (3)   - resizes a memory block
+b1_dp
+b1_y
+bbr (1)              - A pitchless channel router for preplaced two blocks floorplan
+bdd (1)              - Mutli Reduced Ordered Binary Decision Diagrams
+bdd (1)              - Ordered binary decision diagrams representation
+bddToAblCct (3)      - converts a BDD into an ABL within a circuit
+beaux (3)            - BEH data structure
+bebus (3)            - BEH data structure
+bebux (3)            - BEH data structure
+befig (3)            - BEH data structure
+begen (3)            - BEH data structure
+beh_addbeaux, beh_delbeaux, beh_rmvbeaux, beh_frebeaux
+beh_addbebus, beh_delbebus, beh_rmvbebus, beh_frebebus
+beh_addbebux, beh_delbebux, beh_rmvbebux, beh_frebebux
+beh_addbefig, beh_delbefig, beh_rmvbefig, beh_frebefig
+beh_addbegen, beh_delbegen, beh_rmvbegen, beh_frebegen
+beh_addbemsg, beh_delbemsg, beh_rmvbemsg, beh_frebemsg
+beh_addbeout, beh_delbeout, beh_rmvbeout, beh_frebeout
+beh_addbepor, beh_delbepor, beh_rmvbepor, beh_frebepor
+beh_addbereg, beh_delbereg, beh_rmvbereg, beh_frebereg
+beh_addberin, beh_delberin, beh_rmvberin, beh_freberin
+beh_addbiabl, beh_delbiabl, beh_frebiabl
+beh_addbinode, beh_delbinode, beh_frebinode
+beh_debug (3)        - BEH structures displayer-debugger
+beh_depend (3)       - compute forward dependencies in a description
+beh_error
+beh_makbdd (3)       - create a BDD for each expression in a description
+beh_makgex (3)       - create a GEX for each expression in a description
+beh_message
+bemsg (3)            - BEH data structure
+beout (3)            - BEH data structure
+bepor (3)            - BEH data structure
+bereg (3)            - BEH data structure
+berin (3)            - BEH data structure
+bgd (1)              - register file generator
+biabl (3)            - BEH data structure
+bigvia (3)           - draws a non minimal via as a bunch of vias
+binode (3)           - BEH data structure
+bop (1)              - boolean optimization of a logic level behavioural description (VHDL data flow)
+bsg (1)              - Barrel Shifter Generator
+buildrdswindow (2)   - builds windowing of a figure
+buildrdswindow (3)   - builds windowing of a figure
+buseg (1)            - Tristate generator for FITPATH data-path compiler.
+c4map (1)            - mapping of a behavioural description with the CMOS Complex Cell Compiler : C4.
+catal (5)            - catalog file format
+chain (3)            - mbk lisp-like service structure
+changeOperExpr (3)   - changes the operator of the head of an expression.
+charToExpr (3)       - converts a string into an expression
+charToOper (3)       - converts an operator string into an operator number
+checkloconorder (3)  - checks the consistency of a list of logical connectors
+clearbddsystemref (3) - clears the references for all bdd nodes.
+clearbddsystemrefext (3) - clears the external references for all bdd nodes.
+clearbddsystemrefint (3) - clears the internal references for all bdd nodes.
+cmx2_y
+cofactorbddnode (3)  - computes the generalized cofactor.
+comment, GENPAT Package
+composeBdd (3)       - substitutes an index by a BDD in another BDD
+composeCct (3)       - composes all the outputs within a circuit with a BDD
+composebddnode (3)   - substitutes a variable by a bdd in another bdd.
+concatname (3)       - concatenate two names with user separator
+conmbkrds (2)        - converts MBK connector to RDS rectangle
+conmbkrds (3)        - converts MBK connector to RDS rectangle
+constraintBdd (3)    - restricts a BDD to another BDD
+constraintCct (3)    - restricts all the outputs within a circuit with a BDD constraint
+conv, GENPAT Package
+convcmp, GENPAT Package
+convertbddcircuitabl (3) - converts a bdd node to an abl expression.
+convertbddcircuitsumabl (3) - converts a bdd node to an abl expression.
+convertbddindexabl (3) - converts a bdd index to an abl expression.
+convertbddmuxabl (3) - converts two bdd nodes to an abl multiplexor expression.
+convertbddnodeabl (3) - converts a bdd node to an abl expression.
+convertbddnodesumabl (3) - converts a bdd node to an abl expression.
+copyExpr (3)         - copies an expression
+cpOrderCct (3)       - copies the association order of the inputs with the indexes in another circuit
+createAtom (3)       - creates an atomic expression.
+createBinExpr (3)    - creates a binary operator expression with an eventual merging of the operators.
+createExpr (3)       - creates the head of an operator expression.
+createNodeTermBdd (3) - creates a terminal node of variable.
+createTH (3)         - create a hash table
+createablatom (3)    - creates an atomic expression.
+createablbinexpr (3) - creates a binary operator expression.
+createablnotexpr (3) - complements an expression.
+createabloper (3)    - creates the head of an operator expression.
+createablunaryexpr (3) - creates an unary operator expression.
+createablxorbinexpr (3) - creates an 'xor' or 'xnor' operator expression.
+createauth2table (3) - creates an hash table with two keys.
+createauthtable (3)  - creates a simple hash table.
+createbddcircuit (3) - creates a bdd circuit.
+createbddsystem (3)  - creates a bdd system.
+cry_dp
+cry_y
+d1_y
+decbddrefext (3)     - decrements the external reference of a bdd node.
+decbddrefint (3)     - decrements the internal reference of a bdd node.
+def_genpat, GENPAT Package
+defab (3)            - defines the abutment box of a phfig
+delablexpr (3)       - deletes an expression.
+delablexprnum (3)    - deletes an operand in an expression.
+delauth2elem (3)     - deletes an element in the hash table.
+delauthelem (3)      - deletes an element in the hash table.
+delbddassoc (3)      - deletes a variable association.
+delbddcircuitout (3) - deletes an output in a bdd circuit.
+delbddnode (3)       - deletes an unused bdd node.
+delbddnodeassoc (3)  - deletes a bdd node in a variable association.
+delbddnodelist (3)   - deletes a list of bdd nodes.
+delchain (3)         - delete an element of a chain_list
+deleteNumExpr (3)    - removes the i-th argument of an operator expression.
+deleteTH (3)         - removes an item in a hash table.
+delht (3)            - removes an hash table
+delhtitem (3)        - removes an item in an hash table
+dellocon (3)         - delete a logical connector
+dellofig (3)         - delete and free a logical figure
+delloins (3)         - delete a logical instance
+dellosig (3)         - delete a logical signal
+dellotrs (3)         - delete a logical transistor
+delnum (3)           - delete an element of a num_list
+delphcon (3)         - delete a physical connector
+delphfig (3)         - delete and free a physical figure
+delphins (3)         - delete a physical instance
+delphref (3)         - delete a physical reference
+delphseg (3)         - delete a physical segment
+delphvia (3)         - delete a physical via
+delptype (3)         - delete an element of a ptype_list
+delrdsfig (2)        - deletes a figure
+delrdsfig (3)        - deletes a figure
+delrdsfigrec (2)     - deletes a rectangle of a figure
+delrdsfigrec (3)     - deletes a rectangle of a figure
+delrdsins (2)        - deletes an instance of a figure
+delrdsins (3)        - deletes an instance of a figure
+delrdsinsrec (2)     - deletes a rectangle of an instance
+delrdsinsrec (3)     - deletes a rectangle of an instance
+delrdsrecwindow (2)  - deletes a rectangle from the windowing of rds structure.
+delrdsrecwindow (3)  - deletes a rectangle from the windowing of rds structure.
+destroyBdd (3)       - removes the BDDs system
+destroyCct (3)       - removes a circuit
+destroyTH (3)        - removes a hash table
+destroyauth2table (3) - destroys an hash table with two keys.
+destroyauthtable (3) - destroys a simple hash table.
+destroybddassoc (3)  - frees all the variable associations.
+destroybddcircuit (3) - destroys a bdd circuit.
+destroybddsystem (3) - destroys a bdd system.
+destroyrdswindow (2) - destroys windowing of a figure
+destroyrdswindow (3) - destroys windowing of a figure
+devXor2Expr (3)      - converts XOR 2 to OR-AND
+devXorExpr (3)       - removes XOR in an expression
+devablxorexpr (3)    - develops 'xor', 'nxor' in an expression.
+devdupablxorexpr (3) - duplicates and develops 'xor', 'nxor'.
+displayBdd (3)       - displays a BDD
+displayCct (3)       - displays a circuit
+displayExpr (3)      - displays an expression in a prefixed notation.
+displayInfExpr (3)   - displays an expression in infixed notation.
+displayTH (3)        - displays a hash table
+downstr (3)          - convert a string to lower case
+dplib (5)            - Cell library for data-path custom operators.
+dpp (1)              - DataPath Placement tool
+dreal (1)            - Graphic real layout viewer
+dtv (5)              - The timing analyzer tas report : 'detailed perfmodule' format.
+dupablexpr (3)       - duplicates an expression.
+equalExpr (3)        - checks that two expressions are strictly equal
+equalVarExpr (3)     - checks that two expressions are syntactically equal
+etas (1)             - A timing file .dtx and .ttx browser
+everyExpr (3)        - returns the value of a logical AND applied on the results of the application of a function on the argument of an operator expression.
+existbddnodeassocoff (3) - computes an existantial quantification.
+existbddnodeassocon (3) - computes an existantial quantification.
+exprToChar (3)       - converts an expression into a string
+figmbkrds (2)        - converts MBK figure to RDS figure
+figmbkrds (3)        - converts MBK figure to RDS figure
+filepath (3)         - return the whole search path of a file
+flatArityExpr (3)    - flattens the operators of an expression
+flatPolarityExpr (3) - translates the inverters of an expression to the level of atomic expressions
+flatablexpr (3)      - merges the operators of an expression
+flatenphfig (3)      - flatten a instance in a figure
+flattenlofig (3)     - flatten a instance in a logical figure
+fpgen (1)            - Procedural language for Data-Path synthesis based upon C.
+fpmap (1)            - fpga mapper of a logic level behavioural description (VHDL data flow)
+freeExpr (3)         - frees an expression.
+freeablexpr (3)      - frees an expression.
+freechain (3)        - free a chain_list
+freelomodel (3)      - free a lofig_list for temporary models
+freenum (3)          - free a num_list
+freeptype (3)        - free a ptype_list
+freerdsfig (2)       - frees memory associated to a figure
+freerdsfig (3)       - frees memory associated to a figure
+freerdsins (2)       - frees memory associated to an instance
+freerdsins (3)       - frees memory associated to an instance
+freerdsrec (2)       - free memory associated to a rectangle
+freerdsrec (3)       - free memory associated to a rectangle
+fsm (1)              - Finite State Machine representation.
+fsm (5)              - Alliance VHDL Finite State Machine description subset.
+garbagebddsystem (3) - Forces a bdd garbage collection.
+gcNodeBdd (3)        - does a garbage collection
+gcNodeCct (3)        - does a garbage collection
+genbs (1)            - A IEEE 1149.1 Boundary-Scan Architecture Generator
+genlib (1)           - Procedural design language based upon C, along with its compiler
+genpat, A procedural pattern file generator
+genscan (1)          - scan path generator
+genview (1)          - genlib graphical source level debugger
+getablexprdepth (3)  - gives the depth of an expression.
+getablexprlength (3) - gives the length of an expression.
+getablexprmax (3)    - applies a function to all operands.
+getablexprmin (3)    - applies a function to all operands.
+getablexprnum (3)    - gives a specified operand of an expression.
+getablexprnumatom (3) - gives the number of atom in an expression.
+getablexprnumbinoper (3) - gives the number of binary operators in an expression.
+getablexprnumocc (3) - how many times a name appears in an expression.
+getablexprsupport (3) - gives the expression's support.
+getbddnodenum (3)    - gets the number of nodes in a bdd.
+getbddnodesize (3)   - gets the number of nodes in a bdd.
+getbddnodesupport (3) - gives the variable support of a bdd node.
+getbddvarbyindex (3) - converts bdd index to a variable number.
+getbddvarindex (3)   - converts a variable number in a bdd index.
+getbddvarnode (3)    - gives the bdd node of a variable.
+gethtitem (3)        - searches an item in a hash table
+getlocon (3)         - retrieve a logical connector
+getlofig (3)         - give back a pointer to a lofig
+getloins (3)         - retrieve a logical instance
+getlomodel (3)       - retrieve a model from a lofig_list
+getlosig (3)         - retrieve a logical signal
+getphcon (3)         - retrieve a physical connector
+getphfig (3)         - give back a pointer to a phfig
+getphins (3)         - retrieve a physical instance
+getphref (3)         - retrieve a physical reference
+getptype (3)         - retrieve a ptype from a ptype_list
+getrdsfig (2)        - gets a pointer to a figure called by its name.
+getrdsfig (3)        - gets a pointer to a figure called by its name.
+getrdsmodellist (2)  - gets model list of the instances of a figure
+getrdsmodellist (3)  - gets model list of the instances of a figure
+getsigname (3)       - choose a signal name in alias list
+givelosig (3)        - give a logical signal
+glop (1)             - Fanout optimizer, global optimizer and timing analyzer of a gate netlist
+graal (1)            - symbolic layout editor
+grog (1)             - a generic ROM generator
+grog (3)             - call the ROM generator
+guessextdir (3)      - guess external connectors directions from internal connectors directions
+htv (5)              - The timing analyzer tas report : 'detailed perfmodule' format.
+identExpr (3)        - gives an ident from an operator expression.
+implybddnode (3)     - computes a bdd that implies a conjonction of two bdd nodes.
+incatalog (3)        - test if cell belongs to the catalog file
+incatalogdelete (3)  - test if cell belongs to the catalog file
+incatalogfeed (3)    - test if cell belongs to the catalog file
+incataloggds (3)     - test if cell belongs to the catalog file
+incbddrefext (3)     - increments the external reference of a bdd node.
+incbddrefint (3)     - increments the internal reference of a bdd node.
+init, GENPAT Package
+initializeBdd (3)    - initializes the BDDs system
+initializeCct (3)    - creates a circuit
+insconmbkrds (2)     - adds in RDS instance all the connectors of MBK instance
+insconmbkrds (3)     - adds in RDS instance all the connectors of MBK instance
+insmbkrds (2)        - converts MBK figure to RDS figure
+insmbkrds (3)        - converts MBK figure to RDS figure
+insrefmbkrds (2)     - adds in RDS instance all the references of MBK instance.
+insrefmbkrds (3)     - adds in RDS instance all the references of MBK instance.
+inssegmbkrds (2)     - adds in RDS instance all the segments of MBK instance
+inssegmbkrds (3)     - adds in RDS instance all the segments of MBK instance
+instanceface (3)     - returns the face of a connector in a placed instance
+instr (3)            - find an occurence of a string in a string, starting at a specified character.
+insviambkrds (2)     - adds to RDS instance all the contacts from MBK instance
+insviambkrds (3)     - adds to RDS instance all the contacts from MBK instance
+intersectbddnode (3) - tests for an intersection between two bdd nodes.
+isablbinaryoper (3)  - tests if an operator is binary.
+isablequalexpr (3)   - tests if two expressions are strictly identicals.
+isabloperinexpr (3)  - tests if an operator appears in an expression.
+isablsimilarexpr (3) - tests if two expressions have the same morphology.
+isablunaryoper (3)   - tests if an operator is unary.
+isbddvarinsupport (3) - tests if a variable appears in a bdd.
+isvdd -tells if a name contains the pattern defined by the user
+isvss -tells if a name contains the pattern defined by the user
+l1_y
+l1n_y
+l1x_y
+l2_y
+l2n_y
+l2p (1)              - Creates a PostScript file from a symbolic layout file, or from a physical layout file.
+l3_y
+l3r_y
+l3s_y
+l4_y
+l4r_y
+l4s_y
+l5_y
+l5r_y
+l5s_y
+l6r_y
+l6s_y
+label, GENPAT Package
+lax (5)              - Parameter file for logic synthesis
+lengthExpr (3)       - returns the number of arguments in an expression
+librds (1)           - rds library description
+librfm (1)           - rfm library description
+librpr (1)           - rpr library description
+librtl (1)           - rtl library description
+librut (1)           - rut library description
+librwi (1)           - rwi library description
+loadlofig (3)        - load a new logical cell model from disk
+loadphfig (3)        - load a new physical cell model from disk
+loadrdsfig (2)       - give back a pointer to a figure
+loadrdsfig (3)       - give back a pointer to a figure
+loadrdsparam (2)     - load parameters from symbolic to real conversion.
+loadrdsparam (3)     - load parameters from symbolic to real conversion.
+locon (3)            - mbk logical connector
+lofig (3)            - mbk logical figure
+lofigchain (3)       - creates a netlist in terms of connectors on signals
+log (1)              - logical representations for boolean functions and utilities.
+log (3)              - logical representations for boolean functions and utilities.
+loins (3)            - mbk logical instance
+losig (3)            - mbk logical signal
+lotrs (3)            - mbk logical transistor
+lvx (1)              - Logical Versus eXtracted net-list comparator
+lynx (1)             - Hierarchical netlist extractor
+mapCarExpr (3)       - creates a new expression by applying a function to all the arguments of an operator expression
+mapExpr (3)          - applies a procedure to all arguments of an operator expression
+mapablanyexpr (3)    - applies a function to all operands.
+mapableveryexpr (3)  - applies a function to all operands.
+mapablexpr (3)       - applies a function to all operands.
+mapabloperexpr (3)   - applies a function to all operands.
+markAllBdd (3)       - marks all the nodes of the BDDs system
+markBdd (3)          - marks all nodes of a BDD
+markbddnode (3)      - marks bdd node with a specified mask.
+maxExpr (3)          - returns the highest argument of an operator expression.
+mbk (1)              - generic layout and netlist data structures
+mbk (3)              - Generic layout, netlist and utility data structures
+mbk2ps (1)           - Creates a PostScript file from a symbolic layout cell
+mbkalloc (3)         - mbk memory allocator
+mbkcif (1)           - mbk cif translater
+mbkenv (3)           - set user preferences
+mbkfopen (3)         - open a file with several search pathes
+mbkfree (3)          - mbk memory allocator
+mbkps (3)            - mbk process state
+mbkrealloc (3)       - mbk memory reallocator
+mbkunlink (3)        - delete a file in the WORK_LIBP.
+minExpr (3)          - returns the lowest argument of an operator expression.
+mlodebug (3)         - logical data structure contents debug function
+modelmbkrds (2)      - gets all models of instances contained in a figure.
+modelmbkrds (3)      - gets all models of instances contained in a figure.
+mphdebug (3)         - physical data structure contents debug function
+ms2_dp
+ms2_y
+ms2n_dp
+ms2n_y
+ms2rx_dp
+ms2rx_y
+ms2sx_dp
+ms2sx_y
+ms2x_dp
+ms2x_y
+ms_dp
+ms_y
+msn_dp
+msn_y
+msrx_dp
+msrx_y
+mssx_dp
+mssx_y
+msx_dp
+msx_y
+mx2_dp
+mx2_y
+mx2p_dp
+mx2p_y
+mx3_dp
+mx3_y
+mx4_y
+n1_dp
+n1_y
+na2_dp
+na2_y
+na2p_dp
+na2p_y
+na3_dp
+na3_y
+na3p_dp
+na3p_y
+na4_dp
+na4_y
+namealloc (3)        - hash table for strings
+namefind (3)         - hash table for strings
+nameindex (3)        - concatenate a name and index with user separator
+nao3_dp
+nao3_y
+nao4_dp
+nao4_y
+naturalstrcmp (3)    - compare string in alphabetical order for letters and numerical for digits.
+ndrv_dp
+ndrv_y
+neou4_dp
+nmx2_dp
+nmx2_y
+no2_dp
+no2_y
+no3_dp
+no3_y
+noa3_dp
+noa3_y
+noa4_dp
+noa4_y
+nop2_dp
+nop2_y
+nop3_dp
+nop3_y
+normExpr (3)         - normalizes an expression
+notBdd (3)           - complements a BDD
+notExpr (3)          - complements an expressio and eventually does a simplification
+noue4_dp
+noue4_y
+np1_dp
+np1_y
+num (3)              - mbk list of number
+numberAtomExpr (3)   - returns the number of atoms in an expression
+numberNodeAllBdd (3) - count the number of nodes used in the BDD system
+numberNodeBdd (3)    - computes the number of nodes used in a BDD
+numberNodeCct (3)    - counts the number of nodes used within a circuit
+numberOccExpr (3)    - returns the number of time an atom appears in an expression.
+numberOperBinExpr (3) - returns the number of equivalent binary operators in an expression
+nxr2_dp
+nxr2_y
+o2_dp
+o2_y
+o3_dp
+o3_y
+one_dp
+one_y
+op2_dp
+op2_y
+op3_dp
+op3_y
+operToChar (3)       - converts an operator number into an operator string
+p1_dp
+p1_y
+pacom (3)            - PAT data structure
+paevt (3)            - PAT data structure
+pagrp (3)            - PAT data structure
+paini (3)            - PAT data structure
+paiol (3)            - PAT data structure
+papat (3)            - PAT data structure
+paseq (3)            - PAT data structure
+pat2dwl, pattern translator from ALLIANCE CAD SYSTEM to HILO CAD SYSTEM
+pat_addpacom, pat_frepacom
+pat_addpaevt, pat_frepaevt
+pat_addpagrp
+pat_addpaini, pat_frepaini
+pat_addpaiol, pat_crtpaiol, pat_frepaiol
+pat_addpapat, pat_frepapat
+pat_addpaseq
+pat_debug (3)        - PAT structures displayer-debugger
+pat_lodpaseq (3)     - pattern file compiler
+pat_savpaseq (3)     - save pattern structures in a pattern description file
+patest, a pattern translator for test.
+pck_sp
+phcon (3)            - mbk physical connector
+phfig (3)            - mbk physical figure
+phins (3)            - mbk physical instance
+phref (3)            - mbk physical reference
+phseg (3)            - mbk physical segment
+phvia (3)            - mbk physical contact
+pi_sp
+piot_sp
+piotw_sp
+place (3)            - place the cells of a net list
+po_sp
+polarablexpr (3)     - moves inverters to the atomic level.
+polardupablexpr (3)  - duplicates an expression and moves down the inverters.
+port, GENPAT Package
+pot_sp
+potw_sp
+pow_sp
+process, GENPAT Package
+profAOExpr (3)       - returns the depth of an expression without taking the inverters into account.
+profExpr (3)         - returns the depth of an expression.
+prol (5)             - define the rules for symbolic to real layout translation
+proof (1)            - Formal proof between two behavioural descriptions
+proofCct (3)         - checks the equivalence of two circuits
+ptype (3)            - mbk list of typed pointers
+pvdde_sp
+pvddeck_sp
+pvddi_sp
+pvddick_sp
+pvsse_sp
+pvsseck_sp
+pvssi_sp
+pvssick_sp
+rage (1)             - Random Acess Memory(RAM) Generator
+rds (1)              - rds package
+rdsalloc (2)         - memory allocation function
+rdsalloc (3)         - memory allocation function
+rdsenv (2)           - set user preference
+rdsenv (3)           - set user preference
+rdsfree (2)          - free memory place
+rdsfree (3)          - free memory place
+refmbkrds (2)        - adds to RDS figure a references from a MBK figure
+refmbkrds (3)        - adds to RDS figure a references from a MBK figure
+register, GENPAT Package
+relprodbddnodeassoc (3) - computes a relational product.
+reorderbddsystemdynamic (3) - specifies the dynamic bdd reorder parameters.
+reorderbddsystemsimple (3) - reorders the bdd nodes of a bdd system.
+reorderbddsystemtop (3) - reorders the bdd nodes of a bdd system.
+reorderbddsystemwindow (3) - reorders the bdd nodes of a bdd system.
+resetBdd (3)         - resets the BDDs system
+resetCct (3)         - resets a circuit
+resetauth2table (3)  - resets an hash table with two keys.
+resetauthtable (3)   - resets a simple hash table.
+resetbddcircuit (3)  - resets a bdd circuit.
+resetbddsystem (3)   - resets a bdd system.
+restorealldir (3)    - restore all instances' connectors directions
+restoredirvbe (3)    - restore connectors directions from behavioral view
+restrictbddnode (3)  - substitutes a variable by a zero or one, in a bdd.
+reverse (3)          - reverse a list of chained elements
+rfg (1)              - register file generator
+rflattenlofig (3)    - recursivly flatten a figure
+rflattenphfig (3)    - recursivly flatten a figure
+roundrdsrec (2)      - adjusts a rectangle to lambda grid step
+roundrdsrec (3)      - adjusts a rectangle to lambda grid step
+rsa (1)              - Recurrence Solver Adder generator
+rsa (3)              - call the Recurrence Solver Adder generator
+s2r (1)              - Process mapping from symbolic layout to physical layout
+satisfybddnode (3)   - finds a satisfying path for a bdd node.
+sav_genpat, GENPAT Package
+savelofig (3)        - save a logical figure on disk
+savephfig (3)        - save a physical figure on disk
+saverdsfig (2)       - save a physical figure on disk.
+saverdsfig (3)       - save a physical figure on disk.
+sclib (5)            - a portable CMOS Standard Cell Library
+scmap (1)            - mapping of a behavioural description onto a standard cell library.
+scr (1)              - Standard Cell Router
+searchExpr (3)       - searches for a specific atom in an expression.
+searchInputCct (3)   - searches for the index number associated to an input.
+searchNumExpr (3)    - fetches the i-th argument in an operator expression.
+searchOperExpr (3)   - searches for an operator in an expression.
+searchOuputCct (3)   - searches for the BDD associated to an output
+searchTH (3)         - searches an item in a hash table.
+searchauth2elem (3)  - searches an element in the hash table.
+searchauthelem (3)   - searches an element in the hash table.
+searchbddcircuitin (3) - searchs an input in a bdd circuit.
+searchbddcircuitout (3) - searchs an output in a bdd circuit.
+searchrdsfig (2)     - searchs by name a figure in the list of figures
+searchrdsfig (3)     - searchs by name a figure in the list of figures
+segmbkrds (2)        - adds to RDS figure a segment from a MBK figure
+segmbkrds (3)        - adds to RDS figure a segment from a MBK figure
+setbddrefext (3)     - increments the external reference, and decrements the internal reference of a bdd node.
+sethtitem (3)        - test and set an item in an hash table.
+signal, GENPAT Package
+simpablexpr (3)      - simplies an expression.
+simpbddnodedcoff (3) - simplifies a bdd with don't cares on its off-set part.
+simpbddnodedcon (3)  - simplifies a bdd with don't cares on its on-set part.
+simpdupablexpr (3)   - duplicates and simplies an expression.
+simplif10Expr (3)    - makes simplifications on an expression including constant atomic expressions
+simplifDcOneBdd (3)  - simplifies a BDD with don't cares on its on-set part
+simplifDcZeroBdd (3) - simplifies a BDD with don't cares on its off-set part
+simplifNotExpr (3)   - makes simplifications on an expression including inverters
+sortExpr (3)         - sorts an expression
+sortautarray (3)     - heap sort.
+sortlocon (3)        - sort the logical connectors of a figure by name
+sortlosig (3)        - sort the logical signals of a figure by name
+substExpr (3)        - copies an expression by substituting a given atom by an expression
+substPhyExpr (3)     - substitutes an atomic expression by an expression within an operator expression
+substablexpr (3)     - substitutes a given atom by an expression.
+substbddnodeassoc (3) - substitutes a set of variables with a set of bdd node.
+substdupablexpr (3)  - substitutes a given atom by an expression.
+sum_dp
+sum_y
+supportChain_listBdd (3) - returns a chained list of nodes that are used in a given BDD.
+supportChain_listExpr (3) - returns the support of an expression in a chain_list.
+supportPtype_listExpr (3) - returns the support of an expression in a ptype_list.
+swapbddvar (3)       - swaps two contiguous variables.
+tas (1)              - A switch level static timing analyzer for CMOS circuits
+testbddcircuit (3)   - debugs a bdd circuit.
+tie_y
+tpl (5)              - LV500 Template description format.
+ts_dp
+ts_y
+tsn_dp
+tsn_y
+tsp_y
+ttv (5)              - The timing analyzer tas report : 'general perfmodule' format.
+unflatablexpr (3)    - unflats the operators of an expression
+unflattenlofig (3)   - creates a hierarchy level from instances of a figure
+unmarkbddnode (3)    - unmarks bdd node with a specified mask.
+unsetbddrefext (3)   - increments the internal reference, and decrements the external reference of a bdd node.
+upVarBdd (3)         - brings up an index in a BDD
+upVarCct (3)         - brings up the index of a primary input within a circuit
+upstr (3)            - convert a string to upper case
+vbe VHDL behavioural subset.
+vhdlablname (3)      - returns a compatible VHDL name.
+vhdlablvector (3)    - gives the index and the name of a vectorized name.
+viambkrds (2)        - adds to RDS figure a contact from a MBK figure
+viambkrds (3)        - adds to RDS figure a contact from a MBK figure
+viewablexpr (3)      - displays an expression.
+viewablexprfile (3)  - displays an expression in a file.
+viewablexprstr (3)   - displays an expression in a str.
+viewbddcircuit (3)   - displays a bdd circuit.
+viewbddnode (3)      - displays a bdd node.
+viewbddsystem (3)    - displays a bdd system.
+viewbddsysteminfo (3) - displays statistical informations.
+viewht (3)           - displays a hash table contents
+viewlo (3)           - scan all lofig_lists and display their elements
+viewlofig (3)        - display elements of a lofig_list
+viewlofigcon (3)     - display elements of a locon_list attached to a figure
+viewloins (3)        - display elements of a loins_list
+viewloinscon (3)     - display elements of a locon_list attached to an instance
+viewlosig (3)        - display elements of a losig_list
+viewlotrs (3)        - display elements of a lotrs_list
+viewph (3)           - display all the phfig_lists and their elements
+viewphcon (3)        - display elements of a phcon_list
+viewphfig (3)        - display elements of a phfig_list
+viewphins (3)        - display elements of a phins_list
+viewphref (3)        - display elements of a phref_list
+viewphseg (3)        - display elements of a phseg_list
+viewphvia (3)        - display elements of a phvia_list
+viewrdsfig (2)       - view caracteristics of a figure
+viewrdsfig (3)       - view caracteristics of a figure
+viewrdsins (2)       - Displays caracteristics of an instance
+viewrdsins (3)       - Displays caracteristics of an instance
+viewrdsparam (2)     - displays tables in memory filled by loadrdsparam function.
+viewrdsparam (3)     - displays tables in memory filled by loadrdsparam function.
+viewrdsrec (2)       - Displays caracteristics of a rectangle
+viewrdsrec (3)       - Displays caracteristics of a rectangle
+viewrdswindow (2)    - displays caracteristics of the windowing.
+viewrdswindow (3)    - displays caracteristics of the windowing.
+viewrfmcon (2)       - displays connector caracteristics in MBK and RDS format.
+viewrfmcon (3)       - displays connector caracteristics in MBK and RDS format.
+viewrfmfig (2)       - displays figure caracteristics in MBK and RDS format.
+viewrfmfig (3)       - displays figure caracteristics in MBK and RDS format.
+viewrfmins (2)       - displays instance caracteristics in MBK and RDS format.
+viewrfmins (3)       - displays instance caracteristics in MBK and RDS format.
+viewrfmrec (2)       - displays rectangle caracteristics in RDS format.
+viewrfmrec (3)       - displays rectangle caracteristics in RDS format.
+viewrfmref (2)       - displays reference caracteristics in MBK and RDS format.
+viewrfmref (3)       - displays reference caracteristics in MBK and RDS format.
+viewrfmseg (2)       - displays segment caracteristics in MBK and RDS format.
+viewrfmseg (3)       - displays segment caracteristics in MBK and RDS format.
+viewrfmvia (2)       - displays contact caracteristics in MBK and RDS format.
+viewrfmvia (3)       - displays contact caracteristics in MBK and RDS format.
+vst VHDL structural subset.
+xmbk (1)             - A simple way to set alliance environnement variables
+xr2_dp
+xr2_y
+xyflat (3)           - compute hierarchical coordinates
+yagle (1)            - Disassembly and functional abstraction of CMOS circuits
+zbli_y
+zero_dp
+zero_y

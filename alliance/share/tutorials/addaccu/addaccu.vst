@@ -1,0 +1,301 @@
+-- VHDL structural description generated from `addaccu`
+--		date : Sun Sep 27 12:26:13 1998
+
+
+-- Entity Declaration
+
+ENTITY addaccu IS
+  PORT (
+  a : in BIT_VECTOR (0 TO 3);	-- a
+  b : in BIT_VECTOR (0 TO 3);	-- b
+  sel : in BIT;	-- sel
+  ck : in BIT;	-- ck
+  vdd : in BIT;	-- vdd
+  vss : in BIT;	-- vss
+  vdde : in BIT;	-- vdde
+  vsse : in BIT;	-- vsse
+  s : out BIT_VECTOR (0 TO 3)	-- s
+  );
+END addaccu;
+
+-- Architecture Declaration
+
+ARCHITECTURE VST OF addaccu IS
+  COMPONENT pvsse_sp
+    port (
+    ck : in BIT;	-- ck
+    vdde : in BIT;	-- vdde
+    vddi : in BIT;	-- vddi
+    vsse : in BIT;	-- vsse
+    vssi : in BIT	-- vssi
+    );
+  END COMPONENT;
+
+  COMPONENT pvddeck_sp
+    port (
+    cko : linkage BIT;	-- cko
+    ck : in BIT;	-- ck
+    vdde : in BIT;	-- vdde
+    vddi : in BIT;	-- vddi
+    vsse : in BIT;	-- vsse
+    vssi : in BIT	-- vssi
+    );
+  END COMPONENT;
+
+  COMPONENT pvssi_sp
+    port (
+    ck : in BIT;	-- ck
+    vdde : in BIT;	-- vdde
+    vddi : in BIT;	-- vddi
+    vsse : in BIT;	-- vsse
+    vssi : in BIT	-- vssi
+    );
+  END COMPONENT;
+
+  COMPONENT pvddi_sp
+    port (
+    ck : in BIT;	-- ck
+    vdde : in BIT;	-- vdde
+    vddi : in BIT;	-- vddi
+    vsse : in BIT;	-- vsse
+    vssi : in BIT	-- vssi
+    );
+  END COMPONENT;
+
+  COMPONENT po_sp
+    port (
+    i : in BIT;	-- i
+    pad : out BIT;	-- pad
+    ck : in BIT;	-- ck
+    vdde : in BIT;	-- vdde
+    vddi : in BIT;	-- vddi
+    vsse : in BIT;	-- vsse
+    vssi : in BIT	-- vssi
+    );
+  END COMPONENT;
+
+  COMPONENT pi_sp
+    port (
+    pad : in BIT;	-- pad
+    t : out BIT;	-- t
+    ck : in BIT;	-- ck
+    vdde : in BIT;	-- vdde
+    vddi : in BIT;	-- vddi
+    vsse : in BIT;	-- vsse
+    vssi : in BIT	-- vssi
+    );
+  END COMPONENT;
+
+  COMPONENT pck_sp
+    port (
+    pad : in BIT;	-- pad
+    ck : out BIT;	-- ck
+    vdde : in BIT;	-- vdde
+    vddi : in BIT;	-- vddi
+    vsse : in BIT;	-- vsse
+    vssi : in BIT	-- vssi
+    );
+  END COMPONENT;
+
+  COMPONENT core
+    port (
+    a : in BIT_VECTOR(0 TO 3);	-- a
+    b : in BIT_VECTOR(0 TO 3);	-- b
+    sel : in BIT;	-- sel
+    ck : in BIT;	-- ck
+    s : inout BIT_VECTOR(0 TO 3);	-- s
+    vdd : in BIT;	-- vdd
+    vss : in BIT	-- vss
+    );
+  END COMPONENT;
+
+  SIGNAL aa_0 : BIT;	-- aa 0
+  SIGNAL aa_1 : BIT;	-- aa 1
+  SIGNAL aa_2 : BIT;	-- aa 2
+  SIGNAL aa_3 : BIT;	-- aa 3
+  SIGNAL bb_0 : BIT;	-- bb 0
+  SIGNAL bb_1 : BIT;	-- bb 1
+  SIGNAL bb_2 : BIT;	-- bb 2
+  SIGNAL bb_3 : BIT;	-- bb 3
+  SIGNAL cki : BIT;	-- cki
+  SIGNAL clock : BIT;	-- clock
+  SIGNAL selsel : BIT;	-- selsel
+  SIGNAL ss_0 : BIT;	-- ss 0
+  SIGNAL ss_1 : BIT;	-- ss 1
+  SIGNAL ss_2 : BIT;	-- ss 2
+  SIGNAL ss_3 : BIT;	-- ss 3
+
+BEGIN
+
+  p15 : pvsse_sp
+    PORT MAP (
+    vssi => vss,
+    vsse => vsse,
+    vddi => vdd,
+    vdde => vdde,
+    ck => cki);
+  p16 : pvsse_sp
+    PORT MAP (
+    vssi => vss,
+    vsse => vsse,
+    vddi => vdd,
+    vdde => vdde,
+    ck => cki);
+  p17 : pvddeck_sp
+    PORT MAP (
+    vssi => vss,
+    vsse => vsse,
+    vddi => vdd,
+    vdde => vdde,
+    ck => cki,
+    cko => clock);
+  p18 : pvssi_sp
+    PORT MAP (
+    vssi => vss,
+    vsse => vsse,
+    vddi => vdd,
+    vdde => vdde,
+    ck => cki);
+  p19 : pvddi_sp
+    PORT MAP (
+    vssi => vss,
+    vsse => vsse,
+    vddi => vdd,
+    vdde => vdde,
+    ck => cki);
+  p0 : pi_sp
+    PORT MAP (
+    vssi => vss,
+    vsse => vsse,
+    vddi => vdd,
+    vdde => vdde,
+    ck => cki,
+    t => aa_0,
+    pad => a(0));
+  p1 : pi_sp
+    PORT MAP (
+    vssi => vss,
+    vsse => vsse,
+    vddi => vdd,
+    vdde => vdde,
+    ck => cki,
+    t => aa_1,
+    pad => a(1));
+  p2 : pi_sp
+    PORT MAP (
+    vssi => vss,
+    vsse => vsse,
+    vddi => vdd,
+    vdde => vdde,
+    ck => cki,
+    t => aa_2,
+    pad => a(2));
+  p3 : pi_sp
+    PORT MAP (
+    vssi => vss,
+    vsse => vsse,
+    vddi => vdd,
+    vdde => vdde,
+    ck => cki,
+    t => aa_3,
+    pad => a(3));
+  p4 : pi_sp
+    PORT MAP (
+    vssi => vss,
+    vsse => vsse,
+    vddi => vdd,
+    vdde => vdde,
+    ck => cki,
+    t => bb_0,
+    pad => b(0));
+  p5 : pi_sp
+    PORT MAP (
+    vssi => vss,
+    vsse => vsse,
+    vddi => vdd,
+    vdde => vdde,
+    ck => cki,
+    t => bb_1,
+    pad => b(1));
+  p6 : pi_sp
+    PORT MAP (
+    vssi => vss,
+    vsse => vsse,
+    vddi => vdd,
+    vdde => vdde,
+    ck => cki,
+    t => bb_2,
+    pad => b(2));
+  p7 : pi_sp
+    PORT MAP (
+    vssi => vss,
+    vsse => vsse,
+    vddi => vdd,
+    vdde => vdde,
+    ck => cki,
+    t => bb_3,
+    pad => b(3));
+  p8 : po_sp
+    PORT MAP (
+    vssi => vss,
+    vsse => vsse,
+    vddi => vdd,
+    vdde => vdde,
+    ck => cki,
+    pad => s(0),
+    i => ss_0);
+  p9 : po_sp
+    PORT MAP (
+    vssi => vss,
+    vsse => vsse,
+    vddi => vdd,
+    vdde => vdde,
+    ck => cki,
+    pad => s(1),
+    i => ss_1);
+  p10 : po_sp
+    PORT MAP (
+    vssi => vss,
+    vsse => vsse,
+    vddi => vdd,
+    vdde => vdde,
+    ck => cki,
+    pad => s(2),
+    i => ss_2);
+  p11 : po_sp
+    PORT MAP (
+    vssi => vss,
+    vsse => vsse,
+    vddi => vdd,
+    vdde => vdde,
+    ck => cki,
+    pad => s(3),
+    i => ss_3);
+  p12 : pi_sp
+    PORT MAP (
+    vssi => vss,
+    vsse => vsse,
+    vddi => vdd,
+    vdde => vdde,
+    ck => cki,
+    t => selsel,
+    pad => sel);
+  p13 : pck_sp
+    PORT MAP (
+    vssi => vss,
+    vsse => vsse,
+    vddi => vdd,
+    vdde => vdde,
+    ck => cki,
+    pad => ck);
+  core : core
+    PORT MAP (
+    vss => vss,
+    vdd => vdd,
+    s => ss_0& ss_1& ss_2& ss_3,
+    ck => clock,
+    sel => selsel,
+    b => bb_0& bb_1& bb_2& bb_3,
+    a => aa_0& aa_1& aa_2& aa_3);
+
+end VST;

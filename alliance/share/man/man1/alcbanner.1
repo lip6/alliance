@@ -1,0 +1,78 @@
+
+.TH ALCBANNER 1 "October 1, 1997" "ASIM/LIP6" "ALLIANCE USER COMMANDS"
+
+.SH NAME
+\fBalcbanner\fP \- Display a standardized banner for Alliance tools
+
+.so man1/alc_origin.1
+
+
+.SH SYNOPSIS
+.TP
+\f4alcbanner\fR \fItool toolversion purpose copyrightdates\fR
+
+.SH DESCRIPTION
+\f4alcbanner\fR display on \f4stdout\fP a standardized banner for the Alliance
+tools.
+This is a compiled version of the \f4alliancebanner\fR(2) function.
+
+
+.SH EXAMPLE
+.RS
+\f4alcbanner GenPat 3.1 "Procedural GENeration of test PATterns" 1991\fR
+
+.RE
+will display :
+.ft 4
+.nf
+
+
+             @@@@ @                        @@@@@@@                      
+           @@    @@                          @@   @@               @    
+          @@      @                          @@    @@             @@    
+         @@             @@@@@   @@@ @@@      @@    @@   @@@@      @@    
+         @@            @     @   @@@   @     @@   @@   @@   @   @@@@@@@@
+         @@     @@@@@ @@     @@  @@    @@    @@@@@     @@   @@    @@    
+         @@     @ @@  @@@@@@@@@  @@    @@    @@          @@@@@    @@    
+         @@    @  @@  @@         @@    @@    @@        @@   @@    @@    
+          @@      @@  @@      @  @@    @@    @@       @@    @@    @@    
+           @@    @@    @@    @@  @@    @@    @@       @@   @@@    @@   @
+             @@@@        @@@@   @@@@  @@@@ @@@@@@      @@@@  @@    @@@@ 
+
+                     Procedural GENeration of test PATterns
+
+                  Alliance CAD System 3.2b,          genpat 3.1
+                  Copyright (c) 1991-1997,       ASIM/LIP6/UPMC
+                  E-mail support: alliance-support@asim.lip6.fr
+
+
+.fi
+.ft R
+
+.SH SEE ALSO
+.PP
+.BR mbk(1)
+.BR alliancebanner (3).
+
+
+.SH DIAGNOSTICS
+
+The output is centered for a 80 columns screen, so it can be used on most
+display easilly, and not found at execution time.
+
+\f4alliancebanner: Error: Resulting size bigger than 80 columns not allowed\fR
+.RS
+The \fItool\fR argument must be such that its resulting size isn't wider that
+80 culumns.
+This means, since the character set is proportional, that the longest name
+to be output is about 8 characters long.
+.RE
+\f4alliancebanner: Error: Character out of [0-9A-Za-z] range\fR
+.RS
+The \fItool\fR parameter has a non allowed character in it.
+For simplicity purposes, only numbers and letters are accepted.
+.RE
+
+
+.so man1/alc_bug_report.1
+

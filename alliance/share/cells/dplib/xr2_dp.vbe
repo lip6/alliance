@@ -1,0 +1,48 @@
+-- VHDL data flow description generated from `xr2_dp`
+--		date : Tue Nov  4 18:23:28 1997
+
+
+-- Entity Declaration
+
+ENTITY xr2_dp IS
+  GENERIC (
+    CONSTANT area : NATURAL := 2880;	-- area
+    CONSTANT transistors : NATURAL := 10;	-- transistors
+    CONSTANT cin_i0 : NATURAL := 135;	-- cin_i0
+    CONSTANT cin_i1 : NATURAL := 135;	-- cin_i1
+    CONSTANT tplh_i1_o : NATURAL := 690;	-- tplh_i1_o
+    CONSTANT rup_i1_o : NATURAL := 2230;	-- rup_i1_o
+    CONSTANT tphh_i1_o : NATURAL := 1551;	-- tphh_i1_o
+    CONSTANT rup_i1_o : NATURAL := 2230;	-- rup_i1_o
+    CONSTANT tphl_i1_o : NATURAL := 915;	-- tphl_i1_o
+    CONSTANT rdown_i1_o : NATURAL := 1760;	-- rdown_i1_o
+    CONSTANT tpll_i1_o : NATURAL := 1199;	-- tpll_i1_o
+    CONSTANT rdown_i1_o : NATURAL := 2050;	-- rdown_i1_o
+    CONSTANT tplh_i0_o : NATURAL := 819;	-- tplh_i0_o
+    CONSTANT rup_i0_o : NATURAL := 2230;	-- rup_i0_o
+    CONSTANT tphh_i0_o : NATURAL := 1215;	-- tphh_i0_o
+    CONSTANT rup_i0_o : NATURAL := 2230;	-- rup_i0_o
+    CONSTANT tphl_i0_o : NATURAL := 794;	-- tphl_i0_o
+    CONSTANT rdown_i0_o : NATURAL := 1760;	-- rdown_i0_o
+    CONSTANT tpll_i0_o : NATURAL := 1312;	-- tpll_i0_o
+    CONSTANT rdown_i0_o : NATURAL := 2050	-- rdown_i0_o
+  );
+  PORT (
+  i0 : in BIT;	-- i0
+  i1 : in BIT;	-- i1
+  o : out BIT;	-- o
+  vdd : in BIT;	-- vdd
+  vss : in BIT	-- vss
+  );
+END xr2_dp;
+
+
+-- Architecture Declaration
+
+ARCHITECTURE behaviour_data_flow OF xr2_dp IS
+
+BEGIN
+
+o <= not ((((not (i1) and not (i0)) or (not (i0) and not (i1))) or
+(i1 and i0)));
+END;

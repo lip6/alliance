@@ -1,0 +1,56 @@
+-- This cell caracterized by prol05.elp technologie file
+-- VHDL data flow description generated from `sum_y`
+--		date : Wed Oct  7 12:30:30 1998
+
+
+-- Entity Declaration
+
+ENTITY sum_y IS
+  GENERIC (
+    CONSTANT area : NATURAL := 201600;	-- area
+    CONSTANT transistors : NATURAL := 14;	-- transistors
+    CONSTANT cin_c0b : NATURAL := 32;	-- cin_c0b
+    CONSTANT cin_si : NATURAL := 58;	-- cin_si
+    CONSTANT cin_ci : NATURAL := 60;	-- cin_ci
+    CONSTANT cin_pi : NATURAL := 63;	-- cin_pi
+    CONSTANT tplh_c0b_f : NATURAL := 693;	-- tplh_c0b_f
+    CONSTANT rup_c0b_f : NATURAL := 4710;	-- rup_c0b_f
+    CONSTANT tphl_c0b_f : NATURAL := 464;	-- tphl_c0b_f
+    CONSTANT rdown_c0b_f : NATURAL := 3480;	-- rdown_c0b_f
+    CONSTANT tplh_si_f : NATURAL := 1241;	-- tplh_si_f
+    CONSTANT rup_si_f : NATURAL := 7270;	-- rup_si_f
+    CONSTANT tphl_si_f : NATURAL := 1010;	-- tphl_si_f
+    CONSTANT rdown_si_f : NATURAL := 5100;	-- rdown_si_f
+    CONSTANT tplh_ci_f : NATURAL := 1298;	-- tplh_ci_f
+    CONSTANT rup_ci_f : NATURAL := 7270;	-- rup_ci_f
+    CONSTANT tphl_ci_f : NATURAL := 1020;	-- tphl_ci_f
+    CONSTANT rdown_ci_f : NATURAL := 5100;	-- rdown_ci_f
+    CONSTANT tplh_pi_f : NATURAL := 1264;	-- tplh_pi_f
+    CONSTANT rup_pi_f : NATURAL := 7270;	-- rup_pi_f
+    CONSTANT tphl_pi_f : NATURAL := 984;	-- tphl_pi_f
+    CONSTANT rdown_pi_f : NATURAL := 5100	-- rdown_pi_f
+  );
+  PORT (
+  pi : in BIT;	-- pi
+  ci : in BIT;	-- ci
+  si : in BIT;	-- si
+  c0b : in BIT;	-- c0b
+  f : out BIT;	-- f
+  vdd : in BIT;	-- vdd
+  vss : in BIT	-- vss
+  );
+END sum_y;
+
+
+-- Architecture Declaration
+
+ARCHITECTURE VBE OF sum_y IS
+
+BEGIN
+  ASSERT ((vdd and not (vss)) = '1')
+    REPORT "power supply is missing on sum_y"
+    SEVERITY WARNING;
+
+
+f <= not ((((si and pi) and ci) or (c0b and ((si or pi) or ci))));
+END;

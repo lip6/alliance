@@ -1,0 +1,49 @@
+-- This cell caracterized by prol05.elp technologie file
+-- VHDL data flow description generated from `msdp2_y`
+--		date : Wed Oct  7 15:45:39 1998
+
+
+-- Entity Declaration
+
+ENTITY msdp2_y IS
+  GENERIC (
+    CONSTANT area : NATURAL := 4788;	-- area
+    CONSTANT transistors : NATURAL := 34;	-- transistors
+    CONSTANT cin_ck : NATURAL := 26;	-- cin_ck
+    CONSTANT cin_di : NATURAL := 41;	-- cin_di
+    CONSTANT thr_di_ck : NATURAL := 0;	-- thr_di_ck
+    CONSTANT thf_di_ck : NATURAL := 0;	-- thf_di_ck
+    CONSTANT tsr_di_ck : NATURAL := 966;	-- tsr_di_ck
+    CONSTANT tsf_di_ck : NATURAL := 858;	-- tsf_di_ck
+    CONSTANT tar_ck_t : NATURAL := 191;	-- tar_ck_t
+    CONSTANT taf_ck_t : NATURAL := 156;	-- taf_ck_t
+    CONSTANT rup_ck_t : NATURAL := 1300;	-- rup_ck_t
+    CONSTANT rdown_ck_t : NATURAL := 1270	-- rdown_ck_t
+  );
+  PORT (
+  di : in BIT;	-- di
+  ck : in BIT;	-- ck
+  t : out BIT;	-- t
+  vdd : in BIT;	-- vdd
+  vss : in BIT	-- vss
+  );
+END msdp2_y;
+
+
+-- Architecture Declaration
+
+ARCHITECTURE VBE OF msdp2_y IS
+  SIGNAL dff_s : REG_BIT REGISTER;	-- dff_s
+
+BEGIN
+  ASSERT ((vdd and not (vss)) = '1')
+    REPORT "power supply is missing on msdp2_y"
+    SEVERITY WARNING;
+
+  label0 : BLOCK ((not (ck) and not (ck'STABLE)) = '1')
+  BEGIN
+    dff_s <= GUARDED not (di);
+  END BLOCK label0;
+
+t <= not (dff_s);
+END;

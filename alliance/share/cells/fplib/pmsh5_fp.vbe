@@ -1,0 +1,103 @@
+
+-- %| /--------------------------------------------------------------------\ |%
+-- %| |                                                                    | |%
+-- %| |            Alliance CAD System V.R                                 | |%
+-- %| |       F p G e n   P a c k a g e   V.RR                             | |%
+-- %| |                                                                    | |%
+-- %| |    Copyright(c) 95-AA, MASI, CAO-VLSI Team                         | |%
+-- %| |                                                                    | |%
+-- %| |  Author    :               Jean-Paul CHAPUT                        | |%
+-- %| |  E-mail    :  alliance-support@asim.lip6.fr                        | |%
+-- %| | ================================================================== | |%
+-- %| |  Cell      :  "pmsh5_fp"                                           | |%
+-- %| | ****************************************************************** | |%
+-- %| |  Theoretical VHDL data flow description of cell "pdffb6_fp".       | |%
+-- %| |                                                                    | |%
+-- %| |  Cell family :  "pdffb6_fp",                                       | |%
+-- %| |                  "pmsh5_fp", "pmsg5_fp"                            | |%
+-- %| |                  "pmsi5_fp", "pmsh5_fp",                           | |%
+-- %| |                  "pmsj5_fp", "pmsq5_fp",                           | |%
+-- %| |                                                                    | |%
+-- %| |  U p d a t e s                                                     | |%
+-- %| |                                                                    | |%
+-- %| |  12/12/94:0.00:Jean-Paul CHAPUT: --------------------------------- | |%
+-- %| |      Initial design.                                               | |%
+-- %| |  15/11/97:1.11:Jean-Paul CHAPUT: --------------------------------- | |%
+-- %| |      Now `test' and `wen' uses mux (late write enable), no more    | |%
+-- %| |    gates on the clock signal.                                      | |%
+-- %| |                                                                    | |%
+-- %| \--------------------------------------------------------------------/ |%
+
+
+ENTITY pmsh5_fp IS
+  PORT(
+    s3i0 : in    BIT;     
+    s2i0 : in    BIT;
+    s1i0 : in    BIT;
+    s0i0 : in    BIT;
+    wmd  : in    BIT;
+    ws   : in    BIT;
+    tio  : in    BIT;
+    tin  : in    BIT;
+    din  : in    BIT;
+    q    : inout BIT;
+    nq   :   out BIT;
+    vdd  : in    BIT;
+    vss  : in    BIT
+  );
+END pmsh5_fp;
+
+ARCHITECTURE  behavior_data_flow  OF  pmsh5_fp  IS
+  SIGNAL memm_s : REG_BIT REGISTER;
+  SIGNAL mems_s : REG_BIT REGISTER;
+  SIGNAL dtest  : MUX_BIT BUS;
+  SIGNAL dwen   : MUX_BIT BUS;
+BEGIN
+-- dwen mux (with s1i0 and s0i0).
+  mdwen0:BLOCK(((s0i0 and din) or (s1i0 and q)) = '1') BEGIN
+    dwen <= GUARDED '0';
+  END BLOCK mdwen0;
+  mdwen1:BLOCK((   ((not s0i0) and (not   q))
+                or ((not s1i0) and (not din))) = '1') BEGIN
+    dwen <= GUARDED '1';
+  END BLOCK mdwen1;
+
+-- dtest mux (with s2i0 and s3i0).
+  mdtest0:BLOCK((((s2i0 and dwen)) or (s3i0 and (not tin))) = '1') BEGIN
+    dtest <= GUARDED '0';
+  END BLOCK mdtest0;
+  mdtest1:BLOCK((   ((not s2i0) and       tin )
+                 or ((not s3i0) and (not dwen))) = '1') BEGIN
+    dtest <= GUARDED '1';
+  END BLOCK mdtest1;
+
+-- Master / Slave part.
+  wmd:BLOCK(wmd = '1') BEGIN memm_s <= GUARDED  dtest; END BLOCK wmd;
+-- We merge `dtest' and `memm_s' because yagle do it. I think it's an
+-- error, but in order to bypass ...
+--wmd:BLOCK(wmd = '1') BEGIN
+--  memm_s <= GUARDED (   ((not s2i0) and       tin )
+--                     or ((not s3i0) and (not dwen)));
+--END BLOCK wmd;
+  ws :BLOCK(ws  = '1') BEGIN mems_s <= GUARDED memm_s; END BLOCK ws;
+
+   q <=     mems_s;
+  nq <= not mems_s;
+
+-- Signal rightness checking.
+  ASSERT(s3i0 xor s2i0)
+    REPORT "s3i0 and not s2i0 must have complementary value in pmsh5_fp."
+    SEVERITY ERROR;
+
+  ASSERT(s1i0 xor s0i0)
+    REPORT "s1i0 and not s0i0 must have complementary value in pmsh5_fp."
+    SEVERITY ERROR;
+
+  ASSERT(wmd xor ws)
+    REPORT "wmd and ws must have complementary value in pmsh5_fp."
+    SEVERITY WARNING;
+
+  ASSERT((vdd = '1') and (vss = '0'))
+    REPORT "Power supply is missing on pmsh5_fp."
+    SEVERITY WARNING;
+END  behavior_data_flow;

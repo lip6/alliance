@@ -1,0 +1,24 @@
+-- VHDL data flow description generated from `buff_fp`
+--		date : Fri Sep 24 16:49:19 1993
+
+
+-- Entity Declaration
+
+ENTITY buff_fp IS
+  PORT (
+  i : in BIT;	-- i
+  o : out BIT;	-- o
+  vdd : in BIT;	-- vdd
+  vss : in BIT	-- vss
+  );
+END buff_fp;
+
+
+-- Architecture Declaration
+
+ARCHITECTURE behaviour_data_flow OF buff_fp IS
+
+BEGIN
+
+o <= i;
+END;

@@ -1,0 +1,538 @@
+.\"   $Id: dlx_asm.1,v 1.1 1999/05/31 17:30:13 alliance Exp $
+.\" @(#)dlx_asm.5 v0.4 Oct 20 1995 UPMC ; Pirouz BAZARGAN SABET
+.TH DLX_ASM 1 "October 1, 1997" "ASIM/LIP6" "cao\-vlsi reference manual"
+
+.so man1/alc_origin.1
+.SH NAME
+.PP
+\fBDLX_ASM\fP \- assembly language for DLX processor
+
+.SH SYNOPSIS
+.PP
+
+dlx_asm \fI[<options>] <assembly_file> <text_vhdl_file> <data_vhdl_file>\fP
+
+.SH DESCRIPTION
+.PP
+The DLX assembler, \fBdlx_asm\fP, takes assembly language programs, as
+specified bellow and produces a rom (read only memory) using a VHDL syntax.
+
+.PP
+The specified assembly language can be used undifferently for both micro-
+programmed and pipeline version of DLX.
+
+.PP
+For the pipeline version option \fI\-p\fP must be specified.
+
+.pp
+In the assembly language file, two segments can be specified: the text segment
+contains instructions, the data segment contains initialized data and arraies.
+The assembler generates two separate VHDL files corresponding to the text and
+the data segments.
+
+.PP
+The size of the result rom for the text segment can be specified using the
+\fI-textsize bt\fP option, where \fIbt\fP is the maximum number bytes in the
+text segment. By default, \fBdlx_asm\fP produces a rom of 64 instructions
+(256 bytes).
+
+.PP
+The size of the result rom for the data segment can be specified using the
+\fI-datasize bd\fP option, where \fIbd\fP is the maximum number bytes in the
+data segment. By default, \fBdlx_asm\fP produces a rom of 64 bytes.
+
+.PP
+Using the \fI-s\fP option makes the assembler produce a symbol table. Each
+label in the assembly file is associated with an address either in the text
+or the data segment. The label and its corresponding address is written into
+the file specified just after the \fI-s\fP option.
+
+.SH THE FORMAT
+.PP
+An assembly program is a set of statements. Each statement must be followed
+by a \fInewline\fP. An statement is of the form:
+
+.RS
+.PP
+\fB<label> <opcode> <operands>\fP
+.RE
+
+.PP
+\fIlabel\fP is a string used to tag a specific statement or a portion of
+the program. For all opcods (except .equ) a \fIlabel\fP must be followed
+by a ':' (colon) character. The \fIlabel\fP and the \fIopcod\fP may be
+separated by one or several \fInewline(s)\fP. 
+
+.PP
+\fIopcode\fP is a string representing either an effective instruction or
+an assembly directive.
+
+.PP
+An effective instruction is either an instruction, from the DLX's instruction
+set, or a macro\-instruction. The assembler expands a macro\-instruction
+into a set of DLX instructions.
+
+.PP
+\fIoperands\fP is a list of arguments. Depending on the \fIopcode\fP, an
+assembly statement needs from 0 to 3 arguments. Arguments must be separated
+by , (comma).
+
+.PP
+A comment begins with a ';' (semicolon) character and extends until the end
+of the line.
+
+.SH EFFECTIVE INSTRUCTIONS
+.PP
+Here follows the instruction set of the DLX architecture and the syntax of
+each instruction in the assembly file.
+
+.TP 20
+\fBadd\fP Rd, Rs, Rt
+add register to register (signed arithmetic). An overflow exception may be
+generated:
+.br
+\fIRd <- Rs + Rt\fP
+.TP 20
+\fBaddu\fP Rd, Rs, Rt
+(pipeline architecture) add register to register (unsigned arithmetic). An
+overflow exception may be generated:
+.br
+\fIRd <- Rs + Rt\fP
+.TP 20
+\fBsub\fP Rd, Rs, Rt
+subtract register from register (signed arithmetic). An overflow exception
+may be generated:
+.br
+\fIRd <- Rs - Rt\fP
+.TP 20
+\fBsubu\fP Rd, Rs, Rt
+(pipeline architecture) subtract register from register (unsigned arithmetic).
+An overflow exception may be generated:
+.br
+\fIRd <- Rs - Rt\fP
+.TP 20
+\fBand\fP Rd, Rs, Rt
+perform logical bitwise and between two registers:
+.br
+\fIRd <- Rs and Rt\fP
+.TP 20
+\fBor\fP Rd, Rs, Rt
+perform logical bitwise or between two registers:
+.br
+\fIRd <- Rs or Rt\fP
+.TP 20
+\fBxor\fP Rd, Rs, Rt
+perform logical bitwise exclusive or between two registers:
+.br
+\fIRd <- Rs xor Rt\fP
+.TP 20
+\fBaddi\fP Rd, Rs, I
+add immediate to register (signed arithmetic - 16 bits signed immediate
+extended to 32 bits). An overflow exception may be generated:
+.br
+\fIRd <- Rs + I\fP
+.TP 20
+\fBaddui\fP Rd, Rs, I
+(pipeline architecture) add immediate to register (unsigned arithmetic - 16
+bits unsigned immediate extended to 32 bits). An overflow exception may be
+generated:
+.br
+\fIRd <- Rs + I\fP
+.TP 20
+\fBsubi\fP Rd, Rs, I
+subtract immediate from register (signed arithmetic - 16 bits signed immediate
+extended to 32 bits). An overflow exception may be generated:
+.br
+\fIRd <- Rs - I\fP
+.TP 20
+\fBsubui\fP Rd, Rs, I
+(pipeline architecture) subtract immediate from register (unsigned arithmetic
+- 16 bits unsigned immediate extended to 32 bits). An overflow exception may
+be generated:
+.br
+\fIRd <- Rs - I\fP
+.TP 20
+\fBandi\fP Rd, Rs, I
+perform logical bitwise and between immediate and register (16 bits unsigned
+immediate extended to 32 bits):
+.br
+\fIRd <- Rs and I\fP
+.TP 20
+\fBori\fP Rd, Rs, I
+perform logical bitwise or between immediate and register (16 bits unsigned
+immediate extended to 32 bits):
+.br
+\fIRd <- Rs or I\fP
+.TP 20
+\fBxori\fP Rd, Rs, I
+perform logical bitwise exclusive or between immediate and register (16 bits
+unsigned immediate extended to 32 bits):
+.br
+\fIRd <- Rs xor \fP
+.TP 20
+\fBsll\fP Rd, Rs, Rt
+shift left register (only the 5 lsb of Rt are significant):
+.br
+\fIRd <- Rs << Rt\fP
+.TP 20
+\fBsrl\fP Rd, Rs, Rt
+shift right register (logic - only the 5 lsb of Rt are significant):
+.br
+\fIRd <- Rs << Rt\fP
+.TP 20
+\fBsra\fP Rd, Rs, Rt
+shift right register (arithmetic - only the 5 lsb of Rt are significant):
+.br
+\fIRd <- Rs << Rt\fP
+.TP 20
+\fBslli\fP Rd, Rs, I
+shift left register (5 bits unsigned immediate):
+.br
+\fIRd <- Rs << I\fP
+.TP 20
+\fBsrli\fP Rd, Rs, I
+shift right register (logic - 5 bits unsigned immediate):
+.br
+\fIRd <- Rs << I\fP
+.TP 20
+\fBsrai\fP Rd, Rs, I
+shift right register (arithmetic - 5 bits unsigned immediate):
+.br
+\fIRd <- Rs << I\fP
+.TP 20
+\fBlhi\fP Rd, I
+load high order bits of register (16 bits immediate completed with 16 zeros at
+last significant bits):
+.br
+\fIRd <- I\fP
+.TP 20
+\fBseq\fP Rd, Rs, Rt
+set register if equal zero:
+.br
+\fIRd <- 1 if (Rs = Rt) else 0\fP
+.TP 20
+\fBsne\fP Rd, Rs, Rt
+set register if non equal zero:
+.br
+\fIRd <- 1 if (Rs != Rt) else 0\fP
+.TP 20
+\fBsge\fP Rd, Rs, Rt
+set register if greater than or equal zero:
+.br
+\fIRd <- 1 if (Rs >= Rt) else 0\fP
+.TP 20
+\fBsgeu\fP Rd, Rs, Rt
+(pipeline architecture) set register if greater than or equal zero (unsigned):
+.br
+\fIRd <- 1 if (Rs >= Rt) else 0\fP
+.TP 20
+\fBsle\fP Rd, Rs, Rt
+set register if less than or equal zero:
+.br
+\fIRd <- 1 if (Rs <= Rt) else 0\fP
+.TP 20
+\fBsleu\fP Rd, Rs, Rt
+(pipeline architecture) set register if less than or equal zero (unsigned):
+.br
+\fIRd <- 1 if (Rs <= Rt) else 0\fP
+.TP 20
+\fBsgt\fP Rd, Rs, Rt
+set register if greater than:
+.br
+\fIRd <- 1 if (Rs > Rt) else 0\fP
+.TP 20
+\fBsgtu\fP Rd, Rs, Rt
+(pipeline architecture) set register if greater than (unsigned):
+.br
+\fIRd <- 1 if (Rs > Rt) else 0\fP
+.TP 20
+\fBslt\fP Rd, Rs, Rt
+set register if less than:
+.br
+\fIRd <- 1 if (Rs < Rt) else 0\fP
+.TP 20
+\fBsltu\fP Rd, Rs, Rt
+(pipeline architecture) set register if less than (unsigned):
+.br
+\fIRd <- 1 if (Rs < Rt) else 0\fP
+.TP 20
+\fBseqi\fP Rd, Rs, I
+set register if equal zero (16 bits signed immediate extended to 32 bits):
+.br
+\fIRd <- 1 if (Rs = I) else 0\fP
+.TP 20
+\fBsnei\fP Rd, Rs, I
+set register if not equal zero (16 bits signed immediate extended to 32 bits):
+.br
+\fIRd <- 1 if (Rs != I) else 0\fP
+.TP 20
+\fBsgei\fP Rd, Rs, I
+set register if greater than or equal zero (16 bits signed immediate extended
+to 32 bits):
+.br
+\fIRd <- 1 if (Rs >= I) else 0\fP
+.TP 20
+\fBsgeui\fP Rd, Rs, I
+(pipeline architecture) set register if greater than or equal zero (unsigned
+- 16 bits unsigned immediate extended to 32 bits):
+.br
+\fIRd <- 1 if (Rs >= I) else 0\fP
+.TP 20
+\fBslei\fP Rd, Rs, I
+set register if less than or equal zero (16 bits signed immediate extended to
+32 bits):
+.br
+\fIRd <- 1 if (Rs <= I) else 0\fP
+.TP 20
+\fBsleui\fP Rd, Rs, I
+(pipeline architecture) set register if less than or equal zero (unsigned -
+16 bits unsigned immediate extended to 32 bits):
+.br
+\fIRd <- 1 if (Rs <= I) else 0\fP
+.TP 20
+\fBsgti\fP Rd, Rs, I
+set register if greater than (16 bits signed immediate extended to 32 bits):
+.br
+\fIRd <- 1 if (Rs > I) else 0\fP
+.TP 20
+\fBsgtui\fP Rd, Rs, I
+(pipeline architecture) set register if greater than (unsigned - 16 bits
+unsigned immediate extended to 32 bits):
+.br
+\fIRd <- 1 if (Rs > I) else 0\fP
+.TP 20
+\fBslti\fP Rd, Rs, I
+set register if less than (16 bits signed immediate extended to 32 bits):
+.br
+\fIRd <- 1 if (Rs < I) else 0\fP
+.TP 20
+\fBsltui\fP Rd, Rs, I
+(pipeline architecture) set register if less than (unsigned - 16 bits
+unsigned immediate extended to 32 bits):
+.br
+\fIRd <- 1 if (Rs < I) else 0\fP
+.TP 20
+\fBsw\fP I(Rs), Rt
+store register (word) into external storage (16 bits signed immediate extended
+to 32 bits). The memory address must be aligned:
+.br
+\fIStorage (Rs + I) <- Rt\fP
+.TP 20
+\fBsh\fP I(Rs), Rt
+(pipeline architecture) store half-word (2 last significant bytes) of register
+into external storage (16 bits signed immediate extended to 32 bits). The
+memory address must be aligned:
+.br
+\fIStorage (Rs + I) <- Rt\fP
+.TP 20
+\fBsb\fP I(Rs), Rt
+store the last significant byte of register into external storage (16 bits
+signed immediate extended to 32 bits):
+.br
+\fIStorage (Rs + I) <- Rt\fP
+.TP 20
+\fBlw\fP Rd, I(Rs)
+load a word from external storage into register (16 bits signed immediate
+extended to 32 bits). The memory address must be aligned:
+.br
+\fIRd <- Storage (Rs + I)\fP
+.TP 20
+\fBlh\fP Rd, I(Rs)
+(pipeline architecture) load a signed half-word (2 bytes) from external
+storage into register (16 bits signed immediate extended to 32 bits - the
+signed half-word read from external storage is extended to 32 bits). The
+memory address must be aligned:
+.br
+\fIRd <- Storage (Rs + I)\fP
+.TP 20
+\fBlhu\fP Rd, I(Rs)
+(pipeline architecture) load an unsigned half-word (2 bytes) from external
+storage into register (16 bits signed immediate extended to 32 bits
+- the unsigned half-word read from external storage is extended to 32 bits).
+The memory address must be aligned:
+.br
+\fIRd <- Storage (Rs + I)\fP
+.TP 20
+\fBlb\fP Rd, I(Rs)
+(pipeline architecture) load a signed single byte from external storage into
+register (16 bits signed immediate extended to 32 bits - the signed byte
+read from external storage is extended to 32 bits):
+.br
+\fIRd <- Storage (Rs + I)\fP
+.TP 20
+\fBlbu\fP Rd, I(Rs)
+load an unsigned single byte from external storage into register (16 bits
+signed immediate extended to 32 bits - the unsigned byte read from external
+storage is extended to 32 bits):
+.br
+\fIRd <- Storage (Rs + I)\fP
+.TP 20
+\fBjr\fP Rs
+jump register:
+.br
+\fIPC <- Rs\fP
+.TP 20
+\fBjalr\fP Rs
+jump and link register:
+.br
+\fIPC <- Rs\fP
+.br
+\fIR31 <- PC + 4\fP
+.TP 20
+\fBmovs2i\fP Rd, S
+move special register (S may be IAR, SR or TVR) into integer register
+(privileged instruction):
+.br
+\fIRd <- S\fP
+.TP 20
+\fBmovi2s\fP S, Rs
+move integer register into special register (S may be IAR, SR or TVR)
+(privileged instruction):
+.br
+\fIS <- Rs\fP
+.TP 20
+\fBbeqz\fP Rs, label
+branch if equal zero
+.br
+\fIPC <- label if (Rs = 0)\fP
+.TP 20
+\fBbnez\fP Rs, label
+branch if not equal zero:
+.br
+\fIPC <- label if (Rs != 0)\fP
+.TP 20
+\fBj\fP label
+jump:
+.br
+\fIPC <- label\fP
+.TP 20
+\fBjal\fP label
+jump and link:
+.br
+\fIPC <- label\fP
+.br
+\fIR31 <- PC + 4\fP
+.TP 20
+\fBrfe\fP
+return from interrupt (privileged instruction)
+.TP 20
+\fBtrap\fP I
+software interrupt (the 16 bits unsigned immediate represents the trap
+number)
+
+.PP
+Macro\-instructions are the followings:
+
+.TP 20
+\fBnop\fP
+no operation
+.TP 20
+\fBloadi\fP Rd, I
+load immediate into register (32 bits immediate):
+.br
+\fIRd <- I\fP
+
+.SH ASSEMBLY DIRECTIVES
+.PP
+In addition to the instruction set several assembly directives can be used
+either to enhance the readability or specify memory allocation or segment
+partition.
+
+.TP 20
+\fB \.equ\fP I
+assign the value of an immediate to a \fIlabel\fP.
+.TP 20
+\fB \.org\fP address
+set the address (of the first statement) in the text or data segment to the
+location defined by the \fIaddress\fP (32 bits).
+.TP 20
+\fB \.start\fP label
+marks the first statement of the program to be executed.
+.TP 20
+\fB \.end\fP
+marks the end of the program.
+.TP 20
+\fB \.space\fP I
+make a reservation of \fII\fP bytes in the current segment.
+.TP 20
+\fB \.skip\fP I
+skip \fII\fP bytes in the current segment (the current address is incremented
+by \fII\fP).
+.TP 20
+\fB \.word\fP I
+make a reservation of one word (4 bytes) in the current segment and initialize
+the word to the value specified by \fII\fP.
+.TP 20
+\fB \.byte\fP I
+make a reservation of one byte in the current segment and initialize the
+byte to the value specified by \fII\fP.
+.TP 20
+\fB \.align\fP I
+align the address. Depending on \fII\fP (which values may be 2 or 4), the
+address is aligned on 2 or 4 bytes.
+.TP 20
+\fB \.data\fP address
+indicates that the following section of the assembly file must be placed
+in the data segment. If an \fIaddress\fP is specified, the generated code
+is placed at the location specified by \fIaddress\fP.
+.TP 20
+\fB \.text\fP address
+indicates that the following section of the assembly file must be placed
+in the text segment. If an \fIaddress\fP is specified, the generated code
+is placed at the location specified by \fIaddress\fP.
+
+.SH NOTES
+.PP
+Immediate values can be expressed using decimal, binary, octal or hexadecimal
+representations:
+.RS
+.TP 10
+-235
+decimal value
+.TP 10
+0b01011
+binary value
+.TP 10
+0o376
+octal value
+.TP 10
+0x0f72
+hexadecimal value
+.RE
+
+.PP
+A static expression can be used instead of an immediate. There is no
+priority between operators, and the parenthesis must be used to avoid
+confusion. The following operations are allowed inside expressions:
+
+.RS
+.TP 10
+\fB\+\fP
+arithmetic addition
+.TP 10
+\fB\-\fP
+arithmetic subtraction
+.TP 10
+\fB*\fP
+arithmetic multiplication
+.TP 10
+\fP\>\>\fP
+shift arithmetic right
+.TP 10
+\fP\<\<\fP
+shift logical left
+.RE
+
+.SH EXAMPLE
+.PP
+dlx_asm \-p -textsize 32000 prog text data
+.br
+dlx_asm \-p \-datasize 65000 \-s symb_file prog text data
+
+.SH SEE ALSO
+.PP
+vhdl(5), vbe(5), asimut(1)
+
+
+.so man1/alc_bug_report.1
+

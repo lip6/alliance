@@ -1,0 +1,13 @@
+V ALLIANCE : 3
+H rfspe_c,P,27/ 0/94
+A 0,0,40,60
+C 40,60,6,vdd,1,EAST,ALU2
+C 0,60,6,vdd,0,WEST,ALU2
+C 40,0,8,vss,1,EAST,ALU2
+C 0,0,8,vss,0,WEST,ALU2
+R 0,0,ref_ref,fc 0
+R 38,0,ref_ref,t1
+R 38,60,ref_ref,t0
+S 0,0,40,0,8,vss,RIGHT,ALU2
+S 0,60,40,60,6,vdd,RIGHT,ALU2
+EOF

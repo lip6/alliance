@@ -1,0 +1,70 @@
+.\"   $Id: funpaini.3,v 1.1 1999/05/31 17:30:21 alliance Exp $
+.\" @(#)funpaini.2 106 Sep 30 1996 UPMC ; VUONG Huu\-Nghia 
+.TH FUNPAINI 3 "October 1, 1997" "ASIM/LIP6" "PAT functions"
+
+.so man1/alc_origin.1
+.SH NAME
+.PP
+\fBpat_addpaini, pat_frepaini\fP
+
+.SH SYNOPSYS
+.PP
+.nf
+struct paini *pat_addpaini (lastpaini, name, value)
+struct paini *lastpaini;
+char         *name;
+char          value;
+
+void pat_frepaini (listpaini)
+struct paini *listpaini;
+.fi
+
+.SH PARAMETERS
+.PP
+.TP 10
+\fIlastpaini\fP
+pointer on the last paini structure
+.TP 10
+\fIname\fP
+register\'s name
+.TP 10
+\fIvalue\fP
+value to be forced into the register
+.TP 10
+\fIlistpaini\fP
+list of paini structures to be deleted
+
+.SH DESCRIPTION
+.PP
+A paini is a data structure representing the initialization of a one\-bit
+register.
+
+.PP
+\fBpat_addpaini()\fP adds a paini structure at the top of a list of paini
+structures. The name registered in the paini is produced by \fBnamealloc()\fP.
+The function returns the pointer of the new list. No check is made by this
+function.
+
+.PP
+\fBpat_frepaini()\fP deletes a list of paini structures. If the list to be
+deleted is an empty list (NULL pointer), no action is produced. No check is
+made by this function.
+
+.SH EXAMPLE
+.PP
+.nf
+#include <pat106.h>
+
+struct paini *list;
+
+list = pat_addpaini (list, "general_register", '1');
+pat_frepaini (list);
+.fi
+
+.SH SEE ALSO
+.PP
+libpat(3), paini(3), namealloc(3)
+
+
+.so man1/alc_bug_report.1
+

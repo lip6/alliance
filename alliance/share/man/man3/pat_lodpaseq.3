@@ -1,0 +1,90 @@
+.\"   $Id: pat_lodpaseq.3,v 1.1 1999/05/31 17:30:24 alliance Exp $
+.\" @(#)pat_lodpaseq.3 106 Sep 30 1996 UPMC ; Pirouz BAZARGAN SABET
+.TH PAT_LODPASEQ 3 "October 1, 1997" "ASIM/LIP6" "PPT functions"
+
+.so man1/alc_origin.1
+.SH NAME
+.PP
+\fBpat_lodpaseq\fP \- pattern file compiler
+
+.SH SYNOPSYS
+.PP
+.nf
+struct paseq *pat_lodpaseq (name, ptseq, maxpat)
+
+char         *name  ;
+struct paseq *ptseq ;
+unsigned int  maxpat;
+.fi
+
+.SH PARAMETERS
+.PP
+.TP 10
+\fIname\fP
+pattern file's name
+.TP 10
+\fIptseq\fP
+pointer on a list of patterns' sequence
+.TP 10
+\fImaxpat\fP
+number of patterns to be loaded from the file
+
+.SH DESCRIPTION
+.PP
+\fBpat_lodpaseq\fP reads a sequence of patterns from a file named \fIname\fP.
+(according to MBK_CATA_LIB and VH_PATSFX environment variables). It loads at
+most \fImaxpat\fP number of patterns from the file and fills the structures.
+
+.PP
+For the first call, \fBpat_lodpaseq\fP first creates a new sequence (paseq
+structure) and puts it at the head of the \fIptseq\fP list. Then, it reads the
+declaration part and \fImaxpat\fP pattern from the description part. It
+returns the pointer of the new sequence.
+
+.PP
+For subsequence calls, \fBpat_lodpaseq\fP first, removes the old patterns
+from the paseq, then read a new series of patterns.
+
+.PP
+The pattern file remains openned until the last subsequence is loaded.
+
+.PP
+Each call of \fBpat_lodpaseq\fP increments the \fBSUBSEQ\fP field of the
+paseq structure. When the end of file is reached, the \fBENDFLG\fP of the
+paseq is set to 'Y'. The pattern file is closed before the function returns.
+
+.PP
+Setting \fImaxpat\fP to zero makes the whole file be read at once.
+
+.SH RETURN VALUES
+.PP
+\fBpat_lodpaseq\fP returns a NULL pointer if an error occurs when openning
+the pattern file.
+
+.PP
+If an error occurs at compil time \fBpat_lodpaseq\fP returns a paseq structure
+with the \fBERRFLG\fP set to a non-zero value.
+
+.SH EXAMPLE
+.PP
+.nf
+#include <pat106.h>
+#include <ppt106.h>
+
+struct paseq *paseq_pnt = NULL;
+
+while ((paseq_pnt != NULL) && (paseq_pnt->ENDFLG != 'Y'))
+  {
+  paseq_pnt = pat_lodpaseq ("my_sequence", paseq_pnt, 1000);
+  ...
+  }
+
+.fi
+
+.SH SEE ALSO
+.PP
+libpat(3), paseq(3), pat_addpaseq(3), pat_savpaseq(3), mbkfopen(3), mbkenv(3)
+
+
+.so man1/alc_bug_report.1
+

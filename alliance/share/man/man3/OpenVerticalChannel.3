@@ -1,0 +1,80 @@
+.\"   $Id: OpenVerticalChannel.3,v 1.1 1999/05/31 17:30:16 alliance Exp $
+.\" @(#)OpenVerticalChannel.2 1.0 93/10/07 ; Labo masi cao-vlsi; Author : Xavier Picat
+.TH OPENVERTICALCHANNEL 3 "October 1, 1997" "ASIM/LIP6" "APR FUNCTIONS"
+
+.SH NAME
+OpenVerticalChannel  -open a vertical channel inside a phfig
+.so man1/alc_origin.1
+.SH SYNOPSYS
+.nf
+.if n \{\
+.ft B \}
+.if t \{\
+.ft CR \}
+#include "aprnnn.h"
+phfig_list \fB*OpenVerticalChannel\fP(ptfig,x,epsilon,width)
+phfig_list    \(**ptfig;
+unsigned long  x;
+unsigned long  epsilon;
+unsigned long  width;
+.ft R
+.fi
+.SH PARAMETER
+.TP 20
+\fIptfig\fP
+Name of the figure to be created
+.TP 20
+\fIx\fP
+Where the channel must be opened
+.TP 20
+\fIepsilon\fP
+How much x can be changed
+.TP 20
+\fIwidth\fP
+Width of the channel
+.SH DESCRIPTION
+\fBOpenVerticalChannel\fP shifts toward the right all the instances
+of \fIptfig\fP, which have an \fIXINS\fP greater than the \fIx\fP
+passed. The value of the shift is determined by the fact that none
+of the instances which will have an \fIXINS\fP greater than \fIx\fP
+must overlap. If epsilon doesn't equal zero, \fBOpenVerticalChannel\fP
+looks at all the positions between \fIx\fP-\fIepsilon\fP and
+\fIx\fP+\fIepsilon\fP, so that the gap created by the channel is the
+smallest possible. The \fIwidth\fP is added to the shift to find of
+how much the \fIXINS\fP of the instances which are to be moved must
+be increased. 
+.br
+\fIx\fP, \fIepsilon\fP and \fIwidth\fP must be a multiple of PITCH_X (defined in
+scr.h).
+.br
+The least value recommended for \fIepsilon\fP is half the width of the largest
+instance.
+.br
+Opening a channel is very fast (less than a second for 10 000 instances).
+.br
+\fBOpenVerticalChannel\fP returns a pointer to the modified \fIphfig\fP
+.SH EXAMPLE
+.IP
+#include "aprnnn.h"
+.br
+phfig_list (*open_in_middle(ptfig)
+.br
+phfig_list *ptfig;
+.br
+{
+.br
+	long x;
+.br
+	x = (ptphfig->XAB2-ptphfig->XAB1)>>1;
+.br
+	x = x - x%PITCH_X;
+.br
+	return (OpenVerticalChannel (ptfig,x, 5*PITCH_X, 10*PITCH_X));
+.br
+}
+.SH SEE ALSO
+.BR apr(3)
+.br
+
+.so man1/alc_bug_report.1
+

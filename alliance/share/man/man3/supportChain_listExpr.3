@@ -1,0 +1,47 @@
+.\"   $Id: supportChain_listExpr.3,v 1.1 1999/05/31 17:30:25 alliance Exp $
+.\" @(#)supportChain_listExpr.2 7.01 92/08/22 ; Labo masi cao-vlsi; Author : Luc Burgun
+.TH SUPPORTCHAIN_LISTEXPR 3 "October 1, 1997" "ASIM/LIP6" "ABL functions"
+.so man1/alc_origin.1
+.SH NAME
+\fBsupportChain_listExpr\fP \- returns the support of an expression in a \fIchain_list\fP.
+.SH SYNOPSYS
+.nf
+#include "logmmm.h"
+chain_list *supportChain_listExpr(expr)
+chain_list *expr;
+.fi
+.SH PARAMETER
+.TP 20
+\fIexpr\fP
+expression
+.SH DESCRIPTION
+\fBsupportChain_listExpr()\fP creates a \fIchain_list\fP wich contains all the atoms appearing in \fIexpr\fP. Each atom in \fIchain_list\fP appears only once in it.
+.SH EXAMPLE
+.nf
+#include "mutnnn.h"		/* mbk utilities */
+#include "logmmm.h"
+chain_list *expr; 
+chain_list *pt;
+expr = createExpr(OR);
+addQExpr(expr,createAtom("a"));
+addQExpr(expr,createAtom("b"));
+addQExpr(expr,createAtom("a"));
+pt = supportChain_listExpr(expr);
+while (pt)
+   {
+   printf("%s ",pt->DATA);
+   pt = pt->NEXT;
+   }
+/* it will display
+a b
+*/
+freeExpr(expr);
+freechain(pt);		/* mbk function */
+.fi
+.SH SEE ALSO
+.BR log (1),
+.BR abl (1),
+.BR supportPtype_listExpr (3).
+
+.so man1/alc_bug_report.1
+

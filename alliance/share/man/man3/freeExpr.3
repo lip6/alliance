@@ -1,0 +1,40 @@
+.\"   $Id: freeExpr.3,v 1.1 1999/05/31 17:30:21 alliance Exp $
+.\" @(#)freeExpr.2 7.01 92/08/22 ; Labo masi cao-vlsi; Author : Luc Burgun
+.TH FREEEXPR 3 "October 1, 1997" "ASIM/LIP6" "ABL functions"
+.so man1/alc_origin.1
+.SH NAME
+\fBfreeExpr\fP \- frees an expression. 
+.SH SYNOPSYS
+.nf
+#include "logmmm.h"
+void freeExpr(expr)
+chain_list *expr;
+.fi
+.SH PARAMETER
+.TP 20
+\fIexpr\fP
+Expression to free.
+.SH DESCRIPTION
+\fBfreeExpr()\fP frees an expression (operator expression or atomic expression) by giving back to MBK allocator system all the \fIchain_list\fP doublets used in \fPexpr\fP. It's very important to call \fIfreeExpr\fP as often as possible to minimize memory use. Many functions like \fBcopyExpr()\fP or \fBflatPolarityExpr()\fP create new ABLs , so great care should be taken concerning memory allocation problems. For each example given in this documentation, the \fBfreeExpr()\fP function is called as often as possible.
+.SH EXAMPLE
+.nf
+#include "mutnnn.h"		/* mbk utilities */
+#include "logmmm.h"
+chain_list *expr; 
+expr = createExpr(OR);
+addHExpr(expr,createAtom("var1"));
+addHExpr(expr,createAtom("var2"));
+freeExpr(expr);
+.fi
+.SH SEE ALSO
+.BR log (1),
+.BR abl (1),
+.BR createAtom (3),
+.BR createExpr(3),
+.BR notExpr (3),
+.BR createBinExpr (3),
+.BR addQExpr (3),
+.BR addHExpr(3).
+
+.so man1/alc_bug_report.1
+

@@ -1,0 +1,55 @@
+.\"   $Id: addQExpr.3,v 1.1 1999/05/31 17:30:16 alliance Exp $
+.\" @(#)addQExpr.2 7.01 92/08/22 ; Labo masi cao-vlsi; Author : Luc Burgun
+.TH ADDQEXPR 3 "October 1, 1997" "ASIM/LIP6" "ABL functions"
+.so man1/alc_origin.1
+.SH NAME
+\fBaddQExpr\fP \- adds a new argument at the queue of an operator expression. 
+.SH SYNOPSYS
+.nf
+#include "logmmm.h"
+void addQExpr(expr1,expr2)
+chain_list *expr1,*expr2;
+.fi
+.SH PARAMETERS
+.TP 20
+\fIexpr1\fP
+expression that recieves \fIexpr2\fP.
+.TP 20
+\fIexpr2\fP
+Argument to add.
+.SH DESCRIPTION
+\fBaddQExpr()\fP adds \fIexpr2\fP at the queue of the expression \fIexpr1\fP. This procedure doesn't make simplifications. 
+.SH EXAMPLE
+.nf
+#include "mutnnn.h"		/* mbk utilities */
+#include "logmmm.h"
+chain_list *expr1,*expr2; 
+expr1 = createExpr(OR);
+addQExpr(expr1,createAtom("var1"));
+expr2 = createExpr(OR);
+addQExpr(expr2,createAtom("var1"));
+addQExpr(expr2,createAtom("var2"));
+addQExpr(expr1,expr2);
+displayExpr(expr1);
+/* it will display
+(OR var1 (OR var1 var2))
+*/
+freeExpr(expr1);	/* don't free expr2 ! */
+.fi
+.SH ERROR
+"addQExpr : error - bad argument
+.br
+\fIexpr1\fP must be an operator expression.
+.SH SEE ALSO
+.BR log (1),
+.BR abl (1),
+.BR createAtom (3),
+.BR notExpr (3),
+.BR addQExpr (3),
+.BR createBinExpr (3),
+.BR createExpr (3),
+.BR addQExpr(3),
+.BR freeExpr(3).
+
+.so man1/alc_bug_report.1
+

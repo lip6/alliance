@@ -1,0 +1,97 @@
+#cell2 * nmx2sb0_fp nle * 1 any 0 v8r4.4
+# "19-Nov-97 GMT" "17:55:11 GMT" "19-Nov-97 GMT" "17:55:11 GMT" fitpath * .
+writer        1
+file_version  1
+sections      1
+netlist   1:         85 nmx2sb0_fp
+
+
+B contents:  nmx2sb0_fp
+netlist           254
+cells             705
+switches            0
+attributes        729
+physical            0
+history             0
+E contents
+
+
+B netlist
+X 1 sel0;
+X 2 s0i0;
+X 3 s1i0;
+X 4 VDD;
+X 5 VSS;
+X 6 vss1;
+I $Tp 1 * | 54 1 .10314 [20.5,113.5] | 13 4 3 4;
+I $Tp 2 * | 54 1 .10314 [14.5,113.5] | 1 4 2 4;
+I $Tp 3 * | 13 1 .2483E-01 [23.5,59.5] | 1 13 4 4;
+I $Te 4 * | 7 1 .1337E-01 [20.5,42.5] | 1 5 13 10;
+I $Te 5 * | 27 1 .5157E-01 [23.5,38.5] | 13 3 5 10;
+I $Te 6 * | 27 1 .5157E-01 [14.5,38.5] | 1 2 5 10;
+N 4 VDD;
+N 5 VSS;
+G 10 BULK;
+N 1 sel0;
+N 2 s0i0;
+N 3 s1i0;
+N 6 vss1;
+E netlist
+
+
+B subcells
+E subcells
+
+
+B attribute_list
+       941 program
+       979 technology_file
+      1048 technology_file_version
+      1091 options
+      1150 technology
+      1186 lambda
+      1210 window
+      1243 summary
+E attribute_list
+
+B A: program
+1 COMPASSextract;
+ 0;
+E
+
+B A: technology_file
+1 /labo/etc/vlsi/idps/techno/ecpd10.etf;
+ 0;
+E
+
+B A: technology_file_version
+1 1.0;
+ 0;
+E
+
+B A: options
+1 no_strays,no_coordinates,nodePoints;
+ 0;
+E
+
+B A: technology
+1 idps_symb;
+ 0;
+E
+
+B A: lambda
+1 1;
+ 0;
+E
+
+B A: window
+1 4 1 30 129;
+ 0;
+E
+
+B A: summary
+1 {Netlist contains 6 transistors and 19 nodes};
+ 0;
+E
+
+

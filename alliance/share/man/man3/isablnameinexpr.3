@@ -1,0 +1,53 @@
+.\"   $Id: isablnameinexpr.3,v 1.1 1999/05/31 17:30:22 alliance Exp $
+.\" @(#)isablnameinexpr.2 2.7 96/07/02 ; Labo masi cao-vlsi; Author : Jacomme Ludovic
+.TH ISABLNAMEINEXPR 3 "October 1, 1997" "ASIM/LIP6" "ABL FUNCTIONS"
+.SH OPER
+isablnameinexpr \- tests if a name appears in an expression.
+.so man1/alc_origin.1
+.SH SYNOPSYS
+.nf
+.if n \{\
+.ft B \}
+.if t \{\
+.ft CR \}
+#include "abl101.h"
+int isablnameinexpr( Expr, Name )
+  chain_list \(**Expr;
+  char       \(**Name;
+.ft R
+.fi
+.SH PARAMETERS
+.TP 20
+\fIExpr\fP
+Expression where to search.
+.TP
+\fIName\fP
+Name to search.
+.SH DESCRIPTION
+\fBisablnameinexpr\fP tests if \fIName\fP appears in \fIExpr\fP.
+.br
+.SH RETURN VALUE
+\fBisablnameinexpr\fP returns 1 if \fIName\fP appears in \fIExpr\fP
+and 0 otherwise.
+.SH EXAMPLE
+.ta 3n 6n 9n 12n 15n 18n 21n
+.nf
+.if n \{\
+.ft B \}
+.if t \{\
+.ft CR \}
+#include "abl101.h"
+  chain_list \(**Expr;
+   Expr = createablbinexpr( ABL_AND, 
+                            createablatom( "a" ),
+                            createablatom( "b" ) );
+   /* displays   1 */
+   printf( "%d", isablnameinexpr( Expr, "a" ) );
+.ft R
+.fi
+.SH SEE ALSO
+.BR abl (1)
+
+
+.so man1/alc_bug_report.1
+

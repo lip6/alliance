@@ -1,0 +1,106 @@
+.\"   $Id: phins.3,v 1.1 1999/05/31 17:30:24 alliance Exp $
+.\" @(#)phins.l 0.0 90/22/08 UPMC; Author: Frederic Petrot
+.if t \{\
+.so man1/alc_contents.mac
+.XS \n%
+.ti 0.2i
+phins
+.XE
+.XS0 \n%
+.ti 0.2i
+phins
+.XE0 \}
+.TH PHINS 3 "October 1, 1997" "ASIM/LIP6" "MBK PHYSICAL STRUCTURE DEFINITIONS"
+.SH NAME
+phins \- mbk physical instance 
+.SH DESCRIPTION
+The \fBphins\fP structure is used to describe a instance belonging to a
+symbolic layout model, see \fBphfig\fP(3) for details.
+.LP
+The declarations needed to work on \fBphins\fP are available in the header file
+\fI"/labo/include/mph402.h"\fP, where '\fI402\fP' is the actual mbk version.
+.LP
+The following C structure supports the description of the instance :
+.RS
+.nf
+.if n \{\
+.ft B \}
+.if t \{\
+.ft CR \}
+.ta 3n 20n 30n
+typedef struct phins {
+	struct phins	\(**NEXT;
+	char	\(**INSNAME;
+	char	\(**FIGNAME;
+	long	XINS,YINS;
+	char	TRANSF;
+	struct ptype	\(**USER;
+} phins_list;
+.ft R
+.fi
+.RE
+.TP 20
+\fINEXT\fP
+Pointer to the next instance in the list.
+.TP
+\fIFIGNAME\fP
+Model of the instance. This gives the name of the figure that is currently
+beeing instanciated. The model may not be present in memory.
+.TP
+\fINAME\fP
+Name of the instance. The instance is identified by its name, so it should be
+unique at a given hierarchical level.
+.TP
+\fIXINS, YINS\fP
+Coordinates of the lower left corner of the instance, after possible
+geometrical operation.
+.TP
+\fITRANSF\fP
+Contains the geometrical operations that should be performed before placing
+the instance. Eight legal values are allowed :
+.RS
+.TP 20
+\fBNOSYM\fP
+no operation
+.TP
+\fBSYM_X\fP
+x becomes -x  
+.TP
+\fBSYM_Y\fP
+y becomes -y
+.TP
+\fBSYMXY\fP
+x becomes -x and y becomes -y
+.TP
+\fBROT_P\fP
+rotates 90 degrees counter clockwise
+.TP
+\fBROT_M\fP
+rotates 90 degrees clockwise
+.TP
+\fBSY_RP\fP
+x becomes -x then rotates 90 degrees counter clockwise
+.TP
+\fBSY_RM\fP
+x becomes -x then rotates 90 degrees clockwise
+.RE
+.TP
+\fIUSER\fP
+Pointer to a ptype list, see \fBptype\fP(3) for details, that is a general
+purpose pointer used to share informations on the instance.
+.TP
+Remark :
+the \fBphins\fP structure does not contain any information about
+the size of the instance. Neither the \fIabutment box\fP nor the connectors
+are available. The model must be loaded when such information is needed.
+.SH SEE ALSO
+.BR mbk (1),
+.BR addphins (3),
+.BR getphins (3),
+.BR delphins (3),
+.BR phfig (3),
+.BR ptype (3).
+
+
+.so man1/alc_bug_report.1
+

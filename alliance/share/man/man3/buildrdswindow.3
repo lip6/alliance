@@ -1,0 +1,119 @@
+.\"   $Id: buildrdswindow.3,v 1.1 1999/05/31 17:30:19 alliance Exp $
+.\" @(#)buildrdswindow.1 1.11 93/08/18 ; Labo masi cao-vlsi
+.if t \{\
+.so man1/alc_contents.mac
+.XS \n%
+.ti 0.2i
+buildrdswindow
+.XE
+.XS0 \n%
+.ti 0.2i
+buildrdswindow
+.XE0 \}
+.TH BUILDRDSWINDOW 3 "October 1, 1997" "ASIM/LIP6" "RDS PHYSICAL FUNCTIONS"
+.SH NAME
+buildrdswindow \- builds windowing of a figure
+.so man1/alc_origin.1
+.SH SYNOPSYS
+.nf
+.if n \{\
+.ft B \}
+.if t \{\
+.ft CR \}
+#include "rwinnn.h"
+ rdswindow \(**buildrdswindow( Figure )
+    rdsfig_list \(**Figure;
+.ft R
+.fi
+.SH PARAMETER
+.TP 20
+\fIFigure\fP
+The figure where has to be built the windowing.
+.SH DESCRIPTION
+The \fIbuildrdswindow\fP function permits to build windowing on the figure named \'Figure\'.
+.SH RETURN VALUE
+The pointer to the windowing structure "rdswindow".
+.SH ERRORS
+.if n \{\
+.ft B \}
+.if t \{\
+.ft CR \}
+"Rds202: rdsalloc error, can't continue !"
+.ft R
+.RS
+it's impossible to allocate the memory size desired
+.SH EXAMPLE
+.ta 3n 6n 9n 12n 15n 18n 21n
+.nf
+.if n \{\
+.ft B \}
+.if t \{\
+.ft CR \}
+        #include "mphnnn.h"
+        #include "mutnnn.h"
+        #include "rdsnnn.h"
+        #include "rfmnnn.h"
+        #include "rwinnn.h"
+        #include "rtlnnn.h"
+        main()
+          {
+            phfig_list     \(**MbkFigure;
+            rdsfig_list    \(**RdsFigure;
+            rdswindow      \(**Window;
+            long            X,Y,Offset;
+            rdswin_list    \(**Win;
+            rdswinrec_list \(**WinRec;
+            rdsrec_list    \(**ScanRec;
+            char            Layer;
+            char            Index;
+            mbkenv();
+            rdsenv();
+            loadrdsparam();
+            MbkFigure = getphfig("na2_y",'A');
+            RdsFigure = figmbkrds(MbkFigure,0,0); 
+            Window    =  \fBbuildrdswindow\fP ( RdsFigure );
+            /\(** gets each window of the table \(**/
+            for ( X = 0 ; X < Window->DX ; X ++ )
+             for ( Y = 0 ; Y < Window->DY ; Y ++ ) 
+              {
+                printf("WINDOW (%ld,%ld)\\n",X,Y);              
+                Offset = Y \(** Window->DX + X;
+                Win = Window->WINTAB + Offset;
+                /\(** gets all rectangles of a window \(**/
+                for ( Layer = 0 ; Layer < RWI_MAX_LAYER ; Layer ++ )               
+                 {
+                   printf("LAYER = %s\\n",RDS_LAYER_NAME[Layer]);
+                   for ( WinRec  = Win->LAYERTAB[ Layer ];
+                         WinRec != (rdswinrec_list \(**)NULL;
+                         WinRec  = WinRec->NEXT )
+                    {
+                      for (
+                            Index = 0;
+                            Index < RWI_MAX_REC;
+                            Index++
+                          )
+                       {
+                        ScanRec = WinRec->RECTAB[ Index ];
+                        /\(** prints dimensions of each rectangle \(**/
+                        if ( ScanRec != NULL )
+                        printf("X=%ld, Y=%ld, DX=%ld, DY=%ld\\n",
+                               ScanRec->X,ScanRec->Y,ScanRec->DX,
+                               ScanRec->DY);
+                        else break;
+                       }
+                    }
+                 }
+              }
+            . . .
+          }
+.ft R
+.fi
+.SH SEE ALSO
+.BR librwi,
+.BR allocrdswindow,
+.BR destroyrdswindow,
+.BR viewrdswindow
+
+
+.so man1/alc_bug_report.1
+

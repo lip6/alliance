@@ -1,0 +1,57 @@
+-- ###-------------------------------------------------------------###
+-- #                                                                 #
+-- #         Alliance CAD System V.R                                 #
+-- #          FitPath Package V.RR                                   #
+-- #                                                                 #
+-- # Copyright(c) 93-AA, MASI, CAO-VLSI Team                         #
+-- #                                                                 #
+-- # Author      :          Jean-Paul CHAPUT                         #
+-- # E-mail      :      cao-vlsi@masi.ibp.fr                         #
+-- # *************************************************************** #
+-- #   Date      :      February 15 1993.                            #
+-- #                                                                 #
+-- # Theoretical VHDL data flow description of cell "pdffb2_fp".     #
+-- # --------------------------------------------------------------- #
+-- # Cell Family :      "pdffb0_fp", "pdffb2_fp"                     #
+-- #                     "pmsb0_fp",  "pmsb2_fp",                    #
+-- #                     "pmsa1_fp".                                 #
+-- #                                                                 #
+-- ###-------------------------------------------------------------###
+
+
+
+-- Entity Declaration
+
+ENTITY pdffb2_fp IS
+  PORT (
+  wen   : in    BIT;	
+  ck    : in    BIT;
+  wmd   :   out BIT;
+  ws    :   out BIT;
+  s0i0  :   out BIT;	
+  s1i0  :   out BIT;
+  vdd   : in    BIT;
+  vss   : in    BIT;
+  vss1  : in    BIT
+  );
+END pdffb2_fp;
+
+
+-- Architecture Declaration
+
+ARCHITECTURE behaviour_data_flow OF pdffb2_fp IS
+ BEGIN
+   s1i0 <= not wen;
+   s0i0 <= wen;
+   wmd  <= ck;
+   ws   <= (not ck);
+  ASSERT ((vdd and not (vss) and not(vss1)) = '1')
+    REPORT "power supply is missing on pdffb2_fp."
+    SEVERITY WARNING;
+END  behaviour_data_flow;  
+
+
+
+
+
+

@@ -1,0 +1,43 @@
+-- VHDL data flow description generated from `na2_dp`
+--		date : Thu Oct 30 16:59:31 1997
+
+
+-- Entity Declaration
+
+ENTITY na2_dp IS
+  GENERIC (
+    CONSTANT area : NATURAL := 1080;	-- area
+    CONSTANT transistors : NATURAL := 4;	-- transistors
+    CONSTANT cin_i0 : NATURAL := 58;	-- cin_i0
+    CONSTANT cin_i1 : NATURAL := 58;	-- cin_i1
+    CONSTANT tplh_i0_o : NATURAL := 773;	-- tplh_i0_o
+    CONSTANT rup_i0_o : NATURAL := 1850;	-- rup_i0_o
+    CONSTANT tphl_i0_o : NATURAL := 333;	-- tphl_i0_o
+    CONSTANT rdown_i0_o : NATURAL := 1760;	-- rdown_i0_o
+    CONSTANT tplh_i1_o : NATURAL := 629;	-- tplh_i1_o
+    CONSTANT rup_i1_o : NATURAL := 1850;	-- rup_i1_o
+    CONSTANT tphl_i1_o : NATURAL := 394;	-- tphl_i1_o
+    CONSTANT rdown_i1_o : NATURAL := 1760	-- rdown_i1_o
+  );
+  PORT (
+  i0 : in BIT;	-- i0
+  i1 : in BIT;	-- i1
+  o : out BIT;	-- o
+  vdd : in BIT;	-- vdd
+  vss : in BIT	-- vss
+  );
+END na2_dp;
+
+
+-- Architecture Declaration
+
+ARCHITECTURE behaviour_data_flow OF na2_dp IS
+
+BEGIN
+  ASSERT ((vdd and not (vss)) = '1')
+    REPORT "power supply is missing on na2_dp"
+    SEVERITY WARNING;
+
+
+o <= not ((i0 and i1));
+END;

@@ -1,0 +1,182 @@
+.\"   $Id: buseg.1,v 1.1 1999/05/31 17:30:13 alliance Exp $
+.TH BUSEG 1 "October 1, 1997" "ASIM/LIP6" "FITPATH Dedicated Generators"
+.so man1/alc_origin.1
+.SH NAME
+\fBbuseg\fP - Tristate generator for \fBFITPATH\fP data-path compiler.
+.SH SYNOPSYS
+.ft B
+.nf
+.ta 7n
+buseg	<\fIdpwidth\fB> <\fIopwidth\fB> <\fIlsb_slice\fB> 
+	[-msb0] <-vhdl|-netlist|-icon> [-o \fIModelName\fB]
+.fi
+.ft R
+.SH OPTIONS
+.ta  11n
+.in +11n
+.ti -11n
+\fIdpwidth\fP	An integer giving the data-path full bus wide.
+
+.ti -11n
+\fIopwidth\fP	An integer giving the operator bus wide.
+
+.ti -11n
+\fIlsb_slice\fP	An integer giving the operator bottom slice,
+i.e. the slice where the LSB will be set.
+
+.ti -11n
+\fBmsb0\fP
+.in -6n
+.ti +6n
+If this switch is present, the virtual connector with index
+of \fBn\fP is on the slice numberred \fIWidth\fP\fB-1-n\fP.
+That is to say :
+.br
+.ta +2n
+-	Connectors indexed \fPzero\fP are on the slice \fIWidth\fP\fB-1\fP.
+.br
+-	Connectors indexed \fIWidth\fP\fB-1\fP are on the slice \fBzero\fP.
+.br
+.ti +6n
+Otherwise, the virtual connector with index of \fBn\fP is on the slice
+numberred \fBn\fP. That give :
+.br
+.ta +2n
+-	Connectors indexed \fPzero\fP are on the slice \fBzero\fP.
+.br
+-	Connectors indexed \fIWidth\fP\fB-1\fP are on the slice
+\fIWidth\fP\fB-1\fP.
+.br
+.ti +6n
+So if we assume that the MSB is in all case associated with the
+\fBslice\fP numberred \fIWidth\fP\fB-1\fP, when \fPmsb0\fP is set the
+connector of the MSB have an index of \fPzero\fP, and an index of
+\fIWidth\fP\fB-1\fP otherwise.
+.br
+.ti +6n
+Notice that the leaf cell indexation is not affected by the
+\fBmsb0\fP switch.
+.br
+.in +6n
+.ta  11n
+
+.ti -11n
+\fBnetlist\fP	Generates the netlist view of the tristate operator.
+.br
+
+.ti -11n
+\fBicon\fP	Generates the icon view of the tristate operator.
+.br
+
+.ti -11n
+\fIModelName\fP	Give the name of the model. If it is not specified
+the generator creates it automatically (based on the parametrization).
+.in -11n
+.SH DESCRIPTION
+.ta 4n +10nR +2n +2n
+	\fBBuseg\fP generate the netlist view and/or the icon view of the
+tristate operator. In order to build the netlist view the generator
+use the following cells of \fBfplib\fP librarie :
+.br
+	-	nt1_fp	:	Effective tristate leaf cell.
+.br
+	-	bnt1_dp	:	Dedicated buffer cell.
+.br
+	All informations needed to perform the physical placement of leaf
+cells with \fBdpp(1)\fP are sets. In other words, the instance names
+are indexed according to the three parameters \fIdpwidth\fP, \fIopwidth\fP
+and \fIlsb_slice\fP.
+
+\fBTerminals\fP
+.br
+
+.ta  10n
+.in +10n
+.ti -10n
+\fBsel\fP	Select the state of the output :
+.br
+.ta +2n +10n +2n
+-	low	:	output in high impedance.
+.br
+-	high	:	output drived by the input.
+.br
+This is a fixed terminal available on the north side of the
+abutment box.
+.br
+.ta 10n
+
+.ti -10n
+\fBi0[\fP\fIopwidth\fP\fB+\fP\fIlsb_slice\fP\fB-1:\fP\fIlsb_slice\fP\fB]\fP
+.br
+.ti -10n
+\fBi0[\fP\fIdpwidth\fP\fB-\fP\fIopwidth\fP\fB-\fP\fIlsb_slice\fP\fB:\fP\fIdpwidth\fP\fB-\fP\fIlsb_slice\fP\fB-1]\fP
+.br
+Input bus, virtual terminal (without and with the \fB-msb0\fP option).
+.br
+.bp
+.ti -10n
+\fBo[\fP\fIopwidth\fP\fB+\fP\fIlsb_slice\fP\fB-1:\fP\fIlsb_slice\fP\fB]\fP
+.br
+.ti -10n
+\fBo[\fP\fIdpwidth\fP\fB-\fP\fIopwidth\fP\fB-\fP\fIlsb_slice\fP\fB:\fP\fIdpwidth\fP\fB-\fP\fIlsb_slice\fP\fB-1]\fP
+.br
+Ouput bus, virtual terminal (without and with the \fB-msb0\fP option).
+.br
+
+.ti -10n
+\fBvdd, vss\fP	Power supplies.
+.in -10n
+.SH EXAMPLES
+.ft CR
+buseg 32 32 0 -netlist -o my_tris
+.ft R
+.in +4n
+Generates the netlist of a 32 bits tristate, named \fImy_tris\fP, with
+leaf cell indexed from slice 0 (LSB) to slice 31 (MSB).
+
+.in -4n
+.ft CR
+buseg 32 16 16 -netlist
+.ft R
+.in +4n
+Generate the netlist of a 16 bits tristate, named \fIbuse32x16x16l_cl\fP,
+with leaf cell indexed from slice 16 (LSB) to slice 31 (MSB).
+.in -4n
+.SH OUTPUT FILES
+.ta  20n
+.in +20n
+.ti -20n
+\fIModelName\fP\fB.vbe\fP	VHDL behevioral view.
+.br
+
+.ti -20n
+\fIModelName\fP\fB.xx\fP	Netlist view. The ouput format \fB"xx"\fP
+depend on the \fBMBK_OUT_LO\fP environment variable.
+.br
+
+.ti -20n
+\fIModelName\fP\fB.icn\fP	The icon view.
+.in -20n
+.SH ENVIRONMENT VARIABLES
+.ta +20n
+.in +20n
+.ti -20n
+\fPMBK_CATA_LIB\fP	Contain the list of directories path holding the
+leaf cells libraries. In this case it have to include the path to
+\fBfplib\fP : \fB/labo/cells/fplib\fP.
+.br
+
+.ti -20n
+\fPMBK_IN_LO\fP	Contain the format of the logical description of the
+library leaf cells.
+.br
+
+.ti -20n
+\fBMBK_OUT_LO\fP	Contain the ouput format of the generated netlist.
+.in -20n
+.SH SEE ALSO
+.ft B
+DP_BUSE(3), fpgen(3), fplib(3), mbk(3)
+
+.so man1/alc_bug_report.1
+

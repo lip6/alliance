@@ -1,0 +1,94 @@
+.\"   $Id: rflattenlofig.3,v 1.1 1999/05/31 17:30:24 alliance Exp $
+.\" @(#)rflattenlofig.2 2.11 91/08/22 ; Labo masi cao-vlsi; Author : Frederic Petrot
+.if t \{\
+.so man1/alc_contents.mac
+.XS \n%
+.ti 0.2i
+rflattenlofig
+.XE
+.XS3 \n%
+.ti 0.2i
+rflattenlofig
+.XE3 \}
+.TH RFLATTENLOFIG 3 "October 1, 1997" "ASIM/LIP6" "MBK LOGICAL UTILITY FUNCTIONS"
+.SH NAME
+rflattenlofig \- recursivly flatten a figure 
+.so man1/alc_origin.1
+.SH SYNOPSYS
+.nf
+.if n \{\
+.ft B \}
+.if t \{\
+.ft CR \}
+#include "mlo412.h"
+void rflattenlofig(ptfig, concat, catal)
+lofig_list \(**ptfig;
+char concat;
+char catal;
+.ft R
+.fi
+.SH PARAMETERS
+.TP 20
+\fIptfig\fP
+Pointer to a logical figure
+.TP
+\fIconcat\fP
+Name generation mode
+.TP
+\fIcatal\fP
+End level choice
+.SH DESCRIPTION
+\fBrflattenlofig\fP recursivly flattens all the instances of the figure
+pointed to by \fIptfig\fP. 
+.br
+The \fIconcat\fP argument can take either the value \fBYES\fP in which case the
+name of the objects comming from instances are named
+\fIinsname'X'objectname\fP, where \fI'X'\fP is the caracter set int the
+\fBMBK_SEPAR\fP(1) environment variable, or the value \fBNO\fP, and then the
+object name remains inchanged. This is quite dangerous since name unicity is
+no more warrantied, and may cause the flatten to fail. See \fBMBK_SEPAR\fP(1),
+\fBmbkenv\fP(3) and \fBconcatname\fP(3) for details.
+.br
+The \fIcatal\fP argument may be set to \fBNO\fP, in which case flattening stops
+at the transistor level, all hierachies and instances have desapeard, only
+terminal elements remains. If set to \fBYES\fP, flattening stops when it
+encounters an instance model beeing present in the catalog file, set by
+the \fBMBK_CATAL_NAME\fP(1) environment variable.
+See \fBMBK_CATAL_NAME\fP(1) and \fBincatalog\fP(3) for details.
+.SH ERRORS
+No errors can directly result from a call to \fBrflattenlofig\fP, but since it
+uses many other mbk functions, it may be a good error starting point.
+.SH EXAMPLE
+.ta 3n 6n 9n 12n 15n 18n 21n
+.nf
+.if n \{\
+.ft B \}
+.if t \{\
+.ft CR \}
+#include "mlo412.h"
+void flatten_my_amd2901()
+{
+loins_list \(**pt;
+	pt = getlofig("my_amd2901", 'A');
+	rflattenlofig(pt, YES, YES);
+	pt\->NAME = "my_flattened_amd2901";
+	savelofig(pt);
+}
+.ft R
+.fi
+.SH SEE ALSO
+.BR mbk (1),
+.BR incatalog (3),
+.BR mbkenv (3),
+.BR lofig (3),
+.BR addlofig (3),
+.BR getlofig (3),
+.BR dellofig (3),
+.BR loadlofig (3),
+.BR savelofig (3),
+.BR flattenlofig (3),
+.BR MBK_CATAL_NAME (1).
+
+
+.so man1/alc_bug_report.1
+

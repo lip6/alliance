@@ -1,0 +1,82 @@
+.\"   $Id: fplib.5,v 1.1 1999/05/31 17:30:26 alliance Exp $
+.TH FPLIB 5 "October 1, 1997" "ASIM/LIP6" "FITPATH Cells Library"
+.so man1/alc_origin.1
+.SH NAME
+\fBFPLIB\fP \- Cells library for \fBFITPATH\fP dedicated generators.
+.SH DESCRIPTION
+.ta  4n
+	The \fBfplib\fP leaf cells library contain all the cells needed by the
+\fBfpgen\fP \fImacro-functions\fP. Thus his access path must be include
+in the \fBMBK_CATA_LIB\fP environment variable. For example, it could be
+done by the following command :
+.br
+
+.ft CR
+.nf
+	setenv MBK_CATA_LIB /labo/cells/fitpath/fplib:/labo/cells/fitpath/dplib
+.fi
+.ft R
+
+	Notice that the library access path depend on where you have install
+the \fBAlliance\fP distribution package.
+
+
+.nf
+Boolean Operators :
+.ta 13n +11nR +1n +11nR +1n +11nR +1n +11nR
+.\"DP_BUF	:			p1_fp	,	b1_fp	,	bp1_fp
+DP_INV	:	n1_fp	,	np1_fp	,	ndrv_fp	,	ndrvp_fp
+DP_AND2	:	a2_fp	,	a2p_fp
+DP_NAND2	:	na2_fp	,	na2p_fp
+DP_AND3	:	a3_fp	,	a3p_fp
+DP_NAND3	:	na3_fp	,	na3p_fp
+DP_OR2	:	o2_fp	,	o2p_fp
+DP_NOR2	:	no2_fp	,	no2p_fp
+DP_OR3	:	o3_fp	,	o3p_fp
+DP_NOR3	:	no3_fp	,	no3p_fp
+DP_XOR	:	xr2_fp
+DP_XNOR	:	nxr2_fp
+
+Masks Operators :
+.ta 18n +12nR +1n +12nR +1n +12nR
+DP_NAND2MASK	:	bna2x_fp	,	na2x_fp	,	n1na2x_fp
+DP_NOR2MASK	:	bno2x_fp	,	no2x_fp	,	n1no2x_fp
+DP_XNOR2MASK	:	bnxr2x_fp	,	nxr2x_fp	,	n1xr2x_fp
+
+Multiplexers Operators (encoded commands) :
+.ta 18n +12nR +1n +12nR +1n +12nR
+DP_NMUX2CS	:	nmx2sb0_fp	,	nmx2sc_fp
+DP_MUX2CS	:	mx2sb0_fp	,	mx2sc_fp
+DP_MUX3CD	:	mx3db0_fp	,	mx3dc_fp
+
+Buses Operators (Tristates) :
+.ta 13n +11nR +1n +11nR
+DP_BUSE	:	bt1_fp	,	t1_fp
+DP_NBUSE	:	nbt1_fp	,	nt1_fp
+
+Miscellaneous Operators :
+.ta 13n +11nR +1n +11nR
+DP_NUL	:	no2_fp	,	o2_fp
+DP_CONST	:	zero_dp	,	one_dp
+
+D Flip-Flop Operators :
+.ta 13n +11nR +1n +11nR +1n +11nR +1n +11nR +1n +11nR
+DP_DFF	:	pdffb3_fp	,	pdffa3_fp
+DP_DFFT	:	pdffb7_fp	,	pdffi7_fp	,	pdffj7_fp	,	pdffp7_fp	,	pdffq7_fp
+.SH SEE ALSO
+.ft B
+fpgen(1), dpr(1), genlib(1), mbk(1),
+DP_DEFLOFIG(3), DP_SAVLOFIG(3), DP_LOCON(3), DP_IMPORT(3),
+DP_INV(3), DP_BUSE(3), DP_AND2(3), DP_NAND2(3), DP_AND3(3), DP_NAND3(3),
+DP_OR2(3), DP_NOR2(3), DP_OR3(3), DP_NOR3(3), DP_XOR2(3), DP_XNOR2(3),
+DP_NAND2MASK(3), DP_NOR2MASK(3), DP_XNOR2MASK(3), DP_CONST(3),
+DP_NMUX2CS(3), DP_MUX2CS(3), DP_MUX3CS(3), DP_MUX4CS(3), DP_MUX5CS(3),
+DP_BUSE(3), DP_NBUSE(3), DP_ADD2F(3), DP_ADSB2F(3),
+DP_SHIFT(3), DP_MULT(3), DP_MULTP(3), DP_NUL(3),
+DP_PDFF(3), DP_PDFFR(3), DP_PDFFT(3), DP_PDFFRT(3),
+DP_RFG1C0(3), DP_RFG1CC(3), DP_RFG2C0(3), DP_RFG2CC(3)
+,
+
+
+.so man1/alc_bug_report.1
+

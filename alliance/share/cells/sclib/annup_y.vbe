@@ -1,0 +1,56 @@
+-- This cell caracterized by prol05.elp technologie file
+-- VHDL data flow description generated from `annup_y`
+--		date : Wed Oct  7 12:05:56 1998
+
+
+-- Entity Declaration
+
+ENTITY annup_y IS
+  GENERIC (
+    CONSTANT area : NATURAL := 126000;	-- area
+    CONSTANT transistors : NATURAL := 8;	-- transistors
+    CONSTANT cin_i4 : NATURAL := 30;	-- cin_i4
+    CONSTANT cin_i3 : NATURAL := 29;	-- cin_i3
+    CONSTANT cin_i2 : NATURAL := 30;	-- cin_i2
+    CONSTANT cin_i1 : NATURAL := 29;	-- cin_i1
+    CONSTANT tplh_i1_f : NATURAL := 762;	-- tplh_i1_f
+    CONSTANT rup_i1_f : NATURAL := 5540;	-- rup_i1_f
+    CONSTANT tphl_i1_f : NATURAL := 424;	-- tphl_i1_f
+    CONSTANT rdown_i1_f : NATURAL := 3480;	-- rdown_i1_f
+    CONSTANT tplh_i2_f : NATURAL := 951;	-- tplh_i2_f
+    CONSTANT rup_i2_f : NATURAL := 5540;	-- rup_i2_f
+    CONSTANT tphl_i2_f : NATURAL := 334;	-- tphl_i2_f
+    CONSTANT rdown_i2_f : NATURAL := 3480;	-- rdown_i2_f
+    CONSTANT tplh_i3_f : NATURAL := 519;	-- tplh_i3_f
+    CONSTANT rup_i3_f : NATURAL := 5540;	-- rup_i3_f
+    CONSTANT tphl_i3_f : NATURAL := 496;	-- tphl_i3_f
+    CONSTANT rdown_i3_f : NATURAL := 3480;	-- rdown_i3_f
+    CONSTANT tplh_i4_f : NATURAL := 670;	-- tplh_i4_f
+    CONSTANT rup_i4_f : NATURAL := 5540;	-- rup_i4_f
+    CONSTANT tphl_i4_f : NATURAL := 385;	-- tphl_i4_f
+    CONSTANT rdown_i4_f : NATURAL := 3480	-- rdown_i4_f
+  );
+  PORT (
+  i1 : in BIT;	-- i1
+  i2 : in BIT;	-- i2
+  i3 : in BIT;	-- i3
+  i4 : in BIT;	-- i4
+  f : out BIT;	-- f
+  vdd : in BIT;	-- vdd
+  vss : in BIT	-- vss
+  );
+END annup_y;
+
+
+-- Architecture Declaration
+
+ARCHITECTURE VBE OF annup_y IS
+
+BEGIN
+  ASSERT ((vdd and not (vss)) = '1')
+    REPORT "power supply is missing on annup_y"
+    SEVERITY WARNING;
+
+
+f <= ((i2 or i1) nand (i3 or i4));
+END;

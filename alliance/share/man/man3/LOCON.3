@@ -1,0 +1,146 @@
+.\"   $Id: LOCON.3,v 1.1 1999/05/31 17:30:16 alliance Exp $
+.\" @(#)LOCON.3 2.11 91/08/22; Labo Cao-vlsi; Author : Frederic Petrot
+.if t \{\
+.so man1/alc_contents.mac
+.XS \n%
+.ti 0.2i
+LOCON
+.XE \}
+.TH LOCON 3 "October 1, 1997" "ASIM/LIP6" "PROCEDURAL GENERATION LANGUAGE"
+.SH NAME
+LOCON \- adds a logical connector to the current netlist figure
+.SH SYNOPSYS
+.nf
+.if n \{\
+.ft B \}
+.if t \{\
+.ft CR \}
+#include <genlib.h>
+void LOCON(connector, direction, signal);
+char \(**connector, \(**signal;
+char direction;
+.ft R
+.fi
+.so man1/alc_origin.1
+.SH PARAMETERS
+.TP 20
+\fIconnector\fP
+Name of the connector to be created in the current figure
+.TP
+\fIdirection\fP
+Indicates the connector behaviour regarding signals propagation
+.TP
+\fIsignal\fP
+Name of the signal on which the connector is linked
+.SH DESCRIPTION
+\fBLOCON\fP add a logical connector to the interface of the actual
+working figure. This connector is logicaly linked to the signal \fIsignal\fP.
+The \fIdirection\fP attribut may take the following values:
+.TP
+\fBIN\fP
+as input.
+.TP
+\fBOUT\fP 
+as output.
+.TP
+\fBINOUT\fP 
+as input/output, like supplies or clock for example.
+.TP
+\fBUNKNOWN\fP 
+if one doesn't know what it is.
+.TP
+\fBTRISTATE\fP 
+as high impedance input.
+.TP
+\fBTRANSV\fP 
+as transciever. That means \fBTRISTATE\fP input plus output.
+.SH ERROR
+.if n \{\
+.ft B \}
+.if t \{\
+.ft CR \}
+"LOCON impossible : missing DEF_LOFIG"
+.ft R
+.RS
+No figure has been yet specified by a call to \fBDEF_LOFIG\fP. So it isn't
+possible to add anything. you must call \fBDEF_LOFIG\fP before any other
+netlist call.
+.RE
+.if n \{\
+.ft B \}
+.if t \{\
+.ft CR \}
+"LOCON : Bad signal or connector bus name"
+.ft R
+.RS
+A signal or connector, described under a bus form, has an illegal syntax.
+.RE
+.TP
+.if n \{\
+.ft B \}
+.if t \{\
+.ft CR \}
+"LOCON : All LOCON should be defined befor any LOINS"
+.ft R
+.RS
+A connector is added after instances. This is a methodological error.
+Only move your \fBLOCON\fP before the first \fBLOINS\fP in your code.
+.RE
+.if n \{\
+.ft B \}
+.if t \{\
+.ft CR \}
+"LOCON : different number of signals and connectors"
+.ft R
+.RS
+A bussed form of signal and connector has been used, but the width of
+the busses are not equal. This is an obvious error, check it.
+.RE
+.if n \{\
+.ft B \}
+.if t \{\
+.ft CR \}
+"Illegal addlocon. Connector connector already exist in figure figname"
+.ft R
+.RS
+A connector name must be unique in a given figure at a given hierachy level.
+.RE
+.SH DIAGNOSTICS
+Due to the \fBvti\fP file format, the direction of connectors is lost if
+one uses it as starting point of a netlist desciption. All the connectors
+have then the \fBUNKNOWN\fP direction.
+.br
+Alliance and edif file format know only about \fBIN\fP, \fBOUT\fP, and
+\fBUNKNOWN\fP.
+Only vhdl format fully supports the whole thing.
+.SH EXAMPLE
+.nf
+.if n \{\
+.ft B \}
+.if t \{\
+.ft CR \}
+#include <genlib.h>
+main()
+{
+	/\(** Create a figure to work on  \(**/
+	DEF_LOFIG("mycell");
+	/\(** define interface  \(**/
+	LOCON("i", INPUT, "sig1");
+	LOCON("o", OUTPUT, "sig2");
+	/\(** Place an instance \(**/
+	LOINS("model","instance", "sig1", "sig2", EOL);
+	/\(** Save all that on disk \(**/
+	SAVE_LOFIG();
+}
+.ft R
+.fi
+.SH SEE ALSO
+.BR genlib (1),
+.BR BUS (3),
+.BR ELM (3),
+.BR LOSIG (3),
+.BR LOINS (3).
+
+
+.so man1/alc_bug_report.1
+

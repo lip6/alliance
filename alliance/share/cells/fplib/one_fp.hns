@@ -1,0 +1,10 @@
+#cell2 * one_fp hns * 1 CMOS 1024 v8r4.4
+# "20-Nov-97 GMT" "13:40:33 GMT" "20-Nov-97 GMT" "13:40:33 GMT" fitpath * .
+H 3;
+B 0 3;
+X 1 1 O;
+X 2 2 VDD;
+X 3 3 VSS;
+G 4 BULK;
+T P u2 @ 21 1 .4011E-01 3 2 1 2;
+E;

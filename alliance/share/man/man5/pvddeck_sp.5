@@ -1,0 +1,50 @@
+.\" $Id: pvddeck_sp.5,v 1.1 1999/05/31 17:30:29 alliance Exp $
+.pl -.4
+.TH pvddeck_sp 5 "October 1, 1997" "ASIM/LIP6" "STANDARD-CELL LIBRARY"
+.SH NAME
+.B pvddeck_sp
+
+.so man1/alc_origin.1
+
+.SH SYNOPSIS
+.B Genlib call :
+.br
+  LOINS("pvddeck_sp","name","cko","ck","vdde","vddi","vsse","vssi",0);
+.SH DESCRIPTION
+.I - Interface
+   entity pvddeck_sp is
+     port(
+        cko : ;
+        ck : in bit;
+        vdde : in bit;
+        vddi : in bit;
+        vsse : in bit;
+        vssi : in bit);
+.br
+.I - Logical description
+.br
+   label0 : block ('1' = '1')
+.br
+   begin
+.br
+     cko <= guarded ck;
+.br
+   end block;
+.br
+   
+   
+.br
+.I - Physical features
+   number of grids : 341
+   number of feed-through : 0
+.br
+   
+.I - Timing caracteristics
+.br
+   ck : 127 (fF)
+        tphh = 963 (ps) + 183 (Ohms) x Cload (pF)
+        tpll = 1055 (ps) + 126 (Ohms) x Cload (pF)
+.br
+.br
+
+.so man1/alc_bug_report.1

@@ -1,0 +1,61 @@
+.\"   $Id: sortExpr.3,v 1.1 1999/05/31 17:30:25 alliance Exp $
+.\" @(#)sortExpr.2 7.01 92/08/22 ; Labo masi cao-vlsi; Author : Luc Burgun
+.TH SORTEXPR 3 "October 1, 1997" "ASIM/LIP6" "ABL functions"
+.so man1/alc_origin.1
+.SH NAME
+\fBsortExpr\fP \- sorts an expression 
+.SH SYNOPSYS
+.nf
+#include "logmmm.h"
+void sortExpr(expr,func,direction)
+chain_list *expr;
+int (*func)();
+int direction;
+.fi
+.SH PARAMETERS
+.TP 20
+\fIexpr\fP
+expression to sort
+.TP 20
+\fIfunc\fP
+integer function
+.TP 20
+\fIdirection\fP
+increasing or discreasing direction
+.SH DESCRIPTION
+\fBsortExpr()\fP sorts recursively the arguments of an expression by using a integer function \fIfunc()\fP. If \fIdirection = 1\fP then the arguments are sorted in increasing order.
+.SH EXAMPLE
+.nf
+#include "mutnnn.h"		/* mbk utilities */
+#include "logmmm.h"
+chain_list *expr1,*expr2; 
+expr1 = createExpr(OR);
+addQExpr(expr1,createAtom("a"));
+addQExpr(expr1,createAtom("b"));
+expr2 = createExpr(AND);
+addQExpr(expr2,createAtom("c"));
+addQExpr(expr2,createAtom("d"));
+addQExpr(expr1,expr2);
+displayExpr(expr1);
+sortExpr(expr1,numberAtomExpr,0);
+displayExpr(expr1);
+/* it will display
+(OR a b (AND c d))
+(OR (AND c d) a b)
+*/
+freeExpr(expr1);
+.fi
+.SH SEE ALSO
+.BR log (1),
+.BR abl (1),
+.BR maxExpr (3),
+.BR minExpr (3),
+.BR copyExpr (3),
+.BR substExpr (3),
+.BR substPhyExpr (3),
+.BR flatArityExpr (3),
+.BR flatPolarityExpr (3),
+.BR normExpr (3).
+
+.so man1/alc_bug_report.1
+

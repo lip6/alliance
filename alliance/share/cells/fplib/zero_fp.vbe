@@ -1,0 +1,15 @@
+entity zero_fp is  
+
+   port 
+     (
+o : out bit ;
+vdd : in bit ;
+vss : in bit 
+     );
+   end zero_fp ;
+
+architecture FUNCTIONNAL of zero_fp is 
+
+begin
+o <= '0' ;
+end FUNCTIONNAL ;

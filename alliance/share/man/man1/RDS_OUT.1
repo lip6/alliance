@@ -1,0 +1,56 @@
+.\"   $Id: RDS_OUT.1,v 1.1 1999/05/31 17:30:13 alliance Exp $
+.\" @(#)RDS_OUT.1 2.11 91/08/22; Labo Cao-vlsi; Author : Frederic Petrot
+.TH RDS_OUT 1 "October 1, 1997" "ASIM/LIP6" "RDS ENVIRONEMENT VARIABLES"
+.SH NAME
+\fBRDS_OUT\fP \- define the real layout output format of rds
+.SH SYNOPSYS
+.nf
+.if n \{\
+.ft B \}
+.if t \{\
+.ft CR \}
+c-shell running
+setenv RDS_OUT format
+.ft R
+.fi
+.so man1/alc_origin.1
+.SH DESCRIPTION
+\fBRDS_OUT\fP sets the physical real output format of the rds data structure.
+The data structure will be written in files of the given format.
+.TP
+valid formats are :
+\- \fBcif\fP, caltech intermediat format
+.br
+\- \fBgds\fP, calma format
+.PP
+The output file contains only rectangles, boxes for cif, and five vertices
+polygones for gds.
+.br
+The variable default value is ``gds''.
+.SH ERRORS
+.if n \{\
+.ft B \}
+.if t \{\
+.ft CR \}
+"RDS_OUT : 'xxx' unknown format"
+.ft R
+.RS
+The argument given to the setenv is not a legal layout output format for rds.
+You must changed it before any other action.
+.RE
+.SH EXAMPLE
+.nf
+.if n \{\
+.ft B \}
+.if t \{\
+.ft CR \}
+	setenv RDS_OUT gds
+.ft R
+.fi
+.SH SEE ALSO
+.BR s2r (1),
+.BR RDS_IN (1).
+
+
+.so man1/alc_bug_report.1
+

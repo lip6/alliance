@@ -1,0 +1,28 @@
+--  Theoretical VHDL data flow description of cell `np1_fp`
+--             DataPath cell Library
+--               date : 03/12/1992
+
+
+-- Entity Declaration
+
+ENTITY np1_fp IS
+  PORT (
+    i   :  IN BIT;
+    o   : OUT BIT;
+    vdd :  IN BIT;
+    vss :  IN BIT
+    );
+END np1_fp;
+
+
+-- Architecture Declaration
+
+ARCHITECTURE behaviour_data_flow OF np1_fp IS
+
+BEGIN
+    o <= not i;
+
+    ASSERT ((vdd = '1') and (vss = '0'))
+    REPORT "Power supply is missing on np1_fp"
+    SEVERITY WARNING;
+END;

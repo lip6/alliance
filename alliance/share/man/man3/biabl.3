@@ -1,0 +1,37 @@
+.\"   $Id: biabl.3,v 1.1 1999/05/31 17:30:19 alliance Exp $
+.\" @(#)biabl.2 108 Feb 15 1995 UPMC; Pirouz BAZARGAN SABET
+.TH BIABL 3 "October 1, 1997" "ASIM/LIP6" "cao\-vlsi reference manual"
+
+.so man1/alc_origin.1
+.SH NAME
+.PP
+\fBbiabl\fP - BEH data structure
+
+.SH DESCRIPTION
+.PP
+\fIbiabl\fP is a data structure used in \fBBEH\fP to represent a deconnectable
+driver. \fIbiabl\fP has been designed to be used in a simply chained list.
+
+.PP
+A \fIbiabl\fP structure is composed of the following fields.
+
+.TP 25
+\fI(char *) LABEL\fP
+driver's label
+.TP 25
+\fI(struct chain *) CNDABL\fP
+connection codition of the driver expressed with an ABL
+.TP 25
+\fI(struct chain *) VALABL\fP
+value emitted by the driver expressed with an ABL
+.TP 25
+\fI(struct biabl *) NEXT\fP
+next biabl
+
+.SH SEE ALSO
+.PP
+log(1), beh(3), beh_addbiabl(3), beh_delbiabl(3), beh_frebiabl(3)
+
+
+.so man1/alc_bug_report.1
+

@@ -1,0 +1,138 @@
+.\"   $Id: rsa.3,v 1.1 1999/05/31 17:30:24 alliance Exp $
+.\" @(#)Labo.l 0.0 91/04/02 UPMC; Author: Luis LUCAS
+.TH RSA 3 "October 1, 1997" "ASIM/LIP6" "MBK PHYSICAL FUNCTIONS"
+.SH NAME
+rsa \- call the Recurrence Solver Adder generator
+.so man1/alc_origin.1
+.SH SYNOPSIS
+.nf
+.if n \{\
+.ft B \}
+.if t \{\
+.ft CR \}
+#include "gga300.h"
+char \(**rsa(n, cin, cout, overn, not,
+             csa, sub, addsub,
+             over, deci, stretch, stretch2,
+             msb0, virtual,
+             layout, icon, vhdl, patterns, datasheet,
+             physicalbox-logicalbox-perf,
+             name)
+int n, cin, cout, overn, not,
+       csa, sub, addsub,
+       over, deci, stretch, stretch2,
+       msb0, virtual,
+       layout, icon, vhdl, patterns, datasheet,
+       physicalbox-logicalbox-perf,
+char \(**name;
+.ft R
+.fi
+.SH PARAMETER
+.TP
+.IB n
+The range is from 3 to 128 bits.
+.TP
+.B cin
+The generated adder will contain a carry input connector on the North side in
+Metal1 layer.
+.TP
+.B cout
+The generated adder will contain all the intermediates carry, accessible in
+Metal2 Layer, with the multi-access possibilities.
+.TP
+.B overn
+The generated adder will contain the previous carry output \fBover\fP in Metal1
+layer on the North side.
+This signal could be used to calculate an overflow flag = over^cout.
+.TP
+.B not
+The output sum will be complemented but still keep the connector name
+.BR s .
+.TP
+.B csa
+The generated adder will be an adder with 3 operands, and one overflow connector
+on the North side in Metal1 layer.
+.TP
+.B sub
+The adder generated is, in fact, a subtractor, and performs always a-b. If the
+option \fB-cin\fP is present, then the block calculates a+not(b)+cin .
+.TP
+.B addsub
+The block obtained is a adder/subtractor. If the input terminal is set to 5V
+then it is a subtractor. If the option \fB-cin\fP is present, then the block
+performs a+xor(b,sub)+cin.
+.TP
+.B over -deci -stretch -stretch2
+Bull Options.
+.TP
+.B msb0
+Default is index 0 for the least significant bit. When \fB-msb0\fP is present
+the the most significant bit is indexed with 0.
+.TP
+.B virtual
+Default blocks contain fixed terminals. Virtual terminals can be obtained
+using this option. This way,
+.BR dpr (1) router should optimized the resultant routed data-path.
+.TP
+.B layout
+The generated view asked is a layout view. The different formats are given by
+.BR mbk (1)
+documentation, using
+.BR MBK_OUT_PH (1)
+environment variable.
+.TP
+.B icon
+Icon view for schematic capture. The possible output formats are specified
+setting the ICON_OUT (1) environement variable.
+.TP 
+.B vhdl
+The generated view asked is a data-flow behavioural view. The description of
+the VHDL used is gived by
+.BR vhdl (5).
+.TP
+.B patterns
+Some test vectors are proposed to validate the generated block. The format used
+is the
+.BR pat (5)
+one accepted by the VHDL simulator
+.BR asimut (1).
+.TP
+.B datasheet
+Principals process dependent informations are proposed to estimate the adder
+performances. It is the default view if none is specified.
+.TP
+.B physicalbox
+The generated view asked is a interface view. The different formats are given by
+.BR mbk (1)
+documentation, using
+.BR MBK_OUT_PH (1)
+environment variable.
+.TP
+.B logicalbox
+The generated view asked is an interface netlist view.
+The different formats are given by
+.BR mbk (1)
+documentation, using
+.BR MBK_OUT_LO (1)
+environment variable.
+.TP
+.B perf
+Programmer Option
+.TP
+.BI name
+The generated adder name will be \fIname\fP.
+.SH SEE ALSO
+.BR MBK_CATA_LIB (1),
+.BR MBK_WORK_LIB (1),
+.BR MBK_OUT_PH (1),
+.BR MBK_OUT_LO (1),
+.BR MBK_IN_PH (1),
+.BR vhdl (5),
+.BR pat (5),
+.BR rsa (1),
+.BR rfg (1),
+.BR bsg (1),
+.BR grog (1),
+
+.so man1/alc_bug_report.1
+

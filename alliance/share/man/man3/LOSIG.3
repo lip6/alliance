@@ -1,0 +1,79 @@
+.\"   $Id: LOSIG.3,v 1.1 1999/05/31 17:30:16 alliance Exp $
+.\" @(#)LOSIG.3 2.11 91/08/22 ; Labo Cao-vlsi; Author : Frederic Petrot
+.if t \{\
+.so man1/alc_contents.mac
+.XS \n%
+.ti 0.2i
+LOSIG
+.XE \}
+.TH LOSIG 3 "October 1, 1997" "ASIM/LIP6" "PROCEDURAL GENERATION LANGUAGE"
+.SH NAME
+LOSIG \- declare an internal logical signal, or a vector of internal
+logical signals
+.SH SYNOPSYS
+.nf
+.if n \{\
+.ft B \}
+.if t \{\
+.ft CR \}
+#include <genlib.h>
+void LOSIG(name)
+char \(**name;
+.ft R
+.fi
+.so man1/alc_origin.1
+.SH PARAMETERS
+.TP 20
+\fIname\fP
+Name of a signal to be declared
+.SH DESCRIPTION
+\fBLOSIG\fP creates the internal signal, or the set of internal signals
+coresponding to a vector description, represented by \fIname\fP.
+See \fBBUS(3)\fP and \fBELM(3)\fP for more details on vectors.
+.br
+The need for declaring signal is mostly felt when one wants to create a
+consistent vector declaration, for file formats that do not allow partial or
+multiple declarations, like \fIvhdl\fP.
+This way, a user can create a vector and access its member the way he wants,
+but still having an internal consistent form.
+.TP 20
+Warning
+If a signal is declared with \fBLOSIG\fP, but not used, the resulting file
+will have an internal node floating.
+This is not an error from a genlib point of view, so the user must be aware
+of it.
+.SH EXAMPLE
+.nf
+.if n \{\
+.ft B \}
+.if t \{\
+.ft CR \}
+#include <genlib.h>
+main()
+{
+	/\(** Create a figure to work on  \(**/
+	DEF_LOFIG("cell");
+	/\(** Define interface \(**
+	LOCON(...
+	/\(** declare buses \(**/
+	LOSIG("grum[23:0]");
+	LOSIG("iconection[0:7]");
+	/\(** Place an instance \(**/
+	LOINS("no2_y" ,"no3" ,"grum[12]" ,"a9_s" ,"new_no3_s" ,"vdd" ,"vss" ,0);
+	LOINS("no2_y" ,"no4" ,"a12_s" ,"grum[6]" ,"no4_s" ,"vdd" ,"vss" ,0);
+	LOINS("a2_y" ,"a22" ,"no3_s" ,"grum[15]" ,"a22_s" ,"vdd" ,"vss" ,0);
+	/\(** Save all that on disk \(**/
+	SAVE_LOFIG();
+}
+.ft R
+.fi
+.SH SEE ALSO
+.BR genlib (1),
+.BR LOINS (3),
+.BR LOCON (3),
+.BR BUS (3),
+.BR ELM (3).
+
+
+.so man1/alc_bug_report.1
+

@@ -1,0 +1,93 @@
+#cell2 * na3p_fp nle * 1 any 0 v8r4.4
+# "19-Nov-97 GMT" "17:08:51 GMT" "19-Nov-97 GMT" "17:08:51 GMT" fitpath * .
+writer        1
+file_version  1
+sections      1
+netlist   1:         82 na3p_fp
+
+
+B contents:  na3p_fp
+netlist           248
+cells             665
+switches            0
+attributes        689
+physical            0
+history             0
+E contents
+
+
+B netlist
+X 1 VSS;
+X 2 VDD;
+I $Tp 1 * | 21 1 .4011E-01 [23.5,60.5] | 10 2 15 2;
+I $Tp 2 * | 21 1 .4011E-01 [17.5,60.5] | 12 15 2 2;
+I $Tp 3 * | 21 1 .4011E-01 [11.5,60.5] | 14 2 15 2;
+I $Te 4 * | 21 1 .4011E-01 [23.5,30.5] | 10 23 15 5;
+I $Te 5 * | 21 1 .4011E-01 [17.5,30.5] | 12 25 23 5;
+I $Te 6 * | 21 1 .4011E-01 [11.5,30.5] | 14 1 25 5;
+N 1 VSS;
+N 2 VDD;
+G 5 BULK;
+N 14 i0;
+N 10 i2;
+N 12 i1;
+N 15 o;
+E netlist
+
+
+B subcells
+E subcells
+
+
+B attribute_list
+       901 program
+       939 technology_file
+      1008 technology_file_version
+      1051 options
+      1110 technology
+      1146 lambda
+      1170 window
+      1202 summary
+E attribute_list
+
+B A: program
+1 COMPASSextract;
+ 0;
+E
+
+B A: technology_file
+1 /labo/etc/vlsi/idps/techno/ecpd10.etf;
+ 0;
+E
+
+B A: technology_file_version
+1 1.0;
+ 0;
+E
+
+B A: options
+1 no_strays,no_coordinates,nodePoints;
+ 0;
+E
+
+B A: technology
+1 idps_symb;
+ 0;
+E
+
+B A: lambda
+1 1;
+ 0;
+E
+
+B A: window
+1 4 1 30 68;
+ 0;
+E
+
+B A: summary
+1 {Netlist contains 6 transistors and 27 nodes};
+ 0;
+E
+
+

@@ -1,0 +1,338 @@
+# -*- Mode: Shell-script -*-
+# configure.in for Alliance CAD system
+# $Id: configure.in,v 1.1 1999/05/31 17:30:30 alliance Exp $
+#
+
+AC_REVISION($Revision: 1.1 $)dnl
+
+AC_INIT(configure.in)
+
+AC_PREFIX_DEFAULT(/usr/local/alliance)
+
+# Helps this script to run in bad configured env...
+
+#PATH=$PATH:/bin:/usr/bin:/usr/local/bin:/labo/TeX/teTeX/bin:/labo/X11R6/bin:/labo/X11r5/bin:/labo/bin:/labo/gnu/bin:/sbin:/user/local/bin:/usr/X11/bin:/usr/X11R6/bin:/usr/andrew/bin:/usr/bin/X11:/usr/bin/games:/usr/bin:/usr/ccs/bin:/usr/dt/bin:/usr/etc:/usr/games:/usr/lib/teTeX/bin:/usr/local/bin:/usr/local/games:/usr/openwin/bin:/usr/sbin:/usr/ucb/bin:/usr/ucb:/usr/xpg4/bin
+
+#LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/usr/lib:/usr/local/lib:/labo/gnu/lib:/labo/X11R6/lib:/usr/lib/X11:/labo/X11r5/lib:/usr/X11R6.3/lib
+
+# Which platform for Alliance CAD
+AC_MSG_CHECKING(for platform)
+ case `uname` in
+   Linux*) case `uname -r` in
+	    1.*) MACHINE=Linux_aout ;;
+	    *)   MACHINE=Linux_elf  ;;
+	   esac ;;
+   SunOS*) case `uname -r` in
+            5*)  MACHINE=Solaris ;;
+            *)   MACHINE=SunOS ;;
+	   esac ;;
+   *)     MACHINE=Unknown ;;
+ esac
+ export MACHINE
+AC_MSG_RESULT(Configuring Alliance VLSI CAD System on platform : $MACHINE)
+AC_SUBST(MACHINE)
+
+AC_PROG_MAKE_SET
+
+ALLIANCE_VERSION=3.2b
+AC_SUBST(ALLIANCE_VERSION)
+
+################################################################## Binaries
+AC_CHECKING(%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% Binaries)
+
+# AC_CANONICAL_SYSTEM
+
+# Set default value for CC and CFLAGS
+if test -z "$CFLAGS" ; then
+  CFLAGS="-O"
+fi
+
+AC_PROG_CC
+
+AC_PATH_PROG(FULL_CC,       $CC)
+AC_SUBST(FULL_CC)
+
+AC_PROG_CPP
+
+if test "$GCC" = yes ; then
+    CFLAGS="-O4 -Wall"
+fi
+
+
+# Set default value for MAKE
+AC_PATH_PROG(GMAKE,      gmake)
+AC_PATH_PROG(MAKE,       make)
+if test -n "$GMAKE" ; then
+    MAKE=$GMAKE
+fi
+
+ARFLAGS=
+AC_SUBST(MAKEFLAGS)
+
+# Looking for particular programs
+# Lex & Yacc
+# Do not use AC_PROG_YACC because our yacc grammar
+# is not compatible with bison...
+# AC_PATH_PROG(YACC, yacc)
+
+AC_PROG_YACC
+AC_PROG_LEX
+AC_DECL_YYTEXT
+
+YACCFLAGS=`echo $YACC | awk '{for (i=2 ; i<=NF ; i++) printf("%s ", $i);printf ("\n"); }'`
+AC_SUBST(YACCFLAGS)
+
+LEXFLAGS=`echo $LEX  | awk '{for (i=2 ; i<=NF ; i++) printf("%s ", $i);printf ("\n"); }'`
+AC_SUBST(LEXFLAGS)
+
+AC_PATH_PROG(FULL_LEX,   `echo $LEX | awk '{print $1}'`)
+AC_SUBST(FULL_LEX)
+
+AC_PATH_PROG(FULL_YACC,  `echo $YACC | awk '{print $1}'`)
+AC_SUBST(FULL_YACC)
+
+# gcc-cpp has the wonderful -MM option to produce nicer dependencies
+test "$GCC" = yes && CPP_MM=M; AC_SUBST(CPP_MM)
+
+AC_PROG_LN_S
+
+# Looking for ordinary programs
+
+AC_PATH_PROG(AR,         ar)
+
+ARFLAGS=rv 
+AC_SUBST(ARFLAGS)
+
+AC_PATH_PROG(AUTOCONF,   autoconf)
+AC_PATH_PROG(AUTOHEADER, autoheader)
+AC_PATH_PROG(AUTOMAKE,   automake)
+
+AC_PATH_PROG(GAWK,       gawk)
+AC_PATH_PROG(AWK,        awk)
+if test -n "$GAWK" ; then
+    AWK=$GAWK
+fi
+
+AC_PATH_PROG(CAT,        cat)
+AC_PATH_PROG(CHMOD,      chmod)
+AC_PATH_PROG(CP,         cp)
+AC_PATH_PROG(CSH,        csh)
+AC_PATH_PROG(CUT,        cut)
+AC_PATH_PROG(ECHO,       echo)
+AC_PATH_PROG(FALSE,      false)
+AC_PATH_PROG(FIND,       find)
+AC_PATH_PROG(GREP,       grep)
+AC_PATH_PROG(HOSTNAME,   hostname)
+AC_PATH_PROG(LD,         ld)
+AC_PATH_PROG(LNDIR,      lndir)
+AC_PATH_PROG(LS,         ls)
+AC_PATH_PROG(MKDIR,      mkdir)
+AC_PATH_PROG(MV,         mv)
+AC_PATH_PROG(PERL,       perl)
+AC_PATH_PROG(RANLIB,     ranlib)
+AC_PATH_PROG(RM,         rm)
+AC_PATH_PROG(SED,        sed)
+
+AC_PATH_PROG(SH,      sh)
+if test "$SH" != sh ; then
+    SHELL=$SH
+else
+    SHELL=/bin/shkvjdkjvdf
+fi
+AC_SUBST(SHELL)
+
+AC_PATH_PROG(STRIP,      strip)
+AC_PATH_PROG(TEST,       test)
+AC_PATH_PROG(TOUCH,      touch)
+AC_PATH_PROG(TR,         tr)
+AC_PATH_PROG(TRUE,       true)
+AC_PATH_PROG(WC,         wc)
+
+
+# Check that all the utilities are present
+
+# All but makeinfo, automake, autoconf, autoheader, zsh
+if $TEST -z "$AR" \
+   -o -z "$AWK" \
+   -o -z "$CAT" \
+   -o -z "$CHMOD" \
+   -o -z "$CP" \
+   -o -z "$CUT" \
+   -o -z "$ECHO" \
+   -o -z "$FALSE" \
+   -o -z "$FIND" \
+   -o -z "$GREP" \
+   -o -z "$HOSTNAME" \
+   -o -z "$LD" \
+   -o -z "$LS" \
+   -o -z "$MKDIR" \
+   -o -z "$MV" \
+   -o -z "$PERL" \
+   -o -z "$RM" \
+   -o -z "$SED" \
+   -o -z "$STRIP" \
+   -o -z "$TEST" \
+   -o -z "$TOUCH" \
+   -o -z "$TR" \
+   -o -z "$TRUE" \
+   -o -z "$WC" 
+then
+  AC_MSG_WARN([please install the above utilities that are not present])
+fi
+
+
+################################################################## Libraries...
+AC_CHECKING(%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%  Headers and Libraries...)
+# Check that Xpm is installed
+# ($TRUE is used to avoid inclusion of -lXpm in LIBS)
+#AC_CHECK_LIB(Xpm, XpmReadFileToImage, $TRUE,
+#  AC_MSG_ERROR([please install Xpm]))
+
+# Check that xforms is installed
+#AC_CHECK_LIB(xforms, fl_init_font, $TRUE,
+#  AC_MSG_ERROR([please install xforms]))
+
+AC_PATH_XTRA
+
+#dnl Check for Motif include files location.
+#dnl The LAST one found is used, this makes the highest version to be used,
+#dnl e.g. when Motif1.2 and Motif2.0 are both present.
+
+SKIP_MOTIF=
+if test -z "$SKIP_MOTIF"; then
+  gui_includes="`echo $x_includes|sed 's%/[^/][^/]*$%%'` /local/Motif*/include /local/include/Motif* /usr/local/Motif*/include /usr/local/include/Motif* /usr/include/Motif* /usr/Motif*/include /usr/local/include /usr/local/X11*/include /usr/include /usr/X11*/include /usr/include/X11* /usr/dt/include $MOTIFHOME/include $GUI_INC_LOC"
+  AC_MSG_CHECKING(for location of Motif GUI includes)
+  GUI_INC_LOC=
+  for try in $gui_includes; do
+    if test -f "$try/Xm/Xm.h"; then
+      GUI_INC_LOC=$try
+    fi
+  done
+  if test -n "$GUI_INC_LOC"; then
+    AC_MSG_RESULT($GUI_INC_LOC)
+    test "$GUI_INC_LOC" = /usr/include && GUI_INC_LOC=.
+  else
+    AC_MSG_RESULT(<not found>)
+    SKIP_MOTIF=YES
+  fi
+fi
+
+#dnl Check for Motif library files location.
+#dnl The LAST one found is used, this makes the highest version to be used,
+#dnl e.g. when Motif1.2 and Motif2.0 are both present.
+
+if test -z "$SKIP_MOTIF"; then
+  gui_libs="`echo $x_libraries|sed 's%/[^/][^/]*$%%'` `echo "$GUI_INC_LOC" | sed 's/include/lib/'` /local/Motif*/lib /local/lib/Motif* /usr/local/Motif*/lib /usr/local/lib/Motif* /usr/Motif*/lib /usr/lib/Motif* /usr/local/lib /usr/local/X11*/lib /usr/lib /usr/X11*/lib /usr/lib/X11* /usr/dt/lib $MOTIFHOME/lib $GUI_LIB_LOC"
+  AC_MSG_CHECKING(for location of Motif GUI libs)
+  GUI_LIB_LOC=
+  for try in $gui_libs; do
+    if test -f "$try/libXm.a" -o -f "$try/libXm.so" -o -f "$try/libXm.sl"; then
+      GUI_LIB_LOC=$try
+      if test "`(uname) 2>/dev/null`" = SunOS &&
+            uname -r | grep '^5' >/dev/null; then
+        GUI_LIB_LOC="$GUI_LIB_LOC -R $try"
+      fi
+    fi
+  done
+  if test -n "$GUI_LIB_LOC"; then
+    AC_MSG_RESULT($GUI_LIB_LOC)
+  else
+    AC_MSG_RESULT(<not found>)
+    SKIP_MOTIF=YES
+  fi
+fi
+
+AC_SUBST(GUI_INC_LOC)
+AC_SUBST(GUI_LIB_LOC)
+
+
+
+# Check where usefull GNU libs are installed (readline)
+#AC_CHECK_LIB(readline, main, $TRUE,
+#AC_MSG_WARN(Cannot find readline library), -ltermcap )
+
+
+# Check for readline include
+
+SKIP_GNU=
+if test -z "$SKIP_GNU"; then
+  gnu_includes="`echo $LD_LIBRARY_PATH | sed 's/:/ /g' | sed 's/lib/include/g'` /usr/local/include /usr/include $GNUHOME/include $GNU_INC_LOC"
+  AC_MSG_CHECKING(for location of GNU includes)
+  GNU_INC_LOC=
+#    echo $gnu_includes
+  for try in $gnu_includes; do
+    if test -f "$try/readline/readline.h"; then
+      GNU_INC_LOC=$try
+    fi
+  done
+  if test -n "$GNU_INC_LOC"; then
+    AC_MSG_RESULT($GNU_INC_LOC)
+    test "$GNU_INC_LOC" = /usr/include && GNU_INC_LOC=.
+  else
+    AC_MSG_RESULT(not found.)
+    SKIP_GNU=YES
+  fi
+fi
+
+# Check for readline library
+
+if test -z "$SKIP_GNU"; then
+  gnu_libs="`echo $LD_LIBRARY_PATH | sed 's/:/ /g'` `echo "$GNU_INC_LOC" | sed 's/include/lib/'` /usr/local/lib /usr/lib $GNUHOME/lib $GNU_LIB_LOC"
+  AC_MSG_CHECKING(for location of GNU libs)
+  GNU_LIB_LOC=
+#    echo $gnu_libs
+  for try in $gnu_libs; do
+    if test -f "$try/libreadline.a" ; then
+      GNU_LIB_LOC=$try
+    fi
+  done
+  if test -n "$GNU_LIB_LOC"; then
+    AC_MSG_RESULT($GNU_LIB_LOC)
+  else
+    AC_MSG_RESULT(not found. Please install readline and add lib to your LD_LIBRARY_PATH )
+    SKIP_GNU=YES
+  fi
+fi
+
+AC_SUBST(GNU_INC_LOC)
+AC_SUBST(GNU_LIB_LOC)
+
+
+
+################################################################### Headers...
+AC_STDC_HEADERS
+
+#AC_CHECK_SIZEOF(int)
+
+#AC_CHECK_SIZEOF(void *)
+
+#AC_MSG_RESULT([kernel name : "$KERNEL_FILE"])
+
+
+################################################################### Alliance TOP
+AC_MSG_CHECKING(where the Alliance package was installed)
+ TOP=`pwd | sed 's/share\/etc$/archi/'`
+ export TOP
+AC_MSG_RESULT(Alliance TOP is "$TOP")
+AC_SUBST(TOP)
+
+DATE=`date`
+AC_SUBST(DATE)
+
+HOST=`uname -a`
+AC_SUBST(HOST)
+
+# create the 
+cp machine.mk.in $MACHINE.mk.in
+
+AC_OUTPUT($MACHINE.mk alc_env.sh alc_env.csh)
+
+# remove  config cache
+rm -f config.cache
+
+#cat config.status | grep '^s%' | sed -e 's/^s%@//' -e 's/@%/ /' -e 's/%g$//' | sort | gawk '{printf("%-30s",$1) ; for (i=2 ; i<=NF ; i++) printf("%s ", $i); printf ("\n");}'
+
+echo Done...
+
+# EOF
+

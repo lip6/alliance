@@ -1,0 +1,47 @@
+.\"   $Id: bemsg.3,v 1.1 1999/05/31 17:30:18 alliance Exp $
+.\" @(#)bemsg.2 108 Feb 15 1995 UPMC; Pirouz BAZARGAN SABET
+.TH BEMSG 3 "October 1, 1997" "ASIM/LIP6" "cao\-vlsi reference manual"
+
+.so man1/alc_origin.1
+.SH NAME
+.PP
+\fBbemsg\fP - BEH data structure
+
+.SH DESCRIPTION
+.PP
+\fIbemsg\fP is a data structure used in \fBBEH\fP to represent a condition.
+To check the correct usage of the circuit, the circuit designer can asserts
+a set of normal\-usage conditions. The validity of these conditions is to
+be checked continiously during circuit\'s simulation.
+\fIbemsg\fP has been designed to be used in a simply chained list.
+
+.PP
+A \fIbemsg\fP structure is composed of the following fields.
+
+.TP 25
+\fI(char *) LABEL\fP
+the assert\'s label. This string is supposed been produced by \fBnamealloc()\fP
+.TP 25
+\fI(struct chain *) ABL\fP
+condition\'s expression represented by an ABL
+.TP 25
+\fI(struct node *) BDD\fP
+condition\'s expression represented by a BDD
+.TP 25
+\fI(char) LEVEL\fP
+severity level : E (error) or, W (warning)
+.TP 25
+\fI(char *) MESSAGE\fP
+message to be printed out when the condition goes to flase
+.TP 25
+\fI(struct bemsg *) NEXT\fP
+next bemsg
+
+.SH SEE ALSO
+.PP
+log(3), beh(3), beh_addbemsg(3), beh_delbemsg(3), beh_frebemsg(3),
+beh_rmvbemsg(3), namealloc(3)
+
+
+.so man1/alc_bug_report.1
+

@@ -1,0 +1,135 @@
+.\"   $Id: phfig.3,v 1.1 1999/05/31 17:30:24 alliance Exp $
+.\" @(#)phfig.l 0.0 90/22/08 UPMC; Author: Frederic Petrot
+.ta 1.5i 5.0i
+.if t \{\
+.so man1/alc_contents.mac
+.XS \n%
+.ti 0.2i
+phfig
+.XE
+.XS0 \n%
+.ti 0.2i
+phfig
+.XE0 \}
+.TH PHFIG 3 "October 1, 1997" "ASIM/LIP6" "MBK PHYSICAL STRUCTURE DEFINITIONS"
+.SH NAME
+phfig \- mbk physical figure 
+.SH DESCRIPTION
+The \fBphfig\fP is used to describe a hierarchical level of a
+\fIsymbolic layout\fP
+and may contain any of the legal physical objects needed for a layout but
+a \fBphfig\fP.
+All coordinates are \fIsymbolic\fP and therefor put on a virtual grid in booth
+x and y directions.
+.LP
+The declarations needed to work on \fBphfig\fP are available in the header file
+\fI"/labo/include/mph402.h"\fP, where '\fI402\fP' is the actual mbk version.
+.LP
+The following C structure supports the description of the layout view :
+.RS
+.nf
+.if n \{\
+.ft B \}
+.if t \{\
+.ft CR \}
+.ta 3n 20n 30n
+typedef struct phfig {
+	struct phfig	\(**NEXT;
+	struct chain	\(**MODELCHAIN;
+	struct phseg	\(**PHSEG;
+	struct phvia	\(**PHVIA;
+	struct phref	\(**PHREF;
+	struct phins	\(**PHINS;
+	struct phcon	\(**PHCON;
+	char	\(**NAME;
+	char	MODE;
+	long	XAB1, YAB1, XAB2, YAB2;
+	struct ptype	\(**USER;
+} phfig_list;
+.ft R
+.fi
+.RE
+.TP 20
+\fINEXT\fP
+Pointer to the next \fBphfig\fP present in ram.
+.TP
+\fINAME\fP
+Name of the figure. It identifies a figure (or \fImodel\fP), so it should
+be unique in order to warranty consistency of cells libraries. In order
+to ensure this consistency, the \fINAME\fP field must be filled with the
+disk file name while parsing, and must be used as file name for driving.
+.TP
+\fIPHINS\fP
+Pointer to the head of the list of instances being used for the model 
+description. See \fBphins\fP(3) for details.
+.TP
+\fIPHCON\fP
+Pointer to the head of the list of connectors (terminals) of the model.
+See \fBphcon\fP(3) for details.
+.TP
+\fIPHSEG\fP
+Pointer to the head of the list of segments (wires) of the model.
+See \fBphseg\fP(3) for details.
+.TP
+\fIPHVIA\fP
+Pointer to the head of the list of contacs and vias of the model.
+See \fBphvia\fP(3) for details.
+.TP
+\fIPHREF\fP
+Pointer to the head of the list of references of the model.
+See \fBphref\fP(3) for details.
+.TP
+\fIXAB1, YAB1, XAB2, YAB2\fP
+Coordinates of the bottom left corner of the \fIabutment box\fP of the
+figure. The \fIabutment box\fP of a model represents the external visibility of
+a figure and is what reference is made to when instanciating the model.
+One should well distinguish the \fIabutment box\fP from the \fIbounding box\fP,
+which is the smallest rectangle that includes all cell descriptors.
+The size and position of the \fIabutment box\fP is a designer concern, and
+cannot be computed.
+.TP
+\fIMODE\fP
+Caracter indicating the status of the figure in memory. This field can
+take two values :
+.RS
+.TP 10
+.B
+\'A\'
+all the cell is loaded in ram.
+.TP
+.B
+\'P\'
+only information concerning the model interface is present, that
+means connectors and the \fIabutment box\fP. All other lists are empty.
+.RE
+.TP
+\fIMODELCHAIN\fP
+Pointer to a chain list, see \fBchain\fP(3) for details, of names. These are the
+names of the models that are at least instanciated once in the figure.
+.TP
+\fIUSER\fP
+Pointer to a ptype list, see \fBptype\fP(3) for details, 
+that is a general purpose
+pointer used to share informations on the model.
+.TP
+Remark :
+mbk's physical view of a cell is releted to it's logical view by means 
+of connector names, that must be identical.
+.SH SEE ALSO
+.BR mbk (1),
+.BR addphfig (3),
+.BR getphfig (3),
+.BR delphfig (3),
+.BR loadphfig(3),
+.BR savephfig (3),
+.BR phins (3),
+.BR phvia (3),
+.BR phcon (3),
+.BR phseg (3),
+.BR phref (3),
+.BR ptype (3),
+.BR lofig (3).
+
+
+.so man1/alc_bug_report.1
+

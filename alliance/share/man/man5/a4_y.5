@@ -1,0 +1,45 @@
+.\"   $Id: a4_y.5,v 1.1 1999/05/31 17:30:26 alliance Exp $
+.pl -.4
+.TH A4_Y 5 "October 1, 1997" "ASIM/LIP6" "STANDARD-CELL LIBRARY"
+.SH NAME
+.B a4_y
+.so man1/alc_origin.1
+.SH SYNOPSIS
+.B Genlib call :
+.br
+  LOINS("a4_y","name","i0","i1","i2","i3","t","vdd","vss",0);
+.SH DESCRIPTION
+.I - Interface
+   entity a4_y is
+     port(
+        i0 : in bit;
+        i1 : in bit;
+        i2 : in bit;
+        i3 : in bit;
+        t : out bit;
+        vdd : in bit;
+        vss : in bit);
+.br
+.I - Logical description
+.br
+    t <= (((i0 and i1) and i2) and i3);
+   
+.br
+.I - Physical features
+   number of grids : 6
+   number of feed-through : 1
+.br
+   
+.I - Timing caracteristics
+.br
+   i0 : 46 (fF)
+.br
+   i1 : 46 (fF)
+.br
+   i2 : 46 (fF)
+.br
+   i3 : 46 (fF)
+.br
+
+.so man1/alc_bug_report.1
+

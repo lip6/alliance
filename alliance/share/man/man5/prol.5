@@ -1,0 +1,819 @@
+.\"   $Id: prol.5,v 1.1 1999/05/31 17:30:28 alliance Exp $
+.\" @(#)prol.5 2.11 91/08/22; Labo Cao-vlsi; Author : Frederic Petrot & Franck Wajsburt
+.TH PROL 5 "October 1, 1997" "ASIM/LIP6" "RDS FILE FORMATS"
+.SH NAME
+\fBprol\fP \- define the rules for symbolic to real layout translation
+.so man1/alc_origin.1
+.SH DESCRIPTION
+This file describes the rules used by the \fBmbk\fP(1) to \fBrds\fP translator.
+In the following file, symbolic layout objects are refered as \fBmbk\fP(1)
+objects, \fBmbk\fP(1) being the internal data structure that supports
+symbolic representation.
+On the other hand, \fBrds\fP is a data structure describing mainly rectangles,
+and is therefore used for real layout representation.
+.PP
+Some syntaxic remarques on the way to write the file follow.
+The case of identifiers is not significant, so NDIF is equivalent to NdiF.
+Comments are allowed anywhere in the file, using the \fIsharp\fP (#) as start of
+comment, and \fInewline\fP as end of comment.
+A line begining with a \fIsharp\fP will be ignored, and a line containing a
+\fIsharp\fP will be read up to the character preeceding it.
+A \fInewline\fP can be escaped using the \fIbackslash\fP (\) followed by
+the \fInewline\fP.
+If some character, spaces or tabs for example, follow the \fIbackslash\fP,
+chances are that a syntax error will be issued.
+.PP
+First, some important process parameters are needed, the physical grid step,
+that is the least common multiple of all the technologies values in terms of
+layout distances, and the
+.ie t \(*l,
+.el lambda,
+computed from a careful observation of the process design rules.
+.br
+Then, a set of tables is needed, to describe how to translate a symbolic
+object, belonging to the \fBmbk\fP(1) world, and a set of layout rectangles,
+in \fBrds\fP.
+.br
+Each table has a special meaning, and its parametrization exend beeing not
+full, some borders are to be evocated.
+Several type of table exists indeed.
+Some are needed for object translation, others for post treatment
+parametrization, others to define cif or gds identifiers regarding rds ones.
+.br
+Many things seem to be parametrizable, but in fact, mostly, if not only,
+numbers, names in cif and gds translation tables, and boolean value in post
+treatement may be changed without problems.
+.PP
+For any table, if some layer is not applicable, it can simply be omitted.
+The default action is `do nothing', or use a value of 0.0 for all entries.
+.SH LAYERS AND PATTERNS
+Since the goal of this file is to allow translation from \fBmbk\fP(1)
+to \fBrds\fP, the meaning of the layers in both representation shall be known.
+.br
+\s+2\fBMbk layers\fP\s-2
+.RS 5
+.TP 20
+NWELL
+minimum width 4 ; N-well.
+.TP 20
+PWELL
+minimum width 4 ; P-well.
+.TP 20
+NTIE
+minimum width 2 ; N diffusion for polarisation.
+.TP 20
+PTIE
+minimum width 2 ; P diffusion for polarisation.
+.TP 20
+NDIF
+minimum width 2 ; N diffusion for transistor.
+.TP 20
+PDIF
+minimum width 2 ; P diffusion for transistor.
+.TP 20
+NTRANS
+minimum width 1 (gate width) ; N transistor.
+.TP 20
+PTRANS
+minimum width 1 (gate width) ; P transistor.
+.TP 20
+POLY
+minimum width 1 ; polysilicon, not transistor gate.
+.TP 20
+ALU1
+minimum width 1 ; first level of metal.
+.TP 20
+ALU2
+minimum width 2 ; second level of metal.
+.TP 20
+ALU3
+minimum width 3 ; third level of metal (unused).
+.TP 20
+TPOLY
+minimum width 1 ; through route for POLY.
+.TP 20
+TALU1
+minimum width 1 ; through route for ALU1.
+.TP 20
+TALU2
+minimum width 2 ; through route for ALU2.
+.TP 20
+TALU3
+minimum width 3 ; through route for ALU3 (unused).
+.RE
+\s+2\fBMbk patterns\fP\s-2
+.RS 5
+.TP 20
+CONT_POLY
+cut pattern from ALU1 to POLY
+.TP 20
+CONT_VIA
+cut pattern from ALU1 to ALU2
+.TP 20
+CONT_VIA2
+cut pattern from ALU2 to ALU3
+.TP 20
+CONT_DIF_N
+cut pattern from ALU1 to NDIF
+.TP 20
+CONT_DIF_P
+cut pattern from ALU1 to PDIF
+.TP 20
+CONT_BODY_N
+cut pattern from ALU1 to NTIE
+.TP 20
+CONT_BODY_P
+cut pattern from ALU1 to PTIE
+.TP 20
+C_X_N
+corner primitive for L or S shaped N transistor
+.TP 20
+C_X_P
+corner primitive for L or S shaped P transistor
+.RE
+\s+2\fBRds layers\fP\s-2
+.RS 5
+.TP 20
+RDS_NWELL
+N-well (or N-tub), bulk for P transistors.
+.TP 20
+RDS_PWELL
+P-well (or P-tub), bulk for N transistors.
+.TP 20
+RDS_NDIF
+use for symbolic extractor as equivalent of NDIF.
+.TP 20
+RDS_PDIF
+use for symbolic extractor as equivalent of PDIF.
+.TP 20
+RDS_NTIE
+use for symbolic extractor as equivalent of NTIE.
+.TP 20
+RDS_PTIE
+use for symbolic extractor as equivalent of PTIE.
+.TP 20
+RDS_POLY
+polysillicon run, for cell internal wirering.
+.TP 20
+RDS_GATE
+transistor polysillicon, for gate.
+.TP 20
+RDS_TPOLY
+polysillicon feed through.
+Indicate to a router that a track is free of polysillicon.
+.TP 20
+RDS_CONT
+hole in the isolating layer between polysillicon or active area and
+first metal level.
+.TP 20
+RDS_ALU1
+first metal level run.
+.TP 20
+RDS_TALU1
+first metal level feed through.
+Indicates to a router that a track is free of first metal level.
+.TP 20
+RDS_VIA1
+hole in the isolating layer between first metal level and second metal level.
+.TP 20
+RDS_ALU2
+second metal level run.
+.TP 20
+RDS_TALU2
+second metal level feed through.
+Indicate to a router that a track is free of second metal level.
+.TP 20
+RDS_VIA2
+hole in the isolating layer between second metal level and third metal level.
+.TP 20
+RDS_ALU3
+third metal level run.
+.TP 20
+RDS_TALU3
+third metal level feed through.
+Indicate to a router that a track is free of third metal level.
+.TP 20
+RDS_ALU4
+fourth metal.
+(Used only for GaAs designs.)
+.TP 20
+RDS_VIA3
+hole in the isolating layer between third metal level and fourth metal level.
+(Used only for GaAs designs.)
+.TP 20
+RDS_ACTIV
+active area dropped in N or P implant to build transistors.
+.TP 20
+RDS_NIMP
+implant area, (sometime known as N select), for N transistors.
+.TP 20
+RDS_PIMP
+implant area, (sometime known as P select), for P transistors.
+.TP 20
+RDS_CPAS
+passivation, used in pads.
+.TP 20
+RDS_USER0
+user defined purpose layer.
+(May be used for DRC logical operations.)
+.TP 20
+RDS_USER1
+user defined purpose layer.
+(May be used for DRC logical operations.)
+.TP 20
+RDS_USER2
+user defined purpose layer.
+(May be used for DRC logical operations.)
+.TP 20
+RDS_REF
+virtual layer for the representation of symbolic references
+.TP 20
+RDS_ABOX
+virtual layer needed to indicate the abutment box of a model.
+.TP 20
+RDS_DEFAULT
+default layer, shall never appear anywhere.
+.RE
+.SH FILE DESCRIPTION
+The following lines describe the file, entry by entry, specifying what is
+expected.
+.TP 20
+\s+2\fBPhysical grid\fP\s-2
+.ie t \{\
+.ta 9m
+.ft CR \}
+.el \{\
+.ta 25m
+.ft B \}
+DEFINE PHYSICAL_GRID  .5
+.ft R
+.br
+This statement defines the minimum grid spacing enforced by the foundry.
+.TP
+\s+2\fBLambda\fP\s-2
+.ie t \{\
+.ft CR \}
+.el \{\
+.ft B \}
+DEFINE LAMBDA  1
+.ft R
+.br
+This defines the value of the
+.ie n lambda
+.el \(*l
+in
+.ie n microns.
+.el \(*m.
+This value, like any other one in the rest of the file \fImust\fP be a multiple
+of the
+.ie t \{\
+.ft CR \}
+.el \{\
+.ft B \}
+PHYSICAL_GRID\fR.
+.TP
+\s+2\fBSegment translation table\fP\s-2
+.ie t \{\
+.ft CR \}
+.el \{\
+.ft B \}
+TABLE MBK_TO_RDS_SEGMENT\fR
+.br
+This table contains all the informations needed to translate a symbolic
+segment of a given layer onto one, two or three real rectangles of
+specified layers.
+An example of this table is given below, with values needed for a
+technology where one
+.ie n lambda
+.el \(*l
+is equal to 1.05
+.ie microns
+.el \(*m
+and the design grid is set to 0.15
+.ie n microns.
+.el \(*m.
+.PP
+.ie n \{\
+.ft B \}
+.el \{\
+.ft CR \}
+.nf
+TABLE MBK_TO_RDS_SEGMENT
+
+  NWELL    RDS_NWELL   VW  3.15  6.30  0.0  ALL
+  NDIF     RDS_ACTIV   VW  0.60 -0.90  0.0  ALL \\
+           RDS_NIMP    VW  2.10  2.10  0.0  ALL
+  PDIF     RDS_ACTIV   VW  0.60 -0.90  0.0  ALL \\
+           RDS_PIMP    VW  2.10  2.10  0.0  ALL
+  NTIE     RDS_ACTIV   VW  0.60 -0.90  0.0  ALL \\
+           RDS_NIMP    VW  1.20  0.30  0.0  ALL
+  PTIE     RDS_ACTIV   VW  0.60 -0.90  0.0  ALL \\
+           RDS_PIMP    VW  1.20  0.30  0.0  ALL
+  NTRANS   RDS_GATE    VW  0.00  0.15  0.0  ALL \\
+           RDS_ACTIV   VW -1.50  4.35  0.0  ALL \\
+           RDS_NIMP    VW  0.00  7.35  0.0  ALL
+  PTRANS   RDS_GATE    VW  0.00  0.15  0.0  ALL \\
+           RDS_ACTIV   VW -1.50  4.35  0.0  ALL \\
+           RDS_PIMP    VW  0.00  7.35  0.0  ALL
+  POLY     RDS_POLY    VW  0.60  0.15  0.0  ALL
+  ALU1     RDS_ALU1    VW  0.90  0.75  0.0  ALL
+  ALU2     RDS_ALU2    VW  0.90 -0.30  0.0  ALL
+  TPOLY    RDS_TPOLY   VW  0.60  0.15  0.0  ALL
+  TALU1    RDS_TALU1   VW  0.90  0.75  0.0  ALL
+  TALU2    RDS_TALU2   VW  0.90 -0.30  0.0  ALL
+
+END
+
+.fi
+.ft R
+.RS 20
+The first column is the \fBmbk\fP(1) layer name to be translated, then there
+one or more groups of 6 columns each.
+For each physical rectangle, there are 3 parameters :
+.br
+\- rds layer name
+.br
+\- One of \fBVW\fR, \fBLCW\fR, \fBRCW\fR that indicates the `type' of segment
+to be generated
+.br
+\- physical length extension: \fIDLR\fP
+.br
+\- physical width oversize: \fIDWR\fP
+.br
+\- offset from symbolic axis: \fIOFFSET\fP
+.br
+\- tools for which the generated rectangle is applicable:
+\fBALL\fR, \fBDRC\fR (for the symbolic design rule checker,
+see \fBdruc\fR(1)), \fBEXT\fR
+(for the symbolic extractor, see \fBlynx\fR(1))
+These parameters are meant regarding the symbolic segment.
+.RE
+.TP 20
+\s+2\fBConnectors translation table\fP\s-2
+.ie t \{\
+.ft CR \}
+.el \{\
+.ft B \}
+TABLE MBK_TO_RDS_CONNECTOR\fR
+.br
+This table contains all the informations needed to translate a symbolic
+connector of a given layer onto one \fIsingle\fP real rectangle.
+.br
+An example of this table is given below, with values needed for a
+technology where one
+.ie n lambda
+.el \(*l
+is equal to 1.05
+.ie microns
+.el \(*m
+and the design grid is set to 0.15
+.ie n micron.
+.el \(*m.
+.PP
+.ie t \{\
+.ft CR \}
+.el \{\
+.ft B \}
+.nf
+TABLE MBK_TO_RDS_CONNECTOR
+
+  POLY     RDS_POLY  0.6   0.15
+  ALU1     RDS_ALU1  0.9   0.75
+  ALU2     RDS_ALU2  0.9  -0.3
+
+END
+.fi
+.ft R
+.RS 20
+One symbolic connector is translated into one
+physical rectangle using 3 parameters :
+.br
+\- rds layer name
+.br
+\- physical width oversize: \fIDWR\fP
+.br
+\- physical extension on each side of the abutment box: \fIDER\fP
+
+.RE
+.RS 20
+It is discouraged to use active or well layers as connectors while
+designing.
+.RE
+.TP 20
+\s+2\fBVias translation table\fP\s-2
+.ie t \{\
+.ft CR \}
+.el \{\
+.ft B \}
+TABLE MBK_TO_RDS_VIA\fR
+.br
+This table contains all the informations needed to translate a symbolic
+via of a given layer onto one to four real rectangles of user
+specified layers.
+An example of this table is given below, with values needed for a
+technology where one
+.ie n lambda
+.el \(*l
+is equal to 1.05
+.ie microns
+.el \(*m
+and the design grid is set to 0.15
+.ie n micron.
+.el \(*m.
+.PP
+.ie t \{\
+.ft CR \}
+.el \{\
+.ft B \}
+.nf
+TABLE MBK_TO_RDS_VIA
+
+  CONT_BODY_N RDS_ALU1 3   RDS_CONT  1.5 RDS_ACTIV 3.3 RDS_NIMP 4.5
+  CONT_BODY_P RDS_ALU1 3   RDS_CONT  1.5 RDS_ACTIV 3.3 RDS_PIMP 4.5
+  CONT_DIF_N  RDS_ALU1 3   RDS_CONT  1.5 RDS_ACTIV 3.3 RDS_NIMP 6.3
+  CONT_DIF_P  RDS_ALU1 3   RDS_CONT  1.5 RDS_ACTIV 3.3 RDS_PIMP 6.3
+  CONT_POLY   RDS_ALU1 3   RDS_CONT  1.5 RDS_POLY  3
+  CONT_VIA    RDS_ALU1 3   RDS_VIA1  1.5 RDS_ALU2  3
+  CONT_VIA2
+  C_X_N       RDS_GATE 1.2 RDS_ACTIV 5.4 RDS_NIMP  8.4
+  C_X_P       RDS_GATE 1.2 RDS_ACTIV 5.4 RDS_PIMP  8.4
+
+END
+
+.fi
+.br
+.ft R
+.RS 20
+This table describes how to translate one symbolic via,
+to 2, 3 or 4 physical rectangles.
+The table is defined as follow :
+The first column is the \fBmbk\fP(1) via name to translate, then there are
+4 groups of 2 columns each, which correspond to four potential targets
+\fBrds\fP rectangles of user specified layer.
+In one group the first column is the \fBrds\fP layer name, the second one is
+the \fBrds\fP layer width.
+The rectangle is centered on the contact coordinates, and expands in the four
+direction of half the given width value.
+.RE
+.TP 20
+\s+2\fBDenotching values table\fP\s-2
+.ie t \{\
+.ft CR \}
+.el \{\
+.ft B \}
+TABLE S2R_OVERSIZE_DENOTCH\fR
+.br
+This table contains the oversize value needed to erase notches.
+All the rectangles of the same \fBrds\fP layer are oversized by this value
+and then merged alltogether and undersized by the same value.
+An example of this table is given below.
+.PP
+.ie t \{\
+.ft CR \}
+.el \{\
+.ft B \}
+.nf
+TABLE S2R_OVERSIZE_DENOTCH
+
+  RDS_NWELL   3.00
+  RDS_POLY    0.75
+  RDS_GATE    0.75
+  RDS_ALU1    0.75
+  RDS_ALU2    0.75
+  RDS_ACTIV   1.05
+  RDS_NIMP    2.55
+  RDS_PIMP    2.55
+
+END
+.fi
+.ft R
+.RS 20
+For some \fBrds\fP layers, like RDS_NWELL, RDS_NIMP and RDS_PIMP, two
+rectangles distant from less or equal the minimun spacing design
+rule must be merged in a single one.
+In this case, the oversize value is equal to the minimum spacing rule
+between two edges of the same layer divided by 2. 
+.br
+Some other \fBrds\fP layers, like RDS_ALU1, ..., must not be merged.
+In this case, the oversize value is equal to the minimum spacing rule
+between two edges of the same layer divided by 2, minus the physical
+grid. 
+.br
+Some layers never create notch, such as RDS_VIA1 or RDS_CONT, so
+the oversize value is null.
+.RE
+.TP 20
+\s+2\fBRing width\fP\s-2
+.ie t \{\
+.ft CR \}
+.el \{\
+.ft B \}
+TABLE S2R_BLOC_RING_WIDTH\fR
+.br
+s2r must merge segments to erase notches even if those segments
+are in two different hierarchical level blocs, for example, two
+blocs abuted side to side.
+So, it must be able to fetch segments inside blocs. 
+It is not needed to flatten the entire bloc, only a ring is
+necessary. The ring is computed from the abutment box edges or from 
+the envelop edges of the overlapping blocs.
+.br
+An example of this table is given below.
+.PP
+.ie t \{\
+.ft CR \}
+.el \{\
+.ft B \}
+.nf
+TABLE S2R_BLOC_RING_WIDTH
+
+  RDS_NWELL   6
+  RDS_POLY    1.8
+  RDS_GATE    1.8
+  RDS_ALU1    1.8
+  RDS_ALU2    1.8
+  RDS_ACTIV   2.4
+  RDS_NIMP    1.8
+  RDS_PIMP    1.8
+
+END
+.fi
+.br
+.ft R
+.RS 20
+The normal ring width is the minimum spacing design rule between two
+segments of the same rds layer. 
+.br
+A zero means that no ring is wanted for that rds layer. 
+.RE
+.TP 20
+\s+2\fBMinimum real layer width design rule\fP\s-2
+.ie t \{\
+.ft CR \}
+.el \{\
+.ft B \}
+TABLE S2R_MINIMUM_LAYER_WIDTH\fR
+.br
+This table contains the minimum width of each rds layer.
+It is used by s2r to avoid creating rectangles below the minimum 
+required, during the merge operation.
+.PP
+.ie t \{\
+.ft CR \}
+.el \{\
+.ft B \}
+.nf
+TABLE S2R_MINIMUM_LAYER_WIDTH
+  RDS_NWELL   6
+  RDS_POLY    1.2
+  RDS_GATE    1.2
+  RDS_ALU1    1.8
+  RDS_ALU2    1.8
+  RDS_ACTIV   1.2
+  RDS_NIMP    2.7
+  RDS_PIMP    2.7
+
+END
+.fi
+.ft R
+.RS 20
+A zero can be specified, when it is sure that this layer is 
+not to be merged, because not treated by s2r.
+.RE
+.TP 20
+\s+2\fBPost treatment configuration table\fP\s-2
+.ie t \{\
+.ft CR \}
+.el \{\
+.ft B \}
+TABLE S2R_POST_TREAT\fR
+.br
+This table indicates to s2r which rds layers must be post-processed.
+Precicely if a layer is only to be be translated, or translated
+and then post-processed.
+Translated means translate and fit from symbolic to real, and
+postreated that it should also be merged with its neighbours.
+For example, it's not necesary to merge cut layers such as RDS_CONT. 
+.PP
+.ie t \{\
+.ft CR \}
+.el \{\
+.ft B \}
+.nf
+TABLE S2R_POST_TREAT
+
+  RDS_NWELL        TREAT NULL
+  RDS_PWELL      NOTREAT NULL
+  RDS_NDIF       NOTREAT NULL
+  RDS_PDIF       NOTREAT NULL
+  RDS_NTIE       NOTREAT NULL
+  RDS_PTIE       NOTREAT NULL
+  RDS_POLY         TREAT NULL
+  RDS_GATE         TREAT NULL
+  RDS_TPOLY      NOTREAT NULL
+  RDS_CONT       NOTREAT NULL
+  RDS_ALU1         TREAT NULL
+  RDS_TALU1      NOTREAT NULL
+  RDS_VIA1       NOTREAT NULL
+  RDS_ALU2         TREAT NULL
+  RDS_TALU2      NOTREAT NULL
+  RDS_VIA2       NOTREAT NULL
+  RDS_ALU3       NOTREAT NULL
+  RDS_TALU3      NOTREAT NULL
+  RDS_ACTIV        TREAT NULL
+  RDS_NIMP         TREAT RDS_PIMP
+  RDS_PIMP         TREAT RDS_NIMP
+  RDS_REF        NOTREAT NULL
+  RDS_ABOX       NOTREAT NULL
+
+END
+.fi
+.ft R
+.RS 20
+If set to NOTREAT, the first parameter indicates a translation.
+If set to TREAT, then the layer is translated and then post-treated
+.br
+To post-process creates problems with the implantation layers.
+It is possible to have a good symbolic layout (no symbolic design
+rule errors), and have a resulting layout with DRC violations,
+created by a poor post-processing.
+It is due to the fact that these layers do not exist in symbolic,
+so it is not possible to apply them drc verifications.
+If two rectangles of these layers are too close (less than a
+given value), they must be merged.
+Generally, there is no problem, but when corners are too near it is
+impossible to merge with the classical algorithm,
+\fIexpand\fP, \fImerge\fP, then \fIshrink\fP.
+.br
+Rectangles, known as scotches, are created to merge anyway,
+like this :
+.RE
+.ie t \{\
+.ft CR \}
+.el \fB
+.nf
++--------+            +--------+           +-----+--+
+|////////|            |////////|           |/////|//|
+|//+--+//|            |//+--+//|           |//+--|//|
+|//|  |//|  gives ->  |//|  |//|     or -> |//|  |//|
+|//+--+//|            +-----------+        |//+--|//|
+|////////|            |///////////|        |/////|//|
++--------+            +--------+//|        +-----|//|     
+    ^    +--------+            |//|-----+        |//+--------+
+    |    |////////|            |//|/////|        |///////////|
+    o--->|//+--+//|            |//|--+//|        +-----------+
+    |    |//|  |//|            |//|  |//|           |//|  |//|
+implant  |//+--+//|            |//|--+//|           |//|--+//|
+ areas   |////////|            |//|/////|           |//|/////|
+         +--------+            +--+-----+           +--+-----+
+.fi
+.ft R
+.RS 20
+A N implantation layer should not overlap a P implantation one.
+We say that P implantations and N implantations are 
+complementary. A scotch will not be created if it intersects with 
+any of the rectangles of the complementary layers.
+.br
+If a record contains in the second field a rds layer different from
+NULL, it indicates the complementary layer.
+This implies that if it is a layer that might need scotches
+the algorithm will try not to intersect with it when creating
+scotches.
+.RE
+.TP 20
+\s+2\fBExtraction graph table\fP\s-2
+.ie t \{\
+.ft CR \}
+.el \{\
+.ft B \}
+TABLE LYNX_GRAPH\fR
+.br
+This table gives the connexion graph between the rds layers.
+For each layer, the list of the connectable layers is written.
+Up to now, the extractor works only on translated symbolic layout.
+.PP
+.ie t \{\
+.ft CR \}
+.el \{\
+.ft B \}
+.nf
+TABLE LYNX_GRAPH
+
+  RDS_NDIF RDS_CONT RDS_NDIF
+  RDS_PDIF RDS_CONT RDS_PDIF
+  RDS_NTIE RDS_CONT RDS_NTIE
+  RDS_PTIE RDS_CONT RDS_PTIE
+  RDS_POLY RDS_CONT RDS_GATE RDS_POLY
+  RDS_GATE RDS_POLY RDS_GATE
+  RDS_CONT RDS_PDIF RDS_NDIF RDS_POLY RDS_PTIE RDS_NTIE RDS_ALU1 RDS_CONT
+  RDS_ALU1 RDS_CONT RDS_VIA1 RDS_ALU1 RDS_REF
+  RDS_REF  RDS_CONT RDS_VIA1 RDS_ALU1 RDS_REF
+  RDS_VIA1 RDS_ALU1 RDS_ALU2 RDS_VIA1
+  RDS_ALU2 RDS_VIA1 RDS_VIA2 RDS_ALU2
+  RDS_VIA2 RDS_ALU2 RDS_ALU3 RDS_VIA2
+  RDS_ALU3 RDS_VIA2 RDS_ALU3
+
+END
+.fi
+.TP 20
+\s+2\fBExtraction capacitance table\fP\s-2
+.ie t \{\
+.ft CR \}
+.el \{\
+.ft B \}
+TABLE LYNX_CAPA\fR
+.br
+This table gives the capacitance in picofarad per square lambda of each
+layer.
+The extractor computes only substrat capacitances.
+The capacitances associated with gate or drain or sources are not computed.
+On the other hand the transistor sizes (area, perimeter) are computed.
+(This is to ensure compatibility with Spice).
+.PP
+.ie t \{\
+.ft CR \}
+.el \{\
+.ft B \}
+.nf
+TABLE LYNX_CAPA
+
+  RDS_POLY    1.00e-04
+  RDS_ALU1    0.50e-04
+  RDS_ALU2    0.25e-04
+ 
+END
+.fi
+.TP 20
+\s+2\fBCif translation table\fP\s-2
+.ie t \{\
+.ft CR \}
+.el \{\
+.ft B \}
+TABLE CIF_LAYER\fR
+.br
+This table gives the equivalence between internal layers and their
+representation in the \fBcif\fP file format.
+A table may look like that (for MOSIS layers):
+.PP
+.ie t \{\
+.ft CR \}
+.el \{\
+.ft B \}
+.nf
+TABLE CIF_LAYER
+
+  RDS_NWELL   CWN
+  RDS_PWELL   CWP
+  RDS_ACTIV   CAA
+  RDS_NIMP    CSN
+  RDS_PIMP    CSP
+  RDS_POLY    CPG
+  RDS_GATE    CPG
+  RDS_CONT    CCA
+  RDS_ALU1    CMF
+  RDS_VIA1    CVA
+  RDS_ALU2    CMS
+
+END
+.fi
+.ft R
+.TP 20
+\s+2\fBGds translation table\fP\s-2
+.ie t \{\
+.ft CR \}
+.el \{\
+.ft B \}
+TABLE GDS_LAYER\fR
+.br
+This table gives the equivalence between internal layers and there
+representation in the \fBgds\fP file.
+A table may look like that (for CMP layers):
+.PP
+.ie t \{\
+.ft CR \}
+.el \{\
+.ft B \}
+.nf
+TABLE GDS_LAYER
+
+  RDS_NWELL    1
+  RDS_POLY    11
+  RDS_GATE    11
+  RDS_CONT    16
+  RDS_ALU1    17
+  RDS_VIA1    18
+  RDS_ALU2    19
+  RDS_ACTIV    2
+  RDS_NIMP    12
+  RDS_PIMP    14
+  RDS_CPAS    20
+
+END
+.fi
+.ft R
+.SH SEE ALSO
+Insights on the symbolic to real translation process are available in
+the file \fBmapping.ps\fR
+
+.so man1/alc_bug_report.1
+

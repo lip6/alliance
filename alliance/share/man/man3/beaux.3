@@ -1,0 +1,44 @@
+.\"   $Id: beaux.3,v 1.1 1999/05/31 17:30:18 alliance Exp $
+.\" @(#)beaux.2 108 Feb 15 1995 UPMC; Pirouz BAZARGAN SABET
+.TH BEAUX 3 "October 1, 1997" "ASIM/LIP6" "cao\-vlsi reference manual"
+
+.so man1/alc_origin.1
+.SH NAME
+.PP
+\fBbeaux\fP - BEH data structure
+
+.SH DESCRIPTION
+.PP
+\fIbeaux\fP is a data structure used in \fBBEH\fP to represent a one\-bit
+simple internal signal. An internal signal is considered as a simple signal
+when its value is set by one and only one driver.
+For an array, each element is represented by a single structure.
+These are organized in the reverse order of the array\'s range declaration.
+\fIbeaux\fP has been designed to be used in a simply chained list.
+
+.PP
+A \fIbeaux\fP structure is composed of the following fields.
+
+.TP 25
+\fI(char *) NAME\fP
+the signal\'s name. For an array\'s element, the name is the array\'s identifier
+added to the element\'s index seperated by a \' \' (blank space).
+This string is supposed been produced by \fBnamealloc()\fP
+.TP 25
+\fI(struct chain *) ABL\fP
+signal\'s expression represented by an ABL
+.TP 25
+\fI(struct node *) BDD\fP
+signal\'s expression represented by a BDD
+.TP 25
+\fI(struct beaux *) NEXT\fP
+next beaux
+
+.SH SEE ALSO
+.PP
+log(1), beh(3), beh_addbeaux(3), beh_delbeaux(3), beh_frebeaux(3),
+beh_rmvbeaux(3), namealloc(3)
+
+
+.so man1/alc_bug_report.1
+

@@ -1,0 +1,29 @@
+-- This cell caracterized by prol05.elp technologie file
+-- VHDL data flow description generated from `tie_y`
+--		date : Wed Oct  7 12:31:14 1998
+
+
+-- Entity Declaration
+
+ENTITY tie_y IS
+  GENERIC (
+    CONSTANT area : NATURAL := 25200;	-- area
+    CONSTANT transistors : NATURAL := 0	-- transistors
+  );
+  PORT (
+  vdd : in BIT;	-- vdd
+  vss : in BIT	-- vss
+  );
+END tie_y;
+
+
+-- Architecture Declaration
+
+ARCHITECTURE VBE OF tie_y IS
+
+BEGIN
+  ASSERT ((vdd and not (vss)) = '1')
+    REPORT "power supply is missing on tie_y"
+    SEVERITY WARNING;
+
+END;

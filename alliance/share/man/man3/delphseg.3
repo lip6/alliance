@@ -1,0 +1,69 @@
+.\"   $Id: delphseg.3,v 1.1 1999/05/31 17:30:20 alliance Exp $
+.\" @(#)delphseg.2 2.11 91/08/22 ; Labo masi cao-vlsi; Author : Frederic Petrot
+.if t \{\
+.so man1/alc_contents.mac
+.XS \n%
+.ti 0.2i
+delphseg
+.XE
+.XS0 \n%
+.ti 0.2i
+delphseg
+.XE0 \}
+.TH DELPHSEG 3 "October 1, 1997" "ASIM/LIP6" "MBK PHYSICAL FUNCTIONS"
+.SH NAME
+delphseg \- delete a physical segment
+.so man1/alc_origin.1
+.SH SYNOPSYS
+.nf
+.if n \{\
+.ft B \}
+.if t \{\
+.ft CR \}
+#include "mph402.h"
+int delphseg(ptfig, ptseg)
+phfig_list \(**ptfig;
+phseg_list \(**ptseg;
+.ft R
+.fi
+.SH PARAMETERS
+.TP 20
+\fIptfig\fP
+Pointer to the figure in which the segment should be deleted
+.TP
+\fIptseg\fP
+Pointer to the segment to be deleted
+.SH DESCRIPTION
+\fBdelphseg\fP delete the segment pointed to by \fIptseg\fP in the figure 
+pointed to by \fIptfig\fP.
+The list consistency is maintainded, and the space freed.
+.SH RETURN VALUE
+\fBdelphseg\fP returns \fB1\fP if the segment has been deleted, \fB0\fP
+if no such segment exists in the list.
+.SH EXAMPLE
+.ta 3n 6n 9n 12n 15n 18n 21n
+.nf
+.if n \{\
+.ft B \}
+.if t \{\
+.ft CR \}
+#include "mph402.h"
+char \(**was_existing(ptfig, ptseg)
+phfig_list \(**ptfig;
+phseg_list \(**ptseg;
+{
+   /\(** if only one exists, it's this one \(**/
+   return delphseg(ptfig, ptseg) ? "you just killed it!"
+                                 : "wasn't here anyway"; 
+}
+.ft R
+.fi
+.SH SEE ALSO
+.BR mbk (1),
+.BR phfig (3),
+.BR phseg (3),
+.BR addphseg (3).
+
+
+.so man1/alc_bug_report.1
+

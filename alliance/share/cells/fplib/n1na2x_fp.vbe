@@ -1,0 +1,29 @@
+-- VHDL data flow description generated from `n1na2x_fp`
+--		date : Sat Sep 25 17:23:16 1993
+
+
+-- Entity Declaration
+
+ENTITY n1na2x_fp IS
+  PORT (
+  i0 : in BIT;	-- i0
+  i1 : in BIT;	-- i1
+  o : out BIT;	-- o
+  vdd : in BIT;	-- vdd
+  vss : in BIT	-- vss
+  );
+END n1na2x_fp;
+
+
+-- Architecture Declaration
+
+ARCHITECTURE behaviour_data_flow OF n1na2x_fp IS
+
+BEGIN
+  ASSERT ((vdd and not (vss)) = '1')
+    REPORT "power supply is missing on n1na2x_fp"
+    SEVERITY WARNING;
+
+
+o <= not (i0);
+END;

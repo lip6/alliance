@@ -1,0 +1,54 @@
+.\"   $Id: mbkcif.1,v 1.1 1999/05/31 17:30:14 alliance Exp $
+.\" @(#)mbkcif  3.0 91/11/11 UPMC/ASIM/LIP6/CAO-VLSI "  
+.TH MBKCIF 1 "October 1, 1997" "ASIM/LIP6" "ALLIANCE Reference Manual"
+.SH NAME
+mbkcif \- mbk cif translater 
+.SH SYNOPSIS
+.B mbkcif
+.I target techno hier_mode input [output]
+.TP
+.I target    
+{ vti | versatil | cmp } 
+defines the layer type name, for vti (CAD software) or versatil DRC or cmp (
+.TP
+.I techno        
+{ idps | ecpd15 }
+
+defines the technology name, idps means that there isn't segment fitting.
+That must be used to versatil (Design Rules Checker).
+.TP
+.I hier_mode
+{F | H}
+
+.TP
+.I input     
+
+file name to translate
+.TP
+.I [output]     
+
+output file name, input file name is used when output missing.
+.br
+.SH AVAILABILITY
+This tool owns to Alliance CAD 
+.I UPMC/ASIM/LIP6/CAO-VLSI.
+It uses environement
+.B MBK/GENLIB
+.SH DESCRIPTION
+.SH EXAMPLES
+mbkcif cmp ecpd15 F amd2901
+.SH OPTIONS
+this tools use MBK variables defined in Unix environnemnent as :
+.TP
+.B MBK_CATA_LIB
+which defines the directories list containing cell librairies.
+.TP
+.B MBK_WORK_LIB
+which defines working directory.
+.TP
+except out data format, which is cif.
+.SH SEE ALSO
+mbk(1)
+
+.so man1/alc_bug_report.1
+

@@ -1,0 +1,74 @@
+# -*- Mode: Makefile -*-
+#
+####---------------------------------------------------------###
+# description	: Alliance include file for Makefiles
+# architecture	: @HOST@
+# date		: @DATE@
+# file		: @MACHINE@.mk
+#
+
+# The variables $TOP and $MACHINE are set by
+# alc_env.[c]sh script
+
+ALLIANCE_VERSION = '"@ALLIANCE_VERSION@"'
+ALLIANCE_BIN     = $(TOP)/bin
+ALLIANCE_LIB     = $(TOP)/lib
+ALLIANCE_INCLUDE = $(TOP)/include
+ALLIANCE_CELLS   = $(TOP)/cells
+ALLIANCE_ETC     = $(TOP)/etc
+
+# distrib path
+TARGET_BIN       = $(TOP)/bin
+TARGET_LIB       = $(TOP)/lib
+TARGET_INCLUDE   = $(TOP)/include
+
+# develloppers path
+#TARGET_BIN       = $(HOME)/labo/$(MACHINE)/bin
+#TARGET_LIB       = $(HOME)/labo/$(MACHINE)/lib
+#TARGET_INCLUDE   = $(HOME)/labo/$(MACHINE)/include
+
+GNU_LIB          = @GNU_LIB_LOC@
+GNU_INCLUDE      = @GNU_INC_LOC@
+
+
+X11_LIB          = . @X_LIBS@ @X_EXTRA_LIBS@ @X_PRE_LIBS@
+X11_INCLUDE      = . @X_CFLAGS@
+
+#You may need -lXintl
+MOTIF_LIB        = @GUI_LIB_LOC@
+MOTIF_INCLUDE    = @GUI_INC_LOC@
+
+SHELL		= @SHELL@
+CSH		= @CSH@
+CP		= @CP@
+MV		= @MV@
+RM		= @RM@
+MKDIR		= @MKDIR@
+FIND		= @FIND@
+SED		= @SED@
+AWK		= @AWK@
+TR		= @TR@
+TOUCH		= @TOUCH@
+STRIP		= @STRIP@
+RANLIB		= @RANLIB@
+
+MAKE             = @MAKE@
+MAKEFLAGS        = @MAKEFLAGS@
+
+CC               = @FULL_CC@
+CFLAGS           = @CFLAGS@
+CPPFLAGS         = @CPPFLAGS@
+
+#CFLAGS           = -DALLIANCE_DISTRIB
+#CPPFLAGS         = -DALLIANCE_DISTRIB
+
+YACC             = @FULL_YACC@
+YACCFLAGS        = @YACCFLAGS@
+
+LEX              = @FULL_LEX@
+LEXFLAGS         = @LEXFLAGS@
+
+AR               = @AR@
+ARFLAGS          = @ARFLAGS@
+
+# EOF

@@ -1,0 +1,39 @@
+.\"   $Id: beh_error.3,v 1.1 1999/05/31 17:30:18 alliance Exp $
+.\" @(#)beh_error.2 108 Feb 15 1995 UPMC ; Pirouz BAZARGAN SABET
+.TH BEH_ERROR 3 "October 1, 1997" "ASIM/LIP6" "BEH functions"
+
+.so man1/alc_origin.1
+.SH NAME
+.PP
+\fBbeh_error\fP
+
+.SH SYNOPSYS
+.PP
+.nf
+int beh_error (code, str)
+int code;
+char *str;
+.fi
+
+.SH PARAMETERS
+.PP
+.TP 10
+\fIcode\fP
+error\'s code
+.TP 10
+\fIstr\fP
+a string to be printed within the error message
+
+.SH DESCRIPTION
+.PP
+\fBbeh_error()\fP prints an error message on the standard error output
+depending on an error code. The \fIcode\fP parameter determines the message
+to be printed.
+
+.SH SEE ALSO
+.PP
+beh(3)
+
+
+.so man1/alc_bug_report.1
+

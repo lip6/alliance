@@ -1,0 +1,56 @@
+-- This cell caracterized by prol05.elp technologie file
+-- VHDL data flow description generated from `mx2p_y`
+--		date : Wed Oct  7 12:10:10 1998
+
+
+-- Entity Declaration
+
+ENTITY mx2p_y IS
+  GENERIC (
+    CONSTANT area : NATURAL := 201600;	-- area
+    CONSTANT transistors : NATURAL := 12;	-- transistors
+    CONSTANT cin_l1 : NATURAL := 35;	-- cin_l1
+    CONSTANT cin_i1 : NATURAL := 35;	-- cin_i1
+    CONSTANT cin_l0 : NATURAL := 35;	-- cin_l0
+    CONSTANT cin_i0 : NATURAL := 35;	-- cin_i0
+    CONSTANT tphh_l0_t : NATURAL := 736;	-- tphh_l0_t
+    CONSTANT rup_l0_t : NATURAL := 1230;	-- rup_l0_t
+    CONSTANT tpll_l0_t : NATURAL := 1072;	-- tpll_l0_t
+    CONSTANT rdown_l0_t : NATURAL := 1250;	-- rdown_l0_t
+    CONSTANT tphh_i1_t : NATURAL := 1150;	-- tphh_i1_t
+    CONSTANT rup_i1_t : NATURAL := 1230;	-- rup_i1_t
+    CONSTANT tpll_i1_t : NATURAL := 872;	-- tpll_i1_t
+    CONSTANT rdown_i1_t : NATURAL := 1250;	-- rdown_i1_t
+    CONSTANT tphh_l1_t : NATURAL := 988;	-- tphh_l1_t
+    CONSTANT rup_l1_t : NATURAL := 1230;	-- rup_l1_t
+    CONSTANT tpll_l1_t : NATURAL := 937;	-- tpll_l1_t
+    CONSTANT rdown_l1_t : NATURAL := 1250;	-- rdown_l1_t
+    CONSTANT tphh_i0_t : NATURAL := 870;	-- tphh_i0_t
+    CONSTANT rup_i0_t : NATURAL := 1230;	-- rup_i0_t
+    CONSTANT tpll_i0_t : NATURAL := 997;	-- tpll_i0_t
+    CONSTANT rdown_i0_t : NATURAL := 1250	-- rdown_i0_t
+  );
+  PORT (
+  i0 : in BIT;	-- i0
+  l0 : in BIT;	-- l0
+  i1 : in BIT;	-- i1
+  l1 : in BIT;	-- l1
+  t : out BIT;	-- t
+  vdd : in BIT;	-- vdd
+  vss : in BIT	-- vss
+  );
+END mx2p_y;
+
+
+-- Architecture Declaration
+
+ARCHITECTURE VBE OF mx2p_y IS
+
+BEGIN
+  ASSERT ((vdd and not (vss)) = '1')
+    REPORT "power supply is missing on mx2p_y"
+    SEVERITY WARNING;
+
+
+t <= ((i1 and l1) or (i0 and l0));
+END;

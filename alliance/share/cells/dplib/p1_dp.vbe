@@ -1,0 +1,33 @@
+-- VHDL data flow description generated from `p1_dp`
+--		date : Thu Oct 30 16:43:10 1997
+
+
+-- Entity Declaration
+
+ENTITY p1_dp IS
+  GENERIC (
+    CONSTANT area : NATURAL := 1080;	-- area
+    CONSTANT transistors : NATURAL := 4;	-- transistors
+    CONSTANT cin_i : NATURAL := 46;	-- cin_i
+    CONSTANT tphh_i_o : NATURAL := 808;	-- tphh_i_o
+    CONSTANT rup_i_o : NATURAL := 1060;	-- rup_i_o
+    CONSTANT tpll_i_o : NATURAL := 854;	-- tpll_i_o
+    CONSTANT rdown_i_o : NATURAL := 1120	-- rdown_i_o
+  );
+  PORT (
+  i : in BIT;	-- i
+  o : out BIT;	-- o
+  vdd : in BIT;	-- vdd
+  vss : in BIT	-- vss
+  );
+END p1_dp;
+
+
+-- Architecture Declaration
+
+ARCHITECTURE behaviour_data_flow OF p1_dp IS
+
+BEGIN
+
+o <= i;
+END;

@@ -1,0 +1,95 @@
+.\"   $Id: segmbkrds.3,v 1.1 1999/05/31 17:30:25 alliance Exp $
+.\" @(#)segmbkrds.1 1.11 93/08/18 ; Labo masi cao-vlsi
+.if t \{\
+.so man1/alc_contents.mac
+.XS \n%
+.ti 0.2i
+segmbkrds
+.XE
+.XS0 \n%
+.ti 0.2i
+segmbkrds
+.XE0 \}
+.TH SEGMBKRDS 3 "October 1, 1997" "ASIM/LIP6" "RDS PHYSICAL FUNCTIONS"
+.SH NAME
+segmbkrds \- adds to RDS figure a segment from a MBK figure
+.so man1/alc_origin.1
+.SH SYNOPSYS
+.nf
+.if n \{\
+.ft B \}
+.if t \{\
+.ft CR \}
+#include "rfmnnn.h"
+ rdsrec_list \(**segmbkrds( Figure, Segment, Lynx )
+    rdsfig_list \(**Figure;
+    phseg_list  \(**Segment;
+    char         Lynx;
+.ft R
+.fi
+.SH PARAMETER
+.TP 20
+\fIFigure\fP
+The RDS figure which has to receive the converted segment. 
+.TP
+\fISegment\fP
+MBK segment to convert to RDS rectangle.
+.TP
+\fILynx\fP
+Flag used for the segment conversion. If the parameter Lynx is set to 0 then this is the normal conversion mode. If the parameter Lynx is set to 1 then the rds structure generated permits to extract equipotentials rectangles.
+.SH DESCRIPTION
+The \fIsegmbkrds\fP function converts and creates a RDS segment from a MBK segment. The segment is attached to the RDS figure in parameter of the segmbkrds function. See the \fIrdsfig_list\fP structure in librds.
+.SH RETURN VALUE
+Pointer to the newly created RDS segment.
+.SH ERRORS
+.if n \{\
+.ft B \}
+.if t \{\
+.ft CR \}
+"Rds202: rdsalloc error, can't continue !"
+.ft R
+.RS
+it's impossible to allocate the memory size desired
+.SH EXAMPLE
+.ta 3n 6n 9n 12n 15n 18n 21n
+.nf
+.if n \{\
+.ft B \}
+.if t \{\
+.ft CR \}
+        #include "mphnnn.h"  
+        #include "mutnnn.h"  
+        #include "rdsnnn.h"
+        #include "rfmnnn.h"
+        #include "rtlnnn.h"
+        typedef struct UserStruct
+         {
+           char \(**STRING;
+           void \(**USER1;
+         } UserStruct;
+        main()
+          {
+            phfig_list  \(**MbkFigure;
+            rdsfig_list \(**RdsFigure;
+            rdsrec_list \(**Segment;
+            mbkenv();
+            rdsenv();
+            loadrdsparam();
+            RdsFigure =
+               addrdsfig ("core",sizeof ( UserStruct ) );
+            MbkFigure->PHSEG =
+               addphseg ( MbkFigure, ALU1, 1, 1, 1, 2, 12, "seg_alu1");
+            Segment = \fBsegmbkrds\fP (RdsFigure, MbkFigure->PHSEG, 0);
+            viewrdsrec ( Segment );
+          }
+.ft R
+.fi
+.SH SEE ALSO
+.BR librds,
+.BR librfm,
+.BR viewrfmseg,
+.BR loadrdsparam
+
+
+.so man1/alc_bug_report.1
+

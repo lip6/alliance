@@ -1,0 +1,77 @@
+.\"   $Id: pat_savpaseq.3,v 1.1 1999/05/31 17:30:24 alliance Exp $
+.\" @(#)pat_savpaseq.3 106 Sep 30 1996 UPMC ; Pirouz BAZARGAN SABET
+.TH PAT_SAVPASEQ 3 "October 1, 1997" "ASIM/LIP6" "PPT functions"
+
+.so man1/alc_origin.1
+.SH NAME
+.PP
+\fBpat_savpaseq\fP \- save pattern structures in a pattern description file
+
+.SH SYNOPSYS
+.PP
+.nf
+int pat_savpaseq (name, ptseq, labelsiz)
+
+char         *name    ;
+struct paseq *ptseq   ;
+unsigned int  labelsiz;
+.fi
+
+.SH PARAMETERS
+.PP
+.TP 10
+\fIname\fP
+pattern file's name
+.TP 10
+\fIptseq\fP
+pointer on a list of patterns' sequence
+.TP 10
+\fIlabelsiz\fP
+length of the longest pattern's label
+
+.SH DESCRIPTION
+.PP
+\fBpat_savpaseq\fP produces a pattern file named \fIname\fP from a paseq
+structure.
+
+.PP
+For the first call, \fBpat_savpaseq\fP opens a file (according to
+MBK_WORK_LIB and VH_PATSFX environment variables) named \fIname\fP. Then,
+the input\-output declarations is produced followed by the pattern
+description. When calling \fBpat_savpaseq\fP the input-output list (list
+of PAIOL) is supposed to be organized as an array. If the input-output list
+is not an array (flag PAT_SEQ__IOLARRAY not set) the functions makes an array
+from the input-output list and releases the list.
+
+.PP
+For subsequent calls, the file is completed with the newly processed patterns.
+The file remains openned util the last subsequence is written into the file.
+
+.SH RETURN VALUES
+.PP
+\fBpat_lodpaseq\fP returns a non-zero value if an error has been occured.
+
+.SH EXAMPLE
+.PP
+.nf
+#include <pat106.h>
+#include <ppt106.h>
+
+struct paseq *paseq_pnt = NULL;
+
+while ((paseq_pnt != NULL) && (paseq_pnt->ENDFLG != 'Y'))
+  {
+  paseq_pnt = pat_lodpaseq ("my_sequence", paseq_pnt, 1000);
+  ......
+  pat_savpaseq ("result", paseq_pnt, 10);
+  }
+
+.fi
+
+.SH SEE ALSO
+.PP
+libpat(3), paseq(3), pat_addpaseq(3), pat_lodpaseq(3), mbkfopen(3), mbkenv(3)
+
+
+.so man1/alc_bug_report.1
+

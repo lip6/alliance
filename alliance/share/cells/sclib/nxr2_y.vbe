@@ -1,0 +1,52 @@
+-- This cell caracterized by prol05.elp technologie file
+-- VHDL data flow description generated from `nxr2_y`
+--		date : Wed Oct  7 12:25:20 1998
+
+
+-- Entity Declaration
+
+ENTITY nxr2_y IS
+  GENERIC (
+    CONSTANT area : NATURAL := 176400;	-- area
+    CONSTANT transistors : NATURAL := 10;	-- transistors
+    CONSTANT cin_i1 : NATURAL := 77;	-- cin_i1
+    CONSTANT cin_i0 : NATURAL := 76;	-- cin_i0
+    CONSTANT tplh_i0_f : NATURAL := 641;	-- tplh_i0_f
+    CONSTANT rup_i0_f : NATURAL := 2700;	-- rup_i0_f
+    CONSTANT tphh_i0_f : NATURAL := 598;	-- tphh_i0_f
+    CONSTANT rup_i0_f : NATURAL := 2450;	-- rup_i0_f
+    CONSTANT tphl_i0_f : NATURAL := 285;	-- tphl_i0_f
+    CONSTANT rdown_i0_f : NATURAL := 2340;	-- rdown_i0_f
+    CONSTANT tpll_i0_f : NATURAL := 862;	-- tpll_i0_f
+    CONSTANT rdown_i0_f : NATURAL := 2340;	-- rdown_i0_f
+    CONSTANT tplh_i1_f : NATURAL := 494;	-- tplh_i1_f
+    CONSTANT rup_i1_f : NATURAL := 2700;	-- rup_i1_f
+    CONSTANT tphh_i1_f : NATURAL := 695;	-- tphh_i1_f
+    CONSTANT rup_i1_f : NATURAL := 2450;	-- rup_i1_f
+    CONSTANT tphl_i1_f : NATURAL := 414;	-- tphl_i1_f
+    CONSTANT rdown_i1_f : NATURAL := 2340;	-- rdown_i1_f
+    CONSTANT tpll_i1_f : NATURAL := 772;	-- tpll_i1_f
+    CONSTANT rdown_i1_f : NATURAL := 2340	-- rdown_i1_f
+  );
+  PORT (
+  i0 : in BIT;	-- i0
+  i1 : in BIT;	-- i1
+  f : out BIT;	-- f
+  vdd : in BIT;	-- vdd
+  vss : in BIT	-- vss
+  );
+END nxr2_y;
+
+
+-- Architecture Declaration
+
+ARCHITECTURE VBE OF nxr2_y IS
+
+BEGIN
+  ASSERT ((vdd and not (vss)) = '1')
+    REPORT "power supply is missing on nxr2_y"
+    SEVERITY WARNING;
+
+
+f <= not ((i0 xor i1));
+END;

@@ -1,0 +1,98 @@
+#cell2 * nxr2x_fp nle * 1 any 0 v8r4.4
+# "20-Nov-97 GMT" "11:13:31 GMT" "20-Nov-97 GMT" "11:13:31 GMT" fitpath * .
+writer        1
+file_version  1
+sections      1
+netlist   1:         83 nxr2x_fp
+
+
+B contents:  nxr2x_fp
+netlist           250
+cells             882
+switches            0
+attributes        906
+physical            0
+history             0
+E contents
+
+
+B netlist
+X 1 VDD;
+X 2 VSS;
+X 3 i1;
+I $Tp 1 * | 12 1 .2292E-01 [43.5,60.5] | 11 18 1 1;
+I $Tp 2 * | 21 1 .4011E-01 [37.5,60.5] | 3 20 18 1;
+I $Tp 3 * | 21 1 .4011E-01 [31.5,60.5] | 14 1 20 1;
+I $Tp 4 * | 12 1 .2292E-01 [17.5,60.5] | 3 1 11 1;
+I $Tp 5 * | 12 1 .2292E-01 [11.5,60.5] | 14 11 1 1;
+I $Te 6 * | 12 1 .2292E-01 [43.5,21.5] | 11 29 18 7;
+I $Te 7 * | 12 1 .2292E-01 [37.5,21.5] | 3 2 29 7;
+I $Te 8 * | 12 1 .2292E-01 [31.5,21.5] | 14 29 2 7;
+I $Te 9 * | 12 1 .2292E-01 [17.5,21.5] | 3 34 2 7;
+I $Te 10 * | 12 1 .2292E-01 [11.5,21.5] | 14 11 34 7;
+N 1 VDD;
+N 2 VSS;
+G 7 BULK;
+N 3 i1;
+N 14 i0;
+N 18 o;
+N 1 nwell;
+E netlist
+
+
+B subcells
+E subcells
+
+
+B attribute_list
+      1118 program
+      1156 technology_file
+      1225 technology_file_version
+      1268 options
+      1327 technology
+      1363 lambda
+      1387 window
+      1419 summary
+E attribute_list
+
+B A: program
+1 COMPASSextract;
+ 0;
+E
+
+B A: technology_file
+1 /labo/etc/vlsi/idps/techno/ecpd10.etf;
+ 0;
+E
+
+B A: technology_file_version
+1 1.0;
+ 0;
+E
+
+B A: options
+1 no_strays,no_coordinates,nodePoints;
+ 0;
+E
+
+B A: technology
+1 idps_symb;
+ 0;
+E
+
+B A: lambda
+1 1;
+ 0;
+E
+
+B A: window
+1 4 1 50 68;
+ 0;
+E
+
+B A: summary
+1 {Netlist contains 10 transistors and 34 nodes};
+ 0;
+E
+
+

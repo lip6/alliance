@@ -1,0 +1,183 @@
+.\"   $Id: SymbolicChannelRouter.3,v 1.1 1999/05/31 17:30:16 alliance Exp $
+.\" @(#)SymbolicChannelRouter.1 1.0 93/07/29 ; Labo masi cao-vlsi; Author : El housseine REJOUAN
+.TH SYMBOLICCHANNELROUTER 3 "October 1, 1997" "ASIM/LIP6" "APR FUNCTIONS"
+
+.SH NAME
+SymbolicChannelRouter \- routes a given channel on a Virtual grid
+.so man1/alc_origin.1
+.SH SYNOPSYS
+.nf
+.if n \{\
+.ft B \}
+.if t \{\
+.ft CR \}
+#include "aprnnn.h"
+int \fBSymbolicChannelRouter\fP( ptNorthConList,
+				ptSouthConList,
+				ptWestConList,
+				ptEastConList,
+				ChannelWidth,
+				ChannelHeight,
+				ptHorSegList,
+				ptVerSegList,
+				ptViaList)
+ConnectorList	**ptNorthConList;
+ConnectorList	**ptSouthConList;
+ConnectorList	**ptWestConList;
+ConnectorList	**ptEastConList;
+long			*ChannelWidth;
+long			*ChannelHeight;
+SegmentList		**ptHorSegList;
+SegmentList		**ptVerSegList;
+ViasList		**ptViaList;
+.br
+.SH PARAMETERS
+.TP 15
+\fIptNorthConList\fP
+List of the connectors located on the north side of the channel.
+.TP 15
+\fIptSouthConList\fP
+List of the connectors located on the south side of the channel.
+.TP 15
+\fIptWestConList\fP
+List of the connectors located on the west side of the channel.
+.TP 15
+\fIptEastConList\fP
+List of the connectors located on the east side of the channel.
+.TP 15
+\fIChannelWidth\fP
+Width of the channel.
+.TP 15
+\fIChannelHeight\fP
+Height of the channel.
+.TP 15
+\fIptHorSegList\fP
+List of horizontal wires produced by the \fBSymbolicChannelRouter\fP.
+.TP 15
+\fIptVerSegList\fP
+List of vertical wires produced by the \fBSymbolicChannelRouter\fP.
+.TP 15
+\fIptViaList\fP
+List of vias produced by the \fBSymbolicChannelRouter\fP.
+.br
+.SH DESCRIPTION
+\fBSymbolicChannelRouter\fP routes a given channel on a virtual grid using a greedy algorithm.
+.br
+The connectors on the west and east sides are placed by the router.
+.br
+The \fIptNorthConList\fP, \fIptSouthConList\fP, \fIptWestConList\fP and \fIptEastConList\fP
+can be NULL.
+.br
+The \fIChannelWidth\fP is the width of the channel. It is a virtual value.
+.br
+\fIChannelHeight\fP is the Height of the channel. It is a virtual value and  it may be a value zero.
+.br
+The \fIptHorSegList\fP, \fIptVerSegList\fP and \fIptViaList\fP are returned by the \fBSymbolicChannelRouter\fP.
+.br
+.bp
+The SymbolicChannelRouter structure is described  :
+.PP
+typedef struct SCR_ConnectorList
+.IP
+	{
+.br
+	struct SCR_ConnectorList	*NextCon;
+.br
+	long			ConName;
+.br
+	long			Mark;
+.br
+	} ConnectorList;
+.TP 15
+\fINextCon\fP
+Pointer to the next connector in the list.
+.br
+.TP 15
+\fIConName\fP
+Name of the connector. 
+.br
+.TP 15
+\fIMark\fP
+Connector index on a symbolic grid. 
+.PP
+typedef struct SCR_SegmentList
+.IP
+	{
+.br
+	struct SCR_SegmentList	*NextSeg;
+.br
+	char			*SegName;
+.br
+	long			X1Seg;
+.br
+	long			Y1Seg;
+.br
+	long			X2Seg;
+.br
+	long			Y2Seg;
+.br
+	} SegmentList;
+.br
+.TP 25
+\fINextSeg\fP
+Pointer to the next segment in the list.
+.TP 25
+\fISegName\fP
+Name of the segment. 
+.br
+.TP 25
+\fIX1Seg\fP, \fIY1Seg\fP, \fIX2Seg\fP, \fIY2Seg\fP
+Coordinates of each end of the segment. Since it's a symbolic segment.
+.PP
+typedef struct SCR_ViasList
+.IP
+        {
+.br
+        struct SCR_ViasList	*NextVia;
+.br
+        long		XVia;
+.br
+        long		YVia;
+.br
+        } ViasList;
+.br
+.TP 15
+\fINextVia\fP
+Pointer to the next via in the list.
+.TP 15
+\fIXVia\fP,\fIYVia\fP
+Coordinates of the center of the via.
+.PP
+.SH EXAMPLE
+.IP
+#include "aprnnn.h"
+.br
+if (SymbolicChannelRouter(&ptNorthConList,
+.br
+			  &ptSouthConList,
+.br
+			  &ptWestConList,
+.br
+			  &ptEastConList,
+.br
+			  &ChannelWidth,
+.br
+			  &ChannelHeight,
+.br
+			  &ptHorSegList,
+.br
+			  &ptVerSegList,
+.br
+			  &ptViaList))
+.br
+	 printf("the channel width is modified;");
+.br
+	else printf("the channel width is not modified;");
+.SH SEE ALSO
+.BR apr(3),
+.BR scr(1),
+.BR bbr(1),
+.BR dpr(1)
+
+.so man1/alc_bug_report.1
+

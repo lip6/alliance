@@ -1,0 +1,73 @@
+.\"   $Id: rdsenv.3,v 1.1 1999/05/31 17:30:24 alliance Exp $
+.\" @(#)rdsenv.1 1.11 93/08/18 ; Labo masi cao-vlsi
+.if t \{\
+.so man1/alc_contents.mac
+.XS \n%
+.ti 0.2i
+rdsenv
+.XE
+.XS0 \n%
+.ti 0.2i
+rdsenv
+.XE0 \}
+.TH RDSENV 3 "October 1, 1997" "ASIM/LIP6" "RDS PHYSICAL FUNCTIONS"
+.SH NAME
+rdsenv \- set user preference
+.so man1/alc_origin.1
+.SH SYNOPSYS
+.nf
+.if n \{\
+.ft B \}
+.if t \{\
+.ft CR \}
+#include "rtlnnn.h"
+void rdsenv()
+.ft R
+.fi
+.SH PARAMETER
+none
+.SH DESCRIPTION
+The \fIrdsenv\fP function sets the user preferences through  unix environment variables. if all the variables are not defined, default values are used.
+.TP
+\fIRDS_TECHNO_NAME\fP
+Path to the RDS technology file. The default value is "/labo/etc/cmos.rds".
+.TP
+\fIRDS_IN\fP
+Defines the physical input file format demanded by the user. The two possible formats are "cif" and "gds". By default, its value is set to "gds".
+.TP
+\fIRDS_OUT\fP
+Defines the physical output file format demanded by the user. The two possible formats are "cif" and "gds". By default, its value is set to "gds".
+.SH RETURN VALUE
+none
+.SH ERRORS
+nothing
+.SH EXAMPLE
+.ta 3n 6n 9n 12n 15n 18n 21n
+.nf
+.if n \{\
+.ft B \}
+.if t \{\
+.ft CR \}
+        #include "mutnnn.h"
+        #include "rtlnnn.h"
+        main()
+         {
+           rdsfig_list \(**RdsFigure;
+           mbkenv();
+           /\(** \(**/ \fBrdsenv\fP ();
+           loadrdsparam(); 
+           loadrdsfig(RdsFigure, "core", 'A');
+         }
+.ft R
+.fi
+.SH SEE ALSO
+.BR librtl,
+.BR loadrdsfig,
+.BR saverdsfig,
+.BR RDS_IN,
+.BR RDS_OUT,
+.BR RDS_TECHNO_NAME
+
+
+.so man1/alc_bug_report.1
+

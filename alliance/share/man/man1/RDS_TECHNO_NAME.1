@@ -1,0 +1,39 @@
+.\"   $Id: RDS_TECHNO_NAME.1,v 1.1 1999/05/31 17:30:13 alliance Exp $
+.\" @(#)RDS_TECHNO_NAME.1 2.11 92/09/16; Labo Cao-vlsi; Author : Frederic Petrot
+.TH RDS_TECHNO_NAME 1 "October 1, 1997" "ASIM/LIP6" "RDS ENVIRONEMENT VARIABLES"
+.SH NAME
+\fBRDS_TECHNO_NAME\fP \- define the rds technology file
+.SH SYNOPSYS
+.nf
+.if n \{\
+.ft B \}
+.if t \{\
+.ft CR \}
+c-shell running
+setenv RDS_TECHNO_NAME file
+.ft R
+.fi
+.so man1/alc_origin.1
+.SH DESCRIPTION
+\fBRDS_TECHNO_NAME\fP sets the name of the technology file that indicates
+how to translate from symbolic layout to real process layout.
+This file is to be edited by a technologist in order to parametrize the
+\fBs2r\fP(1) tool for proper operation.
+.br
+It default value is \fBALLIANCE_ETC/prol15.rds\fP.
+.SH EXAMPLE
+.nf
+.if n \{\
+.ft B \}
+.if t \{\
+.ft CR \}
+	setenv RDS_TECHNO_NAME /alliance/etc/PROL15.rds
+	setenv RDS_TECHNO_NAME idps.rds
+.ft R
+.fi
+.SH SEE ALSO
+.BR s2r (1).
+
+
+.so man1/alc_bug_report.1
+

@@ -1,0 +1,99 @@
+.\"   $Id: viewrdsins.3,v 1.1 1999/05/31 17:30:26 alliance Exp $
+.\" @(#)viewrdsins.1 1.11 93/08/18 ; Labo masi cao-vlsi
+.if t \{\
+.so man1/alc_contents.mac
+.XS \n%
+.ti 0.2i
+viewrdsins
+.XE
+.XS0 \n%
+.ti 0.2i
+viewrdsins
+.XE0 \}
+.TH VIEWRDSINS 3 "October 1, 1997" "ASIM/LIP6" "RDS PHYSICAL FUNCTIONS"
+.SH NAME
+viewrdsins \- Displays caracteristics of an instance
+.so man1/alc_origin.1
+.SH SYNOPSYS
+.nf
+.if n \{\
+.ft B \}
+.if t \{\
+.ft CR \}
+ #include "rdsnnn.h"
+   void viewrdsins( Instance )
+    rdsins_list \(**Instance;
+.ft R
+.fi
+.SH PARAMETERS
+.TP 20
+\fIInstance\fP
+Instance to display.
+.SH DESCRIPTION
+The \fIviewrdsins\fP function displays caracteristics of the instance pointed by \'Instance\' and its items. 
+.TP
+instance's parameters displayed :
+.RS
+.TP 20
+\fIINSNAME\fP
+name of the instance.
+.TP
+\fIFIGNAME\fP
+model's name of the instance.
+.TP
+\fIX,Y\fP
+position of the lower left corner of the instance.
+.TP
+\fITRANSF\fP
+transformation applied to the instance.
+.TP
+\fISIZE\fP
+size of the user structure added to the rdsrec_list structure.
+.RE
+This function displays also rectangles of the instance (see viewrdsrec() function).
+.SH RETURN VALUE
+nothing
+.SH ERRORS
+none
+.SH EXAMPLE
+.ta 3n 6n 9n 12n 15n 18n 21n
+.nf
+.if n \{\
+.ft B \}
+.if t \{\
+.ft CR \}
+        #include "mutnnn.h"
+        #include "rdsnnn.h"
+        #include "rtlnnn.h"
+        typedef struct UserStruct
+         {
+           char \(**STRING;
+           void \(**USER1;
+         } UserStruct;
+         main()
+          {
+            rdsfig_list \(**Figure;
+            rdsrec_list \(**Rectangle;
+            rdsins_list \(**Instance;
+            mbkenv();
+            rdsenv();
+            loadrdsparam();
+            Figure = addrdsfig ("core",sizeof ( UserStruct ) );
+            Instance  = addrdsins (Figure,"na2_y","and2",RDS_NOSYM,8,6);
+            Rectangle =
+             addrdsinsrec(Instance,"Alu1",RDS_ALU1,2,4,12,1);
+            /\(**
+              visualization of the instance and its rectangle
+            \(**/
+            /\(** \(**/ \fBviewrdsins\fP ( Instance );
+          }
+.ft R
+.fi
+.SH SEE ALSO
+.BR librds,
+.BR viewrdsfig,
+.BR viewrdsrec
+
+
+.so man1/alc_bug_report.1
+

@@ -1,0 +1,45 @@
+.\"   $Id: nao4_y.5,v 1.1 1999/05/31 17:30:28 alliance Exp $
+.pl -.4
+.TH NAO4_Y 5 "October 1, 1997" "ASIM/LIP6" "STANDARD-CELL LIBRARY"
+.SH NAME
+.B nao4_y
+.so man1/alc_origin.1
+.SH SYNOPSIS
+.B Genlib call :
+.br
+  LOINS("nao4_y","name","i","j0","j1","j2","f","vdd","vss",0);
+.SH DESCRIPTION
+.I - Interface
+   entity nao4_y is
+     port(
+        i : in bit;
+        j0 : in bit;
+        j1 : in bit;
+        j2 : in bit;
+        f : out bit;
+        vdd : in bit;
+        vss : in bit);
+.br
+.I - Logical description
+.br
+    f <= (((j0 and j1) and j2) nor i);
+   
+.br
+.I - Physical features
+   number of grids : 6
+   number of feed-through : 1
+.br
+   
+.I - Timing caracteristics
+.br
+   i : 67 (fF)
+.br
+   j0 : 84 (fF)
+.br
+   j1 : 84 (fF)
+.br
+   j2 : 84 (fF)
+.br
+
+.so man1/alc_bug_report.1
+

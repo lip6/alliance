@@ -1,0 +1,66 @@
+.\"   $Id: naturalstrcmp.3,v 1.1 1999/05/31 17:30:23 alliance Exp $
+.\" @(#)naturalstrcmp.2 2.11 91/08/22 ; Labo masi cao-vlsi; Author : Frederic Petrot
+.if t \{\
+.so man1/alc_contents.mac
+.XS \n%
+.ti 0.2i
+naturalstrcmp
+.XE
+.XS4 \n%
+.ti 0.2i
+naturalstrcmp
+.XE4 \}
+.TH NATURALSTRCMP 3 "October 1, 1997" "ASIM/LIP6" "MBK UTILITY FUNCTIONS"
+.SH NAME
+naturalstrcmp \- compare string in alphabetical order for letters
+and numerical for digits.
+.so man1/alc_origin.1
+.SH SYNOPSYS
+.nf
+.if n \{\
+.ft B \}
+.if t \{\
+.ft CR \}
+#include "mut315.h"
+int naturalstrcmp(s, t)
+char \(**s, \(**t;
+.ft R
+.fi
+.SH PARAMETERS
+.TP 20
+\fIs\fP
+Pointer to the first string to compare
+.TP
+\fIt\fP
+Pointer to the second string to compare
+.SH DESCRIPTION
+\fBnaturalstrcmp\fP is an alphanumerical comparison function that ensures
+\fBx12 > x2\fP for example.
+First, the alphabetical part of the string is compared, using \fBstrcmp\fP(3),
+then, if it has trailing numbers, they are compared using a numerical function.
+.SH RETURN VALUES
+\fBnaturalstrcmp\fP has the same return values than the standard library
+\fBstrcmp\fP(3) function.
+.SH EXAMPLE
+.ta 3n 6n 9n 12n 15n 18n 21n
+.nf
+.if n \{\
+.ft B \}
+.if t \{\
+.ft CR \}
+#include "mut315.h"
+static int
+	connectorcmp(flc, slc)
+locon_list **flc, **slc;
+{
+	return naturalstrcmp((*slc)->NAME, (*flc)->NAME);
+}
+.ft R
+.fi
+.SH SEE ALSO
+.BR mbk (1),
+.BR strcmp (3).
+
+
+.so man1/alc_bug_report.1
+

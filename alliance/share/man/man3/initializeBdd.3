@@ -1,0 +1,48 @@
+.\"   $Id: initializeBdd.3,v 1.1 1999/05/31 17:30:22 alliance Exp $
+.\" @(#)initializeBdd.2 7.01 92/08/22 ; Labo masi cao-vlsi; Author : Luc Burgun
+.TH INITIALIZEBDD 3 "October 1, 1997" "ASIM/LIP6" "BDD functions"
+.so man1/alc_origin.1
+.SH NAME
+\fBinitializeBdd\fP \- initializes the BDDs system 
+.SH SYNOPSYS
+.nf
+#include "logmmm.h"
+void initializeBdd(size)
+int size;
+.fi
+.SH PARAMETER
+.TP 20
+\fIsize\fP
+First size of BDD system
+.SH DESCRIPTION
+\fBinitializeBdd()\fP initializes the BDDs system. \fIsize\fP can be equal to SMALL_BDD, MEDIUM_BDD or LARGE_BDD according to the application size. This function creates the \fIzero\fP and \fIone\fP node that correspond to the 0 and 1 boolean constants.
+.SH EXAMPLE
+.nf
+#include "mutnnn.h"		/* mbk utilities */
+#include "logmmm.h"
+
+initializeBdd(MEDIUM_BDD);
+
+dislayBdd(one);
+/* it will display
+ONE
+*/
+
+/* application using BDD ... */
+
+destroyBdd(1);
+.fi
+.SH ERROR
+"initializeBdd : error - size out of bound"
+.br
+\fIsize\fP must be included into \fISMALL_BDD\fP and \fILARGE_BDD\fP.
+.SH SEE ALSO
+.BR log (1),
+.BR bdd (1),
+.BR destroyBdd (3),
+.BR resetBdd (3),
+.BR markAllBdd (3),
+.BR numberNodeAllBdd (3).
+
+.so man1/alc_bug_report.1
+

@@ -1,0 +1,61 @@
+.\"   $Id: createBinExpr.3,v 1.1 1999/05/31 17:30:19 alliance Exp $
+.\" @(#)createBinExpr.2 7.01 92/08/22 ; Labo masi cao-vlsi; Author : Luc Burgun
+.TH CREATEBINEXPR 3 "October 1, 1997" "ASIM/LIP6" "ABL functions"
+.so man1/alc_origin.1
+.SH NAME
+\fBcreateBinExpr\fP \- creates a binary operator expression with an eventual merging of the operators.
+.SH SYNOPSYS
+.nf
+#include "logmmm.h"
+chain_list *createBinExpr(oper,expr1,expr2)
+short oper;
+chain_list *expr1,*expr2;
+.fi
+.SH PARAMETERS
+.TP 20
+\fIoper\fP
+Operator number (#define OR,AN,XOR,NAND,NOR...).
+.TP 20
+\fIexpr1\fP
+first expression.
+.TP 20
+\fIexpr2\fP
+second expression.
+.SH DESCRIPTION
+\fBcreateBinExpr()\fP creates the head of an expression that has got \fIoper\fP as operator and \fIexpr1\fP and \fIexpr2\fP as arguments. If \fIexpr1\fP or \fIexpr2\fP have already \fIoper\fP as operator, \fIoper\fP is merged in the expression that the function returns.
+.SH EXAMPLE
+.nf
+#include "mutnnn.h"		/* mbk utilities */
+#include "logmmm.h"
+chain_list *expr; 
+chain_list *expr1,*expr2;
+
+expr1 = createExpr(OR);
+addQExpr(expr1,createAtom("var1"));
+addQExpr(expr1,createAtom("var2"));
+expr2 = notExpr(createAtom("var3"));
+expr = createBinExpr(OR,expr1,expr2);
+displayExpr(expr);
+
+/* it will display
+(OR var1 var2 (NOT var 3))
+*/
+freeExpr(expr);		/* don't free expr1 or expr2 ! */
+
+.SH ERROR
+"createBinExpr : error - bad operator"
+.br
+The operator number must be included between \fIMIN_OPER\fP and \fIMAX_OPER\fP and must be different from NOT. 
+.fi
+.SH SEE ALSO
+.BR log (1),
+.BR abl (1),
+.BR createAtom (3),
+.BR notExpr (3),
+.BR createExpr (3),
+.BR addQExpr (3),
+.BR addHExpr(3),
+.BR freeExpr(3).
+
+.so man1/alc_bug_report.1
+

@@ -1,0 +1,100 @@
+.\"   $Id: losig.3,v 1.1 1999/05/31 17:30:23 alliance Exp $
+.\" @(#)losig.l 0.0 90/22/08 UPMC; Author: Frederic Petrot
+.if t \{\
+.so man1/alc_contents.mac
+.XS \n%
+.ti 0.2i
+losig
+.XE
+.XS2 \n%
+.ti 0.2i
+losig
+.XE2 \}
+.TH LOSIG 3 "October 1, 1997" "ASIM/LIP6" "MBK LOGICAL STRUCTURE DEFINITIONS"
+.SH NAME
+losig \- mbk logical signal
+.SH DESCRIPTION
+The \fBlosig\fP is used to describe a logical signal.
+.LP
+The declarations needed to work on \fBlosig\fP are available in the header file
+\fI"/labo/include/mlo404.h"\fP, where '\fI404\fP' is the actual mbk version.
+.LP
+The following C structure supports the description of the logical signal :
+.RS
+.nf
+.if n \{\
+.ft B \}
+.if t \{\
+.ft CR \}
+.ta 3n 20n 30n
+typedef struct losig {
+	struct losig	\(**NEXT; 
+	struct chain	\(**NAMECHAIN;
+	float	CAPA;
+	long	INDEX;
+	char	TYPE;
+	struct ptype	\(**USER;
+} losig_list;
+.ft R
+.fi
+.RE
+.TP 20
+\fINEXT\fP
+Pointer to the next \fBlosig\fP of the list.
+.TP
+\fIINDEX\fP
+Long integer beeing the signal identifier. It represents the net
+number at a given hierachical level, and must be unique.
+.TP
+\fINAMECHAIN\fP
+Pointer to a list of names, aliases, attached to the signal. If no names
+are given then the field points to \fINULL\fP. Many names can be present if
+the signal result of the flatten of a netlist.
+See \fBchain\fP(3) for details.
+.TP
+\fICAPA\fP
+Floating point number containing the value of the total capacitance attached
+to a signal in respect to ground. This field may be set to zero, since it
+make sens only if the signal is the result of a layout extraction, or has
+been used for electrical simulation purposes.
+.TP
+\fITYPE\fP
+This field can take two legal values depending on the types of the connectors
+attached to it. See \fBlocon\fP(3) for detail. 
+.RS
+.TP 20
+\fBEXTERNAL\fP
+The signal is connected at least to one external
+connector, a connector of the figure beeing described.
+.TP
+\fBINTERNAL\fP
+The signal is connected only to instances or
+transistors connectors.
+.LP
+The tools using the \fITYPE\fP should fill it with care, since unexpected
+results may appear if the consistency with connectors is violated.
+.RE
+.TP
+\fIUSER\fP
+Pointer to a ptype list, see \fBptype\fP(3) for details, that is a general
+purpose pointer used to share informations on the signal.
+.TP
+Remark :
+the netlist view is given in terms of connectors pointing to signals,
+but it may be useful to have also the dual representation, in term of
+list of connectors attached to a single signal. This may be obtained by
+the \fBlofigchain\fP function.
+.SH SEE ALSO
+.BR mbk (1),
+.BR addlosig (3),
+.BR getlosig (3),
+.BR dellosig (3),
+.BR lofigchain (3),
+.BR locon (3),
+.BR lofig (3),
+.BR chain (3),
+.BR ptype (3).
+
+
+.so man1/alc_bug_report.1
+

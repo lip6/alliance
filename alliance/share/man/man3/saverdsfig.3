@@ -1,0 +1,72 @@
+.\"   $Id: saverdsfig.3,v 1.1 1999/05/31 17:30:24 alliance Exp $
+.\" @(#)saverdsfig.1 1.11 93/08/18 ; Labo masi cao-vlsi
+.if t \{\
+.so man1/alc_contents.mac
+.XS \n%
+.ti 0.2i
+saverdsfig
+.XE
+.XS0 \n%
+.ti 0.2i
+saverdsfig
+.XE0 \}
+.TH SAVERDSFIG 3 "October 1, 1997" "ASIM/LIP6" "RDS PHYSICAL FUNCTIONS"
+.SH NAME
+saverdsfig \- save a physical figure on disk.
+.so man1/alc_origin.1
+.SH SYNOPSYS
+.nf
+.if n \{\
+.ft B \}
+.if t \{\
+.ft CR \}
+#include "rtlnnn.h"
+ void saverdsfig( Figure )
+    rdsfig_list \(**Figure;
+.ft R
+.fi
+.SH PARAMETER
+.TP 20
+\fIFigure\fP
+Pointer to the RDS Figure to save.
+.SH DESCRIPTION
+The \fIsaverdsfig\fP function writes on disk the contents of the figure pointer to by rdsfig_list. The savephfig function in fact performs a call to a driver, choosen by the RDS_OUT environment  variable. 
+.SH RETURN VALUE
+none
+.SH ERRORS
+.if n \{\
+.ft B \}
+.if t \{\
+.ft CR \}
+"Rtl103.h: Unknown rds output format"
+.ft R
+.RS
+The output format defined by the unix environment variable RDS_OUT is not supported by the driver (supported formats are "cif" and "gds").
+.PP
+Other errors can appear because the saverdsfig function calls cif and gds drivers.
+.SH EXAMPLE
+        #include "mutnnn.h"
+        #include "rdsnnn.h"
+        #include "rtlnnn.h"
+        main()
+         {
+           rdsfig_list \(**RdsFigure;
+           mbkenv();
+           rdsenv();
+           loadrdsparam();
+           loadrdsfig( RdsFigure, "core", 'A');
+           RdsFigure->NAME = namealloc ( "core_2" );
+           /\(** \(**/ \fBsaverdsfig\fP ( RdsFigure );
+         }
+.ft R
+.fi
+.SH SEE ALSO
+.BR librtl,
+.BR loadrdsfig,
+.BR rdsenv,
+.BR getrdsfig,
+.BR RDS_OUT
+
+
+.so man1/alc_bug_report.1
+

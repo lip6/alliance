@@ -1,0 +1,68 @@
+-- ###---------------------------------------------------------------------###
+-- #                                                                         #
+-- #         Alliance CAD System V.R                                         #
+-- #          FitPath Package V.RR                                           #
+-- #                                                                         #
+-- # Copyright(c) 94-94, MASI, CAO-VLSI Team                                 #
+-- #                                                                         #
+-- # Author      :          Jean-Paul CHAPUT                                 #
+-- # E-mail      :      cao-vlsi@masi.ibp.fr                                 #
+-- # *********************************************************************** #
+-- #   Date      :      December 03 1994.                                    #
+-- #                                                                         #
+-- # Theoretical VHDL data flow description of cell "pmsa9_fp".              #
+-- # ----------------------------------------------------------------------- #
+-- # Cell Family :      "pdffb8_fp", "pdffba_fp"                             #
+-- #                     "pmsb8_fp",  "pmsba_fp",                            #
+-- #                     "pmsa8_fp",  "pmsa9_fp".                            #
+-- #                                                                         #
+-- ###---------------------------------------------------------------------###
+
+
+-- Entity Declaration.
+
+ENTITY  pmsa9_fp  IS
+  PORT(
+    s0i0 : in    BIT;
+    s1i0 : in    BIT;
+    din  : in    BIT;
+    wmr  : in    BIT;
+    wmd  : in    BIT;
+    ws   : in    BIT;
+    q    : inout BIT;
+    nq   :   out BIT;
+    vdd  : in    BIT;
+    vss  : in    BIT
+  );
+END  pmsa9_fp;
+
+
+-- Architecture declaration.
+
+ARCHITECTURE  behavior_data_flow  OF  pmsa9_fp  IS
+
+  SIGNAL memm_s : REG_BIT REGISTER;
+  SIGNAL mems_s : REG_BIT REGISTER;
+
+BEGIN
+  wmr:BLOCK(wmr = '0') BEGIN memm_s <= GUARDED '1';     END BLOCK wmr;
+  wmd:BLOCK(wmd = '1')
+            BEGIN memm_s <= GUARDED (( not (s0i0) and not (q)) or (not (s1i0) and not (din))) ;
+            END BLOCK wmd;
+  ws :BLOCK(ws  = '1') BEGIN mems_s <= GUARDED memm_s;  END BLOCK ws;
+
+  nq <=     mems_s;
+   q <= not mems_s;
+
+  ASSERT(not((wmd or not wmr) and ws))
+    REPORT "wmd/wmr and ws must have complementary value in pmsa9_fp."
+    SEVERITY WARNING;
+  
+    ASSERT(not(wmd and not wmr))
+    REPORT "wmd and not wmr must have complementary value in pmsa9_fp."
+    SEVERITY WARNING;
+
+    ASSERT((vdd = '1') and (vss = '0'))
+      REPORT "Power supply is missing on pmsa9_fp."
+      SEVERITY WARNING;
+END  behavior_data_flow;

@@ -1,0 +1,74 @@
+.\"   $Id: funpapat.3,v 1.1 1999/05/31 17:30:21 alliance Exp $
+.\" @(#)funpapat.2 106 Sep 30 1996 UPMC ; VUONG Huu\-Nghia 
+.TH FUNPAPAT 3 "October 1, 1997" "ASIM/LIP6" "PAT functions"
+
+.so man1/alc_origin.1
+.SH NAME
+.PP
+\fBpat_addpapat, pat_frepapat\fP
+
+.SH SYNOPSYS
+.PP
+.nf
+struct papat *pat_addpapat (lastpapat, label, line)
+struct papat *lastpapat;
+char *label;
+unsigned short line;
+
+void pat_frepapat (listpapat)
+struct papat *listpapat;
+
+.fi
+
+.SH PARAMETERS
+.PP
+.TP 10
+\fIlastpapat\fP
+pointer on the last papat structure
+.TP 10
+\fIlabel\fP
+pattern\'s label
+.TP 10
+\fIline\fP
+pattern\'s line number
+.TP 10
+\fIlistpapat\fP
+list of papat structures to be deleted
+
+.SH DESCRIPTION
+.PP
+A papat is a data structure representing a complete pattern including the
+actions associated with the pattern. A pattern is a set of values either
+forced (at the same time) on the inputs or predicted for the outputs (after
+the simulation step).
+
+.PP
+\fBpat_addpapat()\fP adds a papat structure at the top of a list of papat
+structures. The label registered in the papat is produced by \fBnamealloc()\fP.
+The function returns the pointer of the new list. No check is made by
+this function.
+
+.PP
+\fBpat_frepapat()\fP deletes a list of papat structures and all objects (paini
+and paevt) referenced by each papat structure in the list. If the list to be
+deleted is an empty list (NULL pointer), no action is produced. No check is
+made by this function.
+
+.SH EXAMPLE
+.PP
+.nf
+#include <pat106.h>
+
+struct papat *list;
+
+list = pat_addpapat (list, "ram_test", 123);
+pat_frepapat (list);
+.fi
+
+.SH SEE ALSO
+.PP
+libpat(3), papat(3), namealloc(3)
+
+
+.so man1/alc_bug_report.1
+

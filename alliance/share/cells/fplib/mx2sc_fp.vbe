@@ -1,0 +1,67 @@
+-- VHDL data flow description generated from `mx2sc_fp`
+--		date : Fri Oct 14 11:43:49 1994
+
+
+-- Entity Declaration
+
+ENTITY mx2sc_fp IS
+  GENERIC (
+    CONSTANT area : NATURAL := 2520;	-- area
+    CONSTANT cin_s1i0 : NATURAL := 61;	-- cin_s1i0
+    CONSTANT tpll_s1i0 : NATURAL := 2788;	-- tpll_s1i0
+    CONSTANT rdown_s1i0 : NATURAL := 2089;	-- rdown_s1i0
+    CONSTANT tphh_s1i0 : NATURAL := 2384;	-- tphh_s1i0
+    CONSTANT rup_s1i0 : NATURAL := 3060;	-- rup_s1i0
+    CONSTANT cin_i1 : NATURAL := 58;	-- cin_i1
+    CONSTANT tpll_i1 : NATURAL := 3480;	-- tpll_i1
+    CONSTANT rdown_i1 : NATURAL := 2089;	-- rdown_i1
+    CONSTANT tphh_i1 : NATURAL := 3079;	-- tphh_i1
+    CONSTANT rup_i1 : NATURAL := 3060;	-- rup_i1
+    CONSTANT cin_s0i0 : NATURAL := 63;	-- cin_s0i0
+    CONSTANT tpll_s0i0 : NATURAL := 2788;	-- tpll_s0i0
+    CONSTANT rdown_s0i0 : NATURAL := 2089;	-- rdown_s0i0
+    CONSTANT tphh_s0i0 : NATURAL := 2384;	-- tphh_s0i0
+    CONSTANT rup_s0i0 : NATURAL := 3060;	-- rup_s0i0
+    CONSTANT cin_i0 : NATURAL := 58;	-- cin_i0
+    CONSTANT tpll_i0 : NATURAL := 3480;	-- tpll_i0
+    CONSTANT rdown_i0 : NATURAL := 2089;	-- rdown_i0
+    CONSTANT tphh_i0 : NATURAL := 3079;	-- tphh_i0
+    CONSTANT rup_i0 : NATURAL := 3060	-- rup_i0
+  );
+  PORT (
+  s0i0 : in BIT;	-- s0i0
+  s1i0 : in BIT;	-- s1i0
+  i0 : in BIT;	-- i0
+  i1 : in BIT;	-- i1
+  o : out BIT;	-- o
+  vdd : in BIT;	-- vdd
+  vss : in BIT	-- vss
+  );
+END mx2sc_fp;
+
+
+-- Architecture Declaration
+
+ARCHITECTURE behaviour_data_flow OF mx2sc_fp IS
+  SIGNAL d : mux_bit BUS;		-- d
+
+BEGIN
+  ASSERT ((vdd and not (vss)) = '1')
+    REPORT "power supply is missing on mx2sc_fp."
+    SEVERITY WARNING;
+
+  ASSERT (not ((s0i0 xor not (s1i0))) = '1')
+    REPORT "s0i0 and s1i0 must have complementary value in mx2sc_fp."
+    SEVERITY WARNING;
+
+  label0 : BLOCK (((s0i0 and i0) or (s1i0 and i1)) = '1')
+  BEGIN
+    d <= GUARDED '0';
+  END BLOCK label0;
+  label1 : BLOCK (((not (s0i0) and not (i1)) or (not (s1i0) and not (i0))) = '1')
+  BEGIN
+    d <= GUARDED '1';
+  END BLOCK label1;
+
+o <= not (d);
+END;

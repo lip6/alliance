@@ -1,0 +1,57 @@
+.\"   $Id: mx4_y.5,v 1.1 1999/05/31 17:30:27 alliance Exp $
+.pl -.4
+.TH MX4_Y 5 "October 1, 1997" "ASIM/LIP6" "STANDARD-CELL LIBRARY"
+.SH NAME
+.B mx4_y
+.so man1/alc_origin.1
+.SH SYNOPSIS
+.B Genlib call :
+.br
+  LOINS("mx4_y","name","i0","i1","i2","i3","l0","l1","l2","l3","t","vdd","vss",0);
+.SH DESCRIPTION
+.I - Interface
+   entity mx4_y is
+     port(
+        i0 : in bit;
+        i1 : in bit;
+        i2 : in bit;
+        i3 : in bit;
+        l0 : in bit;
+        l1 : in bit;
+        l2 : in bit;
+        l3 : in bit;
+        t : out bit;
+        vdd : in bit;
+        vss : in bit);
+.br
+.I - Logical description
+.br
+    t <= ((((i0 and l0) or (i1 and l1)) or (i2 and l2)) or (i3 and l3));
+   
+.br
+.I - Physical features
+   number of grids : 13
+   number of feed-through : 4
+.br
+   
+.I - Timing caracteristics
+.br
+   i0 : 78 (fF)
+.br
+   i1 : 78 (fF)
+.br
+   i2 : 78 (fF)
+.br
+   i3 : 78 (fF)
+.br
+   l0 : 78 (fF)
+.br
+   l1 : 78 (fF)
+.br
+   l2 : 78 (fF)
+.br
+   l3 : 78 (fF)
+.br
+
+.so man1/alc_bug_report.1
+

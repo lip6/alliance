@@ -1,0 +1,96 @@
+.\"   $Id: PHREF.3,v 1.1 1999/05/31 17:30:16 alliance Exp $
+.\" @(#)PHREF.3 2.11 91/08/22 ; Labo Cao-vlsi; Author : Frederic Petrot
+.if t \{\
+.so man1/alc_contents.mac
+.XS \n%
+.ti 0.2i
+PHREF
+.XE \}
+.TH PHREF 3 "October 1, 1997" "ASIM/LIP6" "PROCEDURAL GENERATION LANGUAGE"
+.SH NAME
+PHREF \- place a physical reference in the current figure at absolute
+coordinates
+.SH SYNOPSYS
+.nf
+.if n \{\
+.ft B \}
+.if t \{\
+.ft CR \}
+#include <genlib.h>
+void PHREF(type, name, x, y)
+char \(**type, \(**name;
+long x, y;
+.ft R
+.fi
+.so man1/alc_origin.1
+.SH PARAMETERS
+.TP 20
+\fItype\fP
+Type of the reference to be added
+.TP
+\fIname\fP
+Name of the reference
+.TP
+\fIx, y\fP
+Absolute coordinates of the reference
+.SH DESCRIPTION
+\fBPHREF\fP adds a reference in the current layout cell, at the specified
+coordinates.
+A reference is an object that allows to symbolicaly name a point for
+futur use by the designer.
+They have been mainly used in the past to \fIprogram\fP decoders, in order
+to obtain many cells from a unique cell.
+.LP
+The \fItype\fP argument may take the two following legal values:
+.TP 20
+\fBref_con\fP 
+for virtual connectors, see \fBdpr\fP(1) for details.
+.TP
+\fBref_ref\fP 
+for any other need from the designer.
+.LP
+.SH ERRORS
+.if n \{\
+.ft B \}
+.if t \{\
+.ft CR \}
+"PHREF impossible : missing DEF_PHFIG"
+.ft R
+.RS
+No figure has been yet specified by a call to \fBDEF_PHFIG\fP. So it isn't
+possible to place a reference inside it.
+you must call \fBDEF_PHFIG\fP before any other layout action.
+.RE
+.SH EXAMPLE
+.nf
+.if n \{\
+.ft B \}
+.if t \{\
+.ft CR \}
+#include <genlib.h>
+main()
+{
+	/\(** Create a figure to work on  \(**/
+	DEF_PHFIG("cell");
+	.
+	/\(** Put a reference \(**/
+	PHREF("ref_con", "in_a[0]", 102L, 10L);
+	.
+	.
+	DEF_AB(0L, 0L, 0L, 0L);
+	/\(** Save that on disk \(**/
+	SAVE_PHFIG();
+}
+.ft R
+.fi
+.SH SEE ALSO
+.BR genlib (1),
+.BR DEF_PHFIG (3),
+.BR SAVE_PHFIG (3),
+.BR PLACE_CON_REF (3),
+.BR PLACE_SEG_REF (3),
+.BR PLACE_VIA_REF (3).
+
+
+.so man1/alc_bug_report.1
+

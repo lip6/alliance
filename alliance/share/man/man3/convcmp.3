@@ -1,0 +1,41 @@
+.\"   $Id: convcmp.3,v 1.1 1999/05/31 17:30:19 alliance Exp $
+.\" @(#)CONVCMP.2 1.9  UPMC ; VUONG H.N.
+.TH CONVCMP 3 "October 1, 1997" "ASIM/LIP6" "GENPAT functions"
+
+.SH NAME
+.PP
+\fBconvcmp\fP, GENPAT Package
+
+.so man1/alc_origin.1
+.SH SYNOPSYS
+.PP
+.nf
+convcmp(variable or constant(integer));
+.fi
+
+.SH DESCRIPTION
+.PP
+Convert an decimal integer, an decimal integer expression or a variable in
+a chain of char considered of base decimal suffixed with a '?', it permits to
+compare simulated values with projected values.
+
+.SH EXAMPLE
+.PP
+.nf
+affect(conv(bar),"cl",convcmp(foo),0);
+At pattern number (content of bar), cl is affected with 
+the value represented by the content of the variable foo. 
+Let's suppose bar = 3, foo = 1, so this AFFECT is equivalent to 
+affect("3","ck","?1",0);
+
+affect(conv(bar + foo),"ck","1",0);
+At pattern number (foo + bar, here 4), ck is affected with the value 1.
+.fi
+
+.SH SEE ALSO
+.PP
+genpat(1), pat(5)
+
+
+.so man1/alc_bug_report.1
+

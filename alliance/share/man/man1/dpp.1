@@ -1,0 +1,248 @@
+.\"   $Id: dpp.1,v 1.1 1999/05/31 17:30:13 alliance Exp $
+.\" @(#)Labo.l 0.0 93/03/06 UPMC; Author: Lotfi BEN AMMAR
+.pl -.4
+.TH DPP 1 "October 1, 1997" "ASIM/LIP6" "CAO\-VLSI Reference Manual"
+.SH NAME
+.TP
+dpp
+ - DataPath Placement tool
+.so man1/alc_origin.1
+.SH SYNOPSIS
+.TP
+\fBdpp\fP <\fIsource\fP> [\fBMSB\fP] [\fB-o1/-o2\fP]
+.br
+.SH DESCRIPTION
+\fBdpp\fP is an automatic placement tool for bit-sliced datapath. It can be
+used with the specialized router dpr.
+.br
+
+\fB1/ The Bit-slice Topology\fP
+.br
+A datapath is considered as a set of operators handling bus-structured data.
+It is made by abutting operators (or columns) horizontally.
+In fully regular multi-bit architectures, all operators are N-bit height,
+N corresponds to the number of bits. So, a bit-sliced datapath structure
+is similar to a two-dimensional array where lines and columns correspond
+respectively to bit-slices and operators. Data busses are distributed
+horizontally
+in metal2 over the cells, while control lines run vertically in metal1.
+Power and ground supplies
+are horizontal in metal2, they delimit slices and are shared by two adjacent
+bit-slices. Least Significant Bit (L.S.B) is at the bottom, while Most
+Significant Bit (M.S.B) is at the top. At the top of the datapath, two slices
+are dedicated to the control line buffers. So for a 32 bit datapath the compiled
+layout is 34 slices.
+
+\fB2/ Datapath components\fP
+.br
+Two types of components may be used in a datapath:
+.br
+
+- One-bit functional cells called bit-cells. Such components are available in a
+specialized datapath cell library called DPLIB.
+.br
+
+- Multi-bit optimized blocks provided by a set of parameterized datapath block
+generators.
+.br
+
+The parameterized datapath block generators may be used for complex operators
+such as fast adders, barrel shifters and register files. To
+construct regular multi-bit operators such as multiplexers, logic units and
+buffers or to implement irregular operators such as comparators and flag
+generators, DPLIB cells must be used.
+
+\fB3/ User Interface\fP
+.br
+The placement tool needs as an input the datapath net-list.
+It must be given in the "source" file. This file
+must be available in the directory defined by the environment variable
+\fBMBK_WORK_LIB\fP. The result file provided by the
+placement tool contains the physical description of the datapath. It is saved,
+with the same name as the source file, in the directory defined by the
+environment variable
+\fBMBK_WORK_LIB\fP. Several logical and physical description formats are
+supported by this tool. The input netlist format of both the datapath
+and its components is defined by the environment variable \fBMBK_IN_LO\fP.
+the input layout format of each datapath leaf-cell is defined by the
+environment variable \fBMBK_IN_PH\fP.
+While the output layout format is defined by the environment variable
+\fBMBK_OUT_PH\fP.
+.br
+
+The input net-list must be structured in one or two hierarchical levels:
+.br
+- First hierarchical level defines the datapath operators (or columns). At
+this level, columns are either multi-bit optimized blocks or structured.
+These operators are abutted horizontally by the placement tool.
+.br
+- The possible second hierarchical level contains one-bit cells that belong
+to DPLIB to form
+the structured operators. In that case cells are stacked vertically in the
+same column.
+.br
+
+At the moment, \fBdpp\fP needs a catalog file whose name is defined by the
+environment variable \fBMBK_CATAL_NAME\fP, the default name is CATAL.
+This file must contain the model names of the optimized blocks. These blocks
+must be generated before invoking the placement tool. It tells the placement
+tool which elements must be considered as leaf-cells in addition to DPLIB cells.
+For more details about the catalog file use "man catal".
+Files describing the logical view and the physical view of each leaf-cell
+must be available in one of the directories defined by the environment
+variable \fBMBK_CATA_LIB\fP.
+.br
+
+Placement is performed in two independent steps: a constructive step that
+builds the different columns and a second step that abuts columns horizontally
+and optimizes (if specified) the column ordering. During the first step, the
+vertical bit-cell placemennt is based on the optional information given by
+the user through the instance name. The integer just after the last
+underscore '_' in the instance name is supposed to be the slice index
+in which the cell must be placed. For example an instance named "toto_0" will
+be placed in the slice number 0. When the cell is two or more slice height,
+the index corresponds to the lower slice. For example in a 32 bit datapath,
+buffers (two slice height) must be named "tata_32".
+.br
+
+While constructing columns, vertical abutability is checked to ensure the
+control line continuity. Warning messages may appear during this placement
+step.
+.br
+
+Datapath external terminals are automatically created and placed by this
+tool. We define two types of terminals: data terminals and control terminals.
+A data terminal is placed on the west or east abutment box side, in its
+corresponding slice. While a control terminal is placed on the north or/and
+south abutment box side(s), in its column.
+.br
+
+.SH OPTIONS
+.TP
+\MSB:
+This option is necessary to tell the placement tool that the index 0
+corresponds to the MSB. So, in a 32 bit datapath plus two slice buffers,
+the LSB cells must be indexed by 33 while the buffers must be indexed by 1.
+By default the index 0 corresponds to the LSB.
+.TP
+\-o1:
+This option tells the placement tool to optimize the column ordering.
+The algorithm that will be used for this task is the first one: for a given
+permutation cycle, the exchange of two columns that gives the best solution
+is realized. If this option is not given, the resulting column ordering
+corresponds to the order of the operators found in the input netlist. This feature
+may be used to dictate a given column ordering.
+.TP
+\-o2:
+This option tells the placement tool to optimize the column ordering.
+The algorithm that will be used for this task is the second one: each time
+that a permutation of two columns gives a better solution, columns are exchanged,
+and so on. If this option is not given, the resulting column ordering
+corresponds to the order of the operators found in the input netlist. This feature
+may be used to dictate a given column ordering.
+.br
+
+.SH ERROR MESSAGES
+.br
+
+.BR 1/ 
+\fI<figname> is not in the CATAL, must be a second hierarchical level!\fP
+.br
+This message appears when a figure is instanciated in the first hierarchical
+level and is neither a leaf-cell (in the CATAL) nor structured (a second
+hierarchical level).
+
+.BR 2/ 
+\fI<figname> is not in the CATAL!\fP
+.br
+This message appears when a figure is instanciated in the second hierarchical
+level and is not in the CATAL file.
+
+.BR 3/ 
+\fIPhysical terminal <conname> with no logical corresponding in <figname>!\fP
+.br
+This message appears when a physical terminal has no corresponding logical
+terminal for a given leaf-cell. Logical and physical terminals must have the
+same name in both logical and physical descriptions.
+
+.BR 4/ 
+\fIVirtual terminal <conname> in <figname> is not valid!\fP
+.br
+This message appears when a virtual terminal does not respect the naming
+convention which is "conname_tracknumber" (for example "titi_0") or when
+it is not covered by an allow-metal2 wire.
+
+.BR 5/ 
+\fIAllow-metal2 wire in <figname> not valid!\fP
+.br
+This message appears when an allow-metal2 wire is fully or partially out of
+the abutment box of the figure.
+.br
+
+.BR 6/ 
+\fIThe index must be an integer in <insname>!\fP
+.br
+This message appears when the index, just after the underscore, in the instance
+name is not an integer.
+.br
+
+.BR 6/ 
+\fISpace [i,j] is already full!\fP
+.br
+This message appears when two different instances in the same column have the
+same index or when instance indexes are not correctly given (especially if
+there is two or more slice height instances in the coolumn).
+.br
+
+.SH EXAMPLES
+To use \fBdpp\fP, some environment variables must be set :
+.br
+If the VHDL format for netlist and the MODGEN format for layout are used,
+the user must have the following environment:
+.br
+.BR 	MBK_CATA_LIB 
+=/labo/cells/dpr:/labo/cells/rsa/:/labo/cells/bgd:/labo/cells/bsg
+.br
+.BR 	MBK_IN_LO 
+=vst
+.br
+.BR 	MBK_IN_PH 
+=mg
+.br
+.BR 	MBK_OUT_PH 
+=mg
+.br
+.BR 	MBK_CATAL_NAME 
+=CATAL
+.br
+.BR 	MBK_WORK_LIB 
+=. 
+.br
+The command line to be executed for placing the datapath called "alu4" without
+any option is the following:
+.br
+
+\fBdpp\fP alu4
+.br
+
+This command generates the physical initial placement of the alu4. In that case
+the indexes 0 and 3 correspond respectively to the MSB and the LSB.
+.br
+
+.SH SEE ALSO
+.BR MBK_IN_LO (1),
+.BR MBK_IN_PH (1),
+.BR MBK_OUT_PH (1),
+.BR MBK_CATA_LIB (1),
+.BR MBK_WORK_LIB (1),
+.BR MBK_CATAL_NAME (1),
+.BR dplib (1),
+.BR catal(5),
+.BR dpr(1),
+.BR rsa(1),
+.BR bgd(1),
+.BR bsg(1).
+
+
+.so man1/alc_bug_report.1
+

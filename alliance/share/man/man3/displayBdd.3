@@ -1,0 +1,66 @@
+.\"   $Id: displayBdd.3,v 1.1 1999/05/31 17:30:20 alliance Exp $
+.\" @(#)displayBdd.2 7.01 92/08/22 ; Labo masi cao-vlsi; Author : Luc Burgun
+.TH DISPLAYBDD 3 "October 1, 1997" "ASIM/LIP6" "BDD functions"
+.so man1/alc_origin.1
+.SH NAME
+\fBdisplayBdd\fP \- displays a BDD
+.SH SYNOPSYS
+.nf
+#include "logmmm.h"
+void displayBdd(pBdd,level)
+pNode pBdd;
+int level;
+.fi
+.SH PARAMETERS
+.TP 20
+\fIpBdd\fP
+BDD to display
+.TP 20
+\fIlevel\fP
+displaying level
+.SH DESCRIPTION
+\fBdisplayBdd()\fP displays \fIpBDD\fP. if \fIlevel= 1\fP, this function displays all the nodes of \fIpBdd\fP, if \fIlevel = 0\fP the function displays the root node of \fIpBdd\fP.
+.SH EXAMPLE
+.nf
+#include "mutnnn.h"		/* mbk utilities */
+#include "logmmm.h"
+pNode nodeA,nodeB,nodeC;
+pNode res;
+
+initializeBdd(SMALL_BDD);
+nodeA = createNodeTermBdd(3);
+nodeB = createNodeTermBdd(3);
+nodeC = createNodeTermBdd(4);
+
+res = applyBinBdd(OR,applyBinBdd(AND,nodeB,nodeC),nodeA);  
+		/* corresponding to  (OR (AND b c) a) */
+
+displayBdd(res,1);
+
+/* it will display 
+@res      INDEX = 4   LOW = @nodeA   HIGH = @inter1
+@nodeA    INDEX = 2   LOW = ZERO     HIGH = ONE
+@inter1   INDEX = 3   LOW = @nodeA   HIGH = ONE
+*/
+
+displayBdd(res,0);
+
+/* it will display 
+@res      INDEX = 4   LOW = @nodeA   HIGH = @inter1
+*/
+
+destroyBdd(1);
+.fi
+.SH SEE ALSO
+.BR log (1),
+.BR bdd (1),
+.BR createNodeTermBdd (3),
+.BR applyBinBdd (3),
+.BR applyBdd (3),
+.BR constraintBdd (3),
+.BR composeBdd (3),
+.BR addListBdd (3),
+.BR notBdd (3).
+
+.so man1/alc_bug_report.1
+

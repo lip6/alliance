@@ -1,0 +1,116 @@
+
+
+-- ###--------------------------------------------------------------------###
+-- #                                                                        #
+-- #         Alliance CAD System V.R                                        #
+-- #          FitPath Package V.RR                                          #
+-- #                                                                        #
+-- # Copyright(c) 94-AA, MASI, CAO-VLSI Team                                #
+-- #                                                                        #
+-- # Author      :          Jean-Paul CHAPUT                                #
+-- # E-mail      :      cao-vlsi@masi.ibp.fr                                #
+-- # ********************************************************************** #
+-- #   Date      :      November 30 1994.                                   #
+-- #                                                                        #
+-- # Theoretical VHDL data flow description of cell "mx4sc_fp".             #
+-- # ---------------------------------------------------------------------- #
+-- # Cell Family :  "mx4sb0_fp", "mx4sc_fp"                                 #
+-- #                                                                        #
+-- ###--------------------------------------------------------------------###
+
+
+-- Entity Declaration
+
+ENTITY  mx4sc_fp  IS
+    PORT(
+        s1i1 : in    BIT;
+        s0i0 : in    BIT;
+        s0i1 : in    BIT;
+        s1i0 : in    BIT;
+        s3i0 : in    BIT;
+        s2i0 : in    BIT;
+        i3   : in    BIT;
+        i2   : in    BIT;
+        i0   : in    BIT;
+        i1   : in    BIT;
+        o    :   OUT MUX_BIT BUS;
+        vdd  : in    BIT;
+        vss  : in    BIT
+        );
+END mx4sc_fp;
+
+
+-- Architecture Declaration
+
+ARCHITECTURE  behaviour_data_flow  OF  mx4sc_fp  IS
+
+    SIGNAL mux_i2_i3 : MUX_BIT BUS;
+    SIGNAL mux_i0_i1 : MUX_BIT BUS;
+
+BEGIN
+    -- Description of i3/i2 multiplexer.
+
+    -- P Tree.
+    w1_mx01:BLOCK( (not s1i1 and not i2) or (not s0i1 and not i3) )
+    BEGIN
+        mux_i2_i3 <= GUARDED '1';
+    END BLOCK w1_mx01;
+
+    -- N Tree.
+    w0_mx01:BLOCK( (s1i1 and i3) or (s0i1 and i2) )
+    BEGIN
+        mux_i2_i3 <= GUARDED '0';
+    END BLOCK w0_mx01;
+
+
+    -- Description of i0/i1 multiplexer.
+
+    -- P Tree.
+    w1_mx23:BLOCK( (not s0i0 and not i1) or (not s1i0 and not i0) )
+    BEGIN
+        mux_i0_i1 <= GUARDED '1';
+    END BLOCK w1_mx23;
+
+    -- N Tree.
+    w0_mx23:BLOCK( (s0i0 and i0) or (s1i0 and i1) )
+    BEGIN
+        mux_i0_i1 <= GUARDED '0';
+    END BLOCK w0_mx23;
+
+
+    -- Description of (i3,i2)/(i0,i1) multiplexer.
+
+    -- P Tree.
+    w1_mxo:BLOCK( (not s3i0 and not mux_i0_i1) or (not s2i0 and not mux_i2_i3) )
+    BEGIN
+        o <= GUARDED '1';
+    END BLOCK w1_mxo;
+
+    -- N Tree.
+    w0_mxo:BLOCK( (s3i0 and mux_i2_i3) or (s2i0 and mux_i0_i1) )
+    BEGIN
+        o <= GUARDED '0';
+    END BLOCK w0_mxo;
+
+
+    ASSERT(s1i1 = not s0i1)
+        REPORT "s1i1 and s0i1 of mx4sc_fp must have complementary values"
+        SEVERITY WARNING;
+
+    ASSERT(s0i0 = not s1i0)
+        REPORT "s1i1 and s0i1 of mx4sc_fp must have complementary values"
+        SEVERITY WARNING;
+
+    ASSERT(s3i0 = not s2i0)
+        REPORT "s1i1 and s0i1 of mx4sc_fp must have complementary values"
+        SEVERITY WARNING;
+
+
+    ASSERT(vdd = '1')
+        REPORT "Power supply vdd of mx4sc_fp badly connected"
+        SEVERITY WARNING;
+
+    ASSERT(vss = '0')
+        REPORT "Power supply vss of mx4sc_fp badly connected"
+        SEVERITY WARNING;
+END;

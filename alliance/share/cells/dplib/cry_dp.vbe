@@ -1,0 +1,45 @@
+-- VHDL data flow description generated from `cry_dp`
+--		date : Thu Oct 30 17:51:54 1997
+
+
+-- Entity Declaration
+
+ENTITY cry_dp IS
+  GENERIC (
+    CONSTANT area : NATURAL := 2160;	-- area
+    CONSTANT transistors : NATURAL := 10;	-- transistors
+    CONSTANT cin_pi : NATURAL := 102;	-- cin_pi
+    CONSTANT cin_ci : NATURAL := 105;	-- cin_ci
+    CONSTANT cin_si : NATURAL := 54;	-- cin_si
+    CONSTANT tplh_si_f : NATURAL := 993;	-- tplh_si_f
+    CONSTANT rup_si_f : NATURAL := 3600;	-- rup_si_f
+    CONSTANT tphl_si_f : NATURAL := 617;	-- tphl_si_f
+    CONSTANT rdown_si_f : NATURAL := 2640;	-- rdown_si_f
+    CONSTANT tplh_pi_f : NATURAL := 1323;	-- tplh_pi_f
+    CONSTANT rup_pi_f : NATURAL := 3600;	-- rup_pi_f
+    CONSTANT tphl_pi_f : NATURAL := 1204;	-- tphl_pi_f
+    CONSTANT rdown_pi_f : NATURAL := 2640;	-- rdown_pi_f
+    CONSTANT tplh_ci_f : NATURAL := 1191;	-- tplh_ci_f
+    CONSTANT rup_ci_f : NATURAL := 3600;	-- rup_ci_f
+    CONSTANT tphl_ci_f : NATURAL := 975;	-- tphl_ci_f
+    CONSTANT rdown_ci_f : NATURAL := 2640	-- rdown_ci_f
+  );
+  PORT (
+  pi : in BIT;	-- pi
+  ci : in BIT;	-- ci
+  si : in BIT;	-- si
+  f : out BIT;	-- f
+  vdd : in BIT;	-- vdd
+  vss : in BIT	-- vss
+  );
+END cry_dp;
+
+
+-- Architecture Declaration
+
+ARCHITECTURE behaviour_data_flow OF cry_dp IS
+
+BEGIN
+
+f <= not (((si and ci) or (pi and (si or ci))));
+END;

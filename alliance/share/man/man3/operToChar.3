@@ -1,0 +1,39 @@
+.\"   $Id: operToChar.3,v 1.1 1999/05/31 17:30:23 alliance Exp $
+.\" @(#)operToChar.2 7.01 92/08/22 ; Labo masi cao-vlsi; Author : Luc Burgun
+.TH OPERTOCHAR 3 "October 1, 1997" "ASIM/LIP6" "ABL functions"
+.so man1/alc_origin.1
+.SH NAME
+\fBoperToChar\fP \- converts an operator number into an operator string
+.SH SYNOPSYS
+.nf
+#include "logmmm.h"
+char *operToChar(oper)
+short oper;
+.fi
+.SH PARAMETER
+.TP 20
+\fIoper\fP
+Operator number
+.SH DESCRIPTION
+\fBoperToChar()\fP returns the \fIchar *\fP operator associated to \fIoper\fP. if \fIoper\fP isn't an operator number, the function returns "???".
+.SH EXAMPLE
+.nf
+#include "mutnnn.h"		/* mbk utilities */
+#include "logmmm.h"
+printf("%d = %s   ",OR,operToChar(OR));
+printf("%d = %s",AND,operToChar(AND));
+/* it will display
+0 = OR   1 = AND
+*/
+.fi
+.SH SEE ALSO
+.BR log (1),
+.BR abl (1),
+.BR charToOper (3),
+.BR displayExpr (3),
+.BR displayInfExpr (3),
+.BR exprToChar (3),
+.BR identExpr (3).
+
+.so man1/alc_bug_report.1
+

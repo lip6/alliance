@@ -1,0 +1,63 @@
+.\"   $Id: MBK_CATA_LIB.1,v 1.1 1999/05/31 17:30:13 alliance Exp $
+.\" @(#)MBK_CATA_LIB.8 2.11 91/08/22; Labo Cao-vlsi; Author : Frederic Petrot
+.if t \{\
+.so man1/alc_contents.mac
+.XS \n%
+.ti 0.2i
+MBK_CATA_LIB
+.XE \}
+.TH MBK_CATA_LIB 1 "October 1, 1997" "ASIM/LIP6" "MBK ENVIRONMENT VARIABLES"
+.SH NAME
+MBK_CATA_LIB \- define the mbk catalog directory
+.SH SYNOPSYS
+.nf
+.if n \{\
+.ft B \}
+.if t \{\
+.ft CR \}
+c-shell running
+setenv MBK_CATA_LIB path1:path2:path3:...:...:pathn
+.ft R
+.fi
+.so man1/alc_origin.1
+.SH DESCRIPTION
+\fBMBK_CATA_LIB\fP sets the directories that are to be searched thru for
+reading. When instanciating a cell for example, the first cell that is found
+with the given name is loaded in memory.
+.br
+The seaching mecanism first look in
+\fBMBK_WORK_LIB\fP(1), and then, in path1 thru pathn, in the order defined by the
+user when typing the setenv command.
+This directories are considered to be, from a mbk point of view, read only.
+.br
+The pathi arguments must be actually accessible pathes on your host machine.
+.SH ERRORS
+.if n \{\
+.ft B \}
+.if t \{\
+.ft CR \}
+"mbk_fopen : can't open file 'unix_path/file.xx' thru directories : path1, ..., pathn"
+.ft R
+.RS
+This occurs when either the unix path is irrelevent, or when the file doesn't
+exist. This can also be a unix right problem if the file is not accessible for
+reading, but this is seldom.
+.SH EXAMPLE
+.nf
+.if n \{\
+.ft B \}
+.if t \{\
+.ft CR \}
+	setenv MBK_CATA_LIB ~fred/crechan/uom:/labo/sclib
+.ft R
+.fi
+.SH DIAGNOSTICS
+Only the first path may be given with a '~', since the shell extents it only
+when seen first.
+.SH SEE ALSO
+.BR mbk (1),
+.BR genlib (1),
+.BR MBK_WORK_LIB (1).
+
+.so man1/alc_bug_report.1
+

@@ -1,0 +1,98 @@
+.\"   $Id: delbddnodeassoc.3,v 1.1 1999/05/31 17:30:20 alliance Exp $
+.\" @(#)delbddnodeassoc.2 2.7 96/07/02 ; Labo masi cao-vlsi; Author : Jacomme Ludovic
+.TH DELBDDNODEASSOC 3 "October 1, 1997" "ASIM/LIP6" "BDD FUNCTIONS"
+.SH NAME
+delbddnodeassoc \- deletes a \fBbdd\fP node in a variable association.
+.so man1/alc_origin.1
+.SH SYNOPSYS
+.nf
+.if n \{\
+.ft B \}
+.if t \{\
+.ft CR \}
+#include "bdd101.h"
+int delbddnodeassoc( BddSystem, BddAssoc, Variable )
+  bddsystem  \(**BddSystem;
+  bddassoc   \(**BddAssoc;
+  bddvar      Variable;
+.ft R
+.fi
+.SH PARAMETERS
+.TP 20
+\fIBddSystem\fP
+The \fBbdd\fP system.
+.TP
+\fIBddAssoc\fP
+The variable association.
+.TP
+\fIVariable\fP
+The variable number.
+.SH DESCRIPTION
+\fBdelbddnodeassoc\fP deletes the \fBbdd\fP node associated to the
+variable number \fIVariable\fP, in the variable association \fIBddAssoc\fP,
+in the \fBbdd\fP system \fIBddSystem\fP.
+If a null pointer is given, the default \fBbdd\fP system is used.
+The number of external reference of the associated \fBbdd\fP node is incremented.
+.br
+.SH RETURN VALUE
+\fBdelbddnodeassoc\fP returns 1 if the variable is found, 0 otherwise.
+.SH ERRORS
+.if n \{\
+.ft B \}
+.if t \{\
+.ft CR \}
+"variable xxx out of range, error !"
+.ft R
+.RS
+The \fIVariable\fP parameter must be less or equal to
+the \fIBddSystem->NUMBER_VAR\fP field.
+.RE
+.SH EXAMPLE
+.ta 3n 6n 9n 12n 15n 18n 21n
+.nf
+.if n \{\
+.ft B \}
+.if t \{\
+.ft CR \}
+#include "bdd101.h"
+   bddsystem  \(**BddSystem;
+   bddcircuit \(**BddCircuit;
+   bddnode    \(**BddNode;
+   bddnode    \(**BddSubst;
+   bddnode    \(**BddVariable;
+   bddassoc   \(**Assoc;
+   chain_list \(**Expr;
+   bddvar         Variable;
+   BddSystem  = createbddsystem( 100, 1000, 100, 50000 );
+   BddCircuit = createbddcircuit( "hello_world", 10, 10, BddSystem );
+   Expr = createablbinexpr( ABL_AND,
+                            createablatom( "i0" ),
+                            createablatom( "i1" ) );
+   BddNode = addbddcircuitabl( BddCircuit, Expr );
+   freeablexpr( Expr );
+   Expr = createablbinexpr( ABL_OR,
+                            createablatom( "i2" ),
+                            createablatom( "i3" ) );
+   BddSubst = addbddcircuitabl( BddCircuit, Expr );
+   freeablexpr( Expr );
+   BddVariable = searchbddcircuitin( (bddcircuit \(**)0, "i0" );
+   Variable = getbddvarbyindex( (bddsystem \(**)0, BddVariable->INDEX );
+   Assoc = addbddassoc( (bddsystem \(**)0 );
+   addbddnodeassoc( (bddsystem \(**)0, Assoc, Variable, BddSubst );
+   BddNode = substbddnodeassoc( (bddsystem \(**)0, BddSubst, Assoc );
+   delbddnodeassoc( (bddsystem \(**)0, Assoc, Variable );
+   Expr = convertbddcircuitabl( BddCircuit, BddNode );
+   /* displays ((i3 or i2) and i1) */
+   viewablexpr( Expr, ABL_VIEW_VHDL );
+   freeablexpr( Expr );
+   destroybddassoc( (bddsystem \(**)0 );
+   destroybddsystem( (bddsystem \(**)0 );
+   destroybddcircuit( (bddcircuit \(**)0 );
+.ft R
+.fi
+.SH SEE ALSO
+.BR bdd (1)
+
+
+.so man1/alc_bug_report.1
+

@@ -1,0 +1,55 @@
+-- ###---------------------------------------------------------------------###
+-- #                                                                         #
+-- #         Alliance CAD System V.R                                         #
+-- #          FitPath Package V.RR                                           #
+-- #                                                                         #
+-- # Copyright(c) 94-94, MASI, CAO-VLSI Team                                 #
+-- #                                                                         #
+-- # Author      :          Jean-Paul CHAPUT                                 #
+-- # E-mail      :      cao-vlsi@masi.ibp.fr                                 #
+-- # *********************************************************************** #
+-- #   Date      :      December 03 1994.                                    #
+-- #                                                                         #
+-- # Theoretical VHDL data flow description of cell "pdffba_fp".             #
+-- # ----------------------------------------------------------------------- #
+-- # Cell Family :      "pdffb8_fp", "pdffba_fp"                             #
+-- #                     "pmsb8_fp",  "pmsba_fp",                            #
+-- #                     "pmsa8_fp",  "pmsa9_fp".                            #
+-- #                                                                         #
+-- ###---------------------------------------------------------------------###
+
+
+-- Entity Declaration.
+
+ENTITY  pdffba_fp  IS
+	PORT(
+		reset : in    BIT;
+		wen   : in    BIT;
+		ck    : in    BIT;
+		wmr   :   out BIT;
+		wmd   :   out BIT;
+		ws    :   out BIT;
+                s0i0  :   out BIT;
+                s1i0  :   out BIT;     
+		vdd   : in    BIT;
+		vss   : in    BIT;
+		vss1  : in    BIT
+	);
+END  pdffba_fp;
+
+
+-- Architecture declaration.
+
+ARCHITECTURE  behavior_data_flow  OF  pdffba_fp  IS
+
+BEGIN
+        s1i0  <= not wen;
+        s0i0  <= wen;
+	wmd   <= ck;
+	ws    <= (not ck);
+        wmr   <=  not reset;
+
+    ASSERT((vdd = '1') and (vss = '0') and (vss1 = '0'))
+    	REPORT "Power supply is missing on pdffba_fp."
+	    SEVERITY WARNING;
+END  behavior_data_flow;

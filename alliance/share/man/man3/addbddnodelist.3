@@ -1,0 +1,78 @@
+.\"   $Id: addbddnodelist.3,v 1.1 1999/05/31 17:30:17 alliance Exp $
+.\" @(#)addbddnodelist.2 2.7 96/07/02 ; Labo masi cao-vlsi; Author : Jacomme Ludovic
+.TH ADDBDDNODELIST 3 "October 1, 1997" "ASIM/LIP6" "BDD FUNCTIONS"
+.SH NAME
+addbddnodelist \- adds a node in a \fIchain_list\fP.
+.so man1/alc_origin.1
+.SH SYNOPSYS
+.nf
+.if n \{\
+.ft B \}
+.if t \{\
+.ft CR \}
+#include "bdd101.h"
+chain_list \(**addbddnodelist( BddSystem, HeadList, BddNode )
+  bddsystem  \(**BddSystem;
+  chain_list \(**HeadList;
+  bddnode    \(**BddNode;
+.ft R
+.fi
+.SH PARAMETERS
+.TP 20
+\fIBddSystem\fP
+The \fBbdd\fP system.
+.TP
+\fIHeadList\fP
+The head of the \fIchain_list\fP.
+.TP
+\fIBddNode\fP
+The \fBbdd\fP node to add.
+.SH DESCRIPTION
+\fBaddbddnodelist\fP adds the node \fIBddNode\fP in the ordered list
+\fIHeadList\fP, in the \fBbdd\fP system \fIBddSystem\fP.
+If a null pointer is given, the default \fBbdd\fP system is used.
+The number of external reference of \fIBddNode\fP is incremented.
+.br
+.SH RETURN VALUE
+\fBaddbddnodelist\fP returns the new head of the list.
+.SH EXAMPLE
+.ta 3n 6n 9n 12n 15n 18n 21n
+.nf
+.if n \{\
+.ft B \}
+.if t \{\
+.ft CR \}
+#include "bdd101.h"
+   bddsystem  \(**BddSystem;
+   bddcircuit \(**BddCircuit;
+   bddnode    \(**BddNode;
+   chain_list \(**BddList;
+   chain_list \(**Expr;
+   BddSystem  = createbddsystem( 100, 1000, 100, 50000 );
+   BddCircuit = createbddcircuit( "hello_world", 10, 10, BddSystem );
+   BddList    = (chain_list \(**)0;
+   BddList = addbddnodelist( (bddsystem \(**)0, BddList,
+                             addbddcircuitin( (bddcircuit \(**)0,
+                                              "i0", 0, BDD_IN_MODE_FIRST ) );
+   BddList = addbddnodelist( (bddsystem \(**)0, BddList,
+                              addbddcircuitin( (bddcircuit \(**)0,
+                                               "i1", 0, BDD_IN_MODE_FIRST );
+   BddList = addbddnodelist( (bddsystem \(**)0, BddList,
+                             addbddcircuitin( (bddcircuit \(**)0,
+                                              "i2", 0, BDD_IN_MODE_FIRST );
+   BddNode = applybddnodelist( (bddsystem \(**)0, ABL_AND, BddList );
+   delbddnodelist( (bddsystem \(**)0, BddList );
+   Expr = convertbddcircuitabl( (bddcircuit \(**)0, BddNode );
+   /* displays (i0 and i1 and i2) */
+   viewablexpr( Expr, ABL_VIEW_VHDL );
+   freeablexpr( Expr );
+   destroybddsystem( (bddsystem \(**)0 );
+   destroybddcircuit( (bddcircuit \(**)0 );
+.ft R
+.fi
+.SH SEE ALSO
+.BR bdd (1)
+
+
+.so man1/alc_bug_report.1
+

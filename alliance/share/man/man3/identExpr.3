@@ -1,0 +1,53 @@
+.\"   $Id: identExpr.3,v 1.1 1999/05/31 17:30:22 alliance Exp $
+.\" @(#)identExpr.2 7.01 92/08/22 ; Labo masi cao-vlsi; Author : Luc Burgun
+.TH IDENTEXPR 3 "October 1, 1997" "ASIM/LIP6" "ABL functions"
+.so man1/alc_origin.1
+.SH NAME
+\fBidentExpr\fP \- gives an ident from an operator expression. 
+.SH SYNOPSYS
+.nf
+#include "logmmm.h"
+char *identExpr(expr)
+chain_list *expr;
+.fi
+.SH PARAMETER
+.TP 20
+\fIexpr\fP
+expression from wich the identifier will be extracted 
+.SH DESCRIPTION
+\fBidentExpr()\fP returns the \fIchar *\fP identifier associated to \fIexpr\fP. If you want to obtain a quasi-unique identifier, this function must be called after the \fBnormExpr()\fP function. 
+.SH EXAMPLE
+.nf
+#include "mutnnn.h"		/* mbk utilities */
+#include "logmmm.h"
+chain_list *expr1,*expr2;
+expr1 = createExpr(OR)
+addQExpr(expr1,createAtom("a"));
+addQExpr(expr1,createAtom("b"));
+addQExpr(expr1,createAtom("c"));
+printf("%s",identExpr(expr));
+/* it will display
+or3
+*/
+expr2 = createExpr(XOR);
+addQExpr(expr2,createAtom("a"));
+addQExpr(expr2,createAtom("b"));
+addQExpr(expr1,expr2);
+printf("%s",identExpr(expr));
+/* it will display
+ox24
+*/
+freeExpr(expr1);		/* don't free expr2 ! */
+.fi
+.SH SEE ALSO
+.BR log (1),
+.BR abl (1),
+.BR normExpr (3).
+.BR charToOper (3),
+.BR operToChar (3),
+.BR displayExpr (3),
+.BR displayInfExpr (3),
+.BR exprToChar (3),
+
+.so man1/alc_bug_report.1
+

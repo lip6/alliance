@@ -1,0 +1,17 @@
+entity xr2_fp is  
+
+   port 
+     (
+i0 : in bit ;
+i1 : in bit ;
+o : out bit ;
+vdd : in bit ;
+vss : in bit 
+     );
+   end xr2_fp ;
+
+architecture FUNCTIONNAL of xr2_fp is 
+
+begin
+o <= i0 xor i1;
+end FUNCTIONNAL ;

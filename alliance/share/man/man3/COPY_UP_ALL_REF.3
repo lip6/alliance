@@ -1,0 +1,127 @@
+.\"   $Id: COPY_UP_ALL_REF.3,v 1.1 1999/05/31 17:30:14 alliance Exp $
+.\" @(#)COPY_UP_ALL_REF.3 2.11 01/92; Labo Cao-vlsi; Author : Frederic Petrot
+.if t \{\
+.so man1/alc_contents.mac
+.XS \n%
+.ti 0.2i
+COPY_UP_ALL_REF
+.XE \}
+.TH COPY_UP_ALL_REF 3 "October 1, 1997" "ASIM/LIP6" "PROCEDURAL GENERATION LANGUAGE"
+.SH NAME
+COPY_UP_ALL_REF \- copy a several physical reference from an instance
+in the current figure
+.SH SYNOPSYS
+.nf
+.if n \{\
+.ft B \}
+.if t \{\
+.ft CR \}
+#include <genlib.h>
+void COPY_UP_ALL_REF(reftype, insname, concatenate)
+char \(**reftype, \(**insname;
+char concatenate;
+.ft R
+.fi
+.so man1/alc_origin.1
+.SH PARAMETERS
+.TP 20
+\fIreftype\fP
+Type of the references to be duplicated
+.TP
+\fIinsname\fP
+Name of the instance in the which the references is to be searched for
+.TP
+\fIconcatenate\fP
+Indicates whether or not to concatenate the instance name to the references
+names when copying
+.SH DESCRIPTION
+\fBCOPY_UP_ALL_REF\fP duplicates all the references of type \fIreftype\fP
+of the instance called \fIinsname\fP into the current layout cell.
+The main purpose of this function is to copy a set references in the upper
+hierarchical level, so it can be used as \fIvirtual\fP connector, for
+the data-path router.
+See \fBdpr\fP(1) for details.
+.br
+The \fIreftype\fP argument can take two values:
+.TP 20
+\fB"ref_con"\fP
+for virtual connectors
+.TP
+\fB"ref_ref"\fP
+for any other references
+.LP
+See the \fIleaf cells design for generators\fP document for details on
+reference types and usage.
+.br
+The \fIconcatenate\fP argument can take two values:
+.TP 20
+A\fBYES\fP
+indicates that the name of the copied references is concatenated to the
+instance name.
+.TP
+\fBNO\fP
+implies a direct duplication of the reference name
+.SH ERRORS
+.if n \{\
+.ft B \}
+.if t \{\
+.ft CR \}
+"COPY_UP_ALL_REF impossible : missing DEF_PHFIG"
+.ft R
+.RS
+No figure has been yet specified by a call to \fBDEF_PHFIG\fP. So it isn't
+possible to place a reference inside it.
+you must call \fBDEF_PHFIG\fP before any other layout action.
+.RE
+.if n \{\
+.ft B \}
+.if t \{\
+.ft CR \}
+"illegal getphins : instance \fIinsname\fP does not exist"
+.ft R
+.RS
+The instance called \fIinsname\fP does not currently belong to the figure.
+.RE
+.if n \{\
+.ft B \}
+.if t \{\
+.ft CR \}
+"COPY_UP_ALL_REF impossible : references of type \fIreftype\fP do not exist"
+.ft R
+.RS
+No reference of type \fIreftype\fP exist in the model of the instance
+\fIinsname\fP.
+.RE
+.SH EXAMPLE
+.nf
+.if n \{\
+.ft B \}
+.if t \{\
+.ft CR \}
+#include <genlib.h>
+main()
+{
+	/\(** Create a figure to work on  \(**/
+	DEF_PHFIG("cell");
+	PLACE("z2l_y", "r1", NOSYM, 23L, 54L);
+	/\(** Put a reference \(**/
+	COPY_UP_ALL_REF("ref_con", "r1", NO);
+	/\(** Save that on disk \(**/
+	SAVE_PHFIG();
+}
+.ft R
+.fi
+.SH SEE ALSO
+.BR dpr (1),
+.BR genlib (1),
+.BR DEF_PHFIG (3),
+.BR SAVE_PHFIG (3),
+.BR PHREF (3),
+.BR COPY_UP_ALL_REF (3),
+.BR PLACE_CON_REF (3),
+.BR PLACE_SEG_REF (3),
+.BR PLACE_VIA_REF (3).
+
+
+.so man1/alc_bug_report.1
+

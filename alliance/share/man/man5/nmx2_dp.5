@@ -1,0 +1,84 @@
+.\"   $Id: nmx2_dp.5,v 1.1 1999/05/31 17:30:28 alliance Exp $
+.TH NMX2_DP 5 "October 1, 1997" "ASIM/LIP6" "FITPATH - User Cell Library"
+.so man1/alc_origin.1
+.SH NAME
+\fBnmx2_dp\fP
+.SH SYNOPSIS
+.ft CR
+.nf
+\fIGenLib Call :\fP
+    LOINS( "nmx2_dp", "insname", "i0", "i1", "i2", "i3", "o", "vdd", "vss", 0L );
+.fi
+.ft R
+.SH DESCRIPTION
+\fIVHDL Behavioral description :\fP
+.ft CR
+.nf
+
+-- Interface declaration.
+ENTITY  nmx2_dp  IS
+  PORT(
+         i0 : in        BIT;
+         i1 : in        BIT;
+         i2 : in        BIT;
+         i3 : in        BIT;
+          o :   out     BIT;
+        vdd : in        BIT;
+        vss : in        BIT
+      );
+END  nmx2_dp;
+
+-- Architecture declaration.
+ARCHITECTURE  behavior_data_flow  OF  nmx2_dp  IS
+
+BEGIN
+  -- Logical equations.
+  o     <= not ((i0 and i1) or (i2 and i3));
+END  behavior_data_flow;
+.fi
+.ft R
+
+\fIPhysical features :\fP
+.br
+.ta +4n
+	Cell wide : 30 lambdas, or 5 pitchs.
+.br
+
+\fITiming characteristics :\fP
+.br
+.ta +6n  +2n  +6n +6nR +1n    +12nR +1n
+
+i3	:	cin	=	66	(fF)
+.br
+		tplh	=	1001	(ps) +	2979	(ohms) x Cload (pF)
+.br
+		tphl	=	803	(ps) +	2175	(ohms) x Cload (pF)
+.br
+
+i2	:	cin	=	67	(fF)
+.br
+		tplh	=	918	(ps) +	2979	(ohms) x Cload (pF)
+.br
+		tphl	=	915	(ps) +	2175	(ohms) x Cload (pF)
+.br
+
+i1	:	cin	=	66	(fF)
+.br
+		tplh	=	851	(ps) +	2979	(ohms) x Cload (pF)
+.br
+		tphl	=	519	(ps) +	2175	(ohms) x Cload (pF)
+.br
+
+i0	:	cin	=	67	(fF)
+.br
+		tplh	=	940	(ps) +	2979	(ohms) x Cload (pF)
+.br
+		tphl	=	435	(ps) +	2175	(ohms) x Cload (pF)
+.br
+.SH SEE ALSO
+.ft B
+dplib(1), fpgen(1), scmap(1)
+.ft R
+
+.so man1/alc_bug_report.1
+

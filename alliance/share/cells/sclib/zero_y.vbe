@@ -1,0 +1,32 @@
+-- This cell caracterized by prol05.elp technologie file
+-- VHDL data flow description generated from `zero_y`
+--		date : Wed Oct  7 12:36:45 1998
+
+
+-- Entity Declaration
+
+ENTITY zero_y IS
+  GENERIC (
+    CONSTANT area : NATURAL := 504;	-- area
+    CONSTANT transistors : NATURAL := 1	-- transistors
+  );
+  PORT (
+  f : out BIT;	-- f
+  vdd : in BIT;	-- vdd
+  vss : in BIT	-- vss
+  );
+END zero_y;
+
+
+-- Architecture Declaration
+
+ARCHITECTURE VBE OF zero_y IS
+
+BEGIN
+  ASSERT ((vdd and not (vss)) = '1')
+    REPORT "power supply is missing on zero_y"
+    SEVERITY WARNING;
+
+
+f <= '0';
+END;

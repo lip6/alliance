@@ -1,0 +1,6 @@
+rename
+core.l0.dff_s : reg(0) ;
+core.l1.dff_s : reg(1) ;
+core.l2.dff_s : reg(2) ;
+core.l3.dff_s : reg(3) ;
+end

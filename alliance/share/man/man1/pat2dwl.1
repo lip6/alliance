@@ -1,0 +1,26 @@
+.\"   $Id: pat2dwl.1,v 1.1 1999/05/31 17:30:14 alliance Exp $
+.\" @(#)PAT2DWL.1 1.0 Oct 05 1994 UPMC; Author: FLORENT O.
+.TH PAT2DWL 1 "October 1, 1997" "ASIM/LIP6" "CAO\-VLSI Reference Manual"
+.SH NAME
+.PP
+\fIpat2dwl\fP, pattern translator from ALLIANCE CAD SYSTEM to HILO CAD SYSTEM
+
+.so man1/alc_origin.1
+.SH SYNOPSIS
+.PP
+\fBpat2dwl\fP [\-nc] <\fIpat\fP> [<\fIdwl\fP>]
+
+.SH DESCRIPTION
+.PP
+\fBpat2dwl\fP is a pattern translator from ALLIANCE format (\fI".pat"\fP)
+to HILO format (\fI".dwl"\fP). With the \fI"\-nc"\fP option, only affectations
+are translated (i.e '0' and '1'), but not the comparisons ('+','-' and '*'). 
+This is useful for using HILO fault simulator, \fIHIFAULT\fP.
+
+.SH SEE ALSO
+.PP
+pat(5)
+
+
+.so man1/alc_bug_report.1
+

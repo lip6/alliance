@@ -1,0 +1,142 @@
+#cell2 * pmsqd_fp nle * 1 any 0 v8r4.4
+# "26-Nov-97 GMT" "15:56:28 GMT" "26-Nov-97 GMT" "15:56:28 GMT" fitpath * .
+writer        1
+file_version  1
+sections      1
+netlist   1:         83 pmsqd_fp
+
+
+B contents:  pmsqd_fp
+netlist           250
+cells            2405
+switches            0
+attributes       2429
+physical            0
+history             0
+E contents
+
+
+B netlist
+X 1 VSS;
+X 2 VDD;
+X 3 ws;
+X 4 tin;
+X 5 wmd;
+X 6 s0i0;
+X 7 s1i0;
+X 8 s2i0;
+X 9 s3i0;
+X 10 q;
+X 11 wmr;
+I $Tp 1 * | 7 1 .1337E-01 [-3.5,57.5] | 4 2 28 2;
+I $Tp 2 * | 18 1 .3438E-01 [-9.5,57.5] | 28 43 2 2;
+I $Tp 3 * | 18 1 .3438E-01 [-12.5,57.5] | 8 44 43 2;
+I $Tp 4 * | 18 1 .3438E-01 [-18.5,57.5] | 9 46 44 2;
+I $Tp 5 * | 18 1 .3438E-01 [-21.5,57.5] | 32 2 46 2;
+I $Tp 6 * | 18 1 .3438E-01 [-35.5,57.5] | 10 48 2 2;
+I $Tp 7 * | 18 1 .3438E-01 [-38.5,57.5] | 6 32 48 2;
+I $Tp 8 * | 18 1 .3438E-01 [-44.5,57.5] | 7 50 32 2;
+I $Tp 9 * | 18 1 .3438E-01 [-47.5,57.5] | 37 2 50 2;
+I $Tp 10 * | 5 1 .955E-02 [27.5,56.5] | 40 2 25 2;
+I $Tp 11 * | 15 1 .2865E-01 [65.5,54.5] | 53 2 10 2;
+I $Tp 12 * | 15 1 .2865E-01 [53.5,54.5] | 39 2 57 2;
+I $Tp 13 * | 5 1 .955E-02 [47.5,54.5] | 39 53 2 2;
+I $Tp 14 * | 12 1 .2292E-01 [29.5,51.5] | 25 2 61 2;
+I $Tp 15 * | 2 3 .1146E-01 [22.5,48.5] | 25 40 2 2;
+I $Tp 16 * | 2 3 .1146E-01 [46.5,41.5] | 53 39 2 2;
+I $Te 17 * | 5 1 .955E-02 [23.5,31.5] | 40 25 1 19;
+I $Te 18 * | 15 1 .2865E-01 [65.5,28.5] | 53 1 10 19;
+I $Te 19 * | 15 1 .2865E-01 [53.5,28.5] | 39 1 57 19;
+I $Te 20 * | 2 5 .191E-01 [47.5,28.5] | 53 39 1 19;
+I $Te 21 * | 6 1 .1146E-01 [36.5,28.5] | 3 61 39 19;
+I $Te 22 * | 6 1 .1146E-01 [29.5,28.5] | 25 1 61 19;
+I $Te 23 * | 6 1 .1146E-01 [14.5,23.5] | 5 40 44 19;
+I $Te 24 * | 2 5 .191E-01 [23.5,21.5] | 25 40 1 19;
+I $Te 25 * | 9 1 .1719E-01 [-9.5,19.5] | 28 94 1 19;
+I $Te 26 * | 9 1 .1719E-01 [-12.5,19.5] | 9 44 94 19;
+I $Te 27 * | 9 1 .1719E-01 [-18.5,19.5] | 8 96 44 19;
+I $Te 28 * | 9 1 .1719E-01 [-21.5,19.5] | 32 1 96 19;
+I $Te 29 * | 9 1 .1719E-01 [-27.5,19.5] | 10 98 1 19;
+I $Te 30 * | 9 1 .1719E-01 [-30.5,19.5] | 7 32 98 19;
+I $Te 31 * | 9 1 .1719E-01 [-36.5,19.5] | 6 100 32 19;
+I $Te 32 * | 9 1 .1719E-01 [-39.5,19.5] | 37 1 100 19;
+I $Te 33 * | 5 1 .955E-02 [47.5,18.5] | 39 53 1 19;
+I $Te 34 * | 9 1 .1719E-01 [14.5,17.5] | 11 1 40 19;
+I $Te 35 * | 4 1 .764E-02 [-3.5,14.5] | 4 1 28 19;
+N 1 VSS;
+N 2 VDD;
+G 19 BULK;
+N 3 ws;
+N 4 tin;
+N 5 wmd;
+N 6 s0i0;
+N 7 s1i0;
+N 8 s2i0;
+N 9 s3i0;
+N 10 q;
+N 11 wmr;
+N 39 mems_s;
+N 57 nq;
+N 32 dwen;
+N 44 dtest;
+N 37 din;
+N 40 memm_s;
+E netlist
+
+
+B subcells
+E subcells
+
+
+B attribute_list
+      2641 program
+      2679 technology_file
+      2748 technology_file_version
+      2791 options
+      2850 technology
+      2886 lambda
+      2910 window
+      2944 summary
+E attribute_list
+
+B A: program
+1 COMPASSextract;
+ 0;
+E
+
+B A: technology_file
+1 /labo/etc/vlsi/idps/techno/ecpd10.etf;
+ 0;
+E
+
+B A: technology_file_version
+1 1.0;
+ 0;
+E
+
+B A: options
+1 no_strays,no_coordinates,nodePoints;
+ 0;
+E
+
+B A: technology
+1 idps_symb;
+ 0;
+E
+
+B A: lambda
+1 1;
+ 0;
+E
+
+B A: window
+1 -58 1 74 68;
+ 0;
+E
+
+B A: summary
+1 {Netlist contains 35 transistors and 103 nodes};
+ 0;
+E
+
+

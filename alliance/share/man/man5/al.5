@@ -1,0 +1,348 @@
+.\" @(#)al.5 6.0 29 Mar 1999 UPMC; Author: Gregoire AVOT
+.TH AL 5 "October 1, 1997 Release 5.0" "ASIM/LIP6" "File Formats"
+.SH NAME
+al \- Alliance logical format
+.so man1/alc_origin.1
+.SH DESCRIPTION
+The .al format is the ALLIANCE format for the logical view
+of a cell. We give below the BNF description of the format :
+.nf
+
+file ::=
+     version
+     header
+     connectors
+     instances
+     transistors
+     signals
+     crosstalk_capacitances
+     end_of_file
+
+version ::= 'V ALLIANCE : ' version_number
+
+header ::= 'H ' name ',' file_type ',' date
+   /// name : name of the figure
+   /// date : saving file date
+
+connectors ::= { connector }
+
+connector ::= 'C ' name ',' connector_direction ','
+              connector_type ',' net_num [list_of_physical_node]
+
+list_of_physical_node ::= { ',' node_num }
+
+instances ::= { instance connectors }
+   /// An instance is followed by his connectors
+
+instance ::= 'I ' model_name ',' instance_name
+
+transistors ::= { transistor }
+
+transistor ::= 'T' type ',' lenght ',' width ',' drain ','
+               grid ',' source ',' bulk ',' xs ',' xd ',' ps ',' pd
+               ',' x ',' y [ ',' node_drain ',' node_grid ','
+               node_source ',' node_bulk ] ',' trname
+               
+   /// drain : number of the net connected to the drain
+   /// grid : number of the net connected to the grid
+   /// source : number of the net connected to the source
+   /// bulk : number of the net connected to the bulk
+   /// xs, xd : To compute respectivly the source and
+   ///          drain area
+   /// ps, pd : perimeter of the source and drain
+   /// x, y : coordinate of the transistor in a layout
+   /// node_drain : number of the node connected to the drain
+   /// node_grid : number of the node connected to the grid
+   /// node_source : number of the node connected to the source
+   /// node_bulk : number of the node connected to the bulk
+
+signals ::= { signal }
+
+signal := sig_index [ { resistance } ] [ { capacitance } ]
+
+sig_index ::= 'S ' net_num ',' signal_type [ list_of_signal_name ]
+
+list_of_signal_name ::= { ',' signal_name }
+
+resistance := 'R ' layer ',' node1 ',' node2 ',' resi ',' capa ','
+              x ',' y ',' dx ',' dy               
+
+capacitance := 'Q ' capa
+
+   /// Each resistance is describe as a resistor beetwen two nodes
+   /// connected to the ground with capacitor with a value of capa/2.
+   /// Capacitance is the entire capacitance of the net to ground.
+
+crosstalk_capacitances ::= { crosstalk_capacitance }
+
+crosstalk_capacitance ::= K capa ',' sig1 ',' node1 ',' sig2 ',' node2
+
+end_of_file ::= 'EOF'
+
+version_number ::= number
+
+file_type ::= 'L'
+
+date ::= day '/' month '/' year
+
+connector_direction ::= 'IN' | 'OUT' | 'INOUT' | 'UNKNOWN' |
+                        'TRISTATE' | 'TRANSCV'
+   /// in : input
+   /// out : output
+   /// inout : input and output
+   /// unknown : no information is available
+   /// tristate : tristate output
+   /// transcv : tristate output and input
+
+connector_type ::= 'EXTERNAL' | 'INTERNAL'
+
+net_num ::= number
+
+node_num ::= number
+
+model_name ::= name
+
+instance_name ::= name
+
+type ::= 'N' | 'P'
+
+lenght ::= float
+
+width ::= float
+
+drain ::= net_num
+
+grid ::= net_num
+
+source ::= net_num
+
+bulk ::= net_num
+
+node1 ::= node_num
+
+node2 ::= node_num
+
+sig1 ::= net_num
+
+sig2 ::= net_num
+
+xs ::= float
+
+xd ::= float
+
+ps ::= float
+
+pd ::= float
+
+x ::= float
+
+y ::= float
+
+dx ::= float
+
+dy ::= float
+
+trname :: name
+
+layer ::= 'X' | 'PY' | 'A1' | 'A2' | 'CY' | 'CN' | 'CP' | 'CV'
+          | 'CW' | 'CA' | 'RE'
+          
+signal_type ::= 'EXTERNAL' | 'INTERNAL'
+
+capa ::= float
+
+resi ::= float
+
+signal_name ::= name
+
+number ::= { '0' | '1'| '2' | '3' | '4' | '5' |
+             '6' | '7'| '8' | '9' }
+
+float ::= number [ '.' number ]
+
+name ::= word
+
+.fi
+.SH EXAMPLES
+.LP
+.SS Example 1
+This example is the representation of a nand whith two input, extracted
+with Lynx at transistor level.
+.LP
+.nf
+V ALLIANCE : 6
+H na2_y,L,29/ 3/99
+C vss,UNKNOWN,EXTERNAL,2,1,9
+C vdd,UNKNOWN,EXTERNAL,1,9,13
+C i1,UNKNOWN,EXTERNAL,6,1,8
+C i0,UNKNOWN,EXTERNAL,5,2,8
+C f,UNKNOWN,EXTERNAL,3,1,11
+T P,1,12,1,5,3,1,2,2,28,28,17,32.5,4,3,7,3,tr_00004
+T P,1,12,3,6,1,1,2,2,28,28,11,32.5,7,7,1,2,tr_00003
+T N,1,12,3,5,4,2,2,2,28,28,17,12.5,3,1,1,8,tr_00002
+T N,1,12,4,6,2,2,2,2,28,28,11,12.5,1,2,2,5,tr_00001
+S 6,EXTERNAL,i1
+Q 0.020455
+W 4,3,CV,0,0,7.2,17.6,0,0
+W 6,5,CV,0,0,6.4,22.4,0,0
+W 5,8,A2,0.4,0.00408,6.4,22.4,1.6,13.6
+W 1,5,A2,0.6,0.006,6.4,2.4,1.6,20
+W 3,6,A1,0.3,0.00168,6.4,17.6,1.6,4.8
+W 4,7,PY,500,0.00315,8.8,17.6,0.8,8.4
+W 2,4,PY,450,0.00285,8.8,10,0.8,7.6
+S 5,EXTERNAL,i0
+Q 0.020455
+W 5,4,CV,0,0,15.2,17.6,0,0
+W 7,6,CV,0,0,16,22.4,0,0
+W 6,8,A2,0.4,0.00408,16,22.4,1.6,13.6
+W 2,6,A2,0.6,0.006,16,2.4,1.6,20
+W 4,7,A1,0.3,0.00168,16,17.6,1.6,4.8
+W 5,3,PY,500,0.00315,13.6,17.6,0.8,8.4
+W 1,5,PY,450,0.00285,13.6,10,0.8,7.6
+S 4,INTERNAL
+Q 0
+S 3,EXTERNAL,f
+Q 0.021985
+W 3,4,CV,0,0,16,10.4,0,0
+W 6,5,CV,0,0,11.2,17.6,0,0
+W 8,7,CV,0,0,11.2,23.2,0,0
+W 9,7,CV,0,0,11.2,28,0,0
+W 5,11,A2,0.55,0.00552,11.2,17.6,1.6,18.4
+W 1,5,A2,0.45,0.00456,11.2,2.4,1.6,15.2
+W 10,9,A1,0.2,0.00126,11.2,24.4,1.6,3.6
+W 8,10,A1,0,0.00042,11.2,23.2,1.6,1.2
+W 6,8,A1,0.7,0.00161,11.2,17.6,0.8,5.6
+W 2,6,A1,0.9,0.00207,11.2,10.4,0.8,7.2
+W 2,4,A1,0.6,0.00138,11.2,10.4,4.8,0.8
+S 2,EXTERNAL,vss
+Q 0.0245
+W 4,3,CV,0,0,6.4,1.6,0,0
+W 7,6,CV,0,0,11.2,1.6,0,0
+W 11,10,CV,0,0,16,1.6,0,0
+W 3,2,CV,0,0,6.4,6.4,0,0
+W 12,2,CV,0,0,6.4,10.4,0,0
+W 3,12,A1,0.4,0.00224,6.4,4,1.6,6.4
+W 10,9,A1,0,0.00174,16,4,2.4,6.4
+W 6,10,A1,0,0.00348,11.2,4,4.8,6.4
+W 3,6,A1,0,0.00348,6.4,4,4.8,6.4
+W 1,3,A1,0,0.00174,4,4,2.4,6.4
+S 1,EXTERNAL,vdd
+Q 0.02846
+W 5,1,CV,0,0,6.4,26.4,0,0
+W 6,4,CV,0,0,16,26.4,0,0
+W 7,1,CV,0,0,6.4,29.6,0,0
+W 8,4,CV,0,0,16,29.6,0,0
+W 14,10,CV,0,0,6.4,36,0,0
+W 15,11,CV,0,0,11.2,36,0,0
+W 16,12,CV,0,0,16,36,0,0
+W 7,10,A1,0.3,0.00168,6.4,29.6,1.6,4.8
+W 5,7,A1,0.2,0.00112,6.4,26.4,1.6,3.2
+W 8,12,A1,0.3,0.00168,16,29.6,1.6,4.8
+W 6,8,A1,0.2,0.00112,16,26.4,1.6,3.2
+W 12,13,A1,0,0.00174,16,34.4,2.4,6.4
+W 9,10,A1,0,0.00174,4,34.4,2.4,6.4
+W 11,12,A1,0,0.00348,11.2,36,4.8,6.4
+W 10,11,A1,0,0.00348,6.4,36,4.8,6.4
+K 0.00213,1,1,2,1
+K 0.00454,5,6,2,1
+K 0.00199,6,8,2,1
+EOF
+.fi
+.SS Example 2
+This example is a xor designed with three cells.
+.LP
+.nf
+V ALLIANCE : 6
+H gxor,L,29/ 3/99
+C vss,UNKNOWN,EXTERNAL,4,1,2,9,10
+C vdd,UNKNOWN,EXTERNAL,6,1,2,10,3
+C s,UNKNOWN,EXTERNAL,8,2
+C b,UNKNOWN,EXTERNAL,5,5
+C a,UNKNOWN,EXTERNAL,3,1
+I ndrvp_y,auxsc3
+C vss,UNKNOWN,INTERNAL,4,8,9
+C vdd,UNKNOWN,INTERNAL,6,9,10
+C i,UNKNOWN,INTERNAL,5,4,9
+C f,UNKNOWN,INTERNAL,7,8,12
+I mx2_y,s
+C vss,UNKNOWN,INTERNAL,4,4,8
+C vdd,UNKNOWN,INTERNAL,6,5,9
+C t,UNKNOWN,INTERNAL,8,1,3
+C l1,UNKNOWN,INTERNAL,7,1,11
+C l0,UNKNOWN,INTERNAL,2,4,8
+C i1,UNKNOWN,INTERNAL,3,11,13
+C i0,UNKNOWN,INTERNAL,5,1,8
+I ndrvp_y,auxsc1
+C vss,UNKNOWN,INTERNAL,4,2,3
+C vdd,UNKNOWN,INTERNAL,6,2,4
+C i,UNKNOWN,INTERNAL,3,10,12
+C f,UNKNOWN,INTERNAL,2,1,7
+S 8,EXTERNAL,s
+Q 0.0072
+W 2,1,A2,0.55,0.00528,79.2,0,1.6,17.6
+S 7,INTERNAL,auxsc3
+Q 0.02142
+W 3,2,CV,0,0,64.8,8.8,0,0
+W 5,4,CV,0,0,74.4,8.8,0,0
+W 7,6,CV,0,0,74.4,12.8,0,0
+W 10,9,CV,0,0,88.8,12.8,0,0
+W 9,8,A2,0.15,0.00144,88.8,12.8,1.6,4.8
+W 6,10,A1,1.8,0.00414,74.4,12.8,14.4,0.8
+W 4,7,A2,0.1,0.0012,74.4,8.8,1.6,4
+W 2,1,A2,0.25,0.00264,64.8,8.8,1.6,8.8
+W 3,5,A1,1.2,0.00276,64.8,8.8,9.6,0.8
+S 6,EXTERNAL,vdd
+Q 0.05453
+W 7,6,CV,0,0,37.6,48,0,0
+W 8,6,CV,0,0,37.6,51.2,0,0
+W 6,5,A1,0.1,0.00754,37.6,49.6,10.4,6.4
+W 4,6,A1,0,0.0029,33.6,49.6,4,6.4
+W 8,3,A2,0.05,0.00203,37.6,51.2,3.2,5.6
+W 7,8,A2,0.05,0.00116,37.6,48,3.2,3.2
+W 1,7,A2,0.75,0.0174,37.6,0,3.2,48
+S 5,EXTERNAL,b
+Q 0.02922
+W 3,2,CV,0,0,50.4,4.8,0,0
+W 7,6,CV,0,0,98.4,4.8,0,0
+W 6,4,A2,0.4,0.00384,98.4,4.8,1.6,12.8
+W 5,6,A2,0.15,0.00144,98.4,0,1.6,4.8
+W 2,1,A2,0.4,0.00384,50.4,4.8,1.6,12.8
+W 3,7,A1,6,0.0138,50.4,4.8,48,0.8
+S 4,EXTERNAL,vss
+Q 0.05453
+W 6,5,CV,0,0,44,17.6,0,0
+W 6,7,CV,0,0,44,20.8,0,0
+W 7,10,A2,0.55,0.01305,44,20.8,3.2,36
+W 1,5,A2,0.25,0.00638,44,0,3.2,17.6
+W 5,7,A2,0.05,0.00116,44,17.6,3.2,3.2
+W 6,4,A1,0,0.0029,44,19.2,4,6.4
+W 3,6,A1,0.1,0.00754,33.6,19.2,10.4,6.4
+S 3,EXTERNAL,a
+Q 0.03282
+W 3,2,CV,0,0,16.8,8.8,0,0
+W 5,4,CV,0,0,60,8.8,0,0
+W 7,6,CV,0,0,60,12.8,0,0
+W 9,8,CV,0,0,69.6,12.8,0,0
+W 8,11,A2,0.15,0.00144,69.6,12.8,1.6,4.8
+W 6,9,A1,1.2,0.00276,60,12.8,9.6,0.8
+W 4,7,A2,0.1,0.0012,60,8.8,1.6,4
+W 2,10,A2,0.25,0.00264,16.8,8.8,1.6,8.8
+W 1,2,A2,0.25,0.00264,16.8,0,1.6,8.8
+W 3,5,A1,5.4,0.01242,16.8,8.8,43.2,0.8
+S 2,INTERNAL,auxsc1
+Q 0.0225
+W 3,2,CV,0,0,7.2,12.8,0,0
+W 6,5,CV,0,0,55.2,12.8,0,0
+W 5,4,A2,0.15,0.00144,55.2,12.8,1.6,4.8
+W 2,1,A2,0.15,0.00144,7.2,12.8,1.6,4.8
+W 3,6,A1,6,0.0138,7.2,12.8,48,0.8
+S 1,INTERNAL,implicit
+Q 0
+EOF
+.fi
+.SH SEE ALSO
+.BR Alliance (1),
+.BR MBK (1)
+
+.so man1/alc_bug_report.1
+

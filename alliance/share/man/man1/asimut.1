@@ -1,0 +1,179 @@
+.\"   $Id: asimut.1,v 1.1 1999/05/31 17:30:13 alliance Exp $
+.\" @(#)asimut.1 1.92  Nov 30 1995 UPMC; Pirouz BAZARGAN SABET
+.TH ASIMUT 1 "October 1, 1997" "ASIM/LIP6" "cao\-vlsi reference manual"
+
+.SH NAME
+.PP
+\fBasimut\fP \- A simulation tool for hardware descriptions
+
+.so man1/alc_origin.1
+.SH SYNOPSIS
+.PP
+asimut \fI[options] [root_file] [pattern_file] [result_file]\fP
+
+.SH DESCRIPTION
+.PP
+\fBasimut\fP is a logical simulation tool for hardware descriptions. It
+compiles and loads a complete hardware description written in VHDL (Very
+high speed integrated circuits Hardware Description Language). The hardware
+description may be structural (a hierarchy of instances) or simply
+behavioural. Only a subset of VHDL is supported. Descriptions that do not
+match this subset cause a syntax error during compilation. See \fBvhdl(5)\fP
+for detailed information about the supported subset of VHDL.
+
+.PP
+Once a hardware description is loaded, \fBasimut\fP looks for a simulation
+pattern description file. This file is to be written in \fBpat\fP format.
+The file is compiled, loaded and linked with the hardware description. Then,
+the simulation is started. When patterns are processed, a result file in
+\fBpat\fP format is produced.
+
+.PP
+If a save action has been requested in the pattern description file (see
+\fBpat (5)\fP), \fBasimut\fP creates also a save file representing the state
+of the description at the end of the simulation of the last pattern. The save
+file is named \fIroot_file\fP.sav, where \fIroot_file\fP is the name of the
+description.
+
+.PP
+The save file can be used in a later simulation sequence to initialize the
+state of the (same) hardware description before the simulation begins.
+Using this mechanism, a large sequence of patterns can be breaked onto
+several small sequences, each one initializing the hardware description with
+the save file resulted from the previous sequence.
+
+.PP
+\fBasimut\fP reads several parameters from the environment variables :
+
+.TP 20
+\fIMBK_CATA_LIB\fP
+list of directories containing description and pattern files (using $PATH
+syntax). The default path is the current directory (see mbk(1)).
+.TP 20
+\fIMBK_WORK_LIB\fP
+specifies the current working directory. The working directory idicates the
+place where all output files are written.
+.TP 20
+\fIMBK_CATAL_NAME\fP
+Indicates the file where the behavioral description files are listed. This
+file is used to leaf cells of a structural description.(see mbk(1))
+.TP 20
+\fIMBK_IN_LO\fP
+file extension for structural entity. (see mbk(1))
+.TP 20
+\fIVH_BEHSFX\fP
+list of file extensions for behavioural entities (using $PATH syntax). The
+default file extension is \fBvbe\fP.
+.TP 20
+\fIVH_PATSFX\fP
+list of file extensions for pattern description entities (using $PATH syntax).
+The default file extension is \fBpat\fP.
+.TP 20
+\fIVH_MAXERR\fP
+maximum number of errors allowed during simulation phase. If the number of
+errors occured during simulation reaches VH_MAXERR, \fBasimut\fP stops
+the simulation at the end of processing the current pattern. Patterns following
+the current pattern remain unprocessed and are reproduced in the result file.
+The default value of \fIVH_MAXERR\fP is 10.
+
+.PP
+\fIroot_file\fP is the name of the description.
+
+.PP
+By default \fBasimut\fP looks for a structural description. It uses the
+\fIMBK_IN_LO\fP environment variables to identify both the format and the
+extension of structural description files. To load structural VHDL files
+\fIMBK_IN_LO\fP must be set to \fBvst\fP.
+
+.PP
+To load a pure behavioural description \fB\-b\fP option must be specified. In
+such a case \fBasimut\fP loads a data flow VHDL description file. The
+\fIVH_BEHSFX\fP environment variable gives the extensions to be used.
+
+.PP
+\fIpattern_file\fP is the entity name of the pattern description. The file
+containing this entity must be named \fIpattern_file.ext\fP , where \fIext\fP
+is one of the extension specified in \fIVH_PATSFX\fP.
+
+.PP
+\fIresult_file\fP is the result file produced by \fBasimut\fP. The result file
+is a pattern description file with the extension specified by \fIVH_PATSFX\fP.
+
+.SH OPTIONS
+.TP 20
+\fI\-b\fP
+consider the \fIroot_file\fP description as a behavioural description
+.TP 20
+\fI\-bdd\fP
+use BDDs (Binary Decision Diagram) to represent experssions. Using this option
+makes the simulation be two times faster but increases memory requirement
+.TP 20
+\fI\-c\fP
+run only the compilation stage
+.TP 20
+\fI\-core core_file\fP
+at the first error encountered, dump the state of the circuit in both an
+ascii file (suffixed .cor) and a binary save file (suffixed .sav) which can
+be used as initialization file in a further session. If the \fI\-nores\fP
+option is specified a pattern file is also produced.
+.TP 20
+\fI\-d[sbpldc]\fP
+call the debugger (developper usage)
+.TP 20
+\fI\-h\fP
+display this help file
+.TP 20
+\fI\-i value\fP
+initialize all signals of the description with \fIvalue\fP. \fIValue\fP can
+be 0 or 1
+.TP 20
+\fI\-i save_file\fP
+read a save file and use it to initialize the state of the description before
+processing the first pattern (the file name cannot be 1 nor 0)
+.TP 20
+\fI\-inspect instance_name\fP
+produce a pettern file corresponding to the interface of the instance
+identified by \fIinstance-name\fP
+.TP 20
+\fI\-l n\fP
+print at most \fIn\fP characters for pattern labels. The default value for
+\fIn\fP is 15.
+.TP 20
+\fI\-nores\fP
+do not generate result file
+.TP 20
+\fI\-p n\fP
+load at most \fIn\fP patterns from input pattern file each time. Using this
+feature reduces memory allocation when a great number of patterns are to be
+simulated. In addition after the \fIn\fP patterns have been processed, the
+simulation result is printed in the result pattern file. The default value
+for \fIn\fP is 0 which makes the whole pattern
+file be loaded.
+.TP 20
+\fI\-t\fP
+trace signals when making BDDs (developper usage).
+
+.SH EXAMPLE
+.PP
+asimut \-b \-i init_add adder_32 adder_patterns res_add
+.PP
+simulates a behavioural description held in the file named 'adder_32.vbe
+using the pattern file `adder_patterns.pat'. The simulation results is
+written into 'res_add.pat' and the description is initialized with the
+values contained in 'init_add.sav'.
+
+.SH DIAGNOSTICS
+.PP
+Register initializations in the pattern file allows changing the value of
+a register into a known value. However, using this feature to initialize a
+register before executing the first pattern is not recommended. Registers
+value (defined by the initialization statement) may be overwritten since
+description has not a coherent state before the first pattern.
+
+.SH SEE ALSO
+.PP
+vhdl(5), pat(5), genpat(1), mbk(1)
+
+
+.so man1/alc_bug_report.1
+

@@ -1,0 +1,43 @@
+.\"   $Id: bereg.3,v 1.1 1999/05/31 17:30:19 alliance Exp $
+.\" @(#)bereg.2 108 Feb 15 1995 UPMC; Pirouz BAZARGAN SABET
+.TH BEREG 3 "October 1, 1997" "ASIM/LIP6" "cao\-vlsi reference manual"
+
+.so man1/alc_origin.1
+.SH NAME
+.PP
+\fBbereg\fP - BEH data structure
+
+.SH DESCRIPTION
+.PP
+\fIbereg\fP is a data structure used in \fBBEH\fP to represent a one\-bit
+internal register.
+For an array, each element is represented by a single structure.
+These are organized in the reverse order of the array\'s range declaration.
+\fIbereg\fP has been designed to be used in a simply chained list.
+
+.PP
+A \fIbereg\fP structure is composed of the following fields.
+
+.TP 25
+\fI(char *) NAME\fP
+the register\'s name. For an array\'s element, the name is the array\'s
+identifier added to the element\'s index seperated by a \' \' (blank space).
+This string is supposed been produced by \fBnamealloc()\fP
+.TP 25
+\fI(struct biabl *) BIABL\fP
+list of drivers using ABLs to represent expressions
+.TP 25
+\fI(struct binode *) BINODE\fP
+list of drivers using BDDs to represent expressions
+.TP 25
+\fI(struct bereg *) NEXT\fP
+next bereg
+
+.SH SEE ALSO
+.PP
+log(1), beh(3), biabl(3), binode(3), beh_addbereg(3),
+beh_delbereg(3), beh_frebereg(3), beh_rmvbereg(3), namealloc(3)
+
+
+.so man1/alc_bug_report.1
+

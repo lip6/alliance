@@ -1,0 +1,50 @@
+-- This cell caracterized by prol05.elp technologie file
+-- VHDL data flow description generated from `cmx2_y`
+--		date : Wed Oct  7 12:07:20 1998
+
+
+-- Entity Declaration
+
+ENTITY cmx2_y IS
+  GENERIC (
+    CONSTANT area : NATURAL := 226800;	-- area
+    CONSTANT transistors : NATURAL := 12;	-- transistors
+    CONSTANT cin_c : NATURAL := 54;	-- cin_c
+    CONSTANT cin_i1 : NATURAL := 28;	-- cin_i1
+    CONSTANT cin_i0 : NATURAL := 28;	-- cin_i0
+    CONSTANT tphh_c_t : NATURAL := 1101;	-- tphh_c_t
+    CONSTANT rup_c_t : NATURAL := 2450;	-- rup_c_t
+    CONSTANT tplh_c_t : NATURAL := 984;	-- tplh_c_t
+    CONSTANT rup_c_t : NATURAL := 2450;	-- rup_c_t
+    CONSTANT tpll_c_t : NATURAL := 834;	-- tpll_c_t
+    CONSTANT rdown_c_t : NATURAL := 2490;	-- rdown_c_t
+    CONSTANT tphl_c_t : NATURAL := 964;	-- tphl_c_t
+    CONSTANT rdown_c_t : NATURAL := 2490;	-- rdown_c_t
+    CONSTANT tphh_i1_t : NATURAL := 693;	-- tphh_i1_t
+    CONSTANT rup_i1_t : NATURAL := 2450;	-- rup_i1_t
+    CONSTANT tpll_i1_t : NATURAL := 1028;	-- tpll_i1_t
+    CONSTANT rdown_i1_t : NATURAL := 2490;	-- rdown_i1_t
+    CONSTANT tphh_i0_t : NATURAL := 949;	-- tphh_i0_t
+    CONSTANT rup_i0_t : NATURAL := 2450;	-- rup_i0_t
+    CONSTANT tpll_i0_t : NATURAL := 903;	-- tpll_i0_t
+    CONSTANT rdown_i0_t : NATURAL := 2490	-- rdown_i0_t
+  );
+  PORT (
+  i0 : in BIT;	-- i0
+  i1 : in BIT;	-- i1
+  c : in BIT;	-- c
+  t : out BIT;	-- t
+  vdd : in BIT;	-- vdd
+  vss : in BIT	-- vss
+  );
+END cmx2_y;
+
+
+-- Architecture Declaration
+
+ARCHITECTURE VBE OF cmx2_y IS
+
+BEGIN
+
+t <= ((i0 and c) or (i1 and not (c)));
+END;

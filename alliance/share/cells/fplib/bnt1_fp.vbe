@@ -1,0 +1,20 @@
+ENTITY bnt1_fp IS
+PORT (
+     i    :  IN BIT ;
+     en   : OUT BIT ;
+     enb  : OUT BIT ;
+     vdd  :  IN BIT ;
+     vss  :  IN BIT ;
+     vss1 :  IN BIT
+     );
+END bnt1_fp ;
+
+ARCHITECTURE behaviour_data_flow OF bnt1_fp IS
+BEGIN
+en <= i ;
+enb <= not i ;
+ASSERT ((vdd='1') and (vss='0') and (vss1='0'))
+REPORT "Power supply is missing on bnt1_fp "
+SEVERITY WARNING ;
+END;
+

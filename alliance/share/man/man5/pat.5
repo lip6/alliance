@@ -1,0 +1,271 @@
+.\"   $Id: pat.5,v 1.1 1999/05/31 17:30:28 alliance Exp $
+.\" @(#)pat.5 106 Sep 30 1996 UPMC ; Pirouz BAZARGAN SABET
+.TH PAT 5 "October 1, 1997" "ASIM/LIP6" "cao\-vlsi reference manual"
+
+.so man1/alc_origin.1
+.SH NAME
+.PP
+\fBPAT\fP \- Pattern description format
+
+.SH DESCRIPTION
+.PP
+The \fBpat\fP is a specific format used in simulation pattern\'s description.
+\fBpat\fP format has been designed to represent undifferently patterns to be
+simulated or simulation's results. It offers the possibility of:
+
+.PP
+specifying the \fIinput\fP list of the circuit: signals to be controled during
+the simulation by the user. For a circuit described in VHDL, are considered as
+\fIinput\fP:
+.RS
+.PP
+external ports of the mode \fBin\fP.
+.br
+guarded external ports of the mode \fBinout\fP (declared with the reserved word
+\fBbus\fP).
+.RE
+
+.PP
+specifying the \fIoutput\fP list of the circuit: signals to be observed during
+the simulation. For a circuit described in VHDL, are considered as \fIoutput\fP:
+.RS
+.PP
+external ports of the mode \fBout\fP (declared either with or without the
+reserved word \fBbus\fP).
+.br
+external ports of the mode \fBinout\fP (declared either with or without the
+reserved word \fBbus\fP).
+.br
+internal signals of a hierarchical description.
+.br
+internal signals of a behavioural description (declared as \fBbus\fP,
+\fBregister\fP or simple signal)
+.RE
+
+.PP
+specifying a read\-write format for inputs and outputs.
+
+.PP
+forcing the value of each input.
+
+.PP
+checking the resulted value on each output.
+
+.PP
+changing the value of an internal register (a guarded internal signal of kind
+\fBregister\fP in a behavioural description) in a given pattern.
+
+.PP
+saving the state of the circuit.
+
+.SH THE FORMAT
+.PP
+A pattern file written in \fBpat\fP format can be divided into two parts: the
+declaration block and the description block. The instruction \fBbegin\fP marks
+the end of the declaration and the beginning of the description block. The
+instruction \fBend;\fP marks the end of the file.
+
+.PP
+\fBThe declaration block\fP is a set of input\-output declaration statements.
+The order of these declarations is important. In the description block, values
+will be associated with an input\-output in the order of their declaration.
+That is, the first value will be associated with the first declared
+input\-output and, the last value with the last one.
+
+.PP
+A declaration statement has of one of the two following forms :
+.RS
+\fImode\fP input_output_name [\fIformat\fP];
+.br
+\fImode\fP group_name (input_output_name, ...) [\fIformat\fP];
+.RE
+
+.PP
+The second form allows the user to give a name to a group of signals. This
+group of signals will be called virtual array. Using this grouping
+possibility, great care must be taken. Two guarded outputs (of kind \fBbus\fP)
+can be grouped only if their guard expression are exactly the same.
+
+.TP 10
+\fIinputs\fP
+An external port of the mode \fBin\fP must be declared with the \fImode\fP
+\fBin\fP. A guarded external port of the \fImode\fP \fBinout\fP must be
+declared with the \fImode\fP \fBinout\fP.
+
+.TP 10
+\fIoutputs\fP
+An external port (guarded or not) of the mode \fBout\fP must be declared with
+the \fImode\fP \fBout\fP. An unguarded external port of the mode \fBinout\fP
+must be declared with the \fImode\fP \fBout\fP. A guarded external port of the
+mode \fBinout\fP must be declared with the \fImode\fP \fBinout\fP. An internal
+signal (simple or guarded of kind \fBbus\fP) of a behavioural or structural
+description must be declared with the \fImode\fP \fBsignal\fP. An internal
+register (guarded signal of kind \fBregister\fP) is to be declared with
+\fImode\fP \fBregister\fP.
+
+.PP
+The \fIformat\fP specifies the format under which values associated with an
+input\-output must be read or written. Legal formats are \fBX\fP for
+hexadecimal, \fBO\fP for octal and, \fBB\fP for binary. The binary format is
+the default format.
+
+.PP
+The \fIinput_output_name\fP is used to identify the input\-output signal.
+For an external port, the signal\'s identifier added, if the signal is an array,
+to its constraint (the range of the array) constitutes the input\-output name.
+For an internal signal the \fIinput_output_name\fP is made from the
+concatenation of the \fIaccess_path\fP and the signal\'s name (identifier and
+if needed constraint). The \fIaccess_path\fP is a string representing the
+instance where the signal is declared. It is a list of instance names separated
+by \'.\' (dot).
+
+.PP
+Putting one or several additional \';\' (semicolon) at the end of an
+input\-output declaration makes one or several blank columns (up to 15) be
+printed in the result file after the input\-output's value.
+
+.PP
+\fBThe description block\fP is a set of pattern description statements. Each
+pattern is a list of values preceded  optionally by a label.
+.RS
+[\fIlabel\fP] : \fIlist_of_values\fP ;
+.RE
+
+.PP
+A \fIlabel\fP is an identifier (in VHDL syntax). The \fIlist_of_values\fP is
+a set of values. Each value is associated with one input\-output. The value
+of rank i corresponds to the i\-th input\-output. Depending on the format,
+legal values for inputs are:
+
+.TP 10
+\fBB\fP (binary)
+0 and, 1
+.TP 10
+\fBO\fP (octal)
+0, 1, 2, 3, 4, 5, 6 and, 7
+.TP 10
+\fBX\fP (hexa.)
+0, 1, 2, 3, 4, 5, 6, 7, 8, 9, A, B, C, D, E and, F
+
+.PP
+For each output the user can predict a value. This bring the simulator to make
+a comparison between this value and the one calculated during the simulation.
+Predicting a \'*\' (star) as an output value disables the comparison. Values
+must be preceeded by a \'?\' (question mark). The \'?\' can be omitted when
+using a \'*\'. Depending on the format, legal values for outputs are :
+
+.TP 10
+\fBB\fP (binary)
+0, 1 and *
+.TP 10
+\fBO\fP (octal)
+0, 1, 2, 3, 4, 5, 6, 7 and *
+.TP 10
+\fBX\fP (hexa.)
+0, 1, 2, 3, 4, 5, 6, 7, 8, 9, A, B, C, D, E, F and *
+
+.PP
+Using the binary format \'?1\' can be replaced by \'+\' (plus) and \'?0\' by
+\'\-\' (minus).
+
+.PP
+.TP 10
+Example
+.nf
+in  A (0 to 15) X;
+in  B (0 to 15) X;
+in  Cin;
+out Cout;
+signal S (0 to 15) X;
+register Accu.A (0 to 15) X;
+
+begin
+
+pattern_0 : F0F0 0A0A 1 ?0 ?FAFA ?6DE7;
+pattern_1 : 0F0F F6F0 0  +  **** ?54FC;
+
+end;
+.fi
+
+.PP
+Putting one or several additional \';\' (semicolon) at the end of a pattern
+makes one or several blank lines (up to 15) be printed in the result file
+after the pattern.
+
+.PP
+\fBOther statements (called actions)\fP such as changing registers value or
+saving the state of the circuit can be placed in the description block.
+
+.PP
+The content of a register can be forced to a user defined value using the
+following statement:
+.RS
+\fIregister_name\fP <= \fIvalue\fP ;
+.RE
+
+.PP
+\fIRegister_name\fP is a string representing the name of the register to be
+forced (written in the same form as described above).
+
+.PP
+\fIValue\fP can be given in hexadecimal (\fBX\fP), octal (\fBO\fP) or binary
+(\fBB\fP) format :
+.TP 10
+Examples
+X"0FE46"
+.br
+O"0345"
+.br
+B"01010111"
+.br
+"0111000"
+.br
+\'0\'
+
+.PP
+The value of the register will be forced to \fIvalue\fP just before the
+pattern following the statement is executed.
+
+.PP
+The state of the circuit can be saved after all patterns are processed using:
+.RS
+\fBsave;\fP
+.RE
+
+.PP
+The \fBsave;\fP statement must be placed just before the \fBend;\fP instruction.
+When writing a long sequence of patterns, this feature can be used to split
+the sequence into several small sequences (with a \fBsave\fP statement at the
+end of each sequence) (see asimut(1)).
+
+.PP
+In \fBpat\fP format a \fBcomment\fP begins with either a \'#\' (sharp) or a
+\'\-\-\' (two adjacent minus) and extends up to the end of the line. A comment
+marked by a \'\-\-\' is simply ignored. A comment maked by a \'#\' is
+kept at compile time and reproduced at the same place in the result file.
+
+.SH DIAGNOSTICS
+.PP
+\fBPat\fP does not make the difference between upper and lower case letters.
+
+.PP
+When the specified read\-write format is \fBO\fP (octal) for an array
+input\-output and the range of the input\-output doesn\'t match a multiple of
+3, the most significant bits \- 1 or 2 bits \- of the value are ignored.
+
+.PP
+When the specified read\-write format is \fBX\fP (hexadecimal) for an array
+input\-output and the range of the input\-output doesn\'t match a multiple of
+4, the most significant bits \- 1, 2 or 3 bits \- of the value are ignored.
+
+.PP
+A comment beginning with a \'#\' (sharp) placed after the \fBend;\fP statement
+causes a syntax error.
+
+.SH SEE ALSO
+.PP
+asimut(1), genpat(1), libpat(3)
+
+
+.so man1/alc_bug_report.1
+

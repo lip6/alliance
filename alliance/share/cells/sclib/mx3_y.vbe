@@ -1,0 +1,68 @@
+-- This cell caracterized by prol05.elp technologie file
+-- VHDL data flow description generated from `mx3_y`
+--		date : Wed Oct  7 12:10:53 1998
+
+
+-- Entity Declaration
+
+ENTITY mx3_y IS
+  GENERIC (
+    CONSTANT area : NATURAL := 277200;	-- area
+    CONSTANT transistors : NATURAL := 18;	-- transistors
+    CONSTANT cin_l2 : NATURAL := 31;	-- cin_l2
+    CONSTANT cin_i2 : NATURAL := 31;	-- cin_i2
+    CONSTANT cin_l1 : NATURAL := 31;	-- cin_l1
+    CONSTANT cin_i1 : NATURAL := 30;	-- cin_i1
+    CONSTANT cin_l0 : NATURAL := 31;	-- cin_l0
+    CONSTANT cin_i0 : NATURAL := 31;	-- cin_i0
+    CONSTANT tphh_i2_t : NATURAL := 924;	-- tphh_i2_t
+    CONSTANT rup_i2_t : NATURAL := 1650;	-- rup_i2_t
+    CONSTANT tpll_i2_t : NATURAL := 884;	-- tpll_i2_t
+    CONSTANT rdown_i2_t : NATURAL := 2310;	-- rdown_i2_t
+    CONSTANT tphh_l2_t : NATURAL := 816;	-- tphh_l2_t
+    CONSTANT rup_l2_t : NATURAL := 1650;	-- rup_l2_t
+    CONSTANT tpll_l2_t : NATURAL := 967;	-- tpll_l2_t
+    CONSTANT rdown_l2_t : NATURAL := 2310;	-- rdown_l2_t
+    CONSTANT tphh_i1_t : NATURAL := 865;	-- tphh_i1_t
+    CONSTANT rup_i1_t : NATURAL := 1650;	-- rup_i1_t
+    CONSTANT tpll_i1_t : NATURAL := 923;	-- tpll_i1_t
+    CONSTANT rdown_i1_t : NATURAL := 2310;	-- rdown_i1_t
+    CONSTANT tphh_l1_t : NATURAL := 755;	-- tphh_l1_t
+    CONSTANT rup_l1_t : NATURAL := 1650;	-- rup_l1_t
+    CONSTANT tpll_l1_t : NATURAL := 1007;	-- tpll_l1_t
+    CONSTANT rdown_l1_t : NATURAL := 2310;	-- rdown_l1_t
+    CONSTANT tphh_l0_t : NATURAL := 686;	-- tphh_l0_t
+    CONSTANT rup_l0_t : NATURAL := 1650;	-- rup_l0_t
+    CONSTANT tpll_l0_t : NATURAL := 1024;	-- tpll_l0_t
+    CONSTANT rdown_l0_t : NATURAL := 2310;	-- rdown_l0_t
+    CONSTANT tphh_i0_t : NATURAL := 792;	-- tphh_i0_t
+    CONSTANT rup_i0_t : NATURAL := 1650;	-- rup_i0_t
+    CONSTANT tpll_i0_t : NATURAL := 941;	-- tpll_i0_t
+    CONSTANT rdown_i0_t : NATURAL := 2310	-- rdown_i0_t
+  );
+  PORT (
+  i0 : in BIT;	-- i0
+  l0 : in BIT;	-- l0
+  i1 : in BIT;	-- i1
+  l1 : in BIT;	-- l1
+  i2 : in BIT;	-- i2
+  l2 : in BIT;	-- l2
+  t : out BIT;	-- t
+  vdd : in BIT;	-- vdd
+  vss : in BIT	-- vss
+  );
+END mx3_y;
+
+
+-- Architecture Declaration
+
+ARCHITECTURE VBE OF mx3_y IS
+
+BEGIN
+  ASSERT ((vdd and not (vss)) = '1')
+    REPORT "power supply is missing on mx3_y"
+    SEVERITY WARNING;
+
+
+t <= (((i1 and l1) or (i2 and l2)) or (i0 and l0));
+END;

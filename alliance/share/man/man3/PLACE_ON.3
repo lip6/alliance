@@ -1,0 +1,152 @@
+.\"   $Id: PLACE_ON.3,v 1.1 1999/05/31 17:30:16 alliance Exp $
+.\" @(#)PLACE_ON.3 2.11 91/08/22 ; Labo Cao-vlsi; Author : Frederic Petrot
+.if t \{\
+.so man1/alc_contents.mac
+.XS \n%
+.ti 0.2i
+PLACE_ON
+.XE \}
+.TH PLACE_ON 3 "October 1, 1997" "ASIM/LIP6" "PROCEDURAL GENERATION LANGUAGE"
+.SH NAME
+PLACE_ON \- place a physical instance in the current figure matching
+connectors
+.SH SYNOPSYS
+.nf
+.if n \{\
+.ft B \}
+.if t \{\
+.ft CR \}
+#include <genlib.h>
+void PLACE_ON(figname,ins1,con1,index1,symetry,ins2,con2,index2)
+char \(**figname, \(**ins1, \(**con1, \(**ins2, \(**con2;
+char symetry;
+long index1, index2;
+.ft R
+.fi
+.so man1/alc_origin.1
+.SH PARAMETERS
+.TP 20
+\fIfigname\fP
+Name of the layout figure to be instanciated
+.TP
+\fIins1\fP
+Name to be given to the instance in the model
+.TP
+\fIcon1\fP
+Name of the connector of the instance to be used for placement
+.TP
+\fIindex1\fP
+Index of the connector, or reference, \fIcon1\fP of the model to be used
+for placement
+.TP
+\fIsymetry\fP
+Geometrical operation to be performed on the instance before beeing placed
+.TP
+\fIins2\fP
+Name of the instance to be used for relative placement
+.TP
+\fIcon2\fP
+Name of the connector of the instance \fIins2\fP on which the placement will
+take place
+.TP
+\fIindex2\fP
+Index of the connector \fIcon2\fP of the instance to be used for relative
+placement
+.SH DESCRIPTION
+\fBPLACE_ON\fP add an instance in the current layout cell. The bottom left corner
+of the instance of the model \fImodelname\fP is placed, after beeing
+symetrized and/or rotated, at \fI(x, y)\fP coordinates. 
+The placed instance becomes the new "reference instance", used in
+the relative placement functions.
+.br
+The \fIinsname\fP is the name given to the instance and must be unique at
+a given hierarchy level.
+.br
+The \fIsymetry\fP argument can take eight legal values :
+.TP 20
+\fBNOSYM\fP 
+no geometrical operation is performed
+.TP
+\fBSYM_Y\fP 
+Y becomes -Y, that means toward X axe symetry
+.TP
+\fBSYM_X\fP 
+X becomes -X, that means toward Y axe symetry
+.TP
+\fBSYMXY\fP 
+X becomes -X, Y becomes -Y
+.TP
+\fBROT_P\fP 
+a positive 90 degrees rotation take place
+.TP
+\fBROT_M\fP 
+a negative 90 degrees rotation take place
+.TP
+\fBSY_RP\fP 
+Y becomes -Y, and then a positive 90 degrees rotation take place
+.TP
+\fBSY_RM\fP 
+Y becomes -Y, and then a negative 90 degrees rotation take place
+.PP
+The model of the figure to be placed must be available, on disk or in memory.
+The path to the library is specified in the \fBMBK_CATA_LIB\fP (1) and
+\fBMBK_WORK_LIB\fP (1) environment
+variables, and its format is given by the \fBMBK_IN_PH\fP (1) environment
+variable.
+.SH ERRORS
+.if n \{\
+.ft B \}
+.if t \{\
+.ft CR \}
+"PLACE_ON impossible : missing DEF_PHFIG"
+.ft R
+.RS
+No figure has been yet specified by a call to \fBDEF_PHFIG\fP. So it isn't
+possible to place an instance inside it.
+you must call \fBDEF_PHFIG\fP before any other layout action.
+.RE
+.if n \{\
+.ft B \}
+.if t \{\
+.ft CR \}
+"illegal addphins : transformation is x in insname"
+.ft R
+.RS
+The \fIsymetry\fP parameter is not one of the define given, but has the
+integer value \fBx\fP.
+.RE
+.br
+.SH EXAMPLE
+.nf
+.if n \{\
+.ft B \}
+.if t \{\
+.ft CR \}
+#include <genlib.h>
+main()
+{
+	/\(** Create a figure to work on  \(**/
+	DEF_PHFIG("cell");
+	/\(** Place two instances \(**/
+	PLACE_ON("gapg0_b","ins1", NOSYM, 0L, 0L);
+	PLACE_ON("gapg8_b","ins2", SYM_X, 80L, 100L);
+	/\(** Save all that on disk \(**/
+	SAVE_PHFIG();
+}
+.ft R
+.fi
+.SH SEE ALSO
+.BR genlib (1),
+.BR DEF_PHFIG (3),
+.BR SAVE_PHFIG (3),
+.BR PLACE_TOP (3),
+.BR PLACE_BOTTOM (3),
+.BR PLACE_LEFT (3),
+.BR PLACE_RIGHT (3),
+.BR MBK_CATA_LIB (1),
+.BR MBK_WORK_LIB (1),
+.BR MBK_IN_PH (1).
+
+
+.so man1/alc_bug_report.1
+

@@ -1,0 +1,195 @@
+-- VHDL structural description generated from `muxout`
+--		date : Sun Sep 27 12:27:24 1998
+
+
+-- Entity Declaration
+
+ENTITY muxout IS
+  PORT (
+  ra : in BIT_VECTOR (3 DOWNTO 0);	-- ra
+  alu_out : in BIT_VECTOR (3 DOWNTO 0);	-- alu_out
+  noe : in BIT;	-- noe
+  oe : out BIT;	-- oe
+  y : out BIT_VECTOR (3 DOWNTO 0);	-- y
+  i : in BIT_VECTOR (8 DOWNTO 6);	-- i
+  vdd : in BIT;	-- vdd
+  vss : in BIT	-- vss
+  );
+END muxout;
+
+-- Architecture Declaration
+
+ARCHITECTURE VST OF muxout IS
+  COMPONENT a3_y
+    port (
+    i0 : in BIT;	-- i0
+    i1 : in BIT;	-- i1
+    i2 : in BIT;	-- i2
+    t : out BIT;	-- t
+    vdd : in BIT;	-- vdd
+    vss : in BIT	-- vss
+    );
+  END COMPONENT;
+
+  COMPONENT a2_y
+    port (
+    i0 : in BIT;	-- i0
+    i1 : in BIT;	-- i1
+    t : out BIT;	-- t
+    vdd : in BIT;	-- vdd
+    vss : in BIT	-- vss
+    );
+  END COMPONENT;
+
+  COMPONENT o2_y
+    port (
+    i0 : in BIT;	-- i0
+    i1 : in BIT;	-- i1
+    t : out BIT;	-- t
+    vdd : in BIT;	-- vdd
+    vss : in BIT	-- vss
+    );
+  END COMPONENT;
+
+  COMPONENT n1_y
+    port (
+    i : in BIT;	-- i
+    f : out BIT;	-- f
+    vdd : in BIT;	-- vdd
+    vss : in BIT	-- vss
+    );
+  END COMPONENT;
+
+  SIGNAL ni6 : BIT;	-- ni6
+  SIGNAL ni8 : BIT;	-- ni8
+  SIGNAL selaluy : BIT;	-- selaluy
+  SIGNAL selray : BIT;	-- selray
+  SIGNAL syalu0 : BIT;	-- syalu0
+  SIGNAL syalu1 : BIT;	-- syalu1
+  SIGNAL syalu2 : BIT;	-- syalu2
+  SIGNAL syalu3 : BIT;	-- syalu3
+  SIGNAL syra0 : BIT;	-- syra0
+  SIGNAL syra1 : BIT;	-- syra1
+  SIGNAL syra2 : BIT;	-- syra2
+  SIGNAL syra3 : BIT;	-- syra3
+
+BEGIN
+
+  n11ms : n1_y
+    PORT MAP (
+    vss => vss,
+    vdd => vdd,
+    f => ni8,
+    i => i(8));
+  n12ms : n1_y
+    PORT MAP (
+    vss => vss,
+    vdd => vdd,
+    f => ni6,
+    i => i(6));
+  a31ms : a3_y
+    PORT MAP (
+    vss => vss,
+    vdd => vdd,
+    t => selray,
+    i2 => ni8,
+    i1 => ni6,
+    i0 => i(7));
+  n13ms : n1_y
+    PORT MAP (
+    vss => vss,
+    vdd => vdd,
+    f => selaluy,
+    i => selray);
+  a21ms : a2_y
+    PORT MAP (
+    vss => vss,
+    vdd => vdd,
+    t => syra0,
+    i1 => selray,
+    i0 => ra(0));
+  a22ms : a2_y
+    PORT MAP (
+    vss => vss,
+    vdd => vdd,
+    t => syra1,
+    i1 => selray,
+    i0 => ra(1));
+  a23ms : a2_y
+    PORT MAP (
+    vss => vss,
+    vdd => vdd,
+    t => syra2,
+    i1 => selray,
+    i0 => ra(2));
+  a24ms : a2_y
+    PORT MAP (
+    vss => vss,
+    vdd => vdd,
+    t => syra3,
+    i1 => selray,
+    i0 => ra(3));
+  a25ms : a2_y
+    PORT MAP (
+    vss => vss,
+    vdd => vdd,
+    t => syalu0,
+    i1 => selaluy,
+    i0 => alu_out(0));
+  a26ms : a2_y
+    PORT MAP (
+    vss => vss,
+    vdd => vdd,
+    t => syalu1,
+    i1 => selaluy,
+    i0 => alu_out(1));
+  a27ms : a2_y
+    PORT MAP (
+    vss => vss,
+    vdd => vdd,
+    t => syalu2,
+    i1 => selaluy,
+    i0 => alu_out(2));
+  a28ms : a2_y
+    PORT MAP (
+    vss => vss,
+    vdd => vdd,
+    t => syalu3,
+    i1 => selaluy,
+    i0 => alu_out(3));
+  o21ms : o2_y
+    PORT MAP (
+    vss => vss,
+    vdd => vdd,
+    t => y(0),
+    i1 => syalu0,
+    i0 => syra0);
+  o22ms : o2_y
+    PORT MAP (
+    vss => vss,
+    vdd => vdd,
+    t => y(1),
+    i1 => syalu1,
+    i0 => syra1);
+  o23ms : o2_y
+    PORT MAP (
+    vss => vss,
+    vdd => vdd,
+    t => y(2),
+    i1 => syalu2,
+    i0 => syra2);
+  o24ms : o2_y
+    PORT MAP (
+    vss => vss,
+    vdd => vdd,
+    t => y(3),
+    i1 => syalu3,
+    i0 => syra3);
+  n1oe : n1_y
+    PORT MAP (
+    vss => vss,
+    vdd => vdd,
+    f => oe,
+    i => noe);
+
+end VST;

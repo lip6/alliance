@@ -1,0 +1,7 @@
+#cell1 amalimiout_c idps_symb hnSchematic 0 v7r5.6
+# 25-Jan-94 14:17 25-Jan-94 14:17 mbkvti400 * .
+H 1 ;
+B 0 2 ;
+X 1 1 vdd ;
+X 2 2 vss ;
+E ;

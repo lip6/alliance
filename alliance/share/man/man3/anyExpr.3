@@ -1,0 +1,43 @@
+.\"   $Id: anyExpr.3,v 1.1 1999/05/31 17:30:17 alliance Exp $
+.\" @(#)anyExpr.2 7.01 92/08/22 ; Labo masi cao-vlsi; Author : Luc Burgun
+.TH ANYEXPR 3 "October 1, 1997" "ASIM/LIP6" "ABL functions"
+.so man1/alc_origin.1
+.SH NAME
+\fBanyExpr\fP \- returns the value of a logical OR applied on the results of the application of a function on the arguments of an operator expression 
+.SH SYNOPSYS
+.nf
+#include "logmmm.h"
+int anyExpr(func,expr)
+int (*func)();
+chain_list *expr;
+.fi
+.SH PARAMETERS
+.TP 20
+\fIfunc\fP
+function to apply
+.TP 20
+\fIexpr\fP
+expression
+.SH DESCRIPTION
+\fBanyExpr()\fP applies a boolean function \fIfunc()\fP to all the arguments of \fIexpr\fP and computes OR-logic. The function \fIfunc()\fP must be an \fIinteger\fP function that is false if 0 is returned and true otherwise and must have an expression as argument. 
+.SH EXAMPLE
+.nf
+#include "mutnnn.h"		/* mbk utilities */
+#include "logmmm.h"
+chain_list *expr;
+expr = createExpr(XOR);
+addQExpr(expr,createAtom("a"));
+addQExpr(expr,createAtom("b"));
+if (!anyExpr(profExpr,expr))
+   printf("expr is only made up of atomic expressions");
+freeExpr(expr);
+.fi
+.SH SEE ALSO
+.BR log (1),
+.BR abl (1),
+.BR everyExpr (3),
+.BR mapExpr (3),
+.BR mapCarExpr (3).
+
+.so man1/alc_bug_report.1
+

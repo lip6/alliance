@@ -1,0 +1,143 @@
+.\"   $Id: aut101.1,v 1.1 1999/05/31 17:30:13 alliance Exp $
+.\" @(#)aut.1 1.01 96/02/07 UPMC; Author : Jacomme Ludovic
+.TH AUT101 1 "October 1, 1997" "ASIM/LIP6" "ALLIANCE AUT LIBRARY"
+.SH NAME
+aut \- Memory allocation, and hash tables management
+.so man1/alc_origin.1
+.SH DESCRIPTION
+\fBaut\fP is a set of utilities functions and types that may be useful.
+.TP
+Types :
+.TP 20
+.br
+\fBauthelem\fP
+\- Hash table element type.
+.TP
+\fBauthtable\fP
+\- Hash table type.
+.TP
+\fBauth2elem\fP
+\- Hash table element type.
+.TP
+\fBauth2table\fP
+\- Hash table type.
+
+.TP
+Functions :
+.TP 20
+.br
+\fBautallocblock\fP
+\- memory allocator
+.TP
+\fBautallocheap\fP
+\- heap memory allocator
+.TP
+\fBautresizeblock\fP
+\- resizes a memory block
+.TP
+\fBautfreeblock\fP
+\- releases a memory block
+.TP
+\fBautfreeheap\fP
+\- releases an heap memory block.
+.TP
+\fBautexit\fP
+\- encapsulates exit function.
+.TP
+\fBcreateauthtable\fP
+\- creates a simple hash table.
+.TP
+\fBdestroyauthtable\fP
+\- destroys a simple hash table.
+.TP
+\fBresetauthtable\fP
+\- resets a simple hash table.
+.TP
+\fBaddauthelem\fP
+\- adds an element in the hash table.
+.TP
+\fBdelauthelem\fP
+\- deletes an element in the hash table.
+.TP
+\fBsearchauthelem\fP
+\- searches an element in the hash table.
+.TP
+\fBviewauthelem\fP
+\- displays an hash table element.
+.TP
+\fBviewauthtable\fP
+\- displays an hash table.
+.TP
+\fBcreateauth2table\fP
+\- creates an hash table with two keys.
+.TP
+\fBdestroyauth2table\fP
+\- destroys an hash table with two keys.
+.TP
+\fBresetauth2table\fP
+\- resets an hash table with two keys.
+.TP
+\fBaddauth2elem\fP
+\- adds an element in the hash table.
+.TP
+\fBdelauth2elem\fP
+\- deletes an element in the hash table.
+.TP
+\fBsearchauth2elem\fP
+\- searches an element in the hash table.
+.TP
+\fBviewauth2elem\fP
+\- displays an hash table element.
+.TP
+\fBviewauth2table\fP
+\- displays an hash table with two keys.
+.TP
+\fBsortautcompare\fP
+\- default heap sort comparison function.
+.TP
+\fBsortautarray\fP
+\- heap sort.
+
+.TP 0
+libAut101.a :
+
+\fBautallocblock\fP,
+\fBautallocblock\fP,
+\fBautresizeblock\fP,
+\fBautfreeblock\fP,
+\fBautfreeheap\fP,
+\fBautexit\fP,
+\fBsetauthfunc\fP,
+\fBgetauthsize\fP,
+\fBgetauthkey\fP,
+\fBgetauthindex\fP,
+\fBcheckauthkey\fP,
+\fBcreateauthtable\fP,
+\fBdestroyauthtable\fP,
+\fBresetauthtable\fP,
+\fBstretchauthtable\fP,
+\fBaddauthelem\fP,
+\fBdelauthelem\fP,
+\fBsearchauthelem\fP,
+\fBviewauthelem\fP,
+\fBviewauthtable\fP,
+\fBsetauth2func\fP,
+\fBgetauth2size\fP,
+\fBgetauth2key\fP,
+\fBgetauth2index\fP,
+\fBcheckauth2key\fP,
+\fBcreateauth2table\fP,
+\fBdestroyauth2table\fP,
+\fBresetauth2table\fP,
+\fBstretchauth2table\fP,
+\fBaddauth2elem\fP,
+\fBdelauth2elem\fP,
+\fBsearchauth2elem\fP,
+\fBviewauth2elem\fP,
+\fBviewauth2table\fP,
+\fBsortautcompare\fP,
+\fBsortautarray\fP,
+
+
+.so man1/alc_bug_report.1
+

@@ -1,0 +1,48 @@
+.\"   $Id: displayTH.3,v 1.1 1999/05/31 17:30:20 alliance Exp $
+.\" @(#)displayTH.2 7.01 92/08/22 ; Labo masi cao-vlsi; Author : Luc Burgun
+.TH DISPLAYTH 3 "October 1, 1997" "ASIM/LIP6" "Hash table functions"
+.so man1/alc_origin.1
+.SH NAME
+\fBdisplayTH\fP \- displays a hash table
+.SH SYNOPSYS
+.nf
+#include "logmmm.h"
+void displayTH(pTable)
+pTH pTable;
+.fi
+.SH PARAMETER
+.TP 20
+\fIpTable\fP
+Hash table to be viewed.
+.SH DESCRIPTION
+\fBdisplayTH()\fP displays all items of \fIpTable\fP (index in the table, key and value). The key is displayed as a \fIchar *\fP and the value as an \fIint\fP.
+.SH EXAMPLE
+.nf
+#include "logmmm.h"
+pTH mytable; 
+mytable = createTH(100);
+addTH(mytable,namealloc("var1"),0);
+addTH(mytable,namealloc("var2"),1);
+displayTH(mytable);
+
+/* it will display
+
+============== DISPLAYTH =================
+Length = 100		         Count = 2
+==========================================
+index 	7	key	var2	value	1
+index 	91	key	var1	value	0
+==========================================
+*/
+.fi
+.SH SEE ALSO
+.BR log (1),
+.BR tsh (1),
+.BR destroyTH (3),
+.BR createTH(3).
+.BR searchTH (3),
+.BR addTH (3),
+.BR deleteTH (3).
+
+.so man1/alc_bug_report.1
+

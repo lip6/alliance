@@ -1,0 +1,38 @@
+-- This cell caracterized by prol05.elp technologie file
+-- VHDL data flow description generated from `zbli_y`
+--		date : Wed Oct  7 12:34:56 1998
+
+
+-- Entity Declaration
+
+ENTITY zbli_y IS
+  GENERIC (
+    CONSTANT area : NATURAL := 75600;	-- area
+    CONSTANT transistors : NATURAL := 3;	-- transistors
+    CONSTANT cin_i : NATURAL := 30;	-- cin_i
+    CONSTANT tplh_i_f : NATURAL := 489;	-- tplh_i_f
+    CONSTANT rup_i_f : NATURAL := 4760;	-- rup_i_f
+    CONSTANT tphl_i_f : NATURAL := 227;	-- tphl_i_f
+    CONSTANT rdown_i_f : NATURAL := 2490	-- rdown_i_f
+  );
+  PORT (
+  i : in BIT;	-- i
+  f : inout BIT;	-- f
+  vdd : in BIT;	-- vdd
+  vss : in BIT	-- vss
+  );
+END zbli_y;
+
+
+-- Architecture Declaration
+
+ARCHITECTURE VBE OF zbli_y IS
+
+BEGIN
+  ASSERT ((vdd and not (vss)) = '1')
+    REPORT "power supply is missing on zbli_y"
+    SEVERITY WARNING;
+
+
+f <= not (i);
+END;

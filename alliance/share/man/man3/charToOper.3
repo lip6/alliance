@@ -1,0 +1,39 @@
+.\"   $Id: charToOper.3,v 1.1 1999/05/31 17:30:19 alliance Exp $
+.\" @(#)charToOper.2 7.01 92/08/22 ; Labo masi cao-vlsi; Author : Luc Burgun
+.TH CHARTOOPER 3 "October 1, 1997" "ASIM/LIP6" "ABL functions"
+.so man1/alc_origin.1
+.SH NAME
+\fBcharToOper\fP \- converts an operator string into an operator number
+.SH SYNOPSYS
+.nf
+#include "logmmm.h"
+short charToOper(name)
+char *name;
+.fi
+.SH PARAMETER
+.TP 20
+\fIname\fP
+Operator char *.
+.SH DESCRIPTION
+\fBcharToOper()\fP returns the operator number associated to \fIname\fP. If there's no associated value, the function returns -1.
+.SH EXAMPLE
+.nf
+#include "mutnnn.h"		/* mbk utilities */
+#include "logmmm.h"
+printf("OR = %d   ",charToOper("OR"));
+printf("AND = %d",charToOper("AND"));
+/* it will display
+OR = 0   AND = 1
+*/
+.fi
+.SH SEE ALSO
+.BR log (1),
+.BR abl (1),
+.BR operToChar (3),
+.BR displayExpr (3),
+.BR displayInfExpr (3),
+.BR exprToChar (3),
+.BR identExpr (3).
+
+.so man1/alc_bug_report.1
+

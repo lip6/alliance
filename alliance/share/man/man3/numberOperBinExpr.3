@@ -1,0 +1,47 @@
+.\"   $Id: numberOperBinExpr.3,v 1.1 1999/05/31 17:30:23 alliance Exp $
+.\" @(#)numberOperBinExpr.2 7.01 92/08/22 ; Labo masi cao-vlsi; Author : Luc Burgun
+.TH NUMBEROPERBINEXPR 3 "October 1, 1997" "ASIM/LIP6" "ABL functions"
+.so man1/alc_origin.1
+.SH NAME
+\fBnumberOperBinExpr\fP \- returns the number of equivalent binary operators in an expression
+.SH SYNOPSYS
+.nf
+#include "logmmm.h"
+int numberOperBinExpr(expr)
+chain_list *expr;
+.fi
+.SH PARAMETER
+.TP 20
+\fIexpr\fP
+expression
+.SH DESCRIPTION
+\fBnumberOperBinExpr()\fP returns the number of equivalent binary operators of \fIexpr\fP.
+.SH EXAMPLE
+.nf
+#include "mutnnn.h"		/* mbk utilities */
+#include "logmmm.h"
+chain_list *expr1,*expr2;
+expr1 = charToExpr("(nor a (and b (and c (and d e))))");
+expr2 = charToExpr("(nor a (and b c d e))");
+printf("%d\n",numberOperBinExpr(expr1));
+printf("%d\n",numberOperBinExpr(expr2));
+/* it will display
+4
+4
+*/
+freeExpr(expr1);
+freeExpr(expr2);
+.fi
+.SH SEE ALSO
+.BR log (1),
+.BR abl (1),
+.BR charToExpr (3),
+.BR profExpr (3),
+.BR lengthExpr (3),
+.BR equalExpr (3),
+.BR equalVarExpr (3),
+.BR searchExpr (3),
+.BR searchOperExpr (3).
+
+.so man1/alc_bug_report.1
+
