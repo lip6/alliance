@@ -43,9 +43,6 @@ CC               = @FULL_CC@
 CFLAGS           = @CFLAGS@
 CPPFLAGS         = @CPPFLAGS@
 
-#CFLAGS           = -DALLIANCE_DISTRIB
-#CPPFLAGS         = -DALLIANCE_DISTRIB
-
 YACC             = @FULL_YACC@
 YACCFLAGS        = @YACCFLAGS@
 
