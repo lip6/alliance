@@ -1,0 +1,111 @@
+.\"   $Id: insrefmbkrds.3,v 1.1 2002/03/13 13:37:37 fred Exp $
+.\" @(#)insrefmbkrds.1 1.11 93/08/18 ; Labo masi cao-vlsi
+.if t \{\
+.so man1/alc_contents.mac
+.XS \n%
+.ti 0.2i
+insrefmbkrds
+.XE
+.XS0 \n%
+.ti 0.2i
+insrefmbkrds
+.XE0 \}
+.TH INSREFMBKRDS 3 "October 1, 1997" "ASIM/LIP6" "RDS PHYSICAL FUNCTIONS"
+.SH NAME
+insrefmbkrds \- adds in RDS instance all the references of MBK instance.
+.so man1/alc_origin.1
+.SH SYNOPSYS
+.nf
+.if n \{\
+.ft B \}
+.if t \{\
+.ft CR \}
+#include "rfmnnn.h"
+rdsrec_list \(**insrefmbkrds( InstanceMbk, ModelMbk, InstanceRds )
+   phins_list  \(**InstanceMbk;
+   phfig_list  \(**ModelMbk;
+   rdsins_list \(**InstanceRds;
+.ft R
+.fi
+.SH PARAMETER
+.TP 20
+\fIInstanceMbk\fP
+MBK instance which contains references to treat.
+.TP
+\fIModelMbk\fP
+Pointer to the model of the MBK instance.
+.TP
+\fIInstanceRds\fP
+RDS Instance which has to receive converted references from MBK to RDS format.
+.SH DESCRIPTION
+The \fIinsrefmbkrds\fP function adds in the RDS instance all references of the MBK instance converted to RDS format. All newly created references are chained each other (circulary list) using the USER field of the rdsrec_list structure.
+.SH RETURN VALUE
+Pointer to the head of list of the added rectangles to the RDS instance.
+.SH ERRORS
+.if n \{\
+.ft B \}
+.if t \{\
+.ft CR \}
+"Rds202: rdsalloc error, can't continue !"
+.ft R
+.RS
+it's impossible to allocate the memory size desired
+.SH EXAMPLE
+.ta 3n 6n 9n 12n 15n 18n 21n
+.nf
+.if n \{\
+.ft B \}
+.if t \{\
+.ft CR \}
+        #include "mphnnn.h"
+        #include "mutnnn.h"
+        #include "rdsnnn.h"
+        #include "rfmnnn.h"
+        #include "rtlnnn.h"
+        typedef struct UserStruct
+         {
+           char \(**STRING;
+           void \(**USER1;
+         } UserStruct;
+        main()
+          {
+            phfig_list  \(**MbkFigure;
+            phins_list  \(**MbkInstance;
+            phfig_list  \(**MbkModelInstance;
+            rdsfig_list \(**RdsFigure;
+            rdsins_list \(**RdsInstance;
+            rdsrec_list \(**RdsReferenceList;
+            mbkenv();
+            rdsenv();
+            loadrdsparam();
+            /\(** creates MbkFigure Named "core" \(**/
+            MbkFigure        = addphfig("core"); 
+            /\(** creates RdsFigure named "core_2" \(**/
+            RdsFigure        = addrdsfig("core_2",sizeof(UserStruct));
+            /\(** adds Mbk instance "n1_y" to MbkFigure named "core" \(**/
+            MbkInstance      = addphins(MbkFigure,"n1_y","inv_1",NOSYM,4,9);
+            /\(** Gets Model of instance n1_y \(**/ 
+            MbkModelInstance = getphfig("n1_y",'A');
+            /\(** creates Rds instance named "block_1" added to RdsFigure \(**/
+            RdsInstance =
+                addrdsins(RdsFigure,"block","block_1",RDS_NOSYM,8,6);
+            /\(**
+                adds reference of "inv_1" instance Mbk in Rds instance
+                named "block_1"
+            \(**/ 
+            RdsReferenceList = \fBinsrefmbkrds\fP ( MbkInstance,
+                                              MbkModelInstance,
+                                              RdsInstance );
+            viewrfmrec ( RdsReferenceList );
+          }
+.ft R
+.fi
+.SH SEE ALSO
+.BR librfm,
+.BR librds,
+.BR viewrfmrec,
+.BR loadrdsparam
+
+
+.so man1/alc_bug_report.1
+

@@ -1,0 +1,80 @@
+.\"   $Id: destroyrdswindow.3,v 1.1 2002/03/13 13:37:37 fred Exp $
+.\" @(#)destroyrdswindow.1 1.11 93/08/18 ; Labo masi cao-vlsi
+.if t \{\
+.so man1/alc_contents.mac
+.XS \n%
+.ti 0.2i
+destroyrdswindow
+.XE
+.XS0 \n%
+.ti 0.2i
+destroyrdswindow
+.XE0 \}
+.TH DESTROYRDSWINDOW 3 "October 1, 1997" "ASIM/LIP6" "RDS PHYSICAL FUNCTIONS"
+.SH NAME
+destroyrdswindow \- destroys windowing of a figure
+.so man1/alc_origin.1
+.SH SYNOPSYS
+.nf
+.if n \{\
+.ft B \}
+.if t \{\
+.ft CR \}
+#include "rwinnn.h"
+void destroyrdswindow( Figure, RdsWindow )
+  rdsfig_list \(**Figure;
+  rdswindow   \(**RdsWindow;
+.ft R
+.fi
+.SH PARAMETER
+.TP 20
+\fIFigure\fP
+The figure where has to be destroyed the windowing.
+.TP
+\fIRdsWindow\fP
+Pointer to the head of windowing (rdswindow structure) to destroy.
+.SH DESCRIPTION
+The \fIdestroyrdswindow\fP function destroys the windowing applied to a figure and built with the \fIbuildrdswindow\fP function.
+.SH RETURN VALUE
+nothing
+.SH ERRORS
+none
+.SH EXAMPLE
+.ta 3n 6n 9n 12n 15n 18n 21n
+.nf
+.if n \{\
+.ft B \}
+.if t \{\
+.ft CR \}
+        #include "mphnnn.h"
+        #include "mutnnn.h"
+        #include "rdsnnn.h"
+        #include "rfmnnn.h"
+        #include "rwinnn.h"
+        #include "rtlnnn.h"
+        main()
+          {
+            phfig_list  \(**MbkFigure;
+            rdsfig_list \(**RdsFigure;
+            rdswindow   \(**Window;
+            mbkenv();
+            rdsenv();
+            loadrdsparam();
+            MbkFigure = getphfig("na2_y",'A');
+            RdsFigure = figmbkrds(MbkFigure,0,0);
+            Window    =  buildrdswindow ( RdsFigure );
+            . . .
+            /\(** \(**/ \fBdestroyrdswindow\fP ( RdsFigure, Window );
+            . . .
+          }
+.ft R
+.fi
+.SH SEE ALSO
+.BR librwi,
+.BR buildrdswindow,
+.BR allocrdswindow,
+.BR viewrdswindow
+
+
+.so man1/alc_bug_report.1
+
