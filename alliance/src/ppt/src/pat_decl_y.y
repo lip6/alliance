@@ -46,7 +46,7 @@
 /* called func.	: none							*/
 /* ###--------------------------------------------------------------### */
 
-static void pat_decl_y_error (str)
+void pat_decl_y_error (str)
 
 char *str;
   {
@@ -341,12 +341,10 @@ struct paseq  *ptseq ;
 
   {
   extern FILE *pat_decl_y_in     ;
-  extern FILE *pat_desc_y_in     ;
   static int   call_nbr = 0;
 
   PAT_SEQPNT = ptseq;
   pat_decl_y_in        = fp;
-  pat_desc_y_in        = fp;
 
   PAT_INSPNT = NULL;
   PAT_COMPNT = NULL;

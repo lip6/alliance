@@ -176,13 +176,6 @@ char            usrval;		/* user predicted value			*/
 /* called func.	: none							*/
 /* ###--------------------------------------------------------------### */
 
-static void pat_desc_y_error (str)
-
-char *str;
-  {
-  ERR_FLG += pat_error (99, str, ' ', PAT_LINNUM);
-  }
-
 /* ###--------------------------------------------------------------### */
 /* function	: tobin							*/
 /* description	: change to binary					*/
@@ -626,7 +619,6 @@ unsigned char  mode  ;			/* the description style	*/
   struct paini *ptini  ;
 
   struct papat *lastpat;
-  extern FILE  *pat_desc_y_in;
   extern FILE  *pat_decl_y_in;
   int           i      ;
 
@@ -843,7 +835,6 @@ unsigned char  mode  ;			/* the description style	*/
       PAT_LINNUM = ptseq->LINENO;
       NAM_IDX    = 0            ;
 
-      pat_desc_y_in       = fp;
       pat_decl_y_in       = fp;
 
 	/* ###------------------------------------------------------### */
