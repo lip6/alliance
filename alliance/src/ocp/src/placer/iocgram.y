@@ -33,7 +33,8 @@ char *text;
 
 %%
 file :
-	| orientation PAROUV expr PARFER file;
+	| orientation PAROUV expr PARFER file
+	;
 
 orientation : 	  TOP {
 			if (top_used == 0){
@@ -60,17 +61,20 @@ orientation : 	  TOP {
 		  	} else yyerror("on ioc file : LEFT declared twice");
 		       }
 		| IGNORE {con_orient = ' ';}
+		;
 
 expr : 
-	| iopin expr;
-	| space expr;
+	| iopin expr
+	| space expr
+	;
 
 
-iopin : PAROUV IOPIN iopin1 PARFER PTVIRG;
+iopin : PAROUV IOPIN iopin1 PARFER PTVIRG
+      ;
 
-space : SPACE IOCID PTVIRG		{
-		  pt_list = add_space(pt_list, con_orient, $2);
+space : SPACE IOCID PTVIRG { pt_list = add_space(pt_list, con_orient, $2);
 }
+      ;
 
 iopin1 :   IOCID PTZR			 {
 		  l = 0;
@@ -91,6 +95,7 @@ iopin1 :   IOCID PTZR			 {
 		  buf[l] = '\0';
 		  pt_list = add_con(pt_list, con_orient, buf);
 		}
+	;
 %%
 
 int yyerror (char *str)
