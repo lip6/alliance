@@ -5,6 +5,7 @@
 ############################
 
 SHELL      = /bin/sh
+TOUCH      = touch
 
 ############################
 #
@@ -12,10 +13,8 @@ SHELL      = /bin/sh
 #
 ############################
 
-# ASM        = $(ALLIANCE_TOP)/bin/dlx_asm 
-ASM        = ./dlx_asm_v0.2b
-# ASIMUT     = $(ALLIANCE_TOP)/bin/asimut
-ASIMUT     = ./asimut
+ASM        = $(ALLIANCE_TOP)/bin/dlx_asm_v0_2
+ASIMUT     = $(ALLIANCE_TOP)/bin/asimut
 SYF        = $(ALLIANCE_TOP)/bin/syf
 BOP        = $(ALLIANCE_TOP)/bin/bop
 SCMAP      = $(ALLIANCE_TOP)/bin/scmap
@@ -32,16 +31,15 @@ DPR        = $(ALLIANCE_TOP)/bin/dpr
 BBR        = $(ALLIANCE_TOP)/bin/bbr
 RING_EXE   = $(ALLIANCE_TOP)/bin/ring
 S2R        = $(ALLIANCE_TOP)/bin/s2r
-TOUCH      = touch
 
-# XFSM = echo
-XFSM       = $(ALLIANCE_TOP)/bin/xfsm
-# XPAT = echo
-XPAT       = $(ALLIANCE_TOP)/bin/xpat
-# GRAAL = echo
-GRAAL      = $(ALLIANCE_TOP)/bin/graal
-# DREAL = echo
-DREAL      = $(ALLIANCE_TOP)/bin/dreal
+XFSM = echo
+# XFSM       = $(ALLIANCE_TOP)/bin/xfsm
+XPAT = echo
+# XPAT       = $(ALLIANCE_TOP)/bin/xpat
+GRAAL = echo
+# GRAAL      = $(ALLIANCE_TOP)/bin/graal
+DREAL = echo
+# DREAL      = $(ALLIANCE_TOP)/bin/dreal
 GENVIEW = echo
 # GENVIEW    = $(ALLIANCE_TOP)/bin/genview
 
