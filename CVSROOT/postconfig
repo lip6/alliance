@@ -7,7 +7,7 @@
 # (C) Czo 1998,99
 # This code is released under GPL
 #
-# $Id: postconfig,v 1.12 1999/09/23 18:44:52 czo Exp $
+# $Id: postconfig,v 1.13 1999/09/24 12:10:43 czo Exp $
 #
 
 
@@ -22,6 +22,11 @@ echo "Par             : $FINGER"
 echo "===================================================================="
 echo ""
 cat 
+echo "===================================================================="
+echo "Ce message est envoyé au personnes abonnes à alliance-programmers"
+echo "Pour plus d'information sur cette mailling-list, visitez :"
+echo "http://www-asim.lip6.fr/alliance/mailing-lists/"
+
 ) > "$TMPFILE"  
 
 MAIL_SUBJECT=`cat "$TMPFILE" | gawk '
@@ -36,18 +41,6 @@ END {
 printf("CVS loginfo, %s", SUJ)
 }'`
 
-UPDATE=`cat "$TMPFILE" | gawk '
-/Update of \/users\/outil1\/alliance\/cvsroot\// {
-gsub(/Update of \/users\/outil1\/alliance\/cvsroot\//, "\/users\/outil1\/alliance\/latest\/");
-SUJ=$0
-}
-END {
-printf("%s", SUJ)
-}'`
-
-#echo $UPDATE
-#exit 7
-
 cat "$TMPFILE"  >> $CVSROOT/CVSROOT/log-commit
 cat "$TMPFILE"  | mail -s "ALC : $MAIL_SUBJECT" alliance-programmers@asim.lip6.fr
 
@@ -55,9 +48,7 @@ cat "$TMPFILE"  | mail -s "ALC : $MAIL_SUBJECT" alliance-programmers@asim.lip6.f
 # find cvsroot -type d | xargs chmod g+s
 # devrait marcher...
 # chgrp -R alliance /users/outil1/alliance/cvsroot
-cd "$UPDATE"
-cvs -q update -d -P &
-# chgrp -R alliance /users/outil1/alliance/latest
+# cvs -q update -d -P & en crontab ....
 
 rm -f "$TMPFILE" dummy
 
