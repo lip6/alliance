@@ -561,13 +561,39 @@ static chain_list *make_model_list (fig)
 |       Transform a hierarchy Mbk -> Rds                |
 \------------------------------------------------------*/
 
-rdsfig_list *S2Rfigmbkrds (FigureMbk, All)
+rdsfig_list *S2Rfigmbkrds (FigureMbk, All,SubConn)
      phfig_list *FigureMbk;
      char All;
+     char SubConn;
 {
    rdsfig_list *FigureRds;
    chain_list *Pt;
-
+   
+   /* dupplique tous les CALUx en ALUx dans le père pour permettre 
+      l'unification des pastilles de metal de VIA et des ALU associés */
+   {    
+       phseg_list * phseg;
+       for (phseg = FigureMbk->PHSEG; phseg; phseg=phseg->NEXT)
+       {
+           phseg_list * dupseg = addphseg(FigureMbk,
+                                          phseg->LAYER, phseg->WIDTH, 
+                                          phseg->X1, phseg->Y1, 
+                                          phseg->X2, phseg->Y2, phseg->NAME);
+           switch (phseg->LAYER)
+           {
+           case CALU1 : dupseg->LAYER = ALU1; break;
+           case CALU2 : dupseg->LAYER = ALU2; break;
+           case CALU3 : dupseg->LAYER = ALU3; break;
+           case CALU4 : dupseg->LAYER = ALU4; break;
+           case CALU5 : dupseg->LAYER = ALU5; break;
+           case CALU6 : dupseg->LAYER = ALU6; break;
+           case CALU7 : dupseg->LAYER = ALU7; break;
+           case CALU8 : dupseg->LAYER = ALU8; break;
+           case CALU9 : dupseg->LAYER = ALU9; break;
+           }
+           dupseg->NAME = NULL;
+       }
+   }    
    if (All)
    {
       Pt = make_model_list (FigureMbk);
@@ -587,7 +613,55 @@ rdsfig_list *S2Rfigmbkrds (FigureMbk, All)
 
       FigureRds = figmbkrds ((phfig_list *) Pt->DATA, 0, 0);
       for (Pt = Pt->NEXT; Pt != NULL; Pt = Pt->NEXT)
+      {
+         if (SubConn == 0) /* puisqu'on ne veut pas de connecteurs
+                              intermediaires, on remplace les CALU par les ALU associés FW 200205 */
+         {
+             phseg_list * phseg;
+             for (phseg = ((phfig_list *) Pt->DATA)->PHSEG; phseg; phseg=phseg->NEXT)
+             {
+                 switch (phseg->LAYER)
+                 {
+                 case CALU1 : phseg->LAYER = ALU1; break;
+                 case CALU2 : phseg->LAYER = ALU2; break;
+                 case CALU3 : phseg->LAYER = ALU3; break;
+                 case CALU4 : phseg->LAYER = ALU4; break;
+                 case CALU5 : phseg->LAYER = ALU5; break;
+                 case CALU6 : phseg->LAYER = ALU6; break;
+                 case CALU7 : phseg->LAYER = ALU7; break;
+                 case CALU8 : phseg->LAYER = ALU8; break;
+                 case CALU9 : phseg->LAYER = ALU9; break;
+                 }
+             }
+         }
+         else /* sinon on le duplique dans le metal associé pour qu'il absorbe
+                 les vias inclus lors que la phase d'unification */
+         {
+             phseg_list * phseg;
+             for (phseg = ((phfig_list *) Pt->DATA)->PHSEG; phseg; phseg=phseg->NEXT)
+             {
+                 phseg_list * dupseg = addphseg((phfig_list *) Pt->DATA,
+                                                phseg->LAYER, phseg->WIDTH, 
+                                                phseg->X1, phseg->Y1, 
+                                                phseg->X2, phseg->Y2,
+                                                phseg->NAME);
+                 switch (phseg->LAYER)
+                 {
+                 case CALU1 : dupseg->LAYER = ALU1; break;
+                 case CALU2 : dupseg->LAYER = ALU2; break;
+                 case CALU3 : dupseg->LAYER = ALU3; break;
+                 case CALU4 : dupseg->LAYER = ALU4; break;
+                 case CALU5 : dupseg->LAYER = ALU5; break;
+                 case CALU6 : dupseg->LAYER = ALU6; break;
+                 case CALU7 : dupseg->LAYER = ALU7; break;
+                 case CALU8 : dupseg->LAYER = ALU8; break;
+                 case CALU9 : dupseg->LAYER = ALU9; break;
+                 }
+                 dupseg->NAME = NULL;
+             }
+         }
          figmbkrds ((phfig_list *) Pt->DATA, 0, 0);
+      }   
    }
    else
    {

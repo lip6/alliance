@@ -932,21 +932,16 @@ static void addpwell (model, verbose)
     {
       rdsrec_list *rectab = model->LAYERTAB[RDS_ABOX];
       int f = MBK_SEGMENT_MASK | RDS_FIG_REC_MASK;
-
       long qty = GET_S2R_OVERSIZE (RDS_NIMP);
-      model->LAYERTAB[RDS_PWELL] = rds_rectangle_in (model->LAYERTAB[RDS_PWELL], 
-                                                     rectab->X-qty, rectab->Y-qty, rectab->DX+2*qty, rectab->DY+2*qty, RDS_PWELL,f,NULL);
+
+      // ajout d'un rectangle de PWELL avec la taille de l'ABOX + OVERSIZE(RDS_NIMP)
+      // puis on on elimine le PWELL qui intersecte le NWELL
+      model->LAYERTAB[RDS_PWELL] = rds_rectangle_in (NULL, rectab->X-qty, rectab->Y-qty, rectab->DX+2*qty, rectab->DY+2*qty, RDS_PWELL,f,NULL);
       cutcut (model, RDS_PWELL, RDS_NWELL);
 
-      qty = GET_S2R_OVERSIZE (RDS_NIMP);
-      model->LAYERTAB[RDS_USER9] = rds_rectangle_in (NULL, rectab->X-qty, rectab->Y-qty, rectab->DX+2*qty, rectab->DY+2*qty, RDS_NWELL, f, NULL);
-      cutcut (model, RDS_USER9, RDS_PWELL);
-      model->LAYERTAB[NWELL] = model->LAYERTAB[RDS_USER9];
-
-      qty = GET_S2R_OVERSIZE (RDS_PIMP);
-      model->LAYERTAB[RDS_USER9] = rds_rectangle_in (NULL, rectab->X-qty, rectab->Y-qty, rectab->DX+2*qty, rectab->DY+2*qty, RDS_PWELL, f, NULL);
-      cutcut (model, RDS_USER9, RDS_NWELL);
-      model->LAYERTAB[PWELL] = model->LAYERTAB[RDS_USER9];
+      // on recalcule de NWELL a partir du PWELL
+      model->LAYERTAB[RDS_NWELL] = rds_rectangle_in (NULL, rectab->X-qty, rectab->Y-qty, rectab->DX+2*qty, rectab->DY+2*qty, RDS_PWELL,f,NULL);
+      cutcut (model, RDS_NWELL, RDS_PWELL);
     }
   }
 }
@@ -966,13 +961,21 @@ static void addimp (model, verbose)
 
   if (model->INSTANCE == NULL && model->LAYERTAB[RDS_NWELL] != NULL)
   {
+    rdsrec_list *rectab = model->LAYERTAB[RDS_ABOX];
+    long qty = 0;
+    
+    model->LAYERTAB[RDS_PIMP] = NULL;
+    model->LAYERTAB[RDS_NIMP] = NULL;
+    
     for (r = model->LAYERTAB[RDS_NWELL]; r; r = r->NEXT)
       model->LAYERTAB[RDS_PIMP] = rds_rectangle_in (model->LAYERTAB[RDS_PIMP], r->X, r->Y, r->DX, r->DY, RDS_PIMP, f, NULL);
-
     for (r = model->LAYERTAB[RDS_PWELL]; r; r = r->NEXT)
       model->LAYERTAB[RDS_NIMP] = rds_rectangle_in (model->LAYERTAB[RDS_NIMP], r->X, r->Y, r->DX, r->DY, RDS_NIMP, f, NULL);
-    cutcut (model, RDS_NIMP, RDS_PTIE);
-    cutcut (model, RDS_PIMP, RDS_NTIE);
+
+    if (model->LAYERTAB[RDS_NIMP] != NULL)
+       cutcut (model, RDS_NIMP, RDS_PTIE);
+    if (model->LAYERTAB[RDS_PIMP] != NULL) 
+       cutcut (model, RDS_PIMP, RDS_NTIE);
   }
 }
 
