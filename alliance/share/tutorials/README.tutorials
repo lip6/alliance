@@ -1,0 +1,30 @@
+
+You will find here 4 separate tutorials :
+(Please read overview.ps before)
+
+WARNING : These tutorials are not fully working and must be modified to
+          work with Alliance 4.0 (especially the dlx), but we have 
+          decided to release them even though they are not fully 
+          functionnal. They will be upgraded as soon as we have time.
+
+1/ ADDACCU
+   The design of a very simple chip (adder/accumulator) to get started
+   with the ALLIANCE tools.
+
+   >cd tutorials/addaccu
+
+2/ AMD2901
+   The design of the 4 bits AMD2901 processor, from the VHDL specification to
+   the CIF layout, using the ALLIANCE portable standard cells library.
+
+   >cd tutorials/amd2901
+
+3/ Data Path
+   Building simple data paths using on a procedural data path generator
+   (fpgen) and a data path place and route tool (dpr).
+
+   >cd tutorials/fitpath
+
+4/ DlxM
+   A complete tutorial based on the design of the 32 bit microprocessor DLX.
+
