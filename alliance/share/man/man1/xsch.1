@@ -27,7 +27,8 @@ mouse left button. Here is the description of these menus.
 .B File
 \f4Open\fP : load an existing file. Note that a file with the same name
 and the extention .xsc can be used to attach special
-colors and comments to all displayed objects (see xsc(5) for details).
+colors and comments to all displayed objects (see below for details).
+.fi
 .br
 \f4Quit\fP : quit xsch.
 
@@ -86,6 +87,29 @@ Specifies the input format (vst(5), al(5), vbe(5))
 \-slide file_name ...
 Enables slide mode, all specifies files will be displayed one by one
 using keys +/- in the graphic window.
+
+.SH XSC FILE FORMAT
+.nf
+# Example of .xsc file
+#
+# To attach a particular color and comment to a box :
+# B:box_name:color:comment
+# color is an integer from 0 to 32, or -1 for no_color
+# comment is a string
+B:my_box:0:this box should be blue
+B:another_box:-1:this won't change the box color
+#
+# To attach a particular color and comment to a net :
+# N:net_name:color:comment
+N:my_net:15:this net should be green
+#
+# To attach a particular color and comment to a connector :
+# C:connector_name:color:comment
+C:my_con:32:this connector should be red
+#
+# To attach a particular color and comment to a path :
+# P:from_name:net_name:to_name:color:comment
+P:my_con:my_net:my_box:15:this path should be green
 
 
 .SH ENVIRONMENT VARIABLES
