@@ -87,6 +87,11 @@
  done
  echo "" >> $DOC_AM
  echo "EXTRA_DIST = \$(pkghtml_DATA)" >> $DOC_AM
+ echo "" >> $DOC_AM
+ echo "install-data-hook:" >> $DOC_AM
+ echo "	chmod -R g+w \$(prefix)/doc/html/@PACKAGE@" >> $DOC_AM
+
+
  mv $DOC_AM $TOOL/Makefile.am
 
  if [ -d ./CVS-$TOOL ]; then

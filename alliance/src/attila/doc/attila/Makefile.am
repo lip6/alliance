@@ -7,3 +7,6 @@ pkghtml_DATA = \
                ./man_attila.html
 
 EXTRA_DIST = $(pkghtml_DATA)
+
+install-data-hook:
+	chmod -R g+w $(prefix)/doc/html/@PACKAGE@

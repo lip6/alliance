@@ -8,3 +8,6 @@ attila : ${srcdir}/attila.sh
 	chmod a+x $@
 
 EXTRA_DIST = attila.sh
+
+install-exec-hook:
+	chmod g+w ${bindir}/attila
