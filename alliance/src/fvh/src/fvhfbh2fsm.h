@@ -91,6 +91,10 @@
     unsigned char       CLOCK_OK;
     unsigned char       WHEN_CONDITION;
     unsigned char       STAR_STATE_LOCOUT;
+    chain_list         *DEFAULT_STACK_NAME;
+    long                DEFAULT_STACK_SIZE;
+    long                STACK_PUSH_SIZE;
+    long                STACK_POP_SIZE;
 
   } fvhfig_list;
 

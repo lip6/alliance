@@ -235,6 +235,8 @@ static void FvhFbhFreeFigList()
     DelFigList     = FvhHeadFigList;
     FvhHeadFigList = FvhHeadFigList->NEXT;
 
+    freechain( DelFigList->DEFAULT_STACK_NAME );
+
     autfreeheap( DelFigList, sizeof( fvhfig_list ) );
   }
 }
@@ -470,8 +472,21 @@ void FvhFbhTreatAux( FbhFigure, FsmFigure )
 
         break;
       }
-      else
-      if ( ScanAux->NAME == ScanFigList->NEXT_STATE )
+    }
+  }
+
+  for ( ScanAux  = FbhFigure->BEAUX; 
+        ScanAux != (fbaux_list *)0;
+        ScanAux  = ScanAux->NEXT )
+  {
+    for ( ScanFigList  = FvhHeadFigList;
+          ScanFigList != (fvhfig_list *)0;
+          ScanFigList  = ScanFigList->NEXT )
+    {
+      Type = ( FbhFigure->BETYP + ScanAux->TYPE - 1 );
+
+      if ( ( Type == ScanFigList->CONTROL_TYPE ) ||
+           ( Type == ScanFigList->STATE_TYPE   ) )
       {
         ClearFbhAssignByFsm( ScanAux );
 
@@ -534,17 +549,10 @@ void FvhFbhTreatAux( FbhFigure, FsmFigure )
       }
     }
 
-  /* TO BE DONE !!!!!!
-    if ( FvhDefaultStackName != (chain_list *)0 )
+    if ( ScanFigList->CONTROL_TYPE != (fbtyp_list *)0 )
     {
-      freechain( FvhDefaultStackName );
-      FvhDefaultStackName = (chain_list *)0;
-    }
-   
-    if ( FvhControlType != (fbtyp_list *)0 )
-    {
-      FsmFigure->STACK_SIZE = 1;
-  
+      Figure->STACK_SIZE = 1;
+
       FvhDefaultStackSize = 0;
       FvhStackPushSize    = 0;
       FvhStackPopSize     = 0;
@@ -554,11 +562,13 @@ void FvhFbhTreatAux( FbhFigure, FsmFigure )
             ScanAux != (fbaux_list *)0;
             ScanAux  = ScanAux->NEXT )
       {
-        if ( ScanAux->TYPE == StateType )
+        Type = ( FbhFigure->BETYP + ScanAux->TYPE - 1 );
+
+        if ( Type == ScanFigList->STATE_TYPE )
         {
-          if ( ( ScanAux->NAME != FvhCurrentStateName ) &&
-               ( ScanAux->NAME != FvhNextStateName    ) &&
-               ( ScanAux->NAME != FvhReturnStateName  ) )
+          if ( ( ScanAux->NAME != ScanFigList->CURRENT_STATE ) &&
+               ( ScanAux->NAME != ScanFigList->NEXT_STATE    ) &&
+               ( ScanAux->NAME != ScanFigList->RETURN_STATE  ) )
           {
             FvhDefaultStackSize++;
   
@@ -569,10 +579,14 @@ void FvhFbhTreatAux( FbhFigure, FsmFigure )
   
       if ( FvhDefaultStackSize == 0 )
       {
-        fvherror( FVH_ERROR_STACK_SIZE_ZERO, FsmFigure->NAME, 0 );
+        fvherror( FVH_ERROR_STACK_SIZE_ZERO, Figure->NAME, 0 );
       }
+
+      ScanFigList->DEFAULT_STACK_SIZE = FvhDefaultStackSize;
+      ScanFigList->STACK_PUSH_SIZE    = FvhStackPushSize;
+      ScanFigList->STACK_POP_SIZE     = FvhStackPopSize;
+      ScanFigList->DEFAULT_STACK_NAME = FvhDefaultStackName;
     }
-    */
 
     for ( Process  = FbhFigure->BEPCS;
           Process != (fbpcs_list *)0;
@@ -1745,9 +1759,10 @@ void FvhFbhTreatProcess( FbhFigure, FsmFigure )
     FvhStarStateLocout   = 0;
     FvhWhenCondition     = 0;
     FvhTreatStateControl = 0;
-    FvhDefaultStackSize  = 0;
-    FvhStackPushSize     = 0;
-    FvhStackPopSize      = 0;
+    FvhDefaultStackSize  = ScanFigList->DEFAULT_STACK_SIZE;
+    FvhStackPushSize     = ScanFigList->STACK_PUSH_SIZE;
+    FvhStackPopSize      = ScanFigList->STACK_POP_SIZE;
+    FvhDefaultStackName  = ScanFigList->DEFAULT_STACK_NAME;
 
     FvhTreatMainProcess  = 1;
 
@@ -1868,7 +1883,14 @@ void FvhFbhPostTreat( FsmFigure )
       addfsmpragma( Figure, FvhCurrentStateKeyword, ScanFigList->CURRENT_STATE, ScanFigList->NAME );
       addfsmpragma( Figure, FvhNextStateKeyword   , ScanFigList->NEXT_STATE   , ScanFigList->NAME );
       addfsmpragma( Figure, FvhFirstStateKeyword  , ScanFigList->FIRST_STATE  , ScanFigList->NAME );
-      /* TO BE DONE for STACK */
+      addfsmpragma( Figure, FvhControlKeyword     , ScanFigList->CONTROL      , ScanFigList->NAME );
+
+      addfsmpragma( Figure, FvhStackControlName[ FSM_CTRL_NOP ],
+                    ScanFigList->STACK_CONTROL[ FSM_CTRL_NOP ] , ScanFigList->NAME );
+      addfsmpragma( Figure, FvhStackControlName[ FSM_CTRL_POP ],
+                    ScanFigList->STACK_CONTROL[ FSM_CTRL_POP ] , ScanFigList->NAME );
+      addfsmpragma( Figure, FvhStackControlName[ FSM_CTRL_PUSH ],
+                    ScanFigList->STACK_CONTROL[ FSM_CTRL_PUSH ] , ScanFigList->NAME );
     }
   }
 }
