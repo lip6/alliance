@@ -1,0 +1,90 @@
+# BEFORE editing this file, you should make sure that it is not linked to
+# the master version (../.etc/rc.archive) anymore (i.e. "delink rc.request"
+# if you do not want your changes to affect all archive servers).
+#
+# New mails can be temporarily stalled by creating the file rc.lock (either in
+# ../.etc for all lists or in the current directory for this list only).
+
+#$Id: rc.archive,v 1.1 2000/04/05 15:09:45 czo Exp $
+
+INCLUDERC=$RC_INIT
+INCLUDERC=$RC_CUSTOM
+
+INCLUDERC=$RC_LOCAL_REQUEST_00
+
+LOCKFILE=tmp.lock	# for reusing tmp.(request|from)
+			# also makes sure that the load doesn't go sky-high
+			# when a lot of mail arrives concurrently
+
+#
+# We drop the message in the bitbucket if:
+#	It's too big.
+#	We sent it ourselves.
+#	It was sent by a daemon of some kind.
+#
+
+:0 h
+* > 32768
+/dev/null
+
+:0 h
+* !^X-Loop: $listaddr
+* $$daemon_bias
+* -100^0 ^FROM_DAEMON
+* 1^0
+{ }
+
+:0 Eh
+/dev/null
+
+#
+# We now check that it is not a reply or something.
+# If it isn't, we extract the sender address into tmp.from
+#
+
+:0 whc
+* !^Subject:(.*[^a-z])?(Re:|erro|problem|((can)?not|.*n't)\>)
+| formail -rtzc -xTo: >tmp.from
+
+#
+# Store the whole mail in tmp.request, for later reference.
+#
+
+	:0 Ac
+	| cat >tmp.request
+
+#
+# Feed it to the archive server.
+#
+
+	:0 Aw
+	| arch_retrieve standalone
+
+LOCKFILE				# we don't need the lockfile anymore
+
+INCLUDERC=$RC_LOCAL_REQUEST_30
+
+#
+# Anything not taken care of yet will be served to the maintainer of the list.
+#
+
+:0 fh
+| formail -A"X-Envelope-To: $X_ENVELOPE_TO"
+
+#
+# If this list does not have a maintainer e-mail address, drop things in
+# the file request.
+#
+
+:0:
+* !maintainer ?? .
+request
+
+:0 w
+| formail -R"From X-From_:" -iDate: -iReturn-Receipt-To: -iRead-Receipt-To: \
+   -iAcknowledge-To: | $SENDMAIL $sendmailOPT $sendmailOPTp $maintainer
+
+:0 wfh
+| formail -A"X-Diagnostic: Maintainer $maintainer could not be reached"
+
+HOST=continue_with_../.etc/rc.post

@@ -1,0 +1,119 @@
+#
+# Assign the fully qualified mail address of the maintainer of this list
+# to "maintainer".  If empty, request-mail will not be mailed to any
+# maintainer and will be stored in the "request" file for this list.
+#
+
+maintainer	=	 Olivier.Sirol@lip6.fr
+
+#LOGABSTRACT=yes			# uncomment in case of emergency
+#VERBOSE=yes				# uncomment in case of real emergency
+
+size_limit	=	1524288		# sanity cutoff value for submissions
+
+idcache_size	=	8192		# duplicate-msgid cache size in bytes
+
+archive_hist	=	20		# number of messages left archived
+#archive_log	=	$LOGFILE	# log file for archive retrievals
+#subscribe_log	=	$LOGFILE	# log file for administrivia
+
+#maxhist	=	32		# bounce history limit
+#minbounce	=	4		# no. of bounces before removal
+#cutoff_bounce	=	256		# lines to keep in bounce processing
+
+#match_threshold=	30730		# for close matches to the list
+#medium_threshold=	28672		# for not so close matches to the list
+#loose_threshold=	24476		# for loosely finding your name
+
+#auto_off_threshold=  $medium_threshold # for auto-unsubscribing bouncers
+#off_threshold	=      $loose_threshold # for unsubscribing
+#reject_threshold=     $match_threshold # for rejecting subscriptions
+#submit_threshold=    $medium_threshold # for permitting submissions
+
+#unsub_assist
+unsub_assist	=	8		# uncomment (and change perhaps) this
+					# line to enable unsubscription
+					# assistance; it specifies the no. of
+					# multigram matches an unsuccessful
+					# unsubscriber will receive back
+#foreign_submit =	yes
+##foreign_submit			# uncomment this line if you
+					# want to restrict submitting to
+					# people on the accept list
+#restrict_archive
+##restrict_archive=	yes		# uncomment this line if you
+					# want to restrict archive retrievals
+					# to people on the accept list
+#force_subscribe
+force_subscribe=	yes		# uncomment to cause people to
+					# be autosubscribed upon first
+					# submission to the list
+#auto_unsubscribe=	yes
+##auto_unsubscribe			# uncomment to disable unattended
+					# unsubscription handling
+#auto_subscribe =	yes
+##auto_subscribe			# uncomment to disable unattended
+					# subscription handling
+#auto_help
+auto_help	=	yes		# uncomment to enable default help
+					# responses to all undecipherable
+					# requests
+#moderated_flag
+##moderated_flag=	yes		# uncomment this to make the list
+					# moderated (you must create a
+					# `moderators' file for this to work)
+					# set moderator_PASSWORD to get
+					# stricter checking
+#cc_requests
+##cc_requests	=	yes		# uncomment if you want subscribe
+					# and help requests to be Cc'd to
+					# the maintainer
+#cc_unsubrequests
+##cc_unsubrequests=	yes		# uncomment if you want unsubscribe
+					# requests to be Cc'd to the maintainer
+#divertcheck	=	yes
+##divertcheck				# uncomment to disable the check for
+					# misfiled administrative requests
+#pass_diverts
+##pass_diverts	=	yes		# uncomment to pass on administrative
+					# requests diverted from the normal
+					# list to the maintainer unprocessed
+					# (instead of trying to handle them)
+#reply_to
+##reply_to	= "Resent-Reply-To: $listaddr" # uncomment (and perhaps change
+					# it to "Reply-To") to force replies
+					# to go to the list (discouraged)
+					# why discouraged?  see:
+			# http://garcon.unicom.com/FAQ/reply-to-harmful.html
+#digest_flag
+##digest_flag	=	yes		# uncomment this if you want digests
+#digest_age	=	262144		# maximum age of a digest in seconds
+#digest_size	=	32768		# maximum size of a digest in bytes
+#undigested_list =	$list@$domain	# Reply-To: address for digests
+
+#moderator_PASSWORD =			# put the optional password for
+					# moderators here, this definition
+					# can contain regular expression magic
+					# characters (to support multiple
+					# passwords)
+
+X_COMMAND	=	X-Command
+X_COMMAND_PASSWORD =	alcpass		# put the literal password for
+					# X-Command mails here
+
+#daemon_bias='100^0 ^From:.*daemon@ok'	# You could set "daemon_bias" to
+					# positively discriminate some
+ # mail address not to be from a daemon.  Either with a regexp as demonstrated
+ # or with more complicated recipes that simply set it to '100^0' or nothing.
+
+#RC_LOCAL_SUBMIT_00	= rc.local.s00	# Uncomment (and change) these to
+#RC_LOCAL_SUBMIT_10	= rc.local.s10	# call up customised local scripts
+#RC_LOCAL_SUBMIT_20	= rc.local.s20	# at predefined points.
+#RC_LOCAL_REQUEST_00	= rc.local.r00
+#RC_LOCAL_REQUEST_10	= rc.local.r10
+#RC_LOCAL_REQUEST_20	= rc.local.r20
+#RC_LOCAL_REQUEST_30	= rc.local.r30
+
+RC_CUSTOM				# clear this one from the environment
+					# so that we include this file only
+					# once

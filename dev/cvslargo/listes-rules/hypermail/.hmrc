@@ -1,0 +1,323 @@
+#
+# hmrc.example:
+#
+# This is a sample Hypermail configuration file. If you wish
+# to use it, copy it to a new filename and edit as appropriate
+# for you list needs.
+#
+
+# hm_mbox = [ filename | NONE ]
+#
+# This is the default mailbox to read messages in from. Set this
+# with a value of NONE to read from standard input as the default.
+
+hm_mbox = NONE
+
+# hm_label = [ Title | NONE ]
+#
+# This is the default title you want to call your archives.
+# Set this to NONE to use the name of the input mailbox.
+
+hm_label = NONE
+
+# hm_archives = [ URL | NONE ]
+#
+# This creates a link in the archived index pages labeled
+# "Other mail archives". Set this to NONE to omit such a link.
+
+hm_archives = NONE
+
+# hm_about = [ URL | NONE ]
+#
+# This creates a link in the archived index pages labeled
+# "About this archive". Set this to NONE to omit such a link.
+
+hm_about = NONE
+
+# hm_dir = [ directory path | NONE ]
+#
+# This is the default directory that Hypermail uses when creating
+# and updating archives. If set to NONE, the directory will have the
+# same name as the input mailbox.
+
+hm_dir = NONE
+
+# hm_defaultindex = [ thread | date | subject | author ]
+#
+# This indicates the default type of main index hypermail will generate.
+# Users see this type of index when the archive is first accessed.
+
+hm_defaultindex = thread
+
+# hm_reverse = [ 0 | 1 ]
+#
+# Setting this variable to 1 will reverse-sort the article
+# entries in the date and thread index files by the date they
+# were received. That is, the most recent messages will appear
+# at the top of the index rather than the other way around.
+# Set to 0 if you want latest message on the bottom for date and
+# thread indexes.
+
+hm_reverse = 1
+
+# hm_usetable = [ 0 | 1 ]
+#
+# Setting this variable to 1 will tell Hypermail to generate an
+# index menu at the top and bottom of each page in a table format.
+# Set to 0 if you want the standard Hypermail page look and feel.
+
+hm_usetable = 0
+
+# hm_showprogress = [ 0 | 1 ]
+#
+# Set to 1 to show progress as Hypermail works. Set to 0 for silent
+# operation. Output goes to standard output.
+
+hm_showprogress = 1
+
+# hm_show_msg_links = [ 0 | 1 ]
+#
+# Set this to 1 if you want links to Next, Prev, Next thread, Reply to, 
+# etc, displayed on the article pages. Setting this to 0 disables these 
+# links from appearing on the generated pages.
+
+hm_show_msg_links = 1
+
+# hm_showheaders = [ 0 | 1 ]
+#
+# Set this to 1 to show the RFC 822 message headers To:,
+# From:, and Subject: information found in the email messages.
+# Set to 0 if you want to hide mail headers in articles.
+
+hm_showheaders = 0
+
+# hm_showreplies = [ 0 | 1 ]
+#
+# Set to 1 to show all replies to a message as links in article files.
+# If this is set to 0 no reply links are generated.
+
+hm_showreplies = 1
+
+# hm_showhtml = [ 0 | 1 ]
+#
+# Set this to 1 to show the articles in a proportionally-spaced
+# font rather than a fixed-width (monospace) font. Setting this
+# option to 1 also tells Hypermail to attempt to italicize quoted
+# passages in articles.
+
+hm_showhtml = 0
+
+# hm_showbr = [ 0 | 1 ]
+#
+# Set this to 1 if you want article lines to end with the <br> tag.
+# Else set to 0 to have non-quoted lines word-wrap. Only takes effect
+# if hm_showhtml is set to 1.
+
+hm_showbr = 1
+
+# hm_iquotes = [ 0 | 1 ]
+#
+# Set this to 1 if you want quoted lines to be shown in italics.  Only
+# take effect if hm_showhtml is set to 1.
+
+hm_iquotes = 1
+
+# hm_showhr = [ 0 | 1 ]
+#
+# Set to 1 if you want horizontal rules <HR> before and after
+# the articles. Set to 0 if you don't.
+
+hm_showhr = 1
+
+# hm_overwrite = [ 0 | 1 ]
+#
+# Set to 1 to make Hypermail overwrite existing archives by default.
+
+hm_overwrite = 0
+
+# hm_increment = [ 0 | 1 ]
+#
+# Define as 1 to read in one article only and update existing archives.
+# Define as 0 for it to read and process entire mailboxes.
+
+hm_increment = 1
+
+# hm_thrdlevels = number
+#
+# This specifies the number of thread levels to outline in the thread
+# index. For instance, if hm_thrdlevels is 2, replies to messages will
+# be indented once in the index, but replies to replies, etc., will only
+# be indented once as well. The normal value is 2.
+
+hm_thrdlevels = 2
+
+# hm_eurodate = [ 0 | 1 ]
+#
+# Set this to reflect how you want dates displayed in the index files.
+# Set as 1 to to use European date format "DD MM YYYY".
+# Define as 0 to to use American date format "MM DD YYYY".
+
+hm_eurodate = 1
+
+# hm_dirmode = octal number
+#
+# This is an octal number representing the rwx modes that new directories
+# are set to when they are created. If the archives will be made publically
+# available, it's a good idea to define this as 0755. This must be an octal
+# number.
+
+hm_dirmode = 0755
+
+# hm_filemode = octal number
+#
+# This is an octal number representing the permission modes that new files
+# are set to when they are created. If the archives will be made publically
+# available, it's a good idea to define this as 0644. This must be an octal
+# number.
+
+hm_filemode = 0644
+
+# hm_mailcommand = [ direct mailto | cgi-bin script path | NONE ]
+#
+# This is the mail command that email links go to, for instance
+# "mailto:$TO" or "/cgi-bin/mail?to=$TO&replyto=$ID&subject=$SUBJECT"
+#
+# In constructing this command, you can specify variables:
+#
+# $TO : the email address of the person you're sending mail to.
+# $ID : the ID of the message you're replying to.
+# $SUBJECT: the subject you're replying to.
+#
+# NONE disables mailcommand usage.
+
+hm_mailcommand = mailto:$TO?subject=$SUBJECT
+
+# hm_mailto = [ email-address | NONE ]
+#
+# The address of the contact point that is put in the HTML header line
+# <LINK REV=made HREF=mailto:hm_mailto>
+#
+# The <LINK...> header can be disabled by default by setting
+# mailto to NONE.
+
+hm_mailto = czo@asim.lip6.fr
+
+# hm_domainaddr = [ domainname | NONE ]
+#
+# Domain-ize Addresses -- addresses appearing in the RFC822 field
+# which lack hostname can't be made into proper HREFs. Because the
+# MTA resides on the same host as the list, it is often not required
+# to domain-ize these addresses for delivery. In such cases, hypermail
+# will add the DOMAINADDR to the email address.
+
+hm_domainaddr = asim.lip6.fr
+
+# hm_body = [ HTML <BODY> statement | NONE ]
+#
+# Set this to the <BODY> line to use when generating the HTML pages.
+# Set to "NONE" to use the builtin <BODY> line by default.
+
+#hm_body = <BODY BGCOLOR="#FFFFFF" TEXT="#000000">
+hm_body = NONE
+
+# hm_hmail = [ Mailing List Submission Address | NONE ]
+#
+# Set this to the list's submission address. When enabled, this can be
+# used to submit a new message to the list served by the hypermail archive.
+# "NONE" means don't use it.
+
+hm_hmail = hypermail@landfield.com
+
+# hm_ihtmlheader = [ path to index header template file | NONE ]
+#
+# Set this to the path to the Index header template file. The template
+# file contains HTML directives and substitution cookies for runtime
+# expansion.
+
+hm_ihtmlheaderfile = "/users/largo1/czo/cvslargo/listes-rules/hypermail/hypermail-index.hyp"
+
+
+# hm_ihtmlfooter = [ path to index footer template file | NONE ]
+#
+# Set this to the path to the Index footer template file. The template
+# file contains HTML directives and substitution cookies for runtime
+# expansion.
+
+hm_ihtmlfooterfile = "/users/largo1/czo/cvslargo/listes-rules/hypermail/hypermail-footer.hyp"
+
+# hm_mhtmlheader = [ path to message header template file | NONE ]
+#
+# Set this to the path to the Message header template file. The template
+# file contains HTML directives and substitution cookies for runtime
+# expansion.
+
+hm_mhtmlheaderfile = "/users/largo1/czo/cvslargo/listes-rules/hypermail/hypermail-msg.hyp"
+
+# hm_mhtmlfooter = [ path to message footer template file | NONE ]
+#
+# Set this to the path to the Message footer template file. The template
+# file contains HTML directives and substitution cookies for runtime
+# expansion.
+
+hm_mhtmlfooterfile = "/users/largo1/czo/cvslargo/listes-rules/hypermail/hypermail-footer.hyp"
+
+######################
+# Multiline variables
+######################
+
+# hm_show_headers = list of RFC 822 Headers to display if hm_showheaders
+#                   is set to 1 (TRUE)
+#
+# This is the list of headers to be displayed. They can be listed 
+# comma or space separated all on a single line such as
+#      hm_show_headers = From,Subject,Date,Message-ID
+# or they can be listed individually or any combination of.
+#      hm_show_headers = From
+#      hm_show_headers = Subject
+#      hm_show_headers = Date
+#      hm_show_headers = Message-ID
+
+hm_show_headers = From,Subject,Date,Message-ID
+
+# hm_inline_types = indicate which types of data should be inlined
+#
+# This is the list of MIME types that you want inlined as opposed to
+# simply linked into the message. They can be listed individually on 
+# multiple lines or comma or space separated on a single line.
+#      hm_inline_types = image/gif image/jpeg
+#      or
+#      hm_inline_types = image/gif
+#      hm_inline_types = image/jpeg
+
+hm_inline_types = image/gif image/jpeg
+
+# hm_ignore_types = indicate which types of attachments to ignore and
+#                   not process.
+#
+# This is the list of MIME attachment types that you do not want to
+# do anything with. They are quietly ignored.  They can be listed 
+# individually on multiple lines or comma or space separated on a 
+# single line.
+#      hm_ignore_types = text/x-vcard application/x-msdownload
+#      or
+#      hm_ignore_types = text/x-vcard
+#      hm_ignore_types = application/x-msdownload
+
+hm_ignore_types = text/x-vcard
+hm_ignore_types = application/x-msdownload
+
+# hm_prefered_types = indicate which of the alternative types to use
+#
+# This is the list of alternative MIME types that you want used when
+# displaying the data.  This can be listed individually on multiple
+# lines or comma or space separated on a single line.
+#      hm_prefered_types = text/plain text/html 
+#      or
+#      hm_prefered_types = text/plain
+#      hm_prefered_types = text/html 
+# Order is important.
+#
+# NOTE: This option is not fully implemented at present.
+
+hm_prefered_types = text/plain text/html 
+

@@ -1,0 +1,17 @@
+#! /bin/sh
+
+gawk '
+BEGIN {FIRST=1;}
+{
+if (FIRST)
+{
+FIRST=0;
+# ca cest du bug...
+if ( $0 ~ /no email/ )
+  gsub(/\(no email\)/,"NOMAIL");
+  
+YEAR=$7
+}
+
+   print $0 >> "/tmp/hypczo/"YEAR ;
+}'

@@ -1,0 +1,348 @@
+# BEFORE editing this file, you should make sure that it is not linked to
+# the master version (../.etc/rc.request) anymore (i.e. "delink rc.request"
+# if you do not want your changes to affect all lists).
+#
+# New mails can be temporarily stalled by creating the file rc.lock (either in
+# ../.etc for all lists or in the current directory for this list only).
+
+#$Id: rc.request,v 1.1 2000/04/05 15:09:45 czo Exp $
+
+INCLUDERC=$RC_INIT
+INCLUDERC=$RC_CUSTOM
+
+INCLUDERC=$RC_LOCAL_REQUEST_00
+
+LOCKFILE=tmp.lock	# for reusing tmp.(request|from)
+			# also makes sure that the load doesn't go sky-high
+			# when a lot of mail arrives concurrently
+
+:0 Bfw			# concatenate header and body
+* $^^$X_COMMAND:
+| sed -e '1,/^$/{' -e '/^$/d' -e '}'
+
+#
+# We now check:
+#	If the length is roughly within bounds.
+#	That it is not a reply or something.
+#	That we didn't send it ourselves.
+#	That it wasn't sent by a daemon of some kind.
+#
+# If everything matches, we extract the sender address into tmp.from
+#
+
+:0
+* B ?? < 4096
+* $$daemon_bias
+* $!^(X-(Loop: $\listaddr|Diagnostic:)|$X_COMMAND:)
+* -100^0 ^FROM_DAEMON
+*    1^0
+{
+
+:0
+* -100^0 ^Subject:(.*[^a-z])?(Re:|erro|change|problem|((can)?not|.*n't)\>)
+*  100^0 B ?? ^^([	 ]|$)*\
+	((archives?:?($|[	 ]+)|\
+	  ((un)subscribe|(send|get)(me)?|gimme|retrieve|mail|ls|dir(ectory)?|\
+	    list|show|search|[fe]?grep|find|maxfiles|version|help|info)\
+	   ([	 ].*)?$)([	 ]|$)*)+\
+	    ([^	 a-z].*$(.*$(.*$(.*$(.*$)?)?)?)?)?^^
+*  100^0 ^Subject:[	 ]*archive
+*    1^0
+{
+  :0 whc
+  | formail -rtzc -xTo: >tmp.from
+
+#
+# Store the whole mail in tmp.request, for later reference.
+#
+
+  :0 wc
+  | formail -IIn-Reply-To: -ICc: >tmp.request
+
+#
+# Check for a missing Subject: line.
+#
+
+  :0 wfh
+  * !^Subject:
+  | formail -a "Subject: "
+
+  INCLUDERC=$RC_LOCAL_REQUEST_10
+
+###############################################################################
+# Reader beware, the following four regular expressions are not for the faint #
+# of heart.  It'll suffice to say that they accomplish their intended job 98% #
+# of the time.								      #
+###############################################################################
+
+#
+# Is it an archive retrieval command?
+#
+
+  :0 HB w
+  * 9876543210^0 ^^(.+$)*Subject:[	 ]*(([(<]no(ne| subject\
+      ( (\(file transmission|given))?)[>)])?\
+     $(.+$)*(^[	 ]*)+)?(archives?:?([	 ]|$)|\
+     ((send|get)(me)?|gimme|retrieve|mail|ls|dir(ectory)?|list|show|\
+      search|[fe]?grep|find|maxfiles|version)([	 ]+[^	 ]*)?$)
+  *  1^0 B ?? ^^([	 ]|$)*\
+	((archives?:?($|[	 ]+)|\
+	  ((send|get)(me)?|gimme|retrieve|mail|ls|dir(ectory)?|\
+	    list|show|search|[fe]?grep|find|maxfiles|version|help|info)\
+	   ([	 ].*)?$)([	 ]|$)*)+\
+	    ([^	 a-z].*$(.*$(.*$(.*$(.*$)?)?)?)?)?^^
+  {
+    :0 W
+    * 9876543210^0 !restrict_archive ?? y
+    * 2^0 ? formail -rt -R To: "From " -X "From " | \
+	     multigram -b1 -m -l$submit_threshold -L$domain \
+	      -x$listaddr -x$listreq accept accept2
+    | arch_retrieve
+
+    :0 E fhw
+    | formail -A "X-Diagnostic: Not on the accept list"
+  }
+
+#
+# Is it an unsubscription request?
+#
+
+  :0 EHB
+  * 9876543210^0 ^^(.+$)*Subject:[	 ]*([(<]no(ne| subject\
+      ( (\(file transmission|given))?)[>)])?(\
+     ($(.+$)*(^[	 ]*)+((.+|$)+[,.:;]([	 ]+|$)+)?)?\
+      (Could you )?(please )?\
+      (sign( [^ ]+ |-)?off|cancel|leave|delete|remove|(un|de)-?sub)\>|\
+     ($(.+$)*$(.*$)*)?(.*[^a-z])?\
+      ((un-?|(un|de)-?sub?)s(cr|c|r)i|\
+      (leave|(delete|remove) .* from|(sign|take|get) .* off) .* [a-z-]*list\>))
+  *  1^0 B ?? ^^([	 ]|$)*unsub(scribe)?([	 ].*)?([	 ]|$)*\
+	       [^	 a-z]?^^
+   {
+     :0 fw:dist.lock
+     * auto_unsubscribe ?? y
+     | unsubscribe
+
+	:0 Aw ${cc_unsubrequests:+c}
+	| $SENDMAIL $sendmailOPT `cat tmp.from` ;
+
+	:0 Afhw
+	| formail -A "X-Diagnostic: Processed"
+   }
+
+
+#
+# Is it a subscription request?
+#
+
+  :0 EHB
+  * 9876543210^0 ^^(.+$)*Subject:[	 ]*([(<]no(ne| subject\
+      ( (\(file transmission|given))?)[>)])?(\
+     ($(.+$)*(^[	 ]*)+((.+|$)+[,.:;]([	 ]+|$)+)?)?\
+      (Could you )?(please )?\
+      (sign( [^ ]+ |-)?on|add|join|sub)\>|\
+     ($(.+$)*$(.*$)*)?(.*[^a-z])?\
+      (sub?s(cr|c|r)i.*|(join|add .* to|(sign|put) .* on) .* [a-z-]*list\>))
+  *  1^0 B ?? ^^([	 ]|$)*sub(scribe)?([	 ].*)?([	 ]|$)*\
+	       [^	 a-z]?^^
+   {
+     #
+     # Yes, well, then check if the person subscribing isn't on the reject
+     # list.
+     #
+
+     :0 HB wfh
+     * ? multigram -b1 -l$reject_threshold reject
+     | formail -A "X-Diagnostic: Found on the reject list" \
+	-A "X-Diagnostic: `multigram -b1 -l$reject_threshold reject`"
+
+     #
+     # If not, then let's see if he might already be on the
+     # mailinglist.
+     #
+
+     :0 E HB wfh
+     * ? formail -IReceived: -IX-Envelope-To: -IIn-Reply-To: -ICc: | \
+	   multigram -b1 -x$listreq -x$listaddr -l$reject_threshold dist
+     | formail -A "X-Diagnostic: Already on the subscriber list" \
+	-A "X-Diagnostic: `multigram -b1 -x$listreq -x$listaddr \
+	-l$reject_threshold dist`"
+
+     #
+     # If not, add him(/her/it?).
+     #
+
+     :0 E
+     * auto_subscribe ?? y
+      {
+	:0 W ${cc_requests:+c}:dist.lock
+	| subscribe
+
+	:0 awfh
+	| formail -A "X-Diagnostic: Added to the subscriber list"
+
+	:0 Ewfh
+	| formail -A "X-Diagnostic: Tried to subscribe"
+      }
+   }
+
+#
+# Is it an info or help request?  Send back the help.txt and the
+# optional info.txt file.
+# We do the same on a complete empty mail (except for perhaps a signature).
+#
+
+  :0 EHB
+  *  3^0 ^^(.+$)*Subject:[	 ]*\
+		 (([(<]no(ne| subject( (\(file transmission|given))?)[>)])?$\
+     (.+$)*(^[	 ]*)+)?[a-z,.	 ]*(help|info(rmation)?)\>
+  *  1^0 ^^(.+$)*Subject:[	 ]*\
+		  ([(<]no(ne| subject( (\(file transmission|given))?)[>)])?$
+  * -2^0 ^^(.+$)*(^[	 ]*)+[a-z]
+  *  3^0 ^^(.+$)*^([	 ]*$)*--
+  {
+    :0 hw ${cc_requests:+c}
+    | (formail -i"From: $listreq" -rtA"X-Loop: $listaddr"; \
+       cat help.txt info.txt 2>/dev/null ) | $SENDMAIL $sendmailOPT -t
+
+    :0 wfh
+    | formail -A "X-Diagnostic: help sent"
+  }
+
+  INCLUDERC=$RC_LOCAL_REQUEST_20
+
+  LOGABSTRACT=yes
+
+#
+# If auto_help is set, anything undecipherable gets back the help.txt and the
+# optional info.txt file.
+#
+
+  :0 EB
+  * auto_help ?? y
+  * $!X-Loop: $\listaddr
+  {
+    :0 hw ${cc_requests:+c}
+    | (formail -i"From: $listreq" -rtA"X-Loop: $listaddr"; \
+       cat help.txt info.txt 2>/dev/null ) | $SENDMAIL $sendmailOPT -t
+
+    :0 wfh
+    | formail -A "X-Diagnostic: undecipherable, help sent"
+  }
+
+}
+}
+
+LOGABSTRACT=yes
+
+#
+# Could it be a bounce message from a daemon?  Hand it down to procbounce
+# which will evaluate it.
+#
+
+:0 wic
+* $!^(Subject:(.*[^a-z])?Re:|\
+     X-(Loop: $\listaddr|Diagnostic:)|$X_COMMAND:)
+* ^FROM_DAEMON
+| sed -e $cutoff_bounce' q' >tmp.request
+
+  #
+  # Sink all messages we can recognise to be queue warnings
+  #
+
+  :0 Ah
+  * ^Subject: \
+     (WARNING: message delayed|\
+      (Returned mail: )?warning: c(an|ould )not send m(essage fo|ail afte)r|\
+      Undeliverable (RFC822 )?mail: temporarily unable to deliver|\
+      \*\*\* WARNING - Undelivered mail in mailqueue)
+  /dev/null
+
+  :0 Ah
+  * ^Subject: (Warning from|mail warning| ?Waiting mail)
+  * ^(From|Sender):.*(uucp|mmdf)
+  /dev/null
+
+  :0 AhBD
+  * $^(..?)?X-Loop: $\listaddr \(bounce\)
+  * ^(..?)?Subject: You have been removed from
+  /dev/null
+
+  #
+  # Anything that still survived is most likely to be a bounce message.
+  #
+
+  :0 Ahfw
+  | procbounce
+
+#
+# Or is it a remote X-Command from our maintainer?
+#
+
+:0 wf:dist.lock
+* $^$X_COMMAND:.*$\maintainer[	 ]*$\X_COMMAND_PASSWORD
+* $!^X-Loop: $\listaddr
+| x_command
+
+LOCKFILE				# we don't need the lockfile anymore
+
+#
+# Anything not taken care of yet will be served to the maintainer of the list.
+#
+# To make it easier on him, we include a small hint about what might be the
+# problem (by adding X-Diagnostic: fields to the header).
+#
+
+:0 wfh
+* !< $size_limit
+| formail -A "X-Diagnostic: Submission size exceeds $size_limit bytes"
+
+:0 wfh
+* ^FROM_DAEMON
+| formail -A "X-Diagnostic: Mail coming from a daemon, ignored"
+
+:0 HB wfh
+* $^X-Loop: $\listaddr
+| formail -A "X-Diagnostic: Possible loopback problem"
+
+:0
+* !^X-(Diagnostic|Processed):
+{
+  :0 wfh
+  * $^$X_COMMAND:
+  | formail -A "X-Diagnostic: Suspicious $X_COMMAND format"
+
+  :0 HB wfh
+  * ? formail -IReceived: -IX-Envelope-To: -IIn-Reply-To: -ICc: | \
+       multigram -b1 -x$listreq -x$listaddr -l$reject_threshold dist
+  | formail -A "X-Diagnostic: Already on the subscriber list" \
+     -A "X-Diagnostic: `multigram -b1 -x$listreq -x$listaddr \
+     -l$reject_threshold dist`"
+}
+
+INCLUDERC=$RC_LOCAL_REQUEST_30
+
+:0 wfh
+* !^X-(Diagnostic|Processed):
+| formail -A"X-Diagnostic: Unprocessed"
+
+:0 wfh
+| formail -A"X-Envelope-To: $X_ENVELOPE_TO"
+
+#
+# If this list does not have a maintainer e-mail address, drop things in
+# the file request.
+#
+
+:0:
+* !maintainer ?? .
+request
+
+:0 w
+| formail -R"From X-From_:" -iDate: -iReturn-Receipt-To: -iRead-Receipt-To: \
+   -iAcknowledge-To: | $SENDMAIL $sendmailOPT $sendmailOPTp $maintainer
+
+:0 wfh
+| formail -A"X-Diagnostic: Maintainer $maintainer could not be reached"
+
+HOST=continue_with_../.etc/rc.post

@@ -1,0 +1,4 @@
+AuthName "Confidentiel ASIM (intranet)"
+AuthType Basic
+AuthUserFile /users/largo2/webmastr/ASIM-AuthUserFile
+require user asim

@@ -1,0 +1,11 @@
+#$Id: .procmailrc,v 1.1 2000/04/05 15:09:45 czo Exp $
+
+LOGFILE=/dev/null
+MAILDIR=.etc				# chdir to the defaults directory
+
+INCLUDERC=rc.init
+
+:0 wfh
+| formail -A"X-Diagnostic: Non-existent mailinglist $X_ENVELOPE_TO"
+
+INCLUDERC=rc.post
