@@ -7,7 +7,7 @@
 # Author: Frédéric Pétrot (fred@pasta.fr.ea)
 #         for version 0
 #
-# $Id: instool,v 1.4 1999/09/24 13:24:57 czo Exp $
+# $Id: instool,v 1.5 1999/09/24 15:19:42 czo Exp $
 #
 
 PATH=/asim/gnu/bin:/usr/ucb:/usr/etc:/bin:/usr/bin:/usr/local/bin:${PATH}
@@ -27,6 +27,7 @@ BUGTEAM="fred ludo czo"
 # rep par defaut : alliance/archi/$MACHINE
 #                  alliance/share/...
 TARGET="SunOS Solaris Linux_elf Linux"
+NUM_TARGET=4
 LABO=/users/soft5/newlabo/alliance
 CELL_EXTENSIONS="al ap vst vbe cp hns edi spi db dat IDX"
 CELLS=$LABO/share/cells
@@ -117,7 +118,7 @@ echo "   the default shell is now sh"
    if [ $bin  -eq 0 ]; then
       echo "No binaries to install, ..."
       unset bin
-   elif [ ! $bin  -eq 3 ]; then
+   elif [ ! $bin  -eq $NUM_TARGET ]; then
       echo "`basename $0` cannot install tool $1"
       echo "Directory $1/labo/archi/bin doesn't exist on all architectures"
       exit 5
@@ -126,7 +127,7 @@ echo "   the default shell is now sh"
    if [ $lib  -eq 0 -a $inc -eq 0 ]; then
       echo "No libraries to install, ..."
       unset lib inc
-   elif [ ! \( $lib  -eq 3 -a $inc -eq 3 \) ]; then
+   elif [ ! \( $lib  -eq $NUM_TARGET -a $inc -eq $NUM_TARGET \) ]; then
       echo "`basename $0` cannot install tool $1"
       echo "Directory $1/labo/archi/lib or/and $1/labo/archi/include "
       echo "doesn't exist on all architectures"
@@ -154,7 +155,7 @@ echo "   the default shell is now sh"
             b=`expr $b + 1`
          fi
       done
-      if [ $b -eq 3 ] ; then
+      if [ $b -eq $NUM_TARGET ] ; then
          for i in $TARGET ; do
             echo "Please remove $1/labo/$i/bin since it is empty"
          done
@@ -196,11 +197,11 @@ echo "   the default shell is now sh"
             exit 7
          fi
       done
-      if [ $l -eq 3 ] ; then
+      if [ $l -eq $NUM_TARGET ] ; then
             echo "Please remove $1/labo/archi/lib since it is empty "
             unset lib
       fi
-      if [ $h -eq 3 ] ; then
+      if [ $h -eq $NUM_TARGET ] ; then
             echo "Please remove $1/labo/archi/include since it is empty "
             unset inc
       fi
