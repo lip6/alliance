@@ -159,6 +159,13 @@ int main( argc, argv )
   }
 
   FsmFigure = FmiParseFsm( InputFileName );
+
+  if ( ( IsFsmFigMulti( FsmFigure    ) ) ||
+       ( IsFsmFigMixedRtl( FsmFigure ) ) )
+  {
+    fprintf( stderr, "\tMulti FSM or Mixed RTL FSM not supported !\n" );
+    autexit( 1 );
+  }
   
   if ( FlagVerbose )
   {
