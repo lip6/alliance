@@ -1,0 +1,481 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN">
+<HTML
+><HEAD
+><TITLE
+>DPGEN_FIFO</TITLE
+><META
+NAME="GENERATOR"
+CONTENT="Modular DocBook HTML Stylesheet Version 1.7"><LINK
+REL="HOME"
+TITLE=" GenLib User's Manual "
+HREF="genlib.html"><LINK
+REL="UP"
+TITLE="Alliance - genlib User's Manual "
+HREF="ref_genlib.html"><LINK
+REL="PREVIOUS"
+TITLE="DPGEN_RF1"
+HREF="man_dpgen_rf1.html"><LINK
+REL="NEXT"
+TITLE="DPGEN_RF1D"
+HREF="man_dpgen_rf1d.html"></HEAD
+><BODY
+CLASS="REFENTRY"
+BGCOLOR="#FFFFFF"
+TEXT="#000000"
+LINK="#0000FF"
+VLINK="#840084"
+ALINK="#0000FF"
+><DIV
+CLASS="NAVHEADER"
+><TABLE
+SUMMARY="Header navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TH
+COLSPAN="3"
+ALIGN="center"
+>GenLib User's Manual</TH
+></TR
+><TR
+><TD
+WIDTH="10%"
+ALIGN="left"
+VALIGN="bottom"
+><A
+HREF="man_dpgen_rf1.html"
+ACCESSKEY="P"
+>&#60;&#60;&#60; Previous</A
+></TD
+><TD
+WIDTH="80%"
+ALIGN="center"
+VALIGN="bottom"
+></TD
+><TD
+WIDTH="10%"
+ALIGN="right"
+VALIGN="bottom"
+><A
+HREF="man_dpgen_rf1d.html"
+ACCESSKEY="N"
+>Next &#62;&#62;&#62;</A
+></TD
+></TR
+></TABLE
+><HR
+ALIGN="LEFT"
+WIDTH="100%"></DIV
+><H1
+><A
+NAME="DPGEN-FIFO"
+></A
+>DPGEN_FIFO</H1
+><DIV
+CLASS="REFNAMEDIV"
+><A
+NAME="AEN2975"
+></A
+><H2
+>Name</H2
+> DPGEN_FIFO&nbsp;--&nbsp;FIFO Macro-Generator </DIV
+><DIV
+CLASS="REFSYNOPSISDIV"
+><A
+NAME="AEN2978"
+></A
+><H2
+>Synopsis</H2
+><DIV
+CLASS="FUNCSYNOPSIS"
+><P
+></P
+><A
+NAME="AEN2979"
+></A
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><PRE
+CLASS="FUNCSYNOPSISINFO"
+>#include  &#60;genlib.h&#62;</PRE
+></TD
+></TR
+></TABLE
+><P
+><CODE
+><CODE
+CLASS="FUNCDEF"
+>void <TT
+CLASS="FUNCTION"
+>GENLIB_MACRO</TT
+></CODE
+>(DPGEN_FIFO, char *<TT
+CLASS="PARAMETER"
+><I
+>modelname</I
+></TT
+>, long <TT
+CLASS="PARAMETER"
+><I
+>flags</I
+></TT
+>, long <TT
+CLASS="PARAMETER"
+><I
+>N</I
+></TT
+>);</CODE
+></P
+><P
+></P
+></DIV
+></DIV
+><DIV
+CLASS="REFSECT1"
+><A
+NAME="AEN2991"
+></A
+><H2
+> Description </H2
+><P
+> Generate a FIFO of <VAR
+CLASS="REPLACEABLE"
+>regNumber</VAR
+> words of <VAR
+CLASS="REPLACEABLE"
+>N</VAR
+> bits named <VAR
+CLASS="REPLACEABLE"
+>modelname</VAR
+>.
+    </P
+><P
+> How it works :
+    <P
+></P
+><UL
+><LI
+><P
+> <TT
+CLASS="LITERAL"
+>datain0</TT
+> and <TT
+CLASS="LITERAL"
+>datain1</TT
+> : the two write busses. Only one
+        is used to actually write the register word, it is selected by
+        the <TT
+CLASS="LITERAL"
+>sel</TT
+> signal.
+        </P
+></LI
+><LI
+><P
+> <TT
+CLASS="LITERAL"
+>sel</TT
+> : when set to <TT
+CLASS="LITERAL"
+>'0'</TT
+> the <TT
+CLASS="LITERAL"
+>datain0</TT
+> is used to write
+        the register word, otherwise it will be <TT
+CLASS="LITERAL"
+>datain1</TT
+>.
+        </P
+></LI
+><LI
+><P
+> <TT
+CLASS="LITERAL"
+>r</TT
+>, <TT
+CLASS="LITERAL"
+>rok</TT
+> : set <TT
+CLASS="LITERAL"
+>r</TT
+> when a word is requested, <TT
+CLASS="LITERAL"
+>rok</TT
+> tells
+        that a word has effectively been popped out of the FIFO (this is
+        indicate an empty FIFO).
+        </P
+></LI
+><LI
+><P
+> <TT
+CLASS="LITERAL"
+>w</TT
+>, <TT
+CLASS="LITERAL"
+>wok</TT
+> : set <TT
+CLASS="LITERAL"
+>w</TT
+> when a word is pushed, <TT
+CLASS="LITERAL"
+>wok</TT
+> tells
+        that the word has effectively been pushed in the FIFO (this is
+        indicate that the FIFO is full).
+        </P
+></LI
+></UL
+>
+    </P
+><DIV
+CLASS="REFSECT2"
+><A
+NAME="AEN3022"
+></A
+><H3
+> Terminal Names </H3
+><P
+></P
+><OL
+TYPE="1"
+><LI
+><P
+> <TT
+CLASS="LITERAL"
+>ck</TT
+> : clock signal (input, 1 bit). </P
+></LI
+><LI
+><P
+> <TT
+CLASS="LITERAL"
+>reset</TT
+> : reset signal (input, 1 bit). </P
+></LI
+><LI
+><P
+> <TT
+CLASS="LITERAL"
+>r</TT
+> : read requested (input, 1 bits). </P
+></LI
+><LI
+><P
+> <TT
+CLASS="LITERAL"
+>w</TT
+> : write requested (input, 1 bits). </P
+></LI
+><LI
+><P
+> <TT
+CLASS="LITERAL"
+>rok</TT
+> : read acknowledge (output, 1 bits). </P
+></LI
+><LI
+><P
+> <TT
+CLASS="LITERAL"
+>wok</TT
+> : write acknowledge (output, 1 bits). </P
+></LI
+><LI
+><P
+> <TT
+CLASS="LITERAL"
+>sel</TT
+> : select the write bus (input, 1 bit). </P
+></LI
+><LI
+><P
+> <TT
+CLASS="LITERAL"
+>datain0</TT
+> :  first write bus (input, <VAR
+CLASS="REPLACEABLE"
+>N</VAR
+> bits). </P
+></LI
+><LI
+><P
+> <TT
+CLASS="LITERAL"
+>datain1</TT
+> :  second write bus (input, <VAR
+CLASS="REPLACEABLE"
+>N</VAR
+> bits). </P
+></LI
+><LI
+><P
+> <TT
+CLASS="LITERAL"
+>dataout</TT
+> : read bus (output, <VAR
+CLASS="REPLACEABLE"
+>N</VAR
+> bits). </P
+></LI
+><LI
+><P
+> <TT
+CLASS="LITERAL"
+>vdd</TT
+> : power. </P
+></LI
+><LI
+><P
+> <TT
+CLASS="LITERAL"
+>vss</TT
+> : ground. </P
+></LI
+></OL
+></DIV
+></DIV
+><DIV
+CLASS="REFSECT1"
+><A
+NAME="AEN3064"
+></A
+><H2
+> Example </H2
+><P
+>    <TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><PRE
+CLASS="PROGRAMLISTING"
+>GENLIB_MACRO(DPGEN_RF1, "model_fifox8_32"
+                      , F_BEHAV|F_PLACE
+                      , 32  /* Words size.      */
+                      , 8   /* Number of words. */
+                      );
+
+GENLIB_LOINS( "model_fifox8_32"
+            , "instance1_fifo1_32"
+            , "ck"
+            , "r"
+            , "w"
+            , "rok"
+            , "wok"
+            , "sel"
+            , "datain0[31:0]"
+            , "datain1[31:0]"
+            , "dataout[31:0]"
+            , "vdd", "vss", NULL
+            );
+    </PRE
+></TD
+></TR
+></TABLE
+>
+    </P
+></DIV
+><DIV
+CLASS="REFSECT1"
+><A
+NAME="AEN3068"
+></A
+><H2
+>See Also</H2
+><P
+>      <A
+HREF="man_genlib_macro.html"
+><SPAN
+CLASS="CITEREFENTRY"
+><SPAN
+CLASS="REFENTRYTITLE"
+>GENLIB_MACRO</SPAN
+>(3)</SPAN
+></A
+>,
+      <A
+HREF="man_genlib.html"
+><SPAN
+CLASS="CITEREFENTRY"
+><SPAN
+CLASS="REFENTRYTITLE"
+>genlib</SPAN
+>(1)</SPAN
+></A
+>
+    </P
+></DIV
+><DIV
+CLASS="NAVFOOTER"
+><HR
+ALIGN="LEFT"
+WIDTH="100%"><TABLE
+SUMMARY="Footer navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+><A
+HREF="man_dpgen_rf1.html"
+ACCESSKEY="P"
+>&#60;&#60;&#60; Previous</A
+></TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="genlib.html"
+ACCESSKEY="H"
+>Home</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+><A
+HREF="man_dpgen_rf1d.html"
+ACCESSKEY="N"
+>Next &#62;&#62;&#62;</A
+></TD
+></TR
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+>DPGEN_RF1</TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="ref_genlib.html"
+ACCESSKEY="U"
+>Up</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+>DPGEN_RF1D</TD
+></TR
+></TABLE
+></DIV
+></BODY
+></HTML
+>
