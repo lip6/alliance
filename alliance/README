@@ -5,7 +5,7 @@
 # E-mail support     : mailto:alliance-support@asim.lip6.fr
 # ftp site           : ftp://ftp-asim.lip6.fr/pub/alliance/
 #
-# $Id: README,v 1.8 2000/02/11 10:20:11 czo Exp $
+# $Id: README,v 1.9 2000/03/24 15:22:53 czo Exp $
 
 
 # Alliance 
@@ -49,36 +49,46 @@ other gnu tools (gmake, gawk ...), X11R6.4 libraries (http://www.x.org/), Motif
 for linux RedHat 6 of lesstif-0.88 are available at
 ftp://ftp-asim.lip6.fr/pub/alliance/redist/
 
-Gziped tar format :
--------------------
+
+Gziped tar format ( for Linux, SunOS, Solaris and FreeBSD ) :
+---------------------------------------------------------
 
 You will have to download at least two files : one for the common files of
 Alliance (like cells library) and another containing binaries for your specific
-platform. Binaries for Linux RedHat 6, SunOS, Solaris and FreeBSD platforms are
-available.
+platform. 
 
-download alliance-X.XX-common.tar.gz   Files common to each platform *required*
-download alliance-X.XX-i386-linux-Y.YY.tar.gz     for Linux
-download alliance-X.XX-i386-freebsd-Y.YY.tar.gz   for FreeBSD
-download alliance-X.XX-sparc-sunos-Y.YY.tar.gz    for SunOS
-download alliance-X.XX-sparc-solaris-Y.YY.tar.gz  for Solaris
+In the fowlowing filenames X.XX is the Alliance version number 
+(e.g.: 3.2 for Alliance 3.2) and Y.YY is the OS version number 
+(e.g.: 4.1.4 for SunOS 4.1.4)
 
-Where X.XX is the Alliance version number (e.g.: 3.2 for Alliance 3.2)
-and Y.YY is the OS version number (e.g.: 4.1.4 for SunOS 4.1.4)
+- alliance-X.XX-common.tar.gz : Files common to each platform *required*
 
-Linux Rpm format :
------------------
+- alliance-X.XX-i386-linux-Y.YY.tar.gz : binary package for Linux 
+  ( pre-compiled on a Linux RedHat 6.0 with Lesstif 0.88 )
 
-Available for Linux RedHat 6 (the common package is included)
+- alliance-X.XX-i386-freebsd-Y.YY.tar.gz : binary package for FreeBSD
+  ( pre-compiled on a FreeBSD 3.4 with Lesstif 0.88 )
+  
+- alliance-X.XX-sparc-sunos-Y.YY.tar.gz : binary package for SunOS
+  ( pre-compiled on a SunOS 4.1.4 with Motif 1.2 and X11R6.4 )
+  
+- alliance-X.XX-sparc-solaris-Y.YY.tar.gz : binary package for Solaris
+  ( pre-compiled on a Solaris 2.7 with dt/Motif 1.2 and X11R6.4 )
 
-download alliance-X.XX-i386-asimYY.rpm
+Rpm format ( for Linux RedHat 6.0 / 6.1 ) :
+-------------------------------------------
 
-Windows setup format :
----------------------
+Pre-compiled on a Linux RedHat 6.0 with Lesstif 0.88, it works on 
+Linux RedHat 6.0 and 6.1 (the common package is included)
+
+- alliance-X.XX-i386-asimYY.rpm
+
+Windows setup format ( for Windows 95/98/NT4 ) :
+------------------------------------------------
 
 Available for Windows 95/98/NT4 (the common package is included)
 
-download alliance-X.XX-cygwin.exe
+- alliance-X.XX-cygwin-b20.exe
 
 
 # Installation of binary distribution
@@ -140,9 +150,9 @@ ftp://ftp-asim.lip6.fr/pub/alliance/redist/windows/
 Please read
 ftp://ftp-asim.lip6.fr/pub/alliance/redist/windows/README
 
-To install alliance, just run alliance-X.XX-cygwin.exe
+To install alliance, just run alliance-X.XX-cygwin-YY.exe
 
-> start alliance-X.XX-cygwin.exe
+> start alliance-X.XX-cygwin-YY.exe
 
 It is strongly recommanded to install alliance in : 
 

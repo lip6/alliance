@@ -4,10 +4,10 @@
 #
 # Alliance CAD system configure.in 
 # (C) 1997 Czo  -- <Olivier.Sirol@lip6.fr>
-# $Id: configure.in,v 1.8 1999/11/22 14:36:25 czo Exp $
+# $Id: configure.in,v 1.9 2000/03/24 15:23:02 czo Exp $
 #
 
-AC_REVISION($Revision: 1.8 $)dnl
+AC_REVISION($Revision: 1.9 $)dnl
 
 AC_INIT(configure.in)
 
@@ -388,7 +388,7 @@ AC_SUBST(HOST)
 
 # create output files
 
-AC_OUTPUT(alliance_os.mk alc_env.sh alc_env.csh)
+AC_OUTPUT(alliance_os.mk alc_env.sh alc_env.csh alc_env.bat)
 
 mv alliance_os.mk $ALLIANCE_OS.mk
 

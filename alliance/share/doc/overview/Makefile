@@ -1,6 +1,6 @@
 # Generic Makefile for TeTeX projet
 # (C) 1999, Czo
-# $Id: Makefile,v 1.3 2000/03/16 09:51:42 czo Exp $
+# $Id: Makefile,v 1.4 2000/03/24 15:23:00 czo Exp $
 
 MYFILE=overview
 
@@ -10,14 +10,17 @@ MYFILE=overview
 %.eps : %.gif
 	convert $*.gif $*.eps
 
-view : datapath.eps genview.eps graal.eps stacs.eps tools.eps ps
+all :  datapath.eps genview.eps graal.eps stacs.eps tools.eps ps
+	@echo done...
+
+view : all
 	gv $(MYFILE).ps
         
 ps   : $(MYFILE).tex
 	latex $(MYFILE).tex
 	dvips $(MYFILE).dvi -o $(MYFILE).ps
 
-distrib : clean ps        
+distrib : all
 	ps2pdf $(MYFILE).ps
 	cp -f $(MYFILE).ps ..
 	cp -f $(MYFILE).pdf ..
