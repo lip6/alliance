@@ -1,7 +1,7 @@
-# $Id: Makefile.am,v 1.3 2002/05/12 19:58:57 jpc Exp $
+# $Id: Makefile.am,v 1.4 2002/06/25 14:09:38 czo Exp $
 
 etcdir=$(prefix)/etc
 
-etc_DATA=alc_env.csh alc_env.sh
+etc_SCRIPTS=alc_env.csh alc_env.sh
 
-EXTRA_DIST=$(etc_DATA) alc_env.csh.in alc_env.sh.in
+EXTRA_DIST=alc_env.csh.in alc_env.sh.in
