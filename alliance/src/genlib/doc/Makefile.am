@@ -44,5 +44,6 @@ EXTRA_DIST = $(pdf_DATA) \
              ./man_dpgen_xnor2mask.sgm \
              ./man_dpgen_xor2.sgm \
              ./man_genlib.sgm \
-             ./man_genlib_macro.sgm
+             ./man_genlib_macro.sgm \
+             ./man_dpgen_fifo.sgm
 

@@ -48,6 +48,7 @@
  echo ""
  echo "  o  Building HTML..."
  if [ -d $TOOL ]; then
+   echo "     - Backuping CVS"
    mv $TOOL/CVS ./CVS-$TOOL
    mv $TOOL/stylesheet-images/CVS ./CVS-SS-$TOOL
  fi
@@ -71,7 +72,8 @@
  echo "" >> $DOC_AM
  echo "EXTRA_DIST = \$(pkghtml_DATA)" >> $DOC_AM
  mv $DOC_AM $TOOL/Makefile.am
- if [ -f ./CVS-$TOOL ]; then
+ if [ -d ./CVS-$TOOL ]; then
+   echo "     - Restoring CVS"
    mv ./CVS-$TOOL $TOOL/CVS
    mv ./CVS-SS-$TOOL $TOOL/stylesheet-images/CVS
  fi

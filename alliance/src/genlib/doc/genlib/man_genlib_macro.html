@@ -5,8 +5,7 @@
 >GENLIB_MACRO</TITLE
 ><META
 NAME="GENERATOR"
-CONTENT="Modular DocBook HTML Stylesheet Version 1.76b+
-"><LINK
+CONTENT="Modular DocBook HTML Stylesheet Version 1.7"><LINK
 REL="HOME"
 TITLE=" GenLib User's Manual "
 HREF="genlib.html"><LINK
@@ -71,7 +70,9 @@ ALIGN="LEFT"
 WIDTH="100%"></DIV
 ><H1
 ><A
-NAME="GENLIB-MACRO">GENLIB_MACRO</H1
+NAME="GENLIB-MACRO"
+></A
+>GENLIB_MACRO</H1
 ><DIV
 CLASS="REFNAMEDIV"
 ><A
@@ -83,13 +84,17 @@ NAME="AEN470"
 ><DIV
 CLASS="REFSYNOPSISDIV"
 ><A
-NAME="AEN473"><H2
+NAME="AEN473"
+></A
+><H2
 >Synopsis</H2
 ><DIV
 CLASS="FUNCSYNOPSIS"
-><A
-NAME="AEN474"><P
+><P
 ></P
+><A
+NAME="AEN474"
+></A
 ><TABLE
 BORDER="0"
 BGCOLOR="#E0E0E0"
@@ -206,11 +211,9 @@ TYPE="1"
 ><P
 ><TT
 CLASS="LITERAL"
->long  <TT
+>long  <VAR
 CLASS="REPLACEABLE"
-><I
->function</I
-></TT
+>function</VAR
 ></TT
 > : (mandatory) specify which macro-generator
           is to be invoked. For example, to create a two entry multiplexer
@@ -224,11 +227,9 @@ CLASS="LITERAL"
 ><P
 ><TT
 CLASS="LITERAL"
->char* <TT
+>char* <VAR
 CLASS="REPLACEABLE"
-><I
->modelname</I
-></TT
+>modelname</VAR
 ></TT
 > : (mandatory) specify the name of the model
           to be generated. For example :
@@ -242,11 +243,9 @@ CLASS="LITERAL"
 ><P
 ><TT
 CLASS="LITERAL"
->long  <TT
+>long  <VAR
 CLASS="REPLACEABLE"
-><I
->flags</I
-></TT
+>flags</VAR
 ></TT
 > : (mandatory) tells which views are to be
           generated. It is a logical combination of the following values :
@@ -283,9 +282,9 @@ CLASS="EMPHASIS"
 CLASS="LITERAL"
 >F_LSB_FIRST</TT
 > : the terminal of index zero is matched
-              to the <SPAN
+              to the <ACRONYM
 CLASS="ACRONYM"
->LSB</SPAN
+>LSB</ACRONYM
 >, thus a 32 bits vector will be written :
               <TT
 CLASS="LITERAL"
@@ -299,16 +298,16 @@ CLASS="LITERAL"
 CLASS="LITERAL"
 >F_MSB_FIRST</TT
 > : the terminal of index zero is matched
-              to the <SPAN
+              to the <ACRONYM
 CLASS="ACRONYM"
->MSB</SPAN
+>MSB</ACRONYM
 >, thus a 32 bits vector will be written :
               <TT
 CLASS="LITERAL"
 >"signal[0:31]"</TT
-> (aka. <SPAN
+> (aka. <ACRONYM
 CLASS="ACRONYM"
->IBM</SPAN
+>IBM</ACRONYM
 > notation).
               </P
 ></LI
@@ -320,11 +319,9 @@ CLASS="ACRONYM"
 ><P
 ><TT
 CLASS="LITERAL"
->long  <TT
+>long  <VAR
 CLASS="REPLACEABLE"
-><I
->N</I
-></TT
+>N</VAR
 ></TT
 > : (mandatory) width of the model's bus to be
           generated.
@@ -334,11 +331,9 @@ CLASS="REPLACEABLE"
 ><P
 ><TT
 CLASS="LITERAL"
->long  <TT
+>long  <VAR
 CLASS="REPLACEABLE"
-><I
->drive</I
-></TT
+>drive</VAR
 ></TT
 > : (optional) output power drive.
           </P
@@ -347,16 +342,14 @@ CLASS="REPLACEABLE"
 ><P
 ><TT
 CLASS="LITERAL"
->long  <TT
+>long  <VAR
 CLASS="REPLACEABLE"
-><I
->regNumber</I
-></TT
+>regNumber</VAR
 ></TT
 > : (optional) number of registers or depth
-          of for a <SPAN
+          of for a <ACRONYM
 CLASS="ACRONYM"
->FIFO</SPAN
+>FIFO</ACRONYM
 > macro-generator.
           </P
 ></LI
@@ -364,11 +357,9 @@ CLASS="ACRONYM"
 ><P
 ><TT
 CLASS="LITERAL"
->char* <TT
+>char* <VAR
 CLASS="REPLACEABLE"
-><I
->constval</I
-></TT
+>constval</VAR
 ></TT
 > : (optional) a character string holding a
           constant. For example : <TT
@@ -761,16 +752,6 @@ CLASS="REFENTRYTITLE"
 ></A
 ></P
 ></LI
-><LI
-><P
-><SPAN
-CLASS="CITEREFENTRY"
-><SPAN
-CLASS="REFENTRYTITLE"
->DPGEN_SHROT</SPAN
->(3)</SPAN
-></P
-></LI
 ></UL
 >
           </P
@@ -865,6 +846,19 @@ CLASS="CITEREFENTRY"
 ><SPAN
 CLASS="REFENTRYTITLE"
 >DPGEN_RF1R0</SPAN
+>(3)</SPAN
+></A
+></P
+></LI
+><LI
+><P
+><A
+HREF="man_dpgen_fifo.html"
+><SPAN
+CLASS="CITEREFENTRY"
+><SPAN
+CLASS="REFENTRYTITLE"
+>DPGEN_FIFO</SPAN
 >(3)</SPAN
 ></A
 ></P

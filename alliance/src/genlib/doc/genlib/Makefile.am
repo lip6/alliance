@@ -36,6 +36,7 @@ pkghtml_DATA = \
                ./man_dpgen_rom2.html \
                ./man_dpgen_rom4.html \
                ./man_dpgen_rf1.html \
+               ./man_dpgen_fifo.html \
                ./man_dpgen_rf1d.html \
                ./man_dpgen_dff.html \
                ./man_dpgen_dfft.html \

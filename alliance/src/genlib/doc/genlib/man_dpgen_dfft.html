@@ -5,8 +5,7 @@
 >DPGEN_DFFT</TITLE
 ><META
 NAME="GENERATOR"
-CONTENT="Modular DocBook HTML Stylesheet Version 1.76b+
-"><LINK
+CONTENT="Modular DocBook HTML Stylesheet Version 1.7"><LINK
 REL="HOME"
 TITLE=" GenLib User's Manual "
 HREF="genlib.html"><LINK
@@ -71,11 +70,13 @@ ALIGN="LEFT"
 WIDTH="100%"></DIV
 ><H1
 ><A
-NAME="DPGEN-DFFT">DPGEN_DFFT</H1
+NAME="DPGEN-DFFT"
+></A
+>DPGEN_DFFT</H1
 ><DIV
 CLASS="REFNAMEDIV"
 ><A
-NAME="AEN3165"
+NAME="AEN3276"
 ></A
 ><H2
 >Name</H2
@@ -83,13 +84,17 @@ NAME="AEN3165"
 ><DIV
 CLASS="REFSYNOPSISDIV"
 ><A
-NAME="AEN3168"><H2
+NAME="AEN3279"
+></A
+><H2
 >Synopsis</H2
 ><DIV
 CLASS="FUNCSYNOPSIS"
-><A
-NAME="AEN3169"><P
+><P
 ></P
+><A
+NAME="AEN3280"
+></A
 ><TABLE
 BORDER="0"
 BGCOLOR="#E0E0E0"
@@ -134,22 +139,18 @@ CLASS="PARAMETER"
 ><DIV
 CLASS="REFSECT1"
 ><A
-NAME="AEN3181"
+NAME="AEN3292"
 ></A
 ><H2
 > Description </H2
 ><P
-> Generate a <TT
+> Generate a <VAR
 CLASS="REPLACEABLE"
-><I
->N</I
-></TT
+>N</VAR
 > bits dynamic flip-flop with scan-path
-    named <TT
+    named <VAR
 CLASS="REPLACEABLE"
-><I
->modelname</I
-></TT
+>modelname</VAR
 >. The two latches of this flip-flop are
     dynamic, i.e. the data is stored in a capacitor.
     </P
@@ -216,7 +217,7 @@ CLASS="LITERAL"
 ><DIV
 CLASS="REFSECT2"
 ><A
-NAME="AEN3205"
+NAME="AEN3316"
 ></A
 ><H3
 > Terminal Names </H3
@@ -257,11 +258,9 @@ CLASS="LITERAL"
 > <TT
 CLASS="LITERAL"
 >i0</TT
-> : data input (<TT
+> : data input (<VAR
 CLASS="REPLACEABLE"
-><I
->N</I
-></TT
+>N</VAR
 > bits). </P
 ></LI
 ><LI
@@ -269,11 +268,9 @@ CLASS="REPLACEABLE"
 > <TT
 CLASS="LITERAL"
 >q</TT
-> : output (<TT
+> : output (<VAR
 CLASS="REPLACEABLE"
-><I
->N</I
-></TT
+>N</VAR
 > bits). </P
 ></LI
 ><LI
@@ -296,7 +293,7 @@ CLASS="LITERAL"
 ><DIV
 CLASS="REFSECT1"
 ><A
-NAME="AEN3234"
+NAME="AEN3345"
 ></A
 ><H2
 > Example </H2
@@ -334,7 +331,7 @@ GENLIB_LOINS( "model_dfft_32"
 ><DIV
 CLASS="REFSECT1"
 ><A
-NAME="AEN3238"
+NAME="AEN3349"
 ></A
 ><H2
 >See Also</H2

@@ -36,6 +36,7 @@
 <!ENTITY man-dpgen-rom2      SYSTEM "man_dpgen_rom2.sgm">
 <!ENTITY man-dpgen-rom4      SYSTEM "man_dpgen_rom4.sgm">
 <!ENTITY man-dpgen-rf1       SYSTEM "man_dpgen_rf1.sgm">
+<!ENTITY man-dpgen-fifo      SYSTEM "man_dpgen_fifo.sgm">
 <!ENTITY man-dpgen-rf1d      SYSTEM "man_dpgen_rf1d.sgm">
 <!ENTITY man-dpgen-dff       SYSTEM "man_dpgen_dff.sgm">
 <!ENTITY man-dpgen-dfft      SYSTEM "man_dpgen_dfft.sgm">
@@ -74,11 +75,18 @@
 <!ENTITY selw               "<literal>selw</literal>">
 <!ENTITY sel1               "<literal>sel1</literal>">
 <!ENTITY sel0               "<literal>sel0</literal>">
+<!ENTITY r                  "<literal>r</literal>">
+<!ENTITY rok                "<literal>rok</literal>">
+<!ENTITY w                  "<literal>w</literal>">
+<!ENTITY wok                "<literal>wok</literal>">
+<!ENTITY reset              "<literal>reset</literal>">
 <!ENTITY shamt              "<literal>shamt</literal>">
 <!ENTITY add-sub            "<literal>add_sub</literal>">
 <!ENTITY c32                "<literal>c32</literal>">
 <!ENTITY c31                "<literal>c31</literal>">
 <!ENTITY c30                "<literal>c30</literal>">
+<!ENTITY i                  "<literal>i</literal>">
+<!ENTITY o                  "<literal>o</literal>">
 <!ENTITY i0                 "<literal>i0</literal>">
 <!ENTITY i1                 "<literal>i1</literal>">
 <!ENTITY nq                 "<literal>nq</literal>">
@@ -197,6 +205,7 @@
     &man-dpgen-rom2;
     &man-dpgen-rom4;
     &man-dpgen-rf1;
+    &man-dpgen-fifo;
     &man-dpgen-rf1d;
     &man-dpgen-dff;
     &man-dpgen-dfft;

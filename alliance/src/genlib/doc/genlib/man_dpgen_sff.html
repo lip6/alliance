@@ -5,8 +5,7 @@
 >DPGEN_SFF</TITLE
 ><META
 NAME="GENERATOR"
-CONTENT="Modular DocBook HTML Stylesheet Version 1.76b+
-"><LINK
+CONTENT="Modular DocBook HTML Stylesheet Version 1.7"><LINK
 REL="HOME"
 TITLE=" GenLib User's Manual "
 HREF="genlib.html"><LINK
@@ -71,11 +70,13 @@ ALIGN="LEFT"
 WIDTH="100%"></DIV
 ><H1
 ><A
-NAME="DPGEN-SFF">DPGEN_SFF</H1
+NAME="DPGEN-SFF"
+></A
+>DPGEN_SFF</H1
 ><DIV
 CLASS="REFNAMEDIV"
 ><A
-NAME="AEN3254"
+NAME="AEN3365"
 ></A
 ><H2
 >Name</H2
@@ -83,13 +84,17 @@ NAME="AEN3254"
 ><DIV
 CLASS="REFSYNOPSISDIV"
 ><A
-NAME="AEN3257"><H2
+NAME="AEN3368"
+></A
+><H2
 >Synopsis</H2
 ><DIV
 CLASS="FUNCSYNOPSIS"
-><A
-NAME="AEN3258"><P
+><P
 ></P
+><A
+NAME="AEN3369"
+></A
 ><TABLE
 BORDER="0"
 BGCOLOR="#E0E0E0"
@@ -134,21 +139,17 @@ CLASS="PARAMETER"
 ><DIV
 CLASS="REFSECT1"
 ><A
-NAME="AEN3270"
+NAME="AEN3381"
 ></A
 ><H2
 > Description </H2
 ><P
-> Generate a <TT
+> Generate a <VAR
 CLASS="REPLACEABLE"
-><I
->N</I
-></TT
-> bits static flip-flop named <TT
+>N</VAR
+> bits static flip-flop named <VAR
 CLASS="REPLACEABLE"
-><I
->modelname</I
-></TT
+>modelname</VAR
 >.
     The two latches of this flip-flop are static, i.e. each one is made
     of two interters looped togethers.
@@ -176,7 +177,7 @@ CLASS="LITERAL"
 ><DIV
 CLASS="REFSECT2"
 ><A
-NAME="AEN3281"
+NAME="AEN3392"
 ></A
 ><H3
 > Terminal Names </H3
@@ -203,11 +204,9 @@ CLASS="LITERAL"
 > <TT
 CLASS="LITERAL"
 >i0</TT
-> : data input (<TT
+> : data input (<VAR
 CLASS="REPLACEABLE"
-><I
->N</I
-></TT
+>N</VAR
 > bits). </P
 ></LI
 ><LI
@@ -215,11 +214,9 @@ CLASS="REPLACEABLE"
 > <TT
 CLASS="LITERAL"
 >q</TT
-> : output (<TT
+> : output (<VAR
 CLASS="REPLACEABLE"
-><I
->N</I
-></TT
+>N</VAR
 > bits). </P
 ></LI
 ><LI
@@ -242,7 +239,7 @@ CLASS="LITERAL"
 ><DIV
 CLASS="REFSECT1"
 ><A
-NAME="AEN3304"
+NAME="AEN3415"
 ></A
 ><H2
 > Example </H2
@@ -278,7 +275,7 @@ GENLIB_LOINS( "model_sff_32"
 ><DIV
 CLASS="REFSECT1"
 ><A
-NAME="AEN3308"
+NAME="AEN3419"
 ></A
 ><H2
 >See Also</H2

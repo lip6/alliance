@@ -5,8 +5,7 @@
 >DPGEN_NAND2MASK</TITLE
 ><META
 NAME="GENERATOR"
-CONTENT="Modular DocBook HTML Stylesheet Version 1.76b+
-"><LINK
+CONTENT="Modular DocBook HTML Stylesheet Version 1.7"><LINK
 REL="HOME"
 TITLE=" GenLib User's Manual "
 HREF="genlib.html"><LINK
@@ -71,7 +70,9 @@ ALIGN="LEFT"
 WIDTH="100%"></DIV
 ><H1
 ><A
-NAME="DPGEN-NAND2MASK">DPGEN_NAND2MASK</H1
+NAME="DPGEN-NAND2MASK"
+></A
+>DPGEN_NAND2MASK</H1
 ><DIV
 CLASS="REFNAMEDIV"
 ><A
@@ -83,13 +84,17 @@ NAME="AEN2198"
 ><DIV
 CLASS="REFSYNOPSISDIV"
 ><A
-NAME="AEN2201"><H2
+NAME="AEN2201"
+></A
+><H2
 >Synopsis</H2
 ><DIV
 CLASS="FUNCSYNOPSIS"
-><A
-NAME="AEN2202"><P
+><P
 ></P
+><A
+NAME="AEN2202"
+></A
 ><TABLE
 BORDER="0"
 BGCOLOR="#E0E0E0"
@@ -144,16 +149,12 @@ NAME="AEN2216"
 ><H2
 > Description </H2
 ><P
-> Generate a <TT
+> Generate a <VAR
 CLASS="REPLACEABLE"
-><I
->N</I
-></TT
-> bits conditionnal NAND mask named <TT
+>N</VAR
+> bits conditionnal NAND mask named <VAR
 CLASS="REPLACEABLE"
-><I
->modelname</I
-></TT
+>modelname</VAR
 >.
     </P
 ><P
@@ -190,11 +191,9 @@ CLASS="EMPHASIS"
 CLASS="EMPHASIS"
 >ANDed</I
 > with the mask
-        (suplied by <TT
+        (suplied by <VAR
 CLASS="REPLACEABLE"
-><I
->constVal</I
-></TT
+>constVal</VAR
 >).
         </P
 ></LI
@@ -202,22 +201,18 @@ CLASS="REPLACEABLE"
 >
     </P
 ><P
-> The constant <TT
+> The constant <VAR
 CLASS="REPLACEABLE"
-><I
->constVal</I
-></TT
+>constVal</VAR
 > is given to the macro-generator
     call, therefore the value cannot be changed afterward : it's
     hard wired in the operator.
     </P
 ><P
 > A common error is to give a real C constant for the
-    <TT
+    <VAR
 CLASS="REPLACEABLE"
-><I
->constVal</I
-></TT
+>constVal</VAR
 > argument. Be aware that it is a character string.
     </P
 ><DIV
@@ -243,11 +238,9 @@ CLASS="LITERAL"
 > <TT
 CLASS="LITERAL"
 >i0</TT
-> : input (<TT
+> : input (<VAR
 CLASS="REPLACEABLE"
-><I
->N</I
-></TT
+>N</VAR
 > bits). </P
 ></LI
 ><LI
@@ -255,11 +248,9 @@ CLASS="REPLACEABLE"
 > <TT
 CLASS="LITERAL"
 >q</TT
-> : output (<TT
+> : output (<VAR
 CLASS="REPLACEABLE"
-><I
->N</I
-></TT
+>N</VAR
 > bits). </P
 ></LI
 ><LI

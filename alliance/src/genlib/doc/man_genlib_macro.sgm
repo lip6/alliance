@@ -258,10 +258,12 @@
               <refentrytitle>DPGEN_SHIFT</refentrytitle>
               <manvolnum>3</manvolnum>
             </citerefentry></link></para></listitem>
+            <!--
             <listitem><para><link linkend="DPGEN-SHROT"><citerefentry>
               <refentrytitle>DPGEN_SHROT</refentrytitle>
               <manvolnum>3</manvolnum>
             </citerefentry></link></para></listitem>
+            -->
           </itemizedlist>
           </para>
         </listitem>
@@ -298,6 +300,10 @@
             </citerefentry></link></para></listitem>
             <listitem><para><link linkend="DPGEN-RF1"><citerefentry>
               <refentrytitle>DPGEN_RF1R0</refentrytitle>
+              <manvolnum>3</manvolnum>
+            </citerefentry></link></para></listitem>
+            <listitem><para><link linkend="DPGEN-FIFO"><citerefentry>
+              <refentrytitle>DPGEN_FIFO</refentrytitle>
               <manvolnum>3</manvolnum>
             </citerefentry></link></para></listitem>
             <listitem><para><link linkend="DPGEN-RF1D"><citerefentry>

@@ -1,0 +1,141 @@
+
+
+  <refentry id="DPGEN-FIFO">
+  <?dbhtml filename="man_dpgen_fifo.html">
+
+  <refmeta>
+    <refentrytitle>DPGEN_FIFO</refentrytitle>
+    <manvolnum>3</manvolnum>
+    <refmiscinfo>ASIM/LIP6</refmiscinfo>
+  </refmeta>
+
+  <refnamediv>
+    <refname> DPGEN_FIFO</refname>
+    <refpurpose>FIFO Macro-Generator </refpurpose>
+  </refnamediv>
+
+
+  <refsynopsisdiv>
+    <funcsynopsis>
+      <funcsynopsisinfo>#include  &lt;genlib.h&gt;</funcsynopsisinfo>
+      <funcprototype>
+        <funcdef>void <function>GENLIB_MACRO</function></funcdef>
+          <paramdef>DPGEN_FIFO</paramdef>
+          <paramdef>char *<parameter>modelname</parameter></paramdef>
+          <paramdef>long <parameter>flags</parameter></paramdef>
+          <paramdef>long <parameter>N</parameter></paramdef>
+      </funcprototype>
+    </funcsynopsis>
+  </refsynopsisdiv>
+
+  <refsect1>
+    <title> Description </title>
+
+    <para> Generate a FIFO of &regNumber; words of &N; bits named &modelname;.
+    </para>
+    <para> How it works :
+    <itemizedlist>
+      <listitem>
+        <para> &datain0; and &datain1; : the two write busses. Only one
+        is used to actually write the register word, it is selected by
+        the &sel; signal.
+        </para>
+      </listitem>
+      <listitem>
+        <para> &sel; : when set to &zero; the &datain0; is used to write
+        the register word, otherwise it will be &datain1;.
+        </para>
+      </listitem>
+      <listitem>
+        <para> &r;, &rok; : set &r; when a word is requested, &rok; tells
+        that a word has effectively been popped out of the FIFO (this is
+        indicate an empty FIFO).
+        </para>
+      </listitem>
+      <listitem>
+        <para> &w;, &wok; : set &w; when a word is pushed, &wok; tells
+        that the word has effectively been pushed in the FIFO (this is
+        indicate that the FIFO is full).
+        </para>
+      </listitem>
+    </itemizedlist>
+    </para>
+
+    <refsect2>
+      <title> Terminal Names </title>
+
+      <orderedlist>
+        <listitem>
+          <para> &ck; : clock signal (input, 1 bit). </para>
+        </listitem>
+        <listitem>
+          <para> &reset; : reset signal (input, 1 bit). </para>
+        </listitem>
+        <listitem>
+          <para> &r; : read requested (input, 1 bits). </para>
+        </listitem>
+        <listitem>
+          <para> &w; : write requested (input, 1 bits). </para>
+        </listitem>
+        <listitem>
+          <para> &rok; : read acknowledge (output, 1 bits). </para>
+        </listitem>
+        <listitem>
+          <para> &wok; : write acknowledge (output, 1 bits). </para>
+        </listitem>
+        <listitem>
+          <para> &sel; : select the write bus (input, 1 bit). </para>
+        </listitem>
+        <listitem>
+          <para> &datain0; :  first write bus (input, &N; bits). </para>
+        </listitem>
+        <listitem>
+          <para> &datain1; :  second write bus (input, &N; bits). </para>
+        </listitem>
+        <listitem>
+          <para> &dataout; : read bus (output, &N; bits). </para>
+        </listitem>
+        <listitem>
+          <para> &vdd; : power. </para>
+        </listitem>
+        <listitem>
+          <para> &vss; : ground. </para>
+        </listitem>
+      </orderedlist>
+
+    </refsect2>
+
+  </refsect1>
+
+  <refsect1>
+    <title> Example </title>
+
+    <para>
+    <programlisting>
+GENLIB_MACRO(DPGEN_RF1, "model_fifox8_32"
+                      , F_BEHAV|F_PLACE
+                      , 32  /* Words size.      */
+                      , 8   /* Number of words. */
+                      );
+
+GENLIB_LOINS( "model_fifox8_32"
+            , "instance1_fifo1_32"
+            , "ck"
+            , "r"
+            , "w"
+            , "rok"
+            , "wok"
+            , "sel"
+            , "datain0[31:0]"
+            , "datain1[31:0]"
+            , "dataout[31:0]"
+            , "vdd", "vss", NULL
+            );
+    </programlisting>
+    </para>
+
+  </refsect1>
+
+  &man-dpgen-see-also;
+
+  </refentry>

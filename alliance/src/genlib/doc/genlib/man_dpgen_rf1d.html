@@ -5,8 +5,7 @@
 >DPGEN_RF1D</TITLE
 ><META
 NAME="GENERATOR"
-CONTENT="Modular DocBook HTML Stylesheet Version 1.76b+
-"><LINK
+CONTENT="Modular DocBook HTML Stylesheet Version 1.7"><LINK
 REL="HOME"
 TITLE=" GenLib User's Manual "
 HREF="genlib.html"><LINK
@@ -14,8 +13,8 @@ REL="UP"
 TITLE="Alliance - genlib User's Manual "
 HREF="ref_genlib.html"><LINK
 REL="PREVIOUS"
-TITLE="DPGEN_RF1"
-HREF="man_dpgen_rf1.html"><LINK
+TITLE="DPGEN_FIFO"
+HREF="man_dpgen_fifo.html"><LINK
 REL="NEXT"
 TITLE="DPGEN_DFF"
 HREF="man_dpgen_dff.html"></HEAD
@@ -46,7 +45,7 @@ WIDTH="10%"
 ALIGN="left"
 VALIGN="bottom"
 ><A
-HREF="man_dpgen_rf1.html"
+HREF="man_dpgen_fifo.html"
 ACCESSKEY="P"
 >&#60;&#60;&#60; Previous</A
 ></TD
@@ -71,11 +70,13 @@ ALIGN="LEFT"
 WIDTH="100%"></DIV
 ><H1
 ><A
-NAME="DPGEN-RF1D">DPGEN_RF1D</H1
+NAME="DPGEN-RF1D"
+></A
+>DPGEN_RF1D</H1
 ><DIV
 CLASS="REFNAMEDIV"
 ><A
-NAME="AEN2973"
+NAME="AEN3084"
 ></A
 ><H2
 >Name</H2
@@ -83,13 +84,17 @@ NAME="AEN2973"
 ><DIV
 CLASS="REFSYNOPSISDIV"
 ><A
-NAME="AEN2977"><H2
+NAME="AEN3088"
+></A
+><H2
 >Synopsis</H2
 ><DIV
 CLASS="FUNCSYNOPSIS"
-><A
-NAME="AEN2978"><P
+><P
 ></P
+><A
+NAME="AEN3089"
+></A
 ><TABLE
 BORDER="0"
 BGCOLOR="#E0E0E0"
@@ -159,27 +164,21 @@ CLASS="PARAMETER"
 ><DIV
 CLASS="REFSECT1"
 ><A
-NAME="AEN3000"
+NAME="AEN3111"
 ></A
 ><H2
 > Description </H2
 ><P
-> Generate a register file of <TT
+> Generate a register file of <VAR
 CLASS="REPLACEABLE"
-><I
->regNumber</I
-></TT
-> words of <TT
+>regNumber</VAR
+> words of <VAR
 CLASS="REPLACEABLE"
-><I
->N</I
-></TT
+>N</VAR
 > bits
-    with decoder named <TT
+    with decoder named <VAR
 CLASS="REPLACEABLE"
-><I
->modelname</I
-></TT
+>modelname</VAR
 >. The <TT
 CLASS="LITERAL"
 >DPGEN_RF1DR0</TT
@@ -238,17 +237,13 @@ CLASS="LITERAL"
 >, <TT
 CLASS="LITERAL"
 >adw</TT
-> : the width (<TT
+> : the width (<VAR
 CLASS="REPLACEABLE"
-><I
->Y</I
-></TT
+>Y</VAR
 >) of those signals is
-        computed from <TT
+        computed from <VAR
 CLASS="REPLACEABLE"
-><I
->regNumber</I
-></TT
+>regNumber</VAR
 > :
         <TT
 CLASS="LITERAL"
@@ -279,7 +274,7 @@ CLASS="LITERAL"
 ><DIV
 CLASS="REFSECT2"
 ><A
-NAME="AEN3034"
+NAME="AEN3145"
 ></A
 ><H3
 > Terminal Names </H3
@@ -320,11 +315,9 @@ CLASS="LITERAL"
 > <TT
 CLASS="LITERAL"
 >adr</TT
-> : the read address (input, <TT
+> : the read address (input, <VAR
 CLASS="REPLACEABLE"
-><I
->Y</I
-></TT
+>Y</VAR
 > bits). </P
 ></LI
 ><LI
@@ -332,11 +325,9 @@ CLASS="REPLACEABLE"
 > <TT
 CLASS="LITERAL"
 >adw</TT
-> : the write address (input, <TT
+> : the write address (input, <VAR
 CLASS="REPLACEABLE"
-><I
->Y</I
-></TT
+>Y</VAR
 > bits). </P
 ></LI
 ><LI
@@ -344,11 +335,9 @@ CLASS="REPLACEABLE"
 > <TT
 CLASS="LITERAL"
 >datain0</TT
-> :  first write bus (input, <TT
+> :  first write bus (input, <VAR
 CLASS="REPLACEABLE"
-><I
->N</I
-></TT
+>N</VAR
 > bits). </P
 ></LI
 ><LI
@@ -356,11 +345,9 @@ CLASS="REPLACEABLE"
 > <TT
 CLASS="LITERAL"
 >datain1</TT
-> :  second write bus (input, <TT
+> :  second write bus (input, <VAR
 CLASS="REPLACEABLE"
-><I
->N</I
-></TT
+>N</VAR
 > bits). </P
 ></LI
 ><LI
@@ -368,11 +355,9 @@ CLASS="REPLACEABLE"
 > <TT
 CLASS="LITERAL"
 >dataout</TT
-> : read bus (output, <TT
+> : read bus (output, <VAR
 CLASS="REPLACEABLE"
-><I
->N</I
-></TT
+>N</VAR
 > bits). </P
 ></LI
 ><LI
@@ -395,7 +380,7 @@ CLASS="LITERAL"
 ><DIV
 CLASS="REFSECT1"
 ><A
-NAME="AEN3075"
+NAME="AEN3186"
 ></A
 ><H2
 > Example </H2
@@ -437,7 +422,7 @@ GENLIB_LOINS( "model_rf1dx8_32"
 ><DIV
 CLASS="REFSECT1"
 ><A
-NAME="AEN3079"
+NAME="AEN3190"
 ></A
 ><H2
 >See Also</H2
@@ -480,7 +465,7 @@ WIDTH="33%"
 ALIGN="left"
 VALIGN="top"
 ><A
-HREF="man_dpgen_rf1.html"
+HREF="man_dpgen_fifo.html"
 ACCESSKEY="P"
 >&#60;&#60;&#60; Previous</A
 ></TD
@@ -508,7 +493,7 @@ ACCESSKEY="N"
 WIDTH="33%"
 ALIGN="left"
 VALIGN="top"
->DPGEN_RF1</TD
+>DPGEN_FIFO</TD
 ><TD
 WIDTH="34%"
 ALIGN="center"
