@@ -4,8 +4,11 @@
 /*
    ### -------------------------------------------------- ###
    $Author: hcl $
-   $Date: 2002/03/20 13:25:50 $
+   $Date: 2002/03/22 16:04:02 $
    $Log: ocrAstar.c,v $
+   Revision 1.3  2002/03/22 16:04:02  hcl
+   speedups
+
    Revision 1.2  2002/03/20 13:25:50  hcl
    SymX bug.
 
@@ -287,29 +290,69 @@ void clean_tag_list (ocrWSegment *list) {
  * insert elem keeping the list sorted by increasing cost+h
  **/
 ocrWSegment *insert (ocrWSegment *list, ocrWSegment *elem) {
+    ocrWSegment *prec, *rval;
 
     assert (elem);
 
     if (!list) {
         elem->AUX = NULL;
         return elem;
-    /*} else if ( (elem->HCOST) > (list->HCOST) ) {*/
-    } else if ( (elem->COST) > (list->COST) ) {
-        list->AUX = insert (list->AUX, elem);
-        return list;
-    } else if ( ((elem->HCOST) == (list->HCOST)) && ((elem->COST) > (list->COST)) ){
-    /*} else if ( ((elem->COST) == (list->COST)) && ((elem->H) > (list->H)) ){*/
-        list->AUX = insert (list->AUX, elem);
-        return list;
+    } else if (!(list->AUX)) {
+        if ( elem->HCOST < list->HCOST ) {
+            elem->AUX = list;
+            return elem;
+        } else if ( elem->HCOST == list->HCOST ) {
+            if ( elem->COST < list->COST ) {
+                elem->AUX = list;
+                return elem;
+            } else {
+                list->AUX = elem;
+                elem->AUX = NULL;
+                return list;
+            }
+        } else {
+            list->AUX = elem;
+            elem->AUX = NULL;
+            return list;
+        }
     } else {
-        elem->AUX = list;
-        return elem;
+        rval = list;
+        prec = list;
+        list = list->AUX;
+
+        while (list) {
+            
+            if ( elem->HCOST < list->HCOST ) {
+                elem->AUX = list;
+                prec->AUX = elem;
+                return rval;
+            } else if ( elem->HCOST == list->HCOST ) {
+                if ( elem->COST < list->COST ) {
+                    prec->AUX = elem;
+                    elem->AUX = list;
+                    return rval;
+                } else {
+                    prec = list;
+                    list = list->AUX;
+                }
+            } else {
+                prec = list;
+                list = list->AUX;
+            }
+        }
+        prec->AUX = elem;
+        elem->AUX = NULL;
+        return rval;
     }
+
+    return NULL;
 }
 
 
 ocrWSegment *_remove (ocrWSegment *list, ocrWSegment *elem) {
-
+    ocrWSegment *prec;
+    ocrWSegment *orig;
+    
     assert (elem);
 
     if (!list)
@@ -320,8 +363,22 @@ ocrWSegment *_remove (ocrWSegment *list, ocrWSegment *elem) {
         return res;
     }
 
+    orig = list;
+    do {
+        prec = list;
+        list = list->AUX;
+        if (elem == list) {
+            prec->AUX = list->AUX;
+            elem->AUX = NULL;
+            return orig;
+        }
+    } while (list);
+            
+#if 0
     list->AUX = _remove (list->AUX, elem);
     return list;
+#endif
+    return orig;
 }
 
 
