@@ -91,8 +91,8 @@ extern void genOUTLINE();
 extern void genDEF_LOFIG();
 extern void genLOAD_LOFIG();
 extern void genSAVE_LOFIG();
-extern void genLOINS();
-extern void genLOINSE();
+extern void genLOINS(char *, ...);
+extern void genLOINSE(char *, ...);
 extern void genLOINSA();
 extern void genLOTRS();
 extern void genLOCON();
@@ -109,13 +109,13 @@ extern void genSC_BOTTOM();
 extern void genSC_CHANNEL();
 extern void genSC_CON_CHANNEL();
 extern void genLOGEN();
-extern void genSETLOGEN();
+extern void genSETLOGEN(char *, char *, ...);
 /*******************************************************************************
 * name forming functions, for both views                                       *
 *******************************************************************************/
 extern char *genBUS();
 extern char *genELM();
-extern char *genNAME();
+extern char *genNAME(char *, ...);
 
 /*******************************************************************************
 * macro definitions for allowed stdlib functions                               *

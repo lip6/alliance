@@ -96,10 +96,7 @@ int bus_decod();
 * physical user functions                                                      *
 *******************************************************************************/
 
-static chain_list *g_addphvia(p, type, x, y, dx, dy, name)
-phfig_list *p;
-char type, *name;
-long x, y, dx, dy;
+static chain_list *g_addphvia( phfig_list *p, char type, long x, long y, long dx, long dy, char *name)
 {
 chain_list *c = NULL;
 
@@ -2716,7 +2713,7 @@ va_list arg;
 char *figname, *signame;
 lofig_list *ptfig;
 
-   va_start(arg, instance);
+   va_start(arg, insname);
    figname = namealloc(va_arg(arg, char *));
    if (WORK_LOFIG == NULL) {
       (void)fflush(stdout);
@@ -3454,9 +3451,17 @@ void genLOGEN(char *name, int type)
 ptype_list *p = getptype(WORK_LOFIG->USER, LOGEN);
 
    if (!p)
-      p = addptype(WORK_LOFIG->USER, LOGEN, NULL);
+      p = WORK_LOFIG->USER = addptype(WORK_LOFIG->USER, LOGEN, NULL);
 
-   p->DATA = addlogen(name, type);
+   p->DATA = addlogen(p->DATA, name);
+
+   if (type != INTEGER_GEN && type != STRING_GEN) {
+      (void)fflush(stdout);
+      (void)fputs("*** genlib error ***\n", stderr);
+      (void)fprintf(stderr, "Illegal SETLOGEN: unsupported generic type\n");
+      EXIT(1);
+   }
+   ((logen_list *)p->DATA)->TYPE = type;
 }
 
 /*******************************************************************************
@@ -3465,16 +3470,63 @@ ptype_list *p = getptype(WORK_LOFIG->USER, LOGEN);
 void genSETLOGEN(char *instance, char *name, ...)
 {
 va_list ap; /* We have a single argument, but of unknown type yet! */
-lofig_list *f = getlofig();
+loins_list *i = getloins(WORK_LOFIG, instance);
+lofig_list *f;
 ptype_list *p;
+logen_list *g;
+char       *s, *t;
+
+   if (!i) {
+      (void)fflush(stdout);
+      (void)fputs("*** genlib error ***\n", stderr);
+      (void)fprintf(stderr, "Illegal SETLOGEN : no instance called '%s' \n",
+                   instance);
+      EXIT(1);
+   }
+
+   f = getlofig(i->FIGNAME, 'P');
+   p = getptype(f->USER, LOGEN);
+   if (!p) {
+      (void)fflush(stdout);
+      (void)fputs("*** genlib error ***\n", stderr);
+      (void)fprintf(stderr, "Illegal SETLOGEN : no logen in model '%s' \n",
+                   i->FIGNAME);
+      EXIT(1);
+   }
+   g = getlogen(p->DATA, name);
+   if (!g) {
+      (void)fflush(stdout);
+      (void)fputs("*** genlib error ***\n", stderr);
+      (void)fprintf(stderr, "Illegal SETLOGEN : no generic called '%s' \n",
+                   name);
+      EXIT(1);
+   }
 
    va_start(ap, name);
-
-ptype_list *p = getptype(WORK_LOFIG->USER, LOGEN);
+   p = getptype(i->USER, LOGEN);
    if (!p)
-      p = addptype(WORK_LOFIG->USER, LOGEN, NULL);
-
-   p->DATA = addlogen(name, type);
+      p = i->USER = addptype(i->USER, LOGEN, NULL);
+   p->DATA = addlogen(p->DATA, name);
+   switch (g->TYPE) {
+      case INTEGER_GEN:
+          ((logen_list *)p->DATA)->TYPE = INTEGER_GEN;
+          ((logen_list *)p->DATA)->VALUE.VAL = va_arg(ap, long);
+          break;
+      case STRING_GEN:
+          ((logen_list *)p->DATA)->TYPE = STRING_GEN;
+          s = va_arg(ap, char *);
+          t = malloc((strlen(s) + 3) * sizeof(char));
+          sprintf(t, "\"%s\"", s);
+          ((logen_list *)p->DATA)->VALUE.TEXT = namealloc(t);
+          free(t);
+          break;
+      default:
+          (void)fflush(stdout);
+          (void)fputs("*** genlib error ***\n", stderr);
+          (void)fprintf(stderr, "Illegal SETLOGEN: unsupported generic type\n");
+          EXIT(1);
+   }
+   va_end(ap);
 }
 
 /*******************************************************************************
@@ -3539,11 +3591,10 @@ losig_list *s;
 /*******************************************************************************
 * function UNFLATTEN_LOFIG                                                     *
 *******************************************************************************/
-void genUNFLATTEN_LOFIG(va_alist)
-va_dcl
+void genUNFLATTEN_LOFIG(char *modelname, ...)
 {
 va_list instancelist;
-char *modelname, *instancename, *iname;
+char *instancename, *iname;
 chain_list *ilist = NULL;
 
    if (WORK_LOFIG == NULL) {
@@ -3552,8 +3603,8 @@ chain_list *ilist = NULL;
       (void)fputs("Illegal UNFLATTEN_LOFIG : missing DEF_LOFIG\n", stderr);
       EXIT(1);
    }
-   va_start(instancelist);
-   if ((modelname = va_arg(instancelist, char *)) == NULL) {
+   va_start(instancelist, modelname);
+   if (modelname == NULL) {
       (void)fflush(stdout);
       (void)fputs("*** genlib error ***\n", stderr);
       (void)fputs("Illegal UNFLATTEN_LOFIG : missing arguments\n", stderr);
@@ -3913,17 +3964,15 @@ chain_list *c, *loname = NULL, *phname = NULL;
 /*******************************************************************************
 * function NAME                                                                *
 *******************************************************************************/
-char *genNAME(va_alist)
-va_dcl
+char *genNAME(char *p, ...)
 {
 va_list stack;
-char  *ret, *res, *p;
+char  *ret, *res;
 long  strsize = 0;
 char  piece[BUFSIZ], *s;
 long  d;
 
-   va_start(stack);
-   p = va_arg(stack, char *);
+   va_start(stack, p);
    ret = res = (char *)mbkalloc(BUFSIZ);
    while (*p != '\0') {
       if (*p != '%') {

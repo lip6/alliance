@@ -21,7 +21,7 @@
 # with the GNU C Library; see the  file COPYING. If not, write to the Free
 # Software Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
 #
-# $Id: genlib.sh,v 1.1 2002/03/08 14:08:11 fred Exp $
+# $Id: genlib.sh,v 1.2 2002/04/16 07:18:31 fred Exp $
 
 help() {
    echo "Syntax: `basename $0` [-vk] source-file (without extension)"
@@ -65,7 +65,13 @@ help() {
     done
     trap "rm -f ./*.$$; exit 1" 1 2 3 6
 
-    alcbanner "GenLib" "3.3" "Procedural Generation Language" "1991"
+    ALLIANCE_LIB=${ALLIANCE_TOP}/lib
+    ALLIANCE_INCLUDE=${ALLIANCE_TOP}/include
+    ALLIANCE_BIN=${ALLIANCE_TOP}/bin
+
+    export ALLIANCE_LIB ALLIANCE_INCLUDE ALLIANCE_BIN
+
+    ${ALLIANCE_BIN}/alcbanner "GenLib" "3.3" "Procedural Generation Language" "1991"
 
     if [ -z "$name" ] ; then
         help
@@ -74,6 +80,8 @@ help() {
         echo "There seems no to be a file called $name.c"
         help
     fi
+
+    rm -f $name > /dev/null 2>&1
         
     if [ $talk -eq 1 ]; then
         echo "Generating the Makefile";
@@ -84,21 +92,17 @@ help() {
 # --------------------------------------------------------------------
 # Development hacks.
 
- if [ $devel -eq 1 ]; then
-   ALLIANCE_INSTALL_DIR="__ALLIANCE_INSTALL_DIR__"
-   ALLIANCE_DEVEL_INCLUDE="-I${ALLIANCE_INSTALL_DIR}/include"
-   ALLIANCE_DEVEL_LIB="-L${ALLIANCE_INSTALL_DIR}/lib"
-   ALLIANCE_LIB=${ALLIANCE_TOP}/lib
-   ALLIANCE_INCLUDE=${ALLIANCE_TOP}/include
- fi
-
+   if [ $devel -eq 1 ]; then
+     ALLIANCE_INSTALL_DIR="__ALLIANCE_INSTALL_DIR__"
+     ALLIANCE_DEVEL_INCLUDE="-I${ALLIANCE_INSTALL_DIR}/include"
+     ALLIANCE_DEVEL_LIB="-L${ALLIANCE_INSTALL_DIR}/lib"
+     export ALLIANCE_INSTALL_DIR ALLIANCE_DEVEL_INCLUDE ALLIANCE_DEVEL_LIB
+   fi
 
    makefile="Makefile.$$"
-   echo 'include $(ALLIANCE_TOP)/etc/libraries.mk'                         > $makefile
-   echo 'include $(ALLIANCE_TOP)/etc/$(ALLIANCE_OS).mk'                        >> $makefile
    echo 'ALLIANCE_LIBRARY = '${ALLIANCE_DEVEL_LIB}' -L$(ALLIANCE_LIB) \
                 -lMgn -lMlu -lMpu -lMcp -lMap -lMmg -lMcl -lMgl \
-                -lMal -lMvl -lMel -lMsl -lMhl -lMlo -lMph -lMut -lRcn'                                       >> $makefile
+                -lMal -lMvg -lMel -lMsl -lMhl -lMlo -lMph -lMut -lRcn'                                       >> $makefile
 
    echo "ALLIANCE_INC = ${ALLIANCE_DEVEL_INCLUDE} -I\$(ALLIANCE_INCLUDE)" >> $makefile
     echo "$name : $name.c"                                       >> $makefile
@@ -115,7 +119,8 @@ help() {
    if [ ! $? -eq 0 ]; then 
       echo "Compilation failed!"
       cat $name.grr
-        exit 1
+      rm $makefile
+      exit 1
     fi
 
    if [ $talk -eq 1 ] ; then
