@@ -1,6 +1,6 @@
 #! /bin/sh
 
-# From configure.in Revision: 1.9 
+# From configure.in Revision: 1.11 
 # Guess values for system-dependent variables and create Makefiles.
 # Generated automatically using autoconf version 2.13 
 # Copyright (C) 1992, 93, 94, 95, 96 Free Software Foundation, Inc.
@@ -3430,12 +3430,10 @@ OLD_LIBS=$LIBS
 OLD_CFLAGS=$CFLAGS
 LIBS="$OLD_LIBS $X_LIBS $X_EXTRA_LIBS $X_PRE_LIBS -lXt -lX11"
 CFLAGS="$OLD_CFLAGS $X_CFLAGS"
-echo ""
-echo "$LIBS"
 echo $ac_n "checking if you can link X11 app""... $ac_c" 1>&6
-echo "configure:3437: checking if you can link X11 app" >&5
+echo "configure:3435: checking if you can link X11 app" >&5
 cat > conftest.$ac_ext <<EOF
-#line 3439 "configure"
+#line 3437 "configure"
 #include "confdefs.h"
 #include <stdio.h>
 #include <X11/Xlib.h>
@@ -3443,7 +3441,7 @@ int main() {
  XOpenDisplay (":0");
 ; return 0; }
 EOF
-if { (eval echo configure:3447: \"$ac_link\") 1>&5; (eval $ac_link) 2>&5; } && test -s conftest${ac_exeext}; then
+if { (eval echo configure:3445: \"$ac_link\") 1>&5; (eval $ac_link) 2>&5; } && test -s conftest${ac_exeext}; then
   rm -rf conftest*
   echo "$ac_t""yes" 1>&6
 else
@@ -3454,7 +3452,6 @@ else
 
 fi
 rm -f conftest*
-
 LIBS=$OLD_LIBS
 CFLAGS=$OLD_CFLAGS
     
@@ -3466,9 +3463,9 @@ LIBS="$OLD_LIBS -L$GUI_LIB_LOC -lXm $X_LIBS $X_EXTRA_LIBS $X_PRE_LIBS -lXt -lX11
 CFLAGS="$OLD_CFLAGS $X_CFLAGS -I$GUI_INC_LOC"
 
 echo $ac_n "checking if you can link Motif/LessTif app""... $ac_c" 1>&6
-echo "configure:3470: checking if you can link Motif/LessTif app" >&5
+echo "configure:3467: checking if you can link Motif/LessTif app" >&5
 cat > conftest.$ac_ext <<EOF
-#line 3472 "configure"
+#line 3469 "configure"
 #include "confdefs.h"
 # include <Xm/Xm.h>
 # include <Xm/FileSB.h>
@@ -3487,7 +3484,7 @@ int main() {
   XtAppMainLoop( app );
 ; return 0; }
 EOF
-if { (eval echo configure:3491: \"$ac_link\") 1>&5; (eval $ac_link) 2>&5; } && test -s conftest${ac_exeext}; then
+if { (eval echo configure:3488: \"$ac_link\") 1>&5; (eval $ac_link) 2>&5; } && test -s conftest${ac_exeext}; then
   rm -rf conftest*
   echo "$ac_t""yes" 1>&6
 else
@@ -3498,7 +3495,7 @@ else
 CFLAGS="$OLD_CFLAGS $X_CFLAGS -I$GUI_INC_LOC"
 
 cat > conftest.$ac_ext <<EOF
-#line 3502 "configure"
+#line 3499 "configure"
 #include "confdefs.h"
 # include <Xm/Xm.h>
 # include <Xm/FileSB.h>
@@ -3517,7 +3514,7 @@ int main() {
   XtAppMainLoop( app );
 ; return 0; }
 EOF
-if { (eval echo configure:3521: \"$ac_link\") 1>&5; (eval $ac_link) 2>&5; } && test -s conftest${ac_exeext}; then
+if { (eval echo configure:3518: \"$ac_link\") 1>&5; (eval $ac_link) 2>&5; } && test -s conftest${ac_exeext}; then
   rm -rf conftest*
   echo "$ac_t""yes" 1>&6; X_PRE_LIBS="$X_PRE_LIBS -lXintl"
 else
@@ -3546,7 +3543,7 @@ SKIP_GNU=
 if test -z "$SKIP_GNU"; then
   gnu_includes="`echo $LD_LIBRARY_PATH | sed 's/:/ /g' | sed 's/lib/include/g'` /usr/local/include /usr/include $GNUHOME/include $GNU_INC_LOC"
   echo $ac_n "checking for location of GNU includes""... $ac_c" 1>&6
-echo "configure:3550: checking for location of GNU includes" >&5
+echo "configure:3547: checking for location of GNU includes" >&5
   GNU_INC_LOC=
 #    echo $gnu_includes
   for try in $gnu_includes; do
@@ -3568,7 +3565,7 @@ fi
 if test -z "$SKIP_GNU"; then
   gnu_libs="`echo $LD_LIBRARY_PATH | sed 's/:/ /g'` `echo "$GNU_INC_LOC" | sed 's/include/lib/'` /usr/local/lib /usr/lib $GNUHOME/lib $GNU_LIB_LOC"
   echo $ac_n "checking for location of GNU libs""... $ac_c" 1>&6
-echo "configure:3572: checking for location of GNU libs" >&5
+echo "configure:3569: checking for location of GNU libs" >&5
   GNU_LIB_LOC=
 #    echo $gnu_libs
   for try in $gnu_libs; do
@@ -3590,12 +3587,12 @@ fi
 
 ################################################################### Headers...
 echo $ac_n "checking for ANSI C header files""... $ac_c" 1>&6
-echo "configure:3594: checking for ANSI C header files" >&5
+echo "configure:3591: checking for ANSI C header files" >&5
 if eval "test \"`echo '$''{'ac_cv_header_stdc'+set}'`\" = set"; then
   echo $ac_n "(cached) $ac_c" 1>&6
 else
   cat > conftest.$ac_ext <<EOF
-#line 3599 "configure"
+#line 3596 "configure"
 #include "confdefs.h"
 #include <stdlib.h>
 #include <stdarg.h>
@@ -3603,7 +3600,7 @@ else
 #include <float.h>
 EOF
 ac_try="$ac_cpp conftest.$ac_ext >/dev/null 2>conftest.out"
-{ (eval echo configure:3607: \"$ac_try\") 1>&5; (eval $ac_try) 2>&5; }
+{ (eval echo configure:3604: \"$ac_try\") 1>&5; (eval $ac_try) 2>&5; }
 ac_err=`grep -v '^ *+' conftest.out | grep -v "^conftest.${ac_ext}\$"`
 if test -z "$ac_err"; then
   rm -rf conftest*
@@ -3620,7 +3617,7 @@ rm -f conftest*
 if test $ac_cv_header_stdc = yes; then
   # SunOS 4.x string.h does not declare mem*, contrary to ANSI.
 cat > conftest.$ac_ext <<EOF
-#line 3624 "configure"
+#line 3621 "configure"
 #include "confdefs.h"
 #include <string.h>
 EOF
@@ -3638,7 +3635,7 @@ fi
 if test $ac_cv_header_stdc = yes; then
   # ISC 2.0.2 stdlib.h does not declare free, contrary to ANSI.
 cat > conftest.$ac_ext <<EOF
-#line 3642 "configure"
+#line 3639 "configure"
 #include "confdefs.h"
 #include <stdlib.h>
 EOF
@@ -3659,7 +3656,7 @@ if test "$cross_compiling" = yes; then
   :
 else
   cat > conftest.$ac_ext <<EOF
-#line 3663 "configure"
+#line 3660 "configure"
 #include "confdefs.h"
 #include <ctype.h>
 #define ISLOWER(c) ('a' <= (c) && (c) <= 'z')
@@ -3670,7 +3667,7 @@ if (XOR (islower (i), ISLOWER (i)) || toupper (i) != TOUPPER (i)) exit(2);
 exit (0); }
 
 EOF
-if { (eval echo configure:3674: \"$ac_link\") 1>&5; (eval $ac_link) 2>&5; } && test -s conftest${ac_exeext} && (./conftest; exit) 2>/dev/null
+if { (eval echo configure:3671: \"$ac_link\") 1>&5; (eval $ac_link) 2>&5; } && test -s conftest${ac_exeext} && (./conftest; exit) 2>/dev/null
 then
   :
 else
@@ -3703,9 +3700,9 @@ fi
 ################################################################### OS specific...
 
 echo $ac_n "checking SA_RESTART""... $ac_c" 1>&6
-echo "configure:3707: checking SA_RESTART" >&5
+echo "configure:3704: checking SA_RESTART" >&5
 cat > conftest.$ac_ext <<EOF
-#line 3709 "configure"
+#line 3706 "configure"
 #include "confdefs.h"
 #include <stdio.h>
 #include <stdlib.h>
@@ -3716,9 +3713,9 @@ sgct.sa_flags    = SA_RESTART;
 sigaction( SIGCHLD, &sgct , NULL );
 ; return 0; }
 EOF
-if { (eval echo configure:3720: \"$ac_link\") 1>&5; (eval $ac_link) 2>&5; } && test -s conftest${ac_exeext}; then
+if { (eval echo configure:3717: \"$ac_link\") 1>&5; (eval $ac_link) 2>&5; } && test -s conftest${ac_exeext}; then
   rm -rf conftest*
-  echo "$ac_t""yes" 1>&6; AUTO_HAS_SA_RESTART=1
+  echo "$ac_t""yes" 1>&6; AUTO_HAS="$AUTO_HAS -DAUTO_HAS_SA_RESTART"
 else
   echo "configure: failed program was:" >&5
   cat conftest.$ac_ext >&5
@@ -3727,9 +3724,11 @@ else
 fi
 rm -f conftest*
 
+
+
 ################################################################### Alliance ALLIANCE_TOP
 echo $ac_n "checking where the Alliance package was installed""... $ac_c" 1>&6
-echo "configure:3733: checking where the Alliance package was installed" >&5
+echo "configure:3732: checking where the Alliance package was installed" >&5
  ALLIANCE_TOP=`pwd | sed 's,share/etc$,archi,'`
  export ALLIANCE_TOP
 
@@ -3946,6 +3945,7 @@ s%@GUI_INC_LOC@%$GUI_INC_LOC%g
 s%@GUI_LIB_LOC@%$GUI_LIB_LOC%g
 s%@GNU_INC_LOC@%$GNU_INC_LOC%g
 s%@GNU_LIB_LOC@%$GNU_LIB_LOC%g
+s%@AUTO_HAS@%$AUTO_HAS%g
 s%@ALLIANCE_TOP@%$ALLIANCE_TOP%g
 s%@DATE@%$DATE%g
 s%@HOST@%$HOST%g
