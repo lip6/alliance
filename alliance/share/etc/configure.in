@@ -6,14 +6,14 @@
 # Copyright (C) 1997, 2000 Czo <Olivier.Sirol@lip6.fr>
 # License: GPL (http://www.gnu.org/copyleft/gpl.html)
 # Started: Feb 1997
-# Last Change: Friday 22 September 2000, 12:11
-# Edit Time: 0:21:57
+# Last Change: Friday 22 September 2000, 13:57
+# Edit Time: 0:41:30
 # Description: Alliance CAD system configure.in 
 #
-# $Id: configure.in,v 1.17 2000/09/22 10:19:17 czo Exp $
+# $Id: configure.in,v 1.18 2000/09/22 12:04:44 czo Exp $
 #
 
-AC_REVISION($Revision: 1.17 $)dnl
+AC_REVISION($Revision: 1.18 $)dnl
 
 AC_INIT(configure.in)
 
@@ -334,7 +334,8 @@ OLD_CFLAGS=$CFLAGS
 LIBS="$OLD_LIBS -L$GUI_LIB_LOC -lXm $X_LIBS $X_EXTRA_LIBS $X_PRE_LIBS -lXt -lX11"
 CFLAGS="$OLD_CFLAGS $X_CFLAGS -I$GUI_INC_LOC"
 
-AC_MSG_CHECKING([if you can link Motif/LessTif app])
+AC_CHECKING([if you can link Motif/LessTif app])
+AC_MSG_CHECKING([       without additional libs])
 AC_TRY_LINK([# include <Xm/Xm.h>
 # include <Xm/FileSB.h>
 # include <Xm/MessageB.h>
@@ -350,14 +351,13 @@ AC_TRY_LINK([# include <Xm/Xm.h>
   XmStringFree(xm_string);
   XtAppMainLoop( app );],
 AC_MSG_RESULT(yes),
-AC_MSG_RESULT([no: try with Xintl])
-)
+AC_MSG_RESULT(no)
 
 # try with Xintl
-AC_MSG_CHECKING([if you can link Motif/LessTif app with Xintl])
+AC_MSG_CHECKING([       with Xintl])
 LIBS="$OLD_LIBS -L$GUI_LIB_LOC -lXm $X_LIBS $X_EXTRA_LIBS $X_PRE_LIBS -lXintl -lXt -lX11"
 CFLAGS="$OLD_CFLAGS $X_CFLAGS -I$GUI_INC_LOC"
-
+[
 AC_TRY_LINK([# include <Xm/Xm.h>
 # include <Xm/FileSB.h>
 # include <Xm/MessageB.h>
@@ -372,15 +372,14 @@ AC_TRY_LINK([# include <Xm/Xm.h>
   XtSetArg(args[0], XmNmessageString, xm_string);
   XmStringFree(xm_string);
   XtAppMainLoop( app );],
-AC_MSG_RESULT([yes: Xintl needed]); X_PRE_LIBS="$X_PRE_LIBS -lXintl",
-AC_MSG_RESULT([no: try with Xext and Xp])
-)
+AC_MSG_RESULT(yes); X_PRE_LIBS="$X_PRE_LIBS -lXintl",
+AC_MSG_RESULT(no)
 
 # try with Xp
-AC_MSG_CHECKING([if you can link Motif/LessTif app with Xext and Xp])
+AC_MSG_CHECKING([       with Xext and Xp])
 LIBS="$OLD_LIBS -L$GUI_LIB_LOC -lXm $X_LIBS $X_EXTRA_LIBS $X_PRE_LIBS -lXext -lXp -lXt -lX11"
 CFLAGS="$OLD_CFLAGS $X_CFLAGS -I$GUI_INC_LOC"
-
+[
 AC_TRY_LINK([# include <Xm/Xm.h>
 # include <Xm/FileSB.h>
 # include <Xm/MessageB.h>
@@ -395,9 +394,9 @@ AC_TRY_LINK([# include <Xm/Xm.h>
   XtSetArg(args[0], XmNmessageString, xm_string);
   XmStringFree(xm_string);
   XtAppMainLoop( app );],
-AC_MSG_RESULT([yes: Xext and Xp needed]); X_PRE_LIBS="$X_PRE_LIBS -lXext -lXp",
-AC_MSG_RESULT([ERROR: BAD Motif/LessTif environment])
-)
+AC_MSG_RESULT(yes); X_PRE_LIBS="$X_PRE_LIBS -lXext -lXp",
+AC_MSG_RESULT(ERROR: BAD Motif/LessTif environment)
+)])])
 
 LIBS=$OLD_LIBS
 CFLAGS=$OLD_CFLAGS
