@@ -219,7 +219,7 @@
   GraalDialogItem GraalModifyTransistorWidthDialog =
 
   {
-    "Transistor width",
+    "Transistor length",
     GRAAL_DIALOG_PROMPT,
     (Widget)NULL,
     (void *)CallbackModifyTransistorWidthOk,
@@ -569,7 +569,7 @@ void CallbackModifyTransistorWidthOk( MyWidget, ClientData, CallData )
     }
     else
     {   
-      GraalErrorMessage( GraalMainWindow, "Incorrect transistor width !" );
+      GraalErrorMessage( GraalMainWindow, "Incorrect transistor length!" );
     }
 
     GraalPromptModifyTransistor();
