@@ -7,8 +7,8 @@
 | E-mail support : mailto:alliance-support@asim.lip6.fr       |
 |                                                             |
 | This progam is  free software; you can redistribute it      |
-| and/or modify it under the  terms of the GNU General Public |
-| License as  published by the Free Software Foundation;      |
+| and/or modify it under the  terms of the GNU Library General|
+| Public License as published by the Free Software Foundation |
 | either version 2 of the License, or (at your option) any    |
 | later version.                                              |
 |                                                             |
@@ -24,16 +24,15 @@
 | 675 Mass Ave, Cambridge, MA 02139, USA.                     |
 |                                                             |
 \------------------------------------------------------------*/
-
 /*------------------------------------------------------------\
 |                                                             |
-| Tool    :                     FSP                           |
+| Tool    :                     Fsm                           |
 |                                                             |
-| File    :                  fsp_main.c                       |
+| File    :                    main.c                         |
 |                                                             |
-| Author  :                 Jacomme Ludovic                   |
+| Date    :                   08.02.95                        |
 |                                                             |
-| Date    :                   01.11.94                        |
+| Author  :               Jacomme Ludovic                     |
 |                                                             |
 \------------------------------------------------------------*/
 /*------------------------------------------------------------\
@@ -42,20 +41,15 @@
 |                                                             |
 \------------------------------------------------------------*/
 
+# include <stdio.h>
+# include <string.h>
+
 # include "mut.h"
 # include "aut.h"
 # include "abl.h"
 # include "bdd.h"
 # include "fsm.h"
 # include "ftl.h"
-
-# include <stdio.h>
-# include <stdlib.h>
-# include <string.h>
-# include "fsp_debug.h"
-# include "fsp_comp.h"
-# include "fsp_proof.h"
-# include "fsp_main.h"
 
 /*------------------------------------------------------------\
 |                                                             |
@@ -72,27 +66,19 @@
 |                          Variables                          |
 |                                                             |
 \------------------------------------------------------------*/
-
-   fsmfig_list *FspFsmFigure1 = (fsmfig_list    *)0;
-   fsmfig_list *FspFsmFigure2 = (fsmfig_list    *)0;
-
 /*------------------------------------------------------------\
 |                                                             |
-|                          Functions                          |
-|                                                             |
-\------------------------------------------------------------*/
-/*------------------------------------------------------------\
-|                                                             |
-|                          Fsp Usage                          |
+|                            Usage                            |
 |                                                             |
 \------------------------------------------------------------*/
 
-void FspUsage()
+void FsmUsage()
 {
-  fprintf( stderr, "\t\tfsp [Options] format1 format2 filename1 filename2\n\n" );
-
-  fprintf( stdout, "\t\tOptions : -V Sets Verbose mode on\n"       );
-  fprintf( stdout, "\t\t          -D Sets Debug mode on\n"         );
+  fprintf( stderr, "\t\tfsmtest [Options] Input_name [Output_name]\n\n" );
+  fprintf( stdout, "\t\tOptions : -V Sets Verbose mode on\n" );
+  fprintf( stdout, "\t\t          -S Saves Fsm figure\n" );
+  fprintf( stdout, "\t\t          -I Fsm Input format\n" );
+  fprintf( stdout, "\t\t          -O Fsm Output format\n" );
   fprintf( stdout, "\n" );
 
   exit( 1 );
@@ -100,41 +86,35 @@ void FspUsage()
 
 /*------------------------------------------------------------\
 |                                                             |
-|                            Main                             |
+|                          Functions                          |
 |                                                             |
 \------------------------------------------------------------*/
 
 int main( argc, argv )
 
-   int   argc;
-   char *argv[];
+  int   argc;
+  char *argv[];
 {
-  char  *InputFileName1;
-  char  *InputFileName2;
-  char  *InputFormat1;
-  char  *InputFormat2;
-  int    Number;
-  int    Index;
-  char   Option;
+  fsmfig_list *FsmFigure;
+  char        *InputFileName;
+  char        *OutputFileName;
+  int          Number;
+  int          Index;
+  char         Option;
 
-  int    FlagVerbose = 0;
-  int    FlagDebug   = 0;
-
-  alliancebanner_with_authors( "FSP", VERSION, "FSM formal Proof", "1999",
-      ALLIANCE_VERSION, "Ludovic Jacomme" );
+  int   FlagVerbose   = 0;
+  int   FlagSave      = 0;
 
   mbkenv();
   autenv();
   ablenv();
-  bddenv();
   fsmenv();
 
-  if ( argc < 4 ) FspUsage();
+  InputFileName = (char *)0;
 
-  InputFileName1 = (char *)0;
-  InputFileName2 = (char *)0;
-  InputFormat1   = (char *)0;
-  InputFormat2   = (char *)0;
+  if ( argc < 2 ) FsmUsage();
+
+  InputFileName = (char *)0;
 
   for ( Number = 1; Number  < argc; Number++ )
   {
@@ -144,83 +124,60 @@ int main( argc, argv )
       {
         Option = argv[ Number ][ Index ];
 
+        if ( Option == 'I' ) 
+        {
+          Number = Number + 1;
+          FSM_IN = namealloc( argv[ Number ] );
+          break;
+        }
+        else
+        if ( Option == 'O' )
+        {
+          Number  = Number + 1;
+          FSM_OUT = namealloc( argv[ Number ] );
+          break;
+        }
+
         switch ( Option )
         {
           case 'V' : FlagVerbose = 1;
           break;
-          case 'D' : FlagDebug = 1;
+          case 'S' : FlagSave    = 1;
           break;
-          default  : FspUsage();
+          default  : FsmUsage();
         }
-
-        if ( Option == 'r' ) break;
       }
     }
     else
-    if ( InputFormat1   == (char *)0 ) InputFormat1   = argv[ Number ];
+    if ( InputFileName == (char *)0 ) InputFileName = argv[ Number ];
     else
-    if ( InputFormat2   == (char *)0 ) InputFormat2   = argv[ Number ];
+    if ( OutputFileName == (char *)0 ) OutputFileName = argv[ Number ];
     else
-    if ( InputFileName1 == (char *)0 ) InputFileName1 = argv[ Number ];
-    else
-    if ( InputFileName2 == (char *)0 ) InputFileName2 = argv[ Number ];
-    else
-    FspUsage();
+    FsmUsage();
   }
 
-  if ( ( InputFormat1   == (char *)0 ) ||
-       ( InputFormat2   == (char *)0 ) ||
-       ( InputFileName1 == (char *)0 ) ||
-       ( InputFileName2 == (char *)0 ) ) FspUsage();
+  if ( InputFileName  == (char *)0 ) FsmUsage();
+  if ( OutputFileName == (char *)0 ) OutputFileName = InputFileName;
 
-  if ( FlagVerbose )
+  if ( ( FlagSave ) && ( InputFileName == OutputFileName ) )
   {
-    fprintf( stdout, "\t--> Run FSM Compiler\n" );
-    fprintf( stdout, "\t--> Compile file %s\n", InputFileName1 );
+    FsmUsage();
   }
 
-  FspFsmFigure1 = FspCompile( InputFileName1, InputFormat1 );
+  fprintf( stdout, "FSM_IN  : %s\n", FSM_IN  );
+  fprintf( stdout, "FSM_OUT : %s\n", FSM_OUT );
 
-  if ( ( IsFsmFigMulti( FspFsmFigure1    ) ) ||
-       ( IsFsmFigMixedRtl( FspFsmFigure1 ) ) )
+  FsmFigure = getfsmfig( InputFileName );
+
+  if ( FlagVerbose ) viewfsmfig( FsmFigure );
+
+  if ( FlagSave )
   {
-    fprintf( stderr, "\tMulti FSM or Mixed RTL FSM not supported !\n" );
-    autexit( 1 );
+    FsmFigure->NAME = namealloc( OutputFileName );
+    savefsmfig( FsmFigure );
   }
 
-  if ( FlagVerbose )
-  {
-    fprintf( stdout, "\t--> Run FSM Compiler\n" );
-    fprintf( stdout, "\t--> Compile file %s\n", InputFileName2 );
-  }
-
-  FspFsmFigure2 = FspCompile( InputFileName2, InputFormat2 );
-
-  if ( ( IsFsmFigMulti( FspFsmFigure2    ) ) ||
-       ( IsFsmFigMixedRtl( FspFsmFigure2 ) ) )
-  {
-    fprintf( stderr, "\tMulti FSM or Mixed RTL FSM not supported !\n" );
-    autexit( 1 );
-  }
-
-  if ( FlagVerbose )
-  {
-    fprintf( stdout, "\t--> Formal proof between \"%s\" and \"%s\"\n",
-             FspFsmFigure1->NAME, FspFsmFigure2->NAME );
-  }
-
-  if ( FspFormalProof( FspFsmFigure1, FspFsmFigure2, FlagDebug ) )
-  {
-    fprintf( stdout, "\n\t==> \"%s\" and \"%s\" are identicals\n\n", 
-             FspFsmFigure1->NAME, FspFsmFigure2->NAME );
-  }
-  else
-  {
-    fprintf( stdout, "\n\t==> \"%s\" and \"%s\" are not identicals\n\n", 
-             FspFsmFigure1->NAME, FspFsmFigure2->NAME );
-
-    exit( 1 );
-  }
+  delfsmfig( FsmFigure->NAME );
 
   return( 0 );
 }
