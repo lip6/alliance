@@ -484,7 +484,7 @@
                                                               \
   do                                                          \
   {                                                           \
-    if ( RDS_DEBUG_ON ) addrdsdebug(__LINE__,__FILE__);       \
+    if ( RDS_DEBUG_ON ) addrdsdebug(__LINE__, basename(__FILE__));       \
   }                                                           \
   while ( 0 )
 

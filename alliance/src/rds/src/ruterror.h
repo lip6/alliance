@@ -46,7 +46,9 @@
 |                                                             |
 \------------------------------------------------------------*/
 
-# define ruterror( E, V ) (rut_error( (E), (V), __FILE__, __LINE__ ))
+extern char *basename();
+
+# define ruterror( E, V ) (rut_error( (E), (V), basename(__FILE__), __LINE__ ))
 
 /*------------------------------------------------------------\
 |                                                             |
