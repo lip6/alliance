@@ -12,10 +12,10 @@ IOPath*
 TimingCell::AddIOPath(const char* input, const char* output)
 {
     IOPathKey key(input, output);
-    IOPath* ioPath = _ioPaths[key];
-    if (ioPath)
-	return ioPath;
-    ioPath = new IOPath(input, output);
+    IOPaths::iterator ioPathIt;
+    if ((ioPathIt = _ioPaths.find(key)) != _ioPaths.end())
+	return ioPathIt->second;
+    IOPath* ioPath = new IOPath(input, output);
     _ioPaths[key] = ioPath;
     return ioPath;
 }

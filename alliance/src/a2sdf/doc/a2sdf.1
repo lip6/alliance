@@ -1,0 +1,39 @@
+.pl -.4
+.TH A2SDF 1 "December 09, 2002" "ASIM/LIP6" "CAO\-VLSI Reference Manual"
+.SH NAME
+.TP
+a2sdf
+ - alliance to sdf format converter 
+.so man1/alc_origin.1
+.SH SYNOPSIS
+.TP
+\fBa2sdf\fP 
+[\fBoptions\fP] \fIcells_dir\fP \fIoutputname\fP
+.br
+
+.SH DESCRIPTION
+\fBa2sdf\fP translates the SXLIB library to the SDF format. Please refer to
+http://www.eda.org/sdf/ for more information on SDF format.
+.br
+Only the SXLIB library has got timing informations at the moment, so it's
+the only library we are able to convert.
+.br
+\fBcells directory\fP
+.br
+The path to the SXLIB cells directory.
+.br
+\fBoutput name\fP
+.br
+Just the name of the file containing the timing information in sdf format.
+It should be named with a .sdf extension.
+.br
+
+.SH OPTIONS
+.PP
+\fB-v[ersion]\fP displays the tool's version.
+.br
+\fB-h[elp]\fP displays a small help message.
+.br
+\fB-V[erbose]\fP sets the verbose mode on.
+.br
+.so man1/alc_bug_report.1

@@ -42,6 +42,12 @@ A2Sdf::CreateTimingCell(const char* name)
     
     befig_list* befig = vhdlloadbefig(NULL,const_cast<char*>(name),0/*don't dump message*/);
     assert(befig);
+
+    if (_verbose)
+    {
+	cout << " o Treating cell: " << name << endl;
+    }
+
     list<const char*> outs;
     for (const bepor_list* bepor=befig->BEPOR; bepor; bepor=bepor->NEXT)
     {
@@ -52,12 +58,6 @@ A2Sdf::CreateTimingCell(const char* name)
 	}
     }
 
-    if (outs.size() > 1)
-    {
-	cerr << name << endl;
-	return;
-    }
-    
     for (list<const char*>::const_iterator lit = outs.begin();
 	    lit != outs.end();
 	    lit++)

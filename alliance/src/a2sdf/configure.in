@@ -11,7 +11,7 @@ AC_SUBST(A2SDF_VERSION)
 
 # For automake.
 VERSION=$A2SDF_VERSION
-PACKAGE=emmaus
+PACKAGE=a2sdf
 
 dnl Initialize automake stuff
 AM_INIT_AUTOMAKE($PACKAGE, $VERSION)
@@ -32,4 +32,5 @@ AM_ALLIANCE
 AC_OUTPUT([
 Makefile
 src/Makefile
+doc/Makefile
 ])
