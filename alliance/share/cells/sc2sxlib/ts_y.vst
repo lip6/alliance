@@ -1,0 +1,33 @@
+entity ts_y is
+   port (
+      i   : in      bit;
+      v   : in      bit;
+      t   : out     bit;
+      vdd : in      bit;
+      vss : in      bit
+ );
+end ts_y;
+
+architecture structural of ts_y is
+Component ts_x1
+   port (
+      i   : in      bit;
+      cmd : in      bit;
+      q   : out     bit;
+      vdd : in      bit;
+      vss : in      bit
+ );
+end component;
+
+begin
+
+t_tri : ts_x1
+   port map (
+      i   => i,
+      cmd => v,
+      nq  => t,
+      vdd => vdd,
+      vss => vss
+   );
+
+end structural;

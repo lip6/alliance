@@ -1,0 +1,32 @@
+entity ndrvp_y is
+   port (
+      i   : in      bit;
+      f   : out     bit;
+      vdd : in      bit;
+      vss : in      bit
+ );
+end ndrvp_y;
+
+architecture structural of ndrvp_y is
+Component inv_x8
+   port (
+      i   : in      bit;
+      nq  : out     bit;
+      vdd : in      bit;
+      vss : in      bit
+ );
+end component;
+
+
+begin
+
+u4 : inv_x8
+   port map (
+      i   => i,
+      nq  => f,
+      vdd => vdd,
+      vss => vss
+   );
+
+
+end structural;

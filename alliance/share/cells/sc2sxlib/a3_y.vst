@@ -1,0 +1,38 @@
+entity a3_y is
+   port (
+      i0  : in      bit;
+      i1  : in      bit;
+      i2  : in      bit;
+      t   : out     bit;
+      vdd : in      bit;
+      vss : in      bit
+ );
+end a3_y;
+
+architecture structural of a3_y is
+Component a3_x2
+   port (
+      i0  : in      bit;
+      i1  : in      bit;
+      i2  : in      bit;
+      q   : out     bit;
+      vdd : in      bit;
+      vss : in      bit
+ );
+end component;
+
+
+begin
+
+u4 : a3_x2
+   port map (
+      i0  => i0,
+      i1  => i1,
+      i2  => i2,
+      q   => t,
+      vdd => vdd,
+      vss => vss
+   );
+
+
+end structural;

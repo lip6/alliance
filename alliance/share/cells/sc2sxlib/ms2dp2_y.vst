@@ -1,0 +1,57 @@
+entity ms2dp2_y is
+   port (
+      di  : in      bit;
+      si  : in      bit;
+      se  : in      bit;
+      ck  : in      bit;
+      t   : out     bit;
+      vdd : in      bit;
+      vss : in      bit
+ );
+end ms2dp2_y;
+
+architecture structural of ms2dp2_y is
+Component inv_x1
+   port (
+      i   : in      bit;
+      nq  : out     bit;
+      vdd : in      bit;
+      vss : in      bit
+ );
+end component;
+
+Component sff1_x4
+   port (
+      i   : in      bit;
+      ck  : in      bit;
+      q   : out     bit;
+      vdd : in      bit;
+      vss : in      bit
+ );
+end component;
+
+signal n1  : bit;
+
+begin
+
+u10 : inv_x1
+   port map (
+      i   => ck,
+      nq  => n1,
+      vdd => vdd,
+      vss => vss
+   );
+
+dff_s_reg : sff2_x4
+   port map (
+      cmd => se,
+      i0  => di,
+      i1  => si,
+      ck  => n1,
+      q   => t,
+      vdd => vdd,
+      vss => vss
+   );
+
+
+end structural;

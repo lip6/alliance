@@ -1,0 +1,38 @@
+entity op3_y is
+   port (
+      i0  : in      bit;
+      i1  : in      bit;
+      i2  : in      bit;
+      t   : out     bit;
+      vdd : in      bit;
+      vss : in      bit
+ );
+end op3_y;
+
+architecture structural of op3_y is
+Component o3_x4
+   port (
+      i0  : in      bit;
+      i1  : in      bit;
+      i2  : in      bit;
+      q   : out     bit;
+      vdd : in      bit;
+      vss : in      bit
+ );
+end component;
+
+
+begin
+
+u4 : o3_x4
+   port map (
+      i0  => i2,
+      i1  => i0,
+      i2  => i1,
+      q   => t,
+      vdd => vdd,
+      vss => vss
+   );
+
+
+end structural;

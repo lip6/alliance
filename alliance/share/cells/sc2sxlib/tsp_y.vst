@@ -1,0 +1,33 @@
+entity tsp_y is
+   port (
+      i   : in      bit;
+      v   : in      bit;
+      t   : out     bit;
+      vdd : in      bit;
+      vss : in      bit
+ );
+end tsp_y;
+
+architecture structural of tsp_y is
+Component ts_x4
+   port (
+      i   : in      bit;
+      cmd : in      bit;
+      nq  : out     bit;
+      vdd : in      bit;
+      vss : in      bit
+ );
+end component;
+
+begin
+
+t_tri : ts_x4
+   port map (
+      i   => i,
+      cmd => v,
+      q  => t,
+      vdd => vdd,
+      vss => vss
+   );
+
+end structural;

@@ -1,0 +1,35 @@
+entity na2_y is
+   port (
+      i0  : in      bit;
+      i1  : in      bit;
+      f   : out     bit;
+      vdd : in      bit;
+      vss : in      bit
+ );
+end na2_y;
+
+architecture structural of na2_y is
+Component na2_x1
+   port (
+      i0  : in      bit;
+      i1  : in      bit;
+      nq  : out     bit;
+      vdd : in      bit;
+      vss : in      bit
+ );
+end component;
+
+
+begin
+
+u4 : na2_x1
+   port map (
+      i0  => i1,
+      i1  => i0,
+      nq  => f,
+      vdd => vdd,
+      vss => vss
+   );
+
+
+end structural;

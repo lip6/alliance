@@ -1,0 +1,42 @@
+entity cry_y is
+   port (
+      pi  : in      bit;
+      ci  : in      bit;
+      si  : in      bit;
+      f   : out     bit;
+      vdd : in      bit;
+      vss : in      bit
+ );
+end cry_y;
+
+architecture structural of cry_y is
+Component noa2ao222_x4
+   port (
+      i0  : in      bit;
+      i1  : in      bit;
+      i2  : in      bit;
+      i3  : in      bit;
+      i4  : in      bit;
+      nq  : out     bit;
+      vdd : in      bit;
+      vss : in      bit
+ );
+end component;
+
+
+begin
+
+u4 : noa2ao222_x4
+   port map (
+      i0  => si,
+      i1  => ci,
+      i2  => si,
+      i3  => ci,
+      i4  => pi,
+      nq  => f,
+      vdd => vdd,
+      vss => vss
+   );
+
+
+end structural;

@@ -1,0 +1,38 @@
+entity noa3_y is
+   port (
+      i0  : in      bit;
+      i1  : in      bit;
+      i2  : in      bit;
+      f   : out     bit;
+      vdd : in      bit;
+      vss : in      bit
+ );
+end noa3_y;
+
+architecture structural of noa3_y is
+Component nao22_x1
+   port (
+      i0  : in      bit;
+      i1  : in      bit;
+      i2  : in      bit;
+      nq  : out     bit;
+      vdd : in      bit;
+      vss : in      bit
+ );
+end component;
+
+
+begin
+
+u4 : nao22_x1
+   port map (
+      i0  => i0,
+      i1  => i1,
+      i2  => i2,
+      nq  => f,
+      vdd => vdd,
+      vss => vss
+   );
+
+
+end structural;

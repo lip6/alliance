@@ -1,0 +1,32 @@
+entity zbli_y is
+   port (
+      i   : in      bit;
+      f   : out     bit;
+      vdd : in      bit;
+      vss : in      bit
+ );
+end zbli_y;
+
+architecture structural of zbli_y is
+Component inv_x1
+   port (
+      i   : in      bit;
+      nq  : out     bit;
+      vdd : in      bit;
+      vss : in      bit
+ );
+end component;
+
+
+begin
+
+u4 : inv_x1
+   port map (
+      i   => i,
+      nq  => f,
+      vdd => vdd,
+      vss => vss
+   );
+
+
+end structural;

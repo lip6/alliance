@@ -1,0 +1,32 @@
+entity b1_y is
+   port (
+      i   : in      bit;
+      t   : out     bit;
+      vdd : in      bit;
+      vss : in      bit
+ );
+end b1_y;
+
+architecture structural of b1_y is
+
+Component buf_x4
+   port (
+      i  : in      bit;
+      nq  : out     bit;
+      vdd : in      bit;
+      vss : in      bit
+ );
+end component;
+
+
+begin
+
+u4 : buf_x4
+   port map (
+      i  => i,
+      nq  => t,
+      vdd => vdd,
+      vss => vss
+   );
+
+end structural;

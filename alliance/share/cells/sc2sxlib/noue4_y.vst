@@ -1,0 +1,59 @@
+entity noue4_y is
+   port (
+      i0  : in      bit;
+      i1  : in      bit;
+      i2  : in      bit;
+      i3  : in      bit;
+      f   : out     bit;
+      vdd : in      bit;
+      vss : in      bit
+ );
+end noue4_y;
+
+architecture structural of noue4_y is
+Component na2_x1
+   port (
+      i0  : in      bit;
+      i1  : in      bit;
+      nq  : out     bit;
+      vdd : in      bit;
+      vss : in      bit
+ );
+end component;
+
+Component ao22_x2
+   port (
+      i0  : in      bit;
+      i1  : in      bit;
+      i2  : in      bit;
+      q   : out     bit;
+      vdd : in      bit;
+      vss : in      bit
+ );
+end component;
+
+signal n1  : bit;
+
+begin
+
+u4 : na2_x1
+   port map (
+      i0  => n1,
+      i1  => i3,
+      nq  => f,
+      vdd => vdd,
+      vss => vss
+   );
+
+u5 : ao22_x2
+   port map (
+      i0  => i0,
+      i1  => i1,
+      i2  => i2,
+      q   => n1,
+      vdd => vdd,
+      vss => vss
+   );
+
+
+end structural;

@@ -1,0 +1,35 @@
+entity xr2_y is
+   port (
+      i0  : in      bit;
+      i1  : in      bit;
+      t   : out     bit;
+      vdd : in      bit;
+      vss : in      bit
+ );
+end xr2_y;
+
+architecture structural of xr2_y is
+Component xr2_x1
+   port (
+      i0  : in      bit;
+      i1  : in      bit;
+      q   : out     bit;
+      vdd : in      bit;
+      vss : in      bit
+ );
+end component;
+
+
+begin
+
+u4 : xr2_x1
+   port map (
+      i0  => i1,
+      i1  => i0,
+      q   => t,
+      vdd => vdd,
+      vss => vss
+   );
+
+
+end structural;

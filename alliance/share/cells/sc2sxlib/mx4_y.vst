@@ -1,0 +1,53 @@
+entity mx4_y is
+   port (
+      i0  : in      bit;
+      i1  : in      bit;
+      i2  : in      bit;
+      i3  : in      bit;
+      l0  : in      bit;
+      l1  : in      bit;
+      l2  : in      bit;
+      l3  : in      bit;
+      t   : out     bit;
+      vdd : in      bit;
+      vss : in      bit
+ );
+end mx4_y;
+
+architecture structural of mx4_y is
+Component oa2a2a2a24_x2
+   port (
+      i0  : in      bit;
+      i1  : in      bit;
+      i2  : in      bit;
+      i3  : in      bit;
+      i4  : in      bit;
+      i5  : in      bit;
+      i6  : in      bit;
+      i7  : in      bit;
+      q   : out     bit;
+      vdd : in      bit;
+      vss : in      bit
+ );
+end component;
+
+
+begin
+
+u4 : oa2a2a2a24_x2
+   port map (
+      i0  => i2,
+      i1  => l2,
+      i2  => i3,
+      i3  => l3,
+      i4  => i1,
+      i5  => l1,
+      i6  => i0,
+      i7  => l0,
+      q   => t,
+      vdd => vdd,
+      vss => vss
+   );
+
+
+end structural;

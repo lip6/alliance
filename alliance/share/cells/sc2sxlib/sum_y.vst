@@ -1,0 +1,47 @@
+entity sum_y is
+   port (
+      pi  : in      bit;
+      ci  : in      bit;
+      si  : in      bit;
+      c0b : in      bit;
+      f   : out     bit;
+      vdd : in      bit;
+      vss : in      bit
+ );
+end sum_y;
+
+architecture structural of sum_y is
+Component noa3ao322_x4
+   port (
+      i0  : in      bit;
+      i1  : in      bit;
+      i2  : in      bit;
+      i3  : in      bit;
+      i4  : in      bit;
+      i5  : in      bit;
+      i6  : in      bit;
+      nq  : out     bit;
+      vdd : in      bit;
+      vss : in      bit
+ );
+end component;
+
+
+begin
+
+u4 : noa3ao322_x4
+   port map (
+      i0  => pi,
+      i1  => ci,
+      i2  => si,
+      i3  => si,
+      i4  => pi,
+      i5  => ci,
+      i6  => c0b,
+      nq  => f,
+      vdd => vdd,
+      vss => vss
+   );
+
+
+end structural;
