@@ -5,10 +5,40 @@ AM_CFLAGS = @ALLIANCE_CFLAGS@ @X_CFLAGS@ \
 	 -DXPAT_DEFAULT_PARAM_NAME=\"${ALLIANCE_TOP}/etc/xpat.par\" \
 	 -DXMS_FILE_NAME=\".xpat.cfg\"
 
-xpat_LDADD = @ALLIANCE_LIBS@ @X_LIBS@ @LINK_MOTIF@ \
-	  -lPpt -lPhl -lPat -lAut -lMut
+# -----------------------------------------------------------------------------
+# X Libraries.
+# -----------------------------------------------------------------------------
 
-INCLUDES = @INCLUDE_MOTIF@
+# Special flags for linking with X.  (-L/usr/X11R5/lib)
+X_LDFLAGS = @X_LIBS@
+
+# Motif library.  (-lXm)
+LIBXM = @XM_LIBS@
+
+# Use this alternative for building `semistatic' executables
+# where Motif libraries are statically linked in.
+# LIBXM = -Wl,-Bstatic @XM_LIBS@ -Wl,-Bdynamic
+
+# X extension library; needed for Athena and Motif >= 2.0.  (-lXext)
+LIBXEXT = @XEXT_LIBS@
+
+# Xp library; sometimes needed for Motif >= 2.1.  (-lXp)
+LIBXP = @XP_LIBS@
+
+# X toolkit library.  (-lXt)
+LIBXT = @XT_LIBS@
+
+# X library.  (-lX11 -lSM -lICE -lnsl -lsocket)
+LIBX11 = @X_PRE_LIBS@ @X11_LIBS@ @X_EXTRA_LIBS@
+
+# All libraries shown above
+ALL_X_LIBS = $(X_LDFLAGS) $(LIBXM) $(LIBXT) \
+             $(LIBXP) $(LIBXEXT) $(LIBX11)
+
+
+
+xpat_LDADD = @ALLIANCE_LIBS@ $(ALL_X_LIBS) \
+	  -lPpt -lPhl -lPat -lAut -lMut
 
 xpat_SOURCES = \
 LIP6bw.h XME_dialog.c XME_dialog.h XME_edit.c XME_edit.h \

@@ -2,7 +2,7 @@
 
 bin_PROGRAMS = dreal
 AM_CFLAGS = @ALLIANCE_CFLAGS@ @X_CFLAGS@ \
-         -DDREAL_DEFAULT_TECHNO_NAME=\"etc/cmos_7.dreal\" \
+         -DDREAL_DEFAULT_TECHNO_NAME=\"etc/cmos.dreal\" \
          -DGMS_FILE_NAME=\".dreal.cfg\" \
          -DDREAL_WINDOW_DX=\"DREAL_WINDOW_DX\" \
          -DDREAL_WINDOW_DY=\"DREAL_WINDOW_DY\" \
@@ -10,11 +10,44 @@ AM_CFLAGS = @ALLIANCE_CFLAGS@ @X_CFLAGS@ \
          -DDREAL_WINDOW_YMIN=\"DREAL_WINDOW_YMIN\" \
          -DDREAL_WINDOW_SIDE=\"DREAL_WINDOW_SIDE\" 
 
-dreal_LDADD = @ALLIANCE_LIBS@ @X_LIBS@ @LINK_MOTIF@ \
+
+# -----------------------------------------------------------------------------
+# X Libraries.
+# -----------------------------------------------------------------------------
+
+# Special flags for linking with X.  (-L/usr/X11R5/lib)
+X_LDFLAGS = @X_LIBS@
+
+# Motif library.  (-lXm)
+LIBXM = @XM_LIBS@
+
+# Use this alternative for building `semistatic' executables
+# where Motif libraries are statically linked in.
+# LIBXM = -Wl,-Bstatic @XM_LIBS@ -Wl,-Bdynamic
+
+# X extension library; needed for Athena and Motif >= 2.0.  (-lXext)
+LIBXEXT = @XEXT_LIBS@
+
+# Xpm library; needed for my tool and sometimes for Motif >= 2.0.  (-lXpm)
+LIBXPM = @XPM_LIBS@
+
+# Xp library; sometimes needed for Motif >= 2.1.  (-lXp)
+LIBXP = @XP_LIBS@
+
+# X toolkit library.  (-lXt)
+LIBXT = @XT_LIBS@
+
+# X library.  (-lX11 -lSM -lICE -lnsl -lsocket)
+LIBX11 = @X_PRE_LIBS@ @X11_LIBS@ @X_EXTRA_LIBS@
+
+# All libraries shown above
+ALL_X_LIBS = $(X_LDFLAGS) $(LIBXM) $(LIBXT) $(LIBXPM) \
+             $(LIBXP) $(LIBXEXT) $(LIBX11)
+
+
+dreal_LDADD = @ALLIANCE_LIBS@ $(ALL_X_LIBS) \
 -lRtl -lRgs -lRcf -lRut -lRfm -lRpr -lRds -lMpu -lMap -lMmg -lMcp -lMph -lMut 
 
-
-INCLUDES = @INCLUDE_MOTIF@
 
 dreal_SOURCES = \
 dreal.c dreal.h GMC_create.c GMC_create.h GMC_dialog.c GMC_dialog.h GMC.h \

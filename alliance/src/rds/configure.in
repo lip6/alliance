@@ -26,7 +26,7 @@ dnl           Almost ten years since I wrote this stuff, I just can't
 dnl           believe it
 dnl Date    : 01/02/2002
 dnl Author  : Frederic Petrot <Frederic.Petrot@lip6.fr>
-dnl $Id: configure.in,v 1.2 2002/03/20 11:10:47 fred Exp $
+dnl $Id: configure.in,v 1.3 2002/04/11 11:51:19 ludo Exp $
 dnl
 dnl
 AC_INIT(src/rds.h)
@@ -42,4 +42,5 @@ AC_OUTPUT([
 Makefile
 src/Makefile
 man3/Makefile
+etc/Makefile
 ])

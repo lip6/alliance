@@ -2,7 +2,7 @@
 
 bin_PROGRAMS = graal
 AM_CFLAGS = @ALLIANCE_CFLAGS@ @X_CFLAGS@ \
-         -DGRAAL_DEFAULT_TECHNO_NAME=\"etc/cmos_12.graal\" \
+         -DGRAAL_DEFAULT_TECHNO_NAME=\"etc/cmos.graal\" \
          -DGMS_FILE_NAME=\".graal.cfg\" \
          -DGRAAL_WINDOW_DX=\"GRAAL_WINDOW_DX\" \
          -DGRAAL_WINDOW_DY=\"GRAAL_WINDOW_DY\" \

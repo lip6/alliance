@@ -5,10 +5,43 @@ AM_CFLAGS = @ALLIANCE_CFLAGS@ @X_CFLAGS@ \
 	 -DXVPN_DEFAULT_PARAM_NAME=\"${ALLIANCE_TOP}/etc/xvpn.par\" \
 	 -DXMS_FILE_NAME=\".xvpn.cfg\"
 
-xvpn_LDADD = @ALLIANCE_LIBS@ @X_LIBS@ @LINK_MOTIF@ \
- -lVtl -lVvh -lVpd -lVpn -lVbl -lVbh -lVex -lAbl -lAut -lMut
+# -----------------------------------------------------------------------------
+# X Libraries.
+# -----------------------------------------------------------------------------
 
-INCLUDES = @INCLUDE_MOTIF@
+# Special flags for linking with X.  (-L/usr/X11R5/lib)
+X_LDFLAGS = @X_LIBS@
+
+# Motif library.  (-lXm)
+LIBXM = @XM_LIBS@
+
+# Use this alternative for building `semistatic' executables
+# where Motif libraries are statically linked in.
+# LIBXM = -Wl,-Bstatic @XM_LIBS@ -Wl,-Bdynamic
+
+# X extension library; needed for Athena and Motif >= 2.0.  (-lXext)
+LIBXEXT = @XEXT_LIBS@
+
+# Xpm library; needed for my tool and sometimes for Motif >= 2.0.  (-lXpm)
+LIBXPM = @XPM_LIBS@
+
+# Xp library; sometimes needed for Motif >= 2.1.  (-lXp)
+LIBXP = @XP_LIBS@
+
+# X toolkit library.  (-lXt)
+LIBXT = @XT_LIBS@
+
+# X library.  (-lX11 -lSM -lICE -lnsl -lsocket)
+LIBX11 = @X_PRE_LIBS@ @X11_LIBS@ @X_EXTRA_LIBS@
+
+# All libraries shown above
+ALL_X_LIBS = $(X_LDFLAGS) $(LIBXM) $(LIBXT) $(LIBXPM) \
+             $(LIBXP) $(LIBXEXT) $(LIBX11)
+
+
+
+xvpn_LDADD = @ALLIANCE_LIBS@ $(ALL_X_LIBS) \
+ -lVtl -lVvh -lVpd -lVpn -lVbl -lVbh -lVex -lAbl -lAut -lMut
 
 xvpn_SOURCES = \
 LIP6bw.h XME_dialog.c XME_dialog.h XME_edit.c XME_edit.h XME.h XME_menu.c \
