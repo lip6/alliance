@@ -76,8 +76,15 @@ char         mode;
     {
     if (mode == VHU_ALIGN)
       {
-      mem_idx = (mem_idx + 3) & 0xfffffffc;
-      size    = (size    + 3) & 0xfffffffc;
+
+      #ifdef SYSTEM64
+        mem_idx = (mem_idx + 7) & 0xfffffff8;
+        size    = (size    + 7) & 0xfffffff8;
+      #else
+        mem_idx = (mem_idx + 3) & 0xfffffffc;
+        size    = (size    + 3) & 0xfffffffc;
+      #endif
+
       }
 
     if ((mem_pt == NULL) || ((mem_idx + size) > VHU_MEMALC))
