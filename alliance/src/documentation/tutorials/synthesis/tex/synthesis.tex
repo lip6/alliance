@@ -1,17 +1,25 @@
-\documentclass[12pt]{article}
+%%%%%%%%%%%%%%%%
+% $Id: synthesis.tex,v 1.4 2004/10/16 12:52:17 fred Exp $
+% $Log: synthesis.tex,v $
+% Revision 1.4  2004/10/16 12:52:17  fred
+% Erasing the psfig include from the file, changed the font to 10 pt
+% instead of 12 (sparing trees and not being payed by the thickness of
+% my production) and changing font to charter since I got tired of
+% Palatino, sorry Herman!
+%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\documentclass{article}
 \usepackage[dvips]{graphics}
 \usepackage[english]{babel}
 \usepackage{doublespace}
-\usepackage{epsf}
 \usepackage{fancybox}
 \usepackage{fancyheadings}
 \usepackage{float}
 \usepackage{graphicx}
 \usepackage{here}
 \usepackage{isolatin1}
-\usepackage{palatino}
+\usepackage{charter}
 \usepackage{picinpar}
-\usepackage{psfig}
 \usepackage{rotate}
 \usepackage{subfigure}
 \usepackage{sverb}
@@ -794,8 +802,9 @@ I[5:3]=111.
 
 We break up Amd2901 into 2 blocks: %la partie cont\^ole qui regroupe la ``glu'' logique et la partie op\'erative (chemin de donn\'ees).%
 \begin{figure}[H]\center
-\leavevmode \epsfxsize=10cm \epsffile{bloc.eps} \caption{Amd2901
-Organization  \label{bloc}}
+\leavevmode
+\includegraphics[width=10cm]{bloc}
+\caption{Amd2901 Organization  \label{bloc}}
 \end{figure}
 
 
@@ -810,8 +819,7 @@ registers and the arithmetic logic unit.
 We will use the following hierarchical description:
 \begin{figure}[H]\center
 \leavevmode
-\epsfxsize=10cm
-\epsffile{hier.eps}
+\includegraphics[width=10cm]{hier}
 \caption{Hierarchy \label{hier}}
 \end{figure}
 
@@ -854,8 +862,7 @@ here a simple circuit:
 
 \begin{figure}[H]\center
 \leavevmode
-\epsfxsize=10cm
-\epsffile{exemple1.eps}
+\includegraphics[width=10cm]{exemple1}
 \end{figure}
 
 The equivalent { \bf genlib } file is as follows:
@@ -991,13 +998,12 @@ Let us consider the following circuit:
 
 \begin{figure}[H]\center
 \leavevmode
-\epsfxsize=10cm
-\epsffile{exemple2.eps}
+\includegraphics[width=10cm]{exemple2}
 \end{figure}
 
 Here the corresponding data-path structure :
-\begin{figure}[H]\center \leavevmode \epsfxsize=10cm
-\epsffile{datap.eps}
+\begin{figure}[H]\center \leavevmode
+\includegraphics[width=10cm]{datap}
 \end{figure}
 
 Each gate occupies a column, a column making it possible to treat
@@ -1226,47 +1232,39 @@ copy:
 
 \begin{figure}[H]\center
 \leavevmode
-\epsfxsize=12cm
-\epsffile{ctl-mrs-1.eps}
+\includegraphics[width=12cm]{ctl-mrs-1}
 \end{figure}
 \begin{figure}[H]\center
 \leavevmode
-\epsfxsize=12cm
-\epsffile{ctl-alu-1.eps}
+\includegraphics[width=12cm]{ctl-alu-1}
 \end{figure}
 \begin{figure}[H]\center
 \leavevmode
-\epsfxsize=12cm
-\epsffile{ctl-wen-1.eps}
+\includegraphics[width=12cm]{ctl-wen-1}
 \end{figure}
 \begin{figure}[H]\center
 \leavevmode
-\epsfxsize=10cm
-\epsffile{dpt-all-1.eps}
+\includegraphics[width=10cm]{dpt-all-1}
 \end{figure}
 
 \begin{figure}[H]\center
 \leavevmode
-\epsfxsize=12cm
-\epsffile{dpt-alu-1.eps}
+\includegraphics[width=12cm]{dpt-alu-1}
 \end{figure}
 
 \begin{figure}[H]\center
 \leavevmode
-\epsfxsize=12cm
-\epsffile{ctldecode.eps}
+\includegraphics[width=12cm]{ctldecode}
 \end{figure}
 
 \begin{figure}[H]\center
 \leavevmode
-\epsfxsize=12cm
-\epsffile{ctldecodebw.eps}
+\includegraphics[width=12cm]{ctldecodebw}
 \end{figure}
 
 \begin{figure}[H]\center
 \leavevmode
-\epsfxsize=12cm
-\epsffile{dptbanc.eps}
+\includegraphics[width=12cm]{dptbanc}
 \end{figure}
 
 \end{document}
