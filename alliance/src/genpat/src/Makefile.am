@@ -3,7 +3,7 @@ lib_LIBRARIES       = libPgn.a
 include_HEADERS     = genpat.h 
 libPgn_a_SOURCES    = AFFECT.c ARRAY.c CONV.c DECLAR.c DEF_GEN.c GETCPAT.c \
 		INIT.c LABEL.c  SAVE.c SAV_GEN.c SETTUNIT.c \
-		genpat.1 libpat_l.c libpat_l.h
+		libpat_l.c libpat_l.h
 
 bin_SCRIPTS         = genpat
 CLEANFILES          = genpat
