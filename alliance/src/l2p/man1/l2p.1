@@ -1,0 +1,255 @@
+.\"   $Id: l2p.1,v 1.1 2002/04/03 13:55:21 ludo Exp $
+.\" @(#)l2p.l 1.03 94/Jan/30 UPMC; Author: Gilles-Eric DESCAMPS
+.pl -.4
+.TH L2P 1 "October 1, 1997" "ASIM/LIP6" "CAO\-VLSI Reference Manual"
+.SH NAME
+.TP
+l2p
+\- Creates a PostScript file from a symbolic layout file,or from
+a physical layout file.
+.so man1/alc_origin.1
+.SH SYNOPSIS
+.TP
+\fBl2p\fP
+[\fB-color\fP] 
+[\fB-drawingsize=<w>x<h>\fP]
+[\fB-fA3\fP] [\fB-fLETTER\fP]
+[\fB-fLEGAL\fP]
+[\fB-givebwdict\fP] [\fB-givecolordict\fP]
+[\fB-help\fP]
+[\fB-noheader\fP] 
+[\fB-papersize=<x>x<y>x<w>x<h>\fP] [\fB-pages=<x>x<y>\fP] [\fB-tsize=<s>\fP]
+[\fB-nrname\fP] [\fB-ncname\fP] [\fB-nrfname\fP] [\fB-niname\fP]
+[\fB-nsname\fP] [\fB-mfeed\fP]
+[\fB-real\fP] [\fB-resol=<x>\fP] [\fB-rflattencatal\fP] [\fB-rflattentrans\fP]
+[\fB-rotate\fP] [\fB-scale=<f.f>\fP] [\fB-usedict=<f>\fP] \fIcellname\fP
+.br
+.SH DESCRIPTION
+Two main kind of cells can be used as inputs for l2p :
+.br
+First, you can use l2p to print symbolic layout cells. File formats
+can be .ap or .cp . This is given by an environment variable
+.B MBK_IN_PH
+that gives the appropriate symbolic layout file format.
+.br
+Second, you can use l2p to print real layout cells whose file formats
+can be .cif or .gds .
+This is given by an environment variable
+.B RDS_IN
+that gives the appropriate real layout file format.
+.br
+The path to the input file is set up by two environment variables:
+\fBMBK_WORK_LIB\fP(3) and if not found 
+\fBMBK_CATA_LIB\fP(3).
+The output of \fIl2p\fP is a \fBPostScript\fP file 
+in the current directory. The drawing size and the paper size
+can be specified by the user. So, you can split your drawing
+in as many pages as wanted. The resulting file can be then
+used on any adequat \fBPostcript\fP printer.
+.br
+l2p will generate in the current directory, either a single file called
+\fI<cellname>.ps\fP, either several files suffixed by \fI-<x>x<y>.ps\fP,
+depending on wether you've asked for a monopage plot or for a drawing
+that will be splitted on several pages. 
+If you do something like
+\fIl2p -pages=2x1 cell\fP, it will generate two files called
+\fIcell-1x1.ps\fP, and \fIcell-2x1.ps\fP.
+.SH OPTIONS
+With no options, l2p generate a 'standard file', with all options off.
+This is ok for leaf cells, but not for large circuits.
+.TP
+\-color
+generates a color PostScript file for use with color interpreters.
+The default value gives a black and white \fBPostCript\fP file.
+.TP
+\-drawingsize=<width>x<height>
+specifies the drawing area in centh of inch.
+By default, wide = 725 and height = 1068 for french A4 paper. If
+the drawing size is bigger than the paper area, then the
+drawing will be splitted on several pages.
+.TP
+\-fA3
+The drawing is done on A3 format paper.
+.TP
+\-fLETTER
+The drawing is done on LETTER format paper.
+.TP
+\-fLEGAL
+The drawing is done on LEGAL format paper. 
+.TP
+\-givebwdict
+give the Black & White internal PostScript dictionnary.
+See below.
+.TP
+\-givecolordict
+This option must be unique on the  command  line.  When
+used  as  in  'l2p  -givebwdict', l2p then gives on the
+standard output its Black & White  internal  Postscript
+dictionnary.  A PostScript dictionnary is a set of mac-
+ros that will be used  during  interpretation  of  your
+PostScript file.  The macros in the internal PostScript
+dictionnaries of l2p allows you to control which  layer
+to  output,  how  to  plot  rectangles, and specify the
+colors of the rectangles. You get the standard diction-
+nary  by  a  line  of  the  form  'l2p -givecolordict >
+dict.ps'. You can then edit it, in order to reuse it 
+with l2p, see the '-usedict' option below.
+.TP
+\-help
+gives you this man page that explains how to use l2p.
+.TP
+\-noheader
+prevents the border and various info, as the cellname and the position
+of the page in the drawing, from being printed.
+.TP
+\-papersize=<x_low_left>x<y_low_left>x<width>x<height>
+specifies the paper area in centh of inch. By default, 50x50x726x1069
+for a4 paper.
+.TP
+\-pages=<number_of_x_pages>x<number_of_y_pages>
+specifies the drawing area in pages. It can be useful, instead of having
+to calculate the size in cenths of inch of the drawing, to give it in
+numbers of pages. It takes care of the resizing of the paper and whether
+there is a header.
+.TP
+\-tsize=<s>
+.br
+Available sizes:6,8,10,12,14.The default value is 8.
+.TP
+\-nrname
+.br
+No name at all will be displayed.
+.TP
+\-ncname
+The external connector's names won't be displayed.
+.TP
+\-nrfname
+The references's names won't be displayed.
+.TP
+\-niname
+The instances's names won't be displayed.
+.TP
+\-nsname
+The segments's names won't be displayed.
+.TP
+\-mfeed
+Manualfeed:if set,informs the printer that it will be fed by the
+user himself,for each printing .
+.TP
+\-real
+uses real file (cif, gds). By default, uses 
+symbolic layout file (ap, cp).
+.TP
+\-resol=<x>
+is the resolution of the file in dots per inch (dpi). This value has been
+introducted to limitate the size of the generated PostScript files. Each
+rectangle whose width and height are smaller than the resolution will not
+be printed. The default value is 72dpi. It should only be changed in one
+specifical case : when you want to produce a plot
+of several meter large. Usually, you must provide
+a PostScript file sized for A4 paper with
+a much better resolution
+than 72dpi. You can then increase that value to up to 1000dpi, but be
+aware that the size of the file will probably be bigger than a 44Mb SyQuest
+cartridge that is used in PAO for exchanging data files.
+.TP
+\-rflattencatal
+flattens the cell to the catalog level. see catal(5) for more details
+on the use of the catalog file. Be careful, this option requires a lot of memory...
+.TP
+\-rflattentrans
+flattens the cell to the transistor level before printing. Be careful, this option
+requires a lot more memory...
+.TP
+\-rotate
+rotate the cell from 90 degree. This is useful if you have a wide cell, and you
+want to have it printed in landscape mode.
+.TP
+\-scale=<f.f>
+forces the cell to be printed with a certain scale (a floating-point number).
+This is very useful, when you are printing a whole library of cells,
+and you want all cells to be printed to the same scale.
+.br
+You can find at which scale a cell was printed by looking at the beginning of
+the file : 'head n1_y-1x1.ps' will show you a PostScript comment beginning
+by '%SCALE=3.78435' for example.
+.TP
+\-usedict=<filename>
+The output Postcript file contains a Postcript dictionnary of macros.
+.br
+There are two standard dictionnaries used by l2p for black and white or color prints.
+This allows you to use a PostScript dictionnary different from the two
+internally encoded into l2p. By modifying one of the standard l2p 
+dictionnary, you can choose which layer to output, how to fill the
+rectangles (empty, hashed, filled), which color to choose, ... and
+lots of other possibilities. The rest of the generated postscript file
+is mainly orders of drawing rectangles. PostScript is a reverse polish
+notation langage, that is easy to read for simple programs.
+.br
+If you use this functionnality, and think that your dictionnaries are
+worth it, please mail them to alliance\-support@asim.lip6.fr, in order to submit
+them for inclusion in future version of l2p (Thanks).
+
+.SH ENVIRONMENT VARIABLES:
+.TP
+for symbolic file(s) :
+.nf
+\fBsetenv MBK_IN_PH ap
+setenv MBK_WORK_LIB .
+setenv MBK_CATA_LIB /labo/cells/scr
+setenv MBK_CATAL_NAME CATAL
+setenv RDS_TECHNO_NAME cmos_1.rds\fP
+.fi
+.TP
+for real file(s) :
+.nf
+\fBsetenv RDS_IN cif
+setenv MBK_CATAL_NAME CATAL_ROUT
+setenv RDS_TECHNO_NAME prol12_1.rds\fP
+.fi
+
+.SH EXAMPLES:
+.TP
+\fIl2p -color n1_y\fP
+will create a colored \fBn1_y.ps\fP file in the current directory :
+the 'standard' way.
+.TP
+\fIl2p -real cell\fP
+will create a \fBcell.ps\fP file in the current directory from cell.cif
+or cell.gds, depending on the RDS_IN environment variable.
+.TP
+\fIl2p -pages=3x2 na2_y\fP
+size of the created drawing:3 horizontal pages,2 vertical ones;
+.TP
+
+.SH SEE ALSO
+.BR mbk(1),
+.BR rds(1),
+.BR MBK_IN_PH(3),
+.BR MBK_CATA_LIB(3),
+.BR MBK_WORK_LIB(3),
+.BR MBK_CATAL_NAME(3),
+.BR RDS_TECHNO_NAME(3),
+.BR pageview(1),
+.BR gs(1),
+.BR ghostview(1),
+.BR lpr(1).
+
+.SH DIAGNOSTICS
+.br
+You will not be able to generate more than approximativly 30 pages at the same
+time (because of the FOPEN_MAX of your environment). In this case, see the
+option that is not implemented yet.
+.br
+The generated \fBPostScript\fP is Level 1 for black& white plots.
+When you use color, it generates Level 1 with color extensions.
+It may not run with strict Level 1 interpreters, although it runs here with
+our Apple Personnal LaserWriter, Sun Sparcprinters, and Canon CLC-300-PS.
+It follows the Adobe Document Structuring Conventions 1, and as there
+is a fake bitmap image inside each generated files, you can re-use them in your
+word-processors, or publishing software, because the PostScript is EPSF-1.2
+compliant.
+.br
+
+.so man1/alc_bug_report.1
+
