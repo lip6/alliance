@@ -8,4 +8,4 @@ rage   - random acess memory(ram) generator
 rfg    - register file generator
 rsa    - recurrence solver adder generator
 sclib  - a portable cmos standard cell library
-
+sxlib  - new standard cells library (multi layer/overcell routing)
