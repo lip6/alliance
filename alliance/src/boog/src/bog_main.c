@@ -243,6 +243,8 @@ extern int main (int argc, char* argv[])
    lofig_list *lofig;
    befig_list *befig;
    ptype_list *long_path=NULL;
+   losig_list *Losig;
+   char       *LosigName;
    
    /*init*/
    mbkenv();   /*mbk*/
@@ -250,7 +252,7 @@ extern int main (int argc, char* argv[])
    autenv();  /*hash table*/
    bddenv();  /*for vhdlloadbefig() */
    
-   alliancebanner_with_authors("BooG", VERSION " [2002/11/17]", "Binding and Optimizing On Gates", 
+   alliancebanner_with_authors("BooG", VERSION " [2003/01/09]", "Binding and Optimizing On Gates", 
                                "2000", ALLIANCE_VERSION, "François Donnet");
     
    /*alliance env: extension netlist file (vst or al)*/
@@ -365,6 +367,13 @@ extern int main (int argc, char* argv[])
       fprintf(stdout,"Saving file '%s.%s'...\n",output_file,OUT_LO);
       savelofig(lofig);  /*change la lofigchain en mode .al*/
       lofigchain(lofig);
+
+      /*fill hash table: some signals are added, put default delay*/
+      for ( Losig = lofig->LOSIG; Losig; Losig = Losig->NEXT )
+      {
+         LosigName = (char*) Losig->NAMECHAIN->DATA;
+         if ( !is_signal( LosigName ) ) putdelay( LosigName, 0 );
+      }
    }
    
    if (verbose_mode) {
