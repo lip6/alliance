@@ -1,4 +1,4 @@
-.\"   $Id: INIT.3,v 1.1 1999/05/31 17:30:15 alliance Exp $
+.\"   $Id: INIT.3,v 1.2 1999/09/24 14:12:18 simcity Exp $
 .\" @(#)INIT.3 2.30  UPMC ; VUONG H.N. & PITON D.
 .TH INIT 3 "October 1, 1997" "ASIM/LIP6" "GENPAT functions"
 
@@ -7,18 +7,19 @@
 \fBINIT\fP, GENPAT Package
 
 .so man1/alc_origin.1
-.SH SYNOPSYS
+.SH SYNOPSIS
 .PP
 .nf
-INIT("pattern_nb","ident","value");
+INIT("pattern_date","ident","value");
 .fi
 
 .SH PARAMETERS
 .PP
 .TP 10
-\fIpattern_nb\fP
-pattern number which may be either : integer (absolute pattern number) or +
-integer (relative pattern number, the last modified pattern is the reference) .
+\fIpattern_date\fP
+pattern date which may be either : integer (absolute date in ps) or +
+integer (relative date in ps, the date of the current pattern
+(last modified using INIT or AFFECT) is the reference).
 .TP 10
 \fIident\fP
 Either the name of a bused register or a simple register. Path-name must be
@@ -30,21 +31,22 @@ The value associated with the signal which may be either a based number (ex.
 
 .SH DESCRIPTION
 .PP
-Initialize registers at indicated values and set current pattern number.
+Initialize registers at indicated values and set current pattern.
 
 .SH EXAMPLE
 .PP
 .nf
-INIT("13","regt","0B1");
-Before pattern 13, the register named regt receive "1"
-result :
-	regt <= B"1" ;
-pat_13 : .............;
+INIT("1300","regt","0B1");
+INIT("+3000","y 3 downto 0","0xF");
 
-INIT("+3","y 3 downto 0","0xF");
-At pattern +3, (current pattern), the vector y composed of 
-y 3, y 2, y 1, y 0 is affected with the value 15 in decimal 
-or F in hexadecimal.
+result :
+At simulation time 1300 ps, the register named regt receive "1"
+	regt <= B"1" ;
+<   1300 ps> : .............;
+At simulation time +3000 ps, (related to the date of the current pattern),
+the vector y is affected with the value 15 in decimal or F in hexadecimal.
+	regt <= X"F" ;
+<   4300 ps> : .............;
 .fi
 
 .SH SEE ALSO

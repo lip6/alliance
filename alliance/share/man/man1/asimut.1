@@ -1,4 +1,4 @@
-.\"   $Id: asimut.1,v 1.1 1999/05/31 17:30:13 alliance Exp $
+.\"   $Id: asimut.1,v 1.2 1999/09/24 14:12:12 simcity Exp $
 .\" @(#)asimut.1 1.92  Nov 30 1995 UPMC; Pirouz BAZARGAN SABET
 .TH ASIMUT 1 "October 1, 1997" "ASIM/LIP6" "cao\-vlsi reference manual"
 
@@ -16,8 +16,8 @@ asimut \fI[options] [root_file] [pattern_file] [result_file]\fP
 \fBasimut\fP is a logical simulation tool for hardware descriptions. It
 compiles and loads a complete hardware description written in VHDL (Very
 high speed integrated circuits Hardware Description Language). The hardware
-description may be structural (a hierarchy of instances) or simply
-behavioural. Only a subset of VHDL is supported. Descriptions that do not
+description may be structural (a hierarchy of instances) or behavioural.
+Only a subset of VHDL is supported. Descriptions that do not
 match this subset cause a syntax error during compilation. See \fBvhdl(5)\fP
 for detailed information about the supported subset of VHDL.
 
@@ -69,6 +69,10 @@ default file extension is \fBvbe\fP.
 list of file extensions for pattern description entities (using $PATH syntax).
 The default file extension is \fBpat\fP.
 .TP 20
+\fIVH_DLYSFX\fP
+list of file extensions for delays description entities (using $PATH syntax).
+The default file extension is \fBdly\fP.
+.TP 20
 \fIVH_MAXERR\fP
 maximum number of errors allowed during simulation phase. If the number of
 errors occured during simulation reaches VH_MAXERR, \fBasimut\fP stops
@@ -104,8 +108,12 @@ is a pattern description file with the extension specified by \fIVH_PATSFX\fP.
 \fI\-b\fP
 consider the \fIroot_file\fP description as a behavioural description
 .TP 20
+\fI\-backdelay [min, max, typ] delay_file\fP
+use file \fIdelay_file.ext\fP for delays backannotation, where \fIext\fP
+is one of the extension specified in \fIVH_DLYSFX\fP.
+.TP 20
 \fI\-bdd\fP
-use BDDs (Binary Decision Diagram) to represent experssions. Using this option
+use BDDs (Binary Decision Diagram) to represent expressions. Using this option
 makes the simulation be two times faster but increases memory requirement
 .TP 20
 \fI\-c\fP
@@ -120,6 +128,13 @@ option is specified a pattern file is also produced.
 \fI\-d[sbpldc]\fP
 call the debugger (developper usage)
 .TP 20
+\fI\-defaultdelay\fP
+only null delays (no after clause in the VHDL file) are changed if
+backannotated delays or fixed delays are specified.
+.TP 20
+\fI\-fixeddelay value\fP
+all delays of the description are fixed to \fIvalue\fP.
+.TP 20
 \fI\-h\fP
 display this help file
 .TP 20
@@ -132,7 +147,7 @@ read a save file and use it to initialize the state of the description before
 processing the first pattern (the file name cannot be 1 nor 0)
 .TP 20
 \fI\-inspect instance_name\fP
-produce a pettern file corresponding to the interface of the instance
+produce a pattern file corresponding to the interface of the instance
 identified by \fIinstance-name\fP
 .TP 20
 \fI\-l n\fP
@@ -152,6 +167,9 @@ file be loaded.
 .TP 20
 \fI\-t\fP
 trace signals when making BDDs (developper usage).
+.TP 20
+\fI\-transport\fP
+use transport delay model (default is inertial).
 
 .SH EXAMPLE
 .PP

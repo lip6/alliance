@@ -1,4 +1,4 @@
-.\"   $Id: vhdl.5,v 1.1 1999/05/31 17:30:28 alliance Exp $
+.\"   $Id: vhdl.5,v 1.2 1999/09/24 14:12:25 simcity Exp $
 .\" @(#)vhdl.5 1.0 Jan 28 1993 UPMC ; VUONG H.N.
 .TH VHDL 5 "October 1, 1997" "ASIM/LIP6" "VHDL subset of ASIM/LIP6/CAO-VLSI lab."
 
@@ -71,10 +71,13 @@ In a behavioural description, only concurrent statements (except \fIprocess\fP)
 are supported. Up to now, sequential statements are not allowed by the ALLIANCE
 VHDL compiler.
 
+.\" .PP
+.\" As behavioural descriptions are used for both logic simulation and logic
+.\" synthesis, detailed timing information is not needed. That means, within a
+.\" concurrent statement no delay can be specified (\fIafter\fP is not supported).
+
 .PP
-As behavioural descriptions are used for both logic simulation and logic
-synthesis, detailed timing information is not needed. That means, within a
-concurrent statement no delay can be specified (\fIafter\fP is not supported).
+Timing information can be specified in behavioural descriptions using \fIAfter clauses\fP. However, those delays are currently only used for simulation. \fIAfter clauses\fP are supported but not used for synthesis and formal proof.
 
 .PP
 A predefined set of types has been defined (other user defined types are not

@@ -1,4 +1,4 @@
-.\"   $Id: genpat.1,v 1.1 1999/05/31 17:30:13 alliance Exp $
+.\"   $Id: genpat.1,v 1.2 1999/09/24 14:12:13 simcity Exp $
 .\" @(#)genpat 2.0 Sep 07 1993 UPMC; Author: PITON D.
 .TH GENPAT 1 "October 1, 1997" "ASIM/LIP6" "ALLIANCE USER COMMANDS"
 
@@ -49,9 +49,9 @@ registers. Inputs are to be forced to a certain value and all the others are
 to be observed during simulation.
 
 .PP
-The description part is a set of patterns, where each pattern defines the
-value of inputs and outputs. The pattern number represents actually the
-absolute time for the simulator.
+The description part is a series of patterns, where each pattern defines the
+value of inputs and outputs at a given date. This date represents the absolute
+time for the simulator.
 
 .PP
 Similarly, a \fBgenpat\fP file can be divided in two parts : declaration and
@@ -68,9 +68,11 @@ to create virtual arraies (see ARRAY(3)).
 .TP 10
 \fIdescription part\fP
 After all signals are declared, you can begin to define input values which
-are to be applied to the inputs of the circuit or output values which are
-to be compare with the values produced during the simulation. (see AFFECT(3)).
+are to be applied to the inputs of the circuit at given simulation time.
+You can also define output values which are to be compare with the values
+produced during the simulation. (see AFFECT(3)).
 Genpat describes the stimulus by event : only signal transitions are described.
+Genpat manage the simulation time in ps.
 This part also allows you to give instructions to the simulation tool to save
 the state of the circuit at the end of the simulation. (see SAVE(3)). Last
 thing you should do in this part is to generate the output file (see
@@ -96,18 +98,18 @@ order to ease their manipulation
 changes the values of registers between two patterns.
 .TP 15
 \fIAFFECT()\fP
-assigns a value to a signal, at a given pattern number. This value is kept on
-the signal until a new value is assigned to the signal.
+assigns a value to a signal, at a given simulation time (in ps). This value
+is kept on the signal until a new value is assigned to the signal.
 .TP 15
 \fISAVE()\fP
 informs the simulation tool to save the state of the circuit at the end of
 simulation
 .TP 15
 \fILABEL()\fP
-gives a label to the current pattern
+gives a label to the current pattern.
 .TP 15
 \fIGETCPAT()\fP
-return the number of the current pattern
+return the date of the current pattern (in ps).
 
 .SH EXAMPLES
 .PP
@@ -124,15 +126,12 @@ int entier;
   sprintf (str, "%d",entier);
   return(str);
   }
-   /*------------------------------*/
-   /* end of the description       */
-   /*------------------------------*/
  
  main () 
  {
  int i;
  int j;
- int cur_vect;
+ int vect_date; /* this date is an absolute date, in ps */
  
  DEF_GENPAT("vecteurs");
  
@@ -150,16 +149,16 @@ int entier;
  for (i=0; i<16; i++)
      for (j=0; j<16; j++) 
      {
-         cur_vect = i*16 + j;
-         AFFECT (inttostr(cur_vect), "a", inttostr(i));
-         AFFECT (inttostr(cur_vect), "b", inttostr(j));
+         vect_date = i*16 + j;
+         AFFECT (inttostr(vect_date), "a", inttostr(i));
+         AFFECT (inttostr(vect_date), "b", inttostr(j));
      }
  
- cur_vect = cur_vect + 1;
- AFFECT (inttostr(cur_vect), "a", "0b0");
- AFFECT (inttostr(cur_vect), "b", "0b0");
- AFFECT (inttostr(cur_vect), "sel", "0b0");
- AFFECT (inttostr(cur_vect), "ck" , "0b0");
+ vect_date = vect_date + 1;
+ AFFECT (inttostr(vect_date), "a", "0b0");
+ AFFECT (inttostr(vect_date), "b", "0b0");
+ AFFECT (inttostr(vect_date), "sel", "0b0");
+ AFFECT (inttostr(vect_date), "ck" , "0b0");
  
  SAV_GENPAT ();
  }

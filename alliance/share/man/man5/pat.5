@@ -1,4 +1,4 @@
-.\"   $Id: pat.5,v 1.1 1999/05/31 17:30:28 alliance Exp $
+.\"   $Id: pat.5,v 1.2 1999/09/24 14:12:24 simcity Exp $
 .\" @(#)pat.5 106 Sep 30 1996 UPMC ; Pirouz BAZARGAN SABET
 .TH PAT 5 "October 1, 1997" "ASIM/LIP6" "cao\-vlsi reference manual"
 
@@ -53,7 +53,7 @@ checking the resulted value on each output.
 
 .PP
 changing the value of an internal register (a guarded internal signal of kind
-\fBregister\fP in a behavioural description) in a given pattern.
+\fBregister\fP in a behavioural description).
 
 .PP
 saving the state of the circuit.
@@ -75,9 +75,9 @@ input\-output and, the last value with the last one.
 .PP
 A declaration statement has of one of the two following forms :
 .RS
-\fImode\fP input_output_name [\fIformat\fP];
+\fImode\fP input_output_name [\fIformat\fP] [\fIspy_option\fP];
 .br
-\fImode\fP group_name (input_output_name, ...) [\fIformat\fP];
+\fImode\fP group_name (input_output_name, ...) [\fIformat\fP] [\fIspy_option\fP];
 .RE
 
 .PP
@@ -120,15 +120,36 @@ instance where the signal is declared. It is a list of instance names separated
 by \'.\' (dot).
 
 .PP
+The \fIspy option\fP (keyword \fIspy\fP) may be used for outputs (out port,
+inout port, internal signal). This option makes one additional pattern be
+printed in the result file each time an event occurs on this signal during
+the simulation and the corresponding pattern (with this event date) has been
+omitted in the input pattern file.
+
+.PP
 Putting one or several additional \';\' (semicolon) at the end of an
 input\-output declaration makes one or several blank columns (up to 15) be
 printed in the result file after the input\-output's value.
 
 .PP
-\fBThe description block\fP is a set of pattern description statements. Each
-pattern is a list of values preceded  optionally by a label.
+\fBThe description block\fP is a series of pattern description statements.
+Each pattern is a list of values preceded by a date and optionally by a label.
 .RS
-[\fIlabel\fP] : \fIlist_of_values\fP ;
+[\fIdate\fP] [\fIlabel\fP] : \fIlist_of_values\fP ;
+.RE
+
+.PP
+Patterns statements should be ordered with stict growing dates in the series.
+
+.PP
+The \fIdate\fP may be either an \fIabsolute date\fP or a relative date.
+An \fIabsolute date\fP is an integer followed by a \fPtime unit\fP.
+A \fIrelative date\fP is a '+' followed by an integer and a \fPtime unit\fP
+(the reference is the date of the previous pattern description statement).
+Legal \fItime unit\fP are ps, ns, us and ms.
+.RS
+< 200 ps >,<4500ns>,< 12us > are legal absolute dates.
+< +200 ps >,<+4500ns>,<+1 us> are legal relative dates.
 .RE
 
 .PP
@@ -181,8 +202,8 @@ register Accu.A (0 to 15) X;
 
 begin
 
-pattern_0 : F0F0 0A0A 1 ?0 ?FAFA ?6DE7;
-pattern_1 : 0F0F F6F0 0  +  **** ?54FC;
+<   0 ns > pattern_0 : F0F0 0A0A 1 ?0 ?FAFA ?6DE7;
+< +10 ns > pattern_1 : 0F0F F6F0 0  +  **** ?54FC;
 
 end;
 .fi

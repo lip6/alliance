@@ -1,4 +1,4 @@
-.\"   $Id: vbe.5,v 1.1 1999/05/31 17:30:28 alliance Exp $
+.\"   $Id: vbe.5,v 1.2 1999/09/24 14:12:24 simcity Exp $
 .\" @(#)VBE.5 1.0 Jan 28 1992 UPMC ; VUONG H.N.
 .TH VBE 5 "October 1, 1997" "ASIM/LIP6" "VHDL subset of ASIM/LIP6/CAO-VLSI lab."
 
@@ -22,7 +22,7 @@ are supported. All sequential statements including loops, signal assignment,
 etc .. are to be banished.
 
 .PP
-Allowed conncurrent statements are:
+Allowed concurrent statements are:
 .RS
 simple signal assignment
 .br
@@ -56,7 +56,7 @@ of each driver, the resolution function determines the effective value of the
 signal.
 
 .PP
-A guarded signal is a resolved signal with drivers that can be disconntected.
+A guarded signal is a resolved signal with drivers that can be disconected.
 A guarded signal must be assigned inside a \fIblock\fP statement through a
 \fIguarded\fP signal assignment.
 
@@ -89,14 +89,14 @@ must be assigned inside a \fIblock\fP statement by a \fIguarded\fP signal
 assignment.
 
 .PP
-Falling edge triggered D flip flop :
+Rising edge triggered D flip flop :
 .nf
 
 signal Reg : reg_bit register;
 
 begin
 
-flip_flop : block (ck = '0' and not ck'STABLE)
+flip_flop : block (ck = '1' and not ck'STABLE)
 begin
   Reg <= guarded Din;
 end block;
@@ -112,7 +112,7 @@ begin
 
 latch : block (ck = '1')
 begin
-  Lat <= guarded D;in
+  Lat <= guarded Din;
 end block;
 .fi
 
@@ -128,29 +128,50 @@ The following operators are only supported: \fBnot, and, or, xor, nor, nand,
 They can be applied on all types supported by the subset. Other standard VHDL
 operators (+, -, >, <, ...) have not been implemented in the present release.
 
+.\" .PP
+.\" \fBTIMING\fP
+.\" .br
+.\" A VHDL description can be used for:
+.\" .RS
+.\" a) validation of a specification (behavioural)
+.\" .br
+.\" b) direct synthesis of hardware (behavioural)
+.\" .br
+.\" c) validation of a structural netlist
+.\" .RE
+.\"
+.\" .PP
+.\" Detailed timing information is not available at design time (cases a and b).
+.\" .PP
+.\" For an extracted netlist (case c) the detailed timing analysis is performed
+.\" by a specific tool: the static timing analyser TAS (not delivered in the
+.\" present version of ALLIANCE).
+.\"
+.\" .PP
+.\" Thus, timing specification is not supported by the ALLIANCE VHDL subset.
+.\" Simulation is performed in zero delay mode.
+
 .PP
 \fBTIMING\fP
 .br
-A VHDL description can be used for:
-.RS
-a) validation of a specification (behavioural)
-.br
-b) direct synthesis of hardware (behavioural)
-.br
-c) validation of a structural netlist
-.RE
+Timing information can be specified in behavioural descriptions using
+\fIafter clauses\fP. However, those delays are currently only used for
+simulation. \fIAfter clauses\fP are supported but not used for synthesis
+and formal proof.
 
 .PP
-Detailed timing information is not available at design time (cases a and b).
-.PP
-For an extracted netlist (case c) the detailed timing analysis is performed
-by a specific tool: the static timing analyser TAS (not delivered in the
-present version of ALLIANCE).
+\fIAfter clauses\fP in block statements (for guarded signal assignments)
+are not supported for sequential elements (signals of kind register), but
+supported for bus elements (signals of kind bus). This is because the VHDL
+default \fIdisconnection time\fP is null and this can generate
+unexpected behavior for sequential elements.
 
 .PP
-Thus, timing specification is not supported by the ALLIANCE VHDL subset.
-Simulation is performed in zero delay mode.
+In selected signal assignment, only uniform delays are supported 
+(the same \fIAfter clause\fP in all assignments).
 
+.PP
+\fITransport option\fP is not supported. All delays are inertial delays.
 .PP
 \fBASSERT STATEMENT\fP
 .br
@@ -231,9 +252,9 @@ begin
                              (data_in  and adder_cry (31 downto 0)) or
                              (aff_data and data_in                ) ;
 
-  -- write the result into the register on the falling edge of clk
+  -- write the result into the register on the rising edge of clk
 
-  write : block (clk = '0' and not clk'STABLE)
+  write : block (clk = '1' and not clk'STABLE)
   begin
     accum_reg <= guarded adder_out;
   end block;

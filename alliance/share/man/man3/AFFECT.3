@@ -1,4 +1,4 @@
-.\"   $Id: AFFECT.3,v 1.1 1999/05/31 17:30:14 alliance Exp $
+.\"   $Id: AFFECT.3,v 1.2 1999/09/24 14:12:17 simcity Exp $
 .\" @(#)AFFECT.3 2.30 Sep 08 1993 UPMC ; VUONG H.N. & PITON D.
 .TH AFFECT 3 "October 1, 1997" "ASIM/LIP6" "GENPAT functions"
 
@@ -7,19 +7,19 @@
 \fBAFFECT\fP, GENPAT Package
 
 .so man1/alc_origin.1
-.SH SYNOPSYS
+.SH SYNOPSIS
 .PP
 .nf
-AFFECT ("pattern_nb", "ident", "value");
+AFFECT ("pattern_date", "ident", "value");
 .fi
 
 .SH PARAMETERS
 .PP
 .TP 10
-\fIpattern_nb\fP
-pattern number which may be either : integer (absolute pattern number) or
-\+ integer (relative pattern number, the reference pattern number is defined
-by the last AFFECT or INIT). 
+\fIpattern_date\fP
+pattern date which may be either : integer (absolute date in ps) or +
+integer (relative date in ps, the date of the current pattern
+(last modified using INIT or AFFECT) is the reference).
 .TP 10
 \fIident\fP
 Either the name of a bused signal or a scalar. Vectors must be referenced with
@@ -41,33 +41,35 @@ added before the value (example : "?0x45f*" instead of "0x45f*").
 .SH DESCRIPTION
 .PP
 "Affect" a value to a signal. This value will be apllied to the signal, at
-the specified pattern number, until the end of the simulation or until a new
+the specified simulation date, until the end of the simulation or until a new
 value is affected to the signal. Beware : Inputs have to be affected at the
-first pattern. By default, signals (except Inputs) are affected with a "full
-star" value at the first pattern.
+begining of the simulation (first pattern at 0 ps). By default, signals
+(except Inputs) are affected with a "full star" value at the first pattern.
 
 .PP
-This fonction also set the current pattern number.
+This fonction also set the current pattern.
 
 .SH EXAMPLES
 .PP
 .nf
 AFFECT ("0", "b", "0B1");
+result :            b
+<      0 ps> :.....1...;
 .fi
 
 .PP
-At pattern 0 the signal b(3 downto 0) receives the value "0001". This value
-will be kept until the last pattern if no more affectation is made.
+At simulation date 0ps the signal b(3 downto 0) receives the value "0001".
+This value will be kept until the end of the simulation if no more affectation
+is made.
 
 .nf
 AFFECT ("0", "b", "0B0");
-AFFECT ("2", "b", "0B1");
+AFFECT ("2000", "b", "0B1");
 result :            b
-        pat_0 :.....0...;
-        pat_1 :.....0...;
-        pat_2 :.....1...;
-  
+<      0 ps> :.....0...;
+<   2000 ps> :.....1...;
 .fi
+
 
 .SH SEE ALSO
 .PP

@@ -1,4 +1,4 @@
-.\"   $Id: GETCPAT.3,v 1.1 1999/05/31 17:30:15 alliance Exp $
+.\"   $Id: GETCPAT.3,v 1.2 1999/09/24 14:12:18 simcity Exp $
 .\" @(#)LABEL.3 2.30  UPMC ; PITON D.
 .TH GETCPAT 3 "October 1, 1997" "ASIM/LIP6" "GENPAT functions"
 
@@ -7,7 +7,7 @@
 \fBGETCPAT\fP, GENPAT Package
 
 .so man1/alc_origin.1
-.SH SYNOPSYS
+.SH SYNOPSIS
 .PP
 .nf
 GETCPAT();
@@ -15,8 +15,9 @@ GETCPAT();
 
 .SH DESCRIPTION
 .PP
-Return the the current pattern number. As the current pattern number is set
-by AFFECT, GETCPAT will return the number of the last modified line . 
+Return the date of the current pattern (in ps). The current pattern is
+set by AFFECT or INIT, GETCPAT will return the date of the last modified
+(affected or initialised) pattern. 
 
 .SH EXAMPLE
 .PP
