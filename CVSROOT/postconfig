@@ -4,11 +4,11 @@
 # Copyright (C) 1999, 2000 Czo <Olivier.Sirol@lip6.fr>
 # License: GPL (http://www.gnu.org/copyleft/gpl.html)
 # Started: Sept 1999
-# Last Change: Tuesday 12 February 2002, 16:29
-# Edit Time: 1:34:49
+# Last Change: Monday 09 September 2002, 11:08
+# Edit Time: 1:35:01
 # Description:
 #
-# $Id: postconfig,v 1.55 2002/02/12 15:34:22 czo Exp $
+# $Id: postconfig,v 1.56 2002/09/09 09:09:22 czo Exp $
 #
 
 TMPFILE=cvslog.$$
@@ -74,7 +74,7 @@ cvs diff -kk -l -D "5 min ago" $MODIFIED_FILES | head -50
 
 # cat $TMPFILE
 
-cat "$TMPFILE"  | mail -s "ALC : $MAIL_SUBJECT" alliance-programmers@asim.lip6.fr
+cat "$TMPFILE"  | mail -s "ALC : $MAIL_SUBJECT" alliance-cvs@asim.lip6.fr
 
 # find cvsroot -type d | xargs chmod g+s
 # devrait marcher...
