@@ -147,7 +147,11 @@ PPlacement::FinalInitialize()
 		eit != (*nit)->GetElems().end();
 		eit++)
 	{
-	    assert(!dynamic_cast<PToPlaceIns*>(*eit));
+            if (!dynamic_cast<PToPlaceIns*>(*eit))
+            {
+                cerr << " o INTERNAL ERROR: FinalInitialize" << endl;
+                exit(1);
+            }
 	}
     }
     // on efface ce qui ne nous sert plus.

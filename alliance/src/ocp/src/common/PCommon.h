@@ -1,9 +1,6 @@
 #ifndef __PCOMMON_H
 #define __PCOMMON_H
-#include <ansidecl.h>
-#if defined(GCC_VERSION) && (GCC_VERSION >= 3003)
-#include <assert.h>
-#endif
+
 #include <iostream>
 #include "mut.h"
 #include "mlo.h"

@@ -2,7 +2,6 @@
 #include <iostream>
 #include <math.h>
 #include <string>
-#include <assert.h>
 #include "PConstants.h"
 using namespace std;
 

@@ -89,7 +89,11 @@ PRow::GetSubRow(const double X)
 
     if (right == _subRowsXMax.end())
     {
-	assert(left != _subRowsXMaxInv.end());
+        if (left == _subRowsXMaxInv.end())
+        {
+            cerr << " o INTERNAL ERROR: GetSubRow()" << endl;
+            exit(1);
+        }
 	return *_subRows[left->second];
     }
 
@@ -102,7 +106,11 @@ PRow::GetSubRow(const double X)
     // si il n'y a rien a gauche...
     if (left == _subRowsXMaxInv.end())
     {
-	assert(right != _subRowsXMax.end());
+	if (right == _subRowsXMax.end())
+        {
+            cerr << " o INTERNAL ERROR: GetSubRow()" << endl;
+            exit(1);
+        }
 	return *_subRows[right->second];
     }
 

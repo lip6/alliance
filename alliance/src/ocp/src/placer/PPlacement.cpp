@@ -1323,7 +1323,12 @@ void
 PPlacement::InitPlaceWithPrePlace()
 {
     // abutment box
-    assert(_prePlaceFig);
+    if (!_prePlaceFig)
+    {
+        cerr << " o ERROR: impossible to init preplacement with empty preplacement figure" << endl;
+        exit(1);
+    }
+
     int Width = _prePlaceFig->XAB2 - _prePlaceFig->XAB1;
     int Height = _prePlaceFig->YAB2 - _prePlaceFig->YAB1;
 
@@ -1521,7 +1526,11 @@ PPlacement::CreateSubRows(PRow* row, PrePlaceTab& tabpreplace,
 	row->_subRowsXMaxInv[srymit->first] = srymit->second;
     }
   }
-  assert(subrowscreated == nbsubrows);
+  if (subrowscreated != nbsubrows)
+  {
+      cerr << " o INTERNAL ERROR : in subrow creation" << endl;
+      exit (1);
+  }
 }
 
 // ======================================================================
