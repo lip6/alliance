@@ -32,7 +32,7 @@
 
 
 
-#ident "$Id: lon_lax_param.c,v 1.3 2004/07/31 02:23:09 ludo Exp $"
+#ident "$Id: lon_lax_param.c,v 1.4 2004/07/31 14:23:00 ludo Exp $"
 
 /****************************************************************************/
 /*    Produit :  synthese logique (gestion du fichier de parametres)        */
@@ -113,7 +113,7 @@ static char* parseName (char* VHDL_name)
   char *p;
   char *Found;
 
-  p = (char *) autallocblock (strlen (VHDL_name) + 1);
+  p = (char *) mbkalloc (strlen (VHDL_name) + 1);
 
   strcpy (p, VHDL_name);
 
@@ -140,7 +140,7 @@ static char* driveName (char* IO_name)
 /*
    fprintf(stdout,"init %s-\n", IO_name);
  */
-  Found = (char *)autallocblock (strlen (IO_name) + 2);
+  Found = (char *)mbkalloc (strlen (IO_name) + 2);
   Found = strchr (IO_name, ' ');
 
   if (Found != NULL)
@@ -148,7 +148,7 @@ static char* driveName (char* IO_name)
 /*
    fprintf(stdout,"init %s, Found =%s-\n", IO_name, Found);
  */
-      p = autallocblock (strlen (IO_name) + 2);
+      p = mbkalloc (strlen (IO_name) + 2);
       sprintf (p, "%s)", IO_name);
       Found = strchr (p, ' ');
       Found[0] = '(';
@@ -177,6 +177,10 @@ static void resetlax (lax *par)
   par->capaPO = NULL;
   par->capaPI = NULL;
   par->intermediate = NULL;
+  /*
+  ** LUDO: Tu quoque fili mi !!
+  */
+  par->buffPI = NULL;
 }
 
 
@@ -196,7 +200,7 @@ static lax* loadlax (char* FileName)
   int i, n;
   lax* loadparam;
 
-  loadparam = (lax*) autallocblock (sizeof (lax));
+  loadparam = (lax*) mbkalloc (sizeof (lax));
   resetlax (loadparam);
 
   if ((Pfile = fopen (FileName, "rt")) != NULL)
@@ -1175,7 +1179,7 @@ extern void parsefilelax(char *filename)
    
    /*build the real filename*/
    size=strlen(filename);
-   name=(char*) autallocblock(size+strlen(".lax")+1);
+   name=(char*) mbkalloc(size+strlen(".lax")+1);
    name=strcpy(name,filename);
    name[size]='.'; name[size+1]='l'; name[size+2]='a'; name[size+3]='x'; 
    name[size+4]='\0';   
@@ -1190,7 +1194,7 @@ extern void parsefilelax(char *filename)
 /******************************************************************************/
 extern void defaultlax(int mode_optim)
 {
-  LAX = (lax*) autallocblock (sizeof (lax));
+  LAX = (lax*) mbkalloc (sizeof (lax));
   resetlax (LAX);
   LAX->mode=mode_optim;
 }
@@ -1319,14 +1323,14 @@ extern int coherencelax(lofig_list* lofig)
          if (name!=locon->NAME) continue;
          if (locon->DIRECTION!=IN && locon->DIRECTION!=INOUT
           && locon->DIRECTION!=TRANSCV) {
-            fprintf(stderr,"LAX: '%s' is an output in file '%s.vbe'\n",
+            fprintf(stderr,"LAX: '%s' is an output in netlist file '%s'\n",
             name,lofig->NAME);
             ret=0;
          }
          break;
       }
       if (!locon) {
-         fprintf(stderr,"LAX: '%s' doesn't exist in file '%s.vbe'\n",
+         fprintf(stderr,"LAX: '%s' doesn't exist in netlist file '%s'\n",
          name,lofig->NAME);
          ret=0;
       }
@@ -1338,14 +1342,14 @@ extern int coherencelax(lofig_list* lofig)
          if (name!=locon->NAME) continue;
          if (locon->DIRECTION!=IN && locon->DIRECTION!=INOUT
           && locon->DIRECTION!=TRANSCV) {
-            fprintf(stderr,"LAX: '%s' is an output in file '%s.vbe'\n",
+            fprintf(stderr,"LAX: '%s' is an output in netlist file '%s'\n",
             name,lofig->NAME);
             ret=0;
          }
          break;
       }
       if (!locon) {
-         fprintf(stderr,"LAX: '%s' doesn't exist in file '%s.vbe'\n",
+         fprintf(stderr,"LAX: '%s' doesn't exist in netlist file '%s'\n",
          name,lofig->NAME);
          ret=0;
       }
@@ -1357,14 +1361,14 @@ extern int coherencelax(lofig_list* lofig)
          if (name!=locon->NAME) continue;
          if (locon->DIRECTION==IN || locon->DIRECTION==INOUT
           || locon->DIRECTION==TRANSCV) {
-            fprintf(stderr,"LAX: '%s' is an input in file '%s.vbe'\n",
+            fprintf(stderr,"LAX: '%s' is an input in netlist file '%s'\n",
             name,lofig->NAME);
             ret=0;
          }
          break;
       }
       if (!locon) {
-         fprintf(stderr,"LAX: '%s' doesn't exist in file '%s.vbe'\n",
+         fprintf(stderr,"LAX: '%s' doesn't exist in netlist file '%s'\n",
          name,lofig->NAME);
          ret=0;
       }
@@ -1376,14 +1380,14 @@ extern int coherencelax(lofig_list* lofig)
          if (name!=locon->NAME) continue;
          if (locon->DIRECTION!=IN && locon->DIRECTION!=INOUT
           && locon->DIRECTION!=TRANSCV) {
-            fprintf(stderr,"LAX: '%s' is an output in file '%s.vbe'\n",
+            fprintf(stderr,"LAX: '%s' is an output in netlist file '%s'\n",
             name,lofig->NAME);
             ret=0;
          }
          break;
       }
       if (!locon) {
-         fprintf(stderr,"LAX: '%s' doesn't exist in file '%s.vbe'\n",
+         fprintf(stderr,"LAX: '%s' doesn't exist in netlist file '%s'\n",
          name,lofig->NAME);
          ret=0;
       }
