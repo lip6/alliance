@@ -118,8 +118,8 @@ static rdsrec_list *LynxHeadEqui;
 void LynxPresents()
 
 { 
-  alliancebanner_with_contrib( "Lynx", "1.21", 
-                  "Netlist extractor", "1998", 
+  alliancebanner_with_contrib( "Cougar", "1.21", 
+                  "Netlist extractor ... formerly Lynx", "1998", 
                   ALLIANCE_VERSION,
                   "Ludovic Jacomme and Gregoire Avot",
                   "Picault Stephane" );
@@ -135,7 +135,7 @@ void LynxUsage()
 
 {
   fprintf( stderr,
-           "\n\tSyntax : lynx [-v] [-c] [ -f or -t ] [-nl] Input_name [ Output_name ]\n\n");
+           "\n\tSyntax : cougar [-v] [-c] [ -f or -t ] [-nl] Input_name [ Output_name ]\n\n");
 
   fprintf( stderr,"\t  -v   Sets verbose mode on\n");
   fprintf( stderr,"\t  -r   Extracts real layout\n"); 
