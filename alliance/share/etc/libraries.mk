@@ -3,7 +3,7 @@
 # description   : Alliance Shared Libraries and Include Files   #
 # ###---------------------------------------------------------###
 
-# $Id: libraries.mk,v 1.26 2000/02/22 16:12:30 czo Exp $
+# $Id: libraries.mk,v 1.27 2000/03/23 18:34:11 czo Exp $
 
 # The variables $ALLIANCE_TOP and $ALLIANCE_OS are set by
 # alc_env.[c]sh script
@@ -135,9 +135,9 @@ MPU_H      =    mpu408.h
 #    user level functions for GENLIB                            #
 # ###---------------------------------------------------------###
 
-MGN_L      =  -lMgn329
-MGN_LIB    = libMgn329.a
-MGN_H      =    mgn329.h
+MGN_L      =  -lMgn330
+MGN_LIB    = libMgn330.a
+MGN_H      =    mgn330.h
 
 # ###---------------------------------------------------------###
 #    functions related to expression representation :           #
@@ -364,9 +364,9 @@ GAM_L      =  -lGam000
 GAM_LIB    = libGam000.a
 GAM_H      =    gam000.h
 
-GFP_L      =  -lGfp115
-GFP_LIB    = libGfp115.a
-GFP_H      =    gfp115.h
+GFP_L      =  -lGfp116
+GFP_LIB    = libGfp116.a
+GFP_H      =    gfp116.h
 
 # ###---------------------------------------------------------###
 #    place & route functions                                    #
@@ -388,8 +388,8 @@ VRD_H      =    vrd303.h
 #    user level functions for FPGEN				#
 # ###---------------------------------------------------------###
 
-FGN_L      =  -lFgn115
-FGN_LIB    = libFgn115.a
+FGN_L      =  -lFgn116
+FGN_LIB    = libFgn116.a
 FGN_H        = Fgn115.h
 
 
