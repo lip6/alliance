@@ -1,4 +1,4 @@
-AM_CFLAGS           = @ALLIANCE_CFLAGS@ 
+AM_CFLAGS           =
 lib_LTLIBRARIES       = libBdd.la
 include_HEADERS     = bdd.h
 libBdd_la_SOURCES    = \
@@ -25,9 +25,4 @@ bdddump.c        bddhoper.c       bddsatisfy.c     \
 bdddump.h        bddhoper.h       bddsatisfy.h     \
 bddenv.c         bddimply.c       bddsimpdc.c
 
-
-LIBTOOL_DEPS = @LIBTOOL_DEPS@
-libtool: $(LIBTOOL_DEPS)
-	$(SHELL) ./config.status --recheck
-
-
+libBdd_la_LDFLAGS = -version-info @BDD_DLL_VERSION@

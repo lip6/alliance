@@ -1,5 +1,5 @@
 YFLAGS           = -d
-AM_CFLAGS        = @ALLIANCE_CFLAGS@
+AM_CFLAGS        =
 lib_LTLIBRARIES    = libMvg.la
 
 libMvg_la_SOURCES = mvl_drive.c mvl_parse.c mvl_util.c mvl_sspec.c \
@@ -10,6 +10,8 @@ libMvg_la_SOURCES = mvl_drive.c mvl_parse.c mvl_util.c mvl_sspec.c \
                    vel_chain.c  vel_sort.c  vel_vect.c vel_drive.c  vel_o.c vel_util.c  vel_velo.h \
                    gen_generic.c  gen_generic.h  gen_print.c
 
+libMvg_la_LDFLAGS = -version-info @MVG_DLL_VERSION@
+
 CLEANFILES       = mvl_scomp_y.c mvl_scomp_y.h mvl_scomp_l.c
 
 mvl_scomp_y.c mvl_scomp_y.h : $(srcdir)/mvl_scomp_y.y
@@ -19,23 +21,14 @@ mvl_scomp_l.c : $(srcdir)/mvl_scomp_l.l mvl_scomp_y.h
 
 bin_PROGRAMS     = x2vy
 x2vy_SOURCES     = x2vy_main.c
-x2vy_LDADD       = @ALLIANCE_LIBS@ \
-                   -lMlu \
+x2vy_LDADD       = -lMlu \
                    -lMcl \
                    -lMel \
                    -lMhl \
                    -lMal \
                    -lMsl \
                    -lMgl \
-                   $(top_builddir)/src/libMvg.la \
+                   -L$(top_builddir)/src -lMvg \
                    -lMlo \
                    -lMut \
                    -lRcn
-
-
-
-LIBTOOL_DEPS = @LIBTOOL_DEPS@
-libtool: $(LIBTOOL_DEPS)
-	$(SHELL) ./config.status --recheck
-
-

@@ -1,4 +1,4 @@
-AM_CFLAGS           = @ALLIANCE_CFLAGS@ 
+AM_CFLAGS           =
 lib_LTLIBRARIES       = libFvh.la
 include_HEADERS     = fvh.h
 libFvh_la_SOURCES    = fbl_bcomp_y.y fbl_bcomp_l.l \
@@ -9,16 +9,11 @@ fbl_drive.c fbl_drive.h fbl_utdef.h fbl_util.c fbl_util.h \
 fbl_utype.h fvhdrive.c fvhdrive.h fvherror.c fvherror.h \
 fvhfbh2fsm.c fvhfbh2fsm.h fvh.h fvhparse.c fvhparse.h
 
+libFvh_la_LDFLAGS = -version-info @FVH_DLL_VERSION@
+
 CLEANFILES          = fbl_bcomp_y.c fbl_bcomp_y.h fbl_bcomp_l.c
 
 fbl_bcomp_y.c fbl_bcomp_y.h : $(srcdir)/fbl_bcomp_y.y
 	$(YACC) -d $(YFLAGS) $(srcdir)/fbl_bcomp_y.y && sed -e "s/yy/fbl_y_/g" -e "s/YY/FBL_Y_/g" y.tab.c > fbl_bcomp_y.c && sed -e "s/yy/fbl_y_/g" -e "s/YY/FBL_Y_/g" y.tab.h > fbl_bcomp_y.h
 fbl_bcomp_l.c : $(srcdir)/fbl_bcomp_l.l fbl_bcomp_y.h
 	$(LEX) -t $(srcdir)/fbl_bcomp_l.l | sed -e "s/yy/fbl_y_/g" -e "s/YY/FBL_Y_/g" > fbl_bcomp_l.c
-
-
-LIBTOOL_DEPS = @LIBTOOL_DEPS@
-libtool: $(LIBTOOL_DEPS)
-	$(SHELL) ./config.status --recheck
-
-

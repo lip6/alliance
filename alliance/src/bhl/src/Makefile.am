@@ -1,4 +1,4 @@
-AM_CFLAGS           = @ALLIANCE_CFLAGS@
+AM_CFLAGS           =
 lib_LTLIBRARIES       = libBhl.la
 include_HEADERS     = bhl.h
 libBhl_la_SOURCES    = \
@@ -8,9 +8,4 @@ beh_debug.c	 beh_gettu.c	 beh_makgex.c	 beh_sta2dly.c \
 beh_debug.h	 beh_indexbdd.c  beh_maknode.c	 beh_unamlist.c \
 beh_depend.c	 beh_makquad.c	 bhl.h
 
-
-LIBTOOL_DEPS = @LIBTOOL_DEPS@
-libtool: $(LIBTOOL_DEPS)
-	$(SHELL) ./config.status --recheck
-
-
+libBhl_la_LDFLAGS = -version-info @BHL_DLL_VERSION@

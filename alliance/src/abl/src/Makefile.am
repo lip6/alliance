@@ -1,7 +1,8 @@
-AM_CFLAGS           = @ALLIANCE_CFLAGS@ 
-lib_LTLIBRARIES       = libAbl.la
-include_HEADERS     = abl.h
-libAbl_la_SOURCES    = abldel.h       ablflat.h      abloptim.h     ablunflat.h \
+AM_CFLAGS            =
+lib_LTLIBRARIES      = libAbl.la
+include_HEADERS      = abl.h
+libAbl_la_SOURCES    = \
+abldel.h       ablflat.h      abloptim.h     ablunflat.h \
 abladd.c       abldev.c       ablfree.c      ablpolar.c     ablvhdl.c \
 abladd.h       abldev.h       ablfree.h      ablpolar.h     ablvhdl.h \
 ablcreate.c    abldup.c       ablget.c       ablsimp.c      ablview.c \
@@ -12,9 +13,4 @@ ablctlsimp.c   ablerror.c     ablmap.c       ablsubst.c \
 ablctlsimp.h   ablerror.h     ablmap.h       ablsubst.h \
 abldel.c       ablflat.c      abloptim.c     ablunflat.c
 
-
-LIBTOOL_DEPS = @LIBTOOL_DEPS@
-libtool: $(LIBTOOL_DEPS)
-	$(SHELL) ./config.status --recheck
-
-
+libAbl_la_LDFLAGS = -version-info @ABL_DLL_VERSION@

@@ -6,9 +6,4 @@ ctladd.c    ctlalloc.h	ctlenv.c    ctlerror.h	ctl.h	     ctlview.c \
 ctladd.h    ctldel.c	ctlenv.h    ctlfree.c	ctlsearch.c  ctlview.h \
 ctlalloc.c  ctldel.h	ctlerror.c  ctlfree.h	ctlsearch.h
 
-
-LIBTOOL_DEPS = @LIBTOOL_DEPS@
-libtool: $(LIBTOOL_DEPS)
-	$(SHELL) ./config.status --recheck
-
-
+libCtl_la_LDFLAGS = -version-info @CTL_DLL_VERSION@

@@ -4,8 +4,7 @@ lib_LTLIBRARIES       = libRds.la \
                       libRpr.la \
                       libRwi.la \
                       libRtl.la
-AM_CFLAGS           = @ALLIANCE_CFLAGS@ \
-                      -DRTL_DEFAULT_TECHNO=\"etc/cmos.rds\" 
+AM_CFLAGS           = -DRTL_DEFAULT_TECHNO=\"etc/cmos.rds\" 
 
 include_HEADERS     = rds.h rfm.h rtl.h rwi.h rpr.h rut.h
 libRds_la_SOURCES    = rdsalloc.c rdsfree.c rdsadd.c rdsdel.c rdsview.c \
@@ -24,11 +23,9 @@ libRwi_la_SOURCES    = rwialloc.c rwidel.c rwierror.c rwiget.c rwiadd.c \
 		      rwibuild.h rwidestroy.h rwifree.h rwiview.h
 libRtl_la_SOURCES    = rtlacces.c rtlenv.c rtlerror.c \
 		      rtlacces.h rtlenv.h rtlerror.h
-
-
-
-LIBTOOL_DEPS = @LIBTOOL_DEPS@
-libtool: $(LIBTOOL_DEPS)
-	$(SHELL) ./config.status --recheck
-
-
+libRds_la_LDFLAGS = -version-info @RDS_DLL_VERSION@
+libRut_la_LDFLAGS = -version-info @RUT_DLL_VERSION@
+libRfm_la_LDFLAGS = -version-info @RFM_DLL_VERSION@
+libRpr_la_LDFLAGS = -version-info @RPR_DLL_VERSION@
+libRwi_la_LDFLAGS = -version-info @RWI_DLL_VERSION@
+libRtl_la_LDFLAGS = -version-info @RTL_DLL_VERSION@

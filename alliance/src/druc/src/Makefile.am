@@ -8,6 +8,8 @@ drucompi.h drucring.c drucring.h drucutil.c drucutil.h vmcaract.c vmcaract.h \
 vmcasmld.c vmcasmld.h vmcerror.c vmcerror.h vmcmesur.c vmcmesur.h vmcrelat.c \
 vmcrelat.h vmctools.c vmctools.h vmcunify.c vmcunify.h
 
+libVrd_la_LDFLAGS = -version-info @VRD_DLL_VERSION@
+
 CLEANFILES          = drucompi_l.c drucompi_y.h drucompi_y.c
 
 drucompi_y.c drucompi_y.h : $(srcdir)/drucompi_y.y
@@ -18,18 +20,11 @@ drucompi_l.c : $(srcdir)/drucompi_l.l drucompi_y.h
 
 bin_PROGRAMS = druc
 
-AM_CFLAGS = @ALLIANCE_CFLAGS@
+AM_CFLAGS =
 
-druc_LDADD = @ALLIANCE_LIBS@ $(top_builddir)/src/libVrd.la \
+druc_LDADD = -L$(top_builddir)/src -lVrd \
 -lRtl -lRgs -lRcf -lRfm -lRpr -lRwi -lRut -lRds -lMpu -lMcp -lMap -lMmg -lMph \
 -lMut
 
 druc_SOURCES = \
 drucbath.c drucbath.h
-
-
-LIBTOOL_DEPS = @LIBTOOL_DEPS@
-libtool: $(LIBTOOL_DEPS)
-	$(SHELL) ./config.status --recheck
-
-

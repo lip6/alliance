@@ -1,9 +1,9 @@
-AM_CFLAGS           = @ALLIANCE_CFLAGS@ 
+AM_CFLAGS           =
 AM_YFLAGS           =
 AM_LFLAGS           =
-lib_LTLIBRARIES       = libMgn.la
+lib_LTLIBRARIES     = libMgn.la
 include_HEADERS     = mgn.h mbkgen.h genlib.h dgn.h
-libMgn_la_SOURCES    = genlib.c \
+libMgn_la_SOURCES   = genlib.c \
                       debugon.h \
                       debugoff.h \
                       GNU_Defs.h \
@@ -25,6 +25,8 @@ libMgn_la_SOURCES    = genlib.c \
                       dpgen_uROM.c \
                       dpgen_Shifter.c
 
+libMgn_la_LDFLAGS = -version-info @MGN_DLL_VERSION@
+
 bin_SCRIPTS         = genlib
 CLEANFILES          = genlib y.output dpgen_ROM_code.c dpgen_ROM_code.h
 
@@ -33,10 +35,3 @@ genlib : ${srcdir}/genlib.sh
 	chmod a+x $@
 
 EXTRA_DIST = genlib.sh dpgen_ROM_code.h
-
-
-LIBTOOL_DEPS = @LIBTOOL_DEPS@
-libtool: $(LIBTOOL_DEPS)
-	$(SHELL) ./config.status --recheck
-
-

@@ -1,19 +1,14 @@
-AM_CFLAGS           = @ALLIANCE_CFLAGS@ 
+AM_CFLAGS           =
 lib_LTLIBRARIES       = libFtl.la
 include_HEADERS     = ftl.h
 libFtl_la_SOURCES    = \
 ftl.h  ftlacces.c  ftlacces.h  ftlerror.c  ftlerror.h
 
+libFtl_la_LDFLAGS = -version-info @FTL_DLL_VERSION@
+
 EXTRA_PROGRAMS = fsmtest
 
 
-fsmtest_LDADD = @ALLIANCE_LIBS@ -lFtl -lFks -lFvh -lFsm \
+fsmtest_LDADD = -L${top_buildir}/src -lFtl -lFks -lFvh -lFsm \
 	        -lBdd -lAbl -lAut -lMut
 fsmtest_SOURCES = main.c
-
-
-LIBTOOL_DEPS = @LIBTOOL_DEPS@
-libtool: $(LIBTOOL_DEPS)
-	$(SHELL) ./config.status --recheck
-
-

@@ -1,4 +1,4 @@
-AM_CFLAGS           = @ALLIANCE_CFLAGS@
+AM_CFLAGS           =
 lib_LTLIBRARIES       = libBeh.la
 include_HEADERS     = beh.h
 libBeh_la_SOURCES    = \
@@ -20,9 +20,4 @@ beh_apdbeaux.c	 beh_error.c	   beh_getvers.c   beh_toolbug.c \
 beh_apdberin.c	 beh_expdelayed.c  beh_globals.c   beh_vhdlname.c \
 beh_delbeaux.c	 beh_expstable.c   beh.h	   beh_vhvector.c
 
-
-LIBTOOL_DEPS = @LIBTOOL_DEPS@
-libtool: $(LIBTOOL_DEPS)
-	$(SHELL) ./config.status --recheck
-
-
+libBeh_la_LDFLAGS = -version-info @BEH_DLL_VERSION@

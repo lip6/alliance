@@ -1,9 +1,11 @@
-AM_CFLAGS           = @ALLIANCE_CFLAGS@
+AM_CFLAGS           =
 lib_LTLIBRARIES       = libCtp.la
 include_HEADERS     = ctp.h
 libCtp_la_SOURCES    = ctp_y.y ctp_l.l ctp.h  \
 ctp_bedef.h  ctp_bspec.c  ctp_byacc.h  ctp_parse.c  ctp_util.h \
 ctp_blex.h   ctp_bspec.h  ctp_util.c   ctp_utype.h
+
+libCtp_la_LDFLAGS = -version-info @CTP_DLL_VERSION@
 
 CLEANFILES          = ctp_y.c ctp_y.h ctp_l.c
 
@@ -15,15 +17,7 @@ ctp_l.c : $(srcdir)/ctp_l.l ctp_y.h
 
 EXTRA_PROGRAMS = ctptest
 
-ctptest_LDADD = @ALLIANCE_LIBS@ \
-                $(top_builddir)/src/libCtp.la \
+ctptest_LDADD = -L$(top_builddir)/src -lCtp \
                 -lCtl -lVex -lAut -lMut
 
 ctptest_SOURCES = main.c
-
-
-LIBTOOL_DEPS = @LIBTOOL_DEPS@
-libtool: $(LIBTOOL_DEPS)
-	$(SHELL) ./config.status --recheck
-
-
