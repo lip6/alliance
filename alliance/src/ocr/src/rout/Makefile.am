@@ -2,9 +2,12 @@
 
 INCLUDES = -I$(top_srcdir)/src/include
 
+CFLAGS = @CFLAGS@ @ALLIANCE_CFLAGS@
+CXXFLAGS = @CXXFLAGS@ @ALLIANCE_CFLAGS@
+
 bin_PROGRAMS = ocr
 
-ocr_LDADD = @LIBS@ \
+ocr_LDADD = @ALLIANCE_LIBS@ \
 	   $(top_builddir)/src/seg/libocrPath.a \
 	   $(top_builddir)/src/util/libocrUtil.a \
 	  -lMlu -lMlo -lMal -lMcl -lMel -lMhl \

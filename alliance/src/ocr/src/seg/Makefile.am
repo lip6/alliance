@@ -2,6 +2,8 @@
 
 INCLUDES = -I$(top_srcdir)/src/include 
 
+CFLAGS = @CFLAGS@ @ALLIANCE_CFLAGS@
+
 noinst_LIBRARIES = libocrPath.a
 
 libocrPath_a_SOURCES = mbk_tree.c ocrUtil.c \
