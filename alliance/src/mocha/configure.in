@@ -28,5 +28,6 @@ AM_ALLIANCE
 
 AC_OUTPUT([
 Makefile
+man1/Makefile
 src/Makefile
 ])
