@@ -91,6 +91,7 @@ man_MANS  = GENLIB_BUS.3 \
             DPGEN_OR4.3 \
             DPGEN_RF1.3 \
             DPGEN_RF1D.3 \
+            DPGEN_FIFO.3 \
             DPGEN_ROM2.3 \
             DPGEN_ROM4.3 \
             DPGEN_SFF.3 \
