@@ -1,0 +1,95 @@
+.\"   $Id: delrdsrecwindow.3,v 1.1 2002/03/13 13:37:37 fred Exp $
+.\" @(#)delrdsrecwindow.1 1.11 93/08/18 ; Labo masi cao-vlsi
+.if t \{\
+.so man1/alc_contents.mac
+.XS \n%
+.ti 0.2i
+delrdsrecwindow
+.XE
+.XS0 \n%
+.ti 0.2i
+delrdsrecwindow
+.XE0 \}
+.TH DELRDSRECWINDOW 3 "October 1, 1997" "ASIM/LIP6" "RDS PHYSICAL FUNCTIONS"
+.SH NAME
+delrdsrecwindow \- deletes a rectangle from the windowing of rds structure.
+.so man1/alc_origin.1
+.SH SYNOPSYS
+.nf
+.if n \{\
+.ft B \}
+.if t \{\
+.ft CR \}
+#include "rwinnn.h"
+void delrdsrecwindow( Rectangle, RdsWindow )
+   rdsrec_list \(**Rectangle;
+   rdswindow   \(**RdsWindow;
+.ft R
+.fi
+.SH PARAMETER
+.TP 20
+\fIRectangle\fP
+The rectangle to delete from the windowing.
+.TP
+\fIRdsWindow\fP
+Pointer to the windowing of rds structure.
+.SH DESCRIPTION
+The \fIdelrdsrecwindow\fP function deletes a rectangle from the windowing of the rds structure. Some fields of the rectangle structure are modified :
+.br
+Field \'USER\' is set to NULL.
+.br 
+Field \'FLAGS\' is modified (bits about the windowing - see librds : the field \'FLAGS\' of rdsrec_list structure).
+.SH RETURN VALUE
+nothing
+.SH ERRORS
+none
+.SH EXAMPLE
+.ta 3n 6n 9n 12n 15n 18n 21n
+.nf
+.if n \{\
+.ft B \}
+.if t \{\
+.ft CR \}
+        #include "mutnnn.h"
+        #include "rdsnnn.h"
+        #include "rwinnn.h"
+        #include "rtlnnn.h"
+        typedef struct UserStruct 
+         {
+           void \(**POINTER;
+         } UserStruct;
+        main()
+          {
+            rdsfig_list \(**Figure;
+            rdsrec_list \(**Rectangle;
+            rdswindow \(**RdsWindow;
+             mbkenv();
+             rdsenv();
+             loadrdsparam();
+             Figure = addrdsfig( "core",sizeof ( UserStruct ) );
+             Rectangle =
+               addrdsfigrec(Figure,"Alu1",RDS_ALU1,2,4,5,1);
+            RdsWindow = allocrdswindow();
+            RdsWindow->XMIN = -200;
+            RdsWindow->YMIN = -200;
+            RdsWindow->XMAX =  200;
+            RdsWindow->YMAX =  200;
+            RdsWindow->DX   =  4;
+            RdsWindow->DY   =  4;
+            RdsWindow->SIDE =  100;
+            RdsWindow->SIZE =  RdsWindow->DX \(** RdsWindow->DY ;
+            RdsWindow->WINTAB = allocrdswin( RdsWindow->SIZE );
+            addrdsrecwindow( Rectangle, RdsWindow );
+            . . .
+            /\(** \(**/ \fBdelrdsrecwindow\fP( Rectangle, RdsWindow );
+            . . .
+          }
+.ft R
+.fi
+.SH SEE ALSO
+.BR librwi,
+.BR addrdsrecwindow
+
+
+.so man1/alc_bug_report.1
+

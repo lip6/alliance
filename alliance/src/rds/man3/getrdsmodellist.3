@@ -1,0 +1,95 @@
+.\"   $Id: getrdsmodellist.3,v 1.1 2002/03/13 13:37:37 fred Exp $
+.\" @(#)getrdsmodellist.1 1.11 93/08/18 ; Labo masi cao-vlsi
+.if t \{\
+.so man1/alc_contents.mac
+.XS \n%
+.ti 0.2i
+getrdsmodellist
+.XE
+.XS0 \n%
+.ti 0.2i
+getrdsmodellist
+.XE0 \}
+.TH GETRDSMODELLIST 3 "October 1, 1997" "ASIM/LIP6" "RDS PHYSICAL FUNCTIONS"
+.SH NAME
+getrdsmodellist \- gets model list of the instances of a figure
+.so man1/alc_origin.1
+.SH SYNOPSYS
+.nf
+.if n \{\
+.ft B \}
+.if t \{\
+.ft CR \}
+#include "rutnnn.h"
+ ptype_list \(**getrdsmodellist( Figure )
+   rdsfig_list \(**Figure;
+.ft R
+.fi
+.SH PARAMETER
+.TP 20
+\fIFigure\fP
+The figure which contains the models to extract. 
+.SH DESCRIPTION
+The \fIgetrdsmodellist\fP function gets list of instance's models of the figure \'Figure\'. The data structure returned "ptype_list" is defined ( in MBK library mutnnn.h ) as follows :
+.RS
+.nf
+.if n \{\
+.ft B \}
+.if t \{\
+.ft CR \}
+typedef struct ptype 
+  {
+     struct ptype \(**NEXT;  /\(** next pointer                \(**/
+     void         \(**DATA;  /\(** generic pointer             \(**/
+     long         TYPE;   /\(** type                        \(**/
+  } ptype_list;
+.ft R
+.fi
+.RE
+.PP
+The field \'DATA\' of ptype_list structure contains the pointer to the rdsfig_list structure.
+.SH RETURN VALUE
+The getrdsmodellist function returns a pointer which is head of pointer's list of the instances's models of the figure. If the list is empty, NULL pointer is returned.
+.SH ERRORS
+none
+.SH EXAMPLE :
+.ta 3n 6n 9n 12n 15n 18n 21n
+.nf
+.if n \{\
+.ft B \}
+.if t \{\
+.ft CR \}
+    #include "mphnnn.h"
+    #include "mutnnn.h"
+    #include "rdsnnn.h"
+    #include "rutnnn.h"
+    #include "rtlnnn.h"
+    main()
+     {
+      phfig_list  \(**MbkFigure;
+      rdsfig_list \(**RdsFigure;
+      ptype_list  \(**FigureList;
+      ptype_list  \(**ScanFigureList;
+      mbkenv(); 
+      rdsenv();
+      loadrdsparam();
+      MbkFigure        = getphfig("core",'A');
+      RdsFigure = figmbkrds(MbkFigure,0,0); 
+      FigureList = \fBgetrdsmodellist\fP( RdsFigure );
+      for (
+            ScanFigureList  = FigureList ;
+            ScanFigureList != (ptype_list \(**) NULL ;
+            ScanFigureList  = ScanFigureList->NEXT
+          )
+        viewrdsfig ( (rdsfig_list \(**) ScanFigureList->DATA );
+      . . .
+    }
+.ft R
+.fi
+.SH SEE ALSO
+.BR librut,
+.BR Mut library
+
+
+.so man1/alc_bug_report.1
+

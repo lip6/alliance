@@ -1,0 +1,79 @@
+.\"   $Id: viewrfmfig.3,v 1.1 2002/03/13 13:37:38 fred Exp $
+.\" @(#)viewrfmfig.1 1.11 93/08/18 ; Labo masi cao-vlsi
+.if t \{\
+.so man1/alc_contents.mac
+.XS \n%
+.ti 0.2i
+viewrfmfig
+.XE
+.XS0 \n%
+.ti 0.2i
+viewrfmfig
+.XE0 \}
+.TH VIEWRFMFIG 3 "October 1, 1997" "ASIM/LIP6" "RDS PHYSICAL FUNCTIONS"
+.SH NAME
+viewrfmfig \- displays figure caracteristics in MBK and RDS format.
+.so man1/alc_origin.1
+.SH SYNOPSYS
+.nf
+.if n \{\
+.ft B \}
+.if t \{\
+.ft CR \}
+#include "rfmnnn.h"
+ void viewrfmfig( FigureMbk, FigureRds )
+    phfig_list  \(**FigureMbk;
+    rdsfig_list \(**FigureRds;
+.ft R
+.fi
+.SH PARAMETER
+.TP 20
+\fIFigureMbk\fP
+MBK figure to visualizate
+.TP
+\fIFigureRds\fP
+RDS figure to visualizate
+.SH DESCRIPTION
+The \fIviewrfmfig\fP function displays caracteristics of a figure in MBK and RDS format.
+.SH RETURN VALUE
+nothing
+.SH ERRORS
+none
+.SH EXAMPLE
+.ta 3n 6n 9n 12n 15n 18n 21n
+.nf
+.if n \{\
+.ft B \}
+.if t \{\
+.ft CR \}
+        #include "mphnnn.h"
+        #include "mutnnn.h"
+        #include "rdsnnn.h"
+        #include "rfmnnn.h"
+        #include "rtlnnn.h"
+        typedef struct UserStruct
+         {
+           char \(**STRING;
+           void \(**USER1;
+         } UserStruct;
+        main()
+          {
+            phfig_list  \(**MbkFigure;
+            rdsfig_list \(**RdsFigure;
+            mbkenv();
+            rdsenv();
+            loadrdsparam();
+            MbkFigure        = getphfig("na2_y",'A');
+            RdsFigure        = figmbkrds(FigureMbk,sizeof(UserStruct),0);
+            /\(** view Mbk and Rds Figure \(**/
+            /\(** \(**/ \fBviewrfmfig\fP ( MbkFigure, RdsFigure );            
+          }
+.ft R
+.fi
+.SH SEE ALSO
+.BR librfm,
+.BR figmbkrds
+
+
+.so man1/alc_bug_report.1
+

@@ -1,0 +1,141 @@
+.\"   $Id: addrdsfigrec.3,v 1.1 2002/03/13 13:37:37 fred Exp $
+.\" @(#)addrdsfigrec.1 1.11 93/08/18 ; Labo masi cao-vlsi
+.if t \{\
+.so man1/alc_contents.mac
+.XS \n%
+.ti 0.2i
+addrdsfigrec
+.XE
+.XS0 \n%
+.ti 0.2i
+addrdsfigrec
+.XE0 \}
+.TH ADDRDSFIGREC 3 "October 1, 1997" "ASIM/LIP6" "RDS PHYSICAL FUNCTIONS"
+.SH NAME
+ addrdsfigrec \- adds a rectangle to a figure
+.so man1/alc_origin.1
+.SH SYNOPSYS
+.nf
+.if n \{\
+.ft B \}
+.if t \{\
+.ft CR \}
+#include "rdsnnn.h"
+rdsrec_list \(**addrdsfigrec( Figure, Name, Layer, X, Y, Dx, Dy )
+               rdsfig_list \(**Figure;
+               char        \(**Name;
+               char         Layer;
+               long         X;
+               long         Y;
+               long         Dx;
+               long         Dy;
+.ft R
+.fi
+.SH PARAMETER
+.TP 20
+\fIFigure\fP
+figure which contains the rectangle to add.
+.TP
+\fIName\fP
+name of the rectangle to add.
+.TP
+\fILayer\fP
+Layer of the rectangle to add.
+.TP
+\fIX,Y,DX,DY\fP
+Dimensions of the rectangle to add.
+.SH DESCRIPTION 
+\fBaddrdsfigrec\fP creates an adds a rectangle in the figure called \fIFigure\fP.
+The size of the user structure to add next to the structure rdsrec_list (if it
+exists) is defined by the field \fBSIZE\fP of the figure who has to contain 
+the rectangle. The rectangle is added in front of the list, and becomes itself
+the list head associated to the defined layer in parameters of the function.
+The fields of the rectangle structure are modified as follows :
+.br
+The field \fINAME\fP is set to \fBName\fP.
+.br
+The field \fIX\fP is set to \fBX\fP.
+.br
+The field \fIY\fP is set to \fBY\fP.
+.br
+The field \fIDX\fP is set to \fBDx\fP.
+.br
+The field \fIDY\fP is set to \fBDy\fP.
+.br
+The field \fIFLAGS\fP is modified with the value \fBLayer\fP.
+.SH RETURN VALUE
+\fBaddrdsfigrec\fP returns a pointer to the newly added rectangle.
+.SH ERRORS
+.if n \{\
+.ft B \}
+.if t \{\
+.ft CR \}
+"Rds202: rdsalloc error, can't continue !"
+.ft R
+.RS
+it's impossible to allocate the memory size desired
+.SH EXAMPLE
+.ta 3n 6n 9n 12n 15n 18n 21n
+.nf
+.if n \{\
+.ft B \}
+.if t \{\
+.ft CR \}
+#include "mutnnn.h"
+#include "rdsnnn.h"
+#include "rtlnnn.h"
+        typedef struct UserStruct
+         {
+           char \(**STRING;
+           void \(**USER1;
+         } UserStruct;
+        # define POINTER_STRING(R)                                \\
+                                                                  \\
+          (((UserStruct \(**)((char \(**)(R)+sizeof(rdsrec_list)))->STRING )
+         main()
+          {
+            rdsfig_list \(**RdsFigure;
+            rdsrec_list \(**Rectangle;
+            char Layer;
+            rdsrec_list \(**ScanRec;
+            mbkenv();
+            rdsenv();
+            loadrdsparam();
+            RdsFigure = addrdsfig ("core",sizeof ( UserStruct ) );
+            Rectangle = \fBaddrdsfigrec\fP (RdsFigure,
+                                            "Alu1",RDS_ALU1,
+                                            2,4,12,1);
+            POINTER_STRING(Rectangle) = namealloc ("rectangle_alu1");
+            ...
+            /\(**
+               print caracteristics of all rectangles of the Rds figure
+            \(**/
+            for ( Layer = 0 ; Layer < RDS_MAX_LAYER ; Layer ++ )
+             {
+               for (
+                      ScanRec  = RdsFigure->LAYERTAB[Layer] ;
+                      ScanRec != (rdsrec_list \(**) NULL     ;
+                      ScanRec  = ScanRec->NEXT
+                   )
+                {
+                  printf("Rectangle->LAYER = %s\\n",
+                     RDS_LAYER_NAME[GetRdsLayer(ScanRec)]);
+                  printf("Rectangle->NAME   = %s\\n",ScanRec->NAME);
+                  printf("Rectangle->X      = %ld\\n",ScanRec->X);
+                  printf("Rectangle->Y      = %ld\\n",ScanRec->Y);
+                  printf("Rectangle->DX     = %ld\\n",ScanRec->DX);
+                  printf("Rectangle->DY     = %ld\\n",ScanRec->DY);
+                  printf("Rectangle->STRING = %s\\n",POINTER_STRING(ScanRec));
+                }
+             }
+          }
+.ft R
+.fi
+.SH SEE ALSO
+.BR librds,
+.BR delrdsfigrec,
+.BR viewrdsfig
+
+
+.so man1/alc_bug_report.1
+

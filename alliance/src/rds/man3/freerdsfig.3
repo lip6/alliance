@@ -1,0 +1,69 @@
+.\"   $Id: freerdsfig.3,v 1.1 2002/03/13 13:37:37 fred Exp $
+.\" @(#)freerdsfig.1 1.11 93/08/18 ; Labo masi cao-vlsi
+.if t \{\
+.so man1/alc_contents.mac
+.XS \n%
+.ti 0.2i
+freerdsfig
+.XE
+.XS0 \n%
+.ti 0.2i
+freerdsfig
+.XE0 \}
+.TH FREERDSFIG 3 "October 1, 1997" "ASIM/LIP6" "RDS PHYSICAL FUNCTIONS"
+.SH NAME
+ freerdsfig \- frees memory associated to a figure
+.so man1/alc_origin.1
+.SH SYNOPSYS
+.nf
+.if n \{\
+.ft B \}
+.if t \{\
+.ft CR \}
+#include "rdsnnn.h"
+void freerdsfig( Figure )
+  rdsfig_list \(**Figure;
+.ft R
+.fi
+.SH PARAMETER
+.TP 20
+\fIFigure\fP
+it's the pointer of the figure to be deleted.
+.SH DESCRIPTION
+This function free the memory associated to the figure. Memory place used by the Pointers of the rdsfig_list structure is not free so the user has to free these pointers before calling the freerdsfig function.
+.SH RETURN VALUE
+nothing
+.SH ERRORS
+none
+.SH EXAMPLE
+.ta 3n 6n 9n 12n 15n 18n 21n
+.nf
+.if n \{\
+.ft B \}
+.if t \{\
+.ft CR \}
+#include "mutnnn.h"
+#include "rdsnnn.h"
+#include "rtlnnn.h"
+	    main()
+	     {
+	       rdsfig_list \(**Figure;
+               mbkenv();
+               rdsenv();
+               loadrdsparam();
+	       Figure = allocrdsfig ();
+	       Figure->NAME = rdsalloc(strlen("core")+1,RDS_ALLOC_BLOCK);
+	       strcpy(Figure->NAME,"core");
+	       ...
+	       rdsfree    (Figure->NAME,RDS_ALLOC_BLOCK); 
+	       /\(** \(**/ \fBfreerdsfig\fP ( Figure,RDS_ALLOC_BLOCK);
+	     }
+.ft R
+.fi
+.SH SEE ALSO
+.BR librds,
+.BR allocrdsfig
+
+
+.so man1/alc_bug_report.1
+

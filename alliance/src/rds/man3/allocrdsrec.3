@@ -1,0 +1,96 @@
+.\"   $Id: allocrdsrec.3,v 1.1 2002/03/13 13:37:37 fred Exp $
+.\" @(#)allocrdsrec.1 1.11 93/08/18 ; Labo masi cao-vlsi
+.if t \{\
+.so man1/alc_contents.mac
+.XS \n%
+.ti 0.2i
+allocrdsrec
+.XE
+.XS0 \n%
+.ti 0.2i
+allocrdsrec
+.XE0 \}
+.TH ALLOCRDSREC 3 "October 1, 1997" "ASIM/LIP6" "RDS PHYSICAL FUNCTIONS"
+.SH NAME
+ allocrdsrec \- allocates memory for a rectangle
+.so man1/alc_origin.1
+.SH SYNOPSYS
+.nf
+.if n \{\
+.ft B \}
+.if t \{\
+.ft CR \}
+#include"rdsnnn.h"
+rdsrec_list \(**allocrdsrec( Size )
+  unsigned int Size;
+.ft R
+.fi
+.SH PARAMETER
+.TP 20
+\fISize\fP
+Size of the added structure to the rdsrec_list structure.
+.SH DESCRIPTION
+Allocates a memory block for rdsrec_list structure and an added structure defined by the user. Fields contained in the two structures are set to NULL for pointers and 0L for numbers.
+.PP
+NOTE: Allocation by heap ( see rdsalloc function ).
+.SH RETURN VALUE
+The pointer to the rectangle structure allocated.
+.SH ERRORS
+.if n \{\
+.ft B \}
+.if t \{\
+.ft CR \}
+"Rds202: rdsalloc error, can't continue !"
+.ft R
+.RS
+it's impossible to allocate the memory size desired.
+.SH EXAMPLE
+.ta 3n 6n 9n 12n 15n 18n 21n
+.nf
+.if n \{\
+.ft B \}
+.if t \{\
+.ft CR \}
+        # include "mutnnn.h"
+        # include "rdsnnn.h"
+        # include "rtlnnn.h"
+	 /\(** Name and fields of UserStruct are defined by the user \(**/
+	 typedef struct UserStruct
+	  {
+	    char \(**STRING;
+	    void \(**USER1;
+	  } UserStruct;
+	# define POINTER_STRING(R)                                \\
+                                                                  \\
+	  (((UserStruct \(**)((char \(**)(R)+sizeof(rdsrec_list)))->STRING )
+	# define POINTER_USER1(R)                                 \\
+                                                                  \\
+	  (((UserStruct \(**)((char \(**)(R)+sizeof(rdsrec_list)))->USER1  )
+	    main()
+	     {
+	       rdsfig_list \(**Figure;
+	       rdsrec_list \(**Rectangle;
+               mbkenv();
+               rdsenv();
+               loadrdsparam();
+	       Rectangle = \fBallocrdsrec\fP ( sizeof ( UserStruct ) );
+	       Rectangle->X               = 20;
+	       Rectangle->Y               = 20;
+	       Rectangle->DX              = 48;
+	       Rectangle->DY              = 8;
+	       POINTER_STRING (Rectangle) = (char \(**) malloc (strlen ("Alu1")+1);
+	       strcpy(POINTER_STRING(Rectangle),"Alu1");
+	       POINTER_USER1  (Rectangle) = (void \(**) Figure;
+	       ...
+	     }
+.ft R
+.fi
+.SH SEE ALSO
+.BR librds,
+.BR freerdsrec,
+.BR rdsalloc,
+.BR rdsfree
+
+
+.so man1/alc_bug_report.1
+

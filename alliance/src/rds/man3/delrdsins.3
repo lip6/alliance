@@ -1,0 +1,86 @@
+.\"   $Id: delrdsins.3,v 1.1 2002/03/13 13:37:37 fred Exp $
+.\" @(#)delrdsins.1 1.11 93/08/18 ; Labo masi cao-vlsi
+.if t \{\
+.so man1/alc_contents.mac
+.XS \n%
+.ti 0.2i
+delrdsins
+.XE
+.XS0 \n%
+.ti 0.2i
+delrdsins
+.XE0 \}
+.TH DELRDSINS 3 "October 1, 1997" "ASIM/LIP6" "RDS PHYSICAL FUNCTIONS"
+.SH NAME
+ delrdsins \- deletes an instance of a figure
+.so man1/alc_origin.1
+.SH SYNOPSYS
+.nf
+.if n \{\
+.ft B \}
+.if t \{\
+.ft CR \}
+#include "rdsnnn.h"
+int delrdsins( Figure, Name )
+     rdsfig_list \(**Figure;
+     char        \(**Name;
+.ft R
+.fi
+.SH PARAMETER
+.TP 20
+\fIFigure\fP
+figure which contains the instance to delete. 
+.TP
+\fIName\fP
+Name of the instance to delete in the figure 'Figure'.
+.SH DESCRIPTION
+Deletes an instance and objects contained in it. The instance is identified by its name in the figure which contains it. This instance is warrantied to be unique, because its name is an identifier at the given hierarchical  level.
+.SH RETURN VALUE 
+1 => the instance has been deleted.
+.TP
+0 => the instance doesn't exist.
+.SH ERRORS
+none
+.SH EXAMPLE
+.ta 3n 6n 9n 12n 15n 18n 21n
+.nf
+.if n \{\
+.ft B \}
+.if t \{\
+.ft CR \}
+      #include "mutnnn.h"
+      #include "rdsnnn.h"
+      #include "rtlnnn.h"
+        typedef struct UserStruct
+         {
+           char \(**STRING;
+           void \(**USER1;
+         } UserStruct;
+         main()
+          {
+            rdsfig_list \(**Figure;
+            rdsrec_list \(**Rectangle;
+            rdsins_list \(**Instance;
+            int          Result;
+            mbkenv();
+            rdsenv();
+            loadrdsparam();
+            Figure = addrdsfig ("core",sizeof ( UserStruct ) );
+            Instance  = addrdsins (Figure,"na2_y","and2",RDS_NOSYM,8,6);
+            Rectangle =
+             addrdsinsrec(Instance,"Alu1",RDS_ALU1,2,4,12,1);
+            /\(**
+              destruction of instance and its objects
+            \(**/
+            Result = \fBdelrdsins\fP ( Figure,"and2" );
+            if ( Result == 0 ) printf("Instance 'and2' not found !\\n");
+          }
+.ft R
+.fi
+.SH SEE ALSO
+.BR librds,
+.BR allocrdsins
+
+
+.so man1/alc_bug_report.1
+

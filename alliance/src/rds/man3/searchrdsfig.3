@@ -1,0 +1,71 @@
+.\"   $Id: searchrdsfig.3,v 1.1 2002/03/13 13:37:37 fred Exp $
+.\" @(#)searchrdsfig.1 1.11 93/08/18 ; Labo masi cao-vlsi
+.if t \{\
+.so man1/alc_contents.mac
+.XS \n%
+.ti 0.2i
+searchrdsfig
+.XE
+.XS0 \n%
+.ti 0.2i
+searchrdsfig
+.XE0 \}
+.TH SEARCHRDSFIG 3 "October 1, 1997" "ASIM/LIP6" "RDS PHYSICAL FUNCTIONS"
+.SH NAME
+searchrdsfig \- searchs by name a figure in the list of figures 
+.so man1/alc_origin.1
+.SH SYNOPSYS
+.nf
+.if n \{\
+.ft B \}
+.if t \{\
+.ft CR \}
+#include "rutnnn.h"
+ rdsfig_list \(**searchrdsfig( Name )
+   char \(**Name;
+.ft R
+.fi
+.SH PARAMETER
+.TP 20
+\fIName\fP
+Name of the figure to search.
+.SH DESCRIPTION
+The \fIsearchrdsfig\fP function searchs a figure by its name in the list of figures in memory.
+.SH RETURN VALUE
+Pointer to the figure searched. If the figure is not found then pointer NULL is returned.
+.SH ERRORS
+none
+.SH EXAMPLE
+.ta 3n 6n 9n 12n 15n 18n 21n
+.nf
+.if n \{\
+.ft B \}
+.if t \{\
+.ft CR \}
+        #include "mutnnn.h"
+        #include "rdsnnn.h"
+        #include "rutnnn.h"
+        #include "rtlnnn.h"
+        main()
+         {
+           rdsfig_list \(**Figure;
+           rdsfig_list \(**ScanFigure;
+           mbkenv();
+           rdsenv();
+           loadrdsparam();
+           Figure = addrdsfig("na2",0);
+           Figure = addrdsfig("no2",0);
+           Figure = addrdsfig("xr2",0);
+           Figure = addrdsfig("n03",0);
+           ScanFigure = \fBsearchrdsfig\fP("xr2");
+           viewrdsfig ( ScanFigure );
+         }
+.ft R
+.fi
+.SH SEE ALSO
+.BR librtl,
+.BR librds
+
+
+.so man1/alc_bug_report.1
+

@@ -1,0 +1,122 @@
+.\"   $Id: inssegmbkrds.3,v 1.1 2002/03/13 13:37:37 fred Exp $
+.\" @(#)inssegmbkrds.1 1.11 93/08/18 ; Labo masi cao-vlsi
+.if t \{\
+.so man1/alc_contents.mac
+.XS \n%
+.ti 0.2i
+inssegmbkrds
+.XE
+.XS0 \n%
+.ti 0.2i
+inssegmbkrds
+.XE0 \}
+.TH INSSEGMBKRDS 3 "October 1, 1997" "ASIM/LIP6" "RDS PHYSICAL FUNCTIONS"
+.SH NAME
+inssegmbkrds \- adds in RDS instance all the segments of MBK instance
+.so man1/alc_origin.1
+.SH SYNOPSYS
+.nf
+.if n \{\
+.ft B \}
+.if t \{\
+.ft CR \}
+#include "rdsnnn.h"
+ rdsrec_list \(**inssegmbkrds( InstanceMbk, ModelMbk, InstanceRds, Lynx )
+    phins_list  \(**InstanceMbk;
+    phfig_list  \(**ModelMbk;
+    rdsins_list \(**InstanceRds;
+    char         Lynx;
+.ft R
+.fi
+.SH PARAMETER
+.TP 20
+\fIInstanceMbk\fP
+The MBK instance which contains the segments to convert.
+.TP
+\fIModelMbk\fP
+Pointer to the model of the MBK instance.
+.TP
+\fIInstanceRds\fP
+The instance which has to receive converted segments from MBK to RDS format.
+.TP
+\fILynx\fP
+Flag used for the segment conversion. If the parameter Lynx is set to 0 then thi
+s is the normal conversion mode. If the parameter Lynx is set to 1 then the rds structure generated permits to extract equipotentials rectangles.
+.SH DESCRIPTION
+The \fIinssegmbkrds\fP function adds in the RDS instance all segments of the MBK instance converted to RDS format. All newly created segments are chained each other (circulary list) using the USER field of the rdsrec_list structure.
+.SH RETURN VALUE
+Pointer to the head of list of the added rectangles to the RDS instance.
+.SH ERRORS
+.if n \{\
+.ft B \}
+.if t \{\
+.ft CR \}
+"Rds202: rdsalloc error, can't continue !"
+.ft R
+.RS
+it's impossible to allocate the memory size desired
+.SH EXAMPLE
+.ta 3n 6n 9n 12n 15n 18n 21n
+.nf
+.if n \{\
+.ft B \}
+.if t \{\
+.ft CR \}
+        #include "mphnnn.h"
+        #include "mutnnn.h"
+        #include "rdsnnn.h"
+        #include "rfmnnn.h"
+        #include "rtlnnn.h"
+        typedef struct UserStruct
+         {
+           char \(**STRING;
+           void \(**USER1;
+         } UserStruct;
+        main()
+          {
+            phfig_list  \(**MbkFigure;
+            phins_list  \(**MbkInstance;
+            phfig_list  \(**MbkModelInstance;
+            rdsfig_list \(**RdsFigure;
+            rdsins_list \(**RdsInstance;
+            rdsrec_list \(**RdsSegmentList;
+            rdsrec_list \(**ScanSegment;
+            mbkenv();
+            rdsenv();
+            loadrdsparam();
+            /\(** creates MbkFigure Named "core" \(**/
+            MbkFigure        = addphfig("core"); 
+            /\(** creates RdsFigure named "core_2" \(**/
+            RdsFigure        = addrdsfig("core_2",sizeof(UserStruct));
+            /\(** adds Mbk instance "n1_y" to MbkFigure named "core" \(**/
+            MbkInstance      = addphins(MbkFigure,"n1_y","inv_1",NOSYM,4,9);
+            /\(** Gets Model of instance n1_y \(**/ 
+            MbkModelInstance = getphfig("n1_y",'A');
+            /\(** creates Rds instance named "block_1" added to RdsFigure \(**/
+            RdsInstance =
+               addrdsins(RdsFigure,"block","block_1",RDS_NOSYM,8,6);
+            /\(**
+                  adds segments of "inv_1" instance Mbk in Rds instance
+                  named "block_1"
+            \(**/ 
+            RdsSegmentList   = \fBinssegmbkrds\fP ( MbkInstance,
+                                              MbkModelInstance,
+                                              RdsInstance,0 );
+            viewrdsrec ( RdsSegmentList );
+            for ( ScanSegment  = RdsSegmentList->USER ;
+                  ScanSegment != RdsSegmentList ;
+                  ScanSegment  = ScanSegment->USER ) 
+             { 
+               viewrdsrec ( (rdsrec_list \(**) ScanSegment );
+             }
+          }
+.ft R
+.fi
+.SH SEE ALSO
+.BR librfm,
+.BR librds,
+.BR loadrdsparam
+
+
+.so man1/alc_bug_report.1
+
