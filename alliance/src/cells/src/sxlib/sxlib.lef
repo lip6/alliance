@@ -1,8 +1,8 @@
 
-VERSION            5.2 ;
-NAMECASESENSITIVE  ON ;
-BUSBITCHARS        "()" ;
-BIVIDERCHAR        "." ;
+VERSION             5.2 ;
+NAMESCASESENSITIVE  ON ;
+BUSBITCHARS         "()" ;
+DIVIDERCHAR         "." ;
 
 
 MACRO a2_x2
