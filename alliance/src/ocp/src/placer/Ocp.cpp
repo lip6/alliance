@@ -63,7 +63,7 @@ main(int argc, char **argv)
 
     mbkenv();
     
-    alliancebanner ("OCP", VERSION, "Placer for Standards Cells", "2001", "5.0");
+    alliancebanner ("OCP", VERSION, "Placer for Standards Cells", "2001", ALLIANCE_VERSION);
 
     if (argc < 2)
     {
