@@ -1,7 +1,6 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
-//#include <getopt.h>
 #include "hash.h"
 #include "mph.h"
 #include "mpu.h"
@@ -137,11 +136,17 @@ int main (int ac, char *av[])
   /* read files and buids mbk & rds structures */
   PhFig = getphfig (InFile, 'A');
   PhFig -> NAME = namealloc (OutFile);
-  RdsFig = addrdsfig (InFile, 0);
   for (PhSeg = PhFig->PHSEG; PhSeg; PhSeg = PhSeg->NEXT)
-    segmbkrds (RdsFig, PhSeg, 0);
-  for (PhVia = PhFig->PHVIA; PhVia; PhVia = PhVia->NEXT)
-    viambkrds (RdsFig, PhVia, 0);
+     switch (PhSeg->LAYER)
+     { 
+     case TALU2 : PhSeg->LAYER = ALU7; break;
+     case TALU3 : PhSeg->LAYER = ALU8; break;
+     case TALU4 : PhSeg->LAYER = ALU9; break;
+     case TALU5 : PhSeg->LAYER = TALU7; break;
+     case TALU6 : PhSeg->LAYER = TALU8; break;
+     };
+
+  RdsFig = figmbkrds (PhFig, 0, 0);
 
   RecNorth = allocrdsrec(0); 
   RecSouth = allocrdsrec(0); 
@@ -405,6 +410,16 @@ int main (int ac, char *av[])
   for (ScanRec=NewRec; ScanRec; ScanRec = ScanRec->NEXT)
   {
      char MbkLayer = rds2mbklayer(GetRdsLayer(ScanRec));
+     char MbkLayer_bis;
+      
+     switch (MbkLayer)
+     { 
+     case ALU2 : MbkLayer_bis = TALU2; break;
+     case ALU3 : MbkLayer_bis = TALU3; break;
+     case ALU4 : MbkLayer_bis = TALU4; break;
+     case ALU5 : MbkLayer_bis = TALU5; break;
+     case ALU6 : MbkLayer_bis = TALU6; break;
+     };
 
      if (MbkLayer==0)      
      {
@@ -422,14 +437,24 @@ int main (int ac, char *av[])
      }  
 
      if (ScanRec->DX < ScanRec->DY)
-       addphseg (PhFig, MbkLayer,
+     {
+      addphseg (PhFig, MbkLayer,
                  (SCALE_X * ScanRec->DX) / RDS_UNIT,
                  (SCALE_X * (ScanRec->X + ScanRec->DX / 2)) / RDS_UNIT , 
                  (SCALE_X * (ScanRec->Y + RDS_LAMBDA)) / RDS_UNIT , 
                  (SCALE_X * (ScanRec->X + ScanRec->DX / 2)) / RDS_UNIT , 
                  (SCALE_X * (ScanRec->Y + ScanRec->DY - RDS_LAMBDA)) / RDS_UNIT , 
                  NULL);
+      addphseg (PhFig, MbkLayer_bis,
+                 (SCALE_X * ScanRec->DX) / RDS_UNIT,
+                 (SCALE_X * (ScanRec->X + ScanRec->DX / 2)) / RDS_UNIT , 
+                 (SCALE_X * (ScanRec->Y + RDS_LAMBDA)) / RDS_UNIT , 
+                 (SCALE_X * (ScanRec->X + ScanRec->DX / 2)) / RDS_UNIT , 
+                 (SCALE_X * (ScanRec->Y + ScanRec->DY - RDS_LAMBDA)) / RDS_UNIT , 
+                 NULL);
+     }
      else  
+     {  
        addphseg (PhFig, MbkLayer,
                  (SCALE_X * ScanRec->DY) / RDS_UNIT,
                  (SCALE_X * (ScanRec->X + RDS_LAMBDA)) / RDS_UNIT , 
@@ -437,7 +462,24 @@ int main (int ac, char *av[])
                  (SCALE_X * (ScanRec->X + ScanRec->DX - RDS_LAMBDA)) / RDS_UNIT , 
                  (SCALE_X * (ScanRec->Y + ScanRec->DY / 2)) / RDS_UNIT , 
                  NULL);
+       addphseg (PhFig, MbkLayer_bis,
+                 (SCALE_X * ScanRec->DY) / RDS_UNIT,
+                 (SCALE_X * (ScanRec->X + RDS_LAMBDA)) / RDS_UNIT , 
+                 (SCALE_X * (ScanRec->Y + ScanRec->DY / 2)) / RDS_UNIT , 
+                 (SCALE_X * (ScanRec->X + ScanRec->DX - RDS_LAMBDA)) / RDS_UNIT , 
+                 (SCALE_X * (ScanRec->Y + ScanRec->DY / 2)) / RDS_UNIT , 
+                 NULL);
+    }
   }
+  for (PhSeg = PhFig->PHSEG; PhSeg; PhSeg = PhSeg->NEXT)
+     switch (PhSeg->LAYER)
+     { 
+     case ALU7  : PhSeg->LAYER = TALU2; break;
+     case ALU8  : PhSeg->LAYER = TALU3; break;
+     case ALU9  : PhSeg->LAYER = TALU4; break;
+     case TALU7 : PhSeg->LAYER = TALU5; break;
+     case TALU8 : PhSeg->LAYER = TALU6; break;
+     };
   savephfig (PhFig);
   return 0;
 }
