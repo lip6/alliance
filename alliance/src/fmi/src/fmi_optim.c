@@ -21,7 +21,6 @@
 # include <ctype.h>
 
 # include "mut.h"
-# include LOG_H
 # include "aut.h"
 # include "abl.h"
 # include "bdd.h"
