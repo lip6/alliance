@@ -1,0 +1,85 @@
+on veut
+
+ne calculer qu'une fois l'heuristique / segment :
+-> stocker la valeur dans la struct ocrWSegment
+-> maintenir une table de correspondance                <-
+
+garder le cout total du chemin :
+-> liste ordonnee de couple (segment, valeur),
+   l'information concernant le chemin est obtenue par retour recursif.
+
+
+->
+struct path_list {
+	ocrWSegment *seg;
+        ocrNaturalInt cost;
+        struct path_list *NEXT;
+} path_list;
+
+Insertion triee ->
+
+insert (elem, list)
+	si list == NULL
+		return elem
+	si list->cost > elem->cost
+		elem->NEXT = list
+		return elem
+	list->NEXT = insert (elem, list->NEXT)
+
+pop (list) -> renvoie
+
+
+
+
+
+---------
+Heuristique : distance de manhattan
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+struct toto {
+        ocrNaturalInt cost;
+        struct toto *NEXT;
+} toto;
+
+
+
+gmake  | grep -v "^d "
+
+int fonc (toto *truc)
+int fonc (toto **truc)
+int fonc (toto &truc)
+
+
+
+
+
+{
+  toto *chose;
+
+
+  chose = malloc (...);
+  
+  fonc (chose)
+
+
+
+ocrWSegment
