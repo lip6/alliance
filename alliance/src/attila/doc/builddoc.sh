@@ -89,7 +89,7 @@
  echo "EXTRA_DIST = \$(pkghtml_DATA)" >> $DOC_AM
  mv $DOC_AM $TOOL/Makefile.am
 
- if [ -f ./CVS-$TOOL ]; then
+ if [ -d ./CVS-$TOOL ]; then
    mv ./CVS-$TOOL $TOOL/CVS
    mv ./CVS-SS-$TOOL $TOOL/stylesheet-images/CVS
  fi

@@ -34,6 +34,8 @@
         <sbr>
         <arg choice="req">--tool=<replaceable>name1</replaceable></arg>
         <arg rep="repeat">--tool=<replaceable>name2</replaceable></arg>
+        <sbr>
+        <arg choice="req">--rule=<replaceable>rulename</replaceable></arg>
     </cmdsynopsis>
   </refsynopsisdiv>
 
@@ -67,6 +69,11 @@
           your <literal>~/.rhosts</literal> to access them whithout
           passwords. You also can uses <literal>ssh</literal> (but the
           procedure to allow automatic login is more complicated).
+          </para>
+        </listitem>
+        <listitem>
+          <para> Run <literal>autostuff</literal> for the tool in the
+          <literal>~/alliance/src</literal> directory.
           </para>
         </listitem>
         <listitem>
@@ -261,6 +268,14 @@
         name of the tool to be installed.
         </para>
       </listitem>
+      <listitem>
+        <para> <userinput>--rule=<filename>rulename</filename></userinput>&nbsp;:
+        name of the rule to be passed to the <literal>make</literal> command.
+        By default&nbsp;: <userinput>install</userinput>. In the unlikely
+        case you wants to remove a tool, you can pass
+        <userinput>uninstall</userinput>.
+        </para>
+      </listitem>
     </itemizedlist>
     </para>
   </refsect1>
@@ -355,6 +370,13 @@ $ <userinput>attila --asim --tool=nero</userinput>
     computer&nbsp;:
     <screen>
 $ <userinput>attila --tool=mbk --tool=genlib</userinput>
+    </screen>
+    </para>
+    <para>
+    Remove <literal>poire</literal> tool from the system-wide tree.
+    (<literal>poire</literal> is the old name of <literal>nero</literal>).
+    <screen>
+$ <userinput>attila --asim --tool=poire --rule=uninstall</userinput>
     </screen>
     </para>
 

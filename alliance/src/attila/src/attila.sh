@@ -1,6 +1,6 @@
 #!/bin/sh
 #
-# $Id: attila.sh,v 1.3 2002/09/30 18:30:11 jpc Exp $
+# $Id: attila.sh,v 1.4 2002/10/01 14:02:11 jpc Exp $
 #                                                                        
 # /------------------------------------------------------------------\
 # |                                                                  |
@@ -63,6 +63,8 @@
    echo "           \"\$HOME/alliance/\$OS/build\"."
    echo "     o [--tool=<name1>] : The name of the tool to be processed, at"
    echo "         least one must be present."
+   echo "     o [--rule=<rule>] : The name of the rule to be executed by the"
+   echo "         Makefile (default : \"install\")."
    echo ""
    echo ""
  }
@@ -298,12 +300,14 @@
    fi
 
 
+   cd $HOME
   # Check out minimal set of files if needed.
    for file in $CVS_STARTUP_FILES; do
      if [ ! -f $HOME/alliance/src/$file ]; then
        cvs co alliance/src/$file
      fi
    done
+
 
 
   # Checks for tools sources.
@@ -397,7 +401,7 @@
 
 
    cd $HOME/alliance/src
-   if [ ! -f $TOOL/Makefile.in ]; then
+   if [ ! -f Makefile.in ]; then
      ./autostuff
    fi
 
@@ -434,8 +438,9 @@
      fi
      cd $TOOL
 
+     echo "     - Making rule $RULE for $TOOL."
      $SRC_DIR/$TOOL/configure --prefix=$INSTALL_DIR
-     $MAKE prefix=$INSTALL_DIR install
+     $MAKE prefix=$INSTALL_DIR $RULE
 
      cd ..
      if [ "$ASIM" = "y" ]; then
@@ -491,6 +496,7 @@
 
 
                TOOLS=""
+                RULE="install"
 
                 ASIM="n"
                 FULL="n"
@@ -544,6 +550,12 @@
                     TOOLS="$TOOLS $TOOL"
                     if [ $? -ne 0 ]; then
                       echo -n "attila: Bad tool name in argument \"$1\"."
+                      print_usage
+                      exit 1
+                    fi;;
+     --rule=*)      RULE=`get_string $1`
+                    if [ $? -ne 0 ]; then
+                      echo -n "attila: Bad rule name argument \"$1\"."
                       print_usage
                       exit 1
                     fi;;
@@ -608,6 +620,7 @@ if [ "$FULL" = "y" ]; then
    else
      ARGS="$ARGS --user"
    fi
+   ARGS="$ARGS --rule=$RULE"
 
    for TOOL in $TOOLS; do
      ARGS="$ARGS --tool=$TOOL"

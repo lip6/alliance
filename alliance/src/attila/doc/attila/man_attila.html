@@ -102,12 +102,17 @@ CLASS="REPLACEABLE"
 ><I
 >name2</I
 ></TT
->...]</P
+>...]<BR> {--rule=<TT
+CLASS="REPLACEABLE"
+><I
+>rulename</I
+></TT
+>}</P
 ></DIV
 ><DIV
 CLASS="REFSECT1"
 ><A
-NAME="AEN50"
+NAME="AEN53"
 ></A
 ><H2
 > Description </H2
@@ -197,6 +202,18 @@ CLASS="LITERAL"
 ><P
 > Run <TT
 CLASS="LITERAL"
+>autostuff</TT
+> for the tool in the
+          <TT
+CLASS="LITERAL"
+>~/alliance/src</TT
+> directory.
+          </P
+></LI
+><LI
+><P
+> Run <TT
+CLASS="LITERAL"
 >configure</TT
 > in the build
           directory (see below).
@@ -263,7 +280,7 @@ VALIGN="TOP"
 ><DIV
 CLASS="REFSECT2"
 ><A
-NAME="AEN84"
+NAME="AEN91"
 ></A
 ><H3
 > Directory Structure </H3
@@ -345,7 +362,7 @@ CLASS="LITERAL"
 ><DIV
 CLASS="REFSECT2"
 ><A
-NAME="AEN108"
+NAME="AEN115"
 ></A
 ><H3
 > CVS checkout </H3
@@ -409,7 +426,7 @@ CLASS="LITERAL"
 ><DIV
 CLASS="REFSECT2"
 ><A
-NAME="AEN129"
+NAME="AEN136"
 ></A
 ><H3
 > Guessing <TT
@@ -456,7 +473,7 @@ CLASS="LITERAL"
 ><DIV
 CLASS="REFSECT1"
 ><A
-NAME="AEN142"
+NAME="AEN149"
 ></A
 ><H2
 > Guessing <TT
@@ -557,7 +574,7 @@ CLASS="LITERAL"
 ><DIV
 CLASS="REFSECT1"
 ><A
-NAME="AEN163"
+NAME="AEN170"
 ></A
 ><H2
 > Arguments </H2
@@ -714,6 +731,36 @@ CLASS="FILENAME"
         name of the tool to be installed.
         </P
 ></LI
+><LI
+><P
+> <TT
+CLASS="USERINPUT"
+><B
+>--rule=<TT
+CLASS="FILENAME"
+>rulename</TT
+></B
+></TT
+> :
+        name of the rule to be passed to the <TT
+CLASS="LITERAL"
+>make</TT
+> command.
+        By default : <TT
+CLASS="USERINPUT"
+><B
+>install</B
+></TT
+>. In the unlikely
+        case you wants to remove a tool, you can pass
+        <TT
+CLASS="USERINPUT"
+><B
+>uninstall</B
+></TT
+>.
+        </P
+></LI
 ></UL
 >
     </P
@@ -721,7 +768,7 @@ CLASS="FILENAME"
 ><DIV
 CLASS="REFSECT1"
 ><A
-NAME="AEN205"
+NAME="AEN219"
 ></A
 ><H2
 > Configuration file <TT
@@ -884,7 +931,7 @@ CLASS="LITERAL"
 ><DIV
 CLASS="REFSECT1"
 ><A
-NAME="AEN250"
+NAME="AEN264"
 ></A
 ><H2
 > Examples </H2
@@ -988,6 +1035,38 @@ CLASS="SCREEN"
 CLASS="USERINPUT"
 ><B
 >attila --tool=mbk --tool=genlib</B
+></TT
+>
+    </PRE
+></TD
+></TR
+></TABLE
+>
+    </P
+><P
+>    Remove <TT
+CLASS="LITERAL"
+>poire</TT
+> tool from the system-wide tree.
+    (<TT
+CLASS="LITERAL"
+>poire</TT
+> is the old name of <TT
+CLASS="LITERAL"
+>nero</TT
+>).
+    <TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><PRE
+CLASS="SCREEN"
+>$ <TT
+CLASS="USERINPUT"
+><B
+>attila --asim --tool=poire --rule=uninstall</B
 ></TT
 >
     </PRE
