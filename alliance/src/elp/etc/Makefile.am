@@ -1,2 +1,3 @@
 install-data-local:
-	$(INSTALL_DATA) $(srcdir)/prol.elp @ALLIANCE_TOP@/etc/prol.elp
+	$(mkinstalldirs) $(DESTDIR)$(sysconfdir) 
+	$(INSTALL_DATA) $(srcdir)/prol.elp $(DESTDIR)$(sysconfdir)/prol.elp
