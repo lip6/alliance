@@ -4,10 +4,10 @@
 #
 # Alliance CAD system configure.in 
 # (C) 1997 Czo  -- <Olivier.Sirol@lip6.fr>
-# $Id: configure.in,v 1.4 1999/09/09 15:42:00 czo Exp $
+# $Id: configure.in,v 1.5 1999/10/21 13:24:56 czo Exp $
 #
 
-AC_REVISION($Revision: 1.4 $)dnl
+AC_REVISION($Revision: 1.5 $)dnl
 
 AC_INIT(configure.in)
 
@@ -80,8 +80,10 @@ AC_CHECKING(%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% Binaries)
 # AC_CANONICAL_SYSTEM
 
 # Set default value for CC and CFLAGS
+# -DALLIANCE_DISTRIB
+
 if test -z "$CFLAGS" ; then
-  CFLAGS="-O"
+  CFLAGS="-O -D$MACHINE"
 fi
 
 AC_PROG_CC
@@ -92,7 +94,7 @@ AC_SUBST(FULL_CC)
 AC_PROG_CPP
 
 if test "$GCC" = yes ; then
-    CFLAGS="-O4 -Wall"
+    CFLAGS="-O2 -Wall -D$MACHINE"
 fi
 
 

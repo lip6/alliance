@@ -3,7 +3,7 @@
 # description   : Alliance Shared Libraries and Include Files   #
 # ###---------------------------------------------------------###
 
-# $Id: libraries.mk,v 1.11 1999/10/12 13:41:59 czo Exp $
+# $Id: libraries.mk,v 1.12 1999/10/21 13:24:56 czo Exp $
 
 # The variables $TOP and $MACHINE are set by
 # alc_env.[c]sh script
@@ -410,9 +410,9 @@ TAS_L      =  -lTas542
 TAS_LIB    = libTas542.a
 TAS_H      =    tas542.h
 
-FCL_L      =  -lFcl103
-FCL_LIB    = libFcl103.a
-FCL_H      =    fcl103.h
+FCL_L      =  -lFcl110
+FCL_LIB    = libFcl110.a
+FCL_H      =    fcl110.h
 
 # end of libraries.mk
 
