@@ -909,8 +909,10 @@ viewrfmvia (2)       - displays contact caracteristics in MBK and RDS format.
 viewrfmvia (3)       - displays contact caracteristics in MBK and RDS format.
 vst VHDL structural subset.
 xmbk (1)             - A simple way to set alliance environnement variables
+xpat (1)             - A graphical pattern viewer
 xr2_dp
 xr2_y
+xsch (1)             - A graphical schematic viewer
 xyflat (3)           - compute hierarchical coordinates
 yagle (1)            - Disassembly and functional abstraction of CMOS circuits
 zbli_y
