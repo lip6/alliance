@@ -60,7 +60,8 @@
 # define CTL_DECLAR_DEFINE          2
 # define CTL_DECLAR_ASSUME          3
 # define CTL_DECLAR_INITIAL         4
-# define CTL_MAX_DECLAR_TYPE        5
+# define CTL_DECLAR_RESET           5
+# define CTL_MAX_DECLAR_TYPE        6
 
 /*------------------------------------------------------\
 |                                                       |
@@ -82,11 +83,12 @@
 |                                                       |
 \------------------------------------------------------*/
 
-# define GetCtlNumDecl( F )     ((F)->HASH_DECLAR[ CTL_DECLAR_ALL      ]->NUMBER_ELEM)
-# define GetCtlNumDeclVar( F )  ((F)->HASH_DECLAR[ CTL_DECLAR_VARIABLE ]->NUMBER_ELEM)
-# define GetCtlNumDeclDef( F )  ((F)->HASH_DECLAR[ CTL_DECLAR_DEFINE   ]->NUMBER_ELEM)
-# define GetCtlNumDeclAss( F )  ((F)->HASH_DECLAR[ CTL_DECLAR_ASSUME   ]->NUMBER_ELEM)
-# define GetCtlNumDeclInit( F ) ((F)->HASH_DECLAR[ CTL_DECLAR_INITIAL  ]->NUMBER_ELEM)
+# define GetCtlNumDecl( F )      ((F)->HASH_DECLAR[ CTL_DECLAR_ALL      ]->NUMBER_ELEM)
+# define GetCtlNumDeclVar( F )   ((F)->HASH_DECLAR[ CTL_DECLAR_VARIABLE ]->NUMBER_ELEM)
+# define GetCtlNumDeclDef( F )   ((F)->HASH_DECLAR[ CTL_DECLAR_DEFINE   ]->NUMBER_ELEM)
+# define GetCtlNumDeclAss( F )   ((F)->HASH_DECLAR[ CTL_DECLAR_ASSUME   ]->NUMBER_ELEM)
+# define GetCtlNumDeclInit( F )  ((F)->HASH_DECLAR[ CTL_DECLAR_INITIAL  ]->NUMBER_ELEM)
+# define GetCtlNumDeclReset( F ) ((F)->HASH_DECLAR[ CTL_DECLAR_RESET    ]->NUMBER_ELEM)
 
 /*------------------------------------------------------\
 |                                                       |
@@ -102,6 +104,8 @@
     (searchctlsym( (F), (N), (I), CTL_DECLAR_ASSUME   ))
 # define searchctlsyminit( F, N, I ) \
     (searchctlsym( (F), (N), (I), CTL_DECLAR_INITIAL  ))
+# define searchctlsymreset( F, N, I ) \
+    (searchctlsym( (F), (N), (I), CTL_DECLAR_RESET ))
 # define searchctlsymall( F, N, I ) \
     (searchctlsym( (F), (N), (I), CTL_DECLAR_ALL ))
 
@@ -119,6 +123,8 @@
     (searchctldecl( (F), (N), CTL_DECLAR_ASSUME   ))
 # define searchctldeclinit( F, N ) \
     (searchctldecl( (F), (N), CTL_DECLAR_INITIAL  ))
+# define searchctldeclreset( F, N ) \
+    (searchctldecl( (F), (N), CTL_DECLAR_RESET  ))
 # define searchctldeclall( F, N ) \
     (searchctldecl( (F), (N), CTL_DECLAR_ALL ))
 
@@ -306,6 +312,7 @@
   extern ctldecl_list *addctldecldef __P((ctlfig_list *Figure, vexexpr *Atom));
   extern ctldecl_list *addctldeclass __P((ctlfig_list *Figure, vexexpr *Atom));
   extern ctldecl_list *addctldeclinit __P((ctlfig_list *Figure, vexexpr *Atom));
+  extern ctldecl_list *addctldeclreset __P((ctlfig_list *Figure, vexexpr *Atom));
 
   extern  ctlline_list *addctlline __P((ctlfig_list *Figure, ctlline_list **HeadLine, long Line));
   extern  ctlline_list *addctlfileline __P((ctlfig_list *Figure, ctlline_list **HeadLine, char *File, long Line));

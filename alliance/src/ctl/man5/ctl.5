@@ -67,7 +67,13 @@ support also the imply boolean operator '->' and the equivalence operator '<=>'.
 -- be careful, the assumption condition is not applied 
 -- to the initial conditions.
 
-   INITIAL  init1 := (reset='1');
+   RESET_COND init1 := (reset='1');
+
+-- It is also possible to describe the first state
+-- with the INITIAL keywork, as follows:
+--
+-- INITIAL init1 := ((A_CS=A_E0) AND (B_CS=B_E0));
+--
 
 -- formulae description statement part
 

@@ -171,6 +171,7 @@ void MochaPostTreatVerifyBeh( MochaFigure, FlagVerbose )
   MochaFigure->HASH_BEH_OUT = BehOutHashTable;
 }
 
+
 /*------------------------------------------------------------\
 |                                                             |
 |                        MochaCompileBeh                      |

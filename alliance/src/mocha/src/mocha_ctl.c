@@ -720,7 +720,8 @@ static ablarray *MochaCtlVex2AblArray( Expr )
     if ( ( Oper >= VEX_AF ) &&
          ( Oper <= VEX_EU ) )
     {
-      MochaPrintf( stdout, "CTL operator must not be used in INITIAL or ASSUME expressions : " );
+      MochaPrintf( stdout,
+                   "CTL operator can not be used in INITIAL, RESET or ASSUME expressions : " );
       viewvexexprboundln( Expr );
       autexit( 1 );
     }
@@ -991,6 +992,7 @@ static void MochaCtlFigureVex2AblArray( MochaFigure )
   for ( DeclType  = CTL_DECLAR_DEFINE; DeclType < CTL_MAX_DECLAR_TYPE; DeclType++ )
   {
     if ( ( DeclType == CTL_DECLAR_ASSUME  ) ||
+         ( DeclType == CTL_DECLAR_RESET   ) ||
          ( DeclType == CTL_DECLAR_INITIAL ) ) MochaCtlNoCtlOper = 1;
     else                                      MochaCtlNoCtlOper = 0;
 
@@ -1057,9 +1059,10 @@ void MochaCompileCtl( MochaFigure, FileName, FlagVerbose )
 
   CtlFigure  = loadctlfig( FileName );
 
-  if ( CtlFigure->DECLAR[ CTL_DECLAR_INITIAL ] == (ctldecl_list *)0 )
+  if ( ( CtlFigure->DECLAR[ CTL_DECLAR_INITIAL ] == (ctldecl_list *)0 ) &&
+       ( CtlFigure->DECLAR[ CTL_DECLAR_RESET   ] == (ctldecl_list *)0 ) ) 
   {
-    MochaPrintf( stdout, "Missing initial condition in CTL figure %s\n", CtlFigure->NAME  );
+    MochaPrintf( stdout, "Missing initial/reset condition in CTL figure %s\n", CtlFigure->NAME  );
     autexit( 1 );
   }
 

@@ -99,9 +99,9 @@ void MochaUsage()
 {
   fprintf( stderr, "\t\tmoka [Options] fsm_filename ctl_filename\n\n" );
 
-  fprintf( stdout, "\t\tOptions : -V Sets Verbose mode on\n"       );
-  fprintf( stdout, "\t\t          -D Sets Debug mode on\n"         );
-  fprintf( stdout, "\t\t          -B Sets VBE mode on\n"           );
+  fprintf( stdout, "\t\tOptions : -V Sets Verbose mode on\n"        );
+  fprintf( stdout, "\t\t          -D Sets Debug mode on\n"          );
+  fprintf( stdout, "\t\t          -B Sets VBE mode on\n"            );
   fprintf( stdout, "\n" );
 
   exit( 1 );
@@ -179,7 +179,7 @@ int main( argc, argv )
        ( CtlFileName  == (char *)0 ) ) MochaUsage();
 
   MochaFigure = MochaAddFigure( DescFileName );
-  MochaFigure->DEBUG = FlagDebug;
+  MochaFigure->FLAG_DEBUG = FlagDebug;
 
   if ( FlagFsm )
   {

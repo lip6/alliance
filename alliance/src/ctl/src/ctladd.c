@@ -74,7 +74,8 @@
     "VARIABLE",
     "DEFINE",
     "ASSUME",
-    "INITIAL"
+    "INITIAL",
+    "RESET"
   };
 
 /*------------------------------------------------------------\
@@ -346,6 +347,35 @@ ctldecl_list *addctldeclinit( Figure, Atom )
   }
 
   Initial = loc_addctldecl( Figure, Atom, CTL_DECLAR_INITIAL );
+
+  return( Initial );
+}
+
+/*------------------------------------------------------------\
+|                                                             |
+|                     Ctl Add Declaration Reset               |
+|                                                             |
+\------------------------------------------------------------*/
+
+ctldecl_list *addctldeclreset( Figure, Atom )
+
+   ctlfig_list   *Figure;
+   vexexpr       *Atom;
+{
+  ctldecl_list *Initial;
+  char         *Name;
+
+  if ( ! IsVexNodeAtom( Atom ) ) Name = getvexarrayname( Atom );
+  else                           Name = GetVexAtomValue( Atom );
+
+  Initial = searchctldeclall( Figure, Name );
+
+  if ( Initial != (ctldecl_list *)0 )
+  {
+    ctlerror( CTL_DECLAR_EXIST_ERROR, Name, 0 );
+  }
+
+  Initial = loc_addctldecl( Figure, Atom, CTL_DECLAR_RESET );
 
   return( Initial );
 }

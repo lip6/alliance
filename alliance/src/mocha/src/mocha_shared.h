@@ -105,7 +105,7 @@
      bddnode              *BDD_FIRST_STATE;
      bddnode              *BDD_ASSUME;
      bddnode              *BDD_REACHED_STATE;
-     short                 DEBUG;
+     short                 FLAG_DEBUG;
 
    } mochafig_list;
 

@@ -23,8 +23,8 @@ In particular VHDL type MUX_BIT and WOR_BIT aren't not supported.
 First of all \fBmoka\fP build the fonction transition of the FSM using
 a Reduced Ordered Binary Decision Diagrams representation.
 .br
-It then applies the initial condition to find the first state (keyword INITIAL
-in the CTL(5) file format).
+It then applies the initial conditions to find the first state (keyword INITIAL
+and/or RESET_COND in the CTL(5) file format).
 .br
 After it computes a symbolic simulation of the FSM in order
 to find all reachable states. This computation takes into account the 
@@ -215,8 +215,8 @@ END FSM;
    VARIABLE    ack      : BIT;
    VARIABLE    req      : BIT;
 
-   INITIAL  init1 := (reset='1');
-   ASSUME   ass1  := (reset='0');
+   RESET_COND init1 := (reset='1');
+   ASSUME     ass1  := (reset='0');
 
 begin
 
