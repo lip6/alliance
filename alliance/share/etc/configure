@@ -1,6 +1,6 @@
 #! /bin/sh
 
-# From configure.in Revision: 1.14 
+# From configure.in Revision: 1.15 
 # Guess values for system-dependent variables and create Makefiles.
 # Generated automatically using autoconf version 2.13 
 # Copyright (C) 1992, 93, 94, 95, 96 Free Software Foundation, Inc.
@@ -3823,7 +3823,9 @@ rm -f conftest*
 echo $ac_n "checking where the Alliance package was installed""... $ac_c" 1>&6
 echo "configure:3825: checking where the Alliance package was installed" >&5
 # Avoid problems with soft links and builtin pwd...
-ALLIANCE_TOP=`$PWDBIN | sed 's,share/etc$,archi,'`
+ALLIANCE_TOP=`$PWDBIN | sed 's§share/etc$§archi§'`
+ALLIANCE_TOP=`echo $ALLIANCE_TOP | sed 's§archi/Cygwin/etc$§archi§'`
+
 export ALLIANCE_TOP
 echo "$ac_t""""" 1>&6
 
