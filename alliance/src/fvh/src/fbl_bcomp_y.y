@@ -157,7 +157,7 @@ struct choice_chain *order_choice();
 %token  <valu> ON
 %token	<valu> OPEN
 %token	<valu> OTHERS
-%token	<valu> PACKAGE
+%token	<valu> _PACKAGE
 %token	       PORT
 %token	<valu> PROCEDURE
 %token	<valu> PROCESS

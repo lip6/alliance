@@ -122,7 +122,7 @@ static el_mc tab_mc []=
     {"or"		,_OR},
     {"others"		,OTHERS},
     {"out"		,_OUT},
-    {"package"		,PACKAGE},
+    {"package"		,_PACKAGE},
     {"port"		,PORT},
     {"procedure"	,PROCEDURE},
     {"process"		,PROCESS},
