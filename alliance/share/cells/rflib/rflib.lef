@@ -5056,13 +5056,6 @@ MACRO rf_out_mem
             RECT 44.00 9.00 46.00 11.00 ;
         END
     END dataout
-    PIN xcks
-        DIRECTION INPUT ;
-        PORT
-            LAYER L_ALU3 ;
-            RECT 14.00 24.00 16.00 26.00 ;
-        END
-    END xcks
     PIN rbus
         DIRECTION INPUT ;
         PORT
@@ -5070,6 +5063,13 @@ MACRO rf_out_mem
             RECT 4.00 24.00 6.00 26.00 ;
         END
     END rbus
+    PIN xcks
+        DIRECTION INPUT ;
+        PORT
+            LAYER L_ALU3 ;
+            RECT 14.00 24.00 16.00 26.00 ;
+        END
+    END xcks
     PIN vdd
         DIRECTION INOUT ;
         USE power ;
@@ -5166,8 +5166,9 @@ MACRO rf_out_mem
         RECT 44.00 39.00 46.00 41.00 ;
         RECT 49.00 39.00 53.50 41.00 ;
         LAYER L_ALU2 ;
-        RECT 14.00 24.00 24.00 26.00 ;
         RECT 39.00 49.00 51.00 51.00 ;
+        RECT 14.00 24.00 24.00 26.00 ;
+        RECT 14.00 24.00 26.00 26.00 ;
     END
 END rf_out_mem
 
