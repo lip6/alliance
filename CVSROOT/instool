@@ -7,7 +7,7 @@
 # Author: Frédéric Pétrot (fred@pasta.fr.ea)
 #         for version 0
 #
-# $Id: instool,v 1.20 1999/11/16 17:12:37 ludo Exp $
+# $Id: instool,v 1.21 1999/11/19 10:51:33 ludo Exp $
 #
 
 
@@ -27,8 +27,8 @@ BUGTEAM="fred ludo czo"
 
 # rep par defaut : alliance/archi/$MACHINE
 #                  alliance/share/...
-TARGET="SunOS Solaris Linux_elf Linux"
-NUM_TARGET=4
+TARGET="SunOS Solaris Linux"
+NUM_TARGET=`echo $TARGET | wc -w`
 
 LABO=/users/soft5/newlabo/alliance
 CELL_EXTENSIONS="al ap vst vbe cp hns edi spi db dat IDX"
