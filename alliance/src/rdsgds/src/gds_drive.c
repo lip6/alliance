@@ -318,6 +318,8 @@ short        datatype = 0;
 int          bool = FALSE;
 coord_t      tab[6]; /* last one reserved for text */
 
+
+
    /* A connectors is written using a specific layer from now on:
     * this implies a simple change of layer */
    if ((IsRdsConExter(rect) || IsRdsRefCon (rect)) && !IsRdsVia(rect))
@@ -373,7 +375,8 @@ coord_t      tab[6]; /* last one reserved for text */
       we drive the text: nodes should be sufficients.
       Frederic Petrot: 10/04/96 */
    /* sauve uniquement les noms du premier model (le pere) 18/04/2002 FW */
-   if (FIRST_MODEL && rect->NAME != NULL) {
+   /* if (FIRST_MODEL && rect->NAME != NULL) { */
+   if ((IsRdsConExter(rect) || IsRdsRefCon (rect)) && rect->NAME != NULL) {
       
       /* on a besoin de mettre des crochets autour des index de vecteur
        * 26/06/2002 FW */
