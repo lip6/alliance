@@ -1,0 +1,288 @@
+# Alliance VLSI CAD System
+#
+# Home page          : http://www-asim.lip6.fr/alliance/
+# E-mail support     : mailto:alliance-support@asim.lip6.fr
+# ftp sites          : ftp://ftp.lip6.fr/lip6/softs/alliance/
+#                   or ftp://ftp-asim.lip6.fr/pub/alliance/
+#
+# $Id: FAQ,v 1.1 1999/05/31 17:11:53 czo Exp $
+
+--------------------------------------------------------------------------------
+
+FAQ (Frequently Asked Questions)
+This file contains the basic pointers to
+the different documents or manuals found in this release.
+
+Question  1: What is ALLIANCE ?
+Question  2: What is ALLIANCE general copyright policy ?
+Question  3: How to install ALLIANCE ?
+Question  4: How to get started ?
+Question  5: What are the differences with the previous releases ?
+Question  6: What is the supported VHDL subset ?
+Question  7: What is the available online documentation ?
+Question  8: Where are defined the symbolic layout rules ?
+Question  9: How is performed the mapping to a target process ?
+Question 10: How can I get a complete paper documentation ?
+Question 11: What are the supported file formats ?
+Question 12: How can I get in touch with the ALLIANCE team ?
+
+
+Question 1: What is ALLIANCE ?
+------------------------------
+
+You can read a general description of the ALLIANCE tools and libraries
+by printing the PostScript files overview.ps located in the root 
+directory:
+
+> lpr overview.ps
+
+
+Question 2: What is ALLIANCE general copyright policy ?
+-------------------------------------------------------
+
+"Alliance VLSI CAD System" is free Software.
+
+Unlike versions of Alliance up to 3.1 that where released
+including sources, version 3.2 and up will not be available
+with the source code.
+
+Source is however still available, but only upon request to
+alliance-support@lip6.fr. The release of the source is now
+subject to a non disclosure agreement.
+
+You are welcome to use the software package even for commercial 
+designs whithout any fee. You are just required to mention : 
+"Designed with Alliance CAD system"
+
+> more LICENCE
+
+Question 3: How to install ALLIANCE ?
+-------------------------------------
+
+Binary packcages are available for :
+	- i386 Linux_elf
+	- sparc SunOS 4.1.1
+	- sparc Solaris 5.5.1
+To install Alliance follow the steps written in README
+
+> more README
+
+Question 4: How to get started ?
+--------------------------------
+
+You can find 3 separate tutorials in the tutorials directory:
+(Read overview.ps)
+
+1/ ADDACCU
+   The design of a very simple chip (adder/accumulator) to get started
+   with the ALLIANCE tools.
+
+   >cd tutorials/addaccu
+
+2/ AMD2901
+   The design of the 4 bits AMD2901 processor, from the VHDL specification to
+   the CIF layout, using the ALLIANCE portable standard cells library.
+
+   >cd tutorials/amd2901
+
+3/ Data Path
+   Building simple data paths using on a procedural data path generator
+   (fpgen) and a data path place and route tool (dpr).
+
+   >cd tutorials/fitpath
+
+Question 5: What are the differences with the previous releases ?
+----------------------------------------------------------------
+
+The new features of this release are described in the CHANGES file:
+
+> more CHANGES
+
+Question 6: What is the supported VHDL subset ?
+-----------------------------------------------
+
+You can find a general presentation of the VHDL subset by issuing the
+following commands:
+
+> man vhdl
+
+This gives you an hint about the supported VHDL subset.
+There is actually three separate architectures types: "Structural",
+"Data-flow", and "Finite-State-Machine"
+
+> man vst
+
+This gives you the VHDL subset supported for structural descriptions.
+
+> man vbe
+
+This gives you the data-flow behavioral subset supported by the simulator
+ASIMUT, the logic synthesis tools BOP and SCMAP and the formal prover PROOF.
+
+> man fsm
+
+This gives you the VHDL subset used for Finite-State-Machine description
+and supported by the FSM synthesis tool SYF.
+
+Question 7: What is the available online documentation ?
+--------------------------------------------------------
+
+Each tools has its own manual.
+All the tools rely on the use of environment variables: all the relevant
+variables are listed in the `ENVIRONMENT VARIABLES' section of the manual
+page.
+
+1) tools
+--------
+
+
+> man asimut      # VHDL simulator
+> man bbr         # channel router
+> man dpr         # data-path place & route
+> man dreal       # real layout viewer
+> man druc        # design rule checker
+> man fpgen       # procedural data-path generation language
+> man fpmap       # logic synthesis tool for FPGA
+> man genlib      # procedural net-list generation language
+> man genpat      # procedural pattern generation language
+> man genview     # interactive block genreator debugger
+> man graal       # graphic layout editor
+> man l2p         # layout to postcript translation tool
+> man bop         # boolean optimizer
+> man lvx         # net-list comparator
+> man lynx        # layout extractor
+> man glop        # net-list optimiser
+> man proof       # VHDL description's formal proover
+> man ring        # router between core & pads
+> man s2r         # symbolic layout to real mask expander
+> man scmap       # standard cell mapping
+> man scr         # standard cells place & route
+> man syf         # finite state machine synthesis tool
+> man tas         # static timing analyser
+> man yagle       # functional abstractor
+
+2) cell libraries
+-----------------
+
+> man sclib       # standard cells library
+> man dplib       # data path cells library
+> man fplib       # data path cells library
+> man padlib      # pad library
+> man rsa         # fast adder generator
+> man bsg         # barrel shifter generator
+> man amg         # multiplier generator
+> man rfg         # register file generator
+> man grog        # high speed ROM generator
+> man rage        # static RAM generator
+
+3) ALLIANCE file formats
+------------------------
+
+> man vhdl        # VHDL overview
+> man vst         # VHDL subset for net-list
+> man vbe         # VHDL subset for data-flow
+> man fsm         # VHDL subset for finite-state-machine
+> man al          # internal ALLIANCE netlist
+> man ap          # internal ALLIANCE symbolic layout
+> man pat         # internal ALLIANCE pattern description
+
+4) miscellaneous
+----------------
+
+> man catal       # use of the catalog file
+> man prol        # technology file
+> man mbkenv      # main environement variables
+
+
+Question 8:  Where are defined the symbolic layout rules ?
+----------------------------------------------------------
+
+The symbolic layout rules are specified in the Design Rule Checker
+documentation:
+
+> man druc
+
+Question 9:  How is performed the mapping to a target process ?
+---------------------------------------------------------------
+
+The actual conversion is performed by the s2r tool:
+
+> man s2r
+
+If you want to parameterize the S2R tool to a new target technology,
+you must write a technology file. The method is described in the
+postscript file doc/misc/process_mapping.ps
+
+> lpr doc/misc/process_mapping.ps
+
+Question 10: How can I get a complete paper documentation ?
+-----------------------------------------------------------
+
+We are making a printed documentation of all manuals of the
+ALLIANCE tools. It will be available soon.
+
+
+Question 11: What are the supported file formats ?
+--------------------------------------------------
+
+ALLIANCE tools are interfaced to generic data-structures that
+support various standard file formats, thanks to a set of
+specialized parsers/drivers.
+UNIX environment variables are used to select one particular file format.
+For a given entity, the file format is defined by the file extension.
+
+1/ symbolic layout view
+
+ALLIANCE          .ap       INPUT   OUTPUT
+COMPASS           .cp       INPUT   OUTPUT
+
+2/ physical layout view
+
+CIF               .cif              OUTPUT
+GDSII             .gds              OUTPUT
+
+3/ netlist view
+
+ALLIANCE          .al       INPUT   OUTPUT
+SPICE             .spi      INPUT   OUTPUT
+EDIF 2.0          .edi      INPUT   OUTPUT
+VHDL              .vst      INPUT   OUTPUT
+COMPASS           .hns      INPUT   OUTPUT
+HILO              .cct              OUTPUT
+VERILOG           .vlg              OUTPUT
+
+4/ behavioural view
+
+VHDL (data-flow)  .vbe      INPUT   OUTPUT
+VHDL (FSM)        .fsm      INPUT
+
+
+Question 12: How can I get in touch with the ALLIANCE team ?
+------------------------------------------------------------
+
+Look at the Alliance support Web pages
+at http://www-asim.lip6.fr/alliance/support
+
+You may get ALLIANCE by two distinct means:
+
+       1) by anonymous FTP at ftp://ftp.lip6.fr/lip6/softs/alliance/
+
+       2) by sending a blank tape (we can write DC 600A 60 MBytes,
+          DC 6150 150 MBytes and ExaByte 8mm 2,3 GBytes) or a ZIP 100
+          or blank CD-ROM with your complete affiliation to the 
+          following address:
+
+          Laboratoire ASIM/LIP6
+          Tour 55-65, 2eme etage
+          Université Pierre et Marie Curie
+          4, Place Jussieu 75252 Paris Cedex 05,
+          France
+
+          Fax                : 33 1 44 27 62 86
+          Home page          : http://www-asim.lip6.fr/alliance/support
+          E-mail support     : mailto:alliance-support@asim.lip6.fr
+          ftp sites          : ftp://ftp.lip6.fr/lip6/softs/alliance/  (faster mirror site)
+                             : ftp://asim.lip6.fr/pub/alliance/        (primary site)
+
+
+# EOF
