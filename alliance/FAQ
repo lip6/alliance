@@ -5,7 +5,7 @@
 # E-mail support     : mailto:alliance-support@asim.lip6.fr
 # ftp site           : ftp://ftp-asim.lip6.fr/pub/alliance/
 #
-# $Id: FAQ,v 1.5 2000/01/25 16:28:57 czo Exp $
+# $Id: FAQ,v 1.6 2000/02/01 14:05:39 czo Exp $
 
 --------------------------------------------------------------------------------
 
@@ -22,10 +22,10 @@ Question  4: How to get started ?
 Question  5: What are the differences with the previous releases ?
 Question  6: What is the supported VHDL subset ?
 Question  7: What is the available online documentation ?
-Question  8: Where are defined the symbolic layout rules ?
-Question  9: How is performed the mapping to a target process ?
-Question 10: How can I get a complete paper documentation ?
-Question 11: What are the supported file formats ?
+Question  8: How can I get more complete documentation ?
+Question  9: Where are defined the symbolic layout rules ?
+Question  10: How is performed the mapping to a target process ?
+Question 11: What are the supported file formats ?/
 Question 12: Where are TAS and YAGLE ?
 Question 13: How can I get in touch with the ALLIANCE team ?
 Question 14: How can I get Alliance ?
@@ -77,7 +77,7 @@ To install Alliance follow the steps written in README
 Question 4: How to get started ?
 --------------------------------
 
-You can find 4 separate tutorials in the tutorials directory:
+You will find 5 separate tutorials in share/tutorials/ directory :
 (Please read overview.ps before)
 
 WARNING : These tutorials are not fully working and must be modified to
@@ -97,16 +97,21 @@ WARNING : These tutorials are not fully working and must be modified to
 
    >cd tutorials/amd2901
 
-3/ Data Path
+4/ Synthesis
+   Building simple door code using the Finite State Machine synthesizer (syf).
+
+   >cd tutorials/synth
+
+4/ Data Path
    Building simple data paths using on a procedural data path generator
    (fpgen) and a data path place and route tool (dpr).
 
    >cd tutorials/fitpath
 
-4/ DlxM
+5/ DlxM
    A complete tutorial based on the design of the 32 bit microprocessor DLX.
 
-   >cd tutorials/dlxm
+
 
 
 Question 5: What are the differences with the previous releases ?
@@ -212,8 +217,17 @@ page.
 > man prol        # technology file
 > man mbkenv      # main environment variables
 
+Question  8: How can I get more complete documentation ?
+-----------------------------------------------------------
 
-Question 8:  Where are defined the symbolic layout rules ?
+All the available documentation for Alliance can be found
+at Alliance's web site : 
+http://www-asim.lip6.fr/alliance/doc/
+
+You can download a copy of this site at 
+ftp://ftp-asim.lip6.fr/pub/alliance/distribution/doc/
+
+Question 9:  Where are defined the symbolic layout rules ?
 ----------------------------------------------------------
 
 The symbolic layout rules are specified in the Design Rule Checker
@@ -221,7 +235,7 @@ documentation:
 
 > man druc
 
-Question 9:  How is performed the mapping to a target process ?
+Question 10:  How is performed the mapping to a target process ?
 ---------------------------------------------------------------
 
 The actual conversion is performed by the s2r tool:
@@ -233,12 +247,6 @@ you must write a technology file. The method is described in the
 postscript file doc/process_mapping.ps (also available in pdf)
 
 > lpr doc/process_mapping.ps
-
-Question 10: How can I get a complete paper documentation ?
------------------------------------------------------------
-
-We are making a printed documentation of all manuals of the
-ALLIANCE tools. It will be available soon.
 
 
 Question 11: What are the supported file formats ?
