@@ -54,14 +54,12 @@ associated makefile in /alliance/examples subdirectories.
 # ===================================================================
 
 In order to use graphic tools such as graal or dreal you must have 
-an X server running and not to forget to set properly the DISPLAY
-environment variable.
+an X server running. (see http://x.cygwin.com/ for details)
 
-You can use Xwin.exe (the cygwin X server) as follows :
-> /usr/X11R6/bin/Xwin.exe -multiwindow -nodecoration & 
-> export DISPLAY=:0
+You can use the startx script to run the cygwin X server as follows :
+> /usr/X11R6/bin/startx
 
-And then launch graal :
+And then you can launch graal :
 > graal
 
 
