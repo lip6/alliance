@@ -1,0 +1,26 @@
+ENTITY dp_nmux_x1 IS
+PORT (
+  sel0	: in  BIT;
+  sel1	: in  BIT;
+  i0	: in  BIT;
+  i1	: in  BIT;
+  nq	: out BIT;
+  vdd	: in  BIT;
+  vss	: in  BIT
+);
+END dp_nmux_x1;
+
+ARCHITECTURE vbe OF dp_nmux_x1 IS
+
+BEGIN
+  ASSERT (vdd and not vss) 
+  REPORT "power supply is missing on dp_nmux_x1"
+  SEVERITY WARNING;
+
+  ASSERT (sel0 xor sel1) 
+  REPORT "wrong control signals on dp_nmux_x1"
+  SEVERITY WARNING;
+
+  nq <= not ((sel0 and i0) or (sel1 and i1));
+
+END;

@@ -1,0 +1,25 @@
+ENTITY dp_sff_x4_buf IS
+PORT (
+  ck		: in  BIT;
+  wen		: in  BIT;
+  ckx		: out BIT;
+  nckx		: out BIT;
+  wenx		: out BIT;
+  nwenx		: out BIT;
+  vdd		: in  BIT;
+  vss		: in  BIT
+);
+END dp_sff_x4_buf;
+
+ARCHITECTURE vbe OF dp_sff_x4_buf IS
+
+BEGIN
+  ASSERT (vdd and not (vss))
+  REPORT "power supply is missing on dp_sff_x4_buf"
+  SEVERITY WARNING;
+
+  ckx <= ck;
+  nckx <= not ck;
+  wenx <= wen;
+  nwenx <= not wen;
+END;

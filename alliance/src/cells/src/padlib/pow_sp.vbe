@@ -1,0 +1,39 @@
+-- VHDL data flow description generated from `pow_sp`
+--		date : Thu Feb 23 17:08:48 1995
+
+
+-- Entity Declaration
+
+ENTITY pow_sp IS
+  GENERIC (
+    CONSTANT area : NATURAL := 86000;	-- area
+    CONSTANT cin_i : NATURAL := 191;	-- cin_i
+    CONSTANT tpll_i : NATURAL := 1777;	-- tpll_i
+    CONSTANT rdown_i : NATURAL := 30;	-- rdown_i
+    CONSTANT tphh_i : NATURAL := 1608;	-- tphh_i
+    CONSTANT rup_i : NATURAL := 32	-- rup_i
+  );
+  PORT (
+  i : in BIT;	-- i
+  pad : out BIT;	-- pad
+  ck : in BIT;	-- ck
+  vdde : in BIT;	-- vdde
+  vddi : in BIT;	-- vddi
+  vsse : in BIT;	-- vsse
+  vssi : in BIT	-- vssi
+  );
+END pow_sp;
+
+
+-- Architecture Declaration
+
+ARCHITECTURE behaviour_data_flow OF pow_sp IS
+
+BEGIN
+  ASSERT ((((vddi and vdde) and not (vssi)) and not (vsse)) = '1')
+    REPORT "power supply is missing on pow_sp"
+    SEVERITY WARNING;
+
+
+pad <= i;
+END;

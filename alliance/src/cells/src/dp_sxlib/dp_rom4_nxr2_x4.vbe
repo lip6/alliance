@@ -1,0 +1,30 @@
+ENTITY dp_rom4_nxr2_x4 IS
+PORT (
+  i0x	: in  BIT;
+  i1x	: in  BIT;
+  ni0x	: in  BIT;
+  ni1x	: in  BIT;
+  q	: out BIT;
+  vdd	: in  BIT;
+  vss	: in  BIT
+);
+END dp_rom4_nxr2_x4;
+
+ARCHITECTURE vbe OF dp_rom4_nxr2_x4 IS
+
+BEGIN
+  ASSERT (vdd and not vss)
+  REPORT "power supply is missing on dp_rom4_nxr2_x4"
+  SEVERITY WARNING;
+
+  ASSERT (i0x xor ni0x)
+  REPORT "wrong control signals on dp_rom4_nxr2_x4"
+  SEVERITY WARNING;
+
+  ASSERT (i1x xor ni1x)
+  REPORT "wrong control signals on dp_rom4_nxr2_x4"
+  SEVERITY WARNING;
+
+  q <= not (i0x xor i1x);
+
+END;

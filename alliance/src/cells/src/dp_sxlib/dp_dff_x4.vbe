@@ -1,0 +1,36 @@
+ENTITY dp_dff_x4 IS
+PORT (
+  ckx		: in  BIT;
+  nckx		: in  BIT;
+  wenx		: in  BIT;
+  nwenx		: in  BIT;
+  i   		: in  BIT;
+  q			: out BIT;
+  vdd		: in  BIT;
+  vss		: in  BIT
+);
+END dp_dff_x4;
+
+ARCHITECTURE vbe OF dp_dff_x4 IS
+  SIGNAL ff : REG_BIT REGISTER;
+
+BEGIN
+  ASSERT (vdd and not (vss))
+  REPORT "power supply is missing on dp_dff_x4"
+  SEVERITY WARNING;
+
+  ASSERT (ckx xor nckx)
+  REPORT "wrong values for ckx and nckx in dp_dff_x4"
+  SEVERITY WARNING;
+
+  ASSERT (wenx xor nwenx)
+  REPORT "wrong values for wenx and nwenx in dp_dff_x4"
+  SEVERITY WARNING;
+
+  label0 : BLOCK ((ckx and not (ckx'STABLE)) = '1')
+  BEGIN
+    ff <= GUARDED ((wenx and i) or (nwenx and ff));
+  END BLOCK label0;
+
+  q <= ff;
+END;

@@ -1,0 +1,19 @@
+ENTITY dp_rom2_buf IS
+PORT (
+  i	: in  BIT;
+  nix	: out BIT;
+  vdd	: in  BIT;
+  vss	: in  BIT
+);
+END dp_rom2_buf;
+
+ARCHITECTURE vbe OF dp_rom2_buf IS
+
+BEGIN
+  ASSERT (vdd and not vss)
+  REPORT "power supply is missing on dp_rom2_buf"
+  SEVERITY WARNING;
+
+  nix <= not i;
+
+END;
