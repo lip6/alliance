@@ -6,7 +6,7 @@ MACRO rf_dec_bufad0
     SYMMETRY  X Y ;
     SITE      core ;
     PIN nq
-        DIRECTION OUTPUT ;
+        DIRECTION INOUT ;
         PORT
             LAYER L_ALU2 ;
             RECT 14.00 24.00 16.00 26.00 ;
@@ -113,6 +113,8 @@ MACRO rf_dec_bufad0
         RECT 29.00 39.00 31.00 41.00 ;
         RECT 34.00 39.00 36.00 41.00 ;
         RECT 39.00 39.00 43.50 41.00 ;
+        LAYER L_ALU2 ;
+        RECT 4.00 -1.00 16.00 1.00 ;
     END
 END rf_dec_bufad0
 
@@ -123,13 +125,6 @@ MACRO rf_dec_bufad1
     SIZE      50.00 BY 50.00 ;
     SYMMETRY  X Y ;
     SITE      core ;
-    PIN q
-        DIRECTION OUTPUT ;
-        PORT
-            LAYER L_ALU3 ;
-            RECT 29.00 19.00 31.00 21.00 ;
-        END
-    END q
     PIN nq
         DIRECTION OUTPUT ;
         PORT
@@ -137,6 +132,13 @@ MACRO rf_dec_bufad1
             RECT 24.00 19.00 26.00 21.00 ;
         END
     END nq
+    PIN q
+        DIRECTION OUTPUT ;
+        PORT
+            LAYER L_ALU3 ;
+            RECT 29.00 19.00 31.00 21.00 ;
+        END
+    END q
     PIN i
         DIRECTION INPUT ;
         PORT
@@ -234,6 +236,7 @@ MACRO rf_dec_bufad1
         RECT 44.00 39.00 48.50 41.00 ;
         LAYER L_ALU2 ;
         RECT 19.00 19.00 31.00 21.00 ;
+        RECT 4.00 -1.00 16.00 1.00 ;
     END
 END rf_dec_bufad1
 
@@ -244,13 +247,6 @@ MACRO rf_dec_bufad1r
     SIZE      50.00 BY 50.00 ;
     SYMMETRY  X Y ;
     SITE      core ;
-    PIN nq
-        DIRECTION OUTPUT ;
-        PORT
-            LAYER L_ALU3 ;
-            RECT 24.00 19.00 26.00 21.00 ;
-        END
-    END nq
     PIN q
         DIRECTION OUTPUT ;
         PORT
@@ -258,6 +254,13 @@ MACRO rf_dec_bufad1r
             RECT 29.00 19.00 31.00 21.00 ;
         END
     END q
+    PIN nq
+        DIRECTION OUTPUT ;
+        PORT
+            LAYER L_ALU3 ;
+            RECT 24.00 19.00 26.00 21.00 ;
+        END
+    END nq
     PIN i
         DIRECTION INPUT ;
         PORT
@@ -355,6 +358,7 @@ MACRO rf_dec_bufad1r
         RECT 44.00 39.00 48.50 41.00 ;
         LAYER L_ALU2 ;
         RECT 19.00 19.00 31.00 21.00 ;
+        RECT 4.00 49.00 16.00 51.00 ;
     END
 END rf_dec_bufad1r
 
@@ -365,27 +369,20 @@ MACRO rf_dec_bufad2
     SIZE      50.00 BY 50.00 ;
     SYMMETRY  X Y ;
     SITE      core ;
-    PIN q0
-        DIRECTION OUTPUT ;
-        PORT
-            LAYER L_ALU3 ;
-            RECT 19.00 19.00 21.00 21.00 ;
-        END
-    END q0
-    PIN nq0
-        DIRECTION OUTPUT ;
-        PORT
-            LAYER L_ALU3 ;
-            RECT 29.00 19.00 31.00 21.00 ;
-        END
-    END nq0
     PIN nq1
-        DIRECTION OUTPUT ;
+        DIRECTION INOUT ;
         PORT
             LAYER L_ALU3 ;
             RECT 34.00 19.00 36.00 21.00 ;
         END
     END nq1
+    PIN nq0
+        DIRECTION INOUT ;
+        PORT
+            LAYER L_ALU3 ;
+            RECT 29.00 19.00 31.00 21.00 ;
+        END
+    END nq0
     PIN q1
         DIRECTION OUTPUT ;
         PORT
@@ -393,13 +390,13 @@ MACRO rf_dec_bufad2
             RECT 44.00 19.00 46.00 21.00 ;
         END
     END q1
-    PIN i0
-        DIRECTION INPUT ;
+    PIN q0
+        DIRECTION OUTPUT ;
         PORT
             LAYER L_ALU3 ;
-            RECT 24.00 19.00 26.00 21.00 ;
+            RECT 19.00 19.00 21.00 21.00 ;
         END
-    END i0
+    END q0
     PIN i1
         DIRECTION INPUT ;
         PORT
@@ -407,6 +404,13 @@ MACRO rf_dec_bufad2
             RECT 39.00 19.00 41.00 21.00 ;
         END
     END i1
+    PIN i0
+        DIRECTION INPUT ;
+        PORT
+            LAYER L_ALU3 ;
+            RECT 24.00 19.00 26.00 21.00 ;
+        END
+    END i0
     PIN vdd
         DIRECTION INOUT ;
         USE power ;
@@ -497,6 +501,7 @@ MACRO rf_dec_bufad2
         RECT 44.00 39.00 48.50 41.00 ;
         LAYER L_ALU2 ;
         RECT 19.00 19.00 46.00 21.00 ;
+        RECT 4.00 -1.00 16.00 1.00 ;
     END
 END rf_dec_bufad2
 
@@ -507,27 +512,20 @@ MACRO rf_dec_bufad2r
     SIZE      50.00 BY 50.00 ;
     SYMMETRY  X Y ;
     SITE      core ;
-    PIN q0
-        DIRECTION OUTPUT ;
-        PORT
-            LAYER L_ALU3 ;
-            RECT 19.00 19.00 21.00 21.00 ;
-        END
-    END q0
-    PIN nq0
-        DIRECTION OUTPUT ;
-        PORT
-            LAYER L_ALU3 ;
-            RECT 29.00 19.00 31.00 21.00 ;
-        END
-    END nq0
     PIN nq1
-        DIRECTION OUTPUT ;
+        DIRECTION INOUT ;
         PORT
             LAYER L_ALU3 ;
             RECT 34.00 19.00 36.00 21.00 ;
         END
     END nq1
+    PIN nq0
+        DIRECTION INOUT ;
+        PORT
+            LAYER L_ALU3 ;
+            RECT 29.00 19.00 31.00 21.00 ;
+        END
+    END nq0
     PIN q1
         DIRECTION OUTPUT ;
         PORT
@@ -535,13 +533,13 @@ MACRO rf_dec_bufad2r
             RECT 44.00 19.00 46.00 21.00 ;
         END
     END q1
-    PIN i0
-        DIRECTION INPUT ;
+    PIN q0
+        DIRECTION OUTPUT ;
         PORT
             LAYER L_ALU3 ;
-            RECT 24.00 19.00 26.00 21.00 ;
+            RECT 19.00 19.00 21.00 21.00 ;
         END
-    END i0
+    END q0
     PIN i1
         DIRECTION INPUT ;
         PORT
@@ -549,6 +547,13 @@ MACRO rf_dec_bufad2r
             RECT 39.00 19.00 41.00 21.00 ;
         END
     END i1
+    PIN i0
+        DIRECTION INPUT ;
+        PORT
+            LAYER L_ALU3 ;
+            RECT 24.00 19.00 26.00 21.00 ;
+        END
+    END i0
     PIN vdd
         DIRECTION INOUT ;
         USE power ;
@@ -639,6 +644,7 @@ MACRO rf_dec_bufad2r
         RECT 44.00 39.00 48.50 41.00 ;
         LAYER L_ALU2 ;
         RECT 19.00 19.00 46.00 21.00 ;
+        RECT 4.00 49.00 16.00 51.00 ;
     END
 END rf_dec_bufad2r
 
@@ -1033,18 +1039,11 @@ MACRO rf_dec_nao3
             RECT 9.00 14.00 11.00 16.00 ;
         END
     END nq
-    PIN i1
-        DIRECTION INPUT ;
-        PORT
-            LAYER L_ALU2 ;
-            RECT 4.00 19.00 6.00 21.00 ;
-        END
-    END i1
     PIN i2
         DIRECTION INPUT ;
         PORT
             LAYER L_ALU2 ;
-            RECT 19.00 9.00 21.00 11.00 ;
+            RECT 19.00 34.00 21.00 36.00 ;
         END
     END i2
     PIN i0
@@ -1054,6 +1053,13 @@ MACRO rf_dec_nao3
             RECT 9.00 39.00 11.00 41.00 ;
         END
     END i0
+    PIN i1
+        DIRECTION INPUT ;
+        PORT
+            LAYER L_ALU2 ;
+            RECT 4.00 19.00 6.00 21.00 ;
+        END
+    END i1
     PIN vdd
         DIRECTION INOUT ;
         USE power ;
@@ -1233,6 +1239,8 @@ MACRO rf_dec_nbuf
         RECT 39.00 39.00 41.00 41.00 ;
         RECT 44.00 39.00 46.00 41.00 ;
         RECT 49.00 39.00 53.50 41.00 ;
+        LAYER L_ALU2 ;
+        RECT 39.00 49.00 51.00 51.00 ;
     END
 END rf_dec_nbuf
 
@@ -3154,20 +3162,6 @@ MACRO rf_inmux_buf_2
     SIZE      45.00 BY 100.00 ;
     SYMMETRY  Y ;
     SITE      core ;
-    PIN sel0
-        DIRECTION OUTPUT ;
-        PORT
-            LAYER L_ALU3 ;
-            RECT 34.00 39.00 36.00 41.00 ;
-        END
-    END sel0
-    PIN sel1
-        DIRECTION OUTPUT ;
-        PORT
-            LAYER L_ALU3 ;
-            RECT 24.00 14.00 26.00 16.00 ;
-        END
-    END sel1
     PIN nck
         DIRECTION OUTPUT ;
         PORT
@@ -3176,17 +3170,20 @@ MACRO rf_inmux_buf_2
             RECT 29.00 89.00 31.00 91.00 ;
         END
     END nck
-    PIN ck
-        DIRECTION INPUT ;
+    PIN sel1
+        DIRECTION OUTPUT ;
         PORT
-            LAYER L_ALU1 ;
-            RECT 19.00 89.00 21.00 91.00 ;
-            RECT 19.00 84.00 21.00 86.00 ;
-            RECT 19.00 79.00 21.00 81.00 ;
-            RECT 19.00 74.00 21.00 76.00 ;
-            RECT 19.00 69.00 21.00 71.00 ;
+            LAYER L_ALU3 ;
+            RECT 24.00 14.00 26.00 16.00 ;
         END
-    END ck
+    END sel1
+    PIN sel0
+        DIRECTION OUTPUT ;
+        PORT
+            LAYER L_ALU3 ;
+            RECT 34.00 39.00 36.00 41.00 ;
+        END
+    END sel0
     PIN sel
         DIRECTION INPUT ;
         PORT
@@ -3198,6 +3195,17 @@ MACRO rf_inmux_buf_2
             RECT 14.00 69.00 16.00 71.00 ;
         END
     END sel
+    PIN ck
+        DIRECTION INPUT ;
+        PORT
+            LAYER L_ALU1 ;
+            RECT 19.00 89.00 21.00 91.00 ;
+            RECT 19.00 84.00 21.00 86.00 ;
+            RECT 19.00 79.00 21.00 81.00 ;
+            RECT 19.00 74.00 21.00 76.00 ;
+            RECT 19.00 69.00 21.00 71.00 ;
+        END
+    END ck
     PIN vdd
         DIRECTION INOUT ;
         USE power ;
@@ -3342,8 +3350,10 @@ MACRO rf_inmux_buf_2
         RECT 34.00 89.00 36.00 91.00 ;
         RECT 39.00 89.00 43.50 91.00 ;
         LAYER L_ALU2 ;
-        RECT 8.00 14.00 26.00 16.00 ;
         RECT 26.00 39.00 40.00 41.00 ;
+        RECT 8.00 14.00 26.00 16.00 ;
+        RECT 4.00 -1.00 16.00 1.00 ;
+        RECT 4.00 99.00 16.00 101.00 ;
     END
 END rf_inmux_buf_2
 
@@ -3354,45 +3364,6 @@ MACRO rf_inmux_buf_4
     SIZE      45.00 BY 200.00 ;
     SYMMETRY  Y ;
     SITE      core ;
-    PIN nck
-        DIRECTION OUTPUT ;
-        PORT
-            LAYER L_ALU2 ;
-            RECT 34.00 89.00 36.00 91.00 ;
-            RECT 29.00 89.00 31.00 91.00 ;
-        END
-    END nck
-    PIN sel0
-        DIRECTION OUTPUT ;
-        PORT
-            LAYER L_ALU3 ;
-            RECT 34.00 159.00 36.00 161.00 ;
-            RECT 34.00 154.00 36.00 156.00 ;
-            RECT 34.00 149.00 36.00 151.00 ;
-            RECT 34.00 144.00 36.00 146.00 ;
-            RECT 34.00 139.00 36.00 141.00 ;
-            RECT 34.00 134.00 36.00 136.00 ;
-            RECT 34.00 129.00 36.00 131.00 ;
-            RECT 34.00 124.00 36.00 126.00 ;
-            RECT 34.00 119.00 36.00 121.00 ;
-            RECT 34.00 114.00 36.00 116.00 ;
-            RECT 34.00 109.00 36.00 111.00 ;
-            RECT 34.00 104.00 36.00 106.00 ;
-            RECT 34.00 99.00 36.00 101.00 ;
-            RECT 34.00 94.00 36.00 96.00 ;
-            RECT 34.00 89.00 36.00 91.00 ;
-            RECT 34.00 84.00 36.00 86.00 ;
-            RECT 34.00 79.00 36.00 81.00 ;
-            RECT 34.00 74.00 36.00 76.00 ;
-            RECT 34.00 69.00 36.00 71.00 ;
-            RECT 34.00 64.00 36.00 66.00 ;
-            RECT 34.00 59.00 36.00 61.00 ;
-            RECT 34.00 54.00 36.00 56.00 ;
-            RECT 34.00 49.00 36.00 51.00 ;
-            RECT 34.00 44.00 36.00 46.00 ;
-            RECT 34.00 39.00 36.00 41.00 ;
-        END
-    END sel0
     PIN sel1
         DIRECTION OUTPUT ;
         PORT
@@ -3434,17 +3405,45 @@ MACRO rf_inmux_buf_4
             RECT 24.00 14.00 26.00 16.00 ;
         END
     END sel1
-    PIN ck
-        DIRECTION INPUT ;
+    PIN sel0
+        DIRECTION OUTPUT ;
         PORT
-            LAYER L_ALU1 ;
-            RECT 19.00 89.00 21.00 91.00 ;
-            RECT 19.00 84.00 21.00 86.00 ;
-            RECT 19.00 79.00 21.00 81.00 ;
-            RECT 19.00 74.00 21.00 76.00 ;
-            RECT 19.00 69.00 21.00 71.00 ;
+            LAYER L_ALU3 ;
+            RECT 34.00 159.00 36.00 161.00 ;
+            RECT 34.00 154.00 36.00 156.00 ;
+            RECT 34.00 149.00 36.00 151.00 ;
+            RECT 34.00 144.00 36.00 146.00 ;
+            RECT 34.00 139.00 36.00 141.00 ;
+            RECT 34.00 134.00 36.00 136.00 ;
+            RECT 34.00 129.00 36.00 131.00 ;
+            RECT 34.00 124.00 36.00 126.00 ;
+            RECT 34.00 119.00 36.00 121.00 ;
+            RECT 34.00 114.00 36.00 116.00 ;
+            RECT 34.00 109.00 36.00 111.00 ;
+            RECT 34.00 104.00 36.00 106.00 ;
+            RECT 34.00 99.00 36.00 101.00 ;
+            RECT 34.00 94.00 36.00 96.00 ;
+            RECT 34.00 89.00 36.00 91.00 ;
+            RECT 34.00 84.00 36.00 86.00 ;
+            RECT 34.00 79.00 36.00 81.00 ;
+            RECT 34.00 74.00 36.00 76.00 ;
+            RECT 34.00 69.00 36.00 71.00 ;
+            RECT 34.00 64.00 36.00 66.00 ;
+            RECT 34.00 59.00 36.00 61.00 ;
+            RECT 34.00 54.00 36.00 56.00 ;
+            RECT 34.00 49.00 36.00 51.00 ;
+            RECT 34.00 44.00 36.00 46.00 ;
+            RECT 34.00 39.00 36.00 41.00 ;
         END
-    END ck
+    END sel0
+    PIN nck
+        DIRECTION OUTPUT ;
+        PORT
+            LAYER L_ALU2 ;
+            RECT 34.00 89.00 36.00 91.00 ;
+            RECT 29.00 89.00 31.00 91.00 ;
+        END
+    END nck
     PIN sel
         DIRECTION INPUT ;
         PORT
@@ -3456,6 +3455,17 @@ MACRO rf_inmux_buf_4
             RECT 14.00 69.00 16.00 71.00 ;
         END
     END sel
+    PIN ck
+        DIRECTION INPUT ;
+        PORT
+            LAYER L_ALU1 ;
+            RECT 19.00 89.00 21.00 91.00 ;
+            RECT 19.00 84.00 21.00 86.00 ;
+            RECT 19.00 79.00 21.00 81.00 ;
+            RECT 19.00 74.00 21.00 76.00 ;
+            RECT 19.00 69.00 21.00 71.00 ;
+        END
+    END ck
     PIN vdd
         DIRECTION INOUT ;
         USE power ;
@@ -3724,14 +3734,17 @@ MACRO rf_inmux_buf_4
         RECT 34.00 189.00 36.00 191.00 ;
         RECT 39.00 189.00 43.50 191.00 ;
         LAYER L_ALU2 ;
+        RECT 26.00 39.00 40.00 41.00 ;
+        RECT 8.00 14.00 26.00 16.00 ;
         RECT 26.00 159.00 40.00 161.00 ;
         RECT 8.00 184.00 26.00 186.00 ;
-        RECT 8.00 14.00 26.00 16.00 ;
         RECT 26.00 39.00 40.00 41.00 ;
+        RECT 8.00 14.00 26.00 16.00 ;
         RECT 8.00 184.00 26.00 186.00 ;
         RECT 26.00 159.00 40.00 161.00 ;
-        RECT 8.00 14.00 26.00 16.00 ;
-        RECT 26.00 39.00 40.00 41.00 ;
+        RECT 4.00 99.00 16.00 101.00 ;
+        RECT 4.00 -1.00 16.00 1.00 ;
+        RECT 4.00 199.00 16.00 201.00 ;
     END
 END rf_inmux_buf_4
 
@@ -3749,18 +3762,20 @@ MACRO rf_inmux_mem
             RECT 9.00 9.00 11.00 11.00 ;
         END
     END dinx
-    PIN datain1
+    PIN sel1
         DIRECTION INPUT ;
         PORT
-            LAYER L_ALU1 ;
-            RECT 39.00 39.00 41.00 41.00 ;
-            RECT 39.00 34.00 41.00 36.00 ;
-            RECT 39.00 29.00 41.00 31.00 ;
-            RECT 39.00 24.00 41.00 26.00 ;
-            RECT 39.00 19.00 41.00 21.00 ;
-            RECT 39.00 14.00 41.00 16.00 ;
+            LAYER L_ALU3 ;
+            RECT 24.00 29.00 26.00 31.00 ;
         END
-    END datain1
+    END sel1
+    PIN sel0
+        DIRECTION INPUT ;
+        PORT
+            LAYER L_ALU3 ;
+            RECT 34.00 29.00 36.00 31.00 ;
+        END
+    END sel0
     PIN datain0
         DIRECTION INPUT ;
         PORT
@@ -3773,20 +3788,18 @@ MACRO rf_inmux_mem
             RECT 19.00 14.00 21.00 16.00 ;
         END
     END datain0
-    PIN sel0
+    PIN datain1
         DIRECTION INPUT ;
         PORT
-            LAYER L_ALU3 ;
-            RECT 34.00 29.00 36.00 31.00 ;
+            LAYER L_ALU1 ;
+            RECT 39.00 39.00 41.00 41.00 ;
+            RECT 39.00 34.00 41.00 36.00 ;
+            RECT 39.00 29.00 41.00 31.00 ;
+            RECT 39.00 24.00 41.00 26.00 ;
+            RECT 39.00 19.00 41.00 21.00 ;
+            RECT 39.00 14.00 41.00 16.00 ;
         END
-    END sel0
-    PIN sel1
-        DIRECTION INPUT ;
-        PORT
-            LAYER L_ALU3 ;
-            RECT 24.00 29.00 26.00 31.00 ;
-        END
-    END sel1
+    END datain1
     PIN vdd
         DIRECTION INOUT ;
         USE power ;
@@ -3870,6 +3883,7 @@ MACRO rf_inmux_mem
         RECT 39.00 39.00 43.50 41.00 ;
         LAYER L_ALU2 ;
         RECT 24.00 29.00 36.00 31.00 ;
+        RECT 4.00 -1.00 16.00 1.00 ;
     END
 END rf_inmux_mem
 
@@ -4630,6 +4644,8 @@ MACRO rf_out_buf_2
         RECT 39.00 89.00 41.00 91.00 ;
         RECT 44.00 89.00 46.00 91.00 ;
         RECT 49.00 89.00 53.50 91.00 ;
+        LAYER L_ALU2 ;
+        RECT 39.00 49.00 51.00 51.00 ;
     END
 END rf_out_buf_2
 
@@ -5011,6 +5027,9 @@ MACRO rf_out_buf_4
         RECT 39.00 189.00 41.00 191.00 ;
         RECT 44.00 189.00 46.00 191.00 ;
         RECT 49.00 189.00 53.50 191.00 ;
+        LAYER L_ALU2 ;
+        RECT 39.00 49.00 51.00 51.00 ;
+        RECT 39.00 149.00 51.00 151.00 ;
     END
 END rf_out_buf_4
 
@@ -5034,13 +5053,6 @@ MACRO rf_out_mem
             RECT 44.00 9.00 46.00 11.00 ;
         END
     END dataout
-    PIN rbus
-        DIRECTION INPUT ;
-        PORT
-            LAYER L_ALU2 ;
-            RECT 4.00 24.00 6.00 26.00 ;
-        END
-    END rbus
     PIN xcks
         DIRECTION INPUT ;
         PORT
@@ -5048,6 +5060,13 @@ MACRO rf_out_mem
             RECT 14.00 24.00 16.00 26.00 ;
         END
     END xcks
+    PIN rbus
+        DIRECTION INPUT ;
+        PORT
+            LAYER L_ALU2 ;
+            RECT 4.00 24.00 6.00 26.00 ;
+        END
+    END rbus
     PIN vdd
         DIRECTION INOUT ;
         USE power ;
@@ -5145,6 +5164,7 @@ MACRO rf_out_mem
         RECT 49.00 39.00 53.50 41.00 ;
         LAYER L_ALU2 ;
         RECT 14.00 24.00 24.00 26.00 ;
+        RECT 39.00 49.00 51.00 51.00 ;
     END
 END rf_out_mem
 
