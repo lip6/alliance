@@ -180,7 +180,7 @@ TABLE GRAAL_SEGMENT_VALUE
   TALU4    2   2
   TALU5    2   2
   TALU6    2   2
-  CALU1    1   0
+  CALU1    2   0
   CALU2    2   0
   CALU3    2   0
   CALU4    2   0
