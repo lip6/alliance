@@ -1,0 +1,130 @@
+.\"   $Id: GENLIB_GET_REF_X.3,v 1.1 2002/03/08 14:08:10 fred Exp $
+.\" @(#)GENLIB_GET_REF_X.3 2.11 01/92; Labo Cao-vlsi; Author : Frederic Petrot
+.if t \{\
+.so man1/alc_contents.mac
+.XS \n%
+.ti 0.2i
+GENLIB_GET_REF_X
+.XE \}
+.TH GENLIB_GET_REF_X.3 "October 1, 1997" "ASIM/LIP6" "PROCEDURAL GENERATION LANGUAGE"
+.SH NAME
+GENLIB_GET_REF_X \- retrieve the x coordinate of an instance reference
+.SH SYNOPSYS
+.nf
+.if n \{\
+.ft B \}
+.if t \{\
+.ft CR \}
+long GENLIB_GET_REF_X(insname, refname)
+char \(**insname, \(**refname;
+.ft R
+.fi
+.so man1/alc_origin.1
+.SH PARAMETERS
+.TP 20
+\fIinsname\fP
+Name of the instance in the which the reference is to be searched for
+.TP
+\fIrefname\fP
+Name of the reference
+SH DESCRIPTION
+\fBGET_REF_X\fP looks for 
+the reference, \fIrefname\fP, in the instance called \fIinsname\fP.
+.SH RETURN VALUE
+The function returns a long int beeing the x position of the reference
+in the current figure
+.SH ERRORS
+.if n \{\
+.ft B \}
+.if t \{\
+.ft CR \}
+"GENLIB_GET_REF_X impossible : missing GENLIB_DEF_PHFIG"
+.ft R
+.RS
+No figure has been yet specified by a call to \fBDEF_PHFIG\fP. So it isn't
+possible to place a reference inside it.
+you must call \fBDEF_PHFIG\fP before any other layout action.
+.RE
+.if n \{\
+.ft B \}
+.if t \{\
+.ft CR \}
+"GENLIB_GET_REF_X impossible : missing GENLIB_DEF_PHFIG"
+.ft R
+.RS
+No figure has been yet specified by a call to \fBDEF_PHFIG\fP. So it isn't
+possible to place a reference inside it.
+you must call \fBDEF_PHFIG\fP before any other layout action.
+.RE
+.if n \{\
+.ft B \}
+.if t \{\
+.ft CR \}
+"GENLIB_GET_REF_X impossible : no abutment box"
+.ft R
+.RS
+The current figure does not have an \fIabutment box\fI. Use \fIDEF_AB\fP(3)
+before this function.
+.RE
+.if n \{\
+.ft B \}
+.if t \{\
+.ft CR \}
+"illegal GENLIB_GET_REF_X : orientation is XX"
+.ft R
+.RS
+The \fIface\fP parameter does not have a legal value, but \fIXX\fP.
+.RE
+.if n \{\
+.ft B \}
+.if t \{\
+.ft CR \}
+"illegal getphins : instance called \fIinsname\fP does not exist"
+.ft R
+.RS
+No instance called \fIinsname\fP exists in the current figure
+.RE
+.if n \{\
+.ft B \}
+.if t \{\
+.ft CR \}
+"illegal getphref : references called \fIrefname\fP does not exist"
+.ft R
+.RS
+No reference called \fIrefname\fP exists in the model of the instance
+\fIinsname\fP.
+.RE
+.SH EXAMPLE
+.nf
+.if n \{\
+.ft B \}
+.if t \{\
+.ft CR \}
+#include <genlib.h>
+main()
+{
+	/\(** Create a figure to work on  \(**/
+	GENLIB_DEF_PHFIG("cell");
+	GENLIB_PLACE("gaci0_b", "r1", NOSYM, 23L, 54L);
+	/\(** Put a reference \(**/
+	GENLIB_GET_REF_X("r1", "a_0", ALU2, 2, NORTH);
+	/\(** Save that on disk \(**/
+	GENLIB_SAVE_PHFIG();
+}
+.ft R
+.fi
+.SH SEE ALSO
+.BR genlib (1),
+.BR GENLIB_DEF_PHFIG (3),
+.BR GENLIB_SAVE_PHFIG (3),
+.BR GENLIB_PHREF (3),
+.BR GENLIB_PHSEG (3),
+.BR GENLIB_COPY_UP_REF (3),
+.BR GENLIB_COPY_UP_ALL_REF (3),
+.BR GENLIB_GET_REF_X (3),
+.BR GENLIB_GET_REF_X (3),
+.BR GENLIB_GET_REF_X (3).
+
+
+.so man1/alc_bug_report.1
+

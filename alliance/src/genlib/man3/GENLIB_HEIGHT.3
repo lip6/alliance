@@ -1,0 +1,59 @@
+.\"   $Id: GENLIB_HEIGHT.3,v 1.1 2002/03/08 14:08:10 fred Exp $
+.\" @(#)GENLIB_HEIGHT.3 2.11 91/08/22 ; Labo Cao-vlsi; Author : Frederic Petrot
+.if t \{\
+.so man1/alc_contents.mac
+.XS \n%
+.ti 0.2i
+GENLIB_HEIGHT
+.XE \}
+.TH GENLIB_HEIGHT.3 "October 1, 1997" "ASIM/LIP6" "PROCEDURAL GENERATION LANGUAGE"
+.SH NAME
+GENLIB_HEIGHT \- compute the height of a model
+.SH SYNOPSYS
+.nf
+.if n \{\
+.ft B \}
+.if t \{\
+.ft CR \}
+#include <genlib.h>
+long GENLIB_HEIGHT(cellname)
+char \(**cellname;
+.ft R
+.fi
+.so man1/alc_origin.1
+.SH PARAMETERS
+.TP 20
+\fIcellname\fP
+Name of the cell which height is needed
+.SH DESCRIPTION
+\fBHEIGHT\fP looks for the figure called \fIcellname\fP on memory, and then on
+disk. When found, the figure \fIabutment box\fP height is calculated, and
+returned.
+.SH RETURN VALUE
+\fIHEIGHT\fP returns a long int beeing the cell \fIabutment box\fP height.
+.SH EXAMPLE
+.nf
+.if n \{\
+.ft B \}
+.if t \{\
+.ft CR \}
+#include <genlib.h>
+long cellHeight;
+main()
+{
+	cellHeight = GENLIB_HEIGHT("mycell");
+	GENLIB_DEF_PHFIG("grumf_z");
+	GENLIB_PLACE("na2_y","ins1", NOSYM, 3 * cellHeight, 0L);
+	/\(** Save all that on disk \(**/
+	GENLIB_DEF_AB(0L, 0L, 0L, 0L);
+	GENLIB_SAVE_PHFIG();
+}
+.ft R
+.fi
+.SH SEE ALSO
+.BR genlib (1),
+.BR GENLIB_WIDTH (3).
+
+
+.so man1/alc_bug_report.1
+
