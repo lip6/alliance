@@ -72,7 +72,7 @@ xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
                {\Huge ALLIANCE TUTORIAL \\}
     {\large
                Pierre \& Marie Curie University \\
-                    year 2001 - 2002\\
+                    year 2001 - 2004\\
     }
     \vspace{1cm}
     {\huge
@@ -97,7 +97,7 @@ xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
 \\
 {1} {\bf Introduction}
 \\
-{2 }{\bf Inversor and buffer drawing under GRAAL}
+{2 }{\bf Inverter and buffer drawing using GRAAL}
 
 {2.1} Introduction
 
@@ -107,11 +107,9 @@ xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
 
 \hspace{0.5cm} {2.1.3} COUGAR
 
-\hspace{0.5cm} {2.1.4} YAGLE
-
 \hspace{0.5cm} {2.1.5} PROOF
 
-{2.2} inversor Diagram
+{2.2} inverter Diagram
 
 {2.3} Buffer diagram 
 
@@ -119,7 +117,7 @@ xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
 
 {2.5} steps to follow
 
-\hspace{0.5cm}  {2.5.1} Create an inversor
+\hspace{0.5cm}  {2.5.1} Create an inverter
 
 \hspace{0.5cm}  {2.5.2} Create a buffer
 \\
@@ -158,17 +156,17 @@ This directory contents three subdirectories and one Makefile :
 \begin{itemize}\itemsep=-.8ex
 
 \item   Makefile
-\item   inversor
+\item   inv
     \begin{itemize}\itemsep=-.8ex
     \item   Makefile
-    \item   inversor.vbe : behavioral description 
-    \item   inv\_x1.ap : inversor cell under GRAAL
+    \item   inv.vbe    : behavioral description 
+    \item   inv\_x1.ap : inverter cell design using GRAAL
     \end{itemize}
 \item   buffer
     \begin{itemize}\itemsep=-.8ex
     \item   Makefile
     \item   buffer.vbe : behavioral description
-    \item   buf\_x2.ap : buffer cell under GRAAL
+    \item   buf\_x2.ap : buffer cell design using GRAAL
     \end{itemize}
 \item  amd2901 
     \begin{itemize}\itemsep=-.8ex
@@ -196,11 +194,11 @@ This directory contents three subdirectories and one Makefile :
 \item   {\bf DRUC} Design rule checker ;
 \item   {\bf COUGAR} Symbolic layout extractor ;
 \item   {\bf PROOF} Formal proof between two behavioral descriptions ;
-\item   {\bf OCP, OCR, RING} place and route tools .
+\item   {\bf OCP, OCR, NERO, RING} place and route tools .
 \end{itemize}
 
 The beginning of this tutorial will relate to the drawing under {
-\bf GRAAL } of a inversor cell and a buffer.
+\bf GRAAL } of a inverter cell and a buffer.
 The predefined cells concepts, model and
 hierarchy will be introduced .\\
 Then this tutorial contain the methodology used in Alliance to produce
@@ -210,24 +208,25 @@ PART 2 "Synthesis" (All the documents used will be provided to you).
 \newpage
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-\section{Inversor and buffer drawing under GRAAL}
+\section{Inverter and buffer drawing under GRAAL}
 %-----------------------------------------------
 
 \subsection{Introduction}
 %------------------------
     The library can be enriched by new cells with {\bf GRAAL} editor .\\
 { \bf GRAAL } is an editor of \/{\underline{symbolic }} {\it
-layout} integrating the drawing rules checker {\bf DRUC}. The
-first part here aims to draw a inversor cell inv\_x1 in the shape
-of a predefined cell sxlib  by complying with the provided
+layout} integrating the drawing rules checker {\bf DRUC} and also 
+a net extractor.
+ The first part here aims to draw an inverter cell inv\_x1 in the shape
+of a predefined cell of sxlib complyiant with provided
 drawing rules.
 
 \subsubsection{Technological environment}
 %--------------------
 Some tools of Alliance use a particular technological
 environment. It is indicated by the environment variable {\bf
-RDS\_TECHNO\_NAME} which must be positioned with
-{\bf/asim/alliance/etc/cmos\_12.rds}
+RDS\_TECHNO\_NAME} which must be set to
+{\bf/alliance/etc/cmos.rds}
 
 \subsubsection{GRAAL}
 %--------------------
@@ -236,8 +235,8 @@ RDS\_TECHNO\_NAME} which must be positioned with
 \begin{itemize}\itemsep=-.4ex
 \item   The ''instance'' (physical cells importation)
 \item   The abutment boxes which define the cell limits 
-\item   Segments: DiffN, DiffP, Poly, Alu1, Alu2... CAluX is used to indicate
-        a possible portion for the connectors.
+\item   Segments: DiffN, DiffP, Poly, Alu1, Alu2... CAluX is used to specify
+        a possible rectangle area for the connectors.
 \item   VIAs or contacts: ContDiffN, ContDiffP, ContPoly and
     ViaMetal1/Metal2.
 \item   Big VIAs
@@ -245,8 +244,7 @@ RDS\_TECHNO\_NAME} which must be positioned with
 \end{itemize}
 
 {\bf GRAAL} uses the environment variable {\bf
-GRAAL\_TECHNO\_NAME}. It must be positioned with
-{\bf/asim/alliance/etc/cmos\_12.graal}.
+GRAAL\_TECHNO\_NAME}. It must be set to {\bf/alliance/etc/cmos.graal}.
 
 Steps to follow to create a sxlib cell by respecting the sxlib gauge :
 ( cf 2.4 Sxlib gauge ) 
@@ -264,23 +262,23 @@ Steps to follow to create a sxlib cell by respecting the sxlib gauge :
 \subsubsection{COUGAR}
 %--------------------
 The tool { \bf COUGAR } is able to extract the { \it netlist } from
-a circuit to the format { \bf vst } starting from a description
-with the format { \bf ap }. To extract on the level transistor,
-the command to be used is:
-
+a circuit to the format { \bf al } or { \bf spi } given a layout description
+with the format { \bf ap }.
+To extract a netlist at transistor level, use the following command :
 \begin{commandline}
  > cougar -t file1 file2 
 \end{commandline}
 
 { \bf COUGAR } uses the environment variables { \bf MBK\_IN\_PH }
 and { \bf MBK\_OUT\_LO } according to the input and output formats.
-For example to generate a netlist with the format { \bf .al } 
-starting from a description { \bf .ap } it is necessary to write: \\
+For example to generate a SPICE netlist (with the format { \bf .spi })
+starting from a layout description { \bf .ap } it is necessary to set
+the following environment variables: \\
 
 \begin{commandline}
  > MBK_IN_PH = ap 
  > export MBK_IN_PH 
- > MBK_OUT_LO = al 
+ > MBK_OUT_LO = spi 
  > export MBK_OUT_LO
 \end{commandline}
 
@@ -288,60 +286,23 @@ starting from a description { \bf .ap } it is necessary to write: \\
  > cougar -t circuit circuit  
 \end{commandline}
 
-\subsubsection{YAGLE}
-%--------------------
-The tool { \bf YAGLE } is able to extract the behavioral
-VHDL description of a circuit to the format { \bf .vbe } starting
-from a { \it netlist } \/with the format { \bf .al } { \it if this
-one is on the transistor level }.
-The command to be used is: \\
+The resulting spice netlist can be then simulated using a SPICE simulator and a given
+model card for a dedicated technology.
 
+The schematic of the transistor neltlist can also be displayed using {\bf XSCH} :
 \begin{commandline}
- > MBK_IN_LO = al 
- > export MBK_IN_LO 
- > YAGLE_BEH_FORMAT = vbe 
- > export YAGLE_BEH_FORMAT
+ > xsch -I spi -l circuit  
 \end{commandline}
 
-\begin{commandline} 
- > yagle file1 file2
-\end{commandline} 
-
-Above all, you must use the command:
-\begin{commandline}
- > source /users/soft5/newlabo/AvtTools/etc/avt_env.csh 
-\end{commandline}
-which allows to set up the environment necessary to use { \bf YAGLE }.\\
-Documentations for this tool are in :
-{\bf/users/soft5/newlabo/AvtTools/doc}
-
-But the tool { \bf YAGLE } is not part of Alliance anymore. If you want
-to use it, you have to get the licence from Avertec. 
-
-\subsubsection{PROOF}
-%--------------------
-When we want to prove the equivalence between two behavioral
-descriptions of the same circuit with N inputs, we can simulate
-by asimut $2^n$ vectors for two descriptions and compare them.
-This solution quickly becomes expensive in CPU time and it is 
-better to use formal proof tool which carries out the
-"mathematical" comparison of the two Boolean networks. { \bf PROOF
-} carries out this operation between descriptions file1.vbe and
-file2.vbe by the command:
-
-\begin{commandline}
- > proof file1 file2 
-\end{commandline}
-
-\subsection{inversor Diagram}
+\subsection{inverter Diagram}
 %---------------------------------
 
-The theoretical inversor diagram is presented at the following
+The theoretical inverter diagram is presented at the following
 figure:
 
 \begin{figure}[H]\centering
   \includegraphics[width=6cm]{inv_x1.eps}
-  \caption{transistors diagram of a C-MOS inversor}
+  \caption{transistors diagram of a C-MOS inverter}
   \label{Fig:inv_x1}
 \end{figure}
 
@@ -357,7 +318,7 @@ figure:
   \label{Fig:buff_x1}
 \end{figure}
 
-It uses two inversors according to the hierarchy:
+It uses two inverter according to the hierarchy:
 
 \begin{figure}[H]\centering
   \includegraphics[width=8cm]{hierarchie.eps}
@@ -376,8 +337,7 @@ horizontally placed in top and bottom of the cell.
         to the Vss.
 \item Box N must have 24 lambdas height .
 \item The special segments CAluX (CAlu1, Calu2, CAlu3...) form the cell interface (PORT\_MAP) 
-and play the role of ''flat'' connectors. They must {\underline{obligatorily}}
-be placed on a 5x5 grid and can be anywhere in the cell.
+and play the role of ''flat'' connectors. They must be placed on a 5x5 grid and can be anywhere in the cell.
 \item The special segments TAlux (TAlu1, TAlu2...) are used to indicate the obstacles for the
         router. When you want to protect AluX segment, it is necessary to cover them
         or surround them by corresponding TAlux (same layer). TAluX are placed on a grid
@@ -410,12 +370,12 @@ You will find a summary of these constraints on the diagram
 \subsection{steps to follow}
 %---------------------------------
 
-\subsubsection{Create an inversor}
+\subsubsection{Create an inverter}
 %--------------------
 
 \begin{itemize}\itemsep=-.4ex
-\item   describe the cell inversor behavior in a file { \bf .vbe } .
-\item   draw the inversor "stick-diagram" inv\_x1 whose transistors diagram
+\item   describe the cell inverter behavior in a file { \bf .vbe } .
+\item   draw the inverter "stick-diagram" inv\_x1 whose transistors diagram
         is represented on the figure \ref{Fig:inv_x1}.
 
 \begin{figure}[H]\centering
@@ -427,17 +387,14 @@ You will find a summary of these constraints on the diagram
 \item   draw the cell under {\bf GRAAL} by respecting the
         gauge specified on the figure \ref{Fig:gabarit}.
 \item   validate the symbolic drawing rules by launching {\bf DRUC} under {\bf GRAAL}.
-\item   extract the { \it netlist } \/from the inversor to the format {\bf al} with {\bf COUGAR}.
-\item   extract the behavioral VHDL with { \bf YAGLE }
-\item   carry out the formal proof between the file { \bf .vbe } extracts by { \bf YAGLE }
-        and the file { \bf .vbe } from the initial specification.
+\item   extract the { \it netlist } \/from the inverter to the format {\bf al} with {\bf COUGAR}.
 \end{itemize}
 
 \subsubsection{Create a buffer}
 %--------------------
 
 The buffer is produced under { \bf GRAAL } starting from the
-instanciated of two inversors. The hierarchy thus created is
+instanciated of two inverters. The hierarchy thus created is
 represented on the figure \ref{Fig:hier_x1}. The transistors
 diagram is represented on the figure \ref{Fig:buff_x1}.
 
@@ -446,17 +403,14 @@ diagram is represented on the figure \ref{Fig:buff_x1}.
 \item   draw the cell under {\bf GRAAL} by respecting the
         gauge specified on the figure \ref{Fig:gabarit}.
         You will use for that the instanciated function of { \bf GRAAL }.
-        The cell with instanciate is of course the inversor, which you will connect (will routing) manually.
+        The cell with instanciate is of course the inverter, which you will connect (will routing) manually.
 \item   validate the symbolic drawing rules by launching {\bf DRUC} under {\bf GRAAL}.
 \item   extract the { \it netlist } \/from the buffer to the format {\bf al} with {\bf COUGAR}.
-\item   extract the behavioral VHDL with { \bf YAGLE }
-\item   carry out the formal proof between the file { \bf .vbe } extracts by { \bf YAGLE }
-        and the file { \bf .vbe } from the initial specification.
 \end{itemize}
 
-Do not forget that the { \it mans } exist...
-We provide you the cells behaviour description inversor.vbe and buffer.vbe;
-and the cells inversor and buffer draws under { \bf GRAAL }.
+Do not forget that { \it man } pages exist...
+We provide you the cells behaviour description inv.vbe and buffer.vbe;
+and the cells inverter and buffer drawn under { \bf GRAAL }.
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
@@ -467,7 +421,7 @@ and the cells inversor and buffer draws under { \bf GRAAL }.
 %---------------------------------
 
 Am2901 breaks up into 2 blocks: the part controls which gathers
-the logical `` glu '' and the operative part (data-path).
+the logical `` glu '' (random logic) and the operative part (data-path).
 
 \begin{figure}[H]\centering
   \includegraphics[scale=0.8]{bloc.eps}
@@ -480,11 +434,10 @@ the logical `` glu '' and the operative part (data-path).
 \item The data-path contains the regular parts of Amd2901, the registers
      and the arithmetic logic unit.
 \item The control part contains irregular logic, 
-    the instructions decoding and the `` flags '' calculation.
+    the instructions decoding and the `` flags '' computation.
 \end{itemize}
 
-Hierarchical description used is as follows:
-
+The Hierarchy of descriptions is as follows:
 \begin{figure}[H]\centering
   \includegraphics[scale=0.8]{hier.eps}
   \caption{Hierarchy used}
@@ -494,9 +447,9 @@ Hierarchical description used is as follows:
 \subsection{Tools used}
 %---------------------------------
 
-You will use place and route tools { \bf ocp } and {\bf ocr },
+You will use place and route tools { \bf ocp } and {\bf nero },
 thus all tools for checking seen in the first part of this Tutorial .\\
-{\bf ocp} is the placer, {\bf ocr} allows routing over the cell.
+{\bf ocp} is the placer, {\bf nero} allows routing over the cell.
 The data-path and the control part will be placed and routed together and not separately. \\
 You will use also {\bf lvx}, the netlists comparator. When the
 system is too complex it is difficult to use {\bf proof}, the
@@ -546,25 +499,25 @@ amd2901\_core. Check well that you do not overwrite a file!
 
 For the moment, your file amd2901\_dpt.c contains only one logical
 description of the netlist.
-eg you have a file C which contains the lines: \\
+eg you have a C file that contains the following lines: \\
 
 \noindent GENLIB\_DEF\_LOFIG()\\
 \noindent ...\\
 \noindent GENLIB\_SAVE\_LOFIG()\\
 
-That enables you to generate a description structural in file{ \bf
-VST }. But at the same time, { \bf genlib } generated physical
-descriptions of each column in files { \bf AP }.
-It is about placing these columns explicitly. \\
-Take again the file amd2901\_dpt.c and include the lines :\\
+This permits to generate a structural description in a { \bf
+VST } file. At the same time, { \bf genlib } will generate 
+physical descriptions of each column in { \bf AP } files.
+It up to you to place these columns explicitly. \\
+Edit again the file amd2901\_dpt.c and include the lines :\\
 
 \noindent GENLIB\_DEF\_PHFIG()\\
 \noindent ...\\
 \noindent GENLIB\_SAVE\_PHFIG()\\
 
 The suspension points are to be supplemented, they represent your
-operators placement. You have for, that {\bf
-GENLIB} functions : 
+placement directives. For this placement task, you have the 
+following {\bf GENLIB} functions : 
 
 \begin{itemize}\itemsep=-.4ex
 \item GENLIB\_PLACE()
@@ -577,11 +530,11 @@ GENLIB} functions :
 \item ...
 \end{itemize}
 
-Use {\bf GENLIB} manual. The placement of the  data
-path columns should not be made randomly. The routing depends on it.\\
+Use {\bf GENLIB} manual. The placement of the  data-path columns
+should not be done randomly. The routing feasibility and the quality 
+of the resulting layout depends on it !\\
 
 Use genlib to generate all:
-
 \begin{commandline}
  >genlib  amd2901_dpt 
 \end{commandline}
@@ -605,17 +558,16 @@ Do not forget to include a abutment box!
 \subsection{heart Placement}
 %---------------------------------
 
-Same manner, take again the file amd2901\_core.c and place data
-path explicitly. You should not place the part controls. This one
-exists only in the form of a structural description. It is the
-placer { \bf ocp } which will undertake some (during the placement
-of the heart { \bf ocp } detects which are the cells not placed
-and supplements the placement). You should nevertheless envisage
-space for the cells placement { \bf to the top } of the
-data-path.
+In the same manner, edit agin the file amd2901\_core.c and insert
+ data-path explicitly. You should not place the part controls. 
+This one exists only in the form of a structural description.
+It is the placer { \bf ocp } that will undertake some 
+(during the placement of the heart { \bf ocp } detects which are the
+cells not placed and supplements the placement). 
+Nevertheless you should reserve enough space for the cells placement 
+{ \bf to the top } of the data-path.
 
 Include the lines:\\
-
 \noindent GENLIB\_DEF\_PHFIG()\\
 \noindent ...\\
 \noindent GENLIB\_SAVE\_PHFIG()\\
@@ -636,16 +588,18 @@ and
  > ocp -partial amd2901_core -ioc amd2901_core amd2901_core amd2901_core_p 
 \end{commandline}
 
-The option {\bf -- partial} indicates that you transmit a partial
-placement of the data-path. The option { \bf -- ioc }
-request the loading of a file giving the placement of the
-connectors. This file, amd2901\_core.ioc is provided to you
-(Modify it according to your predefined placement. The connectors
-must be in north and the south). The third argument is the netlist
-heart, the fourth is the file { \bf AP } result.
+The option {\bf -- partial} indicates that you give a partial
+placement of the data-path. 
+The option { \bf -- ioc } permits to specify a placement for external
+connectors described in a .ioc file. 
+This file, amd2901\_core.ioc is provided to you (Modify it according 
+to your predefined placement.
+The connectors must be in the north and in the south of your circuit).
+
+The third argument is the netlist heart filename, the fourth is the 
+name of the { \bf .ap } resulting file.
 
 The figure \ref{Fig:placement} summarize the followed process:
-
 \begin{figure}[H]\centering
   \includegraphics[scale=0.6]{placement.eps}
   \caption{Placement}
@@ -655,10 +609,10 @@ The figure \ref{Fig:placement} summarize the followed process:
 \subsection{Route the heart}
 %---------------------------------
 
-Routing the heart by using { \bf ocr } in the following way:
+Routing the heart by using { \bf NERO } in the following way:
 
 \begin{commandline}
- > ocr  -P amd2901_core_p -L amd2901_core -O amd2901_core -l 3 -v -i 30
+ > nero -v -3 -p amd2901_core_p amd2901_core amd2901_core 
 \end{commandline}
 
 %The option { \bf -- place } indicates that you transmit a placement, that of the heart.
@@ -677,14 +631,18 @@ Routing the heart by using { \bf ocr } in the following way:
 \subsection{pads placement}
 %---------------------------------
 
-The heart is now completed. The pads still should
-be added allowing the connection of the inputs/outputs to the case. \\
-The tool {\bf ring} allows to instanciate the pads it has need
-for signals list describing the relations between the heart
-and the pads, as well as a file { \bf .rin } specifying the
-geometrical provision of the crown of pads. \\
+The core of the AMD2001 is completed. 
+We focus now on the chip with pads description, placement and routing.
+Those pads allow the connection of the inputs/outputs of the core with
+the external nets of the chip. 
 
-This file uses syntax:
+The tool {\bf ring} instanciates pads that has been specified
+in a {\bf vst} netlist, place them using a file { \bf .rin }
+that specified a relative placement of those pads.
+It then routes those pads with the core according to the input
+netlist.
+
+This syntax of the {\bf .rin} file:
 \begin{sourcelisting}
  > east ( pi1 pi0 )
  > west ( pck pi4 )
@@ -692,7 +650,7 @@ This file uses syntax:
  > south ( pvdde pvsse )
 \end{sourcelisting}
 
-Where pi1, pi0... are the names of the pads ''instances''.
+Where pi1, pi0... are the name of instance pads.
 Name it `` amd2902\_chip.rin '' and apply the command \\
 
 \begin{commandline}
@@ -702,11 +660,11 @@ Name it `` amd2902\_chip.rin '' and apply the command \\
 We will validate the work of {\bf ring} with the tools { \bf druc
 }, { \bf lynx } and { \bf lvx }.\\
 
-Validate the drawing rules:
+Validate the physical design rules:
 \begin{commandline}
  > druc amd2901_chip
 \end{commandline}
-Extract the symbolic layout and flattened it:
+Extract the netlist up to leave cells:
 \begin{commandline}
  > MBK_OUT_LO = al
  > export MBK_OUT_LO
@@ -715,6 +673,7 @@ Extract the symbolic layout and flattened it:
 \begin{commandline}
  > cougar -f amd2901_chip
 \end{commandline}
+
 Compare two netlists : 
 \begin{commandline}
  > lvx vst al amd2901_chip amd2901_chip -f
@@ -725,7 +684,7 @@ Compare two netlists :
  > export MBK_OUT_LO
 \end{commandline}
 
-simulated the file extracts with { \bf asimut }.
+Simulated the extracted netlist with { \bf asimut }.
 Pay attention to the file { \bf CATAL }!\\
 To know the number of transistors, we carry out an extraction of
 the circuit on the level transistor: \\

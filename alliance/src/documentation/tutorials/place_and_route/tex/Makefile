@@ -1,30 +1,25 @@
 TEX	= place_and_route.tex
 FIG	= buff_x1.fig controleplace.fig dpt-all-1.fig gabarit2_sx.fig gabarit3_sx.fig gabarit_sx.fig hierarchie.fig inv_x1.fig placement.fig preplacement.fig colonnes.fig hier.fig bloc.fig stick.fig 
 EPS	= $(FIG:.fig=.eps)
-PDF	= $(EPS:.eps=.pdf)
 
+all : place_and_route.pdf
+	cp place_and_route.pdf ../../
 		
-%.pdf : %.tex
-	pdflatex $<
+place_and_route.pdf : place_and_route.dvi
+	dvipdf place_and_route.dvi
 
-%.dvi : %.tex
+place_and_route.ps : place_and_route.dvi
+	dvipds place_and_route.dvi -o place_and_route.ps
+
+place_and_route.dvi : place_and_route.tex $(EPS)
 	latex $<
 	latex $<
-
-%.ps : %.dvi
-	dvips -o $@ $<
 
 %.eps : %.fig
 	fig2dev -L eps $< > $@
 
-
-all : $(TEX:.tex=.ps) $(TEX:.tex=.pdf)
-
 $(EPS) : $(FIG)
 $(PDF) : $(EPS)
-$(TEX:.tex=.ps) : $(TEX:.tex=.dvi)
-$(TEX:.tex=.dvi) : $(EPS)
-$(TEX:.tex=.pdf) : $(PDF)
 
 clean :
 	rm -f *~ *.aux *.log *.pdf *.dvi *.ps *.out *.toc *.eps 
