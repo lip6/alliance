@@ -3,7 +3,7 @@
 # Copyright (C) 1999, 2000, 2001, 2002, 2003 Czo <Olivier.Sirol@lip6.fr>
 # License: GPL (http://www.gnu.org/copyleft/gpl.html)
 #
-# $Id: mkdistrib,v 1.16 2004/07/17 22:36:07 jpc Exp $
+# $Id: mkdistrib,v 1.17 2004/09/27 16:36:57 alliance Exp $
 #
 # /------------------------------------------------------------------\
 # |                                                                  |
@@ -44,7 +44,7 @@
    MKDISTRIB_PID="$$"
 #  MKDISTRIB_PID="26882"
 
-         TARGETS="purcell funk"
+         TARGETS="tsunami funk"
 #        TARGETS="funk"
    TARGETLOGFILE=/tmp/alliance-build.$MKDISTRIB_PID
          LOGFILE="$DISTRIBDIR/mkdistrib-run.log"
@@ -174,7 +174,7 @@
 
  part "Removing Any Previous Run."
  mkdir $TMPDIR
- mv alliance* dest-* build-* $TMPDIR
+ mv alliance* dest-* build-* rpm/BUILD/* rpm/tmp/* rpm/SOURCES/* $TMPDIR
  rm -rf $TMPDIR &
 
 
@@ -198,6 +198,12 @@
 
  ALLIANCE_TOP=/opt/alliance-$VERSION
  export ALLIANCE_TOP
+ CPPFLAGS=-I$DISTRIBDIR/alliance/$TMPINSTALLDIR/$ALLIANCE_TOP/include
+ export CPPFLAGS
+ CFLAGS=-I$DISTRIBDIR/alliance/$TMPINSTALLDIR/$ALLIANCE_TOP/include
+ export CFLAGS
+ LIBS=-L$DISTRIBDIR/alliance/$TMPINSTALLDIR/$ALLIANCE_TOP/lib
+ export LIBS
 
  try ../src/configure --prefix=$ALLIANCE_TOP
  try make DESTDIR="$DISTRIBDIR/alliance/$TMPINSTALLDIR" install
@@ -237,7 +243,7 @@
    try cd $DISTRIBDIR
  done
 
- try mv $PACK-purcell.tar.gz $PACK-$Linux.tar.gz
+ try mv $PACK-tsunami.tar.gz $PACK-$Linux.tar.gz
  try mv $PACK-funk.tar.gz $PACK-$Solaris.tar.gz
 
 
@@ -270,6 +276,7 @@
    fail
    exit $EXITCODE
  fi
+ try cd ../..
 
 
  try cp -f "$PACK.tar.gz"          $FTPDISTRIBDIR
