@@ -15,7 +15,7 @@
 /* traitement des erreur elp                                                */
 /****************************************************************************/
 
-#include <varargs.h>
+#include <stdarg.h>
 #include "elp.h"
 
 
@@ -36,10 +36,8 @@
 /* -------------------                                                       */
 /*    La fonction renvoie le numero de l'erreur.                             */
 /*****************************************************************************/
-elperrorFCT short elpError(errnum,va_alist)
+elperrorFCT short elpError(errnum, ...)
 short errnum ;
-va_dcl
-
 {
 va_list arg ;
 
@@ -48,7 +46,7 @@ fprintf(stderr,"\n!!! elp error: %d !!!\n",errnum) ;
 else
 fprintf(stderr,"\n!!! erreur elp : %d !!!\n",errnum) ;
 
-va_start(arg) ;
+va_start(arg, errnum) ;
 
 switch(errnum)
     {
@@ -111,6 +109,7 @@ switch(errnum)
                        va_arg(arg,char *)) ;
                break ;
     }
+   va_end(arg);
 
 fflush(stderr) ;
 return errnum ;

@@ -27,13 +27,13 @@
 /* auteurs  : RENAUD & VENOT & PITON                           */
 /***************************************************************/
 
-#ident "$Id: ARRAY.c,v 1.2 2002/09/30 16:20:24 czo Exp $"
+#ident "$Id: ARRAY.c,v 1.3 2003/09/11 13:07:05 fred Exp $"
 
 #include <stdlib.h>
 #include <stdio.h>
 #include <string.h>
 #include <ctype.h>
-#include <varargs.h>
+#include <stdarg.h>
 
 #include "mut.h"
 #include "pat.h"
@@ -49,11 +49,9 @@
 /* ###--------------------------------------------------------------### */
 
 
-void d_ARRAY (va_alist)
-va_dcl
+void d_ARRAY (char *param, ...)
 {
-va_list pa;
-char    *param;
+va_list  pa;
 char     buffer [80];
 char     buffer_anx [64];
 char     name [64];
@@ -77,11 +75,11 @@ struct   alpha_num decomp;
     if (GNP_TAB_PAIOL_CREE == GNP_ACTIF)
       Erreur ("ARRAY already in descriptive part\n");
 
-    va_start(pa);
-
-    param = va_arg(pa, char *);
     if (param == NULL) 
        Erreur ("ARRAY needs any parameters\n");
+
+    va_start(pa, param);
+
     strcpy (buffer,param);
     KillEsp (buffer);
 

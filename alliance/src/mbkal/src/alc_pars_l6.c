@@ -30,6 +30,9 @@
 *                                 is provided.                                 *
 *  Updates     : AUGUST, 12th 2002, Pierre Nguyen Tuong                        *
 *  $Log: alc_pars_l6.c,v $
+*  Revision 1.8  2003/09/11 13:07:06  fred
+*  Changing varargs into stdarg, and updating the sources accordingly.
+*
 *  Revision 1.7  2003/03/22 16:35:04  ludo
 *  Bug fixing: core dump under Solaris 8 64 bits
 *
@@ -83,7 +86,7 @@
 #include <stdio.h>
 #include <string.h>
 #include <unistd.h>
-#include <varargs.h>
+#include <stdarg.h>
 #include <math.h>
 
 #include <mut.h> 
@@ -108,7 +111,7 @@
 #define MAL_LOSELF 0x00000800
 
 /* Tampon de lecture */
-#define	MALBUFMAX 1024
+#define	MALBUFMAX 8192
 
 /* ptype sur losig -> verification unicite du signal */
 #define MALDEFINED 11223344
@@ -1283,16 +1286,15 @@ chain_list	*head;
 
 /******************************************************************************/
 
-void		mal_error( va_alist )
-va_dcl
+void		mal_error( char *fname, ... )
 {
   va_list	 index;
-  char		*fmt;
   char		*fname;
   int		 line;
   char          *func;
+  char          *fmt;
   
-  va_start( index );
+  va_start( fname, index );
   fname = va_arg( index, char* );
   line  = va_arg( index, int   );
   func  = va_arg( index, char* );
@@ -1307,6 +1309,8 @@ va_dcl
 	   line
 	 );
   vfprintf( stderr, fmt, index );
+
+  va_end( index );
 
   EXIT(1);
 }

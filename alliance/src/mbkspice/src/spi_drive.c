@@ -38,7 +38,7 @@
 #include <sys/types.h>
 #include <sys/stat.h>
 #include <fcntl.h>
-#include <varargs.h>
+#include <stdarg.h>
 #include <time.h>
 #include <ctype.h>
 #include <mut.h>
@@ -906,16 +906,13 @@ lofig_list	*ptfig;
   }
 }
 
-void            tooutput( va_alist )
-va_dcl
+void            tooutput( FILE *fd, ... )
 {
   va_list       index;
-  FILE          *fd;
   char          *fmt;
 
-  va_start( index );
+  va_start( fd, index );
   
-  fd  = va_arg( index, FILE* );
   fmt = va_arg( index, char* );
 
   if( vfprintf( fd, fmt, index ) < 0 )
@@ -925,6 +922,8 @@ va_dcl
     perror( "System say " );
     EXIT( 1 );
   }
+
+  va_end( index );
 }
 
 void spi_vect( s )
