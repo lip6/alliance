@@ -78,6 +78,7 @@
 <!ENTITY add-sub            "<literal>add_sub</literal>">
 <!ENTITY c32                "<literal>c32</literal>">
 <!ENTITY c31                "<literal>c31</literal>">
+<!ENTITY c30                "<literal>c30</literal>">
 <!ENTITY i0                 "<literal>i0</literal>">
 <!ENTITY i1                 "<literal>i1</literal>">
 <!ENTITY nq                 "<literal>nq</literal>">
