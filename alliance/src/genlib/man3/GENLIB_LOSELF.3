@@ -1,4 +1,4 @@
-.\"   $Id: GENLIB_LOSELF.3,v 1.1 2002/08/16 13:35:20 pnt Exp $
+.\"   $Id: GENLIB_LOSELF.3,v 1.2 2002/08/16 19:15:02 pnt Exp $
 .\" @(#)GENLIB_LOSELF.3 2.11 2002/08/16; Labo LIP6/ASIM; Author : Pierre Nguyen Tuong
 .if t \{\
 .so man1/alc_contents.mac
@@ -72,8 +72,8 @@ int main(int argc,char \(**argv[])
   GENLIB_DEF_LOFIG("parallel_self") ;
 
   /\(** Define interface \(**/
-  GENLIB_LOCON("i", IN, "input") ;
-  GENLIB_LOCON("f", OUT, "output") ;
+  GENLIB_LOCON("i",IN,"input") ;
+  GENLIB_LOCON("f",OUT,"output") ;
 
   /\(** Add inductors \(**/
   GENLIB_LOSELF(SELFMIM,5.1,"input","output","self1") ;

@@ -1,4 +1,4 @@
-.\"   $Id: setlores.3,v 1.1 2002/08/16 18:40:25 pnt Exp $
+.\"   $Id: setlores.3,v 1.2 2002/08/16 19:19:41 pnt Exp $
 .\" @(#)setlores.2 2.11 2002/08/14 ; Labo LIP6/ASIM cao-vlsi; Author : Pierre Nguyen Tuong
 .if t \{\
 .so man1/alc_contents.mac
@@ -66,7 +66,7 @@ No resistor matches the name.
 
 void set_lores_value(char \(**figname,char \(**resname,double newresi)
 {
-  setlores(getlofig(figname),resname,newresi) ;
+  setlores(getlofig(figname,'A'),resname,newresi) ;
 }
 .ft R
 .fi

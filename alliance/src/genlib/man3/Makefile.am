@@ -33,6 +33,9 @@ man_MANS  = GENLIB_BUS.3 \
             GENLIB_LOCAP.3 \
             GENLIB_LORES.3 \
             GENLIB_LOSELF.3 \
+            GENLIB_SET_LOCAP.3 \
+            GENLIB_SET_LORES.3 \
+            GENLIB_SET_LOSELF.3 \
             GENLIB_OUTLINE.3 \
             GENLIB_PHCON.3 \
             GENLIB_PHREF.3 \

@@ -30,7 +30,7 @@
  * Modified by pnt <Pierre.Nguyen-Tuong@lip6.fr> 2002
  */
 
-#ident "$Id: mbk_lo.c,v 1.4 2002/08/14 19:04:14 pnt Exp $"
+#ident "$Id: mbk_lo.c,v 1.5 2002/08/16 19:19:49 pnt Exp $"
 
 #include <stdio.h>
 #include <unistd.h>
@@ -1873,6 +1873,35 @@ locap_list *getlocap(lofig_list *ptfig, const char *cname)
   return NULL ; /* never reached */
 }
 
+/*********************************** Capacitor : setlocap **************************************/
+
+void setlocap(lofig_list *ptfig, const char *cname,double capa)
+{
+  locap_list *ptcap = NULL ;
+  locap_list *cap   = NULL ;
+  char       *name  = namealloc(cname) ;
+
+  for(ptcap = ptfig -> LOCAP ; ptcap != NULL ; ptcap = ptcap -> NEXT)
+    {
+      if(ptcap -> NAME == name)
+	{
+          cap = ptcap ;
+          break ;
+	}
+    }
+
+  if(cap == NULL)
+    {
+      (void)fflush(stdout) ;
+      (void)fprintf(stderr,"*** mbk error ***\n") ;
+      (void)fprintf(stderr,"setlocap impossible :\n") ;
+      (void)fprintf(stderr,"capacitor %s doesn't exist in figure %s\n",name,ptfig -> NAME) ;
+      EXIT(1) ;
+    }
+
+  cap -> CAPA = capa ;
+}
+
 /*********************************** Capacitor : viewlocap *************************************/
 
 void viewlocap(locap_list  *ptcap)
@@ -2106,6 +2135,35 @@ lores_list *getlores(lofig_list *ptfig, const char *cname)
   return NULL ; /* never reached */
 }
 
+/*********************************** Resistor : setlores **************************************/
+
+void setlores(lofig_list *ptfig, const char *cname,double resi)
+{
+  lores_list *ptres = NULL ;
+  lores_list *res   = NULL ;
+  char       *name  = namealloc(cname) ;
+
+  for(ptres = ptfig -> LORES ; ptres != NULL ; ptres = ptres -> NEXT)
+    {
+      if(ptres -> NAME == name)
+	{
+          res = ptres ;
+          break ;
+	}
+    }
+
+  if(res == NULL)
+    {
+      (void)fflush(stdout) ;
+      (void)fprintf(stderr,"*** mbk error ***\n") ;
+      (void)fprintf(stderr,"setlores impossible :\n") ;
+      (void)fprintf(stderr,"resistor %s doesn't exist in figure %s\n",name,ptfig -> NAME) ;
+      EXIT(1) ;
+    }
+
+  res -> RESI = resi ;
+}
+
 /*********************************** Resistor : viewlores ***************************************/
 
 void viewlores(lores_list  *ptres)
@@ -2337,6 +2395,35 @@ loself_list *getloself(lofig_list *ptfig, const char *cname)
   EXIT(1) ;
 
   return NULL ; /* never reached */
+}
+
+/*********************************** Inductor : setloself **************************************/
+
+void setloself(lofig_list *ptfig, const char *cname,double self)
+{
+  loself_list *ptself  = NULL ;
+  loself_list *theself = NULL ;
+  char        *name    = namealloc(cname) ;
+
+  for(ptself = ptfig -> LOSELF ; ptself != NULL ; ptself = ptself -> NEXT)
+    {
+      if(ptself -> NAME == name)
+	{
+          theself = ptself ;
+          break ;
+	}
+    }
+
+  if(theself == NULL)
+    {
+      (void)fflush(stdout) ;
+      (void)fprintf(stderr,"*** mbk error ***\n") ;
+      (void)fprintf(stderr,"setloself impossible :\n") ;
+      (void)fprintf(stderr,"inductor %s doesn't exist in figure %s\n",name,ptfig -> NAME) ;
+      EXIT(1) ;
+    }
+
+  theself -> SELF = self ;
 }
 
 /*********************************** Inductor : viewloself ***************************************/

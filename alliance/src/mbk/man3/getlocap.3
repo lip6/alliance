@@ -1,4 +1,4 @@
-.\"   $Id: getlocap.3,v 1.2 2002/08/16 18:40:24 pnt Exp $
+.\"   $Id: getlocap.3,v 1.3 2002/08/16 19:19:41 pnt Exp $
 .\" @(#)getlocap.2 2.11 2002/08/14 ; Labo LIP6/ASIM cao-vlsi; Author : Pierre Nguyen Tuong
 .if t \{\
 .so man1/alc_contents.mac
@@ -61,7 +61,7 @@ No capacitor matches the name.
 
 locap_list \(**exist(char \(**figname,char \(**capname)
 {
-  return getlocap(getlofig(figname),capname) ;
+  return getlocap(getlofig(figname,'A'),capname) ;
 }
 .ft R
 .fi
