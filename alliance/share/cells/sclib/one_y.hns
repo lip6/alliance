@@ -1,9 +1,0 @@
-#cell1 one_y idps_symb hnSchematic 0 v7r5.6
-# 07-Oct-98 15:30 07-Oct-98 15:30 mbkvti400 * .
-H 1 ;
-B 0 3 ;
-X 1 1 t
-X 2 2 vdd
-X 3 3 vss
-T P * [11.00,34.00] 15.00 1.00 0 3 2 1 2 ;
-E ;

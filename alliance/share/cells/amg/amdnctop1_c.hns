@@ -1,9 +1,0 @@
-#cell1 amdnctop1_c idps_symb hnSchematic 0 v7r5.6
-# 25-Jan-94 14:17 25-Jan-94 14:17 mbkvti400 * .
-H 1 ;
-B 0 4 ;
-X 1 1 ai ;
-X 2 2 vdd ;
-X 3 3 vss1 ;
-X 4 4 vss2 ;
-E ;
