@@ -3,7 +3,7 @@
 # description   : Alliance Shared Libraries and Include Files   #
 # ###---------------------------------------------------------###
 
-# $Id: libraries.mk,v 1.29 2000/09/04 13:36:43 czo Exp $
+# $Id: libraries.mk,v 1.30 2000/11/14 14:39:20 czo Exp $
 
 # The variables $ALLIANCE_TOP and $ALLIANCE_OS are set by
 # alc_env.[c]sh script
@@ -48,9 +48,9 @@ CNS_L      =  -lCns211
 CNS_LIB    = libCns211.a
 CNS_H      =    cns211.h
 
-YAG_L      =  -lYag300
-YAG_LIB    = libYag300.a
-YAG_H      =    yag300.h
+YAG_L      =  -lYag350
+YAG_LIB    = libYag350.a
+YAG_H      =    yag350.h
 
 # ###---------------------------------------------------------###
 #    functions related to net-list representation :             #
