@@ -258,6 +258,10 @@
               <refentrytitle>DPGEN_SHIFT</refentrytitle>
               <manvolnum>3</manvolnum>
             </citerefentry></link></para></listitem>
+            <listitem><para><link linkend="DPGEN-SHROT"><citerefentry>
+              <refentrytitle>DPGEN_SHROT</refentrytitle>
+              <manvolnum>3</manvolnum>
+            </citerefentry></link></para></listitem>
           </itemizedlist>
           </para>
         </listitem>

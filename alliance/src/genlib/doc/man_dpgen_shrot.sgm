@@ -1,17 +1,17 @@
 
 
-  <refentry id="DPGEN-SHIFT">
-  <?dbhtml filename="man_dpgen_shift.html">
+  <refentry id="DPGEN-SHROT">
+  <?dbhtml filename="man_dpgen_shrot.html">
 
   <refmeta>
-    <refentrytitle>DPGEN_SHIFT</refentrytitle>
+    <refentrytitle>DPGEN_SHROT</refentrytitle>
     <manvolnum>3</manvolnum>
     <refmiscinfo>ASIM/LIP6</refmiscinfo>
   </refmeta>
 
   <refnamediv>
-    <refname> DPGEN_SHIFT </refname>
-    <refpurpose> Shifter Macro-Generator </refpurpose>
+    <refname> DPGEN_SHROT </refname>
+    <refpurpose> Shift/Rotation Macro-Generator </refpurpose>
   </refnamediv>
 
 
@@ -20,7 +20,7 @@
       <funcsynopsisinfo>#include  &lt;genlib.h&gt;</funcsynopsisinfo>
       <funcprototype>
         <funcdef>void <function>GENLIB_MACRO</function></funcdef>
-          <paramdef>DPGEN_SHIFT</paramdef>
+          <paramdef>DPGEN_SHROT</paramdef>
           <paramdef>char *<parameter>modelname</parameter></paramdef>
           <paramdef>long <parameter>flags</parameter></paramdef>
           <paramdef>long <parameter>N</parameter></paramdef>
@@ -31,18 +31,24 @@
   <refsect1>
     <title> Description </title>
 
-    <para> Generate a &N; bits shifter with name &modelname;.
+    <para> Generate a &N; bits shift/rotation operator with name &modelname;.
     </para>
     <para> How it works :
     <itemizedlist>
       <listitem>
-        <para> if the <literal>op[0]</literal> signal is set to &one; performs
-        a right shift, performs a left shift otherwise.
+        <para> if the <literal>op[0]</literal> signal is set to &one;
+        right shift/rotation occurs, otherwise left shift/rotation
+        occurs.
         </para>
       </listitem>
       <listitem>
         <para> if the <literal>op[1]</literal> signal is set to &one; performs
         an arithmetic shift (only meaningful in case of a right shift).
+        </para>
+      </listitem>
+      <listitem>
+        <para> if the <literal>op[2]</literal> signal is set to &one; performs
+        a rotation, otherwise performs a shift.
         </para>
       </listitem>
       <listitem>
@@ -59,7 +65,7 @@
 
       <orderedlist>
         <listitem>
-          <para> &op; : select the kind of shift (input, 2 bit).
+          <para> &op; : select the kind of shift/rotation (input, 3 bit).
           </para>
         </listitem>
         <listitem>
@@ -88,13 +94,13 @@
 
     <para>
     <programlisting>
-GENLIB_MACRO(DPGEN_SHIFT, "model_shift_32",
+GENLIB_MACRO(DPGEN_SHROT, "rot25",
                           F_BEHAV|F_PLACE,
-                          32);
+                          25);
 
-GENLIB_LOINS("model_shift_32",
-             "instance1_shift_32", 
-             "op[1:0]", 
+GENLIB_LOINS("rot25",
+             "instance1_rot25", 
+             "op[2:0]", 
              "shamt[4:0]", 
              "x[31:0]", 
              "y[31:0]", 
