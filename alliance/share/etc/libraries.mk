@@ -21,14 +21,13 @@ ALLIANCE_ETC     = $(TOP)/etc
 
 # distrib path is now set by make command line
 # when building alliance distrib (./build)
-#TARGET_BIN       = $(TOP)/bin
-#TARGET_LIB       = $(TOP)/lib
-#TARGET_INCLUDE   = $(TOP)/include
-
+#ALLIANCE_INSTALL_DIR     = $(TOP)
 # develloppers path
-TARGET_BIN       = $(HOME)/labo/$(MACHINE)/bin
-TARGET_LIB       = $(HOME)/labo/$(MACHINE)/lib
-TARGET_INCLUDE   = $(HOME)/labo/$(MACHINE)/include
+ALLIANCE_INSTALL_DIR     = $(HOME)/labo/$(MACHINE)
+
+TARGET_BIN       = $(ALLIANCE_INSTALL_DIR)/bin
+TARGET_LIB       = $(ALLIANCE_INSTALL_DIR)/lib
+TARGET_INCLUDE   = $(ALLIANCE_INSTALL_DIR)/include
 
 # ###---------------------------------------------------------###
 #    general purpose utilities                                  #
