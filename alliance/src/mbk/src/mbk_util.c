@@ -28,7 +28,7 @@
  * Modified by Czo <Olivier.Sirol@lip6.fr> 1997,98
  */
 
-#ident "$Id: mbk_util.c,v 1.3 2003/04/03 14:46:30 xtof Exp $"
+#ident "$Id: mbk_util.c,v 1.4 2003/10/20 08:55:22 xtof Exp $"
 
 #include <stdio.h>
 #include <stdlib.h>
@@ -738,6 +738,20 @@ void upstr(const char *s, char *t)
    for (; *s; s++, t++)
       *t = touppertable[(int)*s];
    *t = *s;
+}
+
+/*******************************************************************************
+* function isck()                                                              *
+*******************************************************************************/
+int  isck(char *name)
+{
+    if (!name || !CK)
+        return 0;
+    else
+        if (strcmp(name, CK))
+            return 1;
+        else
+            return 0;
 }
 
 /*******************************************************************************

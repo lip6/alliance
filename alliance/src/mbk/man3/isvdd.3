@@ -1,4 +1,4 @@
-.\"   $Id: isvdd.3,v 1.1 2002/03/08 13:51:02 fred Exp $
+.\"   $Id: isvdd.3,v 1.2 2003/10/20 08:55:19 xtof Exp $
 .\" @(#)isvdd.2 2.11 91/08/22 ; Labo masi cao-vlsi; Author : Frederic Petrot
 .if t \{\
 .so man1/alc_contents.mac
@@ -21,7 +21,7 @@ isvdd \-tells if a name contains the pattern defined by the user
 .if t \{\
 .ft CR \}
 #include "mut.h"
-void isvdd(s)
+char* isvdd(s)
 char \(**s;
 .ft R
 .fi

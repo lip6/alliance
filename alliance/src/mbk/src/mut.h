@@ -26,7 +26,7 @@
  * Date    : 31/08/93
  * Author  : Frederic Petrot <Frederic.Petrot@lip6.fr>
  * Modified by Czo <Olivier.Sirol@lip6.fr> 1997,98
- * $Id: mut.h,v 1.7 2003/04/03 14:46:30 xtof Exp $
+ * $Id: mut.h,v 1.8 2003/10/20 08:55:22 xtof Exp $
  */
 
 #ifndef _MUT_H_
@@ -94,7 +94,6 @@ extern "C" {
 
 #define isvdd(name)	instr(name, VDD, SEPAR)
 #define isvss(name)	instr(name, VSS, SEPAR)
-#define isck(name)	instr(name, CK, SEPAR)
 #define funcin()     if (MBK_DEBUG_ON)                                \
                         HEAD_MBKDEBUG = addptype(HEAD_MBKDEBUG,       \
                                                  __LINE__,            \
@@ -219,6 +218,7 @@ extern void mbkexit __P(( int ExitValue ));   /* new exit handler system  */
   extern          char * nameindex __P((char *name, long index));
   extern      num_list * addnum __P((num_list *ptnum, long data));
   extern           void  freenum __P((num_list *pt));
+  extern            int  isck    __P((char *name));
 
 #if (defined(__STDC__) ||  defined(__GNUC__)) && defined(DEBUGCHAIN)
 #define addchain( a, b ) (chain_list*)fnaddchain(a,b,__LINE__,__FILE__)

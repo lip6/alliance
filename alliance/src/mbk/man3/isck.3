@@ -1,4 +1,4 @@
-.\"   $Id: isck.3,v 1.1 2003/04/03 14:55:19 xtof Exp $
+.\"   $Id: isck.3,v 1.2 2003/10/20 08:55:19 xtof Exp $
 .\" @(#)isck.2 2.11 91/08/22 ; Labo masi cao-vlsi; Author : Frederic Petrot
 .if t \{\
 .so man1/alc_contents.mac
@@ -12,7 +12,7 @@ isck
 .XE4 \}
 .TH ISCK 3 "October 1, 1997" "ASIM/LIP6" "MBK UTILITY FUNCTIONS"
 .SH NAME
-isck \-tells if a name contains the pattern defined by the user
+isck \-tells if a name is the pattern defined by the user
 .so man1/alc_origin.1
 .SH SYNOPSYS
 .nf
@@ -21,21 +21,21 @@ isck \-tells if a name contains the pattern defined by the user
 .if t \{\
 .ft CR \}
 #include "mut.h"
-void isck(s)
+int isck(s)
 char \(**s;
 .ft R
 .fi
 .SH PARAMETER
 .TP 20
 \fIs\fP
-Pointer to the string to be check as power high
+Pointer to the string to be check as clock
 .SH DESCRIPTION
-\fBisck\fP searches an occurence of the string defined by the \fBMBK_CK\fP(1)
-environment variable in the string \fIs\fP.
+\fBisck\fP compares the string defined by the \fBMBK_CK\fP(1)
+environment variable with the string \fIs\fP.
 If this string is not set by the user, its default value is "ck".
 .SH RETURN VALUE
-\fBisck\fP return \fBNULL\fP the pattern is not present 
-If the pattern is found, a value different from \fBNULL\fP is returned.
+\fBisck\fP returns \fB0\fP the pattern is not present 
+If the pattern is found, \fB1\fP is returned.
 .SH EXAMPLE
 .ta 3n 6n 9n 12n 15n 18n 21n
 .nf
