@@ -475,7 +475,7 @@ void GraalPromptModifySegment()
 
   GraalDisplayMessage( GRAAL_MESSAGE_MODE, "Modify Segment" );
 
-  sprintf( MessageBuffer, "Layer: %s   Width: %2d   Name: %s",
+  sprintf( MessageBuffer, "Layer: %s   Width: %.2f  Name: %s",
            GRAAL_SEGMENT_NAME_TABLE[ GraalSegmentMLayer ][0] ,
            GraalSegmentMWidth,
            ( GraalSegmentMName ) ? GraalSegmentMName : "none" );
@@ -499,7 +499,7 @@ void GraalPromptModifyConnector()
 
   GraalDisplayMessage( GRAAL_MESSAGE_MODE, "Modify Connector" );
 
-  sprintf( MessageBuffer, "Layer: %s   Width: %2d   Orient: %s   Name: %s",
+  sprintf( MessageBuffer, "Layer: %s   Width: %.2f  Orient: %s   Name: %s",
            GRAAL_CONNECTOR_NAME_TABLE[ GraalConnectorMLayer ][0],
            GraalConnectorMWidth,
            GRAAL_ORIENT_NAME_TABLE[ GraalConnectorMOrient ][0],
@@ -603,13 +603,13 @@ void GraalPromptModifyTransistor()
 
   if ( GraalTransistorMName == (char *)NULL )
   {
-    sprintf( MessageBuffer, "Type: %s   Width: %2d   Name: None",
+    sprintf( MessageBuffer, "Type: %s   Width: %.2f  Name: None",
              GRAAL_TRANSISTOR_NAME_TABLE[ GraalTransistorMType ][0],
              GraalTransistorMWidth );
   }
   else
   {
-    sprintf( MessageBuffer, "Type: %s   Width: %2d   Name: %s",
+    sprintf( MessageBuffer, "Type: %s   Width: %.2f  Name: %s",
              GRAAL_TRANSISTOR_NAME_TABLE[ GraalTransistorMType ][0],
              GraalTransistorMWidth, GraalTransistorMName );
   }

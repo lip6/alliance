@@ -91,7 +91,7 @@
 \------------------------------------------------------------*/
 
   char  GraalSegmentMLayer;
-  long  GraalSegmentMWidth;
+  float GraalSegmentMWidth;
   char *GraalSegmentMName;
 
 /*------------------------------------------------------------\
@@ -111,7 +111,7 @@
 
   char  GraalTransistorMType;
   char *GraalTransistorMName;
-  long  GraalTransistorMWidth;
+  float GraalTransistorMWidth;
 
 /*------------------------------------------------------------\
 |                                                             |
@@ -120,7 +120,7 @@
 \------------------------------------------------------------*/
 
   char  GraalConnectorMLayer; 
-  long  GraalConnectorMWidth; 
+  float GraalConnectorMWidth; 
   char *GraalConnectorMName;  
   char  GraalConnectorMOrient;
 
@@ -169,9 +169,9 @@ char GraalTransistorChanged( Transistor )
 {
   return 
 
-   ( (   Transistor->NAME              != GraalTransistorMName  ) ||
-     (   Transistor->LAYER             != GraalTransistorMType  ) ||
-     ( ( Transistor->WIDTH / SCALE_X ) != GraalTransistorMWidth ) );
+   ( (   Transistor->NAME                     != GraalTransistorMName  ) ||
+     (   Transistor->LAYER                    != GraalTransistorMType  ) ||
+     ( ( Transistor->WIDTH / (float)SCALE_X ) != GraalTransistorMWidth ) );
 }
 
 /*------------------------------------------------------------\
@@ -186,9 +186,9 @@ char GraalSegmentChanged( Segment )
 {
   return
 
-   ( (   Segment->NAME              != GraalSegmentMName  ) ||
-     (   Segment->LAYER             != GraalSegmentMLayer ) ||
-     ( ( Segment->WIDTH / SCALE_X ) != GraalSegmentMWidth ) );
+   ( (   Segment->NAME                     != GraalSegmentMName  ) ||
+     (   Segment->LAYER                    != GraalSegmentMLayer ) ||
+     ( ( Segment->WIDTH / (float)SCALE_X ) != GraalSegmentMWidth ) );
 }
 
 /*------------------------------------------------------------\
@@ -217,10 +217,10 @@ char GraalConnectorChanged( Connector )
 {
   return
 
-   ( (   Connector->NAME              != GraalConnectorMName   ) ||
-     (   Connector->LAYER             != GraalConnectorMLayer  ) ||
-     ( ( Connector->WIDTH / SCALE_X ) != GraalConnectorMWidth  ) ||
-     (  GraalSaveConnectorMOrient     != GraalConnectorMOrient ) );
+   ( (   Connector->NAME                     != GraalConnectorMName   ) ||
+     (   Connector->LAYER                    != GraalConnectorMLayer  ) ||
+     ( ( Connector->WIDTH / (float)SCALE_X ) != GraalConnectorMWidth  ) ||
+     (  GraalSaveConnectorMOrient            != GraalConnectorMOrient ) );
 }
 
 /*------------------------------------------------------------\
@@ -302,7 +302,7 @@ void GraalEditModify()
         GraalAcceptRectangle( Rectangle );
         GraalDisplayRectangle( Rectangle );
 
-        GraalTransistorMWidth = ((phseg_list *)Pointer)->WIDTH / SCALE_X;
+        GraalTransistorMWidth = (float)( ((phseg_list *)Pointer)->WIDTH / (float)SCALE_X );
         GraalTransistorMType  = ((phseg_list *)Pointer)->LAYER;
         GraalTransistorMName  = ((phseg_list *)Pointer)->NAME;
 
@@ -341,7 +341,7 @@ void GraalEditModify()
 
             addphseg( GraalFigureMbk,
                       GraalTransistorMType ,
-                      GraalTransistorMWidth * SCALE_X,
+                      (long)( GraalTransistorMWidth * SCALE_X ),
                       ((phseg_list *)Pointer)->X1,
                       ((phseg_list *)Pointer)->Y1,
                       ((phseg_list *)Pointer)->X2,
@@ -385,7 +385,7 @@ void GraalEditModify()
         GraalAcceptRectangle( Rectangle );
         GraalDisplayRectangle( Rectangle );
 
-        GraalSegmentMWidth = ((phseg_list *)Pointer)->WIDTH / SCALE_X;
+        GraalSegmentMWidth = (float)( ((phseg_list *)Pointer)->WIDTH / (float)SCALE_X );
         GraalSegmentMLayer = ((phseg_list *)Pointer)->LAYER;
         GraalSegmentMName  = ((phseg_list *)Pointer)->NAME;
 
@@ -424,7 +424,7 @@ void GraalEditModify()
 
             addphseg( GraalFigureMbk,
                       GraalSegmentMLayer,
-                      GraalSegmentMWidth * SCALE_X,
+                      (long)( GraalSegmentMWidth * SCALE_X ),
                       ((phseg_list *)Pointer)->X1,
                       ((phseg_list *)Pointer)->Y1,
                       ((phseg_list *)Pointer)->X2,
@@ -641,7 +641,7 @@ void GraalEditModify()
 
       GraalConnectorMName   = ((phcon_list *)Pointer)->NAME;
       GraalConnectorMLayer  = ((phcon_list *)Pointer)->LAYER;
-      GraalConnectorMWidth  = ((phcon_list *)Pointer)->WIDTH / SCALE_X;
+      GraalConnectorMWidth  = (float)( ((phcon_list *)Pointer)->WIDTH / (float)SCALE_X );
 
       switch( ((phcon_list *)Pointer)->ORIENT )
       {
@@ -700,7 +700,7 @@ void GraalEditModify()
                    ((phcon_list *)Pointer)->XCON,
                    ((phcon_list *)Pointer)->YCON,
                    GraalConnectorMLayer,
-                   GraalConnectorMWidth * SCALE_X );
+                   (long)( GraalConnectorMWidth * SCALE_X ) );
  
         ((phcon_list *)Element)->USER = (void *)(&GraalFigureMbk->PHCON);
  

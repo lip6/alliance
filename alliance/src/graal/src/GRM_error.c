@@ -362,12 +362,12 @@ char *GraalGetInformations()
 
   if ( GraalFigureMbk != (phfig_list *)NULL )
   {
-    sprintf( Scan, "  FIGURE : %s\n\n  XAB1 : %d\n  YAB1 : %d\n  XAB2 : %d\n  YAB2 : %d\n\n",
+    sprintf( Scan, "  FIGURE : %s\n\n  XAB1 : %ld\n  YAB1 : %ld\n  XAB2 : %ld\n  YAB2 : %ld\n\n",
              GraalFigureMbk->NAME,
-             GraalFigureMbk->XAB1  / GRAAL_SCALE_X,
-             GraalFigureMbk->YAB1  / GRAAL_SCALE_X,
-             GraalFigureMbk->XAB2  / GRAAL_SCALE_X,
-             GraalFigureMbk->YAB2  / GRAAL_SCALE_X  );
+             (long)( GraalFigureMbk->XAB1  / GRAAL_SCALE_X ),
+             (long)( GraalFigureMbk->YAB1  / GRAAL_SCALE_X ),
+             (long)( GraalFigureMbk->XAB2  / GRAAL_SCALE_X ),
+             (long)( GraalFigureMbk->YAB2  / GRAAL_SCALE_X ) );
   }
   else
   {

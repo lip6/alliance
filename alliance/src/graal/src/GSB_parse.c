@@ -74,7 +74,7 @@
   char *GRAAL_TECHNO_NAME = (char *)NULL;
 
   long  GRAAL_RDS_LAMBDA  = 0;
-  long  GRAAL_SCALE_X     = 0;
+  float GRAAL_SCALE_X     = 0.0;
   long  GRAAL_SCALE       = 1;
 
 /*------------------------------------------------------------\
@@ -100,8 +100,8 @@
   char  *GRAAL_CURSOR_COLOR_NAME;
   int    GRAAL_RDS_LAYER_PATTERN_TABLE[ RDS_ALL_LAYER ];
 
-  long   GRAAL_SEGMENT_VALUE_TABLE[ MBK_MAX_LAYER ][ 2 ];
-  long   GRAAL_BIGVIA_VALUE_TABLE[ MBK_MAX_LAYER ][ 1 ];
+  float  GRAAL_SEGMENT_VALUE_TABLE[ MBK_MAX_LAYER ][ 2 ];
+  float  GRAAL_BIGVIA_VALUE_TABLE[ MBK_MAX_LAYER ][ 1 ];
   long   GRAAL_PEEK_BOUND;
   long   GRAAL_CURSOR_SIZE;
 
@@ -884,7 +884,7 @@ void GsbReadSegmentValue()
         else
         if ( GET_SEGMENT_LAYER( Layer, 0 ) != RDS_SEGMENT_EMPTY )
         {
-          GRAAL_SEGMENT_VALUE_TABLE [ Layer ][ Field ] = GsbGetStringValue( FirstWord );
+          GRAAL_SEGMENT_VALUE_TABLE [ Layer ][ Field ] = GsbGetStringFloat( FirstWord );
         }
       }
  
@@ -953,7 +953,7 @@ void GsbReadBigViaValue()
       if ( ( GET_BIGVIA_HOLE_LAYER( Layer, 0 ) != RDS_BIGVIA_HOLE_EMPTY ) ||
            ( GET_TURNVIA_LAYER( Layer, 0 )     != RDS_TURNVIA_EMPTY     ) )
       {
-        GRAAL_BIGVIA_VALUE_TABLE [ Layer ][ 0 ] = GsbGetStringValue( FirstWord );
+        GRAAL_BIGVIA_VALUE_TABLE [ Layer ][ 0 ] = GsbGetStringFloat( FirstWord );
       }
  
       FirstWord = GsbGetNextWord( 0, 1 );
@@ -1632,7 +1632,7 @@ void GraalLoadParameters()
   }
 
   GRAAL_RDS_LAMBDA = RDS_LAMBDA / GRAAL_SCALE;
-  GRAAL_SCALE_X    = SCALE_X    / GRAAL_SCALE;
+  GRAAL_SCALE_X    = (float)SCALE_X / (float)GRAAL_SCALE;
 
   if ( ! KeywordDefined )
   {
@@ -1767,7 +1767,7 @@ void GraalViewParameters()
 
   for ( Layer = 0; Layer < MBK_MAX_LAYER; Layer++ )
   {
-    fprintf( stdout, "\nLayer:%d %s %s %s %d %d", 
+    fprintf( stdout, "\nLayer:%d %s %s %s %e %e", 
              Layer,
              GRAAL_SEGMENT_NAME_TABLE[ Layer ][0],
              GRAAL_SEGMENT_NAME_TABLE[ Layer ][1],

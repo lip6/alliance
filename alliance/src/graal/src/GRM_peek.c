@@ -360,10 +360,10 @@ void GraalPeekInstance( Rectangle, LambdaX1, LambdaY1, LambdaX2, LambdaY2 )
           InstanceMbk->TRANSF
         );
  
-        Xab1 = RfmRoundLow( Xab1 * GRAAL_RDS_LAMBDA / GRAAL_SCALE_X );
-        Yab1 = RfmRoundLow( Yab1 * GRAAL_RDS_LAMBDA / GRAAL_SCALE_X );
-        Xab2 = RfmRoundHigh( Xab2 * GRAAL_RDS_LAMBDA / GRAAL_SCALE_X );
-        Yab2 = RfmRoundHigh( Yab2 * GRAAL_RDS_LAMBDA / GRAAL_SCALE_X );
+        Xab1 = RfmRoundLow( (long)( Xab1 * GRAAL_RDS_LAMBDA / GRAAL_SCALE_X ) );
+        Yab1 = RfmRoundLow( (long)( Yab1 * GRAAL_RDS_LAMBDA / GRAAL_SCALE_X ) );
+        Xab2 = RfmRoundHigh( (long)( Xab2 * GRAAL_RDS_LAMBDA / GRAAL_SCALE_X ) );
+        Yab2 = RfmRoundHigh( (long)( Yab2 * GRAAL_RDS_LAMBDA / GRAAL_SCALE_X ) );
  
         if ( Xab1 > Xab2 ) { Swap = Xab1; Xab1 = Xab2; Xab2 = Swap; }
         if ( Yab1 > Yab2 ) { Swap = Yab1; Yab1 = Yab2; Yab2 = Swap; }

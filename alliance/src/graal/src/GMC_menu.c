@@ -230,7 +230,7 @@ void CallbackCreateSegment( MyWidget, ClientData, CallData )
 {
   rdsbegin();
 
-  if ( GraalSegmentWidth == -1 )
+  if ( GraalSegmentWidth == -1.0 )
   {
     GraalSegmentWidth = GRAAL_SEGMENT_VALUE_TABLE[ GraalSegmentLayer ][0];
   }
@@ -363,7 +363,7 @@ void CallbackCreateConnector( MyWidget, ClientData, CallData )
   }
   else
   {
-    if ( GraalConnectorWidth == -1 )
+    if ( GraalConnectorWidth == -1.0 )
     {
       GraalConnectorWidth = GRAAL_SEGMENT_VALUE_TABLE[ GraalConnectorLayer ][0];
     }
@@ -391,7 +391,7 @@ void CallbackCreateTransistor( MyWidget, ClientData, CallData )
 {
   rdsbegin();
 
-  if ( GraalTransistorWidth == -1 )
+  if ( GraalTransistorWidth == -1.0 )
   {
     GraalTransistorWidth = GRAAL_SEGMENT_VALUE_TABLE[ GraalTransistorType ][0];
   }

@@ -4417,8 +4417,8 @@ void CallbackModifySegmentLayer( MyWidget, ClientData, CallData )
      caddr_t ClientData;
      caddr_t CallData;
 {
-  long MinWidth;
-  int  NewLayer;
+  float MinWidth;
+  int   NewLayer;
 
   rdsbegin();
 
@@ -4543,7 +4543,7 @@ void CallbackModifyTransistorType( MyWidget, ClientData, CallData )
      caddr_t ClientData;
      caddr_t CallData;
 {
-  long MinWidth;
+  float MinWidth;
 
   rdsbegin();
 
@@ -4658,12 +4658,12 @@ void CallbackModifyConnectorLayer( MyWidget, ClientData, CallData )
      caddr_t ClientData;
      caddr_t CallData;
 {
-  long MinWidth;
+  float MinWidth;
 
   rdsbegin();
 
   GraalConnectorMLayer = (int)ClientData;
-  MinWidth           = GRAAL_SEGMENT_VALUE_TABLE[ GraalConnectorMLayer ][0];
+  MinWidth             = GRAAL_SEGMENT_VALUE_TABLE[ GraalConnectorMLayer ][0];
 
   if ( GraalConnectorMWidth < MinWidth ) GraalConnectorMWidth = MinWidth;
 

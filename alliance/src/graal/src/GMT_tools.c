@@ -565,8 +565,8 @@ void GraalToolsHierarchyShow( LambdaX1, LambdaY1 )
   {
     GraalSetMouseCursor( GraalGraphicWindow, GRAAL_WATCH_CURSOR );
 
-    LambdaX1 *= GRAAL_SCALE_X;
-    LambdaY1 *= GRAAL_SCALE_X;
+    LambdaX1 = (long)( LambdaX1 * GRAAL_SCALE_X );
+    LambdaY1 = (long)( LambdaY1 * GRAAL_SCALE_X );
 
     sprintf( GraalScanHierarchyShow, "FIGURE %s : (%.2f, %.2f)\n",
              GraalFigureMbk->NAME,

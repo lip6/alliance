@@ -170,10 +170,10 @@
   extern char  *GRAAL_SEGMENT_NAME_TABLE[ MBK_MAX_LAYER ][ 3 ];
   extern char  *GRAAL_TRANSISTOR_NAME_TABLE[ MBK_MAX_LAYER ][ 3 ];
   extern char  *GRAAL_CONNECTOR_NAME_TABLE[ MBK_MAX_LAYER ][ 3 ];
-  extern long   GRAAL_SEGMENT_VALUE_TABLE[ MBK_MAX_LAYER ][ 2 ];
+  extern float  GRAAL_SEGMENT_VALUE_TABLE[ MBK_MAX_LAYER ][ 2 ];
   extern char  *GRAAL_VIA_NAME_TABLE[ MBK_MAX_VIA ][ 3 ];
   extern char  *GRAAL_BIGVIA_NAME_TABLE[ MBK_MAX_VIA ][ 3 ];
-  extern long   GRAAL_BIGVIA_VALUE_TABLE[ MBK_MAX_LAYER ][ 1 ];
+  extern float  GRAAL_BIGVIA_VALUE_TABLE[ MBK_MAX_LAYER ][ 1 ];
   extern char  *GRAAL_REFERENCE_NAME_TABLE[ MBK_MAX_REFERENCE ][ 3 ];
   extern char  *GRAAL_ORIENT_NAME_TABLE[ MBK_MAX_ORIENT ][ 3 ];
   extern char  *GRAAL_SYMMETRY_NAME_TABLE[ MBK_MAX_SYMMETRY ][ 3 ];
@@ -189,7 +189,7 @@
   extern float  GRAAL_LOWER_SEGMENT_STEP;
   extern float  GRAAL_LOWER_CONNECTOR_STEP;
   extern long   GRAAL_RDS_LAMBDA;
-  extern long   GRAAL_SCALE_X;
+  extern float  GRAAL_SCALE_X;
   extern long   GRAAL_SCALE;
   extern char   GRAAL_XOR_CURSOR;
 

@@ -152,10 +152,10 @@ void GraalEditTreatUndo( HeadUndo )
         { 
           ClearGraalDeleted( Rec );
 
-          GraalFigureMbk->XAB1 = Rec->X * GRAAL_SCALE_X / GRAAL_RDS_LAMBDA;
-          GraalFigureMbk->YAB1 = Rec->Y * GRAAL_SCALE_X / GRAAL_RDS_LAMBDA;
-          GraalFigureMbk->XAB2 = ( Rec->X + Rec->DX ) * GRAAL_SCALE_X / GRAAL_RDS_LAMBDA;
-          GraalFigureMbk->YAB2 = ( Rec->Y + Rec->DY ) * GRAAL_SCALE_X / GRAAL_RDS_LAMBDA;
+          GraalFigureMbk->XAB1 = (long)( Rec->X * GRAAL_SCALE_X / GRAAL_RDS_LAMBDA );
+          GraalFigureMbk->YAB1 = (long)( Rec->Y * GRAAL_SCALE_X / GRAAL_RDS_LAMBDA );
+          GraalFigureMbk->XAB2 = (long)( ( Rec->X + Rec->DX ) * GRAAL_SCALE_X / GRAAL_RDS_LAMBDA );
+          GraalFigureMbk->YAB2 = (long)( ( Rec->Y + Rec->DY ) * GRAAL_SCALE_X / GRAAL_RDS_LAMBDA );
         }
         else
         {
@@ -464,8 +464,8 @@ void GraalEditCopy( LambdaX1, LambdaY1, LambdaX2, LambdaY2, Mode )
 
   rdsbegin();
 
-  DeltaX = ( LambdaX2 - LambdaX1 ) * GRAAL_SCALE_X;
-  DeltaY = ( LambdaY2 - LambdaY1 ) * GRAAL_SCALE_X;
+  DeltaX = (long)( ( LambdaX2 - LambdaX1 ) * GRAAL_SCALE_X );
+  DeltaY = (long)( ( LambdaY2 - LambdaY1 ) * GRAAL_SCALE_X );
 
   FirstUndo = 1;
 
@@ -666,8 +666,8 @@ void GraalEditMove( LambdaX1, LambdaY1, LambdaX2, LambdaY2, Mode )
 
   rdsbegin();
 
-  DeltaX = ( LambdaX2 - LambdaX1 ) * GRAAL_SCALE_X;
-  DeltaY = ( LambdaY2 - LambdaY1 ) * GRAAL_SCALE_X;
+  DeltaX = (long)( ( LambdaX2 - LambdaX1 ) * GRAAL_SCALE_X );
+  DeltaY = (long)( ( LambdaY2 - LambdaY1 ) * GRAAL_SCALE_X );
 
   FirstUndo = 1;
 
@@ -1100,10 +1100,10 @@ void GraalEditStretch( LambdaX1, LambdaY1, LambdaX2, LambdaY2, Mode )
 
   Orient = 0;
 
-  LambdaX1 = LambdaX1 * GRAAL_SCALE_X;
-  LambdaX2 = LambdaX2 * GRAAL_SCALE_X;
-  LambdaY1 = LambdaY1 * GRAAL_SCALE_X;
-  LambdaY2 = LambdaY2 * GRAAL_SCALE_X;
+  LambdaX1 = (long)( LambdaX1 * GRAAL_SCALE_X );
+  LambdaX2 = (long)( LambdaX2 * GRAAL_SCALE_X );
+  LambdaY1 = (long)( LambdaY1 * GRAAL_SCALE_X );
+  LambdaY2 = (long)( LambdaY2 * GRAAL_SCALE_X );
 
   if ( LambdaX2 != LambdaX1 )
   {
@@ -1310,7 +1310,7 @@ void GraalEditStretch( LambdaX1, LambdaY1, LambdaX2, LambdaY2, Mode )
         X2 = ((phseg_list *)Pointer)->X2;
         Y2 = ((phseg_list *)Pointer)->Y2;
 
-        Length = GRAAL_SEGMENT_VALUE_TABLE[ ((phseg_list *)Pointer)->LAYER ][1] * GRAAL_SCALE_X;
+        Length = (long)( GRAAL_SEGMENT_VALUE_TABLE[ ((phseg_list *)Pointer)->LAYER ][1] * SCALE_X );
 
         Stretch = 0;
 
@@ -1410,7 +1410,7 @@ void GraalEditStretch( LambdaX1, LambdaY1, LambdaX2, LambdaY2, Mode )
         X2 = X1 + DXvia;
         Y2 = Y1 + DYvia;
 
-        Length = GRAAL_BIGVIA_VALUE_TABLE[ ((phvia_list *)Pointer)->TYPE ][0] * GRAAL_SCALE_X;
+        Length = (long)( GRAAL_BIGVIA_VALUE_TABLE[ ((phvia_list *)Pointer)->TYPE ][0] * SCALE_X );
 
         Stretch = 0;
 

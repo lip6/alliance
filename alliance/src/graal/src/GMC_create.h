@@ -69,7 +69,7 @@
 \------------------------------------------------------------*/
 
   extern char  GraalSegmentLayer;
-  extern long  GraalSegmentWidth;
+  extern float GraalSegmentWidth;
   extern char *GraalSegmentName;
   extern char  GraalSegmentWire;
 
@@ -99,7 +99,7 @@
 
   extern char  GraalTransistorType;
   extern char *GraalTransistorName;
-  extern long  GraalTransistorWidth;
+  extern float GraalTransistorWidth;
   extern char  GraalTransistorWire;
 
 /*------------------------------------------------------------\
@@ -109,7 +109,7 @@
 \------------------------------------------------------------*/
 
   extern char  GraalConnectorLayer; 
-  extern long  GraalConnectorWidth; 
+  extern float GraalConnectorWidth; 
   extern char *GraalConnectorName;  
   extern char  GraalConnectorOrient;
 

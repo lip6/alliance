@@ -95,7 +95,7 @@ void GraalPromptCreateSegment()
 {
   GraalDisplayMessage( GRAAL_MESSAGE_MODE, "Create Segment" );
 
-  sprintf( MessageBuffer, "Layer: %s   Width: %2d   Name: %s",
+  sprintf( MessageBuffer, "Layer: %s   Width: %.2f   Name: %s",
            GRAAL_SEGMENT_NAME_TABLE[ GraalSegmentLayer ][0] ,
            GraalSegmentWidth,
            ( GraalSegmentName ) ? GraalSegmentName : "none" );
@@ -127,7 +127,7 @@ void GraalPromptCreateConnector()
 {
   GraalDisplayMessage( GRAAL_MESSAGE_MODE, "Create Connector" );
 
-  sprintf( MessageBuffer, "Layer: %s   Width: %2d   Orient: %s",
+  sprintf( MessageBuffer, "Layer: %s   Width: %.2f   Orient: %s",
            GRAAL_CONNECTOR_NAME_TABLE[ GraalConnectorLayer ][0],
            GraalConnectorWidth, 
            GRAAL_ORIENT_NAME_TABLE[ GraalConnectorOrient ][0] );
@@ -217,13 +217,13 @@ void GraalPromptCreateTransistor()
  
   if ( GraalTransistorName == (char *)NULL )
   {
-    sprintf( MessageBuffer, "Type: %s   Width: %2d   Name: none",
+    sprintf( MessageBuffer, "Type: %s   Width: %.2f   Name: none",
              GRAAL_TRANSISTOR_NAME_TABLE[ GraalTransistorType ][0],
              GraalTransistorWidth );
   }
   else
   {
-    sprintf( MessageBuffer, "Type: %s   Width: %2d   Name: %s",
+    sprintf( MessageBuffer, "Type: %s   Width: %.2f   Name: %s",
              GRAAL_TRANSISTOR_NAME_TABLE[ GraalTransistorType ][0],
              GraalTransistorWidth, GraalTransistorName );
   }

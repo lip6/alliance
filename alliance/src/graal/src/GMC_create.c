@@ -83,7 +83,7 @@
 \------------------------------------------------------------*/
 
   char  GraalSegmentLayer = ALU1;
-  long  GraalSegmentWidth = -1;
+  float GraalSegmentWidth = -1.0;
   char *GraalSegmentName  = (char *)NULL;
   char  GraalSegmentWire  = GRAAL_FALSE;
 
@@ -112,7 +112,7 @@
 \------------------------------------------------------------*/
 
   char  GraalTransistorType  = NTRANS;
-  long  GraalTransistorWidth = -1;
+  float GraalTransistorWidth = -1.0;
   char *GraalTransistorName  = (char *)NULL;
   char  GraalTransistorWire  = GRAAL_FALSE;
  
@@ -123,7 +123,7 @@
 \------------------------------------------------------------*/
 
   char  GraalConnectorLayer  = ALU1;
-  long  GraalConnectorWidth  = -1;
+  float GraalConnectorWidth  = -1.0;
   char *GraalConnectorName   = (char *)NULL;
   char  GraalConnectorOrient = GRAAL_NORTH;
 
@@ -206,7 +206,7 @@ void GraalCreateSegmentMbk( LambdaX1, LambdaY1, LambdaX2, LambdaY2 )
 
   if ( Delta < 0 ) Delta = - Delta;
   
-  if ( Delta < GRAAL_SEGMENT_VALUE_TABLE[GraalSegmentLayer][1] )
+  if ( Delta < GRAAL_SCALE * GRAAL_SEGMENT_VALUE_TABLE[GraalSegmentLayer][1] )
   {
     GraalErrorMessage( GraalMainWindow, "This segment is too small !" );
 
@@ -248,9 +248,11 @@ void GraalCreateSegmentMbk( LambdaX1, LambdaY1, LambdaX2, LambdaY2 )
   Segment = 
 
      addphseg( GraalFigureMbk, GraalSegmentLayer, 
-               GraalSegmentWidth * SCALE_X,
-               LambdaX1 * GRAAL_SCALE_X, LambdaY1 * GRAAL_SCALE_X,
-               LambdaX2 * GRAAL_SCALE_X, LambdaY2 * GRAAL_SCALE_X, 
+               (long)( GraalSegmentWidth * SCALE_X ),
+               (long)( LambdaX1 * GRAAL_SCALE_X ),
+               (long)( LambdaY1 * GRAAL_SCALE_X ),
+               (long)( LambdaX2 * GRAAL_SCALE_X ),
+               (long)( LambdaY2 * GRAAL_SCALE_X ), 
                SegmentName );
                          
   Segment->USER = (void *)(&GraalFigureMbk->PHSEG);
@@ -308,7 +310,8 @@ void GraalCreateViaMbk( LambdaX1, LambdaY1 )
   GraalCreateFigureMbk();
 
   Via = addphvia( GraalFigureMbk, GraalViaType, 
-                  LambdaX1 * GRAAL_SCALE_X, LambdaY1 * GRAAL_SCALE_X, 0, 0, GraalViaName );
+                  (long)( LambdaX1 * GRAAL_SCALE_X ),
+                  (long)( LambdaY1 * GRAAL_SCALE_X ), 0, 0, GraalViaName );
 
   Via->USER = (void *)(&GraalFigureMbk->PHVIA);
 
@@ -381,8 +384,8 @@ void GraalCreateBigViaMbk( LambdaX1, LambdaY1, LambdaX2, LambdaY2 )
     ViaDx = LambdaX2 - LambdaX1;
     ViaDy = LambdaY2 - LambdaY1;
 
-    if ( ( ViaDx < GRAAL_BIGVIA_VALUE_TABLE[ GraalBigViaType ][0] ) ||
-         ( ViaDy < GRAAL_BIGVIA_VALUE_TABLE[ GraalBigViaType ][0] ) )
+    if ( ( ViaDx < GRAAL_SCALE * GRAAL_BIGVIA_VALUE_TABLE[ GraalBigViaType ][0] ) ||
+         ( ViaDy < GRAAL_SCALE * GRAAL_BIGVIA_VALUE_TABLE[ GraalBigViaType ][0] ) )
     {
       GraalErrorMessage( GraalMainWindow, "This big via is too small !" );
 
@@ -401,9 +404,10 @@ void GraalCreateBigViaMbk( LambdaX1, LambdaY1, LambdaX2, LambdaY2 )
   GraalCreateFigureMbk();
 
   Via = addphvia( GraalFigureMbk, GraalBigViaType, 
-                  (( LambdaX1 + LambdaX2 ) >> 1) * GRAAL_SCALE_X,
-                  (( LambdaY1 + LambdaY2 ) >> 1) * GRAAL_SCALE_X,
-                  ViaDx * GRAAL_SCALE_X, ViaDy * GRAAL_SCALE_X, GraalBigViaName );
+                  (long)( (( LambdaX1 + LambdaX2 ) / 2.0) * GRAAL_SCALE_X ),
+                  (long)( (( LambdaY1 + LambdaY2 ) / 2.0) * GRAAL_SCALE_X ),
+                  (long)( ViaDx * GRAAL_SCALE_X ), 
+                  (long)( ViaDy * GRAAL_SCALE_X ), GraalBigViaName );
 
   Via->USER = (void *)(&GraalFigureMbk->PHVIA);
 
@@ -471,7 +475,7 @@ void GraalCreateTransistorMbk( LambdaX1, LambdaY1, LambdaX2, LambdaY2 )
 
   if ( Delta < 0 ) Delta = - Delta;
   
-  if ( Delta < GRAAL_SEGMENT_VALUE_TABLE[GraalTransistorType][1] )
+  if ( Delta < GRAAL_SCALE * GRAAL_SEGMENT_VALUE_TABLE[GraalTransistorType][1] )
   { 
     GraalErrorMessage( GraalMainWindow, "This transistor is too small !" );
 
@@ -484,9 +488,11 @@ void GraalCreateTransistorMbk( LambdaX1, LambdaY1, LambdaX2, LambdaY2 )
   Transistor =
  
      addphseg( GraalFigureMbk, GraalTransistorType,
-               GraalTransistorWidth * SCALE_X,
-               LambdaX1 * GRAAL_SCALE_X, LambdaY1 * GRAAL_SCALE_X,
-               LambdaX2 * GRAAL_SCALE_X, LambdaY2 * GRAAL_SCALE_X,
+               (long)( GraalTransistorWidth * SCALE_X ),
+               (long)( LambdaX1 * GRAAL_SCALE_X ),
+               (long)( LambdaY1 * GRAAL_SCALE_X ),
+               (long)( LambdaX2 * GRAAL_SCALE_X ),
+               (long)( LambdaY2 * GRAAL_SCALE_X ), 
                GraalTransistorName );
      
   Transistor->USER = (void *)(&GraalFigureMbk->PHSEG);
@@ -543,8 +549,8 @@ void GraalCreateConnectorMbk( LambdaX1, LambdaY1 )
 
   rdsbegin();
 
-  LambdaX1 = LambdaX1 * GRAAL_SCALE_X;
-  LambdaY1 = LambdaY1 * GRAAL_SCALE_X;
+  LambdaX1 = (long)(LambdaX1 * GRAAL_SCALE_X);
+  LambdaY1 = (long)(LambdaY1 * GRAAL_SCALE_X);
 
   switch ( GraalConnectorOrient )
   {
@@ -575,7 +581,7 @@ void GraalCreateConnectorMbk( LambdaX1, LambdaY1 )
                  GraalConnectorName,
                  LambdaX1, LambdaY1,
                  GraalConnectorLayer,
-                 GraalConnectorWidth * SCALE_X );
+                 (long)( GraalConnectorWidth * SCALE_X ) );
      
     Connector->USER = (void *)(&GraalFigureMbk->PHCON);
       
@@ -651,7 +657,8 @@ void GraalCreateReferenceMbk( LambdaX1, LambdaY1 )
       addphref( GraalFigureMbk, 
                 (GraalReferenceType == MBK_REF_REF) ? "ref_ref":"ref_con" ,
                 GraalReferenceName,
-                LambdaX1 * GRAAL_SCALE_X, LambdaY1 * GRAAL_SCALE_X );
+                (long)( LambdaX1 * GRAAL_SCALE_X ),
+                (long)( LambdaY1 * GRAAL_SCALE_X ) );
 
     Reference->USER = (void *)(&GraalFigureMbk->PHREF);
 
@@ -767,7 +774,8 @@ void GraalCreateInstanceMbk( LambdaX1, LambdaY1 )
                   GraalInstanceModel,
                   GraalInstanceName,
                   GraalInstanceSym,
-                  LambdaX1 * GRAAL_SCALE_X, LambdaY1 * GRAAL_SCALE_X );
+                  (long)( LambdaX1 * GRAAL_SCALE_X ),
+                  (long)( LambdaY1 * GRAAL_SCALE_X ) );
 
       InstanceMbk->NEXT = SaveInstance;
       InstanceMbk->USER = (void *)(&GraalFigureMbk->PHINS);
@@ -850,10 +858,10 @@ void GraalCreateAbutmentBoxMbk( LambdaX1, LambdaY1, LambdaX2, LambdaY2 )
 
   GraalCreateFigureMbk();
 
-  GraalFigureMbk->XAB1 = LambdaX1 * GRAAL_SCALE_X;
-  GraalFigureMbk->YAB1 = LambdaY1 * GRAAL_SCALE_X;
-  GraalFigureMbk->XAB2 = LambdaX2 * GRAAL_SCALE_X;
-  GraalFigureMbk->YAB2 = LambdaY2 * GRAAL_SCALE_X;
+  GraalFigureMbk->XAB1 = (long)( LambdaX1 * GRAAL_SCALE_X );
+  GraalFigureMbk->YAB1 = (long)( LambdaY1 * GRAAL_SCALE_X );
+  GraalFigureMbk->XAB2 = (long)( LambdaX2 * GRAAL_SCALE_X );
+  GraalFigureMbk->YAB2 = (long)( LambdaY2 * GRAAL_SCALE_X );
 
   Rectangle = GraalAddAbox();
 

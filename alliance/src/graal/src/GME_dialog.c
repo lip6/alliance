@@ -43,6 +43,7 @@
 \------------------------------------------------------------*/
 
 # include <stdio.h>
+# include <stdlib.h>
 # include <string.h>
 # include <Xm/Xm.h>
 # include <Xm/FileSB.h>
@@ -411,7 +412,8 @@ void CallbackModifySegmentWidthOk( MyWidget, ClientData, CallData )
     XmSelectionBoxCallbackStruct *CallData;
 {
   char *WidthSet;
-  long  NewWidth;
+  float NewWidth;
+  float Factor;
 
   rdsbegin();
 
@@ -425,7 +427,9 @@ void CallbackModifySegmentWidthOk( MyWidget, ClientData, CallData )
 
   if ( WidthSet != (char *)NULL )
   {
-    NewWidth = atoi( WidthSet );
+    Factor   = RDS_LAMBDA / RDS_PHYSICAL_GRID;
+    NewWidth = atof( WidthSet );
+    NewWidth = (float)( (long)( NewWidth * Factor / 2.0 ) * 2 / Factor );
 
     if ( NewWidth >=  GRAAL_SEGMENT_VALUE_TABLE[ GraalSegmentMLayer ][0] )    
     {
@@ -547,7 +551,8 @@ void CallbackModifyTransistorWidthOk( MyWidget, ClientData, CallData )
     XmSelectionBoxCallbackStruct *CallData;
 {
   char *WidthSet;
-  long  NewWidth;
+  float NewWidth;
+  float Factor;
 
   rdsbegin();
 
@@ -561,9 +566,11 @@ void CallbackModifyTransistorWidthOk( MyWidget, ClientData, CallData )
 
   if ( WidthSet != (char *)NULL )
   {
-    NewWidth = atoi( WidthSet );
+    Factor   = RDS_LAMBDA / RDS_PHYSICAL_GRID;
+    NewWidth = atof( WidthSet );
+    NewWidth = (float)( (long)( NewWidth * Factor / 2.0 ) * 2 / Factor );
 
-    if ( NewWidth >=  GRAAL_SEGMENT_VALUE_TABLE[ GraalTransistorMType ][0] )
+    if ( NewWidth >= GRAAL_SEGMENT_VALUE_TABLE[ GraalTransistorMType ][0] )
     {
       GraalTransistorMWidth = NewWidth;
     }
@@ -676,7 +683,8 @@ void CallbackModifyConnectorWidthOk( MyWidget, ClientData, CallData )
     XmSelectionBoxCallbackStruct *CallData;
 {
   char *WidthSet;
-  long  NewWidth;
+  float NewWidth;
+  float Factor;
 
   rdsbegin();
  
@@ -690,9 +698,11 @@ void CallbackModifyConnectorWidthOk( MyWidget, ClientData, CallData )
  
   if ( WidthSet != (char *)NULL )
   {
-    NewWidth = atoi( WidthSet );
+    Factor   = RDS_LAMBDA / RDS_PHYSICAL_GRID;
+    NewWidth = atof( WidthSet );
+    NewWidth = (float)( (long)( NewWidth * Factor / 2.0 ) * 2 / Factor );
 
-    if ( NewWidth >=  GRAAL_SEGMENT_VALUE_TABLE[ GraalConnectorMLayer ][0] )
+    if ( NewWidth >= GRAAL_SEGMENT_VALUE_TABLE[ GraalConnectorMLayer ][0] )
     {
       GraalConnectorMWidth = NewWidth;
     }
