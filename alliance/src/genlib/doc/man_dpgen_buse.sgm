@@ -42,9 +42,6 @@
           <para> <literal>cmd</literal> : select (1 bit). </para>
         </listitem>
         <listitem>
-          <para> <literal>i1</literal> : input (&N; bits). </para>
-        </listitem>
-        <listitem>
           <para> <literal>i0</literal> : input (&N; bits). </para>
         </listitem>
         <listitem>
@@ -86,7 +83,6 @@ GENLIB_MACRO(DPGEN_BUSE, "model_buse_32"
 GENLIB_LOINS( "model_buse_32"
             , "instance1_buse_32"
             , "cmd"
-            , "i1[31:0]"
             , "i0[31:0]"
             ,  "q[31:0]"
             , "vdd", "vss", NULL
