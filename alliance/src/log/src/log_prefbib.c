@@ -31,7 +31,7 @@
 
 
 
-#ident "$Id: log_prefbib.c,v 1.1 2002/04/03 13:13:25 ludo Exp $"
+#ident "$Id: log_prefbib.c,v 1.2 2002/04/25 14:16:02 ludo Exp $"
 
 /****************************************************************************/
 /*    Produit :  librairie ABL - Gestion de representations prefixees       */
@@ -122,7 +122,7 @@ createExpr (oper)
 {
   /* POUR GNU : le cast (void *)oper a ete enleve' */
   if (oper >= MIN_OPER && oper <= MAX_OPER)
-    return addchain (NULL, (void *) addchain (NULL, oper));
+    return addchain (NULL, (void *) addchain (NULL, (void *)((long)oper)));
   else
     {
       printf ("\ncreateExpr: error - unknown operator %d\n", oper);
@@ -1456,7 +1456,7 @@ minExpr (expr, func)
 void 
 sortExpr (expr, func, direction)
      chain_list *expr;
-     long (*func) ();
+     int (*func) ();
      int direction;
 {
   chain_list *expr1;
@@ -1841,7 +1841,7 @@ simplif10Expr (expr)
 	  }
     }
   
-  printf ("## ERROR in simplif10Expr, %s.%d\n", __FILE__, __LINE__);
+  printf ("## ERROR in simplif10Expr, %s.%d\n", basename(__FILE__), __LINE__);
   exit (-1);
 
 }
@@ -2077,7 +2077,7 @@ PMExprInt (expr, pattern, bind)
 {
   if (ATOM (pattern))
     {
-      ptype_list *find = getptype (*bind, VALUE_ATOM (pattern));
+      ptype_list *find = getptype (*bind, (long)VALUE_ATOM (pattern));
 
       /* le couple existe deja */
 
@@ -2087,7 +2087,7 @@ PMExprInt (expr, pattern, bind)
 	    return (0);
 	}
       else
-	*bind = addptype (*bind, VALUE_ATOM (pattern), expr);
+	*bind = addptype (*bind, (long)VALUE_ATOM (pattern), (void *)expr);
 
       return (1);
     }

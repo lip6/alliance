@@ -30,7 +30,7 @@
 
 
 
-#ident "$Id: log_bdd0.c,v 1.1 2002/04/03 13:13:25 ludo Exp $"
+#ident "$Id: log_bdd0.c,v 1.2 2002/04/25 14:16:02 ludo Exp $"
 
 /****************************************************************************/
 /*    Produit : librairie BDD - Gestion de BDD                              */
@@ -1899,13 +1899,13 @@ supportIndexBdd (pt, sens)
     {
       for (i = 0; i <= pt->index - 2; i++)
 	if (tabIndex[i] == 'O')
-	  ret = addchain (ret, i + 2);
+	  ret = addchain (ret, (void *)(i + 2));
     }
   else
     {
       for (i = pt->index - 2; i >= 0; i--)
 	if (tabIndex[i] == 'O')
-	  ret = addchain (ret, i + 2);
+	  ret = addchain (ret, (void *)(i + 2));
     }
   mbkfree (tabIndex);
   return ret;

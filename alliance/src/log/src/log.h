@@ -30,7 +30,7 @@
 
 
 
-/* $Id: log.h,v 1.2 2002/04/03 14:55:08 ludo Exp $ */
+/* $Id: log.h,v 1.3 2002/04/25 14:16:02 ludo Exp $ */
 
 #ifndef LUC_LOG_H
 #define LUC_LOG_H
@@ -370,7 +370,7 @@ pNode one, zero;
   extern    ptype_list * supportPtype_listExpr __P((chain_list *expr));
   extern    chain_list * maxExpr __P((chain_list *expr, int (*func)()));
   extern    chain_list * minExpr __P((chain_list *expr, int (*func)()));
-  extern            void sortExpr __P((chain_list *expr, long (*func)(), int direction));
+  extern            void sortExpr __P((chain_list *expr, int (*func)(), int direction));
   extern             int funcNormExpr __P((chain_list *expr));
   extern            void normExpr __P((chain_list *expr));
   extern            void deleteNumExpr __P((chain_list *expr, int i));
