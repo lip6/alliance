@@ -1,0 +1,52 @@
+dnl
+dnl This file is part of the Alliance CAD System
+dnl Copyright (C) Laboratoire LIP6 - Département ASIM
+dnl Universite Pierre et Marie Curie
+dnl 
+dnl Home page          : http://www-asim.lip6.fr/alliance/
+dnl E-mail support     : mailto:alliance-support@asim.lip6.fr
+dnl 
+dnl This library is free software; you  can redistribute it and/or modify it
+dnl under the terms  of the GNU Library General Public  License as published
+dnl by the Free Software Foundation; either version 2 of the License, or (at
+dnl your option) any later version.
+dnl 
+dnl Alliance VLSI  CAD System  is distributed  in the hope  that it  will be
+dnl useful, but WITHOUT  ANY WARRANTY; without even the  implied warranty of
+dnl MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU General
+dnl Public License for more details.
+dnl 
+dnl You should have received a copy  of the GNU General Public License along
+dnl with the GNU C Library; see the  file COPYING. If not, write to the Free
+dnl Software Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
+dnl
+dnl Purpose : Auto stuffing Alliance
+dnl           Almost ten years since I wrote this stuff, I just can't
+dnl           believe it
+dnl Date    : 01/02/2002
+dnl Author  : Frederic Petrot <Frederic.Petrot@lip6.fr>
+dnl $Id: configure.in,v 1.1 2002/03/08 14:17:47 fred Exp $
+dnl
+dnl
+AC_INIT(src/parse_vti_p.c)
+AM_INIT_AUTOMAKE(mbkvti, 4.9)
+AC_PROG_INSTALL
+AC_PROG_CC
+AC_HEADER_STDC
+AC_CHECK_HEADERS(strings.h unistd.h)
+AC_C_CONST
+AC_PROG_RANLIB
+
+changequote(,)dnl
+INCLUDES=-I${ALLIANCE_INCLUDE}
+LDFLAGS=-L${ALLIANCE_LIB}
+changequote([,])dnl
+
+AC_SUBST(INCLUDES)
+AC_SUBST(LDFLAGS)
+
+
+AC_OUTPUT([
+Makefile
+src/Makefile
+])
