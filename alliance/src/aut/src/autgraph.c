@@ -221,7 +221,7 @@ autarc_list *addautgrapharc( Graph, NodeFrom, NodeTo )
   NodeFrom->ARC_FROM = addchain( NodeFrom->ARC_FROM, Arc );
   NodeTo->ARC_TO     = addchain( NodeTo->ARC_TO    , Arc );
 
-  addauth2elem( Graph->HASH_ARC, (char *)NodeFrom, (char *)NodeTo, (long)Arc );
+  addauth2elem( Graph->HASH_ARC, NodeFrom->NAME, NodeTo->NAME, (long)Arc );
 
   return( Arc );
 }
