@@ -1,0 +1,63 @@
+.\"   $Id: delbddcircuitout.3,v 1.1 2002/03/18 11:26:50 ludo Exp $
+.\" @(#)delbddcircuitout.2 2.7 96/07/02 ; Labo masi cao-vlsi; Author : Jacomme Ludovic
+.TH DELBDDCIRCUITOUT 3 "October 1, 1997" "ASIM/LIP6" "BDD FUNCTIONS"
+.SH NAME
+delbddcircuitout \- deletes an output in a \fBbdd\fP circuit.
+.so man1/alc_origin.1
+.SH SYNOPSYS
+.nf
+.if n \{\
+.ft B \}
+.if t \{\
+.ft CR \}
+#include "bdd101.h"
+int delbddcircuitout( BddCircuit, OutputName )
+  bddcircuit \(**BddCircuit;
+  char       \(**OutputName;
+.ft R
+.fi
+.SH PARAMETERS
+.TP 20
+\fIBddCircuit\fP
+The \fBbdd\fP circuit.
+.TP
+\fIOutputName\fP
+The name of the output to delete.
+.SH DESCRIPTION
+\fBdelbddcircuitout\fP deletes the output \fIOutputName\fP 
+in the \fBbdd\fP circuit \fIBddCircuit\fP. If a null pointer is given,
+the default \fBbdd\fP circuit is used.  If the output \fIOutputName\fP exists,
+the number of external reference of the output node
+is decremented.
+.br
+.SH RETURN VALUE
+\fBdelbddcircuitout\fP returns 1 if the output \fIOutputName\fP exist, 0 otherwise.
+.SH EXAMPLE
+.ta 3n 6n 9n 12n 15n 18n 21n
+.nf
+.if n \{\
+.ft B \}
+.if t \{\
+.ft CR \}
+#include "bdd101.h"
+   bddsystem  \(**BddSystem;
+   bddcircuit \(**BddCircuit;
+   bddnode    \(**BddNode;
+   BddSystem  = createbddsystem( 100, 1000, 100, 50000 );
+   BddCircuit = createbddcircuit( "hello_world", 10, 10, BddSystem );
+   ...
+   addbddcircuitout( (bddcircuit \(**)0, "Out0", BddNode );
+   ...
+   delbddcircuitout( (bddcircuit \(**)0, "Out0" );
+   destroybddsystem( (bddsystem \(**)0 );
+   destroybddcircuit( (bddcircuit \(**)0 );
+.ft R
+.fi
+.SH SEE ALSO
+.BR bdd (1)
+.BR searchbddcircuitout(3),
+.BR addbddcircuitout(3).
+
+
+.so man1/alc_bug_report.1
+
