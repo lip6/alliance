@@ -1,0 +1,61 @@
+.\"   $Id: getablexprmax.3,v 1.1 2002/03/18 11:06:16 ludo Exp $
+.\" @(#)getablexprmax.2 2.7 96/07/02 ; Labo masi cao-vlsi; Author : Jacomme Ludovic
+.TH GETABLEXPRMAX 3 "October 1, 1997" "ASIM/LIP6" "ABL FUNCTIONS"
+.SH NAME
+getablexprmax \- applies a function to all operands.
+.so man1/alc_origin.1
+.SH SYNOPSYS
+.nf
+.if n \{\
+.ft B \}
+.if t \{\
+.ft CR \}
+#include "abl101.h"
+chain_list \(**getablexprmax( Function, Expr )
+  int       (\(**Function)();
+  chain_list \(**Expr;
+.ft R
+.fi
+.SH PARAMETERS
+.TP 20
+\fIFunction\fP
+Cost function.
+.TP
+\fIExpr\fP
+Expression to scan.
+.SH DESCRIPTION
+\fBgetablexprmax\fP applies the cost function \fIFunction\fP to all operands of \fIExpr\fP.
+.br
+.SH RETURN VALUE
+\fBgetablexprmax\fP returns the operand for which \fFunction\fP gives the maximum cost.
+The expression pointer returned MUSTN'T be modified after the call to this function.
+.SH ERRORS
+getablexprmax error ...
+.SH EXAMPLE
+.ta 3n 6n 9n 12n 15n 18n 21n
+.nf
+.if n \{\
+.ft B \}
+.if t \{\
+.ft CR \}
+#include "abl101.h"
+    int MapFunction( MapExpr )
+      chain_list \(**MapExpr;
+    {
+      return( getabldepthexpr( MapExpr ) );
+    }
+    ...
+    chain_list \(**Expr;
+    chain_list \(**Expr1;
+    Expr = createablbinexpr( ABL_AND, 
+                             createablatom( "a" ),
+                             createablatom( "b" ) );
+   Expr1 = getablexprmax( MapFunction, Expr );
+.ft R
+.fi
+.SH SEE ALSO
+.BR abl (1)
+
+
+.so man1/alc_bug_report.1
+

@@ -1,0 +1,69 @@
+.\"   $Id: createabloper.3,v 1.1 2002/03/18 11:06:16 ludo Exp $
+.\" @(#)createabloper.2 2.7 96/07/02 ; Labo masi cao-vlsi; Author : Jacomme Ludovic
+.TH CREATEABLOPER 3 "October 1, 1997" "ASIM/LIP6" "ABL FUNCTIONS"
+.SH NAME
+createabloper \- creates the head of an operator expression.
+.so man1/alc_origin.1
+.SH SYNOPSYS
+.nf
+.if n \{\
+.ft B \}
+.if t \{\
+.ft CR \}
+#include "abl101.h"
+ chain_list \(**createabloper( Oper )
+  long Oper;
+.ft R
+.fi
+.SH PARAMETERS
+.TP 20
+\fIOper\fP
+The operator number.
+.SH DESCRIPTION
+\fBcreateabloper\fP creates the head of an operator expression.
+Arguments can be added to this expression with the \fIaddablhexpr\fP
+and \fIaddablqexpr\fP functions. 
+\fIOperator\fP can take the following values ABL_AND, ABL_OR,
+ABL_AND, ABL_XOR, ABL_NOT, ABL_NOR, ABL_NAND, ABL_NXOR, 
+ABL_STABLE, ABL_AF, ABL_AG, ABL_AX, ABL_AU, ABL_EF, ABL_EG, ABL_EX, ABL_EU.
+.br
+.SH RETURN VALUE
+\fBcreateabloper\fP returns a pointer to the new operator expression.
+.SH ERRORS
+.if n \{\
+.ft B \}
+.if t \{\
+.ft CR \}
+"ablcreate: bad operator xx !",
+.ft R
+.RS
+The operator number must be defined.
+.SH EXAMPLE
+.ta 3n 6n 9n 12n 15n 18n 21n
+.nf
+.if n \{\
+.ft B \}
+.if t \{\
+.ft CR \}
+#include "abl101.h"
+  chain_list \(**Expr;
+  Expr = createabloper( ABL_OR );
+  addablhexpr( Expr, createablatom( "a" ) );
+  addablhexpr( Expr, createablatom( "b" ) );
+  /* displays (a or b) */
+  viewablexpr( Expr, ABL_VIEW_VHDL );
+.ft R
+.fi
+.SH SEE ALSO
+.BR abl (1)
+.BR createablatom(3),
+.BR createablnotexpr(3),
+.BR createablbinexpr(3),
+.BR createablunaryexpr(3),
+.BR createablxorbinexpr(3),
+.BR addablhexpr(3),
+.BR addablqexpr(3).
+
+
+.so man1/alc_bug_report.1
+

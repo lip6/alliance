@@ -1,0 +1,74 @@
+.\"   $Id: createablunaryexpr.3,v 1.1 2002/03/18 11:06:16 ludo Exp $
+.\" @(#)createablunaryexpr.2 2.7 96/07/02 ; Labo masi cao-vlsi; Author : Jacomme Ludovic
+.TH CREATEABLUNARYEXPR 3 "October 1, 1997" "ASIM/LIP6" "ABL FUNCTIONS"
+.SH NAME
+createablunaryexpr \- creates an unary operator expression.
+.so man1/alc_origin.1
+.SH SYNOPSYS
+.nf
+.if n \{\
+.ft B \}
+.if t \{\
+.ft CR \}
+#include "abl101.h"
+chain_list \(**createablunaryexpr( Oper, Expr )
+  long        Oper;
+  chain_list \(**Expr;
+.ft R
+.fi
+.SH PARAMETERS
+.TP 20
+\fIOper\fP
+The unary operator number.
+.TP
+\fIExpr\fP
+Expression.
+.SH DESCRIPTION
+\fBcreateablunaryexpr\fP creates the unary operator expression
+\fIOperator\fP \fIExpr\fP. \fBcreateablbinexpr\fP combines
+eventualy the operator of \fIExpr\fP with \fIOperator\fP.
+The expression pointer \fIExpr\fP MUSTN'T be used after 
+the call to this function.
+.br
+.SH RETURN VALUE
+\fBcreateablunaryexpr\fP returns a pointer to the new operator expression.
+.SH ERRORS
+.if n \{\
+.ft B \}
+.if t \{\
+.ft CR \}
+"ablcreate: bad operator xx !",
+.ft R
+.RS
+\fIOperator\fP must be defined and must be a unary operator.
+.SH EXAMPLE
+.ta 3n 6n 9n 12n 15n 18n 21n
+.nf
+.if n \{\
+.ft B \}
+.if t \{\
+.ft CR \}
+#include "abl101.h"
+   chain_list \(**ExprA;
+   chain_list \(**ExprB;
+   chain_list \(**ExprAorB;
+   chain_list \(**ExprAnorB;
+   ExprA = createablatom( "a" );
+   ExprB = createablatom( "b" );
+   ExprAorB  = createablbinexpr( ABL_OR, ExprA, ExprB );
+   ExprAnorB = createablunaryexpr( ABL_NOT, ExprAorB );
+.ft R
+.fi
+.SH SEE ALSO
+.BR abl (1)
+.BR createablatom(3),
+.BR createabloper(3),
+.BR createablnotexpr(3),
+.BR createablbinexpr(3),
+.BR createablxorbinexpr(3),
+.BR addablhexpr(3),
+.BR addablqexpr(3).
+
+
+.so man1/alc_bug_report.1
+

@@ -1,0 +1,61 @@
+.\"   $Id: viewablexprfile.3,v 1.1 2002/03/18 11:06:16 ludo Exp $
+.\" @(#)viewablexprfile.2 2.7 96/07/02 ; Labo masi cao-vlsi; Author : Jacomme Ludovic
+.TH VIEWABLEXPRFILE 3 "October 1, 1997" "ASIM/LIP6" "ABL FUNCTIONS"
+.SH NAME
+viewablexprfile \- displays an expression in a file.
+.so man1/alc_origin.1
+.SH SYNOPSYS
+.nf
+.if n \{\
+.ft B \}
+.if t \{\
+.ft CR \}
+#include "abl101.h"
+void viewablexprfile( AblFile, Expr, Mode )
+  FILE       \(**AblFile;
+  chain_list \(**Expr;
+  int         Mode;
+.ft R
+.fi
+.SH PARAMETERS
+.TP 20
+\fIAblFile\fP
+The target file.
+.TP
+\fIExpr\fP
+Expression to display.
+.TP
+\fIMode\fP
+The notation type.
+.SH DESCRIPTION
+\fBviewablexprfile\fP displays \fIExpr\fP in the file \fIAblFile\fP 
+with the notation specified by \fIMode\fP.
+The following notation types are available ABL_VIEW_INFIX, ABL_VIEW_PREFIX,
+ABL_VIEW_POSTFIX or ABL_VIEW_VHDL.
+.br
+.SH RETURN VALUE
+\fBviewablexprfile\fP returns nothing.
+.SH EXAMPLE
+.ta 3n 6n 9n 12n 15n 18n 21n
+.nf
+.if n \{\
+.ft B \}
+.if t \{\
+.ft CR \}
+#include "abl101.h"
+  chain_list \(**Expr;
+  Expr = createabloper( ABL_OR );
+  addablhexpr( Expr, createablatom( "a" ) );
+  addablhexpr( Expr, createablatom( "b" ) );
+  /* displays (a or b) */
+  viewablexprfile( stderr, Expr, ABL_VIEW_VHDL );
+.ft R
+.fi
+.SH SEE ALSO
+.BR abl (1),
+.BR viewablexprstr(3),
+.BR viewablexpr(3).
+
+
+.so man1/alc_bug_report.1
+
