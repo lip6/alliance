@@ -1,6 +1,6 @@
 #! /bin/sh
 
-# From configure.in Revision: 1.27 
+# From configure.in Revision: 1.28 
 # Guess values for system-dependent variables and create Makefiles.
 # Generated automatically using autoconf version 2.13 
 # Copyright (C) 1992, 93, 94, 95, 96 Free Software Foundation, Inc.
@@ -530,7 +530,7 @@ fi
 
 # Helps this script to run in bad configured env...
 
-PATH=/usr/local/gcc-2.95.2/bin:$PATH
+PATH=/local/beny1/arnaud/bin:$PATH
 
 #PATH=$PATH:/bin:/usr/bin:/usr/local/bin:/labo/TeX/teTeX/bin:/labo/X11R6/bin:/labo/X11r5/bin:/labo/bin:/labo/gnu/bin:/sbin:/user/local/bin:/usr/X11/bin:/usr/X11R6/bin:/usr/andrew/bin:/usr/bin/X11:/usr/bin/games:/usr/bin:/usr/ccs/bin:/usr/dt/bin:/usr/etc:/usr/games:/usr/lib/teTeX/bin:/usr/local/bin:/usr/local/games:/usr/openwin/bin:/usr/sbin:/usr/ucb/bin:/usr/ucb:/usr/xpg4/bin
 
