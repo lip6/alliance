@@ -71,6 +71,7 @@ $sitename = $query->param('site');
 if ( $sitename eq "" ) 
     {$sitename="asim";}
         
+        $pn="l";
 $log_path = $log_path . "$sitename/";
 $img_url  = $img_url . "$sitename/";
 
@@ -184,8 +185,9 @@ exit;
 sub err_log {require "$log_path"."a_errlog.pl"; &err_logs}
 
 ########## Main
-
 	if ( $ENV{'DOCUMENT_URI'} ) { &do_ssi; }
+if (0) {
+        
 	if ( $ENV{'REQUEST_METHOD'} eq 'GET' ) {;} 
 	elsif ( $ENV{'REQUEST_METHOD'} eq 'POST' ) {;} 
 	else {$err = "illegal method"; &err_log;}
@@ -222,4 +224,5 @@ sub err_log {require "$log_path"."a_errlog.pl"; &err_logs}
 		local($digit) = substr($cnb,$pn,1);
 		&sendFile($img_url.$digit.".gif", "image/gif");
 	}		
+        }
 exit(0);

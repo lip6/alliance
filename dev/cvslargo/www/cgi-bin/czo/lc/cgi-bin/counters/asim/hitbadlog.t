@@ -1,5 +1,4 @@
-2000/05/0024 16:01:27|bad referrer, off-site access denied||132.227.103.10
-2000/05/0024 16:23:36|illegal method||
-2000/05/0025 12:42:00|bad query_string||
-2000/05/0025 12:55:38|illegal method||
-2000/05/28 13:51:14|bad referrer, off-site access denied||208.185.131.219
+2000/06/07 17:07:36|log file access|/index.html|132.227.103.10
+2000/06/07 17:09:00|log file access|/alliance/index.html|132.227.103.10
+2000/06/07 17:09:41|log file access|/mailing-lists/alliance-support/1999/0037.html|216.35.116.46
+2000/06/07 17:09:45|log file access|/alliance/mailing-lists/alliance-support/1999/0058.html|198.142.189.168
