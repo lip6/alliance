@@ -360,6 +360,9 @@ PPlacement::PlaceGlobal()
 
     } while (Temperature != 0.0 && StdDev > 0.0001 / Cost);
 
+    if (!_boolPlot)
+       unlink("alldata.dat");
+
     if (!stucked)
     {
 	// Freeze out

@@ -142,7 +142,7 @@ PPlacement::Init(lofig* fig, int NbRows)
     _nInsToPlace = _toPlaceInss.size();
 
     // Traitement des connecteurs ....
-    if (_placeCons || _ringPlaceCons)
+    if (_placeCons || (_ringPlaceCons && !_iocFile))
     {
 	for (locon* con = fig->LOCON; con; con = con->NEXT)
 	{
@@ -383,7 +383,7 @@ PPlacement::Init(lofig* fig, int NbRows)
     // set positions of connectors in case of no ioc file
     if (_placeCons && !_ringPlaceCons) GenerateConsPlacement();
     
-    if (_ringPlaceCons) GenerateRingConsPlacement();
+    if (_ringPlaceCons && !_iocFile) GenerateRingConsPlacement();
     
     // set positions of connectors when ioc file is given
     if (_iocFile) SetPosIocFile(pconmap);
@@ -649,7 +649,7 @@ PPlacement::SetPosIocFile(PConMap& pconmap)
 
   if (leftcount != 0)
   {
-    double pos = 0.0;
+    double pos = 0.0, ppos = pos;
     if (leftspace >= Width-topcount)
     {
       cerr << " o ERROR : in ioc file : space too important" << endl;
@@ -657,6 +657,7 @@ PPlacement::SetPosIocFile(PConMap& pconmap)
     }
     double conspace = ((double)(Height-leftspace)/
 					(double)(leftcount-nbspaceleft));
+    if (_ringPlaceCons) ppos = pos;
     pos += conspace / 2.0;
 
     for(con_list* tmpcon = ptleft ; tmpcon; tmpcon = tmpcon->NEXT)
@@ -668,12 +669,23 @@ PPlacement::SetPosIocFile(PConMap& pconmap)
       }
       else
       {
+        if (_ringPlaceCons)
+        {
+	int delta = (int)pos % ROWHEIGHT;
+          if      (delta == 0) pos -=  2.0;
+          else if (delta == 1) pos +=  1.0;
+          else if (delta == 9) pos -=  1.0;
+          // Just in case there are so many connectors
+          if (pos < ppos) pos = ppos + 1;
+        }
+
 	if (_verbose) cout << " o adding connector : " << tmpcon->NAME
 	  << " x : " << 0 << " y : " << (int)pos << endl;
 	position.SetX(0.0);
 	position.SetY((double)(int)pos);
 	// test a rajouter pour verifier si locon present ou pas!!!
 	pconmap[tmpcon->NAME]->SetPos(position);
+        if (_ringPlaceCons) ppos = pos;
 	pos += conspace;
       }
     }
@@ -681,7 +693,7 @@ PPlacement::SetPosIocFile(PConMap& pconmap)
 
   if (rightcount != 0)
   {
-    double pos = 0.0;
+    double pos = 0.0, ppos = pos;
     if (rightspace >= Width-topcount)
     {
       cerr << " o ERROR : in ioc file : space too important" << endl;
@@ -689,6 +701,7 @@ PPlacement::SetPosIocFile(PConMap& pconmap)
     }
     double conspace = ((double)(Height-rightspace)/
 					(double)(rightcount-nbspaceright));
+    if (_ringPlaceCons) ppos = pos;
     pos += conspace / 2.0;
 
     for(con_list* tmpcon = ptright ; tmpcon; tmpcon = tmpcon->NEXT)
@@ -700,12 +713,23 @@ PPlacement::SetPosIocFile(PConMap& pconmap)
       }
       else
       {
+        if (_ringPlaceCons)
+        {
+	int delta = (int)pos % ROWHEIGHT;
+         if      (delta == 0) pos -=  2.0;
+         else if (delta == 1) pos +=  1.0;
+         else if (delta == 9) pos -=  1.0;
+	 // Just in case there are so many connectors
+	 if (pos < ppos) pos = ppos + 1;
+        }
+
 	if (_verbose) cout << " o adding connector: " << tmpcon->NAME
 	  << " x : " << Width << " y : " << (int)pos << endl;
 	position.SetX(Width);
 	position.SetY((double)(int)pos);
 	// test a rajouter pour verifier si locon present ou pas!!!
 	pconmap[tmpcon->NAME]->SetPos(position);
+        if (_ringPlaceCons) ppos = pos;
 	pos += conspace;
       }
     }

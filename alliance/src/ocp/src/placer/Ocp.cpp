@@ -17,7 +17,8 @@ Usage()
 	 << "o -v : verbose mode" << endl
 	 << "o -gnuplot : create statistics files to use with gnuplot" << endl
 	 << "o -c : create connectors (placement randomly generated)" << endl
-	 << "o -ring : create connectors (placement randomly generated) suitable for ring pad placement tool" << endl
+	 << "o -ring : create connectors suitable for ring pad placement tool" << endl
+	 << "          placement randomly generated unless -ioc is given" << endl
 	 << "o -ioc : create connectors and place it using .ioc file" << endl
          << "o -margin <MARGIN> : The amount of free area added " << endl
 	 << "  in percentage of the cells area. " << endl
@@ -365,11 +366,11 @@ main(int argc, char **argv)
 	     << endl;
     }
 
-    if ((IocFlg && ConFlg) || (IocFlg && RingFlg))
+    if (IocFlg && ConFlg)
     {
 	cerr << " o You cannot have a connectors placement file and ask "
 	    << "for a automatic connectors placement at the same time ...." << endl
-	    << " o Use -ioc or -c or -ring" << endl;
+	    << " o Use either -ioc or -c" << endl;
 	exit(1);
     }
     

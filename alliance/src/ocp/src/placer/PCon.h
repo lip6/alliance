@@ -19,6 +19,7 @@ class PCon: public PElem {
       void		SetPos(const PPos pos)		{_pos = pos;}
       void		SetOrient(const char orient)	{_orient = orient;}
       void		Save(struct phfig *physicalfig, const double dx, const double dy) const;
+      void		RingSave(struct phfig *physicalfig, const double dx, const double dy) const;
 
       ostream&	Print(ostream& os) const;
 };

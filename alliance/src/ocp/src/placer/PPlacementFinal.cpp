@@ -248,6 +248,9 @@ PPlacement::Save()
 
     for (PCons::const_iterator cit = _cons.begin(); cit != _cons.end(); cit++)
     {
+       if (_ringPlaceCons)
+    	(*cit)->RingSave(physicalfig, _dx, _dy);
+       else
     	(*cit)->Save(physicalfig, _dx, _dy);
     }
     
