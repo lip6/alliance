@@ -18,12 +18,12 @@
 # include <stdio.h>
 # include <string.h>
 
-# include MUT_H
-# include AUT_H
-# include ABL_H
-# include BDD_H
-# include FSM_H
-# include FTL_H
+# include "mut.h"
+# include "aut.h"
+# include "abl.h"
+# include "bdd.h"
+# include "fsm.h"
+# include "ftl.h"
 
 # include "fmi_bdd.h"
 
