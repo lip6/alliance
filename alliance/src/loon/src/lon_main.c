@@ -253,7 +253,7 @@ extern int main (int argc, char* argv[])
    bddenv();  /*for vhdlloadbefig() in library reader*/
    
 
-   alliancebanner_with_authors("LooN", VERSION " [2003/10/27]", "Local optimization on Nets", 
+   alliancebanner_with_authors("LooN", VERSION " [2003/12/07]", "Local optimization on Nets", 
                                "2000", ALLIANCE_VERSION, "François Donnet");
     
    /*set options*/
