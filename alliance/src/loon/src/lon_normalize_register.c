@@ -108,7 +108,7 @@ static int loc_format_register(bereg_list* bereg)
 
    if (!bereg || !bereg->BIABL) {
       fprintf(stderr,"identify_register: NULL pointer\n");
-      exit(1);
+      autexit(1);
    }
 
 #if 0 /*to accept multiple condition block*/
@@ -212,7 +212,7 @@ extern int format_register(befig_list* befig)
 
    if (!befig) {
       fprintf(stderr,"format_register: NULL pointer\n");
-      exit(1);
+      autexit(1);
    }
 
    BEH_ERROR=0;

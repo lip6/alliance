@@ -121,7 +121,7 @@ extern void moveport(port_list* head, port_list* new)
    if (!head && !new) return;
    if (!head || !new) {
       fprintf(stderr,"moveport: discrepancy in length\n");
-      exit(1);
+      autexit(1);
    }
    
    moveport(head->NEXT,new->NEXT);
@@ -179,14 +179,14 @@ static lofig_list* build_lofig(lofig_list* lofig, chain_list* nameorder)
          if (locon->DIRECTION==UNKNOWN) {
             fprintf(stderr,"BEH: 'linkage %s' in figure '%s' isn't accepted\n",
             locon->NAME,lofig->NAME);
-            exit(1);
+            autexit(1);
          }
          if (locon->NAME==name) break;
       }
       if (!locon) {
          fprintf(stderr,"build_lofig: no locon '%s' found in '%s'\n",name,
          lofig->NAME);
-         exit(1);
+         autexit(1);
       }
       
       namechain=addchain(NULL,name);
@@ -242,7 +242,7 @@ static cell_list* properties_addCell(befig_list* befig, lofig_list *lofig)
       if (!locon) {
          fprintf(stderr,"properties_addCell: locon '%s' not found\n",
          locon->NAME);
-         exit(1);
+         autexit(1);
       }
       losig=locon->SIG;
       
@@ -253,7 +253,7 @@ static cell_list* properties_addCell(befig_list* befig, lofig_list *lofig)
       if (!locon) {
          fprintf(stderr,"properties_addCell: locon '%s' not found in cell\n",
          locon->NAME);
-         exit(1);
+         autexit(1);
       }
       
       /*apply properties*/

@@ -105,7 +105,7 @@ extern void library_reader(char* cell_directory)
 
    if (!cell_directory) {
       fprintf(stderr,"library_reader: no Cell directory\n");
-      exit(1);
+      autexit(1);
    }
    
    /*seek vbe files which describe the lib*/
@@ -115,7 +115,7 @@ extern void library_reader(char* cell_directory)
       fprintf(stderr,
               "Library Error: no cell in directory '%s'\n", 
               cell_directory?cell_directory:".");
-      exit(1);
+      autexit(1);
    }
    
    /*search only in our library not to interfer with others*/

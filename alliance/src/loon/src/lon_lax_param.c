@@ -908,7 +908,7 @@ parsefilelax(char *filename)
   strcpy( name + size, ".lax" );
   
   LAX = loadlax(name);
-  if (!LAX) exit(1);
+  if (!LAX) autexit(1);
 }
 
 

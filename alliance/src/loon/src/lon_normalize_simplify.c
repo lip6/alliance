@@ -186,7 +186,7 @@ static void flattenablexpr(chain_list* abl)
          default:
             fprintf(stderr,"unflattenexprabl: operator %ld unknown\n",
             ABL_OPER(abl));
-            exit(1);
+            autexit(1);
       }
       pred=chain;
    }

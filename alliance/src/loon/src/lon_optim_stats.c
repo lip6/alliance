@@ -74,7 +74,7 @@ extern ptype_list* count_instance(lofig_list* lofig)
 
    if (!lofig) {
       fprintf(stderr,"count_instance: NULL pointer\n");
-      exit(1);
+      autexit(1);
    }
    
    NUM_INS=0;
@@ -133,7 +133,7 @@ extern ptype_list* percent_instance(ptype_list* model_list)
       cell=getCell((char*)ptype->DATA);
       if (!cell) {
          fprintf(stderr,"Library Error: cell '%s' not found\n",cell->NAME);
-         exit(1);
+         autexit(1);
       }
       inst=addptype(inst,cell->AREA*ptype->TYPE,ptype->DATA);
       AREA+=cell->AREA*ptype->TYPE;
@@ -166,7 +166,7 @@ extern double getmaxRC(lofig_list* lofig)
          losig=locon->SIG;
          if (!losig->NAMECHAIN) {
             fprintf(stderr,"getmaxRC: no name on signal\n");
-            exit(1);
+            autexit(1);
          }
          t=loins_max_RC(loins,losig->NAMECHAIN->DATA);
          if (t>RC) RC=t;

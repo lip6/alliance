@@ -213,7 +213,7 @@ extern double getgenericT(befig_list* befig, char* name)
    else if (befig->BEBUS) output=befig->BEBUS->NAME;
    else {
       fprintf(stderr,"BEH: output is missing in %s\n",befig->NAME);
-      exit(1);
+      autexit(1);
    }
 
    memo=SEPAR;
@@ -261,7 +261,7 @@ extern double getgenericTh(befig_list* befig, char* name)
    else if (befig->BEBUS) output=befig->BEBUS->NAME;
    else {
       fprintf(stderr,"BEH: output is missing in %s\n",befig->NAME);
-      exit(1);
+      autexit(1);
    }
 
    memo=SEPAR;
@@ -300,7 +300,7 @@ extern double getgenericTl(befig_list* befig, char* name)
    else if (befig->BEBUS) output=befig->BEBUS->NAME;
    else {
       fprintf(stderr,"BEH: output is missing in %s\n",befig->NAME);
-      exit(1);
+      autexit(1);
    }
 
    memo=SEPAR;
@@ -336,7 +336,7 @@ extern void putgenericT(befig_list* befig, char* name, double Thl_value, double 
    else if (befig->BEBUS) output=befig->BEBUS->NAME;
    else {
       fprintf(stderr,"BEH: output is missing in %s\n",befig->NAME);
-      exit(1);
+      autexit(1);
    }
 
    memo=SEPAR;
@@ -420,7 +420,7 @@ extern int getgenericR(befig_list* befig, char* name)
    else if (befig->BEBUS) output=befig->BEBUS->NAME;
    else {
       fprintf(stderr,"BEH: output is missing in %s\n",befig->NAME);
-      exit(1);
+      autexit(1);
    }
 
    memo=SEPAR;
@@ -456,7 +456,7 @@ extern void putgenericR(befig_list* befig, char* name, double Rup_value, double 
    else if (befig->BEBUS) output=befig->BEBUS->NAME;
    else {
       fprintf(stderr,"BEH: output is missing in %s\n",befig->NAME);
-      exit(1);
+      autexit(1);
    }
 
    memo=SEPAR;
@@ -490,7 +490,7 @@ extern int getgenericRup(befig_list* befig, char* name)
    else if (befig->BEBUS) output=befig->BEBUS->NAME;
    else {
       fprintf(stderr,"BEH: output is missing in %s\n",befig->NAME);
-      exit(1);
+      autexit(1);
    }
 
    memo=SEPAR;
@@ -527,7 +527,7 @@ extern int getgenericRdown(befig_list* befig, char* name)
    else if (befig->BEBUS) output=befig->BEBUS->NAME;
    else {
       fprintf(stderr,"BEH: output is missing in %s\n",befig->NAME);
-      exit(1);
+      autexit(1);
    }
 
    memo=SEPAR;

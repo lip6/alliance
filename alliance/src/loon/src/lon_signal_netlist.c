@@ -57,14 +57,14 @@ extern void loins_capacitance(loins_list* loins, int increment)
    if (!cell) {
       fprintf(stderr,"library error: no model '%s.vbe' found\n",
       loins->FIGNAME);
-      exit(1);
+      autexit(1);
    }
    
    for (locon=loins->LOCON; locon; locon=locon->NEXT) {
       if (locon->DIRECTION==UNKNOWN) {
          fprintf(stderr,"BEH: 'linkage %s' in figure '%s' isn't accepted\n",
          locon->NAME,loins->INSNAME);
-         exit(1);
+         autexit(1);
       }
       /*seek port which match with netlist*/
       for (port=cell->PORT; port; port=port->NEXT) {
@@ -74,13 +74,13 @@ extern void loins_capacitance(loins_list* loins, int increment)
          fprintf(stderr,
          "loins_capacitance: connector discrepancy between '%s' and '%s'\n",
          cell->NAME,loins->FIGNAME);
-         exit(1);
+         autexit(1);
       }
       
       losig=locon->SIG;
       if (!losig->NAMECHAIN) {
          fprintf(stderr,"loins_capacitance: no losig name\n");
-         exit(1);
+         autexit(1);
       }
       signame=losig->NAMECHAIN->DATA;
       if (!isvdd(locon->NAME) && !isvss(locon->NAME) 
@@ -108,7 +108,7 @@ extern double loins_max_T(loins_list* loins)
    
    if (!loins) {
       fprintf(stderr,"loins_max_T: NULL pointer\n");
-      exit(1);
+      autexit(1);
    }
    
    /*cell properties*/
@@ -116,7 +116,7 @@ extern double loins_max_T(loins_list* loins)
    if (!cell) {
       fprintf(stderr,"library error: no cell '%s.vbe' found\n",
       loins->FIGNAME);
-      exit(1);
+      autexit(1);
    }
    
    /*is-it a flip-flop?*/
@@ -138,7 +138,7 @@ extern double loins_max_T(loins_list* loins)
       if (locon->DIRECTION==UNKNOWN) {
          fprintf(stderr,"BEH: 'linkage %s' in figure '%s' isn't accepted\n",
          locon->NAME,loins->INSNAME);
-         exit(1);
+         autexit(1);
       }
       /*eval delay on input dependancy*/
       if (isvdd(locon->NAME) || isvss(locon->NAME)) continue;
@@ -154,12 +154,12 @@ extern double loins_max_T(loins_list* loins)
          fprintf(stderr,
          "loins_max_T: connector discrepancy between '%s' and '%s'\n",
          cell->NAME,loins->FIGNAME);
-         exit(1);
+         autexit(1);
       }
       
       if (!locon->SIG->NAMECHAIN) {
          fprintf(stderr,"loins_max_T: no losig name\n");
-         exit(1);
+         autexit(1);
       }
       input=(char*) locon->SIG->NAMECHAIN->DATA;
       
@@ -189,7 +189,7 @@ extern double loins_max_RC(loins_list* loins, char* output)
    
    if (!loins || !output) {
       fprintf(stderr,"loins_max_RC: NULL pointer\n");
-      exit(1);
+      autexit(1);
    }
    
    /*cell properties*/
@@ -197,7 +197,7 @@ extern double loins_max_RC(loins_list* loins, char* output)
    if (!cell) {
       fprintf(stderr,"library error: no cell '%s.vbe' found\n",
       loins->FIGNAME);
-      exit(1);
+      autexit(1);
    }
    
    /*is-it a flip-flop?*/
@@ -219,7 +219,7 @@ extern double loins_max_RC(loins_list* loins, char* output)
       if (locon->DIRECTION==UNKNOWN) {
          fprintf(stderr,"BEH: 'linkage %s' in figure '%s' isn't accepted\n",
          locon->NAME,loins->INSNAME);
-         exit(1);
+         autexit(1);
       }
       /*eval delay on input dependancy*/
       if (isvdd(locon->NAME) || isvss(locon->NAME)) continue;
@@ -235,12 +235,12 @@ extern double loins_max_RC(loins_list* loins, char* output)
          fprintf(stderr,
          "loins_max_RC: connector discrepancy between '%s' and '%s'\n",
          cell->NAME,loins->FIGNAME);
-         exit(1);
+         autexit(1);
       }
       
       if (!locon->SIG->NAMECHAIN) {
          fprintf(stderr,"loins_max_RC: no losig name\n");
-         exit(1);
+         autexit(1);
       }
       input=(char*) locon->SIG->NAMECHAIN->DATA;
       
@@ -270,7 +270,7 @@ extern double loins_delay(loins_list* loins, char* output)
    
    if (!loins || !output) {
       fprintf(stderr,"loins_delay: NULL pointer\n");
-      exit(1);
+      autexit(1);
    }
    
    /*cell properties*/
@@ -278,7 +278,7 @@ extern double loins_delay(loins_list* loins, char* output)
    if (!cell) {
       fprintf(stderr,"library error: no cell '%s.vbe' found\n",
       loins->FIGNAME);
-      exit(1);
+      autexit(1);
    }
    
    /*is-it a flip-flop?*/
@@ -300,7 +300,7 @@ extern double loins_delay(loins_list* loins, char* output)
       if (locon->DIRECTION==UNKNOWN) {
          fprintf(stderr,"BEH: 'linkage %s' in figure '%s' isn't accepted\n",
          locon->NAME,loins->INSNAME);
-         exit(1);
+         autexit(1);
       }
       /*eval delay on input dependancy*/
       if (isvdd(locon->NAME) || isvss(locon->NAME)) continue;
@@ -316,16 +316,16 @@ extern double loins_delay(loins_list* loins, char* output)
          fprintf(stderr,
          "loins_delay: connector discrepancy between '%s' and '%s'\n",
          cell->NAME,loins->FIGNAME);
-         exit(1);
+         autexit(1);
       }
       
       if (!locon->SIG) {
          fprintf(stderr,"loins_delay: no losig\n");
-         exit(1);
+         autexit(1);
       }
       if (!locon->SIG->NAMECHAIN) {
          fprintf(stderr,"loins_delay: no losig name\n");
-         exit(1);
+         autexit(1);
       }
       input=(char*) locon->SIG->NAMECHAIN->DATA;
       
@@ -352,12 +352,12 @@ extern double losig_delay(losig_list* losig)
 
    if (!losig) {
       fprintf(stderr,"losig_delay: NULL pointer\n");
-      exit(1);
+      autexit(1);
    }
    
    if (!losig->NAMECHAIN) {
       fprintf(stderr,"losig_delay: no losig name\n");
-      exit(1);
+      autexit(1);
    }
    signame=losig->NAMECHAIN->DATA;
 
@@ -365,7 +365,7 @@ extern double losig_delay(losig_list* losig)
    if (!ptype) {
       fprintf(stderr,"losig_delay: no lofigchain on signal '%s'\n",
       signame);
-      exit(1);
+      autexit(1);
    }
    
    /*search drivers*/
@@ -377,7 +377,7 @@ extern double losig_delay(losig_list* losig)
       if (locon->DIRECTION==UNKNOWN) {
          fprintf(stderr,"BEH: 'linkage %s' isn't accepted\n",
          locon->NAME);
-         exit(1);
+         autexit(1);
       }
       /*real inputs*/
       if (isvdd(locon->NAME) || isvss(locon->NAME)) continue;
@@ -405,7 +405,7 @@ extern void propagate_loins_delay(loins_list *loins)
       if (locon->DIRECTION==UNKNOWN) {
          fprintf(stderr,"BEH: 'linkage %s' in figure '%s' isn't accepted\n",
          locon->NAME,loins->INSNAME);
-         exit(1);
+         autexit(1);
       }
       if (locon->DIRECTION==IN || locon->DIRECTION==INOUT || locon->DIRECTION==TRANSCV)
          propagate_losig_delay(locon->SIG);
@@ -428,14 +428,14 @@ static void loc_propagate_losig_delay(loins_list *loins)
 
    if (!loins) {
       fprintf(stderr,"propagate_loins_delay: NULL pointer\n");
-      exit(1);
+      autexit(1);
    }
    
    for (locon=loins->LOCON; locon; locon=locon->NEXT) {
       if (locon->DIRECTION==UNKNOWN) {
          fprintf(stderr,"BEH: 'linkage %s' in figure '%s' isn't accepted\n",
          locon->NAME,loins->INSNAME);
-         exit(1);
+         autexit(1);
       }
       if (isvdd(locon->NAME) || isvss(locon->NAME)) continue;
       if (locon->DIRECTION==IN) continue;
@@ -460,13 +460,13 @@ extern void propagate_losig_delay(losig_list *losig)
 
    if (!losig) {
       fprintf(stderr,"propagate_losig_delay: NULL pointer\n");
-      exit(1);
+      autexit(1);
    }
   
    
    if (!losig->NAMECHAIN) {
       fprintf(stderr,"propagate_losig_delay: no losig name\n");
-      exit(1);
+      autexit(1);
    }
    signame=losig->NAMECHAIN->DATA;
    delay=losig_delay(losig);
@@ -489,14 +489,14 @@ extern void propagate_losig_delay(losig_list *losig)
    if (!ptype) {
       fprintf(stderr,"propagate_losig_delay: no lofigchain on signal '%s'\n",
       signame);
-      exit(1);
+      autexit(1);
    }
    for (lofigchain=ptype->DATA; lofigchain; lofigchain=lofigchain->NEXT) {
       locon= (locon_list*) lofigchain->DATA;
       if (locon->DIRECTION==UNKNOWN) {
          fprintf(stderr,"BEH: 'linkage %s' isn't accepted\n",
          locon->NAME);
-         exit(1);
+         autexit(1);
       }
       if (isvdd(locon->NAME) || isvss(locon->NAME)) continue; 
       if (locon->DIRECTION==OUT || locon->DIRECTION==TRISTATE) continue;
@@ -520,9 +520,13 @@ extern void set_circuit_capacitance(lofig_list *lofig)
    for (losig=lofig->LOSIG; losig; losig=losig->NEXT) {
       if (!losig->NAMECHAIN) {
          fprintf(stderr,"set_circuit_capacitance: no losig name\n");
-         exit(1);
+         autexit(1);
       }
-      signame=losig->NAMECHAIN->DATA;
+      /*
+      ** LUDO: to ensure name unicity !
+      */
+      signame=getnameindex(losig->NAMECHAIN->DATA);
+      losig->NAMECHAIN->DATA = signame;
       /*for circuit output take user propertie if defined else return 0*/
       putcapacitance(signame,getcapacitancelax(signame));
       putdelay(signame,0);

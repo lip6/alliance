@@ -67,7 +67,7 @@ static int loc_pattern_matching(chain_list* expr, chain_list* pattern)
 {
    if (!expr || !pattern) {
       fprintf(stderr,"loc_pattern_matching: NULL pointer\n");
-      exit(1);
+      autexit(1);
    }
 
    /*pattern is an atom*/
@@ -122,7 +122,7 @@ extern int pattern_matching(chain_list* expr, chain_list* pattern)
    
    if (!expr || !pattern) {
       fprintf(stderr,"pattern_matching: NULL pointer\n");
-      exit(1);
+      autexit(1);
    }
 
    if ( HTABLE == (authtable *)0 )

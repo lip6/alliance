@@ -59,7 +59,7 @@ static ptype_list* sort_capa(ptype_list* capa)
    losig=(losig_list*) capa->DATA;
    if (!losig->NAMECHAIN) {
      fprintf(stderr,"sort_capa: no name on signal\n");
-     exit(1);
+     autexit(1);
    }
    best_C=getcapacitance(losig->NAMECHAIN->DATA);
    pred=capa;
@@ -69,7 +69,7 @@ static ptype_list* sort_capa(ptype_list* capa)
       losig=(losig_list*) ptype->DATA;
       if (!losig->NAMECHAIN) {
         fprintf(stderr,"sort_capa: no name on signal\n");
-        exit(1);
+        autexit(1);
       }
       C=getcapacitance((char*) losig->NAMECHAIN->DATA);
       if (C>best_C) {
@@ -105,12 +105,12 @@ static int change_instance(loins_list* loins, losig_list* losig, lofig_list* lof
    best=getCell(loins->FIGNAME);
    if (!best || best->NAME!=loins->FIGNAME) {
       fprintf(stderr,"library error: no cell '%s.vbe' found\n",loins->FIGNAME);
-      exit(1);
+      autexit(1);
    }
   
    if (!losig->NAMECHAIN) {
       fprintf(stderr,"change_instance: no name on signal\n");
-      exit(1);
+      autexit(1);
    }
 
    best_critical=critical_delay(lofig);
@@ -157,7 +157,7 @@ static int change_instance(loins_list* loins, losig_list* losig, lofig_list* lof
       fprintf(stderr,
       "change_instance: compute error %f!=%f ps   %f!=%f ps    (%sdue to caller)\n",
       critical,best_critical,delay,best_delay,change?"not ":"");
-      exit(1);
+      autexit(1);
    }  
    
    
@@ -177,7 +177,7 @@ static int change_instance(loins_list* loins, losig_list* losig, lofig_list* lof
          if (!locon_aux) {
             fprintf(stderr,"change_instance: locon '%s' not found\n",
             locon->NAME);
-            exit(1);
+            autexit(1);
          }
          losig_aux=locon_aux->SIG;
          /*search real connection*/
@@ -188,7 +188,7 @@ static int change_instance(loins_list* loins, losig_list* losig, lofig_list* lof
          if (!locon_aux) {
             fprintf(stderr,"change_instance: locon '%s' not found in cell\n",
             locon->NAME);
-            exit(1);
+            autexit(1);
          }
          locon->NAME=locon_aux->NAME;
       }
@@ -204,7 +204,7 @@ static int change_instance(loins_list* loins, losig_list* losig, lofig_list* lof
          fprintf(stderr,
          "change_instance: flatten error %f!=%f ps   %f!=%f ps\n",
          critical,best_critical,delay,best_delay);
-         exit(1);
+         autexit(1);
       }   
    
    }  /*end of change loins*/
@@ -240,7 +240,7 @@ extern void improve_capa_critical_path(lofig_list* lofig, int optim_level)
          losig=(losig_list*) ptype->DATA;
          if (!losig->NAMECHAIN) {
             fprintf(stderr,"improve_capa_critical_path: no name on signal\n");
-            exit(1);
+            autexit(1);
          }
          /*seek latest driver*/
          ptype2=getptype(losig->USER,LOFIGCHAIN);
@@ -248,7 +248,7 @@ extern void improve_capa_critical_path(lofig_list* lofig, int optim_level)
             fprintf(stderr,
             "improve_capa_critical_path: no lofigchain on losig '%s'\n",
             (char*) losig->NAMECHAIN->DATA);
-            exit(1);
+            autexit(1);
          }
          loins=NULL;
          for (lofigchain=ptype2->DATA; lofigchain; lofigchain=lofigchain->NEXT){
@@ -256,7 +256,7 @@ extern void improve_capa_critical_path(lofig_list* lofig, int optim_level)
             if (locon->DIRECTION==UNKNOWN) {
                fprintf(stderr,"BEH: 'linkage %s' isn't accepted\n",
                locon->NAME);
-               exit(1);
+               autexit(1);
             }
             if (locon->TYPE==EXTERNAL || locon->DIRECTION==IN) continue;
             loins=locon->ROOT;
@@ -290,7 +290,7 @@ extern void improve_RC_circuit(lofig_list* lofig, int optim_level)
          if (locon->DIRECTION==UNKNOWN) {
             fprintf(stderr,"BEH: 'linkage %s' in figure '%s' isn't accepted\n",
             locon->NAME,loins->INSNAME);
-            exit(1);
+            autexit(1);
          }
          if (isvdd(locon->NAME) || isvss(locon->NAME)) continue;
          if (locon->DIRECTION!=IN) break;
@@ -298,7 +298,7 @@ extern void improve_RC_circuit(lofig_list* lofig, int optim_level)
       if (!locon) {
          fprintf(stderr,"improve_RC_circuit: no output found for '%s'\n",
          loins->FIGNAME);
-         exit(1);
+         autexit(1);
       }
       losig=locon->SIG;
       change_instance(loins, losig, lofig, optim_level);
@@ -336,7 +336,7 @@ static int insert_buffer(losig_list* losig, lofig_list* lofig, int optim_level, 
    
    if (!losig->NAMECHAIN) {
       fprintf(stderr,"insert_buffer: no name on signal\n");
-      exit(1);
+      autexit(1);
    }
 
    best_delay=critical_delay(lofig);
@@ -361,7 +361,7 @@ static int insert_buffer(losig_list* losig, lofig_list* lofig, int optim_level, 
       if (locon->DIRECTION==UNKNOWN) {
          fprintf(stderr,"BEH: 'linkage %s' in figure '%s' isn't accepted\n",
          locon->NAME,model->NAME);
-         exit(1);
+         autexit(1);
       }
       if (isvdd(locon->NAME)) losig_aux=losig_vdd;
       else if (isvss(locon->NAME)) losig_aux=losig_vss;
@@ -369,7 +369,7 @@ static int insert_buffer(losig_list* losig, lofig_list* lofig, int optim_level, 
       else if (locon->DIRECTION==IN) losig_aux=losig;
       else {
          fprintf(stderr,"insert_buffer: buffer port '%s' unknown\n",locon->NAME);
-         exit(1);
+         autexit(1);
       }
       sigchain=addchain(sigchain,losig_aux);
    }
@@ -388,7 +388,7 @@ static int insert_buffer(losig_list* losig, lofig_list* lofig, int optim_level, 
       if (locon->DIRECTION==UNKNOWN) {
          fprintf(stderr,"BEH: 'linkage %s' in figure '%s' isn't accepted\n",
          locon->NAME,loins_buf->INSNAME);
-         exit(1);
+         autexit(1);
       }
       if (isvdd(locon->NAME)) losig_aux=losig_vdd;
       else if (isvss(locon->NAME)) losig_aux=losig_vss;
@@ -396,7 +396,7 @@ static int insert_buffer(losig_list* losig, lofig_list* lofig, int optim_level, 
       else if (locon->DIRECTION==IN) losig_aux=losig;
       else {
          fprintf(stderr,"insert_buffer: buffer port '%s' unknown\n",locon->NAME);
-         exit(1);
+         autexit(1);
       }
       ptype=getptype(losig_aux->USER,LOFIGCHAIN);
       if (!ptype) losig_aux->USER=addptype(losig_aux->USER,LOFIGCHAIN,addchain(NULL,locon));
@@ -408,7 +408,7 @@ static int insert_buffer(losig_list* losig, lofig_list* lofig, int optim_level, 
    buffer_ptype=getptype(losig_buf->USER,LOFIGCHAIN);
    if (!ptype || !buffer_ptype) {
       fprintf(stderr,"insert_buffer: LOFIGCHAIN not found\n");
-      exit(1);
+      autexit(1);
    }
    
    for (lofigchain=((chain_list*)ptype->DATA)->NEXT/*first is entry of buffer*/;
@@ -417,7 +417,7 @@ static int insert_buffer(losig_list* losig, lofig_list* lofig, int optim_level, 
       if (locon->DIRECTION==UNKNOWN) {
          fprintf(stderr,"BEH: 'linkage %s' isn't accepted\n",
          locon->NAME);
-         exit(1);
+         autexit(1);
       }
       /*do not move drivers and port of circuit*/
       if (locon->TYPE==EXTERNAL || locon->DIRECTION!=IN) {
@@ -449,7 +449,7 @@ static int insert_buffer(losig_list* losig, lofig_list* lofig, int optim_level, 
       ptype=getptype(losig->USER,LOFIGCHAIN);
       if (!buffer_ptype || !buffer_ptype->DATA) {
          fprintf(stderr,"insert_buffer: LOFIGCHAIN is empty\n");
-         exit(1);
+         autexit(1);
       }
       
       /*put critical path before buffer*/
@@ -564,7 +564,7 @@ static int insert_buffer(losig_list* losig, lofig_list* lofig, int optim_level, 
          fprintf(stderr,
          "insert_buffer: compute error %e!=%e fF   %f!=%f ps    %f!=%f ps\n",
          capa,init_capa,delay,best_delay, init_delay, getdelay(losig->NAMECHAIN->DATA));
-         exit(1);
+         autexit(1);
       }   
    
    }

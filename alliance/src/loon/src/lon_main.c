@@ -114,30 +114,30 @@ static void set_param(int argc, char* argv[])
             if (optim_mode<=OPTIM_DELAY4) break;
          }
          fprintf(stderr,OPT_USAGE "\n");
-         exit(1);
+         autexit(1);
       case XSCH_MODE:
          if (strlen(optarg)==1 && isdigit((int) optarg[0])) {
             xsch_mode=optarg[0]-'0';
             if (xsch_mode<=XSCH_GRADIENT) break;
          }
          fprintf(stderr,OPT_USAGE "\n");
-         exit(1);
+         autexit(1);
       case LAX_FILE: 
          if (!lax_file) {lax_file=optarg; break;}
          fprintf(stderr,OPT_USAGE "\n");
-         exit(1);
+         autexit(1);
       case  1 : /*all the other parameters without options  (Linux only)*/
          if (!input_file || input_file==argv[i]) {input_file=optarg; break;}
          if (!output_file || output_file==argv[i]) {output_file=optarg; break;}
          if (!lax_file || lax_file==argv[i]) {lax_file=optarg; break;}
          fprintf(stderr,OPT_USAGE "\n");
-         exit(1);
+         autexit(1);
       case HELP_MODE:
          fprintf(stdout,HELP_USAGE "\n");
-         exit(0);
+         autexit(0);
       case '?': default:  
          fprintf(stderr,OPT_USAGE "\n");
-         exit(1);
+         autexit(1);
       }
    }
 #endif  
@@ -145,12 +145,12 @@ static void set_param(int argc, char* argv[])
    /*verify for Sun and Solaris.  getopt() isn't the same than Linux_elf  */
    for (i=1; i<argc; i++) {
       if (!strcmp(argv[i],"-o")) {overwrite_mode=1; continue;}
-      if (!strcmp(argv[i],"-h")) {fprintf(stdout,HELP_USAGE "\n"); exit(0);}
+      if (!strcmp(argv[i],"-h")) {fprintf(stdout,HELP_USAGE "\n"); autexit(0);}
       /*take option and argument*/
       if (!strcmp(argv[i],"-l")) {
          if (++i<argc) {lax_file=argv[i]; continue;}
          fprintf(stderr,OPT_USAGE "\n");
-         exit(1);
+         autexit(1);
       }
       if (!strcmp(argv[i],"-x")) {
          if (++i<argc && strlen(argv[i])==1 && isdigit((int) argv[i][0])) {
@@ -158,7 +158,7 @@ static void set_param(int argc, char* argv[])
             if (xsch_mode<=XSCH_GRADIENT) continue;
          }
          fprintf(stderr,OPT_USAGE "\n");
-         exit(1);
+         autexit(1);
       }
       if (!strcmp(argv[i],"-m")) {
          if (++i<argc && strlen(argv[i])==1 && isdigit((int) argv[i][0])) {
@@ -166,7 +166,7 @@ static void set_param(int argc, char* argv[])
             if (optim_mode<=OPTIM_DELAY4) continue;
          }
          fprintf(stderr,OPT_USAGE "\n");
-         exit(1);
+         autexit(1);
       }
    }  
    
@@ -182,7 +182,7 @@ static void set_param(int argc, char* argv[])
       if (!output_file || output_file==argv[i]) {output_file=argv[i]; continue;}
       if (!lax_file || lax_file==argv[i]) {lax_file=argv[i]; continue;}
       fprintf(stderr,OPT_USAGE "\n");
-      exit(1);
+      autexit(1);
    }
 
 
@@ -192,14 +192,14 @@ static void set_param(int argc, char* argv[])
    else {
       fprintf(stderr,
      "Environment Error: no 'MBK_IN_LO' defined for <input_file> extension\n");
-      exit(1);
+      autexit(1);
    }
    mbk_out_lo=mbkgetenv ("MBK_OUT_LO");
    if (mbk_out_lo) fprintf(stdout,"\tMBK_OUT_LO\t: %s\n",mbk_out_lo);
    else {
       fprintf(stderr,
       "Environment Error: no 'MBK_OUT_LO' defined for <output_file> extension\n");
-      exit(1);
+      autexit(1);
    }
 
    /*if no library defined*/
@@ -208,27 +208,27 @@ static void set_param(int argc, char* argv[])
    else {
       fprintf(stderr,
       "Environment Error: no 'MBK_TARGET_LIB' defined for cells directory\n");
-      exit(1);
+      autexit(1);
    }
 
 
    /*coherence in options*/
    if (!input_file) {
       fprintf(stderr,OPT_USAGE "\n");
-      exit(1);
+      autexit(1);
    }
    if (!output_file) {
       if (overwrite_mode) output_file=input_file;
       else {
          fprintf(stderr,OPT_USAGE "\n");
-         exit(1);
+         autexit(1);
       }
    }
    
    if (!strcmp(output_file,input_file) && !strcmp(mbk_in_lo,mbk_out_lo) && !overwrite_mode) {
       fprintf(stderr,"<output_file> must be different from <input_file>\n");
       fprintf(stderr,OPT_USAGE "\n");
-      exit(1);
+      autexit(1);
    }
    
    /*take default values*/
@@ -248,8 +248,8 @@ extern int main (int argc, char* argv[])
   
    /*init*/
    mbkenv();   /*mbk*/
-   ablenv();   /*abl*/
    autenv();  /*hash table*/
+   ablenv();   /*abl*/
    bddenv();  /*for vhdlloadbefig() in library reader*/
    
 
@@ -280,7 +280,7 @@ extern int main (int argc, char* argv[])
    case OPTIM_DELAY3: 
       fprintf(stdout,"25%% area - 75%% delay optimization\n"); break;
    case OPTIM_DELAY4: fprintf(stdout,"100%% delay optimization\n"); break;
-   default: fprintf(stderr,"LAX: Optimization mode greater than 4\n"); exit(1);
+   default: fprintf(stderr,"LAX: Optimization mode greater than 4\n"); autexit(1);
    }
    
 
@@ -289,7 +289,7 @@ extern int main (int argc, char* argv[])
    lofig=getlofig(input_file, 'A'/*all the figure*/);
    if (!lofig) {
       fprintf(stderr,"Cannot find '%s.%s'\n",input_file,mbk_in_lo);
-      exit(1);
+      autexit(1);
    }
    /*flatten all instance at cells level*/
    rflattenlofig(lofig, YES, YES);
@@ -298,7 +298,7 @@ extern int main (int argc, char* argv[])
    /*check coherence between LAX and lofig*/
    if (lax_file) {
       fprintf(stdout,"Controlling file '%s.lax'...\n",lax_file);
-      if (!coherencelaxlofig(lofig)) exit(1);
+      if (!coherencelaxlofig(lofig)) autexit(1);
    }   
   
    /*read cell library*/
@@ -310,7 +310,7 @@ extern int main (int argc, char* argv[])
    fprintf(stdout,"Capacitances on file '%s.%s'...\n",input_file,mbk_in_lo);
    if (!lofig->LOINS || !lofig->LOSIG) {
       fprintf(stderr,"Figure '%s' is empty!\n",lofig->NAME);
-      exit(1);
+      autexit(1);
    }
 
    /*prepare source*/
@@ -418,7 +418,7 @@ extern int main (int argc, char* argv[])
          losig=long_path->DATA;
          if (!losig->NAMECHAIN) {
             fprintf(stderr,"main: no name on signal\n");
-            exit(1);
+            autexit(1);
          }
          fprintf(stdout,"Critical path (no warranty)...%ld ps from '%s' to ",
          (long) critical_delay(lofig),(char*) losig->NAMECHAIN->DATA);
@@ -428,7 +428,7 @@ extern int main (int argc, char* argv[])
          losig=(losig_list*) ptype->DATA;
          if (!losig->NAMECHAIN) {
             fprintf(stderr,"main: no name on signal\n");
-            exit(1);
+            autexit(1);
          }
          if (losig->TYPE==EXTERNAL) {
             fprintf(stdout,"'%s'\n",(char*) losig->NAMECHAIN->DATA);
@@ -477,7 +477,7 @@ extern int main (int argc, char* argv[])
       xsch_stream=mbkfopen(xsch_file,"xsc",WRITE_TEXT);
       if (!xsch_stream){
          fprintf(stderr,"Cannot save file %s.xsc\n",xsch_file);
-         exit(1);
+         autexit(1);
       }
       /*replace losig by names*/
       for (ptype=long_path; ptype; ptype=ptype->NEXT) {
@@ -492,6 +492,6 @@ extern int main (int argc, char* argv[])
    
    
    fprintf(stdout,"End of %s...\n\n",LOON);
-   exit(0);
+   return(0);
 }
 

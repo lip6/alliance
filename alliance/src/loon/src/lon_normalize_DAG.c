@@ -334,7 +334,7 @@ static int abl_dispatching(chain_list *abl, int mark)
 
    if (!abl) {
       fprintf(stderr,"abl_dispatching: NULL pointer\n");
-      exit(1);
+      autexit(1);
    }
    
    if (ABL_ATOM(abl)) { /*it is a leaf*/
@@ -473,7 +473,7 @@ static int abl_dispatching(chain_list *abl, int mark)
 
       /*error: leaf not found*/
       fprintf(stderr,"abl_dispatching: %s not found\n",ABL_ATOM_VALUE(abl));
-      exit(1);
+      autexit(1);
    }
    
    /*it is an operator*/
@@ -548,7 +548,7 @@ extern int DAG_control(befig_list *befig_param)
 
    if (!befig_param) {
       fprintf(stderr,"DAG_control: NULL pointer\n");
-      exit(1);
+      autexit(1);
    }   
    
    befig=befig_param;

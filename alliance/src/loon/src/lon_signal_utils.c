@@ -123,7 +123,7 @@ static void putsignal(signal_list* signal, char* name)
 {
    if (!name || !signal) {
       fprintf(stderr,"putsignal: NULL pointer\n");
-      exit(1);
+      autexit(1);
    }
 
    /*if doesn't exist hash table, init*/
@@ -144,7 +144,7 @@ static signal_list* getsignal(char *name, int create)
    
    if (!name) {
       fprintf(stderr,"getsignal: no name\n");
-      exit(1);
+      autexit(1);
    }
 
    /*if doesn't exist hash table, init*/
@@ -155,7 +155,7 @@ static signal_list* getsignal(char *name, int create)
 
    if (create==0) {
       fprintf(stderr,"getsignal: '%s' not found in hash table\n",name);
-      exit(1);
+      autexit(1);
    }
    
    /*create new signal*/
@@ -174,7 +174,7 @@ extern void putdelay(char* name, double delay)
 
    if (!name) {
       fprintf(stderr,"putdelay: no name\n");
-      exit(1);
+      autexit(1);
    }
 
    signal=getsignal(name,1/*if doesn't exist create it*/);
@@ -192,7 +192,7 @@ extern double getdelay(char* name)
    
    if (!name) {
       fprintf(stderr,"getdelay: no name\n");
-      exit(1);
+      autexit(1);
    }
 
    signal=getsignal(name,0/*if doesn't exist then error*/);
@@ -209,7 +209,7 @@ extern void incdelay(char* name, double delay)
 
    if (!name) {
       fprintf(stderr,"incdelay: no name\n");
-      exit(1);
+      autexit(1);
    }
 
    signal=getsignal(name,0);
@@ -227,7 +227,7 @@ extern double getcapacitance(char* name)
    
    if (!name) {
       fprintf(stderr,"getcapacitance: no name\n");
-      exit(1);
+      autexit(1);
    }
 
    signal=getsignal(name,0/*if doesn't exist then error*/);
@@ -244,7 +244,7 @@ extern void inccapacitance(char* name, double capacitance)
 
    if (!name) {
       fprintf(stderr,"inccapacitance: no name\n");
-      exit(1);
+      autexit(1);
    }
 
    signal=getsignal(name,0/*if doesn't exist then error*/);
@@ -262,7 +262,7 @@ extern void putcapacitance(char* name, double capacitance)
 
    if (!name) {
       fprintf(stderr,"putcapacitance: no name\n");
-      exit(1);
+      autexit(1);
    }
 
    signal=getsignal(name,1/*if doesn't exist create it*/);

@@ -62,7 +62,7 @@ extern losig_list* critical_output(lofig_list* lofig)
    for (losig=lofig->LOSIG; losig; losig=losig->NEXT) {
       if (!losig->NAMECHAIN) {
          fprintf(stderr,"critical_output: no losig name\n");
-         exit(1);
+         autexit(1);
       }
       signame=losig->NAMECHAIN->DATA;
       if (losig->TYPE==EXTERNAL) delay=getdelay(output_name(signame));
@@ -89,7 +89,7 @@ extern double critical_delay(lofig_list* lofig)
    
    if (!losig->NAMECHAIN) {
       fprintf(stderr,"critical_delay: no losig name\n");
-      exit(1);
+      autexit(1);
    }
    signame=losig->NAMECHAIN->DATA;
 
@@ -119,12 +119,12 @@ static ptype_list* search_long_path(losig_list* losig, int ck_include)
 
    if (!losig) {
       fprintf(stderr,"search_long_path: NULL pointer\n");
-      exit(1);
+      autexit(1);
    }
    
    if (!losig->NAMECHAIN) {
       fprintf(stderr,"search_long_path: no losig name\n");
-      exit(1);
+      autexit(1);
    }
 
    signame=(char*) losig->NAMECHAIN->DATA;
@@ -144,7 +144,7 @@ static ptype_list* search_long_path(losig_list* losig, int ck_include)
    ptype=getptype(losig->USER,LOFIGCHAIN);
    if (!ptype || !ptype->DATA) {
       fprintf(stderr,"search_long_path: no lofigchain found\n");
-      exit(1);
+      autexit(1);
    }
    
    for (lofigchain=(chain_list*) ptype->DATA; lofigchain; lofigchain=lofigchain->NEXT) {
@@ -152,7 +152,7 @@ static ptype_list* search_long_path(losig_list* losig, int ck_include)
       if (locon->DIRECTION==UNKNOWN) {
          fprintf(stderr,"BEH: 'linkage %s' isn't accepted\n",
          locon->NAME);
-         exit(1);
+         autexit(1);
       }
       /*only outputs*/
       if (isvss(locon->NAME) || isvdd(locon->NAME) 
@@ -175,7 +175,7 @@ static ptype_list* search_long_path(losig_list* losig, int ck_include)
    if (!cell) {
       fprintf(stderr,"library error: no cell '%s.vbe' found\n",
       loins->FIGNAME);
-      exit(1);
+      autexit(1);
    }
    befig=cell->BEFIG;
    if (befig->BEREG) {
@@ -198,7 +198,7 @@ static ptype_list* search_long_path(losig_list* losig, int ck_include)
       if (locon->DIRECTION==UNKNOWN) {
          fprintf(stderr,"BEH: 'linkage %s' in figure '%s' isn't accepted\n",
          locon->NAME,loins->FIGNAME);
-         exit(1);
+         autexit(1);
       }
       /*only inputs*/
       if (locon->DIRECTION==OUT || locon->DIRECTION==TRISTATE
@@ -208,7 +208,7 @@ static ptype_list* search_long_path(losig_list* losig, int ck_include)
       losig=locon->SIG;
       if (!losig->NAMECHAIN) {
          fprintf(stderr,"search_long_path: no name on signal\n");
-         exit(1);
+         autexit(1);
       }
       signame=(char*) losig->NAMECHAIN->DATA;
       delay=getdelay(signame);

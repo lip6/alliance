@@ -150,7 +150,7 @@ extern void save_xsch(FILE* xsch_stream, lofig_list* lofig, ptype_list* long_pat
       
       if (!ptype->DATA) {
          fprintf(stderr,"save_xsch: compute error\n");
-         exit(1);
+         autexit(1);
       }
       delay=ptype->TYPE;
       gradient=delay/((double)XSCH_COLOR_MAX);
@@ -161,7 +161,7 @@ extern void save_xsch(FILE* xsch_stream, lofig_list* lofig, ptype_list* long_pat
 
       if (!losig->NAMECHAIN || !losig->NAMECHAIN->DATA) {
          fprintf(stderr,"save_xsch: no name for signal\n");
-         exit(1);
+         autexit(1);
       }
       signame=losig->NAMECHAIN->DATA;
       
@@ -195,19 +195,19 @@ extern void save_xsch(FILE* xsch_stream, lofig_list* lofig, ptype_list* long_pat
          if (locon->DIRECTION==UNKNOWN) {
             fprintf(stderr,"BEH: 'linkage %s' in figure '%s' isn't accepted\n",
             locon->NAME,loins->INSNAME);
-            exit(1);
+            autexit(1);
          }
          if (locon->DIRECTION==OUT || locon->DIRECTION==INOUT 
            || locon->DIRECTION==TRISTATE || locon->DIRECTION==TRANSCV) break;
       }
       if (!locon) {
          fprintf(stderr,"save_xsch: no output found for '%s'\n",loins->INSNAME);
-         exit(1);
+         autexit(1);
       }
       losig=locon->SIG;
       if (!losig->NAMECHAIN) {
         fprintf(stderr,"save_xsch: no name on signal\n");
-        exit(1);
+        autexit(1);
       }
       signame=losig->NAMECHAIN->DATA;
       
@@ -226,7 +226,7 @@ extern void save_xsch(FILE* xsch_stream, lofig_list* lofig, ptype_list* long_pat
                losig_aux=locon->SIG;
                if (!losig_aux->NAMECHAIN) {
                  fprintf(stderr,"save_xsch: no name on signal\n");
-                 exit(1);
+                 autexit(1);
                }
                /*is signal in critical path?*/
                for (ptype2=long_path; ptype2; ptype2=ptype2->NEXT) {
@@ -301,7 +301,7 @@ extern void save_xsch(FILE* xsch_stream, lofig_list* lofig, ptype_list* long_pat
                   losig=locon->SIG;
                   if (!losig->NAMECHAIN) {
                     fprintf(stderr,"save_xsch: no name on signal\n");
-                    exit(1);
+                    autexit(1);
                   }
                   if (losig->NAMECHAIN->DATA==signame) {
                      dest=loins->INSNAME;

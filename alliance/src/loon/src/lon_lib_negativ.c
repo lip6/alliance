@@ -95,7 +95,7 @@ extern chain_list* inv_oper(chain_list* abl, int negativ)
          return abl;
       default:
          fprintf(stderr,"inv_oper: unknown operator %ld\n",ABL_OPER(abl));
-         exit(1);
+         autexit(1);
    }
 
    for (chain=ABL_CDR(abl); chain; chain=ABL_CDR(chain)) {
@@ -148,7 +148,7 @@ extern chain_list* build_negativ(chain_list* abl)
          case ABL_XOR: case ABL_NXOR: /*undifferent*/ break;
          default:
             fprintf(stderr,"inv_oper: oper %ld unknown\n",ABL_OPER(leaf));
-            exit(1);
+            autexit(1);
       }
    }
    
@@ -187,7 +187,7 @@ extern chain_list* build_negativ(chain_list* abl)
             break;
          default:
             fprintf(stderr,"inv_oper: oper %ld unknown\n",ABL_OPER(leaf));
-            exit(1);
+            autexit(1);
       }
    }
    
@@ -205,7 +205,7 @@ extern chain_list* build_negativ(chain_list* abl)
          break;
       default:
          fprintf(stderr,"inv_oper: oper %ld unknown\n",ABL_OPER(leaf));
-         exit(1);
+         autexit(1);
    }
    
    return abl;
