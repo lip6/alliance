@@ -153,8 +153,11 @@ struct fbfig *listfbfig;	/* list of fbfig to be deleted		*/
 	/* then, delete the object itself				*/
 	/* ###------------------------------------------------------### */
 
+
+
   while (listfbfig != 0)
     {
+    ptfbfig   = listfbfig;
     fbh_frefbreg (ptfbfig->BEREG);
     fbh_frefbmsg (ptfbfig->BEMSG);
     fbh_frefbrin (ptfbfig->BERIN);
@@ -168,7 +171,6 @@ struct fbfig *listfbfig;	/* list of fbfig to be deleted		*/
     if ((ptptype = getptype (ptfbfig->USER,FBH_GENERIC)) != 0)
       fbh_frefbgen (ptptype->DATA);
 
-    ptfbfig   = listfbfig;
     listfbfig = listfbfig->NEXT;
     mbkfree (ptfbfig);
     }
