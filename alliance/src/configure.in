@@ -25,7 +25,7 @@ dnl           Almost ten years since I wrote this stuff, I just can't
 dnl           believe it
 dnl Date    : 01/02/2002
 dnl Author  : Frederic Petrot <Frederic.Petrot@lip6.fr>
-dnl $Id: configure.in,v 1.15 2002/04/04 14:55:17 ludo Exp $
+dnl $Id: configure.in,v 1.16 2002/04/04 15:43:40 ludo Exp $
 dnl
 dnl
 AC_INIT(./configure.in)
@@ -38,7 +38,7 @@ changequote(,)dnl
 # compiled and installed prior to the tools
 # Add in the following variable the library name (or part of it, as a
 # match is performed) that you what to compile prior to anything
-libraries="\<mbk aut \<rds abl bdd log btr vex abe abt abv fsm fks fvh ftl rtn rtd scl vbh vbl vpn vpd vvh vtl pat ppt phl gcp druc beh bhl"
+libraries="\<mbk aut \<rds abl bdd log btr vex abe abt abv fsm fks fvh ftl rtn rtd scl vbh vbl vpn vpd vvh vtl pat ppt phl gcp druc beh bhl bvl"
 dirs=`\ls -l $srcdir | grep '^d' | awk '{print $NF}'`
 for l in $libraries ; do
    for i in $dirs ; do
