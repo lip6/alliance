@@ -1,0 +1,48 @@
+.\"   $Id: mbksetautoackchld.3,v 1.1 2000/11/20 12:44:28 gregoire Exp $
+.\" @(#)mbkalloc.2 2.11 91/08/22 ; Labo masi cao-vlsi; Author : Frederic Petrot
+.if t \{\
+.so man1/alc_contents.mac
+.XS \n%
+.ti 0.2i
+mbkalloc
+.XE
+.XS4 \n%
+.ti 0.2i
+mbkalloc
+.XE4 \}
+.TH MBKSETAUTOACKCHLD 3 "November 20, 2000" "ASIM/LIP6" "MBK UTILITY FUNCTIONS"
+.SH NAME
+mbksetautoackchld \- Tells Alliance to automatically handle terminaison of child process.
+.so man1/alc_origin.1
+.SH SYNOPSYS
+.nf
+.if n \{\
+.ft B \}
+.if t \{\
+.ft CR \}
+#include "mut315.h"
+void mbksetautoackchld( pid )
+int pid;
+.ft R
+.fi
+.SH PARAMETER
+.TP 20
+\fIpid\fP
+Process pid to automatically handle.
+.SH DESCRIPTION
+\fBmbksetautoackchld\fP provide a centralised way to catch terminated child
+process. Because some Alliance library can create a child process, and user
+application can do so, there must be a centralized way to get the exit status
+of process. If the programmer don't want to know the state of a child process,
+or if he don't want to know what is the terminaison code of such process, he
+must tells it to Alliance with this call. The programmer should never modify
+the handler of SIGCHLD.
+.SH RETURN VALUE
+\fBmbksetautoackchld\fP don't return value.
+.SH SEE ALSO
+.BR mbk (1),
+.BR mbkwaitpid (3).
+
+
+.so man1/alc_bug_report.1
+

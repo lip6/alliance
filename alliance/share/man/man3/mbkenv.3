@@ -1,4 +1,4 @@
-.\"   $Id: mbkenv.3,v 1.1 1999/05/31 17:30:23 alliance Exp $
+.\"   $Id: mbkenv.3,v 1.2 2000/11/20 12:44:28 gregoire Exp $
 .\" @(#)mbkenv.2 2.11 91/08/22 ; Labo masi cao-vlsi; Author : Frederic Petrot
 .if t \{\
 .so man1/alc_contents.mac
@@ -104,6 +104,18 @@ internally \fBlong SCALE_X\fP. Defines a scale factor for all coordinates, in
 order to be able to use files that works with half lambda rules for example.
 Parsers, drivers and genlib's macros use it extensivly.
 Its value is ten by default.
+.TP
+\fbMBK_IN_FILTER\fp
+internaly \fbIN_FILTER\fb. Filter string for reading compressed Alliance files.
+It has no value by default, means no filter is used.
+.TP
+\fbMBK_OUT_FILTER\fp
+internaly \fbOUT_FILTER\fb. Filter string for writing compressed Alliance files.
+It has no value by default, means no filter is used.
+.TP
+\fbMBK_FILTER_SFX\fp
+internaly \fbFILTER_SFX\fb. Extention of compressed files.
+It has no value by default, means no filter is used.
 .SH EXAMPLE
 .ta 3n 6n 9n 12n 15n 18n 21n
 .nf
