@@ -1,4 +1,4 @@
-.\"   $Id: ocr.1,v 1.1 2002/01/11 14:38:55 hcl Exp $
+.\"   $Id: ocr.1,v 1.2 2002/01/14 10:10:41 hcl Exp $
 .\" @(#)Labo.l 0.0 92/09/24 UPMC; Author: Hugo CLEMENT
 .pl -.4
 .TH OCR 1 "January 11, 2002" "ASIM/LIP6" "CAO\-VLSI Reference Manual"
@@ -50,6 +50,19 @@ Tells the router to stop its main loop when it reaches N iterations. The default
 \fBVerbose mode\fP
 .br
 \fB-v\fP set the verbose mode on
+.br
 \fB-vv\fP produces a lot of output
+.br
 \fB-d\fP for debugging purpose
 .br
+
+.sh ENVIRONMENT VARIABLES
+.pp
+\fBocr\fP uses the environment variables MBK_VDD and MBK_VSS to know
+the name of the power signals vdd and vss.
+.br
+
+.sh SEE ALSO
+.pp
+ocp(1), MBK_IN_LO(1), MBK_IN_PH(1), MBK_OUT_PH(1), MBK_VDD(1), MBK_VSS(1)
+.so man1/alc_bug_report.1
