@@ -1,7 +1,7 @@
-.\"   $Id: glop.1,v 1.1 1999/05/31 17:30:13 alliance Exp $
+.\"   $Id: glop.1,v 1.2 2001/04/04 13:19:58 francois Exp $
 .\" 
 .\" 
-.\"   $Id: glop.1,v 1.1 1999/05/31 17:30:13 alliance Exp $
+.\"   $Id: glop.1,v 1.2 2001/04/04 13:19:58 francois Exp $
 .\" 
 .\" 
 .pl -.4
@@ -20,6 +20,7 @@ glop
 
 .SH DESCRIPTION
 .br
+You should rather use the newest version of \fBloon\fP.
 \fBglop\fP is a CAD tool that permits to remove fanout problems within a gates netlist and to optimize the delay. The netlist can be hierarchical and is flattened if necessary. \fBglop\fP run in  batch mode and a parameter file can be used (see man \fBlax\fP) to parametrize optimization by adding informations on outputs (fanin), inputs (fanout, delay) and by setting general parameters such as fanout factor.
 \fBglop\fP permits to compute delays of gates in the netlist and gives the critical path in the netlist. The global optimization of \fBglop\fP performs gate repowering and buffer inserting to decrease the critical path delay.
 
@@ -71,7 +72,7 @@ You can call \fBglop\fP as follows :
 
 .SH SEE ALSO
 .br
-genlib(1), scmap(1), sclib(1), scr(1)
+loon(1), boom(1), boog(1), genlib(1), scmap(1), sclib(1), sxlib(1), scr(1).
 .br
 
 .SH DIAGNOSTICS
