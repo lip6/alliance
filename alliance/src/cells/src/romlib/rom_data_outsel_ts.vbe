@@ -1,0 +1,43 @@
+ENTITY rom_data_outsel_ts IS
+PORT (
+  enx     : in  BIT;
+  nenx    : in  BIT;
+  nprech  : in  BIT;
+  mux0    : in  BIT;
+  mux1    : in  BIT;
+  mux2    : in  BIT;
+  mux3    : in  BIT;
+  mux4    : in  BIT;
+  mux5    : in  BIT;
+  mux6    : in  BIT;
+  mux7    : in  BIT;
+  bit0    : in  BIT;
+  bit1    : in  BIT;
+  bit2    : in  BIT;
+  bit3    : in  BIT;
+  bit4    : in  BIT;
+  bit5    : in  BIT;
+  bit6    : in  BIT;
+  bit7    : in  BIT;
+  q       : out MUX_BIT BUS;
+  vdd     : in BIT;
+  vss     : in BIT
+);
+END rom_data_outsel_ts;
+
+ARCHITECTURE VBE OF rom_data_outsel_ts IS
+
+BEGIN
+  ASSERT (vdd and not (vss))
+  REPORT "power supply is missing on rom_data_outsel_ts"
+  SEVERITY WARNING;
+
+  label : BLOCK (enx = '1')
+  BEGIN
+  q <= GUARDED (mux0 and bit0) or (mux1 and bit1) or
+               (mux2 and bit2) or (mux3 and bit3) or
+               (mux4 and bit4) or (mux5 and bit5) or
+               (mux6 and bit6) or (mux7 and bit7);  
+  END BLOCK label;
+
+END;

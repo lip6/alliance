@@ -1,0 +1,39 @@
+ENTITY rom_dec_selmux45 IS
+PORT (
+  a0      : in  BIT;
+  na0     : in  BIT;
+  a1      : in  BIT;
+  na1     : in  BIT;
+  a2      : in  BIT;
+  na2     : in  BIT;
+  a3      : in  BIT;
+  na3     : in  BIT;
+  a4      : in  BIT;
+  na4     : in  BIT;
+  a5      : in  BIT;
+  na5     : in  BIT;
+  ck      : in  BIT;
+  selrom  : in  BIT;
+  nck     : out BIT;
+  mux4    : out BIT;
+  sel4    : out BIT;
+  mux5    : out BIT;
+  sel5    : out BIT;
+  vdd	  : in  BIT;
+  vss	  : in  BIT
+);
+END rom_dec_selmux45;
+
+ARCHITECTURE VBE OF rom_dec_selmux45 IS
+
+BEGIN
+  ASSERT (vdd and not (vss))
+  REPORT "power supply is missing on rom_dec_selmux45"
+  SEVERITY WARNING;
+
+  nck <= not ck;
+  mux4 <= (not a0) and (not a1) and (    a2);
+  mux5 <= (    a0) and (not a1) and (    a2);
+  sel4 <= (not a3) and (not a4) and (    a5) and selrom;
+  sel5 <= (    a3) and (not a4) and (    a5) and selrom;
+END;

@@ -1,0 +1,20 @@
+ENTITY rom_dec_adbuf IS
+PORT (
+  ad     : in  BIT;
+  adx    : out BIT;
+  nadx   : out BIT;
+  vdd    : in  BIT;
+  vss    : in  BIT
+);
+END rom_dec_adbuf;
+
+ARCHITECTURE VBE OF rom_dec_adbuf IS
+
+BEGIN
+  ASSERT (vdd and not (vss))
+  REPORT "power supply is missing on rom_dec_adbuf"
+  SEVERITY WARNING;
+
+  nadx <= not ad;
+  adx  <= not nadx;
+END;
