@@ -3,7 +3,7 @@
 # description   : Alliance Shared Libraries and Include Files   #
 # ###---------------------------------------------------------###
 
-# $Id: libraries.mk,v 1.27 2000/03/23 18:34:11 czo Exp $
+# $Id: libraries.mk,v 1.28 2000/08/31 15:45:34 czo Exp $
 
 # The variables $ALLIANCE_TOP and $ALLIANCE_OS are set by
 # alc_env.[c]sh script
@@ -156,9 +156,9 @@ ABL_L      =  -lAbl103
 ABL_LIB    = libAbl103.a
 ABL_H      =    abl103.h
 
-BDD_L      =  -lBdd104
-BDD_LIB    = libBdd104.a
-BDD_H      =    bdd104.h
+BDD_L      =  -lBdd105
+BDD_LIB    = libBdd105.a
+BDD_H      =    bdd105.h
 
 # attention il s'agit de la lib luc
 # ne pas utiliser avec aut abl bdd : utiliser log102...
@@ -176,15 +176,15 @@ LOG_H      =    log201.h
 #              level functions                                  #
 # ###---------------------------------------------------------###
 
-ABE_L      =  -lAbe200
-ABE_LIB    = libAbe200.a
-ABE_H      =    abe200.h
-ABT_L      =  -lAbt200
-ABT_LIB    = libAbt200.a
-ABT_H      =    abt200.h
-ABV_L      =  -lAbv200
-ABV_LIB    = libAbv200.a
-ABV_H      =    abv200.h
+ABE_L      =  -lAbe201
+ABE_LIB    = libAbe201.a
+ABE_H      =    abe201.h
+ABT_L      =  -lAbt201
+ABT_LIB    = libAbt201.a
+ABT_H      =    abt201.h
+ABV_L      =  -lAbv201
+ABV_LIB    = libAbv201.a
+ABV_H      =    abv201.h
 
 # ###---------------------------------------------------------###
 #    functions related to simulation scheduler :                #
@@ -196,6 +196,15 @@ SCH_L      =  -lSch110
 SCH_LIB    = libSch110.a
 SCH_H      =    sch110.h
 
+# ###---------------------------------------------------------###
+#    functions related to schematic :                           #
+#                                                               #
+#      - scl : Schematic Library                                #
+# ###---------------------------------------------------------###
+
+SCL_L      =  -lScl105
+SCL_LIB    = libScl105.a
+SCL_H      =    scl105.h
 
 # ###---------------------------------------------------------###
 #    functions related to behavioural representation :          #
@@ -207,15 +216,15 @@ SCH_H      =    sch110.h
 #              level functions                                  #
 # ###---------------------------------------------------------###
 
-BEH_L      =  -lBeh110
-BEH_LIB    = libBeh110.a
-BEH_H      =    beh110.h
+BEH_L      =  -lBeh111
+BEH_LIB    = libBeh111.a
+BEH_H      =    beh111.h
 CST_L      =  -lCst100
 CST_LIB    = libCst100.a
 CST_H      =    cst100.h
-BHL_L      =  -lBhl110
-BHL_LIB    = libBhl110.a
-BHL_H      =    bhl110.h
+BHL_L      =  -lBhl111
+BHL_LIB    = libBhl111.a
+BHL_H      =    bhl111.h
 BVL_L      =  -lBvl113
 BVL_LIB    = libBvl113.a
 BVL_H      =    bvl113.h
@@ -236,8 +245,10 @@ FSM_H      =    fsm104.h
 
 FVH_L      =  -lFvh104
 FVH_LIB    = libFvh104.a
+FVH_H      =    fvh104.h
 FKS_L      =  -lFks104
 FKS_LIB    = libFks104.a
+FKS_H      =    fks104.h
 
 FTL_L      =  -lFtl104
 FTL_LIB    = libFtl104.a
@@ -253,15 +264,15 @@ FTL_H      =    ftl104.h
 #      - pgn : user level functions for GENPAT                  #
 # ###---------------------------------------------------------###
 
-PAT_L      =  -lPat108
-PAT_LIB    = libPat108.a
-PAT_H      =    pat108.h
-PHL_L      =  -lPhl108
-PHL_LIB    = libPhl108.a
-PHL_H      =    phl108.h
-PPT_L      =  -lPpt108
-PPT_LIB    = libPpt108.a
-PPT_H      =    ppt108.h
+PAT_L      =  -lPat109
+PAT_LIB    = libPat109.a
+PAT_H      =    pat109.h
+PHL_L      =  -lPhl109
+PHL_LIB    = libPhl109.a
+PHL_H      =    phl109.h
+PPT_L      =  -lPpt109
+PPT_LIB    = libPpt109.a
+PPT_H      =    ppt109.h
 PGN_L      =  -lPgn103
 PGN_LIB    = libPgn103.a
 PGN_H      =    Pgn102.h
@@ -281,31 +292,31 @@ PGN_H      =    Pgn102.h
 #      - rtl : user level functions                             #
 # ###---------------------------------------------------------###
 
-RDS_L      =  -lRds209
-RDS_LIB    = libRds209.a
-RDS_H      =    rds209.h
+RDS_L      =  -lRds210
+RDS_LIB    = libRds210.a
+RDS_H      =    rds210.h
 
-RUT_L      =  -lRut208
-RUT_LIB    = libRut208.a
-RUT_H      =    rut208.h
+RUT_L      =  -lRut209
+RUT_LIB    = libRut209.a
+RUT_H      =    rut209.h
 
-RCF_L      =  -lRcf111
-RCF_LIB    = libRcf111.a
-RFM_L      =  -lRfm211
-RFM_LIB    = libRfm211.a
-RFM_H      =    rfm211.h
-RGS_L      =  -lRgs112
-RGS_LIB    = libRgs112.a
-RPR_L      =  -lRpr213
-RPR_LIB    = libRpr213.a
-RPR_H      =    rpr213.h
-RWI_L      =  -lRwi109
-RWI_LIB    = libRwi109.a
-RWI_H      =    rwi109.h
+RCF_L      =  -lRcf112
+RCF_LIB    = libRcf112.a
+RFM_L      =  -lRfm212
+RFM_LIB    = libRfm212.a
+RFM_H      =    rfm212.h
+RGS_L      =  -lRgs113
+RGS_LIB    = libRgs113.a
+RPR_L      =  -lRpr214
+RPR_LIB    = libRpr214.a
+RPR_H      =    rpr214.h
+RWI_L      =  -lRwi110
+RWI_LIB    = libRwi110.a
+RWI_H      =    rwi110.h
 
-RTL_L      =  -lRtl110
-RTL_LIB    = libRtl110.a
-RTL_H      =    rtl110.h
+RTL_L      =  -lRtl111
+RTL_LIB    = libRtl111.a
+RTL_H      =    rtl111.h
 
 # ###---------------------------------------------------------###
 #    functions related to icon representation :                 #
@@ -380,9 +391,9 @@ APR_H      =    apr103.h
 #    design rule checker functions                              #
 # ###---------------------------------------------------------###
 
-VRD_L      =  -lVrd303
-VRD_LIB    = libVrd303.a
-VRD_H      =    vrd303.h
+VRD_L      =  -lVrd304
+VRD_LIB    = libVrd304.a
+VRD_H      =    vrd304.h
 
 # ###---------------------------------------------------------###
 #    user level functions for FPGEN				#
