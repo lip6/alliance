@@ -4,10 +4,10 @@
 #
 # Alliance CAD system configure.in 
 # (C) 1997 Czo  -- <Olivier.Sirol@lip6.fr>
-# $Id: configure.in,v 1.13 2000/09/11 15:37:20 czo Exp $
+# $Id: configure.in,v 1.14 2000/09/11 16:45:50 czo Exp $
 #
 
-AC_REVISION($Revision: 1.13 $)dnl
+AC_REVISION($Revision: 1.14 $)dnl
 
 AC_INIT(configure.in)
 
@@ -442,6 +442,15 @@ AC_TRY_LINK([#include <stdio.h>
 [  double     Proba;
    Proba    = drand48();],
 AC_MSG_RESULT(yes); AUTO_HAS="$AUTO_HAS -DAUTO_HAS_DRAND48",
+AC_MSG_RESULT(no))
+
+AC_MSG_CHECKING(VALUES_H)
+AC_TRY_LINK([#include <stdio.h>
+#include <stdlib.h>
+#include <values.h>],
+[  float     Proba;
+   Proba   = MAXFLOAT;],
+AC_MSG_RESULT(yes); AUTO_HAS="$AUTO_HAS -DAUTO_HAS_VALUES_H",
 AC_MSG_RESULT(no))
 
 AC_SUBST(AUTO_HAS)
