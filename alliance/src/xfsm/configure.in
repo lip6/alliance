@@ -121,11 +121,10 @@ XEXT_LIBS=""
 AC_CHECK_LIB(Xext, XShapeQueryVersion, XEXT_LIBS="-lXext",,
 	${X_PRE_LIBS} ${X11_LIBS} ${X_EXTRA_LIBS})
 AC_SUBST(XEXT_LIBS)
-dnl
-dnl
+
 dnl Check for Motif widget libraries
 dnl
-dnl
+
 XM_LIBS=""
 XP_LIBS=""
 if test "$motif_includes" != "no" && test "$motif_libraries" != "no"
@@ -134,43 +133,40 @@ dnl Motif 2.1 wants `-lXp' (X11R6.3 print server)
 AC_CHECK_LIB(Xp, XpSelectInput,
 	XP_LIBS="-lXp"
 	AC_DEFINE(HAVE_XP),,
-	${X_PRE_LIBS} ${XPM_LIBS} ${XEXT_LIBS} ${XT_LIBS} ${XEXT_LIBS} ${X11_LIBS} ${X_EXTRA_LIBS})
+                   ${XPM_LIBS} ${XEXT_LIBS} ${XT_LIBS} ${X_PRE_LIBS} ${X11_LIBS} ${X_EXTRA_LIBS})
 dnl
 AC_CHECK_LIB(Xm, XmCreateOptionMenu, 
 	XM_LIBS="-lXm"
 	AC_DEFINE(HAVE_MOTIF),,
-	${X_PRE_LIBS} ${XP_LIBS} ${XPM_LIBS} ${XEXT_LIBS} ${XT_LIBS} ${XEXT_LIBS} ${X11_LIBS} ${X_EXTRA_LIBS})
+	${XP_LIBS} ${XPM_LIBS} ${XEXT_LIBS} ${XT_LIBS} ${X_PRE_LIBS} ${X11_LIBS} ${X_EXTRA_LIBS})
 dnl
 AC_CHECK_LIB(Xm, xmUseVersion, 
 	AC_DEFINE(HAVE_XMUSEVERSION),,
-	${X_PRE_LIBS} ${XP_LIBS} ${XPM_LIBS} ${XEXT_LIBS} ${XT_LIBS} ${XEXT_LIBS} ${X11_LIBS} ${X_EXTRA_LIBS})
+	${XP_LIBS} ${XPM_LIBS} ${XEXT_LIBS} ${XT_LIBS} ${X_PRE_LIBS} ${X11_LIBS} ${X_EXTRA_LIBS})
 dnl
 AC_CHECK_LIB(Xm, XmInstallImage,
 	AC_DEFINE(HAVE_XMINSTALLIMAGE),,
-	${X_PRE_LIBS} ${XP_LIBS} ${XPM_LIBS} ${XEXT_LIBS} ${XT_LIBS} ${XEXT_LIBS} ${X11_LIBS} ${X_EXTRA_LIBS})
+	${XP_LIBS} ${XPM_LIBS} ${XEXT_LIBS} ${XT_LIBS} ${X_PRE_LIBS} ${X11_LIBS} ${X_EXTRA_LIBS})
 dnl
 AC_CHECK_LIB(Xm, Xm21InstallImage,
 	AC_DEFINE(HAVE_XM21INSTALLIMAGE),,
-	${X_PRE_LIBS} ${XP_LIBS} ${XPM_LIBS} ${XEXT_LIBS} ${XT_LIBS} ${XEXT_LIBS} ${X11_LIBS} ${X_EXTRA_LIBS})
+	${XP_LIBS} ${XPM_LIBS} ${XEXT_LIBS} ${XT_LIBS} ${X_PRE_LIBS} ${X11_LIBS} ${X_EXTRA_LIBS})
 fi
 if test "$XM_LIBS" = ""; then
 dnl Without Motif, we won't get far.  Let the user fix this.
 AC_MSG_ERROR([The Motif library '-lXm' could not be found.
                   Please use the configure options '--with-motif-includes=DIR'
                   and '--with-motif-libraries=DIR' to specify the Xm location.
-                  See the files 'config.log' and 'ddd/config.log'
+                  See the files 'config.log'
                   for further diagnostics.])
 fi
+
 AC_SUBST(XP_LIBS)
 AC_SUBST(XM_LIBS)
-dnl
-dnl
-dnl Check for Motif properties
+
 LIBS="$LIBS ${XM_LIBS} ${XP_LIBS} ${XPM_LIBS} ${XEXT_LIBS} ${XT_LIBS} ${X_PRE_LIBS} ${X11_LIBS} ${X_EXTRA_LIBS}"
-dnl
-dnl
-dnl
-dnl
+
+    
 LIBS="$ice_save_LIBS"
 CFLAGS="$ice_save_CFLAGS"
 CXXFLAGS="$ice_save_CXXFLAGS"
