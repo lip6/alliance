@@ -52,14 +52,12 @@
 |                                                             |
 \------------------------------------------------------------*/
 
-# define CTL_VARIABLE_EXIST_ERROR          0
-# define CTL_CONSTANT_EXIST_ERROR          1
-# define CTL_UNKNOWN_DECLAR_TYPE           2
-# define CTL_UNDECLARED_SYMBOL             3
-# define CTL_DECLAR_EXIST_ERROR            4
-# define CTL_BAD_DECLAR_TYPE               5
-# define CTL_ILLEGAL_INDEX_ERROR           6
-# define CTL_ILLEGAL_POSITION_ERROR        7
+# define CTL_UNKNOWN_DECLAR_TYPE           1
+# define CTL_UNDECLARED_SYMBOL             2
+# define CTL_DECLAR_EXIST_ERROR            3
+# define CTL_BAD_DECLAR_TYPE               4
+# define CTL_ILLEGAL_INDEX_ERROR           5
+# define CTL_ILLEGAL_POSITION_ERROR        6
 
 /*------------------------------------------------------------\
 |                                                             |

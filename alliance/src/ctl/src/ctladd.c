@@ -72,7 +72,9 @@
   {
     "ALL",
     "VARIABLE",
-    "CONSTANT"
+    "DEFINE",
+    "ASSUME",
+    "INITIAL"
   };
 
 /*------------------------------------------------------------\
@@ -108,6 +110,9 @@ ctlfig_list *addctlfig( Name )
   {
     Figure->HASH_DECLAR[ Type ] = createauthtable( 50 );
   }
+
+  Figure->HASH_FORM = createauthtable( 50 );
+  Figure->HASH_TYPE = createauthtable( 50 );
 
   return( Figure );
 }
@@ -239,51 +244,109 @@ ctldecl_list *addctldeclvar( Figure, Atom )
    ctlfig_list   *Figure;
    vexexpr       *Atom;
 {
-  ctldecl_list *Constant;
+  ctldecl_list *Variable;
   char         *Name;
 
   if ( ! IsVexNodeAtom( Atom ) ) Name = getvexarrayname( Atom );
   else                           Name = GetVexAtomValue( Atom );
 
-  Constant = searchctldeclall( Figure, Name );
+  Variable = searchctldeclall( Figure, Name );
 
-  if ( Constant != (ctldecl_list *)0 )
+  if ( Variable != (ctldecl_list *)0 )
   {
-    ctlerror( CTL_VARIABLE_EXIST_ERROR, Name, 0 );
+    ctlerror( CTL_DECLAR_EXIST_ERROR, Name, 0 );
   }
 
-  Constant = loc_addctldecl( Figure, Atom, CTL_DECLAR_VARIABLE );
+  Variable = loc_addctldecl( Figure, Atom, CTL_DECLAR_VARIABLE );
 
-  return( Constant );
+  return( Variable );
 }
 
 /*------------------------------------------------------------\
 |                                                             |
-|                     Ctl Add Declaration Constant            |
+|                     Ctl Add Declaration Define              |
 |                                                             |
 \------------------------------------------------------------*/
 
-ctldecl_list *addctldeclcst( Figure, Atom )
+ctldecl_list *addctldecldef( Figure, Atom )
 
    ctlfig_list   *Figure;
    vexexpr       *Atom;
 {
-  ctldecl_list *Constant;
+  ctldecl_list *Define;
   char         *Name;
 
   if ( ! IsVexNodeAtom( Atom ) ) Name = getvexarrayname( Atom );
   else                           Name = GetVexAtomValue( Atom );
 
-  Constant = searchctldeclall( Figure, Name );
+  Define = searchctldeclall( Figure, Name );
 
-  if ( Constant != (ctldecl_list *)0 )
+  if ( Define != (ctldecl_list *)0 )
   {
-    ctlerror( CTL_CONSTANT_EXIST_ERROR, Name, 0 );
+    ctlerror( CTL_DECLAR_EXIST_ERROR, Name, 0 );
   }
 
-  Constant = loc_addctldecl( Figure, Atom, CTL_DECLAR_CONSTANT );
+  Define = loc_addctldecl( Figure, Atom, CTL_DECLAR_DEFINE );
 
-  return( Constant );
+  return( Define );
+}
+
+/*------------------------------------------------------------\
+|                                                             |
+|                     Ctl Add Declaration Assume              |
+|                                                             |
+\------------------------------------------------------------*/
+
+ctldecl_list *addctldeclass( Figure, Atom )
+
+   ctlfig_list   *Figure;
+   vexexpr       *Atom;
+{
+  ctldecl_list *Assume;
+  char         *Name;
+
+  if ( ! IsVexNodeAtom( Atom ) ) Name = getvexarrayname( Atom );
+  else                           Name = GetVexAtomValue( Atom );
+
+  Assume = searchctldeclall( Figure, Name );
+
+  if ( Assume != (ctldecl_list *)0 )
+  {
+    ctlerror( CTL_DECLAR_EXIST_ERROR, Name, 0 );
+  }
+
+  Assume = loc_addctldecl( Figure, Atom, CTL_DECLAR_ASSUME );
+
+  return( Assume );
+}
+
+/*------------------------------------------------------------\
+|                                                             |
+|                     Ctl Add Declaration Initial             |
+|                                                             |
+\------------------------------------------------------------*/
+
+ctldecl_list *addctldeclinit( Figure, Atom )
+
+   ctlfig_list   *Figure;
+   vexexpr       *Atom;
+{
+  ctldecl_list *Initial;
+  char         *Name;
+
+  if ( ! IsVexNodeAtom( Atom ) ) Name = getvexarrayname( Atom );
+  else                           Name = GetVexAtomValue( Atom );
+
+  Initial = searchctldeclall( Figure, Name );
+
+  if ( Initial != (ctldecl_list *)0 )
+  {
+    ctlerror( CTL_DECLAR_EXIST_ERROR, Name, 0 );
+  }
+
+  Initial = loc_addctldecl( Figure, Atom, CTL_DECLAR_INITIAL );
+
+  return( Initial );
 }
 
 /*------------------------------------------------------------\
@@ -371,6 +434,8 @@ ctlform_list *addctlform( Figure, Name, Expr )
 
   *(Form->PREV) = Form;
 
+  addauthelem( Figure->HASH_FORM, Name, (long)Form );
+
   return( Form );
 }
 
@@ -407,6 +472,8 @@ ctltype_list *addctltype( Figure, Name, Index,
   Type->INDEX  = Index;
   Type->BASE   = Base;
   Figure->TYPE = Type;
+
+  addauthelem( Figure->HASH_TYPE, Name, (long)Type );
 
   return( Type );
 }

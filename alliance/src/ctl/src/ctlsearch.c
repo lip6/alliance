@@ -210,18 +210,17 @@ ctlform_list *searchctlform( Figure, Name )
   ctlfig_list *Figure;
   char        *Name;
 {
-  ctlform_list *Form;
+  authelem  *Element;
 
-  Name = namealloc( Name );
+  Name    = namealloc( Name );
+  Element = searchauthelem( Figure->HASH_FORM, Name );
 
-  for ( Form  = Figure->FORM;
-        Form != (ctlform_list *)0;
-        Form  = Form->NEXT )
+  if ( Element != (authelem *)0 )
   {
-    if ( Form->NAME == Name ) break;
+    return( (ctlform_list *)( Element->VALUE ) );
   }
 
-  return( Form );
+  return( (ctlform_list *)0 );
 }
 
 /*------------------------------------------------------------\
@@ -235,17 +234,16 @@ ctltype_list *searchctltype( Figure, Name )
   ctlfig_list *Figure;
   char        *Name;
 {
-  ctltype_list *Type;
+  authelem  *Element;
 
-  Name = namealloc( Name );
+  Name    = namealloc( Name );
+  Element = searchauthelem( Figure->HASH_TYPE, Name );
 
-  for ( Type  = Figure->TYPE;
-        Type != (ctltype_list *)0;
-        Type  = Type->NEXT )
+  if ( Element != (authelem *)0 )
   {
-    if ( Type->NAME == Name ) break;
+    return( (ctltype_list *)( Element->VALUE ) );
   }
 
-  return( Type );
+  return( (ctltype_list *)0 );
 }
 

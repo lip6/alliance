@@ -165,6 +165,8 @@ int delctlfig( Name )
     destroyauthtable( Figure->HASH_DECLAR[ Type ] );
   }
 
+  destroyauthtable( Figure->HASH_FORM );
+
   ScanForm = Figure->FORM;
 
   while ( ScanForm != (ctlform_list *)0 )
@@ -176,6 +178,8 @@ int delctlfig( Name )
   
     freectlform( Delete );
   }
+
+  destroyauthtable( Figure->HASH_TYPE );
 
   ScanType = Figure->TYPE;
 

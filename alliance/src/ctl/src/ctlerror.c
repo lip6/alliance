@@ -97,12 +97,6 @@ void ctl_error( Error, Text1, Text2, File, Line )
     case CTL_UNKNOWN_DECLAR_TYPE :
       fprintf( stderr, "unknown declar type %ld for %s\n", (long)Text1, Text2 );
     break;
-    case CTL_VARIABLE_EXIST_ERROR :
-      fprintf( stderr, "variable %s exists already\n", Text1 );
-    break;
-    case CTL_CONSTANT_EXIST_ERROR :
-      fprintf( stderr, "constant %s exists already\n", Text1 );
-    break;
     case CTL_DECLAR_EXIST_ERROR   :
       fprintf( stderr, "symbol %s already declared\n", Text1 );
     break;

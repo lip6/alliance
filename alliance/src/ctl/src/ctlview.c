@@ -161,6 +161,9 @@ void viewctldecl( Decl )
   fprintf( stdout, "\n\t\tVEX_INIT : " );
   viewvexexprbound( Decl->VEX_INIT );
 
+  fprintf( stdout, "\n\t\tTYPE     : %s", 
+           ( Decl->TYPE != (ctltype_list *)0 ) ? Decl->TYPE->NAME : "ERROR" );
+
   fprintf( stdout, "\n\t\tDECL_SYM :\n" );
 
   DeclSym = Decl->DECL_SYM;
