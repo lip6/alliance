@@ -6,6 +6,8 @@ export PATH
 DATE=`date +"%Y.%m.%d_%H.%M.%S"`
 LABO=/users/soft5/newlabo/alliance
 
+cd /users/soft5/newlabo/cvstree/alliance/archi
+
 for ARCHI in Linux_elf Linux SunOS Solaris
  do
  for FILE in /users/soft5/newlabo/cvstree/alliance/archi/$ARCHI/bin/*
