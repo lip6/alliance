@@ -10,9 +10,12 @@ if  test "$1" = "clean" ; then
    find . -name Makefile.in -exec rm {} \; -print
    find . -name aclocal.m4 -exec rm {} \; -print
    find . -name configure -exec rm {} \; -print
+   find . -name autom4te.cache -exec rm -r {} \; -print
    rm -f mkinstalldirs
    rm -f missing
    rm -f install-sh
+   rm -f depcomp
+   rm -f distrib/alliance.spec
    exit
 fi 
 
@@ -26,6 +29,7 @@ fi
 
 ## root first
 aclocal -I .
+libtoolize --force --copy --automake
 automake --foreign --add-missing --copy
 autoconf
 
@@ -34,12 +38,12 @@ for i in $dirs ; do
    cd $i
    if test -f configure.in ; then
       echo entering $i ...
-      if grep "^AM_PROG_LIBTOOL" configure.in >/dev/null; then
-      echo "Running libtoolize..."
-      libtoolize --force --copy --automake
-      fi
       aclocal -I . -I ..
-      automake --foreign
+      if grep "^AM_PROG_LIBTOOL" configure.in >/dev/null; then
+         echo "Running libtoolize..."
+         libtoolize --force --copy --automake
+      fi
+      automake --add-missing --copy --foreign
       autoconf
    fi
    cd ..
