@@ -71,7 +71,7 @@
 #include "mbkgen.h"
 #define __GENLIB__
 #include "mgn.h"
-static char rcsid[] = "$Id: genlib.c,v 1.7 2002/06/07 13:04:42 fred Exp $";
+static char rcsid[] = "$Id: genlib.c,v 1.8 2002/08/14 19:18:24 pnt Exp $";
 
 /*******************************************************************************
 * global variables used in genlib                                              *
@@ -3394,6 +3394,11 @@ losig_list *ls0, *ls1, *ls2;
 locon_list *c;
 loins_list *i;
 lotrs_list *t;
+
+locap_list *cap   = NULL  ;
+lores_list *res   = NULL  ;
+loself_list *self = NULL  ;
+
 chain_list *chain;
 
    if (WORK_LOFIG == NULL) {
@@ -3459,6 +3464,46 @@ chain_list *chain;
       if (t->SOURCE->SIG == ls2)
          t->SOURCE->SIG = ls1;
    }
+
+   for(cap = WORK_LOFIG -> LOCAP ; cap != NULL ; cap = cap -> NEXT)
+     {
+       if(cap -> TCON -> SIG == ls2)
+	 {
+           cap -> TCON -> SIG = ls1 ;
+	 }
+
+      if(cap -> BCON -> SIG == ls2)
+	{
+          cap -> BCON ->SIG = ls1 ;
+	}
+     }
+
+   for(res = WORK_LOFIG -> LORES ; res != NULL ; res = res -> NEXT)
+     {
+       if(res -> RCON1 -> SIG == ls2)
+	 {
+           res -> RCON1 -> SIG = ls1 ;
+	 }
+
+      if(res -> RCON2 -> SIG == ls2)
+	{
+          res -> RCON2 ->SIG = ls1 ;
+	}
+     }
+
+   for(self = WORK_LOFIG -> LOSELF ; self != NULL ; self = self -> NEXT)
+     {
+       if(self -> SCON1 -> SIG == ls2)
+	 {
+           self -> SCON1 -> SIG = ls1 ;
+	 }
+
+      if(self -> SCON2 -> SIG == ls2)
+	{
+          self -> SCON2 ->SIG = ls1 ;
+	}
+     }
+
 #if 0
    if (ls2->PRCN) {
       if (!ls1->PRCN)
@@ -4285,4 +4330,182 @@ char *s;
           *s == '.' || *s == ' ')
          return 1;
    return 0;
+}
+
+/*******************************************************************************
+* function LOCAP                                                               *
+*******************************************************************************/
+
+void genLOCAP(char type,double capa,char *tcon,char *bcon,char *name)
+{
+  int        i         = 0    ;
+  losig_list *s_tcon   = NULL ;
+  losig_list *s_bcon   = NULL ;
+  losig_list *ptsig    = NULL ;
+  chain_list *ptchain  = NULL ;
+  char       *signame  = NULL ;
+
+  for(i = 0 ; i < 2 ; i++)
+    {
+      switch(i)
+        {
+	case 0 :
+	  signame = namealloc(checkname(tcon)) ;
+	  break ;
+	case 1 :
+	  signame = namealloc(checkname(bcon)) ;
+	  break ;
+	}
+
+      for(ptsig = WORK_LOFIG -> LOSIG; ptsig; ptsig = ptsig -> NEXT)
+	{
+	  for(ptchain = ptsig -> NAMECHAIN; ptchain; ptchain = ptchain -> NEXT)
+	    {
+	      if(ptchain -> DATA == (void *)signame)
+	        break ;
+	    }
+
+	  if (ptchain)
+	    break ;
+	}
+
+      if(!ptsig)
+	{
+	  num_index++ ;
+
+	  ptsig = addlosig(WORK_LOFIG,num_index,addchain((chain_list *)NULL,
+                           (void *)signame),INTERNAL) ;
+	}
+
+      switch (i)
+	{
+	case 0 :
+	  s_tcon = ptsig ;
+	  break ;
+	case 1 :
+	  s_bcon = ptsig ;
+	  break ;
+	}
+    }
+
+  (void)addlocap(WORK_LOFIG,type,capa,s_tcon,s_bcon,name) ;
+}
+
+
+/*******************************************************************************
+* function LORES                                                               *
+*******************************************************************************/
+
+void genLORES(char type,double resi,char *rcon1,char *rcon2,char *name)
+{
+  int        i         = 0    ;
+  losig_list *s_rcon1  = NULL ;
+  losig_list *s_rcon2  = NULL ;
+  losig_list *ptsig    = NULL ;
+  chain_list *ptchain  = NULL ;
+  char       *signame  = NULL ;
+
+  for(i = 0 ; i < 2 ; i++)
+    {
+      switch(i)
+        {
+	case 0 :
+	  signame = namealloc(checkname(rcon1)) ;
+	  break ;
+	case 1 :
+	  signame = namealloc(checkname(rcon2)) ;
+	  break ;
+	}
+
+      for(ptsig = WORK_LOFIG -> LOSIG; ptsig; ptsig = ptsig -> NEXT)
+	{
+	  for(ptchain = ptsig -> NAMECHAIN; ptchain; ptchain = ptchain -> NEXT)
+	    {
+	      if(ptchain -> DATA == (void *)signame)
+	        break ;
+	    }
+
+	  if (ptchain)
+	    break ;
+	}
+
+      if(!ptsig)
+	{
+	  num_index++ ;
+
+	  ptsig = addlosig(WORK_LOFIG,num_index,addchain((chain_list *)NULL,
+                           (void *)signame),INTERNAL) ;
+	}
+
+      switch (i)
+	{
+	case 0 :
+	  s_rcon1 = ptsig ;
+	  break ;
+	case 1 :
+	  s_rcon2 = ptsig ;
+	  break ;
+	}
+    }
+
+  (void)addlores(WORK_LOFIG,type,resi,s_rcon1,s_rcon2,name) ;
+}
+
+/*******************************************************************************
+* function LOSELF                                                               *
+*******************************************************************************/
+
+void genLOSELF(char type,double self,char *scon1,char *scon2,char *name)
+{
+  int        i         = 0    ;
+  losig_list *s_scon1  = NULL ;
+  losig_list *s_scon2  = NULL ;
+  losig_list *ptsig    = NULL ;
+  chain_list *ptchain  = NULL ;
+  char       *signame  = NULL ;
+
+  for(i = 0 ; i < 2 ; i++)
+    {
+      switch(i)
+        {
+	case 0 :
+	  signame = namealloc(checkname(scon1)) ;
+	  break ;
+	case 1 :
+	  signame = namealloc(checkname(scon2)) ;
+	  break ;
+	}
+
+      for(ptsig = WORK_LOFIG -> LOSIG; ptsig; ptsig = ptsig -> NEXT)
+	{
+	  for(ptchain = ptsig -> NAMECHAIN; ptchain; ptchain = ptchain -> NEXT)
+	    {
+	      if(ptchain -> DATA == (void *)signame)
+	        break ;
+	    }
+
+	  if (ptchain)
+	    break ;
+	}
+
+      if(!ptsig)
+	{
+	  num_index++ ;
+
+	  ptsig = addlosig(WORK_LOFIG,num_index,addchain((chain_list *)NULL,
+                           (void *)signame),INTERNAL) ;
+	}
+
+      switch (i)
+	{
+	case 0 :
+	  s_scon1 = ptsig ;
+	  break ;
+	case 1 :
+	  s_scon2 = ptsig ;
+	  break ;
+	}
+    }
+
+  (void)addloself(WORK_LOFIG,type,self,s_scon1,s_scon2,name) ;
 }

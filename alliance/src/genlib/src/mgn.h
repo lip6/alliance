@@ -110,6 +110,16 @@ extern void genSC_CHANNEL();
 extern void genSC_CON_CHANNEL();
 extern void genLOGEN(char *, int, ...);;
 extern void genSETLOGEN(char *, char *, ...);
+
+/********************************* Analogical world ************************************/
+
+extern void genLOCAP(char type,double capa,char *tcon,char *bcon,char *name)    ;
+extern void genLORES(char type,double resi,char *rcon1,char *rcon2,char *name)  ;
+extern void genLOSELF(char type,double self,char *scon1,char *scon2,char *name) ;
+
+/***************************************************************************************/
+
+
 /*******************************************************************************
 * name forming functions, for both views                                       *
 *******************************************************************************/
@@ -260,6 +270,15 @@ extern char *genNAME(char *, ...);
 #define GENLIB_BUS(signame,from,to)              genBUS(signame,from,to)
 #define GENLIB_ELM(signame,number)               genELM(signame,number)
 #define GENLIB_NAME                              genNAME
+
+
+/********************************* Analogical world ************************************/
+
+#define GENLIB_LOCAP(type,capa,tcon,bcon,name)    genLOCAP(type,capa,tcon,bcon,name)
+#define GENLIB_LORES(type,resi,rcon1,rcon2,name)  genLORES(type,resi,rcon1,rcon2,name)
+#define GENLIB_LOSELF(type,self,scon1,scon2,name) genLOSELF(type,self,scon1,scon2,name)
+
+/***************************************************************************************/
 
 #endif
 
