@@ -39,7 +39,7 @@
 /*                                                                          */
 /****************************************************************************/
 
-#ident "$Id: l2p.c,v 1.1 2002/04/03 13:55:21 ludo Exp $"
+#ident "$Id: l2p.c,v 1.2 2002/04/03 15:31:13 ludo Exp $"
 
 #include <stdio.h>
 #include <stdlib.h>
@@ -51,7 +51,7 @@
 #include "rds.h"
 #include "rwi.h"
 #include "rut.h"
-#include RPS_H
+#include "rps_inc.h"
 #include "rtl.h"
 #include "rpr.h"
 #include "rfm.h"
@@ -107,7 +107,7 @@ struct rps_param	*param;
 			exit (0);
 		};
 	};
-	alliancebanner ("L2P",RPS_VERSION,
+	alliancebanner ("L2P",L2P_VERSION,
 		"(L)ayout to(2) (P)aper: A tool for PostScript plots",
 		"1994",ALLIANCE_VERSION);
 	if (argc == 1) {
