@@ -5,7 +5,7 @@
 # E-mail support     : mailto:alliance-support@asim.lip6.fr
 # ftp site           : ftp://ftp-asim.lip6.fr/pub/alliance/
 #
-# $Id: LICENCE,v 1.4 2000/01/25 15:36:03 czo Exp $
+# $Id: LICENCE,v 1.5 2000/01/28 14:50:56 czo Exp $
 
 
               "Alliance VLSI CAD System" is free Software.
@@ -18,15 +18,17 @@
                          75252 Paris Cedex 05, 
                                  France 
 
-Alliance is available under the terms of the GNU General Public License
-   GPL (http://www.gnu.org/copyleft/gpl.html). Please read the files 
-                    COPYING-2.0 and COPYING.LIB-2.0
+Alliance  is  freely  available  under  the terms  of  the  GNU  General
+Public License.  Please read the files  COPYING-2.0 and COPYING.LIB-2.0.
+(More  info at  http://www.gnu.org/copyleft/)  Alliance binaries,  cells
+libraries,  documentation and  source  code are  covered  by GPL,  exept
+some Alliance's base libraries wich are LGPL.
 
-    You are welcome to use the software package even for commercial 
-      designs without any fee. You are just required to mention : 
+You are welcome to use the software package even for commercial designs 
+without any fee. You are just required to mention :                     
 
-                  "Designed with Alliance CAD system,
-       Copyright (C) 1991, 2000 Université Pierre et Marie Curie"
+"Designed with Alliance CAD system,  Copyright (C) 1991, 2000 Université
+                         Pierre et Marie Curie"
 
 
                                   ---

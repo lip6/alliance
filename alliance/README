@@ -5,7 +5,7 @@
 # E-mail support     : mailto:alliance-support@asim.lip6.fr
 # ftp site           : ftp://ftp-asim.lip6.fr/pub/alliance/
 #
-# $Id: README,v 1.5 2000/01/25 16:28:57 czo Exp $
+# $Id: README,v 1.6 2000/01/28 14:50:56 czo Exp $
 
 
 # Alliance 
@@ -19,16 +19,16 @@
                                  France
 
 
-"Alliance VLSI CAD System" is free Software.
+              "Alliance VLSI CAD System" is free Software.
 
-Alliance is available under the terms of the GNU General Public License
+Alliance is available under the terms  of the GNU General Public License
 GPL (http://www.gnu.org/copyleft/gpl.html).
 
-You are welcome to use the software package even for commercial 
-designs without any fee. You are just required to mention : 
+You are welcome to use the software package even for commercial designs 
+without any fee. You are just required to mention :                     
 
-" Designed with Alliance CAD system,
-  Copyright (C) 1991, 2000 Université Pierre et Marie Curie"
+"Designed with Alliance CAD system, Copyright (C) 1991, 2000 Université
+                         Pierre et Marie Curie"
 
 You can get Alliance via anonymous FTP from ftp.lip6.fr
 
@@ -39,28 +39,42 @@ You can get Alliance via anonymous FTP from ftp.lip6.fr
 # Downloading
 # ===================================================================
 
+Note that for running some precompiled Alliance binaries you will need gcc and
+other gnu tools (gmake, gawk ...), X11R6.4 libraries (http://www.x.org/), Motif
+1.2 libraries (You can find a free Motif clone at http://www.lesstif.org/) Rpms
+for linux RedHat 6 of lesstif-0.88 are available at
+ftp://ftp-asim.lip6.fr/pub/alliance/redist/
 
-You will have to download at least two files : one for the common files
-of Alliance (like cells library) and another containing binaries for
-your specific platform. As for now, only Linux, SunOS, Solaris and
-FreeBSD are available. A Windows 95/NT release should be out this
-year.
+Gziped tar format :
+-------------------
 
+You will have to download at least two files : one for the common files of
+Alliance (like cells library) and another containing binaries for your specific
+platform. Binaries for Linux, SunOS, Solaris and FreeBSD platforms are
+available.
 
-alliance-X.XX-common.tar.gz               Files common to each platform *required*
+download alliance-X.XX-common.tar.gz   Files common to each platform *required*
+download alliance-X.XX-i386-linux-Y.YY.tar.gz     for Linux
+download alliance-X.XX-i386-freebsd-Y.YY.tar.gz   for FreeBSD
+download alliance-X.XX-sparc-sunos-Y.YY.tar.gz    for SunOS
+download alliance-X.XX-sparc-solaris-Y.YY.tar.gz  for Solaris
 
-alliance-X.XX-i386-linux-Y.YY.tar.gz      Binaries Linux_elf
+Where X.XX is the Alliance version number (e.g.: 3.2 for Alliance 3.2)
+and Y.YY is the OS version number (e.g.: 4.1.4 for SunOS 4.1.4)
 
-alliance-X.XX-sparc-sunos-Y.YY.tar.gz     Binaries SunOS
+Linux Rpm :
+-----------
 
-alliance-X.XX-sparc-solaris-Y.YY.tar.gz   Binaries Solaris
+Available for Linux RedHat 6 (the common package is included)
 
+download alliance-X.XX-i386-asimYY.rpm
 
-where X.XX is the Alliance version number (e.g.: 3.2 for Alliance 3.2)
-and   Y.YY is the OS version number (e.g.: 4.1.4 for SunOS 4.1.4)
 
 # Installation :
 # ===================================================================
+
+Gziped tar format :
+-------------------
 
 You *don't* need to be root to install Alliance in a directory you *own*
 
@@ -92,6 +106,14 @@ gawk, ...) are missing, you will have to install them.
 
 If you install Alliance on different platforms you'll
 need to run the 'configure' script on each of them.
+
+Linux Rpm :
+-----------
+
+Note that the Linux RedHat 6 rpm installs Alliance in "/usr/local/alliance"
+
+> rpm -Uvh alliance-X.XX-i386-asimYY.rpm
+
 
 # Usage :
 # ===================================================================
