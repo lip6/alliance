@@ -1,4 +1,4 @@
-.\"   $Id: lofig.3,v 1.1 2002/03/08 13:51:02 fred Exp $
+.\"   $Id: lofig.3,v 1.2 2002/08/14 22:05:26 pnt Exp $
 .\" @(#)lofig.l 0.0 90/22/08 UPMC; Author: Frederic Petrot
 .if t \{\
 .so man1/alc_contents.mac
@@ -10,7 +10,7 @@ lofig
 .ti 0.2i
 lofig
 .XE2 \}
-.TH LOFIG 3 "October 1, 1997" "ASIM/LIP6" "MBK LOGICAL STRUCTURE DEFINITIONS"
+.TH LOFIG 3 "August 14, 2002" "ASIM/LIP6" "MBK LOGICAL STRUCTURE DEFINITIONS"
 .SH NAME
 lofig \- mbk logical figure 
 .SH DESCRIPTION
@@ -19,7 +19,7 @@ of a figure. The logical view is also called the netlist, for list of nets,
 because it represents the interconections between elements of a cell.
 .LP
 The declarations needed to work on \fBlofig\fP are available in the header file
-\fI"/labo/include/mlo404.h"\fP, where '\fI404\fP' is the actual mbk version.
+\fI"/labo/include/mlo.h"\fP.
 .LP
 The following C structure supports the description of the netlist
 representation :
@@ -38,6 +38,9 @@ typedef struct lofig {
 	struct ptype	\(**BKSIG;
 	struct loins	\(**LOINS;
 	struct lotrs	\(**LOTRS;
+	struct lotrs	\(**LOCAP;
+	struct lotrs	\(**LORES;
+	struct lotrs	\(**LOSELF;
 	char	\(**NAME;
 	char	MODE;
 	struct ptype	\(**USER;
@@ -77,6 +80,15 @@ the two representations.
 Pointer to the list of transistors belonging to the figure. It is to be noticed
 that transistors are not instances of a particular type.
 .TP
+\fILOCAP\fP
+Pointer to the list of capacitors belonging to the figure.
+.TP
+\fILORES\fP
+Pointer to the list of resistors belonging to the figure.
+.TP
+\fILOSELF\fP
+Pointer to the list of inductors belonging to the figure.
+.TP
 \fIMODE\fP
 Caracter indicating the status of the figure in memory. This field can
 take two values :
@@ -107,6 +119,9 @@ purpose pointer used to share informations on the model.
 .BR savelofig (3),
 .BR loins (3),
 .BR lotrs (3),
+.BR locap (3),
+.BR lores (3),
+.BR loself (3),
 .BR locon (3),
 .BR losig (3),
 .BR ptype (3),
