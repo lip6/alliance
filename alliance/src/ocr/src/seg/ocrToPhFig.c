@@ -1,8 +1,11 @@
 /*
    ### -------------------------------------------------- ### 
-   $Author: hcl $
-   $Date: 2002/07/03 12:38:16 $
+   $Author: uid809 $
+   $Date: 2002/07/03 13:17:14 $
    $Log: ocrToPhFig.c,v $
+   Revision 1.3  2002/07/03 13:17:14  uid809
+   merci Laurent D.
+
    Revision 1.2  2002/07/03 12:38:16  hcl
    rien
 
@@ -63,7 +66,7 @@
 #define PITCH		5
 
 static char *res_id =
-    "$Id: ocrToPhFig.c,v 1.2 2002/07/03 12:38:16 hcl Exp $";
+    "$Id: ocrToPhFig.c,v 1.3 2002/07/03 13:17:14 uid809 Exp $";
 
 extern ocrOption *g_pOption;
 #define LEVEL (g_pOption->LEVEL)
@@ -149,8 +152,6 @@ addViaToPhFig(ocrRoutingParameters * i_pParam,
     //printf ("Add via %d en %ld %ld\n",i_nLayer,i_uX,i_uY);
 #else
 
-    if ((i_uX == 200) && (i_uY == 205))
-        abort();
 
     addphvia(io_pPhFig,
              getPhVia(i_nLayer),
