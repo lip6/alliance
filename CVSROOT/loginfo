@@ -22,4 +22,4 @@
 #ALL	(date ; cat ; (sleep 2 ; cd /users/outil/alliance/latest ; cvs -q update -d ) &) >> $CVSROOT/CVSROOT/log-latest 2>&1
 
 ALL	( cat > /dev/null 2>&1 ; echo "Taper Ctrl-C peut avoir des consequences facheuses :-)")
-ALL	( cat > /tmp/loginfo.$$.tmp | /users/outil/alliance/cvsroot/CVSROOT/postconfig /tmp/loginfo.$$.tmp ) & >> $CVSROOT/CVSROOT/log-czo 2>&1 
+ALL	cat > /tmp/loginfo.$$.tmp ; /users/outil/alliance/cvsroot/CVSROOT/postconfig /tmp/loginfo.$$.tmp & >> $CVSROOT/CVSROOT/log-czo 2>&1 
