@@ -10,8 +10,8 @@ AC_SUBST(OCP_MINOR_VERSION)
 AC_SUBST(OCP_VERSION)
 
 # libtool versioning
-LT_RELEASE=$OCP_MAJOR_VERSION.$OCP_MINOR_VERSION
-AC_SUBST(LT_RELEASE)
+# LT_RELEASE=$OCP_MAJOR_VERSION.$OCP_MINOR_VERSION
+# AC_SUBST(LT_RELEASE)
 
 # For automake.
 VERSION=$OCP_VERSION
@@ -20,11 +20,10 @@ PACKAGE=ocp
 dnl Initialize automake stuff
 AM_INIT_AUTOMAKE($PACKAGE, $VERSION)
 
-dnl Specify a configuration file
-dnl AM_CONFIG_HEADER(config.h)
-
 dnl Checks for programs.
 AC_PROG_CXX
+AC_PROG_CC
+AC_PROG_RANLIB
 ALC_CXX_PROBLEMATIC_OLD_VERSION
 AM_PROG_LEX
 AC_PROG_YACC
@@ -37,6 +36,11 @@ changequote([,])dnl
 
 AC_SUBST(INCLUDES)
 AC_SUBST(LDFLAGS)
+
+dnl changequote(,)dnl
+dnl INSTALL_DATA = ${INSTALL} -m 664
+dnl changequote([,])dnl
+dnl AC_SUBST(INSTALL_DATA)
 
 dnl Checks for libraries.
 dnl Check for -lm librarie.  These should always be present.
