@@ -1,0 +1,4 @@
+north(pck  pd   po0  po1   pvdde pvsse po2)
+east (po9  po8  po7  po6   po5   po4   po3)
+south(po14 po13 po12 pvssi pvddi po11  po10)
+west (po15 po16 po17 po18  po19  po20  po21 po22)

@@ -1,0 +1,12 @@
+This directory contains a small design example done using Alliance.
+It is in French, but that's life.
+The example starts from a behavior and ends up in a layout in a smooth
+(too smooth to be honest) manner.
+All files in this directory are GPLed, even if not marked as such, and
+all have been authored by me, which is not so bad (I've even seen worse)
+
+A complete run is done using ./build_tuner, but I would advise to
+copy/paste from this file to understand what's going on.
+
+Have fun,
+Frédéric Pétrot, Tue Jul 27 22:32:17 CEST 2004

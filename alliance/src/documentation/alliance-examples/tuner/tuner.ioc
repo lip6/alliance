@@ -1,0 +1,33 @@
+TOP  (
+      (IOPIN ck.0 );
+      (IOPIN d.0 );
+      (IOPIN o(0).0 );
+      (IOPIN o(1).0 );
+      (IOPIN o(2).0 );
+)
+RIGHT (
+      (IOPIN o(9).0 );
+      (IOPIN o(8).0 );
+      (IOPIN o(7).0 );
+      (IOPIN o(6).0 );
+      (IOPIN o(5).0 );
+      (IOPIN o(4).0 );
+      (IOPIN o(3).0 );
+)
+BOTTOM(
+      (IOPIN o(14).0 );
+      (IOPIN o(13).0 );
+      (IOPIN o(12).0 );
+      (IOPIN o(11).0 );
+      (IOPIN o(10).0 );
+)
+LEFT (
+      (IOPIN o(15).0 );
+      (IOPIN o(16).0 );
+      (IOPIN o(17).0 );
+      (IOPIN o(18).0 );
+      (IOPIN o(19).0 );
+      (IOPIN o(20).0 );
+      (IOPIN o(21).0 );
+      (IOPIN o(22).0 );
+)

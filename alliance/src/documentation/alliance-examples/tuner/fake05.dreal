@@ -1,0 +1,23 @@
+DEFINE DREAL_LOWER_GRID_STEP 10
+DEFINE DREAL_LOWER_FIGURE_STEP 0.1
+DEFINE DREAL_LOWER_INSTANCE_STEP 0.1
+DEFINE DREAL_LOWER_CONNECTOR_STEP 0.5
+DEFINE DREAL_LOWER_SEGMENT_STEP 0.7
+DEFINE DREAL_LOWER_REFERENCE_STEP 1.0
+DEFINE DREAL_CURSOR_COLOR_NAME  Gray
+DEFINE DREAL_CURSOR_SIZE 10
+TABLE DREAL_RDS_LAYER_NAME
+  RDS_NWELL    NTUB   tan               Black
+  RDS_PWELL    IMPF   coral             Black
+  RDS_POLY     POL1   red               Black
+  RDS_CONT     CONT   dark_violet       Black
+  RDS_ALU1     MET1   royal_blue        Black
+  RDS_VIA1     VIA1   deep_sky_blue     Black
+  RDS_ALU2     MET2   cyan              Black
+  RDS_VIA2     VIA2   deep_pink         Black
+  RDS_ALU3     MET3   light_pink        Black
+  RDS_ACTIV    DIFF   brown             Black
+  RDS_NIMP     NPLS   forest_green      Black
+  RDS_PIMP     PPLS   goldenrod         Black
+  RDS_CPAS     PADL   gray              Black
+END
