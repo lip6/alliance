@@ -17,7 +17,7 @@ ctp_l.c : $(srcdir)/ctp_l.l ctp_y.h
 
 EXTRA_PROGRAMS = ctptest
 
-ctptest_LDADD = -L$(top_builddir)/src -lCtp \
+ctptest_LDADD = -L. -lCtp \
                 -lCtl -lVex -lAut -lMut
 
 ctptest_SOURCES = main.c

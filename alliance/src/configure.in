@@ -1,74 +1,963 @@
-dnl
-dnl This file is part of the Alliance CAD System
-dnl Copyright (C) Laboratoire LIP6 - Département ASIM
-dnl Universite Pierre et Marie Curie
-dnl 
-dnl Home page          : http://www-asim.lip6.fr/alliance/
-dnl E-mail             : mailto:alliance-users@asim.lip6.fr
-dnl 
-dnl This library is free software; you  can redistribute it and/or modify it
-dnl under the terms  of the GNU Library General Public  License as published
-dnl by the Free Software Foundation; either version 2 of the License, or (at
-dnl your option) any later version.
-dnl 
-dnl Alliance VLSI  CAD System  is distributed  in the hope  that it  will be
-dnl useful, but WITHOUT  ANY WARRANTY; without even the  implied warranty of
-dnl MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU General
-dnl Public License for more details.
-dnl 
-dnl You should have received a copy  of the GNU General Public License along
-dnl with the GNU C Library; see the  file COPYING. If not, write to the Free
-dnl Software Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
-dnl
-dnl Purpose : Auto stuffing Alliance
-dnl           Almost ten years since I wrote this stuff, I just can't
-dnl           believe it
-dnl Date    : 01/02/2002
-dnl Author  : Frederic Petrot <Frederic.Petrot@lip6.fr>
-dnl $Id: configure.in,v 1.30 2002/10/16 18:04:14 jpc Exp $
-dnl
-dnl
-AC_INIT(./configure.in)
+
+AC_INIT(./autostuff)
 AM_INIT_AUTOMAKE(alliance, 5.0)
+
+AM_PROG_LEX
+AM_PROG_LIBTOOL
+AC_CHECK_HEADERS(fcntl.h malloc.h strings.h sys/time.h unistd.h)
+AC_CHECK_HEADERS(strings.h unistd.h)
+AC_CHECK_LIB(gen, basename)
+AC_CHECK_LIB(iberty, basename)
+AC_CHECK_LIB(m, exp)
+AC_CHECK_LIB(m, floor)
+AC_CHECK_LIB(m, pow)
+AC_CHECK_LIB(m, sqrt)
+AC_CHECK_PROG(SED, sed, sed)
+AC_CHECK_PROGS(SED, gsed sed)
+AC_C_CONST
+AC_FUNC_VFORK
+AC_HEADER_STDC
+AC_HEADER_SYS_WAIT
+AC_PATH_XTRA
 AC_PROG_CC
+AC_PROG_CPP
+AC_PROG_CXX
+AC_PROG_INSTALL
+AC_PROG_MAKE_SET
+AC_PROG_RANLIB
+AC_PROG_YACC
+AC_TYPE_SIGNAL
+dnl
+dnl Check for X stuff
+dnl
+dnl
+dnl Check X options
+dnl
+if test "$with_x" = no; then
+AC_MSG_ERROR([requires the X window system to compile and run.
+                  Please do not use the configure option '--without-x'.])
+fi
+if test "$with_motif" = no; then
+AC_MSG_ERROR([requires Motif to compile and run.
+                  Please do not use the configure option '--without-motif'.])
+fi
+dnl
+dnl
+dnl Check for X libraries
+dnl
+if test "$with_x" != no; then
+ice_save_LIBS="$LIBS"
+ice_save_CFLAGS="$CFLAGS"
+ice_save_CXXFLAGS="$CXXFLAGS"
+ice_save_CPPFLAGS="$CPPFLAGS"
+ice_save_LDFLAGS="$LDFLAGS"
 
-changequote(,)dnl
-# Build a compilation order that ensures that the libraries are
-# compiled and installed prior to the tools
-# Add in the following variable the library name (or part of it, as a
-# match is performed) that you what to compile prior to anything
+dnl
+dnl
 
+AC_FIND_MOTIF
+AC_FIND_XPM
 
-libraries="mbk mbkal mbkap mbkedif mbkhilo mbkmg mbkspice mbkvhdl mbkvrlog mbkvti mbkvhdlg aut \
-rds rdscif rdsgds elp abl bdd log btr vex ctl ctp abe abt abv fsm fks fvh ftl rtn rtd scl vbh vbl vpn \
-vpd vvh vtl pat ppt phl gcp druc beh bhl bvl"
-dirs=`\ls -l $srcdir | grep '^d' | awk '{print $NF}'`
-for l in $libraries ; do
-   for i in $dirs ; do
-      if test -d $srcdir/$i ; then
-         if test "$i" = "$l" ; then
-            ldirs="$ldirs `basename $i`"
-         fi
-      fi
-   done
-done
-tdirs=$dirs
-for i in $ldirs ; do
-   cmd="awk '{for(k=1;k<=NF;k++) if(\$k!=\"$i\") printf \"%s \",\$k;}'"
-   tdirs=`echo $tdirs | eval $cmd`
-done
-for i in $ldirs $tdirs ; do
-   if test -f $srcdir/$i/configure.in ; then
-      sdirs="$sdirs `basename $i`"
-   fi
-done
-echo $sdirs
-SUBDIRS="$sdirs"
-changequote([,])dnl
+dnl
+dnl
+dnl
+LIBS="$LIBS $X_EXTRA_LIBS"
+CFLAGS="$CFLAGS $X_CFLAGS"
+CPPFLAGS="$CPPFLAGS $X_CFLAGS"
+LDFLAGS="$LDFLAGS $X_LIBS"
+dnl
+dnl Check for X library
+dnl
+X11_LIBS=""
+AC_CHECK_LIB(X11, XOpenDisplay, X11_LIBS="-lX11",,${X_PRE_LIBS} ${X_EXTRA_LIBS})
+if test "$X11_LIBS" = ""; then
+dnl Not having X is fatal.  Let the user fix this.
+AC_MSG_ERROR([The X11 library '-lX11' could not be found.
+                  Please use the configure options '--x-includes=DIR'
+                  and '--x-libraries=DIR' to specify the X location.])
+fi
+AC_SUBST(X_LIBS)
+AC_SUBST(X11_LIBS)
+AC_SUBST(X_PRE_LIBS)
+dnl
+dnl
+dnl Check for -lXintl library.  Lutz Kittler <kittler@sse-erfurt.de> says
+dnl that DLD-Linux with CDE wants `-lXintl' to refine `Xlcmbcurmax'.
+dnl Guenther Roehrich <guenther@studbox.uni-stuttgart.de> says that
+dnl we must check for `_Xlcmbcurmax' instead of `Xlcmbcurmax'.
+dnl
+AC_CHECK_LIB(Xintl, _Xlcmbcurmax, X11_LIBS="${X11_LIBS} -lXintl",,
+	${X_PRE_LIBS} ${X11_LIBS} ${X_EXTRA_LIBS})
+dnl
+dnl
+dnl Check for -lipc library.  SCO unix is said to want that.
+dnl
+AC_CHECK_LIB(ipc, shmap, X11_LIBS="${X11_LIBS} -lipc",,
+	${X_PRE_LIBS} ${X11_LIBS} ${X_EXTRA_LIBS})
+dnl
+dnl
+dnl Check for X toolkit libraries
+dnl
+XT_LIBS=""
+AC_CHECK_LIB(Xt, XtToolkitInitialize, XT_LIBS="-lXt",,
+	${X_PRE_LIBS} ${X11_LIBS} ${X_EXTRA_LIBS})
+if test "$XT_LIBS" = ""; then
+dnl Not having Xt is fatal.  Let the user fix this.
+AC_MSG_ERROR([The X toolkit library '-lXt' could not be found.
+                  Please use the configure options '--x-includes=DIR'
+                  and '--x-libraries=DIR' to specify the X location.
+                  See the files 'config.log' and 'ddd/config.log'
+                  for further diagnostics.])
+fi
+AC_SUBST(XT_LIBS)
+dnl
+dnl
+dnl Check for X extension libraries
+dnl
+dnl
+XEXT_LIBS=""
+AC_CHECK_LIB(Xext, XShapeQueryVersion, XEXT_LIBS="-lXext",,
+	${X_PRE_LIBS} ${X11_LIBS} ${X_EXTRA_LIBS})
+AC_SUBST(XEXT_LIBS)
+dnl
+dnl
+dnl
+dnl Check for Xpm library and headers
+dnl
+XPM_LIBS=""
+if test "$xpm_includes" != "no" && test "$xpm_libraries" != "no"
+then
+AC_CHECK_LIB(Xpm, XpmCreatePixmapFromXpmImage,
+	XPM_LIBS="-lXpm"
+	AC_DEFINE(HAVE_XPM),,${X_PRE_LIBS} ${X11_LIBS} ${X_EXTRA_LIBS})
+if test "$XPM_LIBS" != ""; then
+AC_CHECK_HEADERS(X11/xpm.h xpm.h)
+fi
+fi
+AC_SUBST(XPM_LIBS)
 
-AC_CONFIG_SUBDIRS($sdirs)
-AC_SUBST(SUBDIRS)
+dnl Check for Motif widget libraries
+dnl
+
+XM_LIBS=""
+XP_LIBS=""
+if test "$motif_includes" != "no" && test "$motif_libraries" != "no"
+then
+dnl Motif 2.1 wants `-lXp' (X11R6.3 print server)
+AC_CHECK_LIB(Xp, XpSelectInput,
+	XP_LIBS="-lXp"
+	AC_DEFINE(HAVE_XP),,
+                   ${XPM_LIBS} ${XEXT_LIBS} ${XT_LIBS} ${X_PRE_LIBS} ${X11_LIBS} ${X_EXTRA_LIBS})
+dnl
+AC_CHECK_LIB(Xm, XmCreateOptionMenu, 
+	XM_LIBS="-lXm"
+	AC_DEFINE(HAVE_MOTIF),,
+	${XP_LIBS} ${XPM_LIBS} ${XEXT_LIBS} ${XT_LIBS} ${X_PRE_LIBS} ${X11_LIBS} ${X_EXTRA_LIBS})
+dnl
+AC_CHECK_LIB(Xm, xmUseVersion, 
+	AC_DEFINE(HAVE_XMUSEVERSION),,
+	${XP_LIBS} ${XPM_LIBS} ${XEXT_LIBS} ${XT_LIBS} ${X_PRE_LIBS} ${X11_LIBS} ${X_EXTRA_LIBS})
+dnl
+AC_CHECK_LIB(Xm, XmInstallImage,
+	AC_DEFINE(HAVE_XMINSTALLIMAGE),,
+	${XP_LIBS} ${XPM_LIBS} ${XEXT_LIBS} ${XT_LIBS} ${X_PRE_LIBS} ${X11_LIBS} ${X_EXTRA_LIBS})
+dnl
+AC_CHECK_LIB(Xm, Xm21InstallImage,
+	AC_DEFINE(HAVE_XM21INSTALLIMAGE),,
+	${XP_LIBS} ${XPM_LIBS} ${XEXT_LIBS} ${XT_LIBS} ${X_PRE_LIBS} ${X11_LIBS} ${X_EXTRA_LIBS})
+fi
+if test "$XM_LIBS" = ""; then
+dnl Without Motif, we won't get far.  Let the user fix this.
+AC_MSG_ERROR([The Motif library '-lXm' could not be found.
+                  Please use the configure options '--with-motif-includes=DIR'
+                  and '--with-motif-libraries=DIR' to specify the Xm location.
+                  See the files 'config.log'
+                  for further diagnostics.])
+fi
+
+AC_SUBST(XP_LIBS)
+AC_SUBST(XM_LIBS)
+
+LIBS="$LIBS ${XM_LIBS} ${XP_LIBS} ${XPM_LIBS} ${XEXT_LIBS} ${XT_LIBS} ${X_PRE_LIBS} ${X11_LIBS} ${X_EXTRA_LIBS}"
+    
+    
+LIBS="$ice_save_LIBS"
+CFLAGS="$ice_save_CFLAGS"
+CXXFLAGS="$ice_save_CXXFLAGS"
+CPPFLAGS="$ice_save_CPPFLAGS"
+LDFLAGS="$ice_save_LDFLAGS"
+fi
+AM_ALLIANCE
+AM_CONDITIONAL([ALLIANCE_BUILD],[(exit 0)])
+
+dnl Infos extracted from mbk/configure.in
+MBK_CUR=4
+AC_SUBST(MBK_CUR)
+MBK_REV=2
+AC_SUBST(MBK_REV)
+MBK_REL=0
+AC_SUBST(MBK_REL)
+MBK_DLL_VERSION=${MBK_CUR}:${MBK_REV}:${MBK_REL}
+AC_SUBST(MBK_DLL_VERSION)
+MBK_VERSION=$MBK_CUR.$MBK_REV
+AC_SUBST(MBK_VERSION)
+
+dnl Infos extracted from mbkal/configure.in
+MAL_DLL_VERSION=6:0:0
+AC_SUBST(MAL_DLL_VERSION)
+
+dnl Infos extracted from mbkap/configure.in
+MAP_DLL_VERSION=6:0:0
+AC_SUBST(MAP_DLL_VERSION)
+
+dnl Infos extracted from mbkedif/configure.in
+MEL_DLL_VERSION=4:9:0
+AC_SUBST(MEL_DLL_VERSION)
+
+dnl Infos extracted from mbkhilo/configure.in
+MHL_DLL_VERSION=2:1:0
+AC_SUBST(MHL_DLL_VERSION)
+
+dnl Infos extracted from mbkmg/configure.in
+MMG_DLL_VERSION=1:0:0
+AC_SUBST(MMG_DLL_VERSION)
+
+dnl Infos extracted from mbkspice/configure.in
+MSL_DLL_VERSION=7:0:0
+AC_SUBST(MSL_DLL_VERSION)
+
+dnl Infos extracted from mbkvhdl/configure.in
+MVL_DLL_VERSION=4:1:0
+AC_SUBST(MVL_DLL_VERSION)
+
+dnl Infos extracted from mbkvrlog/configure.in
+MGL_DLL_VERSION=0:8:0
+AC_SUBST(MGL_DLL_VERSION)
+
+dnl Infos extracted from mbkvti/configure.in
+MCP_DLL_VERSION=4:9:0
+AC_SUBST(MCP_DLL_VERSION)
+MCL_DLL_VERSION=4:9:0
+AC_SUBST(MCL_DLL_VERSION)
+
+dnl Infos extracted from mbkvhdlg/configure.in
+MVG_DLL_VERSION=4:1:0
+AC_SUBST(MVG_DLL_VERSION)
+
+dnl Infos extracted from aut/configure.in
+AUT_DLL_VERSION=1:3:0
+AC_SUBST(AUT_DLL_VERSION)
+
+dnl Infos extracted from rds/configure.in
+RDS_DLL_VERSION=2:1:0
+AC_SUBST(RDS_DLL_VERSION)
+RUT_DLL_VERSION=2:1:0
+AC_SUBST(RUT_DLL_VERSION)
+RFM_DLL_VERSION=2:1:0
+AC_SUBST(RFM_DLL_VERSION)
+RPR_DLL_VERSION=2:1:0
+AC_SUBST(RPR_DLL_VERSION)
+RWI_DLL_VERSION=2:1:0
+AC_SUBST(RWI_DLL_VERSION)
+RTL_DLL_VERSION=2:1:0
+AC_SUBST(RTL_DLL_VERSION)
+
+dnl Infos extracted from rdscif/configure.in
+RCF_DLL_VERSION=2:1:0
+AC_SUBST(RCF_DLL_VERSION)
+
+dnl Infos extracted from rdsgds/configure.in
+RGS_DLL_VERSION=2:1:0
+AC_SUBST(RGS_DLL_VERSION)
+
+dnl Infos extracted from elp/configure.in
+ELP_DLL_VERSION=1:5:0
+AC_SUBST(ELP_DLL_VERSION)
+
+dnl Infos extracted from abl/configure.in
+ABL_DLL_VERSION=1:3:0
+AC_SUBST(ABL_DLL_VERSION)
+
+dnl Infos extracted from bdd/configure.in
+BDD_DLL_VERSION=1:5:0
+AC_SUBST(BDD_DLL_VERSION)
+
+dnl Infos extracted from log/configure.in
+LOG_DLL_VERSION=2:1:0
+AC_SUBST(LOG_DLL_VERSION)
+
+dnl Infos extracted from btr/configure.in
+BTR_DLL_VERSION=1:3:0
+AC_SUBST(BTR_DLL_VERSION)
+
+dnl Infos extracted from vex/configure.in
+VEX_DLL_VERSION=1:3:0
+AC_SUBST(VEX_DLL_VERSION)
+
+dnl Infos extracted from ctl/configure.in
+CTL_DLL_VERSION=1:1:0
+AC_SUBST(CTL_DLL_VERSION)
+
+dnl Infos extracted from ctp/configure.in
+CTP_DLL_VERSION=1:1:0
+AC_SUBST(CTP_DLL_VERSION)
+
+dnl Infos extracted from abe/configure.in
+ABE_DLL_VERSION=2:1:0
+AC_SUBST(ABE_DLL_VERSION)
+
+dnl Infos extracted from abt/configure.in
+ABT_DLL_VERSION=2:1:0
+AC_SUBST(ABT_DLL_VERSION)
+
+dnl Infos extracted from abv/configure.in
+ABV_DLL_VERSION=2:1:0
+AC_SUBST(ABV_DLL_VERSION)
+
+dnl Infos extracted from fsm/configure.in
+FSM_DLL_VERSION=1:4:0
+AC_SUBST(FSM_DLL_VERSION)
+
+dnl Infos extracted from fks/configure.in
+FKS_DLL_VERSION=1:4:0
+AC_SUBST(FKS_DLL_VERSION)
+
+dnl Infos extracted from fvh/configure.in
+FVH_DLL_VERSION=1:4:0
+AC_SUBST(FVH_DLL_VERSION)
+
+dnl Infos extracted from ftl/configure.in
+FTL_DLL_VERSION=1:4:0
+AC_SUBST(FTL_DLL_VERSION)
+
+dnl Infos extracted from rtn/configure.in
+RTN_DLL_VERSION=1:1:0
+AC_SUBST(RTN_DLL_VERSION)
+
+dnl Infos extracted from rtd/configure.in
+RTD_DLL_VERSION=1:1:0
+AC_SUBST(RTD_DLL_VERSION)
+
+dnl Infos extracted from scl/configure.in
+SCL_DLL_VERSION=1:5:0
+AC_SUBST(SCL_DLL_VERSION)
+
+dnl Infos extracted from vbh/configure.in
+VBH_DLL_VERSION=1:4:0
+AC_SUBST(VBH_DLL_VERSION)
+
+dnl Infos extracted from vbl/configure.in
+VBL_DLL_VERSION=1:4:0
+AC_SUBST(VBL_DLL_VERSION)
+
+dnl Infos extracted from vpn/configure.in
+VPN_DLL_VERSION=1:5:0
+AC_SUBST(VPN_DLL_VERSION)
+
+dnl Infos extracted from vpd/configure.in
+VPD_DLL_VERSION=1:5:0
+AC_SUBST(VPD_DLL_VERSION)
+
+dnl Infos extracted from vvh/configure.in
+VVH_DLL_VERSION=1:5:0
+AC_SUBST(VVH_DLL_VERSION)
+
+dnl Infos extracted from vtl/configure.in
+VTL_DLL_VERSION=1:5:0
+AC_SUBST(VTL_DLL_VERSION)
+
+dnl Infos extracted from pat/configure.in
+PAT_DLL_VERSION=1:9:0
+AC_SUBST(PAT_DLL_VERSION)
+
+dnl Infos extracted from ppt/configure.in
+PPT_DLL_VERSION=1:9:0
+AC_SUBST(PPT_DLL_VERSION)
+
+dnl Infos extracted from phl/configure.in
+PHL_DLL_VERSION=1:9:0
+AC_SUBST(PHL_DLL_VERSION)
+
+dnl Infos extracted from druc/configure.in
+VRD_DLL_VERSION=3:4:0
+AC_SUBST(VRD_DLL_VERSION)
+
+dnl Infos extracted from beh/configure.in
+BEH_DLL_VERSION=1:11:0
+AC_SUBST(BEH_DLL_VERSION)
+
+dnl Infos extracted from bhl/configure.in
+BHL_DLL_VERSION=1:11:0
+AC_SUBST(BHL_DLL_VERSION)
+
+dnl Infos extracted from bvl/configure.in
+BVL_DLL_VERSION=1:14:0
+AC_SUBST(BVL_DLL_VERSION)
+
+dnl Infos extracted from alcban/configure.in
+ALCBANNER_MAJOR_VERSION=1
+AC_SUBST(ALCBANNER_MAJOR_VERSION)
+ALCBANNER_MINOR_VERSION=1
+AC_SUBST(ALCBANNER_MINOR_VERSION)
+ALCBANNER_VERSION=$ALCBANNER_MAJOR_VERSION.$ALCBANNER_MINOR_VERSION
+AC_SUBST(ALCBANNER_VERSION)
+
+dnl Infos extracted from asimut/configure.in
+CST_DLL_VERSION=3:2:0
+AC_SUBST(CST_DLL_VERSION)
+SCH_DLL_VERSION=3:2:0
+AC_SUBST(SCH_DLL_VERSION)
+
+dnl Infos extracted from attila/configure.in
+ATTILA_MAJOR_VERSION=0
+AC_SUBST(ATTILA_MAJOR_VERSION)
+ATTILA_MINOR_VERSION=1
+AC_SUBST(ATTILA_MINOR_VERSION)
+ATTILA_VERSION=$ATTILA_MAJOR_VERSION.$ATTILA_MINOR_VERSION
+AC_SUBST(ATTILA_VERSION)
+
+dnl Infos extracted from b2f/configure.in
+B2F_MAJOR_VERSION=1
+AC_SUBST(B2F_MAJOR_VERSION)
+B2F_MINOR_VERSION=2
+AC_SUBST(B2F_MINOR_VERSION)
+B2F_VERSION=$B2F_MAJOR_VERSION.$B2F_MINOR_VERSION
+AC_SUBST(B2F_VERSION)
+
+dnl Infos extracted from boog/configure.in
+BOOG_MAJOR_VERSION=1
+AC_SUBST(BOOG_MAJOR_VERSION)
+BOOG_MINOR_VERSION=7
+AC_SUBST(BOOG_MINOR_VERSION)
+BOOG_VERSION=$BOOG_MAJOR_VERSION.$BOOG_MINOR_VERSION
+AC_SUBST(BOOG_VERSION)
+
+dnl Infos extracted from boom/configure.in
+BOOM_MAJOR_VERSION=1
+AC_SUBST(BOOM_MAJOR_VERSION)
+BOOM_MINOR_VERSION=2
+AC_SUBST(BOOM_MINOR_VERSION)
+BOOM_VERSION=$BOOM_MAJOR_VERSION.$BOOM_MINOR_VERSION
+AC_SUBST(BOOM_VERSION)
+
+dnl Infos extracted from cells/configure.in
+
+dnl Infos extracted from distrib/configure.in
+
+dnl Infos extracted from documentation/configure.in
+DOC_MAJOR_VERSION=1
+AC_SUBST(DOC_MAJOR_VERSION)
+DOC_MINOR_VERSION=0
+AC_SUBST(DOC_MINOR_VERSION)
+DOC_VERSION=$DOC_MAJOR_VERSION.$DOC_MINOR_VERSION
+AC_SUBST(DOC_VERSION)
+
+dnl Infos extracted from dreal/configure.in
+DREAL_MAJOR_VERSION=1
+AC_SUBST(DREAL_MAJOR_VERSION)
+DREAL_MINOR_VERSION=14
+AC_SUBST(DREAL_MINOR_VERSION)
+DREAL_VERSION=$DREAL_MAJOR_VERSION.$DREAL_MINOR_VERSION
+AC_SUBST(DREAL_VERSION)
+
+dnl Infos extracted from exp/configure.in
+EXP_MAJOR_VERSION=1
+AC_SUBST(EXP_MAJOR_VERSION)
+EXP_MINOR_VERSION=0
+AC_SUBST(EXP_MINOR_VERSION)
+EXP_VERSION=$EXP_MAJOR_VERSION.$EXP_MINOR_VERSION
+AC_SUBST(EXP_VERSION)
+
+dnl Infos extracted from flatbeh/configure.in
+FLATBEH_MAJOR_VERSION=1
+AC_SUBST(FLATBEH_MAJOR_VERSION)
+FLATBEH_MINOR_VERSION=1
+AC_SUBST(FLATBEH_MINOR_VERSION)
+FLATBEH_VERSION=$FLATBEH_MAJOR_VERSION.$FLATBEH_MINOR_VERSION
+AC_SUBST(FLATBEH_VERSION)
+
+dnl Infos extracted from flatlo/configure.in
+
+dnl Infos extracted from flatph/configure.in
+
+dnl Infos extracted from fmi/configure.in
+FMI_MAJOR_VERSION=1
+AC_SUBST(FMI_MAJOR_VERSION)
+FMI_MINOR_VERSION=1
+AC_SUBST(FMI_MINOR_VERSION)
+FMI_VERSION=$FMI_MAJOR_VERSION.$FMI_MINOR_VERSION
+AC_SUBST(FMI_VERSION)
+
+dnl Infos extracted from fsp/configure.in
+FSP_MAJOR_VERSION=1
+AC_SUBST(FSP_MAJOR_VERSION)
+FSP_MINOR_VERSION=1
+AC_SUBST(FSP_MINOR_VERSION)
+FSP_VERSION=$FSP_MAJOR_VERSION.$FSP_MINOR_VERSION
+AC_SUBST(FSP_VERSION)
+
+dnl Infos extracted from genlib/configure.in
+MGN_DLL_VERSION=3:3:0
+AC_SUBST(MGN_DLL_VERSION)
+
+dnl Infos extracted from genpat/configure.in
+PGN_DLL_VERSION=3:3:0
+AC_SUBST(PGN_DLL_VERSION)
+
+dnl Infos extracted from graal/configure.in
+GRAAL_MAJOR_VERSION=1
+AC_SUBST(GRAAL_MAJOR_VERSION)
+GRAAL_MINOR_VERSION=27
+AC_SUBST(GRAAL_MINOR_VERSION)
+GRAAL_VERSION=$GRAAL_MAJOR_VERSION.$GRAAL_MINOR_VERSION
+AC_SUBST(GRAAL_VERSION)
+
+dnl Infos extracted from k2f/configure.in
+K2F_MAJOR_VERSION=1
+AC_SUBST(K2F_MAJOR_VERSION)
+K2F_MINOR_VERSION=1
+AC_SUBST(K2F_MINOR_VERSION)
+K2F_VERSION=$K2F_MAJOR_VERSION.$K2F_MINOR_VERSION
+AC_SUBST(K2F_VERSION)
+
+dnl Infos extracted from l2p/configure.in
+L2P_MAJOR_VERSION=1
+AC_SUBST(L2P_MAJOR_VERSION)
+L2P_MINOR_VERSION=12
+AC_SUBST(L2P_MINOR_VERSION)
+L2P_VERSION=$L2P_MAJOR_VERSION.$L2P_MINOR_VERSION
+AC_SUBST(L2P_VERSION)
+
+dnl Infos extracted from loon/configure.in
+LOON_MAJOR_VERSION=1
+AC_SUBST(LOON_MAJOR_VERSION)
+LOON_MINOR_VERSION=7
+AC_SUBST(LOON_MINOR_VERSION)
+LOON_VERSION=$LOON_MAJOR_VERSION.$LOON_MINOR_VERSION
+AC_SUBST(LOON_VERSION)
+
+dnl Infos extracted from lvx/configure.in
+LVX_MAJOR_VERSION=1
+AC_SUBST(LVX_MAJOR_VERSION)
+LVX_MINOR_VERSION=2
+AC_SUBST(LVX_MINOR_VERSION)
+LVX_VERSION=$LVX_MAJOR_VERSION.$LVX_MINOR_VERSION
+AC_SUBST(LVX_VERSION)
+
+dnl Infos extracted from lynx/configure.in
+LYNX_MAJOR_VERSION=1
+AC_SUBST(LYNX_MAJOR_VERSION)
+LYNX_MINOR_VERSION=21
+AC_SUBST(LYNX_MINOR_VERSION)
+LYNX_VERSION=$LYNX_MAJOR_VERSION.$LYNX_MINOR_VERSION
+AC_SUBST(LYNX_VERSION)
+
+dnl Infos extracted from m2e/configure.in
+M2E_MAJOR_VERSION=1
+AC_SUBST(M2E_MAJOR_VERSION)
+M2E_MINOR_VERSION=0
+AC_SUBST(M2E_MINOR_VERSION)
+M2E_VERSION=$M2E_MAJOR_VERSION.$M2E_MINOR_VERSION
+AC_SUBST(M2E_VERSION)
+
+dnl Infos extracted from mips_asm/configure.in
+MIPS_ASM_MAJOR_VERSION=1
+AC_SUBST(MIPS_ASM_MAJOR_VERSION)
+MIPS_ASM_MINOR_VERSION=0
+AC_SUBST(MIPS_ASM_MINOR_VERSION)
+MIPS_ASM_VERSION=$MIPS_ASM_MAJOR_VERSION.$MIPS_ASM_MINOR_VERSION
+AC_SUBST(MIPS_ASM_VERSION)
+
+dnl Infos extracted from mocha/configure.in
+MOCHA_MAJOR_VERSION=1
+AC_SUBST(MOCHA_MAJOR_VERSION)
+MOCHA_MINOR_VERSION=1
+AC_SUBST(MOCHA_MINOR_VERSION)
+MOCHA_VERSION=$MOCHA_MAJOR_VERSION.$MOCHA_MINOR_VERSION
+AC_SUBST(MOCHA_VERSION)
+
+dnl Infos extracted from nero/configure.in
+NERO_MAJOR_VERSION=1
+AC_SUBST(NERO_MAJOR_VERSION)
+NERO_MINOR_VERSION=0
+AC_SUBST(NERO_MINOR_VERSION)
+NERO_VERSION=$NERO_MAJOR_VERSION.$NERO_MINOR_VERSION
+AC_SUBST(NERO_VERSION)
+
+dnl Infos extracted from ocp/configure.in
+OCP_MAJOR_VERSION=1
+AC_SUBST(OCP_MAJOR_VERSION)
+OCP_MINOR_VERSION=0
+AC_SUBST(OCP_MINOR_VERSION)
+OCP_VERSION=$OCP_MAJOR_VERSION.$OCP_MINOR_VERSION
+AC_SUBST(OCP_VERSION)
+
+dnl Infos extracted from pat2spi/configure.in
+PAT2SPI_MAJOR_VERSION=1
+AC_SUBST(PAT2SPI_MAJOR_VERSION)
+PAT2SPI_MINOR_VERSION=1
+AC_SUBST(PAT2SPI_MINOR_VERSION)
+PAT2SPI_VERSION=$PAT2SPI_MAJOR_VERSION.$PAT2SPI_MINOR_VERSION
+AC_SUBST(PAT2SPI_VERSION)
+
+dnl Infos extracted from proof/configure.in
+PROOF_MAJOR_VERSION=4
+AC_SUBST(PROOF_MAJOR_VERSION)
+PROOF_MINOR_VERSION=9
+AC_SUBST(PROOF_MINOR_VERSION)
+PROOF_VERSION=$PROOF_MAJOR_VERSION.$PROOF_MINOR_VERSION
+AC_SUBST(PROOF_VERSION)
+
+dnl Infos extracted from ring/configure.in
+RING_MAJOR_VERSION=3
+AC_SUBST(RING_MAJOR_VERSION)
+RING_MINOR_VERSION=0
+AC_SUBST(RING_MINOR_VERSION)
+RING_VERSION=$RING_MAJOR_VERSION.$RING_MINOR_VERSION
+AC_SUBST(RING_VERSION)
+
+dnl Infos extracted from s2r/configure.in
+S2R_MAJOR_VERSION=4
+AC_SUBST(S2R_MAJOR_VERSION)
+S2R_MINOR_VERSION=4
+AC_SUBST(S2R_MINOR_VERSION)
+S2R_VERSION=$S2R_MAJOR_VERSION.$S2R_MINOR_VERSION
+AC_SUBST(S2R_VERSION)
+
+dnl Infos extracted from scapin/configure.in
+SCAPIN_MAJOR_VERSION=1
+AC_SUBST(SCAPIN_MAJOR_VERSION)
+SCAPIN_MINOR_VERSION=1
+AC_SUBST(SCAPIN_MINOR_VERSION)
+SCAPIN_VERSION=$SCAPIN_MAJOR_VERSION.$SCAPIN_MINOR_VERSION
+AC_SUBST(SCAPIN_VERSION)
+
+dnl Infos extracted from sea/configure.in
+SEA_MAJOR_VERSION=1
+AC_SUBST(SEA_MAJOR_VERSION)
+SEA_MINOR_VERSION=0
+AC_SUBST(SEA_MINOR_VERSION)
+SEA_VERSION=$SEA_MAJOR_VERSION.$SEA_MINOR_VERSION
+AC_SUBST(SEA_VERSION)
+
+dnl Infos extracted from syf/configure.in
+SYF_MAJOR_VERSION=3
+AC_SUBST(SYF_MAJOR_VERSION)
+SYF_MINOR_VERSION=6
+AC_SUBST(SYF_MINOR_VERSION)
+SYF_VERSION=$SYF_MAJOR_VERSION.$SYF_MINOR_VERSION
+AC_SUBST(SYF_VERSION)
+
+dnl Infos extracted from vasy/configure.in
+VASY_MAJOR_VERSION=1
+AC_SUBST(VASY_MAJOR_VERSION)
+VASY_MINOR_VERSION=5
+AC_SUBST(VASY_MINOR_VERSION)
+VASY_VERSION=$VASY_MAJOR_VERSION.$VASY_MINOR_VERSION
+AC_SUBST(VASY_VERSION)
+
+dnl Infos extracted from x2y/configure.in
+
+dnl Infos extracted from xfsm/configure.in
+XFSM_MAJOR_VERSION=1
+AC_SUBST(XFSM_MAJOR_VERSION)
+XFSM_MINOR_VERSION=4
+AC_SUBST(XFSM_MINOR_VERSION)
+XFSM_VERSION=$XFSM_MAJOR_VERSION.$XFSM_MINOR_VERSION
+AC_SUBST(XFSM_VERSION)
+
+dnl Infos extracted from xpat/configure.in
+XPAT_MAJOR_VERSION=1
+AC_SUBST(XPAT_MAJOR_VERSION)
+XPAT_MINOR_VERSION=4
+AC_SUBST(XPAT_MINOR_VERSION)
+XPAT_VERSION=$XPAT_MAJOR_VERSION.$XPAT_MINOR_VERSION
+AC_SUBST(XPAT_VERSION)
+
+dnl Infos extracted from xsch/configure.in
+XSCH_MAJOR_VERSION=1
+AC_SUBST(XSCH_MAJOR_VERSION)
+XSCH_MINOR_VERSION=4
+AC_SUBST(XSCH_MINOR_VERSION)
+XSCH_VERSION=$XSCH_MAJOR_VERSION.$XSCH_MINOR_VERSION
+AC_SUBST(XSCH_VERSION)
+
+dnl Infos extracted from xvpn/configure.in
+XVPN_MAJOR_VERSION=1
+AC_SUBST(XVPN_MAJOR_VERSION)
+XVPN_MINOR_VERSION=5
+AC_SUBST(XVPN_MINOR_VERSION)
+XVPN_VERSION=$XVPN_MAJOR_VERSION.$XVPN_MINOR_VERSION
+AC_SUBST(XVPN_VERSION)
+
+TOOLSDIRS="mbk mbkal mbkap mbkedif mbkhilo mbkmg mbkspice mbkvhdl mbkvrlog mbkvti mbkvhdlg aut rds rdscif rdsgds elp abl bdd log btr vex ctl ctp abe abt abv fsm fks fvh ftl rtn rtd scl vbh vbl vpn vpd vvh vtl pat ppt phl druc beh bhl bvl  alcban asimut attila b2f boog boom cells distrib documentation dreal exp flatbeh flatlo flatph fmi fsp genlib genpat graal k2f l2p loon lvx lynx m2e mips_asm mocha nero ocp pat2spi proof ring s2r scapin sea syf vasy x2y xfsm xpat xsch xvpn"
+AC_SUBST(TOOLSDIRS)
 
 AC_OUTPUT([
 Makefile
+distrib/etc/alc_env.sh
+distrib/etc/alc_env.csh
+mbk/Makefile
+mbk/man1/Makefile
+mbk/man3/Makefile
+mbk/man5/Makefile
+mbk/src/Makefile
+mbkal/Makefile
+mbkal/doc/Makefile
+mbkal/src/Makefile
+mbkap/Makefile
+mbkap/src/Makefile
+mbkedif/Makefile
+mbkedif/src/Makefile
+mbkhilo/Makefile
+mbkhilo/src/Makefile
+mbkmg/Makefile
+mbkmg/src/Makefile
+mbkspice/Makefile
+mbkspice/doc/Makefile
+mbkspice/etc/Makefile
+mbkspice/src/Makefile
+mbkvhdl/Makefile
+mbkvhdl/src/Makefile
+mbkvrlog/Makefile
+mbkvrlog/src/Makefile
+mbkvti/Makefile
+mbkvti/src/Makefile
+mbkvhdlg/Makefile
+mbkvhdlg/src/Makefile
+aut/Makefile
+aut/man1/Makefile
+aut/man3/Makefile
+aut/src/Makefile
+rds/Makefile
+rds/etc/Makefile
+rds/man3/Makefile
+rds/src/Makefile
+rdscif/Makefile
+rdscif/src/Makefile
+rdsgds/Makefile
+rdsgds/src/Makefile
+elp/Makefile
+elp/etc/Makefile
+elp/src/Makefile
+abl/Makefile
+abl/man1/Makefile
+abl/man3/Makefile
+abl/src/Makefile
+bdd/Makefile
+bdd/man1/Makefile
+bdd/man3/Makefile
+bdd/src/Makefile
+log/Makefile
+log/man1/Makefile
+log/man3/Makefile
+log/src/Makefile
+btr/Makefile
+btr/src/Makefile
+vex/Makefile
+vex/src/Makefile
+ctl/Makefile
+ctl/man5/Makefile
+ctl/src/Makefile
+ctp/Makefile
+ctp/src/Makefile
+abe/Makefile
+abe/src/Makefile
+abt/Makefile
+abt/src/Makefile
+abv/Makefile
+abv/src/Makefile
+fsm/Makefile
+fsm/man1/Makefile
+fsm/man5/Makefile
+fsm/src/Makefile
+fks/Makefile
+fks/src/Makefile
+fvh/Makefile
+fvh/src/Makefile
+ftl/Makefile
+ftl/src/Makefile
+rtn/Makefile
+rtn/src/Makefile
+rtd/Makefile
+rtd/src/Makefile
+scl/Makefile
+scl/src/Makefile
+vbh/Makefile
+vbh/src/Makefile
+vbl/Makefile
+vbl/src/Makefile
+vpn/Makefile
+vpn/src/Makefile
+vpd/Makefile
+vpd/src/Makefile
+vvh/Makefile
+vvh/src/Makefile
+vtl/Makefile
+vtl/src/Makefile
+pat/Makefile
+pat/doc/Makefile
+pat/src/Makefile
+ppt/Makefile
+ppt/src/Makefile
+phl/Makefile
+phl/src/Makefile
+druc/Makefile
+druc/man1/Makefile
+druc/src/Makefile
+beh/Makefile
+beh/man3/Makefile
+beh/src/Makefile
+bhl/Makefile
+bhl/src/Makefile
+bvl/Makefile
+bvl/src/Makefile
+alcban/Makefile
+alcban/man1/Makefile
+alcban/src/Makefile
+asimut/Makefile
+asimut/man1/Makefile
+asimut/src/Makefile
+attila/Makefile
+attila/doc/Makefile
+attila/doc/attila/Makefile
+attila/doc/man1/Makefile
+attila/etc/Makefile
+attila/src/Makefile
+b2f/Makefile
+b2f/src/Makefile
+boog/Makefile
+boog/doc/Makefile
+boog/src/Makefile
+boom/Makefile
+boom/man1/Makefile
+boom/src/Makefile
+cells/Makefile
+cells/doc/Makefile
+cells/src/Makefile
+cells/src/dp_sxlib/Makefile
+cells/src/padlib/Makefile
+cells/src/ramlib/Makefile
+cells/src/rflib/Makefile
+cells/src/romlib/Makefile
+cells/src/sxlib/Makefile
+distrib/Makefile
+distrib/doc/Makefile
+distrib/etc/Makefile
+documentation/Makefile
+documentation/tutorials/Makefile
+dreal/Makefile
+dreal/etc/Makefile
+dreal/man1/Makefile
+dreal/src/Makefile
+exp/Makefile
+exp/doc/Makefile
+exp/src/Makefile
+flatbeh/Makefile
+flatbeh/doc/Makefile
+flatbeh/src/Makefile
+flatlo/Makefile
+flatlo/doc/Makefile
+flatlo/src/Makefile
+flatph/Makefile
+flatph/doc/Makefile
+flatph/src/Makefile
+fmi/Makefile
+fmi/man1/Makefile
+fmi/src/Makefile
+fsp/Makefile
+fsp/man1/Makefile
+fsp/src/Makefile
+genlib/Makefile
+genlib/doc/Makefile
+genlib/doc/genlib/Makefile
+genlib/man1/Makefile
+genlib/man3/Makefile
+genlib/src/Makefile
+genpat/Makefile
+genpat/doc/Makefile
+genpat/doc/man1/Makefile
+genpat/doc/man3/Makefile
+genpat/src/Makefile
+graal/Makefile
+graal/etc/Makefile
+graal/man1/Makefile
+graal/src/Makefile
+k2f/Makefile
+k2f/man1/Makefile
+k2f/src/Makefile
+l2p/Makefile
+l2p/man1/Makefile
+l2p/src/Makefile
+loon/Makefile
+loon/doc/Makefile
+loon/src/Makefile
+lvx/Makefile
+lvx/doc/Makefile
+lvx/src/Makefile
+lynx/Makefile
+lynx/man1/Makefile
+lynx/src/Makefile
+m2e/Makefile
+m2e/doc/Makefile
+m2e/doc/man1/Makefile
+m2e/src/Makefile
+mips_asm/Makefile
+mips_asm/src/Makefile
+mocha/Makefile
+mocha/man1/Makefile
+mocha/src/Makefile
+nero/Makefile
+nero/doc/Makefile
+nero/doc/man1/Makefile
+nero/doc/nero/Makefile
+nero/src/Makefile
+ocp/Makefile
+ocp/doc/Makefile
+ocp/src/Makefile
+ocp/src/common/Makefile
+ocp/src/placer/Makefile
+pat2spi/Makefile
+pat2spi/man1/Makefile
+pat2spi/src/Makefile
+proof/Makefile
+proof/man1/Makefile
+proof/src/Makefile
+ring/Makefile
+ring/doc/Makefile
+ring/src/Makefile
+s2r/Makefile
+s2r/doc/Makefile
+s2r/src/Makefile
+scapin/Makefile
+scapin/etc/Makefile
+scapin/man1/Makefile
+scapin/src/Makefile
+sea/Makefile
+sea/etc/Makefile
+sea/src/Makefile
+syf/Makefile
+syf/man1/Makefile
+syf/src/Makefile
+vasy/Makefile
+vasy/man1/Makefile
+vasy/man5/Makefile
+vasy/src/Makefile
+x2y/Makefile
+x2y/doc/Makefile
+x2y/src/Makefile
+xfsm/Makefile
+xfsm/etc/Makefile
+xfsm/src/Makefile
+xpat/Makefile
+xpat/etc/Makefile
+xpat/man1/Makefile
+xpat/src/Makefile
+xsch/Makefile
+xsch/etc/Makefile
+xsch/man1/Makefile
+xsch/src/Makefile
+xvpn/Makefile
+xvpn/etc/Makefile
+xvpn/src/Makefile
 ])

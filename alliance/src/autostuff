@@ -26,27 +26,285 @@ dirs=`\ls -l $srcdir | grep '^d' | awk '{print $NF}'`
 else
 dirs=$*
 fi
+newdirs=""
+for dir in $dirs; do
+  if [ "$dir" == "CVS"            ]; then continue; fi
+  if [ "$dir" == "autom4te.cache" ]; then continue; fi
+  if [ "$dir" == "Linux"          ]; then continue; fi
+  if [ "$dir" == "Solaris"        ]; then continue; fi
+  newdirs="$newdirs $dir"
+done
+dirs="$newdirs"
 
-## root first
+
+## Order directories.
+order="mbk mbkal mbkap mbkedif mbkhilo mbkmg mbkspice mbkvhdl mbkvrlog mbkvti \
+       mbkvhdlg aut rds rdscif rdsgds elp abl bdd log btr vex ctl ctp abe abt \
+       abv fsm fks fvh ftl rtn rtd scl vbh vbl vpn vpd vvh vtl pat ppt phl gcp \
+       druc beh bhl bvl"
+ordered_dirs=""
+for lib in $order; do
+   if echo "$dirs" | grep $lib > /dev/null ; then
+     dirs=`echo "$dirs" | sed "s, $lib , ,"`
+     if [ -z "$ordered_dirs" ]; then
+       ordered_dirs="$lib"
+     else
+       ordered_dirs="$ordered_dirs $lib"
+     fi
+   fi
+done
+ordered_dirs="$ordered_dirs $dirs"
+
+AC_OUTPUT=`find $ordered_dirs -name Makefile.am | sed "s,\.am,,"`
+
+rm -f configure.in
+echo ""                                      >> configure.in
+echo "AC_INIT(./autostuff)"                  >> configure.in
+echo "AM_INIT_AUTOMAKE(alliance, 5.0)"       >> configure.in
+echo ""                                      >> configure.in
+echo "AM_PROG_LEX"                           >> configure.in
+echo "AM_PROG_LIBTOOL"                       >> configure.in
+echo "AC_CHECK_HEADERS(fcntl.h malloc.h strings.h sys/time.h unistd.h)" >>  configure.in
+echo "AC_CHECK_HEADERS(strings.h unistd.h)"  >> configure.in
+echo "AC_CHECK_LIB(gen, basename)"           >> configure.in
+echo "AC_CHECK_LIB(iberty, basename)"        >> configure.in
+echo "AC_CHECK_LIB(m, exp)"                  >> configure.in
+echo "AC_CHECK_LIB(m, floor)"                >> configure.in
+echo "AC_CHECK_LIB(m, pow)"                  >> configure.in
+echo "AC_CHECK_LIB(m, sqrt)"                 >> configure.in
+echo "AC_CHECK_PROG(SED, sed, sed)"          >> configure.in
+echo "AC_CHECK_PROGS(SED, gsed sed)"         >> configure.in
+echo "AC_C_CONST"                            >> configure.in
+echo "AC_FUNC_VFORK"                         >> configure.in
+echo "AC_HEADER_STDC"                        >> configure.in
+echo "AC_HEADER_SYS_WAIT"                    >> configure.in
+echo "AC_PATH_XTRA"                          >> configure.in
+echo "AC_PROG_CC"                            >> configure.in
+echo "AC_PROG_CPP"                           >> configure.in
+echo "AC_PROG_CXX"                           >> configure.in
+echo "AC_PROG_INSTALL"                       >> configure.in
+echo "AC_PROG_MAKE_SET"                      >> configure.in
+echo "AC_PROG_RANLIB"                        >> configure.in
+echo "AC_PROG_YACC"                          >> configure.in
+echo "AC_TYPE_SIGNAL"                        >> configure.in
+
+cat >> configure.in <<"EOF"
+dnl
+dnl Check for X stuff
+dnl
+dnl
+dnl Check X options
+dnl
+if test "$with_x" = no; then
+AC_MSG_ERROR([requires the X window system to compile and run.
+                  Please do not use the configure option '--without-x'.])
+fi
+if test "$with_motif" = no; then
+AC_MSG_ERROR([requires Motif to compile and run.
+                  Please do not use the configure option '--without-motif'.])
+fi
+dnl
+dnl
+dnl Check for X libraries
+dnl
+if test "$with_x" != no; then
+ice_save_LIBS="$LIBS"
+ice_save_CFLAGS="$CFLAGS"
+ice_save_CXXFLAGS="$CXXFLAGS"
+ice_save_CPPFLAGS="$CPPFLAGS"
+ice_save_LDFLAGS="$LDFLAGS"
+
+dnl
+dnl
+
+AC_FIND_MOTIF
+AC_FIND_XPM
+
+dnl
+dnl
+dnl
+LIBS="$LIBS $X_EXTRA_LIBS"
+CFLAGS="$CFLAGS $X_CFLAGS"
+CPPFLAGS="$CPPFLAGS $X_CFLAGS"
+LDFLAGS="$LDFLAGS $X_LIBS"
+dnl
+dnl Check for X library
+dnl
+X11_LIBS=""
+AC_CHECK_LIB(X11, XOpenDisplay, X11_LIBS="-lX11",,${X_PRE_LIBS} ${X_EXTRA_LIBS})
+if test "$X11_LIBS" = ""; then
+dnl Not having X is fatal.  Let the user fix this.
+AC_MSG_ERROR([The X11 library '-lX11' could not be found.
+                  Please use the configure options '--x-includes=DIR'
+                  and '--x-libraries=DIR' to specify the X location.])
+fi
+AC_SUBST(X_LIBS)
+AC_SUBST(X11_LIBS)
+AC_SUBST(X_PRE_LIBS)
+dnl
+dnl
+dnl Check for -lXintl library.  Lutz Kittler <kittler@sse-erfurt.de> says
+dnl that DLD-Linux with CDE wants `-lXintl' to refine `Xlcmbcurmax'.
+dnl Guenther Roehrich <guenther@studbox.uni-stuttgart.de> says that
+dnl we must check for `_Xlcmbcurmax' instead of `Xlcmbcurmax'.
+dnl
+AC_CHECK_LIB(Xintl, _Xlcmbcurmax, X11_LIBS="${X11_LIBS} -lXintl",,
+	${X_PRE_LIBS} ${X11_LIBS} ${X_EXTRA_LIBS})
+dnl
+dnl
+dnl Check for -lipc library.  SCO unix is said to want that.
+dnl
+AC_CHECK_LIB(ipc, shmap, X11_LIBS="${X11_LIBS} -lipc",,
+	${X_PRE_LIBS} ${X11_LIBS} ${X_EXTRA_LIBS})
+dnl
+dnl
+dnl Check for X toolkit libraries
+dnl
+XT_LIBS=""
+AC_CHECK_LIB(Xt, XtToolkitInitialize, XT_LIBS="-lXt",,
+	${X_PRE_LIBS} ${X11_LIBS} ${X_EXTRA_LIBS})
+if test "$XT_LIBS" = ""; then
+dnl Not having Xt is fatal.  Let the user fix this.
+AC_MSG_ERROR([The X toolkit library '-lXt' could not be found.
+                  Please use the configure options '--x-includes=DIR'
+                  and '--x-libraries=DIR' to specify the X location.
+                  See the files 'config.log' and 'ddd/config.log'
+                  for further diagnostics.])
+fi
+AC_SUBST(XT_LIBS)
+dnl
+dnl
+dnl Check for X extension libraries
+dnl
+dnl
+XEXT_LIBS=""
+AC_CHECK_LIB(Xext, XShapeQueryVersion, XEXT_LIBS="-lXext",,
+	${X_PRE_LIBS} ${X11_LIBS} ${X_EXTRA_LIBS})
+AC_SUBST(XEXT_LIBS)
+dnl
+dnl
+dnl
+dnl Check for Xpm library and headers
+dnl
+XPM_LIBS=""
+if test "$xpm_includes" != "no" && test "$xpm_libraries" != "no"
+then
+AC_CHECK_LIB(Xpm, XpmCreatePixmapFromXpmImage,
+	XPM_LIBS="-lXpm"
+	AC_DEFINE(HAVE_XPM),,${X_PRE_LIBS} ${X11_LIBS} ${X_EXTRA_LIBS})
+if test "$XPM_LIBS" != ""; then
+AC_CHECK_HEADERS(X11/xpm.h xpm.h)
+fi
+fi
+AC_SUBST(XPM_LIBS)
+
+dnl Check for Motif widget libraries
+dnl
+
+XM_LIBS=""
+XP_LIBS=""
+if test "$motif_includes" != "no" && test "$motif_libraries" != "no"
+then
+dnl Motif 2.1 wants `-lXp' (X11R6.3 print server)
+AC_CHECK_LIB(Xp, XpSelectInput,
+	XP_LIBS="-lXp"
+	AC_DEFINE(HAVE_XP),,
+                   ${XPM_LIBS} ${XEXT_LIBS} ${XT_LIBS} ${X_PRE_LIBS} ${X11_LIBS} ${X_EXTRA_LIBS})
+dnl
+AC_CHECK_LIB(Xm, XmCreateOptionMenu, 
+	XM_LIBS="-lXm"
+	AC_DEFINE(HAVE_MOTIF),,
+	${XP_LIBS} ${XPM_LIBS} ${XEXT_LIBS} ${XT_LIBS} ${X_PRE_LIBS} ${X11_LIBS} ${X_EXTRA_LIBS})
+dnl
+AC_CHECK_LIB(Xm, xmUseVersion, 
+	AC_DEFINE(HAVE_XMUSEVERSION),,
+	${XP_LIBS} ${XPM_LIBS} ${XEXT_LIBS} ${XT_LIBS} ${X_PRE_LIBS} ${X11_LIBS} ${X_EXTRA_LIBS})
+dnl
+AC_CHECK_LIB(Xm, XmInstallImage,
+	AC_DEFINE(HAVE_XMINSTALLIMAGE),,
+	${XP_LIBS} ${XPM_LIBS} ${XEXT_LIBS} ${XT_LIBS} ${X_PRE_LIBS} ${X11_LIBS} ${X_EXTRA_LIBS})
+dnl
+AC_CHECK_LIB(Xm, Xm21InstallImage,
+	AC_DEFINE(HAVE_XM21INSTALLIMAGE),,
+	${XP_LIBS} ${XPM_LIBS} ${XEXT_LIBS} ${XT_LIBS} ${X_PRE_LIBS} ${X11_LIBS} ${X_EXTRA_LIBS})
+fi
+if test "$XM_LIBS" = ""; then
+dnl Without Motif, we won't get far.  Let the user fix this.
+AC_MSG_ERROR([The Motif library '-lXm' could not be found.
+                  Please use the configure options '--with-motif-includes=DIR'
+                  and '--with-motif-libraries=DIR' to specify the Xm location.
+                  See the files 'config.log'
+                  for further diagnostics.])
+fi
+
+AC_SUBST(XP_LIBS)
+AC_SUBST(XM_LIBS)
+
+LIBS="$LIBS ${XM_LIBS} ${XP_LIBS} ${XPM_LIBS} ${XEXT_LIBS} ${XT_LIBS} ${X_PRE_LIBS} ${X11_LIBS} ${X_EXTRA_LIBS}"
+    
+    
+LIBS="$ice_save_LIBS"
+CFLAGS="$ice_save_CFLAGS"
+CXXFLAGS="$ice_save_CXXFLAGS"
+CPPFLAGS="$ice_save_CPPFLAGS"
+LDFLAGS="$ice_save_LDFLAGS"
+fi
+EOF
+
+echo "AM_ALLIANCE"                                 >> configure.in
+echo "AM_CONDITIONAL([ALLIANCE_BUILD],[(exit 0)])" >> configure.in
+
+find $ordered_dirs -name configure.in | while read config; do
+  echo "Scanning $config"
+  echo "" >> configure.in
+  echo "dnl Infos extracted from $config"  >> configure.in
+
+  for version_line in  `grep -h _CUR= $config`; do
+    echo "$version_line"  >> configure.in
+    version_name=`echo $version_line | sed 's,=.*,,'`
+    echo "AC_SUBST($version_name)" >> configure.in
+  done
+  for version_line in  `grep -h _REV= $config`; do
+    echo "$version_line"  >> configure.in
+    version_name=`echo $version_line | sed 's,=.*,,'`
+    echo "AC_SUBST($version_name)" >> configure.in
+  done
+  for version_line in  `grep -h _REL= $config`; do
+    echo "$version_line"  >> configure.in
+    version_name=`echo $version_line | sed 's,=.*,,'`
+    echo "AC_SUBST($version_name)" >> configure.in
+  done
+
+  for dll_line in `grep -h _DLL_VERSION= $config`; do
+    echo "$dll_line"  >> configure.in
+    dll_name=`echo $dll_line | sed 's,=.*,,'`
+    echo "AC_SUBST($dll_name)" >> configure.in
+  done
+  for version_line in  `grep -h _VERSION= $config | grep -v DLL`; do
+    echo "$version_line"  >> configure.in
+    version_name=`echo $version_line | sed 's,=.*,,'`
+    echo "AC_SUBST($version_name)" >> configure.in
+  done
+done
+
+echo ""                                      >> configure.in
+echo "TOOLSDIRS=\"$ordered_dirs\""           >> configure.in
+echo "AC_SUBST(TOOLSDIRS)"                   >> configure.in
+
+echo ""                                      >> configure.in
+echo "AC_OUTPUT(["                           >> configure.in
+echo "Makefile"                              >> configure.in
+echo "distrib/etc/alc_env.sh"                >> configure.in
+echo "distrib/etc/alc_env.csh"               >> configure.in
+for template in $AC_OUTPUT; do
+  echo "$template"                           >> configure.in
+done
+echo "])"                                    >> configure.in
+
+
 aclocal -I .
 libtoolize --force --copy --automake
 automake --foreign --add-missing --copy
 autoconf
-
-## autoconf all dirs
-for i in $dirs ; do
-   cd $i
-   if test -f configure.in ; then
-      echo entering $i ...
-      aclocal -I . -I ..
-      if grep "^AM_PROG_LIBTOOL" configure.in >/dev/null; then
-         echo "Running libtoolize..."
-         libtoolize --force --copy --automake
-      fi
-      automake --add-missing --copy --foreign
-      autoconf
-   fi
-   cd ..
-done
 
 exit 0

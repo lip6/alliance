@@ -22,7 +22,7 @@ bin_PROGRAMS = druc
 
 AM_CFLAGS =
 
-druc_LDADD = -L$(top_builddir)/src -lVrd \
+druc_LDADD = -L. -lVrd \
 -lRtl -lRgs -lRcf -lRfm -lRpr -lRwi -lRut -lRds -lMpu -lMcp -lMap -lMmg -lMph \
 -lMut
 

@@ -1,7 +1,5 @@
 ## Process this file with automake to produce Makefile.in
 
-INCLUDES = -I$(top_srcdir)/src/common
-
 AM_CXXFLAGS = @ALLIANCE_CFLAGS@
 
 noinst_LIBRARIES = libPCommon.a

@@ -9,7 +9,7 @@ bin_PROGRAMS = a2def def2a sxlib2lef
 bin_SCRIPTS  = sea seroute seplace a2lef 
 
 a2def_LDADD = @ALLIANCE_LIBS@ \
-       $(top_builddir)/src/libUtil.a \
+       ./libUtil.a \
       -lMpu -lMlu \
       -lMcl -lMcp \
       -lMal -lMap \
@@ -24,7 +24,7 @@ a2def_LDADD = @ALLIANCE_LIBS@ \
       -lAut
 
 def2a_LDADD = @ALLIANCE_LIBS@ \
-       $(top_builddir)/src/libUtil.a \
+       ./libUtil.a \
       -lMpu -lMlu \
       -lMcl -lMcp \
       -lMal -lMap \
@@ -39,7 +39,7 @@ def2a_LDADD = @ALLIANCE_LIBS@ \
       -lAut
 
 sxlib2lef_LDADD = @ALLIANCE_LIBS@ \
-       $(top_builddir)/src/libUtil.a \
+       ./libUtil.a \
       -lMpu -lMlu \
       -lMcl -lMcp \
       -lMal -lMap \

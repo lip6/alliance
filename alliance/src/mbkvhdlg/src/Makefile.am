@@ -28,7 +28,7 @@ x2vy_LDADD       = -lMlu \
                    -lMal \
                    -lMsl \
                    -lMgl \
-                   -L$(top_builddir)/src -lMvg \
+                   -L. -lMvg \
                    -lMlo \
                    -lMut \
                    -lRcn

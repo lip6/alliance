@@ -2,7 +2,7 @@
 
 YACC = @YACC@ -d
 
-INCLUDES = -I$(top_srcdir)/src/common -I$(top_srcdir)/src/placer
+INCLUDES = -I$(srcdir)/../common
 
 AM_CXXFLAGS = @ALLIANCE_CFLAGS@
 AM_CFLAGS = @ALLIANCE_CFLAGS@
@@ -15,7 +15,7 @@ libOcp_a_SOURCES = PElem.cpp PIns.cpp PNet.cpp \
 		   PCon.cpp
 
 ocp_LDADD = @ALLIANCE_LIBS@ \
-	   $(top_builddir)/src/common/libPCommon.a \
+	  ../common/libPCommon.a \
           -lMpu -lMlu \
 	  -lMcl -lMcp \
 	  -lMal -lMap \
