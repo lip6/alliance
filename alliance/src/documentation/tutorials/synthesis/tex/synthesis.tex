@@ -70,7 +70,7 @@ xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
                {\Huge ALLIANCE TUTORIAL\\}
     {\large
                Pierre \& Marie Curie University \\
-                  Year 2001 - 2002\\
+                  Year 2001 - 2004\\
     }
     \vspace{1cm}
     {\huge
@@ -96,9 +96,11 @@ xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
 \def\myfbox#1{\vspace*{3mm}\fbox{#1}\vspace{3mm}}
 
 \newpage
-\large{ The goal of this tutorial is to allow a rapid use of some { \bf ALLIANCE } tools, developed at the LIP6 laboratory of Pierre and Marie Curie University.
+\large{ The purpose of this tutorial is to provide a quick turn of some { \bf
+ALLIANCE } tools, developed at the LIP6 laboratory of Pierre and Marie Curie
+University.
 
-The tutorial is composed of 3 great parts independent from each other:
+The tutorial is composed of 3 main parts independent from each other:
 
 \begin{itemize}\itemsep=-.8ex
 \item {VHDL modeling and simulation}
@@ -106,14 +108,15 @@ The tutorial is composed of 3 great parts independent from each other:
 \item {Place and route}
 \end{itemize}
 
-Before any handling you must ensure that all the environment variables are
-correctly positioned and that the Alliance
-tools are readily available when invoking them at the prompt. All
-the tools used in this tutorial are documented at least with a
+Before going further you must ensure that all the environment variables are
+properly set (source alcenv.sh or alcenv.csh file)
+and that the Alliance tools are available when invoking them at the shell
+prompt.
+
+All tools used in this tutorial are documented at least with a
 manual page.
 
 \newpage
-
 {\bf Contents}\\
 \\
  {1} {\bf Introduction}
@@ -172,7 +175,7 @@ manual page.
 \\
  {6} {\bf AMD2901 structure}
 \\
- {7} {\bf Part controls realization }
+ {7} {\bf Part controls design }
 
  {7.1}{ \bf genlib } description example 
 
@@ -180,7 +183,7 @@ manual page.
 
  {7.3} Part controls description
 \\
- {8} {\bf Data-path realization}
+ {8} {\bf Data-path design}
 
  {8.1} Example of description with genlib macro-functions
 
@@ -219,7 +222,7 @@ This directory contents four subdirectories and one Makefile :
     \item   amdfindbug.pat : tests file
     \item   several files amd.vbe : behavioral description
     \end{itemize}
-\item   meter
+\item   counter
     \begin{itemize}\itemsep=-.8ex
     \item   Makefile
     \item   cpt5.fsm : description in fsm
@@ -258,7 +261,7 @@ This directory contents four subdirectories and one Makefile :
 \begin{itemize}\itemsep=-.8ex
 \item   Logical synthesis tools { \bf SYF, BOOM, BOOG, LOON, SCAPIN };
 \item   Data-path generation tool{\bf GENLIB };
-\item   { \it netlist } graphic visual display  { \bf XSCH };
+\item   { \it netlist } graphical viewer  { \bf XSCH };
 \item   formal proof Tools {\bf FLATBEH, PROOF};
 \item   The simulator { \bf ASIMUT };
 \end{itemize}
@@ -276,13 +279,13 @@ generation and the control part } of AMD2901.
 
 \subsection{Introduction}
 
-A pure combinative circuit does not have internal registers. So
-its outputs depend only on its primary inputs. Conversely, a
-synchronous sequential circuit having internal registers sees its
+A pure combinatorial circuit has no internal registers. So
+its outputs depend only on its primary inputs. On the contrary 
+a synchronous sequential circuit having internal registers sees its
 outputs changing according to its inputs but also memorized values
-in its registers. Consequently, the circuit state at the moment
+in its registers. As consequence, the circuit state at the moment
 t+1 also depends on its state at the moment t. This type of
-circuit can be modelled by a { \bf finite states machine}.
+circuit can be formally modelized as a { \bf finite states machine}.
 
 \begin{figure}[H]\centering
   \includegraphics[width=9cm]{ex_digicode.eps}
@@ -297,9 +300,9 @@ clock-edges. The inputs can thus move between two clock-edges
 without modifying the outputs. But in the case of MEALY automaton,
 the variation of the inputs can modify at any time the value of
 the outputs. It will be essential to separate the generation
-function from the transition function (Moore automaton). For that,
-two distinct processes will materialize the next state calculation
-and its update.
+function from the transition function (Moore automaton).
+Two distinct processes will then modelize the next state computation
+and the current state register update.
 
 \begin{figure}[H]\centering
   \includegraphics[width=15cm]{automate.eps}
@@ -311,28 +314,29 @@ and its update.
 \subsection{SYF and VHDL}
 %-----------------------
 In order to describe the automatons, we use a particular {\bf VHDL }
-style description that defines architecture "fsm" ({ \bf
-f}inite-{\bf s}tate { \bf m}achine).
+style description that defines architecture "FSM" ({ \bf
+F}inite-{\bf S}tate { \bf M}achine).
 
 The corresponding file also has the extension { \bf fsm }. From
 this file, the tool { \bf SYF } makes the automaton synthesis and
-transforms this abstracted automaton into a Boolean network. { \bf
-SYF } thus generates a { \bf VHDL } file with the format {\bf vbe
-}. Like the majority of the tools used in alliance, it is
-necessary to position some variables before using { \bf SYF }. To
-know them, you defer to the { \bf man } of { \bf syf }.
+after state encoding, it transforms this abstracted automaton into
+a Boolean network and a state register. 
+{ \bf SYF } then generates a { \bf VHDL } file using the 
+{\bf vbe } subset. 
+Like most of all tools used in alliance, it is
+necessary to set some variables before using { \bf SYF }. 
+You can refer to the { \bf man } page of { \bf syf } for more details.
 
 \subsection{Example}
 %-------------------
 
-In order to familiarize with the syntax description of a {
-\bf fsm } file, an example of { \bf three } "1" successive meter
+In order to take in hand the particular syntax of a {
+\bf fsm } file, an example of { \bf three } successive "1" counter
 is presented. Its vocation is to detect for example on a
-connection series, a sequence of { \bf three } "1" successive. The
-states graph is represented on the figure
+connection series, a sequence of { \bf three } successive "1" counter.
+The state graph is represented on the figure
 \ref{Fig:graphe1}.\\
-The { \bf fsm } format is also described in a { \bf man }. Think
-of consulting it.
+The { \bf fsm } format is detailed in the man page { \bf fsm(5) }.
 
 \begin{sourcelisting}
     entity circuit is
@@ -406,7 +410,7 @@ of consulting it.
 
 \begin{figure}[H]\centering
  \includegraphics[height=8cm]{graphe1.eps}
- \caption{states graph of three "1" successive meter}
+ \caption{states graph of three successive "1" counter}
  \label{Fig:graphe1}
 \end{figure}
 
@@ -414,8 +418,8 @@ of consulting it.
 \subsection{Step to follow}
 %---------------------------------
 
-Now used the example to write the description of a { \bf five } "1" successive 
-meter in a{\bf Moore } automaton.
+Now you can use this example to write the description of a { \bf five } successive "1" 
+counter in a{\bf Moore } automaton.
 
 \begin{itemize}\itemsep=-.8ex
 \item   position the environment variables . \item   launch { \bf
@@ -436,10 +440,9 @@ SYF } with the coding options { \bf -a, -J, -m, -O, -R }
 > syf -CEV -a <fsm_source>
 \end{commandline}
 \item   visualize the files { \bf enc }. Those files contains one state
-	name followed by its  hexadecimal code.
+	name followed by its hexadecimal code value.
 
-\item   write test
-vectors and simulate under { \bf ASIMUT }.
+\item   write stimuli (test vectors) and simulate with { \bf ASIMUT }.
 \end{itemize}
 
 %\subsection{Utilisation d'un chemin de test ({\it scan-path}\/)}
@@ -471,9 +474,9 @@ vectors and simulate under { \bf ASIMUT }.
 \section{Automaton for digicode}
 %-------------------------------
 
-We want to realize a chip for digicode whose keyboard is
-represented on the figure \ref{Fig:keyboard}. The specifications
-are as follows:
+We want to design a digicode circuit whose keyboard is
+represented on the figure \ref{Fig:keyboard}. 
+The specifications are as follows:
 
 \begin{figure}[H]\centering
   \includegraphics[width=7cm,height=7cm]{clavier.eps}
@@ -488,7 +491,7 @@ are as follows:
     \item   A: 1010
     \item   B: 1011
     \end{itemize}
-\item   The digicode work in two modes:
+\item   The digicode works in two modes:
     \begin{itemize}\itemsep=-.8ex
     \item   Day Mode: The door opens while pressing on "O" or if entering the good code
     \item   Night Mode: The door opens only if the code is correct.
@@ -501,14 +504,14 @@ idle state if nothing
     returned to the keyboard at the end of 5 seconds
         or if alarm sounded during 2mn - signal { \it \bf reset } -. For that it receives a signal
         from { \bf reset } external timer.
-\item   The chip work at 10MHz.
-\item   Any pressure of a key of the keyboard is accompanied by the signal { \it \bf press\_kbd }.
-    This one announces to the chip that the output data of the
-    keyboard is valid.  This signal is to 1 during a clock-edge.
+\item   The chip works at 10MHz.
+\item   Any pressure of a key of the keyboard is then followed by the signal { \it \bf press\_kbd }.
+        This one announces to the chip that the output data of the
+        keyboard is valid.  This signal is set to 1 during a clock-edge.
 \end{itemize}
 
 The code is { \bf 53A17 } (but you can take the code who agrees to
-you). The interface of the automaton is as follows:
+you). The interface of this automaton is as follows:
 
 \begin{itemize}\itemsep=-.8ex
 \item   in {\bf ck}
@@ -532,16 +535,16 @@ you). The interface of the automaton is as follows:
 %---------------------------------
 
 \begin{itemize}\itemsep=-.8ex
-\item   draw the states graph . \item   write it in the { \bf fsm
-} format . \item   synthesize with { \bf SYF } by using the coding
-options
-    { \bf -a, -j, -m, -o, -r } and by using the options { \bf -CEV}.\\
+\item   draw the states graph.
+\item   describe it in the { \bf fsm } format . 
+\item   synthesize your description with { \bf SYF } using 
+        different state encoding algorithms
+       { \bf -a, -j, -m, -o, -r } and by using the options { \bf -CEV}.\\
 \begin{commandline}
 > syf -CEV -a <fsm_source>
 \end{commandline}
-\item   write test vectors.
- \item   simulate with { \bf
-ASIMUT } all the behavioral views obtained.
+\item  write stimuli (test vectors).
+\item  simulate with { \bf ASIMUT } all the resulting {\bf vbe} descriptions.
 \end{itemize}
 
 \newpage
@@ -555,31 +558,31 @@ ASIMUT } all the behavioral views obtained.
 
 \subsubsection{Logical synthesis}
 %---------------------------------
-    The logical synthesis makes it possible to obtain a { \it netlist }
-    gates starting from a Boolean network (format { \bf vbe }). Several tools are available:
+    The logical synthesis permits to obtain a { \it netlist } of
+    gates given a Boolean network (format { \bf vbe }). 
+    Several tools are available:
 
 \begin{itemize}\itemsep=-.8ex
-\item   The tool { \bf BOOM } allows the Boolean network optimization before synthesis.
-\item   The tool { \bf BOOG } makes it possible to synthesize a { \it netlist } by using a library
- with predefined cells such as { \bf SXLIB }.
-   The { \it netlist } can be either with the format { \bf vst } or with the format { \bf al }.
-   Check the environment variable { \bf MBK\_OUT\_LO}=vst.
+\item  The tool { \bf BOOM } allows the Boolean network optimization before mapping with { \bf BOOG }.
+\item  The tool { \bf BOOG } synthesizes a { \it netlist } by using a library
+       with predefined cells such as { \bf SXLIB }.
+       The { \it netlist } can be either with the format { \bf vst } or with the format { \bf al }.
+       Check the environment variable { \bf MBK\_OUT\_LO}=vst.
 \end{itemize}\itemsep=-.8ex
 
 \subsubsection{Solve fan-out problems }
 %-----------------------------------------------------
-    The { \it netlist}\/s generated contain sometimes intern signals attacking a
-    significant number of gates (large FAN-OUT). This results in a clock edges deterioration
-    . In order to solve these problems, the tool
-    { \bf LOON } replaces the cells having a fan-out too large by more powerful
-    cells or insert buffers.
+    Generated { \it netlist}\/s may contain internal signals that drive a
+    significant number of gates (large FAN-OUT).
+    In order to solve this problem, the tool
+    { \bf LOON } replaces the cells having a too large fan-out by more powerful
+    cells and/or insert buffers.
 
 \subsubsection{Long path visualization }
 %-----------------------------------------------------
-    At any moment, the { \it netlist}\/s can be graphically edited .
-The tool { \bf XSCH } makes it possible to visualize the longest
-path thanks to the files { \bf xsc } and { \bf vst } generated at
-the same time by { \bf BOOG } and { \bf LOON }.
+    At any moment, the { \it netlist}\/s can be graphically displayed using {\bf XSCH}.
+This tool permits also to highlight the longest path on the schematic thanks to the files { \bf
+xsc } and { \bf vst } generated by { \bf BOOG } and { \bf LOON }.
 
 \begin{figure}[H]\centering
   \includegraphics[]{T_RC.eps}
@@ -598,14 +601,16 @@ cell.
 %-----------------------------------------------------
     The netlist must be validated. For that, you have { \bf ASIMUT },
     but also the tool { \bf PROOF } which proceeds to a formal comparison of two behavioral
-    descriptions ({ \bf vbe }). The tool { \bf FLATBEH } makes it possible to obtain the
-    new behavioral file starting from the { \it netlist }.
+    descriptions ({ \bf vbe }). The tool { \bf FLATBEH } is usefull to obtain a
+    new behavioral file starting from a { \it netlist } 
+   (given a {\bf vbe} file for each leave cells of the hierarchy).
 
 \subsubsection{Scan-path insertion}
 %-----------------------------------------------------
-    With { \bf SCAPIN } its possible to introduce a scan-path into the netlist.
-    The scan-path allow you to observe in test mode the contains of all registers of your circuit. The path is created by changing the registers into mux\_register or inserting a multiplexer
-    in front of these registers.
+    With { \bf SCAPIN } we can insert a scan-path into the netlist.
+    The scan-path allow the designer to observe in test mode the value of all registers of your circuit. 
+    The path is created by changing each registers into a mux\_register (or by inserting a multiplexer
+    in front of all registers).
 
 \newpage
 
@@ -617,30 +622,34 @@ cell.
     For each Boolean network obtained previously:
 
 \begin{itemize}\itemsep=-.8ex
-\item   position the environment variables; \item synthesize the
-structural view:
+\item set properly environment variables; 
+\item synthesize the structural view:
 \begin{commandline}
 > boog <vbe_source>
 \end{commandline}
-\item   launch { \bf BOOG } on different {\it netlist}\/s to
-observe {\bf SYF} options influence . \item   validate the work of
-{ \bf BOOG }with { \bf ASIMUT }, the { \it netlist}\/s obtained
-with test vectors which were used to validate the initial Boolean
-network.
+\item launch { \bf BOOG } on different {\it netlist}\/s to observe {\bf SYF}
+      options influence (different state encoding technics).
+\item validate the work of { \bf BOOG } with { \bf ASIMUT }, 
+      the { \it netlist}\/s obtained with stimuli which were used to 
+      validate the initial Boolean network.
 \end{itemize}\itemsep=-.8ex
 
 \subsubsection{Netlist visualization}
 %----------------------------------------------------------
 
 \begin{itemize}\itemsep=-.8ex
-\item The long path is described in the { \bf xsc } file produced
-by { \bf boog }. The { \bf XSCH } tool  will use it to colour its
-way. To launch the graphic editor:
+\item The longest path (critical path) is described in the { \bf xsc } file produced
+      by { \bf boog }.
+      The { \bf XSCH } tool  will use it to highlight this path on the schematic.
+      To launch the graphical schematic viewer:
 \begin{commandline}
 >xsch -I vst -l <vst_source>
 \end{commandline}
 \item The red color indicates the critical path.
-\item If you use the option '{ \it - slide }' which makes it possible to post a whole of netlists, do not forget to press on the keys ' { \it + } ' or ' { \it - } ' to edit your files!
+\item you can use the option '{ \it -slide }' followed by netlist names to display one by one a set of
+      schematics.
+      The keys ' { \it + } ' and ' { \it - }' can then be used to display respectively next and previous
+      netlist.
 \end{itemize}\itemsep=-.8ex
 
 
@@ -682,20 +691,20 @@ values on the outputs.
     to carry out on the best of your { \it netlist}\/s:
 
 \begin{itemize}\itemsep=-.8ex
-\item   validate the work of { \bf LOON } by using under { \bf
-ASIMUT } the { \it netlist}\/s obtained
-        with the test vectors which were used to validate the initial behavioral view.
-\item   Make a formal checking of your netlist by comparing
-        it with the origin behavioral file resulting from { \bf SYF }:
+\item   validate the work of { \bf LOON } by running { \bf ASIMUT } 
+        on the different { \it netlist}\/s obtained, using the stimuli 
+        that were defined to validate the initial behavioral view.
+\item   Make a formal comparison of your netlist with
+        the original behavioral file resulting from { \bf SYF }:
 \begin{commandline}
 >flatbeh <vst_source> <vbe_dest>
 \end{commandline}
 \begin{commandline}
->proof -d <vbe_origine> <vbe_dest>
+>proof -d <vbe_origin> <vbe_dest>
 \end{commandline}
 \end{itemize}
 
-Compare if the files are quite identical.
+Checks if the files are formally identicals.
 
 \subsubsection{Scan-path insertion in the netlist}
 %-------------------
@@ -734,22 +743,23 @@ END_CONNECTOR
 
 \subsection{exercise}
 
-For beginning here is an exercise to understand AMD2901
-functionality, to conceive it in the continuation of
-this tutorial. To explore all the functionalities, you will have
-to validate the behavioral view that will be provided. 
-The DATA will be find in appendix.
+First of all, here is an exercise to understand the AMD2901
+chip functionality. The goal is to design it 
+using Alliance, as described in the following parts of
+this tutorial.
 
-The validation will have to be carried out using test vectors
-generated with {\bf genpat}. The vectors must be carefully written
-to enable you to detect a { \bf BUG } insidiously inserted in your
-behavioral file { \bf .vbe }. Approximately 500 patterns will be
-enough for debugging your AMD 2901.
+To explore all functionalities, you will have
+to validate the behavioral view that will be provided. 
+All needed informations will be find in appendix.
+
+The validation will have to be done using stimuli 
+generated by {\bf genpat}. The vectors must be carefully written
+to enable you to detect { \bf BUG } in your behavioral file { \bf .vbe }. 
+Approximately 500 patterns will be enough for debugging your AMD 2901.
 
 \subsection{step to follow}
-It is necessary to generate test vectors which methodically test
-all the parts and function of the AMD following the specifications
-contained in the documentation.
+It is necessary to generate stimuli that tests all the parts and all functions
+of the AMD following the specifications described in the documentation.
 
 \begin{itemize}\itemsep=-.8ex
 \item   filling and reading the 16 boxes memories of the RAM .
@@ -764,12 +774,12 @@ contained in the documentation.
 
 \subsection{error found}
 
-you can notice that for the RAM shifter values "101" and "111" of
+You can notice that for the RAM shifter values "101" and "111" of
 i[8:6], the AMD causes a shift of the accumulator that should not
 take place.
 
-for the values "000" and "001" of i[8:6], we have the writing of
-ALU in the RAM .
+for the values "000" and "001" of i[8:6], the circuit writes the
+ALU output in RAM .
 
 The AMD carries out the operation R xor S for
 I[5:3]=111 instead of carrying out the operation for I[5:3]=110.
@@ -790,9 +800,9 @@ Organization  \label{bloc}}
 
 \begin{itemize}\itemsep=-.8ex
 \item The data-path contains the Amd2901 regular parts , the
-registers and the arithmetic logic unit. \item The control part
-contains irregular logic, the instructions decoding and the flags
-calculation.
+registers and the arithmetic logic unit. 
+\item The control part contains irregular logic, 
+      the instructions decoding and the flags computation.
 \end{itemize}
 
 \newpage
@@ -822,7 +832,7 @@ generation
 
 
 \newpage
-\section{Part controls realization }
+\section{Part controls design }
 
 
 This part of irregular logic will be carried out with the cells of the library {\bf SXLIB}.\\
@@ -847,7 +857,7 @@ here a simple circuit:
 \epsffile{exemple1.eps}
 \end{figure}
 
-The file { \bf genlib } correspondent is as follows:
+The equivalent { \bf genlib } file is as follows:
 
 \begin{sourcelisting}
 #include <genlib.h>
@@ -886,8 +896,7 @@ the command : \
 \end{commandline}
 
 You obtain the file `` circuit.vst ''. (if is not it, it may be
-that your environment is badly configured for { \bf genlib }). In
-this case, pass to the section `` Part controls description ''.
+due to environment variables that are not properly set for { \bf genlib }).
 
 \subsection{provided files checking}
 Create the file { \bf CATAL } in your simulation directory . It
@@ -898,19 +907,19 @@ amd2901_ctl C
 amd2901_dpt C
 \end{commandline}
 
-That causes to indicate to the simulator which should be taken the
+It makes the simulator use the
 behavioral files (.vbe) of `` amd2901\_ctl '' and of `` amd2901\_dpt ' '. \\
 
 \begin{commandline}
 > asimut amd2901_chip pattern result
 \end{commandline}
 
-You can control the result by using { \bf xpat } on the file ``
+You can verify the resulting patterns by using { \bf xpat } on the file ``
 result ''.
 
 \subsection{Part controls description }
 
-The diagrams corresponding to the signals list to realize are
+The diagrams corresponding to the signals list to design are
 provided to you. %To supplement the file `` amd2901\_ctl.c '' then
 compile it by using the steps below. \\
 
@@ -957,17 +966,16 @@ of problem, do not hesitate to use { \bf xpat }.
 \end{commandline}
 
 After having validated the functional behavior of the netlist,
-simulate with delay. Modify times between the patterns. Indeed, {
+simulate it using propagation delays. 
+Modify time values between the patterns. Indeed, {
 \bf asimut } is able to evaluate the propagation times for each
-gates of the netlist. but beware asimut can just evaluate and
-the route cannot be considered.This is not of course possible step for a
-behavioral file.
-
+cell of the netlist (taken into account the "after" clauses 
+specify in vbe files).
 
 %%%%%%%%%%%%%%%%%%%%
 
 \newpage
-\section{Data-path realization}
+\section{Data-path design}
 The data path is formed by the regular logic of the circuit. In
 order to benefit from this regularity, we generates the signals
 list in the vectorial operators form (or columns) { \it via } the
@@ -1060,14 +1068,13 @@ may be that your environment is badly configured for { \bf genlib
 pass to the section ``  Data path description''.\\
 
 {\bf Note:} { \bf genlib } can also create the physical placement
-(the drawing) of structural description .\\
+(the drawing) of a structural description .\\
 
 \subsection{Data-path description}
 
-The diagrams corresponding to the signals list to realize are
-provided to you. %To supplement the file `` amd2901\_dpt.c '' then
-compile it by using
-the steps below .\\
+The diagrams corresponding to the signals list to design are
+given. %To supplement the file `` amd2901\_dpt.c '' then
+Compile it following the steps below .\\
 
 %Positionner les variables d'environnement sp\'ecifiant les formats des diff\'erentes vues ainsi que les librairies de cellules utilis\'ees.\\
 %
@@ -1082,15 +1089,15 @@ the steps below .\\
 %}\\
 
 
-Generate the signals list { \bf vst } starting from the file { \bf c } by the command: \\
+Generate the signals list { \bf vst } starting from the { \bf c } file,
+ using the command: \\
 \ \\
 \begin{commandline}
 > genlib amd2901_dpt
 \end{commandline}
 
-Validate the netlist in the same way as for the part
-controls. Remove file CATAL and simulate the circuit with { \bf
-asimut }.
+Validate the netlist in the same way as it has been done for the control part.
+Remove CATAL file and simulate the circuit with { \bf asimut }.
 
 \begin{commandline}
 > asimut -zerodelay amd2901_chip pattern result
@@ -1103,7 +1110,7 @@ asimut }.
 
 \newpage
 
-\section{The { \it Makefile } or how to manage tasks dependency }
+\section{The { \it Makefile } or how to manage tasks dependencies }
 %-------------------------------------------------------------------------------
 
 The synthesis under { \bf Alliance } breaks up into several tools

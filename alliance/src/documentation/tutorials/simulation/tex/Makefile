@@ -15,6 +15,9 @@ simulation.dvi : simulation.tex addac.eps
 simulation.pdf : simulation.dvi
 	dvipdf simulation.dvi
 
+simulation.ps : simulation.dvi
+	dvips simulation.dvi -o simulation.ps
+
 $(EPS) : $(FIG)
 $(TEX:.tex=.ps) : $(TEX:.tex=.dvi)
 
