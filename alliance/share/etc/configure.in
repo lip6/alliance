@@ -4,10 +4,12 @@
 #
 # Alliance CAD system configure.in 
 # (C) 1997 Czo  -- <Olivier.Sirol@lip6.fr>
-# $Id: configure.in,v 1.14 2000/09/11 16:45:50 czo Exp $
+# $Id: configure.in,v 1.15 2000/09/11 17:23:43 czo Exp $
 #
 
-AC_REVISION($Revision: 1.14 $)dnl
+
+
+AC_REVISION($Revision: 1.15 $)dnl
 
 AC_INIT(configure.in)
 
@@ -73,6 +75,7 @@ else
 fi
 
 AC_SUBST(PROGRAM_SUFFIX)
+
 
 ################################################################## Binaries
 AC_CHECKING(%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% Binaries)
@@ -168,6 +171,7 @@ AC_PATH_PROG(LS,         ls)
 AC_PATH_PROG(MKDIR,      mkdir)
 AC_PATH_PROG(MV,         mv)
 AC_PATH_PROG(PERL,       perl)
+AC_PATH_PROG(PWDBIN,     pwd)
 AC_PATH_PROG(RANLIB,     ranlib)
 AC_PATH_PROG(RM,         rm)
 AC_PATH_PROG(SED,        sed)
@@ -188,6 +192,9 @@ AC_PATH_PROG(TRUE,       true)
 AC_PATH_PROG(WC,         wc)
 
 
+# SKIPTEST
+# if false; then
+    
 # Check that all the utilities are present
 
 # All but makeinfo, automake, autoconf, autoheader, zsh
@@ -207,6 +214,7 @@ if $TEST -z "$AR" \
    -o -z "$MKDIR" \
    -o -z "$MV" \
    -o -z "$PERL" \
+   -o -z "$PWDBIN" \
    -o -z "$RM" \
    -o -z "$SED" \
    -o -z "$STRIP" \
@@ -455,11 +463,14 @@ AC_MSG_RESULT(no))
 
 AC_SUBST(AUTO_HAS)
 
+#fi # SKIPTEST
+    
 ################################################################### Alliance ALLIANCE_TOP
 AC_MSG_CHECKING(where the Alliance package was installed)
-ALLIANCE_TOP=`pwd | sed 's,share/etc$,archi,'`
+# Avoid problems with soft links and builtin pwd...
+ALLIANCE_TOP=`$PWDBIN | sed 's,share/etc$,archi,'`
 export ALLIANCE_TOP
-AC_MSG_RESULT(" : $ALLIANCE_TOP")
+AC_MSG_RESULT("")
 AC_SUBST(ALLIANCE_TOP)
 
 DATE=`date`
