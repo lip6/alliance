@@ -202,9 +202,9 @@ BEH_H      =    beh110.h
 BHL_L      =  -lBhl110
 BHL_LIB    = libBhl110.a
 BHL_H      =    bhl110.h
-BVL_L      =  -lBvl111
-BVL_LIB    = libBvl111.a
-BVL_H      =    bvl111.h
+BVL_L      =  -lBvl113
+BVL_LIB    = libBvl113.a
+BVL_H      =    bvl113.h
 
 # ###---------------------------------------------------------###
 #    functions related to finite state machine representation : #
@@ -350,9 +350,9 @@ GAM_L      =  -lGam000
 GAM_LIB    = libGam000.a
 GAM_H      =    gam000.h
 
-GFP_L      =  -lGfp114
-GFP_LIB    = libGfp114.a
-GFP_H      =    gfp114.h
+GFP_L      =  -lGfp115
+GFP_LIB    = libGfp115.a
+GFP_H      =    gfp115.h
 
 # ###---------------------------------------------------------###
 #    place & route functions                                    #
