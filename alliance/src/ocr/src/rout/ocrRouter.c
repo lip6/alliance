@@ -1,8 +1,11 @@
 /*
    ### -------------------------------------------------- ### 
    $Author: hcl $
-   $Date: 2002/03/22 09:41:09 $
+   $Date: 2002/04/03 09:52:19 $
    $Log: ocrRouter.c,v $
+   Revision 1.4  2002/04/03 09:52:19  hcl
+   A little bit of C++.
+
    Revision 1.3  2002/03/22 09:41:09  hcl
    ALLIANCE_VERSION
 
@@ -392,7 +395,6 @@ reRoute(ocrRoutingDataBase * i_pDataBase,
     chain_list *l_pSignalList;
     ocrConnector *l_pCon;
 
-//  puts ("reRoute");
 
     // routage du signal désigné par i_pSignal
     //  fprintf (stdout, "reRoute : Routage du signal %ld \n",
@@ -414,7 +416,6 @@ reRoute(ocrRoutingDataBase * i_pDataBase,
 
     } else {
         l_uReturnValue = 0;
-        //  puts ("Echec reRoute");
         display(LEVEL, VVERB, "o Echec reRoute %ld\n", i_pSignal->INDEX);
 
         i_pSignal->ROUTED = 2;
@@ -847,13 +848,17 @@ dumpSignalsToPhFig(ocrSignal * i_pSignal,
 {
     ocrSignal *l_pSignal;
     ocrWSegment *l_pSegment;
+    ocrNaturalInt nseg;
 
     for (l_pSignal = i_pSignal; l_pSignal; l_pSignal = l_pSignal->NEXT) {
+        //nseg = 0;
         for (l_pSegment = l_pSignal->SEGMENT;
              l_pSegment; l_pSegment = l_pSegment->NEXT) {
             addSegmentToPhFig(i_pParam, l_pSegment, i_pPhFig, l_pSignal->NAME);
             addViaForIntersection(i_pParam, l_pSegment, i_pPhFig);
+            //nseg ++;
         }
+        //display (LEVEL, VVERB, "o %ld segments for %s\n", nseg, l_pSignal->NAME);
     }
 }
 

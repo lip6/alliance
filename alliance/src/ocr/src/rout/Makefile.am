@@ -13,4 +13,4 @@ ocr_LDADD = @LIBS@ \
 
 ocr_SOURCES = display.c findNPointsPath.c getOption.c\
 		ocrGlobalRouting.c ocrMst.c ocrRouter.c\
-		ocrWeightedTree.c ocrAstar.c
+		ocrWeightedTree.c ocrAstar.cpp
