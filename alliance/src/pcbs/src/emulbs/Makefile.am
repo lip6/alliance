@@ -9,7 +9,7 @@ bin_PROGRAMS = emulbs
 
 CLEANFILES          =  emul_y.c emul_y.h emul_l.c y.tab.h y.tab.c
 
-INCLUDES = -I$(top_builddir)/src/emulbs -I$(top_srcdir)/src/emulbs 
+INCLUDES = -I$(srcdir)/../emulbs 
 
 emulbs_LDADD = @ALLIANCE_LIBS@ \
      -lMpu \

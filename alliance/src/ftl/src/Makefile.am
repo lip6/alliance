@@ -9,6 +9,6 @@ libFtl_la_LDFLAGS = -version-info @FTL_DLL_VERSION@
 EXTRA_PROGRAMS = fsmtest
 
 
-fsmtest_LDADD = -L${top_buildir}/src -lFtl -lFks -lFvh -lFsm \
+fsmtest_LDADD = -L. -lFtl -lFks -lFvh -lFsm \
 	        -lBdd -lAbl -lAut -lMut
 fsmtest_SOURCES = main.c
