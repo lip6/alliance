@@ -92,7 +92,7 @@ void SyfFbhSimplify( FbhFigure )
 {
   fbout_list *FbOut;
   fbreg_list *FbReg;
-  biabl_list *FbBiabl;
+  fbbiabl_list *FbBiabl;
   fbaux_list *FbAux;
 
   for ( FbAux  = FbhFigure->BEAUX;
@@ -120,7 +120,7 @@ void SyfFbhSimplify( FbhFigure )
         FbReg  = FbReg->NEXT )
   {
     for ( FbBiabl  = FbReg->BIABL;
-          FbBiabl != (biabl_list *)0;
+          FbBiabl != (fbbiabl_list *)0;
           FbBiabl  = FbBiabl->NEXT )
     {
       if ( ( FbBiabl->CNDABL != (chain_list *)0 ) &&

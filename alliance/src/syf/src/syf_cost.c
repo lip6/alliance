@@ -94,7 +94,7 @@ long SyfFbhAblGiveCost( FbhFigure )
   fbout_list *FbhOut;
   fbaux_list *FbhAux;
   fbreg_list *FbhReg;
-  biabl_list *FbhBiAbl;
+  fbbiabl_list *FbhBiAbl;
 
   Cost = 0;
 
@@ -123,7 +123,7 @@ long SyfFbhAblGiveCost( FbhFigure )
         FbhReg  = FbhReg->NEXT )
   {
     for ( FbhBiAbl  = FbhReg->BIABL;
-          FbhBiAbl != (biabl_list *)0;
+          FbhBiAbl != (fbbiabl_list *)0;
           FbhBiAbl  = FbhBiAbl->NEXT )
     {
       if ( FbhBiAbl->VALABL != (chain_list *)0 )

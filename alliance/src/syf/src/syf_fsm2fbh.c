@@ -134,8 +134,8 @@ void SyfFsmTreatOutput( FsmFigure, FbhFigure )
   fbout_list     *FbhOut;
   fbrin_list     *FbhRin;
   fbreg_list     *FbhReg;
-  biabl_list     *FbhBiAbl;
-  binode_list    *FbhBiNode;
+  fbbiabl_list     *FbhBiAbl;
+  fbbinode_list    *FbhBiNode;
   ablexpr        *Equation;
   ablexpr        *AblExpr;
   long            Index;
@@ -185,10 +185,10 @@ void SyfFsmTreatOutput( FsmFigure, FbhFigure )
       Equation = dupablexpr( FsmFigure->CLOCK_ABL );
       AblExpr  = dupablexpr( OutArray[ Index ].ABL );
 
-      FbhBiAbl = fbh_addbiabl( (biabl_list *)0,
+      FbhBiAbl = fbh_addbiabl( (fbbiabl_list *)0,
                                     OutArray[ Index ].NAME_MASTER, Equation, AblExpr );
   
-      FbhBiNode = fbh_addbinode( (binode_list *)0,
+      FbhBiNode = fbh_addbinode( (fbbinode_list *)0,
                                      (bddnode *)0, 
                                      (bddnode *)0 );
 
@@ -222,8 +222,8 @@ void SyfFsmTreatRegister( FsmFigure, FbhFigure )
   int              Index;
   fbreg_list      *FbhReg;
   fbrin_list      *FbhRin;
-  biabl_list      *FbhBiAbl;
-  binode_list     *FbhBiNode;
+  fbbiabl_list      *FbhBiAbl;
+  fbbinode_list     *FbhBiNode;
   chain_list      *Equation;
 
   SyfInfo  = FSM_SYF_INFO( FsmFigure );
@@ -234,12 +234,12 @@ void SyfFsmTreatRegister( FsmFigure, FbhFigure )
   for ( Index = SyfInfo->NUMBER_REG - 1; Index >= 0; Index-- )
   {
     Equation = dupablexpr( FsmFigure->CLOCK_ABL );
-    FbhBiAbl = fbh_addbiabl( (biabl_list *)0,
+    FbhBiAbl = fbh_addbiabl( (fbbiabl_list *)0,
                              RegArray[ Index ].NAME_MASTER,
                              Equation,
                              dupablexpr( RegArray[ Index ].ABL_IN ) );
 
-    FbhBiNode = fbh_addbinode( (binode_list *)0, (bddnode *)0, (bddnode *)0 );
+    FbhBiNode = fbh_addbinode( (fbbinode_list *)0, (bddnode *)0, (bddnode *)0 );
 
     FbhReg = fbh_addfbreg( FbhReg, RegArray[ Index ].NAME_MASTER,
                            FbhBiAbl, FbhBiNode );
@@ -256,12 +256,12 @@ void SyfFsmTreatRegister( FsmFigure, FbhFigure )
       if ( ! StackArray[ Index ].FLAGS )
       {
         Equation = dupablexpr( FsmFigure->CLOCK_ABL );
-        FbhBiAbl = fbh_addbiabl( (biabl_list *)0,
+        FbhBiAbl = fbh_addbiabl( (fbbiabl_list *)0,
                                       StackArray[ Index ].NAME_MASTER,
                                       Equation,
                                       dupablexpr( StackArray[ Index ].ABL ) );
 
-        FbhBiNode = fbh_addbinode( (binode_list *)0,
+        FbhBiNode = fbh_addbinode( (fbbinode_list *)0,
                                        (bddnode *)0,
                                        (bddnode *)0 );
 
