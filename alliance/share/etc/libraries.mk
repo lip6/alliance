@@ -3,7 +3,7 @@
 # description   : Alliance Shared Libraries and Include Files   #
 # ###---------------------------------------------------------###
 
-# $Id: libraries.mk,v 1.20 2000/01/12 14:32:50 czo Exp $
+# $Id: libraries.mk,v 1.21 2000/01/12 14:39:05 czo Exp $
 
 # The variables $ALLIANCE_TOP and $ALLIANCE_OS are set by
 # alc_env.[c]sh script
@@ -424,4 +424,3 @@ FCL_LIB    = libFcl110.a
 FCL_H      =    fcl110.h
 
 # end of libraries.mk
-
