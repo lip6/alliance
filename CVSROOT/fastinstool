@@ -1,26 +1,29 @@
 #!/bin/sh
 
-DATE=`/asim/gnu/bin/date +"%Y.%m.%d_%H.%M.%S"`
+PATH=/asim/gnu/bin:/usr/ucb:/usr/etc:/bin:/usr/bin:/usr/local/bin:${PATH}
+export PATH
+
+DATE=`date +"%Y.%m.%d_%H.%M.%S"`
 LABO=/users/soft5/newlabo/alliance
 
 for ARCHI in Linux_elf Linux SunOS Solaris
  do
  for FILE in /users/soft5/newlabo/cvstree/alliance/archi/$ARCHI/bin/*
  do
-    echo %%%%%% $FILE
+#    echo %%%%%% $FILE
     cp -f $FILE /users/soft5/newlabo/alliance/archi/$ARCHI/bin/`basename $FILE`.$DATE
     ln -f -s /users/soft5/newlabo/alliance/archi/$ARCHI/bin/`basename $FILE`.$DATE /users/soft5/newlabo/alliance/archi/$ARCHI/bin/`basename $FILE`
 done
 
   for TRUC in /users/soft5/newlabo/cvstree/alliance/archi/$ARCHI/lib/*
   do
-    echo %%%%%% $TRUC
+#    echo %%%%%% $TRUC
     cp -f $TRUC /users/soft5/newlabo/alliance/archi/$ARCHI/lib/`basename $TRUC`
   done
 
   for TRUC in /users/soft5/newlabo/cvstree/alliance/archi/$ARCHI/include/*
   do
-    echo %%%%%% $TRUC
+#    echo %%%%%% $TRUC
     cp -f $TRUC /users/soft5/newlabo/alliance/archi/$ARCHI/include/`basename $TRUC`
   done
 
