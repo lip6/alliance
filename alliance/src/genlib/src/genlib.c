@@ -71,7 +71,7 @@
 #include "mbkgen.h"
 #define __GENLIB__
 #include "mgn.h"
-static char rcsid[] = "$Id: genlib.c,v 1.6 2002/06/06 15:46:48 fred Exp $";
+static char rcsid[] = "$Id: genlib.c,v 1.7 2002/06/07 13:04:42 fred Exp $";
 
 /*******************************************************************************
 * global variables used in genlib                                              *
@@ -3509,7 +3509,7 @@ logen_list *g = NULL, *x = NULL;
       }
       type = va_arg(ap, int);
    }
-   return reverse((chain_list *)g);
+   return (logen_list *)reverse((chain_list *)g);
 }
 
 /*******************************************************************************
