@@ -7,7 +7,7 @@
 # Author: Frédéric Pétrot (fred@pasta.fr.ea)
 #         for version 0
 #
-# $Id: instool,v 1.18 1999/11/04 13:53:11 czo Exp $
+# $Id: instool,v 1.19 1999/11/15 14:45:25 syf Exp $
 #
 
 
@@ -262,6 +262,12 @@ echo "   a message MUST be given for each installation"
                   echo "that sucks pretty much so I quit leaving things as is"
                   exit 17
                fi
+               chmod 775 $LABO/archi/$i/$j/`basename $k`.$DATE
+               if [ $? -ne 0 ] ; then 
+                  echo "`basename $0`: chmod returned a non-zero exit status"
+                  echo "that sucks pretty much so I quit leaving things as is"
+                  exit 17
+               fi
                rm -f $LABO/archi/$i/$j/`basename $k` > /dev/null 2>&1
                ln -s $LABO/archi/$i/$j/`basename $k`.$DATE $LABO/archi/$i/$j/`basename $k`
                if [ $? -ne 0 ] ; then 
@@ -281,11 +287,23 @@ echo "   a message MUST be given for each installation"
                if [ $i = "SunOS" ] ; then
                   ssh heavy ranlib $LABO/archi/$i/$j/`basename $k`
                fi
+               chmod 664 $LABO/archi/$i/$j >> $BUG 2>&1
+               if [ $? -ne 0 ] ; then 
+                  echo "`basename $0`: chmod returned a non-zero exit status"
+                  echo "that sucks pretty much so I quit leaving things as is"
+                  exit 17
+               fi
             done
          else
             cp $1/labo/$i/$j/* $LABO/archi/$i/$j >> $BUG 2>&1
             if [ $? -ne 0 ] ; then 
                echo "`basename $0`: cp returned a non-zero exit status"
+               echo "that sucks pretty much so I quit leaving things as is"
+               exit 17
+            fi
+            chmod 664 $LABO/archi/$i/$j/* >> $BUG 2>&1
+            if [ $? -ne 0 ] ; then 
+               echo "`basename $0`: chmod returned a non-zero exit status"
                echo "that sucks pretty much so I quit leaving things as is"
                exit 17
             fi
