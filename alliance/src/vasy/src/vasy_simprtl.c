@@ -1354,6 +1354,7 @@ static void VasySimplifySubstReadOut( RtlFigure )
     while ( RtlAsg != (rtlasg_list *)0 ) 
     {
       VasySimplifySubstReadOutVex( RtlAsg->VEX_ATOM );
+      VasySimplifySubstReadOutVex( RtlAsg->VEX_DATA );
   
       for ( ScanBiVex  = RtlAsg->BIVEX;
             ScanBiVex != (rtlbivex_list *)0;
