@@ -19,7 +19,7 @@
 
 library (sxlib) {
 
-    date        : "Sat Oct 30 20:25:21 MET DST 1999";
+    date        : "Sat Oct 30 22:31:32 MET DST 1999";
     revision    : 1.2;
 
     /* --------------------------------------------- */
@@ -403,7 +403,7 @@ library (sxlib) {
         pin(nq) {
             direction  : output;
             max_fanout : 0.078;
-            function : "(i0 * i1)'";
+            function : "(i0' + i1')";
             timing() {
                 timing_sense    : negative_unate;
                 intrinsic_rise  : 0.059;
@@ -438,7 +438,7 @@ library (sxlib) {
         pin(nq) {
             direction  : output;
             max_fanout : 0.327;
-            function : "(i0 * i1)'";
+            function : "(i0' + i1')";
             timing() {
                 timing_sense    : negative_unate;
                 intrinsic_rise  : 0.412;
@@ -473,7 +473,7 @@ library (sxlib) {
         pin(nq) {
             direction  : output;
             max_fanout : 0.080;
-            function : "(i0 + i1)'";
+            function : "(i0' * i1')";
             timing() {
                 timing_sense    : negative_unate;
                 intrinsic_rise  : 0.298;
@@ -508,7 +508,7 @@ library (sxlib) {
         pin(nq) {
             direction  : output;
             max_fanout : 0.327;
-            function : "(i0 + i1)'";
+            function : "(i0' * i1')";
             timing() {
                 timing_sense    : negative_unate;
                 intrinsic_rise  : 0.618;
@@ -548,7 +548,7 @@ library (sxlib) {
         pin(nq) {
             direction  : output;
             max_fanout : 0.071;
-            function : "(i0 * i1 * i2)'";
+            function : "(i0' + i1' + i2')";
             timing() {
                 timing_sense    : negative_unate;
                 intrinsic_rise  : 0.119;
@@ -596,7 +596,7 @@ library (sxlib) {
         pin(nq) {
             direction  : output;
             max_fanout : 0.327;
-            function : "(i0 * i1 * i2)'";
+            function : "(i0' + i1' + i2')";
             timing() {
                 timing_sense    : negative_unate;
                 intrinsic_rise  : 0.556;
@@ -644,7 +644,7 @@ library (sxlib) {
         pin(nq) {
             direction  : output;
             max_fanout : 0.091;
-            function : "((i0 + i1) * i2)'";
+            function : "((i0' * i1') + i2')";
             timing() {
                 timing_sense    : negative_unate;
                 intrinsic_rise  : 0.294;
@@ -692,7 +692,7 @@ library (sxlib) {
         pin(nq) {
             direction  : output;
             max_fanout : 0.327;
-            function : "((i0 + i1) * i2)'";
+            function : "((i0' * i1') + i2')";
             timing() {
                 timing_sense    : negative_unate;
                 intrinsic_rise  : 0.732;
@@ -740,7 +740,7 @@ library (sxlib) {
         pin(nq) {
             direction  : output;
             max_fanout : 0.091;
-            function : "((cmd' * i0)+(cmd * i1))'";
+            function : "((cmd + i0') * (cmd' + i1'))";
             timing() {
                 timing_sense    : negative_unate;
                 intrinsic_rise  : 0.218;
@@ -788,7 +788,7 @@ library (sxlib) {
         pin(nq) {
             direction  : output;
             max_fanout : 0.327;
-            function : "((cmd' * i0)+(cmd * i1))'";
+            function : "((cmd + i0') * (cmd' + i1'))";
             timing() {
                 timing_sense    : negative_unate;
                 intrinsic_rise  : 0.632;
@@ -836,7 +836,7 @@ library (sxlib) {
         pin(nq) {
             direction  : output;
             max_fanout : 0.062;
-            function : "(i0 + i1 + i2)'";
+            function : "(i0' * i1' * i2')";
             timing() {
                 timing_sense    : negative_unate;
                 intrinsic_rise  : 0.318;
@@ -884,7 +884,7 @@ library (sxlib) {
         pin(nq) {
             direction  : output;
             max_fanout : 0.327;
-            function : "(i0 + i1 + i2)'";
+            function : "(i0' * i1' * i2')";
             timing() {
                 timing_sense    : negative_unate;
                 intrinsic_rise  : 0.722;
@@ -932,7 +932,7 @@ library (sxlib) {
         pin(nq) {
             direction  : output;
             max_fanout : 0.091;
-            function : "((i0 * i1) + i2)'";
+            function : "((i0' + i1') * i2')";
             timing() {
                 timing_sense    : negative_unate;
                 intrinsic_rise  : 0.151;
@@ -980,7 +980,7 @@ library (sxlib) {
         pin(nq) {
             direction  : output;
             max_fanout : 0.327;
-            function : "((i0 * i1) + i2)'";
+            function : "((i0' + i1') * i2')";
             timing() {
                 timing_sense    : negative_unate;
                 intrinsic_rise  : 0.550;
@@ -1033,7 +1033,7 @@ library (sxlib) {
         pin(nq) {
             direction  : output;
             max_fanout : 0.054;
-            function : "(i0 * i1 * i2 * i3)'";
+            function : "(i0' + i1' + i2' + i3')";
             timing() {
                 timing_sense    : negative_unate;
                 intrinsic_rise  : 0.179;
@@ -1094,7 +1094,7 @@ library (sxlib) {
         pin(nq) {
             direction  : output;
             max_fanout : 0.327;
-            function : "(i0 * i1 * i2 * i3)'";
+            function : "(i0' + i1' + i2' + i3')";
             timing() {
                 timing_sense    : negative_unate;
                 intrinsic_rise  : 0.578;
@@ -1155,7 +1155,7 @@ library (sxlib) {
         pin(nq) {
             direction  : output;
             max_fanout : 0.091;
-            function : "((i0 + i1) * (i2 + i3))'";
+            function : "((i0' * i1') + (i2' * i3'))";
             timing() {
                 timing_sense    : negative_unate;
                 intrinsic_rise  : 0.294;
@@ -1216,7 +1216,7 @@ library (sxlib) {
         pin(nq) {
             direction  : output;
             max_fanout : 0.327;
-            function : "((i0 + i1) * (i2 + i3))'";
+            function : "((i0' * i1') + (i2' * i3'))";
             timing() {
                 timing_sense    : negative_unate;
                 intrinsic_rise  : 0.734;
@@ -1277,7 +1277,7 @@ library (sxlib) {
         pin(nq) {
             direction  : output;
             max_fanout : 0.047;
-            function : "(i0 + i1 + i2 + i3)'";
+            function : "(i0' * i1' * i2' * i3')";
             timing() {
                 timing_sense    : negative_unate;
                 intrinsic_rise  : 0.330;
@@ -1338,7 +1338,7 @@ library (sxlib) {
         pin(nq) {
             direction  : output;
             max_fanout : 0.327;
-            function : "(i0 + i1 + i2 + i3)'";
+            function : "(i0' * i1' * i2' * i3')";
             timing() {
                 timing_sense    : negative_unate;
                 intrinsic_rise  : 0.656;
@@ -1399,7 +1399,7 @@ library (sxlib) {
         pin(nq) {
             direction  : output;
             max_fanout : 0.091;
-            function : "((i0 * i1) + (i2 * i3))'";
+            function : "((i0' + i1') * (i2' + i3'))";
             timing() {
                 timing_sense    : negative_unate;
                 intrinsic_rise  : 0.151;
@@ -1460,7 +1460,7 @@ library (sxlib) {
         pin(nq) {
             direction  : output;
             max_fanout : 0.327;
-            function : "((i0 * i1) + (i2 * i3))'";
+            function : "((i0' + i1') * (i2' + i3'))";
             timing() {
                 timing_sense    : negative_unate;
                 intrinsic_rise  : 0.562;
@@ -1526,7 +1526,7 @@ library (sxlib) {
         pin(nq) {
             direction  : output;
             max_fanout : 0.030;
-            function : "((cmd0'*i0)+(cmd0*((cmd1*i1)+(cmd1'*i2))))'";
+            function : "((cmd0+i0')*(cmd0'+((cmd1'+i1')*(cmd1+i2'))))";
             timing() {
                 timing_sense    : negative_unate;
                 intrinsic_rise  : 0.356;
@@ -1600,7 +1600,7 @@ library (sxlib) {
         pin(nq) {
             direction  : output;
             max_fanout : 0.327;
-            function : "((cmd0'*i0)+(cmd0*((cmd1*i1)+(cmd1'*i2))))'";
+            function : "((cmd0+i0')*(cmd0'+((cmd1'+i1')*(cmd1+i2'))))";
             timing() {
                 timing_sense    : negative_unate;
                 intrinsic_rise  : 0.790;
@@ -1674,7 +1674,7 @@ library (sxlib) {
         pin(nq) {
             direction  : output;
             max_fanout : 0.055;
-            function : "((i0*i1)+((i2+i3)*i4))'";
+            function : "((i0'*i1')+((i2'+i3')*i4'))";
             timing() {
                 timing_sense    : negative_unate;
                 intrinsic_rise  : 0.348;
@@ -1748,7 +1748,7 @@ library (sxlib) {
         pin(nq) {
             direction  : output;
             max_fanout : 0.327;
-            function : "((i0*i1)+((i2+i3)*i4))'";
+            function : "((i0'*i1')+((i2'+i3')*i4'))";
             timing() {
                 timing_sense    : negative_unate;
                 intrinsic_rise  : 0.684;
@@ -1827,7 +1827,7 @@ library (sxlib) {
         pin(nq) {
             direction  : output;
             max_fanout : 0.062;
-            function : "((i0*i1)+(i2*i3)+(i4*i5))'";
+            function : "((i0'+i1')*(i2'+i3')*(i4'+i5'))";
             timing() {
                 timing_sense    : negative_unate;
                 intrinsic_rise  : 0.525;
@@ -1914,7 +1914,7 @@ library (sxlib) {
         pin(nq) {
             direction  : output;
             max_fanout : 0.327;
-            function : "((i0*i1)+(i2*i3)+(i4*i5))'";
+            function : "((i0'+i1')*(i2'+i3')*(i4'+i5'))";
             timing() {
                 timing_sense    : negative_unate;
                 intrinsic_rise  : 0.834;
@@ -2006,7 +2006,7 @@ library (sxlib) {
         pin(nq) {
             direction  : output;
             max_fanout : 0.043;
-            function : "((i0*i1*i2)+(((i3+i4)+i5)*i6))'";
+            function : "((i0'*i1'*i2')+(((i3'+i4')+i5')*i6'))";
             timing() {
                 timing_sense    : negative_unate;
                 intrinsic_rise  : 0.396;
@@ -2106,7 +2106,7 @@ library (sxlib) {
         pin(nq) {
             direction  : output;
             max_fanout : 0.327;
-            function : "((i0*i1*i2)+(((i3+i4)+i5)*i6))'";
+            function : "((i0'*i1'*i2')+(((i3'+i4')+i5')*i6'))";
             timing() {
                 timing_sense    : negative_unate;
                 intrinsic_rise  : 0.819;
@@ -2211,7 +2211,7 @@ library (sxlib) {
         pin(nq) {
             direction  : output;
             max_fanout : 0.047;
-            function : "((i0*i1)+(i2*i3)+(i4*i5)+(i6*i7))'";
+            function : "((i0'+i1')*(i2'+i3')*(i4'+i5')*(i6'+i7'))";
             timing() {
                 timing_sense    : negative_unate;
                 intrinsic_rise  : 0.649;
@@ -2324,7 +2324,7 @@ library (sxlib) {
         pin(nq) {
             direction  : output;
             max_fanout : 0.327;
-            function : "((i0*i1)+(i2*i3)+(i4*i5)+(i6*i7))'";
+            function : "((i0'+i1')*(i2'+i3')*(i4'+i5')*(i6'+i7'))";
             timing() {
                 timing_sense    : negative_unate;
                 intrinsic_rise  : 0.966;
@@ -4477,7 +4477,7 @@ library (sxlib) {
         pin(nq) {
             direction  : output;
             max_fanout : 0.091;
-            function : "(i0 ^ i1)'";
+            function : "(i0' ^ i1)";
             timing() {
                 timing_sense    : negative_unate;
                 intrinsic_rise  : 0.288;
@@ -4528,7 +4528,7 @@ library (sxlib) {
         pin(nq) {
             direction  : output;
             max_fanout : 0.327;
-            function : "(i0 ^ i1)'";
+            function : "(i0' ^ i1)";
             timing() {
                 timing_sense    : negative_unate;
                 intrinsic_rise  : 0.522;
