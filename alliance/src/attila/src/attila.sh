@@ -1,6 +1,6 @@
 #!/bin/sh
 #
-# $Id: attila.sh,v 1.20 2004/08/31 08:44:45 jpc Exp $
+# $Id: attila.sh,v 1.21 2004/09/06 16:15:31 jpc Exp $
 #                                                                        
 # /------------------------------------------------------------------\
 # |                                                                  |
@@ -14,6 +14,10 @@
 # | **************************************************************** |
 # |  U p d a t e s                                                   |
 # | $Log: attila.sh,v $
+# | Revision 1.21  2004/09/06 16:15:31  jpc
+# | Added support for Darwin (MacOS X).
+# | Added "--devel" argument.
+# |
 # | Revision 1.20  2004/08/31 08:44:45  jpc
 # | Be less strict in the OS guessing : Fedora Core can change the kernel revision
 # | number...
@@ -52,8 +56,8 @@
  {
    echo ""
    echo ""
-   echo "Usage : attila [-h] [-L] [-U] [-F] [-A] [-S]                     \\"
-   echo "               [--help] [--local] [--user] [--full] [--asim] [--ssh] \\"
+   echo "Usage : attila [-h] [-L] [-U] [-F] [-A] [-S] [-d]                \\"
+   echo "               [--help] [--local] [--user] [--full] [--asim] [--ssh] [--devel]\\"
    echo "               [--prefix=<INSTALL_DIR>] [--builddir=<BUILD_DIR>] \\"
    echo "               <--tool=<name1> [--tool=<name2> [...]]            \\"
    echo "               [-c- <configure_arg> [...]]                       \\"
@@ -74,6 +78,8 @@
    echo "         Compile/install the requested tool(s) for all"
    echo "         avalaibles architectures. Currently only Linux and Solaris"
    echo "         are supported."
+   echo "     o [-d|--devel]  :"
+   echo "         Uses user's local library first (development version)."
    echo "     o [-A|--asim]  :"
    echo "         Install the tool(s) in the ASIM shared direc-"
    echo "         tory (aka \"\$ALLIANCE_TOP\"), this must be used to upgrade"
@@ -191,6 +197,7 @@
      Linux\ 2.4.9*) echo "Linux.RH71";;
      Linux\ 2.6.*)  echo "Linux.FC2";;
      SunOS\ 5*)     echo "Solaris";;
+     Darwin*)       echo "Darwin";;
      *)             echo "`uname -sr`";;
    esac
  }
@@ -217,6 +224,11 @@
      "Solaris")    if [ -x "$SOLARIS_CC" ]; then
                      CXX=$SOLARIS_CXX
                       CC=$SOLARIS_CC
+                   fi
+                   ;;
+     "Darwin")     if [ -x "$DARWIN_CC" ]; then
+                     CXX=$DARWIN_CXX
+                      CC=$DARWIN_CC
                    fi
                    ;;
    esac
@@ -434,6 +446,7 @@
      "Linux.RH71") MAKE="make";;
      "Linux.FC2")  MAKE="make";;
      "Solaris")    MAKE="gmake";;
+     "Darwin")     MAKE="make";;
      *) echo "attila: \"$ALLIANCE_OS\" is not supported, only Linux & Solaris"
         echo "        are."
 
@@ -583,6 +596,10 @@
         SOLARIS_CC="/usr/local/bin/gcc"
        SOLARIS_CXX="/usr/local/bin/g++"
 
+  DARWIN_TARGET="paques"
+      DARWIN_CC="gcc"
+     DARWIN_CXX="g++"
+
 
 # --------------------------------------------------------------------
 # Internal variables.
@@ -609,6 +626,7 @@
                 ASIM="n"
                 FULL="n"
                 AUTO="n"
+               DEVEL="n"
                 SELF="$0"
         ATTILA_LOCAL="no"
 
@@ -643,6 +661,7 @@
        --ssh)         RSH="ssh";;
        --user)        ASIM="n";;
        --full)        FULL="y";;
+       --devel)       DEVEL="y";;
        --asim)        ASIM="y"; FULL="y";;
        --asim-noloop) ASIM="y";;
        --local)       ATTILA_LOCAL="y";;
@@ -680,6 +699,7 @@
                S) RSH="ssh";;
                U) ASIM="n";;
                F) FULL="y";;
+               d) DEVEL="y";;
                A) ASIM="y"; FULL="y";;
   
                *) echo "attila:error: Invalid option \`$CH'."
@@ -751,6 +771,7 @@
      ARGS="$ARGS --user"
    fi
    if [ "$ATTILA_LOCAL" = "y" ]; then ARGS="$ARGS --local"; fi
+   if [ "$DEVEL"        = "y" ]; then ARGS="$ARGS --devel"; fi
 
    for TOOL in $TOOLS; do
      ARGS="$ARGS --tool=$TOOL"
@@ -767,5 +788,8 @@
    $RSH $SOLARIS_TARGET    "/bin/bash -c \". /etc/profile; $ENVIRONMENT $SELF $ARGS\""
  else
   # Out of recursion...
+   if [ "$DEVEL" = "y" ]; then
+     ARGS_CONFIGURE="$ARGS_CONFIGURE --enable-devel"
+   fi
    compile_tool
  fi
