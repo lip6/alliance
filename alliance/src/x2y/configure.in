@@ -1,0 +1,19 @@
+dnl $Id: configure.in,v 1.1 2002/04/29 14:15:51 czo Exp $
+
+AC_INIT(src/x2y.c)
+AM_INIT_AUTOMAKE(x2y, 1.4)
+
+AC_PROG_INSTALL
+AC_PROG_CC
+AC_PROG_CPP
+AC_PROG_MAKE_SET
+AC_HEADER_STDC
+AC_C_CONST
+
+AM_ALLIANCE
+
+AC_OUTPUT([
+Makefile
+doc/Makefile
+src/Makefile
+])

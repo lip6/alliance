@@ -1,0 +1,7 @@
+#!/bin/sh
+#sed  's/\([A-Za-z_]*\)[ \t]*(\(.\))/<A HREF=\1.\2.html>\1(\2)<\/A>/g'
+for MANF in $*
+do
+echo %%%%%%%%%%%% process $MANF
+man ./$MANF | man2html -cgiurl '$title.$section$subsection.html' > $MANF.html
+done

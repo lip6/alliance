@@ -1,0 +1,583 @@
+#             ,,,
+#            (o o)
+####=====oOO--(_)--OOO=========================================####
+# 
+# Filename: configure.in
+# Copyright (C) 1997, 2000 Czo <Olivier.Sirol@lip6.fr>
+# License: GPL (http://www.gnu.org/copyleft/gpl.html)
+# Started: Feb 1997
+# Last Change: Monday 25 February 2002, 15:06
+# Edit Time: 5:34:52
+# Description: Alliance CAD system configure.in 
+#
+# $Id: configure.in.orig,v 1.1 2002/04/29 14:15:26 czo Exp $
+#
+
+AC_REVISION($Revision: 1.1 $)dnl
+
+AC_INIT(configure.in)
+
+AC_PREFIX_DEFAULT(/usr/local/alliance)
+
+# Helps this script to run in bad configured env...
+
+PATH=/local/beny1/arnaud/bin:$PATH
+
+#PATH=$PATH:/bin:/usr/bin:/usr/local/bin:/labo/TeX/teTeX/bin:/labo/X11R6/bin:/labo/X11r5/bin:/labo/bin:/labo/gnu/bin:/sbin:/user/local/bin:/usr/X11/bin:/usr/X11R6/bin:/usr/andrew/bin:/usr/bin/X11:/usr/bin/games:/usr/bin:/usr/ccs/bin:/usr/dt/bin:/usr/etc:/usr/games:/usr/lib/teTeX/bin:/usr/local/bin:/usr/local/games:/usr/openwin/bin:/usr/sbin:/usr/ucb/bin:/usr/ucb:/usr/xpg4/bin
+
+#LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/usr/lib:/usr/local/lib:/labo/gnu/lib:/labo/X11R6/lib:/usr/lib/X11:/labo/X11r5/lib:/usr/X11R6.3/lib
+
+    
+# Which platform for Alliance CAD
+AC_MSG_CHECKING(for platform)
+
+# WARNING : if changing this remember to do it on the 3 config files :
+# configure.in alc_env.sh.in and alc_env.csh.in
+
+ALLIANCE_OS=Unknown
+ 
+case `uname` in
+
+  Linux*) case `uname -r` in
+           1.*) ALLIANCE_OS=Linux_aout ;;
+          2.0*) ALLIANCE_OS=Linux_elf  ;;            
+             *) ALLIANCE_OS=Linux  ;;
+          esac ;;
+
+  SunOS*) case `uname -r` in
+            5*) ALLIANCE_OS=Solaris ;;
+             *) ALLIANCE_OS=SunOS ;;
+          esac ;;
+
+  FreeBSD*)     ALLIANCE_OS=FreeBSD ;;
+
+  NetBSD*)      ALLIANCE_OS=NetBSD ;;
+
+  HP-UX*)       ALLIANCE_OS=HPUX ;;
+
+  OSF1*)        ALLIANCE_OS=OSF ;;
+
+  CYGWIN*)      ALLIANCE_OS=Cygwin ;;
+
+  *)            ALLIANCE_OS=Unknown ;;
+
+esac
+
+export ALLIANCE_OS
+# echo $ALLIANCE_OS
+
+AC_MSG_RESULT(Configuring Alliance VLSI CAD System on platform : $ALLIANCE_OS)
+AC_SUBST(ALLIANCE_OS)
+
+AC_PROG_MAKE_SET
+
+if test "$program_suffix" = NONE ; then
+  if test "$ALLIANCE_OS" = Cygwin ; then
+      PROGRAM_SUFFIX=".exe"
+  else    
+      PROGRAM_SUFFIX=""
+  fi
+else    
+    PROGRAM_SUFFIX="$program_suffix"
+fi
+
+AC_SUBST(PROGRAM_SUFFIX)
+
+
+################################################################## Binaries
+AC_CHECKING(%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% Binaries)
+
+# AC_CANONICAL_SYSTEM
+
+# Set default value for CC and CFLAGS
+# -DALLIANCE_DISTRIB
+
+if test -z "$CFLAGS" ; then
+  CFLAGS="-O -D$ALLIANCE_OS"
+fi
+
+AC_PROG_CC
+
+AC_PATH_PROG(FULL_CC,       $CC)
+AC_SUBST(FULL_CC)
+
+AC_PROG_CPP
+
+if test "$GCC" = yes ; then
+    CFLAGS="-O2 -Wall -D$ALLIANCE_OS"
+fi
+
+
+# Set default value for MAKE
+AC_PATH_PROG(GMAKE,      gmake)
+AC_PATH_PROG(MAKE,       make)
+if test -n "$GMAKE" ; then
+    MAKE=$GMAKE
+fi
+
+ARFLAGS=
+AC_SUBST(MAKEFLAGS)
+
+# Looking for particular programs
+# Lex & Yacc
+# Do not use AC_PROG_YACC because our yacc grammar
+# is not compatible with bison...
+# AC_PATH_PROG(YACC, yacc)
+
+AC_PROG_YACC
+AC_PROG_LEX
+AC_DECL_YYTEXT
+
+YACCFLAGS=`echo $YACC | awk '{for (i=2 ; i<=NF ; i++) printf("%s ", $i);printf ("\n"); }'`
+AC_SUBST(YACCFLAGS)
+
+LEXFLAGS=`echo $LEX  | awk '{for (i=2 ; i<=NF ; i++) printf("%s ", $i);printf ("\n"); }'`
+AC_SUBST(LEXFLAGS)
+
+AC_PATH_PROG(FULL_LEX,   `echo $LEX | awk '{print $1}'`)
+AC_SUBST(FULL_LEX)
+
+AC_PATH_PROG(FULL_YACC,  `echo $YACC | awk '{print $1}'`)
+AC_SUBST(FULL_YACC)
+
+# gcc-cpp has the wonderful -MM option to produce nicer dependencies
+test "$GCC" = yes && CPP_MM=M; AC_SUBST(CPP_MM)
+
+AC_PROG_LN_S
+
+# Looking for ordinary programs
+
+AC_PATH_PROG(AR,         ar)
+
+ARFLAGS=rv 
+AC_SUBST(ARFLAGS)
+
+AC_PATH_PROG(AUTOCONF,   autoconf)
+AC_PATH_PROG(AUTOHEADER, autoheader)
+AC_PATH_PROG(AUTOMAKE,   automake)
+
+AC_PATH_PROG(GAWK,       gawk)
+AC_PATH_PROG(AWK,        awk)
+if test -n "$GAWK" ; then
+    AWK=$GAWK
+fi
+
+AC_PATH_PROG(CHMOD,      chmod)
+AC_PATH_PROG(CP,         cp)
+AC_PATH_PROG(CAT,        cat)
+AC_PATH_PROG(CSH,        csh)
+AC_PATH_PROG(CUT,        cut)
+AC_PATH_PROG(ECHO,       echo)
+AC_PATH_PROG(FALSE,      false)
+AC_PATH_PROG(FIND,       find)
+AC_PATH_PROG(GREP,       grep)
+AC_PATH_PROG(HOSTNAME,   hostname)
+AC_PATH_PROG(LD,         ld)
+AC_PATH_PROG(LNDIR,      lndir)
+AC_PATH_PROG(LS,         ls)
+AC_PATH_PROG(MKDIR,      mkdir)
+AC_PATH_PROG(MV,         mv)
+AC_PATH_PROG(PERL,       perl)
+AC_PATH_PROG(PWDBIN,     pwd)
+AC_PATH_PROG(RANLIB,     ranlib)
+AC_PATH_PROG(RM,         rm)
+AC_PATH_PROG(SED,        sed)
+
+AC_PATH_PROG(SH,      sh)
+if test "$SH" != sh ; then
+    SHELL=$SH
+else
+    SHELL=/bin/sh
+fi
+AC_SUBST(SHELL)
+
+AC_PATH_PROG(STRIP,      strip)
+AC_PATH_PROG(TEST,       test)
+AC_PATH_PROG(TOUCH,      touch)
+AC_PATH_PROG(TR,         tr)
+AC_PATH_PROG(TRUE,       true)
+AC_PATH_PROG(WC,         wc)
+
+
+# SKIPTEST
+# if false; then
+    
+# Check that all the utilities are present
+
+# All but makeinfo, automake, autoconf, autoheader, zsh
+if $TEST -z "$AR" \
+   -o -z "$AWK" \
+   -o -z "$CAT" \
+   -o -z "$CHMOD" \
+   -o -z "$CP" \
+   -o -z "$CUT" \
+   -o -z "$ECHO" \
+   -o -z "$FALSE" \
+   -o -z "$FIND" \
+   -o -z "$GREP" \
+   -o -z "$HOSTNAME" \
+   -o -z "$LD" \
+   -o -z "$LS" \
+   -o -z "$MKDIR" \
+   -o -z "$MV" \
+   -o -z "$PERL" \
+   -o -z "$PWDBIN" \
+   -o -z "$RM" \
+   -o -z "$SED" \
+   -o -z "$STRIP" \
+   -o -z "$TEST" \
+   -o -z "$TOUCH" \
+   -o -z "$TR" \
+   -o -z "$TRUE" \
+   -o -z "$WC" 
+then
+  AC_MSG_WARN([please install the above utilities that are not present])
+fi
+
+if test "$ALLIANCE_OS" = Cygwin ; then
+    STRIP="echo"
+fi
+
+
+################################################################## Libraries...
+AC_CHECKING(%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%  Headers and Libraries...)
+# Check that Xpm is installed
+# ($TRUE is used to avoid inclusion of -lXpm in LIBS)
+#AC_CHECK_LIB(Xpm, XpmReadFileToImage, $TRUE,
+#  AC_MSG_ERROR([please install Xpm]))
+
+# Check that xforms is installed
+#AC_CHECK_LIB(xforms, fl_init_font, $TRUE,
+#  AC_MSG_ERROR([please install xforms]))
+
+
+if test "$ALLIANCE_OS" = Solaris ; then
+    x_includes=/usr/openwin/include
+    x_libraries=/usr/openwin/lib
+fi
+
+AC_PATH_XTRA
+
+#dnl Check for Motif include files location.
+#dnl The LAST one found is used, this makes the highest version to be used,
+#dnl e.g. when Motif1.2 and Motif2.0 are both present.
+
+SKIP_MOTIF=
+if test -z "$SKIP_MOTIF"; then
+  gui_includes="`echo $x_includes|sed 's%/[^/][^/]*$%%'` /local/Motif*/include /local/include/Motif* /usr/local/Motif*/include /usr/local/include/Motif* /usr/include/Motif* /usr/Motif*/include /usr/local/include /usr/local/X11*/include /usr/include /usr/X11*/include /usr/include/X11* /usr/dt/include $MOTIFHOME/include $GUI_INC_LOC"
+  AC_MSG_CHECKING(for location of Motif GUI includes)
+  GUI_INC_LOC=
+  for try in $gui_includes; do
+    if test -f "$try/Xm/Xm.h"; then
+      GUI_INC_LOC=$try
+    fi
+  done
+  if test -n "$GUI_INC_LOC"; then
+    AC_MSG_RESULT($GUI_INC_LOC)
+    test "$GUI_INC_LOC" = /usr/include && GUI_INC_LOC=.
+  else
+    AC_MSG_RESULT(<not found>)
+    SKIP_MOTIF=YES
+  fi
+fi
+
+#dnl Check for Motif library files location.
+#dnl The LAST one found is used, this makes the highest version to be used,
+#dnl e.g. when Motif1.2 and Motif2.0 are both present.
+
+if test -z "$SKIP_MOTIF"; then
+  gui_libs="`echo $x_libraries|sed 's%/[^/][^/]*$%%'` `echo "$GUI_INC_LOC" | sed 's/include/lib/'` /local/Motif*/lib /local/lib/Motif* /usr/local/Motif*/lib /usr/local/lib/Motif* /usr/Motif*/lib /usr/lib/Motif* /usr/local/lib /usr/local/X11*/lib /usr/lib /usr/X11*/lib /usr/lib/X11* /usr/dt/lib $MOTIFHOME/lib $GUI_LIB_LOC"
+  AC_MSG_CHECKING(for location of Motif GUI libs)
+  GUI_LIB_LOC=
+  for try in $gui_libs; do
+    if test -f "$try/libXm.a" -o -f "$try/libXm.so" -o -f "$try/libXm.sl"; then
+      GUI_LIB_LOC=$try
+      if test "`(uname) 2>/dev/null`" = SunOS &&
+            uname -r | grep '^5' >/dev/null; then
+        GUI_LIB_LOC="$GUI_LIB_LOC -R $try"
+      fi
+    fi
+  done
+  if test -n "$GUI_LIB_LOC"; then
+    AC_MSG_RESULT($GUI_LIB_LOC)
+  else
+    AC_MSG_RESULT(<not found>)
+    SKIP_MOTIF=YES
+  fi
+fi
+
+MOTIF_INC_LOC="-I$GUI_INC_LOC"
+MOTIF_LIB_LOC="-L$GUI_LIB_LOC -lXm"
+
+# Try static link on Linux
+# TODO: faire pareil pour Xpm, voir gvim???
+# ERRORLinux !!!! ca marche pas Xm a besoin de -lXp (pb xfsm)
+
+    if test -f "$GUI_LIB_LOC/libXm.a"; then
+      if test "$ALLIANCE_OS" = ERRORLinux; then
+          MOTIF_LIB_LOC="$GUI_LIB_LOC/libXm.a"
+      fi
+    fi
+
+AC_SUBST(MOTIF_INC_LOC)
+AC_SUBST(MOTIF_LIB_LOC)
+
+# Under Cygwin I had problems with the order of libs...
+if test "$ALLIANCE_OS" = Cygwin ; then
+    X_PRE_LIBS="-lXt $X_PRE_LIBS"
+fi
+
+# Check if a small X app compiles
+
+OLD_LIBS=$LIBS
+OLD_CFLAGS=$CFLAGS
+LIBS="$OLD_LIBS $X_LIBS $X_EXTRA_LIBS $X_PRE_LIBS -lXt -lX11"
+CFLAGS="$OLD_CFLAGS $X_CFLAGS"
+AC_MSG_CHECKING(if you can link X11 app)
+AC_TRY_LINK([#include <stdio.h>
+#include <X11/Xlib.h>],
+[ XOpenDisplay (":0");],
+AC_MSG_RESULT(yes),
+AC_MSG_RESULT(ERROR: BAD X11 environment)
+)
+LIBS=$OLD_LIBS
+CFLAGS=$OLD_CFLAGS
+    
+# Check if the motif lib needs other libs to link ok
+
+OLD_LIBS=$LIBS
+OLD_CFLAGS=$CFLAGS
+LIBS="$OLD_LIBS -L$GUI_LIB_LOC -lXm $X_LIBS $X_EXTRA_LIBS $X_PRE_LIBS -lXt -lX11"
+CFLAGS="$OLD_CFLAGS $X_CFLAGS -I$GUI_INC_LOC"
+
+AC_CHECKING([if you can link Motif/LessTif app])
+AC_MSG_CHECKING([       without additional libs])
+AC_TRY_LINK([# include <Xm/Xm.h>
+# include <Xm/FileSB.h>
+# include <Xm/MessageB.h>
+# include <Xm/SelectioB.h>
+# include <Xm/SeparatoG.h>],
+[ XtAppContext app;
+  Widget toplevel;
+  XmString xm_string;
+  Arg args[1];
+  toplevel = XtVaAppInitialize(&app, "Demos", 0, 0, 0, 0, 0, 0);
+  xm_string = XmStringCreateSimple("Vive Alliance");
+  XtSetArg(args[0], XmNmessageString, xm_string);
+  XmStringFree(xm_string);
+  XtAppMainLoop( app );],
+AC_MSG_RESULT(yes),
+AC_MSG_RESULT(no)
+
+# try with Xintl
+AC_MSG_CHECKING([       with Xintl])
+LIBS="$OLD_LIBS -L$GUI_LIB_LOC -lXm $X_LIBS $X_EXTRA_LIBS $X_PRE_LIBS -lXintl -lXt -lX11"
+CFLAGS="$OLD_CFLAGS $X_CFLAGS -I$GUI_INC_LOC"
+[
+AC_TRY_LINK([# include <Xm/Xm.h>
+# include <Xm/FileSB.h>
+# include <Xm/MessageB.h>
+# include <Xm/SelectioB.h>
+# include <Xm/SeparatoG.h>],
+[ XtAppContext app;
+  Widget toplevel;
+  XmString xm_string;
+  Arg args[1];
+  toplevel = XtVaAppInitialize(&app, "Demos", 0, 0, 0, 0, 0, 0);
+  xm_string = XmStringCreateSimple("Vive Alliance");
+  XtSetArg(args[0], XmNmessageString, xm_string);
+  XmStringFree(xm_string);
+  XtAppMainLoop( app );],
+AC_MSG_RESULT(yes); X_PRE_LIBS="$X_PRE_LIBS -lXintl",
+AC_MSG_RESULT(no)
+
+# try with Xp
+AC_MSG_CHECKING([       with Xext and Xp])
+LIBS="$OLD_LIBS -L$GUI_LIB_LOC -lXm $X_LIBS $X_EXTRA_LIBS $X_PRE_LIBS -lXext -lXp -lXt -lX11"
+CFLAGS="$OLD_CFLAGS $X_CFLAGS -I$GUI_INC_LOC"
+[
+AC_TRY_LINK([# include <Xm/Xm.h>
+# include <Xm/FileSB.h>
+# include <Xm/MessageB.h>
+# include <Xm/SelectioB.h>
+# include <Xm/SeparatoG.h>],
+[ XtAppContext app;
+  Widget toplevel;
+  XmString xm_string;
+  Arg args[1];
+  toplevel = XtVaAppInitialize(&app, "Demos", 0, 0, 0, 0, 0, 0);
+  xm_string = XmStringCreateSimple("Vive Alliance");
+  XtSetArg(args[0], XmNmessageString, xm_string);
+  XmStringFree(xm_string);
+  XtAppMainLoop( app );],
+AC_MSG_RESULT(yes); X_PRE_LIBS="$X_PRE_LIBS -lXext -lXp",
+AC_MSG_RESULT(ERROR: BAD Motif/LessTif environment)
+)])])
+
+LIBS=$OLD_LIBS
+CFLAGS=$OLD_CFLAGS
+
+
+dnl ##### Check for libXpm.
+
+XPM_CFLAGS_LOC=""
+XPM_LIBS_LOC="-lXpm"
+
+OLD_LIBS=$LIBS
+OLD_CFLAGS=$CFLAGS
+LIBS="$OLD_LIBS $XPM_LIBS_LOC $X_LIBS $X_EXTRA_LIBS $X_PRE_LIBS -lXt -lX11"
+CFLAGS="$OLD_CFLAGS $X_CFLAGS $XPM_CFLAGS_LOC"
+AC_MSG_CHECKING(for libXpm)
+AC_TRY_LINK([#include <stdio.h>
+#include <stdlib.h>
+#include <X11/xpm.h>],
+[ XpmWriteFileFromPixmap( NULL, NULL, NULL, NULL, NULL );],
+AC_MSG_RESULT(yes); AUTO_HAS="$AUTO_HAS -DAUTO_HAS_XPM",
+AC_MSG_RESULT(no);XPM_CFLAGS_LOC="" ; XPM_LIBS_LOC=""
+)
+LIBS=$OLD_LIBS
+CFLAGS=$OLD_CFLAGS
+
+AC_SUBST(XPM_LIBS_LOC)
+AC_SUBST(XPM_CFLAGS_LOC)
+
+# Check where usefull GNU libs are installed (readline)
+#AC_CHECK_LIB(readline, main, $TRUE,
+#AC_MSG_WARN(Cannot find readline library), -ltermcap )
+
+
+# Check for readline include
+
+SKIP_GNU=
+if test -z "$SKIP_GNU"; then
+  gnu_includes="`echo $LD_LIBRARY_PATH | sed 's/:/ /g' | sed 's/lib/include/g'` /usr/local/include /usr/include $GNUHOME/include $GNU_INC_LOC"
+  AC_MSG_CHECKING(for location of GNU readline include)
+  GNU_INC_LOC=
+#    echo $gnu_includes
+  for try in $gnu_includes; do
+    if test -f "$try/readline/readline.h"; then
+      GNU_INC_LOC=$try
+    fi
+  done
+  if test -n "$GNU_INC_LOC"; then
+    AC_MSG_RESULT($GNU_INC_LOC)
+    test "$GNU_INC_LOC" = /usr/include && GNU_INC_LOC=.
+  else
+    AC_MSG_RESULT(not found.)
+    SKIP_GNU=YES
+  fi
+fi
+
+# Check for readline library
+
+if test -z "$SKIP_GNU"; then
+  gnu_libs="`echo $LD_LIBRARY_PATH | sed 's/:/ /g'` `echo "$GNU_INC_LOC" | sed 's/include/lib/'` /usr/local/lib /usr/lib $GNUHOME/lib $GNU_LIB_LOC"
+  AC_MSG_CHECKING(for location of GNU libs)
+  GNU_LIB_LOC=
+#    echo $gnu_libs
+  for try in $gnu_libs; do
+    if test -f "$try/libreadline.a" ; then
+      GNU_LIB_LOC=$try
+    fi
+  done
+  if test -n "$GNU_LIB_LOC"; then
+    AC_MSG_RESULT($GNU_LIB_LOC)
+  else
+    AC_MSG_RESULT(not found. Please install readline and add lib to your LD_LIBRARY_PATH )
+    SKIP_GNU=YES
+  fi
+fi
+
+AC_SUBST(GNU_INC_LOC)
+AC_SUBST(GNU_LIB_LOC)
+
+
+################################################################### Headers...
+AC_STDC_HEADERS
+
+#AC_CHECK_SIZEOF(int)
+
+#AC_CHECK_SIZEOF(void *)
+
+#AC_MSG_RESULT([kernel name : "$KERNEL_FILE"])
+
+################################################################### OS specific...
+
+vfork=vfork
+AC_FUNC_VFORK 
+AC_MSG_CHECKING(AUTO_HAS_VFORK)
+if test $vfork = fork; then
+AC_MSG_RESULT(no)
+else
+AC_MSG_RESULT(yes)
+AUTO_HAS="$AUTO_HAS -DAUTO_HAS_VFORK"
+fi
+
+AC_MSG_CHECKING(AUTO_HAS_SA_RESTART)
+AC_TRY_LINK([#include <stdio.h>
+#include <stdlib.h>
+#include <signal.h>],
+[struct sigaction sgct;
+sgct.sa_flags    = SA_RESTART;
+sigaction( SIGCHLD, &sgct , NULL );],
+AC_MSG_RESULT(yes); AUTO_HAS="$AUTO_HAS -DAUTO_HAS_SA_RESTART",
+AC_MSG_RESULT(no))
+
+AC_MSG_CHECKING(AUTO_HAS_DRAND48)
+AC_TRY_LINK([#include <stdio.h>
+#include <stdlib.h>],
+[  double     Proba;
+   Proba    = drand48();],
+AC_MSG_RESULT(yes); AUTO_HAS="$AUTO_HAS -DAUTO_HAS_DRAND48",
+AC_MSG_RESULT(no))
+
+AC_MSG_CHECKING(AUTO_HAS_VALUES_H)
+AC_TRY_LINK([#include <stdio.h>
+#include <stdlib.h>
+#include <values.h>],
+[  float     Proba;
+   Proba   = MAXFLOAT;],
+AC_MSG_RESULT(yes); AUTO_HAS="$AUTO_HAS -DAUTO_HAS_VALUES_H",
+AC_MSG_RESULT(no))
+
+AC_SUBST(AUTO_HAS)
+
+#fi # SKIPTEST
+    
+################################################################### Alliance ALLIANCE_TOP
+AC_MSG_CHECKING(where the Alliance package was installed)
+# Avoid problems with soft links and builtin pwd...
+ALLIANCE_TOP=`$PWDBIN | sed 's§share/etc$§archi§'`
+ALLIANCE_TOP=`echo $ALLIANCE_TOP | sed 's§archi/Cygwin/etc$§archi§'`
+
+export ALLIANCE_TOP
+AC_MSG_RESULT("")
+AC_SUBST(ALLIANCE_TOP)
+
+DATE=`date`
+AC_SUBST(DATE)
+
+HOST=`uname -a`
+AC_SUBST(HOST)
+
+# create output files
+
+AC_OUTPUT(alliance_os.mk alc_env.sh alc_env.csh alc_env.bat)
+
+mv alliance_os.mk $ALLIANCE_OS.mk
+chmod +x alc_env.sh alc_env.csh alc_env.bat
+
+# remove  config cache
+rm -f config.cache
+
+#cat config.status | grep '^s%' | sed -e 's/^s%@//' -e 's/@%/ /' -e 's/%g$//' | sort | gawk '{printf("%-30s",$1) ; for (i=2 ; i<=NF ; i++) printf("%s ", $i); printf ("\n");}'
+
+cat << EOF
+Done...
+Alliance is installed on $ALLIANCE_TOP/$ALLIANCE_OS
+OS definitions are in $ALLIANCE_OS.mk
+You'll need to 'source alc_env.csh'
+or '. alc_env.sh' whether you use csh or sh"
+EOF
+
+# end of configure

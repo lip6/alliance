@@ -1,0 +1,28 @@
+placement routage silicon ensemble
+remplace scr
+a2def
+a2lef
+def2a
+sea
+seplace
+seroute
+
+datapath:
+remplace fpgen dpr
+dpgen
+
+
+Synthese:
+boom remplace bop
+boog remplace scmap
+loon remplace glop
+
+
+glop
+scmap
+
+
+scanpath:
+remplace genscan
+scapin
+

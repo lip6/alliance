@@ -1,0 +1,17 @@
+cvs update: move away share/man/man3/locon.3; it is in the way
+C share/man/man3/locon.3
+cvs update: move away share/man/man3/loins.3; it is in the way
+C share/man/man3/loins.3
+cvs update: move away share/man/man3/losig.3; it is in the way
+C share/man/man3/losig.3
+cvs update: move away share/man/man3/lotrs.3; it is in the way
+C share/man/man3/lotrs.3
+cvs update: move away share/man/man3/phcon.3; it is in the way
+C share/man/man3/phcon.3
+cvs update: move away share/man/man3/phref.3; it is in the way
+C share/man/man3/phref.3
+cvs update: move away share/man/man3/phseg.3; it is in the way
+C share/man/man3/phseg.3
+cvs update: move away share/man/man3/phvia.3; it is in the way
+C share/man/man3/phvia.3
+

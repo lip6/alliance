@@ -1,0 +1,64 @@
+#!/bin/sh
+#
+# Filename: multibuild-nt
+# Copyright (C) 1999, 2000 Czo <Olivier.Sirol@lip6.fr>
+# License: GPL (http://www.gnu.org/copyleft/gpl.html)
+# Started: April 2000
+# Last Change: Wednesday 13 September 2000, 16:45
+# Edit Time: 0:48:03
+# Description: script used to automatically build Alliance on NT
+#               run it from the "sources" dir
+#
+# $Id: multibuild-nt,v 1.1 2002/04/29 14:15:31 czo Exp $
+#
+
+
+#set +x
+#set -x
+
+
+TMPD=tmp$$
+
+STARTDIR=`pwd`
+
+cd ..
+
+CVSROOT=beny:/users/outil/alliance/cvsroot
+
+cd sce-Cygwin
+
+MYDIR=`pwd`
+
+cd ../archi/Cygwin/etc
+
+echo "Configuring..."
+./configure
+if [ $? -ne 0 ] ; then echo "Error, exiting" ; exit 4 ; fi
+
+echo "Sourcing env..."
+. ./alc_env.sh
+if [ $? -ne 0 ] ; then echo "Error, exiting" ; exit 4 ; fi
+
+cd "$MYDIR"
+
+echo "Compiling..."
+make "ALLIANCE_INSTALL_DIR=$ALLIANCE_TOP"
+
+if [ $? -ne 0 ]
+then 
+        echo "Errors have occured, please run:"
+        echo ". $ALLIANCE_TOP/etc/alc_env.sh"
+        echo "or"
+        echo "source $ALLIANCE_TOP/etc/alc_env.csh"
+        echo "cd $MYDIR"
+        echo "make ALLIANCE_INSTALL_DIR=$ALLIANCE_TOP" 
+        exit 4
+else
+        echo "done..."
+        echo "Remember to link $ALLIANCE_TOP/etc/alc_env.{c}sh to /etc/profile.d"
+        echo "or to source this environment each time you want to use Alliance."
+        echo ""
+        echo "Alliance compilation OK."
+fi
+
+cd $STARTDIR 
