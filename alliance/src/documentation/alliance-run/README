@@ -18,9 +18,9 @@ alliance-users@asim.lip6.fr mailing list.
 
 # How to run this bench ? :
 # ===================================================================
-First of all, edit the Makefile and set the ALLIANCE_TOP variable to
-the directory where ALLIANCE is installed:  /usr/local, /opt
-or whatever.
+First of all, the ALLIANCE environment must be setted.
+Depending on your shell, source the alc_env.csh or alc_env.sh
+script.
 This done, you can run the entire process by typing:
 > make clean
 > make

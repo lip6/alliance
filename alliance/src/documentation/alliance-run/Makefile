@@ -1,4 +1,3 @@
-     ALLIANCE_TOP = /asim/alliance
       TECHNO_REAL = prol10
 
 
