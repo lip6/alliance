@@ -5,7 +5,7 @@
 # E-mail support     : mailto:alliance-support@asim.lip6.fr
 # ftp site           : ftp://ftp-asim.lip6.fr/pub/alliance/
 #
-# $Id: FAQ,v 1.2 2000/01/20 18:17:01 czo Exp $
+# $Id: FAQ,v 1.3 2000/01/24 17:46:51 czo Exp $
 
 --------------------------------------------------------------------------------
 
@@ -27,15 +27,15 @@ Question  9: How is performed the mapping to a target process ?
 Question 10: How can I get a complete paper documentation ?
 Question 11: What are the supported file formats ?
 Question 12: How can I get in touch with the ALLIANCE team ?
-
+Question 13: How can I get Alliance ?
 
 Question 1: What is ALLIANCE ?
 ------------------------------
 
 Alliance is a free VLSI CAD System.
 You can read a general description of the ALLIANCE tools and libraries
-by printing the PostScript files overview.ps located in the doc
-directory:
+in share/doc/overview.pdf or by printing the PostScript file overview.ps 
+located in the doc directory:
 
 > lpr share/doc/overview.ps
 
@@ -45,27 +45,30 @@ Question 2: What is ALLIANCE general copyright policy ?
 
 "Alliance VLSI CAD System" is free Software.
 
-Unlike versions of Alliance up to 3.1 that where released
-including sources, version 3.2 and up will not be available
-with the source code.
-
-Source is however still available, but only upon request to
-alliance-support@lip6.fr. The release of the source is now
-subject to a non disclosure agreement.
+Alliance is available under the terms of the GNU General Public License
+GPL (http://www.gnu.org/copyleft/gpl.html). Please read the files 
+COPYING-2.0 and COPYING.LIB-2.0
 
 You are welcome to use the software package even for commercial 
-designs whithout any fee. You are just required to mention : 
-"Designed with Alliance CAD system"
+designs without any fee. You are just required to mention : 
+
+                  " Designed with Alliance CAD system,
+       Copyright (C) 1991, 2000 Université Pierre et Marie Curie"
 
 > more LICENCE
 
 Question 3: How to install ALLIANCE ?
 -------------------------------------
 
+You can compile the sources or use precompiled binary package.
+
 Binary packcages are available for :
-	- i386 Linux_elf
+	- i386 Linux
 	- sparc SunOS 4.1.1
-	- sparc Solaris 5.5.1
+	- sparc Solaris 5.7
+        - i386 FreeBSD 3.3
+        - i386 Windows NT/95
+        
 To install Alliance follow the steps written in README
 
 > more README
@@ -73,8 +76,13 @@ To install Alliance follow the steps written in README
 Question 4: How to get started ?
 --------------------------------
 
-You can find 3 separate tutorials in the tutorials directory:
-(Read overview.ps)
+You can find 4 separate tutorials in the tutorials directory:
+(Please read overview.ps before)
+
+WARNING : These tutorials are not fully working and must be modified to
+          work with Alliance 4.0 (especially the dlx), but we have 
+          decided to release them even though they are not fully 
+          functionnal. They will be upgraded as soon as we have time.
 
 1/ ADDACCU
    The design of a very simple chip (adder/accumulator) to get started
@@ -93,6 +101,12 @@ You can find 3 separate tutorials in the tutorials directory:
    (fpgen) and a data path place and route tool (dpr).
 
    >cd tutorials/fitpath
+
+4/ DlxM
+   A complete tutorial based on the design of the 32 bit microprocessor DLX.
+
+   >cd tutorials/dlxm
+
 
 Question 5: What are the differences with the previous releases ?
 ----------------------------------------------------------------
@@ -167,7 +181,8 @@ page.
 2) cell libraries
 -----------------
 
-> man sclib       # standard cells library
+> man sxlib       # new standard cells library (multi layer/overcell routing)
+> man sclib       # old standard cells library
 > man dplib       # data path cells library
 > man fplib       # data path cells library
 > man padlib      # pad library
@@ -214,9 +229,9 @@ The actual conversion is performed by the s2r tool:
 
 If you want to parameterize the S2R tool to a new target technology,
 you must write a technology file. The method is described in the
-postscript file doc/misc/process_mapping.ps
+postscript file doc/process_mapping.ps (also available in pdf)
 
-> lpr doc/misc/process_mapping.ps
+> lpr doc/process_mapping.ps
 
 Question 10: How can I get a complete paper documentation ?
 -----------------------------------------------------------
@@ -263,29 +278,47 @@ VHDL (FSM)        .fsm      INPUT
 Question 12: How can I get in touch with the ALLIANCE team ?
 ------------------------------------------------------------
 
-Look at the Alliance support Web pages
-at http://www-asim.lip6.fr/alliance/support
+Web:
+----
+at http://www-asim.lip6.fr/alliance/support/
 
-You may get ALLIANCE by two distinct means:
+E-mail:
+-------
+mailto:alliance-support@asim.lip6.fr
 
-       1) by anonymous FTP at ftp://ftp.lip6.fr/lip6/softs/alliance/
+Postal Mail:
+-----------
+Alliance Support
+Couloir 55-65, 2ème étage
+ASIM / LIP6
+Université Pierre et Marie Curie 
+4, Place Jussieu 75252 Paris Cedex 05, 
+France
 
-       2) by sending a blank tape (we can write DC 600A 60 MBytes,
-          DC 6150 150 MBytes and ExaByte 8mm 2,3 GBytes) or a ZIP 100
-          or blank CD-ROM with your complete affiliation to the 
-          following address:
+Fax:
+----
++33 1 44 27 72 80
 
-          Laboratoire ASIM/LIP6
-          Tour 55-65, 2eme etage
-          Université Pierre et Marie Curie
-          4, Place Jussieu 75252 Paris Cedex 05,
-          France
 
-          Fax                : 33 1 44 27 62 86
-          Home page          : http://www-asim.lip6.fr/alliance/support
-          E-mail support     : mailto:alliance-support@asim.lip6.fr
-          ftp sites          : ftp://ftp.lip6.fr/lip6/softs/alliance/  (faster mirror site)
-                             : ftp://asim.lip6.fr/pub/alliance/        (primary site)
+Question 13: How can I get Alliance ?
+-------------------------------------
 
+You can get Alliance via anonymous FTP from 
+
+ftp://ftp-asim.lip6.fr/pub/alliance/ 
+
+or by HTTP
+
+http://www-asim.lip6.fr/pub/alliance/ 
+
+If you can not access to Internet you can also send us a blank CD-ROM
+or ZIP100. We will copy it for you.
+
+Alliance Support
+Couloir 55-65, 2ème étage
+ASIM / LIP6
+Université Pierre et Marie Curie 
+4, Place Jussieu 75252 Paris Cedex 05, 
+France
 
 # EOF
