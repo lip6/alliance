@@ -9,8 +9,8 @@ if test x$alliance_prefix != x ; then
   ALLIANCE_CFLAGS="-I$alliance_prefix/include"
   ALLIANCE_LIBS="-L$alliance_prefix/lib"
 else
-  ALLIANCE_CFLAGS="-I${ALLIANCE_TOP}/include $CFLAGS"
-  ALLIANCE_LIBS="-L${ALLIANCE_TOP}/lib $LIBS"
+  ALLIANCE_CFLAGS="-I${ALLIANCE_TOP}/include"
+  ALLIANCE_LIBS="-L${ALLIANCE_TOP}/lib"
 fi
 
 ac_save_CFLAGS="$CFLAGS"
@@ -45,12 +45,6 @@ dnl ifelse([$2], , :, [$2])
   fi
   
 dnl the following lines should disapear in the future 
-CFLAGS="$ALLIANCE_CFLAGS $CFLAGS"
-LIBS="$ALLIANCE_LIBS $LIBS"
-CXXFLAGS="$ALLIANCE_CFLAGS $CXXFLAGS"
-AC_SUBST(CFLAGS)
-AC_SUBST(CXXFLAGS)
-AC_SUBST(LIBS)
 dnl end of to delete lines
 
 AC_SUBST(ALLIANCE_CFLAGS)
