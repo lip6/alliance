@@ -1448,7 +1448,7 @@ bvl_ablstr    pt_ablstr;	/* tested expression			*/
 %token         ON
 %token         OPEN
 %token         OTHERS
-%token         PACKAGE
+%token         _PACKAGE
 %token         PORT
 %token         PROCEDURE
 %token         PROCESS
