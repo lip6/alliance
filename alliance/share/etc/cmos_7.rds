@@ -626,18 +626,18 @@ relation RDS_CONT , RDS_CONT (
   regle 67 : distance axiale >= 3. ;
 );
 relation RDS_VIA , RDS_VIA (
-  regle 68 : distance axiale >= 3. ;
+  regle 68 : distance axiale >= 4. ;
 );
 relation RDS_VIA2 , RDS_VIA2 (
-  regle 69 : distance axiale >= 3. ;
+  regle 69 : distance axiale >= 4. ;
 );
 relation RDS_VIA3 , RDS_VIA3 (
-  regle 70 : distance axiale >= 3. ;
+  regle 70 : distance axiale >= 4. ;
 );
 relation RDS_VIA4 , RDS_VIA4 (
   regle 88 : distance axiale >= 5. ;
 );
-relation RDS_VIA3 , RDS_VIA3 (
+relation RDS_VIA5 , RDS_VIA5 (
   regle 89 : distance axiale >= 5. ;
 );
 caracterise RDS_CONT (
