@@ -1,7 +1,6 @@
 
 %define       name            alliance
 %define       ver             @VERSION@
-%define       release         20031115
 %define       prefix          @prefix@
 
 
