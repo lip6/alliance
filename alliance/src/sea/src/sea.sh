@@ -1,6 +1,6 @@
 #!/bin/sh
 #
-# $Id: sea.sh,v 1.4 2002/10/03 16:53:52 jpc Exp $
+# $Id: sea.sh,v 1.5 2003/05/30 12:33:17 jpc Exp $
 #
 # /------------------------------------------------------------------\
 # |                                                                  |
@@ -8,7 +8,7 @@
 # |  S i l i c o n   E n s e m b l e / A l l i a n c e               |
 # |                                                                  |
 # |  Author    :                      Jean-Paul CHAPUT               |
-# |  E-mail    :         alliance-users@asim.lip6.fr               |
+# |  E-mail    :           alliance-users@asim.lip6.fr               |
 # | ================================================================ |
 # |  Script    :         "./sea.sh"                                  |
 # | **************************************************************** |
@@ -101,7 +101,7 @@
 
  set_SE_env()
  {
-   OPUS_DIR=/users/soft6/opus/DSM_SE5.2; export  OPUS_DIR
+   OPUS_DIR=/users/soft2/cds/DSMSE-5.3; export  OPUS_DIR
 
    PATH=${PATH}:${OPUS_DIR}/tools/bin
    PATH=${PATH}:${OPUS_DIR}/tools.sun4v/bin
