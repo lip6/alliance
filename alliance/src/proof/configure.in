@@ -1,0 +1,37 @@
+dnl Process this file with autoconf to produce a configure script.
+AC_INIT(src/proof_main.c)
+
+PROOF_MAJOR_VERSION=4
+PROOF_MINOR_VERSION=9
+PROOF_VERSION=$PROOF_MAJOR_VERSION.$PROOF_MINOR_VERSION
+
+AC_SUBST(PROOF_MAJOR_VERSION)
+AC_SUBST(PROOF_MINOR_VERSION)
+AC_SUBST(PROOF_VERSION)
+
+# For automake.
+VERSION=$PROOF_VERSION
+PACKAGE=proof
+
+dnl Initialize automake stuff
+AM_INIT_AUTOMAKE($PACKAGE, $VERSION)
+
+dnl Checks for programs.
+AC_PROG_CC
+AM_PROG_LEX
+AC_PROG_YACC
+AC_PROG_RANLIB
+AC_PROG_MAKE_SET
+
+dnl Checks for typedefs, structures, and compiler characteristics.
+AC_C_CONST
+
+AC_CHECK_LIB(m, exp)
+
+AM_ALLIANCE
+
+AC_OUTPUT([
+Makefile
+man1/Makefile
+src/Makefile
+])
