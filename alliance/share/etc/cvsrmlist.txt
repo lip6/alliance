@@ -1,0 +1,28 @@
+a virer !!!!!
+mais cmos_12.dreal
+n'existe pas
+
+cmos_10.rds
+cmos_11.genview
+cmos_11.graal
+cmos_11.rds
+cmos_7.dreal
+cmos_7.genview
+cmos_7.graal
+cmos_7.rds
+cmos_7.rds.1999.09.30
+cmos_8.graal
+cmos_8.rds
+cmos_9.graal
+cmos_9.rds
+prol05.elp
+prol05.rds
+prol10_11.rds
+prol10_7.rds
+prol10_8.rds
+prol10.elp
+ecpd07.elp
+ecpd10.elp
+ecpd12.elp
+hcmos05.elp
+

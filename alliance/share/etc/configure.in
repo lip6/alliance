@@ -6,20 +6,22 @@
 # Copyright (C) 1997, 2000 Czo <Olivier.Sirol@lip6.fr>
 # License: GPL (http://www.gnu.org/copyleft/gpl.html)
 # Started: Feb 1997
-# Last Change: Thursday 24 January 2002, 16:43
-# Edit Time: 5:33:45
+# Last Change: Tuesday 12 February 2002, 17:03
+# Edit Time: 5:34:12
 # Description: Alliance CAD system configure.in 
 #
-# $Id: configure.in,v 1.26 2002/01/24 15:45:29 czo Exp $
+# $Id: configure.in,v 1.27 2002/02/12 16:12:19 czo Exp $
 #
 
-AC_REVISION($Revision: 1.26 $)dnl
+AC_REVISION($Revision: 1.27 $)dnl
 
 AC_INIT(configure.in)
 
 AC_PREFIX_DEFAULT(/usr/local/alliance)
 
 # Helps this script to run in bad configured env...
+
+PATH=/usr/local/gcc-2.95.2:$PATH
 
 #PATH=$PATH:/bin:/usr/bin:/usr/local/bin:/labo/TeX/teTeX/bin:/labo/X11R6/bin:/labo/X11r5/bin:/labo/bin:/labo/gnu/bin:/sbin:/user/local/bin:/usr/X11/bin:/usr/X11R6/bin:/usr/andrew/bin:/usr/bin/X11:/usr/bin/games:/usr/bin:/usr/ccs/bin:/usr/dt/bin:/usr/etc:/usr/games:/usr/lib/teTeX/bin:/usr/local/bin:/usr/local/games:/usr/openwin/bin:/usr/sbin:/usr/ucb/bin:/usr/ucb:/usr/xpg4/bin
 
