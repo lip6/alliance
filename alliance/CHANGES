@@ -5,7 +5,71 @@
 # ftp sites          : ftp://ftp.lip6.fr/lip6/softs/alliance/
 #                   or ftp://ftp-asim.lip6.fr/pub/alliance/
 #
-# $Id: CHANGES,v 1.1 1999/05/31 17:11:53 czo Exp $
+# $Id: CHANGES,v 1.2 1999/11/22 15:28:21 czo Exp $
+
+--------------------------------------------------------------------------------
+
+ALLIANCE release 4.0 (15/10/99)
+
+1/ New Standard Cells Library : sxlib
+   sxlib allows multi-layer over cell routing
+   and all transitions are now on rising edge (man sxlib)
+
+2/ Improved Tools :
+   - asimut is now a temporal logic simulator. 
+     You *must* modify your old pattern files to allow delays (man asimut)
+   - syf can now handle vbe statements in .fsm
+   - dreal : New viewing options ( like -install for private colormap)
+   - graal : New viewing options ( like -install for private colormap)
+             Input scale changeable, Hierarchy browser, real view (.cif/.gds)
+   
+3/ New Tools :
+   algue : ALliance Graphic User Environement
+   ali   : gives information on Alliance Environnement
+   b2f   : FSM Abstraction from .vbe
+   k2f   : Translate kiss2 format <-> FSM format
+   vasy  : Translate .vhd format (Synopsys) <-> .vbe format 
+   xsch  : Netlist viewer
+   xfsm  : FSM viewer
+   xpat  : patterns (with delay) viewer
+   xvpn  : VPN struct viewer
+
+
+--------------------------------------------------------------------------------
+
+ALLIANCE release 3.5 (19/06/98)
+
+1/ Lots of improvments and bug fixes
+
+2/ AP : Now supports ten layers of metal
+
+3/ AL : New support for RC net in losig. Parsers al, spice, vti modified.
+   Modified Data Structures :
+    - lotrs : added field BULK TRNAME
+    - locon : added field PNODE
+    - losig : added field PRCN, CAPA deleted
+    
+   Modified functions (the CAPA field has moved) :
+        addlosig, addlotrs, dellosig
+
+4/ RCN : New library for RC support : Resistances on losig and capcitances
+   beetwen losig.
+   
+--------------------------------------------------------------------------------
+
+ALLIANCE release 3.2c (20/03/98)
+
+1/ Ap format :
+
+   Alliance ap format now supports 
+   - half grid spacing
+   - connectors somewhere else than abutment box.
+
+2/ VERILOG driver :
+
+   Support added for Alliance-Cadence Toolbox
+
+3/ MBK_SCALE_X now defaults to 100
 
 --------------------------------------------------------------------------------
 
