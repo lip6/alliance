@@ -52,6 +52,7 @@
 # include <Xm/Text.h>
 # include <Xm/PushB.h>
 # include <Xm/DialogS.h>
+# include "mut.h"
 # include "rds.h"
 # include "GTB.h"
 

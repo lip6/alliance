@@ -49,6 +49,7 @@
 # include <Xm/SelectioB.h>
 # include <Xm/SeparatoG.h>
 
+# include "mut.h"
 # include "rds.h"
 # include "GTB.h"
 # include "GTB_dialog.h"
