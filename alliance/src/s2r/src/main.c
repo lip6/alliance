@@ -215,6 +215,11 @@ int main (argc, argv)
    fflush (stdout);
    loadrdsparam ();
 
+/*   
+   printf ("RDS_UNIT %ld\n", RDS_UNIT);
+   printf ("RDS_PHYSICAL_GRID %ld\n", RDS_PHYSICAL_GRID);
+ */
+    
 /*\
  * Read the model file
 \*/
