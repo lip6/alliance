@@ -6,7 +6,7 @@ AM_CFLAGS = @ALLIANCE_CFLAGS@
 
 l2p_LDADD = @ALLIANCE_LIBS@ \
  -lMlu -lMpu -lMap -lMmg -lMcp -lMcl -lMel \
- -lMhl -lMvl -lMlo -lMph -lMut -lMal -lRcn \
+ -lMhl -lMvg -lMlo -lMph -lMut -lMal -lRcn \
  -lMsl -lMgl \
  -lRtl -lRgs -lRcf -lRfm -lRpr -lRwi -lRut -lRds
 

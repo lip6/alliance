@@ -10,7 +10,7 @@ lvx_LDADD = @ALLIANCE_LIBS@ \
 	  -lMsl \
 	  -lMel -lMgl \
 	  -lMhl \
-	  -lMvl \
+	  -lMvg \
 	  -lMlo \
 	  -lMut \
 	  -lRcn 
