@@ -1,0 +1,20 @@
+#
+# $Id: se_techno.mac.in,v 1.1 2000/09/01 17:07:27 jpc Exp $
+#
+# /------------------------------------------------------------------\
+# |                                                                  |
+# |        A l l i a n c e   C A D   S y s t e m                     |
+# |  S i l i c o n   E n s e m b l e / A l l i a n c e               |
+# |                                                                  |
+# |  Author    :                      Jean-Paul CHAPUT               |
+# |  E-mail    :         alliance-support@asim.lip6.fr               |
+# | ================================================================ |
+# |  SE script :         "se_techno.mac.in"                          |
+# | **************************************************************** |
+# |  U p d a t e s                                                   |
+# |                                                                  |
+# \------------------------------------------------------------------/
+#
+
+
+ INPUT LEF FILENAME ALLIANCE_INSTALL_DIR/etc/cmos_12.lef ;
