@@ -28,7 +28,7 @@
  * Modified by Czo <Olivier.Sirol@lip6.fr> 1997,98
  */
 
-#ident "$Id: mbk_util.c,v 1.4 2003/10/20 08:55:22 xtof Exp $"
+#ident "$Id: mbk_util.c,v 1.5 2003/10/20 10:04:39 xtof Exp $"
 
 #include <stdio.h>
 #include <stdlib.h>
@@ -748,7 +748,7 @@ int  isck(char *name)
     if (!name || !CK)
         return 0;
     else
-        if (strcmp(name, CK))
+        if (!strcmp(name, CK))
             return 1;
         else
             return 0;
