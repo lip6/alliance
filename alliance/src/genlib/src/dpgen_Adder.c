@@ -1,5 +1,5 @@
 /*
- *  $Id: dpgen_Adder.c,v 1.1 2002/04/29 13:40:54 jpc Exp $
+ *  $Id: dpgen_Adder.c,v 1.2 2002/09/30 16:20:21 czo Exp $
  *
  *  /----------------------------------------------------------------\
  *  |                                                                |
@@ -10,7 +10,7 @@
  *  |                                                                |
  *  |  Authors   :                         Alain HOUELLE             |
  *  |                                    Nicolas VAUCHER             |
- *  |  E-mail    :         alliance-support@asim.lip6.fr             |
+ *  |  E-mail    :         alliance-users@asim.lip6.fr             |
  *  | ============================================================== |
  *  |  Module    :         "./dpgen_Adder.c"                         |
  *  | ************************************************************** |

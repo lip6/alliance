@@ -4,7 +4,7 @@
  * Universite Pierre et Marie Curie
  *
  * Home page          : http://www-asim.lip6.fr/alliance/
- * E-mail support     : mailto:alliance-support@asim.lip6.fr
+ * E-mail             : mailto:alliance-users@asim.lip6.fr
  *
  * This progam is  free software; you can redistribute it  and/or modify it
  * under the  terms of the GNU  General Public License as  published by the
@@ -32,7 +32,7 @@
 
 
 
-#ident "$Id: bog_lax_param.c,v 1.1 2002/03/21 13:39:48 francois Exp $"
+#ident "$Id: bog_lax_param.c,v 1.2 2002/09/30 16:19:55 czo Exp $"
 
 /****************************************************************************/
 /*    Produit :  synthese logique (gestion du fichier de parametres)        */

@@ -4,7 +4,7 @@
  * Universite Pierre et Marie Curie
  * 
  * Home page          : http://www-asim.lip6.fr/alliance/
- * E-mail support     : mailto:alliance-support@asim.lip6.fr
+ * E-mail             : mailto:alliance-users@asim.lip6.fr
  * 
  * This library is free software; you  can redistribute it and/or modify it
  * under the terms  of the GNU Library General Public  License as published
@@ -28,12 +28,15 @@
  * Modified by Czo <Olivier.Sirol@lip6.fr> 1997,98
  */
 
-#ident "$Id: mbk_ph.c,v 1.1 2002/03/08 13:51:05 fred Exp $"
+#ident "$Id: mbk_ph.c,v 1.2 2002/09/30 16:20:49 czo Exp $"
 
 /*
  * $Log: mbk_ph.c,v $
- * Revision 1.1  2002/03/08 13:51:05  fred
- * Initial revision
+ * Revision 1.2  2002/09/30 16:20:49  czo
+ * support/users
+ *
+ * Revision 1.1.1.1  2002/03/08 13:51:05  fred
+ * Importing MBK sources into the new CVS tree
  *
  * Revision 1.12  2001/02/07 11:47:40  fred
  * Quite a few changes:
@@ -118,7 +121,7 @@
  *
  */
 
-#ident "$Id: mbk_ph.c,v 1.1 2002/03/08 13:51:05 fred Exp $"
+#ident "$Id: mbk_ph.c,v 1.2 2002/09/30 16:20:49 czo Exp $"
 
 #include <unistd.h>
 #include <string.h>

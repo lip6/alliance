@@ -4,7 +4,7 @@
  * Universite Pierre et Marie Curie
  * 
  * Home page          : http://www-asim.lip6.fr/alliance/
- * E-mail support     : mailto:alliance-support@asim.lip6.fr
+ * E-mail             : mailto:alliance-users@asim.lip6.fr
  * 
  * This library is free software; you  can redistribute it and/or modify it
  * under the terms  of the GNU Library General Public  License as published
@@ -27,8 +27,11 @@
 * Author(s)   : Gregoire AVOT                                                 *
 * Updates     : June, 12th 1998                                               *
 * $Log: alc_pars_l.c,v $
-* Revision 1.1  2002/03/13 10:19:11  fred
-* Initial revision
+* Revision 1.2  2002/09/30 16:20:52  czo
+* support/users
+*
+* Revision 1.1.1.1  2002/03/13 10:19:11  fred
+* Importing MBKAL sources into the new CVS tree
 *
 *                                                                              *
 *******************************************************************************/

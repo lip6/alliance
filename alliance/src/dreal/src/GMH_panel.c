@@ -4,7 +4,7 @@
 | (C) Laboratoire LIP6 - Département ASIM Universite P&M Curie|
 |                                                             |
 | Home page      : http://www-asim.lip6.fr/alliance/          |
-| E-mail support : mailto:alliance-support@asim.lip6.fr       |
+| E-mail         : mailto:alliance-users@asim.lip6.fr       |
 |                                                             |
 | This progam is  free software; you can redistribute it      |
 | and/or modify it under the  terms of the GNU General Public |
@@ -282,7 +282,7 @@ void DrealBuildPresentPanel()
   XmStringFree( PanelString );
 
   PanelString = XmStringCreateLtoR( "copyright \251 1995-2000 ASIM, \
-CAO-VLSI Team\nWritten by Ludovic Jacomme\nE-mail support:  alliance-support@asim.lip6.fr", "Panel_charset4" );
+CAO-VLSI Team\nWritten by Ludovic Jacomme\nE-mail        :  alliance-users@asim.lip6.fr", "Panel_charset4" );
 
   PanelLabel = XtVaCreateManagedWidget( "",
                                          xmLabelWidgetClass,

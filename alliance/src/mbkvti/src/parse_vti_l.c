@@ -4,7 +4,7 @@
  * Universite Pierre et Marie Curie
  * 
  * Home page          : http://www-asim.lip6.fr/alliance/
- * E-mail support     : mailto:alliance-support@asim.lip6.fr
+ * E-mail             : mailto:alliance-users@asim.lip6.fr
  * 
  * This library is free software; you  can redistribute it and/or modify it
  * under the terms  of the GNU Library General Public  License as published
@@ -41,6 +41,9 @@
 * date    : 12/06/1998                                                         *
 *                                                                              *
 * $Log: parse_vti_l.c,v $
+* Revision 1.3  2002/09/30 16:21:00  czo
+* support/users
+*
 * Revision 1.2  2002/03/14 12:34:30  fred
 * Using new headers
 *                                                                        *

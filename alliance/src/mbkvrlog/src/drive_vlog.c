@@ -4,7 +4,7 @@
  * Universite Pierre et Marie Curie
  * 
  * Home page          : http://www-asim.lip6.fr/alliance/
- * E-mail support     : mailto:alliance-support@asim.lip6.fr
+ * E-mail             : mailto:alliance-users@asim.lip6.fr
  * 
  * This library is free software; you  can redistribute it and/or modify it
  * under the terms  of the GNU Library General Public  License as published
@@ -29,7 +29,7 @@
  * Modified by Mourad Aberbour in Sept. 1997 
  */
 
-#ident "$Id: drive_vlog.c,v 1.1 2002/03/13 17:59:01 fred Exp $"
+#ident "$Id: drive_vlog.c,v 1.2 2002/09/30 16:20:59 czo Exp $"
 
 #include <mut.h> 
 #include <mlo.h>

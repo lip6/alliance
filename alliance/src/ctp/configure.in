@@ -5,7 +5,7 @@ dnl Copyright (C) Laboratoire LIP6 - Département ASIM
 dnl Universite Pierre et Marie Curie
 dnl 
 dnl Home page          : http://www-asim.lip6.fr/alliance/
-dnl E-mail support     : mailto:alliance-support@asim.lip6.fr
+dnl E-mail             : mailto:alliance-users@asim.lip6.fr
 dnl 
 dnl This library is free software; you  can redistribute it and/or modify it
 dnl under the terms  of the GNU Library General Public  License as published
@@ -26,7 +26,7 @@ dnl           Almost ten years since I wrote this stuff, I just can't
 dnl           believe it
 dnl Date    : 01/02/2002
 dnl Author  : Frederic Petrot <Frederic.Petrot@lip6.fr>
-dnl $Id: configure.in,v 1.2 2002/09/09 20:53:21 pnt Exp $
+dnl $Id: configure.in,v 1.3 2002/09/30 16:20:05 czo Exp $
 dnl
 dnl
 AC_INIT(src/ctp.h)

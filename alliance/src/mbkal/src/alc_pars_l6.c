@@ -4,7 +4,7 @@
  * Universite Pierre et Marie Curie
  * 
  * Home page          : http://www-asim.lip6.fr/alliance/
- * E-mail support     : mailto:alliance-support@asim.lip6.fr
+ * E-mail             : mailto:alliance-users@asim.lip6.fr
  * 
  * This library is free software; you  can redistribute it and/or modify it
  * under the terms  of the GNU Library General Public  License as published
@@ -30,6 +30,9 @@
 *                                 is provided.                                 *
 *  Updates     : AUGUST, 12th 2002, Pierre Nguyen Tuong                        *
 *  $Log: alc_pars_l6.c,v $
+*  Revision 1.4  2002/09/30 16:20:52  czo
+*  support/users
+*
 *  Revision 1.3  2002/08/14 19:10:20  pnt
 *  Inversion de l'ordre d'ecriture des parametres pour les capacites, les
 *  resistances et les inductances. Le genere .al contient desormais

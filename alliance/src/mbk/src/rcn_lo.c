@@ -4,7 +4,7 @@
  * Universite Pierre et Marie Curie
  * 
  * Home page          : http://www-asim.lip6.fr/alliance/
- * E-mail support     : mailto:alliance-support@asim.lip6.fr
+ * E-mail             : mailto:alliance-users@asim.lip6.fr
  * 
  * This library is free software; you  can redistribute it and/or modify it
  * under the terms  of the GNU Library General Public  License as published
@@ -21,7 +21,7 @@
  * Software Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
  */
 
-#ident "$Id: rcn_lo.c,v 1.1 2002/03/08 13:51:05 fred Exp $"
+#ident "$Id: rcn_lo.c,v 1.2 2002/09/30 16:20:51 czo Exp $"
 
 /*******************************************************************************
 * rcn    : acces functions to logical rc network structures                    *

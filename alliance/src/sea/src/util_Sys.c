@@ -1,5 +1,5 @@
 /*
- *  $Id: util_Sys.c,v 1.2 2002/09/14 19:10:40 jpc Exp $
+ *  $Id: util_Sys.c,v 1.3 2002/09/30 16:21:19 czo Exp $
  *
  *  /----------------------------------------------------------------\
  *  |                                                                |
@@ -7,7 +7,7 @@
  *  |  S i l i c o n   E n s e m b l e / A l l i a n c e             |
  *  |                                                                |
  *  |  Author    :                      Jean-Paul CHAPUT             |
- *  |  E-mail    :         alliance-support@asim.lip6.fr             |
+ *  |  E-mail    :         alliance-users@asim.lip6.fr             |
  *  | ============================================================== |
  *  |  C Module  :         "./util_Sys.c"                            |
  *  | ************************************************************** |
@@ -81,7 +81,7 @@ static void  trapSig(aSig)
       if (aSig == SIGFPE ) eprints ("(SIGFPE)." );
       if (aSig == SIGBUS ) eprints ("(SIGBUS)." );
       if (aSig == SIGSEGV) eprints ("(SIGSEGV).");
-      eprints ("\n  Please e-mail to \"alliance-support@asim.lip6.fr\".");
+      eprints ("\n  Please e-mail to \"alliance-users@asim.lip6.fr\".");
       eprints ("\n\n");
       eprintf ("\n  %s terminated ", util_binName);
 

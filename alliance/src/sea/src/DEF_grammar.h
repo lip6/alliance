@@ -1,5 +1,5 @@
 /*
- *  $Id: DEF_grammar.h,v 1.1 2002/04/25 16:16:20 jpc Exp $
+ *  $Id: DEF_grammar.h,v 1.2 2002/09/30 16:21:16 czo Exp $
  *
  *  /----------------------------------------------------------------\
  *  |                                                                |
@@ -7,7 +7,7 @@
  *  |  S i l i c o n   E n s e m b l e / A l l i a n c e             |
  *  |                                                                |
  *  |  Author    :                            Mael Nagat             |
- *  |  E-mail    :         alliance-support@asim.lip6.fr             |
+ *  |  E-mail    :         alliance-users@asim.lip6.fr             |
  *  | ============================================================== |
  *  |  C Header  :         "./DEF_grammar.h"                         |
  *  | ************************************************************** |

@@ -4,7 +4,7 @@
  * Universite Pierre et Marie Curie
  * 
  * Home page          : http://www-asim.lip6.fr/alliance/
- * E-mail support     : mailto:alliance-support@asim.lip6.fr
+ * E-mail             : mailto:alliance-users@asim.lip6.fr
  * 
  * This library is free software; you  can redistribute it and/or modify it
  * under the terms  of the GNU Library General Public  License as published
@@ -28,7 +28,7 @@
  * Modified by Czo <Olivier.Sirol@lip6.fr> 1997,98
  */
 
-#ident "$Id: mbk_sys.c,v 1.2 2002/05/11 17:03:37 xtof Exp $"
+#ident "$Id: mbk_sys.c,v 1.3 2002/09/30 16:20:50 czo Exp $"
 
 #include <stdio.h>
 #include <stdlib.h>

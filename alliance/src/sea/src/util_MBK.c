@@ -1,6 +1,6 @@
 
 /*
- *  $Id: util_MBK.c,v 1.1 2002/04/25 16:16:20 jpc Exp $
+ *  $Id: util_MBK.c,v 1.2 2002/09/30 16:21:19 czo Exp $
  *
  *  /----------------------------------------------------------------\
  *  |                                                                |
@@ -8,7 +8,7 @@
  *  |  S i l i c o n   E n s e m b l e / A l l i a n c e             |
  *  |                                                                |
  *  |  Author    :                      Jean-Paul CHAPUT             |
- *  |  E-mail    :         alliance-support@asim.lip6.fr             |
+ *  |  E-mail    :         alliance-users@asim.lip6.fr             |
  *  | ============================================================== |
  *  |  C Module  :         "./util_MBK.c"                            |
  *  | ************************************************************** |

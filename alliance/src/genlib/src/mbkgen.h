@@ -4,7 +4,7 @@
  * Universite Pierre et Marie Curie
  * 
  * Home page          : http://www-asim.lip6.fr/alliance/
- * E-mail support     : mailto:alliance-support@asim.lip6.fr
+ * E-mail             : mailto:alliance-users@asim.lip6.fr
  * 
  * This library is free software; you  can redistribute it and/or modify it
  * under the terms  of the GNU Library General Public  License as published
@@ -27,7 +27,7 @@
  * version  : 1.00
  * date     : 05/02/92
  * author   : Frederic Petrot
- * $Id: mbkgen.h,v 1.1 2002/03/08 14:08:11 fred Exp $
+ * $Id: mbkgen.h,v 1.2 2002/09/30 16:20:23 czo Exp $
  */
 
 #ifndef _MBKGEN_H_

@@ -81,7 +81,7 @@ int main (int ac, char *av[])
     printf("                  Alliance CAD System %-4s              exp %-3s\n",
                             ALLIANCE_VERSION, VERSION);
     puts("                  Copyright (c) 2002,            ASIM/LIP6/UPMC");
-    puts("                  E-mail support: alliance-support@asim.lip6.fr");
+    puts("                  E-mail        : alliance-users@asim.lip6.fr");
     puts(" ");
   }
   yyparse ();

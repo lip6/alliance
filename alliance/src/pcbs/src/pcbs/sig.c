@@ -7,7 +7,7 @@
 /*##  Authors            : Eric MECHIN (1996)                         ##*/
 /*##  Authors            : Olivier FLORENT (1997)                     ##*/
 /*##                                                                  ##*/
-/*##  E-mail support:    cao-vlsi@masi.ibp.fr                         ##*/
+/*##  E-mail        :    cao-vlsi@masi.ibp.fr                         ##*/
 /*##                                                                  ##*/
 /*####==============================================================####*/
 #include "global.h"

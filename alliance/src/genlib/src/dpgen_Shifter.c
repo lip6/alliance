@@ -4,7 +4,7 @@
  * Universite Pierre et Marie Curie
  * 
  * Home page          : http://www-asim.lip6.fr/alliance/
- * E-mail support     : mailto:alliance-support@asim.lip6.fr
+ * E-mail             : mailto:alliance-users@asim.lip6.fr
  * 
  * This progam is  free software; you can redistribute it  and/or modify it
  * under the  terms of the GNU  General Public License as  published by the
@@ -25,6 +25,9 @@
    Author: Frédéric Pétrot
    Date  : 1/10/2000
    $Log: dpgen_Shifter.c,v $
+   Revision 1.7  2002/09/30 16:20:22  czo
+   support/users
+
    Revision 1.6  2002/06/28 15:55:00  fred
    Fixing a bug (discovered by Christophe Alexandre): trying to compact a
    shifter even when no rotation was asked for not anymore performed.
@@ -100,7 +103,7 @@
 
 */
 
-static char rcsid[]="$Id: dpgen_Shifter.c,v 1.6 2002/06/28 15:55:00 fred Exp $";
+static char rcsid[]="$Id: dpgen_Shifter.c,v 1.7 2002/09/30 16:20:22 czo Exp $";
 
 
 #include  "util_Defs.h"

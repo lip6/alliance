@@ -227,7 +227,7 @@ void rps_print_man () {
 	puts ("              programs.");
 	puts ("              If you use this functionnality, and think that your");
 	puts ("              dictionnaries are worth it,  please  mail  them  to");
-	puts ("              alliance-support@asim.lip6.fr,  in  order to submit");
+	puts ("              alliance-users@asim.lip6.fr,  in  order to submit");
 	puts ("              them  for  inclusion  in  future  version  of   l2p");
 	puts ("              (Thanks).");
 	puts ("");

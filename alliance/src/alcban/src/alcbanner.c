@@ -4,7 +4,7 @@
  * Universite Pierre et Marie Curie
  * 
  * Home page          : http://www-asim.lip6.fr/alliance/
- * E-mail support     : mailto:alliance-support@asim.lip6.fr
+ * E-mail             : mailto:alliance-users@asim.lip6.fr
  * 
  * This progam is  free software; you can redistribute it  and/or modify it
  * under the  terms of the GNU  General Public License as  published by the
@@ -28,7 +28,7 @@
  * Author  : Czo <Olivier.Sirol@lip6.fr>
  */
 
-#ident "$Id: alcbanner.c,v 1.2 2002/04/04 14:08:54 ludo Exp $"
+#ident "$Id: alcbanner.c,v 1.3 2002/09/30 16:19:42 czo Exp $"
 
 
 /*

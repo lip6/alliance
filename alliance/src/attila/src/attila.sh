@@ -1,6 +1,6 @@
 #!/bin/sh
 #
-# $Id: attila.sh,v 1.1 2002/09/29 17:55:54 jpc Exp $
+# $Id: attila.sh,v 1.2 2002/09/30 16:19:43 czo Exp $
 #                                                                        
 # /------------------------------------------------------------------\
 # |                                                                  |
@@ -8,7 +8,7 @@
 # |             T o o l   I n s t a l l e r                          |
 # |                                                                  |
 # |  Author    :                      Jean-Paul CHAPUT               |
-# |  E-mail    :         alliance-support@asim.lip6.fr               |
+# |  E-mail    :         alliance-users@asim.lip6.fr               |
 # | ================================================================ |
 # |  sh script :         "./attila"                                  |
 # | **************************************************************** |
@@ -93,7 +93,7 @@
    echo ""
    echo "                  Alliance CAD System 5.0,           attila 0.1"
    echo "                  Copyright (c) 2002-2002,       ASIM/LIP6/UPMC"
-   echo "                  E-mail support: alliance-support@asim.lip6.fr"
+   echo "                  E-mail        : alliance-users@asim.lip6.fr"
    echo ""
    echo ""
  }

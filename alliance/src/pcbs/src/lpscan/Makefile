@@ -18,7 +18,7 @@
 ##  Revision           : June  1995                                
 ##  Revision           : Febr  2002                                
 ##                                                                 
-##  E-mail support:    cao-vlsi@masi.ibp.fr			     
+##  E-mail        :    cao-vlsi@masi.ibp.fr			     
 ##                                                                 
 
 # noyau 2.4.9-21

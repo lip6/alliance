@@ -8,7 +8,7 @@
 /*##  Initial Revision   : April 1995                                 ##*/
 /*##  Revision           : June  1995                                 ##*/
 /*##                                                                  ##*/
-/*##  E-mail support:    cao-vlsi@masi.ibp.fr			      ##*/
+/*##  E-mail        :    cao-vlsi@masi.ibp.fr			      ##*/
 /*##                                                                  ##*/
 /*####==============================================================####*/
 

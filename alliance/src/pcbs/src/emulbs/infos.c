@@ -6,7 +6,7 @@
 /*##  Authors            : Francois DONNET (1998)                     ##*/
 /*##  Authors            : Francois DONNET (2001)                     ##*/
 /*##                                                                  ##*/
-/*##  E-mail support:    cao-vlsi@masi.ibp.fr                         ##*/
+/*##  E-mail        :    cao-vlsi@masi.ibp.fr                         ##*/
 /*##                                                                  ##*/
 /*####==============================================================####*/
 

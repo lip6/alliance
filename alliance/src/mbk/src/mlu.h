@@ -4,7 +4,7 @@
  * Universite Pierre et Marie Curie
  * 
  * Home page          : http://www-asim.lip6.fr/alliance/
- * E-mail support     : mailto:alliance-support@asim.lip6.fr
+ * E-mail             : mailto:alliance-users@asim.lip6.fr
  * 
  * This library is free software; you  can redistribute it and/or modify it
  * under the terms  of the GNU Library General Public  License as published
@@ -27,7 +27,7 @@
  * Author  : Frederic Petrot <Frederic.Petrot@lip6.fr>
  * Modified by Czo <Olivier.Sirol@lip6.fr> 1997,98
  * Modified by pnt <Pierre.Nguyen-Tuong@lip6.fr> 2002
- * $Id: mlu.h,v 1.4 2002/08/08 19:47:37 pnt Exp $
+ * $Id: mlu.h,v 1.5 2002/09/30 16:20:50 czo Exp $
  */
 
 #ifndef _MLU_H_

@@ -4,7 +4,7 @@
  * Universite Pierre et Marie Curie
  *
  * Home page          : http://www-asim.lip6.fr/alliance/
- * E-mail support     : mailto:alliance-support@asim.lip6.fr
+ * E-mail             : mailto:alliance-users@asim.lip6.fr
  *
  * This progam is  free software; you can redistribute it  and/or modify it
  * under the  terms of the GNU  General Public License as  published by the
@@ -30,7 +30,7 @@
 
 
 
-/* $Id: log.h,v 1.3 2002/04/25 14:16:02 ludo Exp $ */
+/* $Id: log.h,v 1.4 2002/09/30 16:20:43 czo Exp $ */
 
 #ifndef LUC_LOG_H
 #define LUC_LOG_H

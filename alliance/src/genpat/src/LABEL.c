@@ -4,7 +4,7 @@
  * Universite Pierre et Marie Curie
  * 
  * Home page          : http://www-asim.lip6.fr/alliance/
- * E-mail support     : mailto:alliance-support@asim.lip6.fr
+ * E-mail             : mailto:alliance-users@asim.lip6.fr
  * 
  * This progam is  free software; you can redistribute it  and/or modify it
  * under the  terms of the GNU  General Public License as  published by the
@@ -27,7 +27,7 @@
 /* auteurs  : PITON 						*/
 /****************************************************************/
 
-#ident "$Id: LABEL.c,v 1.1 2002/05/30 13:28:15 xtof Exp $"
+#ident "$Id: LABEL.c,v 1.2 2002/09/30 16:20:25 czo Exp $"
 
 #include <stdio.h>
 #include <string.h>

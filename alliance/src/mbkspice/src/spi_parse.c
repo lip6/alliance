@@ -4,7 +4,7 @@
  * Universite Pierre et Marie Curie
  * 
  * Home page          : http://www-asim.lip6.fr/alliance/
- * E-mail support     : mailto:alliance-support@asim.lip6.fr
+ * E-mail             : mailto:alliance-users@asim.lip6.fr
  * 
  * This library is free software; you  can redistribute it and/or modify it
  * under the terms  of the GNU Library General Public  License as published
@@ -21,7 +21,7 @@
  * Software Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
  */
 
-#ident "$Author: fred $ $Date: 2002/03/13 17:58:33 $ $Revision: 1.1 $"
+#ident "$Author: czo $ $Date: 2002/09/30 16:20:57 $ $Revision: 1.2 $"
 
 /*******************************************************************************
 *                                                                              *
@@ -173,8 +173,8 @@ char             mode;
   if( SPI_VERBOSE )
   {
     printf( "Parser Spice compile le %s a %s\n", __DATE__, __TIME__ );
-    printf( "Revision     : %s\n", "$Revision: 1.1 $" );
-    printf( "Date         : %s\n", "$Date: 2002/03/13 17:58:33 $"     );
+    printf( "Revision     : %s\n", "$Revision: 1.2 $" );
+    printf( "Date         : %s\n", "$Date: 2002/09/30 16:20:57 $"     );
     
     printf( "Separateur   : '%c'\n", SPI_SEPAR  );
     printf( "Nom de noeud : %s\n", SPI_NETNAME  );

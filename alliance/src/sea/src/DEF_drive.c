@@ -1,5 +1,5 @@
 /*
- *  $Id: DEF_drive.c,v 1.3 2002/09/14 19:10:40 jpc Exp $
+ *  $Id: DEF_drive.c,v 1.4 2002/09/30 16:21:16 czo Exp $
  *
  *  /----------------------------------------------------------------\
  *  |                                                                |
@@ -7,7 +7,7 @@
  *  |  S i l i c o n   E n s e m b l e / A l l i a n c e             |
  *  |                                                                |
  *  |  Author    :                      Jean-Paul CHAPUT             |
- *  |  E-mail    :         alliance-support@asim.lip6.fr             |
+ *  |  E-mail    :         alliance-users@asim.lip6.fr             |
  *  | ============================================================== |
  *  |  C Module  :         "./DEF_drive.c"                           |
  *  | ************************************************************** |
