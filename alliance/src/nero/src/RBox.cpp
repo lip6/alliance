@@ -1,7 +1,7 @@
 
 // -*- C++ -*-
 //
-// $Id: RBox.cpp,v 1.1 2002/10/02 21:23:48 jpc Exp $
+// $Id: RBox.cpp,v 1.2 2002/10/29 18:46:03 jpc Exp $
 //
 //  /----------------------------------------------------------------\ 
 //  |                                                                |
@@ -57,6 +57,7 @@ CRBox::CRBox (void)
   drgrid    = NULL;
   netsched  = NULL;
   loaded    = false;
+  insave    = false;
 }
 
 
@@ -82,7 +83,7 @@ CRBox::CRBox (int rtype, bool debug)
   // Creating routing matrix.
   cdebug << "  Routing matrix size := (10, 15, 5)\n";
 
-  drgrid = new CDRGrid (X, Y, Z);
+  drgrid = new CDRGrid (X, Y, Z, 4);
 
 
   // Adding signal "sig_one".

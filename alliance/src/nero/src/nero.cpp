@@ -1,7 +1,7 @@
 
 // -*- C++ -*-
 //
-// $Id: nero.cpp,v 1.2 2002/10/13 14:22:47 jpc Exp $
+// $Id: nero.cpp,v 1.3 2002/10/29 18:46:03 jpc Exp $
 //
 //  /----------------------------------------------------------------\ 
 //  |                                                                |
@@ -40,7 +40,8 @@ namespace {
   // ---------------------------------------------------------------
   // Local functions.
 
-  static void print_help (void);
+  static void help   (void);
+  static void serial (void);
 
 
 
@@ -51,9 +52,9 @@ namespace {
 
 
 // -------------------------------------------------------------------
-// Function  :  "print_help()".
+// Function  :  "help()".
 
-static void print_help (void)
+static void help (void)
 {
   cout << "\n"
        << "  o  Usage : \"nero [-h] [-v] [-V] [-c] [-2] [-3] [-4] [-5] [-6]\n"
@@ -83,6 +84,17 @@ static void print_help (void)
        << "     <netlist>           := Name of the netlist file (mandatory).\n"
        << "     <layout>            := Name of the output layout file (mandatory).\n"
        << "\n";
+}
+
+
+
+
+// -------------------------------------------------------------------
+// Function  :  "serial()".
+
+static void serial (void)
+{
+  cout << "                                S/N 20021028.1\n";
 }
 
 
@@ -156,11 +168,12 @@ int  main (int argc, char *argv[])
                           , "2002"
                           , ALLIANCE_VERSION
                           );
+      serial ();
       cmess1 << "\n";
     }
 
     if (options["h"]->parsed) {
-      print_help ();
+      help ();
       exit (0);
     }
 
@@ -169,7 +182,7 @@ int  main (int argc, char *argv[])
       cerr << "  Missing mandatory argument <netlist> or <routed> (or both)\n";
       cerr << "\n";
 
-      print_help ();
+      help ();
 
       throw except_done ();
     }
@@ -204,13 +217,21 @@ int  main (int argc, char *argv[])
     crbox = new CRBox ();
     //crbox = new CRBox (global, true);
     //cdebug.on ();
-    crbox->mbkload (fig, layers, global);
+    crbox->mbkload (fig, layers, 4, global);
     crbox->route ();
     //cdebug.off ();
     crbox->mbksave (name_routed);
   }
 
 
+  catch (e_zupper &e) {
+    cerr << "\n\n"
+         << "  First \"double pitch\" layer must be at least equal to ALU5 "
+         << "(here : " << MBK::env.z2alu (e.zupper) << ").\n\n"
+         << endl;
+
+    exit (1);
+  }
   catch (bad_grab &e) {
     cerr << herr ("\n");
     cerr << "  Net \"" << e.netName << "\" attempt to grab node ("

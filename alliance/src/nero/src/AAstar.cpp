@@ -1,7 +1,7 @@
 
 // -*- C++ -*-
 //
-// $Id: AAstar.cpp,v 1.5 2002/10/24 07:51:33 hcl Exp $
+// $Id: AAstar.cpp,v 1.6 2002/10/29 18:46:03 jpc Exp $
 //
 //  /----------------------------------------------------------------\ 
 //  |                                                                |
@@ -85,12 +85,13 @@ CAStar::CNodeASSet::~CNodeASSet (void)
 //
 // Check all allocated CNodeAS objects.
 
-void  CAStar::CNodeASSet::check (void)
+void  CAStar::CNodeASSet::check (bool cleared)
 {
   int  chunk, index, maxindex;
 
 
-  //cdebug << "+ Check all CNodeAS (" << _maxalloc << ")\n";
+  cerr << "+   Check all CNodeAS ( used := " << _maxused
+       << ", allocated := " << _maxalloc << endl;
 
   for (chunk = 0; chunk < _maxchunk; chunk++) {
     if (chunk > _maxalloc / D::CHUNK_SIZE) {
@@ -104,11 +105,13 @@ void  CAStar::CNodeASSet::check (void)
 
     for (index = 0; index < maxindex; index++) {
       if ( _chunks[chunk][index].point.inside() ) {
-        //cdebug << "+ Not reset CNodeAS found (id := "
-        //     << _chunks[chunk][index].id
-        //     << " (point := " << ")"
-        //     << _chunks[chunk][index].point
-        //     << endl;
+        if (cleared) {
+          cerr << "+     Not reset CNodeAS found (id := "
+               << _chunks[chunk][index].id
+               << " " << (void*)&(_chunks[chunk][index])
+               << " (point := " << _chunks[chunk][index].point << ")"
+               << endl;
+        }
       }
     }
   }
@@ -124,41 +127,22 @@ void  CAStar::CNodeASSet::check (void)
 
 void  CAStar::CNodeASSet::reset (void)
 {
-  int  chunk, maxchunk, index, maxindex, maxused_div, maxused_mod;
-
-
-  //cdebug << "+ CAStar::CNodeAS::resetall()." << endl;
-  //cdebug << "+   _maxused  := " << _maxused << endl;
-  //cdebug << "+   _maxalloc := " << _maxalloc << endl;
-  //cdebug << "+   _maxchunk := " << _maxchunk << endl;
+  int  chunk, index, maxindex, maxused_div, maxused_mod;
 
 
   if (_maxused > 0) {
     maxused_div = (_maxused - 1) / D::CHUNK_SIZE;
     maxused_mod = (_maxused - 1) % D::CHUNK_SIZE;
 
-    maxchunk = maxused_div + ( (maxused_mod) ? 1 : 0 );
-  } else {
-    maxchunk = 0;
-  }
+    for (chunk = 0; chunk <= maxused_div; chunk++) {
+      maxindex = D::CHUNK_SIZE - 1;
 
-  for (chunk = 0; chunk < maxchunk; chunk++) {
-    maxindex = D::CHUNK_SIZE - 1;
+      // Incomplete last chunk.
+      if (chunk == maxused_div) maxindex = maxused_mod;
 
-    // Incomplete last chunk.
-    if ( (chunk == maxchunk - 1) && (maxused_mod != 0) )
-      maxindex = maxused_mod;
-
-    //cdebug << "+   Index range := [" << chunk * D::CHUNK_SIZE
-    //     << "," <<  chunk * D::CHUNK_SIZE + maxindex << "]"
-    //     << " (chunk := " << chunk << ", maxindex := " << maxindex << ")"
-    //     << endl;
-
-    for (index = 0; index <= maxindex; index++) {
-      //cdebug << "+     index := " << index
-      //     << " (" << &_chunks[chunk][index] << ")"
-      //     << endl;
-      _chunks[chunk][index].reset ();
+      for (index = 0; index <= maxindex; index++) {
+        _chunks[chunk][index].reset ();
+      }
     }
   }
 
@@ -232,9 +216,9 @@ void *CAStar::CNodeAS::operator new (size_t size, CNodeASSet &NS)
     // Use a new element.
     NS._maxused++;
 
-  } while (!new_chunk                        &&
-           (NS._maxused <= NS._maxalloc) &&
-           NS._chunks[chunk][index].intree );
+  } while (    !new_chunk
+           && (NS._maxused <= NS._maxalloc)
+           &&  NS._chunks[chunk][index].intree );
 
   NS._maxalloc = max (NS._maxalloc, NS._maxused);
   NS._chunks[chunk][index].id = NS._maxused - 1;
@@ -257,24 +241,12 @@ void CAStar::CNodeAS::reset (void)
   queued   = false;
   tagged   = false;
 
-  //CDRGrid::iterator  old_point;
 
   if ( !intree ) {
     if ( point.inside() ) {
-      //cdebug << "+   reset CNodeAS (" << this
-      //     << ") id := " << id << ", point " << point
-      //     << " (node := " << &point.node() << ")"
-      //     << endl;
-      //old_point = point;
       point.node().algo = NULL;
       point.unlink ();
-
-      //old_point.node().check ();
-    //} else {
-    // cdebug << "+   reset CNodeAS id := " << id << " has point outside!." << endl;
     }
-  //} else {
-  //  cdebug << "+   reset CNodeAS id := " << id << " is in tree." << endl;
   }
 }
 
@@ -287,11 +259,13 @@ void CAStar::CNodeAS::reset (void)
 void  CAStar::CNodeAS::successors (CNodeASSet &NS, CNet *net, CNodeAS *(*success)[6])
 {
   CDRGrid::iterator  neighbor;
+  CDRGrid::iterator  neighbor2;
                CNet *pNet;
             CNodeAS *pNodeAS;
 
-  int   cost_x, cost_y, cost_z, cost, edge;
+  int   cost_x, cost_y, cost_z, cost, edge, i, j;
   long  new_distance, new_remains;
+  bool  skip;
 
 
 
@@ -311,7 +285,18 @@ void  CAStar::CNodeAS::successors (CNodeASSet &NS, CNet *net, CNodeAS *(*success
     cost_y = D::cost_ALU3_Y;
   }
 
+  for (edge = 0; edge < 6; edge++) (*success)[edge] = NULL;
+
   for (edge = 0; edge < 6; edge++) {
+    cdebug << "+     successors[] : (before edge " << edge << ")\n";
+    for (j = 0; j < 6; j++) {
+      cdebug << "+       " << (void*)(*success)[j];
+      if ((*success)[j] != NULL)
+        cdebug << " " << (*success)[j]->point << "\n";
+      else
+        cdebug << "\n";
+    }
+
     neighbor = point;
     switch (edge) {
       case 0: cost = cost_x; neighbor.left();   break; 
@@ -328,8 +313,8 @@ void  CAStar::CNodeAS::successors (CNodeASSet &NS, CNet *net, CNodeAS *(*success
 
       pNodeAS = AS (neighbor);
       if (!pNodeAS) {
-        //cdebug << "+     new CNodeAS." << endl;
         pNodeAS = new (NS) CNodeAS (neighbor);
+        cdebug << "+     new CNodeAS " << (void*)pNodeAS << "\n";
       }
 
       // Check if the node is an obstacle.
@@ -341,6 +326,39 @@ void  CAStar::CNodeAS::successors (CNodeASSet &NS, CNet *net, CNodeAS *(*success
       if (neighbor.z()) {
         // Check if the current net can take the node.
         if (!neighbor.take (neighbor.node().data.pri)) continue;
+
+        // For the junction layer, allow up neighbor (i.e. VIAs)
+        // only on the 2 pitch grid.
+        if (   ((neighbor.z() == neighbor.zupper()    ) && (edge == 5))
+            || ((neighbor.z() == neighbor.zupper() - 1) && (edge == 4)) ) {
+          if (neighbor.zupper() % 2) {
+            if (neighbor.x() % 2) continue;
+          } else {
+            if (neighbor.y() % 2) continue;
+          }
+        }
+
+        if (neighbor.z() >= neighbor.zupper ()) {
+          skip = false;
+
+          for (i = 0; i < 2; i++) {
+            neighbor2 = neighbor;
+
+            switch (i) {
+              case 0: neighbor2.pprev (); break;
+              case 1: neighbor2.pnext (); break;
+            }
+
+            if (neighbor2.inside()) {
+              if (    neighbor2.node().data.obstacle
+                  || !neighbor2.take (neighbor2.node().data.pri) ) {
+                skip = true; break;
+              }
+            }
+          }
+
+          if (skip) continue;
+        }
       }
 
       // Case of locked nodes : belongs to global nets, never use it.
@@ -375,7 +393,9 @@ void  CAStar::CNodeAS::successors (CNodeASSet &NS, CNet *net, CNodeAS *(*success
         // Tag the node here : prevent double write in queue.
         if (!D::optim_AStar_queue) pNodeAS->tagged = true;
 
-        //cdebug << "+     Added to successor list." << endl;
+        cdebug << "+     Added to successor list [" << edge << "]\n";
+        cdebug << "+       " << (void*)pNodeAS << " " << neighbor << "\n";
+        cdebug << "+       " << (void*)pNodeAS << " " << pNodeAS->point << "\n";
         (*success)[edge] = pNodeAS;
       }
     }
@@ -405,6 +425,12 @@ void CAStar::CTree::addterm (CTerm &term)
     addnode (pNodeAS);
     pNodeAS->reset();
 
+    if (pNodeAS->point.outside ()) {
+      cerr << "+ TERMINAL NODE OUTSIDE : "
+           << (void*)pNodeAS
+           << " " << *itNode
+           << endl;
+    }
   }
 
   //cdebug << "+   Done." << endl;
@@ -575,12 +601,18 @@ bool  CAStar::step (void) throw (trapped_astar)
   for (edge = 0; edge < 6; edge++) {
     if (successors[edge] == NULL) continue;
 
-    cdebug << "+     " << successors[edge]->point << "\n";
+    cdebug << "+     " << "[" << edge << "] "
+           << (void*)successors[edge] << " "
+           << successors[edge]->point << "\n";
     // The successor belongs to the current net.
     // (it may be not the actual target).
     if (   (successors[edge]->point.node().data.owner == net)
         && (_tree.reached.find (successors[edge]->point.node().getid())
             == _tree.reached.end())) {
+      //cerr << "    Reached target := \""
+      //     << net->terms[successors[edge]->point.node().getid()]->name
+      //     << " (index := " << successors[edge]->point.node().getid() << ")"
+      //     << endl;
       _reached = successors[edge];
       return (false);
     }
@@ -611,8 +643,6 @@ bool  CAStar::nexttarget (void)
 
   // Reset all the nodeAS objects.
   _NS.reset ();
-
-  //CNodeAS::checkall ();
   //net->_drgrid->nodes->check ();
 
   // Select the next target.
@@ -622,7 +652,8 @@ bool  CAStar::nexttarget (void)
       _tree.settarget ( net->terms[i]->lowest() );
       //cerr << "    Next target := \""
       //     << net->terms[i]->name
-      //     << "\"\n";
+      //     << " (index := " << i << ")"
+      //     << endl;
       break;
     }
   }
@@ -643,8 +674,10 @@ bool  CAStar::nexttarget (void)
 
 void CAStar::backtrack (void)
 {
-  CNodeAS *node, *node_prev;
-  CNet    *del_net;
+  CDRGrid::iterator  neighbor;
+            CNodeAS *node, *node_prev;
+               CNet *del_net;
+                int  i;
 
 
   //cdebug << "+   Backtracking." << endl;
@@ -657,6 +690,23 @@ void CAStar::backtrack (void)
       del_net = node->point.node().data.owner;
       del_net->unroute ();
       _netsched->queue (del_net);
+    }
+
+    if (node->point.z() >= node->point.zupper()) {
+      for (i = 0; i < 2; i++) {
+        neighbor = node->point;
+
+        switch (i) {
+          case 0: neighbor.pnext(); break;
+          case 1: neighbor.pprev(); break;
+        }
+
+        if (neighbor.inside() && (neighbor.node().data.pri > 0)) {
+          del_net = neighbor.node().data.owner;
+          del_net->unroute ();
+          _netsched->queue (del_net);
+        }
+      }
     }
 
     _tree.addnode (node);
@@ -694,10 +744,9 @@ bool CAStar::search (void)
       for (; step(); );
   
       backtrack ();
-    }
 
-    //CNodeAS::checkall ();
-    //net->_drgrid->nodes->check ();
+      //check (false);
+    }
 
     return (false);
   }
@@ -706,8 +755,7 @@ bool CAStar::search (void)
     abort ();
     cmess2 << "              > AStar unable to found a path.\n";
 
-    //CNodeAS::checkall ();
-    //net->_drgrid->nodes->check ();
+    //check (false);
   }
 
   return (true);
@@ -768,13 +816,11 @@ void CAStar::dump (void)
   iterations_reroute = 0;
   iterations_kind    = &iterations_route;
 
-  //if (pNet->name == "acc_i_down") cdebug.on ();
+  //if (pNet->name == "ram_banc1_nadr2x") cdebug.on ();
 
   do {
     if (hysteresis) {
-      cdebug << "About to clear." << "\n";
       clear ();
-      cdebug << "cleared." << "\n";
 
       pri = 255 + (1 << increase++);
 
@@ -785,18 +831,12 @@ void CAStar::dump (void)
     else
       pri = 0;
 
-    cdebug << "About to load net " << iterations_kind << "\n";
     load  (pNet, pri, expand);
-    cdebug << "loading done " << iterations_kind << "\n";
 
-    cdebug << "About to route net " << iterations_kind << "\n";
     routed = !search ();
-    cdebug << "routing done " << iterations_kind << "\n";
     *iterations_kind += iterations;
-    cdebug << "mark 1.\n";
 
     hysteresis = true;
-    cdebug << "mark 2.\n";
   } while ((increase < 15) && !routed);
 
   if (increase >= 15) throw reach_max_pri (pNet);
@@ -805,10 +845,9 @@ void CAStar::dump (void)
 
   clear ();
 
-  //CNodeAS::checkall ();
-  //pNet->_drgrid->nodes->check ();
+  //check (true);
 
-  //if (pNet->name == "ctl.seq_ep_30") exit (0);
+  //if (pNet->name == "cal_q_alu 0") { emergency (); exit (1); }
 }
 
 
@@ -817,20 +856,20 @@ void CAStar::dump (void)
 // -------------------------------------------------------------------
 // Method  :  "CMatrixNodes::check()".
 
-void  CMatrixNodes::check (void)
+void  CMatrixNodes::check (bool cleared)
 {
   int      index;
 
 
-  cdebug << "+ Check routing DB.\n";
+  cerr << "+   Check Nodes Matrix.\n";
   for (index = 0; index < _drgrid->XYZ; index++) {
     if ( &(*this)[index] == &hole ) continue;
 
-    if ( ! (*this)[index].check() )
-      cdebug << " (point := (" << _drgrid->x(index)
+    if (! (*this)[index].check(cleared))
+      cerr << "+     Grid point := (" << _drgrid->x(index)
            << "," << _drgrid->y(index)
-           << "," << _drgrid->z(index) << "))\n";
-                                      
+           << "," << _drgrid->z(index) << "))"
+           << endl;
   }
 }
 
@@ -840,23 +879,40 @@ void  CMatrixNodes::check (void)
 // -------------------------------------------------------------------
 // Method  :  "CNode::check()".
 
-bool  CNode::check (void)
+bool  CNode::check (bool cleared)
 {
   CAStar::CNodeAS *nodeAS;
 
 
   if ( algo != NULL ) {
-    cdebug << "+ Residual algo structure found!\n";
+    if (cleared)
+      cerr << "+   Residual algo structure found !" << endl;
 
     nodeAS = (CAStar::CNodeAS*) algo; 
 
     if ( nodeAS->point.outside() ) {
-      cdebug << "+ Incoherent algo structure found (node := "
+      cerr << "+     Incoherent algo structure found (node := "
            << this << ") : "
-           << nodeAS << " (id := " << nodeAS->id << ")";
+           << nodeAS << " (id := " << nodeAS->id << ")"
+           << endl;
+
       return ( false );
     }
   }
 
   return ( true );
+}
+
+
+
+
+// -------------------------------------------------------------------
+// Method  :  "CAStar::check()".
+
+void  CAStar::check (bool cleared)
+{
+  cerr << "+ Check routing DB.\n";
+
+  _drgrid->nodes->check (cleared);
+  _NS.check (cleared);
 }

@@ -1,7 +1,7 @@
 
 // -*- C++ -*-
 //
-// $Id: RMBK.cpp,v 1.4 2002/10/17 21:57:27 jpc Exp $
+// $Id: RMBK.cpp,v 1.5 2002/10/29 18:46:03 jpc Exp $
 //
 //  /----------------------------------------------------------------\ 
 //  |                                                                |
@@ -33,7 +33,7 @@
 // -------------------------------------------------------------------
 // Modifier  :  "CRBox::mbkload()".
 
-void  CRBox::mbkload (MBK::CFig *mbkfig, int z, int rtype)
+void  CRBox::mbkload (MBK::CFig *mbkfig, int z, int zup, int rtype)
 {
     MBK::MIns::iterator   itIns, endInstances, endOrphans;
   MBK::MLosig::iterator   endSig;
@@ -105,7 +105,7 @@ void  CRBox::mbkload (MBK::CFig *mbkfig, int z, int rtype)
          << mX << "," << mY << "," << mZ << "].\n";
 
   // Allocating the routing grid.
-  drgrid = new CDRGrid (mX, mY, mZ);
+  drgrid = new CDRGrid (mX, mY, mZ, zup);
 
 
   rect = new MBK::CXRect (fig->XAB1(), fig->YAB1());
@@ -371,30 +371,30 @@ void  CRBox::mbkload (MBK::CFig *mbkfig, int z, int rtype)
     }
   }
 
-  // On routing level above ALU4, use only half of the tracks.
+  // On routing level above zupper (ALU4), use only half of the tracks.
+  for (zz = zup; zz < mZ; zz++) {
+    switch (zz % 2) {
+      case 0:
+        // Vertical tracks.
+        for (x = 2; x < mX; x += 2) {
+          for (y = 1; y < mY - 1; y++) {
+            node = &( coord.set(x,y,zz).node() );
 
-  // Vertical tracks.
-  for (zz = 4; zz < mZ; zz += 2) {
-    for (x = 2; x < mX; x += 2) {
-      for (y = 1; y < mY - 1; y++) {
-        node = &( coord.set(x,y,zz).node() );
-
-        if ( !node->terminal() ) node->data.obstacle = true;
-      }
+            if ( !node->terminal() ) node->data.obstacle = true;
+          }
+        }
+        break;
+      case 1:
+        // Horizontal tracks.
+        for (y = 2; y < mY; y += 2) {
+          for (x = 1; x < mX; x++) {
+            node = &( coord.set(x,y,zz).node() );
+            if ( !node->terminal() ) node->data.obstacle = true;
+          }
+        }
+        break;
     }
   }
-
-  // Horizontal tracks.
-  for (zz = 5; zz < mZ; zz += 2) {
-    for (y = 2; y < mY; y += 2) {
-      for (x = 1; x < mX; x++) {
-        node = &( coord.set(x,y,zz).node() );
-
-        if ( !node->terminal() ) node->data.obstacle = true;
-      }
-    }
-  }
-
 
 
   // This flag ensure that a figure has been successfully loaded.
@@ -409,14 +409,14 @@ void  CRBox::mbkload (MBK::CFig *mbkfig, int z, int rtype)
 // -------------------------------------------------------------------
 // Modifier  :  "CRBox::mbksave()".
 
-void  CRBox::mbksave (string &name)
+  void  CRBox::mbksave (string &name) throw (except_done)
 {
-                int  x, y, z, mX, mY, mZ;
+                int  x, y, z, mX, mY, mZ, pitch, spaceVIA;
                bool  inseg;
               CRect  rect;
   CDRGrid::iterator  coord;
               CNode *node;
-               CNet *pNextNet, *pNet;
+               CNet *pNextNet, *pNet, *pNetTop, *pNetBot;
     MBK::phseg_list  seg;
     MBK::phvia_list  via;
     MNet::iterator   itNet, endNet;
@@ -429,6 +429,11 @@ void  CRBox::mbksave (string &name)
       
     return;
   }
+
+  if (insave) throw except_done ();
+
+  insave = true;
+
   cmess2 << "\n";
   cmess1 << "  o  Dumping routing grid.\n";
 
@@ -579,11 +584,85 @@ void  CRBox::mbksave (string &name)
   via.DY = 0;
 
   // Plane loop for VIAs.
+  for (z = 1; z < mZ; z++) {
+    // Track loop for VIAs.
+    if (z >= drgrid->zupper) pitch = 2;
+    else                     pitch = 1;
+
+    if (z % 2) {
+      // z=1 (ALU2) : horizontal tracks.
+      for (y = 1; y < mY; y += pitch) {
+        for (x = 0, spaceVIA = 2; x < mX; x++, spaceVIA++) {
+          // Bottom node.
+          pNetBot = NULL;
+          node = & ( coord.set(x,y,z-1).node() );
+          if ( !coord.isnodehole() && coord.inside() )
+            pNetBot = node->data.owner;
+
+          // Top node.
+          pNetTop = NULL;
+          node = & ( coord.set(x,y,z).node() );
+          if ( !coord.isnodehole() && coord.inside() )
+            pNetTop = node->data.owner;
+
+          // Are the top & bottom nodes belonging to the same net ?
+          if ( (pNetBot != NULL) && (pNetBot == pNetTop) ) {
+            if (spaceVIA < pitch) continue;
+
+            via.TYPE = MBK::env.z2via (z);
+            via.XVIA = fig->XAB1() + x * D::X_GRID;
+            via.YVIA = fig->YAB1() + y * D::Y_GRID;
+            via.NAME = MBK::namealloc(pNetTop->name.c_str ());
+
+            fig->addphvia (via);
+
+            spaceVIA = 0;
+          }
+        }
+      }
+    } else {
+      // z=2 (ALU3) : vertical tracks.
+      for (x = 1; x < mX; x += pitch) {
+        for (y = 0, spaceVIA = 2; y < mY; y++, spaceVIA++) {
+          // Bottom node.
+          pNetBot = NULL;
+          node = & ( coord.set(x,y,z-1).node() );
+          if ( !coord.isnodehole() && coord.inside() )
+            pNetBot = node->data.owner;
+
+          // Top node.
+          pNetTop = NULL;
+          node = & ( coord.set(x,y,z).node() );
+          if ( !coord.isnodehole() && coord.inside() )
+            pNetTop = node->data.owner;
+
+          // Are the top & bottom nodes belonging to the same net ?
+          if ( (pNetBot != NULL) && (pNetBot == pNetTop) ) {
+            if (spaceVIA < pitch) continue;
+
+            via.TYPE = MBK::env.z2via (z);
+            via.XVIA = fig->XAB1() + x * D::X_GRID;
+            via.YVIA = fig->YAB1() + y * D::Y_GRID;
+            via.NAME = MBK::namealloc(pNetTop->name.c_str ());
+
+            fig->addphvia (via);
+
+            spaceVIA = 0;
+          }
+        }
+      }
+    }
+  }
+
+# if 0
+  // Plane loop for VIAs.
   for (x = 0; x < mX; x++) {
     for (y = 0; y < mY; y++) {
-
       // Loop on Z axis.
       for (z = 1; z < mZ; z++) {
+        if ( (z >= drgrid->zupper) && ( (x % 2) || (y % 2) ) )
+          break;
+
         node = & ( coord.set(x,y,z).node() );
         if (coord.inside()) pNet = node->data.owner;
         else                pNet = NULL;
@@ -602,6 +681,7 @@ void  CRBox::mbksave (string &name)
       } // End of Z axis loop.
     }
   } // End of plane loop for VIAs.
+# endif
 
 
   // Special case of nets with only one terminal.

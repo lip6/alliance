@@ -1,7 +1,7 @@
 
 // -*- C++ -*-
 //
-// $Id: ADefs.h,v 1.2 2002/10/13 14:22:47 jpc Exp $
+// $Id: ADefs.h,v 1.3 2002/10/29 18:46:03 jpc Exp $
 //
 // /-----------------------------------------------------------------\ 
 // |                                                                 |
@@ -177,7 +177,7 @@
 
       // Modifiers.
       public: void  reset (void);
-      public: void  check (void);
+      public: void  check (bool cleared);
 
       // Friend class (for CNodeAS allocator).
       friend class CNodeAS;
@@ -285,6 +285,9 @@
     public:  bool  search     (void);
     public:  void  route      (CNet *pNet) throw (reach_max_pri);
 
+
+    // Database integrity check.
+    public:  void  check (bool cleared);
   };
 
 

@@ -1,7 +1,7 @@
 
 // -*- C++ -*-
 //
-// $Id: RDefs.h,v 1.1 2002/10/02 21:23:48 jpc Exp $
+// $Id: RDefs.h,v 1.2 2002/10/29 18:46:03 jpc Exp $
 //
 // /-----------------------------------------------------------------\ 
 // |                                                                 |
@@ -43,6 +43,7 @@
     public: CDRGrid    *drgrid;
     public: MNet        nets;
     public: bool        loaded;
+    public: bool        insave;
     public: bool        rglobal;
 
     // MBK dedicated Attributes.
@@ -59,8 +60,8 @@
     // Modifiers.
     public: CNet *getnet  (string &signame);
     public: CNet *getnet  (char *signame);
-    public: void  mbkload (MBK::CFig *mbkfig, int z, int rtype);
-    public: void  mbksave (string &name);
+    public: void  mbkload (MBK::CFig *mbkfig, int z, int zup, int rtype);
+    public: void  mbksave (string &name) throw (except_done);
     public: void  route   (void);
 
   };

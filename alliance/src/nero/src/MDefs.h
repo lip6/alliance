@@ -1,7 +1,7 @@
 
 // -*- C++ -*-
 //
-// $Id: MDefs.h,v 1.3 2002/10/17 21:57:27 jpc Exp $
+// $Id: MDefs.h,v 1.4 2002/10/29 18:46:03 jpc Exp $
 //
 // /-----------------------------------------------------------------\ 
 // |                                                                 |
@@ -142,6 +142,27 @@
   };
 
 
+  // ---------------------------------------------------------------
+  // Too small zupper exception.
+
+  class e_zupper : public except_done {
+
+    // Attributes.
+    public: int  zupper;
+
+    // Constructor.
+    public: e_zupper (int  zup) { zupper = zup; }
+
+    // Destructor.
+    public: ~e_zupper (void) throw () { };
+
+    // Overridables.
+    public: const char* what () const throw () {
+              return ((char*)"\"zupper\" must not be lower than 4.");
+            }
+  };
+
+
 
 
   // ---------------------------------------------------------------
@@ -230,13 +251,22 @@
 
       public: friend ostream &operator<< (ostream &o, iterator &self);
 
-      public: void   valid   (bool validindex) throw (e_matrix_iterator);
-      public: int    x       (void) { return ( _drgrid->x (_index) ); }
-      public: int    y       (void) { return ( _drgrid->y (_index) ); }
-      public: int    z       (void) { return ( _drgrid->z (_index) ); }
-      public: bool   outside (void) { return ( _index == INT_MAX ); }
-      public: bool   inside  (void) { return ( !outside() ); }
-      public: int    manhattan (iterator &other) throw (e_matrix_iterator);
+      public: void  valid     (bool validindex) throw (e_matrix_iterator);
+      public:  int  x         (void) { return ( _drgrid->x (_index) ); }
+      public:  int  y         (void) { return ( _drgrid->y (_index) ); }
+      public:  int  z         (void) { return ( _drgrid->z (_index) ); }
+      public: bool  outside   (void) { return ( _index == INT_MAX ); }
+      public: bool  inside    (void) { return ( !outside() ); }
+      public: bool  onAB      (void) { if (   (x() == 0)
+                                           || (x() == _drgrid->X - 1) 
+                                           || (y() == _drgrid->Y - 1) 
+                                           || (y() == 0)) 
+                                         return (true);
+
+                                        return (false);
+                                     };
+      public:  int  manhattan (iterator &other) throw (e_matrix_iterator);
+      public:  int  zupper    (void) { return ( _drgrid->zupper ); }
 
       // Modifiers.
       public: void      unlink (void)
@@ -253,6 +283,14 @@
       public: iterator &up     (void) { return ( dy(+1) ); };
       public: iterator &bottom (void) { return ( dz(-1) ); };
       public: iterator &top    (void) { return ( dz(+1) ); };
+      public: iterator &pnext  (void) { if (z() % 2)
+                                          return ( right() );
+                                        return ( up() );
+                                      };
+      public: iterator &pprev  (void) { if (z() % 2)
+                                          return ( left() );
+                                        return ( down() );
+                                      };
 
     };
 
@@ -266,6 +304,7 @@
     public: int XY;
     public: int XYZ;
     public: int size;
+    public: int zupper;
     public: int cost_x_hor;
     public: int cost_x_ver;
     public: int cost_y_hor;
@@ -277,7 +316,7 @@
     public: CMatrixNodes *nodes;
 
     // Constructor.
-    public: CDRGrid  (int x, int y, int z);
+    public: CDRGrid  (int x, int y, int z, int zup) throw (e_zupper);
 
     // Destructor.
     public: ~CDRGrid (void);
@@ -402,7 +441,7 @@
     public: inline int  getid    (void) { return (data.ident - 1); }
     public: inline bool terminal (void) { return (data.ident != 0); }
     public: inline bool locked   (void) { return (data.lock); }
-    public:        bool check    (void);
+    public:        bool check    (bool cleared);
 
   };
 
@@ -419,7 +458,7 @@
 
     // Modifiers.
     public: void  obstacle (CRect &rect, int z);
-    public: void  check    (void);
+    public: void  check    (bool cleared);
 
   };
 
@@ -448,10 +487,10 @@
     public: CMatrixPri (CDRGrid *drgrid) : TMatrix<char>(drgrid) { }
 
     // Modifiers.
-    public: void clear    (void);
-    public: void load     (CNet &net, bool global, int expand=0);
-    public: bool take     (int pri, int index);
-    public: void findfree (int index, CNet &net);
+    public: void clear       (void);
+    public: void load        (CNet &net, bool global, int expand=0);
+    public: bool take        (int pri, int index);
+    public: void findfree    (int index, CNet &net);
 
     // Internal methods.
     private: char  nextPri (char curpri);

@@ -1,7 +1,7 @@
 
 // -*- C++ -*-
 //
-// $Id: MPri.cpp,v 1.4 2002/10/24 07:51:33 hcl Exp $
+// $Id: MPri.cpp,v 1.5 2002/10/29 18:46:03 jpc Exp $
 //
 //  /----------------------------------------------------------------\ 
 //  |                                                                |
@@ -46,6 +46,15 @@ void  CMatrixPri::findfree (int index, CNet &net)
   cx     = _drgrid->x(index);
   cy     = _drgrid->y(index);
   coord  = _drgrid->origin;
+
+  // Check for blocked upper nodes.
+  other = (*_drgrid->nodes)[index].data.owner;
+
+  if (    ! (*_drgrid->nodes)[index].data.obstacle
+      && ((other == NULL) || (other == &net)) )
+    return;
+
+  cdebug << "Looking for an escape!\n" << "\n";
 
   while (!freed) {
     radius += 1;
@@ -174,15 +183,7 @@ void CMatrixPri::load (CNet &net, bool global, int expand)
         // Enable z=1 (in case of global signal, no effet otherwise).
         if (coord.z() < _drgrid->Z - 1) (*this)[ coord.dz(1) ] = (char)1; 
 
-        if (global) {
-          // Check for blocked upper nodes.
-          other = (*_drgrid->nodes)[coord].data.owner;
-          if (    (*_drgrid->nodes)[coord].data.obstacle
-              || ((other != NULL) && (other != &net)) ) {
-            cdebug << "Looking for an escape!\n" << "\n";
-            findfree (coord, net);
-          }
-        }
+        if (global) findfree (coord, net);
 
         continue;
       }
@@ -190,29 +191,14 @@ void CMatrixPri::load (CNet &net, bool global, int expand)
       (*this)[ coord.dz(1) ] = nextPri (currentPri); 
       nextBorder->push (new CDRGrid::iterator (coord));
 
-      if (global) {
-        // Check for blocked upper nodes.
-        other = (*_drgrid->nodes)[coord].data.owner;
-        if (    (*_drgrid->nodes)[coord].data.obstacle
-            || ((other != NULL) && (other != &net)) ) {
-          cdebug << "Looking for an escape!\n" << "\n";
-          findfree (coord, net);
-        }
-      }
+      if (global) findfree (coord, net);
         
       // Enable z=2 (in case of global signal, no effet otherwise).
       (*this)[ coord.dz(1) ] = (char)1; 
 
       // Look if the upper node is blocked, in that case expand the
       // allowed zone till a non-blocked node is found.
-      if (global) {
-        other = (*_drgrid->nodes)[coord].data.owner;
-        if (    (*_drgrid->nodes)[coord].data.obstacle
-            || ((other != NULL) && (other != &net)) ) {
-          cdebug << "Looking for an escape!\n" << "\n";
-          findfree (coord, net);
-        }
-      }
+      if (global) findfree (coord, net);
     }
   }
 

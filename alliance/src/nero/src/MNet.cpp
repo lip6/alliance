@@ -1,7 +1,7 @@
 
 // -*- C++ -*-
 //
-// $Id: MNet.cpp,v 1.4 2002/10/24 07:51:33 hcl Exp $
+// $Id: MNet.cpp,v 1.5 2002/10/29 18:46:03 jpc Exp $
 //
 //  /----------------------------------------------------------------\ 
 //  |                                                                |
@@ -217,21 +217,98 @@ void  CTerm::newaccess (CRect &rect, int z, int ident, CNet *net)
 void  CTerm::lockalone (bool global)
 {
   CDRGrid::iterator  coord;
-                int  zCoord, zMax, z;
+  CDRGrid::iterator  coord2;
+                int  z, i;
+               bool  adjust;
 
 
   if (nodes.size() != 1) return;
 
   coord  = nodes.back ();
-  zCoord = coord.z();
-  zMax   = min(coord._drgrid->Z - 1, 3);
+  coord2 = coord;
 
-  if ( (zCoord > 0) && !global ) return;
+  if ( (coord.z() > 0) && !global ) return;
+  if (  coord.onAB()) return;
 
-  for (z = (global) ? zMax : 1; z > zCoord; z--) {
+  //cerr << "+ locking lone terminal : " << coord.node().data.owner->name
+  //     << " at " << coord
+  //     << endl;
+
+  // All terminal case, eat up z=1 (ALU2) if not already took.
+  if (coord.z() == 0) {
+    // Go to z=1 (ALU2).
+    //cerr << "+   locking z=1          " << coord << endl;
     newaccess ( coord.x()
               , coord.y()
-              , z
+              , 1
+              , coord.node().getid()
+              , coord.node().data.owner
+              );
+
+    coord2.top();
+  }
+
+  if (!global) return;
+
+
+  if (coord.z() < 2) {
+    // Go to z=2 (ALU3).
+    //cerr << "+   locking z=2          " << coord2 << endl;
+    newaccess ( coord2.x()
+              , coord2.y()
+              , 2
+              , coord.node().getid()
+              , coord.node().data.owner
+              );
+  }
+
+
+  // Global terminal : when zupper=4, find the nearest VIA on the
+  // double pitch grid.
+
+  // Is the terminal in ALU3 (or less).
+  if ( (coord.z() < 3) && (coord.zupper () == 4) ) {
+    if ( coord2.y() % 2 ) {
+      // We are not on the double pitch grid. Try to go there.
+      // Look for up and down grid node.
+      adjust = true;
+
+      for (i = 0; i < 3; i++) {
+        switch (i) {
+          case 0: coord2.dy (+1); break;
+          case 1: coord2.dy (-2); break;
+        }
+
+        // Neither node are accessibles, we are probably doomed ...
+        if (i == 2) { coord2.dy (+1); adjust = false; break; }
+
+        if (coord2.inside()) {
+          if (    !coord2.node().data.obstacle
+              &&  (   (coord2.node().data.owner == NULL )
+                   || (coord2.node().data.owner == coord.node().data.owner) ) )
+            { break; }
+        }
+      }
+
+      if (adjust) {
+        // Adjust to the double grid pitch to z=2 (ALU3).
+        //cerr << "+   locking z=2 (ADJUST) " << coord2 << endl;
+        newaccess ( coord2.x()
+                  , coord2.y()
+                  , 2
+                  , coord.node().getid()
+                  , coord.node().data.owner
+                  );
+      }
+    }
+  }
+
+  if (coord.z() < 4) {
+    // Go to z=3 (ALU3).
+    //cerr << "+   locking z=3          " << coord2 << endl;
+    newaccess ( coord2.x()
+              , coord2.y()
+              , 3
               , coord.node().getid()
               , coord.node().data.owner
               );
