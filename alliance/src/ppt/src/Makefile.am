@@ -1,3 +1,6 @@
+CFLAGS              = @ALLIANCE_CFLAGS@ \
+                      -DALLIANCE_TOP=\"${ALLIANCE_TOP}\"
+
 lib_LIBRARIES       = libPpt.a
 include_HEADERS     = ppt.h
 libPpt_a_SOURCES    = pat_decl_l.l pat_decl_y.y pat_desc_l.l pat_desc_y.y\

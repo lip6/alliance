@@ -1,3 +1,5 @@
+CFLAGS              = @ALLIANCE_CFLAGS@ \
+                      -DALLIANCE_TOP=\"${ALLIANCE_TOP}\"
 lib_LIBRARIES       = libAbv.a
 include_HEADERS     = abv.h
 libAbv_a_SOURCES    = bvl_bcomp_y.y bvl_bcomp_l.l \

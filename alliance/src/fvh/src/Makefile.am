@@ -1,3 +1,5 @@
+CFLAGS              = @ALLIANCE_CFLAGS@ \
+                      -DALLIANCE_TOP=\"${ALLIANCE_TOP}\"
 lib_LIBRARIES       = libFvh.a
 include_HEADERS     = fvh.h
 libFvh_a_SOURCES    = fbl_bcomp_y.y fbl_bcomp_l.l \

@@ -2,11 +2,11 @@
 
 bin_PROGRAMS = scapin
 
-CFLAGS = @CFLAGS@ -DSCAPIN_VERSION=\"@SCAPIN_VERSION@\" \
+CFLAGS = @ALLIANCE_CFLAGS@ -DSCAPIN_VERSION=\"@SCAPIN_VERSION@\" \
          -DALLIANCE_TOP=\"${ALLIANCE_TOP}\" \
          -DSCAPIN_DEFAULT_PARAM_NAME=\"etc/sxlib.scapin\"
 
-scapin_LDADD = @LIBS@ \
+scapin_LDADD = @ALLIANCE_LIBS@ \
 -lMlu -lMcl -lMel -lMhl -lMvl -lMlo -lMut -lMal -lRcn -lMsl -lMgl -lAut
 
 scapin_SOURCES = \

@@ -2,9 +2,9 @@
 
 bin_PROGRAMS = boom
 
-CFLAGS = @CFLAGS@ -DBOOM_VERSION=\"@BOOM_VERSION@\"
+CFLAGS = @ALLIANCE_CFLAGS@ -DBOOM_VERSION=\"@BOOM_VERSION@\"
 
-boom_LDADD = @LIBS@ \
+boom_LDADD = @ALLIANCE_LIBS@ \
           -lAbv -lAbe -lAbt -lBdd -lAbl -lAut -lMut -lm
 
 boom_SOURCES = \

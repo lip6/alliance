@@ -2,9 +2,9 @@
 
 bin_PROGRAMS = lynx flatrds
 
-CFLAGS = @CFLAGS@ -DLYNX_VERSION=\"@LYNX_VERSION@\"
+CFLAGS = @ALLIANCE_CFLAGS@ -DLYNX_VERSION=\"@LYNX_VERSION@\"
 
-lynx_LDADD = @LIBS@ \
+lynx_LDADD = @ALLIANCE_LIBS@ \
  -lMlu -lMpu -lMap -lMmg -lMcp -lMcl -lMel \
  -lMhl -lMvl -lMlo -lMph -lMut -lMal -lRcn \
  -lMsl -lMgl \

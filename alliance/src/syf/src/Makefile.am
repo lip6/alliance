@@ -2,9 +2,9 @@
 
 bin_PROGRAMS = syf
 
-CFLAGS = @CFLAGS@ -DSYF_VERSION=\"@SYF_VERSION@\"
+CFLAGS = @ALLIANCE_CFLAGS@ -DSYF_VERSION=\"@SYF_VERSION@\"
 
-syf_LDADD = @LIBS@ \
+syf_LDADD = @ALLIANCE_LIBS@ \
           -lFtl -lFks -lFvh -lFsm \
 	  -lBdd -lAbl -lAut -lMut
 

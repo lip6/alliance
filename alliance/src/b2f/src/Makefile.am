@@ -2,9 +2,9 @@
 
 bin_PROGRAMS = b2f
 
-CFLAGS = @CFLAGS@ -DB2F_VERSION=\"@B2F_VERSION@\"
+CFLAGS = @ALLIANCE_CFLAGS@ -DB2F_VERSION=\"@B2F_VERSION@\"
 
-b2f_LDADD = @LIBS@ \
+b2f_LDADD = @ALLIANCE_LIBS@ \
           -lAbt -lAbv -lAbe -lFtl -lFks -lFvh -lFsm \
 	  -lBtr -lBdd -lAbl -lAut -lMut
 

@@ -1,12 +1,12 @@
 ## Process this file with automake to produce Makefile.in
 
 bin_PROGRAMS = xfsm
-CFLAGS = @CFLAGS@ @X_CFLAGS@ -DXFSM_VERSION=\"@XFSM_VERSION@\" \
+CFLAGS = @ALLIANCE_CFLAGS@ @X_CFLAGS@ -DXFSM_VERSION=\"@XFSM_VERSION@\" \
          -DXFSM_TOOL_NAME=\"xfsm\" \
 	 -DXFSM_DEFAULT_PARAM_NAME=\"${ALLIANCE_TOP}/etc/xfsm.par\" \
 	 -DXMS_FILE_NAME=\".xfsm.cfg\"
 
-xfsm_LDADD = @LIBS@ @X_LIBS@ @LINK_MOTIF@ \
+xfsm_LDADD = @ALLIANCE_LIBS@ @X_LIBS@ @LINK_MOTIF@ \
           -lFtl -lFks -lFvh -lFsm \
 	  -lBdd -lAbl -lAut -lMut
 

@@ -2,7 +2,7 @@
 
 bin_PROGRAMS = loon
 
-loon_LDADD = @LIBS@ \
+loon_LDADD = @ALLIANCE_LIBS@ \
           -lAbv -lAbe -lAbt -lMlu -lMcl -lMal -lMsl -lMhl -lMel -lMvl -lMgl -lRcn -lMlo -lBdd -lAbl -lAut -lMut
 	   
 loon_SOURCES = \

@@ -1,3 +1,5 @@
+CFLAGS              = @ALLIANCE_CFLAGS@ \
+                      -DALLIANCE_TOP=\"${ALLIANCE_TOP}\"
 lib_LIBRARIES       = libVbl.a
 include_HEADERS     = vbl.h
 libVbl_a_SOURCES    = vbl_bcomp_y.y vbl_bcomp_l.l \

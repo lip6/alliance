@@ -1,3 +1,5 @@
+CFLAGS              = @ALLIANCE_CFLAGS@ \
+                      -DALLIANCE_TOP=\"${ALLIANCE_TOP}\"
 lib_LIBRARIES       = libMgn.a
 include_HEADERS     = mgn.h mbkgen.h genlib.h
 libMgn_a_SOURCES    = genlib.c

@@ -1,4 +1,4 @@
-CFLAGS              = @CFLAGS@ \
+CFLAGS              = @ALLIANCE_CFLAGS@ \
                       -DALLIANCE_TOP=\"${ALLIANCE_TOP}\"
 lib_LIBRARIES       = libBtr.a
 include_HEADERS     = btr.h

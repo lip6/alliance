@@ -2,9 +2,9 @@
 
 bin_PROGRAMS = vasy
 
-CFLAGS = @CFLAGS@ -DVASY_VERSION=\"@VASY_VERSION@\"
+CFLAGS = @ALLIANCE_CFLAGS@ -DVASY_VERSION=\"@VASY_VERSION@\"
 
-vasy_LDADD = @LIBS@ \
+vasy_LDADD = @ALLIANCE_LIBS@ \
           -lRtd -lRtn -lVtl -lVvh -lVpd -lVpn -lVbl -lVbh \
 	  -lVex -lBdd -lAbl -lAut -lMut
 

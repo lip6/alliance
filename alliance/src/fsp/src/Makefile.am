@@ -2,9 +2,9 @@
 
 bin_PROGRAMS = fsp
 
-CFLAGS = @CFLAGS@ -DFSP_VERSION=\"@FSP_VERSION@\"
+CFLAGS = @ALLIANCE_CFLAGS@ -DFSP_VERSION=\"@FSP_VERSION@\"
 
-fsp_LDADD = @LIBS@ \
+fsp_LDADD = @ALLIANCE_LIBS@ \
           -lFtl -lFks -lFvh -lFsm \
 	  -lBdd -lAbl -lAut -lMut
 

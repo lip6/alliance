@@ -2,9 +2,9 @@
 
 bin_PROGRAMS = l2p
 
-CFLAGS = @CFLAGS@ -DL2P_VERSION=\"@L2P_VERSION@\"
+CFLAGS = @ALLIANCE_CFLAGS@ -DL2P_VERSION=\"@L2P_VERSION@\"
 
-l2p_LDADD = @LIBS@ \
+l2p_LDADD = @ALLIANCE_LIBS@ \
  -lMlu -lMpu -lMap -lMmg -lMcp -lMcl -lMel \
  -lMhl -lMvl -lMlo -lMph -lMut -lMal -lRcn \
  -lMsl -lMgl \
