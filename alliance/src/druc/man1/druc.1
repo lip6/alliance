@@ -1,4 +1,4 @@
-.\"   $Id: druc.1,v 1.3 2004/07/27 19:26:45 fred Exp $
+.\"   $Id: druc.1,v 1.4 2004/07/27 19:30:07 fred Exp $
 .\" @(#)Labo.l 1.2 93/12/08 UPMC; Author: Patrick RENNAUD
 .TH DRUC 1 "October 1, 1997" "ASIM/LIP6" "ALLIANCE USER COMMANDS"
 .SH NAME
@@ -39,9 +39,8 @@ Generates lots of files locally, to be used by future invocation of
 druc.
 Don't ask me if and how this works, but since you also fetched the
 sources, ...
-.fi
-.ft R
-\fBO: LAYER NAME.\fP
+.SH DESIGN RULES DESCRIPTION
+\fB0: LAYER NAME.\fP
 .br
 This section explicits the layer name used in the following rules.
 .br
@@ -77,10 +76,6 @@ This section explicits the layer name used in the following rules.
 .ft R
 \fBI: LAYER WIDTH.\fP
 .br
-
-
-
-
 This class of rules deals with the width limits of a layer.
 and the conditions for equipotentiality between 
 two overlapping or abutting segments.
@@ -140,9 +135,6 @@ rule 11 :
 .ft R
 \fBII: FORBIDDEN OVERLAP\fP
 .br
-
-
-
 
 This class of rules specifies the forbidden overlaps between two layers. (The distance between them must be strictly positive)
 .br
@@ -237,10 +229,6 @@ rule 31 :
 .ft R
 \fBIII: LAYER NOTCH.\fP
 .br
-
-
-
-
 This class of rules deals with the notch limits of a layer.
 .br
 .br
@@ -286,10 +274,6 @@ rule 39 :
 .ft R
 \fBIV: MINIMUM SPACING\fP
 .br
-
-
-
-
 This class of rules specifies the minimum edge-to-edge distance allowed between
 two layers.
 .br
@@ -429,15 +413,9 @@ rule 73 :
 .br
 .fi
 .ft R
-	\fBV: TOTAL INCLUSION.\fP
+\fBV: TOTAL INCLUSION.\fP
 .br
-
-
-
-
 The last class of rules deals with the inclusion of a layer in another one.
-.br
-
 .br
 .nf
 .ie t \{\
@@ -452,25 +430,10 @@ rule 75 :
 	PDIF must be included in NWELL with a minimun margin of 0.5
 	corresponding error code is : 110
 .br
-
-.br
-.fi
 .ft R
-.SH OPTIONS
-.br
-
-
-No optons are currently avalable.
-.br
-
-
-
 .SH FILES
 .br
-
-
 If design errors are found, \fBDRuC\fP produces the list of them in two files :
-
 .br
 .IP
 - \<\fIroot_name.drc\fP\>: 
@@ -487,13 +450,7 @@ This \fBgds\fP ro \fBcif\fp file contains only rectangles detected in violation.
 
 \fIRDS_OUT_PH\fP is default setted to gds.
 .br
-
-
-
 .SH ENVIRONMENT VARIABLES
-.br
-
-
 \fBDRuC\fP uses several environment variables:
 .ti 8
 - MBK_IN_PH       - defines the layout input format.
@@ -508,15 +465,8 @@ This \fBgds\fP ro \fBcif\fp file contains only rectangles detected in violation.
 - MBK_CATA_LIB - defines the catalog directory.
 .HP
 See the corresponding manual pages for further informations.
-
-
-
 .SH EXAMPLE
 	druc register
 .br
-
-
-
-
 .so man1/alc_bug_report.1
 
