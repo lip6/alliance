@@ -3,7 +3,7 @@
 # description   : Alliance Shared Libraries and Include Files   #
 # ###---------------------------------------------------------###
 
-# $Id: libraries.mk,v 1.30 2000/11/14 14:39:20 czo Exp $
+# $Id: libraries.mk,v 1.31 2000/11/14 14:39:52 czo Exp $
 
 # The variables $ALLIANCE_TOP and $ALLIANCE_OS are set by
 # alc_env.[c]sh script
@@ -12,7 +12,7 @@
 #    Common settings                                            #
 # ###---------------------------------------------------------###
 
-ALLIANCE_VERSION = '"4.0.8"'
+ALLIANCE_VERSION = '"4.0.9"'
 ALLIANCE_BIN     = $(ALLIANCE_TOP)/bin
 ALLIANCE_LIB     = $(ALLIANCE_TOP)/lib
 ALLIANCE_INCLUDE = $(ALLIANCE_TOP)/include
