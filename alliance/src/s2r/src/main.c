@@ -218,7 +218,6 @@ int main (argc, argv)
       printf ("\to loading %s level of real layout : %s\n", one_level ? "one" : "all", source_name);
       fflush (stdout);
       rds_model = getrdsfig (source_name, one_level ? 'P' : 'A', 0);
-
    }
    else
    {
