@@ -68,7 +68,7 @@
           struct vbtyp       type;
        };
 
-%token <valu> _AND
+%token <valu> tok_AND
 %token <valu> _BEGIN
 %token <valu> _END
 %token <valu> _EQSym
@@ -89,7 +89,7 @@
 %token <valu> _NEXT
 %token <valu> _NOR
 %token <valu> _NOT
-%token <valu> _NULL
+%token <valu> tok_NULL
 %token <valu> _OR
 %token <valu> _OUT
 %token <valu> _XOR
@@ -200,7 +200,7 @@
 %token <valu> WHILE
 %token <valu> WITH
 
-%left		_AND _OR _NAND _NOR _XOR
+%left		tok_AND _OR _NAND _NOR _XOR
 %left		_EQSym _NESym _LTSym _LESym _GTSym _GESym
 %left		Plus Minus Ampersand
 %left		Star Slash MOD REM
@@ -6274,7 +6274,7 @@ choices
        ;
 
 null_statement
-        : _NULL
+        : tok_NULL
           Semicolon_ERR {}
         ;
 
@@ -6461,11 +6461,11 @@ expression
 
 relation..AND__relation..
        : relation
-         _AND
+         tok_AND
          relation
                 { $$ = vbl_crtvex (VEX_AND ,$1 ,$3 ,-1,-1,0); }
        | relation..AND__relation..
-         _AND
+         tok_AND
          relation
                 { $$ = vbl_crtvex (VEX_AND ,$1 ,$3 ,-1,-1,0);}
        ;
