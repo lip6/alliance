@@ -24,19 +24,12 @@ AC_PROG_MAKE_SET
 dnl Checks for libraries.
 AC_CHECK_LIB(m, sqrt)
 
-dnl Checks for alliance.
-changequote(,)dnl
-INCLUDES=-I${ALLIANCE_TOP}/include
-LDFLAGS=-L${ALLIANCE_TOP}/lib
-changequote([,])dnl
-
-AC_SUBST(INCLUDES)
-AC_SUBST(LDFLAGS)
-
 dnl Checks for typedefs, structures, and compiler characteristics.
 AC_C_CONST
 
 dnl Checks for library functions.
+
+AM_ALLIANCE
 
 AC_OUTPUT([
 Makefile
