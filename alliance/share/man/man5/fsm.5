@@ -1,4 +1,4 @@
-.\"   $Id: fsm.5,v 1.1 1999/05/31 17:30:26 alliance Exp $
+.\"   $Id: fsm.5,v 1.2 1999/09/28 08:47:50 syf Exp $
 .\" @(#)FSM.5 2.1 Sep 24 1995 UPMC ; Jacomme L.
 .TH FSM 5 "October 1, 1997" "ASIM/LIP6" "VHDL subset of ASIM/LIP6/CAO-VLSI lab."
 
@@ -108,7 +108,7 @@ A case statement is used to describe, for each state, the next state and outputs
 .br
 The second process sensitivity list contains the clock signal, so this process 
 is enabled whenever clock changes.
-Both Level sensitive latches, and falling edge triggered flip flops can be used for
+Both Level sensitive latches, and edge triggered flip flops can be used for
 state registers and stack implementation.
 .br
 .SH EXAMPLES
