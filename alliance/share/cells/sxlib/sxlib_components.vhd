@@ -1,10 +1,10 @@
 
 ----------------------------------------------------------------
 -- 
--- Created by the Synopsys Library Compiler 1998.08
+-- Created by the Synopsys Library Compiler 1999.10
 -- FILENAME     :    /users/soft3/synopsis/sxlib/sxlib_components.vhd
 -- FILE CONTENTS:    Component Package
--- DATE CREATED :    Thu Feb 10 11:39:42 2000
+-- DATE CREATED :    Thu Apr 13 15:18:25 2000
 -- 
 -- LIBRARY      :    sxlib
 -- DATE ENTERED :    Sat Oct 30 22:31:32 MET DST 1999
