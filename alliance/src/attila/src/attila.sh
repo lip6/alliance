@@ -1,6 +1,6 @@
 #!/bin/sh
 #
-# $Id: attila.sh,v 1.18 2004/07/24 22:40:33 jpc Exp $
+# $Id: attila.sh,v 1.19 2004/07/29 07:50:31 alliance Exp $
 #                                                                        
 # /------------------------------------------------------------------\
 # |                                                                  |
@@ -14,6 +14,10 @@
 # | **************************************************************** |
 # |  U p d a t e s                                                   |
 # | $Log: attila.sh,v $
+# | Revision 1.19  2004/07/29 07:50:31  alliance
+# | Adding the dynamic link flag for Alliance libraries when installing for
+# | ASIM, since this is required in any case for this type of install
+# |
 # | Revision 1.18  2004/07/24 22:40:33  jpc
 # | La nouvelle config a trois architectures : Linux.FC2, Linux.RH71 et Solaris.
 # |
@@ -528,6 +532,10 @@
      cd $TOOL
 
      echo "     - Running \"make $ARGS_MAKE\" for $TOOL."
+     if [ "$ASIM" = "y" ]; then
+       echo "     - Adding dynamic link support for ASIM install"
+       ARGS_CONFIGURE="$ARGS_CONFIGURE --enable-alc-shared"
+     fi
      $SRC_DIR/$TOOL/configure --prefix=$INSTALL_DIR $ARGS_CONFIGURE
      $MAKE prefix=$INSTALL_DIR $ARGS_MAKE
 
