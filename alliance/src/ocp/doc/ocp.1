@@ -1,0 +1,95 @@
+.\"   $Id: ocp.1,v 1.1 2002/03/13 18:57:11 xtof Exp $
+.\" @(#)Labo.l 0.0 92/09/24 UPMC; Author: Christophe ALEXANDRE
+.pl -.4
+.TH OCP 1 "September 27, 2001" "ASIM/LIP6" "CAO\-VLSI Reference Manual"
+.SH NAME
+.TP
+ocp
+ - Standard Cell Placer
+.so man1/alc_origin.1
+.SH SYNOPSIS
+.TP
+\fBocp\fP 
+[\fBoptions\fP] \fInetlist\fP \fIoutputname\fP
+.br
+
+.SH DESCRIPTION
+\fBocp\fP is an automatic place tool for standard-cells.
+.br
+
+\fBinput net-list\fP
+.br
+The \fInetlist\fP file describes the input net-list.
+.br
+\fBocp\fP supports a hierarchical net-list. In this case the net-list is flattened by the placer according to the catalog file. The net-list format can be : structural VHDL, EDIF, or ALLIANCE internal format according to the environment variable \fBMBK_IN_LO\fP.
+.br
+
+\fBoutput layout\fP
+.br
+The file containing the placed block will have the name \fIoutputname\fP. This name is not optionnal and must always be present. The output format is defined by the environment variable \fBMBK_OUT_PH\fP.
+.br
+
+.SH OPTIONS
+.br
+\fBOptional cells placement file\fP
+.br
+\fB-partial <NAME>\fP
+.br
+A user defined placement can be specified, thanks to a placement file.
+.br
+The optional placement file must be given by the user. It must have an extension that denotes the format defined by the environment variable \fBMBK_IN_PH\fP.
+.br
+
+\fBOptional connectors placement\fP
+.br
+The placement of connectors can be also specified.
+.br
+There are three ways to place connectors in a physical view :
+.br
+.br
+\fB-c\fP option will automatically place the connectors randomly. The auto placement will set connectors on each side of the abutment box.
+.br
+\fB-ring\fP option will automatically place the connectors randomly but only on the north and south side. This option is temporary and is provided for the ring pad placement tool.
+.br
+\fB-ioc <NAME>\fP option will place connectors as specified by the <NAME>.ioc given file.
+.br
+
+\fBMargin\fP
+.br
+It is possible to force the free area of the physical view.
+.br
+The \fB-margin <MARGIN>\fP option allow to set The amount of free area added in percentage of the cells area.
+.br
+The resulting area will be equal to CELL_AREA * (1 + <MARGIN>).
+.br
+By default, the margin value is 0.2 (20%)
+.br
+
+\fBNumber of rows\fP
+.br
+\fB-rows <NR>\fP option forces the design to be placed in <NR> rows.
+.br
+The abutment box's width is automatically generated.
+.br
+This option won't be used if a defined placement file is given.
+.br
+
+\fBVerbose mode\fP
+.br
+\fB-v\fP set the verbose mode on
+.br
+
+\fBGnuplot\fP
+.br
+\fB-gnuplot\fP option allow to generate automatically gnuplot files, for editing statistics
+.br
+.SH ENVIRONMENT VARIABLES
+.PP
+\fBocp\fP uses the environment variables MBK_VDD and MBK_VSS to know
+the name of the power signals vdd and vss.
+.br
+
+.SH SEE ALSO
+.PP
+ocr(1), MBK_IN_LO(1), MBK_IN_PH(1), MBK_OUT_PH(1), MBK_VDD(1), MBK_VSS(1)
+.so man1/alc_bug_report.1
