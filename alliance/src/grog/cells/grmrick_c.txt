@@ -1,0 +1,4 @@
+cell : grmrick_c
+This cell bufferizes the clock for output decoder precharge.
+This is an internal clock, and its delays are supposed to follow
+the precharge signal skew.

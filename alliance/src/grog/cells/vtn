@@ -1,0 +1,35 @@
+#!/bin/csh -f
+
+if ( "$1" == "" ) then
+  echo "netlist matching from hns and fne"
+  echo ""
+  echo "usage : `basename $0` <cell>"
+  exit 1
+endif
+
+set HNS=$1
+set FNE=$1
+set F=$HOME/tmp/$1.$$
+
+hugevtishell >& $F <<EOT
+netcompare
+read [hns]$HNS
+read [fne]$FNE
+auto
+id
+check
+show unidentified
+show unexpected
+show worst
+quit
+quit
+EOT
+
+cat $F
+if( ( `grep "100.00% complete" $F|wc -l` == 0 ) \
+||  ( `grep " 0 errors found"  $F|wc -l` == 0 ) ) then
+  \rm $F
+  exit(1)
+endif
+
+\rm $F

@@ -1,0 +1,3 @@
+cell : grmrl_c
+This contains a precharged pass transistor 4 inputs multiplexer, needed for
+the decoding of the word lines in 512 words to 4 k roms.
