@@ -42,17 +42,17 @@
 |                                                             |
 \------------------------------------------------------------*/
 
-# include MUT_H
-# include AUT_H
-# include ABL_H
-# include BDD_H
-# include BTR_H
-# include BTR_H
-# include FSM_H
-# include BEH_H
-# include BVL_H
-# include BHL_H
-# include FTL_H
+# include "mut.h"
+# include "aut.h"
+# include "abl.h"
+# include "bdd.h"
+# include "btr.h"
+# include "btr.h"
+# include "fsm.h"
+# include "abe.h"
+# include "abv.h"
+# include "abt.h"
+# include "ftl.h"
 
 # include <stdio.h>
 # include <stdlib.h>
