@@ -259,13 +259,19 @@ char *str1;
 
 {
   VBL_ERRFLG++;
-  if (code < 100)
     (void)fprintf (stderr,"Error %d line %ld in file %s :",code,VBL_LINNUM, VBL_FILENAME);
+
+#if 0  /* Francois Donnet 10/04/2003: I watch all calls to this function.
+        * all calls with argument code >= 100 come from parser vbl_bcomp_y.y
+        * which defines VBL_LINNUM and VBL_FILENAME
+        * Frustrating not to know the line of user error!
+        */ 
   else
     {
     if (code < 200)
       (void)fprintf (stderr,"Error %d :",code);
     }
+#endif
 
   switch (code)
     {
