@@ -6,7 +6,7 @@
 #  Alliance CAD system environnement
 #  Usage (in C-shell) : > source alc_env.csh
 #  (C) 1997 Czo  -- <Olivier.Sirol@lip6.fr>
-#  $Id: alc_env.csh.in,v 1.4 1999/09/24 17:38:54 czo Exp $
+#  $Id: alc_env.csh.in,v 1.5 1999/09/28 09:16:37 czo Exp $
 #  Generated from alc_env.csh.in on @DATE@
 
 # $MACHINE and $TOP are the only variables you will
@@ -88,8 +88,8 @@ setenv VH_BEHSFX vbe
 setenv VH_PATSFX pat
 setenv VH_DLYSFX dly
 
-setenv MBK_CATA_LIB      .:$TOP/cells/sclib:$TOP/cells/padlib
-setenv MBK_TARGET_LIB    $TOP/cells/sclib
+setenv MBK_CATA_LIB      .:$TOP/cells/sxlib:$TOP/cells/padlib
+setenv MBK_TARGET_LIB    $TOP/cells/sxlib
 setenv MBK_C4_LIB        ./cellsC4 
 
 setenv MBK_VDD           vdd
