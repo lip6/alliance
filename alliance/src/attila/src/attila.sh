@@ -1,6 +1,6 @@
 #!/bin/sh
 #
-# $Id: attila.sh,v 1.14 2003/02/06 13:18:51 fred Exp $
+# $Id: attila.sh,v 1.15 2003/04/04 09:22:40 jpc Exp $
 #                                                                        
 # /------------------------------------------------------------------\
 # |                                                                  |
@@ -44,7 +44,10 @@
    echo ""
    echo "Options :"
    echo "     o [-h|--help]  : Print this help."
-   echo "     o [-L|--local] : Print this help."
+   echo "     o [-L|--local] : "
+   echo "         Uses the attila's binary installed in the user's local."
+   echo "         development tree. This is mainly for me when I work on"
+   echo "         attila itself (yes : attila is able to self re-install)."
    echo "     o [-U|--user]  :"
    echo "         Perform a \"USER\" compilation/installation."
    echo "         The tool(s) will be compiled then installed under the"
