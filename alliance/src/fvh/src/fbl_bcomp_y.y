@@ -74,7 +74,7 @@ struct choice_chain *order_choice();
 	struct fbtyp 	type;
 	};
 
-%token	<valu> _AND
+%token	<valu> tok_AND
 %token	<valu> Pragma
 %token	<valu> _BEGIN
 %token	<valu> _END
@@ -94,7 +94,7 @@ struct choice_chain *order_choice();
 %token	<valu> _NEXT
 %token	<valu> _NOR
 %token	<valu> _NOT
-%token	       _NULL
+%token	       tok_NULL
 %token	<valu> _OR
 %token	<valu> _OUT
 %token  <valu> _XOR
@@ -192,7 +192,7 @@ struct choice_chain *order_choice();
 %token  <valu> WHILE
 %token  <valu> WITH
 
-%left         _AND _OR _NAND _NOR _XOR
+%left         tok_AND _OR _NAND _NOR _XOR
 %left         _EQSym _NESym
 %left         _NOT
 
@@ -2379,7 +2379,7 @@ choices
 	;
 
 null_statement
-        : _NULL
+        : tok_NULL
           Semicolon_ERR
         ;
 
@@ -2552,11 +2552,11 @@ expression
 
 relation..AND__relation..
 	: relation
-	  _AND
+	  tok_AND
 	  relation
                 { $$ = fbl_crtabl (ABL_AND ,$1 ,$3 ,-1,-1); }
 	| relation..AND__relation..
-	  _AND
+	  tok_AND
 	  relation
                 { $$ = fbl_crtabl (ABL_AND ,$1 ,$3 ,-1,-1);} 
 	;
