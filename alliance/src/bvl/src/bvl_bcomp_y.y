@@ -1358,7 +1358,7 @@ bvl_ablstr    pt_ablstr;	/* tested expression			*/
         struct g_type    dble;
 	};
 
-%token         _AND
+%token         tok_AND
 %token         _BEGIN
 %token         _END
 %token         _EQSym
@@ -1377,7 +1377,7 @@ bvl_ablstr    pt_ablstr;	/* tested expression			*/
 %token         _NEXT
 %token         _NOR
 %token         _NOT
-%token         _NULL
+%token         tok_NULL
 %token         _OR
 %token         _OUT
 %token         _XOR
@@ -1490,7 +1490,7 @@ bvl_ablstr    pt_ablstr;	/* tested expression			*/
 %token         WOR_BIT
 %token         WOR_VECTOR
 
-%left         _AND _OR _NAND _NOR _XOR
+%left         tok_AND _OR _NAND _NOR _XOR
 %left         _EQSym _NESym
 %left         _NOT
 
@@ -2954,11 +2954,11 @@ expression
 
 relation..AND__relation..
 	: relation
-	  _AND
+	  tok_AND
 	  relation
 		{ $$ = crtabl (AND , $1 , $3 , -1, -1); }
 	| relation..AND__relation..
-	  _AND
+	  tok_AND
 	  relation
 		{ $$ = crtabl (AND , $1 , $3 , -1, -1); }
 	;
