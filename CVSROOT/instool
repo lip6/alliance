@@ -7,7 +7,7 @@
 # Author: Frédéric Pétrot (fred@pasta.fr.ea)
 #         for version 0
 #
-# $Id: instool,v 1.5 1999/09/24 15:19:42 czo Exp $
+# $Id: instool,v 1.6 1999/09/24 15:20:28 czo Exp $
 #
 
 PATH=/asim/gnu/bin:/usr/ucb:/usr/etc:/bin:/usr/bin:/usr/local/bin:${PATH}
@@ -28,6 +28,7 @@ BUGTEAM="fred ludo czo"
 #                  alliance/share/...
 TARGET="SunOS Solaris Linux_elf Linux"
 NUM_TARGET=4
+
 LABO=/users/soft5/newlabo/alliance
 CELL_EXTENSIONS="al ap vst vbe cp hns edi spi db dat IDX"
 CELLS=$LABO/share/cells
