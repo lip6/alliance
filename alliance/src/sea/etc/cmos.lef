@@ -1,5 +1,5 @@
 #
-# $Id: cmos.lef,v 1.5 2004/09/29 21:40:39 jpc Exp $
+# $Id: cmos.lef,v 1.6 2005/03/01 14:59:15 jpc Exp $
 #
 # /------------------------------------------------------------------\
 # |                                                                  |
@@ -25,9 +25,9 @@ DIVIDERCHAR           "." ;
 #NOWIREEXTENSIONATPIN ON ;
 
 
-UNITS
-    DATABASE MICRONS 100  ;
-END UNITS
+#UNITS
+#    DATABASE MICRONS 100  ;
+#END UNITS
 
 
 LAYER POLY
