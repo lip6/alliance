@@ -6,17 +6,17 @@ AC_DEFUN(AM_ALLIANCE,[
 
 AC_MSG_CHECKING(for alliance)
 if test x$alliance_prefix != x ; then
-  ALC_CFLAGS="-I$alliance_prefix/include"
-  ALC_LIBS="-L$alliance_prefix/lib"
+  ALLIANCE_CFLAGS="-I$alliance_prefix/include"
+  ALLIANCE_LIBS="-L$alliance_prefix/lib"
 else
-  ALC_CFLAGS="-I${ALLIANCE_TOP}/include $CFLAGS"
-  ALC_LIBS="-L${ALLIANCE_TOP}/lib $LIBS"
+  ALLIANCE_CFLAGS="-I${ALLIANCE_TOP}/include"
+  ALLIANCE_LIBS="-L${ALLIANCE_TOP}/lib"
 fi
 
 ac_save_CFLAGS="$CFLAGS"
 ac_save_LIBS="$LIBS"
-CFLAGS="$ALC_CFLAGS $CFLAGS"
-LIBS="$ALC_LIBS -lMut $LIBS"
+CFLAGS="$ALLIANCE_CFLAGS $CFLAGS"
+LIBS="$ALLIANCE_LIBS -lMut $LIBS"
 
 AC_TRY_RUN([
 #include <mut.h>
@@ -44,13 +44,6 @@ LIBS="$ac_save_LIBS"
 dnl ifelse([$2], , :, [$2])
   fi
   
-CFLAGS="$ALC_CFLAGS $CFLAGS"
-LIBS="$ALC_LIBS $LIBS"
-ALLIANCE_CFLAGS=$CFLAGS
-ALLIANCE_LIBS=$LIBS
-
-AC_SUBST(CFLAGS)
-AC_SUBST(LIBS)
 AC_SUBST(ALLIANCE_CFLAGS)
 AC_SUBST(ALLIANCE_LIBS)
 
