@@ -1,4 +1,4 @@
-.\"   $Id: log.1,v 1.1 2002/04/03 13:13:26 ludo Exp $
+.\"   $Id: log.1,v 1.2 2002/10/02 14:09:09 xtof Exp $
 .\" @(#)log.l 0.0 92/08/01 UPMC; Author: Luc Burgun
 .pl -.4
 .TH LOG 1 "October 1, 1997" "ASIM/LIP6" "cao\-vlsi reference manual"
@@ -21,9 +21,9 @@ In order to use log, \fIlibMutnnn.a\fP library must be called.
 .br
 HEADER = -I/labo/include 
 .br
-LIB = -L/labo/lib -lMutnnn -ltshmmm -lablmmm -lbddmmm
+LIB = -L/labo/lib -lMut -ltsh -labl -lbdd
 .br
-Each library can be called separatly. The "logmmm.h" header file must be inserted in the files that use the functions or the structures defined in a library.  
+Each library can be called separatly. The "log.h" header file must be inserted in the files that use the functions or the structures defined in a library.  
 .br
 .SH SEE ALSO
 .BR mbk (1),
