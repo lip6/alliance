@@ -20,3 +20,102 @@
 #  and value is a single-quote delimited value.
 #
 # For example:
+
+# #---------- bin extensions
+# a
+# arj
+# bin
+# bmp
+# box
+# cal
+# cdr
+# dat
+# db
+# dbf
+# der
+# dic
+# dll
+# doc
+# dvi
+# elc
+# exe
+# fmt
+# gif
+# gz
+# jbf
+# jpeg
+# jpg
+# lbm
+# lib
+# o
+# pdf
+# pgp
+# pict
+# png
+# ppt
+# ps
+# psp
+# qx31
+# rpm
+# sbl
+# so
+# tar
+# tgz
+# tif
+# tiff
+# wav
+# xls
+# xpm
+# zip
+# 
+# 
+
+
+*.[Aa]  -k b -m COPY
+*.[Aa][Rr][Jj]  -k b -m COPY
+*.[Bb][Ii][Nn]  -k b -m COPY
+*.[Bb][Mm][Pp]  -k b -m COPY
+*.[Bb][Oo][Xx]  -k b -m COPY
+*.[Cc][Aa][Ll]  -k b -m COPY
+*.[Cc][Dd][Rr]  -k b -m COPY
+*.[Dd][Aa][Tt]  -k b -m COPY
+*.[Dd][Bb]  -k b -m COPY
+*.[Dd][Bb][Ff]  -k b -m COPY
+*.[Dd][Ee][Rr]  -k b -m COPY
+*.[Dd][Ii][Cc]  -k b -m COPY
+*.[Dd][Ll][Ll]  -k b -m COPY
+*.[Dd][Oo][Cc]  -k b -m COPY
+*.[Dd][Vv][Ii]  -k b -m COPY
+*.[Ee][Ll][Cc]  -k b -m COPY
+*.[Ee][Xx][Ee]  -k b -m COPY
+*.[Ff][Mm][Tt]  -k b -m COPY
+*.[Gg][Ii][Ff]  -k b -m COPY
+*.[Gg][Zz]  -k b -m COPY
+*.[Jj][Bb][Ff]  -k b -m COPY
+*.[Jj][Pp][Ee][Gg]  -k b -m COPY
+*.[Jj][Pp][Gg]  -k b -m COPY
+*.[Ll][Bb][Mm]  -k b -m COPY
+*.[Ll][Ii][Bb]  -k b -m COPY
+*.[Oo]  -k b -m COPY
+*.[Pp][Dd][Ff]  -k b -m COPY
+*.[Pp][Gg][Pp]  -k b -m COPY
+*.[Pp][Ii][Cc][Tt]  -k b -m COPY
+*.[Pp][Nn][Gg]  -k b -m COPY
+*.[Pp][Pp][Tt]  -k b -m COPY
+*.[Pp][Ss]  -k b -m COPY
+*.[Pp][Ss][Pp]  -k b -m COPY
+*.[Qq][Xx][33][11]  -k b -m COPY
+*.[Rr][Pp][Mm]  -k b -m COPY
+*.[Ss][Bb][Ll]  -k b -m COPY
+*.[Ss][Oo]  -k b -m COPY
+*.[Tt][Aa][Rr]  -k b -m COPY
+*.[Tt][Gg][Zz]  -k b -m COPY
+*.[Tt][Ii][Ff]  -k b -m COPY
+*.[Tt][Ii][Ff][Ff]  -k b -m COPY
+*.[Ww][Aa][Vv]  -k b -m COPY
+*.[Xx][Ll][Ss]  -k b -m COPY
+*.[Xx][Pp][Mm]  -k b -m COPY
+*.[Zz][Ii][Pp]  -k b -m COPY
+*.  -k b -m COPY
+
+
