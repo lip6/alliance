@@ -1,10 +1,10 @@
 ## Process this file with automake to produce Makefile.in
 
-bin_PROGRAMS = lynx flatrds
+bin_PROGRAMS = cougar flatrds
 
 AM_CFLAGS = @ALLIANCE_CFLAGS@ 
 
-lynx_LDADD = @ALLIANCE_LIBS@ \
+cougar_LDADD = @ALLIANCE_LIBS@ \
  -lMlu -lMpu -lMap -lMmg -lMcp -lMcl -lMel \
  -lMhl -lMvl -lMlo -lMph -lMut -lMal -lRcn \
  -lMsl -lMgl \
@@ -18,7 +18,7 @@ flatrds_LDADD = @ALLIANCE_LIBS@ \
 
 flatrds_SOURCES = flatrds.c
 
-lynx_SOURCES = \
+cougar_SOURCES = \
 addlynxrcn.c addlynxrcn.h box.c box.h buildrcn.c \
 buildrcn.h bulk.c bulk.h chklynxrcn.c chklynxrcn.h \
 cutelbow.c cutelbow.h diffusion.c diffusion.h error.c \
