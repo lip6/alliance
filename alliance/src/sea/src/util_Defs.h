@@ -1,5 +1,5 @@
 /*
- *  $Id: util_Defs.h,v 1.2 2002/05/11 17:03:38 xtof Exp $
+ *  $Id: util_Defs.h,v 1.3 2002/09/14 19:10:40 jpc Exp $
  *
  *  /----------------------------------------------------------------\
  *  |                                                                |
@@ -122,7 +122,7 @@
 
   /* Interruptions handling functions. */
   extern void  trapInit    __FP((void));
-  extern void  sendGSignal __FP((int aSig));
+  /*extern void  sendGSignal __FP((int aSig));*/
   extern void  setBinName  __FP((char *asName));
 
   /* Errors printing functions. */
