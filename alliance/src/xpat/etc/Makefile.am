@@ -1,5 +1,8 @@
-install-data-local:
-	$(mkinstalldirs) $(DESTDIR)$(sysconfdir) 
-	$(INSTALL_DATA) $(srcdir)/xpat.par $(DESTDIR)$(sysconfdir)/xpat.par
+# $Id: Makefile.am,v 1.5 2002/05/02 14:12:04 czo Exp $
 
-EXTRA_DIST = xpat.par
+etcdir=$(DESTDIR)$(prefix)/etc
+
+etc_DATA=xpat.par
+
+EXTRA_DIST=$(etc_DATA)
+

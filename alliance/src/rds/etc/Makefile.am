@@ -1,5 +1,8 @@
-install-data-local:
-	$(mkinstalldirs) $(DESTDIR)$(sysconfdir) 
-	$(INSTALL_DATA) $(srcdir)/cmos.rds $(DESTDIR)$(sysconfdir)/cmos.rds
+# $Id: Makefile.am,v 1.4 2002/05/02 14:12:03 czo Exp $
 
-EXTRA_DIST = cmos.rds
+etcdir=$(DESTDIR)$(prefix)/etc
+
+etc_DATA=cmos.rds
+
+EXTRA_DIST=$(etc_DATA)
+

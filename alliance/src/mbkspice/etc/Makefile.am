@@ -1,6 +1,6 @@
-# $Id: Makefile.am,v 1.2 2002/04/30 15:11:06 czo Exp $
+# $Id: Makefile.am,v 1.3 2002/05/02 14:12:03 czo Exp $
 
-etcdir = $(pkgdatadir)/etc
+etcdir=$(DESTDIR)$(prefix)/etc
 
 etc_DATA=spimodel.cfg
 

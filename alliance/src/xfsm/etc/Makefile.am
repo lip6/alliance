@@ -1,5 +1,8 @@
-install-data-local:
-	$(mkinstalldirs) $(DESTDIR)$(sysconfdir) 
-	$(INSTALL_DATA) $(srcdir)/xfsm.par $(DESTDIR)$(sysconfdir)/xfsm.par
+# $Id: Makefile.am,v 1.4 2002/05/02 14:12:04 czo Exp $
 
-EXTRA_DIST = xfsm.par
+etcdir=$(DESTDIR)$(prefix)/etc
+
+etc_DATA=xfsm.par
+
+EXTRA_DIST=$(etc_DATA)
+

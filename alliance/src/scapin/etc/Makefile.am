@@ -1,5 +1,8 @@
-install-data-local:
-	$(mkinstalldirs) $(DESTDIR)$(sysconfdir) 
-	$(INSTALL_DATA) $(srcdir)/sxlib.scapin $(DESTDIR)$(sysconfdir)/sxlib.scapin
+# $Id: Makefile.am,v 1.4 2002/05/02 14:12:04 czo Exp $
 
-EXTRA_DIST = sxlib.scapin
+etcdir=$(DESTDIR)$(prefix)/etc
+
+etc_DATA=sxlib.scapin
+
+EXTRA_DIST=$(etc_DATA)
+

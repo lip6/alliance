@@ -1,5 +1,8 @@
-install-data-local:
-	$(mkinstalldirs) $(DESTDIR)$(sysconfdir) 
-	$(INSTALL_DATA) $(srcdir)/prol.elp $(DESTDIR)$(sysconfdir)/prol.elp
+# $Id: Makefile.am,v 1.4 2002/05/02 14:12:02 czo Exp $
 
-EXTRA_DIST = prol.elp
+etcdir=$(DESTDIR)$(prefix)/etc
+
+etc_DATA=prol.elp
+
+EXTRA_DIST=$(etc_DATA)
+
