@@ -445,6 +445,7 @@ flatbeh (1)          - Synthetizes a behavioral description from a structural de
 flatenphfig (3)      - flatten a instance in a figure
 flatPolarityExpr (3) - translates the inverters of an expression to the level of atomic expressions
 flattenlofig (3)     - flatten a instance in a logical figure
+fmi (1)              - FSM state miminization
 fpgen (1)            - Procedural language for Data-Path synthesis based upon C.
 fpmap (1)            - fpga mapper of a logic level behavioural description (VHDL data flow)
 freeExpr (3)         - frees an expression.
@@ -461,6 +462,7 @@ freerdsrec (2)       - free memory associated to a rectangle
 freerdsrec (3)       - free memory associated to a rectangle
 fsm (1)              - Finite State Machine representation.
 fsm (5)              - Alliance VHDL Finite State Machine description subset.
+fsp (1)              - Formal proof between two FSM descriptions
 garbagebddsystem (3) - Forces a bdd garbage collection.
 gcNodeBdd (3)        - does a garbage collection
 gcNodeCct (3)        - does a garbage collection
