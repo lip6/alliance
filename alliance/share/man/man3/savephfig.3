@@ -1,4 +1,4 @@
-.\"   $Id: savephfig.3,v 1.1 1999/05/31 17:30:24 alliance Exp $
+.\"   $Id: savephfig.3,v 1.2 2002/01/21 14:56:11 xtof Exp $
 .\" @(#)savephfig.2 2.11 91/08/22 ; Labo masi cao-vlsi; Author : Frederic Petrot
 .if t \{\
 .so man1/alc_contents.mac
@@ -20,7 +20,7 @@ savephfig \- save a physical figure on disk
 .ft B \}
 .if t \{\
 .ft CR \}
-#include "mph403.h"
+#include "mpu408.h"
 void savephfig(ptfig)
 phfig_list \(**ptfig;
 .ft R
@@ -68,7 +68,7 @@ writting.
 .ft B \}
 .if t \{\
 .ft CR \}
-#include "mph403.h"
+#include "mpu408.h"
 void save_na2_y()
 {
 	savephfig(getphfig("na2_y"));
