@@ -1,0 +1,150 @@
+.\"   $Id: mbkenv.3,v 1.1 2002/03/08 13:51:03 fred Exp $
+.\" @(#)mbkenv.2 2.11 91/08/22 ; Labo masi cao-vlsi; Author : Frederic Petrot
+.if t \{\
+.so man1/alc_contents.mac
+.XS \n%
+.ti 0.2i
+mbkenv
+.XE
+.XS4 \n%
+.ti 0.2i
+mbkenv
+.XE4 \}
+.TH MBKENV 3 "October 1, 1997" "ASIM/LIP6" "MBK UTILITY FUNCTIONS"
+.SH NAME
+mbkenv \- set user preferences
+.so man1/alc_origin.1
+.SH SYNOPSYS
+.nf
+.if n \{\
+.ft B \}
+.if t \{\
+.ft CR \}
+#include "mut.h"
+void mbkenv();
+.ft R
+.fi
+.SH DESCRIPTION
+The \fBmbkenv\fP function set the user preferences through unix
+environment variables. if all the variables are not defined, default values
+are used.
+.LP the environment variables are :
+.TP 30
+\fBMBK_WORK_LIB\fP
+internally \fBchar \(**WORK_LIB\fP, sets the working directory for reading and
+writting, result of a \fBsavephfig\fP for example. Its value is \fB"."\fP by
+default.
+.TP
+\fBMBK_CATA_LIB\fP
+internally \fBchar \(**\(**CATA_LIB\fP, sets the working directories for reading only.
+This is a set of pathes, like the unix \fBPATH\fP variable.
+It is used in \fBloadlofig\fP for example. Its value is \fB"."\fP by default.
+.TP
+\fBMBK_CATAL_NAME\fP
+internally \fBchar \(**CATAL_NAME\fP, sets the name of the catalog file, needed
+to know where to stop a flatten, and so on. Set to \fB"CATAL"\fP by default.
+.TP
+\fBMBK_SEPAR\fP
+internally \fBchar SEPAR\fP, sets the character used for string concatenation.
+Used for example in \fBconcatname\fP.
+By default it is \fB"."\fP.
+.TP
+\fBMBK_VDD\fP
+internally \fBchar *VDD\fP, sets the name to be used as power level
+recognition pattern by the tools based upon mbk that needs to identify
+supplies.
+The default is \fB"vdd"\fP.
+.TP
+\fBMBK_VSS\fP
+internally \fBchar *VSS\fP, sets the name to be used as ground level
+recognition pattern by the tools based upon mbk that needs to identify
+supplies.
+The default is \fB"vss"\fP.
+.TP
+\fBMBK_TRACE_MODE\fP
+internally \fBchar TRACE_MODE\fP, output information in each mbk access
+function it enters.
+Used for debugging purposes.
+By default it is \fB'N'\fP.
+.TP
+\fBMBK_DEBUG_MODE\fP
+internally \fBchar DEBUG_MODE\fP, output information in function that
+makes a check on its values : mostly parsers for debug. It is very
+verbose, and mostly unusable. No mbk function take care of it.
+By default it is \fB'N'\fP.
+.TP
+\fBMBK_FAST_MODE\fP
+internally \fBchar FAST_MODE\fP. If set to \fB'Y'\fP, no consistency checked are
+performed on many mbk functions. This can work only on a program that is
+warrantied to be bugless, else undefined results would occur.
+By default it is \fB'N'\fP.
+.TP
+\fBMBK_IN_LO\fP
+internally \fBchar IN_LO[5]\fP. Defines the logical input format demanded
+by the user. See \fBMBK_IN_LO\fP(1) for a list of valid formats.
+By default its value is \fB"al"\fP.
+.TP
+\fBMBK_OUT_LO\fP
+internally \fBchar OUT_LO[5]\fP. Defines the logical input format demanded
+by the user. See \fBMBK_OUT_LO\fP(1) for a list of valid formats.
+By default its value is \fB"al"\fP.
+.TP
+\fBMBK_IN_PH\fP
+internally \fBchar IN_PH[5]\fP. Defines the logical input format demanded
+by the user. See \fBMBK_IN_PH\fP(1) for a list of valid formats.
+By default its value is \fB"ap"\fP.
+.TP
+\fBMBK_OUT_PH\fP
+internally \fBchar OUT_PH[5]\fP. Defines the logical input format demanded
+by the user. See \fBMBK_OUT_PH\fP(1) for a list of valid formats.
+By default its value is \fB"ap"\fP.
+.TP
+\fBMBK_SCALE_X\fP
+internally \fBlong SCALE_X\fP. Defines a scale factor for all coordinates, in
+order to be able to use files that works with half lambda rules for example.
+Parsers, drivers and genlib's macros use it extensivly.
+Its value is ten by default.
+.TP
+\fbMBK_IN_FILTER\fp
+internaly \fbIN_FILTER\fb. Filter string for reading compressed Alliance files.
+It has no value by default, means no filter is used.
+.TP
+\fbMBK_OUT_FILTER\fp
+internaly \fbOUT_FILTER\fb. Filter string for writing compressed Alliance files.
+It has no value by default, means no filter is used.
+.TP
+\fbMBK_FILTER_SFX\fp
+internaly \fbFILTER_SFX\fb. Extention of compressed files.
+It has no value by default, means no filter is used.
+.SH EXAMPLE
+.ta 3n 6n 9n 12n 15n 18n 21n
+.nf
+.if n \{\
+.ft B \}
+.if t \{\
+.ft CR \}
+#include "mut.h"
+#include "mlo.h"
+lofig_list \(**load_fig(name)
+char \(**name;
+{
+	mbkenv(); /\(** make sure the good environnement is used \(**/
+	return getlofig(name, 'A');
+}
+.ft R
+.fi
+.SH SEE ALSO
+.BR mbk (1),
+.BR genlib (1),
+.BR loadlofig (3),
+.BR loadphfig (3),
+.BR savelofig (3),
+.BR savephfig (3),
+.BR isvdd (3),
+.BR isvss (3),
+.BR concatname (3),
+.BR nameindex (3).
+
+
+.so man1/alc_bug_report.1
+

@@ -1,0 +1,82 @@
+.\"   $Id: restorealldir.3,v 1.1 2002/03/08 13:51:03 fred Exp $
+.\" @(#)restorealldir.2 1.00 92/10/27 ; Labo masi cao-vlsi; Author : Vincent POUILLEY
+.\"modified by Frederic Petrot to meet the english language requirements!
+.if t \{\
+.so man1/alc_contents.mac
+.XS \n%
+.ti 0.2i
+restorealldir
+.XE
+.XS2 \n%
+.ti 0.2i
+restorealldir
+.XE2 \}
+.TH RESTOREALLDIR 3 "October 1, 1997" "ASIM/LIP6" "MBK LOGICAL FUNCTIONS"
+.SH NAME
+restorealldir \- restore all instances' connectors directions
+.so man1/alc_origin.1
+.SH SYNOPSYS
+.nf
+.if n \{\
+.ft B \}
+.if t \{\
+.ft CR \}
+#include "mlo.h"
+int restorealldir(ptfig)
+lofig_list \(**ptfig;
+.ft R
+.fi
+.SH PARAMETER
+.TP 20
+\fIptfig\fP
+Pointer to a lofig_list
+.SH DESCRIPTION
+The \fBrestorealldir\fP function restores the directions of all the
+connectors of the instances.
+Each instance model logical view is loaded,  and the \fBrestoredirvbe\fP
+function applied.
+If a model doesn't have a \fBvbe\fP file on the path,
+the \fBrestorealldir\fP and \fBguessextdir\fP functions
+are used on the model.
+.br
+It is the charge of the user to delete the models loaded in memory for the
+function purpose.
+.SH RETURN VALUE
+\fBrestorealldir\fP returns \fB1\fP on success, \fB0\fP
+if there is an error while reading the vbe file.
+.SH ERROR
+\fBrestorealldir\fP cannot give any errors, but the function use
+\fBrestoredirvbe\fP
+that can give errors reading vbe files.
+see \fBrestoredirvbe\fP for details.
+.SH EXAMPLE
+.ta 3n 6n 9n 12n 15n 18n 21n
+.nf
+.if n \{\
+.ft B \}
+.if t \{\
+.ft CR \}
+#include "mut.h"
+#include "mlo.h"
+lofig_list \(** getgoodlofig(figname, mode)
+char \(**figname;
+char mode;
+{
+lofig_list \(**ptfig;
+	ptfig = getlofig(figname, mode);
+	restorealldir(ptfig);
+	return ptfig;
+}
+.ft R
+.fi
+.SH SEE ALSO
+.BR mbk (1),
+.BR lofig (3),
+.BR locon (3),
+.BR getlofig (3),
+.BR restoredirvbe (3).
+.BR guessextdir (3).
+
+
+.so man1/alc_bug_report.1
+

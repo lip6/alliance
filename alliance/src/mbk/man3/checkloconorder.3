@@ -1,0 +1,112 @@
+.\"   $Id: checkloconorder.3,v 1.1 2002/03/08 13:51:01 fred Exp $
+.\" @(#)checkloconorder.2 2.11 91/08/22 ; Labo masi cao-vlsi; Author : Frederic Petrot
+.if t \{\
+.so man1/alc_contents.mac
+.XS \n%
+.ti 0.2i
+checkloconorder
+.XE
+.XS2 \n%
+.ti 0.2i
+checkloconorder
+.XE2 \}
+.TH CHECKLOCONORDER 3 "October 1, 1997" "ASIM/LIP6" "MBK LOGICAL FUNCTIONS"
+.SH NAME
+checkloconorder \- checks the consistency of a list of logical connectors
+.so man1/alc_origin.1
+.SH SYNOPSYS
+.nf
+.if n \{\
+.ft B \}
+.if t \{\
+.ft CR \}
+#include "mlo.h"
+void checkloconorder(connectors)
+locon_list \(**connectors;
+.ft R
+.fi
+.SH PARAMETERS
+.TP 20
+\fIconnectors\fP
+Pointer to the head of the connector list that is to be sorted
+.SH DESCRIPTION
+\fBcheckloconorder\fP checks the list of logical connectors pointed to
+by \fI\(**connectors\fP for conformity towards \fBmbk\fP(1) consistency
+rules.
+Checks are done to warranty :
+.TP 20
+\fBorder\fP
+the functions checks that vectorized connectors are ordered and evolve
+monotonically, with a step of 1.
+.TP 20
+\fBname unicity\fP
+Vector radicals may not appear as single entity.
+.TP 20
+\fBname validity\fP
+No space should appear in the name, but a single one followed by a number
+in a vector.
+.SH ERRORS
+.if n \{\
+.ft B \}
+.if t \{\
+.ft CR \}
+"\(**\(**\(** mbk error \(**\(**\(** radical \fIname\fP already used in a
+connector"
+.ft R
+.RS
+The \fIname\fP is already used in a connector, either vectorized or not,
+and therefore cannot be used once more.
+This ensures that \fBf\fP and \fBf 3\fP will not be used simultaneously.
+.RE
+.if n \{\
+.ft B \}
+.if t \{\
+.ft CR \}
+"\(**\(**\(** mbk error \(**\(**\(** the radical \fIname\fP has a spurious 
+vectorized value"
+.ft R
+.RS
+The \fIname\fP is seen as a vector in \fBmbk\fP(1), but its index is not a
+number or some text follows that number.
+.RE
+.RE
+.if n \{\
+.ft B \}
+.if t \{\
+.ft CR \}
+"\(**\(**\(** mbk error \(**\(**\(** the radical \fIname\fP is not
+vectorized properly"
+.ft R
+.RS
+The \fIname\fP is seen as a vector in \fBmbk\fP(1), but its index changes
+in such a way that it is not monotonically increasing or decreasing with
+a step of 1.
+.RE
+.SH EXAMPLE
+.ta 3n 6n 9n 12n 15n 18n 21n
+.nf
+.if n \{\
+.ft B \}
+.if t \{\
+.ft CR \}
+#include "mlo.h"
+void savewithcheck(figname)
+char \(**figname;
+{
+lofig_list \(**figure = getlocon(figname, 'A');
+  checkloconorder(figure->LOCON);
+  savelofig(figure);
+}
+.ft R
+.fi
+.SH SEE ALSO
+.BR mbk (1),
+.BR locon (3),
+.BR addlocon (3),
+.BR dellocon (3),
+.BR checkloconorder (3),
+.BR qsort (3).
+
+
+.so man1/alc_bug_report.1
+

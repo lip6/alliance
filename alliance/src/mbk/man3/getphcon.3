@@ -1,0 +1,83 @@
+.\"   $Id: getphcon.3,v 1.1 2002/03/08 13:51:02 fred Exp $
+.\" @(#)getphcon.2 2.11 91/08/22 ; Labo masi cao-vlsi; Author : Frederic Petrot
+.if t \{\
+.so man1/alc_contents.mac
+.XS \n%
+.ti 0.2i
+getphcon
+.XE
+.XS0 \n%
+.ti 0.2i
+getphcon
+.XE0 \}
+.TH GETPHCON 3 "October 1, 1997" "ASIM/LIP6" "MBK PHYSICAL FUNCTIONS"
+.SH NAME
+getphcon \- retrieve a physical connector
+.so man1/alc_origin.1
+.SH SYNOPSYS
+.nf
+.if n \{\
+.ft B \}
+.if t \{\
+.ft CR \}
+#include "mph.h"
+phcon_list \(**getphcon(ptfig, conname, index)
+phfig_list \(**ptfig;
+char \(**conname;
+long index;
+.ft R
+.fi
+.SH PARAMETERS
+.TP 20
+\fIptfig\fP
+Pointer to the figure in which the connector should be seeked
+.TP
+\fIconname\fP
+Name of the connector
+.TP
+\fIindex\fP
+Connector index
+.SH DESCRIPTION
+\fBgetphcon\fP looks in the list of connectors of the physical model pointed
+to by \fIptfig\fP for a connector identified by its \fIconname\fP and
+\fIindex\fP. Both are needed to make sure the right connector is given back
+since \fIn\fP internally wired connectors have the same name.
+.SH RETURN VALUE
+\fBgetphcon\fP returns a pointer to the given connector.
+.SH ERRORS
+.if n \{\
+.ft B \}
+.if t \{\
+.ft CR \}
+"\(**\(**\(** mbk error \(**\(**\(** illegal getphcon connector \fIconname.index\fP 
+doesn't exist in figure \fIptfig\->NAME\fP"
+.ft R
+.RS
+No connectors match both arguments. 
+.RE
+.SH EXAMPLE
+.ta 3n 6n 9n 12n 15n 18n 21n
+.nf
+.if n \{\
+.ft B \}
+.if t \{\
+.ft CR \}
+#include "mph.h"
+phcon_list \(**exist(figname, conname)
+char \(**figname, \(**conname;
+{
+   /\(** if only one exists, it's this one \(**/
+   return getphcon(getphfig(figname), conname, 0L);   
+}
+.ft R
+.fi
+.SH SEE ALSO
+.BR mbk (1),
+.BR phfig (3),
+.BR phcon (3),
+.BR addphcon (3),
+.BR delphcon (3).
+
+
+.so man1/alc_bug_report.1
+

@@ -1,0 +1,70 @@
+.\"   $Id: nameindex.3,v 1.1 2002/03/08 13:51:03 fred Exp $
+.\" @(#)nameindex.2 2.11 91/08/22 ; Labo masi cao-vlsi; Author : Frederic Petrot
+.if t \{\
+.so man1/alc_contents.mac
+.XS \n%
+.ti 0.2i
+nameindex
+.XE
+.XS4 \n%
+.ti 0.2i
+nameindex
+.XE4 \}
+.TH NAMEINDEX 3 "October 1, 1997" "ASIM/LIP6" "MBK UTILITY FUNCTIONS"
+.SH NAME
+nameindex \- concatenate a name and index with user separator
+.so man1/alc_origin.1
+.SH SYNOPSYS
+.nf
+.if n \{\
+.ft B \}
+.if t \{\
+.ft CR \}
+#include "mut.h"
+char \(**nameindex(s, i)
+char \(**s;
+long i;
+.ft R
+.fi
+.SH PARAMETERS
+.TP 20
+\fIs\fP
+Pointer to a string
+.TP
+\fIt\fP
+Long integer
+.SH DESCRIPTION
+The \fBnameindex\fP function adds the separator defined by \fBMBK_SEPAR\fP(1),
+and then the string version of \fIi\fP at the end of string \fIs\fP.
+This is not like a \fBstrcat\fP(3) of the standard library, because \fIs\fP is
+not beeing modified.
+.br
+The string returned has already been put in the names dictionary by
+a call to \fBnamealloc\fP(3).
+.SH RETURN VALUE
+\fBnameindex\fP returns a pointer to a string in the name hash table.
+.SH EXAMPLE
+.ta 3n 6n 9n 12n 15n 18n 21n
+.nf
+.if n \{\
+.ft B \}
+.if t \{\
+.ft CR \}
+#include "mut.h"
+#include "mlo.h"
+void a_sig_name(ptsig)
+losig_list \(**ptsig;
+{
+	return pt\->NAMECHAIN ? (char \(**)(pt\->NAMECHAIN\->DATA)
+				: nameindex("mbk_sig", pt\->INDEX);
+}
+.ft R
+.fi
+.SH SEE ALSO
+.BR mbk (1),
+.BR namealloc (3),
+.BR MBK_SEPAR (1).
+
+
+.so man1/alc_bug_report.1
+

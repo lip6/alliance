@@ -1,0 +1,80 @@
+.\"   $Id: getphfig.3,v 1.1 2002/03/08 13:51:02 fred Exp $
+.\" @(#)getphfig.2 2.11 91/08/22 ; Labo masi cao-vlsi; Author : Frederic Petrot
+.if t \{\
+.so man1/alc_contents.mac
+.XS \n%
+.ti 0.2i
+getphfig
+.XE
+.XS1 \n%
+.ti 0.2i
+getphfig
+.XE1 \}
+.TH GETPHFIG 3 "October 1, 1997" "ASIM/LIP6" "MBK PHYSICAL UTILITY FUNCTIONS"
+.SH NAME
+getphfig \- give back a pointer to a \fIphfig\fP 
+.so man1/alc_origin.1
+.SH SYNOPSYS
+.nf
+.if n \{\
+.ft B \}
+.if t \{\
+.ft CR \}
+#include "mph.h"
+phfig_list \(**getphfig(figname, mode)
+char \(**figname;
+char mode;
+.ft R
+.fi
+.SH PARAMETERS
+.TP 20
+\fIfigname\fP
+Name of the figure to be created
+\fImode\fP
+Demanded mode for the figure
+.SH DESCRIPTION
+\fBgetphfig\fP returns a pointer to the figure called \fIfigname\fP with the
+warranty that the expected information is present in memory.
+.br
+If \fImode\fP is \fB'A'\fP then the figure has all its lists filled, else
+the figure may either be complete or interface only.
+.br
+This function allows to completly mask disk access for applications
+programs. If the figure is in memory, with the specified \fImode\fP,
+then the function returns the appropriate pointer. Else, the function performs
+a call to the \fBloadphfig\fP(3) and returns a pointer to the loaded
+figure.
+.SH RETURN VALUE
+\fBgetphfig\fP returns a pointer to the wanted figure.
+.SH ERRORS
+\fBgetphfig\fP cannot give any errors, but the subsequent calls it performs
+to parsers do. So the source of trouble may be the call to \fBgetphfig\fP.
+See \fBloadphfig\fP(3) for details.
+.SH EXAMPLE
+.ta 3n 6n 9n 12n 15n 18n 21n
+.nf
+.if n \{\
+.ft B \}
+.if t \{\
+.ft CR \}
+#include "mph.h"
+phfig_list \(**na2_y()
+{
+	/\(** find in memory or load from disk na2_y \(**/
+	return getphfig("na2_y", 'A');
+}
+.ft R
+.fi
+.SH SEE ALSO
+.BR mbk (1),
+.BR phfig (3),
+.BR addphfig (3),
+.BR delphfig (3),
+.BR loadphfig (3),
+.BR savephfig (3),
+.BR flattenphfig (3),
+.BR rflattenphfig (3).
+
+
+.so man1/alc_bug_report.1
+

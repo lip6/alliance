@@ -1,0 +1,99 @@
+.\"   $Id: sethtitem.3,v 1.1 2002/03/08 13:51:04 fred Exp $
+.\" @(#)sethtitem.2 7.01 92/08/22 ; Labo masi cao-vlsi; Author : Luc Burgun
+.\" slightly modified by Fred Petrot for mbk adaptation on 22/06/92
+.if t \{\
+.so man1/alc_contents.mac
+.XS \n%
+.ti 0.2i
+sethtitem
+.XE
+.XS4 \n%
+.ti 0.2i
+sethtitem
+.XE4 \}
+.TH SETHTITEM 3 "October 1, 1997" "ASIM/LIP6" "MBK HASH TABLE MANAGEMENT FUNCTIONS"
+.SH NAME
+sethtitem \- test and set an item in an hash table.
+.so man1/alc_origin.1
+.SH SYNOPSYS
+.if n \{\
+.ft B \}
+.if t \{\
+.ft CR \}
+.nf
+#include "mut.h"
+int sethtitem(table, key)
+ht \(**table;
+void \(**key;
+.fi
+.SH PARAMETERS
+.TP 20
+\fItable\fP
+Hash table pointer
+.TP 20
+\fIkey\fP
+Key used by the hash coding function to set an item
+.SH DESCRIPTION
+\fBsethtitem()\fP adds an item in the hash table pointed to by \fItable\fP,
+whether it existed or not, and returns an appropriate value.
+This is kind of a \fItest and set\fP operator.
+.SH RETURN VALUE
+If the key exists, the funtion return 1,
+if it doesn't, the item is stored and the function returns 0.
+.SH EXAMPLE
+.ta 3n 6n 9n 12n 15n 18n 21n
+.if n \{\
+.ft B \}
+.if t \{\
+.ft CR \}
+.nf
+#include <stdio.h>
+#include "mut.h"
+checksigname(p)
+lofig_list *p;
+{
+int i;
+losig_list *ptsig;
+locon_list *ptcon;
+ht *h;
+char *amatla;
+	for (i = 0, ptsig = p->LOSIG; ptsig; i++, ptsig = ptsig->NEXT);
+	h = addht(i << 1); /* half empty hash tables are faster! */
+	for (ptcon = p->LOCON; ptcon; ptcon = ptcon->NEXT)
+		addhtitem(h, ptcon->NAME, 0);
+	for (ptsig = p->LOSIG; ptsig; ptsig = ptsig->NEXT) {
+		if (ptsig->TYPE == INTERNAL) {
+			amatla = getsigname(ptsig);
+			if (!sethtitem(h, amatla, 0))
+				printf("node %s is now unique\\n", amatla);
+		}
+	}
+	delht(h);
+}
+.fi
+.ft R
+.SH ERRORS
+.if n \{\
+.ft B \}
+.if t \{\
+.ft CR \}
+"\(**\(**\(** mbk error \(**\(**\(** sethtitem impossible :
+value is \fBEMPTYHT\fP or \fBDELETEHT\fP"
+.ft R
+.RS
+The values \fBEMPTYHT\fP, \fI-1\fP,  and \fBDELETEHT\fP, \fI-2\fP, are reserved
+for internal use, sorry.
+.SH DIAGNOSTICS
+The value must be distinct from \fI-1\fP and \fI-2\fP.
+.SH SEE ALSO
+.BR mbk (1),
+.BR addht (3),
+.BR delht (3),
+.BR addhtitem (3),
+.BR gethtitem (3),
+.BR delhtitem (3),
+.BR viewht (3).
+
+
+.so man1/alc_bug_report.1
+

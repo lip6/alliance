@@ -1,0 +1,97 @@
+.\"   $Id: unflattenlofig.3,v 1.1 2002/03/08 13:51:04 fred Exp $
+.\" @(#)unflattenlofig.2 2.11 92/10/01 ; Labo masi cao-vlsi; Author : Francois Nacabal
+.if t \{\
+.so man1/alc_contents.mac
+.XS \n%
+.ti 0.2i
+unflattenlofig
+.XE
+.XS3 \n%
+.ti 0.2i
+unflattenlofig
+.XE3 \}
+.TH UNFLATTENLOFIG 3 "October 1, 1997" "ASIM/LIP6" "MBK LOGICAL UTILITY FUNCTIONS"
+.SH NAME
+unflattenlofig \- creates a hierarchy level from instances of a figure 
+.so man1/alc_origin.1
+.SH SYNOPSYS
+.nf
+.if n \{\
+.ft B \}
+.if t \{\
+.ft CR \}
+#include "mlo.h"
+void unflattenlofig(ptfig, figname, insname, list)
+lofig_list \(**ptfig;
+char \(**figname;
+char \(**insname;
+chain_list \(**list;
+.ft R
+.fi
+.SH PARAMETERS
+.TP 20
+\fIptfig\fP
+Pointer to a logical figure
+.TP
+\fIfigname\fP
+Name of the new figure (model)
+.TP
+\fIinsname\fP
+Instance name of the new figure
+.TP
+\fIlist\fP
+Pointer to the head of a chain_list, containing instance pointers
+.SH DESCRIPTION
+\fBunflattenlofig\fP creates a new figure, \fIfigname\fP, containing the
+instances listed in \fIlist\fP, and adds it in the figure pointed to by
+\fIptfig\fP, with the name \fIinsname\fP. 
+.br
+All the terminals of the new figure are called using the name of the
+corresponding signal if it exists, or with the name of a connector
+connected to this signal.
+The new name is suffixed with a number, obtained with an internal counter,
+in order to ensure that names are differents.
+.SH ERRORS
+No errors can directly result from a call to \fBunflattenlofig\fP, but since it
+uses many other mbk functions, it may be a good error starting point.
+.SH EXAMPLE
+.ta 3n 6n 9n 12n 15n 18n 21n
+.nf
+.if n \{\
+.ft B \}
+.if t \{\
+.ft CR \}
+#include "mlo.h"
+{
+ lofig_list *lofig;
+ chain_list *list = NULL;
+ lofig = getlofig ( "rootfig", 'A');
+ list = addchain (list, (void *)getloins (lofig, "nan0");
+ list = addchain (list, (void *)getloins (lofig, "nor2");
+ unflattenlofig ( lofig, "newfig", "newins", list);
+}
+.ft R
+.fi
+.SH SEE ALSO
+.BR mbk (1),
+.BR mbkenv (3),
+.BR lofig (3),
+.BR getlofig (3),
+.BR addlofig (3),
+.BR addloins (3),
+.BR delloins (3),
+.BR addlocon (3),
+.BR addlosig (3),
+.BR dellosig (3),
+.BR getsigname (3),
+.BR lofigchain (3),
+.BR getptype (3),
+.BR addptype (3),
+.BR delptype (3),
+.BR addchain (3),
+.BR freechain (3),
+.BR reverse (3).
+
+
+.so man1/alc_bug_report.1
+

@@ -1,0 +1,68 @@
+.\"   $Id: getlomodel.3,v 1.1 2002/03/08 13:51:02 fred Exp $
+.\" @(#)getlomodel.2 2.11 91/08/22 ; Labo masi cao-vlsi; Author : Frederic Petrot
+.if t \{\
+.so man1/alc_contents.mac
+.XS \n%
+.ti 0.2i
+getlomodel
+.XE
+.XS2 \n%
+.ti 0.2i
+getlomodel
+.XE2 \}
+.TH GETLOMODEL 3 "October 1, 1997" "ASIM/LIP6" "MBK LOGICAL FUNCTIONS"
+.SH NAME
+getlomodel \- retrieve a model from a \fBlofig_list\fP
+.so man1/alc_origin.1
+.SH SYNOPSYS
+.nf
+.if n \{\
+.ft B \}
+.if t \{\
+.ft CR \}
+#include "mut.h"
+lofig_list \(**getlomodel(model, name)
+lofig_list \(**model;
+char \(**name;
+.ft R
+.fi
+.SH PARAMETERS
+.TP 20
+\fImodel\fP
+Pointer to a lofig list
+.TP
+\fIname\fP
+String indicating the model to be looked for
+.SH DESCRIPTION
+\fBgetlomodel\fP seeks a \fBlofig\fP element in the list pointed to by
+\fImodel\fP.
+.SH RETURN VALUE
+\fBgetlomodel\fP returns a pointer to the \fBlofig\fP that match the \fIname\fP.
+If no \fBlofig\fP has the given \fIname\fP, then \fBNULL\fP is returned.
+.SH EXAMPLE
+.ta 3n 6n 9n 12n 15n 18n 21n
+.nf
+.if n \{\
+.ft B \}
+.if t \{\
+.ft CR \}
+#include "mlo.h"
+locon_list *get_model_cons(model, name)
+lofig_list \(**model;
+char \(**name;
+{
+lofig_list \(**p = getlomodel(model, name);
+	return p ? p\->LOCON : NULL;
+}	
+.ft R
+.fi
+.SH SEE ALSO
+.BR mbk (1),
+.BR lofig (3),
+.BR addlomodel (3),
+.BR freelomodel (3),
+.BR dellomodel (3).
+
+
+.so man1/alc_bug_report.1
+

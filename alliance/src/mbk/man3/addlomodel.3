@@ -1,0 +1,83 @@
+.\"   $Id: addlomodel.3,v 1.1 2002/03/08 13:51:01 fred Exp $
+.\" @(#)addlomodel.2 2.11 91/08/22 ; Labo masi cao-vlsi; Author : Frederic Petrot
+.if t \{\
+.so man1/alc_contents.mac
+.XS \n%
+.ti 0.2i
+addlomodel
+.XE
+.XS2 \n%
+.ti 0.2i
+addlomodel
+.XE2 \}
+.TH ADDLOMODEL 3 "October 1, 1997" "ASIM/LIP6" "MBK LOGICAL FUNCTIONS"
+.SH NAME
+addlomodel \- create a tempotary logical model and add it to a list
+.so man1/alc_origin.1
+.SH SYNOPSYS
+.nf
+.if n \{\
+.ft B \}
+.if t \{\
+.ft CR \}
+#include "mlo.h"
+lofig_list \(**addlomodel(model, name)
+lofig_list \(**model;
+char \(**name;
+.ft R
+.fi
+.SH PARAMETERS
+.TP 20
+\fImodel\fP
+Pointer to the head of a model list
+.TP
+\fIname\fP
+Name of the model to be created
+.SH DESCRIPTION
+\fBaddlomodel\fP creates a new \fBlofig_list\fP element and adds it to the
+front of the list pointed to by \fImodel\fP, and becomes itself the list head.
+.br
+The \fBaddlomodel\fP function is mosty used to create a temporary list of
+\fBlofig\fP in order to represent the "in file" instances' models.
+In fact, all the file format used with mbk have the notion of models local to
+files, so they are not figure, but are temporarly used to create instance
+connectors, for example.
+For details on the structure, see \fBlofig\fR(3).
+.SH RETURN VALUE
+\fBaddlomodel\fP returns a pointer to the new head of model list.
+.SH ERROR
+.if n \{\
+.ft B \}
+.if t \{\
+.ft CR \}
+"\(**\(**\(** mbk error \(**\(**\(** addlomodel impossible : model \fIname\fP already exists"
+.ft R
+.RS
+The model, not the figure, is already present in the model list pointed to by
+\fImodel\fP, and since a model should be unique, this can't be.
+.RE
+.SH EXAMPLE
+.ta 3n 6n 9n 12n 15n 18n 21n
+.nf
+.if n \{\
+.ft B \}
+.if t \{\
+.ft CR \}
+#include "mut.h"
+#include "mlo.h"
+void add_model(name)
+char \(**name;
+{
+	MODEL = addlomodel(MODEL, name);
+}	
+.ft R
+.fi
+.SH SEE ALSO
+.BR mbk (1),
+.BR lofig (3),
+.BR getlomodel (3),
+.BR freelomodel (3).
+
+
+.so man1/alc_bug_report.1
+

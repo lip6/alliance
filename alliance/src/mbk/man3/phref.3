@@ -1,0 +1,81 @@
+.\"   $Id: phref.3,v 1.1 2002/03/08 13:51:03 fred Exp $
+.\" @(#)phref.l 0.0 90/22/08 UPMC; Author: Frederic Petrot
+.if t \{\
+.so man1/alc_contents.mac
+.XS \n%
+.ti 0.2i
+phref
+.XE
+.XS0 \n%
+.ti 0.2i
+phref
+.XE0 \}
+.TH PHREF 3 "October 1, 1997" "ASIM/LIP6" "MBK PHYSICAL STRUCTURE DEFINITIONS"
+.SH NAME
+phref \- mbk physical reference 
+.SH DESCRIPTION
+The \fBphref\fP structure is used to describe a reference belonging to a
+symbolic layout model, see \fBphfig\fP(3) for details.
+A reference allows to name a point anywhere in a given model. It may then
+be seen as a name, and not anymore as a couple of coordinates.
+References are mostly used for cell programming and multi-access connector
+representation.
+.LP
+The declarations needed to work on \fBphref\fP are available in the header file
+\fI"/labo/include/mph402.h"\fP, where '\fI402\fP' is the actual mbk version.
+.LP
+The following C structure supports the description of the reference :
+.RS
+.nf
+.if n \{\
+.ft B \}
+.if t \{\
+.ft CR \}
+.ta 3n 20n 30n
+typedef struct phref {
+	struct phref	\(**NEXT;
+	char	\(**FIGNAME;
+	char	\(**NAME;
+	long	XREF,YREF;
+	struct ptype	\(**USER;
+} phref_list;
+.ft R
+.fi
+.RE
+.TP 20
+\fINEXT\fP
+Pointer to the next reference in the list.
+.TP
+\fIFIGNAME\fP
+Kind of reference. Gives information about the possible uses of the object.
+Some \fIFIGNAME\fP are in use today :
+.RS
+.TP 20
+\fB"ref_con"\fP
+for multi-access connectors
+.TP
+\fB"ref_ref"\fP
+for all other uses
+.RE
+.TP
+\fINAME\fP
+Name of the reference. The refence is identified by its name, so it should be
+unique at a given hierarchical level.
+.TP
+\fIXREF, YREF\fP
+Coordinates of the point beeing referenced.
+.TP
+\fIUSER\fP
+Pointer to a ptype list, see \fBptype\fP(3) for details, that is a general
+purpose pointer used to share informations on the reference.
+.SH SEE ALSO
+.BR mbk (1),
+.BR addphref (3),
+.BR getphref (3),
+.BR delphref (3),
+.BR phfig (3),
+.BR ptype (3).
+
+
+.so man1/alc_bug_report.1
+

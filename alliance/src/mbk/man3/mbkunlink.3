@@ -1,0 +1,80 @@
+.\"   $Id: mbkunlink.3,v 1.1 2002/03/08 13:51:03 fred Exp $
+.\" @(#)mbkunlink.2 2.11 91/08/22 ; Labo masi cao-vlsi; Author : Frederic Petrot
+.if t \{\
+.so man1/alc_contents.mac
+.XS \n%
+.ti 0.2i
+mbkunlink
+.XE
+.XS4 \n%
+.ti 0.2i
+mbkunlink
+.XE4 \}
+.TH MBKUNLINK 3 "October 1, 1997" "ASIM/LIP6" "MBK UTILITY FUNCTIONS"
+.SH NAME
+mbkunlink \- delete a file in the \fBWORK_LIB\P.
+.so man1/alc_origin.1
+.SH SYNOPSYS
+.nf
+.if n \{\
+.ft B \}
+.if t \{\
+.ft CR \}
+#include "mut.h"
+FILE \(**mbkunlink(name, extension)
+char \(**name, \(**extension;
+.ft R
+.fi
+.SH PARAMETERS
+.TP 20
+\fIname\fP
+Name of the file to be deleted
+.TP
+\fIextension\fP
+Extension to the file name
+.SH DESCRIPTION
+\fBmbkunlink\fP deletes a file, searching it in the path specified with
+the environment variable \fBMBK_WORK_LIB\fP(1).
+Its main issue is to enable simple file deletion for any program that works
+with mbk path environment variables.
+.br
+The file to be erased is called \fIname.extension\fP, if extension is not
+\fBNULL\fP, else it is \fIname\fP. If \fIextension\fP is the empty string,
+\fB""\fP, then the file name will be \fIname.\fP\~.
+.br
+.SH RETURN VALUE
+\fBmbkunlink\fP returns :
+.TP 20
+\-\fB1\fP
+on failure, ie the file is not in the \fBMBK_WORK_LIB\fP path.
+.TP 20
+\fB0\fP
+on success.
+.SH EXAMPLE
+.ta 3n 6n 9n 12n 15n 18n 21n
+.nf
+.if n \{\
+.ft B \}
+.if t \{\
+.ft CR \}
+#include "mut.h"
+#include "mph.h"
+void update_work_lib(name)
+char \(**name;
+{
+char *path;
+	if (incatalogdelete(name))
+		if (mbkunlink(name, "cp"))
+			fprintf(stdout, "The file %s.cp was not in the work lib\n",
+						name);
+}
+.ft R
+.fi
+.SH SEE ALSO
+.BR mbk (1),
+.BR MBK_WORK_LIB (1),
+.BR unlink (3).
+
+
+.so man1/alc_bug_report.1
+
