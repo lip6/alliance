@@ -1,5 +1,5 @@
 /*
- *  $Id: DEF_drive.c,v 1.8 2003/04/07 13:10:13 xtof Exp $
+ *  $Id: DEF_drive.c,v 1.9 2003/04/07 14:38:42 jpc Exp $
  *
  *  /----------------------------------------------------------------\
  *  |                                                                |
@@ -458,11 +458,11 @@ static char *USEtoa(acUSE)
 {
   switch(acUSE) {
     case C_USE_NONE:   return((char*)NULL);
-    case C_USE_SIGNAL: return("signal");
-    case C_USE_ANALOG: return("analog");
-    case C_USE_POWER:  return("power");
-    case C_USE_GROUND: return("ground");
-    case C_USE_CLOCK:  return("clock");
+    case C_USE_SIGNAL: return("SIGNAL");
+    case C_USE_ANALOG: return("ANALOG");
+    case C_USE_POWER:  return("POWER");
+    case C_USE_GROUND: return("GROUND");
+    case C_USE_CLOCK:  return("CLOCK");
   }
 
   return((char*)NULL);
@@ -1623,7 +1623,8 @@ static void  fprintDEF()
   fprintf (DEF_FILE, "NAMESCASESENSITIVE  ON ;\n");
   fprintf (DEF_FILE, "BUSBITCHARS         \"()\" ;\n");
   fprintf (DEF_FILE, "DIVIDERCHAR         \".\" ;\n\n");
-  fprintf  (DEF_FILE, "DESIGN %s ; \n\n\n", LV_name);
+
+  fprintf (DEF_FILE, "DESIGN %s ;\n\n", LV_name);
   fprintf (DEF_FILE, "    TECHNOLOGY %s ;\n\n"             , "cmos");
   fprintf (DEF_FILE, "    UNITS DISTANCE MICRONS %ld ;\n", DEF_UNITS_MICRONS);
 

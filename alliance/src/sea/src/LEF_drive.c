@@ -1,5 +1,5 @@
 /*
- *  $Id: LEF_drive.c,v 1.2 2002/09/30 16:21:17 czo Exp $
+ *  $Id: LEF_drive.c,v 1.3 2003/04/07 14:38:42 jpc Exp $
  *
  *  /----------------------------------------------------------------\
  *  |                                                                |
@@ -348,11 +348,11 @@ static char *USEtoa(acUSE)
 {
   switch(acUSE) {
     case C_USE_NONE:   return((char*)NULL);
-    case C_USE_SIGNAL: return("signal");
-    case C_USE_ANALOG: return("analog");
-    case C_USE_POWER:  return("power");
-    case C_USE_GROUND: return("ground");
-    case C_USE_CLOCK:  return("clock");
+    case C_USE_SIGNAL: return("SIGNAL");
+    case C_USE_ANALOG: return("ANALOG");
+    case C_USE_POWER:  return("POWER");
+    case C_USE_GROUND: return("GROUND");
+    case C_USE_CLOCK:  return("CLOCK");
   }
 
   return((char*)NULL);
