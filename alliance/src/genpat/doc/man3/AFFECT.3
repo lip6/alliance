@@ -1,4 +1,4 @@
-.\"   $Id: AFFECT.3,v 1.1 2002/05/31 08:27:45 xtof Exp $
+.\"   $Id: AFFECT.3,v 1.2 2002/10/04 12:42:37 francois Exp $
 .\" @(#)AFFECT.3 2.30 Sep 08 1993 UPMC ; VUONG H.N. & PITON D.
 .TH AFFECT 3 "October 1, 1997" "ASIM/LIP6" "GENPAT functions"
 
@@ -25,7 +25,9 @@ the same time unit which may be set only once using SETTUNIT.
 \fIident\fP
 Either the name of a bused signal or a scalar. Vectors must be referenced with
 their names only, or bit per bit. For example, if b(3 downto 0) exists, you
-can affect "b", "b(3)" or "b 3". 
+can affect "b", "b(3)" or "b 3".  Path-name must be specified by the 
+syntax : instance1.instance11.name
+
 .TP 10
 \fIvalue\fP
 The value associated with the signal which may be either a based number
