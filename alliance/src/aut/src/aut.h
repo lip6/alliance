@@ -113,7 +113,7 @@ extern "C" {
 
 # define autbegin() do {                               \
                                                        \
-  if ( AUT_DEBUG_ON ) addautdebug(__LINE__,basename(__FILE__)); } while (0)
+  if ( AUT_DEBUG_ON ) addautdebug(__LINE__,autbasename(__FILE__,NULL)); } while (0)
 
 # define autend()   do {                               \
                                                        \

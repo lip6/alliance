@@ -82,9 +82,9 @@
 \------------------------------------------------------------*/
 
 # define auterror( E, V ) \
-  (aut_error( (int)(E), (char *)(V), basename(__FILE__), __LINE__ ))
+  (aut_error( (int)(E), (char *)(V), autbasename(__FILE__,NULL), __LINE__ ))
 # define autwarning( W, V ) \
-  (aut_warning( (int)(W), (char *)(V), basename(__FILE__), __LINE__ ))
+  (aut_warning( (int)(W), (char *)(V), autbasename(__FILE__,NULL), __LINE__ ))
 
 /*------------------------------------------------------------\
 |                                                             |

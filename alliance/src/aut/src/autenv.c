@@ -119,16 +119,20 @@ char *autbasename( Name, Extension )
   int   Index;
   char *NewName;
 
-  NewName = mbkstrdup( Name );
-  Index   = strlen( NewName ) - (strlen( Extension ) + 1);
+  NewName = basename( mbkstrdup( Name ) );
 
-  if ( Index >= 0 )
+  if ( Extension != (char *)0 )
   {
-    if ( ! strcmp( NewName + Index + 1, Extension ) )
+    Index = strlen( NewName ) - (strlen( Extension ) + 1);
+
+    if ( Index >= 0 )
     {
-      if ( NewName[ Index ] == '.' )
+      if ( ! strcmp( NewName + Index + 1, Extension ) )
       {
-        NewName[ Index ] = '\0';
+        if ( NewName[ Index ] == '.' )
+        {
+          NewName[ Index ] = '\0';
+        }
       }
     }
   }
