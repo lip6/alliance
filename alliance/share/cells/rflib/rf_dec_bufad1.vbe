@@ -1,10 +1,10 @@
 ENTITY rf_dec_bufad1 IS
 PORT (
-  i      : in  BIT;
-  nq  	 : out BIT;
-  q  	 : out BIT;
-  vdd	 : in  BIT;
-  vss	 : in  BIT
+  i      : in    BIT;
+  nq  	 : inout BIT;
+  q  	 : out   BIT;
+  vdd	 : in    BIT;
+  vss	 : in    BIT
 );
 END rf_dec_bufad1;
 
