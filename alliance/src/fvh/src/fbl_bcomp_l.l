@@ -161,7 +161,8 @@ static int find_mc(s)
   el_mc *pt;
 
   loc = namealloc(s);
-  pt= (el_mc *) bsearch(loc, (char *)tab_mc,FBL_NB_MC,sizeof(el_mc),strcmp);
+  pt= (el_mc *) bsearch(loc, (char *)tab_mc,FBL_NB_MC,sizeof(el_mc),
+  (int (*)(const void *, const void *))strcmp);
   if (pt==NULL) return(-1);
   return(pt->kval);
   }

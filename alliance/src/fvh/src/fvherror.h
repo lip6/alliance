@@ -97,8 +97,10 @@
 |                                                             |
 \------------------------------------------------------------*/
 
-# define fvherror( E, T, V ) (fvh_error((int)(E),(char *)(T),(long)(V),__FILE__,__LINE__))
-# define fvhwarning( E, T, V ) (fvh_warning((int)(E),(char *)(T),(long)(V),__FILE__,__LINE__))
+# define fvherror( E, T, V ) \
+  (fvh_error((int)(E),(char *)(T),(long)(V),basename(__FILE__),__LINE__))
+# define fvhwarning( E, T, V ) \
+  (fvh_warning((int)(E),(char *)(T),(long)(V),basename(__FILE__),__LINE__))
 
 /*------------------------------------------------------------\
 |                                                             |

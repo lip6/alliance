@@ -53,4 +53,4 @@ extern char *fbl_printabl();
   extern          char * fbl_vectorize __P((char *Name));
 
 # define fbl_error( C, S ) \
-  fprintf( stderr, "%s.%d: ", __FILE__,__LINE__ ); loc_fbl_error( C, S )
+  fprintf( stderr, "%s.%d: ", basename(__FILE__),__LINE__ ); loc_fbl_error( C, S )

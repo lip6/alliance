@@ -2355,7 +2355,7 @@ choices2
 		  fbl_error (30,NULL);
                 }
 		FBL_NM1LST = addchain (FBL_NM1LST ,$3.NAME);
-		fprintf( stdout, "%s%d: %s\n", __FILE__,__LINE__,$3.NAME );
+		fprintf( stdout, "%s%d: %s\n", basename(__FILE__),__LINE__,$3.NAME );
 		}
 	;
 
