@@ -9,27 +9,48 @@ scapin - Scan path insertion
 \f4scapin [\-VRB] [\-P file] Input_name Path_name Output_name
 .br
 .SH DESCRIPTION
-\fBSCAPIN\fP is an automatic scan architecture generator for gate level netlists.
-\fBSCAPIN\fP insert a scan path in the netlist \fBInput_name\fP and drives 
+\fBSCAPIN\fP is an automatic scan path generator for gate level netlists.
+\fBSCAPIN\fP inserts a scan path in the netlist \fBInput_name\fP and drives 
 a new netlist \fBOutput_name\fP.
-This scan path contains all registers specify in the file \fBPath_name\fP.path
+This scan path contains all registers specified in the file \fBPath_name\fP.path
 (see below for the exact syntax).
-\fBSCAPIN\fP add 3 new connectors to the netlist: scan_in, scan_out and
+\fBSCAPIN\fP adds also 3 new connectors in the netlist: scan_in, scan_out and
 scan_test in order to control the scan path.
-Eventually \fBSCAPIN\fP can add an output buffer before the output connector
+Eventually \fBSCAPIN\fP adds an output buffer before the output connector
 scan_out (option -B).
+.br
+
+.SH ENVIRONMENT VARIABLES
+.br
+.TP 10
+\f4MBK_WORK_LIB\fR(1)
+indicates the path to the read/write directory for the session.
+.br
+.TP 10
+\f4MBK_IN_LO\fR(1)
+indicates the input netlist file format.
+.br
+.TP 10
+\f4MBK_IN_LO\fR(1)
+indicates the output netlist file format.
+.br
+.TP 10
+\f4SCAPIN_PARAM_NAME\fR
+indicates the location of a parameter file (with extention .scapin) containing
+the properties (ports name, models name etc ...) of all cells needed for the
+scan path insertion.  (see below for the exact syntax)
 .br
 
 .SH OPTIONS
 .TP 10
 \f4\-V\fP
-Verbose mode on.
+Sets verbose mode on.
 Each step is displayed on the standard output.
 .TP 10
 \f4\-R\fP
-All registers of the scan path are replaced by scannable register cell (called reg-mux).
-(With the default option a simple multiplexor is added just before all registers
-of the scan path).
+All registers of the scan path are replaced by an equivalent scannable register cell
+(called reg-mux).  (With the default option a simple multiplexor is added just
+before all registers of the scan path).
 .TP 10
 \f4\-B\fP
 Adds an output buffer before the output connector scan_out.
