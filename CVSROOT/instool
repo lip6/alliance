@@ -7,7 +7,7 @@
 # Author: Frédéric Pétrot (fred@pasta.fr.ea)
 #         for version 0
 #
-# $Id: instool,v 1.15 1999/10/29 08:47:30 czo Exp $
+# $Id: instool,v 1.16 1999/11/04 13:36:59 czo Exp $
 #
 
 
@@ -37,30 +37,13 @@ ETC=$LABO/share/etc
 MANS=$LABO/share/man
 
 umask 002
-
-echo "    @@@@@@                      @@@@@@@@@@                      @@@@"
-echo "      @@                        @   @@   @                        @@"
-echo "      @@                       @    @@    @                       @@"
-echo "      @@   @@@ @@@     @@@@@@       @@         @@@       @@@      @@"
-echo "      @@    @@@   @   @@    @       @@       @@   @@   @@   @@    @@"
-echo "      @@    @@    @@  @@@           @@      @@     @@ @@     @@   @@"
-echo "      @@    @@    @@   @@@@         @@      @@     @@ @@     @@   @@"
-echo "      @@    @@    @@     @@@@       @@      @@     @@ @@     @@   @@"
-echo "      @@    @@    @@  @    @@@      @@      @@     @@ @@     @@   @@"
-echo "      @@    @@    @@  @@    @@      @@       @@   @@   @@   @@    @@"
-echo "    @@@@@@ @@@@  @@@@ @ @@@@@     @@@@@@       @@@       @@@    @@@@@@"
-echo
-echo "                    Alliance Tools Installation Script"
-echo
-echo "                  Alliance CAD System 3.2, instool beta0"
-echo "                  Copyright (c) now, MASI, CAO-VLSI Team"
-echo "                  E-mail support:       cao-vlsi@lip6.fr"
-echo
+alcbanner "Instoll" "0.0 alpha" "Alliance Tools Installation Script" "1999"
+echo ""
+echo ""
 echo "News: "
 echo "   the include are shared"
 echo "   a log of all installations is available in $HOME/tmp"
 echo "   a message MUST be given for each installation"
-echo "   the default shell is now sh"
 
    if [ $# -lt 2 -o $# -gt 4 ] ; then
       echo "Syntax: `basename $0` [-v] tool-home-directory message"
@@ -341,8 +324,40 @@ echo "   the default shell is now sh"
    if [ -s $BUG ] ; then
       mail -s "ALC : Problem while installing `basename $1`" $BUGTEAM < $BUG
    fi
-   
-   echo $* | mail -s "ALC : Install of `basename $1`"  alliance-programmers@asim.lip6.fr
+
    cat $LOG >> $TMPDIR/`basename $1`.log
-   exit 0
+   
+   
+# mail alcteam
+#echo $* | mail -s "ALC : Install of `basename $1`"  alliance-programmers@asim.lip6.fr
+
+
+TMPFILE=/tmp/instool.$$
+FINGER=`who am i | gawk '{gsub(/^[^\!]*\!/,""); print $1}'`
+SUJ=`basename $1`
+
+(
+echo "===================================================================="
+echo "Installation de la nouvelle version de $SUJ"
+echo "le  : `date`"
+echo "par : $FINGER"
+echo "===================================================================="
+echo ""
+echo $*
+echo ""
+echo "===================================================================="
+echo "Ce message est envoyé au personnes abonnées à alliance-programmers"
+echo "Pour plus d'information sur cette mailling-list, visitez :"
+echo "http://www-asim.lip6.fr/alliance/mailing-lists/"
+
+) > "$TMPFILE"  
+
+cat "$TMPFILE"  | mail -s "ALC : $SUJ" alliance-programmers@asim.lip6.fr
+
+rm -f "$TMPFILE" dummy
+
+exit 0
+
+
+   
 

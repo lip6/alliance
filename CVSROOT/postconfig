@@ -7,13 +7,13 @@
 # (C) Czo 1998,99
 # This code is released under GPL
 #
-# $Id: postconfig,v 1.15 1999/09/24 12:23:46 czo Exp $
+# $Id: postconfig,v 1.16 1999/11/04 13:36:59 czo Exp $
 #
 
 
 PATH=/asim/gnu/bin:/usr/ucb:/usr/etc:/bin:${PATH}
 TMPFILE=/tmp/cvslog.$$
-FINGER=`who am i | gawk '{gsub(/^[^!]*!/,""); print $1}'`
+FINGER=`who am i | gawk '{gsub(/^[^\!]*\!/,""); print $1}'`
 
 (
 echo "===================================================================="
