@@ -96,7 +96,7 @@ core.ap : core.vst
 core.al : core.ap
 	MBK_IN_PH=ap ;\
 	MBK_OUT_LO=al ;\
-	RDS_TECHNO_NAME=$(ALLIANCE_TOP)/etc/cmos_8.rds ;\
+	RDS_TECHNO_NAME=$(ALLIANCE_TOP)/etc/cmos_11.rds ;\
 	MBK_CATA_LIB=$(ALLIANCE_TOP)/cells/sxlib:$(ALLIANCE_TOP)/cells/sc2sxlib:$(ALLIANCE_TOP)/cells/padlib ;\
 	export MBK_IN_PH MBK_OUT_LO RDS_TECHNO_NAME MBK_CATA_LIB ;\
 	$(LYNX) -v core core
@@ -132,7 +132,7 @@ addaccu.ap : core.ap core.lvx addaccu.vst
 addaccu.al : addaccu.ap
 	MBK_IN_PH=ap ;\
 	MBK_OUT_LO=al ;\
-	RDS_TECHNO_NAME=$(ALLIANCE_TOP)/etc/cmos_8.rds ;\
+	RDS_TECHNO_NAME=$(ALLIANCE_TOP)/etc/cmos_11.rds ;\
 	MBK_CATA_LIB=$(ALLIANCE_TOP)/cells/sxlib:$(ALLIANCE_TOP)/cells/sc2sxlib:$(ALLIANCE_TOP)/cells/padlib ;\
 	export MBK_IN_PH MBK_OUT_LO RDS_TECHNO_NAME MBK_CATA_LIB ;\
 	$(LYNX) -v addaccu addaccu
@@ -165,7 +165,7 @@ addaccue.vbe : addaccu.ap addaccue.inf
 	MBK_IN_PH=ap ;\
 	MBK_IN_LO=al ;\
 	MBK_OUT_LO=al ;\
-	RDS_TECHNO_NAME=$(ALLIANCE_TOP)/etc/cmos_8.rds ;\
+	RDS_TECHNO_NAME=$(ALLIANCE_TOP)/etc/cmos_11.rds ;\
 	MBK_CATA_LIB=$(ALLIANCE_TOP)/cells/sxlib:$(ALLIANCE_TOP)/cells/sc2sxlib:$(ALLIANCE_TOP)/cells/padlib ;\
 	export MBK_IN_PH MBK_IN_LO MBK_OUT_LO RDS_TECHNO_NAME MBK_CATA_LIB ;\
 	$(LYNX) -v -t addaccu addaccue ;\
@@ -198,7 +198,7 @@ addaccu.proof : addaccue.vbe addaccu.vbe
 addaccu.drc : addaccu.ap
 	MBK_IN_PH=ap ;\
 	RDS_OUT=cif  ;\
-	RDS_TECHNO_NAME=$(ALLIANCE_TOP)/etc/cmos_8.rds ;\
+	RDS_TECHNO_NAME=$(ALLIANCE_TOP)/etc/cmos_11.rds ;\
 	MBK_CATA_LIB=$(ALLIANCE_TOP)/cells/sxlib:$(ALLIANCE_TOP)/cells/sc2sxlib:$(ALLIANCE_TOP)/cells/padlib ;\
 	export MBK_IN_PH RDS_OUT RDS_TECHNO_NAME MBK_CATA_LIB ;\
 	$(DRUC) addaccu
@@ -210,7 +210,7 @@ addaccu.drc : addaccu.ap
 addaccu.cif : addaccu.ap addaccu.drc
 	MBK_IN_PH=ap ;\
 	MBK_CATA_LIB=$(ALLIANCE_TOP)/cells/sxlib:$(ALLIANCE_TOP)/cells/sc2sxlib:$(ALLIANCE_TOP)/cells/padlib ;\
-	RDS_TECHNO_NAME=$(ALLIANCE_TOP)/etc/prol10_8.rds ;\
+	RDS_TECHNO_NAME=$(ALLIANCE_TOP)/etc/prol10_11.rds ;\
 	RDS_OUT=cif  ;\
 	RDS_IN=cif ;\
 	export MBK_IN_PH RDS_IN RDS_OUT RDS_TECHNO_NAME MBK_CATA_LIB ;\
@@ -234,7 +234,7 @@ clean:
 
 graal : addaccu.ap
 	MBK_IN_PH=ap ;\
-	RDS_TECHNO_NAME=$(ALLIANCE_TOP)/etc/cmos_8.rds ;\
+	RDS_TECHNO_NAME=$(ALLIANCE_TOP)/etc/cmos_11.rds ;\
 	MBK_CATA_LIB=$(ALLIANCE_TOP)/cells/sxlib:$(ALLIANCE_TOP)/cells/sc2sxlib:$(ALLIANCE_TOP)/cells/padlib ;\
 	export MBK_IN_PH RDS_TECHNO_NAME MBK_CATA_LIB ;\
 	$(GRAAL) -l addaccu
@@ -246,7 +246,7 @@ graal : addaccu.ap
 dreal : addaccu.cif
 	MBK_IN_PH=ap ;\
 	MBK_CATA_LIB=$(ALLIANCE_TOP)/cells/sxlib:$(ALLIANCE_TOP)/cells/sc2sxlib:$(ALLIANCE_TOP)/cells/padlib ;\
-	RDS_TECHNO_NAME=$(ALLIANCE_TOP)/etc/prol10_8.rds ;\
+	RDS_TECHNO_NAME=$(ALLIANCE_TOP)/etc/prol10_11.rds ;\
 	RDS_OUT=cif  ;\
 	RDS_IN=cif ;\
 	export MBK_IN_PH RDS_IN RDS_OUT RDS_TECHNO_NAME MBK_CATA_LIB ;\
