@@ -758,7 +758,7 @@ void CallbackExpose( MyWidget, ClientData, CallData )
       XschDisplayCursor();
     }
 
-    XschEnterPresentPanel();
+    /* XschEnterPresentPanel(); */
   }
   else
   {
