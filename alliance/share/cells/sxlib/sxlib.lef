@@ -219,28 +219,6 @@ MACRO a3_x2
             RECT 24.00 9.00 26.00 11.00 ;
         END
     END q
-    PIN i1
-        DIRECTION INPUT ;
-        PORT
-            LAYER L_ALU1 ;
-            RECT 9.00 34.00 11.00 36.00 ;
-            RECT 9.00 29.00 11.00 31.00 ;
-            RECT 9.00 24.00 11.00 26.00 ;
-            RECT 9.00 19.00 11.00 21.00 ;
-            RECT 9.00 14.00 11.00 16.00 ;
-        END
-    END i1
-    PIN i0
-        DIRECTION INPUT ;
-        PORT
-            LAYER L_ALU1 ;
-            RECT 4.00 34.00 6.00 36.00 ;
-            RECT 4.00 29.00 6.00 31.00 ;
-            RECT 4.00 24.00 6.00 26.00 ;
-            RECT 4.00 19.00 6.00 21.00 ;
-            RECT 4.00 14.00 6.00 16.00 ;
-        END
-    END i0
     PIN i2
         DIRECTION INPUT ;
         PORT
@@ -252,6 +230,28 @@ MACRO a3_x2
             RECT 14.00 14.00 16.00 16.00 ;
         END
     END i2
+    PIN i0
+        DIRECTION INPUT ;
+        PORT
+            LAYER L_ALU1 ;
+            RECT 4.00 34.00 6.00 36.00 ;
+            RECT 4.00 29.00 6.00 31.00 ;
+            RECT 4.00 24.00 6.00 26.00 ;
+            RECT 4.00 19.00 6.00 21.00 ;
+            RECT 4.00 14.00 6.00 16.00 ;
+        END
+    END i0
+    PIN i1
+        DIRECTION INPUT ;
+        PORT
+            LAYER L_ALU1 ;
+            RECT 9.00 34.00 11.00 36.00 ;
+            RECT 9.00 29.00 11.00 31.00 ;
+            RECT 9.00 24.00 11.00 26.00 ;
+            RECT 9.00 19.00 11.00 21.00 ;
+            RECT 9.00 14.00 11.00 16.00 ;
+        END
+    END i1
     PIN vdd
         DIRECTION INOUT ;
         USE power ;
@@ -718,27 +718,15 @@ MACRO an12_x1
         DIRECTION OUTPUT ;
         PORT
             LAYER L_ALU1 ;
+            RECT 4.00 14.00 6.00 16.00 ;
+            RECT 4.00 9.00 6.00 11.00 ;
+            LAYER L_ALU1 ;
             RECT 4.00 39.00 6.00 41.00 ;
             RECT 4.00 34.00 6.00 36.00 ;
             RECT 4.00 29.00 6.00 31.00 ;
             RECT 4.00 24.00 6.00 26.00 ;
-            LAYER L_ALU1 ;
-            RECT 4.00 14.00 6.00 16.00 ;
-            RECT 4.00 9.00 6.00 11.00 ;
         END
     END q
-    PIN i0
-        DIRECTION INPUT ;
-        PORT
-            LAYER L_ALU1 ;
-            RECT 9.00 39.00 11.00 41.00 ;
-            RECT 9.00 34.00 11.00 36.00 ;
-            RECT 9.00 29.00 11.00 31.00 ;
-            RECT 9.00 24.00 11.00 26.00 ;
-            RECT 9.00 19.00 11.00 21.00 ;
-            RECT 9.00 14.00 11.00 16.00 ;
-        END
-    END i0
     PIN i1
         DIRECTION INPUT ;
         PORT
@@ -752,6 +740,18 @@ MACRO an12_x1
             RECT 14.00 9.00 16.00 11.00 ;
         END
     END i1
+    PIN i0
+        DIRECTION INPUT ;
+        PORT
+            LAYER L_ALU1 ;
+            RECT 9.00 39.00 11.00 41.00 ;
+            RECT 9.00 34.00 11.00 36.00 ;
+            RECT 9.00 29.00 11.00 31.00 ;
+            RECT 9.00 24.00 11.00 26.00 ;
+            RECT 9.00 19.00 11.00 21.00 ;
+            RECT 9.00 14.00 11.00 16.00 ;
+        END
+    END i0
     PIN vdd
         DIRECTION INOUT ;
         USE power ;
@@ -1189,39 +1189,6 @@ MACRO ao2o22_x2
             RECT 39.00 9.00 41.00 11.00 ;
         END
     END q
-    PIN i0
-        DIRECTION INPUT ;
-        PORT
-            LAYER L_ALU1 ;
-            RECT 4.00 39.00 6.00 41.00 ;
-            RECT 4.00 34.00 6.00 36.00 ;
-            RECT 4.00 29.00 6.00 31.00 ;
-            RECT 4.00 24.00 6.00 26.00 ;
-            RECT 4.00 19.00 6.00 21.00 ;
-        END
-    END i0
-    PIN i1
-        DIRECTION INPUT ;
-        PORT
-            LAYER L_ALU1 ;
-            RECT 9.00 39.00 11.00 41.00 ;
-            RECT 9.00 34.00 11.00 36.00 ;
-            RECT 9.00 29.00 11.00 31.00 ;
-            RECT 9.00 24.00 11.00 26.00 ;
-            RECT 9.00 19.00 11.00 21.00 ;
-        END
-    END i1
-    PIN i2
-        DIRECTION INPUT ;
-        PORT
-            LAYER L_ALU1 ;
-            RECT 19.00 34.00 21.00 36.00 ;
-            RECT 19.00 29.00 21.00 31.00 ;
-            RECT 19.00 24.00 21.00 26.00 ;
-            RECT 19.00 19.00 21.00 21.00 ;
-            RECT 19.00 14.00 21.00 16.00 ;
-        END
-    END i2
     PIN i3
         DIRECTION INPUT ;
         PORT
@@ -1233,6 +1200,39 @@ MACRO ao2o22_x2
             RECT 24.00 14.00 26.00 16.00 ;
         END
     END i3
+    PIN i2
+        DIRECTION INPUT ;
+        PORT
+            LAYER L_ALU1 ;
+            RECT 19.00 34.00 21.00 36.00 ;
+            RECT 19.00 29.00 21.00 31.00 ;
+            RECT 19.00 24.00 21.00 26.00 ;
+            RECT 19.00 19.00 21.00 21.00 ;
+            RECT 19.00 14.00 21.00 16.00 ;
+        END
+    END i2
+    PIN i1
+        DIRECTION INPUT ;
+        PORT
+            LAYER L_ALU1 ;
+            RECT 9.00 39.00 11.00 41.00 ;
+            RECT 9.00 34.00 11.00 36.00 ;
+            RECT 9.00 29.00 11.00 31.00 ;
+            RECT 9.00 24.00 11.00 26.00 ;
+            RECT 9.00 19.00 11.00 21.00 ;
+        END
+    END i1
+    PIN i0
+        DIRECTION INPUT ;
+        PORT
+            LAYER L_ALU1 ;
+            RECT 4.00 39.00 6.00 41.00 ;
+            RECT 4.00 34.00 6.00 36.00 ;
+            RECT 4.00 29.00 6.00 31.00 ;
+            RECT 4.00 24.00 6.00 26.00 ;
+            RECT 4.00 19.00 6.00 21.00 ;
+        END
+    END i0
     PIN vdd
         DIRECTION INOUT ;
         USE power ;
@@ -2548,19 +2548,6 @@ MACRO halfadder_x4
     SIZE      90.00 BY 50.00 ;
     SYMMETRY  X Y ;
     SITE      core ;
-    PIN sout
-        DIRECTION OUTPUT ;
-        PORT
-            LAYER L_ALU1 ;
-            RECT 79.00 39.00 81.00 41.00 ;
-            RECT 79.00 34.00 81.00 36.00 ;
-            RECT 79.00 29.00 81.00 31.00 ;
-            RECT 79.00 24.00 81.00 26.00 ;
-            RECT 79.00 19.00 81.00 21.00 ;
-            RECT 79.00 14.00 81.00 16.00 ;
-            RECT 79.00 9.00 81.00 11.00 ;
-        END
-    END sout
     PIN cout
         DIRECTION OUTPUT ;
         PORT
@@ -2574,18 +2561,19 @@ MACRO halfadder_x4
             RECT 9.00 9.00 11.00 11.00 ;
         END
     END cout
-    PIN b
-        DIRECTION INPUT ;
+    PIN sout
+        DIRECTION OUTPUT ;
         PORT
             LAYER L_ALU1 ;
-            RECT 39.00 34.00 41.00 36.00 ;
-            RECT 39.00 29.00 41.00 31.00 ;
-            RECT 39.00 24.00 41.00 26.00 ;
-            RECT 39.00 19.00 41.00 21.00 ;
-            RECT 39.00 14.00 41.00 16.00 ;
-            RECT 39.00 9.00 41.00 11.00 ;
+            RECT 79.00 39.00 81.00 41.00 ;
+            RECT 79.00 34.00 81.00 36.00 ;
+            RECT 79.00 29.00 81.00 31.00 ;
+            RECT 79.00 24.00 81.00 26.00 ;
+            RECT 79.00 19.00 81.00 21.00 ;
+            RECT 79.00 14.00 81.00 16.00 ;
+            RECT 79.00 9.00 81.00 11.00 ;
         END
-    END b
+    END sout
     PIN a
         DIRECTION INPUT ;
         PORT
@@ -2599,6 +2587,18 @@ MACRO halfadder_x4
             RECT 14.00 9.00 16.00 11.00 ;
         END
     END a
+    PIN b
+        DIRECTION INPUT ;
+        PORT
+            LAYER L_ALU1 ;
+            RECT 39.00 34.00 41.00 36.00 ;
+            RECT 39.00 29.00 41.00 31.00 ;
+            RECT 39.00 24.00 41.00 26.00 ;
+            RECT 39.00 19.00 41.00 21.00 ;
+            RECT 39.00 14.00 41.00 16.00 ;
+            RECT 39.00 9.00 41.00 11.00 ;
+        END
+    END b
     PIN vdd
         DIRECTION INOUT ;
         USE power ;
@@ -3360,15 +3360,49 @@ MACRO mx3_x2
         DIRECTION OUTPUT ;
         PORT
             LAYER L_ALU1 ;
-            RECT 59.00 14.00 61.00 16.00 ;
-            RECT 59.00 9.00 61.00 11.00 ;
-            LAYER L_ALU1 ;
             RECT 59.00 39.00 61.00 41.00 ;
             RECT 59.00 34.00 61.00 36.00 ;
             RECT 59.00 29.00 61.00 31.00 ;
             RECT 59.00 24.00 61.00 26.00 ;
+            LAYER L_ALU1 ;
+            RECT 59.00 14.00 61.00 16.00 ;
+            RECT 59.00 9.00 61.00 11.00 ;
         END
     END q
+    PIN i0
+        DIRECTION INPUT ;
+        PORT
+            LAYER L_ALU1 ;
+            RECT 39.00 29.00 41.00 31.00 ;
+            LAYER L_ALU1 ;
+            RECT 44.00 24.00 46.00 26.00 ;
+            LAYER L_ALU1 ;
+            RECT 39.00 19.00 41.00 21.00 ;
+        END
+    END i0
+    PIN cmd0
+        DIRECTION INPUT ;
+        PORT
+            LAYER L_ALU1 ;
+            RECT 34.00 29.00 36.00 31.00 ;
+            RECT 34.00 24.00 36.00 26.00 ;
+            RECT 34.00 19.00 36.00 21.00 ;
+        END
+    END cmd0
+    PIN i1
+        DIRECTION INPUT ;
+        PORT
+            LAYER L_ALU1 ;
+            RECT 24.00 24.00 26.00 26.00 ;
+        END
+    END i1
+    PIN i2
+        DIRECTION INPUT ;
+        PORT
+            LAYER L_ALU1 ;
+            RECT 14.00 24.00 16.00 26.00 ;
+        END
+    END i2
     PIN cmd1
         DIRECTION INPUT ;
         PORT
@@ -3380,40 +3414,6 @@ MACRO mx3_x2
             RECT 4.00 14.00 6.00 16.00 ;
         END
     END cmd1
-    PIN i2
-        DIRECTION INPUT ;
-        PORT
-            LAYER L_ALU1 ;
-            RECT 14.00 24.00 16.00 26.00 ;
-        END
-    END i2
-    PIN i1
-        DIRECTION INPUT ;
-        PORT
-            LAYER L_ALU1 ;
-            RECT 24.00 24.00 26.00 26.00 ;
-        END
-    END i1
-    PIN cmd0
-        DIRECTION INPUT ;
-        PORT
-            LAYER L_ALU1 ;
-            RECT 34.00 29.00 36.00 31.00 ;
-            RECT 34.00 24.00 36.00 26.00 ;
-            RECT 34.00 19.00 36.00 21.00 ;
-        END
-    END cmd0
-    PIN i0
-        DIRECTION INPUT ;
-        PORT
-            LAYER L_ALU1 ;
-            RECT 39.00 19.00 41.00 21.00 ;
-            LAYER L_ALU1 ;
-            RECT 44.00 24.00 46.00 26.00 ;
-            LAYER L_ALU1 ;
-            RECT 39.00 29.00 41.00 31.00 ;
-        END
-    END i0
     PIN vdd
         DIRECTION INOUT ;
         USE power ;
@@ -3534,40 +3534,28 @@ MACRO mx3_x4
         DIRECTION OUTPUT ;
         PORT
             LAYER L_ALU1 ;
-            RECT 64.00 19.00 66.00 21.00 ;
-            LAYER L_ALU1 ;
-            RECT 59.00 14.00 61.00 16.00 ;
-            RECT 59.00 9.00 61.00 11.00 ;
-            LAYER L_ALU1 ;
             RECT 59.00 39.00 61.00 41.00 ;
             RECT 59.00 34.00 61.00 36.00 ;
             RECT 59.00 29.00 61.00 31.00 ;
             RECT 59.00 24.00 61.00 26.00 ;
+            LAYER L_ALU1 ;
+            RECT 59.00 14.00 61.00 16.00 ;
+            RECT 59.00 9.00 61.00 11.00 ;
+            LAYER L_ALU1 ;
+            RECT 64.00 19.00 66.00 21.00 ;
         END
     END q
-    PIN cmd0
+    PIN i0
         DIRECTION INPUT ;
         PORT
             LAYER L_ALU1 ;
-            RECT 34.00 29.00 36.00 31.00 ;
-            RECT 34.00 24.00 36.00 26.00 ;
-            RECT 34.00 19.00 36.00 21.00 ;
-        END
-    END cmd0
-    PIN i1
-        DIRECTION INPUT ;
-        PORT
+            RECT 44.00 24.00 46.00 26.00 ;
             LAYER L_ALU1 ;
-            RECT 24.00 24.00 26.00 26.00 ;
-        END
-    END i1
-    PIN i2
-        DIRECTION INPUT ;
-        PORT
+            RECT 39.00 29.00 41.00 31.00 ;
             LAYER L_ALU1 ;
-            RECT 14.00 24.00 16.00 26.00 ;
+            RECT 39.00 19.00 41.00 21.00 ;
         END
-    END i2
+    END i0
     PIN cmd1
         DIRECTION INPUT ;
         PORT
@@ -3579,17 +3567,29 @@ MACRO mx3_x4
             RECT 4.00 14.00 6.00 16.00 ;
         END
     END cmd1
-    PIN i0
+    PIN i2
         DIRECTION INPUT ;
         PORT
             LAYER L_ALU1 ;
-            RECT 39.00 19.00 41.00 21.00 ;
-            LAYER L_ALU1 ;
-            RECT 39.00 29.00 41.00 31.00 ;
-            LAYER L_ALU1 ;
-            RECT 44.00 24.00 46.00 26.00 ;
+            RECT 14.00 24.00 16.00 26.00 ;
         END
-    END i0
+    END i2
+    PIN i1
+        DIRECTION INPUT ;
+        PORT
+            LAYER L_ALU1 ;
+            RECT 24.00 24.00 26.00 26.00 ;
+        END
+    END i1
+    PIN cmd0
+        DIRECTION INPUT ;
+        PORT
+            LAYER L_ALU1 ;
+            RECT 34.00 29.00 36.00 31.00 ;
+            RECT 34.00 24.00 36.00 26.00 ;
+            RECT 34.00 19.00 36.00 21.00 ;
+        END
+    END cmd0
     PIN vdd
         DIRECTION INOUT ;
         USE power ;
@@ -5272,29 +5272,17 @@ MACRO nmx3_x1
             RECT 54.00 9.00 56.00 11.00 ;
         END
     END nq
-    PIN cmd0
+    PIN i0
         DIRECTION INPUT ;
         PORT
             LAYER L_ALU1 ;
-            RECT 34.00 29.00 36.00 31.00 ;
-            RECT 34.00 24.00 36.00 26.00 ;
-            RECT 34.00 19.00 36.00 21.00 ;
-        END
-    END cmd0
-    PIN i1
-        DIRECTION INPUT ;
-        PORT
+            RECT 39.00 29.00 41.00 31.00 ;
             LAYER L_ALU1 ;
-            RECT 24.00 24.00 26.00 26.00 ;
-        END
-    END i1
-    PIN i2
-        DIRECTION INPUT ;
-        PORT
+            RECT 44.00 24.00 46.00 26.00 ;
             LAYER L_ALU1 ;
-            RECT 14.00 24.00 16.00 26.00 ;
+            RECT 39.00 19.00 41.00 21.00 ;
         END
-    END i2
+    END i0
     PIN cmd1
         DIRECTION INPUT ;
         PORT
@@ -5306,17 +5294,29 @@ MACRO nmx3_x1
             RECT 4.00 14.00 6.00 16.00 ;
         END
     END cmd1
-    PIN i0
+    PIN i2
         DIRECTION INPUT ;
         PORT
             LAYER L_ALU1 ;
-            RECT 39.00 19.00 41.00 21.00 ;
-            LAYER L_ALU1 ;
-            RECT 44.00 24.00 46.00 26.00 ;
-            LAYER L_ALU1 ;
-            RECT 39.00 29.00 41.00 31.00 ;
+            RECT 14.00 24.00 16.00 26.00 ;
         END
-    END i0
+    END i2
+    PIN i1
+        DIRECTION INPUT ;
+        PORT
+            LAYER L_ALU1 ;
+            RECT 24.00 24.00 26.00 26.00 ;
+        END
+    END i1
+    PIN cmd0
+        DIRECTION INPUT ;
+        PORT
+            LAYER L_ALU1 ;
+            RECT 34.00 29.00 36.00 31.00 ;
+            RECT 34.00 24.00 36.00 26.00 ;
+            RECT 34.00 19.00 36.00 21.00 ;
+        END
+    END cmd0
     PIN vdd
         DIRECTION INOUT ;
         USE power ;
@@ -5438,29 +5438,17 @@ MACRO nmx3_x4
             RECT 59.00 14.00 61.00 16.00 ;
         END
     END nq
-    PIN cmd0
+    PIN i0
         DIRECTION INPUT ;
         PORT
             LAYER L_ALU1 ;
-            RECT 34.00 29.00 36.00 31.00 ;
-            RECT 34.00 24.00 36.00 26.00 ;
-            RECT 34.00 19.00 36.00 21.00 ;
-        END
-    END cmd0
-    PIN i1
-        DIRECTION INPUT ;
-        PORT
+            RECT 44.00 24.00 46.00 26.00 ;
             LAYER L_ALU1 ;
-            RECT 24.00 24.00 26.00 26.00 ;
-        END
-    END i1
-    PIN i2
-        DIRECTION INPUT ;
-        PORT
+            RECT 39.00 29.00 41.00 31.00 ;
             LAYER L_ALU1 ;
-            RECT 14.00 24.00 16.00 26.00 ;
+            RECT 39.00 19.00 41.00 21.00 ;
         END
-    END i2
+    END i0
     PIN cmd1
         DIRECTION INPUT ;
         PORT
@@ -5472,17 +5460,29 @@ MACRO nmx3_x4
             RECT 4.00 14.00 6.00 16.00 ;
         END
     END cmd1
-    PIN i0
+    PIN i2
         DIRECTION INPUT ;
         PORT
             LAYER L_ALU1 ;
-            RECT 39.00 19.00 41.00 21.00 ;
-            LAYER L_ALU1 ;
-            RECT 39.00 29.00 41.00 31.00 ;
-            LAYER L_ALU1 ;
-            RECT 44.00 24.00 46.00 26.00 ;
+            RECT 14.00 24.00 16.00 26.00 ;
         END
-    END i0
+    END i2
+    PIN i1
+        DIRECTION INPUT ;
+        PORT
+            LAYER L_ALU1 ;
+            RECT 24.00 24.00 26.00 26.00 ;
+        END
+    END i1
+    PIN cmd0
+        DIRECTION INPUT ;
+        PORT
+            LAYER L_ALU1 ;
+            RECT 34.00 29.00 36.00 31.00 ;
+            RECT 34.00 24.00 36.00 26.00 ;
+            RECT 34.00 19.00 36.00 21.00 ;
+        END
+    END cmd0
     PIN vdd
         DIRECTION INOUT ;
         USE power ;
@@ -7059,26 +7059,36 @@ MACRO noa2a2a23_x4
             RECT 49.00 14.00 51.00 16.00 ;
         END
     END nq
-    PIN i1
+    PIN i5
         DIRECTION INPUT ;
         PORT
             LAYER L_ALU1 ;
-            RECT 34.00 29.00 36.00 31.00 ;
-            RECT 34.00 24.00 36.00 26.00 ;
-            RECT 34.00 19.00 36.00 21.00 ;
-            RECT 34.00 14.00 36.00 16.00 ;
+            RECT 9.00 29.00 11.00 31.00 ;
+            RECT 9.00 24.00 11.00 26.00 ;
+            RECT 9.00 19.00 11.00 21.00 ;
+            RECT 9.00 14.00 11.00 16.00 ;
         END
-    END i1
-    PIN i0
+    END i5
+    PIN i3
         DIRECTION INPUT ;
         PORT
             LAYER L_ALU1 ;
-            RECT 39.00 29.00 41.00 31.00 ;
-            RECT 39.00 24.00 41.00 26.00 ;
-            RECT 39.00 19.00 41.00 21.00 ;
-            RECT 39.00 14.00 41.00 16.00 ;
+            RECT 19.00 29.00 21.00 31.00 ;
+            RECT 19.00 24.00 21.00 26.00 ;
+            RECT 19.00 19.00 21.00 21.00 ;
+            RECT 19.00 14.00 21.00 16.00 ;
         END
-    END i0
+    END i3
+    PIN i2
+        DIRECTION INPUT ;
+        PORT
+            LAYER L_ALU1 ;
+            RECT 24.00 29.00 26.00 31.00 ;
+            RECT 24.00 24.00 26.00 26.00 ;
+            RECT 24.00 19.00 26.00 21.00 ;
+            RECT 24.00 14.00 26.00 16.00 ;
+        END
+    END i2
     PIN i4
         DIRECTION INPUT ;
         PORT
@@ -7090,36 +7100,26 @@ MACRO noa2a2a23_x4
             RECT 14.00 14.00 16.00 16.00 ;
         END
     END i4
-    PIN i2
+    PIN i0
         DIRECTION INPUT ;
         PORT
             LAYER L_ALU1 ;
-            RECT 24.00 29.00 26.00 31.00 ;
-            RECT 24.00 24.00 26.00 26.00 ;
-            RECT 24.00 19.00 26.00 21.00 ;
-            RECT 24.00 14.00 26.00 16.00 ;
+            RECT 39.00 29.00 41.00 31.00 ;
+            RECT 39.00 24.00 41.00 26.00 ;
+            RECT 39.00 19.00 41.00 21.00 ;
+            RECT 39.00 14.00 41.00 16.00 ;
         END
-    END i2
-    PIN i3
+    END i0
+    PIN i1
         DIRECTION INPUT ;
         PORT
             LAYER L_ALU1 ;
-            RECT 19.00 29.00 21.00 31.00 ;
-            RECT 19.00 24.00 21.00 26.00 ;
-            RECT 19.00 19.00 21.00 21.00 ;
-            RECT 19.00 14.00 21.00 16.00 ;
+            RECT 34.00 29.00 36.00 31.00 ;
+            RECT 34.00 24.00 36.00 26.00 ;
+            RECT 34.00 19.00 36.00 21.00 ;
+            RECT 34.00 14.00 36.00 16.00 ;
         END
-    END i3
-    PIN i5
-        DIRECTION INPUT ;
-        PORT
-            LAYER L_ALU1 ;
-            RECT 9.00 29.00 11.00 31.00 ;
-            RECT 9.00 24.00 11.00 26.00 ;
-            RECT 9.00 19.00 11.00 21.00 ;
-            RECT 9.00 14.00 11.00 16.00 ;
-        END
-    END i5
+    END i1
     PIN vdd
         DIRECTION INOUT ;
         USE power ;
@@ -7248,78 +7248,6 @@ MACRO noa2a2a2a24_x1
             RECT 9.00 9.00 11.00 11.00 ;
         END
     END nq
-    PIN i7
-        DIRECTION INPUT ;
-        PORT
-            LAYER L_ALU1 ;
-            RECT 4.00 29.00 6.00 31.00 ;
-            RECT 4.00 24.00 6.00 26.00 ;
-            RECT 4.00 19.00 6.00 21.00 ;
-            RECT 4.00 14.00 6.00 16.00 ;
-            RECT 4.00 9.00 6.00 11.00 ;
-        END
-    END i7
-    PIN i6
-        DIRECTION INPUT ;
-        PORT
-            LAYER L_ALU1 ;
-            RECT 14.00 29.00 16.00 31.00 ;
-            RECT 14.00 24.00 16.00 26.00 ;
-            RECT 14.00 19.00 16.00 21.00 ;
-            RECT 14.00 14.00 16.00 16.00 ;
-        END
-    END i6
-    PIN i5
-        DIRECTION INPUT ;
-        PORT
-            LAYER L_ALU1 ;
-            RECT 24.00 29.00 26.00 31.00 ;
-            RECT 24.00 24.00 26.00 26.00 ;
-            RECT 24.00 19.00 26.00 21.00 ;
-            RECT 24.00 14.00 26.00 16.00 ;
-        END
-    END i5
-    PIN i4
-        DIRECTION INPUT ;
-        PORT
-            LAYER L_ALU1 ;
-            RECT 29.00 29.00 31.00 31.00 ;
-            RECT 29.00 24.00 31.00 26.00 ;
-            RECT 29.00 19.00 31.00 21.00 ;
-            RECT 29.00 14.00 31.00 16.00 ;
-        END
-    END i4
-    PIN i3
-        DIRECTION INPUT ;
-        PORT
-            LAYER L_ALU1 ;
-            RECT 34.00 29.00 36.00 31.00 ;
-            RECT 34.00 24.00 36.00 26.00 ;
-            RECT 34.00 19.00 36.00 21.00 ;
-            RECT 34.00 14.00 36.00 16.00 ;
-        END
-    END i3
-    PIN i2
-        DIRECTION INPUT ;
-        PORT
-            LAYER L_ALU1 ;
-            RECT 39.00 29.00 41.00 31.00 ;
-            RECT 39.00 24.00 41.00 26.00 ;
-            RECT 39.00 19.00 41.00 21.00 ;
-            RECT 39.00 14.00 41.00 16.00 ;
-        END
-    END i2
-    PIN i1
-        DIRECTION INPUT ;
-        PORT
-            LAYER L_ALU1 ;
-            RECT 54.00 34.00 56.00 36.00 ;
-            RECT 54.00 29.00 56.00 31.00 ;
-            RECT 54.00 24.00 56.00 26.00 ;
-            RECT 54.00 19.00 56.00 21.00 ;
-            RECT 54.00 14.00 56.00 16.00 ;
-        END
-    END i1
     PIN i0
         DIRECTION INPUT ;
         PORT
@@ -7331,6 +7259,78 @@ MACRO noa2a2a2a24_x1
             RECT 59.00 14.00 61.00 16.00 ;
         END
     END i0
+    PIN i1
+        DIRECTION INPUT ;
+        PORT
+            LAYER L_ALU1 ;
+            RECT 54.00 34.00 56.00 36.00 ;
+            RECT 54.00 29.00 56.00 31.00 ;
+            RECT 54.00 24.00 56.00 26.00 ;
+            RECT 54.00 19.00 56.00 21.00 ;
+            RECT 54.00 14.00 56.00 16.00 ;
+        END
+    END i1
+    PIN i2
+        DIRECTION INPUT ;
+        PORT
+            LAYER L_ALU1 ;
+            RECT 39.00 29.00 41.00 31.00 ;
+            RECT 39.00 24.00 41.00 26.00 ;
+            RECT 39.00 19.00 41.00 21.00 ;
+            RECT 39.00 14.00 41.00 16.00 ;
+        END
+    END i2
+    PIN i3
+        DIRECTION INPUT ;
+        PORT
+            LAYER L_ALU1 ;
+            RECT 34.00 29.00 36.00 31.00 ;
+            RECT 34.00 24.00 36.00 26.00 ;
+            RECT 34.00 19.00 36.00 21.00 ;
+            RECT 34.00 14.00 36.00 16.00 ;
+        END
+    END i3
+    PIN i4
+        DIRECTION INPUT ;
+        PORT
+            LAYER L_ALU1 ;
+            RECT 29.00 29.00 31.00 31.00 ;
+            RECT 29.00 24.00 31.00 26.00 ;
+            RECT 29.00 19.00 31.00 21.00 ;
+            RECT 29.00 14.00 31.00 16.00 ;
+        END
+    END i4
+    PIN i5
+        DIRECTION INPUT ;
+        PORT
+            LAYER L_ALU1 ;
+            RECT 24.00 29.00 26.00 31.00 ;
+            RECT 24.00 24.00 26.00 26.00 ;
+            RECT 24.00 19.00 26.00 21.00 ;
+            RECT 24.00 14.00 26.00 16.00 ;
+        END
+    END i5
+    PIN i6
+        DIRECTION INPUT ;
+        PORT
+            LAYER L_ALU1 ;
+            RECT 14.00 29.00 16.00 31.00 ;
+            RECT 14.00 24.00 16.00 26.00 ;
+            RECT 14.00 19.00 16.00 21.00 ;
+            RECT 14.00 14.00 16.00 16.00 ;
+        END
+    END i6
+    PIN i7
+        DIRECTION INPUT ;
+        PORT
+            LAYER L_ALU1 ;
+            RECT 4.00 29.00 6.00 31.00 ;
+            RECT 4.00 24.00 6.00 26.00 ;
+            RECT 4.00 19.00 6.00 21.00 ;
+            RECT 4.00 14.00 6.00 16.00 ;
+            RECT 4.00 9.00 6.00 11.00 ;
+        END
+    END i7
     PIN vdd
         DIRECTION INOUT ;
         USE power ;
@@ -7466,77 +7466,6 @@ MACRO noa2a2a2a24_x4
             RECT 69.00 14.00 71.00 16.00 ;
         END
     END nq
-    PIN i2
-        DIRECTION INPUT ;
-        PORT
-            LAYER L_ALU1 ;
-            RECT 39.00 29.00 41.00 31.00 ;
-            RECT 39.00 24.00 41.00 26.00 ;
-            RECT 39.00 19.00 41.00 21.00 ;
-            RECT 39.00 14.00 41.00 16.00 ;
-        END
-    END i2
-    PIN i3
-        DIRECTION INPUT ;
-        PORT
-            LAYER L_ALU1 ;
-            RECT 34.00 29.00 36.00 31.00 ;
-            RECT 34.00 24.00 36.00 26.00 ;
-            RECT 34.00 19.00 36.00 21.00 ;
-            RECT 34.00 14.00 36.00 16.00 ;
-        END
-    END i3
-    PIN i4
-        DIRECTION INPUT ;
-        PORT
-            LAYER L_ALU1 ;
-            RECT 29.00 29.00 31.00 31.00 ;
-            RECT 29.00 24.00 31.00 26.00 ;
-            RECT 29.00 19.00 31.00 21.00 ;
-            RECT 29.00 14.00 31.00 16.00 ;
-        END
-    END i4
-    PIN i5
-        DIRECTION INPUT ;
-        PORT
-            LAYER L_ALU1 ;
-            RECT 24.00 29.00 26.00 31.00 ;
-            RECT 24.00 24.00 26.00 26.00 ;
-            RECT 24.00 19.00 26.00 21.00 ;
-            RECT 24.00 14.00 26.00 16.00 ;
-        END
-    END i5
-    PIN i6
-        DIRECTION INPUT ;
-        PORT
-            LAYER L_ALU1 ;
-            RECT 14.00 29.00 16.00 31.00 ;
-            RECT 14.00 24.00 16.00 26.00 ;
-            RECT 14.00 19.00 16.00 21.00 ;
-            RECT 14.00 14.00 16.00 16.00 ;
-        END
-    END i6
-    PIN i7
-        DIRECTION INPUT ;
-        PORT
-            LAYER L_ALU1 ;
-            RECT 4.00 29.00 6.00 31.00 ;
-            RECT 4.00 24.00 6.00 26.00 ;
-            RECT 4.00 19.00 6.00 21.00 ;
-            RECT 4.00 14.00 6.00 16.00 ;
-            RECT 4.00 9.00 6.00 11.00 ;
-        END
-    END i7
-    PIN i1
-        DIRECTION INPUT ;
-        PORT
-            LAYER L_ALU1 ;
-            RECT 54.00 29.00 56.00 31.00 ;
-            RECT 54.00 24.00 56.00 26.00 ;
-            RECT 54.00 19.00 56.00 21.00 ;
-            RECT 54.00 14.00 56.00 16.00 ;
-        END
-    END i1
     PIN i0
         DIRECTION INPUT ;
         PORT
@@ -7548,6 +7477,77 @@ MACRO noa2a2a2a24_x4
             RECT 64.00 14.00 66.00 16.00 ;
         END
     END i0
+    PIN i1
+        DIRECTION INPUT ;
+        PORT
+            LAYER L_ALU1 ;
+            RECT 54.00 29.00 56.00 31.00 ;
+            RECT 54.00 24.00 56.00 26.00 ;
+            RECT 54.00 19.00 56.00 21.00 ;
+            RECT 54.00 14.00 56.00 16.00 ;
+        END
+    END i1
+    PIN i7
+        DIRECTION INPUT ;
+        PORT
+            LAYER L_ALU1 ;
+            RECT 4.00 29.00 6.00 31.00 ;
+            RECT 4.00 24.00 6.00 26.00 ;
+            RECT 4.00 19.00 6.00 21.00 ;
+            RECT 4.00 14.00 6.00 16.00 ;
+            RECT 4.00 9.00 6.00 11.00 ;
+        END
+    END i7
+    PIN i6
+        DIRECTION INPUT ;
+        PORT
+            LAYER L_ALU1 ;
+            RECT 14.00 29.00 16.00 31.00 ;
+            RECT 14.00 24.00 16.00 26.00 ;
+            RECT 14.00 19.00 16.00 21.00 ;
+            RECT 14.00 14.00 16.00 16.00 ;
+        END
+    END i6
+    PIN i5
+        DIRECTION INPUT ;
+        PORT
+            LAYER L_ALU1 ;
+            RECT 24.00 29.00 26.00 31.00 ;
+            RECT 24.00 24.00 26.00 26.00 ;
+            RECT 24.00 19.00 26.00 21.00 ;
+            RECT 24.00 14.00 26.00 16.00 ;
+        END
+    END i5
+    PIN i4
+        DIRECTION INPUT ;
+        PORT
+            LAYER L_ALU1 ;
+            RECT 29.00 29.00 31.00 31.00 ;
+            RECT 29.00 24.00 31.00 26.00 ;
+            RECT 29.00 19.00 31.00 21.00 ;
+            RECT 29.00 14.00 31.00 16.00 ;
+        END
+    END i4
+    PIN i3
+        DIRECTION INPUT ;
+        PORT
+            LAYER L_ALU1 ;
+            RECT 34.00 29.00 36.00 31.00 ;
+            RECT 34.00 24.00 36.00 26.00 ;
+            RECT 34.00 19.00 36.00 21.00 ;
+            RECT 34.00 14.00 36.00 16.00 ;
+        END
+    END i3
+    PIN i2
+        DIRECTION INPUT ;
+        PORT
+            LAYER L_ALU1 ;
+            RECT 39.00 29.00 41.00 31.00 ;
+            RECT 39.00 24.00 41.00 26.00 ;
+            RECT 39.00 19.00 41.00 21.00 ;
+            RECT 39.00 14.00 41.00 16.00 ;
+        END
+    END i2
     PIN vdd
         DIRECTION INOUT ;
         USE power ;
@@ -7696,16 +7696,58 @@ MACRO noa2ao222_x1
         DIRECTION OUTPUT ;
         PORT
             LAYER L_ALU1 ;
-            RECT 14.00 14.00 16.00 16.00 ;
-            RECT 14.00 9.00 16.00 11.00 ;
-            LAYER L_ALU1 ;
             RECT 19.00 34.00 21.00 36.00 ;
             RECT 19.00 29.00 21.00 31.00 ;
             RECT 19.00 24.00 21.00 26.00 ;
             RECT 19.00 19.00 21.00 21.00 ;
             RECT 19.00 14.00 21.00 16.00 ;
+            LAYER L_ALU1 ;
+            RECT 14.00 14.00 16.00 16.00 ;
+            RECT 14.00 9.00 16.00 11.00 ;
         END
     END nq
+    PIN i3
+        DIRECTION INPUT ;
+        PORT
+            LAYER L_ALU1 ;
+            RECT 29.00 34.00 31.00 36.00 ;
+            RECT 29.00 29.00 31.00 31.00 ;
+            RECT 29.00 24.00 31.00 26.00 ;
+            RECT 29.00 19.00 31.00 21.00 ;
+            RECT 29.00 14.00 31.00 16.00 ;
+        END
+    END i3
+    PIN i2
+        DIRECTION INPUT ;
+        PORT
+            LAYER L_ALU1 ;
+            RECT 24.00 29.00 26.00 31.00 ;
+            RECT 24.00 24.00 26.00 26.00 ;
+            RECT 24.00 19.00 26.00 21.00 ;
+            RECT 24.00 14.00 26.00 16.00 ;
+        END
+    END i2
+    PIN i4
+        DIRECTION INPUT ;
+        PORT
+            LAYER L_ALU1 ;
+            RECT 14.00 34.00 16.00 36.00 ;
+            RECT 14.00 29.00 16.00 31.00 ;
+            RECT 14.00 24.00 16.00 26.00 ;
+            RECT 14.00 19.00 16.00 21.00 ;
+        END
+    END i4
+    PIN i1
+        DIRECTION INPUT ;
+        PORT
+            LAYER L_ALU1 ;
+            RECT 9.00 34.00 11.00 36.00 ;
+            RECT 9.00 29.00 11.00 31.00 ;
+            RECT 9.00 24.00 11.00 26.00 ;
+            RECT 9.00 19.00 11.00 21.00 ;
+            RECT 9.00 14.00 11.00 16.00 ;
+        END
+    END i1
     PIN i0
         DIRECTION INPUT ;
         PORT
@@ -7718,48 +7760,6 @@ MACRO noa2ao222_x1
             RECT 4.00 9.00 6.00 11.00 ;
         END
     END i0
-    PIN i1
-        DIRECTION INPUT ;
-        PORT
-            LAYER L_ALU1 ;
-            RECT 9.00 34.00 11.00 36.00 ;
-            RECT 9.00 29.00 11.00 31.00 ;
-            RECT 9.00 24.00 11.00 26.00 ;
-            RECT 9.00 19.00 11.00 21.00 ;
-            RECT 9.00 14.00 11.00 16.00 ;
-        END
-    END i1
-    PIN i4
-        DIRECTION INPUT ;
-        PORT
-            LAYER L_ALU1 ;
-            RECT 14.00 34.00 16.00 36.00 ;
-            RECT 14.00 29.00 16.00 31.00 ;
-            RECT 14.00 24.00 16.00 26.00 ;
-            RECT 14.00 19.00 16.00 21.00 ;
-        END
-    END i4
-    PIN i2
-        DIRECTION INPUT ;
-        PORT
-            LAYER L_ALU1 ;
-            RECT 24.00 29.00 26.00 31.00 ;
-            RECT 24.00 24.00 26.00 26.00 ;
-            RECT 24.00 19.00 26.00 21.00 ;
-            RECT 24.00 14.00 26.00 16.00 ;
-        END
-    END i2
-    PIN i3
-        DIRECTION INPUT ;
-        PORT
-            LAYER L_ALU1 ;
-            RECT 29.00 34.00 31.00 36.00 ;
-            RECT 29.00 29.00 31.00 31.00 ;
-            RECT 29.00 24.00 31.00 26.00 ;
-            RECT 29.00 19.00 31.00 21.00 ;
-            RECT 29.00 14.00 31.00 16.00 ;
-        END
-    END i3
     PIN vdd
         DIRECTION INOUT ;
         USE power ;
@@ -7847,47 +7847,6 @@ MACRO noa2ao222_x4
             RECT 49.00 9.00 51.00 11.00 ;
         END
     END nq
-    PIN i3
-        DIRECTION INPUT ;
-        PORT
-            LAYER L_ALU1 ;
-            RECT 29.00 29.00 31.00 31.00 ;
-            RECT 29.00 24.00 31.00 26.00 ;
-            RECT 29.00 19.00 31.00 21.00 ;
-            RECT 29.00 14.00 31.00 16.00 ;
-        END
-    END i3
-    PIN i2
-        DIRECTION INPUT ;
-        PORT
-            LAYER L_ALU1 ;
-            RECT 24.00 29.00 26.00 31.00 ;
-            RECT 24.00 24.00 26.00 26.00 ;
-            RECT 24.00 19.00 26.00 21.00 ;
-            RECT 24.00 14.00 26.00 16.00 ;
-        END
-    END i2
-    PIN i4
-        DIRECTION INPUT ;
-        PORT
-            LAYER L_ALU1 ;
-            RECT 14.00 34.00 16.00 36.00 ;
-            RECT 14.00 29.00 16.00 31.00 ;
-            RECT 14.00 24.00 16.00 26.00 ;
-            RECT 14.00 19.00 16.00 21.00 ;
-        END
-    END i4
-    PIN i1
-        DIRECTION INPUT ;
-        PORT
-            LAYER L_ALU1 ;
-            RECT 9.00 34.00 11.00 36.00 ;
-            RECT 9.00 29.00 11.00 31.00 ;
-            RECT 9.00 24.00 11.00 26.00 ;
-            RECT 9.00 19.00 11.00 21.00 ;
-            RECT 9.00 14.00 11.00 16.00 ;
-        END
-    END i1
     PIN i0
         DIRECTION INPUT ;
         PORT
@@ -7900,6 +7859,47 @@ MACRO noa2ao222_x4
             RECT 4.00 9.00 6.00 11.00 ;
         END
     END i0
+    PIN i1
+        DIRECTION INPUT ;
+        PORT
+            LAYER L_ALU1 ;
+            RECT 9.00 34.00 11.00 36.00 ;
+            RECT 9.00 29.00 11.00 31.00 ;
+            RECT 9.00 24.00 11.00 26.00 ;
+            RECT 9.00 19.00 11.00 21.00 ;
+            RECT 9.00 14.00 11.00 16.00 ;
+        END
+    END i1
+    PIN i4
+        DIRECTION INPUT ;
+        PORT
+            LAYER L_ALU1 ;
+            RECT 14.00 34.00 16.00 36.00 ;
+            RECT 14.00 29.00 16.00 31.00 ;
+            RECT 14.00 24.00 16.00 26.00 ;
+            RECT 14.00 19.00 16.00 21.00 ;
+        END
+    END i4
+    PIN i2
+        DIRECTION INPUT ;
+        PORT
+            LAYER L_ALU1 ;
+            RECT 24.00 29.00 26.00 31.00 ;
+            RECT 24.00 24.00 26.00 26.00 ;
+            RECT 24.00 19.00 26.00 21.00 ;
+            RECT 24.00 14.00 26.00 16.00 ;
+        END
+    END i2
+    PIN i3
+        DIRECTION INPUT ;
+        PORT
+            LAYER L_ALU1 ;
+            RECT 29.00 29.00 31.00 31.00 ;
+            RECT 29.00 24.00 31.00 26.00 ;
+            RECT 29.00 19.00 31.00 21.00 ;
+            RECT 29.00 14.00 31.00 16.00 ;
+        END
+    END i3
     PIN vdd
         DIRECTION INOUT ;
         USE power ;
@@ -8013,81 +8013,16 @@ MACRO noa3ao322_x1
         DIRECTION OUTPUT ;
         PORT
             LAYER L_ALU1 ;
-            RECT 19.00 14.00 21.00 16.00 ;
-            RECT 19.00 9.00 21.00 11.00 ;
-            LAYER L_ALU1 ;
             RECT 24.00 34.00 26.00 36.00 ;
             RECT 24.00 29.00 26.00 31.00 ;
             RECT 24.00 24.00 26.00 26.00 ;
             RECT 24.00 19.00 26.00 21.00 ;
             RECT 24.00 14.00 26.00 16.00 ;
+            LAYER L_ALU1 ;
+            RECT 19.00 14.00 21.00 16.00 ;
+            RECT 19.00 9.00 21.00 11.00 ;
         END
     END nq
-    PIN i1
-        DIRECTION INPUT ;
-        PORT
-            LAYER L_ALU1 ;
-            RECT 9.00 34.00 11.00 36.00 ;
-            RECT 9.00 29.00 11.00 31.00 ;
-            RECT 9.00 24.00 11.00 26.00 ;
-            RECT 9.00 19.00 11.00 21.00 ;
-            RECT 9.00 14.00 11.00 16.00 ;
-            RECT 9.00 9.00 11.00 11.00 ;
-        END
-    END i1
-    PIN i2
-        DIRECTION INPUT ;
-        PORT
-            LAYER L_ALU1 ;
-            RECT 14.00 34.00 16.00 36.00 ;
-            RECT 14.00 29.00 16.00 31.00 ;
-            RECT 14.00 24.00 16.00 26.00 ;
-            RECT 14.00 19.00 16.00 21.00 ;
-            RECT 14.00 14.00 16.00 16.00 ;
-        END
-    END i2
-    PIN i6
-        DIRECTION INPUT ;
-        PORT
-            LAYER L_ALU1 ;
-            RECT 19.00 34.00 21.00 36.00 ;
-            RECT 19.00 29.00 21.00 31.00 ;
-            RECT 19.00 24.00 21.00 26.00 ;
-            RECT 19.00 19.00 21.00 21.00 ;
-        END
-    END i6
-    PIN i3
-        DIRECTION INPUT ;
-        PORT
-            LAYER L_ALU1 ;
-            RECT 29.00 29.00 31.00 31.00 ;
-            RECT 29.00 24.00 31.00 26.00 ;
-            RECT 29.00 19.00 31.00 21.00 ;
-            RECT 29.00 14.00 31.00 16.00 ;
-        END
-    END i3
-    PIN i4
-        DIRECTION INPUT ;
-        PORT
-            LAYER L_ALU1 ;
-            RECT 34.00 34.00 36.00 36.00 ;
-            RECT 34.00 29.00 36.00 31.00 ;
-            RECT 34.00 24.00 36.00 26.00 ;
-            RECT 34.00 19.00 36.00 21.00 ;
-            RECT 34.00 14.00 36.00 16.00 ;
-        END
-    END i4
-    PIN i5
-        DIRECTION INPUT ;
-        PORT
-            LAYER L_ALU1 ;
-            RECT 39.00 34.00 41.00 36.00 ;
-            RECT 39.00 29.00 41.00 31.00 ;
-            RECT 39.00 24.00 41.00 26.00 ;
-            RECT 39.00 19.00 41.00 21.00 ;
-            RECT 39.00 14.00 41.00 16.00 ;
-        END
-    END i5
     PIN i0
         DIRECTION INPUT ;
         PORT
@@ -8100,6 +8035,71 @@ MACRO noa3ao322_x1
             RECT 4.00 9.00 6.00 11.00 ;
         END
     END i0
+    PIN i5
+        DIRECTION INPUT ;
+        PORT
+            LAYER L_ALU1 ;
+            RECT 39.00 34.00 41.00 36.00 ;
+            RECT 39.00 29.00 41.00 31.00 ;
+            RECT 39.00 24.00 41.00 26.00 ;
+            RECT 39.00 19.00 41.00 21.00 ;
+            RECT 39.00 14.00 41.00 16.00 ;
+        END
+    END i5
+    PIN i4
+        DIRECTION INPUT ;
+        PORT
+            LAYER L_ALU1 ;
+            RECT 34.00 34.00 36.00 36.00 ;
+            RECT 34.00 29.00 36.00 31.00 ;
+            RECT 34.00 24.00 36.00 26.00 ;
+            RECT 34.00 19.00 36.00 21.00 ;
+            RECT 34.00 14.00 36.00 16.00 ;
+        END
+    END i4
+    PIN i3
+        DIRECTION INPUT ;
+        PORT
+            LAYER L_ALU1 ;
+            RECT 29.00 29.00 31.00 31.00 ;
+            RECT 29.00 24.00 31.00 26.00 ;
+            RECT 29.00 19.00 31.00 21.00 ;
+            RECT 29.00 14.00 31.00 16.00 ;
+        END
+    END i3
+    PIN i6
+        DIRECTION INPUT ;
+        PORT
+            LAYER L_ALU1 ;
+            RECT 19.00 34.00 21.00 36.00 ;
+            RECT 19.00 29.00 21.00 31.00 ;
+            RECT 19.00 24.00 21.00 26.00 ;
+            RECT 19.00 19.00 21.00 21.00 ;
+        END
+    END i6
+    PIN i2
+        DIRECTION INPUT ;
+        PORT
+            LAYER L_ALU1 ;
+            RECT 14.00 34.00 16.00 36.00 ;
+            RECT 14.00 29.00 16.00 31.00 ;
+            RECT 14.00 24.00 16.00 26.00 ;
+            RECT 14.00 19.00 16.00 21.00 ;
+            RECT 14.00 14.00 16.00 16.00 ;
+        END
+    END i2
+    PIN i1
+        DIRECTION INPUT ;
+        PORT
+            LAYER L_ALU1 ;
+            RECT 9.00 34.00 11.00 36.00 ;
+            RECT 9.00 29.00 11.00 31.00 ;
+            RECT 9.00 24.00 11.00 26.00 ;
+            RECT 9.00 19.00 11.00 21.00 ;
+            RECT 9.00 14.00 11.00 16.00 ;
+            RECT 9.00 9.00 11.00 11.00 ;
+        END
+    END i1
     PIN vdd
         DIRECTION INOUT ;
         USE power ;
@@ -8201,70 +8201,6 @@ MACRO noa3ao322_x4
             RECT 14.00 9.00 16.00 11.00 ;
         END
     END nq
-    PIN i1
-        DIRECTION INPUT ;
-        PORT
-            LAYER L_ALU1 ;
-            RECT 29.00 34.00 31.00 36.00 ;
-            RECT 29.00 29.00 31.00 31.00 ;
-            RECT 29.00 24.00 31.00 26.00 ;
-            RECT 29.00 19.00 31.00 21.00 ;
-            RECT 29.00 14.00 31.00 16.00 ;
-        END
-    END i1
-    PIN i6
-        DIRECTION INPUT ;
-        PORT
-            LAYER L_ALU1 ;
-            RECT 39.00 34.00 41.00 36.00 ;
-            RECT 39.00 29.00 41.00 31.00 ;
-            RECT 39.00 24.00 41.00 26.00 ;
-            RECT 39.00 19.00 41.00 21.00 ;
-        END
-    END i6
-    PIN i2
-        DIRECTION INPUT ;
-        PORT
-            LAYER L_ALU1 ;
-            RECT 34.00 34.00 36.00 36.00 ;
-            RECT 34.00 29.00 36.00 31.00 ;
-            RECT 34.00 24.00 36.00 26.00 ;
-            RECT 34.00 19.00 36.00 21.00 ;
-        END
-    END i2
-    PIN i4
-        DIRECTION INPUT ;
-        PORT
-            LAYER L_ALU1 ;
-            RECT 54.00 34.00 56.00 36.00 ;
-            RECT 54.00 29.00 56.00 31.00 ;
-            RECT 54.00 24.00 56.00 26.00 ;
-            RECT 54.00 19.00 56.00 21.00 ;
-            RECT 54.00 14.00 56.00 16.00 ;
-        END
-    END i4
-    PIN i5
-        DIRECTION INPUT ;
-        PORT
-            LAYER L_ALU1 ;
-            RECT 59.00 34.00 61.00 36.00 ;
-            RECT 59.00 29.00 61.00 31.00 ;
-            RECT 59.00 24.00 61.00 26.00 ;
-            RECT 59.00 19.00 61.00 21.00 ;
-            RECT 59.00 14.00 61.00 16.00 ;
-        END
-    END i5
-    PIN i3
-        DIRECTION INPUT ;
-        PORT
-            LAYER L_ALU1 ;
-            RECT 49.00 34.00 51.00 36.00 ;
-            RECT 49.00 29.00 51.00 31.00 ;
-            RECT 49.00 24.00 51.00 26.00 ;
-            RECT 49.00 19.00 51.00 21.00 ;
-            RECT 49.00 14.00 51.00 16.00 ;
-        END
-    END i3
     PIN i0
         DIRECTION INPUT ;
         PORT
@@ -8276,6 +8212,70 @@ MACRO noa3ao322_x4
             RECT 24.00 14.00 26.00 16.00 ;
         END
     END i0
+    PIN i3
+        DIRECTION INPUT ;
+        PORT
+            LAYER L_ALU1 ;
+            RECT 49.00 34.00 51.00 36.00 ;
+            RECT 49.00 29.00 51.00 31.00 ;
+            RECT 49.00 24.00 51.00 26.00 ;
+            RECT 49.00 19.00 51.00 21.00 ;
+            RECT 49.00 14.00 51.00 16.00 ;
+        END
+    END i3
+    PIN i5
+        DIRECTION INPUT ;
+        PORT
+            LAYER L_ALU1 ;
+            RECT 59.00 34.00 61.00 36.00 ;
+            RECT 59.00 29.00 61.00 31.00 ;
+            RECT 59.00 24.00 61.00 26.00 ;
+            RECT 59.00 19.00 61.00 21.00 ;
+            RECT 59.00 14.00 61.00 16.00 ;
+        END
+    END i5
+    PIN i4
+        DIRECTION INPUT ;
+        PORT
+            LAYER L_ALU1 ;
+            RECT 54.00 34.00 56.00 36.00 ;
+            RECT 54.00 29.00 56.00 31.00 ;
+            RECT 54.00 24.00 56.00 26.00 ;
+            RECT 54.00 19.00 56.00 21.00 ;
+            RECT 54.00 14.00 56.00 16.00 ;
+        END
+    END i4
+    PIN i2
+        DIRECTION INPUT ;
+        PORT
+            LAYER L_ALU1 ;
+            RECT 34.00 34.00 36.00 36.00 ;
+            RECT 34.00 29.00 36.00 31.00 ;
+            RECT 34.00 24.00 36.00 26.00 ;
+            RECT 34.00 19.00 36.00 21.00 ;
+        END
+    END i2
+    PIN i6
+        DIRECTION INPUT ;
+        PORT
+            LAYER L_ALU1 ;
+            RECT 39.00 34.00 41.00 36.00 ;
+            RECT 39.00 29.00 41.00 31.00 ;
+            RECT 39.00 24.00 41.00 26.00 ;
+            RECT 39.00 19.00 41.00 21.00 ;
+        END
+    END i6
+    PIN i1
+        DIRECTION INPUT ;
+        PORT
+            LAYER L_ALU1 ;
+            RECT 29.00 34.00 31.00 36.00 ;
+            RECT 29.00 29.00 31.00 31.00 ;
+            RECT 29.00 24.00 31.00 26.00 ;
+            RECT 29.00 19.00 31.00 21.00 ;
+            RECT 29.00 14.00 31.00 16.00 ;
+        END
+    END i1
     PIN vdd
         DIRECTION INOUT ;
         USE power ;
@@ -8756,6 +8756,18 @@ MACRO nxr2_x4
             RECT 49.00 9.00 51.00 11.00 ;
         END
     END nq
+    PIN i1
+        DIRECTION INPUT ;
+        PORT
+            LAYER L_ALU1 ;
+            RECT 34.00 39.00 36.00 41.00 ;
+            RECT 34.00 34.00 36.00 36.00 ;
+            RECT 34.00 29.00 36.00 31.00 ;
+            RECT 34.00 24.00 36.00 26.00 ;
+            RECT 34.00 19.00 36.00 21.00 ;
+            RECT 34.00 14.00 36.00 16.00 ;
+        END
+    END i1
     PIN i0
         DIRECTION INPUT ;
         PORT
@@ -8769,18 +8781,6 @@ MACRO nxr2_x4
             RECT 9.00 9.00 11.00 11.00 ;
         END
     END i0
-    PIN i1
-        DIRECTION INPUT ;
-        PORT
-            LAYER L_ALU1 ;
-            RECT 34.00 39.00 36.00 41.00 ;
-            RECT 34.00 34.00 36.00 36.00 ;
-            RECT 34.00 29.00 36.00 31.00 ;
-            RECT 34.00 24.00 36.00 26.00 ;
-            RECT 34.00 19.00 36.00 21.00 ;
-            RECT 34.00 14.00 36.00 16.00 ;
-        END
-    END i1
     PIN vdd
         DIRECTION INOUT ;
         USE power ;
@@ -9855,39 +9855,6 @@ MACRO oa2a22_x2
             RECT 39.00 9.00 41.00 11.00 ;
         END
     END q
-    PIN i3
-        DIRECTION INPUT ;
-        PORT
-            LAYER L_ALU1 ;
-            RECT 24.00 29.00 26.00 31.00 ;
-            RECT 24.00 24.00 26.00 26.00 ;
-            RECT 24.00 19.00 26.00 21.00 ;
-            RECT 24.00 14.00 26.00 16.00 ;
-            RECT 24.00 9.00 26.00 11.00 ;
-        END
-    END i3
-    PIN i2
-        DIRECTION INPUT ;
-        PORT
-            LAYER L_ALU1 ;
-            RECT 19.00 29.00 21.00 31.00 ;
-            RECT 19.00 24.00 21.00 26.00 ;
-            RECT 19.00 19.00 21.00 21.00 ;
-            RECT 19.00 14.00 21.00 16.00 ;
-            RECT 19.00 9.00 21.00 11.00 ;
-        END
-    END i2
-    PIN i1
-        DIRECTION INPUT ;
-        PORT
-            LAYER L_ALU1 ;
-            RECT 9.00 29.00 11.00 31.00 ;
-            RECT 9.00 24.00 11.00 26.00 ;
-            RECT 9.00 19.00 11.00 21.00 ;
-            RECT 9.00 14.00 11.00 16.00 ;
-            RECT 9.00 9.00 11.00 11.00 ;
-        END
-    END i1
     PIN i0
         DIRECTION INPUT ;
         PORT
@@ -9899,6 +9866,39 @@ MACRO oa2a22_x2
             RECT 4.00 9.00 6.00 11.00 ;
         END
     END i0
+    PIN i1
+        DIRECTION INPUT ;
+        PORT
+            LAYER L_ALU1 ;
+            RECT 9.00 29.00 11.00 31.00 ;
+            RECT 9.00 24.00 11.00 26.00 ;
+            RECT 9.00 19.00 11.00 21.00 ;
+            RECT 9.00 14.00 11.00 16.00 ;
+            RECT 9.00 9.00 11.00 11.00 ;
+        END
+    END i1
+    PIN i2
+        DIRECTION INPUT ;
+        PORT
+            LAYER L_ALU1 ;
+            RECT 19.00 29.00 21.00 31.00 ;
+            RECT 19.00 24.00 21.00 26.00 ;
+            RECT 19.00 19.00 21.00 21.00 ;
+            RECT 19.00 14.00 21.00 16.00 ;
+            RECT 19.00 9.00 21.00 11.00 ;
+        END
+    END i2
+    PIN i3
+        DIRECTION INPUT ;
+        PORT
+            LAYER L_ALU1 ;
+            RECT 24.00 29.00 26.00 31.00 ;
+            RECT 24.00 24.00 26.00 26.00 ;
+            RECT 24.00 19.00 26.00 21.00 ;
+            RECT 24.00 14.00 26.00 16.00 ;
+            RECT 24.00 9.00 26.00 11.00 ;
+        END
+    END i3
     PIN vdd
         DIRECTION INOUT ;
         USE power ;
@@ -10152,36 +10152,26 @@ MACRO oa2a2a23_x2
             RECT 54.00 9.00 56.00 11.00 ;
         END
     END q
-    PIN i5
+    PIN i0
         DIRECTION INPUT ;
         PORT
             LAYER L_ALU1 ;
-            RECT 9.00 29.00 11.00 31.00 ;
-            RECT 9.00 24.00 11.00 26.00 ;
-            RECT 9.00 19.00 11.00 21.00 ;
-            RECT 9.00 14.00 11.00 16.00 ;
+            RECT 44.00 29.00 46.00 31.00 ;
+            RECT 44.00 24.00 46.00 26.00 ;
+            RECT 44.00 19.00 46.00 21.00 ;
+            RECT 44.00 14.00 46.00 16.00 ;
         END
-    END i5
-    PIN i2
+    END i0
+    PIN i1
         DIRECTION INPUT ;
         PORT
             LAYER L_ALU1 ;
-            RECT 24.00 29.00 26.00 31.00 ;
-            RECT 24.00 24.00 26.00 26.00 ;
-            RECT 24.00 19.00 26.00 21.00 ;
-            RECT 24.00 14.00 26.00 16.00 ;
+            RECT 39.00 29.00 41.00 31.00 ;
+            RECT 39.00 24.00 41.00 26.00 ;
+            RECT 39.00 19.00 41.00 21.00 ;
+            RECT 39.00 14.00 41.00 16.00 ;
         END
-    END i2
-    PIN i3
-        DIRECTION INPUT ;
-        PORT
-            LAYER L_ALU1 ;
-            RECT 19.00 29.00 21.00 31.00 ;
-            RECT 19.00 24.00 21.00 26.00 ;
-            RECT 19.00 19.00 21.00 21.00 ;
-            RECT 19.00 14.00 21.00 16.00 ;
-        END
-    END i3
+    END i1
     PIN i4
         DIRECTION INPUT ;
         PORT
@@ -10193,26 +10183,36 @@ MACRO oa2a2a23_x2
             RECT 14.00 14.00 16.00 16.00 ;
         END
     END i4
-    PIN i1
+    PIN i3
         DIRECTION INPUT ;
         PORT
             LAYER L_ALU1 ;
-            RECT 39.00 29.00 41.00 31.00 ;
-            RECT 39.00 24.00 41.00 26.00 ;
-            RECT 39.00 19.00 41.00 21.00 ;
-            RECT 39.00 14.00 41.00 16.00 ;
+            RECT 19.00 29.00 21.00 31.00 ;
+            RECT 19.00 24.00 21.00 26.00 ;
+            RECT 19.00 19.00 21.00 21.00 ;
+            RECT 19.00 14.00 21.00 16.00 ;
         END
-    END i1
-    PIN i0
+    END i3
+    PIN i2
         DIRECTION INPUT ;
         PORT
             LAYER L_ALU1 ;
-            RECT 44.00 29.00 46.00 31.00 ;
-            RECT 44.00 24.00 46.00 26.00 ;
-            RECT 44.00 19.00 46.00 21.00 ;
-            RECT 44.00 14.00 46.00 16.00 ;
+            RECT 24.00 29.00 26.00 31.00 ;
+            RECT 24.00 24.00 26.00 26.00 ;
+            RECT 24.00 19.00 26.00 21.00 ;
+            RECT 24.00 14.00 26.00 16.00 ;
         END
-    END i0
+    END i2
+    PIN i5
+        DIRECTION INPUT ;
+        PORT
+            LAYER L_ALU1 ;
+            RECT 9.00 29.00 11.00 31.00 ;
+            RECT 9.00 24.00 11.00 26.00 ;
+            RECT 9.00 19.00 11.00 21.00 ;
+            RECT 9.00 14.00 11.00 16.00 ;
+        END
+    END i5
     PIN vdd
         DIRECTION INOUT ;
         USE power ;
@@ -10982,47 +10982,6 @@ MACRO oa2ao222_x2
             RECT 44.00 9.00 46.00 11.00 ;
         END
     END q
-    PIN i3
-        DIRECTION INPUT ;
-        PORT
-            LAYER L_ALU1 ;
-            RECT 29.00 29.00 31.00 31.00 ;
-            RECT 29.00 24.00 31.00 26.00 ;
-            RECT 29.00 19.00 31.00 21.00 ;
-            RECT 29.00 14.00 31.00 16.00 ;
-        END
-    END i3
-    PIN i2
-        DIRECTION INPUT ;
-        PORT
-            LAYER L_ALU1 ;
-            RECT 24.00 29.00 26.00 31.00 ;
-            RECT 24.00 24.00 26.00 26.00 ;
-            RECT 24.00 19.00 26.00 21.00 ;
-            RECT 24.00 14.00 26.00 16.00 ;
-        END
-    END i2
-    PIN i4
-        DIRECTION INPUT ;
-        PORT
-            LAYER L_ALU1 ;
-            RECT 14.00 34.00 16.00 36.00 ;
-            RECT 14.00 29.00 16.00 31.00 ;
-            RECT 14.00 24.00 16.00 26.00 ;
-            RECT 14.00 19.00 16.00 21.00 ;
-        END
-    END i4
-    PIN i1
-        DIRECTION INPUT ;
-        PORT
-            LAYER L_ALU1 ;
-            RECT 9.00 34.00 11.00 36.00 ;
-            RECT 9.00 29.00 11.00 31.00 ;
-            RECT 9.00 24.00 11.00 26.00 ;
-            RECT 9.00 19.00 11.00 21.00 ;
-            RECT 9.00 14.00 11.00 16.00 ;
-        END
-    END i1
     PIN i0
         DIRECTION INPUT ;
         PORT
@@ -11035,6 +10994,47 @@ MACRO oa2ao222_x2
             RECT 4.00 9.00 6.00 11.00 ;
         END
     END i0
+    PIN i1
+        DIRECTION INPUT ;
+        PORT
+            LAYER L_ALU1 ;
+            RECT 9.00 34.00 11.00 36.00 ;
+            RECT 9.00 29.00 11.00 31.00 ;
+            RECT 9.00 24.00 11.00 26.00 ;
+            RECT 9.00 19.00 11.00 21.00 ;
+            RECT 9.00 14.00 11.00 16.00 ;
+        END
+    END i1
+    PIN i4
+        DIRECTION INPUT ;
+        PORT
+            LAYER L_ALU1 ;
+            RECT 14.00 34.00 16.00 36.00 ;
+            RECT 14.00 29.00 16.00 31.00 ;
+            RECT 14.00 24.00 16.00 26.00 ;
+            RECT 14.00 19.00 16.00 21.00 ;
+        END
+    END i4
+    PIN i2
+        DIRECTION INPUT ;
+        PORT
+            LAYER L_ALU1 ;
+            RECT 24.00 29.00 26.00 31.00 ;
+            RECT 24.00 24.00 26.00 26.00 ;
+            RECT 24.00 19.00 26.00 21.00 ;
+            RECT 24.00 14.00 26.00 16.00 ;
+        END
+    END i2
+    PIN i3
+        DIRECTION INPUT ;
+        PORT
+            LAYER L_ALU1 ;
+            RECT 29.00 29.00 31.00 31.00 ;
+            RECT 29.00 24.00 31.00 26.00 ;
+            RECT 29.00 19.00 31.00 21.00 ;
+            RECT 29.00 14.00 31.00 16.00 ;
+        END
+    END i3
     PIN vdd
         DIRECTION INOUT ;
         USE power ;
@@ -11143,47 +11143,6 @@ MACRO oa2ao222_x4
             RECT 44.00 9.00 46.00 11.00 ;
         END
     END q
-    PIN i3
-        DIRECTION INPUT ;
-        PORT
-            LAYER L_ALU1 ;
-            RECT 29.00 29.00 31.00 31.00 ;
-            RECT 29.00 24.00 31.00 26.00 ;
-            RECT 29.00 19.00 31.00 21.00 ;
-            RECT 29.00 14.00 31.00 16.00 ;
-        END
-    END i3
-    PIN i2
-        DIRECTION INPUT ;
-        PORT
-            LAYER L_ALU1 ;
-            RECT 24.00 29.00 26.00 31.00 ;
-            RECT 24.00 24.00 26.00 26.00 ;
-            RECT 24.00 19.00 26.00 21.00 ;
-            RECT 24.00 14.00 26.00 16.00 ;
-        END
-    END i2
-    PIN i4
-        DIRECTION INPUT ;
-        PORT
-            LAYER L_ALU1 ;
-            RECT 14.00 34.00 16.00 36.00 ;
-            RECT 14.00 29.00 16.00 31.00 ;
-            RECT 14.00 24.00 16.00 26.00 ;
-            RECT 14.00 19.00 16.00 21.00 ;
-        END
-    END i4
-    PIN i1
-        DIRECTION INPUT ;
-        PORT
-            LAYER L_ALU1 ;
-            RECT 9.00 34.00 11.00 36.00 ;
-            RECT 9.00 29.00 11.00 31.00 ;
-            RECT 9.00 24.00 11.00 26.00 ;
-            RECT 9.00 19.00 11.00 21.00 ;
-            RECT 9.00 14.00 11.00 16.00 ;
-        END
-    END i1
     PIN i0
         DIRECTION INPUT ;
         PORT
@@ -11196,6 +11155,47 @@ MACRO oa2ao222_x4
             RECT 4.00 9.00 6.00 11.00 ;
         END
     END i0
+    PIN i1
+        DIRECTION INPUT ;
+        PORT
+            LAYER L_ALU1 ;
+            RECT 9.00 34.00 11.00 36.00 ;
+            RECT 9.00 29.00 11.00 31.00 ;
+            RECT 9.00 24.00 11.00 26.00 ;
+            RECT 9.00 19.00 11.00 21.00 ;
+            RECT 9.00 14.00 11.00 16.00 ;
+        END
+    END i1
+    PIN i4
+        DIRECTION INPUT ;
+        PORT
+            LAYER L_ALU1 ;
+            RECT 14.00 34.00 16.00 36.00 ;
+            RECT 14.00 29.00 16.00 31.00 ;
+            RECT 14.00 24.00 16.00 26.00 ;
+            RECT 14.00 19.00 16.00 21.00 ;
+        END
+    END i4
+    PIN i2
+        DIRECTION INPUT ;
+        PORT
+            LAYER L_ALU1 ;
+            RECT 24.00 29.00 26.00 31.00 ;
+            RECT 24.00 24.00 26.00 26.00 ;
+            RECT 24.00 19.00 26.00 21.00 ;
+            RECT 24.00 14.00 26.00 16.00 ;
+        END
+    END i2
+    PIN i3
+        DIRECTION INPUT ;
+        PORT
+            LAYER L_ALU1 ;
+            RECT 29.00 29.00 31.00 31.00 ;
+            RECT 29.00 24.00 31.00 26.00 ;
+            RECT 29.00 19.00 31.00 21.00 ;
+            RECT 29.00 14.00 31.00 16.00 ;
+        END
+    END i3
     PIN vdd
         DIRECTION INOUT ;
         USE power ;
@@ -11311,70 +11311,6 @@ MACRO oa3ao322_x2
             RECT 4.00 9.00 6.00 11.00 ;
         END
     END q
-    PIN i2
-        DIRECTION INPUT ;
-        PORT
-            LAYER L_ALU1 ;
-            RECT 24.00 34.00 26.00 36.00 ;
-            RECT 24.00 29.00 26.00 31.00 ;
-            RECT 24.00 24.00 26.00 26.00 ;
-            RECT 24.00 19.00 26.00 21.00 ;
-        END
-    END i2
-    PIN i1
-        DIRECTION INPUT ;
-        PORT
-            LAYER L_ALU1 ;
-            RECT 19.00 34.00 21.00 36.00 ;
-            RECT 19.00 29.00 21.00 31.00 ;
-            RECT 19.00 24.00 21.00 26.00 ;
-            RECT 19.00 19.00 21.00 21.00 ;
-            RECT 19.00 14.00 21.00 16.00 ;
-        END
-    END i1
-    PIN i6
-        DIRECTION INPUT ;
-        PORT
-            LAYER L_ALU1 ;
-            RECT 29.00 34.00 31.00 36.00 ;
-            RECT 29.00 29.00 31.00 31.00 ;
-            RECT 29.00 24.00 31.00 26.00 ;
-            RECT 29.00 19.00 31.00 21.00 ;
-        END
-    END i6
-    PIN i3
-        DIRECTION INPUT ;
-        PORT
-            LAYER L_ALU1 ;
-            RECT 39.00 34.00 41.00 36.00 ;
-            RECT 39.00 29.00 41.00 31.00 ;
-            RECT 39.00 24.00 41.00 26.00 ;
-            RECT 39.00 19.00 41.00 21.00 ;
-            RECT 39.00 14.00 41.00 16.00 ;
-        END
-    END i3
-    PIN i5
-        DIRECTION INPUT ;
-        PORT
-            LAYER L_ALU1 ;
-            RECT 49.00 34.00 51.00 36.00 ;
-            RECT 49.00 29.00 51.00 31.00 ;
-            RECT 49.00 24.00 51.00 26.00 ;
-            RECT 49.00 19.00 51.00 21.00 ;
-            RECT 49.00 14.00 51.00 16.00 ;
-        END
-    END i5
-    PIN i4
-        DIRECTION INPUT ;
-        PORT
-            LAYER L_ALU1 ;
-            RECT 44.00 34.00 46.00 36.00 ;
-            RECT 44.00 29.00 46.00 31.00 ;
-            RECT 44.00 24.00 46.00 26.00 ;
-            RECT 44.00 19.00 46.00 21.00 ;
-            RECT 44.00 14.00 46.00 16.00 ;
-        END
-    END i4
     PIN i0
         DIRECTION INPUT ;
         PORT
@@ -11386,6 +11322,70 @@ MACRO oa3ao322_x2
             RECT 14.00 14.00 16.00 16.00 ;
         END
     END i0
+    PIN i4
+        DIRECTION INPUT ;
+        PORT
+            LAYER L_ALU1 ;
+            RECT 44.00 34.00 46.00 36.00 ;
+            RECT 44.00 29.00 46.00 31.00 ;
+            RECT 44.00 24.00 46.00 26.00 ;
+            RECT 44.00 19.00 46.00 21.00 ;
+            RECT 44.00 14.00 46.00 16.00 ;
+        END
+    END i4
+    PIN i5
+        DIRECTION INPUT ;
+        PORT
+            LAYER L_ALU1 ;
+            RECT 49.00 34.00 51.00 36.00 ;
+            RECT 49.00 29.00 51.00 31.00 ;
+            RECT 49.00 24.00 51.00 26.00 ;
+            RECT 49.00 19.00 51.00 21.00 ;
+            RECT 49.00 14.00 51.00 16.00 ;
+        END
+    END i5
+    PIN i3
+        DIRECTION INPUT ;
+        PORT
+            LAYER L_ALU1 ;
+            RECT 39.00 34.00 41.00 36.00 ;
+            RECT 39.00 29.00 41.00 31.00 ;
+            RECT 39.00 24.00 41.00 26.00 ;
+            RECT 39.00 19.00 41.00 21.00 ;
+            RECT 39.00 14.00 41.00 16.00 ;
+        END
+    END i3
+    PIN i6
+        DIRECTION INPUT ;
+        PORT
+            LAYER L_ALU1 ;
+            RECT 29.00 34.00 31.00 36.00 ;
+            RECT 29.00 29.00 31.00 31.00 ;
+            RECT 29.00 24.00 31.00 26.00 ;
+            RECT 29.00 19.00 31.00 21.00 ;
+        END
+    END i6
+    PIN i1
+        DIRECTION INPUT ;
+        PORT
+            LAYER L_ALU1 ;
+            RECT 19.00 34.00 21.00 36.00 ;
+            RECT 19.00 29.00 21.00 31.00 ;
+            RECT 19.00 24.00 21.00 26.00 ;
+            RECT 19.00 19.00 21.00 21.00 ;
+            RECT 19.00 14.00 21.00 16.00 ;
+        END
+    END i1
+    PIN i2
+        DIRECTION INPUT ;
+        PORT
+            LAYER L_ALU1 ;
+            RECT 24.00 34.00 26.00 36.00 ;
+            RECT 24.00 29.00 26.00 31.00 ;
+            RECT 24.00 24.00 26.00 26.00 ;
+            RECT 24.00 19.00 26.00 21.00 ;
+        END
+    END i2
     PIN vdd
         DIRECTION INOUT ;
         USE power ;
@@ -11501,70 +11501,6 @@ MACRO oa3ao322_x4
             RECT 9.00 9.00 11.00 11.00 ;
         END
     END q
-    PIN i3
-        DIRECTION INPUT ;
-        PORT
-            LAYER L_ALU1 ;
-            RECT 44.00 34.00 46.00 36.00 ;
-            RECT 44.00 29.00 46.00 31.00 ;
-            RECT 44.00 24.00 46.00 26.00 ;
-            RECT 44.00 19.00 46.00 21.00 ;
-            RECT 44.00 14.00 46.00 16.00 ;
-        END
-    END i3
-    PIN i0
-        DIRECTION INPUT ;
-        PORT
-            LAYER L_ALU1 ;
-            RECT 19.00 34.00 21.00 36.00 ;
-            RECT 19.00 29.00 21.00 31.00 ;
-            RECT 19.00 24.00 21.00 26.00 ;
-            RECT 19.00 19.00 21.00 21.00 ;
-            RECT 19.00 14.00 21.00 16.00 ;
-        END
-    END i0
-    PIN i5
-        DIRECTION INPUT ;
-        PORT
-            LAYER L_ALU1 ;
-            RECT 54.00 34.00 56.00 36.00 ;
-            RECT 54.00 29.00 56.00 31.00 ;
-            RECT 54.00 24.00 56.00 26.00 ;
-            RECT 54.00 19.00 56.00 21.00 ;
-            RECT 54.00 14.00 56.00 16.00 ;
-        END
-    END i5
-    PIN i4
-        DIRECTION INPUT ;
-        PORT
-            LAYER L_ALU1 ;
-            RECT 49.00 34.00 51.00 36.00 ;
-            RECT 49.00 29.00 51.00 31.00 ;
-            RECT 49.00 24.00 51.00 26.00 ;
-            RECT 49.00 19.00 51.00 21.00 ;
-            RECT 49.00 14.00 51.00 16.00 ;
-        END
-    END i4
-    PIN i6
-        DIRECTION INPUT ;
-        PORT
-            LAYER L_ALU1 ;
-            RECT 34.00 34.00 36.00 36.00 ;
-            RECT 34.00 29.00 36.00 31.00 ;
-            RECT 34.00 24.00 36.00 26.00 ;
-            RECT 34.00 19.00 36.00 21.00 ;
-        END
-    END i6
-    PIN i2
-        DIRECTION INPUT ;
-        PORT
-            LAYER L_ALU1 ;
-            RECT 29.00 34.00 31.00 36.00 ;
-            RECT 29.00 29.00 31.00 31.00 ;
-            RECT 29.00 24.00 31.00 26.00 ;
-            RECT 29.00 19.00 31.00 21.00 ;
-        END
-    END i2
     PIN i1
         DIRECTION INPUT ;
         PORT
@@ -11576,6 +11512,70 @@ MACRO oa3ao322_x4
             RECT 24.00 14.00 26.00 16.00 ;
         END
     END i1
+    PIN i2
+        DIRECTION INPUT ;
+        PORT
+            LAYER L_ALU1 ;
+            RECT 29.00 34.00 31.00 36.00 ;
+            RECT 29.00 29.00 31.00 31.00 ;
+            RECT 29.00 24.00 31.00 26.00 ;
+            RECT 29.00 19.00 31.00 21.00 ;
+        END
+    END i2
+    PIN i6
+        DIRECTION INPUT ;
+        PORT
+            LAYER L_ALU1 ;
+            RECT 34.00 34.00 36.00 36.00 ;
+            RECT 34.00 29.00 36.00 31.00 ;
+            RECT 34.00 24.00 36.00 26.00 ;
+            RECT 34.00 19.00 36.00 21.00 ;
+        END
+    END i6
+    PIN i4
+        DIRECTION INPUT ;
+        PORT
+            LAYER L_ALU1 ;
+            RECT 49.00 34.00 51.00 36.00 ;
+            RECT 49.00 29.00 51.00 31.00 ;
+            RECT 49.00 24.00 51.00 26.00 ;
+            RECT 49.00 19.00 51.00 21.00 ;
+            RECT 49.00 14.00 51.00 16.00 ;
+        END
+    END i4
+    PIN i5
+        DIRECTION INPUT ;
+        PORT
+            LAYER L_ALU1 ;
+            RECT 54.00 34.00 56.00 36.00 ;
+            RECT 54.00 29.00 56.00 31.00 ;
+            RECT 54.00 24.00 56.00 26.00 ;
+            RECT 54.00 19.00 56.00 21.00 ;
+            RECT 54.00 14.00 56.00 16.00 ;
+        END
+    END i5
+    PIN i0
+        DIRECTION INPUT ;
+        PORT
+            LAYER L_ALU1 ;
+            RECT 19.00 34.00 21.00 36.00 ;
+            RECT 19.00 29.00 21.00 31.00 ;
+            RECT 19.00 24.00 21.00 26.00 ;
+            RECT 19.00 19.00 21.00 21.00 ;
+            RECT 19.00 14.00 21.00 16.00 ;
+        END
+    END i0
+    PIN i3
+        DIRECTION INPUT ;
+        PORT
+            LAYER L_ALU1 ;
+            RECT 44.00 34.00 46.00 36.00 ;
+            RECT 44.00 29.00 46.00 31.00 ;
+            RECT 44.00 24.00 46.00 26.00 ;
+            RECT 44.00 19.00 46.00 21.00 ;
+            RECT 44.00 14.00 46.00 16.00 ;
+        END
+    END i3
     PIN vdd
         DIRECTION INOUT ;
         USE power ;
@@ -12531,6 +12531,51 @@ MACRO sff3_x4
             RECT 129.00 9.00 131.00 11.00 ;
         END
     END q
+    PIN i0
+        DIRECTION INPUT ;
+        PORT
+            LAYER L_ALU1 ;
+            RECT 44.00 24.00 46.00 26.00 ;
+            LAYER L_ALU1 ;
+            RECT 39.00 29.00 41.00 31.00 ;
+            LAYER L_ALU1 ;
+            RECT 39.00 19.00 41.00 21.00 ;
+        END
+    END i0
+    PIN cmd0
+        DIRECTION INPUT ;
+        PORT
+            LAYER L_ALU1 ;
+            RECT 34.00 29.00 36.00 31.00 ;
+            RECT 34.00 24.00 36.00 26.00 ;
+            RECT 34.00 19.00 36.00 21.00 ;
+        END
+    END cmd0
+    PIN i1
+        DIRECTION INPUT ;
+        PORT
+            LAYER L_ALU1 ;
+            RECT 24.00 24.00 26.00 26.00 ;
+        END
+    END i1
+    PIN i2
+        DIRECTION INPUT ;
+        PORT
+            LAYER L_ALU1 ;
+            RECT 14.00 24.00 16.00 26.00 ;
+        END
+    END i2
+    PIN cmd1
+        DIRECTION INPUT ;
+        PORT
+            LAYER L_ALU1 ;
+            RECT 4.00 34.00 6.00 36.00 ;
+            RECT 4.00 29.00 6.00 31.00 ;
+            RECT 4.00 24.00 6.00 26.00 ;
+            RECT 4.00 19.00 6.00 21.00 ;
+            RECT 4.00 14.00 6.00 16.00 ;
+        END
+    END cmd1
     PIN ck
         DIRECTION INPUT ;
         PORT
@@ -12543,51 +12588,6 @@ MACRO sff3_x4
             RECT 59.00 9.00 61.00 11.00 ;
         END
     END ck
-    PIN cmd1
-        DIRECTION INPUT ;
-        PORT
-            LAYER L_ALU1 ;
-            RECT 4.00 34.00 6.00 36.00 ;
-            RECT 4.00 29.00 6.00 31.00 ;
-            RECT 4.00 24.00 6.00 26.00 ;
-            RECT 4.00 19.00 6.00 21.00 ;
-            RECT 4.00 14.00 6.00 16.00 ;
-        END
-    END cmd1
-    PIN i2
-        DIRECTION INPUT ;
-        PORT
-            LAYER L_ALU1 ;
-            RECT 14.00 24.00 16.00 26.00 ;
-        END
-    END i2
-    PIN i1
-        DIRECTION INPUT ;
-        PORT
-            LAYER L_ALU1 ;
-            RECT 24.00 24.00 26.00 26.00 ;
-        END
-    END i1
-    PIN cmd0
-        DIRECTION INPUT ;
-        PORT
-            LAYER L_ALU1 ;
-            RECT 34.00 29.00 36.00 31.00 ;
-            RECT 34.00 24.00 36.00 26.00 ;
-            RECT 34.00 19.00 36.00 21.00 ;
-        END
-    END cmd0
-    PIN i0
-        DIRECTION INPUT ;
-        PORT
-            LAYER L_ALU1 ;
-            RECT 39.00 19.00 41.00 21.00 ;
-            LAYER L_ALU1 ;
-            RECT 39.00 29.00 41.00 31.00 ;
-            LAYER L_ALU1 ;
-            RECT 44.00 24.00 46.00 26.00 ;
-        END
-    END i0
     PIN vdd
         DIRECTION INOUT ;
         USE power ;
@@ -12861,6 +12861,17 @@ MACRO ts_x4
             RECT 9.00 9.00 11.00 11.00 ;
         END
     END q
+    PIN i
+        DIRECTION INPUT ;
+        PORT
+            LAYER L_ALU1 ;
+            RECT 39.00 34.00 41.00 36.00 ;
+            RECT 39.00 29.00 41.00 31.00 ;
+            RECT 39.00 24.00 41.00 26.00 ;
+            RECT 39.00 19.00 41.00 21.00 ;
+            RECT 39.00 14.00 41.00 16.00 ;
+        END
+    END i
     PIN cmd
         DIRECTION INPUT ;
         PORT
@@ -12874,17 +12885,6 @@ MACRO ts_x4
             RECT 14.00 9.00 16.00 11.00 ;
         END
     END cmd
-    PIN i
-        DIRECTION INPUT ;
-        PORT
-            LAYER L_ALU1 ;
-            RECT 39.00 34.00 41.00 36.00 ;
-            RECT 39.00 29.00 41.00 31.00 ;
-            RECT 39.00 24.00 41.00 26.00 ;
-            RECT 39.00 19.00 41.00 21.00 ;
-            RECT 39.00 14.00 41.00 16.00 ;
-        END
-    END i
     PIN vdd
         DIRECTION INOUT ;
         USE power ;
@@ -12993,6 +12993,17 @@ MACRO ts_x8
             RECT 24.00 9.00 26.00 11.00 ;
         END
     END q
+    PIN i
+        DIRECTION INPUT ;
+        PORT
+            LAYER L_ALU1 ;
+            RECT 54.00 34.00 56.00 36.00 ;
+            RECT 54.00 29.00 56.00 31.00 ;
+            RECT 54.00 24.00 56.00 26.00 ;
+            RECT 54.00 19.00 56.00 21.00 ;
+            RECT 54.00 14.00 56.00 16.00 ;
+        END
+    END i
     PIN cmd
         DIRECTION INPUT ;
         PORT
@@ -13006,17 +13017,6 @@ MACRO ts_x8
             RECT 29.00 9.00 31.00 11.00 ;
         END
     END cmd
-    PIN i
-        DIRECTION INPUT ;
-        PORT
-            LAYER L_ALU1 ;
-            RECT 54.00 34.00 56.00 36.00 ;
-            RECT 54.00 29.00 56.00 31.00 ;
-            RECT 54.00 24.00 56.00 26.00 ;
-            RECT 54.00 19.00 56.00 21.00 ;
-            RECT 54.00 14.00 56.00 16.00 ;
-        END
-    END i
     PIN vdd
         DIRECTION INOUT ;
         USE power ;
@@ -13276,6 +13276,18 @@ MACRO xr2_x4
             RECT 49.00 9.00 51.00 11.00 ;
         END
     END q
+    PIN i1
+        DIRECTION INPUT ;
+        PORT
+            LAYER L_ALU1 ;
+            RECT 34.00 39.00 36.00 41.00 ;
+            RECT 34.00 34.00 36.00 36.00 ;
+            RECT 34.00 29.00 36.00 31.00 ;
+            RECT 34.00 24.00 36.00 26.00 ;
+            RECT 34.00 19.00 36.00 21.00 ;
+            RECT 34.00 14.00 36.00 16.00 ;
+        END
+    END i1
     PIN i0
         DIRECTION INPUT ;
         PORT
@@ -13289,18 +13301,6 @@ MACRO xr2_x4
             RECT 9.00 9.00 11.00 11.00 ;
         END
     END i0
-    PIN i1
-        DIRECTION INPUT ;
-        PORT
-            LAYER L_ALU1 ;
-            RECT 34.00 39.00 36.00 41.00 ;
-            RECT 34.00 34.00 36.00 36.00 ;
-            RECT 34.00 29.00 36.00 31.00 ;
-            RECT 34.00 24.00 36.00 26.00 ;
-            RECT 34.00 19.00 36.00 21.00 ;
-            RECT 34.00 14.00 36.00 16.00 ;
-        END
-    END i1
     PIN vdd
         DIRECTION INOUT ;
         USE power ;
