@@ -62,6 +62,14 @@ You can use the startx script to run the cygwin X server as follows :
 And then you can launch graal :
 > graal
 
+# Source Compilation with Lesstif
+# ===================================================================
+You may want to compile alliance sources by yourself under cygwin.
+If you encounter problems while linking or during the execution of
+graphical tools that use Lesstif (such as Graal), a work around 
+is to comment the following line in /usr/X11R6/lib/libXm.la 
+> #old_library='libXm.a'
+
 
 # EOF
 
