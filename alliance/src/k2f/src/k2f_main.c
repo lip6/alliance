@@ -152,6 +152,13 @@ int main( argc, argv )
 
   K2fFsmFigure = getfsmfig( InputFileName );
 
+  if ( ( IsFsmFigMulti( K2fFsmFigure    ) ) ||
+       ( IsFsmFigMixedRtl( K2fFsmFigure ) ) )
+  {
+    fprintf( stderr, "\tMulti FSM or Mixed RTL FSM not supported !\n" );
+    autexit( 1 );
+  }
+
   K2fFsmFigure->NAME = namealloc( OutputFileName );
   savefsmfig( K2fFsmFigure );
 
