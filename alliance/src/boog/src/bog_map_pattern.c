@@ -521,7 +521,7 @@ extern cell_list* cell_pattern(chain_list* expr)
         && (ABL_ATOM_VALUE(expr)==getablatomone()
          || ABL_ATOM_VALUE(expr)==getablatomzero())
         &&  ABL_ATOM_VALUE(expr)!=ABL_ATOM_VALUE(best_cell->ABL)) ) {
-      fprintf(stderr,"Mapping Error: No cell could match  '");
+      fprintf(stderr,"Library Error: No cell could match  '");
       display_abl(expr);
       if (ABL_ATOM(expr)) fprintf(stderr,"'\n");
       else fprintf(stderr,"'    (oper arity=%d)\n",ABL_ARITY(expr));
@@ -663,7 +663,7 @@ extern cell_list* cell_pattern_bus(biabl_list* biabl)
 
 
    if (!best_cell) {
-      fprintf(stderr,"Mapping Error: No cell could match\n");
+      fprintf(stderr,"Library Error: No cell could match\n");
       for ( ; biabl; biabl=biabl->NEXT) {
          fprintf(stderr,"BLOCK( ");
          display_abl(biabl->CNDABL);
@@ -811,7 +811,7 @@ extern cell_list* cell_pattern_reg(biabl_list* biabl)
    }  
 
    if (!best_cell) {
-      fprintf(stderr,"Mapping Error: No cell could match\n");
+      fprintf(stderr,"Library Error: No cell could match\n");
       for ( ; biabl; biabl=biabl->NEXT) {
          fprintf(stderr,"BLOCK( ");
          display_abl(biabl->CNDABL);

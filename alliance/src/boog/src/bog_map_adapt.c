@@ -167,7 +167,7 @@ static chain_list* loc_adapt_abl(chain_list* expr, float C)
       }
       ABL_ARITY(expr)=arity;   /*put back arity*/
       if (!cell) {
-         fprintf(stderr,"Mapping Error: No cell could match  '");
+         fprintf(stderr,"Library Error: No cell could match  '");
          display_abl(expr);
          if (ABL_ATOM(expr)) fprintf(stderr,"'\n");
          else fprintf(stderr,"'    (oper arity=%d)\n",ABL_ARITY(expr));
@@ -228,7 +228,7 @@ extern chain_list* adapt_abl(chain_list* expr)
 
       if (ABL_ATOM(expr)) {
          /*no buffer?!!!*/
-         fprintf(stderr,"Mapping Error: No cell could match  '");
+         fprintf(stderr,"Library Error: No cell could match  '");
          display_abl(expr);
          fprintf(stderr,"'\n");
          exit(1);
@@ -244,7 +244,7 @@ extern chain_list* adapt_abl(chain_list* expr)
       }
       ABL_ARITY(expr)=arity;   /*put back arity*/
       if (!cell) {
-         fprintf(stderr,"Mapping Error: No cell could match  '");
+         fprintf(stderr,"Library Error: No cell could match  '");
          display_abl(expr);
          fprintf(stderr,"'    (oper arity=%d)\n",ABL_ARITY(expr));
          exit(1);      

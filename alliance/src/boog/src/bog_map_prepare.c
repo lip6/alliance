@@ -167,7 +167,7 @@ extern cell_list* cell_prepare_bus(biabl_list* biabl)
    }
    
 
-   fprintf(stderr,"Mapping Error: No cell could match\n");
+   fprintf(stderr,"Library Error: No cell could match\n");
    for ( ; biabl; biabl=biabl->NEXT) {
       fprintf(stderr,"BLOCK( ");
       display_abl(biabl->CNDABL);
@@ -236,7 +236,7 @@ extern cell_list* cell_prepare_reg(biabl_list* biabl)
    }
    
 
-   fprintf(stderr,"Mapping Error: No cell could match\n");
+   fprintf(stderr,"Library Error: No cell could match\n");
    for ( ; biabl; biabl=biabl->NEXT) {
       fprintf(stderr,"BLOCK( ");
       display_abl(biabl->CNDABL);

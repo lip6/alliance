@@ -440,33 +440,33 @@ extern void control_lib()
       "Mapping Warning: 'ZERO' constant cell is missing in library\n");
    }
    if (!not) {
-      fprintf(stderr,"Mapping Error: 'NOT' cell is missing in library\n");
+      fprintf(stderr,"Library Error: 'NOT' cell is missing in library\n");
       exit(1);
    }
    
    if (!or) {
-      fprintf(stderr,"Mapping Error: 'OR' cell is missing in library\n");
+      fprintf(stderr,"Library Error: 'OR' cell is missing in library\n");
       exit(1);
    }
    else if (or->ARITY!=2) {
       fprintf(stderr,
-      "Mapping Error: 'OR 2' is missing in library\n");
+      "Library Error: 'OR 2' is missing in library\n");
       exit(1);
    }
 
    if (!and) {
-      fprintf(stderr,"Mapping Error: 'AND' cell is missing in library\n");
+      fprintf(stderr,"Library Error: 'AND' cell is missing in library\n");
       exit(1);
    }
    else if (and->ARITY!=2) {
       fprintf(stderr,
-      "Mapping Error: 'AND 2' is missing in library\n");
+      "Library Error: 'AND 2' is missing in library\n");
       exit(1);
    }
    
    if (xor && xor->ARITY!=2) {
       fprintf(stderr,
-      "Mapping Error: 'XOR 2' is missing in library\n");
+      "Library Error: 'XOR 2' is missing in library\n");
       exit(1);
    }
 

@@ -138,7 +138,7 @@ static int getgeneric(befig_list* befig, char* name)
       if (begen->NAME==name) return getvalue(begen);
    }
    
-   fprintf(stderr,"Mapping Error: generic '%s' not found in cell %s\n",
+   fprintf(stderr,"Library Error: generic '%s' not found in cell %s\n",
       name,befig->NAME);
    exit(1);
 }

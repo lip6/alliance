@@ -331,7 +331,7 @@ extern void library_reader(char* cell_directory)
 
    if (!vbe_list /*list of name*/) {
       fprintf(stderr,
-              "Mapping Error: no cell in directory '%s'\n", 
+              "Library Error: no cell in directory '%s'\n", 
               cell_directory?cell_directory:".");
       exit(1);
    }
