@@ -1,0 +1,39 @@
+ENTITY mx2_x4 IS
+GENERIC (
+  CONSTANT area 	 : NATURAL := 250000;
+  CONSTANT transistors	 : NATURAL := 14;
+  CONSTANT cin_cmd	 : NATURAL := 17;
+  CONSTANT cin_i0	 : NATURAL := 8;
+  CONSTANT cin_i1	 : NATURAL := 9;
+  CONSTANT tphh_cmd_q	 : NATURAL := 650;
+  CONSTANT rup_cmd_q	 : NATURAL := 890;
+  CONSTANT tplh_cmd_q	 : NATURAL := 641;
+  CONSTANT rup_cmd_q	 : NATURAL := 890;
+  CONSTANT tpll_cmd_q	 : NATURAL := 687;
+  CONSTANT rdown_cmd_q	 : NATURAL := 800;
+  CONSTANT tphl_cmd_q	 : NATURAL := 583;
+  CONSTANT rdown_cmd_q	 : NATURAL := 800;
+  CONSTANT tphh_i1_q	 : NATURAL := 584;
+  CONSTANT rup_i1_q	 : NATURAL := 890;
+  CONSTANT tpll_i1_q	 : NATURAL := 599;
+  CONSTANT rdown_i1_q	 : NATURAL := 800;
+  CONSTANT tphh_i0_q	 : NATURAL := 584;
+  CONSTANT rup_i0_q	 : NATURAL := 890;
+  CONSTANT tpll_i0_q	 : NATURAL := 599;
+  CONSTANT rdown_i0_q	 : NATURAL := 800
+);
+PORT (
+  cmd	 : in  BIT;
+  i0	 : in  BIT;
+  i1	 : in  BIT;
+  q	 : out BIT;
+  vdd	 : in  BIT;
+  vss	 : in  BIT
+);
+END mx2_x4;
+
+ARCHITECTURE VBE OF mx2_x4 IS
+
+BEGIN
+  q <= ((i1 and cmd) or (not (cmd) and i0));
+END;

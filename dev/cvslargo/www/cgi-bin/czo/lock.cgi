@@ -1,10 +1,10 @@
-#!/usr/bin/perl -w
+#!/usr/local/bin/perl -w
 
 use Fcntl ':flock'; # import LOCK_* constants
 
 $res=flock("/tmp/my.lock", LOCK_EX);
-print $res . "\n";
-# system ("ls -alrt /tmp");
+print $res;
+system ("ls -alrt /tmp");
 sleep 10;
 
 exit 0

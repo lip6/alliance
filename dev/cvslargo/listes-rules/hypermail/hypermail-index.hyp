@@ -1,15 +1,17 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 3.2 Final//EN">
 <HTML>
 <HEAD>
-<META NAME="description" content="Alliance mail archives">
-<META NAME="keywords" content="Alliance mail archives">
+<META NAME="description" content="Hypermail Development List Archives">
+<META NAME="keywords" content="hypermail Archives, hypermail, email, mail2html, Email Archives">
 <TITLE>%l: %s</TITLE>
 <LINK REV="made" HREF="mailto:%m">
-
-
 </HEAD>
-<!--#include virtual="/ssi/alliance_header.html" -->
 
-<H2>%l<BR>%s</H2>
-<P ALIGN=CENTER><IMG SRC="/ssi/img/bar.gif" ALT="---------"></P>
+<!--#include virtual="/ssi/asim.header/" -->
+
+<BODY>
+
+<H1 ALIGN=CENTER>%l<BR>%s</H1>
+<P ALIGN=CENTER><IMG SRC="/ssi/bar.gif" ALT="---------"></P>
 <BLOCKQUOTE>
+

@@ -1,0 +1,23 @@
+ENTITY buf_x8 IS
+GENERIC (
+  CONSTANT area 	 : NATURAL := 200000;
+  CONSTANT transistors	 : NATURAL := 10;
+  CONSTANT cin_i	 : NATURAL := 15;
+  CONSTANT tphh_i_q	 : NATURAL := 354;
+  CONSTANT rup_i_q	 : NATURAL := 440;
+  CONSTANT tpll_i_q	 : NATURAL := 423;
+  CONSTANT rdown_i_q	 : NATURAL := 400
+);
+PORT (
+  i	 : in  BIT;
+  q	 : out BIT;
+  vdd	 : in  BIT;
+  vss	 : in  BIT
+);
+END buf_x8;
+
+ARCHITECTURE VBE OF buf_x8 IS
+
+BEGIN
+  q <= i;
+END;

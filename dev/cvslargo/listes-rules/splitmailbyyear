@@ -10,8 +10,7 @@ FIRST=0;
 if ( $0 ~ /no email/ )
   gsub(/\(no email\)/,"NOMAIL");
   
-YEAR=$7;
-if (YEAR<1990) {YEAR=2000}
+YEAR=$7
 }
 
    print $0 >> "/tmp/hypczo/"YEAR ;

@@ -1,3 +1,0 @@
-cell : grmrbom_c
-Leftmost body tie line for pwell polarisation of the transistor array, for the
-512 words rom..

@@ -1,0 +1,37 @@
+ENTITY xr2_x4 IS
+GENERIC (
+  CONSTANT area 	 : NATURAL := 300000;
+  CONSTANT transistors	 : NATURAL := 16;
+  CONSTANT cin_i0	 : NATURAL := 20;
+  CONSTANT cin_i1	 : NATURAL := 21;
+  CONSTANT tphh_i0_q	 : NATURAL := 490;
+  CONSTANT rup_i0_q	 : NATURAL := 890;
+  CONSTANT tplh_i0_q	 : NATURAL := 573;
+  CONSTANT rup_i0_q	 : NATURAL := 890;
+  CONSTANT tpll_i0_q	 : NATURAL := 506;
+  CONSTANT rdown_i0_q	 : NATURAL := 800;
+  CONSTANT tphl_i0_q	 : NATURAL := 531;
+  CONSTANT rdown_i0_q	 : NATURAL := 800;
+  CONSTANT tphh_i1_q	 : NATURAL := 364;
+  CONSTANT rup_i1_q	 : NATURAL := 890;
+  CONSTANT tplh_i1_q	 : NATURAL := 668;
+  CONSTANT rup_i1_q	 : NATURAL := 890;
+  CONSTANT tpll_i1_q	 : NATURAL := 580;
+  CONSTANT rdown_i1_q	 : NATURAL := 800;
+  CONSTANT tphl_i1_q	 : NATURAL := 551;
+  CONSTANT rdown_i1_q	 : NATURAL := 800
+);
+PORT (
+  i0	 : in  BIT;
+  i1	 : in  BIT;
+  q	 : out BIT;
+  vdd	 : in  BIT;
+  vss	 : in  BIT
+);
+END xr2_x4;
+
+ARCHITECTURE VBE OF xr2_x4 IS
+
+BEGIN
+  q <= (i0 xor i1);
+END;

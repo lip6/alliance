@@ -1,4 +1,0 @@
-cell : grmrwb_c
-Rom word lines Buffer.
-This is the word line buffer that bufferizes the set of decoded words lines
-for evaluation.

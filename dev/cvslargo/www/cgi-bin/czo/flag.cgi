@@ -36,7 +36,7 @@ then
 cat << EOF
 
 <Center>
-<A href=${URI_DOC}.fr.html><img src="http://www-asim.lip6.fr/ssi/img/flag_fr.gif" alt="[FRENCH]" width="34" height="27" border=0 ></A> <A href=${URI_DOC}.gb.html><img src="http://www-asim.lip6.fr/ssi/img/flag_gb.gif" alt="[ENGLISH]" width="34" height="27" border=0></A>
+<A href=${URI_DOC}.fr.html><img src="http://www-asim.lip6.fr/ssi/flag_fr.gif" alt="[FRENCH]" width="34" height="27" border=0 ></A> <A href=${URI_DOC}.gb.html><img src="http://www-asim.lip6.fr/ssi/flag_gb.gif" alt="[ENGLISH]" width="34" height="27" border=0></A>
 <br clear=all>
 </Center>
 

@@ -1,0 +1,34 @@
+ENTITY ts_x4 IS
+GENERIC (
+  CONSTANT area 	 : NATURAL := 250000;
+  CONSTANT transistors	 : NATURAL := 12;
+  CONSTANT cin_cmd	 : NATURAL := 19;
+  CONSTANT cin_i	 : NATURAL := 8;
+  CONSTANT tphh_cmd_q	 : NATURAL := 520;
+  CONSTANT rup_cmd_q	 : NATURAL := 890;
+  CONSTANT tphl_cmd_q	 : NATURAL := 410;
+  CONSTANT rdown_cmd_q	 : NATURAL := 800;
+  CONSTANT tphh_i_q	 : NATURAL := 486;
+  CONSTANT rup_i_q	 : NATURAL := 890;
+  CONSTANT tpll_i_q	 : NATURAL := 453;
+  CONSTANT rdown_i_q	 : NATURAL := 800
+);
+PORT (
+  cmd	 : in  BIT;
+  i	 : in  BIT;
+  q	 : out MUX_BIT BUS;
+  vdd	 : in  BIT;
+  vss	 : in  BIT
+);
+END ts_x4;
+
+ARCHITECTURE VBE OF ts_x4 IS
+
+BEGIN
+
+  label0 : BLOCK (cmd = '1')
+  BEGIN
+    q <= GUARDED i;
+  END BLOCK label0;
+
+END;

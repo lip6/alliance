@@ -1,0 +1,23 @@
+ENTITY inv_x2 IS
+GENERIC (
+  CONSTANT area 	 : NATURAL := 75000;
+  CONSTANT transistors	 : NATURAL := 2;
+  CONSTANT cin_i	 : NATURAL := 12;
+  CONSTANT tplh_i_nq	 : NATURAL := 180;
+  CONSTANT rup_i_nq	 : NATURAL := 2410;
+  CONSTANT tphl_i_nq	 : NATURAL := 70;
+  CONSTANT rdown_i_nq	 : NATURAL := 1600
+);
+PORT (
+  i	 : in  BIT;
+  nq	 : out BIT;
+  vdd	 : in  BIT;
+  vss	 : in  BIT
+);
+END inv_x2;
+
+ARCHITECTURE VBE OF inv_x2 IS
+
+BEGIN
+  nq <= not (i);
+END;

@@ -1,4 +1,0 @@
-cell : grrmt_c
-Matrix through route cell.
-Produces netcompare uncomplete identification because of no bulk polarisation.
-This is a unevitable topological constraint.
