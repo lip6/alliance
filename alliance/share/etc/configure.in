@@ -4,10 +4,10 @@
 #
 # Alliance CAD system configure.in 
 # (C) 1997 Czo  -- <Olivier.Sirol@lip6.fr>
-# $Id: configure.in,v 1.9 2000/03/24 15:23:02 czo Exp $
+# $Id: configure.in,v 1.10 2000/09/07 11:42:14 czo Exp $
 #
 
-AC_REVISION($Revision: 1.9 $)dnl
+AC_REVISION($Revision: 1.10 $)dnl
 
 AC_INIT(configure.in)
 
@@ -231,6 +231,12 @@ AC_CHECKING(%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%  Headers and Libraries...)
 #AC_CHECK_LIB(xforms, fl_init_font, $TRUE,
 #  AC_MSG_ERROR([please install xforms]))
 
+
+if test "$ALLIANCE_OS" = Solaris ; then
+    x_includes=/usr/openwin/include
+    x_libraries=/usr/openwin/lib
+fi
+
 AC_PATH_XTRA
 
 #dnl Check for Motif include files location.
@@ -284,14 +290,35 @@ fi
 AC_SUBST(GUI_INC_LOC)
 AC_SUBST(GUI_LIB_LOC)
 
+# Under Cygwin I had problems with the order of libs...
+if test "$ALLIANCE_OS" = Cygwin ; then
+    X_PRE_LIBS="-lXt $X_PRE_LIBS"
+fi
+
+# Check if a small X app compiles
+
+OLD_LIBS=$LIBS
+OLD_CFLAGS=$CFLAGS
+LIBS="$OLD_LIBS $X_LIBS $X_EXTRA_LIBS $X_PRE_LIBS -lXt -lX11"
+CFLAGS="$OLD_CFLAGS $X_CFLAGS"
+AC_MSG_CHECKING(if you can link X11 app)
+AC_TRY_LINK([#include <stdio.h>
+#include <X11/Xlib.h>],
+[ XOpenDisplay (":0");],
+AC_MSG_RESULT(yes),
+AC_MSG_RESULT(ERROR: BAD X11 environment)
+)
+LIBS=$OLD_LIBS
+CFLAGS=$OLD_CFLAGS
+    
 # Check if the motif lib needs libXintl to link ok
 
 OLD_LIBS=$LIBS
 OLD_CFLAGS=$CFLAGS
-LIBS="$LIBS -L$GUI_LIB_LOC -lXm $X_LIBS $X_EXTRA_LIBS $X_PRE_LIBS -lXt -lX11"
-CFLAGS="$CFLAGS $X_CFLAGS -I$GUI_INC_LOC"
+LIBS="$OLD_LIBS -L$GUI_LIB_LOC -lXm $X_LIBS $X_EXTRA_LIBS $X_PRE_LIBS -lXt -lX11"
+CFLAGS="$OLD_CFLAGS $X_CFLAGS -I$GUI_INC_LOC"
 
-AC_MSG_CHECKING(if motif requires lXintl)
+AC_MSG_CHECKING(if you can link Motif/LessTif app)
 AC_TRY_LINK([# include <Xm/Xm.h>
 # include <Xm/FileSB.h>
 # include <Xm/MessageB.h>
@@ -301,13 +328,34 @@ AC_TRY_LINK([# include <Xm/Xm.h>
   Widget toplevel;
   XmString xm_string;
   Arg args[1];
-  toplevel = XtVaAppInitialize(&app, "Demos", NULL, 0, NULL, NULL, NULL, NULL);
+  toplevel = XtVaAppInitialize(&app, "Demos", 0, 0, 0, 0, 0, 0);
   xm_string = XmStringCreateSimple("Vive Alliance");
   XtSetArg(args[0], XmNmessageString, xm_string);
   XmStringFree(xm_string);
   XtAppMainLoop( app );],
-AC_MSG_RESULT(no OK),
-AC_MSG_RESULT(yes Xintl needed); X_PRE_LIBS="$X_PRE_LIBS -lXintl")
+AC_MSG_RESULT(yes),
+
+LIBS="$OLD_LIBS -L$GUI_LIB_LOC -lXm $X_LIBS $X_EXTRA_LIBS $X_PRE_LIBS -lXt -lX11"
+CFLAGS="$OLD_CFLAGS $X_CFLAGS -I$GUI_INC_LOC"
+
+AC_TRY_LINK([# include <Xm/Xm.h>
+# include <Xm/FileSB.h>
+# include <Xm/MessageB.h>
+# include <Xm/SelectioB.h>
+# include <Xm/SeparatoG.h>],
+[ XtAppContext app;
+  Widget toplevel;
+  XmString xm_string;
+  Arg args[1];
+  toplevel = XtVaAppInitialize(&app, "Demos", 0, 0, 0, 0, 0, 0);
+  xm_string = XmStringCreateSimple("Vive Alliance");
+  XtSetArg(args[0], XmNmessageString, xm_string);
+  XmStringFree(xm_string);
+  XtAppMainLoop( app );],
+AC_MSG_RESULT(yes, Xintl needed); X_PRE_LIBS="$X_PRE_LIBS -lXintl",
+AC_MSG_RESULT(ERROR: BAD Motif/LessTif environment)
+)
+)
 
 LIBS=$OLD_LIBS
 CFLAGS=$OLD_CFLAGS
@@ -363,7 +411,6 @@ AC_SUBST(GNU_INC_LOC)
 AC_SUBST(GNU_LIB_LOC)
 
 
-
 ################################################################### Headers...
 AC_STDC_HEADERS
 
@@ -373,6 +420,17 @@ AC_STDC_HEADERS
 
 #AC_MSG_RESULT([kernel name : "$KERNEL_FILE"])
 
+################################################################### OS specific...
+
+AC_MSG_CHECKING(SA_RESTART)
+AC_TRY_LINK([#include <stdio.h>
+#include <stdlib.h>
+#include <signal.h>],
+[struct sigaction sgct;
+sgct.sa_flags    = SA_RESTART;
+sigaction( SIGCHLD, &sgct , NULL );],
+AC_MSG_RESULT(yes); AUTO_HAS_SA_RESTART=1,
+AC_MSG_RESULT(no))
 
 ################################################################### Alliance ALLIANCE_TOP
 AC_MSG_CHECKING(where the Alliance package was installed)
