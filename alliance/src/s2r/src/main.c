@@ -227,7 +227,7 @@ int main (argc, argv)
       mbk_model = getphfig (source_name, 'A');
       if (!root_conn)
          mbk_model->PHCON = NULL;
-      rds_model = S2Rfigmbkrds (mbk_model, one_level ? 0 : 1, sub_conn);
+      rds_model = S2Rfigmbkrds (mbk_model, one_level ? 0 : 1);
 
       /* Removing symbolic data structure */
 

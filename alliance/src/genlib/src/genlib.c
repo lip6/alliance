@@ -71,7 +71,7 @@
 #include "mbkgen.h"
 #define __GENLIB__
 #include "mgn.h"
-static char rcsid[] = "$Id: genlib.c,v 1.7 2002/06/07 13:04:42 fred Exp $";
+static char rcsid[] = "$Id";
 
 /*******************************************************************************
 * global variables used in genlib                                              *
@@ -2796,20 +2796,7 @@ lofig_list *ptfig;
       }
       ptchain = addchain(ptchain, (void *)ptsig);
    }
-   {
-   loins_list *ptins;
-   ptype_list *pt;
-
-      ptins = addloins(WORK_LOFIG, insname, ptfig, ptchain);
-      pt = getptype(ptfig->USER, LOGEN);
-      if (pt) {
-         logen_list *g;
-         ptins->USER = addptype(ptins->USER, LOGEN, NULL);
-         for (g = pt->DATA; g; g = g->NEXT) {
-            ptins->USER->DATA = (ptype_list *)duplogenlist(g, ptins->USER->DATA, g->NAME);
-         }
-      }
-   }
+   (void)addloins(WORK_LOFIG, insname, ptfig, ptchain);
    va_end(arg);
 }
 
@@ -3058,20 +3045,7 @@ chain_list *ptchain = NULL;
                   addchain((chain_list *)NULL, (void *)signame), 'I');
       ptchain = addchain(ptchain, (void *)ptsig);
    }
-   {
-   loins_list *ptins;
-   ptype_list *pt;
-
-      ptins = addloins(WORK_LOFIG, insname, ptfig, ptchain);
-      pt = getptype(ptfig->USER, LOGEN);
-      if (pt) {
-         logen_list *g;
-         ptins->USER = addptype(ptins->USER, LOGEN, NULL);
-         for (g = pt->DATA; g; g = g->NEXT) {
-            ptins->USER->DATA = (ptype_list *)duplogenlist(g, ptins->USER->DATA, g->NAME);
-         }
-      }
-   }
+   (void)addloins(WORK_LOFIG, insname, ptfig, ptchain);
    va_end(arg);
 }
 
@@ -3470,98 +3444,24 @@ chain_list *chain;
 }
 
 /*******************************************************************************
-* function LOGENLIST                                                               *
-*******************************************************************************/
-logen_list *genLOGENLIST(int type, ...)
-{
-va_list     ap;
-int         v;
-char       *s, *t;
-logen_list *g = NULL, *x = NULL;
-
-   va_start(ap, type);
-   while (type != GENTYPE_EMPTY) {
-      g = addlogen(g, NULL);
-      g->TYPE = type;
-      switch (type) {
-         case GENTYPE_VAL:
-         case GENTYPE_HEX:
-            g->VALUE.VAL = va_arg(ap, long);
-            break;
-         case GENTYPE_TEXT:
-            s = va_arg(ap, char *);
-            t = malloc((strlen(s) + 3) * sizeof(char));
-            sprintf(t, "\"%s\"", s);
-            g->VALUE.TEXT = namealloc(t);
-            free(t);
-            break;
-         case GENTYPE_BIT:
-            g->VALUE.CHAR = '0' + (va_arg(ap, long)&1);
-            break;
-         case GENTYPE_LIST:
-            g->VALUE.LIST = va_arg(ap, logen_list *);
-            break;
-         default:
-            (void)fflush(stdout);
-            (void)fputs("*** genlib error ***\n", stderr);
-            (void)fprintf(stderr, "Illegal LOGENLIST: unsupported generic type\n");
-            EXIT(1);
-      }
-      type = va_arg(ap, int);
-   }
-   return (logen_list *)reverse((chain_list *)g);
-}
-
-/*******************************************************************************
 * function LOGEN                                                               *
 *******************************************************************************/
-void genLOGEN(char *name, int type, ...)
+void genLOGEN(char *name, int type)
 {
 ptype_list *p = getptype(WORK_LOFIG->USER, LOGEN);
-va_list ap; /* We have a single argument, but of unknown type yet! */
-char *s, *t;
-logen_list *g;
 
    if (!p)
       p = WORK_LOFIG->USER = addptype(WORK_LOFIG->USER, LOGEN, NULL);
 
-   p->DATA = g = addlogen(p->DATA, name);
+   p->DATA = addlogen(p->DATA, name);
 
-   if (type < 0 && type > GENTYPE_MAX) {
+   if (type != INTEGER_GEN && type != STRING_GEN) {
       (void)fflush(stdout);
       (void)fputs("*** genlib error ***\n", stderr);
       (void)fprintf(stderr, "Illegal LOGEN: unsupported generic type\n");
       EXIT(1);
    }
-   g->TYPE = type;
-
-   va_start(ap, type);
-   switch (type) {
-      case GENTYPE_VAL:
-      case GENTYPE_HEX:
-         g->VALUE.VAL = va_arg(ap, long);
-         break;
-      case GENTYPE_TEXT:
-         s = va_arg(ap, char *);
-         t = malloc((strlen(s) + 3) * sizeof(char));
-         sprintf(t, "\"%s\"", s);
-         g->VALUE.TEXT = namealloc(t);
-         free(t);
-         break;
-      case GENTYPE_BIT:
-         g->VALUE.CHAR =  '0' + (va_arg(ap, long)&1);
-         break;
-      case GENTYPE_LIST:
-         g->VALUE.LIST = va_arg(ap, logen_list *);
-         break;
-      default:
-          (void)fflush(stdout);
-          (void)fputs("*** genlib error ***\n", stderr);
-          (void)fprintf(stderr, "Illegal LOGEN: unsupported generic type\n");
-          EXIT(1);
-   }
-   va_end(ap);
-   debuglogen(g, 0);
+   ((logen_list *)p->DATA)->TYPE = type;
 }
 
 /*******************************************************************************
@@ -3584,7 +3484,8 @@ char       *s, *t;
       EXIT(1);
    }
 
-   p = getptype(i->USER, LOGEN);
+   f = getlofig(i->FIGNAME, 'P');
+   p = getptype(f->USER, LOGEN);
    if (!p) {
       (void)fflush(stdout);
       (void)fputs("*** genlib error ***\n", stderr);
@@ -3602,29 +3503,28 @@ char       *s, *t;
    }
 
    va_start(ap, name);
+   p = getptype(i->USER, LOGEN);
+   if (!p)
+      p = i->USER = addptype(i->USER, LOGEN, NULL);
+   p->DATA = addlogen(p->DATA, name);
    switch (g->TYPE) {
-      case GENTYPE_VAL:
-      case GENTYPE_HEX:
-         g->VALUE.VAL = va_arg(ap, long);
-         break;
-      case GENTYPE_TEXT:
-         s = va_arg(ap, char *);
-         t = malloc((strlen(s) + 3) * sizeof(char));
-         sprintf(t, "\"%s\"", s);
-         g->VALUE.TEXT = namealloc(t);
-         free(t);
-         break;
-      case GENTYPE_BIT:
-         g->VALUE.CHAR =  '0' + (va_arg(ap, long)&1);
-         break;
-      case GENTYPE_LIST:
-         g->VALUE.LIST = va_arg(ap, logen_list *);
-         break;
+      case INTEGER_GEN:
+          ((logen_list *)p->DATA)->TYPE = INTEGER_GEN;
+          ((logen_list *)p->DATA)->VALUE.VAL = va_arg(ap, long);
+          break;
+      case STRING_GEN:
+          ((logen_list *)p->DATA)->TYPE = STRING_GEN;
+          s = va_arg(ap, char *);
+          t = malloc((strlen(s) + 3) * sizeof(char));
+          sprintf(t, "\"%s\"", s);
+          ((logen_list *)p->DATA)->VALUE.TEXT = namealloc(t);
+          free(t);
+          break;
       default:
-         (void)fflush(stdout);
-         (void)fputs("*** genlib error ***\n", stderr);
-         (void)fprintf(stderr, "Illegal SETLOGEN: unsupported generic type\n");
-         EXIT(1);
+          (void)fflush(stdout);
+          (void)fputs("*** genlib error ***\n", stderr);
+          (void)fprintf(stderr, "Illegal SETLOGEN: unsupported generic type\n");
+          EXIT(1);
    }
    va_end(ap);
 }

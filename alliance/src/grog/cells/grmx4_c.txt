@@ -1,5 +1,0 @@
-cell : grmx4_c
-One out of four pass transistor output multiplexer.
-This cell is placed just below the rom precharged bit lines.
-One of the four lines is selected, depending on the data given as input.
-The line bl_p[i] is selected when the s[i] line is high.
