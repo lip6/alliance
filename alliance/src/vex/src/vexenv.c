@@ -115,8 +115,8 @@
     "EG",
     "EX",
     "EU",
-    "<=>",
-    "==>"
+    "<->",
+    "->"
   };
 
 /* A few declaration that should be in vexenv I believe, but I leave
