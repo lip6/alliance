@@ -77,7 +77,7 @@ xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
                     {\Huge ALLIANCE TUTORIAL\\}
 	 {\large
                Pierre \& Marie Curie University \\
-                    year 2001 - 2004\\
+                    2001 - 2004\\
     }
     \vspace{1cm}
     {\huge
@@ -239,8 +239,8 @@ in {\bf Behavioral VHDL (DATAFLOW)}.
 
 \subsection{Behavioral Description}
 
-The behavioral description of a circuit consists on a continuation
-of logical equation calculating the outputs according to the
+The behavioral description of a circuit consists on a set
+of boolean functions calculating the outputs according to the
 inputs with the use of possible internal signals ; in our case, a
 signal which connects the output of the accumulator to the entry
 of the multiplexer (reg\_out), another which connects the output
@@ -339,7 +339,7 @@ Alliance tools use a very particular and restricted {\bf VHDL} subset (vbe and
 vst file format).
 
 If you want to describe the behavior of your circuit (at Register Transfert Level)
-with a more common {\bf VHDL} subset  you can use {\bf VASY\}
+with a more common {\bf VHDL} subset  you can use {\bf VASY}
 to automatically convert your {\bf VHDL} descriptions in 
 Alliance subset.
 
@@ -543,7 +543,7 @@ with this new set of vectors
  > asimut -b -zerodelay addaccu pat_new res_new
 \end{commandline}
 
-The -zerodelay option states here that you wish a purely logical
+The -zerodelay option states here that you wish a purely boolean
 simulation (without considering the propagation times). You obtain
 then a file of vectors (res\_new.pat) result.
 

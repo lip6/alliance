@@ -56,7 +56,7 @@ xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
   \shadowbox{\TheSbox}\normalsize\par\noindent}
 
 \pagestyle{fancy}
-\rhead{Logical synthesis}
+\rhead{Logic synthesis}
 \lhead{PART 2}
 \rfoot{\thepage}
 \lfoot{ALLIANCE TUTORIAL}
@@ -70,17 +70,18 @@ xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
                {\Huge ALLIANCE TUTORIAL\\}
     {\large
                Pierre \& Marie Curie University \\
-                  Year 2001 - 2004\\
+                       2001 - 2004\\
     }
     \vspace{1cm}
     {\huge
                       PART 2\\
-            Logical synthesis
+            Logic synthesis
     }
 }
 \date{}   
 \author{
-              Ak Frederic\hspace{2cm} Lam Kai-shing
+              Ak Frederic\hspace{2cm} Lam Kai-shing\\
+Modified by LJ
 }
 
 \maketitle
@@ -104,7 +105,7 @@ The tutorial is composed of 3 main parts independent from each other:
 
 \begin{itemize}\itemsep=-.8ex
 \item {VHDL modeling and simulation}
-\item {Logical synthesis}
+\item {Logic synthesis}
 \item {Place and route}
 \end{itemize}
 
@@ -137,11 +138,11 @@ manual page.
 
  {3.1} Step to follow
 \\
- {4} {\bf Logical synthesis and structural optimization}
+ {4} {\bf Logic synthesis and structural optimization}
 
  {4.1} Introduction
 
-\hspace{0.5cm} {4.1.1} Logical synthesis
+\hspace{0.5cm} {4.1.1} Logic synthesis
 
 \hspace{0.5cm} {4.1.2} Solve fan-out problems 
 
@@ -207,7 +208,7 @@ manual page.
         PART 2 :\\ }
         \vspace{1cm}
         {\huge
-        Logical Synthesis
+        Logic Synthesis
         }
 
 All the files used in this part are located under \\
@@ -259,7 +260,7 @@ This directory contents four subdirectories and one Makefile :
     The goal of this section is to present some ALLIANCE tools which are:
 
 \begin{itemize}\itemsep=-.8ex
-\item   Logical synthesis tools { \bf SYF, BOOM, BOOG, LOON, SCAPIN };
+\item   Logic synthesis tools { \bf SYF, BOOM, BOOG, LOON, SCAPIN };
 \item   Data-path generation tool{\bf GENLIB };
 \item   { \it netlist } graphical viewer  { \bf XSCH };
 \item   formal proof Tools {\bf FLATBEH, PROOF};
@@ -550,15 +551,15 @@ you). The interface of this automaton is as follows:
 \newpage
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-\section{Logical synthesis and structural optimization}
+\section{Logic synthesis and structural optimization}
 %--------------------------------------------------------
 
 \subsection{Introduction}
 %------------------------
 
-\subsubsection{Logical synthesis}
+\subsubsection{Logic synthesis}
 %---------------------------------
-    The logical synthesis permits to obtain a { \it netlist } of
+    The logic synthesis permits to obtain a { \it netlist } of
     gates given a Boolean network (format { \bf vbe }). 
     Several tools are available:
 
@@ -766,7 +767,7 @@ of the AMD following the specifications described in the documentation.
 \item   test the RAM shifter
 \item   filling and reading of the accumulator.
 \item   test the accumulator shifter .
-\item   test the arithmetic and logical operations
+\item   test the arithmetic and logic operations
         (addition, subtraction, overflow, carry, propagation, etc...) .
 \item   exhaustive test of the inputs conditioned by I[2:0].
 \item   data-path test vectors
@@ -876,7 +877,7 @@ The equivalent { \bf genlib } file is as follows:
        GENLIB_LOCON("vdd",IN,"vdd");
        GENLIB_LOCON("vss",IN,"vss");
 
-       /* Logical gates instanciation */
+       /* Combinatorial gates instanciation */
        GENLIB_LOINS("na2_x1","nand2","a1","c1","f1","vdd","vss",0);
        GENLIB_LOINS("no2_x1","nor2","b1","e1","g1","vdd","vss",0);
        GENLIB_LOINS("o2_x2","or2","d1","f1","h1","vdd","vss",0);

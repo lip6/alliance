@@ -72,7 +72,7 @@ xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
                {\Huge ALLIANCE TUTORIAL \\}
     {\large
                Pierre \& Marie Curie University \\
-                    year 2001 - 2004\\
+                          2001 - 2004\\
     }
     \vspace{1cm}
     {\huge
@@ -82,7 +82,8 @@ xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
 }
 \date{}
 \author{
-              Frederic AK\hspace{2cm} Kai-shing LAM
+Frederic AK\hspace{2cm} Kai-shing LAM\\
+Modified by LJ
 }
 
 \maketitle
@@ -421,7 +422,7 @@ and the cells inverter and buffer drawn under { \bf GRAAL }.
 %---------------------------------
 
 Am2901 breaks up into 2 blocks: the part controls which gathers
-the logical `` glu '' (random logic) and the operative part (data-path).
+the logic `` glu '' (random logic) and the operative part (data-path).
 
 \begin{figure}[H]\centering
   \includegraphics[scale=0.8]{bloc.eps}
@@ -485,20 +486,21 @@ lvx}).
  > export MBK_OUT_PH
 \end{sourcelisting}
 
-\subsection{Beware of naming the files}
+\subsection{Beware of file naming}
 %---------------------------------
 
-Generally, the files describing a logical netlist must be the same
-name as the corresponding file describing the physical netlist.
-the file amd2901\_dpt.vst (LOFIG) must correspond to the file
+Generally, the file describing a netlist must have the same
+name as the one describing its physical layout 
+(but of course the file extention is not the same).
+The file amd2901\_dpt.vst (LOFIG) must correspond to the file
 amd2901\_dpt.ap (PHFIG). The same applies to the file
-amd2901\_core. Check well that you do not overwrite a file!
+amd2901\_core. Be carefull not to overwrite a file by mistake !
 
 \subsection{Data-path predefined placement}
 %---------------------------------
 
-For the moment, your file amd2901\_dpt.c contains only one logical
-description of the netlist.
+For the moment, your file amd2901\_dpt.c describes only
+the netlist.
 eg you have a C file that contains the following lines: \\
 
 \noindent GENLIB\_DEF\_LOFIG()\\
@@ -508,16 +510,14 @@ eg you have a C file that contains the following lines: \\
 This permits to generate a structural description in a { \bf
 VST } file. At the same time, { \bf genlib } will generate 
 physical descriptions of each column in { \bf AP } files.
-It up to you to place these columns explicitly. \\
+It is up to you to place these columns explicitly. \\
 Edit again the file amd2901\_dpt.c and include the lines :\\
 
 \noindent GENLIB\_DEF\_PHFIG()\\
-\noindent ...\\
+\noindent /* add here you placement directives !! */ \\
 \noindent GENLIB\_SAVE\_PHFIG()\\
 
-The suspension points are to be supplemented, they represent your
-placement directives. For this placement task, you have the 
-following {\bf GENLIB} functions : 
+For this placement task, you have the following {\bf GENLIB} functions : 
 
 \begin{itemize}\itemsep=-.4ex
 \item GENLIB\_PLACE()
@@ -569,11 +569,10 @@ Nevertheless you should reserve enough space for the cells placement
 
 Include the lines:\\
 \noindent GENLIB\_DEF\_PHFIG()\\
-\noindent ...\\
+\noindent /* add here placement directives for your data-path */\\
 \noindent GENLIB\_SAVE\_PHFIG()\\
 
-The suspension points represent the placement of data-path. Space
-necessary to the placer to place the cells of the control part
+Space necessary to the placer to place the cells of the control part
 will be determined by successive approximations. You will have to
 adjust dimensions of the heart abutment box 
 (GENLIB\_DEF\_AB()).
