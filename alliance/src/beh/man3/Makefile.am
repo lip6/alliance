@@ -10,3 +10,5 @@ beh_addbeout.3	beh_delbegen.3	beh_frebebus.3	beh_getgenva.3	beh_rmvbepor.3 \
 beh_addbepor.3	beh_delbemsg.3	beh_frebebux.3	beh_makbdd.3	beh_rmvbereg.3 \
 beh_addbereg.3	beh_delbeout.3	beh_frebefig.3	beh_makgex.3	beh_rmvberin.3 \
 beh_addberin.3	beh_delbepor.3	beh_frebegen.3	beh_message.3
+
+EXTRA_DIST= $(man_MANS)

@@ -8,3 +8,5 @@ CLEANFILES          = genlib
 genlib : ${srcdir}/genlib.sh
 	${SED} 's,__ALLIANCE_INSTALL_DIR__,$(ALLIANCE_INSTALL_DIR),' $< > $@
 	chmod a+x $@
+
+EXTRA_DIST = genlib.sh
