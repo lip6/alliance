@@ -1,4 +1,4 @@
-ALLIANCE_TOP	= /asim/alliance
+# ALLIANCE_TOP	= /asim/alliance
 
 
 all: 	pat_new.pat res_new.pat temp catal catal01 catal02 catal03 valid	
