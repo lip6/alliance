@@ -8,7 +8,7 @@
 # NOTE: You can find the latest revision of this document at:
 # http://asim.lip6.fr/pub/alliance/latest-checkout/alliance/src
 #
-# $Id: README,v 1.3 2002/10/17 10:04:09 czo Exp $
+# $Id: README,v 1.4 2002/10/17 13:33:00 czo Exp $
 
 This file discuss about installation of Alliance on UNIX machines.
 
@@ -56,7 +56,13 @@ log as root then type :
 To install a .rpm package (Linux redHat 7+)
 -------------------------------------------
 
-This rpm has been build on a modified RedHat 7.1 and requires: ld-linux.so.2 libICE.so.6 libSM.so.6 libX11.so.6 libXext.so.6 libXm.so.2 libXp.so.6 libXpm.so.4 libXt.so.6 libc.so.6 libm.so.6 libstdc++-libc6.2-2.so.3 /bin/sh libc.so.6(GLIBC_2.0) libc.so.6(GLIBC_2.1) libc.so.6(GLIBC_2.1.3) libm.so.6(GLIBC_2.0). (You can generate the rpm for your platform by issuing : rpm -ta alliance-5.0-XXX.tar.gz)
+This rpm has been build on a modified RedHat 7.1 and requires: ld-linux.so.2
+libICE.so.6 libSM.so.6 libX11.so.6 libXext.so.6 libXm.so.2 libXp.so.6
+libXpm.so.4 libXt.so.6 libc.so.6 libm.so.6 libstdc++-libc6.2-2.so.3 /bin/sh
+libc.so.6(GLIBC_2.0) libc.so.6(GLIBC_2.1) libc.so.6(GLIBC_2.1.3)
+libm.so.6(GLIBC_2.0). 
+(You can generate the rpm for your platform by issuing :
+ rpm -ta alliance-5.0-XXX.tar.gz)
 
 Get the latest rpm package,
 log as root then type :
