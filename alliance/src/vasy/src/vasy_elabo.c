@@ -88,7 +88,8 @@ void VasyElaborateVpnFig( VpnFigure )
   vexexpr      *DeclInit;
   vasysimul    *SimulInit;
   char         *SimulValue;
-  char          Buffer[ 2048 ];
+  char         *Buffer;
+  int           MaxLength;
   int           LiteralId;
   short         Width;
   short         Position;
@@ -100,6 +101,8 @@ void VasyElaborateVpnFig( VpnFigure )
   }
 
   SimulInit = (vasysimul *)0;
+  Buffer    = (char      *)0;
+  MaxLength = 0;
 /*
 **  For all declarations set initial value
 */
@@ -170,6 +173,14 @@ void VasyElaborateVpnFig( VpnFigure )
       DeclAtom = VpnDeclar->VEX_ATOM;
       Width    = DeclAtom->WIDTH;
 
+      if ( MaxLength < ( Width + 4 ) )
+      {
+        if ( Buffer != (char *)0 ) autfreeblock( Buffer );
+
+        MaxLength = Width + 4;
+        Buffer    = autallocblock( sizeof( char ) * MaxLength );
+      }
+
       for ( Position = 0; Position < Width; Position++ )
       {
         VpnSymbol = &VpnDeclar->DECL_SYM[ Position ];
@@ -200,6 +211,8 @@ void VasyElaborateVpnFig( VpnFigure )
       VpnDeclar->VEX_INIT = createvexatomlit( Buffer );
     }
   }
+
+  if ( Buffer != (char *)0 ) autfreeblock( Buffer );
 
   if ( IsVasyDebugLevel0() )
   {
