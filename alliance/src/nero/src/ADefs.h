@@ -1,7 +1,7 @@
 
 // -*- C++ -*-
 //
-// $Id: ADefs.h,v 1.1 2002/10/02 21:23:47 jpc Exp $
+// $Id: ADefs.h,v 1.2 2002/10/13 14:22:47 jpc Exp $
 //
 // /-----------------------------------------------------------------\ 
 // |                                                                 |
@@ -75,6 +75,26 @@
     // Overridables.
     public: const char* what () const throw () {
               return ((char*)"No route.");
+            }
+  };
+
+
+
+
+  // ---------------------------------------------------------------
+  // Maximum priority reached exception.
+
+  class reach_max_pri : public except_done {
+
+    // Attributes.
+    public: CNet *net;
+
+    // Constructor.
+    public: reach_max_pri (CNet *pNet) { net = pNet; }
+
+    // Overridables.
+    public: const char* what () const throw () {
+              return ((char*)"Maximum priority reached in AStar.");
             }
   };
 
@@ -263,7 +283,7 @@
     public:  void  clear      (void);
     public:  void  load       (CNet *pNet, int delta=0, int expand=0);
     public:  bool  search     (void);
-    public:  void  route      (CNet *pNet);
+    public:  void  route      (CNet *pNet) throw (reach_max_pri);
 
   };
 

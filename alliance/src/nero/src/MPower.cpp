@@ -1,7 +1,7 @@
 
 // -*- C++ -*-
 //
-// $Id: MPower.cpp,v 1.1 2002/10/02 21:23:48 jpc Exp $
+// $Id: MPower.cpp,v 1.2 2002/10/13 14:22:47 jpc Exp $
 //
 // /-----------------------------------------------------------------\ 
 // |                                                                 |
@@ -145,7 +145,7 @@ CPowers::CPowers ( CFig *fig
       // Check the segment width.
       if (seg->WIDTH != width) {
         cerr << hwarn ("");
-        cerr << "  " << layer2a (layer) << " \"" << flatSeg.NAME
+        cerr << "  " << layer2a (layer) << " \"" << seg->NAME
              <<"\" segment at ("
              << UNSCALE (seg->X1) << ","
              << UNSCALE (seg->Y1) << ") doesn't have the rigth witdth :"
@@ -167,7 +167,7 @@ CPowers::CPowers ( CFig *fig
 
           if (flatSeg.Y1 != flatSeg.Y2) {
             cerr << hwarn ("");
-            cerr << "  " << layer2a (layer) << " \"" << flatSeg.NAME
+            cerr << "  " << layer2a (layer) << " \"" << seg->NAME
                  <<"\" segment at ("
                  << UNSCALE (seg->X1) << ","
                  << UNSCALE (seg->Y1) << ") is not " << mess1;
@@ -180,7 +180,7 @@ CPowers::CPowers ( CFig *fig
           if (   (cmpALU (alayer, CALU1) & F_CALU)
               && !fig->phfig.onslice (flatSeg.Y1)) {
             cerr << hwarn ("");
-            cerr << "  " << layer2a (layer) << " \"" << flatSeg.NAME
+            cerr << "  " << layer2a (layer) << " \"" << seg->NAME
                  <<"\" segment at ("
                  << UNSCALE (seg->X1) << ","
                  << UNSCALE (seg->Y1) << ") is not on a slice boundary.\n";
@@ -201,7 +201,7 @@ CPowers::CPowers ( CFig *fig
 
           if (flatSeg.X1 != flatSeg.X2) {
             cerr << hwarn ("");
-            cerr << "  " << layer2a (layer) << " \"" << flatSeg.NAME
+            cerr << "  " << layer2a (layer) << " \"" << seg->NAME
                  <<"\" segment at ("
                  << UNSCALE (seg->X1) << ","
                  << UNSCALE (seg->Y1) << ") is not " << mess1;
@@ -224,7 +224,7 @@ CPowers::CPowers ( CFig *fig
       if (itLine != endLine) {
         if (itLine->second.type != segType) {
           cerr << herr ("");
-          cerr << "  " << layer2a (layer) << " \"" << flatSeg.NAME
+          cerr << "  " << layer2a (layer) << " \"" << seg->NAME
                <<"\" segment at ("
                << UNSCALE (seg->X1) << ","
                << UNSCALE (seg->Y1) << ") conflict with power line at"

@@ -1,7 +1,7 @@
 
 // -*- C++ -*-
 //
-// $Id: ASimple.cpp,v 1.1 2002/10/02 21:23:47 jpc Exp $
+// $Id: ASimple.cpp,v 1.2 2002/10/13 14:22:47 jpc Exp $
 //
 //  /----------------------------------------------------------------\ 
 //  |                                                                |
@@ -81,8 +81,8 @@ bool CASimple::step (void)
   net = _queue.pop ();
 
   cmess2 << "     - [" << setw(4) << _queue.queue.size()
-         << "] \"" << net->name << "\" ("
-         << net->bb << ")\n";
+         << "] (hp := " << setw(5) << net->bb.hp << ") "
+         << "\"" << net->name << "\"\n";
 
   _astar.route (net);
   iterations_route   += _astar.iterations_route;

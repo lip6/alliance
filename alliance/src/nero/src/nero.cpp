@@ -1,7 +1,7 @@
 
 // -*- C++ -*-
 //
-// $Id: nero.cpp,v 1.1 2002/10/02 21:23:49 jpc Exp $
+// $Id: nero.cpp,v 1.2 2002/10/13 14:22:47 jpc Exp $
 //
 //  /----------------------------------------------------------------\ 
 //  |                                                                |
@@ -9,7 +9,7 @@
 //  |              S i m p l e   R o u t e r                         |
 //  |                                                                |
 //  |  Author      :                    Jean-Paul CHAPUT             |
-//  |  E-mail      :       alliance-support@asim.lip6.fr             |
+//  |  E-mail      :         alliance-users@asim.lip6.fr             |
 //  | ============================================================== |
 //  |  C++ Module  :       "./nero.cpp"                              |
 //  | ************************************************************** |
@@ -102,7 +102,16 @@ void emergency (void)
   string  name = "emergency";
 
 
-  if (crbox) crbox->mbksave (name);
+  try {
+    if (crbox) crbox->mbksave (name);
+  }
+
+  catch (...) {
+    cerr << herr ("\n");
+    cerr << "  An exception have occurs in the emergency backup function itself !\n";
+    cerr << "  Sorry, can't save the partially routed figure.\n\n";
+    cerr << "  This is a bug. Please e-mail to \"alliance-users@asim.lip6.fr\".\n\n";
+  }
 }
 
 
@@ -233,8 +242,17 @@ int  main (int argc, char *argv[])
 
     exit (1);
   }
+  catch (reach_max_pri &e) {
+    cerr << "\n\n"
+         << "  Negotiation algorithm failed, NeRo was unable to route this"
+         << "  design.\n  Maximum priority reached for net " 
+         << "\"" << e.net->name << "\".\n\n";
+
+    emergency ();
+    exit (1);
+  }
   catch (except_done &e) {
-    cerr << e.what () << endl;
+    //cerr << e.what () << endl;
 
     emergency ();
     exit (1);
@@ -244,7 +262,7 @@ int  main (int argc, char *argv[])
   catch (...) {
     cerr << herr ("\n");
     cerr << "  An unexpected exception have occurs.\n\n";
-    cerr << "  This is a bug. Please e-mail to \"alliance-support@asim.lip6.fr\".\n\n";
+    cerr << "  This is a bug. Please e-mail to \"alliance-users@asim.lip6.fr\".\n\n";
 
     exit (1);
   }

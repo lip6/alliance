@@ -1,7 +1,7 @@
 
 // -*- C++ -*-
 //
-// $Id: MMBK.cpp,v 1.1 2002/10/02 21:23:47 jpc Exp $
+// $Id: MMBK.cpp,v 1.2 2002/10/13 14:22:47 jpc Exp $
 //
 // /-----------------------------------------------------------------\ 
 // |                                                                 |
@@ -179,6 +179,7 @@ CEnv::CEnv (void)
   D::TRACK_WIDTH_ALU4  = ::MBK::SCALE (D::_TRACK_WIDTH_ALU4);
   D::TRACK_WIDTH_ALU5  = ::MBK::SCALE (D::_TRACK_WIDTH_ALU5);
   D::TRACK_WIDTH_ALU6  = ::MBK::SCALE (D::_TRACK_WIDTH_ALU6);
+  D::TRACK_WIDTH_ALU7  = ::MBK::SCALE (D::_TRACK_WIDTH_ALU7);
 
   // Grid spacing.
   grid_dx = D::X_GRID;
@@ -191,18 +192,21 @@ CEnv::CEnv (void)
   ALU2W[ALU4]  = D::TRACK_WIDTH_ALU4;
   ALU2W[ALU5]  = D::TRACK_WIDTH_ALU5;
   ALU2W[ALU6]  = D::TRACK_WIDTH_ALU6;
+  ALU2W[ALU7]  = D::TRACK_WIDTH_ALU7;
   ALU2W[CALU1] = D::TRACK_WIDTH_ALU1;
   ALU2W[CALU2] = D::TRACK_WIDTH_ALU2;
   ALU2W[CALU3] = D::TRACK_WIDTH_ALU3;
   ALU2W[CALU4] = D::TRACK_WIDTH_ALU4;
   ALU2W[CALU5] = D::TRACK_WIDTH_ALU5;
   ALU2W[CALU6] = D::TRACK_WIDTH_ALU6;
+  ALU2W[CALU7] = D::TRACK_WIDTH_ALU7;
   ALU2W[TALU1] = D::TRACK_WIDTH_ALU1;
   ALU2W[TALU2] = D::TRACK_WIDTH_ALU2;
   ALU2W[TALU3] = D::TRACK_WIDTH_ALU3;
   ALU2W[TALU4] = D::TRACK_WIDTH_ALU4;
   ALU2W[TALU5] = D::TRACK_WIDTH_ALU5;
   ALU2W[TALU6] = D::TRACK_WIDTH_ALU6;
+  ALU2W[TALU7] = D::TRACK_WIDTH_ALU7;
 
   // Layer to Z translation table.
   ALU2Z[ALU1]  = 0;
@@ -211,18 +215,21 @@ CEnv::CEnv (void)
   ALU2Z[ALU4]  = 3;
   ALU2Z[ALU5]  = 4;
   ALU2Z[ALU6]  = 5;
+  ALU2Z[ALU7]  = 6;
   ALU2Z[CALU1] = 0;
   ALU2Z[CALU2] = 1;
   ALU2Z[CALU3] = 2;
   ALU2Z[CALU4] = 3;
   ALU2Z[CALU5] = 4;
   ALU2Z[CALU6] = 5;
+  ALU2Z[CALU7] = 6;
   ALU2Z[TALU1] = 0;
   ALU2Z[TALU2] = 1;
   ALU2Z[TALU3] = 2;
   ALU2Z[TALU4] = 3;
   ALU2Z[TALU5] = 4;
   ALU2Z[TALU6] = 5;
+  ALU2Z[TALU7] = 6;
 }
 
 
@@ -1064,6 +1071,30 @@ long  cmpALU (char layer1, char layer2)
         case  ALU6: return(F_EQUAL_M);
         case CALU6: return(F_EQUAL_C);
         case TALU6: return(F_EQUAL_T);
+      }
+      break;
+
+    case ALU7:
+      switch(layer2) {
+        case  ALU7: return(F_EQUAL_M);
+        case CALU7: return(F_EQUAL_C);
+        case TALU7: return(F_EQUAL_T);
+      }
+      break;
+
+    case ALU8:
+      switch(layer2) {
+        case  ALU8: return(F_EQUAL_M);
+        case CALU8: return(F_EQUAL_C);
+        case TALU8: return(F_EQUAL_T);
+      }
+      break;
+
+    case ALU9:
+      switch(layer2) {
+        case  ALU9: return(F_EQUAL_M);
+        case CALU9: return(F_EQUAL_C);
+        case TALU9: return(F_EQUAL_T);
       }
       break;
   }

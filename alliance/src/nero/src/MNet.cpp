@@ -1,7 +1,7 @@
 
 // -*- C++ -*-
 //
-// $Id: MNet.cpp,v 1.1 2002/10/02 21:23:47 jpc Exp $
+// $Id: MNet.cpp,v 1.2 2002/10/13 14:22:47 jpc Exp $
 //
 //  /----------------------------------------------------------------\ 
 //  |                                                                |
@@ -161,7 +161,8 @@ CNode *CTerm::newaccess (int x, int y, int z, int ident, CNet *net) throw (dup_t
     pNode = &coord.addnode ();
   }
 
-  pNode->data.owner = net;
+  pNode->data.owner    = net;
+  pNode->data.obstacle = false;
   pNode->setid (ident);
   nodes.push_back (coord);
 

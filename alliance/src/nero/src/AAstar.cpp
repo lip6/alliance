@@ -1,7 +1,7 @@
 
 // -*- C++ -*-
 //
-// $Id: AAstar.cpp,v 1.1 2002/10/02 21:23:47 jpc Exp $
+// $Id: AAstar.cpp,v 1.2 2002/10/13 14:22:47 jpc Exp $
 //
 //  /----------------------------------------------------------------\ 
 //  |                                                                |
@@ -295,7 +295,7 @@ void  CAStar::CNodeAS::successors (CNodeASSet &NS, CNet *net, CNodeAS *(*success
 
 
 
-  //cdebug << "+ CAStar::CNodeAS::successors()." << endl;
+  //cdebug << "+ CAStar::CNodeAS::successors()." << "\n";
 
   cost_z = D::cost_VIA;
   // Alternate costs of edges :
@@ -325,7 +325,6 @@ void  CAStar::CNodeAS::successors (CNodeASSet &NS, CNet *net, CNodeAS *(*success
     (*success)[edge] = NULL;
 
     if (neighbor.inside() && !neighbor.isnodehole()) {
-      //cdebug << "+   " << neighbor << endl;
 
       pNodeAS = AS (neighbor);
       if (!pNodeAS) {
@@ -530,6 +529,10 @@ void  CAStar::load (CNet *pNet, int delta=0, int expand=0)
 
   net->unroute ();
   _tree.addterm (*(net->terms[0]));
+
+  //cerr << "    Starting term := \""
+  //     << net->terms[0]->name
+  //     << "\"\n";
 }
 
 
@@ -562,7 +565,7 @@ bool  CAStar::step (void) throw (trapped_astar)
 
   } while ( pNodeAS->tagged && D::optim_AStar_queue );
 
-  //cdebug << "+   " << pNodeAS->point << endl;
+  cdebug << "+   Examining " << pNodeAS->point << "\n";
 
   // We process the node : tag it.
   if (D::optim_AStar_queue) pNodeAS->tagged = true;
@@ -572,7 +575,7 @@ bool  CAStar::step (void) throw (trapped_astar)
   for (edge = 0; edge < 6; edge++) {
     if (successors[edge] == NULL) continue;
 
-    //cdebug << "+     " << successors[edge]->point << endl;
+    cdebug << "+     " << successors[edge]->point << "\n";
     // The successor belongs to the current net.
     // (it may be not the actual target).
     if (   (successors[edge]->point.node().data.owner == net)
@@ -617,6 +620,9 @@ bool  CAStar::nexttarget (void)
   for (i = 0; i < net->size; i++) {
     if (_tree.reached.find (i) == endSet) {
       _tree.settarget ( net->terms[i]->lowest() );
+      //cerr << "    Next target := \""
+      //     << net->terms[i]->name
+      //     << "\"\n";
       break;
     }
   }
@@ -747,7 +753,7 @@ void CAStar::dump (void)
 // -------------------------------------------------------------------
 // Method  :  "CAStar::route()".
 
-void CAStar::route (CNet *pNet)
+  void CAStar::route (CNet *pNet) throw (reach_max_pri)
 {
   int   pri;
   int   increase, expand;
@@ -762,7 +768,7 @@ void CAStar::route (CNet *pNet)
   iterations_reroute = 0;
   iterations_kind    = &iterations_route;
 
-  //if (pNet->name == "ctl.seq_ep_30") cdebug.on ();
+  //if (pNet->name == "nbus0_30") cdebug.on ();
 
   do {
     if (hysteresis) {
@@ -784,6 +790,8 @@ void CAStar::route (CNet *pNet)
 
     hysteresis = true;
   } while ((increase < 15) && !routed);
+
+  if (increase >= 15) throw reach_max_pri (pNet);
 
   if (routed) dump();
 

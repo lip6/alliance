@@ -1,7 +1,7 @@
 
 // -*- C++ -*-
 //
-// $Id: UConst.cpp,v 1.1 2002/10/02 21:23:48 jpc Exp $
+// $Id: UConst.cpp,v 1.2 2002/10/13 14:22:47 jpc Exp $
 //
 // /-----------------------------------------------------------------\ 
 // |                                                                 |
@@ -63,6 +63,7 @@ namespace D {
   const long _TRACK_WIDTH_ALU4  = 2;
   const long _TRACK_WIDTH_ALU5  = 2;
   const long _TRACK_WIDTH_ALU6  = 2;
+  const long _TRACK_WIDTH_ALU7  = 2;
 
   long  X_GRID;
   long  Y_GRID;
@@ -75,6 +76,7 @@ namespace D {
   long  TRACK_WIDTH_ALU4;
   long  TRACK_WIDTH_ALU5;
   long  TRACK_WIDTH_ALU6;
+  long  TRACK_WIDTH_ALU7;
 
 
 

@@ -1,7 +1,7 @@
 
 // -*- C++ -*-
 //
-// $Id: UDefs.h,v 1.1 2002/10/02 21:23:48 jpc Exp $
+// $Id: UDefs.h,v 1.2 2002/10/13 14:22:47 jpc Exp $
 //
 // /-----------------------------------------------------------------\ 
 // |                                                                 |
@@ -88,6 +88,7 @@ namespace D {
   extern const long _TRACK_WIDTH_ALU4;
   extern const long _TRACK_WIDTH_ALU5;
   extern const long _TRACK_WIDTH_ALU6;
+  extern const long _TRACK_WIDTH_ALU7;
 
   extern long  X_GRID;
   extern long  Y_GRID;
@@ -100,6 +101,7 @@ namespace D {
   extern long  TRACK_WIDTH_ALU4;
   extern long  TRACK_WIDTH_ALU5;
   extern long  TRACK_WIDTH_ALU6;
+  extern long  TRACK_WIDTH_ALU7;
 
 }
 

@@ -1,7 +1,7 @@
 
 // -*- C++ -*-
 //
-// $Id: RMBK.cpp,v 1.1 2002/10/02 21:23:48 jpc Exp $
+// $Id: RMBK.cpp,v 1.2 2002/10/13 14:22:47 jpc Exp $
 //
 //  /----------------------------------------------------------------\ 
 //  |                                                                |
@@ -130,11 +130,12 @@ void  CRBox::mbkload (MBK::CFig *mbkfig, int z, int rtype)
     }
 
     // Power grid.
-    if ((   MBK::ISVDD (pSeg->NAME)
-         || MBK::ISVSS (pSeg->NAME)) && (pSeg->LAYER != MBK::CALU1)) {
-      rect->setSeg (*pSeg);
+    if (MBK::ISVDD (pSeg->NAME) || MBK::ISVSS (pSeg->NAME)) {
+      if (pSeg->LAYER != MBK::CALU1) {
+        rect->setSeg (*pSeg);
         
-      drgrid->nodes->obstacle (rect->grid, MBK::env.layer2z (pSeg->LAYER));
+        drgrid->nodes->obstacle (rect->grid, MBK::env.layer2z (pSeg->LAYER));
+      }
 
       continue;
     }
@@ -390,7 +391,7 @@ void  CRBox::mbksave (string &name)
         if (inseg && (pNextNet != pNet)) {
           // We are changing of segment owner.
           // Dump the current one.
-          if (seg.X1 < seg.X2) {
+          if (seg.X1 <= seg.X2) {
             // This is not a "dot" segment (i.e a VIA).
             fig->addphseg (seg);
           }
@@ -421,7 +422,7 @@ void  CRBox::mbksave (string &name)
         } else {
           if (inseg) {
             // Dump the current one.
-            if (seg.X1 < seg.X2) {
+            if (seg.X1 <= seg.X2) {
               // This is not a "dot" segment (i.e a VIA).
               fig->addphseg (seg);
             }
@@ -455,7 +456,7 @@ void  CRBox::mbksave (string &name)
         if (inseg && (pNextNet != pNet)) {
           // We are changing of segment owner.
           // Dump the current one.
-          if (seg.Y1 < seg.Y2) {
+          if (seg.Y1 <= seg.Y2) {
             // This is not a "dot" segment (i.e a VIA).
             fig->addphseg (seg);
           }
@@ -500,7 +501,7 @@ void  CRBox::mbksave (string &name)
 
       if (inseg) {
         // This segment touch the AB.
-        if (seg.Y1 < seg.Y2) {
+        if (seg.Y1 <= seg.Y2) {
           // This is not a "dot" segment (i.e a VIA).
           fig->addphseg (seg);
         }
