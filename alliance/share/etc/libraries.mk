@@ -3,7 +3,7 @@
 # description   : Alliance Shared Libraries and Include Files   #
 # ###---------------------------------------------------------###
 
-# $Id: libraries.mk,v 1.16 1999/11/05 16:43:15 czo Exp $
+# $Id: libraries.mk,v 1.17 1999/11/16 19:32:38 czo Exp $
 
 # The variables $ALLIANCE_TOP and $ALLIANCE_OS are set by
 # alc_env.[c]sh script
@@ -230,18 +230,18 @@ BVL_H      =    bvl113.h
 #       - fks : KISS parser                                     #
 # ###---------------------------------------------------------###
 
-FSM_L      =  -lFsm103
-FSM_LIB    = libFsm103.a
-FSM_H      =    fsm103.h
+FSM_L      =  -lFsm104
+FSM_LIB    = libFsm104.a
+FSM_H      =    fsm104.h
 
-FVH_L      =  -lFvh103
-FVH_LIB    = libFvh103.a
-FKS_L      =  -lFks103
-FKS_LIB    = libFks103.a
+FVH_L      =  -lFvh104
+FVH_LIB    = libFvh104.a
+FKS_L      =  -lFks104
+FKS_LIB    = libFks104.a
 
-FTL_L      =  -lFtl103
-FTL_LIB    = libFtl103.a
-FTL_H      =    ftl103.h
+FTL_L      =  -lFtl104
+FTL_LIB    = libFtl104.a
+FTL_H      =    ftl104.h
 
 # ###---------------------------------------------------------###
 #    functions related to simulation patterns representation :  #
