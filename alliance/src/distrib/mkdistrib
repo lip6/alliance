@@ -4,12 +4,13 @@
 # Copyright (C) 1999, 2000 Czo <Olivier.Sirol@lip6.fr>
 # License: GPL (http://www.gnu.org/copyleft/gpl.html)
 # Started: April 2000
-# Last Change: Thursday 31 October 2002, 17:11
-# Edit Time: 207:38:04
+# Last Change: Friday 06 December 2002, 11:25
+# Edit Time: 207:38:57
 # Description:
 #
-# $Id: mkdistrib,v 1.9 2002/10/31 16:12:31 czo Exp $
+# $Id: mkdistrib,v 1.10 2002/12/06 10:25:29 czo Exp $
 #
+
 
 ###################################################################
 #set -x
