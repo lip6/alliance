@@ -1,6 +1,6 @@
 #!/bin/sh
 #
-# $Id: attila.sh,v 1.16 2003/10/03 11:36:00 fred Exp $
+# $Id: attila.sh,v 1.17 2003/10/29 16:08:54 xtof Exp $
 #                                                                        
 # /------------------------------------------------------------------\
 # |                                                                  |
@@ -14,8 +14,11 @@
 # | **************************************************************** |
 # |  U p d a t e s                                                   |
 # | $Log: attila.sh,v $
+# | Revision 1.17  2003/10/29 16:08:54  xtof
+# | changing target machine for installations
+# |
 # | Revision 1.16  2003/10/03 11:36:00  fred
-# | Adding bip: in front of the ATTILA_CVS_ROOT, in order to be able to
+# | Adding fa: in front of the ATTILA_CVS_ROOT, in order to be able to
 # | retrieve Alliance form machines that do not mount the usual disks.
 # |                                                                 |
 # \------------------------------------------------------------------/
@@ -536,7 +539,7 @@
 
    CVS_STARTUP_FILES=""
 
- LINUX_TARGET="bip"
+ LINUX_TARGET="fa"
      LINUX_CC="gcc3"
     LINUX_CXX="g++3"
 
