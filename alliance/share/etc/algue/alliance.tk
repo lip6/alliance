@@ -1,8 +1,14 @@
-###################################
+#! /usr/local/bin/wish
 #
-#        Alliance graphics
+# ALliance Graphic User Environment
 #
-###################################
+# Auteur            :  G. POMMIER
+# Date              : 29/03/99
+#
+# Utilise TCL/Tk http://www.scriptics.com/
+#
+# $Id: alliance.tk,v 1.3 1999/09/28 13:52:43 czo Exp $
+#
         
   proc Library_UpdateIndex { libdir } {
     if ![file exists $libdir/tclIndex] {
