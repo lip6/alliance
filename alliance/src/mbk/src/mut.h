@@ -26,7 +26,7 @@
  * Date    : 31/08/93
  * Author  : Frederic Petrot <Frederic.Petrot@lip6.fr>
  * Modified by Czo <Olivier.Sirol@lip6.fr> 1997,98
- * $Id: mut.h,v 1.3 2002/05/11 17:03:37 xtof Exp $
+ * $Id: mut.h,v 1.4 2002/05/14 09:10:29 xtof Exp $
  */
 
 #ifndef _MUT_H_
@@ -35,6 +35,10 @@
 #include <stdio.h>
 #include <unistd.h>
 #include <signal.h>
+
+#ifdef __cplusplus
+extern "C" {
+#endif /* __cplusplus */
 
 #ifndef __P
 # if defined(__STDC__) ||  defined(__GNUC__)
@@ -306,5 +310,9 @@ extern void edifsavelofig();
 extern void vlogsavelofig();
 extern void mgnloadphfig();
 extern void mgnsavephfig();
+
+#ifdef __cplusplus
+}
+#endif /* __cplusplus */
 
 #endif /* !MUTL */

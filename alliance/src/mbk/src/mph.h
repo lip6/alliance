@@ -26,11 +26,15 @@
  * Date    : 05/08/93
  * Author  : Frederic Petrot <Frederic.Petrot@lip6.fr>
  * Modified by Czo <Olivier.Sirol@lip6.fr> 1997,98
- * $Id: mph.h,v 1.1 2002/03/08 13:51:05 fred Exp $
+ * $Id: mph.h,v 1.2 2002/05/14 09:10:29 xtof Exp $
  */
 
 #ifndef _MPH_H_
 #define _MPH_H_
+
+#ifdef __cplusplus
+extern "C" {
+#endif /* __cplusplus */
 
 #ifndef __P
 # if defined(__STDC__) ||  defined(__GNUC__)
@@ -249,5 +253,8 @@ extern phfig_list *HEAD_PHFIG;                 /* physical figure list head   */
   extern           void  invxyflat __P((long *x, long *y, long xout, long yout, long xins, long yins, long x1, long y1, long x2, long y2, char trsf));
   extern           void  viewph __P(());
   
-#endif /* !MPH */
+#ifdef __cplusplus
+}
+#endif /* __cplusplus */
 
+#endif /* !MPH */

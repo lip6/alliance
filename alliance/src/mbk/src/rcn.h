@@ -21,7 +21,7 @@
  * Software Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
  */
 
-#ident "$Id: rcn.h,v 1.1 2002/03/08 13:51:05 fred Exp $"
+#ident "$Id: rcn.h,v 1.2 2002/05/14 09:10:29 xtof Exp $"
 
 /*******************************************************************************
 * rcn     : constantes, externs, and data-structures                           *
@@ -40,6 +40,10 @@
 
 #ifndef RCNH
 #define RCNH
+
+#ifdef __cplusplus
+extern "C" {
+#endif /* __cplusplus */
 
 /* layer of wire */
 #define RCN_WIRE_UNKNOW       ((unsigned char) 0x00000001)
@@ -220,4 +224,9 @@ extern int              breakloop  __P(( losig_list* ));
 extern int              reduce_rcn __P(( losig_list* ));
 extern int              connexe    __P(( losig_list* ));
 extern int              cleanrcnet __P(( losig_list* ));
+
+#ifdef __cplusplus
+}
+#endif /* __cplusplus */
+
 #endif /* !RCNH */

@@ -26,11 +26,15 @@
  * Date    : 05/08/93
  * Author  : Frederic Petrot <Frederic.Petrot@lip6.fr>
  * Modified by Czo <Olivier.Sirol@lip6.fr> 1997,98
- * $Id: mlu.h,v 1.1 2002/03/08 13:51:05 fred Exp $
+ * $Id: mlu.h,v 1.2 2002/05/14 09:10:29 xtof Exp $
  */
 
 #ifndef _MLU_H_
 #define _MLU_H_
+
+#ifdef __cplusplus
+extern "C" {
+#endif /* __cplusplus */
 
 #ifndef __P
 # if defined(__STDC__) ||  defined(__GNUC__)
@@ -66,5 +70,8 @@
   extern            int  guessextdir __P((lofig_list *lof));
   extern            int  restorealldir __P((lofig_list *lf));
   
-#endif /* !MLU */
+#ifdef __cplusplus
+}
+#endif /* __cplusplus */
 
+#endif /* !MLU */
