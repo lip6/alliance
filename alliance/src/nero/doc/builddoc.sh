@@ -107,7 +107,7 @@
  echo "     - Building Makefile.am for doc dir."
  DOC_AM="Makefile.am"
  echo "" >  $DOC_AM
- echo "SUBDIRS = $TOOL" >> $DOC_AM
+ echo "SUBDIRS = $TOOL man1" >> $DOC_AM
  echo "" >> $DOC_AM
  echo "pdfdir = \$(prefix)/doc/pdf" >> $DOC_AM
  echo "pdf_DATA = $TOOL.pdf"  >> $DOC_AM

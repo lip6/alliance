@@ -1,6 +1,6 @@
 #!/bin/sh
 #
-# $Id: attila.sh,v 1.7 2002/10/09 13:23:18 jpc Exp $
+# $Id: attila.sh,v 1.8 2002/10/13 19:39:33 jpc Exp $
 #                                                                        
 # /------------------------------------------------------------------\
 # |                                                                  |
@@ -34,37 +34,51 @@
  {
    echo ""
    echo ""
-   echo "Usage : attila [-h] [-U] [-F] [-A]                               \\"
-   echo "               [--help] [--user] [--full] [--asim]               \\"
+   echo "Usage : attila [-h] [-L] [-U] [-F] [-A]                          \\"
+   echo "               [--help] [--local] [--user] [--full] [--asim]     \\"
    echo "               [--prefix=<INSTALL_DIR>] [--builddir=<BUILD_DIR>] \\"
-   echo "               <--tool=<name1> [--tool=<name2> [...]]"
+   echo "               <--tool=<name1> [--tool=<name2> [...]]            \\"
+   echo "               [-c- <configure_arg> [...]]                       \\"
+   echo "               [-m- <make_arg> [...]]                            \\"
+   echo ""
    echo ""
    echo "Options :"
-   echo "     o [-h|--help] : Print this help."
-   echo "     o [-U|--user] : Perform a \"USER\" compilation/installation."
+   echo "     o [-h|--help]  : Print this help."
+   echo "     o [-L|--local] : Print this help."
+   echo "     o [-U|--user]  :"
+   echo "         Perform a \"USER\" compilation/installation."
    echo "         The tool(s) will be compiled then installed under the"
    echo "         directory given by the \"--prefix\" argument."
-   echo "     o [-F|--full] : Compile/install the requested tool(s) for all"
+   echo "     o [-F|--full]  :"
+   echo "         Compile/install the requested tool(s) for all"
    echo "         avalaibles architectures. Currently only Linux and Solaris"
    echo "         are supported."
-   echo "     o [-A|--asim] : Install the tool(s) in the ASIM shared direc-"
+   echo "     o [-A|--asim]  :"
+   echo "         Install the tool(s) in the ASIM shared direc-"
    echo "         tory (aka \"\$ALLIANCE_TOP\"), this must be used to upgrade"
    echo "         a tool. This option implies \"--full\"."
    echo "           NOTE : it will erase any previous installed version of"
    echo "         the tool. The temporary build directory (--builddir) will"
    echo "         also be erased."
-   echo "     o [--prefix=<INSTALL_DIR>] : Override the default top directory"
+   echo "     o [--prefix=<INSTALL_DIR>] :"
+   echo "         Override the default top directory"
    echo "         where the tool will be installed. By defaults tools are"
    echo "         installed under :"
    echo "           \"\$HOME/alliance/\$OS/install\"."
-   echo "     o [--builddir=<BUILD_DIR>] : Override the default top directory"
+   echo "     o [--builddir=<BUILD_DIR>] :"
+   echo "         Override the default top directory"
    echo "         where the tool will be compiled. By defaults tools are"
    echo "         compiled under :"
    echo "           \"\$HOME/alliance/\$OS/build\"."
-   echo "     o [--tool=<name1>] : The name of the tool to be processed, at"
+   echo "     o [--tool=<name1>] :"
+   echo "         The name of the tool to be processed, at"
    echo "         least one must be present."
-   echo "     o [--rule=<rule>] : The name of the rule to be executed by the"
-   echo "         Makefile (default : \"install\")."
+   echo "     o [-c- <configure_arg> [...]] :"
+   echo "         Arguments to be directly passed to configure."
+   echo "     o [-m- <make_arg> [...]] :"
+   echo "         Arguments to be directly passed to make. If there is none,"
+   echo "         the default rule for Alliance (i.e. \"install\") will be"
+   echo "         called."
    echo ""
    echo ""
  }
@@ -245,7 +259,7 @@
 
  get_string()
  {
-   string=`echo $1 | cut -d '=' -f 2`
+   string=`echo $1 | cut -d '=' -f 2-`
 
    echo $string
  }
@@ -448,8 +462,8 @@
      cd $TOOL
 
      echo "     - Making rule $RULE for $TOOL."
-     $SRC_DIR/$TOOL/configure --prefix=$INSTALL_DIR
-     $MAKE prefix=$INSTALL_DIR $RULE
+     $SRC_DIR/$TOOL/configure --prefix=$INSTALL_DIR $ARGS_CONFIGURE
+     $MAKE prefix=$INSTALL_DIR $ARGS_MAKE
 
      cd ..
      if [ "$ASIM" = "y" ]; then
@@ -505,7 +519,9 @@
 
 
                TOOLS=""
-                RULE="install"
+      ARGS_CONFIGURE=""
+           ARGS_MAKE=""
+   ARGS_MAKE_DEFAULT="install"
 
                 ASIM="n"
                 FULL="n"
@@ -531,64 +547,80 @@
 
 
  COMMAND_LINE=""
+ PARSE_STATE="attila"
 
  while [ $# -gt 0 ]; do
-   case $1 in
-    # Long arguments.
-     --help)        print_help;
-                    exit 0;;
-     --ssh)         RSH="ssh";;
-     --user)        ASIM="n";;
-     --full)        FULL="y";;
-     --asim)        ASIM="y"; FULL="y";;
-     --asim-noloop) ASIM="y";;
-     --local)       ATTILA_LOCAL="y";;
-     --prefix=*)    INSTALL_DIR=`get_string $1`
-                    if [ $? -ne 0 ]; then
-                      echo -n "attila: Bad directory in argument \"$1\"."
-                      print_usage
-                      exit 1
-                    fi;;
-     --builddir=*)  BUILD_DIR=`get_string $1`
-                    if [ $? -ne 0 ]; then
-                      echo -n "attila: Bad directory in argument \"$1\"."
-                      print_usage
-                      exit 1
-                    fi;;
-     --tool=*)      TOOL=`get_string $1`
-                    if [ "$TOOL" = "attila" ]; then AUTO="attila"; fi
 
-                    TOOLS="$TOOLS $TOOL"
-                    if [ $? -ne 0 ]; then
-                      echo -n "attila: Bad tool name in argument \"$1\"."
-                      print_usage
-                      exit 1
-                    fi;;
-     --rule=*)      RULE=`get_string $1`
-                    if [ $? -ne 0 ]; then
-                      echo -n "attila: Bad rule name argument \"$1\"."
-                      print_usage
-                      exit 1
-                    fi;;
+   case $PARSE_STATE in
 
-    # Short arguments.
-     -*) SHORTS="$1"; NB=2; CH=`echo $SHORTS | cut -c$NB`
+     "attila") case $1 in
+      # Long arguments.
+       --help)        print_help;
+                      exit 0;;
+       --ssh)         RSH="ssh";;
+       --user)        ASIM="n";;
+       --full)        FULL="y";;
+       --asim)        ASIM="y"; FULL="y";;
+       --asim-noloop) ASIM="y";;
+       --local)       ATTILA_LOCAL="y";;
+       --prefix=*)    INSTALL_DIR=`get_string $1`
+                      if [ $? -ne 0 ]; then
+                        echo -n "attila: Bad directory in argument \"$1\"."
+                        print_usage
+                        exit 1
+                      fi;;
+       --builddir=*)  BUILD_DIR=`get_string $1`
+                      if [ $? -ne 0 ]; then
+                        echo -n "attila: Bad directory in argument \"$1\"."
+                        print_usage
+                        exit 1
+                      fi;;
+       --tool=*)      TOOL=`get_string $1`
+                      if [ "$TOOL" = "attila" ]; then AUTO="attila"; fi
+  
+                      TOOLS="$TOOLS $TOOL"
+                      if [ $? -ne 0 ]; then
+                        echo -n "attila: Bad tool name in argument \"$1\"."
+                        print_usage
+                        exit 1
+                      fi;;
+       -c-) PARSE_STATE="configure";;
+       -m-) PARSE_STATE="make";;
+  
+      # Short arguments.
+       -*) SHORTS="$1"; NB=2; CH=`echo $SHORTS | cut -c$NB`
+  
+           while [ "$CH" != "" ]; do
+             case $CH in
+               h) print_usage; exit 0;;
+               L) ATTILA_LOCAL="y";;
+               S) RSH="ssh";;
+               U) ASIM="n";;
+               F) FULL="y";;
+               A) ASIM="n"; FULL="y";;
+  
+               *) echo "attila:error: Invalid option \`$CH'."
+                  print_usage; exit 1;;
+             esac
+  
+             NB=`expr $NB + 1`
+             CH=`echo $SHORTS | cut -c$NB`
+           done;;
+     esac;;
 
-         while [ "$CH" != "" ]; do
-           case $CH in
-             h) print_usage; exit 0;;
-             S) RSH="ssh";;
-             U) ASIM="n";;
-             F) FULL="y";;
-             A) ASIM="n"; FULL="y";;
+     "configure") case $1 in
+          "-m-") PARSE_STATE="make";;
+          "-c-") PARSE_STATE="configure";;
+          *)     ARGS_CONFIGURE="$ARGS_CONFIGURE $1";;
+        esac;;
 
-             *) echo "attila:error: Invalid option \`$CH'."
-                print_usage; exit 1;;
-           esac
+     "make") case $1 in
+          "-m-") PARSE_STATE="make";;
+          "-c-") PARSE_STATE="configure";;
+          *)     ARGS_MAKE="$ARGS_MAKE $1";;
+        esac;;
 
-           NB=`expr $NB + 1`
-           CH=`echo $SHORTS | cut -c$NB`
-         done;;
+
    esac
 
    COMMAND_LINE="$COMMAND_LINE $1"
@@ -609,6 +641,10 @@
 
  if [ ! -z "$BUILD_DIR" ]; then
    BUILD_DIR=`echo $BUILD_DIR | sed "s,^$HOME/,,"`
+ fi
+
+ if [ -z "$ARGS_MAKE" ]; then
+   ARGS_MAKE="$ARGS_MAKE_DEFAULT"
  fi
 
 
@@ -632,11 +668,13 @@
      ARGS="$ARGS --user"
    fi
    if [ "$ATTILA_LOCAL" = "y" ]; then ARGS="$ARGS --local"; fi
-   ARGS="$ARGS --rule=$RULE"
 
    for TOOL in $TOOLS; do
      ARGS="$ARGS --tool=$TOOL"
    done
+
+   if [ ! -z "$ARGS_CONFIGURE" ]; then ARGS="$ARGS -c- $ARGS_CONFIGURE"; fi
+   if [ ! -z "$ARGS_MAKE"      ]; then ARGS="$ARGS -m- $ARGS_MAKE"; fi
 
    ENVIRONMENT=""
    ENVIRONMENT="$ENVIRONMENT ALLIANCE_TOP=$ALLIANCE_TOP; export ALLIANCE_TOP;"

@@ -1,5 +1,5 @@
 
-SUBDIRS = nero
+SUBDIRS = nero man1
 
 pdfdir = $(prefix)/doc/pdf
 pdf_DATA = nero.pdf

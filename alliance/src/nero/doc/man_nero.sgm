@@ -37,7 +37,7 @@
         <arg>--local</arg>
         <arg>--global</arg>
         <sbr>
-        <arg>--place <replaceable>placement</replaceable></arg>
+        <arg>-p <replaceable>placement</replaceable></arg>
         <arg choice="req"><replaceable>netlist</replaceable></arg>
         <arg choice="req"><replaceable>layout</replaceable></arg>
     </cmdsynopsis>

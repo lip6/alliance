@@ -1,5 +1,5 @@
 
-SUBDIRS = attila
+SUBDIRS = attila man1
 
 pdfdir = $(prefix)/doc/pdf
 pdf_DATA = attila.pdf
