@@ -51,6 +51,16 @@
 #include "spi_msg.h"
 #include "spi_global.h"
 
+
+
+void sort_locap(lofig_list *ptfig,FILE *df)  ;
+void sort_lores(lofig_list *ptfig,FILE *df)  ;
+void sort_loself(lofig_list *ptfig,FILE *df) ;
+
+
+
+
+
 static char    *TNMOS,
                *TPMOS;
 char           *SPI_NETNAME;
@@ -712,6 +722,11 @@ FILE		*df;
 
   sortinstance( ptfig, df );
   sorttransistormos( ptfig, df, vss, vdd);
+
+  sort_locap(ptfig,df)  ;
+  sort_lores(ptfig,df)  ;
+  sort_loself(ptfig,df) ;
+
   sortrcn( ptfig, df, vss );
 
   tooutput( df, ".ends %s\n\n", ptfig->NAME );
@@ -941,4 +956,205 @@ char *s;
       s[p1+2] = '\0' ;
     }
   }
+}
+
+
+/****************************************************************************************************/
+/************************************** locap, lores and loself *************************************/
+/****************************************************************************************************/
+
+void sort_locap(lofig_list *ptfig,FILE *df)
+{
+  locap_list	*scancap   = NULL ;
+  int		nb         = 0    ;
+  ht            *capname   = NULL ;
+  char          name[1024]        ;
+  char          *ptr       = NULL ;
+
+  for(scancap = ptfig -> LOCAP,nb = 1 ; scancap != NULL; scancap = scancap -> NEXT,nb++) ;
+
+  capname = addht(nb) ;
+
+  nb = 0 ;
+
+  for(scancap = ptfig -> LOCAP ; scancap != NULL ; scancap = scancap -> NEXT)
+    {
+      if(scancap -> NAME != NULL)
+	{
+	  if(gethtitem(capname,scancap -> NAME) != EMPTYHT)
+	    {
+	      do
+		{
+		  nb++ ;
+		  sprintf(name,"%s_%d",scancap -> NAME,nb) ;
+		  ptr = namealloc(name) ;
+		}
+
+	      while(gethtitem(capname,ptr) != EMPTYHT) ;
+
+	      addhtitem(capname,ptr,1) ;
+	      tooutput(df,"C%s ",name) ;    
+	    }
+	  else
+	    {
+	      tooutput(df,"C%s ",scancap -> NAME) ;
+	      addhtitem(capname,scancap -> NAME,1) ;
+	    }
+	}
+      else
+	{
+	  do
+	    {
+	      nb++ ;
+	      sprintf(name,"%d",nb) ;
+	      ptr = namealloc(name) ;
+	    }
+
+	  while(gethtitem(capname,ptr) != EMPTYHT) ;
+
+	  tooutput(df,"C%s ",name) ;
+	  addhtitem(capname,ptr,1) ;
+	}
+
+      sortconnecteur(df,scancap -> TCON,1) ;
+      sortconnecteur(df,scancap -> BCON,1) ;
+
+      tooutput(df,"%g ",(float)scancap -> CAPA) ;
+
+      tooutput(df,"\n") ;
+    }
+
+  delht(capname) ;
+}
+
+/****************************************************************************************************/
+
+void sort_lores(lofig_list *ptfig,FILE *df)
+{
+  lores_list	*scanres   = NULL ;
+  int		nb         = 0    ;
+  ht            *resname   = NULL ;
+  char          name[1024]        ;
+  char          *ptr       = NULL ;
+
+  for(scanres = ptfig -> LORES,nb = 1 ; scanres != NULL; scanres = scanres -> NEXT,nb++) ;
+
+  resname = addht(nb) ;
+
+  nb = 0 ;
+
+  for(scanres = ptfig -> LORES ; scanres != NULL ; scanres = scanres -> NEXT)
+    {
+      if(scanres -> NAME != NULL)
+	{
+	  if(gethtitem(resname,scanres -> NAME) != EMPTYHT)
+	    {
+	      do
+		{
+		  nb++ ;
+		  sprintf(name,"%s_%d",scanres -> NAME,nb) ;
+		  ptr = namealloc(name) ;
+		}
+
+	      while(gethtitem(resname,ptr) != EMPTYHT) ;
+
+	      addhtitem(resname,ptr,1) ;
+	      tooutput(df,"R%s ",name) ;    
+	    }
+	  else
+	    {
+	      tooutput(df,"R%s ",scanres -> NAME) ;
+	      addhtitem(resname,scanres -> NAME,1) ;
+	    }
+	}
+      else
+	{
+	  do
+	    {
+	      nb++ ;
+	      sprintf(name,"%d",nb) ;
+	      ptr = namealloc(name) ;
+	    }
+
+	  while(gethtitem(resname,ptr) != EMPTYHT) ;
+
+	  tooutput(df,"R%s ",name) ;
+	  addhtitem(resname,ptr,1) ;
+	}
+
+      sortconnecteur(df,scanres -> RCON1,1) ;
+      sortconnecteur(df,scanres -> RCON2,1) ;
+
+      tooutput(df,"%g ",(float)scanres -> RESI) ;
+
+      tooutput(df,"\n") ;
+    }
+
+  delht(resname) ;
+}
+
+/****************************************************************************************************/
+
+void sort_loself(lofig_list *ptfig,FILE *df)
+{
+  loself_list	*scanself   = NULL ;
+  int		nb         = 0    ;
+  ht            *selfname   = NULL ;
+  char          name[1024]        ;
+  char          *ptr       = NULL ;
+
+  for(scanself = ptfig -> LOSELF,nb = 1 ; scanself != NULL; scanself = scanself -> NEXT,nb++) ;
+
+  selfname = addht(nb) ;
+
+  nb = 0 ;
+
+  for(scanself = ptfig -> LOSELF ; scanself != NULL ; scanself = scanself -> NEXT)
+    {
+      if(scanself -> NAME != NULL)
+	{
+	  if(gethtitem(selfname,scanself -> NAME) != EMPTYHT)
+	    {
+	      do
+		{
+		  nb++ ;
+		  sprintf(name,"%s_%d",scanself -> NAME,nb) ;
+		  ptr = namealloc(name) ;
+		}
+
+	      while(gethtitem(selfname,ptr) != EMPTYHT) ;
+
+	      addhtitem(selfname,ptr,1) ;
+	      tooutput(df,"L%s ",name) ;    
+	    }
+	  else
+	    {
+	      tooutput(df,"L%s ",scanself -> NAME) ;
+	      addhtitem(selfname,scanself -> NAME,1) ;
+	    }
+	}
+      else
+	{
+	  do
+	    {
+	      nb++ ;
+	      sprintf(name,"%d",nb) ;
+	      ptr = namealloc(name) ;
+	    }
+
+	  while(gethtitem(selfname,ptr) != EMPTYHT) ;
+
+	  tooutput(df,"L%s ",name) ;
+	  addhtitem(selfname,ptr,1) ;
+	}
+
+      sortconnecteur(df,scanself -> SCON1,1) ;
+      sortconnecteur(df,scanself -> SCON2,1) ;
+
+      tooutput(df,"%g ",(float)scanself -> SELF) ;
+
+      tooutput(df,"\n") ;
+    }
+
+  delht(selfname) ;
 }
