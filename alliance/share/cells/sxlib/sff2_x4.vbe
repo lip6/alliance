@@ -28,7 +28,7 @@ PORT (
   cmd	 : in  BIT;
   i0	 : in  BIT;
   i1	 : in  BIT;
-  q	 : inout BIT;
+  q	 : out BIT;
   vdd	 : in  BIT;
   vss	 : in  BIT
 );

@@ -16,7 +16,7 @@ GENERIC (
 PORT (
   ck	 : in  BIT;
   i	 : in  BIT;
-  q	 : inout BIT;
+  q	 : out BIT;
   vdd	 : in  BIT;
   vss	 : in  BIT
 );
