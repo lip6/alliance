@@ -1,5 +1,6 @@
 lib_LIBRARIES       = libAbv.a
 libAbv_a_SOURCES    = bvl_bcomp_y.y bvl_bcomp_l.l \
+include_HEADERS     = abv.h
 abv.h	     bvl_bspec.c  bvl_drive.c  bvl_parse.h  bvl_util.h \
 bvl_bedef.h  bvl_bspec.h  bvl_drive.h  bvl_utdef.h  bvl_utype.h \
 bvl_blex.h   bvl_byacc.h  bvl_parse.c  bvl_util.c

@@ -183,7 +183,7 @@ void getvbpkg( FileName, Extention )
       {
         VbhFigure = getvbfiggenmap( PhysicalName, Extention, (vbmap_list *)0 );
 
-        if ( ! VbhFigure->PACKAGE )
+        if ( ! VbhFigure->IS_PACKAGE )
         {
           fprintf( stdout, "ERROR file %s is not a package\n", PhysicalName );
           autexit( 1 );

@@ -1,4 +1,5 @@
 lib_LIBRARIES       = libVbl.a
+include_HEADERS     = vbl.h
 libVbl_a_SOURCES    = vbl_bcomp_y.y vbl_bcomp_l.l \
 vbl_bedef.h  vbl_bspec.c  vbl_byacc.h  vbl_util.c  vbl_utype.h \
 vbl.h	vbl_blex.h   vbl_bspec.h  vbl_parse.c  vbl_util.h
