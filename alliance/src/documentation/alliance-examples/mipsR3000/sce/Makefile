@@ -5,7 +5,7 @@
  STANDART_PATH = PATH=$(STANDART_BIN); export PATH
 
 # Standart Alliance binary access paths.
-#  ALLIANCE_BIN  = $(ALLIANCE_TOP)/bin
+ ALLIANCE_BIN  = $(ALLIANCE_TOP)/bin
 
 # FitPath Alliance binary access paths.
 #    DEVEL_BIN  = /users/soft5/newlabo/alliance-4.5.0/archi/Solaris/bin
