@@ -4,21 +4,21 @@ GENERIC (
   CONSTANT transistors	 : NATURAL := 16;
   CONSTANT cin_i0	 : NATURAL := 20;
   CONSTANT cin_i1	 : NATURAL := 21;
-  CONSTANT tphh_i0_q	 : NATURAL := 467;
+  CONSTANT tphh_i0_q	 : NATURAL := 472;
   CONSTANT rup_i0_q	 : NATURAL := 890;
-  CONSTANT tplh_i0_q	 : NATURAL := 548;
+  CONSTANT tplh_i0_q	 : NATURAL := 558;
   CONSTANT rup_i0_q	 : NATURAL := 890;
-  CONSTANT tpll_i0_q	 : NATURAL := 471;
+  CONSTANT tpll_i0_q	 : NATURAL := 478;
   CONSTANT rdown_i0_q	 : NATURAL := 800;
-  CONSTANT tphl_i0_q	 : NATURAL := 517;
+  CONSTANT tphl_i0_q	 : NATURAL := 518;
   CONSTANT rdown_i0_q	 : NATURAL := 800;
-  CONSTANT tphh_i1_q	 : NATURAL := 350;
+  CONSTANT tphh_i1_q	 : NATURAL := 353;
   CONSTANT rup_i1_q	 : NATURAL := 890;
-  CONSTANT tplh_i1_q	 : NATURAL := 643;
+  CONSTANT tplh_i1_q	 : NATURAL := 653;
   CONSTANT rup_i1_q	 : NATURAL := 890;
-  CONSTANT tpll_i1_q	 : NATURAL := 525;
+  CONSTANT tpll_i1_q	 : NATURAL := 537;
   CONSTANT rdown_i1_q	 : NATURAL := 800;
-  CONSTANT tphl_i1_q	 : NATURAL := 536;
+  CONSTANT tphl_i1_q	 : NATURAL := 537;
   CONSTANT rdown_i1_q	 : NATURAL := 800
 );
 PORT (
@@ -33,5 +33,5 @@ END xr2_x4;
 ARCHITECTURE behaviour_data_flow OF xr2_x4 IS
 
 BEGIN
-  q <= (i0 xor i1) after 1243 ps;
+  q <= (i0 xor i1) after 1253 ps;
 END;

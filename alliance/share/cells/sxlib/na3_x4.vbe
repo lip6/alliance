@@ -5,17 +5,17 @@ GENERIC (
   CONSTANT cin_i0	 : NATURAL := 10;
   CONSTANT cin_i1	 : NATURAL := 10;
   CONSTANT cin_i2	 : NATURAL := 10;
-  CONSTANT tplh_i0_nq	 : NATURAL := 594;
+  CONSTANT tplh_i0_nq	 : NATURAL := 605;
   CONSTANT rup_i0_nq	 : NATURAL := 890;
-  CONSTANT tphl_i0_nq	 : NATURAL := 543;
+  CONSTANT tphl_i0_nq	 : NATURAL := 550;
   CONSTANT rdown_i0_nq	 : NATURAL := 800;
-  CONSTANT tplh_i2_nq	 : NATURAL := 639;
+  CONSTANT tplh_i2_nq	 : NATURAL := 651;
   CONSTANT rup_i2_nq	 : NATURAL := 890;
-  CONSTANT tphl_i2_nq	 : NATURAL := 508;
+  CONSTANT tphl_i2_nq	 : NATURAL := 512;
   CONSTANT rdown_i2_nq	 : NATURAL := 800;
-  CONSTANT tplh_i1_nq	 : NATURAL := 682;
+  CONSTANT tplh_i1_nq	 : NATURAL := 694;
   CONSTANT rup_i1_nq	 : NATURAL := 890;
-  CONSTANT tphl_i1_nq	 : NATURAL := 453;
+  CONSTANT tphl_i1_nq	 : NATURAL := 454;
   CONSTANT rdown_i1_nq	 : NATURAL := 800
 );
 PORT (
@@ -31,5 +31,5 @@ END na3_x4;
 ARCHITECTURE behaviour_data_flow OF na3_x4 IS
 
 BEGIN
-  nq <= not (((i0 and i1) and i2)) after 1282 ps;
+  nq <= not (((i0 and i1) and i2)) after 1294 ps;
 END;

@@ -4,13 +4,13 @@ GENERIC (
   CONSTANT transistors	 : NATURAL := 6;
   CONSTANT cin_i0	 : NATURAL := 10;
   CONSTANT cin_i1	 : NATURAL := 10;
-  CONSTANT tphh_i0_q	 : NATURAL := 400;
+  CONSTANT tphh_i0_q	 : NATURAL := 403;
   CONSTANT rup_i0_q	 : NATURAL := 1780;
   CONSTANT tpll_i0_q	 : NATURAL := 296;
   CONSTANT rdown_i0_q	 : NATURAL := 1600;
-  CONSTANT tphh_i1_q	 : NATURAL := 331;
+  CONSTANT tphh_i1_q	 : NATURAL := 332;
   CONSTANT rup_i1_q	 : NATURAL := 1780;
-  CONSTANT tpll_i1_q	 : NATURAL := 360;
+  CONSTANT tpll_i1_q	 : NATURAL := 363;
   CONSTANT rdown_i1_q	 : NATURAL := 1600
 );
 PORT (
@@ -25,5 +25,5 @@ END o2_x2;
 ARCHITECTURE behaviour_data_flow OF o2_x2 IS
 
 BEGIN
-  q <= (i0 or i1) after 1000 ps;
+  q <= (i0 or i1) after 1003 ps;
 END;

@@ -4,13 +4,13 @@ GENERIC (
   CONSTANT transistors	 : NATURAL := 4;
   CONSTANT cin_i0	 : NATURAL := 12;
   CONSTANT cin_i1	 : NATURAL := 12;
-  CONSTANT tplh_i0_nq	 : NATURAL := 118;
+  CONSTANT tplh_i0_nq	 : NATURAL := 121;
   CONSTANT rup_i0_nq	 : NATURAL := 3200;
-  CONSTANT tphl_i0_nq	 : NATURAL := 294;
+  CONSTANT tphl_i0_nq	 : NATURAL := 303;
   CONSTANT rdown_i0_nq	 : NATURAL := 3610;
-  CONSTANT tplh_i1_nq	 : NATURAL := 154;
+  CONSTANT tplh_i1_nq	 : NATURAL := 161;
   CONSTANT rup_i1_nq	 : NATURAL := 3200;
-  CONSTANT tphl_i1_nq	 : NATURAL := 191;
+  CONSTANT tphl_i1_nq	 : NATURAL := 199;
   CONSTANT rdown_i1_nq	 : NATURAL := 3610
 );
 PORT (
@@ -25,5 +25,5 @@ END no2_x1;
 ARCHITECTURE behaviour_data_flow OF no2_x1 IS
 
 BEGIN
-  nq <= not ((i0 or i1)) after 894 ps;
+  nq <= not ((i0 or i1)) after 903 ps;
 END;

@@ -6,21 +6,21 @@ GENERIC (
   CONSTANT cin_i1	 : NATURAL := 12;
   CONSTANT cin_i2	 : NATURAL := 12;
   CONSTANT cin_i3	 : NATURAL := 12;
-  CONSTANT tphh_i3_q	 : NATURAL := 702;
+  CONSTANT tphh_i3_q	 : NATURAL := 717;
   CONSTANT rup_i3_q	 : NATURAL := 890;
-  CONSTANT tpll_i3_q	 : NATURAL := 527;
+  CONSTANT tpll_i3_q	 : NATURAL := 533;
   CONSTANT rdown_i3_q	 : NATURAL := 800;
-  CONSTANT tphh_i2_q	 : NATURAL := 633;
+  CONSTANT tphh_i2_q	 : NATURAL := 646;
   CONSTANT rup_i2_q	 : NATURAL := 890;
-  CONSTANT tpll_i2_q	 : NATURAL := 598;
+  CONSTANT tpll_i2_q	 : NATURAL := 609;
   CONSTANT rdown_i2_q	 : NATURAL := 800;
-  CONSTANT tphh_i0_q	 : NATURAL := 559;
+  CONSTANT tphh_i0_q	 : NATURAL := 570;
   CONSTANT rup_i0_q	 : NATURAL := 890;
-  CONSTANT tpll_i0_q	 : NATURAL := 622;
+  CONSTANT tpll_i0_q	 : NATURAL := 635;
   CONSTANT rdown_i0_q	 : NATURAL := 800;
-  CONSTANT tphh_i1_q	 : NATURAL := 479;
+  CONSTANT tphh_i1_q	 : NATURAL := 489;
   CONSTANT rup_i1_q	 : NATURAL := 890;
-  CONSTANT tpll_i1_q	 : NATURAL := 624;
+  CONSTANT tpll_i1_q	 : NATURAL := 640;
   CONSTANT rdown_i1_q	 : NATURAL := 800
 );
 PORT (
@@ -37,5 +37,5 @@ END o4_x4;
 ARCHITECTURE behaviour_data_flow OF o4_x4 IS
 
 BEGIN
-  q <= (((i0 or i1) or i2) or i3) after 1302 ps;
+  q <= (((i0 or i1) or i2) or i3) after 1317 ps;
 END;

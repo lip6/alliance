@@ -4,14 +4,14 @@ GENERIC (
   CONSTANT transistors	 : NATURAL := 8;
   CONSTANT cin_i0	 : NATURAL := 9;
   CONSTANT cin_i1	 : NATURAL := 11;
-  CONSTANT tphh_i1_q	 : NATURAL := 259;
-  CONSTANT rup_i1_q	 : NATURAL := 890;
-  CONSTANT tpll_i1_q	 : NATURAL := 507;
-  CONSTANT rdown_i1_q	 : NATURAL := 800;
-  CONSTANT tphh_i0_q	 : NATURAL := 328;
+  CONSTANT tphh_i0_q	 : NATURAL := 334;
   CONSTANT rup_i0_q	 : NATURAL := 890;
-  CONSTANT tpll_i0_q	 : NATURAL := 467;
-  CONSTANT rdown_i0_q	 : NATURAL := 800
+  CONSTANT tpll_i0_q	 : NATURAL := 479;
+  CONSTANT rdown_i0_q	 : NATURAL := 800;
+  CONSTANT tphh_i1_q	 : NATURAL := 261;
+  CONSTANT rup_i1_q	 : NATURAL := 890;
+  CONSTANT tpll_i1_q	 : NATURAL := 521;
+  CONSTANT rdown_i1_q	 : NATURAL := 800
 );
 PORT (
   i0	 : in  BIT;
@@ -25,5 +25,5 @@ END a2_x4;
 ARCHITECTURE behaviour_data_flow OF a2_x4 IS
 
 BEGIN
-  q <= (i0 and i1) after 1107 ps;
+  q <= (i0 and i1) after 1121 ps;
 END;

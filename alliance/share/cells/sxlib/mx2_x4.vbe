@@ -5,21 +5,21 @@ GENERIC (
   CONSTANT cin_cmd	 : NATURAL := 17;
   CONSTANT cin_i0	 : NATURAL := 8;
   CONSTANT cin_i1	 : NATURAL := 9;
-  CONSTANT tphh_cmd_q	 : NATURAL := 605;
+  CONSTANT tphh_cmd_q	 : NATURAL := 612;
   CONSTANT rup_cmd_q	 : NATURAL := 890;
-  CONSTANT tplh_cmd_q	 : NATURAL := 619;
+  CONSTANT tplh_cmd_q	 : NATURAL := 629;
   CONSTANT rup_cmd_q	 : NATURAL := 890;
-  CONSTANT tpll_cmd_q	 : NATURAL := 627;
+  CONSTANT tpll_cmd_q	 : NATURAL := 645;
   CONSTANT rdown_cmd_q	 : NATURAL := 800;
   CONSTANT tphl_cmd_q	 : NATURAL := 572;
   CONSTANT rdown_cmd_q	 : NATURAL := 800;
-  CONSTANT tphh_i1_q	 : NATURAL := 557;
+  CONSTANT tphh_i1_q	 : NATURAL := 560;
   CONSTANT rup_i1_q	 : NATURAL := 890;
-  CONSTANT tpll_i1_q	 : NATURAL := 561;
+  CONSTANT tpll_i1_q	 : NATURAL := 574;
   CONSTANT rdown_i1_q	 : NATURAL := 800;
-  CONSTANT tphh_i0_q	 : NATURAL := 557;
+  CONSTANT tphh_i0_q	 : NATURAL := 560;
   CONSTANT rup_i0_q	 : NATURAL := 890;
-  CONSTANT tpll_i0_q	 : NATURAL := 561;
+  CONSTANT tpll_i0_q	 : NATURAL := 574;
   CONSTANT rdown_i0_q	 : NATURAL := 800
 );
 PORT (
@@ -35,5 +35,5 @@ END mx2_x4;
 ARCHITECTURE behaviour_data_flow OF mx2_x4 IS
 
 BEGIN
-  q <= ((i1 and cmd) or (not (cmd) and i0)) after 1227 ps;
+  q <= ((i1 and cmd) or (not (cmd) and i0)) after 1245 ps;
 END;

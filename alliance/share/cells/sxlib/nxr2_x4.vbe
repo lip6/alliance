@@ -4,21 +4,21 @@ GENERIC (
   CONSTANT transistors	 : NATURAL := 16;
   CONSTANT cin_i0	 : NATURAL := 20;
   CONSTANT cin_i1	 : NATURAL := 21;
-  CONSTANT tphh_i0_nq	 : NATURAL := 460;
+  CONSTANT tphh_i0_nq	 : NATURAL := 465;
   CONSTANT rup_i0_nq	 : NATURAL := 890;
-  CONSTANT tplh_i0_nq	 : NATURAL := 538;
+  CONSTANT tplh_i0_nq	 : NATURAL := 548;
   CONSTANT rup_i0_nq	 : NATURAL := 890;
-  CONSTANT tpll_i0_nq	 : NATURAL := 472;
+  CONSTANT tpll_i0_nq	 : NATURAL := 479;
   CONSTANT rdown_i0_nq	 : NATURAL := 800;
-  CONSTANT tphl_i0_nq	 : NATURAL := 516;
+  CONSTANT tphl_i0_nq	 : NATURAL := 517;
   CONSTANT rdown_i0_nq	 : NATURAL := 800;
-  CONSTANT tphh_i1_nq	 : NATURAL := 553;
+  CONSTANT tphh_i1_nq	 : NATURAL := 563;
   CONSTANT rup_i1_nq	 : NATURAL := 890;
-  CONSTANT tplh_i1_nq	 : NATURAL := 530;
+  CONSTANT tplh_i1_nq	 : NATURAL := 540;
   CONSTANT rup_i1_nq	 : NATURAL := 890;
-  CONSTANT tpll_i1_nq	 : NATURAL := 444;
+  CONSTANT tpll_i1_nq	 : NATURAL := 451;
   CONSTANT rdown_i1_nq	 : NATURAL := 800;
-  CONSTANT tphl_i1_nq	 : NATURAL := 548;
+  CONSTANT tphl_i1_nq	 : NATURAL := 549;
   CONSTANT rdown_i1_nq	 : NATURAL := 800
 );
 PORT (
@@ -33,5 +33,5 @@ END nxr2_x4;
 ARCHITECTURE behaviour_data_flow OF nxr2_x4 IS
 
 BEGIN
-  nq <= not ((i0 xor i1)) after 1153 ps;
+  nq <= not ((i0 xor i1)) after 1163 ps;
 END;

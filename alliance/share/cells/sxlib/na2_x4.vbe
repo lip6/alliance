@@ -4,13 +4,13 @@ GENERIC (
   CONSTANT transistors	 : NATURAL := 10;
   CONSTANT cin_i0	 : NATURAL := 10;
   CONSTANT cin_i1	 : NATURAL := 10;
-  CONSTANT tplh_i1_nq	 : NATURAL := 594;
+  CONSTANT tplh_i1_nq	 : NATURAL := 606;
   CONSTANT rup_i1_nq	 : NATURAL := 890;
-  CONSTANT tphl_i1_nq	 : NATURAL := 348;
+  CONSTANT tphl_i1_nq	 : NATURAL := 349;
   CONSTANT rdown_i1_nq	 : NATURAL := 800;
-  CONSTANT tplh_i0_nq	 : NATURAL := 547;
+  CONSTANT tplh_i0_nq	 : NATURAL := 557;
   CONSTANT rup_i0_nq	 : NATURAL := 890;
-  CONSTANT tphl_i0_nq	 : NATURAL := 404;
+  CONSTANT tphl_i0_nq	 : NATURAL := 408;
   CONSTANT rdown_i0_nq	 : NATURAL := 800
 );
 PORT (
@@ -25,5 +25,5 @@ END na2_x4;
 ARCHITECTURE behaviour_data_flow OF na2_x4 IS
 
 BEGIN
-  nq <= not ((i0 and i1)) after 1194 ps;
+  nq <= not ((i0 and i1)) after 1206 ps;
 END;

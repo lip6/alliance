@@ -3,9 +3,9 @@ GENERIC (
   CONSTANT area 	 : NATURAL := 2000;
   CONSTANT transistors	 : NATURAL := 10;
   CONSTANT cin_i	 : NATURAL := 15;
-  CONSTANT tphh_i_q	 : NATURAL := 334;
+  CONSTANT tphh_i_q	 : NATURAL := 339;
   CONSTANT rup_i_q	 : NATURAL := 440;
-  CONSTANT tpll_i_q	 : NATURAL := 388;
+  CONSTANT tpll_i_q	 : NATURAL := 395;
   CONSTANT rdown_i_q	 : NATURAL := 400
 );
 PORT (
@@ -19,5 +19,5 @@ END buf_x8;
 ARCHITECTURE behaviour_data_flow OF buf_x8 IS
 
 BEGIN
-  q <= i after 988 ps;
+  q <= i after 995 ps;
 END;

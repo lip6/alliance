@@ -6,21 +6,21 @@ GENERIC (
   CONSTANT cin_i1	 : NATURAL := 12;
   CONSTANT cin_i2	 : NATURAL := 12;
   CONSTANT cin_i3	 : NATURAL := 12;
-  CONSTANT tplh_i3_nq	 : NATURAL := 265;
+  CONSTANT tplh_i3_nq	 : NATURAL := 270;
   CONSTANT rup_i3_nq	 : NATURAL := 6170;
-  CONSTANT tphl_i3_nq	 : NATURAL := 489;
+  CONSTANT tphl_i3_nq	 : NATURAL := 501;
   CONSTANT rdown_i3_nq	 : NATURAL := 3610;
-  CONSTANT tplh_i2_nq	 : NATURAL := 323;
+  CONSTANT tplh_i2_nq	 : NATURAL := 332;
   CONSTANT rup_i2_nq	 : NATURAL := 6170;
-  CONSTANT tphl_i2_nq	 : NATURAL := 411;
+  CONSTANT tphl_i2_nq	 : NATURAL := 421;
   CONSTANT rdown_i2_nq	 : NATURAL := 3610;
-  CONSTANT tplh_i0_nq	 : NATURAL := 328;
+  CONSTANT tplh_i0_nq	 : NATURAL := 339;
   CONSTANT rup_i0_nq	 : NATURAL := 6170;
-  CONSTANT tphl_i0_nq	 : NATURAL := 325;
+  CONSTANT tphl_i0_nq	 : NATURAL := 334;
   CONSTANT rdown_i0_nq	 : NATURAL := 3610;
-  CONSTANT tplh_i1_nq	 : NATURAL := 306;
+  CONSTANT tplh_i1_nq	 : NATURAL := 319;
   CONSTANT rup_i1_nq	 : NATURAL := 6170;
-  CONSTANT tphl_i1_nq	 : NATURAL := 228;
+  CONSTANT tphl_i1_nq	 : NATURAL := 235;
   CONSTANT rdown_i1_nq	 : NATURAL := 3610
 );
 PORT (
@@ -37,5 +37,5 @@ END no4_x1;
 ARCHITECTURE behaviour_data_flow OF no4_x1 IS
 
 BEGIN
-  nq <= not ((((i0 or i1) or i2) or i3)) after 1089 ps;
+  nq <= not ((((i0 or i1) or i2) or i3)) after 1101 ps;
 END;

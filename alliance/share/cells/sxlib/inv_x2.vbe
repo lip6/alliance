@@ -3,9 +3,9 @@ GENERIC (
   CONSTANT area 	 : NATURAL := 750;
   CONSTANT transistors	 : NATURAL := 2;
   CONSTANT cin_i	 : NATURAL := 12;
-  CONSTANT tplh_i_nq	 : NATURAL := 156;
+  CONSTANT tplh_i_nq	 : NATURAL := 162;
   CONSTANT rup_i_nq	 : NATURAL := 2410;
-  CONSTANT tphl_i_nq	 : NATURAL := 66;
+  CONSTANT tphl_i_nq	 : NATURAL := 68;
   CONSTANT rdown_i_nq	 : NATURAL := 1600
 );
 PORT (
@@ -19,5 +19,5 @@ END inv_x2;
 ARCHITECTURE behaviour_data_flow OF inv_x2 IS
 
 BEGIN
-  nq <= not (i) after 756 ps;
+  nq <= not (i) after 762 ps;
 END;

@@ -5,21 +5,21 @@ GENERIC (
   CONSTANT cin_cmd	 : NATURAL := 17;
   CONSTANT cin_i0	 : NATURAL := 8;
   CONSTANT cin_i1	 : NATURAL := 9;
-  CONSTANT tplh_cmd_nq	 : NATURAL := 684;
+  CONSTANT tplh_cmd_nq	 : NATURAL := 700;
   CONSTANT rup_cmd_nq	 : NATURAL := 890;
   CONSTANT tphh_cmd_nq	 : NATURAL := 680;
   CONSTANT rup_cmd_nq	 : NATURAL := 890;
-  CONSTANT tphl_cmd_nq	 : NATURAL := 626;
+  CONSTANT tphl_cmd_nq	 : NATURAL := 628;
   CONSTANT rdown_cmd_nq	 : NATURAL := 800;
-  CONSTANT tpll_cmd_nq	 : NATURAL := 690;
+  CONSTANT tpll_cmd_nq	 : NATURAL := 700;
   CONSTANT rdown_cmd_nq	 : NATURAL := 800;
-  CONSTANT tplh_i0_nq	 : NATURAL := 635;
+  CONSTANT tplh_i0_nq	 : NATURAL := 646;
   CONSTANT rup_i0_nq	 : NATURAL := 890;
-  CONSTANT tphl_i0_nq	 : NATURAL := 605;
+  CONSTANT tphl_i0_nq	 : NATURAL := 606;
   CONSTANT rdown_i0_nq	 : NATURAL := 800;
-  CONSTANT tplh_i1_nq	 : NATURAL := 635;
+  CONSTANT tplh_i1_nq	 : NATURAL := 646;
   CONSTANT rup_i1_nq	 : NATURAL := 890;
-  CONSTANT tphl_i1_nq	 : NATURAL := 605;
+  CONSTANT tphl_i1_nq	 : NATURAL := 606;
   CONSTANT rdown_i1_nq	 : NATURAL := 800
 );
 PORT (
@@ -35,5 +35,5 @@ END nmx2_x4;
 ARCHITECTURE behaviour_data_flow OF nmx2_x4 IS
 
 BEGIN
-  nq <= not (((i0 and not (cmd)) or (i1 and cmd))) after 1290 ps;
+  nq <= not (((i0 and not (cmd)) or (i1 and cmd))) after 1300 ps;
 END;

@@ -5,17 +5,17 @@ GENERIC (
   CONSTANT cin_i0	 : NATURAL := 10;
   CONSTANT cin_i1	 : NATURAL := 10;
   CONSTANT cin_i2	 : NATURAL := 9;
-  CONSTANT tphh_i0_q	 : NATURAL := 486;
+  CONSTANT tphh_i0_q	 : NATURAL := 491;
   CONSTANT rup_i0_q	 : NATURAL := 1780;
   CONSTANT tpll_i0_q	 : NATURAL := 405;
   CONSTANT rdown_i0_q	 : NATURAL := 1600;
-  CONSTANT tphh_i1_q	 : NATURAL := 424;
+  CONSTANT tphh_i1_q	 : NATURAL := 427;
   CONSTANT rup_i1_q	 : NATURAL := 1780;
-  CONSTANT tpll_i1_q	 : NATURAL := 476;
+  CONSTANT tpll_i1_q	 : NATURAL := 480;
   CONSTANT rdown_i1_q	 : NATURAL := 1600;
-  CONSTANT tphh_i2_q	 : NATURAL := 356;
+  CONSTANT tphh_i2_q	 : NATURAL := 358;
   CONSTANT rup_i2_q	 : NATURAL := 1780;
-  CONSTANT tpll_i2_q	 : NATURAL := 499;
+  CONSTANT tpll_i2_q	 : NATURAL := 504;
   CONSTANT rdown_i2_q	 : NATURAL := 1600
 );
 PORT (
@@ -31,5 +31,5 @@ END o3_x2;
 ARCHITECTURE behaviour_data_flow OF o3_x2 IS
 
 BEGIN
-  q <= ((i0 or i1) or i2) after 1099 ps;
+  q <= ((i0 or i1) or i2) after 1104 ps;
 END;

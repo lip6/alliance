@@ -4,7 +4,7 @@ A 0,0,3000,5000
 C 3000,300,600,vss,1,EAST,ALU1
 C 0,300,600,vss,0,WEST,ALU1
 C 0,4700,600,vdd,0,WEST,ALU1
-R 500,1000,ref_con,nq_40
+R 500,1000,ref_con,nq_10
 R 500,3500,ref_con,nq_35
 R 500,3000,ref_con,nq_30
 R 500,2500,ref_con,nq_25
