@@ -2,6 +2,8 @@
 
 INCLUDES = -I$(top_srcdir)/src/common
 
+CXXFLAGS = @ALLIANCE_CFLAGS@
+
 noinst_LIBRARIES = libPCommon.a
 
 libPCommon_a_SOURCES = PBBox.cpp PBBox.h PCommon.cpp \
