@@ -1,7 +1,9 @@
-#include "PIns.h"
 #include "mut.h"
 #include "mph.h"
+
 #include "PConstants.h"
+
+#include "PIns.h"
 
 PIns::PIns(const loins *instance):
 PElem(), _instance(instance)

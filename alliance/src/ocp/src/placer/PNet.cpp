@@ -1,5 +1,6 @@
-#include "PNet.h"
 #include "PElem.h"
+
+#include "PNet.h"
 
 PNet::PNet(const losig* sig):
 	_sig(sig), _elems()

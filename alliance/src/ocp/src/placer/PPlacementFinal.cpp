@@ -1,16 +1,31 @@
-#include "PPlacement.h"
+#ifdef __GNUC__
+#if __GNUC__ < 3
+#include <hash_map.h>
+#else
+#include <ext/hash_map>
+#if __GNUC_MINOR__ == 0
+#else
+using namespace __gnu_cxx; // GCC 3.1 and later
+#endif
+#endif
+#endif
+
 #include <math.h>
 #include <unistd.h>
 #include <algorithm>
-#include <hash_map.h>
-#include "PMove.h"
-#include "PConstants.h"
-#include "PDetPlacement.h"
+using namespace std;
+
 #include "mut.h"
 #include "mph.h"
 #include "mpu.h"
 #include "mlo.h"
 #include "mlu.h"
+
+#include "PMove.h"
+#include "PConstants.h"
+#include "PDetPlacement.h"
+
+#include "PPlacement.h"
 
 double
 PPlacement::DetPlaceDebugNetCost()

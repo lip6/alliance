@@ -1,5 +1,5 @@
 #include "PCommon.h"
-#include <iostream.h>
+#include <iostream>
 #include <math.h>
 #include <string>
 #include <assert.h>

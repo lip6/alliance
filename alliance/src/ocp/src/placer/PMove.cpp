@@ -1,7 +1,10 @@
-#include "PMove.h"
 #include <stdlib.h>
 #include <limits.h>
-#include <PBin.h>
+using namespace std;
+
+#include "PBin.h"
+
+#include "PMove.h"
 
 #ifndef Abs
 #define Abs(x) ((x) < 0.0 ? -(x) : (x))

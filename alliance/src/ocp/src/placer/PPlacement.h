@@ -1,21 +1,34 @@
 #ifndef __PPLACEMENT_H
 #define __PPLACEMENT_H
 
+#ifdef __GNUC__
+#if __GNUC__ < 3
+#include <hash_map.h>
+#else
+#include <ext/hash_map>
+#if __GNUC_MINOR__ == 0
+#else
+using namespace __gnu_cxx; // GCC 3.1 and later
+#endif
+#endif
+#endif
+
 #include <iostream>
 #include <fstream>
 #include <vector>
 #include <map>
-#include <hash_map.h>
+using namespace std;
+
+#include "mut.h"
+#include "mlo.h"
+
 #include "PToPlaceIns.h"
 #include "PFixedIns.h"
 #include "PCon.h"
 #include "PONet.h"
 #include "PBBox.h"
 #include "PDetSubRow.h"
-#include "mut.h"
-#include "mlo.h"
 #include "iocheader.h"
-using namespace std;
 
 struct eqstr
 {

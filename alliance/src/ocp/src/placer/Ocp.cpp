@@ -1,12 +1,13 @@
-#include "PPlacement.h"
 #include <stdio.h>
 #include <iostream>
 #include <ctype.h>
+using namespace std;
 
 #include "mut.h"
 #include "mph.h"
 #include "mlo.h"
-using namespace std;
+
+#include "PPlacement.h"
 
 static void
 Usage()

@@ -1,5 +1,6 @@
-#include "PONet.h"
 #include "PDetToPlaceIns.h"
+
+#include "PONet.h"
 
 PONet::PONet(const losig* sig):
 	PNet(sig),

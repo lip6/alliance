@@ -1,7 +1,10 @@
-#include "PBin.h"
 #include <stdio.h>
 #include <iomanip>
+using namespace std;
+
 #include "PToPlaceIns.h"
+
+#include "PBin.h"
 
 PBin::PBin()
     : PContainer(), _toPlaceInss(), _nHits(0)

@@ -1,7 +1,8 @@
-#include "PRow.h"
 #include "PPlacement.h"
 #include "PConstants.h"
 #include "PBBox.h"
+
+#include "PRow.h"
 
 PRow::PRow(unsigned nbofsubrows)
     : PContainer(), _subRows(nbofsubrows)

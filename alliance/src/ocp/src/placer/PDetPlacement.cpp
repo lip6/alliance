@@ -1,6 +1,7 @@
-#include "PDetPlacement.h"
 #include "PBin.h"
 #include "PPlacement.h"
+
+#include "PDetPlacement.h"
 
 PDetPlacement::PDetPlacement(Problem& problem):
 	BBoxFlag(0),

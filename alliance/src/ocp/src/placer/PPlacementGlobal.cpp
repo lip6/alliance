@@ -1,10 +1,12 @@
-#include "PPlacement.h"
 #include <stdio.h>
 #include <math.h>
 #include <unistd.h>
-#include "PMove.h"
+using namespace std;
 
+#include "PMove.h"
 #include "PConstants.h"
+
+#include "PPlacement.h"
 
 static double
 DoubleRand(void)

@@ -1,7 +1,8 @@
-#include "PSubRow.h"
 #include "PBin.h"
 #include "PToPlaceIns.h"
 #include "PConstants.h"
+
+#include "PSubRow.h"
 
 PSubRow::PSubRow()
     : PContainer(), _bins(),

@@ -1,8 +1,11 @@
-#include "PDetSubRow.h"
+#include <algorithm>
+using namespace std;
+
 #include "PSubRow.h"
 #include "PBin.h"
 #include "PDetPlacement.h"
-#include <algorithm>
+
+#include "PDetSubRow.h"
 
 PDetSubRow::~PDetSubRow()
 {

@@ -1,5 +1,6 @@
-#include "PFixedIns.h"
 #include "PConstants.h"
+
+#include "PFixedIns.h"
 
 PFixedIns::PFixedIns(const loins *instance, const phins* pins, int dx, int dy):
 		PIns(instance),

@@ -1,5 +1,6 @@
-#include "PElem.h"
 #include "PNet.h"
+
+#include "PElem.h"
 
 void
 PElem::DescribeOn(ostream& os) const

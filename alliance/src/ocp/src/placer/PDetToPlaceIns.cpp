@@ -1,11 +1,15 @@
-#include "PDetToPlaceIns.h"
+#include <algorithm>
+using namespace std;
+
 #include "mut.h"
 #include "mph.h"
+
 #include "PConstants.h"
 #include "PToPlaceIns.h"
 #include "PDetSubRow.h"
 #include "PONet.h"
-#include <algorithm>
+
+#include "PDetToPlaceIns.h"
 
 PDetToPlaceIns::PDetToPlaceIns(PToPlaceIns* toplaceins):
 	PIns(toplaceins->GetInstance()),

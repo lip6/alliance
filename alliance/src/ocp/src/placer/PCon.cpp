@@ -1,7 +1,9 @@
-#include "PCon.h"
 #include "mut.h"
 #include "mph.h"
+
 #include "PConstants.h"
+
+#include "PCon.h"
 
 PCon::PCon(const locon* con):
 		PElem(), _con(con), _pos()
