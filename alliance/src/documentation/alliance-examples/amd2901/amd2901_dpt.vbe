@@ -1,0 +1,566 @@
+ENTITY  amd2901_dpt  IS
+
+PORT(
+	-- Command for selecting operands R and S.
+	ops_mx : in    BIT_VECTOR(2 downto 0);
+	opr_mx : in    BIT_VECTOR(1 downto 0);
+
+	-- ALU commands and auxiliary terminals.
+	alu_k    : in    BIT_VECTOR(4 downto 0);
+	alu_cin  : in    BIT;
+	alu_cout :   out BIT;
+	alu_over :   inout BIT;
+
+	-- RAM, ACCU shifter commands and auxiliary terminals.
+	ram_sh : in    BIT_VECTOR(1 downto 0);
+	acc_sh : in    BIT_VECTOR(1 downto 0);
+	-- RAM shifter inputs.
+	ram_i_up   : in    BIT;
+	ram_i_down : in    BIT;
+	-- ACCU shifter inputs.
+	acc_i_up   : in    BIT;  
+	acc_i_down : in    BIT;
+	-- ACCU shifter outputs ("acc_scout" is "acc_q_up").
+	acc_q_down :   out BIT;
+
+	-- Output multiplexer commnand (for X bus).
+	out_mx : in    BIT;
+
+	-- ACCU controls terminals.
+	acc_ck    : in    BIT;
+	acc_wen   : in    BIT;
+	acc_test  : in    BIT;
+	acc_scin  : in    BIT;  -- Scan-Path input.
+	acc_scout : inout BIT;  -- Scan-Path output.
+
+	-- Register file controls terminals.
+	ram_ck   : in    BIT_VECTOR(15 downto 0) ;  -- Register clocks (ck).
+	b_w      : in    BIT_VECTOR(15 downto 0) ;  -- Write enable
+	a        : in    BIT_VECTOR(15 downto 0) ;  -- Register A address.
+	b        : in    BIT_VECTOR(15 downto 0) ;  -- Register B address.
+
+--        register_file_test   : IN  BIT_VECTOR(15 downto 0) ; -- register_file_test[15:0]
+--      register_file_scout  : OUT BIT_VECTOR(15 downto 0) ; -- Scan path for ram
+--        register_file_scin   : IN  BIT_VECTOR(15 downto 0) ; -- Scan path for ram
+
+	-- Data buses terminals.
+	opr_d  : in    BIT_VECTOR(3 downto 0);
+	alu_f  : inout BIT_VECTOR(3 downto 0);
+	alu_np :   out BIT_VECTOR(3 downto 0);
+	alu_ng :   out BIT_VECTOR(3 downto 0);
+	out_x  :   out BIT_VECTOR(3 downto 0);
+
+	-- Power supply connectors.
+	vdd : in   BIT;
+	vss : in   BIT
+	);
+
+END amd2901_dpt;
+
+
+ARCHITECTURE  behavior_data_flow  OF  amd2901_dpt  IS
+
+	-- Internals bus.
+	SIGNAL ops_ns : BIT_VECTOR(3 downto 0);
+	SIGNAL opr_nr : BIT_VECTOR(3 downto 0);
+	SIGNAL ram_d  : BIT_VECTOR(3 downto 0);
+	SIGNAL acc_d  : BIT_VECTOR(3 downto 0);
+
+	-- Internal registers.
+	-- ACCU master/slave.
+	-- SIGNAL acc_m_q   : REG_VECTOR(3 downto 0) REGISTER;
+	SIGNAL acc_s_q   : REG_VECTOR(3 downto 0) REGISTER;
+	SIGNAL acc_m_q   : REG_VECTOR(3 downto 0) REGISTER;
+	-- Internal ACCU clock signals.
+	SIGNAL acc_wmd : BIT;
+	SIGNAL acc_wmt : BIT;
+	SIGNAL acc_ws  : BIT;
+        -- RAM SIGNALS
+        SIGNAL ram_adra  : BIT_VECTOR(15 DOWNTO 0);
+        SIGNAL ram_adrb  : BIT_VECTOR(15 DOWNTO 0);
+	-- RAM masters.
+	SIGNAL ram_m_r0  : REG_VECTOR(3 downto 0) REGISTER;
+	SIGNAL ram_m_r1  : REG_VECTOR(3 downto 0) REGISTER;
+	SIGNAL ram_m_r2  : REG_VECTOR(3 downto 0) REGISTER;
+	SIGNAL ram_m_r3  : REG_VECTOR(3 downto 0) REGISTER;
+	SIGNAL ram_m_r4  : REG_VECTOR(3 downto 0) REGISTER;
+	SIGNAL ram_m_r5  : REG_VECTOR(3 downto 0) REGISTER;
+	SIGNAL ram_m_r6  : REG_VECTOR(3 downto 0) REGISTER;
+	SIGNAL ram_m_r7  : REG_VECTOR(3 downto 0) REGISTER;
+	SIGNAL ram_m_r8  : REG_VECTOR(3 downto 0) REGISTER;
+	SIGNAL ram_m_r9  : REG_VECTOR(3 downto 0) REGISTER;
+	SIGNAL ram_m_r10 : REG_VECTOR(3 downto 0) REGISTER;
+	SIGNAL ram_m_r11 : REG_VECTOR(3 downto 0) REGISTER;
+	SIGNAL ram_m_r12 : REG_VECTOR(3 downto 0) REGISTER;
+	SIGNAL ram_m_r13 : REG_VECTOR(3 downto 0) REGISTER;
+	SIGNAL ram_m_r14 : REG_VECTOR(3 downto 0) REGISTER;
+	SIGNAL ram_m_r15 : REG_VECTOR(3 downto 0) REGISTER;
+	-- RAM slaves.
+	SIGNAL ram_s_r0  : REG_VECTOR(3 downto 0) REGISTER;
+	SIGNAL ram_s_r1  : REG_VECTOR(3 downto 0) REGISTER;
+	SIGNAL ram_s_r2  : REG_VECTOR(3 downto 0) REGISTER;
+	SIGNAL ram_s_r3  : REG_VECTOR(3 downto 0) REGISTER;
+	SIGNAL ram_s_r4  : REG_VECTOR(3 downto 0) REGISTER;
+	SIGNAL ram_s_r5  : REG_VECTOR(3 downto 0) REGISTER;
+	SIGNAL ram_s_r6  : REG_VECTOR(3 downto 0) REGISTER;
+	SIGNAL ram_s_r7  : REG_VECTOR(3 downto 0) REGISTER;
+	SIGNAL ram_s_r8  : REG_VECTOR(3 downto 0) REGISTER;
+	SIGNAL ram_s_r9  : REG_VECTOR(3 downto 0) REGISTER;
+	SIGNAL ram_s_r10 : REG_VECTOR(3 downto 0) REGISTER;
+	SIGNAL ram_s_r11 : REG_VECTOR(3 downto 0) REGISTER;
+	SIGNAL ram_s_r12 : REG_VECTOR(3 downto 0) REGISTER;
+	SIGNAL ram_s_r13 : REG_VECTOR(3 downto 0) REGISTER;
+	SIGNAL ram_s_r14 : REG_VECTOR(3 downto 0) REGISTER;
+	SIGNAL ram_s_r15 : REG_VECTOR(3 downto 0) REGISTER;
+	-- Internal RAM clocks signals.
+	-- Masters write enable.
+	SIGNAL ram_wmd0  :BIT;
+	SIGNAL ram_wmd1  :BIT;
+	SIGNAL ram_wmd2  :BIT;
+	SIGNAL ram_wmd3  :BIT;
+	SIGNAL ram_wmd4  :BIT;
+	SIGNAL ram_wmd5  :BIT;
+	SIGNAL ram_wmd6  :BIT;
+	SIGNAL ram_wmd7  :BIT;
+	SIGNAL ram_wmd8  :BIT;
+	SIGNAL ram_wmd9  :BIT;
+	SIGNAL ram_wmd10 :BIT;
+	SIGNAL ram_wmd11 :BIT;
+	SIGNAL ram_wmd12 :BIT;
+	SIGNAL ram_wmd13 :BIT;
+	SIGNAL ram_wmd14 :BIT;
+	SIGNAL ram_wmd15 :BIT;
+	-- Slaves write enable.
+	SIGNAL ram_ws0  :BIT;
+	SIGNAL ram_ws1  :BIT;
+	SIGNAL ram_ws2  :BIT;
+	SIGNAL ram_ws3  :BIT;
+	SIGNAL ram_ws4  :BIT;
+	SIGNAL ram_ws5  :BIT;
+	SIGNAL ram_ws6  :BIT;
+	SIGNAL ram_ws7  :BIT;
+	SIGNAL ram_ws8  :BIT;
+	SIGNAL ram_ws9  :BIT;
+	SIGNAL ram_ws10 :BIT;
+	SIGNAL ram_ws11 :BIT;
+	SIGNAL ram_ws12 :BIT;
+	SIGNAL ram_ws13 :BIT;
+	SIGNAL ram_ws14 :BIT;
+	SIGNAL ram_ws15 :BIT;
+	-- Output mux bus RA and RB.
+	SIGNAL ram_ra  : MUX_VECTOR(3 downto 0) BUS;
+	SIGNAL ram_rb  : MUX_VECTOR(3 downto 0) BUS;
+	-- Internal ALU signals.
+	SIGNAL alu_cry : BIT_VECTOR(4 downto 0);
+	SIGNAL alu_s   : BIT_VECTOR(3 downto 0);
+	SIGNAL alu_r   : BIT_VECTOR(3 downto 0);
+
+
+
+	SIGNAL sel_acc : BIT_VECTOR(1 downto 0);
+	SIGNAL sig_acc : BIT_VECTOR(3 downto 0);
+
+	SIGNAL sig_ram0  : BIT_VECTOR(3 downto 0);
+	SIGNAL sig_ram1  : BIT_VECTOR(3 downto 0);
+	SIGNAL sig_ram2  : BIT_VECTOR(3 downto 0);
+	SIGNAL sig_ram3  : BIT_VECTOR(3 downto 0);
+	SIGNAL sig_ram4  : BIT_VECTOR(3 downto 0);
+	SIGNAL sig_ram5  : BIT_VECTOR(3 downto 0);
+	SIGNAL sig_ram6  : BIT_VECTOR(3 downto 0);
+	SIGNAL sig_ram7  : BIT_VECTOR(3 downto 0);
+	SIGNAL sig_ram8  : BIT_VECTOR(3 downto 0);
+	SIGNAL sig_ram9  : BIT_VECTOR(3 downto 0);
+	SIGNAL sig_ram10 : BIT_VECTOR(3 downto 0);
+	SIGNAL sig_ram11 : BIT_VECTOR(3 downto 0);
+	SIGNAL sig_ram12 : BIT_VECTOR(3 downto 0);
+	SIGNAL sig_ram13 : BIT_VECTOR(3 downto 0);
+	SIGNAL sig_ram14 : BIT_VECTOR(3 downto 0);
+	SIGNAL sig_ram15 : BIT_VECTOR(3 downto 0);
+
+	SIGNAL ram_ck0  :BIT;
+	SIGNAL ram_ck1  :BIT;
+	SIGNAL ram_ck2  :BIT;
+	SIGNAL ram_ck3  :BIT;
+	SIGNAL ram_ck4  :BIT;
+	SIGNAL ram_ck5  :BIT;
+	SIGNAL ram_ck6  :BIT;
+	SIGNAL ram_ck7  :BIT;
+	SIGNAL ram_ck8  :BIT;
+	SIGNAL ram_ck9  :BIT;
+	SIGNAL ram_ck10 :BIT;
+	SIGNAL ram_ck11 :BIT;
+	SIGNAL ram_ck12 :BIT;
+	SIGNAL ram_ck13 :BIT;
+	SIGNAL ram_ck14 :BIT;
+	SIGNAL ram_ck15 :BIT;
+
+BEGIN
+
+
+	-- ******************* RAM shifter description *******************
+
+	-- RAM shifter control code :
+	--     1)                "00" : UP   shift.
+	--     2)                "01" : DOWN shift.
+	--     3) either "10" or "11" : NO   shift.
+	WITH  ram_sh(1 downto 0)  SELECT
+		ram_d <=          alu_f(2 downto 0)&ram_i_down  WHEN  B"00",
+				 ram_i_up&alu_f(3 downto 1)             WHEN  B"01",
+						  alu_f(3 downto 0)             WHEN  B"10"
+															| B"11";
+
+
+	-- ****************** ACCU shifter description *******************
+
+	acc_q_down <= acc_s_q(0);
+
+	-- ACCU shifter control code :
+	--     1)                "00" : UP   shift accu.
+	--     2)                "01" : DOWN shift accu.
+	--     3) either "10" or "11" : write accu with no shift.
+	WITH  acc_sh(1 downto 0)  SELECT
+		acc_d <=          acc_s_q(2 downto 0)&acc_i_down  WHEN  B"00",
+				 acc_i_up&acc_s_q(3 downto 1)             WHEN  B"01",
+							alu_f(3 downto 0)             WHEN  B"10"
+															  | B"11";
+
+
+	-- ****************** S multiplexer description ******************
+
+	WITH  ops_mx(2 downto 0)  SELECT
+		ops_ns <= not acc_s_q   WHEN  B"000",
+				  not ram_rb    WHEN  B"001",
+				  not ram_ra    WHEN  B"010"
+								    | B"011",
+					    "1111"  WHEN  B"100"
+								    | B"101"
+								    | B"110"
+								    | B"111";
+
+
+	-- ****************** R multiplexer description ******************
+
+	WITH  opr_mx(1 downto 0)  SELECT
+		opr_nr <= not ram_ra  WHEN  B"00",
+				  not opr_d   WHEN  B"01",
+					  "1111"  WHEN  B"10"
+								  | B"11";
+
+
+	-- ****************** X multiplexer description ******************
+
+	WITH  out_mx  SELECT
+		out_x <= alu_f   WHEN  B"0",
+				 ram_ra  WHEN  B"1";
+
+
+	-- *********************** ALU description ***********************
+
+	alu_cry(0) <= alu_cin;
+	alu_cout   <= alu_cry(4);
+	alu_over   <= alu_cry(3);
+
+	-- Inversion of R and S operands.
+	alu_s <= not ops_ns WHEN alu_k(1) = '0' ELSE ops_ns;
+	alu_r <= not opr_nr WHEN alu_k(0) = '0' ELSE opr_nr;
+
+	-- Compute of nP and nG.
+	alu_np <= not (alu_s  or alu_r);
+	alu_ng <= not (alu_s and alu_r);
+
+	-- Arithmetic adder description.
+	alu_cry(4 downto 1) <= (alu_s               and alu_r              )
+						or (alu_s               and alu_cry(3 downto 0))
+						or (alu_cry(3 downto 0) and alu_r              );
+
+	-- Select the ALU output.
+	WITH  alu_k(4 downto 2)  SELECT
+		alu_f <= alu_s xor alu_r  xor alu_cry(3 downto 0) WHEN B"000",
+				(alu_s  or alu_r) xor alu_cry(3 downto 0) WHEN B"001",
+				(alu_s and alu_r) xor alu_cry(3 downto 0) WHEN B"010",
+				                      alu_cry(3 downto 0) WHEN B"011",
+			not (alu_s xor alu_r)                         WHEN B"100",
+			not (alu_s  or alu_r)                         WHEN B"101",
+			not (alu_s and alu_r)                         WHEN B"110",
+				                                  B"1111" WHEN B"111";
+	
+	
+
+	-- ********************** ACCU description ************************
+	-- Modification tenant compte du front montant de l'horloge
+
+	acc_wmt   <=     acc_test;
+	acc_wmd   <=     (not acc_test) and acc_wen;
+	acc_ws    <= not acc_ck;
+	acc_scout <=     acc_s_q(3);
+
+	sel_acc <= acc_wmt & acc_wmd ;
+
+        WITH sel_acc SELECT
+            sig_acc <= acc_s_q(2 downto 0) & acc_scin WHEN B"10"  , -- Mode chemin de tests
+                       acc_d                          WHEN B"01"  , -- Mode normal
+                       acc_s_q                        WHEN OTHERS ; -- Reprise du registre
+
+        -- A chaque cycle, on ecrit dans acc_s_q
+       
+        -- Echantillonnage lorsque ck=0 et memorisation sur front montant
+	acc_ck:BLOCK(acc_ws = '1')
+	BEGIN
+	     acc_m_q <= GUARDED sig_acc;
+	END BLOCK acc_ck;
+
+	-- Slave register write.
+        -- Echantillonnage lorsque ck=1 et memorisation sur front descendant
+	acc_ws:BLOCK(acc_ck = '1')
+	BEGIN
+		acc_s_q <= GUARDED acc_m_q;
+	END BLOCK acc_ws;
+
+	-- *********************** RAM description ***********************
+
+	-- Select B register.
+	ram_adrb(0 ) <= b(0 ) ;
+	ram_adrb(1 ) <= b(1 ) ;
+	ram_adrb(2 ) <= b(2 ) ;
+	ram_adrb(3 ) <= b(3 ) ;
+	ram_adrb(4 ) <= b(4 ) ;
+	ram_adrb(5 ) <= b(5 ) ;
+	ram_adrb(6 ) <= b(6 ) ;
+	ram_adrb(7 ) <= b(7 ) ;
+	ram_adrb(8 ) <= b(8 ) ;
+	ram_adrb(9 ) <= b(9 ) ;
+	ram_adrb(10) <= b(10) ;
+	ram_adrb(11) <= b(11) ;
+	ram_adrb(12) <= b(12) ;
+	ram_adrb(13) <= b(13) ;
+	ram_adrb(14) <= b(14) ;
+	ram_adrb(15) <= b(15) ;
+	 
+	-- Select A register.
+	ram_adra(0 ) <= a(0 ) ;
+	ram_adra(1 ) <= a(1 ) ;
+	ram_adra(2 ) <= a(2 ) ;
+	ram_adra(3 ) <= a(3 ) ;
+	ram_adra(4 ) <= a(4 ) ;
+	ram_adra(5 ) <= a(5 ) ;
+	ram_adra(6 ) <= a(6 ) ;
+	ram_adra(7 ) <= a(7 ) ;
+	ram_adra(8 ) <= a(8 ) ;
+	ram_adra(9 ) <= a(9 ) ;
+	ram_adra(10) <= a(10) ;
+	ram_adra(11) <= a(11) ;
+	ram_adra(12) <= a(12) ;
+	ram_adra(13) <= a(13) ;
+	ram_adra(14) <= a(14) ;
+	ram_adra(15) <= a(15) ;
+
+
+	-- Write master enable signals for b
+	ram_wmd0  <= b_w(0 );
+	ram_wmd1  <= b_w(1 );
+	ram_wmd2  <= b_w(2 );
+	ram_wmd3  <= b_w(3 );
+	ram_wmd4  <= b_w(4 );
+	ram_wmd5  <= b_w(5 );
+	ram_wmd6  <= b_w(6 );
+	ram_wmd7  <= b_w(7 );
+	ram_wmd8  <= b_w(8 );
+	ram_wmd9  <= b_w(9 );
+	ram_wmd10 <= b_w(10);
+	ram_wmd11 <= b_w(11);
+	ram_wmd12 <= b_w(12);
+	ram_wmd13 <= b_w(13);
+	ram_wmd14 <= b_w(14);
+	ram_wmd15 <= b_w(15);
+
+	-- Write slave enable signals.
+	ram_ws0  <= not ram_ck(0 ) ;
+	ram_ws1  <= not ram_ck(1 ) ;
+	ram_ws2  <= not ram_ck(2 ) ;
+	ram_ws3  <= not ram_ck(3 ) ;
+	ram_ws4  <= not ram_ck(4 ) ;
+	ram_ws5  <= not ram_ck(5 ) ;
+	ram_ws6  <= not ram_ck(6 ) ;
+	ram_ws7  <= not ram_ck(7 ) ;
+	ram_ws8  <= not ram_ck(8 ) ;
+	ram_ws9  <= not ram_ck(9 ) ;
+	ram_ws10 <= not ram_ck(10) ;
+	ram_ws11 <= not ram_ck(11) ;
+	ram_ws12 <= not ram_ck(12) ;
+	ram_ws13 <= not ram_ck(13) ;
+	ram_ws14 <= not ram_ck(14) ;
+	ram_ws15 <= not ram_ck(15) ;
+
+	ram_ck0  <= ram_ck(0 ) ;
+	ram_ck1  <= ram_ck(1 ) ;
+	ram_ck2  <= ram_ck(2 ) ;
+	ram_ck3  <= ram_ck(3 ) ;
+	ram_ck4  <= ram_ck(4 ) ;
+	ram_ck5  <= ram_ck(5 ) ;
+	ram_ck6  <= ram_ck(6 ) ;
+	ram_ck7  <= ram_ck(7 ) ;
+	ram_ck8  <= ram_ck(8 ) ;
+	ram_ck9  <= ram_ck(9 ) ;
+	ram_ck10 <= ram_ck(10) ;
+	ram_ck11 <= ram_ck(11) ;
+	ram_ck12 <= ram_ck(12) ;
+	ram_ck13 <= ram_ck(13) ;
+	ram_ck14 <= ram_ck(14) ;
+	ram_ck15 <= ram_ck(15) ;
+
+
+        WITH ram_wmd0  SELECT
+            sig_ram0   <= ram_d                                   WHEN B"1"   , -- Mode ecriture
+                          ram_s_r0                                WHEN OTHERS  ;
+
+        WITH ram_wmd1  SELECT
+            sig_ram1   <= ram_d      				  WHEN B"1"   , -- Mode ecriture
+                          ram_s_r1                                WHEN OTHERS  ;
+
+        WITH ram_wmd2  SELECT
+            sig_ram2   <= ram_d                                   WHEN B"1"   , -- Mode ecriture
+                          ram_s_r2                                WHEN OTHERS  ;
+
+        WITH ram_wmd3 SELECT
+            sig_ram3   <= ram_d                                   WHEN B"1"   , -- Mode ecriture
+                          ram_s_r3                                WHEN OTHERS  ;
+
+        WITH ram_wmd4 SELECT
+            sig_ram4   <= ram_d                                   WHEN B"1"   , -- Mode ecriture
+                          ram_s_r4                                WHEN OTHERS  ;
+
+        WITH ram_wmd5 SELECT
+            sig_ram5   <= ram_d                                   WHEN B"1"   , -- Mode ecriture
+                          ram_s_r5                                WHEN OTHERS  ;
+
+        WITH ram_wmd6 SELECT
+            sig_ram6   <= ram_d                                   WHEN B"1"   , -- Mode ecriture
+                          ram_s_r6                                WHEN OTHERS  ;
+
+        WITH ram_wmd7 SELECT
+            sig_ram7   <= ram_d                                   WHEN B"1"   , -- Mode ecriture
+                          ram_s_r7                                WHEN OTHERS  ;
+
+        WITH ram_wmd8 SELECT
+            sig_ram8   <= ram_d                                   WHEN B"1"   , -- Mode ecriture
+                          ram_s_r8                                WHEN OTHERS  ;
+
+        WITH ram_wmd9 SELECT
+            sig_ram9   <= ram_d                                   WHEN B"1"   , -- Mode ecriture
+                          ram_s_r9                                WHEN OTHERS  ;
+
+        WITH ram_wmd10 SELECT
+            sig_ram10  <= ram_d                                    WHEN B"1"   , -- Mode ecriture
+                          ram_s_r10                                WHEN OTHERS  ;
+
+        WITH ram_wmd11 SELECT
+            sig_ram11  <= ram_d                                    WHEN B"1"   , -- Mode ecriture
+                          ram_s_r11                                WHEN OTHERS  ;
+
+        WITH ram_wmd12 SELECT
+            sig_ram12  <= ram_d                                    WHEN B"1"   , -- Mode ecriture
+                          ram_s_r12                                WHEN OTHERS  ;
+
+        WITH ram_wmd13 SELECT
+            sig_ram13  <= ram_d                                    WHEN B"1"   , -- Mode ecriture
+                          ram_s_r13                                WHEN OTHERS  ;
+
+        WITH ram_wmd14 SELECT
+            sig_ram14  <= ram_d                                    WHEN B"1"   , -- Mode ecriture
+                          ram_s_r14                                WHEN OTHERS  ;
+
+        WITH ram_wmd15 SELECT
+            sig_ram15  <= ram_d                                    WHEN B"1"   , -- Mode ecriture
+                          ram_s_r15                                WHEN OTHERS  ;
+
+
+	-- Write registers description.
+
+ -- Echantillonnage lorsque ck=0 et memorisation sur front montant
+wm0 :BLOCK(ram_ws0 = '1') BEGIN ram_m_r0  <= GUARDED sig_ram0  ; END BLOCK wm0 ;
+wm1 :BLOCK(ram_ws1 = '1') BEGIN ram_m_r1  <= GUARDED sig_ram1  ; END BLOCK wm1 ;
+wm2 :BLOCK(ram_ws2 = '1') BEGIN ram_m_r2  <= GUARDED sig_ram2  ; END BLOCK wm2 ;
+wm3 :BLOCK(ram_ws3 = '1') BEGIN ram_m_r3  <= GUARDED sig_ram3  ; END BLOCK wm3 ;
+wm4 :BLOCK(ram_ws4 = '1') BEGIN ram_m_r4  <= GUARDED sig_ram4  ; END BLOCK wm4 ;
+wm5 :BLOCK(ram_ws5 = '1') BEGIN ram_m_r5  <= GUARDED sig_ram5  ; END BLOCK wm5 ;
+wm6 :BLOCK(ram_ws6 = '1') BEGIN ram_m_r6  <= GUARDED sig_ram6  ; END BLOCK wm6 ;
+wm7 :BLOCK(ram_ws7 = '1') BEGIN ram_m_r7  <= GUARDED sig_ram7  ; END BLOCK wm7 ;
+wm8 :BLOCK(ram_ws8 = '1') BEGIN ram_m_r8  <= GUARDED sig_ram8  ; END BLOCK wm8 ;
+wm9 :BLOCK(ram_ws9 = '1') BEGIN ram_m_r9  <= GUARDED sig_ram9  ; END BLOCK wm9 ;
+wm10:BLOCK(ram_ws10 = '1') BEGIN ram_m_r10 <= GUARDED sig_ram10 ; END BLOCK wm10;
+wm11:BLOCK(ram_ws11 = '1') BEGIN ram_m_r11 <= GUARDED sig_ram11 ; END BLOCK wm11;
+wm12:BLOCK(ram_ws12 = '1') BEGIN ram_m_r12 <= GUARDED sig_ram12 ; END BLOCK wm12;
+wm13:BLOCK(ram_ws13 = '1') BEGIN ram_m_r13 <= GUARDED sig_ram13 ; END BLOCK wm13;
+wm14:BLOCK(ram_ws14 = '1') BEGIN ram_m_r14 <= GUARDED sig_ram14 ; END BLOCK wm14;
+wm15:BLOCK(ram_ws15 = '1') BEGIN ram_m_r15 <= GUARDED sig_ram15 ; END BLOCK wm15;
+
+        -- Write slave registers description.
+ -- Echantillonnage lorsque ck=1 et memorisation sur front descendant
+ws0 :BLOCK(ram_ck0 = '1') BEGIN ram_s_r0  <= GUARDED ram_m_r0 ; END BLOCK ws0 ;
+ws1 :BLOCK(ram_ck1 = '1') BEGIN ram_s_r1  <= GUARDED ram_m_r1 ; END BLOCK ws1 ;
+ws2 :BLOCK(ram_ck2 = '1') BEGIN ram_s_r2  <= GUARDED ram_m_r2 ; END BLOCK ws2 ;
+ws3 :BLOCK(ram_ck3 = '1') BEGIN ram_s_r3  <= GUARDED ram_m_r3 ; END BLOCK ws3 ;
+ws4 :BLOCK(ram_ck4 = '1') BEGIN ram_s_r4  <= GUARDED ram_m_r4 ; END BLOCK ws4 ;
+ws5 :BLOCK(ram_ck5 = '1') BEGIN ram_s_r5  <= GUARDED ram_m_r5 ; END BLOCK ws5 ;
+ws6 :BLOCK(ram_ck6 = '1') BEGIN ram_s_r6  <= GUARDED ram_m_r6 ; END BLOCK ws6 ;
+ws7 :BLOCK(ram_ck7 = '1') BEGIN ram_s_r7  <= GUARDED ram_m_r7 ; END BLOCK ws7 ;
+ws8 :BLOCK(ram_ck8 = '1') BEGIN ram_s_r8  <= GUARDED ram_m_r8 ; END BLOCK ws8 ;
+ws9 :BLOCK(ram_ck9 = '1') BEGIN ram_s_r9  <= GUARDED ram_m_r9 ; END BLOCK ws9 ;
+ws10:BLOCK(ram_ck10 = '1') BEGIN ram_s_r10 <= GUARDED ram_m_r10; END BLOCK ws10;
+ws11:BLOCK(ram_ck11 = '1') BEGIN ram_s_r11 <= GUARDED ram_m_r11; END BLOCK ws11;
+ws12:BLOCK(ram_ck12 = '1') BEGIN ram_s_r12 <= GUARDED ram_m_r12; END BLOCK ws12;
+ws13:BLOCK(ram_ck13 = '1') BEGIN ram_s_r13 <= GUARDED ram_m_r13; END BLOCK ws13;
+ws14:BLOCK(ram_ck14 = '1') BEGIN ram_s_r14 <= GUARDED ram_m_r14; END BLOCK ws14;
+ws15:BLOCK(ram_ck15 = '1') BEGIN ram_s_r15 <= GUARDED ram_m_r15; END BLOCK ws15;
+
+
+
+
+
+	-- Select register to write on tristate bus RA.
+wa0 :BLOCK(ram_adra(0 )) BEGIN ram_ra <= GUARDED ram_s_r0 ; END BLOCK wa0 ;
+wa1 :BLOCK(ram_adra(1 )) BEGIN ram_ra <= GUARDED ram_s_r1 ; END BLOCK wa1 ;
+wa2 :BLOCK(ram_adra(2 )) BEGIN ram_ra <= GUARDED ram_s_r2 ; END BLOCK wa2 ;
+wa3 :BLOCK(ram_adra(3 )) BEGIN ram_ra <= GUARDED ram_s_r3 ; END BLOCK wa3 ;
+wa4 :BLOCK(ram_adra(4 )) BEGIN ram_ra <= GUARDED ram_s_r4 ; END BLOCK wa4 ;
+wa5 :BLOCK(ram_adra(5 )) BEGIN ram_ra <= GUARDED ram_s_r5 ; END BLOCK wa5 ;
+wa6 :BLOCK(ram_adra(6 )) BEGIN ram_ra <= GUARDED ram_s_r6 ; END BLOCK wa6 ;
+wa7 :BLOCK(ram_adra(7 )) BEGIN ram_ra <= GUARDED ram_s_r7 ; END BLOCK wa7 ;
+wa8 :BLOCK(ram_adra(8 )) BEGIN ram_ra <= GUARDED ram_s_r8 ; END BLOCK wa8 ;
+wa9 :BLOCK(ram_adra(9 )) BEGIN ram_ra <= GUARDED ram_s_r9 ; END BLOCK wa9 ;
+wa10:BLOCK(ram_adra(10)) BEGIN ram_ra <= GUARDED ram_s_r10; END BLOCK wa10;
+wa11:BLOCK(ram_adra(11)) BEGIN ram_ra <= GUARDED ram_s_r11; END BLOCK wa11;
+wa12:BLOCK(ram_adra(12)) BEGIN ram_ra <= GUARDED ram_s_r12; END BLOCK wa12;
+wa13:BLOCK(ram_adra(13)) BEGIN ram_ra <= GUARDED ram_s_r13; END BLOCK wa13;
+wa14:BLOCK(ram_adra(14)) BEGIN ram_ra <= GUARDED ram_s_r14; END BLOCK wa14;
+wa15:BLOCK(ram_adra(15)) BEGIN ram_ra <= GUARDED ram_s_r15; END BLOCK wa15;
+
+	-- Select register to write on tristate bus RB.
+wb0 :BLOCK(ram_adrb(0 )) BEGIN ram_rb <= GUARDED ram_s_r0 ; END BLOCK wb0 ;
+wb1 :BLOCK(ram_adrb(1 )) BEGIN ram_rb <= GUARDED ram_s_r1 ; END BLOCK wb1 ;
+wb2 :BLOCK(ram_adrb(2 )) BEGIN ram_rb <= GUARDED ram_s_r2 ; END BLOCK wb2 ;
+wb3 :BLOCK(ram_adrb(3 )) BEGIN ram_rb <= GUARDED ram_s_r3 ; END BLOCK wb3 ;
+wb4 :BLOCK(ram_adrb(4 )) BEGIN ram_rb <= GUARDED ram_s_r4 ; END BLOCK wb4 ;
+wb5 :BLOCK(ram_adrb(5 )) BEGIN ram_rb <= GUARDED ram_s_r5 ; END BLOCK wb5 ;
+wb6 :BLOCK(ram_adrb(6 )) BEGIN ram_rb <= GUARDED ram_s_r6 ; END BLOCK wb6 ;
+wb7 :BLOCK(ram_adrb(7 )) BEGIN ram_rb <= GUARDED ram_s_r7 ; END BLOCK wb7 ;
+wb8 :BLOCK(ram_adrb(8 )) BEGIN ram_rb <= GUARDED ram_s_r8 ; END BLOCK wb8 ;
+wb9 :BLOCK(ram_adrb(9 )) BEGIN ram_rb <= GUARDED ram_s_r9 ; END BLOCK wb9 ;
+wb10:BLOCK(ram_adrb(10)) BEGIN ram_rb <= GUARDED ram_s_r10; END BLOCK wb10;
+wb11:BLOCK(ram_adrb(11)) BEGIN ram_rb <= GUARDED ram_s_r11; END BLOCK wb11;
+wb12:BLOCK(ram_adrb(12)) BEGIN ram_rb <= GUARDED ram_s_r12; END BLOCK wb12;
+wb13:BLOCK(ram_adrb(13)) BEGIN ram_rb <= GUARDED ram_s_r13; END BLOCK wb13;
+wb14:BLOCK(ram_adrb(14)) BEGIN ram_rb <= GUARDED ram_s_r14; END BLOCK wb14;
+wb15:BLOCK(ram_adrb(15)) BEGIN ram_rb <= GUARDED ram_s_r15; END BLOCK wb15;
+
+
+
+	-- ********************* Power supply check **********************
+
+	ASSERT(vss = '0')
+		REPORT "Power supply VSS badly connected." SEVERITY WARNING;
+	ASSERT(vdd = '1')
+		REPORT "Power supply VDD badly connected." SEVERITY WARNING;
+
+
+END  behavior_data_flow;
