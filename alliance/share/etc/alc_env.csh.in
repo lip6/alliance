@@ -6,10 +6,10 @@
 #  Alliance CAD system environnement
 #  Usage (in C-shell) : > source alc_env.csh
 #  (C) 1997 Czo  -- <Olivier.Sirol@lip6.fr>
-#  $Id: alc_env.csh.in,v 1.6 1999/10/12 15:38:47 czo Exp $
+#  $Id: alc_env.csh.in,v 1.7 1999/11/05 16:03:17 czo Exp $
 #  Generated from alc_env.csh.in on @DATE@
 
-# $MACHINE and $TOP are the only variables you will
+# $ALLIANCE_OS and $TOP are the only variables you will
 # have to modify if something goes wrong
 
 # Which platform for Alliance CAD
@@ -20,55 +20,55 @@
 switch (`uname`)
  case Linux*:
   if ( `uname -r` =~ 1.* ) then
-      setenv MACHINE Linux_aout
+      setenv ALLIANCE_OS Linux_aout
   else
    if ( `uname -r` =~ 2.0* ) then
-      setenv MACHINE Linux_elf
+      setenv ALLIANCE_OS Linux_elf
    else
-      setenv MACHINE Linux
+      setenv ALLIANCE_OS Linux
    endif
   endif
  breaksw
 
  case SunOS*:
   if ( `uname -r` =~ 5* ) then
-      setenv MACHINE Solaris
+      setenv ALLIANCE_OS Solaris
   else
-      setenv MACHINE SunOS
+      setenv ALLIANCE_OS SunOS
   endif
  breaksw
 
  case FreeBSD*:
-      setenv MACHINE FreeBSD
+      setenv ALLIANCE_OS FreeBSD
  breaksw
 
  case NetBSD*:
-      setenv MACHINE NetBSD
+      setenv ALLIANCE_OS NetBSD
  breaksw
 
  case HP-UX*:
-      setenv MACHINE HPUX
+      setenv ALLIANCE_OS HPUX
  breaksw
 
  case OSF1*:
-      setenv MACHINE OSF
+      setenv ALLIANCE_OS OSF
  breaksw
 
  case CYGWIN*:
-      setenv MACHINE CYGWIN
+      setenv ALLIANCE_OS CYGWIN
  breaksw
 
 default:
-  setenv MACHINE Unknown
+  setenv ALLIANCE_OS Unknown
  breaksw
 endsw
 
-setenv ALLIANCE_OS $MACHINE
-#echo $MACHINE
+setenv ALLIANCE_OS $ALLIANCE_OS
+#echo $ALLIANCE_OS
 
 # Where the Alliance CAD is installed
 
-setenv TOP @TOP@/$MACHINE
+setenv TOP @TOP@/$ALLIANCE_OS
 setenv ALLIANCE_TOP $TOP
 
 # User def 

@@ -4,7 +4,7 @@
 # description	: Alliance include file for Makefiles
 # architecture	: @HOST@
 # date		: @DATE@
-# file		: @MACHINE@.mk
+# file		: @ALLIANCE_OS@.mk
 #
 
 # The variables $ALLIANCE_* are set by

@@ -3,9 +3,9 @@
 # description   : Alliance Shared Libraries and Include Files   #
 # ###---------------------------------------------------------###
 
-# $Id: libraries.mk,v 1.14 1999/10/28 15:56:29 czo Exp $
+# $Id: libraries.mk,v 1.15 1999/11/05 16:03:19 czo Exp $
 
-# The variables $TOP and $MACHINE are set by
+# The variables $TOP and $ALLIANCE_OS are set by
 # alc_env.[c]sh script
 
 # ###---------------------------------------------------------###
@@ -23,7 +23,7 @@ ALLIANCE_ETC     = $(TOP)/etc
 # when building alliance distrib (./build)
 #ALLIANCE_INSTALL_DIR     = $(TOP)
 # develloppers path
-ALLIANCE_INSTALL_DIR     = $(HOME)/labo/$(MACHINE)
+ALLIANCE_INSTALL_DIR     = $(HOME)/labo/$(ALLIANCE_OS)
 
 TARGET_BIN       = $(ALLIANCE_INSTALL_DIR)/bin
 TARGET_LIB       = $(ALLIANCE_INSTALL_DIR)/lib

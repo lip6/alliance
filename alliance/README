@@ -5,7 +5,7 @@
 # ftp sites          : ftp://ftp.lip6.fr/lip6/softs/alliance/
 #                   or ftp://ftp-asim.lip6.fr/pub/alliance/
 #
-# $Id: README,v 1.1 1999/05/31 17:11:53 czo Exp $
+# $Id: README,v 1.2 1999/11/05 16:03:16 czo Exp $
 
 
 
@@ -101,7 +101,7 @@ later (Like MBK_OUT_LO to set the netlist output file format).
 
 If you encounter problems, check the value of these variables in alc_env.[c]sh
 
-          $MACHINE : actually Linux_elf
+          $ALLIANCE_OS : actually Linux_elf
                            or SunOS
                            or Solaris
 

@@ -541,39 +541,39 @@ echo "configure:540: checking for platform" >&5
 # WARNING : if changing this remember to do it on the 3 config files :
 # configure.in alc_env.sh.in and alc_env.csh.in
 
-MACHINE=Unknown
+ALLIANCE_OS=Unknown
  
 case `uname` in
 
   Linux*) case `uname -r` in
-           1.*) MACHINE=Linux_aout ;;
-          2.0*) MACHINE=Linux_elf  ;;            
-             *) MACHINE=Linux  ;;
+           1.*) ALLIANCE_OS=Linux_aout ;;
+          2.0*) ALLIANCE_OS=Linux_elf  ;;            
+             *) ALLIANCE_OS=Linux  ;;
           esac ;;
 
   SunOS*) case `uname -r` in
-            5*) MACHINE=Solaris ;;
-             *) MACHINE=SunOS ;;
+            5*) ALLIANCE_OS=Solaris ;;
+             *) ALLIANCE_OS=SunOS ;;
           esac ;;
 
-  FreeBSD*)     MACHINE=FreeBSD ;;
+  FreeBSD*)     ALLIANCE_OS=FreeBSD ;;
 
-  NetBSD*)      MACHINE=NetBSD ;;
+  NetBSD*)      ALLIANCE_OS=NetBSD ;;
 
-  HP-UX*)       MACHINE=HPUX ;;
+  HP-UX*)       ALLIANCE_OS=HPUX ;;
 
-  OSF1*)        MACHINE=OSF ;;
+  OSF1*)        ALLIANCE_OS=OSF ;;
 
-  CYGWIN*)      MACHINE=CYGWIN ;;
+  CYGWIN*)      ALLIANCE_OS=CYGWIN ;;
 
-  *)            MACHINE=Unknown ;;
+  *)            ALLIANCE_OS=Unknown ;;
 
 esac
 
-export MACHINE
-# echo $MACHINE
+export ALLIANCE_OS
+# echo $ALLIANCE_OS
 
-echo "$ac_t""Configuring Alliance VLSI CAD System on platform : $MACHINE" 1>&6
+echo "$ac_t""Configuring Alliance VLSI CAD System on platform : $ALLIANCE_OS" 1>&6
 
 
 echo $ac_n "checking whether ${MAKE-make} sets \${MAKE}""... $ac_c" 1>&6
@@ -605,7 +605,7 @@ fi
 
 
 if test "$program_suffix" = NONE ; then
-  if test "$MACHINE" = CYGWIN ; then
+  if test "$ALLIANCE_OS" = CYGWIN ; then
       PROGRAM_SUFFIX=".exe"
   else    
       PROGRAM_SUFFIX=""
@@ -626,7 +626,7 @@ echo "configure:622: checking %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% Binaries" 
 # -DALLIANCE_DISTRIB
 
 if test -z "$CFLAGS" ; then
-  CFLAGS="-O -D$MACHINE"
+  CFLAGS="-O -D$ALLIANCE_OS"
 fi
 
 # Extract the first word of "gcc", so it can be a program name with args.
@@ -971,7 +971,7 @@ echo "$ac_t""$CPP" 1>&6
 
 
 if test "$GCC" = yes ; then
-    CFLAGS="-O2 -Wall -D$MACHINE"
+    CFLAGS="-O2 -Wall -D$ALLIANCE_OS"
 fi
 
 
@@ -3782,7 +3782,7 @@ s%@includedir@%$includedir%g
 s%@oldincludedir@%$oldincludedir%g
 s%@infodir@%$infodir%g
 s%@mandir@%$mandir%g
-s%@MACHINE@%$MACHINE%g
+s%@ALLIANCE_OS@%$ALLIANCE_OS%g
 s%@SET_MAKE@%$SET_MAKE%g
 s%@PROGRAM_SUFFIX@%$PROGRAM_SUFFIX%g
 s%@CC@%$CC%g
@@ -3953,7 +3953,7 @@ rm -fr confdefs* $ac_clean_files
 test "$no_create" = yes || ${CONFIG_SHELL-/bin/sh} $CONFIG_STATUS || exit 1
 
 
-mv alliance_os.mk $MACHINE.mk
+mv alliance_os.mk $ALLIANCE_OS.mk
 
 # remove  config cache
 rm -f config.cache
@@ -3962,8 +3962,8 @@ rm -f config.cache
 
 cat << EOF
 Done...
-Alliance is installed on $TOP/$MACHINE
-OS definitions are in $MACHINE.mk
+Alliance is installed on $TOP/$ALLIANCE_OS
+OS definitions are in $ALLIANCE_OS.mk
 You'll need to 'source alc_env.csh'
 or '. alc_env.sh' whether you use csh or sh"
 EOF

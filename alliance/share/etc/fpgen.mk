@@ -1,7 +1,7 @@
 #
 # %% \textrm{This File Looks Nicer with\textsf{ LGrind} and \LaTeXe.}        %%
 # %|                                                                         |%
-# %| $Id: fpgen.mk,v 1.1 1999/05/31 17:30:29 alliance Exp $          |%
+# %| $Id: fpgen.mk,v 1.2 1999/11/05 16:03:19 czo Exp $          |%
 # %|                                                                         |%
 # %| /---------------------------------------------------------------------\ |%
 # %| |                                                                     | |%
@@ -28,7 +28,7 @@
 # %| \---------------------------------------------------------------------/ |%
 #
 
-include $(TOP)/etc/$(MACHINE).mk
+include $(TOP)/etc/$(ALLIANCE_OS).mk
 include $(TOP)/etc/libraries.mk
 
 
@@ -114,10 +114,10 @@ include $(TOP)/etc/libraries.mk
 # %| \---------------------------------------------------------------------/ |%
 #
 #  C Flags for normal compilation.
- LOCAL_CFLAGS = $(CFLAGS) -c -g -D$(MACHINE)
+ LOCAL_CFLAGS = $(CFLAGS) -c -g -D$(ALLIANCE_OS)
  LOCAL_OFLAGS = $(OFLAGS) -o
 #  C Flags for compilation and profiling.
-#LOCAL_CFLAGS = $(CFLAGS) -p -c -g -D$(MACHINE)
+#LOCAL_CFLAGS = $(CFLAGS) -p -c -g -D$(ALLIANCE_OS)
 #LOCAL_OFLAGS = $(OFLAGS) -p -o
 
 

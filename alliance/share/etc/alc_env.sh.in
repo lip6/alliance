@@ -6,10 +6,10 @@
 #  Alliance CAD system environnement
 #  Usage (in Bourne-shell) : > . alc_env.sh
 #  (C) 1997 Czo  -- <Olivier.Sirol@lip6.fr>
-#  $Id: alc_env.sh.in,v 1.7 1999/10/12 15:38:49 czo Exp $
+#  $Id: alc_env.sh.in,v 1.8 1999/11/05 16:03:17 czo Exp $
 #  Generated from alc_env.sh.in on @DATE@
 
-# $MACHINE and $TOP are the only variables you will
+# $ALLIANCE_OS and $TOP are the only variables you will
 # have to modify if something goes wrong
 
 # Which platform for Alliance CAD
@@ -17,45 +17,45 @@
 # WARNING : if changing this remember to do it on the 3 config files :
 # configure.in alc_env.sh.in and alc_env.csh.in
 
-MACHINE=Unknown
+ALLIANCE_OS=Unknown
  
 case `uname` in
 
   Linux*) case `uname -r` in
-           1.*) MACHINE=Linux_aout ;;
-          2.0*) MACHINE=Linux_elf  ;;            
-             *) MACHINE=Linux  ;;
+           1.*) ALLIANCE_OS=Linux_aout ;;
+          2.0*) ALLIANCE_OS=Linux_elf  ;;            
+             *) ALLIANCE_OS=Linux  ;;
           esac ;;
 
   SunOS*) case `uname -r` in
-            5*) MACHINE=Solaris ;;
-             *) MACHINE=SunOS ;;
+            5*) ALLIANCE_OS=Solaris ;;
+             *) ALLIANCE_OS=SunOS ;;
           esac ;;
 
-  FreeBSD*)     MACHINE=FreeBSD ;;
+  FreeBSD*)     ALLIANCE_OS=FreeBSD ;;
 
-  NetBSD*)      MACHINE=NetBSD ;;
+  NetBSD*)      ALLIANCE_OS=NetBSD ;;
 
-  HP-UX*)       MACHINE=HPUX ;;
+  HP-UX*)       ALLIANCE_OS=HPUX ;;
 
-  OSF1*)        MACHINE=OSF ;;
+  OSF1*)        ALLIANCE_OS=OSF ;;
 
-  CYGWIN*)      MACHINE=CYGWIN ;;
+  CYGWIN*)      ALLIANCE_OS=CYGWIN ;;
 
-  *)            MACHINE=Unknown ;;
+  *)            ALLIANCE_OS=Unknown ;;
 
 esac
 
-export MACHINE
-#echo $MACHINE
+export ALLIANCE_OS
+#echo $ALLIANCE_OS
 
 # Where the Alliance CAD is installed
 
- TOP=@TOP@/$MACHINE ;      export TOP
+ TOP=@TOP@/$ALLIANCE_OS ;      export TOP
 
 # To come :
 
- ALLIANCE_OS=$MACHINE;      export ALLIANCE_OS
+ ALLIANCE_OS=$ALLIANCE_OS;      export ALLIANCE_OS
  ALLIANCE_TOP=$TOP;         export ALLIANCE_TOP
 
 # User def 
@@ -94,7 +94,7 @@ export MACHINE
 
 
 ## Update PATH and MANPATH
-#PATH=$HOME/labo/$MACHINE/bin:$TOP/bin:$PATH
+#PATH=$HOME/labo/$ALLIANCE_OS/bin:$TOP/bin:$PATH
 PATH=$TOP/bin:$PATH
 export PATH
 MANPATH=$TOP/man:$MANPATH
