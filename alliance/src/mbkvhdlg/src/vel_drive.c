@@ -10,6 +10,9 @@
 /* ###--------------------------------------------------------------------### */
 /*
  * $Log: vel_drive.c,v $
+ * Revision 1.9  2002/12/19 12:56:29  fred
+ * Cleaning up things when adding signals
+ *
  * Revision 1.8  2002/12/17 15:51:20  francois
  * estimate delta for each signal.
  * Not for the first only.
@@ -87,7 +90,7 @@
  *
  */
 
-#ident "$Id: vel_drive.c,v 1.8 2002/12/17 15:51:20 francois Exp $"
+#ident "$Id: vel_drive.c,v 1.9 2002/12/19 12:56:29 fred Exp $"
 
 #include <stdio.h>
 #include <string.h>
@@ -716,21 +719,6 @@ its_first:
                   goto its_first;
                
                delta = previous - current;
-#if 0
-               else if (delta != previous - current) {
-                  /* This would mean that the sort failed, so I'll not
-                   * treat this case */
-                  (void)fflush(stdout);
-                  (void)fprintf(stderr, "*** mbk error ***\n");
-                  (void)fprintf(stderr,
-                              "the radical %s is not vectorized properly,",
-                              Buffer0);
-                  (void)fprintf(stderr,
-                              " %s %d follows %s %d\n", Buffer0, previous,
-                                                         Buffer0, current);
-                  EXIT(1);
-               }
-#endif
                if (delta != 1 && delta != -1) {
                   if (delta < 0)
                      for (i = previous + 1; i < current; i++) {
@@ -748,17 +736,6 @@ its_first:
                                  s->TYPE);
                         fprintf(stdout, "Adding signal '%s'\n", newname);
                      }
-#if 0
-                  (void)fflush(stdout);
-                  (void)fprintf(stderr, "*** mbk error ***\n");
-                  (void)fprintf(stderr,
-                              "the radical %s is not vectorized properly,",
-                              sn);
-                  (void)fprintf(stderr,
-                              " %s %d follows %s %d\n", Buffer0, previous,
-                                                         Buffer0, current);
-                  EXIT(1);
-#endif
                }
                previous = current;
                s = s->NEXT;
