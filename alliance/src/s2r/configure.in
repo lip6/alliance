@@ -2,7 +2,7 @@ dnl Process this file with autoconf to produce a configure script.
 AC_INIT(src/postrat.c)
 
 S2R_MAJOR_VERSION=4
-S2R_MINOR_VERSION=1
+S2R_MINOR_VERSION=3
 S2R_VERSION=$S2R_MAJOR_VERSION.$S2R_MINOR_VERSION
 
 AC_SUBST(S2R_MAJOR_VERSION)
