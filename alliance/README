@@ -5,12 +5,19 @@
 # E-mail support     : mailto:alliance-support@asim.lip6.fr
 # ftp site           : ftp://ftp-asim.lip6.fr/pub/alliance/
 #
-# $Id: README,v 1.4 2000/01/20 18:17:01 czo Exp $
-
+# $Id: README,v 1.5 2000/01/25 16:28:57 czo Exp $
 
 
 # Alliance 
 # ===================================================================
+           
+                        Alliance VLSI CAD System 
+           Copyright (C) Laboratoire LIP6 - Département ASIM
+                    Universite Pierre et Marie Curie
+                            4, place Jussieu
+                          75252 Paris Cedex 05
+                                 France
+
 
 "Alliance VLSI CAD System" is free Software.
 
@@ -76,6 +83,12 @@ In the example above I assume you have logged as root
 
   > cd alliance/share/etc
   > ./configure
+
+If your OS is recognized as "Unknown", you will need to edit 
+configure.in alc_env.sh.in and alc_env.csh.in and run autoconf
+for that those script use a good $ALLIANCE_OS name. If 
+libraries (X11, Motif/LessTiff, readline ...) or tools (sed, 
+gawk, ...) are missing, you will have to install them.
 
 If you install Alliance on different platforms you'll
 need to run the 'configure' script on each of them.
