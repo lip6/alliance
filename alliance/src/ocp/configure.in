@@ -31,9 +31,6 @@ AC_CHECK_LIB(m, exp)
 AC_CHECK_LIB(gen, basename)
 AC_CHECK_LIB(iberty, basename)
 
-dnl Checks for typedefs, structures, and compiler characteristics.
-AC_C_CONST
-
 AM_ALLIANCE
 
 AC_OUTPUT([
