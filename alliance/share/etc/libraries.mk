@@ -3,7 +3,7 @@
 # description   : Alliance Shared Libraries and Include Files   #
 # ###---------------------------------------------------------###
 
-# $Id: libraries.mk,v 1.18 1999/11/16 19:33:29 czo Exp $
+# $Id: libraries.mk,v 1.19 1999/11/22 14:38:43 czo Exp $
 
 # The variables $ALLIANCE_TOP and $ALLIANCE_OS are set by
 # alc_env.[c]sh script
@@ -296,9 +296,9 @@ RFM_LIB    = libRfm210.a
 RFM_H      =    rfm210.h
 RGS_L      =  -lRgs112
 RGS_LIB    = libRgs112.a
-RPR_L      =  -lRpr212
-RPR_LIB    = libRpr212.a
-RPR_H      =    rpr212.h
+RPR_L      =  -lRpr213
+RPR_LIB    = libRpr213.a
+RPR_H      =    rpr213.h
 RWI_L      =  -lRwi109
 RWI_LIB    = libRwi109.a
 RWI_H      =    rwi109.h
