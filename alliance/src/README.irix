@@ -8,7 +8,7 @@
 # NOTE: You can find the latest revision of this document at:
 # http://asim.lip6.fr/pub/alliance/latest-checkout/alliance/src
 #
-# $Id: README.IRIX,v 1.4 2002/10/17 10:04:09 czo Exp $
+# $Id: README.irix,v 1.1 2002/10/24 09:43:24 xtof Exp $
 
   This file discuss about installation of Alliance on IRIX machines.
 
