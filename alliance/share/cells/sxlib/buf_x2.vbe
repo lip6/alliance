@@ -19,6 +19,5 @@ END buf_x2;
 ARCHITECTURE behaviour_data_flow OF buf_x2 IS
 
 BEGIN
-1008
 q <= i after 1000 ps;
 END;

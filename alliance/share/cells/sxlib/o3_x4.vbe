@@ -31,6 +31,5 @@ END o3_x4;
 ARCHITECTURE behaviour_data_flow OF o3_x4 IS
 
 BEGIN
-1220
 q <= ((i0 or i1) or i2) after 1200 ps;
 END;

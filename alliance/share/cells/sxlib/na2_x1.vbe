@@ -25,6 +25,5 @@ END na2_x1;
 ARCHITECTURE behaviour_data_flow OF na2_x1 IS
 
 BEGIN
-894
 nq <= not ((i0 and i1)) after 900 ps;
 END;

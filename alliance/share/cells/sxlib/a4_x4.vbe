@@ -37,6 +37,5 @@ END a4_x4;
 ARCHITECTURE behaviour_data_flow OF a4_x4 IS
 
 BEGIN
-1254
 q <= (((i0 and i1) and i2) and i3) after 1300 ps;
 END;

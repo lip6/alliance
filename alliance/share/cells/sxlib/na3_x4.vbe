@@ -31,6 +31,5 @@ END na3_x4;
 ARCHITECTURE behaviour_data_flow OF na3_x4 IS
 
 BEGIN
-1294
 nq <= not (((i0 and i1) and i2)) after 1300 ps;
 END;

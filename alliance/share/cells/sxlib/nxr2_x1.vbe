@@ -33,6 +33,5 @@ END nxr2_x1;
 ARCHITECTURE behaviour_data_flow OF nxr2_x1 IS
 
 BEGIN
-1100
 nq <= not ((i0 xor i1)) after 1100 ps;
 END;

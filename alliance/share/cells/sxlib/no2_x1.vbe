@@ -25,6 +25,5 @@ END no2_x1;
 ARCHITECTURE behaviour_data_flow OF no2_x1 IS
 
 BEGIN
-903
 nq <= not ((i0 or i1)) after 900 ps;
 END;

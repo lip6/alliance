@@ -35,6 +35,5 @@ END nmx2_x1;
 ARCHITECTURE behaviour_data_flow OF nmx2_x1 IS
 
 BEGIN
-1009
 nq <= not (((i0 and not (cmd)) or (i1 and cmd))) after 1000 ps;
 END;

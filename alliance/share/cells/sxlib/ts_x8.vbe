@@ -28,7 +28,6 @@ BEGIN
 
   label0 : BLOCK (cmd = '1')
   BEGIN
-1222
 q <= GUARDED i after 1200 ps;
   END BLOCK label0;
 

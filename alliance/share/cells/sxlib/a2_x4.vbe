@@ -25,6 +25,5 @@ END a2_x4;
 ARCHITECTURE behaviour_data_flow OF a2_x4 IS
 
 BEGIN
-1121
 q <= (i0 and i1) after 1100 ps;
 END;

@@ -37,6 +37,5 @@ END nao2o22_x4;
 ARCHITECTURE behaviour_data_flow OF nao2o22_x4 IS
 
 BEGIN
-1403
 nq <= not (((i0 or i1) and (i2 or i3))) after 1400 ps;
 END;

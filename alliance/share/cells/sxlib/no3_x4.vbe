@@ -31,6 +31,5 @@ END no3_x4;
 ARCHITECTURE behaviour_data_flow OF no3_x4 IS
 
 BEGIN
-1317
 nq <= not (((i0 or i1) or i2)) after 1300 ps;
 END;
