@@ -4,7 +4,7 @@
 | (C) Laboratoire LIP6 - Département ASIM Universite P&M Curie|
 |                                                             |
 | Home page      : http://www-asim.lip6.fr/alliance/          |
-| E-mail         : mailto:alliance-users@asim.lip6.fr       |
+| E-mail support : mailto:alliance-users@asim.lip6.fr         |
 |                                                             |
 | This progam is  free software; you can redistribute it      |
 | and/or modify it under the  terms of the GNU General Public |
@@ -785,8 +785,8 @@ static void XschToolsSaveXfigConstant( X1r, Y1r, X2r, Y2r, Ycr, Obj )
 
     if (( Obj->ARG2 & (1 << i)) == 0)
     {
-      y2 = yc + cs;
-      y3 = y2 + cs;
+      y2 = yc - cs;
+      y3 = y2 - cs;
   
       XschToolsSaveXfigLine( 
                  x, yc, x, y2 );
@@ -799,8 +799,8 @@ static void XschToolsSaveXfigConstant( X1r, Y1r, X2r, Y2r, Ycr, Obj )
     }
     else
     {
-      y2 = yc - cs;
-      y3 = y2 - cs;
+      y2 = yc + cs;
+      y3 = y2 + cs;
   
       XschToolsSaveXfigLine(
                  x, yc, x, y2 );
@@ -1509,28 +1509,29 @@ static void XschToolsSaveXfigMux( X1r, Y1r, X2r, Y2r, Ycr, Obj )
   y1 = Obj->Y + (2 * SCP_BOX_CON_BASE_Y + (ni - 1) * SCP_BOX_CON_STEP_Y) * XSCH_UNIT;
   y1 -= XschBoundYmin;
 
+  y2   = y1;
   ms_y = y2 - Y1r;
 
   y2 = y2;
 
-  XschToolsSaveXfigRectangle( x, y2, ms_x, ms_y );
+  XschToolsSaveXfigRectangle( x, y2, x + ms_x, y2 - ms_y );
 
-  XschToolsSaveXfigLine( x, y2, x + ms_x, y2 + ms_y / 2 );
+  XschToolsSaveXfigLine( x, y2, x + ms_x, y2 - ms_y / 2 );
 
-  XschToolsSaveXfigLine( x + ms_x, y2 + ms_y/2, x, y2 + ms_y );
+  XschToolsSaveXfigLine( x + ms_x, y2 - ms_y/2, x, y2 - ms_y );
 
   if ( Obj->ARG4 == 0 )
   {
      /* Output line : centered vertically */
-     XschToolsSaveXfigLine( x + ms_x, y2 + ms_y/2, x + ms_x + cs, y2 + ms_y/2 );
+     XschToolsSaveXfigLine( x + ms_x, y2 - ms_y/2, x + ms_x + cs, y2 - ms_y/2 );
   }
   else 
   {
      /* Output circle */
-     XschToolsSaveXfigCircle( x + ms_x, y2 + ms_y/2 - cs/2, cs, cs );
+     XschToolsSaveXfigCircle( x + ms_x, y2 - ms_y/2 - cs/2, cs, cs );
   }
 
-  y3 = y2 + ms_y/2;
+  y3 = y2 - ms_y/2;
 
   XschToolsSaveXfigLine( x + ms_x + cs, y3, x + gs_x + cs, y3 );
 
@@ -1544,13 +1545,15 @@ static void XschToolsSaveXfigMux( X1r, Y1r, X2r, Y2r, Ycr, Obj )
   /* Circle for inversion */
   for (i = 0; i < ni; i++)
   {
+    y3 = y1;
+
     if (( Obj->ARG3 & (1 << i)) == 0)
     {
       XschToolsSaveXfigLine( x - cs, y3, x, y3 );
     }
     else
     {
-      XschToolsSaveXfigCircle( x  - cs, y3 - cs/2, cs, cs );
+      XschToolsSaveXfigCircle( x - cs, y3 - cs/2, cs, cs );
     }
 
     y1 += ( SCP_BOX_CON_STEP_Y * XSCH_UNIT );
@@ -1562,6 +1565,8 @@ static void XschToolsSaveXfigMux( X1r, Y1r, X2r, Y2r, Ycr, Obj )
 */
   for (i = 0; i < ns; i++)
   {
+    y3  = y1;
+
     x3 += ms_x / ( ns + 1 );
 
     XschToolsSaveXfigLine( x - cs, y3, x3, y3 );
