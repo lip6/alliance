@@ -1,4 +1,4 @@
-.\"   $Id: ARRAY.3,v 1.1 1999/05/31 17:30:14 alliance Exp $
+.\"   $Id: ARRAY.3,v 1.2 1999/10/25 08:03:13 simcity Exp $
 .\" @(#)ARRAY.3 2.30  UPMC ; VUONG H.N. & PITON D.
 .TH ARRAY 3 "October 1, 1997" "ASIM/LIP6" "GENPAT functions"
 
@@ -10,7 +10,7 @@
 .SH SYNOPSYS
 .PP
 .nf
-ARRAY ("ident", "ident", ..., ":nb_space", "format", type, "ident_group", 0);
+ARRAY ("ident", "ident", ..., ":nb_space", "format", type, option, "ident_group", 0);
 .fi
 
 .SH PARAMETERS
@@ -34,6 +34,10 @@ Specify the type of the aggregate. REGISTER for Register, SIGNAL for Signal,
 OUT for Output, IN for Input, INOUT for Input/Output. REGISTER, SIGNAL, OUT,
 IN, INOUT are constants (defines) provided by genpat.
 .TP 10
+\fIoption\fP
+Specify options of the connectors. "S" for a spied connector, empty ("")
+for a normal connector.
+.TP 10
 \fIident_group\fP
 Specify the array's name, the first ident is associated with the MSB of the
 array.
@@ -49,22 +53,28 @@ in a virtual vector. Inputs and Inputs/Outputs CANNOT be redeclared.
 .SH EXAMPLES
 .PP
 .nf
-ARRAY ("cout", "s 9", "s 8", "s 7", ":2", "B", OUT, "Y", 0);
+ARRAY ("cout", "s 9", "s 8", "s 7", ":2", "B", OUT, "S", "Y", 0);
 
 format : Binary.
 type   : Output connector.
+option : spied connector.
 
 each group is separated of the others with 2 blank spaces.
-result :   out Y ( cout, s (9 downto 7) ) B;;;
+result :   out Y ( cout, s (9 downto 7) ) B spy ;;;
 
-ARRAY ("regt", "reg 9", ":2", "B", REGISTER, "Y", 0);
+ARRAY ("regt", "reg 9", ":2", "B", REGISTER, "", "Y", 0);
 
 format : Binary.
 type   : Register.
+option : none.
 
 each group is separated of the others with 2 blank spaces.
 result :   register   Y ( regt, reg (9 downto 9) ) B;;;
 .fi
+
+.SH WARNING
+.PP
+The ARRAY function from the 4.0 release have a new parameter (option).
 
 .SH SEE ALSO
 .PP

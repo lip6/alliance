@@ -1,4 +1,4 @@
-.\"   $Id: genpat.1,v 1.2 1999/09/24 14:12:13 simcity Exp $
+.\"   $Id: genpat.1,v 1.3 1999/10/25 08:03:08 simcity Exp $
 .\" @(#)genpat 2.0 Sep 07 1993 UPMC; Author: PITON D.
 .TH GENPAT 1 "October 1, 1997" "ASIM/LIP6" "ALLIANCE USER COMMANDS"
 
@@ -62,9 +62,10 @@ any function related to the description part.
 .TP 10
 \fIdeclaration part\fP
 The first thing you should do in this part is to give the output file's name
-(see DEF_GENPAT(3)). Then, this part allows you to declare the inputs, the
-outputs, and internal observing points (see DECLAR(3)). It is also possible
-to create virtual arraies (see ARRAY(3)).
+(see DEF_GENPAT(3)). You can also set the time unit (see SETTUNIT(3)).
+Then, this part allows you to declare the inputs, the outputs, and internal
+observing points (see DECLAR(3)). It is also possible to create virtual
+arraies (see ARRAY(3)).
 .TP 10
 \fIdescription part\fP
 After all signals are declared, you can begin to define input values which
@@ -72,7 +73,8 @@ are to be applied to the inputs of the circuit at given simulation time.
 You can also define output values which are to be compare with the values
 produced during the simulation. (see AFFECT(3)).
 Genpat describes the stimulus by event : only signal transitions are described.
-Genpat manage the simulation time in ps.
+Genpat manage the simulation time according to the time unit specified using
+SETTUNIT in the declaration part.
 This part also allows you to give instructions to the simulation tool to save
 the state of the circuit at the end of the simulation. (see SAVE(3)). Last
 thing you should do in this part is to generate the output file (see
@@ -83,6 +85,9 @@ SAV_GENPAT(3)).
 .TP 15
 \fIDEF_GENPAT()\fP 
 defines the output file's name.
+.TP 15
+\fISETTUNIT()\fP 
+defines the time unit (default is ps : pico-seconde).
 .TP 15   
 \fISAV_GENPAT()\fP
 make the output file be generated
@@ -134,13 +139,15 @@ int entier;
  int vect_date; /* this date is an absolute date, in ps */
  
  DEF_GENPAT("vecteurs");
+
+ SETTUNIT ("ns");
  
  /* interface */
- DECLAR ("a", ":2", "X", IN, "0  to 3");
- DECLAR ("b", ":2", "X", IN, "0  to 3");
- DECLAR ("sel", ":2", "B", IN, "");
- DECLAR ("ck", ":2", "B", IN, "");
- DECLAR ("s", ":2", "X", OUT, "0 to 3");
+ DECLAR ("a", ":2", "X", IN, "0  to 3", "");
+ DECLAR ("b", ":2", "X", IN, "0  to 3", "");
+ DECLAR ("sel", ":2", "B", IN, "", "");
+ DECLAR ("ck", ":2", "B", IN, "", "");
+ DECLAR ("s", ":2", "X", OUT, "0 to 3", "S");
  
  LABEL ("additionneur");
  AFFECT ("0", "ck", "0b0");
@@ -172,7 +179,7 @@ file an extension.
 .SH SEE ALSO
 .PP
 AFFECT(3), ARRAY(3), DECLAR(3), DEF_GENPAT(3), GETCPAT(3), INIT(3), LABEL(3),
-SAVE(3), SAV_GENPAT(3), pat(5), asimut(1)
+SAVE(3), SAV_GENPAT(3), SETTUNIT(3), pat(5), asimut(1)
 
 
 .so man1/alc_bug_report.1
