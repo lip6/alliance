@@ -21,6 +21,11 @@ X11_INCLUDE      = . @X_CFLAGS@
 MOTIF_LIB        = @GUI_LIB_LOC@
 MOTIF_INCLUDE    = @GUI_INC_LOC@
 
+XPM_LIB          = . @XPM_LIBS_LOC@
+XPM_INCLUDE      = . @XPM_CFLAGS_LOC@
+
+SHELL		= @CZO@
+
 SHELL		= @SHELL@
 CSH		= @CSH@
 CP		= @CP@
