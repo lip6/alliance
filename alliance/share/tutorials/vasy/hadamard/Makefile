@@ -51,7 +51,8 @@ include $(ALLIANCE_TOP)/etc/libraries.mk
 # |                                                             |
 # \------------------------------------------------------------*/
 
-VASY   = $(ALLIANCE_TOP)/bin/vasy
+# VASY   = $(ALLIANCE_TOP)/bin/vasy
+VASY = $(HOME)/dev/bin/SunOS/vasy
 ASIMUT = $(ALLIANCE_TOP)/bin/asimut
 
 # /*------------------------------------------------------------\
@@ -90,7 +91,7 @@ result_3.pat : hadamard.vst
 # \------------------------------------------------------------*/
 
 hadamard.vst : hadamard.vhdl
-	$(ENV_VASY); $(VASY) -a -I vhdl -H hadamard
+	$(ENV_VASY); $(VASY) -a -o -I vhdl -H hadamard
 
 
 # /*------------------------------------------------------------\

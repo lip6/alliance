@@ -1,0 +1,2 @@
+rm CATAL Makefile calcul.vhdl compteur.vhdl ex0.stim ex1.stim ex2.stim ex3.stim hadamard hadamard.stim hadamard.vhdl hadamard_1.pat hadamard_2.pat hadamard_3.pat hadamard_tb.vhdl ram.vhdl rom.vhdl sequenceur.vhdl
+cvs remove CATAL Makefile calcul.vhdl compteur.vhdl ex0.stim ex1.stim ex2.stim ex3.stim hadamard hadamard.stim hadamard.vhdl hadamard_1.pat hadamard_2.pat hadamard_3.pat hadamard_tb.vhdl ram.vhdl rom.vhdl sequenceur.vhdl
