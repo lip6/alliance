@@ -135,17 +135,23 @@
 |                                                       |
 \------------------------------------------------------*/
 
-typedef struct ctltype_list
-{
-  struct ctltype_list *NEXT;
-  char                *NAME;
-  unsigned long        SIZE;
-  char               **VALUE;
-  ctlline_list        *LINE;
-  long                 FLAGS;
-  void                *USER;
+  typedef struct ctltype_list
+  {
+    struct ctltype_list *NEXT;
+    char                *NAME;
+    unsigned long        LEFT;
+    unsigned long        RIGHT;
+    unsigned long        SIZE;
+    char               **VALUE;
+    char                 CLASS;
+    unsigned long        INDEX;
+    struct ctltype_list *BASE;
 
-} ctltype_list;
+    ctlline_list        *LINE;
+    long                 FLAGS;
+    void                *USER;
+
+  } ctltype_list;
 
 /*------------------------------------------------------\
 |                                                       |
@@ -176,8 +182,8 @@ typedef struct ctltype_list
     vexexpr              *VEX_ATOM;
     vexexpr              *VEX_INIT;
     ctlsym               *DECL_SYM;
-    ctltype_list         *USER_TYPE;
-    unsigned char         TYPE;
+    ctltype_list         *TYPE;
+    unsigned char         DECL_TYPE;
     ctlline_list         *LINE;
     long                  FLAGS;
     void                 *USER;

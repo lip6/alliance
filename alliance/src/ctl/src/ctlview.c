@@ -171,13 +171,13 @@ void viewctldecl( Decl )
     viewctlsym( &DeclSym[ Scan ] );
   }
 
-  if ( Decl->TYPE >= CTL_MAX_DECLAR_TYPE )
+  if ( Decl->DECL_TYPE >= CTL_MAX_DECLAR_TYPE )
   {
-    fprintf( stdout, "\n\t\tTYPE  : %d", Decl->TYPE  );
+    fprintf( stdout, "\n\t\tDECL_TYPE : %d", Decl->DECL_TYPE  );
   }
   else
   {
-    fprintf( stdout, "\n\t\tTYPE  : %s", CTL_DECLAR_TYPE[ Decl->TYPE ] );
+    fprintf( stdout, "\n\t\tDECL_TYPE : %s", CTL_DECLAR_TYPE[ Decl->DECL_TYPE ] );
   }
 
   fprintf( stdout, "\n\t\tFLAGS : %lx", Decl->FLAGS );
@@ -199,7 +199,10 @@ void viewctltype( Type )
 
   viewctlline( Type->LINE );
 
-  fprintf( stdout, "\n\t\tNAME     : %s",  Type->NAME );
+  fprintf( stdout, "\n\t\tNAME     : %s",  Type->NAME  );
+  fprintf( stdout, "\n\t\tLEFT     : %ld", Type->LEFT  );
+  fprintf( stdout, "\n\t\tRIGHT    : %ld", Type->RIGHT );
+  /* TO BE DONE */
   fprintf( stdout, "\n\t\tFLAGS    : %lx", Type->FLAGS );
   fprintf( stdout, "\n\t\tUSER     : %lx", (long)Type->USER );
 

@@ -118,11 +118,11 @@ ctlfig_list *addctlfig( Name )
 |                                                             |
 \------------------------------------------------------------*/
 
-static ctldecl_list *loc_addctldecl( Figure, Expr, Type )
+static ctldecl_list *loc_addctldecl( Figure, Expr, DeclType )
 
   ctlfig_list   *Figure;
   vexexpr       *Expr;
-  unsigned char  Type;
+  unsigned char  DeclType;
 {
   ctldecl_list  *Decl;
   ctldecl_list **PrevDecl;
@@ -145,10 +145,10 @@ static ctldecl_list *loc_addctldecl( Figure, Expr, Type )
 
   Name = GetVexAtomValue( Atom );
 
-  if ( ( Type <= CTL_DECLAR_ALL      ) ||
-       ( Type >= CTL_MAX_DECLAR_TYPE ) )
+  if ( ( DeclType <= CTL_DECLAR_ALL      ) ||
+       ( DeclType >= CTL_MAX_DECLAR_TYPE ) )
   {
-    ctlerror( CTL_UNKNOWN_DECLAR_TYPE, Type, Name );
+    ctlerror( CTL_UNKNOWN_DECLAR_TYPE, DeclType, Name );
   }
 
   Decl = allocctldecl();
@@ -177,12 +177,12 @@ static ctldecl_list *loc_addctldecl( Figure, Expr, Type )
     Index += IndexStep;
   }
 
-  PrevDecl = &Figure->DECLAR[ Type ];
+  PrevDecl = &Figure->DECLAR[ DeclType ];
 
   Decl->VEX_ATOM  = Expr;
   Decl->DECL_SYM  = Sym;
-  Decl->TYPE      = Type;
-  Decl->PREV      = &Figure->DECLAR[ Type ];
+  Decl->DECL_TYPE = DeclType;
+  Decl->PREV      = &Figure->DECLAR[ DeclType ];
   Decl->NEXT      = *(Decl->PREV);
 
   if ( Decl->NEXT != (ctldecl_list *)0 )
@@ -192,7 +192,7 @@ static ctldecl_list *loc_addctldecl( Figure, Expr, Type )
 
   *(Decl->PREV) = Decl;
 
-  addauthelem( Figure->HASH_DECLAR[ Type           ], Name, (long)Decl );
+  addauthelem( Figure->HASH_DECLAR[ DeclType       ], Name, (long)Decl );
   addauthelem( Figure->HASH_DECLAR[ CTL_DECLAR_ALL ], Name, (long)Decl );
 
   return( Decl );

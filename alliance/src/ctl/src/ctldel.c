@@ -117,8 +117,8 @@ static void loc_delctldecl( Figure, Declar )
   }
 
   Name = Declar->DECL_SYM->NAME;
-  delauthelem( Figure->HASH_DECLAR[ Declar->TYPE   ], Name ); 
-  delauthelem( Figure->HASH_DECLAR[ CTL_DECLAR_ALL ], Name );
+  delauthelem( Figure->HASH_DECLAR[ Declar->DECL_TYPE ], Name ); 
+  delauthelem( Figure->HASH_DECLAR[ CTL_DECLAR_ALL    ], Name );
 
   freectlsym( Declar->DECL_SYM );
   freevexexpr( Declar->VEX_ATOM );
