@@ -3,7 +3,7 @@
 # Copyright (C) 2004 Jean-Paul Chaput <Jean-Paul.Chaput@lip6.fr>
 # License: GPL (http://www.gnu.org/copyleft/gpl.html)
 #
-# $Id: mkasim,v 1.1 2004/07/23 22:57:55 alliance Exp $
+# $Id: mkasim,v 1.2 2004/07/23 23:02:18 alliance Exp $
 #
 # /------------------------------------------------------------------\
 # |                                                                  |
@@ -54,8 +54,8 @@
         MKASIM_PID="$$"
 #       MKASIM_PID="26882"
 
-#            ARCHS="Linux.FC2 Linux.RH71 Solaris"
-             ARCHS="Linux.RH71 Solaris"
+             ARCHS="Linux.FC2 Linux.RH71 Solaris"
+#            ARCHS="Linux.RH71 Solaris"
      TARGETLOGFILE=/tmp/alliance-asim-build.$MKASIM_PID
            LOGFILE="$DISTRIBDIR/mkasim-run.log"
 
@@ -210,25 +210,25 @@
  part "mkasim Started."
  try cd $DISTRIBDIR
 
-#part "Removing Any Previous Run."
-#mkdir $TMPDIR
-#mv alliance $TMPBUILDDIR $TMPDIR
-#rm -rf $TMPDIR &
+ part "Removing Any Previous Run."
+ mkdir $TMPDIR
+ mv alliance $TMPBUILDDIR $TMPDIR
+ rm -rf $TMPDIR &
 
 
-#part "Checkout Sources From CVS."
-#try cvs co -P alliance/src
+ part "Checkout Sources From CVS."
+ try cvs co -P alliance/src
 
 # Remove undistributed tools.
-#try ./alliance/src/.asim
+ try ./alliance/src/.asim
 
-#perl -pi -e "s§AC_DEFINE_UNQUOTED.*ALLIANCE_VERSION.*§AC_DEFINE_UNQUOTED(ALLIANCE_VERSION, \"$VERSION \[$RELEASE\]\")§" alliance/src/alliance.m4
+ perl -pi -e "s§AC_DEFINE_UNQUOTED.*ALLIANCE_VERSION.*§AC_DEFINE_UNQUOTED(ALLIANCE_VERSION, \"$VERSION \[$RELEASE\]\")§" alliance/src/alliance.m4
 
 
-#part "Making shared autostuff."
-#try cd alliance/src
-#try ./autostuff
-#cd ../..
+ part "Making shared autostuff."
+ try cd alliance/src
+ try ./autostuff
+ cd ../..
 
 
  for ARCH in $ARCHS
