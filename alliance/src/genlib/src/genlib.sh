@@ -1,6 +1,6 @@
 #!/bin/sh
 #
-# $Id: genlib.sh,v 1.3 2002/04/29 13:40:55 jpc Exp $
+# $Id: genlib.sh,v 1.4 2002/05/28 16:22:13 jpc Exp $
 #                                                                        
 # /------------------------------------------------------------------\
 # |                                                                  |
@@ -173,11 +173,9 @@
 # Print the current MBK environment.
 
  if [ ! -z "$ALLIANCE_TOP" ]; then ALLIANCE_TOP=$ALLIANCE_TOP; fi
- if [ ! -z "$ALLIANCE_OS"  ]; then  ALLIANCE_OS=$ALLIANCE_OS;  fi
 
  vecho 1    "  o  Current Alliance environment:"
  vecho 1    "     - ALLIANCE_TOP    : ${ALLIANCE_TOP-not set}"
- vecho 1    "     - ALLIANCE_OS     : ${ALLIANCE_OS-not set}"
  vecho 1    "  o  Current MBK environment:"
  vecho 1    "     - MBK_IN_LO       : ${MBK_IN_LO-not set}"
  vecho 1    "     - MBK_OUT_LO      : ${MBK_OUT_LO-not set}"
@@ -240,7 +238,7 @@ cat << EOF > $MAKEFILE
   ALLIANCE_LIB     = $ALLIANCE_TOP/lib
 
   LOCAL_ALC_IDIR = $ALLIANCE_DEVEL_INCLUDE -I\$(ALLIANCE_INCLUDE)
-  LOCAL_ALC_DEFS = -DALLIANCE_VERSION=\$(ALLIANCE_VERSION)
+  LOCAL_ALC_DEFS = 
   LOCAL_ALC_INCS = \$(LOCAL_ALC_IDIR) \$(LOCAL_ALC_DEFS)
 
   LOCAL_ALC_LDIR = $ALLIANCE_DEVEL_LIB -L\$(ALLIANCE_LIB)
@@ -275,7 +273,7 @@ cat << EOF > $MAKEFILE
   LOCAL_STD_LIBS = -lm
 
 #  C Flags for normal compilation.
- LOCAL_CFLAGS = \$(CFLAGS) -c -g -D\$(ALLIANCE_OS)
+ LOCAL_CFLAGS = \$(CFLAGS) -c -g
  LOCAL_OFLAGS = \$(OFLAGS) -o
 
 
