@@ -96,11 +96,17 @@ TABLE GRAAL_SEGMENT_NAME
   POLY     Poly   red              Black
   ALU1     Alu1   royal_blue       Black
   ALU2     Alu2   Cyan             Black
-  ALU3     Alu3   peach_puff       Black
-  TPOLY    Tpoly  light_pink       Black
-  TALU1    Talu1  light_steel_blue Black
-  TALU2    Talu2  light_cyan       Black
-  TALU3    Talu3  bisque           Black
+  ALU3     Alu3   light_pink       Black
+  ALU4     Alu4   green            Black
+  ALU5     Alu5   yellow           Black
+  ALU6     Alu6   violet           Black
+  TPOLY    Tpoly  hot_pink         Black
+  TALU1    Talu1  royal_blue       Black
+  TALU2    Talu2  turquoise        Black
+  TALU3    Talu3  light_pink       Black
+  TALU4    Talu4  green            Black
+  TALU5    Talu5  yellow           Black
+  TALU6    Talu6  violet           Black
 
 END
 
@@ -128,7 +134,10 @@ TABLE GRAAL_CONNECTOR_NAME
   POLY     Poly   red              Black
   ALU1     Alu1   royal_blue       Black
   ALU2     Alu2   Cyan             Black
-  ALU3     Alu3   peach_puff       Black
+  ALU3     Alu3   light_pink       Black
+  ALU4     Alu4   green            Black
+  ALU5     Alu5   yellow           Black
+  ALU6     Alu6   violet           Black
 
 END
 
@@ -151,11 +160,17 @@ TABLE GRAAL_SEGMENT_VALUE
   POLY     1   1
   ALU1     1   1
   ALU2     2   2
-  ALU3     3   3
+  ALU3     2   2
+  ALU4     2   2
+  ALU5     2   2
+  ALU6     2   2
   TPOLY    1   1
   TALU1    1   1
   TALU2    2   2
-  TALU3    3   3
+  TALU3    2   2
+  TALU4    2   2
+  TALU5    2   2
+  TALU6    2   2
 
 END
 
@@ -180,15 +195,18 @@ END
 
 TABLE GRAAL_VIA_NAME
 
-  CONT_DIF_N   Cont_NDif   lawn_green    Black
-  CONT_DIF_P   Cont_PDif   yellow        Black
-  CONT_BODY_N  Cont_NTie   tan           Black
-  CONT_BODY_P  Cont_PTie   light_yellow  Black
-  CONT_POLY    Cont_Poly   red           Black
-  CONT_VIA     Cont_Via    deep_sky_blue Black
-  CONT_VIA2    Cont_Via2   chocolate     Black
-  C_X_N        Cont_CxN    orange        Black
-  C_X_P        Cont_CxP    orange        Black
+  CONT_DIF_N   Cont_NDif   lawn_green       Black
+  CONT_DIF_P   Cont_PDif   yellow           Black
+  CONT_BODY_N  Cont_NTie   spring_green     Black
+  CONT_BODY_P  Cont_PTie   light_goldenrod  Black
+  CONT_POLY    Cont_Poly   red              Black
+  CONT_VIA     Via_1-2     cyan             Black
+  CONT_VIA2    Via_2-3     light_pink       Black
+  CONT_VIA3    Via_3-4     green            Black
+  CONT_VIA4    Via_4-5     yellow           Black
+  CONT_VIA5    Via_5-6     violet           Black
+  C_X_N        Cont_CxN    orange           Black
+  C_X_P        Cont_CxP    orange           Black
 
 END
 
@@ -246,22 +264,28 @@ TABLE GRAAL_RDS_LAYER_NAME
   RDS_POLY     Poly    red               Black
   RDS_VPOLY    VPoly   coral             Black
   RDS_GATE     Gate    orange            Black
-  RDS_TPOLY    Tpoly   light_pink        Black
+  RDS_TPOLY    Tpoly   hot_pink          Black
   RDS_CONT     Cont    dark_violet       Black
   RDS_TCONT    TCont   orchid            Black
   RDS_ALU1     Alu1    royal_blue        Black
   RDS_VALU1    VAlu1   sky_blue          Black
-  RDS_TALU1    Talu1   light_steel_blue  Black
+  RDS_TALU1    Talu1   royal_blue        Black
   RDS_VIA1     Via1    deep_sky_blue     Black
   RDS_TVIA1    TVia1   dodger_blue       Black
-  RDS_ALU2     Alu2    Cyan              Black
-  RDS_VALU2    VAlu2   turquoise         Black
-  RDS_TALU2    Talu2   light_cyan        Black
-  RDS_VIA2     Via2    chocolate         Black
-  RDS_TVIA2    TVia2   sandy_brown       Black
-  RDS_ALU3     Alu3    peach_puff        Black
-  RDS_VALU3    VAlu3   dark_salmon       Black
-  RDS_TALU3    Talu3   bisque            Black
+  RDS_ALU2     Alu2    cyan              Black
+  RDS_TALU2    Talu2   turquoise         Black
+  RDS_VIA2     Via2    deep_pink         Black
+  RDS_ALU3     Alu3    light_pink        Black
+  RDS_TALU3    Talu3   light_pink        Black
+  RDS_VIA3     Via3    sea_green         Black
+  RDS_ALU4     Alu4    green             Black
+  RDS_TALU4    Talu4   green             Black
+  RDS_VIA4     Via4    gold              Black
+  RDS_ALU5     Alu5    yellow            Black
+  RDS_TALU5    Talu5   yellow            Black
+  RDS_VIA5     Via5    violet_red        Black
+  RDS_ALU6     Alu6    violet            Black
+  RDS_TALU6    Talu6   violet            Black
   RDS_CPAS     Cpas    gray              Black
   RDS_REF      Ref     coral             Black
   RDS_ABOX     Abox    pink              Black
