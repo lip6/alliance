@@ -77,7 +77,7 @@ proc Supervision_cmdunix.tcl { commande code_cmd } {
    }
    if {$poub == 0} { 
      toplevel $w -class Cmd_unix
-     wm title  $w "COMDIAC:Supervision des commandes UNIX"
+     wm title  $w "ALGUE : console output"
      wm iconname $w Supervision
      wm geometry $w +30+30 
      raise $w
