@@ -1,7 +1,7 @@
 
 %define       name            alliance
 %define       ver             @VERSION@
-%define       tag             alpha.1
+%define       tag             alpha.2
 %define       release         1.asim.1
 %define       prefix          @prefix@
 
@@ -86,7 +86,7 @@ Sources of the Alliance VLSI CAD System, as you might guess...
     %{buildroot}%{prefix}/etc/alc_env.sh.1
  mv %{buildroot}%{prefix}/etc/alc_env.sh.1 \
     %{buildroot}%{prefix}/etc/alc_env.sh
- sed "s,ALLIANCE_TOP *\([^;]*\),ALLIANCE_TOP %{prefix}," \
+ sed "s,setenv *ALLIANCE_TOP *\([^;]*\), setenv ALLIANCE_TOP %{prefix}," \
     %{buildroot}%{prefix}/etc/alc_env.csh > \
     %{buildroot}%{prefix}/etc/alc_env.csh.1
  mv %{buildroot}%{prefix}/etc/alc_env.csh.1 \
@@ -99,8 +99,10 @@ Sources of the Alliance VLSI CAD System, as you might guess...
 
 
 %preun
- rm -f /etc/profile.d/alc_env.sh
- rm -f /etc/profile.d/alc_env.csh
+ if [ $1 -eq 0 ]; then
+   rm -f /etc/profile.d/alc_env.sh
+   rm -f /etc/profile.d/alc_env.csh
+ fi
 
 
 %clean
@@ -128,5 +130,10 @@ Sources of the Alliance VLSI CAD System, as you might guess...
 
 
 %changelog
+* Thu May 16 2002  Jean-Paul.Chaput <Jean-Paul.Chaput@lip6.fr>
+- Corrected buggy substitution of ALLIANCE_TOP in alc_env.csh.
+- Remove the alc_env.* scripts in "/etc/profile.d" only if this
+  is the last package to be removed.
+
 * Mon May  6 2002  Jean-Paul.Chaput <Jean-Paul.Chaput@lip6.fr>
 - Initial packaging for release 5.0 (alpha stage).
