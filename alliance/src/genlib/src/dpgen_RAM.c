@@ -122,15 +122,15 @@ GENLIB_LOCON("w",IN,"w");
 GENLIB_LOCON("selram",IN,"selram");
 for (i=0;i<adrange;i++){
 	GENLIB_LOCON(GENLIB_NAME("ad[%d]",adrange-1-i),IN,
-	GENLIB_NAME("ad%d",adrange-1-i));
+	GENLIB_NAME("ad[%d]",adrange-1-i));
 	}
 for (i=0;i<nbit;i++){
 	GENLIB_LOCON(GENLIB_NAME("datain[%d]",nbit-1-i),IN,
-	GENLIB_NAME("datain%d",nbit-1-i));
+	GENLIB_NAME("datain[%d]",nbit-1-i));
 	}
 for (i=0;i<nbit;i++){
 	GENLIB_LOCON(GENLIB_NAME("dataout[%d]",nbit-1-i),TRISTATE,
-	GENLIB_NAME("dataout%d",nbit-1-i));
+	GENLIB_NAME("dataout[%d]",nbit-1-i));
 	}
 GENLIB_LOCON("vdd",IN,"vdd");
 GENLIB_LOCON("vss",IN,"vss");
@@ -194,8 +194,8 @@ GENLIB_LOINS("ram_sense_data",GENLIB_NAME("sense%d",i),
 	"nsensex",
 	"prechbis",
 	"writex",
-	GENLIB_NAME("datain%d",i),
-	GENLIB_NAME("dataout%d",i),
+	GENLIB_NAME("datain[%d]",i),
+	GENLIB_NAME("dataout[%d]",i),
 	"vdd",
 	"vss",NULL);
 }
@@ -229,7 +229,7 @@ for (j=0 ; j<nmot ; j+=4){
 	}
 GENLIB_PLACE_RIGHT("ram_sense_buf0","sensebuf0",NOSYM);
 GENLIB_LOINS("ram_sense_buf0","sensebuf0",
-	"ad0",
+	"ad[0]",
 	"nsense",
 	"nckxbis",
 	"nwrite",
@@ -333,8 +333,8 @@ for (j=0 ; j<nmot ; j+=8){
 	}
 GENLIB_PLACE_RIGHT("ram_sense_decad12","sensedecad12",NOSYM);
 GENLIB_LOINS("ram_sense_decad12","sensedecad12",
-	"ad1",
-	"ad2",
+	"ad[1]",
+	"ad[2]",
 	"ndec00",
 	"ndec01",
 	"ndec10",
@@ -380,11 +380,11 @@ for(j=0 ; j<nmot ; j+=8) {
 	}
 GENLIB_PLACE_RIGHT("ram_sense_decad5","sensedecad",SYM_Y);
 GENLIB_LOINS("ram_sense_decad5","sensedecad",
-	"ad3",
-	"ad4",
-	"ad5",
-	"ad6",
-	"ad7",
+	"ad[3]",
+	"ad[4]",
+	"ad[5]",
+	"ad[6]",
+	"ad[7]",
 	"ad3x",
 	"nad3x",
 	"ad4x",
@@ -427,10 +427,10 @@ for(j=0 ; j<nmot ; j+=8) {
 	}
 GENLIB_PLACE_RIGHT("ram_sense_decad4","sensedecad",SYM_Y);
 GENLIB_LOINS("ram_sense_decad4","sensedecad",
-	"ad3",
-	"ad4",
-	"ad5",
-	"ad6",
+	"ad[3]",
+	"ad[4]",
+	"ad[5]",
+	"ad[6]",
 	"ad3x",
 	"nad3x",
 	"ad4x",
@@ -468,9 +468,9 @@ for(j=0 ; j<nmot ; j+=8) {
 	}
 GENLIB_PLACE_RIGHT("ram_sense_decad3","sensedecad",SYM_Y);
 GENLIB_LOINS("ram_sense_decad3","sensedecad",
-	"ad3",
-	"ad4",
-	"ad5",
+	"ad[3]",
+	"ad[4]",
+	"ad[5]",
 	"ad3x",
 	"nad3x",
 	"ad4x",
@@ -503,8 +503,8 @@ for(j=0 ; j<nmot ; j+=8) {
 	}
 GENLIB_PLACE_RIGHT("ram_sense_decad2","sensedecad",SYM_Y);
 GENLIB_LOINS("ram_sense_decad2","sensedecad",
-	"ad3",
-	"ad4",
+	"ad[3]",
+	"ad[4]",
 	"ad3x",
 	"nad3x",
 	"ad4x",
