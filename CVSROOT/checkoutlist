@@ -13,6 +13,7 @@
 # comment lines begin with '#'
 
 postconfig  "ERRRROR : a 'checkoutlist' was not found"
+posttaginfo "ERRRROR : a 'checkoutlist' was not found"
 fastinstool "ERRRROR : a 'checkoutlist' was not found"
 instool     "ERRRROR : a 'checkoutlist' was not found"
 updatelibmk "ERRRROR : a 'checkoutlist' was not found"
