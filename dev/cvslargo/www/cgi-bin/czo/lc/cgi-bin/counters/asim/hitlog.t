@@ -16124,3 +16124,19 @@
 2000/06/06 18:54:52, 195.173.119.41, /alliance/doc/man/fpgen.1.html, Mozilla/4.7 [en] (WinNT; I), demon-gw.ascic.co.uk
 2000/06/06 18:55:13, 195.173.119.41, /alliance/doc/man/fpgen.1.html, Mozilla/4.7 [en] (WinNT; I), demon-gw.ascic.co.uk
 2000/06/06 18:55:28, 195.173.119.41, /alliance/doc/man/DP_NAND3.3.html, Mozilla/4.7 [en] (WinNT; I), demon-gw.ascic.co.uk
+2000/06/06 18:56:34, 132.227.103.22, /index.html, Mozilla/4.51 [fr] (WinNT; I), cherry
+2000/06/06 18:56:45, 195.173.119.41, /alliance/doc/man/librds.1.html, Mozilla/4.7 [en] (WinNT; I), demon-gw.ascic.co.uk
+2000/06/06 18:58:43, 195.173.119.41, /alliance/doc/man/s2r.1.html, Mozilla/4.7 [en] (WinNT; I), demon-gw.ascic.co.uk
+2000/06/06 18:59:46, 195.173.119.41, /alliance/doc/man/scr.1.html, Mozilla/4.7 [en] (WinNT; I), demon-gw.ascic.co.uk
+2000/06/06 18:59:53, 62.172.199.21, /alliance/doc/man/beh_frebegen.3.html, Slurp.so/1.0 (slurp@inktomi.com; http://www.inktomi.com/slurp.html), 
+2000/06/06 19:00:46, 131.107.3.79, /publications/resumes/1998/1998.030/index.fr.html, Mozilla/4.0 (compatible; MSIE 5.01; Windows NT 5.0), tide79.microsoft.com
+2000/06/06 19:01:47, 194.199.60.33, /publications/index.gb.html, Mozilla/4.7 [fr] (Win98; I), iup2-dhcp33.univ-ubs.fr
+2000/06/06 19:01:51, 194.199.60.33, /publications/outilscao/index.gb.html, Mozilla/4.7 [fr] (Win98; I), iup2-dhcp33.univ-ubs.fr
+2000/06/06 19:03:28, 132.227.103.22, /index.html, Mozilla/4.51 [fr] (WinNT; I), cherry
+2000/06/06 19:04:32, 132.227.103.22, /index.html, Mozilla/4.51 [fr] (WinNT; I), cherry
+2000/06/06 19:06:19, 195.173.119.41, /alliance/doc/quickview/index.html, Mozilla/4.7 [en] (WinNT; I), demon-gw.ascic.co.uk
+2000/06/06 19:08:54, 193.95.32.185, /alliance/mailing-lists/alliance-support/1999/0161.html, Mozilla/4.0 (compatible; MSIE 5.01; Windows 95), 
+2000/06/06 19:09:15, 206.132.186.131, /alliance/doc/man/MBK_OUT_PH.1.html, ia_archiver, crawl1.alexa.com
+2000/06/06 19:09:31, 193.95.32.185, /alliance/mailing-lists/alliance-support/1999/0160.html, Mozilla/4.0 (compatible; MSIE 5.01; Windows 95), 
+2000/06/06 19:09:49, 194.254.104.65, /publications/outilscao/index.gb.html, Mozilla/4.03 [en] (X11; I; SunOS 4.1.3 sun4m), babel.etca.fr
+2000/06/06 19:12:07, 62.172.199.22, /publications/resumes/1997/1997.023/index.gb.html, Slurp.so/1.0 (slurp@inktomi.com; http://www.inktomi.com/slurp.html), 
