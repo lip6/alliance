@@ -1,0 +1,1223 @@
+<html>
+<head>
+   <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+   <title>Tools overview</title>
+   <!-- Author: Ludovic Jacomme May 2004 -->
+</head>
+
+<body bgcolor="#FFFFFF" text="#000000" link="#0000FF" vlink="#000080" alink="#FF0000">
+
+<img src="logo.gif">
+
+
+<center>
+	<h1>Tools Overview</h1>
+</center>
+<br>
+<h1><a id="asimut" name="asimut">ASIMUT: VHDL simulator</a></h1>
+<ul>
+	<li><font color=blue>DESCRIPTION:</font><br>
+	<a href="#asimut">ASIMUT</a> is a VHDL simulator.  It loads
+	behavioral or structural descriptions written according to the Alliance
+	VHDL subsets.  <a href="#asimut">ASIMUT</a> may also be
+	linked with C descriptions of behavioral components.  It loads a
+	stimuli file (<a href="#pat">PAT</a> file format) and then run the simulation.  The result
+	is dumped in a new pattern file and it can be displayed using 
+	<a href="#xpat">XPAT</a>.
+	</li>
+
+	<li><font color=blue>STRENGTH</font><br>
+	Mixed simulation between C models and VHDL models.
+	</li>
+
+	<li><font color=blue>WEAKNESS</font><br>
+	<a href="#asimut">ASIMUT</a> is not a powerfull VHDL simulator
+	compared to industrial one. It is used at LIP6 laboratory only for
+	teaching purposes or small research projets. 
+	For example it doesn't take benefit of vectorized expressions, during compilation
+	it splits them to an equivalent set of bits.
+	During the simulation it interprets all boolean expressions, it is
+	not effecient and it is very CPU time consuming compared to compiled and run
+	methods.
+	Finally, the VHDL subset it accepts is not standard and is very small.
+	For example only boolean operators are supported, and only two VHDL types
+	can be used (bit and bit vectors).
+        </li>
+
+	<li><a href="flow.html#asimut"><font color=blue>DESIGN FLOW</font></a><br>
+	</li>
+</ul>
+<br>
+
+<h1><a id="b2f" name="b2f">B2F: FSM abstractor</a></h1>
+<ul>
+	<li><font color=blue>DESCRIPTION:</font><br>
+	<a href="#b2f">B2F</a> is a Finite State Machine
+	abstractor. It loads a RTL VHDL description (VBE file format).
+	It then build the graph of an equivalent Finite State Machine, using a symbolic
+	simulation algorithm.  This tool does the inverse operation of the FSM synthesizer 
+	<a href="#syf">SYF</a>
+	</li>
+
+	<li><font color=blue>STRENGTH</font><br>
+	None.
+	</li>
+
+	<li><font color=blue>WEAKNESS</font><br>
+	None.
+        </li>
+
+	<li><a href="flow.html#b2f"><font color=blue>DESIGN FLOW</font></a><br>
+	</li>
+</ul>
+<br>
+
+
+<h1><a id="boog" name="boog">BOOG: Binding and Optimizing On Gates</a></h1>
+<ul>
+	<li><font color=blue>DESCRIPTION:</font><br>
+	<a href="#boog">BOOG</a> is used for the second
+	step of the synthesis process.
+	It loads a behavioural description (VBE) beforehand optimized
+	with <a href="#boom">BOOM</a> 
+	and builds an equivalent boolean network. It loads also a library of standard
+	cells and in option a parameter file.
+	For each boolean function of each node of the network,
+	it tries to find in the given library, a cell or a set of cells that produce
+	the same boolean function. This step is often called standard cell mapping.
+	The result is a netlist of cells with an equivalent behavior.
+        </li>
+
+	<li><font color=blue>STRENGTH</font><br>
+	None.
+	</li>
+
+	<li><font color=blue>WEAKNESS</font><br>
+	<a href="#boog">BOOG</a> is very archaic compared to
+	industrial RTL synthesizer such as Synopsys. 
+	It's based on a pattern matching method which is not very efficient in
+	particular for memorizing element mapping. The parameter file can only
+	be used for global constraints, and for example it's not possible to
+	impose a delay between to points in the resulting netlist.
+        </li>
+
+	<li><a href="flow.html#boog"><font color=blue>DESIGN FLOW</font></a><br>
+	</li>
+</ul>
+<br>
+
+
+<h1><a id="boom" name="boom">BOOM: BOOlean Minimization</a></h1>
+<ul>
+	<li><font color=blue>DESCRIPTION:</font><br>
+	<a href="#boom">BOOM</a> is used for the first step of the
+	synthesis process.  It loads a behavioural description (VBE), if
+	possible a parameter file, and it builds an equivalent boolean network.
+	From one hand it minimizes the boolean expression of each nodes of the
+	network, and on the other hand it factorizes equivalent nodes. The
+	result is an equivalent boolean network where the maximum depth is
+	smaller and where boolean nodes have been factorized.
+	</li>
+
+	<li><font color=blue>STRENGTH</font><br>
+	<a href="#boom">BOOM</a> gives good results (in term of 
+	literal's number) for small random logic descriptions.
+	</li>
+
+	<li><font color=blue>WEAKNESS</font><br>
+	<a href="#boom">BOOM</a> is not powerfull compared to
+	industrial RTL synthesizer such as Synopsys. 
+	It's based on a very original method (using BDD's) that often failed in
+	particular for datapath optimization.
+	As for <a href="#boog">BOOG</a> the parameter file can only
+	be used to specify global constraints.
+	As for the VHDL simulator <a href="#asimut">ASIMUT</a>
+	the VHDL subset it accepts is not standard and is very small.
+        </li>
+
+	<li><a href="flow.html#boom"><font color=blue>DESIGN FLOW</font></a><br>
+	</li>
+</ul>
+<br>
+
+<h1><a id="cougar" name="cougar">COUGAR: Hierarchical netlist extractor</a></h1>
+<ul>
+	<li><font color=blue>DESCRIPTION:</font><br>
+	<a href="#cougar">LYNX</a> (called now COUGAR) is a
+	hierarchical netlist extractor.  It loads a symbolic or real physical
+	view and given a technological file (RDS file format) it extracts a
+	netlist.
+	</li>
+
+	<li><font color=blue>STRENGTH</font><br>
+	<a href="#cougar">LYNX</a> is a fast hierarchical
+	netlist extractor.
+	It is based on a simple but efficient algorithm with a CPU complexity
+	between o(n) and o( n * sqrt(n)) (where n is the number of rectangles in
+	the layout).
+	</li>
+
+	<li><font color=blue>WEAKNESS</font><br>
+	<a href="#cougar">LYNX</a> can not be compared to
+	industrial netlist extractor.
+	It uses a very poor pattern matching method for transistor recognition.
+	It is no able to extract devices other than CMOS transistors, and it
+	extracts parasitic capacitance and restistor with a very low precision. 
+	</li>
+
+	<li><a href="flow.html#cougar"><font color=blue>DESIGN FLOW</font></a><br>
+	</li>
+</ul>
+<br>
+
+<h1><a id="dreal" name="dreal">DREAL: Design REAL layout</a></h1>
+<ul>
+	<li><font color=blue>DESCRIPTION:</font><br>
+	<a href="#dreal">DREAL</a> is the hierarchical real layout editor
+	of Alliance.
+	</li>
+
+	<li><font color=blue>STRENGTH</font><br>
+	It is based on the same sources than <a href="#graal">GRAAL</a>.
+	</li>
+
+	<li><font color=blue>WEAKNESS</font><br>
+	There are no integrated design rule checker and extractor.
+	</li>
+
+	<li><a href="flow.html#dreal"><font color=blue>DESIGN FLOW</font></a><br>
+	</li>
+
+	<li><font color=blue>SNAPSHOT:</font><br>
+        <img src="dreal.gif">
+	</li>
+</ul>
+<br>
+
+<h1><a id="druc" name="druc">DRUC: Design REAL layout</a></h1>
+<ul>
+	<li><font color=blue>DESCRIPTION:</font><br>
+	<a href="#druc">DRUC</a> is a hierarchical design rule
+	checker.  It loads a symbolic physical view and given a technological
+	file (RDS file format) it verifies design rules.
+	</li>
+
+	<li><font color=blue>STRENGTH</font><br>
+	It has been sucessfully used for years at LIP6 laboratory.
+	</li>
+
+	<li><font color=blue>WEAKNESS</font><br>
+	<a href="#druc">DRUC</a> works only on symbolic layout.
+	The design rules have to specified in a pseudo french langage.
+	</li>
+
+	<li><a href="flow.html#druc"><font color=blue>DESIGN FLOW</font></a><br>
+	</li>
+</ul>
+<br>
+
+<h1><a id="flatbeh" name="flatbeh">FLATBEH: Netlist abstractor</a></h1>
+<ul>
+	<li><font color=blue>DESCRIPTION:</font><br>
+	FLATBEH loads a hierarchical netlist and flats instances up to 
+	a given level (Leaf cells must have a RTL VHDL description).
+	The result is an equivalent RTL VHDL description (VBE file format).
+	</li>
+
+	<li><font color=blue>STRENGTH</font><br>
+	None.
+	</li>
+
+	<li><font color=blue>WEAKNESS</font><br>
+	None.
+	</li>
+</ul>
+<br>
+
+
+<h1><a id="flatlo" name="flatlo">FLATLO: Flatten netlist</a></h1>
+<ul>
+	<li><font color=blue>DESCRIPTION:</font><br>
+	<a href="#flatlo">FLALO</a> loads a hierarchical netlist and
+	flats instances up to a given level. The result is a netlist
+	description (<a href="#vst">VST</a>/
+	<a href="#al">AL</a> file format).
+	</li>
+
+	<li><font color=blue>STRENGTH</font><br>
+	None.
+	</li>
+
+	<li><font color=blue>WEAKNESS</font><br>
+	None.
+	</li>
+</ul>
+<br>
+
+
+<h1><a id="flatph" name="flatph">FLATPH: Flatten hierarchical layout</a></h1>
+<ul>
+	<li><font color=blue>DESCRIPTION:</font><br>
+	<a href="#flatph">FLAPH</a> loads a hierarchical symbolic
+	layout and flats instances up to a given level. The result is a new
+	layout (<a href="#ap">AP</a> file format).
+	</li>
+
+	<li><font color=blue>STRENGTH</font><br>
+	None.
+	</li>
+
+	<li><font color=blue>WEAKNESS</font><br>
+        None.
+	</li>
+</ul>
+<br>
+
+<h1><a id="flatrds" name="flatrds">FLATPH: Flatten hierarchical real layout</a></h1>
+<ul>
+	<li><font color=blue>DESCRIPTION:</font><br>
+	<a href="#flatrds">FLATRDS</a> loads a hierarchical real
+	layout and flats instances up to a given level. The result is a new
+	real layout (CIF/GDS file format).
+	</li>
+
+	<li><font color=blue>STRENGTH</font><br>
+	None.
+	</li>
+
+	<li><font color=blue>WEAKNESS</font><br>
+        None.
+	</li>
+</ul>
+<br>
+
+<h1><a id="fmi" name="fmi">FMI: FSM minimization</a></h1>
+<ul>
+	<li><font color=blue>DESCRIPTION:</font><br>
+	<a href="#fmi">FMI</a> loads the graph of a Finite State
+	Machine (<a href="#fsm">FSM</a> file format).  In the given FSM,  <a href="#fmi">FMI</a>
+	finds all equivalent states and merges them all together. The result is
+	a new FSM, that still equivalent, but with a reduced number of states.
+	Finally it drives this new description using <a href="#fsm">FSM</a> file format.
+	</li>
+
+	<li><font color=blue>STRENGTH</font><br>
+	None.
+	</li>
+
+	<li><font color=blue>WEAKNESS</font><br>
+	None.
+	</li>
+
+	<li><a href="flow.html#fmi"><font color=blue>DESIGN FLOW</font></a><br>
+	</li>
+</ul>
+<br>
+
+
+<h1><a id="fsp" name="fsp">FSP: FSM equivalence checker</a></h1>
+<ul>
+	<li><font color=blue>DESCRIPTION:</font><br>
+	<a href="#fsp">FSP</a> is an FSM equivalence
+	checker. It loads the graph of two FSMs and checks formally
+	(using a FSM product based algorithm) if they have exactly the
+	same behavior.
+	</li>
+
+	<li><font color=blue>STRENGTH</font><br>
+	None.
+	</li>
+
+	<li><font color=blue>WEAKNESS</font><br>
+	<a href="#fsp">FSP</a> does not use symbolic simulation
+	technics and then it might consume a lot of memory and time for big 
+	FSMs.
+	</li>
+
+	<li><a href="flow.html#fsp"><font color=blue>DESIGN FLOW</font></a><br>
+	</li>
+</ul>
+<br>
+
+
+<h1><a id="genlib" name="genlib">GENLIB: Procedural Generation Language</a></h1>
+<ul>
+	<li><font color=blue>DESCRIPTION:</font><br>
+	<a href="#genlib">GENLIB</a> provides a C interface of a set
+	of functions usefull to create a netlist of cells or a physical layout.
+	For example given a cell library, a simple C function call is enough to
+	create an instance of a cell.  The result is a netlist (or a physical
+	layout) built during the sequential execution of the C source code.
+	<a href="#genlib">GENLIB</a> provides also a C interface for
+	several macro-cells generators such as rom generator/register file
+	generator etc ...
+	</li>
+
+	<li><font color=blue>STRENGTH</font><br>
+	Up to now <a href="#genlib">GENLIB</a> includes no less than
+	10 generators.
+	The layout and the netlist of a complex data-path can be easily
+	generated with only simple calls to predefined C functions.
+	</li>
+
+	<li><font color=blue>WEAKNESS</font><br>
+	None.
+	</li>
+
+	<li><a href="flow.html#genlib"><font color=blue>DESIGN FLOW</font></a><br>
+	</li>
+</ul>
+<br>
+
+
+<h1><a id="genpat" name="genpat">GENPAT: Procedural pattern file generator</a></h1>
+<ul>
+	<li><font color=blue>DESCRIPTION:</font><br>
+	<a href="#genpat">GENPAT</a> is used to write digital
+	stimuli. It provides a C interface of a set of functions usefull to
+	create stimuli.  It loads a C file describing patterns and run the C
+	compiler.  Finally it generates a stimuli file.
+	(<a href="#pat">PAT</a> file format).
+	</li>
+
+	<li><font color=blue>STRENGTH</font><br>
+	None.
+	</li>
+
+	<li><font color=blue>WEAKNESS</font><br>
+	None.
+	</li>
+
+	<li><a href="flow.html#genpat"><font color=blue>DESIGN FLOW</font></a><br>
+	</li>
+</ul>
+<br>
+
+<h1><a id="graal" name="graal">GRAAL: Graphic layout editor</a></h1>
+<ul>
+	<li><font color=blue>DESCRIPTION:</font><br>
+	<a href="#graal">GRAAL</a> is a hiearchical symbolic layout editor.
+	</li>
+
+	<li><font color=blue>STRENGTH</font><br>
+	<a href="#graal">GRAAL</a> is one of the most famous tool of
+	Alliance CAD system.
+	It is easy to use and it displays layout fast.
+	A design rule checker and a small extractor are integrated.
+	</li>
+
+	<li><font color=blue>WEAKNESS</font><br>
+	None.
+	</li>
+
+	<li><a href="flow.html#graal"><font color=blue>DESIGN FLOW</font></a><br>
+	</li>
+
+	<li><font color=blue>SNAPSHOT:</font><br>
+        <img src="graal.gif">
+	</li>
+</ul>
+<br>
+
+
+
+<h1><a id="k2f" name="k2f">K2F: Kiss FSM translator</a></h1>
+<ul>
+	<li><font color=blue>DESCRIPTION:</font><br>
+	<a href="#k2f">K2F</a> is a <a href="#fsm">FSM</a> file format translator.
+	</li>
+
+	<li><font color=blue>STRENGTH</font><br>
+	None.
+	</li>
+
+	<li><font color=blue>WEAKNESS</font><br>
+	None.
+	</li>
+</ul>
+<br>
+
+
+<h1><a id="l2p" name="l2p">L2P: Layout to paper</a></h1>
+<ul>
+	<li><font color=blue>DESCRIPTION:</font><br>
+	<a href="#l2p">L2P</a> loads a physical layout
+	(real or symbolic) and drives its drawing in a Postscript
+	file.
+	</li>
+
+	<li><font color=blue>STRENGTH</font><br>
+	None.
+	</li>
+
+	<li><font color=blue>WEAKNESS</font><br>
+	For medium or huge design, the generated Postscript file
+	takes a very long time to be printed.
+	<a href="#l2p">L2P</a> uses very time comsuming
+	Postscript functions.
+	</li>
+</ul>
+<br>
+
+<h1><a id="loon" name="loon">LOON: Local Optimization On Nets </a></h1>
+<ul>
+	<li><font color=blue>DESCRIPTION:</font><br>
+	<a href="#loon">LOON</a> is used for the last step of the
+	synthesis process.  It loads a netlist of gates described in VHDL
+	(<a href="#vst">VST</a>).  It loads also a library of standard cells and in option a
+	parameter file.  <a href="#loon">LOON</a> computes the
+	critical path and performs a gate repowering to decrease its delay and
+	global capacitance.  The result is an optimized netlist described in
+	VHDL (<a href="#vst">VST</a>).
+	</li>
+
+	<li><font color=blue>STRENGTH</font><br>
+	None.
+	</li>
+
+	<li><font color=blue>WEAKNESS</font><br>
+	<a href="#loon">LOON</a> is very archaic compared to
+	industrial RTL synthesizer such as Synopsys. 
+	</li>
+
+	<li><a href="flow.html#loon"><font color=blue>DESIGN FLOW</font></a><br>
+	</li>
+</ul>
+<br>
+
+
+<h1><a id="lvx" name="lvx">LVX: Gate netlist comparator</a></h1>
+<ul>
+	<li><font color=blue>DESCRIPTION:</font><br>
+	<a href="#lvx">LVX</a> is simple a netlist comparator.
+	</li>
+
+	<li><font color=blue>STRENGTH</font><br>
+	None.
+	</li>
+
+	<li><font color=blue>WEAKNESS</font><br>
+
+	</li>
+
+	<li><a href="flow.html#lvx"><font color=blue>DESIGN FLOW</font></a><br>
+	</li>
+</ul>
+<br>
+
+
+<h1><a id="mocha" name="mocha">MOCHA: MOdel CHecker Ancestor</a></h1>
+<ul>
+	<li><font color=blue>DESCRIPTION:</font><br>
+	<a href="#mocha">MOCHA</a> loads the graph of a Finite State
+	Machine description.  This FSM is described in VHDL using predefined
+	templates.  Then it loads a list of CTL formulae (described in CTL file
+	format) and check formally if the given FSM verify CTL properties.
+	<a href="#mocha">MOCHA</a> can also be used on a
+	behavioral description using the Alliance VHDL dataflow subset (VBE).
+	</li>
+
+	<li><font color=blue>STRENGTH/WEAKNESS</font><br>
+	This is a new tools and it has not been tested for now.
+	</li>
+
+	<li><a href="flow.html#mocha"><font color=blue>DESIGN FLOW</font></a><br>
+	</li>
+</ul>
+<br>
+
+
+<h1><a id="ocp" name="ocp">OCP: Placer for standard cell</a></h1>
+<ul>
+	<li><font color=blue>DESCRIPTION:</font><br>
+	<a href="#ocp">OCP</a> is a placement tool. It loads a
+	netlist of standard cells.  The designer can specifies eventually
+	connectors placement by given a parameter file (IOC file format).  If
+	there are non standard cell blocks in the netlist, the designer has to
+	give a placement for those blocks.  <a href="#ocp">OCP</a>
+	then uses a simulated annealing algorithm to find a placement of all
+	the netlist's cells, that minimized the length of nets.  The result is
+	a physical symbolic layout file with physical connectors and placed
+	cells (<a href="#ap">AP</a> file format).
+	</li>
+
+	<li><font color=blue>STRENGTH</font><br>
+	<a href="#ocp">OCP</a> gives good results for small netlist
+	(less than 500 gates).</li>
+
+	<li><font color=blue>WEAKNESS</font><br>
+	<a href="#nero">NERO</a> can not be compared to
+	industrial place such as Cadence tools. There is a factor
+	between 10 and 100 in term of CPU consumption for small or medium
+	netlists (between 100 and 5000 gates).
+	</li>
+
+	<li><a href="flow.html#ocp"><font color=blue>DESIGN FLOW</font></a><br>
+	</li>
+</ul>
+<br>
+
+<h1><a id="nero" name="nero">NERO: Over-cell router</a></h1>
+<ul>
+	<li><font color=blue>DESCRIPTION:</font><br>
+	<a href="#nero">NERO</a> is the over-cell router of Alliance. It
+	loads a netlist and a physical placement file. The designer can give
+	other parameters such as the number of metal layer he would like to
+	use.  The result is a physical symbolic layout view where each net of
+	the netlist has been routed (<a href="#ap">AP</a> file format).
+	</li>
+
+	<li><font color=blue>STRENGTH</font><br>
+	<a href="#nero">NERO</a> gives good results for small netlist
+	(less than 500 gates).</li>
+
+	<li><font color=blue>WEAKNESS</font><br>
+	<a href="#nero">NERO</a> can not be compared to
+	industrial router such as Cadence tools. There is a factor
+	between 10 and 100 in term of CPU consumption for small or medium
+	netlists (between 100 and 5000 gates).
+	Finally, for complex netlists with a high density of nets
+	<a href="#nero">NERO</a> may not converge.
+	</li>
+
+	<li><a href="flow.html#nero"><font color=blue>DESIGN FLOW</font></a><br>
+	</li>
+</ul>
+<br>
+
+<h1><a id="proof" name="proof">PROOF: Equivalence Checker</a></h1>
+<ul>
+	<li><font color=blue>DESCRIPTION:</font><br>
+	<a href="#proof">PROOF</a> is an equivalence
+	checker. It loads two behavioural descriptions
+	(VBE) and check their equivalence using formal technics.
+	</li>
+
+	<li><font color=blue>STRENGTH</font><br>
+	It is a very simple but very fast equivalence checker.</li>
+
+	<li><font color=blue>WEAKNESS</font><br>
+	<a href="#proof">PROOF</a> can only work if there is a bijection
+	between the register's names of two description. This is NOT a
+	real/full equivalence checker using complex symbolic simulation
+	technics.</li>
+
+	<li><a href="flow.html#proof"><font color=blue>DESIGN FLOW</font></a><br>
+	</li>
+</ul>
+<br>
+
+<h1><a id="rdsx2y" name="rdsx2y">RDSX2Y: CIF/GDS translator</a></h1>
+<ul>
+	<li><font color=blue>DESCRIPTION:</font><br>
+	<a href="#rdsx2y">RDSX2Y</a> is a real layout file format translator.
+	</li>
+
+	<li><font color=blue>STRENGTH</font><br>
+	<a href="#rdsx2y">RDSX2Y</a> can be used to convert CIF or GDS
+	files.
+	</li>
+
+	<li><font color=blue>WEAKNESS</font><br>
+	None.</li>
+</ul>
+<br>
+
+<h1><a id="ring" name="ring">RING: Pad ring router</a></h1>
+<ul>
+	<li><font color=blue>DESCRIPTION:</font><br>
+	<a href="#ring">RING</a> loads a netlist of pads
+	interconnected with a "core" block.  The designer can give a relative
+	placement for those pads (RIN file format).  After loading the physical
+	view of the pads and the core, <a href="#ring">RING</a> place
+	and route them all together, with a special treatment for the power
+	supply nets.  The result is a physical symbolic layout 
+	(<a href="#ap">AP</a> file format).
+	</li>
+
+	<li><font color=blue>STRENGTH</font><br>
+	None.
+	</li>
+
+	<li><font color=blue>WEAKNESS</font><br>
+	The clock supply net is treated like other nets, and 
+	<a href="#ring">RING</a> is able to route only with two levels 
+	of metal.</li>
+
+	<li><a href="flow.html#ring"><font color=blue>DESIGN FLOW</font></a><br>
+	</li>
+</ul>
+<br>
+
+
+<h1><a id="s2r" name="s2r">S2R: Symbolic to Real layout</a></h1>
+<ul>
+	<li><font color=blue>DESCRIPTION:</font><br>
+        Given a technological file, <a href="#s2r">S2R</a> transforms 
+	a symbolic layout (lambda) to a real equivalent layout (micron).
+	</li>
+
+	<li><font color=blue>STRENGTH</font><br>
+	<a href="#s2r">S2R</a> is the keystone and the ultimate step of
+	the symbolic and portable layout methodology.
+	It has been used with success from years to transform symbolic portable layout
+	to real layout for the foundry.
+	</li>
+
+	<li><font color=blue>WEAKNESS</font><br>
+	For now, a lot of problems have not been solved to use 
+	<a href="#s2r">S2R</a> with very deep sub-micron technology.
+	</li>
+
+	<li><a href="flow.html#s2r"><font color=blue>DESIGN FLOW</font></a><br>
+	</li>
+</ul>
+<br>
+
+<h1><a id="scapin" name="scapin">SCAPIN: Scan-path insertion tool</a></h1>
+<ul>
+	<li><font color=blue>DESCRIPTION:</font><br>
+	<a href="#scapin">SCAPIN</a> is an automatic scan path
+	generator  for  gate  level netlists. It loads a netlist (<a href="#vst">VST</a> file
+	format) and then inserts a scan path according to a parameter file.
+	The result is a new netlist where a scan path has been inserted
+	(<a href="#vst">VST</a> file format).
+	</li>
+
+	<li><font color=blue>STRENGTH</font><br>
+	None.
+	</li>
+
+	<li><font color=blue>WEAKNESS</font><br>
+	It can insert only one scan-path in a netlist and 
+	it is not hierarchical.</li>
+</ul>
+<br>
+
+<h1><a id="syf" name="syf">SYF: FSM Synthesizer</a></h1>
+<ul>
+	<li><font color=blue>DESCRIPTION:</font><br>
+	<a href="#syf">SYF</a> loads the graph of a Finite
+	State Machine. This FSM is
+	described in VHDL using predefined templates. It encodes each
+	states of the FSM and tries to minimize the resulting
+	combinatorial logic.
+	Finally it drives a new description using the Alliance VHDL
+	dataflow subset (VBE file format).
+	</li>
+
+	<li><font color=blue>STRENGTH</font><br>
+	<a href="#syf">SYF</a> is a good FSM synthesizer.
+	It offers most common encoding algorithms and it verifies
+	formally some very basic but usefull correctness properties.
+	</li>
+
+	<li><font color=blue>WEAKNESS</font><br>
+	The VHDL subset used to describe a FSM is very restricted</li>
+
+	<li><a href="flow.html#syf"><font color=blue>DESIGN FLOW</font></a><br>
+	</li>
+</ul>
+<br>
+
+
+<h1><a id="vasy" name="vasy">VASY: VHDL Analyzer for (RTL) SYnthesis</a></h1>
+<ul>
+	<li><font color=blue>DESCRIPTION:</font><br>
+	<a href="#vasy">VASY</a> can be seen as a VHDL translator.
+	It loads VHDL behavioral or structural descriptions (written according
+	to the Synopsys VHDL subset).  It then drives one or more VHDL
+	descriptions using the Alliance VHDL dataflow or structural subsets.
+	<br> Those Alliance VHDL subsets are small and very particular.  They
+	are called VBE (VHDL BEhavioral) and <a href="#vst">VST</a> (VHDL STructural) file format.
+	</li>
+
+	<li><font color=blue>STRENGTH</font><br>
+	<a href="#vasy">VASY</a> allows to translate any RTL VHDL
+	descriptions written under industrial environements to the small
+	Alliance VHDL subset. It is often used to enter or to exit from
+	the Alliance design flow.
+	It is able also to translate any RTL VHDL descriptions into Verilog. 
+	</li>
+
+	<li><font color=blue>WEAKNESS</font><br>
+	The VHDL compiler of <a href="#vasy">VASY</a> is very
+	permissive and it doesn't verify the correctness of the input
+	description (according to the VHDL standard reference manual).
+	Another problem is that enumerate types are encoded and they
+	disappear in the resulting VHDL description.
+	</li>
+
+	<li><a href="flow.html#vasy"><font color=blue>DESIGN FLOW</font></a><br>
+	</li>
+</ul>
+<br>
+
+
+<h1><a id="x2y" name="x2y">X2Y: Alliance file format translator</a></h1>
+<ul>
+	<li><font color=blue>DESCRIPTION:</font><br>
+	<a href="#x2y">X2Y</a> is a netlist or symbolic layout file format
+	translator.
+	</li>
+
+	<li><font color=blue>STRENGTH</font><br>
+	<a href="#x2y">X2Y</a> can be used to translate Alliance internal
+	file format to standard or industrial file format</li>
+
+	<li><font color=blue>WEAKNESS</font><br>
+	None</li>
+</ul>
+<br>
+
+<h1><a id="xfsm" name="xfsm">XFSM: Graphical FSM viewer</a></h1>
+<ul>
+	<li><font color=blue>DESCRIPTION:</font><br>
+	<a href="#xfsm">XFSM</a> is a graphical FSM
+	viewer.
+	It loads a Finite State Machine description (<a href="#fsm">FSM</a> file format)
+	and displays its graph on a graphical window.
+	</li>
+
+	<li><font color=blue>STRENGTH</font><br>
+	None.
+	</li>
+
+	<li><font color=blue>WEAKNESS</font><br>
+	<a href="#xfsm">XFSM</a> can not be compared to
+	industrial FSM or Graph editor.
+	</li>
+
+	<li><font color=blue>SNAPSHOT:</font><br>
+        <img src="xfsm.gif">
+	</li>
+
+</ul>
+<br>
+
+<h1><a id="xpat" name="xpat">XPAT: Graphical pattern viewer</a></h1>
+<ul>
+	<li><font color=blue>DESCRIPTION:</font><br>
+	<a href="#xpat">XPAT</a> is a graphical pattern
+	viewer. It loads a pattern file (<a href="#pat">PAT</a> file format) and displays
+	waveforms on a graphical window.
+	</li>
+
+	<li><font color=blue>STRENGTH</font><br>
+	None.
+	</li>
+
+	<li><font color=blue>WEAKNESS</font><br>
+	<a href="#xpat">XPAT</a> can not be compared to
+	industrial pattern viewer.
+	</li>
+
+	<li><a href="flow.html#xpat"><font color=blue>DESIGN FLOW</font></a><br>
+	</li>
+
+	<li><font color=blue>SNAPSHOT:</font><br>
+        <img src="xpat.gif">
+	</li>
+</ul>
+<br>
+
+<h1><a id="xsch" name="xsch">XSCH: Graphical schematic viewer</a></h1>
+<ul>
+	<li><font color=blue>DESCRIPTION:</font><br>
+	<a href="#XSCH">XSCH</a> is the graphical schematic viewer of
+	Alliance. It loads a netlist (<a href="#vst">VST</a> file format) and displays it on a
+	graphical window.
+	</li>
+
+	<li><font color=blue>STRENGTH</font><br>
+	<a href="#XSCH">XSCH</a> gives pretty results on small
+	or medium standard cell netlist.
+	</li>
+
+	<li><font color=blue>WEAKNESS</font><br>
+	<a href="#XSCH">XSCH</a> is not able to display 
+	vectors, all buses are split in set of nets.
+	The consequence is that the drawing of big blocks netlist is very ugly.
+	</li>
+
+	<li><a href="flow.html#xsch"><font color=blue>DESIGN FLOW</font></a><br>
+	</li>
+
+	<li><font color=blue>SNAPSHOT:</font><br>
+        <img src="xsch.gif">
+	</li>
+</ul>
+<br>
+
+
+<center>
+	<h1>File format overview</h1>
+</center>
+<br>
+
+<h1><a id="vhd" name="vhd">VHD: RTL VHDL file format</a></h1>
+<ul>
+	<li>This file format is used by 
+	<a href="#vasy"><font color=blue>VASY</font></a>.
+	It is very close to the Synopsys RTL VHDL subset:
+	<br>
+	<pre>
+          library IEEE;
+          use IEEE.STD_LOGIC_1164.ALL;
+          use IEEE.STD_LOGIC_arith.ALL;
+          use IEEE.STD_LOGIC_unsigned.ALL;
+          
+          ENTITY ram IS
+            port ( A        : in std_logic_vector(5 downto 0);
+                   CEB, WEB : in std_logic;
+                   INN      : in  std_logic_vector(7 downto 0);
+                   OUTT     : out std_logic_vector(7 downto 0)
+            );
+          END ram;
+          
+          ARCHITECTURE dataflow_view OF ram IS
+          
+            SUBTYPE TYPE_WORD IS std_logic_vector(7 downto 0);
+            TYPE TYPE_RAM IS ARRAY(63 DOWNTO 0) OF TYPE_WORD;
+            SIGNAL memory : TYPE_RAM;
+          
+          BEGIN
+          
+            OUTT &lt;= memory( CONV_INTEGER( A ) );
+          
+            RAM_0 : PROCESS( CEB )
+            BEGIN
+             IF (CEB='1' AND CEB'EVENT )
+             THEN IF (WEB='0')
+	     THEN memory( CONV_INTEGER( A ) ) &lt;= INN;
+                  END IF;
+             END IF;
+          
+            END PROCESS RAM_0;
+          
+          END dataflow_view;
+        </pre>
+	</li>
+</ul>
+
+<h1><a id="fsm" name="fsm">FSM: Finite State Machine file format</a></h1>
+<ul>
+	<li>This VHDL file format is used by tools such as
+	<a href="#syf"><font color=blue>SYF</font></a>
+	for FSM representation.
+	<br>
+	<pre>
+        ENTITY circuit is
+        PORT 
+        ( ck    : in  BIT;
+          jour  : in  BIT;
+          reset : in  BIT; 
+          vdd   : in  BIT;
+          vss   : in  BIT;
+          i     : in  BIT_VECTOR(3 DOWNTO 0);
+          porte : out BIT;
+          alarm : out BIT
+        );
+        END circuit;
+        ARCHITECTURE MOORE OF circuit is
+           TYPE ETAT_TYPE IS (E0, E1, E2, E3, E4, E5, EA);   
+           SIGNAL EF, CS : ETAT_TYPE;
+           CONSTANT digit0 : BIT_VECTOR (3 DOWNTO 0) := B"1111"  ; -- O
+           ....
+        --PRAGMA CURRENT_STATE CS
+        --PRAGMA NEXT_STATE EF
+        --PRAGMA CLOCK ck
+        --PRAGMA FIRST_STATE E0
+        
+        BEGIN
+        PROCESS ( CS, i)
+        BEGIN
+          IF ( reset = '1' )
+          THEN
+            EF    &lt;= E0; porte &lt;= '0'; alarm &lt;= '0'; ELSE
+          CASE CS is
+	  WHEN E0 =&gt;
+              porte &lt;= '0'; alarm &lt;= '0';
+              IF ( i = digit0 ) THEN
+                IF ( jour = '1' ) THEN EF &lt;= E5;
+                ELSE EF &lt;= EA;
+                END IF;
+              ELSE
+                IF ( i = digit1 ) THEN EF &lt;= E1;
+                ELSE IF ( jour = '1' ) THEN EF &lt;= E0;
+                  ELSE EF &lt;= EA;
+                  END IF;
+                END IF;
+              END IF;
+        
+	  WHEN E1 =&gt;
+            ....
+          END CASE;
+          END IF;
+        END PROCESS;
+        
+        PROCESS( ck )
+        BEGIN
+            IF ( ck = '1' AND NOT ck'STABLE ) THEN CS &lt;= EF;
+            END IF;
+        END PROCESS;
+        END MOORE;
+        </pre>
+	</li>
+</ul>
+
+<h1><a id="vbe" name="vbe">VBE: Alliance VHDL dataflow file format</a></h1>
+<ul>
+	<li>This file format is used by most of the Alliance tools
+	for RTL behavioral descriptions.
+	It is a very particular and non standard VHDL subset:<br>
+	<pre>
+        ENTITY addaccu IS
+        PORT(
+          clr	: IN BIT;
+          ld	: IN BIT;
+          outs	: IN BIT_VECTOR(15 DOWNTO 0);
+          clk	: IN BIT;
+          result	: OUT BIT_VECTOR(15 DOWNTO 0);
+          vdd	: IN BIT;
+          vss	: IN BIT
+        );
+        END addaccu;
+        
+        ARCHITECTURE VBE OF addaccu IS
+        
+          SIGNAL rtlsum_0	: BIT_VECTOR(15 DOWNTO 0);
+          SIGNAL rtlcarry_0	: BIT_VECTOR(15 DOWNTO 0);
+          SIGNAL resultint	: REG_VECTOR(15 DOWNTO 0) REGISTER;
+        BEGIN
+        
+          rtlcarry_0(0) &lt; '0';
+          rtlsum_0 &lt; ((resultint XOR outs) XOR rtlcarry_0);
+          rtlcarry_0(15 downto 1) &lt; (((resultint(14 downto 0) AND outs(14 downto 0)) OR
+              (resultint(14 downto 0) AND rtlcarry_0(14 downto 0))) OR 
+              (outs(14 downto 0) AND rtlcarry_0(14 downto 0)));
+          result &lt; resultint;
+        
+          LABEL1 : BLOCK  ((clk = '1') AND NOT(clk'STABLE) )
+          BEGIN
+            resultint &lt; GUARDED "0000000000000000" WHEN clr ELSE
+             rtlsum_0 WHEN (NOT(clr) AND ld) ELSE resultint;
+          END BLOCK LABEL1;
+        END VBE;
+	</pre>
+	</li>
+</ul>
+
+<h1><a id="vst" name="vst">VST: Alliance VHDL structural file format</a></h1>
+<ul>
+	<li>This file format is used by most of the Alliance tools
+	for gate netlist descriptions (structural VHDL):<br>
+	<pre>
+        ENTITY digi IS
+          PORT (
+          ck : in BIT ;
+          jour : in BIT ;
+          reset : in BIT ;
+          vdd : in BIT ;
+          vss : in BIT ;
+          i : in BIT_VECTOR(3 DOWNTO 0) ;
+          porte : out BIT ;
+          alarm : out BIT 
+          );
+        END digi;
+        
+        ARCHITECTURE VST OF digi IS
+          COMPONENT nxr2_x1
+            port (
+            i0 : in BIT ;
+            i1 : in BIT ;
+            nq : out BIT ;
+            vdd : in BIT ;
+            vss : in BIT
+            );
+          END COMPONENT;
+	  ....
+          SIGNAL mbk_buf_not_aux1 : BIT;
+	  ....
+        BEGIN
+          not_aux12_ins : nxr2_x1
+            PORT MAP (
+            vss =&gt; vss,
+            vdd =&gt; vdd,
+            nq =&gt; not_aux12,
+            i1 =&gt; i(3),
+	    i0 =&gt; i(1));
+	    ....
+        end VST;
+        </pre>
+	</li>
+</ul>
+
+<h1><a id="pat" name="pat">PAT: Alliance Pattern file format</a></h1>
+<ul>
+	<li>This file format is used by Alliance tools
+	for pattern specification and digital simulation results:<br>
+	<br>
+	<pre>
+        in       clk B;;
+        in       rst B;;
+        in       stb B;;
+        in       a (7 downto 0) X;;
+        in       b (7 downto 0) X;;
+        out      result (15 downto 0) X;;
+        out      done B;
+        begin
+            ....
+            : 1 0 0 00 00 ?0006 ?0;
+            : 0 0 0 00 00 ?0006 ?0;
+            : 1 0 0 00 00 ?0006 ?1;
+            : 0 0 0 00 00 ?0006 ?1;
+            : 1 0 0 00 00 ?0006 ?1;
+            : 0 0 0 00 00 ?0006 ?1;
+        end;
+        </pre>
+	</li>
+
+</ul>
+
+<h1><a id="ap" name="ap">AP: Alliance symbolic layout file format</a></h1>
+<ul>
+	<li>This file format is used by Alliance tools
+	for the hierarchical symbolic layout representation (lambda stick diagram):<br>
+	<br>
+	<pre>
+        V ALLIANCE : 6
+        H digi,P, 1/10/2002,100
+        A 0,0,28000,30000
+        C 28000,29700,600,vdd,7,EAST,ALU1
+        C 21000,0,200,alarm,0,SOUTH,ALU2
+        C 2000,30000,200,ck,0,NORTH,ALU2
+        ....
+        S 0,25000,28000,25000,1200,vss,RIGHT,ALU1
+        S 0,20000,28000,20000,1200,vdd,RIGHT,ALU1
+        S 0,10000,28000,10000,1200,vdd,RIGHT,ALU1
+        ....
+        I 24000,0,a3_x2,a3_x2_4_ins,SYM_Y
+        I 4000,0,na2_x1,na2_x1_2_ins,SYM_Y
+        ....
+        V 2000,29500,CONT_VIA2,*
+        V 2000,30000,CONT_VIA2,*
+        V 2500,14000,CONT_VIA2,*
+        V 2500,19000,CONT_VIA2,*
+        ...
+        EOF
+        </pre>
+        </li>
+</ul>
+
+<h1><a id="al" name="al">AL: Alliance netlist file format</a></h1>
+<ul>
+	<li>This file format is used by Alliance tools
+	to represent a hierarchical gate and/or transistor netlist with
+	eventually RC networks:<br>
+	<br>
+	<pre>
+        V ALLIANCE : 6
+        H digi_e,L,01/10/2002
+        C alarm,UNKNOWN,EXTERNAL,12
+        C ck,UNKNOWN,EXTERNAL,40
+        ...
+        C vdd,UNKNOWN,EXTERNAL,1
+        C vss,UNKNOWN,EXTERNAL,21
+        I na2_x1,na2_x1_2_ins
+        C i0,UNKNOWN,INTERNAL,4
+        C i1,UNKNOWN,INTERNAL,6
+        ...
+        S 4,INTERNAL,not_aux14
+        S 3,INTERNAL,circuit_cs_0
+        S 2,INTERNAL,circuit_cs_2
+        S 1,EXTERNAL,vdd
+        EOF
+        </pre>
+	</li>
+</ul>
+
+<center>
+	<h1>Main libraries overview</h1>
+</center>
+<br>
+
+<h1><a id="mut" name="mut">MUT: MBK utilities</a></h1>
+<ul>
+     <li>This library is used by all Alliance tools and other libraries.
+     It provides a lot of small utility functions like strings hashing,
+     hash tables, memory allocation function etc ...
+     </li>
+</ul>
+
+<h1><a id="mlo" name="mlo">MLO: MBK logical</a></h1>
+<ul>
+  <li>This library is used to describe a hierarchical netlist 
+  (of gates or transistors) and also R/C networks.
+  It provides a data structure called <em>lofig</em> and several methods
+  to create/search/destroy elements in this DB. It provides also parsers/drivers
+  for several file format such as SPICE, VHDL, FNE or HNS (COMPASS file format),
+  and AL (Alliance format).
+  </li>
+</ul>
+
+<h1><a id="mph" name="mph">MPH: MBK physical</a></h1>
+<ul>
+  <li>This library is used to describe a hierarchical symbolic layout (in lambda).
+  It provides a data structure called <em>phfig</em> and several methods
+  to create/search/destroy elements in this DB. It provides also parsers/drivers
+  for several file format such as CP (COMPASS file format) and AP (Alliance file format).
+  </li>
+</ul>
+
+<h1><a id="rds" name="rds">RDS: Rectangle Data Structure</a></h1>
+<ul>
+  <li>This library is used to describe a hierarchical real layout (in micron).
+  It provides a data structure called <em>rdsfig</em> and several methods
+  to create/search/destroy elements in this DB. It provides also parsers/drivers
+  for several file format such as GDS or CIF.
+  </li>
+</ul>
+
+<h1><a id="beh" name="beh">BEH: Behavioral Figure</a></h1>
+<ul>
+  <li>This library is used to describe the RTL behaviour of a circuit.
+  It provides a data structure called <em>befig</em> and several methods
+  to create/search/destroy elements in this DB.
+  It provides also a parser/driver (VHDL file format).
+  </li>
+</ul>
+
+<h1><a id="fsm" name="fsm">FSM: Finite State Machine</a></h1>
+<ul>
+  <li>This library is used to describe the FSM.
+  It provides a data structure called <em>fsmfig</em> and several methods
+  to create/search/destroy elements in this DB.
+  It provides also a parser/driver (VHDL and KISS2 file format).
+  </li>
+</ul>
+
+<h1><a id="bdd" name="bdd">BDD: Binary Decision Diagram</a></h1>
+<ul>
+  <li>This library is used to describe BDD's.
+  It provides a data structure called <em>bddcircuit</em> and several methods
+  to manipulate BDDs efficiently.
+  </li>
+</ul>
+
+<h1><a id="abl" name="abl">ABL: LISP Binary tree</a></h1>
+<ul>
+  <li>This library is used to describe boolean expression.
+  It provides a data structure called <em>ablexpr</em> and several methods
+  to manipulate boolean expression efficiently.
+  </li>
+</ul>
+
+<h1><a id="pat" name="pat">PAT: PATtern</a></h1>
+<ul>
+  <li>This library is used to describe digital stimuli. It is used by digital simulation
+  tools. It provides a parser/driver (PAT file format).
+  </li>
+</ul>
+
+</body>
