@@ -1,4 +1,4 @@
-# $Id: Makefile.am,v 1.3 2002/07/15 22:23:31 jpc Exp $
+# $Id: Makefile.am,v 1.4 2004/08/31 12:24:27 jpc Exp $
 
-SUBDIRS = dp_sxlib padlib rflib ramlib romlib sxlib
+SUBDIRS = dp_sxlib padlib rflib rf2lib ramlib romlib sxlib
 
