@@ -1,0 +1,58 @@
+# /*------------------------------------------------------------\
+# |                                                             |
+# | Title      :       Parameters File for Xsch                 |
+# |                                                             |
+# | Date       :             01.01.95                           |
+# |                                                             |
+# \------------------------------------------------------------*/
+# /*------------------------------------------------------------\
+# |                                                             |
+# |                           Unit                              |
+# |                                                             |
+# \------------------------------------------------------------*/
+
+DEFINE XSCH_UNIT  64
+
+# /*------------------------------------------------------------\
+# |                                                             |
+# |               Lower Grid Step in pixel by unit              |
+# |                                                             |
+# \------------------------------------------------------------*/
+
+DEFINE XSCH_LOWER_GRID_STEP 50
+
+# /*------------------------------------------------------------\
+# |                                                             |
+# |                        Xsch Color                           |
+# |                                                             |
+# \------------------------------------------------------------*/
+
+DEFINE XSCH_CURSOR_COLOR_NAME      Black
+DEFINE XSCH_BACKGROUND_COLOR_NAME  Black
+DEFINE XSCH_FOREGROUND_COLOR_NAME  White
+DEFINE XSCH_ACCEPT_COLOR_NAME      magenta
+DEFINE XSCH_CONNECT_COLOR_NAME     White
+
+# /*------------------------------------------------------------\
+# |                                                             |
+# |                  Xsch Cursor Size in pixel                  |
+# |                                                             |
+# \------------------------------------------------------------*/
+
+DEFINE XSCH_CURSOR_SIZE 10 
+
+# /*------------------------------------------------------------\
+# |                                                             |
+# |                     Xsch Layer Color                        |
+# |                                                             |
+# \------------------------------------------------------------*/
+
+TABLE XSCH_LAYER_NAME
+
+  0   Gates           cyan              Black
+  1   Inputs          red               Black
+  2   Outputs         light_blue        Black
+  3   Signals         blue              Black
+  4   Debug           spring_green      Black
+
+END 
