@@ -54,6 +54,7 @@ long verbose = 1;
 void usage (char *av[])
 {
   printf ("Usage : %s [-h] [-v level] [-o OutFile] InFile\n\n", av[0]);
+  printf ("  version %s\n", VERSION);
   printf ("  -h     this help\n");
   printf ("  -v     verbose mode (level is 1:2:3:4)\n");
   printf ("  -o     define the output file (InFile by default)\n");
@@ -241,11 +242,11 @@ int main (int ac, char *av[])
         for (BorderX = -1; BorderX <= 1; BorderX++)
         {
           if (BorderX+WX == -1) continue;
-          if (BorderX+WX == Window->DX +1) continue;
+          if (BorderX+WX == Window->DX) continue;
           for (BorderY = -1; BorderY <= 1; BorderY++)
           {
             if (BorderY+WY == -1) continue;
-            if (BorderY+WY == Window->DY +1) continue;
+            if (BorderY+WY == Window->DY) continue;
             if (verbose > 2) printf ("  NEIGHBOUR WINDOW (%ld,%ld) ; (X1,Y1,X2,Y2)=(%.2f,%.2f,%.2f,%.2f) \n", 
                                  WX+BorderX, WY+BorderY,
                                  (float)((WX+BorderX)*Window->SIDE)/RDS_UNIT, 
@@ -256,7 +257,7 @@ int main (int ac, char *av[])
             Offset = (WY+BorderY) * Window->DX + (WX+BorderX);
             Win = Window->WINTAB + Offset;
                   
-            if (Win->LAYERTAB>(void *)0x1000) // j'ai l'impression que les fenetres ne sont pas initialisées à 0.
+            if (Win->LAYERTAB)
             {
               for (WinLayerIdx = 0; WinLayerIdx < EquivNbLayerList; WinLayerIdx++)
               {
