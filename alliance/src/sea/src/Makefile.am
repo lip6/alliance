@@ -9,48 +9,48 @@ bin_PROGRAMS = a2def def2a sxlib2lef
 bin_SCRIPTS  = sea seroute seplace a2lef 
 
 a2def_LDADD = @ALLIANCE_LIBS@ \
-	   $(top_builddir)/src/libUtil.a \
+       $(top_builddir)/src/libUtil.a \
       -lMpu -lMlu \
-	  -lMcl -lMcp \
-	  -lMal -lMap \
-	  -lMsl \
-	  -lMel -lMgl \
-	  -lMhl \
-	  -lMvl \
-	  -lMmg \
-	  -lMlo \
-	  -lMph -lMut \
-	  -lRcn \
+      -lMcl -lMcp \
+      -lMal -lMap \
+      -lMsl \
+      -lMel -lMgl \
+      -lMhl \
+      -lMvl \
+      -lMmg \
+      -lMlo \
+      -lMph -lMut \
+      -lRcn \
       -lAut
 
 def2a_LDADD = @ALLIANCE_LIBS@ \
-	   $(top_builddir)/src/libUtil.a \
+       $(top_builddir)/src/libUtil.a \
       -lMpu -lMlu \
-	  -lMcl -lMcp \
-	  -lMal -lMap \
-	  -lMsl \
-	  -lMel -lMgl \
-	  -lMhl \
-	  -lMvl \
-	  -lMmg \
-	  -lMlo \
-	  -lMph -lMut \
-	  -lRcn \
+      -lMcl -lMcp \
+      -lMal -lMap \
+      -lMsl \
+      -lMel -lMgl \
+      -lMhl \
+      -lMvl \
+      -lMmg \
+      -lMlo \
+      -lMph -lMut \
+      -lRcn \
       -lAut
 
 sxlib2lef_LDADD = @ALLIANCE_LIBS@ \
-	   $(top_builddir)/src/libUtil.a \
+       $(top_builddir)/src/libUtil.a \
       -lMpu -lMlu \
-	  -lMcl -lMcp \
-	  -lMal -lMap \
-	  -lMsl \
-	  -lMel -lMgl \
-	  -lMhl \
-	  -lMvl \
-	  -lMmg \
-	  -lMlo \
-	  -lMph -lMut \
-	  -lRcn \
+      -lMcl -lMcp \
+      -lMal -lMap \
+      -lMsl \
+      -lMel -lMgl \
+      -lMhl \
+      -lMvl \
+      -lMmg \
+      -lMlo \
+      -lMph -lMut \
+      -lRcn \
       -lAut
 
 noinst_LIBRARIES = libUtil.a
@@ -100,9 +100,9 @@ a2lef: $(srcdir)/a2lef.sh
 	cp $< $@ 
 	chmod a+x $@
 
-EXTRA_DIST = debug.c debugon.h debugoff.h \
-		sea.sh seplace.sh seroute.sh a2lef.sh
+EXTRA_DIST = DEF_grammar_yacc.h debug.c debugon.h debugoff.h \
+             sea.sh seplace.sh seroute.sh a2lef.sh
  
 CLEANFILES =DEF_grammar_lex.c DEF_grammar_yacc.c \
-			y.output DEF_grammar_yacc.h \
-		    seplace seroute sea a2lef
+            y.output DEF_grammar_yacc.h \
+            seplace seroute sea a2lef

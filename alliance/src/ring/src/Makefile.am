@@ -41,4 +41,6 @@ ring_SOURCES = bigvia.c bigvia.h \
 		struct.h \
 		barre.c barre.h
 
+EXTRA_DIST = ringram.h
+
 CLEANFILES = ringram.c ringram.h rinscan.c

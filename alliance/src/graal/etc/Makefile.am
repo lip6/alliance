@@ -1,6 +1,6 @@
-# $Id: Makefile.am,v 1.5 2002/05/02 14:12:02 czo Exp $
+# $Id: Makefile.am,v 1.6 2002/05/08 21:07:25 jpc Exp $
 
-etcdir=$(DESTDIR)$(prefix)/etc
+etcdir=$(prefix)/etc
 
 etc_DATA=cmos.graal
 

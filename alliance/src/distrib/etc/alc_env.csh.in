@@ -7,63 +7,71 @@
 #  Alliance CAD system environnement
 #  Usage (in C-shell) : > source alc_env.csh
 #  (C) 1997 Czo  -- <Olivier.Sirol@lip6.fr>
-#  $Id: alc_env.csh.in,v 1.1 2002/05/07 10:39:31 czo Exp $
+#  $Id: alc_env.csh.in,v 1.2 2002/05/08 21:07:25 jpc Exp $
 #  Generated from alc_env.csh.in on @DATE@
 
-# $ALLIANCE_TOP defines where Alliance CAD is installed
+# $ALLIANCE_OS and $ALLIANCE_TOP are the only variables you will
+# have to modify if something goes wrong
 
-setenv ALLIANCE_TOP @prefix@
+# Which platform for Alliance CAD
 
-# user prefs
+# WARNING : if changing this remember to do it on the 3 config files :
+# configure.in alc_env.sh.in and alc_env.csh.in
 
-setenv MBK_IN_LO         vst
-setenv MBK_OUT_LO        vst
-setenv MBK_IN_PH         ap
-setenv MBK_OUT_PH        ap
 
-setenv MBK_WORK_LIB      .
-setenv MBK_CATAL_NAME    CATAL
+# Where the Alliance CAD is installed
+ setenv ALLIANCE_TOP         @prefix@
 
-setenv MBK_SCALE_X 100
 
-setenv VH_MAXERR 10
-setenv VH_BEHSFX vbe
-setenv VH_PATSFX pat
-setenv VH_DLYSFX dly
+# Alliance environment variables.
+ setenv MBK_IN_LO            vst
+ setenv MBK_OUT_LO           vst
+ setenv MBK_IN_PH            ap
+ setenv MBK_OUT_PH           ap
+ 
+ setenv MBK_WORK_LIB         .
+ setenv MBK_CATAL_NAME       CATAL
+ 
+ setenv MBK_SCALE_X          100
+ 
+ setenv VH_MAXERR            10
+ setenv VH_BEHSFX            vbe
+ setenv VH_PATSFX            pat
+ setenv VH_DLYSFX            dly
+ 
+ setenv MBK_CATA_LIB         .:$ALLIANCE_TOP/cells/sxlib
+ setenv MBK_CATA_LIB         ${MBK_CATA_LIB}:$ALLIANCE_TOP/cells/dp_sxlib
+ setenv MBK_CATA_LIB         ${MBK_CATA_LIB}:$ALLIANCE_TOP/cells/padlib
+ setenv MBK_TARGET_LIB       $ALLIANCE_TOP/cells/sxlib
+ setenv MBK_C4_LIB           ./cellsC4 
+ 
+ setenv MBK_VDD              vdd
+ setenv MBK_VSS              vss
+ 
+ setenv XPAT_PARAM_NAME      $ALLIANCE_TOP/etc/xpat.par
+ setenv XFSM_PARAM_NAME      $ALLIANCE_TOP/etc/xfsm.par
+ setenv XSCH_PARAM_NAME      $ALLIANCE_TOP/etc/xsch.par
+ 
+ setenv RDS_IN               cif
+ setenv RDS_OUT              cif
+ 
+ setenv DREAL_TECHNO_NAME    $ALLIANCE_TOP/etc/cmos.dreal
+ setenv GRAAL_TECHNO_NAME    $ALLIANCE_TOP/etc/cmos.graal
+ setenv GENVIEW_TECHNO_NAME  $ALLIANCE_TOP/etc/cmos.genview
+ 
+ setenv RDS_TECHNO_NAME      $ALLIANCE_TOP/etc/cmos.rds
+ setenv ELP_TECHNO_NAME      $ALLIANCE_TOP/etc/prol.elp
 
-setenv MBK_CATA_LIB      .:$ALLIANCE_TOP/cells/sxlib:$ALLIANCE_TOP/cells/dp_sxlib:$ALLIANCE_TOP/cells/padlib
-setenv MBK_TARGET_LIB    $ALLIANCE_TOP/cells/sxlib
-setenv MBK_C4_LIB        ./cellsC4 
 
-setenv MBK_VDD           vdd
-setenv MBK_VSS           vss
+# System environment variables.
+ if ( $?PATH ) then
+   setenv PATH $ALLIANCE_TOP/bin:$PATH
+ else
+   setenv PATH $ALLIANCE_TOP/bin
+ endif
 
-setenv XPAT_PARAM_NAME   $ALLIANCE_TOP/etc/xpat.par
-setenv XFSM_PARAM_NAME   $ALLIANCE_TOP/etc/xfsm.par
-setenv XSCH_PARAM_NAME   $ALLIANCE_TOP/etc/xsch.par
-
-setenv RDS_IN cif
-setenv RDS_OUT cif
-
-setenv DREAL_TECHNO_NAME   $ALLIANCE_TOP/etc/cmos.dreal
-setenv GRAAL_TECHNO_NAME   $ALLIANCE_TOP/etc/cmos.graal
-setenv GENVIEW_TECHNO_NAME $ALLIANCE_TOP/etc/cmos.genview
-
-setenv RDS_TECHNO_NAME   $ALLIANCE_TOP/etc/cmos.rds
-setenv ELP_TECHNO_NAME   $ALLIANCE_TOP/etc/prol.elp
-
-# Update PATH and MANPATH
-if $?PATH then
- setenv PATH $ALLIANCE_TOP/bin:$PATH
-else
- setenv PATH $ALLIANCE_TOP/bin
-endif
-
-if $?MANPATH then
- setenv MANPATH $ALLIANCE_TOP/man:$MANPATH
-else
- setenv MANPATH $ALLIANCE_TOP/man:/usr/share/man:/usr/man:/usr/local/man:/usr/X11R6/man:/usr/lib/perl5/man
-endif
-
-# EOF 
-
+ if ( $?MANPATH ) then
+   setenv MANPATH $ALLIANCE_TOP/man:$MANPATH
+ else
+   setenv MANPATH $ALLIANCE_TOP/man
+ endif
