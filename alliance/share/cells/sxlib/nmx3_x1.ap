@@ -6,7 +6,6 @@ C 0,4700,600,vdd,0,WEST,ALU1
 C 6000,300,600,vss,1,EAST,ALU1
 C 6000,4700,600,vdd,1,EAST,ALU1
 R 4500,2500,ref_con,i0_25
-R 4500,2500,ref_con,i0_25
 R 4000,3000,ref_con,i0_30
 R 4000,2000,ref_con,i0_20
 R 3500,3000,ref_con,cmd0_30

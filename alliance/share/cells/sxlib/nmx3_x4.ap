@@ -12,7 +12,6 @@ R 6000,3000,ref_con,nq_30
 R 6000,2500,ref_con,nq_25
 R 6000,1500,ref_con,nq_15
 R 4500,2500,ref_con,i0_25
-R 4500,2500,ref_con,i0_25
 R 4000,3000,ref_con,i0_30
 R 4000,2000,ref_con,i0_20
 R 3500,3000,ref_con,cmd0_30
