@@ -1,4 +1,4 @@
-ALL_DIRS = amd2901 inversor buffer
+ALL_DIRS = amd2901 inv buffer
 
 all :
 	@for FILE in $(ALL_DIRS)                ;\
