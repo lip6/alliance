@@ -7,7 +7,7 @@
 # Author: Frédéric Pétrot (fred@pasta.fr.ea)
 #         for version 0
 #
-# $Id: instool,v 1.16 1999/11/04 13:36:59 czo Exp $
+# $Id: instool,v 1.17 1999/11/04 13:51:22 czo Exp $
 #
 
 
@@ -334,11 +334,11 @@ echo "   a message MUST be given for each installation"
 
 TMPFILE=/tmp/instool.$$
 FINGER=`who am i | gawk '{gsub(/^[^\!]*\!/,""); print $1}'`
-SUJ=`basename $1`
+SUJ="Instool de `basename $1`"
 
 (
 echo "===================================================================="
-echo "Installation de la nouvelle version de $SUJ"
+echo "$SUJ"
 echo "le  : `date`"
 echo "par : $FINGER"
 echo "===================================================================="
