@@ -1,4 +1,4 @@
-.\"   $Id: vasy.1,v 1.5 2000/03/02 17:15:40 syf Exp $
+.\"   $Id: vasy.1,v 1.6 2000/03/09 18:45:34 syf Exp $
 .\" @(#)Labo.l 2.2 95/09/24 UPMC; Author: Jacomme L.
 .pl -.4
 .TH VASY 1 "November 26, 1999" "ASIM/LIP6" "CAO\-VLSI Reference Manual"
@@ -8,13 +8,13 @@ VASY \- VHDL Analyzer for Synthesis
 .so man1/alc_origin.1
 .SH SYNOPSIS
 .TP
-\f4vasy \-V|v|a|s|S|H [-I input_format] input_name [output_name]
+\f4vasy \-V|p|a|v|s|S|H [-I format] [-P file] filename [outname]
 .br
 .SH DESCRIPTION
 .br
 \fBVASY\fp is a hierarchical VHDL Analyzer for Synthesis.
 \fBVASY\fp performs a semantic analysis of a VHDL RTL description 
-\fBinput_name\fP, with a VHDL subset much more extended than the Alliance one
+\fBfilename\fP, with a VHDL subset much more extended than the Alliance one
 (see vasy(5) for more details), and identifies with precision all the 
 memorizing elements and tristate buffers.
 .br
@@ -22,7 +22,7 @@ During its analysis, \fBVASY\fp expands generic parameters, executes generic map
 and generate statements, and also unrolls static FOR loops.
 .br
 At the end, \fBVASY\fp drives an equivalent description
-\fBoutput_name\fP (in Verilog or VHDL format) accepted by most of
+\fBoutname\fP (in Verilog or VHDL format) accepted by most of
 synthesis tools.
 .br
 
@@ -60,6 +60,17 @@ Specifies the VHDL input format such as Alliance VHDL format \fBvbe\fP(5),
 In a structural description, all model of instances are recursively analyzed.
 (By default \fBVASY\fp analyzes only models with generic parameters)
 The leaves cells are defined by a special file (see catal(5) for details).
+.TP 10
+\f4\-p\fP
+Adds power supply connectors (vdd and vss). Usefull option to enter in Alliance.
+.TP 10
+\f4\-P\fP
+Specifies a file containing a list of logical and physical package name:
+.nf
+# Example
+work.constants.all  : pkg_constants
+work.components.all : pkg_components
+.fi
 .ti 7
 
 .SH SEE ALSO
