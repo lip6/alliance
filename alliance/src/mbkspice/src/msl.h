@@ -32,6 +32,10 @@
 #ifndef MSLH
 #define MSLH
 
+#ifdef __cplusplus
+extern "C" {
+#endif /* __cplusplus */
+
 extern int          msl_line;        /* current line number */
 extern int          msl_figloaded;   /* TRUE if inside a SUBCKT */
 extern char        *msl_figname;     /* name of main SUBCKT */
@@ -53,6 +57,10 @@ void mslRmvCompletion __P((          )); /* remove this function */
 #endif
 
 extern int SPI_LANG;
+
+#ifdef __cplusplus
+}
+#endif /* __cplusplus */
 
 #endif
 
