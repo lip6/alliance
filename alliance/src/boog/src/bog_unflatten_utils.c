@@ -38,6 +38,7 @@
 #endif
 
 #include <mut.h>
+#include <mlo.h>
 #include <abl.h>
 #include <abe.h>
 #include "bog_lax_param.h"

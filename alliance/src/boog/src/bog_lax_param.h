@@ -76,17 +76,17 @@ extern void savefilelax __P ((char *filename));
 /***************************************************************************/
 /*     return the delay (in ps exp-12) of name for an input in lax file    */
 /***************************************************************************/
-extern float getdelaylax __P ((char *name));
+extern double getdelaylax __P ((char *name));
 
 /***************************************************************************/
 /*    return the impedance(R in Ohm) of name for an input in lax file      */
 /***************************************************************************/
-extern float getimpedancelax __P ((char *name));
+extern double getimpedancelax __P ((char *name));
 
 /***************************************************************************/
 /*   return the fanout(C in pF exp-12) of name for an output in lax file   */
 /***************************************************************************/
-extern float getcapacitancelax __P ((char *name));
+extern double getcapacitancelax __P ((char *name));
 
 /***************************************************************************/
 /*      return the number of buffers to put after input in lax file        */
@@ -107,9 +107,16 @@ extern int signalsavelax __P ((char *signame));
 extern int getoptimlax __P (());
 
 /***************************************************************************/
+/*          return 1 if lax matches with lofig                             */
+/* look if all referenced names are in lofig                               */
+/***************************************************************************/
+extern int coherencelaxlofig __P ((lofig_list* lofig));
+
+/***************************************************************************/
 /*          return 1 if lax matches with befig                             */
 /* lokk if all referenced names are in befig                               */
 /***************************************************************************/
-extern int coherencelax __P ((befig_list* befig));
+extern int coherencelaxbefig __P ((befig_list* befig));
+
 
 #endif

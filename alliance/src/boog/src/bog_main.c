@@ -309,7 +309,7 @@ extern int main (int argc, char* argv[])
    /*check coherence between LAX and befig*/
    if (lax_file) {
       fprintf(stdout,"Controlling file '%s.lax'...\n",lax_file);
-      if (!coherencelax(befig)) exit(1);
+      if (!coherencelaxbefig(befig)) exit(1);
    }   
    
    /*check file error not detected by parser*/

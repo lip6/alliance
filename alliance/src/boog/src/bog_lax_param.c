@@ -22,7 +22,7 @@
  */
 
 /*
- * Tool    : SCmap and Boog - parameter file
+ * Tool    : SCmap and Boog and Loon - parameter file
  * Date    : 1991,92
  * Author  : Luc Burgun
  * Modified by Czo <Olivier.Sirol@lip6.fr> 1996,97
@@ -31,8 +31,6 @@
 
 
 
-
-#ident "$Id: bog_lax_param.c,v 1.2 2002/09/30 16:19:55 czo Exp $"
 
 /****************************************************************************/
 /*    Produit :  synthese logique (gestion du fichier de parametres)        */
@@ -45,7 +43,9 @@
 #include <string.h>
 
 #include <mut.h>
+#include <aut.h>
 #include <abl.h>
+#include <mlo.h>
 #include <abe.h>
 #include "bog_lax_param.h"
 
@@ -59,7 +59,7 @@
 #define SLOPE_FLAG      0x0080
 #define IMPED_FLAG      0x0100
 #define CAPA_FLAG       0x0200
-#define AUX_FLAG          0x0400
+#define AUX_FLAG        0x0400
 #define CAPI_FLAG       0x0800
 #define BUFI_FLAG       0x1000
 
@@ -77,36 +77,44 @@
                                 while( isspace( (int) c )){ c = getc( Pfile ); }}
 
 
-
-typedef struct lax
+  typedef struct lax_param_list
   {
-    int mode;
-    int level;
-    chain_list *intermediate;
-    ptype_list *delayPI;
-    chain_list *earlyPO;
-    int numTransN, numTransP;
-    int maxSlopeTime;
-    ptype_list *impedancePI;
-    ptype_list *capaPO;
-    ptype_list *capaPI;
-    ptype_list *buffPI;
-    int aux;
-  }
-lax;
+    struct lax_param_list  *next;
+    char                   *name;
+    double                  value;
+
+  } lax_param_list;
+
+  typedef struct lax_name_list
+  {
+    struct lax_name_list   *next;
+    char                   *name;
+
+  } lax_name_list;
+
+  typedef struct lax_data
+  {
+    int              mode;
+    int              level;
+    lax_name_list   *intermediate;
+    lax_param_list  *delayPI;
+    lax_name_list   *earlyPO;
+    lax_param_list  *impedancePI;
+    lax_param_list  *capaPO;
+    lax_param_list  *capaPI;
+    lax_param_list  *buffPI;
+
+  } lax_data;
 
 
 /*variable for .lax file*/
-static lax *LAX;
-
-
-
-
+static lax_data *LAX = NULL;
 
 /*-----------------------------------------------------*\
 |*         Convert VHDL name to internal IO name       *|
 \*-----------------------------------------------------*/
-static char* parseName (char* VHDL_name)
+static char *
+parseName( char * VHDL_name )
 {
   char *p;
   char *Found;
@@ -127,132 +135,161 @@ static char* parseName (char* VHDL_name)
   return (p);
 }
 
-/*-----------------------------------------------------*\
-|*         Convert internal IO name to VHDL name       *|
-\*-----------------------------------------------------*/
-static char* driveName (char* IO_name)
-{
-  char *p;
-  char *Found;
-
-/*
-   fprintf(stdout,"init %s-\n", IO_name);
- */
-  Found = mbkalloc (strlen (IO_name) + 2);
-  Found = strchr (IO_name, ' ');
-
-  if (Found != NULL)
-    {
-/*
-   fprintf(stdout,"init %s, Found =%s-\n", IO_name, Found);
- */
-      p = mbkalloc (strlen (IO_name) + 2);
-      sprintf (p, "%s)", IO_name);
-      Found = strchr (p, ' ');
-      Found[0] = '(';
-      return (p);
-    }
-  else
-    return (IO_name);
-}
-
-
 /*----------------------------------------------------------------------------
 resetlax      : remet a vide la structure param
 ------------------------------------------------------------------------------
 retour          : rien.
 ------------------------------------------------------------------------------*/
-static void resetlax (lax *par)
+static void resetlax (lax_data *par)
 {
   par->mode = DEFAULT_OPTIM;
-  par->level = 0;
-  par->maxSlopeTime = 0;
-  par->aux = 0;
-  par->numTransP = par->numTransN = 0;
   par->earlyPO = NULL;
   par->delayPI = NULL;
   par->impedancePI = NULL;
   par->capaPO = NULL;
   par->capaPI = NULL;
   par->intermediate = NULL;
+  /*
+  ** LUDO: Tu quoque fili mi !!
+  */
+  par->buffPI = NULL;
 }
 
+static lax_param_list *
+loc_addparamlist( lax_param_list *head, char *name, double value )
+{
+  lax_param_list *LaxParam;
+
+  LaxParam = (lax_param_list *)mbkalloc( sizeof( lax_param_list ) );
+  LaxParam->next  = head;
+  LaxParam->name  = name;
+  LaxParam->value = value;
+  
+  return( LaxParam );
+}
+
+static lax_name_list *
+loc_addnamelist( lax_name_list *head, char *name )
+{
+  lax_name_list *LaxName;
+
+  LaxName = (lax_name_list *)mbkalloc( sizeof( lax_name_list ) );
+  LaxName->next  = head;
+  LaxName->name  = name;
+  
+  return( LaxName );
+}
+
+int 
+loc_getdouble( FILE *Pfile, int c, double *PValue )
+{
+  double Value = 0.0;
+  char   Buffer[ 32 ];
+  int    Index = 0;
+
+  Buffer[ 0 ] = '\0';
+  *PValue = 0.0;
+
+  while ( ( isdigit( c ) ) || 
+          ( c == '.'     ) || 
+          ( c == '-'     ) || 
+          ( c == '+'     ) ||
+          ( c == 'e'     ) || 
+          ( c == 'E'     ) )
+  {
+    if ( Index > 31 ) return( -1 );
+
+    Buffer[ Index++ ] = c;
+    c = fgetc( Pfile );
+  }
+
+  if ( Index > 0 ) *PValue = atof( Buffer );
+
+  while( isspace( (int) c )) { c = fgetc( Pfile ); } 
+  
+  return( c );
+}
 
 /*---------------------------------------------------------------------------
 loadlax        :  parser of lax file parameters
 -----------------------------------------------------------------------------
 retour           :  lax structure
 ---------------------------------------------------------------------------*/
-static lax* loadlax (char* FileName)
+static lax_data *
+loadlax( char * FileName )
 {
   FILE *Pfile;
   char c;
-  char Auxiliaire[30];
+  char Auxiliaire[ 1024 ];
   char *Name;
-  int Value;
+double DValue = 0.0;
   int flag = 0;
   int i, n;
-  lax* loadparam;
+  lax_data * loadparam;
 
-  loadparam = (lax*) mbkalloc (sizeof (lax));
-  resetlax (loadparam);
+  loadparam = (lax_data *) mbkalloc (sizeof (lax_data ));
+  resetlax( loadparam );
 
   if ((Pfile = fopen (FileName, "rt")) != NULL)
+  {
+    while (!feof (Pfile))
     {
-      while (!feof (Pfile))
-   {
-     NEXT_CHAR
-       if (c == '#')
-       {
-         c = fgetc (Pfile);
-
-         switch (c)
+      NEXT_CHAR
+      if (c == '#')
       {
-      case 'M':   /* Mode */
-        if (flag & MODE_FLAG)
-          {
-            fprintf (stderr,"Load param : Error \n---> Mode : Defined twice !\n");
-            return NULL;
-          }
-        else
-          {
-            NEXT_CHAR
-         if (c == '{')
-         {
-           NEXT_CHAR
-             if (isdigit ((int)c))
-             {
-               GET_INT (loadparam->mode)
-            if (c == '}')
+        c = fgetc (Pfile);
+
+        switch (c)
+        {
+          case 'M':   /* Mode */
+            if (flag & MODE_FLAG)
             {
-              /* Check parameter */
-              if ((loadparam->mode) < 0 || (loadparam->mode) > 4)
-                {
-                  fprintf (stderr,"Load param : Error \n---> Mode : Out of range (0 to 4).");
-                  return NULL;
-                }
-              else
-                flag |= MODE_FLAG;
-            }
-               else
-            {
-              fprintf (stderr,"Load param : Error \n---> Mode : Can't find right brace");
+              fprintf (stderr,"Load param : Error \n---> Mode : Defined twice !\n");
               return NULL;
             }
-             }
-           else
-             {
-               fprintf (stderr,"Load param : Error \n---> Mode : not an integer");
-               return NULL;
-             }
-         }
             else
-         {
-           fprintf (stderr,"Load param : Error \n---> Mode : Can't find left brace.");
-           return NULL;
-         }
-          }
-        break;
+            {
+              NEXT_CHAR
+              if (c == '{')
+              {
+                NEXT_CHAR
+                if (isdigit ((int)c))
+                {
+                  
+                  GET_INT(loadparam->mode)
+                  if (c == '}')
+                  {
+                    /* Check parameter */
+                    if ((loadparam->mode) < 0 || (loadparam->mode) > 4)
+                    {
+                      fprintf (stderr,"Load param : Error \n---> Mode : Out of range (0 to 4).");
+                      return NULL;
+                    }
+                    else
+                    {
+                      flag |= MODE_FLAG;
+                    }
+                  }
+                  else
+                  {
+                    fprintf (stderr,"Load param : Error \n---> Mode : Can't find right brace");
+                    return NULL;
+                  }
+                }
+                else
+                {
+                  fprintf (stderr,"Load param : Error \n---> Mode : not an integer");
+                  return NULL;
+                }
+              }
+              else
+              {
+                fprintf (stderr,"Load param : Error \n---> Mode : Can't find left brace.");
+                return NULL;
+              }
+            }
+
+          break;
 
       case 'L':   /* Level */
         if (flag & LEVEL_FLAG)
@@ -300,693 +337,518 @@ static lax* loadlax (char* FileName)
           }
         break;
 
-      case 'N':   /* Transistors N */
-        if (flag & TRANSN_FLAG)
-          {
-            fprintf (stderr,"Load param : Error \n---> N Transistors : Defined twice !\n");
-            return NULL;
-          }
-        else
-          {
-            NEXT_CHAR
-         if (c == '{')
-         {
-           NEXT_CHAR
-             if (isdigit ((int)c))
-             {
-               GET_INT (loadparam->numTransN)
-            if (c == '}')
+
+          case 'S':   /* Intermediate signals */
+
+            if (flag & SIGNAL_FLAG)
             {
-              /* Check parameter */
-              if ((loadparam->numTransN) < 0 || (loadparam->numTransN) > 6)
-                {
-                  fprintf (stderr,"Load param : Error \n---> N Transistors : Out of range (0 to 6).");
-                  return NULL;
-                }
-              else
-                flag |= TRANSN_FLAG;
-            }
-               else
-            {
-              fprintf (stderr,"Load param : Error \n---> N Transistors : Can't find right brace");
+              fprintf (stderr,"Load param : Error \n---> Intermediate signals : Defined twice !\n");
               return NULL;
             }
-             }
-           else
-             {
-               fprintf (stderr,"Load param : Error \n---> N Transistors : not an integer");
-               return NULL;
-             }
-         }
             else
-         {
-           fprintf (stderr,"Load param : Error \n---> N Transistors : Can't find left brace.");
-           return NULL;
-         }
-          }
-        break;
-
-      case 'P':   /* Transistors P */
-        if (flag & TRANSP_FLAG)
-          {
-            fprintf (stderr,"Load param : Error \n---> P Transistors : Defined twice !\n");
-            return NULL;
-          }
-        else
-          {
-            NEXT_CHAR
-         if (c == '{')
-         {
-           NEXT_CHAR
-             if (isdigit ((int)c))
-             {
-               GET_INT (loadparam->numTransP)
-            if (c == '}')
             {
-              /* Check parameter */
-              if ((loadparam->numTransP) < 0 || (loadparam->numTransP) > 6)
-                {
-                  fprintf (stderr,"Load param : Error \n---> P Transistors : Out of range (0 to 6).");
-                  return NULL;
-                }
-              else
-                flag |= TRANSP_FLAG;
-            }
-               else
-            {
-              fprintf (stderr,"Load param : Error \n---> P Transistors : Can't find right brace");
-              return NULL;
-            }
-             }
-           else
-             {
-               fprintf (stderr,"Load param : Error \n---> P Transistors : not an integer");
-               return NULL;
-             }
-         }
-            else
-         {
-           fprintf (stderr,"Load param : Error \n---> P Transistors : Can't find left brace.");
-           return NULL;
-         }
-          }
-        break;
-
-      case 'T':   /* Max Slope Time */
-        if (flag & SLOPE_FLAG)
-          {
-            fprintf (stderr,"Load param : Error \n---> Slope Time : Defined twice !\n");
-            return NULL;
-          }
-        else
-          {
-            NEXT_CHAR
-         if (c == '{')
-         {
-           NEXT_CHAR
-             if (isdigit ((int)c))
-             {
-               GET_INT (loadparam->maxSlopeTime)
-            if (c == '}')
-            {
-              /* Check parameter */
-              if ((loadparam->maxSlopeTime) < 0 || (loadparam->maxSlopeTime) > 10000)
-                {
-                  fprintf (stderr,"Load param : Error \n---> Slope Time : Out of range (0 to 10000).");
-                  return NULL;
-                }
-              else
-                flag |= SLOPE_FLAG;
-            }
-               else
-            {
-              fprintf (stderr,"Load param : Error \n---> Slope Time : Can't find right brace");
-              return NULL;
-            }
-             }
-           else
-             {
-               fprintf (stderr,"Load param : Error \n---> Slope Time : not an integer");
-               return NULL;
-             }
-         }
-            else
-         {
-           fprintf (stderr,"Load param : Error \n---> Slope Time : Can't find left brace.");
-           return NULL;
-         }
-          }
-        break;
-
-      case 'S':   /* Intermediate signals */
-        if (flag & SIGNAL_FLAG)
-          {
-            fprintf (stderr,"Load param : Error \n---> Intermediate signals : Defined twice !\n");
-            return NULL;
-          }
-        else
-          {
-            NEXT_CHAR
-         if (c == '{')
-         {
-           NEXT_CHAR
-             n = 0;
-           while (c != '}')
-             {
-               i = 0;
-               while (!isspace ((int)c) && (c != ';'))
-            {
-              Auxiliaire[i++] = c;
-              if (i > 29)
-                {
-                  fprintf (stderr,"Load param : Error \n---> Intermediate signals : Name too int.");
-                  return NULL;
-                }
-              c = getc (Pfile);
-            }
-               if (isspace ((int)c))
-            NEXT_CHAR
-              if (c == ';')
-              {
-                Auxiliaire[i] = '\0';
-                Name = parseName (Auxiliaire);
-                loadparam->intermediate = addchain (loadparam->intermediate, namealloc (Name));
-                n++;
-                NEXT_CHAR
-              }
-            else
-              {
-                fprintf (stderr,"Load param : Error \n---> Intermediate signals : syntax error.");
-                return NULL;
-              }
-               if (feof (Pfile))
-            {
-              fprintf (stderr,"Load param : Error \n---> Intermediate signals : Unexpected end of file.");
-              return NULL;
-            }
-             }
-           if (n)
-             {
-               loadparam->intermediate = (chain_list *) reverse (loadparam->intermediate);
-               flag |= SIGNAL_FLAG;
-             }
-           else
-             {
-               fprintf (stderr,"Load param : Error \n---> Intermediate signals : Declaration empty");
-               return NULL;
-             }
-         }
-            else
-         {
-           fprintf (stderr,"Load param : Error \n---> Intermediate signals : Can't find left brace.");
-           return NULL;
-         }
-          }
-        break;
-
-      case 'D':   /* Delayed Inputs */
-        if (flag & DELAY_FLAG)
-          {
-            fprintf (stderr,"Load param : Error \n---> Delayed inputs : Defined twice !\n");
-            return NULL;
-          }
-        else
-          {
-            NEXT_CHAR
-         if (c == '{')
-         {
-           NEXT_CHAR
-             n = 0;
-           while (c != '}')
-             {
-               i = 0;
-               while (!isspace ((int)c) && (c != ':'))
-            {
-              Auxiliaire[i++] = c;
-              if (i > 29)
-                {
-                  fprintf (stderr,"Load param : Error \n---> Delayed inputs : Name too int.");
-                  return NULL;
-                }
-              c = getc (Pfile);
-            }
-               if (isspace ((int)c))
-            NEXT_CHAR
-              if (c == ':')
+              NEXT_CHAR
+              if (c == '{')
               {
                 NEXT_CHAR
-                  if (isdigit ((int)c))
+                n = 0;
+                while (c != '}')
+                {
+                  i = 0;
+                  while (!isspace ((int)c) && (c != ';'))
                   {
-               GET_INT (Value)
-                 if (c == ';')
-                 {
-                   Auxiliaire[i] = '\0';
-                   Name = (char *) parseName (Auxiliaire);
-                   loadparam->delayPI = addptype (loadparam->delayPI, Value, namealloc (Name));
-                   n++;
-                   NEXT_CHAR
-                 }
-               else
-                 {
-                   fprintf (stderr,"Load param : Error \n---> Delayed inputs : syntax error.");
-                   return NULL;
-                 }
+                    Auxiliaire[i++] = c;
+                    c = getc (Pfile);
                   }
+
+                  if (isspace ((int)c)) NEXT_CHAR
+              
+                  if (c == ';')
+                  {
+                    Auxiliaire[i] = '\0';
+                    Name = parseName (Auxiliaire);
+                    loadparam->intermediate = loc_addnamelist(loadparam->intermediate, namealloc (Name));
+                    n++;
+                    NEXT_CHAR
+                  }
+                  else
+                  {
+                    fprintf (stderr,"Load param : Error \n---> Intermediate signals : syntax error.");
+                    return NULL;
+                  }
+
+                  if (feof (Pfile))
+                  {
+                    fprintf (stderr,"Load param : Error \n---> Intermediate signals : Unexpected end of file.");
+                    return NULL;
+                  }
+                }
+           
+                if (n)
+                {
+                  loadparam->intermediate = (lax_name_list *) reverse ( (chain_list *)loadparam->intermediate);
+                  flag |= SIGNAL_FLAG;
+                }
                 else
-                  {
-               fprintf (stderr,"Load param : Error \n---> Delayed inputs : not an integer!\n");
-               return NULL;
-                  }
+                {
+                  fprintf (stderr,"Load param : Error \n---> Intermediate signals : Declaration empty");
+                  return NULL;
+                }
               }
-            else
+              else
               {
-                fprintf (stderr,"Load param : Error \n---> Delayed inputs : syntax error.");
+                fprintf (stderr,"Load param : Error \n---> Intermediate signals : Can't find left brace.");
                 return NULL;
               }
-               if (feof (Pfile))
+            }
+
+          break;
+
+          case 'D':   /* Delayed Inputs */
+
+            if (flag & DELAY_FLAG)
             {
-              fprintf (stderr,"Load param : Error \n---> Delayed inputs : Unexpected end of file.");
+              fprintf (stderr,"Load param : Error \n---> Delayed inputs : Defined twice !\n");
               return NULL;
             }
-             }
-           if (n)
-             {
-               loadparam->delayPI = (ptype_list *) reverse ((chain_list*)loadparam->delayPI);
-               flag |= DELAY_FLAG;
-             }
-           else
-             {
-               fprintf (stderr,"Load param : Error \n---> Delayed inputs : Declaration empty");
-               return NULL;
-             }
-         }
             else
-         {
-           fprintf (stderr,"Load param : Error \n---> Delayed inputs : Can't find left brace.");
-           return NULL;
-         }
-          }
+            {
+              NEXT_CHAR
+              if (c == '{')
+              {
+                NEXT_CHAR
+                n = 0;
+                while (c != '}')
+                {
+                  i = 0;
+                  while (!isspace ((int)c) && (c != ':'))
+                  {
+                    Auxiliaire[i++] = c;
+                    c = getc (Pfile);
+                  }
+
+                  if (isspace ((int)c)) NEXT_CHAR
+
+                  if (c == ':')
+                  {
+                    NEXT_CHAR
+                    c = loc_getdouble( Pfile, c, &DValue );
+
+                    if (c == ';')
+                    {
+                      Auxiliaire[i] = '\0';
+                      Name = (char *) parseName (Auxiliaire);
+                      loadparam->delayPI = loc_addparamlist(loadparam->delayPI, namealloc (Name), DValue);
+                      n++;
+                      NEXT_CHAR
+                    }
+                    else
+                    {
+                      fprintf (stderr,"Load param : Error \n---> Delayed inputs : syntax error.");
+                      return NULL;
+                    }
+                  }
+                  else
+                  {
+                    fprintf (stderr,"Load param : Error \n---> Delayed inputs : syntax error.");
+                    return NULL;
+                  }
+
+                  if (feof (Pfile))
+                  {
+                    fprintf (stderr,"Load param : Error \n---> Delayed inputs : Unexpected end of file.");
+                    return NULL;
+                  }
+                }
+
+                if (n)
+                {
+                  loadparam->delayPI = (lax_param_list *) reverse ((chain_list*)loadparam->delayPI);
+                  flag |= DELAY_FLAG;
+                }
+                else
+                {
+                  fprintf (stderr,"Load param : Error \n---> Delayed inputs : Declaration empty");
+                  return NULL;
+                }
+              }
+              else
+              {
+                fprintf (stderr,"Load param : Error \n---> Delayed inputs : Can't find left brace.");
+                return NULL;
+              }
+            }
         break;
 
-      case 'E':   /* Early Outputs */
-        if (flag & EARLY_FLAG)
+        case 'E':   /* Early Outputs */
+
+          if (flag & EARLY_FLAG)
           {
             fprintf (stderr,"Load param : Error \n---> Early outputs : Defined twice !\n");
             return NULL;
           }
-        else
+          else
           {
             NEXT_CHAR
-         if (c == '{')
-         {
-           NEXT_CHAR
-             n = 0;
-           while (c != '}')
-             {
-               i = 0;
-               while (!isspace ((int)c) && (c != ';'))
+            if (c == '{')
             {
-              Auxiliaire[i++] = c;
-              if (i > 29)
+              NEXT_CHAR
+              n = 0;
+              while (c != '}')
+              {
+                i = 0;
+                while (!isspace ((int)c) && (c != ';'))
                 {
-                  fprintf (stderr,"Load param : Error \n---> Early outputs : Name too int.");
+                  Auxiliaire[i++] = c;
+                  c = getc (Pfile);
+                }
+
+                if (isspace ((int)c)) NEXT_CHAR
+
+                if (c == ';')
+                {
+                  Auxiliaire[i] = '\0';
+                  Name = (char *) parseName (Auxiliaire);
+                  loadparam->earlyPO = loc_addnamelist(loadparam->earlyPO, namealloc (Name));
+                  n++;
+                  NEXT_CHAR
+                }
+                else
+                {
+                  fprintf (stderr,"Load param : Error \n---> Early outputs : syntax error.");
                   return NULL;
                 }
-              c = getc (Pfile);
-            }
-               if (isspace ((int)c))
-            NEXT_CHAR
-              if (c == ';')
-              {
-                Auxiliaire[i] = '\0';
-                Name = (char *) parseName (Auxiliaire);
-                loadparam->earlyPO = addchain (loadparam->earlyPO, namealloc (Name));
-                n++;
-                NEXT_CHAR
+                
+                if (feof (Pfile))
+                {
+                  fprintf (stderr,"Load param : Error \n---> Early outputs : Unexpected end of file.");
+                  return NULL;
+                }
               }
-            else
+
+              if (n)
               {
-                fprintf (stderr,"Load param : Error \n---> Early outputs : syntax error.");
+                loadparam->earlyPO = (lax_name_list *) reverse ( (chain_list *)loadparam->earlyPO);
+                flag |= EARLY_FLAG;
+              }
+              else
+              {
+                fprintf (stderr,"Load param : Error \n---> Early outputs : Declaration empty");
                 return NULL;
               }
-               if (feof (Pfile))
+            }
+            else
             {
-              fprintf (stderr,"Load param : Error \n---> Early outputs : Unexpected end of file.");
+              fprintf (stderr,"Load param : Error \n---> Early outputs : Can't find left brace.");
               return NULL;
             }
-             }
-           if (n)
-             {
-               loadparam->earlyPO = (chain_list *) reverse (loadparam->earlyPO);
-               flag |= EARLY_FLAG;
-             }
-           else
-             {
-               fprintf (stderr,"Load param : Error \n---> Early outputs : Declaration empty");
-               return NULL;
-             }
-         }
-            else
-         {
-           fprintf (stderr,"Load param : Error \n---> Early outputs : Can't find left brace.");
-           return NULL;
-         }
           }
         break;
 
-      case 'I':   /* Input Impedances */
-        if (flag & IMPED_FLAG)
+        case 'I':   /* Input Impedances */
+
+          if (flag & IMPED_FLAG)
           {
             fprintf (stderr,"Load param : Error \n---> Inputs impedances : Defined twice !\n");
             return NULL;
           }
-        else
+          else
           {
             NEXT_CHAR
-         if (c == '{')
-         {
-           NEXT_CHAR
-             n = 0;
-           while (c != '}')
-             {
-               i = 0;
-               while (!isspace ((int)c) && (c != ':'))
+            if (c == '{')
             {
-              Auxiliaire[i++] = c;
-              if (i > 29)
+              NEXT_CHAR
+              n = 0;
+              while (c != '}')
+              {
+                i = 0;
+                while (!isspace ((int)c) && (c != ':'))
                 {
-                  fprintf (stderr,"Load param : Error \n---> Inputs impedances : Name too int.");
+                  Auxiliaire[i++] = c;
+                  c = getc (Pfile);
+                }
+
+                if (isspace ((int)c)) NEXT_CHAR
+
+                if (c == ':')
+                {
+                  NEXT_CHAR
+
+                  c = loc_getdouble( Pfile, c, &DValue );
+
+                  if (c == ';')
+                  {
+                    Auxiliaire[i] = '\0';
+                    Name = (char *) parseName (Auxiliaire);
+                    loadparam->impedancePI = loc_addparamlist(loadparam->impedancePI, namealloc (Name), DValue);
+                    n++;
+                    NEXT_CHAR
+                  }
+                  else
+                  {
+                    fprintf (stderr,"Load param : Error \n---> Inputs impedances : syntax error.");
+                    return NULL;
+                  }
+                }
+                else
+                {
+                  fprintf (stderr,"Load param : Error \n---> Inputs impedances : syntax error.");
                   return NULL;
                 }
-              c = getc (Pfile);
-            }
-               if (isspace ((int)c))
-            NEXT_CHAR
-              if (c == ':')
-              {
-                NEXT_CHAR
-                  if (isdigit ((int)c))
-                  {
-               GET_INT (Value)
-                 if (c == ';')
-                 {
-                   Auxiliaire[i] = '\0';
-                   Name = (char *) parseName (Auxiliaire);
-                   loadparam->impedancePI = addptype (loadparam->impedancePI, Value, namealloc (Name));
-                   n++;
-                   NEXT_CHAR
-                 }
-               else
-                 {
-                   fprintf (stderr,"Load param : Error \n---> Inputs impedances : syntax error.");
-                   return NULL;
-                 }
-                  }
-                else
-                  {
-               fprintf (stderr,"Load param : Error \n---> Inputs impedances : not an integer!\n");
-               return NULL;
-                  }
+
+                if (feof (Pfile))
+                {
+                  fprintf (stderr,"Load param : Error \n---> Inputs impedances : Unexpected end of file.");
+                  return NULL;
+                }
               }
-            else
+
+              if (n)
               {
-                fprintf (stderr,"Load param : Error \n---> Inputs impedances : syntax error.");
+                loadparam->impedancePI = (lax_param_list *) reverse ((chain_list*)loadparam->impedancePI);
+                flag |= IMPED_FLAG;
+              }
+              else
+              {
+                fprintf (stderr,"Load param : Error \n---> Inputs impedances : Declaration empty");
                 return NULL;
               }
-               if (feof (Pfile))
+            }
+            else
             {
-              fprintf (stderr,"Load param : Error \n---> Inputs impedances : Unexpected end of file.");
+              fprintf (stderr,"Load param : Error \n---> Inputs impedances : Can't find left brace.");
               return NULL;
             }
-             }
-           if (n)
-             {
-               loadparam->impedancePI = (ptype_list *) reverse ((chain_list*)loadparam->impedancePI);
-               flag |= IMPED_FLAG;
-             }
-           else
-             {
-               fprintf (stderr,"Load param : Error \n---> Inputs impedances : Declaration empty");
-               return NULL;
-             }
-         }
-            else
-         {
-           fprintf (stderr,"Load param : Error \n---> Inputs impedances : Can't find left brace.");
-           return NULL;
-         }
           }
         break;
 
-      case 'B':   /* Buffered Intput */
-        if (flag & BUFI_FLAG)
+        case 'B':   /* Buffered Intput */
+
+          if (flag & BUFI_FLAG)
           {
             fprintf (stderr,"Load param : Error \n---> Buffered Inputs : Defined twice !\n");
             return NULL;
           }
-        else
+          else
           {
             NEXT_CHAR
-         if (c == '{')
-         {
-           NEXT_CHAR
-             n = 0;
-           while (c != '}')
-             {
-               i = 0;
-               while (!isspace ((int)c) && (c != ':'))
+            if (c == '{')
             {
-              Auxiliaire[i++] = c;
-              if (i > 29)
+              NEXT_CHAR
+              n = 0;
+
+              while (c != '}')
+              {
+                i = 0;
+                while (!isspace ((int)c) && (c != ':'))
                 {
-                  fprintf (stderr,"Load param : Error \n---> Inputs capacitances : Name too int.");
+                  Auxiliaire[i++] = c;
+                  c = getc (Pfile);
+                }
+
+                if (isspace ((int)c)) NEXT_CHAR
+
+                if (c == ':')
+                {
+                  NEXT_CHAR
+                  c = loc_getdouble( Pfile, c, &DValue );
+
+                  if (c == ';')
+                  {
+                    Auxiliaire[i] = '\0';
+                    Name = (char *) parseName (Auxiliaire);
+                    loadparam->buffPI = loc_addparamlist(loadparam->buffPI, namealloc (Name), DValue);
+                    n++;
+                    NEXT_CHAR
+                  }
+                  else
+                  {
+                    fprintf (stderr,"Load param : Error \n---> Buffered Inputs : syntax error.");
+                    return NULL;
+                  }
+                }
+                else
+                {
+                  fprintf (stderr,"Load param : Error \n---> Buffered Inputs : syntax error.");
                   return NULL;
                 }
-              c = getc (Pfile);
-            }
-               if (isspace ((int)c))
-            NEXT_CHAR
-              if (c == ':')
-              {
-                NEXT_CHAR
-                  if (isdigit ((int)c))
-                  {
-               GET_INT (Value)
-                 if (c == ';')
-                 {
-                   Auxiliaire[i] = '\0';
-                   Name = (char *) parseName (Auxiliaire);
-                   loadparam->buffPI = addptype (loadparam->buffPI, Value, namealloc (Name));
-                   n++;
-                   NEXT_CHAR
-                 }
-               else
-                 {
-                   fprintf (stderr,"Load param : Error \n---> Buffered Inputs : syntax error.");
-                   return NULL;
-                 }
-                  }
-                else
-                  {
-               fprintf (stderr,"Load param : Error \n---> Buffered Inputs : not an integer!\n");
-               return NULL;
-                  }
+
+                if (feof (Pfile))
+                {
+                  fprintf (stderr,"Load param : Error \n---> Buffered Inputs : Unexpected end of file.");
+                  return NULL;
+                }
               }
-            else
+
+              if (n)
               {
-                fprintf (stderr,"Load param : Error \n---> Buffered Inputs : syntax error.");
+                loadparam->buffPI = (lax_param_list *) reverse ((chain_list*)loadparam->buffPI);
+                flag |= BUFI_FLAG;
+              }
+              else
+              {
+                fprintf (stderr,"Load param : Error \n---> Buffered Intputs : Declaration empty");
                 return NULL;
               }
-               if (feof (Pfile))
-            {
-              fprintf (stderr,"Load param : Error \n---> Buffered Inputs : Unexpected end of file.");
-              return NULL;
             }
-             }
-           if (n)
-             {
-               loadparam->buffPI = (ptype_list *) reverse ((chain_list*)loadparam->buffPI);
-               flag |= BUFI_FLAG;
-             }
-           else
-             {
-               fprintf (stderr,"Load param : Error \n---> Buffered Intputs : Declaration empty");
-               return NULL;
-             }
-         }
             else
-         {
-           fprintf (stderr,"Load param : Error \n---> Buffered Inputs : Can't find left brace.");
-           return NULL;
-         }
+            {
+             fprintf (stderr,"Load param : Error \n---> Buffered Inputs : Can't find left brace.");
+             return NULL;
+            }
           }
         break;
 
-      case 'F':   /* Intput Capacitances */
-        if (flag & CAPI_FLAG)
+        case 'F':   /* Intput Capacitances */
+
+          if (flag & CAPI_FLAG)
           {
             fprintf (stderr,"Load param : Error \n---> Inputs capacitances : Defined twice !\n");
             return NULL;
           }
-        else
+          else
           {
             NEXT_CHAR
-         if (c == '{')
-         {
-           NEXT_CHAR
-             n = 0;
-           while (c != '}')
-             {
-               i = 0;
-               while (!isspace ((int)c) && (c != ':'))
+            if (c == '{')
             {
-              Auxiliaire[i++] = c;
-              if (i > 29)
+              NEXT_CHAR
+              n = 0;
+              while (c != '}')
+              {
+                i = 0;
+                while (!isspace ((int)c) && (c != ':'))
                 {
-                  fprintf (stderr,"Load param : Error \n---> Inputs capacitances : Name too int.");
+                  Auxiliaire[i++] = c;
+                  c = getc (Pfile);
+                }
+
+                if (isspace ((int)c)) NEXT_CHAR
+
+                if (c == ':')
+                {
+                  NEXT_CHAR
+                  c = loc_getdouble( Pfile, c, &DValue );
+
+                  if (c == ';')
+                  {
+                    Auxiliaire[i] = '\0';
+                    Name = (char *) parseName (Auxiliaire);
+                    loadparam->capaPI = loc_addparamlist(loadparam->capaPI, namealloc (Name), DValue );
+                    n++;
+                    NEXT_CHAR
+                  }
+                  else
+                  {
+                    fprintf (stderr,"Load param : Error \n---> Inputs capacitances : syntax error.");
+                    return NULL;
+                  }
+                }
+                else
+                {
+                  fprintf (stderr,"Load param : Error \n---> Inputs capacitances : syntax error.");
                   return NULL;
                 }
-              c = getc (Pfile);
-            }
-               if (isspace ((int)c))
-            NEXT_CHAR
-              if (c == ':')
-              {
-                NEXT_CHAR
-                  if (isdigit ((int)c))
-                  {
-               GET_INT (Value)
-                 if (c == ';')
-                 {
-                   Auxiliaire[i] = '\0';
-                   Name = (char *) parseName (Auxiliaire);
-                   loadparam->capaPI = addptype (loadparam->capaPI, Value, namealloc (Name));
-                   n++;
-                   NEXT_CHAR
-                 }
-               else
-                 {
-                   fprintf (stderr,"Load param : Error \n---> Inputs capacitances : syntax error.");
-                   return NULL;
-                 }
-                  }
-                else
-                  {
-               fprintf (stderr,"Load param : Error \n---> Inputs capacitances : not an integer!\n");
-               return NULL;
-                  }
+
+                if (feof (Pfile))
+                {
+                  fprintf (stderr,"Load param : Error \n---> Inputs capacitances : Unexpected end of file.");
+                  return NULL;
+                }
               }
-            else
+
+              if (n)
               {
-                fprintf (stderr,"Load param : Error \n---> Inputs capacitances : syntax error.");
+                loadparam->capaPI = (lax_param_list *) reverse ((chain_list*)loadparam->capaPI);
+                flag |= CAPI_FLAG;
+              }
+              else
+              {
+                fprintf (stderr,"Load param : Error \n---> Intputs capacitances : Declaration empty");
                 return NULL;
               }
-               if (feof (Pfile))
+            }
+            else
             {
-              fprintf (stderr,"Load param : Error \n---> Inputs capacitances : Unexpected end of file.");
+              fprintf (stderr,"Load param : Error \n---> Inputs capacitances : Can't find left brace.");
               return NULL;
             }
-             }
-           if (n)
-             {
-               loadparam->capaPI = (ptype_list *) reverse ((chain_list*)loadparam->capaPI);
-               flag |= CAPI_FLAG;
-             }
-           else
-             {
-               fprintf (stderr,"Load param : Error \n---> Intputs capacitances : Declaration empty");
-               return NULL;
-             }
-         }
-            else
-         {
-           fprintf (stderr,"Load param : Error \n---> Inputs capacitances : Can't find left brace.");
-           return NULL;
-         }
           }
         break;
 
-      case 'C':   /* Output Capacitances */
-        if (flag & CAPA_FLAG)
+        case 'C':   /* Output Capacitances */
+
+          if (flag & CAPA_FLAG)
           {
             fprintf (stderr,"Load param : Error \n---> Outputs capacitances : Defined twice !\n");
             return NULL;
           }
-        else
+          else
           {
             NEXT_CHAR
-         if (c == '{')
-         {
-           NEXT_CHAR
-             n = 0;
-           while (c != '}')
-             {
-               i = 0;
-               while (!isspace ((int)c) && (c != ':'))
+            if (c == '{')
             {
-              Auxiliaire[i++] = c;
-              if (i > 29)
+              NEXT_CHAR
+              n = 0;
+              while (c != '}')
+              {
+                i = 0;
+                while (!isspace ((int)c) && (c != ':'))
                 {
-                  fprintf (stderr,"Load param : Error \n---> Outputs capacitances : Name too int.");
+                  Auxiliaire[i++] = c;
+                  c = getc (Pfile);
+                }
+
+                if (isspace ((int)c)) NEXT_CHAR
+
+                if (c == ':')
+                {
+                  NEXT_CHAR
+
+                  c = loc_getdouble( Pfile, c, &DValue );
+
+                  if (c == ';')
+                  {
+                    Auxiliaire[i] = '\0';
+                    Name = (char *) parseName (Auxiliaire);
+                    loadparam->capaPO = loc_addparamlist(loadparam->capaPO, namealloc (Name), DValue );
+                    n++;
+                    NEXT_CHAR                      
+                  }
+                  else
+                  {
+                    fprintf (stderr,"Load param : Error \n---> Outputs capacitances : syntax error.");
+                    return NULL;
+                  }
+                }
+                else
+                {
+                  fprintf (stderr,"Load param : Error \n---> Outputs capacitances : syntax error.");
                   return NULL;
                 }
-              c = getc (Pfile);
-            }
-               if (isspace ((int)c))
-            NEXT_CHAR
-              if (c == ':')
-              {
-                NEXT_CHAR
-                  if (isdigit ((int)c))
-                  {
-               GET_INT (Value)
-                 if (c == ';')
-                 {
-                   Auxiliaire[i] = '\0';
-                   Name = (char *) parseName (Auxiliaire);
-                   loadparam->capaPO = addptype (loadparam->capaPO, Value, namealloc (Name));
-                   n++;
-                   NEXT_CHAR                      
-                 }
-               else
-                 {
-                   fprintf (stderr,"Load param : Error \n---> Outputs capacitances : syntax error.");
-                   return NULL;
-                 }
-                  }
-                else
-                  {
-               fprintf (stderr,"Load param : Error \n---> Outputs capacitances : not an integer!\n");
-               return NULL;
-                  }
+
+                if (feof (Pfile))
+                {
+                  fprintf (stderr,"Load param : Error \n---> Outputs capacitances : Unexpected end of file.");
+                  return NULL;
+                }
               }
-            else
+           
+              if (n)
               {
-                fprintf (stderr,"Load param : Error \n---> Outputs capacitances : syntax error.");
+                loadparam->capaPO = (lax_param_list *) reverse ((chain_list*)loadparam->capaPO);
+                flag |= CAPA_FLAG;
+              }
+              else
+              {
+                fprintf (stderr,"Load param : Error \n---> Outputs capacitances : Declaration empty");
                 return NULL;
               }
-               if (feof (Pfile))
+            }
+            else
             {
-              fprintf (stderr,"Load param : Error \n---> Outputs capacitances : Unexpected end of file.");
+              fprintf (stderr,"Load param : Error \n---> Outputs capacitances : Can't find left brace.");
               return NULL;
             }
-             }
-           if (n)
-             {
-               loadparam->capaPO = (ptype_list *) reverse ((chain_list*)loadparam->capaPO);
-               flag |= CAPA_FLAG;
-             }
-           else
-             {
-               fprintf (stderr,"Load param : Error \n---> Outputs capacitances : Declaration empty");
-               return NULL;
-             }
-         }
-            else
-         {
-           fprintf (stderr,"Load param : Error \n---> Outputs capacitances : Can't find left brace.");
-           return NULL;
-         }
           }
         break;
 
@@ -1010,7 +872,7 @@ static lax* loadlax (char* FileName)
          fprintf (stderr,"Load param : Error \n---> Declaration syntax error!\n");
          return NULL;
        }
-   }
+    }
       if (flag == 0)
    {
      fprintf (stderr,"Load param : Error \n---> File Empty, any parameter defined!\n");
@@ -1022,199 +884,61 @@ static lax* loadlax (char* FileName)
       fprintf (stdout,"Load param on '%s' done ...\n", FileName);
 */      
       return loadparam;
-    }
+  }
   else
-    {
-      fprintf (stderr,"Load param : Error \n---> Can't open parameters file '%s'!\n", FileName);
-      return NULL;
-    }
+  {
+    fprintf (stderr,"Load param : Error \n---> Can't open parameters file '%s'!\n", FileName);
+    return NULL;
+  }
 }
-
-/*----------------------------------------------------------------------------
-savelax       : enregistre la structure de donnees dans le fichier
-------------------------------------------------------------------------------
-retour          : aucun
-------------------------------------------------------------------------------*/
-static void savelax (lax* saveparam, char* FileName)
-{
-  FILE *Pfile;
-  chain_list *intermediate;
-  chain_list *earlyPO;
-  ptype_list *delayPI;
-  ptype_list *impedancePI;
-  ptype_list *capaPO;
-  ptype_list *capaPI;
-  ptype_list *buffPI;
-
-  Pfile = fopen (FileName, "wt");
-
-  if (Pfile)
-    {
-      fprintf (Pfile, "## Mode\n");
-      fprintf (Pfile, "#M{%d}\n", saveparam->mode);
-      fprintf (Pfile, "## Level\n");
-      fprintf (Pfile, "#L{%d}\n", saveparam->level);
-      fprintf (Pfile, "## Number Transistor N\n");
-      fprintf (Pfile, "#N{%d}\n", saveparam->numTransN);
-      fprintf (Pfile, "## Number Transistor P\n");
-      fprintf (Pfile, "#P{%d}\n", saveparam->numTransP);
-      fprintf (Pfile, "## Fanout factor\n");
-      fprintf (Pfile, "#T{%d}\n", saveparam->maxSlopeTime);
-
-      if (saveparam->intermediate)
-   {
-     intermediate = saveparam->intermediate;
-     fprintf (Pfile, "##Auxiliary signals saved\n");
-     fprintf (Pfile, "#S{\n");
-     while (intermediate)
-       {
-         fprintf (Pfile, "%s;\n", driveName ((char *) intermediate->DATA));
-         intermediate = intermediate->NEXT;
-       }
-     fprintf (Pfile, "}\n");
-   }
-
-      if (saveparam->delayPI)
-   {
-     delayPI = saveparam->delayPI;
-     fprintf (Pfile, "##Delayed inputs\n");
-     fprintf (Pfile, "#D{\n");
-     while (delayPI)
-       {
-         fprintf (Pfile, "%s:%ld;\n", driveName (delayPI->DATA), delayPI->TYPE);
-         delayPI = delayPI->NEXT;
-       }
-     fprintf (Pfile, "}\n");
-   }
-
-      if (saveparam->earlyPO)
-   {
-     earlyPO = saveparam->earlyPO;
-     fprintf (Pfile, "##Early outputs\n");
-     fprintf (Pfile, "#E{\n");
-     while (earlyPO)
-       {
-         fprintf (Pfile, "%s;\n", driveName (earlyPO->DATA));
-         earlyPO = earlyPO->NEXT;
-       }
-     fprintf (Pfile, "}\n");
-   }
-
-      if (saveparam->impedancePI)
-   {
-     impedancePI = saveparam->impedancePI;
-     fprintf (Pfile, "##Inputs Impedence\n");
-     fprintf (Pfile, "#I{\n");
-     while (impedancePI)
-       {
-         fprintf (Pfile, "%s:%ld;\n", driveName (impedancePI->DATA), impedancePI->TYPE);
-         impedancePI = impedancePI->NEXT;
-       }
-     fprintf (Pfile, "}\n");
-   }
-
-      if (saveparam->capaPO)
-   {
-     capaPO = saveparam->capaPO;
-     fprintf (Pfile, "##Outputs capacitance\n");
-     fprintf (Pfile, "#C{\n");
-     while (capaPO)
-       {
-         fprintf (Pfile, "%s:%ld;\n", driveName (capaPO->DATA), capaPO->TYPE);
-         capaPO = capaPO->NEXT;
-       }
-     fprintf (Pfile, "}\n");
-   }
-
-      if (saveparam->capaPI)
-   {
-     capaPI = saveparam->capaPI;
-     fprintf (Pfile, "##Inputs maximal fanout\n");
-     fprintf (Pfile, "#F{\n");
-     while (capaPI)
-       {
-         fprintf (Pfile, "%s:%ld;\n", driveName (capaPI->DATA), capaPI->TYPE);
-         capaPI = capaPI->NEXT;
-       }
-     fprintf (Pfile, "}\n");
-   }
-
-      if (saveparam->buffPI)
-   {
-     buffPI = saveparam->buffPI;
-     fprintf (Pfile, "##Buffered Inputs\n");
-     fprintf (Pfile, "#B{\n");
-     while (buffPI)
-       {
-         fprintf (Pfile, "%s:%ld;\n", driveName (buffPI->DATA), buffPI->TYPE);
-         buffPI = buffPI->NEXT;
-       }
-     fprintf (Pfile, "}\n");
-   }
-
-      fclose (Pfile);
-    }
-  else
-    {
-      fprintf (stderr,
-      "\n\nERROR Save Parameters : Unable to write in %s\n", FileName);
-      exit (1);
-    }
-}
-
 
 /***************************************************************************/
 /*  parse the .lax file and save the internal caracteristics               */
 /***************************************************************************/
-extern void parsefilelax(char *filename)
+extern void 
+parsefilelax(char *filename)
 {
-   char* name;
-   int size;
-   
-   /*build the real filename*/
-   size=strlen(filename);
-   name=(char*) mbkalloc(size+strlen(".lax")+1);
-   name=strcpy(name,filename);
-   name[size]='.'; name[size+1]='l'; name[size+2]='a'; name[size+3]='x'; 
-   name[size+4]='\0';   
-   
-   LAX=loadlax(name);
-   if (!LAX) exit(1);
+  char* name;
+  int size;
+  
+  /*build the real filename*/
+  size=strlen(filename);
+  name=(char*) mbkalloc( size + 5 );
+  name=strcpy(name,filename);
+  strcpy( name + size, ".lax" );
+  
+  LAX = loadlax(name);
+  if (!LAX) exit(1);
 }
 
 
 /******************************************************************************/
 /*  set default caracteristics if no file is given                              */
 /******************************************************************************/
-extern void defaultlax(int mode_optim)
+extern void 
+defaultlax(int mode_optim)
 {
-  LAX = (lax*) mbkalloc (sizeof (lax));
+  LAX = (lax_data *) mbkalloc (sizeof (lax_data));
   resetlax (LAX);
   LAX->mode=mode_optim;
 }
 
 
 /***************************************************************************/
-/* save the internal caracteristics  in file                               */
-/***************************************************************************/
-extern void savefilelax(char *filename)
-{
-   savelax(LAX,filename);
-}   
-
-
-/***************************************************************************/
 /*    return the impedance(R in Ohm) of name for an input in lax file      */
 /***************************************************************************/
-extern float getimpedancelax(char *name)
+extern double 
+getimpedancelax(char *name)
 {
-   ptype_list* ptype;
+   lax_param_list * Param;
    
-   if (LAX) {
-      for (ptype=LAX->impedancePI; ptype; ptype=ptype->NEXT) {
-         if ((char*)ptype->DATA==name)  return ptype->TYPE;
-      }
-   }   
+   if (LAX) 
+   {
+     for ( Param =LAX->impedancePI;  Param ;  Param = Param->next) 
+     {
+       if ((char*) Param->name ==name)  return Param->value;
+     }
+   }
    return DEFAULT_IMPEDANCE;
 }
 
@@ -1222,14 +946,16 @@ extern float getimpedancelax(char *name)
 /***************************************************************************/
 /*   return the fanout(C in pF exp-12) of name for an output in lax file   */
 /***************************************************************************/
-extern float getcapacitancelax(char *name)
+extern double 
+getcapacitancelax(char *name)
 {
-   ptype_list* ptype;
+   lax_param_list * Param;
    
-   if (LAX) {
-      for (ptype=LAX->capaPO; ptype; ptype=ptype->NEXT) {
+   if (LAX) 
+   {
+      for (Param=LAX->capaPO; Param; Param=Param->next) {
          /* fF exp-15   --->   pF  exp-12   */
-         if ((char*)ptype->DATA==name)  return (float)ptype->TYPE/1000;
+         if ((char*)Param->name ==name)  return Param->value / 1000.0;
       }
    }
    return DEFAULT_CAPACITANCE;
@@ -1239,13 +965,14 @@ extern float getcapacitancelax(char *name)
 /***************************************************************************/
 /*      return the number of buffers to put for input in lax file          */
 /***************************************************************************/
-extern int getbufferlax(char *name)
+extern int 
+getbufferlax(char *name)
 {
-   ptype_list* ptype;
+   lax_param_list * Param;
    
    if (LAX) {
-      for (ptype=LAX->buffPI; ptype; ptype=ptype->NEXT) {
-         if ((char*)ptype->DATA==name) return ptype->TYPE;
+      for (Param=LAX->buffPI; Param; Param=Param->next) {
+         if ((char*)Param->name ==name) return (int)Param->value;
       }
    }   
    return DEFAULT_BUFFER;
@@ -1255,14 +982,16 @@ extern int getbufferlax(char *name)
 /***************************************************************************/
 /*     return the delay (in ps exp-12) of name for an input in lax file    */
 /***************************************************************************/
-extern float getdelaylax(char *name)
+extern double 
+getdelaylax(char *name)
 {
-   ptype_list* ptype;
+   lax_param_list * Param;
    
-   if (LAX) {
-      for (ptype=LAX->delayPI; ptype; ptype=ptype->NEXT) {
+   if (LAX) 
+   {
+      for (Param=LAX->delayPI; Param; Param=Param->next) {
          /*ns exp-9 -> ps  exp-12  */
-         if ((char*)ptype->DATA==name) return ptype->TYPE*1000;
+         if ((char*)Param->name==name) return Param->value*1000.0;
       }
    }
    return DEFAULT_DELAY;
@@ -1272,13 +1001,15 @@ extern float getdelaylax(char *name)
 /***************************************************************************/
 /*       return 1 if the internal signal shouldn't be erased               */
 /***************************************************************************/
-extern int signalsavelax(char *signame)
+extern int 
+signalsavelax(char *signame)
 {
-   chain_list* chain;
+   lax_name_list *chain;
    
-   if (LAX) {
-      for (chain=LAX->intermediate; chain; chain=chain->NEXT) {
-         if ((char*)chain->DATA==signame) return 1;
+   if (LAX) 
+   {
+      for (chain=LAX->intermediate; chain; chain=chain->next) {
+         if ( (char*)chain->name == signame ) return 1;
       }
    }
    return 0;
@@ -1291,7 +1022,8 @@ extern int signalsavelax(char *signame)
 /* 3,4: optimize in delay                                                  */
 /* 2: middle                                                               */
 /***************************************************************************/
-extern int getoptimlax()
+extern int 
+getoptimlax()
 {
    if (!LAX) return DEFAULT_OPTIM;        /*optimize in delay by default*/
    else return LAX->mode;  
@@ -1302,11 +1034,12 @@ extern int getoptimlax()
 /*          return 1 if lax matches with befig                             */
 /* lokk if all referenced names are in befig                               */
 /***************************************************************************/
-extern int coherencelax(befig_list* befig)
+extern int 
+coherencelaxbefig(befig_list* befig)
 {
    char* name;
-   ptype_list* ptype;
-   chain_list* chain;
+   lax_param_list * Param;
+   lax_name_list  * chain;
    bepor_list* bepor;
    beaux_list* beaux=NULL;
    bebux_list* bebux;
@@ -1315,8 +1048,8 @@ extern int coherencelax(befig_list* befig)
    
    if (!LAX) return 1;
    
-   for (ptype=LAX->delayPI; ptype; ptype=ptype->NEXT) {
-      name=(char*) ptype->DATA;
+   for (Param=LAX->delayPI; Param; Param=Param->next) {
+      name=(char*) Param->name;
       for (bepor=befig->BEPOR; bepor;bepor=bepor->NEXT) {
          if (name!=bepor->NAME) continue;
          if (bepor->DIRECTION!='I' && bepor->DIRECTION!='B' 
@@ -1334,8 +1067,8 @@ extern int coherencelax(befig_list* befig)
       }
    }
    
-   for (ptype=LAX->impedancePI; ptype; ptype=ptype->NEXT) {
-      name=(char*) ptype->DATA;
+   for (Param=LAX->impedancePI; Param; Param=Param->next) {
+      name=(char*) Param->name;
       for (bepor=befig->BEPOR; bepor;bepor=bepor->NEXT) {
          if (name!=bepor->NAME) continue;
          if (bepor->DIRECTION!='I' && bepor->DIRECTION!='B' 
@@ -1353,8 +1086,8 @@ extern int coherencelax(befig_list* befig)
       }
    }
    
-   for (ptype=LAX->capaPO; ptype; ptype=ptype->NEXT) {
-      name=(char*) ptype->DATA;
+   for (Param=LAX->capaPO; Param; Param=Param->next) {
+      name=(char*) Param->name;
       for (bepor=befig->BEPOR; bepor;bepor=bepor->NEXT) {
          if (name!=bepor->NAME) continue;
          if (bepor->DIRECTION=='I' || bepor->DIRECTION=='B' 
@@ -1372,8 +1105,8 @@ extern int coherencelax(befig_list* befig)
       }
    }
    
-   for (ptype=LAX->buffPI; ptype; ptype=ptype->NEXT) {
-      name=(char*) ptype->DATA;
+   for (Param=LAX->buffPI; Param; Param=Param->next) {
+      name=(char*) Param->name;
       for (bepor=befig->BEPOR; bepor;bepor=bepor->NEXT) {
          if (name!=bepor->NAME) continue;
          if (bepor->DIRECTION!='I' && bepor->DIRECTION!='B' 
@@ -1391,8 +1124,8 @@ extern int coherencelax(befig_list* befig)
       }
    }
    
-   for (chain=LAX->intermediate; chain; chain=chain->NEXT) {
-      name=(char*) chain->DATA;
+   for (chain=LAX->intermediate; chain; chain=chain->next) {
+      name=(char*) chain->name;
       for (bebux=befig->BEBUX; bebux;bebux=bebux->NEXT) {
          if (name!=bebux->NAME) continue;
          break;
@@ -1415,3 +1148,96 @@ extern int coherencelax(befig_list* befig)
    return ret;
 }
 
+/***************************************************************************/
+/*          return 1 if lax matches with lofig                             */
+/* look if all referenced names are in lofig                               */
+/***************************************************************************/
+extern int 
+coherencelaxlofig(lofig_list* lofig)
+{
+   char* name;
+   lax_param_list * Param;
+   locon_list* locon;
+   int ret=1;
+   
+   if (!LAX) return 1;
+   
+   for (Param=LAX->delayPI; Param; Param=Param->next) {
+      name=(char*) Param->name;
+      for (locon=lofig->LOCON; locon;locon=locon->NEXT) {
+         if (name!=locon->NAME) continue;
+         if (locon->DIRECTION!=IN && locon->DIRECTION!=INOUT
+          && locon->DIRECTION!=TRANSCV) {
+            fprintf(stderr,"LAX: '%s' is an output in netlist file '%s'\n",
+            name,lofig->NAME);
+            ret=0;
+         }
+         break;
+      }
+      if (!locon) {
+         fprintf(stderr,"LAX: '%s' doesn't exist in netlist file '%s'\n",
+         name,lofig->NAME);
+         ret=0;
+      }
+   }
+   
+   for (Param=LAX->impedancePI; Param; Param=Param->next) {
+      name=(char*) Param->name;
+      for (locon=lofig->LOCON; locon;locon=locon->NEXT) {
+         if (name!=locon->NAME) continue;
+         if (locon->DIRECTION!=IN && locon->DIRECTION!=INOUT
+          && locon->DIRECTION!=TRANSCV) {
+            fprintf(stderr,"LAX: '%s' is an output in netlist file '%s'\n",
+            name,lofig->NAME);
+            ret=0;
+         }
+         break;
+      }
+      if (!locon) {
+         fprintf(stderr,"LAX: '%s' doesn't exist in netlist file '%s'\n",
+         name,lofig->NAME);
+         ret=0;
+      }
+   }
+   
+   for (Param=LAX->capaPO; Param; Param=Param->next) {
+      name=(char*) Param->name;
+      for (locon=lofig->LOCON; locon;locon=locon->NEXT) {
+         if (name!=locon->NAME) continue;
+         if (locon->DIRECTION==IN || locon->DIRECTION==INOUT
+          || locon->DIRECTION==TRANSCV) {
+            fprintf(stderr,"LAX: '%s' is an input in netlist file '%s'\n",
+            name,lofig->NAME);
+            ret=0;
+         }
+         break;
+      }
+      if (!locon) {
+         fprintf(stderr,"LAX: '%s' doesn't exist in netlist file '%s'\n",
+         name,lofig->NAME);
+         ret=0;
+      }
+   }
+   
+   for (Param=LAX->buffPI; Param; Param=Param->next) {
+      name=(char*) Param->name;
+      for (locon=lofig->LOCON; locon;locon=locon->NEXT) {
+         if (name!=locon->NAME) continue;
+         if (locon->DIRECTION!=IN && locon->DIRECTION!=INOUT
+          && locon->DIRECTION!=TRANSCV) {
+            fprintf(stderr,"LAX: '%s' is an output in netlist file '%s'\n",
+            name,lofig->NAME);
+            ret=0;
+         }
+         break;
+      }
+      if (!locon) {
+         fprintf(stderr,"LAX: '%s' doesn't exist in netlist file '%s'\n",
+         name,lofig->NAME);
+         ret=0;
+      }
+   }
+   
+   
+   return ret;
+}
