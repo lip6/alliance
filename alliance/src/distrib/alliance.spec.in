@@ -123,6 +123,7 @@ Sources of the Alliance VLSI CAD System, as you might guess...
 %{prefix}/lib/*
 %{prefix}/include/*
 %{prefix}/man/man?/*
+%{prefix}/doc/*
 
 
 %files sources
@@ -130,6 +131,11 @@ Sources of the Alliance VLSI CAD System, as you might guess...
 
 
 %changelog
+* Fri May 31 2002  Jean-Paul.Chaput <Jean-Paul.Chaput@lip6.fr>
+- GenPat added.
+- GenLib docs added.
+- seplace/seroute/sea bug fixes.
+
 * Thu May 16 2002  Jean-Paul.Chaput <Jean-Paul.Chaput@lip6.fr>
 - Corrected buggy substitution of ALLIANCE_TOP in alc_env.csh.
 - Remove the alc_env.* scripts in "/etc/profile.d" only if this
