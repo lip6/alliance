@@ -1132,7 +1132,7 @@ void post_treat (model, scotch_on_flag, verbose, autoimp)
 
       if (!modelp->FLAGS && !incataloggds (modelp->NAME))
       {
-         post_treat (modelp, scotch_on_flag, verbose);
+         post_treat (modelp, scotch_on_flag, verbose, autoimp);
       }
    }
    if (verbose)
