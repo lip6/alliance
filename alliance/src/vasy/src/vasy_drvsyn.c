@@ -230,7 +230,18 @@
      VasySynopsysConvertVexError,    /* VEX_INDEX_N   */
      VasySynopsysConvertVexError,    /* VEX_OTHERS    */
      VasySynopsysConvertVexError,    /* VEX_NUM_BIT   */
-     VasySynopsysConvertVexAbs       /* VEX_ABS       */
+     VasySynopsysConvertVexAbs,      /* VEX_ABS       */
+     VasySynopsysConvertVexError,    /* AF            */
+     VasySynopsysConvertVexError,    /* AG            */
+     VasySynopsysConvertVexError,    /* AX            */
+     VasySynopsysConvertVexError,    /* AU            */
+     VasySynopsysConvertVexError,    /* EF            */
+     VasySynopsysConvertVexError,    /* EG            */
+     VasySynopsysConvertVexError,    /* EX            */
+     VasySynopsysConvertVexError,    /* EU            */
+     VasySynopsysConvertVexError,    /* EQUIV         */
+     VasySynopsysConvertVexError     /* IMPLY         */           
+
   };
 
   static short VasyConvertBoolType[ VASY_MAX_TYPE ][ VASY_MAX_TYPE ] =

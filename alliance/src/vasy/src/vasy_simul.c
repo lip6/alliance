@@ -134,7 +134,17 @@
      NULL,                      /* VEX_INDEX_N   */
      NULL,                      /* VEX_OTHERS    */
      NULL,                      /* VEX_NUM_BIT   */
-     VasySimulateVexAbs         /* VEX_ABS       */
+     VasySimulateVexAbs,        /* VEX_ABS       */
+     NULL,                      /* AF            */
+     NULL,                      /* AG            */
+     NULL,                      /* AX            */
+     NULL,                      /* AU            */
+     NULL,                      /* EF            */
+     NULL,                      /* EG            */
+     NULL,                      /* EX            */
+     NULL,                      /* EU            */
+     NULL,                      /* EQUIV         */
+     NULL                       /* IMPLY         */ 
   };
 
   static char VasyTruthTableAnd[ VEX_MAX_ID ][ VEX_MAX_ID ] =

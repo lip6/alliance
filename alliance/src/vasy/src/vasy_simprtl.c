@@ -125,7 +125,17 @@
     0, /* VEX_INDEX_N         */
     0, /* VEX_OTHERS          */
     0, /* VEX_NUM_BIT         */
-    1  /* VEX_ABS             */
+    1, /* VEX_ABS             */
+    0, /* AF                  */
+    0, /* AG                  */
+    0, /* AX                  */
+    0, /* AU                  */
+    0, /* EF                  */
+    0, /* EG                  */
+    0, /* EX                  */
+    0, /* EU                  */
+    0, /* EQUIV               */
+    0  /* IMPLY               */ 
   };
 
   static char VasyBuffer[ 512 ];

@@ -140,7 +140,17 @@
     VASY_SUPPORT_ERROR,    /* VEX_INDEX_N   */
     VASY_SUPPORT_ERROR,    /* VEX_OTHERS    */
     VASY_SUPPORT_ERROR,    /* VEX_NUM_BIT   */
-    VASY_SUPPORT_ARITH     /* VEX_ABS       */
+    VASY_SUPPORT_ARITH,    /* VEX_ABS       */
+    VASY_SUPPORT_ERROR,    /* AF            */
+    VASY_SUPPORT_ERROR,    /* AG            */
+    VASY_SUPPORT_ERROR,    /* AX            */
+    VASY_SUPPORT_ERROR,    /* AU            */
+    VASY_SUPPORT_ERROR,    /* EF            */
+    VASY_SUPPORT_ERROR,    /* EG            */
+    VASY_SUPPORT_ERROR,    /* EX            */
+    VASY_SUPPORT_ERROR,    /* EU            */
+    VASY_SUPPORT_ERROR,    /* EQUIV         */
+    VASY_SUPPORT_ERROR     /* IMPLY         */ 
   };
 
 /*------------------------------------------------------------\
