@@ -1,8 +1,11 @@
 /*
    ### -------------------------------------------------- ### 
    $Author: hcl $
-   $Date: 2002/06/27 09:09:05 $
+   $Date: 2002/06/27 12:58:43 $
    $Log: ocrWRoutingUtil.c,v $
+   Revision 1.5  2002/06/27 12:58:43  hcl
+   Nettoyage
+
    Revision 1.4  2002/06/27 09:09:05  hcl
    Code d'erreur si tous les signaux ne sont pas routés.
 
@@ -112,6 +115,9 @@ ocrWRoutingGrid *createWGrid(ocrNaturalInt size_h,
 
     pt->SIZE_H = size_h;
     pt->SIZE_V = size_v;
+
+    //printf ("SIZE_H=%ld ; SIZE_V=%ld\n", size_h, size_v);
+    
     pt->NB_OF_LAYERS = nb_of_layers;
     pt->DATA =
         (ocrWSegment **) mbkalloc(size_h * size_v * nb_of_layers *
@@ -139,7 +145,6 @@ void initWGrid(ocrWRoutingGrid * i_pGrid, ocrRoutingParameters * i_pParam)
                 for (j = l_pSegment->P_MIN; j <= l_pSegment->P_MAX; j++)
                     setWGrid(i_pGrid, l_pSegment, j, i, l_uLayer);
         } else                  // vertical
-
             for (j = 0; j < i_pGrid->SIZE_H; j++) {
                 l_pSegment =
                     createWSegment(j, l_uLayer, 0, i_pGrid->SIZE_V - 1,
@@ -148,6 +153,8 @@ void initWGrid(ocrWRoutingGrid * i_pGrid, ocrRoutingParameters * i_pParam)
                     setWGrid(i_pGrid, l_pSegment, j, i, l_uLayer);
             }
 
+#if 0
+        
     // contraintes NORTH ALU 2
     i = i_pGrid->SIZE_V - 1;
     l_uLayer = 0;
@@ -156,28 +163,26 @@ void initWGrid(ocrWRoutingGrid * i_pGrid, ocrRoutingParameters * i_pParam)
         setWGrid(i_pGrid, l_pSegment, j, i, l_uLayer);
     }
 
-    // contraintes NORTH en ALU 4
+     contraintes NORTH en ALU 4
     if (i_pGrid->NB_OF_LAYERS >= 3) {
         l_pSegment = getWSegment(i_pGrid, 0, 0, 2);
         l_pSegment->SIGNAL_INDEX = WSEGMENT_OBSTACLE;
     }
-    // contraintes SOUTH en ALU 4
+     contraintes SOUTH en ALU 4
     if (i_pGrid->NB_OF_LAYERS >= 3) {
         l_pSegment = getWSegment(i_pGrid, 0, i_pGrid->SIZE_V - 1, 2);
         l_pSegment->SIGNAL_INDEX = WSEGMENT_OBSTACLE;
     }
-    // contraintes EAST
+     contraintes EAST
     l_pSegment = getWSegment(i_pGrid, i_pGrid->SIZE_H - 1, 0, 1);
     l_pSegment->SIGNAL_INDEX = WSEGMENT_OBSTACLE;
 
-    //return; // XXX DEBUG
+    return; // XXX DEBUG
+#endif
 
     // contraintes ON NE ROUTE PAS SUR LES BORDS !
     for (i = 0; i < i_pGrid->NB_OF_LAYERS; i++) {
-        if (((i % 2) && (i_pParam->EVEN_LAYERS_DIRECTION == ocrHorizontal))
-            ||
-            (!(i % 2) && (i_pParam->EVEN_LAYERS_DIRECTION == ocrVertical))
-            ) {
+        if (getDirection (i_pParam, i) == ocrVertical) {
             // Layer vertical
             l_pSegment = getWSegment(i_pGrid, 0, 0, i);
             l_pSegment->SIGNAL_INDEX = WSEGMENT_OBSTACLE;
@@ -192,6 +197,7 @@ void initWGrid(ocrWRoutingGrid * i_pGrid, ocrRoutingParameters * i_pParam)
         }
     }
 
+#if 0
     if (i_pGrid->NB_OF_LAYERS > 2) {
         for (l_uLayer = 3; l_uLayer < i_pGrid->NB_OF_LAYERS; l_uLayer++)
 
@@ -211,6 +217,7 @@ void initWGrid(ocrWRoutingGrid * i_pGrid, ocrRoutingParameters * i_pParam)
                     }
                 }
     }
+#endif
 
 }
 
