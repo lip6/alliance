@@ -9,4 +9,4 @@ pkghtml_DATA = \
 EXTRA_DIST = $(pkghtml_DATA)
 
 install-data-hook:
-	chmod -R g+w $(DESTDIR)$(prefix)/doc/html/@PACKAGE@
+	find -type f $(DESTDIR)$(prefix)/doc/html/@PACKAGE@ | xargs chmod g+w

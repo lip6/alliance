@@ -89,7 +89,7 @@
  echo "EXTRA_DIST = \$(pkghtml_DATA)" >> $DOC_AM
  echo "" >> $DOC_AM
  echo "install-data-hook:" >> $DOC_AM
- echo "	chmod -R g+w \$(DESTDIR)\$(prefix)/doc/html/@PACKAGE@" >> $DOC_AM
+ echo "	find \$(DESTDIR)\$(prefix)/doc/html/@PACKAGE@ -type f | xargs chmod g+w" >> $DOC_AM
 
 
  mv $DOC_AM $TOOL/Makefile.am
