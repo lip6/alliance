@@ -10,6 +10,10 @@
 /* ###--------------------------------------------------------------------### */
 /*
  * $Log: vel_drive.c,v $
+ * Revision 1.8  2002/12/17 15:51:20  francois
+ * estimate delta for each signal.
+ * Not for the first only.
+ *
  * Revision 1.7  2002/12/12 21:28:27  xtof
  * What's this MODELNAME doing here ????
  *
@@ -83,7 +87,7 @@
  *
  */
 
-#ident "$Id: vel_drive.c,v 1.7 2002/12/12 21:28:27 xtof Exp $"
+#ident "$Id: vel_drive.c,v 1.8 2002/12/17 15:51:20 francois Exp $"
 
 #include <stdio.h>
 #include <string.h>
@@ -710,8 +714,9 @@ its_first:
                   in fact this vector follows an other vector! */
                if (t != namealloc(Buffer0))
                   goto its_first;
-               if (!delta)
-                  delta = previous - current;
+               
+               delta = previous - current;
+#if 0
                else if (delta != previous - current) {
                   /* This would mean that the sort failed, so I'll not
                    * treat this case */
@@ -725,6 +730,7 @@ its_first:
                                                          Buffer0, current);
                   EXIT(1);
                }
+#endif
                if (delta != 1 && delta != -1) {
                   if (delta < 0)
                      for (i = previous + 1; i < current; i++) {
