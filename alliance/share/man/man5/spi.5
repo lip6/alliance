@@ -89,6 +89,8 @@ Environment variable considered are
 .B MBK_SPI_VERBOSE
 
 .B MBK_SPI_ONE_NODE_NORC
+
+.B MBK_SPI_NO_AFF_UNK
 .RE
 
 .SH ENVIRONMENT VARIABLES
@@ -126,6 +128,10 @@ If this variable is set, display debug various information on the error output.
 .B MBK_SPI_ONE_NODE_NORC
 
 If this variable is set, an RCN view is not created for a net containing only one node.
+
+.B MBK_SPI_NO_AFF_UNK
+
+Default behaviour of Spice parser is to display an error message when an unknown element is read in the input file. Setting this variable prevent this display. Usefull when file contain command for Spice simulator.
 
 .SH EXAMPLE
 
