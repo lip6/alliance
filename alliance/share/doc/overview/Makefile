@@ -1,11 +1,13 @@
 
 MYFILE=overview
 
-all : $(MYFILE).tex
+ps   : $(MYFILE).tex
 	latex $(MYFILE).tex
 	dvips $(MYFILE).dvi -o $(MYFILE).ps
+	cp -f $(MYFILE).ps ..
+
 view :        
-	gs $(MYFILE).ps
+	gv $(MYFILE).ps
 
 clean :
 	rm -f $(MYFILE).ps *.log *.dvi *.aux
