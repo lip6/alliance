@@ -1,0 +1,51 @@
+;  ###----------------------------------------------------------------###
+;  #									#
+;  # file	: exc000.u						#
+;  # date	: Apr  1 1993						#
+;  # descr.	: functional test for dlx				#
+;  #									#
+;  ###----------------------------------------------------------------###
+
+	;  ###--------------------------------------------------------###
+	;  #   exceptions :						#
+	;  #     - data address miss alignment (when loading a word)	#
+	;  ###--------------------------------------------------------###
+
+adr		equ	X"00000051"		; miss aligned word address
+data		equ	X"9043ad6b"		; data
+
+		org	X"7fffff00"
+		start	init
+
+init:
+		loadi	r31, back_from_exception
+		loadi	r1 , adr		; word's address
+		loadi	r2 , data		; init. r2 with a data
+		loadi	r3 , data		; init. r3 with the same value
+
+	;  ###--------------------------------------------------------###
+	;  #   load a word at a miss aligned address (data address	#
+	;  # alignment exception)					#
+	;  ###--------------------------------------------------------###
+
+		lw	r2 , r1 , 0		; EXCEPTION (alignement)
+
+	;  ###--------------------------------------------------------###
+	;  #   check that the load has faild and the content of the	#
+	;  # register has not been altered				#
+	;  ###--------------------------------------------------------###
+
+back_from_exception:
+		seq	r4 , r2 , r3		; check that the lw has failed
+		bnez	r4 , good		; jump to good if OK
+		nop
+		j	bad
+		nop
+
+		org	X"7ffffff0"
+good		j	good
+		nop
+bad		j	bad
+		nop
+
+		end

@@ -1,0 +1,178 @@
+-- ### -------------------------------------------------------------- ###
+-- #									#
+-- # file	: dlxm_dec.vbe						#
+-- # date	: Dec 31 1994						#
+-- # version	: v0.2							#
+-- # author	: Pirouz BAZARGAN SABET					#
+-- #		  at MASI laboratory, University Pierre et Marie Curie	#
+-- #		  URA CNRS 818, Institut Blaise Pascal			#
+-- #		  4 Place Jussieu 75252 Paris Cedex 05 - France		#
+-- # E-mail      :      cao-vlsi@masi.ibp.fr                            #
+-- #									#
+-- # descr.	: data flow description of an address decoder for DLX	#
+-- #									#
+-- ### -------------------------------------------------------------- ###
+
+entity dlxm_dec is
+
+port (
+   ck          : in    bit                         ;	-- external clock
+   dlx_dadr    : in    bit_vector (31 downto 0)    ;	-- data address
+   rw          : in    bit                         ;	-- read write
+   byte        : in    bit_vector ( 0     to 3)    ;	-- valid bytes
+   sel_romu_n  : out   bit                         ;	-- user rom
+   sel_ramu_n  : out   bit_vector ( 0     to 3)    ;	-- user ram
+   sel_roms_n  : out   bit                         ;	-- system rom
+   sel_rams_n  : out   bit_vector ( 0     to 3)    ;	-- system ram
+   sel_timer_n : out   bit                         ;	-- timer
+   vdd         : in    bit                         ;	--
+   vss         : in    bit				--
+  );
+
+end dlxm_dec;
+
+architecture FUNCTIONAL of dlxm_dec is
+
+  signal rams     : bit                              ;	-- select system ram
+  signal ramu     : bit                              ;	-- select user ram
+  signal roms     : bit                              ;	-- select system rom
+  signal romu     : bit                              ;	-- select user rom
+  signal timer    : bit                              ;	-- select system timer
+  signal dly0_ck  : bit                              ;	-- delayed clock
+  signal dly1_ck  : bit                              ;	-- delayed clock
+  signal dly2_ck  : bit                              ;	-- delayed clock
+  signal dly3_ck  : bit                              ;	-- delayed clock
+  signal dly4_ck  : bit                              ;	-- delayed clock
+  signal dly5_ck  : bit                              ;	-- delayed clock
+  signal dlyd_ck  : bit                              ;	-- delayed clock
+
+  signal bad_cry  : bit_vector ( 3 downto 0)         ;	-- adder's carry
+  signal bad_add  : bit_vector ( 2 downto 0)         ;	-- bad counter's adder
+  signal bad_cnt  : reg_vector ( 2 downto 0) register;	-- bad address counter
+  signal good_cry : bit_vector ( 3 downto 0)         ;	-- adder's carry
+  signal good_add : bit_vector ( 2 downto 0)         ;	-- good counter's adder
+  signal good_cnt : reg_vector ( 2 downto 0) register;	-- good address counter
+
+  constant BAD    : bit_vector (31 downto 0) := X"7ffffff8";	-- bad  address
+  constant GOOD   : bit_vector (31 downto 0) := X"7ffffff0";	-- good address
+
+begin
+
+  dly0_ck      <= ck;
+  dly1_ck      <= dly0_ck;
+  dly2_ck      <= dly1_ck;
+  dly3_ck      <= dly2_ck;
+  dly4_ck      <= dly3_ck;
+  dly5_ck      <= dly4_ck;
+  dlyd_ck      <= dly5_ck;
+
+	-- ### ------------------------------------------------------ ###
+	-- #   select on board user/system ram-rom depending on data	#
+	-- # addresses :						#
+	-- #								#
+	-- #     0000_0000 - user ram					#
+	-- #     0000_00FF - user ram					#
+	-- #								#
+	-- #     0000_0100 - off board ram extension			#
+	-- #     7FFF_FEFF - off board ram extension			#
+	-- #								#
+	-- #     7FFF_FF00 - user rom					#
+	-- #     7FFF_FFFF - user rom					#
+	-- #								#
+	-- #     8000_0000 - system ram					#
+	-- #     8000_00FF - system ram					#
+	-- #								#
+	-- #     8000_0100 - system timer				#
+	-- #     8000_01FF - system timer				#
+	-- #								#
+	-- #     8000_0200 - off board ram extension			#
+	-- #     FFFF_FFFF - off board ram extension			#
+	-- #								#
+	-- #     FFFF_FF00 - system rom					#
+	-- #     FFFF_FFFF - system rom					#
+	-- ### ------------------------------------------------------ ###
+
+  with dlx_dadr (31 downto 8) select
+  ramu  <= '1' when X"0000_00",
+           '0' when others;
+
+  with dlx_dadr (31 downto 8) select
+  romu  <= '1' when X"7FFF_FF",
+           '0' when others;
+
+  with dlx_dadr (31 downto 8) select
+  rams  <= '1' when X"8000_00",
+           '0' when others;
+
+  with dlx_dadr (31 downto 8) select
+  timer  <= '1' when X"8000_01",
+            '0' when others;
+
+  with dlx_dadr (31 downto 8) select
+  roms  <= '1' when X"FFFF_FF",
+           '0' when others;
+
+	-- ### ------------------------------------------------------ ###
+	-- #   assign outputs						#
+	-- #     - effective selection of ram chips (on high level of	#
+	-- #       clock to avoid conflicts)				#
+	-- #     - effective selection of rom chips			#
+	-- #     - effective selection of timer				#
+	-- ### ------------------------------------------------------ ###
+
+  sel_ramu_n (0) <= not (ramu  and ck and byte (0));
+  sel_ramu_n (1) <= not (ramu  and ck and byte (1));
+  sel_ramu_n (2) <= not (ramu  and ck and byte (2));
+  sel_ramu_n (3) <= not (ramu  and ck and byte (3));
+
+  sel_rams_n (0) <= not (rams  and ck and byte (0));
+  sel_rams_n (1) <= not (rams  and ck and byte (1));
+  sel_rams_n (2) <= not (rams  and ck and byte (2));
+  sel_rams_n (3) <= not (rams  and ck and byte (3));
+
+  sel_timer_n    <= not (timer and ck and byte(0)
+                                      and byte(1)
+                                      and byte(2)
+                                      and byte(3));
+
+  sel_romu_n     <= not (romu  and ck and byte(0)
+                                      and byte(1)
+                                      and byte(2)
+                                      and byte(3));
+
+  sel_roms_n     <= not (roms  and ck and byte(0)
+                                      and byte(1)
+                                      and byte(2)
+                                      and byte(3));
+
+	-- ### ------------------------------------------------------ ###
+	-- #   watching the address bus to detect the fetch of the	#
+	-- # GOOD or the BAD address (simulation aborts when the	#
+	-- # instruction has been fetched 3 times)			#
+	-- ### ------------------------------------------------------ ###
+
+  bad_cry  (0)          <= '1';
+  bad_cry  (3 downto 1) <= bad_cnt and bad_cry (2 downto 0);
+  bad_add               <= bad_cnt xor bad_cry (2 downto 0);
+
+  good_cry (0)          <= '1';
+  good_cry (3 downto 1) <= good_cnt and good_cry (2 downto 0);
+  good_add              <= good_cnt xor good_cry (2 downto 0);
+
+  bad  : block (ck = '0' and not ck'STABLE and rw = '1' and byte = "1111")
+  begin
+    bad_cnt  <= guarded bad_add  when (dlx_dadr = BAD ) else
+                        "000"      ;
+    good_cnt <= guarded good_add when (dlx_dadr = GOOD) else
+                        "000"      ;
+  end block;
+
+  assert (not (bad_cnt = "011"))
+  report  "==== KO : Simulation has ended with functional test BAD  ===="
+  severity ERROR;
+
+  assert (not (good_cnt = "011"))
+  report  "==== OK : Simulation has ended with functional test GOOD ===="
+  severity ERROR;
+
+end FUNCTIONAL;

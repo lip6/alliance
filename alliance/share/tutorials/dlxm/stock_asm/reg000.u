@@ -1,0 +1,36 @@
+;  ###----------------------------------------------------------------###
+;  #									#
+;  # file	: reg000.u						#
+;  # date	: Apr  1 1993						#
+;  # descr.	: functional test for dlx				#
+;  #									#
+;  ###----------------------------------------------------------------###
+
+	;  ###--------------------------------------------------------###
+	;  #   signed addition						#
+	;  ###--------------------------------------------------------###
+
+val		equ	3429
+
+		org	X"7fffff00"
+		start	init
+
+init:
+		add	r25, r0 , r0
+		bnez	r25, bad
+		nop
+
+		subi	r25, r25, val
+		addi	r25, r25, val
+		bnez	r25, bad
+		nop
+		j	good
+		nop
+
+		org	X"7ffffff0"
+good		j	good
+		nop
+bad		j	bad
+		nop
+		end
+

@@ -1,0 +1,63 @@
+;  ###----------------------------------------------------------------###
+;  #									#
+;  # file	: add005.u						#
+;  # date	: Apr  1 1993						#
+;  # descr.	: functional test for dlx				#
+;  #									#
+;  ###----------------------------------------------------------------###
+
+	;  ###--------------------------------------------------------###
+	;  #   signed addition						#
+	;  #      each register is initialized with its number		#
+	;  ###--------------------------------------------------------###
+
+increment	equ	1
+
+		org	X"7fffff00"
+		start	init
+
+init:
+		addi	r1 , r0 , increment
+		addi	r2 , r1 , increment
+		addi	r3 , r2 , increment
+		addi	r4 , r3 , increment
+		addi	r5 , r4 , increment
+		addi	r6 , r5 , increment
+		addi	r7 , r6 , increment
+		addi	r8 , r7 , increment
+		addi	r9 , r8 , increment
+		addi	r10, r9 , increment
+		addi	r11, r10, increment
+		addi	r12, r11, increment
+		addi	r13, r12, increment
+		addi	r14, r13, increment
+		addi	r15, r14, increment
+		addi	r16, r15, increment
+		addi	r17, r16, increment
+		addi	r18, r17, increment
+		addi	r19, r18, increment
+		addi	r20, r19, increment
+		addi	r21, r20, increment
+		addi	r22, r21, increment
+		addi	r23, r22, increment
+		addi	r24, r23, increment
+		addi	r25, r24, increment
+		addi	r26, r25, increment
+		addi	r27, r26, increment
+		addi	r28, r27, increment
+		addi	r29, r28, increment
+		addi	r30, r29, increment
+		addi	r31, r30, increment
+
+		seqi	r31, r31, (increment * 31)
+		bnez	r31     , good
+		nop
+		j	bad
+		nop
+
+		org	X"7ffffff0"
+good		j	good
+		nop
+bad		j	bad
+		nop
+		end

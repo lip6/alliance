@@ -1,0 +1,36 @@
+;  ###----------------------------------------------------------------###
+;  #									#
+;  # file	: xor000.u						#
+;  # date	: Apr  1 1993						#
+;  # descr.	: functional test for dlx				#
+;  #									#
+;  ###----------------------------------------------------------------###
+
+	;  ###--------------------------------------------------------###
+	;  #   logical exclusive or					#
+	;  ###--------------------------------------------------------###
+
+data1		equ	X"11111111"
+data2		equ	X"00000000"
+		
+		org	X"7fffff00"
+		start	init
+init:
+		loadi	r1 , data1
+		loadi	r2 , data2
+		loadi	r4 , (data1 ^ data2)
+		
+		xor	r3 , r1 , r2
+
+		sne	r31, r4 , r3
+		bnez	r31, bad
+		nop
+		j	good
+		nop
+
+		org	X"7ffffff0"
+good		j	good
+		nop
+bad		j	bad
+		nop
+		end

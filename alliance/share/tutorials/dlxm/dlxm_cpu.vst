@@ -1,0 +1,216 @@
+-- ### -------------------------------------------------------------- ###
+-- #									#
+-- # file	: dlxm_cpu.vst						#
+-- # date	: February 1995           				#
+-- # version	: v0.2							#
+-- # author	: Pirouz BAZARGAN SABET					#
+-- #		  at MASI laboratory, University Pierre et Marie Curie	#
+-- #		  URA CNRS 818, Institut Blaise Pascal			#
+-- #		  4 Place Jussieu 75252 Paris Cedex 05 - France		#
+-- # Email	: cao-vlsi@masi.ibp.fr					#
+-- #									#
+-- # descr.	: DLXp cpu board with on board ram (512 bytes), rom	#
+-- #		  (512 bytes = 128 instructions) and, timer		#
+-- #									#
+-- ### -------------------------------------------------------------- ###
+
+entity dlxp_cpu is
+  port (
+       CK       : in    bit                         ;
+       TEST     : in    bit                         ;
+       SCIN     : in    bit                         ;
+       SCOUT    : out   bit                         ;
+       IT       : in    bit_vector ( 2 downto 0)    ;
+       RESET    : in    bit                         ;
+       FRZ      : in    bit                         ;
+       RW       : inout bit                         ;
+       BYTE     : inout bit_vector ( 0     to 3)    ;
+       DATA     : inout mux_vector (31 downto 0) bus;
+       DATA_ADR : inout mux_vector (31 downto 0) bus;
+       VDD      : in    bit                         ;
+       VSS      : in    bit
+       );
+
+end dlxp_cpu;
+
+architecture structral of dlxp_cpu is
+
+  signal E_RAMU_N : bit_vector ( 0     to 3)    ;
+  signal E_RAMS_N : bit_vector ( 0     to 3)    ;
+  signal E_ROMU_N : bit                         ;
+  signal E_ROMS_N : bit                         ;
+  signal E_TIME_N : bit                         ;
+
+  signal IT0      : wor_bit                  bus;
+
+  component dlxm_chip
+    port ( 
+         CK      : in    bit                          ;
+         RESET   : in    bit                          ;
+         FRZ     : in    bit                          ;
+         IT      : in    bit_vector ( 3 downto 0)     ;
+         DATA    : inout mux_vector (31 downto 0) bus ;
+         BYTE    : out   bit_vector ( 0     to 3)     ;
+         RW      : out   bit                          ;
+         ADR     : out   mux_vector (31 downto 0) bus ;
+         SCIN    : in    bit                          ;
+         TEST    : in    bit                          ;
+         SCOUT   : out   bit                          ;
+         VDD     : in    bit                          ;
+         VSS     : in    bit                          ;
+         VDDP    : in    bit                          ;
+         VSSP    : in    bit
+         ) ;
+  end component;
+
+  component dlxm_dec
+    port (
+         CK          : in    bit                         ;
+         DLX_DADR    : in    bit_vector (31 downto 0)    ;
+         RW          : in    bit                         ;
+         BYTE        : in    bit_vector ( 0     to 3)    ;
+         SEL_ROMU_N  : out   bit                         ;
+         SEL_RAMU_N  : out   bit_vector ( 0     to 3)    ;
+         SEL_ROMS_N  : out   bit                         ;
+         SEL_RAMS_N  : out   bit_vector ( 0     to 3)    ;
+         SEL_TIMER_N : out   bit                         ;
+         VDD         : in    bit                         ;
+         VSS         : in    bit
+         );
+  end component;
+
+  component sr64_32a
+    port (
+         E_N         : in    bit_vector ( 0     to 3)    ;
+         W_N         : in    bit                         ;
+         DAT         : inout mux_vector (31 downto 0) bus;
+         ADR         : in    bit_vector ( 5 downto 0)    ;
+         VDD         : in    bit                         ;
+         VSS         : in    bit
+         );
+  end component;
+
+  component romu
+    port (
+         ADDRESS : in  bit_vector (5  downto 0)    ;
+         E_N     : in  bit                         ;
+         DATA    : out mux_vector (31 downto 0) bus;
+         VDD     : in  bit                         ;
+         VSS     : in  bit
+         );
+  end component;
+
+  component roms
+    port (
+         ADDRESS : in  bit_vector (5  downto 0)    ;
+         E_N     : in  bit                         ;
+         DATA    : out mux_vector (31 downto 0) bus;
+         VDD     : in  bit                         ;
+         VSS     : in  bit
+         );
+  end component;
+
+  component timer
+    port (
+      CK      : in    bit                         ;
+      FRZ     : in    bit                         ;
+      RESET   : in    bit                         ;
+      SEL     : in    bit_vector ( 2 downto 0)    ;
+      DATA    : inout mux_vector (31 downto 0) bus;
+      RW      : in    bit                         ;
+      E_N     : in    bit                         ;
+      IRQ_N   : out   wor_bit                  bus;
+      VDD     : in    bit                         ;
+      VSS     : in    bit
+      );
+  end component;
+
+begin
+
+  dlxm_chip : dlxm_chip
+    port map (
+             IT    => IT & IT0 ,
+             TEST  => TEST     ,
+             SCIN  => SCIN     ,
+             SCOUT => SCOUT    ,
+             FRZ   => FRZ      ,
+             RESET => RESET    ,
+             ADR   => DATA_ADR ,
+             BYTE  => BYTE     ,
+             RW    => RW       ,
+             CK    => CK       ,
+             DATA  => DATA     ,
+             VDDP  => VDD      ,
+             VSSP  => VSS      ,
+             VDD   => VDD      ,
+             VSS   => VSS
+             );
+
+  dlxm_dec : dlxm_dec
+    port map (
+             CK          => CK       ,
+             DLX_DADR    => DATA_ADR ,
+             RW          => RW       ,
+             BYTE        => BYTE     ,
+             SEL_ROMU_N  => E_ROMU_N ,
+             SEL_RAMU_N  => E_RAMU_N ,
+             SEL_ROMS_N  => E_ROMS_N ,
+             SEL_RAMS_N  => E_RAMS_N ,
+             SEL_TIMER_N => E_TIME_N ,
+             VDD         => VDD      ,
+             VSS         => VSS
+             );
+
+  timer : timer
+    port map (
+      CK      => CK                    ,
+      FRZ     => VSS                   ,
+      RESET   => RESET                 ,
+      SEL     => DATA_ADR (4 downto 2) ,
+      DATA    => DATA                  ,
+      RW      => RW                    ,
+      E_N     => E_TIME_N              ,
+      IRQ_N   => IT0                   ,
+      VDD     => VDD                   ,
+      VSS     => VSS
+      );
+
+  ramu : sr64_32a
+    port map (
+             E_N => E_RAMU_N               ,
+             W_N => RW                     ,
+             DAT => DATA                   ,
+             ADR => DATA_ADR ( 7 downto 2) ,
+             VDD => VDD                    ,
+             VSS => VSS
+             );
+
+  romu : romu
+    port map (
+             ADDRESS => DATA_ADR (7 downto 2) ,
+             E_N     => E_ROMU_N              ,
+             DATA    => DATA                  ,
+             VDD     => VDD                   ,
+             VSS     => VSS
+             );
+
+  rams : sr64_32a
+    port map (
+             E_N => E_RAMS_N               ,
+             W_N => RW                     ,
+             DAT => DATA                   ,
+             ADR => DATA_ADR ( 7 downto 2) ,
+             VDD => VDD                    ,
+             VSS => VSS
+             );
+
+  roms : roms
+    port map (
+             ADDRESS => DATA_ADR (7 downto 2) ,
+             E_N     => E_ROMS_N              ,
+             DATA    => DATA                  ,
+             VDD     => VDD                   ,
+             VSS     => VSS
+             );
+
+end;

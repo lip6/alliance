@@ -1,0 +1,567 @@
+
+-- ### -------------------------------------------------------------- ###
+-- #									#
+-- # file	: dlxm_sts.vbe						#
+-- # date	: Febuary 1995						#
+-- # version	: v0.0							#
+-- #									#
+-- # origin	: this description has been developed by CAO-VLSI team	#
+-- #		  at MASI laboratory, University Pierre et Marie Curie	#
+-- #		  URA CNRS 818, Institut Blaise Pascal			#
+-- #		  4 Place Jussieu 75252 Paris Cedex 05 - France		#
+-- # E-mail      :      cao-vlsi@masi.ibp.fr                            #
+-- #									#
+-- # descr.	: Behavioural description for status and interrupts	#
+-- #		  New register cpurst_r					#
+-- # 		  output control to tristate pads 2*16			#
+-- #									#
+-- ### -------------------------------------------------------------- ###
+
+--
+--  order of the registers in the scan-path 
+--
+--    OVR
+--    ICO
+--    DAV
+--    IAV
+--    IT0
+--    IT1
+--    IT2
+--    IT3
+--    FREEZE
+--    RESET
+--    CPURST
+--    IFORMT
+--
+--
+-------------------------------------------------------
+
+ENTITY dlxm_sts IS
+  PORT( ck          : IN  BIT ;                      -- clock
+        frz         : IN  BIT ;                      -- external freeze
+        reset       : IN  BIT ;                      -- external reset 
+        test        : IN  BIT ;                      -- test mode 
+
+        ctlalu      : IN  BIT_VECTOR(4 DOWNTO 0) ;   -- ALU operations
+        opx_sign    : IN  BIT ;                      -- operdan's signs and 
+        opy_sign    : IN  BIT ;                      -- result sign to
+        alu_sign    : IN  BIT ;                      -- check the
+        alu_nul     : IN  BIT ;                      -- alu result
+
+        alu_c31     : IN  BIT ;                      -- carry 31 and carry 30 to 
+        alu_c30     : IN  BIT ;                      -- compute ovr
+
+        ovr_en      : IN  BIT ;                      -- ovr computation enable 
+        ico         : IN  BIT ;                      -- illegal OPCOD
+        priv        : IN  BIT ;                      -- privileged instruction 
+        iformt      : IN  BIT ;                      -- instruction format i
+        riformt     : IN  BIT ;                      -- reset iformat 
+
+        rs          : IN  BIT_VECTOR(4 DOWNTO 0);    -- register RS
+        rd          : IN  BIT_VECTOR(4 DOWNTO 0);    -- register RD
+        rdrt        : IN  BIT_VECTOR(4 DOWNTO 0);    -- register RD or RT
+        mxrs_rdrt   : IN  BIT ;                      -- RD or RT  selection 
+
+	wenable_in  : IN  BIT_VECTOR(8 DOWNTO 0) ;   -- wenable from sequencer
+        ctlrw_in    : IN  BIT_VECTOR(3 DOWNTO 0) ;   -- MEM from SEQ
+
+        sr_mode     : IN  BIT ;                      -- mode 1-user 0-superuser
+        sr_mask     : IN  BIT ;                      -- interrupt mask
+        adr0        : IN  BIT ;                      -- adr(0)
+        adr1        : IN  BIT ;                      -- adr(1)
+        adr31       : IN  BIT ;                      -- adr(31)
+
+        intrqs      : IN  BIT_VECTOR(3 DOWNTO 0) ;   --  external interrupts
+
+        scin        : IN  BIT ;                      -- seq_scout
+
+        alu_test    : OUT BIT ;                      -- check the alu result
+
+        redpnt      : OUT BIT_VECTOR(4 DOWNTO 0) ;   -- read register
+        wrtpnt      : OUT BIT_VECTOR(4 DOWNTO 0) ;   -- write register 
+
+	wenable_out : OUT BIT_VECTOR(5 DOWNTO 0) ;   -- wenable to datapath
+        ctlrw_out   : OUT BIT_VECTOR(3 DOWNTO 2) ;   -- ctlrw to datapath
+
+        sr_ovr      : OUT BIT ;                      -- exception's flags
+        sr_dav      : OUT BIT ;
+        sr_iav      : OUT BIT ;
+        sr_ico      : OUT BIT ;
+        sr_it0      : OUT BIT ;                      -- interrupt's flags
+        sr_it1      : OUT BIT ;
+        sr_it2      : OUT BIT ;
+        sr_it3      : OUT BIT ;
+        sr_cpurst   : OUT BIT ;                      -- cpureset flag to dpt 
+
+	sts_reset   : OUT BIT ;			     -- reset flag to seq	
+
+        rqs         : OUT BIT ;                      -- request to SEQ 
+
+        rw          : OUT BIT ;                      -- ext read write
+        rw_ctl      : OUT BIT_VECTOR(15 DOWNTO 0) ;  -- inout data ctl
+        frz_ctl     : OUT BIT_VECTOR(15 DOWNTO 0) ;  -- out address ctl
+
+        byte        : OUT BIT_VECTOR(0 to 3) ;       -- ext byte
+        scout       : OUT BIT ;                      -- scout ext
+
+        zero        : OUT BIT ;                      -- zero ext
+        vdd         : IN  BIT ;
+        vss         : IN  BIT );
+
+END dlxm_sts;
+
+ARCHITECTURE behavioural of dlxm_sts is
+
+  -- 'freezed' clock
+
+  SIGNAL ckfrz_s                    : BIT;
+
+  -- signals to alu_test output
+
+  SIGNAL seq_s                      : BIT;
+  SIGNAL sne_s                      : BIT;
+  SIGNAL sgt_s                      : BIT;
+  SIGNAL slt_s                      : BIT;
+  SIGNAL sge_s                      : BIT;
+  SIGNAL sle_s                      : BIT;
+
+
+  -- exceptions
+
+  --SIGNAL unkopc_s                   : BIT;
+  --SIGNaL prvins_s                   : BIT;
+  SIGNAL ovr_s                      : BIT;
+  SIGNAL illins_s                   : BIT;
+  SIGNAL opviol_s                   : BIT;
+  SIGNAL iaalgn_s                   : BIT;
+  SIGNAL iasgmt_s                   : BIT;
+  SIGNAL daalgn_s                   : BIT;
+  SIGNAL dasgmt_s                   : BIT;
+  SIGNAL dasgmt_en                  : BIT;
+  SIGNAL daalgn_en                  : BIT;
+  SIGNAL iav_en                     : BIT;
+  SIGNAL ovr_x                      : BIT;
+  SIGNAL ico_x                      : BIT;
+  SIGNAL dav_x                      : BIT;
+  SIGNAL iav_x                      : BIT;
+  SIGNAL ovrreg_x                   : BIT;
+  SIGNAL icoreg_x                   : BIT;
+  SIGNAL davreg_x                   : BIT;
+  SIGNAL iavreg_x                   : BIT;
+  SIGNAL ovr_r                      : REG_BIT REGISTER;
+  SIGNAL ico_r                      : REG_BIT REGISTER;
+  SIGNAL dav_r                      : REG_BIT REGISTER;
+  SIGNAL iav_r                      : REG_BIT REGISTER;
+
+  -- interrupts
+
+  SIGNAL it0_s                      : BIT;
+  SIGNAL it1_s                      : BIT;
+  SIGNAL it2_s                      : BIT;
+  SIGNAL it3_s                      : BIT;
+  SIGNAL it0_r                      : REG_BIT REGISTER;
+  SIGNAL it1_r                      : REG_BIT REGISTER;
+  SIGNAL it2_r                      : REG_BIT REGISTER;
+  SIGNAL it3_r                      : REG_BIT REGISTER;
+
+  --  freeze and reset
+
+  SIGNAL reset_s                    : BIT;
+  SIGNAL freeze_s                   : BIT;
+  SIGNAL reset_r                    : REG_BIT REGISTER;
+  SIGNAL freeze_r                   : REG_BIT REGISTER;
+  SIGNAL cpurst_r		    : REG_BIT REGISTER;
+  SIGNAL cpurst_s		    : BIT;
+
+  -- interrupt and exception and reset request ...
+
+  SIGNAL intrqs_s                   : BIT;
+  SIGNAL excrqs_s                   : BIT;
+
+  --  byte
+
+  SIGNAL byte_s                     : BIT_VECTOR( 0 to 3);
+ 
+  SIGNAL iformt_r                   : REG_BIT REGISTER;
+  SIGNAL iformt_x                : BIT ;
+
+  -- Inout data and out address control
+
+  SIGNAL  rw_ctl_n			: BIT;
+  SIGNAL  frz_ctl_n			: BIT;
+
+  CONSTANT add_i    : BIT_VECTOR (5 DOWNTO 0) := B"000_000"  ; -- add
+  CONSTANT addu_i   : BIT_VECTOR (5 DOWNTO 0) := B"000_001"  ; -- addu
+  CONSTANT sub_i    : BIT_VECTOR (5 DOWNTO 0) := B"000_010"  ; -- sub
+  CONSTANT subu_i   : BIT_VECTOR (5 DOWNTO 0) := B"000_011"  ; -- subu
+  CONSTANT addi_i   : BIT_VECTOR (5 DOWNTO 0) := B"000_100"  ; -- addi
+  CONSTANT addui_i  : BIT_VECTOR (5 DOWNTO 0) := B"000_101"  ; -- addui
+  CONSTANT subi_i   : BIT_VECTOR (5 DOWNTO 0) := B"000_110"  ; -- subi
+  CONSTANT subui_i  : BIT_VECTOR (5 DOWNTO 0) := B"000_111"  ; -- subui
+  CONSTANT sll_i    : BIT_VECTOR (5 DOWNTO 0) := B"001_000"  ; -- sll
+  CONSTANT srl_i    : BIT_VECTOR (5 DOWNTO 0) := B"001_001"  ; -- srl
+  CONSTANT sra_i    : BIT_VECTOR (5 DOWNTO 0) := B"001_010"  ; -- sra
+  CONSTANT slli_i   : BIT_VECTOR (5 DOWNTO 0) := B"001_100"  ; -- slli
+  CONSTANT srli_i   : BIT_VECTOR (5 DOWNTO 0) := B"001_101"  ; -- srli
+  CONSTANT srai_i   : BIT_VECTOR (5 DOWNTO 0) := B"001_110"  ; -- srai
+  CONSTANT lhi_i    : BIT_VECTOR (5 DOWNTO 0) := B"001_111"  ; -- lhi
+  CONSTANT seq_i    : BIT_VECTOR (5 DOWNTO 0) := B"010_000"  ; -- seq
+  CONSTANT sne_i    : BIT_VECTOR (5 DOWNTO 0) := B"010_001"  ; -- sne
+  CONSTANT sge_i    : BIT_VECTOR (5 DOWNTO 0) := B"010_010"  ; -- sge
+  CONSTANT sle_i    : BIT_VECTOR (5 DOWNTO 0) := B"010_011"  ; -- sle
+  CONSTANT seqi_i   : BIT_VECTOR (5 DOWNTO 0) := B"010_100"  ; -- seqi
+  CONSTANT snei_i   : BIT_VECTOR (5 DOWNTO 0) := B"010_101"  ; -- snei
+  CONSTANT sgei_i   : BIT_VECTOR (5 DOWNTO 0) := B"010_110"  ; -- sgei
+  CONSTANT slei_i   : BIT_VECTOR (5 DOWNTO 0) := B"010_111"  ; -- slei
+  CONSTANT sgt_i    : BIT_VECTOR (5 DOWNTO 0) := B"011_010"  ; -- sgt
+  CONSTANT slt_i    : BIT_VECTOR (5 DOWNTO 0) := B"011_011"  ; -- slt
+  CONSTANT sgti_i   : BIT_VECTOR (5 DOWNTO 0) := B"011_110"  ; -- sgti
+  CONSTANT slti_i   : BIT_VECTOR (5 DOWNTO 0) := B"011_111"  ; -- slti
+  CONSTANT and_i    : BIT_VECTOR (5 DOWNTO 0) := B"100_000"  ; -- and
+  CONSTANT or_i     : BIT_VECTOR (5 DOWNTO 0) := B"100_001"  ; -- or
+  CONSTANT xor_i    : BIT_VECTOR (5 DOWNTO 0) := B"100_011"  ; -- xor
+  CONSTANT andi_i   : BIT_VECTOR (5 DOWNTO 0) := B"100_100"  ; -- andi
+  CONSTANT ori_i    : BIT_VECTOR (5 DOWNTO 0) := B"100_101"  ; -- ori
+  CONSTANT xori_i   : BIT_VECTOR (5 DOWNTO 0) := B"100_111"  ; -- xori
+
+  CONSTANT sw_i     : BIT_VECTOR (5 DOWNTO 0) := B"101_000"  ; -- sw
+  CONSTANT sh_i     : BIT_VECTOR (5 DOWNTO 0) := B"101_001"  ; -- sh
+  CONSTANT sb_i     : BIT_VECTOR (5 DOWNTO 0) := B"101_010"  ; -- sb
+  CONSTANT lbu_i    : BIT_VECTOR (5 DOWNTO 0) := B"101_011"  ; -- lbu
+  CONSTANT lw_i     : BIT_VECTOR (5 DOWNTO 0) := B"101_100"  ; -- lw
+  CONSTANT lh_i     : BIT_VECTOR (5 DOWNTO 0) := B"101_101"  ; -- lh
+  CONSTANT lb_i     : BIT_VECTOR (5 DOWNTO 0) := B"101_110"  ; -- lb
+  CONSTANT lhu_i    : BIT_VECTOR (5 DOWNTO 0) := B"101_111"  ; -- lhu
+
+  CONSTANT jr_i     : BIT_VECTOR (5 DOWNTO 0) := B"110_000"  ; -- jr
+  CONSTANT jalr_i   : BIT_VECTOR (5 DOWNTO 0) := B"110_001"  ; -- jalr
+  CONSTANT movs2i_i : BIT_VECTOR (5 DOWNTO 0) := B"110_010"  ; -- movi2s
+  CONSTANT movi2s_i : BIT_VECTOR (5 DOWNTO 0) := B"110_011"  ; -- movs2i
+  CONSTANT beqz_i   : BIT_VECTOR (5 DOWNTO 0) := B"110_100"  ; -- beqz
+  CONSTANT bnez_i   : BIT_VECTOR (5 DOWNTO 0) := B"110_101"  ; -- bnez
+  CONSTANT j_i      : BIT_VECTOR (5 DOWNTO 0) := B"111_000"  ; -- j
+  CONSTANT jal_i    : BIT_VECTOR (5 DOWNTO 0) := B"111_001"  ; -- jal
+  CONSTANT rfe_i    : BIT_VECTOR (5 DOWNTO 0) := B"111_010"  ; -- rfe
+  CONSTANT trap_i   : BIT_VECTOR (5 DOWNTO 0) := B"111_011"  ; -- trap
+
+  -- Description of the memory access modes
+
+  CONSTANT m_no     : BIT_VECTOR (3 DOWNTO 0) := B"0001" ;
+  CONSTANT m_fetch  : BIT_VECTOR (3 DOWNTO 0) := B"1001" ;
+  CONSTANT m_rw     : BIT_VECTOR (3 DOWNTO 0) := B"0101" ;
+  CONSTANT m_ww     : BIT_VECTOR (3 DOWNTO 0) := B"0000" ;
+  CONSTANT m_rb     : BIT_VECTOR (3 DOWNTO 0) := B"0111" ;
+  CONSTANT m_wb     : BIT_VECTOR (3 DOWNTO 0) := B"0010" ;
+
+BEGIN
+
+  --  freezed clock
+
+  ckfrz_s <= ck AND NOT( frz );
+
+  -- alu_test
+
+  seq_s <= alu_nul;
+
+  sne_s <= NOT( seq_s );
+
+  sgt_s <= '1' WHEN (   ( opx_sign XOR opy_sign = '0' )
+                    AND ( alu_sign = '0' )
+                    AND ( seq_s    = '0' ) )              ELSE
+           '1' WHEN ( opx_sign = '0' AND opy_sign = '1' ) ELSE
+           '0';
+
+  slt_s <= NOT ( sge_s );
+
+  sge_s <= seq_s or sgt_s;
+
+  sle_s <= seq_s OR slt_s;
+
+  --  alu_test output
+
+      WITH ctlalu SELECT
+      alu_test <= NOT seq_s WHEN "00011",
+                  NOT sne_s WHEN "00101",
+                  NOT sge_s WHEN "00111",
+                  NOT sgt_s WHEN "01001",
+                  NOT sle_s WHEN "01011",
+                  NOT slt_s WHEN "01101",
+                  '1'   WHEN OTHERS;
+
+
+
+  --  register file addresses
+
+  redpnt <= rs WHEN mxrs_rdrt = '1' ELSE
+            rdrt;
+
+  wrtpnt <= B"11111" WHEN wenable_in( 3 )  = '1' ELSE
+            rdrt     WHEN iformt_r   = '1'         ELSE
+            rd;
+
+  --  wenable_out output
+
+  wenable_out <= wenable_in( 6 DOWNTO 4 ) & wenable_in( 2 DOWNTO 0 )
+                 WHEN ( excrqs_s = '0' OR wenable_in( 7 ) OR wenable_in( 8 ) ) ELSE
+                 "000000";
+
+  -- ctlrw_out output
+
+  ctlrw_out(3 DOWNTO 2 ) <= ctlrw_in( 3 DOWNTO 2 )
+                 WHEN ( excrqs_s = '0' OR wenable_in( 7 ) OR wenable_in( 8 ) ) ELSE
+                 "00";
+
+
+  -- exceptions
+
+  ovr_s     <= alu_c31 XOR alu_c30;
+  illins_s  <= ico;
+  opviol_s  <= sr_mode AND priv;
+  iaalgn_s  <= NOT( adr0 AND adr1 );
+  iasgmt_s  <= sr_mode AND NOT( adr31 );
+  daalgn_s  <= NOT( adr0 AND adr1 ) AND ctlrw_in( 1 ) = '0';
+  dasgmt_s  <= sr_mode AND NOT( adr31 );
+
+  daalgn_en <= ctlrw_in=m_rw OR ctlrw_in=m_ww;
+  dasgmt_en <= ctlrw_in=m_rw OR ctlrw_in=m_ww OR ctlrw_in=m_rb OR ctlrw_in=m_wb;
+  iav_en    <= ctlrw_in=m_fetch;
+
+  ovr_x     <=   ovr_s                  AND ovr_en;
+  ico_x     <= ( illins_s OR opviol_s );
+  dav_x     <= ( daalgn_s AND daalgn_en ) OR ( dasgmt_s AND dasgmt_en );
+  iav_x     <= ( iaalgn_s OR iasgmt_s ) AND iav_en;
+
+  -- exception signals for registers 
+
+  ovrreg_x  <= ovr_x OR ( ovr_r AND NOT( wenable_in( 7 ) ) );
+  icoreg_x  <= ico_x OR ( ico_r AND NOT( wenable_in( 7 ) ) );
+  davreg_x  <= dav_x OR ( dav_r AND NOT( wenable_in( 7 ) ) );
+  iavreg_x  <= iav_x OR ( iav_r AND NOT( wenable_in( 7 ) ) );
+
+  -- exception's registers 
+
+
+  ovr : BLOCK( ckfrz_s = '0' AND NOT ckfrz_s'STABLE )
+
+  BEGIN
+    ovr_r <= GUARDED ovrreg_x WHEN test = '0' ELSE scin;
+  END BLOCK;
+
+  ico : BLOCK( ckfrz_s = '0' AND NOT ckfrz_s'STABLE )
+
+  BEGIN
+    ico_r <= GUARDED icoreg_x WHEN test = '0' ELSE ovr_r;
+  END BLOCK;
+
+
+  dav : BLOCK( ckfrz_s = '0' AND NOT ckfrz_s'STABLE )
+
+  BEGIN
+    dav_r <= GUARDED davreg_x WHEN test = '0' ELSE ico_r;
+  END BLOCK;
+
+
+  iav : BLOCK( ckfrz_s = '0' AND NOT ckfrz_s'STABLE )
+
+  BEGIN
+    iav_r <= GUARDED iavreg_x WHEN test = '0' ELSE dav_r;
+  END BLOCK;
+
+  -- exception's output
+
+  sr_ovr  <= ovr_r;
+
+  sr_ico  <= ico_r;
+
+  sr_dav  <= dav_r;
+
+  sr_iav  <= iav_r;
+
+  -- interrupts
+
+  it0_s <= NOT( intrqs( 0 ) ) OR ( it0_r AND NOT( wenable_in( 7 ) ) );
+
+  it1_s <= NOT( intrqs( 1 ) ) OR ( it1_r AND NOT( wenable_in( 7 ) ) );
+
+  it2_s <= NOT( intrqs( 2 ) ) OR ( it2_r AND NOT( wenable_in( 7 ) ) );
+
+  it3_s <= NOT( intrqs( 3 ) ) OR ( it3_r AND NOT( wenable_in( 7 ) ) );
+
+  -- interrupt's  registers
+
+  it0 : BLOCK( ck = '0' AND NOT ck'STABLE )
+
+  BEGIN
+    it0_r <= GUARDED it0_s WHEN test = '0' ELSE iav_r;
+  END BLOCK;
+
+
+  it1 : BLOCK( ck = '0' AND NOT ck'STABLE )
+
+  BEGIN
+    it1_r <= GUARDED it1_s WHEN test = '0' ELSE it0_r;
+  END BLOCK;
+
+
+  it2 : BLOCK( ck = '0' AND NOT ck'STABLE )
+
+  BEGIN
+    it2_r <= GUARDED it2_s WHEN test = '0' ELSE it1_r;
+  END BLOCK;
+
+
+  it3 : BLOCK( ck = '0' AND NOT ck'STABLE )
+
+  BEGIN
+    it3_r <= GUARDED it3_s WHEN test = '0' ELSE it2_r;
+  END BLOCK;
+
+  -- interrupt's registers
+
+  sr_it0 <= it0_r;
+  sr_it1 <= it1_r;
+  sr_it2 <= it2_r;
+  sr_it3 <= it3_r;
+
+  --  freeze
+
+  frz : BLOCK( ck = '0' AND NOT ck'STABLE )
+
+  BEGIN
+    freeze_r <= GUARDED frz WHEN test = '0' ELSE it3_r;
+  END BLOCK;
+
+  --  freeze output
+
+  freeze_s <= frz AND freeze_r;
+
+  -- hardware reset
+
+  reset_s <= reset OR ( reset_r AND (frz));
+
+
+  rst : BLOCK( ck = '0' AND NOT ck'STABLE )
+
+  BEGIN
+  reset_r <= GUARDED reset_s WHEN test = '0' ELSE freeze_r;
+
+
+  END BLOCK;
+
+  -- reset output to sequencer
+
+  sts_reset <= reset_r;
+
+  -- cpureset 
+
+  cpurst_s <= reset_r OR ( cpurst_r AND NOT( wenable_in(7)) ) ;
+
+  cpu_reseted  : BLOCK( ckfrz_s = '0' AND NOT ckfrz_s'STABLE )
+
+  BEGIN
+	
+  cpurst_r <= GUARDED cpurst_s WHEN test='0' ELSE reset_r ;
+
+  END BLOCK;
+
+
+  -- cpureset output to datapath
+
+  sr_cpurst <= cpurst_r ;
+ 
+  --  iformt
+  
+  iformt_x <= (iformt_r or iformt) and not (riformt);
+ 
+  ift: BLOCK( ck = '0' AND NOT ck'STABLE)
+
+  BEGIN 
+ 
+  iformt_r <= GUARDED iformt_x WHEN test = '0' ELSE cpurst_r;
+
+  END BLOCK;
+
+
+  --  rqs output 
+
+  intrqs_s <= ( it0_r OR it1_r OR it2_r OR it3_r ) AND sr_mask;
+
+  excrqs_s <= ovr_x OR ovr_r OR
+              ico_x OR ico_r OR
+              dav_x OR dav_r OR
+              iav_x OR iav_r;
+
+  rqs      <= cpurst_r OR excrqs_s OR intrqs_s;
+
+  -- rw, frz_ctl  and rw_ctl output
+
+  rw_ctl_n   <= ctlrw_in( 0 ) OR freeze_s OR NOT( CK ) OR test;
+
+  frz_ctl_n <= freeze_s OR test;
+
+  rw_ctl(15)	<= NOT rw_ctl_n ;
+  rw_ctl(14)	<= NOT rw_ctl_n ;
+  rw_ctl(13)	<= NOT rw_ctl_n ;
+  rw_ctl(12)	<= NOT rw_ctl_n ;
+  rw_ctl(11)	<= NOT rw_ctl_n ;
+  rw_ctl(10)	<= NOT rw_ctl_n ;
+  rw_ctl(9)	<= NOT rw_ctl_n ;
+  rw_ctl(8)	<= NOT rw_ctl_n ;
+  rw_ctl(7)	<= NOT rw_ctl_n ;
+  rw_ctl(6)	<= NOT rw_ctl_n ;
+  rw_ctl(5)	<= NOT rw_ctl_n ;
+  rw_ctl(4)	<= NOT rw_ctl_n ;
+  rw_ctl(3)	<= NOT rw_ctl_n ;
+  rw_ctl(2)	<= NOT rw_ctl_n ;
+  rw_ctl(1)	<= NOT rw_ctl_n ;
+  rw_ctl(0)	<= NOT rw_ctl_n ;
+
+  frz_ctl(15)	<= NOT frz_ctl_n ;
+  frz_ctl(14)	<= NOT frz_ctl_n ;
+  frz_ctl(13)	<= NOT frz_ctl_n ;
+  frz_ctl(12)	<= NOT frz_ctl_n ;
+  frz_ctl(11)	<= NOT frz_ctl_n ;
+  frz_ctl(10)	<= NOT frz_ctl_n ;
+  frz_ctl(9)	<= NOT frz_ctl_n ;
+  frz_ctl(8)	<= NOT frz_ctl_n ;
+  frz_ctl(7)	<= NOT frz_ctl_n ;
+  frz_ctl(6)	<= NOT frz_ctl_n ;
+  frz_ctl(5)	<= NOT frz_ctl_n ;
+  frz_ctl(4)	<= NOT frz_ctl_n ;
+  frz_ctl(3)	<= NOT frz_ctl_n ;
+  frz_ctl(2)	<= NOT frz_ctl_n ;
+  frz_ctl(1)	<= NOT frz_ctl_n ;
+  frz_ctl(0)	<= NOT frz_ctl_n ;
+
+  -- rw is not inverted
+
+  rw       <= ctlrw_in( 0 );
+
+  -- byte
+  -- non inverted
+  -- adr1 et adr are inverted
+
+  byte_s  <= "1111" WHEN ( ctlrw_in=m_rw OR ctlrw_in=m_ww OR ctlrw_in=m_fetch ) ELSE
+             "1000" WHEN ( adr1&adr0= "11" AND ( ctlrw_in=m_rb OR ctlrw_in=m_wb ) ) ELSE
+
+             "0100" WHEN ( adr1&adr0= "10" AND ( ctlrw_in=m_rb OR ctlrw_in=m_wb ) ) ELSE
+
+             "0010" WHEN ( adr1&adr0= "01" AND ( ctlrw_in=m_rb OR ctlrw_in=m_wb ) ) ELSE
+
+             "0001" WHEN ( adr1&adr0= "00" AND ( ctlrw_in=m_rb OR ctlrw_in=m_wb ) ) ELSE
+
+             "0000" ;
+
+
+  byte   <= byte_s WHEN excrqs_s = '0' ELSE
+            B"0000";
+
+  --  scout output ( non inverted )
+
+  scout <= iformt_r;
+
+  --  zero output
+
+  zero <= '0';
+
+END behavioural;

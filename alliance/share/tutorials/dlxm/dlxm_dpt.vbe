@@ -1,0 +1,833 @@
+
+-- ###----------------------------------------------------------------###
+-- #                                                                    #
+-- #         Alliance CAD System 3.0                                    #
+-- #          FitPath Package V.RR                                      #
+-- #                                                                    #
+-- # Copyright(c) 94-AA, MASI, CAO-VLSI Team                            #
+-- #                                                                    #
+-- # Author      :          Jean-Paul CHAPUT                            #
+-- #		  at MASI laboratory, University Pierre et Marie Curie	#
+-- #		  URA CNRS 818, Institut Blaise Pascal			#
+-- #		  4 Place Jussieu 75252 Paris Cedex 05 - France		#
+-- # E-mail      :      cao-vlsi@masi.ibp.fr                            #
+-- # ****************************************************************** #
+-- # File        :      "dlxm_dpt.vbe"                                  #
+-- #                                                                    #
+-- #     VHDL Behavioral description of micro-programmed DLX data-      #
+-- # path. This model is derived from the 1992/93 DLX project, see      #
+-- # file "s_dpt.vbe" of the structural description one.                #
+-- #     This version implements multiplexers with three states.        #
+-- #                                                                    #
+-- #     Date of initial design : october 26, 1994.                     #
+-- # ---------------------------------------------------------------    #
+-- # Modified : october 26, 1994.                                       #
+-- #     1) When writing to DT from the plots in byte mode, the         #
+-- #        three upper octets are not forced to zero. This             #
+-- #        operation is done while using the value stored in DT.       #
+-- #     2) The name of the followings terminals have change :          #
+-- #            - opy_byte --> adrw_byte                                #
+-- #            - opy_rb0  --> adrw_rb0                                 #
+-- #            - opy_rb1  --> adrw_rb1                                 #
+-- # --------------------------------------------------------------     #
+-- # Modified January 1995          				        #
+-- #	 1) Take care that the symbolic pads are non inverting pads     #
+-- #     2) 3 new connectors :					        #
+-- #		adr_n_31 : inout   to the status		        #
+-- #		adr_n_0 : inout to the status and the datapath	        #
+-- #		adr_n_1 : inout to the status and the datapath	        #
+-- ###----------------------------------------------------------------###
+
+
+ENTITY  dlxm_dpt  IS
+
+PORT(
+	-- Power supply terminals.
+    vdd : in    bit;
+    vss : in    bit;
+
+    -- Control connectors of registers PC, IAR, AD, IR, DT.
+    -- Select the function mode (enable SCAN mode when set to one).
+     pc_test  : in    bit;
+     ad_test  : in    bit;
+    tvr_test  : in    bit;
+    iar_test  : in    bit;
+     sr_test  : in    bit;
+     ir_test  : in    bit;
+     dt_test  : in    bit;
+    -- Scan-Path connectors.
+     pc_scin  : in    bit;
+     ad_scin  : in    bit;
+    tvr_scin  : in    bit;
+    iar_scin  : in    bit;
+     sr_scin  : in    bit;
+     ir_scin  : in    bit;
+     dt_scin  : in    bit;
+     pc_scout :   out bit;
+     ad_scout :   out bit;
+    tvr_scout :   out bit;
+    iar_scout :   out bit;
+     sr_scout :   out bit;
+     ir_scout :   out bit;
+     dt_scout :   out bit;
+    -- Clock connectors.
+     pc_ck    : in    bit;
+     ad_ck    : in    bit;
+    tvr_ck    : in    bit;
+    iar_ck    : in    bit;
+     sr_ck    : in    bit;
+     ir_ck    : in    bit;
+     dt_ck    : in    bit;
+    -- Write enable, active only in normal mode.
+	-- (enable writing when set to one)
+     pc_wen   : in    bit;
+     ad_wen   : in    bit;
+    tvr_wen   : in    bit;
+    iar_wen   : in    bit;
+     sr_wen   : in    bit;
+     ir_wen   : in    bit;
+     dt_wen   : in    bit;
+
+    -- Control connectors of the register file.
+    rf_ck  : in    bit;  -- Clock connector.
+    rf_wen : in    bit;  -- Write enable (active to high level).
+    rf_aw  : in    bit_vector(4 downto 0); -- Write address.
+    rf_ar  : in    bit_vector(4 downto 0); -- Read adress.
+
+	-- Controls connectors of the SR block.
+	sr_mx    : in    bit; -- Select what to write in SR[15:0].
+	-- Flags to write in SR from the CTRL block.
+	sr_mode  :   out bit; -- SR(0)
+	sr_mask  :   out bit; -- SR(1)
+	sr_cpurst : in    bit; -- SR(3)  cpureset flag from status
+	sr_iav   : in    bit; -- SR(8)
+	sr_ico   : in    bit; -- SR(9)
+	sr_dav   : in    bit; -- SR(10)
+	sr_ovr   : in    bit; -- SR(11)
+	sr_it0   : in    bit; -- SR(12)
+	sr_it1   : in    bit; -- SR(13)
+	sr_it2   : in    bit; -- SR(14)
+	sr_it3   : in    bit; -- SR(15)
+
+    -- Control connectors of X multiplexer.
+    -- Select between CH , CB , C0 , R[i] , SR , TVR, IAR , AD , PC.
+    opx_ts4 : in    bit; -- Set  CH, CB  on the X bus.
+    opx_ts3 : in    bit; -- Set  C0, SR  on the X bus.
+    opx_ts2 : in    bit; -- Set TVR, IAR on the X bus.
+    opx_ts1 : in    bit; -- Set  AD, PC  on the X bus.
+    opx_ts0 : in    bit; -- Set   R[i]   on the X bus.
+    opx_mx4 : in    bit; -- Select between  CH/CB.
+    opx_mx3 : in    bit; -- Select between  C0/SR.
+    opx_mx2 : in    bit; -- Select between TVR/IAR.
+    opx_mx1 : in    bit; -- Select between  AD/PC.
+	-- Sign of X operand ( opx_out[31] )
+    opx_sign :   out bit;
+
+    -- Control connectors of Y multiplexer.
+    -- Select between C16, C4, C0, I16, I18, I28, DT, AD.
+    opy_ts4 : in    bit; -- Set C16, C4  on the Y bus.
+    opy_ts3 : in    bit; -- Set  C0, I16 on the Y bus.
+    opy_ts2 : in    bit; -- Set I18, I28 on the Y bus.
+    opy_ts1 : in    bit; -- Set  DT, AD  on the Y bus.
+    opy_mx4 : in    bit; -- Select between C16/C4.
+    opy_mx3 : in    bit; -- Select between  C0/I16.
+    opy_mx2 : in    bit; -- Select between I18/I28.
+    opy_mx1 : in    bit; -- Select between  DT/AD.
+	-- When one byte is read, tells which one in a word.
+	-- (according to the two last bits of "adr_out").
+    adrw_byte : in    bit; -- Select the BYTE mode when set to '1'.
+    adrw_rb1  : in    bit; -- "out_adr_n[1]"
+    adrw_rb0  : in    bit; -- "out_adr_n[0]"
+	-- Fields of the IR register.
+    opy_codop :   out bit_vector( 5 downto 0); -- IR[31:26]
+    opy_rs    :   out bit_vector( 4 downto 0); -- IR[25:21]
+    opy_rdrt  :   out bit_vector( 4 downto 0); -- IR[20:16]
+    opy_rd    :   out bit_vector( 4 downto 0); -- IR[15:11]
+	opy_tvr   :   out bit;                     -- IR[2]
+	opy_sr    :   out bit;                     -- IR[1]
+	opy_iar   :   out bit;                     -- IR[0]
+	-- Sign of Y operand ( opy_out[31] )
+    opy_sign  :   out bit;
+	-- Main data bus input, from the padt.
+    data_in_dpt : in    bit_vector(31 downto 0);
+
+    -- Control connectors of ALU multiplexer.
+    alu_mx4i0  : in    bit;  -- (shifts,arith,logic)/tests
+    alu_mx3i0  : in    bit;  --        (arith,logic)/shifts
+    alu_mx2i1  : in    bit;  --      (X + Y,X xor Y)/(X and Y,X or Y)
+    alu_mx2i0  : in    bit;  -- command 'left' of shifter
+    alu_mx1i2  : in    bit;  --            (X +/- Y)/(X xor Y)
+    alu_mx1i1  : in    bit;  --            (X and Y)/(X  or Y)
+    alu_mx1i0  : in    bit;  -- command 'ext' of shifter
+    alu_mx0i0  : in    bit;  -- select arythmetic operation add/sub
+    -- Auxiliary ALU inputs/outputs.
+	alu_byte   : in    bit;  -- Select the byte mode (same as "opy_byte").
+    alu_shrot  : in    bit;  -- 'rot' command of shifter (to VSS)
+    alu_test_n : in    bit;  -- Test results (inverted polarity)
+    alu_c31  :   out bit;  -- Carry 31 (inverted polarity)
+    alu_c30  :   out bit;  -- Carry 30 (inverted polarity)
+    alu_nul    :   out bit;  -- Flag NUL
+    alu_sign   :   out bit;  -- Sign of arithmetic result X+Y/X-Y
+	-- Main data bus output, to the pads.
+    data_out_dpt :   out bit_vector(31 downto 0);
+
+    -- Control connectors of ADROUT multiplexer.
+    out_mx0i0 : in    bit; -- Select between AD and PC.
+    -- Main adress bus output, to the pads.
+    out_adr : out   bit_vector(31 downto 0);	-- to the pads
+    adr_n_31 : inout bit ; 			-- to the status
+    adr_n_1 :  inout bit ;			-- to the status and datapath
+    adr_n_0 :  inout bit 			-- to the status and datapath
+    );
+
+END  dlxm_dpt;
+
+
+ARCHITECTURE  fonctional  OF  dlxm_dpt IS
+        -- Adress inversion
+	SIGNAL out_adr_n  :  bit_vector(31 downto 0);
+
+	-- Data inversion
+	SIGNAL data_in_n : bit_vector(31 downto 0);
+	SIGNAL data_out_n : bit_vector(31 downto 0);
+	-- Declaration of 31 register file masters (suffixed by "_m").
+	-- Register ZERO is hard wired to 0.
+    CONSTANT r0    : bit_vector(31 downto 0) :=X"00000000";
+	SIGNAL rf_m1   : reg_vector(31 downto 0) REGISTER;
+	SIGNAL rf_m2   : reg_vector(31 downto 0) REGISTER;
+	SIGNAL rf_m3   : reg_vector(31 downto 0) REGISTER;
+	SIGNAL rf_m4   : reg_vector(31 downto 0) REGISTER;
+	SIGNAL rf_m5   : reg_vector(31 downto 0) REGISTER;
+	SIGNAL rf_m6   : reg_vector(31 downto 0) REGISTER;
+	SIGNAL rf_m7   : reg_vector(31 downto 0) REGISTER;
+	SIGNAL rf_m8   : reg_vector(31 downto 0) REGISTER;
+	SIGNAL rf_m9   : reg_vector(31 downto 0) REGISTER;
+	SIGNAL rf_m10  : reg_vector(31 downto 0) REGISTER;
+	SIGNAL rf_m11  : reg_vector(31 downto 0) REGISTER;
+	SIGNAL rf_m12  : reg_vector(31 downto 0) REGISTER;
+	SIGNAL rf_m13  : reg_vector(31 downto 0) REGISTER;
+	SIGNAL rf_m14  : reg_vector(31 downto 0) REGISTER;
+	SIGNAL rf_m15  : reg_vector(31 downto 0) REGISTER;
+	SIGNAL rf_m16  : reg_vector(31 downto 0) REGISTER;
+	SIGNAL rf_m17  : reg_vector(31 downto 0) REGISTER;
+	SIGNAL rf_m18  : reg_vector(31 downto 0) REGISTER;
+	SIGNAL rf_m19  : reg_vector(31 downto 0) REGISTER;
+	SIGNAL rf_m20  : reg_vector(31 downto 0) REGISTER;
+	SIGNAL rf_m21  : reg_vector(31 downto 0) REGISTER;
+	SIGNAL rf_m22  : reg_vector(31 downto 0) REGISTER;
+	SIGNAL rf_m23  : reg_vector(31 downto 0) REGISTER;
+	SIGNAL rf_m24  : reg_vector(31 downto 0) REGISTER;
+	SIGNAL rf_m25  : reg_vector(31 downto 0) REGISTER;
+	SIGNAL rf_m26  : reg_vector(31 downto 0) REGISTER;
+	SIGNAL rf_m27  : reg_vector(31 downto 0) REGISTER;
+	SIGNAL rf_m28  : reg_vector(31 downto 0) REGISTER;
+	SIGNAL rf_m29  : reg_vector(31 downto 0) REGISTER;
+	SIGNAL rf_m30  : reg_vector(31 downto 0) REGISTER;
+	SIGNAL rf_m31  : reg_vector(31 downto 0) REGISTER;
+    -- Register file slave (suffixed by "_s").
+	SIGNAL rf_s    : reg_vector(31 downto 0) REGISTER;
+	SIGNAL rf_ckd  : bit;
+
+    -- Signals and registers associated to PC, AD, IAR, IR and DT.
+	-- Master registers (suffix "_m").
+	SIGNAL  pc_m    : reg_vector (31 downto 0) REGISTER;
+	SIGNAL tvr_m    : reg_vector (31 downto 0) REGISTER;
+	SIGNAL iar_m    : reg_vector (31 downto 0) REGISTER;
+	SIGNAL  ad_m    : reg_vector (31 downto 0) REGISTER;
+	SIGNAL  sr_m    : reg_vector (31 downto 0) REGISTER;
+	SIGNAL  ir_m    : reg_vector (31 downto 0) REGISTER;
+	SIGNAL  dt_m    : reg_vector (31 downto 0) REGISTER;
+	-- Slave registers (suffix "_s").
+	SIGNAL  pc_s     : reg_vector (31 downto 0) REGISTER;
+	SIGNAL tvr_s     : reg_vector (31 downto 0) REGISTER;
+	SIGNAL iar_s     : reg_vector (31 downto 0) REGISTER;
+	SIGNAL  ad_s     : reg_vector (31 downto 0) REGISTER;
+	SIGNAL  sr_s     : reg_vector (31 downto 0) REGISTER;
+	SIGNAL  ir_s     : reg_vector (31 downto 0) REGISTER;
+	SIGNAL  dt_s     : reg_vector (31 downto 0) REGISTER;
+	-- Write master register while in SCAN mode.
+	SIGNAL  pc_ckt   : bit;
+	SIGNAL tvr_ckt   : bit;
+	SIGNAL iar_ckt   : bit;
+	SIGNAL  ad_ckt   : bit;
+	SIGNAL  sr_ckt   : bit;
+	SIGNAL  ir_ckt   : bit;
+	SIGNAL  dt_ckt   : bit;
+	-- Write master register while in NORMAL mode.
+	SIGNAL  pc_ckd   : bit;
+	SIGNAL tvr_ckd   : bit;
+	SIGNAL iar_ckd   : bit;
+	SIGNAL  ad_ckd   : bit;
+	SIGNAL  sr_ckd   : bit;
+	SIGNAL  ir_ckd   : bit;
+	SIGNAL  dt_ckd   : bit;
+
+    -- Signals for Y multiplexer.
+	SIGNAL opy_conflict : bit;
+	SIGNAL opy_nodriver : bit;
+	SIGNAL opy_its4     : bit_vector(31 downto 0);
+	SIGNAL opy_its3     : bit_vector(31 downto 0);
+	SIGNAL opy_its2     : bit_vector(31 downto 0);
+	SIGNAL opy_its1     : bit_vector(31 downto 0);
+	SIGNAL opy_ots      : mux_vector(31 downto 0) bus;
+	SIGNAL opy_out      : bit_vector(31 downto 0);
+	-- Value to write in DT.
+	SIGNAL opy_dt_n     : bit_vector( 7 downto 0);
+	SIGNAL opy_dt       : bit_vector(31 downto 0);
+	-- Fields of IR register.
+	SIGNAL opy_ir16     : bit_vector(31 downto 0);
+	SIGNAL opy_ir18     : bit_vector(31 downto 0);
+	SIGNAL opy_ir28     : bit_vector(31 downto 0);
+    -- Signals for X multiplexer.
+	SIGNAL opx_conflict : bit;
+	SIGNAL opx_nodriver : bit;
+	SIGNAL opx_its4     : bit_vector(31 downto 0);
+	SIGNAL opx_its3     : bit_vector(31 downto 0);
+	SIGNAL opx_its2     : bit_vector(31 downto 0);
+	SIGNAL opx_its1     : bit_vector(31 downto 0);
+	SIGNAL opx_ots      : mux_vector(31 downto 0) bus;
+	SIGNAL opx_out      : bit_vector(31 downto 0);
+	-- Signals for the ALU multiplexer.
+	SIGNAL alu_out      : bit_vector(31 downto 0);
+	-- Auxiliary signals for arythmetics operations.
+	SIGNAL alu_yop      : bit_vector(31 downto 0);
+	SIGNAL alu_cry      : bit_vector(32 downto 0);
+	SIGNAL alu_sum      : bit_vector(31 downto 0);
+	-- Auxiliary signals for shifts operations.
+	-- ('alu_shsign' is used for arythmeticals shifts)
+	SIGNAL alu_shsign   : bit_vector(31 downto 0);
+	SIGNAL alu_shright  : bit_vector(31 downto 0);
+	SIGNAL alu_shleft   : bit_vector(31 downto 0);
+	SIGNAL alu_shout    : bit_vector(31 downto 0);
+
+BEGIN
+
+
+	-- ********************* Power Supply Check **********************
+
+	ASSERT(vss = '0')  
+		REPORT "Power supply VSS badly connected." SEVERITY  WARNING;
+	ASSERT(vdd = '1')  
+		REPORT "Power supply VDD badly connected." SEVERITY  WARNING;
+
+
+    	--
+	data_in_n <= NOT data_in_dpt;
+	--
+
+	-- ******************* X Operand  Description ********************
+
+
+	-- Check X operand multiplexer commands.
+	-- Ckeck if there is more than one driver.
+	WITH opx_ts4 & opx_ts3 & opx_ts2 & opx_ts1 & opx_ts0 SELECT
+		opx_conflict <= '1' WHEN  B"00000"
+								 |B"00001"
+								 |B"00010"
+								 |B"00100"
+								 |B"01000"
+								 |B"10000",
+						'0' WHEN OTHERS;
+	-- Check if there is at least one driver.
+	opx_nodriver <= '0' WHEN   opx_ts4
+							 & opx_ts3
+							 & opx_ts2
+							 & opx_ts1
+							 & opx_ts0 = B"00000" ELSE '1';
+								 
+	-- Print warning messages associated to the X operand.
+	ASSERT(opx_conflict)
+		REPORT "More than one driver on the X operand three-state."
+		SEVERITY WARNING;
+	ASSERT(opx_nodriver)
+		REPORT "No driver on the X operand three-state."
+		SEVERITY WARNING;
+
+	-- Outputs of X operand.
+	opx_out   <= opx_ots;
+	opx_sign  <= opx_out(31);
+
+	-- Multiplexer part (pseudo CMOS multiplexers)
+	opx_its4 <= X"FFFF0000" WHEN opx_mx4 ELSE  X"FFFFFF00";
+	opx_its3 <= X"FFFFFFFF" WHEN opx_mx3 ELSE not  sr_s;
+	opx_its2 <= not tvr_s   WHEN opx_mx2 ELSE not iar_s;
+	opx_its1 <= not  ad_s   WHEN opx_mx1 ELSE not  pc_s;
+
+	-- Multiplexer part (three state).
+ts_x4:BLOCK(opx_ts4) BEGIN opx_ots <= GUARDED not opx_its4; END BLOCK ts_x4;
+ts_x3:BLOCK(opx_ts3) BEGIN opx_ots <= GUARDED not opx_its3; END BLOCK ts_x3;
+ts_x2:BLOCK(opx_ts2) BEGIN opx_ots <= GUARDED not opx_its2; END BLOCK ts_x2;
+ts_x1:BLOCK(opx_ts1) BEGIN opx_ots <= GUARDED not opx_its1; END BLOCK ts_x1;
+ts_x0:BLOCK(opx_ts0) BEGIN opx_ots <= GUARDED      rf_s;    END BLOCK ts_x0;
+
+
+	-- ******************** Y Operand Description ********************
+
+
+	-- Check Y operand multiplexer commands.
+	-- Ckeck if there is more than one driver.
+	WITH opy_ts4 & opy_ts3 & opy_ts2 & opy_ts1 SELECT
+		opy_conflict <= '1' WHEN  B"0000"
+								 |B"0001"
+								 |B"0010"
+								 |B"0100"
+								 |B"1000",
+						'0' WHEN OTHERS;
+	-- Check if there is at least one driver.
+	opy_nodriver <= '0' WHEN   opy_ts4
+							 & opy_ts3
+							 & opy_ts2
+							 & opy_ts1 = B"0000" ELSE '1';
+								 
+	-- Print warning messages associated to the Y operand.
+	ASSERT(opy_conflict)
+		REPORT "More than one driver on the Y operand three-state."
+		SEVERITY WARNING;
+	ASSERT(opy_nodriver)
+		REPORT "No driver on the Y operand three-state."
+		SEVERITY WARNING;
+
+    -- Affect IR fiedls outputs.
+	opy_codop(5 downto 0) <= ir_s(31 downto 26);
+	opy_rs   (4 downto 0) <= ir_s(25 downto 21);
+	opy_rdrt (4 downto 0) <= ir_s(20 downto 16);
+	opy_rd   (4 downto 0) <= ir_s(15 downto 11);
+	opy_tvr               <= ir_s(2);
+	opy_sr                <= ir_s(1);
+	opy_iar               <= ir_s(0);
+
+	-- Affect "opy_ir16", with sign extention.
+	opy_ir16(15 downto  0) <=              ir_s(15 downto 0);
+	opy_ir16(31 downto 16) <= X"FFFF" WHEN ir_s(15) = '1'
+						 ELSE X"0000";
+
+    -- Affect "alu_ir18", with sign extention.
+	opy_ir18( 1 downto  0) <= B"00";
+	opy_ir18(17 downto  2) <=                     ir_s(15 downto 0);
+	opy_ir18(31 downto 18) <= X"FFF" & B"11" WHEN ir_s(15) = '1'
+						ELSE  X"000" & B"00";
+
+    -- Affect "alu_ir28", with sign extention.
+	opy_ir28( 1 downto  0) <= B"00";
+	opy_ir28(27 downto  2) <=           ir_s(25 downto 0);
+	opy_ir28(31 downto 28) <= X"F" WHEN ir_s(25) = '1'
+						ELSE  X"0";
+
+	-- Set the value to write in DT.
+	-- When in BYTE mode select the good byte and put in on the LSB.
+	WITH adrw_rb1 & adrw_rb0 SELECT
+		opy_dt_n <= data_in_n( 7 downto  0) WHEN B"00",
+					data_in_n(15 downto  8) WHEN B"01",
+					data_in_n(23 downto 16) WHEN B"10",
+					data_in_n(31 downto 24) WHEN B"11";
+	-- When in BYTE mode, force the 24 MSB to zero.
+	opy_dt <=      not (data_in_n(31 downto 8) & opy_dt_n) WHEN adrw_byte
+			  ELSE not  data_in_n;
+
+	-- Multiplexer part (pseudo CMOS multiplexers)
+	opy_its4 <=  X"FFFFFFEF" WHEN opy_mx4 ELSE  X"FFFFFFFB";
+	opy_its3 <=  X"FFFFFFFF" WHEN opy_mx3 ELSE not opy_ir16;
+	opy_its2 <= not opy_ir18 WHEN opy_mx2 ELSE not opy_ir28;
+	opy_its1 <= not  dt_s    WHEN opy_mx1 ELSE not  ad_s;
+
+	-- Multiplexer part (three state).
+ts_y4:BLOCK(opy_ts4) BEGIN opy_ots <= GUARDED not opy_its4; END BLOCK ts_y4;
+ts_y3:BLOCK(opy_ts3) BEGIN opy_ots <= GUARDED not opy_its3; END BLOCK ts_y3;
+ts_y2:BLOCK(opy_ts2) BEGIN opy_ots <= GUARDED not opy_its2; END BLOCK ts_y2;
+ts_y1:BLOCK(opy_ts1) BEGIN opy_ots <= GUARDED not opy_its1; END BLOCK ts_y1;
+
+	-- Affect the value of the final Y multiplexer output.
+	opy_out  <= opy_ots;
+	opy_sign <= opy_ots(31);
+
+
+	-- ******************* ALU Shifter Description *******************
+
+
+	-- Sign extention, for arythmetic right shift (SRA).
+	WITH alu_mx1i0 & opx_out(31) SELECT
+		alu_shsign <= X"00000000" WHEN  B"00"
+									  | B"01"
+									  | B"10",
+					 X"FFFFFFFF"  WHEN  B"11";
+
+	-- Result of left shift affected to signal 'alu_shleft'.
+	WITH opy_out(4 downto 0) SELECT
+		alu_shleft  <=
+			opx_out(31 downto 0)                        WHEN  B"00000",
+			opx_out(30 downto 0) & B"0"                 WHEN  B"00001",
+			opx_out(29 downto 0) & B"00"                WHEN  B"00010",
+			opx_out(28 downto 0) & B"000"               WHEN  B"00011",
+			opx_out(27 downto 0) & X"0"                 WHEN  B"00100",
+			opx_out(26 downto 0) & X"0" & B"0"          WHEN  B"00101",
+			opx_out(25 downto 0) & X"0" & B"00"         WHEN  B"00110",
+			opx_out(24 downto 0) & X"0" & B"000"        WHEN  B"00111",
+			opx_out(23 downto 0) & X"00"                WHEN  B"01000",
+			opx_out(22 downto 0) & X"00" & B"0"         WHEN  B"01001",
+			opx_out(21 downto 0) & X"00" & B"00"        WHEN  B"01010",
+			opx_out(20 downto 0) & X"00" & B"000"       WHEN  B"01011",
+			opx_out(19 downto 0) & X"000"               WHEN  B"01100",
+			opx_out(18 downto 0) & X"000" & B"0"        WHEN  B"01101",
+			opx_out(17 downto 0) & X"000" & B"00"       WHEN  B"01110",
+			opx_out(16 downto 0) & X"000" & B"000"      WHEN  B"01111",
+			opx_out(15 downto 0) & X"0000"              WHEN  B"10000",
+			opx_out(14 downto 0) & X"0000" & B"0"       WHEN  B"10001",
+			opx_out(13 downto 0) & X"0000" & B"00"      WHEN  B"10010",
+			opx_out(12 downto 0) & X"0000" & B"000"     WHEN  B"10011",
+			opx_out(11 downto 0) & X"00000"             WHEN  B"10100",
+			opx_out(10 downto 0) & X"00000" & B"0"      WHEN  B"10101",
+			opx_out(9  downto 0) & X"00000" & B"00"     WHEN  B"10110",
+			opx_out(8  downto 0) & X"00000" & B"000"    WHEN  B"10111",
+			opx_out(7  downto 0) & X"000000"            WHEN  B"11000",
+			opx_out(6  downto 0) & X"000000" & B"0"     WHEN  B"11001",
+			opx_out(5  downto 0) & X"000000" & B"00"    WHEN  B"11010",
+			opx_out(4  downto 0) & X"000000" & B"000"   WHEN  B"11011",
+			opx_out(3  downto 0) & X"0000000"           WHEN  B"11100",
+			opx_out(2  downto 0) & X"0000000" & B"0"    WHEN  B"11101",
+			opx_out(1  downto 0) & X"0000000" & B"00"   WHEN  B"11110",
+			opx_out(0)           & X"0000000" & B"000"  WHEN  B"11111";
+
+	-- Result of right shift affected to signal 'alu_shright'.
+	WITH opy_out(4 downto 0) SELECT
+		alu_shright  <=
+								  opx_out(31 downto 0)   WHEN  B"00000",
+			alu_shsign(0)       & opx_out(31 downto 1)   WHEN  B"00001",
+			alu_shsign(0 to  1) & opx_out(31 downto 2)   WHEN  B"00010",
+			alu_shsign(0 to  2) & opx_out(31 downto 3)   WHEN  B"00011",
+			alu_shsign(0 to  3) & opx_out(31 downto 4)   WHEN  B"00100",
+			alu_shsign(0 to  4) & opx_out(31 downto 5)   WHEN  B"00101",
+			alu_shsign(0 to  5) & opx_out(31 downto 6)   WHEN  B"00110",
+			alu_shsign(0 to  6) & opx_out(31 downto 7)   WHEN  B"00111",
+			alu_shsign(0 to  7) & opx_out(31 downto 8)   WHEN  B"01000",
+			alu_shsign(0 to  8) & opx_out(31 downto 9)   WHEN  B"01001",
+			alu_shsign(0 to  9) & opx_out(31 downto 10)  WHEN  B"01010",
+			alu_shsign(0 to 10) & opx_out(31 downto 11)  WHEN  B"01011",
+			alu_shsign(0 to 11) & opx_out(31 downto 12)  WHEN  B"01100",
+			alu_shsign(0 to 12) & opx_out(31 downto 13)  WHEN  B"01101",
+			alu_shsign(0 to 13) & opx_out(31 downto 14)  WHEN  B"01110",
+			alu_shsign(0 to 14) & opx_out(31 downto 15)  WHEN  B"01111",
+			alu_shsign(0 to 15) & opx_out(31 downto 16)  WHEN  B"10000",
+			alu_shsign(0 to 16) & opx_out(31 downto 17)  WHEN  B"10001",
+			alu_shsign(0 to 17) & opx_out(31 downto 18)  WHEN  B"10010",
+			alu_shsign(0 to 18) & opx_out(31 downto 19)  WHEN  B"10011",
+			alu_shsign(0 to 19) & opx_out(31 downto 20)  WHEN  B"10100",
+			alu_shsign(0 to 20) & opx_out(31 downto 21)  WHEN  B"10101",
+			alu_shsign(0 to 21) & opx_out(31 downto 22)  WHEN  B"10110",
+			alu_shsign(0 to 22) & opx_out(31 downto 23)  WHEN  B"10111",
+			alu_shsign(0 to 23) & opx_out(31 downto 24)  WHEN  B"11000",
+			alu_shsign(0 to 24) & opx_out(31 downto 25)  WHEN  B"11001",
+			alu_shsign(0 to 25) & opx_out(31 downto 26)  WHEN  B"11010",
+			alu_shsign(0 to 26) & opx_out(31 downto 27)  WHEN  B"11011",
+			alu_shsign(0 to 27) & opx_out(31 downto 28)  WHEN  B"11100",
+			alu_shsign(0 to 28) & opx_out(31 downto 29)  WHEN  B"11101",
+			alu_shsign(0 to 29) & opx_out(31 downto 30)  WHEN  B"11110",
+			alu_shsign(0 to 30) & opx_out(31)            WHEN  B"11111";
+
+	-- Select the output of the shifter (left or right).
+	alu_shout <= alu_shleft WHEN alu_mx2i0 = '1' ELSE alu_shright;
+
+
+	-- ************ ALU Arythmetic Operations Description ************
+
+
+	alu_yop(31 downto 0) <= not opy_out WHEN alu_mx0i0 ELSE opy_out;
+
+	alu_cry(0)           <= alu_mx0i0;
+	alu_cry(32 downto 1) <= (opx_out and alu_yop             )
+						 or (opx_out and alu_cry(31 downto 0))
+						 or (alu_yop and alu_cry(31 downto 0));
+	alu_sum(31 downto 0) <=  opx_out xor alu_cry(31 downto 0) xor alu_yop;
+
+
+	-- ***************** ALU Multiplexer Description *****************
+
+
+	-- Check ALU multiplexer commands.
+	ASSERT(not (alu_mx2i1 xor alu_mx2i0))
+		REPORT "alu_mx2i1:0 must have the same value."
+		SEVERITY WARNING;
+	ASSERT(not((alu_mx1i2 xor alu_mx1i1) and (alu_mx1i1 xor alu_mx1i0)) )
+		REPORT "alu_mx1i2:1:0 must have the same value."
+		SEVERITY WARNING;
+
+	WITH alu_mx4i0 & alu_mx3i0 & alu_mx2i1 & alu_mx1i2
+										   & alu_mx1i1 SELECT
+		alu_out <= X"0000000" & B"000" & (not alu_test_n)
+							  WHEN  B"00000"
+								   |B"00001"
+								   |B"00010"
+								   |B"00011"
+								   |B"00100"
+								   |B"00101"
+								   |B"00110"
+								   |B"00111"
+								   |B"01000"
+								   |B"01001"
+								   |B"01010"
+								   |B"01011"
+								   |B"01100"
+								   |B"01101"
+								   |B"01110"
+								   |B"01111",
+					alu_shout WHEN  B"10000"
+								   |B"10001"
+								   |B"10010"
+								   |B"10011"
+								   |B"10100"
+								   |B"10101"
+								   |B"10110"
+								   |B"10111",
+		  opx_out  or opy_out WHEN  B"11000"
+								   |B"11010",
+		  opx_out and opy_out WHEN  B"11001"
+								   |B"11011",
+		  opx_out xor opy_out WHEN  B"11100"
+								   |B"11101",
+					  alu_sum WHEN  B"11110"
+								   |B"11111";
+
+								   
+	-- ************* ALU Auxiliary Outputs Affectations **************
+
+
+	-- Flag affectations.
+	alu_nul   <= '1' WHEN (alu_sum(31 downto 0) = X"00000000") ELSE  '0';
+	alu_sign  <=     alu_sum(31);
+	alu_c31 <= not alu_cry(32);
+	alu_c30 <= not alu_cry(31);
+	-- Main data bus output, to the pads.
+	WITH alu_byte SELECT
+		data_out_n <= not ( alu_out( 7 downto 0)
+						  & alu_out( 7 downto 0)
+						  & alu_out( 7 downto 0)
+						  & alu_out( 7 downto 0)) WHEN '1',
+					  not   alu_out(31 downto 0)  WHEN '0';
+
+
+	data_out_dpt <= not data_out_n;
+
+	-- *************** ADROUT Multiplexer Description ****************
+-- modif les plots ne sont plus inverseurs
+
+
+	WITH out_mx0i0 SELECT
+		out_adr_n <= not pc_s WHEN B"1",
+					 not ad_s WHEN B"0";
+
+-- nouveaux connecteurs
+
+	out_adr <=  NOT out_adr_n ;
+
+	adr_n_0  <= out_adr_n(0) ;
+	adr_n_1  <= out_adr_n(1) ;
+	adr_n_31  <= out_adr_n(31) ;
+
+	-- ******************* PC Register Description *******************
+
+
+	pc_ckt   <= pc_ck and      pc_test;
+	pc_ckd   <= pc_ck and (not pc_test) and pc_wen;
+	pc_scout <= pc_s(31);
+
+	wmt_pc:BLOCK(pc_ckt = '1')
+	BEGIN
+		pc_m <= GUARDED pc_s(30 downto 0) & pc_scin;
+	END BLOCK wmt_pc;
+
+	wmd_pc:BLOCK(pc_ckd = '1') BEGIN pc_m <= GUARDED alu_out; END BLOCK wmd_pc;
+	 ws_pc:BLOCK(pc_ck  = '0') BEGIN pc_s <= GUARDED  pc_m  ; END BLOCK  ws_pc;
+
+
+	-- ******************* AD Register Description *******************
+
+
+	ad_ckt   <= ad_ck and      ad_test;
+	ad_ckd   <= ad_ck and (not ad_test) and ad_wen;
+	ad_scout <= ad_s(31);
+
+	wmt_ad:BLOCK(ad_ckt = '1')
+	BEGIN
+		ad_m <= GUARDED ad_s(30 downto 0) & ad_scin;
+	END BLOCK wmt_ad;
+
+	wmd_ad:BLOCK(ad_ckd = '1') BEGIN ad_m <= GUARDED alu_out; END BLOCK wmd_ad;
+	 ws_ad:BLOCK(ad_ck  = '0') BEGIN ad_s <= GUARDED  ad_m  ; END BLOCK  ws_ad;
+
+
+	-- ******************* TVR Register Description *******************
+
+
+	tvr_ckt   <= tvr_ck and      tvr_test;
+	tvr_ckd   <= tvr_ck and (not tvr_test) and tvr_wen;
+	tvr_scout <= tvr_s(31);
+
+	wmt_tvr:BLOCK(tvr_ckt = '1')
+	BEGIN
+		tvr_m <= GUARDED tvr_s(30 downto 0) & tvr_scin;
+	END BLOCK wmt_tvr;
+
+wmd_tvr:BLOCK(tvr_ckd = '1') BEGIN tvr_m <= GUARDED alu_out; END BLOCK wmd_tvr;
+ ws_tvr:BLOCK(tvr_ck  = '0') BEGIN tvr_s <= GUARDED tvr_m  ; END BLOCK  ws_tvr;
+
+
+	-- ******************* IAR Register Description *******************
+
+
+	iar_ckt   <= iar_ck and      iar_test;
+	iar_ckd   <= iar_ck and (not iar_test) and iar_wen;
+	iar_scout <= iar_s(31);
+
+	wmt_iar:BLOCK(iar_ckt = '1')
+	BEGIN
+		iar_m <= GUARDED iar_s(30 downto 0) & iar_scin;
+	END BLOCK wmt_iar;
+
+wmd_iar:BLOCK(iar_ckd = '1') BEGIN iar_m <= GUARDED alu_out; END BLOCK wmd_iar;
+ ws_iar:BLOCK(iar_ck  = '0') BEGIN iar_s <= GUARDED iar_m  ; END BLOCK  ws_iar;
+
+
+	-- ******************* SR Register Description *******************
+
+
+	sr_ckt   <= sr_ck and      sr_test;
+	sr_ckd   <= sr_ck and (not sr_test) and sr_wen;
+	sr_scout <= sr_s(31);
+	sr_mask  <= sr_s( 1);
+	sr_mode  <= sr_s( 0);
+
+	wmt_sr:BLOCK(sr_ckt = '1')
+	BEGIN
+		sr_m <= GUARDED sr_s(30 downto 0) & sr_scin;
+	END BLOCK wmt_sr;
+
+wmd_sr:BLOCK(sr_ckd='1')
+BEGIN
+	WITH sr_mx SELECT
+		sr_m <= GUARDED alu_out(31 downto  0)            WHEN '0',
+						alu_out(31 downto 16) & sr_it3
+											  & sr_it2
+											  & sr_it1
+											  & sr_it0
+											  & sr_ovr
+											  & sr_dav
+											  & sr_ico
+											  & sr_iav
+											  & B"0000"
+											  & sr_cpurst
+											  & B"000"   WHEN '1';
+END BLOCK wmd_sr;
+ ws_sr:BLOCK(sr_ck ='0') BEGIN sr_s <= GUARDED  sr_m;   END BLOCK  ws_sr;
+
+
+	-- ******************* IR Register Description *******************
+
+
+	ir_ckt   <= ir_ck and      ir_test;
+	ir_ckd   <= ir_ck and (not ir_test) and ir_wen;
+	ir_scout <= ir_s(31);
+
+	wmt_ir:BLOCK(ir_ckt = '1')
+	BEGIN
+		ir_m <= GUARDED ir_s(30 downto 0) & ir_scin;
+	END BLOCK wmt_ir;
+
+wmd_ir:BLOCK(ir_ckd='1') BEGIN ir_m <= GUARDED not data_in_n; END BLOCK wmd_ir;
+ ws_ir:BLOCK(ir_ck ='0') BEGIN ir_s <= GUARDED       ir_m;    END BLOCK  ws_ir;
+
+
+	-- ******************* DT Register Description *******************
+
+
+	dt_ckt   <= dt_ck and      dt_test;
+	dt_ckd   <= dt_ck and (not dt_test) and dt_wen;
+	dt_scout <= dt_s(31);
+
+	wmt_dt:BLOCK(dt_ckt = '1')
+	BEGIN
+		dt_m <= GUARDED dt_s(30 downto 0) & dt_scin;
+	END BLOCK wmt_dt;
+
+wmd_dt:BLOCK(dt_ckd='1') BEGIN dt_m <= GUARDED opy_dt; END BLOCK wmd_dt;
+ ws_dt:BLOCK(dt_ck ='0') BEGIN dt_s <= GUARDED  dt_m;  END BLOCK  ws_dt;
+
+
+	-- *************** Register File (RF) Description ****************
+
+
+	rf_ckd <= rf_ck and rf_wen;
+
+	-- Write masters description.
+	wm_rf:BLOCK(rf_ckd)
+	BEGIN
+		rf_m1  <= GUARDED alu_out WHEN  rf_aw = B"00001"  ELSE  rf_m1;
+		rf_m2  <= GUARDED alu_out WHEN  rf_aw = B"00010"  ELSE  rf_m2;
+		rf_m3  <= GUARDED alu_out WHEN  rf_aw = B"00011"  ELSE  rf_m3;
+		rf_m4  <= GUARDED alu_out WHEN  rf_aw = B"00100"  ELSE  rf_m4;
+		rf_m5  <= GUARDED alu_out WHEN  rf_aw = B"00101"  ELSE  rf_m5;
+		rf_m6  <= GUARDED alu_out WHEN  rf_aw = B"00110"  ELSE  rf_m6;
+		rf_m7  <= GUARDED alu_out WHEN  rf_aw = B"00111"  ELSE  rf_m7;
+		rf_m8  <= GUARDED alu_out WHEN  rf_aw = B"01000"  ELSE  rf_m8;
+		rf_m9  <= GUARDED alu_out WHEN  rf_aw = B"01001"  ELSE  rf_m9;
+		rf_m10 <= GUARDED alu_out WHEN  rf_aw = B"01010"  ELSE  rf_m10;
+		rf_m11 <= GUARDED alu_out WHEN  rf_aw = B"01011"  ELSE  rf_m11;
+		rf_m12 <= GUARDED alu_out WHEN  rf_aw = B"01100"  ELSE  rf_m12;
+		rf_m13 <= GUARDED alu_out WHEN  rf_aw = B"01101"  ELSE  rf_m13;
+		rf_m14 <= GUARDED alu_out WHEN  rf_aw = B"01110"  ELSE  rf_m14;
+		rf_m15 <= GUARDED alu_out WHEN  rf_aw = B"01111"  ELSE  rf_m15;
+		rf_m16 <= GUARDED alu_out WHEN  rf_aw = B"10000"  ELSE  rf_m16;
+		rf_m17 <= GUARDED alu_out WHEN  rf_aw = B"10001"  ELSE  rf_m17;
+		rf_m18 <= GUARDED alu_out WHEN  rf_aw = B"10010"  ELSE  rf_m18;
+		rf_m19 <= GUARDED alu_out WHEN  rf_aw = B"10011"  ELSE  rf_m19;
+		rf_m20 <= GUARDED alu_out WHEN  rf_aw = B"10100"  ELSE  rf_m20;
+		rf_m21 <= GUARDED alu_out WHEN  rf_aw = B"10101"  ELSE  rf_m21;
+		rf_m22 <= GUARDED alu_out WHEN  rf_aw = B"10110"  ELSE  rf_m22;
+		rf_m23 <= GUARDED alu_out WHEN  rf_aw = B"10111"  ELSE  rf_m23;
+		rf_m24 <= GUARDED alu_out WHEN  rf_aw = B"11000"  ELSE  rf_m24;
+		rf_m25 <= GUARDED alu_out WHEN  rf_aw = B"11001"  ELSE  rf_m25;
+		rf_m26 <= GUARDED alu_out WHEN  rf_aw = B"11010"  ELSE  rf_m26;
+		rf_m27 <= GUARDED alu_out WHEN  rf_aw = B"11011"  ELSE  rf_m27;
+		rf_m28 <= GUARDED alu_out WHEN  rf_aw = B"11100"  ELSE  rf_m28;
+		rf_m29 <= GUARDED alu_out WHEN  rf_aw = B"11101"  ELSE  rf_m29;
+		rf_m30 <= GUARDED alu_out WHEN  rf_aw = B"11110"  ELSE  rf_m30;
+		rf_m31 <= GUARDED alu_out WHEN  rf_aw = B"11111"  ELSE  rf_m31;
+	END BLOCK wm_rf;
+
+	-- Write slave description.
+	ws_rf:BLOCK(rf_ck = '0')
+	BEGIN
+		WITH  rf_ar  SELECT
+			rf_s <= GUARDED X"00000000"  WHEN  B"00000",
+								 rf_m1   WHEN  B"00001",
+								 rf_m2   WHEN  B"00010",
+								 rf_m3   WHEN  B"00011",
+								 rf_m4   WHEN  B"00100",
+								 rf_m5   WHEN  B"00101",
+								 rf_m6   WHEN  B"00110",
+								 rf_m7   WHEN  B"00111",
+								 rf_m8   WHEN  B"01000",
+								 rf_m9   WHEN  B"01001",
+								 rf_m10  WHEN  B"01010",
+								 rf_m11  WHEN  B"01011",
+								 rf_m12  WHEN  B"01100",
+								 rf_m13  WHEN  B"01101",
+								 rf_m14  WHEN  B"01110",
+								 rf_m15  WHEN  B"01111",
+								 rf_m16  WHEN  B"10000",
+								 rf_m17  WHEN  B"10001",
+								 rf_m18  WHEN  B"10010",
+								 rf_m19  WHEN  B"10011",
+								 rf_m20  WHEN  B"10100",
+								 rf_m21  WHEN  B"10101",
+								 rf_m22  WHEN  B"10110",
+								 rf_m23  WHEN  B"10111",
+								 rf_m24  WHEN  B"11000",
+								 rf_m25  WHEN  B"11001",
+								 rf_m26  WHEN  B"11010",
+								 rf_m27  WHEN  B"11011",
+								 rf_m28  WHEN  B"11100",
+								 rf_m29  WHEN  B"11101",
+								 rf_m30  WHEN  B"11110",
+								 rf_m31  WHEN  B"11111";
+	END BLOCK ws_rf;
+
+END  fonctional;

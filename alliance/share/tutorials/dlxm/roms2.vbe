@@ -1,0 +1,25 @@
+entity roms2 is
+  port (
+    address : in  bit_vector (5 downto 0);
+    e_n     : in  bit;
+    data    : out mux_vector (7 downto 0) bus;
+    vdd     : in bit;
+    vss     : in bit);
+end roms2;
+
+architecture VBE of roms2 is
+
+  signal rom_out : bit_vector (7 downto 0);
+
+begin
+
+  write_out : block (e_n = '0')
+  begin
+    data <= guarded rom_out;
+  end block;
+
+  with address (5 downto 0) select
+  rom_out <=
+          X"00" when others;
+
+end;

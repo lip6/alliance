@@ -1,0 +1,34 @@
+;  ###----------------------------------------------------------------###
+;  #									#
+;  # file	: add001.u						#
+;  # date	: Apr  1 1993						#
+;  # descr.	: functional test for dlx				#
+;  #									#
+;  ###----------------------------------------------------------------###
+
+	;  ###--------------------------------------------------------###
+	;  #   signed addition						#
+	;  ###--------------------------------------------------------###
+
+val		equ	X"0002"
+
+		org	X"7fffff00"
+		start	init
+
+init:
+		addi	r1 , r0 , val
+		addi	r2 , r0 , val
+		add	r3 , r2 , r1
+
+		seqi	r11, r3 , (val + val)
+		bnez	r11     , good
+		nop
+		j	bad
+		nop
+
+		org	X"7ffffff0"
+good		j	good
+		nop
+bad		j	bad
+		nop
+		end

@@ -1,0 +1,86 @@
+
+-- ### -------------------------------------------------------------- ###
+-- #									#
+-- # file	: sr64_32a.vst                                          #
+-- # date	: 1993		               				#
+-- # version	: v0.0							#
+-- #									#
+-- # origin	: this description has been developed by CAO-VLSI team	#
+-- #		  at MASI laboratory, University Pierre et Marie Curie	#
+-- #		  URA CNRS 818, Institut Blaise Pascal			#
+-- #		  4 Place Jussieu 75252 Paris Cedex 05 - France		#
+-- # E-mail      :      cao-vlsi@masi.ibp.fr                            #
+-- #									#
+-- # descr.	: structural description of a ram 64*32.       		#
+-- #									#
+-- ### -------------------------------------------------------------- ###
+
+entity sr64_32a is
+
+  port (
+       E_N         : in    bit_vector ( 0     to 3)    ;
+       W_N         : in    bit                         ;
+       DAT         : inout mux_vector (31 downto 0) bus;
+       ADR         : in    bit_vector ( 5 downto 0)    ;
+       VDD         : in    bit                         ;
+       VSS         : in    bit
+       );
+
+end sr64_32a;
+
+architecture STRUCTURAL of sr64_32a is
+
+  component sr64_8a
+    port (
+         E_N         : in    bit                        ;
+         W_N         : in    bit                        ;
+         DAT         : inout mux_vector (7 downto 0) bus;
+         ADR         : in    bit_vector (5 downto 0)    ;
+         VDD         : in    bit                        ;
+         VSS         : in    bit
+         );
+  end component;
+  
+begin
+
+  byte0 : sr64_8a
+    port map(
+            E_N => E_N (0)            ,
+            W_N => W_N                ,
+            DAT => DAT (31 downto 24) ,
+            ADR => ADR                ,
+            VDD => VDD                ,
+            VSS => VSS
+         );
+
+  byte1 : sr64_8a
+    port map(
+            E_N => E_N (1)            ,
+            W_N => W_N                ,
+            DAT => DAT (23 downto 16) ,
+            ADR => ADR                ,
+            VDD => VDD                ,
+            VSS => VSS
+         );
+
+  byte2 : sr64_8a
+    port map(
+            E_N => E_N (2)            ,
+            W_N => W_N                ,
+            DAT => DAT (15 downto  8) ,
+            ADR => ADR                ,
+            VDD => VDD                ,
+            VSS => VSS
+         );
+
+  byte3 : sr64_8a
+    port map(
+            E_N => E_N (3)            ,
+            W_N => W_N                ,
+            DAT => DAT ( 7 downto  0) ,
+            ADR => ADR                ,
+            VDD => VDD                ,
+            VSS => VSS
+         );
+
+end ;

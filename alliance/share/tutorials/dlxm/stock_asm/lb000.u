@@ -1,0 +1,49 @@
+;  ###----------------------------------------------------------------###
+;  #									#
+;  # file	: lb000.u						#
+;  # date	: Apr  1 1993						#
+;  # descr.	: functional test for dlx				#
+;  #									#
+;  ###----------------------------------------------------------------###
+
+	;  ###--------------------------------------------------------###
+	;  #   load byte unsigned					#
+	;  ###--------------------------------------------------------###
+
+address		equ	X"000000a8"
+data		equ	X"dbf95ba0"
+
+		org	X"7fffff00"
+		start	init
+
+init:
+		loadi	r9 , address
+		loadi	r10, data
+		sw	r10, r9, 0
+
+		lbu	r11, r9 , 0
+		slli	r13, r11, 24
+
+		lbu	r11, r9 , 1
+		slli	r11, r11, 16
+		or	r13, r13, r11
+
+		lbu	r11, r9 , 2
+		slli	r11, r11, 8
+		or	r13, r13, r11
+
+		lbu	r11, r9 , 3
+		or	r13, r13, r11
+
+		seq	r14, r13, r10
+		beqz	r14, bad
+		nop
+		j	good
+		nop
+
+		org	X"7ffffff0"
+good		j	good
+		nop
+bad		j	bad
+		nop
+		end

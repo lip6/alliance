@@ -1,0 +1,44 @@
+;  ###----------------------------------------------------------------###
+;  #									#
+;  # file	: jal000.u						#
+;  # date	: Apr  1 1993						#
+;  # descr.	: functional test for dlx				#
+;  #									#
+;  ###----------------------------------------------------------------###
+
+	;  ###--------------------------------------------------------###
+	;  #   jump and link						#
+	;  ###--------------------------------------------------------###
+
+data		equ	X"14feb445"
+
+		org	X"7fffff00"
+		start	init
+
+init:
+		loadi	r15, sub_prog
+		loadi	r16, data
+		loadi	r17, (data << 2)
+
+		jalr	r15
+		nop
+		jalr	r15
+		nop
+
+		seq	r30, r16, r17
+		beqz	r30, bad
+		nop
+		j	good
+		nop
+
+sub_prog :
+		slli	r16, r16, 1
+		jr	r31
+		nop
+
+		org	x"7ffffff0"
+good		j	good
+		nop
+bad		j	bad
+		nop
+		end

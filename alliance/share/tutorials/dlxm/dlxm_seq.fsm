@@ -1,0 +1,1638 @@
+
+-- ### -------------------------------------------------------------- ###
+-- #									#
+-- # file	: dlxm_seq.fsm						#
+-- # date	: 14 February 1995					#
+-- # version	: v0.0							#
+-- #									#
+-- # origin	: this description has been developed by CAO-VLSI team	#
+-- #		  at MASI laboratory, University Pierre et Marie Curie	#
+-- #		  URA CNRS 818, Institut Blaise Pascal			#
+-- #		  4 Place Jussieu 75252 Paris Cedex 05 - France		#
+-- # E-mail      :      cao-vlsi@masi.ibp.fr                            #
+-- #									#
+-- # descr.	: Finite State Machine desciption of the sequencer	#
+-- #		  Reset input is coming from the status			#
+-- #									#
+-- ### -------------------------------------------------------------- ###
+
+
+entity dlxm_seq is
+
+-- Declaration de l'interface ( copie par coeur.vst )
+
+  PORT (
+  ck            : in BIT;                       -- ck
+  frz           : in BIT;                       -- frz
+  rqs           : in BIT;                       -- int,rqs,reset
+  reset		: in BIT;			-- status reset register
+  resnul        : in BIT;                       -- resnul
+  ir_opcod      : in bit_vector(5 DOWNTO 0) ;   -- ir_opcod
+  ir_tvr        : in BIT;                       -- ir_tvr
+  ir_iar        : in BIT;                       -- ir_iar
+  ir_sr         : in BIT;                       -- ir_sr
+  vdd           : in BIT;                       -- vdd
+  vss           : in BIT;                       -- vss
+  scin          : in BIT;                       -- scin
+  test          : in BIT;                       -- test
+  ovr_en        : out BIT;                      -- ovr_en
+  ico           : out BIT;                      -- ico
+  priv          : out BIT;                      -- priv
+  iformt	: out BIT;			-- iformt 
+  riformt	: out BIT;			-- iformt 
+  ctlopx        : out bit_vector(5 DOWNTO 0) ;  -- ctlopx
+  ctlopy        : out bit_vector(4 DOWNTO 0) ;  -- ctlopy
+  ctlalu        : out bit_vector(4 DOWNTO 0) ;  -- ctlalu
+  wenable       : out bit_vector(8 DOWNTO 0) ;  -- wenable
+  ctlrw         : out bit_vector(3 DOWNTO 0) ;  -- ctlrw
+  ctladr	: out bit ;			-- ctladr
+  scout         : out BIT                       -- scout
+  );
+
+end dlxm_seq;
+
+
+architecture STATE_MACHINE of dlxm_seq is
+
+-- Declaration des etats du microsequencer possibles ( un etat pour chaque m-instr )
+
+type ETAT_TYPE is ( init, ico1,  reg, imd, add, sub, sll, srl, sra, seq, sne, sge,
+		    sle, sgt, slt, lhi, imdu, lor, land, lxor, bnez, beqz, branch, jal,
+		    j, jalr, jr, rfe, sr16r, trap, s2i, i2s, sr2i, i2sr, tvr2i, i2tvr,
+		    iar2i, i2iar, adr, lw, lbu, sw, sb, lw2, lbu2, ifetch, irq, sr16l, pct );
+
+	signal EF, EP:ETAT_TYPE;
+
+	--pragma CURRENT_STATE EP
+	--pragma NEXT_STATE EF
+        --pragma SCAN_TEST test
+	--pragma SCAN_IN scin
+	--pragma SCAN_OUT scout
+        --pragma CLOCK ck
+
+	-- Declaration des OPCODES des instructions
+
+	constant add_i    : bit_vector (5 downto 0) := B"000_000"  ;    -- add
+	constant addu_i   : bit_vector (5 downto 0) := B"000_001"  ;    -- addu
+	constant sub_i    : bit_vector (5 downto 0) := B"000_010"  ;    -- sub
+	constant subu_i   : bit_vector (5 downto 0) := B"000_011"  ;    -- subu
+	constant addi_i   : bit_vector (5 downto 0) := B"000_100"  ;    -- addi
+	constant addui_i  : bit_vector (5 downto 0) := B"000_101"  ;    -- addui
+	constant subi_i   : bit_vector (5 downto 0) := B"000_110"  ;    -- subi
+	constant subui_i  : bit_vector (5 downto 0) := B"000_111"  ;    -- subui
+	constant sll_i    : bit_vector (5 downto 0) := B"001_000"  ;    -- sll
+	constant srl_i    : bit_vector (5 downto 0) := B"001_001"  ;    -- srl
+	constant sra_i    : bit_vector (5 downto 0) := B"001_010"  ;    -- sra
+	constant slli_i   : bit_vector (5 downto 0) := B"001_100"  ;    -- slli
+	constant srli_i   : bit_vector (5 downto 0) := B"001_101"  ;    -- srli
+	constant srai_i   : bit_vector (5 downto 0) := B"001_110"  ;    -- srai
+	constant lhi_i    : bit_vector (5 downto 0) := B"001_111"  ;    -- lhi
+	constant seq_i    : bit_vector (5 downto 0) := B"010_000"  ;    -- seq
+	constant sne_i    : bit_vector (5 downto 0) := B"010_001"  ;    -- sne
+	constant sge_i    : bit_vector (5 downto 0) := B"010_010"  ;    -- sge
+	constant sle_i    : bit_vector (5 downto 0) := B"010_011"  ;    -- sle
+	constant seqi_i   : bit_vector (5 downto 0) := B"010_100"  ;    -- seqi
+	constant snei_i   : bit_vector (5 downto 0) := B"010_101"  ;    -- snei
+	constant sgei_i   : bit_vector (5 downto 0) := B"010_110"  ;    -- sgei
+	constant slei_i   : bit_vector (5 downto 0) := B"010_111"  ;    -- slei
+	constant sgt_i    : bit_vector (5 downto 0) := B"011_010"  ;    -- sgt
+	constant slt_i    : bit_vector (5 downto 0) := B"011_011"  ;    -- slt
+	constant sgti_i   : bit_vector (5 downto 0) := B"011_110"  ;    -- sgti
+	constant slti_i   : bit_vector (5 downto 0) := B"011_111"  ;    -- slti
+	constant and_i    : bit_vector (5 downto 0) := B"100_000"  ;    -- and
+	constant or_i     : bit_vector (5 downto 0) := B"100_001"  ;    -- or
+	constant xor_i    : bit_vector (5 downto 0) := B"100_011"  ;    -- xor
+	constant andi_i   : bit_vector (5 downto 0) := B"100_100"  ;    -- andi
+	constant ori_i    : bit_vector (5 downto 0) := B"100_101"  ;    -- ori
+	constant xori_i   : bit_vector (5 downto 0) := B"100_111"  ;    -- xori
+
+	constant sw_i     : bit_vector (5 downto 0) := B"101_000"  ;    -- sw
+	constant sh_i     : bit_vector (5 downto 0) := B"101_001"  ;    -- sh
+	constant sb_i     : bit_vector (5 downto 0) := B"101_010"  ;    -- sb
+	constant lbu_i    : bit_vector (5 downto 0) := B"101_011"  ;    -- lbu
+	constant lw_i     : bit_vector (5 downto 0) := B"101_100"  ;    -- lw
+	constant lh_i     : bit_vector (5 downto 0) := B"101_101"  ;    -- lh
+	constant lb_i     : bit_vector (5 downto 0) := B"101_110"  ;    -- lb
+	constant lhu_i    : bit_vector (5 downto 0) := B"101_111"  ;    -- lhu
+
+	constant jr_i     : bit_vector (5 downto 0) := B"110_000"  ;    -- jr
+	constant jalr_i   : bit_vector (5 downto 0) := B"110_001"  ;    -- jalr
+	constant movs2i_i : bit_vector (5 downto 0) := B"110_010"  ;    -- movi2s
+	constant movi2s_i : bit_vector (5 downto 0) := B"110_011"  ;    -- movs2i
+	constant beqz_i   : bit_vector (5 downto 0) := B"110_100"  ;    -- beqz
+	constant bnez_i   : bit_vector (5 downto 0) := B"110_101"  ;    -- bnez
+	constant j_i      : bit_vector (5 downto 0) := B"111_000"  ;    -- j
+	constant jal_i    : bit_vector (5 downto 0) := B"111_001"  ;    -- jal
+	constant rfe_i    : bit_vector (5 downto 0) := B"111_010"  ;    -- rfe
+	constant trap_i   : bit_vector (5 downto 0) := B"111_011"  ;    -- trap
+
+
+        -- Description des operations de l'Alu
+	constant a_sum  : bit_vector (4 downto 0) := B"11110" ;
+	constant a_sumv : bit_vector (4 downto 0) := B"11110" ;
+	constant a_dif  : bit_vector (4 downto 0) := B"11111" ;
+	constant a_difv : bit_vector (4 downto 0) := B"11111" ;
+	constant a_and  : bit_vector (4 downto 0) := B"11010" ;
+	constant a_or   : bit_vector (4 downto 0) := B"11000" ;
+	constant a_xor  : bit_vector (4 downto 0) := B"11100" ;
+	constant a_sll  : bit_vector (4 downto 0) := B"10100" ;
+	constant a_srl  : bit_vector (4 downto 0) := B"10000" ;
+	constant a_sra  : bit_vector (4 downto 0) := B"10010" ;
+	constant a_seq  : bit_vector (4 downto 0) := B"00011" ;
+	constant a_sne  : bit_vector (4 downto 0) := B"00101" ;
+	constant a_sge  : bit_vector (4 downto 0) := B"00111" ;
+	constant a_sgt  : bit_vector (4 downto 0) := B"01001" ;
+	constant a_sle  : bit_vector (4 downto 0) := B"01011" ;
+	constant a_slt  : bit_vector (4 downto 0) := B"01101" ;
+
+        -- Description de l'operande X
+
+	constant x_rs   : bit_vector (5 downto 0) := B"000011" ;
+	constant x_rt   : bit_vector (5 downto 0) := B"000010" ;
+	constant x_pc   : bit_vector (5 downto 0) := B"000100" ;
+	constant x_ad   : bit_vector (5 downto 0) := B"000101" ;
+	constant x_sr   : bit_vector (5 downto 0) := B"010000" ;
+	constant x_tvr  : bit_vector (5 downto 0) := B"001001" ;
+	constant x_iar  : bit_vector (5 downto 0) := B"001000" ;
+	constant x_c0   : bit_vector (5 downto 0) := B"010001" ;
+	constant x_cb   : bit_vector (5 downto 0) := B"100000" ;
+	constant x_ch   : bit_vector (5 downto 0) := B"100001" ;
+       
+        -- Description de l'operande Y
+
+	constant y_i16  : bit_vector (4 downto 0) := B"01000" ;
+	constant y_i18  : bit_vector (4 downto 0) := B"00101" ;
+	constant y_i28  : bit_vector (4 downto 0) := B"00100" ;
+	constant y_dt   : bit_vector (4 downto 0) := B"00011" ;
+	constant y_ad   : bit_vector (4 downto 0) := B"00010" ;
+	constant y_c0   : bit_vector (4 downto 0) := B"01001" ;
+	constant y_c4   : bit_vector (4 downto 0) := B"10000" ;
+	constant y_c16  : bit_vector (4 downto 0) := B"10001" ;
+        
+        -- Description du registre destination
+
+	constant r_no   : bit_vector (8 downto 0) := B"000000000" ;
+	constant r_pc   : bit_vector (8 downto 0) := B"000000001" ;
+	constant r_ad   : bit_vector (8 downto 0) := B"000000010" ;
+	constant r_rd   : bit_vector (8 downto 0) := B"000000100" ;
+	constant r_r31  : bit_vector (8 downto 0) := B"000001100" ;
+	constant r_iar  : bit_vector (8 downto 0) := B"000010000" ;
+	constant r_siar : bit_vector (8 downto 0) := B"100010000" ;
+	constant r_tvr  : bit_vector (8 downto 0) := B"000100000" ;
+	constant r_sr   : bit_vector (8 downto 0) := B"001000000" ;
+	constant r_ssr  : bit_vector (8 downto 0) := B"011000000" ;
+
+        -- Description des modes d'acces memoire
+
+	constant m_no    : bit_vector (3 downto 0) := B"0001" ;
+	constant m_fetch : bit_vector (3 downto 0) := B"1001" ;
+	constant m_rw    : bit_vector (3 downto 0) := B"0101" ;
+	constant m_ww    : bit_vector (3 downto 0) := B"0000" ;
+	constant m_rb    : bit_vector (3 downto 0) := B"0111" ;
+	constant m_wb    : bit_vector (3 downto 0) := B"0010" ;
+
+        constant o_no    : bit := '1';
+        constant o_fetch : bit := '1';
+        constant o_rw    : bit := '0';
+        constant o_ww    : bit := '0';
+        constant o_rb	 : bit := '0';
+        constant o_wb    : bit := '0';
+
+
+	-- Description du graphe de transitions
+	begin
+
+	process ( EP   , ir_opcod, resnul, frz  , rqs,
+                  reset, ir_tvr  , ir_iar, ir_sr      )
+
+	begin
+
+	if (reset = '1' or test='1') then
+		EF      <= ifetch;
+  		ovr_en  <= '0'   ;
+  		ico     <= '0'   ;
+  		priv    <= '0'   ;
+  		iformt  <= '0';	
+  		riformt <= '0';	
+  		ctlopx  <= x_c0  ;
+  		ctlopy  <= y_c0  ;
+  		ctlalu  <= a_sum ;
+		wenable <= r_no  ;
+		ctlrw   <= m_no  ;
+		ctladr  <= o_no   ;
+	else
+
+	case EP is
+-- ***********************************************************************
+		when init =>
+                   	if frz then EF <= init;
+			elsif ir_opcod = ori_i		then EF <= imdu	  ;		
+			elsif ir_opcod = andi_i		then EF <= imdu	  ;		
+			elsif ir_opcod = xori_i		then EF <= imdu	  ;		
+			elsif ir_opcod = or_i		then EF <= reg	  ;		
+			elsif ir_opcod = and_i		then EF <= reg	  ;		
+			elsif ir_opcod = xor_i		then EF <= reg	  ;		
+			elsif ir_opcod = add_i		then EF <= reg	  ;		
+			elsif ir_opcod = sub_i		then EF <= reg	  ;		
+			elsif ir_opcod = sll_i		then EF <= reg	  ;		
+			elsif ir_opcod = srl_i		then EF <= reg	  ;		
+			elsif ir_opcod = sra_i		then EF <= reg	  ;		
+			elsif ir_opcod = seq_i		then EF <= reg	  ;		
+			elsif ir_opcod = sne_i		then EF <= reg	  ;		
+			elsif ir_opcod = sge_i		then EF <= reg	  ;		
+			elsif ir_opcod = sle_i		then EF <= reg	  ;		
+			elsif ir_opcod = sgt_i		then EF <= reg	  ;		
+			elsif ir_opcod = slt_i		then EF <= reg	  ;  		
+			elsif ir_opcod = addi_i		then EF <= imd	  ;		
+			elsif ir_opcod = subi_i		then EF <= imd	  ;		
+			elsif ir_opcod = slli_i		then EF <= imd	  ;		
+			elsif ir_opcod = srli_i		then EF <= imd	  ;		
+			elsif ir_opcod = srai_i		then EF <= imd	  ;		
+			elsif ir_opcod = lhi_i		then EF <= imd	  ;		
+			elsif ir_opcod = seqi_i		then EF <= imd	  ;		
+			elsif ir_opcod = snei_i		then EF <= imd	  ;		
+			elsif ir_opcod = sgei_i		then EF <= imd	  ;		
+			elsif ir_opcod = slei_i		then EF <= imd	  ;		
+			elsif ir_opcod = sgti_i		then EF <= imd	  ;		
+			elsif ir_opcod = slti_i		then EF <= imd	  ;		
+			elsif ir_opcod = jal_i		then EF <= jal	  ;		
+			elsif ir_opcod = j_i		then EF <= j	  ;	 
+			elsif ir_opcod = jalr_i		then EF <= jalr	  ;		
+			elsif ir_opcod = jr_i		then EF <= jr	  ;	
+			elsif ir_opcod = rfe_i		then EF <= rfe    ;		
+			elsif ir_opcod = trap_i		then EF <= trap	  ;		
+			elsif ir_opcod = movs2i_i	then EF <= s2i    ;		
+			elsif ir_opcod = movi2s_i	then EF <= i2s    ;		
+			elsif ir_opcod = lw_i 		then EF <= adr    ;		
+			elsif ir_opcod = lbu_i		then EF <= adr    ;		
+			elsif ir_opcod = sw_i		then EF <= adr    ;		
+			elsif ir_opcod = sb_i		then EF <= adr    ;		
+			elsif ir_opcod = bnez_i		then EF <= bnez   ;		
+			elsif ir_opcod = beqz_i		then EF <= beqz	  ;	
+			else	EF <= ico1; 		
+	
+                    end if;
+
+        
+	-- mins INIT produit les signaux suivants :
+  			ovr_en  <= '0' ;
+  			ico     <= '0' ;
+  			priv     <= '0' ;
+  			iformt <= '0';	
+  			riformt <= '1';	
+			ctlopx  <= x_pc ;
+  			ctlopy  <= y_c4 ;
+  			ctlalu  <= a_sum ;
+                        ctlrw   <= m_no;
+			ctladr  <= o_no;
+
+                          if NOT frz then
+                                   wenable <= r_pc;
+                          else
+                                   wenable <= r_no;
+                          end if;
+
+  			
+-- ***********************************************************************
+		
+		when imdu =>
+                   if frz then EF <= imdu;
+                   else
+			if ir_opcod = ori_i	then EF <= lor	;	end if;	
+			if ir_opcod = andi_i	then EF <= land	;	end if;	
+			if ir_opcod = xori_i	then EF <= lxor	;	end if;	
+                   end if;
+
+	-- mins IMDU produit les signaux suivants :
+  			ovr_en  <= '0';
+  			ico     <= '0';
+  			priv     <= '0' ;
+  			iformt <= '1';	
+  			riformt <= '0';	
+  			ctlopx  <= x_ch ;
+  			ctlopy  <= y_i16 ;
+  			ctlalu  <= a_and ;
+                        ctlrw   <= m_no;
+			ctladr  <= o_no;
+                          if NOT frz then
+                                   wenable <= r_ad;
+                          else
+                                   wenable <= r_no;
+                          end if;
+
+-- ***********************************************************************
+
+		when reg =>
+                   if frz then EF <= reg;
+                   else
+			if ir_opcod = or_i	then EF <= lor	;	end if;	
+			if ir_opcod = and_i	then EF <= land	;	end if;	
+			if ir_opcod = xor_i	then EF <= lxor	;	end if;	
+			if ir_opcod = add_i	then EF <= add	;	end if;	
+			if ir_opcod = sub_i	then EF <= sub	;	end if;	
+			if ir_opcod = sll_i	then EF <= sll	;	end if;	
+			if ir_opcod = srl_i	then EF <= srl	;	end if;	
+			if ir_opcod = sra_i	then EF <= sra	;	end if;	
+			if ir_opcod = seq_i	then EF <= seq	;	end if;	
+			if ir_opcod = sne_i	then EF <= sne	;	end if;	
+			if ir_opcod = sge_i	then EF <= sge	;	end if;	
+			if ir_opcod = sle_i	then EF <= sle	;	end if;	
+			if ir_opcod = sgt_i	then EF <= sgt	;	end if;	
+			if ir_opcod = slt_i	then EF <= slt	;	end if;	
+                    end if;
+
+	-- mins REG produit les signaux suivants :
+  			ovr_en  <= '0' ;
+  			ico     <= '0' ;
+  			priv     <= '0' ;
+  			iformt <= '0';	
+  			riformt <= '0';	
+  			ctlopx  <= x_rt ;
+  			ctlopy  <= y_c0 ;
+  			ctlalu  <= a_sum ;
+                        ctlrw   <= m_no;
+			ctladr  <= o_no;
+                           if NOT frz then
+                                   wenable <= r_ad;
+                          else
+                                   wenable <= r_no;
+                          end if;
+-- ***********************************************************************
+
+		when imd =>
+                   if frz then EF <= imd;
+                   else
+			if ir_opcod = addi_i	then EF <= add	;	end if;	
+			if ir_opcod = subi_i	then EF <= sub	;	end if;	
+			if ir_opcod = slli_i	then EF <= sll	;	end if;	
+			if ir_opcod = srli_i	then EF <= srl	;	end if;	
+			if ir_opcod = srai_i	then EF <= sra	;	end if;	
+			if ir_opcod = lhi_i	then EF <= lhi	;	end if;	
+			if ir_opcod = seqi_i	then EF <= seq	;	end if;	
+			if ir_opcod = snei_i	then EF <= sne	;	end if;	
+			if ir_opcod = sgei_i	then EF <= sge	;	end if;	
+			if ir_opcod = slei_i	then EF <= sle	;	end if;	
+			if ir_opcod = sgti_i	then EF <= sgt	;	end if;	
+			if ir_opcod = slti_i	then EF <= slt	;	end if;	
+                    end if;
+
+	-- mins IMD produit les signaux suivants :
+  			ovr_en  <= '0' ;
+  			ico     <= '0' ;
+  			priv     <= '0' ;
+  			iformt <= '1';	
+  			riformt <= '0';	
+  			ctlopx  <= x_c0 ;
+  			ctlopy  <= y_i16 ;
+  			ctlalu  <= a_sum ;
+                        ctlrw   <= m_no;
+			ctladr  <= o_no;
+                           if NOT frz then
+                                   wenable <= r_ad;
+                          else
+                                   wenable <= r_no;
+                          end if;
+
+  			
+-- ***********************************************************************
+
+		when lor =>
+                   if frz then EF <= lor;
+                   else
+			if rqs then EF <= irq;
+					else EF <= init	;	end if;	
+                    end if;
+
+	-- mins LOR produit les signaux suivants :
+  			ovr_en  <= '0' ;
+  			ico     <= '0' ;
+  			priv     <= '0' ;
+  			iformt <= '0';	
+  			riformt <= '0';	
+  			ctlopx  <= x_rs ;
+  			ctlopy  <= y_ad ;
+  			ctlalu  <= a_or ;
+                          if frz='0' then  
+  			           wenable <= r_rd ;
+  			           ctlrw   <= m_fetch ;
+  			           ctladr  <= o_fetch ;
+                          else
+  			           wenable <= r_no ;
+  			           ctlrw   <= m_no ;
+				   ctladr  <= o_no;
+                          end if;
+-- ***********************************************************************
+
+		when land =>
+                   if frz then EF <= land;
+                   else
+			if rqs then EF <= irq;
+					else EF <= init	;	end if;	
+                    end if;
+
+	-- mins LAND produit les signaux suivants :
+  			ovr_en  <= '0' ;
+  			ico     <= '0' ;
+  			priv     <= '0' ;
+  			iformt <= '0';	
+  			riformt <= '0';	
+  			ctlopx  <=  x_rs;
+  			ctlopy  <=  y_ad;
+  			ctlalu  <=  a_and;
+                           if NOT frz then
+                                   wenable <= r_rd;
+                                   ctlrw   <= m_fetch;
+  			           ctladr  <= o_fetch ;
+                          else
+                                   wenable <= r_no;
+                                   ctlrw   <= m_no;
+				   ctladr  <= o_no;
+                          end if;
+
+  			
+-- ***********************************************************************
+
+		when lxor =>
+                   if frz then EF <= lxor;
+                   else
+			if rqs then EF <= irq;
+					else EF <= init	;	end if;	
+                    end if;
+
+	-- mins LXOR produit les signaux suivants :
+  			ovr_en  <= '0' ;
+  			ico     <= '0' ;
+  			priv     <= '0' ;
+  			iformt <= '0';	
+  			riformt <= '0';	
+  			ctlopx  <= x_rs ;
+  			ctlopy  <= y_ad ;
+  			ctlalu  <= a_xor ;
+                           if NOT frz then
+                                   wenable <= r_rd;
+                                   ctlrw   <= m_fetch;
+  			           ctladr  <= o_fetch ;
+                          else
+                                   wenable <= r_no;
+                                   ctlrw   <= m_no;
+			           ctladr  <= o_no;
+                          end if;
+
+-- ***********************************************************************
+
+		when add =>
+                   if frz then EF <= add;
+                   else
+			if rqs then EF <= irq;
+					else EF <= init	;	end if;	
+                    end if;
+
+	-- mins ADD produit les signaux suivants :
+  			ovr_en  <=  '1';
+  			ico     <=  '0';
+  			priv     <= '0' ;
+  			iformt <= '0';	
+  			riformt <= '0';	
+  			ctlopx  <=  x_rs;
+  			ctlopy  <=  y_ad;
+  			ctlalu  <=  a_sumv;
+                           if NOT frz then
+                                   wenable <= r_rd;
+                                   ctlrw   <= m_fetch;
+  			           ctladr  <= o_fetch ;
+                          else
+                                   wenable <= r_no;
+                                   ctlrw   <= m_no;
+			           ctladr  <= o_no;
+                          end if;
+
+-- ***********************************************************************
+
+		when sub =>
+                   if frz then EF <= sub;
+                   else
+			if rqs then EF <= irq;
+					else EF <= init	;	end if;	
+                    end if;
+
+	-- mins SUB produit les signaux suivants :
+  			ovr_en  <= '1' ;
+  			ico     <= '0' ;
+  			priv     <= '0' ;
+  			iformt <= '0';	
+  			riformt <= '0';	
+  			ctlopx  <=  x_rs;
+  			ctlopy  <=  y_ad;
+  			ctlalu  <=  a_difv;
+                           if NOT frz then
+                                   wenable <= r_rd ;
+                                   ctlrw   <= m_fetch;
+  			           ctladr  <= o_fetch ;
+                          else
+                                   wenable <= r_no;
+                                   ctlrw   <= m_no;
+			           ctladr  <= o_no;
+                          end if;
+
+-- ***********************************************************************
+
+		when sll =>
+                   if frz then EF <= sll;
+                   else
+			if rqs then EF <= irq;
+					else EF <= init	;	end if;	
+                    end if;
+
+	-- mins SLL produit les signaux suivants :
+  			ovr_en  <=  '0';
+  			ico     <=  '0';
+  			priv     <= '0' ;
+  			iformt <= '0';	
+  			riformt <= '0';	
+  			ctlopx  <= x_rs ;
+  			ctlopy  <= y_ad ;
+  			ctlalu  <= a_sll ;
+                            if NOT frz then
+                                   wenable <= r_rd;
+                                   ctlrw   <= m_fetch;
+  			           ctladr  <= o_fetch ;
+                          else
+                                   wenable <= r_no;
+                                   ctlrw   <= m_no;
+			           ctladr  <= o_no;
+                          end if;
+
+-- ***********************************************************************
+
+		when srl =>
+                   if frz then EF <= srl;
+                   else
+			if rqs then EF <= irq;
+					else EF <= init	;	end if;	
+                    end if;
+
+	-- mins SRL produit les signaux suivants :
+  			ovr_en  <= '0' ;
+  			ico     <= '0' ;
+  			priv     <= '0' ;
+  			iformt <= '0';	
+  			riformt <= '0';	
+  			ctlopx  <= x_rs ;
+  			ctlopy  <= y_ad ;
+  			ctlalu  <=  a_srl;
+                           if NOT frz then
+                                   wenable <= r_rd;
+                                   ctlrw   <= m_fetch;
+  			           ctladr  <= o_fetch ;
+                           else
+				   wenable <= r_no;
+                                   ctlrw   <= m_no;
+				   ctladr  <= o_no;
+                          end if;
+
+-- ***********************************************************************
+
+		when sra =>
+                   if frz then EF <= sra;
+                   else
+			if rqs then EF <= irq;
+					else EF <= init	;	end if;	
+                    end if;
+
+	-- mins SRA produit les signaux suivants :
+  			ovr_en  <= '0' ;
+  			ico     <= '0' ;
+  			priv     <= '0' ;
+  			iformt <= '0';	
+  			riformt <= '0';	
+  			ctlopx  <= x_rs ;
+  			ctlopy  <= y_ad ;
+  			ctlalu  <= a_sra ;
+                           if NOT frz then
+                                   wenable <= r_rd;
+                                   ctlrw   <= m_fetch;
+  			           ctladr  <= o_fetch ;
+                          else
+                                   wenable <= r_no;
+                                   ctlrw   <= m_no;
+			           ctladr  <= o_no;
+                          end if;
+
+  			
+-- ***********************************************************************
+
+		when lhi =>
+                   if frz then EF <= lhi;
+                   else
+			if rqs then EF <= irq;
+					else EF <= init	;	end if;	
+                    end if;
+
+	-- mins LHI produit les signaux suivants :
+  			ovr_en  <=  '0';
+  			ico     <=  '0';
+  			priv     <= '0' ;
+  			iformt <= '0';	
+  			riformt <= '0';	
+  			ctlopx  <=  x_ad;
+  			ctlopy  <=  y_c16;
+  			ctlalu  <=  a_sll;
+                           if NOT frz then
+                                   wenable <= r_rd;
+                                   ctlrw   <= m_fetch;
+  			           ctladr  <= o_fetch ;
+                          else
+                                   wenable <= r_no;
+                                   ctlrw   <= m_no;
+			           ctladr  <= o_no;
+                          end if;
+
+  			
+-- ***********************************************************************
+
+		when seq =>
+                   if frz then EF <= seq;
+                   else
+			if rqs then EF <= irq;
+					else EF <= init	;	end if;	
+                    end if;
+
+	-- mins SEQ produit les signaux suivants :
+  			ovr_en  <= '0' ;
+  			ico     <= '0' ;
+  			priv     <= '0' ;
+  			iformt <= '0';	
+  			riformt <= '0';	
+  			ctlopx  <= x_rs ;
+  			ctlopy  <= y_ad ;
+  			ctlalu  <= a_seq ;
+                           if NOT frz then
+                                   wenable <= r_rd;
+                                   ctlrw   <= m_fetch;
+  			           ctladr  <= o_fetch ;
+                          else
+                                   wenable <= r_no;
+                                   ctlrw   <= m_no;
+			           ctladr  <= o_no;
+                          end if;
+ 
+-- ***********************************************************************
+
+		when sne =>
+                   if frz then EF <= sne;
+                   else
+			if rqs then EF <= irq;
+					else EF <= init	;	end if;	
+                    end if;
+
+	-- mins SNE produit les signaux suivants :
+  			ovr_en  <= '0' ;
+  			ico     <= '0' ;
+  			priv     <= '0' ;
+  			iformt <= '0';	
+  			riformt <= '0';	
+  			ctlopx  <= x_rs ;
+  			ctlopy  <= y_ad ;
+  			ctlalu  <= a_sne ;
+                           if NOT frz then
+                                   wenable <= r_rd;
+                                   ctlrw   <= m_fetch;
+  			           ctladr  <= o_fetch ;
+                          else
+                                   wenable <= r_no;
+                                   ctlrw   <= m_no;
+			           ctladr  <= o_no;
+                          end if;
+
+  			
+-- ***********************************************************************
+
+		when sge =>
+                   if frz then EF <= sge;
+                   else
+			if rqs then EF <= irq;
+					else EF <= init	;	end if;	
+                    end if;
+
+	-- mins SGE produit les signaux suivants :
+  			ovr_en  <= '0' ;
+  			ico     <= '0' ;
+  			priv     <= '0' ;
+  			iformt <= '0';	
+  			riformt <= '0';	
+  			ctlopx  <= x_rs ;
+  			ctlopy  <= y_ad ;
+  			ctlalu  <= a_sge ;
+                           if NOT frz then
+                                   wenable <= r_rd;
+                                   ctlrw   <= m_fetch;
+  			           ctladr  <= o_fetch ;
+                          else
+                                   wenable <= r_no;
+                                   ctlrw   <= m_no;
+			           ctladr  <= o_no;
+                          end if;
+
+-- ***********************************************************************
+
+		when sle =>
+                   if frz then EF <= sle;
+                   else
+			if rqs then EF <= irq;
+					else EF <= init	;	end if;	
+                    end if;
+
+	-- mins SLE produit les signaux suivants :
+  			ovr_en  <= '0' ;
+  			ico     <= '0' ;
+  			priv     <= '0' ;
+  			iformt <= '0';	
+  			riformt <= '0';	
+  			ctlopx  <= x_rs ;
+  			ctlopy  <= y_ad ;
+  			ctlalu  <= a_sle ;
+                           if NOT frz then
+                                   wenable <= r_rd;
+                                   ctlrw   <= m_fetch;
+  			           ctladr  <= o_fetch ;
+                          else
+                                   wenable <= r_no;
+                                   ctlrw   <= m_no;
+			           ctladr  <= o_no;
+                          end if;
+
+  			
+-- ***********************************************************************
+
+		when sgt =>
+                   if frz then EF <= sgt;
+                   else
+			if rqs then EF <= irq;
+					else EF <= init	;	end if;	
+                    end if;
+
+	-- mins SGT produit les signaux suivants :
+  			ovr_en  <= '0'  ;
+  			ico     <= '0' ;
+  			priv     <= '0' ;
+  			iformt <= '0';	
+  			riformt <= '0';	
+  			ctlopx  <= x_rs ;
+  			ctlopy  <= y_ad ;
+  			ctlalu  <= a_sgt ;
+                           if NOT frz then
+                                   wenable <= r_rd;
+                                   ctlrw   <= m_fetch;
+  			           ctladr  <= o_fetch ;
+                          else
+                                   wenable <= r_no;
+                                   ctlrw   <= m_no;
+			           ctladr  <= o_no;
+                          end if;
+
+  			
+-- ***********************************************************************
+
+		when slt =>
+                   if frz then EF <= slt;
+                   else
+			if rqs then EF <= irq;
+					else EF <= init	;	end if;	
+                    end if;
+
+	-- mins SLT produit les signaux suivants :
+  			ovr_en  <= '0' ;
+  			ico     <= '0' ;
+  			priv     <= '0' ;
+  			iformt <= '0';	
+  			riformt <= '0';	
+  			ctlopx  <= x_rs ;
+  			ctlopy  <= y_ad ;
+  			ctlalu  <= a_slt ;
+                           if NOT frz then
+                                   wenable <= r_rd;
+                                   ctlrw   <= m_fetch;
+  			           ctladr  <= o_fetch ;
+                          else
+                                   wenable <= r_no;
+                                   ctlrw   <= m_no;
+			           ctladr  <= o_no;
+                          end if;
+
+-- ***********************************************************************
+
+		when bnez =>
+                   if frz then EF <= bnez;
+                   else
+			if resnul='0' then EF <= branch ;	end if;	
+			if resnul='1' then EF <= ifetch ;	end if;	
+                    end if;
+
+	-- mins BNEZ produit les signaux suivants :
+  			ovr_en  <= '0' ;
+  			ico     <= '0' ;
+  			priv     <= '0' ;
+  			iformt <= '1';	
+  			riformt <= '0';	
+  			ctlopx  <= x_rs ;
+  			ctlopy  <= y_c0 ;
+  			ctlalu  <= a_sum ;
+                        wenable <= r_no;
+                        ctlrw   <= m_no;
+			ctladr  <= o_no;
+
+-- ***********************************************************************
+
+		when beqz =>
+                   if frz then EF <= beqz;
+                   else
+			if resnul='1' then EF <= branch ;	end if;	
+			if resnul='0' then EF <= ifetch ;	end if;	
+                    end if;
+
+	-- mins BEQZ produit les signaux suivants :
+  			ovr_en  <= '0' ;
+  			ico     <= '0' ;
+  			priv     <= '0' ;
+  			iformt <= '1';	
+  			riformt <= '0';	
+  			ctlopx  <= x_rs ;
+  			ctlopy  <= y_c0 ;
+  			ctlalu  <= a_sum ;
+                        wenable <= r_no;
+                        ctlrw   <= m_no;
+			ctladr  <= o_no;
+
+-- ***********************************************************************
+
+		when branch =>
+                   if frz then EF <= branch;
+                   else
+			EF <= ifetch	;
+                    end if;
+
+	-- mins BRANCH produit les signaux suivants :
+  			ovr_en  <= '0' ;
+  			ico     <= '0';
+  			priv     <= '0' ;
+  			iformt <= '0';	
+  			riformt <= '0';	
+  			ctlopx  <= x_pc ;
+  			ctlopy  <= y_i18 ;
+  			ctlalu  <= a_sum ;
+                        ctlrw   <= m_no;
+			ctladr  <= o_no;
+                           if NOT frz then
+                                   wenable <= r_pc;
+                          else
+                                   wenable <= r_no;
+                          end if;
+
+  			
+-- ***********************************************************************
+
+		when jal =>
+                   if frz then EF <= jal;
+                   else
+			EF <= j	;
+                    end if;
+
+	-- mins JAL produit les signaux suivants :
+  			ovr_en  <= '0' ;
+  			ico     <= '0' ;
+  			priv     <= '0' ;
+  			iformt <= '0';	
+  			riformt <= '0';	
+  			ctlopx  <= x_pc ;
+  			ctlopy  <= y_c0 ;
+  			ctlalu  <= a_sum ;
+                        ctlrw   <= m_no;
+			ctladr  <= o_no;
+                           if NOT frz then
+                                   wenable <= r_r31;
+                          else
+                                   wenable <= r_no;
+                          end if;
+
+-- ***********************************************************************
+
+		when j =>
+                   if frz then EF <= j;
+                   else
+			EF <= ifetch	;
+                    end if;
+
+	-- mins J produit les signaux suivants :
+  			ovr_en  <= '0' ;
+  			ico     <= '0' ;
+  			priv     <= '0' ;
+  			iformt <= '0';	
+  			riformt <= '0';	
+  			ctlopx  <= x_pc ;
+  			ctlopy  <= y_i28 ;
+  			ctlalu  <= a_sum ;
+                        ctlrw   <= m_no;
+			ctladr  <= o_no;
+                           if NOT frz then
+                                   wenable <= r_pc;
+                          else
+                                   wenable <= r_no;
+                          end if;
+
+  			
+-- ***********************************************************************
+
+		when jalr =>
+                   if frz then EF <= jalr;
+                   else
+			EF <= jr ;
+                    end if;
+
+	-- mins JALR produit les signaux suivants :
+  			ovr_en  <= '0' ;
+  			ico     <= '0' ;
+  			priv     <= '0' ;
+  			iformt <= '0';	
+  			riformt <= '0';	
+  			ctlopx  <= x_pc ;
+  			ctlopy  <= y_c0 ;
+  			ctlalu  <= a_sum ;
+                        ctlrw   <= m_no;
+			ctladr  <= o_no;
+                            if NOT frz then
+                                   wenable <= r_r31;
+                          else
+                                   wenable <= r_no;
+                          end if;
+
+  			
+-- ***********************************************************************
+
+		when jr =>
+                   if frz then EF <= jr;
+                   else
+			EF <= ifetch	;
+                    end if;
+
+	-- mins JR produit les signaux suivants :
+  			ovr_en  <= '0' ;
+  			ico     <= '0' ;
+  			priv     <= '0' ;
+  			iformt <= '0';	
+  			riformt <= '0';	
+  			ctlopx  <= x_rs ;
+  			ctlopy  <= y_c0 ;
+  			ctlalu  <= a_sum ;
+                        ctlrw   <= m_no;
+			ctladr  <= o_no;
+                           if NOT frz then
+                                   wenable <= r_pc;
+                          else
+                                   wenable <= r_no;
+                          end if;
+
+-- ***********************************************************************
+
+		when rfe =>
+                   if frz then EF <= rfe;
+                   else
+			EF <= sr16r	;
+                    end if;
+
+	-- mins RFE produit les signaux suivants :
+  			ovr_en  <= '0' ;
+  			ico     <= '0' ;
+  			priv    <= '1' ;
+  			iformt <= '0';	
+  			riformt <= '0';	
+  			ctlopx  <= x_iar ;
+  			ctlopy  <= y_c0 ;
+  			ctlalu  <= a_sum ;
+                        ctlrw   <= m_no;
+			ctladr  <= o_no;
+                           if NOT frz then
+                                   wenable <= r_pc;
+                          else
+                                   wenable <= r_no;
+                          end if;
+
+-- ***********************************************************************
+
+		when sr16r =>
+                   if frz then EF <= sr16r;
+                   else
+			EF <= ifetch	;
+                    end if;
+
+	-- mins SR16R produit les signaux suivants :
+  			ovr_en  <= '0' ;
+  			ico     <= '0';
+  			priv     <= '0' ;
+  			iformt <= '0';	
+  			riformt <= '0';	
+  			ctlopx  <= x_sr ;
+  			ctlopy  <= y_c16 ;
+  			ctlalu  <= a_srl ;
+                        ctlrw   <= m_no;
+			ctladr  <= o_no;
+                           if NOT frz then
+                                   wenable <= r_sr;
+                          else
+                                   wenable <= r_no;
+                          end if;
+
+-- ***********************************************************************
+
+		when trap =>
+                   if frz then EF <= trap;
+                   else
+			EF <= irq	;
+                    end if;
+
+	-- mins TRAP produit les signaux suivants :
+  			ovr_en  <= '0' ;
+  			ico     <= '0' ;
+  			priv     <= '0' ;
+  			iformt <= '0';	
+  			riformt <= '0';	
+  			ctlopx  <= x_c0 ;
+  			ctlopy  <= y_i28 ;
+  			ctlalu  <= a_sum ;
+                        ctlrw   <= m_no;
+			ctladr  <= o_no;
+                           if NOT frz then
+                                   wenable <= r_tvr;
+                          else
+                                   wenable <= r_no;
+                          end if;
+
+-- ***********************************************************************
+
+		when s2i =>
+                   if frz then EF <= s2i;
+                   else
+			if ir_sr 	then EF <= sr2i	 ;	end if;	
+			if ir_tvr 	then EF <= tvr2i ;	end if;	
+			if ir_iar 	then EF <= iar2i ;	end if;	
+                    end if;
+
+	-- mins S2I produit les signaux suivants :
+  			ovr_en  <= '0' ;
+  			ico     <= '0' ;
+  			priv    <= '1' ;
+  			iformt <= '0';	
+  			riformt <= '0';	
+  			ctlopx  <= x_c0 ;
+  			ctlopy  <= y_c0 ;
+  			ctlalu  <= a_sum ;
+                        ctlrw   <= m_no;
+			ctladr  <= o_no;
+                        wenable <= r_no;
+     
+-- ***********************************************************************
+
+		when i2s =>
+                   if frz then EF <= i2s;
+                   else
+			if ir_sr 	then EF <= i2sr	 ;	end if;	
+			if ir_tvr 	then EF <= i2tvr ;	end if;	
+			if ir_iar 	then EF <= i2iar ;	end if;	
+                    end if;
+
+	-- mins I2S produit les signaux suivants :
+  			ovr_en  <= '0' ;
+  			ico     <= '0' ;
+  			priv    <= '1' ;
+  			iformt <= '0';	
+  			riformt <= '0';	
+  			ctlopx  <= x_c0 ;
+  			ctlopy  <= y_c0 ;
+  			ctlalu  <= a_sum ;
+                        ctlrw   <= m_no;
+			ctladr  <= o_no;
+                        wenable <= r_no;
+     
+-- ***********************************************************************
+
+		when sr2i =>
+                   if frz then EF <= sr2i;
+                   else
+			if rqs then EF <= irq;
+					else EF <= init	;	end if;	
+                    end if;
+
+	-- mins SR2I produit les signaux suivants :
+  			ovr_en  <= '0'  ;
+  			ico     <= '0' ;
+  			priv     <= '0' ;
+  			iformt <= '0';	
+  			riformt <= '0';	
+  			ctlopx  <= x_sr ;
+  			ctlopy  <= y_c0 ;
+  			ctlalu  <= a_sum ;
+                            if NOT frz then
+                                   wenable <= r_rd;
+                                   ctlrw   <= m_fetch;
+  			           ctladr  <= o_fetch ;
+                          else
+                                   wenable <= r_no;
+                                   ctlrw   <= m_no;
+			           ctladr  <= o_no;
+                          end if;
+
+-- ***********************************************************************
+
+		when i2sr =>
+                   if frz then EF <= i2sr;
+                   else
+			if rqs then EF <= irq;
+					else EF <= init	;	end if;	
+                    end if;
+
+	-- mins I2SR produit les signaux suivants :
+  			ovr_en  <= '0' ;
+  			ico     <= '0' ;
+  			priv    <= '0' ;
+  			iformt <= '0';	
+  			riformt <= '0';	
+  			ctlopx  <= x_rs ;
+  			ctlopy  <= y_c0 ;
+  			ctlalu  <= a_sum ;
+                           if NOT frz then
+                                   wenable <= r_sr;
+                                   ctlrw   <= m_fetch;
+  			           ctladr  <= o_fetch ;
+                          else
+                                   wenable <= r_no;
+                                   ctlrw   <= m_no;
+			           ctladr  <= o_no;
+                          end if;
+
+-- ***********************************************************************
+
+		when tvr2i =>
+                   if frz then EF <= tvr2i;
+                   else
+			if rqs then EF <= irq;
+					else EF <= init	;	end if;	
+                    end if;
+
+	-- mins TVR2I produit les signaux suivants :
+  			ovr_en  <= '0' ;
+  			ico     <= '0' ;
+  			priv    <= '0' ;
+  			iformt <= '0';	
+  			riformt <= '0';	
+  			ctlopx  <= x_tvr ;
+  			ctlopy  <= y_c0 ;
+  			ctlalu  <= a_sum ;
+                            if NOT frz then
+                                   wenable <= r_rd;
+                                   ctlrw   <= m_fetch;
+  			           ctladr  <= o_fetch ;
+                          else
+                                   wenable <= r_no;
+                                   ctlrw   <= m_no;
+			           ctladr  <= o_no;
+                          end if;
+
+-- ***********************************************************************
+
+		when i2tvr =>
+                   if frz then EF <= i2tvr;
+                   else
+			if rqs then EF <= irq;
+					else EF <= init	;	end if;	
+                    end if;
+
+	-- mins I2TVR produit les signaux suivants :
+  			ovr_en  <= '0' ;
+  			ico     <= '0' ;
+  			priv    <= '0' ;
+  			iformt <= '0';	
+  			riformt <= '0';	
+  			ctlopx  <= x_rs ;
+  			ctlopy  <= y_c0 ;
+  			ctlalu  <= a_sum ;
+                            if NOT frz then
+                                   wenable <= r_tvr;
+                                   ctlrw   <= m_fetch;
+  			           ctladr  <= o_fetch ;
+                          else
+                                   wenable <= r_no;
+                                   ctlrw   <= m_no;
+			           ctladr  <= o_no;
+                          end if;
+
+-- ***********************************************************************
+
+		when i2iar =>
+                   if frz then EF <= i2iar;
+                   else
+			if rqs then EF <= irq;
+					else EF <= init	;	end if;	
+                    end if;
+
+	-- mins I2IAR produit les signaux suivants :
+  			ovr_en  <= '0' ;
+  			ico     <= '0' ;
+  			priv    <= '0' ;
+  			iformt <= '0';	
+  			riformt <= '0';	
+  			ctlopx  <= x_rs ;
+  			ctlopy  <= y_c0 ;
+  			ctlalu  <= a_sum ;
+                            if NOT frz then
+                                   wenable <= r_iar;
+                                   ctlrw   <= m_fetch;
+  			           ctladr  <= o_fetch ;
+                          else
+                                   wenable <= r_no;
+                                   ctlrw   <= m_no;
+			           ctladr  <= o_no;
+                          end if;
+
+-- ***********************************************************************
+
+		when iar2i =>
+                   if frz then EF <= iar2i;
+                   else
+			if rqs then EF <= irq;
+					else EF <= init	;	end if;	
+                    end if;
+
+	-- mins IAR2I produit les signaux suivants :
+  			ovr_en  <= '0' ;
+  			ico     <= '0' ;
+  			priv    <= '0' ;
+  			iformt <= '0';	
+  			riformt <= '0';	
+  			ctlopx  <= x_iar;
+  			ctlopy  <= y_c0 ;
+  			ctlalu  <= a_sum ;
+                           if NOT frz then
+                                   wenable <= r_rd;
+                                   ctlrw   <= m_fetch;
+  			           ctladr  <= o_fetch ;
+                          else
+                                   wenable <= r_no;
+                                   ctlrw   <= m_no;
+			           ctladr  <= o_no;
+                          end if;
+
+-- ***********************************************************************
+
+		when adr =>
+                   if frz then EF <= adr;
+                   else
+			if ir_opcod = lw_i 	then EF <= lw	;	end if;	
+			if ir_opcod = lbu_i 	then EF <= lbu	;	end if;	
+			if ir_opcod = sw_i 	then EF <= sw	;	end if;	
+			if ir_opcod = sb_i	then EF <= sb	;	end if;	
+                    end if;
+
+	-- mins ADR produit les signaux suivants :
+  			ovr_en  <= '0' ;
+  			ico     <= '0' ;
+  			priv    <= '0' ;
+  			iformt <= '1';	
+  			riformt <= '0';	
+  			ctlopx  <= x_rs ;
+  			ctlopy  <= y_i16 ;
+  			ctlalu  <= a_sum ;
+                        ctlrw   <= m_no;
+			ctladr  <= o_no;
+                            if NOT frz then
+                                   wenable <= r_ad;
+                          else
+                                   wenable <= r_no;
+                          end if;
+     
+-- ***********************************************************************
+
+		when lw =>
+                   if frz then EF <= lw;
+                   else
+			EF <= lw2 ;
+                    end if;
+
+	-- mins LW produit les signaux suivants :
+  			ovr_en  <=  '0';
+  			ico     <=  '0';
+  			priv    <= '0' ;
+  			iformt <= '0';	
+  			riformt <= '0';	
+  			ctlopx  <=  x_c0;
+  			ctlopy  <=  y_c0;
+  			ctlalu  <=  a_sum;
+                        wenable <= r_no;
+                            if NOT frz then
+                                   ctlrw   <= m_rw;
+			           ctladr  <= o_rw;
+                          else
+                                   ctlrw   <= m_no;
+			           ctladr  <= o_no;
+                          end if;
+
+-- ***********************************************************************
+
+		when lw2 =>
+                   if frz then EF <= lw2;
+                   else
+			if rqs then EF <= irq;
+					else EF <= init	;	end if;	
+                    end if;
+
+	-- mins LW2 produit les signaux suivants :
+  			ovr_en  <= '0' ;
+  			ico     <= '0' ;
+  			priv    <= '0' ;
+  			iformt <= '0';	
+  			riformt <= '0';	
+  			ctlopx  <= x_c0 ;
+  			ctlopy  <= y_dt ;
+  			ctlalu  <= a_sum ;
+                           if NOT frz then
+                                   wenable <= r_rd;
+                                   ctlrw   <= m_fetch;
+  			           ctladr  <= o_fetch ;
+                          else
+                                   wenable <= r_no;
+                                   ctlrw   <= m_no;
+			           ctladr  <= o_no;
+                          end if;
+
+-- ***********************************************************************
+
+		when lbu =>
+                   if frz then EF <= lbu;
+                   else
+			EF <= lbu2 ;
+                    end if;
+
+	-- mins LBU produit les signaux suivants :
+  			ovr_en  <=  '0';
+  			ico     <=  '0';
+  			priv    <= '0' ;
+  			iformt <= '0';	
+  			riformt <= '0';	
+  			ctlopx  <=  x_c0;
+  			ctlopy  <=  y_c0;
+  			ctlalu  <=  a_sum;
+                        wenable <= r_no;
+                           if NOT frz then
+                                   ctlrw   <= m_rb;
+			           ctladr  <= o_rb;
+                          else
+                                   ctlrw   <= m_no;
+			           ctladr  <= o_no;
+                          end if;
+
+-- ***********************************************************************
+
+		when lbu2 =>
+
+                   if frz then EF <= lbu2;
+                   else
+			if rqs then EF <= irq;
+					else EF <= init	;	end if;	
+                    end if;
+
+	-- mins LBU2 produit les signaux suivants :
+  			ovr_en  <= '0' ;
+  			ico     <= '0' ;
+  			priv    <= '0' ;
+  			iformt <= '0';	
+  			riformt <= '0';	
+  			ctlopx  <= x_cb ;
+  			ctlopy  <= y_dt ;
+  			ctlalu  <= a_and ;
+                           if NOT frz then
+                                   wenable <= r_rd;
+                                   ctlrw   <= m_fetch;
+  			           ctladr  <= o_fetch ;
+                          else
+                                   wenable <= r_no;
+                                   ctlrw   <= m_no;
+			           ctladr  <= o_no;
+                          end if;
+
+-- ***********************************************************************
+
+		when sw =>
+                   if frz then EF <= sw;
+                   else
+			EF <= ifetch	;
+                    end if;
+
+	-- mins SW produit les signaux suivants :
+  			ovr_en  <= '0' ;
+  			ico     <= '0';
+  			priv    <= '0' ;
+  			iformt <= '0';	
+  			riformt <= '0';	
+  			ctlopx  <= x_rt ;
+  			ctlopy  <= y_c0 ;
+  			ctlalu  <= a_sum ;
+                        wenable <= r_no;
+                           if NOT frz then
+                                   ctlrw   <= m_ww;
+			           ctladr  <= o_ww;
+                          else
+                                   ctlrw   <= m_no;
+			           ctladr  <= o_no;
+                          end if;
+
+-- ***********************************************************************
+
+		when sb =>
+                   if frz then EF <= sb;
+                   else
+			EF <= ifetch	;
+                    end if;
+
+	-- mins SB produit les signaux suivants :
+  			ovr_en  <= '0' ;
+  			ico     <= '0';
+  			priv    <= '0' ;
+  			iformt <= '0';	
+  			riformt <= '0';	
+  			ctlopx  <= x_rt ;
+  			ctlopy  <= y_c0 ;
+  			ctlalu  <= a_sum ;
+                        wenable <= r_no;
+                           if NOT frz then
+                                   ctlrw   <= m_wb;
+			           ctladr  <= o_wb;
+                          else
+                                   ctlrw   <= m_no;
+			           ctladr  <= o_no;
+                          end if;
+
+-- ***********************************************************************
+
+--		when ico1 =>
+ --                  if frz then EF <= ico1;
+  --                 else
+--			EF <= ico2;
+ --                   end if;
+--
+	-- mins ICO produit les signaux suivants :
+ -- 			ovr_en  <= '0' ;
+  --			ico     <= '0' ;
+  --			priv    <= '0' ;
+  --			iformt <= '0';	
+  --			riformt <= '0';	
+  --			ctlopx  <= x_pc ;
+  --			ctlopy  <= y_c4 ;
+  --			ctlalu  <= a_dif ;
+  --			ctlrw   <= m_no ;
+--			ctladr  <= o_no;
+ --                         if frz='0' then 
+  --			        wenable <= r_pc ;
+   --                       else 
+  --			        wenable <=  r_no;
+   --                       end if;
+
+  			
+-- ***********************************************************************
+
+		when ico1 =>
+                   if frz then EF <= ico1;
+                   else
+			EF <= irq;
+                    end if;
+
+	-- mins ICO produit les signaux suivants :
+  			ovr_en  <= '0' ;
+  			ico     <= '1' ;
+  			priv    <= '0' ;
+  			iformt <= '0';	
+  			riformt <= '0';	
+  			ctlopx  <= x_c0 ;
+  			ctlopy  <= y_c0 ;
+  			ctlalu  <= a_sum ;
+  			ctlrw   <= m_no ;
+			ctladr  <= o_no;
+  		        wenable <= r_no;
+
+  			
+-- ***********************************************************************
+
+		when irq =>
+                   if frz then EF <= irq;
+                   else
+			EF <= sr16l;
+                    end if;
+
+	-- mins IRQ produit les signaux suivants :
+  			ovr_en  <= '0' ;
+  			ico     <= '0' ;
+  			priv    <= '0' ;
+  			iformt <= '0';	
+  			riformt <= '0';	
+  			ctlopx  <= x_pc ;
+  			ctlopy  <= y_c0 ;
+  			ctlalu  <= a_sum ;
+  			ctlrw   <= m_no ;
+			ctladr  <= o_no;
+                          if frz='0' then 
+  			        wenable <= r_siar ;
+                          else 
+  			        wenable <=  r_no;
+                          end if;
+
+  			
+-- ***********************************************************************
+
+		when sr16l =>
+                   if frz then EF <= sr16l;
+                   else
+			EF <= pct ;
+                    end if;
+
+	-- mins SR16L produit les signaux suivants :
+  			ovr_en  <=  '0';
+  			ico     <=  '0';
+  			priv    <= '0' ;
+  			iformt <= '0';	
+  			riformt <= '0';	
+  			ctlopx  <= x_sr ;
+  			ctlopy  <= y_c16 ;
+  			ctlalu  <= a_sll ;
+  			ctlrw   <= m_no ;
+			ctladr  <= o_no;
+                            if NOT frz then
+                                   wenable <= r_ssr;
+                          else
+                                   wenable <= r_no;
+                          end if;
+
+-- ***********************************************************************
+
+		when pct =>
+                   if frz then EF <= pct;
+                   else
+			EF <= ifetch ;
+                    end if;
+
+	-- mins PCT produit les signaux suivants :
+  			ovr_en  <= '0' ;
+  			ico     <= '0';
+  			priv    <= '0' ;
+  			iformt <= '0';	
+  			riformt <= '0';	
+  			ctlopx  <=  x_c0;
+  			ctlopy  <=  y_c16;
+  			ctlalu  <=  a_dif;
+  			ctlrw   <= m_no ;
+			ctladr  <= o_no;
+                            if NOT frz then
+                                   wenable <= r_pc;
+                          else
+                                   wenable <= r_no;
+                          end if;
+
+-- ***********************************************************************
+
+		when ifetch =>
+                   if frz then EF <= ifetch;
+                   else
+			if rqs then EF <= irq;
+					else EF <= init	;	end if;	
+                    end if;
+
+	-- mins IFETCH produit les signaux suivants :
+  			ovr_en  <=  '0';
+  			ico     <=  '0';
+  			priv    <= '0' ;
+  			iformt <= '0';	
+  			riformt <= '0';	
+  			ctlopx  <=  x_c0;
+  			ctlopy  <=  y_c0 ;
+  			ctlalu  <=  a_sum ;
+                        wenable <= r_no;
+                           if NOT frz then
+                                   ctlrw   <= m_fetch;
+  			           ctladr  <= o_fetch ;
+                          else
+                                   ctlrw   <= m_no;
+			           ctladr  <= o_no;
+                          end if;
+  			
+	end case;
+
+	end if;			-- end if of reset = '1'
+
+	end process;
+
+  process (ck)
+  begin
+
+    if (ck = '0' and not ck'stable) then
+      EP <= EF;
+    end if;
+
+  end process;
+
+end STATE_MACHINE;

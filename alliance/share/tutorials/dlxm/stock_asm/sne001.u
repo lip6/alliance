@@ -1,0 +1,31 @@
+;  ###----------------------------------------------------------------###
+;  #									#
+;  # file	: sne001.u						#
+;  # date	: Apr  1 1993						#
+;  # descr.	: functional test for dlx				#
+;  #									#
+;  ###----------------------------------------------------------------###
+
+	;  ###--------------------------------------------------------###
+	;  #   comparaison						#
+	;  ###--------------------------------------------------------###
+
+const1		equ	X"a47a"
+
+		org	X"7fffff00"
+		start	init
+
+init:
+		addi	r1 , r0 , const1
+		snei	r2 , r1 , const1
+		beqz	r2 , good
+		nop
+		j	bad
+		nop
+
+		org	X"7ffffff0"
+good		j	good
+		nop
+bad		j	bad
+		nop
+		end

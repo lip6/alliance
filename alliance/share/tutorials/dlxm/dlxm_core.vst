@@ -1,0 +1,444 @@
+
+-- ### -------------------------------------------------------------- ###
+-- #									#
+-- # file	: dlxm_core.vst         				#
+-- # date	: February 1995						#
+-- # version	: v0.0							#
+-- #									#
+-- # origin	: this description has been developed by CAO-VLSI team	#
+-- #		  at MASI laboratory, University Pierre et Marie Curie	#
+-- #		  URA CNRS 818 - Institut Blaise Pascal			#
+-- #		  4 Place Jussieu 75252 Paris Cedex 05 - France		#
+-- # E-mail      :      cao-vlsi@masi.ibp.fr                            #
+-- #									#
+-- # descr.	: structural model of the core instantiating		#	
+-- # 		  the datapath and the control				#
+-- #									#
+-- ### -------------------------------------------------------------- ###
+
+
+-- Entity Declaration
+
+ENTITY dlxm_core IS
+  PORT (
+  addr : out BIT_VECTOR(31 DOWNTO 0);		-- address bus
+  datain_dpt : in BIT_VECTOR(31 DOWNTO 0);	-- datain_dpt
+  dataout_dpt : out BIT_VECTOR(31 DOWNTO 0);	-- dataout_dpt
+  it : in BIT_VECTOR(3 DOWNTO 0);		-- it
+  scin : in BIT;				-- scin
+  scout : out BIT;				-- scout
+  test : in BIT;				-- test
+  reset : in BIT;				-- external reset
+  frz : in BIT;					-- frz
+  byte : out BIT_VECTOR(0 to 3);		-- byte
+  rw : out BIT;					-- rw
+  rw_ctl : out BIT_VECTOR(15 downto 0);		-- tristate data control
+  frz_ctl : out BIT_VECTOR(15 downto 0);	-- tristate address control
+  ck_ctl : in BIT;				-- internal clock to control
+  ck_dpt : in BIT;				-- internal clock to datapath
+  vdd : in BIT;					-- vdd
+  vss : in BIT					-- vss
+  );
+END dlxm_core;
+
+-- Architecture Declaration
+
+ARCHITECTURE structural_view OF dlxm_core IS
+
+  COMPONENT dlxm_ctl
+    PORT (
+  it : in BIT_VECTOR(3 DOWNTO 0);       	-- it
+  scin : in BIT;        			-- scin
+  scout : out BIT;      			-- scout
+  test : in BIT;        			-- test
+  reset : in BIT;       			-- external reset
+  frz : in BIT; 				-- frz
+  byte : out BIT_VECTOR(0 to 3);    		-- byte
+  rw : out BIT; 				-- rw
+  rw_ctl : out BIT_VECTOR(15 downto 0);         -- tristate data control
+  frz_ctl : out BIT_VECTOR(15 downto 0);        -- tristate address control
+  ck : in BIT;  				-- ck
+
+-- Partie interface avec le DataPath
+
+seq_ctladr : out BIT;
+sts_zero : out BIT;
+sts_sr_cpurst : inout BIT;    -- flag reset to datapath
+sts_sr_it3 : out BIT;      -- sts_sr_it
+sts_sr_it2 : out BIT;      -- sts_sr_it
+sts_sr_it1 : out BIT;      -- sts_sr_it
+sts_sr_it0 : out BIT;      -- sts_sr_it
+sts_sr_ico : out BIT;      -- sts_sr_ico
+sts_sr_iav : out BIT;      -- sts_sr_iav
+sts_sr_dav : out BIT;      -- sts_sr_dav
+sts_sr_ovr : out BIT;      -- sts_sr_ovr
+sts_wrtpnt : out BIT_VECTOR(4 downto 0);  
+sts_redpnt : out BIT_VECTOR (4 downto 0);
+sts_alu_test : out BIT;    -- sts_alu_test
+dp_alu_sign : in BIT;     -- dp_alu_sign
+dp_alu_nul : in BIT;      -- dp_alu_nul
+dp_alu_c30 : in BIT;    -- dp_alu_c30_n
+dp_alu_c31 : in BIT;    -- dp_alu_c31_n
+dp_opy_sign : in BIT;     -- dp_opy_sign
+dp_ir_sr : in BIT;        -- dp_ir_sr
+dp_ir_iar : in BIT;       -- dp_ir_iar
+dp_ir_tvr : in BIT;       -- dp_ir_tvr
+dp_rd : in BIT_VECTOR(4 downto 0);   -- dp_rd 
+dp_rdrt : in BIT_VECTOR(4 downto 0); -- dp_rdrt
+dp_rs : in BIT_VECTOR(4 downto 0); -- dp_rs
+dp_codop : in BIT_VECTOR(5 downto 0);-- dp_codop
+dp_opx_sign : in BIT;     -- dp_opx_sign
+dp_sr_mode : in BIT;      -- dp_sr_mode
+dp_sr_mask : in BIT;      -- dp_sr_mask
+sts_ctlrw : out BIT_VECTOR(3 downto 2);     -- sts_ctlrw 
+sts_wenable : out BIT_VECTOR(5 downto 0);   -- sts_wenable 
+seq_ctlopy : out BIT_VECTOR(4 downto 0);      -- seq_ctlopy
+seq_ctlopx : out BIT_VECTOR(5 downto 0);    -- seq_ctlopx
+ad_n_31:in bit;
+ad_n_1:in bit;
+ad_n_0:in bit;
+
+  -- Connecteur utilises en interne ET le datapath
+seq_ctlrw: inout bit_vector(3 downto 0);
+seq_ctlalu: inout bit_vector(4 downto 0);
+seq_wenable: inout bit_vector(8 downto 0);
+ 
+  vdd : in BIT; -- vdd
+  vss : in BIT  -- vss
+  );
+
+  END Component;
+
+  COMPONENT dlxm_dpt
+    port (
+    vdd : in BIT;	-- vdd
+    vss : in BIT;	-- vss
+    pc_test : in BIT;	-- pc_test
+    ad_test : in BIT;	-- ad_test
+    tvr_test : in BIT;	-- tvr_test
+    iar_test : in BIT;	-- iar_test
+    sr_test : in BIT;	-- sr_test
+    ir_test : in BIT;	-- ir_test
+    dt_test : in BIT;	-- dt_test
+    pc_scin : in BIT;	-- pc_scin
+    ad_scin : in BIT;	-- ad_scin
+    tvr_scin : in BIT;	-- tvr_scin
+    iar_scin : in BIT;	-- iar_scin
+    sr_scin : in BIT;	-- sr_scin
+    ir_scin : in BIT;	-- ir_scin
+    dt_scin : in BIT;	-- dt_scin
+    pc_scout : out BIT;	-- pc_scout
+    ad_scout : out BIT;	-- ad_scout
+    tvr_scout : out BIT;	-- tvr_scout
+    iar_scout : out BIT;	-- iar_scout
+    sr_scout : out BIT;	-- sr_scout
+    ir_scout : out BIT;	-- ir_scout
+    dt_scout : out BIT;	-- dt_scout
+    pc_ck : in BIT;	-- pc_ck
+    ad_ck : in BIT;	-- ad_ck
+    tvr_ck : in BIT;	-- tvr_ck
+    iar_ck : in BIT;	-- iar_ck
+    sr_ck : in BIT;	-- sr_ck
+    ir_ck : in BIT;	-- ir_ck
+    dt_ck : in BIT;	-- dt_ck
+    pc_wen : in BIT;	-- pc_wen
+    ad_wen : in BIT;	-- ad_wen
+    tvr_wen : in BIT;	-- tvr_wen
+    iar_wen : in BIT;	-- iar_wen
+    sr_wen : in BIT;	-- sr_wen
+    ir_wen : in BIT;	-- ir_wen
+    dt_wen : in BIT;	-- dt_wen
+    rf_ck : in BIT;	-- rf_ck
+    rf_wen : in BIT;	-- rf_wen
+    rf_aw : in BIT_VECTOR(4 DOWNTO 0);	-- rf_aw
+    rf_ar : in BIT_VECTOR(4 DOWNTO 0);	-- rf_ar
+    sr_mx : in BIT;	-- sr_mx
+    sr_mode : out BIT;	-- sr_mode
+    sr_mask : out BIT;	-- sr_mask
+    sr_cpurst : in BIT;	-- flag cpureset from ctrl
+    sr_iav : in BIT;	-- sr_iav
+    sr_ico : in BIT;	-- sr_ico
+    sr_dav : in BIT;	-- sr_dav
+    sr_ovr : in BIT;	-- sr_ovr
+    sr_it0 : in BIT;	-- sr_it
+    sr_it1 : in BIT;	-- sr_it
+    sr_it2 : in BIT;	-- sr_it
+    sr_it3 : in BIT;	-- sr_it
+    opx_ts4 : in BIT;	-- opx_ts4
+    opx_ts3 : in BIT;	-- opx_ts3
+    opx_ts2 : in BIT;	-- opx_ts2
+    opx_ts1 : in BIT;	-- opx_ts1
+    opx_ts0 : in BIT;	-- opx_ts0
+    opx_mx4 : in BIT;	-- opx_mx4
+    opx_mx3 : in BIT;	-- opx_mx3
+    opx_mx2 : in BIT;	-- opx_mx2
+    opx_mx1 : in BIT;	-- opx_mx1
+    opx_sign : out BIT;	-- opx_sign
+    opy_ts4 : in BIT;	-- opy_ts4
+    opy_ts3 : in BIT;	-- opy_ts3
+    opy_ts2 : in BIT;	-- opy_ts2
+    opy_ts1 : in BIT;	-- opy_ts1
+    opy_mx4 : in BIT;	-- opy_mx4
+    opy_mx3 : in BIT;	-- opy_mx3
+    opy_mx2 : in BIT;	-- opy_mx2
+    opy_mx1 : in BIT;	-- opy_mx1
+    adrw_byte : in BIT;	-- adrw_byte
+    adrw_rb1 : in BIT;	-- adrw_rb1
+    adrw_rb0 : in BIT;	-- adrw_rb0
+    opy_codop : out BIT_VECTOR(5 DOWNTO 0);	-- opy_codop
+    opy_rs : out BIT_VECTOR(4 DOWNTO 0);	-- opy_rs
+    opy_rdrt : out BIT_VECTOR(4 DOWNTO 0);	-- opy_rdrt
+    opy_rd : out BIT_VECTOR(4 DOWNTO 0);	-- opy_rd
+    opy_tvr : out BIT;	-- opy_tvr
+    opy_sr : out BIT;	-- opy_sr
+    opy_iar : out BIT;	-- opy_iar
+    opy_sign : out BIT;	-- opy_sign
+    data_in_dpt : in BIT_VECTOR(31 DOWNTO 0);	-- data_in_dpt
+    alu_mx4i0 : in BIT;	-- alu_mx4i0
+    alu_mx3i0 : in BIT;	-- alu_mx3i0
+    alu_mx2i1 : in BIT;	-- alu_mx2i1
+    alu_mx2i0 : in BIT;	-- alu_mx2i0
+    alu_mx1i2 : in BIT;	-- alu_mx1i2
+    alu_mx1i1 : in BIT;	-- alu_mx1i1
+    alu_mx1i0 : in BIT;	-- alu_mx1i0
+    alu_mx0i0 : in BIT;	-- alu_mx0i0
+    alu_byte : in BIT;	-- alu_byte
+    alu_shrot : in BIT;	-- alu_shrot
+    alu_test_n : in BIT;	-- alu_test_n
+    alu_c31 : out BIT;	-- alu_c31_n
+    alu_c30 : out BIT;	-- alu_c30_n
+    alu_nul : out BIT;	-- alu_nul
+    alu_sign : out BIT;	-- alu_sign
+    data_out_dpt : out BIT_VECTOR(31 DOWNTO 0);	-- data_out_dpt
+    out_mx0i0 : in BIT;	-- out_mx0i0
+    out_adr : out BIT_VECTOR(31 DOWNTO 0); 	-- out_adr
+    adr_n_31 : inout BIT ; 			-- vers status
+    adr_n_1  :  inout BIT ;			-- vers status et dpt
+    adr_n_0  :  inout BIT 			-- vers status et dpt
+
+    );
+  END COMPONENT;
+
+  SIGNAL dp_adr_n_31 : BIT;			-- address to status
+  SIGNAL dp_adr_n_1 : BIT;			-- address to status
+  SIGNAL dp_adr_n_0 : BIT;			-- address to status
+  SIGNAL seq_ctladr : BIT;	-- seq_ctladr
+  SIGNAL sts_zero : BIT;	-- sts_zero
+  SIGNAL dp_scout : BIT;	-- dp_scout
+  SIGNAL ir_scout : BIT;	-- ir_scout
+  SIGNAL sr_scout : BIT;	-- sr_scout
+  SIGNAL iar_scout : BIT;	-- iar_scout
+  SIGNAL tvr_scout : BIT;	-- tvr_scout
+  SIGNAL ad_scout : BIT;	-- ad_scout
+  SIGNAL pc_scout : BIT;	-- pc_scout
+  SIGNAL sts_sr_cpurst : BIT;	-- sts_sr_cpurst
+  SIGNAL sts_sr_it3 : BIT;	-- sts_sr_it
+  SIGNAL sts_sr_it2 : BIT;	-- sts_sr_it
+  SIGNAL sts_sr_it1 : BIT;	-- sts_sr_it
+  SIGNAL sts_sr_it0 : BIT;	-- sts_sr_it
+  SIGNAL sts_sr_ico : BIT;	-- sts_sr_ico
+  SIGNAL sts_sr_iav : BIT;	-- sts_sr_iav
+  SIGNAL sts_sr_dav : BIT;	-- sts_sr_dav
+  SIGNAL sts_sr_ovr : BIT;	-- sts_sr_ovr
+  SIGNAL sts_wrtpnt : BIT_VECTOR(4 downto 0);	-- sts_wrtpnt
+  SIGNAL sts_redpnt : BIT_VECTOR(4 downto 0);	-- sts_redpnt
+  SIGNAL sts_alu_test : BIT;	-- sts_alu_test
+  SIGNAL dp_alu_sign : BIT;	-- dp_alu_sign
+  SIGNAL dp_alu_nul : BIT;	-- dp_alu_nul
+  SIGNAL dp_alu_c30 : BIT;	-- dp_alu_c30_n
+  SIGNAL dp_alu_c31 : BIT;	-- dp_alu_c31_n
+  SIGNAL dp_opy_sign : BIT;	-- dp_opy_sign
+  SIGNAL dp_ir_sr : BIT;	-- dp_ir_sr
+  SIGNAL dp_ir_iar : BIT;	-- dp_ir_iar
+  SIGNAL dp_ir_tvr : BIT;	-- dp_ir_tvr
+  SIGNAL dp_rd : BIT_VECTOR(4 downto 0);	-- dp_rd 
+  SIGNAL dp_rdrt : BIT_VECTOR(4 downto 0);	-- dp_rdrt
+  SIGNAL dp_rs : BIT_VECTOR(4 downto 0);	-- dp_rs
+  SIGNAL dp_codop : BIT_VECTOR(5 downto 0);	-- dp_codop 
+  SIGNAL dp_opx_sign : BIT;	-- dp_opx_sign
+  SIGNAL dp_sr_mode : BIT;	-- dp_sr_mode
+  SIGNAL dp_sr_mask : BIT;	-- dp_sr_mask
+  SIGNAL sts_ctlrw : BIT_VECTOR(3 downto 2);	-- sts_ctlrw 
+  SIGNAL sts_wenable : BIT_VECTOR(5 downto 0);	-- sts_wenable
+  SIGNAL seq_ctlopy : BIT_VECTOR(4 downto 0);	-- seq_ctlopy
+  SIGNAL seq_ctlopx : BIT_VECTOR(5 downto 0);	-- seq_ctlopx
+
+  SIGNAL seq_ctlrw: bit_vector(3 downto 0);
+  SIGNAL seq_ctlalu: bit_vector(4 downto 0);
+  SIGNAL seq_wenable:
+bit_vector(8 downto 0);
+
+
+BEGIN
+
+
+  dpt : dlxm_dpt
+    PORT MAP (
+    out_adr => addr,
+    adr_n_31 => dp_adr_n_31,
+    adr_n_1  => dp_adr_n_1,
+    adr_n_0  => dp_adr_n_0,
+    out_mx0i0 => seq_ctladr,
+    data_out_dpt => dataout_dpt,
+    alu_sign => dp_alu_sign,
+    alu_nul => dp_alu_nul,
+    alu_c30 => dp_alu_c30,
+    alu_c31 => dp_alu_c31,
+    alu_test_n => sts_alu_test,
+    alu_shrot => sts_zero,
+    alu_byte => seq_ctlrw(1),
+    alu_mx0i0 => seq_ctlalu(0),
+    alu_mx1i0 => seq_ctlalu(1),
+    alu_mx1i1 => seq_ctlalu(1),
+    alu_mx1i2 => seq_ctlalu(1),
+    alu_mx2i0 => seq_ctlalu(2),
+    alu_mx2i1 => seq_ctlalu(2),
+    alu_mx3i0 => seq_ctlalu(3),
+    alu_mx4i0 => seq_ctlalu(4),
+    data_in_dpt => datain_dpt,
+    opy_sign => dp_opy_sign,
+    opy_iar => dp_ir_iar,
+    opy_sr => dp_ir_sr,
+    opy_tvr => dp_ir_tvr,
+    opy_rd => dp_rd,
+    opy_rdrt => dp_rdrt,
+    opy_rs => dp_rs,
+    opy_codop => dp_codop,
+    adrw_rb0 => dp_adr_n_0,
+    adrw_rb1 => dp_adr_n_1,
+    adrw_byte => seq_ctlrw(1),
+    opy_mx1 => seq_ctlopy(0),
+    opy_mx2 => seq_ctlopy(0),
+    opy_mx3 => seq_ctlopy(0),
+    opy_mx4 => seq_ctlopy(0),
+    opy_ts1 => seq_ctlopy(1),
+    opy_ts2 => seq_ctlopy(2),
+    opy_ts3 => seq_ctlopy(3),
+    opy_ts4 => seq_ctlopy(4),
+    opx_sign => dp_opx_sign,
+    opx_mx1 => seq_ctlopx(0),
+    opx_mx2 => seq_ctlopx(0),
+    opx_mx3 => seq_ctlopx(0),
+    opx_mx4 => seq_ctlopx(0),
+    opx_ts0 => seq_ctlopx(1),
+    opx_ts1 => seq_ctlopx(2),
+    opx_ts2 => seq_ctlopx(3),
+    opx_ts3 => seq_ctlopx(4),
+    opx_ts4 => seq_ctlopx(5),
+    sr_it3 => sts_sr_it3,
+    sr_it2 => sts_sr_it2,
+    sr_it1 => sts_sr_it1,
+    sr_it0 => sts_sr_it0,
+    sr_ovr => sts_sr_ovr,
+    sr_dav => sts_sr_dav,
+    sr_ico => sts_sr_ico,
+    sr_iav => sts_sr_iav,
+    sr_cpurst => sts_sr_cpurst,			-- cpureset flag from status
+    sr_mask => dp_sr_mask,
+    sr_mode => dp_sr_mode,
+    sr_mx => seq_wenable(7),
+    rf_ar => sts_redpnt,
+    rf_aw => sts_wrtpnt,
+    rf_wen => sts_wenable(2),
+    rf_ck => ck_dpt,
+    dt_wen => sts_ctlrw(2),
+    ir_wen => sts_ctlrw(3),
+    sr_wen => sts_wenable(5),
+    iar_wen => sts_wenable(3),
+    tvr_wen => sts_wenable(4),
+    ad_wen => sts_wenable(1),
+    pc_wen => sts_wenable(0),
+    dt_ck => ck_dpt,
+    ir_ck => ck_dpt,
+    sr_ck => ck_dpt,
+    iar_ck => ck_dpt,
+    tvr_ck => ck_dpt,
+    ad_ck => ck_dpt,
+    pc_ck => ck_dpt,
+    dt_scout => dp_scout,
+    ir_scout => ir_scout,
+    sr_scout => sr_scout,
+    iar_scout => iar_scout,
+    tvr_scout => tvr_scout,
+    ad_scout => ad_scout,
+    pc_scout => pc_scout,
+    dt_scin => ir_scout,
+    ir_scin => sr_scout,
+    sr_scin => iar_scout,
+    iar_scin => tvr_scout,
+    tvr_scin => ad_scout,
+    ad_scin => pc_scout,
+    pc_scin => scin,
+    dt_test => test,
+    ir_test => test,
+    sr_test => test,
+    iar_test => test,
+    tvr_test => test,
+    ad_test => test,
+    pc_test => test,
+    vss => vss,
+    vdd => vdd);
+
+
+  ctl : dlxm_ctl 
+    PORT MAP (
+  it => it,
+  scin => dp_scout,
+  scout => scout,
+  test => test,
+  reset => reset,				-- external reset
+  frz => frz,
+  byte => byte,
+  rw => rw,
+  rw_ctl => rw_ctl,
+  frz_ctl => frz_ctl,
+  ck => ck_ctl,
+
+-- Partie interace avec de DataPath
+
+seq_ctladr => seq_ctladr,
+sts_zero => sts_zero, 
+sts_sr_cpurst => sts_sr_cpurst,			-- cpureset flag to datapath
+sts_sr_it3 => sts_sr_it3,
+sts_sr_it2 => sts_sr_it2,
+sts_sr_it1 => sts_sr_it1,
+sts_sr_it0 => sts_sr_it0,
+sts_sr_ico =>  sts_sr_ico,
+sts_sr_iav  => sts_sr_iav,
+sts_sr_dav  => sts_sr_dav,
+sts_sr_ovr  => sts_sr_ovr,
+sts_wrtpnt => sts_wrtpnt,
+sts_redpnt => sts_redpnt,
+sts_alu_test => sts_alu_test,
+dp_alu_sign => dp_alu_sign,
+dp_alu_nul  => dp_alu_nul,
+dp_alu_c30 => dp_alu_c30,
+dp_alu_c31 => dp_alu_c31,
+dp_opy_sign =>  dp_opy_sign,
+dp_ir_sr => dp_ir_sr,
+dp_ir_iar => dp_ir_iar,
+dp_ir_tvr =>  dp_ir_tvr,
+dp_rd => dp_rd,
+dp_rdrt  => dp_rdrt,
+dp_rs  => dp_rs,
+dp_codop  => dp_codop,
+dp_opx_sign => dp_opx_sign,
+dp_sr_mode  => dp_sr_mode,
+dp_sr_mask  => dp_sr_mask,
+sts_ctlrw  => sts_ctlrw,
+sts_wenable  => sts_wenable,
+seq_ctlopy  => seq_ctlopy,
+seq_ctlopx  => seq_ctlopx,
+ad_n_31 => dp_adr_n_31,
+ad_n_1 => dp_adr_n_1,	
+ad_n_0 => dp_adr_n_0,
+
+seq_ctlrw=> seq_ctlrw,
+seq_ctlalu=> seq_ctlalu,
+seq_wenable=> seq_wenable,
+  vdd => vdd,
+  vss => vss
+);
+  
+  
+end structural_view;

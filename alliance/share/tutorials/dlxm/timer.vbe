@@ -1,0 +1,335 @@
+-- ### -------------------------------------------------------------- ###
+-- #									#
+-- # file	: timer.vbe						#
+-- # date	: Mar 23 1993						#
+-- # version	: v0.0							#
+-- #									#
+-- # origin	: this description has been developed by CAO-VLSI team	#
+-- #		  at MASI laboratory, University Pierre et Marie Curie	#
+-- #		  URA CNRS 818, Institut Blaise Pascal			#
+-- #		  4 Place Jussieu 75252 Paris Cedex 05 - France		#
+-- # E-mail      :      cao-vlsi@masi.ibp.fr                            #
+-- #									#
+-- # descr.	: data flow description of a programable timer.		#
+-- #		  The timer includes a programmable clock divider (by	#
+-- #		  16 or 256), 4 configurable 32 bits counters, a	#
+-- #		  configuration and a status register.			#
+-- #									#
+-- ### -------------------------------------------------------------- ###
+
+entity TIMER is
+
+  port (
+    CK      : in    bit                         ;	-- external clock
+    FRZ     : in    bit                         ;	-- freeze
+    RESET   : in    bit                         ;	-- reset
+    SEL     : in    bit_vector ( 2 downto 0)    ;	-- register selection
+    DATA    : inout mux_vector (31 downto 0) bus;	-- data
+    RW      : in    bit                         ;	-- access mode
+    E_N     : in    bit                         ;	-- chip enable
+    IRQ_N   : out   wor_bit                  bus;	-- interrupt request
+    VDD     : in    bit                         ;	--
+    VSS     : in    bit                         	--
+    );
+
+end;
+
+architecture FUNCTIONAL of TIMER is
+
+  signal CLK_SX     : bit                              ;-- clock
+  signal CLKCNT_RX  : reg_vector ( 7 downto 0) register;-- clock counter reg
+  signal CLKCNT_SX  : bit_vector ( 7 downto 0)         ;-- clock counter
+  signal CLKCRY_SX  : bit_vector ( 8 downto 0)         ;-- clock counter cry
+  signal CLKRATE_SX : bit                              ;-- clock rate
+  signal INTCLK_SX  : bit                              ;-- internal clock
+
+  signal MASK0_NX   : bit                              ;-- mask counter #0
+  signal MASK1_NX   : bit                              ;-- mask counter #1
+  signal MASK2_NX   : bit                              ;-- mask counter #2
+  signal MASK3_NX   : bit                              ;-- mask counter #3
+
+  signal READ_SX    : bit                              ;-- read access
+  signal WRITE_SX   : bit                              ;-- write access
+  signal WEN0_SX    : bit                              ;-- init counter #0
+  signal WEN1_SX    : bit                              ;-- init counter #1
+  signal WEN2_SX    : bit                              ;-- init counter #2
+  signal WEN3_SX    : bit                              ;-- init counter #3
+  signal WENCNF_SX  : bit                              ;-- init config reg.
+
+  signal COUNT_SX   : bit                              ;-- counting
+  signal CNT0_SX    : bit                              ;-- enable counter #0
+  signal CNT1_SX    : bit                              ;-- enable counter #1
+  signal CNT2_SX    : bit                              ;-- enable counter #2
+  signal CNT3_SX    : bit                              ;-- enable counter #3
+
+  signal ACTIV0_SX  : bit                              ;-- counter #0 active
+  signal ACTIV1_SX  : bit                              ;-- counter #1 active
+  signal ACTIV2_SX  : bit                              ;-- counter #2 active
+  signal ACTIV3_SX  : bit                              ;-- counter #3 active
+
+  signal COUNT0_RX  : reg_vector (31 downto 0) register;-- counter #0 reg
+  signal COUNT0_SX  : bit_vector (31 downto 0)         ;-- counter #0
+  signal CARRY0_SX  : bit_vector (32 downto 0)         ;-- cry counter #0
+  signal CNTNUL0_SX : bit                              ;-- counter #0 = 0
+
+  signal COUNT1_RX  : reg_vector (31 downto 0) register;-- counter #1 reg
+  signal COUNT1_SX  : bit_vector (31 downto 0)         ;-- counter #1
+  signal CARRY1_SX  : bit_vector (32 downto 0)         ;-- cry counter #1
+  signal CNTNUL1_SX : bit                              ;-- counter #1 = 0
+
+  signal COUNT2_RX  : reg_vector (31 downto 0) register;-- counter #2 reg
+  signal COUNT2_SX  : bit_vector (31 downto 0)         ;-- counter #2
+  signal CARRY2_SX  : bit_vector (32 downto 0)         ;-- cry counter #2
+  signal CNTNUL2_SX : bit                              ;-- counter #2 = 0
+
+  signal COUNT3_RX  : reg_vector (31 downto 0) register;-- counter #3 reg
+  signal COUNT3_SX  : bit_vector (31 downto 0)         ;-- counter #3
+  signal CARRY3_SX  : bit_vector (32 downto 0)         ;-- cry counter #3
+  signal CNTNUL3_SX : bit                              ;-- counter #3 = 0
+
+  signal INTRQ_SX   : bit                              ;-- interrupt request
+
+  signal STATUS_RX  : reg_vector ( 3 downto 0) register;-- status register
+  signal CONFIG_RX  : reg_vector (15 downto 0) register;-- config register
+
+  constant divby16_c : bit                       := '0';-- divide clk by 16
+
+begin
+
+  CLK_SX     <= CK and not FRZ;
+
+  CLKRATE_SX <= CONFIG_RX ( 0);
+
+  MASK0_NX   <= CONFIG_RX ( 8);
+  MASK1_NX   <= CONFIG_RX ( 9);
+  MASK2_NX   <= CONFIG_RX (10);
+  MASK3_NX   <= CONFIG_RX (11);
+
+	-- ### ------------------------------------------------------ ###
+	-- #   divide external clock (8 bits counter)			#
+	-- ### ------------------------------------------------------ ###
+
+  CLKCNT_SX (7 downto 0) <= CLKCNT_RX xor CLKCRY_SX (7 downto 0);
+  CLKCRY_SX (8 downto 1) <= CLKCNT_RX and CLKCRY_SX (7 downto 0);
+  CLKCRY_SX (0)          <= '1';
+
+	-- ### ------------------------------------------------------ ###
+	-- #   generate internal clock (divide by 16 or 256 depending	#
+	-- # on the configuration register)				#
+	-- ### ------------------------------------------------------ ###
+
+  with CLKRATE_SX select
+  INTCLK_SX <= CLKCRY_SX (4) when divby16_c,
+               CLKCRY_SX (8) when others   ;
+
+	-- ### ------------------------------------------------------ ###
+	-- #   activate counters depending on configuration register :	#
+	-- #    - 4 counters of  32 bits				#
+	-- #    - 2 counters of  32 bits and 1 of 64 bits		#
+	-- #    - 1 counter  of  32 bits and 1 of 96 bits		#
+	-- #    - 2 counters of  64 bits				#
+	-- #    - 1 counter  of 128 bits				#
+	-- # when two counters are in serial mode, enable writing into	#
+	-- # the most significant counter only when the least		#
+	-- # significant one has reached the FFFF_FFFF value (carry out	#
+	-- # equal 1).							#
+	-- ### ------------------------------------------------------ ###
+
+  ACTIV0_SX <= '1'            ;
+  ACTIV1_SX <= CARRY0_SX (32) when (CONFIG_RX (1) = '1') else
+               '1'            ;
+  ACTIV2_SX <= CARRY1_SX (32) when (CONFIG_RX (2) = '1') else
+               '1'            ;
+  ACTIV3_SX <= CARRY2_SX (32) when (CONFIG_RX (3) = '1') else
+               '1'            ;
+
+	-- ### ------------------------------------------------------ ###
+	-- #   evalue counter register's write enable (counting mode) :	#
+	-- #     - active bit of configuration register is set		#
+	-- #     - the counter is active				#
+	-- #     - high level of internal clock				#
+	-- #     - no external reset					#
+	-- #     - no external initialization				#
+	-- ### ------------------------------------------------------ ###
+
+  COUNT_SX <= INTCLK_SX and not RESET and (E_N or RW);
+
+  CNT0_SX <= CONFIG_RX (4) and ACTIV0_SX and COUNT_SX;
+  CNT1_SX <= CONFIG_RX (5) and ACTIV1_SX and COUNT_SX;
+  CNT2_SX <= CONFIG_RX (6) and ACTIV2_SX and COUNT_SX;
+  CNT3_SX <= CONFIG_RX (7) and ACTIV3_SX and COUNT_SX;
+
+	-- ### ------------------------------------------------------ ###
+	-- #   evalue counter register's write enable (initializing	#
+	-- # mode) :							#
+	-- #     - chip selected					#
+	-- #     - external write access				#
+	-- #     - no external reset					#
+	-- ### ------------------------------------------------------ ###
+
+  WRITE_SX <= not RW and not E_N and not RESET;
+
+  WEN0_SX   <= not SEL (2) and not SEL (1) and not SEL (0) and WRITE_SX;
+  WEN1_SX   <= not SEL (2) and not SEL (1) and     SEL (0) and WRITE_SX;
+  WEN2_SX   <= not SEL (2) and     SEL (1) and not SEL (0) and WRITE_SX;
+  WEN3_SX   <= not SEL (2) and     SEL (1) and     SEL (0) and WRITE_SX;
+  WENCNF_SX <=     SEL (2)                                 and WRITE_SX;
+
+	-- ### ------------------------------------------------------ ###
+	-- #   counters (decrement by 1)				#
+	-- ### ------------------------------------------------------ ###
+
+  COUNT0_SX (31 downto 0) <= not COUNT0_RX xor CARRY0_SX (31 downto 0);
+  CARRY0_SX (32 downto 1) <=     COUNT0_RX or  CARRY0_SX (31 downto 0);
+  CARRY0_SX (0)           <= '0';
+
+  COUNT1_SX (31 downto 0) <= not COUNT1_RX xor CARRY1_SX (31 downto 0);
+  CARRY1_SX (32 downto 1) <=     COUNT1_RX or  CARRY1_SX (31 downto 0);
+  CARRY1_SX (0)           <= '0';
+
+  COUNT2_SX (31 downto 0) <= not COUNT2_RX xor CARRY2_SX (31 downto 0);
+  CARRY2_SX (32 downto 1) <=     COUNT2_RX or  CARRY2_SX (31 downto 0);
+  CARRY2_SX (0)           <= '0';
+
+  COUNT3_SX (31 downto 0) <= not COUNT3_RX xor CARRY3_SX (31 downto 0);
+  CARRY3_SX (32 downto 1) <=     COUNT3_RX or  CARRY3_SX (31 downto 0);
+  CARRY3_SX (0)           <= '0';
+
+	-- ### ------------------------------------------------------ ###
+	-- #   assign clock counter registers				#
+	-- ### ------------------------------------------------------ ###
+
+  clkcnt : block (CLK_SX = '0' and not CLK_SX'STABLE)
+  begin
+    CLKCNT_RX <= guarded CLKCNT_SX;
+  end block;
+
+	-- ### ------------------------------------------------------ ###
+	-- #   assign counter registers (counting mode)			#
+	-- ### ------------------------------------------------------ ###
+
+  count0 : block (CLK_SX = '0' and not CLK_SX'STABLE and CNT0_SX = '1')
+  begin
+    COUNT0_RX <= guarded COUNT0_SX;
+  end block;
+
+  count1 : block (CLK_SX = '0' and not CLK_SX'STABLE and CNT1_SX = '1')
+  begin
+    COUNT1_RX <= guarded COUNT1_SX;
+  end block;
+
+  count2 : block (CLK_SX = '0' and not CLK_SX'STABLE and CNT2_SX = '1')
+  begin
+    COUNT2_RX <= guarded COUNT2_SX;
+  end block;
+
+  count3 : block (CLK_SX = '0' and not CLK_SX'STABLE and CNT3_SX = '1')
+  begin
+    COUNT3_RX <= guarded COUNT3_SX;
+  end block;
+
+	-- ### ------------------------------------------------------ ###
+	-- #   assign counter registers (initializing mode)		#
+	-- ### ------------------------------------------------------ ###
+
+  write0 : block (CLK_SX = '0' and not CLK_SX'STABLE and WEN0_SX = '1')
+  begin
+    COUNT0_RX <= guarded DATA;
+  end block;
+
+  write1 : block (CLK_SX = '0' and not CLK_SX'STABLE and WEN1_SX = '1')
+  begin
+    COUNT1_RX <= guarded DATA;
+  end block;
+
+  write2 : block (CLK_SX = '0' and not CLK_SX'STABLE and WEN2_SX = '1')
+  begin
+    COUNT2_RX <= guarded DATA;
+  end block;
+
+  write3 : block (CLK_SX = '0' and not CLK_SX'STABLE and WEN3_SX = '1')
+  begin
+    COUNT3_RX <= guarded DATA;
+  end block;
+
+  writecnf : block (CLK_SX = '0' and not CLK_SX'STABLE and WENCNF_SX = '1')
+  begin
+    CONFIG_RX <= guarded DATA (15 downto 0);
+  end block;
+
+	-- ### ------------------------------------------------------ ###
+	-- #   assign counter  and configuration registers (reset mode)	#
+	-- ### ------------------------------------------------------ ###
+
+  reset : block (CLK_SX = '0' and not CLK_SX'STABLE and RESET = '1')
+  begin
+    COUNT0_RX <= guarded X"FFFF_FFFF";
+    COUNT1_RX <= guarded X"FFFF_FFFF";
+    COUNT2_RX <= guarded X"FFFF_FFFF";
+    COUNT3_RX <= guarded X"FFFF_FFFF";
+    CONFIG_RX <= guarded X"0000"     ;
+  end block;
+
+	-- ### ------------------------------------------------------ ###
+	-- #   assign status register					#
+	-- ### ------------------------------------------------------ ###
+
+  status : block (CLK_SX = '0' and not CLK_SX'STABLE and INTRQ_SX = '1')
+  begin
+    STATUS_RX <= guarded CNTNUL3_SX & CNTNUL2_SX & CNTNUL1_SX & CNTNUL0_SX ;
+  end block;
+
+	-- ### ------------------------------------------------------ ###
+	-- #   read registers (counters, status, configuration) :	#
+	-- #     - chip selected					#
+	-- #     - external read access					#
+	-- #     - enable data output on high level of external clock	#
+	-- #       and only if the timer is not freezed			#
+	-- ### ------------------------------------------------------ ###
+
+  READ_SX <= RW and not E_N;
+
+  read : block (CLK_SX = '1' and READ_SX = '1')
+  begin
+    with SEL select
+      DATA <= guarded COUNT0_RX                         when "000" ,
+                      COUNT1_RX                         when "001" ,
+                      COUNT2_RX                         when "010" ,
+                      COUNT3_RX                         when "011" ,
+                      X"000"    & STATUS_RX & CONFIG_RX when others;
+  end block;
+
+	-- ### ------------------------------------------------------ ###
+	-- #   interrupt request condition				#
+	-- #     - precharge on low level of external clock		#
+	-- #     - send an interrupt request if at least one unmasked	#
+	-- #       counter has a null value				#
+	-- #     - send an interrupt request on a high level of		#
+	-- #       external clock and only if the timer is not freezed	#
+	-- ### ------------------------------------------------------ ###
+
+  CNTNUL0_SX <= '1' when (COUNT0_RX = X"0000_0000") else
+                '0' ;
+  CNTNUL1_SX <= '1' when (COUNT1_RX = X"0000_0000") else
+                '0' ;
+  CNTNUL2_SX <= '1' when (COUNT2_RX = X"0000_0000") else
+                '0' ;
+  CNTNUL3_SX <= '1' when (COUNT3_RX = X"0000_0000") else
+                '0' ;
+
+  INTRQ_SX   <= (CNTNUL0_SX and MASK0_NX and not STATUS_RX (0)) or
+                (CNTNUL1_SX and MASK1_NX and not STATUS_RX (1)) or
+                (CNTNUL2_SX and MASK2_NX and not STATUS_RX (2)) or
+                (CNTNUL3_SX and MASK3_NX and not STATUS_RX (3)) ;
+
+  prech : block (CK = '0')
+  begin
+    IRQ_N <= guarded '1';
+  end block;
+
+  tim   : block (CLK_SX = '1' and INTRQ_SX = '1')
+  begin
+    IRQ_N <= guarded '0';
+  end block;
+
+end;

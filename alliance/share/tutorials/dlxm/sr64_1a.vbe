@@ -1,0 +1,447 @@
+-- ### -------------------------------------------------------------- ###
+-- #									#
+-- # file	: sr64_1a.vbe						#
+-- # date	: 1993					        	#
+-- # version	: v0.0							#
+-- #									#
+-- # origin	: this description has been developed by CAO-VLSI team	#
+-- #		  at MASI laboratory, University Pierre et Marie Curie	#
+-- #		  URA CNRS 818, Institut Blaise Pascal			#
+-- #		  4 Place Jussieu 75252 Paris Cedex 05 - France		#
+-- # E-mail      :      cao-vlsi@masi.ibp.fr                            #
+-- #									#
+-- # descr.	: data flow description of a ram 64*1.        		#
+-- #									#
+-- ### -------------------------------------------------------------- ###
+
+entity sr64_1a is
+
+  port (
+       E_N         : in  bit                        ;
+       W_N         : in  bit                        ;
+       D           : in  bit                        ;
+       Q           : out mux_bit                 bus;
+       A           : in  bit_vector (5 downto 0)    ;
+       VDD         : in  bit                        ;
+       VSS         : in  bit
+       );
+
+end sr64_1a;
+
+
+architecture FUNCTIONAL of sr64_1a is
+
+  signal RAM0_RX , RAM1_RX , RAM2_RX , RAM3_RX , RAM4_RX  : reg_bit register;
+  signal RAM5_RX , RAM6_RX , RAM7_RX , RAM8_RX , RAM9_RX  : reg_bit register;
+  signal RAM10_RX, RAM11_RX, RAM12_RX, RAM13_RX, RAM14_RX : reg_bit register;
+  signal RAM15_RX, RAM16_RX, RAM17_RX, RAM18_RX, RAM19_RX : reg_bit register;
+  signal RAM20_RX, RAM21_RX, RAM22_RX, RAM23_RX, RAM24_RX : reg_bit register;
+  signal RAM25_RX, RAM26_RX, RAM27_RX, RAM28_RX, RAM29_RX : reg_bit register;
+  signal RAM30_RX, RAM31_RX, RAM32_RX, RAM33_RX, RAM34_RX : reg_bit register;
+  signal RAM35_RX, RAM36_RX, RAM37_RX, RAM38_RX, RAM39_RX : reg_bit register;
+  signal RAM40_RX, RAM41_RX, RAM42_RX, RAM43_RX, RAM44_RX : reg_bit register;
+  signal RAM45_RX, RAM46_RX, RAM47_RX, RAM48_RX, RAM49_RX : reg_bit register;
+  signal RAM50_RX, RAM51_RX, RAM52_RX, RAM53_RX, RAM54_RX : reg_bit register;
+  signal RAM55_RX, RAM56_RX, RAM57_RX, RAM58_RX, RAM59_RX : reg_bit register;
+  signal RAM60_RX, RAM61_RX, RAM62_RX, RAM63_RX           : reg_bit register;
+
+  signal READ_SX                                          : bit;
+  signal WRTEN_SX                                         : bit;
+
+begin
+
+  WRTEN_SX <= E_N nor W_N;
+
+  wr_0 : block (WRTEN_SX = '1' and A = "000000")
+  begin
+    RAM0_RX <= guarded D;
+  end block;
+
+  wr_1 : block (WRTEN_SX = '1' and A = "000001")
+  begin
+    RAM1_RX <= guarded D;
+  end block;
+
+  wr_2 : block (WRTEN_SX = '1' and A = "000010")
+  begin
+    RAM2_RX <= guarded D;
+  end block;
+
+  wr_3: block (WRTEN_SX = '1' and A = "000011")
+  begin
+    RAM3_RX <= guarded D;
+  end block;
+
+  wr_4: block (WRTEN_SX = '1' and A = "000100")
+  begin
+    RAM4_RX <= guarded D;
+  end block;
+
+  wr_5: block (WRTEN_SX = '1' and A = "000101")
+  begin
+    RAM5_RX <= guarded D;
+  end block;
+
+  wr_6: block (WRTEN_SX = '1' and A = "000110")
+  begin
+    RAM6_RX <= guarded D;
+  end block;
+
+  wr_7: block (WRTEN_SX = '1' and A = "000111")
+  begin
+    RAM7_RX <= guarded D;
+  end block;
+
+  wr_8: block (WRTEN_SX = '1' and A = "001000")
+  begin
+    RAM8_RX <= guarded D;
+  end block;
+
+  wr_9: block (WRTEN_SX = '1' and A = "001001")
+  begin
+    RAM9_RX <= guarded D;
+  end block;
+
+  wr_10: block (WRTEN_SX = '1' and A = "001010")
+  begin
+    RAM10_RX <= guarded D;
+  end block;
+
+  wr_11: block (WRTEN_SX = '1' and A = "001011")
+  begin
+    RAM11_RX <= guarded D;
+  end block;
+
+  wr_12: block (WRTEN_SX = '1' and A = "001100")
+  begin
+    RAM12_RX <= guarded D;
+  end block;
+
+  wr_13: block (WRTEN_SX = '1' and A = "001101")
+  begin
+    RAM13_RX <= guarded D;
+  end block;
+
+  wr_14: block (WRTEN_SX = '1' and A = "001110")
+  begin
+    RAM14_RX <= guarded D;
+  end block;
+
+  wr_15: block (WRTEN_SX = '1' and A = "001111")
+  begin
+    RAM15_RX <= guarded D;
+  end block;
+
+  wr_16: block (WRTEN_SX = '1' and A = "010000")
+  begin
+    RAM16_RX <= guarded D;
+  end block;
+
+  wr_17: block (WRTEN_SX = '1' and A = "010001")
+  begin
+    RAM17_RX <= guarded D;
+  end block;
+
+  wr_18: block (WRTEN_SX = '1' and A = "010010")
+  begin
+    RAM18_RX <= guarded D;
+  end block;
+
+  wr_19: block (WRTEN_SX = '1' and A = "010011")
+  begin
+    RAM19_RX <= guarded D;
+  end block;
+
+  wr_20: block (WRTEN_SX = '1' and A = "010100")
+
+  begin
+    RAM20_RX <= guarded D;
+  end block;
+
+  wr_21: block (WRTEN_SX = '1' and A = "010101")
+  begin
+    RAM21_RX <= guarded D;
+  end block;
+
+  wr_22: block (WRTEN_SX = '1' and A = "010110")
+  begin
+    RAM22_RX <= guarded D;
+  end block;
+
+  wr_23: block (WRTEN_SX = '1' and A = "010111")
+  begin
+    RAM23_RX <= guarded D;
+  end block;
+
+  wr_24: block (WRTEN_SX = '1' and A = "011000")
+  begin
+    RAM24_RX <= guarded D;
+  end block;
+
+  wr_25: block (WRTEN_SX = '1' and A = "011001")
+  begin
+    RAM25_RX <= guarded D;
+  end block;
+
+  wr_26: block (WRTEN_SX = '1' and A = "011010")
+  begin
+    RAM26_RX <= guarded D;
+  end block;
+
+  wr_27: block (WRTEN_SX = '1' and A = "011011")
+  begin
+    RAM27_RX <= guarded D;
+  end block;
+
+  wr_28: block (WRTEN_SX = '1' and A = "011100")
+  begin
+    RAM28_RX <= guarded D;
+  end block;
+
+  wr_29: block (WRTEN_SX = '1' and A = "011101")
+  begin
+    RAM29_RX <= guarded D;
+  end block;
+
+  wr_30: block (WRTEN_SX = '1' and A = "011110")
+  begin
+    RAM30_RX <= guarded D;
+  end block;
+
+  wr_31: block (WRTEN_SX = '1' and A = "011111")
+  begin
+    RAM31_RX <= guarded D;
+  end block;
+
+  wr_32: block (WRTEN_SX = '1' and A = "100000")
+  begin
+    RAM32_RX <= guarded D;
+  end block;
+
+  wr_33: block (WRTEN_SX = '1' and A = "100001")
+  begin
+    RAM33_RX <= guarded D;
+  end block;
+
+  wr_34: block (WRTEN_SX = '1' and A = "100010")
+  begin
+    RAM34_RX <= guarded D;
+  end block;
+
+  wr_35: block (WRTEN_SX = '1' and A = "100011")
+  begin
+    RAM35_RX <= guarded D;
+  end block;
+
+  wr_36: block (WRTEN_SX = '1' and A = "100100")
+  begin
+    RAM36_RX <= guarded D;
+  end block;
+
+  wr_37: block (WRTEN_SX = '1' and A = "100101")
+  begin
+    RAM37_RX <= guarded D;
+  end block;
+
+  wr_38: block (WRTEN_SX = '1' and A = "100110")
+  begin
+    RAM38_RX <= guarded D;
+  end block;
+
+  wr_39: block (WRTEN_SX = '1' and A = "100111")
+  begin
+    RAM39_RX <= guarded D;
+  end block;
+
+  wr_40: block (WRTEN_SX = '1' and A = "101000")
+  begin
+    RAM40_RX <= guarded D;
+  end block;
+
+  wr_41: block (WRTEN_SX = '1' and A = "101001")
+  begin
+    RAM41_RX <= guarded D;
+  end block;
+
+  wr_42: block (WRTEN_SX = '1' and A = "101010")
+  begin
+    RAM42_RX <= guarded D;
+  end block;
+
+  wr_43: block (WRTEN_SX = '1' and A = "101011")
+  begin
+    RAM43_RX <= guarded D;
+  end block;
+
+  wr_44: block (WRTEN_SX = '1' and A = "101100")
+  begin
+    RAM44_RX <= guarded D;
+  end block;
+
+  wr_45: block (WRTEN_SX = '1' and A = "101101")
+  begin
+    RAM45_RX <= guarded D;
+  end block;
+
+  wr_46: block (WRTEN_SX = '1' and A = "101110")
+  begin
+    RAM46_RX <= guarded D;
+  end block;
+
+  wr_47: block (WRTEN_SX = '1' and A = "101111")
+  begin
+    RAM47_RX <= guarded D;
+  end block;
+
+  wr_48: block (WRTEN_SX = '1' and A = "110000")
+  begin
+    RAM48_RX <= guarded D;
+  end block;
+
+  wr_49: block (WRTEN_SX = '1' and A = "110001")
+  begin
+    RAM49_RX <= guarded D;
+  end block;
+  wr_50: block (WRTEN_SX = '1' and A = "110010")
+  begin
+    RAM50_RX <= guarded D;
+  end block;
+
+  wr_51: block (WRTEN_SX = '1' and A = "110011")
+  begin
+    RAM51_RX <= guarded D;
+  end block;
+
+  wr_52: block (WRTEN_SX = '1' and A = "110100")
+  begin
+    RAM52_RX <= guarded D;
+  end block;
+
+  wr_53: block (WRTEN_SX = '1' and A = "110101")
+  begin
+    RAM53_RX <= guarded D;
+  end block;
+
+  wr_54: block (WRTEN_SX = '1' and A = "110110")
+  begin
+    RAM54_RX <= guarded D;
+  end block;
+
+  wr_55: block (WRTEN_SX = '1' and A = "110111")
+  begin
+    RAM55_RX <= guarded D;
+  end block;
+
+  wr_56: block (WRTEN_SX = '1' and A = "111000")
+  begin
+    RAM56_RX <= guarded D;
+  end block;
+
+  wr_57: block (WRTEN_SX = '1' and A = "111001")
+  begin
+    RAM57_RX <= guarded D;
+  end block;
+
+  wr_58: block (WRTEN_SX = '1' and A = "111010")
+  begin
+    RAM58_RX <= guarded D;
+  end block;
+
+  wr_59: block (WRTEN_SX = '1' and A = "111011")
+  begin
+    RAM59_RX <= guarded D;
+  end block;
+
+  wr_60: block (WRTEN_SX = '1' and A = "111100")
+  begin
+    RAM60_RX <= guarded D;
+  end block;
+
+  wr_61: block (WRTEN_SX = '1' and A = "111101")
+  begin
+    RAM61_RX <= guarded D;
+  end block;
+
+  wr_62: block (WRTEN_SX = '1' and A = "111110")
+  begin
+    RAM62_RX <= guarded D;
+  end block;
+
+  wr_63: block (WRTEN_SX = '1' and A = "111111")
+  begin
+    RAM63_RX <= guarded D;
+  end block;
+
+  with A (5 downto 0)  select
+  READ_SX <= RAM0_RX  when "000000",
+             RAM1_RX  when "000001",
+             RAM2_RX  when "000010",
+             RAM3_RX  when "000011",
+             RAM4_RX  when "000100",
+             RAM5_RX  when "000101",
+             RAM6_RX  when "000110",
+             RAM7_RX  when "000111",
+             RAM8_RX  when "001000",
+             RAM9_RX  when "001001",
+             RAM10_RX when "001010",
+             RAM11_RX when "001011",
+             RAM12_RX when "001100",
+             RAM13_RX when "001101",
+             RAM14_RX when "001110",
+             RAM15_RX when "001111",
+             RAM16_RX when "010000",
+             RAM17_RX when "010001",
+             RAM18_RX when "010010",
+             RAM19_RX when "010011",
+             RAM20_RX when "010100",
+             RAM21_RX when "010101",
+             RAM22_RX when "010110",
+             RAM23_RX when "010111",
+             RAM24_RX when "011000",
+             RAM25_RX when "011001",
+             RAM26_RX when "011010",
+             RAM27_RX when "011011",
+             RAM28_RX when "011100",
+             RAM29_RX when "011101",
+             RAM30_RX when "011110",
+             RAM31_RX when "011111",
+             RAM32_RX when "100000",
+             RAM33_RX when "100001",
+             RAM34_RX when "100010",
+             RAM35_RX when "100011",
+             RAM36_RX when "100100",
+             RAM37_RX when "100101",
+             RAM38_RX when "100110",
+             RAM39_RX when "100111",
+             RAM40_RX when "101000",
+             RAM41_RX when "101001",
+             RAM42_RX when "101010",
+             RAM43_RX when "101011",
+             RAM44_RX when "101100",
+             RAM45_RX when "101101",
+             RAM46_RX when "101110",
+             RAM47_RX when "101111",
+             RAM48_RX when "110000",
+             RAM49_RX when "110001",
+             RAM50_RX when "110010",
+             RAM51_RX when "110011",
+             RAM52_RX when "110100",
+             RAM53_RX when "110101",
+             RAM54_RX when "110110",
+             RAM55_RX when "110111",
+             RAM56_RX when "111000",
+             RAM57_RX when "111001",
+             RAM58_RX when "111010",
+             RAM59_RX when "111011",
+             RAM60_RX when "111100",
+             RAM61_RX when "111101",
+             RAM62_RX when "111110",
+             RAM63_RX when "111111",
+             '0'      when others;
+
+  wr_q : block (E_N = '0' and W_N = '1')
+  begin
+   Q <= guarded READ_SX;
+  end block;
+
+end FUNCTIONAL ;

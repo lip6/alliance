@@ -1,0 +1,47 @@
+;  ###----------------------------------------------------------------###
+;  #									#
+;  # file	: exc004.u						#
+;  # date	: Apr  1 1993						#
+;  # descr.	: functional test for dlx				#
+;  #									#
+;  ###----------------------------------------------------------------###
+
+	;  ###--------------------------------------------------------###
+	;  #   exceptions :						#
+	;  #     - arithmetic overflow (addition)			#
+	;  ###--------------------------------------------------------###
+
+data		equ	X"b2305ec0"		; a big negative data
+
+		org	X"7fffff00"
+		start	init
+
+init:
+		loadi	r31, back_from_exception
+		loadi	r10, data		; big positive data in r10
+		loadi	r11, data		; same data in r11
+
+	;  ###--------------------------------------------------------###
+	;  #   addtion generating an overflow				#
+	;  ###--------------------------------------------------------###
+
+		add	r10, r10, r10		; EXCEPTION (overflow)
+
+	;  ###--------------------------------------------------------###
+	;  #   after returning from exception check that r10 has not	#
+	;  # been altered						#
+	;  ###--------------------------------------------------------###
+
+back_from_exception:
+		sne	r20, r10, r11		; check that add has failed
+		bnez	r20, bad
+		nop
+		j	good
+		nop
+
+		org	X"7ffffff0"
+good		j	good
+		nop
+bad		j	bad
+		nop
+		end
