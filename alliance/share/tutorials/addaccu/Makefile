@@ -1,5 +1,5 @@
 ASIMUT = $(ALLIANCE_TOP)/bin/asimut
-GENLIB = $(ALLIANCE_TOP)/bin/genlib -v -k
+GENLIB = $(ALLIANCE_TOP)/bin/genlib
 SCR    = $(ALLIANCE_TOP)/bin/scr
 RING   = $(ALLIANCE_TOP)/bin/ring
 LYNX   = $(ALLIANCE_TOP)/bin/lynx
@@ -10,8 +10,10 @@ DRUC   = $(ALLIANCE_TOP)/bin/druc
 GRAAL  = $(ALLIANCE_TOP)/bin/graal
 DREAL  = $(ALLIANCE_TOP)/bin/dreal
 S2R    = $(ALLIANCE_TOP)/bin/s2r
+TOUCH  = touch
 
-# ### 
+
+# ###
 # goal of the Makefile: doing the whole chip design and verification
 #
 # ###
@@ -25,7 +27,6 @@ all: specifications.pat addaccu.proof addaccu.cif
 	@echo " " 
 	@echo "Run 'make dreal' to see the layout." 
 	@echo " " 
-
 
 # ###---------------------------------------------------------###
 # check the correctness of specifications (Data-FLow VHDL)      #
@@ -45,7 +46,7 @@ specifications.pat : addaccu.vbe addaccu.pat
 core.vst : core.c
 	MBK_IN_LO=vst ;\
 	MBK_OUT_LO=vst ;\
-	MBK_CATA_LIB=$(ALLIANCE_TOP)/cells/sclib;\
+	MBK_CATA_LIB=$(ALLIANCE_TOP)/cells/sxlib:$(ALLIANCE_TOP)/cells/sc2sxlib:$(ALLIANCE_TOP)/cells/padlib ;\
 	export MBK_IN_LO MBK_OUT_LO MBK_CATA_LIB ;\
 	$(GENLIB) core
 
@@ -60,7 +61,7 @@ core.vst : core.c
 addaccu.vst : addaccu.c core.vst
 	MBK_IN_LO=vst ;\
 	MBK_OUT_LO=vst ;\
-	MBK_CATA_LIB=$(ALLIANCE_TOP)/cells/sclib:$(ALLIANCE_TOP)/cells/padlib ;\
+	MBK_CATA_LIB=$(ALLIANCE_TOP)/cells/sxlib:$(ALLIANCE_TOP)/cells/sc2sxlib:$(ALLIANCE_TOP)/cells/padlib ;\
 	export MBK_IN_LO MBK_OUT_LO MBK_CATA_LIB ;\
 	$(GENLIB) addaccu
 
@@ -72,7 +73,7 @@ addaccu.vst : addaccu.c core.vst
 schema.pat : addaccu.vst addaccu.pat
 	MBK_IN_LO=vst ;\
 	MBK_OUT_LO=vst ;\
-	MBK_CATA_LIB=$(ALLIANCE_TOP)/cells/sclib:$(ALLIANCE_TOP)/cells/padlib ;\
+	MBK_CATA_LIB=$(ALLIANCE_TOP)/cells/sxlib:$(ALLIANCE_TOP)/cells/sc2sxlib:$(ALLIANCE_TOP)/cells/padlib ;\
 	export MBK_IN_LO MBK_OUT_LO MBK_CATA_LIB ;\
 	$(ASIMUT) addaccu addaccu schema
 
@@ -84,9 +85,8 @@ core.ap : core.vst
 	MBK_IN_LO=vst ;\
 	MBK_IN_PH=ap ;\
 	MBK_OUT_PH=ap ;\
-	MBK_CATA_LIB=$(ALLIANCE_TOP)/cells/sclib:$(ALLIANCE_TOP)/cells/padlib ;\
-        SCR_SCLIB=1  ;\
-	export MBK_IN_LO MBK_IN_PH MBK_OUT_PH MBK_CATA_LIB SCR_SCLIB ;\
+	MBK_CATA_LIB=$(ALLIANCE_TOP)/cells/sxlib:$(ALLIANCE_TOP)/cells/sc2sxlib:$(ALLIANCE_TOP)/cells/padlib ;\
+	export MBK_IN_LO MBK_IN_PH MBK_OUT_PH MBK_CATA_LIB ; \
 	$(SCR) -p -r core 
 
 # ###---------------------------------------------------------###
@@ -96,8 +96,8 @@ core.ap : core.vst
 core.al : core.ap
 	MBK_IN_PH=ap ;\
 	MBK_OUT_LO=al ;\
-	RDS_TECHNO_NAME=$(ALLIANCE_TOP)/etc/cmos_10.rds ;\
-	MBK_CATA_LIB=$(ALLIANCE_TOP)/cells/sclib:$(ALLIANCE_TOP)/cells/padlib ;\
+	RDS_TECHNO_NAME=$(ALLIANCE_TOP)/etc/cmos_8.rds ;\
+	MBK_CATA_LIB=$(ALLIANCE_TOP)/cells/sxlib:$(ALLIANCE_TOP)/cells/sc2sxlib:$(ALLIANCE_TOP)/cells/padlib ;\
 	export MBK_IN_PH MBK_OUT_LO RDS_TECHNO_NAME MBK_CATA_LIB ;\
 	$(LYNX) -v core core
 
@@ -107,10 +107,10 @@ core.al : core.ap
 # ###---------------------------------------------------------###
 
 core.lvx : core.al core.vst
-	MBK_CATA_LIB=$(ALLIANCE_TOP)/cells/sclib:$(ALLIANCE_TOP)/cells/padlib ;\
+	MBK_CATA_LIB=$(ALLIANCE_TOP)/cells/sxlib:$(ALLIANCE_TOP)/cells/sc2sxlib:$(ALLIANCE_TOP)/cells/padlib ;\
 	export MBK_CATA_LIB ;\
-	$(LVX) vst al core core -f > core.lvx; \
-	cat core.lvx
+	$(LVX) vst al core core -f
+	$(TOUCH) core.lvx
 
 # ###---------------------------------------------------------###
 # place and route the circuit (core and pads)                   #
@@ -121,9 +121,8 @@ addaccu.ap : core.ap core.lvx addaccu.vst
 	MBK_IN_LO=vst ;\
 	MBK_IN_PH=ap ;\
 	MBK_OUT_PH=ap ;\
-	MBK_CATA_LIB=$(ALLIANCE_TOP)/cells/sclib:$(ALLIANCE_TOP)/cells/padlib ;\
-	MBK_SCALE_X=10; \
-	export MBK_SCALE_X MBK_IN_PH MBK_OUT_PH MBK_IN_LO MBK_CATA_LIB ;\
+	MBK_CATA_LIB=$(ALLIANCE_TOP)/cells/sxlib:$(ALLIANCE_TOP)/cells/sc2sxlib:$(ALLIANCE_TOP)/cells/padlib ;\
+	export MBK_IN_PH MBK_OUT_PH MBK_IN_LO MBK_CATA_LIB ;\
 	$(RING) addaccu addaccu
 
 # ###---------------------------------------------------------###
@@ -133,8 +132,8 @@ addaccu.ap : core.ap core.lvx addaccu.vst
 addaccu.al : addaccu.ap
 	MBK_IN_PH=ap ;\
 	MBK_OUT_LO=al ;\
-	RDS_TECHNO_NAME=$(ALLIANCE_TOP)/etc/cmos_10.rds ;\
-	MBK_CATA_LIB=$(ALLIANCE_TOP)/cells/sclib:$(ALLIANCE_TOP)/cells/padlib ;\
+	RDS_TECHNO_NAME=$(ALLIANCE_TOP)/etc/cmos_8.rds ;\
+	MBK_CATA_LIB=$(ALLIANCE_TOP)/cells/sxlib:$(ALLIANCE_TOP)/cells/sc2sxlib:$(ALLIANCE_TOP)/cells/padlib ;\
 	export MBK_IN_PH MBK_OUT_LO RDS_TECHNO_NAME MBK_CATA_LIB ;\
 	$(LYNX) -v addaccu addaccu
 
@@ -145,7 +144,6 @@ addaccu.al : addaccu.ap
 
 addaccu.lvx : addaccu.al addaccu.vst
 	$(LVX) vst al addaccu addaccu > addaccu.lvx
-	cat addaccu.lvx
 
 # ###---------------------------------------------------------###
 # simulate the extracted net-list                               #
@@ -154,7 +152,7 @@ addaccu.lvx : addaccu.al addaccu.vst
 extracted.pat : addaccu.al
 	MBK_IN_LO=al ;\
 	MBK_OUT_LO=al ;\
-	MBK_CATA_LIB=$(ALLIANCE_TOP)/cells/sclib:$(ALLIANCE_TOP)/cells/padlib ;\
+	MBK_CATA_LIB=$(ALLIANCE_TOP)/cells/sxlib:$(ALLIANCE_TOP)/cells/sc2sxlib:$(ALLIANCE_TOP)/cells/padlib ;\
 	export MBK_IN_LO MBK_OUT_LO MBK_CATA_LIB ;\
 	$(ASIMUT) addaccu addaccu extracted
 
@@ -167,8 +165,8 @@ addaccue.vbe : addaccu.ap addaccue.inf
 	MBK_IN_PH=ap ;\
 	MBK_IN_LO=al ;\
 	MBK_OUT_LO=al ;\
-	RDS_TECHNO_NAME=$(ALLIANCE_TOP)/etc/cmos_10.rds ;\
-	MBK_CATA_LIB=$(ALLIANCE_TOP)/cells/sclib:$(ALLIANCE_TOP)/cells/padlib ;\
+	RDS_TECHNO_NAME=$(ALLIANCE_TOP)/etc/cmos_8.rds ;\
+	MBK_CATA_LIB=$(ALLIANCE_TOP)/cells/sxlib:$(ALLIANCE_TOP)/cells/sc2sxlib:$(ALLIANCE_TOP)/cells/padlib ;\
 	export MBK_IN_PH MBK_IN_LO MBK_OUT_LO RDS_TECHNO_NAME MBK_CATA_LIB ;\
 	$(LYNX) -v -t addaccu addaccue ;\
 	$(YAGLE) addaccue -i -v
@@ -180,7 +178,7 @@ addaccue.vbe : addaccu.ap addaccue.inf
 abstracted.pat : addaccue.vbe
 	MBK_IN_LO=vst ;\
 	MBK_OUT_LO=vst ;\
-	MBK_CATA_LIB=$(ALLIANCE_TOP)/cells/sclib;\
+	MBK_CATA_LIB=$(ALLIANCE_TOP)/cells/sxlib:$(ALLIANCE_TOP)/cells/sc2sxlib:$(ALLIANCE_TOP)/cells/padlib ;\
 	export MBK_IN_LO MBK_OUT_LO MBK_CATA_LIB ;\
 	$(ASIMUT) -b addaccue addaccu abstracted
 
@@ -190,8 +188,8 @@ abstracted.pat : addaccue.vbe
 # ###----------------------------------------------------------##
 
 addaccu.proof : addaccue.vbe addaccu.vbe
-	$(PROOF) -d addaccue addaccu > addaccu.proof; \
-	cat addaccu.proof
+	$(PROOF) -d -p addaccue addaccu
+	$(TOUCH) addaccu.proof
 
 # ###---------------------------------------------------------###
 # check design rules                                            #
@@ -200,8 +198,8 @@ addaccu.proof : addaccue.vbe addaccu.vbe
 addaccu.drc : addaccu.ap
 	MBK_IN_PH=ap ;\
 	RDS_OUT=cif  ;\
-	RDS_TECHNO_NAME=$(ALLIANCE_TOP)/etc/cmos_10.rds ;\
-	MBK_CATA_LIB=$(ALLIANCE_TOP)/cells/sclib:$(ALLIANCE_TOP)/cells/padlib ;\
+	RDS_TECHNO_NAME=$(ALLIANCE_TOP)/etc/cmos_8.rds ;\
+	MBK_CATA_LIB=$(ALLIANCE_TOP)/cells/sxlib:$(ALLIANCE_TOP)/cells/sc2sxlib:$(ALLIANCE_TOP)/cells/padlib ;\
 	export MBK_IN_PH RDS_OUT RDS_TECHNO_NAME MBK_CATA_LIB ;\
 	$(DRUC) addaccu
 
@@ -211,8 +209,8 @@ addaccu.drc : addaccu.ap
 
 addaccu.cif : addaccu.ap addaccu.drc
 	MBK_IN_PH=ap ;\
-	MBK_CATA_LIB=$(ALLIANCE_TOP)/cells/sclib:$(ALLIANCE_TOP)/cells/padlib ;\
-	RDS_TECHNO_NAME=$(ALLIANCE_TOP)/etc/prol10_7.rds ;\
+	MBK_CATA_LIB=$(ALLIANCE_TOP)/cells/sxlib:$(ALLIANCE_TOP)/cells/sc2sxlib:$(ALLIANCE_TOP)/cells/padlib ;\
+	RDS_TECHNO_NAME=$(ALLIANCE_TOP)/etc/prol10_8.rds ;\
 	RDS_OUT=cif  ;\
 	RDS_IN=cif ;\
 	export MBK_IN_PH RDS_IN RDS_OUT RDS_TECHNO_NAME MBK_CATA_LIB ;\
@@ -223,12 +221,12 @@ addaccu.cif : addaccu.ap addaccu.drc
 # ###---------------------------------------------------------###
 
 clean:
-	rm -f core addaccu specifications.pat \
+	-rm specifications.pat \
 	   core.vst schema.pat core.ap core.al core.lvx \
 	   addaccu.vst addaccu.ap addaccu.al extracted.pat \
-	   addaccue.al addaccue.vbe  addaccue.rep addaccue.dsbr addaccue.fcf \
+	   addaccue.al addaccue.vbe addaccue.dsbr addaccue.fcf \
 	   abstracted.pat addaccu.proof \
-	   addaccu.drc addaccu*.cif core *~ 
+	   addaccu.drc addaccu*.cif 2> /dev/null
 
 # ###---------------------------------------------------------###
 # look at the circuit under graal                               #
@@ -236,8 +234,8 @@ clean:
 
 graal : addaccu.ap
 	MBK_IN_PH=ap ;\
-	RDS_TECHNO_NAME=$(ALLIANCE_TOP)/etc/cmos_10.rds ;\
-	MBK_CATA_LIB=$(ALLIANCE_TOP)/cells/sclib:$(ALLIANCE_TOP)/cells/padlib ;\
+	RDS_TECHNO_NAME=$(ALLIANCE_TOP)/etc/cmos_8.rds ;\
+	MBK_CATA_LIB=$(ALLIANCE_TOP)/cells/sxlib:$(ALLIANCE_TOP)/cells/sc2sxlib:$(ALLIANCE_TOP)/cells/padlib ;\
 	export MBK_IN_PH RDS_TECHNO_NAME MBK_CATA_LIB ;\
 	$(GRAAL) -l addaccu
 
@@ -247,8 +245,8 @@ graal : addaccu.ap
 
 dreal : addaccu.cif
 	MBK_IN_PH=ap ;\
-	MBK_CATA_LIB=$(ALLIANCE_TOP)/cells/sclib:$(ALLIANCE_TOP)/cells/padlib ;\
-	RDS_TECHNO_NAME=$(ALLIANCE_TOP)/etc/prol05.rds ;\
+	MBK_CATA_LIB=$(ALLIANCE_TOP)/cells/sxlib:$(ALLIANCE_TOP)/cells/sc2sxlib:$(ALLIANCE_TOP)/cells/padlib ;\
+	RDS_TECHNO_NAME=$(ALLIANCE_TOP)/etc/prol10_8.rds ;\
 	RDS_OUT=cif  ;\
 	RDS_IN=cif ;\
 	export MBK_IN_PH RDS_IN RDS_OUT RDS_TECHNO_NAME MBK_CATA_LIB ;\
