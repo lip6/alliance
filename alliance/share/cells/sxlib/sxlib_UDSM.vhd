@@ -5,7 +5,7 @@
 -- FILENAME     :    sxlib_UDSM.vhd
 -- FILE CONTENTS:    Entity, Structural Architecture(UDSM),
 --                   and Configuration
--- DATE CREATED :    Thu Dec 21 11:59:30 2000
+-- DATE CREATED :    Mon May  7 10:19:50 2001
 -- 
 -- LIBRARY      :    sxlib
 -- DATE ENTERED :    Thu Dec 21 11:24:55 MET 2000
