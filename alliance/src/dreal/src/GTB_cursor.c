@@ -46,6 +46,7 @@
 # include <stdio.h>
 # include <X11/cursorfont.h>
 # include <X11/Intrinsic.h>
+# include "mut.h"
 # include "rds.h"
 # include "GTB.h"
 # include "GTB_cursor.h"

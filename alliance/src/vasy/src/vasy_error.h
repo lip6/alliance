@@ -82,19 +82,19 @@
 
 # define VasyError( E, T ) \
                               \
-  VasyDisplayError( __FILE__, __LINE__, (E), (vpnline_list *)0, (T) )
+  VasyDisplayError( basename(__FILE__), __LINE__, (E), (vpnline_list *)0, (T) )
 
 # define VasyWarning( W, T ) \
                                 \
-  VasyDisplayWarning( __FILE__, __LINE__, (W), (vpnline_list *)0, (T) )
+  VasyDisplayWarning( basename(__FILE__), __LINE__, (W), (vpnline_list *)0, (T) )
 
 # define VasyErrorLine( E, L, T ) \
                               \
-  VasyDisplayError( __FILE__, __LINE__, (E), (vpnline_list *)(L), (T) )
+  VasyDisplayError( basename(__FILE__), __LINE__, (E), (vpnline_list *)(L), (T) )
 
 # define VasyWarningLine( W, L, T ) \
                                 \
-  VasyDisplayWarning( __FILE__, __LINE__, (W), (vpnline_list *)(L), (T) )
+  VasyDisplayWarning( basename(__FILE__), __LINE__, (W), (vpnline_list *)(L), (T) )
 
 /*------------------------------------------------------------\
 |                                                             |

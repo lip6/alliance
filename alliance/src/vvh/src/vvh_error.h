@@ -71,10 +71,10 @@
 \------------------------------------------------------------*/
 
 # define vvherror( E, T, V )  \
-    ( vvh_error( (int)(E), (char*)(T), (long)(V), __FILE__, __LINE__ ))
+    ( vvh_error( (int)(E), (char*)(T), (long)(V), basename(__FILE__), __LINE__ ))
 
 # define vvhwarning( E, T, V ) \
-    ( vvh_warning( (int)(E), (char*)(T), (long)(V), __FILE__, __LINE__ ))
+    ( vvh_warning( (int)(E), (char*)(T), (long)(V), basename(__FILE__), __LINE__ ))
 
 /*------------------------------------------------------------\
 |                                                             |

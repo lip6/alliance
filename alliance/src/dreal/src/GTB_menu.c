@@ -44,6 +44,7 @@
 # include <Xm/SeparatoG.h>
 # include <Xm/Separator.h>
 
+# include "mut.h"
 # include "rds.h"
 # include "GTB.h"
 # include "GTB_menu.h"

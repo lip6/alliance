@@ -47,6 +47,7 @@
 # include <Xm/PushBG.h>
 # include <Xm/CascadeBG.h>
 
+# include "mut.h"
 # include "mph.h"
 # include "rds.h"
 # include "rpr.h"

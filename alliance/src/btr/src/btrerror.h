@@ -76,8 +76,10 @@
 |                                                             |
 \------------------------------------------------------------*/
 
-# define btrerror( E, V ) (btr_error( (E), (V), __FILE__, __LINE__ ))
-# define btrwarning( W, V1, V2 ) (btr_warning( (W), (V1), (V2), __FILE__, __LINE__ ))
+# define btrerror( E, V ) \
+  (btr_error( (E), (V), basename(__FILE__), __LINE__ ))
+# define btrwarning( W, V1, V2 ) \
+  (btr_warning( (W), (V1), (V2), basename(__FILE__), __LINE__ ))
 
 /*------------------------------------------------------------\
 |                                                             |

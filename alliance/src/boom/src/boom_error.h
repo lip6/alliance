@@ -71,11 +71,11 @@
 
 # define BoomError( ERROR, TEXT )                             \
                                                              \
-    BoomDisplayError( __FILE__, __LINE__, (ERROR), (TEXT) )
+    BoomDisplayError( basename(__FILE__), __LINE__, (ERROR), (TEXT) )
 
 # define BoomWarning( WARNING, TEXT )                         \
                                                              \
-    BoomDisplayWarning( __FILE__, __LINE__, (WARNING), (TEXT) )
+    BoomDisplayWarning( basename(__FILE__), __LINE__, (WARNING), (TEXT) )
 
 /*------------------------------------------------------------\
 |                                                             |

@@ -104,9 +104,10 @@
 |                                                             |
 \------------------------------------------------------------*/
 
-# define bdderror( E, V ) (bdd_error( (int)(E), (long)(V), __FILE__, __LINE__ ))
-# define bddwarning( W, V1, V2 ) (bdd_warning( (int)(W), (long)(V1), \
-                                               (long)(V2), __FILE__, __LINE__ ))
+# define bdderror( E, V ) \
+  (bdd_error( (int)(E), (long)(V), basename(__FILE__), __LINE__ ))
+# define bddwarning( W, V1, V2 ) \
+  (bdd_warning( (int)(W), (long)(V1), (long)(V2), basename(__FILE__), __LINE__ ))
 
 /*------------------------------------------------------------\
 |                                                             |

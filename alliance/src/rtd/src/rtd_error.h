@@ -66,8 +66,10 @@
 |                                                             |
 \------------------------------------------------------------*/
 
-# define rtderror( E, T, V )   (rtd_error  ( (E), (T), (V), __FILE__, __LINE__ ))
-# define rtdwarning( E, T, V ) (rtd_warning( (E), (T), (V), __FILE__, __LINE__ ))
+# define rtderror( E, T, V )   \
+  (rtd_error  ( (E), (T), (V), basename(__FILE__), __LINE__ ))
+# define rtdwarning( E, T, V ) \
+  (rtd_warning( (E), (T), (V), basename(__FILE__), __LINE__ ))
 
 /*------------------------------------------------------------\
 |                                                             |

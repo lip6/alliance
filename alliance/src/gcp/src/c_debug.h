@@ -47,7 +47,7 @@
 # define C_DEBUG_H
 
 # define c_header_debug()     fprintf( stdout, "%s:%d: *%s*\n", \
-                                       __FILE__,__LINE__, __FUNCTION__)
+                                       basename(__FILE__),__LINE__, __FUNCTION__)
 # define c_fprintf            c_header_debug(); fprintf
 # define loc_c_tree_view_node c_header_debug(); fprintf( stdout, "\n" ); c_tree_view_node
 # define loc_c_tree_view_node_list c_header_debug(); fprintf( stdout, "\n" ); c_tree_view_node_list

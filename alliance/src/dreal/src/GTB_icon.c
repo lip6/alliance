@@ -45,6 +45,7 @@
 
 # include <Xm/Xm.h>
 # include <X11/Intrinsic.h>
+# include "mut.h"
 # include "rds.h"
 # include "GTB.h"
 # include "GTB_icon.h"

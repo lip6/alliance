@@ -96,11 +96,11 @@
 
 # define SyfError( ERROR, TEXT )                             \
                                                              \
-    SyfDisplayError( __FILE__, __LINE__, (ERROR), (TEXT) )
+    SyfDisplayError( basename(__FILE__), __LINE__, (ERROR), (TEXT) )
 
 # define SyfWarning( WARNING, T1, T2 )                           \
                                                                  \
-    SyfDisplayWarning( __FILE__, __LINE__, (WARNING), (T1), (T2) )
+    SyfDisplayWarning( basename(__FILE__), __LINE__, (WARNING), (T1), (T2) )
 
 /*------------------------------------------------------------\
 |                                                             |

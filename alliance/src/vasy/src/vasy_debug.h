@@ -89,7 +89,7 @@
 
 # define VasyDebugSaveVpnFig( F ) \
                                  \
-  (VasyDebugLocSaveVpnFig( (F), __FILE__, __LINE__ ))
+  (VasyDebugLocSaveVpnFig( (F), basename(__FILE__), __LINE__ ))
 
 /*------------------------------------------------------------\
 |                                                             |
@@ -97,9 +97,9 @@
 |                                                             |
 \------------------------------------------------------------*/
 
-# define IsVasyDebugLevel0()  (VasyDebugSearchItem( __FILE__, VASY_DEBUG_LEVEL0))
-# define IsVasyDebugLevel1()  (VasyDebugSearchItem( __FILE__, VASY_DEBUG_LEVEL1))
-# define IsVasyDebugLevel2()  (VasyDebugSearchItem( __FILE__, VASY_DEBUG_LEVEL2))
+# define IsVasyDebugLevel0()  (VasyDebugSearchItem( basename(__FILE__), VASY_DEBUG_LEVEL0))
+# define IsVasyDebugLevel1()  (VasyDebugSearchItem( basename(__FILE__), VASY_DEBUG_LEVEL1))
+# define IsVasyDebugLevel2()  (VasyDebugSearchItem( basename(__FILE__), VASY_DEBUG_LEVEL2))
 
 /*------------------------------------------------------------\
 |                                                             |
@@ -107,7 +107,7 @@
 |                                                             |
 \------------------------------------------------------------*/
 
-# define VasyPrintf   VasyDebugPrint( __FILE__, __LINE__ ); fprintf 
+# define VasyPrintf   VasyDebugPrint( basename(__FILE__), __LINE__ ); fprintf 
 
 /*------------------------------------------------------------\
 |                                                             |

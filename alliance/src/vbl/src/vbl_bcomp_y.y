@@ -45,9 +45,9 @@
 #include "vbl_byacc.h"
 
 #if 1
-# define my_fprintf fprintf( stdout, "%s %d : ", __FILE__, __LINE__ ); fprintf
+# define my_fprintf fprintf( stdout, "%s %d : ", basename(__FILE__), __LINE__ ); fprintf
 # define my_vbl_error(N,V) \
-   do { fprintf( stderr, "%s %d : ", __FILE__, __LINE__); vbl_error(N,V); } while(0)
+   do { fprintf( stderr, "%s %d : ", basename(__FILE__), __LINE__); vbl_error(N,V); } while(0)
 #else
 # define my_fprintf   fprintf
 # define my_vbl_error vbl_error

@@ -72,11 +72,11 @@
 
 # define B2fError( ERROR, TEXT )                             \
                                                              \
-    B2fDisplayError( __FILE__, __LINE__, (ERROR), (TEXT) )
+    B2fDisplayError( basename(__FILE__), __LINE__, (ERROR), (TEXT) )
 
 # define B2fWarning( WARNING, TEXT )                         \
                                                              \
-    B2fDisplayWarning( __FILE__, __LINE__, (WARNING), (TEXT) )
+    B2fDisplayWarning( basename(__FILE__), __LINE__, (WARNING), (TEXT) )
 
 /*------------------------------------------------------------\
 |                                                             |

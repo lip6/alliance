@@ -78,8 +78,10 @@
 |                                                             |
 \------------------------------------------------------------*/
 
-# define LynxError( E, T1, T2 )(lynx_error( (E), (T1), (T2), __FILE__, __LINE__ ))
-# define LynxWarning( W, T ) (lynx_warning( (W), (T), __FILE__, __LINE__ ))
+# define LynxError( E, T1, T2 ) \
+  (lynx_error( (E), (T1), (T2), basename(__FILE__), __LINE__ ))
+# define LynxWarning( W, T ) \
+  (lynx_warning( (W), (T), basename(__FILE__), __LINE__ ))
 
 /*------------------------------------------------------------\
 |                                                             |

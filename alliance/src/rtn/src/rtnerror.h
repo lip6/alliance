@@ -76,9 +76,9 @@
 \------------------------------------------------------------*/
 
 # define rtlerror( E, V1, V2 ) \
-    (rtl_error( (int)(E), (char*)(long)(V1), (char*)(long)(V2), __FILE__, __LINE__ ))
+  (rtl_error( (int)(E), (char*)(long)(V1), (char*)(long)(V2), basename(__FILE__), __LINE__ ))
 # define rtlwarning( E, V1, V2 ) \
-    (rtl_warning( (int)(E), (char*)(long)(V1), (char*)(long)(V2), __FILE__, __LINE__ ))
+  (rtl_warning( (int)(E), (char*)(long)(V1), (char*)(long)(V2), basename(__FILE__), __LINE__ ))
 
 /*------------------------------------------------------------\
 |                                                             |

@@ -91,7 +91,7 @@
 
 # define BoomDebugSaveBehFigure( F, T ) \
                                  \
-  (BoomDebugLocSaveBehFigure( (F), (T), __FILE__, __LINE__ ))
+  (BoomDebugLocSaveBehFigure( (F), (T), basename(__FILE__), __LINE__ ))
 
 /*------------------------------------------------------------\
 |                                                             |
@@ -99,9 +99,9 @@
 |                                                             |
 \------------------------------------------------------------*/
 
-# define IsBoomDebugLevel0()  (BoomDebugSearchItem( __FILE__, BOOM_DEBUG_LEVEL0))
-# define IsBoomDebugLevel1()  (BoomDebugSearchItem( __FILE__, BOOM_DEBUG_LEVEL1))
-# define IsBoomDebugLevel2()  (BoomDebugSearchItem( __FILE__, BOOM_DEBUG_LEVEL2))
+# define IsBoomDebugLevel0()  (BoomDebugSearchItem( basename(__FILE__), BOOM_DEBUG_LEVEL0))
+# define IsBoomDebugLevel1()  (BoomDebugSearchItem( basename(__FILE__), BOOM_DEBUG_LEVEL1))
+# define IsBoomDebugLevel2()  (BoomDebugSearchItem( basename(__FILE__), BOOM_DEBUG_LEVEL2))
 
 /*------------------------------------------------------------\
 |                                                             |
@@ -109,7 +109,7 @@
 |                                                             |
 \------------------------------------------------------------*/
 
-# define BoomPrintf   BoomDebugPrint( __FILE__, __LINE__ ); fprintf 
+# define BoomPrintf   BoomDebugPrint( basename(__FILE__), __LINE__ ); fprintf 
 
 /*------------------------------------------------------------\
 |                                                             |

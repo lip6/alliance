@@ -39,6 +39,8 @@
 # ifndef AUT_ERROR_H
 # define AUT_ERROR_H
 
+# include <libgen.h>
+
 #ifndef __P
 # if defined(__STDC__) ||  defined(__GNUC__)
 #  define __P(x) x
@@ -81,8 +83,10 @@
 |                                                             |
 \------------------------------------------------------------*/
 
-# define auterror( E, V ) (aut_error( (int)(E), (char *)(V), __FILE__, __LINE__ ))
-# define autwarning( W, V ) (aut_warning( (int)(W), (char *)(V), __FILE__, __LINE__ ))
+# define auterror( E, V ) \
+  (aut_error( (int)(E), (char *)(V), basename(__FILE__), __LINE__ ))
+# define autwarning( W, V ) \
+  (aut_warning( (int)(W), (char *)(V), basename(__FILE__), __LINE__ ))
 
 /*------------------------------------------------------------\
 |                                                             |

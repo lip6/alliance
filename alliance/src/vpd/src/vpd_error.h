@@ -66,8 +66,10 @@
 |                                                             |
 \------------------------------------------------------------*/
 
-# define vpderror( E, T, V )   (vpd_error  ( (E), (T), (V), __FILE__, __LINE__ ))
-# define vpdwarning( E, T, V ) (vpd_warning( (E), (T), (V), __FILE__, __LINE__ ))
+# define vpderror( E, T, V ) \
+  (vpd_error  ( (E), (T), (V), basename(__FILE__), __LINE__ ))
+# define vpdwarning( E, T, V ) \
+  (vpd_warning( (E), (T), (V), basename(__FILE__), __LINE__ ))
 
 /*------------------------------------------------------------\
 |                                                             |

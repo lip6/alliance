@@ -95,10 +95,10 @@
 \------------------------------------------------------------*/
 
 # define vpnerror( E, V1, V2 ) \
-   (vpn_error((int)(E),(char*)(long)(V1),(char*)(long)(V2),__FILE__,__LINE__))
+   (vpn_error((int)(E),(char*)(long)(V1),(char*)(long)(V2), basename(__FILE__),__LINE__))
 
 # define vpnwarning( E, V1, V2 ) \
-   (vpn_warning( (int)(E),(char*)(long)(V1),(char*)(long)(V2),__FILE__,__LINE__))
+   (vpn_warning( (int)(E),(char*)(long)(V1),(char*)(long)(V2), basename(__FILE__),__LINE__))
 
 /*------------------------------------------------------------\
 |                                                             |

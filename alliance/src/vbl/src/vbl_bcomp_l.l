@@ -179,7 +179,8 @@ static int find_mc(s)
   l=strlen(s);
   strcpy(loc,s);
   while(l--) loc[l]=tolower(loc[l]);	/* conversion en minuscules */
-  pt= (el_mc *) bsearch(loc, (char *)tab_mc,VBL_NB_MC,sizeof(el_mc), strcmp);
+  pt= (el_mc *) bsearch(loc, (char *)tab_mc,VBL_NB_MC,sizeof(el_mc),
+ (int (*)(const void *, const void *)) strcmp);
   if (pt==NULL) return(-1);
 
   return(pt->kval);

@@ -62,7 +62,7 @@
 |                                                             |
 \------------------------------------------------------------*/
 
-# define FspPrintf FspDebugPrint( __FILE__, __LINE__ ); fprintf
+# define FspPrintf FspDebugPrint( basename(__FILE__), __LINE__ ); fprintf
 
 /*------------------------------------------------------------\
 |                                                             |

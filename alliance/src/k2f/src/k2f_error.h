@@ -64,11 +64,11 @@
 
 # define K2fError( ERROR, TEXT )                             \
                                                              \
-    K2fDisplayError( __FILE__, __LINE__, (ERROR), (TEXT) )
+    K2fDisplayError( basename(__FILE__), __LINE__, (ERROR), (TEXT) )
 
 # define K2fWarning( WARNING, TEXT )                         \
                                                              \
-    K2fDisplayWarning( __FILE__, __LINE__, (WARNING), (TEXT) )
+    K2fDisplayWarning( basename(__FILE__), __LINE__, (WARNING), (TEXT) )
 
 /*------------------------------------------------------------\
 |                                                             |

@@ -67,7 +67,8 @@
 |                                                             |
 \------------------------------------------------------------*/
 
-# define vexerror( E, V ) (vex_error( (int)(E), (char*)(long)(V), __FILE__, __LINE__ ))
+# define vexerror( E, V ) \
+  (vex_error( (int)(E), (char*)(long)(V), basename(__FILE__), __LINE__ ))
 
 /*------------------------------------------------------------\
 |                                                             |

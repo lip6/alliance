@@ -58,7 +58,7 @@
 |                                                             |
 \------------------------------------------------------------*/
 
-# define XsbError( X, Y, Z ) XsbPrintError( __FILE__, __LINE__, X, Y, Z )
+# define XsbError( X, Y, Z ) XsbPrintError( basename(__FILE__), __LINE__, X, Y, Z )
 
 /*------------------------------------------------------------\
 |                                                             |
