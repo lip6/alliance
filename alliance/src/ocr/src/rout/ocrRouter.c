@@ -1,8 +1,11 @@
 /*
    ### -------------------------------------------------- ### 
    $Author: hcl $
-   $Date: 2002/04/03 09:52:19 $
+   $Date: 2002/04/10 12:56:55 $
    $Log: ocrRouter.c,v $
+   Revision 1.5  2002/04/10 12:56:55  hcl
+   bouh
+
    Revision 1.4  2002/04/03 09:52:19  hcl
    A little bit of C++.
 
@@ -977,6 +980,7 @@ routingWindow(ocrRoutingDataBase * i_pDataBase, phfig_list * i_pPhFig)
     ocrNaturalInt i, l_uWin, wire_len;
     //ocrNaturalInt l_uNbf = sqrt (i_pDataBase->NB_F);
 
+    init_Astar (i_pDataBase);
 
     wire_len = 0;
 
@@ -1100,7 +1104,10 @@ routingWindow(ocrRoutingDataBase * i_pDataBase, phfig_list * i_pPhFig)
                                 i, l_pSignal->NB_CON, l_pSignal->INDEX,
                                 l_pSignal->PRIORITY);
 
-                        ripUp3(i_pDataBase, i_pDataBase->PARAM, l_pSignal);
+                        dig_around ();
+                        countFreeVC (i_pDataBase);
+
+                        /*ripUp3(i_pDataBase, i_pDataBase->PARAM, l_pSignal);*/
 
                         reRoute(i_pDataBase, i_pDataBase->PARAM, l_pSignal);
 //                    if (reRoute (i_pDataBase, i_pDataBase->PARAM, l_pSignal) == 0)

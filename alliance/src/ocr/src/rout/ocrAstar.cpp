@@ -1,3 +1,16 @@
+/*
+   ### -------------------------------------------------- ### 
+   $Author: hcl $
+   $Date: 2002/04/10 12:56:54 $
+
+   $Log: ocrAstar.cpp,v $
+   Revision 1.2  2002/04/10 12:56:54  hcl
+   bouh
+
+
+   ### -------------------------------------------------- ### 
+*/
+
 extern "C" {
 #include <assert.h>
 #include <stdlib.h>
@@ -13,6 +26,7 @@ extern "C" {
 #include "mbk_tree.h"
 #include "ocrWRoutingUtil.h"
 #include "ocrWRouting.h"
+#include "ocrNpoints.h"
 #include "display.h"
 #include "ocrAstar.h"
 }
@@ -65,6 +79,8 @@ typedef set<ocrWSegment *> ocrSegmentAdrSet;
 /**
  * Variables globales
  **/
+ocrRoutingDataBase *ocr_db = NULL;
+
 ocrWRoutingGrid *grid = NULL;
 ocrRoutingParameters *param = NULL;
 
@@ -72,6 +88,7 @@ ocrNaturalInt xs = 0, ys = 0, zs = 0;
 ocrNaturalInt CUR_SIG_INDEX = 0;
 
 ocrWSegment *ze_best = NULL;
+ocrWSegment *ze_target = NULL;
 
 //ocrNaturalInt (*kost)(ocrWSegment *, ocrWSegment *);
 
@@ -174,14 +191,15 @@ ocrNaturalInt kost (ocrWSegment *segment_source, ocrWSegment *segment_dest) {
 
         return res;
     } else {
-#if 0
+#if 1
         p = (getWSegDirection (param, segment_source) == ocrHorizontal) ?
             xs : ys;
-#endif
+#else
         /* perf optim... */
-        p = ( !(segment_source->LAYER & ((ocrNaturalInt) 1)) ) ?
+        p = ( (segment_source->LAYER & ((ocrNaturalInt) 1)) ) ?
             xs : ys
             ;
+#endif
 
         return
            (
@@ -360,145 +378,6 @@ void clean_tag_set (ocrSegmentKeySet &set) {
     }\
 }
 
-#if 0
-ocrWSegment *explore (ocrWSegment *segment_source, ocrWSegment *segment_target) {
-
-    ocrWSegment *visited = NULL;
-    ocrWSegment *terra_incognita = NULL;
-    ocrNaturalInt p, cost;
-    int i;
-
-    assert (segment_source != segment_target);
-
-    display (LEVEL, DEBUG, "d starting exploration\n");
-
-    terra_incognita = segment_source;
-    terra_incognita->COST = 0;
-    terra_incognita->H = eval (segment_source, segment_target);
-    terra_incognita->HCOST = terra_incognita->H;
-    terra_incognita->TAG = TAG_TERRA;
-    terra_incognita->ROOT = NULL;
-    terra_incognita->AUX = NULL;
-
-    while (terra_incognita) {
-        ocrWSegment *node = NULL;
-        ocrWSegment *seg = NULL;
-
-        node = pop (&terra_incognita);
-
-        if (node == segment_target) {
-            /* bingo ! */
-            clean_tag_list (visited);
-            clean_tag_list (terra_incognita);
-            node->TAG = TAG_UNDEF;
-            return node;
-        }
-
-        node->TAG = TAG_VISITED;
-        push (&visited, node);
-
-        /* expansion */
-        for (i = -1 ; i <= 1 ; i += 2) {
-            switch (i) {
-
-                case -1: if ( ((node->LAYER) ) == 0 )
-                            continue;
-                        break;
-                case  1: if ( ((node->LAYER) + 1) >= (grid->NB_OF_LAYERS) )
-                            continue;
-                        break;
-
-                default:
-                    /*display (LEVEL, ERROR, __FILE__ ":" __LINE__ "exand_eval Oops\n");*/
-                    abort ();
-            }
-            for (p = node->P_MIN ; p <= node->P_MAX ; p++) {
-
-                /*display (LEVEL, DEBUG, "d expanding %ld\n", i);*/
-                seg = getWSegment(grid,
-                                  getWSegXCoord (param, node, p),
-                                  getWSegYCoord (param, node, p),
-                                  node->LAYER + i
-                                 );
-
-#ifdef DEBUG
-                if (!seg) {
-                    display (LEVEL, DEBUG, "oddity: null seg at (%ld, %ld, %ld)\n", getWSegXCoord(param, node, p), getWSegXCoord(param, node, p), node->LAYER + i);
-                    continue;
-                }
-#endif
-
-                if (isObstructed (seg))
-                    continue;
-
-                cost = node->COST + kost (node, seg); /* XXX cout du chemin parcouru ??? */
-
-                switch (seg->TAG) {
-                    case TAG_UNDEF: /* not yet seen segment */
-                        seg->ROOT = node;
-                        seg->COST = cost;
-                        seg->H = eval (seg, segment_target);
-                        seg->HCOST = seg->H + cost;
-                        seg->TAG = TAG_TERRA;
-                        terra_incognita = insert (terra_incognita, seg);
-                        break;
-                    case TAG_TERRA:
-                        if (cost < seg->COST) {
-                            seg->COST = cost;
-                            seg->HCOST = seg->H + cost;
-                            seg->ROOT = node;
-                            terra_incognita = _remove (terra_incognita, seg);
-                            terra_incognita = insert (terra_incognita, seg);
-                        } else {
-                            /* rien */
-                        }
-                        break;
-                    case TAG_VISITED:
-                        if (cost < seg->COST) {
-                            seg->COST = cost;
-                            seg->HCOST = seg->H + cost;
-                            seg->ROOT = node;
-                            visited = _remove (visited, seg);
-                            seg->TAG = TAG_TERRA;
-                            terra_incognita = insert (terra_incognita, seg);
-                        } else {
-                            /* rien */
-                        }
-                        break;
-                    default:
-                        display (LEVEL, ERROR, "*** unexpected TAG !!!\n");
-                        abort ();
-                }
-            }
-        } /* end for i */
-    } /* while */
-
-    /* Failed */
-    clean_tag ();
-
-    /*isplay (LEVEL, DEBUG, "d exploration failed\n");*/
-
-
-    return NULL;
-}
-#endif
-
-#if 0
-void addseglist (ocrSignal *s, ocrWSegment *l2) {
-    ocrWSegment *l1;
-
-    if (!(s->SEGMENT))
-        s->SEGMENT = l2;
-    else {
-        l1 = s->SEGMENT;
-        while (l1->NEXT)
-            l1 = l1->NEXT;
-        l1->NEXT = l2;
-    }
-    return;
-}
-#endif
-
 ocrWSegment *explore_equi (ocrWSegment *segment_source, ocrWSegment *segment_target) {
 
     ocrNaturalInt cost;
@@ -511,10 +390,11 @@ ocrWSegment *explore_equi (ocrWSegment *segment_source, ocrWSegment *segment_tar
 
     segment_source->COST = 0;
     segment_source->H = eval_equi (segment_source, segment_target);
-    segment_source->HCOST = segment_source->H;
+    segment_source->HCOST = segment_source->H + 1000000;
     segment_source->TAG = TAG_TERRA;
     segment_source->ROOT = NULL;
     segment_source->AUX = NULL;
+    ze_best = segment_source;
 
     terra_incognita.insert(segment_source);
 
@@ -531,7 +411,6 @@ ocrWSegment *explore_equi (ocrWSegment *segment_source, ocrWSegment *segment_tar
         if (node->SIGNAL_INDEX == CUR_SIG_INDEX) {
             /* on a gagne */
 
-            // XXX FIXME
             clean_tag_list (visited);
             clean_tag_set (terra_incognita);
             node->TAG = TAG_UNDEF;
@@ -540,6 +419,10 @@ ocrWSegment *explore_equi (ocrWSegment *segment_source, ocrWSegment *segment_tar
 
         node->TAG = TAG_VISITED;
         visited.insert(node);
+
+        /* enregistrement */
+        if (node->H < ze_best->H)
+            ze_best = node;
 
         /* expansion */
         if (getWSegDirection (param, node) == ocrHorizontal) {
@@ -609,7 +492,127 @@ ocrWSegment *explore_equi (ocrWSegment *segment_source, ocrWSegment *segment_tar
     return NULL;
 }
 
+ocrSignal *findSignal(ocrNaturalInt i_uIndex)
+{
+    ocrNaturalInt i;
 
+    if (i_uIndex == OCRNATURALINT_MAX)
+        return NULL;
+
+    for (i = 0; i < ocr_db->NB_GSIGNAL - 1; i++) {
+        if (ocr_db->GSIGNAL[i]->INDEX == i_uIndex)
+            return ocr_db->GSIGNAL[i];
+    }
+    return NULL;
+}
+
+
+
+#define INTERROGE if (                                                         \
+                      (suspect->SIGNAL_INDEX != CUR_SIG_INDEX)                 \
+                      &&                                                       \
+                      (suspect->SIGNAL_INDEX != WSEGMENT_OBSTACLE)             \
+                      &&                                                       \
+                      (suspect->SIGNAL_INDEX != WSEGMENT_FREE)                 \
+                      &&                                                       \
+                      (suspect->TAG != TAG_TERRA)                              \
+                     )                                                         \
+                  {                                                            \
+                      suspect->TAG = TAG_TERRA;                                \
+                      suspect->COST = ze_best->COST + kost (ze_best, suspect); \
+                      suspect->H = eval_equi (suspect, ze_target);             \
+                      suspects.insert (suspect);                               \
+                  }
+
+void dig_around () {
+    ocrWSegment *suspect;
+    ocrSignal *victime;
+
+    ocrSegmentKeySet suspects;
+
+        /* expansion */
+    if (getWSegDirection (param, ze_best) == ocrHorizontal) {
+        if ( (ze_best->P_MIN) > 0 ) {
+            suspect = getWSegment (grid, ze_best->P_MIN - 1, ze_best->OFFSET, ze_best->LAYER);
+            INTERROGE
+        }
+        if ( (ze_best->P_MAX) < (grid->SIZE_H - 2) ) {
+            suspect = getWSegment (grid, ze_best->P_MAX + 1, ze_best->OFFSET, ze_best->LAYER);
+            INTERROGE
+        }
+    } else { /* vertical */
+        if ( (ze_best->P_MIN) > 0 ) {
+            suspect = getWSegment (grid, ze_best->OFFSET, ze_best->P_MIN - 1, ze_best->LAYER);
+            INTERROGE
+        }
+        if ( (ze_best->P_MAX) < (grid->SIZE_V - 2) ) {
+            suspect = getWSegment (grid, ze_best->OFFSET, ze_best->P_MAX + 1, ze_best->LAYER);
+            INTERROGE
+        }
+    }
+        
+    for (int i = -1 ; i <= 1 ; i += 2) {
+        switch (i) {
+
+            case -1: if ( ((ze_best->LAYER) ) == 0 )
+                        continue;
+                    break;
+            case  1: if ( ((ze_best->LAYER) + 1) >= (grid->NB_OF_LAYERS) )
+                        continue;
+                    break;
+
+            default:
+                /*display (LEVEL, ERROR, __FILE__ ":" __LINE__ "exand_eval Oops\n");*/
+                abort ();
+        }
+        for (ocrNaturalInt p = ze_best->P_MIN ; p <= ze_best->P_MAX ; p++) {
+
+            /*display (LEVEL, DEBUG, "d expanding %ld\n", i);*/
+            suspect = getWSegment(grid,
+                              getWSegXCoord (param, ze_best, p),
+                              getWSegYCoord (param, ze_best, p),
+                              ze_best->LAYER + i
+                             );
+            INTERROGE
+        }
+    } /* end for i */
+
+    if (suspects.empty()) {
+        abort ();
+    }
+
+    do {
+        victime = findSignal((*suspects.begin())->SIGNAL_INDEX);
+        suspects.erase (suspects.begin());
+
+        deleteEquipotentielle(param, grid, victime);
+
+        if (victime) {
+            ocr_db->RIPUP = addchain (ocr_db->RIPUP, (void *) victime);
+            deleteEquipotentielle(param, grid, victime);
+            victime->SEGMENT = NULL;
+            victime->ROUTED = 0;
+            ocr_db->NB_ROUTED--;
+            //unMarkSegmentAsFree(ocr_db, victime, victime->INDEX);
+        }
+        //countFreeVC (ocr_db);
+
+        /*
+            detruire equipotentielle victime
+            relancer la recherche de chemin du signal a router ---> si nouvel echec ?
+            relancer le routage du signal occi ----> ???
+        */
+    } while ( !(suspects.empty()) );
+
+    clean_tag_set (suspects);
+
+    return;
+}
+
+
+
+/*********************************************************************/
+/* stocker le chemin dans la structure                               */
 
 ocrNaturalInt make_segments (ocrWSegment *segment_dest,
                     ocrWSegment *segment_source,
@@ -623,7 +626,6 @@ ocrNaturalInt make_segments (ocrWSegment *segment_dest,
     ocrWSegment *seg, *nseg, *root, *aux;
     ocrNaturalInt xp, yp, xn, yn;
     ocrNaturalInt p1, p2, pp1, pp2;
-    /*ocrNaturalInt pi;*/
     ocrNaturalInt distance = 0;
     ocrNaturalInt nb_segs = 0;
 
@@ -746,9 +748,6 @@ ocrNaturalInt check_path (ocrSignal *i_pSignal) {
 }
 
 
-
-
-
 ocrNaturalInt find_path_astar (ocrRoutingParameters * p_param,
                       ocrWRoutingGrid * p_grid,
                       ocrNaturalInt xsource,
@@ -812,7 +811,7 @@ ocrNaturalInt find_path_astar (ocrRoutingParameters * p_param,
             case AS_K_SEG: //path = explore (segment_source, segment_dest);
                            break;
             case AS_K_EQUI: assert (i_pSignal->SEGMENT);
-                            ze_best = NULL;
+                            //ze_best = NULL;
                             path = explore_equi (segment_source, segment_dest);
                             break;
         }
@@ -824,6 +823,8 @@ ocrNaturalInt find_path_astar (ocrRoutingParameters * p_param,
     }
 
     if (!path) {
+        ze_target = segment_dest;
+
 #if 0
         if (g_pOption->RIPUP) {
 
@@ -859,12 +860,10 @@ ocrNaturalInt find_path_astar (ocrRoutingParameters * p_param,
 /**
  *
  **/
-/*void init_Astar (ocrRoutingDataBase *db) {
+void init_Astar (ocrRoutingDataBase *db) {
     assert (db);
 
-    grid = db->GRID;
-    param = db->PARAM;
+    ocr_db = db;
 
     return;    
 }
-*/
