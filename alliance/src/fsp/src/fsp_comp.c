@@ -118,6 +118,13 @@ fsmfig_list *FspCompile( FileName, FileFormat )
   SaveFormat = FSM_IN;
   FSM_IN     = namealloc( FileFormat );
   FsmFigure  = getfsmfig( FileName );
+
+  if ( IsFsmFigMulti( FsmFigure ) )
+  {
+    fprintf( stderr, "\t\tMulti FSM not supported !\n" );
+    autexit( 1 );
+  }
+
   FSM_IN     = SaveFormat;
 
   sprintf( FspBuffer, "%s.%s", FileName, FileFormat );
