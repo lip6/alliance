@@ -1,6 +1,6 @@
-dnl $Id: configure.in,v 1.1 2002/05/07 10:39:29 czo Exp $
+dnl $Id: configure.in,v 1.2 2002/05/07 11:42:06 czo Exp $
 
-AC_INIT(etc/alc_env.csh)
+AC_INIT(etc/alc_env.sh.in)
 AM_INIT_AUTOMAKE(distrib, 1.0)
 
 AC_PROG_INSTALL
