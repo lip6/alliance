@@ -2,14 +2,16 @@
 #
 # Home page          : http://www-asim.lip6.fr/alliance/
 # E-mail support     : mailto:alliance-support@asim.lip6.fr
-# ftp sites          : ftp://ftp.lip6.fr/lip6/softs/alliance/
-#                   or ftp://ftp-asim.lip6.fr/pub/alliance/
+# ftp site           : ftp://ftp-asim.lip6.fr/pub/alliance/
 #
-# $Id: CHANGES,v 1.3 2000/01/19 18:35:30 czo Exp $
+# $Id: CHANGES,v 1.4 2000/01/20 17:07:07 czo Exp $
+# $Author: czo $
+
+This document lists the main differences between each Alliance's revisions.
 
 --------------------------------------------------------------------------------
 
-ALLIANCE release 4.0 (15/10/99)
+ALLIANCE revision 4.0 (15/10/99)
 
 1/ New Standard Cells Library : sxlib
    sxlib allows multi-layer over cell routing
@@ -24,8 +26,8 @@ ALLIANCE release 4.0 (15/10/99)
              Input scale changeable, Hierarchy browser, real view (.cif/.gds)
    
 3/ New Tools :
-   algue : ALliance Graphic User Environement
-   ali   : gives information on Alliance Environnement
+   algue : ALliance Graphic User Environment
+   ali   : gives information on Alliance Environment
    b2f   : FSM Abstraction from .vbe
    k2f   : Translate kiss2 format <-> FSM format
    vasy  : Translate .vhd format (Synopsys) <-> .vbe format 
@@ -36,9 +38,9 @@ ALLIANCE release 4.0 (15/10/99)
 
 --------------------------------------------------------------------------------
 
-ALLIANCE release 3.5 (19/06/98)
+ALLIANCE revision 3.5 (19/06/98)
 
-1/ Lots of improvments and bug fixes
+1/ Lots of improvements and bug fixes
 
 2/ AP : Now supports ten layers of metal
 
@@ -52,11 +54,11 @@ ALLIANCE release 3.5 (19/06/98)
         addlosig, addlotrs, dellosig
 
 4/ RCN : New library for RC support : Resistances on losig and capcitances
-   beetwen losig.
+   between losig.
    
 --------------------------------------------------------------------------------
 
-ALLIANCE release 3.2c (20/03/98)
+ALLIANCE revision 3.2c (20/03/98)
 
 1/ Ap format :
 
@@ -105,18 +107,18 @@ ALLIANCE release 3.2b (15/12/97)
 
 --------------------------------------------------------------------------------
 
-ALLIANCE release 3.2 (17/05/97)
+ALLIANCE revision 3.2 (17/05/97)
 
 
 1/ GRAPHICAL PATTERN VIEWER
 
    In order to see the patterns resulting from a simulation,
-   the XPAT tools has been developped.
+   the XPAT tools has been developed.
 
 2/ GRAPHICAL FSM VIEWER
 
    In order to see the state's graph of an FSM the XFSM tools has 
-   been developped.
+   been developed.
 
 3/ RECTANGLE LAYOUT VIEWER
 
@@ -137,14 +139,14 @@ ALLIANCE release 3.0 (17/05/94)
    
 3/ TIMING ANALYSIS
 
-   The static timing analisys tools TAS is finally available.
-   It can be targetted to several processes though the use of a technological
+   The static timing analysis tools TAS is finally available.
+   It can be targeted to several processes though the use of a technological
    file suffixed `elp'.
 
 4/ RECTANGLE LAYOUT VIEWER
 
    In order to see the layout resulting from a symbolic to real translation,
-   the DREAL tools has been developped.
+   the DREAL tools has been developed.
    
 --------------------------------------------------------------------------------
 ALLIANCE release 2.0 (14/02/94) versus ALLIANCE 1.2
@@ -152,7 +154,7 @@ ALLIANCE release 2.0 (14/02/94) versus ALLIANCE 1.2
 1/ SYMBOLIC LAYOUT EDITOR
 
   The symbolic layout editor ALC has been replaced by GRAAL.
-  GRAAL provides the same functionnalities than ALC, but is much
+  GRAAL provides the same functionalities than ALC, but is much
   more reliable. GRAAL support both CMOS and GaAs symbolic layout.
 
 > man graal
@@ -168,11 +170,11 @@ ALLIANCE release 2.0 (14/02/94) versus ALLIANCE 1.2
 3/ LOGIC SYNTHESIS
 
   The logic synthesis tool LOGIC has been strongly improved.
-  The new tool NETOPTIM is a gate-level net-list optimiser
+  The new tool NETOPTIM is a gate-level net-list optimizer
   that allows to minimize delays in a synthesized gate net-list.
   The Finite-state-machine synthesizer SYF allows to describe and
   synthesize high complexity FSM (more than 100 states)
-  It is possible to describe hierachical FSM using stack  (subroutines).
+  It is possible to describe hierarchical FSM using stack  (subroutines).
 
 > man logic
 > man syf
@@ -189,7 +191,7 @@ ALLIANCE release 2.0 (14/02/94) versus ALLIANCE 1.2
 
 5/ PARAMETERIZED MACRO-CELLS
 
-  Six parametrized generators are part of this release:
+  Six parameterized generators are part of this release:
 
 > man rsa                # fast adder generator
 > man bsg                # barrel shifter generator
@@ -245,3 +247,4 @@ ALLIANCE release 2.0 (14/02/94) versus ALLIANCE 1.2
 > man prol
 
 # EOF
+
