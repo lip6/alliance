@@ -163,7 +163,14 @@ static void simpleCell(cell_list* cell)
 static int addgeneric(chain_list *abl, befig_list* befig, int area, float R, float C, float T)
 {
    port_list* port;
+   port_list* top;
    cell_list* cell;
+
+   if ( !abl )
+   {
+      fprintf(stderr,__FUNCTION__ ": NULL pointer\n");
+      exit(1);
+   }
 
    if (ABL_ATOM(abl)) {
       if (ABL_ATOM_VALUE(abl)!=getablatomone() 
@@ -178,7 +185,9 @@ static int addgeneric(chain_list *abl, befig_list* befig, int area, float R, flo
    /*cell->PORT contains the result of pattern matching*/
    cell=cell_pattern(abl);
 
-   for (port=cell->PORT; port; port=port->NEXT) {
+   top=copyport(cell->PORT);  /*not to be disturb by recursion*/
+   
+   for (port=top; port; port=port->NEXT) {
       if (isvss(port->NAME) || isvdd(port->NAME)) continue;
       switch (port->DIRECTION) {
       case OUT: case TRISTATE:
@@ -190,6 +199,8 @@ static int addgeneric(chain_list *abl, befig_list* befig, int area, float R, flo
         break;
       }
    }
+   
+   delport(top);
 
    return area+cell->AREA;
 }
