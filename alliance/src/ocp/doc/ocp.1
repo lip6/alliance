@@ -1,4 +1,4 @@
-.\"   $Id: ocp.1,v 1.3 2002/10/09 20:12:44 xtof Exp $
+.\"   $Id: ocp.1,v 1.4 2002/11/20 15:59:09 xtof Exp $
 .\" @(#)Labo.l 0.0 92/09/24 UPMC; Author: Christophe ALEXANDRE
 .pl -.4
 .TH OCP 1 "September 27, 2001" "ASIM/LIP6" "CAO\-VLSI Reference Manual"
@@ -85,6 +85,46 @@ This option won't be used if a defined placement file is given.
 .br
 \fB-gnuplot\fP option allow to generate automatically gnuplot files, for editing statistics
 .br
+.SH IOC format
+.PP
+The IOC format is based on \fBCadence\fB input-output connectors placement description.
+.br
+The description is composed of 5 possibles sections: TOP(), BOTTOM(), LEFT(), RIGHT(), and IGNORE()
+.br
+In each section except IGNORE(), there are placed IOs.
+.br
+In the IGNORE() section, the IOs are ignored by \fBOCP\fB.
+.br
+.br
+In every section, the IO syntax could be:
+.br
+for pin:       (IOPIN iopinName.0 );
+.br
+for space:     SPACE  value;                             
+.br
+The capital words are keywords. orientation is not required.
+.br
+The value is the space between the IO above and the IO below it.
+.br
+\fBExample\fB
+.br
+.nf
+TOP ( # IOs are ordered from left to right
+   (IOPIN b(3).0 );
+   (IOPIN cin.0 );
+   (IOPIN ck.0 );
+   (IOPIN cout.0 );
+)
+BOTTOM ( # IOs are ordered from left to right
+   (IOPIN i(3).0 );
+   (IOPIN i(4).0 );
+   (IOPIN i(5).0 );
+   (IOPIN i(6).0 );
+)
+
+IGNORE ( # IOs are ignored(not placed) by IO Placer
+)
+.fi
 .SH ENVIRONMENT VARIABLES
 .PP
 \fBocp\fP uses the environment variables MBK_VDD and MBK_VSS to know
