@@ -1,3 +1,29 @@
+/*------------------------------------------------------------\
+|                                                             |
+| This file is part of the Alliance CAD System Copyright      |
+| (C) Laboratoire LIP6 - Département ASIM Universite P&M Curie|
+|                                                             |
+| Home page      : http://www-asim.lip6.fr/alliance/          |
+| E-mail         : mailto:alliance-users@asim.lip6.fr       |
+|                                                             |
+| This progam is  free software; you can redistribute it      |
+| and/or modify it under the  terms of the GNU Library General|
+| Public License as published by the Free Software Foundation |
+| either version 2 of the License, or (at your option) any    |
+| later version.                                              |
+|                                                             |
+| Alliance VLSI  CAD System  is distributed  in the hope that |
+| it  will be useful, but WITHOUT  ANY WARRANTY;              |
+| without even the  implied warranty of MERCHANTABILITY or    |
+| FITNESS FOR A PARTICULAR PURPOSE. See the GNU General       |
+| Public License for more details.                            |
+|                                                             |
+| You should have received a copy  of the GNU General Public  |
+| License along with the GNU C Library; see the file COPYING. |
+| If not, write to the Free Software Foundation, Inc.,        |
+| 675 Mass Ave, Cambridge, MA 02139, USA.                     |
+|                                                             |
+\------------------------------------------------------------*/
 #include <stdlib.h>
 #include <limits.h>
 using namespace std;
@@ -25,17 +51,28 @@ PositionRand(const double Position, const double Distance, const double Max, con
 }
 
 PMove::PMove(PPlacement& placement)
-    : Placement(placement)
-    , SrcIns(0)
-    , DstIns(0)
-{
-}
+    : _placement(placement)
+, _srcIns (NULL)
+    , _srcBin(NULL)
+    , _srcBinInitCost(0.0)
+    , _srcSubRow(NULL)
+    , _srcRow(NULL)
+    , _srcRowInitCost(0.0)
+    , _srcWidth(0.0)
+    , _dstBin(NULL)
+    , _dstBinInitCost(0.0)
+    , _dstSubRow(NULL)
+    , _dstRow(NULL)
+    , _dstRowInitCost(0.0)
+    , _dstIns(NULL)
+    , _dstWidth(0.0)
+{}
 
 double
 PMove::GetDeltaRowCost()
 {
-    double DeltaRowCost = -SrcRowInitCost;
-    DeltaRowCost -= DstRowInitCost;
+    double DeltaRowCost = -_srcRowInitCost;
+    DeltaRowCost -= _dstRowInitCost;
     DeltaRowCost += Abs(_srcSubRow->GetCapa() - _srcSubRow->GetSize());
     DeltaRowCost += Abs(_dstSubRow->GetCapa() - _dstSubRow->GetSize());
     return DeltaRowCost;
@@ -44,10 +81,10 @@ PMove::GetDeltaRowCost()
 double
 PMove::GetDeltaBinCost()
 {
-    double DeltaBinCost = -SrcBinInitCost;
-    DeltaBinCost -= DstBinInitCost;
-    DeltaBinCost += Abs(SrcBin->GetCapa() - SrcBin->GetSize());
-    DeltaBinCost += Abs(DstBin->GetCapa() - DstBin->GetSize());
+    double DeltaBinCost = -_srcBinInitCost;
+    DeltaBinCost -= _dstBinInitCost;
+    DeltaBinCost += Abs(_srcBin->GetCapa() - _srcBin->GetSize());
+    DeltaBinCost += Abs(_dstBin->GetCapa() - _dstBin->GetSize());
     return DeltaBinCost;
 }
 
@@ -61,20 +98,20 @@ PMove::GetDeltaNetCost()
     // Find affected nets
     // ==================
 
-    AffectedNets.clear();
+    _affectedNets.clear();
 
-    for (PIns::PNets::const_iterator net = SrcIns->GetNets().begin(); net != SrcIns->GetNets().end(); ++net)
-	AffectedNets[static_cast<PONet*>(*net)] = PONetSrc;
+    for (PIns::PNets::const_iterator net = _srcIns->GetNets().begin(); net != _srcIns->GetNets().end(); ++net)
+	_affectedNets[static_cast<PONet*>(*net)] = PONetSrc;
 
-    if (DstIns != NULL)
-	for (PIns::PNets::const_iterator net = DstIns->GetNets().begin(); net != DstIns->GetNets().end(); ++net)
+    if (_dstIns != NULL)
+	for (PIns::PNets::const_iterator net = _dstIns->GetNets().begin(); net != _dstIns->GetNets().end(); ++net)
 	{
 	    PONet* ponet = static_cast<PONet*>(*net);
 	    
-	    if (AffectedNets.find(ponet) == AffectedNets.end())
-		AffectedNets[ponet] = PONetDst;
+	    if (_affectedNets.find(ponet) == _affectedNets.end())
+		_affectedNets[ponet] = PONetDst;
 	    else
-		AffectedNets[ponet] = PONetSrcDst;
+		_affectedNets[ponet] = PONetSrcDst;
 	}
     
     // Compute delta
@@ -82,13 +119,13 @@ PMove::GetDeltaNetCost()
 
     double Delta = 0;
 
-    for (map<PONet*, unsigned>::iterator it = AffectedNets.begin(); it != AffectedNets.end(); ++it) {
+    for (map<PONet*, unsigned>::iterator it = _affectedNets.begin(); it != _affectedNets.end(); ++it) {
 	PONet*    net  = (*it).first;
 	unsigned Flag = (*it).second;
 
 	if (Flag == PONetSrc) {
 	    net->TempBBox() = net->CurrentBBox();
-	    if (net->TempBBox().Update(SrcBin->GetPos(), DstBin->GetPos()).Empty()) {
+	    if (net->TempBBox().Update(_srcBin->GetPos(), _dstBin->GetPos()).Empty()) {
 	    	for (vector<PElem*>::iterator elem = net->GetElems().begin(); elem != net->GetElems().end(); ++elem) {
 		    net->TempBBox().Merge((*elem)->GetPos());
 		}
@@ -97,7 +134,7 @@ PMove::GetDeltaNetCost()
 	    double width = net->TempBBox().GetWidth();
 	    if (width == 0.0)
 	    {
-		width = SrcBin->GetWidth() / 2.0;
+		width = _srcBin->GetWidth() / 2.0;
 	    }
 	    net->TempCost() = net->TempBBox().GetHeight() + width;
 
@@ -114,13 +151,13 @@ PMove::GetDeltaNetCost()
 		cout << "  check_bbox = " << check_bbox << endl;
 		cout << "  TempBBox   = " << net->TempBBox() << endl;
 		cout << "  CurrentBBox   = " << net->CurrentBBox() << endl;
-		cout << "  SrcPos     = " << SrcBin->GetPos() << endl;
-		cout << "  DstPos     = " << DstBin->GetPos() << endl;
+		cout << "  SrcPos     = " << _srcBin->GetPos() << endl;
+		cout << "  DstPos     = " << _dstBin->GetPos() << endl;
 	    }
 #endif
 	} else if (Flag == PONetDst) {
 	    net->TempBBox() = net->CurrentBBox();
-	    if (net->TempBBox().Update(DstBin->GetPos(), SrcBin->GetPos()).Empty()) {
+	    if (net->TempBBox().Update(_dstBin->GetPos(), _srcBin->GetPos()).Empty()) {
 	    	for (vector<PElem*>::iterator elem = net->GetElems().begin(); elem != net->GetElems().end(); ++elem) {
 		    net->TempBBox().Merge((*elem)->GetPos());
 		}
@@ -128,7 +165,7 @@ PMove::GetDeltaNetCost()
 	    double width = net->TempBBox().GetWidth();
 	    if (width == 0.0)
 	    {
-		width = DstBin->GetWidth() / 2.0;
+		width = _dstBin->GetWidth() / 2.0;
 	    }
 	    net->TempCost() = net->TempBBox().GetHeight() + width;
 	    Delta += net->TempCost() - net->CurrentCost();
@@ -144,8 +181,8 @@ PMove::GetDeltaNetCost()
 		cout << "  check_bbox = " << check_bbox << endl;
 		cout << "  TempBBox   = " << net->TempBBox() << endl;
 		cout << "  CurrentBBox   = " << net->CurrentBBox() << endl;
-		cout << "  SrcPos     = " << DstBin->GetPos() << endl;
-		cout << "  DstPos     = " << SrcBin->GetPos() << endl;
+		cout << "  SrcPos     = " << _dstBin->GetPos() << endl;
+		cout << "  DstPos     = " << _srcBin->GetPos() << endl;
 	    }
 #endif
 	}
@@ -157,14 +194,14 @@ PMove::GetDeltaNetCost()
 void
 PMove::Move()
 {
-    if (DstIns == NULL) {
-	SrcBin->RemoveIns(SrcIns);
-	DstBin->AddIns(SrcIns);
+    if (_dstIns == NULL) {
+	_srcBin->RemoveIns(_srcIns);
+	_dstBin->AddIns(_srcIns);
     } else {
-	SrcBin->RemoveIns(SrcIns);
-	DstBin->AddIns(SrcIns);
-	DstBin->RemoveIns(DstIns);
-	SrcBin->AddIns(DstIns);
+	_srcBin->RemoveIns(_srcIns);
+	_dstBin->AddIns(_srcIns);
+	_dstBin->RemoveIns(_dstIns);
+	_srcBin->AddIns(_dstIns);
     }
 }
     
@@ -180,53 +217,53 @@ PMove::Next(double Dist)
     do {
 	PPos SrcPos;
 	double DstX;
-        SrcIns = NULL;
-        DstIns = NULL;
+        _srcIns = NULL;
+        _dstIns = NULL;
         MoveCondition = true;
 
-        SrcIns = &Placement.GetRandIns();
-        SrcBin = &(SrcIns->GetBin());
-        _srcSubRow = SrcBin->GetSubRow();
+        _srcIns = &_placement.GetRandIns();
+        _srcBin = &(_srcIns->GetBin());
+        _srcSubRow = _srcBin->GetSubRow();
 	_srcRow = _srcSubRow->GetRow();
-        SrcPos = SrcBin->GetPos();
-        SrcWidth = SrcIns->GetWidth();
-	SrcBinInitCost = Abs(SrcBin->GetCapa() - SrcBin->GetSize());
-	SrcRowInitCost = Abs(_srcSubRow->GetCapa() - _srcSubRow->GetSize());
+        SrcPos = _srcBin->GetPos();
+        _srcWidth = _srcIns->GetWidth();
+	_srcBinInitCost = Abs(_srcBin->GetCapa() - _srcBin->GetSize());
+	_srcRowInitCost = Abs(_srcSubRow->GetCapa() - _srcSubRow->GetSize());
         
-	_dstRow = &Placement.GetRow(_srcRow, Dist);
+	_dstRow = &_placement.GetRow(_srcRow, Dist);
 	DstX = PositionRand(SrcPos.GetX(), Dist, _dstRow->GetMaxX(), _dstRow->GetMinX());
 	
 	_dstSubRow = &(_dstRow->GetSubRow(DstX));
-        DstBin = &(_dstSubRow->GetBin(DstX));
+        _dstBin = &(_dstSubRow->GetBin(DstX));
 	
-	DstBinInitCost = Abs(DstBin->GetCapa() - DstBin->GetSize());
-	DstRowInitCost = Abs(_dstSubRow->GetCapa() - _dstSubRow->GetSize());
+	_dstBinInitCost = Abs(_dstBin->GetCapa() - _dstBin->GetSize());
+	_dstRowInitCost = Abs(_dstSubRow->GetCapa() - _dstSubRow->GetSize());
 
-	if (DstBin == SrcBin)
+	if (_dstBin == _srcBin)
 	    MoveCondition = false;
 
-        if (DstBin->UnderOccupied(Placement.GetMargin())) {
+        if (_dstBin->UnderOccupied(_placement.GetMargin())) {
             // Le bin destination est sous-occupé
             // On déplace l'instance
-            if (_dstSubRow->GetMax() - _dstSubRow->GetSize() < SrcWidth)
+            if (_dstSubRow->GetMax() - _dstSubRow->GetSize() < _srcWidth)
                 MoveCondition = false;
         } else {
-	    DstIns = DstBin->GetToPlaceInss().front();
-            DstWidth = DstIns->GetWidth();
-	    if (_srcSubRow->GetMax() - _srcSubRow->GetSize() < DstWidth - SrcWidth)
+	    _dstIns = _dstBin->GetToPlaceInss().front();
+            _dstWidth = _dstIns->GetWidth();
+	    if (_srcSubRow->GetMax() - _srcSubRow->GetSize() < _dstWidth - _srcWidth)
 		MoveCondition = false;
-	    if (_dstSubRow->GetMax() - _dstSubRow->GetSize() < SrcWidth - DstWidth)
+	    if (_dstSubRow->GetMax() - _dstSubRow->GetSize() < _srcWidth - _dstWidth)
 		MoveCondition = false;
 	}
 	if (!MoveCondition)
 	    ++nbrefused;
-	if (nbrefused > (unsigned)(1.5 * Placement.GetNInsToPlace()))
+	if (nbrefused > (unsigned)(1.5 * _placement.GetNInsToPlace()))
 		return false;
     } while (!MoveCondition);
    
     // Deplace les instances
     // =====================
-    DstBin->IncrNbHits();
+    _dstBin->IncrNbHits();
     
     Move();
     return true;
@@ -237,7 +274,7 @@ void
 PMove::Accept()
 {
     // Sauvegarde des cout des nets
-    for (map<PONet*, unsigned>::iterator it = AffectedNets.begin(); it != AffectedNets.end(); ++it) {
+    for (map<PONet*, unsigned>::iterator it = _affectedNets.begin(); it != _affectedNets.end(); ++it) {
 	PONet*    net  = (*it).first;
 	unsigned Flag = (*it).second;
 
@@ -250,13 +287,13 @@ PMove::Accept()
 void
 PMove::Reject()
 {
-    if (DstIns == NULL) {
-	DstBin->RemoveIns(SrcIns);
-	SrcBin->AddIns(SrcIns);
+    if (_dstIns == NULL) {
+	_dstBin->RemoveIns(_srcIns);
+	_srcBin->AddIns(_srcIns);
     } else {
-	SrcBin->RemoveIns(DstIns);
-	DstBin->AddIns(DstIns);
-	DstBin->RemoveIns(SrcIns);
-	SrcBin->AddIns(SrcIns);
+	_srcBin->RemoveIns(_dstIns);
+	_dstBin->AddIns(_dstIns);
+	_dstBin->RemoveIns(_srcIns);
+	_srcBin->AddIns(_srcIns);
     }
 }
