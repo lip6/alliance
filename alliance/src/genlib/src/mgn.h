@@ -117,6 +117,10 @@ extern void genLOCAP(char type,double capa,char *tcon,char *bcon,char *name)    
 extern void genLORES(char type,double resi,char *rcon1,char *rcon2,char *name)  ;
 extern void genLOSELF(char type,double self,char *scon1,char *scon2,char *name) ;
 
+extern void genSET_LOCAP(char *figname,char *capname,double newcap)    ;
+extern void genSET_LORES(char *figname,char *resname,double newres)    ;
+extern void genSET_LOSELF(char *figname,char *selfname,double newself) ;
+
 /***************************************************************************************/
 
 
@@ -274,9 +278,13 @@ extern char *genNAME(char *, ...);
 
 /********************************* Analogical world ************************************/
 
-#define GENLIB_LOCAP(type,capa,tcon,bcon,name)    genLOCAP(type,capa,tcon,bcon,name)
-#define GENLIB_LORES(type,resi,rcon1,rcon2,name)  genLORES(type,resi,rcon1,rcon2,name)
-#define GENLIB_LOSELF(type,self,scon1,scon2,name) genLOSELF(type,self,scon1,scon2,name)
+#define GENLIB_LOCAP(type,capa,tcon,bcon,name)      genLOCAP(type,capa,tcon,bcon,name)
+#define GENLIB_LORES(type,resi,rcon1,rcon2,name)    genLORES(type,resi,rcon1,rcon2,name)
+#define GENLIB_LOSELF(type,self,scon1,scon2,name)   genLOSELF(type,self,scon1,scon2,name)
+
+#define GENLIB_SET_LOCAP(figname,capname,newcap)    genSET_LOCAP(figname,capname,newcap)
+#define GENLIB_SET_LORES(figname,resname,newres)    genSET_LORES(figname,resname,newres)
+#define GENLIB_SET_LOSELF(figname,selfname,newself) genSET_LOSELF(figname,selfname,newself)
 
 /***************************************************************************************/
 

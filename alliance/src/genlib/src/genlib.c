@@ -71,7 +71,7 @@
 #include "mbkgen.h"
 #define __GENLIB__
 #include "mgn.h"
-static char rcsid[] = "$Id: genlib.c,v 1.8 2002/08/14 19:18:24 pnt Exp $";
+static char rcsid[] = "$Id: genlib.c,v 1.9 2002/08/16 20:16:45 pnt Exp $";
 
 /*******************************************************************************
 * global variables used in genlib                                              *
@@ -4391,6 +4391,14 @@ void genLOCAP(char type,double capa,char *tcon,char *bcon,char *name)
   (void)addlocap(WORK_LOFIG,type,capa,s_tcon,s_bcon,name) ;
 }
 
+/*******************************************************************************
+* function genSET_LOCAP                                                               *
+*******************************************************************************/
+
+void genSET_LOCAP(char *figname,char *capname,double newcap)
+{
+  setlocap(getlofig(figname,'A'),capname,newcap) ;
+}
 
 /*******************************************************************************
 * function LORES                                                               *
@@ -4452,6 +4460,15 @@ void genLORES(char type,double resi,char *rcon1,char *rcon2,char *name)
 }
 
 /*******************************************************************************
+* function genSET_LORES                                                               *
+*******************************************************************************/
+
+void genSET_LORES(char *figname,char *resname,double newres)
+{
+  setlores(getlofig(figname,'A'),resname,newres) ;
+}
+
+/*******************************************************************************
 * function LOSELF                                                               *
 *******************************************************************************/
 
@@ -4508,4 +4525,13 @@ void genLOSELF(char type,double self,char *scon1,char *scon2,char *name)
     }
 
   (void)addloself(WORK_LOFIG,type,self,s_scon1,s_scon2,name) ;
+}
+
+/*******************************************************************************
+* function genSET_LOSELF                                                               *
+*******************************************************************************/
+
+void genSET_LOSELF(char *figname,char *selfname,double newself)
+{
+  setloself(getlofig(figname,'A'),selfname,newself) ;
 }
