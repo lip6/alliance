@@ -8,14 +8,9 @@ CELLS_LIB =	$(ALLIANCE_TOP)/cells/sxlib
 AUTO_PATH =	.
 
 SYF_EXE       = $(ALLIANCE_TOP)/bin/syf
-# BOP_EXE       = $(ALLIANCE_TOP)/bin/bop
-BOP_EXE       = $(HOME)/labo/Solaris/bin/bop
-
-# NEALLIANCE_TOPTIM_EXE  = $(ALLIANCE_TOP)/bin/glop
-NEALLIANCE_TOPTIM_EXE  = $(HOME)/labo/Solaris/bin/glop
-
-# SCMAP_EXE     = $(ALLIANCE_TOP)/bin/scmap
-SCMAP_EXE     = $(HOME)/labo/Solaris/bin/scmap
+BOP_EXE       = $(ALLIANCE_TOP)/bin/bop
+NETOPTIM_EXE  = $(ALLIANCE_TOP)/bin/glop
+SCMAP_EXE     = $(ALLIANCE_TOP)/bin/scmap
 SCR_EXE       = $(ALLIANCE_TOP)/bin/scr
 LYNX_EXE      = $(ALLIANCE_TOP)/bin/lynx
 PROOF_EXE     = $(ALLIANCE_TOP)/bin/proof
@@ -40,7 +35,7 @@ NEALLIANCE_TOPTIM = MBK_CATAL_NAME=CATAL;		export MBK_CATAL_NAME;\
 	MBK_VSS=vss;				export MBK_VSS;\
 	MBK_IN_LO=vst;				export MBK_IN_LO;\
 	MBK_OUT_LO=vst;				export MBK_OUT_LO;\
-	$(NEALLIANCE_TOPTIM_EXE) -g
+	$(NETOPTIM_EXE) -g
 
 TIMING = MBK_CATAL_NAME=CATAL;			export MBK_CATAL_NAME;\
 	MBK_CATA_LIB=$(CELLS_LIB);	export MBK_CATA_LIB;\
@@ -48,7 +43,7 @@ TIMING = MBK_CATAL_NAME=CATAL;			export MBK_CATAL_NAME;\
 	MBK_VDD=vdd;				export MBK_VDD;\
 	MBK_VSS=vss;				export MBK_VSS;\
 	MBK_IN_LO=vst;				export MBK_IN_LO;\
-	$(NEALLIANCE_TOPTIM_EXE) -t
+	$(NETOPTIM_EXE) -t
 
 SCR =	MBK_CATAL_NAME=CATAL;                   export MBK_CATAL_NAME;\
 	MBK_CATA_LIB=$(CELLS_LIB);	export MBK_CATA_LIB;\
@@ -78,14 +73,7 @@ PROOF =	MBK_WORK_LIB=$(AUTO_PATH);		export MBK_WORK_LIB;\
 all : $(circuit)rg0sct.vbe $(circuit)sg0sct.vbe $(circuit)sg3sct.vbe proof_all results
 
 clean	:
-	-@rm -f $(AUTO_PATH)/*.cod
-	-@rm -f $(AUTO_PATH)/*.vbe
-	-@rm -f $(AUTO_PATH)/*.al
-	-@rm -f $(AUTO_PATH)/*.vst
-	-@rm -f $(AUTO_PATH)/*.rep
-	-@rm -f $(AUTO_PATH)/*.ap
-	-@rm -f $(AUTO_PATH)/results
-	-@rm -f proof_all
+	rm -f $(AUTO_PATH)/*.cod $(AUTO_PATH)/*.vbe $(AUTO_PATH)/*.al $(AUTO_PATH)/*.vst $(AUTO_PATH)/*.rep $(AUTO_PATH)/*.ap $(AUTO_PATH)/results proof_all
 
 ################################################################################
 #	State encoding by SYF

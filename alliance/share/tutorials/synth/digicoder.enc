@@ -1,9 +1,9 @@
 # Encoding figure "digicoder"
 -r 3
-s_warn	6
-s_open	5
-s_wait	0
-s3	4
-s2	2
-s1	3
-s0	7
+s_warn	0
+s_open	6
+s_wait	4
+s3	5
+s2	7
+s1	1
+s0	2
