@@ -61,7 +61,7 @@ DEFINE DREAL_LOWER_REFERENCE_STEP 1.0
 # |                                                             |
 # \------------------------------------------------------------*/
 
-DEFINE DREAL_CURSOR_COLOR_NAME  Black
+DEFINE DREAL_CURSOR_COLOR_NAME  Gray
 
 # /*------------------------------------------------------------\
 # |                                                             |
@@ -79,7 +79,7 @@ DEFINE DREAL_CURSOR_SIZE 10
 
 TABLE DREAL_RDS_LAYER_NAME
 
-  RDS_NWELL    Nwell   tan               Black 
+  RDS_NWELL    Nwell   tan               Black
   RDS_PWELL    Pwell   light_yellow      Black
   RDS_NIMP     Nimp    forest_green      Black
   RDS_PIMP     Pimp    goldenrod         Black
@@ -91,29 +91,30 @@ TABLE DREAL_RDS_LAYER_NAME
   RDS_POLY     Poly    red               Black
   RDS_VPOLY    VPoly   coral             Black
   RDS_GATE     Gate    orange            Black
-  RDS_TPOLY    Tpoly   light_pink        Black 
+  RDS_TPOLY    Tpoly   hot_pink          Black
   RDS_CONT     Cont    dark_violet       Black
   RDS_TCONT    TCont   orchid            Black
-  RDS_ALU1     Alu1    royal_blue        Black 
+  RDS_ALU1     Alu1    royal_blue        Black
   RDS_VALU1    VAlu1   sky_blue          Black
-  RDS_TALU1    Talu1   royal_blue        Black 9
+  RDS_TALU1    Talu1   royal_blue        Black
   RDS_VIA1     Via1    deep_sky_blue     Black
   RDS_TVIA1    TVia1   dodger_blue       Black
-  RDS_ALU2     Alu2    Cyan              Black 5
-  RDS_VALU2    VAlu2   turquoise         Black
-  RDS_TALU2    Talu2   cyan              Black 9
-  RDS_VIA2     Via2    chocolate         Black
-  RDS_TVIA2    TVia2   sandy_brown       Black
-  RDS_ALU3     Alu3    peach_puff        Black 5
-  RDS_VALU3    VAlu3   dark_salmon       Black
-  RDS_TALU3    Talu3   peach_puff        Black 9
-  RDS_VIA3     Via3    chocolate         Black
-  RDS_TVIA3    TVia3   sandy_brown       Black
-  RDS_ALU4     Alu4    green             Black 5
-  RDS_VALU4    VAlu4   dark_salmon       Black 
-  RDS_TALU4    Talu4   green             Black 9
+  RDS_ALU2     Alu2    cyan              Black
+  RDS_TALU2    Talu2   turquoise         Black
+  RDS_VIA2     Via2    deep_pink         Black
+  RDS_ALU3     Alu3    light_pink        Black
+  RDS_TALU3    Talu3   light_pink        Black
+  RDS_VIA3     Via3    sea_green         Black
+  RDS_ALU4     Alu4    green             Black
+  RDS_TALU4    Talu4   green             Black
+  RDS_VIA4     Via4    gold              Black
+  RDS_ALU5     Alu5    yellow            Black
+  RDS_TALU5    Talu5   yellow            Black
+  RDS_VIA5     Via5    violet_red        Black
+  RDS_ALU6     Alu6    violet            Black
+  RDS_TALU6    Talu6   violet            Black
   RDS_CPAS     Cpas    gray              Black
   RDS_REF      Ref     coral             Black
   RDS_ABOX     Abox    pink              Black
-
+  
 END
