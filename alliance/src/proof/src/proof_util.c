@@ -1161,7 +1161,10 @@ gcNodeBeh (beh, lstbeh)
       mesg = beh->BEMSG;
       while (mesg)
 	{
-	  mesg->NODE = regenereBdd (mesg->NODE, &sysBddAux, pTHNode);
+          if ( mesg->NODE )
+            {
+	       mesg->NODE = regenereBdd (mesg->NODE, &sysBddAux, pTHNode);
+            }
 	  mesg = mesg->NEXT;
 	}
 
@@ -1194,7 +1197,6 @@ orderProofBeh (bef1, bef2, varaux)
   chain_list *order;
   chain_list *ptChain;
   beaux_list *aux;
-  int vhb_reorder = 2;
   chain_list *makeOrderAbl ();
 
   order = berinToChain_list (bef1);
@@ -1233,7 +1235,7 @@ orderProofBeh (bef1, bef2, varaux)
       printf ("\n\n");
     }
 
-  makeBddBeh (bef1, bef1->CIRCUI, vhb_reorder, 0, 100, 10000000, NULL);
+  makeBddBeh (bef1, bef1->CIRCUI, 0, 0, 100, 10000000, NULL);
 
   printf ("---> final number of nodes = %d", (sysBdd.pRT)->compteur);
 
