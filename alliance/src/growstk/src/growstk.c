@@ -123,6 +123,7 @@ int main (int ac, char *av[])
                       {RDS_LAYER_ALU6, RDS_LAYER_TALU6}};
   int            Index;
   ht_t           *dejavu = htinit (63179);
+  ht_t           *dejala = htinit (63179);
   char           buffer[1000];
 
   /* read parameters & environment */
@@ -391,34 +392,72 @@ int main (int ac, char *av[])
             );
             first = 0;
           }  
-          if ((IsRdsObstacle(ScanRec) & OBSTACLE_NORTH) == 0)
-          {  
-            NewRec->DY += Pitch-RDS_LAMBDA; /* les fils font 4 lambdas pas 5*/
-          } 
-          else  
-          if ((IsRdsObstacle(ScanRec) & OBSTACLE_EAST) == 0)
-          {  
-            NewRec->DX += Pitch-RDS_LAMBDA;
-            NewRec->X -= Pitch-RDS_LAMBDA;
-          } 
-          else  
-          if ((IsRdsObstacle(ScanRec) & OBSTACLE_SOUTH) == 0)
-          {  
-            NewRec->DY += Pitch-RDS_LAMBDA;
-            NewRec->Y -= Pitch-RDS_LAMBDA;
-          } 
-          else  
-          if ((IsRdsObstacle(ScanRec) & OBSTACLE_WEST) == 0)
-          {  
-            NewRec->DX += Pitch-RDS_LAMBDA;
-          } 
+          /* les fils font 4 lambdas pas 5 pour pouvoir retrouver leur orientation */
+          if ((Layer == RDS_ALU2) || (Layer == RDS_ALU4))
+          {
+            if ((IsRdsObstacle(ScanRec) & OBSTACLE_EAST) == 0)
+            {  
+              NewRec->DX += Pitch-RDS_LAMBDA;
+              NewRec->X -= Pitch-RDS_LAMBDA;
+              sprintf (buffer, "%d %d %d %d %d", 
+                       ScanRec->X, ScanRec->Y, ScanRec->DX, ScanRec->DY, ScanRec->FLAGS);
+            } 
+            else
+            if ((IsRdsObstacle(ScanRec) & OBSTACLE_WEST) == 0)
+            {  
+              NewRec->DX += Pitch-RDS_LAMBDA;
+            } 
+            else
+            if ((IsRdsObstacle(ScanRec) & OBSTACLE_NORTH) == 0)
+            {    
+              NewRec->DY += Pitch-RDS_LAMBDA; 
+            } 
+            else  
+            if ((IsRdsObstacle(ScanRec) & OBSTACLE_SOUTH) == 0)
+            {  
+              NewRec->DY += Pitch-RDS_LAMBDA;
+              NewRec->Y -= Pitch-RDS_LAMBDA;
+            } 
+            else  
+            {
+              if (first) printf ("LAYER = %s\n", RDS_LAYER_NAME[Layer]);
+              printf ("ERROR  X=%.2f, Y=%.2f, DX=%.2f, DY=%.2f CANNOT BE REPAIRED\n", 
+                      (float)ScanRec->X/RDS_UNIT, (float)ScanRec->Y/RDS_UNIT, 
+                      (float)ScanRec->DX/RDS_UNIT, (float)ScanRec->DY/RDS_UNIT);
+              first = 0;
+            }
+          }
           else
           {
-            if (first) printf ("LAYER = %s\n", RDS_LAYER_NAME[Layer]);
-            printf ("ERROR  X=%.2f, Y=%.2f, DX=%.2f, DY=%.2f CANNOT BE REPAIRED\n", 
-                    (float)ScanRec->X/RDS_UNIT, (float)ScanRec->Y/RDS_UNIT, 
-                    (float)ScanRec->DX/RDS_UNIT, (float)ScanRec->DY/RDS_UNIT);
-            first = 0;
+            if ((IsRdsObstacle(ScanRec) & OBSTACLE_NORTH) == 0)
+            {    
+              NewRec->DY += Pitch-RDS_LAMBDA; 
+            } 
+            else  
+            if ((IsRdsObstacle(ScanRec) & OBSTACLE_SOUTH) == 0)
+            {  
+              NewRec->DY += Pitch-RDS_LAMBDA;
+              NewRec->Y -= Pitch-RDS_LAMBDA;
+            } 
+            else  
+            if ((IsRdsObstacle(ScanRec) & OBSTACLE_EAST) == 0)
+            {  
+              NewRec->DX += Pitch-RDS_LAMBDA;
+              NewRec->X -= Pitch-RDS_LAMBDA;
+            } 
+            else  
+            if ((IsRdsObstacle(ScanRec) & OBSTACLE_WEST) == 0)
+            {  
+              NewRec->DX += Pitch-RDS_LAMBDA;
+            } 
+            else
+            {
+              if (first) printf ("LAYER = %s\n", RDS_LAYER_NAME[Layer]);
+              printf ("ERROR  X=%.2f, Y=%.2f, DX=%.2f, DY=%.2f CANNOT BE REPAIRED\n", 
+                      (float)ScanRec->X/RDS_UNIT, (float)ScanRec->Y/RDS_UNIT, 
+                      (float)ScanRec->DX/RDS_UNIT, (float)ScanRec->DY/RDS_UNIT);
+              first = 0;
+            }
           }
         }  
         else
@@ -475,26 +514,58 @@ int main (int ac, char *av[])
        {
          SHRINK_BOT = 3;
          SHRINK_TOP = 1;
+         addphseg (PhFig, MbkLayer,
+                    (SCALE_X * ScanRec->DX) / RDS_UNIT,
+                    (SCALE_X * (ScanRec->X + ScanRec->DX / 2)) / RDS_UNIT , 
+                    (SCALE_X * (ScanRec->Y + SHRINK_BOT * RDS_LAMBDA)) / RDS_UNIT , 
+                    (SCALE_X * (ScanRec->X + ScanRec->DX / 2)) / RDS_UNIT , 
+                    (SCALE_X * (ScanRec->Y + ScanRec->DY - SHRINK_TOP * RDS_LAMBDA)) / RDS_UNIT , 
+                    ScanRec->NAME);
+/*         
+         addphseg (PhFig, MbkLayer,
+                    (SCALE_X * ScanRec->DX) / RDS_UNIT,
+                    (SCALE_X * (ScanRec->X + ScanRec->DX / 2)) / RDS_UNIT , 
+                    (SCALE_X * (ScanRec->Y + 0 * RDS_LAMBDA)) / RDS_UNIT , 
+                    (SCALE_X * (ScanRec->X + ScanRec->DX / 2)) / RDS_UNIT , 
+                    (SCALE_X * (ScanRec->Y + ScanRec->DY - RDS_LAMBDA)) / RDS_UNIT , 
+                    ScanRec->NAME);
+*/
+         addphseg (PhFig, MbkLayer_bis,
+                    (SCALE_X * ScanRec->DX) / RDS_UNIT,
+                    (SCALE_X * (ScanRec->X + ScanRec->DX / 2)) / RDS_UNIT , 
+                    (SCALE_X * (ScanRec->Y + 0 * RDS_LAMBDA)) / RDS_UNIT , 
+                    (SCALE_X * (ScanRec->X + ScanRec->DX / 2)) / RDS_UNIT , 
+                    (SCALE_X * (ScanRec->Y + ScanRec->DY - RDS_LAMBDA)) / RDS_UNIT , 
+                    "obs");
        }
        else
        {
          SHRINK_BOT = 1;
          SHRINK_TOP = 3;
+         addphseg (PhFig, MbkLayer,
+                    (SCALE_X * ScanRec->DX) / RDS_UNIT,
+                    (SCALE_X * (ScanRec->X + ScanRec->DX / 2)) / RDS_UNIT , 
+                    (SCALE_X * (ScanRec->Y + SHRINK_BOT * RDS_LAMBDA)) / RDS_UNIT , 
+                    (SCALE_X * (ScanRec->X + ScanRec->DX / 2)) / RDS_UNIT , 
+                    (SCALE_X * (ScanRec->Y + ScanRec->DY - SHRINK_TOP * RDS_LAMBDA)) / RDS_UNIT , 
+                    ScanRec->NAME);
+/*
+         addphseg (PhFig, MbkLayer,
+                    (SCALE_X * ScanRec->DX) / RDS_UNIT,
+                    (SCALE_X * (ScanRec->X + ScanRec->DX / 2)) / RDS_UNIT , 
+                    (SCALE_X * (ScanRec->Y + RDS_LAMBDA)) / RDS_UNIT , 
+                    (SCALE_X * (ScanRec->X + ScanRec->DX / 2)) / RDS_UNIT , 
+                    (SCALE_X * (ScanRec->Y + ScanRec->DY - 0 * RDS_LAMBDA)) / RDS_UNIT , 
+                    ScanRec->NAME);
+*/
+         addphseg (PhFig, MbkLayer_bis,
+                    (SCALE_X * ScanRec->DX) / RDS_UNIT,
+                    (SCALE_X * (ScanRec->X + ScanRec->DX / 2)) / RDS_UNIT , 
+                    (SCALE_X * (ScanRec->Y + RDS_LAMBDA)) / RDS_UNIT , 
+                    (SCALE_X * (ScanRec->X + ScanRec->DX / 2)) / RDS_UNIT , 
+                    (SCALE_X * (ScanRec->Y + ScanRec->DY - 0 * RDS_LAMBDA)) / RDS_UNIT , 
+                    "obs");
        }
-       addphseg (PhFig, MbkLayer,
-                  (SCALE_X * ScanRec->DX) / RDS_UNIT,
-                  (SCALE_X * (ScanRec->X + ScanRec->DX / 2)) / RDS_UNIT , 
-                  (SCALE_X * (ScanRec->Y + SHRINK_BOT * RDS_LAMBDA)) / RDS_UNIT , 
-                  (SCALE_X * (ScanRec->X + ScanRec->DX / 2)) / RDS_UNIT , 
-                  (SCALE_X * (ScanRec->Y + ScanRec->DY - SHRINK_TOP * RDS_LAMBDA)) / RDS_UNIT , 
-                  ScanRec->NAME);
-       addphseg (PhFig, MbkLayer_bis,
-                  (SCALE_X * ScanRec->DX) / RDS_UNIT,
-                  (SCALE_X * (ScanRec->X + ScanRec->DX / 2)) / RDS_UNIT , 
-                  (SCALE_X * (ScanRec->Y + RDS_LAMBDA)) / RDS_UNIT , 
-                  (SCALE_X * (ScanRec->X + ScanRec->DX / 2)) / RDS_UNIT , 
-                  (SCALE_X * (ScanRec->Y + ScanRec->DY - RDS_LAMBDA)) / RDS_UNIT , 
-                  "obs");
      }
      else  
      {  
@@ -503,26 +574,58 @@ int main (int ac, char *av[])
        {
          SHRINK_RIG = 3;
          SHRINK_LEF = 1;
+         addphseg (PhFig, MbkLayer,
+                   (SCALE_X * ScanRec->DY) / RDS_UNIT,
+                   (SCALE_X * (ScanRec->X + SHRINK_RIG * RDS_LAMBDA)) / RDS_UNIT , 
+                   (SCALE_X * (ScanRec->Y + ScanRec->DY / 2)) / RDS_UNIT , 
+                   (SCALE_X * (ScanRec->X + ScanRec->DX - SHRINK_LEF * RDS_LAMBDA)) / RDS_UNIT , 
+                   (SCALE_X * (ScanRec->Y + ScanRec->DY / 2)) / RDS_UNIT , 
+                   ScanRec->NAME);
+/*
+         addphseg (PhFig, MbkLayer,
+                   (SCALE_X * ScanRec->DY) / RDS_UNIT,
+                   (SCALE_X * (ScanRec->X + 0 * RDS_LAMBDA)) / RDS_UNIT , 
+                   (SCALE_X * (ScanRec->Y + ScanRec->DY / 2)) / RDS_UNIT , 
+                   (SCALE_X * (ScanRec->X + ScanRec->DX - RDS_LAMBDA)) / RDS_UNIT , 
+                   (SCALE_X * (ScanRec->Y + ScanRec->DY / 2)) / RDS_UNIT , 
+                   ScanRec->NAME);
+*/
+         addphseg (PhFig, MbkLayer_bis,
+                   (SCALE_X * ScanRec->DY) / RDS_UNIT,
+                   (SCALE_X * (ScanRec->X + 0 * RDS_LAMBDA)) / RDS_UNIT , 
+                   (SCALE_X * (ScanRec->Y + ScanRec->DY / 2)) / RDS_UNIT , 
+                   (SCALE_X * (ScanRec->X + ScanRec->DX - RDS_LAMBDA)) / RDS_UNIT , 
+                   (SCALE_X * (ScanRec->Y + ScanRec->DY / 2)) / RDS_UNIT , 
+                   "obs");
        }
        else
        {
          SHRINK_RIG = 1;
          SHRINK_LEF = 3;
+         addphseg (PhFig, MbkLayer,
+                   (SCALE_X * ScanRec->DY) / RDS_UNIT,
+                   (SCALE_X * (ScanRec->X + SHRINK_RIG * RDS_LAMBDA)) / RDS_UNIT , 
+                   (SCALE_X * (ScanRec->Y + ScanRec->DY / 2)) / RDS_UNIT , 
+                   (SCALE_X * (ScanRec->X + ScanRec->DX - SHRINK_LEF * RDS_LAMBDA)) / RDS_UNIT , 
+                   (SCALE_X * (ScanRec->Y + ScanRec->DY / 2)) / RDS_UNIT , 
+                   ScanRec->NAME);
+/*
+         addphseg (PhFig, MbkLayer,
+                   (SCALE_X * ScanRec->DY) / RDS_UNIT,
+                   (SCALE_X * (ScanRec->X + RDS_LAMBDA)) / RDS_UNIT , 
+                   (SCALE_X * (ScanRec->Y + ScanRec->DY / 2)) / RDS_UNIT , 
+                   (SCALE_X * (ScanRec->X + ScanRec->DX - 0 * RDS_LAMBDA)) / RDS_UNIT , 
+                   (SCALE_X * (ScanRec->Y + ScanRec->DY / 2)) / RDS_UNIT , 
+                   ScanRec->NAME);
+*/
+         addphseg (PhFig, MbkLayer_bis,
+                   (SCALE_X * ScanRec->DY) / RDS_UNIT,
+                   (SCALE_X * (ScanRec->X + RDS_LAMBDA)) / RDS_UNIT , 
+                   (SCALE_X * (ScanRec->Y + ScanRec->DY / 2)) / RDS_UNIT , 
+                   (SCALE_X * (ScanRec->X + ScanRec->DX - 0 * RDS_LAMBDA)) / RDS_UNIT , 
+                   (SCALE_X * (ScanRec->Y + ScanRec->DY / 2)) / RDS_UNIT , 
+                   "obs");
        }
-       addphseg (PhFig, MbkLayer,
-                 (SCALE_X * ScanRec->DY) / RDS_UNIT,
-                 (SCALE_X * (ScanRec->X + SHRINK_RIG * RDS_LAMBDA)) / RDS_UNIT , 
-                 (SCALE_X * (ScanRec->Y + ScanRec->DY / 2)) / RDS_UNIT , 
-                 (SCALE_X * (ScanRec->X + ScanRec->DX - SHRINK_LEF * RDS_LAMBDA)) / RDS_UNIT , 
-                 (SCALE_X * (ScanRec->Y + ScanRec->DY / 2)) / RDS_UNIT , 
-                 ScanRec->NAME);
-       addphseg (PhFig, MbkLayer_bis,
-                 (SCALE_X * ScanRec->DY) / RDS_UNIT,
-                 (SCALE_X * (ScanRec->X + RDS_LAMBDA)) / RDS_UNIT , 
-                 (SCALE_X * (ScanRec->Y + ScanRec->DY / 2)) / RDS_UNIT , 
-                 (SCALE_X * (ScanRec->X + ScanRec->DX - RDS_LAMBDA)) / RDS_UNIT , 
-                 (SCALE_X * (ScanRec->Y + ScanRec->DY / 2)) / RDS_UNIT , 
-                 "obs");
     }
   }
   for (PhSeg = PhFig->PHSEG; PhSeg; PhSeg = PhSeg->NEXT)
