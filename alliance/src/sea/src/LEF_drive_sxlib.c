@@ -1,5 +1,5 @@
 /*
- *  $Id: LEF_drive_sxlib.c,v 1.5 2004/09/27 16:33:43 jpc Exp $
+ *  $Id: LEF_drive_sxlib.c,v 1.6 2004/09/28 07:11:58 jpc Exp $
  *
  *  /----------------------------------------------------------------\
  *  |                                                                |
@@ -366,7 +366,7 @@ static void  AddEmptyPowerPIN(asName)
 
   if ((pPIN = getPIN(LV_pMACRO, asName)) == (ePIN_t*)NULL) {
     m_AddPin(LV_pMACRO->lPIN, asName);
-    LV_pMACRO->lPIN->DIRECTION = C_DIRECTION_IN;
+    LV_pMACRO->lPIN->DIRECTION = C_DIRECTION_INPUT;
     LV_pMACRO->lPIN->USE       = Use;
     LV_pMACRO->lPIN->SHAPE     = C_SHAPE_FEEDTHRU;
   }
@@ -404,7 +404,7 @@ static void  AddPowerPIN(asName, aDir, aLayer, aY, aWidth, aFlags)
 
     if ((pPIN = getPIN(LV_pMACRO, asName)) == (ePIN_t*)NULL) {
       m_AddPin(LV_pMACRO->lPIN, asName);
-      LV_pMACRO->lPIN->DIRECTION = C_DIRECTION_IN;
+      LV_pMACRO->lPIN->DIRECTION = C_DIRECTION_INPUT;
       LV_pMACRO->lPIN->USE       = Use;
       LV_pMACRO->lPIN->SHAPE     = Shape;
       
