@@ -1,0 +1,58 @@
+
+--# /----------------------------------------------------------------\
+--# |                                                                |
+--# |            Alliance CAD System V.R                             |
+--# |       F p G e n   P a c k a g e   V.RR                         |
+--# |                                                                |
+--# |    Copyright(c) 95-AA, MASI, CAO-VLSI Team                     |
+--# |                                                                |
+--# |  Author    :               Jean-Paul CHAPUT                    |
+--# |  E-mail    :  alliance-support@asim.lip6.fr                    |
+--# | ============================================================== |
+--# |  Cell      :  "pdffb6_fp"                                      |
+--# | ************************************************************** |
+--# |  Theoretical VHDL data flow description of cell "pdffub6_fp".  |
+--# |                                                                |
+--# |  Cell family :  "pdffb6_fp", "pdffub6_fp",                     |
+--# |                  "pmsh5_fp",   "pmsg5_fp",                     |
+--# |                  "pmsi5_fp",   "pmsp5_fp",                     |
+--# |                  "pmsj5_fp",   "pmsq5_fp",                     |
+--# |                                                                |
+--# \----------------------------------------------------------------/
+
+
+ ENTITY pdffub6_fp IS
+   PORT(
+     scin  : in    BIT;
+     scout : in    BIT;
+     test  : in    BIT;
+     wen   : in    BIT;
+     ck    : in    BIT;
+     s3i0  :   out BIT;     
+     s2i0  :   out BIT;
+     s1i0  :   out BIT;     
+     s0i0  :   out BIT;
+     wmd   :   out BIT;
+     ws    :   out BIT;
+     vdd   : in    BIT;
+     vss   : in    BIT;
+     vss1  : in    BIT
+   );
+ END pdffub6_fp;
+
+
+ ARCHITECTURE behavior_data_flow OF pdffub6_fp IS
+
+ BEGIN
+   s3i0  <=     test;
+   s2i0  <= not test;
+   s1i0  <= not wen;
+   s0i0  <=     wen;
+   wmd   <= not      ck;
+   ws    <= not (not ck);
+
+   ASSERT((vdd = '1') and (vss = '0') and (vss1 = '0'))
+     REPORT "Power supply is missing on pdffub6_fp."
+     SEVERITY WARNING;
+
+ END behavior_data_flow;
