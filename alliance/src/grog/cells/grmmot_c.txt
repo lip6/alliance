@@ -1,4 +1,0 @@
-cell : grmmot_c
-512 words rom matrix output through route.
-This is a needed through route line, because of the half k words rom
-design is slightly different from the 1 to 4 k roms.

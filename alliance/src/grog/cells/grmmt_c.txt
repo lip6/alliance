@@ -1,2 +1,0 @@
-cell : grmmt_c
-512 words rom user through route, place when requested by the adequat option.

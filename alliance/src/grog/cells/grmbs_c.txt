@@ -1,3 +1,0 @@
-cell : grmbs_c
-Fake cell for 512 words Rom Bloc Selection.
-This cell is almost empty, no transistors, since there is only one block.
