@@ -446,7 +446,6 @@ rdsrec_list *viambkrds( Figure, Via, Lynx )
                                         VX2R - VX1R, VY2R - VY1R );
     
               SetRdsVia( Rectangle );
-    
               if ( First == (rdsrec_list *)NULL )
               {
                 First = Rectangle;

@@ -326,15 +326,16 @@ unsigned  coord_numb;
       fprintf(stderr, "*** rds warning ***\nPolygon with points not ");
       fprintf(stderr, "aligned on the physical grid found in %s\n", model->NAME);
       fprintf(stderr, "%ld %ld %ld %ld\n", x, y, dx, dy);
-                      Rec = addrdsfigrec(model, (char *)NULL, layer, x, y, dx, dy );
-                      if ( layer == RDS_ABOX ) SetRdsFigure( Rec );
-                roundrdsrec( Rec );
-    } else
-              {
       Rec = addrdsfigrec(model, (char *)NULL, layer, x, y, dx, dy );
-                      if ( layer == RDS_ABOX ) SetRdsFigure( Rec );
-                      roundrdsrec( Rec );
-              }
+      if ( layer == RDS_ABOX ) SetRdsFigure( Rec );
+         roundrdsrec( Rec );
+    }
+    else
+    {
+      Rec = addrdsfigrec(model, (char *)NULL, layer, x, y, dx, dy );
+      if ( layer == RDS_ABOX ) SetRdsFigure( Rec );
+         roundrdsrec( Rec );
+    }
   }
 }
 
