@@ -1,18 +1,18 @@
-.\"   $Id: getlocap.3,v 1.2 2002/08/16 18:40:24 pnt Exp $
-.\" @(#)getlocap.2 2.11 2002/08/14 ; Labo LIP6/ASIM cao-vlsi; Author : Pierre Nguyen Tuong
+.\"   $Id: setlocap.3,v 1.1 2002/08/16 18:40:25 pnt Exp $
+.\" @(#)setlocap.2 2.11 2002/08/14 ; Labo LIP6/ASIM cao-vlsi; Author : Pierre Nguyen Tuong
 .if t \{\
 .so man1/alc_contents.mac
 .XS \n%
 .ti 0.2i
-getlocap
+setlocap
 .XE
 .XS2 \n%
 .ti 0.2i
-getlocap
+setlocap
 .XE2 \}
-.TH GETLOCAP 3 "August 14, 2002" "ASIM/LIP6" "MBK LOGICAL FUNCTIONS"
+.TH SETLOCAP 3 "August 14, 2002" "ASIM/LIP6" "MBK LOGICAL FUNCTIONS"
 .SH NAME
-getlocap \- retrieve a logical capacitor
+setlocap \- set the capacitance value of a logical capacitor
 .so man1/alc_origin.1
 .SH SYNOPSYS
 .nf
@@ -22,9 +22,10 @@ getlocap \- retrieve a logical capacitor
 .ft CR \}
 #include "mlo.h"
 
-locap_list \(**getlocap(ptfig,name)
+void setlocap(ptfig,name,newcapa)
 lofig_list \(**ptfig ;
 const char \(**name ;
+double newcapa ;
 .ft R
 .fi
 .SH PARAMETERS
@@ -34,17 +35,21 @@ Pointer to the figure in which the capacitor should be seeked
 .TP
 \fIname\fP
 Instance name of the capacitor
+.TP
+\fInewcapa\fP
+New capacitance value
 .SH DESCRIPTION
-\fBgetlocap\fP looks in the list of capacitors of the logical model pointed
-to by \fIptfig\fP for a capacitor identified by its instance \fIname\fP.
+\fBsetlocap\fP looks in the list of capacitors of the logical model pointed
+to by \fIptfig\fP for a capacitor identified by its instance \fIname\fP and set
+the CAPA field to the newcapa value.
 .SH RETURN VALUE
-\fBgetlocap\fP returns a pointer to the given capacitor.
+None
 .SH ERRORS
 .if n \{\
 .ft B \}
 .if t \{\
 .ft CR \}
-"\(**\(**\(** mbk error \(**\(**\(** getlocap impossible :
+"\(**\(**\(** mbk error \(**\(**\(** setlocap impossible :
 capacitor \fIname\fP doesn't exist in figure \fIptfig \-> NAME\fP"
 .ft R
 .RS
@@ -59,9 +64,9 @@ No capacitor matches the name.
 .ft CR \}
 #include "mlo.h"
 
-locap_list \(**exist(char \(**figname,char \(**capname)
+void set_locap_value(char \(**figname,char \(**capname,double newcapa)
 {
-  return getlocap(getlofig(figname),capname) ;
+  setlocap(getlofig(figname),capname,newcapa) ;
 }
 .ft R
 .fi
@@ -70,7 +75,7 @@ locap_list \(**exist(char \(**figname,char \(**capname)
 .BR lofig (3),
 .BR locap (3),
 .BR addlocap (3),
-.BR setlocap (3),
+.BR getlocap (3),
 .BR dellocap (3).
 
 

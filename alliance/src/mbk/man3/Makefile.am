@@ -19,6 +19,12 @@ man_MANS  = addcapa.3 \
             addphseg.3 \
             addphvia.3 \
             addptype.3 \
+            getlocap.3 \
+            getlores.3 \
+            getloself.3 \
+            setlocap.3 \
+            setlores.3 \
+            setloself.3 \
             alliancebanner.3 \
             append.3 \
             bigvia.3 \
