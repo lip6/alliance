@@ -5,16 +5,20 @@
 # E-mail support     : mailto:alliance-support@asim.lip6.fr
 # ftp site           : ftp://ftp-asim.lip6.fr/pub/alliance/
 #
-# $Id: CHANGES,v 1.6 2000/02/01 13:29:46 czo Exp $
+# $Id: CHANGES,v 1.7 2000/02/02 16:43:24 czo Exp $
 
 This document lists the main differences between each Alliance's revisions.
 
 --------------------------------------------------------------------------------
 
-ALLIANCE release 4.0.7 (01/02/2000)
+ALLIANCE release 4.0.6 (01/02/2000)
 
-  Public release
+1/  Public release
 
+2/ Fixed some Y2K small bugs
+   - Dates on Alliance's parser/driver are in now the form : "dd/mm/YYYY"
+   - Dates on Compass's parser/driver are in now the form : "dd-MON-YYYY"
+   
 --------------------------------------------------------------------------------
 
 ALLIANCE revision 4.0 (15/10/99)
