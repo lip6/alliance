@@ -10,6 +10,6 @@ l2p_LDADD = @LIBS@ \
  -lMsl -lMgl \
  -lRtl -lRgs -lRcf -lRfm -lRpr -lRwi -lRut -lRds 
 
-lynx_SOURCES = \
+l2p_SOURCES = \
 drive_ps.c  rps_inc.h   tmp_man.c \
 dict_color.ps  l2p.c	   tmp_dict.c
