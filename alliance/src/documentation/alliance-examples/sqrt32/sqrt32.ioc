@@ -1,0 +1,55 @@
+
+TOP ( # IOs are ordered from left to right
+   (IOPIN p(31).0 );
+   (IOPIN p(30).0 );
+   (IOPIN p(29).0 );
+   (IOPIN p(28).0 );
+   (IOPIN p(27).0 );
+   (IOPIN p(26).0 );
+   (IOPIN p(25).0 );
+   (IOPIN p(24).0 );
+   (IOPIN p(23).0 );
+   (IOPIN p(22).0 );
+   (IOPIN p(21).0 );
+   (IOPIN p(20).0 );
+   (IOPIN p(19).0 );
+   (IOPIN p(18).0 );
+   (IOPIN p(17).0 );
+   (IOPIN p(16).0 );
+   (IOPIN p(15).0 );
+   (IOPIN p(14).0 );
+   (IOPIN p(13).0 );
+   (IOPIN p(12).0 );
+   (IOPIN p(11).0 );
+   (IOPIN p(10).0 );
+   (IOPIN p(9).0 );
+   (IOPIN p(8).0 );
+   (IOPIN p(7).0 );
+   (IOPIN p(6).0 );
+   (IOPIN p(5).0 );
+   (IOPIN p(4).0 );
+   (IOPIN p(3).0 );
+   (IOPIN p(2).0 );
+   (IOPIN p(1).0 );
+   (IOPIN p(0).0 );
+)
+BOTTOM ( # IOs are ordered from left to right
+   (IOPIN u(15).0 );
+   (IOPIN u(14).0 );
+   (IOPIN u(13).0 );
+   (IOPIN u(12).0 );
+   (IOPIN u(11).0 );
+   (IOPIN u(10).0 );
+   (IOPIN u(9).0 );
+   (IOPIN u(8).0 );
+   (IOPIN u(7).0 );
+   (IOPIN u(6).0 );
+   (IOPIN u(5).0 );
+   (IOPIN u(4).0 );
+   (IOPIN u(3).0 );
+   (IOPIN u(2).0 );
+   (IOPIN u(1).0 );
+   (IOPIN u(0).0 );
+)
+IGNORE ( # IOs are ignored(not placed) by IO Placer
+)
