@@ -11,5 +11,9 @@
 #	[<whitespace>]<filename><whitespace><error message><end-of-line>
 #
 # comment lines begin with '#'
- postconfig "ERRRROR : postconf not found"
+
+postconfig  "ERRRROR : a 'checkoutlist' was not found"
+fastinstool "ERRRROR : a 'checkoutlist' was not found"
+instool     "ERRRROR : a 'checkoutlist' was not found"
+updatelibmk "ERRRROR : a 'checkoutlist' was not found"
 
