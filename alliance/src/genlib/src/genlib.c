@@ -3458,7 +3458,7 @@ ptype_list *p = getptype(WORK_LOFIG->USER, LOGEN);
    if (type != INTEGER_GEN && type != STRING_GEN) {
       (void)fflush(stdout);
       (void)fputs("*** genlib error ***\n", stderr);
-      (void)fprintf(stderr, "Illegal SETLOGEN: unsupported generic type\n");
+      (void)fprintf(stderr, "Illegal LOGEN: unsupported generic type\n");
       EXIT(1);
    }
    ((logen_list *)p->DATA)->TYPE = type;
