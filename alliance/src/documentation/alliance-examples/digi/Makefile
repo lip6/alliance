@@ -164,7 +164,7 @@ res_syf_1.pat : digi.vbe
 	$(ENV_ASIMUT_SYF); $(ASIMUT) -b digi digi res_syf_1 
 
 res_synth_1.pat : digi.vst 
-	$(ENV_ASIMUT_SYNTH); $(ASIMUT) digi digi res_synth_1
+	$(ENV_ASIMUT_SYNTH); $(ASIMUT) -i 0 digi digi res_synth_1
 
 # /*------------------------------------------------------------\
 # |                                                             |
