@@ -5,10 +5,10 @@
 -- FILENAME     :    sxlib_FTGS.vhd
 -- FILE CONTENTS:    Entity, Structural Architecture(FTGS),
 --                   and Configuration
--- DATE CREATED :    Mon May 29 15:16:04 2000
+-- DATE CREATED :    Thu Dec 21 11:59:30 2000
 -- 
 -- LIBRARY      :    sxlib
--- DATE ENTERED :    Sat Oct 30 22:31:32 MET DST 1999
+-- DATE ENTERED :    Thu Dec 21 11:24:55 MET 2000
 -- REVISION     :    1.200000
 -- TECHNOLOGY   :    cmos
 -- TIME SCALE   :    1 ns
@@ -6825,7 +6825,7 @@ begin
    U6 : TLU
 	generic map(
 		N => 5,
-		TruthTable => "11111111101010001010100010101000",
+		TruthTable => "11101010111010101110101000000000",
 		TT_size => nil_integer_vector,
 		Node_index => nil_integer_vector,
 		pin_names => "i0 i1 i2 i3 i4 nq",
@@ -6997,7 +6997,7 @@ begin
    U6 : TLU
 	generic map(
 		N => 5,
-		TruthTable => "11111111101010001010100010101000",
+		TruthTable => "11101010111010101110101000000000",
 		TT_size => nil_integer_vector,
 		Node_index => nil_integer_vector,
 		pin_names => "i0 i1 i2 i3 i4 nq",
@@ -7206,8 +7206,8 @@ begin
    U8 : TLU
 	generic map(
 		N => 7,
-		TruthTable => "1010101010101000" &
-		              "1101010101010101",
+		TruthTable => "0001010101010101" &
+		              "1010101010101000",
 		TT_size => (4, 4),
 		Node_Index => (0, 1, 2, 3, 
 		               4, 5, 6, -1),
@@ -7421,8 +7421,8 @@ begin
    U8 : TLU
 	generic map(
 		N => 7,
-		TruthTable => "1010101010101000" &
-		              "1101010101010101",
+		TruthTable => "0001010101010101" &
+		              "1010101010101000",
 		TT_size => (4, 4),
 		Node_Index => (0, 1, 2, 3, 
 		               4, 5, 6, -1),

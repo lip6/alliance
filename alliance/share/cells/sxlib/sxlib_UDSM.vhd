@@ -5,10 +5,10 @@
 -- FILENAME     :    sxlib_UDSM.vhd
 -- FILE CONTENTS:    Entity, Structural Architecture(UDSM),
 --                   and Configuration
--- DATE CREATED :    Mon May 29 15:16:04 2000
+-- DATE CREATED :    Thu Dec 21 11:59:30 2000
 -- 
 -- LIBRARY      :    sxlib
--- DATE ENTERED :    Sat Oct 30 22:31:32 MET DST 1999
+-- DATE ENTERED :    Thu Dec 21 11:24:55 MET 2000
 -- REVISION     :    1.200000
 -- TECHNOLOGY   :    cmos
 -- TIME SCALE   :    1 ns
@@ -3946,17 +3946,6 @@ architecture UDSM of noa2ao222_x1 is
 
    signal n1, n2, n3 : STD_LOGIC;
 
-   component NAND2MAC
-      generic(
-         tpdY_R                         :  Time := 0 ns;
-         tpdY_F                         :  Time := 0 ns;
-         strn                           :  STRENGTH := strn_X01);
-      port(
-         I0                             :  in    STD_LOGIC;
-         I1                             :  in    STD_LOGIC;
-         Y                              :  out   STD_LOGIC);
-   end component;
-
    component AND2MAC
       generic(
          tpdY_R                         :  Time := 0 ns;
@@ -3979,20 +3968,31 @@ architecture UDSM of noa2ao222_x1 is
          Y                              :  out   STD_LOGIC);
    end component;
 
+   component NAND2MAC
+      generic(
+         tpdY_R                         :  Time := 0 ns;
+         tpdY_F                         :  Time := 0 ns;
+         strn                           :  STRENGTH := strn_X01);
+      port(
+         I0                             :  in    STD_LOGIC;
+         I1                             :  in    STD_LOGIC;
+         Y                              :  out   STD_LOGIC);
+   end component;
+
 begin
 
    -- Netlist
-   U1 : NAND2MAC
+   U1 : AND2MAC
 	generic map( tpdY_R => 1 ns, tpdY_F => 1 ns)
 	port map( I0 => n1, I1 => n2, Y => nq);
 
-   U2 : AND2MAC
+   U2 : OR2MAC
 	port map( I0 => i2, I1 => i3, Y => n3);
 
-   U3 : OR2MAC
+   U3 : NAND2MAC
 	port map( I0 => i4, I1 => n3, Y => n2);
 
-   U4 : OR2MAC
+   U4 : NAND2MAC
 	port map( I0 => i0, I1 => i1, Y => n1);
 
 
@@ -4059,17 +4059,6 @@ architecture UDSM of noa2ao222_x4 is
 
    signal n1, n2, n3 : STD_LOGIC;
 
-   component NAND2MAC
-      generic(
-         tpdY_R                         :  Time := 0 ns;
-         tpdY_F                         :  Time := 0 ns;
-         strn                           :  STRENGTH := strn_X01);
-      port(
-         I0                             :  in    STD_LOGIC;
-         I1                             :  in    STD_LOGIC;
-         Y                              :  out   STD_LOGIC);
-   end component;
-
    component AND2MAC
       generic(
          tpdY_R                         :  Time := 0 ns;
@@ -4092,20 +4081,31 @@ architecture UDSM of noa2ao222_x4 is
          Y                              :  out   STD_LOGIC);
    end component;
 
+   component NAND2MAC
+      generic(
+         tpdY_R                         :  Time := 0 ns;
+         tpdY_F                         :  Time := 0 ns;
+         strn                           :  STRENGTH := strn_X01);
+      port(
+         I0                             :  in    STD_LOGIC;
+         I1                             :  in    STD_LOGIC;
+         Y                              :  out   STD_LOGIC);
+   end component;
+
 begin
 
    -- Netlist
-   U1 : NAND2MAC
+   U1 : AND2MAC
 	generic map( tpdY_R => 1 ns, tpdY_F => 1 ns)
 	port map( I0 => n1, I1 => n2, Y => nq);
 
-   U2 : AND2MAC
+   U2 : OR2MAC
 	port map( I0 => i2, I1 => i3, Y => n3);
 
-   U3 : OR2MAC
+   U3 : NAND2MAC
 	port map( I0 => i4, I1 => n3, Y => n2);
 
-   U4 : OR2MAC
+   U4 : NAND2MAC
 	port map( I0 => i0, I1 => i1, Y => n1);
 
 
@@ -4182,7 +4182,7 @@ architecture UDSM of noa3ao322_x1 is
 
    signal n1, n2, n3 : STD_LOGIC;
 
-   component NAND2MAC
+   component AND2MAC
       generic(
          tpdY_R                         :  Time := 0 ns;
          tpdY_F                         :  Time := 0 ns;
@@ -4193,7 +4193,7 @@ architecture UDSM of noa3ao322_x1 is
          Y                              :  out   STD_LOGIC);
    end component;
 
-   component AND3MAC
+   component NAND3MAC
       generic(
          tpdY_R                         :  Time := 0 ns;
          tpdY_F                         :  Time := 0 ns;
@@ -4217,7 +4217,7 @@ architecture UDSM of noa3ao322_x1 is
          Y                              :  out   STD_LOGIC);
    end component;
 
-   component OR2MAC
+   component NAND2MAC
       generic(
          tpdY_R                         :  Time := 0 ns;
          tpdY_F                         :  Time := 0 ns;
@@ -4231,17 +4231,17 @@ architecture UDSM of noa3ao322_x1 is
 begin
 
    -- Netlist
-   U1 : NAND2MAC
+   U1 : AND2MAC
 	generic map( tpdY_R => 1 ns, tpdY_F => 1 ns)
 	port map( I0 => n1, I1 => n2, Y => nq);
 
-   U2 : AND3MAC
-	port map( I0 => i4, I1 => i5, I2 => i3, Y => n3);
+   U2 : NAND3MAC
+	port map( I0 => i1, I1 => i2, I2 => i0, Y => n2);
 
    U3 : OR3MAC
-	port map( I0 => i0, I1 => i1, I2 => i2, Y => n2);
+	port map( I0 => i3, I1 => i4, I2 => i5, Y => n3);
 
-   U4 : OR2MAC
+   U4 : NAND2MAC
 	port map( I0 => i6, I1 => n3, Y => n1);
 
 
@@ -4318,7 +4318,7 @@ architecture UDSM of noa3ao322_x4 is
 
    signal n1, n2, n3 : STD_LOGIC;
 
-   component NAND2MAC
+   component AND2MAC
       generic(
          tpdY_R                         :  Time := 0 ns;
          tpdY_F                         :  Time := 0 ns;
@@ -4329,7 +4329,7 @@ architecture UDSM of noa3ao322_x4 is
          Y                              :  out   STD_LOGIC);
    end component;
 
-   component AND3MAC
+   component NAND3MAC
       generic(
          tpdY_R                         :  Time := 0 ns;
          tpdY_F                         :  Time := 0 ns;
@@ -4353,7 +4353,7 @@ architecture UDSM of noa3ao322_x4 is
          Y                              :  out   STD_LOGIC);
    end component;
 
-   component OR2MAC
+   component NAND2MAC
       generic(
          tpdY_R                         :  Time := 0 ns;
          tpdY_F                         :  Time := 0 ns;
@@ -4367,17 +4367,17 @@ architecture UDSM of noa3ao322_x4 is
 begin
 
    -- Netlist
-   U1 : NAND2MAC
+   U1 : AND2MAC
 	generic map( tpdY_R => 1 ns, tpdY_F => 1 ns)
 	port map( I0 => n1, I1 => n2, Y => nq);
 
-   U2 : AND3MAC
-	port map( I0 => i4, I1 => i5, I2 => i3, Y => n3);
+   U2 : NAND3MAC
+	port map( I0 => i1, I1 => i2, I2 => i0, Y => n2);
 
    U3 : OR3MAC
-	port map( I0 => i0, I1 => i1, I2 => i2, Y => n2);
+	port map( I0 => i3, I1 => i4, I2 => i5, Y => n3);
 
-   U4 : OR2MAC
+   U4 : NAND2MAC
 	port map( I0 => i6, I1 => n3, Y => n1);
 
 

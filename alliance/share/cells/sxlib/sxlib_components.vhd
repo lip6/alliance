@@ -4,10 +4,10 @@
 -- Created by the Synopsys Library Compiler 1999.10
 -- FILENAME     :    sxlib_components.vhd
 -- FILE CONTENTS:    Component Package
--- DATE CREATED :    Mon May 29 15:16:04 2000
+-- DATE CREATED :    Thu Dec 21 11:59:30 2000
 -- 
 -- LIBRARY      :    sxlib
--- DATE ENTERED :    Sat Oct 30 22:31:32 MET DST 1999
+-- DATE ENTERED :    Thu Dec 21 11:24:55 MET 2000
 -- REVISION     :    1.200000
 -- TECHNOLOGY   :    cmos
 -- TIME SCALE   :    1 ns

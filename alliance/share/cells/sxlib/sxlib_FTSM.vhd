@@ -5,10 +5,10 @@
 -- FILENAME     :    sxlib_FTSM.vhd
 -- FILE CONTENTS:    Entity, Structural Architecture(FTSM),
 --                   and Configuration
--- DATE CREATED :    Mon May 29 15:16:04 2000
+-- DATE CREATED :    Thu Dec 21 11:59:30 2000
 -- 
 -- LIBRARY      :    sxlib
--- DATE ENTERED :    Sat Oct 30 22:31:32 MET DST 1999
+-- DATE ENTERED :    Thu Dec 21 11:24:55 MET 2000
 -- REVISION     :    1.200000
 -- TECHNOLOGY   :    cmos
 -- TIME SCALE   :    1 ns
@@ -6209,17 +6209,6 @@ architecture FTSM of noa2ao222_x1 is
    signal prop_nq : STD_LOGIC_VECTOR (0 to 4) := (others => 'U');
    signal n1, n2, n3 : STD_LOGIC;
 
-   component NAND2MAC
-      generic(
-         tpdY_R                         :  Time := 0 ns;
-         tpdY_F                         :  Time := 0 ns;
-         strn                           :  STRENGTH := strn_X01);
-      port(
-         I0                             :  in    STD_LOGIC;
-         I1                             :  in    STD_LOGIC;
-         Y                              :  out   STD_LOGIC);
-   end component;
-
    component AND2MAC
       generic(
          tpdY_R                         :  Time := 0 ns;
@@ -6232,6 +6221,17 @@ architecture FTSM of noa2ao222_x1 is
    end component;
 
    component OR2MAC
+      generic(
+         tpdY_R                         :  Time := 0 ns;
+         tpdY_F                         :  Time := 0 ns;
+         strn                           :  STRENGTH := strn_X01);
+      port(
+         I0                             :  in    STD_LOGIC;
+         I1                             :  in    STD_LOGIC;
+         Y                              :  out   STD_LOGIC);
+   end component;
+
+   component NAND2MAC
       generic(
          tpdY_R                         :  Time := 0 ns;
          tpdY_F                         :  Time := 0 ns;
@@ -6287,16 +6287,16 @@ begin
 	port map( Input => connect(4), Output => prop_nq(4));
 
    -- Netlist
-   U11 : NAND2MAC
+   U11 : AND2MAC
 	port map( I0 => n1, I1 => n2, Y => nq);
 
-   U12 : AND2MAC
+   U12 : OR2MAC
 	port map( I0 => prop_nq(2), I1 => prop_nq(3), Y => n3);
 
-   U13 : OR2MAC
+   U13 : NAND2MAC
 	port map( I0 => prop_nq(4), I1 => n3, Y => n2);
 
-   U14 : OR2MAC
+   U14 : NAND2MAC
 	port map( I0 => prop_nq(0), I1 => prop_nq(1), Y => n1);
 
 
@@ -6388,17 +6388,6 @@ architecture FTSM of noa2ao222_x4 is
    signal prop_nq : STD_LOGIC_VECTOR (0 to 4) := (others => 'U');
    signal n1, n2, n3 : STD_LOGIC;
 
-   component NAND2MAC
-      generic(
-         tpdY_R                         :  Time := 0 ns;
-         tpdY_F                         :  Time := 0 ns;
-         strn                           :  STRENGTH := strn_X01);
-      port(
-         I0                             :  in    STD_LOGIC;
-         I1                             :  in    STD_LOGIC;
-         Y                              :  out   STD_LOGIC);
-   end component;
-
    component AND2MAC
       generic(
          tpdY_R                         :  Time := 0 ns;
@@ -6411,6 +6400,17 @@ architecture FTSM of noa2ao222_x4 is
    end component;
 
    component OR2MAC
+      generic(
+         tpdY_R                         :  Time := 0 ns;
+         tpdY_F                         :  Time := 0 ns;
+         strn                           :  STRENGTH := strn_X01);
+      port(
+         I0                             :  in    STD_LOGIC;
+         I1                             :  in    STD_LOGIC;
+         Y                              :  out   STD_LOGIC);
+   end component;
+
+   component NAND2MAC
       generic(
          tpdY_R                         :  Time := 0 ns;
          tpdY_F                         :  Time := 0 ns;
@@ -6466,16 +6466,16 @@ begin
 	port map( Input => connect(4), Output => prop_nq(4));
 
    -- Netlist
-   U11 : NAND2MAC
+   U11 : AND2MAC
 	port map( I0 => n1, I1 => n2, Y => nq);
 
-   U12 : AND2MAC
+   U12 : OR2MAC
 	port map( I0 => prop_nq(2), I1 => prop_nq(3), Y => n3);
 
-   U13 : OR2MAC
+   U13 : NAND2MAC
 	port map( I0 => prop_nq(4), I1 => n3, Y => n2);
 
-   U14 : OR2MAC
+   U14 : NAND2MAC
 	port map( I0 => prop_nq(0), I1 => prop_nq(1), Y => n1);
 
 
@@ -6585,7 +6585,7 @@ architecture FTSM of noa3ao322_x1 is
    signal prop_nq : STD_LOGIC_VECTOR (0 to 6) := (others => 'U');
    signal n1, n2, n3 : STD_LOGIC;
 
-   component NAND2MAC
+   component AND2MAC
       generic(
          tpdY_R                         :  Time := 0 ns;
          tpdY_F                         :  Time := 0 ns;
@@ -6596,7 +6596,7 @@ architecture FTSM of noa3ao322_x1 is
          Y                              :  out   STD_LOGIC);
    end component;
 
-   component AND3MAC
+   component NAND3MAC
       generic(
          tpdY_R                         :  Time := 0 ns;
          tpdY_F                         :  Time := 0 ns;
@@ -6620,7 +6620,7 @@ architecture FTSM of noa3ao322_x1 is
          Y                              :  out   STD_LOGIC);
    end component;
 
-   component OR2MAC
+   component NAND2MAC
       generic(
          tpdY_R                         :  Time := 0 ns;
          tpdY_F                         :  Time := 0 ns;
@@ -6692,18 +6692,18 @@ begin
 	port map( Input => connect(6), Output => prop_nq(6));
 
    -- Netlist
-   U15 : NAND2MAC
+   U15 : AND2MAC
 	port map( I0 => n1, I1 => n2, Y => nq);
 
-   U16 : AND3MAC
-	port map( I0 => prop_nq(4), I1 => prop_nq(5), I2 => prop_nq(3), Y => 
-         n3);
-
-   U17 : OR3MAC
-	port map( I0 => prop_nq(0), I1 => prop_nq(1), I2 => prop_nq(2), Y => 
+   U16 : NAND3MAC
+	port map( I0 => prop_nq(1), I1 => prop_nq(2), I2 => prop_nq(0), Y => 
          n2);
 
-   U18 : OR2MAC
+   U17 : OR3MAC
+	port map( I0 => prop_nq(3), I1 => prop_nq(4), I2 => prop_nq(5), Y => 
+         n3);
+
+   U18 : NAND2MAC
 	port map( I0 => prop_nq(6), I1 => n3, Y => n1);
 
 
@@ -6813,7 +6813,7 @@ architecture FTSM of noa3ao322_x4 is
    signal prop_nq : STD_LOGIC_VECTOR (0 to 6) := (others => 'U');
    signal n1, n2, n3 : STD_LOGIC;
 
-   component NAND2MAC
+   component AND2MAC
       generic(
          tpdY_R                         :  Time := 0 ns;
          tpdY_F                         :  Time := 0 ns;
@@ -6824,7 +6824,7 @@ architecture FTSM of noa3ao322_x4 is
          Y                              :  out   STD_LOGIC);
    end component;
 
-   component AND3MAC
+   component NAND3MAC
       generic(
          tpdY_R                         :  Time := 0 ns;
          tpdY_F                         :  Time := 0 ns;
@@ -6848,7 +6848,7 @@ architecture FTSM of noa3ao322_x4 is
          Y                              :  out   STD_LOGIC);
    end component;
 
-   component OR2MAC
+   component NAND2MAC
       generic(
          tpdY_R                         :  Time := 0 ns;
          tpdY_F                         :  Time := 0 ns;
@@ -6920,18 +6920,18 @@ begin
 	port map( Input => connect(6), Output => prop_nq(6));
 
    -- Netlist
-   U15 : NAND2MAC
+   U15 : AND2MAC
 	port map( I0 => n1, I1 => n2, Y => nq);
 
-   U16 : AND3MAC
-	port map( I0 => prop_nq(4), I1 => prop_nq(5), I2 => prop_nq(3), Y => 
-         n3);
-
-   U17 : OR3MAC
-	port map( I0 => prop_nq(0), I1 => prop_nq(1), I2 => prop_nq(2), Y => 
+   U16 : NAND3MAC
+	port map( I0 => prop_nq(1), I1 => prop_nq(2), I2 => prop_nq(0), Y => 
          n2);
 
-   U18 : OR2MAC
+   U17 : OR3MAC
+	port map( I0 => prop_nq(3), I1 => prop_nq(4), I2 => prop_nq(5), Y => 
+         n3);
+
+   U18 : NAND2MAC
 	port map( I0 => prop_nq(6), I1 => n3, Y => n1);
 
 

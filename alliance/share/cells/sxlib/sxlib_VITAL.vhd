@@ -5,10 +5,10 @@
 -- FILENAME     :    sxlib_VITAL.vhd
 -- FILE CONTENTS:    Entity, Structural Architecture(VITAL),
 --                   and Configuration
--- DATE CREATED :    Mon May 29 15:16:04 2000
+-- DATE CREATED :    Thu Dec 21 11:59:30 2000
 -- 
 -- LIBRARY      :    sxlib
--- DATE ENTERED :    Sat Oct 30 22:31:32 MET DST 1999
+-- DATE ENTERED :    Thu Dec 21 11:24:55 MET 2000
 -- REVISION     :    1.200000
 -- TECHNOLOGY   :    cmos
 -- TIME SCALE   :    1 ns
@@ -5029,8 +5029,8 @@ begin
       --  Functionality Section
       -------------------------
       nq_zd :=
-       (((NOT i4_ipd)) AND (((NOT i3_ipd)) OR ((NOT i2_ipd)))) OR (((NOT
-         i1_ipd)) AND ((NOT i0_ipd)));
+       (((NOT i4_ipd)) OR (((NOT i3_ipd)) AND ((NOT i2_ipd)))) AND (((NOT
+         i1_ipd)) OR ((NOT i0_ipd)));
 
       ----------------------
       --  Path Delay Section
@@ -5141,8 +5141,8 @@ begin
       --  Functionality Section
       -------------------------
       nq_zd :=
-       (((NOT i4_ipd)) AND (((NOT i3_ipd)) OR ((NOT i2_ipd)))) OR (((NOT
-         i1_ipd)) AND ((NOT i0_ipd)));
+       (((NOT i4_ipd)) OR (((NOT i3_ipd)) AND ((NOT i2_ipd)))) AND (((NOT
+         i1_ipd)) OR ((NOT i0_ipd)));
 
       ----------------------
       --  Path Delay Section
@@ -5263,8 +5263,8 @@ begin
       --  Functionality Section
       -------------------------
       nq_zd :=
-       (((NOT i6_ipd)) AND (((NOT i4_ipd)) OR ((NOT i3_ipd)) OR ((NOT
-         i5_ipd)))) OR (((NOT i1_ipd)) AND ((NOT i0_ipd)) AND ((NOT i2_ipd)));
+       (((NOT i6_ipd)) OR (((NOT i4_ipd)) AND ((NOT i3_ipd)) AND ((NOT
+         i5_ipd)))) AND (((NOT i1_ipd)) OR ((NOT i0_ipd)) OR ((NOT i2_ipd)));
 
       ----------------------
       --  Path Delay Section
@@ -5387,8 +5387,8 @@ begin
       --  Functionality Section
       -------------------------
       nq_zd :=
-       (((NOT i6_ipd)) AND (((NOT i4_ipd)) OR ((NOT i3_ipd)) OR ((NOT
-         i5_ipd)))) OR (((NOT i1_ipd)) AND ((NOT i0_ipd)) AND ((NOT i2_ipd)));
+       (((NOT i6_ipd)) OR (((NOT i4_ipd)) AND ((NOT i3_ipd)) AND ((NOT
+         i5_ipd)))) AND (((NOT i1_ipd)) OR ((NOT i0_ipd)) OR ((NOT i2_ipd)));
 
       ----------------------
       --  Path Delay Section

@@ -19,7 +19,7 @@
 
 library (sxlib) {
 
-    date        : "Sat Oct 30 22:31:32 MET DST 1999";
+    date        : "Thu Dec 21 11:24:55 MET 2000";
     revision    : 1.2;
 
     /* --------------------------------------------- */
@@ -1674,7 +1674,7 @@ library (sxlib) {
         pin(nq) {
             direction  : output;
             max_fanout : 0.055;
-            function : "((i0'*i1')+((i2'+i3')*i4'))";
+            function : "((i0'+i1')*((i2'*i3')+i4'))";
             timing() {
                 timing_sense    : negative_unate;
                 intrinsic_rise  : 0.348;
@@ -1748,7 +1748,7 @@ library (sxlib) {
         pin(nq) {
             direction  : output;
             max_fanout : 0.327;
-            function : "((i0'*i1')+((i2'+i3')*i4'))";
+            function : "((i0'+i1')*((i2'*i3')+i4'))";
             timing() {
                 timing_sense    : negative_unate;
                 intrinsic_rise  : 0.684;
@@ -2006,7 +2006,7 @@ library (sxlib) {
         pin(nq) {
             direction  : output;
             max_fanout : 0.043;
-            function : "((i0'*i1'*i2')+(((i3'+i4')+i5')*i6'))";
+            function : "((i0'+i1'+i2')*(((i3'*i4')*i5')+i6'))";
             timing() {
                 timing_sense    : negative_unate;
                 intrinsic_rise  : 0.396;
@@ -2106,7 +2106,7 @@ library (sxlib) {
         pin(nq) {
             direction  : output;
             max_fanout : 0.327;
-            function : "((i0'*i1'*i2')+(((i3'+i4')+i5')*i6'))";
+            function : "((i0'+i1'+i2')*(((i3'*i4')*i5')+i6'))";
             timing() {
                 timing_sense    : negative_unate;
                 intrinsic_rise  : 0.819;
