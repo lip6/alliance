@@ -26,7 +26,6 @@ EXTRA_DIST = $(pdf_DATA) \
              ./man_dpgen_nor4.sgm \
              ./man_dpgen_xor2.sgm \
              ./man_dpgen_xnor2.sgm \
-             ./man_dpgen_shrot.sgm \
              ./man_dpgen_nmux2.sgm \
              ./man_dpgen_nbuse.sgm \
              ./man_dpgen_mux2.sgm \

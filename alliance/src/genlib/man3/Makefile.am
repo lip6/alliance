@@ -90,7 +90,6 @@ man_MANS  = GENLIB_BUS.3 \
             DPGEN_SFF.3 \
             DPGEN_SFFT.3 \
             DPGEN_SHIFT.3 \
-            DPGEN_SHROT.3 \
             DPGEN_XNOR2.3 \
             DPGEN_XNOR2MASK.3 \
             DPGEN_XOR2.3
