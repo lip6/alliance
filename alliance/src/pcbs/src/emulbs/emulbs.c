@@ -197,8 +197,9 @@ extern int main(int argc, char *argv[])
                 "Ana ABRIL, François DONNET, Eric MECHIN, Philippe OLEK");
 
   fprintf( stdout, "\n\n");
-  fprintf( stdout, "        ===> Number of hardware emulators   : %d\n", EMULBS_NBR_EMULBS ); 
-  fprintf( stdout, "        ===> Depth of one hardware emulator : %d\n", EMULBS_BS_SIZE ); 
+  fprintf( stdout, "               Compiled for this required hardware...\n" );
+  fprintf( stdout, "                      ===> Number of hardware emulators   : %d\n", EMULBS_NBR_EMULBS ); 
+  fprintf( stdout, "                      ===> Depth of one hardware emulator : %d\n", EMULBS_BS_SIZE ); 
   fprintf( stdout, "\n\n");
 
   set_param(argc,argv);
