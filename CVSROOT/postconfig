@@ -4,11 +4,11 @@
 # Copyright (C) 1999, 2000 Czo <Olivier.Sirol@lip6.fr>
 # License: GPL (http://www.gnu.org/copyleft/gpl.html)
 # Started: Sept 1999
-# Last Change: Thursday 07 September 2000, 11:00
-# Edit Time: 0:51:53
+# Last Change: Thursday 07 September 2000, 11:01
+# Edit Time: 0:51:56
 # Description:
 #
-# $Id: postconfig,v 1.44 2000/09/07 09:00:58 czo Exp $
+# $Id: postconfig,v 1.45 2000/09/07 09:01:50 czo Exp $
 #
 
 PATH=/asim/gnu/bin:/usr/ucb:/usr/etc:/usr/local/bin:/bin:/usr/bin:${PATH}
@@ -58,7 +58,7 @@ MAIL_SUBJECT=`echo "CVS loginfo, $UPDATE_DIR" | sed 's§alliance/§§' | sed 's§sha
 # echo $MODIFIED_FILES
 
 
-# pwd
+#  pwd
 # (
 # echo ""
 # echo "===================================================================="
