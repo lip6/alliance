@@ -16,7 +16,7 @@
 #
 # Author : Olivier SIROL
 # Date   : April 1997 
-# $Id: updatelibmk,v 1.1 1998/10/21 16:42:57 alliance Exp $
+# $Id: updatelibmk,v 1.2 1999/08/27 17:31:58 czo Exp $
 
 # DO_UPDATE: 0 chk only, 1 write file, 2 print stdout
 
@@ -166,7 +166,7 @@ close (MAFONC);
 #
 
 
-# si commentaire, on laisse tomber
+# si commentaire, on laisse tomber sauf Last updated
 /# Last updated on/ {
 		     printf("# Last updated on %s\n", strftime("on %A %d %B %Y at %H:%M %Z"));
 		     next;
@@ -176,6 +176,13 @@ close (MAFONC);
              print;
              next;
             }
+
+# si ALLIANCE ou TARGET on laisse tomber
+
+/^[ \t]*ALLIANCE_/ {next}
+
+/^[ \t]*TARGET_/ {next}
+
 # si macro, ca nous interresse
 /=/ {
   MACRO = $0;
@@ -225,7 +232,7 @@ close (MAFONC);
 	else
 	  {
 	    printf ("%s\n", $0);
-	    printf ("## Warning lib %s not found, left as is\n",
+	    printf ("%%% Warning lib %s not found, left as is\n",
 		    LIB_PREFIX) > "/dev/stderr";
 	  }
 }
@@ -261,14 +268,14 @@ else
 	else
 	  {
 	    printf ("%s\n", $0);
-	    printf ("## Warning header %s not found, left as is\n",
+	    printf ("%%% Warning header %s not found, left as is\n",
 		    LIB_PREFIX) > "/dev/stderr";
 	  }
 }
 
 else
 {
-    printf ("## Warning : unrecognized line, left as is\n") > "/dev/stderr";
+    printf ("%%% Warning : unrecognized line, left as is\n") > "/dev/stderr";
     printf ("%s\n", $0);
 }
 
@@ -285,11 +292,11 @@ else
 END {
 for (i=1; i<=MAX_HL; i++)
   if (HL[3,i]==0)
-    printf ("## WARNING no macro in libraries.mk for lib%s%s.a\n",
+    printf ("%%% WARNING no macro in libraries.mk for lib%s%s.a\n",
 	     HL[1,i] , HL[2,i]) > "/dev/stderr";
 for (i=1; i<=MAX_HH; i++)
   if (HH[3,i]==0)
-    printf ("## WARNING no macro in libraries.mk for %s%s.h\n",
+    printf ("%%% WARNING no macro in libraries.mk for %s%s.h\n",
 	    HH[1,i] , HH[2,i]) > "/dev/stderr";
     
 }'
