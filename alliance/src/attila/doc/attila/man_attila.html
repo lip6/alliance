@@ -5,8 +5,7 @@
 >attila</TITLE
 ><META
 NAME="GENERATOR"
-CONTENT="Modular DocBook HTML Stylesheet Version 1.76b+
-"><LINK
+CONTENT="Modular DocBook HTML Stylesheet Version 1.7"><LINK
 REL="HOME"
 TITLE=" Attila User's Manual "
 HREF="attila.html"><LINK
@@ -64,7 +63,9 @@ ALIGN="LEFT"
 WIDTH="100%"></DIV
 ><H1
 ><A
-NAME="ATTILA">attila</H1
+NAME="ATTILA"
+></A
+>attila</H1
 ><DIV
 CLASS="REFNAMEDIV"
 ><A
@@ -76,52 +77,38 @@ NAME="AEN24"
 ><DIV
 CLASS="REFSYNOPSISDIV"
 ><A
-NAME="AEN27"><H2
+NAME="AEN27"
+></A
+><H2
 >Synopsis</H2
 ><P
 ><B
 CLASS="COMMAND"
 >attila</B
-> [-h] [-S] [-U] [-F] [-A]<BR> [--help] [--ssh] [--user] [--asim]<BR> [--prefix=<TT
+> [-h] [-S] [-U] [-F] [-A]<BR> [--help] [--ssh] [--user] [--asim]<BR> [--prefix=<VAR
 CLASS="REPLACEABLE"
-><I
->INSTALL_DIR</I
-></TT
->] [--builddir=<TT
+>INSTALL_DIR</VAR
+>] [--builddir=<VAR
 CLASS="REPLACEABLE"
-><I
->BUILD_DIR</I
-></TT
->]<BR> {--tool=<TT
+>BUILD_DIR</VAR
+>]<BR> {--tool=<VAR
 CLASS="REPLACEABLE"
-><I
->name1</I
-></TT
->} [--tool=<TT
+>name1</VAR
+>} [--tool=<VAR
 CLASS="REPLACEABLE"
-><I
->name2</I
-></TT
->...]<BR> [-c- {<TT
+>name2</VAR
+>...]<BR> [-c- {<VAR
 CLASS="REPLACEABLE"
-><I
->configure_arg1</I
-></TT
-> }  [ <TT
+>configure_arg1</VAR
+> }  [ <VAR
 CLASS="REPLACEABLE"
-><I
->configure_arg2</I
-></TT
-> ...] ]<BR> [-m- {<TT
+>configure_arg2</VAR
+> ...] ]<BR> [-m- {<VAR
 CLASS="REPLACEABLE"
-><I
->make_arg1</I
-></TT
->}  [<TT
+>make_arg1</VAR
+>}  [<VAR
 CLASS="REPLACEABLE"
-><I
->make_arg2</I
-></TT
+>make_arg2</VAR
 >...] ]</P
 ></DIV
 ><DIV
@@ -174,17 +161,13 @@ CLASS="EMPHASIS"
 ></LI
 ><LI
 ><P
-> In case of <TT
+> In case of <KBD
 CLASS="USERINPUT"
-><B
->--asim</B
-></TT
+>--asim</KBD
 >
-          or <TT
+          or <KBD
 CLASS="USERINPUT"
-><B
->--full</B
-></TT
+>--full</KBD
 > installations,
           <TT
 CLASS="LITERAL"
@@ -603,32 +586,24 @@ CLASS="LITERAL"
 ><UL
 ><LI
 ><P
-> <TT
+> <KBD
 CLASS="USERINPUT"
-><B
->-h</B
-></TT
->, <TT
+>-h</KBD
+>, <KBD
 CLASS="USERINPUT"
-><B
->--help</B
-></TT
+>--help</KBD
 > :
         print help.
         </P
 ></LI
 ><LI
 ><P
-> <TT
+> <KBD
 CLASS="USERINPUT"
-><B
->-S</B
-></TT
->, <TT
+>-S</KBD
+>, <KBD
 CLASS="USERINPUT"
-><B
->--ssh</B
-></TT
+>--ssh</KBD
 > :
         uses <TT
 CLASS="LITERAL"
@@ -638,47 +613,35 @@ CLASS="LITERAL"
 >rsh</TT
 > to
         connect to the remote computers (in case of
-        <TT
+        <KBD
 CLASS="USERINPUT"
-><B
->--asim</B
-></TT
-> or <TT
+>--asim</KBD
+> or <KBD
 CLASS="USERINPUT"
-><B
->--full</B
-></TT
+>--full</KBD
 >).
         </P
 ></LI
 ><LI
 ><P
-> <TT
+> <KBD
 CLASS="USERINPUT"
-><B
->-U</B
-></TT
->, <TT
+>-U</KBD
+>, <KBD
 CLASS="USERINPUT"
-><B
->--user</B
-></TT
+>--user</KBD
 > :
         perform a local installation.
         </P
 ></LI
 ><LI
 ><P
-> <TT
+> <KBD
 CLASS="USERINPUT"
-><B
->-F</B
-></TT
->, <TT
+>-F</KBD
+>, <KBD
 CLASS="USERINPUT"
-><B
->--full</B
-></TT
+>--full</KBD
 > :
         install for all avalaibles architectures (currently Linux and
         Solaris).
@@ -686,16 +649,12 @@ CLASS="USERINPUT"
 ></LI
 ><LI
 ><P
-> <TT
+> <KBD
 CLASS="USERINPUT"
-><B
->-A</B
-></TT
->, <TT
+>-A</KBD
+>, <KBD
 CLASS="USERINPUT"
-><B
->--asim</B
-></TT
+>--asim</KBD
 > :
         install in the system-wide directory
         (<TT
@@ -706,68 +665,56 @@ CLASS="LITERAL"
 ></LI
 ><LI
 ><P
-> <TT
+> <KBD
 CLASS="USERINPUT"
-><B
 >--prefix=<TT
 CLASS="FILENAME"
 >INSTALL_DIR</TT
-></B
-></TT
+></KBD
 > :
         override the default installation directory.
         </P
 ></LI
 ><LI
 ><P
-> <TT
+> <KBD
 CLASS="USERINPUT"
-><B
 >--builddir=<TT
 CLASS="FILENAME"
 >BUILD_DIR</TT
-></B
-></TT
+></KBD
 > :
         override the default building directory.
         </P
 ></LI
 ><LI
 ><P
-> <TT
+> <KBD
 CLASS="USERINPUT"
-><B
 >--tool=<TT
 CLASS="FILENAME"
 >name1</TT
-></B
-></TT
+></KBD
 > :
         name of the tool to be installed.
         </P
 ></LI
 ><LI
 ><P
-> <TT
+> <KBD
 CLASS="USERINPUT"
-><B
 >-c- <TT
 CLASS="FILENAME"
 >configure_arg1</TT
-></B
-></TT
+></KBD
 > :
-        all arguments following <TT
+        all arguments following <KBD
 CLASS="USERINPUT"
-><B
->-c-</B
-></TT
+>-c-</KBD
 > (until a
-        <TT
+        <KBD
 CLASS="USERINPUT"
-><B
->-m-</B
-></TT
+>-m-</KBD
 > is encountered) are passed
         <I
 CLASS="EMPHASIS"
@@ -777,30 +724,24 @@ CLASS="EMPHASIS"
 CLASS="LITERAL"
 >configure</TT
 >. For example, if you want to first
-        use your local libraries, give <TT
+        use your local libraries, give <KBD
 CLASS="USERINPUT"
-><B
->--enable-devel</B
-></TT
+>--enable-devel</KBD
 >.
         </P
 ></LI
 ><LI
 ><P
-> <TT
+> <KBD
 CLASS="USERINPUT"
-><B
 >-m- <TT
 CLASS="FILENAME"
 >make_arg1</TT
-></B
-></TT
+></KBD
 > :
-        all arguments following <TT
+        all arguments following <KBD
 CLASS="USERINPUT"
-><B
->-m-</B
-></TT
+>-m-</KBD
 > are passed
         <I
 CLASS="EMPHASIS"
@@ -809,25 +750,19 @@ CLASS="EMPHASIS"
         <TT
 CLASS="LITERAL"
 >make</TT
->. If no <TT
+>. If no <KBD
 CLASS="USERINPUT"
-><B
->-m-</B
-></TT
+>-m-</KBD
 >
-        argument is given, then <TT
+        argument is given, then <KBD
 CLASS="USERINPUT"
-><B
->install</B
-></TT
+>install</KBD
 > is
         assumed. If you want to completly uninstall a tool and clean
         it's build directory you can pass
-        <TT
+        <KBD
 CLASS="USERINPUT"
-><B
->uninstall clean</B
-></TT
+>uninstall clean</KBD
 >
         </P
 ></LI
@@ -864,11 +799,9 @@ CLASS="EMPHASIS"
 ><UL
 ><LI
 ><P
-> <TT
+> <KBD
 CLASS="USERINPUT"
-><B
->LINUX_TARGET</B
-></TT
+>LINUX_TARGET</KBD
 > : the computer where to
         compile for the Linux architecture (default <TT
 CLASS="LITERAL"
@@ -878,15 +811,13 @@ CLASS="LITERAL"
 ></LI
 ><LI
 ><P
-> <TT
+> <KBD
 CLASS="USERINPUT"
-><B
->LINUX_CC</B
-></TT
+>LINUX_CC</KBD
 > : the name or full path to
-        to the <SPAN
+        to the <ACRONYM
 CLASS="ACRONYM"
->C</SPAN
+>C</ACRONYM
 > compiler for Linux system
         (default <TT
 CLASS="LITERAL"
@@ -896,15 +827,13 @@ CLASS="LITERAL"
 ></LI
 ><LI
 ><P
-> <TT
+> <KBD
 CLASS="USERINPUT"
-><B
->LINUX_CXX</B
-></TT
+>LINUX_CXX</KBD
 > : the name or full path to
-        to the <SPAN
+        to the <ACRONYM
 CLASS="ACRONYM"
->C++</SPAN
+>C++</ACRONYM
 > compiler for Linux system
         (default <TT
 CLASS="LITERAL"
@@ -914,11 +843,9 @@ CLASS="LITERAL"
 ></LI
 ><LI
 ><P
-> <TT
+> <KBD
 CLASS="USERINPUT"
-><B
->SOLARIS_TARGET</B
-></TT
+>SOLARIS_TARGET</KBD
 > : the computer where to
         compile for the Solaris architecture (default <TT
 CLASS="LITERAL"
@@ -928,15 +855,13 @@ CLASS="LITERAL"
 ></LI
 ><LI
 ><P
-> <TT
+> <KBD
 CLASS="USERINPUT"
-><B
->SOLARIS_CC</B
-></TT
+>SOLARIS_CC</KBD
 > : the name or full path to
-        to the <SPAN
+        to the <ACRONYM
 CLASS="ACRONYM"
->C</SPAN
+>C</ACRONYM
 > compiler for Solaris system
         (default <TT
 CLASS="LITERAL"
@@ -946,15 +871,13 @@ CLASS="LITERAL"
 ></LI
 ><LI
 ><P
-> <TT
+> <KBD
 CLASS="USERINPUT"
-><B
->SOLARIS_CXX</B
-></TT
+>SOLARIS_CXX</KBD
 > : the name or full path to
-        to the <SPAN
+        to the <ACRONYM
 CLASS="ACRONYM"
->C++</SPAN
+>C++</ACRONYM
 > compiler for Solaris system
         (default <TT
 CLASS="LITERAL"
@@ -964,11 +887,9 @@ CLASS="LITERAL"
 ></LI
 ><LI
 ><P
-> <TT
+> <KBD
 CLASS="USERINPUT"
-><B
->ATTILA_CVSROOT</B
-></TT
+>ATTILA_CVSROOT</KBD
 > : the root of the
         <I
 CLASS="EMPHASIS"
@@ -982,11 +903,9 @@ CLASS="LITERAL"
 ></LI
 ><LI
 ><P
-> <TT
+> <KBD
 CLASS="USERINPUT"
-><B
->CVS_STARTUP_FILES</B
-></TT
+>CVS_STARTUP_FILES</KBD
 > : the minimal set of
         files needed to run <TT
 CLASS="LITERAL"
@@ -1019,11 +938,9 @@ WIDTH="100%"
 ><TD
 ><PRE
 CLASS="SCREEN"
->$ <TT
+>$ <KBD
 CLASS="USERINPUT"
-><B
->attila --tool=nero</B
-></TT
+>attila --tool=nero</KBD
 >
     </PRE
 ></TD
@@ -1045,11 +962,9 @@ WIDTH="100%"
 ><TD
 ><PRE
 CLASS="SCREEN"
->$ <TT
+>$ <KBD
 CLASS="USERINPUT"
-><B
->attila --full --tool=nero</B
-></TT
+>attila --full --tool=nero</KBD
 >
     </PRE
 ></TD
@@ -1071,11 +986,9 @@ WIDTH="100%"
 ><TD
 ><PRE
 CLASS="SCREEN"
->$ <TT
+>$ <KBD
 CLASS="USERINPUT"
-><B
->attila --asim --tool=nero</B
-></TT
+>attila --asim --tool=nero</KBD
 >
     </PRE
 ></TD
@@ -1101,11 +1014,9 @@ WIDTH="100%"
 ><TD
 ><PRE
 CLASS="SCREEN"
->$ <TT
+>$ <KBD
 CLASS="USERINPUT"
-><B
->attila --tool=mbk --tool=genlib</B
-></TT
+>attila --tool=mbk --tool=genlib</KBD
 >
     </PRE
 ></TD
@@ -1127,11 +1038,9 @@ WIDTH="100%"
 ><TD
 ><PRE
 CLASS="SCREEN"
->$ <TT
+>$ <KBD
 CLASS="USERINPUT"
-><B
->attila --tool=nero -c- --enable-devel</B
-></TT
+>attila --tool=nero -c- --enable-devel</KBD
 >
     </PRE
 ></TD
@@ -1159,11 +1068,9 @@ WIDTH="100%"
 ><TD
 ><PRE
 CLASS="SCREEN"
->$ <TT
+>$ <KBD
 CLASS="USERINPUT"
-><B
->attila --asim --tool=poire -m- uninstall</B
-></TT
+>attila --asim --tool=poire -m- uninstall</KBD
 >
     </PRE
 ></TD
@@ -1215,11 +1122,9 @@ VALIGN="top"
 ><I
 CLASS="EMPHASIS"
 >Alliance</I
-> - <TT
+> - <KBD
 CLASS="USERINPUT"
-><B
->attila</B
-></TT
+>attila</KBD
 > User's Manual</TD
 ><TD
 WIDTH="34%"
