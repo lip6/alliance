@@ -30,7 +30,7 @@
  * Modified by pnt <Pierre.Nguyen-Tuong@lip6.fr> 2002
  */
 
-#ident "$Id: mbk_lo.c,v 1.3 2002/08/13 16:51:36 pnt Exp $"
+#ident "$Id: mbk_lo.c,v 1.4 2002/08/14 19:04:14 pnt Exp $"
 
 #include <stdio.h>
 #include <unistd.h>
@@ -1753,6 +1753,7 @@ locap_list *addlocap(lofig_list *ptfig,char type,double capa,losig_list *pttplat
 
    ptcap = (locap_list *)mbkalloc(sizeof(locap_list)) ;
    ptcap -> TYPE  = type ;
+   ptcap -> CAPA  = capa ;
    ptcap -> NEXT  = ptfig -> LOCAP ;
    ptfig -> LOCAP = ptcap ;
    ptcap -> USER  = NULL ;
@@ -1906,7 +1907,7 @@ void viewlocap(locap_list  *ptcap)
       viewloinscon(ptcap -> BCON) ;
     }
 
-   (void)printf("   |   |---capa   : %ld\n", ptcap -> CAPA) ;
+   (void)printf("   |   |---capa   : %g\n", ptcap -> CAPA) ;
 
   if(ptcap -> USER != NULL)
     {
@@ -1985,6 +1986,7 @@ lores_list *addlores(lofig_list *ptfig,char type,double resi,losig_list *ptrcon1
 
    ptres = (lores_list *)mbkalloc(sizeof(lores_list)) ;
    ptres -> TYPE  = type ;
+   ptres -> RESI  = resi ;
    ptres -> NEXT  = ptfig -> LORES ;
    ptfig -> LORES = ptres ;
    ptres -> USER  = NULL ;
@@ -2138,7 +2140,7 @@ void viewlores(lores_list  *ptres)
       viewloinscon(ptres -> RCON2) ;
     }
 
-   (void)printf("   |   |---resi   : %ld\n", ptres -> RESI) ;
+   (void)printf("   |   |---resi   : %g\n", ptres -> RESI) ;
 
   if(ptres -> USER != NULL)
     {
@@ -2217,6 +2219,7 @@ loself_list *addloself(lofig_list *ptfig,char type,double self,losig_list *ptsco
 
    ptself = (loself_list *)mbkalloc(sizeof(loself_list)) ;
    ptself -> TYPE  = type ;
+   ptself -> SELF  = self ;
    ptself -> NEXT  = ptfig -> LOSELF ;
    ptfig -> LOSELF = ptself ;
    ptself -> USER  = NULL ;
@@ -2370,7 +2373,7 @@ void viewloself(loself_list *ptself)
       viewloinscon(ptself -> SCON2) ;
     }
 
-   (void)printf("   |   |---self   : %ld\n", ptself -> SELF) ;
+   (void)printf("   |   |---self   : %g\n", ptself -> SELF) ;
 
   if(ptself -> USER != NULL)
     {
