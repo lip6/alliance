@@ -20,13 +20,15 @@ Component inv_x1
  );
 end component;
 
-Component sff1_x4
+Component sff2_x4
    port (
-      i   : in      bit;
-      ck  : in      bit;
-      q   : out     bit;
-      vdd : in      bit;
-      vss : in      bit
+  ck	 : in  BIT;
+  cmd	 : in  BIT;
+  i0	 : in  BIT;
+  i1	 : in  BIT;
+  q	 : out BIT;
+  vdd	 : in  BIT;
+  vss	 : in  BIT
  );
 end component;
 
