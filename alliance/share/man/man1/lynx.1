@@ -1,5 +1,6 @@
-.\" @(#)lynx 1.09 94/10/10 UPMC/MASI/CAO-VLSI " Ludovic Jacomme, Frederic Petrot
-.TH LYNX 1 "October, 1st 1994" "Release 1.9" "ALLIANCE USER COMMANDS"
+.\"   $Id: lynx.1,v 1.3 1999/07/22 15:05:35 outil Exp $
+.\" @(#)lynx 1.09 94/10/10 UPMC/ASIM/LIP6/CAO-VLSI " Ludovic Jacomme, Frederic Petrot
+.TH LYNX 1 "October 1, 1997" "ASIM/LIP6" "ALLIANCE USER COMMANDS"
 .SH NAME
 lynx \- Hierarchical netlist extractor
 .SH SYNOPSIS
@@ -27,16 +28,7 @@ lynx \- Hierarchical netlist extractor
 .I output_name
 ]
 .br
-.SH ORIGIN
-This software belongs to the
-.B ALLIANCE
-CAD system from the
-.br
-CAO-VLSI team at MASI laboratory, University P. et M. Curie
-.br
-4, place Jussieu ; 75252 PARIS Cedex 05 ; FRANCE
-.br
-Fax: (33-1) 44.27.62.86 ; E-mail: cao-vlsi@masi.ibp.fr
+.so man1/alc_origin.1
 .SH DESCRIPTION
 \fBLynx\fP is a hierarchical layout extractor.
 It builds a netlist of interconnections from a symbolic layout view.
@@ -56,8 +48,8 @@ variables.
 .BR MBK_OUT_LO (1),
 .BR RDS_TECHNO_NAME (1).
 .PP
-\fBLynx\fP computes capacitances attached to the signals if the -ac option is
-set. At the moment,
+\fBLynx\fP computes capacitances attached to the signals if 
+the -ac option is set. At the moment,
 the value of these capacitances is computed for a typical one micron
 technology, and cannot be changed by the user through a technology file.
 The extracted netlist can be simulated for performance evaluation.
@@ -159,7 +151,7 @@ prompt> lynx -t amd2901
 .ft R
 .RS
 Gives a logical netlist of the amd2901 chip at the transistor level.
-This is useful with \fBdesb\fP(1), to retrieve logical equations from
+This is useful with \fByagle\fP(1), to retrieve logical equations from
 a layout.
 .RE
 .SH SEE ALSO
@@ -170,6 +162,6 @@ a layout.
 .BR MBK_IN_PH (1),
 .BR catal (5),
 .BR RDS_TECHNO_NAME (1).
-.SH DIAGNOSTICS
-Please report bugs, problems and suggestions to
-.B cao-vlsi@masi.ibp.fr
+
+.so man1/alc_bug_report.1
+
