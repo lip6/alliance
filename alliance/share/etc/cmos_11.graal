@@ -177,12 +177,12 @@ TABLE GRAAL_SEGMENT_VALUE
   TALU4    2   2
   TALU5    2   2
   TALU6    2   2
-  CALU1    1   1
-  CALU2    2   2
-  CALU3    2   2
-  CALU4    2   2
-  CALU5    4   4
-  CALU6    4   4
+  CALU1    1   0
+  CALU2    2   0
+  CALU3    2   0
+  CALU4    2   0
+  CALU5    4   0
+  CALU6    4   0
 
 END
 
