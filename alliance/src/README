@@ -8,7 +8,7 @@
 # NOTE: You can find the latest revision of this document at:
 # http://asim.lip6.fr/pub/alliance/latest-checkout/alliance/src
 #
-# $Id: README,v 1.9 2004/07/26 14:50:22 fred Exp $
+# $Id: README,v 1.10 2004/09/13 18:14:52 ludo Exp $
 
 This file discuss about installation of Alliance on UNIX machines.
 
@@ -52,10 +52,10 @@ To install a tar.gz package (*nix)
 Get the latest binary package for your platform, 
 log as root then type :
 
-> cd /usr/local
+> cd /
 > tar -xzf /mnt/cdrom/alliance-5.0-XXX-YYY.tar.gz
-> ln -s /usr/local/alliance/etc/alc_env.csh /etc/profile.d/
-> ln -s /usr/local/alliance/etc/alc_env.sh /etc/profile.d/
+> ln -s /opt/alliance-5.0/etc/alc_env.csh /etc/profile.d/
+> ln -s /opt/alliance-5.0/etc/alc_env.sh /etc/profile.d/
 
 
 To install a .rpm package (Linux redHat 7+)
@@ -116,7 +116,7 @@ Alliance's sources are now conforming to GNU's automake/autoconf.
    To avoid make problems, please use gnu make (gmake)
    The following commands builds the full package from scratch.
 
-> export ALLIANCE_TOP=/usr/local/alliance
+> export ALLIANCE_TOP=/opt/alliance
 > ./configure --prefix=$ALLIANCE_TOP
 > gmake install
 
