@@ -1,7 +1,7 @@
 
 // -*- C++ -*-
 //
-// $Id: RMBK.cpp,v 1.3 2002/10/15 14:35:37 jpc Exp $
+// $Id: RMBK.cpp,v 1.4 2002/10/17 21:57:27 jpc Exp $
 //
 //  /----------------------------------------------------------------\ 
 //  |                                                                |
@@ -44,6 +44,7 @@ void  CRBox::mbkload (MBK::CFig *mbkfig, int z, int rtype)
         MBK::phcon_list  *pPhcon;
         MBK::losig_list  *pSig;
         MBK::phseg_list  *pSeg, flatSeg;
+        MBK::phvia_list  *pVIA;
         MBK::phfig_list  *pModel;
             MBK::CXRect  *rect;
               MBK::CIns  *pIns;
@@ -170,6 +171,33 @@ void  CRBox::mbkload (MBK::CFig *mbkfig, int z, int rtype)
                     , rect->grid
                     , MBK::env.layer2z (pSeg->LAYER)
                     );
+  }
+
+
+  // Browse for obstacle VIAs.
+  for (pVIA = fig->phfig.fig->PHVIA; pVIA != NULL; pVIA = pVIA->NEXT) {
+    // Only power VIAs must be obstacles.
+    if ( (! MBK::ISVDD (pVIA->NAME)) && (! MBK::ISVSS (pVIA->NAME)))
+      continue;
+
+    for (x = 0; x < 2; x++) {
+      switch (x) {
+        case 0: flatSeg.LAYER = MBK::topVIALayer    (pVIA->TYPE); break;
+        case 1: flatSeg.LAYER = MBK::bottomVIALayer (pVIA->TYPE); break;
+      }
+    }
+
+    if (flatSeg.LAYER == MBK::CALU1) continue;
+
+    flatSeg.X1    = pVIA->XVIA - pVIA->DX / 2;
+    flatSeg.X2    = pVIA->XVIA - pVIA->DX / 2;
+    flatSeg.Y1    = pVIA->YVIA;
+    flatSeg.Y2    = pVIA->YVIA;
+    flatSeg.WIDTH = pVIA->DY;
+
+    rect->setSeg (flatSeg);
+
+    drgrid->nodes->obstacle (rect->grid, MBK::env.layer2z (flatSeg.LAYER));
   }
 
 
@@ -343,6 +371,30 @@ void  CRBox::mbkload (MBK::CFig *mbkfig, int z, int rtype)
     }
   }
 
+  // On routing level above ALU4, use only half of the tracks.
+
+  // Vertical tracks.
+  for (zz = 4; zz < mZ; zz += 2) {
+    for (x = 2; x < mX; x += 2) {
+      for (y = 1; y < mY - 1; y++) {
+        node = &( coord.set(x,y,zz).node() );
+
+        if ( !node->terminal() ) node->data.obstacle = true;
+      }
+    }
+  }
+
+  // Horizontal tracks.
+  for (zz = 5; zz < mZ; zz += 2) {
+    for (y = 2; y < mY; y += 2) {
+      for (x = 1; x < mX; x++) {
+        node = &( coord.set(x,y,zz).node() );
+
+        if ( !node->terminal() ) node->data.obstacle = true;
+      }
+    }
+  }
+
 
 
   // This flag ensure that a figure has been successfully loaded.
@@ -402,7 +454,7 @@ void  CRBox::mbksave (string &name)
         if (inseg && (pNextNet != pNet)) {
           // We are changing of segment owner.
           // Dump the current one.
-          if (seg.X1 <= seg.X2) {
+          if (seg.X1 < seg.X2) {
             // This is not a "dot" segment (i.e a VIA).
             fig->addphseg (seg);
           }
@@ -433,7 +485,7 @@ void  CRBox::mbksave (string &name)
         } else {
           if (inseg) {
             // Dump the current one.
-            if (seg.X1 <= seg.X2) {
+            if (seg.X1 < seg.X2) {
               // This is not a "dot" segment (i.e a VIA).
               fig->addphseg (seg);
             }
@@ -467,7 +519,7 @@ void  CRBox::mbksave (string &name)
         if (inseg && (pNextNet != pNet)) {
           // We are changing of segment owner.
           // Dump the current one.
-          if (seg.Y1 <= seg.Y2) {
+          if (seg.Y1 < seg.Y2) {
             // This is not a "dot" segment (i.e a VIA).
             fig->addphseg (seg);
           }
@@ -512,7 +564,7 @@ void  CRBox::mbksave (string &name)
 
       if (inseg) {
         // This segment touch the AB.
-        if (seg.Y1 <= seg.Y2) {
+        if (seg.Y1 < seg.Y2) {
           // This is not a "dot" segment (i.e a VIA).
           fig->addphseg (seg);
         }

@@ -1,7 +1,7 @@
 
 // -*- C++ -*-
 //
-// $Id: USys.cpp,v 1.1 2002/10/02 21:23:49 jpc Exp $
+// $Id: USys.cpp,v 1.2 2002/10/17 21:57:27 jpc Exp $
 //
 //  /----------------------------------------------------------------\ 
 //  |                                                                |
@@ -77,6 +77,7 @@ static void  trap_sig(int aSig)
     case SIGFPE:
     case SIGBUS:
     case SIGSEGV:
+    case SIGABRT:
       emergency ();
 
       // Ouch !! This may result from a program bug.
@@ -98,6 +99,7 @@ static void  trap_sig(int aSig)
         cerr << "(core will be dumped).\n";
         if (   (signal(SIGFPE , SIG_DFL) == SIG_ERR)
             || (signal(SIGBUS , SIG_DFL) == SIG_ERR)
+            || (signal(SIGABRT, SIG_DFL) == SIG_ERR)
             || (signal(SIGSEGV, SIG_DFL) == SIG_ERR))
           exit (1);
         else {
@@ -201,6 +203,7 @@ CInterrupt::CInterrupt (void)
   // Set the trap function for SIGFPE, SIGBUS and SIGSEGV signals.
   if (   (signal(SIGFPE , trap_sig) == SIG_ERR)
       || (signal(SIGBUS , trap_sig) == SIG_ERR)
+      || (signal(SIGABRT, trap_sig) == SIG_ERR)
       || (signal(SIGSEGV, trap_sig) == SIG_ERR)) trap_sig (SIGTFLT);
 
 }

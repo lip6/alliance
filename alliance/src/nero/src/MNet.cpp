@@ -1,7 +1,7 @@
 
 // -*- C++ -*-
 //
-// $Id: MNet.cpp,v 1.2 2002/10/13 14:22:47 jpc Exp $
+// $Id: MNet.cpp,v 1.3 2002/10/17 21:57:27 jpc Exp $
 //
 //  /----------------------------------------------------------------\ 
 //  |                                                                |
@@ -138,7 +138,8 @@ CDRGrid::iterator &CTerm::lowest (void)
 // -------------------------------------------------------------------
 // Method  :  "CTerm::newaccess()".
 
-CNode *CTerm::newaccess (int x, int y, int z, int ident, CNet *net) throw (dup_term)
+CNode *CTerm::newaccess (int x, int y, int z, int ident, CNet *net)
+  throw (dup_term, bad_grab)
 {
   list<CDRGrid::iterator>::iterator  itNode;
        CDRGrid::iterator             coord;
@@ -160,6 +161,19 @@ CNode *CTerm::newaccess (int x, int y, int z, int ident, CNet *net) throw (dup_t
   if ((z == 0) && coord.isnodehole()) {
     pNode = &coord.addnode ();
   }
+
+  // Check if the node has already been took by another terminal.
+  if (pNode->data.owner && (pNode->data.owner != net))
+    throw bad_grab ( pNode->data.owner->terms[pNode->getid()]->name
+                   , net->name
+                   , coord.x()
+                   , coord.y()
+                   , coord.z()
+                   , 0
+                   , pNode->data.pri
+                   , pNode->terminal()
+                   , pNode->data.ident
+                   );
 
   pNode->data.owner    = net;
   pNode->data.obstacle = false;
@@ -189,7 +203,7 @@ void  CTerm::newaccess (CRect &rect, int z, int ident, CNet *net)
   if (z > 0) return;
 
   // Only z=0 rectangles are stored (ALU1 is not in the grid).
-  //if ((rect.x1 != rect.x2) || (rect.y1 != rect.y2))
+  // if ((rect.x1 != rect.x2) || (rect.y1 != rect.y2))
   // No! Store all ALU1 rectangles.
   rects.push_back (rect);
 }

@@ -1,7 +1,7 @@
 
 // -*- C++ -*-
 //
-// $Id: MDRGrid.cpp,v 1.1 2002/10/02 21:23:47 jpc Exp $
+// $Id: MDRGrid.cpp,v 1.2 2002/10/17 21:57:27 jpc Exp $
 //
 //  /----------------------------------------------------------------\ 
 //  |                                                                |
@@ -335,6 +335,7 @@ CDRGrid::CDRGrid (int x, int y, int z)
   XY   = X  * Y;
   XYZ  = XY * Z;
   size = XY * (Z - 1);
+
 
   nodes = new CMatrixNodes (this);
   pri   = new CMatrixPri   (this);

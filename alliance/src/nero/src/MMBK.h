@@ -1,7 +1,7 @@
 
 // -*- C++ -*-
 //
-// $Id: MMBK.h,v 1.1 2002/10/02 21:23:47 jpc Exp $
+// $Id: MMBK.h,v 1.2 2002/10/17 21:57:27 jpc Exp $
 //
 // /-----------------------------------------------------------------\ 
 // |                                                                 |
@@ -89,11 +89,13 @@ namespace MBK {
 
   extern char *layer2a (char layer);
   extern bool  isobs (char layer);
-  extern bool  isALU(char layer);
-  extern bool  isCALU(char layer);
-  extern char  layer2ALU(char layer);
-  extern char  layer2CALU(char layer);
-  extern long  cmpALU(char layer1, char layer2);
+  extern bool  isALU (char layer);
+  extern bool  isCALU (char layer);
+  extern char  layer2ALU (char layer);
+  extern char  layer2CALU (char layer);
+  extern long  cmpALU (char layer1, char layer2);
+  extern char  topVIALayer (char type);
+  extern char  bottomVIALayer (char type);
 
 
 

@@ -1,7 +1,7 @@
 
 // -*- C++ -*-
 //
-// $Id: MPri.cpp,v 1.2 2002/10/15 14:35:37 jpc Exp $
+// $Id: MPri.cpp,v 1.3 2002/10/17 21:57:27 jpc Exp $
 //
 //  /----------------------------------------------------------------\ 
 //  |                                                                |
@@ -87,7 +87,7 @@ void  CMatrixPri::findfree (int index, CNet &net)
 
 void CMatrixPri::clear (void)
 {
-  memset (_grid, (char)0, _drgrid->size);
+  memset (_grid, (char)0, (size_t)(_drgrid->size));
 
   cleared = true;
   offset  = 0;
@@ -174,12 +174,14 @@ void CMatrixPri::load (CNet &net, bool global, int expand=0)
         // Enable z=1 (in case of global signal, no effet otherwise).
         if (coord.z() < _drgrid->Z - 1) (*this)[ coord.dz(1) ] = (char)1; 
 
-        // Check for blocked upper nodes.
-        other = (*_drgrid->nodes)[coord].data.owner;
-        if (    (*_drgrid->nodes)[coord].data.obstacle
-            || ((other != NULL) && (other != &net)) ) {
-          cdebug << "Looking for an escape!\n" << "\n";
-          findfree (coord, net);
+        if (global) {
+          // Check for blocked upper nodes.
+          other = (*_drgrid->nodes)[coord].data.owner;
+          if (    (*_drgrid->nodes)[coord].data.obstacle
+              || ((other != NULL) && (other != &net)) ) {
+            cdebug << "Looking for an escape!\n" << "\n";
+            findfree (coord, net);
+          }
         }
 
         continue;
@@ -188,12 +190,14 @@ void CMatrixPri::load (CNet &net, bool global, int expand=0)
       (*this)[ coord.dz(1) ] = nextPri (currentPri); 
       nextBorder->push (new CDRGrid::iterator (coord));
 
-      // Check for blocked upper nodes.
-      other = (*_drgrid->nodes)[coord].data.owner;
-      if (    (*_drgrid->nodes)[coord].data.obstacle
-          || ((other != NULL) && (other != &net)) ) {
-        cdebug << "Looking for an escape!\n" << "\n";
-        findfree (coord, net);
+      if (global) {
+        // Check for blocked upper nodes.
+        other = (*_drgrid->nodes)[coord].data.owner;
+        if (    (*_drgrid->nodes)[coord].data.obstacle
+            || ((other != NULL) && (other != &net)) ) {
+          cdebug << "Looking for an escape!\n" << "\n";
+          findfree (coord, net);
+        }
       }
         
       // Enable z=2 (in case of global signal, no effet otherwise).
@@ -201,11 +205,13 @@ void CMatrixPri::load (CNet &net, bool global, int expand=0)
 
       // Look if the upper node is blocked, in that case expand the
       // allowed zone till a non-blocked node is found.
-      other = (*_drgrid->nodes)[coord].data.owner;
-      if (    (*_drgrid->nodes)[coord].data.obstacle
-          || ((other != NULL) && (other != &net)) ) {
-        cdebug << "Looking for an escape!\n" << "\n";
-        findfree (coord, net);
+      if (global) {
+        other = (*_drgrid->nodes)[coord].data.owner;
+        if (    (*_drgrid->nodes)[coord].data.obstacle
+            || ((other != NULL) && (other != &net)) ) {
+          cdebug << "Looking for an escape!\n" << "\n";
+          findfree (coord, net);
+        }
       }
     }
   }
@@ -213,6 +219,7 @@ void CMatrixPri::load (CNet &net, bool global, int expand=0)
 
   // Set to one all the points inside the enclosing box.
   // (except those in the initial queues)
+  cdebug << _bb << "\n";
   for (x = _bb.x1; x <= _bb.x2; x++) {
     for (y = _bb.y1; y <= _bb.y2; y++) {
       for (z = (global) ? 3 : 1; z < _drgrid->Z; z++) {

@@ -1,7 +1,7 @@
 
 // -*- C++ -*-
 //
-// $Id: AAstar.cpp,v 1.3 2002/10/15 14:35:36 jpc Exp $
+// $Id: AAstar.cpp,v 1.4 2002/10/17 21:57:27 jpc Exp $
 //
 //  /----------------------------------------------------------------\ 
 //  |                                                                |
@@ -768,11 +768,13 @@ void CAStar::dump (void)
   iterations_reroute = 0;
   iterations_kind    = &iterations_route;
 
-  //if (pNet->name == "c2 0") cdebug.on ();
+  //if (pNet->name == "acc_i_down") cdebug.on ();
 
   do {
     if (hysteresis) {
+      cdebug << "About to clear." << "\n";
       clear ();
+      cdebug << "cleared." << "\n";
 
       pri = 255 + (1 << increase++);
 
@@ -783,12 +785,18 @@ void CAStar::dump (void)
     else
       pri = 0;
 
+    cdebug << "About to load net " << iterations_kind << "\n";
     load  (pNet, pri, expand);
+    cdebug << "loading done " << iterations_kind << "\n";
 
+    cdebug << "About to route net " << iterations_kind << "\n";
     routed = !search ();
+    cdebug << "routing done " << iterations_kind << "\n";
     *iterations_kind += iterations;
+    cdebug << "mark 1.\n";
 
     hysteresis = true;
+    cdebug << "mark 2.\n";
   } while ((increase < 15) && !routed);
 
   if (increase >= 15) throw reach_max_pri (pNet);

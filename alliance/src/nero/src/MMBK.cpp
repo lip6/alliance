@@ -1,7 +1,7 @@
 
 // -*- C++ -*-
 //
-// $Id: MMBK.cpp,v 1.2 2002/10/13 14:22:47 jpc Exp $
+// $Id: MMBK.cpp,v 1.3 2002/10/17 21:57:27 jpc Exp $
 //
 // /-----------------------------------------------------------------\ 
 // |                                                                 |
@@ -1100,6 +1100,50 @@ long  cmpALU (char layer1, char layer2)
   }
 
   return(0);
+}
+
+
+
+
+
+// -------------------------------------------------------------------
+// Function  :  "topVIALayer()".
+
+char  topVIALayer (char type)
+{
+  switch (type) {
+    case CONT_VIA:  return (ALU1); break;
+    case CONT_VIA2: return (ALU2); break;
+    case CONT_VIA3: return (ALU3); break;
+    case CONT_VIA4: return (ALU4); break;
+    case CONT_VIA5: return (ALU5); break;
+    case CONT_VIA6: return (ALU6); break;
+    case CONT_VIA7: return (ALU7); break;
+  }
+
+  return (ALU8);
+}
+
+
+
+
+
+// -------------------------------------------------------------------
+// Function  :  "bottomVIALayer()".
+
+char  bottomVIALayer (char type)
+{
+  switch (type) {
+    case CONT_VIA:  return (ALU2); break;
+    case CONT_VIA2: return (ALU3); break;
+    case CONT_VIA3: return (ALU4); break;
+    case CONT_VIA4: return (ALU5); break;
+    case CONT_VIA5: return (ALU6); break;
+    case CONT_VIA6: return (ALU7); break;
+    case CONT_VIA7: return (ALU8); break;
+  }
+
+  return (ALU9);
 }
 
 

@@ -1,7 +1,7 @@
 
 // -*- C++ -*-
 //
-// $Id: MDefs.h,v 1.2 2002/10/15 14:35:37 jpc Exp $
+// $Id: MDefs.h,v 1.3 2002/10/17 21:57:27 jpc Exp $
 //
 // /-----------------------------------------------------------------\ 
 // |                                                                 |
@@ -518,7 +518,8 @@
     public: CDRGrid::iterator &lowest   (void);
 
     // Modifiers.
-    public: CNode *newaccess (int x, int y, int z, int ident, CNet *net) throw (dup_term);
+    public: CNode *newaccess (int x, int y, int z, int ident, CNet *net)
+                     throw (dup_term, bad_grab);
     public: void   newaccess (CRect &rect, int z, int ident, CNet *net);
     public: void   lockalone (bool global=false);
     public: void   setid     (int ident);
