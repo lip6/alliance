@@ -1,2 +1,0 @@
-cell : grmobh_c
-This is the three-state output buffer for the 512 words rom.
