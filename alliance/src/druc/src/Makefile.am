@@ -3,7 +3,7 @@ include_HEADERS     = vrd.h
 libVrd_a_SOURCES    = drucompi_l.l drucompi_y.y \
 defdefin.c defdefin.h defexclu.c defexclu.h definclu.c definclu.h definter.c \
 definter.h defresiz.c defresiz.h deftools.c deftools.h defunion.c defunion.h \
-drucgral.c drucgral.h druchier.c druchier.h drucmin.c drucmin.h drucompi.c \
+drucgral.c druchier.c druchier.h drucmin.c drucmin.h drucompi.c \
 drucompi.h drucring.c drucring.h drucutil.c drucutil.h vmcaract.c vmcaract.h \
 vmcasmld.c vmcasmld.h vmcerror.c vmcerror.h vmcmesur.c vmcmesur.h vmcrelat.c \
 vmcrelat.h vmctools.c vmctools.h vmcunify.c vmcunify.h
