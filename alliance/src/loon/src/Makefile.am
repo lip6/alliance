@@ -5,7 +5,7 @@ bin_PROGRAMS = loon
 AM_CFLAGS = @ALLIANCE_CFLAGS@
 
 loon_LDADD = @ALLIANCE_LIBS@ \
-          -lAbv -lAbe -lAbt -lMlu -lMcl -lMal -lMsl -lMhl -lMel -lMvl -lMgl -lRcn -lMlo -lBdd -lAbl -lAut -lMut
+          -lAbv -lAbe -lAbt -lMlu -lMcl -lMal -lMsl -lMhl -lMel -lMvg -lMgl -lRcn -lMlo -lBdd -lAbl -lAut -lMut
 	   
 loon_SOURCES = \
 lon_lax_param.c           lon_lib_utils.c           lon_optim_capa.h \
