@@ -19,8 +19,8 @@
 #DEFAULT		(echo ""; who am i; echo %s; date; cat) >> $CVSROOT/CVSROOT/commitlog
 #ALL	(echo ""; who am i; echo %s; date; cat) >> $CVSROOT/CVSROOT/log-commit
 #^CVSROOT	(echo ""; who am i; echo %s; date; cat) >> $CVSROOT/CVSROOT/log-cvsroot
-#ALL	(date ; cat ; (sleep 2 ; cd /users/outil1/alliance/latest ; cvs -q update -d ) &) >> $CVSROOT/CVSROOT/log-latest 2>&1
+#ALL	(date ; cat ; (sleep 2 ; cd /users/outil/alliance/latest ; cvs -q update -d ) &) >> $CVSROOT/CVSROOT/log-latest 2>&1
 
 ALL	(cat > /dev/null 2>&1 ; echo "Taper Ctrl-C peut avoir des consequences facheuses :-)")
-ALL	(/users/outil1/alliance/cvsroot/CVSROOT/postconfig) >> $CVSROOT/CVSROOT/log-postconfig
+ALL	(/users/outil/alliance/cvsroot/CVSROOT/postconfig) >> $CVSROOT/CVSROOT/log-postconfig
 

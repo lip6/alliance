@@ -1,0 +1,73 @@
+# Ignoring files via cvsignore
+# 
+# There are certain file names that frequently occur inside your working copy, but that you don't want to put under CVS control.
+# Examples are all the object files that you get while you compile your sources. Normally, when you run `cvs update', it prints a
+# line for each file it encounters that it doesn't know about (see section update output). 
+# 
+# CVS has a list of files (or sh(1) file name patterns) that it should ignore while running update, import and release. This list is
+# constructed in the following way. 
+# 
+#       The list is initialized to include certain file name patterns: names associated with CVS administration, or with other common
+#       source control systems; common names for patch files, object files, archive files, and editor backup files; and other names
+#       that are usually artifacts of assorted utilities. Currently, the default list of ignored file name patterns is:   
+# 
+#           RCS     SCCS    CVS     CVS.adm
+#           RCSLOG  cvslog.*
+#           tags    TAGS
+#           .make.state     .nse_depinfo
+#           *~      #*      .#*     ,*      _$*     *$
+#           *.old   *.bak   *.BAK   *.orig  *.rej   .del-*
+#           *.a     *.olb   *.o     *.obj   *.so    *.exe
+#           *.Z     *.elc   *.ln  
+#           core
+# 
+# Pas chez moi :
+#
+# #*
+# *$
+# *.Z
+# *.elc
+# *.exe
+# *.ln
+# *.obj
+# *.olb
+# *.old
+# *.orig
+# *.rej
+# ,*
+# .#*
+# _$*
+# 
+#       The per-repository list in `$CVSROOT/CVSROOT/cvsignore' is appended to the list, if that file exists. 
+#       The per-user list in `.cvsignore' in your home directory is appended to the list, if it exists. 
+#       Any entries in the environment variable $CVSIGNORE is appended to the list. 
+#       Any `-I' options given to CVS is appended. 
+#       As CVS traverses through your directories, the contents of any `.cvsignore' will be appended to the list. The patterns
+#       found in `.cvsignore' are only valid for the directory that contains them, not for any sub-directories. 
+# 
+# In any of the 5 places listed above, a single exclamation mark (`!') clears the ignore list. This can be used if you want to store
+# any file which normally is ignored by CVS. 
+# 
+
+!
+CVS
+CVS.adm
+RCS
+RCSLOG
+SCCS
+TAGS
+tags
+*.bak
+*.BAK
+*.o
+*.a
+*.so
+*~
+cvslog.*
+core
+.del-*
+.make.state
+.nse_depinfo
+.*.swp
+
+# --- EOF ---

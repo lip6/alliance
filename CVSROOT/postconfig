@@ -7,7 +7,7 @@
 # (C) Czo 1998,99
 # This code is released under GPL
 #
-# $Id: postconfig,v 1.17 1999/11/22 14:57:40 czo Exp $
+# $Id: postconfig,v 1.18 2000/06/15 10:17:22 czo Exp $
 #
 
 
@@ -31,8 +31,8 @@ echo "http://www-asim.lip6.fr/alliance/mailing-lists/"
 ) > "$TMPFILE"  
 
 MAIL_SUBJECT=`cat "$TMPFILE" | gawk '
-/Update of \/users\/outil1\/alliance\/cvsroot\// {
-gsub(/Update of \/users\/outil1\/alliance\/cvsroot\//, "");
+/Update of \/users\/outil\/alliance\/cvsroot\// {
+gsub(/Update of \/users\/outil\/alliance\/cvsroot\//, "");
 gsub(/alliance\//, "");
 gsub(/share\//, "");
 gsub(/sources\//, "");
@@ -48,7 +48,7 @@ cat "$TMPFILE"  | mail -s "ALC : $MAIL_SUBJECT" alliance-programmers@asim.lip6.f
 
 # find cvsroot -type d | xargs chmod g+s
 # devrait marcher...
-# chgrp -R alliance /users/outil1/alliance/cvsroot
+# chgrp -R alliance /users/outil/alliance/cvsroot
 # cvs -q update -d -P & en crontab ....
 
 rm -f "$TMPFILE" dummy
