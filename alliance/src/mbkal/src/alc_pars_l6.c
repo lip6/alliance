@@ -30,6 +30,9 @@
 *                                 is provided.                                 *
 *  Updates     : AUGUST, 12th 2002, Pierre Nguyen Tuong                        *
 *  $Log: alc_pars_l6.c,v $
+*  Revision 1.7  2003/03/22 16:35:04  ludo
+*  Bug fixing: core dump under Solaris 8 64 bits
+*
 *  Revision 1.6  2003/01/14 12:02:23  fred
 *  Corrected a bug in electrical dimensions of the transistors when
 *  parsing al file: eg a 0.35 in al became a 0.34 in spice! Argh!
@@ -1384,12 +1387,12 @@ int		 mal_line;
   htcon = addht( nb/10+1 );
 
   for( scan = newins->interface; scan ; scan = scan->NEXT )
-    addhtitem( htcon, ((data_locon*)scan->DATA)->name, (int)(scan) );
+    addhtitem( htcon, ((data_locon*)scan->DATA)->name, (long)(scan) );
 
   for( scancon = ptmodele->LOCON ; scancon ; scancon = scancon->NEXT )
   {
     scan = (chain_list*)gethtitem( htcon, scancon->NAME );
-    if( ((int)(scan)) != EMPTYHT )
+    if( ((long)(scan)) != EMPTYHT )
       headsig = al_addchain( headsig, ((data_locon*)scan->DATA)->ptsig );
     else
     {
