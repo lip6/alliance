@@ -1,0 +1,263 @@
+#!/bin/sh
+#
+# Copyright (C) 2004 Jean-Paul Chaput <Jean-Paul.Chaput@lip6.fr>
+# License: GPL (http://www.gnu.org/copyleft/gpl.html)
+#
+# $Id: mkasim,v 1.1 2004/07/23 22:57:55 alliance Exp $
+#
+# /------------------------------------------------------------------\
+# |                                                                  |
+# |        A l l i a n c e   C A D   S y s t e m                     |
+# |      A S I M   G l o b a l   I n s t a l l e r                   |
+# |                                                                  |
+# |  Author    :                      Jean-Paul Chaput               |
+# |  E-mail    :           alliance-users@asim.lip6.fr               |
+# | ================================================================ |
+# |  sh script :         "./mkasim"                                  |
+# | **************************************************************** |
+# |  U p d a t e s                                                   |
+# |                                                                  |
+# |  16 Jun 2004 :                                                   |
+# |    Major update by Jean-Paul Chaput.                             |
+# |                                                                  |
+# \------------------------------------------------------------------/
+#
+
+
+#set -x
+#set -v
+
+
+
+
+# --------------------------------------------------------------------
+# Internal variables.
+
+
+ LINUX_RH71_TARGET="fa"
+     LINUX_RH71_CC="gcc3"
+    LINUX_RH71_CXX="g++3"
+
+  LINUX_FC2_TARGET="purcell"
+      LINUX_FC2_CC="gcc"
+     LINUX_FC2_CXX="g++"
+
+     SOLARIS_TARGET="funk"
+        SOLARIS_CC="/usr/local/bin/gcc"
+       SOLARIS_CXX="/usr/local/bin/g++"
+
+        DISTRIBDIR=/users/outil/alliance/distrib
+     ALLIANCE_ROOT=/users/outil/alliance
+           CVSROOT=/users/outil/alliance/cvsroot
+
+
+        MKASIM_PID="$$"
+#       MKASIM_PID="26882"
+
+#            ARCHS="Linux.FC2 Linux.RH71 Solaris"
+             ARCHS="Linux.RH71 Solaris"
+     TARGETLOGFILE=/tmp/alliance-asim-build.$MKASIM_PID
+           LOGFILE="$DISTRIBDIR/mkasim-run.log"
+
+            TMPDIR=tmp-asim-$MKASIM_PID
+       TMPBUILDDIR=build-asim-$MKASIM_PID
+
+             ARCH="unset"
+           TARGET="unset"
+     ALLIANCE_TOP="unset"
+              CXX="unset"
+               CC="unset"
+
+ export CVSROOT
+
+
+
+
+# /------------------------------------------------------------------\
+# |                      Functions Definitions                       |
+# \------------------------------------------------------------------/
+
+
+# --------------------------------------------------------------------
+# Function  :  "fail()".
+
+ fail ()
+ {
+   echo -e "\
+                                                             \n\
+                                                             \n\
+                   @@@@@@@@@        @      @@@@@@ @@@@@@     \n\
+                     @@    @        @        @@     @@       \n\
+                     @@     @      @@@       @@     @@       \n\
+                     @@            @@@       @@     @@       \n\
+                     @@   @       @  @@      @@     @@       \n\
+                     @@@@@@       @  @@      @@     @@       \n\
+                     @@   @      @    @@     @@     @@       \n\
+                     @@          @@@@@@@     @@     @@       \n\
+                     @@         @      @@    @@     @@      @\n\
+                     @@         @      @@    @@     @@     @ \n\
+                   @@@@@@     @@@@    @@@@ @@@@@@ @@@@@@@@@@ "
+   echo ""
+ }
+
+
+
+
+# --------------------------------------------------------------------
+# Function  :  "pass()".
+
+ pass ()
+ {
+   echo -e "\
+                                                              \n\
+                                                              \n\
+                   @@@@@@@          @        @@@@ @    @@@@ @ \n\
+                     @@   @@        @       @    @@   @    @@ \n\
+                     @@    @@      @@@     @@     @  @@     @ \n\
+                     @@    @@      @@@     @@@       @@@      \n\
+                     @@   @@      @  @@     @@@@      @@@@    \n\
+                     @@@@@        @  @@       @@@@      @@@@  \n\
+                     @@          @    @@        @@@       @@@ \n\
+                     @@          @@@@@@@   @      @@ @      @@\n\
+                     @@         @      @@  @@     @@ @@     @@\n\
+                     @@         @      @@  @@@    @  @@@    @ \n\
+                   @@@@@@     @@@@    @@@@ @  @@@@   @  @@@@  "
+   echo ""
+ }
+
+
+
+
+# --------------------------------------------------------------------
+# Function  :  "part()".
+
+ part ()
+ {
+   echo ""
+   echo "----------------------------------------------------------------------"
+   echo "$*"
+   echo ""
+ }
+
+
+
+
+# --------------------------------------------------------------------
+# Function  :  "try()".
+
+ try ()
+ {
+   echo "Running Command :"
+   echo "  $*"
+
+   $* 
+   EXITCODE=$?
+   if [ $EXITCODE != 0 ]; then 
+     echo "[ERROR] Command failed :"
+     echo "  $*"
+     fail
+     exit $EXITCODE
+   fi
+ }
+
+
+
+
+# --------------------------------------------------------------------
+# Function  :  `guessArch()'.
+
+ guessArch ()
+ {
+   case $1 in
+     "Linux.RH71")  if which gcc > /dev/null 2>&1; then
+                       TARGET=$LINUX_RH71_TARGET
+                          CXX=$LINUX_RH71_CXX
+                           CC=$LINUX_RH71_CC
+                    fi
+                    ;;
+     "Linux.FC2")   if which gcc > /dev/null 2>&1; then
+                      TARGET=$LINUX_FC2_TARGET
+                         CXX=$LINUX_FC2_CXX
+                          CC=$LINUX_FC2_CC
+                    fi
+                    ;;
+     "Solaris")     if [ -x "$SOLARIS_CC" ]; then
+                      TARGET=$SOLARIS_TARGET
+                         CXX=$SOLARIS_CXX
+                          CC=$SOLARIS_CC
+                    fi
+                    ;;
+     *)             echo "[ERROR] Command failed :"
+                    echo "  Unsupported architecture := \"`uname -sr`\""
+                    fail
+                    exit 1
+                    ;;
+   esac
+
+   ALLIANCE_TOP="$ALLIANCE_ROOT/$ARCH"
+ }
+
+
+
+
+# /------------------------------------------------------------------\
+# |                  Main Part of the Shell Script                   |
+# \------------------------------------------------------------------/
+
+
+(((
+
+ part "mkasim Started."
+ try cd $DISTRIBDIR
+
+#part "Removing Any Previous Run."
+#mkdir $TMPDIR
+#mv alliance $TMPBUILDDIR $TMPDIR
+#rm -rf $TMPDIR &
+
+
+#part "Checkout Sources From CVS."
+#try cvs co -P alliance/src
+
+# Remove undistributed tools.
+#try ./alliance/src/.asim
+
+#perl -pi -e "s§AC_DEFINE_UNQUOTED.*ALLIANCE_VERSION.*§AC_DEFINE_UNQUOTED(ALLIANCE_VERSION, \"$VERSION \[$RELEASE\]\")§" alliance/src/alliance.m4
+
+
+#part "Making shared autostuff."
+#try cd alliance/src
+#try ./autostuff
+#cd ../..
+
+
+ for ARCH in $ARCHS
+ do
+   part "Full ASIM reinstall on Target $TARGET."
+
+   guessArch $ARCH
+   echo "    ALLIANCE_TOP=$ALLIANCE_TOP"
+   echo "          TARGET=$TARGET"
+   echo "            ARCH=$ARCH"
+   echo "             CXX=$CXX"
+   echo "              CC=$CC"
+
+   try mkdir -p $TMPBUILDDIR/$TARGET
+   ssh -n $TARGET \
+     "cd $DISTRIBDIR/$TMPBUILDDIR/$TARGET; \
+      ALLIANCE_TOP=$ALLIANCE_TOP; export ALLIANCE_TOP; \
+      CXX=$CXX; export CXX; \
+      CC=$CC; export CC; \
+      MAKE=gmake; export MAKE; \
+      PATH=${PATH}:/usr/ccs/bin; export PATH; \
+      ../../alliance/src/configure --prefix=$ALLIANCE_TOP --enable-alc-shared; \
+      gmake install && echo Alliance_compilation_OK"  2>&1 | tee $TARGETLOGFILE
+   try grep Alliance_compilation_OK $TARGETLOGFILE
+   try rm -rf $DISTRIBDIR/$TMPBUILDDIR/$TARGET
+ done
+
+
+)      | perl -ne  '$|=1; printf("%s%s",   "[m", $_)' \
+) 2>&1 | perl -ne  '$|=1; printf("%s%s%s", "[1;31;40m", $_, "[m")'
+) 2>&1 > $LOGFILE
+
