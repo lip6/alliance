@@ -3,7 +3,7 @@
 # description   : Alliance Shared Libraries and Include Files   #
 # ###---------------------------------------------------------###
 
-# $Id: libraries.mk,v 1.12 1999/10/21 13:24:56 czo Exp $
+# $Id: libraries.mk,v 1.13 1999/10/28 15:32:20 czo Exp $
 
 # The variables $TOP and $MACHINE are set by
 # alc_env.[c]sh script
@@ -383,6 +383,15 @@ APR_H      =    apr103.h
 VRD_L      =  -lVrd303
 VRD_LIB    = libVrd303.a
 VRD_H      =    vrd303.h
+
+# ###---------------------------------------------------------###
+#    user level functions for FPGEN				#
+# ###---------------------------------------------------------###
+
+FGN_L      =  -lFgn115
+FGN_LIB    = libFgn115.a
+FGN_H        = Fgn115.h
+
 
 # ###---------------------------------------------------------###
 #    Timing Analysis                                            #
