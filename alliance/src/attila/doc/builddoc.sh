@@ -75,7 +75,7 @@
  DOC_AM="Makefile.am-doc"
  echo "" >  $DOC_AM
  echo "" >> $DOC_AM
- echo "pkghtmldir = \$(prefix)/doc/html/@PACKAGE@" >> $DOC_AM
+ echo "pkghtmldir = \$(DESTDIR)\$(prefix)/doc/html/@PACKAGE@" >> $DOC_AM
  echo "pkghtml_DATA = \\"  >> $DOC_AM
  FILE_LIST=`(cd $TOOL; find . -name \*.html -exec echo {} \;)`
  set $FILE_LIST
@@ -89,7 +89,7 @@
  echo "EXTRA_DIST = \$(pkghtml_DATA)" >> $DOC_AM
  echo "" >> $DOC_AM
  echo "install-data-hook:" >> $DOC_AM
- echo "	chmod -R g+w \$(prefix)/doc/html/@PACKAGE@" >> $DOC_AM
+ echo "	chmod -R g+w \$(DESTDIR)\$(prefix)/doc/html/@PACKAGE@" >> $DOC_AM
 
 
  mv $DOC_AM $TOOL/Makefile.am
@@ -109,7 +109,7 @@
  echo "" >  $DOC_AM
  echo "SUBDIRS = $TOOL" >> $DOC_AM
  echo "" >> $DOC_AM
- echo "pdfdir = \$(prefix)/doc/pdf" >> $DOC_AM
+ echo "pdfdir = \$(DESTDIR)\$(prefix)/doc/pdf" >> $DOC_AM
  echo "pdf_DATA = $TOOL.pdf"  >> $DOC_AM
  echo "" >> $DOC_AM
  echo "EXTRA_DIST = \$(pdf_DATA) \\" >> $DOC_AM
