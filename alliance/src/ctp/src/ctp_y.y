@@ -133,6 +133,7 @@
 %token <valu> _DEFINE
 %token <valu> _ASSUME
 %token <valu> _INITIAL
+%token <valu> _RESET_COND
 %token <text> CharacterLit
 %token <valu> Colon
 %token <valu> Comma
@@ -337,6 +338,7 @@ block_declarative_item
        | variable_declaration
        | assumption_declaration
        | initial_declaration
+       | reset_cond_declaration
        | type_declaration
        | subtype_declaration
        | error
@@ -486,6 +488,51 @@ initial_declaration
           AttrRight = -1;
 
           CtlAss  = (ctldecl_list *)ctp_addstr( 'I',0, Type,
+                 VEX_TYPE_BOOLEAN, 0, $2, AttrLeft,AttrRight,VexValue);
+
+          Signed = 0;
+          Left   = -1;
+          Right  = -1;
+
+          addtab(hshtab,$2,CTP_MODNAM,CTP_SYMDFN,CTP_CSTDFN);
+          addtab(hshtab,$2,CTP_MODNAM,CTP_TYPDFN,VEX_TYPE_BOOLEAN);
+          addtab(hshtab,$2,CTP_MODNAM,CTP_WMNDFN,Left);
+          addtab(hshtab,$2,CTP_MODNAM,CTP_WMXDFN,Right);
+          addtab(hshtab,$2,CTP_MODNAM,CTP_ATLDFN,AttrLeft);
+          addtab(hshtab,$2,CTP_MODNAM,CTP_ATRDFN,AttrRight);
+          addtab(hshtab,$2,CTP_MODNAM,CTP_LBLDFN,0);
+          addtab(hshtab,$2,CTP_MODNAM,CTP_PNTDFN,(long)CtlAss->VEX_ATOM);
+          addtab(hshtab,$2,CTP_MODNAM,CTP_SUNDFN,Signed );
+        }
+       ;
+
+reset_cond_declaration
+       : _RESET_COND
+         Identifier
+         constant_VarAsgn__expression
+         Semicolon_ERR
+        {
+          ctltype_list  *Type;
+          ctldecl_list  *CtlAss;
+          vexexpr       *VexValue;
+          chain_list    *HeadChain;
+          chain_list    *ScanChain;
+          ctp_vexstr    *VexStr;
+          short          Signed;
+          long           Left;
+          long           Right;
+          short          Width;
+          long           AttrLeft;
+          long           AttrRight;
+
+          VexValue = simpvexexpr( $3.VEX );
+
+          Type = val_type( "boolean" );
+
+          AttrLeft  = -1;
+          AttrRight = -1;
+
+          CtlAss  = (ctldecl_list *)ctp_addstr( 'R',0, Type,
                  VEX_TYPE_BOOLEAN, 0, $2, AttrLeft,AttrRight,VexValue);
 
           Signed = 0;
@@ -2191,6 +2238,16 @@ vexexpr      *exp;
   if ( object == 'I' )
   {
     CtlDeclar = addctldeclinit( CTP_HEADFIG, vex_pnt );
+    CtlDeclar->TYPE     = prtype;
+    CtlDeclar->VEX_INIT = exp;
+    addctlline( CTP_HEADFIG, &CtlDeclar->LINE, CTP_LINNUM );
+
+    pnt = (void *)CtlDeclar;
+  }
+  else
+  if ( object == 'R' )
+  {
+    CtlDeclar = addctldeclreset( CTP_HEADFIG, vex_pnt );
     CtlDeclar->TYPE     = prtype;
     CtlDeclar->VEX_INIT = exp;
     addctlline( CTP_HEADFIG, &CtlDeclar->LINE, CTP_LINNUM );
