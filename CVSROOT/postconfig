@@ -4,11 +4,11 @@
 # Copyright (C) 1999, 2000 Czo <Olivier.Sirol@lip6.fr>
 # License: GPL (http://www.gnu.org/copyleft/gpl.html)
 # Started: Sept 1999
-# Last Change: Tuesday 22 May 2001, 16:19
-# Edit Time: 1:33:30
+# Last Change: Tuesday 12 February 2002, 16:29
+# Edit Time: 1:34:49
 # Description:
 #
-# $Id: postconfig,v 1.54 2001/05/22 14:19:46 czo Exp $
+# $Id: postconfig,v 1.55 2002/02/12 15:34:22 czo Exp $
 #
 
 TMPFILE=cvslog.$$
@@ -71,15 +71,6 @@ sleep 15
 cvs diff -kk -l -D "5 min ago" $MODIFIED_FILES | head -50
 ) >> "$TMPFILE"
 # pwd
-
-(
-echo ""
-echo "==================================================================="
-echo "Ce message est envoyé au personnes abonnées à alliance-programmers"
-echo "Pour plus d'information sur cette mailling-list, visitez :"
-echo "http://www-asim.lip6.fr/alliance/mailing-lists/"
-) >> "$TMPFILE"  
-
 
 # cat $TMPFILE
 
