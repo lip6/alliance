@@ -5,10 +5,10 @@
 # License: GPL (http://www.gnu.org/copyleft/gpl.html)
 # Started: Sept 1999
 # Last Change: Thursday 07 September 2000, 10:57
-# Edit Time: 0:51:42
+# Edit Time: 0:51:45
 # Description:
 #
-# $Id: postconfig,v 1.41 2000/09/07 08:57:35 czo Exp $
+# $Id: postconfig,v 1.42 2000/09/07 08:57:59 czo Exp $
 #
 
 PATH=/asim/gnu/bin:/usr/ucb:/usr/etc:/usr/local/bin:/bin:/usr/bin:${PATH}
@@ -61,7 +61,7 @@ MAIL_SUBJECT=`echo "CVS loginfo, $UPDATE_DIR" | sed 's§alliance/§§' | sed 's§sha
 # pwd
 (
 echo ""
-echo "===================================================================="
+# echo "===================================================================="
 # echo "Diff"
 # echo ""
 # 
