@@ -7,7 +7,7 @@
 # Author: Frédéric Pétrot (fred@pasta.fr.ea)
 #         for version 0
 #
-# $Id: instool,v 1.2 1999/02/01 13:51:39 alliance Exp $
+# $Id: instool,v 1.3 1999/02/01 14:47:54 alliance Exp $
 #
 
 SYS=`uname -a | awk '{print $1}'`
@@ -50,7 +50,7 @@ LOG=$HOME/`basename $0`.$$
 BUG=$HOME/`basename $0`_bug.$$
 TMP=$HOME/`basename $1`
 
-ALCTEAM="alliance-interested-users"
+ALCTEAM="alliance-programmers@asim.lip6.fr"
 BUGTEAM="fred ludo czo"
 
 
@@ -289,136 +289,136 @@ echo "   the default shell is now sh"
       echo "Ring me again in a few days, ..."
       exit 23
    fi
-
-   echo "+---------------------------------------------------" >> $LOG
-   echo $DATE >> $LOG
-
-   if [ $verbose -ne 0 ] ; then
-      echo "`basename $0` : Copying the directories contents"
-      echo "May take a while, ..."
-      echo "Cells [$CELL_EXTENSIONS]"
-   fi
-
-   c=0; nc=0
-   if [ -d $1/labo/cells ] ; then
-     cd $1/labo/cells
-     for d in `\ls -d *`; do
-        if [ ! -d $d ]; then continue; fi
-        echo > $TMP.ext.$$
-        for i in $CELL_EXTENSIONS; do
-           ls -1 $1/labo/cells/$d/*.$i 2> /dev/null > $TMP.cell.$$
-           if [ -s $TMP.cell.$$ ] ; then
-              echo $i >> $TMP.ext.$$
-           fi
-        done
-        if [ ! -s $TMP.ext.$$ ] ; then
-           echo "Please remove the $1/labo/cells/$d directory as it"
-           echo "contains no cells"
-        else
-           echo "+---------------------------------------------------" >> $LOG
-           mkdir -p $CELLS/$d
-           if [ -f $1/labo/cells/$d/CATAL ]; then
-             cp $1/labo/cells/$d/CATAL $CELLS/$d
-           fi
-           echo "Cells:" >> $LOG
-           for i in `cat $TMP.ext.$$` ; do
-              cp $1/labo/cells/$d/*.$i $CELLS/$d >> $BUG 2>&1
-              if [ $? -ne 0 ] ; then 
-                 echo "`basename $0`: cp returned a non-zero exit status"
-                 echo "that sucks pretty much so I quit leaving things as is"
-                 exit 17
-              fi
-              ls -1 $1/labo/cells/$d | grep \.$i | fmt -70 >> $LOG
-           done
-        fi
-     done
-   else
-      if [ $verbose -ne 0 ] ; then
-         echo "none"
-      fi
-   fi
-   cd
-
-   if [ $verbose -ne 0 ] ; then
-      echo "Etc"
-   fi
-
-   if [ -d $1/labo/etc ] ; then
-      for i in $TARGET; do
-         if [ -f $1/labo/etc/$i.mk ] ; then
-            echo "`basename $0` cannot install tool $1"
-            echo "You're not allowed to install '$i.mk' by yourself boy!"
-            exit 9 
-         fi
-      done
-
-      if [ -f $1/labo/etc/libraries.mk ] ; then
-         echo "`basename $0` cannot install tool $1"
-         echo "You're not allowed to install 'libraries.mk' by yourself boy!"
-         exit 9 
-      fi
-      ls -1 $1/labo/etc/* > /dev/null 2> $TMP.etc.$$
-      if [ ! -s $TMP.etc.$$ ] ; then
-         cp $1/labo/etc/* $ETC >> $BUG 2>&1
-         if [ $? -ne 0 ] ; then 
-            echo "`basename $0`: cp returned a non-zero exit status"
-            echo "that sucks pretty much so I quit leaving things as is"
-            exit 17
-         fi
-         echo "+---------------------------------------------------" >> $LOG
-         echo "Etc :" >> $LOG
-         ls -1 $1/labo/etc | fmt -70 >> $LOG
-      else
-         echo "Please remove the $1/labo/etc directory as it"
-         echo "contains no files"
-      fi
-   else
-      if [ $verbose -ne 0 ] ; then
-         echo "none"
-      fi
-   fi
-
-   if [ $verbose -ne 0 ] ; then
-      echo "Manual pages"
-   fi
-
-   if [ -d $1/labo/man ] ; then
-      echo "+---------------------------------------------------" >> $LOG
-      echo "Manuals :" >> $LOG
-      for i in 1 2 3 4 5 6 7 8 9 ; do
-         if [ -d $1/labo/man/man$i ] ; then
-            ls -1 $1/labo/man/man$i/*.$i > /dev/null 2> $TMP.man$i.$$
-            if [ -s $TMP.man$i.$$ ] ; then
-               echo "Please remove the $1/labo/man/man$i directory as it"
-               echo "contains no files"
-            else
-               cp $1/labo/man/man$i/*.$i $MANS/man$i >> $BUG 2>&1
-               if [ $? -ne 0 ] ; then 
-                  echo "`basename $0`: cp returned a non-zero exit status"
-                  echo "that sucks pretty much so I quit leaving things as is"
-                  exit 17
-               fi
-               ls -1 $1/labo/man/man$i | grep \.$i | fmt -70 >> $LOG
-            fi
-         fi
-      done
-      for i in 1 2 3 4 5 6 7 8 9 ; do
-         if [ -f $TMP.man$i.$$ ] ; then	
-            cat $TMP.man$i.$$ >> $TMP.man.$$
-         fi
-         if [ -f $TMP.man.$$ ] ; then 
-            if [ -s $TMP.man.$$ ] ; then 
-               echo "Please remove the $1/labo/man directory tree as it"
-               echo "contains no files"
-            fi
-         fi
-      done
-   else
-      if [ $verbose -ne 0 ] ; then
-         echo "none"
-      fi
-   fi
-
+# 
+#    echo "+---------------------------------------------------" >> $LOG
+#    echo $DATE >> $LOG
+# 
+#    if [ $verbose -ne 0 ] ; then
+#       echo "`basename $0` : Copying the directories contents"
+#       echo "May take a while, ..."
+#       echo "Cells [$CELL_EXTENSIONS]"
+#    fi
+# 
+#    c=0; nc=0
+#    if [ -d $1/labo/cells ] ; then
+#      cd $1/labo/cells
+#      for d in `\ls -d *`; do
+#         if [ ! -d $d ]; then continue; fi
+#         echo > $TMP.ext.$$
+#         for i in $CELL_EXTENSIONS; do
+#            ls -1 $1/labo/cells/$d/*.$i 2> /dev/null > $TMP.cell.$$
+#            if [ -s $TMP.cell.$$ ] ; then
+#               echo $i >> $TMP.ext.$$
+#            fi
+#         done
+#         if [ ! -s $TMP.ext.$$ ] ; then
+#            echo "Please remove the $1/labo/cells/$d directory as it"
+#            echo "contains no cells"
+#         else
+#            echo "+---------------------------------------------------" >> $LOG
+#            mkdir -p $CELLS/$d
+#            if [ -f $1/labo/cells/$d/CATAL ]; then
+#              cp $1/labo/cells/$d/CATAL $CELLS/$d
+#            fi
+#            echo "Cells:" >> $LOG
+#            for i in `cat $TMP.ext.$$` ; do
+#               cp $1/labo/cells/$d/*.$i $CELLS/$d >> $BUG 2>&1
+#               if [ $? -ne 0 ] ; then 
+#                  echo "`basename $0`: cp returned a non-zero exit status"
+#                  echo "that sucks pretty much so I quit leaving things as is"
+#                  exit 17
+#               fi
+#               ls -1 $1/labo/cells/$d | grep \.$i | fmt -70 >> $LOG
+#            done
+#         fi
+#      done
+#    else
+#       if [ $verbose -ne 0 ] ; then
+#          echo "none"
+#       fi
+#    fi
+#    cd
+# 
+#    if [ $verbose -ne 0 ] ; then
+#       echo "Etc"
+#    fi
+# 
+#    if [ -d $1/labo/etc ] ; then
+#       for i in $TARGET; do
+#          if [ -f $1/labo/etc/$i.mk ] ; then
+#             echo "`basename $0` cannot install tool $1"
+#             echo "You're not allowed to install '$i.mk' by yourself boy!"
+#             exit 9 
+#          fi
+#       done
+# 
+#       if [ -f $1/labo/etc/libraries.mk ] ; then
+#          echo "`basename $0` cannot install tool $1"
+#          echo "You're not allowed to install 'libraries.mk' by yourself boy!"
+#          exit 9 
+#       fi
+#       ls -1 $1/labo/etc/* > /dev/null 2> $TMP.etc.$$
+#       if [ ! -s $TMP.etc.$$ ] ; then
+#          cp $1/labo/etc/* $ETC >> $BUG 2>&1
+#          if [ $? -ne 0 ] ; then 
+#             echo "`basename $0`: cp returned a non-zero exit status"
+#             echo "that sucks pretty much so I quit leaving things as is"
+#             exit 17
+#          fi
+#          echo "+---------------------------------------------------" >> $LOG
+#          echo "Etc :" >> $LOG
+#          ls -1 $1/labo/etc | fmt -70 >> $LOG
+#       else
+#          echo "Please remove the $1/labo/etc directory as it"
+#          echo "contains no files"
+#       fi
+#    else
+#       if [ $verbose -ne 0 ] ; then
+#          echo "none"
+#       fi
+#    fi
+# 
+#    if [ $verbose -ne 0 ] ; then
+#       echo "Manual pages"
+#    fi
+# 
+#    if [ -d $1/labo/man ] ; then
+#       echo "+---------------------------------------------------" >> $LOG
+#       echo "Manuals :" >> $LOG
+#       for i in 1 2 3 4 5 6 7 8 9 ; do
+#          if [ -d $1/labo/man/man$i ] ; then
+#             ls -1 $1/labo/man/man$i/*.$i > /dev/null 2> $TMP.man$i.$$
+#             if [ -s $TMP.man$i.$$ ] ; then
+#                echo "Please remove the $1/labo/man/man$i directory as it"
+#                echo "contains no files"
+#             else
+#                cp $1/labo/man/man$i/*.$i $MANS/man$i >> $BUG 2>&1
+#                if [ $? -ne 0 ] ; then 
+#                   echo "`basename $0`: cp returned a non-zero exit status"
+#                   echo "that sucks pretty much so I quit leaving things as is"
+#                   exit 17
+#                fi
+#                ls -1 $1/labo/man/man$i | grep \.$i | fmt -70 >> $LOG
+#             fi
+#          fi
+#       done
+#       for i in 1 2 3 4 5 6 7 8 9 ; do
+#          if [ -f $TMP.man$i.$$ ] ; then	
+#             cat $TMP.man$i.$$ >> $TMP.man.$$
+#          fi
+#          if [ -f $TMP.man.$$ ] ; then 
+#             if [ -s $TMP.man.$$ ] ; then 
+#                echo "Please remove the $1/labo/man directory tree as it"
+#                echo "contains no files"
+#             fi
+#          fi
+#       done
+#    else
+#       if [ $verbose -ne 0 ] ; then
+#          echo "none"
+#       fi
+#    fi
+# 
    if [ $verbose -ne 0 ] ; then
       echo "The real stuff right now, ..."
    fi
