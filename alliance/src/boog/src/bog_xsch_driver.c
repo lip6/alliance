@@ -260,7 +260,7 @@ extern void save_xsch(FILE* xsch_stream, lofig_list* lofig, ptype_list* long_pat
       losig=locon->SIG;
       signame=losig->NAMECHAIN->DATA;
       
-      delay=getdelay(loins_name(loins->INSNAME));
+      delay=getdelay(loins->INSNAME);
      
       switch (color_mode) {
       case XSCH_GRADIENT: color=gradient_color(delay,gradient); break;

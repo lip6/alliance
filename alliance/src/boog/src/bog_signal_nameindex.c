@@ -39,10 +39,10 @@
 #include "bog_signal_nameindex.h"
 
 
-#define MBK_NOT namealloc("MBK_NOT")
-#define MBK_SIG namealloc("MBK_SIG")
-#define MBK_OUT namealloc("MBK_OUT")
-#define MBK_INS namealloc("MBK_INS")
+#define MBK_NOT namealloc("not")
+#define MBK_SIG namealloc("sig")
+#define MBK_OUT namealloc("out")
+#define MBK_INS namealloc("ins")
 #define BLOCK 1024
 
 /*table of used name*/
@@ -164,16 +164,27 @@ extern char* getoppositename(char* name)
 /******************************************************************************/
 extern char* getautoname(char* name)
 {
+   name=losig_name(name);
+   
+   return getnameindex(name);
+}
+
+
+/******************************************************************************/
+/* return an artificial name to distinguish loins from signal                 */
+/******************************************************************************/
+extern char* losig_name(char* name)
+{
    char memo_char;
 
    name=namealloc(name);
    
    memo_char=SEPAR;     /*external value from MBK environment*/
    SEPAR='_';
-   name=concatname(MBK_SIG,name);
+   name=concatname(name,MBK_SIG);
    SEPAR=memo_char;
 
-   return getnameindex(name);
+   return name;
 }
 
 
@@ -189,7 +200,7 @@ extern char* loins_name(char* name)
    
    memo_char=SEPAR;     /*external value from MBK environment*/
    SEPAR='_';
-   name=concatname(MBK_INS,name);
+   name=concatname(name,MBK_INS);
    SEPAR=memo_char;
 
    return name;
@@ -209,8 +220,8 @@ extern char* output_name(char* name)
    
    memo_char=SEPAR;     /*external value from MBK environment*/
    SEPAR='_';
-   name=concatname(MBK_SIG,name);
-   name=concatname(MBK_OUT,name);
+   name=concatname(name,MBK_SIG);
+   name=concatname(name,MBK_OUT);
    SEPAR=memo_char;
 
    return name;

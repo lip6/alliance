@@ -165,7 +165,7 @@ static ptype_list* search_long_path(loins_list* loins, befig_list* befig)
        || locon->TYPE==EXTERNAL) continue;
       loins_aux=locon->ROOT;
       if (loins_aux==loins) continue;
-      delay=getdelay(loins_name(loins_aux->INSNAME));
+      delay=getdelay(loins_aux->INSNAME);
       if (delay>max_delay) {
          best_loins=loins_aux;
          max_delay=delay;
@@ -191,7 +191,8 @@ extern ptype_list* max_delay_path(befig_list* befig, lofig_list* lofig)
 {
    ptype_list* head, *path;
    loins_list* loins;
-   
+   char *insname;
+  
    if (!befig) {
       fprintf(stderr,"max_delay_path: NULL pointer\n");
       exit(1);
@@ -204,10 +205,11 @@ extern ptype_list* max_delay_path(befig_list* befig, lofig_list* lofig)
    if (head) {
       /*search instance which begins*/
       for (loins=lofig->LOINS; loins; loins=loins->NEXT) {
-         if ((char*) head->DATA==loins->INSNAME) break;
+         insname=loins_name(head->DATA);
+         if (insname==loins->INSNAME) break;
       }
       if (!loins) {
-         fprintf(stderr,"max_delay_path: no loins '%s' found\n",(char*) head->DATA);
+         fprintf(stderr,"max_delay_path: no loins '%s' found\n", insname);
          exit(1);
       }
       path=search_long_path(loins, befig);

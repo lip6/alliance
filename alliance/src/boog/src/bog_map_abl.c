@@ -95,7 +95,9 @@ static losig_list* loc_map_abl(lofig_list *lofig, chain_list *abl)
    losig_list* losig;
    port_list* port, *top;
    chain_list* sigchain = NULL, *new, *pred=NULL;
+   char* name;
    char* insname;
+   char* signame;
    chain_list* namechain;
    cell_list* cell;
    losig_list* output_losig;
@@ -117,12 +119,14 @@ static losig_list* loc_map_abl(lofig_list *lofig, chain_list *abl)
    /*cell->PORT contains the result of pattern matching*/
    cell=cell_pattern(abl);
 
-   insname=getnameindex(cell->NAME);
-   putdelay(loins_name(insname),cell->DELAY); /*delay for loins*/
-   putdelay(insname,cell->DELAY); /*delay for new signal*/
+   name=getnameindex(cell->NAME);
+   signame=losig_name(name);
+   insname=loins_name(name);
+   putdelay(insname,cell->DELAY); /*delay for loins*/
+   putdelay(signame,cell->DELAY); /*delay for new signal*/
    
    /*output_losig */
-   namechain=addchain(NULL,insname);
+   namechain=addchain(NULL,signame);
    output_losig=addlosig(lofig, getindex(), namechain, INTERNAL);
 
    top=copyport(cell->PORT);  /*not to be disturb by recursion*/
@@ -176,6 +180,7 @@ extern void map_abl(lofig_list *lofig, chain_list *abl, losig_list *output_losig
    port_list* port, *top;
    chain_list* sigchain = NULL, *new, *pred=NULL;
    char* insname;
+   char* signame;
    cell_list* cell;
    int master;
 
@@ -195,8 +200,9 @@ extern void map_abl(lofig_list *lofig, chain_list *abl, losig_list *output_losig
    /*search buffer, one or zero constant*/
    cell=cell_pattern(abl);
 
-   insname=(char*)output_losig->NAMECHAIN->DATA;
-   putdelay(loins_name(insname),cell->DELAY); /*delay for loins*/
+   signame=(char*)output_losig->NAMECHAIN->DATA;
+   insname=loins_name(signame);
+   putdelay(insname,cell->DELAY); /*delay for loins*/
    
    top=copyport(cell->PORT);  /*not to be disturb by recursion*/
    for (port=top; port; port=port->NEXT) {
@@ -280,8 +286,10 @@ extern void map_bus(lofig_list* lofig, biabl_list* biabl, losig_list* output_los
       SEPAR='_';
       insname=concatname((char*)output_losig->NAMECHAIN->DATA,insname);
       SEPAR=memo;
-   }   
-   putdelay(loins_name(insname),cell->DELAY); /*delay for loins*/
+   }  
+
+   insname=loins_name(insname);
+   putdelay(insname,cell->DELAY); /*delay for loins*/
    
    top=copyport(cell->PORT);
    for (port=top; port; port=port->NEXT) {
@@ -372,8 +380,9 @@ extern void map_register(lofig_list* lofig, biabl_list* biabl, losig_list* outpu
       insname=concatname((char*)output_losig->NAMECHAIN->DATA,insname);
       SEPAR=memo;
    }   
-   
-   putdelay(loins_name(insname),cell->DELAY); /*delay for loins*/
+  
+   insname=loins_name(insname);
+   putdelay(insname,cell->DELAY); /*delay for loins*/
    
    top=copyport(cell->PORT);
    for (port=top; port; port=port->NEXT) {

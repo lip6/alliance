@@ -71,6 +71,11 @@ extern char* getautoname __P ((char* name));
 
 /******************************************************************************/
 /* return an artificial name to distinguish loins from signal                 */
+/******************************************************************************/
+extern char* losig_name(char* name);
+
+/******************************************************************************/
+/* return an artificial name to distinguish loins from signal                 */
 /* only used to hash values for internal treatment                            */
 /******************************************************************************/
 extern char* loins_name __P ((char* name));
