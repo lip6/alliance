@@ -37,5 +37,6 @@ src/Makefile
 src/rout/Makefile
 src/seg/Makefile
 src/util/Makefile
+src/include/Makefile
 doc/Makefile
 ])
