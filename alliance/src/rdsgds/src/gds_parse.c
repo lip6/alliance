@@ -145,12 +145,24 @@ static node_list *HEAD_NODE;  /* text list in the GDS file */
            ( Y >= Scan->Y            ) &&  
            ( X <= Scan->X + Scan->DX ) &&
            ( Y <= Scan->Y + Scan->DY ) &&
+           ( Scan->NAME == NULL      ) &&
            IsRdsReference (Scan))
       {
         return Scan;
       }
     }
-
+    for ( Scan  = Figure->LAYERTAB[ (int)Layer ];
+          Scan != (rdsrec_list * )NULL;
+          Scan  = Scan->NEXT)
+    {
+      if ( ( X >= Scan->X            ) &&  
+           ( Y >= Scan->Y            ) &&  
+           ( X <= Scan->X + Scan->DX ) &&
+           ( Y <= Scan->Y + Scan->DY ) ) 
+      {
+        return Scan;
+      }
+    }
     return ( (rdsrec_list * )NULL );
   }
  
@@ -1146,16 +1158,13 @@ rdsrec_list  *Rec;
             ScanNode != (node_list *)NULL;
             ScanNode  = ScanNode->NEXT )
          {
-            Rec = GdsGetRectangle( Figure, ScanNode->X, ScanNode->Y,
-                              ScanNode->LAYER );
+            Rec = GdsGetRectangle( Figure, ScanNode->X, ScanNode->Y, ScanNode->LAYER );
             if ( Rec == (rdsrec_list *)NULL )
             {
-      
                sprintf(poubelle, "X: %ld, Y: %ld, Rds Layer: %d Name: %s",
                      ScanNode->X, ScanNode->Y,
                      ScanNode->LAYER, ScanNode->NAME);
-               pv_emet_warning(Figure->NAME, "Unconnected node :",
-                            poubelle);
+               pv_emet_warning(Figure->NAME, "Unconnected node :", poubelle);
             }
             else
                Rec->NAME = ScanNode->NAME;

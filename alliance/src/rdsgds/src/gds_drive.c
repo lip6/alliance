@@ -42,6 +42,9 @@
 |                           Constants                         |
 |                                                             |
 \------------------------------------------------------------*/
+
+int FIRST_MODEL;
+  
 /*------------------------------------------------------------\
 |                                                             |
 |                             Macros                          |
@@ -369,7 +372,8 @@ coord_t      tab[6]; /* last one reserved for text */
    /* If the rectangle contains some text, even if it is not a connector,
       we drive the text: nodes should be sufficients.
       Frederic Petrot: 10/04/96 */
-   if (rect->NAME != NULL) {
+   /* sauve uniquement les noms du premier model (le pere) 18/04/2002 FW */
+   if (FIRST_MODEL && rect->NAME != NULL) {
       entete(TEXT, 0);
 
       entete(LAYER0, sizeof(short));
@@ -667,10 +671,12 @@ ptype_list *model_list;
    free(m_unit);
    controle(1);
 
+   FIRST_MODEL = 1;
    while (model_list) {
       if (pv_sauve_modele((rdsfig_list *)model_list->DATA, fp, &date) < 0)
          EXIT(1);
       model_list = model_list->NEXT;
+      FIRST_MODEL = 0;
    }
 
    entete(ENDLIB, 0);
