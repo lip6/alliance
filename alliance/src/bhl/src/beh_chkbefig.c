@@ -52,6 +52,9 @@ unsigned int  mode    ;
   struct bebus *pt_bebus ;
   struct bebux *pt_bebux ;
   struct bereg *pt_bereg ;
+  struct berin *pt_berin;
+  struct beaux *pred_beaux ;
+  struct berin *pred_berin ;
   int           err_flg  = 0;
 
 	/* ###------------------------------------------------------### */
@@ -88,10 +91,32 @@ unsigned int  mode    ;
 	/* ###------------------------------------------------------### */
 
       pt_beaux = pt_befig->BEAUX;
+      pred_beaux = NULL;
       while (pt_beaux != NULL)
         {
         if (pt_beaux->ABL == NULL)
-          err_flg += beh_error (40, pt_beaux->NAME);
+        {
+          fprintf (stderr, "BEH : Warning %d: ", 40);
+          fprintf (stderr, "signal `%s` never assigned\n", pt_beaux->NAME);
+          
+          /*removing signal*/
+          if ( pred_beaux ) pred_beaux->NEXT = pt_beaux->NEXT;
+          else pt_befig->BEAUX = pt_beaux->NEXT;
+
+          /*removing other ref to signal*/
+          pred_berin = NULL;
+          for ( pt_berin = pt_befig->BERIN; pt_berin; pt_berin = pt_berin->NEXT )
+          {
+             if ( pt_berin->NAME == pt_beaux->NAME )
+             {
+                 if ( pred_berin ) pred_berin->NEXT = pt_berin->NEXT;
+                 else pt_befig->BERIN = pt_berin->NEXT;
+                 break;
+             }
+             pred_berin = pt_berin;
+          }
+        }
+        else pred_beaux = pt_beaux;
         pt_beaux = pt_beaux->NEXT;
         }
 

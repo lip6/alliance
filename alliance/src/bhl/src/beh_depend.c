@@ -92,7 +92,10 @@ struct chain *pt_exp;
       value = gethtitem (rin_list, tmp_chain->DATA);
 
       if (value == EMPTYHT)
+      {
         pt_fig->ERRFLG = beh_error (3, tmp_chain->DATA);
+        exit( pt_fig->ERRFLG );
+      }
       else
         tmp_chain->DATA = (void *) value;
 

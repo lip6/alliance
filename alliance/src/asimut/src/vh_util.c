@@ -144,6 +144,9 @@ char *str2;
       fprintf (stderr, "pattern is loaded while the scheduler isn't empty\n");
       break;
 
+    case 109:
+      fprintf (stderr, "signal `%s` never assigned\n", str1);
+      break;
     case 112:
       fprintf (stderr, "driver conflict on `%s`\n", str1);
       break;
