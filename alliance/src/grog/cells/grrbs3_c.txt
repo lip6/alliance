@@ -1,3 +1,0 @@
-cell : grrbs3_c
-Rom Bloc Selection Three.
-This selects the adequat bloc, one out of eight at most.

@@ -1,4 +1,0 @@
-east (p_q0 p_q3 p_b0 p_b1 p_b2 p_vddeck0 p_vsseck0 p_zero p_scout p_signe p_y2 p_y3 ) 
-west (p_b3 p_cin p_ck p_cout p_vddick0 p_vssick0 p_vddeck1 p_vsseck1 p_i3 p_i4 p_i5 p_i6   )
-north (  p_d0  p_d1 p_d2 p_d3 p_fonc p_i0 p_i1 p_i2 p_a0 p_a1 p_a2 p_a3  )
-south (  p_i7 p_i8 p_ng p_noe  p_np p_ovr p_r0 p_r3 p_scin p_test p_y0 p_y1  )

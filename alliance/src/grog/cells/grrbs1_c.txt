@@ -1,3 +1,0 @@
-cell : grrbs1_c
-Rom Bloc Selection One.
-This selects the adequat bloc, one out of two at most.
