@@ -1,8 +1,11 @@
 /*
    ### -------------------------------------------------- ### 
    $Author: hcl $
-   $Date: 2002/04/25 13:41:31 $
+   $Date: 2002/06/26 13:28:52 $
    $Log: findNPointsPath.c,v $
+   Revision 1.4  2002/06/26 13:28:52  hcl
+   bug hunter
+
    Revision 1.3  2002/04/25 13:41:31  hcl
    New ripup/reroute loop, bug-kill (CALU&TALU).
 
@@ -89,7 +92,7 @@
 #include "ocrAstar.h"
 
 static char *res_id =
-    "$Id: findNPointsPath.c,v 1.3 2002/04/25 13:41:31 hcl Exp $";
+    "$Id: findNPointsPath.c,v 1.4 2002/06/26 13:28:52 hcl Exp $";
 
 #define MAX_HT 500
 
@@ -694,6 +697,7 @@ ocrNaturalInt biroute (ocrRoutingParameters *i_pParam,
 
     switch (g_pOption->ALGO) {
         case 0:
+#if 0
             if (mode == AS_K_EQUI) {
                 l_uLength = find_path_astar(i_pParam, i_pGrid,
                                             l_pCon1->CON->X,
@@ -707,6 +711,7 @@ ocrNaturalInt biroute (ocrRoutingParameters *i_pParam,
                                             mode
                                            );
             } else {
+#endif
                 l_uLength = FINDPATH(i_pParam, i_pGrid,
                                      l_pCon1->CON->X,
                                      l_pCon1->CON->Y,
@@ -717,7 +722,7 @@ ocrNaturalInt biroute (ocrRoutingParameters *i_pParam,
                                      i_pSignal->INDEX,
                                      i_pSignal
                                     );
-            }
+            //}
             break;
         case 1:
             /*display (LEVEL, DEBUG, "\no Launching A*\n");*/
@@ -962,8 +967,13 @@ findPathNPoints(ocrRoutingParameters * i_pParam,
 
 
                 // Choix de 2 autres connecteurs
-                l_bOk =
-                    chooseInternalConnector2(i_pGrid, l_pCon->NEXT);
+                switch (g_pOption->ALGO) {
+                    case 1: l_bOk = chooseInternalConnector2(i_pGrid, l_pCon->NEXT);
+                            break;
+                    case 0: l_bOk = chooseInternalConnector(i_pGrid, &l_NewCon, l_pCon->NEXT, 1);
+                            break;
+                }
+                            
                 if (l_bOk != OCR_OK) {
 
 
@@ -978,7 +988,7 @@ findPathNPoints(ocrRoutingParameters * i_pParam,
                     return OCRNATURALINT_MAX;
                 }
 
-                l_uLength = biroute (i_pParam, i_pGrid, l_pCon->NEXT, NULL, i_pSignal, AS_K_EQUI);
+                l_uLength = biroute (i_pParam, i_pGrid, l_pCon->NEXT, &l_NewCon, i_pSignal, AS_K_EQUI);
 #if 0
 
                 display(LEVEL, DEBUG, "(%ld,%ld,%d) -> (%ld,%ld,%d)\n",
@@ -1019,21 +1029,21 @@ findPathNPoints(ocrRoutingParameters * i_pParam,
             }
         }
 
-#if 0
-        if (l_NewCon.CON->DIST == 1) {
-            l_pVia = createVirtualConnector(l_NewCon.CON->X,
-                                            l_NewCon.CON->Y,
-                                            l_NewCon.CON->Z, 0, 0);
-            addVirtualConnector(&l_pViaList, l_pVia);
+        if (g_pOption->ALGO == 0) {
+            if (l_NewCon.CON->DIST == 1) {
+                l_pVia = createVirtualConnector(l_NewCon.CON->X,
+                                                l_NewCon.CON->Y,
+                                                l_NewCon.CON->Z, 0, 0);
+                addVirtualConnector(&l_pViaList, l_pVia);
+            }
+
+
+            unifyPoint(i_pGrid, i_pParam,
+                       i_pSignal,
+                       l_NewCon.CON->X, l_NewCon.CON->Y,
+                      (l_NewCon.CON->Z ? l_NewCon.CON->Z -
+                      1 : l_NewCon.CON->Z));
         }
-
-
-        unifyPoint(i_pGrid, i_pParam,
-                   i_pSignal,
-                   l_NewCon.CON->X, l_NewCon.CON->Y,
-                   (l_NewCon.CON->Z ? l_NewCon.CON->Z -
-                    1 : l_NewCon.CON->Z));
-#endif
 
         deleteVirtualConnectorList(l_NewCon.VIR_CON_LIST);
         l_pCon = l_pCon->NEXT;

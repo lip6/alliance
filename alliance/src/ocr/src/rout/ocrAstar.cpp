@@ -1,9 +1,12 @@
 /*
    ### -------------------------------------------------- ### 
    $Author: hcl $
-   $Date: 2002/06/25 11:44:59 $
+   $Date: 2002/06/26 13:28:52 $
 
    $Log: ocrAstar.cpp,v $
+   Revision 1.5  2002/06/26 13:28:52  hcl
+   bug hunter
+
    Revision 1.4  2002/06/25 11:44:59  hcl
    Un core dump en moins...
 
@@ -102,6 +105,7 @@ ocrNaturalInt CUR_SIG_INDEX = 0;
 
 ocrWSegment *ze_best = NULL;
 ocrWSegment *ze_target = NULL;
+ocrNaturalInt hsource = 0;
 
 ocrNaturalInt ripup = 1;
 
