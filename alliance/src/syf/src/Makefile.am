@@ -5,8 +5,8 @@ bin_PROGRAMS = syf
 AM_CFLAGS = @ALLIANCE_CFLAGS@
 
 syf_LDADD = @ALLIANCE_LIBS@ \
-          ${top_builddir}/../ftl/src/libFtl.la ${top_builddir}/../fks/src/libFks.la ${top_builddir}/../fvh/src/libFvh.la ${top_builddir}/../fsm/src/libFsm.la \
-	  ${top_builddir}/../bdd/src/libBdd.la ${top_builddir}/../abl/src/libAbl.la ${top_builddir}/../aut/src/libAut.la ${top_builddir}/../mbk/src/libMut.la
+          -lFtl -lFks -lFvh -lFsm \
+	  -lBdd -lAbl -lAut -lMut
 
 
 syf_SOURCES = \

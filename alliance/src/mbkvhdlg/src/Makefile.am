@@ -20,17 +20,17 @@ mvl_scomp_l.c : $(srcdir)/mvl_scomp_l.l mvl_scomp_y.h
 bin_PROGRAMS     = x2vy
 x2vy_SOURCES     = x2vy_main.c
 x2vy_LDADD       = @ALLIANCE_LIBS@ \
-                   ${top_builddir}/../mbk/src/libMlu.la \
-                   ${top_builddir}/../mbkvti/src/libMcl.la \
-                   ${top_builddir}/../mbkedif/src/libMel.la \
-                   ${top_builddir}/../mbkhilo/src/libMhl.la \
-                   ${top_builddir}/../mbkal/src/libMal.la \
-                   ${top_builddir}/../mbkspice/src/libMsl.la \
-                   ${top_builddir}/../mbkvrlog/src/libMgl.la \
+                   -lMlu \
+                   -lMcl \
+                   -lMel \
+                   -lMhl \
+                   -lMal \
+                   -lMsl \
+                   -lMgl \
                    $(top_builddir)/src/libMvg.la \
-                   ${top_builddir}/../mbk/src/libMlo.la \
-                   ${top_builddir}/../mbk/src/libMut.la \
-                   ${top_builddir}/../mbk/src/libRcn.la
+                   -lMlo \
+                   -lMut \
+                   -lRcn
 
 
 

@@ -39,9 +39,9 @@ ALL_X_LIBS = $(X_LDFLAGS) $(LIBXM) $(LIBXT) \
 
 
 xsch_LDADD = @ALLIANCE_LIBS@ $(ALL_X_LIBS) \
-${top_builddir}/../scl/src/libScl.la ${top_builddir}/../mbk/src/libMlu.la ${top_builddir}/../mbkal/src/libMal.la ${top_builddir}/../mbkvti/src/libMcl.la ${top_builddir}/../mbkedif/src/libMel.la ${top_builddir}/../mbkhilo/src/libMhl.la ${top_builddir}/../mbkspice/src/libMsl.la ${top_builddir}/../mbkvhdl/src/libMvl.la \
-${top_builddir}/../mbkvrlog/src/libMgl.la ${top_builddir}/../mbk/src/libMlo.la ${top_builddir}/../mbk/src/libMut.la ${top_builddir}/../mbkvrlog/src/libMgl.la ${top_builddir}/../abv/src/libAbv.la ${top_builddir}/../abe/src/libAbe.la \
-${top_builddir}/../bdd/src/libBdd.la ${top_builddir}/../abl/src/libAbl.la ${top_builddir}/../aut/src/libAut.la ${top_builddir}/../mbk/src/libRcn.la
+-lScl -lMlu -lMal -lMcl -lMel -lMhl -lMsl -lMvl \
+-lMgl -lMlo -lMut -lMgl -lAbv -lAbe \
+-lBdd -lAbl -lAut -lRcn
 
 xsch_SOURCES = \
 LIP6bw.h XME_dialog.c XME_dialog.h XME_edit.c XME_edit.h XME.h XME_menu.c XME_menu.h \

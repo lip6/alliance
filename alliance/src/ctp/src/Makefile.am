@@ -17,7 +17,7 @@ EXTRA_PROGRAMS = ctptest
 
 ctptest_LDADD = @ALLIANCE_LIBS@ \
                 $(top_builddir)/src/libCtp.la \
-                ${top_builddir}/../ctl/src/libCtl.la ${top_builddir}/../vex/src/libVex.la ${top_builddir}/../aut/src/libAut.la ${top_builddir}/../mbk/src/libMut.la
+                -lCtl -lVex -lAut -lMut
 
 ctptest_SOURCES = main.c
 

@@ -5,6 +5,6 @@ bin_PROGRAMS = alcbanner
 AM_CFLAGS = @ALLIANCE_CFLAGS@ 
 
 alcbanner_LDADD = @ALLIANCE_LIBS@ \
-          ${top_builddir}/../mbk/src/libMut.la
+          -lMut
 
 alcbanner_SOURCES = alcbanner.c

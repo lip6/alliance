@@ -21,8 +21,8 @@ sch_bug.c	sch_Free.c    sch_GoNTim.c   sch_message.c
 bin_PROGRAMS = asimut
 
 asimut_LDADD = @ALLIANCE_LIBS@ \
--L. ${top_builddir}/src/libCst.la  ${top_builddir}/src/libSch.la ${top_builddir}/../mbk/src/libMlu.la ${top_builddir}/../mbkal/src/libMal.la ${top_builddir}/../mbkvti/src/libMcl.la ${top_builddir}/../mbkedif/src/libMel.la ${top_builddir}/../mbkhilo/src/libMhl.la ${top_builddir}/../mbkvrlog/src/libMgl.la ${top_builddir}/../mbkspice/src/libMsl.la ${top_builddir}/../mbkvhdlg/src/libMvg.la ${top_builddir}/../mbk/src/libMlo.la ${top_builddir}/../mbk/src/libRcn.la \
-     ${top_builddir}/../bvl/src/libBvl.la ${top_builddir}/../bhl/src/libBhl.la ${top_builddir}/../beh/src/libBeh.la ${top_builddir}/../ppt/src/libPpt.la ${top_builddir}/../phl/src/libPhl.la ${top_builddir}/../pat/src/libPat.la ${top_builddir}/../asimut/src/libSch.la ${top_builddir}/../log/src/libLog.la ${top_builddir}/../mbk/src/libMut.la
+-L. -lCst -lSch -lMlu -lMal -lMcl -lMel -lMhl -lMgl -lMsl -lMvg -lMlo -lRcn \
+    -lBvl -lBhl -lBeh -lPpt -lPhl -lPat -lLog -lMut
 
 asimut_SOURCES = \
 beh_delay.h	  c_fsyn_sr1k_56.c    vh_debug.c    vh_lspec.c	  vh_util.h \

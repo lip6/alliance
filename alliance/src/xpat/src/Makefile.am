@@ -38,7 +38,7 @@ ALL_X_LIBS = $(X_LDFLAGS) $(LIBXM) $(LIBXT) \
 
 
 xpat_LDADD = @ALLIANCE_LIBS@ $(ALL_X_LIBS) \
-	  ${top_builddir}/../ppt/src/libPpt.la ${top_builddir}/../phl/src/libPhl.la ${top_builddir}/../pat/src/libPat.la ${top_builddir}/../aut/src/libAut.la ${top_builddir}/../mbk/src/libMut.la
+	  -lPpt -lPhl -lPat -lAut -lMut
 
 xpat_SOURCES = \
 LIP6bw.h XME_dialog.c XME_dialog.h XME_edit.c XME_edit.h \

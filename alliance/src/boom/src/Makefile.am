@@ -5,7 +5,7 @@ bin_PROGRAMS = boom
 AM_CFLAGS = @ALLIANCE_CFLAGS@ 
 
 boom_LDADD = @ALLIANCE_LIBS@ \
-          ${top_builddir}/../abv/src/libAbv.la ${top_builddir}/../abe/src/libAbe.la ${top_builddir}/../abt/src/libAbt.la ${top_builddir}/../bdd/src/libBdd.la ${top_builddir}/../abl/src/libAbl.la ${top_builddir}/../aut/src/libAut.la ${top_builddir}/../mbk/src/libMut.la
+          -lAbv -lAbe -lAbt -lBdd -lAbl -lAut -lMut
 
 boom_SOURCES = \
 boom_abl.c        boom_cost.h       boom_main.c       boom_procrast.h \

@@ -21,8 +21,8 @@ bin_PROGRAMS = druc
 AM_CFLAGS = @ALLIANCE_CFLAGS@
 
 druc_LDADD = @ALLIANCE_LIBS@ $(top_builddir)/src/libVrd.la \
-${top_builddir}/../rds/src/libRtl.la ${top_builddir}/../rdsgds/src/libRgs.la ${top_builddir}/../rdscif/src/libRcf.la ${top_builddir}/../rds/src/libRfm.la ${top_builddir}/../rds/src/libRpr.la ${top_builddir}/../rds/src/libRwi.la ${top_builddir}/../rds/src/libRut.la ${top_builddir}/../rds/src/libRds.la ${top_builddir}/../mbk/src/libMpu.la ${top_builddir}/../mbkvti/src/libMcp.la ${top_builddir}/../mbkap/src/libMap.la ${top_builddir}/../mbkmg/src/libMmg.la ${top_builddir}/../mbk/src/libMph.la \
-${top_builddir}/../mbk/src/libMut.la
+-lRtl -lRgs -lRcf -lRfm -lRpr -lRwi -lRut -lRds -lMpu -lMcp -lMap -lMmg -lMph \
+-lMut
 
 druc_SOURCES = \
 drucbath.c drucbath.h
