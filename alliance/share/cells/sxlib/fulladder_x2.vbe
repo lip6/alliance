@@ -101,19 +101,19 @@ ARCHITECTURE behaviour_data_flow OF fulladder_x2 IS
   SIGNAL ncout	 : BIT;
 
 BEGIN
-  ASSERT ((vdd and not (vss)) = '1')
-  REPORT "power supply is missing on fulladder_x2"
-  SEVERITY WARNING;
-  ASSERT (((((a1 and a2) and a3) and a4) or not ((((a1 or a2) or a3) or
-  a4))) = '1')
-  REPORT "a1, a2, a3, a4 must be connected together on fulladder_x2"
+  ASSERT ((((cin1 and cin2) and cin3) or not (((cin1 or cin2) or cin3))) = '1')
+  REPORT "cin1, cin2, cin3 must be connected together on fulladder_x2"
   SEVERITY WARNING;
   ASSERT (((((b1 and b2) and b3) and b4) or not ((((b1 or b2) or b3) or
   b4))) = '1')
   REPORT "b1, b2, b3, b4 must be connected together on fulladder_x2"
   SEVERITY WARNING;
-  ASSERT ((((cin1 and cin2) and cin3) or not (((cin1 or cin2) or cin3))) = '1')
-  REPORT "cin1, cin2, cin3 must be connected together on fulladder_x2"
+  ASSERT (((((a1 and a2) and a3) and a4) or not ((((a1 or a2) or a3) or
+  a4))) = '1')
+  REPORT "a1, a2, a3, a4 must be connected together on fulladder_x2"
+  SEVERITY WARNING;
+  ASSERT ((vdd and not (vss)) = '1')
+  REPORT "power supply is missing on fulladder_x2"
   SEVERITY WARNING;
   ncout <= not (((a1 and b1) or ((a2 or b2) and cin1)));
   sout <= (((a3 and b3) and cin2) or (((a4 or b4) or cin3) and ncout)) after 1900 ps;

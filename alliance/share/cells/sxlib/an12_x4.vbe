@@ -25,5 +25,8 @@ END an12_x4;
 ARCHITECTURE behaviour_data_flow OF an12_x4 IS
 
 BEGIN
+  ASSERT ((vdd and not (vss)) = '1')
+  REPORT "power supply is missing on an12_x4"
+  SEVERITY WARNING;
   q <= (not (i0) and i1) after 1100 ps;
 END;

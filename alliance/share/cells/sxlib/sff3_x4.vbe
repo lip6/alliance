@@ -12,28 +12,28 @@ GENERIC (
   CONSTANT taf_ck_q	 : NATURAL := 600;
   CONSTANT tar_ck_q	 : NATURAL := 600;
   CONSTANT thf_ck_q	 : NATURAL := 0;
-  CONSTANT thf_cmd0_sff_m	 : NATURAL := 0;
-  CONSTANT thf_cmd1_sff_m	 : NATURAL := 0;
-  CONSTANT thf_i0_sff_m	 : NATURAL := 0;
-  CONSTANT thf_i1_sff_m	 : NATURAL := 0;
-  CONSTANT thf_i2_sff_m	 : NATURAL := 0;
+  CONSTANT thf_cmd0_ck	 : NATURAL := 0;
+  CONSTANT thf_cmd1_ck	 : NATURAL := 0;
+  CONSTANT thf_i0_ck	 : NATURAL := 0;
+  CONSTANT thf_i1_ck	 : NATURAL := 0;
+  CONSTANT thf_i2_ck	 : NATURAL := 0;
   CONSTANT thr_ck_q	 : NATURAL := 0;
-  CONSTANT thr_cmd0_sff_m	 : NATURAL := 0;
-  CONSTANT thr_cmd1_sff_m	 : NATURAL := 0;
-  CONSTANT thr_i0_sff_m	 : NATURAL := 0;
-  CONSTANT thr_i1_sff_m	 : NATURAL := 0;
-  CONSTANT thr_i2_sff_m	 : NATURAL := 0;
-  CONSTANT transistors	 : NATURAL := 42;
-  CONSTANT tsf_cmd0_sff_m	 : NATURAL := 1200;
-  CONSTANT tsf_cmd1_sff_m	 : NATURAL := 1200;
-  CONSTANT tsf_i0_sff_m	 : NATURAL := 1200;
-  CONSTANT tsf_i1_sff_m	 : NATURAL := 1200;
-  CONSTANT tsf_i2_sff_m	 : NATURAL := 1200;
-  CONSTANT tsr_cmd0_sff_m	 : NATURAL := 1100;
-  CONSTANT tsr_cmd1_sff_m	 : NATURAL := 1100;
-  CONSTANT tsr_i0_sff_m	 : NATURAL := 850;
-  CONSTANT tsr_i1_sff_m	 : NATURAL := 950;
-  CONSTANT tsr_i2_sff_m	 : NATURAL := 950
+  CONSTANT thr_cmd0_ck	 : NATURAL := 0;
+  CONSTANT thr_cmd1_ck	 : NATURAL := 0;
+  CONSTANT thr_i0_ck	 : NATURAL := 0;
+  CONSTANT thr_i1_ck	 : NATURAL := 0;
+  CONSTANT thr_i2_ck	 : NATURAL := 0;
+  CONSTANT tsf_cmd0_ck	 : NATURAL := 1200;
+  CONSTANT tsf_cmd1_ck	 : NATURAL := 1200;
+  CONSTANT tsf_i0_ck	 : NATURAL := 1200;
+  CONSTANT tsf_i1_ck	 : NATURAL := 1200;
+  CONSTANT tsf_i2_ck	 : NATURAL := 1200;
+  CONSTANT tsr_cmd0_ck	 : NATURAL := 1100;
+  CONSTANT tsr_cmd1_ck	 : NATURAL := 1100;
+  CONSTANT tsr_i0_ck	 : NATURAL := 850;
+  CONSTANT tsr_i1_ck	 : NATURAL := 950;
+  CONSTANT tsr_i2_ck	 : NATURAL := 950;
+  CONSTANT transistors	 : NATURAL := 42
 );
 PORT (
   ck	 : in  BIT;
@@ -52,7 +52,7 @@ ARCHITECTURE behaviour_data_flow OF sff3_x4 IS
   SIGNAL sff_m	 : REG_BIT REGISTER;
 
 BEGIN
-  ASSERT ((vdd and not (vss)) = '1')
+  ASSERT (vdd and not (vss))
   REPORT "power supply is missing on sff3_x4"
   SEVERITY WARNING;
 

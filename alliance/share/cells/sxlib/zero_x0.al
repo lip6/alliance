@@ -1,5 +1,5 @@
 V ALLIANCE : 6
-H zero_x0,L,15/10/99
+H zero_x0,L,30/10/99
 C nq,OUT,EXTERNAL,1
 C vdd,IN,EXTERNAL,3
 C vss,IN,EXTERNAL,2

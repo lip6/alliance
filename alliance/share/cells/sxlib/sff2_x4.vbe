@@ -15,20 +15,20 @@ GENERIC (
   CONSTANT thr_cmd_ck	 : NATURAL := 0;
   CONSTANT thr_i0_ck	 : NATURAL := 0;
   CONSTANT thr_i1_ck	 : NATURAL := 0;
-  CONSTANT transistors	 : NATURAL := 34;
   CONSTANT tsf_cmd_ck	 : NATURAL := 833;
   CONSTANT tsf_i0_ck	 : NATURAL := 764;
   CONSTANT tsf_i1_ck	 : NATURAL := 764;
   CONSTANT tsr_cmd_ck	 : NATURAL := 770;
   CONSTANT tsr_i0_ck	 : NATURAL := 666;
-  CONSTANT tsr_i1_ck	 : NATURAL := 666
+  CONSTANT tsr_i1_ck	 : NATURAL := 666;
+  CONSTANT transistors	 : NATURAL := 34
 );
 PORT (
   ck	 : in  BIT;
   cmd	 : in  BIT;
   i0	 : in  BIT;
   i1	 : in  BIT;
-  q	 : inout BIT;
+  q	 : out BIT;
   vdd	 : in  BIT;
   vss	 : in  BIT
 );

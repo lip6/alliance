@@ -1,6 +1,6 @@
 ENTITY ts_x8 IS
 GENERIC (
-  CONSTANT area 	 : NATURAL := 2860;
+  CONSTANT area 	 : NATURAL := 3250;
   CONSTANT cin_cmd	 : NATURAL := 19;
   CONSTANT cin_i	 : NATURAL := 8;
   CONSTANT rdown_cmd_q	 : NATURAL := 400;

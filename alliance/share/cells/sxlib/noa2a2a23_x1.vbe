@@ -49,5 +49,8 @@ END noa2a2a23_x1;
 ARCHITECTURE behaviour_data_flow OF noa2a2a23_x1 IS
 
 BEGIN
+  ASSERT ((vdd and not (vss)) = '1')
+  REPORT "power supply is missing on noa2a2a23_x1"
+  SEVERITY WARNING;
   nq <= not ((((i0 and i1) or (i2 and i3)) or (i4 and i5))) after 1200 ps;
 END;

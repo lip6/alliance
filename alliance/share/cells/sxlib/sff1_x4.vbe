@@ -9,9 +9,9 @@ GENERIC (
   CONSTANT tar_ck_q	 : NATURAL := 500;
   CONSTANT thf_i_ck	 : NATURAL := 0;
   CONSTANT thr_i_ck	 : NATURAL := 0;
-  CONSTANT transistors	 : NATURAL := 26;
   CONSTANT tsf_i_ck	 : NATURAL := 585;
-  CONSTANT tsr_i_ck	 : NATURAL := 476
+  CONSTANT tsr_i_ck	 : NATURAL := 476;
+  CONSTANT transistors	 : NATURAL := 26
 );
 PORT (
   ck	 : in  BIT;

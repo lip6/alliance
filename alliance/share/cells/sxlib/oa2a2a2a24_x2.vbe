@@ -61,5 +61,8 @@ END oa2a2a2a24_x2;
 ARCHITECTURE behaviour_data_flow OF oa2a2a2a24_x2 IS
 
 BEGIN
-  q <= ((i0 and i1) or (i2 and i3) or (i4 and i5) or (i6 and i7)) after 1500 ps;
+  ASSERT ((vdd and not (vss)) = '1')
+  REPORT "power supply is missing on oa2a2a2a24_x2"
+  SEVERITY WARNING;
+  q <= ((((i0 and i1) or (i2 and i3)) or (i4 and i5)) or (i6 and i7)) after 1500 ps;
 END;

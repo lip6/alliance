@@ -51,5 +51,9 @@ END mx3_x4;
 ARCHITECTURE behaviour_data_flow OF mx3_x4 IS
 
 BEGIN
-  q <= ((not (cmd0) and i0) or (cmd0 and ((cmd1 and i1) or (not (cmd1) and i2)))) after 1600 ps;
+  ASSERT ((vdd and not (vss)) = '1')
+  REPORT "power supply is missing on mx3_x4"
+  SEVERITY WARNING;
+  q <= ((not (cmd0) and i0) or (cmd0 and ((cmd1 and i1) or (not (cmd1)
+  and i2)))) after 1600 ps;
 END;

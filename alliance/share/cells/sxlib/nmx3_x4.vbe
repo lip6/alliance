@@ -51,5 +51,9 @@ END nmx3_x4;
 ARCHITECTURE behaviour_data_flow OF nmx3_x4 IS
 
 BEGIN
-  nq <= not (((not (cmd0) and i0) or (cmd0 and ((cmd1 and i1) or (not (cmd1) and i2))))) after 1700 ps;
+  ASSERT ((vdd and not (vss)) = '1')
+  REPORT "power supply is missing on nmx3_x4"
+  SEVERITY WARNING;
+  nq <= not (((not (cmd0) and i0) or (cmd0 and ((cmd1 and i1) or (not
+  (cmd1) and i2))))) after 1700 ps;
 END;
