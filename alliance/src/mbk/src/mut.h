@@ -26,7 +26,7 @@
  * Date    : 31/08/93
  * Author  : Frederic Petrot <Frederic.Petrot@lip6.fr>
  * Modified by Czo <Olivier.Sirol@lip6.fr> 1997,98
- * $Id: mut.h,v 1.6 2002/09/30 16:20:51 czo Exp $
+ * $Id: mut.h,v 1.7 2003/04/03 14:46:30 xtof Exp $
  */
 
 #ifndef _MUT_H_
@@ -94,6 +94,7 @@ extern "C" {
 
 #define isvdd(name)	instr(name, VDD, SEPAR)
 #define isvss(name)	instr(name, VSS, SEPAR)
+#define isck(name)	instr(name, CK, SEPAR)
 #define funcin()     if (MBK_DEBUG_ON)                                \
                         HEAD_MBKDEBUG = addptype(HEAD_MBKDEBUG,       \
                                                  __LINE__,            \
@@ -191,6 +192,7 @@ extern long       SCALE_X;                     /* distance scale parameter    */
 extern char       PARSER_INFO[];               /* version number, and so on   */
 extern char       *VDD;                        /* user name for power high    */
 extern char       *VSS;                        /* user name for power ground  */
+extern char       *CK;                         /* user name for ck            */
 extern ptype_list *HEAD_MBKDEBUG;              /* function debug list         */
 extern char       MBK_DEBUG_ON;                /* mode for debug on/off       */
 extern char       *IN_FILTER;

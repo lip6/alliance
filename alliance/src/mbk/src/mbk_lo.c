@@ -30,7 +30,7 @@
  * Modified by pnt <Pierre.Nguyen-Tuong@lip6.fr> 2002
  */
 
-#ident "$Id: mbk_lo.c,v 1.6 2002/09/30 16:20:49 czo Exp $"
+#ident "$Id: mbk_lo.c,v 1.7 2003/04/03 14:46:30 xtof Exp $"
 
 #include <stdio.h>
 #include <unistd.h>
@@ -1310,6 +1310,7 @@ num_list    *scannum;
                         }
                         break;
                 default:
+                        break;
                 }
         }
    {
@@ -1547,6 +1548,7 @@ void delloconuser(locon_list *ptlocon)
                  scanptype->TYPE
                );
 #endif
+        break;
     }
 
     if( del )
@@ -1591,6 +1593,7 @@ void dellofiguser(lofig_list *ptlofig)
                  scanptype->TYPE
                );
 #endif
+        break;
     }
 
     if( del )
@@ -1632,6 +1635,7 @@ void delloinsuser(loins_list *ptloins)
                  scanptype->TYPE
                );
 #endif
+        break;
     }
 
     if( del )
@@ -1669,6 +1673,7 @@ void dellotrsuser(lotrs_list *ptlotrs)
                  scanptype->TYPE
                );
 #endif
+        break;
     }
 
     if( del )
@@ -1710,6 +1715,7 @@ void dellosiguser(losig_list *ptlosig)
                  scanptype->TYPE
                );
 #endif
+        break;
     }
 
     if( del )
@@ -1969,6 +1975,7 @@ void dellocapuser(locap_list *ptlocap)
 #ifdef MBK_TRACE_BAD_PTYPE
 	  fprintf( stderr, "WARNING in delloconuser() : unknown ptype %ld\n",scanptype -> TYPE) ;
 #endif
+          break;
 	}
 
       if(del)
@@ -2231,6 +2238,7 @@ void delloresuser(lores_list *ptlores)
 #ifdef MBK_TRACE_BAD_PTYPE
 	  fprintf( stderr, "WARNING in delloconuser() : unknown ptype %ld\n",scanptype -> TYPE) ;
 #endif
+          break;
 	}
 
       if(del)
@@ -2490,6 +2498,7 @@ void delloselfuser(loself_list *ptloself)
 #ifdef MBK_TRACE_BAD_PTYPE
 	  fprintf( stderr, "WARNING in delloconuser() : unknown ptype %ld\n",scanptype -> TYPE) ;
 #endif
+          break;
 	}
 
       if(del)

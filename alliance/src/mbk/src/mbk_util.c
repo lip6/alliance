@@ -28,7 +28,7 @@
  * Modified by Czo <Olivier.Sirol@lip6.fr> 1997,98
  */
 
-#ident "$Id: mbk_util.c,v 1.2 2002/09/30 16:20:50 czo Exp $"
+#ident "$Id: mbk_util.c,v 1.3 2003/04/03 14:46:30 xtof Exp $"
 
 #include <stdio.h>
 #include <stdlib.h>
@@ -72,6 +72,7 @@ long SCALE_X = 100;                            /* distance scale definition   */
 char PARSER_INFO[100] = "nothing yet";         /* version number, and so on   */
 char *VDD = NULL;                              /* user name for power high    */
 char *VSS = NULL;                              /* user name for power ground  */
+char *CK = NULL;                               /* user name for clock         */
 char *IN_FILTER = NULL ;
 char *OUT_FILTER = NULL ;
 char *FILTER_SFX = NULL ;
@@ -319,6 +320,12 @@ static char MBK_RAND_SEED[] = { 0x62,
       VSS = str;
    else /* default value for power high */
       VSS = "vss";
+   
+   str = mbkgetenv("MBK_CK");
+   if (str != NULL)
+      CK = str;
+   else /* default value for clock */
+      CK = "ck";
 
    str = mbkgetenv( "MBK_IN_FILTER" );
    if( str )

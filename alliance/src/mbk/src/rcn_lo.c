@@ -21,7 +21,7 @@
  * Software Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
  */
 
-#ident "$Id: rcn_lo.c,v 1.2 2002/09/30 16:20:51 czo Exp $"
+#ident "$Id: rcn_lo.c,v 1.3 2003/04/03 14:46:30 xtof Exp $"
 
 /*******************************************************************************
 * rcn    : acces functions to logical rc network structures                    *
@@ -37,6 +37,7 @@
 * 4, Place Jussieu                                                             *
 * Paris Cedex 05.                                                              *
 *******************************************************************************/
+#include <stdlib.h>
 
 #include "mut.h"
 #include "mlo.h"
