@@ -157,7 +157,7 @@ exp    : IDENT '=' exp                { if ((pcond==0) || (cond[pcond]>0.)) {
 cond   : exp                          { if (pcond < PCONDMAX) 
                                           cond[++pcond] = $1; 
                                         else
-                                          yyerror ("too much conditions")
+                                          yyerror ("too much conditions");
                                       }
        ;
 idents : IDENT                        { $$ = eltadd (NULL,NULL); $$->VAL.e=$1;}  
