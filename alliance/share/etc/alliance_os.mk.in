@@ -40,7 +40,7 @@ MAKE             = @MAKE@
 MAKEFLAGS        = @MAKEFLAGS@
 
 CC               = @FULL_CC@
-CFLAGS           = @CFLAGS@
+CFLAGS           = @CFLAGS@ @AUTO_HAS@
 CPPFLAGS         = @CPPFLAGS@
 
 YACC             = @FULL_YACC@
