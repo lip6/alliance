@@ -468,7 +468,7 @@ gcNodeBdd (3)        - does a garbage collection
 gcNodeCct (3)        - does a garbage collection
 genbs (1)            - A IEEE 1149.1 Boundary-Scan Architecture Generator
 genlib (1)           - Procedural design language based upon C, along with its compiler
-genpat, A procedural pattern file generator
+genpat (1),          - A procedural pattern file generator
 genscan (1)          - scan path generator
 genview (1)          - genlib graphical source level debugger
 getablexprdepth (3)  - gives the depth of an expression.
