@@ -266,7 +266,7 @@ char  *key;
     addhtitem (pt_hash, namealloc("after")        , AFTER        );
     addhtitem (pt_hash, namealloc("alias")        , ALIAS        );
     addhtitem (pt_hash, namealloc("all")          , ALL          );
-    addhtitem (pt_hash, namealloc("and")          , _AND         );
+    addhtitem (pt_hash, namealloc("and")          , tok_AND         );
     addhtitem (pt_hash, namealloc("architecture") , ARCHITECTURE );
     addhtitem (pt_hash, namealloc("array")        , ARRAY        );
     addhtitem (pt_hash, namealloc("assert")       , ASSERT       );
@@ -326,7 +326,7 @@ char  *key;
     addhtitem (pt_hash, namealloc("nor")          , _NOR         );
     addhtitem (pt_hash, namealloc("not")          , _NOT         );
     addhtitem (pt_hash, namealloc("ns")           , _NS           );
-    addhtitem (pt_hash, namealloc("null")         , _NULL        );
+    addhtitem (pt_hash, namealloc("null")         , tok_NULL        );
 
     addhtitem (pt_hash, namealloc("of")           , OF           );
     addhtitem (pt_hash, namealloc("on")           , ON           );
