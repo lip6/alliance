@@ -1,4 +1,4 @@
-.\"   $Id: scr.1,v 1.1 1999/05/31 17:30:14 alliance Exp $
+.\"   $Id: scr.1,v 1.2 2000/08/30 08:14:06 syf Exp $
 .\" @(#)Labo.l 0.0 92/09/24 UPMC; Author: El housseine REJOUAN
 .pl -.4
 .TH SCR 1 "October 1, 1997" "ASIM/LIP6" "CAO\-VLSI Reference Manual"
@@ -10,7 +10,7 @@ scr
 .SH SYNOPSIS
 .TP
 \fBscr\fP 
-[\fB-p\fP] [\fB-r\fP] [\fB-c \fIChannelName\fP] [\fB-i \fIIterationNumber \fP] [\fB-l \fIRowNumber\fP] [\fB-a \fISupplyNumber\fP]
+[\fB-p\fP] [\fB-r\fP] [\fB-c \fIChannelName\fP] [\fB-i \fIIterationNumber \fP] [\fB-l \fIRowNumber\fP] [\fB-a \fISupplyNumber\fP] [-sclib]
 .br
 [\fB-o \fIOutputFileName\fP] \fIsource\fP 
 .br
@@ -215,6 +215,9 @@ The default value is computed to provide a square result.
 .TP 20
 \-a \fISupplyNumber\fP 
 This option allows the designer to set the number of vertical power and ground wires. The default value is one.
+.TP 20
+\-sclib
+This option must be used for sclib netlist (for upward compatibility).
 .br
 
 .SH ENVIRONMENT
