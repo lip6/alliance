@@ -1,6 +1,6 @@
 #!/bin/sh
 #
-# $Id: attila.sh,v 1.2 2002/09/30 16:19:43 czo Exp $
+# $Id: attila.sh,v 1.3 2002/09/30 18:30:11 jpc Exp $
 #                                                                        
 # /------------------------------------------------------------------\
 # |                                                                  |
@@ -8,7 +8,7 @@
 # |             T o o l   I n s t a l l e r                          |
 # |                                                                  |
 # |  Author    :                      Jean-Paul CHAPUT               |
-# |  E-mail    :         alliance-users@asim.lip6.fr               |
+# |  E-mail    :         alliance-users@asim.lip6.fr                 |
 # | ================================================================ |
 # |  sh script :         "./attila"                                  |
 # | **************************************************************** |
@@ -93,7 +93,7 @@
    echo ""
    echo "                  Alliance CAD System 5.0,           attila 0.1"
    echo "                  Copyright (c) 2002-2002,       ASIM/LIP6/UPMC"
-   echo "                  E-mail        : alliance-users@asim.lip6.fr"
+   echo "                  E-mail :          alliance-users@asim.lip6.fr"
    echo ""
    echo ""
  }
@@ -398,7 +398,7 @@
 
    cd $HOME/alliance/src
    if [ ! -f $TOOL/Makefile.in ]; then
-     ./autostuff $TOOL
+     ./autostuff
    fi
 
    if [ "$ASIM" = "y" ]; then
@@ -423,6 +423,10 @@
 
    echo "  o  Building & installing requested tools."
    for TOOL in $TOOLS; do
+     echo "     - Making autostuff for $TOOL."
+     cd  $HOME/alliance/src
+     ./autostuff $TOOL
+
      cd $BUILD_DIR
      if [ ! -d $TOOL ]; then
        echo "     - Creating $TOOL directory."
