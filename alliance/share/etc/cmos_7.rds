@@ -734,9 +734,9 @@ DRC_COMMENT
 65 (RDS_ALU4) Manhatan distance min 3. 
 66 (RDS_ALU4,RDS_ALU4) Manhatan distance min 3. 
 67 (RDS_CONT,RDS_CONT) Manhatan distance min 3. 
-68 (RDS_VIA,RDS_VIA) Manhatan distance min 3. 
-69 (RDS_VIA2,RDS_VIA2) Manhatan distance min 3. 
-70 (RDS_VIA3,RDS_VIA3) Manhatan distance min 3. 
+68 (RDS_VIA,RDS_VIA) Manhatan distance min 4. 
+69 (RDS_VIA2,RDS_VIA2) Manhatan distance min 4. 
+70 (RDS_VIA3,RDS_VIA3) Manhatan distance min 4. 
 71 (RDS_CONT) minimum width 1. 
 72 (RDS_CONT) maximum length 1. 
 73 (RDS_VIA) minimum width 1. 
