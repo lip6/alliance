@@ -1,0 +1,61 @@
+.\" @(#)flatbeh.1 1.0  29 january 1993 UPMC; VUONG Huu Nghia
+.TH FLATBEH 1 "29 january 1993" "Release 1.0" "ALLIANCE USER COMMANDS"
+
+.SH NAME
+.PP
+\fBflatbeh\fP \- Synthetize a behavioral description from a structural description
+
+.SH SYNOPSIS
+.PP
+flatbeh \fIroot_structural_file\fP  [ \fIoutput_file\fP ]
+
+.SH ORIGIN
+This software belongs to the
+.B ALLIANCE
+CAD system from the
+.br
+CAO-VLSI team at MASI laboratory, University P. et M. Curie
+.br
+4, place Jussieu ; 75252 PARIS Cedex 05 ; FRANCE
+.br
+Fax: (33-1) 44.27.62.86 ; E-mail: cao-vlsi@masi.ibp.fr
+
+.SH DESCRIPTION
+.PP
+\fBflatbeh\fP synthetize a VHDL behavioral data-flow description from a
+structural description. It flattens the structural description (it can be
+a hierarchy of macro block) until the cells which have a behavioral
+description. Then it raise all the equations and create a behavioral
+description of the root file.
+
+.SH PARAMETERS
+.PP
+\fBroot_structural_file\fP is the filename of the root of the structural
+description file.
+
+\fBoutput_file\fP is the destination filename for behavioural description.
+
+.SH ENVIRONMENT VARIABLES
+.TP 20
+\fIMBK_CATA_LIB\fP
+list of directories containing descriptions. 
+The default path is the current directory (see mbk(1)).
+.TP 20
+\fIMBK_CATAL_NAME\fP
+Indicates the file where the behavioral description files are given. This serves
+to flatbeh to stop the flatten of the structural root circuit.(see mbk(1))
+.TP 20
+\fIMBK_IN_LO\fP
+file extension for structural entity. (see mbk(1))
+
+.SH EXAMPLE
+.PP
+flatbeh adder_32 
+
+.SH SEE ALSO
+.PP
+vhdl(5), mbk(1).
+
+.SH BUGS
+.PP
+Please e-mail to \fIcao-vlsi@masi.ibp.fr\fP for bug report and suggestions.
