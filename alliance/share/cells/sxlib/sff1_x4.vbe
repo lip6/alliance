@@ -1,0 +1,36 @@
+ENTITY sff1_x4 IS
+GENERIC (
+  CONSTANT area 	 : NATURAL := 450000;
+  CONSTANT transistors	 : NATURAL := 26;
+  CONSTANT cin_ck	 : NATURAL := 8;
+  CONSTANT cin_i	 : NATURAL := 8;
+  CONSTANT thr_i_ck	 : NATURAL := 0;
+  CONSTANT thf_i_ck	 : NATURAL := 0;
+  CONSTANT tsr_i_ck	 : NATURAL := 476;
+  CONSTANT tsf_i_ck	 : NATURAL := 585;
+  CONSTANT tar_ck_q	 : NATURAL := 500;
+  CONSTANT taf_ck_q	 : NATURAL := 500;
+  CONSTANT rup_ck_q	 : NATURAL := 890;
+  CONSTANT rdown_ck_q	 : NATURAL := 800
+);
+PORT (
+  ck	 : in  BIT;
+  i	 : in  BIT;
+  q	 : inout BIT;
+  vdd	 : in  BIT;
+  vss	 : in  BIT
+);
+END sff1_x4;
+
+ARCHITECTURE VBE OF sff1_x4 IS
+  SIGNAL sff_m	 : REG_BIT REGISTER;
+
+BEGIN
+
+  label0 : BLOCK ((ck and not (ck'STABLE)) = '1')
+  BEGIN
+    sff_m <= GUARDED i;
+  END BLOCK label0;
+
+  q <= sff_m;
+END;

@@ -1,0 +1,29 @@
+ENTITY o2_x2 IS
+GENERIC (
+  CONSTANT area 	 : NATURAL := 125000;
+  CONSTANT transistors	 : NATURAL := 6;
+  CONSTANT cin_i0	 : NATURAL := 10;
+  CONSTANT cin_i1	 : NATURAL := 10;
+  CONSTANT tphh_i0_q	 : NATURAL := 431;
+  CONSTANT rup_i0_q	 : NATURAL := 1780;
+  CONSTANT tpll_i0_q	 : NATURAL := 306;
+  CONSTANT rdown_i0_q	 : NATURAL := 1600;
+  CONSTANT tphh_i1_q	 : NATURAL := 356;
+  CONSTANT rup_i1_q	 : NATURAL := 1780;
+  CONSTANT tpll_i1_q	 : NATURAL := 388;
+  CONSTANT rdown_i1_q	 : NATURAL := 1600
+);
+PORT (
+  i0	 : in  BIT;
+  i1	 : in  BIT;
+  q	 : out BIT;
+  vdd	 : in  BIT;
+  vss	 : in  BIT
+);
+END o2_x2;
+
+ARCHITECTURE VBE OF o2_x2 IS
+
+BEGIN
+  q <= (i0 or i1);
+END;

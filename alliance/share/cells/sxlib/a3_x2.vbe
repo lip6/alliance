@@ -1,0 +1,35 @@
+ENTITY a3_x2 IS
+GENERIC (
+  CONSTANT area 	 : NATURAL := 150000;
+  CONSTANT transistors	 : NATURAL := 8;
+  CONSTANT cin_i0	 : NATURAL := 10;
+  CONSTANT cin_i1	 : NATURAL := 10;
+  CONSTANT cin_i2	 : NATURAL := 10;
+  CONSTANT tphh_i2_q	 : NATURAL := 281;
+  CONSTANT rup_i2_q	 : NATURAL := 1780;
+  CONSTANT tpll_i2_q	 : NATURAL := 562;
+  CONSTANT rdown_i2_q	 : NATURAL := 1600;
+  CONSTANT tphh_i0_q	 : NATURAL := 405;
+  CONSTANT rup_i0_q	 : NATURAL := 1780;
+  CONSTANT tpll_i0_q	 : NATURAL := 471;
+  CONSTANT rdown_i0_q	 : NATURAL := 1600;
+  CONSTANT tphh_i1_q	 : NATURAL := 355;
+  CONSTANT rup_i1_q	 : NATURAL := 1780;
+  CONSTANT tpll_i1_q	 : NATURAL := 517;
+  CONSTANT rdown_i1_q	 : NATURAL := 1600
+);
+PORT (
+  i0	 : in  BIT;
+  i1	 : in  BIT;
+  i2	 : in  BIT;
+  q	 : out BIT;
+  vdd	 : in  BIT;
+  vss	 : in  BIT
+);
+END a3_x2;
+
+ARCHITECTURE VBE OF a3_x2 IS
+
+BEGIN
+  q <= ((i0 and i1) and i2);
+END;

@@ -1,0 +1,37 @@
+ENTITY nxr2_x1 IS
+GENERIC (
+  CONSTANT area 	 : NATURAL := 225000;
+  CONSTANT transistors	 : NATURAL := 12;
+  CONSTANT cin_i0	 : NATURAL := 21;
+  CONSTANT cin_i1	 : NATURAL := 22;
+  CONSTANT tplh_i1_nq	 : NATURAL := 361;
+  CONSTANT rup_i1_nq	 : NATURAL := 3200;
+  CONSTANT tphh_i1_nq	 : NATURAL := 407;
+  CONSTANT rup_i1_nq	 : NATURAL := 3200;
+  CONSTANT tphl_i1_nq	 : NATURAL := 157;
+  CONSTANT rdown_i1_nq	 : NATURAL := 2820;
+  CONSTANT tpll_i1_nq	 : NATURAL := 516;
+  CONSTANT rdown_i1_nq	 : NATURAL := 2820;
+  CONSTANT tplh_i0_nq	 : NATURAL := 313;
+  CONSTANT rup_i0_nq	 : NATURAL := 3200;
+  CONSTANT tphh_i0_nq	 : NATURAL := 377;
+  CONSTANT rup_i0_nq	 : NATURAL := 3200;
+  CONSTANT tphl_i0_nq	 : NATURAL := 296;
+  CONSTANT rdown_i0_nq	 : NATURAL := 2820;
+  CONSTANT tpll_i0_nq	 : NATURAL := 403;
+  CONSTANT rdown_i0_nq	 : NATURAL := 2820
+);
+PORT (
+  i0	 : in  BIT;
+  i1	 : in  BIT;
+  nq	 : out BIT;
+  vdd	 : in  BIT;
+  vss	 : in  BIT
+);
+END nxr2_x1;
+
+ARCHITECTURE VBE OF nxr2_x1 IS
+
+BEGIN
+  nq <= not ((i0 xor i1));
+END;

@@ -1,0 +1,35 @@
+ENTITY na3_x1 IS
+GENERIC (
+  CONSTANT area 	 : NATURAL := 125000;
+  CONSTANT transistors	 : NATURAL := 6;
+  CONSTANT cin_i0	 : NATURAL := 11;
+  CONSTANT cin_i1	 : NATURAL := 11;
+  CONSTANT cin_i2	 : NATURAL := 11;
+  CONSTANT tplh_i1_nq	 : NATURAL := 350;
+  CONSTANT rup_i1_nq	 : NATURAL := 3710;
+  CONSTANT tphl_i1_nq	 : NATURAL := 169;
+  CONSTANT rdown_i1_nq	 : NATURAL := 4070;
+  CONSTANT tplh_i2_nq	 : NATURAL := 296;
+  CONSTANT rup_i2_nq	 : NATURAL := 3710;
+  CONSTANT tphl_i2_nq	 : NATURAL := 199;
+  CONSTANT rdown_i2_nq	 : NATURAL := 4070;
+  CONSTANT tplh_i0_nq	 : NATURAL := 400;
+  CONSTANT rup_i0_nq	 : NATURAL := 3710;
+  CONSTANT tphl_i0_nq	 : NATURAL := 107;
+  CONSTANT rdown_i0_nq	 : NATURAL := 4070
+);
+PORT (
+  i0	 : in  BIT;
+  i1	 : in  BIT;
+  i2	 : in  BIT;
+  nq	 : out BIT;
+  vdd	 : in  BIT;
+  vss	 : in  BIT
+);
+END na3_x1;
+
+ARCHITECTURE VBE OF na3_x1 IS
+
+BEGIN
+  nq <= not (((i0 and i1) and i2));
+END;
