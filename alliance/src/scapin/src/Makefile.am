@@ -6,7 +6,7 @@ AM_CFLAGS = @ALLIANCE_CFLAGS@ \
          -DSCAPIN_DEFAULT_PARAM_NAME=\"etc/sxlib.scapin\"
 
 scapin_LDADD = @ALLIANCE_LIBS@ \
--lMlu -lMcl -lMel -lMhl -lMvl -lMlo -lMut -lMal -lRcn -lMsl -lMgl -lAut
+-lMlu -lMcl -lMel -lMhl -lMvg -lMlo -lMut -lMal -lRcn -lMsl -lMgl -lAut
 
 scapin_SOURCES = \
 scan_insert.c scan_insert.h scan_main.c scan_main.h \
