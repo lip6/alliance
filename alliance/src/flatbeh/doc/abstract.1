@@ -1,0 +1,64 @@
+.\" @(#)abstract.1 1.0  15 mars 1995 UPMC; DICTUS Nathalie
+.TH ABSTRACT 1 "15 mars 1995" "Release 1.0" "ALLIANCE USER COMMANDS"
+
+.SH NAME
+.PP
+\fBabstract\fP \- Synthetizes a behavioral description from a structural description
+
+.SH ORIGIN
+This software belongs to the
+.B ALLIANCE
+CAD system from the
+.br
+CAO-VLSI team at MASI laboratory, University P. et M. Curie
+.br
+4, place Jussieu ; 75252 PARIS Cedex 05 ; FRANCE
+.br
+Fax: (33-1) 44.27.62.86 ; E-mail: cao-vlsi@masi.ibp.fr
+
+.SH SYNOPSIS
+.PP
+abstract \fIroot_structural_file\fP \fI[behavioral_file]\fP
+
+.SH DESCRIPTION
+.PP
+\fBabstract\fP synthetizes a VHDL behavioral data-flow description from a multilevel structural description. It flattens the structural description (it can be
+a hierarchy of macro block) until the cells which have a behavioral
+description. The output is a VHDL data-flow description.
+
+.SH PARAMETERS
+.PP
+\fBroot_structural_file\fP is the filename of the root of the structural
+description file.
+
+\fBbehavioral_file\fP is the optional filename of the generated behavioral description file.
+
+.SH ENVIRONMENT VARIABLES
+.TP 20
+\fIMBK_WORK_LIB\fP
+Path of the directory that contains the structural description and where is generated the behavioral description.
+.TP 20
+\fIMBK_CATA_LIB\fP
+List of directories containing leaf cell descriptions. 
+The default path is the current directory (see mbk(1)).
+.TP 20
+\fIMBK_CATAL_NAME\fP
+Indicates the file where the behavioral description files are given. This serves
+to abstract to stop the flatten of the structural root circuit (see mbk(1)).
+.TP 20
+\fIMBK_IN_LO\fP
+file extension for structural entity (see mbk(1)).
+
+.SH EXAMPLES
+.PP
+abstract adder32 
+.PP
+abstract adder32  add32
+
+.SH SEE ALSO
+.PP
+vhdl(5), mbk(1), MBK_WORK_LIB(8), MBK_CATA_LIB(8), MBK_CATAL_NAME(8), MBK_IN_LO(8).
+
+.SH BUGS
+.PP
+Please e-mail to \fIcao-vlsi@masi.ibp.fr\fP for bug report and suggestions.
