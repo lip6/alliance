@@ -3,7 +3,7 @@
 # description   : Alliance Shared Libraries and Include Files   #
 # ###---------------------------------------------------------###
 
-# $Id: libraries.mk,v 1.25 2000/02/11 12:53:38 czo Exp $
+# $Id: libraries.mk,v 1.26 2000/02/22 16:12:30 czo Exp $
 
 # The variables $ALLIANCE_TOP and $ALLIANCE_OS are set by
 # alc_env.[c]sh script
@@ -116,28 +116,28 @@ MLU_H      =    mlu501.h
 #      - mpu : user level functions                             #
 # ###---------------------------------------------------------###
 
-MPH_L      =  -lMph411
-MPH_LIB    = libMph411.a
-MPH_H      =    mph411.h
+MPH_L      =  -lMph412
+MPH_LIB    = libMph412.a
+MPH_H      =    mph412.h
 
-MAP_L      =  -lMap407
-MAP_LIB    = libMap407.a
-MCP_L      =  -lMcp408
-MCP_LIB    = libMcp408.a
-MMG_L      =  -lMmg402
-MMG_LIB    = libMmg402.a
+MAP_L      =  -lMap408
+MAP_LIB    = libMap408.a
+MCP_L      =  -lMcp409
+MCP_LIB    = libMcp409.a
+MMG_L      =  -lMmg403
+MMG_LIB    = libMmg403.a
 
-MPU_L      =  -lMpu407
-MPU_LIB    = libMpu407.a
-MPU_H      =    mpu407.h
+MPU_L      =  -lMpu408
+MPU_LIB    = libMpu408.a
+MPU_H      =    mpu408.h
 
 # ###---------------------------------------------------------###
 #    user level functions for GENLIB                            #
 # ###---------------------------------------------------------###
 
-MGN_L      =  -lMgn328
-MGN_LIB    = libMgn328.a
-MGN_H      =    mgn328.h
+MGN_L      =  -lMgn329
+MGN_LIB    = libMgn329.a
+MGN_H      =    mgn329.h
 
 # ###---------------------------------------------------------###
 #    functions related to expression representation :           #
