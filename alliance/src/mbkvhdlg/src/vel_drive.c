@@ -10,6 +10,9 @@
 /* ###--------------------------------------------------------------------### */
 /*
  * $Log: vel_drive.c,v $
+ * Revision 1.5  2002/12/10 11:39:05  fred
+ * Adding correct generation of uncomplete vectors.
+ *
  * Revision 1.4  2002/12/06 09:56:05  fred
  * Erasing a forgotten debug dump !
  *
@@ -73,7 +76,7 @@
  *
  */
 
-#ident "$Id: vel_drive.c,v 1.4 2002/12/06 09:56:05 fred Exp $"
+#ident "$Id: vel_drive.c,v 1.5 2002/12/10 11:39:05 fred Exp $"
 
 #include <stdio.h>
 #include <string.h>
@@ -613,9 +616,16 @@ int        sigi = 0;
       }
    }
 
-   /* Computes currently max signal index */
-   for (s = f->LOSIG; s; s = s->NEXT)
+   /* Computes currently max signal index and chose a correct name for
+    * them */
+   for (s = f->LOSIG; s; s = s->NEXT) {
       sigi = sigi > s->INDEX ? sigi : s->INDEX;
+      if (s->TYPE == INTERNAL) {
+         char *name = getsigname(s);
+         freechain(s->NAMECHAIN);
+         s->NAMECHAIN = addchain(NULL, mkvhdlname(name));
+      }
+   }
 
    delta = 0;
 
