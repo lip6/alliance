@@ -3,7 +3,7 @@
 # description   : Alliance Shared Libraries and Include Files   #
 # ###---------------------------------------------------------###
 
-# Last updated on on Tuesday 21 September 1999 at 16:47 MET DST
+# Last updated on on Tuesday 21 September 1999 at 18:03 MET DST
 
 # The variables $TOP and $MACHINE are set by
 # alc_env.[c]sh script
@@ -196,12 +196,12 @@ ABV_H      =    abv200.h
 #              level functions                                  #
 # ###---------------------------------------------------------###
 
-BEH_L      =  -lBeh109
-BEH_LIB    = libBeh109.a
-BEH_H      =    beh109.h
-BHL_L      =  -lBhl109
-BHL_LIB    = libBhl109.a
-BHL_H      =    bhl109.h
+BEH_L      =  -lBeh110
+BEH_LIB    = libBeh110.a
+BEH_H      =    beh110.h
+BHL_L      =  -lBhl110
+BHL_LIB    = libBhl110.a
+BHL_H      =    bhl110.h
 BVL_L      =  -lBvl111
 BVL_LIB    = libBvl111.a
 BVL_H      =    bvl111.h
@@ -248,8 +248,8 @@ PHL_H      =    phl108.h
 PPT_L      =  -lPpt108
 PPT_LIB    = libPpt108.a
 PPT_H      =    ppt108.h
-PGN_L      =  -lPgn102
-PGN_LIB    = libPgn102.a
+PGN_L      =  -lPgn103
+PGN_LIB    = libPgn103.a
 PGN_H      =    Pgn102.h
 
 # ###---------------------------------------------------------###
