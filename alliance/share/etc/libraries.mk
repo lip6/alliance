@@ -3,7 +3,7 @@
 # description	: Alliance Shared Libraries and Include Files	#
 # ###---------------------------------------------------------###
 
-# Last updated on on Monday 19 July 1999 at 13:18 MET DST
+# Last updated on on Friday 06 August 1999 at 13:48 MET DST
 
 # The variables $TOP and $MACHINE are set by
 # alc_env.[c]sh script
