@@ -1,6 +1,6 @@
 #!/bin/sh
 #
-# $Id: attila.sh,v 1.6 2002/10/04 16:43:26 jpc Exp $
+# $Id: attila.sh,v 1.7 2002/10/09 13:23:18 jpc Exp $
 #                                                                        
 # /------------------------------------------------------------------\
 # |                                                                  |
@@ -212,22 +212,29 @@
        ALLIANCE_TOP="$ATTILA_ALLIANCE_TOP"
      fi
 
-     if [ ! -f "$ALLIANCE_TOP/etc/attila.conf" ]; then
-       echo "attila: \"$ALLIANCE_TOP/etc/attila.conf\" doesn't exist !"
+     ATTILA_CONF="$ALLIANCE_TOP/etc/attila.conf"
+     if [ "$ATTILA_LOCAL" = "y" ]; then
+       ATTILA_CONF="$ATTILA_ALLIANCE_TOP/etc/attila.conf"
+     fi
+
+     if [ ! -f "$ATTILA_CONF" ]; then
+       echo "attila: \"$ATTILA_CONF\" doesn't exist !"
        echo "        Please check \$ALLIANCE_TOP."
 
        exit 1
      fi
+
+     if [ "$ATTILA_LOCAL" != "y" ]; then
+       if [ ! -d "$ALLIANCE_TOP/bin" ]; then
+         echo "attila: \"$ALLIANCE_TOP/bin\" doesn't exist !"
+         echo "        Please check \$ALLIANCE_TOP."
+  
+         exit 1
+       fi
+     fi
+
+     . "$ATTILA_CONF"
    fi
-
-   if [ ! -d "$ALLIANCE_TOP/bin" ]; then
-       echo "attila: \"$ALLIANCE_TOP/bin\" doesn't exist !"
-       echo "        Please check \$ALLIANCE_TOP."
-
-       exit 1
-   fi
-
-   . "$ALLIANCE_TOP/etc/attila.conf"
  }
 
 
@@ -504,6 +511,7 @@
                 FULL="n"
                 AUTO="n"
                 SELF="$0"
+        ATTILA_LOCAL="no"
 
 
 
@@ -534,6 +542,7 @@
      --full)        FULL="y";;
      --asim)        ASIM="y"; FULL="y";;
      --asim-noloop) ASIM="y";;
+     --local)       ATTILA_LOCAL="y";;
      --prefix=*)    INSTALL_DIR=`get_string $1`
                     if [ $? -ne 0 ]; then
                       echo -n "attila: Bad directory in argument \"$1\"."
@@ -612,7 +621,7 @@
 
  cvs_check
 
-if [ "$FULL" = "y" ]; then
+ if [ "$FULL" = "y" ]; then
   # Recursive call.
    ARGS=""
    if [ ! -z "$INSTALL_DIR" ]; then ARGS="$ARGS   --prefix=$INSTALL_DIR"; fi
@@ -622,6 +631,7 @@ if [ "$FULL" = "y" ]; then
    else
      ARGS="$ARGS --user"
    fi
+   if [ "$ATTILA_LOCAL" = "y" ]; then ARGS="$ARGS --local"; fi
    ARGS="$ARGS --rule=$RULE"
 
    for TOOL in $TOOLS; do

@@ -9,4 +9,4 @@ attila : ${srcdir}/attila.sh
 EXTRA_DIST = attila.sh
 
 install-exec-hook:
-	chmod g+w ${bindir}/attila
+	chmod g+w $(DESTDIR)$(bindir)/attila
