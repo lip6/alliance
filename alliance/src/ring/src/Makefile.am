@@ -2,9 +2,11 @@
 
 YACC = @YACC@ -d
 
+CFLAGS = @ALLIANCE_CFLAGS@
+
 bin_PROGRAMS = ring
 
-ring_LDADD = @LIBS@ \
+ring_LDADD = @ALLIANCE_LIBS@ \
           -lMpu -lMlu \
 	  -lMcl -lMcp \
 	  -lMal -lMap \
