@@ -1,9 +1,9 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
-// #include <getopt.h>
-#include "exp.h"
+#include <unistd.h>
 #include "ht.h"
+#include "exp.h"
 
 void usage (char *av[])
 {
@@ -20,11 +20,6 @@ void getoption (int ac, char *av[], FILE ** expout, FILE ** expin)
 {
   char option;
   int verbose;
-
-  extern char *optarg;
-  extern long optind;
-  extern char getopt (long, char **, char *);
-
   *expin = stdin;
   *expout = stdout;
 
