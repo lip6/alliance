@@ -86,8 +86,8 @@ locon_list *plc;
 	fprintf(stderr,"**liste des connecteurs externes\n");
 	plc = ptfig->LOCON ;
 	while(plc) {
-		fprintf(stderr,"connecteur : %s ,sig index : %d ,type : %c,
-				direction : %c \n",plc->NAME,plc->SIG->INDEX,plc->TYPE,
+		fprintf(stderr,"connecteur : %s ,sig index : %d ,type : %c,"
+				"direction : %c \n",plc->NAME,plc->SIG->INDEX,plc->TYPE,
 				plc->DIRECTION);
 		plc = plc->NEXT;
 	}
@@ -122,8 +122,8 @@ locon_list	*pc;
 		fprintf(stderr,"modele : %s ,instance : %s \n",pi->FIGNAME,pi->INSNAME);
 		pc = pi->LOCON;
 		while(pc) {
-			fprintf(stderr,"connecteur : %s ,index : %d ,type : %c,
-					dir : %c \n",pc->NAME,pc->SIG->INDEX,pc->TYPE,pc->DIRECTION);
+			fprintf(stderr,"connecteur : %s ,index : %d ,type : %c,"
+					"dir : %c \n",pc->NAME,pc->SIG->INDEX,pc->TYPE,pc->DIRECTION);
 			pc = pc->NEXT;
 		}
 		pi = pi->NEXT;
@@ -178,8 +178,8 @@ int prim_add_inv(char *name)
   else if ( ! strcmp(name,"i2") ) { pin=2 ; }
   else if ( ! strcmp(name,"i3") ) { pin=3 ; }
   else if ( ! strcmp(name,"i4") ) { pin=4 ; }
-  else  { fprintf(stderr,"FORMAT_ERROR: pin name *%s* not in set o,i0,i1,
-				  i2,i3,i4 \n",name) ; }
+  else  { fprintf(stderr,"FORMAT_ERROR: pin name *%s* not in set o,i0,i1,"
+				  "i2,i3,i4 \n",name) ; }
   if ( pin >= diff ) { return 1 ; }
   else { return 0 ; } 
 }
@@ -194,8 +194,8 @@ static char *prim_map_pin_name(char *name,char *buffer)
   else if ( ! strcmp(buffer,"i2") ) { return "3" ; }
   else if ( ! strcmp(buffer,"i3") ) { return "4" ; }
   else if ( ! strcmp(buffer,"i4") ) { return "5" ; }
-  else { fprintf(stderr,"FORMAT_ERROR: pin name *%s* not in set o,i0,i1,
-				 i2,i3,i4 \n",buffer) ;
+  else { fprintf(stderr,"FORMAT_ERROR: pin name *%s* not in set o,i0,i1,"
+				 "i2,i3,i4 \n",buffer) ;
       return buffer ;}
 }
 /*-------------------------------------------------------------*/

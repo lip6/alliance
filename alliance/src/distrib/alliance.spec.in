@@ -1,21 +1,20 @@
 
 %define       name            alliance
 %define       ver             @VERSION@
-%define       release         20021016
-%define       tag             alpha.1
+%define       release         20031115
 %define       prefix          @prefix@
 
 
 Name:         %{name}
 Summary:      Alliance VLSI CAD Sytem
 Version:      %{ver}
-Release:      %{release}.%{tag}
+Release:      %{release}
 Copyright:    GPL
 Group:        Applications/VLSI
 Source:       %{name}-%{ver}.tar.gz
 URL:          http://www-asim.lip6.fr/alliance/
 Packager:     Jean-Paul Chaput <Jean-Paul.Chaput@lip6.fr>
-BuildRoot:    /var/tmp/root-%{name}
+BuildRoot:    %{_tmppath}/root-%{name}
 
 
 
@@ -147,6 +146,8 @@ Sources of the Alliance VLSI CAD System, as you might guess...
 %{prefix}/etc/*.par
 %{prefix}/etc/*.scapin
 %{prefix}/etc/*.conf
+%{prefix}/etc/*.mac
+%{prefix}/etc/*.lef
 %{prefix}/cells/*
 %{prefix}/bin/*
 %{prefix}/lib/*
@@ -165,6 +166,16 @@ Sources of the Alliance VLSI CAD System, as you might guess...
 
 
 %changelog
+* Sat Nov 15 2003 Jean-Paul.Chaput <Jean-Paul.Chaput@lip6.fr>
+- assert is now in assert.h, patch mut.h to include it if
+  GCC_VERSION >= 3003 (gcc >= 3.3.x).
+
+* Sat Oct 18 2003 Jean-Paul.Chaput <Jean-Paul.Chaput@lip6.fr>
+- Synched with 2003/10/18 version.
+- Missing depcomp : added "--add-missing --copy" to the individual
+  packages in autostuff, so the first who needs depcomp will add
+  it at top level.
+
 * Sun Oct 13 2002 Jean-Paul.Chaput <Jean-Paul.Chaput@lip6.fr>
 - autoconf m4 macros moved back in the Alliance source tree to avoid
   re-declaration on our development computers (on which the macros

@@ -12,6 +12,10 @@ using namespace __gnu_cxx; // GCC 3.1 and later
 #endif
 #endif
 #endif
+#include <ansidecl.h>
+#if defined(GCC_VERSION) && (GCC_VERSION >= 3003)
+#include <assert.h>
+#endif
 
 #include <iostream>
 #include <fstream>
