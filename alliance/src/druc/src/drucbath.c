@@ -603,7 +603,7 @@ int                        IndexName = 1;
 if ( argc < 2 || argc > 4
    )
 {
-  printf       ( "Usage : %s figure_name (without extention) [-verbose] [-hierarchy]\n",argv [0]);
+  printf       ( "Usage : %s figure_name (without extention) [-v] [-h]\n",argv [0]);
 /*\
 \*/
   exit         ( 2 );
@@ -616,13 +616,13 @@ if ( argc < 2 || argc > 4
         i ++
       )
   {
-    if (strcmp ( argv [i], "-verbose" )==0) 
+    if (strcmp ( argv [i], "-v" )==0) 
     { 
       A = DRUC_VERBOSE; 
     }
     else
     {
-      if (strcmp ( argv [i], "-hierarchy" )==0) 
+      if (strcmp ( argv [i], "-h" )==0) 
       { 
         B = DRUC_HIERARCHIE; 
       }
