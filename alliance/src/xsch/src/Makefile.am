@@ -23,9 +23,6 @@ LIBXM = @XM_LIBS@
 # X extension library; needed for Athena and Motif >= 2.0.  (-lXext)
 LIBXEXT = @XEXT_LIBS@
 
-# Xpm library; needed for my tool and sometimes for Motif >= 2.0.  (-lXpm)
-LIBXPM = @XPM_LIBS@
-
 # Xp library; sometimes needed for Motif >= 2.1.  (-lXp)
 LIBXP = @XP_LIBS@
 
@@ -36,7 +33,7 @@ LIBXT = @XT_LIBS@
 LIBX11 = @X_PRE_LIBS@ @X11_LIBS@ @X_EXTRA_LIBS@
 
 # All libraries shown above
-ALL_X_LIBS = $(X_LDFLAGS) $(LIBXM) $(LIBXT) $(LIBXPM) \
+ALL_X_LIBS = $(X_LDFLAGS) $(LIBXM) $(LIBXT) \
              $(LIBXP) $(LIBXEXT) $(LIBX11)
 
 
