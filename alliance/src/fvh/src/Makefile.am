@@ -6,9 +6,9 @@ fbh_env.c  fbh_uti.c	fbl_bspec.h  fbl_util.c   fvhdrive.h  fvhparse.c \
 fbh_fre.c  fbh_view.c	fbl_byacc.h  fbl_util.h   fvherror.c  fvhparse.h \
 fbh_rin.c  fbl_bedef.h	fbl_drive.c  fbl_utype.h  fvherror.h
 
-CLEANFILES          = fbl_bcompyac.c fbl_bcompyac.h fbl_bcomplex.c
+CLEANFILES          = fbl_bcomp_y.c fbl_bcomp_y.h fbl_bcomp_l.c
 
-fbl_bcompyac.c fbl_bcompyac.h : $(srcdir)/fbl_bcomp_y.y
-	$(YACC) -d $(YFLAGS) $(srcdir)/fbl_bcomp_y.y && sed -e "s/yy/fbl_y_/g" -e "s/YY/FBL_Y_/g" y.tab.c > fbl_bcompyac.c && sed -e "s/yy/fbl_y_/g" -e "s/YY/FBL_Y_/g" y.tab.h > fbl_bcompyac.h
-fbl_bcomplex.c : $(srcdir)/fbl_bcomp_l.l fbl_bcompyac.h
-	$(LEX) -t $(srcdir)/fbl_bcomp_l.l | sed -e "s/yy/fbl_y_/g" -e "s/YY/FBL_Y_/g" > fbl_bcomplex.c
+fbl_bcomp_y.c fbl_bcomp_y.h : $(srcdir)/fbl_bcomp_y.y
+	$(YACC) -d $(YFLAGS) $(srcdir)/fbl_bcomp_y.y && sed -e "s/yy/fbl_y_/g" -e "s/YY/FBL_Y_/g" y.tab.c > fbl_bcomp_y.c && sed -e "s/yy/fbl_y_/g" -e "s/YY/FBL_Y_/g" y.tab.h > fbl_bcomp_y.h
+fbl_bcomp_l.c : $(srcdir)/fbl_bcomp_l.l fbl_bcomp_y.h
+	$(LEX) -t $(srcdir)/fbl_bcomp_l.l | sed -e "s/yy/fbl_y_/g" -e "s/YY/FBL_Y_/g" > fbl_bcomp_l.c

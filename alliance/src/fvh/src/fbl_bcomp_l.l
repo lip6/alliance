@@ -60,7 +60,7 @@ struct g_type
 
 
 
-#include "fbl_y.tab.h"
+#include "fbl_bcomp_y.h"
 #include "fbl_bedef.h"
 #include "fbl_blex.h"
 

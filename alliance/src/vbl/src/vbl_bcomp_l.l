@@ -59,7 +59,7 @@ struct g_type
   char FLAG;
 };
 
-#include "vbl_bcompyac.h"
+#include "vbl_bcomp_y.h"
 #include "vbl_bedef.h"
 #include "vbl_blex.h"
 
