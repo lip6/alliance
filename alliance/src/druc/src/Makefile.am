@@ -20,8 +20,8 @@ bin_PROGRAMS = druc
 
 AM_CFLAGS = @ALLIANCE_CFLAGS@
 
-druc_LDADD = @ALLIANCE_LIBS@ \
--L. -lVrd -lRtl -lRgs -lRcf -lRfm -lRpr -lRwi -lRut -lRds -lMpu -lMcp -lMap -lMmg -lMph \
+druc_LDADD = @ALLIANCE_LIBS@ $(top_builddir)/src/libVrd.a \
+-lRtl -lRgs -lRcf -lRfm -lRpr -lRwi -lRut -lRds -lMpu -lMcp -lMap -lMmg -lMph \
 -lMut
 
 druc_SOURCES = \
