@@ -1,6 +1,6 @@
 #!/bin/sh
 #
-# $Id: a2lef.sh,v 1.3 2003/04/02 13:42:18 jpc Exp $
+# $Id: a2lef.sh,v 1.4 2003/04/02 14:13:13 jpc Exp $
 #
 # /------------------------------------------------------------------\
 # |                                                                  |
@@ -202,12 +202,12 @@
  {
    aLEF="$1"
 
-   echo ""                            >> $aLEF
-   echo "VERSION            5.2 ;"    >> $aLEF
-   echo "NAMECASESENSITIVE  ON ;"     >> $aLEF
-   echo "BUSBITCHARS        \"()\" ;" >> $aLEF
-   echo "BIVIDERCHAR        \".\" ;"  >> $aLEF
-   echo ""                            >> $aLEF
+   echo ""                             >> $aLEF
+   echo "VERSION             5.2 ;"    >> $aLEF
+   echo "NAMESCASESENSITIVE  ON ;"     >> $aLEF
+   echo "BUSBITCHARS         \"()\" ;" >> $aLEF
+   echo "DIVIDERCHAR         \".\" ;"  >> $aLEF
+   echo ""                             >> $aLEF
  }
 
 
