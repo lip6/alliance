@@ -1,4 +1,4 @@
-.\"   $Id: genlib.1,v 1.1 1999/05/31 17:30:13 alliance Exp $
+.\"   $Id: genlib.1,v 1.2 2000/09/28 16:27:58 francois Exp $
 .\" @(#)Labo.l 0.0 90/22/08 UPMC; Author: Frederic Petrot
 .TH GENLIB 1 "October 1, 1997" "ASIM/LIP6" "ALLIANCE USER COMMANDS"
 .SH NAME
@@ -23,23 +23,23 @@ a circuit in terms of connectors (I/Os), signals (nets), and instances.
 .br
 The function calls used to handle the netlist view are
 .RS
-	DEF_LOFIG(3)
+	GENLIB_DEF_LOFIG(3)
 .br
-	SAVE_LOFIG(3)
+	GENLIB_SAVE_LOFIG(3)
 .br
-	LOINS(3)
+	GENLIB_LOINS(3)
 .br
-	LOCON(3)
+	GENLIB_LOCON(3)
 .br
-	LOSIG(3)
+	GENLIB_LOSIG(3)
 .br
-	FLATTEN_LOFIG(3)
+	GENLIB_FLATTEN_LOFIG(3)
 .br
 Some facilities, in order to create vectors are also available :
 .br
-	BUS(3)
+	GENLIB_BUS(3)
 .br
-	ELM(3)
+	GENLIB_ELM(3)
 .RE
 .TP 20
 Standard cell placement
@@ -47,19 +47,19 @@ The following functions allows to define a placement file for a standard cell
 design.
 This file can be used by the standard cell router \fBscr\fP(1).
 .RS
-	DEF_PHSC(3)
+	GENLIB_DEF_PHSC(3)
 .br
-	SAVE_PHSC(3)
+	GENLIB_SAVE_PHSC(3)
 .br
-	SC_PLACE(3)
+	GENLIB_SC_PLACE(3)
 .br
-	SC_RIGHT(3)
+	GENLIB_SC_RIGHT(3)
 .br
-	SC_TOP(3)
+	GENLIB_SC_TOP(3)
 .br
-	SC_LEFT(3)
+	GENLIB_SC_LEFT(3)
 .br
-	SC_BOTTOM(3)
+	GENLIB_SC_BOTTOM(3)
 .br
 .RE
 .TP 20
@@ -73,79 +73,79 @@ references and instances.
 For more informations, see \fBphseg\fP(1), \fBphvia\fP(1), \fBphcon\fP(1),
 \fBphref\fP(1), \fBphins\fP(1), and \fBalc\fP(1).
 .br
-	DEF_PHFIG(3)
+	GENLIB_DEF_PHFIG(3)
 .br
-	SAVE_PHFIG(3)
+	GENLIB_SAVE_PHFIG(3)
 .br
-	DEF_AB(3)
+	GENLIB_DEF_AB(3)
 .br
-	DEF_PHINS(3)
+	GENLIB_DEF_PHINS(3)
 .br
-	PHCON(3)
+	GENLIB_PHCON(3)
 .br
-	COPY_UP_CON(3)
+	GENLIB_COPY_UP_CON(3)
 .br
-	COPY_UP_CON_FACE(3)
+	GENLIB_COPY_UP_CON_FACE(3)
 .br
-	COPY_UP_ALL_CON(3)
+	GENLIB_COPY_UP_ALL_CON(3)
 .br
-	PHSEG(3)
+	GENLIB_PHSEG(3)
 .br
-	COPY_UP_SEG(3)
+	GENLIB_COPY_UP_SEG(3)
 .br
-	THRU_H(3)
+	GENLIB_THRU_H(3)
 .br
-	THRU_V(3)
+	GENLIB_THRU_V(3)
 .br
-	THRU_CON_H(3)
+	GENLIB_THRU_CON_H(3)
 .br
-	THRU_CON_V(3)
+	GENLIB_THRU_CON_V(3)
 .br
-	WIRE1(3)
+	GENLIB_WIRE1(3)
 .br
-	WIRE2(3)
+	GENLIB_WIRE2(3)
 .br
-	WIRE3(3)
+	GENLIB_WIRE3(3)
 .br
-	PHVIA(3)
+	GENLIB_PHVIA(3)
 .br
-	PLACE(3)
+	GENLIB_PLACE(3)
 .br
-	PLACE_RIGHT(3)
+	GENLIB_PLACE_RIGHT(3)
 .br
-	PLACE_TOP(3)
+	GENLIB_PLACE_TOP(3)
 .br
-	PLACE_LEFT(3)
+	GENLIB_PLACE_LEFT(3)
 .br
-	PLACE_BOTTOM(3)
+	GENLIB_PLACE_BOTTOM(3)
 .br
-	PLACE_ON(3)
+	GENLIB_PLACE_ON(3)
 .br
-	PHREF(3)
+	GENLIB_PHREF(3)
 .br
-	COPY_UP_REF(3)
+	GENLIB_COPY_UP_REF(3)
 .br
-	COPY_UP_ALL_REF(3)
+	GENLIB_COPY_UP_ALL_REF(3)
 .br
-	PLACE_VIA_REF(3)
+	GENLIB_PLACE_VIA_REF(3)
 .br
-	PLACE_CON_REF(3)
+	GENLIB_PLACE_CON_REF(3)
 .br
-	PLACE_SEG_REF(3)
+	GENLIB_PLACE_SEG_REF(3)
 .br
-	FLATTEN_PHFIG(3)
+	GENLIB_FLATTEN_PHFIG(3)
 .br
-	GET_REF_X(3)
+	GENLIB_GET_REF_X(3)
 .br
-	GET_REF_Y(3)
+	GENLIB_GET_REF_Y(3)
 .br
-	GET_CON_X(3)
+	GENLIB_GET_CON_X(3)
 .br
-	GET_CON_Y(3)
+	GENLIB_GET_CON_Y(3)
 .br
-	HEIGHT(3)
+	GENLIB_HEIGHT(3)
 .br
-	WIDTH(3)
+	GENLIB_WIDTH(3)
 .RE
 .LP
 In order to have information about each of these functions, use the online
@@ -201,6 +201,7 @@ keeps the executable along with the compilation Makefile after completion.
 .br
 Compiles and runs a \fBgenlib\fP source file called amd2901.c
 .SH SEE ALSO
+.BR dpgen (1),
 .BR mbk (1),
 .BR alc (1),
 .BR scr (1),
