@@ -1,9 +1,12 @@
 /*
    ### -------------------------------------------------- ### 
    $Author: hcl $
-   $Date: 2002/04/25 13:41:32 $
+   $Date: 2002/06/25 11:44:59 $
 
    $Log: ocrAstar.cpp,v $
+   Revision 1.4  2002/06/25 11:44:59  hcl
+   Un core dump en moins...
+
    Revision 1.3  2002/04/25 13:41:32  hcl
    New ripup/reroute loop, bug-kill (CALU&TALU).
 
@@ -538,12 +541,16 @@ ocrSignal *findSignal(ocrNaturalInt i_uIndex)
                       (suspect->TAG != TAG_TERRA)                              \
                      )                                                         \
                   {                                                            \
-                      if (((findSignal (suspect->SIGNAL_INDEX))->HARD) < 2)    \
-                      {                                                        \
-                          suspect->TAG = TAG_TERRA;                            \
-                          suspect->COST = ze_best->COST + kost (ze_best, suspect); \
-                          suspect->H = eval_equi (suspect, ze_target);         \
-                          suspects.insert (suspect);                           \
+                      ocrSignal *sig = NULL;                                   \
+                      sig = findSignal (suspect->SIGNAL_INDEX);                \
+                      if (sig) {                                               \
+                          if ((sig->HARD) < 2) {                               \
+                              suspect->TAG = TAG_TERRA;                        \
+                              suspect->COST = ze_best->COST                    \
+                                            + kost (ze_best, suspect);         \
+                              suspect->H = eval_equi (suspect, ze_target);     \
+                              suspects.insert (suspect);                       \
+                          }                                                    \
                       }                                                        \
                   }
 
