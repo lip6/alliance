@@ -108,7 +108,7 @@ extern void genSC_TOP();
 extern void genSC_BOTTOM();
 extern void genSC_CHANNEL();
 extern void genSC_CON_CHANNEL();
-extern void genLOGEN();
+extern void genLOGEN(char *, int, ...);;
 extern void genSETLOGEN(char *, char *, ...);
 /*******************************************************************************
 * name forming functions, for both views                                       *
@@ -358,8 +358,15 @@ extern char *genNAME(char *, ...);
 /* Quick and dirty hack as required */
 #define LOGEN 21
 
-#define INTEGER_GEN   2
-#define STRING_GEN    4
+#define GENTYPE_EMPTY 0
+#define GENTYPE_BIT   1
+#define GENTYPE_VAL   2
+#define GENTYPE_ARG   3
+#define GENTYPE_TEXT  4
+#define GENTYPE_LIST  5
+#define GENTYPE_HEX   6
+#define GENTYPE_MAX   6
+
 
 typedef struct logen
 {
@@ -378,6 +385,7 @@ typedef struct logen
 extern logen_list *addlogen(logen_list *,char *);
 extern logen_list *getlogen(logen_list *,char *);
 extern logen_list *duplogen(logen_list *,logen_list *, char *);
+extern logen_list *duplogenlist(logen_list *,logen_list *, char *);
 extern logen_list *chklogen(logen_list *,logen_list *, char *, char *);
 extern logen_list *dellogen(logen_list *, char *name);
 
