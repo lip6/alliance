@@ -2,7 +2,9 @@
 # |                                                             |
 # | Title      :       Parameters File for Xsch                 |
 # |                                                             |
-# | Date       :             01.01.95                           |
+# | Author     :           Ludovic Jacomme                      |
+# |                                                             |
+# | Date       :             03.29.2000                         |
 # |                                                             |
 # \------------------------------------------------------------*/
 # /*------------------------------------------------------------\
@@ -31,7 +33,7 @@ DEFINE XSCH_CURSOR_COLOR_NAME      Black
 DEFINE XSCH_BACKGROUND_COLOR_NAME  Black
 DEFINE XSCH_FOREGROUND_COLOR_NAME  White
 DEFINE XSCH_ACCEPT_COLOR_NAME      magenta
-DEFINE XSCH_CONNECT_COLOR_NAME     White
+DEFINE XSCH_CONNECT_COLOR_NAME     magenta 
 
 # /*------------------------------------------------------------\
 # |                                                             |
@@ -52,7 +54,212 @@ TABLE XSCH_LAYER_NAME
   0   Gates           cyan              Black
   1   Inputs          red               Black
   2   Outputs         light_blue        Black
-  3   Signals         blue              Black
+  3   Signals         yellow            Black
   4   Debug           spring_green      Black
 
 END 
+
+# /*------------------------------------------------------------\
+# |                                                             |
+# |                     Xsch Icon Cell Buffer                   |
+# |                                                             |
+# \------------------------------------------------------------*/
+
+TABLE XSCH_ICON_CELL_BUFFER
+
+# model  inputs output not_in not_out
+
+# SXLIB
+
+  buf_x2 i  q 0 0
+  buf_x4 i  q 0 0
+  buf_x8 i  q 0 0
+
+  inv_x1 i nq 0 1
+  inv_x2 i nq 0 1
+  inv_x4 i nq 0 1
+  inv_x8 i nq 0 1
+
+# SCLIB
+
+  b1_y     i  t 0 0
+  d1_y     i  t 0 0
+  p1_y     i  t 0 0
+
+  n1_y     i  f 0 1
+  np1_y    i  f 0 1
+  ndrv_y   i  f 0 1
+  ndrvp_y  i  f 0 1
+
+END
+
+# /*------------------------------------------------------------\
+# |                                                             |
+# |                     Xsch Icon Cell And                      |
+# |                                                             |
+# \------------------------------------------------------------*/
+
+TABLE XSCH_ICON_CELL_AND
+
+# model  inputs output number_in not_in not_out
+
+# SXLIB
+
+  a2_x2   i0,i1         q  2 0 0
+  a2_x4   i0,i1         q  2 0 0
+  a3_x2   i0,i1,i2      q  3 0 0
+  a3_x4   i0,i1,i2      q  3 0 0
+  a4_x2   i0,i1,i2,i3   q  4 0 0
+  a4_x4   i0,i1,i2,i3   q  4 0 0
+
+  na2_x1   i0,i1        nq  2 0 1
+  na2_x4   i0,i1        nq  2 0 1
+  na3_x1   i0,i1,i2     nq  3 0 1
+  na3_x4   i0,i1,i2     nq  3 0 1
+  na4_x1   i0,i1,i2,i3  nq  4 0 1
+  na4_x4   i0,i1,i2,i3  nq  4 0 1
+
+  an12_x1  i0,i1         q  2 2 0
+  an12_x4  i0,i1         q  2 2 0
+
+# SCLIB
+
+  a2_y     i0,i1         t 2 0 0
+  a2p_y    i0,i1         t 2 0 0
+  a3_y     i0,i1,i2      t 3 0 0
+  a3p_y    i0,i1,i2      t 3 0 0
+  a4_y     i0,i1,i2,i3   t 4 0 0
+  a4p_y    i0,i1,i2,i3   t 4 0 0
+
+  na2_y    i0,i1         f 2 0 1
+  na2p_y   i0,i1         f 2 0 1
+  na3_y    i0,i1,i2      f 3 0 1
+  na3p_y   i0,i1,i2      f 3 0 1
+  na4_y    i0,i1,i2,i3   f 4 0 1
+  na4p_y   i0,i1,i2,i3   f 4 0 1
+
+END
+
+# /*------------------------------------------------------------\
+# |                                                             |
+# |                     Xsch Icon Cell Or                       |
+# |                                                             |
+# \------------------------------------------------------------*/
+
+TABLE XSCH_ICON_CELL_OR 
+
+# model  inputs output number_in not_in not_out
+
+# SXLIB
+
+  o2_x2   i0,i1         q  2 0 0
+  o2_x4   i0,i1         q  2 0 0
+  o3_x2   i0,i1,i2      q  3 0 0
+  o3_x4   i0,i1,i2      q  3 0 0
+  o4_x2   i0,i1,i2,i3   q  4 0 0
+  o4_x4   i0,i1,i2,i3   q  4 0 0
+
+  no2_x1   i0,i1        nq  2 0 1
+  no2_x4   i0,i1        nq  2 0 1
+  no3_x1   i0,i1,i2     nq  3 0 1
+  no3_x4   i0,i1,i2     nq  3 0 1
+  no4_x1   i0,i1,i2,i3  nq  4 0 1
+  no4_x4   i0,i1,i2,i3  nq  4 0 1
+
+  on12_x1  i0,i1         q  2 2 0
+  on12_x4  i0,i1         q  2 2 0
+
+# SCLIB
+
+  o2_y     i0,i1         t 2 0 0
+  op2_y    i0,i1         t 2 0 0
+  o3_y     i0,i1,i2      t 3 0 0
+  op3_y    i0,i1,i2      t 3 0 0
+
+  no2_y    i0,i1         f 2 0 1
+  nop2_y   i0,i1         f 2 0 1
+  no3_y    i0,i1,i2      f 3 0 1
+  nop3_y   i0,i1,i2      f 3 0 1
+
+
+END
+
+# /*------------------------------------------------------------\
+# |                                                             |
+# |                     Xsch Icon Cell Xor                      |
+# |                                                             |
+# \------------------------------------------------------------*/
+
+TABLE XSCH_ICON_CELL_XOR 
+
+# model  inputs output number_in not_in not_out
+
+# SXLIB
+
+  xr2_x1    i0,i1         q  2 0 0
+  xr2_x4    i0,i1         q  2 0 0
+
+  nxr2_x1   i0,i1        nq  2 0 1
+  nxr2_x4   i0,i1        nq  2 0 1
+
+# SCLIB
+
+  xr2_y     i0,i1         t  2 0 0
+  nxr2_y    i0,i1         f  2 0 1
+
+END
+
+# /*------------------------------------------------------------\
+# |                                                             |
+# |                     Xsch Icon Cell Tristate                 |
+# |                                                             |
+# \------------------------------------------------------------*/
+
+TABLE XSCH_ICON_CELL_TRISTATE 
+
+# model  inputs output not_in not_out
+
+# SXLIB
+
+  nts_x1    cmd,i        nq  0 1
+  nts_x2    cmd,i        nq  0 1
+
+# ts_x4     cmd,i         q  0 0
+  ts_x4     cmd,i         q  0 0
+  ts_x8     cmd,i         q  0 0
+
+# SCLIB
+
+  ts_y      v,i           t  0 0
+  tsp_y     v,i           t  0 0
+
+  tsn_y     v,i           f  0 1
+  
+END
+
+# /*------------------------------------------------------------\
+# |                                                             |
+# |                     Xsch Icon Cell Register                 |
+# |                                                             |
+# \------------------------------------------------------------*/
+
+TABLE XSCH_ICON_CELL_REGISTER 
+
+# model  inputs output number_in not_in clock_in not_out edge
+
+# SXLIB
+
+  sff1_x4   i,ck                      q 2 0 1  0  1
+  sff2_x4   cmd,i0,i1,ck              q 4 0 1  0  1
+  sff3_x4   cmd0,cmd1,i0,i1,i2,ck     q 6 0 1  0  1
+
+# SCLIB
+
+  ms_y      i,l                       t 2 0 1  0  2
+  msdp2_y   di,ck                     t 2 0 1  0  2
+  msdp4_y   di,ck                     t 2 0 1  0  2
+
+  ms2dp2_y  di,si,se,ck               t 4 0 1  0  2
+  ms2dp4_y  di,si,se,ck               t 4 0 1  0  2
+  
+END
