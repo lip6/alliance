@@ -1,7 +1,7 @@
 
 // -*- C++ -*-
 //
-// $Id: nero.cpp,v 1.6 2004/12/14 19:02:07 jpc Exp $
+// $Id: nero.cpp,v 1.7 2005/02/07 05:54:41 hcl Exp $
 //
 //  /----------------------------------------------------------------\ 
 //  |                                                                |
@@ -161,13 +161,13 @@ int  main (int argc, char *argv[])
     if (options["v"]->parsed) cmess0.setVL (1);
     if (options["V"]->parsed) cmess0.setVL (2);
 
+    MBK::alliancebanner ( "NeRo"
+                        , VERSION
+                        , "Negotiating Router"
+                        , "2002"
+                        , ALLIANCE_VERSION
+                        );
     if ((cmess0.getVL () > 0) || options["h"]->parsed ) {
-      MBK::alliancebanner ( "NeRo"
-                          , VERSION
-                          , "Negotiating Router"
-                          , "2002"
-                          , ALLIANCE_VERSION
-                          );
       serial ();
       cmess1 << "\n";
     }
