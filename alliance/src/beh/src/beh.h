@@ -32,6 +32,10 @@
 #ifndef BEH_BEHDEF
 #define BEH_BEHDEF
 
+#ifdef __cplusplus
+extern "C" {
+#endif /* __cplusplus */
+
 	/* ###------------------------------------------------------### */
 	/*    defines							*/
 	/* ###------------------------------------------------------### */
@@ -347,5 +351,9 @@ extern void           beh_toolbug    ();
 
 extern char          *beh_vhdlname   ();
 extern char          *beh_vhvector   ();
+
+#ifdef __cplusplus
+}
+#endif /* __cplusplus */
 
 #endif

@@ -43,8 +43,12 @@
 |                                                       |
 \------------------------------------------------------*/
 
+#ifdef __cplusplus
+extern "C" {
+#endif /* __cplusplus */
+
 # ifndef __P
-# if defined(__STDC__) ||  defined(__GNUC__)
+# if defined(__STDC__) ||  defined(__GNUC__) || defined(__cplusplus)
 #  define __P(x) x
 # else
 #  define __P(x) ()
@@ -446,5 +450,9 @@
                                            void (*FuncViewArc)()));
   extern      autgraph * loadautgraph __P((char *FileName));
   extern           void  driveautgraph __P((autgraph *Graph, char *FileName));
+
+#ifdef __cplusplus
+}
+#endif /* __cplusplus */
 
 # endif
