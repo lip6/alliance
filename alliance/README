@@ -5,7 +5,7 @@
 # E-mail support     : mailto:alliance-support@asim.lip6.fr
 # ftp site           : ftp://ftp-asim.lip6.fr/pub/alliance/
 #
-# $Id: README,v 1.6 2000/01/28 14:50:56 czo Exp $
+# $Id: README,v 1.7 2000/02/10 15:43:35 czo Exp $
 
 
 # Alliance 
@@ -62,12 +62,19 @@ download alliance-X.XX-sparc-solaris-Y.YY.tar.gz  for Solaris
 Where X.XX is the Alliance version number (e.g.: 3.2 for Alliance 3.2)
 and Y.YY is the OS version number (e.g.: 4.1.4 for SunOS 4.1.4)
 
-Linux Rpm :
------------
+Linux Rpm format :
+-----------------
 
 Available for Linux RedHat 6 (the common package is included)
 
 download alliance-X.XX-i386-asimYY.rpm
+
+Windows setup format :
+---------------------
+
+Available for Windows 95/98/NT4 (the common package is included)
+
+download alliance-X.XX-cygwin.exe
 
 
 # Installation :
@@ -107,12 +114,41 @@ gawk, ...) are missing, you will have to install them.
 If you install Alliance on different platforms you'll
 need to run the 'configure' script on each of them.
 
+
 Linux Rpm :
 -----------
 
 Note that the Linux RedHat 6 rpm installs Alliance in "/usr/local/alliance"
 
 > rpm -Uvh alliance-X.XX-i386-asimYY.rpm
+
+
+Windows setup format :
+---------------------
+
+Alliance is designed to run on a Unix workstation, not in a 
+Windows environment, but you can install third party software 
+to let your Windows Workstation be more like a Unix one.
+
+You'll find theese at 
+ftp://ftp-asim.lip6.fr/pub/alliance/redist/windows/
+
+Please read
+ftp://ftp-asim.lip6.fr/pub/alliance/redist/windows/README
+
+To install alliance, just run alliance-X.XX-cygwin.exe
+
+> start alliance-X.XX-cygwin.exe
+
+It is strongly recommanded to install alliance in : C:\alliance
+The install program will choose default path for you.
+
+It is recommanded to use the "bash" shell instead of the default
+Windows shell ("command.com" on Windows 95/98 and "cmd.exe" on NT) 
+(bash comes with cygwin-b20-full.exe)
+
+In a Cygwin environment, paths are written like in unix
+use '/' instead of '\'
 
 
 # Usage :
