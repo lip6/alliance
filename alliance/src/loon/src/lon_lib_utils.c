@@ -359,10 +359,14 @@ extern void addCell(befig_list* befig)
    for (chain=CELLS; chain; chain=chain->NEXT) {
       int x;
       cell= (cell_list*) chain->DATA;
+# if 0 /* LUDO: Remove verbose/debug message ? */
 printf("+ %s %s\n", cell->BEFIG->NAME, befig->NAME);
+# endif
       x = compare_befig(cell->BEFIG,
                         befig);
+# if 0 /* LUDO: Remove verbose/debug message ? */
 printf("- %s %s\n", cell->BEFIG->NAME, befig->NAME);
+# endif
       if (x) break;
    }
    
