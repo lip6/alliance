@@ -6,14 +6,14 @@
 # Copyright (C) 1997, 2000 Czo <Olivier.Sirol@lip6.fr>
 # License: GPL (http://www.gnu.org/copyleft/gpl.html)
 # Started: Feb 1997
-# Last Change: Tuesday 14 November 2000, 15:19
-# Edit Time: 4:51:47
+# Last Change: Wednesday 24 January 2001, 18:40
+# Edit Time: 5:03:59
 # Description: Alliance CAD system configure.in 
 #
-# $Id: configure.in,v 1.22 2000/11/14 14:34:18 czo Exp $
+# $Id: configure.in,v 1.23 2001/01/24 17:43:06 czo Exp $
 #
 
-AC_REVISION($Revision: 1.22 $)dnl
+AC_REVISION($Revision: 1.23 $)dnl
 
 AC_INIT(configure.in)
 
@@ -304,8 +304,20 @@ if test -z "$SKIP_MOTIF"; then
   fi
 fi
 
-AC_SUBST(GUI_INC_LOC)
-AC_SUBST(GUI_LIB_LOC)
+MOTIF_INC_LOC="-I$GUI_INC_LOC"
+MOTIF_LIB_LOC="-L$GUI_LIB_LOC -lXm"
+
+# Try static link on Linux
+# TODO: faire pareil pour Xpm, voir gvim???
+
+    if test -f "$GUI_LIB_LOC/libXm.a"; then
+      if test "$ALLIANCE_OS" = Linux; then
+          MOTIF_LIB_LOC="$GUI_LIB_LOC/libXm.a"
+      fi
+    fi
+
+AC_SUBST(MOTIF_INC_LOC)
+AC_SUBST(MOTIF_LIB_LOC)
 
 # Under Cygwin I had problems with the order of libs...
 if test "$ALLIANCE_OS" = Cygwin ; then
