@@ -1,8 +1,6 @@
 #include "PToPlaceIns.h"
-extern "C"{
 #include "mut.h"
 #include "mph.h"
-}
 #include "PConstants.h"
 
 PToPlaceIns::PToPlaceIns(const loins *instance):

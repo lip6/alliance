@@ -3,10 +3,8 @@
 
 #include "PElem.h"
 #include "PBBox.h"
-extern "C" {
 #include "mut.h"
 #include "mlo.h"
-}
 
 class PIns: public PElem {
     

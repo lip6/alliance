@@ -1,11 +1,9 @@
 #ifndef __PCOMMON_H
 #define __PCOMMON_H
 #include <iostream>
-extern "C"{
 #include "mut.h"
 #include "mlo.h"
 #include "mph.h"
-}
 using namespace std;
 
 const double SquareShape(const double margin, const double sumwidth,

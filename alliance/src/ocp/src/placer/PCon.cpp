@@ -1,8 +1,6 @@
 #include "PCon.h"
-extern "C"{
 #include "mut.h"
 #include "mph.h"
-}
 #include "PConstants.h"
 
 PCon::PCon(const locon* con):

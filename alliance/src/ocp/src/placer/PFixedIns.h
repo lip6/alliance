@@ -3,10 +3,8 @@
 
 #include "PIns.h"
 #include "PPos.h"
-extern "C"{
 #include "mut.h"
 #include "mph.h"
-}
 
 class PFixedIns : public PIns {
     

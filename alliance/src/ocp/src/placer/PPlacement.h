@@ -12,10 +12,8 @@
 #include "PONet.h"
 #include "PBBox.h"
 #include "PDetSubRow.h"
-extern "C" {
 #include "mut.h"
 #include "mlo.h"
-}
 #include "iocheader.h"
 using namespace std;
 

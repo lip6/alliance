@@ -4,10 +4,8 @@
 #include <iostream>
 #include <fstream>
 #include <vector>
-extern "C" {
 #include "mut.h"
 #include "mlo.h"
-}
 using namespace std;
 
 class PElem;

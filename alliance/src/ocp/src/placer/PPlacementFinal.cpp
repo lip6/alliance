@@ -6,13 +6,11 @@
 #include "PMove.h"
 #include "PConstants.h"
 #include "PDetPlacement.h"
-extern "C"{
 #include "mut.h"
 #include "mph.h"
 #include "mpu.h"
 #include "mlo.h"
 #include "mlu.h"
-}
 
 double
 PPlacement::DetPlaceDebugNetCost()

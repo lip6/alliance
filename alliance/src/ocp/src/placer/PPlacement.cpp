@@ -3,13 +3,11 @@
 #include <set>
 #include <algorithm>
 #include <string>
-extern "C"{
 #include "mut.h"
 #include "mph.h"
 #include "mpu.h"
 #include "mlo.h"
 #include "mlu.h"
-}
 #include "PMove.h"
 #include "PConstants.h"
 #include "PCommon.h"

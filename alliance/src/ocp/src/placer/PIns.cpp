@@ -1,8 +1,6 @@
 #include "PIns.h"
-extern "C"{
 #include "mut.h"
 #include "mph.h"
-}
 #include "PConstants.h"
 
 PIns::PIns(const loins *instance):

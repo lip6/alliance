@@ -1,8 +1,6 @@
 #include "PDetToPlaceIns.h"
-extern "C"{
 #include "mut.h"
 #include "mph.h"
-}
 #include "PConstants.h"
 #include "PToPlaceIns.h"
 #include "PDetSubRow.h"

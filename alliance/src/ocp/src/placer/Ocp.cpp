@@ -3,11 +3,9 @@
 #include <iostream>
 #include <ctype.h>
 
-extern "C" {
 #include "mut.h"
 #include "mph.h"
 #include "mlo.h"
-}
 using namespace std;
 
 static void

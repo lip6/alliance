@@ -2,10 +2,8 @@
 #define __PCON_H
 
 #include "PElem.h"
-extern "C" {
 #include "mut.h"
 #include "mlo.h"
-}
 
 class PCon: public PElem {
   private:
