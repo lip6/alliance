@@ -13,6 +13,7 @@ vasy_analys.c     vasy_drvvlog.h    vasy_mulwait.c    vasy_redwait.h \
 vasy_analys.h     vasy_elabo.c      vasy_mulwait.h    vasy_shared.c \
 vasy_array.c      vasy_elabo.h      vasy_onewait.c    vasy_shared.h \
 vasy_array.h      vasy_error.c      vasy_onewait.h    vasy_simprtl.c \
+vasy_dynfunc.c vasy_dynfunc.h \
 vasy_debug.c      vasy_error.h      vasy_parse.c      vasy_simprtl.h \
 vasy_debug.h      vasy_func.c       vasy_parse.h      vasy_simul.c \
 vasy_drvalc.c     vasy_func.h       vasy_preanal.c    vasy_simul.h \

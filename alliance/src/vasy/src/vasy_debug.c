@@ -89,6 +89,7 @@
      "vasy_drvrtl.c",
      "vasy_drvsyn.c",
      "vasy_drvvlog.c",
+     "vasy_dynfunc.c",
      "vasy_elabo.c",
      "vasy_error.c",
      "vasy_func.c",

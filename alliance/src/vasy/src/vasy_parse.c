@@ -794,6 +794,7 @@ vbfig_list *VasyParseVbhFig( FileName, GenMap, Deep )
 
   VasyUnrollLoopVbhFig( VbhFigure );
   VasyExpandArrayVbhFig( VbhFigure );
+  VasyExpandDynFuncVbhFig( VbhFigure );
 
   VasyParseVerifyVbhFig( VbhFigure );
 
