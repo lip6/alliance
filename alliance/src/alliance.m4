@@ -45,6 +45,12 @@ dnl ifelse([$2], , :, [$2])
   fi
   
 dnl the following lines should disapear in the future 
+CFLAGS="$ALLIANCE_CFLAGS $CFLAGS"
+LIBS="$ALLIANCE_LIBS $LIBS"
+CXXFLAGS="$ALLIANCE_CFLAGS $CXXFLAGS"
+AC_SUBST(CFLAGS)
+AC_SUBST(CXXFLAGS)
+AC_SUBST(LIBS)
 dnl end of to delete lines
 
 AC_SUBST(ALLIANCE_CFLAGS)
