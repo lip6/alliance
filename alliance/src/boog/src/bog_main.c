@@ -250,7 +250,7 @@ extern int main (int argc, char* argv[])
    autenv();  /*hash table*/
    bddenv();  /*for vhdlloadbefig() */
    
-   alliancebanner_with_authors("BooG", VERSION " [2002/04/15]", "Binding and Optimizing On Gates", 
+   alliancebanner_with_authors("BooG", VERSION " [2002/11/17]", "Binding and Optimizing On Gates", 
                                "2000", ALLIANCE_VERSION, "François Donnet");
     
    /*alliance env: extension netlist file (vst or al)*/
