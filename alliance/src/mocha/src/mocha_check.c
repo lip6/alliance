@@ -117,6 +117,11 @@
 |                          Functions                          |
 |                                                             |
 \------------------------------------------------------------*/
+/*------------------------------------------------------------\
+|                                                             |
+|                      MochaCheckViewBddNode                  |
+|                                                             |
+\------------------------------------------------------------*/
 
 static void MochaCheckViewBddNode( BddNode )
    
@@ -143,6 +148,112 @@ void MochaCheckViewTransFunc( VarFunc )
 
 /*------------------------------------------------------------\
 |                                                             |
+|                      MochaCheckViewState                    |
+|                                                             |
+\------------------------------------------------------------*/
+
+static int MochaCheckViewState( MochaFigure, BddNode )
+
+  mochafig_list *MochaFigure;
+  bddnode       *BddNode;
+{
+  mochafsm_list   *MochaFsm;
+  mochastate_list *MochaState;
+  bddnode         *BddState;
+  bddnode         *BddStateSet;
+  bddnode         *BddReached;
+  bddnode         *BddFirst;
+  bddnode         *BddFsm;
+  bddnode         *BddAssume;
+  bddnode         *BddCheck;
+  bddassoc        *BddAssoc;
+  bddassoc        *BddRegAssoc;
+  int              First;
+
+  setbddlocalcircuit( MochaFigure->BDD_CIRCUIT );
+
+  BddRegAssoc = MochaFigure->BDD_ASSOC_REG;
+  BddReached  = MochaFigure->BDD_REACHED_STATE;
+  BddFirst    = MochaFigure->BDD_FIRST_STATE;
+  BddAssume   = MochaFigure->BDD_ASSUME;
+
+  BddStateSet = applybddnode( (bddsystem *)0, ABL_AND, BddNode    , BddAssume   );
+  BddStateSet = existbddnodemissassoc( (bddsystem *)0, BddStateSet, BddRegAssoc );
+  BddStateSet = applybddnode( (bddsystem *)0, ABL_AND, 
+                              decbddrefext( BddStateSet ), BddReached );
+
+  if ( BddStateSet == BddLocalSystem->ZERO )
+  {
+    fprintf( stdout, "\t    > state set empty !\n" );
+    return ( 0 );
+  }
+
+  if ( BddNode == BddReached ) 
+  {
+    fprintf( stdout, "\t    > all reachable states\n" );
+    return ( 1 );
+  }
+
+  BddCheck = applybddnode( (bddsystem *)0, ABL_AND, BddStateSet, BddFirst );
+  decbddrefext( BddCheck );
+
+  if ( BddCheck == BddFirst ) First = 1;
+  else                        First = 0;
+
+
+  if ( MochaFigure->FSM == (mochafsm_list *)0 )
+  {
+    return( First );
+  }
+
+  fprintf( stdout, "\t    > states set:\n" );
+
+  while ( BddStateSet != BddLocalSystem->ZERO )
+  {
+    BddCheck = satisfybddnodeassoc( (bddsystem *)0, BddStateSet, BddRegAssoc ); 
+
+    fprintf( stdout, "\t       " );
+
+    for ( MochaFsm  = MochaFigure->FSM;
+          MochaFsm != (mochafsm_list *)0;
+          MochaFsm  = MochaFsm->NEXT )
+    {
+      BddAssoc = MochaFsm->BDD_ASSOC_STATE;
+      BddFsm   = existbddnodemissassoc( (bddsystem *)0, BddCheck, BddAssoc );
+
+      for ( MochaState  = MochaFsm->STATE;
+            MochaState != (mochastate_list *)0;
+            MochaState  = MochaState->NEXT )
+      {
+        BddState = applybddnode( (bddsystem *)0, ABL_AND, BddFsm, MochaState->BDD_STATE );
+        decbddrefext( BddState );
+
+        if ( BddState == MochaState->BDD_STATE )
+        {
+          fprintf( stdout, "%s[%s] ", MochaFsm->NAME, MochaState->NAME  ); break;
+        }
+      }
+    }
+
+    if ( BddCheck == BddFirst )
+    {
+      fprintf( stdout, " (first state)\n" );
+    }
+    else
+    {
+      fprintf( stdout, "\n" );
+    }
+
+    BddCheck    = applybddnodenot( (bddsystem *)0, decbddrefext( BddCheck ) );
+    BddStateSet = applybddnode( (bddsystem *)0, ABL_AND,
+                                decbddrefext( BddStateSet ), decbddrefext( BddCheck ) );
+  }
+  
+  return( First );
+}
+
+/*------------------------------------------------------------\
+|                                                             |
 |                     MochaCheckBuildTransFunc                |
 |                                                             |
 \------------------------------------------------------------*/
@@ -151,22 +262,27 @@ static void MochaCheckBuildTransFunc( MochaFigure )
 
   mochafig_list *MochaFigure;
 {
-  mochafsm_list *MochaFsm;
-  befig_list    *BehFigure;
-  ctlfig_list   *CtlFigure;
-  btrtransfunc  *BtrTransFunc;
-  bddassoc      *BddStateAssoc;
-  bddassoc      *BddRegAssoc;
-  bereg_list    *BehReg;
-  binode_list   *BiNode;
-  bddnode       *BddNode;
-  bddvar         Variable;
-  char           Buffer[ 512 ];
-  long           NumberReg;
-  long           Index;
-  long           Index2;
-  long           Step;
-  long           Width;
+  mochafsm_list   *MochaFsm;
+  mochastate_list *MochaState;
+  befig_list      *BehFigure;
+  ctlfig_list     *CtlFigure;
+  btrtransfunc    *BtrTransFunc;
+  bddassoc        *BddStateAssoc;
+  bddassoc        *BddRegAssoc;
+  bereg_list      *BehReg;
+  binode_list     *BiNode;
+  chain_list      *ScanList;
+  chain_list      *HeadList;
+  bddnode         *BddNode;
+  bddnode         *BddState;
+  bddvar           Variable;
+  char             Buffer[ 512 ];
+  long             NumberReg;
+  long             Index;
+  long             Index2;
+  long             Step;
+  long             BitMask;
+  long             Width;
 
   BehFigure = MochaFigure->BEH_FIGURE;
   CtlFigure = MochaFigure->CTL_FIGURE;
@@ -206,6 +322,8 @@ static void MochaCheckBuildTransFunc( MochaFigure )
     Index  = MochaFsm->LEFT;
     Index2 = 0;
 
+    HeadList = (chain_list *)0;
+
     for ( Width = MochaFsm->NUMBER_BIT; Width > 0; Width-- )
     {
       sprintf( Buffer, "%s %ld", MochaFsm->CURRENT_STATE, Index );
@@ -216,7 +334,40 @@ static void MochaCheckBuildTransFunc( MochaFigure )
 
       Index += Step;
       Index2 = Index2 + 1;
+
+      HeadList = addchain( HeadList, (void *)BddNode );
     }
+
+    for ( MochaState  = MochaFsm->STATE;
+          MochaState != (mochastate_list *)0;
+          MochaState  = MochaState->NEXT )
+    {
+      BddState = BddLocalSystem->ONE;
+      BitMask  = 1;
+      ScanList = HeadList;
+
+      for ( Width = MochaFsm->NUMBER_BIT; Width > 0; Width-- )
+      {
+        BddNode = (bddnode *)( ScanList->DATA );
+
+        if ( ! ( MochaState->CODE & BitMask ) )
+        {
+          BddNode = applybddnodenot( (bddsystem *)0, BddNode );
+          decbddrefext( BddNode );
+        }
+
+        BddState = applybddnode( (bddsystem *)0, ABL_AND,
+                                 decbddrefext( BddState ), BddNode );
+
+        BitMask  = BitMask << 1;
+        ScanList = ScanList->NEXT;
+      }
+
+      MochaState->BDD_STATE = BddState;
+    }
+
+    freechain( HeadList );
+    HeadList = (chain_list *)0;
   }
 
 # ifdef DEBUG
@@ -391,166 +542,14 @@ static void MochaCheckComputeReachableStates( MochaFigure )
   addbddcircuitout( (bddcircuit *)0, "reached", BddReachedSet );
   testbddcircuit( (bddcircuit *)0 );
 # endif
-  fprintf( stdout, "First state " );
-  MochaCheckViewBddNode( MochaFigure->BDD_FIRST_STATE );
-  fprintf( stdout, "Reachable states " );
-  MochaCheckViewBddNode( BddReachedSet );
-}
 
-/*------------------------------------------------------------\
-|                                                             |
-|                    MochaCheckCtlBddEX                       |
-|                                                             |
-\------------------------------------------------------------*/
-
-static bddnode *MochaCheckCtlBddEX( BddNode )
-
-  bddnode *BddNode;
-{
-  bddnode      *BddNew;
-  bddnode      *BddReached; 
-  bddnode      *BddAssume;
-  btrtransfunc *BtrTransFunc;
-  bddassoc     *BddAssoc;
-
-  BtrTransFunc = MochaMochaFigure->BTR_TRANS_FUNC;
-  BddAssoc     = MochaMochaFigure->BDD_ASSOC_REG;
-  BddReached   = MochaMochaFigure->BDD_REACHED_STATE;
-  BddAssume    = MochaMochaFigure->BDD_ASSUME;
-
-  BddNew = preimagebtrtransfunc( BtrTransFunc, BddNode );
-
-  BddNew = applybddnode( (bddsystem *)0, ABL_AND,
-                         decbddrefext( BddNew ), BddAssume );
-
-  BddNew = existbddnodemissassoc( (bddsystem *)0,
-                                   decbddrefext( BddNew ), BddAssoc );
-
-  BddNew  = applybddnode( (bddsystem *)0, ABL_AND,
-                           decbddrefext( BddNew ), BddReached );
-
-# if 1
-  fprintf( stdout, "MochaCheckCtlBddEX  -> " );
-  MochaCheckViewBddNode( BddNew );
-# endif
-
-  return( BddNew );
-}
-
-/*------------------------------------------------------------\
-|                                                             |
-|                    MochaCheckCtlBddEG                       |
-|                                                             |
-\------------------------------------------------------------*/
-
-static bddnode *MochaCheckCtlBddEG( BddNode )
-
-  bddnode *BddNode;
-{
-  bddnode      *BddOld;
-  bddnode      *BddNew;
-  bddnode      *BddReached; 
-  bddnode      *BddAssume;
-  btrtransfunc *BtrTransFunc;
-  bddassoc     *BddAssoc;
-
-  BtrTransFunc = MochaMochaFigure->BTR_TRANS_FUNC;
-  BddAssoc     = MochaMochaFigure->BDD_ASSOC_REG;
-  BddReached   = MochaMochaFigure->BDD_REACHED_STATE;
-  BddAssume    = MochaMochaFigure->BDD_ASSUME;
-  BddOld       = BddLocalSystem->ONE;
-  BddNew       = incbddrefext( BddNode );
-
-  fprintf( stdout, "> MochaCheckCtlBddEG\n" );
-  fprintf( stdout, "EG:\n" );
-  MochaCheckViewBddNode( BddNode );
-# ifdef DEBUG
-  fprintf( stdout, "REACHED:\n" );
-  MochaCheckViewBddNode( BddReached );
-# endif
-
-  while ( BddNew != BddOld )
+  if ( MochaFigure->DEBUG )
   {
-    BddOld = BddNew;
-
-    BddNew = preimagebtrtransfunc( BtrTransFunc, BddOld );
-
-    BddNew = applybddnode( (bddsystem *)0, ABL_AND, 
-                           decbddrefext( BddNew ), BddAssume );
-
-    BddNew = applybddnode( (bddsystem *)0, ABL_AND,
-                            decbddrefext( BddNew ), BddNode );
-
-    BddNew = existbddnodemissassoc( (bddsystem *)0,
-                                    decbddrefext( BddNew ), BddAssoc );
-
-    BddNew = applybddnode( (bddsystem *)0, ABL_AND,
-                            decbddrefext( BddNew ), BddReached );
-
-    fprintf( stdout, "MochaCheckCtlBddEG:\n" );
-    MochaCheckViewBddNode( BddNew );
-
-    decbddrefext( BddOld );
+    fprintf( stdout, "First state " );
+    MochaCheckViewBddNode( MochaFigure->BDD_FIRST_STATE );
+    fprintf( stdout, "Reachable states " );
+    MochaCheckViewBddNode( BddReachedSet );
   }
-
-  fprintf( stdout, "< MochaCheckCtlBddEG\n" );
-
-  return( BddNew );
-}
-
-/*------------------------------------------------------------\
-|                                                             |
-|                    MochaCheckCtlBddEU                       |
-|                                                             |
-\------------------------------------------------------------*/
-
-static bddnode *MochaCheckCtlBddEU( BddNodeP, BddNodeQ )
-
-  bddnode *BddNodeP;
-  bddnode *BddNodeQ;
-{
-  bddnode      *BddOld;
-  bddnode      *BddNew;
-  bddnode      *BddReached; 
-  bddnode      *BddAssume;
-  btrtransfunc *BtrTransFunc;
-  bddassoc     *BddAssoc;
-
-  BtrTransFunc = MochaMochaFigure->BTR_TRANS_FUNC;
-  BddAssoc     = MochaMochaFigure->BDD_ASSOC_REG;
-  BddReached   = MochaMochaFigure->BDD_REACHED_STATE;
-  BddAssume    = MochaMochaFigure->BDD_ASSUME;
-  BddOld       = BddLocalSystem->ZERO;
-  BddNew       = incbddrefext( BddNodeQ );
-
-  while ( BddNew != BddOld )
-  {
-    BddOld = BddNew;
-
-    BddNew = preimagebtrtransfunc( BtrTransFunc, BddOld );
-
-    BddNew = applybddnode( (bddsystem *)0, ABL_AND,
-                            decbddrefext( BddNew ), BddAssume );
-
-    BddNew = applybddnode( (bddsystem *)0, ABL_AND,
-                            decbddrefext( BddNew ), BddNodeP );
-
-    BddNew  = applybddnode( (bddsystem *)0, ABL_OR,
-                            decbddrefext( BddNew ), BddNodeQ );
-
-    BddNew = existbddnodemissassoc( (bddsystem *)0,
-                                     decbddrefext( BddNew ), BddAssoc );
-
-    BddNew = applybddnode( (bddsystem *)0, ABL_AND,
-                            decbddrefext( BddNew ), BddReached );
-
-    fprintf( stdout, "MochaCheckCtlBddEU:\n" );
-    MochaCheckViewBddNode( BddNew );
-
-    decbddrefext( BddOld );
-  }
-
-  return( BddNew );
 }
 
 /*------------------------------------------------------------\
@@ -601,6 +600,190 @@ static bddnode *MochaCheckCtlAblBoolean( Expr )
   return( BddFirst );
 }
 
+
+/*------------------------------------------------------------\
+|                                                             |
+|                    MochaCheckCtlBddEX                       |
+|                                                             |
+\------------------------------------------------------------*/
+
+static bddnode *MochaCheckCtlBddEX( BddNode )
+
+  bddnode *BddNode;
+{
+  bddnode      *BddNew;
+  bddnode      *BddReached; 
+  bddnode      *BddAssume;
+  btrtransfunc *BtrTransFunc;
+  bddassoc     *BddAssoc;
+
+  BtrTransFunc = MochaMochaFigure->BTR_TRANS_FUNC;
+  BddAssoc     = MochaMochaFigure->BDD_ASSOC_REG;
+  BddReached   = MochaMochaFigure->BDD_REACHED_STATE;
+  BddAssume    = MochaMochaFigure->BDD_ASSUME;
+
+  BddNew = preimagebtrtransfunc( BtrTransFunc, BddNode );
+
+# if 0
+  fprintf( stdout, "EX[\n" );
+  MochaCheckViewBddNode( BddNode );
+  fprintf( stdout, "]\n" );
+# endif
+
+  BddNew = applybddnode( (bddsystem *)0, ABL_AND,
+                         decbddrefext( BddNew ), BddAssume );
+
+  BddNew = existbddnodemissassoc( (bddsystem *)0,
+                                   decbddrefext( BddNew ), BddAssoc );
+
+  BddNew  = applybddnode( (bddsystem *)0, ABL_AND,
+                           decbddrefext( BddNew ), BddReached );
+
+# if 0
+  fprintf( stdout, "-> " );
+  MochaCheckViewBddNode( BddNew );
+  fprintf( stdout, "\n" );
+# endif
+
+  return( BddNew );
+}
+
+/*------------------------------------------------------------\
+|                                                             |
+|                    MochaCheckCtlBddEG                       |
+|                                                             |
+\------------------------------------------------------------*/
+
+static bddnode *MochaCheckCtlBddEG( BddNode )
+
+  bddnode *BddNode;
+{
+  bddnode      *BddOld;
+  bddnode      *BddNew;
+  bddnode      *BddReached; 
+  bddnode      *BddAssume;
+  btrtransfunc *BtrTransFunc;
+  bddassoc     *BddAssoc;
+
+  BtrTransFunc = MochaMochaFigure->BTR_TRANS_FUNC;
+  BddAssoc     = MochaMochaFigure->BDD_ASSOC_REG;
+  BddReached   = MochaMochaFigure->BDD_REACHED_STATE;
+  BddAssume    = MochaMochaFigure->BDD_ASSUME;
+  BddOld       = BddLocalSystem->ONE;
+  BddNew       = incbddrefext( BddNode );
+
+# if 0
+  fprintf( stdout, "EX[\n" );
+  MochaCheckViewBddNode( BddNode );
+  fprintf( stdout, "]\n" );
+# endif
+
+  while ( BddNew != BddOld )
+  {
+    BddOld = BddNew;
+
+    BddNew = preimagebtrtransfunc( BtrTransFunc, BddOld );
+
+    BddNew = applybddnode( (bddsystem *)0, ABL_AND, 
+                           decbddrefext( BddNew ), BddAssume );
+
+    BddNew = applybddnode( (bddsystem *)0, ABL_AND,
+                            decbddrefext( BddNew ), BddNode );
+
+    BddNew = existbddnodemissassoc( (bddsystem *)0,
+                                    decbddrefext( BddNew ), BddAssoc );
+
+    BddNew = applybddnode( (bddsystem *)0, ABL_AND,
+                            decbddrefext( BddNew ), BddReached );
+
+# if 0
+    fprintf( stdout, "MochaCheckCtlBddEG:\n" );
+    MochaCheckViewBddNode( BddNew );
+# endif
+
+    decbddrefext( BddOld );
+  }
+
+# if 0
+  fprintf( stdout, "-> " );
+  MochaCheckViewBddNode( BddNew );
+  fprintf( stdout, "\n" );
+# endif
+
+  return( BddNew );
+}
+
+/*------------------------------------------------------------\
+|                                                             |
+|                    MochaCheckCtlBddEU                       |
+|                                                             |
+\------------------------------------------------------------*/
+
+static bddnode *MochaCheckCtlBddEU( BddNodeP, BddNodeQ )
+
+  bddnode *BddNodeP;
+  bddnode *BddNodeQ;
+{
+  bddnode      *BddOld;
+  bddnode      *BddNew;
+  bddnode      *BddReached; 
+  bddnode      *BddAssume;
+  btrtransfunc *BtrTransFunc;
+  bddassoc     *BddAssoc;
+
+  BtrTransFunc = MochaMochaFigure->BTR_TRANS_FUNC;
+  BddAssoc     = MochaMochaFigure->BDD_ASSOC_REG;
+  BddReached   = MochaMochaFigure->BDD_REACHED_STATE;
+  BddAssume    = MochaMochaFigure->BDD_ASSUME;
+  BddOld       = BddLocalSystem->ZERO;
+  BddNew       = incbddrefext( BddNodeQ );
+
+# if 0
+  fprintf( stdout, "EU[\n" );
+  MochaCheckViewBddNode( BddNodeP );
+  fprintf( stdout, ", \n" );
+  MochaCheckViewBddNode( BddNodeQ );
+  fprintf( stdout, "]\n" );
+# endif
+
+  while ( BddNew != BddOld )
+  {
+    BddOld = BddNew;
+
+    BddNew = preimagebtrtransfunc( BtrTransFunc, BddOld );
+
+    BddNew = applybddnode( (bddsystem *)0, ABL_AND,
+                            decbddrefext( BddNew ), BddAssume );
+
+    BddNew = applybddnode( (bddsystem *)0, ABL_AND,
+                            decbddrefext( BddNew ), BddNodeP );
+
+    BddNew  = applybddnode( (bddsystem *)0, ABL_OR,
+                            decbddrefext( BddNew ), BddNodeQ );
+
+    BddNew = existbddnodemissassoc( (bddsystem *)0,
+                                     decbddrefext( BddNew ), BddAssoc );
+
+    BddNew = applybddnode( (bddsystem *)0, ABL_AND,
+                            decbddrefext( BddNew ), BddReached );
+
+# if 0
+    fprintf( stdout, "MochaCheckCtlBddEU:\n" );
+    MochaCheckViewBddNode( BddNew );
+# endif
+
+    decbddrefext( BddOld );
+  }
+
+# if 0
+  fprintf( stdout, "-> " );
+  MochaCheckViewBddNode( BddNew );
+  fprintf( stdout, "\n" );
+# endif
+
+  return( BddNew );
+}
+
 /*------------------------------------------------------------\
 |                                                             |
 |                    MochaCheckCtlAblAF                       |
@@ -620,6 +803,14 @@ static bddnode *MochaCheckCtlAblAF( Expr )
   Expr = ABL_CDR( Expr );
 
   BddNode   = MochaCheckCtlAbl( ABL_CAR( Expr ) );
+
+  if ( MochaMochaFigure->DEBUG )
+  {
+    fprintf( stdout, "AF[\n" );
+    MochaCheckViewBddNode( BddNode );
+    fprintf( stdout, "]\n" );
+  }
+
   BddNode   = applybddnodenot( (bddsystem *)0, decbddrefext( BddNode ) );
   BddResult = MochaCheckCtlBddEG( BddNode );
   decbddrefext( BddNode );
@@ -628,6 +819,13 @@ static bddnode *MochaCheckCtlAblAF( Expr )
   BddReached = MochaMochaFigure->BDD_REACHED_STATE;
   BddResult  = applybddnode( (bddsystem *)0, ABL_AND,
                               decbddrefext( BddResult ), BddReached ); 
+
+  if ( MochaMochaFigure->DEBUG )
+  {
+    fprintf( stdout, "-> " );
+    MochaCheckViewBddNode( BddResult );
+    fprintf( stdout, "\n" );
+  }
 
   return( BddResult );
 }
@@ -651,6 +849,14 @@ static bddnode *MochaCheckCtlAblAG( Expr )
   Expr = ABL_CDR( Expr );
 
   BddNode   = MochaCheckCtlAbl( ABL_CAR( Expr ) );
+
+  if ( MochaMochaFigure->DEBUG )
+  {
+    fprintf( stdout, "AG[\n" );
+    MochaCheckViewBddNode( BddNode );
+    fprintf( stdout, "]\n" );
+  }
+
   BddNode   = applybddnodenot( (bddsystem *)0, decbddrefext( BddNode ) );
   BddResult = MochaCheckCtlBddEU( BddLocalSystem->ONE, BddNode );
   decbddrefext( BddNode );
@@ -659,6 +865,13 @@ static bddnode *MochaCheckCtlAblAG( Expr )
   BddReached = MochaMochaFigure->BDD_REACHED_STATE;
   BddResult  = applybddnode( (bddsystem *)0, ABL_AND,
                               decbddrefext( BddResult ), BddReached ); 
+
+  if ( MochaMochaFigure->DEBUG )
+  {
+    fprintf( stdout, "-> " );
+    MochaCheckViewBddNode( BddResult );
+    fprintf( stdout, "\n" );
+  }
 
   return( BddResult );
 }
@@ -682,6 +895,14 @@ static bddnode *MochaCheckCtlAblAX( Expr )
   Expr = ABL_CDR( Expr );
 
   BddNode   = MochaCheckCtlAbl( ABL_CAR( Expr ) );
+
+  if ( MochaMochaFigure->DEBUG )
+  {
+    fprintf( stdout, "AX[\n" );
+    MochaCheckViewBddNode( BddNode );
+    fprintf( stdout, "]\n" );
+  }
+
   BddNode   = applybddnodenot( (bddsystem *)0, decbddrefext( BddNode ) );
   BddResult = MochaCheckCtlBddEX( BddNode );
   decbddrefext( BddNode );
@@ -690,6 +911,13 @@ static bddnode *MochaCheckCtlAblAX( Expr )
   BddReached = MochaMochaFigure->BDD_REACHED_STATE;
   BddResult  = applybddnode( (bddsystem *)0, ABL_AND,
                               decbddrefext( BddResult ), BddReached ); 
+
+  if ( MochaMochaFigure->DEBUG )
+  {
+    fprintf( stdout, "-> " );
+    MochaCheckViewBddNode( BddResult );
+    fprintf( stdout, "\n" );
+  }
 
   return( BddResult );
 }
@@ -719,6 +947,15 @@ static bddnode *MochaCheckCtlAblAU( Expr )
   Expr      = ABL_CDR( Expr );
   BddNode2  = MochaCheckCtlAbl( ABL_CAR( Expr ) );
 
+  if ( MochaMochaFigure->DEBUG )
+  {
+    fprintf( stdout, "AU[\n" );
+    MochaCheckViewBddNode( BddNode1 );
+    fprintf( stdout, ",\n" );
+    MochaCheckViewBddNode( BddNode2 );
+    fprintf( stdout, "]\n" );
+  }
+
   BddNode1  = applybddnodenot( (bddsystem *)0, decbddrefext( BddNode1 ) );
   BddNode2  = applybddnodenot( (bddsystem *)0, decbddrefext( BddNode2 ) );
 
@@ -743,6 +980,13 @@ static bddnode *MochaCheckCtlAblAU( Expr )
   BddResult  = applybddnode( (bddsystem *)0, ABL_AND,
                               decbddrefext( BddResult ), BddReached ); 
 
+  if ( MochaMochaFigure->DEBUG )
+  {
+    fprintf( stdout, "-> " );
+    MochaCheckViewBddNode( BddResult );
+    fprintf( stdout, "\n" );
+  }
+
   return( BddResult );
 }
 
@@ -764,8 +1008,23 @@ static bddnode *MochaCheckCtlAblEF( Expr )
   Expr = ABL_CDR( Expr );
 
   BddNode   = MochaCheckCtlAbl( ABL_CAR( Expr ) );
+
+  if ( MochaMochaFigure->DEBUG )
+  {
+    fprintf( stdout, "EF[\n" );
+    MochaCheckViewBddNode( BddNode );
+    fprintf( stdout, "]\n" );
+  }
+
   BddResult = MochaCheckCtlBddEU( BddLocalSystem->ONE, BddNode );
   decbddrefext( BddNode );
+
+  if ( MochaMochaFigure->DEBUG )
+  {
+    fprintf( stdout, "-> " );
+    MochaCheckViewBddNode( BddResult );
+    fprintf( stdout, "\n" );
+  }
 
   return( BddResult );
 }
@@ -786,8 +1045,23 @@ static bddnode *MochaCheckCtlAblEX( Expr )
   Expr = ABL_CDR( Expr );
 
   BddNode   = MochaCheckCtlAbl( ABL_CAR( Expr ) );
+
+  if ( MochaMochaFigure->DEBUG )
+  {
+    fprintf( stdout, "EX[\n" );
+    MochaCheckViewBddNode( BddNode );
+    fprintf( stdout, "]\n" );
+  }
+
   BddResult = MochaCheckCtlBddEX( BddNode );
   decbddrefext( BddNode );
+
+  if ( MochaMochaFigure->DEBUG )
+  {
+    fprintf( stdout, "-> " );
+    MochaCheckViewBddNode( BddResult );
+    fprintf( stdout, "\n" );
+  }
 
   return( BddResult );
 }
@@ -805,16 +1079,26 @@ static bddnode *MochaCheckCtlAblEG( Expr )
   bddnode *BddNode;
   bddnode *BddResult;
 
-# ifdef DEBUG
-  fprintf( stdout, "MochaCheckCtlAblEG: " );
-  viewablexprln( Expr, ABL_VIEW_VHDL );
-# endif
-
   Expr = ABL_CDR( Expr );
 
   BddNode   = MochaCheckCtlAbl( ABL_CAR( Expr ) );
+
+  if ( MochaMochaFigure->DEBUG )
+  {
+    fprintf( stdout, "EG[\n" );
+    MochaCheckViewBddNode( BddNode );
+    fprintf( stdout, "]\n" );
+  }
+
   BddResult = MochaCheckCtlBddEG( BddNode );
   decbddrefext( BddNode );
+
+  if ( MochaMochaFigure->DEBUG )
+  {
+    fprintf( stdout, "-> " );
+    MochaCheckViewBddNode( BddResult );
+    fprintf( stdout, "\n" );
+  }
 
   return( BddResult );
 }
@@ -838,10 +1122,26 @@ static bddnode *MochaCheckCtlAblEU( Expr )
   Expr      = ABL_CDR( Expr );
   BddNode2  = MochaCheckCtlAbl( ABL_CAR( Expr ) );
 
+  if ( MochaMochaFigure->DEBUG )
+  {
+    fprintf( stdout, "EU[\n" );
+    MochaCheckViewBddNode( BddNode1 );
+    fprintf( stdout, ",\n" );
+    MochaCheckViewBddNode( BddNode2 );
+    fprintf( stdout, "]\n" );
+  }
+
   BddResult = MochaCheckCtlBddEU( BddNode1, BddNode2 );
 
   decbddrefext( BddNode1 );
   decbddrefext( BddNode2 );
+
+  if ( MochaMochaFigure->DEBUG )
+  {
+    fprintf( stdout, "-> " );
+    MochaCheckViewBddNode( BddResult );
+    fprintf( stdout, "\n" );
+  }
 
   return( BddResult );
 }
@@ -971,42 +1271,16 @@ static void MochaCheckCtlFormulae( MochaFigure, FlagVerbose )
         CtlForm != (ctlform_list *)0;
         CtlForm  = CtlForm->NEXT )
   {
-    if ( FlagVerbose )
-    {
-      fprintf( stdout, "\t    Verifying formula %s\n", CtlForm->NAME );
-    }
+    fprintf( stdout, "\t    Checking formula %s\n", CtlForm->NAME );
 
     BiAblArray = MOCHA_CTL_BIABLA( CtlForm );
     AblArray   = BiAblArray->EXPR;
 
     BddNode = MochaCheckCtlAbl( AblArray->ARRAY[ 0 ] );
-    BddNode = applybddnode( (bddsystem *)0, ABL_AND,
-                            decbddrefext( BddNode ), BddAssume );
 
-    BddNode = existbddnodemissassoc( (bddsystem *)0,
-                                     decbddrefext( BddNode ), BddAssoc );
-
-    BddNode = applybddnode( (bddsystem *)0, ABL_AND,
-                            decbddrefext( BddNode ), BddReached ); 
-
-    BddNode = applybddnode( (bddsystem *)0, ABL_AND, 
-                            decbddrefext( BddNode ), BddFirst );
-
-    decbddrefext( BddNode );
-
-# ifdef DEBUG
-    MochaCheckViewBddNode( BddNode );
-# endif
-
-    if ( BddNode != BddFirst  )
+    if ( ! MochaCheckViewState( MochaFigure, BddNode ) )
     {
-      fprintf( stdout, "\t    Formula %s IS FALSE !\n", CtlForm->NAME );
-      MochaCheckViewBddNode( BddNode );
-    }
-    else
-    if ( FlagVerbose )
-    {
-      fprintf( stdout, "\t    OK\n" );
+      fprintf( stdout, "\t      Not verified for the first state !\n" );
     }
   }
 }

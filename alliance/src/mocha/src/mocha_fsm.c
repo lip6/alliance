@@ -110,8 +110,8 @@ void MochaCompileFsm( MochaFigure, FileName, FlagVerbose )
         ScanChain != (chain_list *)0;
         ScanChain  = ScanChain->NEXT )
   {
-    FsmFigure = (fsmfig_list *)ScanChain->DATA;
-    MochaSyfFsmSimplify( FsmFigure );
+    ScanFigure = (fsmfig_list *)ScanChain->DATA;
+    MochaSyfFsmSimplify( ScanFigure );
   }
 
   if ( FlagVerbose )

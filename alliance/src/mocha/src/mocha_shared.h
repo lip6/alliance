@@ -64,6 +64,7 @@
    {
      struct mochastate_list *NEXT;
      char                   *NAME;
+     bddnode                *BDD_STATE;
      long                    CODE;
 
    } mochastate_list;
@@ -104,6 +105,7 @@
      bddnode              *BDD_FIRST_STATE;
      bddnode              *BDD_ASSUME;
      bddnode              *BDD_REACHED_STATE;
+     short                 DEBUG;
 
    } mochafig_list;
 

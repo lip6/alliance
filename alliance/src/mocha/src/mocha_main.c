@@ -97,7 +97,7 @@
 
 void MochaUsage()
 {
-  fprintf( stderr, "\t\tmocha [Options] fsm_filename ctl_filename\n\n" );
+  fprintf( stderr, "\t\tmoka [Options] fsm_filename ctl_filename\n\n" );
 
   fprintf( stdout, "\t\tOptions : -V Sets Verbose mode on\n"       );
   fprintf( stdout, "\t\t          -D Sets Debug mode on\n"         );
@@ -128,8 +128,8 @@ int main( argc, argv )
   int    FlagDebug   = 0;
   int    FlagFsm     = 1;
 
-  alliancebanner_with_authors( "MoChA",
-      VERSION, "Model Checker Ancestor", "2002",
+  alliancebanner_with_authors( "MoKA",
+      VERSION, "MOdel checKer Ancestor", "2002",
       ALLIANCE_VERSION, "Ludovic Jacomme" );
 
   mbkenv();
@@ -179,6 +179,7 @@ int main( argc, argv )
        ( CtlFileName  == (char *)0 ) ) MochaUsage();
 
   MochaFigure = MochaAddFigure( DescFileName );
+  MochaFigure->DEBUG = FlagDebug;
 
   if ( FlagFsm )
   {

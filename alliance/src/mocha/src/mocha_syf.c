@@ -501,9 +501,6 @@ void MochaSyfFsmEncode( FsmFigure, FlagVerbose )
 
     CodeArray[ NumberState - Index - 1 ].USED  = 1;
 
-    fprintf( stdout, "ScanState %s Code %ld\n",
-            ScanState->NAME, CodeArray[ NumberState - Index - 1 ].VALUE );
-
     ScanState = ScanState->NEXT;
     Index     = Index + 1;
   }
@@ -1237,19 +1234,16 @@ void MochaSyfFsmTreatOutput( FsmFigure, FbhFigure )
 {
   mochasyfinfo   *MochaSyfInfo;
   fsmout_list    *ScanOut;
+  fbaux_list     *ScanAux;
   mochasyfout    *ScanSyfOut;
   mochasyfregout *OutArray;
   fbout_list     *FbhOut;
-  fbrin_list     *FbhRin;
-  fbreg_list     *FbhReg;
   ablexpr        *AblExpr;
 
   MochaSyfInfo = MOCHA_SYF_INFO( FsmFigure );
   OutArray     = MochaSyfInfo->OUT_ARRAY;
 
-  FbhOut    = FbhFigure->BEOUT;
-  FbhRin    = FbhFigure->BERIN;
-  FbhReg    = FbhFigure->BEREG;
+  FbhOut = FbhFigure->BEOUT;
 
   for ( ScanOut  = FsmFigure->OUT;
         ScanOut != (fsmout_list *)0;
@@ -1260,11 +1254,25 @@ void MochaSyfFsmTreatOutput( FsmFigure, FbhFigure )
     if ( ScanSyfOut->ABL != (chain_list *)0 )
     {
       AblExpr = dupablexpr( ScanSyfOut->ABL );
-      FbhOut  = fbh_addfbout( FbhOut, ScanOut->NAME, AblExpr, (bddnode *)0, 0 );
+
+      for ( ScanAux  = FbhFigure->BEAUX;
+            ScanAux != (fbaux_list *)0;
+            ScanAux  = ScanAux->NEXT )
+      {
+        if ( ScanAux->NAME == ScanOut->NAME ) break;
+      }
+
+      if ( ScanAux == (fbaux_list *)0 )
+      {
+        FbhOut = fbh_addfbout( FbhOut, ScanOut->NAME, AblExpr, (bddnode *)0, 0 );
+      }
+      else
+      {
+        ScanAux->ABL = AblExpr;
+      }
     }
   }
 
-  FbhFigure->BERIN = FbhRin;
   FbhFigure->BEOUT = FbhOut;
 }
 
