@@ -428,7 +428,7 @@ static vexexpr *VasyAllianceTreatVexArith( VexExpr )
     sprintf( Buffer, "rtlgen_%ld", VasyNumberDef );
     VexAtomGen = createvexatomvec( Buffer,  MaxWidth - 1, 1 );
 
-    if ( VasyFlagLax ) VasyAllianceAddKeepSignal( VexAtomGen );
+    if ( VasyFlagLax || VasyFlagBoom ) VasyAllianceAddKeepSignal( VexAtomGen );
 
     RtlDeclGen = addrtldecl( VasyRtlFigure, dupvexexpr( VexAtomGen ), RTL_DECLAR_SIGNAL );
     RtlDeclGen->BASE = VEX_TYPE_BIT_VECTOR;
@@ -443,7 +443,7 @@ static vexexpr *VasyAllianceTreatVexArith( VexExpr )
     sprintf( Buffer, "rtlprop_%ld", VasyNumberDef );
     VexAtomProp = createvexatomvec( Buffer,  MaxWidth - 1, 1 );
 
-    if ( VasyFlagLax ) VasyAllianceAddKeepSignal( VexAtomProp );
+    if ( VasyFlagLax || VasyFlagBoom ) VasyAllianceAddKeepSignal( VexAtomProp );
 
     RtlDeclProp = addrtldecl( VasyRtlFigure, dupvexexpr( VexAtomProp ), RTL_DECLAR_SIGNAL );
     RtlDeclProp->BASE = VEX_TYPE_BIT_VECTOR;
@@ -521,7 +521,7 @@ static vexexpr *VasyAllianceTreatVexArith( VexExpr )
 
         VexAtom3 = createvexatomvec( GetVexAtomValue( VexAtomCarry ), Index , Index );
 
-        if ( VasyFlagLax ) VasyAllianceAddKeepSignal( VexAtom3 );
+        if ( VasyFlagLax || VasyFlagBoom ) VasyAllianceAddKeepSignal( VexAtom3 );
 
         RtlAsgCarry = addrtlasg( VasyRtlFigure, VexAtom3, RTL_ASG_COMBINATORIAL );
         RtlAsgCarry->VEX_DATA = VexCarry;
@@ -543,7 +543,7 @@ static vexexpr *VasyAllianceTreatVexArith( VexExpr )
       VexCarry = createvexbinexpr( VEX_OR, MaxWidth - 1, VexAnd1 , VexAnd2 );
       VexCarry = createvexbinexpr( VEX_OR, MaxWidth - 1, VexCarry, VexAnd3 );
 
-      if ( VasyFlagLax ) VasyAllianceAddKeepSignal( VexAtom4 );
+      if ( VasyFlagLax || VasyFlagBoom ) VasyAllianceAddKeepSignal( VexAtom4 );
 
       RtlAsgCarry = addrtlasg( VasyRtlFigure, VexAtom4, RTL_ASG_COMBINATORIAL );
       RtlAsgCarry->VEX_DATA = simpvexexpr( VexCarry );
@@ -912,7 +912,7 @@ static vexexpr *VasyAllianceTreatVexRelational( VexExpr )
     sprintf( Buffer, "rtlgen_%ld", VasyNumberDef );
     VexAtomGen = createvexatomvec( Buffer,  MaxWidth - 1, 1 );
 
-    if ( VasyFlagLax ) VasyAllianceAddKeepSignal( VexAtomGen );
+    if ( VasyFlagLax || VasyFlagBoom ) VasyAllianceAddKeepSignal( VexAtomGen );
 
     RtlDeclGen = addrtldecl( VasyRtlFigure, dupvexexpr( VexAtomGen ), RTL_DECLAR_SIGNAL );
     RtlDeclGen->BASE = VEX_TYPE_BIT_VECTOR;
@@ -927,7 +927,7 @@ static vexexpr *VasyAllianceTreatVexRelational( VexExpr )
     sprintf( Buffer, "rtlprop_%ld", VasyNumberDef );
     VexAtomProp = createvexatomvec( Buffer,  MaxWidth - 1, 1 );
 
-    if ( VasyFlagLax ) VasyAllianceAddKeepSignal( VexAtomProp );
+    if ( VasyFlagLax || VasyFlagBoom ) VasyAllianceAddKeepSignal( VexAtomProp );
 
     RtlDeclProp = addrtldecl( VasyRtlFigure, dupvexexpr( VexAtomProp ), RTL_DECLAR_SIGNAL );
     RtlDeclProp->BASE = VEX_TYPE_BIT_VECTOR;
@@ -1018,7 +1018,7 @@ static vexexpr *VasyAllianceTreatVexRelational( VexExpr )
 
       VexAtom3 = createvexatomvec( GetVexAtomValue( VexAtomCarry ), Index , Index );
 
-      if ( VasyFlagLax ) VasyAllianceAddKeepSignal( VexAtom3 );
+      if ( VasyFlagLax || VasyFlagBoom ) VasyAllianceAddKeepSignal( VexAtom3 );
 
       RtlAsgCarry = addrtlasg( VasyRtlFigure, VexAtom3, RTL_ASG_COMBINATORIAL );
       RtlAsgCarry->VEX_DATA = VexCarry;
@@ -1040,7 +1040,7 @@ static vexexpr *VasyAllianceTreatVexRelational( VexExpr )
     VexCarry = createvexbinexpr( VEX_OR, MaxWidth - 1, VexAnd1 , VexAnd2 );
     VexCarry = createvexbinexpr( VEX_OR, MaxWidth - 1, VexCarry, VexAnd3 );
 
-    if ( VasyFlagLax ) VasyAllianceAddKeepSignal( VexAtom4 );
+    if ( VasyFlagLax || VasyFlagBoom ) VasyAllianceAddKeepSignal( VexAtom4 );
 
     RtlAsgCarry = addrtlasg( VasyRtlFigure, VexAtom4, RTL_ASG_COMBINATORIAL );
     RtlAsgCarry->VEX_DATA = simpvexexpr( VexCarry );
@@ -1118,7 +1118,7 @@ static vexexpr *VasyAllianceTreatVexEqual( VexExpr )
   VexNXor = createvexbinexpr( VEX_NXOR, MaxWidth, 
                               dupvexexpr( Operand1 ), dupvexexpr( Operand2 ) );
 
-  if ( VasyFlagLax ) VasyAllianceAddKeepSignal( VexAtomNXor );
+  if ( VasyFlagLax || VasyFlagBoom  ) VasyAllianceAddKeepSignal( VexAtomNXor );
 
   RtlAsgNXor = addrtlasg( VasyRtlFigure, VexAtomNXor, RTL_ASG_COMBINATORIAL );
   RtlAsgNXor->VEX_DATA = VexNXor;
