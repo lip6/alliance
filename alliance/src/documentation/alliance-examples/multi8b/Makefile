@@ -179,7 +179,7 @@ boom.done : multi8_o.vbe
 	@$(TOUCH) boom.done
 
 multi8_o.vbe : multi8.vbe multi8.boom res_vasy_1.pat
-	$(ENV_BOOM); $(BOOM) -VP multi8 multi8_o
+	$(ENV_BOOM); $(BOOM) -VAP multi8 multi8_o
 
 # /*------------------------------------------------------------\
 # |                                                             |
