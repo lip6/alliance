@@ -51,45 +51,44 @@ DEFINE XSCH_CURSOR_SIZE 10
 
 TABLE XSCH_LAYER_NAME
 
-  0   Gates           cyan              Black
-  1   Inputs          red               Black
-  2   Outputs         light_blue        Black
-# 3   Signals         yellow            Black
-  3   Signals         pink              Black
-  4   Debug           spring_green      Black
-  5   Layer_0         #0000ff           Black
-  6   Layer_1         #0020ff           Black
-  7   Layer_2         #0040ff           Black
-  8   Layer_3         #0060ff           Black
-  9   Layer_4         #0080ff           Black
- 10   Layer_5         #00a0ff           Black
- 11   Layer_6         #00c0ff           Black
- 12   Layer_7         #00e0ff           Black
- 13   Layer_8         #00ffff           Black
- 14   Layer_9         #00ffe0           Black
- 15   Layer_10        #00ffc0           Black
- 16   Layer_11        #00ffa0           Black
- 17   Layer_12        #00ff80           Black
- 18   Layer_13        #00ff60           Black
- 19   Layer_14        #00ff40           Black
- 20   Layer_15        #00ff20           Black
- 21   Layer_16        #00ff00           Black
- 22   Layer_17        #20ff00           Black
- 23   Layer_18        #40ff00           Black
- 24   Layer_19        #60ff00           Black
- 25   Layer_20        #80ff00           Black
- 26   Layer_21        #a0ff00           Black
- 27   Layer_22        #c0ff00           Black
- 28   Layer_23        #e0ff00           Black
- 29   Layer_24        #ffff00           Black
- 30   Layer_25        #ffe000           Black
- 31   Layer_26        #ffc000           Black
- 32   Layer_27        #ffa000           Black
- 33   Layer_28        #ff8000           Black
- 34   Layer_29        #ff6000           Black
- 35   Layer_30        #ff4000           Black
- 36   Layer_31        #ff2000           Black
- 37   Layer_32        #ff0000           Black
+  0   Gates           cyan              Black      0070ff
+  1   Inputs          red               Black      ff0000
+  2   Outputs         light_blue        Black      00ff00
+  3   Signals         pink              Black      0000ff
+  4   Debug           spring_green      Black      00a000
+  5   Layer_0         #0000ff           Black      0000ff           
+  6   Layer_1         #0020ff           Black      0020ff           
+  7   Layer_2         #0040ff           Black      0040ff           
+  8   Layer_3         #0060ff           Black      0060ff           
+  9   Layer_4         #0080ff           Black      0080ff           
+ 10   Layer_5         #00a0ff           Black      00a0ff           
+ 11   Layer_6         #00c0ff           Black      00c0ff           
+ 12   Layer_7         #00e0ff           Black      00e0ff           
+ 13   Layer_8         #00ffff           Black      00ffff           
+ 14   Layer_9         #00ffe0           Black      00ffe0           
+ 15   Layer_10        #00ffc0           Black      00ffc0           
+ 16   Layer_11        #00ffa0           Black      00ffa0           
+ 17   Layer_12        #00ff80           Black      00ff80           
+ 18   Layer_13        #00ff60           Black      00ff60           
+ 19   Layer_14        #00ff40           Black      00ff40           
+ 20   Layer_15        #00ff20           Black      00ff20           
+ 21   Layer_16        #00ff00           Black      00ff00           
+ 22   Layer_17        #20ff00           Black      20ff00           
+ 23   Layer_18        #40ff00           Black      40ff00           
+ 24   Layer_19        #60ff00           Black      60ff00           
+ 25   Layer_20        #80ff00           Black      80ff00           
+ 26   Layer_21        #a0ff00           Black      a0ff00           
+ 27   Layer_22        #c0ff00           Black      c0ff00           
+ 28   Layer_23        #e0ff00           Black      e0ff00           
+ 29   Layer_24        #ffff00           Black      ffff00           
+ 30   Layer_25        #ffe000           Black      ffe000           
+ 31   Layer_26        #ffc000           Black      ffc000           
+ 32   Layer_27        #ffa000           Black      ffa000           
+ 33   Layer_28        #ff8000           Black      ff8000           
+ 34   Layer_29        #ff6000           Black      ff6000           
+ 35   Layer_30        #ff4000           Black      ff4000           
+ 36   Layer_31        #ff2000           Black      ff2000           
+ 37   Layer_32        #ff0000           Black      ff0000           
 
 END 
 
