@@ -34,4 +34,4 @@ genlib : ${srcdir}/genlib.sh
 	${SED} 's,__ALLIANCE_INSTALL_DIR__,$(prefix),' $< > $@
 	chmod a+x $@
 
-EXTRA_DIST = genlib.sh dpgen_ROM_code.h
+EXTRA_DIST = genlib.sh
