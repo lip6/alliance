@@ -8,6 +8,9 @@ man_MANS  = addcapa.3 \
             addlomodel.3 \
             addlosig.3 \
             addlotrs.3 \
+            addlocap.3 \
+            addlores.3 \
+            addloself.3 \
             addnum.3 \
             addphcon.3 \
             addphfig.3 \
@@ -31,6 +34,9 @@ man_MANS  = addcapa.3 \
             delloins.3 \
             dellosig.3 \
             dellotrs.3 \
+            dellocap.3 \
+            dellores.3 \
+            delloself.3 \
             delnum.3 \
             delphcon.3 \
             delphfig.3 \
@@ -78,6 +84,9 @@ man_MANS  = addcapa.3 \
             loins.3 \
             losig.3 \
             lotrs.3 \
+            locap.3 \
+            lores.3 \
+            loself.3 \
             mbk.3 \
             mbkalloc.3 \
             mbkenv.3 \
@@ -122,6 +131,9 @@ man_MANS  = addcapa.3 \
             viewloinscon.3 \
             viewlosig.3 \
             viewlotrs.3 \
+            viewlocap.3 \
+            viewlores.3 \
+            viewloself.3 \
             viewph.3 \
             viewphcon.3 \
             viewphfig.3 \
