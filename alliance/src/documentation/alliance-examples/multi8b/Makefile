@@ -42,7 +42,7 @@ TARGET_LIB      = $(ALLIANCE_TOP)/cells/sxlib
 RDS_TECHNO_SYMB = ../etc/techno-symb.rds
 RDS_TECHNO      = ../etc/techno-035.rds
 SPI_MODEL       = $(ALLIANCE_TOP)/etc/spimodel.cfg
-METAL_LEVEL     = 2
+METAL_LEVEL     = 4
 
 # /*------------------------------------------------------------\
 # |                                                             |
@@ -221,7 +221,7 @@ multi8_p.ap : res_synth_1.pat
 # \------------------------------------------------------------*/
 
 multi8.ap : multi8_p.ap multi8.vst
-	$(ENV_NERO); $(NERO) -v -$(METAL_LEVEL) -p multi8_p multi8 multi8
+	$(ENV_NERO); $(NERO) -V -$(METAL_LEVEL) -p multi8_p multi8 multi8
 
 # /*------------------------------------------------------------\
 # |                                                             |

@@ -221,7 +221,7 @@ adder4_p.ap : res_synth_1.pat
 # \------------------------------------------------------------*/
 
 adder4.ap : adder4_p.ap adder4.vst
-	$(ENV_NERO); $(NERO) -v -$(METAL_LEVEL) -p adder4_p adder4 adder4
+	$(ENV_NERO); $(NERO) -V -$(METAL_LEVEL) -p adder4_p adder4 adder4
 
 # /*------------------------------------------------------------\
 # |                                                             |

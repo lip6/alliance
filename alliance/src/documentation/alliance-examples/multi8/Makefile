@@ -260,7 +260,7 @@ multi8_p.ap : res_synth_1.pat
 # \------------------------------------------------------------*/
 
 multi8.ap : multi8_p.ap multi8.vst
-	$(ENV_NERO); $(NERO) -$(METAL_LEVEL) -p multi8_p multi8 multi8
+	$(ENV_NERO); $(NERO) -V -$(METAL_LEVEL) -p multi8_p multi8 multi8
 
 # /*------------------------------------------------------------\
 # |                                                             |

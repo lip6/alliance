@@ -242,7 +242,7 @@ pgcd_p.ap : res_synth_1.pat
 # \------------------------------------------------------------*/
 
 pgcd.ap : pgcd_p.ap pgcd.vst
-	$(ENV_NERO); $(NERO) -v -$(METAL_LEVEL) -p pgcd_p pgcd pgcd
+	$(ENV_NERO); $(NERO) -V -$(METAL_LEVEL) -p pgcd_p pgcd pgcd
 
 # /*------------------------------------------------------------\
 # |                                                             |

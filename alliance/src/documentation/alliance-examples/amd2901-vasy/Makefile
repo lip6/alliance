@@ -223,7 +223,7 @@ amd2901_p.ap : res_synth_1.pat
 #	$(ENV_OCR); $(OCR) -v -l $(METAL_LEVEL) -L amd2901 -P amd2901_p -O amd2901
 
 amd2901.ap : amd2901_p.ap amd2901.vst
-	$(ENV_OCR); $(NERO) -v -$(METAL_LEVEL) -p amd2901_p amd2901 amd2901
+	$(ENV_OCR); $(NERO) -V -$(METAL_LEVEL) -p amd2901_p amd2901 amd2901
 
 # /*------------------------------------------------------------\
 # |                                                             |

@@ -177,7 +177,7 @@ druc_ocp: amd2901_core_p.ap
 	$(TOUCH) druc_ocp
 
 amd2901_core.ap: druc_ocp
-	$(NERO) -2 -p amd2901_core_p amd2901_core amd2901_core
+	$(NERO) -V -2 -p amd2901_core_p amd2901_core amd2901_core
 
 # amd2901_core.ap: druc_ocp
 #	$(OCR) -v -l 2 -L amd2901_core -P amd2901_core_p -O amd2901_core

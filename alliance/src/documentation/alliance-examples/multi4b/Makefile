@@ -221,7 +221,7 @@ multi4_p.ap : res_synth_1.pat
 # \------------------------------------------------------------*/
 
 multi4.ap : multi4_p.ap multi4.vst
-	$(ENV_NERO); $(NERO) -v -$(METAL_LEVEL) -p multi4_p multi4 multi4
+	$(ENV_NERO); $(NERO) -V -$(METAL_LEVEL) -p multi4_p multi4 multi4
 
 # /*------------------------------------------------------------\
 # |                                                             |

@@ -221,7 +221,7 @@ addaccu_p.ap : res_synth_1.pat
 # \------------------------------------------------------------*/
 
 addaccu.ap : addaccu_p.ap addaccu.vst
-	$(ENV_NERO); $(NERO) -v -$(METAL_LEVEL) -p addaccu_p addaccu addaccu
+	$(ENV_NERO); $(NERO) -V -$(METAL_LEVEL) -p addaccu_p addaccu addaccu
 
 # /*------------------------------------------------------------\
 # |                                                             |

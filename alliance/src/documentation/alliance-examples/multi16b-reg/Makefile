@@ -24,7 +24,6 @@ BOOM   = $(ALLIANCE_BIN)/boom
 BOOG   = $(ALLIANCE_BIN)/boog
 LOON   = $(ALLIANCE_BIN)/loon
 OCP    = $(ALLIANCE_BIN)/ocp
-OCR    = $(ALLIANCE_BIN)/ocr
 NERO   = $(ALLIANCE_BIN)/nero
 COUGAR = $(ALLIANCE_BIN)/cougar
 LVX    = $(ALLIANCE_BIN)/lvx
@@ -43,7 +42,7 @@ TARGET_LIB      = $(ALLIANCE_TOP)/cells/sxlib
 RDS_TECHNO_SYMB = ../etc/techno-symb.rds
 RDS_TECHNO      = ../etc/techno-035.rds
 SPI_MODEL       = $(ALLIANCE_TOP)/etc/spimodel.cfg
-METAL_LEVEL     = 8
+METAL_LEVEL     = 6
 
 # /*------------------------------------------------------------\
 # |                                                             |
@@ -90,7 +89,7 @@ ENV_OCP =  MBK_WORK_LIB=.; export MBK_WORK_LIB; \
            MBK_OUT_PH=ap; export MBK_OUT_PH; \
            MBK_CATAL_NAME=CATAL; export MBK_CATAL_NAME
 
-ENV_OCR =  MBK_WORK_LIB=.; export MBK_WORK_LIB; \
+ENV_NERO =  MBK_WORK_LIB=.; export MBK_WORK_LIB; \
            MBK_IN_LO=vst; export MBK_IN_LO; \
 	   MBK_OUT_LO=vst; export MBK_OUT_LO; \
            MBK_CATA_LIB=$(TARGET_LIB); export MBK_CATA_LIB; \
@@ -218,15 +217,12 @@ multi16_p.ap : res_synth_1.pat
 
 # /*------------------------------------------------------------\
 # |                                                             |
-# |                             OCR                             |
+# |                             NERO                            |
 # |                                                             |
 # \------------------------------------------------------------*/
 
 multi16.ap : multi16_p.ap multi16.vst
-	$(ENV_OCR); $(OCR) -i 1000 -v -l $(METAL_LEVEL) -L multi16 -P multi16_p -O multi16
-
-multi16_nero.ap : multi16_p.ap multi16.vst
-	$(ENV_OCR); $(NERO) -v -$(METAL_LEVEL) -p multi16_p multi16 multi16
+	$(ENV_NERO); $(NERO) -V -$(METAL_LEVEL) -p multi16_p multi16 multi16
 
 # /*------------------------------------------------------------\
 # |                                                             |
