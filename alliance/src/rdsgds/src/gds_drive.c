@@ -18,6 +18,7 @@
 # include <stdio.h>
 # include <math.h>
 # include <time.h>
+# include <string.h>
 # include <sys/types.h>
 # include <sys/time.h>
 
@@ -373,6 +374,18 @@ coord_t      tab[6]; /* last one reserved for text */
       Frederic Petrot: 10/04/96 */
    /* sauve uniquement les noms du premier model (le pere) 18/04/2002 FW */
    if (FIRST_MODEL && rect->NAME != NULL) {
+      
+      /* on a besoin de mettre des crochets autour des index de vecteur
+       * 26/06/2002 FW */
+      char *pindex;
+      char buff [16000];
+      strncpy (buff, rect->NAME, 16000);
+      pindex = strchr (buff, (int)' ');
+      if (pindex) {
+         *pindex = '[';
+         strcat (buff,"]");
+      }
+
       entete(TEXT, 0);
 
       entete(LAYER0, sizeof(short));
@@ -390,14 +403,14 @@ coord_t      tab[6]; /* last one reserved for text */
       numb = fwrite((char *)&tab[5], sizeof(coord_t), 1, fp);
       controle(1);
 
-      numb = strlen(rect->NAME);
+      numb = strlen(buff);
       if ((numb % 2) != 0) {
          numb += 1;
          bool = TRUE;
       }
 
       entete(STRING, numb * sizeof(char));
-      if (fputs(rect->NAME, fp) < 0) {
+      if (fputs(buff, fp) < 0) {
          pv_init_error();
          pv_error.v_error = ENOSPACE;
          (void)fclose(fp);

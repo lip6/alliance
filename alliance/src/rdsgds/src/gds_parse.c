@@ -1166,7 +1166,16 @@ rdsrec_list  *Rec;
                pv_emet_warning(Figure->NAME, "Unconnected node :", poubelle);
             }
             else
+            {
+               /* mise au format des vecteurs : on retire les crochets */
+               char * pcrochet = strchr (ScanNode->NAME,'[');
+               if (pcrochet)
+                  *pcrochet = ' ';
+               pcrochet = strchr (ScanNode->NAME,']');
+               if (pcrochet)
+                  *pcrochet = '\0';
                Rec->NAME = ScanNode->NAME;
+            }
          }
          GdsFreeNode();
 
