@@ -576,14 +576,17 @@ scanparam *ScanParseParamFile( FileName, FlagDebug )
   FILE             *ParamFile;
   char              ParamBuffer[ 512 ];
 
+#if 0 /*error: autbasename() removes the path.
+        easier not to touch the filename*/
   FileName  = autbasename( FileName, "scapin" );
   sprintf( ParamBuffer, "%s.scapin", FileName );
+#endif
 
-  ParamFile = fopen( ParamBuffer, "r" );
+  ParamFile = fopen( FileName, "r" );
 
   if ( ParamFile == (FILE *)0 )
   {
-    fprintf( stderr, "\t### Unable to parse parameter file %s.scapin\n", FileName );
+    fprintf( stderr, "\t### Unable to open parameter file %s\n", FileName );
     autexit( 1 );
   }
 
