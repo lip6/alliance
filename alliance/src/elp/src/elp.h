@@ -110,11 +110,11 @@ extern double elpGeneral[elpGENERALNUM] ;
 /* les fonctions externes */
 extern int elpenv() ;
 extern short elpLoadElp() ;
-extern int elpLotrsShrink() ;
-extern float elpLotrsCapaDrain() ;
-extern float elpLotrsCapaSource() ;
-extern float elpLotrsCapaGrid() ;
-extern int elpLofigCapaDiff() ;
-extern int elpLofigCapaGrid() ;
-extern int elpLofigShrink() ;
+extern int elpLotrsShrink(lotrs_list *) ;
+extern float elpLotrsCapaDrain(lotrs_list *) ;
+extern float elpLotrsCapaSource(lotrs_list *) ;
+extern float elpLotrsCapaGrid(lotrs_list *) ;
+extern int elpLofigCapaDiff(lofig_list *) ;
+extern int elpLofigCapaGrid(lofig_list *) ;
+extern int elpLofigShrink(lofig_list *) ;
 extern short elpError() ;
