@@ -25,6 +25,9 @@
    Author: Frédéric Pétrot
    Date  : 1/10/2000
    $Log: dpgen_Shifter.c,v $
+   Revision 1.9  2004/03/04 14:21:56  fred
+   Adding more powerfull cells for the signals controlling the shift.
+
    Revision 1.8  2003/01/31 15:53:39  fred
    COPY_UP_SEG now copies all segments of a given name.
    This is particularly useful for CXXX layer types
@@ -108,7 +111,7 @@
 
 */
 
-static char rcsid[]="$Id: dpgen_Shifter.c,v 1.8 2003/01/31 15:53:39 fred Exp $";
+static char rcsid[]="$Id: dpgen_Shifter.c,v 1.9 2004/03/04 14:21:56 fred Exp $";
 
 
 #include  "util_Defs.h"
@@ -199,19 +202,19 @@ extern void dpgen_Shifter(aFunction, aAL)
    GENLIB_LOINS("mx3_x2", XX_NAME("m_%d", SliceIndex * n + BitIndex), c0, c1, i0, i1, i2, q, "vdd", "vss", NULL)
 
 #define A2(k, i0, i1, q)  \
-   GENLIB_LOINS("a2_x2", XX_NAME("a_%d", k), i0, i1, q, "vdd", "vss", NULL)
+   GENLIB_LOINS("a2_x4", XX_NAME("a_%d", k), i0, i1, q, "vdd", "vss", NULL)
 
 #define A3(k, i0, i1, i2, q)  \
-   GENLIB_LOINS("a3_x2", XX_NAME("a3_%d", k), i0, i1, i2, q, "vdd", "vss", NULL)
+   GENLIB_LOINS("a3_x4", XX_NAME("a3_%d", k), i0, i1, i2, q, "vdd", "vss", NULL)
 
 #define OA(i0, i1, i2, q)  \
    GENLIB_LOINS("oa22_x4", XX_NAME("oa_%d", SliceIndex * n + BitIndex), i0, i1, i2, q, "vdd", "vss", NULL)
 
 #define O2(k, i0, i1, q)  \
-   GENLIB_LOINS("o2_x2", XX_NAME("o_%d", k), i0, i1, q, "vdd", "vss", NULL)
+   GENLIB_LOINS("o2_x4", XX_NAME("o_%d", k), i0, i1, q, "vdd", "vss", NULL)
 
 #define INV(k, i, nq)  \
-   GENLIB_LOINS("inv_x2", XX_NAME("i_%d", k), i, nq, "vdd", "vss", NULL)
+   GENLIB_LOINS("inv_x4", XX_NAME("i_%d", k), i, nq, "vdd", "vss", NULL)
 
 #define SYM (BitIndex & 1 ? mys : sym)
 
