@@ -4,10 +4,10 @@
 #
 # Alliance CAD system configure.in 
 # (C) 1997 Czo  -- <Olivier.Sirol@lip6.fr>
-# $Id: configure.in,v 1.11 2000/09/07 14:19:54 czo Exp $
+# $Id: configure.in,v 1.12 2000/09/11 14:39:18 czo Exp $
 #
 
-AC_REVISION($Revision: 1.11 $)dnl
+AC_REVISION($Revision: 1.12 $)dnl
 
 AC_INIT(configure.in)
 
@@ -217,6 +217,10 @@ if $TEST -z "$AR" \
    -o -z "$WC" 
 then
   AC_MSG_WARN([please install the above utilities that are not present])
+fi
+
+if test "$ALLIANCE_OS" = Cygwin ; then
+    STRIP="echo"
 fi
 
 
