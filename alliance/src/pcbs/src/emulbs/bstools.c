@@ -145,8 +145,16 @@ static char* unbuf_papat(char* head, struct papat *ppapat)
            
            fprintf(stderr,
              "SYNCHRONISATION ERROR on Boundary-scan hardware!!!\n" );
+           
+           /*erreur probable si rien ne passe*/
+           if ( parallel_num == 0 )
+           {
+             fprintf(stderr,
+               "Configuration file describing connections doesn't match hardware\n" );
+           }
+
            fprintf(stderr,
-             "   --> STOP! next results will be wrong...\n");
+             "-----> STOP! next results will be wrong...\n");
          }
          
          if (verbose_flag) 
