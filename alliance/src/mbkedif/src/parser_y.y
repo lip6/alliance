@@ -1324,7 +1324,7 @@ char *Name;
 	{
 		if ( ( first = strchr( first, '_' ) ) != NULL )
 		{
-            if( strncmp( first, "_60_", 4 ) != NULL )
+            if( strncmp( first, "_60_", 4 ) != 0 )
             {
                 first++;
                 continue;
@@ -1332,7 +1332,7 @@ char *Name;
 			second = first + 4;
 			while( isdigit( *second ) ) second ++;
 
-			if( strcmp( second, "_62" ) != NULL )
+			if( strcmp( second, "_62" ) != 0 )
 			{
 				*first = ' ';
                 first ++;
@@ -1379,7 +1379,7 @@ int  *Max;
 	{
 		if ( (first = strchr (first, '_') ) != NULL )
 		{
-            if( strncmp( first, "_60_", 4 ) != NULL )
+            if( strncmp( first, "_60_", 4 ) != 0 )
             {
                 first++;
                 continue;
@@ -1388,7 +1388,7 @@ int  *Max;
 			array = first + 4;
 			while ( isdigit (*array) ) array ++;
 
-			if ( ( *array != 0 ) && ( strncasecmp (array, "TO", 2) == NULL ) )
+			if ( ( *array != 0 ) && ( strncasecmp (array, "TO", 2) == 0 ) )
 			{
 				middle = array;
 				save = middle [0];
@@ -1396,7 +1396,7 @@ int  *Max;
 				array += 2;
 				while ( isdigit (*array) ) array ++;
 
-				if ( strcmp( first, "_62" ) != NULL )
+				if ( strcmp( first, "_62" ) != 0 )
 				{
 					array [0] = '\0';
 					sscanf (first  + 4, "%d", Min);

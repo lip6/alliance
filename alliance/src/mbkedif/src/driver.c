@@ -29,6 +29,9 @@
 /*version 1.2 : Extended by Olivier BEAURIN (September, 93)                   */
 /*version 1.2 : Extended by Olivier BEAURIN (November, 93)                    */
 /* $Log: driver.c,v $
+/* Revision 1.3  2002/04/25 14:16:44  ludo
+/* correction petits bugs
+/*
 /* Revision 1.2  2002/03/14 12:36:30  fred
 /* Makes the correct substitutions in lex and yacc generated files.
 /* Fixing includes in dot c files
@@ -465,7 +468,7 @@ char viewtype;
 
 	ptlofig = getlofig(figname, 'P');
 
-	ptlofig->LOCON = (locon_list *)reverse((locon_list *)ptlofig->LOCON);
+	ptlofig->LOCON = (locon_list *)reverse((chain_list *)ptlofig->LOCON);
 
 	edit_con(ptlofig->LOCON);
 
@@ -475,20 +478,20 @@ char viewtype;
 	{
 		fprintf(edif_file, "\n     (contents");
 
-		ptlofig->LOINS = (loins_list *)reverse((loins_list *)ptlofig->LOINS);
+		ptlofig->LOINS = (loins_list *)reverse((chain_list *)ptlofig->LOINS);
 		edit_ins( ptlofig->LOINS );
-		ptlofig->LOINS = (loins_list *)reverse((loins_list *)ptlofig->LOINS);
+		ptlofig->LOINS = (loins_list *)reverse((chain_list *)ptlofig->LOINS);
 
-		ptlofig->LOSIG = (losig_list *)reverse((losig_list *)ptlofig->LOSIG);
+		ptlofig->LOSIG = (losig_list *)reverse((chain_list *)ptlofig->LOSIG);
 		edit_sig( ptlofig );
-		ptlofig->LOSIG = (losig_list *)reverse((losig_list *)ptlofig->LOSIG);
+		ptlofig->LOSIG = (losig_list *)reverse((chain_list *)ptlofig->LOSIG);
 
 		fprintf( edif_file, ")");
 	}
 
 	fprintf(edif_file, "))");
 
-	ptlofig->LOCON = (locon_list *)reverse((locon_list *)ptlofig->LOCON);
+	ptlofig->LOCON = (locon_list *)reverse((chain_list *)ptlofig->LOCON);
 
 	return;
 } /* end of view */
@@ -731,9 +734,9 @@ lofig_list *ptlofig;
 
 			for( sig_ins = ptlofig->LOINS; sig_ins != NULL; sig_ins = sig_ins->NEXT )
             {
-                sig_ins->LOCON = (locon_list *)reverse((locon_list *)sig_ins->LOCON);
+                sig_ins->LOCON = (locon_list *)reverse((chain_list *)sig_ins->LOCON);
 				connect( sig_ins->LOCON, sig_index, sig_ins );
-                sig_ins->LOCON = (locon_list *)reverse((locon_list *)sig_ins->LOCON);
+                sig_ins->LOCON = (locon_list *)reverse((chain_list *)sig_ins->LOCON);
             }
 
 			fprintf(edif_file, "))");
