@@ -19,6 +19,7 @@ autoconf
 for i in $dirs ; do
    cd $i
    if test -f configure.in ; then
+      echo entering $i ...
       aclocal -I . -I ..
       automake --foreign
       autoconf
