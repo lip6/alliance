@@ -1117,10 +1117,11 @@ static void inv_resize (model)
  *             has its model not yet post treated at this layer, it is
  *             post treated first.
  ****************************************************************************/
-void post_treat (model, scotch_on_flag, verbose)
+void post_treat (model, scotch_on_flag, verbose, autoimp)
      rdsfig_list *model;
      int scotch_on_flag;
      int verbose;
+     int autoimp;
 {
    rdsins_list *instance;
    rdsfig_list *modelp;
@@ -1155,8 +1156,11 @@ void post_treat (model, scotch_on_flag, verbose)
       merge (model, scotch_on_flag, verbose);
       clean (model);
       inv_resize (model);
-      addpwell (model, verbose);
-      addimp (model, verbose);
+      if (autoimp)
+      {
+         addpwell (model, verbose);
+         addimp (model, verbose);
+      }
       mark_treat (model);
    }
 }

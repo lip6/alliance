@@ -59,17 +59,18 @@
 void Usage (Name)
      char *Name;
 {
-   fprintf (stderr, "\tUsage : %s [-cs1trv] source [result]\n\n", Name);
+   fprintf (stderr, "\tUsage : %s [-1cCinstrv] source [result]\n\n", Name);
    fprintf (stderr, "\tsource\t: filename of symbolic layout circuit\n");
    fprintf (stderr, "\t\t  to translate to real layout\n");
    fprintf (stderr, "\tresult\t: result filename of real layout circuit\n");
    fprintf (stderr, "\t\t  source name is used, if result is absent\n\n");
    fprintf (stderr, "\toptionnal options (any order, any occurence) :\n");
+   fprintf (stderr, "\t-1\t: only (1) level is translated, all otherwise.\n");
    fprintf (stderr, "\t-c\t: deletes top-level (c)onnectors, keeps all others\n");
    fprintf (stderr, "\t-C\t: keeps top-level (c)onnectors, deletes all others\n");
+   fprintf (stderr, "\t-i\t: generate implants from NWELL\n");
    fprintf (stderr, "\t-n\t: deletes all signal names, but connectors\n");
    fprintf (stderr, "\t-s\t: (s)cotchs are created\n");
-   fprintf (stderr, "\t-1\t: only (1) level is translated, all otherwise.\n");
    fprintf (stderr, "\t-t\t: layout is just (t)ranslated, not post-treated\n");
    fprintf (stderr, "\t-r\t: black boxes are not (r)eplaced\n");
    fprintf (stderr, "\t-v\t: (v)erbose mode armed\n");
@@ -92,6 +93,7 @@ int main (argc, argv)
    int root_conn = 1;           /* keep top-level figure connectors by default */
    int sub_conn = 1;            /* keep sub-level figure connectors by default */
    int signal_name = 1;         /* keep signal names by default */
+   int autoimp = 0;             /* do not generate implant from NWELL by default */
    int scotch_on = 0;           /* scotchs are not created by default */
    int one_level = 0;           /* all hierarchy level translated by default */
    int do_post_treat = 1;       /* post-treatment is done by default */
@@ -136,6 +138,9 @@ int main (argc, argv)
                break;
             case 'n':
                signal_name = 0;
+               break;
+            case 'i':
+               autoimp = 1;
                break;
             case 's':
                scotch_on = 1;
@@ -268,7 +273,7 @@ int main (argc, argv)
          printf ("\t\twith scotchs.\n");
       else
          printf ("\t\twithout scotch.\n");
-      post_treat (rds_model, scotch_on, verbose);
+      post_treat (rds_model, scotch_on, verbose, autoimp);
       fflush (stdout);
    }
 
