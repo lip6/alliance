@@ -1,0 +1,1006 @@
+<HTML>
+<HEAD>
+  
+<META NAME="GENERATOR" CONTENT="Adobe PageMill 3.0 Win">
+  
+<TITLE>Welcome to the LogCount</TITLE>
+</HEAD>
+<BODY LINK="#0000FF" BGCOLOR="#ffffff" text="#000000" vlink="#0000FF" alink="#FF0000">
+
+
+<P>
+  <CENTER>
+    <font face="arial,geneva,helvetica" size="2">Welcome to the
+www.dtp-aus.com Counter and Log Viewer scripts.<br>
+    </font>
+  </CENTER>
+</P>
+<P>
+  <CENTER>
+    <font color="#000099" face="arial,geneva,helvetica" size="2">IMPORTANT
+INFORMATION THAT <B>MUST BE READ</B> IF YOU WANT TO USE THESE
+SCRIPTS</font>
+  </CENTER>
+</P>
+<P>
+<CENTER>
+  <TABLE WIDTH="590" CELLPADDING="0" CELLSPACING="0"
+BORDER="0">
+    <TR>
+      <TD><BASEFONT SIZE=2>
+        <P><font face="arial, geneva, helvetica" size="2">The scripts &quot;LOGCNT.CGI&quot; and &quot;LOGLOOK.CGI&quot; written (and </font><font color="#ff0000" face="arial,geneva,helvetica" size="2">(</font><font size="2"><b><font color="#ff0000" face="arial,geneva,helvetica">c</font></b><font color="#ff0000"
+     face="arial,geneva,helvetica">)</font></font><font face="arial, geneva, helvetica" size="2">) by Ron F Woolley, Melbourne
+              Australia. <b>
+          Copyright 1998 '99 2000</b>. These free-to-use scripts can be altered
+              for personal use, BUT <br>
+          </font><font face="arial,helvetica,geneva" size="2">&nbsp;&nbsp;ALL COPYRIGHT NOTICES must remain in the code, and <b>visible</b> on all output pages,<br>
+    &nbsp;&nbsp;AND ALL of the header notices MUST REMAIN intact as is,<br>
+    &nbsp;&nbsp;AND using the script(s) without first reading the README.HTM, is prohibited. </font></P>
+        <center>
+          <p><font face="arial, geneva, helvetica" size="2"><b>Australian copyright</b> is recognised/supported in over 130 countries<br>
+          per Berne Convention and other treaties 
+          ( including USA! ) </font>
+        </p>
+        </center>
+        <p align="center"><font face="arial,helvetica,geneva" size="2"><b><font color="#990000">The
+    scripts and associated files remain</font></b><font color="#990000"> the property of Ron F Woolley/HostingNet</font>.</font></p>
+        <blockquote>
+          <p><font face="arial,helvetica,geneva" size="2">  
+            NO PROFIT what so ever is to be gained from users for supply of these scripts for      the use of
+            these
+            scripts, 
+            except that a reasonable minimal charge for     installation may be allowed
+            if 
+            installing
+            as a site
+            developer, for a     user on the users site that is not on / in the developers domain OR site... remote hosting NOT allowed.</font></p>
+          <p><font face="arial,helvetica,geneva" size="2">
+            <b>This programs     must NOT be used for multiple LogCount users on one site/domain<br>
+          and the program/resources must not be supplied as a remote service.          </b></font></p>
+          <p align="center"><font face="arial,helvetica,geneva" size="2" color="#990000">
+    Ron Woolley, the author, MUST be notified via the addresses/URLs
+    below<br>
+    if any monetary charge is applied for the installation of these scripts.</font></p>
+          <p><font face="arial,helvetica,geneva" size="2"><b><i>NOTE</i></b>: If you use these
+    files, you do so entirely at your own risk, and take on full responsibility for the
+    consequences of using the described files. You must first agree that Ron Woolley /
+    HostingNet, the only permtted supplier of this and/or accompanying files are exempt from any responsibility for
+    all or any resulting problems, losses or costs caused by your using these or any
+    associated files - even if problems are known. </font></p>
+        </blockquote>
+        <p align="center"><font face="arial,helvetica,geneva" size="2"><strong>If you disagree
+    with any of these requirements,<br>
+    you must immediately destroy all files.</strong></font></p>
+        <p><font face="arial,helvetica,geneva" size="2">Although this program script is free to
+    use, if you use it and find it useful, a donation to help continue this support and keep
+    new scripts / upgrades coming would of course be appreciated.<br>
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;On line Visa / MasterCard payments are available for donations and low cost installations.</font>
+        <ul>
+          <dl>
+            <dt><font face="arial,helvetica,geneva" size="2"><b><a name="hlp"></a>For INTERMEDIATE installation experience</b>....<br>
+              .....<b>Help / Advice</b> information is available at: </font></dt>
+            <dd><font face="arial,helvetica,geneva" size="2"><a href="http://www.dtp-aus.com/cgiscript/scrpthlp.htm">http://www.dtp-aus.com/cgiscript/<b>scrpthlp.htm</b></a>
+          </font></dd>
+            <dt><font face="arial,helvetica,geneva" size="2">Files from: </font></dt>
+            <dd><a href="http://www.dtp-aus.com/cgiscript/cntscrpt.shtml"><font face="arial,geneva" size="2">http://www.dtp-aus.com/cgiscript/cntscrpt.shtml</font></a></dd>
+            <dt><font face="arial,helvetica,geneva" size="2">An outline of all dtp-aus scripts is at: </font></dt>
+            <dd><font face="arial,helvetica,geneva" size="2"><a
+          href="http://www.dtp-aus.com/cgiscript/allcgi.shtml">http://www.dtp-aus.com/cgiscript/allcgi.shtml</a>
+          </font></dd>
+          </dl>
+        </ul>
+        <p align="center"><font color="#ff0000" face="arial,helvetica,geneva" size="2"><b><a name="menu"></a>These
+    files</b> can only be obtained via the above web addresses, and<br>
+    <b>must not be passed on to others</b> in any form by any means what so ever.<br>
+    This does not contradict any other statements above - &amp; ensures user obtained the latest.</font></p>
+        <p>
+        
+          
+        <font face="arial,geneva">
+          
+        <hr width="90%">
+          </font>
+          
+        <center>
+          <table border="1" cellspacing="0" cellpadding="5" align="center">
+            
+            <tr bgcolor="#FFD599">
+              
+              <th><font face="arial,geneva"><font face="verdana, arial, geneva, helvetica" size="2">&#149; <a href="#bout">DESCRIPTION</a></font><font size="2"><font face="verdana, arial, geneva, helvetica"> &#149; <a href="#vars">VARIABLES</a> </font><font face="verdana, arial, geneva, helvetica" size="2">&#149; <a href="#post">INSTALLING</a></font><font face="verdana, arial, geneva, helvetica">&#149; <a href="#tags">TAGS</a>  &#149;<br>
+                &#149; <a href="#lnks">LINK COUNTING</a> &#149; <a href="#llk">LOGLOOK</a> &#149;  <a href="#utils">UTILITIES</a> &#149;</font></font></font></th>
+            </tr>
+          
+          </table>
+        </center>
+        <p></p>
+        <p align="center">
+          
+            <font size="2"><b><font color="#0000ff" face="arial,geneva,helvetica">NEW</font><font
+     face="arial,geneva,helvetica">** Version 3.8, February 2000;
+    NEW and CHANGED: **</font><font color="#0000ff" face="arial,geneva,helvetica">Changed</font>
+<font
+     color="#0000ff" face="arial,geneva"><br>
+            </font></b><font face="verdana, arial, geneva, helvetica" size="1">check every few months for upgrades            </font></font>          
+          </p>
+        <p><font face="arial, geneva, helvetica" size="2">Like all other dtp-aus.com free programs, <font color="#660000"><b>LogCount</b></font><b> is a fully working program for webmasters</b>, and not a common "play with and plagiarise" free script as found on many sites... <br>
+          &nbsp;&nbsp;&nbsp;
+          available / continuously developed for more than 15 months supporting webmasters.</font></p>
+        <P><font size="2"><FONT FACE="arial,geneva,helvetica"><i>History....</i></FONT><B><FONT FACE="arial,geneva,helvetica"><br>
+          1</FONT></B><FONT FACE="arial,geneva,helvetica">.
+    <I>v2.0</I> The auto creation of count and log files has been
+    removed because of the possible temporary loss of access deleting
+    file contents. The empty files are now supplied in the zip file
+    (<I>see 3</I>).<br>
+          </FONT><B><FONT FACE="arial,geneva,helvetica">2</FONT></B><FONT FACE="arial,geneva,helvetica">.
+    <I>v2.0</I> If your server does not supply 'REMOTE_HOST' info,
+    the counter script now attempts to create this info from the
+    local Domain Name Server.<br>
+          </FONT><B><FONT FACE="arial,geneva,helvetica">3</FONT></B><FONT FACE="arial,geneva,helvetica">.
+    <I>November &#146;98 vrsn. 2.0 to 2.1</I><BR>
+    - included free utility SSI script for inserting text counts
+    of counted hyperlinks into SSI HTML pages. (<I>instructions in
+    file, somename.cgi</I>)<BR>
+    - included utility set up script for creating directory structure,
+    files and chmod permissions (makedir.cgi).<br>
+          </FONT><B><FONT FACE="arial,geneva,helvetica">4</FONT></B><FONT FACE="arial,geneva,helvetica">.
+    <I>v3.0</I> The 'referrer rejection' option did not work at all
+    and had been overlooked. This version fixes that with a very
+    minor change to the <B>$rjct variable</B> values (see 'Rejecting
+    Specific Addresses' below), and corrected code in the logcnt.cgi
+    script. Also added to LogCount is the ability to show a <B>static
+    digital clock</B> or <B>time display</B> (hours and minutes).
+    The clock can be used for display only, or used as the counter
+    adding to the log etc.<BR>
+    <I>v3.1</I> Minor change that now uses the character &quot;n&quot;
+    in place of &quot;C&quot; to display the time WITHOUT counting.
+    This is necessary for non case-sensitive servers.<br>
+          </FONT></font><font face="arial,geneva,helvetica" size="2"><b>5</b>. v3.3 Changes to the date / time routines <i>September '99.</i><br>
+          <b>6</b>. v3.5 Major additions to LogLook plus minor changes to the LogCount program and config files <i>October '99.<br>
+          </i><b>7</b>. v3.5b Only a week or so after releasing v3.5, the supplied utility SSI program has been upgraded to two SSI programs. &quot;linkname.cgi&quot; that displays just a hyperlink count total as text, and &quot;linkcount.cgi&quot; that displays both the counted hyperlink tag and the hyperlink count total as text. <i>see below </i><font size="1"><br>
+          &nbsp;&nbsp;&nbsp;&nbsp;
+          3.5<font color="#CC0000">c</font> = minor addition to LogLook counted-link tag generation </font></font></P>
+        <P><font face="arial,geneva,helvetica" size="2"><b><font color="#FF0000"><a name="38new"></a>8</font></b><font color="#FF0000">. v3.8</font> Changes to the config files (LogLook now has its own config file). Ability to <b>display and count individual page counts while</b> still updating the site count and log! <b>Major enhancements</b> to the free LogLook viewer. All <b>page names logged with their directory name</b> (if in a sub dir off the root). Use one of <b>three display methods for SSI</b> counters - display blank (hidden), or Text, or Images! Two new &quot;require&quot; sub routine files to trim the counter program.</font></P>
+        <P align="center"><font face="arial, geneva, helvetica"><b><font size="2" color="#6600CC"><a name="bout"></a>Low cost installations</font></b><font size="2" color="#6600CC"> can be carried out by the author; see program page for details link.</font></font><br>
+          <font face="arial, geneva, helvetica" size="2"><b>This program is written to be compiled by Perl versions 5+ on Unix servers</b></font></P>
+        <p align="right"><font face="verdana, arial, geneva, helvetica" size="2"><b><a href="#menu">MENU</a></b></font></p>
+      </TD>
+    </TR>
+  </TABLE>
+  <TABLE WIDTH="590" CELLPADDING="0" CELLSPACING="0"
+BORDER="0">
+    <TR>
+      <TD>
+        <hr>
+        <P align="center"><font size="2"><B><font face="arial,geneva,helvetica" size="3" color="#000099">ABOUT</font><FONT FACE="arial,geneva,helvetica"><br>
+          </FONT></B></font></P>
+        <P><font face="arial,geneva,helvetica" size="2">Six programs are supplied. <b>LogCount</b> the counter, <b>LogLook</b> the very unique basic log viewer, <b>two utilities</b> to help you install the program, and <b>two utilities</b> some may find handy to SSI imbed activated counted hyperlink totals, or link and totals, in ot SSI activated pages</font></P>
+        <P><font face="arial,geneva,helvetica" size="2">This &quot;About&quot; section plus the other detailed sections will cover all the options available to you for your site. However here is a list of things to look for:<br>
+          &#149; Leading Zeros control<br>
+          &#149; Hidden img tag counter<br>
+          &#149; Visible img tag counter/display<br>
+          &#149; Visible img tag NON counting display<br>
+          &#149; Display Time counter<br>
+          &#149; Display Time NON counter
+          <br>
+          &#149; SSI Hidden counting<br>
+          &#149; SSI Text Display counting
+<br>
+          &#149; SSI Img Tag Display counting<br>
+          &#149; Visible SSI Displays with/without leading zeros<br>
+          &#149; Page Counting Display while still adding to site log AND site counter<br>
+          &#149; Keep count totals of Clicked Hyperlinks of special interest<br>
+          &#149; Generate ALL counter and activated named link tags - simple copy and paste!<br>
+          </font><font face="arial, geneva, helvetica" size="2">&#149; visually track visitors page accesses<br>
+          &#149; view most popular pages<br>
+          &#149; view browser type comparisons<br>
+          &#149; view total unique IP#s and pages-viewed averages
+          <br>
+          &#149; view above for any date retained in the current log<br>
+          &#149; view IP# page totals for any date in the current log</font></P>
+        <P><font face="arial, geneva, helvetica" size="2">So, you can use the lot or just one of those options. But you can see why you get such a large help page as this one.</font></P>
+        <P><font face="arial,geneva,helvetica" size="2" color="#FF0000">Version 3.8</font><font face="arial,geneva,helvetica" size="2"> includes some important set up changes and enhancements to LogLook and a new page counting option - LogCount is a proper site counter - <a href="#38new">see history above</a>.</font></P>
+        <P><font face="arial,geneva,helvetica" size="2"><b>v3.5</b> LogLook included administrative options for creating, editing, resetting, and deleting counted hyperlinks. The tag for any counted hyperlink can be readily generated for a simple copy and paste in to web pages. The tags for all counter methods can also be readily generated via LogLook for simple copy and paste in to web pages, plus several other setup options can be changed.</font></P>
+        <P><font face="arial,geneva,helvetica" size="2"><b>pre v3.3 UPGRADE</b><br>
+          Pre version 3.3 users will find several new variables in the config file. Also note the renaming of both the config and GMT files. If you are using other dtp-aus.com programs sharing the &quot;sets&quot; sub directory, either rename the gmt file reference in those other programs or change the new file name.
+This has occurred because gradually all programs will be using require files with the extension &quot;.pl&quot;. The new LogCount and LogLook programs can upload over v3.3 - <i>unless the previous have been altered... and I cannot help.</i></font></P>
+        <P><font face="arial,geneva,helvetica" size="2"><b><font size="3">Once installed</font></b><br>
+          <b>It is strongly suggested</b> that LogLook be the first program to test. The simple mistakes often made in setting up counter tags can be misleading and many inexperienced people assume wrongly when fault tracking. By using LogLook first, once it works and options can be changed, or even if the error reports inbuilt are generated, then most of the installation can be then be assumed as correct and later counter tags can be looked at with more confidence.</font></P>
+        <P><font face="arial,geneva,helvetica" size="2">Then install the webmasters access page even if not going to use the supplied one! This includes a couple of NON-counting visible counters to check paths etc. All digits should show zero unless you manually add a count to the count file - see variables below</font></P>
+        <P><font face="arial,geneva,helvetica" size="2">PROPERLY SET UP the programs CANNOT be accessed from remote pages containing links to them OR a browser command line - this is a <a href="#refs">first level security feature</a> and <b>INCLUDES YOU</b>!</font></P>
+        <P><font face="arial,geneva,helvetica" size="2">All relevant files are
+    supplied in one compressed .zip file that includes the recommended
+    directory structure. It is assumed that the .zip file has been
+    uncompressed to the directory structure included in the .zip
+    file on your local pc before proper FTP uploading - keep perl programs away from MSFrontPage and other site posting wysiwyg editors!</font></P>
+        <P><font face="arial,geneva,helvetica" size="2">You MUST alter all reference
+    to &quot;yourdomain.name&quot; in the config 'require' files plus the
+    webmasters page, and change the configuration variables, as described
+    in this Readme text. Also set up the paths and URLs correctly in both program config files in the sets directory (<b>the &quot;sets&quot; directory</b> is used by all dtp-aus.com programs and will achieve even greater importance in the near future - currently the GMT config file is accessed/can be changed by all dtp-aus.com programs <i>ie</i> one change upgrades all programs!).</font></P>
+        <P><font face="arial,geneva,helvetica" size="2">Firstly, a few explanations.
+    LogCount does not use in-built count images, allowing you to
+    use any counter image &quot;sets&quot; that are readily available
+    via the Internet. These sets must include 10 images, displaying
+    0 - 9, and when placed in the appropriate directory (folder),
+    they must be named or renamed &quot;0.gif&quot; through to &quot;9.gif&quot;.
+    </font><font size="2"><B><FONT COLOR="#ff0000" FACE="arial,geneva,helvetica">*Note*</FONT></B><FONT
+     FACE="arial,geneva,helvetica"> The clock option, if used, requires
+    conversion of any of your current images to a full colon ( :
+    ) named &quot;-.gif&quot;, an image displaying &quot;am&quot;
+    named &quot;a.gif&quot;, and one displaying &quot;pm&quot; named
+    &quot;p.gif&quot;.</FONT></font></P>
+        <P><font color="#000099" face="arial,geneva,helvetica" size="2">Both of
+    the supplied image sets have been updated</font><font face="arial,geneva,helvetica" size="2">
+    with these images (to display the clock on any page, see &quot;<B>Displaying
+    The Clock</B>&quot; <a href="#tags">below</a>).</font></P>
+        <P><font face="arial,geneva,helvetica" size="2">Extra server resources
+    are not called upon by calling additional &quot;on call&quot;
+    programs that create the images. The only loss here is the ability
+    to add &quot;pretty&quot; borders to the count display. Logcount,
+    and Loglook scripts are designed for conservative tracking and analysing visitor
+    trends and page popularity etc, so it is suggested that the majority
+    of pages only include the simple &quot;Hidden Counter&quot; options.
+    Small conservative light and dark background count images are
+    supplied.</font></P>
+        <center>
+          <table width="96%" border="0" cellspacing="0" cellpadding="3">
+            
+            <tr>
+              
+              <td><font size="2"><b><font color="#990000" face="arial,geneva">Please NOTE</font></b><font
+     face="arial,geneva">:</font></font></td>
+            </tr>
+            
+            <tr bgcolor="#EFEFFF">
+              
+              <td><font size="2"><font
+     face="arial,geneva">If you install and use this script, please contact us at <a
+    href="mailto:logcount@dtp-aus.com?subject=LogCount_report">logcountreport@dtp-aus.com</a> with server
+    type detailsand how the script installed and worked etc,
+    for a report base assisting others.<br>
+          </font><font size="3" face="arial,geneva" color="#0000CC"><b><a name="vars"></a></b></font><font
+     face="arial,geneva">( <font color="#000099">a <b>vote</b> at cgi.resourceindex.com - via red form <u><a href="#hlp">on the LogCount program page</a></u> - or any other cgi links site would also be appreciated to help &quot;spread the word&quot;</font> )<br>
+                </font><font size="2" face="arial,geneva"> <i>&nbsp;&nbsp;Thank you</i>.</font></font></td>
+            </tr>
+          
+          </table>
+        </center>
+        <p align="right"><font face="verdana, arial, geneva, helvetica" size="2"><b><a href="#menu">MENU</a></b></font></p>
+        <hr width="100%">
+        <p align="center"><font size="2"><b><font face="arial,helvetica,geneva" size="2">For INTERMEDIATE installation experience - <a href="#hlp">Help / Advice</a> information is available.</font><font face="arial,geneva" size="3" color="#000099"> CONFIGURATION VARIABLES in DETAIL</font></b></font></p>
+        <P align="center"><font face="Arial, Helvetica, sans-serif" size="2"><b><font color="#FF0000">NOTE</font></b>: these variables are now spread over <b>two config files</b> but are all covered below!</font></P>
+        <P><font size="2"><B><FONT FACE="arial,geneva,helvetica">INCLUDED or REQUIRED
+    FILES<BR>
+    </FONT></B><FONT FACE="arial,geneva,helvetica">The Perl language
+    allows the inclusion of extra files containing libraries of commonly
+    accessed sub routines or common lists of script variables etc.
+    The scripts logcnt.cgi and loglook.cgi together &quot;require&quot; four
+    such files. One includes a variable used by the date/time routines
+    and the other contains the &quot;user&quot; variables. In case
+    I get a few more scripts prepared and available for general use,
+    I have included the GMT reference variable in a separate file
+    as used by all my scripts on dtp-aus.com. If I need to change
+    this common variable, then I only have to change one file, not
+    many.</FONT></font></P>
+        <P><font size="2"><B><FONT FACE="arial,geneva,helvetica">SSI IMBEDDED SCRIPT
+    CALLS<BR>
+    </FONT></B><FONT FACE="arial,geneva,helvetica">If you wish to
+    place a simple &quot;hidden&quot;, &quot;text&quot;, or &quot;image&quot; count on your page, and your
+    Host service allows SSI (Server Side Includes) calls, then the
+    inclusion of one simple SSI call to the script will perform this
+    task. Place the call in the text of your html page where you
+    want it to appear ie:</FONT></font></P>
+        <P><font face="arial,geneva,helvetica" size="2">&quot;&lt;p&gt;Current
+    site count is </font><font face="courier,courier new" size="2">&lt;!--#exec
+    cgi=&quot;/cgi-bin/logcnt.cgi&quot;--&gt;</font><font face="arial,geneva,helvetica" size="2">
+    page views.&lt;/p&gt;&quot; and the result could be:<BR>
+    '</font><font color="#000099" face="arial,geneva,helvetica" size="2">Current
+    site count is 02365 page views.</font><font face="arial,geneva,helvetica" size="2">'</font></P>
+        <P><font face="Courier New, Courier, mono" size="2" color="#CC0000"><b>$ssi_img</b></font><font face="arial,geneva,helvetica" size="2"> Which of the three display methods depends on the $ssi_img config variable.</font></P>
+        <P><font face="arial,geneva,helvetica" size="2">LogCount recognises an
+    SSI call and responds accordingly. NOTE: Most servers require
+    the HTML page file extensions of &quot;.shtml&quot; or &quot;.sht&quot;
+    for SSIs to work. NOT all servers allow SSI to receive external data for very good security reasons, Although some simple SSI programs rely on that, LogCount does not and is designed to work without!</font></P>
+        <P><font face="arial,geneva,helvetica" size="2">Comments about relative
+    paths and directory choices etc are included below.</font></P>
+        <P><font size="2"><B><FONT FACE="arial,geneva,helvetica">GMT TIME ZONE reference - </FONT></B><font face="arial,geneva,helvetica" color="#FF0000"><b>NOTE</b>: this value can be set easily from the LogLook admin pages</font><B><FONT FACE="arial,geneva,helvetica"><BR>
+    </FONT></B><FONT FACE="arial,geneva,helvetica">Like myself with
+    www.dtp-aus.com, Hosting services are being used now that are
+    &quot;remote&quot; from ones local ISP service. Normally this
+    means that all of our scripts etc report dates and times different
+    to that of our local access points, ie our home locality from
+    where we view our sites. To overcome this I use a Perl facility
+    that allows us to use (G)reenwich (M)ean (T)ime with an offset
+    reference reporting in my local time and date. One of the perl
+    &quot;Include&quot; files, 'gmt.set', contains a variable name
+    - <BR>
+    </FONT></font><font face="courier,courier new" size="2">$gmtPlusMinus</font><font face="arial,geneva,helvetica" size="2"><BR>
+    - whose value MUST be set for your local GMT offset. I live in
+    a world time zone 15 hours ahead of that of my Host Servers.
+    Therefore, when I set the variable to 36000 (GMT+10hrs), the
+    server logs record, and I view, all dates and times relevant
+    to my locality irrespective of where my Hosting service is. With
+    this method I can move my Domain and the results would not change.</font></P>
+        <P><font face="arial, geneva, helvetica" size="2">This value <b>can now be changed via the LogLook program</b>. To get an idea of your local GMT zone value, <b>check the &quot;date&quot; set up in your local pc</b> date configuration - <i>ie</i> Windows.</font></P>
+        <P><font face="arial,geneva,helvetica" size="2">The manual calculation is simple.
+    Your local GMT time, multiplied by 60, and multiplied by 60 again.
+    ie 10X60X60. Therefore my variable entry is &quot;</font><font face="courier,courier new" size="2">$gmtPlusMinus = 36000</font><font face="arial,geneva,helvetica" size="2">&quot;. If your GMT zone is a
+    negative value, simply include a negative value ie &quot;</font><font face="courier,courier new" size="2">$gmtPlusMinus = -36000</font><font face="arial,geneva,helvetica" size="2">&quot;</font></P>
+        <P><font size="2"><B><FONT FACE="arial,geneva,helvetica">LEADING ZEROs<BR>
+    </FONT></B><FONT FACE="arial,geneva,helvetica">All displays of
+    the count value will include the standard &quot;leading zeros&quot;
+    method of displaying numbers. The configuration file for LogCount
+    and LogLook is called 'cntcnfg.set'. By adjusting the variable
+    named &quot;</FONT></font><font face="courier,courier new" size="2">$iszeros</font><font face="arial,geneva,helvetica" size="2">&quot;, you can control the length
+    of the output number. ie <BR>
+    '</font><font face="courier,courier new" size="2">$iszeros = &quot;000000&quot;</font><font face="arial,geneva,helvetica" size="2">' will display 029384, and '</font><font face="courier,courier new" size="2">$iszeros = &quot;0000&quot;</font><font face="arial,geneva,helvetica" size="2">' will display 0087 and so forth.
+    If your site receives a small number of hits per month then it
+    probably looks better with a smaller number of digits. However,
+    never be too pessimistic and allow for growth. ie '00000' will
+    allow the count to proceed up to 99999 without altering your
+    html code calls to the counter, and 000000 will display up to
+    999999.</font></P>
+        <P><font face="arial,geneva,helvetica" size="2">The length or number of
+    zeros MUST be matched by the number of &lt;img src... calls and
+    visa versa when using the visible counter options.</font> <font size="2"><B><FONT
+     FACE="arial,geneva,helvetica">How you call each digit will be
+    described below</FONT></B><FONT FACE="arial,geneva,helvetica">.</FONT></font></P>
+        <P><font face="arial,geneva,helvetica" size="2"><b><font color="#FF0000">NOTE</font></b>: </font><font size="2" face="arial,geneva,helvetica">&quot;<font face="Courier New, Courier, mono"><b>$ssi_zro</b></font>&quot; </font><font face="arial,geneva,helvetica" size="2"><b>The SSI calls</b> can now be set to include <i>OR</i> not include the leading zeros.</font></P>
+        <P><font size="2"><B><FONT FACE="arial,geneva,helvetica">US, BRITISH, or INTERNATIONAL DATE
+    reporting<BR>
+    </FONT></B><FONT FACE="arial,geneva,helvetica">LogCount and LogLook
+    can save and view logs using the US mm/dd/yyyy format,
+    or the BRITISH dd/mm/yyyy format, or the International date format yyyy/mm/dd. In the configuration file,
+    'cntcnfg.set', you will find a variable named </FONT></font><font face="courier,courier new" size="2">$dtUS</font><font face="arial,geneva,helvetica" size="2">. Leaving this variable value
+    as null, ie '</font><font face="courier,courier new" size="2">$dtUS =
+    &quot;&quot;</font><font face="arial,geneva,helvetica" size="2">' will
+    cause the scripts to use &quot;dd/mm/yyyy&quot;. Setting this
+    variable to '</font><font face="courier,courier new" size="2">$dtUS =
+    &quot;1&quot;</font><font face="arial,geneva,helvetica" size="2">' will
+    force 'mm/dd/yyyy'. Setting this
+    variable to '</font><font face="courier,courier new" size="2">$dtUS =
+    &quot;2&quot;</font><font face="arial,geneva,helvetica" size="2">' will
+    force 'yyyy/mm/dd'.</font></P>
+        <P><font size="2"><B><font face="Courier New, Courier, mono" size="3"><a name="refs"></a>@referers<font face="arial, geneva, helvetica"> array</font></font><FONT FACE="arial,geneva,helvetica"><br>
+          CHECKING FOR CORRECT
+    REFERRERS</FONT><font size="2" face="arial,geneva"> - &quot; <font color="#FF0000">Bad referrer, access denied!</font>&quot;</font><FONT FACE="arial,geneva,helvetica"><BR>
+    </FONT></B><FONT FACE="arial,geneva,helvetica">This option in
+    the 'cntcnfg.set' file allows you create an &quot;array&quot;
+    of Domain names and IP numbers that LogCount and LogLook will
+    respond positively to. By including the acceptable calls to your
+    pages and/or your IP#, ie 'http://www.yourdomain.com' and http://yourdomain.com'
+    you effectively stop improper additions to your count and log.
+    However, LogCount saves incorrect referrers to a separate log
+    that you can view from time to time to see if there are any patterns
+    in the list. This is not 100% foolproof, but in most cases you
+    will also be able to detect copied pages from your site that
+    are being viewed on &quot;online servers&quot; elsewhere. <BR>
+    The array is named &quot;</FONT></font><font face="courier,courier new" size="2">@referers</font><font face="arial,geneva,helvetica" size="2">&quot; and you simply (MUST) enter
+    your preferences in place of the examples. NOTE: The brackets,
+    quotes and commas enclosing each item must be included else an
+    error will occur, ie:</font></P>
+        <P><font face="arial,geneva,helvetica" size="2">('www.yourdomain.com','yourdomain.com','000.000.000.000',).
+    Leave out the IP# if you do not have a true domain name with
+    a static IP#. &quot;www.ahost.net/mysite/&quot; etc will also
+    work for second level site calls etc. If your scripts are called
+    from the cgi-bin of a domain that is housing your site and your
+    specific scripts are in that domains cgi-bin, you will have to
+    include the cgi-bin also ie: &quot;ahost.net/cgi-bin/&quot;.</font></P>
+        <P><font face="arial,geneva" size="2"><b><font color="#FF0000" size="4">NOTE</font></b>: <b>Even your</b> browser command line <b>AND</b> a copy of your page on <b>your</b> home computer will be blocked by referrer checking. <b>ONLY use links / forms ON your site</b>. This is not just to stop others spamming your counter BUT is a first level security measure should a program have security holes. Use a/the webmasters access page - <a href="#utils">see below</a> in &quot;utilities&quot; section.</font></P>
+        <P align="center"><font face="arial,geneva,helvetica" size="2">At this point I will bring
+    your attention to the semi colons (;) appearing at the end of
+    <br>
+          each line in the config files. These MUST remain else an error
+    will occur.</font></P>
+        <P><font size="2"><B><FONT FACE="arial,geneva,helvetica">REJECTING SPECIFIC
+    ADDRESSES<BR>
+    </FONT></B><FONT FACE="arial,geneva,helvetica">If have the need
+    to reject certain domains or IP#s from adding to the count, the
+    variable named </FONT></font><font face="courier,courier new" size="2">$rjct</font><font face="arial,geneva,helvetica" size="2"> in the 'cntcnfg.set' file must
+    include them. Unlike an indexed array, this is a simple variable
+    that will be searched for items INBETWEEN the important ( | )
+    separators. <B>NOTE</B>: There is now a required vertical bar
+    character ( | ) at the beginning AND end of this string.<BR>
+    I have left an example string in the variables value, to show
+    the separators, but you can leave this as a null value. ie </font><font face="courier,courier new" size="2">$rjct = &quot;&quot;</font><font face="arial,geneva,helvetica" size="2">. Remember, if you include a server
+    address in this variable, then ALL visitors from that server
+    will not be counted - a large company, ISP or university will
+    have many computers that could access your site through that
+    one server address.</font></P>
+        <P><font size="2"><B><FONT FACE="arial,geneva,helvetica">PATHS TO FILES ACCESSED
+    BY SCRIPTS<BR>
+    </FONT></B><FONT FACE="arial,geneva,helvetica">The defaults used
+    in the 'cntcnfg.set' file assume you will place these files in
+    your cgi-bin and add a directory to it called &quot;counters&quot;.
+    If you have to use other directory names, or your &quot;cgi-bin&quot;
+    has a different name, then you will have to change the paths
+    accordingly; &quot;cgi-yourdomain&quot; is not uncommon. There
+    are three path types that can be used at various times with in
+    a program or script. A full URL is the same as the path you enter
+    in your browsers address box when typing in a site path that
+    you wish to go to: ie 'http://www.wooz.com/harry.htm'. A relative
+    path is a path description to a source, relative to the directory
+    of the program, file or web page that is calling it: ie &quot;jimbo.htm&quot;
+    means that the file being called should be in the same directory.
+    &quot;inone/jimbo.htm&quot; refers to a file that should be in
+    a directory named 'inone' which is a directory within the current
+    directory, and &quot;../jimbo.htm&quot; means that the file should
+    be in a directory one above the current directory, and &quot;../../jimbo.htm&quot;
+    is in a directory two above etc.</FONT></font></P>
+        <P><font face="arial,geneva,helvetica" size="2">For some servers, a simple
+    relative path called by a script is unacceptable, so a path relative
+    to the sites root directory must be called. There are also variations
+    to this description but &quot;web/yourdomain/yourdirectory/jimbo.htm&quot;
+    (example only) is a relative root path description that works
+    on many servers. Another root path is &quot;/home/yourdomain/www/yourdirectory/jimbo.htm&quot;.
+    If you have trouble with accessing the default simple relative
+    paths included in the 'cntcnfg.set' file, try the root reference
+    ie &quot;web/yourdomain/cg-bin/counters/hitcount.t&quot; etc.
+    If this is still a problem, look in any installed scripts on
+    your server for a reference, or contact your hosting support
+    staff and send them the 'cntcnfg.set' file.</font></P>
+        <P><font size="2"><B><I><FONT FACE="arial,geneva,helvetica">NOTE</FONT></I></B><FONT
+     FACE="arial,geneva,helvetica">: Double check ALL permission's
+    (below) before changing the default paths, unless you know in
+    advance what the paths should be.</FONT></font></P>
+        <P><font face="arial,geneva,helvetica" size="2"><b>CONFIG FILES PATHS</b> - <font color="#CC0000">program code AND config files</font><br>
+          The programs need to load the config files. Admin editing also needs a reference to the three config files, cntcnfg.pl and gmtset.pl. Near the top of BOTH program's code just below the header info are paths that must be set before installation.</font></P>
+        <P><font face="arial,geneva,helvetica" size="2">
+          </font><font face="arial,geneva,helvetica" size="2"><font face="Courier New, Courier, mono">$gmt_url</font> and <font face="Courier New, Courier, mono">$lookcfg_pth</font> are also the variables needed for this purpose in the config files.<br>
+          </font><font face="arial,geneva,helvetica" size="2">NOTE: the LogLook config file includes the &quot;$lookcfg_pth&quot; variable and the LogCount config file includes the &quot;$gmt_url&quot;.</font></P>
+        <P><font face="arial, geneva, helvetica" size="2"><b>RECORDS DIRECTORY AND FILES</b><br>
+          These variables direct the programs to the record files. They should be self explanatory and not need changing. NOTE the first is the PATH to the records directory (default relative), the others are the names of files residing in that directory.</font><br>
+          <font face="Courier New, Courier, mono" size="2">$log_path = "counters/";<font face="arial, geneva, helvetica">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;# - MUST end with a forward slash
+</font><br>
+          $count_name = "hitcount.t";
+<br>
+          $log_name = "hitlog.t";
+<br>
+          $lnks_name = "hitlnk.t";
+<br>
+          $badlog_name = "hitbadlog.t";
+</font></P>
+        <P>
+          <font face="arial, geneva, helvetica" size="2"><b>DEFAULT PAGE NAME</b><br>
+          <font face="Courier New, Courier, mono">$def_pge = "index";</font>
+<br>
+          When the counter or LogLook viewer encounters a referrer not including a page name (ie &quot;http://yourdomain.name/&quot;) this value will be appended. Without an extension it will be distinguishable from the other directory default pages. </font></P>
+        <P><font face="arial, geneva, helvetica" size="2">Left empty only the directory name will be logged/displayed - <b>LogCount now saves page names WITH their directory name also</b>!! <i>ie</i>:<br>
+          &nbsp;&nbsp;/<br>
+          &nbsp;&nbsp;wally/<br>
+          &nbsp;&nbsp;wally/page.name<br>
+          <i>even a multi level directory will be displayed as above - reducing viewer distortion from long URLs.
+          </i></font><br>
+          </P>
+        <P><font face="arial,geneva,helvetica" size="2"><b>IMAGE SIZE</b><br>
+          To generate the tags for you for all the counter methods, LogLook needs to know the image width and height of the bitmaps used to display the count or time.
+The value of <font face="courier,courier new">$iwid</font> is the width set to the default images, and the value of </font><font size="2" face="courier,courier new">$ihgt</font><font face="arial,geneva,helvetica" size="2"> is the height also set to the default images. Change these only if you decide to use other images.         </font></P>
+        <P><font size="2" face="arial, geneva, helvetica"><b>IMAGE DIRECTORY</b><br>
+          LogCount can now access and read/send images from the default &quot;counters&quot; sub directory of the cgi-bin OR now access images from an HTML Docs directory. One or two servers have been reported to get cranky when opening/sending images so this option has been added.<br>
+          <font face="Courier New, Courier, mono">&nbsp;&nbsp;&nbsp;$img_url = &quot;counters/&quot;;</font>&nbsp;&nbsp;- <b>PATH</b> - with forward slash<br>
+          <i>OR</i>
+          <br>
+          	<font face="Courier New, Courier, mono">&nbsp;&nbsp;#$img_url = &quot;http://yourdomain.name/ssi_img/&quot;;</font>&nbsp;&nbsp;- <b>URL</b> - with forward slash</font></P>
+        <P><font size="2" face="arial, geneva, helvetica">Place a hash character ( # ) at the beginning of the option you do NOT wish to use.<br>
+          <b>NOTE</b>: the URL option should be set to the same directory as the SSI Images directory - see next variable description.</font></P>
+        <P><font face="arial, geneva, helvetica" size="2"><b>SSI IMAGE DIRECTORY</b> - value = a URL<br>
+          <font face="Courier New, Courier, mono">$ssi_url</font> SSI counter displays have to be written as a URL to the images - embedded in the pages HTML code - so this is the url to those SSI images. NOTE: this should be the same as the &quot;URL&quot; option in the previous description UNLESS you want to use two different image sets.
+</font></P>
+        <P><font face="arial, geneva, helvetica" size="2"><b>LOGLOOK BAR GRAPHS - <i>do NOT change these variables</i></b><br>
+          Version 3.8 of LogCount included major enancements to the free LogLook log viewer and admin program. The first page that should be accessed via the password entry in the webmastres page should be a list of all current log pages listed from most popular down. With this list each page name is also accompanied by a simple but affective bar garph for easy visual comparison. These are the file names of the graph images AND they MUST be in the SSI HTML Docs directory.<br>
+          <font face="Courier New, Courier, mono">&nbsp;&nbsp;$grf1_url = &quot;$ssi_url&quot;.&quot;grf0.gif&quot;;</font><br>
+          <font face="Courier New, Courier, mono">&nbsp;&nbsp;$grf0_url = &quot;$ssi_url&quot;.&quot;grf1.gif&quot;;</font><br>
+          NOTE the URL includes the previous variable!!
+</font></P>
+        <P><font face="arial, geneva, helvetica" size="2"><b>SSI COUNTER DISPLAY TYPE</b><br>
+          $ssi_img
+Adding more versatility to LogCount, SSI counters can be preset to one of three styles.<br>
+          <i>They are:</i><br>
+          &nbsp;&nbsp;HIDDEN<br>
+          &nbsp;&nbsp;NUMBER<br>
+          &nbsp;&nbsp;IMAGES<br>
+          Preset this value at installation time (or change at time afterwards!)<br>
+          <b>NOTE</b>: the visible options, &quot;number&quot; and &quot;images&quot; can be enhanced by including leading zeros just like the main standard counter by setting the &quot;$ssi_zro&quot; variable to &quot;1&quot;. </font>
+                                      </P>
+        <P><font size="2"><B><FONT FACE="arial,geneva,helvetica">RETURN PAGE URL<BR>
+    </FONT></B><FONT FACE="arial,geneva,helvetica">The value for
+    the variable named &quot;</FONT></font><font face="courier,courier new" size="2">$hm_url</font><font face="arial,geneva,helvetica" size="2">&quot; in the 'cntcnfg.set' file
+    needs to be altered to include the FULL URL Path to your home
+    page or any page that you wish to return to after using the LogLook
+    script to view your log details.</font></P>
+        <P><font size="2"><B><FONT FACE="arial,geneva,helvetica">LOGLOOK.CGI URL<BR>
+    </FONT></B><FONT FACE="arial,geneva,helvetica">The value for
+    the variable named &quot;</FONT></font><font face="courier,courier new" size="2">$logScrpt</font><font face="arial,geneva,helvetica" size="2">&quot; in the 'cntcnfg.set' file
+    needs to be altered to include the FULL URL Path to the loglook.cgi
+    script (the viewer). It is suggested that the scripts be placed
+    in your cgi-bin or equivalent.</font></P>
+        <P><font size="2"><B><FONT FACE="arial,geneva,helvetica">LOGCNT.CGI URL<BR>
+    </FONT></B><FONT FACE="arial,geneva,helvetica">The value for
+    the variable named &quot;</FONT></font><font face="courier,courier new" size="2">$countScrpt</font><font face="arial,geneva,helvetica" size="2">&quot; in the 'cntcnfg.set' file
+    needs to be altered to include the FULL URL Path to the logcnt.cgi
+    script (the counter). It is suggested that the scripts be placed
+    in your cgi-bin or equivalent.</font></P>
+        <P><font size="2"><B><FONT FACE="arial,geneva,helvetica">WEBMASTERS E-MAIL ADDRESS<BR>
+    </FONT></B><FONT FACE="arial,geneva,helvetica">The LogLook script
+    includes various errors that can be reported back to you via
+    an html page. Although it is expected that only you will use
+    the counting facilities, I have included the webmasters address
+    in some of these hyperlink error reports. Probably of little use in the current
+    versions, but change this address to yours or your webmasters
+    if you are not he/she. ie <BR>
+    '</FONT></font><font face="courier,courier new" size="2">$webmstr = &quot;webmaster\@yourdomain.name?subject=Link
+    Error</font><font face="arial,geneva,helvetica" size="2">&quot;'.</font></P>
+        <P><font size="2"><B><I><FONT COLOR="#ff0000" FACE="arial,geneva,helvetica">NOTE</FONT></I></B><FONT
+     FACE="arial,geneva,helvetica">: The backslash ( <B>\</B> ) is
+    very important for Perl 5 users. All string references that include
+    the (@) character must insert a backslash before that character.</FONT></font></P>
+        <P><font size="2"><B><FONT FACE="arial,geneva,helvetica">DISPLAY  LAST 7 DAYS<BR>
+    </FONT></B><FONT FACE="arial,geneva,helvetica">The value for
+    the variable named &quot;</FONT></font><font face="courier,courier new" size="2">$shwDays7</font><font face="arial,geneva,helvetica" size="2">&quot; in the 'lookcnfg.set' file
+    enables the last 7 days display option
+    from the LogLook viewer. If you do not have a high daily
+    hit count and yet keep a large log file, then you can try using
+    the 7 day list view option by setting the value for this variable
+    to (&quot;1&quot;). On the other hand, you just may be cooking
+    AND eating dinner while your server attempts to send back the
+    possibly gynormous (big) html file. Therefore, '</font><font face="courier,courier new" size="2">$shwDays7 = &quot;&quot;</font><font face="arial,geneva,helvetica" size="2">' diables the option, and '</font><font face="courier,courier new" size="2">$shwDays7 = &quot;1&quot;</font><font face="arial,geneva,helvetica" size="2">' enables the display of the last 7.</font></P>
+        <P><font face="arial,geneva,helvetica" size="2"><b><font color="#FF0000">Note </font></b> With the supplied and
+    useful <b>LogLook</b> viewer, you can change this value via an admin page. </font></P>
+        <P><font face="arial,geneva,helvetica" size="2"><b><font color="#FF0000">Note v3.5</font></b> Also with the supplied <b>LogLook</b> viewer, you can now delete
+    entries as the log file gets too large. Around midnight Saturdays
+    is a good time to prune or delete files. </font></P>
+        <P>&nbsp;</P>
+        <P><font size="2"><B><FONT FACE="arial,geneva,helvetica">SHOW DOMAIN NAMES<BR>
+    </FONT></B><FONT FACE="arial,geneva,helvetica">LogCount records
+    the domain names as well as the IP#s (referers) for each access.
+    However, not all hosting servers enable this option, resulting
+    in the IP# and the domain name being just an identical IP number.
+    The value for the variable named &quot;</FONT></font><font face="courier,courier new" size="2">$showDoms</font><font face="arial,geneva,helvetica" size="2">&quot; in the 'cntcnfg.set' file
+    can disable the duplication of IP#s in the daily log list displayed
+    by LogLook. '</font><font face="courier,courier new" size="2">$showDoms
+    = &quot;&quot;</font><font face="arial,geneva,helvetica" size="2">' disables
+    their inclusion, and '</font><font face="courier,courier new" size="2">$showDoms
+    = &quot;1&quot;</font><font face="arial,geneva,helvetica" size="2">' will
+    display them.</font></P>
+        <P><font size="2"><B><FONT FACE="arial,geneva,helvetica">PASSWORDS<BR>
+    </FONT></B><FONT FACE="arial,geneva,helvetica">You MUST include
+    a basic password-only access to the <b>LogLook</b> script by entering </FONT></font><font face="arial,geneva,helvetica" size="2">your unique password to
+    the value of the variable named &quot;</font><font face="courier,courier new" size="2">$theword</font><font face="arial,geneva,helvetica" size="2">&quot;. <b>The default</b> is &quot;log&quot;. Change it to suit.</font></P>
+        <P><font face="Courier New, Courier, mono" size="2"><b>$pwrd_name</b></font><font face="arial,geneva,helvetica" size="2"> the name of the <b>Admin Password file</b> written to by LogLook admin.<br>
+          The use of <b>LogLook</b> can
+    be protected from others by a basic password method that requires
+    that the password be included in the call to the script. Also,
+    once you have accessed the main page the password is imbeded
+    in the html so that you can jump between the two main pages by
+    hyperlinks. If you are generally the only user of the computer
+    you access the log with, then this is a simple answer. However,
+    you must remember that Browser Cache can keep copies of your
+    pages, and even worse is the History folder that records all
+    page access calls. So <b>editing of options via LogLook is protected via a further &quot;admin&quot; editing password</b> you must <b>create</b> when the LogLook program is first run.</font></P>
+        <P><font face="arial,geneva,helvetica" size="2">Although I have included
+    the &quot;no-cache&quot; meta tag in the pages generated by LogLook,
+    and a &quot;WebMasters&quot; access page that you can add other
+    utilities to also, the only sure-fire way of protecting access
+    to any web page (unless your host server is hacked) is to place
+    the webmasters access page in a server controlled password protected
+    directory; most decent host services will supply one for you
+    for free, often named &quot;secure&quot; (except perhaps the
+    'Free Web Page' services).<a name="post"></a></font></P>
+        <P>
+        
+          <FONT FACE="arial,geneva,helvetica">
+          </FONT>
+          
+        <p align="right"><font face="verdana, arial, geneva, helvetica" size="2"><b><a href="#menu">MENU</a></b></font></p>
+        <hr width="100%">
+          
+        <p></P>
+        <P align="center"><font color="#000099" size="3" face="arial, geneva, helvetica"><b>INSTALLING</b></font></P>
+        <P><font size="2"><B><FONT FACE="arial,geneva,helvetica">THE PATH TO PERL<br>
+    </FONT></B><font face="arial,geneva,helvetica">At the top of
+    each script (and must remain as the first line) is a default
+    path to the Perl program on your host server. This can vary slightly
+    between UNIX servers. If you have problems running the scripts,
+    check with your host support staff about the correct path described
+    in this line. The default entry is &quot;</font></font><font face="courier,courier new" size="2">#!/usr/bin/perl</font><font face="arial,geneva,helvetica" size="2">&quot; and another common variation
+    is &quot;</font><font face="courier,courier new" size="2">#!/usr/local/bin/perl</font><font face="arial,geneva,helvetica" size="2">&quot;. In Perl scripts the hash
+    sign &quot;</font><font size="2"><b><font face="courier,courier new">#</font></b><font
+     face="arial,geneva,helvetica">&quot; character comments out
+    the code on a line starting with this character. <b>Here it has
+    a special meaning</b> to Perl.</font></font></P>
+        <p><font face="arial,geneva" size="2">Even if you have installed other CGI programs you are not necessarily an experienced cgi installer. Because a path worked on another program does not mean it is v5+ (<i>5.003+ preferred</i>)!<br>
+          <b><font color="#CC0000">The scripts help page</font></b> (<a href="#hlp">URL above</a>) contains helpful advice; <i>if you are humble enough to learn!</i></font></p>
+        <P><font size="2"><B><FONT FACE="arial,geneva,helvetica">LOG AND COUNT FILES
+    Plus PERMISSIONS<BR>
+    </FONT></B><FONT FACE="arial,geneva,helvetica">LogCount will
+    attempt to create and set permissions on the files it needs for
+    the count, counter log, and bad referrers log. Should your server
+    refuse to give</FONT></font><font face="arial,geneva,helvetica" size="2">scripts the right to create
+    new files, then you will have to create them your self via FTP
+    or Telnet. The Link List file needs to be created by you because
+    you have to enter the links and their names (see below). Each
+    of these files must be given read and write permissions (chmod
+    766). The directory that they are placed in will also have to
+    have read and write permissions. Either read and write chmod
+    766 (r+w) or possibly chmod 777 (r+w+x) will work - try the first
+    before the latter. Note the makedir comment below if using makedir.cgi to setup quickly.</font></P>
+        <P><font size="2"><B><FONT FACE="arial,geneva,helvetica">UP LOADING FILES (Posting)<BR>
+    </FONT></B><FONT FACE="arial,geneva,helvetica">CGI-BIN permissions
+    are set by the server and no attempt should be made to change
+    them. Should you have to use another directory, AND your server
+    allows the execution of Perl CGI scripts in other directories,
+    then that directory should be set with read and execute permissions
+    - chmod 755 (r+x). Also, The scripts and 'require files should
+    be set to chmod 755 (r+x).</FONT></font></P>
+        <P><font face="arial,geneva,helvetica" size="2">By far the biggest problems
+    faced when installing scripts are firstly the file transport
+    encoding used and secondly the permissions settings set for both
+    files and new directories. Bitmap images must be sent to the
+    server using the &quot;Binary&quot; protocol. Text files, ie
+    html pages, CGI SCRIPTS and require files, MUST be sent in &quot;ASCII&quot;
+    format. Failure to do this will result in a server failing to
+    recognise and execute the scripts. Although often referred to
+    as programs, scripts must be compiled before they do anything.
+    As an example, files with the .EXE extension on programs that
+    are installed on Wintel machines are pre-compiled binary executable
+    programs. Perl scripts on the other hand are compiled in memory
+    by Perl before they can be executed. The script (text) must be
+    in ASCII text format for the interpreter to be able to read it.
+    </font></P>
+        <P align="center"><font face="arial,geneva,helvetica" size="2">REPEAT: <B>Up load scripts as &quot;ASCII&quot; files, images
+    as &quot;Binary&quot;</B>.</font></P>
+        <P><font size="2" face="arial,geneva,helvetica"><b>So, assuming the default
+    directory structure is used, you will up load into:</b></font></P>
+        <blockquote>
+          <dl>
+            <dt><font size="2" color="#000099" face="arial,geneva,helvetica"><i>Directory:</i>
+        </font>
+            <dt><font face="arial,geneva,helvetica" size="2">cgi-bin (server)</font>
+            <dd><font face="arial,geneva,helvetica" size="2">logcnt.cgi, loglook.cgi
+        (chmod 755)</font>
+            <dt><font face="arial,geneva,helvetica" size="2">cgi-bin/sets (chmod 766
+        or 777)</font>
+            <dd><font face="arial,geneva,helvetica" size="2">cntcnfg.pl, lookcnfg.pl, gmtset.pl
+        (chmod 766 or 777)</font>
+            <dt><font face="arial,geneva,helvetica" size="2">cgi-bin/counters (chmod
+        766 or 777)</font>
+            <dd><font face="arial,geneva,helvetica" size="2">hitlnk.t, hitbadlog.t, a_dolink.pl, a_errlog.pl, look.pwd (chmod 766
+        or 777),
+        <br>
+              hitcount.t, hitlog.t, trans.gif, images(0 to 9 + a,p,-).gif</font>
+<font face="arial,geneva,helvetica" size="2"> (chmod 766
+        or 777)</font>            
+            <dt><font face="arial,geneva,helvetica" size="2">html page directory ( named &quot;ssi_img&quot; ) </font>
+            <dd><font face="arial,geneva,helvetica" size="2">images(0 to 9 + a,p,-).gif, grf0.gif, grf1.gif,
+        [ trans.gif ? ]</font>
+            <dt><font face="arial,geneva,helvetica" size="2">html page directory -
+        preferably secure</font>
+            <dd><font face="arial,geneva,helvetica" size="2">webmster.html (server)</font>
+            <dt><font size="2" color="#000099" face="arial,geneva,helvetica"><i>If
+        you have to create them yourself:</i>
+        </font>
+            <dt><font face="arial,geneva,helvetica" size="2">cgi-bin/counters</font>
+            <dd><font face="arial,geneva,helvetica" size="2">counters/hitcount.t (chmod
+        766
+        or 777)</font>
+            <dd><font face="arial,geneva,helvetica" size="2">counters/hitlog.t (chmod
+        766
+        or 777)</font><br>
+              <font face="arial,geneva,helvetica" size="2">counters/hitlnk.t (chmod
+        766
+        or 777)<br>
+              counters/look.pwd (chmod
+        766
+        or 777)</font>
+            <font face="arial,geneva,helvetica" size="2">
+              </font>
+            <dd><font face="arial,geneva,helvetica" size="2">counters/hitbadlog.t
+        (chmod 766
+        or 777)</font>
+<font size="2" face="arial,geneva,helvetica"><b><a name="tags"></a></b></font>          
+          </dl>
+        </blockquote>
+        <p align="right"><font face="verdana, arial, geneva, helvetica" size="2"><b><a href="#menu">MENU</a></b></font></p>
+        <hr width="100%">
+        <P align="center"><font size="3" face="arial, geneva, helvetica" color="#000099"><b>TAGS CALLING THE COUNTERS</b></font></P>
+        <P align="center"><b><font face="arial, geneva, helvetica" size="2" color="#CC0000">NOTE: the complete set of counter call tags are generated by LogLook Admin.</font></b></P>
+        <P><font size="2"><B><FONT FACE="arial,geneva,helvetica">INSTALLING COUNTER
+    CALLS IN HTML<BR>
+    </FONT></B><FONT FACE="arial,geneva,helvetica">If you can follow
+    the above example of a call to LogCount for a link count, then
+    the general counting and display calls are even easier. Remember
+    the &quot;<B>l</B>&quot; (lowercase &quot;L&quot;) refers to
+    a </FONT></font><font color="#000099" face="arial,geneva,helvetica" size="2">link</font><font face="arial,geneva,helvetica" size="2"> count.</font></P>
+        <P><font face="arial,geneva,helvetica" size="2">To call a <B>HIDDEN COUNTER</B>
+    - the most common use for LogCount - you include the letter &quot;<B>t</B>&quot;
+    instead of the &quot;<B>l</B>&quot;, ie:</font></P>
+        <P><font face="courier,courier new" size="2">&lt;img src=&quot;http://yourdomain.name/cgi-bin/logcnt.cgi?<B>t</B>&quot;
+    width=&quot;1&quot; height=&quot;1&quot;&gt;</font></P>
+        <P><font face="arial,geneva,helvetica" size="2">&#133;and there is no
+    &quot;=**&quot; value needed. The &quot;<B>t</B>&quot; stands
+    for </font><font color="#000099" face="arial,geneva,helvetica" size="2">transparent</font><font face="arial,geneva,helvetica" size="2">, and there is a tiny transparent
+    GIF file supplied in the default 'counters' directory. When the
+    page is accessed, the server sends the 1X1 pixel image to the
+    browser and records a hit. It is best to place the counter call
+    near the top of the page to ensure the hit is recorded before
+    the visitor goes to another page.</font></P>
+        <P><font face="arial,geneva,helvetica" size="2">The next <B>VISIBLE COUNTER</B>
+    option requires as many &quot;img src..&quot; tags as there are
+    images to display (numbers). If you want the counter to show
+    five numbers including zero padding (if any), then you simply
+    repeat the tag five times and change the query character in each
+    accordingly ie:</font></P>
+        <P><font face="arial,geneva,helvetica" size="2">&lt;img src=&quot;http://yourdomain.name/cgi-bin/logcnt.cgi?<B>0</B>&quot;
+    width=&quot;13&quot; height=&quot;17&quot;&gt;&lt;img<BR>
+    src=&quot;http://yourdomain.name/cgi-bin/logcnt.cgi?1&quot; width=&quot;13&quot;
+    height=&quot;17&quot;&gt;&lt;img<BR>
+    src=&quot;http://yourdomain.name/cgi-bin/logcnt.cgi?2&quot; width=&quot;13&quot;
+    height=&quot;17&quot;&gt;&lt;img<BR>
+    src=&quot;http://yourdomain.name/cgi-bin/logcnt.cgi?3&quot; width=&quot;13&quot;
+    height=&quot;17&quot;&gt;&lt;img<BR>
+    src=&quot;http://yourdomain.name/cgi-bin/logcnt.cgi?4&quot; width=&quot;13&quot;
+    height=&quot;17&quot;&gt;</font></P>
+        <P><font face="arial,geneva,helvetica" size="2">The query tag is a number,
+    0 to (<B>1 less than</B> the total images), where the total number
+    of images equals the length of 'zeros' configured in the 'cntcnfg.set'
+    file. If you have less image calls than the zero padding, then
+    you will only see the left-most numbers of the count. If you
+    have more the script will return an error because it will look
+    for a digit that does not exist.</font></P>
+        <P><font size="2"><B><FONT FACE="arial,geneva,helvetica">To VIEW THE COUNT WITHOUT
+    RECORDING A HIT</FONT></B><FONT FACE="arial,geneva,helvetica"><BR>
+    Repeat the img tags as above, BUT change the query letter on
+    the first imag tag to &quot;<B>v</B>&quot; (view) ie:</FONT></font></P>
+        <P><font face="arial,geneva,helvetica" size="2">&lt;img src=&quot;http://yourdomain.name/cgi-bin/logcnt.cgi?<B>v</B>&quot;
+    width=&quot;13&quot; height=&quot;17&quot;&gt;&lt;img<BR>
+    src=&quot;http://yourdomain.name/cgi-bin/logcnt.cgi?1&quot; width=&quot;13&quot;
+    height=&quot;17&quot;&gt;&lt;img<BR>
+    src=&quot;http://yourdomain.name/cgi-bin/logcnt.cgi?2&quot; width=&quot;13&quot;
+    height=&quot;17&quot;&gt;&lt;img<BR>
+    src=&quot;http://yourdomain.name/cgi-bin/logcnt.cgi?3&quot; width=&quot;13&quot;
+    height=&quot;17&quot;&gt;&lt;img<BR>
+    src=&quot;http://yourdomain.name/cgi-bin/logcnt.cgi?4&quot; width=&quot;13&quot;
+    height=&quot;17&quot;&gt;</font></P>
+        <P><font face="arial,geneva,helvetica" size="2">Only the query characters
+    &quot;<B>t</B>&quot; and &quot;<B>0</B>&quot;(zero) will record
+    a hit. Numbers <B>1</B> to <B>7</B> will simply return the appropriate
+    count character image (a number). LogCount will only! handle
+    numbers up to 8 characters in length. For most of us this would
+    be wishful thinking indeed as that would represent 99999999!!</font></P>
+        <P><font face="arial,geneva,helvetica" size="2">If you do not understand
+    why I have written the tags with the second and subsequent tags
+    broken after the &quot;&lt;img &quot; name, this is the method
+    used to stop the browser placing one space between objects. You
+    could just write all img src tags out in one long line instead
+    but the above method produces very readable code.</font></P>
+        <P><font size="2"><B><FONT FACE="arial,geneva,helvetica">DISPLAYING THE CLOCK</FONT></B><FONT
+     FACE="arial,geneva,helvetica"><BR>
+    From version 3 onwards the script can be used to show a static
+    digital clock or time display. The time display can also be used
+    as the counter adding to the log etc.</FONT></font></P>
+        <P><font size="2"><B><FONT FACE="arial,geneva,helvetica">Counting With The Clock</FONT></B><FONT
+     FACE="arial,geneva,helvetica"><BR>
+    Similar to the normal counter display, the clock is called with
+    &quot;img src&quot; calls, but the number of calls is fixed at
+    6, and uses two characters as reference. ie:</FONT></font></P>
+        <P><font color="#000099" face="arial,geneva,helvetica" size="2">TIME DISPLAY</font><font face="arial,geneva,helvetica" size="2"> (number of tags = 6)<BR>
+    &lt;img src=&quot;http://yourdomain.name/cgi-bin/logcnt.cgi?<B>c0</B>&quot;
+    width=&quot;13&quot; height=&quot;17&quot;&gt;&lt;img<BR>
+    src=&quot;http://yourdomain.name/cgi-bin/logcnt.cgi?<B>c1</B>&quot;
+    width=&quot;13&quot; height=&quot;17&quot;&gt;&lt;img<BR>
+    src=&quot;http://yourdomain.name/cgi-bin/logcnt.cgi?<B>c2</B>&quot;
+    width=&quot;13&quot; height=&quot;17&quot;&gt;&lt;img<BR>
+    src=&quot;http://yourdomain.name/cgi-bin/logcnt.cgi?<B>c3</B>&quot;
+    width=&quot;13&quot; height=&quot;17&quot;&gt;&lt;img<BR>
+    src=&quot;http://yourdomain.name/cgi-bin/logcnt.cgi?<B>c4</B>&quot;
+    width=&quot;13&quot; height=&quot;17&quot;&gt;&lt;img<BR>
+    src=&quot;http://yourdomain.name/cgi-bin/logcnt.cgi?<B>c5</B>&quot;
+    width=&quot;13&quot; height=&quot;17&quot;&gt;</font></P>
+        <P><font size="2"><B><FONT FACE="arial,geneva,helvetica">Clock Display Without
+    Counting</FONT></B><FONT FACE="arial,geneva,helvetica"><BR>
+    To display the clock without adding to the counter or log, use
+    the above code BUT simply change the lowercase &quot;<B>c</B>&quot;
+    to &quot;<B>n</B>&quot;.</FONT></font></P>
+        <P><font size="2"><B><FONT FACE="arial,geneva,helvetica">USING OTHER IMAGE SETS<BR>
+    </FONT></B><FONT FACE="arial,geneva,helvetica">Correct html coding
+    should always include the width and height attributes in img
+    src... tags. To use other counter image sets, just change the
+    width and height attribute values accordingly. Also make sure
+    the names are (or changed to) 0.gif, 1.gif, 2.gif, 3.gif, 4.gif,
+    5.gif, 6.gif, 7.gif, 8.gif, 9.gif. DO NOT use .JPGs. NOTE: See
+    the ABOUT section at the top of this page regarding the need
+    for &quot;<B>-.gif</B>, <B>a.gif</B> and <B>p.gif</B>&quot; if
+    you want to use the <B>digital clock</B> with images other than
+    those supplied .</FONT></font></P>
+        <P><font face="arial,geneva,helvetica" size="2">The .zip file includes
+    two extra directories that contain the <B>original default counter
+    digit .gif files</B>. Simply copy either of these image sets
+    in to the &quot;counters&quot; directory or equivalent. The default
+    &quot;counters&quot; directory already includes the white digits
+    on black background images.</font></P>
+        <P><font size="2" face="arial,geneva,helvetica"><B>Two sample logcnt.cgi counter
+    calls are:</B></font></P>
+        <P><font color="#000099" face="arial,geneva,helvetica" size="2">SSI TEXT
+    COUNTER DISPLAY<BR>
+    </font><font face="courier,courier new" size="2">&lt;!--#exec cgi=&quot;/cgi-bin/logcnt.cgi&quot;--&gt;</font><font face="arial,geneva,helvetica" size="2"> - <I>or similar for your server</I></font></P>
+        <P><font color="#000099" face="arial,geneva,helvetica" size="2">HIDDEN
+    COUNTER<BR>
+    </font><font face="courier,courier new" size="2">&lt;img src=&quot;http://yourdomain.name/cgi-bin/logcnt.cgi?<B>t</B>&quot;
+    width=&quot;1&quot; height=&quot;1&quot;&gt;</font></P>
+        <P><font color="#000099" face="arial,geneva,helvetica" size="2">VISIBLE
+    COUNTER</font><font face="arial,geneva,helvetica" size="2"> (number of
+    tags = number of zero padding digits)<BR>
+    &lt;img src=&quot;http://yourdomain.name/cgi-bin/logcnt.cgi?<B>0</B>&quot;
+    width=&quot;13&quot; height=&quot;17&quot;&gt;&lt;img<BR>
+    src=&quot;http://yourdomain.name/cgi-bin/logcnt.cgi?1&quot; width=&quot;13&quot;
+    height=&quot;17&quot;&gt;&lt;img<BR>
+    src=&quot;http://yourdomain.name/cgi-bin/logcnt.cgi?2&quot; width=&quot;13&quot;
+    height=&quot;17&quot;&gt;&lt;img<BR>
+    src=&quot;http://yourdomain.name/cgi-bin/logcnt.cgi?3&quot; width=&quot;13&quot;
+    height=&quot;17&quot;&gt;&lt;img<BR>
+    src=&quot;http://yourdomain.name/cgi-bin/logcnt.cgi?4&quot; width=&quot;13&quot;
+    height=&quot;17&quot;&gt;</font></P>
+        <P><font color="#000099" face="arial,geneva,helvetica" size="2">NO-HIT
+    VISIBLE COUNTER</font><font face="arial,geneva,helvetica" size="2"> (number
+    of tags = number of zero padding digits)<BR>
+    &lt;img src=&quot;http://yourdomain.name/cgi-bin/logcnt.cgi?<B>v</B>&quot;
+    width=&quot;13&quot; height=&quot;17&quot;&gt;&lt;img<BR>
+    src=&quot;http://yourdomain.name/cgi-bin/logcnt.cgi?1&quot; width=&quot;13&quot;
+    height=&quot;17&quot;&gt;&lt;img<BR>
+    src=&quot;http://yourdomain.name/cgi-bin/logcnt.cgi?2&quot; width=&quot;13&quot;
+    height=&quot;17&quot;&gt;&lt;img<BR>
+    src=&quot;http://yourdomain.name/cgi-bin/logcnt.cgi?3&quot; width=&quot;13&quot;
+    height=&quot;17&quot;&gt;&lt;img<BR>
+    src=&quot;http://yourdomain.name/cgi-bin/logcnt.cgi?4&quot; width=&quot;13&quot;
+    height=&quot;17&quot;&gt;</font></P>
+        <P><font color="#000099" face="arial,geneva,helvetica" size="2">LINK TRACKING<BR>
+    </font><font face="courier,courier new" size="2">&lt;a href=&quot;http://yourdomain.name/cgi-bin/logcnt.cgi?<B>l</B>=name&quot;&gt;</font><font face="arial,geneva,helvetica" size="2">hyperlink</font><font face="courier,courier new" size="2">&lt;/a&gt;</font></P>
+        <P><font color="#000099" face="arial,geneva,helvetica" size="2">LINK DATA
+    FORMAT</font><font face="arial,geneva,helvetica" size="2"> (hitlnk.t)<BR>
+    Name<B>|</B>Link<B>|</B>Count (ie &quot;</font><font face="courier,courier new" size="2">widget<B>|</B>http://www.widgetstuff.com/<B>|</B>0</font><font face="arial,geneva,helvetica" size="2">&quot;) - <I>also see the supplied
+    sample file.</I></font></P>
+        <P><font size="2"><B><FONT FACE="arial,geneva,helvetica">A Link to the </FONT><FONT
+     COLOR="#990000" FACE="arial,geneva,helvetica">LogLook.cgi</FONT><FONT
+     FACE="arial,geneva,helvetica"> log viewer script<BR>
+    </FONT></B><FONT FACE="courier,courier new">&lt;a href=&quot;http://yourdomain.name/cgi-bin/loglook.cgi?<B>m</B>=password&quot;&gt;</FONT></font><font face="arial,geneva,helvetica" size="2">View Log Data</font><font face="courier,courier new" size="2">&lt;/a&gt;
+    </font><font size="2"><B><FONT FACE="arial,geneva,helvetica">NOTE</FONT></B><FONT
+     FACE="arial,geneva,helvetica">: For security, the script can
+    only be called from a hyperlink on a page loaded from your server.
+    <b>Calling it from a remote server or a browsers command line</b> will
+    not work; this is controlled by the security @referers array.</FONT></font></P>
+        <P><font face="arial, geneva, helvetica" size="2"><b>SSI COUNT VIEWS - non counting</b></font><br>
+          <font face="arial, geneva, helvetica" size="2">Supplied with LogCount and LogLook was a simple SSI program that could be copied and renamed with the name given to a counted hyperlink (ie &quot;<b>widgets</b>.cgi&quot;). As of version 3.5b that one script was replaced by two scripts. &quot;<b>linkname.cgi</b>&quot; works the same as the previous 'somename' in that it displays only the link total for the counted hyperlink it is named after, and now &quot;<b>linkcount.cgi</b>&quot; will display the actual hyperlink tag followed by the count total for the counted hyperlink it is named after.</font>
+        <P><font face="arial, geneva, helvetica" size="2">Because they are SSI programs the SSI call  has to be placed in the texts of an SSI html page, ie pagename.shtml, pagename.sht. You have to know if your host service allows SSI HTML pages before using these programs. </font></P>
+        <P><font face="arial, geneva, helvetica" size="2">So by placing this code calling the  <b>linkname.cgi</b> script now copied and renamed barts.cgi (the name barts is the name of a hyperlink created in the LogLook admin pages):<br>
+          <font color="#000099">&nbsp;&nbsp;&nbsp;File downloaded &lt;!--#exec cgi=&quot;/cgi-bin/barts.cgi&quot;--&gt; times.</font></font>
+<font face="arial, geneva, helvetica" size="2"><br>
+          in your page when it was loaded you would see<br>
+          <font color="#CC0033">&nbsp;&nbsp;&nbsp;File downloaded 2033 times.</font></font>
+<font face="arial, geneva, helvetica" size="2"><br>
+          <i>OR</i><br>
+          by placing this code calling the <b>linkcount.cgi</b> script  now copied and renamed  Bonzo-Zip.cgi (the name Bonzo-Zip is the name of a hyperlink created in the LogLook admin pages):<br>
+          &nbsp;&nbsp;&nbsp;<font color="#000099">Down Load &lt;!--#exec cgi=&quot;/cgi-bin/Bonzo-Zip.cgi&quot;--&gt;.</font></font>
+                            <font face="arial, geneva, helvetica" size="2"><br>
+          in your html code you would see<br>
+          &nbsp;&nbsp;&nbsp;<font color="#CC0033">Down Load </font><font color="#0000FF"><u>Bonzo-Zip</u></font></font><font color="#CC0033" face="arial, geneva, helvetica" size="1"> (284)</font><font color="#CC0033" face="arial, geneva, helvetica" size="2">.</font></P>
+        <P><font face="arial, geneva, helvetica" size="2">You can of course also use the standard hyperlink counting method:<br>
+          <font color="#000099">&nbsp;&nbsp;&nbsp;&lt;a href=&quot;http://yourdomain.name/cgi-bin/logcnt.cgi?<b>l</b>=linkname&quot;&gt;Text&lt;/a&gt;
+</font><br>
+          followed by the &quot;linkname.cgi&quot; renaming method:<br>
+          <font color="#000099">&nbsp;&nbsp;&nbsp;&lt;!--#exec cgi=&quot;/cgi-bin/barts.cgi&quot;--&gt;
+</font><br>
+          to add the count where and how you want. This way you can place it all in the pages texts if the above &quot;linkcount.cgi&quot; method is difficult to include in a manner that makes sense.</font></P>
+        <P><font face="arial, geneva, helvetica" size="2">So I have included the two utility scripts giving you three SSI counted link options  PLUS the standard counted link method generated in the LogLook admin page. Either way for displaying the count next to a counted ink, or just the including the count  total in the pages text will work as long as the page is an SSI named and enabled page. Notes for renaming these two cgi scripts are also in the script header.</font><a name="lnks"></a>                         </P>
+        <p align="right"><font face="verdana, arial, geneva, helvetica" size="2"><b><a href="#menu">MENU</a></b></font></p>
+        <hr width="100%">
+        <p align="center"><b><font color="#000099" size="3" face="arial, geneva, helvetica">COUNTING LINKS</font></b></p>
+        <p><font size="2"><b><font face="arial,geneva,helvetica">LINK USAGE RECORDS
+    and HYPERLINK CALLS<br>
+    </font></b><font face="arial,geneva,helvetica">LogCount can be
+    used to log the number of times visitors use specific hyperlinks
+    on your web pages. Both links from one page to another local
+    page, or links to other sites can be included. The call is a
+    simple change to the &quot;A HREF tag that you wish to track,
+    ie:</font></font></p>
+        <p><font face="courier,courier new" size="2">&lt;a href=&quot;http://yourdomain.name/cgi-bin/logcnt.cgi?l=3&quot;&gt;hyperlink&lt;/a&gt;</font><font face="arial,geneva,helvetica" size="2"><br>
+    &nbsp;&nbsp;&nbsp;<i>or<br>
+    </i></font><font face="courier,courier new" size="2">&lt;a href=&quot;http://yourdomain.name/cgi-bin/logcnt.cgi?l=jimbo&quot;&gt;&lt;img
+    src....&gt;&lt;/a&gt;</font><font face="arial,geneva,helvetica" size="2">.</font></p>
+        <p><font face="arial,geneva,helvetica" size="2">The question mark denotes
+    the start of the query string that follows it. The &quot;<b>l</b>&quot;
+    is a lowercase &quot;L&quot;, NOT a numeric 1. The &quot;<b>l</b>&quot;
+    tells LogCount to handle the query as a hyper(l)ink. After the
+    &quot;=&quot; sign is a number in the first example and a word
+    in the second example. I have shown this so you can see that
+    this is indeed a name, and numbers could be used while words
+    could be more descriptive. The name refers to an identical name
+    entered in the Link List file, 'hitlnk.t', that you must configure
+    if using this option.</font></p>
+        <p><font face="arial,geneva,helvetica" size="2">Also in the examples are
+    two hyperlinked objects, a simple text link in the first example
+    and an image link in the second. If you want your link to open
+    another browser window then include the standard 'target=&quot;_blank&quot;'
+    attribute ie:</font></p>
+        <p><font face="courier,courier new" size="2">&lt;a href=&quot;http://yourdomain.name/cgi-bin/logcnt.cgi?l=widget&quot;
+    target=&quot;_blank&quot;&gt;</font></p>
+        <p><font face="arial, geneva, helvetica" size="2"><b><font color="#FF0000">Note v3.5</font></b> The counted hyperlinks can now be set up via the LogLook admin page, plus the tag for each named link can also be readily generated.</font></p>
+        <p><font face="arial,geneva,helvetica" size="2">I have included an example
+    'hitlnk.t' file for you to configure and up load to the &quot;counters&quot;
+    directory (default). In this file you will identify four example
+    links, and they include the special &quot;<b>|</b>&quot; vertical
+    line character. The item pattern is as follows: Name<b>|</b>Link<b>|</b>Count,
+    ie <br>
+    &quot;</font><font face="courier,courier new" size="2">widget<b>|</b>http://www.widgetstuff.com/<b>|</b>0</font><font face="arial,geneva,helvetica" size="2">&quot;.<br>
+    The third item, the count value must be set initially to zero
+    &quot;0&quot;. You can configure as many hyperlink click records
+    as you wish, but do not apply them to all of your links just
+    because you can. This is an excellant way of analysing how many
+    visitors leave your site to other sites you link to.</font></p>
+        <p><font face="arial,geneva,helvetica" size="2">The second page of LogLook
+    will display the count progress of your links. Each listed link
+    shown by LogLook includes an embedded hyperlink to logcnt.cgi
+    allowing you to occasionally check that the call is working and
+    not a broken link.<a name="llk"></a></font></p>
+        <p align="right"><font face="verdana, arial, geneva, helvetica" size="2"><b><a href="#menu">MENU</a></b></font></p>
+        <hr width="100%">
+        <p align="center"><font size="3" color="#000099" face="arial, geneva, helvetica"><b>LOGLOOK - free LOG VIEWER</b></font></p>
+        <p><font face="arial, geneva, helvetica" size="2">There is no need to describe in detail the options/views in LogLook as they are self evident once viewed. REMEMBER you MUST access the program ONLY via a password form ON your site - <i>ie</i> the supplied webmasters page.</font></p>
+        <p><font face="arial, geneva, helvetica" size="2">Besides the various viewing options, LogLook generates all the necessary tag code for your counters for simple &quot;copy and paste&quot; in to relevant HTML pages (or perhaps a temporary open text file where they can be stored).</font></p>
+        <p><font face="arial, geneva, helvetica" size="2">LogLook also manages all the creation, editing, and deleting of counted &quot;named&quot; hyperlinks. The html tag code for these links can also be generated once activated.</font></p>
+        <p><font face="arial, geneva, helvetica" size="2"><b>New views added to v3.8</b> are:<br>
+          &nbsp;&nbsp;most popular pages<br>
+          &nbsp;&nbsp;visitor browser type comparisons<br>
+          &nbsp;&nbsp;view any date retained in the current log<br>
+          &nbsp;&nbsp;view IP# page totals for any date in the current log</font></p>
+        <p><font face="arial, geneva, helvetica" size="2">As your log gets over around 1.4Meg in size (approx. by experinece - some servers will vary) the hit tracking pages may be very slow to load and eventually crash due to server applied &quot;life&quot; time restrictions. Use the admin page to regularly &quot;prune&quot; dates from the log; once viewed, trends noted, days compared, there is realy little need to keep old dates in the log. In the future (partially complete) there will be a history option for those that want to keep a few details but just can't be bothered writing them down!! </font><font face="arial,geneva,helvetica" size="2"><a name="utils"></a></font>               </p>
+        <p align="right"><font face="verdana, arial, geneva, helvetica" size="2"><b><a href="#menu">MENU</a></b></font></p>
+        <hr width="100%">
+        <P align="center"><b><font size="3" color="#000099" face="arial, geneva, helvetica">UTILITIES</font></b></P>
+        <P><font size="2"><b><font face="arial,geneva,helvetica">THE WEBMASTERS PAGE - <font color="#FF0000">NOTE: you need this or similar to <a href="#refs">access</a> LogLook!</font><br>
+    </font></b><font face="arial,geneva,helvetica">The supplied webmasters
+    page includes a form for accessing the LogLook log viewer script.
+    You must enter
+    the correct password in the form on this page to view your
+    logs. This page
+    also includes a current Non-Counting Count display, so the form
+    &quot;action&quot; path and the img src paths need to be altered
+    as instructed.</font></font></P>
+        <P><font face="arial, geneva, helvetica" size="2"><b>UTILITY testbin.cgi</b><br>
+          I have created a simple utility script that can be placed in your cgi-bin and run from your browsers command line. This script will, in almost all cases, detect the Perl version you are using and report its findings. If it reports version 4 as a default, then you must ask your Host Service for the correct path to Perl 5 (Always top and FIRST line in all scripts). LogCount and LogLook are Perl 5 programs for Unix servers.</font></P>
+        <P><font face="arial, geneva, helvetica" size="2">Testbin.cgi will attempt to get all perl paths from the server and list them at the bottom of its page. Not all servers will make this information available.</font></P>
+        <P><font face="arial, geneva, helvetica" size="2">Testbin.cgi can also be used to test your path to &quot;Sendmail&quot;. The program will attempt to get this information from the server but not all will make it available. <b>To test the Sendmail path you MUST</b> change the variable value near the top of the code which is the URL to the testbin program!</font></P>
+        <p><font face="arial, geneva, helvetica" size="2"><i><b>So!</b></i><br>
+          Place &quot;testbin.cgi&quot; in your cgi-bin directory and chmod 755 (7=r+w+x, 5=r+x).<br>
+          Then run from a browser command line, ie http://www.yourdomain.path/cgi-bin/testbin.cgi</font></p>
+        <p><font face="arial, geneva, helvetica" size="2"><b>UTILITY makedir.cgi
+</b><br>
+          I have created a simple utility script that can be placed in your cgi-bin and run from your browsers command line. If your server allows directory creation via cgi scripts, then this utility will attempt to create the default (recommended) directories and file names for you, and set the permissions. It is unprotected and there is no guarantee that it will work; try it at your own risk (<i>disclaimer only</i>). It has worked well on many sites.
+
+</font></p>
+        <p><font face="arial, geneva, helvetica" size="2">Try installing and running this script first. It will report success or failure when creating the files/directories and prove the correctness of your Perl Path", plus indicate that the default relative paths will work OK. If the default urls/paths are not used, then you will have to change them first.</font></p>
+        <p><font face="arial, geneva, helvetica" size="2">
+
+To use it, make sure the "Perl Path" at the top of the script is correct. <font color="#FF0000"><b>NOTE</b></font>: the default Dir/File permissions are set to 766. Change these values to 777 if your site so requires BEFORE running the script. If running the script is successful, you only have to FTP your supplied files over the new empty ones. (note: for security reasons, makedir does NOT prepare an empty file for the cgi scripts, you must upload them (as ascii) and set chmod 755 your self). </font></p>
+        <p><font face="arial, geneva, helvetica" size="2">777 for sub directories and 766 for files is probably the most common in a well set-up true cgi-bin directory.
+
+</font></p>
+        <p><font face="arial, geneva, helvetica" size="2">Once run, delete the file immediately because it has no input protection and could be run again by some low-life wanting to cause mischief
+
+</font></p>
+        <p><font face="arial, geneva, helvetica" size="2"><b><i>So!</i></b><br>
+          Place "makedir.cgi" in your cgi-bin directory and chmod 755 (7=r+w+x, 5=r+x).
+Then run from a browser command line, ie:
+http://www.yourdomain.path/cgi-bin/makedir.cgi
+</font></p>
+        <P><font size="2"><B><FONT FACE="arial,geneva,helvetica">Enjoy</FONT></B><FONT
+     FACE="arial,geneva,helvetica"> - &amp; please let me know how
+    you get on with this script, how/what server type it installed
+    to.<BR>
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<I>&nbsp;Ron</I></FONT></font></P>
+        <P align="right"><font face="verdana, arial, geneva, helvetica" size="2"><b><a href="#menu">MENU</a></b></font>
+        <hr width="100%">
+      </TD>
+    </TR>
+  </TABLE>
+</CENTER>
+</BODY>
+</HTML>

@@ -1,0 +1,95 @@
+<html>
+
+<head>
+<title>Webmasters page</title>
+<meta HTTP-EQUIV="Pragma" CONTENT="no-cache">
+</head>
+
+<body bgcolor="#008080" text="#000000" link="#0000ff" vlink="#9900ff" alink="#FF0000">
+<h2 align="center"><font color="#00FF00">Webmasters Utility Access page</font></h2>
+
+<!-- Change all reference to "yourdomain.name" & path to your site name & path--->
+
+<!-- Counter - Visible, and Time. Both Non-Counting ------------>
+<p align="center"><font color="#FFFFFF" face="arial,helvetica,geneva" size="2">site <img
+src="http://yourdomain.name/cgi-bin/logcnt.cgi?v" width="13" height="17" align="absmiddle"><img
+src="http://yourdomain.name/cgi-bin/logcnt.cgi?1" width="13" height="17" align="absmiddle"><img
+src="http://yourdomain.name/cgi-bin/logcnt.cgi?2" width="13" height="17" align="absmiddle"><img
+src="http://yourdomain.name/cgi-bin/logcnt.cgi?3" width="13" height="17" align="absmiddle"><img
+src="http://yourdomain.name/cgi-bin/logcnt.cgi?4" width="13" height="17" align="absmiddle"><img
+src="http://yourdomain.name/cgi-bin/logcnt.cgi?5" width="13" height="17" align="absmiddle"> count &#149;
+
+local <img 
+src="http://yourdomain.name/cgi-bin/logcnt.cgi?n0" valign="middle" width="13" height="17"><img 
+src="http://yourdomain.name/cgi-bin/logcnt.cgi?n1" valign="middle" width="13" height="17"><img 
+src="http://yourdomain.name/cgi-bin/logcnt.cgi?n2" valign="middle" width="13" height="17"><img 
+src="http://yourdomain.name/cgi-bin/logcnt.cgi?n3" valign="middle" width="13" height="17"><img 
+src="http://yourdomain.name/cgi-bin/logcnt.cgi?n4" valign="middle" width="13" height="17"><img 
+src="http://yourdomain.name/cgi-bin/logcnt.cgi?n5" valign="middle" width="13" height="17"> time.
+</font></p>
+<!-- end Counter and Time Display ------------------------------>
+
+<hr width="500">
+
+<!-- Form Call to LogLook.cgi log viewer--->
+  <form align="center" method="POST" action="http://yourdomain.name/cgi-bin/loglook.cgi" target="_blank">
+  <center>
+  <table border="0" width="500" cellspacing="0" cellpadding="6" bgcolor="#35CCCC">
+    <tr>
+      <td width="100%" valign="top" align="center"><font face="arial,helvetica,geneva" size="2">
+	<strong>View <font color="#0000FF">LogCount</font> records</strong><br><em>Counter Log</em> Password:
+	<input type="password" name="m" size="15">&nbsp;
+	<input type="submit" value="View Log" name="send"><br>
+      <small>leave box empty if password not required</small></font>
+    </td></tr>
+  </table></center>
+  </form>
+<!-- end Form------------------------------>
+
+&nbsp;<!--forms add space above and below, so I include these to even the appearance-->
+<center>
+<table border="0" width="500" cellspacing="0" cellpadding="6" bgcolor="#008080">
+  <tr>
+    <td width="50%" valign="top" colspan="2" align="center" bgcolor="#35CCCC"><font face="arial,helvetica,geneva" size="2">Add other utility links here.</font></td>
+    <td width="50%" valign="top" colspan="2" align="center" bgcolor="#35CCCC"><font face="arial,helvetica,geneva" size="2">Add other utility links here.</font></td>
+  </tr>
+  <tr>
+    <td width="50%" valign="top" colspan="2" align="center" bgcolor="#35CCCC"><font face="arial,helvetica,geneva" size="2">Add other utility links here.</font></td>
+    <td width="50%" valign="top" colspan="2" align="center" bgcolor="#35CCCC"><font face="arial,helvetica,geneva" size="2">Add other utility links here.</font></td>
+  </tr>
+
+<!-- By renaming "somename.cgi" with the name of each important counted link you want to track regularly, -->
+<!-- and placing them in the cgi-bin (chmod 755), you can view the count progress here -->
+<!-- whenever you log on and load webmaster.shtml rather than reloading the log viewer every time. -->
+<!-- ie Make this your default opening page and add objects like search engines and other important links -->
+
+         <tr>
+          <td valign="middle" align="right" colspan="1" nowrap bgcolor="#259999" width="25%"><font size="2" face="arial,helvetica,geneva">
+	    linkName1<br> 
+	    linkName2<br>
+	    linkName3
+	    </font></td>
+          <td valign="middle" align="left" colspan="1" nowrap bgcolor="#259999" width="25%"><font size="2" face="arial,helvetica,geneva">
+		- <!--#exec cgi="/cgi-bin/linkName1.cgi"--><br>
+		- <!--#exec cgi="/cgi-bin/linkName2.cgi"--><br>
+		- <!--#exec cgi="/cgi-bin/linkName3.cgi"-->
+	    </font></td>
+          <td valign="middle" align="right" colspan="1" nowrap bgcolor="#259999" width="25%"><font size="2" face="arial,helvetica,geneva">
+	    linkName4<br>
+	    linkName5<br>
+	    linkName6
+	    </font></td>
+          <td valign="middle" align="left" colspan="1" nowrap bgcolor="#259999" width="25%"><font size="2" face="arial,helvetica,geneva">
+		- <!--#exec cgi="/cgi-bin/linkName4.cgi"--><br>
+		- <!--#exec cgi="/cgi-bin/linkName5.cgi"--><br>
+		- <!--#exec cgi="/cgi-bin/linkName6.cgi"-->
+	    </font></td>
+        </tr>
+</table></center>
+
+&nbsp;<!--forms add space above and below, so I include these to even the appearance-->
+
+<hr width="500">
+
+</body>
+</html>

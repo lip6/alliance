@@ -1,0 +1,4 @@
+#define hit_width 1
+#define hit_height 1
+static char hit_bits[] = {
+0x00};

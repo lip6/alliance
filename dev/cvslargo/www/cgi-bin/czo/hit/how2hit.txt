@@ -1,0 +1,185 @@
+Installation and Usage
+ for HITMATIC Website Hit Statistics System
+
+ This copy of HITMAT.ZIP contains the latest revised
+  edition with all required files for a complete installation.
+
+ Revision Date: hitmat.zip - July 8, 1998
+     Copyright: 1996,1997,1998 by Joe DePasquale
+        E-Mail: crypt@getcruising.com
+       Website: http://www.GetCruising.com
+
+========================================================================
+ This application is for Unix web servers running Perl 5.0 or higher.
+
+Additional documentation is available at http://www.GetCruising/crypt
+   helpme.txt - How to install Perl scripts on a Unix server.
+ whatsnew.txt - Revision history for all 'CGI Scripts from the Crypt'.
+
+  Also visit the "Users' Self-Support Forum" to post questions and
+  answers, especially if you have some extra time, knowledge and
+   a desire to help some other poor lost souls!
+
+THERE IS *NO* FREE *NOR* FEE-BASED TECHNICAL SUPPORT FOR THESE SCRIPTS!
+    Due to extremely limited time, E-Mail with technical support
+ questions WILL NOT BE ANSWERED! Please use the available resources
+        here and elsewhere on the WWW to solve problems.
+       E-Mail genuine bug reports to: crypt@getcruising.com
+
+========================================================================
+
+WHAT IT DOES:
+
+HITMATIC can become as complex and valuable as you wish. At its simplest,
+it can display the hitcount for a page to your visitors. At your option,
+it can also be configured for complete website tracking and analysis.
+
+Input to the script comes from special image tags that you place on each
+web page that you want included in the system. When a browser loads
+one of these pages it expects to receive a graphic from the URL in the
+tag. Instead, the URL runs HITMATIC which counts and categorizes the hit,
+does some maintenance stuff and finally creates the graphic (an X-Bitmap)
+and outputs it to the browser.
+
+Why X-Bitmap? Of the 3 standard image formats that web browsers can
+display (.jpg, .gif and .xbm) this is the only one that uses an ASCII
+file format and can be created by simple math. The overhead of having
+to include a compiled jpg or gif generator is avoided, and HITMATIC
+uses resources to calculate stats rather than displays pretty fonts.
+
+To learn more about X-Bitmaps, read the comments in 'hitxbm.pl'.
+
+'hit1.log' and 'hit2.log' save todays' and yesterday's hit data with
+one line per hit (date, time, $pagecode, $command, user's IP address,
+cookies and referring page). 'hitcfg.pl' runs daily file maintenance,
+'hitxbm.pl' creates the XBM-BITMAP images of the hitcounts. 
+
+Twelve files numbered hit1.dat - hit12.dat which each hold hit
+counts by day and pagecode for one month.
+
+The manager module (hitman.pl) gives you a choice of statistical tables
+showing counts by month, by page, by group or full year.
+
+The 'By YEAR' table starts 12 months ago and ends at the end of current
+month. The grid shows the total hits by month for each group and each
+page, ranked most to least popular. 'By MONTH' shows the hits for one
+month on a daily basis. 'By PAGE' shows the hits for one page on a yearly
+basis.
+
+The HIT COUNTER shows the current hit count for each page since last
+reset. You can reset the counter to any month in the pop-up box, and
+HITMATIC will recalculate hits from data in the monthly hit files also
+making a new 'since.xbm' image of the month and date which can be
+displayed.
+
+Daily file maintenance is run when the first visitor of the day causes
+HITMATIC to run. Several things happen: 'hit1.log' is read and all hits
+for the previous day are added to the monthly data files. If it's the
+first day of a new month, last year's month file is emptied. 'hit1.log'
+is renamed 'hit2.log', yesterday's 'hit2.log' is emptied and renamed
+'hit1.log'. Finally, if a new hit count was requested since the last
+maintenance, the 'hit.cnt' file is recalculated.
+
+HITMATIC uses the Perl 'flock' function to prevent simultaneous
+changes (corruption) of data files.
+
+========================================================================
+
+INSTALLATION:
+
+1. SETUP YOUR FILES -
+
+Open 'hit.cfg' in a text editor. The default file is '1|1|1|N|'. Change
+the first '1' to current day-of-month (1-31), the second '1' to current
+month (1-12). Leave the other fields as is and save the file. Hereafter,
+these values will be read, changed and written by the script(s) so no
+further editing should be required.
+
+Add a reference to each HTML page to be counted, following this example:
+<img
+ src="http://yourserver.com/path/to/cgi-bin/hitmat.cgi?PAGECODE+GROUPCODE=COMMAND">
+
+You will need to make these substitutions --
+
+'PAGECODE' is a unique name (with NO SPACES) for the page being counted.
+It can be real or symbolic (albert/home.html, links, page1, etc.).
+
+'GROUPCODE' is optional but you can subdivide your hitcounts into
+subject areas. Use a SINGLE letter or number for each group.
+
+'COMMAND' tells the script which count to output on the page --
+   'SITE' - display total hits to website,
+  'GROUP' - display hits for a group,
+   'PAGE' - display hits for a page, or
+   'NONE' - display nothing, i.e. sends a null bitmap image.
+
+Example of a full site hitcount displayed on my 'index.html' page:
+
+<img src="./cgi-bin/hitmat.cgi?index+G=SITE" width=96 height=16
+ align=top border=0> Pages Served Since <img src="./hit/since.xbm"
+ width=64 height=16 border=0 align=top alt="Last Reset">
+
+Note the PAGECODE is 'index', GROUPCODE is 'G' and COMMAND is 'SITE'.
+
+As in the example, you can include an image tag for 'since.xbm'
+to display the date (MMYY) when counter was last reset.
+
+Adding width and height tags allows the page to load quicker --
+ For 'SITE, 'GROUP' and 'PAGE' use 'width=96 height=16',
+ For 'NONE' use 'width=0 height=0',
+ For 'since.xbm' use 'width=64 height=16'.
+
+
+2. CONFIGURE THE SCRIPT -
+
+Open the main script file 'hitmat.cgi' in a text editor and change
+the sample paths in the "CONFIGURE THE SCRIPT" section,
+following the instructions found there.
+
+
+3. UPLOAD FILES AND SET (CHMOD) PERMISSIONS -
+
+All files should be uploaded in ASCII mode (yes even the .xbm's).
+
+Place 'hitmat.cgi' (755), 'hitcfg.pl' (644), 'hitman.pl' (644)
+and 'hitxbm.pl' (644) into your main cgi directory.
+
+Create a directory named 'hitmat' (755) and place 'hit.cfg' (666),
+'hit.cnt' (666), 'hit.flk' (666), 'hit1.log' (666), 'hit2.log' (666),
+'hit.xbm' (666), 'hitmat.pwd' (666) plus the 12 files 'hit1.dat'
+thru 'hit12.dat' (666) there.
+
+If you enable the back-up option, create an empty directory named
+'bak' (777) which can be shared with my other scripts that make
+back-up files. This directory MUST be world-writeable!
+
+========================================================================
+
+HOW TO USE IT:
+
+If set up correctly (!) just sit back and watch (?) as the script
+and your visitors do all the work.
+
+To RUN HITMATIC MANAGER, use 'manager' as a query-string.
+
+Examples -
+  http://www.GetCruising.com/cgibin/hitmat.cgi?manager
+
+The response should be the password authorization form. The
+initial password is 'password'. Of course you should change it soon
+to something unique by entering a new password in the
+'Change Password' box.
+
+The default HIT TABLE is 'By YEAR' starting 12 months ago and ending at
+the end of current month. To switch to detailed displays 'By MONTH',
+'By GROUP' or 'By PAGE', select a radio button and press 'HIT TABLES'.
+You can switch between displays in the same way.
+
+Select 'HIT COUNTER' for a list of current hit count for each page
+since last reset. To reset the counter to the beginning of a month,
+select a starting month in the pop-up box, then press 'CHANGE'.
+
+========================================================================
+
+What are you reading this for? DO IT!
+

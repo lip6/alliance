@@ -1,0 +1,27 @@
+**********   SSI counted link viewing utilities   **********
+
+The files, utility.txt, linkcount.cgi, linkname.cgi, and  
+webmster.shtml are intended as free utility additions to LOGCOUNT.
+Link counts can be viewed via LogLook. However should you wish
+to add certain ones to a secure webmasters master page without
+using LogLook all the time... for example, or display a counted 
+hyperlink with the current total next to it, then the scripts
+linkcount.cgi and linkname.cgi can be utilised via SSI calls.
+
+So, LogCount can be used to keep a count of each "counted link"
+you install on your site. If you use this facility, it is a simple 
+matter of renaming linkcount.cgi or linkname.cgi to the name of 
+EACH of your installed counted links you want to display on SSI web
+pages, ie link1.cgi and link2.cgi etc, and placing each new 
+copy of the script into your cgi-bin (chmod 755).
+
+The name must match the link name exactly, U/L case included.
+
+Sample SSI calls are in the scripts plus in the html code of
+the additional "webmster.shtml" file (with <!--comments-->).
+
+Contact me at somename@dtp-aus.com for assistance or to report
+its usefulness. As with logcnt.cgi and loglook.cgi, you do not
+have to be registered for basic support etc, but general program 
+installation e-mail help is NOT available as these are not 
+beginners programs.   Thank you - Ron.
