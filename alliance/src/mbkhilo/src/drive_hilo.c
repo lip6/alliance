@@ -50,12 +50,12 @@ int i;
 sprintf(buffer,"hilo_%s",s);
 
 i = 0;
-while (buffer[i] != NULL) {
+while (buffer[i] != '\0') {
 	if ((buffer[i] == '[') || (buffer[i] == ']') || (buffer[i] == '.'))
 		buffer[i] = '_' ;
 	i++;
 	}
-return buffer;
+return namealloc( buffer );
 }
 
 /*******************************************************************************
@@ -71,13 +71,13 @@ int i;
 sprintf(buffer,"hilosig_%s",s);
 
 i = 0;
-while (buffer[i] != NULL) {
+while (buffer[i] != '\0') {
 	if ((buffer[i] == '[') || (buffer[i] == ']') || 
             (buffer[i] == ' ') || (buffer[i] == '.'))
 		buffer[i] = '_' ;
 	i++;
 	}
-return buffer;
+return namealloc(buffer);
 }
 
 /*******************************************************************************
@@ -110,7 +110,7 @@ char one = 1;
 	if (!one)
 		*t++ = ']';
 	*t = '\0';
-	return buffer;
+	return namealloc(buffer);
 }
 
 /*******************************************************************************
