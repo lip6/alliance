@@ -36,7 +36,7 @@ BEGIN
 
   label0 : BLOCK ((ckx and not (ckx'STABLE)) = '1')
   BEGIN
-    ff <= GUARDED ((scanx and scin) or (nscanx and ((wenx and i) or (nwenx and q))));
+    ff <= GUARDED ((scanx and scin) or (nscanx and ((wenx and i) or (nwenx and ff))));
   END BLOCK label0;
 
   q <= ff;

@@ -25,6 +25,6 @@ BEGIN
   REPORT "wrong control signals on dp_rom4_xr2_x4"
   SEVERITY WARNING;
 
-  q <= i0 xor i1;
+  q <= i0x xor i1x;
 
 END;
