@@ -733,7 +733,7 @@ void CallbackExpose( MyWidget, ClientData, CallData )
       XfsmDisplayCursor();
     }
 
-    XfsmEnterPresentPanel();
+    /* XfsmEnterPresentPanel(); */
   }
   else
   {

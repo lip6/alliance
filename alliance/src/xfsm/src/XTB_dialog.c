@@ -336,7 +336,9 @@ void XfsmLimitedLoop( MyWidget )
  
         if ( WShell == DialogShell )
         {
-          XtDispatchEvent( &Event );
+          XtDispatchEventToWidget( 
+                XtWindowToWidget( AnyEvent->display, AnyEvent->window ), 
+			  &Event );
         }
 
         break;

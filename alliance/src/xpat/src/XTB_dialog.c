@@ -326,9 +326,11 @@ void XpatLimitedLoop( MyWidget )
       case ButtonPress   :
       case ButtonRelease : 
  
-        if ( WShell == DialogShell )
+        if (WShell == DialogShell)
         {
-          XtDispatchEvent( &Event );
+          XtDispatchEventToWidget( 
+                XtWindowToWidget( AnyEvent->display, AnyEvent->window ), 
+			  &Event );
         }
 
         break;

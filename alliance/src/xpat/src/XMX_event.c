@@ -765,7 +765,9 @@ void CallbackExpose( MyWidget, ClientData, CallData )
       XpatDisplayCursor();
     }
 
+    /* LUDO: Fed up to Click On IT ...
     XpatEnterPresentPanel();
+    */
   }
   else
   {
