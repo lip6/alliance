@@ -40,8 +40,11 @@
 
 /*
  * $Log: parse_vti_p.c,v $
- * Revision 1.1  2002/03/08 14:17:47  fred
- * Initial revision
+ * Revision 1.2  2002/03/14 12:34:30  fred
+ * Using new headers
+ *
+ * Revision 1.1.1.1  2002/03/08 14:17:47  fred
+ * Importing MBKVTI sources into the new CVS tree
  *
  * Revision 1.7  2001/02/21 15:37:40  fred
  * New layers
@@ -71,15 +74,15 @@
  * rcs version number consistency
  *
  */
-#ident "$Id: parse_vti_p.c,v 1.1 2002/03/08 14:17:47 fred Exp $"
+#ident "$Id: parse_vti_p.c,v 1.2 2002/03/14 12:34:30 fred Exp $"
 
 #include <string.h>
 #include <ctype.h>
 #include <stdlib.h>
 #include <math.h>
-#include MUT_H
-#include MPH_H
-#include MPU_H
+#include <mut.h>
+#include <mph.h>
+#include <mpu.h>
 
 #define LSIZE 16384                        /* max line size for fgets */
 

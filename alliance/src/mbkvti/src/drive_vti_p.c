@@ -28,7 +28,10 @@
 * date    : 13/05/92                                                           *
 *                                                                              *
 * Modified, rewritten and maintained by Frederic Petrot since september 1990   *
-*                                                                              *
+* $Log: drive_vti_p.c,v $
+* Revision 1.2  2002/03/14 12:34:30  fred
+* Using new headers
+*                                                                        *
 *******************************************************************************/
 
 #ident "@(#)vti symbolic layout view driver version 4.00"
@@ -37,9 +40,9 @@
 #include <string.h>
 #include <stdlib.h>
 #include <time.h>
-#include MUT_H
-#include MPH_H
-#include MPU_H
+#include <mut.h>
+#include <mph.h>
+#include <mpu.h>
 #include "drive_vti_p.h"
 
 /*******************************************************************************

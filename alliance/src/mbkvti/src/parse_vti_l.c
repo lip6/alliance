@@ -39,6 +39,12 @@
 *                                                                              *
 * version : 4.12                                                               *
 * date    : 12/06/1998                                                         *
+*                                                                              *
+* $Log: parse_vti_l.c,v $
+* Revision 1.2  2002/03/14 12:34:30  fred
+* Using new headers
+*                                                                        *
+*                                                                              *
 *******************************************************************************/
 
 #ident "@(#)vti logical views parser version 4.04"
@@ -47,10 +53,10 @@
 #include <string.h>
 #include <stdlib.h>
 #include <math.h>
-#include MUT_H
-#include MLO_H
-#include MLU_H
-#include RCN_H
+#include <mut.h>
+#include <mlo.h>
+#include <mlu.h>
+#include <rcn.h>
 
 #define LSIZE 16384 /* max line size for vfgets */
 
