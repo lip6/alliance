@@ -888,7 +888,9 @@ void CallbackExpose( MyWidget, ClientData, CallData )
     DrealRefreshGraphicWindow( 0, 0, DrealGraphicDx, DrealGraphicDy );
     DrealDisplayCursor();
 
+    /* LUDO: Fed up to Click On IT ...
     DrealEnterPresentPanel();
+    */
   }
   else
   {
