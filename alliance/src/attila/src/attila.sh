@@ -1,6 +1,6 @@
 #!/bin/sh
 #
-# $Id: attila.sh,v 1.12 2002/11/27 21:21:20 jpc Exp $
+# $Id: attila.sh,v 1.13 2002/12/22 11:18:13 jpc Exp $
 #                                                                        
 # /------------------------------------------------------------------\
 # |                                                                  |
@@ -448,16 +448,23 @@
 
 
    cd $HOME/alliance/src
-   if [ ! -f Makefile.in ]; then
-     ./autostuff
-   fi
-
    if [ "$ASIM" = "y" ]; then
-     echo "  o  For ASIM install, removing $BUILD_DIR"
+     if [ "$ALLIANCE_OS" = "Linux" ]; then
+       echo "  o  For ASIM install, removing $BUILD_DIR & configure"
+       rm -f configure
+     fi
      for TOOL in $TOOLS; do
        echo "      - $BUILD_DIR/$TOOL."
-       rm -rf $BUILD_DIR/$TOOL
+       rm -fr $BUILD_DIR/$TOOL
+       if [ "$ALLIANCE_OS" = "Linux" ]; then
+         rm -f  $TOOL/configure
+       fi
      done
+   fi
+
+   if [ ! -f Makefile.in -o ! -f configure ]; then
+     echo "  o  Running autostuff for Alliance top directory."
+     ./autostuff
    fi
 
    if [ ! -d $BUILD_DIR ]; then
@@ -475,8 +482,8 @@
    echo "  o  Building & installing requested tools."
    for TOOL in $TOOLS; do
      cd  $HOME/alliance/src
-     if [ ! -f "$TOOL/Makefile.in" ]; then
-       echo "     - Making autostuff for $TOOL."
+     if [ ! -f "$TOOL/Makefile.in" -o ! -f "$TOOL/configure" ]; then
+       echo "     - Running autostuff for $TOOL."
        ./autostuff $TOOL
      fi
 
@@ -487,7 +494,7 @@
      fi
      cd $TOOL
 
-     echo "     - Making rule $RULE for $TOOL."
+     echo "     - Running \"make $ARGS_MAKE\" for $TOOL."
      $SRC_DIR/$TOOL/configure --prefix=$INSTALL_DIR $ARGS_CONFIGURE
      $MAKE prefix=$INSTALL_DIR $ARGS_MAKE
 
