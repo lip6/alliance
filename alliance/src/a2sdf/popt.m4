@@ -45,7 +45,7 @@ int main(int argc, const char** argv)
   else
     AC_MSG_RESULT(no)
     AC_MSG_ERROR([This version of $PACKAGE requires libpopt:
-        ftp://ftp.redhat.com/pub/redhat/code/popt])
+    ftp://ftp.rpm.org/pub/rpm/dist/rpm-4.1.x/])
    POPT_CFLAGS=""
    POPT_LIBS=""
 dnl ifelse([$2], , :, [$2])
