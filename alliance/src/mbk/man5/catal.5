@@ -1,4 +1,4 @@
-.\"   $Id: catal.5,v 1.2 2002/10/09 19:54:19 xtof Exp $
+.\"   $Id: catal.5,v 1.3 2002/12/11 14:29:03 xtof Exp $
 .\" @(#)catal.2 2.11 91/08/22 ; Labo masi cao-vlsi; Author : Frederic Petrot
 .TH CATAL 5 "October 1, 1997" "ASIM/LIP6" "ALLIANCE FILE FORMATS"
 .if t \{\
@@ -9,17 +9,6 @@ catal
 .XE \}
 .SH NAME
 catal \- catalog file format
-.SH SYNOPSYS
-.nf
-.if n \{\
-.ft B \}
-.if t \{\
-.ft CR \}
-#include <mutnnn.h>
-$MBK_WORK_LIB/$MBK_CATAL_NAME
-($MBK_CATA_LIB)/$MBK_CATAL_NAME
-.ft R
-.fi
 .so man1/alc_origin.1
 .SH DESCRIPTION
 .TP 
@@ -29,30 +18,24 @@ corresponding to the \fIAlliance\fP predefined cell libraries.
 Each library is in one unix directory.
 .RS
 .TP 20
-\fIsclib\fP
+\fIsxlib\fP
 standard cell library
 .TP 20
-\fIdplib\fP
+\fIdp_sxlib\fP
 data-path compiler library
 .TP 20
-\fIgrlib\fP
-register file generator library
+\fIrflib\fP
+registers library
 .TP 20
-\fIbslib\fP
-barrel shifter generator library
+\fIramlib\fP
+ram library
 .TP 20
-\fIgalib\fP
-fast adder generator library
+\fIromlib\fP
+rom library
 .TP 20
-\fIrolib\fP
-high speed rom generator library
+\fIpadlib\fP
+pads lib
 .TP 20
-\fIralib\fP
-static ram generator library
-.PP
-Only the standart cell library \fBsclib\fP(1) is available in the Alliance 1.1
-release.
-.LP
 For each library, a special file named \fBCATAL\fP describes the library
 contents.
 This file must be in the same directory as the library cells.
@@ -90,9 +73,7 @@ It is used by the symbolic to real translation tool, \fBs2r\fP(1), to
 make direct replacements.
 .TP
 \fBF\fP
-this attribut means that the cell is used as a feed through by a router.
-For example, the standard cell router, \fBscr\fP(1), will use such cells to
-fill gaps in the cells rows.
+this attribut means that the cell is used as a feed through.
 .TP
 \fBD\fP
 this attribut is used only in the user defined catalog.
