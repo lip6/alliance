@@ -16,6 +16,6 @@ BEGIN
   REPORT "power supply is missing on rf_dec_nao3"
   SEVERITY WARNING;
 
-  nq <= not(i0 and (i1 or i2));
+  nq <= not(i2 and (i1 or i0));
 
 END;
