@@ -124,6 +124,16 @@ TABLE XSCH_ICON_CELL_BUFFER
   ndrv_y   i  f 0 1
   ndrvp_y  i  f 0 1
 
+# DP_SXLIB
+
+  dp_rom2_buf i nix 0 1
+
+# RFLIB
+
+   rf_out_buf_2 nck xcks 0 1
+   rf_out_buf_4 nck xcks 0 1
+   rf_dec_nbuf  i   nq   0 1
+
 END
 
 # /*------------------------------------------------------------\
@@ -171,6 +181,12 @@ TABLE XSCH_ICON_CELL_AND
   na4_y    i0,i1,i2,i3   f 4 0 1
   na4p_y   i0,i1,i2,i3   f 4 0 1
 
+# RFLIB
+
+  rf_dec_nand2 i0,i1       nq 2 0 1
+  rf_dec_nand3 i0,i1,i2    nq 3 0 1
+  rf_dec_nand4 i0,i1,i2,i3 nq 4 0 1
+
 END
 
 # /*------------------------------------------------------------\
@@ -214,6 +230,10 @@ TABLE XSCH_ICON_CELL_OR
   no3_y    i0,i1,i2      f 3 0 1
   nop3_y   i0,i1,i2      f 3 0 1
 
+# RFLIB
+
+  rf_dec_nor3 i0,i1,i2        nq    3 0 1
+  rf_fifo_inc ckm,nreset,nval inc   3 1 0
 
 END
 
@@ -293,6 +313,10 @@ TABLE XSCH_ICON_CELL_REGISTER
 
   ms2dp2_y  di,si,se,ck               t 4 0 1  0  2
   ms2dp4_y  di,si,se,ck               t 4 0 1  0  2
+
+# RFLIB
+
+  rf_out_mem rbus,xcks          dataout 2 0 1 0 0
   
 END
 
@@ -318,11 +342,11 @@ END
 
 # /*------------------------------------------------------------\
 # |                                                             |
-# |                     Xsch Icon Cell And_Or                   |
+# |                     Xsch Icon Cell Or_And                   |
 # |                                                             |
 # \------------------------------------------------------------*/
 
-TABLE XSCH_ICON_CELL_ANDOR 
+TABLE XSCH_ICON_CELL_ORAND 
 
 # model      inputs  output number_in  not_in not_out
 
@@ -346,16 +370,20 @@ TABLE XSCH_ICON_CELL_ANDOR
   mx4_y      i0,l0,i1,l1,i2,l2,i3,l3  t  8   0   0
   nmx2_y     j0,i0,j1,i1              t  4   0   1
   nao3_y     i0,i1,i2                 f  3   0   1
+
+# RFLIB
+
+  rf_dec_nao3 i0,i1,i2               nq  3   0   1
   
 END
 
 # /*------------------------------------------------------------\
 # |                                                             |
-# |                     Xsch Icon Cell Or_And                   |
+# |                     Xsch Icon Cell And_Or                   |
 # |                                                             |
 # \------------------------------------------------------------*/
 
-TABLE XSCH_ICON_CELL_ORAND 
+TABLE XSCH_ICON_CELL_ANDOR
 
 # model      inputs  output number_in  not_in   not_out
 
@@ -385,6 +413,11 @@ TABLE XSCH_ICON_CELL_ORAND
    noa3_y          i0,i1,i2                  f  3  0 1
    annup_y         i1,i2,i3,i4               f  4  0 1
 
+# RFLIB
+
+   rf_fifo_orand4  a0,b0,a1,b1           rippleout   4  0 0
+   rf_fifo_orand5  a0,b0,a1,b1,ripplein  rippleout   5  0 0
+
 END
 
 # /*------------------------------------------------------------\
@@ -410,5 +443,15 @@ TABLE XSCH_ICON_CELL_MUX
                              
   nmx3_x1 cmd0,cmd1,i0,i1,i2 nq      2          3         0      1
   nmx3_x4 cmd0,cmd1,i0,i1,i2 nq      2          3         0      1
+
+# DP_SXLIB
+
+  dp_mux_x2  sel0,sel1,i0,i1  q      2          2         0      0
+  dp_mux_x4  sel0,sel1,i0,i1  q      2          2         0      0
+  dp_nmux_x1 sel0,sel1,i0,i1 nq      2          2         0      1
+
+# RFLIB
+
+  rf_inmux_mem sel0,sel1,datain0,datain1 dinx 2 2         0      0
 
 END
