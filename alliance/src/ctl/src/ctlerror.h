@@ -76,10 +76,10 @@
 \------------------------------------------------------------*/
 
 # define ctlerror( E, V1, V2 ) \
-   (ctl_error((int)(E),(char*)(long)(V1),(char*)(long)(V2),basename(__FILE__),__LINE__))
+   (ctl_error((int)(E),(char*)(long)(V1),(char*)(long)(V2),autbasename(__FILE__,NULL),__LINE__))
 
 # define ctlwarning( E, V1, V2 ) \
-   (ctl_warning( (int)(E),(char*)(long)(V1),(char*)(long)(V2),basename(__FILE__),__LINE__))
+   (ctl_warning( (int)(E),(char*)(long)(V1),(char*)(long)(V2),autbasename(__FILE__,NULL),__LINE__))
 
 /*------------------------------------------------------------\
 |                                                             |
