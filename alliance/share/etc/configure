@@ -1,6 +1,6 @@
 #! /bin/sh
 
-# From configure.in Revision: 1.4 
+# From configure.in Revision: 1.8 
 # Guess values for system-dependent variables and create Makefiles.
 # Generated automatically using autoconf version 2.13 
 # Copyright (C) 1992, 93, 94, 95, 96 Free Software Foundation, Inc.
@@ -564,7 +564,7 @@ case `uname` in
 
   OSF1*)        ALLIANCE_OS=OSF ;;
 
-  CYGWIN*)      ALLIANCE_OS=CYGWIN ;;
+  CYGWIN*)      ALLIANCE_OS=Cygwin ;;
 
   *)            ALLIANCE_OS=Unknown ;;
 
@@ -605,7 +605,7 @@ fi
 
 
 if test "$program_suffix" = NONE ; then
-  if test "$ALLIANCE_OS" = CYGWIN ; then
+  if test "$ALLIANCE_OS" = Cygwin ; then
       PROGRAM_SUFFIX=".exe"
   else    
       PROGRAM_SUFFIX=""
