@@ -100,7 +100,8 @@ a2lef: $(srcdir)/a2lef.sh
 	cp $< $@ 
 	chmod a+x $@
 
-EXTRA_DIST = debug.c debugon.h debugoff.h
+EXTRA_DIST = debug.c debugon.h debugoff.h \
+		sea.sh seplace.sh seroute.sh a2lef.sh
  
 CLEANFILES =DEF_grammar_lex.c DEF_grammar_yacc.c \
 			y.output DEF_grammar_yacc.h \
