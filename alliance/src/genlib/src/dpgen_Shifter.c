@@ -25,6 +25,11 @@
    Author: Frédéric Pétrot
    Date  : 1/10/2000
    $Log: dpgen_Shifter.c,v $
+   Revision 1.4  2002/06/14 15:40:29  fred
+   Adding rotation.
+   Some test this week end and that should be it.
+   Placement still to be done.
+
    Revision 1.3  2002/06/13 15:38:39  fred
    Starting implementation of rotatation, not yet usable.
 
@@ -86,7 +91,7 @@
 
 */
 
-static char rcsid[]="$Id: dpgen_Shifter.c,v 1.3 2002/06/13 15:38:39 fred Exp $";
+static char rcsid[]="$Id: dpgen_Shifter.c,v 1.4 2002/06/14 15:40:29 fred Exp $";
 
 
 #include  "util_Defs.h"
@@ -182,6 +187,12 @@ extern void dpgen_Shifter(aFunction, aAL)
 #define A2(k, i0, i1, q)  \
    GENLIB_LOINS("a2_x2", XX_NAME("a_%d", k), i0, i1, q, "vdd", "vss", NULL)
 
+#define A3(k, i0, i1, i2, q)  \
+   GENLIB_LOINS("a3_x2", XX_NAME("a3_%d", k), i0, i1, i2, q, "vdd", "vss", NULL)
+
+#define OA(k, i0, i1, i2, q)  \
+   GENLIB_LOINS("oa22_x4", XX_NAME("oa_%d", k), i0, i1, i2, q, "vdd", "vss", NULL)
+
 #define O2(k, i0, i1, q)  \
    GENLIB_LOINS("o2_x2", XX_NAME("o_%d", k), i0, i1, q, "vdd", "vss", NULL)
 
@@ -206,9 +217,13 @@ extern void dpgen_Shifter(aFunction, aAL)
    LSB = op(0);
    MSB = "msb"; /* intermediate signal for arith sh */
 
-   /* Arithmetic extension */
-   if (flags == 0)
-      A2(AndIndex++, MuxOutput(n - 1), op(1), MSB);
+   /* Arithmetic or input extension */
+   if (flags == 1) {
+      INV(123, op(2), "op2b");
+      A3(123, i(n - 1), "op2b", op(1), MSB);
+   } else {
+      A2(123, i(n - 1), op(1), MSB);
+   }
 
    /* Normalizing the input signals names */
    for (BitIndex = 0; BitIndex < n; BitIndex++)
@@ -219,6 +234,8 @@ extern void dpgen_Shifter(aFunction, aAL)
       for (BitIndex = 0; BitIndex < n; BitIndex++) {
          LeftIndex  = BitIndex - (1 << SliceIndex);
          RightIndex = BitIndex + (1 << SliceIndex);
+         printf("Slice: %d, Bit: %d, Li: %d, Ri: %d\n", SliceIndex,
+         BitIndex, LeftIndex, RightIndex);
          if (flags == 0) {
             MuxInput0  = LeftIndex >= 0 ? MuxOutput(SliceIndex * n + LeftIndex) : LSB;
             MuxInput1  = MuxOutput(SliceIndex * n + BitIndex);
@@ -228,14 +245,15 @@ extern void dpgen_Shifter(aFunction, aAL)
                MuxInput0  = MuxOutput(SliceIndex * n + LeftIndex);
             else {
                MuxInput0  = x(AndIndex);
-               A2(AndIndex, op(2), MuxOutput(SliceIndex * n + n - 1), x(AndIndex)); AndIndex++;
+               A2(AndIndex, op(2), MuxOutput(SliceIndex * n + n + LeftIndex), x(AndIndex)); AndIndex++;
             }
             MuxInput1  = MuxOutput(SliceIndex * n + BitIndex);
             if (RightIndex < n)
                MuxInput2  = MuxOutput(SliceIndex * n + RightIndex);
             else {
                MuxInput2  = x(AndIndex);
-               A2(AndIndex, op(2), MuxOutput(SliceIndex * n + n - 1), x(AndIndex)); AndIndex++;
+               //A2(AndIndex, op(2), MuxOutput(SliceIndex * n + RightIndex - n), x(AndIndex)); AndIndex++;
+               OA(AndIndex, op(2), MuxOutput(SliceIndex * n + RightIndex - n), MSB, x(AndIndex)); AndIndex++;
             }
          }
          MX3(c0(SliceIndex), c1(SliceIndex), MuxInput0,  MuxInput1, MuxInput2, MuxOutput((SliceIndex + 1) * n + BitIndex));
