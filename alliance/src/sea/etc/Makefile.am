@@ -1,5 +1,5 @@
 etcdir = $(prefix)/etc
 
-etc_DATA = se_defaults.mac cmos_12.lef
+etc_DATA = se_defaults.mac cmos.lef
 
 EXTRA_DIST = $(etc_DATA)

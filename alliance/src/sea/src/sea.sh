@@ -1,6 +1,6 @@
 #!/bin/sh
 #
-# $Id: sea.sh,v 1.3 2002/09/30 16:21:18 czo Exp $
+# $Id: sea.sh,v 1.4 2002/10/03 16:53:52 jpc Exp $
 #
 # /------------------------------------------------------------------\
 # |                                                                  |
@@ -87,7 +87,7 @@
    echo "    o [--keep-tmp|-k]            : keep SEA temporary files."
    echo "    o [--no-deflib|-N]           :"
    echo "        Do not load defaults technology, libraries and settings"
-   echo "        (i.e. sxlib & cmos_12)."
+   echo "        (i.e. sxlib & cmos)."
    echo "    o [lef_def_file]             :"
    echo "        LEF or DEF file to load.  The files should be given with"
    echo "        their extention (.lef or .def)."
@@ -122,7 +122,7 @@
      vecho 2 "  o  Loading LEF_TECHNO_NAME."
    else
      vecho 2 "  o  Loading default LEF_TECHNO_NAME."
-     LEF_TECHNO_NAME=$ALLIANCE_TOP/etc/cmos_12.lef
+     LEF_TECHNO_NAME=$ALLIANCE_TOP/etc/cmos.lef
    fi
 
    vecho 2 "     - $LEF_TECHNO_NAME"
