@@ -1,7 +1,7 @@
 
 SUBDIRS = genlib
 
-pdfdir = $(DESTDIR)$(prefix)/doc/pdf
+pdfdir = $(prefix)/doc/pdf
 pdf_DATA = genlib.pdf
 
 EXTRA_DIST = $(pdf_DATA) \
