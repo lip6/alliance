@@ -1824,6 +1824,24 @@ void FvhFbhPostTreat( FsmFigure )
         ScanFigList != (fvhfig_list *)0;
         ScanFigList  = ScanFigList->NEXT )
   {
+    if ( IsFsmFigMulti( FsmFigure ) )
+    {
+      Figure = ScanFigList->FSM_FIGURE;
+
+      addfsmpragma( Figure, FvhClockKeyword       , ScanFigList->CLOCK        , ScanFigList->NAME );
+      addfsmpragma( Figure, FvhCurrentStateKeyword, ScanFigList->CURRENT_STATE, ScanFigList->NAME );
+      addfsmpragma( Figure, FvhNextStateKeyword   , ScanFigList->NEXT_STATE   , ScanFigList->NAME );
+      addfsmpragma( Figure, FvhFirstStateKeyword  , ScanFigList->FIRST_STATE  , ScanFigList->NAME );
+      addfsmpragma( Figure, FvhControlKeyword     , ScanFigList->CONTROL      , ScanFigList->NAME );
+
+      addfsmpragma( Figure, FvhStackControlName[ FSM_CTRL_NOP ],
+                    ScanFigList->STACK_CONTROL[ FSM_CTRL_NOP ] , ScanFigList->NAME );
+      addfsmpragma( Figure, FvhStackControlName[ FSM_CTRL_POP ],
+                    ScanFigList->STACK_CONTROL[ FSM_CTRL_POP ] , ScanFigList->NAME );
+      addfsmpragma( Figure, FvhStackControlName[ FSM_CTRL_PUSH ],
+                    ScanFigList->STACK_CONTROL[ FSM_CTRL_PUSH ] , ScanFigList->NAME );
+    }
+
     if ( ! ScanFigList->WHEN_CONDITION )
     {
       Figure = ScanFigList->FSM_FIGURE;
@@ -1847,6 +1865,8 @@ void FvhFbhPostTreat( FsmFigure )
       if ( ABL_CDR( Equation ) == (ablexpr    *)0 )
       {
         delablexpr( Equation );
+
+        /* dangerous ! */
   
         continue;
       }
@@ -1873,24 +1893,6 @@ void FvhFbhPostTreat( FsmFigure )
       }
   
       delablexpr( Equation );
-    }
-
-    if ( IsFsmFigMulti( FsmFigure ) )
-    {
-      Figure = ScanFigList->FSM_FIGURE;
-
-      addfsmpragma( Figure, FvhClockKeyword       , ScanFigList->CLOCK        , ScanFigList->NAME );
-      addfsmpragma( Figure, FvhCurrentStateKeyword, ScanFigList->CURRENT_STATE, ScanFigList->NAME );
-      addfsmpragma( Figure, FvhNextStateKeyword   , ScanFigList->NEXT_STATE   , ScanFigList->NAME );
-      addfsmpragma( Figure, FvhFirstStateKeyword  , ScanFigList->FIRST_STATE  , ScanFigList->NAME );
-      addfsmpragma( Figure, FvhControlKeyword     , ScanFigList->CONTROL      , ScanFigList->NAME );
-
-      addfsmpragma( Figure, FvhStackControlName[ FSM_CTRL_NOP ],
-                    ScanFigList->STACK_CONTROL[ FSM_CTRL_NOP ] , ScanFigList->NAME );
-      addfsmpragma( Figure, FvhStackControlName[ FSM_CTRL_POP ],
-                    ScanFigList->STACK_CONTROL[ FSM_CTRL_POP ] , ScanFigList->NAME );
-      addfsmpragma( Figure, FvhStackControlName[ FSM_CTRL_PUSH ],
-                    ScanFigList->STACK_CONTROL[ FSM_CTRL_PUSH ] , ScanFigList->NAME );
     }
   }
 }
@@ -2067,6 +2069,7 @@ fsmfig_list *FvhFbh2Fsm( FbhFigure, FsmFigure )
   FsmFigure->NAME = FbhFigure->NAME;
 
   Number = FvhFbhScanProcess( FbhFigure, FsmFigure );
+
   FvhFbhTreatPragma( FbhFigure, FsmFigure, Number );
 
   FvhFbhTreatAux( FbhFigure, FsmFigure );
