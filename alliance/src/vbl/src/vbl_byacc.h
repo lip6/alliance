@@ -62,6 +62,8 @@ pNode         VBL_BDDPNT;
 char         *VBL_MODNAM;		/* curnennt model name		*/
 char         *VBL_PROCNAM;              /* current process name         */
 char         *VBL_FUNCNAM;              /* current function/procedure name */
+long          VBL_PROCNUM;
+long          VBL_LOOPNUM;
 char         *VBL_COMPNAM;
 char         *VBL_SAVCOMPNAM;
 char         *VBL_GNRNAM;               /* current generate name        */

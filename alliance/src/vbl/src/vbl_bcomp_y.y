@@ -336,6 +336,8 @@ design_file
 
             VBL_MODNAM  = namealloc( "undefined" );
             VBL_PROCNAM = (char *)0;
+            VBL_PROCNUM = 0;
+	    VBL_LOOPNUM = 0;
             VBL_GNRNAM  = (char *)0;
             VBL_FUNCNAM = (char *)0;
             VBL_COMPNAM = (char *)0;
@@ -4786,7 +4788,8 @@ unlabeled_conditional_signal_assignment
                              vbh_addvbwas( SensList, NULL, 0, NULL, VBL_LINNUM ) );
             Inst = reversetype( Inst );
 
-            sprintf( Buffer, "p%ld", VBL_LINNUM );
+            VBL_PROCNUM++;
+            sprintf( Buffer, "p%ld_%ld", VBL_LINNUM, VBL_PROCNUM );
             VBL_PROCNAM = namealloc( Buffer );
             VBL_BEPCS = vbh_addvbpcs( VBL_BEPCS, VBL_PROCNAM, NULL, Inst, VBL_LINNUM );
             VBL_BEPCS->TYPE = ProcessType;
@@ -5049,7 +5052,8 @@ unlabeled_selected_signal_assignment
             Inst->NEXT = addptype( (ptype_list *)0, VBH_BEWAS,
                                    vbh_addvbwas( SensList, NULL, 0, NULL, VBL_LINNUM ) );
 
-            sprintf( Buffer, "p%ld", VBL_LINNUM );
+            VBL_PROCNUM++;
+            sprintf( Buffer, "p%ld_%ld", VBL_LINNUM, VBL_PROCNUM );
             VBL_PROCNAM = namealloc( Buffer );
             VBL_BEPCS = vbh_addvbpcs( VBL_BEPCS, VBL_PROCNAM, NULL, Inst, VBL_LINNUM );
             VBL_BEPCS->TYPE = ProcessType;
@@ -5097,8 +5101,9 @@ process_statement
          }
          unlabeled_process_statement
        | {
-           char buffer[ 20 ];
-           sprintf( buffer, "p%ld", VBL_LINNUM );
+           char buffer[ 128 ];
+           VBL_PROCNUM++;
+           sprintf( buffer, "p%ld_%ld", VBL_LINNUM, VBL_PROCNUM );
            VBL_PROCNAM = namealloc( buffer );
          }
          unlabeled_process_statement
@@ -5300,9 +5305,10 @@ loop_statement
           unlabeled_loop_statement
         |
           {
-             char buffer[ 20 ];
+             char buffer[ 128 ];
 
-             sprintf( buffer, "loop_%ld", VBL_LINNUM );
+             VBL_LOOPNUM++;
+             sprintf( buffer, "loop_%ld_%ld", VBL_LINNUM, VBL_LOOPNUM );
              VBL_LOOPLBLLST = addchain ( VBL_LOOPLBLLST, namealloc( buffer ) );
           }
           unlabeled_loop_statement
