@@ -1,4 +1,8 @@
 ENTITY powmid_x0 IS
+GENERIC (
+  CONSTANT area 	 : NATURAL := 1750;
+  CONSTANT transistors	 : NATURAL := 0
+);
 PORT (
   vdd	 : in  BIT;
   vss	 : in  BIT
