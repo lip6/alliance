@@ -7,7 +7,7 @@
 # Author: Frédéric Pétrot (fred@pasta.fr.ea)
 #         for version 0
 #
-# $Id: instool,v 1.12 1999/10/15 15:51:11 czo Exp $
+# $Id: instool,v 1.13 1999/10/15 16:38:24 czo Exp $
 #
 
 PATH=/users/outil1/alliance/cvsroot/CVSROOT:/asim/gnu/bin:/usr/ucb:/usr/etc:/bin:/usr/bin:/usr/local/bin:${PATH}
@@ -18,6 +18,7 @@ export PATH
 # DATE=`/asim/gnu/bin/date +"%Y.%m.%d_%H.%M.%S"`
 
 DATE=`/asim/gnu/bin/date +"%Y.%m.%d"`
+mkdir -p $HOME/tmp
 TMPDIR=$HOME/tmp
 LOG=$TMPDIR/`basename $0`.$$
 BUG=$TMPDIR/`basename $0`_bug.$$
@@ -322,14 +323,14 @@ echo "   the default shell is now sh"
             echo "Still waiting, ..."
          done
          updatelibmk $LABO/archi/SunOS > $TMPDIR/libraries.mk.$$
-         mv $ETC/libraries.mk $ETC/libraries.mk.$DATE
+         mv -f $ETC/libraries.mk $ETC/libraries.mk.$DATE
          if [ $? -ne 0 ] ; then 
             echo "`basename $0`: mv returned a non-zero exit status"
             echo "while copying libraries.mk to libraries.mk.$$"
             echo "that sucks pretty much so I quit leaving things as is"
             exit 17
          fi
-         mv $TMPDIR/libraries.mk.$$ $ETC/libraries.mk
+         mv -f $TMPDIR/libraries.mk.$$ $ETC/libraries.mk
          if [ $? -ne 0 ] ; then 
             echo "`basename $0`: mv returned a non-zero exit status"
             echo "while copying libraries.mk to libraries.mk.$$"
