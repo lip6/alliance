@@ -3,7 +3,7 @@
 # description   : Alliance Shared Libraries and Include Files   #
 # ###---------------------------------------------------------###
 
-# $Id: libraries.mk,v 1.31 2000/11/14 14:39:52 czo Exp $
+# $Id: libraries.mk,v 1.32 2001/02/21 16:23:34 czo Exp $
 
 # The variables $ALLIANCE_TOP and $ALLIANCE_OS are set by
 # alc_env.[c]sh script
@@ -74,9 +74,9 @@ RCN_L      =  -lRcn200
 RCN_LIB    = libRcn200.a
 RCN_H      =    rcn200.h
 
-MLO_L      =  -lMlo501
-MLO_LIB    = libMlo501.a
-MLO_H      =    mlo501.h
+MLO_L      =  -lMlo502
+MLO_LIB    = libMlo502.a
+MLO_H      =    mlo502.h
 
 MAL_L      =  -lMal603
 MAL_LIB    = libMal603.a
@@ -100,9 +100,9 @@ MSL_H      =    msl700.h
 MVL_L      =  -lMvl409
 MVL_LIB    = libMvl409.a
 
-MLU_L      =  -lMlu501
-MLU_LIB    = libMlu501.a
-MLU_H      =    mlu501.h
+MLU_L      =  -lMlu502
+MLU_LIB    = libMlu502.a
+MLU_H      =    mlu502.h
 
 # ###---------------------------------------------------------###
 #    functions related to symbolic layout representation :      #
@@ -116,9 +116,9 @@ MLU_H      =    mlu501.h
 #      - mpu : user level functions                             #
 # ###---------------------------------------------------------###
 
-MPH_L      =  -lMph412
-MPH_LIB    = libMph412.a
-MPH_H      =    mph412.h
+MPH_L      =  -lMph413
+MPH_LIB    = libMph413.a
+MPH_H      =    mph413.h
 
 MAP_L      =  -lMap408
 MAP_LIB    = libMap408.a
