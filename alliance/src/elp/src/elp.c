@@ -18,7 +18,7 @@
 #include <stdlib.h>
 #include "elp.h"
 
-extern FILE *yyin                                                          ;
+extern FILE *elpyyin                                                          ;
 char   elpTechnoName[elpSTRINGSIZE]                                        ;
 char   elpTechnoFile[elpSTRINGSIZE]                                       ;
 double elpTechnoVersion                                                    ;
@@ -32,7 +32,7 @@ double elpVoltage[elpVOLTNUM]                                              ;
 double elpCapa[elpTRANSNUM][elpCAPANUM]                                    ;
 double elpGeneral[elpGENERALNUM]           = {0.0,0.0,1000.0}              ;
 char   elpLang                             = elpDEFLANG                    ;
-int    yylineno                                                            ;
+int    elpyylineno                                                            ;
 
 /*****************************************************************************/
 /*                        function elpenv()                                  */
@@ -83,23 +83,23 @@ elpFCT short elpLoadElp()
 
 {
 /* ouverture du fichier techno */
-if((yyin = fopen(elpTechnoFile,"r")) == NULL)
+if((elpyyin = fopen(elpTechnoFile,"r")) == NULL)
     {
     elpError(1000,elpTechnoFile) ; /* si fichier pas ouvert => erreur 1000 */
     return 1000 ; /* arret de la procedure elp */
     }
 
-yylineno = 1 ;
+elpyylineno = 1 ;
 
 /* appel au parser pour chargement */
-if(yyparse() != 0)
+if(elpyyparse() != 0)
     {
     elpError(1002,elpTechnoFile) ; /* si erreur chergement => erreur 1002 */
     return 1002 ; /* arret de la procedure elp */
     }
 
 /* fermeture du fichier techno */
-if(fclose(yyin) != 0)
+if(fclose(elpyyin) != 0)
 elpError(1003,elpTechnoFile) ; /* si fermeture ko => erreur 1003 */
 
 /* type de model du fichier elp */
