@@ -843,7 +843,9 @@ unsetbddrefext (3)   - increments the internal reference, and decrements the ext
 upVarBdd (3)         - brings up an index in a BDD
 upVarCct (3)         - brings up the index of a primary input within a circuit
 upstr (3)            - convert a string to upper case
-vbe VHDL behavioural subset.
+vasy (1)             - VHDL Analyzer for Synthesis
+vasy (5)             - VHDL Analyzer for Synthesis Subset
+vbe (5)              - VHDL behavioural subset.
 vhdlablname (3)      - returns a compatible VHDL name.
 vhdlablvector (3)    - gives the index and the name of a vectorized name.
 viambkrds (2)        - adds to RDS figure a contact from a MBK figure
