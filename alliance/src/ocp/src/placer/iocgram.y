@@ -63,7 +63,7 @@ orientation : 	  TOP {
 
 expr : 
 	| iopin expr;
-	| iopin space expr;
+	| space expr;
 
 
 iopin : PAROUV IOPIN iopin1 PARFER PTVIRG;
@@ -112,6 +112,7 @@ con_list* add_con(con_list* ptlist, char orient, char* name)
 
   return ptcon;
 }
+
 con_list* add_space(con_list* ptlist, char orient, char *value)
 {
   con_list* ptcon;
@@ -124,6 +125,7 @@ con_list* add_space(con_list* ptlist, char orient, char *value)
 
   return ptcon; 
 }
+
 con_list* iocparse(char *file)
 { 
   extern FILE *yyin;

@@ -156,7 +156,7 @@ PPlacement::Init(lofig* fig, int NbRows)
     }
     
     for (locon* con = fig->LOCON; con; con = con->NEXT)
-      ploconmap[con->NAME] = con;
+	ploconmap[con->NAME] = con;
     
     // traitement de l'emplacement des connecteurs
     // creation des PCon si fichier ioc
@@ -718,43 +718,48 @@ PPlacement::SetPosIocFile(PConMap& pconmap)
 void
 PPlacement::ParseIocFile(PLoconMap& ploconmap)
 {
-  PPos position;
-  
-  _PtList = iocparse(_iocFileName);
-  
-  char orientation;
-  
-  for(con_list* tmpcon = _PtList ; tmpcon ; tmpcon = tmpcon->NEXT)
-  {
-    if (strcmp(tmpcon->NAME,"SPACE") != 0)
+    PPos position;
+
+    _PtList = iocparse(_iocFileName);
+
+    char orientation;
+
+    for(con_list* tmpcon = _PtList ; tmpcon ; tmpcon = tmpcon->NEXT)
     {
-	if (ploconmap.find(tmpcon->NAME) == ploconmap.end())
+	if (strcmp(tmpcon->NAME,"SPACE") != 0)
 	{
-	    cerr << " o Error in ioc file ...." << endl
-		 << "   The connector " << tmpcon->NAME
-		 << " doesn't exist in your figure ...."
-		 << endl;
-	    exit(1);
+	    if (ploconmap.find(tmpcon->NAME) == ploconmap.end())
+	    {
+		cerr << " o Error in ioc file ...." << endl
+		    << "   The connector " << tmpcon->NAME
+		    << " doesn't exist in your figure ...."
+		    << endl;
+		exit(1);
+	    }
+	    switch (tmpcon->ORIENT)
+	    {
+		case 'T':
+		    orientation = NORTH;
+		    break;
+		case 'B':
+		    orientation = SOUTH;
+		    break;
+		case 'L':
+		    orientation = WEST;
+		    break;
+		case 'R':
+		    orientation = EAST;
+		    break;
+		default:
+		    cerr << "Unknown Orientation for connector: "
+			<< tmpcon->NAME << endl;
+		    exit(1);
+	    }
+	    position.SetX(0);
+	    position.SetY(0);
+	    InsertCon(ploconmap[tmpcon->NAME], position, orientation);
 	}
-      switch (tmpcon->ORIENT)
-      {
-	case 'T' : orientation = NORTH;
-		   break;
-	case 'B' : orientation = SOUTH;
-		   break;
-	case 'L' : orientation = WEST;
-		   break;
-	case 'R' : orientation = EAST;
-		   break;
-	default: cerr << "Unknown Orientation for connector: "
-		 << tmpcon->NAME << endl;
-		 exit(1);
-      }
-	position.SetX(0);
-	position.SetY(0);
-	InsertCon(ploconmap[tmpcon->NAME], position, orientation);
     }
-  }
 }
 
 // ======================================================================
