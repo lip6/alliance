@@ -5,8 +5,15 @@
 # E-mail support     : mailto:alliance-support@asim.lip6.fr
 # ftp site           : ftp://ftp-asim.lip6.fr/pub/alliance/
 #
-# $Id: README,v 1.9 2000/03/24 15:22:53 czo Exp $
+# NOTE: You can find the latest revision of this README at:
+# ftp://ftp-asim.lip6.fr/pub/alliance/distribution/latest-cvs/alliance/README
+#
+# $Id: README,v 1.10 2000/07/21 11:14:41 czo Exp $
 
+
+This file discuss about installation of Alliance on UNIX machines.
+If you are interrested in intalling Alliance under Windows please 
+read README.win32
 
 # Alliance 
 # ===================================================================
@@ -83,13 +90,6 @@ Linux RedHat 6.0 and 6.1 (the common package is included)
 
 - alliance-X.XX-i386-asimYY.rpm
 
-Windows setup format ( for Windows 95/98/NT4 ) :
-------------------------------------------------
-
-Available for Windows 95/98/NT4 (the common package is included)
-
-- alliance-X.XX-cygwin-b20.exe
-
 
 # Installation of binary distribution
 # ===================================================================
@@ -137,36 +137,6 @@ Note that the Linux RedHat 6 rpm installs Alliance in "/usr/local/alliance"
 > rpm -Uvh alliance-X.XX-i386-asimYY.rpm
 
 
-Windows setup format :
----------------------
-
-Alliance is designed to run on a Unix workstation, not in a 
-Windows environment, but you can install third party software 
-to let your Windows Workstation be more like a Unix one.
-
-You'll find theese at 
-ftp://ftp-asim.lip6.fr/pub/alliance/redist/windows/
-
-Please read
-ftp://ftp-asim.lip6.fr/pub/alliance/redist/windows/README
-
-To install alliance, just run alliance-X.XX-cygwin-YY.exe
-
-> start alliance-X.XX-cygwin-YY.exe
-
-It is strongly recommanded to install alliance in : 
-
-               c:\usr\local\alliance
-
-The install program will choose default path for you.
-
-It is recommanded to use the "bash" shell instead of the default
-Windows shell ("command.com" on Windows 95/98 and "cmd.exe" on NT) 
-(bash comes with cygwin-b20-full.exe)
-
-In a Cygwin environment, paths are written like in unix
-use '/' instead of '\'. ie : use bash as you would do on unix
-
 # Usage :
 # ===================================================================
 
@@ -196,6 +166,7 @@ If you encounter problems, check the value of these variables in alc_env.[c]sh
 
 That's all :-)
 
+To start, you can read the files README, README.win32 and FAQ
 
 # EOF
 
