@@ -7,7 +7,7 @@
 # (C) Czo 1998,99
 # This code is released under GPL
 #
-# $Id: postconfig,v 1.22 2000/09/07 07:02:47 czo Exp $
+# $Id: postconfig,v 1.23 2000/09/07 07:03:28 czo Exp $
 #
 
 
@@ -75,10 +75,10 @@ echo "http://www-asim.lip6.fr/alliance/mailing-lists/"
 ) >> "$TMPFILE"  
 pwd
 
-cat $TMPFILE
+# cat $TMPFILE
 
-# cat "$TMPFILE"  >> $CVSROOT/CVSROOT/log-commit
-# cat "$TMPFILE"  | mail -s "ALC : $MAIL_SUBJECT" alliance-programmers@asim.lip6.fr
+cat "$TMPFILE"  >> $CVSROOT/CVSROOT/log-commit
+cat "$TMPFILE"  | mail -s "ALC : $MAIL_SUBJECT" alliance-programmers@asim.lip6.fr
 
 
 # find cvsroot -type d | xargs chmod g+s
