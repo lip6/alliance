@@ -96,6 +96,7 @@
      <LeaveWindow>:   CallbackEvent(  4 )\n\
      <Key>osfUp:      CallbackEvent(  5 )\n\
      <Key>osfDown:    CallbackEvent(  6 )\n\
+     <Btn5Down>:      CallbackEvent(  6 )\n\
      <Key>osfLeft:    CallbackEvent(  7 )\n\
      <Key>osfRight:   CallbackEvent(  8 )\n\
      <Key>Z:          CallbackEvent(  9 )\n\
