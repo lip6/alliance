@@ -23,9 +23,6 @@ AM_INIT_AUTOMAKE($PACKAGE, $VERSION)
 dnl Specify a configuration file
 dnl AM_CONFIG_HEADER(config.h)
 
-dnl Initialize libtool
-AM_PROG_LIBTOOL
-
 dnl Checks for programs.
 AC_PROG_CXX
 ALC_CXX_PROBLEMATIC_OLD_VERSION
