@@ -21,7 +21,7 @@
  * Software Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
  */
 
-#ident "$Id: rcn.h,v 1.2 2002/05/14 09:10:29 xtof Exp $"
+#ident "$Id: rcn.h,v 1.3 2002/06/01 15:51:29 ac Exp $"
 
 /*******************************************************************************
 * rcn     : constantes, externs, and data-structures                           *
@@ -44,6 +44,14 @@
 #ifdef __cplusplus
 extern "C" {
 #endif /* __cplusplus */
+
+#ifndef __P
+# if defined(__STDC__) ||  defined(__GNUC__) || defined(__cplusplus)
+#  define __P(x) x
+# else
+#  define __P(x) ()
+# endif
+#endif
 
 /* layer of wire */
 #define RCN_WIRE_UNKNOW       ((unsigned char) 0x00000001)

@@ -26,7 +26,7 @@
  * Date    : 05/08/93
  * Author  : Frederic Petrot <Frederic.Petrot@lip6.fr>
  * Modified by Czo <Olivier.Sirol@lip6.fr> 1997,98
- * $Id: mlo.h,v 1.2 2002/05/14 09:10:29 xtof Exp $
+ * $Id: mlo.h,v 1.3 2002/06/01 15:51:29 ac Exp $
  */
 
 #ifndef _MLO_H_
@@ -37,7 +37,7 @@ extern "C" {
 #endif /* __cplusplus */
 
 #ifndef __P
-# if defined(__STDC__) ||  defined(__GNUC__)
+# if defined(__STDC__) ||  defined(__GNUC__) || defined(__cplusplus)
 #  define __P(x) x
 # else
 #  define __P(x) ()
