@@ -1,7 +1,7 @@
 
 SUBDIRS = nero
 
-pdfdir = $(DESTDIR)$(prefix)/doc/pdf
+pdfdir = $(prefix)/doc/pdf
 pdf_DATA = nero.pdf
 
 EXTRA_DIST = $(pdf_DATA) \

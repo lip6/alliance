@@ -1,6 +1,6 @@
 
 
-pkghtmldir = $(DESTDIR)$(prefix)/doc/html/@PACKAGE@
+pkghtmldir = $(prefix)/doc/html/@PACKAGE@
 pkghtml_DATA = \
                ./nero.html \
                ./ref_nero.html \
