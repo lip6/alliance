@@ -7,7 +7,7 @@
 # (C) Czo 1998,99
 # This code is released under GPL
 #
-# $Id: postconfig,v 1.19 2000/06/15 10:21:56 czo Exp $
+# $Id: postconfig,v 1.20 2000/09/07 06:59:45 czo Exp $
 #
 
 
@@ -22,28 +22,63 @@ echo "Par             : $USER"
 echo "===================================================================="
 echo ""
 cat 
+) > "$TMPFILE"  
+
+UPDATE_DIR=`cat "$TMPFILE" | gawk '
+/^Update of \/users\/outil\/alliance\/cvsroot\// {
+gsub(/^Update of \/users\/outil\/alliance\/cvsroot\//, "");
+SUJ=$0
+}
+END {
+printf("%s", SUJ)
+}'`
+
+UPDATE_IN=`cat "$TMPFILE" | gawk '
+/^In directory / {
+gsub(/^In directory [^:]*:/, "");
+SUJ=$0
+}
+END {
+printf("%s", SUJ)
+}'`
+
+MODIFIED_FILES=`cat "$TMPFILE" | gawk '
+/^Modified Files:/ { start=1; next}
+/^Log Message:/ { start=0; }
+{if (start) MFILES=MFILES " " $0 ;}
+END {
+printf("%s", MFILES)
+}'`
+
+MAIL_SUBJECT=`echo "CVS loginfo, $UPDATE_DIR" | sed 's§alliance/§§' | sed 's§share/§§' | sed 's§sources/§§'`
+
+echo $UPDATE_DIR
+echo $UPDATE_IN
+echo $MAIL_SUBJECT
+echo $MODIFIED_FILES
+
+
+pwd
+(
+echo ""
+echo "===================================================================="
+echo "Diff"
+echo ""
+
+cd $UPDATE_IN
+cvs diff $MODIFIED_FILES | head 50
 echo ""
 echo "===================================================================="
 echo "Ce message est envoyé au personnes abonnées à alliance-programmers"
 echo "Pour plus d'information sur cette mailling-list, visitez :"
 echo "http://www-asim.lip6.fr/alliance/mailing-lists/"
+) >> "$TMPFILE"  
+pwd
 
-) > "$TMPFILE"  
+cat $TMPFILE
 
-MAIL_SUBJECT=`cat "$TMPFILE" | gawk '
-/Update of \/users\/outil\/alliance\/cvsroot\// {
-gsub(/Update of \/users\/outil\/alliance\/cvsroot\//, "");
-gsub(/alliance\//, "");
-gsub(/share\//, "");
-gsub(/sources\//, "");
-SUJ=$0
-}
-END {
-printf("CVS loginfo, %s", SUJ)
-}'`
-
-cat "$TMPFILE"  >> $CVSROOT/CVSROOT/log-commit
-cat "$TMPFILE"  | mail -s "ALC : $MAIL_SUBJECT" alliance-programmers@asim.lip6.fr
+# cat "$TMPFILE"  >> $CVSROOT/CVSROOT/log-commit
+# cat "$TMPFILE"  | mail -s "ALC : $MAIL_SUBJECT" alliance-programmers@asim.lip6.fr
 
 
 # find cvsroot -type d | xargs chmod g+s
