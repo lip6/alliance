@@ -31,6 +31,9 @@
 *         modifie par : F. PETROT                                *           
 *         numero de version actuelle : 4.00                      *
 *         $Log: alc_pars_p.c,v $
+*         Revision 1.3  2004/09/04 09:11:52  ludo
+*         - bug fix in AP parser (pb when scale_X is big)
+*
 *         Revision 1.2  2002/09/30 16:20:53  czo
 *         support/users
 *
@@ -149,8 +152,22 @@ static void  alc_polar();
 static long  alc_innwell();
 #endif
 
+# if 0
 # define alc_scale_x( X ) (( (X) * SCALE_X ) / parser.scale_x)
-
+# else
+/* LUDO: 04/09/2004 */
+static long alc_scale_x( long X )
+{
+  if ( SCALE_X != parser.scale_x )
+  {
+    return ( (long)( (double)X * (double)SCALE_X / (double)parser.scale_x ) );
+  }
+  else
+  {
+    return( X );
+  }
+}
+# endif
 
 /****************** alc_strtophtrs *******************/
 static long  alc_strtophtrs(s_name,p_layer,lp_l,lp_w)
