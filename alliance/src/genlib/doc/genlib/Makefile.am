@@ -31,6 +31,7 @@ pkghtml_DATA = \
                ./man_dpgen_xnor2mask.html \
                ./man_dpgen_adsb2f.html \
                ./man_dpgen_shift.html \
+               ./man_dpgen_shrot.html \
                ./man_dpgen_nul.html \
                ./man_dpgen_const.html \
                ./man_dpgen_rom2.html \

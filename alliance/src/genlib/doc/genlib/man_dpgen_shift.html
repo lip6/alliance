@@ -17,8 +17,8 @@ REL="PREVIOUS"
 TITLE="DPGEN_ADSB2F"
 HREF="man_dpgen_adsb2f.html"><LINK
 REL="NEXT"
-TITLE="DPGEN_NUL"
-HREF="man_dpgen_nul.html"></HEAD
+TITLE="DPGEN_SHROT"
+HREF="man_dpgen_shrot.html"></HEAD
 ><BODY
 CLASS="REFENTRY"
 BGCOLOR="#FFFFFF"
@@ -60,7 +60,7 @@ WIDTH="10%"
 ALIGN="right"
 VALIGN="bottom"
 ><A
-HREF="man_dpgen_nul.html"
+HREF="man_dpgen_shrot.html"
 ACCESSKEY="N"
 >Next &#62;&#62;&#62;</A
 ></TD
@@ -75,7 +75,7 @@ NAME="DPGEN-SHIFT">DPGEN_SHIFT</H1
 ><DIV
 CLASS="REFNAMEDIV"
 ><A
-NAME="AEN2529"
+NAME="AEN2535"
 ></A
 ><H2
 >Name</H2
@@ -83,12 +83,12 @@ NAME="AEN2529"
 ><DIV
 CLASS="REFSYNOPSISDIV"
 ><A
-NAME="AEN2532"><H2
+NAME="AEN2538"><H2
 >Synopsis</H2
 ><DIV
 CLASS="FUNCSYNOPSIS"
 ><A
-NAME="AEN2533"><P
+NAME="AEN2539"><P
 ></P
 ><TABLE
 BORDER="0"
@@ -134,7 +134,7 @@ CLASS="PARAMETER"
 ><DIV
 CLASS="REFSECT1"
 ><A
-NAME="AEN2545"
+NAME="AEN2551"
 ></A
 ><H2
 > Description </H2
@@ -144,7 +144,7 @@ CLASS="REPLACEABLE"
 ><I
 >N</I
 ></TT
-> bits shifter named <TT
+> bits shifter with name <TT
 CLASS="REPLACEABLE"
 ><I
 >modelname</I
@@ -158,27 +158,26 @@ CLASS="REPLACEABLE"
 ><UL
 ><LI
 ><P
-> if <TT
+> if the <TT
 CLASS="LITERAL"
 >op[0]</TT
 > signal is set to <TT
 CLASS="LITERAL"
 >'1'</TT
-> perform
-        a right shift, left shift otherwise.
+> performs
+        a right shift, performs a left shift otherwise.
         </P
 ></LI
 ><LI
 ><P
-> if <TT
+> if the <TT
 CLASS="LITERAL"
 >op[1]</TT
 > signal is set to <TT
 CLASS="LITERAL"
 >'1'</TT
-> perform
-        a sign extention, i.e. an arithmetic shift (only meaningful in case
-        of a right shift).
+> performs
+        an arithmetic shift (only meaningful in case of a right shift).
         </P
 ></LI
 ><LI
@@ -186,18 +185,18 @@ CLASS="LITERAL"
 > <TT
 CLASS="LITERAL"
 >shamt</TT
-> : specify the shift amount. The wide of this signal
+> : specifies the shift amount. The width of this signal
         (<TT
 CLASS="REPLACEABLE"
 ><I
 >Y</I
 ></TT
->) is computed from the operator's wide :
+>) is computed from the operator's width :
         <TT
 CLASS="LITERAL"
->Y = log<SUB
+>Y = ceil(log<SUB
 >2</SUB
->(N) - 1</TT
+>(N)) - 1</TT
 >.
         </P
 ></LI
@@ -207,7 +206,7 @@ CLASS="LITERAL"
 ><DIV
 CLASS="REFSECT2"
 ><A
-NAME="AEN2566"
+NAME="AEN2572"
 ></A
 ><H3
 > Terminal Names </H3
@@ -237,10 +236,7 @@ CLASS="REPLACEABLE"
 ></LI
 ><LI
 ><P
-> <TT
-CLASS="LITERAL"
->i0</TT
-> : value to shift (input, <TT
+>  : value to shift (input, <TT
 CLASS="REPLACEABLE"
 ><I
 >N</I
@@ -249,10 +245,7 @@ CLASS="REPLACEABLE"
 ></LI
 ><LI
 ><P
-> <TT
-CLASS="LITERAL"
->q</TT
-> : output (<TT
+>  : output (<TT
 CLASS="REPLACEABLE"
 ><I
 >N</I
@@ -279,7 +272,7 @@ CLASS="LITERAL"
 ><DIV
 CLASS="REFSECT1"
 ><A
-NAME="AEN2590"
+NAME="AEN2594"
 ></A
 ><H2
 > Example </H2
@@ -292,20 +285,17 @@ WIDTH="100%"
 ><TD
 ><PRE
 CLASS="PROGRAMLISTING"
->GENLIB_MACRO(DPGEN_SHIFT, "model_shift_32"
-                        , F_BEHAV|F_PLACE
-                        , 32
-                        );
+>GENLIB_MACRO(DPGEN_SHIFT, "model_shift_32",
+                          F_BEHAV|F_PLACE,
+                          32);
 
-GENLIB_LOINS( "model_shift_32"
-            , "instance1_shift_32"
-            , "add_sub"
-            , "op[1:0]"
-            , "shamt[4:0]"
-            , "i0[31:0]"
-            ,  "q[31:0]"
-            , "vdd", "vss", NULL
-            );
+GENLIB_LOINS("model_shift_32",
+             "instance1_shift_32", 
+             "op[1:0]", 
+             "shamt[4:0]", 
+             "x[31:0]", 
+             "y[31:0]", 
+             "vdd", "vss", NULL);
     </PRE
 ></TD
 ></TR
@@ -316,7 +306,7 @@ GENLIB_LOINS( "model_shift_32"
 ><DIV
 CLASS="REFSECT1"
 ><A
-NAME="AEN2594"
+NAME="AEN2598"
 ></A
 ><H2
 >See Also</H2
@@ -377,7 +367,7 @@ WIDTH="33%"
 ALIGN="right"
 VALIGN="top"
 ><A
-HREF="man_dpgen_nul.html"
+HREF="man_dpgen_shrot.html"
 ACCESSKEY="N"
 >Next &#62;&#62;&#62;</A
 ></TD
@@ -401,7 +391,7 @@ ACCESSKEY="U"
 WIDTH="33%"
 ALIGN="right"
 VALIGN="top"
->DPGEN_NUL</TD
+>DPGEN_SHROT</TD
 ></TR
 ></TABLE
 ></DIV

@@ -30,6 +30,7 @@
 <!ENTITY man-dpgen-xnor2mask SYSTEM "man_dpgen_xnor2mask.sgm">
 <!ENTITY man-dpgen-adsb2f    SYSTEM "man_dpgen_adsb2f.sgm">
 <!ENTITY man-dpgen-shift     SYSTEM "man_dpgen_shift.sgm">
+<!ENTITY man-dpgen-shrot     SYSTEM "man_dpgen_shrot.sgm">
 <!ENTITY man-dpgen-nul       SYSTEM "man_dpgen_nul.sgm">
 <!ENTITY man-dpgen-const     SYSTEM "man_dpgen_const.sgm">
 <!ENTITY man-dpgen-rom2      SYSTEM "man_dpgen_rom2.sgm">
@@ -189,6 +190,7 @@
     &man-dpgen-xnor2mask;
     &man-dpgen-adsb2f;
     &man-dpgen-shift;
+    &man-dpgen-shrot;
     &man-dpgen-nul;
     &man-dpgen-const;
     &man-dpgen-rom2;

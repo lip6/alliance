@@ -12,6 +12,7 @@ EXTRA_DIST = $(pdf_DATA) \
              ./man_dpgen_see_also.sgm \
              ./man_dpgen_buff.sgm \
              ./man_dpgen_nand2.sgm \
+             ./man_dpgen_shift.sgm \
              ./man_dpgen_nand4.sgm \
              ./man_dpgen_nand3.sgm \
              ./man_dpgen_and2.sgm \
@@ -25,6 +26,7 @@ EXTRA_DIST = $(pdf_DATA) \
              ./man_dpgen_nor4.sgm \
              ./man_dpgen_xor2.sgm \
              ./man_dpgen_xnor2.sgm \
+             ./man_dpgen_shrot.sgm \
              ./man_dpgen_nmux2.sgm \
              ./man_dpgen_nbuse.sgm \
              ./man_dpgen_mux2.sgm \
@@ -33,7 +35,6 @@ EXTRA_DIST = $(pdf_DATA) \
              ./man_dpgen_nor2mask.sgm \
              ./man_dpgen_xnor2mask.sgm \
              ./man_dpgen_adsb2f.sgm \
-             ./man_dpgen_shift.sgm \
              ./man_dpgen_nul.sgm \
              ./man_dpgen_rom2.sgm \
              ./man_dpgen_rom4.sgm \
