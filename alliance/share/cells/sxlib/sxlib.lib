@@ -1,0 +1,3087 @@
+/* --------------------------------------------- */
+/* written by Franck LE DU and Franck Wajsburt   */
+/*                                               */
+/* DEF_SXLIB    modified : Sep 27, 1999          */
+/*                                               */
+/* This file is obtained from                    */
+/* the technolocal parameters contained in the   */
+/* VHDL generic data included in the .vbe files. */
+/* This file should not be edited directly.      */
+/*                                               */
+/* NOTE FOR NEW REVISION THAT ALL NON ZERO VALUE */
+/* MUST BE UPDATED TO THE NEW TECHNOLOGY AND ALL */
+/* ZERO VALUE SHOULD REMAIN ZERO (CHANGE         */
+/* DEFAULT_WIRE_LOAD_RESISTANCE MAY HAVE NO      */
+/* EFFECT SINCE ALL USEFUL PARAMETER REQUIRED TO */
+/* TAKE RESISTANCE INTO ACCOUNT ARE NOT DEFINED  */
+/* IN THIS FILE                                  */
+/* --------------------------------------------- */
+
+library (sxlib) {
+
+    date        : "Mon Sep 27 18:56:01 MET DST 1999";
+    revision    : 1.2;
+
+    /* --------------------------------------------- */
+    /*  Set of default values required for Synopsys  */
+    /*  technology library generation                */
+    /* --------------------------------------------- */
+
+    /* --------------------------------------------- */
+    /* default values intended to represent a        */
+    /* typical na2_x1 cell                           */
+    /* --------------------------------------------- */
+
+    default_inout_pin_cap        :  0.011;	/* pf=<grid capa> + <pin capa> */
+    default_inout_pin_fall_res   :  2.820;	/* kOhms */
+    default_inout_pin_rise_res   :  3.710;	/* kOhms */
+    default_input_pin_cap        :  0.011;	/* pf=<grid capa> + <pin capa> */
+    default_intrinsic_fall       :  0.057;	/* ns */
+    default_intrinsic_rise       :  0.057;	/* ns */
+    default_output_pin_cap       :  0;   	/* must be 0 */
+    default_output_pin_fall_res  :  2.820;	/* kOhms */
+    default_output_pin_rise_res  :  3.710;	/* kOhms */
+    default_slope_fall           :  0.1; 	/* worst case meaning propagation */
+                                         	/* time is delayed of .1 the */
+                                         	/* transition time of the previous*/
+                                         	/* gate                           */
+    default_slope_rise           :  0.1; 	/* idem */
+    default_fanout_load          :  0.011;	/* max of input capacities in pF  */
+    default_max_fanout           :  0.078;	/* max output capacitance in pF   */
+                                         	/* computed in order to a inv_x1   */
+                                         	/* be able to drive 10 inv_x1      */
+
+    /* --------------------------------------------- */
+    /* default_wire_load_capacitance in pf/lambda    */
+    /* is capacitance-per-unit-length value of       */
+    /* the routing wire                              */
+    /* --------------------------------------------- */
+
+    default_wire_load_capacitance : 0.00015;/* pf/lambda */
+    default_wire_load_resistance  : 0;      /* must be 0 */
+    default_wire_load_area        : 0;      /* must be 0 */
+    default_wire_load_mode        : enclosed;/* top/segmented/enclosed */
+
+    /* --------------------------------------------- */
+    /* all these parameters are neglected since      */
+    /* we choose to only time design with worst case */
+    /* operating conditions (must be 0)              */
+    /* --------------------------------------------- */
+
+    k_process_drive_fall         : 0.0;
+    k_process_drive_rise         : 0.0;
+    k_process_intrinsic_fall     : 0.0;
+    k_process_intrinsic_rise     : 0.0;
+    k_process_pin_cap            : 0.0;
+    k_process_slope_fall         : 0.0;
+    k_process_slope_rise         : 0.0;
+    k_process_wire_cap           : 0.0;
+    k_process_wire_res           : 0.0;
+    k_temp_drive_fall            : 0.0;
+    k_temp_drive_rise            : 0.0;
+    k_temp_intrinsic_fall        : 0.0;
+    k_temp_intrinsic_rise        : 0.0;
+    k_temp_pin_cap               : 0.0;
+    k_temp_slope_fall            : 0.0;
+    k_temp_slope_rise            : 0.0;
+    k_temp_wire_cap              : 0.0;
+    k_temp_wire_res              : 0.0;
+    k_volt_drive_fall            : 0.0;
+    k_volt_drive_rise            : 0.0;
+    k_volt_intrinsic_fall        : 0.0;
+    k_volt_intrinsic_rise        : 0.0;
+    k_volt_pin_cap               : 0.0;
+    k_volt_slope_fall            : 0.0;
+    k_volt_slope_rise            : 0.0;
+    k_volt_wire_cap              : 0.0;
+    k_volt_wire_res              : 0.0;
+
+    /* -------------------------------------------- */
+    /* values given as information (unused for      */
+    /* timing design computation)                   */
+    /* -------------------------------------------- */
+
+    time_unit                    : "1ns";
+    voltage_unit                 : "1V";
+    current_unit                 : "1uA";
+    pulling_resistance_unit      : "1kohm";
+    capacitive_load_unit           (1,pf);
+
+    /* -------------------------------------------- */
+    /* Operating conditions                         */
+    /* -------------------------------------------- */
+
+    nom_process                  :  1.5;
+    nom_temperature              : 70.0;
+    nom_voltage                  :  3.0;
+
+    in_place_swap_mode           : match_footprint;
+
+    /* -------------------------------------------- */
+    /* slope and fanout_length are expressed        */
+    /* in lambda. it represents the average wire    */
+    /* length from the driver output to one of the  */
+    /* following input. It means it needs 50        */
+    /* lambdas of wire to connect 2 cells whatever  */
+    /* in small case                                */
+    /* -------------------------------------------- */
+
+    wire_load("small") {
+        resistance              : 0 ;       /* must be 0 */
+        capacitance             : 0.00015 ; /* pf/lambda */
+        area                    : 0 ;       /* must be 0 */
+        slope                   : 50;       /* lambda */
+        fanout_length(1,50) ; /* first parameter must be 1, second in lambda */
+    }
+    wire_load("medium") {
+        resistance              : 0 ;       /* must be 0 */
+        capacitance             : 0.00015 ; /* pf/lambda */
+        area                    : 0 ;       /* must be 0 */
+        slope                   : 100;       /* lambda */
+        fanout_length(1,100) ; /* first parameter must be 1, second in lambda */
+    }
+    wire_load("big") {
+        resistance              : 0 ;       /* must be 0 */
+        capacitance             : 0.00015 ; /* pf/lambda */
+        area                    : 0 ;       /* must be 0 */
+        slope                   : 200;       /* lambda */
+        fanout_length(1,200) ; /* first parameter must be 1, second in lambda */
+    }
+
+    wire_load_selection(medium) {
+        wire_load_from_area(0,500,"small");     /* less about  200 gates */
+        wire_load_from_area(500,1500,"medium"); /* less about  500 gates */
+        wire_load_from_area(1500,3000,"big");   /* less about 1000 gates */
+    }
+    default_wire_load_selection : medium
+
+    /*---------------------------------------------- */
+    /* Combinationnal cells part 1                   */
+    /*---------------------------------------------- */
+
+    cell (buf_x2) {
+        area : 1.3  /* pitchs */
+        cell_footprint : "buf";
+        pin(i) {
+            direction   : input;
+            capacitance : 0.006;
+            fanout_load : 0.006;
+        }
+        pin(q) {
+            direction  : output;
+            max_fanout : 0.162;
+            function : "i";
+            timing() {
+                timing_sense    : positive_unate;
+                intrinsic_rise  : 0.408;
+                intrinsic_fall  : 0.389;
+                rise_resistance : 1.780;
+                fall_resistance : 1.600;
+                related_pin     : "i";
+            }
+        }
+    }
+    cell (buf_x4) {
+        area : 1.7  /* pitchs */
+        cell_footprint : "buf";
+        pin(i) {
+            direction   : input;
+            capacitance : 0.009;
+            fanout_load : 0.009;
+        }
+        pin(q) {
+            direction  : output;
+            max_fanout : 0.324;
+            function : "i";
+            timing() {
+                timing_sense    : positive_unate;
+                intrinsic_rise  : 0.377;
+                intrinsic_fall  : 0.408;
+                rise_resistance : 0.890;
+                fall_resistance : 0.800;
+                related_pin     : "i";
+            }
+        }
+    }
+    cell (buf_x8) {
+        area : 2.7  /* pitchs */
+        cell_footprint : "buf";
+        pin(i) {
+            direction   : input;
+            capacitance : 0.015;
+            fanout_load : 0.015;
+        }
+        pin(q) {
+            direction  : output;
+            max_fanout : 0.656;
+            function : "i";
+            timing() {
+                timing_sense    : positive_unate;
+                intrinsic_rise  : 0.339;
+                intrinsic_fall  : 0.395;
+                rise_resistance : 0.440;
+                fall_resistance : 0.400;
+                related_pin     : "i";
+            }
+        }
+    }
+    cell (inv_x1) {
+        area : 1.0  /* pitchs */
+        cell_footprint : "inv";
+        pin(i) {
+            direction   : input;
+            capacitance : 0.008;
+            fanout_load : 0.008;
+        }
+        pin(nq) {
+            direction  : output;
+            max_fanout : 0.078;
+            function : "i'";
+            timing() {
+                timing_sense    : negative_unate;
+                intrinsic_rise  : 0.100;
+                intrinsic_fall  : 0.139;
+                rise_resistance : 3.710;
+                fall_resistance : 3.610;
+                related_pin     : "i";
+            }
+        }
+    }
+    cell (inv_x2) {
+        area : 1.0  /* pitchs */
+        cell_footprint : "inv";
+        pin(i) {
+            direction   : input;
+            capacitance : 0.012;
+            fanout_load : 0.012;
+        }
+        pin(nq) {
+            direction  : output;
+            max_fanout : 0.120;
+            function : "i'";
+            timing() {
+                timing_sense    : negative_unate;
+                intrinsic_rise  : 0.068;
+                intrinsic_fall  : 0.162;
+                rise_resistance : 2.410;
+                fall_resistance : 1.600;
+                related_pin     : "i";
+            }
+        }
+    }
+    cell (inv_x4) {
+        area : 1.3  /* pitchs */
+        cell_footprint : "inv";
+        pin(i) {
+            direction   : input;
+            capacitance : 0.026;
+            fanout_load : 0.026;
+        }
+        pin(nq) {
+            direction  : output;
+            max_fanout : 0.272;
+            function : "i'";
+            timing() {
+                timing_sense    : negative_unate;
+                intrinsic_rise  : 0.070;
+                intrinsic_fall  : 0.142;
+                rise_resistance : 1.060;
+                fall_resistance : 0.800;
+                related_pin     : "i";
+            }
+        }
+    }
+    cell (inv_x8) {
+        area : 2.3  /* pitchs */
+        cell_footprint : "inv";
+        pin(i) {
+            direction   : input;
+            capacitance : 0.054;
+            fanout_load : 0.054;
+        }
+        pin(nq) {
+            direction  : output;
+            max_fanout : 0.656;
+            function : "i'";
+            timing() {
+                timing_sense    : negative_unate;
+                intrinsic_rise  : 0.084;
+                intrinsic_fall  : 0.132;
+                rise_resistance : 0.440;
+                fall_resistance : 0.400;
+                related_pin     : "i";
+            }
+        }
+    }
+    cell (o2_x2) {
+        area : 1.7  /* pitchs */
+        cell_footprint : "o2";
+        pin(i0) {
+            direction   : input;
+            capacitance : 0.010;
+            fanout_load : 0.010;
+        }
+        pin(i1) {
+            direction   : input;
+            capacitance : 0.010;
+            fanout_load : 0.010;
+        }
+        pin(q) {
+            direction  : output;
+            max_fanout : 0.162;
+            function : "(i0 + i1)";
+            timing() {
+                timing_sense    : positive_unate;
+                intrinsic_rise  : 0.403;
+                intrinsic_fall  : 0.296;
+                rise_resistance : 1.780;
+                fall_resistance : 1.600;
+                related_pin     : "i0";
+            }
+            timing() {
+                timing_sense    : positive_unate;
+                intrinsic_rise  : 0.332;
+                intrinsic_fall  : 0.363;
+                rise_resistance : 1.780;
+                fall_resistance : 1.600;
+                related_pin     : "i1";
+            }
+        }
+    }
+    cell (o2_x4) {
+        area : 2.0  /* pitchs */
+        cell_footprint : "o2";
+        pin(i0) {
+            direction   : input;
+            capacitance : 0.010;
+            fanout_load : 0.010;
+        }
+        pin(i1) {
+            direction   : input;
+            capacitance : 0.010;
+            fanout_load : 0.010;
+        }
+        pin(q) {
+            direction  : output;
+            max_fanout : 0.324;
+            function : "(i0 + i1)";
+            timing() {
+                timing_sense    : positive_unate;
+                intrinsic_rise  : 0.487;
+                intrinsic_fall  : 0.381;
+                rise_resistance : 0.890;
+                fall_resistance : 0.800;
+                related_pin     : "i0";
+            }
+            timing() {
+                timing_sense    : positive_unate;
+                intrinsic_rise  : 0.423;
+                intrinsic_fall  : 0.462;
+                rise_resistance : 0.890;
+                fall_resistance : 0.800;
+                related_pin     : "i1";
+            }
+        }
+    }
+    cell (o3_x2) {
+        area : 2.0  /* pitchs */
+        cell_footprint : "o3";
+        pin(i0) {
+            direction   : input;
+            capacitance : 0.010;
+            fanout_load : 0.010;
+        }
+        pin(i1) {
+            direction   : input;
+            capacitance : 0.010;
+            fanout_load : 0.010;
+        }
+        pin(i2) {
+            direction   : input;
+            capacitance : 0.009;
+            fanout_load : 0.009;
+        }
+        pin(q) {
+            direction  : output;
+            max_fanout : 0.162;
+            function : "(i0 + i1 + i2)";
+            timing() {
+                timing_sense    : positive_unate;
+                intrinsic_rise  : 0.491;
+                intrinsic_fall  : 0.405;
+                rise_resistance : 1.780;
+                fall_resistance : 1.600;
+                related_pin     : "i0";
+            }
+            timing() {
+                timing_sense    : positive_unate;
+                intrinsic_rise  : 0.427;
+                intrinsic_fall  : 0.480;
+                rise_resistance : 1.780;
+                fall_resistance : 1.600;
+                related_pin     : "i1";
+            }
+            timing() {
+                timing_sense    : positive_unate;
+                intrinsic_rise  : 0.358;
+                intrinsic_fall  : 0.504;
+                rise_resistance : 1.780;
+                fall_resistance : 1.600;
+                related_pin     : "i2";
+            }
+        }
+    }
+    cell (o3_x4) {
+        area : 2.3  /* pitchs */
+        cell_footprint : "o3";
+        pin(i0) {
+            direction   : input;
+            capacitance : 0.010;
+            fanout_load : 0.010;
+        }
+        pin(i1) {
+            direction   : input;
+            capacitance : 0.010;
+            fanout_load : 0.010;
+        }
+        pin(i2) {
+            direction   : input;
+            capacitance : 0.009;
+            fanout_load : 0.009;
+        }
+        pin(q) {
+            direction  : output;
+            max_fanout : 0.324;
+            function : "(i0 + i1 + i2)";
+            timing() {
+                timing_sense    : positive_unate;
+                intrinsic_rise  : 0.565;
+                intrinsic_fall  : 0.499;
+                rise_resistance : 0.890;
+                fall_resistance : 0.800;
+                related_pin     : "i0";
+            }
+            timing() {
+                timing_sense    : positive_unate;
+                intrinsic_rise  : 0.507;
+                intrinsic_fall  : 0.583;
+                rise_resistance : 0.890;
+                fall_resistance : 0.800;
+                related_pin     : "i1";
+            }
+            timing() {
+                timing_sense    : positive_unate;
+                intrinsic_rise  : 0.444;
+                intrinsic_fall  : 0.620;
+                rise_resistance : 0.890;
+                fall_resistance : 0.800;
+                related_pin     : "i2";
+            }
+        }
+    }
+    cell (o4_x2) {
+        area : 2.3  /* pitchs */
+        cell_footprint : "o4";
+        pin(i0) {
+            direction   : input;
+            capacitance : 0.010;
+            fanout_load : 0.010;
+        }
+        pin(i1) {
+            direction   : input;
+            capacitance : 0.010;
+            fanout_load : 0.010;
+        }
+        pin(i2) {
+            direction   : input;
+            capacitance : 0.010;
+            fanout_load : 0.010;
+        }
+        pin(i3) {
+            direction   : input;
+            capacitance : 0.009;
+            fanout_load : 0.009;
+        }
+        pin(q) {
+            direction  : output;
+            max_fanout : 0.162;
+            function : "(i0 + i1 + i2 + i3)";
+            timing() {
+                timing_sense    : positive_unate;
+                intrinsic_rise  : 0.505;
+                intrinsic_fall  : 0.589;
+                rise_resistance : 1.780;
+                fall_resistance : 1.600;
+                related_pin     : "i0";
+            }
+            timing() {
+                timing_sense    : positive_unate;
+                intrinsic_rise  : 0.443;
+                intrinsic_fall  : 0.619;
+                rise_resistance : 1.780;
+                fall_resistance : 1.600;
+                related_pin     : "i1";
+            }
+            timing() {
+                timing_sense    : positive_unate;
+                intrinsic_rise  : 0.564;
+                intrinsic_fall  : 0.520;
+                rise_resistance : 1.780;
+                fall_resistance : 1.600;
+                related_pin     : "i2";
+            }
+            timing() {
+                timing_sense    : positive_unate;
+                intrinsic_rise  : 0.376;
+                intrinsic_fall  : 0.624;
+                rise_resistance : 1.780;
+                fall_resistance : 1.600;
+                related_pin     : "i3";
+            }
+        }
+    }
+    cell (o4_x4) {
+        area : 2.7  /* pitchs */
+        cell_footprint : "o4";
+        pin(i0) {
+            direction   : input;
+            capacitance : 0.012;
+            fanout_load : 0.012;
+        }
+        pin(i1) {
+            direction   : input;
+            capacitance : 0.012;
+            fanout_load : 0.012;
+        }
+        pin(i2) {
+            direction   : input;
+            capacitance : 0.012;
+            fanout_load : 0.012;
+        }
+        pin(i3) {
+            direction   : input;
+            capacitance : 0.012;
+            fanout_load : 0.012;
+        }
+        pin(q) {
+            direction  : output;
+            max_fanout : 0.324;
+            function : "(i0 + i1 + i2 + i3)";
+            timing() {
+                timing_sense    : positive_unate;
+                intrinsic_rise  : 0.570;
+                intrinsic_fall  : 0.635;
+                rise_resistance : 0.890;
+                fall_resistance : 0.800;
+                related_pin     : "i0";
+            }
+            timing() {
+                timing_sense    : positive_unate;
+                intrinsic_rise  : 0.489;
+                intrinsic_fall  : 0.640;
+                rise_resistance : 0.890;
+                fall_resistance : 0.800;
+                related_pin     : "i1";
+            }
+            timing() {
+                timing_sense    : positive_unate;
+                intrinsic_rise  : 0.646;
+                intrinsic_fall  : 0.609;
+                rise_resistance : 0.890;
+                fall_resistance : 0.800;
+                related_pin     : "i2";
+            }
+            timing() {
+                timing_sense    : positive_unate;
+                intrinsic_rise  : 0.717;
+                intrinsic_fall  : 0.533;
+                rise_resistance : 0.890;
+                fall_resistance : 0.800;
+                related_pin     : "i3";
+            }
+        }
+    }
+    cell (no2_x1) {
+        area : 1.3  /* pitchs */
+        cell_footprint : "no2";
+        pin(i0) {
+            direction   : input;
+            capacitance : 0.012;
+            fanout_load : 0.012;
+        }
+        pin(i1) {
+            direction   : input;
+            capacitance : 0.012;
+            fanout_load : 0.012;
+        }
+        pin(nq) {
+            direction  : output;
+            max_fanout : 0.080;
+            function : "(i0 + i1)'";
+            timing() {
+                timing_sense    : negative_unate;
+                intrinsic_rise  : 0.303;
+                intrinsic_fall  : 0.121;
+                rise_resistance : 3.200;
+                fall_resistance : 3.610;
+                related_pin     : "i0";
+            }
+            timing() {
+                timing_sense    : negative_unate;
+                intrinsic_rise  : 0.199;
+                intrinsic_fall  : 0.161;
+                rise_resistance : 3.200;
+                fall_resistance : 3.610;
+                related_pin     : "i1";
+            }
+        }
+    }
+    cell (no2_x4) {
+        area : 2.3  /* pitchs */
+        cell_footprint : "no2";
+        pin(i0) {
+            direction   : input;
+            capacitance : 0.012;
+            fanout_load : 0.012;
+        }
+        pin(i1) {
+            direction   : input;
+            capacitance : 0.011;
+            fanout_load : 0.011;
+        }
+        pin(nq) {
+            direction  : output;
+            max_fanout : 0.324;
+            function : "(i0 + i1)'";
+            timing() {
+                timing_sense    : negative_unate;
+                intrinsic_rise  : 0.610;
+                intrinsic_fall  : 0.444;
+                rise_resistance : 0.890;
+                fall_resistance : 0.800;
+                related_pin     : "i0";
+            }
+            timing() {
+                timing_sense    : negative_unate;
+                intrinsic_rise  : 0.515;
+                intrinsic_fall  : 0.494;
+                rise_resistance : 0.890;
+                fall_resistance : 0.800;
+                related_pin     : "i1";
+            }
+        }
+    }
+    cell (no3_x1) {
+        area : 1.7  /* pitchs */
+        cell_footprint : "no3";
+        pin(i0) {
+            direction   : input;
+            capacitance : 0.012;
+            fanout_load : 0.012;
+        }
+        pin(i1) {
+            direction   : input;
+            capacitance : 0.012;
+            fanout_load : 0.012;
+        }
+        pin(i2) {
+            direction   : input;
+            capacitance : 0.012;
+            fanout_load : 0.012;
+        }
+        pin(nq) {
+            direction  : output;
+            max_fanout : 0.062;
+            function : "(i0 + i1 + i2)'";
+            timing() {
+                timing_sense    : negative_unate;
+                intrinsic_rise  : 0.322;
+                intrinsic_fall  : 0.246;
+                rise_resistance : 4.670;
+                fall_resistance : 3.610;
+                related_pin     : "i0";
+            }
+            timing() {
+                timing_sense    : negative_unate;
+                intrinsic_rise  : 0.221;
+                intrinsic_fall  : 0.243;
+                rise_resistance : 4.670;
+                fall_resistance : 3.610;
+                related_pin     : "i1";
+            }
+            timing() {
+                timing_sense    : negative_unate;
+                intrinsic_rise  : 0.410;
+                intrinsic_fall  : 0.191;
+                rise_resistance : 4.670;
+                fall_resistance : 3.610;
+                related_pin     : "i2";
+            }
+        }
+    }
+    cell (no3_x4) {
+        area : 2.7  /* pitchs */
+        cell_footprint : "no3";
+        pin(i0) {
+            direction   : input;
+            capacitance : 0.012;
+            fanout_load : 0.012;
+        }
+        pin(i1) {
+            direction   : input;
+            capacitance : 0.012;
+            fanout_load : 0.012;
+        }
+        pin(i2) {
+            direction   : input;
+            capacitance : 0.011;
+            fanout_load : 0.011;
+        }
+        pin(nq) {
+            direction  : output;
+            max_fanout : 0.324;
+            function : "(i0 + i1 + i2)'";
+            timing() {
+                timing_sense    : negative_unate;
+                intrinsic_rise  : 0.717;
+                intrinsic_fall  : 0.553;
+                rise_resistance : 0.890;
+                fall_resistance : 0.800;
+                related_pin     : "i0";
+            }
+            timing() {
+                timing_sense    : negative_unate;
+                intrinsic_rise  : 0.634;
+                intrinsic_fall  : 0.616;
+                rise_resistance : 0.890;
+                fall_resistance : 0.800;
+                related_pin     : "i1";
+            }
+            timing() {
+                timing_sense    : negative_unate;
+                intrinsic_rise  : 0.541;
+                intrinsic_fall  : 0.632;
+                rise_resistance : 0.890;
+                fall_resistance : 0.800;
+                related_pin     : "i2";
+            }
+        }
+    }
+    cell (no4_x1) {
+        area : 2.0  /* pitchs */
+        cell_footprint : "no4";
+        pin(i0) {
+            direction   : input;
+            capacitance : 0.012;
+            fanout_load : 0.012;
+        }
+        pin(i1) {
+            direction   : input;
+            capacitance : 0.012;
+            fanout_load : 0.012;
+        }
+        pin(i2) {
+            direction   : input;
+            capacitance : 0.012;
+            fanout_load : 0.012;
+        }
+        pin(i3) {
+            direction   : input;
+            capacitance : 0.012;
+            fanout_load : 0.012;
+        }
+        pin(nq) {
+            direction  : output;
+            max_fanout : 0.047;
+            function : "(i0 + i1 + i2 + i3)'";
+            timing() {
+                timing_sense    : negative_unate;
+                intrinsic_rise  : 0.334;
+                intrinsic_fall  : 0.339;
+                rise_resistance : 6.170;
+                fall_resistance : 3.610;
+                related_pin     : "i0";
+            }
+            timing() {
+                timing_sense    : negative_unate;
+                intrinsic_rise  : 0.235;
+                intrinsic_fall  : 0.319;
+                rise_resistance : 6.170;
+                fall_resistance : 3.610;
+                related_pin     : "i1";
+            }
+            timing() {
+                timing_sense    : negative_unate;
+                intrinsic_rise  : 0.421;
+                intrinsic_fall  : 0.332;
+                rise_resistance : 6.170;
+                fall_resistance : 3.610;
+                related_pin     : "i2";
+            }
+            timing() {
+                timing_sense    : negative_unate;
+                intrinsic_rise  : 0.501;
+                intrinsic_fall  : 0.270;
+                rise_resistance : 6.170;
+                fall_resistance : 3.610;
+                related_pin     : "i3";
+            }
+        }
+    }
+    cell (no4_x4) {
+        area : 3.3  /* pitchs */
+        cell_footprint : "no4";
+        pin(i0) {
+            direction   : input;
+            capacitance : 0.012;
+            fanout_load : 0.012;
+        }
+        pin(i1) {
+            direction   : input;
+            capacitance : 0.012;
+            fanout_load : 0.012;
+        }
+        pin(i2) {
+            direction   : input;
+            capacitance : 0.012;
+            fanout_load : 0.012;
+        }
+        pin(i3) {
+            direction   : input;
+            capacitance : 0.012;
+            fanout_load : 0.012;
+        }
+        pin(nq) {
+            direction  : output;
+            max_fanout : 0.324;
+            function : "(i0 + i1 + i2 + i3)'";
+            timing() {
+                timing_sense    : negative_unate;
+                intrinsic_rise  : 0.657;
+                intrinsic_fall  : 0.771;
+                rise_resistance : 0.890;
+                fall_resistance : 0.800;
+                related_pin     : "i0";
+            }
+            timing() {
+                timing_sense    : negative_unate;
+                intrinsic_rise  : 0.567;
+                intrinsic_fall  : 0.762;
+                rise_resistance : 0.890;
+                fall_resistance : 0.800;
+                related_pin     : "i1";
+            }
+            timing() {
+                timing_sense    : negative_unate;
+                intrinsic_rise  : 0.739;
+                intrinsic_fall  : 0.755;
+                rise_resistance : 0.890;
+                fall_resistance : 0.800;
+                related_pin     : "i2";
+            }
+            timing() {
+                timing_sense    : negative_unate;
+                intrinsic_rise  : 0.815;
+                intrinsic_fall  : 0.687;
+                rise_resistance : 0.890;
+                fall_resistance : 0.800;
+                related_pin     : "i3";
+            }
+        }
+    }
+    cell (a2_x2) {
+        area : 1.7  /* pitchs */
+        cell_footprint : "a2";
+        pin(i0) {
+            direction   : input;
+            capacitance : 0.009;
+            fanout_load : 0.009;
+        }
+        pin(i1) {
+            direction   : input;
+            capacitance : 0.011;
+            fanout_load : 0.011;
+        }
+        pin(q) {
+            direction  : output;
+            max_fanout : 0.162;
+            function : "(i0 * i1)";
+            timing() {
+                timing_sense    : positive_unate;
+                intrinsic_rise  : 0.259;
+                intrinsic_fall  : 0.394;
+                rise_resistance : 1.780;
+                fall_resistance : 1.600;
+                related_pin     : "i0";
+            }
+            timing() {
+                timing_sense    : positive_unate;
+                intrinsic_rise  : 0.201;
+                intrinsic_fall  : 0.440;
+                rise_resistance : 1.780;
+                fall_resistance : 1.600;
+                related_pin     : "i1";
+            }
+        }
+    }
+    cell (a2_x4) {
+        area : 2.0  /* pitchs */
+        cell_footprint : "a2";
+        pin(i0) {
+            direction   : input;
+            capacitance : 0.009;
+            fanout_load : 0.009;
+        }
+        pin(i1) {
+            direction   : input;
+            capacitance : 0.011;
+            fanout_load : 0.011;
+        }
+        pin(q) {
+            direction  : output;
+            max_fanout : 0.324;
+            function : "(i0 * i1)";
+            timing() {
+                timing_sense    : positive_unate;
+                intrinsic_rise  : 0.334;
+                intrinsic_fall  : 0.479;
+                rise_resistance : 0.890;
+                fall_resistance : 0.800;
+                related_pin     : "i0";
+            }
+            timing() {
+                timing_sense    : positive_unate;
+                intrinsic_rise  : 0.261;
+                intrinsic_fall  : 0.521;
+                rise_resistance : 0.890;
+                fall_resistance : 0.800;
+                related_pin     : "i1";
+            }
+        }
+    }
+    cell (a3_x2) {
+        area : 2.0  /* pitchs */
+        cell_footprint : "a3";
+        pin(i0) {
+            direction   : input;
+            capacitance : 0.010;
+            fanout_load : 0.010;
+        }
+        pin(i1) {
+            direction   : input;
+            capacitance : 0.010;
+            fanout_load : 0.010;
+        }
+        pin(i2) {
+            direction   : input;
+            capacitance : 0.010;
+            fanout_load : 0.010;
+        }
+        pin(q) {
+            direction  : output;
+            max_fanout : 0.162;
+            function : "(i0 * i1 * i2)";
+            timing() {
+                timing_sense    : positive_unate;
+                intrinsic_rise  : 0.391;
+                intrinsic_fall  : 0.440;
+                rise_resistance : 1.780;
+                fall_resistance : 1.600;
+                related_pin     : "i0";
+            }
+            timing() {
+                timing_sense    : positive_unate;
+                intrinsic_rise  : 0.349;
+                intrinsic_fall  : 0.483;
+                rise_resistance : 1.780;
+                fall_resistance : 1.600;
+                related_pin     : "i1";
+            }
+            timing() {
+                timing_sense    : positive_unate;
+                intrinsic_rise  : 0.286;
+                intrinsic_fall  : 0.525;
+                rise_resistance : 1.780;
+                fall_resistance : 1.600;
+                related_pin     : "i2";
+            }
+        }
+    }
+    cell (a3_x4) {
+        area : 2.3  /* pitchs */
+        cell_footprint : "a3";
+        pin(i0) {
+            direction   : input;
+            capacitance : 0.010;
+            fanout_load : 0.010;
+        }
+        pin(i1) {
+            direction   : input;
+            capacitance : 0.010;
+            fanout_load : 0.010;
+        }
+        pin(i2) {
+            direction   : input;
+            capacitance : 0.010;
+            fanout_load : 0.010;
+        }
+        pin(q) {
+            direction  : output;
+            max_fanout : 0.324;
+            function : "(i0 * i1 * i2)";
+            timing() {
+                timing_sense    : positive_unate;
+                intrinsic_rise  : 0.473;
+                intrinsic_fall  : 0.518;
+                rise_resistance : 0.890;
+                fall_resistance : 0.800;
+                related_pin     : "i0";
+            }
+            timing() {
+                timing_sense    : positive_unate;
+                intrinsic_rise  : 0.423;
+                intrinsic_fall  : 0.558;
+                rise_resistance : 0.890;
+                fall_resistance : 0.800;
+                related_pin     : "i1";
+            }
+            timing() {
+                timing_sense    : positive_unate;
+                intrinsic_rise  : 0.352;
+                intrinsic_fall  : 0.596;
+                rise_resistance : 0.890;
+                fall_resistance : 0.800;
+                related_pin     : "i2";
+            }
+        }
+    }
+    cell (a4_x2) {
+        area : 2.3  /* pitchs */
+        cell_footprint : "a4";
+        pin(i0) {
+            direction   : input;
+            capacitance : 0.010;
+            fanout_load : 0.010;
+        }
+        pin(i1) {
+            direction   : input;
+            capacitance : 0.010;
+            fanout_load : 0.010;
+        }
+        pin(i2) {
+            direction   : input;
+            capacitance : 0.010;
+            fanout_load : 0.010;
+        }
+        pin(i3) {
+            direction   : input;
+            capacitance : 0.010;
+            fanout_load : 0.010;
+        }
+        pin(q) {
+            direction  : output;
+            max_fanout : 0.162;
+            function : "(i0 * i1 * i2 * i3)";
+            timing() {
+                timing_sense    : positive_unate;
+                intrinsic_rise  : 0.370;
+                intrinsic_fall  : 0.582;
+                rise_resistance : 1.780;
+                fall_resistance : 1.600;
+                related_pin     : "i0";
+            }
+            timing() {
+                timing_sense    : positive_unate;
+                intrinsic_rise  : 0.436;
+                intrinsic_fall  : 0.543;
+                rise_resistance : 1.780;
+                fall_resistance : 1.600;
+                related_pin     : "i1";
+            }
+            timing() {
+                timing_sense    : positive_unate;
+                intrinsic_rise  : 0.477;
+                intrinsic_fall  : 0.502;
+                rise_resistance : 1.780;
+                fall_resistance : 1.600;
+                related_pin     : "i2";
+            }
+            timing() {
+                timing_sense    : positive_unate;
+                intrinsic_rise  : 0.501;
+                intrinsic_fall  : 0.460;
+                rise_resistance : 1.780;
+                fall_resistance : 1.600;
+                related_pin     : "i3";
+            }
+        }
+    }
+    cell (a4_x4) {
+        area : 2.7  /* pitchs */
+        cell_footprint : "a4";
+        pin(i0) {
+            direction   : input;
+            capacitance : 0.010;
+            fanout_load : 0.010;
+        }
+        pin(i1) {
+            direction   : input;
+            capacitance : 0.010;
+            fanout_load : 0.010;
+        }
+        pin(i2) {
+            direction   : input;
+            capacitance : 0.010;
+            fanout_load : 0.010;
+        }
+        pin(i3) {
+            direction   : input;
+            capacitance : 0.010;
+            fanout_load : 0.010;
+        }
+        pin(q) {
+            direction  : output;
+            max_fanout : 0.324;
+            function : "(i0 * i1 * i2 * i3)";
+            timing() {
+                timing_sense    : positive_unate;
+                intrinsic_rise  : 0.499;
+                intrinsic_fall  : 0.653;
+                rise_resistance : 0.890;
+                fall_resistance : 0.530;
+                related_pin     : "i0";
+            }
+            timing() {
+                timing_sense    : positive_unate;
+                intrinsic_rise  : 0.572;
+                intrinsic_fall  : 0.618;
+                rise_resistance : 0.890;
+                fall_resistance : 0.530;
+                related_pin     : "i1";
+            }
+            timing() {
+                timing_sense    : positive_unate;
+                intrinsic_rise  : 0.620;
+                intrinsic_fall  : 0.581;
+                rise_resistance : 0.890;
+                fall_resistance : 0.530;
+                related_pin     : "i2";
+            }
+            timing() {
+                timing_sense    : positive_unate;
+                intrinsic_rise  : 0.654;
+                intrinsic_fall  : 0.543;
+                rise_resistance : 0.890;
+                fall_resistance : 0.530;
+                related_pin     : "i3";
+            }
+        }
+    }
+    cell (na2_x1) {
+        area : 1.3  /* pitchs */
+        cell_footprint : "na2";
+        pin(i0) {
+            direction   : input;
+            capacitance : 0.011;
+            fanout_load : 0.011;
+        }
+        pin(i1) {
+            direction   : input;
+            capacitance : 0.011;
+            fanout_load : 0.011;
+        }
+        pin(nq) {
+            direction  : output;
+            max_fanout : 0.078;
+            function : "(i0 * i1)'";
+            timing() {
+                timing_sense    : negative_unate;
+                intrinsic_rise  : 0.057;
+                intrinsic_fall  : 0.294;
+                rise_resistance : 3.710;
+                fall_resistance : 2.820;
+                related_pin     : "i0";
+            }
+            timing() {
+                timing_sense    : negative_unate;
+                intrinsic_rise  : 0.109;
+                intrinsic_fall  : 0.242;
+                rise_resistance : 3.710;
+                fall_resistance : 2.820;
+                related_pin     : "i1";
+            }
+        }
+    }
+    cell (na2_x4) {
+        area : 2.3  /* pitchs */
+        cell_footprint : "na2";
+        pin(i0) {
+            direction   : input;
+            capacitance : 0.010;
+            fanout_load : 0.010;
+        }
+        pin(i1) {
+            direction   : input;
+            capacitance : 0.010;
+            fanout_load : 0.010;
+        }
+        pin(nq) {
+            direction  : output;
+            max_fanout : 0.324;
+            function : "(i0 * i1)'";
+            timing() {
+                timing_sense    : negative_unate;
+                intrinsic_rise  : 0.408;
+                intrinsic_fall  : 0.557;
+                rise_resistance : 0.890;
+                fall_resistance : 0.800;
+                related_pin     : "i0";
+            }
+            timing() {
+                timing_sense    : negative_unate;
+                intrinsic_rise  : 0.349;
+                intrinsic_fall  : 0.606;
+                rise_resistance : 0.890;
+                fall_resistance : 0.800;
+                related_pin     : "i1";
+            }
+        }
+    }
+    cell (na3_x1) {
+        area : 1.7  /* pitchs */
+        cell_footprint : "na3";
+        pin(i0) {
+            direction   : input;
+            capacitance : 0.011;
+            fanout_load : 0.011;
+        }
+        pin(i1) {
+            direction   : input;
+            capacitance : 0.011;
+            fanout_load : 0.011;
+        }
+        pin(i2) {
+            direction   : input;
+            capacitance : 0.011;
+            fanout_load : 0.011;
+        }
+        pin(nq) {
+            direction  : output;
+            max_fanout : 0.071;
+            function : "(i0 * i1 * i2)'";
+            timing() {
+                timing_sense    : negative_unate;
+                intrinsic_rise  : 0.117;
+                intrinsic_fall  : 0.369;
+                rise_resistance : 3.710;
+                fall_resistance : 4.070;
+                related_pin     : "i0";
+            }
+            timing() {
+                timing_sense    : negative_unate;
+                intrinsic_rise  : 0.168;
+                intrinsic_fall  : 0.322;
+                rise_resistance : 3.710;
+                fall_resistance : 4.070;
+                related_pin     : "i1";
+            }
+            timing() {
+                timing_sense    : negative_unate;
+                intrinsic_rise  : 0.191;
+                intrinsic_fall  : 0.272;
+                rise_resistance : 3.710;
+                fall_resistance : 4.070;
+                related_pin     : "i2";
+            }
+        }
+    }
+    cell (na3_x4) {
+        area : 2.7  /* pitchs */
+        cell_footprint : "na3";
+        pin(i0) {
+            direction   : input;
+            capacitance : 0.010;
+            fanout_load : 0.010;
+        }
+        pin(i1) {
+            direction   : input;
+            capacitance : 0.010;
+            fanout_load : 0.010;
+        }
+        pin(i2) {
+            direction   : input;
+            capacitance : 0.010;
+            fanout_load : 0.010;
+        }
+        pin(nq) {
+            direction  : output;
+            max_fanout : 0.324;
+            function : "(i0 * i1 * i2)'";
+            timing() {
+                timing_sense    : negative_unate;
+                intrinsic_rise  : 0.550;
+                intrinsic_fall  : 0.605;
+                rise_resistance : 0.890;
+                fall_resistance : 0.800;
+                related_pin     : "i0";
+            }
+            timing() {
+                timing_sense    : negative_unate;
+                intrinsic_rise  : 0.454;
+                intrinsic_fall  : 0.694;
+                rise_resistance : 0.890;
+                fall_resistance : 0.800;
+                related_pin     : "i1";
+            }
+            timing() {
+                timing_sense    : negative_unate;
+                intrinsic_rise  : 0.512;
+                intrinsic_fall  : 0.651;
+                rise_resistance : 0.890;
+                fall_resistance : 0.800;
+                related_pin     : "i2";
+            }
+        }
+    }
+    cell (na4_x1) {
+        area : 2.0  /* pitchs */
+        cell_footprint : "na4";
+        pin(i0) {
+            direction   : input;
+            capacitance : 0.010;
+            fanout_load : 0.010;
+        }
+        pin(i1) {
+            direction   : input;
+            capacitance : 0.011;
+            fanout_load : 0.011;
+        }
+        pin(i2) {
+            direction   : input;
+            capacitance : 0.011;
+            fanout_load : 0.011;
+        }
+        pin(i3) {
+            direction   : input;
+            capacitance : 0.011;
+            fanout_load : 0.011;
+        }
+        pin(nq) {
+            direction  : output;
+            max_fanout : 0.054;
+            function : "(i0 * i1 * i2 * i3)'";
+            timing() {
+                timing_sense    : negative_unate;
+                intrinsic_rise  : 0.175;
+                intrinsic_fall  : 0.437;
+                rise_resistance : 3.710;
+                fall_resistance : 5.340;
+                related_pin     : "i0";
+            }
+            timing() {
+                timing_sense    : negative_unate;
+                intrinsic_rise  : 0.234;
+                intrinsic_fall  : 0.395;
+                rise_resistance : 3.710;
+                fall_resistance : 5.340;
+                related_pin     : "i1";
+            }
+            timing() {
+                timing_sense    : negative_unate;
+                intrinsic_rise  : 0.265;
+                intrinsic_fall  : 0.350;
+                rise_resistance : 3.710;
+                fall_resistance : 5.340;
+                related_pin     : "i2";
+            }
+            timing() {
+                timing_sense    : negative_unate;
+                intrinsic_rise  : 0.279;
+                intrinsic_fall  : 0.301;
+                rise_resistance : 3.710;
+                fall_resistance : 5.340;
+                related_pin     : "i3";
+            }
+        }
+    }
+    cell (na4_x4) {
+        area : 3.3  /* pitchs */
+        cell_footprint : "na4";
+        pin(i0) {
+            direction   : input;
+            capacitance : 0.010;
+            fanout_load : 0.010;
+        }
+        pin(i1) {
+            direction   : input;
+            capacitance : 0.011;
+            fanout_load : 0.011;
+        }
+        pin(i2) {
+            direction   : input;
+            capacitance : 0.011;
+            fanout_load : 0.011;
+        }
+        pin(i3) {
+            direction   : input;
+            capacitance : 0.011;
+            fanout_load : 0.011;
+        }
+        pin(nq) {
+            direction  : output;
+            max_fanout : 0.324;
+            function : "(i0 * i1 * i2 * i3)'";
+            timing() {
+                timing_sense    : negative_unate;
+                intrinsic_rise  : 0.573;
+                intrinsic_fall  : 0.773;
+                rise_resistance : 0.890;
+                fall_resistance : 0.800;
+                related_pin     : "i0";
+            }
+            timing() {
+                timing_sense    : negative_unate;
+                intrinsic_rise  : 0.637;
+                intrinsic_fall  : 0.733;
+                rise_resistance : 0.890;
+                fall_resistance : 0.800;
+                related_pin     : "i1";
+            }
+            timing() {
+                timing_sense    : negative_unate;
+                intrinsic_rise  : 0.675;
+                intrinsic_fall  : 0.691;
+                rise_resistance : 0.890;
+                fall_resistance : 0.800;
+                related_pin     : "i2";
+            }
+            timing() {
+                timing_sense    : negative_unate;
+                intrinsic_rise  : 0.697;
+                intrinsic_fall  : 0.647;
+                rise_resistance : 0.890;
+                fall_resistance : 0.800;
+                related_pin     : "i3";
+            }
+        }
+    }
+    cell (noa22_x1) {
+        area : 2.0  /* pitchs */
+        cell_footprint : "noa22";
+        pin(i0) {
+            direction   : input;
+            capacitance : 0.014;
+            fanout_load : 0.014;
+        }
+        pin(i1) {
+            direction   : input;
+            capacitance : 0.014;
+            fanout_load : 0.014;
+        }
+        pin(i2) {
+            direction   : input;
+            capacitance : 0.014;
+            fanout_load : 0.014;
+        }
+        pin(nq) {
+            direction  : output;
+            max_fanout : 0.090;
+            function : "((i0 * i1) + i2)'";
+            timing() {
+                timing_sense    : negative_unate;
+                intrinsic_rise  : 0.148;
+                intrinsic_fall  : 0.327;
+                rise_resistance : 3.200;
+                fall_resistance : 2.820;
+                related_pin     : "i0";
+            }
+            timing() {
+                timing_sense    : negative_unate;
+                intrinsic_rise  : 0.215;
+                intrinsic_fall  : 0.286;
+                rise_resistance : 3.200;
+                fall_resistance : 2.820;
+                related_pin     : "i1";
+            }
+            timing() {
+                timing_sense    : negative_unate;
+                intrinsic_rise  : 0.215;
+                intrinsic_fall  : 0.241;
+                rise_resistance : 3.200;
+                fall_resistance : 1.600;
+                related_pin     : "i2";
+            }
+        }
+    }
+    cell (noa22_x4) {
+        area : 3.3  /* pitchs */
+        cell_footprint : "noa22";
+        pin(i0) {
+            direction   : input;
+            capacitance : 0.008;
+            fanout_load : 0.008;
+        }
+        pin(i1) {
+            direction   : input;
+            capacitance : 0.008;
+            fanout_load : 0.008;
+        }
+        pin(i2) {
+            direction   : input;
+            capacitance : 0.009;
+            fanout_load : 0.009;
+        }
+        pin(nq) {
+            direction  : output;
+            max_fanout : 0.324;
+            function : "((i0 * i1) + i2)'";
+            timing() {
+                timing_sense    : negative_unate;
+                intrinsic_rise  : 0.542;
+                intrinsic_fall  : 0.737;
+                rise_resistance : 0.890;
+                fall_resistance : 0.800;
+                related_pin     : "i0";
+            }
+            timing() {
+                timing_sense    : negative_unate;
+                intrinsic_rise  : 0.634;
+                intrinsic_fall  : 0.706;
+                rise_resistance : 0.890;
+                fall_resistance : 0.800;
+                related_pin     : "i1";
+            }
+            timing() {
+                timing_sense    : negative_unate;
+                intrinsic_rise  : 0.602;
+                intrinsic_fall  : 0.643;
+                rise_resistance : 0.890;
+                fall_resistance : 0.800;
+                related_pin     : "i2";
+            }
+        }
+    }
+    cell (nao22_x1) {
+        area : 2.0  /* pitchs */
+        cell_footprint : "nao22";
+        pin(i0) {
+            direction   : input;
+            capacitance : 0.014;
+            fanout_load : 0.014;
+        }
+        pin(i1) {
+            direction   : input;
+            capacitance : 0.014;
+            fanout_load : 0.014;
+        }
+        pin(i2) {
+            direction   : input;
+            capacitance : 0.014;
+            fanout_load : 0.014;
+        }
+        pin(nq) {
+            direction  : output;
+            max_fanout : 0.090;
+            function : "((i0 + i1) * i2)'";
+            timing() {
+                timing_sense    : negative_unate;
+                intrinsic_rise  : 0.291;
+                intrinsic_fall  : 0.226;
+                rise_resistance : 3.200;
+                fall_resistance : 2.820;
+                related_pin     : "i0";
+            }
+            timing() {
+                timing_sense    : negative_unate;
+                intrinsic_rise  : 0.215;
+                intrinsic_fall  : 0.286;
+                rise_resistance : 3.200;
+                fall_resistance : 2.820;
+                related_pin     : "i1";
+            }
+            timing() {
+                timing_sense    : negative_unate;
+                intrinsic_rise  : 0.162;
+                intrinsic_fall  : 0.237;
+                rise_resistance : 1.780;
+                fall_resistance : 2.820;
+                related_pin     : "i2";
+            }
+        }
+    }
+    cell (nao22_x4) {
+        area : 3.3  /* pitchs */
+        cell_footprint : "nao22";
+        pin(i0) {
+            direction   : input;
+            capacitance : 0.008;
+            fanout_load : 0.008;
+        }
+        pin(i1) {
+            direction   : input;
+            capacitance : 0.008;
+            fanout_load : 0.008;
+        }
+        pin(i2) {
+            direction   : input;
+            capacitance : 0.009;
+            fanout_load : 0.009;
+        }
+        pin(nq) {
+            direction  : output;
+            max_fanout : 0.324;
+            function : "((i0 + i1) * i2)'";
+            timing() {
+                timing_sense    : negative_unate;
+                intrinsic_rise  : 0.724;
+                intrinsic_fall  : 0.635;
+                rise_resistance : 0.890;
+                fall_resistance : 0.800;
+                related_pin     : "i0";
+            }
+            timing() {
+                timing_sense    : negative_unate;
+                intrinsic_rise  : 0.656;
+                intrinsic_fall  : 0.717;
+                rise_resistance : 0.890;
+                fall_resistance : 0.800;
+                related_pin     : "i1";
+            }
+            timing() {
+                timing_sense    : negative_unate;
+                intrinsic_rise  : 0.580;
+                intrinsic_fall  : 0.630;
+                rise_resistance : 0.890;
+                fall_resistance : 0.800;
+                related_pin     : "i2";
+            }
+        }
+    }
+    cell (oa22_x2) {
+        area : 2.0  /* pitchs */
+        cell_footprint : "oa22";
+        pin(i0) {
+            direction   : input;
+            capacitance : 0.008;
+            fanout_load : 0.008;
+        }
+        pin(i1) {
+            direction   : input;
+            capacitance : 0.008;
+            fanout_load : 0.008;
+        }
+        pin(i2) {
+            direction   : input;
+            capacitance : 0.009;
+            fanout_load : 0.009;
+        }
+        pin(q) {
+            direction  : output;
+            max_fanout : 0.162;
+            function : "((i0 * i1) + i2)";
+            timing() {
+                timing_sense    : positive_unate;
+                intrinsic_rise  : 0.386;
+                intrinsic_fall  : 0.553;
+                rise_resistance : 1.780;
+                fall_resistance : 1.600;
+                related_pin     : "i0";
+            }
+            timing() {
+                timing_sense    : positive_unate;
+                intrinsic_rise  : 0.484;
+                intrinsic_fall  : 0.523;
+                rise_resistance : 1.780;
+                fall_resistance : 1.600;
+                related_pin     : "i1";
+            }
+            timing() {
+                timing_sense    : positive_unate;
+                intrinsic_rise  : 0.434;
+                intrinsic_fall  : 0.453;
+                rise_resistance : 1.780;
+                fall_resistance : 1.600;
+                related_pin     : "i2";
+            }
+        }
+    }
+    cell (oa22_x4) {
+        area : 2.7  /* pitchs */
+        cell_footprint : "oa22";
+        pin(i0) {
+            direction   : input;
+            capacitance : 0.008;
+            fanout_load : 0.008;
+        }
+        pin(i1) {
+            direction   : input;
+            capacitance : 0.008;
+            fanout_load : 0.008;
+        }
+        pin(i2) {
+            direction   : input;
+            capacitance : 0.009;
+            fanout_load : 0.009;
+        }
+        pin(q) {
+            direction  : output;
+            max_fanout : 0.324;
+            function : "((i0 * i1) + i2)";
+            timing() {
+                timing_sense    : positive_unate;
+                intrinsic_rise  : 0.508;
+                intrinsic_fall  : 0.675;
+                rise_resistance : 0.890;
+                fall_resistance : 0.800;
+                related_pin     : "i0";
+            }
+            timing() {
+                timing_sense    : positive_unate;
+                intrinsic_rise  : 0.612;
+                intrinsic_fall  : 0.648;
+                rise_resistance : 0.890;
+                fall_resistance : 0.800;
+                related_pin     : "i1";
+            }
+            timing() {
+                timing_sense    : positive_unate;
+                intrinsic_rise  : 0.520;
+                intrinsic_fall  : 0.569;
+                rise_resistance : 0.890;
+                fall_resistance : 0.800;
+                related_pin     : "i2";
+            }
+        }
+    }
+    cell (ao22_x2) {
+        area : 2.0  /* pitchs */
+        cell_footprint : "ao22";
+        pin(i0) {
+            direction   : input;
+            capacitance : 0.008;
+            fanout_load : 0.008;
+        }
+        pin(i1) {
+            direction   : input;
+            capacitance : 0.008;
+            fanout_load : 0.008;
+        }
+        pin(i2) {
+            direction   : input;
+            capacitance : 0.009;
+            fanout_load : 0.009;
+        }
+        pin(q) {
+            direction  : output;
+            max_fanout : 0.162;
+            function : "((i0 + i1) * i2)";
+            timing() {
+                timing_sense    : positive_unate;
+                intrinsic_rise  : 0.554;
+                intrinsic_fall  : 0.444;
+                rise_resistance : 1.780;
+                fall_resistance : 1.600;
+                related_pin     : "i0";
+            }
+            timing() {
+                timing_sense    : positive_unate;
+                intrinsic_rise  : 0.489;
+                intrinsic_fall  : 0.523;
+                rise_resistance : 1.780;
+                fall_resistance : 1.600;
+                related_pin     : "i1";
+            }
+            timing() {
+                timing_sense    : positive_unate;
+                intrinsic_rise  : 0.416;
+                intrinsic_fall  : 0.423;
+                rise_resistance : 1.780;
+                fall_resistance : 1.600;
+                related_pin     : "i2";
+            }
+        }
+    }
+    cell (ao22_x4) {
+        area : 2.7  /* pitchs */
+        cell_footprint : "ao22";
+        pin(i0) {
+            direction   : input;
+            capacitance : 0.008;
+            fanout_load : 0.008;
+        }
+        pin(i1) {
+            direction   : input;
+            capacitance : 0.008;
+            fanout_load : 0.008;
+        }
+        pin(i2) {
+            direction   : input;
+            capacitance : 0.009;
+            fanout_load : 0.009;
+        }
+        pin(q) {
+            direction  : output;
+            max_fanout : 0.324;
+            function : "((i0 + i1) * i2)";
+            timing() {
+                timing_sense    : positive_unate;
+                intrinsic_rise  : 0.670;
+                intrinsic_fall  : 0.550;
+                rise_resistance : 0.890;
+                fall_resistance : 0.800;
+                related_pin     : "i0";
+            }
+            timing() {
+                timing_sense    : positive_unate;
+                intrinsic_rise  : 0.612;
+                intrinsic_fall  : 0.645;
+                rise_resistance : 0.890;
+                fall_resistance : 0.800;
+                related_pin     : "i1";
+            }
+            timing() {
+                timing_sense    : positive_unate;
+                intrinsic_rise  : 0.523;
+                intrinsic_fall  : 0.503;
+                rise_resistance : 0.890;
+                fall_resistance : 0.800;
+                related_pin     : "i2";
+            }
+        }
+    }
+    cell (nao2o22_x1) {
+        area : 2.3  /* pitchs */
+        cell_footprint : "nao2o22";
+        pin(i0) {
+            direction   : input;
+            capacitance : 0.014;
+            fanout_load : 0.014;
+        }
+        pin(i1) {
+            direction   : input;
+            capacitance : 0.014;
+            fanout_load : 0.014;
+        }
+        pin(i2) {
+            direction   : input;
+            capacitance : 0.014;
+            fanout_load : 0.014;
+        }
+        pin(i3) {
+            direction   : input;
+            capacitance : 0.014;
+            fanout_load : 0.014;
+        }
+        pin(nq) {
+            direction  : output;
+            max_fanout : 0.090;
+            function : "((i0 + i1) * (i2 + i3))'";
+            timing() {
+                timing_sense    : negative_unate;
+                intrinsic_rise  : 0.291;
+                intrinsic_fall  : 0.226;
+                rise_resistance : 3.200;
+                fall_resistance : 2.820;
+                related_pin     : "i0";
+            }
+            timing() {
+                timing_sense    : negative_unate;
+                intrinsic_rise  : 0.215;
+                intrinsic_fall  : 0.286;
+                rise_resistance : 3.200;
+                fall_resistance : 2.820;
+                related_pin     : "i1";
+            }
+            timing() {
+                timing_sense    : negative_unate;
+                intrinsic_rise  : 0.234;
+                intrinsic_fall  : 0.306;
+                rise_resistance : 3.200;
+                fall_resistance : 2.820;
+                related_pin     : "i2";
+            }
+            timing() {
+                timing_sense    : negative_unate;
+                intrinsic_rise  : 0.171;
+                intrinsic_fall  : 0.381;
+                rise_resistance : 3.200;
+                fall_resistance : 2.820;
+                related_pin     : "i3";
+            }
+        }
+    }
+    cell (nao2o22_x4) {
+        area : 3.7  /* pitchs */
+        cell_footprint : "nao2o22";
+        pin(i0) {
+            direction   : input;
+            capacitance : 0.008;
+            fanout_load : 0.008;
+        }
+        pin(i1) {
+            direction   : input;
+            capacitance : 0.008;
+            fanout_load : 0.008;
+        }
+        pin(i2) {
+            direction   : input;
+            capacitance : 0.008;
+            fanout_load : 0.008;
+        }
+        pin(i3) {
+            direction   : input;
+            capacitance : 0.008;
+            fanout_load : 0.008;
+        }
+        pin(nq) {
+            direction  : output;
+            max_fanout : 0.324;
+            function : "((i0 + i1) * (i2 + i3))'";
+            timing() {
+                timing_sense    : negative_unate;
+                intrinsic_rise  : 0.722;
+                intrinsic_fall  : 0.631;
+                rise_resistance : 0.890;
+                fall_resistance : 0.800;
+                related_pin     : "i0";
+            }
+            timing() {
+                timing_sense    : negative_unate;
+                intrinsic_rise  : 0.654;
+                intrinsic_fall  : 0.713;
+                rise_resistance : 0.890;
+                fall_resistance : 0.800;
+                related_pin     : "i1";
+            }
+            timing() {
+                timing_sense    : negative_unate;
+                intrinsic_rise  : 0.644;
+                intrinsic_fall  : 0.709;
+                rise_resistance : 0.890;
+                fall_resistance : 0.800;
+                related_pin     : "i2";
+            }
+            timing() {
+                timing_sense    : negative_unate;
+                intrinsic_rise  : 0.587;
+                intrinsic_fall  : 0.803;
+                rise_resistance : 0.890;
+                fall_resistance : 0.800;
+                related_pin     : "i3";
+            }
+        }
+    }
+    cell (noa2a22_x1) {
+        area : 2.3  /* pitchs */
+        cell_footprint : "noa2a22";
+        pin(i0) {
+            direction   : input;
+            capacitance : 0.014;
+            fanout_load : 0.014;
+        }
+        pin(i1) {
+            direction   : input;
+            capacitance : 0.014;
+            fanout_load : 0.014;
+        }
+        pin(i2) {
+            direction   : input;
+            capacitance : 0.014;
+            fanout_load : 0.014;
+        }
+        pin(i3) {
+            direction   : input;
+            capacitance : 0.014;
+            fanout_load : 0.014;
+        }
+        pin(nq) {
+            direction  : output;
+            max_fanout : 0.090;
+            function : "((i0 * i1) + (i2 * i3))'";
+            timing() {
+                timing_sense    : negative_unate;
+                intrinsic_rise  : 0.148;
+                intrinsic_fall  : 0.327;
+                rise_resistance : 3.200;
+                fall_resistance : 2.820;
+                related_pin     : "i0";
+            }
+            timing() {
+                timing_sense    : negative_unate;
+                intrinsic_rise  : 0.215;
+                intrinsic_fall  : 0.286;
+                rise_resistance : 3.200;
+                fall_resistance : 2.820;
+                related_pin     : "i1";
+            }
+            timing() {
+                timing_sense    : negative_unate;
+                intrinsic_rise  : 0.280;
+                intrinsic_fall  : 0.288;
+                rise_resistance : 3.200;
+                fall_resistance : 2.820;
+                related_pin     : "i2";
+            }
+            timing() {
+                timing_sense    : negative_unate;
+                intrinsic_rise  : 0.368;
+                intrinsic_fall  : 0.255;
+                rise_resistance : 3.200;
+                fall_resistance : 2.820;
+                related_pin     : "i3";
+            }
+        }
+    }
+    cell (noa2a22_x4) {
+        area : 3.7  /* pitchs */
+        cell_footprint : "noa2a22";
+        pin(i0) {
+            direction   : input;
+            capacitance : 0.008;
+            fanout_load : 0.008;
+        }
+        pin(i1) {
+            direction   : input;
+            capacitance : 0.008;
+            fanout_load : 0.008;
+        }
+        pin(i2) {
+            direction   : input;
+            capacitance : 0.008;
+            fanout_load : 0.008;
+        }
+        pin(i3) {
+            direction   : input;
+            capacitance : 0.008;
+            fanout_load : 0.008;
+        }
+        pin(nq) {
+            direction  : output;
+            max_fanout : 0.324;
+            function : "((i0 * i1) + (i2 * i3))'";
+            timing() {
+                timing_sense    : negative_unate;
+                intrinsic_rise  : 0.553;
+                intrinsic_fall  : 0.742;
+                rise_resistance : 0.890;
+                fall_resistance : 0.800;
+                related_pin     : "i0";
+            }
+            timing() {
+                timing_sense    : negative_unate;
+                intrinsic_rise  : 0.636;
+                intrinsic_fall  : 0.711;
+                rise_resistance : 0.890;
+                fall_resistance : 0.800;
+                related_pin     : "i1";
+            }
+            timing() {
+                timing_sense    : negative_unate;
+                intrinsic_rise  : 0.691;
+                intrinsic_fall  : 0.700;
+                rise_resistance : 0.890;
+                fall_resistance : 0.800;
+                related_pin     : "i2";
+            }
+            timing() {
+                timing_sense    : negative_unate;
+                intrinsic_rise  : 0.794;
+                intrinsic_fall  : 0.674;
+                rise_resistance : 0.890;
+                fall_resistance : 0.800;
+                related_pin     : "i3";
+            }
+        }
+    }
+    cell (ao2o22_x2) {
+        area : 3.0  /* pitchs */
+        cell_footprint : "ao2o22";
+        pin(i0) {
+            direction   : input;
+            capacitance : 0.008;
+            fanout_load : 0.008;
+        }
+        pin(i1) {
+            direction   : input;
+            capacitance : 0.008;
+            fanout_load : 0.008;
+        }
+        pin(i2) {
+            direction   : input;
+            capacitance : 0.008;
+            fanout_load : 0.008;
+        }
+        pin(i3) {
+            direction   : input;
+            capacitance : 0.008;
+            fanout_load : 0.008;
+        }
+        pin(q) {
+            direction  : output;
+            max_fanout : 0.162;
+            function : "((i0 + i1) * (i2 + i3))";
+            timing() {
+                timing_sense    : positive_unate;
+                intrinsic_rise  : 0.569;
+                intrinsic_fall  : 0.450;
+                rise_resistance : 1.780;
+                fall_resistance : 1.600;
+                related_pin     : "i0";
+            }
+            timing() {
+                timing_sense    : positive_unate;
+                intrinsic_rise  : 0.505;
+                intrinsic_fall  : 0.540;
+                rise_resistance : 1.780;
+                fall_resistance : 1.600;
+                related_pin     : "i1";
+            }
+            timing() {
+                timing_sense    : positive_unate;
+                intrinsic_rise  : 0.429;
+                intrinsic_fall  : 0.625;
+                rise_resistance : 1.780;
+                fall_resistance : 1.600;
+                related_pin     : "i2";
+            }
+            timing() {
+                timing_sense    : positive_unate;
+                intrinsic_rise  : 0.485;
+                intrinsic_fall  : 0.524;
+                rise_resistance : 1.780;
+                fall_resistance : 1.600;
+                related_pin     : "i3";
+            }
+        }
+    }
+    cell (ao2o22_x4) {
+        area : 3.3  /* pitchs */
+        cell_footprint : "ao2o22";
+        pin(i0) {
+            direction   : input;
+            capacitance : 0.008;
+            fanout_load : 0.008;
+        }
+        pin(i1) {
+            direction   : input;
+            capacitance : 0.008;
+            fanout_load : 0.008;
+        }
+        pin(i2) {
+            direction   : input;
+            capacitance : 0.008;
+            fanout_load : 0.008;
+        }
+        pin(i3) {
+            direction   : input;
+            capacitance : 0.008;
+            fanout_load : 0.008;
+        }
+        pin(q) {
+            direction  : output;
+            max_fanout : 0.324;
+            function : "((i0 + i1) * (i2 + i3))";
+            timing() {
+                timing_sense    : positive_unate;
+                intrinsic_rise  : 0.692;
+                intrinsic_fall  : 0.567;
+                rise_resistance : 0.890;
+                fall_resistance : 0.800;
+                related_pin     : "i0";
+            }
+            timing() {
+                timing_sense    : positive_unate;
+                intrinsic_rise  : 0.634;
+                intrinsic_fall  : 0.664;
+                rise_resistance : 0.890;
+                fall_resistance : 0.800;
+                related_pin     : "i1";
+            }
+            timing() {
+                timing_sense    : positive_unate;
+                intrinsic_rise  : 0.551;
+                intrinsic_fall  : 0.742;
+                rise_resistance : 0.890;
+                fall_resistance : 0.800;
+                related_pin     : "i2";
+            }
+            timing() {
+                timing_sense    : positive_unate;
+                intrinsic_rise  : 0.602;
+                intrinsic_fall  : 0.637;
+                rise_resistance : 0.890;
+                fall_resistance : 0.800;
+                related_pin     : "i3";
+            }
+        }
+    }
+    cell (oa2a22_x2) {
+        area : 3.0  /* pitchs */
+        cell_footprint : "oa2a22";
+        pin(i0) {
+            direction   : input;
+            capacitance : 0.008;
+            fanout_load : 0.008;
+        }
+        pin(i1) {
+            direction   : input;
+            capacitance : 0.008;
+            fanout_load : 0.008;
+        }
+        pin(i2) {
+            direction   : input;
+            capacitance : 0.008;
+            fanout_load : 0.008;
+        }
+        pin(i3) {
+            direction   : input;
+            capacitance : 0.008;
+            fanout_load : 0.008;
+        }
+        pin(q) {
+            direction  : output;
+            max_fanout : 0.162;
+            function : "((i0 * i1) + (i2 * i3))";
+            timing() {
+                timing_sense    : positive_unate;
+                intrinsic_rise  : 0.400;
+                intrinsic_fall  : 0.562;
+                rise_resistance : 1.780;
+                fall_resistance : 1.600;
+                related_pin     : "i0";
+            }
+            timing() {
+                timing_sense    : positive_unate;
+                intrinsic_rise  : 0.491;
+                intrinsic_fall  : 0.532;
+                rise_resistance : 1.780;
+                fall_resistance : 1.600;
+                related_pin     : "i1";
+            }
+            timing() {
+                timing_sense    : positive_unate;
+                intrinsic_rise  : 0.641;
+                intrinsic_fall  : 0.485;
+                rise_resistance : 1.780;
+                fall_resistance : 1.600;
+                related_pin     : "i2";
+            }
+            timing() {
+                timing_sense    : positive_unate;
+                intrinsic_rise  : 0.533;
+                intrinsic_fall  : 0.510;
+                rise_resistance : 1.780;
+                fall_resistance : 1.600;
+                related_pin     : "i3";
+            }
+        }
+    }
+    cell (oa2a22_x4) {
+        area : 3.3  /* pitchs */
+        cell_footprint : "oa2a22";
+        pin(i0) {
+            direction   : input;
+            capacitance : 0.008;
+            fanout_load : 0.008;
+        }
+        pin(i1) {
+            direction   : input;
+            capacitance : 0.008;
+            fanout_load : 0.008;
+        }
+        pin(i2) {
+            direction   : input;
+            capacitance : 0.008;
+            fanout_load : 0.008;
+        }
+        pin(i3) {
+            direction   : input;
+            capacitance : 0.008;
+            fanout_load : 0.008;
+        }
+        pin(q) {
+            direction  : output;
+            max_fanout : 0.324;
+            function : "((i0 * i1) + (i2 * i3))";
+            timing() {
+                timing_sense    : positive_unate;
+                intrinsic_rise  : 0.515;
+                intrinsic_fall  : 0.684;
+                rise_resistance : 0.890;
+                fall_resistance : 0.800;
+                related_pin     : "i0";
+            }
+            timing() {
+                timing_sense    : positive_unate;
+                intrinsic_rise  : 0.620;
+                intrinsic_fall  : 0.657;
+                rise_resistance : 0.890;
+                fall_resistance : 0.800;
+                related_pin     : "i1";
+            }
+            timing() {
+                timing_sense    : positive_unate;
+                intrinsic_rise  : 0.758;
+                intrinsic_fall  : 0.593;
+                rise_resistance : 0.890;
+                fall_resistance : 0.800;
+                related_pin     : "i2";
+            }
+            timing() {
+                timing_sense    : positive_unate;
+                intrinsic_rise  : 0.640;
+                intrinsic_fall  : 0.616;
+                rise_resistance : 0.890;
+                fall_resistance : 0.800;
+                related_pin     : "i3";
+            }
+        }
+    }
+    cell (nxr2_x1) {
+        area : 3.0  /* pitchs */
+        cell_footprint : "nxr2";
+        pin(i0) {
+            direction   : input;
+            capacitance : 0.021;
+            fanout_load : 0.021;
+        }
+        pin(i1) {
+            direction   : input;
+            capacitance : 0.022;
+            fanout_load : 0.022;
+        }
+        pin(nq) {
+            direction  : output;
+            max_fanout : 0.090;
+            function : "(i0 ^ i1)'";
+            timing() {
+                timing_sense    : negative_unate;
+                intrinsic_rise  : 0.284;
+                intrinsic_fall  : 0.292;
+                rise_resistance : 3.200;
+                fall_resistance : 2.820;
+                related_pin     : "i0";
+            }
+            timing() {
+                timing_sense    : negative_unate;
+                intrinsic_rise  : 0.153;
+                intrinsic_fall  : 0.327;
+                rise_resistance : 3.200;
+                fall_resistance : 2.820;
+                related_pin     : "i1";
+            }
+            timing() {
+                timing_sense    : positive_unate;
+                intrinsic_rise  : 0.363;
+                intrinsic_fall  : 0.388;
+                rise_resistance : 3.200;
+                fall_resistance : 2.820;
+                related_pin     : "i0";
+            }
+            timing() {
+                timing_sense    : positive_unate;
+                intrinsic_rise  : 0.392;
+                intrinsic_fall  : 0.500;
+                rise_resistance : 3.200;
+                fall_resistance : 2.820;
+                related_pin     : "i1";
+            }
+        }
+    }
+    cell (nxr2_x4) {
+        area : 4.0  /* pitchs */
+        cell_footprint : "nxr2";
+        pin(i0) {
+            direction   : input;
+            capacitance : 0.020;
+            fanout_load : 0.020;
+        }
+        pin(i1) {
+            direction   : input;
+            capacitance : 0.021;
+            fanout_load : 0.021;
+        }
+        pin(nq) {
+            direction  : output;
+            max_fanout : 0.324;
+            function : "(i0 ^ i1)'";
+            timing() {
+                timing_sense    : negative_unate;
+                intrinsic_rise  : 0.517;
+                intrinsic_fall  : 0.548;
+                rise_resistance : 0.890;
+                fall_resistance : 0.800;
+                related_pin     : "i0";
+            }
+            timing() {
+                timing_sense    : negative_unate;
+                intrinsic_rise  : 0.549;
+                intrinsic_fall  : 0.540;
+                rise_resistance : 0.890;
+                fall_resistance : 0.800;
+                related_pin     : "i1";
+            }
+            timing() {
+                timing_sense    : positive_unate;
+                intrinsic_rise  : 0.465;
+                intrinsic_fall  : 0.479;
+                rise_resistance : 0.890;
+                fall_resistance : 0.800;
+                related_pin     : "i0";
+            }
+            timing() {
+                timing_sense    : positive_unate;
+                intrinsic_rise  : 0.563;
+                intrinsic_fall  : 0.451;
+                rise_resistance : 0.890;
+                fall_resistance : 0.800;
+                related_pin     : "i1";
+            }
+        }
+    }
+    cell (xr2_x1) {
+        area : 3.0  /* pitchs */
+        cell_footprint : "xr2";
+        pin(i0) {
+            direction   : input;
+            capacitance : 0.021;
+            fanout_load : 0.021;
+        }
+        pin(i1) {
+            direction   : input;
+            capacitance : 0.022;
+            fanout_load : 0.022;
+        }
+        pin(q) {
+            direction  : output;
+            max_fanout : 0.090;
+            function : "(i0 ^ i1)";
+            timing() {
+                timing_sense    : negative_unate;
+                intrinsic_rise  : 0.288;
+                intrinsic_fall  : 0.292;
+                rise_resistance : 3.200;
+                fall_resistance : 2.820;
+                related_pin     : "i0";
+            }
+            timing() {
+                timing_sense    : negative_unate;
+                intrinsic_rise  : 0.373;
+                intrinsic_fall  : 0.260;
+                rise_resistance : 3.200;
+                fall_resistance : 2.820;
+                related_pin     : "i1";
+            }
+            timing() {
+                timing_sense    : positive_unate;
+                intrinsic_rise  : 0.363;
+                intrinsic_fall  : 0.388;
+                rise_resistance : 3.200;
+                fall_resistance : 2.820;
+                related_pin     : "i0";
+            }
+            timing() {
+                timing_sense    : positive_unate;
+                intrinsic_rise  : 0.402;
+                intrinsic_fall  : 0.386;
+                rise_resistance : 3.200;
+                fall_resistance : 2.820;
+                related_pin     : "i1";
+            }
+        }
+    }
+    cell (xr2_x4) {
+        area : 4.0  /* pitchs */
+        cell_footprint : "xr2";
+        pin(i0) {
+            direction   : input;
+            capacitance : 0.020;
+            fanout_load : 0.020;
+        }
+        pin(i1) {
+            direction   : input;
+            capacitance : 0.021;
+            fanout_load : 0.021;
+        }
+        pin(q) {
+            direction  : output;
+            max_fanout : 0.324;
+            function : "(i0 ^ i1)";
+            timing() {
+                timing_sense    : negative_unate;
+                intrinsic_rise  : 0.518;
+                intrinsic_fall  : 0.558;
+                rise_resistance : 0.890;
+                fall_resistance : 0.800;
+                related_pin     : "i0";
+            }
+            timing() {
+                timing_sense    : negative_unate;
+                intrinsic_rise  : 0.537;
+                intrinsic_fall  : 0.653;
+                rise_resistance : 0.890;
+                fall_resistance : 0.800;
+                related_pin     : "i1";
+            }
+            timing() {
+                timing_sense    : positive_unate;
+                intrinsic_rise  : 0.472;
+                intrinsic_fall  : 0.478;
+                rise_resistance : 0.890;
+                fall_resistance : 0.800;
+                related_pin     : "i0";
+            }
+            timing() {
+                timing_sense    : positive_unate;
+                intrinsic_rise  : 0.353;
+                intrinsic_fall  : 0.537;
+                rise_resistance : 0.890;
+                fall_resistance : 0.800;
+                related_pin     : "i1";
+            }
+        }
+    }
+    cell (mx2_x2) {
+        area : 3.0  /* pitchs */
+        cell_footprint : "mx2";
+        pin(cmd) {
+            direction   : input;
+            capacitance : 0.017;
+            fanout_load : 0.017;
+        }
+        pin(i0) {
+            direction   : input;
+            capacitance : 0.008;
+            fanout_load : 0.008;
+        }
+        pin(i1) {
+            direction   : input;
+            capacitance : 0.009;
+            fanout_load : 0.009;
+        }
+        pin(q) {
+            direction  : output;
+            max_fanout : 0.162;
+            function : "(cmd' * i0)+(cmd * i1)";
+            timing() {
+                timing_sense    : positive_unate;
+                intrinsic_rise  : 0.481;
+                intrinsic_fall  : 0.520;
+                rise_resistance : 1.780;
+                fall_resistance : 1.600;
+                related_pin     : "cmd";
+            }
+            timing() {
+                timing_sense    : positive_unate;
+                intrinsic_rise  : 0.448;
+                intrinsic_fall  : 0.467;
+                rise_resistance : 1.780;
+                fall_resistance : 1.600;
+                related_pin     : "i0";
+            }
+            timing() {
+                timing_sense    : positive_unate;
+                intrinsic_rise  : 0.448;
+                intrinsic_fall  : 0.467;
+                rise_resistance : 1.780;
+                fall_resistance : 1.600;
+                related_pin     : "i1";
+            }
+        }
+    }
+    cell (mx2_x4) {
+        area : 3.3  /* pitchs */
+        cell_footprint : "mx2";
+        pin(cmd) {
+            direction   : input;
+            capacitance : 0.017;
+            fanout_load : 0.017;
+        }
+        pin(i0) {
+            direction   : input;
+            capacitance : 0.008;
+            fanout_load : 0.008;
+        }
+        pin(i1) {
+            direction   : input;
+            capacitance : 0.009;
+            fanout_load : 0.009;
+        }
+        pin(q) {
+            direction  : output;
+            max_fanout : 0.324;
+            function : "(cmd' * i0)+(cmd * i1)";
+            timing() {
+                timing_sense    : positive_unate;
+                intrinsic_rise  : 0.612;
+                intrinsic_fall  : 0.645;
+                rise_resistance : 0.890;
+                fall_resistance : 0.800;
+                related_pin     : "cmd";
+            }
+            timing() {
+                timing_sense    : positive_unate;
+                intrinsic_rise  : 0.560;
+                intrinsic_fall  : 0.574;
+                rise_resistance : 0.890;
+                fall_resistance : 0.800;
+                related_pin     : "i0";
+            }
+            timing() {
+                timing_sense    : positive_unate;
+                intrinsic_rise  : 0.560;
+                intrinsic_fall  : 0.574;
+                rise_resistance : 0.890;
+                fall_resistance : 0.800;
+                related_pin     : "i1";
+            }
+        }
+    }
+    cell (nmx2_x1) {
+        area : 2.3  /* pitchs */
+        cell_footprint : "nmx2";
+        pin(cmd) {
+            direction   : input;
+            capacitance : 0.021;
+            fanout_load : 0.021;
+        }
+        pin(i0) {
+            direction   : input;
+            capacitance : 0.014;
+            fanout_load : 0.014;
+        }
+        pin(i1) {
+            direction   : input;
+            capacitance : 0.014;
+            fanout_load : 0.014;
+        }
+        pin(nq) {
+            direction  : output;
+            max_fanout : 0.090;
+            function : "((cmd' * i0)+(cmd * i1))'";
+            timing() {
+                timing_sense    : negative_unate;
+                intrinsic_rise  : 0.215;
+                intrinsic_fall  : 0.286;
+                rise_resistance : 3.200;
+                fall_resistance : 2.820;
+                related_pin     : "cmd";
+            }
+            timing() {
+                timing_sense    : negative_unate;
+                intrinsic_rise  : 0.214;
+                intrinsic_fall  : 0.255;
+                rise_resistance : 3.200;
+                fall_resistance : 2.820;
+                related_pin     : "i0";
+            }
+            timing() {
+                timing_sense    : negative_unate;
+                intrinsic_rise  : 0.214;
+                intrinsic_fall  : 0.255;
+                rise_resistance : 3.200;
+                fall_resistance : 2.820;
+                related_pin     : "i1";
+            }
+        }
+    }
+    cell (nmx2_x4) {
+        area : 4.0  /* pitchs */
+        cell_footprint : "nmx2";
+        pin(cmd) {
+            direction   : input;
+            capacitance : 0.017;
+            fanout_load : 0.017;
+        }
+        pin(i0) {
+            direction   : input;
+            capacitance : 0.008;
+            fanout_load : 0.008;
+        }
+        pin(i1) {
+            direction   : input;
+            capacitance : 0.009;
+            fanout_load : 0.009;
+        }
+        pin(nq) {
+            direction  : output;
+            max_fanout : 0.324;
+            function : "((cmd' * i0)+(cmd * i1))'";
+            timing() {
+                timing_sense    : negative_unate;
+                intrinsic_rise  : 0.628;
+                intrinsic_fall  : 0.700;
+                rise_resistance : 0.890;
+                fall_resistance : 0.800;
+                related_pin     : "cmd";
+            }
+            timing() {
+                timing_sense    : negative_unate;
+                intrinsic_rise  : 0.606;
+                intrinsic_fall  : 0.646;
+                rise_resistance : 0.890;
+                fall_resistance : 0.800;
+                related_pin     : "i0";
+            }
+            timing() {
+                timing_sense    : negative_unate;
+                intrinsic_rise  : 0.606;
+                intrinsic_fall  : 0.646;
+                rise_resistance : 0.890;
+                fall_resistance : 0.800;
+                related_pin     : "i1";
+            }
+        }
+    }
+    /* --------------------------------------------- */
+    /* combinationnal cells part 2: Three-State      */
+    /* --------------------------------------------- */
+
+    cell (nts_x1) {
+        area : 2.0  /* pitchs */
+        cell_footprint : "nts";
+        pin(i) {
+            direction   : input;
+            capacitance : 0.014;
+            fanout_load : 0.014;
+        }
+        pin(cmd) {
+            direction   : input;
+            capacitance : 0.014;
+            fanout_load : 0.014;
+        }
+        pin(nq) {
+            direction  : output;
+            max_fanout : 0.090;
+            function : "i'";
+            three_state : "cmd'";
+            timing() {
+                intrinsic_rise  : 0.248;
+                intrinsic_fall  : 0.040;
+                rise_resistance : 3.200;
+                fall_resistance : 2.820;
+                related_pin     : "cmd";
+            }
+            timing() {
+                timing_type     : three_state_disable;
+                intrinsic_rise  : 0.248;
+                intrinsic_fall  : 0.040;
+                rise_resistance : 3.200;
+                fall_resistance : 2.820;
+                related_pin     : "cmd";
+            }
+            timing() {
+                timing_sense    : negative_unate;
+                intrinsic_rise  : 0.166;
+                intrinsic_fall  : 0.200;
+                rise_resistance : 3.200;
+                fall_resistance : 2.820;
+                related_pin     : "i";
+            }
+        }
+    }
+    cell (nts_x2) {
+        area : 2.7  /* pitchs */
+        cell_footprint : "nts";
+        pin(i) {
+            direction   : input;
+            capacitance : 0.028;
+            fanout_load : 0.028;
+        }
+        pin(cmd) {
+            direction   : input;
+            capacitance : 0.018;
+            fanout_load : 0.018;
+        }
+        pin(nq) {
+            direction  : output;
+            max_fanout : 0.181;
+            function : "i'";
+            three_state : "cmd'";
+            timing() {
+                intrinsic_rise  : 0.328;
+                intrinsic_fall  : 0.032;
+                rise_resistance : 1.600;
+                fall_resistance : 1.410;
+                related_pin     : "cmd";
+            }
+            timing() {
+                timing_type     : three_state_disable;
+                intrinsic_rise  : 0.328;
+                intrinsic_fall  : 0.032;
+                rise_resistance : 1.600;
+                fall_resistance : 1.410;
+                related_pin     : "cmd";
+            }
+            timing() {
+                timing_sense    : negative_unate;
+                intrinsic_rise  : 0.164;
+                intrinsic_fall  : 0.200;
+                rise_resistance : 1.600;
+                fall_resistance : 1.410;
+                related_pin     : "i";
+            }
+        }
+    }
+    cell (ts_x4) {
+        area : 3.3  /* pitchs */
+        cell_footprint : "ts";
+        pin(i) {
+            direction   : input;
+            capacitance : 0.008;
+            fanout_load : 0.008;
+        }
+        pin(cmd) {
+            direction   : input;
+            capacitance : 0.019;
+            fanout_load : 0.019;
+        }
+        pin(q) {
+            direction  : output;
+            max_fanout : 0.324;
+            function : "i";
+            three_state : "cmd'";
+            timing() {
+                intrinsic_rise  : 0.489;
+                intrinsic_fall  : 0.399;
+                rise_resistance : 0.890;
+                fall_resistance : 0.800;
+                related_pin     : "cmd";
+            }
+            timing() {
+                timing_type     : three_state_disable;
+                intrinsic_rise  : 0.489;
+                intrinsic_fall  : 0.399;
+                rise_resistance : 0.890;
+                fall_resistance : 0.800;
+                related_pin     : "cmd";
+            }
+            timing() {
+                timing_sense    : positive_unate;
+                intrinsic_rise  : 0.471;
+                intrinsic_fall  : 0.442;
+                rise_resistance : 0.890;
+                fall_resistance : 0.800;
+                related_pin     : "i";
+            }
+        }
+    }
+    cell (ts_x8) {
+        area : 3.8  /* pitchs */
+        cell_footprint : "ts";
+        pin(i) {
+            direction   : input;
+            capacitance : 0.008;
+            fanout_load : 0.008;
+        }
+        pin(cmd) {
+            direction   : input;
+            capacitance : 0.019;
+            fanout_load : 0.019;
+        }
+        pin(q) {
+            direction  : output;
+            max_fanout : 0.656;
+            function : "i";
+            three_state : "cmd'";
+            timing() {
+                intrinsic_rise  : 0.622;
+                intrinsic_fall  : 0.456;
+                rise_resistance : 0.440;
+                fall_resistance : 0.400;
+                related_pin     : "cmd";
+            }
+            timing() {
+                timing_type     : three_state_disable;
+                intrinsic_rise  : 0.622;
+                intrinsic_fall  : 0.456;
+                rise_resistance : 0.440;
+                fall_resistance : 0.400;
+                related_pin     : "cmd";
+            }
+            timing() {
+                timing_sense    : positive_unate;
+                intrinsic_rise  : 0.609;
+                intrinsic_fall  : 0.559;
+                rise_resistance : 0.440;
+                fall_resistance : 0.400;
+                related_pin     : "i";
+            }
+        }
+    }
+
+
+    /* --------------------------------------------- */
+    /* Pull-Up, Pull-Down Cells                      */
+    /* --------------------------------------------- */
+
+    cell (one_x0) {
+        area : 1.0  /* pitchs */
+        cell_footprint : "one";
+        pin(q) {
+            direction : output ;
+            max_fanout : 7.78437;
+            function  : "1";
+            driver_type : pull_up ;
+        }
+    }
+
+    cell (zero_x0) {
+        area : 1.0  /* pitchs */
+        cell_footprint : "zero";
+        pin(nq) {
+            direction : output ;
+            max_fanout : 7.78437;
+            function  : "0";
+            driver_type : pull_down ;
+        }
+    }
+
+    /* --------------------------------------------- */
+    /* Sequential cells part 1 : Flip-Flops          */
+    /* --------------------------------------------- */
+
+    cell (sff1_x4) {
+        area : 600.0  /* pitchs */
+        cell_footprint : "sff1";
+        pin(i) {
+            direction : input;
+            capacitance : 0.008;
+            fanout_load : 0.008;
+            timing() {
+                timing_type : setup_rising;
+                intrinsic_rise : 0.476;
+                intrinsic_fall : 0.585;
+                related_pin : "ck";
+            }
+            timing() {
+                timing_type : hold_rising;
+                intrinsic_rise : 0.000;
+                intrinsic_fall : 0.000;
+                related_pin : "ck";
+            }
+        }
+        pin(ck) {
+            direction   : input;
+            capacitance : 0.008;
+            fanout_load : 0.008;
+        }
+        ff("IQ","IQN") {
+            next_state : "i";
+            clocked_on : "ck";
+        }
+        pin(q) {
+            direction  : output;
+            max_fanout : 0.324;
+            function : "IQ";
+            timing() {
+                timing_type : rising_edge;
+                intrinsic_rise : 0.500;
+                intrinsic_fall : 0.500;
+                rise_resistance : 0.890;
+                fall_resistance : 0.890;
+                related_pin : "ck";
+            }
+        }
+    }
+    cell (sff2_x4) {
+        area : 800.0  /* pitchs */
+        cell_footprint : "sff2";
+        dont_use : true;
+        pin(i0) {
+            direction : input;
+            capacitance : 0.008;
+            fanout_load : 0.008;
+            timing() {
+                timing_type : setup_rising;
+                intrinsic_rise : 0.666;
+                intrinsic_fall : 0.764;
+                related_pin : "ck";
+            }
+            timing() {
+                timing_type : hold_rising;
+                intrinsic_rise : 0.000;
+                intrinsic_fall : 0.000;
+                related_pin : "ck";
+            }
+        }
+        pin(i1) {
+            direction : input;
+            capacitance : 0.007;
+            fanout_load : 0.007;
+            timing() {
+                timing_type : setup_rising;
+                intrinsic_rise : 0.666;
+                intrinsic_fall : 0.764;
+                related_pin : "ck";
+            }
+            timing() {
+                timing_type : hold_rising;
+                intrinsic_rise : 0.000;
+                intrinsic_fall : 0.000;
+                related_pin : "ck";
+            }
+        }
+        pin(cmd) {
+            direction : input;
+            capacitance : 0.016;
+            fanout_load : 0.016;
+            timing() {
+                timing_type : setup_rising;
+                intrinsic_rise : 0.770;
+                intrinsic_fall : 0.833;
+                related_pin : "ck";
+            }
+            timing() {
+                timing_type : hold_rising;
+                intrinsic_rise : 0.000;
+                intrinsic_fall : 0.000;
+                related_pin : "ck";
+            }
+        }
+        pin(ck) {
+            direction   : input;
+            capacitance : 0.008;
+            fanout_load : 0.008;
+        }
+        ff("IQ","IQN") {
+            next_state : "(cmd * i1) + (cmd' * i0)";
+            clocked_on : "ck";
+        }
+        pin(q) {
+            direction  : output;
+            max_fanout : 0.324;
+            function : "IQ";
+            timing() {
+                timing_type : rising_edge;
+                intrinsic_rise : 0.500;
+                intrinsic_fall : 0.500;
+                rise_resistance : 0.890;
+                fall_resistance : 0.890;
+                related_pin : "ck";
+            }
+        }
+        test_cell() {
+        ff("IQ","IQN") {
+            next_state : "i0";
+            clocked_on : "ck";
+        }
+            pin(i0,ck) {
+                direction   : input;
+            }
+            pin(i1) {
+                direction   : input;
+                signal_type : test_scan_in;
+            }
+            pin(cmd) {
+                direction   : input;
+                signal_type : test_scan_enable;
+            }
+            pin(q) {
+                direction   : output;
+                function    : "IQ";
+                signal_type : test_scan_out;
+            }
+        }
+    }
+}
