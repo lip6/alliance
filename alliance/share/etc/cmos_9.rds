@@ -6,7 +6,7 @@
 #                        all rights reserved                 
 #                   e-mail : cao-vlsi@masi.ibp.fr            
 #
-#                   file       : cmos_7.rds
+#                   file       : cmos_9.rds
 #                   version    : 10
 #                   last modif : Nov 4, 1999
 #
@@ -15,10 +15,6 @@
 ##-------------------------------------------------------------------
 # Refer to the documentation for more precise information.
 #=====================================================================
-# 99/11/4 old rules 
-# . for ALU1, ALU2, GATE
-# . however stacked are allowed
-# 
 # 99/11/3 ALU5/6 rules
 # . theses rules are preliminary rules, we hope that they wil change
 #   in future. For now, ALU5/6 are dedicated to supplies an clock.
@@ -85,7 +81,7 @@ TABLE MBK_TO_RDS_SEGMENT
   ALU2     RDS_ALU2   VW  1.0  0.0  0.0  ALL
   ALU3     RDS_ALU3   VW  1.0  0.0  0.0  ALL
   ALU4     RDS_ALU4   VW  1.0  0.0  0.0  ALL
-  ALU5     RDS_ALU5   VW  1.0  0.0  0.0  ALL
+  ALU5     RDS_ALU5   VW  1.0  0.0  0.0  ALL 
   ALU6     RDS_ALU6   VW  1.0  0.0  0.0  ALL 
   TPOLY    RDS_TPOLY  VW  0.5  0.0  0.0  ALL
   TALU1    RDS_TALU1  VW  0.5  0.0  0.0  ALL
@@ -144,8 +140,8 @@ TABLE MBK_TO_RDS_VIA
   CONT_DIF_N   RDS_ALU1 2 ALL  RDS_CONT 1 ALL  RDS_NDIF 3 ALL
   CONT_DIF_P   RDS_ALU1 2 ALL  RDS_CONT 1 ALL  RDS_PDIF 3 ALL  RDS_NWELL 4 ALL
   CONT_POLY    RDS_ALU1 2 ALL  RDS_CONT 1 ALL  RDS_POLY 3 ALL
-  CONT_VIA     RDS_ALU1 2 ALL  RDS_VIA1 1 ALL  RDS_ALU2 3 ALL
-  CONT_VIA2    RDS_ALU2 3 ALL  RDS_VIA2 1 ALL  RDS_ALU3 2 ALL
+  CONT_VIA     RDS_ALU1 2 ALL  RDS_VIA1 1 ALL  RDS_ALU2 2 ALL
+  CONT_VIA2    RDS_ALU2 2 ALL  RDS_VIA2 1 ALL  RDS_ALU3 2 ALL
   CONT_VIA3    RDS_ALU3 2 ALL  RDS_VIA3 1 ALL  RDS_ALU4 2 ALL
   CONT_VIA4    RDS_ALU4 2 ALL  RDS_VIA4 1 ALL  RDS_ALU5 2 ALL
   CONT_VIA5    RDS_ALU5 2 ALL  RDS_VIA5 1 ALL  RDS_ALU6 2 ALL
@@ -285,11 +281,11 @@ TABLE S2R_MINIMUM_LAYER_WIDTH
   RDS_ALU4    2
   RDS_TALU4   2
   RDS_VIA4    1
-  RDS_ALU5    4
-  RDS_TALU5   4
+  RDS_ALU5    2
+  RDS_TALU5   2
   RDS_VIA5    1
-  RDS_ALU6    4
-  RDS_TALU6   4
+  RDS_ALU6    2
+  RDS_TALU6   2
 
 END
 
@@ -534,12 +530,11 @@ relation RDS_POLY , RDS_POLY (
 # Check the CHANNEL shapes
 #--------------------------
 caracterise CHANNEL (
-  regle 48 : notch >= 2. ;
+  regle 48 : notch >= 3. ;
 );
 relation CHANNEL , CHANNEL (
-  regle 49 : distance axiale min 2.;
+  regle 49 : distance axiale min 3.;
 );
-
 
 # Check the RDS_POLY distance
 #----------------------------
@@ -563,7 +558,7 @@ undefine NP_DIF;
 caracterise RDS_ALU1 (
   regle 51 : largeur >= 1. ;
   regle 52 : longueur_inter min 1. ;
-  regle 53 : notch >= 2.5 ;
+  regle 53 : notch >= 3. ;
 );
 relation RDS_ALU1 , RDS_ALU1 (
   regle 54 : distance axiale min 3. ;
@@ -574,10 +569,10 @@ relation RDS_ALU1 , RDS_ALU1 (
 caracterise RDS_ALU2 (
   regle 55 : largeur >= 2. ;
   regle 56 : longueur_inter min 2. ;
-  regle 57 : notch >= 2. ;
+  regle 57 : notch >= 3. ;
 );
 relation RDS_ALU2 , RDS_ALU2 (
-  regle 58 : distance axiale min 2. ;
+  regle 58 : distance axiale min 3. ;
 );
 
 # Check RDS_ALU3 shapes
@@ -630,13 +625,13 @@ relation RDS_CONT , RDS_CONT (
   regle 67 : distance axiale >= 3. ;
 );
 relation RDS_VIA , RDS_VIA (
-  regle 68 : distance axiale >= 3. ;
+  regle 68 : distance axiale >= 4. ;
 );
 relation RDS_VIA2 , RDS_VIA2 (
-  regle 69 : distance axiale >= 3. ;
+  regle 69 : distance axiale >= 4. ;
 );
 relation RDS_VIA3 , RDS_VIA3 (
-  regle 70 : distance axiale >= 3. ;
+  regle 70 : distance axiale >= 4. ;
 );
 relation RDS_VIA4 , RDS_VIA4 (
   regle 88 : distance axiale >= 5. ;
@@ -718,8 +713,8 @@ DRC_COMMENT
 45 (RDS_POLY) minimum width 1. 
 46 (RDS_POLY) Manhatan distance min 2. 
 47 (RDS_POLY,RDS_POLY) Manhatan distance min 2.
-48 (CHANNEL) Manhatan distance min 2. 
-49 (CHANNEL,CHANNEL) Manhatan distance min 2.
+48 (CHANNEL) Manhatan distance min 3. 
+49 (CHANNEL,CHANNEL) Manhatan distance min 3.
 50 (RDS_POLY,RDS_POLY) Manhatan distance min 2.
 51 (RDS_ALU1) minimum width 1. 
 52 (RDS_ALU1) minimum width 1. 
@@ -727,8 +722,8 @@ DRC_COMMENT
 54 (RDS_ALU1,RDS_ALU1) Manhatan distance min 3.
 55 (RDS_ALU2) minimum width 2. 
 56 (RDS_ALU2) minimum width 2. 
-57 (RDS_ALU2) Manhatan distance min 2. 
-58 (RDS_ALU2,RDS_ALU2) Manhatan distance min 2. 
+57 (RDS_ALU2) Manhatan distance min 3. 
+58 (RDS_ALU2,RDS_ALU2) Manhatan distance min 3. 
 59 (RDS_ALU3) minimum width 2. 
 60 (RDS_ALU3) minimum width 2. 
 61 (RDS_ALU3) Manhatan distance min 3. 
@@ -738,9 +733,9 @@ DRC_COMMENT
 65 (RDS_ALU4) Manhatan distance min 3. 
 66 (RDS_ALU4,RDS_ALU4) Manhatan distance min 3. 
 67 (RDS_CONT,RDS_CONT) Manhatan distance min 3. 
-68 (RDS_VIA,RDS_VIA) Manhatan distance min 3. 
-69 (RDS_VIA2,RDS_VIA2) Manhatan distance min 3. 
-70 (RDS_VIA3,RDS_VIA3) Manhatan distance min 3. 
+68 (RDS_VIA,RDS_VIA) Manhatan distance min 4. 
+69 (RDS_VIA2,RDS_VIA2) Manhatan distance min 4. 
+70 (RDS_VIA3,RDS_VIA3) Manhatan distance min 4. 
 71 (RDS_CONT) minimum width 1. 
 72 (RDS_CONT) maximum length 1. 
 73 (RDS_VIA) minimum width 1. 
