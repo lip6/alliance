@@ -10,6 +10,9 @@
 /* ###--------------------------------------------------------------------### */
 /*
  * $Log: vel_drive.c,v $
+ * Revision 1.7  2002/12/12 21:28:27  xtof
+ * What's this MODELNAME doing here ????
+ *
  * Revision 1.6  2002/12/12 14:49:49  fred
  * Adding corrections to generate (hopefully) correct VHDL netlists with
  * generics.
@@ -80,7 +83,7 @@
  *
  */
 
-#ident "$Id: vel_drive.c,v 1.6 2002/12/12 14:49:49 fred Exp $"
+#ident "$Id: vel_drive.c,v 1.7 2002/12/12 21:28:27 xtof Exp $"
 
 #include <stdio.h>
 #include <string.h>
@@ -444,7 +447,7 @@ int length, j;
 
          for (m=mod; m; m=m->NEXT) {
             ins=(loins_list *)m->DATA;
-            if (ins->MODELNAME == i->MODELNAME)
+            if (ins->FIGNAME == i->FIGNAME)
                break;
          }
 
