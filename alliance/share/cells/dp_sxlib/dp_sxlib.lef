@@ -6,7 +6,7 @@ MACRO dp_dff_scan_x4
     SYMMETRY  X Y ;
     SITE      core ;
     PIN q
-        DIRECTION INOUT ;
+        DIRECTION OUTPUT ;
         PORT
             LAYER L_ALU1 ;
             RECT 89.00 39.00 91.00 41.00 ;
@@ -707,7 +707,7 @@ MACRO dp_dff_x4
     SYMMETRY  X Y ;
     SITE      core ;
     PIN q
-        DIRECTION INOUT ;
+        DIRECTION OUTPUT ;
         PORT
             LAYER L_ALU2 ;
             RECT 59.00 24.00 61.00 26.00 ;
@@ -1205,32 +1205,6 @@ MACRO dp_mux_x2
             RECT 4.00 9.00 6.00 11.00 ;
         END
     END q
-    PIN i0
-        DIRECTION INPUT ;
-        PORT
-            LAYER L_ALU1 ;
-            RECT 34.00 34.00 36.00 36.00 ;
-            RECT 34.00 29.00 36.00 31.00 ;
-            RECT 34.00 24.00 36.00 26.00 ;
-            RECT 34.00 19.00 36.00 21.00 ;
-            RECT 34.00 14.00 36.00 16.00 ;
-            RECT 34.00 9.00 36.00 11.00 ;
-        END
-    END i0
-    PIN sel0
-        DIRECTION INPUT ;
-        PORT
-            LAYER L_ALU3 ;
-            RECT 29.00 19.00 31.00 21.00 ;
-        END
-    END sel0
-    PIN sel1
-        DIRECTION INPUT ;
-        PORT
-            LAYER L_ALU3 ;
-            RECT 19.00 19.00 21.00 21.00 ;
-        END
-    END sel1
     PIN i1
         DIRECTION INPUT ;
         PORT
@@ -1244,6 +1218,32 @@ MACRO dp_mux_x2
             RECT 14.00 9.00 16.00 11.00 ;
         END
     END i1
+    PIN sel1
+        DIRECTION INPUT ;
+        PORT
+            LAYER L_ALU3 ;
+            RECT 19.00 19.00 21.00 21.00 ;
+        END
+    END sel1
+    PIN sel0
+        DIRECTION INPUT ;
+        PORT
+            LAYER L_ALU3 ;
+            RECT 29.00 19.00 31.00 21.00 ;
+        END
+    END sel0
+    PIN i0
+        DIRECTION INPUT ;
+        PORT
+            LAYER L_ALU1 ;
+            RECT 34.00 34.00 36.00 36.00 ;
+            RECT 34.00 29.00 36.00 31.00 ;
+            RECT 34.00 24.00 36.00 26.00 ;
+            RECT 34.00 19.00 36.00 21.00 ;
+            RECT 34.00 14.00 36.00 16.00 ;
+            RECT 34.00 9.00 36.00 11.00 ;
+        END
+    END i0
     PIN vdd
         DIRECTION INOUT ;
         USE power ;
