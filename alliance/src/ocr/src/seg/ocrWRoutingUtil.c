@@ -1,8 +1,11 @@
 /*
    ### -------------------------------------------------- ### 
    $Author: hcl $
-   $Date: 2002/06/27 12:58:43 $
+   $Date: 2002/07/03 12:38:16 $
    $Log: ocrWRoutingUtil.c,v $
+   Revision 1.6  2002/07/03 12:38:16  hcl
+   rien
+
    Revision 1.5  2002/06/27 12:58:43  hcl
    Nettoyage
 
@@ -198,23 +201,24 @@ void initWGrid(ocrWRoutingGrid * i_pGrid, ocrRoutingParameters * i_pParam)
     }
 
 #if 0
+    /* contraintes de distances min entre ALU5-ALU5 et ALU6-ALU6
     if (i_pGrid->NB_OF_LAYERS > 2) {
         for (l_uLayer = 3; l_uLayer < i_pGrid->NB_OF_LAYERS; l_uLayer++)
 
             if (getDirection(i_pParam, l_uLayer) == ocrHorizontal)
-                for (i = 0; i < i_pGrid->SIZE_V; i += 1) {
-                    if (i % 2) {
+                for (i = 0; i < i_pGrid->SIZE_V; i += 2) {
+                    //if (i % 2) {
                         l_pSegment = getWSegment(i_pGrid, 0, i, l_uLayer);
                         l_pSegment->SIGNAL_INDEX = WSEGMENT_OBSTACLE;
-                    }
+                    //}
                 }
             else                  // vertical
 
                 for (j = 0; j < i_pGrid->SIZE_H; j += 2) {
-                    if (i % 2) {
+                    //if (i % 2) {
                         l_pSegment = getWSegment(i_pGrid, j, 0, l_uLayer);
                         l_pSegment->SIGNAL_INDEX = WSEGMENT_OBSTACLE;
-                    }
+                    //}
                 }
     }
 #endif
@@ -658,69 +662,71 @@ void dumpWGrid(char *output, ocrRoutingDataBase * i_pDataBase,
     fclose(dump);
 }
 
-//void dumpSigs (char *output, ocrRoutingDataBase *i_pDataBase) {
-//      char *name = (char *) malloc ((strlen (output) + 5) * sizeof(char *));
-//      FILE *dump;
-//      int x, y, z;
-//
-//      ocrWRoutingGrid *grid = i_pDataBase->GRID;
-//      ocrWSegment *seg;
-//      
-//
-//      name = strdup(output);
-//      strcat(name, ".gpl");
-//      dump = fopen (name, "w");
-//
-//      fprintf (dump, "set noxtics\nset noytics\nset noborder\n");
-//      fprintf (dump, "set nokey\nset title '%s'\n", "toto");
-//      fprintf (dump, "#set terminal postscript eps color solid\n");
-//      fprintf (dump, "#set output '%s.ps'", output);
-//        fprintf (dump, "set xrange[%d:%d]\n", win->XMIN, win->XMAX);
-//        fprintf (dump, "set yrange[%d:%d]\n", win->YMIN, win->YMAX);
-//      fprintf (dump, "plot [:][:][:] '-' w l, '-' w l 2, '-' w l 3\n");
-//        fprintf (dump, "%d %d\n", win->XMIN, win->YMIN);
-//        fprintf (dump, "%d %d\n", win->XMAX, win->YMIN);
-//        fprintf (dump, "%d %d\n", win->XMAX, win->YMAX);
-//        fprintf (dump, "%d %d\n", win->XMIN, win->YMAX);
-//        fprintf (dump, "%d %d\n", win->XMIN, win->YMIN);
-//      fprintf (dump, "\n");
-//
-//      for (x = win->XMIN ; x < win->XMAX ; x++)
-//              for (y = win->YMIN ; y < win->YMAX ; y++)
-//                      for (z = 0 ; z < 6 ; z++) {
-//                              seg = grid->DATA[z +
-//                                       y * grid->NB_OF_LAYERS +
-//                                       x * grid->SIZE_V * grid->NB_OF_LAYERS];
-//                              if (seg->SIGNAL_INDEX == WSEGMENT_OBSTACLE) {
-//                                      if ( ((!(z % 2)) && (i_pDataBase->PARAM->EVEN_LAYERS_DIRECTION == ocrHorizontal))
-//                                      || (((z % 3) && (i_pDataBase->PARAM->EVEN_LAYERS_DIRECTION == ocrVertical))) )
-//                                      {
-//                                              fprintf (dump, "%d %d\n",
-//                                                      seg->P_MIN,
-//                                                      seg->OFFSET
-//                                                      );
-//                                              fprintf (dump, "%d %d\n",
-//                                                      seg->P_MAX,
-//                                                      seg->OFFSET
-//                                                      );
-//                                      } else {
-//                                              fprintf (dump, "%d %d\n",
-//                                                      seg->OFFSET,
-//                                                      seg->P_MIN
-//                                                      );
-//                                              fprintf (dump, "%d %d\n",
-//                                                      seg->OFFSET,
-//                                                      seg->P_MAX
-//                                                      );
-//                                      }
-//                              }
-//                              fprintf (dump, "\n");
-//      }
-//      
-//      
-//
-//      fclose (dump);
-//}
+#if 0
+void dumpSigs (char *output, ocrRoutingDataBase *i_pDataBase) {
+      char *name = (char *) malloc ((strlen (output) + 5) * sizeof(char *));
+      FILE *dump;
+      int x, y, z;
+
+      ocrWRoutingGrid *grid = i_pDataBase->GRID;
+      ocrWSegment *seg;
+      
+
+      name = strdup(output);
+      strcat(name, ".gpl");
+      dump = fopen (name, "w");
+
+      fprintf (dump, "set noxtics\nset noytics\nset noborder\n");
+      fprintf (dump, "set nokey\nset title '%s'\n", "toto");
+      fprintf (dump, "#set terminal postscript eps color solid\n");
+      fprintf (dump, "#set output '%s.ps'", output);
+        fprintf (dump, "set xrange[%d:%d]\n", win->XMIN, win->XMAX);
+        fprintf (dump, "set yrange[%d:%d]\n", win->YMIN, win->YMAX);
+      fprintf (dump, "plot [:][:][:] '-' w l, '-' w l 2, '-' w l 3\n");
+        fprintf (dump, "%d %d\n", win->XMIN, win->YMIN);
+        fprintf (dump, "%d %d\n", win->XMAX, win->YMIN);
+        fprintf (dump, "%d %d\n", win->XMAX, win->YMAX);
+        fprintf (dump, "%d %d\n", win->XMIN, win->YMAX);
+        fprintf (dump, "%d %d\n", win->XMIN, win->YMIN);
+      fprintf (dump, "\n");
+
+      for (x = win->XMIN ; x < win->XMAX ; x++)
+              for (y = win->YMIN ; y < win->YMAX ; y++)
+                      for (z = 0 ; z < 6 ; z++) {
+                              seg = grid->DATA[z +
+                                       y * grid->NB_OF_LAYERS +
+                                       x * grid->SIZE_V * grid->NB_OF_LAYERS];
+                              if (seg->SIGNAL_INDEX == WSEGMENT_OBSTACLE) {
+                                      if ( ((!(z % 2)) && (i_pDataBase->PARAM->EVEN_LAYERS_DIRECTION == ocrHorizontal))
+                                      || (((z % 3) && (i_pDataBase->PARAM->EVEN_LAYERS_DIRECTION == ocrVertical))) )
+                                      {
+                                              fprintf (dump, "%d %d\n",
+                                                      seg->P_MIN,
+                                                      seg->OFFSET
+                                                      );
+                                              fprintf (dump, "%d %d\n",
+                                                      seg->P_MAX,
+                                                      seg->OFFSET
+                                                      );
+                                      } else {
+                                              fprintf (dump, "%d %d\n",
+                                                      seg->OFFSET,
+                                                      seg->P_MIN
+                                                      );
+                                              fprintf (dump, "%d %d\n",
+                                                      seg->OFFSET,
+                                                      seg->P_MAX
+                                                      );
+                                      }
+                              }
+                              fprintf (dump, "\n");
+      }
+      
+      
+
+      fclose (dump);
+}
+#endif
 
 
 /**

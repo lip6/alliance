@@ -1,8 +1,11 @@
 /*
    ### -------------------------------------------------- ### 
    $Author: hcl $
-   $Date: 2002/03/15 14:37:22 $
+   $Date: 2002/07/03 12:38:16 $
    $Log: ocrToPhFig.c,v $
+   Revision 1.2  2002/07/03 12:38:16  hcl
+   rien
+
    Revision 1.1  2002/03/15 14:37:22  hcl
    Ca roule.
 
@@ -60,7 +63,7 @@
 #define PITCH		5
 
 static char *res_id =
-    "$Id: ocrToPhFig.c,v 1.1 2002/03/15 14:37:22 hcl Exp $";
+    "$Id: ocrToPhFig.c,v 1.2 2002/07/03 12:38:16 hcl Exp $";
 
 extern ocrOption *g_pOption;
 #define LEVEL (g_pOption->LEVEL)
@@ -146,10 +149,13 @@ addViaToPhFig(ocrRoutingParameters * i_pParam,
     //printf ("Add via %d en %ld %ld\n",i_nLayer,i_uX,i_uY);
 #else
 
+    if ((i_uX == 200) && (i_uY == 205))
+        abort();
+
     addphvia(io_pPhFig,
              getPhVia(i_nLayer),
              i_uX * i_pParam->PITCH_H * SCALE_X,
-             i_uY * i_pParam->PITCH_H * SCALE_X, 0, 0, NULL);
+             i_uY * i_pParam->PITCH_V * SCALE_X, 0, 0, NULL);
 #endif
 }
 
@@ -356,15 +362,20 @@ dumpIntExtConToPhFig(ocrRoutingDataBase * i_pDataBase,
 
             if (l_pCon->INTEXT == INTERNAL) {
                 if (l_pCon->CON)
-                    addViaToPhFig(i_pParam, l_pCon->CON->X, l_pCon->CON->Y, l_pCon->CON->Z - 1, // VIA ALUx<->ALU(x-1)
+                    addViaToPhFig(i_pParam,
+                                  l_pCon->CON->X,
+                                  l_pCon->CON->Y,
+                                  l_pCon->CON->Z - 1, // VIA ALUx<->ALU(x-1)
                                   i_pPhFig);
             } else {
                 if (l_pCon->CON)
                     addphcon(i_pPhFig,
                              l_pCon->CON->ORIENT,
                              l_pCon->NAME,
-                             l_pCon->CON->X * 500,
-                             l_pCon->CON->Y * 500, ALU2, 2 * SCALE_X);
+                             l_pCon->CON->X * (PITCH * SCALE_X),
+                             l_pCon->CON->Y * (PITCH * SCALE_X),
+                             ALU2,
+                             2 * SCALE_X);
             }
         }
     }
