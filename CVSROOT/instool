@@ -7,7 +7,7 @@
 # Author: Frédéric Pétrot (fred@pasta.fr.ea)
 #         for version 0
 #
-# $Id: instool,v 1.11 1999/10/15 10:11:39 czo Exp $
+# $Id: instool,v 1.12 1999/10/15 15:51:11 czo Exp $
 #
 
 PATH=/users/outil1/alliance/cvsroot/CVSROOT:/asim/gnu/bin:/usr/ucb:/usr/etc:/bin:/usr/bin:/usr/local/bin:${PATH}
@@ -37,6 +37,7 @@ CELLS=$LABO/share/cells
 ETC=$LABO/share/etc
 MANS=$LABO/share/man
 
+umask 002
 
 echo "    @@@@@@                      @@@@@@@@@@                      @@@@"
 echo "      @@                        @   @@   @                        @@"
