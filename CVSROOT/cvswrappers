@@ -69,8 +69,9 @@
 # zip
 # vor
 # sdw
-# 
-# 
+# sdb 
+# sym
+# sld
 
 
 *.[Aa]  -k b -m COPY
@@ -120,3 +121,7 @@
 *.[Zz][Ii][Pp]  -k b -m COPY
 *.[Vv][Oo][Rr]  -k b -m COPY
 *.[Ss][Dd][Ww]  -k b -m COPY
+*.[Ss][Dd][Bb]  -k b -m COPY
+*.[Ss][Yy][Mm]  -k b -m COPY
+*.[Ss][Ll][Dd]  -k b -m COPY
+
