@@ -28,6 +28,20 @@
 * Updates     : June, 12th 1998                                               *
 * Updates     : August, 12th 2002, Pierre Nguyen Tuong                        *
 * $Log: alc_driv_l.c,v $
+* Revision 1.3  2002/08/14 19:10:19  pnt
+* Inversion de l'ordre d'ecriture des parametres pour les capacites, les
+* resistances et les inductances. Le genere .al contient desormais
+*
+* P type capa tcon bcon name node_tcon node_bcon           ---capacite
+* R type resi rcon1 rcon2 name node_rcon1 node_rcon2       ---resistance
+* L type self scon1 scon2 name node_scon1 node_scon2       ---inductance
+*
+* et non
+*
+* P type capa name tcon bcon node_tcon node_bcon           ---capacite
+* R type resi name rcon1 rcon2 node_rcon1 node_rcon2       ---resistance
+* L type self name scon1 scon2 node_scon1 node_scon2       ---inductance
+*
 * Revision 1.2  2002/08/13 16:40:14  pnt
 * Suite de l'introduction des objets analogiques capacite, resistance et self.
 *
@@ -268,19 +282,19 @@ lofig_list * pfig;
 	}
 
 
-	/* write capacitor */
+	/* Write capacitor */
 
         tmpnum = NULL ;
 
 	for(pcap = pfig -> LOCAP ; pcap != NULL ; pcap = pcap -> NEXT)
 	  {
             /* Q est deja pris pour les capacites de rcn */
-	    (void)fprintf(in,"P %s,%g,%s,%ld,%ld",
+	    (void)fprintf(in,"P %s,%g,%ld,%ld,%s",
 			  (pcap -> TYPE == CAPMIM)?"MIM":"POLY_NWELL",
 			  pcap -> CAPA,
-			  pcap -> NAME?pcap -> NAME:"noname",
 			  pcap -> TCON -> SIG -> INDEX,
-			  pcap -> BCON -> SIG -> INDEX) ;
+			  pcap -> BCON -> SIG -> INDEX,
+			  pcap -> NAME?pcap -> NAME:"noname") ;
 
 	    if (!(tmpnum = pcap -> TCON -> PNODE))
 	      {
@@ -315,12 +329,12 @@ lofig_list * pfig;
 
 	for(pres = pfig -> LORES ; pres != NULL ; pres = pres -> NEXT)
 	  {
-	    (void)fprintf(in,"R %s,%g,%s,%ld,%ld",
+	    (void)fprintf(in,"R %s,%g,%ld,%ld,%s",
 			  (pres -> TYPE == RESMIM)?"MIM":"MIM",
 			  pres -> RESI,
-			  pres -> NAME?pres -> NAME:"noname",
 			  pres -> RCON1 -> SIG -> INDEX,
-			  pres -> RCON2 -> SIG -> INDEX) ;
+			  pres -> RCON2 -> SIG -> INDEX,
+			  pres -> NAME?pres -> NAME:"noname") ;
 
 	    if (!(tmpnum = pres -> RCON1 -> PNODE))
 	      {
@@ -355,12 +369,12 @@ lofig_list * pfig;
 
 	for(pself = pfig -> LOSELF ; pself != NULL ; pself = pself -> NEXT)
 	  {
-	    (void)fprintf(in,"L %s,%g,%s,%ld,%ld",
+	    (void)fprintf(in,"L %s,%g,%ld,%ld,%s",
 			  (pself -> TYPE == SELFMIM)?"MIM":"MIM",
 			  pself -> SELF,
-			  pself -> NAME?pself -> NAME:"noname",
 			  pself -> SCON1 -> SIG -> INDEX,
-			  pself -> SCON2 -> SIG -> INDEX) ;
+			  pself -> SCON2 -> SIG -> INDEX,
+			  pself -> NAME?pself -> NAME:"noname") ;
 
 	    if (!(tmpnum = pself -> SCON1 -> PNODE))
 	      {

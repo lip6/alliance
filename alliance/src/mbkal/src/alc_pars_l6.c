@@ -30,6 +30,20 @@
 *                                 is provided.                                 *
 *  Updates     : AUGUST, 12th 2002, Pierre Nguyen Tuong                        *
 *  $Log: alc_pars_l6.c,v $
+*  Revision 1.3  2002/08/14 19:10:20  pnt
+*  Inversion de l'ordre d'ecriture des parametres pour les capacites, les
+*  resistances et les inductances. Le genere .al contient desormais
+*
+*  P type capa tcon bcon name node_tcon node_bcon           ---capacite
+*  R type resi rcon1 rcon2 name node_rcon1 node_rcon2       ---resistance
+*  L type self scon1 scon2 name node_scon1 node_scon2       ---inductance
+*
+*  et non
+*
+*  P type capa name tcon bcon node_tcon node_bcon           ---capacite
+*  R type resi name rcon1 rcon2 node_rcon1 node_rcon2       ---resistance
+*  L type self name scon1 scon2 node_scon1 node_scon2       ---inductance
+*
 *  Revision 1.2  2002/08/13 16:40:14  pnt
 *  Suite de l'introduction des objets analogiques capacite, resistance et self.
 *
@@ -538,17 +552,17 @@ locap_list *decode_locap(lofig_list *ptfig,chain_list *line,char *fname,int mal_
   capa   = decode_float((char *)line -> DATA,fname,mal_line) ;
   line   = line -> NEXT ;
 
-  /***** name *****/
-
-  name   = namealloc((char *)line -> DATA) ;
-  line   = line -> NEXT ;
-
   /***** tcon bcon *****/
 
   tcon   = givelosig(ptfig,decode_int((char *)line -> DATA,fname,mal_line)) ;
   line   = line -> NEXT ;
   
   bcon   = givelosig(ptfig,decode_int((char *)line -> DATA,fname,mal_line)) ;
+  line   = line -> NEXT ;
+
+  /***** name *****/
+
+  name   = namealloc((char *)line -> DATA) ;
   line   = line -> NEXT ;
 
   /***** node_tcon node_bcon *****/
@@ -632,17 +646,17 @@ lores_list *decode_lores(lofig_list *ptfig,chain_list *line,char *fname,int mal_
   resi   = decode_float((char *)line -> DATA,fname,mal_line) ;
   line   = line -> NEXT ;
 
-  /***** name *****/
-
-  name   = namealloc((char *)line -> DATA) ;
-  line   = line -> NEXT ;
-
   /***** rcon1 rcon2 *****/
 
   rcon1   = givelosig(ptfig,decode_int((char *)line -> DATA,fname,mal_line)) ;
   line   = line -> NEXT ;
   
   rcon2   = givelosig(ptfig,decode_int((char *)line -> DATA,fname,mal_line)) ;
+  line   = line -> NEXT ;
+
+  /***** name *****/
+
+  name   = namealloc((char *)line -> DATA) ;
   line   = line -> NEXT ;
 
   /***** node_rcon1 node_rcon2 *****/
@@ -726,17 +740,17 @@ loself_list *decode_loself(lofig_list *ptfig,chain_list *line,char *fname,int ma
   self   = decode_float((char *)line -> DATA,fname,mal_line) ;
   line   = line -> NEXT ;
 
-  /***** name *****/
-
-  name   = namealloc((char *)line -> DATA) ;
-  line   = line -> NEXT ;
-
   /***** scon1 scon2 *****/
 
   scon1   = givelosig(ptfig,decode_int((char *)line -> DATA,fname,mal_line)) ;
   line   = line -> NEXT ;
   
   scon2   = givelosig(ptfig,decode_int((char *)line -> DATA,fname,mal_line)) ;
+  line   = line -> NEXT ;
+
+  /***** name *****/
+
+  name   = namealloc((char *)line -> DATA) ;
   line   = line -> NEXT ;
 
   /***** node_scon1 node_scon2 *****/
