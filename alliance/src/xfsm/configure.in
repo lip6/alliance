@@ -24,6 +24,7 @@ AC_PROG_RANLIB
 AC_PROG_MAKE_SET
 AC_FIND_MOTIF
 
+AC_CHECK_LIB(m, sqrt)
 dnl Checks for typedefs, structures, and compiler characteristics.
 AC_C_CONST
 
