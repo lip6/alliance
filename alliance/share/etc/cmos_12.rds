@@ -15,6 +15,8 @@
 ##-------------------------------------------------------------------
 # Refer to the documentation for more precise information.
 #=====================================================================
+# 01/11/09 ALU5/6 pitch 10
+#
 # 99/11/3 ALU5/6 rules
 # . theses rules are preliminary rules, we hope that they wil change
 #   in future. For now, ALU5/6 are dedicated to supplies an clock.
@@ -175,6 +177,8 @@ TABLE MBK_TO_RDS_BIGVIA_HOLE
 CONT_VIA   RDS_VIA1 1 4 ALL
 CONT_VIA2  RDS_VIA2 1 4 ALL
 CONT_VIA3  RDS_VIA3 1 4 ALL
+CONT_VIA5  RDS_VIA3 1 9 ALL
+CONT_VIA6  RDS_VIA3 1 9 ALL
 
 END
 
@@ -190,6 +194,8 @@ TABLE MBK_TO_RDS_BIGVIA_METAL
 CONT_VIA  RDS_ALU1 0.0 0.5 ALL RDS_ALU2 0.0 0.5 ALL
 CONT_VIA2 RDS_ALU2 0.0 0.5 ALL RDS_ALU3 0.0 0.5 ALL
 CONT_VIA3 RDS_ALU3 0.0 0.5 ALL RDS_ALU4 0.0 0.5 ALL
+CONT_VIA4 RDS_ALU4 0.0 0.5 ALL RDS_ALU5 0.0 0.5 ALL
+CONT_VIA5 RDS_ALU5 0.0 0.5 ALL RDS_ALU6 0.0 0.5 ALL
 
 END 
 
@@ -206,6 +212,8 @@ CONT_TURN1 RDS_ALU1 0 ALL
 CONT_TURN2 RDS_ALU2 0 ALL
 CONT_TURN3 RDS_ALU3 0 ALL
 CONT_TURN4 RDS_ALU4 0 ALL
+CONT_TURN5 RDS_ALU5 0 ALL
+CONT_TURN6 RDS_ALU6 0 ALL
 
 END
 
@@ -714,10 +722,10 @@ relation RDS_ALU5 , RDS_ALU5 (
 caracterise RDS_ALU6 (
   regle 84 : largeur >= 2. ;
   regle 85 : longueur_inter min 2. ;
-  regle 86 : notch >= 12. ;
+  regle 86 : notch >= 8. ;
 );
 relation RDS_ALU6 , RDS_ALU6 (
-  regle 87 : distance axiale min 12. ;
+  regle 87 : distance axiale min 8. ;
 );
 
 # Check ANY_VIA layers, stacking are free
@@ -735,10 +743,10 @@ relation RDS_VIA3 , RDS_VIA3 (
   regle 70 : distance axiale >= 4. ;
 );
 relation RDS_VIA4 , RDS_VIA4 (
-  regle 88 : distance axiale >= 4. ;
+  regle 88 : distance axiale >= 9. ;
 );
 relation RDS_VIA5 , RDS_VIA5 (
-  regle 89 : distance axiale >= 5. ;
+  regle 89 : distance axiale >= 9. ;
 );
 caracterise RDS_CONT (
   regle 71 : largeur >= 1. ;
@@ -876,10 +884,10 @@ DRC_COMMENT
 83 (RDS_ALU5,RDS_ALU5) Manhatan distance min 8. 
 84 (RDS_ALU6) minimum width 2. 
 85 (RDS_ALU6) minimum width 2. 
-86 (RDS_ALU6) Manhatan distance min 12. 
-87 (RDS_ALU6,RDS_ALU6) Manhatan distance min 12. 
-88 (RDS_VIA4,RDS_VIA4) Manhatan distance min 4. 
-89 (RDS_VIA5,RDS_VIA5) Manhatan distance min 5. 
+86 (RDS_ALU6) Manhatan distance min 8. 
+87 (RDS_ALU6,RDS_ALU6) Manhatan distance min 8. 
+88 (RDS_VIA4,RDS_VIA4) Manhatan distance min 9. 
+89 (RDS_VIA5,RDS_VIA5) Manhatan distance min 9. 
 90 (RDS_VIA4) minimum width 1. 
 91 (RDS_VIA4) maximum length 1. 
 92 (RDS_VIA5) minimum width 1. 
