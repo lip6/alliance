@@ -1,0 +1,3 @@
+cell : grrli_c
+This cell is the address line inverted.
+It may be loaded up to to 2 pF.

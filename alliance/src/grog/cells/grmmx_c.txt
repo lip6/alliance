@@ -1,0 +1,2 @@
+cell : grmmx_c
+Second half of the one out sixteen output multiplexer for the 512 words rom.

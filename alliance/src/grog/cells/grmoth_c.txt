@@ -1,0 +1,4 @@
+cell : grmoth_c
+Cell needed when both output enable and through routes are requested, for the
+512 words rom.
+This is a single though route.
