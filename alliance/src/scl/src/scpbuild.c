@@ -814,7 +814,11 @@ static schfig_list *loc_buildplaceout( Figure, ColumnFrom, ColumnTo )
 
   long            CumulY;
 
-  Begin = 1;
+  /* LUDO 29/10/2004 */
+  CumulY = 0;
+  /* ODUL */
+
+  Begin  = 1;
 
   for ( CellTo  = ColumnTo->LAST_CELL;
         CellTo != (scpcel_list *)0;
@@ -875,9 +879,18 @@ static schfig_list *loc_buildplaceout( Figure, ColumnFrom, ColumnTo )
 
       if ( ! IsSchBoxPlaced( BoxTo ) )
       {
-        BoxTo->Y = CumulY - BoxTo->DY;
-        SetSchBoxPlaced( BoxTo );
-        CumulY = BoxTo->Y - 1;
+        /* LUDO Bug fix 29/10/2004 */
+        if ( Begin )
+        {
+          CumulY = BoxTo->Y; 
+        }
+        /* ODUL */
+        else
+        {
+          BoxTo->Y = CumulY - BoxTo->DY;
+          SetSchBoxPlaced( BoxTo );
+          CumulY = BoxTo->Y - 1;
+        }
       }
     }
 
@@ -932,6 +945,10 @@ static schfig_list *loc_buildplaceout( Figure, ColumnFrom, ColumnTo )
         ConTo->Y_REL = CumulY;
         SetSchConPlaced(ConTo);
         CumulY = ConTo->Y_REL - 1;
+
+        /* LUDO 29/10/2004 */
+        Begin = 0;
+        /* ODUL */
       }
     }
   }
@@ -1387,6 +1404,10 @@ static schfig_list *loc_placement_initial( Figure )
       }
     }
   }
+
+  /* LUDO 29/10/2004 */
+  cpt_transparence = 0;
+  /* ODUL */
 
   while (cpt_transparence != Column->NUMBER_CELL) {
 
