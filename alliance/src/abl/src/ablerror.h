@@ -66,7 +66,7 @@
 |                                                             |
 \------------------------------------------------------------*/
 
-# define ablerror( E, V ) (abl_error( (int)(E), (char *)(V), __FILE__, __LINE__ ))
+# define ablerror( E, V ) (abl_error( (int)(E), (char *)(V), basename(__FILE__), __LINE__ ))
 
 /*------------------------------------------------------------\
 |                                                             |
