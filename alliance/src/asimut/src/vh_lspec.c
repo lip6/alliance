@@ -1657,8 +1657,10 @@ struct befig      *head_befig;
         if (receiv_nbr == 0)
           vhu_warning (3, getsigname (pt_losig), NULL);
 
-        if (emettr_nbr == 0)
+        if (emettr_nbr == 0 && receiv_nbr != 0)
+        {
           errflg = vhu_error (109, getsigname (pt_losig), NULL);
+        }
 
         if ((emettr_nbr > 1) && ((mode & VHL_WRTDFN) == VHL_WRTDFN))
           errflg = vhu_error (114, getsigname (pt_losig), NULL);
@@ -1667,7 +1669,7 @@ struct befig      *head_befig;
                                      && (pt_losig->USER->DATA == NULL))
           errflg = vhu_error (111, getsigname (pt_losig), NULL);
 
-        if (connec_nbr == 0)
+        if (connec_nbr == 0 && receiv_nbr != 0)
           errflg = vhu_error (110, getsigname (pt_losig), NULL);
 
         if (((mode & VHL_WRTDFN) == VHL_WRTDFN) &&
