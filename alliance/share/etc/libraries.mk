@@ -3,7 +3,7 @@
 # description   : Alliance Shared Libraries and Include Files   #
 # ###---------------------------------------------------------###
 
-# $Id: libraries.mk,v 1.28 2000/08/31 15:45:34 czo Exp $
+# $Id: libraries.mk,v 1.29 2000/09/04 13:36:43 czo Exp $
 
 # The variables $ALLIANCE_TOP and $ALLIANCE_OS are set by
 # alc_env.[c]sh script
@@ -12,7 +12,7 @@
 #    Common settings                                            #
 # ###---------------------------------------------------------###
 
-ALLIANCE_VERSION = '"4.0.7"'
+ALLIANCE_VERSION = '"4.0.8"'
 ALLIANCE_BIN     = $(ALLIANCE_TOP)/bin
 ALLIANCE_LIB     = $(ALLIANCE_TOP)/lib
 ALLIANCE_INCLUDE = $(ALLIANCE_TOP)/include
@@ -225,9 +225,9 @@ CST_H      =    cst100.h
 BHL_L      =  -lBhl111
 BHL_LIB    = libBhl111.a
 BHL_H      =    bhl111.h
-BVL_L      =  -lBvl113
-BVL_LIB    = libBvl113.a
-BVL_H      =    bvl113.h
+BVL_L      =  -lBvl114
+BVL_LIB    = libBvl114.a
+BVL_H      =    bvl114.h
 
 # ###---------------------------------------------------------###
 #    functions related to finite state machine representation : #
