@@ -4,7 +4,7 @@
 | (C) Laboratoire LIP6 - Département ASIM Universite P&M Curie|
 |                                                             |
 | Home page      : http://www-asim.lip6.fr/alliance/          |
-| E-mail         : mailto:alliance-users@asim.lip6.fr       |
+| E-mail         : mailto:alliance-users@asim.lip6.fr         |
 |                                                             |
 | This progam is  free software; you can redistribute it      |
 | and/or modify it under the  terms of the GNU Library General|
@@ -203,6 +203,11 @@ ablexpr *simpdupexpr( Expr )
           freeablexpr( Expr );
           ABL_ATOM_VALUE( ExprSimp ) = (char *)AblSimplifyTable[ Oper ][ 1 ];
 
+          if ( Negative == 1 )
+          {
+            return( optimablnotexpr( ExprSimp ) );
+          }
+
           return( ExprSimp );
         }
 
@@ -338,6 +343,11 @@ ablexpr *loc_simpablexpr( Expr )
           ABL_CAR( ScanExpr ) = (ablexpr *)0;
           freeablexpr( Expr );
           ABL_ATOM_VALUE( ExprSimp ) = (char *)AblSimplifyTable[ Oper ][ 1 ];
+
+          if ( Negative == 1 )
+          {
+            ExprSimp = optimablnotexpr( ExprSimp );
+          }
 
           return( ExprSimp );
         }
