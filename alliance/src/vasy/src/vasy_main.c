@@ -262,6 +262,7 @@ int main( argc, argv )
   int    Index;
 
 
+  printf("HELLO\n");
   alliancebanner_with_contrib(
       "VASY", VERSION, "VHDL Analyzer for SYnthesis",
       "2000", ALLIANCE_VERSION, "Ludovic Jacomme", "Frederic Petrot" );

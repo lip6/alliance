@@ -432,10 +432,11 @@ static void VasyVerilogTreatAsg( RtlFigure, RtlAsg )
              ( RtlType == RTL_BIVEX_FALLING_EDGE ) )
         {
           VexCond  = RtlBiVex->VEX_COND;
+
           SensName = GetVexAtomValue( VexCond );
 
-          if ( RtlType == RTL_BIVEX_FALLING_EDGE ) SensType = VASY_VERILOG_SENS_POSEDGE;
-          else                                     SensType = VASY_VERILOG_SENS_NEGEDGE;
+          if ( RtlType == RTL_BIVEX_FALLING_EDGE ) SensType = VASY_VERILOG_SENS_NEGEDGE;
+          else                                     SensType = VASY_VERILOG_SENS_POSEDGE;
 
           SensList = addptype( SensList, SensType, SensName );
         }
