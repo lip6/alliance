@@ -1,3 +1,4 @@
+     ALLIANCE_TOP = /asim/alliance
       TECHNO_REAL = prol10
 
 
@@ -89,7 +90,8 @@
     PROOF = $(MBK_EXTRACT_ENV); $(ALLIANCE_BIN)/proof
    GENLIB = $(MBK_GENERAT_ENV);$(ALLIANCE_BIN)/genlib
    GENPAT = $(MBK_GENERAT_ENV); $(ALLIANCE_BIN)/genpat
-      OCP = $(MBK_GENERAT_ENV); $(ALLIANCE_BIN)/ocp 
+#      OCP = $(MBK_GENERAT_ENV); $(ALLIANCE_BIN)/ocp 
+      OCP = $(MBK_GENERAT_ENV); /users/cao/xtof/alliance/Linux/install/bin/ocp 
      NERO = $(MBK_GENERAT_ENV); $(ALLIANCE_BIN)/nero
      RING = $(MBK_GENERAT_ENV); $(ALLIANCE_BIN)/ring
     GRAAL = $(MBK_GENERAT_ENV); $(ALLIANCE_BIN)/graal
@@ -129,7 +131,7 @@ view_chip_simulation: test_chip_final.pat
 amd2901_core.vst amd2901_core_place.ap: amd2901_core.c amd2901_ctl.vst amd2901_ctl.vbe amd2901_dpt.vst amd2901_dpt.ap 
 	$(GENLIB) -v amd2901_core
 
-amd2901_chip.vst: amd2901_core.vst 
+amd2901_chip.vst: amd2901_core.vst amd2901_chip.c 
 	$(GENLIB) -v amd2901_chip
 
 test_chip.pat: amd2901_chip.vst pattern.pat
@@ -151,7 +153,7 @@ amd2901_ctl.vst : amd2901_ctl_boog.vst
 	$(LOON) amd2901_ctl_boog amd2901_ctl
 
 amd2901_core_p.ap: amd2901_core.vst amd2901_core_place.ap amd2901_core.ioc
-	$(OCP) -v -gnuplot -partial amd2901_core_place -ioc amd2901_core amd2901_core amd2901_core_p
+	$(OCP) -v -gnuplot -partial amd2901_core_place -ring -ioc amd2901_core amd2901_core amd2901_core_p
 	#$(OCP) -v -gnuplot -partial amd2901_core_place -ring amd2901_core amd2901_core_p
 
 druc_ocp: amd2901_core_p.ap
@@ -172,7 +174,7 @@ druc_core: amd2901_core.ap
 	$(DRUC) amd2901_core
 	$(TOUCH) druc_core
 
-amd2901_chip.ap: test_chip.pat amd2901_core.ap amd2901_chip.rin druc_core lvx_core
+amd2901_chip.ap: test_chip.pat amd2901_core.ap amd2901_chip.rin amd2901_chip.vst druc_core lvx_core
 	$(MBK_GENERAT_ENV); $(RING) amd2901_chip amd2901_chip
 
 amd2901_chip.al: amd2901_chip.ap

@@ -11,10 +11,7 @@
 ###################################################################
 
 TOP ( # IOs are ordered from left to right
-   (IOPIN b(3).0 );
-   (IOPIN cin.0 );
-   (IOPIN ck.0 );
-   (IOPIN cout.0 );
+   SPACE 30;
    (IOPIN d(0).0 );
    (IOPIN d(1).0 );
    (IOPIN d(2).0 );
@@ -23,6 +20,7 @@ TOP ( # IOs are ordered from left to right
    (IOPIN i(0).0 );
    (IOPIN i(1).0 );
    (IOPIN i(2).0 );
+   SPACE 30;
    (IOPIN a(0).0 );
    (IOPIN a(1).0 );
    (IOPIN a(2).0 );
@@ -32,15 +30,30 @@ TOP ( # IOs are ordered from left to right
    (IOPIN acc_i_up.0 );
    (IOPIN acc_o_down.0 );
    (IOPIN acc_o_up.0 );
-   (IOPIN b(0).0 );
-   (IOPIN b(1).0 );
-   (IOPIN b(2).0 );
-
+   SPACE 30;
 )
-BOTTOM ( # IOs are ordered from left to right
+
+LEFT(
+   (IOPIN b(3).0 );
+   (IOPIN cin.0 );
+   (IOPIN ck.0 );
+   (IOPIN cout.0 );
    (IOPIN i(3).0 );
    (IOPIN i(4).0 );
    (IOPIN i(5).0 );
+)
+
+RIGHT
+(
+   (IOPIN b(0).0 );
+   (IOPIN b(1).0 );
+   (IOPIN b(2).0 );
+   (IOPIN zero.0 );
+   (IOPIN y(2).0 );
+   (IOPIN y(3).0 );
+)
+
+BOTTOM ( # IOs are ordered from left to right
    (IOPIN i(6).0 );
    (IOPIN i(7).0 );
    (IOPIN i(8).0 );
@@ -58,9 +71,7 @@ BOTTOM ( # IOs are ordered from left to right
    (IOPIN test.0 );
    (IOPIN y(0).0 );
    (IOPIN y(1).0 );
-   (IOPIN y(2).0 );
-   (IOPIN y(3).0 );
-   (IOPIN zero.0 );
 )
+
 IGNORE ( # IOs are ignored(not placed) by IO Placer
 )
