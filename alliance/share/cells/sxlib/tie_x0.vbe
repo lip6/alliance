@@ -8,7 +8,7 @@ END tie_x0;
 ARCHITECTURE behaviour_data_flow OF tie_x0 IS
 
 BEGIN
-  ASSERT ((vdd and not (vss)) = '1')
+  ASSERT (vdd and not (vss))
   REPORT "power supply is missing on tie_x0"
   SEVERITY WARNING;
 END;

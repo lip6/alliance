@@ -33,5 +33,8 @@ END xr2_x1;
 ARCHITECTURE behaviour_data_flow OF xr2_x1 IS
 
 BEGIN
-q <= (i0 xor i1) after 1000 ps;
+  ASSERT ((vdd and not (vss)) = '1')
+  REPORT "power supply is missing on xr2_x1"
+  SEVERITY WARNING;
+  q <= (i0 xor i1) after 1000 ps;
 END;

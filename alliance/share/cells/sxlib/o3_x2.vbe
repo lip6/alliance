@@ -31,5 +31,8 @@ END o3_x2;
 ARCHITECTURE behaviour_data_flow OF o3_x2 IS
 
 BEGIN
-q <= ((i0 or i1) or i2) after 1100 ps;
+  ASSERT ((vdd and not (vss)) = '1')
+  REPORT "power supply is missing on o3_x2"
+  SEVERITY WARNING;
+  q <= ((i0 or i1) or i2) after 1100 ps;
 END;

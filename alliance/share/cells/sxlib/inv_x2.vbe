@@ -19,5 +19,8 @@ END inv_x2;
 ARCHITECTURE behaviour_data_flow OF inv_x2 IS
 
 BEGIN
-nq <= not (i) after 700 ps;
+  ASSERT ((vdd and not (vss)) = '1')
+  REPORT "power supply is missing on inv_x2"
+  SEVERITY WARNING;
+  nq <= not (i) after 700 ps;
 END;

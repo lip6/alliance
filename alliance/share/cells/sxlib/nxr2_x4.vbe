@@ -33,5 +33,8 @@ END nxr2_x4;
 ARCHITECTURE behaviour_data_flow OF nxr2_x4 IS
 
 BEGIN
-nq <= not ((i0 xor i1)) after 1200 ps;
+  ASSERT ((vdd and not (vss)) = '1')
+  REPORT "power supply is missing on nxr2_x4"
+  SEVERITY WARNING;
+  nq <= not ((i0 xor i1)) after 1200 ps;
 END;

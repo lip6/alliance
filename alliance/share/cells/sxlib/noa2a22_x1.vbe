@@ -37,5 +37,8 @@ END noa2a22_x1;
 ARCHITECTURE behaviour_data_flow OF noa2a22_x1 IS
 
 BEGIN
-nq <= not (((i0 and i1) or (i2 and i3))) after 1000 ps;
+  ASSERT ((vdd and not (vss)) = '1')
+  REPORT "power supply is missing on noa2a22_x1"
+  SEVERITY WARNING;
+  nq <= not (((i0 and i1) or (i2 and i3))) after 1000 ps;
 END;

@@ -35,5 +35,8 @@ END nmx2_x1;
 ARCHITECTURE behaviour_data_flow OF nmx2_x1 IS
 
 BEGIN
-nq <= not (((i0 and not (cmd)) or (i1 and cmd))) after 1000 ps;
+  ASSERT ((vdd and not (vss)) = '1')
+  REPORT "power supply is missing on nmx2_x1"
+  SEVERITY WARNING;
+  nq <= not (((i0 and not (cmd)) or (i1 and cmd))) after 1000 ps;
 END;

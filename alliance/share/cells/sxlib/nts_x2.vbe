@@ -25,10 +25,13 @@ END nts_x2;
 ARCHITECTURE behaviour_data_flow OF nts_x2 IS
 
 BEGIN
+  ASSERT ((vdd and not (vss)) = '1')
+  REPORT "power supply is missing on nts_x2"
+  SEVERITY WARNING;
 
   label0 : BLOCK (cmd = '1')
   BEGIN
-nq <= GUARDED not (i) after 900 ps;
+    nq <= GUARDED not (i) after 900 ps;
   END BLOCK label0;
 
 END;

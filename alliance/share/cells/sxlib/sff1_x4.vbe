@@ -16,7 +16,7 @@ GENERIC (
 PORT (
   ck	 : in  BIT;
   i	 : in  BIT;
-  q	 : out BIT;
+  q	 : inout BIT;
   vdd	 : in  BIT;
   vss	 : in  BIT
 );
@@ -26,11 +26,14 @@ ARCHITECTURE VBE OF sff1_x4 IS
   SIGNAL sff_m	 : REG_BIT REGISTER;
 
 BEGIN
+  ASSERT (vdd and not (vss))
+  REPORT "power supply is missing on sff1_x4"
+  SEVERITY WARNING;      
 
   label0 : BLOCK ((ck and not (ck'STABLE)) = '1')
   BEGIN
     sff_m <= GUARDED i;
   END BLOCK label0;
 
-q <= sff_m after 1700 ps;
+  q <= sff_m after 700 ps;
 END;

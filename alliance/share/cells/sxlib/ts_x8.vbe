@@ -25,10 +25,13 @@ END ts_x8;
 ARCHITECTURE behaviour_data_flow OF ts_x8 IS
 
 BEGIN
+  ASSERT ((vdd and not (vss)) = '1')
+  REPORT "power supply is missing on ts_x8"
+  SEVERITY WARNING;
 
   label0 : BLOCK (cmd = '1')
   BEGIN
-q <= GUARDED i after 1200 ps;
+    q <= GUARDED i after 1200 ps;
   END BLOCK label0;
 
 END;

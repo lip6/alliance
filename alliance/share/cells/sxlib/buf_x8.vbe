@@ -19,5 +19,8 @@ END buf_x8;
 ARCHITECTURE behaviour_data_flow OF buf_x8 IS
 
 BEGIN
-q <= i after 1000 ps;
+  ASSERT ((vdd and not (vss)) = '1')
+  REPORT "power supply is missing on buf_x8"
+  SEVERITY WARNING;
+  q <= i after 1000 ps;
 END;

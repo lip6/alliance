@@ -25,5 +25,8 @@ END a2_x4;
 ARCHITECTURE behaviour_data_flow OF a2_x4 IS
 
 BEGIN
-q <= (i0 and i1) after 1100 ps;
+  ASSERT ((vdd and not (vss)) = '1')
+  REPORT "power supply is missing on a2_x4"
+  SEVERITY WARNING;
+  q <= (i0 and i1) after 1100 ps;
 END;

@@ -25,5 +25,8 @@ END na2_x1;
 ARCHITECTURE behaviour_data_flow OF na2_x1 IS
 
 BEGIN
-nq <= not ((i0 and i1)) after 900 ps;
+  ASSERT ((vdd and not (vss)) = '1')
+  REPORT "power supply is missing on na2_x1"
+  SEVERITY WARNING;
+  nq <= not ((i0 and i1)) after 900 ps;
 END;

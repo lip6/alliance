@@ -38,11 +38,14 @@ ARCHITECTURE VBE OF sff2_x4 IS
   SIGNAL sff_m	 : REG_BIT REGISTER;
 
 BEGIN
+  ASSERT (vdd and not (vss))
+  REPORT "power supply is missing on sff2_x4"
+  SEVERITY WARNING;      
 
   label0 : BLOCK ((ck and not (ck'STABLE)) = '1')
   BEGIN
     sff_m <= GUARDED ((i1 and cmd) or (i0 and not (cmd)));
   END BLOCK label0;
 
-q <= sff_m after 1900 ps;
+  q <= sff_m after 2000 ps;
 END;

@@ -8,7 +8,7 @@ END rowend_x0;
 ARCHITECTURE behaviour_data_flow OF rowend_x0 IS
 
 BEGIN
-  ASSERT ((vdd and not (vss)) = '1')
+  ASSERT (vdd and not (vss))
   REPORT "power supply is missing on rowend_x0"
   SEVERITY WARNING;
 END;
