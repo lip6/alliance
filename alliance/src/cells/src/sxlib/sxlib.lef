@@ -50,7 +50,7 @@ MACRO a2_x2
     END i0
     PIN vdd
         DIRECTION INOUT ;
-        USE power ;
+        USE POWER ;
         SHAPE ABUTMENT ;
         PORT
             LAYER L_ALU1 ;
@@ -60,7 +60,7 @@ MACRO a2_x2
     END vdd
     PIN vss
         DIRECTION INOUT ;
-        USE ground ;
+        USE GROUND ;
         SHAPE ABUTMENT ;
         PORT
             LAYER L_ALU1 ;
@@ -120,7 +120,7 @@ MACRO a2_x4
     END i1
     PIN vdd
         DIRECTION INOUT ;
-        USE power ;
+        USE POWER ;
         SHAPE ABUTMENT ;
         PORT
             LAYER L_ALU1 ;
@@ -130,7 +130,7 @@ MACRO a2_x4
     END vdd
     PIN vss
         DIRECTION INOUT ;
-        USE ground ;
+        USE GROUND ;
         SHAPE ABUTMENT ;
         PORT
             LAYER L_ALU1 ;
@@ -199,7 +199,7 @@ MACRO a3_x2
     END i2
     PIN vdd
         DIRECTION INOUT ;
-        USE power ;
+        USE POWER ;
         SHAPE ABUTMENT ;
         PORT
             LAYER L_ALU1 ;
@@ -209,7 +209,7 @@ MACRO a3_x2
     END vdd
     PIN vss
         DIRECTION INOUT ;
-        USE ground ;
+        USE GROUND ;
         SHAPE ABUTMENT ;
         PORT
             LAYER L_ALU1 ;
@@ -278,7 +278,7 @@ MACRO a3_x4
     END i2
     PIN vdd
         DIRECTION INOUT ;
-        USE power ;
+        USE POWER ;
         SHAPE ABUTMENT ;
         PORT
             LAYER L_ALU1 ;
@@ -288,7 +288,7 @@ MACRO a3_x4
     END vdd
     PIN vss
         DIRECTION INOUT ;
-        USE ground ;
+        USE GROUND ;
         SHAPE ABUTMENT ;
         PORT
             LAYER L_ALU1 ;
@@ -371,7 +371,7 @@ MACRO a4_x2
     END i0
     PIN vdd
         DIRECTION INOUT ;
-        USE power ;
+        USE POWER ;
         SHAPE ABUTMENT ;
         PORT
             LAYER L_ALU1 ;
@@ -381,7 +381,7 @@ MACRO a4_x2
     END vdd
     PIN vss
         DIRECTION INOUT ;
-        USE ground ;
+        USE GROUND ;
         SHAPE ABUTMENT ;
         PORT
             LAYER L_ALU1 ;
@@ -464,7 +464,7 @@ MACRO a4_x4
     END i0
     PIN vdd
         DIRECTION INOUT ;
-        USE power ;
+        USE POWER ;
         SHAPE ABUTMENT ;
         PORT
             LAYER L_ALU1 ;
@@ -474,7 +474,7 @@ MACRO a4_x4
     END vdd
     PIN vss
         DIRECTION INOUT ;
-        USE ground ;
+        USE GROUND ;
         SHAPE ABUTMENT ;
         PORT
             LAYER L_ALU1 ;
@@ -535,7 +535,7 @@ MACRO an12_x1
     END i0
     PIN vdd
         DIRECTION INOUT ;
-        USE power ;
+        USE POWER ;
         SHAPE ABUTMENT ;
         PORT
             LAYER L_ALU1 ;
@@ -545,7 +545,7 @@ MACRO an12_x1
     END vdd
     PIN vss
         DIRECTION INOUT ;
-        USE ground ;
+        USE GROUND ;
         SHAPE ABUTMENT ;
         PORT
             LAYER L_ALU1 ;
@@ -607,7 +607,7 @@ MACRO an12_x4
     END i0
     PIN vdd
         DIRECTION INOUT ;
-        USE power ;
+        USE POWER ;
         SHAPE ABUTMENT ;
         PORT
             LAYER L_ALU1 ;
@@ -617,7 +617,7 @@ MACRO an12_x4
     END vdd
     PIN vss
         DIRECTION INOUT ;
-        USE ground ;
+        USE GROUND ;
         SHAPE ABUTMENT ;
         PORT
             LAYER L_ALU1 ;
@@ -688,7 +688,7 @@ MACRO ao22_x2
     END i0
     PIN vdd
         DIRECTION INOUT ;
-        USE power ;
+        USE POWER ;
         SHAPE ABUTMENT ;
         PORT
             LAYER L_ALU1 ;
@@ -698,7 +698,7 @@ MACRO ao22_x2
     END vdd
     PIN vss
         DIRECTION INOUT ;
-        USE ground ;
+        USE GROUND ;
         SHAPE ABUTMENT ;
         PORT
             LAYER L_ALU1 ;
@@ -769,7 +769,7 @@ MACRO ao22_x4
     END i2
     PIN vdd
         DIRECTION INOUT ;
-        USE power ;
+        USE POWER ;
         SHAPE ABUTMENT ;
         PORT
             LAYER L_ALU1 ;
@@ -779,7 +779,7 @@ MACRO ao22_x4
     END vdd
     PIN vss
         DIRECTION INOUT ;
-        USE ground ;
+        USE GROUND ;
         SHAPE ABUTMENT ;
         PORT
             LAYER L_ALU1 ;
@@ -859,7 +859,7 @@ MACRO ao2o22_x2
     END i3
     PIN vdd
         DIRECTION INOUT ;
-        USE power ;
+        USE POWER ;
         SHAPE ABUTMENT ;
         PORT
             LAYER L_ALU1 ;
@@ -869,7 +869,7 @@ MACRO ao2o22_x2
     END vdd
     PIN vss
         DIRECTION INOUT ;
-        USE ground ;
+        USE GROUND ;
         SHAPE ABUTMENT ;
         PORT
             LAYER L_ALU1 ;
@@ -949,7 +949,7 @@ MACRO ao2o22_x4
     END i3
     PIN vdd
         DIRECTION INOUT ;
-        USE power ;
+        USE POWER ;
         SHAPE ABUTMENT ;
         PORT
             LAYER L_ALU1 ;
@@ -959,7 +959,7 @@ MACRO ao2o22_x4
     END vdd
     PIN vss
         DIRECTION INOUT ;
-        USE ground ;
+        USE GROUND ;
         SHAPE ABUTMENT ;
         PORT
             LAYER L_ALU1 ;
@@ -1008,7 +1008,7 @@ MACRO buf_x2
     END i
     PIN vdd
         DIRECTION INOUT ;
-        USE power ;
+        USE POWER ;
         SHAPE ABUTMENT ;
         PORT
             LAYER L_ALU1 ;
@@ -1018,7 +1018,7 @@ MACRO buf_x2
     END vdd
     PIN vss
         DIRECTION INOUT ;
-        USE ground ;
+        USE GROUND ;
         SHAPE ABUTMENT ;
         PORT
             LAYER L_ALU1 ;
@@ -1067,7 +1067,7 @@ MACRO buf_x4
     END i
     PIN vdd
         DIRECTION INOUT ;
-        USE power ;
+        USE POWER ;
         SHAPE ABUTMENT ;
         PORT
             LAYER L_ALU1 ;
@@ -1077,7 +1077,7 @@ MACRO buf_x4
     END vdd
     PIN vss
         DIRECTION INOUT ;
-        USE ground ;
+        USE GROUND ;
         SHAPE ABUTMENT ;
         PORT
             LAYER L_ALU1 ;
@@ -1126,7 +1126,7 @@ MACRO buf_x8
     END i
     PIN vdd
         DIRECTION INOUT ;
-        USE power ;
+        USE POWER ;
         SHAPE ABUTMENT ;
         PORT
             LAYER L_ALU1 ;
@@ -1136,7 +1136,7 @@ MACRO buf_x8
     END vdd
     PIN vss
         DIRECTION INOUT ;
-        USE ground ;
+        USE GROUND ;
         SHAPE ABUTMENT ;
         PORT
             LAYER L_ALU1 ;
@@ -1299,7 +1299,7 @@ MACRO fulladder_x2
     END b4
     PIN vdd
         DIRECTION INOUT ;
-        USE power ;
+        USE POWER ;
         SHAPE ABUTMENT ;
         PORT
             LAYER L_ALU1 ;
@@ -1309,7 +1309,7 @@ MACRO fulladder_x2
     END vdd
     PIN vss
         DIRECTION INOUT ;
-        USE ground ;
+        USE GROUND ;
         SHAPE ABUTMENT ;
         PORT
             LAYER L_ALU1 ;
@@ -1470,7 +1470,7 @@ MACRO fulladder_x4
     END a3
     PIN vdd
         DIRECTION INOUT ;
-        USE power ;
+        USE POWER ;
         SHAPE ABUTMENT ;
         PORT
             LAYER L_ALU1 ;
@@ -1480,7 +1480,7 @@ MACRO fulladder_x4
     END vdd
     PIN vss
         DIRECTION INOUT ;
-        USE ground ;
+        USE GROUND ;
         SHAPE ABUTMENT ;
         PORT
             LAYER L_ALU1 ;
@@ -1554,7 +1554,7 @@ MACRO halfadder_x2
     END a
     PIN vdd
         DIRECTION INOUT ;
-        USE power ;
+        USE POWER ;
         SHAPE ABUTMENT ;
         PORT
             LAYER L_ALU1 ;
@@ -1564,7 +1564,7 @@ MACRO halfadder_x2
     END vdd
     PIN vss
         DIRECTION INOUT ;
-        USE ground ;
+        USE GROUND ;
         SHAPE ABUTMENT ;
         PORT
             LAYER L_ALU1 ;
@@ -1638,7 +1638,7 @@ MACRO halfadder_x4
     END a
     PIN vdd
         DIRECTION INOUT ;
-        USE power ;
+        USE POWER ;
         SHAPE ABUTMENT ;
         PORT
             LAYER L_ALU1 ;
@@ -1648,7 +1648,7 @@ MACRO halfadder_x4
     END vdd
     PIN vss
         DIRECTION INOUT ;
-        USE ground ;
+        USE GROUND ;
         SHAPE ABUTMENT ;
         PORT
             LAYER L_ALU1 ;
@@ -1697,7 +1697,7 @@ MACRO inv_x1
     END i
     PIN vdd
         DIRECTION INOUT ;
-        USE power ;
+        USE POWER ;
         SHAPE ABUTMENT ;
         PORT
             LAYER L_ALU1 ;
@@ -1707,7 +1707,7 @@ MACRO inv_x1
     END vdd
     PIN vss
         DIRECTION INOUT ;
-        USE ground ;
+        USE GROUND ;
         SHAPE ABUTMENT ;
         PORT
             LAYER L_ALU1 ;
@@ -1756,7 +1756,7 @@ MACRO inv_x2
     END i
     PIN vdd
         DIRECTION INOUT ;
-        USE power ;
+        USE POWER ;
         SHAPE ABUTMENT ;
         PORT
             LAYER L_ALU1 ;
@@ -1766,7 +1766,7 @@ MACRO inv_x2
     END vdd
     PIN vss
         DIRECTION INOUT ;
-        USE ground ;
+        USE GROUND ;
         SHAPE ABUTMENT ;
         PORT
             LAYER L_ALU1 ;
@@ -1815,7 +1815,7 @@ MACRO inv_x4
     END i
     PIN vdd
         DIRECTION INOUT ;
-        USE power ;
+        USE POWER ;
         SHAPE ABUTMENT ;
         PORT
             LAYER L_ALU1 ;
@@ -1825,7 +1825,7 @@ MACRO inv_x4
     END vdd
     PIN vss
         DIRECTION INOUT ;
-        USE ground ;
+        USE GROUND ;
         SHAPE ABUTMENT ;
         PORT
             LAYER L_ALU1 ;
@@ -1874,7 +1874,7 @@ MACRO inv_x8
     END i
     PIN vdd
         DIRECTION INOUT ;
-        USE power ;
+        USE POWER ;
         SHAPE ABUTMENT ;
         PORT
             LAYER L_ALU1 ;
@@ -1884,7 +1884,7 @@ MACRO inv_x8
     END vdd
     PIN vss
         DIRECTION INOUT ;
-        USE ground ;
+        USE GROUND ;
         SHAPE ABUTMENT ;
         PORT
             LAYER L_ALU1 ;
@@ -1957,7 +1957,7 @@ MACRO mx2_x2
     END i1
     PIN vdd
         DIRECTION INOUT ;
-        USE power ;
+        USE POWER ;
         SHAPE ABUTMENT ;
         PORT
             LAYER L_ALU1 ;
@@ -1967,7 +1967,7 @@ MACRO mx2_x2
     END vdd
     PIN vss
         DIRECTION INOUT ;
-        USE ground ;
+        USE GROUND ;
         SHAPE ABUTMENT ;
         PORT
             LAYER L_ALU1 ;
@@ -2040,7 +2040,7 @@ MACRO mx2_x4
     END i1
     PIN vdd
         DIRECTION INOUT ;
-        USE power ;
+        USE POWER ;
         SHAPE ABUTMENT ;
         PORT
             LAYER L_ALU1 ;
@@ -2050,7 +2050,7 @@ MACRO mx2_x4
     END vdd
     PIN vss
         DIRECTION INOUT ;
-        USE ground ;
+        USE GROUND ;
         SHAPE ABUTMENT ;
         PORT
             LAYER L_ALU1 ;
@@ -2131,7 +2131,7 @@ MACRO mx3_x2
     END i0
     PIN vdd
         DIRECTION INOUT ;
-        USE power ;
+        USE POWER ;
         SHAPE ABUTMENT ;
         PORT
             LAYER L_ALU1 ;
@@ -2141,7 +2141,7 @@ MACRO mx3_x2
     END vdd
     PIN vss
         DIRECTION INOUT ;
-        USE ground ;
+        USE GROUND ;
         SHAPE ABUTMENT ;
         PORT
             LAYER L_ALU1 ;
@@ -2224,7 +2224,7 @@ MACRO mx3_x4
     END i0
     PIN vdd
         DIRECTION INOUT ;
-        USE power ;
+        USE POWER ;
         SHAPE ABUTMENT ;
         PORT
             LAYER L_ALU1 ;
@@ -2234,7 +2234,7 @@ MACRO mx3_x4
     END vdd
     PIN vss
         DIRECTION INOUT ;
-        USE ground ;
+        USE GROUND ;
         SHAPE ABUTMENT ;
         PORT
             LAYER L_ALU1 ;
@@ -2295,7 +2295,7 @@ MACRO na2_x1
     END i0
     PIN vdd
         DIRECTION INOUT ;
-        USE power ;
+        USE POWER ;
         SHAPE ABUTMENT ;
         PORT
             LAYER L_ALU1 ;
@@ -2305,7 +2305,7 @@ MACRO na2_x1
     END vdd
     PIN vss
         DIRECTION INOUT ;
-        USE ground ;
+        USE GROUND ;
         SHAPE ABUTMENT ;
         PORT
             LAYER L_ALU1 ;
@@ -2362,7 +2362,7 @@ MACRO na2_x4
     END i0
     PIN vdd
         DIRECTION INOUT ;
-        USE power ;
+        USE POWER ;
         SHAPE ABUTMENT ;
         PORT
             LAYER L_ALU1 ;
@@ -2372,7 +2372,7 @@ MACRO na2_x4
     END vdd
     PIN vss
         DIRECTION INOUT ;
-        USE ground ;
+        USE GROUND ;
         SHAPE ABUTMENT ;
         PORT
             LAYER L_ALU1 ;
@@ -2445,7 +2445,7 @@ MACRO na3_x1
     END i2
     PIN vdd
         DIRECTION INOUT ;
-        USE power ;
+        USE POWER ;
         SHAPE ABUTMENT ;
         PORT
             LAYER L_ALU1 ;
@@ -2455,7 +2455,7 @@ MACRO na3_x1
     END vdd
     PIN vss
         DIRECTION INOUT ;
-        USE ground ;
+        USE GROUND ;
         SHAPE ABUTMENT ;
         PORT
             LAYER L_ALU1 ;
@@ -2523,7 +2523,7 @@ MACRO na3_x4
     END i0
     PIN vdd
         DIRECTION INOUT ;
-        USE power ;
+        USE POWER ;
         SHAPE ABUTMENT ;
         PORT
             LAYER L_ALU1 ;
@@ -2533,7 +2533,7 @@ MACRO na3_x4
     END vdd
     PIN vss
         DIRECTION INOUT ;
-        USE ground ;
+        USE GROUND ;
         SHAPE ABUTMENT ;
         PORT
             LAYER L_ALU1 ;
@@ -2617,7 +2617,7 @@ MACRO na4_x1
     END i3
     PIN vdd
         DIRECTION INOUT ;
-        USE power ;
+        USE POWER ;
         SHAPE ABUTMENT ;
         PORT
             LAYER L_ALU1 ;
@@ -2627,7 +2627,7 @@ MACRO na4_x1
     END vdd
     PIN vss
         DIRECTION INOUT ;
-        USE ground ;
+        USE GROUND ;
         SHAPE ABUTMENT ;
         PORT
             LAYER L_ALU1 ;
@@ -2710,7 +2710,7 @@ MACRO na4_x4
     END i0
     PIN vdd
         DIRECTION INOUT ;
-        USE power ;
+        USE POWER ;
         SHAPE ABUTMENT ;
         PORT
             LAYER L_ALU1 ;
@@ -2720,7 +2720,7 @@ MACRO na4_x4
     END vdd
     PIN vss
         DIRECTION INOUT ;
-        USE ground ;
+        USE GROUND ;
         SHAPE ABUTMENT ;
         PORT
             LAYER L_ALU1 ;
@@ -2790,7 +2790,7 @@ MACRO nao22_x1
     END i2
     PIN vdd
         DIRECTION INOUT ;
-        USE power ;
+        USE POWER ;
         SHAPE ABUTMENT ;
         PORT
             LAYER L_ALU1 ;
@@ -2800,7 +2800,7 @@ MACRO nao22_x1
     END vdd
     PIN vss
         DIRECTION INOUT ;
-        USE ground ;
+        USE GROUND ;
         SHAPE ABUTMENT ;
         PORT
             LAYER L_ALU1 ;
@@ -2871,7 +2871,7 @@ MACRO nao22_x4
     END i0
     PIN vdd
         DIRECTION INOUT ;
-        USE power ;
+        USE POWER ;
         SHAPE ABUTMENT ;
         PORT
             LAYER L_ALU1 ;
@@ -2881,7 +2881,7 @@ MACRO nao22_x4
     END vdd
     PIN vss
         DIRECTION INOUT ;
-        USE ground ;
+        USE GROUND ;
         SHAPE ABUTMENT ;
         PORT
             LAYER L_ALU1 ;
@@ -2962,7 +2962,7 @@ MACRO nao2o22_x1
     END i2
     PIN vdd
         DIRECTION INOUT ;
-        USE power ;
+        USE POWER ;
         SHAPE ABUTMENT ;
         PORT
             LAYER L_ALU1 ;
@@ -2972,7 +2972,7 @@ MACRO nao2o22_x1
     END vdd
     PIN vss
         DIRECTION INOUT ;
-        USE ground ;
+        USE GROUND ;
         SHAPE ABUTMENT ;
         PORT
             LAYER L_ALU1 ;
@@ -3052,7 +3052,7 @@ MACRO nao2o22_x4
     END i2
     PIN vdd
         DIRECTION INOUT ;
-        USE power ;
+        USE POWER ;
         SHAPE ABUTMENT ;
         PORT
             LAYER L_ALU1 ;
@@ -3062,7 +3062,7 @@ MACRO nao2o22_x4
     END vdd
     PIN vss
         DIRECTION INOUT ;
-        USE ground ;
+        USE GROUND ;
         SHAPE ABUTMENT ;
         PORT
             LAYER L_ALU1 ;
@@ -3133,7 +3133,7 @@ MACRO nmx2_x1
     END cmd
     PIN vdd
         DIRECTION INOUT ;
-        USE power ;
+        USE POWER ;
         SHAPE ABUTMENT ;
         PORT
             LAYER L_ALU1 ;
@@ -3143,7 +3143,7 @@ MACRO nmx2_x1
     END vdd
     PIN vss
         DIRECTION INOUT ;
-        USE ground ;
+        USE GROUND ;
         SHAPE ABUTMENT ;
         PORT
             LAYER L_ALU1 ;
@@ -3216,7 +3216,7 @@ MACRO nmx2_x4
     END cmd
     PIN vdd
         DIRECTION INOUT ;
-        USE power ;
+        USE POWER ;
         SHAPE ABUTMENT ;
         PORT
             LAYER L_ALU1 ;
@@ -3226,7 +3226,7 @@ MACRO nmx2_x4
     END vdd
     PIN vss
         DIRECTION INOUT ;
-        USE ground ;
+        USE GROUND ;
         SHAPE ABUTMENT ;
         PORT
             LAYER L_ALU1 ;
@@ -3306,7 +3306,7 @@ MACRO nmx3_x1
     END cmd0
     PIN vdd
         DIRECTION INOUT ;
-        USE power ;
+        USE POWER ;
         SHAPE ABUTMENT ;
         PORT
             LAYER L_ALU1 ;
@@ -3316,7 +3316,7 @@ MACRO nmx3_x1
     END vdd
     PIN vss
         DIRECTION INOUT ;
-        USE ground ;
+        USE GROUND ;
         SHAPE ABUTMENT ;
         PORT
             LAYER L_ALU1 ;
@@ -3396,7 +3396,7 @@ MACRO nmx3_x4
     END i0
     PIN vdd
         DIRECTION INOUT ;
-        USE power ;
+        USE POWER ;
         SHAPE ABUTMENT ;
         PORT
             LAYER L_ALU1 ;
@@ -3406,7 +3406,7 @@ MACRO nmx3_x4
     END vdd
     PIN vss
         DIRECTION INOUT ;
-        USE ground ;
+        USE GROUND ;
         SHAPE ABUTMENT ;
         PORT
             LAYER L_ALU1 ;
@@ -3467,7 +3467,7 @@ MACRO no2_x1
     END i1
     PIN vdd
         DIRECTION INOUT ;
-        USE power ;
+        USE POWER ;
         SHAPE ABUTMENT ;
         PORT
             LAYER L_ALU1 ;
@@ -3477,7 +3477,7 @@ MACRO no2_x1
     END vdd
     PIN vss
         DIRECTION INOUT ;
-        USE ground ;
+        USE GROUND ;
         SHAPE ABUTMENT ;
         PORT
             LAYER L_ALU1 ;
@@ -3534,7 +3534,7 @@ MACRO no2_x4
     END i1
     PIN vdd
         DIRECTION INOUT ;
-        USE power ;
+        USE POWER ;
         SHAPE ABUTMENT ;
         PORT
             LAYER L_ALU1 ;
@@ -3544,7 +3544,7 @@ MACRO no2_x4
     END vdd
     PIN vss
         DIRECTION INOUT ;
-        USE ground ;
+        USE GROUND ;
         SHAPE ABUTMENT ;
         PORT
             LAYER L_ALU1 ;
@@ -3617,7 +3617,7 @@ MACRO no3_x1
     END i1
     PIN vdd
         DIRECTION INOUT ;
-        USE power ;
+        USE POWER ;
         SHAPE ABUTMENT ;
         PORT
             LAYER L_ALU1 ;
@@ -3627,7 +3627,7 @@ MACRO no3_x1
     END vdd
     PIN vss
         DIRECTION INOUT ;
-        USE ground ;
+        USE GROUND ;
         SHAPE ABUTMENT ;
         PORT
             LAYER L_ALU1 ;
@@ -3695,7 +3695,7 @@ MACRO no3_x4
     END i0
     PIN vdd
         DIRECTION INOUT ;
-        USE power ;
+        USE POWER ;
         SHAPE ABUTMENT ;
         PORT
             LAYER L_ALU1 ;
@@ -3705,7 +3705,7 @@ MACRO no3_x4
     END vdd
     PIN vss
         DIRECTION INOUT ;
-        USE ground ;
+        USE GROUND ;
         SHAPE ABUTMENT ;
         PORT
             LAYER L_ALU1 ;
@@ -3789,7 +3789,7 @@ MACRO no4_x1
     END i2
     PIN vdd
         DIRECTION INOUT ;
-        USE power ;
+        USE POWER ;
         SHAPE ABUTMENT ;
         PORT
             LAYER L_ALU1 ;
@@ -3799,7 +3799,7 @@ MACRO no4_x1
     END vdd
     PIN vss
         DIRECTION INOUT ;
-        USE ground ;
+        USE GROUND ;
         SHAPE ABUTMENT ;
         PORT
             LAYER L_ALU1 ;
@@ -3882,7 +3882,7 @@ MACRO no4_x4
     END i2
     PIN vdd
         DIRECTION INOUT ;
-        USE power ;
+        USE POWER ;
         SHAPE ABUTMENT ;
         PORT
             LAYER L_ALU1 ;
@@ -3892,7 +3892,7 @@ MACRO no4_x4
     END vdd
     PIN vss
         DIRECTION INOUT ;
-        USE ground ;
+        USE GROUND ;
         SHAPE ABUTMENT ;
         PORT
             LAYER L_ALU1 ;
@@ -3962,7 +3962,7 @@ MACRO noa22_x1
     END i2
     PIN vdd
         DIRECTION INOUT ;
-        USE power ;
+        USE POWER ;
         SHAPE ABUTMENT ;
         PORT
             LAYER L_ALU1 ;
@@ -3972,7 +3972,7 @@ MACRO noa22_x1
     END vdd
     PIN vss
         DIRECTION INOUT ;
-        USE ground ;
+        USE GROUND ;
         SHAPE ABUTMENT ;
         PORT
             LAYER L_ALU1 ;
@@ -4043,7 +4043,7 @@ MACRO noa22_x4
     END i2
     PIN vdd
         DIRECTION INOUT ;
-        USE power ;
+        USE POWER ;
         SHAPE ABUTMENT ;
         PORT
             LAYER L_ALU1 ;
@@ -4053,7 +4053,7 @@ MACRO noa22_x4
     END vdd
     PIN vss
         DIRECTION INOUT ;
-        USE ground ;
+        USE GROUND ;
         SHAPE ABUTMENT ;
         PORT
             LAYER L_ALU1 ;
@@ -4134,7 +4134,7 @@ MACRO noa2a22_x1
     END i0
     PIN vdd
         DIRECTION INOUT ;
-        USE power ;
+        USE POWER ;
         SHAPE ABUTMENT ;
         PORT
             LAYER L_ALU1 ;
@@ -4144,7 +4144,7 @@ MACRO noa2a22_x1
     END vdd
     PIN vss
         DIRECTION INOUT ;
-        USE ground ;
+        USE GROUND ;
         SHAPE ABUTMENT ;
         PORT
             LAYER L_ALU1 ;
@@ -4224,7 +4224,7 @@ MACRO noa2a22_x4
     END i2
     PIN vdd
         DIRECTION INOUT ;
-        USE power ;
+        USE POWER ;
         SHAPE ABUTMENT ;
         PORT
             LAYER L_ALU1 ;
@@ -4234,7 +4234,7 @@ MACRO noa2a22_x4
     END vdd
     PIN vss
         DIRECTION INOUT ;
-        USE ground ;
+        USE GROUND ;
         SHAPE ABUTMENT ;
         PORT
             LAYER L_ALU1 ;
@@ -4330,7 +4330,7 @@ MACRO noa2a2a23_x1
     END i4
     PIN vdd
         DIRECTION INOUT ;
-        USE power ;
+        USE POWER ;
         SHAPE ABUTMENT ;
         PORT
             LAYER L_ALU1 ;
@@ -4340,7 +4340,7 @@ MACRO noa2a2a23_x1
     END vdd
     PIN vss
         DIRECTION INOUT ;
-        USE ground ;
+        USE GROUND ;
         SHAPE ABUTMENT ;
         PORT
             LAYER L_ALU1 ;
@@ -4436,7 +4436,7 @@ MACRO noa2a2a23_x4
     END i5
     PIN vdd
         DIRECTION INOUT ;
-        USE power ;
+        USE POWER ;
         SHAPE ABUTMENT ;
         PORT
             LAYER L_ALU1 ;
@@ -4446,7 +4446,7 @@ MACRO noa2a2a23_x4
     END vdd
     PIN vss
         DIRECTION INOUT ;
-        USE ground ;
+        USE GROUND ;
         SHAPE ABUTMENT ;
         PORT
             LAYER L_ALU1 ;
@@ -4564,7 +4564,7 @@ MACRO noa2a2a2a24_x1
     END i7
     PIN vdd
         DIRECTION INOUT ;
-        USE power ;
+        USE POWER ;
         SHAPE ABUTMENT ;
         PORT
             LAYER L_ALU1 ;
@@ -4574,7 +4574,7 @@ MACRO noa2a2a2a24_x1
     END vdd
     PIN vss
         DIRECTION INOUT ;
-        USE ground ;
+        USE GROUND ;
         SHAPE ABUTMENT ;
         PORT
             LAYER L_ALU1 ;
@@ -4691,7 +4691,7 @@ MACRO noa2a2a2a24_x4
     END i0
     PIN vdd
         DIRECTION INOUT ;
-        USE power ;
+        USE POWER ;
         SHAPE ABUTMENT ;
         PORT
             LAYER L_ALU1 ;
@@ -4701,7 +4701,7 @@ MACRO noa2a2a2a24_x4
     END vdd
     PIN vss
         DIRECTION INOUT ;
-        USE ground ;
+        USE GROUND ;
         SHAPE ABUTMENT ;
         PORT
             LAYER L_ALU1 ;
@@ -4792,7 +4792,7 @@ MACRO noa2ao222_x1
     END i0
     PIN vdd
         DIRECTION INOUT ;
-        USE power ;
+        USE POWER ;
         SHAPE ABUTMENT ;
         PORT
             LAYER L_ALU1 ;
@@ -4802,7 +4802,7 @@ MACRO noa2ao222_x1
     END vdd
     PIN vss
         DIRECTION INOUT ;
-        USE ground ;
+        USE GROUND ;
         SHAPE ABUTMENT ;
         PORT
             LAYER L_ALU1 ;
@@ -4891,7 +4891,7 @@ MACRO noa2ao222_x4
     END i3
     PIN vdd
         DIRECTION INOUT ;
-        USE power ;
+        USE POWER ;
         SHAPE ABUTMENT ;
         PORT
             LAYER L_ALU1 ;
@@ -4901,7 +4901,7 @@ MACRO noa2ao222_x4
     END vdd
     PIN vss
         DIRECTION INOUT ;
-        USE ground ;
+        USE GROUND ;
         SHAPE ABUTMENT ;
         PORT
             LAYER L_ALU1 ;
@@ -5015,7 +5015,7 @@ MACRO noa3ao322_x1
     END i0
     PIN vdd
         DIRECTION INOUT ;
-        USE power ;
+        USE POWER ;
         SHAPE ABUTMENT ;
         PORT
             LAYER L_ALU1 ;
@@ -5025,7 +5025,7 @@ MACRO noa3ao322_x1
     END vdd
     PIN vss
         DIRECTION INOUT ;
-        USE ground ;
+        USE GROUND ;
         SHAPE ABUTMENT ;
         PORT
             LAYER L_ALU1 ;
@@ -5136,7 +5136,7 @@ MACRO noa3ao322_x4
     END i1
     PIN vdd
         DIRECTION INOUT ;
-        USE power ;
+        USE POWER ;
         SHAPE ABUTMENT ;
         PORT
             LAYER L_ALU1 ;
@@ -5146,7 +5146,7 @@ MACRO noa3ao322_x4
     END vdd
     PIN vss
         DIRECTION INOUT ;
-        USE ground ;
+        USE GROUND ;
         SHAPE ABUTMENT ;
         PORT
             LAYER L_ALU1 ;
@@ -5208,7 +5208,7 @@ MACRO nts_x1
     END i
     PIN vdd
         DIRECTION INOUT ;
-        USE power ;
+        USE POWER ;
         SHAPE ABUTMENT ;
         PORT
             LAYER L_ALU1 ;
@@ -5218,7 +5218,7 @@ MACRO nts_x1
     END vdd
     PIN vss
         DIRECTION INOUT ;
-        USE ground ;
+        USE GROUND ;
         SHAPE ABUTMENT ;
         PORT
             LAYER L_ALU1 ;
@@ -5279,7 +5279,7 @@ MACRO nts_x2
     END cmd
     PIN vdd
         DIRECTION INOUT ;
-        USE power ;
+        USE POWER ;
         SHAPE ABUTMENT ;
         PORT
             LAYER L_ALU1 ;
@@ -5289,7 +5289,7 @@ MACRO nts_x2
     END vdd
     PIN vss
         DIRECTION INOUT ;
-        USE ground ;
+        USE GROUND ;
         SHAPE ABUTMENT ;
         PORT
             LAYER L_ALU1 ;
@@ -5350,7 +5350,7 @@ MACRO nxr2_x1
     END i1
     PIN vdd
         DIRECTION INOUT ;
-        USE power ;
+        USE POWER ;
         SHAPE ABUTMENT ;
         PORT
             LAYER L_ALU1 ;
@@ -5360,7 +5360,7 @@ MACRO nxr2_x1
     END vdd
     PIN vss
         DIRECTION INOUT ;
-        USE ground ;
+        USE GROUND ;
         SHAPE ABUTMENT ;
         PORT
             LAYER L_ALU1 ;
@@ -5421,7 +5421,7 @@ MACRO nxr2_x4
     END i1
     PIN vdd
         DIRECTION INOUT ;
-        USE power ;
+        USE POWER ;
         SHAPE ABUTMENT ;
         PORT
             LAYER L_ALU1 ;
@@ -5431,7 +5431,7 @@ MACRO nxr2_x4
     END vdd
     PIN vss
         DIRECTION INOUT ;
-        USE ground ;
+        USE GROUND ;
         SHAPE ABUTMENT ;
         PORT
             LAYER L_ALU1 ;
@@ -5491,7 +5491,7 @@ MACRO o2_x2
     END i0
     PIN vdd
         DIRECTION INOUT ;
-        USE power ;
+        USE POWER ;
         SHAPE ABUTMENT ;
         PORT
             LAYER L_ALU1 ;
@@ -5501,7 +5501,7 @@ MACRO o2_x2
     END vdd
     PIN vss
         DIRECTION INOUT ;
-        USE ground ;
+        USE GROUND ;
         SHAPE ABUTMENT ;
         PORT
             LAYER L_ALU1 ;
@@ -5561,7 +5561,7 @@ MACRO o2_x4
     END i0
     PIN vdd
         DIRECTION INOUT ;
-        USE power ;
+        USE POWER ;
         SHAPE ABUTMENT ;
         PORT
             LAYER L_ALU1 ;
@@ -5571,7 +5571,7 @@ MACRO o2_x4
     END vdd
     PIN vss
         DIRECTION INOUT ;
-        USE ground ;
+        USE GROUND ;
         SHAPE ABUTMENT ;
         PORT
             LAYER L_ALU1 ;
@@ -5640,7 +5640,7 @@ MACRO o3_x2
     END i0
     PIN vdd
         DIRECTION INOUT ;
-        USE power ;
+        USE POWER ;
         SHAPE ABUTMENT ;
         PORT
             LAYER L_ALU1 ;
@@ -5650,7 +5650,7 @@ MACRO o3_x2
     END vdd
     PIN vss
         DIRECTION INOUT ;
-        USE ground ;
+        USE GROUND ;
         SHAPE ABUTMENT ;
         PORT
             LAYER L_ALU1 ;
@@ -5719,7 +5719,7 @@ MACRO o3_x4
     END i2
     PIN vdd
         DIRECTION INOUT ;
-        USE power ;
+        USE POWER ;
         SHAPE ABUTMENT ;
         PORT
             LAYER L_ALU1 ;
@@ -5729,7 +5729,7 @@ MACRO o3_x4
     END vdd
     PIN vss
         DIRECTION INOUT ;
-        USE ground ;
+        USE GROUND ;
         SHAPE ABUTMENT ;
         PORT
             LAYER L_ALU1 ;
@@ -5809,7 +5809,7 @@ MACRO o4_x2
     END i3
     PIN vdd
         DIRECTION INOUT ;
-        USE power ;
+        USE POWER ;
         SHAPE ABUTMENT ;
         PORT
             LAYER L_ALU1 ;
@@ -5819,7 +5819,7 @@ MACRO o4_x2
     END vdd
     PIN vss
         DIRECTION INOUT ;
-        USE ground ;
+        USE GROUND ;
         SHAPE ABUTMENT ;
         PORT
             LAYER L_ALU1 ;
@@ -5904,7 +5904,7 @@ MACRO o4_x4
     END i2
     PIN vdd
         DIRECTION INOUT ;
-        USE power ;
+        USE POWER ;
         SHAPE ABUTMENT ;
         PORT
             LAYER L_ALU1 ;
@@ -5914,7 +5914,7 @@ MACRO o4_x4
     END vdd
     PIN vss
         DIRECTION INOUT ;
-        USE ground ;
+        USE GROUND ;
         SHAPE ABUTMENT ;
         PORT
             LAYER L_ALU1 ;
@@ -5985,7 +5985,7 @@ MACRO oa22_x2
     END i2
     PIN vdd
         DIRECTION INOUT ;
-        USE power ;
+        USE POWER ;
         SHAPE ABUTMENT ;
         PORT
             LAYER L_ALU1 ;
@@ -5995,7 +5995,7 @@ MACRO oa22_x2
     END vdd
     PIN vss
         DIRECTION INOUT ;
-        USE ground ;
+        USE GROUND ;
         SHAPE ABUTMENT ;
         PORT
             LAYER L_ALU1 ;
@@ -6066,7 +6066,7 @@ MACRO oa22_x4
     END i0
     PIN vdd
         DIRECTION INOUT ;
-        USE power ;
+        USE POWER ;
         SHAPE ABUTMENT ;
         PORT
             LAYER L_ALU1 ;
@@ -6076,7 +6076,7 @@ MACRO oa22_x4
     END vdd
     PIN vss
         DIRECTION INOUT ;
-        USE ground ;
+        USE GROUND ;
         SHAPE ABUTMENT ;
         PORT
             LAYER L_ALU1 ;
@@ -6156,7 +6156,7 @@ MACRO oa2a22_x2
     END i0
     PIN vdd
         DIRECTION INOUT ;
-        USE power ;
+        USE POWER ;
         SHAPE ABUTMENT ;
         PORT
             LAYER L_ALU1 ;
@@ -6166,7 +6166,7 @@ MACRO oa2a22_x2
     END vdd
     PIN vss
         DIRECTION INOUT ;
-        USE ground ;
+        USE GROUND ;
         SHAPE ABUTMENT ;
         PORT
             LAYER L_ALU1 ;
@@ -6246,7 +6246,7 @@ MACRO oa2a22_x4
     END i0
     PIN vdd
         DIRECTION INOUT ;
-        USE power ;
+        USE POWER ;
         SHAPE ABUTMENT ;
         PORT
             LAYER L_ALU1 ;
@@ -6256,7 +6256,7 @@ MACRO oa2a22_x4
     END vdd
     PIN vss
         DIRECTION INOUT ;
-        USE ground ;
+        USE GROUND ;
         SHAPE ABUTMENT ;
         PORT
             LAYER L_ALU1 ;
@@ -6353,7 +6353,7 @@ MACRO oa2a2a23_x2
     END i5
     PIN vdd
         DIRECTION INOUT ;
-        USE power ;
+        USE POWER ;
         SHAPE ABUTMENT ;
         PORT
             LAYER L_ALU1 ;
@@ -6363,7 +6363,7 @@ MACRO oa2a2a23_x2
     END vdd
     PIN vss
         DIRECTION INOUT ;
-        USE ground ;
+        USE GROUND ;
         SHAPE ABUTMENT ;
         PORT
             LAYER L_ALU1 ;
@@ -6460,7 +6460,7 @@ MACRO oa2a2a23_x4
     END i5
     PIN vdd
         DIRECTION INOUT ;
-        USE power ;
+        USE POWER ;
         SHAPE ABUTMENT ;
         PORT
             LAYER L_ALU1 ;
@@ -6470,7 +6470,7 @@ MACRO oa2a2a23_x4
     END vdd
     PIN vss
         DIRECTION INOUT ;
-        USE ground ;
+        USE GROUND ;
         SHAPE ABUTMENT ;
         PORT
             LAYER L_ALU1 ;
@@ -6588,7 +6588,7 @@ MACRO oa2a2a2a24_x2
     END i1
     PIN vdd
         DIRECTION INOUT ;
-        USE power ;
+        USE POWER ;
         SHAPE ABUTMENT ;
         PORT
             LAYER L_ALU1 ;
@@ -6598,7 +6598,7 @@ MACRO oa2a2a2a24_x2
     END vdd
     PIN vss
         DIRECTION INOUT ;
-        USE ground ;
+        USE GROUND ;
         SHAPE ABUTMENT ;
         PORT
             LAYER L_ALU1 ;
@@ -6716,7 +6716,7 @@ MACRO oa2a2a2a24_x4
     END i0
     PIN vdd
         DIRECTION INOUT ;
-        USE power ;
+        USE POWER ;
         SHAPE ABUTMENT ;
         PORT
             LAYER L_ALU1 ;
@@ -6726,7 +6726,7 @@ MACRO oa2a2a2a24_x4
     END vdd
     PIN vss
         DIRECTION INOUT ;
-        USE ground ;
+        USE GROUND ;
         SHAPE ABUTMENT ;
         PORT
             LAYER L_ALU1 ;
@@ -6815,7 +6815,7 @@ MACRO oa2ao222_x2
     END i3
     PIN vdd
         DIRECTION INOUT ;
-        USE power ;
+        USE POWER ;
         SHAPE ABUTMENT ;
         PORT
             LAYER L_ALU1 ;
@@ -6825,7 +6825,7 @@ MACRO oa2ao222_x2
     END vdd
     PIN vss
         DIRECTION INOUT ;
-        USE ground ;
+        USE GROUND ;
         SHAPE ABUTMENT ;
         PORT
             LAYER L_ALU1 ;
@@ -6914,7 +6914,7 @@ MACRO oa2ao222_x4
     END i0
     PIN vdd
         DIRECTION INOUT ;
-        USE power ;
+        USE POWER ;
         SHAPE ABUTMENT ;
         PORT
             LAYER L_ALU1 ;
@@ -6924,7 +6924,7 @@ MACRO oa2ao222_x4
     END vdd
     PIN vss
         DIRECTION INOUT ;
-        USE ground ;
+        USE GROUND ;
         SHAPE ABUTMENT ;
         PORT
             LAYER L_ALU1 ;
@@ -7035,7 +7035,7 @@ MACRO oa3ao322_x2
     END i2
     PIN vdd
         DIRECTION INOUT ;
-        USE power ;
+        USE POWER ;
         SHAPE ABUTMENT ;
         PORT
             LAYER L_ALU1 ;
@@ -7045,7 +7045,7 @@ MACRO oa3ao322_x2
     END vdd
     PIN vss
         DIRECTION INOUT ;
-        USE ground ;
+        USE GROUND ;
         SHAPE ABUTMENT ;
         PORT
             LAYER L_ALU1 ;
@@ -7156,7 +7156,7 @@ MACRO oa3ao322_x4
     END i3
     PIN vdd
         DIRECTION INOUT ;
-        USE power ;
+        USE POWER ;
         SHAPE ABUTMENT ;
         PORT
             LAYER L_ALU1 ;
@@ -7166,7 +7166,7 @@ MACRO oa3ao322_x4
     END vdd
     PIN vss
         DIRECTION INOUT ;
-        USE ground ;
+        USE GROUND ;
         SHAPE ABUTMENT ;
         PORT
             LAYER L_ALU1 ;
@@ -7227,7 +7227,7 @@ MACRO on12_x1
     END i1
     PIN vdd
         DIRECTION INOUT ;
-        USE power ;
+        USE POWER ;
         SHAPE ABUTMENT ;
         PORT
             LAYER L_ALU1 ;
@@ -7237,7 +7237,7 @@ MACRO on12_x1
     END vdd
     PIN vss
         DIRECTION INOUT ;
-        USE ground ;
+        USE GROUND ;
         SHAPE ABUTMENT ;
         PORT
             LAYER L_ALU1 ;
@@ -7299,7 +7299,7 @@ MACRO on12_x4
     END i1
     PIN vdd
         DIRECTION INOUT ;
-        USE power ;
+        USE POWER ;
         SHAPE ABUTMENT ;
         PORT
             LAYER L_ALU1 ;
@@ -7309,7 +7309,7 @@ MACRO on12_x4
     END vdd
     PIN vss
         DIRECTION INOUT ;
-        USE ground ;
+        USE GROUND ;
         SHAPE ABUTMENT ;
         PORT
             LAYER L_ALU1 ;
@@ -7345,7 +7345,7 @@ MACRO one_x0
     END q
     PIN vdd
         DIRECTION INOUT ;
-        USE power ;
+        USE POWER ;
         SHAPE ABUTMENT ;
         PORT
             LAYER L_ALU1 ;
@@ -7355,7 +7355,7 @@ MACRO one_x0
     END vdd
     PIN vss
         DIRECTION INOUT ;
-        USE ground ;
+        USE GROUND ;
         SHAPE ABUTMENT ;
         PORT
             LAYER L_ALU1 ;
@@ -7378,7 +7378,7 @@ MACRO powmid_x0
     SITE      core ;
     PIN vdd
         DIRECTION INOUT ;
-        USE power ;
+        USE POWER ;
         SHAPE ABUTMENT ;
         PORT
             LAYER L_ALU1 ;
@@ -7391,7 +7391,7 @@ MACRO powmid_x0
     END vdd
     PIN vss
         DIRECTION INOUT ;
-        USE ground ;
+        USE GROUND ;
         SHAPE ABUTMENT ;
         PORT
             LAYER L_ALU1 ;
@@ -7405,6 +7405,9 @@ MACRO powmid_x0
     OBS
         LAYER L_ALU1 ;
         RECT 1.50 9.00 33.50 41.00 ;
+        LAYER L_ALU2 ;
+        RECT 4.00 49.00 16.00 51.00 ;
+        RECT 19.00 -1.00 31.00 1.00 ;
     END
 END powmid_x0
 
@@ -7417,7 +7420,7 @@ MACRO rowend_x0
     SITE      core ;
     PIN vdd
         DIRECTION INOUT ;
-        USE power ;
+        USE POWER ;
         SHAPE ABUTMENT ;
         PORT
             LAYER L_ALU1 ;
@@ -7427,7 +7430,7 @@ MACRO rowend_x0
     END vdd
     PIN vss
         DIRECTION INOUT ;
-        USE ground ;
+        USE GROUND ;
         SHAPE ABUTMENT ;
         PORT
             LAYER L_ALU1 ;
@@ -7476,8 +7479,29 @@ MACRO sff1_x4
             RECT 29.00 9.00 31.00 11.00 ;
         END
     END i
+    PIN vdd
+        DIRECTION INOUT ;
+        USE POWER ;
+        SHAPE ABUTMENT ;
+        PORT
+            LAYER L_ALU1 ;
+            WIDTH 6.00 ;
+            PATH 3.00 47.00 87.00 47.00 ;
+        END
+    END vdd
+    PIN vss
+        DIRECTION INOUT ;
+        USE GROUND ;
+        SHAPE ABUTMENT ;
+        PORT
+            LAYER L_ALU1 ;
+            WIDTH 6.00 ;
+            PATH 3.00 3.00 87.00 3.00 ;
+        END
+    END vss
     PIN ck
         DIRECTION INPUT ;
+        USE CLOCK ;
         PORT
             LAYER L_ALU1 ;
             RECT 9.00 39.00 11.00 41.00 ;
@@ -7489,26 +7513,6 @@ MACRO sff1_x4
             RECT 9.00 9.00 11.00 11.00 ;
         END
     END ck
-    PIN vdd
-        DIRECTION INOUT ;
-        USE power ;
-        SHAPE ABUTMENT ;
-        PORT
-            LAYER L_ALU1 ;
-            WIDTH 6.00 ;
-            PATH 3.00 47.00 87.00 47.00 ;
-        END
-    END vdd
-    PIN vss
-        DIRECTION INOUT ;
-        USE ground ;
-        SHAPE ABUTMENT ;
-        PORT
-            LAYER L_ALU1 ;
-            WIDTH 6.00 ;
-            PATH 3.00 3.00 87.00 3.00 ;
-        END
-    END vss
     OBS
         LAYER L_ALU1 ;
         RECT 1.50 9.00 88.50 41.00 ;
@@ -7569,8 +7573,29 @@ MACRO sff2_x4
             RECT 9.00 14.00 11.00 16.00 ;
         END
     END i0
+    PIN vdd
+        DIRECTION INOUT ;
+        USE POWER ;
+        SHAPE ABUTMENT ;
+        PORT
+            LAYER L_ALU1 ;
+            WIDTH 6.00 ;
+            PATH 3.00 47.00 117.00 47.00 ;
+        END
+    END vdd
+    PIN vss
+        DIRECTION INOUT ;
+        USE GROUND ;
+        SHAPE ABUTMENT ;
+        PORT
+            LAYER L_ALU1 ;
+            WIDTH 6.00 ;
+            PATH 3.00 3.00 117.00 3.00 ;
+        END
+    END vss
     PIN ck
         DIRECTION INPUT ;
+        USE CLOCK ;
         PORT
             LAYER L_ALU1 ;
             RECT 44.00 34.00 46.00 36.00 ;
@@ -7581,26 +7606,6 @@ MACRO sff2_x4
             RECT 44.00 9.00 46.00 11.00 ;
         END
     END ck
-    PIN vdd
-        DIRECTION INOUT ;
-        USE power ;
-        SHAPE ABUTMENT ;
-        PORT
-            LAYER L_ALU1 ;
-            WIDTH 6.00 ;
-            PATH 3.00 47.00 117.00 47.00 ;
-        END
-    END vdd
-    PIN vss
-        DIRECTION INOUT ;
-        USE ground ;
-        SHAPE ABUTMENT ;
-        PORT
-            LAYER L_ALU1 ;
-            WIDTH 6.00 ;
-            PATH 3.00 3.00 117.00 3.00 ;
-        END
-    END vss
     OBS
         LAYER L_ALU1 ;
         RECT 1.50 9.00 118.50 41.00 ;
@@ -7627,18 +7632,6 @@ MACRO sff3_x4
             RECT 129.00 9.00 131.00 11.00 ;
         END
     END q
-    PIN ck
-        DIRECTION INPUT ;
-        PORT
-            LAYER L_ALU1 ;
-            RECT 59.00 34.00 61.00 36.00 ;
-            RECT 59.00 29.00 61.00 31.00 ;
-            RECT 59.00 24.00 61.00 26.00 ;
-            RECT 59.00 19.00 61.00 21.00 ;
-            RECT 59.00 14.00 61.00 16.00 ;
-            RECT 59.00 9.00 61.00 11.00 ;
-        END
-    END ck
     PIN cmd1
         DIRECTION INPUT ;
         PORT
@@ -7686,7 +7679,7 @@ MACRO sff3_x4
     END i0
     PIN vdd
         DIRECTION INOUT ;
-        USE power ;
+        USE POWER ;
         SHAPE ABUTMENT ;
         PORT
             LAYER L_ALU1 ;
@@ -7696,7 +7689,7 @@ MACRO sff3_x4
     END vdd
     PIN vss
         DIRECTION INOUT ;
-        USE ground ;
+        USE GROUND ;
         SHAPE ABUTMENT ;
         PORT
             LAYER L_ALU1 ;
@@ -7704,6 +7697,19 @@ MACRO sff3_x4
             PATH 3.00 3.00 137.00 3.00 ;
         END
     END vss
+    PIN ck
+        DIRECTION INPUT ;
+        USE CLOCK ;
+        PORT
+            LAYER L_ALU1 ;
+            RECT 59.00 34.00 61.00 36.00 ;
+            RECT 59.00 29.00 61.00 31.00 ;
+            RECT 59.00 24.00 61.00 26.00 ;
+            RECT 59.00 19.00 61.00 21.00 ;
+            RECT 59.00 14.00 61.00 16.00 ;
+            RECT 59.00 9.00 61.00 11.00 ;
+        END
+    END ck
     OBS
         LAYER L_ALU1 ;
         RECT 1.50 9.00 138.50 41.00 ;
@@ -7719,7 +7725,7 @@ MACRO tie_x0
     SITE      core ;
     PIN vdd
         DIRECTION INOUT ;
-        USE power ;
+        USE POWER ;
         SHAPE ABUTMENT ;
         PORT
             LAYER L_ALU1 ;
@@ -7729,7 +7735,7 @@ MACRO tie_x0
     END vdd
     PIN vss
         DIRECTION INOUT ;
-        USE ground ;
+        USE GROUND ;
         SHAPE ABUTMENT ;
         PORT
             LAYER L_ALU1 ;
@@ -7789,7 +7795,7 @@ MACRO ts_x4
     END i
     PIN vdd
         DIRECTION INOUT ;
-        USE power ;
+        USE POWER ;
         SHAPE ABUTMENT ;
         PORT
             LAYER L_ALU1 ;
@@ -7799,7 +7805,7 @@ MACRO ts_x4
     END vdd
     PIN vss
         DIRECTION INOUT ;
-        USE ground ;
+        USE GROUND ;
         SHAPE ABUTMENT ;
         PORT
             LAYER L_ALU1 ;
@@ -7859,7 +7865,7 @@ MACRO ts_x8
     END i
     PIN vdd
         DIRECTION INOUT ;
-        USE power ;
+        USE POWER ;
         SHAPE ABUTMENT ;
         PORT
             LAYER L_ALU1 ;
@@ -7869,7 +7875,7 @@ MACRO ts_x8
     END vdd
     PIN vss
         DIRECTION INOUT ;
-        USE ground ;
+        USE GROUND ;
         SHAPE ABUTMENT ;
         PORT
             LAYER L_ALU1 ;
@@ -7934,7 +7940,7 @@ MACRO xr2_x1
     END i0
     PIN vdd
         DIRECTION INOUT ;
-        USE power ;
+        USE POWER ;
         SHAPE ABUTMENT ;
         PORT
             LAYER L_ALU1 ;
@@ -7944,7 +7950,7 @@ MACRO xr2_x1
     END vdd
     PIN vss
         DIRECTION INOUT ;
-        USE ground ;
+        USE GROUND ;
         SHAPE ABUTMENT ;
         PORT
             LAYER L_ALU1 ;
@@ -8005,7 +8011,7 @@ MACRO xr2_x4
     END i0
     PIN vdd
         DIRECTION INOUT ;
-        USE power ;
+        USE POWER ;
         SHAPE ABUTMENT ;
         PORT
             LAYER L_ALU1 ;
@@ -8015,7 +8021,7 @@ MACRO xr2_x4
     END vdd
     PIN vss
         DIRECTION INOUT ;
-        USE ground ;
+        USE GROUND ;
         SHAPE ABUTMENT ;
         PORT
             LAYER L_ALU1 ;
@@ -8051,7 +8057,7 @@ MACRO zero_x0
     END nq
     PIN vdd
         DIRECTION INOUT ;
-        USE power ;
+        USE POWER ;
         SHAPE ABUTMENT ;
         PORT
             LAYER L_ALU1 ;
@@ -8061,7 +8067,7 @@ MACRO zero_x0
     END vdd
     PIN vss
         DIRECTION INOUT ;
-        USE ground ;
+        USE GROUND ;
         SHAPE ABUTMENT ;
         PORT
             LAYER L_ALU1 ;
