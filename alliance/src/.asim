@@ -4,7 +4,7 @@
 # cvs checkout of the alliance cvs tree. It should be lauched 
 # in the same directory where you did the `cvs co alliance'
 # 
-# $Id: .asim,v 1.7 2002/10/10 16:41:36 czo Exp $
+# $Id: .asim,v 1.8 2002/10/14 12:42:23 czo Exp $
 
 rm -fr alliance/src/pcbs
 rm -fr alliance/src/grog
@@ -12,7 +12,5 @@ rm -fr alliance/src/gcp
 rm -fr alliance/src/genview
 rm -fr alliance/src/growstk
 rm -fr alliance/src/a2sdf
-rm -fr alliance/src/attila
-rm -fr alliance/src/nero
 
 
