@@ -1,0 +1,24 @@
+-- Entity Declaration
+
+ENTITY buf IS
+  PORT (
+  i : in BIT;	-- i
+  q : out BIT;	-- q
+  vdd : in BIT;	-- vdd
+  vss : in BIT	-- vss
+  );
+end buf;
+
+
+-- Architecture Declaration
+
+ARCHITECTURE data_flow OF buf IS
+
+signal nq:bit;
+
+BEGIN
+  
+nq <= not (i);
+q  <= not (nq);
+
+end data_flow;

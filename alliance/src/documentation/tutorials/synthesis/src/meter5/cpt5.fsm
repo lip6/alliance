@@ -1,0 +1,94 @@
+entity synchrone is
+port  (
+	ck    : in	bit;
+	vdd   : in	bit;
+	vss   : in	bit;
+	i     : in	bit;
+	reset : in	bit;
+	o     : out	bit
+      );
+end synchrone;
+
+architecture MOORE of synchrone is
+  type ETAT_TYPE is (E0, E1, E2, E3, E4, E5);  
+  signal EF, EP : ETAT_TYPE;
+
+--pragma CURRENT_STATE EP
+--pragma NEXT_STATE    EF
+--pragma CLOCK         CK
+
+begin
+process (EP, i, reset)
+  begin
+    if (reset='1') then
+      EF<=E0;
+    else
+      case EP is
+        when E0 =>
+          if (i='1') then
+            EF <= E1;
+          else
+            EF <= E0;
+          end if;
+
+        when E1 =>
+          if (i='1') then
+            EF <= E2;
+          else
+            EF <= E0;
+          end if;
+
+        when E2 =>
+          if (i='1') then
+            EF <= E3;
+          else
+            EF <= E0;
+          end if;
+
+        when E3 =>
+          if (i='1') then
+            EF <= E4;
+          else
+            EF <= E0;
+          end if;
+
+        when E4 =>
+          if (i='1') then
+            EF <= E5;
+          else
+            EF <= E0;
+          end if;
+
+        when E5 =>
+          if (i='1') then
+            EF <= E5;
+          else
+            EF <= E0;
+          end if;
+
+      end case;
+    end if;
+    case EP is
+        when E0 =>
+	    o <= '0' ;
+        when E1 =>
+	    o <= '0' ;
+        when E2 =>
+	    o <= '0' ;
+        when E3 =>
+	    o <= '0' ;
+        when E4 =>
+	    o <= '0' ;
+        when E5 =>
+	    o <= '1' ;
+  end case;
+  end process;
+
+process(ck)
+  begin
+    if (ck='1' and not ck'stable) then
+      EP <= EF;
+    end if;
+end process;
+
+end MOORE;

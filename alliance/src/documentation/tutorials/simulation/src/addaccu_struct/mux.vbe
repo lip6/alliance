@@ -1,0 +1,25 @@
+--	Multiplexeur
+
+ENTITY mux IS
+  PORT (
+		a 	: in bit_vector(3 downto 0);
+		b 	: in bit_vector(3 downto 0);
+		sel 	: in bit;
+		s	: out bit_vector(3 downto 0);
+                vdd     : in bit;
+                vss     : in bit
+    );
+END mux;
+
+
+-- Architecture Declaration
+
+ARCHITECTURE behaviour_data_flow OF mux IS
+
+
+BEGIN
+
+with sel select
+	s <= 	a 	when '0',
+		b 	when '1';
+END;

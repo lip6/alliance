@@ -1,0 +1,178 @@
+  Entity digicode is
+
+     port(
+        ck    : in bit ;
+        reset :in bit;
+        jour  :in bit;
+        i     :in bit_vector (3 downto 0);
+        o     :in bit;
+        press_kbd:in bit;
+        test  :in bit;
+        scanin :in bit;
+        scanout:out bit;
+        porte :out bit;
+        alarm :out bit;
+        vdd   :in bit;
+        vss   :in bit
+
+     );
+     End digicode;
+
+     architecture MOORE of digicode is
+
+     type ETAT_TYPE is (E0,E1,E2,E3,E4,E5,Ea);
+     signal EF, EP : ETAT_TYPE;
+
+-- pragma CURRENT_STATE EP
+-- pragma NEXT_STATE EF
+-- pragma CLOCK CK
+
+     begin
+        process (EP,i, press_kbd, jour, o , reset)
+        begin
+            -- fonction de transition =f(entrees : )
+            if(reset='1') then
+            EF <= E0 ;
+            else
+                case EP is
+                    when E0 =>
+                        if (press_kbd) then
+                          if ((i="0101") ) then
+                            EF <= E1;
+                          elsif (jour) then
+                            if (o) then 
+                              EF <= E5;
+                            else
+                              EF <= Ea ; 
+                            end if ;  
+                          elsif ( (i/="0101" )) then
+                            EF <= Ea;
+                          end if ;    
+                        else    
+                            EF <= E0;
+                        end if;
+                        
+                    when E1 =>
+                     if (press_kbd) then
+
+                        if ((i="0011")) then
+                            EF <= E2;
+                        elsif (jour ) then
+                         if (o) then 
+                              EF <= E5;
+                            else
+                              EF <= Ea ; 
+                            end if ; 
+                        
+                        elsif ( (i/="0011" ))  then
+                            EF <= Ea ;
+
+                       end if ;     
+                        else    
+                            EF <= E1;
+                        end if ; 
+                   when E2 =>
+                    if (press_kbd) then
+
+                        if ((i="1010")) then
+                            EF <= E3;
+                        elsif (jour ) then
+                         if (o) then 
+                              EF <= E5;
+                            else
+                              EF <= Ea ; 
+                            end if ; 
+                        elsif ( (i/="1010" )) then
+                            EF <= Ea;
+                       end if;     
+                        else
+                            EF <= E2;
+                        end if;
+                   when E3 =>
+                   if (press_kbd) then
+                        if ((i="0001")) then
+                            EF <= E4;
+                        elsif ((jour )) then
+                           if (o) then 
+                              EF <= E5;
+                            else
+                              EF <= Ea ; 
+                            end if ;  
+                        elsif ((i/="0001" ))  then
+                            EF <= Ea;
+                        end if;    
+                        else
+                            EF <= E3;
+                        end if ; 
+                   when E4 =>
+                    if (press_kbd) then
+
+                        if  ((i="0111")) then
+                           EF <= E5;
+                        elsif ( (jour) )  then
+                            if (o) then 
+                              EF <= E5;
+                            else
+                              EF <= Ea ; 
+                            end if ;  
+                        elsif ((i/="0111" )) then
+                            EF <= Ea;
+                            end if ;
+                        else    
+                            EF <= E4;
+                        end if;
+                   when E5 =>
+                            EF <= E5;
+                   when Ea =>
+                            EF <= Ea;
+                   when others => assert ('1')
+
+                       report "illegal state";
+            end case;
+       end if ;
+       -- fonction de generation =f(etats)
+       case EP is
+            when E0 =>
+                porte <= '0';
+                alarm <= '0';
+            when E1 =>
+                porte <= '0';
+                alarm <= '0';
+
+            when E2 =>
+                porte <= '0';
+                alarm <= '0';
+
+            when E3 =>
+                porte <= '0';
+                alarm <= '0';
+
+            when E4 =>
+                porte <= '0';
+                alarm <= '0';
+
+            when E5 =>
+                porte <= '1';
+                alarm <= '0';
+            
+            when Ea =>
+                porte <= '0';
+                alarm <= '1';
+
+            WHEN others => assert ('1')
+                    report "illegal state";
+        end case;
+end process;
+
+process(ck)
+       begin
+         if(ck = '1' and not ck' stable) then
+           EP <= EF ;
+         end if;
+ end process;
+ 
+ 
+
+
+end MOORE ;
+

@@ -1,0 +1,21 @@
+-- Entity Declaration
+
+ENTITY inversor IS
+  PORT (
+  i : in BIT;	-- i
+  nq : out BIT;	-- nq
+  vdd : in BIT;	-- vdd
+  vss : in BIT	-- vss
+  );
+end inversor;
+
+
+-- Architecture Declaration
+
+ARCHITECTURE data_flow OF inversor IS
+
+BEGIN
+  
+nq <= not i;
+
+end data_flow;

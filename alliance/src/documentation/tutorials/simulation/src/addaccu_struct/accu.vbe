@@ -1,0 +1,32 @@
+-- Accumulateur
+
+ENTITY accu IS
+  PORT (
+		i 	: in bit_vector(3 downto 0);
+		ck 	: in bit;
+		o	: out bit_vector(3 downto 0);
+                vdd     : in bit;
+                vss     : in bit
+
+    );
+END accu;
+
+
+-- Architecture Declaration
+
+ARCHITECTURE behaviour_data_flow OF accu IS
+
+
+  SIGNAL q : REG_VECTOR(3 downto 0) REGISTER;	
+
+BEGIN
+
+-- accumulateur
+
+registre : block (ck = '1' and not ck'stable) begin
+	q <= guarded i;
+	end block;
+
+o <= q;
+
+END;

@@ -1,0 +1,42 @@
+--description comportementale additionneur et accumulateur 4bits
+
+
+--declaration interface
+
+entity addac is 
+port ( a : in bit_vector (3 downto 0);
+       b : in bit_vector (3 downto 0);
+     sel : in bit;
+      ck : in bit;
+     vdd : in bit;
+     vss : in bit;
+       s : inout bit_vector (3 downto 0)
+     );
+end addac;
+
+--declaration architecture
+
+architecture data_flow of addac is
+
+signal mux_out : bit_vector (3 downto 0);
+signal reg_out : reg_vector (3 downto 0) register ;
+signal carry   : bit_vector (3 downto 0);
+
+begin 
+
+ with sel select
+      mux_out <= a when '0',
+                 reg_out when '1';
+
+s <= b xor mux_out xor (carry ( 2 downto 0) & '0');
+
+carry <= (b and mux_out) or (b and (carry ( 2 downto 0) & '0')) 
+         or (mux_out and (carry (2 downto 0) & '0'));
+
+ writeaccu : block(ck='1' and not ck 'stable)
+     begin 
+       reg_out <= guarded s ;
+     end block ;
+
+end data_flow;
+   

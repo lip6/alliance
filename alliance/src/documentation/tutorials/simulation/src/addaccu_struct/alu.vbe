@@ -1,0 +1,35 @@
+-- Additionneur 
+
+ENTITY  alu IS
+  PORT (
+		a 	: in bit_vector(3 downto 0);
+		b 	: in bit_vector(3 downto 0);
+		s	: out bit_vector(3 downto 0);
+                vdd     : in bit;
+                vss     : in bit
+    );
+END  alu;
+
+
+-- Architecture Declaration
+
+ARCHITECTURE behaviour_data_flow OF  alu IS
+
+-- carry
+
+  SIGNAL carry : BIT_VECTOR(3 downto 0) ;
+
+BEGIN
+
+-- fabrication de la retenue
+
+carry(0) <= '0';
+carry(3 downto 1) <= ( ( b(2 downto 0) and a(2 downto 0) ) or
+                   ( a(2 downto 0) and carry(2 downto 0) ) or
+		   ( carry(2 downto 0) and b(2 downto 0) ) ) ;
+
+-- fabrication de la somme
+
+s <= b xor a xor carry ;
+
+END;

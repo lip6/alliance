@@ -1,0 +1,19 @@
+BEGIN_PATH_REG
+
+digicode_ep_0_ins
+digicode_ep_1_ins
+digicode_ep_2_ins
+
+END_PATH_REG
+
+
+
+
+BEGIN_CONNECTOR
+
+SCAN_IN      scanin
+SCAN_OUT     scanout
+SCAN_TEST    test
+
+END_CONNECTOR
+
