@@ -55,7 +55,7 @@ struct g_type
   char FLAG;
   };
 
-#include "bvl_bcompyac.h"
+#include "bvl_bcomp_y.h"
 #include "bvl_blex.h"
 
 %}
