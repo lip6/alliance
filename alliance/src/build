@@ -1,0 +1,24 @@
+#!/bin/sh
+#
+# Filename: build
+# Author: Czo <Olivier.Sirol@lip6.fr>
+# License: GPL (http://www.gnu.org/copyleft/gpl.html)
+# Started: Oct 2002
+# Last Change: Wednesday 09 October 2002, 18:39
+# Edit Time: 0:24:13
+# Description:
+#
+# $Id: build,v 1.1 2002/10/09 16:41:43 czo Exp $
+#
+
+# The way the configure and Makefiles are written
+# implies that you do a "make install" in one step
+# rather than a "make" followed by a "make install"
+#
+# To avoid make problems, please use gnu make (gmake)
+# The fowllowing commands builds the full package from scratch.
+
+export ALLIANCE_TOP=/usr/local/alliance
+./configure --prefix=$ALLIANCE_TOP
+gmake install
+
