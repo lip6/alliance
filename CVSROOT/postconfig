@@ -7,7 +7,7 @@
 # (C) Czo 1998,99
 # This code is released under GPL
 #
-# $Id: postconfig,v 1.8 1999/09/20 15:04:45 czo Exp $
+# $Id: postconfig,v 1.9 1999/09/21 15:58:38 czo Exp $
 #
 
 
@@ -24,8 +24,22 @@ echo ""
 cat 
 ) > "$TMPFILE"  
 
+MAIL_SUBJECT=`cat "$TMPFILE" | gawk '
+/Update of \/users\/outil1\/alliance\/cvsroot\// {
+gsub(/Update of \/users\/outil1\/alliance\/cvsroot\//, "");
+gsub(/alliance\//, "");
+gsub(/share\//, "");
+gsub(/sources\//, "");
+SUJ=$0
+}
+END {
+printf("CVS loginfo, %s", SUJ)
+}'`
+
+echo $MAIL_SUBJECT
+
 cat "$TMPFILE"  >> $CVSROOT/CVSROOT/log-commit
-cat "$TMPFILE"  | mail -s "ALC : CVS loginfo" alliance-programmers@asim.lip6.fr
+cat "$TMPFILE"  | mail -s "ALC : $MAIL_SUBJECT" alliance-programmers@asim.lip6.fr
 
 
 # find cvsroot -type d | xargs chmod g+s
