@@ -494,7 +494,7 @@ int main (int ac, char *av[])
                   (SCALE_X * (ScanRec->Y + RDS_LAMBDA)) / RDS_UNIT , 
                   (SCALE_X * (ScanRec->X + ScanRec->DX / 2)) / RDS_UNIT , 
                   (SCALE_X * (ScanRec->Y + ScanRec->DY - RDS_LAMBDA)) / RDS_UNIT , 
-                  NULL);
+                  "obs");
      }
      else  
      {  
@@ -522,7 +522,7 @@ int main (int ac, char *av[])
                  (SCALE_X * (ScanRec->Y + ScanRec->DY / 2)) / RDS_UNIT , 
                  (SCALE_X * (ScanRec->X + ScanRec->DX - RDS_LAMBDA)) / RDS_UNIT , 
                  (SCALE_X * (ScanRec->Y + ScanRec->DY / 2)) / RDS_UNIT , 
-                 NULL);
+                 "obs");
     }
   }
   for (PhSeg = PhFig->PHSEG; PhSeg; PhSeg = PhSeg->NEXT)
