@@ -21,6 +21,6 @@
 #^CVSROOT	(echo ""; who am i; echo %s; date; cat) >> $CVSROOT/CVSROOT/log-cvsroot
 #ALL	(date ; cat ; (sleep 2 ; cd /users/outil1/alliance/latest ; cvs -q update -d ) &) >> $CVSROOT/CVSROOT/log-latest 2>&1
 
-ALL	(cat > /dev/null 2>&1 ; echo "Pas taper...")
+ALL	(cat > /dev/null 2>&1 ; echo "Si vous tapez Ctrl-C, ca risque de foutre la merde...")
 ALL	(/users/outil1/alliance/cvsroot/CVSROOT/postconfig) >> $CVSROOT/CVSROOT/log-postconfig
 
