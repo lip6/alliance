@@ -1,0 +1,58 @@
+.\"   $Id: constraintBdd.3,v 1.1 2002/04/03 13:13:25 ludo Exp $
+.\" @(#)constraintBdd.2 7.01 92/08/22 ; Labo masi cao-vlsi; Author : Luc Burgun
+.TH CONSTRAINTBDD 3 "October 1, 1997" "ASIM/LIP6" "BDD functions"
+.so man1/alc_origin.1
+.SH NAME
+\fBconstraintBdd\fP \- restricts a BDD to another BDD
+.SH SYNOPSYS
+.nf
+#include "logmmm.h"
+pNode constraintBdd(pBdd1,pBdd2)
+pNode pBdd1;
+pNode pBdd2;
+.fi
+.SH PARAMETERS
+.TP 20
+\fIpBdd1\fP
+BDD to restrict 
+.TP 20
+\fIpBdd2\fP
+constraint BDD  
+.SH DESCRIPTION
+\fBconstraintBdd()\fP constructs the graph for the function obtained by restricting \fIpBdd1\fP on \fIpBdd2\fP.
+This function can be used for example when a primary input is stuck at 0 or 1. 
+.SH EXAMPLE
+.nf
+#include "mutnnn.h"		/* mbk utilities */
+#include "logmmm.h"
+pNode nodeA,nodeB;
+pNode res;
+
+initializeBdd(SMALL_BDD);
+nodeA = createNodeTermBdd(3);
+nodeB = createNodeTermBdd(3);
+res = applyBinBdd(OR,nodeA,nodeB);	/* res = (OR a b)
+res = constraintBdd(res,nodeA);		/* a = 1 */
+displayBdd(res,1);
+
+/* it will display 
+@res   ONE 
+*/
+	
+destroyBdd(1);
+.fi
+.SH SEE ALSO
+.BR log (1),
+.BR bdd (1),
+.BR simplifDcOneBdd (3),
+.BR simplifDcZeroBdd (3),
+.BR composeBdd (3),
+.BR applyBdd (3),
+.BR notBdd (3),
+.BR applyBinBdd (3),
+.BR addListBdd (3),
+.BR displayBdd (3),
+.BR createNodeTermBdd (3).
+
+.so man1/alc_bug_report.1
+

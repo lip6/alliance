@@ -1,0 +1,59 @@
+.\"   $Id: applyBinBdd.3,v 1.1 2002/04/03 13:13:25 ludo Exp $
+.\" @(#)applyBinBdd.2 7.01 92/08/22 ; Labo masi cao-vlsi; Author : Luc Burgun
+.TH APPLYBINBDD 3 "October 1, 1997" "ASIM/LIP6" "BDD functions"
+.so man1/alc_origin.1
+.SH NAME
+\fBapplyBinBdd\fP \- applies an operator to two BDD. 
+.SH SYNOPSYS
+.nf
+#include "logmmm.h"
+pNode applyBinBdd(oper,pBdd1,pBdd2)
+short oper;
+pNode pBdd1;
+pNode pBdd2;
+.fi
+.SH PARAMETERS
+.TP 20
+\fIoper\fP
+operator number to apply (OR,AND,XOR,NAND,NOR,NXOR)
+.TP 20
+\fIpBdd1\fP
+first argument
+.TP 20
+\fIpBdd2\fP
+second argument
+.SH DESCRIPTION
+\fBapplyBinBdd()\fP applies \fIoper\fP to \fIpBdd1\fP and \fIpBdd2\fP. This function provides the basic method for creating the representation of a boolean function.
+.SH EXAMPLE
+.nf
+#include "mutnnn.h"		/* mbk utilities */
+#include "logmmm.h"
+pNode nodeA,nodeB;
+pNode res;
+
+initializeBdd(SMALL_BDD);
+nodeA = createNodeTermBdd(3);
+nodeB = createNodeTermBdd(3);
+res = applyBinBdd(OR,nodeA,nodeB);
+displayBdd(res,1);
+
+/* it will display 
+@res    INDEX = 3   LOW = @nodeA   HIGH = ONE
+@nodeA  INDEX = 2   LOW = ZERO     HIGH = ONE
+*/
+	
+destroyBdd(1);
+.fi
+.SH SEE ALSO
+.BR log (1),
+.BR bdd (1),
+.BR applyBdd (3),
+.BR notBdd (3),
+.BR constraintBdd (3),
+.BR composeBdd (3),
+.BR addListBdd (3),
+.BR displayBdd (3),
+.BR createNodeTermBdd (3).
+
+.so man1/alc_bug_report.1
+

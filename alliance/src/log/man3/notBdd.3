@@ -1,0 +1,48 @@
+.\"   $Id: notBdd.3,v 1.1 2002/04/03 13:13:26 ludo Exp $
+.\" @(#)notBdd.2 7.01 92/08/22 ; Labo masi cao-vlsi; Author : Luc Burgun
+.TH NOTBDD 3 "October 1, 1997" "ASIM/LIP6" "BDD functions"
+.so man1/alc_origin.1
+.SH NAME
+\fBnotBdd\fP \- complements a BDD 
+.SH SYNOPSYS
+.nf
+#include "logmmm.h"
+pNode notBdd(pBdd)
+pNode pBdd;
+.fi
+.SH PARAMETER
+.TP 20
+\fIpBdd\fP
+BDD to complement
+.SH DESCRIPTION
+\fBnotBdd()\fP applies NOT operator to \fIpBdd\fP. 
+.SH EXAMPLE
+.nf
+#include "mutnnn.h"		/* mbk utilities */
+#include "logmmm.h"
+pNode nodeA;
+
+initializeBdd(SMALL_BDD);
+nodeA = createNodeTermBdd(3);
+
+displayBdd(notBdd(nodeA),1);
+
+/* it will display 
+@nodeA   INDEX = 2   LOW = ONE   HIGH = ZERO
+*/
+	
+destroyBdd(1);
+.fi
+.SH SEE ALSO
+.BR log (1),
+.BR bdd (1),
+.BR applyBinBdd (3),
+.BR applyBdd (3),
+.BR constraintBdd (3),
+.BR composeBdd (3),
+.BR addListBdd (3),
+.BR displayBdd (3),
+.BR createNodeTermBdd (3).
+
+.so man1/alc_bug_report.1
+
