@@ -29,13 +29,13 @@ such as the 875 000 transistors StaCS superscalar microprocessor and 400 000
 transistors IEEE Gigabit HSL Router.
 
 
-#%package tutorials
-#Summary:      Alliance VLSI CAD Sytem - tutorials
-#Group:        Applications/VLSI
+%package tutorials
+Summary:      Alliance VLSI CAD Sytem - Tutorials
+Group:        Applications/VLSI
 
 
-#%description tutorials
-#Some tutorails for the Alliance VLSI CAD Sytem.
+%description tutorials
+Documentation and tutorials for the Alliance VLSI CAD Sytem.
 
 
 %package sources
@@ -152,11 +152,15 @@ Sources of the Alliance VLSI CAD System, as you might guess...
 %{prefix}/lib/*
 %{prefix}/include/*
 %{prefix}/man/man?/*
-%{prefix}/doc/*
+%{prefix}/doc/html/*
+%{prefix}/doc/pdf/*
 
 
-#%files tutorials
-#%{prefix}/tutorials
+%files tutorials
+%{prefix}/tutorials
+%{prefix}/doc/overview
+%{prefix}/doc/design-flow
+%{prefix}/doc/alliance-run
 
 
 %files sources
@@ -165,6 +169,11 @@ Sources of the Alliance VLSI CAD System, as you might guess...
 
 
 %changelog
+* Fri Jul 16 2004 Jean-Paul.Chaput <Jean-Paul.Chaput@lip6.fr>
+- Added Tutorial sub-package (now managed by autoconf/automake).
+- Removed release tag, must be given at compile time using the
+  --define command line argument of rpmbuild (see mkdistrib).
+
 * Sat Nov 15 2003 Jean-Paul.Chaput <Jean-Paul.Chaput@lip6.fr>
 - assert is now in assert.h, patch mut.h to include it if
   GCC_VERSION >= 3003 (gcc >= 3.3.x).
