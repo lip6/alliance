@@ -1,5 +1,5 @@
 /*
- *  $Id: DEF_drive.c,v 1.7 2003/04/04 16:23:31 xtof Exp $
+ *  $Id: DEF_drive.c,v 1.8 2003/04/07 13:10:13 xtof Exp $
  *
  *  /----------------------------------------------------------------\
  *  |                                                                |
@@ -1623,6 +1623,7 @@ static void  fprintDEF()
   fprintf (DEF_FILE, "NAMESCASESENSITIVE  ON ;\n");
   fprintf (DEF_FILE, "BUSBITCHARS         \"()\" ;\n");
   fprintf (DEF_FILE, "DIVIDERCHAR         \".\" ;\n\n");
+  fprintf  (DEF_FILE, "DESIGN %s ; \n\n\n", LV_name);
   fprintf (DEF_FILE, "    TECHNOLOGY %s ;\n\n"             , "cmos");
   fprintf (DEF_FILE, "    UNITS DISTANCE MICRONS %ld ;\n", DEF_UNITS_MICRONS);
 
