@@ -1,4 +1,5 @@
 
+in       ck B;
 in       data (7 downto 0) B;
 in       empty B;
 in       full B;
