@@ -44,8 +44,8 @@
 
 # include <stdio.h>
 # include <string.h>
-# include MUT_H
-# include AUT_H
+# include "mut.h"
+# include "aut.h"
 # include "boom_error.h"
 
 /*------------------------------------------------------------\

@@ -41,13 +41,13 @@
 |                                                             |
 \------------------------------------------------------------*/
 
-# include MUT_H
-# include AUT_H
-# include ABL_H
-# include BDD_H
-# include ABE_H
-# include ABV_H
-# include ABT_H
+# include "mut.h"
+# include "aut.h"
+# include "abl.h"
+# include "bdd.h"
+# include "abe.h"
+# include "abv.h"
+# include "abt.h"
 
 # include <stdio.h>
 # include <stdlib.h>
