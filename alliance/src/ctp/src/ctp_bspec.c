@@ -39,10 +39,10 @@ static int CtpEvalError = 0;
 
 # ifndef NO_DEBUG
 # define my_ctp_toolbug(V1,V2,V3,V4) \
-   do { fprintf( stderr, "%s.%d:", basename(__FILE__), __LINE__);\
+   do { fprintf( stderr, "%s.%d:", autbasename(__FILE__,NULL), __LINE__);\
            ctp_toolbug(V1,V2,V3,V4); } while(0)
 # define my_ctp_error(N,V) \
-   do { fprintf( stderr, "%s.%d:", basename(__FILE__), __LINE__);\
+   do { fprintf( stderr, "%s.%d:", autbasename(__FILE__,NULL), __LINE__);\
            ctp_error(N,V); } while(0)
 # else
 # define my_ctp_toolbug ctp_toolbug

@@ -45,9 +45,9 @@
 #include "ctp_byacc.h"
 
 #if 1
-# define my_fprintf fprintf( stdout, "%s.%d:", basename(__FILE__), __LINE__ ); fprintf
+# define my_fprintf fprintf( stdout, "%s.%d:", autbasename(__FILE__,NULL), __LINE__ ); fprintf
 # define my_ctp_error(N,V) \
-   do { fprintf( stderr, "%s.%d:", basename(__FILE__), __LINE__); ctp_error(N,V); } while(0)
+   do { fprintf( stderr, "%s.%d:", autbasename(__FILE__,NULL), __LINE__); ctp_error(N,V); } while(0)
 #else
 # define my_fprintf   fprintf
 # define my_ctp_error ctp_error
