@@ -1,16 +1,16 @@
 ENTITY na2_x1 IS
 GENERIC (
-  CONSTANT area 	 : NATURAL := 100000;
+  CONSTANT area 	 : NATURAL := 1000;
   CONSTANT transistors	 : NATURAL := 4;
   CONSTANT cin_i0	 : NATURAL := 11;
   CONSTANT cin_i1	 : NATURAL := 11;
-  CONSTANT tplh_i1_nq	 : NATURAL := 264;
+  CONSTANT tplh_i1_nq	 : NATURAL := 232;
   CONSTANT rup_i1_nq	 : NATURAL := 3710;
-  CONSTANT tphl_i1_nq	 : NATURAL := 110;
+  CONSTANT tphl_i1_nq	 : NATURAL := 106;
   CONSTANT rdown_i1_nq	 : NATURAL := 2820;
-  CONSTANT tplh_i0_nq	 : NATURAL := 320;
+  CONSTANT tplh_i0_nq	 : NATURAL := 284;
   CONSTANT rup_i0_nq	 : NATURAL := 3710;
-  CONSTANT tphl_i0_nq	 : NATURAL := 46;
+  CONSTANT tphl_i0_nq	 : NATURAL := 57;
   CONSTANT rdown_i0_nq	 : NATURAL := 2820
 );
 PORT (
@@ -22,8 +22,8 @@ PORT (
 );
 END na2_x1;
 
-ARCHITECTURE VBE OF na2_x1 IS
+ARCHITECTURE behaviour_data_flow OF na2_x1 IS
 
 BEGIN
-  nq <= not ((i0 and i1));
+  nq <= not ((i0 and i1)) after 884 ps;
 END;

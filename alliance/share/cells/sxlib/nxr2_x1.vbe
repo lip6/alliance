@@ -1,24 +1,24 @@
 ENTITY nxr2_x1 IS
 GENERIC (
-  CONSTANT area 	 : NATURAL := 225000;
+  CONSTANT area 	 : NATURAL := 2250;
   CONSTANT transistors	 : NATURAL := 12;
   CONSTANT cin_i0	 : NATURAL := 21;
   CONSTANT cin_i1	 : NATURAL := 22;
-  CONSTANT tplh_i1_nq	 : NATURAL := 361;
+  CONSTANT tplh_i1_nq	 : NATURAL := 318;
   CONSTANT rup_i1_nq	 : NATURAL := 3200;
-  CONSTANT tphh_i1_nq	 : NATURAL := 407;
+  CONSTANT tphh_i1_nq	 : NATURAL := 392;
   CONSTANT rup_i1_nq	 : NATURAL := 3200;
-  CONSTANT tphl_i1_nq	 : NATURAL := 157;
+  CONSTANT tphl_i1_nq	 : NATURAL := 152;
   CONSTANT rdown_i1_nq	 : NATURAL := 2820;
-  CONSTANT tpll_i1_nq	 : NATURAL := 516;
+  CONSTANT tpll_i1_nq	 : NATURAL := 490;
   CONSTANT rdown_i1_nq	 : NATURAL := 2820;
-  CONSTANT tplh_i0_nq	 : NATURAL := 313;
+  CONSTANT tplh_i0_nq	 : NATURAL := 287;
   CONSTANT rup_i0_nq	 : NATURAL := 3200;
-  CONSTANT tphh_i0_nq	 : NATURAL := 377;
+  CONSTANT tphh_i0_nq	 : NATURAL := 362;
   CONSTANT rup_i0_nq	 : NATURAL := 3200;
-  CONSTANT tphl_i0_nq	 : NATURAL := 296;
+  CONSTANT tphl_i0_nq	 : NATURAL := 281;
   CONSTANT rdown_i0_nq	 : NATURAL := 2820;
-  CONSTANT tpll_i0_nq	 : NATURAL := 403;
+  CONSTANT tpll_i0_nq	 : NATURAL := 378;
   CONSTANT rdown_i0_nq	 : NATURAL := 2820
 );
 PORT (
@@ -30,8 +30,8 @@ PORT (
 );
 END nxr2_x1;
 
-ARCHITECTURE VBE OF nxr2_x1 IS
+ARCHITECTURE behaviour_data_flow OF nxr2_x1 IS
 
 BEGIN
-  nq <= not ((i0 xor i1));
+  nq <= not ((i0 xor i1)) after 1090 ps;
 END;

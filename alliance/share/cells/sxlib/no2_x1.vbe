@@ -1,16 +1,16 @@
 ENTITY no2_x1 IS
 GENERIC (
-  CONSTANT area 	 : NATURAL := 100000;
+  CONSTANT area 	 : NATURAL := 1000;
   CONSTANT transistors	 : NATURAL := 4;
   CONSTANT cin_i0	 : NATURAL := 12;
   CONSTANT cin_i1	 : NATURAL := 12;
-  CONSTANT tplh_i0_nq	 : NATURAL := 120;
+  CONSTANT tplh_i0_nq	 : NATURAL := 118;
   CONSTANT rup_i0_nq	 : NATURAL := 3200;
-  CONSTANT tphl_i0_nq	 : NATURAL := 322;
+  CONSTANT tphl_i0_nq	 : NATURAL := 294;
   CONSTANT rdown_i0_nq	 : NATURAL := 3610;
-  CONSTANT tplh_i1_nq	 : NATURAL := 173;
+  CONSTANT tplh_i1_nq	 : NATURAL := 154;
   CONSTANT rup_i1_nq	 : NATURAL := 3200;
-  CONSTANT tphl_i1_nq	 : NATURAL := 212;
+  CONSTANT tphl_i1_nq	 : NATURAL := 191;
   CONSTANT rdown_i1_nq	 : NATURAL := 3610
 );
 PORT (
@@ -22,8 +22,8 @@ PORT (
 );
 END no2_x1;
 
-ARCHITECTURE VBE OF no2_x1 IS
+ARCHITECTURE behaviour_data_flow OF no2_x1 IS
 
 BEGIN
-  nq <= not ((i0 or i1));
+  nq <= not ((i0 or i1)) after 894 ps;
 END;

@@ -1,16 +1,16 @@
 ENTITY a2_x2 IS
 GENERIC (
-  CONSTANT area 	 : NATURAL := 125000;
+  CONSTANT area 	 : NATURAL := 1250;
   CONSTANT transistors	 : NATURAL := 6;
   CONSTANT cin_i0	 : NATURAL := 9;
   CONSTANT cin_i1	 : NATURAL := 11;
-  CONSTANT tphh_i1_q	 : NATURAL := 194;
+  CONSTANT tphh_i1_q	 : NATURAL := 200;
   CONSTANT rup_i1_q	 : NATURAL := 1780;
-  CONSTANT tpll_i1_q	 : NATURAL := 471;
+  CONSTANT tpll_i1_q	 : NATURAL := 428;
   CONSTANT rdown_i1_q	 : NATURAL := 1600;
-  CONSTANT tphh_i0_q	 : NATURAL := 264;
+  CONSTANT tphh_i0_q	 : NATURAL := 254;
   CONSTANT rup_i0_q	 : NATURAL := 1780;
-  CONSTANT tpll_i0_q	 : NATURAL := 422;
+  CONSTANT tpll_i0_q	 : NATURAL := 383;
   CONSTANT rdown_i0_q	 : NATURAL := 1600
 );
 PORT (
@@ -22,8 +22,8 @@ PORT (
 );
 END a2_x2;
 
-ARCHITECTURE VBE OF a2_x2 IS
+ARCHITECTURE behaviour_data_flow OF a2_x2 IS
 
 BEGIN
-  q <= (i0 and i1);
+  q <= (i0 and i1) after 1028 ps;
 END;

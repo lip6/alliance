@@ -1,25 +1,25 @@
 ENTITY mx2_x2 IS
 GENERIC (
-  CONSTANT area 	 : NATURAL := 225000;
+  CONSTANT area 	 : NATURAL := 2250;
   CONSTANT transistors	 : NATURAL := 12;
   CONSTANT cin_cmd	 : NATURAL := 17;
   CONSTANT cin_i0	 : NATURAL := 8;
   CONSTANT cin_i1	 : NATURAL := 9;
-  CONSTANT tphh_cmd_q	 : NATURAL := 512;
+  CONSTANT tphh_cmd_q	 : NATURAL := 478;
   CONSTANT rup_cmd_q	 : NATURAL := 1780;
-  CONSTANT tplh_cmd_q	 : NATURAL := 544;
+  CONSTANT tplh_cmd_q	 : NATURAL := 522;
   CONSTANT rup_cmd_q	 : NATURAL := 1780;
-  CONSTANT tpll_cmd_q	 : NATURAL := 552;
+  CONSTANT tpll_cmd_q	 : NATURAL := 504;
   CONSTANT rdown_cmd_q	 : NATURAL := 1600;
-  CONSTANT tphl_cmd_q	 : NATURAL := 494;
+  CONSTANT tphl_cmd_q	 : NATURAL := 483;
   CONSTANT rdown_cmd_q	 : NATURAL := 1600;
-  CONSTANT tphh_i0_q	 : NATURAL := 467;
+  CONSTANT tphh_i0_q	 : NATURAL := 447;
   CONSTANT rup_i0_q	 : NATURAL := 1780;
-  CONSTANT tpll_i0_q	 : NATURAL := 485;
+  CONSTANT tpll_i0_q	 : NATURAL := 455;
   CONSTANT rdown_i0_q	 : NATURAL := 1600;
-  CONSTANT tphh_i1_q	 : NATURAL := 467;
+  CONSTANT tphh_i1_q	 : NATURAL := 447;
   CONSTANT rup_i1_q	 : NATURAL := 1780;
-  CONSTANT tpll_i1_q	 : NATURAL := 485;
+  CONSTANT tpll_i1_q	 : NATURAL := 455;
   CONSTANT rdown_i1_q	 : NATURAL := 1600
 );
 PORT (
@@ -32,8 +32,8 @@ PORT (
 );
 END mx2_x2;
 
-ARCHITECTURE VBE OF mx2_x2 IS
+ARCHITECTURE behaviour_data_flow OF mx2_x2 IS
 
 BEGIN
-  q <= ((i1 and cmd) or (not (cmd) and i0));
+  q <= ((i1 and cmd) or (not (cmd) and i0)) after 1122 ps;
 END;

@@ -44,5 +44,5 @@ BEGIN
     sff_m <= GUARDED ((i1 and cmd) or (i0 and not (cmd)));
   END BLOCK label0;
 
-  q <= sff_m;
+  q <= sff_m after 1933 ps;
 END;

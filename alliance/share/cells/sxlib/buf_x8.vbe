@@ -1,11 +1,11 @@
 ENTITY buf_x8 IS
 GENERIC (
-  CONSTANT area 	 : NATURAL := 200000;
+  CONSTANT area 	 : NATURAL := 2000;
   CONSTANT transistors	 : NATURAL := 10;
   CONSTANT cin_i	 : NATURAL := 15;
-  CONSTANT tphh_i_q	 : NATURAL := 354;
+  CONSTANT tphh_i_q	 : NATURAL := 334;
   CONSTANT rup_i_q	 : NATURAL := 440;
-  CONSTANT tpll_i_q	 : NATURAL := 423;
+  CONSTANT tpll_i_q	 : NATURAL := 388;
   CONSTANT rdown_i_q	 : NATURAL := 400
 );
 PORT (
@@ -16,8 +16,8 @@ PORT (
 );
 END buf_x8;
 
-ARCHITECTURE VBE OF buf_x8 IS
+ARCHITECTURE behaviour_data_flow OF buf_x8 IS
 
 BEGIN
-  q <= i;
+  q <= i after 988 ps;
 END;

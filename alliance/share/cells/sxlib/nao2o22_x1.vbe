@@ -1,26 +1,26 @@
 ENTITY nao2o22_x1 IS
 GENERIC (
-  CONSTANT area 	 : NATURAL := 175000;
+  CONSTANT area 	 : NATURAL := 1750;
   CONSTANT transistors	 : NATURAL := 8;
   CONSTANT cin_i0	 : NATURAL := 14;
   CONSTANT cin_i1	 : NATURAL := 14;
   CONSTANT cin_i2	 : NATURAL := 14;
   CONSTANT cin_i3	 : NATURAL := 14;
-  CONSTANT tplh_i2_nq	 : NATURAL := 327;
+  CONSTANT tplh_i2_nq	 : NATURAL := 300;
   CONSTANT rup_i2_nq	 : NATURAL := 3200;
-  CONSTANT tphl_i2_nq	 : NATURAL := 243;
+  CONSTANT tphl_i2_nq	 : NATURAL := 231;
   CONSTANT rdown_i2_nq	 : NATURAL := 2820;
-  CONSTANT tplh_i3_nq	 : NATURAL := 418;
+  CONSTANT tplh_i3_nq	 : NATURAL := 371;
   CONSTANT rup_i3_nq	 : NATURAL := 3200;
-  CONSTANT tphl_i3_nq	 : NATURAL := 176;
+  CONSTANT tphl_i3_nq	 : NATURAL := 169;
   CONSTANT rdown_i3_nq	 : NATURAL := 2820;
-  CONSTANT tplh_i0_nq	 : NATURAL := 242;
+  CONSTANT tplh_i0_nq	 : NATURAL := 221;
   CONSTANT rup_i0_nq	 : NATURAL := 3200;
-  CONSTANT tphl_i0_nq	 : NATURAL := 313;
+  CONSTANT tphl_i0_nq	 : NATURAL := 285;
   CONSTANT rdown_i0_nq	 : NATURAL := 2820;
-  CONSTANT tplh_i1_nq	 : NATURAL := 318;
+  CONSTANT tplh_i1_nq	 : NATURAL := 278;
   CONSTANT rup_i1_nq	 : NATURAL := 3200;
-  CONSTANT tphl_i1_nq	 : NATURAL := 233;
+  CONSTANT tphl_i1_nq	 : NATURAL := 210;
   CONSTANT rdown_i1_nq	 : NATURAL := 2820
 );
 PORT (
@@ -34,8 +34,8 @@ PORT (
 );
 END nao2o22_x1;
 
-ARCHITECTURE VBE OF nao2o22_x1 IS
+ARCHITECTURE behaviour_data_flow OF nao2o22_x1 IS
 
 BEGIN
-  nq <= not (((i0 or i1) and (i2 or i3)));
+  nq <= not (((i0 or i1) and (i2 or i3))) after 971 ps;
 END;

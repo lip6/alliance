@@ -1,11 +1,11 @@
 ENTITY inv_x4 IS
 GENERIC (
-  CONSTANT area 	 : NATURAL := 100000;
+  CONSTANT area 	 : NATURAL := 1000;
   CONSTANT transistors	 : NATURAL := 4;
   CONSTANT cin_i	 : NATURAL := 26;
-  CONSTANT tplh_i_nq	 : NATURAL := 161;
+  CONSTANT tplh_i_nq	 : NATURAL := 137;
   CONSTANT rup_i_nq	 : NATURAL := 1060;
-  CONSTANT tphl_i_nq	 : NATURAL := 74;
+  CONSTANT tphl_i_nq	 : NATURAL := 68;
   CONSTANT rdown_i_nq	 : NATURAL := 800
 );
 PORT (
@@ -16,8 +16,8 @@ PORT (
 );
 END inv_x4;
 
-ARCHITECTURE VBE OF inv_x4 IS
+ARCHITECTURE behaviour_data_flow OF inv_x4 IS
 
 BEGIN
-  nq <= not (i);
+  nq <= not (i) after 737 ps;
 END;

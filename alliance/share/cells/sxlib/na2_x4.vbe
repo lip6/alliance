@@ -1,16 +1,16 @@
 ENTITY na2_x4 IS
 GENERIC (
-  CONSTANT area 	 : NATURAL := 175000;
+  CONSTANT area 	 : NATURAL := 1750;
   CONSTANT transistors	 : NATURAL := 10;
   CONSTANT cin_i0	 : NATURAL := 10;
   CONSTANT cin_i1	 : NATURAL := 10;
-  CONSTANT tplh_i1_nq	 : NATURAL := 635;
+  CONSTANT tplh_i1_nq	 : NATURAL := 594;
   CONSTANT rup_i1_nq	 : NATURAL := 890;
-  CONSTANT tphl_i1_nq	 : NATURAL := 340;
+  CONSTANT tphl_i1_nq	 : NATURAL := 348;
   CONSTANT rdown_i1_nq	 : NATURAL := 800;
-  CONSTANT tplh_i0_nq	 : NATURAL := 583;
+  CONSTANT tplh_i0_nq	 : NATURAL := 547;
   CONSTANT rup_i0_nq	 : NATURAL := 890;
-  CONSTANT tphl_i0_nq	 : NATURAL := 411;
+  CONSTANT tphl_i0_nq	 : NATURAL := 404;
   CONSTANT rdown_i0_nq	 : NATURAL := 800
 );
 PORT (
@@ -22,8 +22,8 @@ PORT (
 );
 END na2_x4;
 
-ARCHITECTURE VBE OF na2_x4 IS
+ARCHITECTURE behaviour_data_flow OF na2_x4 IS
 
 BEGIN
-  nq <= not ((i0 and i1));
+  nq <= not ((i0 and i1)) after 1194 ps;
 END;

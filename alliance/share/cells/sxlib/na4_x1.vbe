@@ -1,26 +1,26 @@
 ENTITY na4_x1 IS
 GENERIC (
-  CONSTANT area 	 : NATURAL := 150000;
+  CONSTANT area 	 : NATURAL := 1500;
   CONSTANT transistors	 : NATURAL := 8;
   CONSTANT cin_i0	 : NATURAL := 10;
   CONSTANT cin_i1	 : NATURAL := 11;
   CONSTANT cin_i2	 : NATURAL := 11;
   CONSTANT cin_i3	 : NATURAL := 11;
-  CONSTANT tplh_i0_nq	 : NATURAL := 473;
+  CONSTANT tplh_i0_nq	 : NATURAL := 424;
   CONSTANT rup_i0_nq	 : NATURAL := 3710;
-  CONSTANT tphl_i0_nq	 : NATURAL := 168;
+  CONSTANT tphl_i0_nq	 : NATURAL := 174;
   CONSTANT rdown_i0_nq	 : NATURAL := 5340;
-  CONSTANT tplh_i3_nq	 : NATURAL := 327;
+  CONSTANT tplh_i3_nq	 : NATURAL := 291;
   CONSTANT rup_i3_nq	 : NATURAL := 3710;
-  CONSTANT tphl_i3_nq	 : NATURAL := 295;
+  CONSTANT tphl_i3_nq	 : NATURAL := 270;
   CONSTANT rdown_i3_nq	 : NATURAL := 5340;
-  CONSTANT tplh_i2_nq	 : NATURAL := 379;
+  CONSTANT tplh_i2_nq	 : NATURAL := 338;
   CONSTANT rup_i2_nq	 : NATURAL := 3710;
-  CONSTANT tphl_i2_nq	 : NATURAL := 276;
+  CONSTANT tphl_i2_nq	 : NATURAL := 258;
   CONSTANT rdown_i2_nq	 : NATURAL := 5340;
-  CONSTANT tplh_i1_nq	 : NATURAL := 427;
+  CONSTANT tplh_i1_nq	 : NATURAL := 383;
   CONSTANT rup_i1_nq	 : NATURAL := 3710;
-  CONSTANT tphl_i1_nq	 : NATURAL := 237;
+  CONSTANT tphl_i1_nq	 : NATURAL := 229;
   CONSTANT rdown_i1_nq	 : NATURAL := 5340
 );
 PORT (
@@ -34,8 +34,8 @@ PORT (
 );
 END na4_x1;
 
-ARCHITECTURE VBE OF na4_x1 IS
+ARCHITECTURE behaviour_data_flow OF na4_x1 IS
 
 BEGIN
-  nq <= not ((((i0 and i1) and i2) and i3));
+  nq <= not ((((i0 and i1) and i2) and i3)) after 1024 ps;
 END;

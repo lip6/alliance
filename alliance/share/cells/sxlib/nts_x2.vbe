@@ -1,16 +1,16 @@
 ENTITY nts_x2 IS
 GENERIC (
-  CONSTANT area 	 : NATURAL := 200000;
+  CONSTANT area 	 : NATURAL := 2000;
   CONSTANT transistors	 : NATURAL := 10;
   CONSTANT cin_cmd	 : NATURAL := 18;
   CONSTANT cin_i	 : NATURAL := 28;
-  CONSTANT tplh_i_nq	 : NATURAL := 213;
+  CONSTANT tplh_i_nq	 : NATURAL := 196;
   CONSTANT rup_i_nq	 : NATURAL := 1600;
-  CONSTANT tphl_i_nq	 : NATURAL := 169;
+  CONSTANT tphl_i_nq	 : NATURAL := 163;
   CONSTANT rdown_i_nq	 : NATURAL := 1410;
-  CONSTANT tphh_cmd_nq	 : NATURAL := 344;
+  CONSTANT tphh_cmd_nq	 : NATURAL := 327;
   CONSTANT rup_cmd_nq	 : NATURAL := 1600;
-  CONSTANT tphl_cmd_nq	 : NATURAL := 15;
+  CONSTANT tphl_cmd_nq	 : NATURAL := 36;
   CONSTANT rdown_cmd_nq	 : NATURAL := 1410
 );
 PORT (
@@ -22,13 +22,13 @@ PORT (
 );
 END nts_x2;
 
-ARCHITECTURE VBE OF nts_x2 IS
+ARCHITECTURE behaviour_data_flow OF nts_x2 IS
 
 BEGIN
 
   label0 : BLOCK (cmd = '1')
   BEGIN
-    nq <= GUARDED not (i);
+    nq <= GUARDED not (i) after 927 ps;
   END BLOCK label0;
 
 END;

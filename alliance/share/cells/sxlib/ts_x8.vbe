@@ -1,16 +1,16 @@
 ENTITY ts_x8 IS
 GENERIC (
-  CONSTANT area 	 : NATURAL := 286000;
+  CONSTANT area 	 : NATURAL := 2860;
   CONSTANT transistors	 : NATURAL := 16;
   CONSTANT cin_cmd	 : NATURAL := 19;
   CONSTANT cin_i	 : NATURAL := 8;
-  CONSTANT tphh_cmd_q	 : NATURAL := 662;
+  CONSTANT tphh_cmd_q	 : NATURAL := 615;
   CONSTANT rup_cmd_q	 : NATURAL := 440;
-  CONSTANT tphl_cmd_q	 : NATURAL := 467;
+  CONSTANT tphl_cmd_q	 : NATURAL := 456;
   CONSTANT rdown_cmd_q	 : NATURAL := 400;
-  CONSTANT tphh_i_q	 : NATURAL := 631;
+  CONSTANT tphh_i_q	 : NATURAL := 605;
   CONSTANT rup_i_q	 : NATURAL := 440;
-  CONSTANT tpll_i_q	 : NATURAL := 579;
+  CONSTANT tpll_i_q	 : NATURAL := 546;
   CONSTANT rdown_i_q	 : NATURAL := 400
 );
 PORT (
@@ -22,13 +22,13 @@ PORT (
 );
 END ts_x8;
 
-ARCHITECTURE VBE OF ts_x8 IS
+ARCHITECTURE behaviour_data_flow OF ts_x8 IS
 
 BEGIN
 
   label0 : BLOCK (cmd = '1')
   BEGIN
-    q <= GUARDED i;
+    q <= GUARDED i after 1215 ps;
   END BLOCK label0;
 
 END;

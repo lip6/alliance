@@ -1,26 +1,26 @@
 ENTITY noa2a22_x1 IS
 GENERIC (
-  CONSTANT area 	 : NATURAL := 175000;
+  CONSTANT area 	 : NATURAL := 1750;
   CONSTANT transistors	 : NATURAL := 8;
   CONSTANT cin_i0	 : NATURAL := 14;
   CONSTANT cin_i1	 : NATURAL := 14;
   CONSTANT cin_i2	 : NATURAL := 14;
   CONSTANT cin_i3	 : NATURAL := 14;
-  CONSTANT tplh_i0_nq	 : NATURAL := 361;
+  CONSTANT tplh_i0_nq	 : NATURAL := 318;
   CONSTANT rup_i0_nq	 : NATURAL := 3200;
-  CONSTANT tphl_i0_nq	 : NATURAL := 152;
+  CONSTANT tphl_i0_nq	 : NATURAL := 147;
   CONSTANT rdown_i0_nq	 : NATURAL := 2820;
-  CONSTANT tplh_i2_nq	 : NATURAL := 308;
+  CONSTANT tplh_i2_nq	 : NATURAL := 282;
   CONSTANT rup_i2_nq	 : NATURAL := 3200;
-  CONSTANT tphl_i2_nq	 : NATURAL := 292;
+  CONSTANT tphl_i2_nq	 : NATURAL := 277;
   CONSTANT rdown_i2_nq	 : NATURAL := 2820;
-  CONSTANT tplh_i3_nq	 : NATURAL := 273;
+  CONSTANT tplh_i3_nq	 : NATURAL := 250;
   CONSTANT rup_i3_nq	 : NATURAL := 3200;
-  CONSTANT tphl_i3_nq	 : NATURAL := 396;
+  CONSTANT tphl_i3_nq	 : NATURAL := 361;
   CONSTANT rdown_i3_nq	 : NATURAL := 2820;
-  CONSTANT tplh_i1_nq	 : NATURAL := 318;
+  CONSTANT tplh_i1_nq	 : NATURAL := 278;
   CONSTANT rup_i1_nq	 : NATURAL := 3200;
-  CONSTANT tphl_i1_nq	 : NATURAL := 233;
+  CONSTANT tphl_i1_nq	 : NATURAL := 210;
   CONSTANT rdown_i1_nq	 : NATURAL := 2820
 );
 PORT (
@@ -34,8 +34,8 @@ PORT (
 );
 END noa2a22_x1;
 
-ARCHITECTURE VBE OF noa2a22_x1 IS
+ARCHITECTURE behaviour_data_flow OF noa2a22_x1 IS
 
 BEGIN
-  nq <= not (((i0 and i1) or (i2 and i3)));
+  nq <= not (((i0 and i1) or (i2 and i3))) after 961 ps;
 END;
