@@ -479,11 +479,11 @@ extern int check_mode( )
   if ( !emulbs )
   {
         fprintf(stdout,
-          "Error : BOUNDARY-SCAN register seems to be other than the EMULBS31 card interface\n");
+          "Error : BOUNDARY-SCAN register seems to be other than the specified card interface\n");
         close_port();
         return (1);
   }
-  else fprintf(stdout,"The %d EMULBS31 have been recognized\n", lg_bypass);
+  else fprintf(stdout,"%d Boundary-scan chip(s) have been recognized\n", lg_bypass);
 
 #endif
 

@@ -136,15 +136,17 @@ static char* unbuf_papat(char* head, struct papat *ppapat)
      {
          if ( PASEQ_PARALLEL )
          {
-           fprintf(stderr,
-             "SYNCHRONISATION ERROR!!! --> STOP next results will be wrong\n");
-             
            if (verbose_flag) {
              fprintf(stderr,
 			    "Error on pattern %d (line %d)\n"
 	  		    ,parallel_num
 			    ,parallel_line);
            }
+           
+           fprintf(stderr,
+             "SYNCHRONISATION ERROR on Boundary-scan hardware!!!\n" );
+           fprintf(stderr,
+             "   --> STOP! next results will be wrong...\n");
          }
          
          if (verbose_flag) 

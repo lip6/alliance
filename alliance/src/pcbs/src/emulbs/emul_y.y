@@ -127,7 +127,7 @@ Cellules *cell;
 /* il y a un nombre maximum de connecteurs sur la carte */
 if ( t_Nbr >= BS_Card_Max || t_Nbr < 0 )
 {
-   fprintf(stderr,"%d: EMULBS31 n°%d doesn't exist!   Index must be between 0 and %d\n",
+   fprintf(stderr,"%d: Boundary-scan chip n°%d doesn't exist!   Index must be between 0 and %d\n",
             NBR_LIGNES, t_Nbr, BS_Card_Max-1);
    emul_flag(-1);
    break;
