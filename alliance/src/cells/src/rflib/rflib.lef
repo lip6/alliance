@@ -14,7 +14,7 @@ MACRO rf_dec_bufad0
     PIN nq
         DIRECTION INOUT ;
         PORT
-            LAYER L_ALU1 ;
+            LAYER ALU1 ;
             RECT 19.00 39.00 21.00 41.00 ;
             RECT 19.00 34.00 21.00 36.00 ;
             RECT 19.00 29.00 21.00 31.00 ;
@@ -27,7 +27,7 @@ MACRO rf_dec_bufad0
     PIN q
         DIRECTION OUTPUT ;
         PORT
-            LAYER L_ALU1 ;
+            LAYER ALU1 ;
             RECT 34.00 39.00 36.00 41.00 ;
             RECT 34.00 34.00 36.00 36.00 ;
             RECT 34.00 29.00 36.00 31.00 ;
@@ -40,7 +40,7 @@ MACRO rf_dec_bufad0
     PIN i
         DIRECTION INPUT ;
         PORT
-            LAYER L_ALU1 ;
+            LAYER ALU1 ;
             RECT 9.00 39.00 11.00 41.00 ;
             RECT 9.00 34.00 11.00 36.00 ;
             RECT 9.00 29.00 11.00 31.00 ;
@@ -51,27 +51,27 @@ MACRO rf_dec_bufad0
         END
     END i
     PIN vdd
-        DIRECTION INOUT ;
+        DIRECTION INPUT ;
         USE POWER ;
         SHAPE ABUTMENT ;
         PORT
-            LAYER L_ALU1 ;
+            LAYER ALU1 ;
             WIDTH 6.00 ;
             PATH 3.00 47.00 42.00 47.00 ;
         END
     END vdd
     PIN vss
-        DIRECTION INOUT ;
+        DIRECTION INPUT ;
         USE GROUND ;
         SHAPE ABUTMENT ;
         PORT
-            LAYER L_ALU1 ;
+            LAYER ALU1 ;
             WIDTH 6.00 ;
             PATH 3.00 3.00 42.00 3.00 ;
         END
     END vss
     OBS
-        LAYER L_ALU1 ;
+        LAYER ALU1 ;
         RECT 1.50 9.00 43.50 41.00 ;
     END
 END rf_dec_bufad0
@@ -86,7 +86,7 @@ MACRO rf_dec_bufad1
     PIN nq
         DIRECTION INOUT ;
         PORT
-            LAYER L_ALU1 ;
+            LAYER ALU1 ;
             RECT 24.00 39.00 26.00 41.00 ;
             RECT 24.00 34.00 26.00 36.00 ;
             RECT 24.00 29.00 26.00 31.00 ;
@@ -99,7 +99,7 @@ MACRO rf_dec_bufad1
     PIN q
         DIRECTION OUTPUT ;
         PORT
-            LAYER L_ALU1 ;
+            LAYER ALU1 ;
             RECT 39.00 39.00 41.00 41.00 ;
             RECT 39.00 34.00 41.00 36.00 ;
             RECT 39.00 29.00 41.00 31.00 ;
@@ -112,7 +112,7 @@ MACRO rf_dec_bufad1
     PIN i
         DIRECTION INPUT ;
         PORT
-            LAYER L_ALU1 ;
+            LAYER ALU1 ;
             RECT 9.00 39.00 11.00 41.00 ;
             RECT 9.00 34.00 11.00 36.00 ;
             RECT 9.00 29.00 11.00 31.00 ;
@@ -123,27 +123,27 @@ MACRO rf_dec_bufad1
         END
     END i
     PIN vdd
-        DIRECTION INOUT ;
+        DIRECTION INPUT ;
         USE POWER ;
         SHAPE ABUTMENT ;
         PORT
-            LAYER L_ALU1 ;
+            LAYER ALU1 ;
             WIDTH 6.00 ;
             PATH 3.00 47.00 47.00 47.00 ;
         END
     END vdd
     PIN vss
-        DIRECTION INOUT ;
+        DIRECTION INPUT ;
         USE GROUND ;
         SHAPE ABUTMENT ;
         PORT
-            LAYER L_ALU1 ;
+            LAYER ALU1 ;
             WIDTH 6.00 ;
             PATH 3.00 3.00 47.00 3.00 ;
         END
     END vss
     OBS
-        LAYER L_ALU1 ;
+        LAYER ALU1 ;
         RECT 1.50 9.00 48.50 41.00 ;
     END
 END rf_dec_bufad1
@@ -158,7 +158,7 @@ MACRO rf_dec_bufad2
     PIN nq1
         DIRECTION INOUT ;
         PORT
-            LAYER L_ALU1 ;
+            LAYER ALU1 ;
             RECT 44.00 39.00 46.00 41.00 ;
             RECT 44.00 34.00 46.00 36.00 ;
             RECT 44.00 29.00 46.00 31.00 ;
@@ -171,7 +171,7 @@ MACRO rf_dec_bufad2
     PIN nq0
         DIRECTION INOUT ;
         PORT
-            LAYER L_ALU1 ;
+            LAYER ALU1 ;
             RECT 4.00 39.00 6.00 41.00 ;
             RECT 4.00 34.00 6.00 36.00 ;
             RECT 4.00 29.00 6.00 31.00 ;
@@ -184,7 +184,7 @@ MACRO rf_dec_bufad2
     PIN q0
         DIRECTION OUTPUT ;
         PORT
-            LAYER L_ALU1 ;
+            LAYER ALU1 ;
             RECT 19.00 39.00 21.00 41.00 ;
             RECT 19.00 34.00 21.00 36.00 ;
             RECT 19.00 29.00 21.00 31.00 ;
@@ -197,7 +197,7 @@ MACRO rf_dec_bufad2
     PIN q1
         DIRECTION OUTPUT ;
         PORT
-            LAYER L_ALU1 ;
+            LAYER ALU1 ;
             RECT 29.00 39.00 31.00 41.00 ;
             RECT 29.00 34.00 31.00 36.00 ;
             RECT 29.00 29.00 31.00 31.00 ;
@@ -210,7 +210,7 @@ MACRO rf_dec_bufad2
     PIN i1
         DIRECTION INPUT ;
         PORT
-            LAYER L_ALU1 ;
+            LAYER ALU1 ;
             RECT 39.00 39.00 41.00 41.00 ;
             RECT 39.00 34.00 41.00 36.00 ;
             RECT 39.00 29.00 41.00 31.00 ;
@@ -223,7 +223,7 @@ MACRO rf_dec_bufad2
     PIN i0
         DIRECTION INPUT ;
         PORT
-            LAYER L_ALU1 ;
+            LAYER ALU1 ;
             RECT 14.00 39.00 16.00 41.00 ;
             RECT 14.00 34.00 16.00 36.00 ;
             RECT 14.00 29.00 16.00 31.00 ;
@@ -234,27 +234,27 @@ MACRO rf_dec_bufad2
         END
     END i0
     PIN vdd
-        DIRECTION INOUT ;
+        DIRECTION INPUT ;
         USE POWER ;
         SHAPE ABUTMENT ;
         PORT
-            LAYER L_ALU1 ;
+            LAYER ALU1 ;
             WIDTH 6.00 ;
             PATH 3.00 47.00 47.00 47.00 ;
         END
     END vdd
     PIN vss
-        DIRECTION INOUT ;
+        DIRECTION INPUT ;
         USE GROUND ;
         SHAPE ABUTMENT ;
         PORT
-            LAYER L_ALU1 ;
+            LAYER ALU1 ;
             WIDTH 6.00 ;
             PATH 3.00 3.00 47.00 3.00 ;
         END
     END vss
     OBS
-        LAYER L_ALU1 ;
+        LAYER ALU1 ;
         RECT 1.50 9.00 48.50 41.00 ;
     END
 END rf_dec_bufad2
@@ -269,48 +269,48 @@ MACRO rf_dec_nand2
     PIN nq
         DIRECTION OUTPUT ;
         PORT
-            LAYER L_ALU3 ;
+            LAYER ALU3 ;
             RECT 34.00 19.00 36.00 21.00 ;
         END
     END nq
     PIN i0
         DIRECTION INPUT ;
         PORT
-            LAYER L_ALU3 ;
+            LAYER ALU3 ;
             RECT 14.00 19.00 16.00 21.00 ;
         END
     END i0
     PIN i1
         DIRECTION INPUT ;
         PORT
-            LAYER L_ALU3 ;
+            LAYER ALU3 ;
             RECT 24.00 19.00 26.00 21.00 ;
         END
     END i1
     PIN vdd
-        DIRECTION INOUT ;
+        DIRECTION INPUT ;
         USE POWER ;
         SHAPE ABUTMENT ;
         PORT
-            LAYER L_ALU1 ;
+            LAYER ALU1 ;
             WIDTH 6.00 ;
             PATH 3.00 47.00 47.00 47.00 ;
         END
     END vdd
     PIN vss
-        DIRECTION INOUT ;
+        DIRECTION INPUT ;
         USE GROUND ;
         SHAPE ABUTMENT ;
         PORT
-            LAYER L_ALU1 ;
+            LAYER ALU1 ;
             WIDTH 6.00 ;
             PATH 3.00 3.00 47.00 3.00 ;
         END
     END vss
     OBS
-        LAYER L_ALU1 ;
+        LAYER ALU1 ;
         RECT 1.50 9.00 48.50 41.00 ;
-        LAYER L_ALU2 ;
+        LAYER ALU2 ;
         RECT 14.00 19.00 21.00 21.00 ;
         RECT 24.00 19.00 31.00 21.00 ;
         RECT 34.00 19.00 41.00 21.00 ;
@@ -328,55 +328,55 @@ MACRO rf_dec_nand3
     PIN nq
         DIRECTION OUTPUT ;
         PORT
-            LAYER L_ALU3 ;
+            LAYER ALU3 ;
             RECT 44.00 19.00 46.00 21.00 ;
         END
     END nq
     PIN i1
         DIRECTION INPUT ;
         PORT
-            LAYER L_ALU3 ;
+            LAYER ALU3 ;
             RECT 14.00 19.00 16.00 21.00 ;
         END
     END i1
     PIN i2
         DIRECTION INPUT ;
         PORT
-            LAYER L_ALU3 ;
+            LAYER ALU3 ;
             RECT 24.00 19.00 26.00 21.00 ;
         END
     END i2
     PIN i0
         DIRECTION INPUT ;
         PORT
-            LAYER L_ALU3 ;
+            LAYER ALU3 ;
             RECT 34.00 19.00 36.00 21.00 ;
         END
     END i0
     PIN vdd
-        DIRECTION INOUT ;
+        DIRECTION INPUT ;
         USE POWER ;
         SHAPE ABUTMENT ;
         PORT
-            LAYER L_ALU1 ;
+            LAYER ALU1 ;
             WIDTH 6.00 ;
             PATH 3.00 47.00 47.00 47.00 ;
         END
     END vdd
     PIN vss
-        DIRECTION INOUT ;
+        DIRECTION INPUT ;
         USE GROUND ;
         SHAPE ABUTMENT ;
         PORT
-            LAYER L_ALU1 ;
+            LAYER ALU1 ;
             WIDTH 6.00 ;
             PATH 3.00 3.00 47.00 3.00 ;
         END
     END vss
     OBS
-        LAYER L_ALU1 ;
+        LAYER ALU1 ;
         RECT 1.50 9.00 48.50 41.00 ;
-        LAYER L_ALU2 ;
+        LAYER ALU2 ;
         RECT 29.00 19.00 36.00 21.00 ;
         RECT 39.00 19.00 46.00 21.00 ;
         RECT 19.00 19.00 26.00 21.00 ;
@@ -395,62 +395,62 @@ MACRO rf_dec_nand4
     PIN nq
         DIRECTION OUTPUT ;
         PORT
-            LAYER L_ALU3 ;
+            LAYER ALU3 ;
             RECT 44.00 19.00 46.00 21.00 ;
         END
     END nq
     PIN i2
         DIRECTION INPUT ;
         PORT
-            LAYER L_ALU3 ;
+            LAYER ALU3 ;
             RECT 24.00 19.00 26.00 21.00 ;
         END
     END i2
     PIN i3
         DIRECTION INPUT ;
         PORT
-            LAYER L_ALU3 ;
+            LAYER ALU3 ;
             RECT 34.00 19.00 36.00 21.00 ;
         END
     END i3
     PIN i0
         DIRECTION INPUT ;
         PORT
-            LAYER L_ALU3 ;
+            LAYER ALU3 ;
             RECT 4.00 19.00 6.00 21.00 ;
         END
     END i0
     PIN i1
         DIRECTION INPUT ;
         PORT
-            LAYER L_ALU3 ;
+            LAYER ALU3 ;
             RECT 14.00 19.00 16.00 21.00 ;
         END
     END i1
     PIN vdd
-        DIRECTION INOUT ;
+        DIRECTION INPUT ;
         USE POWER ;
         SHAPE ABUTMENT ;
         PORT
-            LAYER L_ALU1 ;
+            LAYER ALU1 ;
             WIDTH 6.00 ;
             PATH 3.00 47.00 47.00 47.00 ;
         END
     END vdd
     PIN vss
-        DIRECTION INOUT ;
+        DIRECTION INPUT ;
         USE GROUND ;
         SHAPE ABUTMENT ;
         PORT
-            LAYER L_ALU1 ;
+            LAYER ALU1 ;
             WIDTH 6.00 ;
             PATH 3.00 3.00 47.00 3.00 ;
         END
     END vss
     OBS
-        LAYER L_ALU1 ;
+        LAYER ALU1 ;
         RECT 1.50 9.00 48.50 41.00 ;
-        LAYER L_ALU2 ;
+        LAYER ALU2 ;
         RECT -1.00 19.00 6.00 21.00 ;
         RECT 9.00 19.00 16.00 21.00 ;
         RECT 19.00 19.00 26.00 21.00 ;
@@ -470,7 +470,7 @@ MACRO rf_dec_nao3
     PIN nq
         DIRECTION OUTPUT ;
         PORT
-            LAYER L_ALU2 ;
+            LAYER ALU2 ;
             RECT 14.00 14.00 16.00 16.00 ;
             RECT 9.00 14.00 11.00 16.00 ;
         END
@@ -478,14 +478,14 @@ MACRO rf_dec_nao3
     PIN i1
         DIRECTION INPUT ;
         PORT
-            LAYER L_ALU2 ;
+            LAYER ALU2 ;
             RECT 4.00 19.00 6.00 21.00 ;
         END
     END i1
     PIN i0
         DIRECTION INPUT ;
         PORT
-            LAYER L_ALU2 ;
+            LAYER ALU2 ;
             RECT 14.00 39.00 16.00 41.00 ;
             RECT 9.00 39.00 11.00 41.00 ;
         END
@@ -493,35 +493,35 @@ MACRO rf_dec_nao3
     PIN i2
         DIRECTION INPUT ;
         PORT
-            LAYER L_ALU2 ;
+            LAYER ALU2 ;
             RECT 19.00 34.00 21.00 36.00 ;
             RECT 14.00 34.00 16.00 36.00 ;
         END
     END i2
     PIN vdd
-        DIRECTION INOUT ;
+        DIRECTION INPUT ;
         USE POWER ;
         SHAPE ABUTMENT ;
         PORT
-            LAYER L_ALU1 ;
+            LAYER ALU1 ;
             WIDTH 6.00 ;
             PATH 3.00 47.00 22.00 47.00 ;
         END
     END vdd
     PIN vss
-        DIRECTION INOUT ;
+        DIRECTION INPUT ;
         USE GROUND ;
         SHAPE ABUTMENT ;
         PORT
-            LAYER L_ALU1 ;
+            LAYER ALU1 ;
             WIDTH 6.00 ;
             PATH 3.00 3.00 22.00 3.00 ;
         END
     END vss
     OBS
-        LAYER L_ALU1 ;
+        LAYER ALU1 ;
         RECT 1.50 9.00 23.50 41.00 ;
-        LAYER L_ALU2 ;
+        LAYER ALU2 ;
         RECT 4.00 19.00 11.00 21.00 ;
     END
 END rf_dec_nao3
@@ -536,7 +536,7 @@ MACRO rf_dec_nbuf
     PIN nq
         DIRECTION OUTPUT ;
         PORT
-            LAYER L_ALU2 ;
+            LAYER ALU2 ;
             RECT 19.00 9.00 21.00 11.00 ;
             RECT 14.00 9.00 16.00 11.00 ;
             RECT 9.00 9.00 11.00 11.00 ;
@@ -545,7 +545,7 @@ MACRO rf_dec_nbuf
     PIN i
         DIRECTION INPUT ;
         PORT
-            LAYER L_ALU1 ;
+            LAYER ALU1 ;
             RECT 49.00 39.00 51.00 41.00 ;
             RECT 49.00 34.00 51.00 36.00 ;
             RECT 49.00 29.00 51.00 31.00 ;
@@ -556,27 +556,27 @@ MACRO rf_dec_nbuf
         END
     END i
     PIN vdd
-        DIRECTION INOUT ;
+        DIRECTION INPUT ;
         USE POWER ;
         SHAPE ABUTMENT ;
         PORT
-            LAYER L_ALU1 ;
+            LAYER ALU1 ;
             WIDTH 6.00 ;
             PATH 3.00 47.00 52.00 47.00 ;
         END
     END vdd
     PIN vss
-        DIRECTION INOUT ;
+        DIRECTION INPUT ;
         USE GROUND ;
         SHAPE ABUTMENT ;
         PORT
-            LAYER L_ALU1 ;
+            LAYER ALU1 ;
             WIDTH 6.00 ;
             PATH 3.00 3.00 52.00 3.00 ;
         END
     END vss
     OBS
-        LAYER L_ALU1 ;
+        LAYER ALU1 ;
         RECT 1.50 9.00 53.50 41.00 ;
     END
 END rf_dec_nbuf
@@ -591,7 +591,7 @@ MACRO rf_dec_nor3
     PIN nq
         DIRECTION OUTPUT ;
         PORT
-            LAYER L_ALU2 ;
+            LAYER ALU2 ;
             RECT 14.00 14.00 16.00 16.00 ;
             RECT 9.00 14.00 11.00 16.00 ;
         END
@@ -599,7 +599,7 @@ MACRO rf_dec_nor3
     PIN i0
         DIRECTION INPUT ;
         PORT
-            LAYER L_ALU2 ;
+            LAYER ALU2 ;
             RECT 14.00 39.00 16.00 41.00 ;
             RECT 9.00 39.00 11.00 41.00 ;
         END
@@ -607,7 +607,7 @@ MACRO rf_dec_nor3
     PIN i2
         DIRECTION INPUT ;
         PORT
-            LAYER L_ALU2 ;
+            LAYER ALU2 ;
             RECT 19.00 9.00 21.00 11.00 ;
             RECT 14.00 9.00 16.00 11.00 ;
         END
@@ -615,34 +615,34 @@ MACRO rf_dec_nor3
     PIN i1
         DIRECTION INPUT ;
         PORT
-            LAYER L_ALU2 ;
+            LAYER ALU2 ;
             RECT 4.00 19.00 6.00 21.00 ;
         END
     END i1
     PIN vdd
-        DIRECTION INOUT ;
+        DIRECTION INPUT ;
         USE POWER ;
         SHAPE ABUTMENT ;
         PORT
-            LAYER L_ALU1 ;
+            LAYER ALU1 ;
             WIDTH 6.00 ;
             PATH 3.00 47.00 22.00 47.00 ;
         END
     END vdd
     PIN vss
-        DIRECTION INOUT ;
+        DIRECTION INPUT ;
         USE GROUND ;
         SHAPE ABUTMENT ;
         PORT
-            LAYER L_ALU1 ;
+            LAYER ALU1 ;
             WIDTH 6.00 ;
             PATH 3.00 3.00 22.00 3.00 ;
         END
     END vss
     OBS
-        LAYER L_ALU1 ;
+        LAYER ALU1 ;
         RECT 1.50 9.00 23.50 41.00 ;
-        LAYER L_ALU2 ;
+        LAYER ALU2 ;
         RECT 4.00 19.00 11.00 21.00 ;
     END
 END rf_dec_nor3
@@ -657,7 +657,7 @@ MACRO rf_fifo_buf
     PIN xcks
         DIRECTION OUTPUT ;
         PORT
-            LAYER L_ALU1 ;
+            LAYER ALU1 ;
             RECT 4.00 39.00 6.00 41.00 ;
             RECT 4.00 34.00 6.00 36.00 ;
             RECT 4.00 29.00 6.00 31.00 ;
@@ -670,7 +670,7 @@ MACRO rf_fifo_buf
     PIN xckm
         DIRECTION OUTPUT ;
         PORT
-            LAYER L_ALU1 ;
+            LAYER ALU1 ;
             RECT 34.00 39.00 36.00 41.00 ;
             RECT 34.00 34.00 36.00 36.00 ;
             RECT 34.00 29.00 36.00 31.00 ;
@@ -683,7 +683,7 @@ MACRO rf_fifo_buf
     PIN nw
         DIRECTION OUTPUT ;
         PORT
-            LAYER L_ALU1 ;
+            LAYER ALU1 ;
             RECT 24.00 89.00 26.00 91.00 ;
             RECT 24.00 84.00 26.00 86.00 ;
             RECT 24.00 79.00 26.00 81.00 ;
@@ -696,7 +696,7 @@ MACRO rf_fifo_buf
     PIN xreset
         DIRECTION OUTPUT ;
         PORT
-            LAYER L_ALU1 ;
+            LAYER ALU1 ;
             RECT 39.00 39.00 41.00 41.00 ;
             RECT 39.00 34.00 41.00 36.00 ;
             RECT 39.00 29.00 41.00 31.00 ;
@@ -709,7 +709,7 @@ MACRO rf_fifo_buf
     PIN nr
         DIRECTION OUTPUT ;
         PORT
-            LAYER L_ALU1 ;
+            LAYER ALU1 ;
             RECT 4.00 89.00 6.00 91.00 ;
             RECT 4.00 84.00 6.00 86.00 ;
             RECT 4.00 79.00 6.00 81.00 ;
@@ -722,7 +722,7 @@ MACRO rf_fifo_buf
     PIN nreset
         DIRECTION OUTPUT ;
         PORT
-            LAYER L_ALU1 ;
+            LAYER ALU1 ;
             RECT 44.00 89.00 46.00 91.00 ;
             RECT 44.00 84.00 46.00 86.00 ;
             RECT 44.00 79.00 46.00 81.00 ;
@@ -730,7 +730,7 @@ MACRO rf_fifo_buf
             RECT 44.00 69.00 46.00 71.00 ;
             RECT 44.00 64.00 46.00 66.00 ;
             RECT 44.00 59.00 46.00 61.00 ;
-            LAYER L_ALU3 ;
+            LAYER ALU3 ;
             RECT 44.00 59.00 46.00 61.00 ;
             RECT 44.00 54.00 46.00 56.00 ;
             RECT 44.00 49.00 46.00 51.00 ;
@@ -744,7 +744,7 @@ MACRO rf_fifo_buf
     PIN ckm
         DIRECTION INPUT ;
         PORT
-            LAYER L_ALU2 ;
+            LAYER ALU2 ;
             RECT 24.00 9.00 26.00 11.00 ;
             RECT 19.00 9.00 21.00 11.00 ;
         END
@@ -752,7 +752,7 @@ MACRO rf_fifo_buf
     PIN cks
         DIRECTION INPUT ;
         PORT
-            LAYER L_ALU2 ;
+            LAYER ALU2 ;
             RECT 19.00 39.00 21.00 41.00 ;
             RECT 14.00 39.00 16.00 41.00 ;
         END
@@ -760,7 +760,7 @@ MACRO rf_fifo_buf
     PIN reset
         DIRECTION INPUT ;
         PORT
-            LAYER L_ALU2 ;
+            LAYER ALU2 ;
             RECT 39.00 79.00 41.00 81.00 ;
             RECT 34.00 79.00 36.00 81.00 ;
         END
@@ -768,7 +768,7 @@ MACRO rf_fifo_buf
     PIN r
         DIRECTION INPUT ;
         PORT
-            LAYER L_ALU2 ;
+            LAYER ALU2 ;
             RECT 14.00 84.00 16.00 86.00 ;
             RECT 9.00 84.00 11.00 86.00 ;
         END
@@ -776,42 +776,42 @@ MACRO rf_fifo_buf
     PIN w
         DIRECTION INPUT ;
         PORT
-            LAYER L_ALU2 ;
+            LAYER ALU2 ;
             RECT 34.00 74.00 36.00 76.00 ;
             RECT 29.00 74.00 31.00 76.00 ;
         END
     END w
     PIN vdd
-        DIRECTION INOUT ;
+        DIRECTION INPUT ;
         USE POWER ;
         SHAPE ABUTMENT ;
         PORT
-            LAYER L_ALU1 ;
+            LAYER ALU1 ;
             WIDTH 6.00 ;
             PATH 3.00 47.00 47.00 47.00 ;
-            LAYER L_ALU1 ;
+            LAYER ALU1 ;
             WIDTH 6.00 ;
             PATH 3.00 53.00 47.00 53.00 ;
         END
     END vdd
     PIN vss
-        DIRECTION INOUT ;
+        DIRECTION INPUT ;
         USE GROUND ;
         SHAPE ABUTMENT ;
         PORT
-            LAYER L_ALU1 ;
+            LAYER ALU1 ;
             WIDTH 6.00 ;
             PATH 3.00 3.00 47.00 3.00 ;
-            LAYER L_ALU1 ;
+            LAYER ALU1 ;
             WIDTH 6.00 ;
             PATH 3.00 97.00 47.00 97.00 ;
         END
     END vss
     OBS
-        LAYER L_ALU1 ;
+        LAYER ALU1 ;
         RECT 1.50 9.00 48.50 41.00 ;
         RECT 1.50 59.00 48.50 91.00 ;
-        LAYER L_ALU2 ;
+        LAYER ALU2 ;
         RECT 44.00 59.00 51.00 61.00 ;
         RECT 44.00 24.00 51.00 26.00 ;
         RECT 44.00 59.00 51.00 61.00 ;
@@ -829,7 +829,7 @@ MACRO rf_fifo_clock
     PIN cks
         DIRECTION INOUT ;
         PORT
-            LAYER L_ALU3 ;
+            LAYER ALU3 ;
             RECT 29.00 79.00 31.00 81.00 ;
             RECT 29.00 74.00 31.00 76.00 ;
             RECT 29.00 69.00 31.00 71.00 ;
@@ -844,7 +844,7 @@ MACRO rf_fifo_clock
     PIN ckm
         DIRECTION INOUT ;
         PORT
-            LAYER L_ALU3 ;
+            LAYER ALU3 ;
             RECT 19.00 84.00 21.00 86.00 ;
             RECT 19.00 79.00 21.00 81.00 ;
             RECT 19.00 74.00 21.00 76.00 ;
@@ -860,7 +860,7 @@ MACRO rf_fifo_clock
     PIN ckok
         DIRECTION OUTPUT ;
         PORT
-            LAYER L_ALU1 ;
+            LAYER ALU1 ;
             RECT 9.00 89.00 11.00 91.00 ;
             RECT 9.00 84.00 11.00 86.00 ;
             RECT 9.00 79.00 11.00 81.00 ;
@@ -873,7 +873,7 @@ MACRO rf_fifo_clock
     PIN wok
         DIRECTION INPUT ;
         PORT
-            LAYER L_ALU1 ;
+            LAYER ALU1 ;
             RECT 4.00 79.00 6.00 81.00 ;
             RECT 4.00 74.00 6.00 76.00 ;
             RECT 4.00 69.00 6.00 71.00 ;
@@ -881,27 +881,27 @@ MACRO rf_fifo_clock
         END
     END wok
     PIN vdd
-        DIRECTION INOUT ;
+        DIRECTION INPUT ;
         USE POWER ;
         SHAPE ABUTMENT ;
         PORT
-            LAYER L_ALU1 ;
+            LAYER ALU1 ;
             WIDTH 6.00 ;
             PATH 3.00 47.00 47.00 47.00 ;
-            LAYER L_ALU1 ;
+            LAYER ALU1 ;
             WIDTH 6.00 ;
             PATH 3.00 53.00 47.00 53.00 ;
         END
     END vdd
     PIN vss
-        DIRECTION INOUT ;
+        DIRECTION INPUT ;
         USE GROUND ;
         SHAPE ABUTMENT ;
         PORT
-            LAYER L_ALU1 ;
+            LAYER ALU1 ;
             WIDTH 6.00 ;
             PATH 3.00 3.00 47.00 3.00 ;
-            LAYER L_ALU1 ;
+            LAYER ALU1 ;
             WIDTH 6.00 ;
             PATH 3.00 97.00 47.00 97.00 ;
         END
@@ -910,7 +910,7 @@ MACRO rf_fifo_clock
         DIRECTION INPUT ;
         USE CLOCK ;
         PORT
-            LAYER L_ALU3 ;
+            LAYER ALU3 ;
             RECT 49.00 69.00 51.00 71.00 ;
             RECT 49.00 64.00 51.00 66.00 ;
             RECT 49.00 59.00 51.00 61.00 ;
@@ -921,7 +921,7 @@ MACRO rf_fifo_clock
             RECT 49.00 34.00 51.00 36.00 ;
             RECT 49.00 29.00 51.00 31.00 ;
             RECT 49.00 24.00 51.00 26.00 ;
-            LAYER L_ALU2 ;
+            LAYER ALU2 ;
             RECT 49.00 69.00 51.00 71.00 ;
             RECT 44.00 69.00 46.00 71.00 ;
             RECT 39.00 69.00 41.00 71.00 ;
@@ -932,10 +932,10 @@ MACRO rf_fifo_clock
         END
     END ck
     OBS
-        LAYER L_ALU1 ;
+        LAYER ALU1 ;
         RECT 1.50 9.00 48.50 41.00 ;
         RECT 1.50 59.00 48.50 91.00 ;
-        LAYER L_ALU2 ;
+        LAYER ALU2 ;
         RECT 14.00 39.00 46.00 41.00 ;
         RECT 19.00 84.00 36.00 86.00 ;
         RECT 44.00 24.00 51.00 26.00 ;
@@ -953,7 +953,7 @@ MACRO rf_fifo_clock
         RECT 9.00 24.00 36.00 26.00 ;
         RECT 29.00 79.00 46.00 81.00 ;
         RECT 29.00 19.00 41.00 21.00 ;
-        LAYER L_ALU3 ;
+        LAYER ALU3 ;
         RECT 39.00 19.00 41.00 61.00 ;
         RECT 34.00 24.00 36.00 61.00 ;
         RECT 44.00 39.00 46.00 81.00 ;
@@ -973,7 +973,7 @@ MACRO rf_fifo_empty
     PIN empty
         DIRECTION OUTPUT ;
         PORT
-            LAYER L_ALU1 ;
+            LAYER ALU1 ;
             RECT 44.00 39.00 46.00 41.00 ;
             RECT 44.00 34.00 46.00 36.00 ;
             RECT 44.00 29.00 46.00 31.00 ;
@@ -986,7 +986,7 @@ MACRO rf_fifo_empty
     PIN ckm
         DIRECTION INPUT ;
         PORT
-            LAYER L_ALU2 ;
+            LAYER ALU2 ;
             RECT 34.00 19.00 36.00 21.00 ;
             RECT 29.00 19.00 31.00 21.00 ;
             RECT 24.00 19.00 26.00 21.00 ;
@@ -997,7 +997,7 @@ MACRO rf_fifo_empty
     PIN emptynext
         DIRECTION INPUT ;
         PORT
-            LAYER L_ALU2 ;
+            LAYER ALU2 ;
             RECT 34.00 29.00 36.00 31.00 ;
             RECT 29.00 29.00 31.00 31.00 ;
             RECT 24.00 29.00 26.00 31.00 ;
@@ -1009,7 +1009,7 @@ MACRO rf_fifo_empty
     PIN cks
         DIRECTION INPUT ;
         PORT
-            LAYER L_ALU2 ;
+            LAYER ALU2 ;
             RECT 34.00 9.00 36.00 11.00 ;
             RECT 29.00 9.00 31.00 11.00 ;
             RECT 24.00 9.00 26.00 11.00 ;
@@ -1019,7 +1019,7 @@ MACRO rf_fifo_empty
     PIN nreset
         DIRECTION INPUT ;
         PORT
-            LAYER L_ALU2 ;
+            LAYER ALU2 ;
             RECT 34.00 14.00 36.00 16.00 ;
             RECT 29.00 14.00 31.00 16.00 ;
             RECT 24.00 14.00 26.00 16.00 ;
@@ -1030,27 +1030,27 @@ MACRO rf_fifo_empty
         END
     END nreset
     PIN vdd
-        DIRECTION INOUT ;
+        DIRECTION INPUT ;
         USE POWER ;
         SHAPE ABUTMENT ;
         PORT
-            LAYER L_ALU1 ;
+            LAYER ALU1 ;
             WIDTH 6.00 ;
             PATH 3.00 47.00 47.00 47.00 ;
         END
     END vdd
     PIN vss
-        DIRECTION INOUT ;
+        DIRECTION INPUT ;
         USE GROUND ;
         SHAPE ABUTMENT ;
         PORT
-            LAYER L_ALU1 ;
+            LAYER ALU1 ;
             WIDTH 6.00 ;
             PATH 3.00 3.00 47.00 3.00 ;
         END
     END vss
     OBS
-        LAYER L_ALU1 ;
+        LAYER ALU1 ;
         RECT 1.50 9.00 48.50 41.00 ;
     END
 END rf_fifo_empty
@@ -1065,7 +1065,7 @@ MACRO rf_fifo_full
     PIN full
         DIRECTION OUTPUT ;
         PORT
-            LAYER L_ALU1 ;
+            LAYER ALU1 ;
             RECT 44.00 39.00 46.00 41.00 ;
             RECT 44.00 34.00 46.00 36.00 ;
             RECT 44.00 29.00 46.00 31.00 ;
@@ -1078,7 +1078,7 @@ MACRO rf_fifo_full
     PIN ckm
         DIRECTION INPUT ;
         PORT
-            LAYER L_ALU2 ;
+            LAYER ALU2 ;
             RECT 34.00 19.00 36.00 21.00 ;
             RECT 29.00 19.00 31.00 21.00 ;
             RECT 24.00 19.00 26.00 21.00 ;
@@ -1089,7 +1089,7 @@ MACRO rf_fifo_full
     PIN fullnext
         DIRECTION INPUT ;
         PORT
-            LAYER L_ALU2 ;
+            LAYER ALU2 ;
             RECT 34.00 24.00 36.00 26.00 ;
             RECT 29.00 24.00 31.00 26.00 ;
             RECT 24.00 24.00 26.00 26.00 ;
@@ -1101,7 +1101,7 @@ MACRO rf_fifo_full
     PIN reset
         DIRECTION INPUT ;
         PORT
-            LAYER L_ALU2 ;
+            LAYER ALU2 ;
             RECT 34.00 14.00 36.00 16.00 ;
             RECT 29.00 14.00 31.00 16.00 ;
             RECT 24.00 14.00 26.00 16.00 ;
@@ -1114,7 +1114,7 @@ MACRO rf_fifo_full
     PIN cks
         DIRECTION INPUT ;
         PORT
-            LAYER L_ALU2 ;
+            LAYER ALU2 ;
             RECT 34.00 9.00 36.00 11.00 ;
             RECT 29.00 9.00 31.00 11.00 ;
             RECT 24.00 9.00 26.00 11.00 ;
@@ -1122,27 +1122,27 @@ MACRO rf_fifo_full
         END
     END cks
     PIN vdd
-        DIRECTION INOUT ;
+        DIRECTION INPUT ;
         USE POWER ;
         SHAPE ABUTMENT ;
         PORT
-            LAYER L_ALU1 ;
+            LAYER ALU1 ;
             WIDTH 6.00 ;
             PATH 3.00 47.00 47.00 47.00 ;
         END
     END vdd
     PIN vss
-        DIRECTION INOUT ;
+        DIRECTION INPUT ;
         USE GROUND ;
         SHAPE ABUTMENT ;
         PORT
-            LAYER L_ALU1 ;
+            LAYER ALU1 ;
             WIDTH 6.00 ;
             PATH 3.00 3.00 47.00 3.00 ;
         END
     END vss
     OBS
-        LAYER L_ALU1 ;
+        LAYER ALU1 ;
         RECT 1.50 9.00 48.50 41.00 ;
     END
 END rf_fifo_full
@@ -1157,7 +1157,7 @@ MACRO rf_fifo_inc
     PIN inc
         DIRECTION OUTPUT ;
         PORT
-            LAYER L_ALU1 ;
+            LAYER ALU1 ;
             RECT 4.00 39.00 6.00 41.00 ;
             RECT 4.00 34.00 6.00 36.00 ;
             RECT 4.00 29.00 6.00 31.00 ;
@@ -1170,7 +1170,7 @@ MACRO rf_fifo_inc
     PIN nreset
         DIRECTION INPUT ;
         PORT
-            LAYER L_ALU2 ;
+            LAYER ALU2 ;
             RECT 24.00 24.00 26.00 26.00 ;
             RECT 19.00 24.00 21.00 26.00 ;
         END
@@ -1178,7 +1178,7 @@ MACRO rf_fifo_inc
     PIN ckm
         DIRECTION INPUT ;
         PORT
-            LAYER L_ALU2 ;
+            LAYER ALU2 ;
             RECT 14.00 19.00 16.00 21.00 ;
             RECT 9.00 19.00 11.00 21.00 ;
         END
@@ -1186,33 +1186,33 @@ MACRO rf_fifo_inc
     PIN nval
         DIRECTION INPUT ;
         PORT
-            LAYER L_ALU2 ;
+            LAYER ALU2 ;
             RECT 29.00 39.00 31.00 41.00 ;
             RECT 24.00 39.00 26.00 41.00 ;
         END
     END nval
     PIN vdd
-        DIRECTION INOUT ;
+        DIRECTION INPUT ;
         USE POWER ;
         SHAPE ABUTMENT ;
         PORT
-            LAYER L_ALU1 ;
+            LAYER ALU1 ;
             WIDTH 6.00 ;
             PATH 3.00 47.00 47.00 47.00 ;
         END
     END vdd
     PIN vss
-        DIRECTION INOUT ;
+        DIRECTION INPUT ;
         USE GROUND ;
         SHAPE ABUTMENT ;
         PORT
-            LAYER L_ALU1 ;
+            LAYER ALU1 ;
             WIDTH 6.00 ;
             PATH 3.00 3.00 47.00 3.00 ;
         END
     END vss
     OBS
-        LAYER L_ALU1 ;
+        LAYER ALU1 ;
         RECT 1.50 9.00 48.50 41.00 ;
     END
 END rf_fifo_inc
@@ -1227,7 +1227,7 @@ MACRO rf_fifo_nop
     PIN nval
         DIRECTION INOUT ;
         PORT
-            LAYER L_ALU2 ;
+            LAYER ALU2 ;
             RECT 29.00 39.00 31.00 41.00 ;
             RECT 24.00 39.00 26.00 41.00 ;
         END
@@ -1235,7 +1235,7 @@ MACRO rf_fifo_nop
     PIN nop
         DIRECTION OUTPUT ;
         PORT
-            LAYER L_ALU1 ;
+            LAYER ALU1 ;
             RECT 4.00 39.00 6.00 41.00 ;
             RECT 4.00 34.00 6.00 36.00 ;
             RECT 4.00 29.00 6.00 31.00 ;
@@ -1248,7 +1248,7 @@ MACRO rf_fifo_nop
     PIN rw
         DIRECTION INPUT ;
         PORT
-            LAYER L_ALU2 ;
+            LAYER ALU2 ;
             RECT 39.00 14.00 41.00 16.00 ;
             RECT 34.00 14.00 36.00 16.00 ;
             RECT 29.00 14.00 31.00 16.00 ;
@@ -1258,7 +1258,7 @@ MACRO rf_fifo_nop
     PIN nreset
         DIRECTION INPUT ;
         PORT
-            LAYER L_ALU2 ;
+            LAYER ALU2 ;
             RECT 24.00 24.00 26.00 26.00 ;
             RECT 19.00 24.00 21.00 26.00 ;
         END
@@ -1266,7 +1266,7 @@ MACRO rf_fifo_nop
     PIN ckm
         DIRECTION INPUT ;
         PORT
-            LAYER L_ALU2 ;
+            LAYER ALU2 ;
             RECT 14.00 19.00 16.00 21.00 ;
             RECT 9.00 19.00 11.00 21.00 ;
         END
@@ -1274,7 +1274,7 @@ MACRO rf_fifo_nop
     PIN rwok
         DIRECTION INPUT ;
         PORT
-            LAYER L_ALU2 ;
+            LAYER ALU2 ;
             RECT 39.00 29.00 41.00 31.00 ;
             RECT 34.00 29.00 36.00 31.00 ;
             RECT 29.00 29.00 31.00 31.00 ;
@@ -1282,27 +1282,27 @@ MACRO rf_fifo_nop
         END
     END rwok
     PIN vdd
-        DIRECTION INOUT ;
+        DIRECTION INPUT ;
         USE POWER ;
         SHAPE ABUTMENT ;
         PORT
-            LAYER L_ALU1 ;
+            LAYER ALU1 ;
             WIDTH 6.00 ;
             PATH 3.00 47.00 47.00 47.00 ;
         END
     END vdd
     PIN vss
-        DIRECTION INOUT ;
+        DIRECTION INPUT ;
         USE GROUND ;
         SHAPE ABUTMENT ;
         PORT
-            LAYER L_ALU1 ;
+            LAYER ALU1 ;
             WIDTH 6.00 ;
             PATH 3.00 3.00 47.00 3.00 ;
         END
     END vss
     OBS
-        LAYER L_ALU1 ;
+        LAYER ALU1 ;
         RECT 1.50 9.00 48.50 41.00 ;
     END
 END rf_fifo_nop
@@ -1317,7 +1317,7 @@ MACRO rf_fifo_ok
     PIN ok
         DIRECTION OUTPUT ;
         PORT
-            LAYER L_ALU1 ;
+            LAYER ALU1 ;
             RECT 9.00 39.00 11.00 41.00 ;
             RECT 9.00 34.00 11.00 36.00 ;
             RECT 9.00 29.00 11.00 31.00 ;
@@ -1330,7 +1330,7 @@ MACRO rf_fifo_ok
     PIN nextval
         DIRECTION OUTPUT ;
         PORT
-            LAYER L_ALU2 ;
+            LAYER ALU2 ;
             RECT 24.00 29.00 26.00 31.00 ;
             RECT 19.00 29.00 21.00 31.00 ;
         END
@@ -1338,7 +1338,7 @@ MACRO rf_fifo_ok
     PIN ripple
         DIRECTION INPUT ;
         PORT
-            LAYER L_ALU2 ;
+            LAYER ALU2 ;
             RECT 44.00 34.00 46.00 36.00 ;
             RECT 39.00 34.00 41.00 36.00 ;
         END
@@ -1346,7 +1346,7 @@ MACRO rf_fifo_ok
     PIN rw
         DIRECTION INPUT ;
         PORT
-            LAYER L_ALU2 ;
+            LAYER ALU2 ;
             RECT 34.00 24.00 36.00 26.00 ;
             RECT 29.00 24.00 31.00 26.00 ;
         END
@@ -1354,7 +1354,7 @@ MACRO rf_fifo_ok
     PIN prev
         DIRECTION INPUT ;
         PORT
-            LAYER L_ALU2 ;
+            LAYER ALU2 ;
             RECT 29.00 19.00 31.00 21.00 ;
             RECT 24.00 19.00 26.00 21.00 ;
             RECT 19.00 19.00 21.00 21.00 ;
@@ -1366,33 +1366,33 @@ MACRO rf_fifo_ok
     PIN nrw
         DIRECTION INPUT ;
         PORT
-            LAYER L_ALU2 ;
+            LAYER ALU2 ;
             RECT 24.00 14.00 26.00 16.00 ;
             RECT 19.00 14.00 21.00 16.00 ;
         END
     END nrw
     PIN vdd
-        DIRECTION INOUT ;
+        DIRECTION INPUT ;
         USE POWER ;
         SHAPE ABUTMENT ;
         PORT
-            LAYER L_ALU1 ;
+            LAYER ALU1 ;
             WIDTH 6.00 ;
             PATH 3.00 47.00 47.00 47.00 ;
         END
     END vdd
     PIN vss
-        DIRECTION INOUT ;
+        DIRECTION INPUT ;
         USE GROUND ;
         SHAPE ABUTMENT ;
         PORT
-            LAYER L_ALU1 ;
+            LAYER ALU1 ;
             WIDTH 6.00 ;
             PATH 3.00 3.00 47.00 3.00 ;
         END
     END vss
     OBS
-        LAYER L_ALU1 ;
+        LAYER ALU1 ;
         RECT 1.50 9.00 48.50 41.00 ;
     END
 END rf_fifo_ok
@@ -1407,7 +1407,7 @@ MACRO rf_fifo_orand4
     PIN rippleout
         DIRECTION OUTPUT ;
         PORT
-            LAYER L_ALU1 ;
+            LAYER ALU1 ;
             RECT 9.00 39.00 11.00 41.00 ;
             RECT 9.00 34.00 11.00 36.00 ;
             RECT 9.00 29.00 11.00 31.00 ;
@@ -1420,7 +1420,7 @@ MACRO rf_fifo_orand4
     PIN b0
         DIRECTION INPUT ;
         PORT
-            LAYER L_ALU1 ;
+            LAYER ALU1 ;
             RECT 39.00 34.00 41.00 36.00 ;
             RECT 39.00 29.00 41.00 31.00 ;
             RECT 39.00 24.00 41.00 26.00 ;
@@ -1432,7 +1432,7 @@ MACRO rf_fifo_orand4
     PIN a0
         DIRECTION INPUT ;
         PORT
-            LAYER L_ALU1 ;
+            LAYER ALU1 ;
             RECT 34.00 34.00 36.00 36.00 ;
             RECT 34.00 29.00 36.00 31.00 ;
             RECT 34.00 24.00 36.00 26.00 ;
@@ -1444,7 +1444,7 @@ MACRO rf_fifo_orand4
     PIN b1
         DIRECTION INPUT ;
         PORT
-            LAYER L_ALU1 ;
+            LAYER ALU1 ;
             RECT 24.00 29.00 26.00 31.00 ;
             RECT 24.00 24.00 26.00 26.00 ;
             RECT 24.00 19.00 26.00 21.00 ;
@@ -1454,7 +1454,7 @@ MACRO rf_fifo_orand4
     PIN a1
         DIRECTION INPUT ;
         PORT
-            LAYER L_ALU1 ;
+            LAYER ALU1 ;
             RECT 19.00 29.00 21.00 31.00 ;
             RECT 19.00 24.00 21.00 26.00 ;
             RECT 19.00 19.00 21.00 21.00 ;
@@ -1462,27 +1462,27 @@ MACRO rf_fifo_orand4
         END
     END a1
     PIN vdd
-        DIRECTION INOUT ;
+        DIRECTION INPUT ;
         USE POWER ;
         SHAPE ABUTMENT ;
         PORT
-            LAYER L_ALU1 ;
+            LAYER ALU1 ;
             WIDTH 6.00 ;
             PATH 3.00 47.00 47.00 47.00 ;
         END
     END vdd
     PIN vss
-        DIRECTION INOUT ;
+        DIRECTION INPUT ;
         USE GROUND ;
         SHAPE ABUTMENT ;
         PORT
-            LAYER L_ALU1 ;
+            LAYER ALU1 ;
             WIDTH 6.00 ;
             PATH 3.00 3.00 47.00 3.00 ;
         END
     END vss
     OBS
-        LAYER L_ALU1 ;
+        LAYER ALU1 ;
         RECT 1.50 9.00 48.50 41.00 ;
     END
 END rf_fifo_orand4
@@ -1497,7 +1497,7 @@ MACRO rf_fifo_orand5
     PIN rippleout
         DIRECTION OUTPUT ;
         PORT
-            LAYER L_ALU1 ;
+            LAYER ALU1 ;
             RECT 9.00 39.00 11.00 41.00 ;
             RECT 9.00 34.00 11.00 36.00 ;
             RECT 9.00 29.00 11.00 31.00 ;
@@ -1510,7 +1510,7 @@ MACRO rf_fifo_orand5
     PIN a1
         DIRECTION INPUT ;
         PORT
-            LAYER L_ALU1 ;
+            LAYER ALU1 ;
             RECT 19.00 29.00 21.00 31.00 ;
             RECT 19.00 24.00 21.00 26.00 ;
             RECT 19.00 19.00 21.00 21.00 ;
@@ -1520,7 +1520,7 @@ MACRO rf_fifo_orand5
     PIN b1
         DIRECTION INPUT ;
         PORT
-            LAYER L_ALU1 ;
+            LAYER ALU1 ;
             RECT 24.00 29.00 26.00 31.00 ;
             RECT 24.00 24.00 26.00 26.00 ;
             RECT 24.00 19.00 26.00 21.00 ;
@@ -1530,7 +1530,7 @@ MACRO rf_fifo_orand5
     PIN ripplein
         DIRECTION INPUT ;
         PORT
-            LAYER L_ALU1 ;
+            LAYER ALU1 ;
             RECT 29.00 29.00 31.00 31.00 ;
             RECT 29.00 24.00 31.00 26.00 ;
             RECT 29.00 19.00 31.00 21.00 ;
@@ -1540,7 +1540,7 @@ MACRO rf_fifo_orand5
     PIN a0
         DIRECTION INPUT ;
         PORT
-            LAYER L_ALU1 ;
+            LAYER ALU1 ;
             RECT 34.00 29.00 36.00 31.00 ;
             RECT 34.00 24.00 36.00 26.00 ;
             RECT 34.00 19.00 36.00 21.00 ;
@@ -1550,7 +1550,7 @@ MACRO rf_fifo_orand5
     PIN b0
         DIRECTION INPUT ;
         PORT
-            LAYER L_ALU1 ;
+            LAYER ALU1 ;
             RECT 44.00 29.00 46.00 31.00 ;
             RECT 44.00 24.00 46.00 26.00 ;
             RECT 44.00 19.00 46.00 21.00 ;
@@ -1558,27 +1558,27 @@ MACRO rf_fifo_orand5
         END
     END b0
     PIN vdd
-        DIRECTION INOUT ;
+        DIRECTION INPUT ;
         USE POWER ;
         SHAPE ABUTMENT ;
         PORT
-            LAYER L_ALU1 ;
+            LAYER ALU1 ;
             WIDTH 6.00 ;
             PATH 3.00 47.00 47.00 47.00 ;
         END
     END vdd
     PIN vss
-        DIRECTION INOUT ;
+        DIRECTION INPUT ;
         USE GROUND ;
         SHAPE ABUTMENT ;
         PORT
-            LAYER L_ALU1 ;
+            LAYER ALU1 ;
             WIDTH 6.00 ;
             PATH 3.00 3.00 47.00 3.00 ;
         END
     END vss
     OBS
-        LAYER L_ALU1 ;
+        LAYER ALU1 ;
         RECT 1.50 9.00 48.50 41.00 ;
     END
 END rf_fifo_orand5
@@ -1593,7 +1593,7 @@ MACRO rf_fifo_ptreset
     PIN pt
         DIRECTION INOUT ;
         PORT
-            LAYER L_ALU2 ;
+            LAYER ALU2 ;
             RECT 44.00 9.00 46.00 11.00 ;
             RECT 39.00 9.00 41.00 11.00 ;
         END
@@ -1601,7 +1601,7 @@ MACRO rf_fifo_ptreset
     PIN inc
         DIRECTION INPUT ;
         PORT
-            LAYER L_ALU2 ;
+            LAYER ALU2 ;
             RECT 34.00 19.00 36.00 21.00 ;
             RECT 29.00 19.00 31.00 21.00 ;
         END
@@ -1609,7 +1609,7 @@ MACRO rf_fifo_ptreset
     PIN reset
         DIRECTION INPUT ;
         PORT
-            LAYER L_ALU2 ;
+            LAYER ALU2 ;
             RECT 24.00 19.00 26.00 21.00 ;
             RECT 19.00 19.00 21.00 21.00 ;
         END
@@ -1617,7 +1617,7 @@ MACRO rf_fifo_ptreset
     PIN cks
         DIRECTION INPUT ;
         PORT
-            LAYER L_ALU2 ;
+            LAYER ALU2 ;
             RECT 14.00 19.00 16.00 21.00 ;
             RECT 9.00 19.00 11.00 21.00 ;
         END
@@ -1625,7 +1625,7 @@ MACRO rf_fifo_ptreset
     PIN ptm1
         DIRECTION INPUT ;
         PORT
-            LAYER L_ALU2 ;
+            LAYER ALU2 ;
             RECT 29.00 9.00 31.00 11.00 ;
             RECT 24.00 9.00 26.00 11.00 ;
         END
@@ -1633,35 +1633,35 @@ MACRO rf_fifo_ptreset
     PIN nop
         DIRECTION INPUT ;
         PORT
-            LAYER L_ALU2 ;
+            LAYER ALU2 ;
             RECT 44.00 19.00 46.00 21.00 ;
             RECT 39.00 19.00 41.00 21.00 ;
         END
     END nop
     PIN vdd
-        DIRECTION INOUT ;
+        DIRECTION INPUT ;
         USE POWER ;
         SHAPE ABUTMENT ;
         PORT
-            LAYER L_ALU1 ;
+            LAYER ALU1 ;
             WIDTH 6.00 ;
             PATH 3.00 47.00 47.00 47.00 ;
         END
     END vdd
     PIN vss
-        DIRECTION INOUT ;
+        DIRECTION INPUT ;
         USE GROUND ;
         SHAPE ABUTMENT ;
         PORT
-            LAYER L_ALU1 ;
+            LAYER ALU1 ;
             WIDTH 6.00 ;
             PATH 3.00 3.00 47.00 3.00 ;
         END
     END vss
     OBS
-        LAYER L_ALU1 ;
+        LAYER ALU1 ;
         RECT 1.50 9.00 48.50 41.00 ;
-        LAYER L_ALU2 ;
+        LAYER ALU2 ;
         RECT 9.00 19.00 46.00 21.00 ;
         RECT 4.00 34.00 41.00 36.00 ;
         RECT 4.00 34.00 41.00 36.00 ;
@@ -1678,7 +1678,7 @@ MACRO rf_fifo_ptset
     PIN pt
         DIRECTION INOUT ;
         PORT
-            LAYER L_ALU2 ;
+            LAYER ALU2 ;
             RECT 44.00 9.00 46.00 11.00 ;
             RECT 39.00 9.00 41.00 11.00 ;
         END
@@ -1686,7 +1686,7 @@ MACRO rf_fifo_ptset
     PIN nop
         DIRECTION INPUT ;
         PORT
-            LAYER L_ALU2 ;
+            LAYER ALU2 ;
             RECT 44.00 19.00 46.00 21.00 ;
             RECT 39.00 19.00 41.00 21.00 ;
         END
@@ -1694,7 +1694,7 @@ MACRO rf_fifo_ptset
     PIN inc
         DIRECTION INPUT ;
         PORT
-            LAYER L_ALU2 ;
+            LAYER ALU2 ;
             RECT 34.00 19.00 36.00 21.00 ;
             RECT 29.00 19.00 31.00 21.00 ;
         END
@@ -1702,7 +1702,7 @@ MACRO rf_fifo_ptset
     PIN nreset
         DIRECTION INPUT ;
         PORT
-            LAYER L_ALU2 ;
+            LAYER ALU2 ;
             RECT 24.00 19.00 26.00 21.00 ;
             RECT 19.00 19.00 21.00 21.00 ;
         END
@@ -1710,7 +1710,7 @@ MACRO rf_fifo_ptset
     PIN cks
         DIRECTION INPUT ;
         PORT
-            LAYER L_ALU2 ;
+            LAYER ALU2 ;
             RECT 14.00 19.00 16.00 21.00 ;
             RECT 9.00 19.00 11.00 21.00 ;
         END
@@ -1718,35 +1718,35 @@ MACRO rf_fifo_ptset
     PIN ptm1
         DIRECTION INPUT ;
         PORT
-            LAYER L_ALU2 ;
+            LAYER ALU2 ;
             RECT 29.00 9.00 31.00 11.00 ;
             RECT 24.00 9.00 26.00 11.00 ;
         END
     END ptm1
     PIN vdd
-        DIRECTION INOUT ;
+        DIRECTION INPUT ;
         USE POWER ;
         SHAPE ABUTMENT ;
         PORT
-            LAYER L_ALU1 ;
+            LAYER ALU1 ;
             WIDTH 6.00 ;
             PATH 3.00 47.00 47.00 47.00 ;
         END
     END vdd
     PIN vss
-        DIRECTION INOUT ;
+        DIRECTION INPUT ;
         USE GROUND ;
         SHAPE ABUTMENT ;
         PORT
-            LAYER L_ALU1 ;
+            LAYER ALU1 ;
             WIDTH 6.00 ;
             PATH 3.00 3.00 47.00 3.00 ;
         END
     END vss
     OBS
-        LAYER L_ALU1 ;
+        LAYER ALU1 ;
         RECT 1.50 9.00 48.50 41.00 ;
-        LAYER L_ALU2 ;
+        LAYER ALU2 ;
         RECT 9.00 19.00 46.00 21.00 ;
         RECT 4.00 34.00 41.00 36.00 ;
         RECT 4.00 34.00 41.00 36.00 ;
@@ -1763,7 +1763,7 @@ MACRO rf_inmux_buf_2
     PIN nck
         DIRECTION OUTPUT ;
         PORT
-            LAYER L_ALU2 ;
+            LAYER ALU2 ;
             RECT 34.00 89.00 36.00 91.00 ;
             RECT 29.00 89.00 31.00 91.00 ;
         END
@@ -1771,7 +1771,7 @@ MACRO rf_inmux_buf_2
     PIN sel1
         DIRECTION OUTPUT ;
         PORT
-            LAYER L_ALU3 ;
+            LAYER ALU3 ;
             RECT 24.00 39.00 26.00 41.00 ;
             RECT 24.00 34.00 26.00 36.00 ;
             RECT 24.00 29.00 26.00 31.00 ;
@@ -1783,7 +1783,7 @@ MACRO rf_inmux_buf_2
     PIN sel0
         DIRECTION OUTPUT ;
         PORT
-            LAYER L_ALU3 ;
+            LAYER ALU3 ;
             RECT 34.00 39.00 36.00 41.00 ;
             RECT 34.00 34.00 36.00 36.00 ;
             RECT 34.00 29.00 36.00 31.00 ;
@@ -1795,7 +1795,7 @@ MACRO rf_inmux_buf_2
     PIN sel
         DIRECTION INPUT ;
         PORT
-            LAYER L_ALU1 ;
+            LAYER ALU1 ;
             RECT 14.00 89.00 16.00 91.00 ;
             RECT 14.00 84.00 16.00 86.00 ;
             RECT 14.00 79.00 16.00 81.00 ;
@@ -1804,27 +1804,27 @@ MACRO rf_inmux_buf_2
         END
     END sel
     PIN vdd
-        DIRECTION INOUT ;
+        DIRECTION INPUT ;
         USE POWER ;
         SHAPE ABUTMENT ;
         PORT
-            LAYER L_ALU1 ;
+            LAYER ALU1 ;
             WIDTH 6.00 ;
             PATH 3.00 47.00 42.00 47.00 ;
-            LAYER L_ALU1 ;
+            LAYER ALU1 ;
             WIDTH 6.00 ;
             PATH 3.00 53.00 42.00 53.00 ;
         END
     END vdd
     PIN vss
-        DIRECTION INOUT ;
+        DIRECTION INPUT ;
         USE GROUND ;
         SHAPE ABUTMENT ;
         PORT
-            LAYER L_ALU1 ;
+            LAYER ALU1 ;
             WIDTH 6.00 ;
             PATH 3.00 3.00 42.00 3.00 ;
-            LAYER L_ALU1 ;
+            LAYER ALU1 ;
             WIDTH 6.00 ;
             PATH 3.00 97.00 42.00 97.00 ;
         END
@@ -1833,7 +1833,7 @@ MACRO rf_inmux_buf_2
         DIRECTION INPUT ;
         USE CLOCK ;
         PORT
-            LAYER L_ALU1 ;
+            LAYER ALU1 ;
             RECT 19.00 89.00 21.00 91.00 ;
             RECT 19.00 84.00 21.00 86.00 ;
             RECT 19.00 79.00 21.00 81.00 ;
@@ -1842,10 +1842,10 @@ MACRO rf_inmux_buf_2
         END
     END ck
     OBS
-        LAYER L_ALU1 ;
+        LAYER ALU1 ;
         RECT 1.50 9.00 43.50 41.00 ;
         RECT 1.50 59.00 43.50 91.00 ;
-        LAYER L_ALU2 ;
+        LAYER ALU2 ;
         RECT 4.00 14.00 41.00 16.00 ;
         RECT 4.00 39.00 41.00 41.00 ;
         RECT 34.00 39.00 40.00 41.00 ;
@@ -1865,7 +1865,7 @@ MACRO rf_inmux_buf_4
     PIN nck
         DIRECTION OUTPUT ;
         PORT
-            LAYER L_ALU2 ;
+            LAYER ALU2 ;
             RECT 34.00 89.00 36.00 91.00 ;
             RECT 29.00 89.00 31.00 91.00 ;
         END
@@ -1873,7 +1873,7 @@ MACRO rf_inmux_buf_4
     PIN sel0
         DIRECTION OUTPUT ;
         PORT
-            LAYER L_ALU3 ;
+            LAYER ALU3 ;
             RECT 34.00 159.00 36.00 161.00 ;
             RECT 34.00 154.00 36.00 156.00 ;
             RECT 34.00 149.00 36.00 151.00 ;
@@ -1904,7 +1904,7 @@ MACRO rf_inmux_buf_4
     PIN sel1
         DIRECTION OUTPUT ;
         PORT
-            LAYER L_ALU3 ;
+            LAYER ALU3 ;
             RECT 24.00 184.00 26.00 186.00 ;
             RECT 24.00 179.00 26.00 181.00 ;
             RECT 24.00 174.00 26.00 176.00 ;
@@ -1945,7 +1945,7 @@ MACRO rf_inmux_buf_4
     PIN sel
         DIRECTION INPUT ;
         PORT
-            LAYER L_ALU1 ;
+            LAYER ALU1 ;
             RECT 14.00 89.00 16.00 91.00 ;
             RECT 14.00 84.00 16.00 86.00 ;
             RECT 14.00 79.00 16.00 81.00 ;
@@ -1954,42 +1954,42 @@ MACRO rf_inmux_buf_4
         END
     END sel
     PIN vdd
-        DIRECTION INOUT ;
+        DIRECTION INPUT ;
         USE POWER ;
         SHAPE ABUTMENT ;
         PORT
-            LAYER L_ALU1 ;
+            LAYER ALU1 ;
             WIDTH 6.00 ;
             PATH 3.00 47.00 42.00 47.00 ;
-            LAYER L_ALU1 ;
+            LAYER ALU1 ;
             WIDTH 6.00 ;
             PATH 3.00 53.00 42.00 53.00 ;
-            LAYER L_ALU1 ;
+            LAYER ALU1 ;
             WIDTH 6.00 ;
             PATH 3.00 147.00 42.00 147.00 ;
-            LAYER L_ALU1 ;
+            LAYER ALU1 ;
             WIDTH 6.00 ;
             PATH 3.00 153.00 42.00 153.00 ;
         END
     END vdd
     PIN vss
-        DIRECTION INOUT ;
+        DIRECTION INPUT ;
         USE GROUND ;
         SHAPE ABUTMENT ;
         PORT
-            LAYER L_ALU1 ;
+            LAYER ALU1 ;
             WIDTH 6.00 ;
             PATH 3.00 3.00 42.00 3.00 ;
-            LAYER L_ALU1 ;
+            LAYER ALU1 ;
             WIDTH 6.00 ;
             PATH 3.00 97.00 42.00 97.00 ;
-            LAYER L_ALU1 ;
+            LAYER ALU1 ;
             WIDTH 6.00 ;
             PATH 3.00 103.00 42.00 103.00 ;
-            LAYER L_ALU1 ;
+            LAYER ALU1 ;
             WIDTH 6.00 ;
             PATH 3.00 197.00 42.00 197.00 ;
-            LAYER L_ALU3 ;
+            LAYER ALU3 ;
             WIDTH 12.00 ;
             PATH 10.00 6.00 10.00 194.00 ;
         END
@@ -1998,7 +1998,7 @@ MACRO rf_inmux_buf_4
         DIRECTION INPUT ;
         USE CLOCK ;
         PORT
-            LAYER L_ALU1 ;
+            LAYER ALU1 ;
             RECT 19.00 89.00 21.00 91.00 ;
             RECT 19.00 84.00 21.00 86.00 ;
             RECT 19.00 79.00 21.00 81.00 ;
@@ -2007,12 +2007,12 @@ MACRO rf_inmux_buf_4
         END
     END ck
     OBS
-        LAYER L_ALU1 ;
+        LAYER ALU1 ;
         RECT 1.50 9.00 43.50 41.00 ;
         RECT 1.50 59.00 43.50 91.00 ;
         RECT 1.50 109.00 43.50 141.00 ;
         RECT 1.50 159.00 43.50 191.00 ;
-        LAYER L_ALU2 ;
+        LAYER ALU2 ;
         RECT 4.00 199.00 16.00 201.00 ;
         RECT 4.00 -1.00 16.00 1.00 ;
         RECT 4.00 99.00 16.00 101.00 ;
@@ -2037,7 +2037,7 @@ MACRO rf_inmux_mem
     PIN dinx
         DIRECTION OUTPUT ;
         PORT
-            LAYER L_ALU2 ;
+            LAYER ALU2 ;
             RECT 14.00 9.00 16.00 11.00 ;
             RECT 9.00 9.00 11.00 11.00 ;
         END
@@ -2045,7 +2045,7 @@ MACRO rf_inmux_mem
     PIN datain1
         DIRECTION INPUT ;
         PORT
-            LAYER L_ALU1 ;
+            LAYER ALU1 ;
             RECT 39.00 39.00 41.00 41.00 ;
             RECT 39.00 34.00 41.00 36.00 ;
             RECT 39.00 29.00 41.00 31.00 ;
@@ -2057,7 +2057,7 @@ MACRO rf_inmux_mem
     PIN datain0
         DIRECTION INPUT ;
         PORT
-            LAYER L_ALU1 ;
+            LAYER ALU1 ;
             RECT 19.00 39.00 21.00 41.00 ;
             RECT 19.00 34.00 21.00 36.00 ;
             RECT 19.00 29.00 21.00 31.00 ;
@@ -2069,41 +2069,41 @@ MACRO rf_inmux_mem
     PIN sel0
         DIRECTION INPUT ;
         PORT
-            LAYER L_ALU3 ;
+            LAYER ALU3 ;
             RECT 34.00 29.00 36.00 31.00 ;
         END
     END sel0
     PIN sel1
         DIRECTION INPUT ;
         PORT
-            LAYER L_ALU3 ;
+            LAYER ALU3 ;
             RECT 24.00 29.00 26.00 31.00 ;
         END
     END sel1
     PIN vdd
-        DIRECTION INOUT ;
+        DIRECTION INPUT ;
         USE POWER ;
         SHAPE ABUTMENT ;
         PORT
-            LAYER L_ALU1 ;
+            LAYER ALU1 ;
             WIDTH 6.00 ;
             PATH 3.00 47.00 42.00 47.00 ;
         END
     END vdd
     PIN vss
-        DIRECTION INOUT ;
+        DIRECTION INPUT ;
         USE GROUND ;
         SHAPE ABUTMENT ;
         PORT
-            LAYER L_ALU1 ;
+            LAYER ALU1 ;
             WIDTH 6.00 ;
             PATH 3.00 3.00 42.00 3.00 ;
         END
     END vss
     OBS
-        LAYER L_ALU1 ;
+        LAYER ALU1 ;
         RECT 1.50 9.00 43.50 41.00 ;
-        LAYER L_ALU2 ;
+        LAYER ALU2 ;
         RECT 19.00 29.00 26.00 31.00 ;
         RECT 29.00 29.00 36.00 31.00 ;
         RECT 19.00 29.00 36.00 31.00 ;
@@ -2120,7 +2120,7 @@ MACRO rf_mid_buf_2
     PIN read
         DIRECTION OUTPUT ;
         PORT
-            LAYER L_ALU3 ;
+            LAYER ALU3 ;
             RECT 4.00 59.00 6.00 61.00 ;
             RECT 4.00 54.00 6.00 56.00 ;
             RECT 4.00 49.00 6.00 51.00 ;
@@ -2136,7 +2136,7 @@ MACRO rf_mid_buf_2
     PIN write
         DIRECTION OUTPUT ;
         PORT
-            LAYER L_ALU3 ;
+            LAYER ALU3 ;
             RECT 19.00 59.00 21.00 61.00 ;
             RECT 19.00 54.00 21.00 56.00 ;
             RECT 19.00 49.00 21.00 51.00 ;
@@ -2152,7 +2152,7 @@ MACRO rf_mid_buf_2
     PIN nck
         DIRECTION INPUT ;
         PORT
-            LAYER L_ALU2 ;
+            LAYER ALU2 ;
             RECT 24.00 89.00 26.00 91.00 ;
             RECT 19.00 89.00 21.00 91.00 ;
         END
@@ -2160,7 +2160,7 @@ MACRO rf_mid_buf_2
     PIN selr
         DIRECTION INPUT ;
         PORT
-            LAYER L_ALU2 ;
+            LAYER ALU2 ;
             RECT 14.00 79.00 16.00 81.00 ;
             RECT 9.00 79.00 11.00 81.00 ;
         END
@@ -2168,42 +2168,42 @@ MACRO rf_mid_buf_2
     PIN selw
         DIRECTION INPUT ;
         PORT
-            LAYER L_ALU2 ;
+            LAYER ALU2 ;
             RECT 14.00 84.00 16.00 86.00 ;
             RECT 9.00 84.00 11.00 86.00 ;
         END
     END selw
     PIN vdd
-        DIRECTION INOUT ;
+        DIRECTION INPUT ;
         USE POWER ;
         SHAPE ABUTMENT ;
         PORT
-            LAYER L_ALU1 ;
+            LAYER ALU1 ;
             WIDTH 6.00 ;
             PATH 3.00 47.00 22.00 47.00 ;
-            LAYER L_ALU1 ;
+            LAYER ALU1 ;
             WIDTH 6.00 ;
             PATH 3.00 53.00 22.00 53.00 ;
         END
     END vdd
     PIN vss
-        DIRECTION INOUT ;
+        DIRECTION INPUT ;
         USE GROUND ;
         SHAPE ABUTMENT ;
         PORT
-            LAYER L_ALU1 ;
+            LAYER ALU1 ;
             WIDTH 6.00 ;
             PATH 3.00 3.00 22.00 3.00 ;
-            LAYER L_ALU1 ;
+            LAYER ALU1 ;
             WIDTH 6.00 ;
             PATH 3.00 97.00 22.00 97.00 ;
         END
     END vss
     OBS
-        LAYER L_ALU1 ;
+        LAYER ALU1 ;
         RECT 1.50 9.00 23.50 41.00 ;
         RECT 1.50 59.00 23.50 91.00 ;
-        LAYER L_ALU2 ;
+        LAYER ALU2 ;
         RECT 4.00 59.00 21.00 61.00 ;
         RECT 4.00 39.00 21.00 41.00 ;
         RECT 4.00 14.00 21.00 16.00 ;
@@ -2226,7 +2226,7 @@ MACRO rf_mid_buf_4
     PIN write
         DIRECTION OUTPUT ;
         PORT
-            LAYER L_ALU3 ;
+            LAYER ALU3 ;
             RECT 19.00 59.00 21.00 61.00 ;
             RECT 19.00 54.00 21.00 56.00 ;
             RECT 19.00 49.00 21.00 51.00 ;
@@ -2242,7 +2242,7 @@ MACRO rf_mid_buf_4
     PIN read
         DIRECTION OUTPUT ;
         PORT
-            LAYER L_ALU3 ;
+            LAYER ALU3 ;
             RECT 4.00 184.00 6.00 186.00 ;
             RECT 4.00 179.00 6.00 181.00 ;
             RECT 4.00 174.00 6.00 176.00 ;
@@ -2258,21 +2258,21 @@ MACRO rf_mid_buf_4
     PIN selr
         DIRECTION INPUT ;
         PORT
-            LAYER L_ALU2 ;
+            LAYER ALU2 ;
             RECT 9.00 114.00 11.00 116.00 ;
         END
     END selr
     PIN selw
         DIRECTION INPUT ;
         PORT
-            LAYER L_ALU2 ;
+            LAYER ALU2 ;
             RECT 14.00 84.00 16.00 86.00 ;
         END
     END selw
     PIN nck
         DIRECTION INPUT ;
         PORT
-            LAYER L_ALU2 ;
+            LAYER ALU2 ;
             RECT 24.00 89.00 26.00 91.00 ;
             RECT 19.00 89.00 21.00 91.00 ;
             RECT 14.00 89.00 16.00 91.00 ;
@@ -2282,50 +2282,50 @@ MACRO rf_mid_buf_4
         END
     END nck
     PIN vdd
-        DIRECTION INOUT ;
+        DIRECTION INPUT ;
         USE POWER ;
         SHAPE ABUTMENT ;
         PORT
-            LAYER L_ALU1 ;
+            LAYER ALU1 ;
             WIDTH 6.00 ;
             PATH 3.00 47.00 22.00 47.00 ;
-            LAYER L_ALU1 ;
+            LAYER ALU1 ;
             WIDTH 6.00 ;
             PATH 3.00 53.00 22.00 53.00 ;
-            LAYER L_ALU1 ;
+            LAYER ALU1 ;
             WIDTH 6.00 ;
             PATH 3.00 147.00 22.00 147.00 ;
-            LAYER L_ALU1 ;
+            LAYER ALU1 ;
             WIDTH 6.00 ;
             PATH 3.00 153.00 22.00 153.00 ;
         END
     END vdd
     PIN vss
-        DIRECTION INOUT ;
+        DIRECTION INPUT ;
         USE GROUND ;
         SHAPE ABUTMENT ;
         PORT
-            LAYER L_ALU1 ;
+            LAYER ALU1 ;
             WIDTH 6.00 ;
             PATH 3.00 3.00 22.00 3.00 ;
-            LAYER L_ALU1 ;
+            LAYER ALU1 ;
             WIDTH 6.00 ;
             PATH 3.00 97.00 22.00 97.00 ;
-            LAYER L_ALU1 ;
+            LAYER ALU1 ;
             WIDTH 6.00 ;
             PATH 3.00 103.00 22.00 103.00 ;
-            LAYER L_ALU1 ;
+            LAYER ALU1 ;
             WIDTH 6.00 ;
             PATH 3.00 197.00 22.00 197.00 ;
         END
     END vss
     OBS
-        LAYER L_ALU1 ;
+        LAYER ALU1 ;
         RECT 1.50 9.00 23.50 41.00 ;
         RECT 1.50 59.00 23.50 91.00 ;
         RECT 1.50 109.00 23.50 141.00 ;
         RECT 1.50 159.00 23.50 191.00 ;
-        LAYER L_ALU2 ;
+        LAYER ALU2 ;
         RECT -1.00 184.00 26.00 186.00 ;
         RECT -1.00 159.00 26.00 161.00 ;
         RECT -1.00 139.00 26.00 141.00 ;
@@ -2351,7 +2351,7 @@ MACRO rf_mid_mem_r0
     PIN rbus
         DIRECTION OUTPUT TRISTATE ;
         PORT
-            LAYER L_ALU2 ;
+            LAYER ALU2 ;
             RECT 24.00 24.00 26.00 26.00 ;
             RECT 19.00 24.00 21.00 26.00 ;
         END
@@ -2359,7 +2359,7 @@ MACRO rf_mid_mem_r0
     PIN dinx
         DIRECTION INPUT ;
         PORT
-            LAYER L_ALU2 ;
+            LAYER ALU2 ;
             RECT 24.00 9.00 26.00 11.00 ;
             RECT 19.00 9.00 21.00 11.00 ;
         END
@@ -2367,41 +2367,41 @@ MACRO rf_mid_mem_r0
     PIN read
         DIRECTION INPUT ;
         PORT
-            LAYER L_ALU3 ;
+            LAYER ALU3 ;
             RECT 4.00 29.00 6.00 31.00 ;
         END
     END read
     PIN write
         DIRECTION INPUT ;
         PORT
-            LAYER L_ALU3 ;
+            LAYER ALU3 ;
             RECT 19.00 14.00 21.00 16.00 ;
         END
     END write
     PIN vdd
-        DIRECTION INOUT ;
+        DIRECTION INPUT ;
         USE POWER ;
         SHAPE ABUTMENT ;
         PORT
-            LAYER L_ALU1 ;
+            LAYER ALU1 ;
             WIDTH 6.00 ;
             PATH 3.00 47.00 22.00 47.00 ;
         END
     END vdd
     PIN vss
-        DIRECTION INOUT ;
+        DIRECTION INPUT ;
         USE GROUND ;
         SHAPE ABUTMENT ;
         PORT
-            LAYER L_ALU1 ;
+            LAYER ALU1 ;
             WIDTH 6.00 ;
             PATH 3.00 3.00 22.00 3.00 ;
         END
     END vss
     OBS
-        LAYER L_ALU1 ;
+        LAYER ALU1 ;
         RECT 1.50 9.00 23.50 41.00 ;
-        LAYER L_ALU2 ;
+        LAYER ALU2 ;
         RECT 4.00 29.00 16.00 31.00 ;
         RECT 4.00 29.00 16.00 31.00 ;
     END
@@ -2417,7 +2417,7 @@ MACRO rf_mid_mem
     PIN rbus
         DIRECTION OUTPUT TRISTATE ;
         PORT
-            LAYER L_ALU2 ;
+            LAYER ALU2 ;
             RECT 24.00 24.00 26.00 26.00 ;
             RECT 19.00 24.00 21.00 26.00 ;
         END
@@ -2425,7 +2425,7 @@ MACRO rf_mid_mem
     PIN dinx
         DIRECTION INPUT ;
         PORT
-            LAYER L_ALU2 ;
+            LAYER ALU2 ;
             RECT 24.00 9.00 26.00 11.00 ;
             RECT 19.00 9.00 21.00 11.00 ;
         END
@@ -2433,41 +2433,41 @@ MACRO rf_mid_mem
     PIN read
         DIRECTION INPUT ;
         PORT
-            LAYER L_ALU3 ;
+            LAYER ALU3 ;
             RECT 4.00 29.00 6.00 31.00 ;
         END
     END read
     PIN write
         DIRECTION INPUT ;
         PORT
-            LAYER L_ALU3 ;
+            LAYER ALU3 ;
             RECT 19.00 14.00 21.00 16.00 ;
         END
     END write
     PIN vdd
-        DIRECTION INOUT ;
+        DIRECTION INPUT ;
         USE POWER ;
         SHAPE ABUTMENT ;
         PORT
-            LAYER L_ALU1 ;
+            LAYER ALU1 ;
             WIDTH 6.00 ;
             PATH 3.00 47.00 22.00 47.00 ;
         END
     END vdd
     PIN vss
-        DIRECTION INOUT ;
+        DIRECTION INPUT ;
         USE GROUND ;
         SHAPE ABUTMENT ;
         PORT
-            LAYER L_ALU1 ;
+            LAYER ALU1 ;
             WIDTH 6.00 ;
             PATH 3.00 3.00 22.00 3.00 ;
         END
     END vss
     OBS
-        LAYER L_ALU1 ;
+        LAYER ALU1 ;
         RECT 1.50 9.00 23.50 41.00 ;
-        LAYER L_ALU2 ;
+        LAYER ALU2 ;
         RECT 4.00 29.00 16.00 31.00 ;
         RECT 14.00 14.00 21.00 16.00 ;
         RECT 14.00 14.00 21.00 16.00 ;
@@ -2485,7 +2485,7 @@ MACRO rf_out_buf_2
     PIN xcks
         DIRECTION OUTPUT ;
         PORT
-            LAYER L_ALU3 ;
+            LAYER ALU3 ;
             RECT 14.00 59.00 16.00 61.00 ;
             RECT 14.00 54.00 16.00 56.00 ;
             RECT 14.00 49.00 16.00 51.00 ;
@@ -2501,42 +2501,42 @@ MACRO rf_out_buf_2
     PIN nck
         DIRECTION INPUT ;
         PORT
-            LAYER L_ALU2 ;
+            LAYER ALU2 ;
             RECT 14.00 89.00 16.00 91.00 ;
             RECT 9.00 89.00 11.00 91.00 ;
         END
     END nck
     PIN vdd
-        DIRECTION INOUT ;
+        DIRECTION INPUT ;
         USE POWER ;
         SHAPE ABUTMENT ;
         PORT
-            LAYER L_ALU1 ;
+            LAYER ALU1 ;
             WIDTH 6.00 ;
             PATH 3.00 47.00 52.00 47.00 ;
-            LAYER L_ALU1 ;
+            LAYER ALU1 ;
             WIDTH 6.00 ;
             PATH 3.00 53.00 52.00 53.00 ;
         END
     END vdd
     PIN vss
-        DIRECTION INOUT ;
+        DIRECTION INPUT ;
         USE GROUND ;
         SHAPE ABUTMENT ;
         PORT
-            LAYER L_ALU1 ;
+            LAYER ALU1 ;
             WIDTH 6.00 ;
             PATH 3.00 3.00 52.00 3.00 ;
-            LAYER L_ALU1 ;
+            LAYER ALU1 ;
             WIDTH 6.00 ;
             PATH 3.00 97.00 52.00 97.00 ;
         END
     END vss
     OBS
-        LAYER L_ALU1 ;
+        LAYER ALU1 ;
         RECT 1.50 9.00 53.50 41.00 ;
         RECT 1.50 59.00 53.50 91.00 ;
-        LAYER L_ALU2 ;
+        LAYER ALU2 ;
         RECT 9.00 14.00 21.00 16.00 ;
         RECT 9.00 39.00 21.00 41.00 ;
         RECT 9.00 59.00 21.00 61.00 ;
@@ -2556,7 +2556,7 @@ MACRO rf_out_buf_4
     PIN xcks
         DIRECTION OUTPUT ;
         PORT
-            LAYER L_ALU3 ;
+            LAYER ALU3 ;
             RECT 14.00 184.00 16.00 186.00 ;
             RECT 14.00 179.00 16.00 181.00 ;
             RECT 14.00 174.00 16.00 176.00 ;
@@ -2597,58 +2597,58 @@ MACRO rf_out_buf_4
     PIN nck
         DIRECTION INPUT ;
         PORT
-            LAYER L_ALU2 ;
+            LAYER ALU2 ;
             RECT 14.00 89.00 16.00 91.00 ;
         END
     END nck
     PIN vdd
-        DIRECTION INOUT ;
+        DIRECTION INPUT ;
         USE POWER ;
         SHAPE ABUTMENT ;
         PORT
-            LAYER L_ALU1 ;
+            LAYER ALU1 ;
             WIDTH 6.00 ;
             PATH 3.00 47.00 52.00 47.00 ;
-            LAYER L_ALU1 ;
+            LAYER ALU1 ;
             WIDTH 6.00 ;
             PATH 3.00 53.00 52.00 53.00 ;
-            LAYER L_ALU1 ;
+            LAYER ALU1 ;
             WIDTH 6.00 ;
             PATH 3.00 147.00 52.00 147.00 ;
-            LAYER L_ALU1 ;
+            LAYER ALU1 ;
             WIDTH 6.00 ;
             PATH 3.00 153.00 52.00 153.00 ;
-            LAYER L_ALU3 ;
+            LAYER ALU3 ;
             WIDTH 12.00 ;
             PATH 45.00 6.00 45.00 194.00 ;
         END
     END vdd
     PIN vss
-        DIRECTION INOUT ;
+        DIRECTION INPUT ;
         USE GROUND ;
         SHAPE ABUTMENT ;
         PORT
-            LAYER L_ALU1 ;
+            LAYER ALU1 ;
             WIDTH 6.00 ;
             PATH 3.00 3.00 52.00 3.00 ;
-            LAYER L_ALU1 ;
+            LAYER ALU1 ;
             WIDTH 6.00 ;
             PATH 3.00 97.00 52.00 97.00 ;
-            LAYER L_ALU1 ;
+            LAYER ALU1 ;
             WIDTH 6.00 ;
             PATH 3.00 103.00 52.00 103.00 ;
-            LAYER L_ALU1 ;
+            LAYER ALU1 ;
             WIDTH 6.00 ;
             PATH 3.00 197.00 52.00 197.00 ;
         END
     END vss
     OBS
-        LAYER L_ALU1 ;
+        LAYER ALU1 ;
         RECT 1.50 9.00 53.50 41.00 ;
         RECT 1.50 59.00 53.50 91.00 ;
         RECT 1.50 109.00 53.50 141.00 ;
         RECT 1.50 159.00 53.50 191.00 ;
-        LAYER L_ALU2 ;
+        LAYER ALU2 ;
         RECT 14.00 14.00 21.00 16.00 ;
         RECT 14.00 39.00 21.00 41.00 ;
         RECT 14.00 59.00 21.00 61.00 ;
@@ -2676,7 +2676,7 @@ MACRO rf_out_mem
     PIN dataout
         DIRECTION OUTPUT ;
         PORT
-            LAYER L_ALU1 ;
+            LAYER ALU1 ;
             RECT 44.00 39.00 46.00 41.00 ;
             RECT 44.00 34.00 46.00 36.00 ;
             RECT 44.00 29.00 46.00 31.00 ;
@@ -2689,7 +2689,7 @@ MACRO rf_out_mem
     PIN rbus
         DIRECTION INPUT ;
         PORT
-            LAYER L_ALU2 ;
+            LAYER ALU2 ;
             RECT 4.00 24.00 6.00 26.00 ;
             RECT -1.00 24.00 1.00 26.00 ;
         END
@@ -2697,34 +2697,34 @@ MACRO rf_out_mem
     PIN xcks
         DIRECTION INPUT ;
         PORT
-            LAYER L_ALU3 ;
+            LAYER ALU3 ;
             RECT 14.00 24.00 16.00 26.00 ;
         END
     END xcks
     PIN vdd
-        DIRECTION INOUT ;
+        DIRECTION INPUT ;
         USE POWER ;
         SHAPE ABUTMENT ;
         PORT
-            LAYER L_ALU1 ;
+            LAYER ALU1 ;
             WIDTH 6.00 ;
             PATH 3.00 47.00 52.00 47.00 ;
         END
     END vdd
     PIN vss
-        DIRECTION INOUT ;
+        DIRECTION INPUT ;
         USE GROUND ;
         SHAPE ABUTMENT ;
         PORT
-            LAYER L_ALU1 ;
+            LAYER ALU1 ;
             WIDTH 6.00 ;
             PATH 3.00 3.00 52.00 3.00 ;
         END
     END vss
     OBS
-        LAYER L_ALU1 ;
+        LAYER ALU1 ;
         RECT 1.50 9.00 53.50 41.00 ;
-        LAYER L_ALU2 ;
+        LAYER ALU2 ;
         RECT 14.00 24.00 23.00 26.00 ;
         RECT 14.00 24.00 23.00 26.00 ;
     END
