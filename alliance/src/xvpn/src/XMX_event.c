@@ -739,7 +739,7 @@ void CallbackExpose( MyWidget, ClientData, CallData )
       XvpnDisplayCursor();
     }
 
-    XvpnEnterPresentPanel();
+    /* XvpnEnterPresentPanel(); */
   }
   else
   {

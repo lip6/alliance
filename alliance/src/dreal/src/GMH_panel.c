@@ -281,7 +281,7 @@ void DrealBuildPresentPanel()
                                        );
   XmStringFree( PanelString );
 
-  PanelString = XmStringCreateLtoR( "copyright \251 1995-2000 ASIM, \
+  PanelString = XmStringCreateLtoR( "copyright \251 1995-2004 ASIM, \
 CAO-VLSI Team\nWritten by Ludovic Jacomme\nE-mail        :  alliance-users@asim.lip6.fr", "Panel_charset4" );
 
   PanelLabel = XtVaCreateManagedWidget( "",

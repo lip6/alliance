@@ -285,7 +285,7 @@ void GraalBuildPresentPanel()
                                        );
   XmStringFree( PanelString );
 
-  PanelString = XmStringCreateLtoR( "copyright \251 1996-2000 ASIM, \
+  PanelString = XmStringCreateLtoR( "copyright \251 1996-2004 ASIM, \
 CAO-VLSI Team\nWritten by Ludovic Jacomme and Frederic Venot\nE-mail        :  alliance-users@asim.lip6.fr", "Panel_charset4" );
 
   PanelLabel = XtVaCreateManagedWidget( "",

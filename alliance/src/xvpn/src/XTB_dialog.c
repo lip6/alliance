@@ -324,26 +324,25 @@ void XvpnLimitedLoop( MyWidget )
 
     switch ( AnyEvent->type )
     {
-      case KeyRelease    :
+      case ButtonPress   :
       case ButtonRelease : 
  
-        if (WShell == DialogShell) XtDispatchEvent(&Event);
+        if ( WShell == DialogShell )
+        {
+          XtDispatchEventToWidget( 
+                XtWindowToWidget( AnyEvent->display, AnyEvent->window ), 
+			  &Event );
+        }
 
         break;
  
       case KeyPress      :
-      case ButtonPress   :
+      case KeyRelease    :
 
-        if (WShell != DialogShell)
+        if ( WShell != DialogShell )
         {
-          XBell( AnyEvent->display, 0 );
-          XtPopup( WShell, XtGrabNone ); 
+          AnyEvent->window = XtWindow( WShell );
         }
-        else
-        {
-          XtDispatchEvent( &Event );
-        }
-        break;
  
       default :
 
