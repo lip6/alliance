@@ -1,0 +1,124 @@
+.\"   $Id: DECLAR.3,v 1.1 2002/05/31 08:27:45 xtof Exp $
+.\" @(#)DECLAR.3 2.30 UPMC ; VUONG H.N. & PITON D.
+.TH DECLAR 3 "October 1, 1997" "ASIM/LIP6" "GENPAT functions"
+
+.SH NAME
+.PP
+\fBDECLAR\fP, GENPAT Package
+
+.so man1/alc_origin.1
+.SH SYNOPSYS
+.PP
+.nf
+DECLAR("ident",":nb_space","format",mode,size,option);
+.fi
+
+.SH PARAMETERS
+.PP
+.TP 10
+\fIident\fP
+External connector, internal observing points or register's name. For the
+hierarchical descriptions, the path-name of the internal observing points
+or registers must be specified by the syntax : instance1.instance11.name . 
+.TP 10
+\fInb_space\fP
+Specify the number of blank space between each group of value associated to
+the connectors, signals or registers in the output file. 0,1,2,3,4,5,6,7,8,9
+or nothing.
+.TP 10
+\fIformat\fP
+Specify the format that will be used to represent the value associated to the
+connectors, signals or registers. X for Hexadecimal, O for Octal and B for
+Binary.
+.TP 10
+\fImode\fP
+Specify the type of the connectors. IN for Input, OUT for Output, INOUT for
+Input/Output, SIGNAL for internal observing point, REGISTER for register. IN,
+OUT, INOUT, SIGNAL, REGISTER are constants (defines) provided by genpat.
+.TP 10
+\fIsize\fP
+Specify the size of the bused connectors : empty ("") for the scalar
+connectors, "nb1" for the numbered connectors, "nb1 TO nb2" or "(nb1 TO nb2)"
+(nb1 < nb2), "nb1 DOWNTO nb2" or "(nb1 DOWNTO nb2)" (nb2 < nb1) for the
+vectors. Where nb1 and nb2 are integer.
+.TP 10
+\fIoption\fP
+Specify options of the connector. "S" for a spied connector, empty ("")
+for a normal connector.
+
+.SH DESCRIPTION
+.PP
+Describes a set of connectors, signals or registers of the same format, size
+and mode.
+
+.SH EXAMPLE
+.PP
+.nf
+DECLAR("a", ":2", "X", OUT, "3 DOWNTO 0", "S");
+
+describes : a 3, a 2, a 1, a 0
+format    : Hexadecimal.
+mode      : Output.
+option    : Spied connector.
+
+the group is separated of the others with 2 blank spaces.
+result : 
+	out a(3 downto 0) X spy ;;;
+
+DECLAR ("toto", ":", "O", INOUT, "7 TO 11", "");
+
+describes : toto 7, toto 8, toto 9, toto 10, toto 11.
+format    : Octal.
+mode      : Input/Output.
+option    : none.
+
+the group is separated of the following with 0 blank space.
+result :
+	inout toto(7 to 11) O ;
+
+DECLAR ("ck", ":2", "B", IN, "", "");
+
+describes : ck.
+format    : Binary.
+mode      : Input.
+option    : none.
+
+the port is separated of the following with 2 blank spaces.
+result :
+	in ck ;;;
+
+DECLAR ("accu.f", ":", "B", SIGNAL, "", "S");
+
+describes : accu.f .
+format    : Binary.
+mode      : Signal.
+option    : Spied connector.
+
+the signal is separated of the following with 0 blank space.
+result : 
+	signal accu.f spy ;
+
+DECLAR ("accu.reg", ":1", "B", REGISTER, "(3)", "");
+
+describes : accu.reg .
+format    : Binary.
+mode      : Register.
+option    : none.
+
+the signal is separated of the following with 1 blank space.
+result :
+	register accu.reg(3) ;;;;
+
+.fi
+
+.SH WARNING
+.PP
+The DECLAR function from the 4.0 release have a new parameter (option).
+
+.SH SEE ALSO
+.PP
+ARRAY(3), genpat(1), pat(5)
+
+
+.so man1/alc_bug_report.1
+

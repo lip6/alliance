@@ -1,0 +1,83 @@
+.\"   $Id: AFFECT.3,v 1.1 2002/05/31 08:27:45 xtof Exp $
+.\" @(#)AFFECT.3 2.30 Sep 08 1993 UPMC ; VUONG H.N. & PITON D.
+.TH AFFECT 3 "October 1, 1997" "ASIM/LIP6" "GENPAT functions"
+
+.SH NAME
+.PP
+\fBAFFECT\fP, GENPAT Package
+
+.so man1/alc_origin.1
+.SH SYNOPSIS
+.PP
+.nf
+AFFECT ("pattern_date", "ident", "value");
+.fi
+
+.SH PARAMETERS
+.PP
+.TP 10
+\fIpattern_date\fP
+: pattern date which may be either : integer (absolute date) or + integer
+(relative date, the date of the current pattern (last modified using INIT
+or AFFECT) is the reference). All dates are supposed to be expressed in 
+the same time unit which may be set only once using SETTUNIT.
+.TP 10
+\fIident\fP
+Either the name of a bused signal or a scalar. Vectors must be referenced with
+their names only, or bit per bit. For example, if b(3 downto 0) exists, you
+can affect "b", "b(3)" or "b 3". 
+.TP 10
+\fIvalue\fP
+The value associated with the signal which may be either a based number
+(ex. binary: 0b011 ,hexa:  0x3F, octal: 0o56) or a decimal number. Unknown
+value (value where a '*' appears), can be used when dealing with an output,
+a signal, a register or an input/output when this last one is to be tested. 
+Star ('*') can appears everywhere in a BASED number, but the result will be a
+"full star" value. (For example, "0B0*10" and "0B***" would give the same
+result.) AFFECT is doing automatically the transformation of the value into
+a "forced" value or a "tested" value except for the bidirectional connectors
+affectation. When and bidirectional is to be tested, a '?' character must be
+added before the value (example : "?0x45f*" instead of "0x45f*").
+
+.SH DESCRIPTION
+.PP
+"Affect" a value to a signal. This value will be apllied to the signal, at
+the specified simulation date, until the end of the simulation or until a new
+value is affected to the signal. Beware : Inputs have to be affected at the
+begining of the simulation (first pattern at 0 ps). By default, signals
+(except Inputs) are affected with a "full star" value at the first pattern.
+
+.PP
+This fonction also set the current pattern.
+
+.SH EXAMPLES
+.PP
+.nf
+SETTUNIT("ps");
+AFFECT ("5", "b", "0B1");
+result :            b
+<      5 ps> :.....1...;
+.fi
+
+.PP
+At simulation date 0 ps the signal b(3 downto 0) receives the value "0001".
+This value will be kept until the end of the simulation if no more affectation
+is made.
+
+.nf
+SETTUNIT("ns");
+AFFECT ("0", "b", "0B0");
+AFFECT ("2", "b", "0B1");
+result :            b
+<      0 ns> :.....0...;
+<      2 ns> :.....1...;
+.fi
+
+
+.SH SEE ALSO
+.PP
+genpat(1), pat(5)
+
+
+.so man1/alc_bug_report.1
+

@@ -1,0 +1,62 @@
+.\"   $Id: INIT.3,v 1.1 2002/05/31 08:27:45 xtof Exp $
+.\" @(#)INIT.3 2.30  UPMC ; VUONG H.N. & PITON D.
+.TH INIT 3 "October 1, 1997" "ASIM/LIP6" "GENPAT functions"
+
+.SH NAME
+.PP
+\fBINIT\fP, GENPAT Package
+
+.so man1/alc_origin.1
+.SH SYNOPSIS
+.PP
+.nf
+INIT("pattern_date","ident","value");
+.fi
+
+.SH PARAMETERS
+.PP
+.TP 10
+\fIpattern_date\fP
+: pattern date which may be either : integer (absolute date) or + integer
+(relative date, the date of the current pattern (last modified using INIT
+or AFFECT) is the reference). All dates are supposed to be expressed in
+the same time unit which may be set only once using SETTUNIT.
+
+.TP 10
+\fIident\fP
+Either the name of a bused register or a simple register. Path-name must be
+specified by the syntax : instance1.instance11.name
+.TP 10
+\fIvalue\fP
+The value associated with the signal which may be either a based number (ex.
+0B011 or 0H3F) or a decimal.
+
+.SH DESCRIPTION
+.PP
+Initialize registers at indicated values and set current pattern.
+
+.SH EXAMPLE
+.PP
+.nf
+SETTUNIT("ns");
+INIT( "25","regt","0B1");
+INIT("+50","y 3 downto 0","0xF");
+
+result :
+At simulation time 25 ns, the register named regt receive "1"
+	regt <= B"1" ;
+<   25 ns> : .............;
+
+At simulation time +50 ns, (related to the date of the current pattern),
+the vector y is affected with the value 15 in decimal or F in hexadecimal.
+	regt <= X"F" ;
+<   75 ns> : .............;
+.fi
+
+.SH SEE ALSO
+.PP
+genpat(1), pat(5), AFFECT(3)
+
+
+.so man1/alc_bug_report.1
+
