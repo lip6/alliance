@@ -408,7 +408,8 @@ PPlacement::Init(lofig* fig, int NbRows)
     PRow::PSubRows::iterator subrfirst = (*rfirst)->GetSubRows().begin();
     
     PIns* InsInserting = *iptfirst;
-    while(1) {
+    while(1) 
+    {
         int NbOfBins;
         int BinNumber;
             
@@ -441,7 +442,8 @@ PPlacement::Init(lofig* fig, int NbRows)
 		subrfirst = (*rfirst)->GetSubRows().begin();
                 NbOfBins = (*subrfirst)->GetNBins();
                 BinNumber = 0;
-                while (iptfirst != ClassedInss.end()) {
+                while (iptfirst != ClassedInss.end()) 
+		{
                     if ((*iptfirst)->GetWidth() <=
                            (*subrfirst)->GetWidth() - (*subrfirst)->GetSize())
                     {
@@ -477,6 +479,8 @@ PPlacement::Init(lofig* fig, int NbRows)
                         }
                         rfirst = _rows.begin();
 			subrfirst = (*rfirst)->GetSubRows().begin();
+			NbOfBins = (*subrfirst)->GetNBins();
+			BinNumber = 0;
                         InsInserting = *iptfirst;
                     }
                 }
