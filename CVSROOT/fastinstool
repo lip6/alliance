@@ -3,11 +3,12 @@
 PATH=/asim/gnu/bin:/usr/ucb:/usr/etc:/bin:/usr/bin:/usr/local/bin:${PATH}
 export PATH
 
-DATE=`date +"%Y.%m.%d_%H.%M.%S"`
+#DATE=`date +"%Y.%m.%d_%H.%M.%S"`
+DATE=`date +"%Y.%m.%d"`
 LABO=/users/soft5/newlabo/alliance
 
 COPYTHIS=\*
-COPYTHIS=asimut
+#COPYTHIS=asimut
 
 cd /users/soft5/newlabo/cvstree/alliance/archi
 
@@ -17,19 +18,23 @@ for ARCHI in Linux_elf Linux SunOS Solaris
  do
 #    echo %%%%%% $FILE
     cp -f $FILE /users/soft5/newlabo/alliance/archi/$ARCHI/bin/`basename $FILE`.$DATE
+    chmod ug+rw /users/soft5/newlabo/alliance/archi/$ARCHI/bin/`basename $FILE`.$DATE
     ln -f -s /users/soft5/newlabo/alliance/archi/$ARCHI/bin/`basename $FILE`.$DATE /users/soft5/newlabo/alliance/archi/$ARCHI/bin/`basename $FILE`
+    chmod ug+rw /users/soft5/newlabo/alliance/archi/$ARCHI/bin/`basename $FILE`
 done
 
   for TRUC in /users/soft5/newlabo/cvstree/alliance/archi/$ARCHI/lib/$COPYTHIS
   do
 #    echo %%%%%% $TRUC
     cp -f $TRUC /users/soft5/newlabo/alliance/archi/$ARCHI/lib/`basename $TRUC`
+    chmod ug+rw /users/soft5/newlabo/alliance/archi/$ARCHI/lib/`basename $TRUC`
   done
 
   for TRUC in /users/soft5/newlabo/cvstree/alliance/archi/$ARCHI/include/$COPYTHIS
   do
 #    echo %%%%%% $TRUC
     cp -f $TRUC /users/soft5/newlabo/alliance/archi/$ARCHI/include/`basename $TRUC`
+    chmod ug+rw /users/soft5/newlabo/alliance/archi/$ARCHI/include/`basename $TRUC`
   done
 
 done
