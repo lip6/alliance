@@ -40,8 +40,6 @@ GRAAL = echo
 # GRAAL      = $(ALLIANCE_TOP)/bin/graal
 DREAL = echo
 # DREAL      = $(ALLIANCE_TOP)/bin/dreal
-GENVIEW = echo
-# GENVIEW    = $(ALLIANCE_TOP)/bin/genview
 
 ############################
 #
@@ -99,10 +97,14 @@ ENV_SL       = MBK_TARGET_LIB=$(SCR);       export MBK_TARGET_LIB;       \
                MBK_VSS=vss;                 export MBK_VSS
 
 # Set the Rectangle Data Structure environment
-ENV_RDS      = RDS_TECHNO_NAME=$(ALLIANCE_TOP)/etc/prol10_11.rds;                    \
-                                           export RDS_TECHNO_NAME;       \
-               RDS_IN=cif;                 export RDS_IN;                \
-               RDS_OUT=cif;                export RDS_OUT;               \
+ENV_REAL     = RDS_TECHNO_NAME=$(ALLIANCE_TOP)/etc/prol10_11.rds; \
+               export RDS_TECHNO_NAME
+
+ENV_SYMB     = RDS_TECHNO_NAME=$(ALLIANCE_TOP)/etc/cmos_11.rds; \
+               export RDS_TECHNO_NAME
+
+ENV_RDS      = RDS_IN=cif;                 export RDS_IN; \
+               RDS_OUT=cif;                export RDS_OUT; \
                MBK_WORK_LIB=.;             export MBK_WORK_LIB
 
 ############################
@@ -193,9 +195,11 @@ clean_layout  :
 	rm -f ./mclib/CATAL
 	rm -f *.al
 	rm -f lvx_result_*
+	rm -f *.drc
+	rm -f drc_result_*
 
 clean_real      :
-	rm -f dlxm_chip.cif
+	rm -f *.cif
 
 ############################
 #
@@ -550,8 +554,8 @@ dlxm_ctl.ap : dlxm_ctl.vst dlxm_ctl.scr
 	$(ENV_VST);                                                          \
 	$(ENV_AP);                                                           \
 	$(SCR_EXE) -p -r -i 3000 -l 5 -a 5 dlxm_ctl; \
+	$(ENV_RDS);  $(ENV_SYMB); \
 	$(GRAAL) -l dlxm_ctl
-	$(GENVIEW) -l dlxm_ctl
 
 #####################################
 #
@@ -565,11 +569,12 @@ dlxm_ctl.al : dlxm_ctl.ap
 	@ MBK_CATA_LIB=$(SCR);   export MBK_CATA_LIB;                        \
 	$(ENV_AL);                                                           \
 	$(ENV_AP);                                                           \
+	$(ENV_RDS);  $(ENV_SYMB); \
 	$(LYNX) -v dlxm_ctl dlxm_ctl
 
 #####################################
 #
-# Netlist comparaison
+# Netlist comparison
 #
 #    - Call LVX
 #
@@ -622,11 +627,12 @@ dlxm_dpt.al : dlxm_dpt.ap
 	@ MBK_CATA_LIB=./mclib:$(ALL);               export MBK_CATA_LIB;    \
 	$(ENV_AL);                                                           \
 	$(ENV_AP);                                                           \
+	$(ENV_RDS);  $(ENV_SYMB); \
 	$(LYNX) -v dlxm_dpt dlxm_dpt
 
 #####################################
 #
-# Netlist comparaison
+# Netlist comparison
 #
 #   - Call LVX
 #
@@ -669,8 +675,8 @@ dlxm_core.ap : dlxm_core.c dlxm_dpt.ap dlxm_ctl.ap
 	$(ENV_AP);                                                           \
 	$(GENLIB) -v dlxm_core;                                              \
 	$(BBR) dlxm_core -v -o dlxm_core vdd 12 vss 12; \
+	$(ENV_RDS);  $(ENV_SYMB); \
 	$(GRAAL) -l dlxm_core
-	$(GENVIEW) -l dlxm_core
 
 #####################################
 #
@@ -684,11 +690,12 @@ dlxm_core.al : dlxm_core.ap
 	@ MBK_CATA_LIB=./mclib:$(ALL);   export MBK_CATA_LIB;                \
 	$(ENV_AL);                                                           \
 	$(ENV_AP);                                                           \
+	$(ENV_RDS);  $(ENV_SYMB); \
 	$(LYNX) -v dlxm_core dlxm_core
 
 #####################################
 #
-# Netlist comparaison
+# Netlist comparison
 #
 #   - Call LVX
 #
@@ -713,7 +720,7 @@ lvx_result_core : dlxm_core.al
 #
 #####################################
 
-dlxm_routing : core_routing lvx_result_dlxm
+dlxm_routing : core_routing lvx_result_dlxm drc_result_dlxm
 
 #####################################
 #
@@ -728,8 +735,8 @@ dlxm_chip.ap : dlxm_core.ap dlxm_chip.rin
 	$(ENV_VST);                                                          \
 	$(ENV_AP);                                                           \
 	$(RING_EXE) dlxm_chip dlxm_chip; \
+	$(ENV_RDS);  $(ENV_SYMB); \
 	$(GRAAL) -l dlxm_chip
-	$(GENVIEW) -l dlxm_chip
 
 #####################################
 #
@@ -743,11 +750,12 @@ dlxm_chip.al : dlxm_chip.ap
 	@ MBK_CATA_LIB=$(ALL);   export MBK_CATA_LIB;                        \
 	$(ENV_AL);                                                           \
 	$(ENV_AP);                                                           \
+	$(ENV_RDS);  $(ENV_SYMB); \
 	$(LYNX) -v dlxm_chip dlxm_chip
 
 #####################################
 #
-# Netlist comparaison
+# Netlist comparison
 #
 #   - Call LVX
 #
@@ -759,6 +767,24 @@ lvx_result_dlxm : dlxm_chip.al
 	@ MBK_CATA_LIB=$(ALL); export MBK_CATA_LIB;                      \
 	$(LVX) vst al dlxm_chip dlxm_chip
 	touch lvx_result_dlxm
+
+#####################################
+#
+# Design Rules Check
+#
+#   - Call DRUC
+#
+#   - Create a file for makefile dependances
+#
+#####################################
+
+drc_result_dlxm : dlxm_chip.ap
+	@MBK_CATA_LIB=./mclib:$(ALL); export MBK_CATA_LIB; \
+	$(ENV_RDS); $(ENV_SYMB);                        \
+	$(ENV_AP);                                      \
+	$(DRUC) dlxm_chip
+	touch drc_result_dlxm
+
 
 #####################################
 #
@@ -780,6 +806,7 @@ dlxm_real : physical dlxm_chip.cif
 
 dlxm_chip.cif : dlxm_chip.ap
 	@ MBK_CATA_LIB=./mclib:$(ALL);        export MBK_CATA_LIB;           \
+	$(ENV_REAL); \
 	$(ENV_RDS);                                                          \
 	$(ENV_AP);                                                           \
 	$(S2R) dlxm_chip; \
