@@ -70,6 +70,12 @@ fsmfig_list  *FmiParseFsm( FsmFilename )
   
   FsmFigure = getfsmfig( FsmFilename );
 
+  if ( IsFsmFigMulti( FsmFigure ) )
+  {
+    fprintf( stderr, "Multi FSM not supported !\n" );
+    autexit( 1 );
+  }
+
  /* on detache l'état star */
   
   ScanState = FsmFigure->STAR_STATE;
