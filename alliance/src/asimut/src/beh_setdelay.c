@@ -15,7 +15,7 @@
 #include "bhl.h"
 #include "beh_delay.h"
 
-static char *beh_gettimeunit(time_unit)
+char *beh_gettimeunit(time_unit)
 
 unsigned char time_unit;
   {

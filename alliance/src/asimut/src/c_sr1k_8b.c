@@ -143,7 +143,7 @@ unsigned char *pt_mem   ;
   unsigned int  red_val       = 0;
   unsigned int  state         = READ_ADR;
 
-  name = vhx_GetInstanceName (pt_lkdins);
+  name = (char *)vhx_GetInstanceName (pt_lkdins);
 
   splitname (name, fil_name, &fil_addr, &fil_byte);
 
