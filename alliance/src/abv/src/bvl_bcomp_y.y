@@ -46,6 +46,7 @@
 #include "abe.h"
 
 #include "bvl_utype.h"
+#include "bvl_util.h"
 #include "bvl_byacc.h"
 #include "bvl_bedef.h"
 
@@ -277,6 +278,9 @@ design_file
 		struct beaux *beaux_pnt;
 		struct bebus *bebus_pnt;
 		struct bereg *bereg_pnt;
+		struct berin *berin_pnt;
+		struct beaux *beaux_pred;
+		struct berin *berin_pred;
 
 		/* ###----------------------------------------------### */
 		/*    Checking that each output have at least one driver*/
@@ -291,10 +295,32 @@ design_file
 		  }
 
 		beaux_pnt = BVL_BEFPNT->BEAUX;
+      beaux_pred=NULL;
 		while (beaux_pnt != NULL)
 		  {
-		  if (beaux_pnt->ABL == NULL)
-		    bvl_error (40, beaux_pnt->NAME);
+        if (beaux_pnt->ABL == NULL)
+        {
+          fprintf (stderr,"`%s` Warning %d line %d :",BVL_CURFIL,40,BVL_LINNUM);
+          fprintf (stderr,"signal `%s` never assigned\n",beaux_pnt->NAME);
+          
+          /*removing signal*/
+          if ( beaux_pred ) beaux_pred->NEXT = beaux_pnt->NEXT;
+          else BVL_BEFPNT->BEAUX = beaux_pnt->NEXT;
+
+          /*removing other ref to signal*/
+          berin_pred = NULL;
+          for ( berin_pnt = BVL_BEFPNT->BERIN; berin_pnt; berin_pnt = berin_pnt->NEXT )
+          {
+             if ( berin_pnt->NAME == beaux_pnt->NAME )
+             {
+                 if ( berin_pred ) berin_pred->NEXT = berin_pnt->NEXT;
+                 else BVL_BEFPNT->BERIN = berin_pnt->NEXT;
+                 break;
+             }
+             berin_pred = berin_pnt;
+          }
+        }
+        else beaux_pred = beaux_pnt;
 		  beaux_pnt = beaux_pnt->NEXT;
 		  }
 
