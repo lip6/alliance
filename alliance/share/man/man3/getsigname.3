@@ -1,4 +1,4 @@
-.\"   $Id: getsigname.3,v 1.1 1999/05/31 17:30:22 alliance Exp $
+.\"   $Id: getsigname.3,v 1.2 2002/01/22 19:51:18 xtof Exp $
 .\" @(#)getsigname.2 2.11 91/08/22 ; Labo masi cao-vlsi; Author : Frederic Petrot
 .if t \{\
 .so man1/alc_contents.mac
@@ -34,7 +34,8 @@ Since the signal may result from a flatten, instance names may be concatenated
 to the actual signal name.
 .SH RETURN VALUE
 \fBgetsigname\fP returns the higher hierachy level name, if
-\fIptsig\->NAMECHAIN\fP is not \fBNULL\fP, else \fBNULL\fP is returned.
+\fIptsig\->NAMECHAIN\fP is not \fBNULL\fP, else a name constructed with
+the signal \fBINDEX\fP is returned.
 .SH EXAMPLE
 .ta 3n 6n 9n 12n 15n 18n 21n
 .nf
@@ -46,8 +47,7 @@ to the actual signal name.
 void print_signame(p)
 losig_list \(**p;
 {
-	fprintf(stdout, "signal name : %s\\n", getsigname(p) ? getsigname(p)
-																			: "no name";
+	fprintf(stdout, "signal name : %s\\n", getsigname(p));
 }
 .ft R
 .fi
@@ -58,4 +58,3 @@ losig_list \(**p;
 
 
 .so man1/alc_bug_report.1
-
