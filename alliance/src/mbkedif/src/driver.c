@@ -21,14 +21,19 @@
  * Software Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
  */
  
-/*------------------------------------------------------------------------------*/
-/*                    @(#) MBK TO EDIF Driver                                   */
-/*------------------------------------------------------------------------------*/
-/*version 1.0 : Implemented by Fred Petrot                                      */
-/*version 1.1 : Extended by Mokhtar Hirech (January, 92)                        */
-/*version 1.2 : Extended by Olivier BEAURIN (September, 93)                     */
-/*version 1.2 : Extended by Olivier BEAURIN (November, 93)                      */
-/*------------------------------------------------------------------------------*/
+/*----------------------------------------------------------------------------*/
+/*                    @(#) MBK TO EDIF Driver                                 */
+/*----------------------------------------------------------------------------*/
+/*version 1.0 : Implemented by Fred Petrot                                    */
+/*version 1.1 : Extended by Mokhtar Hirech (January, 92)                      */
+/*version 1.2 : Extended by Olivier BEAURIN (September, 93)                   */
+/*version 1.2 : Extended by Olivier BEAURIN (November, 93)                    */
+/* $Log: driver.c,v $
+/* Revision 1.2  2002/03/14 12:36:30  fred
+/* Makes the correct substitutions in lex and yacc generated files.
+/* Fixing includes in dot c files
+/* ---------------------------------------------------------------------*/
+/*----------------------------------------------------------------------------*/
 
 #include <stdio.h>
 #include <stdlib.h>
