@@ -6,7 +6,7 @@
 #  Alliance CAD system environnement
 #  Usage (in C-shell) : > source alc_env.csh
 #  (C) 1997 Czo  -- <Olivier.Sirol@lip6.fr>
-#  $Id: alc_env.csh.in,v 1.5 1999/09/28 09:16:37 czo Exp $
+#  $Id: alc_env.csh.in,v 1.6 1999/10/12 15:38:47 czo Exp $
 #  Generated from alc_env.csh.in on @DATE@
 
 # $MACHINE and $TOP are the only variables you will
@@ -97,6 +97,7 @@ setenv MBK_VSS           vss
 
 setenv XPAT_PARAM_NAME   $TOP/etc/xpat.par
 setenv XFSM_PARAM_NAME   $TOP/etc/xfsm.par
+setenv XSCH_PARAM_NAME   $TOP/etc/xsch.par
 
 setenv DREAL_TECHNO_NAME $TOP/etc/cmos_7.dreal
 setenv GRAAL_TECHNO_NAME $TOP/etc/cmos_7.graal
