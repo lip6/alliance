@@ -690,7 +690,6 @@ long           line;
   struct vbtyp *ptvbtyp;
 
   name            = namealloc (name);
-
   ptvbtyp         = (struct vbtyp *) autallocheap (sizeof(struct vbtyp));
 
   ptvbtyp->CLASS  = class;

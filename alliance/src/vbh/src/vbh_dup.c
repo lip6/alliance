@@ -448,15 +448,37 @@ static ptype_list *loc_dupvbinst( Instruction )
 |                                                             |
 \------------------------------------------------------------*/
 
-static void loc_dupvbtyp( Figure, DupFigure )
+static vbtyp_list * 
+loc_duponevbtyp( Figure, DupFigure, BeTyp )
 
   vbfig_list *Figure;
   vbfig_list *DupFigure;
-{
   vbtyp_list *BeTyp;
+{
   vbtyp_list *DupTyp;
   vbtyp_list *DupTypeBase;
+
   int         DupTypeIndex;
+
+  if ( BeTyp->INDEX < VBH_MAX_TYPE ) return( NULL );
+  
+  DupTyp = vbh_getvbtyp( DupFigure, BeTyp->NAME );
+  
+  if ( DupTyp != (vbtyp_list *)0 ) return( DupTyp );
+
+  if ( BeTyp->BASE != (vbtyp_list *)0 )
+  {
+    DupTypeBase = vbh_getvbtyp( DupFigure, BeTyp->BASE->NAME );
+
+    if ( DupTypeBase == (vbtyp_list *)0 )
+    {
+      DupTypeBase = loc_duponevbtyp( Figure, DupFigure, BeTyp->BASE );
+    }
+  }
+  else
+  {
+    DupTypeBase = (vbtyp_list *)0;
+  }
 
   DupTypeIndex = 0;
 
@@ -467,35 +489,30 @@ static void loc_dupvbtyp( Figure, DupFigure )
     DupTypeIndex++;
   }
 
-  for ( BeTyp  = Figure->BETYP;
-        BeTyp != (vbtyp_list *)0;
-        BeTyp  = BeTyp->NEXT )
-  {
-    if ( BeTyp->INDEX < VBH_MAX_TYPE ) continue;
-  
-    DupTyp = vbh_getvbtyp( DupFigure, BeTyp->NAME );
-  
-    if ( DupTyp != (vbtyp_list *)0 ) continue;
-  
-    if ( BeTyp->BASE != (vbtyp_list *)0 )
-    {
-      DupTypeBase = vbh_getvbtyp( DupFigure, BeTyp->BASE->NAME );
-    }
-    else
-    {
-      DupTypeBase = (vbtyp_list *)0;
-    }
-
-    DupTyp = vbh_addvbtyp( LocalDupFigure, 
+  DupTyp = vbh_addvbtyp( LocalDupFigure, 
             BeTyp->NAME, BeTyp->LEFT, BeTyp->RIGHT, BeTyp->VALUE, BeTyp->SIZE, 
             BeTyp->BYTE,
             DupTypeBase, DupTypeIndex, (vbfun_list *)0, BeTyp->CLASS, BeTyp->LINE );
 
-    DupTyp->DYNAMIC       = BeTyp->DYNAMIC;
-    DupTyp->DYNAMIC_LEFT  = dupvexexpr( BeTyp->DYNAMIC_LEFT  );
-    DupTyp->DYNAMIC_RIGHT = dupvexexpr( BeTyp->DYNAMIC_RIGHT );
+  DupTyp->DYNAMIC       = BeTyp->DYNAMIC;
+  DupTyp->DYNAMIC_LEFT  = dupvexexpr( BeTyp->DYNAMIC_LEFT  );
+  DupTyp->DYNAMIC_RIGHT = dupvexexpr( BeTyp->DYNAMIC_RIGHT );
 
-    DupTypeIndex++;
+  return( DupTyp );
+}
+
+static void loc_dupvbtyp( Figure, DupFigure )
+
+  vbfig_list *Figure;
+  vbfig_list *DupFigure;
+{
+  vbtyp_list *BeTyp;
+
+  for ( BeTyp  = Figure->BETYP;
+        BeTyp != (vbtyp_list *)0;
+        BeTyp  = BeTyp->NEXT )
+  {
+    loc_duponevbtyp( Figure, DupFigure, BeTyp );
   }
 }
 
