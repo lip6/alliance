@@ -1,8 +1,11 @@
 /*
    ### -------------------------------------------------- ### 
    $Author: hcl $
-   $Date: 2002/03/15 14:37:19 $
+   $Date: 2002/03/20 13:25:50 $
    $Log: findNPointsPath.c,v $
+   Revision 1.2  2002/03/20 13:25:50  hcl
+   SymX bug.
+
    Revision 1.1  2002/03/15 14:37:19  hcl
    Ca roule.
 
@@ -83,7 +86,7 @@
 #include "ocrAstar.h"
 
 static char *res_id =
-    "$Id: findNPointsPath.c,v 1.1 2002/03/15 14:37:19 hcl Exp $";
+    "$Id: findNPointsPath.c,v 1.2 2002/03/20 13:25:50 hcl Exp $";
 
 #define MAX_HT 500
 
@@ -513,6 +516,7 @@ makeExtEquipotentielle(ocrRoutingParameters * i_pParam,
         return;
     }
     // awfull hack... XXX
+    return;
     if (i_pCon->VIR_CON_LIST) {
         //i_pCon->CON = i_pCon->VIR_CON_LIST;
         //i_pCon->VIR_CON_LIST->Z = 2;
@@ -754,6 +758,7 @@ findPathNPoints(ocrRoutingParameters * i_pParam,
                 ocrSignal * i_pSignal, ocrWindow * i_pWindow)
 {
     ocrConnector *l_pCon;
+    ocrConnector *con1, *con2;
     ocrConnector l_NewCon;
     ocrNaturalShort l_bOk;
     ocrNaturalInt l_uLength;
@@ -763,10 +768,33 @@ findPathNPoints(ocrRoutingParameters * i_pParam,
 
     l_pCon = i_pSignal->CON_LIST;
 
+    do {
+        con1 = l_pCon;
+        l_pCon = l_pCon->NEXT;
+        if (!l_pCon) {
+            i_pSignal->NICHT_ZU_ROUTIEREN = 1;
+            i_pSignal->ROUTED = 1;
+            return 0;
+        }
+    } while ((con1->INTEXT == EXTERNAL) && (con1->VIR_CON_LIST == NULL));
+
+    do {
+        con2 = l_pCon;
+        if (!con2) {
+            i_pSignal->NICHT_ZU_ROUTIEREN = 1;
+            i_pSignal->ROUTED = 1;
+            return 0;
+        }
+        l_pCon = l_pCon->NEXT;
+    } while ((con2->INTEXT == EXTERNAL) && (con2->VIR_CON_LIST == NULL));
+
+#if 0
     // Création des connecteurs externes 
+    if (i_pSignal->CON_LIST == NULL)
+        return 0;
+
     if (i_pSignal->CON_LIST->INTEXT == EXTERNAL)
         makeExtEquipotentielle(i_pParam, i_pGrid, i_pWindow, l_pCon);
-
 
     if (i_pSignal->CON_LIST->NEXT == NULL) {
         display(LEVEL, ERROR, "Sig %s has only one connector\n", i_pSignal->NAME);
@@ -776,6 +804,8 @@ findPathNPoints(ocrRoutingParameters * i_pParam,
 
     if (i_pSignal->CON_LIST->NEXT->INTEXT == EXTERNAL)
         makeExtEquipotentielle(i_pParam, i_pGrid, i_pWindow, l_pCon->NEXT);
+#endif
+
     do {
 #if 0
         if (i_pSignal->INDEX == 1) {
@@ -784,7 +814,7 @@ findPathNPoints(ocrRoutingParameters * i_pParam,
 #endif
 
         // Choix des 2 premiers connecteurs
-        l_bOk = chooseInternalConnector(i_pGrid, l_pCon, l_pCon->NEXT, 0);
+        l_bOk = chooseInternalConnector(i_pGrid, con1, con2, 0);
 
         if (l_bOk != OCR_OK) {
             display(LEVEL, DEBUG, "%s\n%s%ld\n",
@@ -792,6 +822,7 @@ findPathNPoints(ocrRoutingParameters * i_pParam,
             return OCRNATURALINT_MAX;
         }
 
+#if 0
         display(LEVEL, DEBUG, "(%ld,%ld,%d) -> (%ld,%ld,%d)\n",
                 l_pCon->CON->X * 5/* 1 * SCALE_X*/,
                 l_pCon->CON->Y * 5/* 1 * SCALE_X*/,
@@ -799,20 +830,23 @@ findPathNPoints(ocrRoutingParameters * i_pParam,
                 l_pCon->NEXT->CON->X * 5/* 1 * SCALE_X*/,
                 l_pCon->NEXT->CON->Y * 5/* 1 * SCALE_X*/,
                 l_pCon->NEXT->CON->Z);
+#endif
 
         /* routage bipoint */
-        l_uLength = biroute (i_pParam, i_pGrid, l_pCon, l_pCon->NEXT, i_pSignal, AS_K_SEG);
+        l_uLength = biroute (i_pParam, i_pGrid, con1, con2, i_pSignal, AS_K_SEG);
 
-//        l_uLength = FINDPATH (i_pParam, i_pGrid,
-//                              l_pCon->CON->X,
-//                              l_pCon->CON->Y,
-//                              l_pCon->CON->Z,
-//                              l_pCon->NEXT->CON->X,
-//                              l_pCon->NEXT->CON->Y,
-//                              l_pCon->NEXT->CON->Z,
-//                              i_pSignal->INDEX, i_pSignal);
-//      if ( ((l_pCon->CON->Z) > 0) || ((l_pCon->NEXT->CON->Z) > 0) )
-//              printf ("routed Z1=%d, Z2=%d for %s\n", l_pCon->CON->Z, l_pCon->NEXT->CON->Z, i_pSignal->NAME);
+#if 0
+        l_uLength = FINDPATH (i_pParam, i_pGrid,
+                              l_pCon->CON->X,
+                              l_pCon->CON->Y,
+                              l_pCon->CON->Z,
+                              l_pCon->NEXT->CON->X,
+                              l_pCon->NEXT->CON->Y,
+                              l_pCon->NEXT->CON->Z,
+                              i_pSignal->INDEX, i_pSignal);
+      if ( ((l_pCon->CON->Z) > 0) || ((l_pCon->NEXT->CON->Z) > 0) )
+              printf ("routed Z1=%d, Z2=%d for %s\n", l_pCon->CON->Z, l_pCon->NEXT->CON->Z, i_pSignal->NAME);
+#endif
 
     }
     while (l_uLength == OCRNATURALINT_MAX);
@@ -820,25 +854,25 @@ findPathNPoints(ocrRoutingParameters * i_pParam,
     l_uLengthTotal += l_uLength;
 
     // ajout de 2 VIAs
-    if (l_pCon->INTEXT == INTERNAL) {
-        if (l_pCon->CON->Z == 0) {
-            l_pVia = createVirtualConnector(l_pCon->CON->X,
-                                            l_pCon->CON->Y,
-                                            l_pCon->CON->Z, 0, 0);
+    if (con1->INTEXT == INTERNAL) {
+        if (con1->CON->Z == 0) {
+            l_pVia = createVirtualConnector(con1->CON->X,
+                                            con1->CON->Y,
+                                            con1->CON->Z, 0, 0);
             addVirtualConnector(&l_pViaList, l_pVia);
         }
     }
 
-    if (l_pCon->NEXT->INTEXT == INTERNAL) {
-        if (l_pCon->NEXT->CON->Z == 0) {
-            l_pVia = createVirtualConnector(l_pCon->NEXT->CON->X,
-                                            l_pCon->NEXT->CON->Y,
-                                            l_pCon->NEXT->CON->Z, 0, 0);
+    if (con2->INTEXT == INTERNAL) {
+        if (con2->CON->Z == 0) {
+            l_pVia = createVirtualConnector(con2->CON->X,
+                                            con2->CON->Y,
+                                            con2->CON->Z, 0, 0);
             addVirtualConnector(&l_pViaList, l_pVia);
         }
     }
 
-    l_pCon = l_pCon->NEXT;
+    l_pCon = con2;
     /*goto findNPointsPath_fin;*/ // XXX XXX XXX XXX XXX XXX XXX XXX XXX XXX XXX
 
     while (l_pCon->NEXT != NULL) {
@@ -854,11 +888,13 @@ findPathNPoints(ocrRoutingParameters * i_pParam,
         l_NewCon.CON = NULL;
 
         do {
+#if 0
             // Création des connecteurs virtuels externes 
             // si le connecteur est EXTERNE
             if (l_pCon->NEXT->INTEXT == EXTERNAL)
                 makeExtEquipotentielle(i_pParam, i_pGrid, i_pWindow,
                                        l_pCon->NEXT);
+#endif
 
             // Recherche d'un point de contact
             l_bOk = 0;

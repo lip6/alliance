@@ -1,8 +1,11 @@
 /*
    ### -------------------------------------------------- ### 
    $Author: hcl $
-   $Date: 2002/03/15 14:37:27 $
+   $Date: 2002/03/20 13:25:57 $
    $Log: ocrWindow.c,v $
+   Revision 1.2  2002/03/20 13:25:57  hcl
+   SymX bug.
+
    Revision 1.1  2002/03/15 14:37:27  hcl
    Ca roule.
 
@@ -45,7 +48,7 @@
 #include "ocrConnectorUtil.h"
 
 static char *res_id =
-    "$Id: ocrWindow.c,v 1.1 2002/03/15 14:37:27 hcl Exp $";
+    "$Id: ocrWindow.c,v 1.2 2002/03/20 13:25:57 hcl Exp $";
 
 extern ocrOption *g_pOption;
 
@@ -53,7 +56,6 @@ extern ocrOption *g_pOption;
 
 #define MAX_HT 500
 #define PITCH   5
-#define SCALE_X   100
 
 /**
  * création d'une nouvelle fenetre
@@ -95,10 +97,12 @@ ocrNaturalInt
 isVCInWindow(ocrVirtualConnector * i_pVirCon, ocrWindow * i_pWindow)
 {
     if ((i_pVirCon->X >= i_pWindow->XMIN) &&
-        (i_pVirCon->X < i_pWindow->XMAX) &&
+        (i_pVirCon->X <= i_pWindow->XMAX) &&
         (i_pVirCon->Y >= i_pWindow->YMIN)
-        && (i_pVirCon->Y < i_pWindow->YMAX))
+        && (i_pVirCon->Y <= i_pWindow->YMAX))
         return 1;
+    display (LEVEL, INFO, "oulala : x:%ld?>%ld, y:%ld?>%ld, z:%ld\n", i_pVirCon->X, i_pWindow->XMAX, i_pVirCon->Y, i_pWindow->YMAX, i_pVirCon->Z);
+    abort();
     return 0;
 }
 
@@ -566,6 +570,7 @@ void initWindow(ocrRoutingDataBase * i_pDataBase)
         (ocrWindow **) mbkalloc((i_pDataBase->NB_F + 1) *
                                 sizeof(ocrWindow *));
 
+
     // création des fenetres
     for (i = 0; i <= i_pDataBase->NB_F; i++)
         i_pDataBase->WINDOWS[i] = newWindow(i);
@@ -574,7 +579,7 @@ void initWindow(ocrRoutingDataBase * i_pDataBase)
     // l_uRange = nb de rangées
     // l_uFace = nb de fenetres par faces
     l_uFace = sqrt(i_pDataBase->NB_F);
-    l_uRange = (i_pDataBase->YAB2 - i_pDataBase->YAB1) / 500 / 10;
+    l_uRange = (i_pDataBase->YAB2 - i_pDataBase->YAB1) / (10 * SCALE_X * PITCH);
     display(LEVEL, VERBOSE, "o Layout has %ld rows\n", l_uRange);
 
     for (y = 1; y <= l_uFace; y++) {
@@ -582,10 +587,10 @@ void initWindow(ocrRoutingDataBase * i_pDataBase)
             i = (y - 1) * l_uFace + x;
             i_pDataBase->WINDOWS[i]->XMIN =
                 (x - 1) * (i_pDataBase->XAB2 -
-                           i_pDataBase->XAB1) / 500.0 / (l_uFace);
+                           i_pDataBase->XAB1) / 50.0 / (l_uFace);
             i_pDataBase->WINDOWS[i]->XMAX =
                 x * (i_pDataBase->XAB2 -
-                     i_pDataBase->XAB1) / 500.0 / (l_uFace) - 0;
+                     i_pDataBase->XAB1) / 50.0 / (l_uFace) - 0;
 
             i_pDataBase->WINDOWS[i]->YMIN =
                 10 * (int) ((y - 1) *
@@ -595,6 +600,19 @@ void initWindow(ocrRoutingDataBase * i_pDataBase)
                 0;
         }
     }
+
+#if 0
+    i_pDataBase->WINDOWS[0] = newWindow(0);
+    i_pDataBase->WINDOWS[1] = newWindow(1);
+    i_pDataBase->WINDOWS[0]->XMIN = 0;
+    i_pDataBase->WINDOWS[0]->YMIN = 0;
+    i_pDataBase->WINDOWS[0]->XMAX = (i_pDataBase->XAB2 - i_pDataBase->XAB1) / (PITCH * SCALE_X);
+    i_pDataBase->WINDOWS[0]->YMAX = (i_pDataBase->YAB2 - i_pDataBase->YAB1) / (PITCH * SCALE_X);
+    i_pDataBase->WINDOWS[1]->XMIN = 0;
+    i_pDataBase->WINDOWS[1]->YMIN = 0;
+    i_pDataBase->WINDOWS[1]->XMAX = (i_pDataBase->XAB2 - i_pDataBase->XAB1) / (PITCH * SCALE_X);
+    i_pDataBase->WINDOWS[1]->YMAX = (i_pDataBase->YAB2 - i_pDataBase->YAB1) / (PITCH * SCALE_X);
+#endif
 }
 
 /**

@@ -1,8 +1,11 @@
 /*
    ### -------------------------------------------------- ### 
    $Author: hcl $
-   $Date: 2002/03/15 14:37:20 $
+   $Date: 2002/03/20 13:25:50 $
    $Log: ocrRouter.c,v $
+   Revision 1.2  2002/03/20 13:25:50  hcl
+   SymX bug.
+
    Revision 1.1  2002/03/15 14:37:20  hcl
    Ca roule.
 
@@ -1156,9 +1159,12 @@ routingWindow(ocrRoutingDataBase * i_pDataBase, phfig_list * i_pPhFig)
     display(LEVEL, INFO, "o Failures = %ld\n", i_pDataBase->NB_UNROUTED);
 
     {
+        ocrNaturalInt chk;
         display (LEVEL, INFO, "o Unrouted signals :\n");
+        chk = 0;
         for (i = 0; i < i_pDataBase->NB_SIGNAL - 1; i++)
             if (i_pDataBase->SIGNAL[i]->ROUTED != 1) {
+                chk = 1;
                 if (i_pDataBase->SIGNAL[i]->INTEXT == INTERNAL) {
                     display(LEVEL, INFO,
                             " %s\n",
@@ -1168,6 +1174,8 @@ routingWindow(ocrRoutingDataBase * i_pDataBase, phfig_list * i_pPhFig)
                             " %s\n",
                             i_pDataBase->SIGNAL[i]->NAME);
             }
+        if (!chk)
+            display (LEVEL, INFO, " none\n");
     }
     return wire_len;
 }
@@ -1415,7 +1423,7 @@ int main(int argc, char **argv)
 
             // dumpDataBase (l_pDataBase,stdout);
             routingWindow(l_pDataBase, l_pPhFig);
-            linkWindow(l_pDataBase, i);
+            //linkWindow(l_pDataBase, i);
 
             deleteWindowArray(l_pDataBase, i);
         }

@@ -4,8 +4,11 @@
 /*
    ### -------------------------------------------------- ###
    $Author: hcl $
-   $Date: 2002/03/15 14:37:19 $
+   $Date: 2002/03/20 13:25:50 $
    $Log: ocrAstar.c,v $
+   Revision 1.2  2002/03/20 13:25:50  hcl
+   SymX bug.
+
    Revision 1.1  2002/03/15 14:37:19  hcl
    Ca roule.
 
@@ -110,7 +113,7 @@ ocrNaturalInt eval (ocrWSegment *segment_source, ocrWSegment *segment_dest) {
          )
         ;
 
-    return (dx + dy) + dz * param->VIA_COST;
+    return (dx + dy) + dz /* param->VIA_COST*/;
 }
 
 /* Distance between segment and nearest segment of an equi */
@@ -155,10 +158,10 @@ ocrNaturalInt kost (ocrWSegment *segment_source, ocrWSegment *segment_dest) {
             ;
         res += (
                 (segment_dest->LAYER > segment_source->LAYER) ?
-                1000 + segment_dest->LAYER - segment_source->LAYER :
+                100 + segment_dest->LAYER - segment_source->LAYER :
                 segment_source->LAYER - segment_dest->LAYER
                )
-            * param->VIA_COST
+            /* param->VIA_COST*/
             ;
 
         return res;
@@ -178,8 +181,8 @@ ocrNaturalInt kost (ocrWSegment *segment_source, ocrWSegment *segment_dest) {
             (zs - segment_source->LAYER) :
             (segment_source->LAYER - zs)
            )
-           *
-           param->VIA_COST
+           /*
+           param->VIA_COST*/
            ;
     }
 }
@@ -624,7 +627,7 @@ ocrNaturalInt make_segments (ocrWSegment *segment_dest,
     ocrWSegment *seg, *nseg, *root, *aux;
     ocrNaturalInt xp, yp, xn, yn;
     ocrNaturalInt p1, p2, pp1, pp2;
-    ocrNaturalInt pi;
+    /*ocrNaturalInt pi;*/
     ocrNaturalInt distance = 0;
     ocrNaturalInt nb_segs = 0;
 
@@ -674,7 +677,7 @@ ocrNaturalInt make_segments (ocrWSegment *segment_dest,
         xn = getWSegXCoord (param, root, xp);
         yn = getWSegYCoord (param, root, yp);
         display (LEVEL, DEBUG, "p (%ld, %ld, %ld) -> (%ld, %ld, %ld) : d=%ld, c=%ld, h=%ld, hc=%ld\n", xp, yp, seg->LAYER, xn, yn, seg->LAYER, distance, seg->COST, seg->H, seg->HCOST);
-        ((getWSegDirection(param, seg) == ocrHorizontal) ? (pi = param->PITCH_H, p1 = xp, p2 = xn) : (pi = param->PITCH_V, p1 = yp, p2 = yn) );
+        ((getWSegDirection(param, seg) == ocrHorizontal) ? (p1 = xp, p2 = xn) : (p1 = yp, p2 = yn) );
         ( (p1 < p2) ? (pp1 = p1, pp2 = p2) : (pp1 = p2, pp2 = p1) );
         nseg = splitWSegment (param, grid, seg,
                               pp1, pp2,
@@ -682,7 +685,7 @@ ocrNaturalInt make_segments (ocrWSegment *segment_dest,
                              );
         nseg->NEXT = aux;
         aux = nseg;
-        distance += pi * (pp2 - pp1);
+        distance += (pp2 - pp1);
         nb_segs ++;
         xp = xn;
         yp = yn;
@@ -694,7 +697,7 @@ ocrNaturalInt make_segments (ocrWSegment *segment_dest,
     xn = xs;
     yn = ys;
     /*root = seg->ROOT;*/
-    ((getWSegDirection(param, seg) == ocrHorizontal) ? (pi = param->PITCH_H, p1 = xp, p2 = xn) : (pi = param->PITCH_V, p1 = yp, p2 = yn) );
+    ((getWSegDirection(param, seg) == ocrHorizontal) ? (p1 = xp, p2 = xn) : (p1 = yp, p2 = yn) );
     ( (p1 < p2) ? (pp1 = p1, pp2 = p2) : (pp1 = p2, pp2 = p1) );
     nseg = splitWSegment (param, grid, seg,
                           pp1, pp2,
@@ -703,7 +706,7 @@ ocrNaturalInt make_segments (ocrWSegment *segment_dest,
     nseg->NEXT = aux;
     i_pSignal->SEGMENT = nseg;
 
-    distance += pi * (pp2 - pp1);
+    distance += (pp2 - pp1);
     nb_segs ++;
     display (LEVEL, DEBUG, "p (%ld, %ld, %ld) -> (%ld, %ld, %ld) : %ld\n", xp, yp, seg->LAYER, xn, yn, zs, distance);
     display (LEVEL, DEBUG, "c source (%ld, %ld, %ld)\n", xs, ys, zs);
@@ -715,7 +718,7 @@ ocrNaturalInt make_segments (ocrWSegment *segment_dest,
 
     display (LEVEL, DEBUG, "i path length : %ld\n", distance);
 
-    return distance;
+    return distance * 5;
 }
 
 

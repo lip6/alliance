@@ -1,8 +1,11 @@
 /*
    ### -------------------------------------------------- ### 
    $Author: hcl $
-   $Date: 2002/03/15 14:37:26 $
+   $Date: 2002/03/20 13:25:57 $
    $Log: ocrConnectorUtil.c,v $
+   Revision 1.2  2002/03/20 13:25:57  hcl
+   SymX bug.
+
    Revision 1.1  2002/03/15 14:37:26  hcl
    Ca roule.
 
@@ -678,18 +681,18 @@ ocrNaturalInt add_calu_cv(ocrConnector * i_pCon, phfig_list * i_pPhModel,
 #ifdef OCR_DEBUG
         printf("SYM_X\n");
 #endif
-        x1 = (i_pPhIns->XINS - i_pPhModel->XAB1) + i_pPhModel->XAB2 - i_pPhSeg->X1;
+        x1 = (i_pPhIns->XINS) + i_pPhModel->XAB2 - i_pPhSeg->X1;
         y1 = (i_pPhIns->YINS - i_pPhModel->YAB1) + i_pPhSeg->Y1;
-        x2 = (i_pPhIns->XINS - i_pPhModel->XAB1) + i_pPhModel->XAB2 - i_pPhSeg->X2;
+        x2 = (i_pPhIns->XINS) + i_pPhModel->XAB2 - i_pPhSeg->X2;
         y2 = (i_pPhIns->YINS - i_pPhModel->YAB1) + i_pPhSeg->Y2;
         break;
     case SYMXY:
 #ifdef OCR_DEBUG
         printf("SYMXY\n");
 #endif
-        x1 = (i_pPhIns->XINS - i_pPhModel->XAB1) + i_pPhModel->XAB2 - i_pPhSeg->X1;
+        x1 = (i_pPhIns->XINS) + i_pPhModel->XAB2 - i_pPhSeg->X1;
         y1 = (i_pPhIns->YINS - i_pPhModel->YAB1) + i_pPhModel->YAB2 - i_pPhSeg->Y1;
-        x2 = (i_pPhIns->XINS - i_pPhModel->XAB1) + i_pPhModel->XAB2 - i_pPhSeg->X2;
+        x2 = (i_pPhIns->XINS) + i_pPhModel->XAB2 - i_pPhSeg->X2;
         y2 = (i_pPhIns->YINS - i_pPhModel->YAB1) + i_pPhModel->YAB2 - i_pPhSeg->Y2;
         break;
     default:

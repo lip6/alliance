@@ -1,8 +1,11 @@
 /*
    ### -------------------------------------------------- ### 
    $Author: hcl $
-   $Date: 2002/03/15 14:37:23 $
+   $Date: 2002/03/20 13:25:56 $
    $Log: ocrWRoutingUtil.c,v $
+   Revision 1.2  2002/03/20 13:25:56  hcl
+   SymX bug.
+
    Revision 1.1  2002/03/15 14:37:23  hcl
    Ca roule.
 
@@ -217,9 +220,10 @@ void add_phseg_to_grid(ocrRoutingDataBase * i_pDataBase,
 
 {
 
-    int x1 = 0, y1 = 0, x2 = 0, y2 = 0;
-    int layer, mode;
-    int i;
+    ocrNaturalInt x1 = 0, y1 = 0, x2 = 0, y2 = 0;
+    double fx1, fx2, fy1, fy2;
+    ocrNaturalInt layer, mode;
+    ocrNaturalInt i;
     ocrWSegment *seg;
 
     switch (i_pPhSeg->LAYER) {
@@ -361,18 +365,19 @@ void add_phseg_to_grid(ocrRoutingDataBase * i_pDataBase,
 #ifdef OCR_DEBUG                                   
             printf("SYM_X\n");                     
 #endif                                             
-            x1 = (i_pPhIns->XINS - i_pPhModel->XAB1) + i_pPhModel->XAB2 - i_pPhSeg->X1;
+            x1 = (i_pPhIns->XINS) + i_pPhModel->XAB2 - i_pPhSeg->X1;
             y1 = (i_pPhIns->YINS - i_pPhModel->YAB1) + i_pPhSeg->Y1;
-            x2 = (i_pPhIns->XINS - i_pPhModel->XAB1) + i_pPhModel->XAB2 - i_pPhSeg->X2;
+            x2 = (i_pPhIns->XINS) + i_pPhModel->XAB2 - i_pPhSeg->X2;
             y2 = (i_pPhIns->YINS - i_pPhModel->YAB1) + i_pPhSeg->Y2;
             break;                                 
         case SYMXY:                                
 #ifdef OCR_DEBUG                                   
             printf("SYMXY\n");                     
+            printf ("XINS = %ld; XAB1 = %ld; XAB2 = %ld; X1 = %ld --> x1 = %ld\n", i_pPhIns->XINS, i_pPhModel->XAB1, i_pPhModel->XAB2, i_pPhSeg->X1, x1);
 #endif                                             
-            x1 = (i_pPhIns->XINS - i_pPhModel->XAB1) + i_pPhModel->XAB2 - i_pPhSeg->X1;
+            x1 = i_pPhIns->XINS + i_pPhModel->XAB2 - i_pPhSeg->X1;
             y1 = (i_pPhIns->YINS - i_pPhModel->YAB1) + i_pPhModel->YAB2 - i_pPhSeg->Y1;
-            x2 = (i_pPhIns->XINS - i_pPhModel->XAB1) + i_pPhModel->XAB2 - i_pPhSeg->X2;
+            x2 = i_pPhIns->XINS + i_pPhModel->XAB2 - i_pPhSeg->X2;
             y2 = (i_pPhIns->YINS - i_pPhModel->YAB1) + i_pPhModel->YAB2 - i_pPhSeg->Y2;
             break;
         default:
@@ -386,24 +391,18 @@ void add_phseg_to_grid(ocrRoutingDataBase * i_pDataBase,
 #endif
     switch (i_pPhSeg->TYPE) {
     case LEFT:
-        //y1 = y1 - (i_pPhSeg->WIDTH / 2);
-        //y2 = y2 + (i_pPhSeg->WIDTH / 2);
-        //tmp = x1;
-        //x1 = x2 ; x2 = tmp;
-        break;
     case RIGHT:
-        //y1 = y1 - (i_pPhSeg->WIDTH / 2);
-        //y2 = y1 + (i_pPhSeg->WIDTH / 2);
+        fy1 = y1 - (i_pPhSeg->WIDTH / 2.0);
+        fy2 = y2 + (i_pPhSeg->WIDTH / 2.0);
+        fx1 = x1;
+        fx2 = x2;
         break;
     case DOWN:
-        x1 = x1 - (i_pPhSeg->WIDTH / 2);
-        x2 = x2 + (i_pPhSeg->WIDTH / 2);
-        break;
     case UP:
-        //tmp = y1;
-        //y1 = y2 ; y2 = tmp;
-        x1 = x1 - (i_pPhSeg->WIDTH / 2);
-        x2 = x2 + (i_pPhSeg->WIDTH / 2);
+        fx1 = x1 - (i_pPhSeg->WIDTH / 2.0);
+        fx2 = x2 + (i_pPhSeg->WIDTH / 2.0);
+        fy1 = y1;
+        fy2 = y2;
         break;
     default:
         exit(1);
@@ -415,13 +414,20 @@ void add_phseg_to_grid(ocrRoutingDataBase * i_pDataBase,
     printf("2/ x1=%d; y1=%d; x2=%d; y2=%d\n", x1, y1, x2, y2);
 #endif
 
-    x1 = x1 / (5 * SCALE_X);
-    x2 = x2 / (5 * SCALE_X);
-    y1 = y1 / (5 * SCALE_X);
-    y2 = y2 / (5 * SCALE_X);
+    fx1 = 0.5 + fx1 / (5.0 * SCALE_X);
+    fx2 = 0.5 + fx2 / (5.0 * SCALE_X);
+    fy1 = 0.5 + fy1 / (5.0 * SCALE_X);
+    fy2 = 0.5 + fy2 / (5.0 * SCALE_X);
+
+    x1 = fx1;
+    x2 = fx2;
+    y1 = fy1;
+    y2 = fy2;
+
 
     // controler par rapport a la fenetre
 #ifdef OCR_DEBUG
+    printf("3/ X1=%ld; Y1=%ld; X2=%ld; Y2=%ld\n", x1, y1, x2, y2);
     printf("WIN x1=%d; y1=%d; x2=%d; y2=%d\n", i_pWindow->XMIN,
            i_pWindow->YMIN, i_pWindow->XMAX, i_pWindow->YMAX);
 #endif
@@ -458,8 +464,8 @@ void add_phseg_to_grid(ocrRoutingDataBase * i_pDataBase,
           && (i_pDataBase->PARAM->EVEN_LAYERS_DIRECTION == ocrHorizontal))
          ||
          ((!(layer % 2)
-           && (i_pDataBase->PARAM->EVEN_LAYERS_DIRECTION ==
-               ocrVertical))))) {
+           && (i_pDataBase->PARAM->EVEN_LAYERS_DIRECTION == ocrVertical)))))
+    {
         // Layer Horizontal
         for (i = y1; i <= y2; i++) {
 #ifdef OCR_DEBUG

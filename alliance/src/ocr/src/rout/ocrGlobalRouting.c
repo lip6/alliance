@@ -1,8 +1,11 @@
 /*
    ### -------------------------------------------------- ### 
    $Author: hcl $
-   $Date: 2002/03/15 14:37:19 $
+   $Date: 2002/03/20 13:25:50 $
    $Log: ocrGlobalRouting.c,v $
+   Revision 1.2  2002/03/20 13:25:50  hcl
+   SymX bug.
+
    Revision 1.1  2002/03/15 14:37:19  hcl
    Ca roule.
 
@@ -255,9 +258,11 @@ void makeLocalSignals(ocrRoutingDataBase * i_pDataBase)
                 makeSubSignal(i_pDataBase, l_pSignal, l_pCon->WIN);
             }
 
-            addConnector(i_pDataBase->FSIGNAL[l_pCon->WIN], l_pCon);
+            //addConnector(i_pDataBase->FSIGNAL[l_pCon->WIN], l_pCon);
             l_pCon = l_pConNext;
         }
+
+#if 0
 
         // Ajout des connecteurs Faciaux
         for (l_pSegment = l_pSignal->SEGMENT;
@@ -353,6 +358,7 @@ void makeLocalSignals(ocrRoutingDataBase * i_pDataBase)
 
             }
         }
+#endif
     }
 }
 
@@ -417,8 +423,9 @@ ocrNaturalInt globalRouting(ocrRoutingDataBase * i_pDataBase)
     display(LEVEL, VERBOSE, "o Global routing ...\n");
     //return;
 
-    makeGlobalSignals(i_pDataBase);
+    //makeGlobalSignals(i_pDataBase);
 #if 1
+#if 0
     initWeightedTree(i_pDataBase);
     //dumpDensityTable();
 
@@ -431,6 +438,7 @@ ocrNaturalInt globalRouting(ocrRoutingDataBase * i_pDataBase)
 
     //dumpDensityTable();
     freeWeightedTree();
+#endif
 #else
     routingGlobalSignals(i_pDataBase);
     //  dumpDataBase (i_pDataBase, stdout);
