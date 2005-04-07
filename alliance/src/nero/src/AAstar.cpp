@@ -1,7 +1,7 @@
 
 // -*- C++ -*-
 //
-// $Id: AAstar.cpp,v 1.9 2004/12/14 19:02:07 jpc Exp $
+// $Id: AAstar.cpp,v 1.10 2005/04/07 14:56:18 jpc Exp $
 //
 //  /----------------------------------------------------------------\ 
 //  |                                                                |
@@ -322,7 +322,10 @@ void  CAStar::CNodeAS::successors (CNodeASSet &NS, CNet *net, CNodeAS *(*success
       }
 
       // Check if the node is an obstacle.
-      if (neighbor.node().data.obstacle) continue;
+      if (neighbor.node().data.obstacle) {
+        cdebug << "+     neighbour is an obstacle." << "\n";
+        continue;
+      }
 
       // Check the tag map (already reached if tagged.)
       if (pNodeAS->tagged) continue;

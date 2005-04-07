@@ -1,7 +1,7 @@
 
 // -*- C++ -*-
 //
-// $Id: MMBK.h,v 1.2 2002/10/17 21:57:27 jpc Exp $
+// $Id: MMBK.h,v 1.3 2005/04/07 14:56:18 jpc Exp $
 //
 // /-----------------------------------------------------------------\ 
 // |                                                                 |
@@ -93,6 +93,7 @@ namespace MBK {
   extern bool  isCALU (char layer);
   extern char  layer2ALU (char layer);
   extern char  layer2CALU (char layer);
+  extern char  layer2TALU (char layer);
   extern long  cmpALU (char layer1, char layer2);
   extern char  topVIALayer (char type);
   extern char  bottomVIALayer (char type);
@@ -267,7 +268,7 @@ namespace MBK {
     losig_list *LOSIG (void) { return (lofig.fig->LOSIG); }
 
     // Modifiers.
-    void  addphseg (phseg_list &seg);
+    void  addphseg (phseg_list &seg, bool isTerm=false );
     void  addphvia (phvia_list &VIA);
     void  addphcon (phcon_list &con);
 

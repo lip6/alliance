@@ -1,7 +1,7 @@
 
 // -*- C++ -*-
 //
-// $Id: MNodes.cpp,v 1.2 2002/10/13 14:22:47 jpc Exp $
+// $Id: MNodes.cpp,v 1.3 2005/04/07 14:56:18 jpc Exp $
 //
 //  /----------------------------------------------------------------\ 
 //  |                                                                |
@@ -121,8 +121,10 @@ void  CMatrixNodes::obstacle (CRect &rect, int z)
 
   for (x = rect.x1; x <= X; x++) {
     for (y = rect.y1; y <= Y; y++) {
-      if ( ! (*this)[ coord.set (x, y, z) ].terminal () )
+      if ( ! (*this)[ coord.set (x, y, z) ].terminal () ) {
+        cdebug << "+      Obstacle at (" << x << "," << y << "," << z << ")" << "\n";
         (*this)[ coord ].data.obstacle = true;
+      }
     }
   }
 }

@@ -1,7 +1,7 @@
 
 // -*- C++ -*-
 //
-// $Id: RMBK.cpp,v 1.7 2004/12/14 19:02:07 jpc Exp $
+// $Id: RMBK.cpp,v 1.8 2005/04/07 14:56:18 jpc Exp $
 //
 //  /----------------------------------------------------------------\ 
 //  |                                                                |
@@ -173,6 +173,7 @@ void  CRBox::mbkload (MBK::CFig *mbkfig, int z, int zup, int rtype)
       if (pSeg->LAYER != MBK::CALU1) {
         rect->setSeg (*pSeg);
         
+        //cerr << "+ Top power obstacle" << endl;
         drgrid->nodes->obstacle (rect->grid, MBK::env.layer2z (pSeg->LAYER));
       }
 
@@ -227,14 +228,17 @@ void  CRBox::mbkload (MBK::CFig *mbkfig, int z, int zup, int rtype)
 
     if (flatSeg.LAYER == MBK::CALU1) continue;
 
-    flatSeg.X1    = pVIA->XVIA - pVIA->DX / 2;
-    flatSeg.X2    = pVIA->XVIA - pVIA->DX / 2;
+    long  xVIAshrink = 0;
+    if (pVIA->DX) { xVIAshrink = (pVIA->DX - MBK::SCALE(3)) / 2; }
+    flatSeg.X1    = pVIA->XVIA - xVIAshrink;
+    flatSeg.X2    = pVIA->XVIA + xVIAshrink;
     flatSeg.Y1    = pVIA->YVIA;
     flatSeg.Y2    = pVIA->YVIA;
     flatSeg.WIDTH = pVIA->DY;
 
     rect->setSeg (flatSeg);
 
+    //cerr << "+ Top VIA obstacle (" << pVIA->XVIA << "," << pVIA->YVIA << ")" << endl;
     drgrid->nodes->obstacle (rect->grid, MBK::env.layer2z (flatSeg.LAYER));
   }
 
@@ -261,7 +265,11 @@ void  CRBox::mbkload (MBK::CFig *mbkfig, int z, int zup, int rtype)
         itIns->second->flatseg (flatSeg, *pSeg);
         rect->setSeg (flatSeg);
 
+        //cerr << "+ Instance obstacle (" << flatSeg.X1 << "," << flatSeg.Y1 << ")" << endl;
         drgrid->nodes->obstacle (rect->grid, MBK::env.layer2z (pSeg->LAYER));
+
+        if ( !MBK::ISVDD (pSeg->NAME) && !MBK::ISVSS (pSeg->NAME) )
+          fig->addphseg ( flatSeg, true );
       }
     }
   }
@@ -463,7 +471,7 @@ void  CRBox::mbkload (MBK::CFig *mbkfig, int z, int zup, int rtype)
           // Dump the current one.
           if (seg.X1 < seg.X2) {
             // This is not a "dot" segment (i.e a VIA).
-            fig->addphseg (seg);
+            fig->addphseg (seg,pNet->external);
           }
 
           // Force segment restarting.
@@ -494,7 +502,7 @@ void  CRBox::mbkload (MBK::CFig *mbkfig, int z, int zup, int rtype)
             // Dump the current one.
             if (seg.X1 < seg.X2) {
               // This is not a "dot" segment (i.e a VIA).
-              fig->addphseg (seg);
+              fig->addphseg (seg,pNet->external);
             }
           }
 
@@ -507,7 +515,7 @@ void  CRBox::mbkload (MBK::CFig *mbkfig, int z, int zup, int rtype)
         // This segment touch the AB.
         if (seg.X1 < seg.X2) {
           // This is not a "dot" segment (i.e a VIA).
-          fig->addphseg (seg);
+          fig->addphseg (seg,pNet->external);
         }
       }
 
@@ -528,7 +536,7 @@ void  CRBox::mbkload (MBK::CFig *mbkfig, int z, int zup, int rtype)
           // Dump the current one.
           if (seg.Y1 < seg.Y2) {
             // This is not a "dot" segment (i.e a VIA).
-            fig->addphseg (seg);
+            fig->addphseg (seg,pNet->external);
           }
 
           // Force segment restarting.
@@ -560,7 +568,7 @@ void  CRBox::mbkload (MBK::CFig *mbkfig, int z, int zup, int rtype)
             // Dump the current one.
             if (seg.Y1 < seg.Y2) {
               // This is not a "dot" segment (i.e a VIA).
-              fig->addphseg (seg);
+              fig->addphseg (seg,pNet->external);
             }
           }
 
@@ -573,7 +581,7 @@ void  CRBox::mbkload (MBK::CFig *mbkfig, int z, int zup, int rtype)
         // This segment touch the AB.
         if (seg.Y1 < seg.Y2) {
           // This is not a "dot" segment (i.e a VIA).
-          fig->addphseg (seg);
+          fig->addphseg (seg,pNet->external);
         }
       }
 
@@ -703,7 +711,7 @@ void  CRBox::mbkload (MBK::CFig *mbkfig, int z, int zup, int rtype)
     seg.WIDTH = MBK::env.z2width (0);
     seg.LAYER = MBK::env.z2calu (0);
 
-    fig->addphseg (seg);
+    fig->addphseg (seg,itNet->second->external);
   }
 
 

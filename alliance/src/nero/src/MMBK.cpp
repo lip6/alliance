@@ -1,7 +1,7 @@
 
 // -*- C++ -*-
 //
-// $Id: MMBK.cpp,v 1.4 2002/10/24 07:51:33 hcl Exp $
+// $Id: MMBK.cpp,v 1.5 2005/04/07 14:56:18 jpc Exp $
 //
 // /-----------------------------------------------------------------\ 
 // |                                                                 |
@@ -770,7 +770,7 @@ CFig::~CFig (void)
 // -------------------------------------------------------------------
 // Method :  "CFig::addphseg()".
 
-void  CFig::addphseg (phseg_list &seg)
+void  CFig::addphseg (phseg_list &seg, bool isTerm )
 {
   MBK::addphseg ( phfig.fig
                 , seg.LAYER
@@ -781,6 +781,18 @@ void  CFig::addphseg (phseg_list &seg)
                 , seg.Y2
                 , seg.NAME
                 );
+
+  if ( !isTerm ) {
+    MBK::addphseg ( phfig.fig
+                  , layer2TALU(seg.LAYER)
+                  , seg.WIDTH
+                  , seg.X1
+                  , seg.Y1
+                  , seg.X2
+                  , seg.Y2
+                  , "obs"
+                  );
+  }
 }
 
 
@@ -924,6 +936,48 @@ bool  isCALU (char layer)
 
   return (false);
 }
+
+
+
+
+// -------------------------------------------------------------------
+// Function  :  "layer2TALU()".
+
+char  layer2TALU (char layer)
+{
+  switch (layer) {
+    case  ALU1:
+    case TALU1:
+      return (TALU1);
+    case  ALU2:
+    case TALU2:
+      return (TALU2);
+    case  ALU3:
+    case TALU3:
+      return (TALU3);
+    case  ALU4:
+    case TALU4:
+      return (TALU4);
+    case  ALU5:
+    case TALU5:
+      return (TALU5);
+    case  ALU6:
+    case TALU6:
+      return (TALU6);
+    case TALU7:
+    case  ALU7:
+      return (TALU7);
+    case TALU8:
+    case  ALU8:
+      return (TALU8);
+    case TALU9:
+    case  ALU9:
+      return (TALU9);
+  }
+
+  return (TALU1);
+}
+
 
 
 

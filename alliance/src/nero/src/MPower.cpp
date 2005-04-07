@@ -1,7 +1,7 @@
 
 // -*- C++ -*-
 //
-// $Id: MPower.cpp,v 1.2 2002/10/13 14:22:47 jpc Exp $
+// $Id: MPower.cpp,v 1.3 2005/04/07 14:56:18 jpc Exp $
 //
 // /-----------------------------------------------------------------\ 
 // |                                                                 |
@@ -325,7 +325,7 @@ void  CPowers::dump (CFig *fig)
           }
       }
 
-      fig->addphseg (seg);
+      fig->addphseg (seg,true);
 
       if (con1.ORIENT != (char)0) fig->addphcon (con1);
       if (con2.ORIENT != (char)0) fig->addphcon (con2);
