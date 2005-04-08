@@ -1,7 +1,7 @@
 
 // -*- C++ -*-
 //
-// $Id: RMBK.cpp,v 1.8 2005/04/07 14:56:18 jpc Exp $
+// $Id: RMBK.cpp,v 1.9 2005/04/08 10:15:45 jpc Exp $
 //
 //  /----------------------------------------------------------------\ 
 //  |                                                                |
@@ -472,6 +472,11 @@ void  CRBox::mbkload (MBK::CFig *mbkfig, int z, int zup, int rtype)
           if (seg.X1 < seg.X2) {
             // This is not a "dot" segment (i.e a VIA).
             fig->addphseg (seg,pNet->external);
+          } else if (z % 2) {
+            char layer = seg.LAYER;
+            seg.LAYER = MBK::layer2TALU (seg.LAYER);
+            fig->addphseg (seg,false);
+            seg.LAYER = layer;
           }
 
           // Force segment restarting.
@@ -503,6 +508,11 @@ void  CRBox::mbkload (MBK::CFig *mbkfig, int z, int zup, int rtype)
             if (seg.X1 < seg.X2) {
               // This is not a "dot" segment (i.e a VIA).
               fig->addphseg (seg,pNet->external);
+            } else if (z % 2) {
+              char layer = seg.LAYER;
+              seg.LAYER = MBK::layer2TALU (seg.LAYER);
+              fig->addphseg (seg,false);
+              seg.LAYER = layer;
             }
           }
 
@@ -516,6 +526,11 @@ void  CRBox::mbkload (MBK::CFig *mbkfig, int z, int zup, int rtype)
         if (seg.X1 < seg.X2) {
           // This is not a "dot" segment (i.e a VIA).
           fig->addphseg (seg,pNet->external);
+        } else if (z % 2 ) {
+          char layer = seg.LAYER;
+          seg.LAYER = MBK::layer2TALU (seg.LAYER);
+          fig->addphseg (seg,false);
+          seg.LAYER = layer;
         }
       }
 
@@ -537,6 +552,11 @@ void  CRBox::mbkload (MBK::CFig *mbkfig, int z, int zup, int rtype)
           if (seg.Y1 < seg.Y2) {
             // This is not a "dot" segment (i.e a VIA).
             fig->addphseg (seg,pNet->external);
+          } else if (! (z % 2)) {
+            char layer = seg.LAYER;
+            seg.LAYER = MBK::layer2TALU (seg.LAYER);
+            fig->addphseg (seg,false);
+            seg.LAYER = layer;
           }
 
           // Force segment restarting.
@@ -569,6 +589,11 @@ void  CRBox::mbkload (MBK::CFig *mbkfig, int z, int zup, int rtype)
             if (seg.Y1 < seg.Y2) {
               // This is not a "dot" segment (i.e a VIA).
               fig->addphseg (seg,pNet->external);
+            } else if (! (z % 2)) {
+              char layer = seg.LAYER;
+              seg.LAYER = MBK::layer2TALU (seg.LAYER);
+              fig->addphseg (seg,false);
+              seg.LAYER = layer;
             }
           }
 
@@ -582,6 +607,11 @@ void  CRBox::mbkload (MBK::CFig *mbkfig, int z, int zup, int rtype)
         if (seg.Y1 < seg.Y2) {
           // This is not a "dot" segment (i.e a VIA).
           fig->addphseg (seg,pNet->external);
+        } else if (! (z % 2)) {
+          char layer = seg.LAYER;
+          seg.LAYER = MBK::layer2TALU (seg.LAYER);
+          fig->addphseg (seg,false);
+          seg.LAYER = layer;
         }
       }
 
