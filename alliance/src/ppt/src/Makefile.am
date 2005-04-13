@@ -9,6 +9,9 @@ pat_lodpaseq.c pat_pattostr.c pat_prspat.c pat_savpaseq.c \
 pat_type.h ppt.h
 libPpt_la_LDFLAGS = -version-info @PPT_DLL_VERSION@
 
+EXTRADIST   = pat_decl_y.c pat_decl_y.h pat_desc_y.h pat_desc_y.c \
+              pat_decl_l.c
+              
 CLEANFILES  = pat_decl_y.c pat_decl_y.h pat_desc_y.h pat_desc_y.c \
               pat_decl_l.c
 
