@@ -16,7 +16,7 @@ place_and_route.dvi : place_and_route.tex $(EPS)
 	latex $<
 
 %.eps : %.fig
-	/usr/pkg/bin/fig2dev -L eps $< > $@
+	fig2dev -L eps $< > $@
 
 $(EPS) : $(FIG)
 $(PDF) : $(EPS)
