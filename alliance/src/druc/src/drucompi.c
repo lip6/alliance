@@ -35,9 +35,7 @@ DrucTypeStructRegle        DrucStructRegle;
 DrucTypeStructInstruction *DrucStructInstruction;
 
 
-int                        DrucNombreInstructions;
 int                        CurrentIndexDrucLayer;
-long                       DrucCtmMax;
    
 FILE                      *TmpFileAssembler;
 char                       DRUC_OUTPUT_NAME[256];

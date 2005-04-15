@@ -30,7 +30,7 @@
 
 
 
-/* $Id: log.h,v 1.4 2002/09/30 16:20:43 czo Exp $ */
+/* $Id: log.h,v 1.5 2005/04/15 08:38:49 alliance Exp $ */
 
 #ifndef LUC_LOG_H
 #define LUC_LOG_H
@@ -238,10 +238,10 @@ struct systemBdd
     pNode pAT;
     int indiceAT;
     pTableLoc pMC;
-  }
-sysBdd;
+  };
+extern struct systemBdd sysBdd;
 
-pNode one, zero;
+extern pNode one, zero;
 
 /**************** DECLARATION DES FONCTIONS *******/
 

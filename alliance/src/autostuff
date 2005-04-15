@@ -1,5 +1,13 @@
 #!/bin/sh
 #$Log: autostuff,v $
+#Revision 1.12  2005/04/15 08:38:29  alliance
+#
+#* alliance/src/ : porting under Darwin/MacOS X
+#  - Bug : the Darwin link editor seems to be more strict, or having a
+#     different policy about implicit static/extern variables. We have
+#     to do a lot of cleanup to avoid symbols redefinition at link time.
+#     We do hope it may solve the earlier bison problem with asimut...
+#
 #Revision 1.11  2004/07/26 17:51:23  ludo
 #- operator '==' doesn't exists/not compatible with old /bin/sh version
 #  (such as the one installed under Solaris or Cygwin ...)
@@ -44,10 +52,11 @@ for dir in $dirs; do
   if [ "$dir" = "autom4te.cache" ]; then continue; fi
   if [ "$dir" = "Linux"          ]; then continue; fi
   if [ "$dir" = "Solaris"        ]; then continue; fi
+  if [ "$dir" = "documentation"  ]; then continue; fi
   if [ ! -f "$dir/Makefile.am"    ]; then continue; fi
   newdirs="$newdirs $dir"
 done
-dirs="$newdirs"
+dirs="$newdirs documentation"
 
 
 ## Order directories.

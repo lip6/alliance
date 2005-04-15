@@ -16,17 +16,23 @@ CLEANFILES  = pat_decl_y.c pat_decl_y.h pat_desc_y.h pat_desc_y.c \
               pat_decl_l.c
 
 pat_decl_y.c pat_decl_y.h : $(srcdir)/pat_decl_y.y
-	$(YACC) -d $(YFLAGS) $(srcdir)/pat_decl_y.y && sed -e "s/yy/pat_decl_y_/g" -e "s/YY/PAT_DECL_Y_/g" y.tab.c > pat_decl_y.c && sed -e "s/yy/pat_decl_y_/g" -e "s/YY/PAT_DECL_Y_/g" y.tab.h > pat_decl_y.h
+	$(YACC) -d $(YFLAGS) $(srcdir)/pat_decl_y.y \
+	&& sed -e "s/yy/pat_decl_y_/g" -e "s/YY/PAT_DECL_Y_/g" y.tab.c \
+         | sed -e "s/int[\t ]*pat_decl_y_char;/extern int pat_decl_y_char;/" \
+         | sed -e "s/PAT_DECL_Y_STYPE[\t ]*pat_decl_y_lval;/extern PAT_DECL_Y_STYPE pat_decl_y_lval;/" \
+         | sed -e "s/int[\t ]*pat_decl_y_nerrs;/extern int pat_decl_y_nerrs;/" \
+         > pat_decl_y.c \
+	&& sed -e "s/yy/pat_decl_y_/g" -e "s/YY/PAT_DECL_Y_/g" y.tab.h > pat_decl_y.h
 
 pat_decl_l.c : $(srcdir)/pat_decl_l.l pat_decl_y.h
 	$(LEX) -t $(srcdir)/pat_decl_l.l | sed -e "s/yy/pat_decl_y_/g" -e "s/YY/PAT_DECL_Y_/g" > pat_decl_l.c
 
 pat_desc_y.c pat_desc_y.h : $(srcdir)/pat_desc_y.y
 	$(YACC) -d $(YFLAGS) $(srcdir)/pat_desc_y.y \
-	&& sed -e "s/yyparse/pat_desc_y_parse/g" y.tab.c | \
-	sed -e "s/yy/pat_decl_y_/g" -e "s/YY/PAT_DECL_Y_/g" > pat_desc_y.c\
-	&& sed -e "s/yyparse/pat_desc_y_parse/g" y.tab.h | \
-	sed -e "s/yy/pat_decl_y_/g" -e "s/YY/PAT_DECL_Y_/g" > pat_desc_y.h
+	&& sed -e "s/yyparse/pat_desc_y_parse/g" y.tab.c \
+	 | sed -e "s/yy/pat_decl_y_/g" -e "s/YY/PAT_DECL_Y_/g" > pat_desc_y.c \
+	&& sed -e "s/yyparse/pat_desc_y_parse/g" y.tab.h \
+	 | sed -e "s/yy/pat_decl_y_/g" -e "s/YY/PAT_DECL_Y_/g" > pat_desc_y.h
 
 #sed -e "s/yy/pat_desc_y_/g" -e "s/YY/PAT_DESC_Y_/g" > pat_desc_y.c && sed -e "s/yy/pat_desc_y_/g" -e "s/YY/PAT_DESC_Y_/g" y.tab.h > pat_desc_y.h
 # sed -e "s/yyin/pat_decl_y_/g" -e "s/yylex/pat_decl_y_lex/g" y.tab.c | 

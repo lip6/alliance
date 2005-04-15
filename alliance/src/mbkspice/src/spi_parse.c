@@ -21,7 +21,7 @@
  * Software Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
  */
 
-#ident "$Author: fred $ $Date: 2004/07/28 12:04:23 $ $Revision: 1.3 $"
+#ident "$Author: alliance $ $Date: 2005/04/15 08:38:50 $ $Revision: 1.4 $"
 
 /*******************************************************************************
 *                                                                              *
@@ -59,7 +59,7 @@ char*		 msl_subckt;
 int              msl_line;
 
 char              SPI_SEPAR           ;
-char             *SPI_NETNAME         ;
+static char      *SPI_NETNAME         ;
 char              SPI_ONE_NODE_NORC   ;
 char              SPI_MERGE           ;
 char              SPI_VERBOSE         ;
@@ -173,8 +173,8 @@ char             mode;
   if( SPI_VERBOSE )
   {
     printf( "Parser Spice compile le %s a %s\n", __DATE__, __TIME__ );
-    printf( "Revision     : %s\n", "$Revision: 1.3 $" );
-    printf( "Date         : %s\n", "$Date: 2004/07/28 12:04:23 $"     );
+    printf( "Revision     : %s\n", "$Revision: 1.4 $" );
+    printf( "Date         : %s\n", "$Date: 2005/04/15 08:38:50 $"     );
     
     printf( "Separateur   : '%c'\n", SPI_SEPAR  );
     printf( "Nom de noeud : %s\n", SPI_NETNAME  );

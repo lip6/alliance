@@ -30,7 +30,7 @@
 
 
 
-#ident "$Id: log_bdd0.c,v 1.3 2002/09/30 16:20:43 czo Exp $"
+#ident "$Id: log_bdd0.c,v 1.4 2005/04/15 08:38:49 alliance Exp $"
 
 /****************************************************************************/
 /*    Produit : librairie BDD - Gestion de BDD                              */
@@ -39,6 +39,9 @@
 #include<stdio.h>
 #include "mut.h"
 #include "log.h"
+
+pNode one, zero;
+struct systemBdd sysBdd;
 
 #undef NAME_ATOM
 #undef MIN_OPER

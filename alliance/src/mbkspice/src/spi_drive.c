@@ -64,7 +64,7 @@ void sort_loself(lofig_list *ptfig,FILE *df) ;
 
 static char    *TNMOS,
                *TPMOS;
-char           *SPI_NETNAME;
+static char    *SPI_NETNAME;
 char            SPI_NAMEDNODES;
 
 #define SPI_NONODES (-1l)
