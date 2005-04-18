@@ -36,6 +36,11 @@
 #include "pat_type.h"
 #include "pat_decl_y.h"
 
+extern int yychar;
+extern YYSTYPE yylval;
+extern int yynerrs;
+
+
 /* ICI LUDO
 #ifdef YY_DECL
 #undef YY_DECL
