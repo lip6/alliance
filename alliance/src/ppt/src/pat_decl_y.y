@@ -390,7 +390,6 @@ struct paseq  *ptseq ;
 
 %}
 
-%pure-parser
 %union
   {
   int           valu;
