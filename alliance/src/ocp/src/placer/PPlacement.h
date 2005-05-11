@@ -32,7 +32,7 @@
 #include <hash_map.h>
 #else
 #include <ext/hash_map>
-#if __GNUC_MINOR__ == 0
+#if (__GNUC_MINOR__ == 0) and (__GNUC__ == 3)
 #else
 using namespace __gnu_cxx; // GCC 3.1 and later
 #endif

@@ -51,6 +51,44 @@ extern int yynerrs;
  FIN LUDO
 */
 
+/* ###--------------------------------------------------------------### */
+/* function	: lcl_search						*/
+/* description	: check that an identifier is a reserved word or not	*/
+/* called func.	: addht, addhtitem, gethtitem, namealloc		*/
+/* ###--------------------------------------------------------------### */
+
+static int lcl_search (key)
+
+char  *key;
+
+  {
+  static ht *pt_hash = NULL;
+
+  if (pt_hash == NULL)
+    {
+    pt_hash = addht (32);
+
+    addhtitem (pt_hash, namealloc ("begin"   ), BEGIN_  );
+    addhtitem (pt_hash, namealloc ("downto"  ), DOWNTO  );
+    addhtitem (pt_hash, namealloc ("end"     ), END_    );
+    addhtitem (pt_hash, namealloc ("fs"      ), FS      );
+    addhtitem (pt_hash, namealloc ("in"      ), _IN     );
+    addhtitem (pt_hash, namealloc ("inout"   ), _INOUT  );
+    addhtitem (pt_hash, namealloc ("inspect" ), INSPECT );
+    addhtitem (pt_hash, namealloc ("ms"      ), MS      );
+    addhtitem (pt_hash, namealloc ("ns"      ), NS      );
+    addhtitem (pt_hash, namealloc ("ps"      ), PS      );
+    addhtitem (pt_hash, namealloc ("out"     ), _OUT    );
+    addhtitem (pt_hash, namealloc ("register"), REGISTER);
+    addhtitem (pt_hash, namealloc ("save"    ), SAVE    );
+    addhtitem (pt_hash, namealloc ("signal"  ), SIGNAL  );
+    addhtitem (pt_hash, namealloc ("spy"     ), SPY     );
+    addhtitem (pt_hash, namealloc ("to"      ), TO      );
+    addhtitem (pt_hash, namealloc ("trace"   ), TRACE   );
+    addhtitem (pt_hash, namealloc ("us"      ), US      );
+    }
+  return (gethtitem (pt_hash, namealloc (key)));
+  }
 static char buff [1024];
 %}
 
@@ -176,7 +214,6 @@ letter		[a-zA-Z]
 								}
 <INITIAL,OUT_PAT,DTC_FRM>{letter}(_?({letter}|[0-9]))*		{
 		int         code         ;
-		static int  lcl_search ();
 
 		yylval.text = namealloc (yytext);
 		if ((code = lcl_search (yylval.text)) == -1)
@@ -218,41 +255,3 @@ int pat_decl_y_wrap ()
   return (1);
   }
 
-/* ###--------------------------------------------------------------### */
-/* function	: lcl_search						*/
-/* description	: check that an identifier is a reserved word or not	*/
-/* called func.	: addht, addhtitem, gethtitem, namealloc		*/
-/* ###--------------------------------------------------------------### */
-
-static int lcl_search (key)
-
-char  *key;
-
-  {
-  static ht *pt_hash = NULL;
-
-  if (pt_hash == NULL)
-    {
-    pt_hash = addht (32);
-
-    addhtitem (pt_hash, namealloc ("begin"   ), BEGIN_  );
-    addhtitem (pt_hash, namealloc ("downto"  ), DOWNTO  );
-    addhtitem (pt_hash, namealloc ("end"     ), END_    );
-    addhtitem (pt_hash, namealloc ("fs"      ), FS      );
-    addhtitem (pt_hash, namealloc ("in"      ), _IN     );
-    addhtitem (pt_hash, namealloc ("inout"   ), _INOUT  );
-    addhtitem (pt_hash, namealloc ("inspect" ), INSPECT );
-    addhtitem (pt_hash, namealloc ("ms"      ), MS      );
-    addhtitem (pt_hash, namealloc ("ns"      ), NS      );
-    addhtitem (pt_hash, namealloc ("ps"      ), PS      );
-    addhtitem (pt_hash, namealloc ("out"     ), _OUT    );
-    addhtitem (pt_hash, namealloc ("register"), REGISTER);
-    addhtitem (pt_hash, namealloc ("save"    ), SAVE    );
-    addhtitem (pt_hash, namealloc ("signal"  ), SIGNAL  );
-    addhtitem (pt_hash, namealloc ("spy"     ), SPY     );
-    addhtitem (pt_hash, namealloc ("to"      ), TO      );
-    addhtitem (pt_hash, namealloc ("trace"   ), TRACE   );
-    addhtitem (pt_hash, namealloc ("us"      ), US      );
-    }
-  return (gethtitem (pt_hash, namealloc (key)));
-  }

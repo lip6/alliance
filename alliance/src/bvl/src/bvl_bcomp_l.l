@@ -6,104 +6,6 @@
 #include "bvl.h"
 #include "bvl_bcomp_y.h"
 
-%}
-
-upper_case_letter 	  [A-Z]
-digit 			  [0-9]
-special_character   	  [\#\&\'\(\)\*\+\,\-\.\/\:\;\<\=\>\_\|]
-space_character 	  [ \t]
-format_effector		  [\t\v\r\l\f]
-end_of_line		  \n
-lower_case_letter 	  [a-z]
-other_special_character   [\!\$\@\?\[\\\]\^\`\{\}\~]
-
-graphic_character	  ({basic_graphic_character}|{lower_case_letter}|{other_special_character})
-basic_graphic_character	  ({upper_case_letter}|{digit}|{special_character}|{space_character})
-letter		   	  ({upper_case_letter}|{lower_case_letter})
-letter_or_digit	   	  ({letter}|{digit})
-decimal_literal	   	  {integer}(\.{integer})?({exponent})?
-integer		   	  {digit}(_?{digit})*
-exponent	   	  ([eE][-+]?{integer})
-base		   	  {integer}
-based_integer	   	  {extended_digit}(_?{extended_digit})*
-extended_digit	   	  ({digit}|[a-fA-F])
-base_specifier	  	  (B|b|O|o|X|x)
-
-%%
-[ \t]		;
-\n		{ BEH_LINNUM++;        }
-\&		{ return (Ampersand ); }
-\'		{ return (Apostrophe); }
-\(		{ return (LeftParen ); }
-\)		{ return (RightParen); }
-"**"		{ return (DoubleStar); }
-\*		{ return (Star      ); }
-\+		{ return (Plus      ); }
-\,		{ return (Comma     ); }
-\-		{ return (Minus     ); }
-":="		{ return (VarAsgn   ); }
-\:		{ return (Colon     ); }
-\;		{ return (Semicolon ); }
-"<="		{ return (_LESym    ); }
-">="		{ return (_GESym    ); }
-\<		{ return (_LTSym    ); }
-\>		{ return (_GTSym    ); }
-=		{ return (_EQSym    ); }
-\/=		{ return (_NESym    ); }
-"=>"		{ return (Arrow     ); }
-"<>"		{ return (Box       ); }
-\|		{ return (Bar       ); }
-!		{ return (Bar       ); }
-\.		{ return (Dot       ); }
-\/		{ return (Slash     ); }
-
-{letter}(_?{letter_or_digit})*		{
-		int        itoken;
-		static int search ();
-
-		itoken = search (yytext);
-		if (itoken == EMPTYHT) 
-		  {
-		  yylval.text = namealloc (yytext);
-		  return (Identifier);
-		  }
-		else
-		  {
-		  return (itoken);
-		  }
-					}
-({decimal_literal})|({base}#{based_integer}(\.{based_integer})?#({exponent})?)|({base}:{based_integer}(\.{based_integer})?:({exponent})?)		{
-
-		yylval.text = mbkalloc ((unsigned int)strlen(yytext)+1);
-	 	strcpy (yylval.text, yytext);
-		return (AbstractLit);
-									}
-'({graphic_character}|\"|\%)' 						{
-		yylval.text = namealloc (yytext);
-		return (CharacterLit);
-									}
-(\"({graphic_character}|(\"\")|\%)*\")|(\%({graphic_character}|(\%\%)|\")*\%) {
-		yylval.text = namealloc (yytext);
-		return (StringLit);
-									}
-{base_specifier}((\"{extended_digit}(_?{extended_digit})*\")|(\%{extended_digit}(_?{extended_digit})*\%)) 							{
-		yylval.text = namealloc (yytext);
-		return (BitStringLit);
-									}
-\-\-.*$ 	;
-.		{ return (*yytext); }
-%%
-
-/* ###--------------------------------------------------------------### */
-/* function	: yywrap						*/
-/* description	: return 1						*/
-/* called func.	: none							*/
-/* ###--------------------------------------------------------------### */
-
-int yywrap ()
-  {
-  return (1);
-  }
 
 /* ###--------------------------------------------------------------### */
 /* function	: search						*/
@@ -243,3 +145,102 @@ char  *key;
 
   return (gethtitem (pt_hash, namealloc(key)));
   }
+
+%}
+
+upper_case_letter 	  [A-Z]
+digit 			  [0-9]
+special_character   	  [\#\&\'\(\)\*\+\,\-\.\/\:\;\<\=\>\_\|]
+space_character 	  [ \t]
+format_effector		  [\t\v\r\l\f]
+end_of_line		  \n
+lower_case_letter 	  [a-z]
+other_special_character   [\!\$\@\?\[\\\]\^\`\{\}\~]
+
+graphic_character	  ({basic_graphic_character}|{lower_case_letter}|{other_special_character})
+basic_graphic_character	  ({upper_case_letter}|{digit}|{special_character}|{space_character})
+letter		   	  ({upper_case_letter}|{lower_case_letter})
+letter_or_digit	   	  ({letter}|{digit})
+decimal_literal	   	  {integer}(\.{integer})?({exponent})?
+integer		   	  {digit}(_?{digit})*
+exponent	   	  ([eE][-+]?{integer})
+base		   	  {integer}
+based_integer	   	  {extended_digit}(_?{extended_digit})*
+extended_digit	   	  ({digit}|[a-fA-F])
+base_specifier	  	  (B|b|O|o|X|x)
+
+%%
+[ \t]		;
+\n		{ BEH_LINNUM++;        }
+\&		{ return (Ampersand ); }
+\'		{ return (Apostrophe); }
+\(		{ return (LeftParen ); }
+\)		{ return (RightParen); }
+"**"		{ return (DoubleStar); }
+\*		{ return (Star      ); }
+\+		{ return (Plus      ); }
+\,		{ return (Comma     ); }
+\-		{ return (Minus     ); }
+":="		{ return (VarAsgn   ); }
+\:		{ return (Colon     ); }
+\;		{ return (Semicolon ); }
+"<="		{ return (_LESym    ); }
+">="		{ return (_GESym    ); }
+\<		{ return (_LTSym    ); }
+\>		{ return (_GTSym    ); }
+=		{ return (_EQSym    ); }
+\/=		{ return (_NESym    ); }
+"=>"		{ return (Arrow     ); }
+"<>"		{ return (Box       ); }
+\|		{ return (Bar       ); }
+!		{ return (Bar       ); }
+\.		{ return (Dot       ); }
+\/		{ return (Slash     ); }
+
+{letter}(_?{letter_or_digit})*		{
+		int        itoken;
+
+		itoken = search (yytext);
+		if (itoken == EMPTYHT) 
+		  {
+		  yylval.text = namealloc (yytext);
+		  return (Identifier);
+		  }
+		else
+		  {
+		  return (itoken);
+		  }
+					}
+({decimal_literal})|({base}#{based_integer}(\.{based_integer})?#({exponent})?)|({base}:{based_integer}(\.{based_integer})?:({exponent})?)		{
+
+		yylval.text = mbkalloc ((unsigned int)strlen(yytext)+1);
+	 	strcpy (yylval.text, yytext);
+		return (AbstractLit);
+									}
+'({graphic_character}|\"|\%)' 						{
+		yylval.text = namealloc (yytext);
+		return (CharacterLit);
+									}
+(\"({graphic_character}|(\"\")|\%)*\")|(\%({graphic_character}|(\%\%)|\")*\%) {
+		yylval.text = namealloc (yytext);
+		return (StringLit);
+									}
+{base_specifier}((\"{extended_digit}(_?{extended_digit})*\")|(\%{extended_digit}(_?{extended_digit})*\%)) 							{
+		yylval.text = namealloc (yytext);
+		return (BitStringLit);
+									}
+\-\-.*$ 	;
+.		{ return (*yytext); }
+%%
+
+/* ###--------------------------------------------------------------### */
+/* function	: yywrap						*/
+/* description	: return 1						*/
+/* called func.	: none							*/
+/* ###--------------------------------------------------------------### */
+
+int yywrap ()
+  {
+  return (1);
+  }
+

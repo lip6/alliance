@@ -44,6 +44,7 @@
 \------------------------------------------------------------*/
 
 # include <stdio.h>
+# include <string.h>
 # include "mut.h"
 # include "aut.h"
 # include "mlo.h"

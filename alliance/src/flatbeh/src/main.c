@@ -35,6 +35,7 @@
 /*                                                                          */
 /****************************************************************************/
 #include <stdlib.h>
+#include <string.h>
 #include <mut.h>
 #include <mlo.h>
 #include <mlu.h>

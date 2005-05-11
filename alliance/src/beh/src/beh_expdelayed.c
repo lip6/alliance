@@ -30,6 +30,7 @@
 /* ###--------------------------------------------------------------### */
 
 #include <stdio.h>
+#include <string.h>
 #include "mut.h"
 #include "log.h"
 #include "beh.h"

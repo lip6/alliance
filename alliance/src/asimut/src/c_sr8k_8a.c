@@ -15,6 +15,24 @@
 #include "vh_xcomm.h"
 
 /* ###--------------------------------------------------------------### */
+/* function	: init							*/
+/* description	: initializations					*/
+/* called func.	: none							*/
+/* ###--------------------------------------------------------------### */
+
+static void init (pt_lkdins, pt_mem)
+
+struct lkdins *pt_lkdins;
+char          *pt_mem   ;
+
+  {
+  char *name;
+
+  name = vhx_GetInstanceName (pt_lkdins);
+  printf ("coucou %s\n", name);
+  }
+
+/* ###--------------------------------------------------------------### */
 /* function	: c_sr8k_8a						*/
 /* description	: A 8 KByte static Ram with a chip select pin		*/
 /* called func.	: vhx_getvalu, vhx_readinput, vhx_writebus		*/
@@ -43,7 +61,6 @@ struct lkdins *pt_lkdins;
 
   unsigned char *mem       ;
   unsigned int   cond      = 0;
-  static void    init ()   ;
 
 	/* ###------------------------------------------------------### */
 	/*   read the current value of input signals (e_n)		*/
@@ -89,22 +106,4 @@ struct lkdins *pt_lkdins;
 
     vhx_writebus (dat, cond, pt_lkdins, POSO_dat, 8);
 
-  }
-
-/* ###--------------------------------------------------------------### */
-/* function	: init							*/
-/* description	: initializations					*/
-/* called func.	: none							*/
-/* ###--------------------------------------------------------------### */
-
-static void init (pt_lkdins, pt_mem)
-
-struct lkdins *pt_lkdins;
-char          *pt_mem   ;
-
-  {
-  char *name;
-
-  name = vhx_GetInstanceName (pt_lkdins);
-  printf ("coucou %s\n", name);
   }

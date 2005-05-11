@@ -39,317 +39,6 @@ static char           *buffer      = NULL;
 static unsigned int    buff_size   = 0;
 static struct circuit *circuit_pnt = NULL;
 
-/* ###--------------------------------------------------------------### */
-/* function	: beh_debug						*/
-/* description	: dispaly any mad structure				*/
-/* called func.	: goforward, translate, dispaly, splitline, pop, push	*/
-/* ###--------------------------------------------------------------### */
-
-void beh_debug (head_pnt, type)
-
-void *head_pnt;				/* structure's pointer		*/
-char *type;				/* structure's type		*/
-
-  {
-  static void          disp_immd ();
-  static void          getsize   ();
-  static void          display   ();
-  static void          push      ();
-  static void          pop       ();
-  static struct chain *goforward ();
-  static int           splitline ();
-  static int           translate ();
-
-  char          line   [128];		/* buffer to read a cmd line	*/
-  char          heap   [128];		/* buffer to split the cmd line	*/
-
-  char         *words  [ 10];		/* number of words on a line	*/
-  int           nmbrs  [ 10];		/* words translated into number	*/
-  char          flags  [ 10];		/* set if words is a number	*/
-  int           indxs  [ 10];		/* index of words		*/
-
-  struct stack  jtab   [ 10];		/* list of memorized addresses	*/
-  int           idx, i;
-  int           dispflg = 0;
-  int           code;
-  unsigned int  size;
-  char         *pntr   = NULL;
-  long          pshtype;
-  int           wrdcnt = 1;
-
-  struct stack  stk [STKSIZ_DFN];
-  int           stkpnt = -1;
-
-  union value   pnt [MAXCMD_DFN];
-  long          typ [MAXCMD_DFN];
-  unsigned int  siz [MAXCMD_DFN];
-
-  static char  *str [] = {
-                          "_back"    , "_exit"    , "_jump"    , "_save"    ,
-                          "_stop"    , "_top"     , "_up"      , "_display" ,
-
-                          "character", "short"    , "integer"  , "long"     ,
-                          "void"     , "string"   ,
-                          "chain"    , "ptype"    , "befig"    , "bereg"    ,
-                          "bemsg"    , "berin"    , "beout"    , "bebus"    ,
-                          "beaux"    , "bedly"    , "bebux"    , "bepor"    ,
-                          "begen"    , "biabl"    , "binode"   , "bequad"   ,
-                          "beder"    ,
-                          "next"     , "name"     , "user"     , "errflg"   ,
-                          "type"     , "level"    , "label"    , "message"  ,
-                          "abl"      , "node"     , "direction", "cndabl"   ,
-                          "valabl"   , "cndnode"  , "valnode"  , "out_ref"  ,
-                          "bus_ref"  , "aux_ref"  , "reg_ref"  , "bux_ref"  ,
-                          "msg_ref"  , "dly_ref"  , "value"    , "data"     ,
-                          "time"     , "bdd"      , "gex"      , "varlist"  ,
-                          "derivate" , "index"    , "flag"     , "time_unit",
-                          "time_step"
-                          };
-
-	/* ###------------------------------------------------------### */
-	/*    initialisation :						*/
-	/*    - allocate a buffer for read words			*/
-	/*    - break the argument that identifies the structure (type)	*/
-	/*      into words						*/
-	/*    - search that words among recognized strings		*/
-	/* ###------------------------------------------------------### */
-
-  words [0] = heap;
-  getsize (siz);
-
-  wrdcnt        = splitline (words, type);
-  idx           = translate (words, wrdcnt, str, nmbrs, flags, indxs);
-
-  typ [idx]     = POINTER_DFN | s_DFN | idx;
-  pnt [idx].dat = head_pnt;
-
-	/* ###------------------------------------------------------### */
-	/*    process the command line until the _exit command		*/
-	/* ###------------------------------------------------------### */
-
-  while ((idx & TYPE_DFN) != _exit_DFN)
-    {
-	/* ###------------------------------------------------------### */
-	/*    if the first word of the line has not been recognized,	*/
-	/* print an error message. Otherwise, proccess the command line	*/
-	/* (generally it is a request for displaying a specific field).	*/
-	/*								*/
-	/* At this point :						*/
-	/*    - pnt [] contains all available pointers			*/
-	/*    - typ [] contains the type of availabale pointers		*/
-	/* ###------------------------------------------------------### */
-
-    if (idx == _error_DFN)
-      fprintf (stderr ,"unrecognized command\n");
-    else
-      {
-
-	/* ###------------------------------------------------------### */
-	/*    define the type of the structure that may be pushed on	*/
-	/* the stack :							*/
-	/*    - if the pointer is a VOID pointer the exact type must be	*/
-	/*      defined on the command line (last word of the command)	*/
-	/* ###------------------------------------------------------### */
-
-      pshtype = POINTER_DFN | s_DFN | void_DFN;
-      if ((typ [idx] & TYPE_DFN) == void_DFN)
-        {
-        if ((wrdcnt >= 2) && (indxs [wrdcnt - 1] != _error_DFN))
-          pshtype = POINTER_DFN | s_DFN | indxs [wrdcnt - 1];
-        else
-          fprintf (stderr ,"structure has unknown type (void *)\n");
-        }
-      else
-       pshtype = typ [idx];
-
-	/* ###------------------------------------------------------### */
-	/*    depending on the kind of the first word of the command	*/
-	/* activate actions :						*/
-	/*    - COMMAND (_top, _up, ...)				*/
-	/*    - POINTER							*/
-	/*        - for NEXT go forward until the Nth element of the	*/
-	/*          list. Then, push it on the stack and dispaly it	*/
-	/*        - for others push and display				*/
-	/*    - ARRAY							*/
-	/*        - push and display the Nth element of the array	*/
-	/* ###------------------------------------------------------### */
-
-      switch (typ [idx] & KIND_DFN)
-        {
-
-        case COMMAND_DFN :
-          switch (typ [idx] & TYPE_DFN)
-            {
-	/* ###------------------------------------------------------### */
-	/*    _top COMMAND : reset the stack pointer, call read_field	*/
-	/* to read the structure on the top of stack			*/
-	/* ###------------------------------------------------------### */
-
-            case _top_DFN :
-              stkpnt  = 0;
-              dispflg = 1;
-              break;
-
-	/* ###------------------------------------------------------### */
-	/*    _stop COMMAND : set the stop mark for the structure on	*/
-	/* the top of stack						*/
-	/* ###------------------------------------------------------### */
-
-            case _stop_DFN :
-              stk [stkpnt].mark = 1;
-              fprintf (stdout, "beh_debug : stop mark set\n");
-              break;
-
-	/* ###------------------------------------------------------### */
-	/*    _back COMMAND : pop structures from the stack until a	*/
-	/* marked structure is found. Call read_field to read the	*/
-	/* structure on the top of stack				*/
-	/* ###------------------------------------------------------### */
-
-            case _back_DFN :
-              while ((stkpnt != 0) && (stk[--stkpnt].mark != 1));
-              dispflg = 1;
-              break;
-
-	/* ###------------------------------------------------------### */
-	/*    _jump COMMAND : push on the stack the structure saved in	*/
-	/* the jump table. Call read_field to read the structure on the	*/
-	/* top of stack							*/
-	/* ###------------------------------------------------------### */
-
-            case _jump_DFN :
-              if ((wrdcnt == 2) && (flags [1] == 1) && (nmbrs [1] < 10))
-                {
-                push (stk, &stkpnt, jtab[nmbrs[1]].data, jtab[nmbrs[1]].type);
-                dispflg = 1;
-                }
-              else
-                fprintf (stderr ,"unrecognized command\n");
-              break;
-
-	/* ###------------------------------------------------------### */
-	/*    _up COMMAND : pop structure from the stack. Call		*/
-	/* read_field to read the structure on the top of stack		*/
-	/* ###------------------------------------------------------### */
-
-            case _up_DFN :
-              if (wrdcnt == 1)
-                {
-                pop (&stkpnt, 1);
-                dispflg = 1;
-                }
-              else
-                {
-                if ((wrdcnt == 2) && (flags [1] == 1))
-                  {
-                  pop (&stkpnt, nmbrs [1] + 1);
-                  dispflg = 1;
-                  }
-                else
-                  fprintf (stderr ,"unrecognized command\n");
-                }
-              break;
-
-	/* ###------------------------------------------------------### */
-	/*    _save COMMAND : save the structure on the top of stack in	*/
-	/* the jump table						*/
-	/* ###------------------------------------------------------### */
-
-            case _save_DFN :
-              if ((wrdcnt == 2) && (flags [1] == 1) && (nmbrs [1] < 10))
-                jtab [nmbrs[1]] = stk [stkpnt];
-              else
-                fprintf (stderr ,"unrecognized command\n");
-              break;
-
-	/* ###------------------------------------------------------### */
-	/*    _display COMMAND : display a specified field as an	*/
-	/* immediate							*/
-	/* ###------------------------------------------------------### */
-
-            case _display_DFN :
-              if ((wrdcnt == 3) && (indxs [1] != _error_DFN))
-                disp_immd (str, pnt [indxs [1]], indxs [2]);
-              else
-                fprintf (stderr ,"unrecognized command\n");
-              break;
-
-            }
-          break;
-
-        case POINTER_DFN :
-          if (idx == next_DFN)
-            {
-            if ((wrdcnt == 1) || ((wrdcnt == 2) && (flags [1] == 0)))
-              {
-              push (stk, &stkpnt, pnt [idx].dat, pshtype);
-              dispflg = 1;
-              }
-            else
-              {
-              if (((wrdcnt == 3) || (wrdcnt == 2)) && (flags [1] == 1))
-                {
-                pnt [idx].dat = (void *) goforward (pnt [idx].dat, nmbrs [1]);
-                push (stk, &stkpnt, pnt [idx].dat, pshtype);
-                dispflg = 1;
-                }
-              else
-                fprintf (stderr ,"unrecognized command\n");
-              }
-            }
-          else
-            {
-            push (stk, &stkpnt, pnt [idx].dat, pshtype);
-            dispflg = 1;
-            }
-          break;
-
-        case ARRAY_DFN :
-          if ((wrdcnt > 1) && (flags [1] == 1))
-            {
-            size = siz [(typ [idx] & TYPE_DFN)];
-            pntr = (void *)
-                   (((unsigned int) pnt [idx].dat) + (size * nmbrs [1]));
-            push (stk, &stkpnt, pntr, pshtype);
-            dispflg = 1;
-            }
-          else
-            fprintf (stderr ,"unrecognized command\n");
-          break;
-
-        case ARYOFPNT_DFN :
-          if ((wrdcnt > 1) && (flags [1] == 1))
-            {
-            size = sizeof (void *);
-            pntr = * (void **)
-                     (((unsigned int) pnt [idx].dat) + (size * nmbrs [1]));
-            push (stk, &stkpnt, pntr, pshtype);
-            dispflg = 1;
-            }
-          else
-            fprintf (stderr ,"unrecognized command\n");
-          break;
-
-        }
-
-      if (dispflg == 1)
-        {
-        dispflg = 0;
-        display (stk [stkpnt], pnt, typ, str);
-        }
-
-      }
-
-    printf ("\n\nCOMMAND > ");
-
-    gets (line);
-    if (strcmp (line ,"."))
-      {
-      wrdcnt = splitline (words, line);
-      idx    = translate (words, wrdcnt, str, nmbrs, flags, indxs);
-      }
-    }
-  }
 
 /* ###--------------------------------------------------------------### */
 /* function	: display						*/
@@ -365,8 +54,6 @@ long          *typ;			/* child struct. or data type	*/
 char         **str;			/* recognized strings		*/
 
   {
-  extern char         *exprToCharInt ();
-  extern struct chain *bddToAbl ();
 
   int                     i;
   struct chain           *ptr_abl;
@@ -1174,7 +861,6 @@ union value pnt  ;
 int         type ;
 
   {
-  extern char  *exprToCharInt ();
   char         *lcl_str         ;
   struct chain *ptr_abl         ;
 
@@ -1225,5 +911,309 @@ int         type ;
 
     default :
       fprintf (stderr ,"unrecognized command\n");
+    }
+  }
+
+
+/* ###--------------------------------------------------------------### */
+/* function	: beh_debug						*/
+/* description	: dispaly any mad structure				*/
+/* called func.	: goforward, translate, dispaly, splitline, pop, push	*/
+/* ###--------------------------------------------------------------### */
+
+void beh_debug (head_pnt, type)
+
+void *head_pnt;				/* structure's pointer		*/
+char *type;				/* structure's type		*/
+
+  {
+  char          line   [128];		/* buffer to read a cmd line	*/
+  char          heap   [128];		/* buffer to split the cmd line	*/
+
+  char         *words  [ 10];		/* number of words on a line	*/
+  int           nmbrs  [ 10];		/* words translated into number	*/
+  char          flags  [ 10];		/* set if words is a number	*/
+  int           indxs  [ 10];		/* index of words		*/
+
+  struct stack  jtab   [ 10];		/* list of memorized addresses	*/
+  int           idx, i;
+  int           dispflg = 0;
+  int           code;
+  unsigned int  size;
+  char         *pntr   = NULL;
+  long          pshtype;
+  int           wrdcnt = 1;
+
+  struct stack  stk [STKSIZ_DFN];
+  int           stkpnt = -1;
+
+  union value   pnt [MAXCMD_DFN];
+  long          typ [MAXCMD_DFN];
+  unsigned int  siz [MAXCMD_DFN];
+
+  static char  *str [] = {
+                          "_back"    , "_exit"    , "_jump"    , "_save"    ,
+                          "_stop"    , "_top"     , "_up"      , "_display" ,
+
+                          "character", "short"    , "integer"  , "long"     ,
+                          "void"     , "string"   ,
+                          "chain"    , "ptype"    , "befig"    , "bereg"    ,
+                          "bemsg"    , "berin"    , "beout"    , "bebus"    ,
+                          "beaux"    , "bedly"    , "bebux"    , "bepor"    ,
+                          "begen"    , "biabl"    , "binode"   , "bequad"   ,
+                          "beder"    ,
+                          "next"     , "name"     , "user"     , "errflg"   ,
+                          "type"     , "level"    , "label"    , "message"  ,
+                          "abl"      , "node"     , "direction", "cndabl"   ,
+                          "valabl"   , "cndnode"  , "valnode"  , "out_ref"  ,
+                          "bus_ref"  , "aux_ref"  , "reg_ref"  , "bux_ref"  ,
+                          "msg_ref"  , "dly_ref"  , "value"    , "data"     ,
+                          "time"     , "bdd"      , "gex"      , "varlist"  ,
+                          "derivate" , "index"    , "flag"     , "time_unit",
+                          "time_step"
+                          };
+
+	/* ###------------------------------------------------------### */
+	/*    initialisation :						*/
+	/*    - allocate a buffer for read words			*/
+	/*    - break the argument that identifies the structure (type)	*/
+	/*      into words						*/
+	/*    - search that words among recognized strings		*/
+	/* ###------------------------------------------------------### */
+
+  words [0] = heap;
+  getsize (siz);
+
+  wrdcnt        = splitline (words, type);
+  idx           = translate (words, wrdcnt, str, nmbrs, flags, indxs);
+
+  typ [idx]     = POINTER_DFN | s_DFN | idx;
+  pnt [idx].dat = head_pnt;
+
+	/* ###------------------------------------------------------### */
+	/*    process the command line until the _exit command		*/
+	/* ###------------------------------------------------------### */
+
+  while ((idx & TYPE_DFN) != _exit_DFN)
+    {
+	/* ###------------------------------------------------------### */
+	/*    if the first word of the line has not been recognized,	*/
+	/* print an error message. Otherwise, proccess the command line	*/
+	/* (generally it is a request for displaying a specific field).	*/
+	/*								*/
+	/* At this point :						*/
+	/*    - pnt [] contains all available pointers			*/
+	/*    - typ [] contains the type of availabale pointers		*/
+	/* ###------------------------------------------------------### */
+
+    if (idx == _error_DFN)
+      fprintf (stderr ,"unrecognized command\n");
+    else
+      {
+
+	/* ###------------------------------------------------------### */
+	/*    define the type of the structure that may be pushed on	*/
+	/* the stack :							*/
+	/*    - if the pointer is a VOID pointer the exact type must be	*/
+	/*      defined on the command line (last word of the command)	*/
+	/* ###------------------------------------------------------### */
+
+      pshtype = POINTER_DFN | s_DFN | void_DFN;
+      if ((typ [idx] & TYPE_DFN) == void_DFN)
+        {
+        if ((wrdcnt >= 2) && (indxs [wrdcnt - 1] != _error_DFN))
+          pshtype = POINTER_DFN | s_DFN | indxs [wrdcnt - 1];
+        else
+          fprintf (stderr ,"structure has unknown type (void *)\n");
+        }
+      else
+       pshtype = typ [idx];
+
+	/* ###------------------------------------------------------### */
+	/*    depending on the kind of the first word of the command	*/
+	/* activate actions :						*/
+	/*    - COMMAND (_top, _up, ...)				*/
+	/*    - POINTER							*/
+	/*        - for NEXT go forward until the Nth element of the	*/
+	/*          list. Then, push it on the stack and dispaly it	*/
+	/*        - for others push and display				*/
+	/*    - ARRAY							*/
+	/*        - push and display the Nth element of the array	*/
+	/* ###------------------------------------------------------### */
+
+      switch (typ [idx] & KIND_DFN)
+        {
+
+        case COMMAND_DFN :
+          switch (typ [idx] & TYPE_DFN)
+            {
+	/* ###------------------------------------------------------### */
+	/*    _top COMMAND : reset the stack pointer, call read_field	*/
+	/* to read the structure on the top of stack			*/
+	/* ###------------------------------------------------------### */
+
+            case _top_DFN :
+              stkpnt  = 0;
+              dispflg = 1;
+              break;
+
+	/* ###------------------------------------------------------### */
+	/*    _stop COMMAND : set the stop mark for the structure on	*/
+	/* the top of stack						*/
+	/* ###------------------------------------------------------### */
+
+            case _stop_DFN :
+              stk [stkpnt].mark = 1;
+              fprintf (stdout, "beh_debug : stop mark set\n");
+              break;
+
+	/* ###------------------------------------------------------### */
+	/*    _back COMMAND : pop structures from the stack until a	*/
+	/* marked structure is found. Call read_field to read the	*/
+	/* structure on the top of stack				*/
+	/* ###------------------------------------------------------### */
+
+            case _back_DFN :
+              while ((stkpnt != 0) && (stk[--stkpnt].mark != 1));
+              dispflg = 1;
+              break;
+
+	/* ###------------------------------------------------------### */
+	/*    _jump COMMAND : push on the stack the structure saved in	*/
+	/* the jump table. Call read_field to read the structure on the	*/
+	/* top of stack							*/
+	/* ###------------------------------------------------------### */
+
+            case _jump_DFN :
+              if ((wrdcnt == 2) && (flags [1] == 1) && (nmbrs [1] < 10))
+                {
+                push (stk, &stkpnt, jtab[nmbrs[1]].data, jtab[nmbrs[1]].type);
+                dispflg = 1;
+                }
+              else
+                fprintf (stderr ,"unrecognized command\n");
+              break;
+
+	/* ###------------------------------------------------------### */
+	/*    _up COMMAND : pop structure from the stack. Call		*/
+	/* read_field to read the structure on the top of stack		*/
+	/* ###------------------------------------------------------### */
+
+            case _up_DFN :
+              if (wrdcnt == 1)
+                {
+                pop (&stkpnt, 1);
+                dispflg = 1;
+                }
+              else
+                {
+                if ((wrdcnt == 2) && (flags [1] == 1))
+                  {
+                  pop (&stkpnt, nmbrs [1] + 1);
+                  dispflg = 1;
+                  }
+                else
+                  fprintf (stderr ,"unrecognized command\n");
+                }
+              break;
+
+	/* ###------------------------------------------------------### */
+	/*    _save COMMAND : save the structure on the top of stack in	*/
+	/* the jump table						*/
+	/* ###------------------------------------------------------### */
+
+            case _save_DFN :
+              if ((wrdcnt == 2) && (flags [1] == 1) && (nmbrs [1] < 10))
+                jtab [nmbrs[1]] = stk [stkpnt];
+              else
+                fprintf (stderr ,"unrecognized command\n");
+              break;
+
+	/* ###------------------------------------------------------### */
+	/*    _display COMMAND : display a specified field as an	*/
+	/* immediate							*/
+	/* ###------------------------------------------------------### */
+
+            case _display_DFN :
+              if ((wrdcnt == 3) && (indxs [1] != _error_DFN))
+                disp_immd (str, pnt [indxs [1]], indxs [2]);
+              else
+                fprintf (stderr ,"unrecognized command\n");
+              break;
+
+            }
+          break;
+
+        case POINTER_DFN :
+          if (idx == next_DFN)
+            {
+            if ((wrdcnt == 1) || ((wrdcnt == 2) && (flags [1] == 0)))
+              {
+              push (stk, &stkpnt, pnt [idx].dat, pshtype);
+              dispflg = 1;
+              }
+            else
+              {
+              if (((wrdcnt == 3) || (wrdcnt == 2)) && (flags [1] == 1))
+                {
+                pnt [idx].dat = (void *) goforward (pnt [idx].dat, nmbrs [1]);
+                push (stk, &stkpnt, pnt [idx].dat, pshtype);
+                dispflg = 1;
+                }
+              else
+                fprintf (stderr ,"unrecognized command\n");
+              }
+            }
+          else
+            {
+            push (stk, &stkpnt, pnt [idx].dat, pshtype);
+            dispflg = 1;
+            }
+          break;
+
+        case ARRAY_DFN :
+          if ((wrdcnt > 1) && (flags [1] == 1))
+            {
+            size = siz [(typ [idx] & TYPE_DFN)];
+            pntr = (void *)
+                   (((unsigned int) pnt [idx].dat) + (size * nmbrs [1]));
+            push (stk, &stkpnt, pntr, pshtype);
+            dispflg = 1;
+            }
+          else
+            fprintf (stderr ,"unrecognized command\n");
+          break;
+
+        case ARYOFPNT_DFN :
+          if ((wrdcnt > 1) && (flags [1] == 1))
+            {
+            size = sizeof (void *);
+            pntr = * (void **)
+                     (((unsigned int) pnt [idx].dat) + (size * nmbrs [1]));
+            push (stk, &stkpnt, pntr, pshtype);
+            dispflg = 1;
+            }
+          else
+            fprintf (stderr ,"unrecognized command\n");
+          break;
+
+        }
+
+      if (dispflg == 1)
+        {
+        dispflg = 0;
+        display (stk [stkpnt], pnt, typ, str);
+        }
+
+      }
+
+    printf ("\n\nCOMMAND > ");
+
+    gets (line);
+    if (strcmp (line ,"."))
+      {
+      wrdcnt = splitline (words, line);
+      idx    = translate (words, wrdcnt, str, nmbrs, flags, indxs);
+      }
     }
   }

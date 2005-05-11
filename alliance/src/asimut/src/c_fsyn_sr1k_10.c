@@ -15,6 +15,24 @@
 #include "vh_xcomm.h"
 
 /* ###--------------------------------------------------------------### */
+/* function	: init							*/
+/* description	: initializations					*/
+/* called func.	: none							*/
+/* ###--------------------------------------------------------------### */
+
+static void init (pt_lkdins, pt_mem)
+
+struct lkdins *pt_lkdins;
+char          *pt_mem   ;
+
+  {
+  char *name;
+
+  name = vhx_GetInstanceName (pt_lkdins);
+  printf ("coucou %s\n", name);
+  }
+
+/* ###--------------------------------------------------------------### */
 /* function	: c_fsyn_sr1k_10					*/
 /* description	: 1K synchronous (clock's falling edge) static 10-bit	*/
 /*		  Ram							*/
@@ -48,7 +66,6 @@ struct lkdins *pt_lkdins;
     };
 
   struct local_mem *local   ;
-  static void       init () ;
 
 	/* ###------------------------------------------------------### */
 	/*   get the memory space reserved for the current instance	*/
@@ -105,20 +122,3 @@ struct lkdins *pt_lkdins;
     }
   }
 
-/* ###--------------------------------------------------------------### */
-/* function	: init							*/
-/* description	: initializations					*/
-/* called func.	: none							*/
-/* ###--------------------------------------------------------------### */
-
-static void init (pt_lkdins, pt_mem)
-
-struct lkdins *pt_lkdins;
-char          *pt_mem   ;
-
-  {
-  char *name;
-
-  name = vhx_GetInstanceName (pt_lkdins);
-  printf ("coucou %s\n", name);
-  }

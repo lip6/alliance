@@ -37,6 +37,7 @@
 # endif
 #endif
 
+#include <stdlib.h>
 #include <mut.h>
 #include <mlo.h>
 #include <abl.h>

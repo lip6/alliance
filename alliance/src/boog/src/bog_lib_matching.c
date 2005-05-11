@@ -27,7 +27,7 @@
  * Author  : Francois Donnet
  */
 
-
+#include <stdlib.h>
 #include <mut.h>
 #include <abl.h>
 #include <aut.h>

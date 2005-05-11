@@ -17,367 +17,6 @@
 #include "vh_ltype.h"
 #include "vh_debug.h"
 
-/* ###--------------------------------------------------------------### */
-/* function	: dast_dbg						*/
-/* description	: display any structure					*/
-/* called func.	: vhu_error, vhu_message				*/
-/* ###--------------------------------------------------------------### */
-
-void dast_dbg (head_pnt, type)
-
-void *head_pnt;				/* structure's pointer		*/
-char *type;				/* structure's type		*/
-
-  {
-  static int           translate  ();
-  static int           splitline  ();
-  static void          disp_immd  ();
-  static void          get_size   ();
-  static void          read_field ();
-  static void          push       ();
-  static void          pop        ();
-  static struct chain *go_forward ();
-
-  char          line   [128];		/* buffer to read a cmd line	*/
-  char          buffer [128];		/* buffer to split the cmd line	*/
-
-  char         *words  [ 10];		/* number of words on a line	*/
-  int           nmbrs  [ 10];		/* words translated into number	*/
-  char          flags  [ 10];		/* set if words is a number	*/
-  int           indxs  [ 10];		/* index of words		*/
-
-  struct stack  jtab   [ 10];		/* list of memorized addresses	*/
-  int           idx;
-  int           readflg = 0;
-  unsigned int  size;
-  char         *pntr   = NULL;
-  long          pshtype;
-  int           wrdcnt = 1;
-
-  struct stack  stk [STKSIZ_DFN];
-  int           stkpnt = -1;
-
-  union value   pnt [MAXCMD_DFN];
-  long          typ [MAXCMD_DFN];
-  unsigned int  siz [MAXCMD_DFN];
-
-  static char  *str [] = {
-                         "_back"     , "_exit"     , "_jump"     , "_save"     ,
-                         "_stop"     , "_top"      , "_up"       , "_display"  ,
-
-                         "character" , "short"     , "integer"   , "long"      ,
-                         "float"     , "void"      , "string"    ,
-
-                         "chain"     , "ptype"     ,
-
-                         "lofig"     , "locon"     , "losig"     , "loins"     ,
-
-                         "befig"     , "bereg"     , "bemsg"     , "berin"     ,
-                         "beout"     , "bebus"     , "beaux"     , "bedly"     ,
-                         "bebux"     , "bepor"     , "begen"     , "biabl"     ,
-                         "binode"    ,
-
-                         "paseq"     , "pagrp"     , "paiol"     , "papat"     ,
-                         "pacom"     , "paini"     , "paevt"     , "pains"     ,
-
-                         "bussig"    , "lkdfig"    , "lkdins"    , "simsig"    ,
-                         "wrbsig"    , "wriaux"    , "wribux"    , "wrireg"    ,
-                         "wrssig"    , "wrimsg"    ,
-
-                         "shdul"     , "shent"     , "shtra"     , "shwav"     ,
-
-                         "abl"       , "bdd"       , "gex"       ,
-
-                         "actflag"   , "aux_ref"   , "blank"     , "buffer"    ,
-                         "bus_ref"   , "bux_ref"   , "capa"      , "cndabl"    ,
-                         "cndnode"   , "cndval"    , "cond"      , "curcom"    ,
-                         "curpat"    , "curtime"   , "curval"    , "data"      ,
-                         "date"      , "deccom"    , "depend"    , "direction" ,
-                         "dly_ref"   , "drvseq"    , "drvval"    , "endflg"    ,
-                         "errflg"    , "eval"      , "figname"   , "filname"   ,
-                         "findex"    , "flag"      , "flags"     , "format"    ,
-                         "glnext"    , "ident"     , "index"     , "insname"   ,
-                         "instance"  , "iolnbr"    , "itable"    , "label"     ,
-                         "length"    , "level"     , "line"      , "lineno"    ,
-                         "message"   , "mode"      , "model"     , "modelchain",
-                         "msg_ref"   , "name"      , "namechain" , "next"      ,
-                         "node"      , "nxtpat"    , "oldcom"    , "oldpat"    ,
-                         "out_ref"   , "patnbr"    , "position"  , "prev"      ,
-                         "prjbvl"    , "prjrvl"    , "prjval"    , "redins"    ,
-                         "redlst"    , "reg_ref"   , "root"      , "savflg"    ,
-                         "scdid"     , "sig"       , "simflag"   , "simval"    ,
-                         "subseq"    , "text"      , "time"      , "time_unit" ,
-                         "trans"     , "ttable"    , "type"      , "uflag"     ,
-                         "user"      , "usrval"    , "valabl"    , "valnode"   ,
-                         "valsiz"    , "valu"      , "value"     , "wave" 
-                         };
-
-	/* ###------------------------------------------------------### */
-	/*    initialisation :						*/
-	/*    - allocate a buffer for read words			*/
-	/*    - break the argument that identifies the structure (type)	*/
-	/*      into words						*/
-	/*    - search that words among recognized strings		*/
-	/* ###------------------------------------------------------### */
-
-  words [0] = buffer;
-  get_size (siz);
-
-  wrdcnt        = splitline (words, type);
-  idx           = translate (words, wrdcnt, str, nmbrs, flags, indxs);
-
-  typ [idx]     = POINTER_DFN | s_DFN | idx;
-  pnt [idx].dat = head_pnt;
-
-	/* ###------------------------------------------------------### */
-	/*    process the command line until the _exit command		*/
-	/* ###------------------------------------------------------### */
-
-  while ((idx & TYPE_DFN) != _exit_DFN)
-    {
-	/* ###------------------------------------------------------### */
-	/*    if the first word of the line has not been recognized,	*/
-	/* print an error message. Otherwise, proccess the command line	*/
-	/* (generally it is a request for displaying a specific field).	*/
-	/*								*/
-	/* At this point :						*/
-	/*    - pnt [] contains all available pointers			*/
-	/*    - typ [] contains the type of availabale pointers		*/
-	/* ###------------------------------------------------------### */
-
-    if (idx == _error_DFN)
-      vhu_error (118, NULL, NULL, 0);
-    else
-      {
-
-	/* ###------------------------------------------------------### */
-	/*    define the type of the structure that may be pushed on	*/
-	/* the stack :							*/
-	/*    - if the pointer is a VOID pointer the exact type must be	*/
-	/*      defined on the command line (last word of the command)	*/
-	/* ###------------------------------------------------------### */
-
-      pshtype = POINTER_DFN | s_DFN | void_DFN;
-      if ((typ [idx] & TYPE_DFN) == void_DFN)
-        {
-        if ((wrdcnt >= 2) && (indxs [wrdcnt - 1] != _error_DFN))
-          pshtype = POINTER_DFN | s_DFN | indxs [wrdcnt - 1];
-        else
-          vhu_error (119, NULL, NULL, 0);
-        }
-      else
-       pshtype = typ [idx];
-
-	/* ###------------------------------------------------------### */
-	/*    depending on the kind of the first word of the command	*/
-	/* activate actions :						*/
-	/*    - COMMAND (_top, _up, ...)				*/
-	/*    - POINTER							*/
-	/*        - for NEXT go forward until the Nth element of the	*/
-	/*          list. Then, push it on the stack and read fields	*/
-	/*        - for others push and read fields			*/
-	/*    - ARRAY							*/
-	/*        - push the Nth element of the array and read its	*/
-	/*          fields						*/
-	/*    - ARRAY OF POINTER					*/
-	/*        - push the object which address is the Nth element of	*/
-	/*          the array and read its fields			*/
-	/* ###------------------------------------------------------### */
-
-      switch (typ [idx] & KIND_DFN)
-        {
-
-	/* ###------------------------------------------------------### */
-	/*    COMMANDS ...						*/
-	/* ###------------------------------------------------------### */
-
-        case COMMAND_DFN :
-
-          switch (typ [idx] & TYPE_DFN)
-            {
-	/* ###------------------------------------------------------### */
-	/*    _top COMMAND : reset the stack pointer, call read_field	*/
-	/* to read the structure on the top of stack			*/
-	/* ###------------------------------------------------------### */
-
-            case _top_DFN :
-              stkpnt  = 0;
-              readflg = 1;
-              break;
-
-	/* ###------------------------------------------------------### */
-	/*    _stop COMMAND : set the stop mark for the structure on	*/
-	/* the top of stack						*/
-	/* ###------------------------------------------------------### */
-
-            case _stop_DFN :
-              stk [stkpnt].mark = 1;
-              vhu_message (19, "vhu_debug", 0);
-              break;
-
-	/* ###------------------------------------------------------### */
-	/*    _back COMMAND : pop structures from the stack until a	*/
-	/* marked structure is found. Call read_field to read the	*/
-	/* structure on the top of stack				*/
-	/* ###------------------------------------------------------### */
-
-            case _back_DFN :
-              while ((stkpnt != 0) && (stk[--stkpnt].mark != 1));
-              readflg = 1;
-              break;
-
-	/* ###------------------------------------------------------### */
-	/*    _jump COMMAND : push on the stack the structure saved in	*/
-	/* the jump table. Call read_field to read the structure on the	*/
-	/* top of stack							*/
-	/* ###------------------------------------------------------### */
-
-            case _jump_DFN :
-              if ((wrdcnt == 2) && (flags [1] == 1) && (nmbrs [1] < 10))
-                {
-                push (stk, &stkpnt, jtab[nmbrs[1]].data, jtab[nmbrs[1]].type);
-                readflg = 1;
-                }
-              else
-                vhu_error (118, NULL, NULL, 0);
-              break;
-
-	/* ###------------------------------------------------------### */
-	/*    _up COMMAND : pop structure from the stack. Call		*/
-	/* read_field to read the structure on the top of stack		*/
-	/* ###------------------------------------------------------### */
-
-            case _up_DFN :
-              if (wrdcnt == 1)
-                {
-                pop (&stkpnt, 1);
-                readflg = 1;
-                }
-              else
-                {
-                if ((wrdcnt == 2) && (flags [1] == 1))
-                  {
-                  pop (&stkpnt, nmbrs [1] + 1);
-                  readflg = 1;
-                  }
-                else
-                  vhu_error (118, NULL, NULL, 0);
-                }
-              break;
-
-	/* ###------------------------------------------------------### */
-	/*    _save COMMAND : save the structure on the top of stack in	*/
-	/* the jump table						*/
-	/* ###------------------------------------------------------### */
-
-            case _save_DFN :
-              if ((wrdcnt == 2) && (flags [1] == 1) && (nmbrs [1] < 10))
-                jtab [nmbrs[1]] = stk [stkpnt];
-              else
-                vhu_error (118, NULL, NULL, 0);
-              break;
-
-	/* ###------------------------------------------------------### */
-	/*    _display COMMAND : display a specified field as an	*/
-	/* immediate							*/
-	/* ###------------------------------------------------------### */
-
-            case _display_DFN :
-              if ((wrdcnt == 3) && (indxs [1] != _error_DFN))
-                disp_immd (str, pnt [indxs [1]], indxs [2]);
-              else
-                vhu_error (118, NULL, NULL, 0);
-              break;
-
-            }
-          break;
-
-	/* ###------------------------------------------------------### */
-	/*   POINTERS ...						*/
-	/* ###------------------------------------------------------### */
-
-        case POINTER_DFN :
-          if (idx == next_DFN)
-            {
-            if ((wrdcnt == 1) || ((wrdcnt == 2) && (flags [1] == 0)))
-              {
-              push (stk, &stkpnt, pnt [idx].dat, pshtype);
-              readflg = 1;
-              }
-            else
-              {
-              if (((wrdcnt == 3) || (wrdcnt == 2)) && (flags [1] == 1))
-                {
-                pnt [idx].dat = (void *) go_forward (pnt [idx].dat, nmbrs [1]);
-                push (stk, &stkpnt, pnt [idx].dat, pshtype);
-                readflg = 1;
-                }
-              else
-                vhu_error (118, NULL, NULL, 0);
-              }
-            }
-          else
-            {
-            push (stk, &stkpnt, pnt [idx].dat, pshtype);
-            readflg = 1;
-            }
-          break;
-
-	/* ###------------------------------------------------------### */
-	/*   ARRAIES of structure					*/
-	/* ###------------------------------------------------------### */
-
-        case ARRAY_DFN :
-          if ((wrdcnt > 1) && (flags [1] == 1))
-            {
-            size = siz [(typ [idx] & TYPE_DFN)];
-            pntr = (void *)
-                   (((unsigned int) pnt [idx].dat) + (size * nmbrs [1]));
-            push (stk, &stkpnt, pntr, pshtype);
-            readflg = 1;
-            }
-          else
-            vhu_error (118, NULL, NULL, 0);
-          break;
-
-	/* ###------------------------------------------------------### */
-	/*   ARRAIES of pointers					*/
-	/* ###------------------------------------------------------### */
-
-        case ARYOFPNT_DFN :
-          if ((wrdcnt > 1) && (flags [1] == 1))
-            {
-            size = sizeof (void *);
-            pntr = * (void **)
-                     (((unsigned int) pnt [idx].dat) + (size * nmbrs [1]));
-            push (stk, &stkpnt, pntr, pshtype);
-            readflg = 1;
-            }
-          else
-            vhu_error (118, NULL, NULL, 0);
-          break;
-
-        }
-
-      if (readflg == 1)
-        {
-        readflg = 0;
-        read_field (stk [stkpnt], pnt, typ, str);
-        }
-
-      }
-
-    printf ("\n\nCOMMAND > ");
-
-    gets (line);
-    if (strcmp (line ,"."))
-      {
-      wrdcnt = splitline (words, line);
-      idx    = translate (words, wrdcnt, str, nmbrs, flags, indxs);
-      }
-    }
-
-  }
 
 /* ###--------------------------------------------------------------### */
 /* function	: read_field						*/
@@ -393,13 +32,11 @@ long          *typ   ;			/* child struct. or data type	*/
 char         **str   ;			/* recognized strings		*/
 
   {
-  extern char         *exprToCharInt ();
-  extern struct chain *bddToAbl ();
 
   int                    i;
   struct chain	        *ptr_abl;
   static char           *buffer      = NULL;
-  static unsigned int    buffer_size = 0;
+  static          int    buffer_size = 0;
   static struct circuit *circuit_pnt = NULL;
 
   struct chain   *chain_pnt;
@@ -1956,4 +1593,358 @@ int         type ;
     default :
       vhu_error (118, NULL, NULL, 0);
     }
+  }
+
+/* ###--------------------------------------------------------------### */
+/* function	: dast_dbg						*/
+/* description	: display any structure					*/
+/* called func.	: vhu_error, vhu_message				*/
+/* ###--------------------------------------------------------------### */
+
+void dast_dbg (head_pnt, type)
+
+void *head_pnt;				/* structure's pointer		*/
+char *type;				/* structure's type		*/
+
+  {
+
+  char          line   [128];		/* buffer to read a cmd line	*/
+  char          buffer [128];		/* buffer to split the cmd line	*/
+
+  char         *words  [ 10];		/* number of words on a line	*/
+  int           nmbrs  [ 10];		/* words translated into number	*/
+  char          flags  [ 10];		/* set if words is a number	*/
+  int           indxs  [ 10];		/* index of words		*/
+
+  struct stack  jtab   [ 10];		/* list of memorized addresses	*/
+  int           idx;
+  int           readflg = 0;
+  unsigned int  size;
+  char         *pntr   = NULL;
+  long          pshtype;
+  int           wrdcnt = 1;
+
+  struct stack  stk [STKSIZ_DFN];
+  int           stkpnt = -1;
+
+  union value   pnt [MAXCMD_DFN];
+  long          typ [MAXCMD_DFN];
+  unsigned int  siz [MAXCMD_DFN];
+
+  static char  *str [] = {
+                         "_back"     , "_exit"     , "_jump"     , "_save"     ,
+                         "_stop"     , "_top"      , "_up"       , "_display"  ,
+
+                         "character" , "short"     , "integer"   , "long"      ,
+                         "float"     , "void"      , "string"    ,
+
+                         "chain"     , "ptype"     ,
+
+                         "lofig"     , "locon"     , "losig"     , "loins"     ,
+
+                         "befig"     , "bereg"     , "bemsg"     , "berin"     ,
+                         "beout"     , "bebus"     , "beaux"     , "bedly"     ,
+                         "bebux"     , "bepor"     , "begen"     , "biabl"     ,
+                         "binode"    ,
+
+                         "paseq"     , "pagrp"     , "paiol"     , "papat"     ,
+                         "pacom"     , "paini"     , "paevt"     , "pains"     ,
+
+                         "bussig"    , "lkdfig"    , "lkdins"    , "simsig"    ,
+                         "wrbsig"    , "wriaux"    , "wribux"    , "wrireg"    ,
+                         "wrssig"    , "wrimsg"    ,
+
+                         "shdul"     , "shent"     , "shtra"     , "shwav"     ,
+
+                         "abl"       , "bdd"       , "gex"       ,
+
+                         "actflag"   , "aux_ref"   , "blank"     , "buffer"    ,
+                         "bus_ref"   , "bux_ref"   , "capa"      , "cndabl"    ,
+                         "cndnode"   , "cndval"    , "cond"      , "curcom"    ,
+                         "curpat"    , "curtime"   , "curval"    , "data"      ,
+                         "date"      , "deccom"    , "depend"    , "direction" ,
+                         "dly_ref"   , "drvseq"    , "drvval"    , "endflg"    ,
+                         "errflg"    , "eval"      , "figname"   , "filname"   ,
+                         "findex"    , "flag"      , "flags"     , "format"    ,
+                         "glnext"    , "ident"     , "index"     , "insname"   ,
+                         "instance"  , "iolnbr"    , "itable"    , "label"     ,
+                         "length"    , "level"     , "line"      , "lineno"    ,
+                         "message"   , "mode"      , "model"     , "modelchain",
+                         "msg_ref"   , "name"      , "namechain" , "next"      ,
+                         "node"      , "nxtpat"    , "oldcom"    , "oldpat"    ,
+                         "out_ref"   , "patnbr"    , "position"  , "prev"      ,
+                         "prjbvl"    , "prjrvl"    , "prjval"    , "redins"    ,
+                         "redlst"    , "reg_ref"   , "root"      , "savflg"    ,
+                         "scdid"     , "sig"       , "simflag"   , "simval"    ,
+                         "subseq"    , "text"      , "time"      , "time_unit" ,
+                         "trans"     , "ttable"    , "type"      , "uflag"     ,
+                         "user"      , "usrval"    , "valabl"    , "valnode"   ,
+                         "valsiz"    , "valu"      , "value"     , "wave" 
+                         };
+
+	/* ###------------------------------------------------------### */
+	/*    initialisation :						*/
+	/*    - allocate a buffer for read words			*/
+	/*    - break the argument that identifies the structure (type)	*/
+	/*      into words						*/
+	/*    - search that words among recognized strings		*/
+	/* ###------------------------------------------------------### */
+
+  words [0] = buffer;
+  get_size (siz);
+
+  wrdcnt        = splitline (words, type);
+  idx           = translate (words, wrdcnt, str, nmbrs, flags, indxs);
+
+  typ [idx]     = POINTER_DFN | s_DFN | idx;
+  pnt [idx].dat = head_pnt;
+
+	/* ###------------------------------------------------------### */
+	/*    process the command line until the _exit command		*/
+	/* ###------------------------------------------------------### */
+
+  while ((idx & TYPE_DFN) != _exit_DFN)
+    {
+	/* ###------------------------------------------------------### */
+	/*    if the first word of the line has not been recognized,	*/
+	/* print an error message. Otherwise, proccess the command line	*/
+	/* (generally it is a request for displaying a specific field).	*/
+	/*								*/
+	/* At this point :						*/
+	/*    - pnt [] contains all available pointers			*/
+	/*    - typ [] contains the type of availabale pointers		*/
+	/* ###------------------------------------------------------### */
+
+    if (idx == _error_DFN)
+      vhu_error (118, NULL, NULL, 0);
+    else
+      {
+
+	/* ###------------------------------------------------------### */
+	/*    define the type of the structure that may be pushed on	*/
+	/* the stack :							*/
+	/*    - if the pointer is a VOID pointer the exact type must be	*/
+	/*      defined on the command line (last word of the command)	*/
+	/* ###------------------------------------------------------### */
+
+      pshtype = POINTER_DFN | s_DFN | void_DFN;
+      if ((typ [idx] & TYPE_DFN) == void_DFN)
+        {
+        if ((wrdcnt >= 2) && (indxs [wrdcnt - 1] != _error_DFN))
+          pshtype = POINTER_DFN | s_DFN | indxs [wrdcnt - 1];
+        else
+          vhu_error (119, NULL, NULL, 0);
+        }
+      else
+       pshtype = typ [idx];
+
+	/* ###------------------------------------------------------### */
+	/*    depending on the kind of the first word of the command	*/
+	/* activate actions :						*/
+	/*    - COMMAND (_top, _up, ...)				*/
+	/*    - POINTER							*/
+	/*        - for NEXT go forward until the Nth element of the	*/
+	/*          list. Then, push it on the stack and read fields	*/
+	/*        - for others push and read fields			*/
+	/*    - ARRAY							*/
+	/*        - push the Nth element of the array and read its	*/
+	/*          fields						*/
+	/*    - ARRAY OF POINTER					*/
+	/*        - push the object which address is the Nth element of	*/
+	/*          the array and read its fields			*/
+	/* ###------------------------------------------------------### */
+
+      switch (typ [idx] & KIND_DFN)
+        {
+
+	/* ###------------------------------------------------------### */
+	/*    COMMANDS ...						*/
+	/* ###------------------------------------------------------### */
+
+        case COMMAND_DFN :
+
+          switch (typ [idx] & TYPE_DFN)
+            {
+	/* ###------------------------------------------------------### */
+	/*    _top COMMAND : reset the stack pointer, call read_field	*/
+	/* to read the structure on the top of stack			*/
+	/* ###------------------------------------------------------### */
+
+            case _top_DFN :
+              stkpnt  = 0;
+              readflg = 1;
+              break;
+
+	/* ###------------------------------------------------------### */
+	/*    _stop COMMAND : set the stop mark for the structure on	*/
+	/* the top of stack						*/
+	/* ###------------------------------------------------------### */
+
+            case _stop_DFN :
+              stk [stkpnt].mark = 1;
+              vhu_message (19, "vhu_debug", 0);
+              break;
+
+	/* ###------------------------------------------------------### */
+	/*    _back COMMAND : pop structures from the stack until a	*/
+	/* marked structure is found. Call read_field to read the	*/
+	/* structure on the top of stack				*/
+	/* ###------------------------------------------------------### */
+
+            case _back_DFN :
+              while ((stkpnt != 0) && (stk[--stkpnt].mark != 1));
+              readflg = 1;
+              break;
+
+	/* ###------------------------------------------------------### */
+	/*    _jump COMMAND : push on the stack the structure saved in	*/
+	/* the jump table. Call read_field to read the structure on the	*/
+	/* top of stack							*/
+	/* ###------------------------------------------------------### */
+
+            case _jump_DFN :
+              if ((wrdcnt == 2) && (flags [1] == 1) && (nmbrs [1] < 10))
+                {
+                push (stk, &stkpnt, jtab[nmbrs[1]].data, jtab[nmbrs[1]].type);
+                readflg = 1;
+                }
+              else
+                vhu_error (118, NULL, NULL, 0);
+              break;
+
+	/* ###------------------------------------------------------### */
+	/*    _up COMMAND : pop structure from the stack. Call		*/
+	/* read_field to read the structure on the top of stack		*/
+	/* ###------------------------------------------------------### */
+
+            case _up_DFN :
+              if (wrdcnt == 1)
+                {
+                pop (&stkpnt, 1);
+                readflg = 1;
+                }
+              else
+                {
+                if ((wrdcnt == 2) && (flags [1] == 1))
+                  {
+                  pop (&stkpnt, nmbrs [1] + 1);
+                  readflg = 1;
+                  }
+                else
+                  vhu_error (118, NULL, NULL, 0);
+                }
+              break;
+
+	/* ###------------------------------------------------------### */
+	/*    _save COMMAND : save the structure on the top of stack in	*/
+	/* the jump table						*/
+	/* ###------------------------------------------------------### */
+
+            case _save_DFN :
+              if ((wrdcnt == 2) && (flags [1] == 1) && (nmbrs [1] < 10))
+                jtab [nmbrs[1]] = stk [stkpnt];
+              else
+                vhu_error (118, NULL, NULL, 0);
+              break;
+
+	/* ###------------------------------------------------------### */
+	/*    _display COMMAND : display a specified field as an	*/
+	/* immediate							*/
+	/* ###------------------------------------------------------### */
+
+            case _display_DFN :
+              if ((wrdcnt == 3) && (indxs [1] != _error_DFN))
+                disp_immd (str, pnt [indxs [1]], indxs [2]);
+              else
+                vhu_error (118, NULL, NULL, 0);
+              break;
+
+            }
+          break;
+
+	/* ###------------------------------------------------------### */
+	/*   POINTERS ...						*/
+	/* ###------------------------------------------------------### */
+
+        case POINTER_DFN :
+          if (idx == next_DFN)
+            {
+            if ((wrdcnt == 1) || ((wrdcnt == 2) && (flags [1] == 0)))
+              {
+              push (stk, &stkpnt, pnt [idx].dat, pshtype);
+              readflg = 1;
+              }
+            else
+              {
+              if (((wrdcnt == 3) || (wrdcnt == 2)) && (flags [1] == 1))
+                {
+                pnt [idx].dat = (void *) go_forward (pnt [idx].dat, nmbrs [1]);
+                push (stk, &stkpnt, pnt [idx].dat, pshtype);
+                readflg = 1;
+                }
+              else
+                vhu_error (118, NULL, NULL, 0);
+              }
+            }
+          else
+            {
+            push (stk, &stkpnt, pnt [idx].dat, pshtype);
+            readflg = 1;
+            }
+          break;
+
+	/* ###------------------------------------------------------### */
+	/*   ARRAIES of structure					*/
+	/* ###------------------------------------------------------### */
+
+        case ARRAY_DFN :
+          if ((wrdcnt > 1) && (flags [1] == 1))
+            {
+            size = siz [(typ [idx] & TYPE_DFN)];
+            pntr = (void *)
+                   (((unsigned int) pnt [idx].dat) + (size * nmbrs [1]));
+            push (stk, &stkpnt, pntr, pshtype);
+            readflg = 1;
+            }
+          else
+            vhu_error (118, NULL, NULL, 0);
+          break;
+
+	/* ###------------------------------------------------------### */
+	/*   ARRAIES of pointers					*/
+	/* ###------------------------------------------------------### */
+
+        case ARYOFPNT_DFN :
+          if ((wrdcnt > 1) && (flags [1] == 1))
+            {
+            size = sizeof (void *);
+            pntr = * (void **)
+                     (((unsigned int) pnt [idx].dat) + (size * nmbrs [1]));
+            push (stk, &stkpnt, pntr, pshtype);
+            readflg = 1;
+            }
+          else
+            vhu_error (118, NULL, NULL, 0);
+          break;
+
+        }
+
+      if (readflg == 1)
+        {
+        readflg = 0;
+        read_field (stk [stkpnt], pnt, typ, str);
+        }
+
+      }
+
+    printf ("\n\nCOMMAND > ");
+
+    gets (line);
+    if (strcmp (line ,"."))
+      {
+      wrdcnt = splitline (words, line);
+      idx    = translate (words, wrdcnt, str, nmbrs, flags, indxs);
+      }
+    }
+
   }

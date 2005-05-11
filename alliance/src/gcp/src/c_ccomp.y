@@ -82,6 +82,7 @@ State 434 contains 2 shift/reduce conflicts. (Four ways to parse this.)  */
 %{
 
 #include <stdio.h>
+#include <stdlib.h>
 #include <errno.h>
 #include <setjmp.h>
 
@@ -102,7 +103,6 @@ State 434 contains 2 shift/reduce conflicts. (Four ways to parse this.)  */
 # include "c_debug.h"
 
 #ifdef MULTIBYTE_CHARS
-#include <stdlib.h>
 #include <locale.h>
 #endif
 

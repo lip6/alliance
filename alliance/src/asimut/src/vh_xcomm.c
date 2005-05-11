@@ -18,6 +18,7 @@
 /* ###--------------------------------------------------------------### */
 
 #include <stdio.h>
+#include <string.h>
 #include <time.h>
 #include "mut.h"
 #include "beh.h"

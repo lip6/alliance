@@ -30,6 +30,7 @@
 /* ###--------------------------------------------------------------### */
 
 #include <stdio.h>
+#include <string.h>
 #include "pat.h"
 #include "phl.h"
 

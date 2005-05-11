@@ -21,8 +21,10 @@
  * Software Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
  */
 
-#ident "$Id: flatlo.c,v 1.2 2002/09/30 16:20:13 czo Exp $"
+#ident "$Id: flatlo.c,v 1.3 2005/05/11 08:05:32 hcl Exp $"
 #include <stdio.h>
+#include <string.h>
+#include <stdlib.h>
 #include "mut.h"
 #include "mlo.h"
 
