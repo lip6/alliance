@@ -11,6 +11,9 @@
 
 This file discuss about installation of Alliance on Mac OS X machines.
 
+2005/05/11 : Alliance successfully built on Mac OS X.4 (Tiger)
+             with both gcc-3.3 and gcc-4.0.
+
 ===================================================================
 
 Alliance has been succesfully build on Mac OS X.2 (Jaguar) and Mac OS X.3 (Panther)
