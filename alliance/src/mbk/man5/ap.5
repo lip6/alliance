@@ -1,4 +1,4 @@
-.\"   $Id: ap.5,v 1.2 2003/10/29 15:10:42 xtof Exp $
+.\"   $Id: ap.5,v 1.3 2005/08/31 14:16:51 xtof Exp $
 .\" @(#)Labo.l 0.0 91/04/02 UPMC; Author: Vincent POUILLEY
 .TH AP 5 "October 1, 1997" "ASIM/LIP6" "FILE FORMATS"
 .SH NAME
@@ -168,10 +168,10 @@ geoop ::= 'NOSYM' | 'ROT_P' | 'ROT_M' | 'SYM_X' | 'SYM_Y' |
    /* sym_y  : y becomes -y                               */
    /* sym_x  : x becomes -x                               */
    /* symxy  : x becomes -x and y becomes -y              */
-   /* sy_rp  : x becomes -x then rotates 90 degrees       */
-   /*          counter clockwyse                          */
-   /* sy_rm  : x becomes -x then rotates 90 degrees       */
-   /*          clockwyse                                  */
+   /* sy_rp  : y becomes -y then rotates 90 degrees       */
+   /*          counter clockwise                          */
+   /* sy_rm  : y becomes -y then rotates 90 degrees       */
+   /*          clockwise                                  */
 
 trans_name ::= 'T' transistor_type '_' d '_' w
 
