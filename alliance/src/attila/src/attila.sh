@@ -1,6 +1,6 @@
 #!/bin/sh
 #
-# $Id: attila.sh,v 1.21 2004/09/06 16:15:31 jpc Exp $
+# $Id: attila.sh,v 1.22 2005/10/03 14:44:41 jpc Exp $
 #                                                                        
 # /------------------------------------------------------------------\
 # |                                                                  |
@@ -14,6 +14,10 @@
 # | **************************************************************** |
 # |  U p d a t e s                                                   |
 # | $Log: attila.sh,v $
+# | Revision 1.22  2005/10/03 14:44:41  jpc
+# |
+# | Added support for SLA4x.
+# |
 # | Revision 1.21  2004/09/06 16:15:31  jpc
 # | Added support for Darwin (MacOS X).
 # | Added "--devel" argument.
@@ -194,8 +198,9 @@
  guess_os ()
  {
    case "`uname -sr`" in
-     Linux\ 2.4.9*) echo "Linux.RH71";;
-     Linux\ 2.6.*)  echo "Linux.FC2";;
+     Linux*2.4.9*)  echo "Linux.RH71";;
+     Linux*FC2*)    echo "Linux.FC2";;
+     Linux*EL*)     echo "Linux.SLA4x";;
      SunOS\ 5*)     echo "Solaris";;
      Darwin*)       echo "Darwin";;
      *)             echo "`uname -sr`";;
@@ -211,26 +216,31 @@
  guess_gcc ()
  {
    case "$1" in
-     "Linux.RH71") if which gcc > /dev/null 2>&1; then
-                     CXX=$LINUX_RH71_CXX
-                      CC=$LINUX_RH71_CC
-                   fi
-                   ;;
-     "Linux.FC2")  if which gcc > /dev/null 2>&1; then
-                     CXX=$LINUX_FC2_CXX
-                      CC=$LINUX_FC2_CC
-                   fi
-                   ;;
-     "Solaris")    if [ -x "$SOLARIS_CC" ]; then
-                     CXX=$SOLARIS_CXX
-                      CC=$SOLARIS_CC
-                   fi
-                   ;;
-     "Darwin")     if [ -x "$DARWIN_CC" ]; then
-                     CXX=$DARWIN_CXX
-                      CC=$DARWIN_CC
-                   fi
-                   ;;
+     "Linux.RH71")  if which gcc > /dev/null 2>&1; then
+                      CXX=$LINUX_RH71_CXX
+                       CC=$LINUX_RH71_CC
+                    fi
+                    ;;
+     "Linux.SLA4x") if which gcc > /dev/null 2>&1; then
+                     CXX=$LINUX_SLA4x_CXX
+                      CC=$LINUX_SLA4x_CC
+                    fi
+                    ;;
+     "Linux.FC2")   if which gcc > /dev/null 2>&1; then
+                      CXX=$LINUX_FC2_CXX
+                       CC=$LINUX_FC2_CC
+                    fi
+                    ;;
+     "Solaris")     if [ -x "$SOLARIS_CC" ]; then
+                      CXX=$SOLARIS_CXX
+                       CC=$SOLARIS_CC
+                    fi
+                    ;;
+     "Darwin")      if [ -x "$DARWIN_CC" ]; then
+                      CXX=$DARWIN_CXX
+                       CC=$DARWIN_CC
+                    fi
+                    ;;
    esac
  }
 
@@ -443,10 +453,11 @@
    echo "  o  Compilation environment."
 
    case "$ALLIANCE_OS" in
-     "Linux.RH71") MAKE="make";;
-     "Linux.FC2")  MAKE="make";;
-     "Solaris")    MAKE="gmake";;
-     "Darwin")     MAKE="make";;
+     "Linux.RH71")   MAKE="make";;
+     "Linux.FC2")    MAKE="make";;
+     "Linux.SLA4x")  MAKE="make";;
+     "Solaris")      MAKE="gmake";;
+     "Darwin")       MAKE="make";;
      *) echo "attila: \"$ALLIANCE_OS\" is not supported, only Linux & Solaris"
         echo "        are."
 
@@ -584,28 +595,32 @@
 
    CVS_STARTUP_FILES=""
 
- LINUX_RH71_TARGET="fa"
-     LINUX_RH71_CC="gcc3"
-    LINUX_RH71_CXX="g++3"
+   LINUX_RH71_TARGET="fa"
+       LINUX_RH71_CC="gcc3"
+      LINUX_RH71_CXX="g++3"
 
-  LINUX_FC2_TARGET="tsunami"
-      LINUX_FC2_CC="gcc"
-     LINUX_FC2_CXX="g++"
+    LINUX_FC2_TARGET="tsunami"
+        LINUX_FC2_CC="gcc"
+       LINUX_FC2_CXX="g++"
 
-    SOLARIS_TARGET="funk"
-        SOLARIS_CC="/usr/local/bin/gcc"
-       SOLARIS_CXX="/usr/local/bin/g++"
+  LINUX_SLA4x_TARGET="re"
+      LINUX_SLA4x_CC="gcc"
+     LINUX_SLA4x_CXX="g++"
 
-  DARWIN_TARGET="paques"
-      DARWIN_CC="gcc"
-     DARWIN_CXX="g++"
+      SOLARIS_TARGET="funk"
+          SOLARIS_CC="/usr/local/bin/gcc"
+         SOLARIS_CXX="/usr/local/bin/g++"
+
+       DARWIN_TARGET="paques"
+           DARWIN_CC="gcc"
+          DARWIN_CXX="g++"
 
 
 # --------------------------------------------------------------------
 # Internal variables.
 
 
-             ALL_OSS="Linux.RH71 Linux.FC2 Solaris"
+             ALL_OSS="Linux.RH71 Linux.FC2 Linux.SLA4x Solaris"
                   CC=gcc
                  CXX=g++
               export CC CXX
@@ -783,9 +798,10 @@
    ENVIRONMENT=""
    ENVIRONMENT="$ENVIRONMENT ALLIANCE_TOP=$ALLIANCE_TOP; export ALLIANCE_TOP;"
 
-   $RSH $LINUX_FC2_TARGET  "/bin/bash -c \"$ENVIRONMENT $SELF $ARGS\""
-   $RSH $LINUX_RH71_TARGET "/bin/bash -c \"$ENVIRONMENT $SELF $ARGS\""
-   $RSH $SOLARIS_TARGET    "/bin/bash -c \". /etc/profile; $ENVIRONMENT $SELF $ARGS\""
+   $RSH $LINUX_SLA4x_TARGET "/bin/bash -c \"$ENVIRONMENT $SELF $ARGS\""
+   $RSH $LINUX_FC2_TARGET   "/bin/bash -c \"$ENVIRONMENT $SELF $ARGS\""
+   $RSH $LINUX_RH71_TARGET  "/bin/bash -c \"$ENVIRONMENT $SELF $ARGS\""
+   $RSH $SOLARIS_TARGET     "/bin/bash -c \". /etc/profile; $ENVIRONMENT $SELF $ARGS\""
  else
   # Out of recursion...
    if [ "$DEVEL" = "y" ]; then
