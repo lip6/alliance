@@ -1,3 +1,0 @@
-cell : grmfill_c
-Empty cell for 512 words rom, to be placed for polarisation purposes under
-the output multiplexers decoders.

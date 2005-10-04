@@ -1,5 +1,0 @@
-cell : grbl4_c
-
-Rom precharged bit line.
-This is where the rom is actually coded.
-It contains vertical alu1 bit lines and transistors.

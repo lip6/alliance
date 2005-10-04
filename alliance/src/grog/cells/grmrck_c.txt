@@ -1,2 +1,0 @@
-cell : grmrck_c
-This is the general clock buffer, used for 512 words to 4 k.

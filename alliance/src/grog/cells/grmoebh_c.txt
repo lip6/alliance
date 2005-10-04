@@ -1,2 +1,0 @@
-cell : grmoebh_c
-512 words rom output enable command buffer.
