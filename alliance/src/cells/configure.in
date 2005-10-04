@@ -1,4 +1,4 @@
-dnl $Id: configure.in,v 1.4 2004/08/31 12:40:04 jpc Exp $
+dnl $Id: configure.in,v 1.5 2005/10/04 15:46:19 jpc Exp $
 
 AC_INIT(doc/sxlib.5)
 AM_INIT_AUTOMAKE(cells, 1.1)
@@ -13,6 +13,7 @@ doc/Makefile
 src/Makefile
 src/dp_sxlib/Makefile
 src/padlib/Makefile
+src/pxlib/Makefile
 src/rflib/Makefile
 src/rf2lib/Makefile
 src/sxlib/Makefile
