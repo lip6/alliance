@@ -1,7 +1,7 @@
 
 // -*- C++ -*-
 //
-// $Id: RMBK.cpp,v 1.9 2005/04/08 10:15:45 jpc Exp $
+// $Id: RMBK.cpp,v 1.10 2005/10/10 15:34:06 jpc Exp $
 //
 //  /----------------------------------------------------------------\ 
 //  |                                                                |
@@ -33,12 +33,20 @@
 // -------------------------------------------------------------------
 // Modifier  :  "CRBox::mbkload()".
 
-void  CRBox::mbkload (MBK::CFig *mbkfig, int z, int zup, int rtype)
+void  CRBox::mbkload (MBK::CFig *mbkfig
+                     , int z
+                     , int zup
+                     , int rtype
+                     , bool halfpitch
+                     , bool rotate )
 {
     MBK::MIns::iterator   itIns, endInstances, endOrphans;
   MBK::MLosig::iterator   endSig;
-                   long   mX, mY, mZ, x, y, zz;
+                   long   mX, mY, mZ, x, y, zz, xadjust, yadjust, yoffsetslice;
+                   long   XRW1, YRW1, XRW2, YRW2;
                    bool   use_global;
+                   long   northPad, southPad, eastPad, westPad;
+                   long   xoffsettrack, yoffsettrack;
         MBK::chain_list  *pChain;
         MBK::locon_list  *pLocon;
         MBK::phcon_list  *pPhcon;
@@ -48,6 +56,7 @@ void  CRBox::mbkload (MBK::CFig *mbkfig, int z, int zup, int rtype)
         MBK::phfig_list  *pModel;
             MBK::CXRect  *rect;
               MBK::CIns  *pIns;
+                   MNet   routeds;
                    CNet  *pNet;
                  string   sig_name, term_name, ins_name;
       CDRGrid::iterator   coord;
@@ -57,13 +66,124 @@ void  CRBox::mbkload (MBK::CFig *mbkfig, int z, int zup, int rtype)
   cmess1 << "\n";
   cmess1 << "  o  Loading design into grid...\n";
 
-  fig = mbkfig;
+  ischip       = false;
+  fig          = mbkfig;
+  endInstances = fig->instances.end ();
+  endOrphans   = fig->orphans.end   ();
+  endSig       = fig->lofig.signals.end ();
 
+  northPad     = 0;
+  southPad     = 0;
+  westPad      = 0;
+  eastPad      = 0;
+  xoffsettrack = 0;
+  yoffsettrack = 0;
+
+  // Half pitch offset.
+  if ( halfpitch ) {
+    xoffsettrack = D::X_GRID / 2;
+    yoffsettrack = D::Y_GRID / 2;
+  }
+
+  // Search for pads.
+  for (itIns = fig->instances.begin(); itIns != endInstances; itIns++) {
+    pModel = itIns->second->getmodel ();
+
+    if ( MBK::IsPxLib(pModel) ) {
+      switch ( itIns->second->phins->TRANSF ) {
+        case NOSYM:
+          ischip = true;
+          if ( northPad == 0 ) {
+            cmess2 << "     o  North pad found.\n";
+            northPad = pModel->YAB2 - pModel->YAB1 - MBK::SCALE(15);
+          }
+          break;
+        case SYM_Y:
+          ischip = true;
+          if ( southPad == 0 ) {
+            cmess2 << "     o  South pad found.\n";
+            southPad = pModel->YAB2 - pModel->YAB1 - MBK::SCALE(15);
+          }
+          break;
+        case ROT_P:
+          ischip = true;
+          if ( eastPad == 0 ) {
+            cmess2 << "     o  East pad found.\n";
+            eastPad = pModel->XAB2 - pModel->XAB1 - MBK::SCALE(15);
+          }
+          break;
+        case SY_RP:
+          ischip = true;
+          if ( westPad == 0 ) {
+            cmess2 << "     o  West pad found.\n";
+            westPad = pModel->XAB2 - pModel->XAB1 - MBK::SCALE(15);
+          }
+          break;
+        default:
+          cerr << hwarn ("")
+               << "  Pad " << itIns->second->phins->INSNAME
+               << " have an invalid orientation.\n";
+          break;
+      }
+    }
+  }
+
+
+  //southPad = northPad = westPad = eastPad = MBK::SCALE(50);
+  //westPad = MBK::SCALE(100);
+
+
+  // Default Routing Widow size : the AB.
+  XRW1 = fig->XAB1 () + westPad;
+  YRW1 = fig->YAB1 () + southPad;
+  XRW2 = fig->XAB2 () - eastPad;
+  YRW2 = fig->YAB2 () - northPad;
+
+  // Find the a seed cell (one either from sxlib or dp_sxlib to
+  // track adjust the grid).
+  for (itIns = fig->instances.begin(); ; itIns++) {
+    if (itIns == endInstances) {
+      xadjust      = xoffsettrack;
+      yadjust      = yoffsettrack;
+      yoffsetslice = 0;
+      cout << hwarn ("")
+           << "  Unable to found a seed cell (i.e. belonging to either\n"
+           << "  sxlib or dp_sxlib) grid could be misplaced.\n";
+      break;
+    }
+
+    pModel = itIns->second->getmodel ();
+
+    if ( !MBK::IsPxLib(pModel) ) {
+      cmess2 << "     o  Using seed cell \"" << itIns->first
+             << "\" (model \"" << pModel->NAME << "\").\n";
+      xadjust      = abs((itIns->second->phins->XINS - XRW1) % D::X_GRID ) + xoffsettrack;
+      yadjust      = abs((itIns->second->phins->YINS - YRW1) % D::Y_GRID ) + yoffsettrack;
+      yoffsetslice = abs((itIns->second->phins->YINS - YRW1) % D::Y_SLICE) + YRW1;
+
+      break;
+    }
+  }
+  
+  xoffsetgrid = XRW1 + xadjust;
+  yoffsetgrid = YRW1 + yadjust;
+
+  cmess2 << "     o  Grid offset : ("
+         << MBK::UNSCALE(xoffsetgrid) << ","
+         << MBK::UNSCALE(yoffsetgrid) << ")"
+         << " [adjust ("
+         << MBK::UNSCALE(xadjust) << ","
+         << MBK::UNSCALE(yadjust) << ")]\n";
 
   // Compute the routing grid size.
-  mX = (fig->XAB2 () - fig->XAB1 ()) / D::X_GRID + 1;
-  mY = (fig->YAB2 () - fig->YAB1 ()) / D::Y_GRID + 1;
+  mX = (XRW2 - XRW1) / D::X_GRID + ((xadjust==0)?1:0);
+  mY = (YRW2 - YRW1) / D::Y_GRID + ((yadjust==0)?1:0);
   mZ = z;
+
+
+  // Is the design a complete chip.
+  if (ischip)
+    cmess2 << "     o  Design have pads, treated as a complete chip.\n";
 
 
   // Selecting the whether to use global routing.
@@ -105,10 +225,10 @@ void  CRBox::mbkload (MBK::CFig *mbkfig, int z, int zup, int rtype)
          << mX << "," << mY << "," << mZ << "].\n";
 
   // Allocating the routing grid.
-  drgrid = new CDRGrid (mX, mY, mZ, zup);
+  drgrid = new CDRGrid (xoffsetgrid, yoffsetgrid, mX, mY, mZ, zup);
 
 
-  rect = new MBK::CXRect (fig->XAB1(), fig->YAB1());
+  rect = new MBK::CXRect (drgrid);
 
 
   cmess2 << "     o  Loading external terminals.\n";
@@ -141,20 +261,24 @@ void  CRBox::mbkload (MBK::CFig *mbkfig, int z, int zup, int rtype)
 
     rect->setSeg  (flatSeg);
 
-    pNet->newaccess ( term_name
-                    , rect->grid
-                    , MBK::env.layer2z (pPhcon->LAYER)
-                    );
+    if ( rect->isInGrid() ) {
+      pNet->newaccess ( term_name
+                      , rect->grid
+                      , MBK::env.layer2z (pPhcon->LAYER)
+                      );
+    } else {
+      cerr << hwarn ("")
+           << "  The terminal \"" << pPhcon->NAME << "\" at ("
+           << MBK::UNSCALE (pPhcon->XCON) << ","
+           << MBK::UNSCALE (pPhcon->YCON) << ") layer "
+           << MBK::layer2a (pPhcon->LAYER) << "\n"
+           << "  is outside the routing grid : ignored.\n";
+    }
 
   }
 
 
   cmess2 << "     o  Finding obstacles.\n";
-
-
-  endInstances = fig->instances.end ();
-  endOrphans   = fig->orphans.end   ();
-  endSig       = fig->lofig.signals.end ();
 
 
   // Browse father for obstacles (powers are obstacles) and already
@@ -203,16 +327,33 @@ void  CRBox::mbkload (MBK::CFig *mbkfig, int z, int zup, int rtype)
     }
 
     pNet = getnet (pSeg->NAME);
+    if ( !pNet->fixed ) {
+      cmess2 << "     o  Signal " << pNet->name << " is assumed to be routed.\n";
+      pNet->fixed = true;
+    }
 
     rect->setSeg  (*pSeg);
 
-    pNet->newaccess ( pSeg->NAME
-                    , rect->grid
-                    , MBK::env.layer2z (pSeg->LAYER)
-                    );
+    if ( rect->isInGrid() ) {
+      //pNet->newaccess ( pSeg->NAME
+      //                , rect->grid
+      //                , MBK::env.layer2z (pSeg->LAYER)
+      //                );
+      drgrid->nodes->obstacle (rect->grid, MBK::env.layer2z (pSeg->LAYER));
+    } else {
+      cerr << hwarn ("")
+           << "  The segment \"" << pSeg->NAME << "\" at ("
+           << MBK::UNSCALE (pSeg->X1) << ","
+           << MBK::UNSCALE (pSeg->Y1) << ") ("
+           << MBK::UNSCALE (pSeg->X2) << ","
+           << MBK::UNSCALE (pSeg->Y2) << ") layer "
+           << MBK::layer2a (pSeg->LAYER) << "\n"
+           << "  is outside the routing grid : ignored.";
+    }
   }
 
 
+  cerr << "VIAs" << endl;
   // Browse for obstacle VIAs.
   for (pVIA = fig->phfig.fig->PHVIA; pVIA != NULL; pVIA = pVIA->NEXT) {
     // Only power VIAs must be obstacles.
@@ -236,6 +377,8 @@ void  CRBox::mbkload (MBK::CFig *mbkfig, int z, int zup, int rtype)
     flatSeg.Y2    = pVIA->YVIA;
     flatSeg.WIDTH = pVIA->DY;
 
+    cerr << pVIA->XVIA << " " << pVIA->YVIA << " " << (int)flatSeg.LAYER << endl;
+
     rect->setSeg (flatSeg);
 
     //cerr << "+ Top VIA obstacle (" << pVIA->XVIA << "," << pVIA->YVIA << ")" << endl;
@@ -243,6 +386,7 @@ void  CRBox::mbkload (MBK::CFig *mbkfig, int z, int zup, int rtype)
   }
 
 
+  cerr << "Instances" << endl;
   // Browse instances & orphans for obstacles.
   for (itIns = fig->instances.begin(); ; itIns++) {
     if (itIns == endInstances) itIns = fig->orphans.begin ();
@@ -269,7 +413,7 @@ void  CRBox::mbkload (MBK::CFig *mbkfig, int z, int zup, int rtype)
         drgrid->nodes->obstacle (rect->grid, MBK::env.layer2z (pSeg->LAYER));
 
         if ( !MBK::ISVDD (pSeg->NAME) && !MBK::ISVSS (pSeg->NAME) )
-          fig->addphseg ( flatSeg, true );
+          fig->addphseg ( flatSeg, true, ischip );
       }
     }
   }
@@ -326,10 +470,25 @@ void  CRBox::mbkload (MBK::CFig *mbkfig, int z, int zup, int rtype)
         pIns->flatseg (flatSeg, *pSeg);
         rect->setSeg  (flatSeg);
 
-        pNet->newaccess ( term_name
-                        , rect->grid
-                        , MBK::env.layer2z (pSeg->LAYER)
-                        );
+        if (rect->isInGrid()) {
+          if ( pNet->fixed ) {
+            drgrid->nodes->obstacle (rect->grid, MBK::env.layer2z (pSeg->LAYER));
+          } else {
+            pNet->newaccess ( term_name
+                            , rect->grid
+                            , MBK::env.layer2z (pSeg->LAYER)
+                            );
+          }
+        } else {
+          cerr << hwarn ("")
+               << "  The connector segment \"" << pSeg->NAME << "\" at ("
+               << MBK::UNSCALE (pSeg->X1) << ","
+               << MBK::UNSCALE (pSeg->Y1) << ") ("
+               << MBK::UNSCALE (pSeg->X2) << ","
+               << MBK::UNSCALE (pSeg->Y2) << ") layer "
+               << MBK::layer2a (pSeg->LAYER) << "\n"
+               << "  is outside of the grid : ignored.";
+        }
       }
     } // End of "pChain" (terminal) loop.
 
@@ -347,12 +506,16 @@ void  CRBox::mbkload (MBK::CFig *mbkfig, int z, int zup, int rtype)
 
 
   // Rebuild the power grid from the instances.
-  cmess2 << "     o  Reading power grid.\n";
-  powers[MBK::CALU1] = new MBK::CPowers ( fig
-                                        , C_HORIZONTAL
-                                        , MBK::ALU1
-                                        , D::WIDTH_VDD
-                                        );
+  if ( !ischip ) {
+    cmess2 << "     o  Reading power grid.\n";
+    powers[MBK::CALU1] = new MBK::CPowers ( fig
+                                          , xadjust - xoffsettrack
+                                          , yoffsetslice
+                                          , C_HORIZONTAL
+                                          , MBK::ALU1
+                                          , D::WIDTH_VDD
+                                          );
+  }
 
 
   // Forbid the use of the edges of the routing box (only allow
@@ -360,30 +523,34 @@ void  CRBox::mbkload (MBK::CFig *mbkfig, int z, int zup, int rtype)
   coord = drgrid->origin;
 
   // Left & Right vertical edges.
-  for (x = 0; x < mX; x += mX - 1) {
-    for (y = 0; y < mY; y++) {
-      for (zz = 1; zz < mZ; zz++) {
-        node = &( coord.set(x,y,zz).node() );
-
-        if ( !node->terminal() ) node->data.obstacle = true;
+  if ( xadjust == 0 ) {
+    for (x = 0; x < mX; x += mX - 1) {
+      for (y = 0; y < mY; y++) {
+        for (zz = 1; zz < mZ; zz++) {
+          node = &( coord.set(x,y,zz).node() );
+          
+          if ( !node->terminal() ) node->data.obstacle = true;
+        }
       }
     }
   }
 
   // Bottom & top horizontal edges.
-  for (y = 0; y < mY; y += mY - 1) {
-    for (x = 0; x < mX; x++) {
-      for (zz = 1; zz < mZ; zz++) {
-        node = &( coord.set(x,y,zz).node() );
-
-        if ( !node->terminal() ) node->data.obstacle = true;
+  if ( xadjust == 0 ) {
+    for (y = 0; y < mY; y += mY - 1) {
+      for (x = 0; x < mX; x++) {
+        for (zz = 1; zz < mZ; zz++) {
+          node = &( coord.set(x,y,zz).node() );
+          
+          if ( !node->terminal() ) node->data.obstacle = true;
+        }
       }
     }
   }
 
   // On routing level above zupper (ALU4), use only half of the tracks.
   for (zz = zup; zz < mZ; zz++) {
-    switch (zz % 2) {
+    switch ((zz+rotate) % 2) {
       case 0:
         // Vertical tracks.
         for (x = 2; x < mX; x += 2) {
@@ -471,11 +638,11 @@ void  CRBox::mbkload (MBK::CFig *mbkfig, int z, int zup, int rtype)
           // Dump the current one.
           if (seg.X1 < seg.X2) {
             // This is not a "dot" segment (i.e a VIA).
-            fig->addphseg (seg,pNet->external);
+            fig->addphseg (seg,pNet->external,ischip);
           } else if (z % 2) {
             char layer = seg.LAYER;
             seg.LAYER = MBK::layer2TALU (seg.LAYER);
-            fig->addphseg (seg,false);
+            fig->addphseg (seg,false,ischip);
             seg.LAYER = layer;
           }
 
@@ -490,28 +657,28 @@ void  CRBox::mbkload (MBK::CFig *mbkfig, int z, int zup, int rtype)
             // We encounter the left edge of a segment.
             inseg = true;
 
-            seg.X1    = fig->XAB1() + x * D::X_GRID;
-            seg.Y1    = fig->YAB1() + y * D::Y_GRID;
-            seg.Y2    = fig->YAB1() + y * D::Y_GRID;
+            seg.X1    = xoffsetgrid + x * D::X_GRID;
+            seg.Y1    = yoffsetgrid + y * D::Y_GRID;
+            seg.Y2    = yoffsetgrid + y * D::Y_GRID;
             seg.NAME  = MBK::namealloc(pNet->name.c_str ());
             seg.WIDTH = MBK::env.z2width (z);
 
-            if (pNet->external) seg.LAYER = MBK::env.z2calu (z);
-            else                seg.LAYER = MBK::env.z2alu (z);
+            if (pNet->external && !ischip) seg.LAYER = MBK::env.z2calu (z);
+            else                           seg.LAYER = MBK::env.z2alu (z);
           }
 
           // Update the right edge.
-          seg.X2 = fig->XAB1() + x * D::X_GRID;
+          seg.X2 = xoffsetgrid + x * D::X_GRID;
         } else {
           if (inseg) {
             // Dump the current one.
             if (seg.X1 < seg.X2) {
               // This is not a "dot" segment (i.e a VIA).
-              fig->addphseg (seg,pNet->external);
+              fig->addphseg (seg,pNet->external,ischip);
             } else if (z % 2) {
               char layer = seg.LAYER;
               seg.LAYER = MBK::layer2TALU (seg.LAYER);
-              fig->addphseg (seg,false);
+              fig->addphseg (seg,false,ischip);
               seg.LAYER = layer;
             }
           }
@@ -525,11 +692,11 @@ void  CRBox::mbkload (MBK::CFig *mbkfig, int z, int zup, int rtype)
         // This segment touch the AB.
         if (seg.X1 < seg.X2) {
           // This is not a "dot" segment (i.e a VIA).
-          fig->addphseg (seg,pNet->external);
+          fig->addphseg (seg,pNet->external,ischip);
         } else if (z % 2 ) {
           char layer = seg.LAYER;
           seg.LAYER = MBK::layer2TALU (seg.LAYER);
-          fig->addphseg (seg,false);
+          fig->addphseg (seg,false,ischip);
           seg.LAYER = layer;
         }
       }
@@ -551,11 +718,11 @@ void  CRBox::mbkload (MBK::CFig *mbkfig, int z, int zup, int rtype)
           // Dump the current one.
           if (seg.Y1 < seg.Y2) {
             // This is not a "dot" segment (i.e a VIA).
-            fig->addphseg (seg,pNet->external);
+            fig->addphseg (seg,pNet->external,ischip);
           } else if (! (z % 2)) {
             char layer = seg.LAYER;
             seg.LAYER = MBK::layer2TALU (seg.LAYER);
-            fig->addphseg (seg,false);
+            fig->addphseg (seg,false,ischip);
             seg.LAYER = layer;
           }
 
@@ -570,29 +737,29 @@ void  CRBox::mbkload (MBK::CFig *mbkfig, int z, int zup, int rtype)
             // We encounter the left edge of a segment.
             inseg = true;
 
-            seg.X1    = fig->XAB1() + x * D::X_GRID;
-            seg.X2    = fig->XAB1() + x * D::X_GRID;
-            seg.Y1    = fig->YAB1() + y * D::Y_GRID;
+            seg.X1    = xoffsetgrid + x * D::X_GRID;
+            seg.X2    = xoffsetgrid + x * D::X_GRID;
+            seg.Y1    = yoffsetgrid + y * D::Y_GRID;
             seg.NAME  = MBK::namealloc(pNet->name.c_str ());
             seg.WIDTH = MBK::env.z2width (z);
 
-            if (pNet->external) seg.LAYER = MBK::env.z2calu (z);
-            else                seg.LAYER = MBK::env.z2alu (z);
+            if (pNet->external && !ischip) seg.LAYER = MBK::env.z2calu (z);
+            else                           seg.LAYER = MBK::env.z2alu (z);
 
           }
 
           // Update the right edge.
-          seg.Y2 = fig->YAB1() + y * D::Y_GRID;
+          seg.Y2 = yoffsetgrid + y * D::Y_GRID;
         } else {
           if (inseg) {
             // Dump the current one.
             if (seg.Y1 < seg.Y2) {
               // This is not a "dot" segment (i.e a VIA).
-              fig->addphseg (seg,pNet->external);
+              fig->addphseg (seg,pNet->external,ischip);
             } else if (! (z % 2)) {
               char layer = seg.LAYER;
               seg.LAYER = MBK::layer2TALU (seg.LAYER);
-              fig->addphseg (seg,false);
+              fig->addphseg (seg,false,ischip);
               seg.LAYER = layer;
             }
           }
@@ -606,11 +773,11 @@ void  CRBox::mbkload (MBK::CFig *mbkfig, int z, int zup, int rtype)
         // This segment touch the AB.
         if (seg.Y1 < seg.Y2) {
           // This is not a "dot" segment (i.e a VIA).
-          fig->addphseg (seg,pNet->external);
+          fig->addphseg (seg,pNet->external,ischip);
         } else if (! (z % 2)) {
           char layer = seg.LAYER;
           seg.LAYER = MBK::layer2TALU (seg.LAYER);
-          fig->addphseg (seg,false);
+          fig->addphseg (seg,false,ischip);
           seg.LAYER = layer;
         }
       }
@@ -650,8 +817,8 @@ void  CRBox::mbkload (MBK::CFig *mbkfig, int z, int zup, int rtype)
             if (spaceVIA < pitch) continue;
 
             via.TYPE = MBK::env.z2via (z);
-            via.XVIA = fig->XAB1() + x * D::X_GRID;
-            via.YVIA = fig->YAB1() + y * D::Y_GRID;
+            via.XVIA = xoffsetgrid + x * D::X_GRID;
+            via.YVIA = yoffsetgrid + y * D::Y_GRID;
             via.NAME = MBK::namealloc(pNetTop->name.c_str ());
 
             fig->addphvia (via);
@@ -681,8 +848,8 @@ void  CRBox::mbkload (MBK::CFig *mbkfig, int z, int zup, int rtype)
             if (spaceVIA < pitch) continue;
 
             via.TYPE = MBK::env.z2via (z);
-            via.XVIA = fig->XAB1() + x * D::X_GRID;
-            via.YVIA = fig->YAB1() + y * D::Y_GRID;
+            via.XVIA = xoffsetgrid + x * D::X_GRID;
+            via.YVIA = yoffsetgrid + y * D::Y_GRID;
             via.NAME = MBK::namealloc(pNetTop->name.c_str ());
 
             fig->addphvia (via);
@@ -733,20 +900,20 @@ void  CRBox::mbkload (MBK::CFig *mbkfig, int z, int zup, int rtype)
 
     rect = itNet->second->terms[0]->rects.front ();
 
-    seg.X1    = fig->XAB1() + rect.x1 * D::X_GRID;
-    seg.X2    = fig->XAB1() + rect.x2 * D::X_GRID;
-    seg.Y1    = fig->YAB1() + rect.y1 * D::Y_GRID;
-    seg.Y2    = fig->YAB1() + rect.y2 * D::Y_GRID;
+    seg.X1    = xoffsetgrid + rect.x1 * D::X_GRID;
+    seg.X2    = xoffsetgrid + rect.x2 * D::X_GRID;
+    seg.Y1    = yoffsetgrid + rect.y1 * D::Y_GRID;
+    seg.Y2    = yoffsetgrid + rect.y2 * D::Y_GRID;
     seg.NAME  = MBK::namealloc(itNet->second->name.c_str ());
     seg.WIDTH = MBK::env.z2width (0);
     seg.LAYER = MBK::env.z2calu (0);
 
-    fig->addphseg (seg,itNet->second->external);
+    fig->addphseg (seg,itNet->second->external,ischip);
   }
 
 
   // Add powers lines.
-  powers[MBK::CALU1]->dump (fig);
+  if ( !ischip ) powers[MBK::CALU1]->dump (fig);
   
 
   cmess1 << "  o  Saving MBK figure \"" << name << "\".\n";

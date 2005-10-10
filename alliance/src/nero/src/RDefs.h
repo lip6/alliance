@@ -1,7 +1,7 @@
 
 // -*- C++ -*-
 //
-// $Id: RDefs.h,v 1.3 2002/11/04 14:43:08 jpc Exp $
+// $Id: RDefs.h,v 1.4 2005/10/10 15:34:06 jpc Exp $
 //
 // /-----------------------------------------------------------------\ 
 // |                                                                 |
@@ -41,10 +41,13 @@
     // Attributes.
     public: CASimple   *netsched;
     public: CDRGrid    *drgrid;
+    public: long        xoffsetgrid;
+    public: long        yoffsetgrid;
     public: MNet        nets;
     public: bool        loaded;
     public: bool        insave;
     public: bool        rglobal;
+    public: bool        ischip;
 
     // MBK dedicated Attributes.
     public: MBK::CFig    *fig;
@@ -62,7 +65,12 @@
     public: CNet *findnet (char *signame);
     public: CNet *getnet  (string &signame);
     public: CNet *getnet  (char *signame);
-    public: void  mbkload (MBK::CFig *mbkfig, int z, int zup, int rtype);
+    public: void  mbkload (MBK::CFig *mbkfig
+                          , int z
+                          , int zup
+                          , int rtype
+                          , bool halfpitch
+                          , bool rotate );
     public: void  mbksave (string &name) throw (except_done);
     public: void  route   (void);
 

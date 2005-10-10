@@ -1,7 +1,7 @@
 
 // -*- C++ -*-
 //
-// $Id: UGrid.cpp,v 1.1 2002/10/02 21:23:48 jpc Exp $
+// $Id: UGrid.cpp,v 1.2 2005/10/10 15:34:06 jpc Exp $
 //
 //  /----------------------------------------------------------------\ 
 //  |                                                                |
@@ -356,14 +356,12 @@ int  CDRGrid::iterator::manhattan (iterator &other)
 // -------------------------------------------------------------------
 // Constructor  :  "CDRGrid::CDRGrid()".
 
-CDRGrid::CDRGrid (int x, int y, int z)
+CDRGrid::CDRGrid (int xoff, int yoff, int x, int y, int z)
+  : xoffset(xoff), yoffset(yoff), X(x), Y(y), Z(z)
 {
   int    index;
 
 
-  X    = x;
-  Y    = y;
-  Z    = z;
   XY   = X  * Y;
   XYZ  = XY * Z;
   size = XY * (Z - 1);

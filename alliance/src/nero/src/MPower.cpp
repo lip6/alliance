@@ -1,7 +1,7 @@
 
 // -*- C++ -*-
 //
-// $Id: MPower.cpp,v 1.3 2005/04/07 14:56:18 jpc Exp $
+// $Id: MPower.cpp,v 1.4 2005/10/10 15:34:05 jpc Exp $
 //
 // /-----------------------------------------------------------------\ 
 // |                                                                 |
@@ -70,10 +70,14 @@ ostream &operator<< (ostream &o, CPower &self)
 // Constructor  :  "CPowers::CPowers ()".
 
 CPowers::CPowers ( CFig *fig
+                 , long  xoff
+                 , long  yoff
                  , char  atype
                  , int   alayer
                  , long  awidth
                  ) throw (except_done)
+  : xoffset(xoff)
+  , yoffset(yoff)
 {
   LPower::iterator  itLine, beginLine, endLine;
   phins_list       *ins;
@@ -178,7 +182,7 @@ CPowers::CPowers ( CFig *fig
           }
 
           if (   (cmpALU (alayer, CALU1) & F_CALU)
-              && !fig->phfig.onslice (flatSeg.Y1)) {
+              && !fig->phfig.onslice (flatSeg.Y1,yoffset)) {
             cerr << hwarn ("");
             cerr << "  " << layer2a (layer) << " \"" << seg->NAME
                  <<"\" segment at ("

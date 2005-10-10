@@ -1,7 +1,7 @@
 
 // -*- C++ -*-
 //
-// $Id: MNet.cpp,v 1.8 2005/02/17 14:47:27 jpc Exp $
+// $Id: MNet.cpp,v 1.9 2005/10/10 15:34:05 jpc Exp $
 //
 //  /----------------------------------------------------------------\ 
 //  |                                                                |
@@ -391,13 +391,16 @@ ostream  &operator<< (ostream &o, CTerm &self)
 // Constructor  :  "CNet::CNet()".
 
 CNet::CNet (CDRGrid *drgrid, string netName)
+  : pri(0)
+  , name(netName)
+  , terms()
+  , rtree(NULL)
+  , bb()
+  , size(0)
+  , external(false)
+  , fixed(false)
+  , _drgrid(drgrid)
 {
-  name     = netName;
-  external = false;
-  pri      = 0;
-  size     = 0;
-  rtree    = NULL;
-  _drgrid  = drgrid;
 }
 
 

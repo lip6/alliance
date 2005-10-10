@@ -1,7 +1,7 @@
 
 // -*- C++ -*-
 //
-// $Id: MMBK.h,v 1.3 2005/04/07 14:56:18 jpc Exp $
+// $Id: MMBK.h,v 1.4 2005/10/10 15:34:05 jpc Exp $
 //
 // /-----------------------------------------------------------------\ 
 // |                                                                 |
@@ -23,6 +23,8 @@
 #ifndef  __UMBK__
 #define  __UMBK__  1
 
+
+# include  <regex.h>
 
 
 // -------------------------------------------------------------------
@@ -106,14 +108,16 @@ namespace MBK {
   class CXRect {
 
     // Attributes.
-    public: long        XAB1;  // MBK coordinates origin;
-    public: long        YAB1;
-    public: phseg_list  seg;   // MBK segment.
-    public: CRect       rect;  // Rectangle (MBK coordinates).
-    public: CRect       grid;  // Rectangle (routing grid units).
+    public: CDRGrid*    drgrid; // Associated grid, to check limits.
+    public: phseg_list  seg;    // MBK segment.
+    public: CRect       rect;   // Rectangle (MBK coordinates).
+    public: CRect       grid;   // Rectangle (routing grid units).
 
       // Contructor.
-    public: CXRect (long xab1, long yab1);
+    public: CXRect (CDRGrid* agrid);
+
+    // Predicate.
+    public: bool isInGrid ();
 
     // Modifiers.
     public:  void  setSeg    (phseg_list &rSeg);
@@ -134,10 +138,11 @@ namespace MBK {
   struct CEnv {
 
     // Attributes.
-    long    grid_dx;
-    long    grid_dy;
-    MLayer  ALU2W;
-    MLayer  ALU2Z;
+    long     grid_dx;
+    long     grid_dy;
+    MLayer   ALU2W;
+    MLayer   ALU2Z;
+    regex_t  pxLibRegex;
 
     // Constructor.
     CEnv (void);
@@ -202,7 +207,7 @@ namespace MBK {
 
     // Modifiers.
     void rflatten (char concat=YES, char catal=YES);
-    bool onslice  (long Y);
+    bool onslice  (long Y, long xoff);
     void save     (void);
     void saveas   (string &name);
 
@@ -268,11 +273,19 @@ namespace MBK {
     losig_list *LOSIG (void) { return (lofig.fig->LOSIG); }
 
     // Modifiers.
-    void  addphseg (phseg_list &seg, bool isTerm=false );
+    void  addphseg (phseg_list &seg, bool isTerm=false, bool isChip=false );
     void  addphvia (phvia_list &VIA);
     void  addphcon (phcon_list &con);
 
   };
+
+
+
+
+  // ---------------------------------------------------------------
+  // MBK level Utilities functions.
+
+  bool  IsPxLib ( phfig_list* model );
 
 
 
@@ -329,6 +342,8 @@ namespace MBK {
   struct CPowers {
 
     // Attributes.
+    long    xoffset;
+    long    yoffset;
     char    type;
     char    layer;
     long    width;
@@ -337,7 +352,7 @@ namespace MBK {
     LPower  powerLines;
 
     // Constructor.
-    CPowers (CFig*, char, int, long) throw (except_done);
+    CPowers (CFig*, long xoff, long yoff, char, int, long) throw (except_done);
 
     // Methods.
     void  dump (CFig *fig);

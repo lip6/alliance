@@ -1,7 +1,7 @@
 
 // -*- C++ -*-
 //
-// $Id: MMBK.cpp,v 1.5 2005/04/07 14:56:18 jpc Exp $
+// $Id: MMBK.cpp,v 1.6 2005/10/10 15:34:05 jpc Exp $
 //
 // /-----------------------------------------------------------------\ 
 // |                                                                 |
@@ -48,11 +48,8 @@ namespace MBK {
 // -------------------------------------------------------------------
 // Constructor  :  "CXRect::CXRect()".
 
-CXRect::CXRect (long xab1, long yab1)
-{
-  XAB1 = xab1;
-  YAB1 = yab1;
-}
+CXRect::CXRect ( CDRGrid* agrid ) : drgrid(agrid)
+{ }
 
 
 
@@ -125,14 +122,37 @@ void  CXRect::seg2rect (void)
 
 void  CXRect::rect2grid (void)
 {
-  grid.x1 = (rect.x1 - XAB1) / env.grid_dx;
-  grid.y1 = (rect.y1 - YAB1) / env.grid_dy;
+  grid.x1 = (rect.x1 - drgrid->xoffset) / env.grid_dx;
+  grid.y1 = (rect.y1 - drgrid->yoffset) / env.grid_dy;
 
-  grid.x2 = (rect.x2 - XAB1) / env.grid_dx;
-  grid.y2 = (rect.y2 - YAB1) / env.grid_dy;
+  grid.x2 = (rect.x2 - drgrid->xoffset) / env.grid_dx;
+  grid.y2 = (rect.y2 - drgrid->yoffset) / env.grid_dy;
 
-  if (((rect.x2 - XAB1) % env.grid_dx) != 0) grid.x2 += 1;
-  if (((rect.y2 - XAB1) % env.grid_dy) != 0) grid.y2 += 1;
+  if (((rect.x2 - drgrid->xoffset) % env.grid_dx) != 0) grid.x2 += 1;
+  if (((rect.y2 - drgrid->yoffset) % env.grid_dy) != 0) grid.y2 += 1;
+
+  if (    (grid.x2 < 0) || (grid.x1 >= drgrid->X)
+       || (grid.y2 < 0) || (grid.y1 >= drgrid->Y) ) {
+    grid.x1 = -1;
+  } else {
+    if (grid.x1 < 0          ) grid.x1 = 0;
+    if (grid.y1 < 0          ) grid.y1 = 0;
+    if (grid.x2 > drgrid->X-1) grid.x2 = drgrid->X - 1;
+    if (grid.y2 > drgrid->Y-1) grid.y2 = drgrid->Y - 1;
+  }
+}
+
+
+
+
+// -------------------------------------------------------------------
+// Method  :  "CXRect::isInGrid()".
+
+bool  CXRect::isInGrid ()
+{
+  if (grid.x1 < 0) return false;
+
+  return true;
 }
 
 
@@ -230,6 +250,8 @@ CEnv::CEnv (void)
   ALU2Z[TALU5] = 4;
   ALU2Z[TALU6] = 5;
   ALU2Z[TALU7] = 6;
+
+  regcomp(&pxLibRegex,"p.*px",REG_EXTENDED|REG_NOSUB);
 }
 
 
@@ -538,15 +560,15 @@ void CPhfig::rflatten (char concat, char catal)
 // -------------------------------------------------------------------
 // Method :  "CPhfig::onslice()".
 
-bool CPhfig::onslice (long Y)
+bool CPhfig::onslice (long Y, long yoff)
 {
   if (Y < fig->YAB1) return (false);
   if (Y > fig->YAB2) return (false);
 
-  if (!(((Y - D::WIDTH_VDD / 2) - fig->YAB1) % D::Y_SLICE)) return (true);
-  if (!(((Y + D::WIDTH_VDD / 2) - fig->YAB1) % D::Y_SLICE)) return (true);
-  if (!(((Y - D::WIDTH_VSS / 2) - fig->YAB1) % D::Y_SLICE)) return (true);
-  if (!(((Y + D::WIDTH_VSS / 2) - fig->YAB1) % D::Y_SLICE)) return (true);
+  if (!(((Y - D::WIDTH_VDD / 2) - yoff ) % D::Y_SLICE)) return (true);
+  if (!(((Y + D::WIDTH_VDD / 2) - yoff ) % D::Y_SLICE)) return (true);
+  if (!(((Y - D::WIDTH_VSS / 2) - yoff ) % D::Y_SLICE)) return (true);
+  if (!(((Y + D::WIDTH_VSS / 2) - yoff ) % D::Y_SLICE)) return (true);
 
   return (false);
 }
@@ -770,19 +792,21 @@ CFig::~CFig (void)
 // -------------------------------------------------------------------
 // Method :  "CFig::addphseg()".
 
-void  CFig::addphseg (phseg_list &seg, bool isTerm )
+void  CFig::addphseg (phseg_list &seg, bool isTerm, bool isChip )
 {
-  MBK::addphseg ( phfig.fig
-                , seg.LAYER
-                , seg.WIDTH
-                , seg.X1
-                , seg.Y1
-                , seg.X2
-                , seg.Y2
-                , seg.NAME
-                );
+  if ( !isChip || !isobs(seg.LAYER) ) {
+    MBK::addphseg ( phfig.fig
+                  , seg.LAYER
+                  , seg.WIDTH
+                  , seg.X1
+                  , seg.Y1
+                  , seg.X2
+                  , seg.Y2
+                  , seg.NAME
+                  );
+  }
 
-  if ( !isTerm ) {
+  if ( !isTerm && !isChip ) {
     MBK::addphseg ( phfig.fig
                   , layer2TALU(seg.LAYER)
                   , seg.WIDTH
@@ -1166,13 +1190,20 @@ long  cmpALU (char layer1, char layer2)
 char  topVIALayer (char type)
 {
   switch (type) {
-    case CONT_VIA:  return (ALU1); break;
-    case CONT_VIA2: return (ALU2); break;
-    case CONT_VIA3: return (ALU3); break;
-    case CONT_VIA4: return (ALU4); break;
-    case CONT_VIA5: return (ALU5); break;
-    case CONT_VIA6: return (ALU6); break;
-    case CONT_VIA7: return (ALU7); break;
+    case CONT_VIA:   return (ALU1); break;
+    case CONT_VIA2:  return (ALU2); break;
+    case CONT_VIA3:  return (ALU3); break;
+    case CONT_VIA4:  return (ALU4); break;
+    case CONT_VIA5:  return (ALU5); break;
+    case CONT_VIA6:  return (ALU6); break;
+    case CONT_VIA7:  return (ALU7); break;
+    case CONT_TURN1: return (ALU1); break;
+    case CONT_TURN2: return (ALU2); break;
+    case CONT_TURN3: return (ALU3); break;
+    case CONT_TURN4: return (ALU4); break;
+    case CONT_TURN5: return (ALU5); break;
+    case CONT_TURN6: return (ALU6); break;
+    case CONT_TURN7: return (ALU7); break;
   }
 
   return (ALU8);
@@ -1188,16 +1219,34 @@ char  topVIALayer (char type)
 char  bottomVIALayer (char type)
 {
   switch (type) {
-    case CONT_VIA:  return (ALU2); break;
-    case CONT_VIA2: return (ALU3); break;
-    case CONT_VIA3: return (ALU4); break;
-    case CONT_VIA4: return (ALU5); break;
-    case CONT_VIA5: return (ALU6); break;
-    case CONT_VIA6: return (ALU7); break;
-    case CONT_VIA7: return (ALU8); break;
+    case CONT_VIA:   return (ALU2); break;
+    case CONT_VIA2:  return (ALU3); break;
+    case CONT_VIA3:  return (ALU4); break;
+    case CONT_VIA4:  return (ALU5); break;
+    case CONT_VIA5:  return (ALU6); break;
+    case CONT_VIA6:  return (ALU7); break;
+    case CONT_VIA7:  return (ALU8); break;
+    case CONT_TURN1: return (ALU1); break;
+    case CONT_TURN2: return (ALU2); break;
+    case CONT_TURN3: return (ALU3); break;
+    case CONT_TURN4: return (ALU4); break;
+    case CONT_TURN5: return (ALU5); break;
+    case CONT_TURN6: return (ALU6); break;
+    case CONT_TURN7: return (ALU7); break;
   }
 
   return (ALU9);
+}
+
+
+
+
+// -------------------------------------------------------------------
+// Function  :  "isPxLib()".
+
+bool  IsPxLib ( phfig_list* model )
+{
+  return regexec(&env.pxLibRegex,model->NAME,0,NULL,0) == 0;
 }
 
 

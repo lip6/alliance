@@ -1,7 +1,7 @@
 
 // -*- C++ -*-
 //
-// $Id: ASimple.cpp,v 1.3 2004/12/14 19:02:07 jpc Exp $
+// $Id: ASimple.cpp,v 1.4 2005/10/10 15:34:05 jpc Exp $
 //
 //  /----------------------------------------------------------------\ 
 //  |                                                                |
@@ -38,8 +38,11 @@ void CASimple::CQueue::load (MNet *nets, bool rglobal, bool global)
   MNet::iterator  itNet, endNet;
 
 
-  endNet = nets->end();
+  endNet     = nets->end();
   for (itNet = nets->begin(); itNet != endNet; itNet++) {
+    // Already routed signal.
+    if ( itNet->second->fixed ) continue;
+
     // Global routing stage.
     if ( global && (itNet->second->global(rglobal)) )
       push (itNet->second);
@@ -56,11 +59,12 @@ void CASimple::CQueue::load (MNet *nets, bool rglobal, bool global)
 // -------------------------------------------------------------------
 // Constructor  :  "CASimple::CASimple()".
 
-CASimple::CASimple (MNet *mNets, CDRGrid *drgrid) : _astar(drgrid, this)
+CASimple::CASimple (MNet *mNets, CDRGrid *drgrid)
+  : _astar(drgrid, this)
+  , nets(mNets)
+  , iterations_route(0)
+  , iterations_reroute(0)
 {
-  nets               = mNets;
-  iterations_route   = 0;
-  iterations_reroute = 0;
 }
 
 

@@ -1,7 +1,7 @@
 
 // -*- C++ -*-
 //
-// $Id: MDRGrid.cpp,v 1.5 2005/02/17 15:34:44 jpc Exp $
+// $Id: MDRGrid.cpp,v 1.6 2005/10/10 15:34:05 jpc Exp $
 //
 //  /----------------------------------------------------------------\ 
 //  |                                                                |
@@ -324,21 +324,19 @@ int  CDRGrid::iterator::manhattan (iterator &other)
 // -------------------------------------------------------------------
 // Constructor  :  "CDRGrid::CDRGrid()".
 
-  CDRGrid::CDRGrid (int x, int y, int z, int zup) throw (e_zupper)
+CDRGrid::CDRGrid (int xoff, int yoff, int x, int y, int z, int zup)
+  throw (e_zupper)
+  : xoffset(xoff)
+  , yoffset(yoff)
+  , X(x)
+  , Y(y)
+  , Z(z)
+  , XY(X*Y)
+  , XYZ(XY*Z)
+  , size(XY*(Z-1))
+  , zupper(zup)
 {
-  int    index;
-
-
-  X      = x;
-  Y      = y;
-  Z      = z;
-  XY     = X  * Y;
-  XYZ    = XY * Z;
-  size   = XY * (Z - 1);
-  zupper = zup;
-
   if (zupper < 4) throw e_zupper (zupper);
-
 
   nodes = new CMatrixNodes (this);
   pri   = new CMatrixPri   (this);

@@ -1,7 +1,7 @@
 
 // -*- C++ -*-
 //
-// $Id: nero.cpp,v 1.8 2005/04/07 14:56:18 jpc Exp $
+// $Id: nero.cpp,v 1.9 2005/10/10 15:34:06 jpc Exp $
 //
 //  /----------------------------------------------------------------\ 
 //  |                                                                |
@@ -58,11 +58,11 @@ static void help (void)
 {
   cout << "\n"
        << "  o  Usage : \"nero [-h] [-v] [-V] [-c] [-2] [-3] [-4] [-5] [-6]\n"
-       << "                   [-L] [-G] [-p <placement>] <netlist> <layout>"
+       << "                   [-H] [-L] [-G] [-p <placement>] <netlist> <layout>"
        <<                    "\"\n\n"
        << "             \"nero [--help] [--verbose] [--very-verbose]\n"
-       << "                   [--core-dump] [--global] [--local]\n"
-       << "                   [--place <placement>] <netlist> <layout>\n"
+       << "                   [--core-dump] [--half-pitch] [--rotate] [--global]"
+       << "                   [--local] [--place <placement>] <netlist> <layout>\n"
        << "                  \"\n\n"
        << "  o  Options :\n"
        << "     [-h|--help]         := Print this message.\n"
@@ -70,6 +70,8 @@ static void help (void)
        << "     [-V|--very-verbose] := Be much more verbose...\n"
        << "     [-c|--core-dump]    := Generate core dump if an internal "
        <<         "error occurs.\n"
+       << "     [-H|--half-pitch]   := First track is at half pitch (both X & Y).\n"
+       << "     [-R|--rotate]       := Exchange preferred routing directions.\n"
        << "     [-2|--layers-2]     := Use only 2 routing layers.\n"
        << "     [-3|--layers-3]     := Use only 3 routing layers.\n"
        << "     [-4|--layers-4]     := Use only 4 routing layers.\n"
@@ -94,7 +96,7 @@ static void help (void)
 
 static void serial (void)
 {
-  cout << "                                S/N 20050406.1\n";
+  cout << "                                S/N 20051006.1\n";
 }
 
 
@@ -145,6 +147,8 @@ int  main (int argc, char *argv[])
     options.add ("V", "very-verbose");
     options.add ("h", "help");
     options.add ("c", "coredump");
+    options.add ("H", "half-pitch");
+    options.add ("R", "rotate");
     options.add ("2", "layers-2");
     options.add ("3", "layers-3");
     options.add ("4", "layers-4");
@@ -217,7 +221,12 @@ int  main (int argc, char *argv[])
     crbox = new CRBox ();
     //crbox = new CRBox (global, true);
     //cdebug.on ();
-    crbox->mbkload (fig, layers, 4, global);
+    crbox->mbkload ( fig
+                   , layers
+                   , 4
+                   , global
+                   , options["H"]->parsed
+                   , options["R"]->parsed );
     crbox->route ();
     //cdebug.off ();
     crbox->mbksave (name_routed);

@@ -1,7 +1,7 @@
 
 // -*- C++ -*-
 //
-// $Id: MDefs.h,v 1.7 2004/12/14 19:02:07 jpc Exp $
+// $Id: MDefs.h,v 1.8 2005/10/10 15:34:05 jpc Exp $
 //
 // /-----------------------------------------------------------------\ 
 // |                                                                 |
@@ -298,6 +298,8 @@
     // Matrix class ----------------------------------------------
 
     // Attributes.
+    public: int xoffset;
+    public: int yoffset;
     public: int X;
     public: int Y;
     public: int Z;
@@ -316,13 +318,13 @@
     public: CMatrixNodes *nodes;
 
     // Constructor.
-    public: CDRGrid  (int x, int y, int z, int zup) throw (e_zupper);
+    public: CDRGrid  (int xoff, int yoff, int x, int y, int z, int zup) throw (e_zupper);
 
     // Destructor.
     public: ~CDRGrid (void);
 
     // Modifiers.
-    public: void  costs (int x_hor, int x_ver, int y_hor, int y_ver, int z);
+    public: void  costs  (int x_hor, int x_ver, int y_hor, int y_ver, int z);
 
     // Utilities.
     public: int x  (int index) { return ( index       % X); }
@@ -673,6 +675,7 @@
     public: CBB            bb;
     public: int            size;
     public: bool           external;
+    public: bool           fixed;
     public: CDRGrid       *_drgrid;
 
     // Constructor.
