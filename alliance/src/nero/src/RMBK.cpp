@@ -1,7 +1,7 @@
 
 // -*- C++ -*-
 //
-// $Id: RMBK.cpp,v 1.10 2005/10/10 15:34:06 jpc Exp $
+// $Id: RMBK.cpp,v 1.11 2005/10/10 15:55:45 jpc Exp $
 //
 //  /----------------------------------------------------------------\ 
 //  |                                                                |
@@ -353,7 +353,6 @@ void  CRBox::mbkload (MBK::CFig *mbkfig
   }
 
 
-  cerr << "VIAs" << endl;
   // Browse for obstacle VIAs.
   for (pVIA = fig->phfig.fig->PHVIA; pVIA != NULL; pVIA = pVIA->NEXT) {
     // Only power VIAs must be obstacles.
@@ -377,8 +376,6 @@ void  CRBox::mbkload (MBK::CFig *mbkfig
     flatSeg.Y2    = pVIA->YVIA;
     flatSeg.WIDTH = pVIA->DY;
 
-    cerr << pVIA->XVIA << " " << pVIA->YVIA << " " << (int)flatSeg.LAYER << endl;
-
     rect->setSeg (flatSeg);
 
     //cerr << "+ Top VIA obstacle (" << pVIA->XVIA << "," << pVIA->YVIA << ")" << endl;
@@ -386,7 +383,6 @@ void  CRBox::mbkload (MBK::CFig *mbkfig
   }
 
 
-  cerr << "Instances" << endl;
   // Browse instances & orphans for obstacles.
   for (itIns = fig->instances.begin(); ; itIns++) {
     if (itIns == endInstances) itIns = fig->orphans.begin ();
