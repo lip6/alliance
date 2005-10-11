@@ -98,11 +98,11 @@ TABLE GRAAL_SEGMENT_NAME
   ALU1     Alu1   royal_blue       Black
   ALU2     Alu2   Cyan             Black
   ALU3     Alu3   light_pink       Black
-  ALU4     Alu4   green            Black
+  ALU4     Alu4   GReen            Black
   ALU5     Alu5   yellow           Black
   ALU6     Alu6   violet           Black
   ALU7     Alu7   red              Black
-  ALU8     Alu7   blue             Black
+  ALU8     Alu8   blue             Black
   TPOLY    Tpoly  hot_pink         Black
   TALU1    Talu1  royal_blue       Black
   TALU2    Talu2  turquoise        Black
@@ -111,7 +111,7 @@ TABLE GRAAL_SEGMENT_NAME
   TALU5    Talu5  yellow           Black
   TALU6    Talu6  violet           Black
   TALU7    Talu7  red              Black
-  TALU8    Talu7  blue             Black
+  TALU8    Talu8  blue             Black
   CALU1    CAlu1  royal_blue       Black
   CALU2    CAlu2  Cyan             Black
   CALU3    CAlu3  light_pink       Black
@@ -253,11 +253,19 @@ TABLE GRAAL_BIGVIA_NAME
   CONT_VIA     Big_Via_1-2  cyan       Black
   CONT_VIA2    Big_Via_2-3  light_pink Black
   CONT_VIA3    Big_Via_3-4  green      Black
+  CONT_VIA4    Big_Via_4-5  yellow     Black
+  CONT_VIA5    Big_Via_5-6  violet     Black
+  CONT_VIA6    Big_Via_6-7  red        Black
+  CONT_VIA7    Big_Via_7-8  blue       Black
 
   CONT_TURN1   Turn_Via_1   royal_blue Black
   CONT_TURN2   Turn_Via_2   Cyan       Black
   CONT_TURN3   Turn_Via_3   light_pink Black
   CONT_TURN4   Turn_Via_4   green      Black
+  CONT_TURN5   Turn_Via_5   yellow     Black
+  CONT_TURN6   Turn_Via_6   violet     Black
+  CONT_TURN7   Turn_Via_7   red        Black
+  CONT_TURN8   Turn_Via_7   blue       Black
 
 END
 
@@ -272,11 +280,19 @@ TABLE GRAAL_BIGVIA_VALUE
   CONT_VIA     2
   CONT_VIA2    2
   CONT_VIA3    2
+  CONT_VIA4    2
+  CONT_VIA5    2
+  CONT_VIA6    2
+  CONT_VIA7    2
 
   CONT_TURN1   2
   CONT_TURN2   2
   CONT_TURN3   2
   CONT_TURN4   2
+  CONT_TURN5   2
+  CONT_TURN6   2
+  CONT_TURN7   2
+  CONT_TURN8   2
 
 END
 
@@ -306,7 +322,7 @@ TABLE GRAAL_SYMMETRY_NAME
   NOSYM No_Sym  LightBlue         Black
   SYM_X Sym_X   turquoise         Black
   SYM_Y Sym_Y   cyan              Black
-  SYMXY Sym_XY  LightCyan         Black
+  SYMXY Sym_XY  lightCyan         Black
   ROT_P Rot_P   MediumAquamarine  Black
   ROT_M Rot_M   aquamarine        Black
   SY_RP Sym_RP  green             Black
@@ -357,10 +373,10 @@ TABLE GRAAL_RDS_LAYER_NAME
   RDS_VIA5     Via5    violet_red        Black
   RDS_ALU6     Alu6    violet            Black
   RDS_TALU6    Talu6   violet            Black
-  RDS_VIA6     Via6    red               Black
+  RDS_VIA6     Via6    dark_red          Black
   RDS_ALU7     Alu7    red               Black
   RDS_TALU7    Talu7   red               Black
-  RDS_VIA7     Via7    blue              Black
+  RDS_VIA7     Via7    dark_blue         Black
   RDS_ALU8     Alu8    blue              Black
   RDS_TALU8    Talu8   blue              Black
   RDS_CPAS     Cpas    gray              Black
