@@ -21,7 +21,7 @@ DEFINE DREAL_LOWER_GRID_STEP 10
 # |                                                             |
 # \------------------------------------------------------------*/
 
-DEFINE DREAL_LOWER_FIGURE_STEP 0.1
+dEFINE DREAL_LOWER_FIGURE_STEP 0.1
 
 # /*------------------------------------------------------------\
 # |                                                             |
@@ -77,7 +77,7 @@ DEFINE DREAL_CURSOR_SIZE 10
 # |                                                             |
 # \------------------------------------------------------------*/
 
-TABLE DREAL_RDS_LAYER_NAME
+TAbLE DREAL_RDS_LAYER_NAME
 
   RDS_NWELL    Nwell   tan               Black
   RDS_PWELL    Pwell   light_yellow      Black
@@ -89,6 +89,7 @@ TABLE DREAL_RDS_LAYER_NAME
   RDS_NTIE     Ntie    spring_green      Black
   RDS_PTIE     Ptie    light_goldenrod   Black
   RDS_POLY     Poly    red               Black
+  RDS_POLY2    Poly2   orange            Black
   RDS_VPOLY    VPoly   coral             Black
   RDS_GATE     Gate    orange            Black
   RDS_TPOLY    Tpoly   hot_pink          Black
@@ -113,14 +114,14 @@ TABLE DREAL_RDS_LAYER_NAME
   RDS_VIA5     Via5    violet_red        Black
   RDS_ALU6     Alu6    violet            Black
   RDS_TALU6    Talu6   violet            Black
-  RDS_VIA6     Via6    red               Black
-  RDS_ALU7     Alu7    green             Black
-  RDS_TALU7    Talu7   green             Black
-  RDS_VIA7     Via7    blue              Black
-  RDS_ALU8     Alu8    red               Black
-  RDS_TALU8    Talu8   red               Black
+  RDS_VIA6     Via6    dark_red          Black
+  RDS_ALU7     Alu7    red               Black
+  RDS_TALU7    Talu7   red               Black
+  RDS_VIA7     Via7    dark_blue         Black
+  RDS_ALU8     Alu8    blue              Black
+  RDS_TALU8    Talu8   blue              Black
   RDS_CPAS     Cpas    gray              Black
   RDS_REF      Ref     coral             Black
   RDS_ABOX     Abox    pink              Black
-  
+
 END
