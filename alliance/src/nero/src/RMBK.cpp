@@ -1,7 +1,7 @@
 
 // -*- C++ -*-
 //
-// $Id: RMBK.cpp,v 1.11 2005/10/10 15:55:45 jpc Exp $
+// $Id: RMBK.cpp,v 1.12 2005/10/13 12:44:40 jpc Exp $
 //
 //  /----------------------------------------------------------------\ 
 //  |                                                                |
@@ -356,8 +356,10 @@ void  CRBox::mbkload (MBK::CFig *mbkfig
   // Browse for obstacle VIAs.
   for (pVIA = fig->phfig.fig->PHVIA; pVIA != NULL; pVIA = pVIA->NEXT) {
     // Only power VIAs must be obstacles.
-    if ( (! MBK::ISVDD (pVIA->NAME)) && (! MBK::ISVSS (pVIA->NAME)))
-      continue;
+    if ( (! MBK::ISVDD (pVIA->NAME)) && (! MBK::ISVSS (pVIA->NAME))) {
+      pNet = getnet (pVIA->NAME);
+      if ( pNet && !pNet->fixed ) continue;
+    }
 
     for (x = 0; x < 2; x++) {
       switch (x) {
@@ -424,8 +426,9 @@ void  CRBox::mbkload (MBK::CFig *mbkfig
     cdebug << "+          - Signal \"" << sig_name << "\".\n";
 
     // Do not process power nets.
-    if (   (MBK::ISVDD ((char*)sig_name.c_str ()) != 0)
-        || (MBK::ISVSS ((char*)sig_name.c_str ()) != 0)) continue;
+    // Temporary disabled.
+    //if (   (MBK::ISVDD ((char*)sig_name.c_str ()) != 0)
+    //    || (MBK::ISVSS ((char*)sig_name.c_str ()) != 0)) continue;
 
     // In the case of external terminals, override the signal name by
     // the terminal name.
@@ -466,6 +469,20 @@ void  CRBox::mbkload (MBK::CFig *mbkfig
         pIns->flatseg (flatSeg, *pSeg);
         rect->setSeg  (flatSeg);
 
+        if ( MBK::IsPxLib(pModel) &&
+             ( (pLocon->NAME == MBK::namealloc("pad" )) ||
+               (pLocon->NAME == MBK::namealloc("vddi")) || 
+               (pLocon->NAME == MBK::namealloc("vssi")) || 
+               (pLocon->NAME == MBK::namealloc("vdde")) || 
+               (pLocon->NAME == MBK::namealloc("vsse")) ) ) {
+          flatSeg.NAME = (char*)sig_name.c_str();
+          fig->addphseg (flatSeg,true,false);
+          continue;
+        }
+
+        if (   (MBK::ISVDD ((char*)sig_name.c_str ()) != 0)
+            || (MBK::ISVSS ((char*)sig_name.c_str ()) != 0)) continue;
+
         if (rect->isInGrid()) {
           if ( pNet->fixed ) {
             drgrid->nodes->obstacle (rect->grid, MBK::env.layer2z (pSeg->LAYER));
@@ -476,15 +493,20 @@ void  CRBox::mbkload (MBK::CFig *mbkfig
                             );
           }
         } else {
-          cerr << hwarn ("")
-               << "  The connector segment \"" << pSeg->NAME << "\" at ("
-               << MBK::UNSCALE (pSeg->X1) << ","
-               << MBK::UNSCALE (pSeg->Y1) << ") ("
-               << MBK::UNSCALE (pSeg->X2) << ","
-               << MBK::UNSCALE (pSeg->Y2) << ") layer "
-               << MBK::layer2a (pSeg->LAYER) << "\n"
-               << "  is outside of the grid : ignored.";
-        }
+          //if ( MBK::IsPxLib(pModel) ) {
+          //  flatSeg.NAME = (char*)sig_name.c_str();
+          //  fig->addphseg (flatSeg,true,false);
+          //} else {
+            cerr << hwarn ("")
+                 << "  The connector segment \"" << pSeg->NAME << "\" at ("
+                 << MBK::UNSCALE (pSeg->X1) << ","
+                 << MBK::UNSCALE (pSeg->Y1) << ") ("
+                 << MBK::UNSCALE (pSeg->X2) << ","
+                 << MBK::UNSCALE (pSeg->Y2) << ") layer "
+                 << MBK::layer2a (pSeg->LAYER) << "\n"
+                 << "  is outside of the grid : ignored.";
+          }
+        //}
       }
     } // End of "pChain" (terminal) loop.
 

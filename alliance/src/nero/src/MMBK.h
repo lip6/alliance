@@ -1,7 +1,7 @@
 
 // -*- C++ -*-
 //
-// $Id: MMBK.h,v 1.4 2005/10/10 15:34:05 jpc Exp $
+// $Id: MMBK.h,v 1.5 2005/10/13 12:44:39 jpc Exp $
 //
 // /-----------------------------------------------------------------\ 
 // |                                                                 |
@@ -141,6 +141,7 @@ namespace MBK {
     long     grid_dx;
     long     grid_dy;
     MLayer   ALU2W;
+    MLayer   ALU2S;
     MLayer   ALU2Z;
     regex_t  pxLibRegex;
 
@@ -148,12 +149,13 @@ namespace MBK {
     CEnv (void);
 
     // Accessors.
-    long  layer2width (char layer) throw (except_done);
-    long  layer2z     (char layer) throw (except_done);
-    char  z2calu      (int z) throw (except_done);
-    char  z2alu       (int z) throw (except_done);
-    char  z2via       (int z) throw (except_done);
-    long  z2width     (int z) { return (layer2width (z2alu(z))); }
+    long  layer2spacing (char layer) throw (except_done);
+    long  layer2width   (char layer) throw (except_done);
+    long  layer2z       (char layer) throw (except_done);
+    char  z2calu        (int z) throw (except_done);
+    char  z2alu         (int z) throw (except_done);
+    char  z2via         (int z) throw (except_done);
+    long  z2width       (int z) { return (layer2width (z2alu(z))); }
     
 
     // Friends.

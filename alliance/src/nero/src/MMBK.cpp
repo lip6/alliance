@@ -1,7 +1,7 @@
 
 // -*- C++ -*-
 //
-// $Id: MMBK.cpp,v 1.6 2005/10/10 15:34:05 jpc Exp $
+// $Id: MMBK.cpp,v 1.7 2005/10/13 12:44:39 jpc Exp $
 //
 // /-----------------------------------------------------------------\ 
 // |                                                                 |
@@ -80,10 +80,9 @@ void  CXRect::setSeg (phseg_list &rSeg)
 
 void  CXRect::seg2rect (void)
 {
-  long  width;
-
-
-  width = env.layer2width (seg.LAYER);
+  long  width   = env.layer2width   (seg.LAYER);
+  long  spacing = env.layer2spacing (seg.LAYER);
+  long  expand;
 
   // Special case of "point like" segments.
   if ((seg.X1 == seg.X2) && (seg.Y1 == seg.Y2)) {
@@ -98,8 +97,12 @@ void  CXRect::seg2rect (void)
   switch (seg.TYPE) {
     case UP:
     case DOWN:
-      rect.x1 = seg.X1 - (seg.WIDTH - width) / 2;
-      rect.x2 = seg.X2 + (seg.WIDTH - width) / 2;
+      //rect.x1 = seg.X1 - (seg.WIDTH - width) / 2;
+      //rect.x2 = seg.X2 + (seg.WIDTH - width) / 2;
+      expand = (seg.WIDTH + spacing - env.grid_dy) / 2;
+      if ( expand < 0 ) expand = 0;
+      rect.x1 = seg.X1 - expand;
+      rect.x2 = seg.X2 + expand;
       rect.y1 = seg.Y1;
       rect.y2 = seg.Y2;
       break;
@@ -108,8 +111,12 @@ void  CXRect::seg2rect (void)
     default:
       rect.x1 = seg.X1;
       rect.x2 = seg.X2;
-      rect.y1 = seg.Y1 - (seg.WIDTH - width) / 2;
-      rect.y2 = seg.Y2 + (seg.WIDTH - width) / 2;
+      //rect.y1 = seg.Y1 - (seg.WIDTH - width) / 2;
+      //rect.y2 = seg.Y2 + (seg.WIDTH - width) / 2;
+      expand = (seg.WIDTH + spacing - env.grid_dx) / 2;
+      if ( expand < 0 ) expand = 0;
+      rect.y1 = seg.Y1 - expand;
+      rect.y2 = seg.Y2 + expand;
       break;
   }
 }
@@ -188,18 +195,25 @@ CEnv::CEnv (void)
 
   // Copy constants values from constants namespace ("D::").
   // Routing constants, loaded now that we have SCALE_X.
-  D::X_GRID            = ::MBK::SCALE (D::_X_GRID);
-  D::Y_GRID            = ::MBK::SCALE (D::_Y_GRID);
-  D::WIDTH_VSS         = ::MBK::SCALE (D::_WIDTH_VSS);
-  D::WIDTH_VDD         = ::MBK::SCALE (D::_WIDTH_VDD);
-  D::Y_SLICE           = ::MBK::SCALE (D::_Y_SLICE);
-  D::TRACK_WIDTH_ALU1  = ::MBK::SCALE (D::_TRACK_WIDTH_ALU1);
-  D::TRACK_WIDTH_ALU2  = ::MBK::SCALE (D::_TRACK_WIDTH_ALU2);
-  D::TRACK_WIDTH_ALU3  = ::MBK::SCALE (D::_TRACK_WIDTH_ALU3);
-  D::TRACK_WIDTH_ALU4  = ::MBK::SCALE (D::_TRACK_WIDTH_ALU4);
-  D::TRACK_WIDTH_ALU5  = ::MBK::SCALE (D::_TRACK_WIDTH_ALU5);
-  D::TRACK_WIDTH_ALU6  = ::MBK::SCALE (D::_TRACK_WIDTH_ALU6);
-  D::TRACK_WIDTH_ALU7  = ::MBK::SCALE (D::_TRACK_WIDTH_ALU7);
+  D::X_GRID             = ::MBK::SCALE (D::_X_GRID);
+  D::Y_GRID             = ::MBK::SCALE (D::_Y_GRID);
+  D::WIDTH_VSS          = ::MBK::SCALE (D::_WIDTH_VSS);
+  D::WIDTH_VDD          = ::MBK::SCALE (D::_WIDTH_VDD);
+  D::Y_SLICE            = ::MBK::SCALE (D::_Y_SLICE);
+  D::TRACK_WIDTH_ALU1   = ::MBK::SCALE (D::_TRACK_WIDTH_ALU1);
+  D::TRACK_WIDTH_ALU2   = ::MBK::SCALE (D::_TRACK_WIDTH_ALU2);
+  D::TRACK_WIDTH_ALU3   = ::MBK::SCALE (D::_TRACK_WIDTH_ALU3);
+  D::TRACK_WIDTH_ALU4   = ::MBK::SCALE (D::_TRACK_WIDTH_ALU4);
+  D::TRACK_WIDTH_ALU5   = ::MBK::SCALE (D::_TRACK_WIDTH_ALU5);
+  D::TRACK_WIDTH_ALU6   = ::MBK::SCALE (D::_TRACK_WIDTH_ALU6);
+  D::TRACK_WIDTH_ALU7   = ::MBK::SCALE (D::_TRACK_WIDTH_ALU7);
+  D::TRACK_SPACING_ALU1 = ::MBK::SCALE (D::_TRACK_SPACING_ALU1);
+  D::TRACK_SPACING_ALU2 = ::MBK::SCALE (D::_TRACK_SPACING_ALU2);
+  D::TRACK_SPACING_ALU3 = ::MBK::SCALE (D::_TRACK_SPACING_ALU3);
+  D::TRACK_SPACING_ALU4 = ::MBK::SCALE (D::_TRACK_SPACING_ALU4);
+  D::TRACK_SPACING_ALU5 = ::MBK::SCALE (D::_TRACK_SPACING_ALU5);
+  D::TRACK_SPACING_ALU6 = ::MBK::SCALE (D::_TRACK_SPACING_ALU6);
+  D::TRACK_SPACING_ALU7 = ::MBK::SCALE (D::_TRACK_SPACING_ALU7);
 
   // Grid spacing.
   grid_dx = D::X_GRID;
@@ -227,6 +241,29 @@ CEnv::CEnv (void)
   ALU2W[TALU5] = D::TRACK_WIDTH_ALU5;
   ALU2W[TALU6] = D::TRACK_WIDTH_ALU6;
   ALU2W[TALU7] = D::TRACK_WIDTH_ALU7;
+
+  // Layers minimal width.
+  ALU2S[ALU1]  = D::TRACK_SPACING_ALU1;
+  ALU2S[ALU2]  = D::TRACK_SPACING_ALU2;
+  ALU2S[ALU3]  = D::TRACK_SPACING_ALU3;
+  ALU2S[ALU4]  = D::TRACK_SPACING_ALU4;
+  ALU2S[ALU5]  = D::TRACK_SPACING_ALU5;
+  ALU2S[ALU6]  = D::TRACK_SPACING_ALU6;
+  ALU2S[ALU7]  = D::TRACK_SPACING_ALU7;
+  ALU2S[CALU1] = D::TRACK_SPACING_ALU1;
+  ALU2S[CALU2] = D::TRACK_SPACING_ALU2;
+  ALU2S[CALU3] = D::TRACK_SPACING_ALU3;
+  ALU2S[CALU4] = D::TRACK_SPACING_ALU4;
+  ALU2S[CALU5] = D::TRACK_SPACING_ALU5;
+  ALU2S[CALU6] = D::TRACK_SPACING_ALU6;
+  ALU2S[CALU7] = D::TRACK_SPACING_ALU7;
+  ALU2S[TALU1] = D::TRACK_SPACING_ALU1;
+  ALU2S[TALU2] = D::TRACK_SPACING_ALU2;
+  ALU2S[TALU3] = D::TRACK_SPACING_ALU3;
+  ALU2S[TALU4] = D::TRACK_SPACING_ALU4;
+  ALU2S[TALU5] = D::TRACK_SPACING_ALU5;
+  ALU2S[TALU6] = D::TRACK_SPACING_ALU6;
+  ALU2S[TALU7] = D::TRACK_SPACING_ALU7;
 
   // Layer to Z translation table.
   ALU2Z[ALU1]  = 0;
@@ -267,6 +304,26 @@ long  CEnv::layer2width (char layer) throw (except_done)
 
   if ((itLayer = ALU2W.find (layer)) == ALU2W.end ()) {
     cerr << herr ("CEnv::layer2width ():\n");
+    cerr << "  Layer id " << (int)layer << " is not supported.\n";
+    throw except_done ();
+  }
+    
+  return (itLayer->second);
+}
+
+
+
+
+// -------------------------------------------------------------------
+// Method  :  "CEnv::layer2spacing()".
+
+long  CEnv::layer2spacing (char layer) throw (except_done)
+{
+  MLayer::iterator  itLayer;
+
+
+  if ((itLayer = ALU2S.find (layer)) == ALU2S.end ()) {
+    cerr << herr ("CEnv::layer2spacing ():\n");
     cerr << "  Layer id " << (int)layer << " is not supported.\n";
     throw except_done ();
   }
@@ -860,6 +917,8 @@ void  CFig::addphcon (phcon_list &con)
 extern char *layer2a(char layer)
 {
   switch (layer) {
+    case NDIF:  return ("NDIF");
+    case PDIF:  return ("PDIF");
     case ALU1:  return ("ALU1");
     case ALU2:  return ("ALU2");
     case ALU3:  return ("ALU3");

@@ -1,7 +1,7 @@
 
 // -*- C++ -*-
 //
-// $Id: MNet.cpp,v 1.9 2005/10/10 15:34:05 jpc Exp $
+// $Id: MNet.cpp,v 1.10 2005/10/13 12:44:39 jpc Exp $
 //
 //  /----------------------------------------------------------------\ 
 //  |                                                                |
@@ -254,8 +254,11 @@ void  CTerm::lockalone (bool global)
 
   if (nodes.size() != 1) return;
 
+
   coord  = nodes.back ();
   coord2 = coord;
+
+  CDRGrid* drgrid = coord._drgrid;
 
   if ( (coord.z() > 0) && !global ) return;
   if (  coord.onAB()) return;
@@ -293,6 +296,7 @@ void  CTerm::lockalone (bool global)
   }
 
 
+  if ( drgrid->Z < 3 ) return;
   // Global terminal : when zupper=4, find the nearest VIA on the
   // double pitch grid.
 
@@ -332,6 +336,8 @@ void  CTerm::lockalone (bool global)
       }
     }
   }
+
+  if ( drgrid->Z < 4 ) return;
 
   if (coord.z() < 4) {
     // Go to z=3 (ALU3).
@@ -449,8 +455,9 @@ bool CNet::global (bool rglobal)
 
 void CNet::newaccess (string termName, int x, int y, int z)
 {
-  CRect  rect;
+  if ( z >= _drgrid->Z ) return;
 
+  CRect  rect;
 
   rect.x1 = rect.x2 = x;
   rect.y1 = rect.y2 = y;
@@ -466,6 +473,8 @@ void CNet::newaccess (string termName, int x, int y, int z)
 
 void CNet::newaccess (string termName, CRect &rect, int z)
 {
+  if ( z >= _drgrid->Z ) return;
+
   CCoord  coord;
   int     id, mergeid;
 
