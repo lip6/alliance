@@ -177,8 +177,8 @@ TABLE MBK_TO_RDS_BIGVIA_HOLE
 CONT_VIA   RDS_VIA1 1 4 ALL
 CONT_VIA2  RDS_VIA2 1 4 ALL
 CONT_VIA3  RDS_VIA3 1 4 ALL
-CONT_VIA4  RDS_VIA4 1 9 ALL
-CONT_VIA5  RDS_VIA5 1 9 ALL
+CONT_VIA4  RDS_VIA4 1 4 ALL   // should be more than 4 
+CONT_VIA5  RDS_VIA5 1 4 ALL   // should be more than 4 
 
 END
 
@@ -711,10 +711,10 @@ relation RDS_ALU4 , RDS_ALU4 (
 caracterise RDS_ALU5 (
   regle 80 : largeur >= 2. ;
   regle 81 : longueur_inter min 2. ;
-  regle 82 : notch >= 8. ;
+  regle 82 : notch >= 3. ;
 );
 relation RDS_ALU5 , RDS_ALU5 (
-  regle 83 : distance axiale min 8. ;
+  regle 83 : distance axiale min 3. ;
 );
 
 # Check RDS_ALU6 shapes
@@ -722,10 +722,10 @@ relation RDS_ALU5 , RDS_ALU5 (
 caracterise RDS_ALU6 (
   regle 84 : largeur >= 2. ;
   regle 85 : longueur_inter min 2. ;
-  regle 86 : notch >= 8. ;
+  regle 86 : notch >= 3. ;
 );
 relation RDS_ALU6 , RDS_ALU6 (
-  regle 87 : distance axiale min 8. ;
+  regle 87 : distance axiale min 3. ;
 );
 
 # Check ANY_VIA layers, stacking are free
@@ -743,10 +743,10 @@ relation RDS_VIA3 , RDS_VIA3 (
   regle 70 : distance axiale >= 4. ;
 );
 relation RDS_VIA4 , RDS_VIA4 (
-  regle 88 : distance axiale >= 9. ;
+  regle 88 : distance axiale >= 4. ;
 );
 relation RDS_VIA5 , RDS_VIA5 (
-  regle 89 : distance axiale >= 9. ;
+  regle 89 : distance axiale >= 4. ;
 );
 caracterise RDS_CONT (
   regle 71 : largeur >= 1. ;
@@ -880,14 +880,14 @@ DRC_COMMENT
 79 (RDS_POLY,RDS_ACTIV) Manhatan distance min 1. 
 80 (RDS_ALU5) minimum width 2. 
 81 (RDS_ALU5) minimum width 2. 
-82 (RDS_ALU5) Manhatan distance min 8. 
-83 (RDS_ALU5,RDS_ALU5) Manhatan distance min 8. 
+82 (RDS_ALU5) Manhatan distance min 4. 
+83 (RDS_ALU5,RDS_ALU5) Manhatan distance min 4. 
 84 (RDS_ALU6) minimum width 2. 
 85 (RDS_ALU6) minimum width 2. 
-86 (RDS_ALU6) Manhatan distance min 8. 
-87 (RDS_ALU6,RDS_ALU6) Manhatan distance min 8. 
-88 (RDS_VIA4,RDS_VIA4) Manhatan distance min 9. 
-89 (RDS_VIA5,RDS_VIA5) Manhatan distance min 9. 
+86 (RDS_ALU6) Manhatan distance min 4. 
+87 (RDS_ALU6,RDS_ALU6) Manhatan distance min 4. 
+88 (RDS_VIA4,RDS_VIA4) Manhatan distance min 4. 
+89 (RDS_VIA5,RDS_VIA5) Manhatan distance min 4. 
 90 (RDS_VIA4) minimum width 1. 
 91 (RDS_VIA4) maximum length 1. 
 92 (RDS_VIA5) minimum width 1. 
