@@ -1,7 +1,7 @@
 
 // -*- C++ -*-
 //
-// $Id: MNodes.cpp,v 1.3 2005/04/07 14:56:18 jpc Exp $
+// $Id: MNodes.cpp,v 1.4 2005/10/17 23:11:06 jpc Exp $
 //
 //  /----------------------------------------------------------------\ 
 //  |                                                                |
@@ -109,20 +109,22 @@ void  CNode::ungrab (void)
 void  CMatrixNodes::obstacle (CRect &rect, int z)
 {
   CDRGrid::iterator  coord;
-                int  x, y, X, Y;
+               long  x, y, X, Y;
 
 
-  if (!z) return;
+  if ( !z || (z >= _drgrid->Z) ) return;
 
   coord = _drgrid->origin;
 
-  X = (_drgrid->X == rect.x2) ? rect.x2 - 1 : rect.x2;
-  Y = (_drgrid->Y == rect.y2) ? rect.y2 - 1 : rect.y2;
+  X = (_drgrid->X <= rect.x2) ? _drgrid->X - 1 : rect.x2;
+  Y = (_drgrid->Y <= rect.y2) ? _drgrid->Y - 1 : rect.y2;
 
-  for (x = rect.x1; x <= X; x++) {
-    for (y = rect.y1; y <= Y; y++) {
+  x =  (rect.x1>0) ? rect.x1 : 0;
+  for ( ; x <= X; x++) {
+    y =  (rect.y1>0) ? rect.y1 : 0;
+    for ( ; y <= Y; y++) {
       if ( ! (*this)[ coord.set (x, y, z) ].terminal () ) {
-        cdebug << "+      Obstacle at (" << x << "," << y << "," << z << ")" << "\n";
+        //cdebug << "+      Obstacle at (" << x << "," << y << "," << z << ")" << "\n";
         (*this)[ coord ].data.obstacle = true;
       }
     }

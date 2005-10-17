@@ -1,7 +1,7 @@
 
 // -*- C++ -*-
 //
-// $Id: MMBK.h,v 1.5 2005/10/13 12:44:39 jpc Exp $
+// $Id: MMBK.h,v 1.6 2005/10/17 23:11:06 jpc Exp $
 //
 // /-----------------------------------------------------------------\ 
 // |                                                                 |
@@ -278,6 +278,7 @@ namespace MBK {
     void  addphseg (phseg_list &seg, bool isTerm=false, bool isChip=false );
     void  addphvia (phvia_list &VIA);
     void  addphcon (phcon_list &con);
+    void  addphref (phref_list &ref);
 
   };
 

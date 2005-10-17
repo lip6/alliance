@@ -1,7 +1,7 @@
 
 // -*- C++ -*-
 //
-// $Id: RMBK.cpp,v 1.12 2005/10/13 12:44:40 jpc Exp $
+// $Id: RMBK.cpp,v 1.13 2005/10/17 23:11:06 jpc Exp $
 //
 //  /----------------------------------------------------------------\ 
 //  |                                                                |
@@ -109,14 +109,14 @@ void  CRBox::mbkload (MBK::CFig *mbkfig
           ischip = true;
           if ( eastPad == 0 ) {
             cmess2 << "     o  East pad found.\n";
-            eastPad = pModel->XAB2 - pModel->XAB1 - MBK::SCALE(15);
+            eastPad = pModel->YAB2 - pModel->YAB1 - MBK::SCALE(15);
           }
           break;
         case SY_RP:
           ischip = true;
           if ( westPad == 0 ) {
             cmess2 << "     o  West pad found.\n";
-            westPad = pModel->XAB2 - pModel->XAB1 - MBK::SCALE(15);
+            westPad = pModel->YAB2 - pModel->YAB1 - MBK::SCALE(15);
           }
           break;
         default:
@@ -224,6 +224,18 @@ void  CRBox::mbkload (MBK::CFig *mbkfig
   cmess2 << "     o  Allocating grid size ["
          << mX << "," << mY << "," << mZ << "].\n";
 
+  float  mXf      = mX;
+  float  mYf      = mY;
+  float  mZf      = mZ;
+  float  overflow = INT_MAX;
+
+  if ( mXf * mYf * mZf >= overflow ) {
+    cerr << herr("")
+         << "  Internal routing grid capacity exceeded :\n"
+         << "  More than " << INT_MAX << "nodes (INT_MAX).\n";
+    throw except_done();
+  }
+
   // Allocating the routing grid.
   drgrid = new CDRGrid (xoffsetgrid, yoffsetgrid, mX, mY, mZ, zup);
 
@@ -297,8 +309,10 @@ void  CRBox::mbkload (MBK::CFig *mbkfig
       if (pSeg->LAYER != MBK::CALU1) {
         rect->setSeg (*pSeg);
         
-        //cerr << "+ Top power obstacle" << endl;
-        drgrid->nodes->obstacle (rect->grid, MBK::env.layer2z (pSeg->LAYER));
+        //cerr << "+ Top power obstacle\n" << rect;
+
+        if ( rect->isInGrid() )
+          drgrid->nodes->obstacle (rect->grid, MBK::env.layer2z (pSeg->LAYER));
       }
 
       continue;
@@ -339,6 +353,7 @@ void  CRBox::mbkload (MBK::CFig *mbkfig
       //                , rect->grid
       //                , MBK::env.layer2z (pSeg->LAYER)
       //                );
+      //cerr << "+ Net obstacle\n" << rect;
       drgrid->nodes->obstacle (rect->grid, MBK::env.layer2z (pSeg->LAYER));
     } else {
       cerr << hwarn ("")
@@ -366,22 +381,28 @@ void  CRBox::mbkload (MBK::CFig *mbkfig
         case 0: flatSeg.LAYER = MBK::topVIALayer    (pVIA->TYPE); break;
         case 1: flatSeg.LAYER = MBK::bottomVIALayer (pVIA->TYPE); break;
       }
+
+      if (flatSeg.LAYER == MBK::CALU1) continue;
+
+      long  xVIAshrink = 0;
+      if (pVIA->DX) { xVIAshrink = (pVIA->DX - MBK::SCALE(3)) / 2; }
+      flatSeg.X1    = pVIA->XVIA - xVIAshrink;
+      flatSeg.X2    = pVIA->XVIA + xVIAshrink;
+      flatSeg.Y1    = pVIA->YVIA;
+      flatSeg.Y2    = pVIA->YVIA;
+      flatSeg.WIDTH = pVIA->DY;
+
+      rect->setSeg (flatSeg);
+
+      //cerr << "+ Top VIA obstacle ("
+      //     << MBK::UNSCALE(pVIA->XVIA) << ","
+      //     << MBK::UNSCALE(pVIA->YVIA) << ") "
+      //     << MBK::layer2a(flatSeg.LAYER) << endl;
+      //cerr << rect;
+
+      if ( rect->isInGrid() )
+        drgrid->nodes->obstacle (rect->grid, MBK::env.layer2z (flatSeg.LAYER));
     }
-
-    if (flatSeg.LAYER == MBK::CALU1) continue;
-
-    long  xVIAshrink = 0;
-    if (pVIA->DX) { xVIAshrink = (pVIA->DX - MBK::SCALE(3)) / 2; }
-    flatSeg.X1    = pVIA->XVIA - xVIAshrink;
-    flatSeg.X2    = pVIA->XVIA + xVIAshrink;
-    flatSeg.Y1    = pVIA->YVIA;
-    flatSeg.Y2    = pVIA->YVIA;
-    flatSeg.WIDTH = pVIA->DY;
-
-    rect->setSeg (flatSeg);
-
-    //cerr << "+ Top VIA obstacle (" << pVIA->XVIA << "," << pVIA->YVIA << ")" << endl;
-    drgrid->nodes->obstacle (rect->grid, MBK::env.layer2z (flatSeg.LAYER));
   }
 
 
@@ -407,8 +428,11 @@ void  CRBox::mbkload (MBK::CFig *mbkfig
         itIns->second->flatseg (flatSeg, *pSeg);
         rect->setSeg (flatSeg);
 
-        //cerr << "+ Instance obstacle (" << flatSeg.X1 << "," << flatSeg.Y1 << ")" << endl;
-        drgrid->nodes->obstacle (rect->grid, MBK::env.layer2z (pSeg->LAYER));
+        //cerr << "+ Instance obstacle (" << flatSeg.X1 << "," << flatSeg.Y1 << ")"
+        //     << MBK::layer2a(flatSeg.LAYER) << endl;
+
+        if ( rect->isInGrid() )
+          drgrid->nodes->obstacle (rect->grid, MBK::env.layer2z (pSeg->LAYER));
 
         if ( !MBK::ISVDD (pSeg->NAME) && !MBK::ISVSS (pSeg->NAME) )
           fig->addphseg ( flatSeg, true, ischip );
@@ -636,6 +660,22 @@ void  CRBox::mbkload (MBK::CFig *mbkfig
   mY = drgrid->Y;
   mZ = drgrid->Z;
   coord = drgrid->origin;
+
+
+  // A reference to show the grid real origin.
+  MBK::phref_list  ref;
+  ref.FIGNAME = MBK::namealloc("ref_ref");
+  ref.NAME    = MBK::namealloc("nero.grid.origin");
+  ref.XREF    = xoffsetgrid;
+  ref.YREF    = yoffsetgrid;
+  ref.USER    = NULL;
+  ref.NEXT    = NULL;
+  fig->addphref ( ref );
+
+  ref.NAME    = MBK::namealloc("nero.grid.limit");
+  ref.XREF   += D::X_GRID * (mX-1);
+  ref.YREF   += D::Y_GRID * (mY-1);
+  fig->addphref ( ref );
   
 
   // Horizontal planes loop in both directions.

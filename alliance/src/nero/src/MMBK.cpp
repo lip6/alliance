@@ -1,7 +1,7 @@
 
 // -*- C++ -*-
 //
-// $Id: MMBK.cpp,v 1.7 2005/10/13 12:44:39 jpc Exp $
+// $Id: MMBK.cpp,v 1.8 2005/10/17 23:11:05 jpc Exp $
 //
 // /-----------------------------------------------------------------\ 
 // |                                                                 |
@@ -174,7 +174,9 @@ ostream &operator<< (ostream &o, const CXRect *rect)
     << rect->seg.X1 << ", "
     << rect->seg.Y1 << "), ("
     << rect->seg.X2 << ", "
-    << rect->seg.Y2 << ")\n";
+    << rect->seg.Y2 << ") "
+    << rect->seg.WIDTH << " "
+    << layer2a(rect->seg.LAYER) << "\n";
 
   o << "+         CXRect::rect(" << &(rect->rect) << ")\n";
   o << "+         CXRect::grid(" << &(rect->grid) << ")\n";
@@ -905,6 +907,20 @@ void  CFig::addphcon (phcon_list &con)
                 , con.YCON
                 , con.LAYER
                 , con.WIDTH
+                );
+}
+
+
+// -------------------------------------------------------------------
+// Method :  "CFig::addphref()".
+
+void  CFig::addphref (phref_list &ref)
+{
+  MBK::addphref ( phfig.fig
+                , ref.FIGNAME
+                , ref.NAME
+                , ref.XREF
+                , ref.YREF
                 );
 }
 
