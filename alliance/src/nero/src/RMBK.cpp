@@ -1,7 +1,7 @@
 
 // -*- C++ -*-
 //
-// $Id: RMBK.cpp,v 1.13 2005/10/17 23:11:06 jpc Exp $
+// $Id: RMBK.cpp,v 1.14 2005/10/18 09:17:30 jpc Exp $
 //
 //  /----------------------------------------------------------------\ 
 //  |                                                                |
@@ -851,7 +851,7 @@ void  CRBox::mbkload (MBK::CFig *mbkfig
   // Plane loop for VIAs.
   for (z = 1; z < mZ; z++) {
     // Track loop for VIAs.
-    if (z >= drgrid->zupper) pitch = 2;
+    if (z >= drgrid->zupper) pitch = 1;
     else                     pitch = 1;
 
     if (z % 2) {
@@ -918,35 +918,6 @@ void  CRBox::mbkload (MBK::CFig *mbkfig
       }
     }
   }
-
-# if 0
-  // Plane loop for VIAs.
-  for (x = 0; x < mX; x++) {
-    for (y = 0; y < mY; y++) {
-      // Loop on Z axis.
-      for (z = 1; z < mZ; z++) {
-        if ( (z >= drgrid->zupper) && ( (x % 2) || (y % 2) ) )
-          break;
-
-        node = & ( coord.set(x,y,z).node() );
-        if (coord.inside()) pNet = node->data.owner;
-        else                pNet = NULL;
-
-        node = & ( coord.set(x,y,z-1).node() );
-        if (coord.inside()) pNextNet = node->data.owner;
-
-        if (pNet && (pNet == pNextNet)) {
-          via.TYPE = MBK::env.z2via (z);
-          via.XVIA = fig->XAB1() + x * D::X_GRID;
-          via.YVIA = fig->YAB1() + y * D::Y_GRID;
-          via.NAME = MBK::namealloc(pNet->name.c_str ());
-
-          fig->addphvia (via);
-        }
-      } // End of Z axis loop.
-    }
-  } // End of plane loop for VIAs.
-# endif
 
 
   // Special case of nets with only one terminal.
