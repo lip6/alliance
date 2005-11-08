@@ -7,7 +7,7 @@
 #  Alliance CAD system environnement
 #  Usage (in Bourne-shell) : > . alc_env.sh
 #  (C) 1997 Czo  -- <Olivier.Sirol@lip6.fr>
-#  $Id: alc_env.sh.in,v 1.5 2005/10/04 16:01:47 jpc Exp $
+#  $Id: alc_env.sh.in,v 1.6 2005/11/08 10:23:34 jpc Exp $
 #  Generated from alc_env.sh.in on @DATE@
 
 # $ALLIANCE_OS and $ALLIANCE_TOP are the only variables you will
@@ -46,8 +46,8 @@
         MBK_CATA_LIB=$MBK_CATA_LIB:$ALLIANCE_TOP/cells/rflib
         MBK_CATA_LIB=$MBK_CATA_LIB:$ALLIANCE_TOP/cells/ramlib
         MBK_CATA_LIB=$MBK_CATA_LIB:$ALLIANCE_TOP/cells/romlib
-        MBK_CATA_LIB=$MBK_CATA_LIB:$ALLIANCE_TOP/cells/padlib
         MBK_CATA_LIB=$MBK_CATA_LIB:$ALLIANCE_TOP/cells/pxlib
+        MBK_CATA_LIB=$MBK_CATA_LIB:$ALLIANCE_TOP/cells/padlib
                                                      export MBK_CATA_LIB
 
       MBK_TARGET_LIB=$ALLIANCE_TOP/cells/sxlib;      export MBK_TARGET_LIB
