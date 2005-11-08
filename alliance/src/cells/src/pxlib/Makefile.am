@@ -1,4 +1,4 @@
-# $Id: Makefile.am,v 1.1 2005/10/04 15:54:57 jpc Exp $
+# $Id: Makefile.am,v 1.2 2005/11/08 10:13:51 franck Exp $
 
 pxlibdir=$(prefix)/cells/pxlib
 
@@ -13,6 +13,7 @@ pxlib_DATA=CATAL \
            po_px.vbe \
            pot_px.ap \
            pot_px.vbe \
+           padreal.ap \
            pvddeck_px.ap \
            pvddeck_px.vbe \
            pvdde_px.ap \
