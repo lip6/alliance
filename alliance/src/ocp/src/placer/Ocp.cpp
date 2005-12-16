@@ -151,9 +151,9 @@ main(int argc, char **argv)
     bool		VerboseFlg		= false; // verbose mode
     bool		EqMarginFlg		= false; // don't try to maximise
     							 // 2-pitch cells
-    double		NetMult			= 0.8 ;
-    double		BinMult			= 0.1 ;
-    double		RowMult			= 0.1 ;
+    double		NetMult			= 1.0 ;
+    double		BinMult			= 0 ;
+    double		RowMult			= 0 ;
 
     /* ###------------------------------------------------------### */
     /* analyse the command line, set option flags and find the	    */

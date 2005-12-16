@@ -85,6 +85,16 @@ PMove::GetDeltaBinCost()
     DeltaBinCost -= _dstBinInitCost;
     DeltaBinCost += Abs(_srcBin->GetCapa() - _srcBin->GetSize());
     DeltaBinCost += Abs(_dstBin->GetCapa() - _dstBin->GetSize());
+#if 0
+    cerr << "hi" << endl;
+    cerr << _srcBinInitCost << endl;
+    cerr << _dstBinInitCost << endl;
+    cerr << DeltaBinCost << endl;
+    cerr << _srcBin->GetCapa() << endl;
+    cerr << _srcBin->GetSize() << endl;
+    cerr << _srcWidth << endl;
+    cerr << _dstWidth << endl;
+#endif
     return DeltaBinCost;
 }
 
@@ -200,7 +210,7 @@ PMove::Move()
     } else {
 	_srcBin->RemoveIns(_srcIns);
 	_dstBin->AddIns(_srcIns);
-	_dstBin->RemoveIns(_dstIns);
+	_dstBin->RemoveFrontIns(_dstIns);
 	_srcBin->AddIns(_dstIns);
     }
 }
@@ -240,20 +250,35 @@ PMove::Next(double Dist)
 	_dstRowInitCost = Abs(_dstSubRow->GetCapa() - _dstSubRow->GetSize());
 
 	if (_dstBin == _srcBin)
+        {
 	    MoveCondition = false;
+            _placement.IncrSourceEqualTargetMovementNumber();
+        }
 
-        if (_dstBin->UnderOccupied(_placement.GetMargin())) {
+        if (_dstBin->UnderOccupied(_placement.GetMargin())) 
+        {
             // Le bin destination est sous-occupé
             // On déplace l'instance
             if (_dstSubRow->GetMax() - _dstSubRow->GetSize() < _srcWidth)
+            {
                 MoveCondition = false;
-        } else {
+                _placement.IncrSurOccupationTargetMovementNumber();
+            }
+        }
+        else
+        {
 	    _dstIns = _dstBin->GetToPlaceInss().front();
             _dstWidth = _dstIns->GetWidth();
 	    if (_srcSubRow->GetMax() - _srcSubRow->GetSize() < _dstWidth - _srcWidth)
+            {
 		MoveCondition = false;
+                _placement.IncrImpossibleExchangeMovementNumber();
+            }
 	    if (_dstSubRow->GetMax() - _dstSubRow->GetSize() < _srcWidth - _dstWidth)
+            {
 		MoveCondition = false;
+                _placement.IncrImpossibleExchangeMovementNumber();
+            }
 	}
 	if (!MoveCondition)
 	    ++nbrefused;
@@ -263,7 +288,8 @@ PMove::Next(double Dist)
    
     // Deplace les instances
     // =====================
-    _dstBin->IncrNbHits();
+    _srcBin->IncrementSourceHits();
+    _dstBin->IncrementTargetHits();
     
     Move();
     return true;
@@ -273,6 +299,10 @@ PMove::Next(double Dist)
 void
 PMove::Accept()
 {
+    if (_dstIns == NULL)
+        _placement.IncrAcceptedMoveNumber();
+    else
+        _placement.IncrAcceptedExchangeNumber();
     // Sauvegarde des cout des nets
     for (map<PONet*, unsigned>::iterator it = _affectedNets.begin(); it != _affectedNets.end(); ++it) {
 	PONet*    net  = (*it).first;
@@ -288,12 +318,14 @@ void
 PMove::Reject()
 {
     if (_dstIns == NULL) {
-	_dstBin->RemoveIns(_srcIns);
+        _placement.IncrRejectedMoveNumber();
+	_dstBin->RemoveBackIns(_srcIns);
 	_srcBin->AddIns(_srcIns);
     } else {
-	_srcBin->RemoveIns(_dstIns);
+        _placement.IncrRejectedExchangeNumber();
+	_srcBin->RemoveBackIns(_dstIns);
+	_dstBin->RemoveBackIns(_srcIns);
 	_dstBin->AddIns(_dstIns);
-	_dstBin->RemoveIns(_srcIns);
 	_srcBin->AddIns(_srcIns);
     }
 }

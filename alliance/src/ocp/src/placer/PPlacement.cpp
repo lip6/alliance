@@ -388,6 +388,11 @@ PPlacement::Init(lofig* fig, int NbRows)
 	    _biggestToPlaceInsWidth = inswidth;
         _sumToPlaceInssWidth += inswidth;
     }
+
+    if (_verbose)
+    {
+        cout << " o Sum of instances to place widths is ... " << _sumToPlaceInssWidth << endl; 
+    }
     
     _binsMaxWidth = (double)(int)(2.0 * _biggestToPlaceInsWidth * (1.0 + _margin) + 0.5);
     _binsMinWidth = (double)(int)(_binsMaxWidth / 2);
@@ -1289,7 +1294,7 @@ PPlacement::InitPlace(int NbRows)
     
     if (_verbose)
     {
-	cout << " o User Margin : " << _margin << endl;
+	cout << " o User Margin : " << 100.0 * _margin << "%" << endl;
     }
     
     double rowwidth = SquareShape(_margin, _sumToPlaceInssWidth,
@@ -1301,6 +1306,14 @@ PPlacement::InitPlace(int NbRows)
     }
     
     // computing Effective Margin
+    double realSurface = NRows * rowwidth;
+    _realMargin = 1.0 - _sumToPlaceInssWidth / realSurface;
+    if (_verbose)
+    {
+        cout << " o Real Margin : " << 100.0 * _realMargin << "%" << endl;
+    }
+        
+        
     _rows.reserve(NRows);
     
     double Y = 0.0;
@@ -1316,8 +1329,7 @@ PPlacement::InitPlace(int NbRows)
 	_rowsYMinInv[Y] = rowidx;
 	++rowidx;
 	PSubRow& subrow = *(_rows.back()->_subRows[0]);
-	subrow.Init(_rows.back(), Y, XMin, rowwidth, _margin, 
-		_binsMaxWidth, _binsMinWidth);
+	subrow.Init(_rows.back(), Y, XMin, rowwidth, _realMargin, _binsMaxWidth, _binsMinWidth);
 	_rows.back()->_subRowsXMax[rowwidth + XMin] = 0;
 	_rows.back()->_subRowsXMaxInv[rowwidth + XMin] = 0;
         Y += ROWHEIGHT;
@@ -1382,98 +1394,101 @@ PPlacement::InitPlaceWithPrePlace()
     // find the orientation of the first row.
     phins* refpins = _prePlaceFig->PHINS;
 
-    int ycoord = (int)((refpins->YINS - _dy) / (ROWHEIGHT * PITCH));
-    phfig* refpinsmodel = getphfig(refpins->FIGNAME, 'P');
-    int refpinsheight = (int)((refpinsmodel->YAB2 - refpinsmodel->YAB1)
-	    / (ROWHEIGHT * PITCH));
-    char transf = refpins->TRANSF;
-
-    if (ycoord % 2 == 0)
+    if (refpins)
     {
-      if ((refpinsheight == 2) || (transf == NOSYM) || (transf == SYM_X))
-	_rowZeroOrientation = true;
-      else
-	_rowZeroOrientation = false;
-    } else {
-      if ((refpinsheight == 2) || (transf == NOSYM) || (transf == SYM_X))
-	_rowZeroOrientation = false;
-      else
-	_rowZeroOrientation = true;
-    }
+        int ycoord = (int)((refpins->YINS - _dy) / (ROWHEIGHT * PITCH));
+        phfig* refpinsmodel = getphfig(refpins->FIGNAME, 'P');
+        int refpinsheight = (int)((refpinsmodel->YAB2 - refpinsmodel->YAB1)
+                / (ROWHEIGHT * PITCH));
+        char transf = refpins->TRANSF;
 
-    // tests for each instance
-    for (phins* pins = _prePlaceFig->PHINS; pins; pins = pins->NEXT)
-    {
-	phfig_list* phmodel = getphfig(pins->FIGNAME, '0');
-	int pinswidth = phmodel->XAB2 - phmodel->XAB1;
-	int pinsheight = phmodel->YAB2 - phmodel->YAB1;
-	
-	pinswidth = (int)(pinswidth / PITCH);			// largeur ramene au pitch
-	pinsheight = (int)(pinsheight / PITCH);			// hauteur ramene au pitch
-	int pinsheightrow = (int)(pinsheight / ROWHEIGHT);	// hauteur ramene a l'unite
-								// (taille des lignes)
-	int ypos = (int)((pins->YINS - _dy) / PITCH);		// position en y ramene au pitch
-	int xpos = (int)((pins->XINS - _dx) / PITCH);		// position en x ramene au pitch
-	int ycoord = (int)(ypos / ROWHEIGHT);			// position en y ramene a l'unite
+        if (ycoord % 2 == 0)
+        {
+          if ((refpinsheight == 2) || (transf == NOSYM) || (transf == SYM_X))
+            _rowZeroOrientation = true;
+          else
+            _rowZeroOrientation = false;
+        } else {
+          if ((refpinsheight == 2) || (transf == NOSYM) || (transf == SYM_X))
+            _rowZeroOrientation = false;
+          else
+            _rowZeroOrientation = true;
+        }
 
-	if ((pins->YINS - _dy) % 50 != 0)
-	{
-	    cerr << " o ERROR : in preplacement file : y position of "
-		<< pins->INSNAME << " is incorrect" << endl;
-	    exit (1);
-	}
+        // tests for each instance
+        for (phins* pins = _prePlaceFig->PHINS; pins; pins = pins->NEXT)
+        {
+            phfig_list* phmodel = getphfig(pins->FIGNAME, '0');
+            int pinswidth = phmodel->XAB2 - phmodel->XAB1;
+            int pinsheight = phmodel->YAB2 - phmodel->YAB1;
+            
+            pinswidth = (int)(pinswidth / PITCH);			// largeur ramene au pitch
+            pinsheight = (int)(pinsheight / PITCH);			// hauteur ramene au pitch
+            int pinsheightrow = (int)(pinsheight / ROWHEIGHT);	// hauteur ramene a l'unite
+                                                                    // (taille des lignes)
+            int ypos = (int)((pins->YINS - _dy) / PITCH);		// position en y ramene au pitch
+            int xpos = (int)((pins->XINS - _dx) / PITCH);		// position en x ramene au pitch
+            int ycoord = (int)(ypos / ROWHEIGHT);			// position en y ramene a l'unite
 
-	if ((pins->XINS - _dx) % 5 != 0)
-	{
-	    cerr << " o ERROR : in preplacement file : x position of "
-		<< pins->INSNAME << " is incorrect" << endl;
-	    exit (1);
-	}
+            if ((pins->YINS - _dy) % 50 != 0)
+            {
+                cerr << " o ERROR : in preplacement file : y position of "
+                    << pins->INSNAME << " is incorrect" << endl;
+                exit (1);
+            }
 
-	if (   (pins->TRANSF == ROT_P) || (pins->TRANSF == ROT_M)
-	    || (pins->TRANSF == SY_RP) || (pins->TRANSF == SY_RM) )
-	{
-	    cerr << " o ERROR : " << pins->INSNAME << " : incorrect rotation" << endl;
-	    exit(1);
-	}
-	
-	// check if orientation of instance matches
-	bool insOrient;
-	if ((pinsheightrow == 2) || (pins->TRANSF == NOSYM) || (pins->TRANSF == SYM_X))
-	  insOrient = true;
-	else
-	  insOrient = false;
+            if ((pins->XINS - _dx) % 5 != 0)
+            {
+                cerr << " o ERROR : in preplacement file : x position of "
+                    << pins->INSNAME << " is incorrect" << endl;
+                exit (1);
+            }
 
-	if (   ((ycoord % 2 == 0) && (insOrient != _rowZeroOrientation))
-	    || ((ycoord % 2 != 0) && (insOrient == _rowZeroOrientation)) )
-	{
-	  cerr << " o ERROR : " << pins->INSNAME << " badly oriented" << endl
-	       << "   Incoherence with " << refpins->INSNAME << endl;
-	  exit(1);
-	}
-	
-	for (int yit = ycoord; yit < ycoord + pinsheightrow; yit++)
-	{
-	  for (int xit = xpos; xit < xpos + pinswidth; xit++)
-	  {
-	    if (   (xit > Width - 1) || (yit > Height - 1)
-		|| (xit < 0    ) || (yit < 0     ) )
-	    {
-	      cerr << " o ERROR : " << pins->INSNAME
-		   << " out of the abutment box" << endl;
-	      exit(1);
-	    }
-	    
-	    if (tabpreplace[yit][xit] == false)
-	    {
-		tabpreplace[yit][xit] = true;
-	    }
-	    else{
-	      cerr << " o ERROR : " << pins->INSNAME << " badly placed .... There is already an instance at its position ...." << endl;
-	      exit (1);
-	    }
-	  }
-	}
+            if (   (pins->TRANSF == ROT_P) || (pins->TRANSF == ROT_M)
+                || (pins->TRANSF == SY_RP) || (pins->TRANSF == SY_RM) )
+            {
+                cerr << " o ERROR : " << pins->INSNAME << " : incorrect rotation" << endl;
+                exit(1);
+            }
+            
+            // check if orientation of instance matches
+            bool insOrient;
+            if ((pinsheightrow == 2) || (pins->TRANSF == NOSYM) || (pins->TRANSF == SYM_X))
+              insOrient = true;
+            else
+              insOrient = false;
+
+            if (   ((ycoord % 2 == 0) && (insOrient != _rowZeroOrientation))
+                || ((ycoord % 2 != 0) && (insOrient == _rowZeroOrientation)) )
+            {
+              cerr << " o ERROR : " << pins->INSNAME << " badly oriented" << endl
+                   << "   Incoherence with " << refpins->INSNAME << endl;
+              exit(1);
+            }
+            
+            for (int yit = ycoord; yit < ycoord + pinsheightrow; yit++)
+            {
+              for (int xit = xpos; xit < xpos + pinswidth; xit++)
+              {
+                if (   (xit > Width - 1) || (yit > Height - 1)
+                    || (xit < 0    ) || (yit < 0     ) )
+                {
+                  cerr << " o ERROR : " << pins->INSNAME
+                       << " out of the abutment box" << endl;
+                  exit(1);
+                }
+                
+                if (tabpreplace[yit][xit] == false)
+                {
+                    tabpreplace[yit][xit] = true;
+                }
+                else{
+                  cerr << " o ERROR : " << pins->INSNAME << " badly placed .... There is already an instance at its position ...." << endl;
+                  exit (1);
+                }
+              }
+            }
+        }
     }
 
     // create rows and subrows
@@ -1615,4 +1630,34 @@ PPlacement::GetRow(const PRow* row, const double dist)
 
     unsigned randidx = rinf->second + (unsigned)((double)(rsup->second - rinf->second + 1) * (rand() / (RAND_MAX+1.0)));
     return *_rows[randidx];
+}
+
+double PPlacement::GetBinsCapa() const
+{
+    double binsCapa = 0.0;
+    for (PRows::const_iterator rit = _rows.begin(); rit != _rows.end(); rit++)
+    {
+        binsCapa += (*rit)->GetBinsCapa();
+    }
+    return binsCapa;
+}
+
+double PPlacement::GetSubRowsCapa() const
+{
+    double subRowsCapa = 0.0;
+    for (PRows::const_iterator rit = _rows.begin(); rit != _rows.end(); rit++)
+    {
+        subRowsCapa += (*rit)->GetSubRowsCapa();
+    }
+    return subRowsCapa;
+}
+
+double PPlacement::GetBinsSize() const
+{
+    double binsSize = 0.0;
+    for (PRows::const_iterator rit = _rows.begin(); rit != _rows.end(); rit++)
+    {
+        binsSize += (*rit)->GetBinsSize();
+    }
+    return binsSize;
 }

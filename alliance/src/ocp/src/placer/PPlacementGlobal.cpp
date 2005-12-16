@@ -228,6 +228,9 @@ PPlacement::PlaceGlobal()
       cout << " o Initial NetCost = " << NetCost << endl;
       cout << " o Initial Cost = " << Cost << endl;
       cout << " o Computing Initial Temperature ..." << endl;
+      cout << " o bins size " << GetBinsSize() << endl;
+      cout << " o bins capa " << GetBinsCapa() << endl;
+      cout << " o subrows capa " << GetSubRowsCapa() << endl;
     }
     // Calcul de la temperature initiale
     for (int i = 0; i < GetNInsToPlace(); ++i) {
@@ -348,6 +351,18 @@ PPlacement::PlaceGlobal()
 	  cout << "Loop = " << Loop << ", Temperature = " << Temperature << ", Cost = " << Cost << endl;
 	cout << "  RowCost = " << RowCost << ", BinCost = " << BinCost << ", NetCost = " << NetCost << endl;
 	cout << "  Success Ratio = " << SucRatio * 100.0 << "%, Dist = " << Dist << ", Delta = " << Temperature / OldTemperature << endl;
+
+        unsigned totalImpossibleMovements =
+            _impossibleExchangeMovementNumber
+            + _sourceEqualTargetMovementNumber
+            + _surOccupationTargetMovementNumber; 
+        cout << " o Total impossible movements = " << totalImpossibleMovements << endl;
+        cout << " o " << 100.0 * _surOccupationTargetMovementNumber / totalImpossibleMovements 
+             << " % suroccupied target" << endl;
+        cout << " o " << 100.0 * _sourceEqualTargetMovementNumber / totalImpossibleMovements 
+             << " % source equal target" << endl;
+        cout << " o " << 100.0 * _impossibleExchangeMovementNumber / totalImpossibleMovements 
+             << " % impossible exchange" << endl; 
 	}
 	else cerr << ".";
 
@@ -429,18 +444,40 @@ PPlacement::PlaceGlobal()
 	    } else {
 		Move.Reject();
 	    }
-
 	    _totalMoves += 1;
 	}
     }
 
     if (_verbose) 
     {
+        unsigned totalImpossibleMovements =
+            _impossibleExchangeMovementNumber
+            + _sourceEqualTargetMovementNumber
+            + _surOccupationTargetMovementNumber; 
 	cout << " o Global Placement finished ....." << endl;
 	cout << " o Gain for RowCost      = " << 100.0 * (_initRowCost - RowCost) / _initRowCost << "%" << endl;
 	cout << " o Gain for BinCost      = " << 100.0 * (_initBinCost - BinCost) / _initBinCost << "%" << endl;
 	cout << " o Gain for NetCost      = " << 100.0 * (_initNetCost - NetCost) / _initNetCost << "%" << endl;
 	cout << " o NetCost Estimated = " << NetCost << endl;
+        cout << " o Movements Stats ?! " << endl;
+        cout << " o " << _totalMoves << " Tried Moves" << endl;
+        cout << " o " << 100.0 * _acceptedMoveNumber / _totalMoves 
+             << " % of accepted simple instance move" << endl;
+        cout << " o " << 100.0 * _acceptedExchangeNumber / _totalMoves 
+             << " % of accepted instance exchange" << endl;
+        cout << " o " << 100.0 * _rejectedMoveNumber / _totalMoves 
+             << " % of rejected simple instance move" << endl;
+        cout << " o " << 100.0 * _rejectedExchangeNumber / _totalMoves 
+             << " % of rejected instance exchange" << endl;
+        cout << " o Impossible Movements Stats .... "<< endl;
+        cout << " o If you find those value interesting, look for a doctor ..." << endl;
+        cout << " o Total impossible movements = " << totalImpossibleMovements << endl;
+        cout << " o " << 100.0 * _surOccupationTargetMovementNumber / totalImpossibleMovements 
+             << " % suroccupied target" << endl;
+        cout << " o " << 100.0 * _sourceEqualTargetMovementNumber / totalImpossibleMovements 
+             << " % source equal target" << endl;
+        cout << " o " << 100.0 * _impossibleExchangeMovementNumber / totalImpossibleMovements 
+             << " % impossible exchange" << endl; 
     }
 }
 

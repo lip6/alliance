@@ -66,6 +66,9 @@ class PRow : public PContainer
     PSubRow&		GetSubRow(const double X);
     double		GetSubRowCost() const;
     double		GetBinCost() const;
+    double		GetBinsSize() const;
+    double		GetBinsCapa() const;
+    double		GetSubRowsCapa() const;
 
     ostream&	Print(ostream& os) const;
     ofstream&		Plot(ofstream& out) const;

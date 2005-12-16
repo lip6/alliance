@@ -56,7 +56,6 @@ PSubRow::Init(PRow* row, double y, double minx, double maxx, double margin, doub
     PBBox binbbox;
     double xpos;
     int binswidth;
-    int binscapa;
     int modulo = 0;
     
     _bBox.SetMinY(y);
@@ -79,7 +78,6 @@ PSubRow::Init(PRow* row, double y, double minx, double maxx, double margin, doub
     modulo = ((int)(maxx - minx) % _nBins);
     
     binswidth = (int)((maxx - minx) / _nBins);
-    binscapa = (int)(binswidth * ( 1 - margin));
     
     _bins.reserve(_nBins);
     for (unsigned binnumber = 0; binnumber < _nBins; binnumber++)
@@ -98,7 +96,7 @@ PSubRow::Init(PRow* row, double y, double minx, double maxx, double margin, doub
 	    binbbox.SetMaxX(xpos);
 	}
 	_binsXMax[xpos] = binnumber;
-        _bins.back()->Init(binbbox, binscapa, *this);
+        _bins.back()->Init(binbbox, margin, *this);
     }
     _row->MergeBBox(_bBox);
 }
@@ -147,15 +145,14 @@ PSubRow::ForceIns(PToPlaceIns& Ins, int BinNumber)
 #ifndef Abs
 #define Abs(x) ((x) < 0.0 ? -(x) : (x))
 #endif
-double
-PSubRow::GetBinCost() const
+double PSubRow::GetBinCost() const
 {
-    double BinCost = 0.0;
+    double binCost = 0.0;
     for (PBins::const_iterator bit = _bins.begin(); bit != _bins.end(); bit++)
     {
-        BinCost += Abs((*bit)->GetSize() - (*bit)->GetCapa());
+        binCost += Abs((*bit)->GetSize() - (*bit)->GetCapa());
     }
-    return BinCost;
+    return binCost;
 }
 
 ofstream& 
@@ -182,4 +179,25 @@ ostream&
 PSubRow::Print(ostream& os) const
 {
     return os << "PSubRow: " << GetMinX() << ',' << GetMinY() << " : " << GetMaxX() << ',' << GetMaxY();
+}
+
+
+double PSubRow::GetBinsSize() const
+{
+    double binsSize = 0.0;
+    for (PBins::const_iterator bit=_bins.begin(); bit!=_bins.end(); bit++)
+    {
+        binsSize += (*bit)->GetSize();
+    }
+    return binsSize;
+}
+
+double PSubRow::GetBinsCapa() const
+{
+    double binsCapa = 0.0;
+    for (PBins::const_iterator bit=_bins.begin(); bit!=_bins.end(); bit++)
+    {
+        binsCapa += (*bit)->GetCapa(); 
+    }
+    return binsCapa;
 }

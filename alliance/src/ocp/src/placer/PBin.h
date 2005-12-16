@@ -47,12 +47,13 @@ class PBin : public PContainer{
     double		_size;   	// Sum of instances widths
     PToPlaceInss	_toPlaceInss;  	// Instances of bin.
     PPos		_pos;		// Position of the center of the bin
-    unsigned		_nHits;
+    unsigned		_sourceHits;
+    unsigned		_targetHits;
 
   public:
 			PBin();
     
-    void		Init(const PBBox bbox, const double capacity, PSubRow &subrow);
+    void		Init(const PBBox& bbox, double margin, PSubRow &subrow);
     
     PSubRow*		GetSubRow() const	{ return _subRow; }
     bool		GetOrientation() const	{ return _subRow->GetOrientation(); }
@@ -61,13 +62,16 @@ class PBin : public PContainer{
     PToPlaceInss&	GetToPlaceInss()       	{ return _toPlaceInss; }
     unsigned		GetNIns() const		{ return _toPlaceInss.size(); }
     PPos		GetPos() const          { return _pos; }
-    void		IncrNbHits();
+    void		IncrementSourceHits() { ++_sourceHits; }
+    void		IncrementTargetHits() { ++_targetHits; }
 
     void		AddSize(const double value) { _size += value; _subRow->AddSize(value); }
 
     bool		UnderOccupied(const double margin) const;
     void		AddIns(PToPlaceIns *ins);
     void		RemoveIns(PToPlaceIns *ins);
+    void		RemoveFrontIns(PToPlaceIns *ins);
+    void		RemoveBackIns(PToPlaceIns *ins);
 
     ostream&	Print(ostream& os) const;
     ofstream&	Plot(ofstream& out) const;

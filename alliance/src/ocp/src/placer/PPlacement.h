@@ -110,6 +110,7 @@ class PPlacement {
 
 	// parametres
 	double		_margin;
+	double		_realMargin;
 	int		_maxDetLoop; // Maximum nb of loops for detailed placement
 	double		RowMult;
 	double		BinMult;
@@ -124,6 +125,13 @@ class PPlacement {
 	bool		_prePlace;
 	bool		_eqMargin;
 	unsigned	_totalMoves;
+        unsigned        _sourceEqualTargetMovementNumber;
+        unsigned        _surOccupationTargetMovementNumber;
+        unsigned        _impossibleExchangeMovementNumber;
+        unsigned        _acceptedMoveNumber;
+        unsigned        _acceptedExchangeNumber;
+        unsigned        _rejectedMoveNumber;
+        unsigned        _rejectedExchangeNumber;
 
 	// Placement caracteristics
 	char*		_fileName;
@@ -155,7 +163,15 @@ class PPlacement {
 	RowMult(rowmult), BinMult(binmult), NetMult(netmult),
 	_placeCons(conflg), _ringPlaceCons(ringflg), _iocFile(iocfile), _iocFileName(iocfilename),
 	_boolPlot(plotflg), _verbose(verbose), _prePlace(preflg), _eqMargin(eqmargin),
-	_totalMoves(0),_fileName(filename)
+	_totalMoves(0)
+        , _sourceEqualTargetMovementNumber(0)
+        , _surOccupationTargetMovementNumber(0)
+        , _impossibleExchangeMovementNumber(0)
+        , _acceptedMoveNumber(0)
+        , _acceptedExchangeNumber(0)
+        , _rejectedMoveNumber(0)
+        , _rejectedExchangeNumber(0)
+        , _fileName(filename)
 	{}
 
 	~PPlacement();
@@ -177,6 +193,10 @@ class PPlacement {
 	void		PlotStat();
 	void		PlotOnlyBins(char* output) const;
 
+        double          GetBinsSize() const;
+        double          GetBinsCapa() const;
+        double          GetSubRowsCapa() const;
+
 	double		GetMinX() const			{ return BBox.GetMinX(); }
 	double		GetMinY() const			{ return BBox.GetMinY(); }
 	double		GetMaxX() const			{ return BBox.GetMaxX(); }
@@ -187,6 +207,21 @@ class PPlacement {
 
 	bool		GetBoolPlot() const		{ return _boolPlot; }
 	void		SetBoolPlot(bool value)		{ _boolPlot = value; }
+
+        void            IncrImpossibleExchangeMovementNumber()
+        { ++_impossibleExchangeMovementNumber; }
+        void            IncrSourceEqualTargetMovementNumber()
+        { ++_sourceEqualTargetMovementNumber; }
+        void            IncrSurOccupationTargetMovementNumber()
+        { ++_surOccupationTargetMovementNumber; }
+        void            IncrAcceptedMoveNumber()
+        { ++_acceptedMoveNumber; }
+        void            IncrAcceptedExchangeNumber()
+        { ++_acceptedExchangeNumber; }
+        void            IncrRejectedMoveNumber()
+        { ++_rejectedMoveNumber; }
+        void            IncrRejectedExchangeNumber()
+        { ++_rejectedExchangeNumber; }
 
 	double		GetOccCost() const;
 	void		InitBBoxCost();

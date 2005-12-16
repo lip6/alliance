@@ -50,8 +50,8 @@ class PSubRow : public PContainer {
     PBins               _bins;
     PBinsXMax		_binsXMax;
     double              _size;   // somme des Width des bins de la row
-    double              _capa;   // l'occupation ideale de la row
-    double		_max;	// seuil de la ligne !!ne pas dépasser
+    double              _capa;   // l'occupation ideale de la subrow
+    double		_max;	// seuil de la sousligne !!ne pas dépasser
     unsigned            _nBins;  // Bins.size();
 
   public:
@@ -64,6 +64,8 @@ class PSubRow : public PContainer {
     PRow*		GetRow()			{ return _row; }
     PBin&               GetBin(const double X);
     PBins&		GetBins()			{ return _bins; }
+    double              GetBinsSize() const;
+    double              GetBinsCapa() const;
     
     double		GetCapa() const                 { return _capa; }
     double              GetSize() const                 { return _size; }

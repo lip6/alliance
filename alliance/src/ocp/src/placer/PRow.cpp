@@ -173,8 +173,38 @@ PRow::PlotLabel(ofstream& out, unsigned TotalMoves) const
     }
     return out;
 }
-ostream&
-PRow::Print(ostream& os) const
+
+double PRow::GetBinsSize() const
+{
+    double binsSize = 0.0;
+    for (PSubRows::const_iterator srit=_subRows.begin(); srit!=_subRows.end(); srit++)
+    {
+        binsSize += (*srit)->GetBinsSize();
+    }
+    return binsSize;
+}
+
+double PRow::GetBinsCapa() const
+{
+    double binsCapa = 0.0;
+    for (PSubRows::const_iterator srit=_subRows.begin(); srit!=_subRows.end(); srit++)
+    {
+        binsCapa += (*srit)->GetBinsCapa();
+    }
+    return binsCapa;
+}
+
+double PRow::GetSubRowsCapa() const
+{
+    double subRowsCapa = 0.0;
+    for (PSubRows::const_iterator srit=_subRows.begin(); srit!=_subRows.end(); srit++)
+    {
+        subRowsCapa += (*srit)->GetCapa();
+    }
+    return subRowsCapa;
+}
+
+ostream& PRow::Print(ostream& os) const
 {
     return os << "PRow: " << GetMinX() << ',' << GetMinY() << " : " << GetMaxX() << ',' << GetMaxY();
 }

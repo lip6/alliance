@@ -26,6 +26,7 @@
 // Authors-Tag 
 #include <stdio.h>
 #include <iomanip>
+#include <assert.h>
 using namespace std;
 
 #include "PToPlaceIns.h"
@@ -33,16 +34,16 @@ using namespace std;
 #include "PBin.h"
 
 PBin::PBin()
-    : PContainer(), _toPlaceInss(), _nHits(0)
+    : PContainer(), _toPlaceInss(), _sourceHits(0), _targetHits(0)
 {
 }
 
 void
-PBin::Init(const PBBox bbox, const double capa, PSubRow &row)
+PBin::Init(const PBBox& bbox, double margin, PSubRow &row)
 {
     _bBox = bbox;
     _pos = _bBox.GetCenter();
-    _capa = capa;
+    _capa = bbox.GetWidth() * (1.0 - margin);
     _size = 0.0;
     _subRow = &row;
 }
@@ -66,16 +67,25 @@ PBin::AddIns(PToPlaceIns *ins)
     ins->SetBin(this);
 }
 
-void
-PBin::IncrNbHits()
-{
-    _nHits++;
-}
-  
-void
-PBin::RemoveIns(PToPlaceIns* ins)
+void PBin::RemoveIns(PToPlaceIns* ins)
 {
     _toPlaceInss.remove(ins);
+    AddSize(-ins->GetWidth());
+    ins->SetBin(NULL);
+}
+
+void PBin::RemoveBackIns(PToPlaceIns* ins)
+{
+    assert(_toPlaceInss.back() == ins);
+    _toPlaceInss.pop_back();
+    AddSize(-ins->GetWidth());
+    ins->SetBin(NULL);
+}
+
+void PBin::RemoveFrontIns(PToPlaceIns* ins)
+{
+    assert(_toPlaceInss.front() == ins);
+    _toPlaceInss.pop_front();
     AddSize(-ins->GetWidth());
     ins->SetBin(NULL);
 }
@@ -109,7 +119,7 @@ PBin::PlotLabel(ofstream& out, unsigned totalMoves) const
   double percent;
   if (totalMoves != 0)
   {
-    percent = (_nHits * 100.0) / totalMoves;
+    percent = (_sourceHits * 100.0) / totalMoves;
     out << "set label \""  
 	<< percent << "%\" at " << x << "," << y << " center"
 	<< endl;
