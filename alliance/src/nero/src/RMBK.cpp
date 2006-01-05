@@ -1,7 +1,7 @@
 
 // -*- C++ -*-
 //
-// $Id: RMBK.cpp,v 1.14 2005/10/18 09:17:30 jpc Exp $
+// $Id: RMBK.cpp,v 1.15 2006/01/05 16:45:27 d2 Exp $
 //
 //  /----------------------------------------------------------------\ 
 //  |                                                                |
@@ -493,7 +493,7 @@ void  CRBox::mbkload (MBK::CFig *mbkfig
         pIns->flatseg (flatSeg, *pSeg);
         rect->setSeg  (flatSeg);
 
-        if ( MBK::IsPxLib(pModel) &&
+        if ( MBK::IsPxLib(pIns->model) &&
              ( (pLocon->NAME == MBK::namealloc("pad" )) ||
                (pLocon->NAME == MBK::namealloc("vddi")) || 
                (pLocon->NAME == MBK::namealloc("vssi")) || 
