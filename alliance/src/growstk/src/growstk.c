@@ -346,7 +346,8 @@ int main (int ac, char *av[])
             }  
           } 
         } 
-        in_touch :
+in_touch :
+	; // xtof to avoid an error with gcc4
       }
     }  
   }

@@ -221,7 +221,7 @@ ablexpr *polarablexpr( Expr, Polar )
     }
     else
     {
-      ABL_CADR( Expr ) = polarablexpr( ABL_CADR( Expr ), ABL_POLAR_POSITIVE );
+      ABL_CADR_L( Expr ) = polarablexpr( ABL_CADR( Expr ), ABL_POLAR_POSITIVE );
 
       if ( Polar == ABL_POLAR_NEGATIVE )
       {
@@ -244,7 +244,7 @@ ablexpr *polarablexpr( Expr, Polar )
 
     while ( ( ScanExpr = ABL_CDR( ScanExpr ) ) != (ablexpr *)0 )
     {
-      ABL_CAR( ScanExpr ) = polarablexpr( ABL_CAR( ScanExpr ), Polar );
+      ABL_CAR_L( ScanExpr ) = polarablexpr( ABL_CAR( ScanExpr ), Polar );
     }
   }
 

@@ -53,7 +53,7 @@ static void changename(chain_list* abl)
    if (ABL_ATOM(abl)) {
       elem=searchauthelem(HTABLE,ABL_ATOM_VALUE(abl));
       if (!elem) return;
-      ABL_ATOM_VALUE(abl)=(char*) elem->VALUE;
+      ABL_CAR_L(abl)=(char*) elem->VALUE;
       return;
    }
    

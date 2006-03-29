@@ -50,8 +50,8 @@ dnl ifelse([$2], , :, [$2])
 dnl  fi
 
 
-CFLAGS="-I${ALLIANCE_TOP}/include $CFLAGS"
-LDFLAGS="-L${ALLIANCE_TOP}/lib $LDFLAGS"
+dnl CFLAGS="-I${ALLIANCE_TOP}/include $CFLAGS"
+dnl LDFLAGS="-L${ALLIANCE_TOP}/lib $LDFLAGS"
 
 
 AC_ARG_ENABLE(devel,

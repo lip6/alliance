@@ -10,6 +10,7 @@
 # include  <aut.h>
 # include  <beh.h>
 # include  <stdio.h>
+# include  <stdlib.h>
 
 
 # define  _ALU2_     0

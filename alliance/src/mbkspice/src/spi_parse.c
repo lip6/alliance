@@ -21,7 +21,7 @@
  * Software Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
  */
 
-#ident "$Author: alliance $ $Date: 2005/04/15 08:38:50 $ $Revision: 1.4 $"
+#ident "$Author: xtof $ $Date: 2006/03/29 17:10:37 $ $Revision: 1.5 $"
 
 /*******************************************************************************
 *                                                                              *
@@ -173,8 +173,8 @@ char             mode;
   if( SPI_VERBOSE )
   {
     printf( "Parser Spice compile le %s a %s\n", __DATE__, __TIME__ );
-    printf( "Revision     : %s\n", "$Revision: 1.4 $" );
-    printf( "Date         : %s\n", "$Date: 2005/04/15 08:38:50 $"     );
+    printf( "Revision     : %s\n", "$Revision: 1.5 $" );
+    printf( "Date         : %s\n", "$Date: 2006/03/29 17:10:37 $"     );
     
     printf( "Separateur   : '%c'\n", SPI_SEPAR  );
     printf( "Nom de noeud : %s\n", SPI_NETNAME  );
@@ -1974,11 +1974,9 @@ char		mode;
       ptnodename = getptype( scanlocon->USER, PNODENAME );
      
       if( ptnoeud->NOM )
-        ((chain_list*)(ptnodename->DATA)) =
-       addchain( ((chain_list*)(ptnodename->DATA)), namealloc( ptnoeud->NOM ) );
+        ptnodename->DATA = addchain( ((chain_list*)(ptnodename->DATA)), namealloc( ptnoeud->NOM ) );
       else
-        ((chain_list*)(ptnodename->DATA)) =
-                            addchain( ((chain_list*)(ptnodename->DATA)), NULL );
+        ptnodename->DATA = addchain( ((chain_list*)(ptnodename->DATA)), NULL );
     }
   }
 
@@ -1991,15 +1989,14 @@ char		mode;
 
   for( scanlocon = ptfig->LOCON ; scanlocon ; scanlocon = scanlocon->NEXT )
   {
-    (chain_list*)scanlocon->PNODE = reverse( (chain_list*)scanlocon->PNODE );
+    scanlocon->PNODE = reverse( (chain_list*)scanlocon->PNODE );
   
     ptnodename = getptype( scanlocon->USER, PNODENAME );
     for( sc1 = (chain_list*)( ptnodename->DATA ) ; sc1 ; sc1 = sc1->NEXT )
       if( sc1->DATA )
         break;
     if( sc1 )
-      ((chain_list*)(ptnodename->DATA)) =
-                                   reverse( ((chain_list*)(ptnodename->DATA)) );
+      ptnodename->DATA = reverse( ((chain_list*)(ptnodename->DATA)) );
     else
     {
       freechain( (chain_list*)ptnodename->DATA );
@@ -2007,7 +2004,7 @@ char		mode;
     }
   }
 
-  (chain_list*)ptfig->LOCON = reverse( (chain_list*)ptfig->LOCON );
+  ptfig->LOCON = reverse( (chain_list*)ptfig->LOCON );
 
   /* On cree les transistors */
 
@@ -2194,8 +2191,7 @@ char		mode;
 
         sc3 = (chain_list*)sc2->DATA; 
         for( ; sc3 ; sc3 = sc3->NEXT )
-          ((chain_list*)(ptnodename->DATA)) = addchain(
-                                              ((chain_list*)(ptnodename->DATA)),
+          ptnodename->DATA = addchain(((chain_list*)(ptnodename->DATA)),
                                                         sc3->DATA
                                                       );
 

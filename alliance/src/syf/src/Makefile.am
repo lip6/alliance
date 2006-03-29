@@ -2,14 +2,15 @@
 
 bin_PROGRAMS = syf
 
-AM_CFLAGS = @ALLIANCE_CFLAGS@ \
+AM_CFLAGS =  \
 -I$(top_srcdir)/abl/src \
 -I$(top_srcdir)/aut/src \
 -I$(top_srcdir)/bdd/src \
 -I$(top_srcdir)/fsm/src \
 -I$(top_srcdir)/ftl/src \
 -I$(top_srcdir)/fvh/src \
--I$(top_srcdir)/mbk/src
+-I$(top_srcdir)/mbk/src \
+@ALLIANCE_CFLAGS@
 
 syf_LDADD = @ALLIANCE_LIBS@ \
 -L$(top_srcdir)/abl/src \

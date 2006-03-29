@@ -153,7 +153,7 @@ static chain_list *BoomBddIndex2Abl( Index )
 
   if ( Name != (char *)0 )
   {
-    ABL_CAR( Atom ) = addchain( (chain_list *)0, (void *)ABL_STABLE );
+    ABL_CAR_L( Atom ) = addchain( (chain_list *)0, (void *)ABL_STABLE );
     addablhexpr( Atom, createablatom( Name ) );
   }
 
@@ -1550,7 +1550,7 @@ static chain_list *BoomReverseAbl( Expr )
 
     while ( ( ScanExpr = ABL_CDR( ScanExpr ) ) != (chain_list *)0 )
     {
-      ABL_CAR( ScanExpr ) = BoomReverseAbl( ABL_CAR( ScanExpr ) );
+      ABL_CAR_L( ScanExpr ) = BoomReverseAbl( ABL_CAR( ScanExpr ) );
     }
   }
 

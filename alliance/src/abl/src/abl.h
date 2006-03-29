@@ -128,11 +128,14 @@ extern "C" {
 
 # define ABL_CDR( E )        ( ( E )->NEXT )
 # define ABL_CAR( E )        ( (ablexpr *)( E )->DATA )
+# define ABL_CAR_L( E )      ( ( E )->DATA )
 # define ABL_CADR( E )       ( ABL_CAR( ABL_CDR( ( E ) ) ) )
+# define ABL_CADR_L( E )     ( ABL_CAR_L( ABL_CDR( ( E ) ) ) )
 # define ABL_CDDR( E )       ( ABL_CDR( ABL_CDR( ( E ) ) ) )
 # define ABL_ATOM( E )       ( ( E )->NEXT == (ablexpr *)0 )
 # define ABL_ATOM_VALUE( E ) ( (char *)( ( E )->DATA ) )
 # define ABL_OPER( E )       ( (long)( ( ABL_CAR( ( E ) ) )->DATA ) )
+# define ABL_OPER_L( E )     ( ( ABL_CAR( ( E ) ) )->DATA ) 
 # define SET_ABL_OPER( E,O ) ( ( ABL_CAR( (E) )->DATA = (void *)(O) ) )
 
 /*------------------------------------------------------\

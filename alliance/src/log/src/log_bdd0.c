@@ -30,13 +30,14 @@
 
 
 
-#ident "$Id: log_bdd0.c,v 1.4 2005/04/15 08:38:49 alliance Exp $"
+#ident "$Id: log_bdd0.c,v 1.5 2006/03/29 17:10:13 xtof Exp $"
 
 /****************************************************************************/
 /*    Produit : librairie BDD - Gestion de BDD                              */
 /****************************************************************************/
 
 #include<stdio.h>
+#include<stdlib.h>
 #include "mut.h"
 #include "log.h"
 

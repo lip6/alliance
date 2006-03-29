@@ -406,7 +406,7 @@ extern cell_list* cell_pattern(chain_list* expr)
    /*create a temporary NOT to match perfectly with cell*/
    not=createabloper(ABL_NOT);
    ABL_CDR(not)=addchain(NULL,NULL);
-   ABL_ARITY(not)=1;
+   ABL_ARITY_L(not)=1;
    
    /*take those are biggest*/
    for (cell=getcell_logic_lib(); cell; cell=cell->NEXT) {
@@ -497,7 +497,7 @@ extern cell_list* cell_pattern(chain_list* expr)
             exit(1);
            }
            if (port->NEGATIV) {
-               ABL_CADR(not)=port->ABL;
+               ABL_CADR_L(not)=port->ABL;
                delay=port->T+find_delay(not, port->C);
            }
            else delay=port->T+find_delay(port->ABL, port->C);
@@ -566,7 +566,7 @@ extern cell_list* cell_pattern_bus(biabl_list* biabl)
    /*create a temporary NOT to match perfectly with cell*/
    not=createabloper(ABL_NOT);
    ABL_CDR(not)=addchain(NULL,NULL);
-   ABL_ARITY(not)=1;
+   ABL_ARITY_L(not)=1;
    
    for (cell=getcell_tristate_lib(); cell; cell=cell->NEXT) {
       /*prepare for use*/
@@ -642,7 +642,7 @@ extern cell_list* cell_pattern_bus(biabl_list* biabl)
             exit(1);
            }
            if (port->NEGATIV) {
-               ABL_CADR(not)=port->ABL;
+               ABL_CADR_L(not)=port->ABL;
                delay=port->T+find_delay(not, port->C);
            }
            else delay=port->T+find_delay(port->ABL, port->C);
@@ -713,7 +713,7 @@ extern cell_list* cell_pattern_reg(biabl_list* biabl)
    /*create a temporary NOT to match perfectly with cell*/
    not=createabloper(ABL_NOT);
    ABL_CDR(not)=addchain(NULL,NULL);
-   ABL_ARITY(not)=1;
+   ABL_ARITY_L(not)=1;
    
    cell=getcell_register_lib();
 
@@ -791,7 +791,7 @@ extern cell_list* cell_pattern_reg(biabl_list* biabl)
             exit(1);
            }
            if (port->NEGATIV) {
-               ABL_CADR(not)=port->ABL;
+               ABL_CADR_L(not)=port->ABL;
                delay=port->T+find_delay(not, port->C);
            }
            else delay=port->T+find_delay(port->ABL, port->C);
@@ -879,12 +879,12 @@ extern chain_list* build_reference(befig_list* befig, port_list* port, port_list
       }
 
       /*refer to new port*/
-      ABL_ATOM_VALUE(abl)=(chain_list*)port;
+      ABL_CAR_L(abl)=(chain_list*)port;
       return abl;   /*head unchanged*/
    }
 
    for (chain=ABL_CDR(abl); chain; chain=ABL_CDR(chain)) {
-      ABL_CAR(chain)=build_reference(befig,port,internal_port,ABL_CAR(chain));
+      ABL_CAR_L(chain)=build_reference(befig,port,internal_port,ABL_CAR(chain));
    }
 
    /*mark if STABLE*/
@@ -932,7 +932,7 @@ extern port_list* internal_reference(befig_list* befig, port_list* port, chain_l
       port_aux->DIRECTION=INOUT;
       
       /*refer to new port*/
-      ABL_ATOM_VALUE(abl)=(chain_list*)port_aux;
+      ABL_CAR_L(abl)=(chain_list*)port_aux;
       return port_aux;   
    }
 

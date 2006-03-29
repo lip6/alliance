@@ -28,7 +28,7 @@
  */
 
 
-
+#include <stdlib.h>
 #include <mut.h>
 #include <abl.h>
 #include <abe.h>
@@ -48,7 +48,7 @@ static chain_list* unflatnegexpr(chain_list* abl)
    if (ABL_ATOM(abl)) return abl;
    
    for (chain=ABL_CDR(abl); chain; chain=ABL_CDR(chain)) {
-      ABL_CAR(chain)=unflatnegexpr(ABL_CAR(chain));
+      ABL_CAR_L(chain)=unflatnegexpr(ABL_CAR(chain));
       count++;
    }   
    
@@ -57,13 +57,13 @@ static chain_list* unflatnegexpr(chain_list* abl)
    
    switch(ABL_OPER(abl)) {
    case ABL_NAND: 
-      ABL_OPER(abl)=ABL_AND;
+      ABL_OPER_L(abl)=ABL_AND;
       return createablnotexpr(abl);
    case ABL_NOR: 
-      ABL_OPER(abl)=ABL_OR;
+      ABL_OPER_L(abl)=ABL_OR;
       return createablnotexpr(abl);
    case ABL_NXOR: 
-      ABL_OPER(abl)=ABL_XOR;
+      ABL_OPER_L(abl)=ABL_XOR;
       return createablnotexpr(abl);
    default: return abl;         
    }

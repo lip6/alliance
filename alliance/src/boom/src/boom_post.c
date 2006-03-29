@@ -106,7 +106,7 @@ static void BoomRenameAuxVectorAbl( Expr )
 
       if ( Element != (authelem *)0 )
       {
-        ABL_ATOM_VALUE( Expr ) = (char *)Element->VALUE;
+        ABL_CAR_L( Expr ) = (char *)Element->VALUE;
       }
     }
 

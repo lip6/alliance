@@ -1098,7 +1098,7 @@ static void VvhVbhTreatCase( ScanCase )
           if ( VexGuard->OPERAND->NEXT == (chain_list *)0 )
           {
             VexAtom = GetVexOperand( VexGuard->OPERAND );
-            GetVexOperand( VexGuard->OPERAND ) = (vexexpr *)0;
+            GetVexOperandL( VexGuard->OPERAND ) = (vexexpr *)0;
             freevexexpr( VexGuard );
             VexGuard = VexAtom;
           }
@@ -1111,7 +1111,7 @@ static void VvhVbhTreatCase( ScanCase )
         if ( VexGuard->OPERAND->NEXT == (chain_list *)0 )
         {
           VexAtom = GetVexOperand( VexGuard->OPERAND );
-          GetVexOperand( VexGuard->OPERAND ) = (vexexpr *)0;
+          GetVexOperandL( VexGuard->OPERAND ) = (vexexpr *)0;
           freevexexpr( VexGuard );
           VexGuard = VexAtom;
         }
@@ -1158,7 +1158,7 @@ static void VvhVbhTreatCase( ScanCase )
         if ( VexGuard->OPERAND->NEXT == (chain_list *)0 )
         {
           VexAtom = GetVexOperand( VexGuard->OPERAND );
-          GetVexOperand( VexGuard->OPERAND ) = (vexexpr *)0;
+          GetVexOperandL( VexGuard->OPERAND ) = (vexexpr *)0;
           freevexexpr( VexGuard );
           VexGuard = VexAtom;
         }

@@ -71,10 +71,10 @@ static void resize_layer (model, layer_num)
 
    for (rectp = model->LAYERTAB[layer_num]; rectp; rectp = rectp->NEXT)
    {
-      (long) rectp->X -= qty;
-      (long) rectp->Y -= qty;
-      (long) rectp->DX += 2 * qty;
-      (long) rectp->DY += 2 * qty;
+      rectp->X -= qty;
+      rectp->Y -= qty;
+      rectp->DX += 2 * qty;
+      rectp->DY += 2 * qty;
    }
 }
 
@@ -94,10 +94,10 @@ static void inv_resize_layer (model, layer_num)
 
    for (rectp = model->LAYERTAB[layer_num]; rectp; rectp = rectp->NEXT)
    {
-      (long) rectp->X += qty;
-      (long) rectp->Y += qty;
-      (long) rectp->DX -= 2 * qty;
-      (long) rectp->DY -= 2 * qty;
+      rectp->X += qty;
+      rectp->Y += qty;
+      rectp->DX -= 2 * qty;
+      rectp->DY -= 2 * qty;
    }
 }
 

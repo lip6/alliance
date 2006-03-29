@@ -39,7 +39,9 @@
 
 
 #define USING(node) {(int)node=-mark;}
+#define USING_L(node) {node=-mark;}
 #define USED(node) {(int)node=(int)((((int)node<0)?0:(int)node)+1);}
+#define USED_L(node) {node=(int)((((int)node<0)?0:(int)node)+1);}
 #define IS_USING(node) ((int)node==-mark)
 #define IS_USED(node) ((int)node!=0)
 #define IS_UNUSED(node) ((int)node==0)
@@ -123,7 +125,7 @@ static chain_list* inter_equi(equi_list *equi, chain_list *abl)
 
    head=abl;
    for (abl=ABL_CDR(head); abl; abl=ABL_CDR(abl)) {
-      ABL_CAR(abl)=inter_equi(equi,ABL_CAR(abl));
+      ABL_CAR_L(abl)=inter_equi(equi,ABL_CAR(abl));
    }
    
    return head;
@@ -152,7 +154,7 @@ static chain_list* replace_equi(chain_list* abl)
 
    head=abl;
    for (abl=ABL_CDR(head); abl; abl=ABL_CDR(abl)) {
-      ABL_CAR(abl)=replace_equi(ABL_CAR(abl));
+      ABL_CAR_L(abl)=replace_equi(ABL_CAR(abl));
    }
    
    return head;
@@ -353,10 +355,10 @@ static int abl_dispatching(chain_list *abl, int mark)
                return 0;
             }
             if (IS_USED(beaux->NODE)) {
-               USED(beaux->NODE);
+               USED_L(beaux->NODE);
                return 1;
             }
-            USING(beaux->NODE);
+            USING_L(beaux->NODE);
             if (!abl_dispatching(beaux->ABL, mark)) {
                if (!CYCLE) return 0;   /*for display*/
                if (CYCLE==beaux->NAME) {
@@ -366,7 +368,7 @@ static int abl_dispatching(chain_list *abl, int mark)
                else fprintf(stderr,"%s, ",beaux->NAME);
                return 0;
             }
-            USED(beaux->NODE);
+            USED_L(beaux->NODE);
             return 1;
          }
       }
@@ -380,10 +382,10 @@ static int abl_dispatching(chain_list *abl, int mark)
                return 0;
             }
             if (IS_USED(bebux->BINODE)) {
-               USED(bebux->BINODE);
+               USED_L(bebux->BINODE);
                return 1;
             }
-            USING(bebux->BINODE);
+            USING_L(bebux->BINODE);
             for (biabl=bebux->BIABL; biabl; biabl=biabl->NEXT) {
                if (!abl_dispatching(biabl->CNDABL, mark)
                 || !abl_dispatching(biabl->VALABL, mark)) {
@@ -396,7 +398,7 @@ static int abl_dispatching(chain_list *abl, int mark)
                   return 0;
                }
             }   
-            USED(bebux->BINODE);
+            USED_L(bebux->BINODE);
             return 1;
          }
       }
@@ -410,11 +412,11 @@ static int abl_dispatching(chain_list *abl, int mark)
                return 0;
             }
             if (IS_USED(bereg->BINODE)) {
-               USED(bereg->BINODE);
+               USED_L(bereg->BINODE);
                return 1;
             }
             /*cycle forbidden on clock*/
-            USING(bereg->BINODE);
+            USING_L(bereg->BINODE);
             for (biabl=bereg->BIABL; biabl; biabl=biabl->NEXT) {
                ptype=getptype(biabl->USER,ABL_STABLE); /*search if flip-flop*/
                /*cycle not forbidden on value for flip-flop */
@@ -431,7 +433,7 @@ static int abl_dispatching(chain_list *abl, int mark)
                   return 0;
                }    
             }   
-            USED(bereg->BINODE);
+            USED_L(bereg->BINODE);
             /*impossible to look after value now, probably cycled on a signal*/
             /*wait the end of recursion*/
             return 1;
@@ -501,7 +503,7 @@ static int mark_output()
 
    /*create new internal signals and mark the path from output to input*/
    for (beout=befig->BEOUT; beout; beout=beout->NEXT) {
-      USING(beout->NODE);
+      USING_L(beout->NODE);
       if (!abl_dispatching(beout->ABL, mark)) {
           if (!CYCLE) return 0;   /*for display*/
           if (CYCLE==beout->NAME) {
@@ -511,11 +513,11 @@ static int mark_output()
           else fprintf(stderr,"%s, ",beout->NAME);
           return 0;
       }    
-      USED(beout->NODE);
+      USED_L(beout->NODE);
    }
    
    for (bebus=befig->BEBUS; bebus; bebus=bebus->NEXT) {
-      USING(bebus->BINODE);
+      USING_L(bebus->BINODE);
       for (biabl=bebus->BIABL; biabl; biabl=biabl->NEXT) {
          if (!abl_dispatching(biabl->CNDABL, mark) 
           || !abl_dispatching(biabl->VALABL, mark)) {
@@ -528,7 +530,7 @@ static int mark_output()
           return 0;
          }    
       }
-      USED(bebus->BINODE);
+      USED_L(bebus->BINODE);
    }   
 
    return 1;   /*ok*/

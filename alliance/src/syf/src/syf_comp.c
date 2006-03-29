@@ -101,7 +101,7 @@ static void SyfRemoveStable( Expr )
       freechain( ABL_CAR( Expr ) );
 
       ABL_CDR( Expr ) = (ablexpr *)0;
-      ABL_ATOM_VALUE( Expr ) = getablatomzero();
+      ABL_CAR_L( Expr ) = getablatomzero();
 
       return;
     }

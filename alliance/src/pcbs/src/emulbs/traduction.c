@@ -481,7 +481,7 @@ static char ValeurData(int valeur, int inversion)
      case '*': return '*';
   }
   
-  fprintf(stderr,__FUNCTION__": Sign '%c' unknown\n",valeur);
+  fprintf(stderr, "%s : %s%c%s", __FUNCTION__, "Sign '", valeur, "' unknown\n");
   exit( 1 );
   return 0;
 }
@@ -657,7 +657,7 @@ static void InitData(struct paseq *pat)
      
       if ( !ppaiol )
       {
-         fprintf(stderr, __FUNCTION__ ": entry '%s' not found\n", pcel->NAME);
+         fprintf(stderr, "%s : %s%c%s", __FUNCTION__, "entry '", pcel->NAME, "' not found\n");
          exit(1);
       }
       

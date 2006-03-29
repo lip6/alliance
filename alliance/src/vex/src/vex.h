@@ -443,6 +443,7 @@
 # define SetVexAtomValue( N, A )  ( (N)->VALUE = (void *)(A) )
 
 # define GetVexOperand( C )       ( (vexexpr *)(C)->DATA     )
+# define GetVexOperandL( C )      ( (C)->DATA                )
 # define SetVexOperand( C, O )    ( (C)->DATA = (void *)(O)  )
 
 /*------------------------------------------------------\

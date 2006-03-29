@@ -213,7 +213,7 @@ void DrealAddFigure( Name )
             Rectangle != (rdsrec_list *)NULL;
             Rectangle  = Rectangle->NEXT )
       {
-        DREAL_PREVIOUS( Rectangle ) = Previous;
+        DREAL_PREVIOUS_L( Rectangle ) = Previous;
         Previous = &Rectangle->NEXT;
 
         DrealInsertRectangle( Rectangle );
@@ -230,7 +230,7 @@ void DrealAddFigure( Name )
               Rectangle != (rdsrec_list *)NULL;
               Rectangle  = Rectangle->NEXT )
         {
-          DREAL_PREVIOUS( Rectangle ) = (rdsrec_list **)Instance;
+          DREAL_PREVIOUS_L( Rectangle ) = (rdsrec_list **)Instance;
 
           DrealInsertRectangle( Rectangle );
         }
@@ -266,10 +266,10 @@ rdsrec_list *DrealAddRectangle( Name, Layer, X, Y, Dx, Dy )
 
   if ( ScanRec->NEXT != (rdsrec_list *)0 )
   {
-    DREAL_PREVIOUS( ScanRec->NEXT ) = &ScanRec->NEXT;
+    DREAL_PREVIOUS_L( ScanRec->NEXT ) = &ScanRec->NEXT;
   }
 
-  DREAL_PREVIOUS( ScanRec ) = &DrealFigureRds->LAYERTAB[ Layer ];
+  DREAL_PREVIOUS_L( ScanRec ) = &DrealFigureRds->LAYERTAB[ Layer ];
 
   rdsend();
   return( ScanRec );
@@ -305,10 +305,10 @@ rdsrec_list *DrealAddAbox( X, Y, Dx, Dy )
 
   if ( ScanRec->NEXT != (rdsrec_list *)0 )
   {
-    DREAL_PREVIOUS( ScanRec->NEXT ) = &ScanRec->NEXT;
+    DREAL_PREVIOUS_L( ScanRec->NEXT ) = &ScanRec->NEXT;
   }
 
-  DREAL_PREVIOUS( ScanRec ) = &DrealFigureRds->LAYERTAB[ RDS_ABOX ];
+  DREAL_PREVIOUS_L( ScanRec ) = &DrealFigureRds->LAYERTAB[ RDS_ABOX ];
 
   rdsend();
   return( ScanRec );
@@ -406,7 +406,7 @@ void DrealDelRectangle( DelRec )
 
   if ( DelRec->NEXT != (rdsrec_list *)0 )
   {
-    DREAL_PREVIOUS( DelRec->NEXT ) = DREAL_PREVIOUS( DelRec );
+    DREAL_PREVIOUS_L( DelRec->NEXT ) = DREAL_PREVIOUS( DelRec );
   }
 
   DrealEraseRectangle( DelRec );
@@ -471,7 +471,7 @@ void DrealFlattenFigure()
 
     while ( ScanRec != (rdsrec_list *)NULL )
     {
-      DREAL_PREVIOUS( ScanRec ) = Previous;
+      DREAL_PREVIOUS_L( ScanRec ) = Previous;
       Previous = &ScanRec->NEXT;
 
       DrealInsertRectangle( ScanRec );
@@ -484,7 +484,7 @@ void DrealFlattenFigure()
 
         if ( ScanRec->NEXT != (rdsrec_list *)NULL )
         {
-          DREAL_PREVIOUS( ScanRec->NEXT ) = &ScanRec->NEXT;
+          DREAL_PREVIOUS_L( ScanRec->NEXT ) = &ScanRec->NEXT;
         }
 
         break;

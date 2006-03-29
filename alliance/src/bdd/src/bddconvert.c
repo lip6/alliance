@@ -551,7 +551,7 @@ chain_list *convertbddnodesumabl( BddSystem, NameArray, IndexArray, BddNode )
   if ( ABL_CDDR( BddConvertSumProd ) == (chain_list *)0 )
   {
     SumProd = ABL_CADR( BddConvertSumProd );
-    ABL_CADR( BddConvertSumProd ) = (chain_list *)0;
+    ABL_CADR_L( BddConvertSumProd ) = (chain_list *)0;
 
     freeablexpr( BddConvertSumProd );
     BddConvertSumProd = SumProd;

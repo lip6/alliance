@@ -12,6 +12,7 @@
 
 #include <mut.h>
 #include <mlo.h>
+#include <stdlib.h>
 #include <string.h>
 
 /*---------------------------------------------------------\

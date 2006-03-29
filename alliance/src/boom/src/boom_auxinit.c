@@ -200,13 +200,13 @@ static ablexpr *BoomCreateAuxInitComparatorAbl( Expr )
           if ( Operand1 == (ablexpr *)0 )
           {
             Operand1 = ABL_CAR( ScanExpr );
-            ABL_CAR( ScanExpr ) = (ablexpr *)0;
+            ABL_CAR_L( ScanExpr ) = (ablexpr *)0;
 
             continue;
           }
 
           Operand2 = ABL_CAR( ScanExpr );
-          ABL_CAR( ScanExpr ) = (ablexpr *)0;
+          ABL_CAR_L( ScanExpr ) = (ablexpr *)0;
 
           AuxExpr = createablbinexpr( ABL_XOR, Operand1, Operand2 );
           AuxName = BoomGetNewAuxInitName();
@@ -238,7 +238,7 @@ static ablexpr *BoomCreateAuxInitComparatorAbl( Expr )
 
     while ( ( ScanExpr = ABL_CDR( ScanExpr ) ) != (ablexpr *)0 )
     {
-      ABL_CAR( ScanExpr ) = BoomCreateAuxInitComparatorAbl( ABL_CAR( ScanExpr ) );
+      ABL_CAR_L( ScanExpr ) = BoomCreateAuxInitComparatorAbl( ABL_CAR( ScanExpr ) );
     }
   }
 

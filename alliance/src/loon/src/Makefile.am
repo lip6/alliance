@@ -2,12 +2,13 @@
 
 bin_PROGRAMS = loon
 
-AM_CFLAGS = @ALLIANCE_CFLAGS@ -I$(top_srcdir)/abe/src \
+AM_CFLAGS =  -I$(top_srcdir)/abe/src \
 -I$(top_srcdir)/abl/src \
 -I$(top_srcdir)/aut/src \
 -I$(top_srcdir)/abv/src \
 -I$(top_srcdir)/bdd/src \
--I$(top_srcdir)/mbk/src
+-I$(top_srcdir)/mbk/src \
+@ALLIANCE_CFLAGS@
 
 loon_LDADD = @ALLIANCE_LIBS@ \
 -L$(top_srcdir)/abe/src \

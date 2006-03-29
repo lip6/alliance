@@ -201,7 +201,7 @@ ablexpr *simpdupexpr( Expr )
         if ( AblSimplifyTable[ Oper ][ 1 ] != -1 )
         {
           freeablexpr( Expr );
-          ABL_ATOM_VALUE( ExprSimp ) = (char *)AblSimplifyTable[ Oper ][ 1 ];
+          ABL_CAR_L( ExprSimp ) = (char *)AblSimplifyTable[ Oper ][ 1 ];
 
           if ( Negative == 1 )
           {
@@ -235,14 +235,14 @@ ablexpr *simpdupexpr( Expr )
   if ( ExprQueue == Expr )
   {
     ExprSimp = ABL_CAR( Expr );
-    ABL_ATOM_VALUE( ExprSimp ) = (char *)AblSimplifyTable[ Oper ][ 3 ];
+    ABL_CAR_L( ExprSimp ) = (char *)AblSimplifyTable[ Oper ][ 3 ];
     freechain( Expr );
   }
   else
   if ( ExprQueue == ABL_CDR( Expr ) )
   {
     ExprSimp = ABL_CADR( Expr );
-    ABL_CADR( Expr ) = (void *)0;
+    ABL_CADR_L( Expr ) = (void *)0;
     freeablexpr( Expr );
   }
   else
@@ -309,7 +309,7 @@ ablexpr *loc_simpablexpr( Expr )
 
   if ( isablunaryoper( Oper ) )
   {
-    ABL_CADR( Expr ) = loc_simpablexpr( ABL_CADR( Expr ) );
+    ABL_CADR_L( Expr ) = loc_simpablexpr( ABL_CADR( Expr ) );
 
     return( Expr );
   }
@@ -340,9 +340,9 @@ ablexpr *loc_simpablexpr( Expr )
       {
         if ( AblSimplifyTable[ Oper ][ 1 ] != -1 )
         {
-          ABL_CAR( ScanExpr ) = (ablexpr *)0;
+          ABL_CAR_L( ScanExpr ) = (ablexpr *)0;
           freeablexpr( Expr );
-          ABL_ATOM_VALUE( ExprSimp ) = (char *)AblSimplifyTable[ Oper ][ 1 ];
+          ABL_CAR_L( ExprSimp ) = (char *)AblSimplifyTable[ Oper ][ 1 ];
 
           if ( Negative == 1 )
           {
@@ -374,12 +374,12 @@ ablexpr *loc_simpablexpr( Expr )
       }
       else
       {
-        ABL_CAR( ScanExpr ) = ExprSimp;
+        ABL_CAR_L( ScanExpr ) = ExprSimp;
       }
     }
     else
     {
-      ABL_CAR( ScanExpr ) = ExprSimp;
+      ABL_CAR_L( ScanExpr ) = ExprSimp;
     }
 
     PrevExpr = ScanExpr;
@@ -387,14 +387,14 @@ ablexpr *loc_simpablexpr( Expr )
 
   if ( PrevExpr == Expr )
   {
-    ABL_ATOM_VALUE( Expr ) = (char *)AblSimplifyTable[ Oper ][ 3 ];
+    ABL_CAR_L( Expr ) = (char *)AblSimplifyTable[ Oper ][ 3 ];
     ExprSimp = Expr;
   }
   else
   if ( PrevExpr == ABL_CDR( Expr ) )
   {
     ExprSimp = ABL_CADR( Expr );
-    ABL_CADR( Expr ) = (void *)0;
+    ABL_CADR_L( Expr ) = (void *)0;
     freeablexpr( Expr );
   }
   else

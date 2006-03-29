@@ -141,7 +141,7 @@ void SyfSynthReturn2Abl( FsmFigure )
            ( ABL_CDDR( Equation ) == (ablexpr *)0 ) )
       {
         Atom = ABL_CADR( Equation );
-        ABL_CADR( Equation ) = (ablexpr *)0;
+        ABL_CADR_L( Equation ) = (ablexpr *)0;
         freeablexpr( Equation );
         ReturnSyfState->ABL_RETURN = Atom;
       }
@@ -299,7 +299,7 @@ void SyfSynthStack2Abl( FsmFigure )
       if ( ABL_CDDR( Equation ) == (ablexpr *)0 )
       {
         Atom = ABL_CADR( Equation );
-        ABL_CADR( Equation ) = (ablexpr *)0;
+        ABL_CADR_L( Equation ) = (ablexpr *)0;
         freeablexpr( Equation );
         StackArray[ ScanBit ].ABL = Atom;
       }
@@ -594,7 +594,7 @@ void SyfSynthCtrl2Abl( FsmFigure )
       if ( ABL_CDDR( Equation ) == (ablexpr *)0 )
       {
         Atom = ABL_CADR( Equation );
-        ABL_CADR( Equation ) = (ablexpr *)0;
+        ABL_CADR_L( Equation ) = (ablexpr *)0;
         freeablexpr( Equation );
         CtrlArray[ Index ].ABL = Atom;
       }
@@ -804,7 +804,7 @@ void SyfSynthOut2Abl( FsmFigure )
 **  Out(i) = OR Locout(j) -> Out(i) = Locout(j)
 */
       Atom = ABL_CADR( Equation );
-      ABL_CADR( Equation ) = (ablexpr *)0;
+      ABL_CADR_L( Equation ) = (ablexpr *)0;
       freeablexpr( Equation );
       ScanSyfOut->ABL = Atom;
     }
@@ -1007,7 +1007,7 @@ void SyfSynthReg2Abl( FsmFigure )
 **  Reg(i) = OR E(j) -> Reg(i) = E(j)
 */
       Atom = ABL_CADR( Equation );
-      ABL_CADR( Equation ) = (ablexpr *)0;
+      ABL_CADR_L( Equation ) = (ablexpr *)0;
       freeablexpr( Equation );
       RegArray[ Index ].ABL = Atom;
     }
@@ -1093,7 +1093,7 @@ void SyfSynthReg2Abl( FsmFigure )
     if ( ABL_CDDR( Equation ) == (ablexpr *)0 )
     {
       Atom = ABL_CADR( Equation );
-      ABL_CADR( Equation ) = (ablexpr *)0;
+      ABL_CADR_L( Equation ) = (ablexpr *)0;
       freeablexpr( Equation );
       RegArray[ Index ].ABL_SET = Atom;
     }
@@ -1109,7 +1109,7 @@ void SyfSynthReg2Abl( FsmFigure )
     if ( ABL_CDDR( Equation ) == (ablexpr *)0 )
     {
       Atom = ABL_CADR( Equation );
-      ABL_CADR( Equation ) = (ablexpr *)0;
+      ABL_CADR_L( Equation ) = (ablexpr *)0;
       freeablexpr( Equation );
       RegArray[ Index ].ABL_RESET = Atom;
     }

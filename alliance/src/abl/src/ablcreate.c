@@ -198,14 +198,14 @@ ablexpr *createablnotexpr( Expr )
 
     if ( AtomValue == ABL_ATOM_NAME_ONE )
     {
-      ABL_ATOM_VALUE( Expr ) = (void *)ABL_ATOM_NAME_ZERO;
+      ABL_CAR_L( Expr ) = (void *)ABL_ATOM_NAME_ZERO;
 
       return( Expr );
     }
     else
     if ( AtomValue == ABL_ATOM_NAME_ZERO )
     {
-      ABL_ATOM_VALUE( Expr ) = (void *)ABL_ATOM_NAME_ONE;
+      ABL_CAR_L( Expr ) = (void *)ABL_ATOM_NAME_ONE;
 
       return( Expr );
     }

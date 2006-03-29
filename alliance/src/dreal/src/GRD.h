@@ -65,6 +65,10 @@
                                                               \
     ((rdsrec_list **)((R)->USER))
 
+# define DREAL_PREVIOUS_L( R )                                \
+                                                              \
+    ((R)->USER)
+
 # define DREAL_WINDOW( R )                                    \
                                                               \
     (((drealrec *)((char *)(R)+sizeof(rdsrec_list)))->WINDOW  )

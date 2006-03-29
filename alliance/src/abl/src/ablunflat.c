@@ -119,7 +119,7 @@ ablexpr *unflatablexpr( Expr )
 
     while ( ( ScanExpr = ABL_CDR( ScanExpr ) ) != (ablexpr *)0 )
     {
-      ABL_CAR( ScanExpr ) = unflatablexpr( ABL_CAR( ScanExpr ) );
+      ABL_CAR_L( ScanExpr ) = unflatablexpr( ABL_CAR( ScanExpr ) );
     }
   }
 

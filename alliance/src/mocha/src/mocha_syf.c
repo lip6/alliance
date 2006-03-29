@@ -639,7 +639,7 @@ static void MochaSyfSynthOut2Abl( FsmFigure )
 **  Out(i) = OR Locout(j) -> Out(i) = Locout(j)
 */
       Atom = ABL_CADR( Equation );
-      ABL_CADR( Equation ) = (ablexpr *)0;
+      ABL_CADR_L( Equation ) = (ablexpr *)0;
       freeablexpr( Equation );
       ScanMochaSyfOut->ABL = Atom;
     }
@@ -757,7 +757,7 @@ static void MochaSyfSynthReg2Abl( FsmFigure )
 **  Reg(i) = OR E(j) -> Reg(i) = E(j)
 */
       Atom = ABL_CADR( Equation );
-      ABL_CADR( Equation ) = (ablexpr *)0;
+      ABL_CADR_L( Equation ) = (ablexpr *)0;
       freeablexpr( Equation );
       RegArray[ Index ].ABL = Atom;
     }
@@ -813,7 +813,7 @@ static void MochaSyfSynthReg2Abl( FsmFigure )
     if ( ABL_CDDR( Equation ) == (ablexpr *)0 )
     {
       Atom = ABL_CADR( Equation );
-      ABL_CADR( Equation ) = (ablexpr *)0;
+      ABL_CADR_L( Equation ) = (ablexpr *)0;
       freeablexpr( Equation );
       RegArray[ Index ].ABL_SET = Atom;
     }
@@ -829,7 +829,7 @@ static void MochaSyfSynthReg2Abl( FsmFigure )
     if ( ABL_CDDR( Equation ) == (ablexpr *)0 )
     {
       Atom = ABL_CADR( Equation );
-      ABL_CADR( Equation ) = (ablexpr *)0;
+      ABL_CADR_L( Equation ) = (ablexpr *)0;
       freeablexpr( Equation );
       RegArray[ Index ].ABL_RESET = Atom;
     }
@@ -1579,7 +1579,7 @@ void MochaSyfFreeFsm( FsmFigure )
           ScanOut != (fsmout_list *)0;
           ScanOut  = ScanOut->NEXT )
     {
-      MOCHA_SYF_OUT( ScanOut ) = NULL;
+      MOCHA_SYF_OUT_L( ScanOut ) = NULL;
     }
 
     for ( ScanState  = ScanFigure->STATE;
@@ -1588,7 +1588,7 @@ void MochaSyfFreeFsm( FsmFigure )
     {
       ScanMochaSyfState = MOCHA_SYF_STATE( ScanState );
       autfreeblock( (void *)ScanMochaSyfState );
-      MOCHA_SYF_STATE( ScanState ) = NULL;
+      MOCHA_SYF_STATE_L( ScanState ) = NULL;
     }
 
     autfreeblock( ScanMochaSyfInfo->REG_ARRAY  );
@@ -1596,7 +1596,7 @@ void MochaSyfFreeFsm( FsmFigure )
     autfreeblock( ScanMochaSyfInfo->CODE_ARRAY );
 
     autfreeblock( ScanMochaSyfInfo );
-    MOCHA_SYF_INFO( ScanFigure ) = NULL;
+    MOCHA_SYF_INFO_L( ScanFigure ) = NULL;
 
     if ( IsFsmFigMulti( FsmFigure ) )
     {

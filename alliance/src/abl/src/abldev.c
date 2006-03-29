@@ -168,7 +168,7 @@ ablexpr *devablxorexpr( Expr )
 
     while ( ( Expr = ABL_CDR( Expr ) ) != (ablexpr *)0 )
     {
-      ABL_CAR( Expr ) = (void *)devablxorexpr( ABL_CAR( Expr ) );
+      ABL_CAR_L( Expr ) = (void *)devablxorexpr( ABL_CAR( Expr ) );
     }
   }
 

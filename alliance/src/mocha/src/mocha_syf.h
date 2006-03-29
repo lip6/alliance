@@ -52,9 +52,12 @@
 |                                                             |
 \------------------------------------------------------------*/
 
-# define MOCHA_SYF_INFO( Figure ) ( (mochasyfinfo  *)( ( Figure )->USER ) )
-# define MOCHA_SYF_STATE( State ) ( (mochasyfstate *)( ( State  )->USER ) )
-# define MOCHA_SYF_OUT( Out     ) ( (mochasyfout   *)( ( Out    )->USER ) )
+# define MOCHA_SYF_INFO( Figure   ) ( (mochasyfinfo  *)( ( Figure )->USER ) )
+# define MOCHA_SYF_INFO_L( Figure ) ( ( Figure )->USER ) 
+# define MOCHA_SYF_STATE( State   ) ( (mochasyfstate *)( ( State  )->USER ) )
+# define MOCHA_SYF_STATE_L( State ) ( ( State  )->USER )
+# define MOCHA_SYF_OUT( Out       ) ( (mochasyfout   *)( ( Out    )->USER ) )
+# define MOCHA_SYF_OUT_L( Out     ) ( ( Out    )->USER )
 
 /*------------------------------------------------------------\
 |                                                             |

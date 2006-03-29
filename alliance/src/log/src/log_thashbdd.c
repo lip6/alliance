@@ -30,13 +30,13 @@
 
 
 
-#ident "$Id: log_thashbdd.c,v 1.2 2002/09/30 16:20:43 czo Exp $"
+#ident "$Id: log_thashbdd.c,v 1.3 2006/03/29 17:10:13 xtof Exp $"
 
 /*--------------------------------------------------------------------------
    la table de hachage des BDD 
    la version du 10.12.90 
   -------------------------------------------------------------------------- */
-
+#include <stdlib.h>
 #include "mut.h"
 #include "log.h"
 

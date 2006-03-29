@@ -49,12 +49,12 @@ static void find_d_z_abl(chain_list* abl, int value)
       if (ABL_ATOM_VALUE(abl)==getablatomdc()/* = namealloc("'d'")*/) {
          /*non standard IEEE VHDL*/  /*it means "don't care"*/
          /* we can put zero either one, only to simplify*/
-         ABL_ATOM_VALUE(abl)=value?getablatomone():getablatomzero(); 
+         ABL_CAR_L(abl)=value?getablatomone():getablatomzero(); 
       }   
       else if (ABL_ATOM_VALUE(abl)==getablatomtristate()/* =namealloc("'z'")*/){
          /*no drive on signal*/
          /* a pull-up is done for better conductance*/
-         ABL_ATOM_VALUE(abl)=getablatomone()/* = namealloc("'1'")*/;
+         ABL_CAR_L(abl)=getablatomone()/* = namealloc("'1'")*/;
       }   
    }
    

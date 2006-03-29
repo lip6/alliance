@@ -103,7 +103,7 @@ static void BoomReplaceDontCareAbl( Expr )
     if ( ABL_ATOM_VALUE( Expr ) == ABL_ATOM_NAME_DC )
     {
       BoomFoundAblDc = 1;
-      ABL_ATOM_VALUE( Expr ) = ABL_ATOM_NAME_ZERO;
+      ABL_CAR_L( Expr ) = ABL_ATOM_NAME_ZERO;
     }
   }
 

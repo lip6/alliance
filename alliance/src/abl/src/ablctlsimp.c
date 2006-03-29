@@ -165,7 +165,7 @@ static ablexpr *loc_simpablctl( Expr )
     ExprTemp = ABL_CADR( ABL_CADR( Expr ) );
     freechain( ABL_CAR( ABL_CADR( Expr ) ) );
     freechain( ABL_CADR( Expr ) );
-    ABL_CADR( Expr ) = ExprTemp;
+    ABL_CADR_L( Expr ) = ExprTemp;
     SimpExpr = Expr;
 
     ExprTemp = loc_simpablctl( SimpExpr );
@@ -184,10 +184,10 @@ static ablexpr *loc_simpablctl( Expr )
   {
     ExprTemp = loc_simpablctl( ABL_CADR( Expr ) );
     if ( ExprTemp != ABL_CADR( Expr ) )
-      ABL_CADR( Expr ) = ExprTemp;
+      ABL_CADR_L( Expr ) = ExprTemp;
     ExprTemp = loc_simpablctl( ABL_CAR( ABL_CDDR( Expr ) ) );
     if ( ExprTemp != ABL_CAR( ABL_CDDR( Expr ) ) )
-      ABL_CAR( ABL_CDDR( Expr ) ) = ExprTemp;
+      ABL_CAR_L( ABL_CDDR( Expr ) ) = ExprTemp;
 
     if ( ABL_OPER( ABL_CAR( ABL_CDDR( Expr ) ) ) == Oper && 
      ABL_CADR( Expr ) != (ablexpr *)0 &&
@@ -214,10 +214,10 @@ static ablexpr *loc_simpablctl( Expr )
   {
     ExprTemp = loc_simpablctl( ABL_CADR( Expr ) );
     if ( ExprTemp != ABL_CADR( Expr ) )
-      ABL_CADR( Expr ) = ExprTemp;
+      ABL_CADR_L( Expr ) = ExprTemp;
     ExprTemp = loc_simpablctl( ABL_CAR( ABL_CDDR( Expr ) ) );
     if ( ExprTemp != ABL_CAR( ABL_CDDR( Expr ) ) )
-      ABL_CAR( ABL_CDDR( Expr ) ) = ExprTemp;
+      ABL_CAR_L( ABL_CDDR( Expr ) ) = ExprTemp;
 
     if ( ( Oper == ABL_AND  &&
            ABL_OPER( ABL_CADR( Expr ) ) == ABL_AG &&
@@ -265,16 +265,16 @@ static ablexpr *loc_simpablctl( Expr )
       SimpExpr = createablbinexpr( ABL_OR,
                    ABL_CADR( ABL_CADR( ABL_CADR( Expr ) ) ),
                    ABL_CAR( ABL_CDDR( ABL_CAR( ABL_CDDR( ABL_CADR( Expr ) ) ) ) ) );
-      ABL_CADR( ABL_CADR( ABL_CADR( Expr ) ) ) = (ablexpr *)0;
-      ABL_CAR( ABL_CDDR( ABL_CAR( ABL_CDDR( ABL_CADR( Expr ) ) ) ) ) = (ablexpr *)0;
+      ABL_CADR_L( ABL_CADR( ABL_CADR( Expr ) ) ) = (ablexpr *)0;
+      ABL_CAR_L( ABL_CDDR( ABL_CAR( ABL_CDDR( ABL_CADR( Expr ) ) ) ) ) = (ablexpr *)0;
       freeablexpr( Expr );
 
       ExprTemp = loc_simpablctl( ABL_CADR( SimpExpr ) );
       if ( ExprTemp != ABL_CADR( SimpExpr ) )
-        ABL_CADR( SimpExpr ) = ExprTemp;
+        ABL_CADR_L( SimpExpr ) = ExprTemp;
       ExprTemp = loc_simpablctl( ABL_CAR( ABL_CDDR( SimpExpr ) ) );
       if ( ExprTemp != ABL_CAR( ABL_CDDR( SimpExpr ) ) )
-        ABL_CAR( ABL_CDDR( SimpExpr ) ) = ExprTemp;
+        ABL_CAR_L( ABL_CDDR( SimpExpr ) ) = ExprTemp;
       
       return( SimpExpr );
    } 
@@ -302,16 +302,16 @@ static ablexpr *loc_simpablctl( Expr )
       SimpExpr = createablbinexpr( ABL_AND,
                    ABL_CADR( ABL_CAR( ABL_CDDR( ABL_CADR( Expr ) ) ) ),
                    ABL_CAR( ABL_CDDR( ABL_CADR( ABL_CADR( Expr ) ) ) ) );
-      ABL_CADR( ABL_CAR( ABL_CDDR( ABL_CADR( Expr ) ) ) ) = (ablexpr *)0;
-      ABL_CAR( ABL_CDDR( ABL_CADR( ABL_CADR( Expr ) ) ) ) = (ablexpr *)0;
+      ABL_CADR_L( ABL_CAR( ABL_CDDR( ABL_CADR( Expr ) ) ) ) = (ablexpr *)0;
+      ABL_CAR_L( ABL_CDDR( ABL_CADR( ABL_CADR( Expr ) ) ) ) = (ablexpr *)0;
       freeablexpr( Expr );
 
       ExprTemp = loc_simpablctl( ABL_CADR( SimpExpr ) );
       if ( ExprTemp != ABL_CADR( SimpExpr ) )
-        ABL_CADR( SimpExpr ) = ExprTemp;
+        ABL_CADR_L( SimpExpr ) = ExprTemp;
       ExprTemp = loc_simpablctl( ABL_CAR( ABL_CDDR( SimpExpr ) ) );
       if ( ExprTemp != ABL_CAR( ABL_CDDR( SimpExpr ) ) )
-        ABL_CAR( ABL_CDDR( SimpExpr ) ) = ExprTemp;
+        ABL_CAR_L( ABL_CDDR( SimpExpr ) ) = ExprTemp;
       
       return( SimpExpr );
    } 
@@ -349,13 +349,13 @@ static ablexpr *loc_simpablctl( Expr )
     ExprTemp = createablbinexpr( ABL_AU,
                  ABL_CADR( ABL_CADR( Expr ) ),
                  ABL_CADR( ABL_CADR( ABL_CAR( ABL_CDDR( Expr ) ) ) ) );
-    ABL_CADR( ABL_CADR( Expr ) ) = (ablexpr *)0;
-    ABL_CADR( ABL_CADR( ABL_CAR( ABL_CDDR( Expr ) ) ) ) = (ablexpr *)0;
+    ABL_CADR_L( ABL_CADR( Expr ) ) = (ablexpr *)0;
+    ABL_CADR_L( ABL_CADR( ABL_CAR( ABL_CDDR( Expr ) ) ) ) = (ablexpr *)0;
     SimpExpr = createablbinexpr( ABL_EU,
                  ABL_CAR( ABL_CDDR( ABL_CADR( Expr ) ) ),
                  ABL_CADR( ABL_CAR( ABL_CDDR( ABL_CAR( ABL_CDDR( Expr ) ) ) ) ) );
-    ABL_CAR( ABL_CDDR( ABL_CADR( Expr ) ) ) = (ablexpr *)0;
-    ABL_CADR( ABL_CAR( ABL_CDDR( ABL_CAR( ABL_CDDR( Expr ) ) ) ) ) = (ablexpr *)0;
+    ABL_CAR_L( ABL_CDDR( ABL_CADR( Expr ) ) ) = (ablexpr *)0;
+    ABL_CADR_L( ABL_CAR( ABL_CDDR( ABL_CAR( ABL_CDDR( Expr ) ) ) ) ) = (ablexpr *)0;
     SimpExpr = createablbinexpr( ABL_AND,
                  ExprTemp,
                  SimpExpr );
@@ -363,16 +363,16 @@ static ablexpr *loc_simpablctl( Expr )
 
     ExprTemp = loc_simpablctl( ABL_CADR( ABL_CADR( SimpExpr ) ) );
     if ( ExprTemp != ABL_CADR( ABL_CADR( SimpExpr ) ) )
-      ABL_CADR( ABL_CADR( SimpExpr ) ) = ExprTemp;
+      ABL_CADR_L( ABL_CADR( SimpExpr ) ) = ExprTemp;
     ExprTemp = loc_simpablctl( ABL_CAR( ABL_CDDR( ABL_CADR( SimpExpr ) ) ) );
     if ( ExprTemp != ABL_CAR( ABL_CDDR( ABL_CADR( SimpExpr ) ) ) )
-      ABL_CAR( ABL_CDDR( ABL_CADR( SimpExpr ) ) ) = ExprTemp;
+      ABL_CAR_L( ABL_CDDR( ABL_CADR( SimpExpr ) ) ) = ExprTemp;
     ExprTemp = loc_simpablctl( ABL_CADR( ABL_CAR( ABL_CDDR( SimpExpr ) ) ) );
     if ( ExprTemp != ABL_CADR( ABL_CAR( ABL_CDDR( SimpExpr ) ) ) )
-      ABL_CADR( ABL_CAR( ABL_CDDR( SimpExpr ) ) ) = ExprTemp;
+      ABL_CADR_L( ABL_CAR( ABL_CDDR( SimpExpr ) ) ) = ExprTemp;
     ExprTemp = loc_simpablctl( ABL_CAR( ABL_CDDR( ABL_CAR( ABL_CDDR( SimpExpr ) ) ) ) );
     if ( ExprTemp != ABL_CAR( ABL_CDDR( ABL_CAR( ABL_CDDR( SimpExpr ) ) ) ) )
-      ABL_CAR( ABL_CDDR( ABL_CAR( ABL_CDDR( SimpExpr ) ) ) ) = ExprTemp;
+      ABL_CAR_L( ABL_CDDR( ABL_CAR( ABL_CDDR( SimpExpr ) ) ) ) = ExprTemp;
 
     return( SimpExpr );
   }
@@ -385,7 +385,7 @@ static ablexpr *loc_simpablctl( Expr )
   {
     SimpExpr = loc_simpablctl( ABL_CAR( ScanExpr ) );
     if ( SimpExpr != ABL_CAR( ScanExpr ) )
-      ABL_CAR( ScanExpr ) = SimpExpr;
+      ABL_CAR_L( ScanExpr ) = SimpExpr;
     SimpExpr = Expr;
   }
 

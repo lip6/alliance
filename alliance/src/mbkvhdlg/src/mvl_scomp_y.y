@@ -1143,8 +1143,7 @@ generic_element_association
         : .generic_choices.
           generic_expression
           {
-             ((logen_list *)MVL_GENLST->DATA)
-                    = duplogen (&MVL_LOGEN,
+             MVL_GENLST->DATA = duplogen (&MVL_LOGEN,
                                 ((logen_list *)MVL_GENLST->DATA), NULL);
              MVL_LOGEN.TYPE = GENTYPE_EMPTY;
           }

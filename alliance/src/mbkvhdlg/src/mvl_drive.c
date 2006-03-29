@@ -7,8 +7,9 @@
 /* functions    : vhdlsavelofig()                                       */
 /*                                                                      */
 /* ###--------------------------------------------------------------### */
-#ident "$Id: mvl_drive.c,v 1.1 2002/04/26 09:51:07 ludo Exp $"
+#ident "$Id: mvl_drive.c,v 1.2 2006/03/29 17:10:38 xtof Exp $"
 #include <stdio.h>
+#include <stdlib.h>
 #include <string.h>
 #include <sys/types.h>
 #include <time.h>

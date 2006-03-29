@@ -1874,7 +1874,7 @@ void FvhFbhPostTreat( FsmFigure )
       if ( ABL_CDDR( Equation ) == (ablexpr    *)0 )
       {
         StarChain = ABL_CADR( Equation );
-        ABL_CADR( Equation ) = (ablexpr    *)0;
+        ABL_CADR_L( Equation ) = (ablexpr    *)0;
         freeablexpr( Equation );
         Equation = StarChain;
       }

@@ -27,7 +27,7 @@
  * Author  : Francois Donnet
  */
 
-
+#include <stdlib.h>
 #include <mut.h>
 #include <abl.h>
 #include <abe.h>
@@ -248,7 +248,7 @@ static chain_list *permutations_abl(chain_list* abl)
    /*put the operator*/
    for (chain=list_abl; chain; chain=chain->NEXT) {
       head=createabloper(ABL_OPER(abl));
-      ABL_ARITY(head)=ABL_ARITY(abl);
+      ABL_ARITY_L(head)=ABL_ARITY(abl);
       ABL_CDR(head)=dupablchain(chain->DATA);
       chain->DATA=head;
    }   

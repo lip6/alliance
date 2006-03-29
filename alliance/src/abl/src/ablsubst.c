@@ -105,7 +105,7 @@ static ablexpr *loc_substablexpr( Expr )
 
   while ( ( Expr = ABL_CDR( Expr ) ) )
   {
-    ABL_CAR( Expr ) = loc_substablexpr( ABL_CAR( Expr ) );
+    ABL_CAR_L( Expr ) = loc_substablexpr( ABL_CAR( Expr ) );
   }
 
   return( ExprSubst );

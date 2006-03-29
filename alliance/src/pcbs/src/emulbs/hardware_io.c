@@ -8,7 +8,7 @@
 /*##  E-mail        :    cao-vlsi@masi.ibp.fr                         ##*/
 /*##                                                                  ##*/
 /*####==============================================================####*/
-
+#include <stdio.h>
 #include <sys/types.h>
 #include <sys/fcntl.h>
 #include <errno.h>
@@ -225,7 +225,7 @@ static void checkLPT()
 
   if (fd <= 0 )
   {
-    fprintf(stderr, __FUNCTION__ ": Device is not opened\n");
+    fprintf(stderr, "%s : %s", __FUNCTION__, "Device is not opened\n");
     exit(LPSCAN_ERROR);
   }
   
@@ -280,7 +280,7 @@ extern int check_mode( )
 
   if ( !InfosVbe )
   {
-    fprintf(stderr, __FUNCTION__ "No info file\n");
+    fprintf(stderr,"%s %s" ,__FUNCTION__ , "No info file\n");
     exit(1);
   }
   
@@ -504,7 +504,7 @@ extern int write_read_port( char* buf, unsigned int size)
    {
       if (!fd)
       {
-         fprintf(stderr,__FUNCTION__": device not opened\n");
+         fprintf(stderr, "%s : %s", __FUNCTION__, "device not opened\n");
          exit( 1 );
       }
    

@@ -5,8 +5,9 @@
    author   : D.HOMMAIS
    content  : basic functions for logen structure use
 */
-#ident "$Id: gen_generic.c,v 1.1 2002/04/26 09:51:07 ludo Exp $"
+#ident "$Id: gen_generic.c,v 1.2 2006/03/29 17:10:38 xtof Exp $"
 #include <stdio.h>
+#include <stdlib.h>
 #include <mut.h>
 #include "gen_generic.h"
 

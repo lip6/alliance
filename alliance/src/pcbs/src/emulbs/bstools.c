@@ -119,7 +119,7 @@ static char* unbuf_papat(char* head, struct papat *ppapat)
        
        if ( !paiol || ( paiol->MODE!='O' && paiol->MODE!='T' ) )
        {
-          fprintf(stderr, __FUNCTION__": Output with index %d not found\n",index);
+          fprintf(stderr, "%s : Output with index %d not found\n", __FUNCTION__,index);
           exit(1);
        }
          

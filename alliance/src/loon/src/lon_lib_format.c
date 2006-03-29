@@ -152,7 +152,7 @@ static chain_list* format_subst_abl( chain_list* abl, beaux_list *BeauxSubst )
    }
    
    for (chain=ABL_CDR(abl); chain; chain=ABL_CDR(chain)) {
-      ABL_CAR(chain) = format_subst_abl( ABL_CAR( chain ), BeauxSubst );
+      ABL_CAR_L(chain) = format_subst_abl( ABL_CAR( chain ), BeauxSubst );
    }
 
    return abl;  

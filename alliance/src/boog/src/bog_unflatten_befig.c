@@ -64,7 +64,7 @@ static chain_list* change_atom(chain_list* abl,int invert)
    
    if (ABL_ATOM(abl)) {
       if (!invert) return abl;
-      ABL_ATOM_VALUE(abl)=getoppositename(ABL_ATOM_VALUE(abl));
+      ABL_CAR_L(abl)=getoppositename(ABL_ATOM_VALUE(abl));
       return createablnotexpr(abl);
    }
    
@@ -74,7 +74,7 @@ static chain_list* change_atom(chain_list* abl,int invert)
    }
    
    for (chain=ABL_CDR(abl); chain; chain=ABL_CDR(chain)) {
-      ABL_CAR(chain)=change_atom(ABL_CAR(chain),invert);
+      ABL_CAR_L(chain)=change_atom(ABL_CAR(chain),invert);
    }   
 
    return abl;
@@ -227,7 +227,7 @@ static void search_name(char* name)
             /* keep the NOT to use inverter bus */
             if (is_tristate_inverter_lib() &&
               !ABL_ATOM(biabl->VALABL) && ABL_OPER(biabl->VALABL)==ABL_NOT) {
-               ABL_CADR(biabl->VALABL)=unflatten_abl(ABL_CADR(biabl->VALABL));
+               ABL_CADR_L(biabl->VALABL)=unflatten_abl(ABL_CADR(biabl->VALABL));
             }
             else biabl->VALABL=unflatten_abl(biabl->VALABL);   /*arity solver*/
             biabl->CNDABL=unflatten_abl(biabl->CNDABL);        /*arity solver*/
@@ -342,7 +342,7 @@ extern void unflatten_befig(befig_list *befig_param)
          /* keep the NOT to use inverter bus */
          if (is_tristate_inverter_lib() &&
            !ABL_ATOM(biabl->VALABL) && ABL_OPER(biabl->VALABL)==ABL_NOT) {
-            ABL_CADR(biabl->VALABL)=unflatten_abl(ABL_CADR(biabl->VALABL));
+            ABL_CADR_L(biabl->VALABL)=unflatten_abl(ABL_CADR(biabl->VALABL));
          }
          else biabl->VALABL=unflatten_abl(biabl->VALABL);      /*arity solver*/
          biabl->CNDABL=unflatten_abl(biabl->CNDABL);           /*arity solver*/

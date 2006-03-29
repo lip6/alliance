@@ -192,7 +192,7 @@ static ablexpr *BoomCreateAuxAbl( Expr )
 
     while ( ( ScanExpr = ABL_CDR( ScanExpr ) ) != (chain_list *)0 )
     {
-      ABL_CAR( ScanExpr ) = BoomCreateAuxAbl( ABL_CAR( ScanExpr ) );
+      ABL_CAR_L( ScanExpr ) = BoomCreateAuxAbl( ABL_CAR( ScanExpr ) );
     }
 
     BddNode = BoomGetBddMarkAbl( Expr );
@@ -417,7 +417,7 @@ static ablexpr *BoomReplaceUselessAuxAbl( Expr )
 
     while ( ( ScanExpr = ABL_CDR( ScanExpr ) ) != (chain_list *)0 )
     {
-      ABL_CAR( ScanExpr ) = BoomReplaceUselessAuxAbl( ABL_CAR( ScanExpr ) );
+      ABL_CAR_L( ScanExpr ) = BoomReplaceUselessAuxAbl( ABL_CAR( ScanExpr ) );
     }
   }
 

@@ -41,8 +41,8 @@
 #include "bog_normalize_DAG.h"
 
 
-#define USING(node) {(int)node=-mark;}
-#define USED(node) {(int)node=(int)((((int)node<0)?0:(int)node)+1);}
+#define USING(node) {node=-mark;}
+#define USED(node) {node=(int)((((int)node<0)?0:(int)node)+1);}
 #define IS_USING(node) ((int)node==-mark)
 #define IS_USED(node) ((int)node!=0)
 #define IS_UNUSED(node) ((int)node==0)
@@ -128,7 +128,7 @@ static chain_list* inter_equi(equi_list *equi, chain_list *abl)
 
    head=abl;
    for (abl=ABL_CDR(head); abl; abl=ABL_CDR(abl)) {
-      ABL_CAR(abl)=inter_equi(equi,ABL_CAR(abl));
+      ABL_CAR_L(abl)=inter_equi(equi,ABL_CAR(abl));
    }
    
    return head;
@@ -159,7 +159,7 @@ static chain_list* replace_equi(chain_list* abl)
 
    head=abl;
    for (abl=ABL_CDR(head); abl; abl=ABL_CDR(abl)) {
-      ABL_CAR(abl)=replace_equi(ABL_CAR(abl));
+      ABL_CAR_L(abl)=replace_equi(ABL_CAR(abl));
    }
    
    return head;

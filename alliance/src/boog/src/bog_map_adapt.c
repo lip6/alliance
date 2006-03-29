@@ -52,9 +52,9 @@ extern void swap_pointers(chain_list* abl1, chain_list* abl2)
    
    car=ABL_CAR(abl1);
    cdr=ABL_CDR(abl1);
-   ABL_CAR(abl1)=ABL_CAR(abl2);
+   ABL_CAR_L(abl1)=ABL_CAR(abl2);
    ABL_CDR(abl1)=ABL_CDR(abl2);
-   ABL_CAR(abl2)=car;
+   ABL_CAR_L(abl2)=car;
    ABL_CDR(abl2)=cdr;
 }
 
@@ -80,12 +80,12 @@ extern void invert_port(port_list* port)
 
       if (ABL_ATOM(port->ABL)) {
         name=getoppositename(ABL_ATOM_VALUE(port->ABL));
-        if (is_signal(name)) ABL_ATOM_VALUE(port->ABL)=name;
+        if (is_signal(name)) ABL_CAR_L(port->ABL)=name;
         else 
         {
           /*add a not*/
           not=createabloper(ABL_NOT);
-          ABL_ARITY(not)=1;
+          ABL_ARITY_L(not)=1;
           /*swap pointers references*/
           swap_pointers(port->ABL,not);
           ABL_CDR(port->ABL)=addchain(NULL,not);
@@ -94,14 +94,14 @@ extern void invert_port(port_list* port)
       else  
       {
         switch (ABL_OPER(port->ABL)) {
-        case ABL_AND: ABL_OPER(port->ABL)=ABL_NAND; break;
-        case ABL_NAND: ABL_OPER(port->ABL)=ABL_AND; break;
-        case ABL_OR: ABL_OPER(port->ABL)=ABL_NOR; break;
-        case ABL_NOR: ABL_OPER(port->ABL)=ABL_OR; break;
-        case ABL_XOR: ABL_OPER(port->ABL)=ABL_NXOR; break;
-        case ABL_NXOR: ABL_OPER(port->ABL)=ABL_XOR; break;
+        case ABL_AND: ABL_OPER_L(port->ABL)=ABL_NAND; break;
+        case ABL_NAND: ABL_OPER_L(port->ABL)=ABL_AND; break;
+        case ABL_OR: ABL_OPER_L(port->ABL)=ABL_NOR; break;
+        case ABL_NOR: ABL_OPER_L(port->ABL)=ABL_OR; break;
+        case ABL_XOR: ABL_OPER_L(port->ABL)=ABL_NXOR; break;
+        case ABL_NXOR: ABL_OPER_L(port->ABL)=ABL_XOR; break;
         case ABL_NOT: /*no need to insert*/
-            port->ABL=ABL_CADR(port->ABL); continue;
+            port->ABL=ABL_CADR_L(port->ABL); continue;
         default:
             fprintf(stderr,
             "invert_port: oper %s forbidden at this level\n",
@@ -112,7 +112,7 @@ extern void invert_port(port_list* port)
       
       /*insert a NOT to match perfectly with cell*/
       not=createabloper(ABL_NOT);
-      ABL_ARITY(not)=1;
+      ABL_ARITY_L(not)=1;
       /*swap pointers references*/
       swap_pointers(port->ABL,not);
       ABL_CDR(port->ABL)=addchain(NULL,not);
@@ -160,12 +160,12 @@ static chain_list* loc_adapt_abl(chain_list* expr, float C)
       /*evaluate with the biggest oper*/
       int arity=ABL_ARITY(expr);  /*memorize arity*/
       /*search the biggest arity which matches expr*/
-      for (ABL_ARITY(expr)=ABL_ARITY(expr)-1 ; ABL_ARITY(expr)>0; 
-      ABL_ARITY(expr)--) {
+      for (ABL_ARITY_L(expr)=ABL_ARITY(expr)-1 ; ABL_ARITY(expr)>0; 
+      ABL_ARITY_L(expr)--) {
          cell=cell_prepare(expr);
          if (cell) break;
       }
-      ABL_ARITY(expr)=arity;   /*put back arity*/
+      ABL_ARITY_L(expr)=arity;   /*put back arity*/
       if (!cell) {
          fprintf(stderr,"Library Error: No cell could match  '");
          display_abl(expr);
@@ -181,7 +181,7 @@ static chain_list* loc_adapt_abl(chain_list* expr, float C)
 	 return expr;
       }
       for (abl=ABL_CDR(expr); abl; abl=ABL_CDR(abl)) {
-         ABL_CAR(abl)=loc_adapt_abl(ABL_CAR(abl),port->C);
+         ABL_CAR_L(abl)=loc_adapt_abl(ABL_CAR(abl),port->C);
       }
       return expr;
    }
@@ -241,12 +241,12 @@ extern chain_list* adapt_abl(chain_list* expr)
       /*evaluate with the biggest oper*/
       arity=ABL_ARITY(expr);  /*memorize arity*/
       /*search the biggest arity which matches expr*/
-      for (ABL_ARITY(expr)=ABL_ARITY(expr)-1 ; ABL_ARITY(expr)>0; 
-      ABL_ARITY(expr)--) {
+      for (ABL_ARITY_L(expr)=ABL_ARITY(expr)-1 ; ABL_ARITY(expr)>0; 
+      ABL_ARITY_L(expr)--) {
          cell=cell_prepare(expr);
          if (cell) break;
       }
-      ABL_ARITY(expr)=arity;   /*put back arity*/
+      ABL_ARITY_L(expr)=arity;   /*put back arity*/
       if (!cell) {
          fprintf(stderr,"Library Error: No cell could match  '");
          display_abl(expr);
@@ -261,7 +261,7 @@ extern chain_list* adapt_abl(chain_list* expr)
    	return expr;
       }
       for (abl=ABL_CDR(expr); abl; abl=ABL_CDR(abl)) {
-         ABL_CAR(abl)=loc_adapt_abl(ABL_CAR(abl),port->C);
+         ABL_CAR_L(abl)=loc_adapt_abl(ABL_CAR(abl),port->C);
       }
       return expr;
    }
@@ -315,7 +315,7 @@ extern biabl_list* adapt_bus(biabl_list* biabl)
       biabl->VALABL=build_negativ(biabl->VALABL);  
       biabl->VALABL=createablnotexpr(biabl->VALABL);
       /* createablnotexpr() can simplify*/
-      if (!ABL_ATOM(biabl->VALABL)) ABL_ARITY(biabl->VALABL)=1;
+      if (!ABL_ATOM(biabl->VALABL)) ABL_ARITY_L(biabl->VALABL)=1;
    }
 
    cell=cell_prepare_bus(biabl);

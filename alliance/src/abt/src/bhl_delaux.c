@@ -48,6 +48,7 @@
 # include "abt.h"
 
 # include <stdio.h>
+# include <string.h>
 # include "bhl_error.h"
 # include "bhl_delaux.h"
 
@@ -167,7 +168,7 @@ static chain_list *bhl_delauxexpr( Expr )
       bhlerror( BHL_OPERATOR_ERROR, Oper );
     }
 
-    ABL_CAR( Expr ) = bhl_delauxexpr( ABL_CAR( Expr ) );
+    ABL_CAR_L( Expr ) = bhl_delauxexpr( ABL_CAR( Expr ) );
 
     return( FirstExpr );
   }
@@ -209,11 +210,11 @@ static chain_list *bhl_delauxexpr( Expr )
     bhlerror( BHL_OPERATOR_ERROR, Oper );
   }
 
-  ABL_CAR( Expr ) = bhl_delauxexpr( ABL_CAR( Expr ) );
+  ABL_CAR_L( Expr ) = bhl_delauxexpr( ABL_CAR( Expr ) );
 
   while ( ( Expr = ABL_CDR( Expr ) ) != (chain_list *)0 )
   {
-    ABL_CAR( Expr ) = bhl_delauxexpr( ABL_CAR( Expr ) );
+    ABL_CAR_L( Expr ) = bhl_delauxexpr( ABL_CAR( Expr ) );
   }
 
   return( FirstExpr );

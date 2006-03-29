@@ -811,7 +811,7 @@ void loc_stablebddcircuitabl( Expr )
 
     if ( Name != (char *)0 )
     {
-      ABL_CAR( Expr ) = addchain( (chain_list *)0, (void *)ABL_STABLE );
+      ABL_CAR_L( Expr ) = addchain( (chain_list *)0, (void *)ABL_STABLE );
       addablhexpr( Expr, createablatom( Name ) );
     }
   }

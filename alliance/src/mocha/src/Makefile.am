@@ -2,7 +2,7 @@
 
 bin_PROGRAMS = moka
 
-AM_CFLAGS = @ALLIANCE_CFLAGS@  -Wall \
+AM_CFLAGS = -Wall \
 -I$(top_srcdir)/abe/src \
 -I$(top_srcdir)/abl/src \
 -I$(top_srcdir)/abv/src \
@@ -15,7 +15,8 @@ AM_CFLAGS = @ALLIANCE_CFLAGS@  -Wall \
 -I$(top_srcdir)/ftl/src \
 -I$(top_srcdir)/mbk/src \
 -I$(top_srcdir)/fvh/src \
--I$(top_srcdir)/vex/src
+-I$(top_srcdir)/vex/src \
+@ALLIANCE_CFLAGS@  
 
 moka_LDADD = @ALLIANCE_LIBS@ \
 -L$(top_srcdir)/abe/src \

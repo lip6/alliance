@@ -484,7 +484,7 @@ Cette liste contient la liste des rectangles connecteurs. */
 
 
              PtypeRec = getptype( LogicalConnector->USER, RDSLOCON1 );
-             (chain_list*)( PtypeRec->DATA) = append( (chain_list*)(PtypeRec->DATA), RecConnector );
+             PtypeRec->DATA = append( (chain_list*)(PtypeRec->DATA), RecConnector );
              RecConnector = NULL;
 
              if( Rcnet == 'c' || Rcnet == 'r' )
@@ -493,7 +493,7 @@ Cette liste contient la liste des rectangles connecteurs. */
              }
 
              PrevFEQUI = getptype( Signal->USER, RCN_FEQUI );
-             ((chain_list*)(PrevFEQUI->DATA)) = addchain( ((chain_list*)(PrevFEQUI->DATA)), FirstEqui );
+             PrevFEQUI->DATA = addchain( ((chain_list*)(PrevFEQUI->DATA)), FirstEqui );
              
            }
            else

@@ -21,7 +21,7 @@
  * Software Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
  */
 
-#ident "$Id: rcn_lo.c,v 1.3 2003/04/03 14:46:30 xtof Exp $"
+#ident "$Id: rcn_lo.c,v 1.4 2006/03/29 17:10:33 xtof Exp $"
 
 /*******************************************************************************
 * rcn    : acces functions to logical rc network structures                    *
@@ -1495,11 +1495,11 @@ loctc_list* heaploctc()
     ptctc=HEAD_CTC_FREE;
     for(i=1;i<RCNBUFSIZE;i++)
     {
-      (loctc_list*)(ptctc->SIG1) = ptctc+1;
+      ptctc->SIG1 = ptctc+1;
       ptctc->NODE1 = -1000;
       ptctc++;
     }
-    (loctc_list*)(ptctc->SIG1) = NULL;
+    ptctc->SIG1 = NULL;
     ptctc->NODE1 = -1000;
   }
 
@@ -1811,8 +1811,7 @@ losig_list	*ptsig;
       if( RCN_GETFLAG( ptnode->FLAG, RCN_FLAG_LOCON ) )
       {
         ptlocon = getptype(ptnode->USER, RCN_LOCON );
-        (chain_list*)(ptlocon->DATA)=
-                                 addchain((chain_list*)(ptlocon->DATA),ptcon);
+        ptlocon->DATA=addchain((chain_list*)(ptlocon->DATA),ptcon);
       }
       else
       {
