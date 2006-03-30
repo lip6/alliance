@@ -34,11 +34,12 @@
 class PCon: public PElem {
   private:
       const locon*	_con;
+      phcon*            _phcon; //can be NULL
       PPos		_pos;
       char		_orient;
 
   public:
-      PCon(const locon* con);
+      PCon(const locon* con, phcon* pcon=NULL, int dx=0, int dy=0);
       PCon(const locon* con, PPos pos, char orient);
       PPos		GetPos() const			{ return _pos; }
       const locon*	GetLocon() const		{ return _con; }

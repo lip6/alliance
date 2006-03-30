@@ -145,6 +145,23 @@ PPlacement::Init(lofig* fig, int NbRows)
 	    PFixedIns* fixedins = InsertFixedIns(ins, pins, _dx, _dy);
 	    pinsmap[ins->INSNAME] = fixedins;
 	}
+
+        if (_prePlaceFig->PHCON && 
+                (_placeCons || _ringPlaceCons || _iocFile))
+        {
+            cerr << " o ERROR: impossible to have simultaneously preplaced connectors" << endl
+                 << "          and automatically placed connectors" << endl;
+            exit(1);
+                
+        }
+
+        for (phcon* pcon = _prePlaceFig->PHCON; pcon; pcon = pcon->NEXT)
+        {
+            locon* lCon = getlocon(_fig, pcon->NAME);
+            //generates an error if no locon
+            PCon* pCon = InsertCon(lCon, pcon, _dx, _dy);
+            pconmap[pcon->NAME] = pCon;
+        }
     }
     
     
@@ -209,11 +226,14 @@ PPlacement::Init(lofig* fig, int NbRows)
 		locon_list* con = (locon_list*)(it->DATA);
 		if (con->TYPE == EXTERNAL)
 		{
-		    if (_placeCons || _ringPlaceCons || _iocFile)
+		    if ( (_prePlaceFig && _prePlaceFig->PHCON)
+                            || _placeCons || _ringPlaceCons || _iocFile)
 		    {
-		      PConMap::iterator cit = pconmap.find(con->NAME);
-		      if (cit != pconmap.end())
-			++totreatinscpt;
+                        PConMap::iterator cit = pconmap.find(con->NAME);
+                        if (cit != pconmap.end())
+                        {
+                            ++totreatinscpt;
+                        }
 		    }
 		}
 		else
@@ -297,7 +317,8 @@ PPlacement::Init(lofig* fig, int NbRows)
 	}
     }
 
-    if (_placeCons || _ringPlaceCons || _iocFile)
+    if ( (_prePlaceFig && _prePlaceFig->PHCON)
+            || _placeCons || _ringPlaceCons || _iocFile)
     {
 	for (locon* con = fig->LOCON; con; con = con->NEXT)
 	{
@@ -354,8 +375,10 @@ PPlacement::Init(lofig* fig, int NbRows)
 			siginsset.insert(ins);
 		    }
 		}
-		else if (_placeCons || _ringPlaceCons || _iocFile)
+		else if ( (_prePlaceFig && _prePlaceFig->PHCON)
+                        || _placeCons || _ringPlaceCons || _iocFile)
 		{
+                    
 		    PConMap::iterator cit = pconmap.find(con->NAME);
 		    if (cit != pconmap.end())
 		    {
@@ -860,9 +883,9 @@ PPlacement::InsertToPlaceIns(const loins* ins)
 }
 
 PCon*
-PPlacement::InsertCon(const locon* con)
+PPlacement::InsertCon(const locon* con, phcon* phycon, int dx, int dy)
 {
-    PCon* pcon = new PCon(con);
+    PCon* pcon = new PCon(con, phycon);
     _cons.push_back(pcon);
     return pcon;
 }

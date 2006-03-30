@@ -249,7 +249,7 @@ class PPlacement {
     private:
 	PFixedIns*		InsertFixedIns(const loins* ins, const phins* pins, const int dx, const int dy);
 	PToPlaceIns*	InsertToPlaceIns(const loins* ins);
-	PCon*		InsertCon(const locon* con);
+	PCon*		InsertCon(const locon* con, phcon* pcon=NULL, int dx=0, int dy=0);
 	PCon*		InsertCon(const locon* con, PPos position, const char orientation);
 	PONet*		InsertNet(const losig* sig);
 	int		AddRowend(struct phfig* physicalfig);

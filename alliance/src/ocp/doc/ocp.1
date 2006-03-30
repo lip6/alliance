@@ -1,4 +1,4 @@
-.\"   $Id: ocp.1,v 1.6 2003/10/07 14:03:05 fred Exp $
+.\"   $Id: ocp.1,v 1.7 2006/03/30 19:07:45 xtof Exp $
 .\" @(#)Labo.l 0.0 92/09/24 UPMC; Author: Christophe ALEXANDRE
 .pl -.4
 .TH OCP 1 "September 27, 2001" "ASIM/LIP6" "CAO\-VLSI Reference Manual"
@@ -35,7 +35,7 @@ The file containing the placed block will have the name \fIoutputname\fP. This n
 .br
 \fB-partial <NAME>\fP
 .br
-A user defined placement can be specified, thanks to a placement file.
+A user defined pre-placement can be specified, thanks to a placement file.
 .br
 The optional placement file must be given by the user. It must have an extension that denotes the format defined by the environment variable \fBMBK_IN_PH\fP.
 .br
@@ -44,12 +44,14 @@ The optional placement file must be given by the user. It must have an extension
 .br
 The placement of connectors can be also specified.
 .br
-There are three ways to place connectors in a physical view :
+There are four ways to place connectors in a physical view :
 .br
+.br
+\fB-partial <NAME>\fP pre-placed connectors defined by the user can be provided through the pre-placement file. In that case, automatic connector placement is impossible.
 .br
 \fB-c\fP option will automatically place the connectors randomly. The auto placement will set connectors on each side of the abutment box.
 .br
-\fB-ring\fP option will automatically place the connectors for the  ring pad placement tool. The placement is random but only on the north and south side unless the \fB-ioc <NAME>\fP option is given, in which case the constraints given in the <NAME>.ioc file will be respected, but with layers suitable for ring. This option is temporary and is provided for the ring pad placement tool.
+\fB-ring\fP option will automatically place the connectors for the  ring pad placement tool. The placement is random but only on the north and south side unless the \fB-ioc <NAME>\fP option is given, in which case the constraints given in the <NAME>.ioc file will be respected, but with layers suitable for ring. 
 .br
 \fB-ioc <NAME>\fP option will place connectors as specified by the <NAME>.ioc given file.
 .br

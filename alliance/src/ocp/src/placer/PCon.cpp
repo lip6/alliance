@@ -31,9 +31,17 @@
 
 #include "PCon.h"
 
-PCon::PCon(const locon* con):
-		PElem(), _con(con), _pos()
-{}
+PCon::PCon(const locon* con, phcon* pcon, int dx, int dy)
+    : PElem()
+    , _con(con)
+    , _phcon(pcon)
+    , _pos()
+{
+    if (_phcon)
+    {
+        _pos = PPos((_phcon->XCON - dx)/PITCH, (_phcon->YCON - dy)/PITCH); 
+    }
+}
 
 PCon::PCon(const locon* con, PPos pos, char orient):
 		PElem(), _con(con), _pos(pos), _orient(orient)
@@ -42,14 +50,26 @@ PCon::PCon(const locon* con, PPos pos, char orient):
 void
 PCon::Save(struct phfig *physicalfig, const double dx, const double dy) const
 {
+    if (!_phcon)
+        addphcon(physicalfig
+                , _orient
+                , _con->NAME
+                , (int)(GetPosX() * PITCH + dx)
+                , (int)(GetPosY() * PITCH + dy)
+                , _orient==NORTH || _orient == SOUTH ? ALU2 : ALU3
+                , (_orient==NORTH || _orient == SOUTH ? 2 : 1) * (PITCH/5));
+    else
+        addphcon(physicalfig
+                , _phcon->ORIENT
+                , _phcon->NAME
+                , _phcon->XCON
+                , _phcon->YCON
+                , _phcon->LAYER
+                , _phcon->WIDTH
+                );
 
-    addphcon(physicalfig,
-			_orient,
-			_con->NAME,
-			(int)(GetPosX() * PITCH + dx),
-			(int)(GetPosY() * PITCH + dy),
-			_orient==NORTH || _orient == SOUTH ? ALU2 : ALU3,
-			(_orient==NORTH || _orient == SOUTH ? 2 : 1) * (PITCH/5));
+                
+                
 }
 
 void
