@@ -12,9 +12,7 @@ PORT (
   na4     : in  BIT;
   a5      : in  BIT;
   na5     : in  BIT;
-  ck      : in  BIT;
   selrom  : in  BIT;
-  nck     : out BIT;
   mux6    : out BIT;
   sel6    : out BIT;
   mux7    : out BIT;
@@ -31,7 +29,6 @@ BEGIN
   REPORT "power supply is missing on rom_dec_selmux67"
   SEVERITY WARNING;
 
-  nck <= not ck;
   mux6 <= (not a0) and (    a1) and (    a2);
   mux7 <= (    a0) and (    a1) and (    a2);
   sel6 <= (not a3) and (    a4) and (    a5) and selrom;
