@@ -1,7 +1,7 @@
 
 // -*- C++ -*-
 //
-// $Id: nero.cpp,v 1.10 2005/10/17 23:11:06 jpc Exp $
+// $Id: nero.cpp,v 1.11 2006/04/12 16:33:00 jpc Exp $
 //
 //  /----------------------------------------------------------------\ 
 //  |                                                                |
@@ -227,8 +227,8 @@ int  main (int argc, char *argv[])
                    , global
                    , options["H"]->parsed
                    , options["R"]->parsed );
-    crbox->route ();
     //cdebug.off ();
+    crbox->route ();
     crbox->mbksave (name_routed);
   }
 

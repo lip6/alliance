@@ -1,7 +1,7 @@
 
 // -*- C++ -*-
 //
-// $Id: MNet.cpp,v 1.10 2005/10/13 12:44:39 jpc Exp $
+// $Id: MNet.cpp,v 1.11 2006/04/12 16:33:00 jpc Exp $
 //
 //  /----------------------------------------------------------------\ 
 //  |                                                                |
@@ -488,6 +488,7 @@ void CNet::newaccess (string termName, CRect &rect, int z)
 
   // Terminal not found : add a new one.
   if (id == size) {
+    cerr << "Adding new terminal" << endl;
     terms.push_back (new CTerm (termName, size));
     size += 1;
   }
@@ -501,7 +502,13 @@ void CNet::newaccess (string termName, CRect &rect, int z)
     }
 
     catch (merge_term &e) {
-      mergeid = e.id;
+      if ( e.id > id ) {
+        mergeid = id;
+        id      = e.id;
+      } else {
+        mergeid = e.id;
+      }
+      cerr << "Merging terminals : [" << id << "] absorbed by [" << mergeid << "]" << endl;
 
       // Merge terminals ...
       terms[mergeid]->merge (terms[id], mergeid, this);
@@ -514,6 +521,7 @@ void CNet::newaccess (string termName, CRect &rect, int z)
 
       // Re-computes the terminal's ids.
       for (id = 0; id < size; id++) terms[id]->setid (id);
+      cerr << "New terminal max id " << id-1 << endl;
 
       id = mergeid;
     }

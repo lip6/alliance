@@ -1,7 +1,7 @@
 
 // -*- C++ -*-
 //
-// $Id: RMBK.cpp,v 1.15 2006/01/05 16:45:27 d2 Exp $
+// $Id: RMBK.cpp,v 1.16 2006/04/12 16:33:00 jpc Exp $
 //
 //  /----------------------------------------------------------------\ 
 //  |                                                                |
@@ -484,6 +484,7 @@ void  CRBox::mbkload (MBK::CFig *mbkfig
       pIns      = fig->instances[ins_name];
 
       term_name = ins_name + "." + pLocon->NAME;
+      cdebug << "+             I.T : " << term_name << " " << pIns->model->NAME << ".\n";
 
       // Find physical segments / CA of the terminal.
       for (pSeg = pIns->model->PHSEG; pSeg != NULL; pSeg = pSeg->NEXT) {
