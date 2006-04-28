@@ -1,7 +1,7 @@
 
 // -*- C++ -*-
 //
-// $Id: MNet.cpp,v 1.11 2006/04/12 16:33:00 jpc Exp $
+// $Id: MNet.cpp,v 1.12 2006/04/28 07:51:54 jpc Exp $
 //
 //  /----------------------------------------------------------------\ 
 //  |                                                                |
@@ -488,7 +488,6 @@ void CNet::newaccess (string termName, CRect &rect, int z)
 
   // Terminal not found : add a new one.
   if (id == size) {
-    cerr << "Adding new terminal" << endl;
     terms.push_back (new CTerm (termName, size));
     size += 1;
   }
