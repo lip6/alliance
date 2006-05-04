@@ -31,6 +31,9 @@
 *         modifie par : F. PETROT                                *           
 *         numero de version actuelle : 4.00                      *
 *         $Log: alc_pars_p.c,v $
+*         Revision 1.4  2006/05/04 16:29:52  xtof
+*         Allowing more than 64 chars filenames ....
+*
 *         Revision 1.3  2004/09/04 09:11:52  ludo
 *         - bug fix in AP parser (pb when scale_X is big)
 *
@@ -53,8 +56,7 @@
 #define        FALSE              0
 
 
-#define        MBKSZNAME         64
-#define        MAXFNAME         256
+#define        MBKSZNAME       1024
 #define        MAXLBUFFER       256
 #define        MAXLBUFF         256
 
