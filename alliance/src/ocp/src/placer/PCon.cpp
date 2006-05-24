@@ -43,8 +43,12 @@ PCon::PCon(const locon* con, phcon* pcon, int dx, int dy)
     }
 }
 
-PCon::PCon(const locon* con, PPos pos, char orient):
-		PElem(), _con(con), _pos(pos), _orient(orient)
+PCon::PCon(const locon* con, PPos pos, char orient)
+    : PElem()
+    , _con(con)
+    , _phcon(NULL)
+    , _pos(pos)
+    , _orient(orient)
 {}
 
 void

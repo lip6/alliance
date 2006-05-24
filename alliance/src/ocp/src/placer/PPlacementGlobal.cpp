@@ -470,7 +470,7 @@ PPlacement::PlaceGlobal()
         cout << " o " << 100.0 * _rejectedExchangeNumber / _totalMoves 
              << " % of rejected instance exchange" << endl;
         cout << " o Impossible Movements Stats .... "<< endl;
-        cout << " o If you find those value interesting, look for a doctor ..." << endl;
+        cout << " o If you find these values interesting, call a doctor..." << endl;
         cout << " o Total impossible movements = " << totalImpossibleMovements << endl;
         cout << " o " << 100.0 * _surOccupationTargetMovementNumber / totalImpossibleMovements 
              << " % suroccupied target" << endl;
