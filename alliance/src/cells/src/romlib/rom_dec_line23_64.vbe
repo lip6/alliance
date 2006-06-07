@@ -1,0 +1,24 @@
+ENTITY rom_dec_line23_64 IS
+PORT (
+  nck2    : in  BIT;
+  nck3    : in  BIT;
+  sel2    : in  BIT;
+  sel3    : in  BIT;
+  line2   : out  BIT;
+  line3   : out  BIT;
+  vdd	  : in  BIT;
+  vss	  : in  BIT
+);
+END rom_dec_line23_64;
+
+ARCHITECTURE VBE OF rom_dec_line23_64 IS
+
+BEGIN
+  ASSERT (vdd and not (vss))
+  REPORT "power supply is missing on rom_dec_line23_64"
+  SEVERITY WARNING;
+
+  line2 <= nck2 and sel2;
+  line3 <= nck3 and sel3;
+
+END;

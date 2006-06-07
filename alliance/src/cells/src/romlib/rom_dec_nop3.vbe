@@ -1,0 +1,14 @@
+ENTITY rom_dec_nop3 IS
+PORT (
+  vdd    : in  BIT;
+  vss    : in  BIT
+);
+END rom_dec_nop3;
+
+ARCHITECTURE VBE OF rom_dec_nop3 IS
+
+BEGIN
+  ASSERT (vdd and not (vss))
+  REPORT "power supply is missing on rom_dec_nop3"
+  SEVERITY WARNING;
+END;
