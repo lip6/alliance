@@ -1,5 +1,5 @@
 /*
- *  $Id: util_Floorplan.c,v 1.2 2002/09/30 16:21:18 czo Exp $
+ *  $Id: util_Floorplan.c,v 1.3 2006/06/28 13:25:07 jpc Exp $
  *
  *  /----------------------------------------------------------------\
  *  |                                                                |
@@ -81,11 +81,11 @@
  *  Local variables.
  */
 
-  static         char  routingLayers3[256] = "l_alu1.l_alu2.l_alu3.";
+  static         char  routingLayers3[256] = "alu1.alu2.alu3.";
   static         char  routingLayers4[256] =
-                        "l_alu1.l_alu2.l_alu3.l_alu4.";
+                        "alu1.alu2.alu3.alu4.";
   static         char  routingLayers6[256] =
-                        "l_alu1.l_alu2.l_alu3.l_alu4.l_alu5.l_alu6.";
+                        "alu1.alu2.alu3.alu4.alu5.alu6.";
   static         long  LV_dupTerm;
   static         long  LV_loTerm;
 

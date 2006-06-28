@@ -1,6 +1,6 @@
 
 /*
- *  $Id: DEF_actions.c,v 1.4 2004/09/29 21:40:46 jpc Exp $
+ *  $Id: DEF_actions.c,v 1.5 2006/06/28 13:25:06 jpc Exp $
  *
  *  /----------------------------------------------------------------\
  *  |                                                                |
@@ -1622,6 +1622,12 @@ static void  LEF2MBK_setData()
   setDataCut (6, "VIA6", CONT_VIA6);
   setDataCut (7, "VIA7", CONT_VIA7);
   setDataCut (8, "VIA8", CONT_VIA8);
+
+  addDataVIA ("CONT_VIA" , CONT_VIA , 0, 0);
+  addDataVIA ("CONT_VIA2", CONT_VIA2, 0, 0);
+  addDataVIA ("CONT_VIA3", CONT_VIA3, 0, 0);
+  addDataVIA ("CONT_VIA4", CONT_VIA4, 0, 0);
+  addDataVIA ("CONT_VIA5", CONT_VIA5, 0, 0);
 }
 
 
