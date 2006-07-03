@@ -1,8 +1,11 @@
 /*
    ### -------------------------------------------------- ### 
-   $Author: xtof $
-   $Date: 2006/03/29 17:10:51 $
+   $Author: hcl $
+   $Date: 2006/07/03 17:43:34 $
    $Log: ocrRouter.c,v $
+   Revision 1.10  2006/07/03 17:43:34  hcl
+   Make OCR compile on intel mac with gcc 4 : PRIO_MAX seems to be a macro defined elsewhere.
+
    Revision 1.9  2006/03/29 17:10:51  xtof
    * gcc4 compatible : no cast like (Foo*)bar=foo; use bar=(Bar*)foo;
 
@@ -1048,23 +1051,23 @@ routingWindow(ocrRoutingDataBase * i_pDataBase, phfig_list * i_pPhFig)
 
         // Ordonnancement les + PRIORITAIRES en premier
         orderingSignals(i_pDataBase->SIGNAL,
-                        //i_pDataBase->NB_SIGNAL, ORDER_PRIORITY_RANDOM);
+                        /*i_pDataBase->NB_SIGNAL, ORDER_PRIORITY_RANDOM);*/
                         i_pDataBase->NB_SIGNAL, ORDER_PRIORITY_CON);
 
         {
-            ocrNaturalInt PRIO_MAX = i_pDataBase->SIGNAL[0]->PRIORITY;
-            if (PRIO_MAX > 8)
+            ocrNaturalInt priority_max = i_pDataBase->SIGNAL[0]->PRIORITY;
+            if (priority_max > 8)
                 for (i = 0; i < i_pDataBase->NB_SIGNAL - 1; i++)
-                    if (i_pDataBase->SIGNAL[i]->PRIORITY == PRIO_MAX) {
+                    if (i_pDataBase->SIGNAL[i]->PRIORITY == priority_max) {
                         if (i_pDataBase->SIGNAL[i]->INTEXT == INTERNAL) {
                             display(LEVEL, DEBUG,
                                     "o I Prio Max = %ld Sig = %ld Name = %s\n",
-                                    PRIO_MAX, i,
+                                    priority_max, i,
                                     i_pDataBase->SIGNAL[i]->NAME);
                         } else
                             display(LEVEL, DEBUG,
                                     "o E Prio Max = %ld Sig = %ld Name = %s\n",
-                                    PRIO_MAX, i,
+                                    priority_max, i,
                                     i_pDataBase->SIGNAL[i]->NAME);
                     }
         }
