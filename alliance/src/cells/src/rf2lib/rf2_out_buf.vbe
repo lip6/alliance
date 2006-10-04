@@ -1,10 +1,10 @@
 ENTITY rf2_out_buf IS
 PORT (
-  ck     : in  BIT;
-  nck    : out BIT;
-  xcks	 : out BIT;
-  vdd	 : in  BIT;
-  vss	 : in  BIT
+  ck     : in    BIT;
+  nck    : inout BIT;
+  xcks	 : out   BIT;
+  vdd	 : in    BIT;
+  vss	 : in    BIT
 );
 END rf2_out_buf;
 
