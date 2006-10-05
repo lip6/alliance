@@ -7,7 +7,7 @@
 #  Alliance CAD system environnement
 #  Usage (in C-shell) : > source alc_env.csh
 #  (C) 1997 Czo  -- <Olivier.Sirol@lip6.fr>
-#  $Id: alc_env.csh.in,v 1.7 2005/11/08 10:23:34 jpc Exp $
+#  $Id: alc_env.csh.in,v 1.8 2006/10/05 10:09:25 jpc Exp $
 #  Generated from alc_env.csh.in on @DATE@
 
 # $ALLIANCE_OS and $ALLIANCE_TOP are the only variables you will
@@ -42,6 +42,7 @@
  setenv MBK_CATA_LIB         ".:${ALLIANCE_TOP}/cells/sxlib"
  setenv MBK_CATA_LIB         "${MBK_CATA_LIB}:${ALLIANCE_TOP}/cells/dp_sxlib"
  setenv MBK_CATA_LIB         "${MBK_CATA_LIB}:${ALLIANCE_TOP}/cells/rflib"
+ setenv MBK_CATA_LIB         "${MBK_CATA_LIB}:${ALLIANCE_TOP}/cells/rf2lib"
  setenv MBK_CATA_LIB         "${MBK_CATA_LIB}:${ALLIANCE_TOP}/cells/romlib"
  setenv MBK_CATA_LIB         "${MBK_CATA_LIB}:${ALLIANCE_TOP}/cells/ramlib"
  setenv MBK_CATA_LIB         "${MBK_CATA_LIB}:${ALLIANCE_TOP}/cells/pxlib"
