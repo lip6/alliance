@@ -8,7 +8,7 @@ Name:         %{name}
 Summary:      Alliance VLSI CAD Sytem
 Version:      %{ver}
 Release:      %{release}
-Copyright:    GPL
+License:      GPL
 Group:        Applications/VLSI
 Source:       %{name}-%{ver}.tar.gz
 URL:          http://www-asim.lip6.fr/alliance/
