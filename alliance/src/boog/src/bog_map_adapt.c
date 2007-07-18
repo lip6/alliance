@@ -161,7 +161,7 @@ static chain_list* loc_adapt_abl(chain_list* expr, float C)
       int arity=ABL_ARITY(expr);  /*memorize arity*/
       /*search the biggest arity which matches expr*/
       for (ABL_ARITY_L(expr)=ABL_ARITY(expr)-1 ; ABL_ARITY(expr)>0; 
-      ABL_ARITY_L(expr)--) {
+      ABL_ARITY_L(expr)=ABL_ARITY(expr)-1) {
          cell=cell_prepare(expr);
          if (cell) break;
       }
@@ -242,7 +242,7 @@ extern chain_list* adapt_abl(chain_list* expr)
       arity=ABL_ARITY(expr);  /*memorize arity*/
       /*search the biggest arity which matches expr*/
       for (ABL_ARITY_L(expr)=ABL_ARITY(expr)-1 ; ABL_ARITY(expr)>0; 
-      ABL_ARITY_L(expr)--) {
+      ABL_ARITY_L(expr)=ABL_ARITY(expr)-1) {
          cell=cell_prepare(expr);
          if (cell) break;
       }
