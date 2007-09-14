@@ -6321,9 +6321,13 @@ choice
          {
            char Buffer[ 512 ];
 
-           Buffer[ 0 ] = '"';
+           /* hack */
+           char  delim = '"';
+           char* scan = strchr($1, '\'');
+           if (scan) delim = '\'';
+           Buffer[ 0 ] = delim;
            vbl_tobin( &Buffer[1],$1,0,VBL_CASSIZE );
-           Buffer[ VBL_CASSIZE + 2 ] = '"';
+           Buffer[ VBL_CASSIZE + 2 ] = delim;
            Buffer[ VBL_CASSIZE + 3 ] = '\0';
 
            $$.NAME  = namealloc( Buffer );
