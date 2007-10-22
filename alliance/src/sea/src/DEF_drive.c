@@ -1,5 +1,5 @@
 /*
- *  $Id: DEF_drive.c,v 1.11 2004/09/29 21:40:46 jpc Exp $
+ *  $Id: DEF_drive.c,v 1.12 2007/10/22 12:57:58 jpc Exp $
  *
  *  /----------------------------------------------------------------\
  *  |                                                                |
@@ -1514,7 +1514,7 @@ static void  fprintNET(apLoSig, aUse)
   if (aUse != C_USE_NONE)
     fprintf(DEF_FILE, "\n      + USE %s ;\n", USEtoa(aUse));
   else
-    fprintf(DEF_FILE, ";\n");
+    fprintf(DEF_FILE, " ;\n");
 }
 
 
