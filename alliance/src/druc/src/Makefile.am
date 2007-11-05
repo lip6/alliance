@@ -23,13 +23,13 @@ bin_PROGRAMS = druc
 AM_CFLAGS = -I$(top_srcdir)/mbk/src -I$(top_srcdir)/rds/src
 
 druc_LDADD = -L. -lVrd \
--L$(top_srcdir)/rds/src -lRtl -lRgs \
--L$(top_srcdir)/rdscif/src -lRcf -lRfm -lRpr -lRwi -lRut \
--L$(top_srcdir)/rdsgds/src -lRds \
--L$(top_srcdir)/mbk/src -lMpu \
--L$(top_srcdir)/mbkvti/src -lMcp \
--L$(top_srcdir)/mbkap/src -lMap \
--L$(top_srcdir)/mbkmg/src -lMmg -lMph \
+-L$(top_builddir)/rds/src -lRtl -lRgs \
+-L$(top_builddir)/rdscif/src -lRcf -lRfm -lRpr -lRwi -lRut \
+-L$(top_builddir)/rdsgds/src -lRds \
+-L$(top_builddir)/mbk/src -lMpu \
+-L$(top_builddir)/mbkvti/src -lMcp \
+-L$(top_builddir)/mbkap/src -lMap \
+-L$(top_builddir)/mbkmg/src -lMmg -lMph \
 -lMut
 
 druc_SOURCES = \

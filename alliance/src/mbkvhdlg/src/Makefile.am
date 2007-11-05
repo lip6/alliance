@@ -21,14 +21,14 @@ mvl_scomp_l.c : $(srcdir)/mvl_scomp_l.l mvl_scomp_y.h
 
 bin_PROGRAMS     = x2vy
 x2vy_SOURCES     = x2vy_main.c
-x2vy_LDADD       = -L$(top_srcdir)/mbk/src -lMlu \
-                   -L$(top_srcdir)/mbkvti/src -lMcl \
-                   -L$(top_srcdir)/mbkedif/src -lMel \
-                   -L$(top_srcdir)/mbkhilo/src -lMhl \
-                   -L$(top_srcdir)/mbkal/src -lMal \
-                   -L$(top_srcdir)/mbkspice/src -lMsl \
-                   -L$(top_srcdir)/mbkvrlog/src -lMgl \
-                   -L$(top_srcdir)/mbkvhdlg/src -L. -lMvg \
+x2vy_LDADD       = -L$(top_builddir)/mbk/src -lMlu \
+                   -L$(top_builddir)/mbkvti/src -lMcl \
+                   -L$(top_builddir)/mbkedif/src -lMel \
+                   -L$(top_builddir)/mbkhilo/src -lMhl \
+                   -L$(top_builddir)/mbkal/src -lMal \
+                   -L$(top_builddir)/mbkspice/src -lMsl \
+                   -L$(top_builddir)/mbkvrlog/src -lMgl \
+                   -L$(top_builddir)/mbkvhdlg/src -L. -lMvg \
                    -lMlo \
                    -lMut \
                    -lRcn

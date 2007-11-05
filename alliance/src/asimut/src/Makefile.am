@@ -26,23 +26,23 @@ bin_PROGRAMS = asimut
 
 asimut_LDADD = \
 -L. libCst.la libSch.la \
--L$(top_srcdir)/mbkvti/src \
--L$(top_srcdir)/mbkedif/src \
--L$(top_srcdir)/mbkhilo/src \
--L$(top_srcdir)/mbkvrlog/src \
--L$(top_srcdir)/mbkspice/src \
--L$(top_srcdir)/mbkvhdlg/src \
--L$(top_srcdir)/mbk/src \
--L$(top_srcdir)/mbk/src \
--L$(top_srcdir)/bvl/src \
--L$(top_srcdir)/bhl/src \
--L$(top_srcdir)/beh/src \
--L$(top_srcdir)/ppt/src \
--L$(top_srcdir)/phl/src \
--L$(top_srcdir)/pat/src \
--L$(top_srcdir)/log/src \
--L$(top_srcdir)/mbk/src \
--L$(top_srcdir)/mbkal/src \
+-L$(top_builddir)/mbkvti/src \
+-L$(top_builddir)/mbkedif/src \
+-L$(top_builddir)/mbkhilo/src \
+-L$(top_builddir)/mbkvrlog/src \
+-L$(top_builddir)/mbkspice/src \
+-L$(top_builddir)/mbkvhdlg/src \
+-L$(top_builddir)/mbk/src \
+-L$(top_builddir)/mbk/src \
+-L$(top_builddir)/bvl/src \
+-L$(top_builddir)/bhl/src \
+-L$(top_builddir)/beh/src \
+-L$(top_builddir)/ppt/src \
+-L$(top_builddir)/phl/src \
+-L$(top_builddir)/pat/src \
+-L$(top_builddir)/log/src \
+-L$(top_builddir)/mbk/src \
+-L$(top_builddir)/mbkal/src \
 -lMlu \
 -lMal \
 -lMcl -lMel -lMhl -lMgl -lMsl \
