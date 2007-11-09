@@ -2495,6 +2495,7 @@ void VasyDriveSynopsysRtlFig( RtlFigure, FileName )
 ** Special treatments for Synopsys
 */
     VasyDriveSynopsysTreatFigure( RtlFigure );
+    VasySimplifyRtlFig( RtlFigure );
     VasyDriveSynopsysEntity( RtlFigure );
     VasyDriveSynopsysArchi( RtlFigure );
 
