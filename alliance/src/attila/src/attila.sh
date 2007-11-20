@@ -1,6 +1,6 @@
 #!/bin/sh
 #
-# $Id: attila.sh,v 1.22 2005/10/03 14:44:41 jpc Exp $
+# $Id: attila.sh,v 1.23 2007/11/20 17:51:21 alliance Exp $
 #                                                                        
 # /------------------------------------------------------------------\
 # |                                                                  |
@@ -14,6 +14,10 @@
 # | **************************************************************** |
 # |  U p d a t e s                                                   |
 # | $Log: attila.sh,v $
+# | Revision 1.23  2007/11/20 17:51:21  alliance
+# |
+# | Added support for SLSoC5x (32 & 64 bits).
+# |
 # | Revision 1.22  2005/10/03 14:44:41  jpc
 # |
 # | Added support for SLA4x.
@@ -197,13 +201,19 @@
 
  guess_os ()
  {
-   case "`uname -sr`" in
-     Linux*2.4.9*)  echo "Linux.RH71";;
-     Linux*FC2*)    echo "Linux.FC2";;
-     Linux*EL*)     echo "Linux.SLA4x";;
-     SunOS\ 5*)     echo "Solaris";;
-     Darwin*)       echo "Darwin";;
-     *)             echo "`uname -sr`";;
+   case "`uname -srm`" in
+     Linux*FC2*)        echo "Linux.FC2";;
+     Linux*SLA*)        echo "Linux.SLA4x";;
+     Linux*EL*i686*)    echo "Linux.SLA4x";;
+     Linux*EL*x86_64*)  echo "Linux.SLA4x_64";;
+     Linux*2.6.16*FC5*) echo "Linux.SLA4x";;
+     Linux*el5*)        echo "Linux.SLSoC5x";;
+     Linux*SLSoC5*)     echo "Linux.SLSoC5x";;
+     Linux*el5*x86_64)  echo "Linux.SLSoC5x_64";;
+     Linux*i686*)       echo "Linux.i686";;
+     SunOS\ 5*)         echo "Solaris";;
+     Darwin*)           echo "Darwin";;
+     *)                 echo "`uname -sr`";;
    esac
  }
 
@@ -216,31 +226,41 @@
  guess_gcc ()
  {
    case "$1" in
-     "Linux.RH71")  if which gcc > /dev/null 2>&1; then
-                      CXX=$LINUX_RH71_CXX
-                       CC=$LINUX_RH71_CC
-                    fi
-                    ;;
-     "Linux.SLA4x") if which gcc > /dev/null 2>&1; then
-                     CXX=$LINUX_SLA4x_CXX
-                      CC=$LINUX_SLA4x_CC
-                    fi
-                    ;;
-     "Linux.FC2")   if which gcc > /dev/null 2>&1; then
-                      CXX=$LINUX_FC2_CXX
-                       CC=$LINUX_FC2_CC
-                    fi
-                    ;;
-     "Solaris")     if [ -x "$SOLARIS_CC" ]; then
-                      CXX=$SOLARIS_CXX
-                       CC=$SOLARIS_CC
-                    fi
-                    ;;
-     "Darwin")      if [ -x "$DARWIN_CC" ]; then
-                      CXX=$DARWIN_CXX
-                       CC=$DARWIN_CC
-                    fi
-                    ;;
+     "Linux.SLSoC5x")    if which gcc > /dev/null 2>&1; then
+                           CXX=$LINUX_SLSoC5x_CXX
+                            CC=$LINUX_SLSoC5x_CC
+                         fi
+                         ;;
+     "Linux.SLSoC5x_64") if which gcc > /dev/null 2>&1; then
+                           CXX=$LINUX_SLSoC5x_64_CXX
+                            CC=$LINUX_SLSoC5x_64_CC
+                         fi
+                         ;;
+     "Linux.SLA4x")      if which gcc > /dev/null 2>&1; then
+                          CXX=$LINUX_SLA4x_CXX
+                           CC=$LINUX_SLA4x_CC
+                         fi
+                         ;;
+     "Linux.FC2")        if which gcc > /dev/null 2>&1; then
+                           CXX=$LINUX_FC2_CXX
+                            CC=$LINUX_FC2_CC
+                         fi
+                         ;;
+     "Linux.RH71")       if which gcc > /dev/null 2>&1; then
+                           CXX=$LINUX_RH71_CXX
+                            CC=$LINUX_RH71_CC
+                         fi
+                         ;;
+     "Solaris")          if [ -x "$SOLARIS_CC" ]; then
+                           CXX=$SOLARIS_CXX
+                            CC=$SOLARIS_CC
+                         fi
+                         ;;
+     "Darwin")           if [ -x "$DARWIN_CC" ]; then
+                           CXX=$DARWIN_CXX
+                            CC=$DARWIN_CC
+                         fi
+                         ;;
    esac
  }
 
@@ -453,11 +473,13 @@
    echo "  o  Compilation environment."
 
    case "$ALLIANCE_OS" in
-     "Linux.RH71")   MAKE="make";;
-     "Linux.FC2")    MAKE="make";;
-     "Linux.SLA4x")  MAKE="make";;
-     "Solaris")      MAKE="gmake";;
-     "Darwin")       MAKE="make";;
+     "Linux.SLSoC5x_64")  MAKE="make";;
+     "Linux.SLSoC5x")     MAKE="make";;
+     "Linux.SLA4x")       MAKE="make";;
+     "Linux.FC2")         MAKE="make";;
+     "Linux.RH71")        MAKE="make";;
+     "Solaris")           MAKE="gmake";;
+     "Darwin")            MAKE="make";;
      *) echo "attila: \"$ALLIANCE_OS\" is not supported, only Linux & Solaris"
         echo "        are."
 
@@ -595,32 +617,40 @@
 
    CVS_STARTUP_FILES=""
 
-   LINUX_RH71_TARGET="fa"
-       LINUX_RH71_CC="gcc3"
-      LINUX_RH71_CXX="g++3"
+  LINUX_SLSoC5x_64_TARGET="coriolis"
+      LINUX_SLSoC5x_64_CC="gcc"
+     LINUX_SLASoC5_64_CXX="g++"
 
-    LINUX_FC2_TARGET="tsunami"
-        LINUX_FC2_CC="gcc"
-       LINUX_FC2_CXX="g++"
+     LINUX_SLSoC5x_TARGET="nausicaa"
+         LINUX_SLSoC5x_CC="gcc"
+        LINUX_SLASoC5_CXX="g++"
 
-  LINUX_SLA4x_TARGET="re"
-      LINUX_SLA4x_CC="gcc"
-     LINUX_SLA4x_CXX="g++"
+       LINUX_SLA4x_TARGET="tsunami"
+           LINUX_SLA4x_CC="gcc"
+          LINUX_SLA4x_CXX="g++"
 
-      SOLARIS_TARGET="funk"
-          SOLARIS_CC="/usr/local/bin/gcc"
-         SOLARIS_CXX="/usr/local/bin/g++"
+         LINUX_FC2_TARGET="tsunami"
+             LINUX_FC2_CC="gcc"
+            LINUX_FC2_CXX="g++"
 
-       DARWIN_TARGET="paques"
-           DARWIN_CC="gcc"
-          DARWIN_CXX="g++"
+        LINUX_RH71_TARGET="fa"
+            LINUX_RH71_CC="gcc3"
+           LINUX_RH71_CXX="g++3"
+
+           SOLARIS_TARGET="funk"
+               SOLARIS_CC="/usr/local/bin/gcc"
+              SOLARIS_CXX="/usr/local/bin/g++"
+
+            DARWIN_TARGET="paques"
+                DARWIN_CC="gcc"
+               DARWIN_CXX="g++"
 
 
 # --------------------------------------------------------------------
 # Internal variables.
 
 
-             ALL_OSS="Linux.RH71 Linux.FC2 Linux.SLA4x Solaris"
+             ALL_OSS="Linux.SLSoC5x Linux.SLA4x Solaris"
                   CC=gcc
                  CXX=g++
               export CC CXX
@@ -798,10 +828,12 @@
    ENVIRONMENT=""
    ENVIRONMENT="$ENVIRONMENT ALLIANCE_TOP=$ALLIANCE_TOP; export ALLIANCE_TOP;"
 
-   $RSH $LINUX_SLA4x_TARGET "/bin/bash -c \"$ENVIRONMENT $SELF $ARGS\""
-   $RSH $LINUX_FC2_TARGET   "/bin/bash -c \"$ENVIRONMENT $SELF $ARGS\""
-   $RSH $LINUX_RH71_TARGET  "/bin/bash -c \"$ENVIRONMENT $SELF $ARGS\""
-   $RSH $SOLARIS_TARGET     "/bin/bash -c \". /etc/profile; $ENVIRONMENT $SELF $ARGS\""
+  #$RSH $LINUX_SLSoC5x_64_TARGET "/bin/bash -c \"$ENVIRONMENT $SELF $ARGS\""
+   $RSH $LINUX_SLSoC5x_TARGET    "/bin/bash -c \"$ENVIRONMENT $SELF $ARGS\""
+   $RSH $LINUX_SLA4x_TARGET      "/bin/bash -c \"$ENVIRONMENT $SELF $ARGS\""
+  #$RSH $LINUX_FC2_TARGET        "/bin/bash -c \"$ENVIRONMENT $SELF $ARGS\""
+  #$RSH $LINUX_RH71_TARGET       "/bin/bash -c \"$ENVIRONMENT $SELF $ARGS\""
+   $RSH $SOLARIS_TARGET          "/bin/bash -c \". /etc/profile; $ENVIRONMENT $SELF $ARGS\""
  else
   # Out of recursion...
    if [ "$DEVEL" = "y" ]; then
