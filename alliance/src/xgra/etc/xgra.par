@@ -1,0 +1,63 @@
+# /*------------------------------------------------------------\
+# |                                                             |
+# | Title      :       Parameters File for Xvpn                 |
+# |                                                             |
+# | Date       :             01.01.95                           |
+# |                                                             |
+# \------------------------------------------------------------*/
+# /*------------------------------------------------------------\
+# |                                                             |
+# |                           Unit                              |
+# |                                                             |
+# \------------------------------------------------------------*/
+
+DEFINE XGRA_UNIT  32
+
+# /*------------------------------------------------------------\
+# |                                                             |
+# |               Lower Grid Step in pixel by unit              |
+# |                                                             |
+# \------------------------------------------------------------*/
+
+DEFINE XGRA_LOWER_GRID_STEP 50
+
+# /*------------------------------------------------------------\
+# |                                                             |
+# |                  Xvpn Cursor Color Name                     |
+# |                                                             |
+# \------------------------------------------------------------*/
+
+DEFINE XGRA_CURSOR_COLOR_NAME      Black
+DEFINE XGRA_BACKGROUND_COLOR_NAME  Black
+DEFINE XGRA_FOREGROUND_COLOR_NAME  White
+DEFINE XGRA_ACCEPT_COLOR_NAME      magenta
+DEFINE XGRA_CONNECT_COLOR_NAME     pink
+
+# /*------------------------------------------------------------\
+# |                                                             |
+# |                  Xvpn Cursor Size in pixel                  |
+# |                                                             |
+# \------------------------------------------------------------*/
+
+DEFINE XGRA_CURSOR_SIZE 10 
+
+# /*------------------------------------------------------------\
+# |                                                             |
+# |                     Xvpn Layer Color                        |
+# |                                                             |
+# \------------------------------------------------------------*/
+
+TABLE XGRA_LAYER_NAME
+
+  0   Process         Cyan              Black
+  1   Function        sky_blue          Black
+  2   Wait            pink              Black
+  3   Assign          lawn_green        Black
+  4   Guard           red               Black
+  5   Asg-Guard       yellow            Black
+  6   Token           magenta           Black
+  7   Unused_7        gray              Black
+  8   Unused_8        gray              Black
+  9   Unused_9        gray              Black
+
+END 
