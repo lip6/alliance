@@ -6,16 +6,16 @@ AM_CFLAGS    = -g -I$(top_srcdir)/mbk/src
 bin_PROGRAMS = m2e
 
 m2e_LDADD    = \
--L$(top_srcdir)/mbk/src \
--L$(top_srcdir)/mbkal/src \
--L$(top_srcdir)/mbkap/src \
--L$(top_srcdir)/mbkedif/src \
--L$(top_srcdir)/mbkhilo/src \
--L$(top_srcdir)/mbkmg/src \
--L$(top_srcdir)/mbkspice/src \
--L$(top_srcdir)/mbkvhdlg/src \
--L$(top_srcdir)/mbkvrlog/src \
--L$(top_srcdir)/mbkvti/src \
+-L$(top_builddir)/mbk/src \
+-L$(top_builddir)/mbkal/src \
+-L$(top_builddir)/mbkap/src \
+-L$(top_builddir)/mbkedif/src \
+-L$(top_builddir)/mbkhilo/src \
+-L$(top_builddir)/mbkmg/src \
+-L$(top_builddir)/mbkspice/src \
+-L$(top_builddir)/mbkvhdlg/src \
+-L$(top_builddir)/mbkvrlog/src \
+-L$(top_builddir)/mbkvti/src \
 -lMpu -lMlu  \
                -lMcl -lMcp  \
                -lMal -lMap  \
