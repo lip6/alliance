@@ -11,6 +11,7 @@ start.pdf : start.dvi
 
 start.dvi : start.tex
 	latex start.tex
+	latex start.tex
 
 clean :
 	rm -f $(MYFILE).ps $(MYFILE).pdf *.log *.dvi *.aux
