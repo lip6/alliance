@@ -3,12 +3,13 @@
 % Author : Frederic Petrot
 % Modified by : Olivier Sirol
 % Modified by : Ludovic Jacomme
-% $Id: overview.tex,v 1.6 2004/07/26 19:46:33 ludo Exp $
+% $Id: overview.tex,v 1.7 2007/12/26 12:37:26 xtof Exp $
 %
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \documentclass{article}
-\usepackage{t1enc,isolatin1}
-\usepackage{palatino,psfig,here}
+%\usepackage{t1enc,isolatin1}
+\usepackage{t1enc}
+\usepackage{palatino,graphicx,here}
 \textheight 9.0in
 \textwidth 6.0in
 \topmargin -0.0in
@@ -369,7 +370,8 @@ together around the basic behavioral, structural and physical
 data structures.
 
 \begin{figure}\center
-\leavevmode\psfig{file=tools.eps,width=8cm}
+%\leavevmode
+\includegraphics[width=\linewidth]{tools.eps}
 \caption{\label{tools}How the tools are linked on the data structures.}
 \end{figure}
 
@@ -528,7 +530,8 @@ these technologies.
       Editing a cell under \texttt{graal} is shown figure~\ref{graal}.
       
        \begin{figure}\center
-          \leavevmode\psfig{file=graal.eps,width=5cm}
+         % \leavevmode
+          \includegraphics[width=5cm]{graal.eps}
           \caption{\label{graal}Editing some custom layout using \texttt{graal}.}
        \end{figure}
 
@@ -906,7 +909,8 @@ Project         & transistors & Functionality\\
 \end{figure}
 
 \begin{figure}\center
-\leavevmode\psfig{file=stacs.eps,width=5cm}
+%\leavevmode
+\includegraphics[width=5cm]{stacs.eps}
 \caption{\label{stacs} The 875 000 VLIW StaCS processor.}
 \end{figure}
 
