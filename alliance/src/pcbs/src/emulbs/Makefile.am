@@ -18,25 +18,25 @@ CLEANFILES          =  emul_y.c emul_y.h emul_l.c y.tab.h y.tab.c
 INCLUDES = -I$(srcdir)/../emulbs 
 
 emulbs_LDADD = @ALLIANCE_LIBS@ \
--L$(top_srcdir)/asimut/src \
--L$(top_srcdir)/beh/src \
--L$(top_srcdir)/bhl/src \
--L$(top_srcdir)/genlib/src \
--L$(top_srcdir)/log/src \
--L$(top_srcdir)/mbk/src \
--L$(top_srcdir)/mbkal/src \
--L$(top_srcdir)/mbkap/src \
--L$(top_srcdir)/mbkedif/src \
--L$(top_srcdir)/mbkhilo/src \
--L$(top_srcdir)/mbkmg/src \
--L$(top_srcdir)/mbkspice/src \
--L$(top_srcdir)/mbkvhdl/src \
--L$(top_srcdir)/mbkvhdlg/src \
--L$(top_srcdir)/mbkvrlog/src \
--L$(top_srcdir)/mbkvti/src \
--L$(top_srcdir)/pat/src \
--L$(top_srcdir)/phl/src \
--L$(top_srcdir)/ppt/src \
+-L$(top_builddir)/asimut/src \
+-L$(top_builddir)/beh/src \
+-L$(top_builddir)/bhl/src \
+-L$(top_builddir)/genlib/src \
+-L$(top_builddir)/log/src \
+-L$(top_builddir)/mbk/src \
+-L$(top_builddir)/mbkal/src \
+-L$(top_builddir)/mbkap/src \
+-L$(top_builddir)/mbkedif/src \
+-L$(top_builddir)/mbkhilo/src \
+-L$(top_builddir)/mbkmg/src \
+-L$(top_builddir)/mbkspice/src \
+-L$(top_builddir)/mbkvhdl/src \
+-L$(top_builddir)/mbkvhdlg/src \
+-L$(top_builddir)/mbkvrlog/src \
+-L$(top_builddir)/mbkvti/src \
+-L$(top_builddir)/pat/src \
+-L$(top_builddir)/phl/src \
+-L$(top_builddir)/ppt/src \
      -lMpu \
      -lMal \
      -lMap \
