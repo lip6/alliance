@@ -160,6 +160,7 @@ class PPlacement {
 		struct phfig* physfig,
 		char* filename):
 	    _prePlaceFig(physfig),
+	_rowZeroOrientation(false),
 	RowMult(rowmult), BinMult(binmult), NetMult(netmult),
 	_placeCons(conflg), _ringPlaceCons(ringflg), _iocFile(iocfile), _iocFileName(iocfilename),
 	_boolPlot(plotflg), _verbose(verbose), _prePlace(preflg), _eqMargin(eqmargin),

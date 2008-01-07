@@ -206,5 +206,12 @@ double PRow::GetSubRowsCapa() const
 
 ostream& PRow::Print(ostream& os) const
 {
-    return os << "PRow: " << GetMinX() << ',' << GetMinY() << " : " << GetMaxX() << ',' << GetMaxY();
+    string orientation;
+    if (_orientation) {
+        orientation = "ON";
+    } else {
+        orientation = "OFF";
+    }
+    return os << "PRow: " << GetMinX() << ',' << GetMinY() <<
+        " : " << GetMaxX() << ',' << GetMaxY() << "," << orientation;
 }

@@ -1533,7 +1533,8 @@ PPlacement::InitPlaceWithPrePlace()
 	  int numsubrows = CheckCreateRow(tabpreplace, yit, Width);
 	  if (numsubrows > 0)
 	  {
-	    _rows.push_back(new PRow(*this, (double)(yit * ROWHEIGHT), Width, numsubrows, orientation));
+            PRow* row = new PRow(*this, (double)(yit * ROWHEIGHT), Width, numsubrows, orientation);
+            _rows.push_back(row);
 	    _rowsYMax[(yit + 1) * ROWHEIGHT] = numrows;
 	    _rowsYMinInv[yit * ROWHEIGHT] = numrows;
 	    ++numrows;
