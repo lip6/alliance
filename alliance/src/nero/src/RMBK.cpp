@@ -1,7 +1,7 @@
 
 // -*- C++ -*-
 //
-// $Id: RMBK.cpp,v 1.16 2006/04/12 16:33:00 jpc Exp $
+// $Id: RMBK.cpp,v 1.17 2008/06/11 09:20:34 jpc Exp $
 //
 //  /----------------------------------------------------------------\ 
 //  |                                                                |
@@ -38,10 +38,12 @@ void  CRBox::mbkload (MBK::CFig *mbkfig
                      , int zup
                      , int rtype
                      , bool halfpitch
-                     , bool rotate )
+                     , bool rotate
+                     , set<string>* subNetList )
 {
     MBK::MIns::iterator   itIns, endInstances, endOrphans;
   MBK::MLosig::iterator   endSig;
+  MBK::MLosig::iterator   sig;
                    long   mX, mY, mZ, x, y, zz, xadjust, yadjust, yoffsetslice;
                    long   XRW1, YRW1, XRW2, YRW2;
                    bool   use_global;
@@ -327,7 +329,8 @@ void  CRBox::mbkload (MBK::CFig *mbkfig
     }
 
     // Partially routed signals.
-    if (fig->lofig.signals.find(pSeg->NAME) == endSig) {
+    sig = fig->lofig.signals.find(pSeg->NAME);
+    if ( sig == endSig) {
       cerr << hwarn ("")
            << "  The segment \"" << pSeg->NAME << "\" at ("
            << MBK::UNSCALE (pSeg->X1) << ","
@@ -340,7 +343,7 @@ void  CRBox::mbkload (MBK::CFig *mbkfig
       continue;
     }
 
-    pNet = getnet (pSeg->NAME);
+    pNet = getnet (getsigname(sig->second));
     if ( !pNet->fixed ) {
       cmess2 << "     o  Signal " << pNet->name << " is assumed to be routed.\n";
       pNet->fixed = true;
@@ -542,6 +545,17 @@ void  CRBox::mbkload (MBK::CFig *mbkfig
     cdebug << "+            " << pNet->bb << ".\n";
   } // End of "pSig" (signal) loop.
 
+  // Restrict routed nets to the subNetList.
+  if ( subNetList ) {
+    for ( MNet::iterator it=nets.begin() ; it != nets.end() ; it++ ) {
+      if ( subNetList->find(it->first) != subNetList->end() ) {
+        cmess2 << "     o  Restricting nets to route.\n";
+        cmess2 << "        - \"" << it->first << "\".\n";
+      } else
+        it->second->fixed = true;
+    }
+  }
+
 
   // Allocate the net scheduler.
   cmess2 << "     o  Allocating the net scheduler.\n";
@@ -579,7 +593,7 @@ void  CRBox::mbkload (MBK::CFig *mbkfig
   }
 
   // Bottom & top horizontal edges.
-  if ( xadjust == 0 ) {
+  if ( yadjust == 0 ) {
     for (y = 0; y < mY; y += mY - 1) {
       for (x = 0; x < mX; x++) {
         for (zz = 1; zz < mZ; zz++) {

@@ -1,7 +1,7 @@
 
 // -*- C++ -*-
 //
-// $Id: nero.cpp,v 1.11 2006/04/12 16:33:00 jpc Exp $
+// $Id: nero.cpp,v 1.12 2008/06/11 09:20:35 jpc Exp $
 //
 //  /----------------------------------------------------------------\ 
 //  |                                                                |
@@ -79,6 +79,8 @@ static void help (void)
        << "     [-6|--layers-6]     := Use only 6 routing layers.\n"
        << "     [-G|--global]       := Force use of global routing.\n"
        << "     [-L|--local]        := Disable use of global routing.\n"
+       << "     [-N]--netset <netset>]   :=\n"
+       << "         Route only this subset of nets.\n"
        << "     [-p|--place <placement>] :=\n"
        << "         Name of the layout file holding the placement, without\n"
        << "         extention. If ommited the layout file is assumed to have\n"
@@ -96,7 +98,7 @@ static void help (void)
 
 static void serial (void)
 {
-  cout << "                                S/N 20051017.1\n";
+  cout << "                                S/N 20080611.1\n";
 }
 
 
@@ -136,10 +138,11 @@ void emergency (void)
 
 int  main (int argc, char *argv[])
 {
-  COpts       options;
-  MBK::CFig  *fig;
-  string      name_lofig, name_placed, name_routed;
-  int         layers, global;
+  COpts        options;
+  MBK::CFig   *fig;
+  string       name_lofig, name_placed, name_routed;
+  int          layers, global;
+  set<string>* netSet = NULL;
 
 
   try {
@@ -157,6 +160,7 @@ int  main (int argc, char *argv[])
     options.add ("G", "global");
     options.add ("L", "local");
     options.add ("p", "place", true);
+    options.add ("N", "netset", true);
     options.getopts (argc, argv);
 
     if (options["c"]->parsed) interrupt.coredump = true;
@@ -200,6 +204,25 @@ int  main (int argc, char *argv[])
       name_placed = name_lofig;
     }
 
+    if (options["N"]->parsed) {
+      string fileNetSet = options["N"]->value;
+      cout << "File: " << fileNetSet << endl;
+      FILE* file = fopen ( fileNetSet.c_str(), "r" );
+      if ( file ) {
+        cout << "File Sucessfully opened." << endl;
+        netSet = new set<string>();
+        char buffer[2048];
+        while ( !feof(file) ) {
+          fgets ( buffer, 2048, file );
+          size_t length = strlen(buffer);
+          if ( buffer[length-1] == '\n' )
+            buffer[length-1] = '\0';
+          netSet->insert ( buffer );
+        }
+        fclose ( file );
+      }
+    }
+
     layers = 3;
     if (options["2"]->parsed) layers = 3;
     if (options["3"]->parsed) layers = 4;
@@ -226,10 +249,13 @@ int  main (int argc, char *argv[])
                    , 4
                    , global
                    , options["H"]->parsed
-                   , options["R"]->parsed );
+                   , options["R"]->parsed
+                   , netSet );
     //cdebug.off ();
     crbox->route ();
     crbox->mbksave (name_routed);
+
+    if ( netSet ) delete netSet;
   }
 
 

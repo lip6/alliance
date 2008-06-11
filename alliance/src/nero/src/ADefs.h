@@ -1,7 +1,7 @@
 
 // -*- C++ -*-
 //
-// $Id: ADefs.h,v 1.3 2002/10/29 18:46:03 jpc Exp $
+// $Id: ADefs.h,v 1.4 2008/06/11 09:20:34 jpc Exp $
 //
 // /-----------------------------------------------------------------\ 
 // |                                                                 |
@@ -138,7 +138,7 @@
 
       // Allocators.
       private: static void *operator new    (size_t size);
-      private: static void  operator delete (void *zone);
+      public: static void  operator delete (void *zone);
       public:  static void *operator new    (size_t size, CNodeASSet &NS);
 
       // Modifiers.

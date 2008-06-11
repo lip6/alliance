@@ -1,7 +1,7 @@
 
 // -*- C++ -*-
 //
-// $Id: MMBK.cpp,v 1.8 2005/10/17 23:11:05 jpc Exp $
+// $Id: MMBK.cpp,v 1.9 2008/06/11 09:20:34 jpc Exp $
 //
 // /-----------------------------------------------------------------\ 
 // |                                                                 |
@@ -468,7 +468,6 @@ ostream &operator<< (ostream &o, const CEnv &self)
 CLofig::CLofig (string &name)
 {
   loins_list *pLoins;
-  losig_list *pLosig;
 
 
   cmess1 << "  o  Loading netlist \"" << name << "\"...\n";
@@ -477,11 +476,6 @@ CLofig::CLofig (string &name)
   // Build the instances dictionnary (map).
   for (pLoins = fig->LOINS; pLoins != NULL; pLoins = pLoins->NEXT) {
     instances[pLoins->INSNAME] = pLoins;
-  }
-
-  // Build the signal dictionnary.
-  for (pLosig = fig->LOSIG; pLosig != NULL; pLosig = pLosig->NEXT) {
-    signals[getsigname(pLosig)] = pLosig;
   }
 }
 
@@ -505,6 +499,8 @@ CLofig::~CLofig (void)
 void CLofig::rflatten (char concat, char catal)
 {
   loins_list *pLoins;
+  losig_list *pLosig;
+  chain_list *pChain;
 
 
   cmess2 << "  o  Flattening netlist...\n";
@@ -514,6 +510,15 @@ void CLofig::rflatten (char concat, char catal)
   instances.clear ();
   for (pLoins = fig->LOINS; pLoins != NULL; pLoins = pLoins->NEXT) {
     instances[pLoins->INSNAME] = pLoins;
+  }
+
+  // Build the signal dictionnary.
+  // Load all name aliases.
+  for (pLosig = fig->LOSIG; pLosig != NULL; pLosig = pLosig->NEXT) {
+    //signals[getsigname(pLosig)] = pLosig;
+    for (pChain = pLosig->NAMECHAIN ; pChain !=NULL; pChain = pChain->NEXT) {
+      signals[(char*)pChain->DATA] = pLosig;
+    }
   }
 }
 
