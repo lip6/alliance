@@ -52,9 +52,8 @@ PCon::PCon(const locon* con, PPos pos, char orient)
 {}
 
 void
-PCon::Save(struct phfig *physicalfig, const double dx, const double dy) const
-{
-    if (!_phcon)
+PCon::Save(struct phfig *physicalfig, const double dx, const double dy) const {
+    if (!_phcon) {
         addphcon(physicalfig
                 , _orient
                 , _con->NAME
@@ -62,15 +61,20 @@ PCon::Save(struct phfig *physicalfig, const double dx, const double dy) const
                 , (int)(GetPosY() * PITCH + dy)
                 , _orient==NORTH || _orient == SOUTH ? ALU2 : ALU3
                 , (_orient==NORTH || _orient == SOUTH ? 2 : 1) * (PITCH/5));
-    else
-        addphcon(physicalfig
-                , _phcon->ORIENT
-                , _phcon->NAME
-                , _phcon->XCON
-                , _phcon->YCON
-                , _phcon->LAYER
-                , _phcon->WIDTH
-                );
+    } else {
+#if 0
+        addphcon(physicalfig,
+                _phcon->ORIENT,
+                _phcon->NAME,
+                _phcon->XCON,
+                _phcon->YCON,
+                _phcon->LAYER,
+                _phcon->WIDTH);
+        //modification 15/07/2008 (xtof)
+        //why should we add the physical connectors
+        //on the existing phfig ?
+#endif 
+    }
 
                 
                 

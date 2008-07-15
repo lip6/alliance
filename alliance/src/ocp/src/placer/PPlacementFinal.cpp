@@ -258,13 +258,11 @@ PPlacement::FinalOptimize()
 // int Save()
 // ======================================================================
 int
-PPlacement::Save()
-{
+PPlacement::Save() {
     char* phfigname;
     struct phfig* physicalfig;
 
-    if (!_prePlaceFig)
-    {
+    if (!_prePlaceFig) {
 	physicalfig = addphfig(_fileName);
 	phfigname = _fileName;
 	if (_verbose) cout << "NO PREPLACEMENT GIVEN" << endl;
@@ -272,9 +270,7 @@ PPlacement::Save()
 	physicalfig->XAB2 =(int)(BBox.GetMaxX() * PITCH);
 	physicalfig->YAB1 =(int)(BBox.GetMinY() * PITCH);
 	physicalfig->YAB2 =(int)(BBox.GetMaxY() * PITCH);
-    }
-    else
-    {
+    } else {
 	if (_verbose) cout << "PREPLACEMENT GIVEN" << endl;
 	physicalfig = _prePlaceFig;
 	phfigname = physicalfig->NAME;
@@ -291,12 +287,14 @@ PPlacement::Save()
 	}
     }
 
-    for (PCons::const_iterator cit = _cons.begin(); cit != _cons.end(); cit++)
-    {
-       if (_ringPlaceCons)
+    for (PCons::const_iterator cit = _cons.begin();
+            cit != _cons.end();
+            cit++) {
+       if (_ringPlaceCons) {
     	(*cit)->RingSave(physicalfig, _dx, _dy);
-       else
+       } else {
     	(*cit)->Save(physicalfig, _dx, _dy);
+       }
     }
     
     int superr = AddRowend(physicalfig);

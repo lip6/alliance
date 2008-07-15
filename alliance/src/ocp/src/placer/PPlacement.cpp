@@ -224,14 +224,11 @@ PPlacement::Init(lofig* fig, int NbRows)
 		    it = it->NEXT)
 	    {
 		locon_list* con = (locon_list*)(it->DATA);
-		if (con->TYPE == EXTERNAL)
-		{
+		if (con->TYPE == EXTERNAL) {
 		    if ( (_prePlaceFig && _prePlaceFig->PHCON)
-                            || _placeCons || _ringPlaceCons || _iocFile)
-		    {
+                            || _placeCons || _ringPlaceCons || _iocFile) {
                         PConMap::iterator cit = pconmap.find(con->NAME);
-                        if (cit != pconmap.end())
-                        {
+                        if (cit != pconmap.end()) {
                             ++totreatinscpt;
                         }
 		    }
