@@ -1,6 +1,6 @@
 #!/bin/sh
 #
-# $Id: attila.sh,v 1.23 2007/11/20 17:51:21 alliance Exp $
+# $Id: attila.sh,v 1.24 2008/07/15 16:34:04 xtof Exp $
 #                                                                        
 # /------------------------------------------------------------------\
 # |                                                                  |
@@ -14,6 +14,9 @@
 # | **************************************************************** |
 # |  U p d a t e s                                                   |
 # | $Log: attila.sh,v $
+# | Revision 1.24  2008/07/15 16:34:04  xtof
+# | nausicaa -> bip
+# |
 # | Revision 1.23  2007/11/20 17:51:21  alliance
 # |
 # | Added support for SLSoC5x (32 & 64 bits).
@@ -621,7 +624,7 @@
       LINUX_SLSoC5x_64_CC="gcc"
      LINUX_SLASoC5_64_CXX="g++"
 
-     LINUX_SLSoC5x_TARGET="nausicaa"
+     LINUX_SLSoC5x_TARGET="bip"
          LINUX_SLSoC5x_CC="gcc"
         LINUX_SLASoC5_CXX="g++"
 
