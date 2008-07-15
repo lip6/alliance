@@ -1,6 +1,6 @@
 #!/bin/sh
 #
-# $Id: attila.sh,v 1.24 2008/07/15 16:34:04 xtof Exp $
+# $Id: attila.sh,v 1.25 2008/07/15 16:45:28 xtof Exp $
 #                                                                        
 # /------------------------------------------------------------------\
 # |                                                                  |
@@ -14,6 +14,9 @@
 # | **************************************************************** |
 # |  U p d a t e s                                                   |
 # | $Log: attila.sh,v $
+# | Revision 1.25  2008/07/15 16:45:28  xtof
+# | do not use Solaris anymore
+# |
 # | Revision 1.24  2008/07/15 16:34:04  xtof
 # | nausicaa -> bip
 # |
@@ -836,7 +839,7 @@
    $RSH $LINUX_SLA4x_TARGET      "/bin/bash -c \"$ENVIRONMENT $SELF $ARGS\""
   #$RSH $LINUX_FC2_TARGET        "/bin/bash -c \"$ENVIRONMENT $SELF $ARGS\""
   #$RSH $LINUX_RH71_TARGET       "/bin/bash -c \"$ENVIRONMENT $SELF $ARGS\""
-   $RSH $SOLARIS_TARGET          "/bin/bash -c \". /etc/profile; $ENVIRONMENT $SELF $ARGS\""
+  #$RSH $SOLARIS_TARGET          "/bin/bash -c \". /etc/profile; $ENVIRONMENT $SELF $ARGS\""
  else
   # Out of recursion...
    if [ "$DEVEL" = "y" ]; then
