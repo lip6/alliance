@@ -49,14 +49,14 @@ ALL_X_LIBS = $(X_LDFLAGS) $(LIBXM) $(LIBXT) $(LIBXPM) \
 
 
 graal_LDADD = @ALLIANCE_LIBS@ $(ALL_X_LIBS) \
--L$(top_srcdir)/druc/src \
--L$(top_srcdir)/mbk/src \
--L$(top_srcdir)/mbkap/src \
--L$(top_srcdir)/mbkmg/src \
--L$(top_srcdir)/mbkvti/src \
--L$(top_srcdir)/rds/src \
--L$(top_srcdir)/rdscif/src \
--L$(top_srcdir)/rdsgds/src \
+-L$(top_builddir)/druc/src \
+-L$(top_builddir)/mbk/src \
+-L$(top_builddir)/mbkap/src \
+-L$(top_builddir)/mbkmg/src \
+-L$(top_builddir)/mbkvti/src \
+-L$(top_builddir)/rds/src \
+-L$(top_builddir)/rdscif/src \
+-L$(top_builddir)/rdsgds/src \
 -lVrd -lRtl -lRgs -lRcf -lRfm -lRpr -lRwi -lRut -lRds -lMpu \
 -lMap -lMmg -lMcp -lMph -lMut
 

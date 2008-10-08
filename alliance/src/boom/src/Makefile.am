@@ -12,13 +12,13 @@ AM_CFLAGS = -I$(top_srcdir)/abe/src \
 @ALLIANCE_CFLAGS@
 
 boom_LDADD = @ALLIANCE_LIBS@ \
--L$(top_srcdir)/abv/src \
--L$(top_srcdir)/abe/src \
--L$(top_srcdir)/abt/src \
--L$(top_srcdir)/bdd/src \
--L$(top_srcdir)/abl/src \
--L$(top_srcdir)/aut/src \
--L$(top_srcdir)/mbk/src \
+-L$(top_builddir)/abv/src \
+-L$(top_builddir)/abe/src \
+-L$(top_builddir)/abt/src \
+-L$(top_builddir)/bdd/src \
+-L$(top_builddir)/abl/src \
+-L$(top_builddir)/aut/src \
+-L$(top_builddir)/mbk/src \
           -lAbv -lAbe -lAbt -lBdd -lAbl -lAut -lMut
 
 boom_SOURCES = \
