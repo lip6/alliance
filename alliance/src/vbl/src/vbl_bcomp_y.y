@@ -4645,7 +4645,7 @@ unlabeled_conditional_signal_assignment
 
             if ( ! $1.DYNAMIC )
             {
-              VexTarget = vbl_dynamicvexatom( $1.NAME, $1.LEFT, $1.RIGHT, Dynamic );
+              VexTarget = vbl_dynamicvexatom( $1.NAME, $1.LEFT, $1.RIGHT, 0 );
             }
             else
             {
@@ -4903,7 +4903,7 @@ unlabeled_selected_signal_assignment
 
             if ( ! $5.DYNAMIC )
             {
-              VexTarget = vbl_dynamicvexatom( $5.NAME, $5.LEFT, $5.RIGHT, Dynamic );
+              VexTarget = vbl_dynamicvexatom( $5.NAME, $5.LEFT, $5.RIGHT, 0 );
             }
             else
             {
