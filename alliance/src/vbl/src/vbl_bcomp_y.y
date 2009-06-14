@@ -47,9 +47,9 @@
 #if 1
 # define my_fprintf fprintf( stdout, "%s %d : ", basename(__FILE__), __LINE__ ); fprintf
 # define my_vbl_error(N,V) \
-   do { fprintf( stderr, "%s %d : ", basename(__FILE__), __LINE__); vbl_error(N,V); } while(0)
+   do { fprintf( stderr, "%s %d : ", basename(__FILE__), __LINE__); vbl_error( (long)N, (char *)V); } while(0)
 # define my_vbl_warning(N,V) \
-   do { fprintf( stderr, "%s %d : ", basename(__FILE__), __LINE__); vbl_warning(N,V); } while(0)
+   do { fprintf( stderr, "%s %d : ", basename(__FILE__), __LINE__); vbl_warning((long)N, (char *)V); } while(0)
 #else
 # define my_fprintf   fprintf
 # define my_vbl_error vbl_error
@@ -63,7 +63,7 @@
 %}
 
 %union  {
-          int                valu;
+          long                valu;
           char              *text;
           chain_list        *pcha;
           vbl_name           name;
@@ -496,13 +496,13 @@ package_declaration
             chain_list *ScanChain;
             char       *Name;
             char      **FuncArray;
-            int         Index;   
+            long         Index;   
             long        Left;
             long        Right;
             long        AttrLeft;
             long        AttrRight;
             long        Dir;
-            int         Signed;
+            long         Signed;
             vbcst_list *VbhCst;
             vbaux_list *VbhAux;
             vbmod_list *VbhMod;
@@ -519,7 +519,7 @@ package_declaration
                 extern char *vbl_func_std_logic_arith[];
                 extern char *vbl_func_std_numeric_std[];
 
-           int size=0;
+           long size=0;
            struct vbtyp *vbtyp_pnt;
              VBL_BEFPNT->NAME = $2;
              VBL_BEFPNT->IS_PACKAGE = 1;
@@ -989,7 +989,7 @@ component_instantiation_statement
             vbpor_list *VbPor;
             vbins_list *VbIns;
             vbmap_list *VbMap;
-            int         Explicit;
+            long         Explicit;
 
             VbMod = (vbmod_list *)chktab(hshtab,$2.NAME,VBL_MODNAM,VBL_PNTDFN);
             VbIns = VBL_BEINS;
@@ -1318,8 +1318,8 @@ association_element
           long            in_bound;
           long            out_bound;
           unsigned char   dynamic;
-          int             mode;
-          int             flag;
+          long             mode;
+          long             flag;
 
 	  VBL_COMPNAM = VBL_SAVCOMPNAM;
 	  VBL_SAVCOMPNAM = (char *)0;
@@ -1423,7 +1423,7 @@ association_element
             }
 
             {
-              int  type;
+              long  type;
 
               expr1.IDENT = $1.NAME;
               type = chktab(hshtab,$1.NAME,LocalName,VBL_TYPDFN);
@@ -1830,7 +1830,7 @@ attribute_specification
           Semicolon_ERR
           {
             char Buffer[ 512 ];
-            int  length;
+            long  length;
 
             length = strlen( $9 );
 
@@ -1907,13 +1907,13 @@ entity_declaration
             chain_list *ScanChain;
             char       *Name;
             char      **FuncArray;
-            int         Index;   
+            long         Index;   
             long        Left;
             long        Right;
             long        AttrLeft;
             long        AttrRight;
             long        Dir;
-            int         Signed;
+            long         Signed;
             vbcst_list *VbhCst;
             vbaux_list *VbhAux;
             vbmod_list *VbhMod;
@@ -1930,7 +1930,7 @@ entity_declaration
                 extern char *vbl_func_std_logic_arith[];
                 extern char *vbl_func_std_numeric_std[];
 
-           int size=0;
+           long size=0;
            struct vbtyp *vbtyp_pnt;
              VBL_BEFPNT->NAME = $2;
            VBL_MODNAM = $2;
@@ -2345,8 +2345,8 @@ range
          {
            long Left;
            long Right;
-           int  ErrorL;
-           int  ErrorR;
+           long  ErrorL;
+           long  ErrorR;
 
            ErrorL = vbl_vextonum( $1.VEX, &Left  );
            ErrorR = vbl_vextonum( $3.VEX, &Right );
@@ -2818,7 +2818,7 @@ procedure_parameter_element
             char         *codedsigname;
             char          buffer[ 128 ];
             vbtyp_list   *TypeEnum;
-            int           EnumSize;
+            long           EnumSize;
             vbarg_list   *VbPar;
             short         Signed;
             long          Left;
@@ -3039,7 +3039,7 @@ function_parameter_element
             char         *codedsigname;
             char          buffer[ 128 ];
             vbtyp_list   *TypeEnum;
-            int           EnumSize;
+            long           EnumSize;
             vbarg_list   *VbPar;
             short         Signed;
             long          Left;
@@ -3239,7 +3239,7 @@ subprogram_specification
         : PROCEDURE
           designator
           {
-            int Mode;
+            long Mode;
 
             VBL_FUNCNAM = $2;
 
@@ -3275,7 +3275,7 @@ subprogram_specification
         | FUNCTION
           designator
           {
-            int Mode;
+            long Mode;
 
             VBL_FUNCNAM = $2;
 
@@ -3310,7 +3310,7 @@ subprogram_specification
             long          Right;
             long          AttrLeft;
             long          AttrRight;
-            int           EnumSize;
+            long           EnumSize;
             vbtyp_list   *VbType;
             vexexpr      *VexRet;
 
@@ -3608,7 +3608,7 @@ variable_declaration
             char         *codedsigname;
             char          buffer[ 128 ];
             vbtyp_list   *TypeEnum;
-            int           EnumSize;
+            long           EnumSize;
             vbvar_list   *VbVar;
             short         Signed;
             long          Left;
@@ -3830,7 +3830,7 @@ signal_declaration
             long          Right;
             long          AttrLeft;
             long          AttrRight;
-            int           EnumSize;
+            long           EnumSize;
             vbaux_list   *VbAux;
             vexexpr      *VexInit;
             struct vbl_expr expr1;
@@ -4101,7 +4101,7 @@ subtype_indication
          {
            struct vbtyp *vbtyp_pnt;
            struct vbfun *vbfun_pnt;
-           int           mode;
+           long           mode;
   
            mode = chktab(hshtab,$1,VBL_MODNAM,VBL_SYMDFN);
 
@@ -4183,9 +4183,9 @@ enumeration_type_definition
                 char  buffer[ 128 ];
                 char *enumname;
                 char *enumval;
-              int size;
-              int indice;
-                int numbit;
+              long size;
+              long indice;
+                long numbit;
                 char **pnt;
               chain_list *nm1lst;
 
@@ -4376,7 +4376,7 @@ index_subtype_definition
 
               if ( ( $$.TYPE == 0 ) || ( $$.FLAG == 0 ) )
               {
-                my_vbl_error(83,$1);
+                my_vbl_error(83,$1.NAME);
               }
           }
         ;
@@ -4406,7 +4406,7 @@ type_mark
            simple_name
            {
              vbtyp_list *VbType;
-              int type;
+              long type;
               $$.NAME = $1;
               $$.LEFT = -1;
               $$.RIGHT = -1;
@@ -4550,10 +4550,10 @@ unlabeled_conditional_signal_assignment
             long         Index;
             vbl_vexstr  *ExprCnd;
             vbl_vexstr  *ExprVal;
-            int          ProcessType;
-            int          Type;
-            int          Mode;
-	    int          Width;
+            long          ProcessType;
+            long          Type;
+            long          Mode;
+	    long          Width;
             long         Left;
             long         Right;
             long         Left_bnd;
@@ -4858,16 +4858,16 @@ unlabeled_selected_signal_assignment
             vexexpr     *VexTarget;
             vexexpr     *VexGuard;
             char        *Value;
-            int          SizeValue;
-            int          NumberChoice;
-            int          Type;
-            int          Mode;
+            long          SizeValue;
+            long          NumberChoice;
+            long          Type;
+            long          Mode;
             long         Left;
             long         Right;
             long         Left_bnd;
             long         Right_bnd;
             long         Line;
-            int          ProcessType;
+            long          ProcessType;
             unsigned char Dynamic;
 
            if ( $5.AGGREG )
@@ -5462,7 +5462,7 @@ unlabeled_loop_statement
 .iteration_scheme.
         : /*empty*/
           {
-            $$ = vbl_crtvex( EMPTYOP,NULL ,NULL ,-1,-1,0);
+            $$ = vbl_crtvex( EMPTYOP,VBL_EMPSTR ,VBL_EMPSTR ,-1,-1,0);
           }
         | iteration_scheme
           {
@@ -5540,7 +5540,7 @@ sensitivity_clause
 
 .condition_clause.
        : /*empty*/
-                { $$ = vbl_crtvex (EMPTYOP ,NULL ,NULL ,-1,-1,0); }
+                { $$ = vbl_crtvex (EMPTYOP ,VBL_EMPSTR ,VBL_EMPSTR ,-1,-1,0); }
        | condition_clause
               {
               $$ = $1;
@@ -5689,9 +5689,9 @@ variable_assignment_statement
           expression
           Semicolon_ERR
         {
-           unsigned int  type;
+           unsigned long  type;
            char         *codedsigname;
-           int           mode;
+           long           mode;
            long          left ,right;
            long          left_bnd ,right_bnd;
            char          buffer[128];
@@ -5880,8 +5880,8 @@ signal_assignment_statement
          waveform
          Semicolon_ERR
        {
-           unsigned int   type;
-           int            mode;
+           unsigned long   type;
+           long            mode;
            char           buffer[128];
            char          *codedsigname;
            char          *LocalName;
@@ -6170,9 +6170,9 @@ case_statement
          CASE
          Semicolon_ERR
          {
-           unsigned int size=0;
-           unsigned int *size1;
-           int indice=0;
+           unsigned long size=0;
+           unsigned long *size1;
+           long indice=0;
            struct choice_chain *ch;
            struct vbcho **pnt;
            struct vbcho *tab;
@@ -6210,7 +6210,7 @@ case_statement
              tab[indice++].VALUES = addchain( NULL, namealloc("others") );
            }
            (*pnt) = tab;
-           size1 = (unsigned int*) VBL_INSLST->DATA;
+           size1 = (unsigned long*) VBL_INSLST->DATA;
            *size1 = size;
            VBL_INSLST = delchain(VBL_INSLST,VBL_INSLST);
          }
@@ -6245,7 +6245,7 @@ case_statement_alternative
            {
              struct choice_chain *NewChoice;
              char                *Value;
-             int                  Length;
+             long                  Length;
 
              NewChoice = (struct choice_chain*)autallocblock(sizeof(struct choice_chain));
              NewChoice->VALUES      = (chain_list *)0;
@@ -6350,13 +6350,13 @@ choice
        | name
          {
            vexexpr        *VexCst;
-           int             left;
-           int             right;
-           int             in_bound;
-           int             out_bound;
-           int             left_bnd;
-           int             right_bnd;
-           int             sig_conf;
+           long             left;
+           long             right;
+           long             in_bound;
+           long             out_bound;
+           long             left_bnd;
+           long             right_bnd;
+           long             sig_conf;
 
            if ( ( $1.NAME[0] == '"' ) || ( $1.NAME[0] == '\'') )
            {
@@ -6560,7 +6560,7 @@ simple_expression
           term
                 { if ( $1 == VEX_NEG )
                   {
-                    $$ = vbl_crtvex( VEX_NEG,$2,NULL,-1,-1,0);
+                    $$ = vbl_crtvex( VEX_NEG,$2,VBL_EMPSTR,-1,-1,0);
                   }
                   else
                   {
@@ -6674,8 +6674,8 @@ primary
           long            right_bnd;
           long            in_bound;
           long            out_bound;
-          int             mode;
-          int             flag;
+          long             mode;
+          long             flag;
           unsigned char   dynamic;
 
           flag = $1.FLAG;
@@ -6836,7 +6836,7 @@ primary
             else
 \*/
             {
-              int  type;
+              long  type;
 
               expr1.IDENT = $1.NAME;
               type = chktab(hshtab,$1.NAME,LocalName,VBL_TYPDFN);
@@ -7156,7 +7156,7 @@ indexed_name
             vexexpr    *VexExpr;
             vexexpr    *VexRet;
             long        Index;
-            int         Error;
+            long         Error;
             long        Def;
 
             ScanChain = $2;
@@ -7323,8 +7323,8 @@ slice_name
            char *LocalName;
            long  Left;
            long  Right;
-           int   ErrorL;
-           int   ErrorR;
+           long   ErrorL;
+           long   ErrorR;
 
            if ( chktab(hshtab,$1,VBL_FUNCNAM,VBL_SYMDFN ) )
            {
@@ -7380,9 +7380,9 @@ attribute_name
           attribute_designator
           {
             char *LocalName;
-            int   type;
-            int   flag;
-            int   mode;
+            long   type;
+            long   flag;
+            long   mode;
             long  AttrLeft;
             long  AttrRight;
             long  AttrLow;
@@ -7421,7 +7421,7 @@ attribute_name
                  ( flag == VBL_EVENT  ) )
             {
               if ( LocalName != VBL_MODNAM )
-                my_vbl_error (79,$1);
+                my_vbl_error (79,$1.NAME);
             }
             else
             {
@@ -7609,7 +7609,7 @@ char             *key;
 
 {
   struct dct_entry *entry;
-  int              i;
+  long              i;
 
   if (VBL_DCEHED == NULL)
     {
@@ -7642,7 +7642,7 @@ char             *key;
 
 {
   struct dct_recrd *recrd;
-  int               i;
+  long               i;
 
   if (VBL_DCRHED == NULL)
     {
@@ -7682,7 +7682,7 @@ static struct dct_entry **initab ()
 
 {
   struct dct_entry **head;
-  int                i;
+  long                i;
 
   head = (struct dct_entry **)
          autallocblock (sizeof(struct dct_entry *) * VBL_HSZDFN);
@@ -7783,7 +7783,7 @@ long               valu;
 
 }
 
-static int chktab (head,key_str,ctx_str,field)
+static long chktab (head,key_str,ctx_str,field)
 
 struct dct_entry **head;
 char              *key_str;
@@ -7904,7 +7904,7 @@ struct dct_entry **pt_hash;
 static void *vbl_addstr(object,mode,prtype,type,flag,name,left,right,exp,kind,dynamic)
 
 char          object;
-int           mode;
+long           mode;
 vbtyp_list   *prtype;
 unsigned char type;
 char          flag;
@@ -7931,7 +7931,7 @@ unsigned char dynamic;
   char genmodflg = 0;
   char   lclmod = 'X';
   vexexpr *vex_pnt;
-  int      bitsize;
+  long      bitsize;
 
   switch (object)
   {
@@ -8300,7 +8300,7 @@ static vbtyp_list *val_type(name)
 
 static vbtyp_list *get_type(val)
 
-  int val;
+  long val;
 {
   vbtyp_list *Type;
 

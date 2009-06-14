@@ -46,6 +46,8 @@
 # ifndef BTR_ERROR_H
 # define BTR_ERROR_H
 
+# include <libgen.h>
+
 /*------------------------------------------------------------\
 |                                                             |
 |                           Constants                         |

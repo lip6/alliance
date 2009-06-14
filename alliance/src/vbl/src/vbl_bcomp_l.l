@@ -55,7 +55,7 @@ vbl_name;
 
 struct g_type
 {
-  int  VALU;
+  long  VALU;
   char FLAG;
 };
 
@@ -168,19 +168,19 @@ static el_mc tab_mc []=
   };
 
 
-static int find_mc(s)
+static long find_mc(s)
 
   char *s;
 {
   char  loc[512];
-  int   l;
+  long   l;
   el_mc *pt;
 
   l=strlen(s);
   strcpy(loc,s);
   while(l--) loc[l]=tolower(loc[l]);	/* conversion en minuscules */
   pt= (el_mc *) bsearch(loc, (char *)tab_mc,VBL_NB_MC,sizeof(el_mc),
- (int (*)(const void *, const void *)) strcmp);
+ (long (*)(const void *, const void *)) strcmp);
   if (pt==NULL) return(-1);
 
   return(pt->kval);
@@ -243,7 +243,7 @@ base_specifier	  	  (B|b|O|o|X|x)
 \/			{ return(Slash); }
 
 {letter}(_?{letter_or_digit})*		{
-			int itoken;
+			long itoken;
 			itoken=find_mc(yytext);
 			if (itoken== -1) 
 			  {
@@ -256,7 +256,7 @@ base_specifier	  	  (B|b|O|o|X|x)
 			  }
 					}
 ({decimal_literal})|({base}#{based_integer}(\.{based_integer})?#({exponent})?)|({base}:{based_integer}(\.{based_integer})?:({exponent})?)		{
-			yylval.text = mbkalloc((unsigned int)strlen(yytext)+1);
+			yylval.text = mbkalloc((unsigned long)strlen(yytext)+1);
 	 		strcpy(yylval.text,yytext);
 			return ( AbstractLit );
 									}

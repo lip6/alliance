@@ -247,7 +247,7 @@ void fabrique_equipo(chain_list *nomplot[NB_FACES], COEUR lecoeur,
 	while (con_coeur != NULL) {
 		sig_coeur = con_coeur->SIG;  /* un signal unique par connecteur */
 		if (mode_debug) 
-			printf("pointeur Sigcoeur %d\n", (int) sig_coeur);
+			printf("pointeur Sigcoeur %ld\n", (long) sig_coeur);
 		if (mode_debug) 
 			printf("*******NOM concoeur %s signal %ld*********\n", con_coeur->NAME, sig_coeur->INDEX);
 
@@ -380,7 +380,7 @@ locon_list *existe_sig_plot(losig_list *sig_coeur, loins_list *plot,
 	while (con_plot != NULL) {
 
 		if (mode_debug) 
-			printf("\tpointeur nom %d\n",(int)con_plot); 
+			printf("\tpointeur nom %ld\n",(long)con_plot); 
 
 		sig_plot = con_plot->SIG; /* un signal unique par connecteur */
 

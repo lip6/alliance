@@ -21,7 +21,7 @@
  * Software Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
  */
 
-#ident "$Id: rcn_lo_util.c,v 1.3 2003/04/03 14:46:30 xtof Exp $"
+#ident "$Id: rcn_lo_util.c,v 1.4 2009/06/14 13:51:52 ludo Exp $"
 
 /*******************************************************************************
 * rcn    : acces functions to logical rc network structures                    *
@@ -62,7 +62,7 @@ todolist*        breakloop2 __P(( losig_list*,
 void connexe_rec __P(( losig_list*,
                        lowire_list*,
                        lonode_list*,
-                       int
+                       long
                     ));
 
 /******************************************************************************/
@@ -451,7 +451,7 @@ losig_list *ptsig;
 void connexe_rec( losig_list *ptsig,
                   lowire_list *from,
                   lonode_list *ptnode,
-                  int index
+                  long index
                 )
 {
   ptype_list  *ptl;
@@ -474,9 +474,9 @@ void connexe_rec( losig_list *ptsig,
       ptnode = getlonode( ptsig, from->NODE1 );
 
     ptl = getptype( ptnode->USER, CONNEXE );
-    if( (int)(ptl->DATA) != 0 )
+    if( (long)(ptl->DATA) != 0 )
     {
-      if( (int)(ptl->DATA) != index )
+      if( (long)(ptl->DATA) != index )
       {
         fflush( stdout );
         fprintf( stderr, "RCN ERROR in connexe()\n" );
@@ -500,14 +500,14 @@ void connexe_rec( losig_list *ptsig,
       next = getlonode( ptsig, from->NODE1 );
 
     ptl = getptype( next->USER, CONNEXE );
-    if( (int)(ptl->DATA) == 0 )
+    if( (long)(ptl->DATA) == 0 )
     {
       ptl->DATA = (void*)(index);
       connexe_rec( ptsig, from, next, index ); 
     }
     else
     {
-      if( (int)(ptl->DATA) != index )
+      if( (long)(ptl->DATA) != index )
       {
         fflush( stdout );
         fprintf( stderr, "RCN ERROR in connexe()\n" );
@@ -525,7 +525,7 @@ int connexe( losig_list *ptsig )
   lowire_list     *scanlowire;
   ptype_list      *ptl;
   lonode_list     *ptnode;
-  int              index;
+  long             index;
 
   if( !gettabnode( ptsig->PRCN ) )
   {
@@ -565,7 +565,7 @@ int connexe( losig_list *ptsig )
     ptnode = getlonode( ptsig, scanlowire->NODE1 );
     ptl = getptype( ptnode->USER, CONNEXE );
     
-    if( (int)(ptl->DATA) != 0 )
+    if( (long)(ptl->DATA) != 0 )
       continue;
  
     index++;

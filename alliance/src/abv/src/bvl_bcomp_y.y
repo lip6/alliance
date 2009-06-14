@@ -53,7 +53,7 @@
 %}
 
 %union  {
-	int		 valu;
+	long		 valu;
 	char		*text;
         bvl_ablstr       list;
 	bvl_name	 name;
@@ -575,7 +575,7 @@ formal_port_element
 	  .signal_kind.
 		{
 		char *signame;
-		int   sigconf;
+		long   sigconf;
 		void *pnt;
 
 		/* ###----------------------------------------------### */
@@ -599,7 +599,7 @@ formal_port_element
 		  beh_addtab (dic,signame,BVL_MODNAM,BVL_SIGDFN,sigconf);
 		  beh_addtab (dic,signame,BVL_MODNAM,BVL_WMNDFN,$6.LEFT);
 		  beh_addtab (dic,signame,BVL_MODNAM,BVL_WMXDFN,$6.RIGHT);
-		  beh_addtab (dic,signame,BVL_MODNAM,BVL_PNTDFN,(int)pnt);
+		  beh_addtab (dic,signame,BVL_MODNAM,BVL_PNTDFN,(long)pnt);
 
 		  BVL_NM1LST = delchain (BVL_NM1LST, BVL_NM1LST);
 		  }
@@ -703,7 +703,7 @@ constant_declaration
 	  constant_VarAsgn__expression
 	  Semicolon_ERR
 		{
-		int sigconf;
+		long sigconf;
 		
 		if (chkdcl ('C',0,$4.VALU,$4.FLAG,0,$5.FLAG,&sigconf) == 0)
 		  {
@@ -731,9 +731,9 @@ signal_declaration
 	  Semicolon_ERR
 		{
 		char *signame;
-		int   sigconf;
+		long   sigconf;
 		void *pnt;
-		int   errflg;
+		long   errflg;
 
 		errflg = chkdcl ('S',0,$4.VALU,$4.FLAG,$6,$5.FLAG,&sigconf);
 
@@ -756,7 +756,7 @@ signal_declaration
 		  beh_addtab (dic,signame,BVL_MODNAM,BVL_SIGDFN,sigconf);
 		  beh_addtab (dic,signame,BVL_MODNAM,BVL_WMNDFN,$5.LEFT);
 		  beh_addtab (dic,signame,BVL_MODNAM,BVL_WMXDFN,$5.RIGHT);
-		  beh_addtab (dic,signame,BVL_MODNAM,BVL_PNTDFN,(int)pnt);
+		  beh_addtab (dic,signame,BVL_MODNAM,BVL_PNTDFN,(long)pnt);
 
 		  BVL_NM1LST = delchain (BVL_NM1LST,BVL_NM1LST);
 		  }
@@ -881,7 +881,7 @@ unlabeled_conditional_signal_assignment
 	  waveform
 	  Semicolon_ERR
 		{
-		int             i;
+		long             i;
 		struct beout   *beout_pnt;
 		struct bebus   *bebus_pnt;
 		struct bereg   *bereg_pnt;
@@ -895,15 +895,15 @@ unlabeled_conditional_signal_assignment
 		struct bvl_expr expr4;
 		struct bvl_expr expr5;
 		struct bvl_expr expr6;
-		int             rev_flg = 0;
-		int             left_bnd;
-		int             right_bnd;
-		int             left;
-		int             right;
-		int             in_bound;
-		int             out_bound;
-		int             sig_width;
-		int             sig_conf;
+		long             rev_flg = 0;
+		long             left_bnd;
+		long             right_bnd;
+		long             left;
+		long             right;
+		long             in_bound;
+		long             out_bound;
+		long             sig_width;
+		long             sig_conf;
 
 		expr4 = $5;
 
@@ -1160,7 +1160,7 @@ unlabeled_selected_signal_assignment
 	  ...waveform__WHEN__choices..
 	  Semicolon_ERR
 		{
-		int             i;
+		long             i;
 		struct beout   *beout_pnt;
 		struct bebus   *bebus_pnt;
 		struct bereg   *bereg_pnt;
@@ -1168,15 +1168,15 @@ unlabeled_selected_signal_assignment
 		struct bebux   *bebux_pnt;
 		struct chain   *abl_pnt;
 		struct bvl_expr expr1;
-		int             rev_flg = 0;
-		int             left_bnd;
-		int             right_bnd;
-		int             left;
-		int             right;
-		int             in_bound;
-		int             out_bound;
-		int             sig_width;
-		int             sig_conf;
+		long             rev_flg = 0;
+		long             left_bnd;
+		long             right_bnd;
+		long             left;
+		long             right;
+		long             in_bound;
+		long             out_bound;
+		long             sig_width;
+		long             sig_conf;
 
 		expr1 = bvl_crtabl (ABL_OR ,$8 ,$9,-1,-1);
 		if (BVL_BDDPNT != getlogbddnodeone())
@@ -1474,13 +1474,13 @@ choice
 		{
 		char           *val;
 		char            val2[256];
-		int             left;
-		int             right;
-		int             in_bound;
-		int             out_bound;
-		int             left_bnd;
-		int             right_bnd;
-		int             sig_conf;
+		long             left;
+		long             right;
+		long             in_bound;
+		long             out_bound;
+		long             left_bnd;
+		long             right_bnd;
+		long             sig_conf;
 
 		strcpy (val2,"B\"");
 		sig_conf = beh_chktab (dic,$1.NAME,BVL_MODNAM,BVL_SIGDFN);
@@ -1675,13 +1675,13 @@ primary
 	| name
 		{
 		struct bvl_expr expr1;
-		int             left;
-		int             right;
-		int             left_bnd;
-		int             right_bnd;
-		int             in_bound;
-		int             out_bound;
-		int             sig_conf;
+		long             left;
+		long             right;
+		long             left_bnd;
+		long             right_bnd;
+		long             in_bound;
+		long             out_bound;
+		long             sig_conf;
 
 		sig_conf = beh_chktab (dic,$1.NAME,BVL_MODNAM,BVL_SIGDFN);
 		switch (sig_conf)
@@ -1841,7 +1841,7 @@ attribute_name
 		{
 		char             extname[100];
 		char            *lclname;
-		int              sig_conf;
+		long              sig_conf;
 		struct bvl_expr  expr1;
 		struct bvl_expr  expr2;
 		struct chain    *ptabl;
@@ -2019,16 +2019,16 @@ END_ERR
 	;
 %%
 
-void *addstr (ptfig, object, mode, type, flag, name, left, right)
+void *addstr (
 
-struct befig *ptfig;
-char          object;
-int           mode;
-int           type;
-char          flag;
-char         *name;
-short         left;
-short         right;
+struct befig *ptfig,
+char          object,
+long           mode,
+long           type,
+char          flag,
+char         *name,
+short         left,
+short         right )
 
   {
   void  *pnt    = NULL;
@@ -2170,19 +2170,19 @@ short         right;
   return (pnt);
   }
 
-int chkdcl (object,mode,type,flag,kind,constraint,conf)
-
-char object;
-int  mode;
-int  type;
-char flag;
-int  kind;
-char constraint;
-int  *conf;
+static long 
+chkdcl (
+char object,
+long  mode,
+long  type,
+char flag,
+long  kind,
+char constraint,
+long  *conf  )
 
   {
-  int errflg = 0;
-  int lclcnf = 0;
+  long errflg = 0;
+  long lclcnf = 0;
 
   if (flag != constraint)
     {

@@ -31,7 +31,7 @@
 
 
 
-#ident "$Id: log_prefbib.c,v 1.3 2002/09/30 16:20:43 czo Exp $"
+#ident "$Id: log_prefbib.c,v 1.4 2009/06/14 13:51:47 ludo Exp $"
 
 /****************************************************************************/
 /*    Produit :  librairie ABL - Gestion de representations prefixees       */
@@ -58,7 +58,7 @@ retour		: un pointeur de chaine de caracteres.
 char *
 gensym_abl (name, num)
      char *name;
-     int num;
+     long num;
 {
   char *name1;
   char number[3];
@@ -87,7 +87,7 @@ ablError (expr, func)
      chain_list *expr;
      char *func;
 {
-  int oper = OPER (expr);
+  long oper = OPER (expr);
 
   if (oper < MIN_OPER || oper > MAX_OPER)
     {
@@ -342,7 +342,7 @@ void
 displayExprInt (expr)
      chain_list *expr;
 {
-  int oper;
+  long oper;
 
   if (ATOM (expr))
     printf (" %s", VALUE_ATOM (expr));
@@ -386,7 +386,7 @@ void
 displayInfExpr (expr)
      chain_list *expr;
 {
-  int oper;
+  long oper;
 
   if (ATOM (expr))		/* Traitement atomique */
     printf ("%s", VALUE_ATOM (expr));
@@ -423,12 +423,12 @@ displayInfExpr (expr)
 char *
 exprToCharInt (expr, mode, chaine, taille)
      chain_list *expr;
-     int mode;
+     long mode;
      char *chaine;
-     int *taille;
+     long *taille;
 {
   char *oper;
-  int lenVA;
+  long lenVA;
 
   if (ATOM (expr))
     {
@@ -481,7 +481,7 @@ exprToCharInt (expr, mode, chaine, taille)
       else
 /*----- prefixe -----*/
 	{
-	  int lenOPER = strlen (oper);
+	  long lenOPER = strlen (oper);
 	  strncat (chaine, "(", 1);
 	  strncat (chaine, oper, lenOPER);
 	  while ((expr = CDR (expr)))
@@ -504,10 +504,10 @@ exprToCharInt (expr, mode, chaine, taille)
 char *
 exprToChar (expr, mode)
      chain_list *expr;
-     int mode;
+     long mode;
 {
   char *chaine;
-  int taille;
+  long taille;
 
   taille = 100;
   chaine = (char *) mbkalloc (100);
@@ -526,7 +526,7 @@ char *
 identExprInt (expr, chaine, taille)
      chain_list *expr;
      char *chaine;
-     int *taille;
+     long *taille;
 {
   if (ATOM (expr))
     return chaine;
@@ -534,7 +534,7 @@ identExprInt (expr, chaine, taille)
     {
       chain_list *expr1;
       char arite[3];
-      int oper = OPER (expr);
+      long oper = OPER (expr);
 
       switch (oper)
 	{
@@ -588,9 +588,9 @@ identExpr (expr)
      chain_list *expr;
 {
   char *chaine, *bidon;
-  int taille, i;
+  long taille, i;
   chain_list *expr1;
-  int flag_alloc = 0;
+  long flag_alloc = 0;
 
   taille = 100;
 
@@ -648,7 +648,7 @@ identExpr (expr)
   ------------------------------------------------------------------
   FUNCTION : calcule la profondeur d'une expression.
   ------------------------------------------------------------------*/
-int 
+long 
 profExpr (expr)
      chain_list *expr;
 {
@@ -656,7 +656,7 @@ profExpr (expr)
     return 0;
   else
     {
-      int max = 0, profCar;
+      long max = 0, profCar;
 
       while ((expr = CDR (expr)))
 	{
@@ -674,7 +674,7 @@ profExpr (expr)
   FUNCTION : calcule la profondeur d'une expression sans tenir compte
   des inverseurs.
   ------------------------------------------------------------------*/
-int 
+long 
 profAOExpr (expr)
      chain_list *expr;
 {
@@ -682,7 +682,7 @@ profAOExpr (expr)
     return 0;
   else
     {
-      int max = 0, profCar, oper = OPER (expr);
+      long max = 0, profCar, oper = OPER (expr);
 
       while ((expr = CDR (expr)))
 	{
@@ -744,9 +744,9 @@ mapExpr (func, expr)
              renvoie 1 s'il y a eu au moins un appel de func qui a
              renvoye 1. (OU  logique)
   ------------------------------------------------------------------*/
-int 
+long 
 anyExpr (func, expr)
-     int (*func) ();
+     long (*func) ();
      chain_list *expr;
 {
   while ((expr = CDR (expr)))
@@ -763,9 +763,9 @@ anyExpr (func, expr)
              renvoie 1 si tout les appels de func ont renvoye 1.
             (ET logique)
   ------------------------------------------------------------------*/
-int 
+long 
 everyExpr (func, expr)
-     int (*func) ();
+     long (*func) ();
      chain_list *expr;
 {
   while ((expr = CDR (expr)))
@@ -782,7 +782,7 @@ everyExpr (func, expr)
   ------------------------------------------------------------------
   FUNCTION : renvoie 1 si oper existe dans expr, 0 sinon.
   ------------------------------------------------------------------*/
-int 
+long 
 searchOperExpr (expr, oper)
      chain_list *expr;
      short oper;
@@ -829,7 +829,7 @@ searchExprLow (expr, name)
   ------------------------------------------------------------------
   FUNCTION : renvoie 1 si namealloc(name) existe dans expr, 0 sinon.
   ------------------------------------------------------------------*/
-int 
+long 
 searchExpr (expr, name)
      chain_list *expr;
      char *name;
@@ -843,7 +843,7 @@ searchExpr (expr, name)
   ------------------------------------------------------------------
   FUNCTION : renvoie 1 si expr1 = expr2, 0 sinon.
   ------------------------------------------------------------------*/
-int 
+long 
 equalExpr (expr1, expr2)
      chain_list *expr1, *expr2;
 {
@@ -879,7 +879,7 @@ equalExpr (expr1, expr2)
   ------------------------------------------------------------------
   FUNCTION : renvoie 1 si expr1 = expr2 aux variables pres, 0 sinon.
   ------------------------------------------------------------------*/
-int 
+long 
 equalVarExpr (expr1, expr2)
      chain_list *expr1, *expr2;
 {
@@ -918,7 +918,7 @@ equalVarExpr (expr1, expr2)
   FUNCTION : renvoie la taille de l'expression au premier niveau.
              (en fait l'arite de l'operateur)
   ------------------------------------------------------------------*/
-int 
+long 
 lengthExpr (expr)
      chain_list *expr;
 {
@@ -926,7 +926,7 @@ lengthExpr (expr)
     return 1;
   else
     {
-      int cpt = 0;
+      long cpt = 0;
 
       while ((expr = CDR (expr)))
 	cpt++;
@@ -940,7 +940,7 @@ lengthExpr (expr)
   FUNCTION : renvoie le nombre d'operateurs binaires (equivalent) 
              d'une expression.
   ------------------------------------------------------------------*/
-int 
+long 
 numberOperBinExpr (expr)
      chain_list *expr;
 {
@@ -948,7 +948,7 @@ numberOperBinExpr (expr)
     return 0;
   else
     {
-      int cpt = -1;
+      long cpt = -1;
 
       if (OPER (expr) == NOT)
 	return numberOperBinExpr (CADR (expr));
@@ -965,7 +965,7 @@ numberOperBinExpr (expr)
   ------------------------------------------------------------------
   FUNCTION : renvoie le nombre d'atomes de l'expression.
   ------------------------------------------------------------------*/
-int 
+long 
 numberAtomExpr (expr)
      chain_list *expr;
 {
@@ -973,7 +973,7 @@ numberAtomExpr (expr)
     return 1;
   else
     {
-      int cpt = 0;
+      long cpt = 0;
 
       while ((expr = CDR (expr)))
 	cpt += numberAtomExpr (CAR (expr));
@@ -1171,7 +1171,7 @@ devXor2Expr (expr)
 chain_list *
 flatPolarityExpr (expr, signe)
      chain_list *expr;
-     int signe;
+     long signe;
 {
   short oper;
   chain_list *pt;
@@ -1240,7 +1240,7 @@ void
 flatArityExpr (expr)
      chain_list *expr;
 {
-  int oper;
+  long oper;
   chain_list *expr1, *expr2, *exprBefore;
 
   if (!ATOM (expr))
@@ -1405,12 +1405,12 @@ supportPtype_listExpr (expr)
   IDENT : maxExpr
   ------------------------------------------------------------------
   FUNCTION : renvoie le max des arguments d'une expression avec une
-  fonction de comparaison func renvoyant un int.
+  fonction de comparaison func renvoyant un long.
   ------------------------------------------------------------------ */
 chain_list *
 maxExpr (expr, func)
      chain_list *expr;
-     int (*func) ();
+     long (*func) ();
 {
   chain_list *expr1;
 
@@ -1427,13 +1427,13 @@ maxExpr (expr, func)
   IDENT : minExpr
   ------------------------------------------------------------------
   FUNCTION : renvoie le min des arguments d'une expression avec une
-  fonction de comparaison func renvoyant un int.
+  fonction de comparaison func renvoyant un long.
   ------------------------------------------------------------------ */
 
 chain_list *
 minExpr (expr, func)
      chain_list *expr;
-     int (*func) ();
+     long (*func) ();
 {
   chain_list *expr1;
 
@@ -1450,17 +1450,17 @@ minExpr (expr, func)
   IDENT : sortExpr
   ------------------------------------------------------------------
   FUNCTION : trie les arguments d'une expression a partir d'une fonction
-  func renvoyant un int. 
+  func renvoyant un long. 
             direction = 1 croissant  ;  direction = 0 decroissant
   ------------------------------------------------------------------ */
 void 
 sortExpr (expr, func, direction)
      chain_list *expr;
-     int (*func) ();
-     int direction;
+     long (*func) ();
+     long direction;
 {
   chain_list *expr1;
-  int okPermu = 1;
+  long okPermu = 1;
 
   if (!ATOM (expr))		/* ce n'est pas un atome */
     {
@@ -1497,12 +1497,12 @@ sortExpr (expr, func, direction)
              ex : (and a (xor w g) b (or x f) (or e g o) (xor t h k))
                 --> (and (or x f) (or e o g) (xor g w) (xor t h k) b a)
   ------------------------------------------------------------------ */
-int 
+long 
 funcNormExpr (expr)
      chain_list *expr;
 {
   if (ATOM (expr))
-    return ((int) VALUE_ATOM (expr));
+    return ((long) VALUE_ATOM (expr));
   else if (OPER (expr) == NOT)
     if (ATOM (CADR (expr)))
       return (NOT * 100 + 10);
@@ -1544,9 +1544,9 @@ return 		: rien.
 void 
 deleteNumExpr (expr, i)
      chain_list *expr;
-     int i;
+     long i;
 {
-  int co = 0;
+  long co = 0;
   chain_list *e = expr, *pt;
 
   if (lengthExpr (expr) <= i)
@@ -1584,9 +1584,9 @@ return 		: un chain_list *
 chain_list *
 searchNumExpr (expr, i)
      chain_list *expr;
-     int i;
+     long i;
 {
-  int co = 0;
+  long co = 0;
   chain_list *e = expr;
 
   while ((expr = CDR (expr)))
@@ -1606,23 +1606,23 @@ numberOccExpr 	: renvoie le nombre d'occurences d'une variable dans expr.
 ------------------------------------------------------
 parametres  	: un ABL et une variable. 
 -------------------------------------------------------
-return 		: un int. 
+return 		: un long. 
 ----------------------------------------------------------------------------*/
-int 
+long 
 numberOccExpr (exp, name)
      chain_list *exp;
      char *name;
 {
   if (ATOM (exp))
     {
-      if ((int) name == (int) VALUE_ATOM (exp))
+      if ((long) name == (long) VALUE_ATOM (exp))
 	return 1;
       else
 	return 0;
     }
   else
     {
-      int cpt = 0;
+      long cpt = 0;
 
       while ((exp = CDR (exp)))
 	cpt += numberOccExpr (CAR (exp), name);
@@ -1642,7 +1642,7 @@ changeOperExpr (expr, oper)
      chain_list *expr;
      short oper;
 {
-  int op = (int) oper;
+  long op = (long) oper;
 
   if (ATOM (expr))
     {
@@ -1675,7 +1675,7 @@ simplif10Expr (expr)
     {
       short oper = OPER (expr);
       chain_list *auxExpr = createExpr (oper), *args, *res;
-      int cpt1 = 0;
+      long cpt1 = 0;
 
       for (args = CDR (expr); args; args = CDR (args))
 	{
@@ -1888,7 +1888,7 @@ return :	expr.
 chain_list *
 charToExprInt (stringExpr, cptCar)
      char *stringExpr;
-     int *cptCar;
+     long *cptCar;
 {
   char *tokOper;
   char *tok;
@@ -2012,7 +2012,7 @@ chain_list *
 charToExpr (stringExpr)
      char *stringExpr;
 {
-  int cptCar = 0;
+  long cptCar = 0;
 
   return charToExprInt (stringExpr, &cptCar);
 }
@@ -2027,11 +2027,11 @@ return :	(, ), ou une chaine de caractere.
 char *
 tokenExpr (stringExpr, cptCar)
      char *stringExpr;
-     int *cptCar;
+     long *cptCar;
 {
   char *tok;
-  int i;
-  int compteur = *cptCar;
+  long i;
+  long compteur = *cptCar;
 
   for (; isspace (stringExpr[compteur]); compteur++);	/* suppression ds blancs */
 
@@ -2070,7 +2070,7 @@ PMExprInt   : Pattern Matching entre expr et pattern
            (and (not a) (not a)) avec le pattern (and x x) renvoie 1
 ------------------------------------------------------------------------------
 retour   : 0 ou 1
-----------------------------------------------------------------------------*/ int 
+----------------------------------------------------------------------------*/ long 
 PMExprInt (expr, pattern, bind)
      chain_list *expr, *pattern;
      ptype_list **bind;
@@ -2122,11 +2122,11 @@ PMExpr   : Pattern Matching entre expr et pattern
 ------------------------------------------------------------------------------
 retour   : 0 ou 1
 ----------------------------------------------------------------------------*/
-int 
+long 
 PMExpr (expr, pattern)
      chain_list *expr, *pattern;
 {
-  int ret;
+  long ret;
   ptype_list *bind = NULL;
 
   /* on mettra dans "bind" le couple (char * pattern, expr) */

@@ -36,5 +36,5 @@
 /*									*/
 /* ###--------------------------------------------------------------### */
 
-extern int   BVL_LINNUM;		/* file's line number		*/
-static int   search ();
+extern long   BVL_LINNUM;		/* file's line number		*/
+static long   search ();

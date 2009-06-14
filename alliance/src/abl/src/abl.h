@@ -60,14 +60,14 @@ extern "C" {
 |                                                       |
 \------------------------------------------------------*/
 
-# define ABL_OR             0
-# define ABL_AND            1
-# define ABL_XOR            2
-# define ABL_NOT            3
-# define ABL_NOR            4
-# define ABL_NAND           5
-# define ABL_NXOR           6
-# define ABL_STABLE         7
+# define ABL_OR             0L
+# define ABL_AND            1L
+# define ABL_XOR            2L
+# define ABL_NOT            3L
+# define ABL_NOR            4L
+# define ABL_NAND           5L
+# define ABL_NXOR           6L
+# define ABL_STABLE         7L
 
 /*------------------------------------------------------\
 |                                                       |

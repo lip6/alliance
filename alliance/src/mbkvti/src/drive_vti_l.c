@@ -30,6 +30,9 @@
 * Modified, rewritten and maintained by Frederic Petrot since september 1990   *
 * Modified by Gregoire Avot : RC wire support.                                 *
 * $Log: drive_vti_l.c,v $
+* Revision 1.4  2009/06/14 13:51:58  ludo
+* - port 64 bits
+*
 * Revision 1.3  2002/09/30 16:21:00  czo
 * support/users
 *
@@ -150,7 +153,7 @@ struct rcnhns *org;
 	ptl=getptype(ptnode->USER,HNSRCN_X);
 
 	if(ptl) {
-		fprintf(ptfile,"X %d ",(int)ptl->DATA);
+		fprintf(ptfile,"X %ld ",(long)ptl->DATA);
 		return;
 	}
 
@@ -185,7 +188,7 @@ int linelength;
 char *s;
 int *old_index; /* table indexed by the file indexes giving mbk's one */
 static char tn, tp;
-int idx_rcn=1;
+long idx_rcn=1;
 lorcnet_list *ptrcnet;
 num_list *scannum;
 lonode_list *ptnode;
@@ -290,7 +293,7 @@ lowire_list *scanwire;
 				(void)fprintf(ptfile, "%ld ", ptcon->SIG->INDEX);
 				(void)fprintf(ptfile, "%d ", idx_rcn);
 				ptnode=getlonode(ptcon->SIG,scannum->DATA);
-				ptnode->USER=addptype(ptnode->USER,HNSRCN_X,(void*)idx_rcn);
+				ptnode->USER= (void *)addptype(ptnode->USER,HNSRCN_X,(void*)idx_rcn);
 				(void)fprintf(ptfile, "%s;\n", busname(ptcon->NAME));
 				idx_rcn++;
 			}

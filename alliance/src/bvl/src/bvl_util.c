@@ -37,7 +37,7 @@ char *bvl_getvers ()
 
 void bvl_error (code, str1)
 
-int   code;
+long   code;
 char *str1;
 
   {
@@ -188,15 +188,15 @@ char *str1;
 struct bepor *bvl_vpor (pt_por, pt_lft, pt_rit, name)
 
 struct bepor  *pt_por ;
-int           *pt_lft ;
-int           *pt_rit ;
+long           *pt_lft ;
+long           *pt_rit ;
 char          *name   ;
 
   {
   struct bepor *prv_por       = NULL;
-  int           left          = -1  ;
-  int           right         = -1  ;
-  int           index         = -1  ;
+  long           left          = -1  ;
+  long           right         = -1  ;
+  long           index         = -1  ;
   char          tmp_nam [256] ;
 
   prv_por = pt_por;
@@ -241,15 +241,15 @@ char          *name   ;
 struct beaux *bvl_vaux (pt_aux, pt_lft, pt_rit, name)
 
 struct beaux  *pt_aux ;
-int           *pt_lft ;
-int           *pt_rit ;
+long           *pt_lft ;
+long           *pt_rit ;
 char          *name   ;
 
   {
   struct beaux *prv_aux       = NULL;
-  int           left          = -1  ;
-  int           right         = -1  ;
-  int           index         = -1  ;
+  long           left          = -1  ;
+  long           right         = -1  ;
+  long           index         = -1  ;
   char          tmp_nam [256] ;
 
   prv_aux = pt_aux;
@@ -294,15 +294,15 @@ char          *name   ;
 struct bebux *bvl_vbux (pt_bux, pt_lft, pt_rit, name)
 
 struct bebux  *pt_bux ;
-int           *pt_lft ;
-int           *pt_rit ;
+long           *pt_lft ;
+long           *pt_rit ;
 char          *name   ;
 
   {
   struct bebux *prv_bux       = NULL;
-  int           left          = -1  ;
-  int           right         = -1  ;
-  int           index         = -1  ;
+  long           left          = -1  ;
+  long           right         = -1  ;
+  long           index         = -1  ;
   char          tmp_nam [256] ;
 
   prv_bux = pt_bux;
@@ -347,15 +347,15 @@ char          *name   ;
 struct bereg *bvl_vreg (pt_reg, pt_lft, pt_rit, name)
 
 struct bereg  *pt_reg ;
-int           *pt_lft ;
-int           *pt_rit ;
+long           *pt_lft ;
+long           *pt_rit ;
 char          *name   ;
 
   {
   struct bereg *prv_reg       = NULL;
-  int           left          = -1  ;
-  int           right         = -1  ;
-  int           index         = -1  ;
+  long           left          = -1  ;
+  long           right         = -1  ;
+  long           index         = -1  ;
   char          tmp_nam [256] ;
 
   prv_reg = pt_reg;
@@ -427,10 +427,10 @@ char *bvl_abl2str (expr, chaine, size_pnt)
 
 struct chain *expr    ;			/* expression			*/
 char         *chaine  ;			/* target string		*/
-int          *size_pnt;			/* size of available space	*/
+long          *size_pnt;			/* size of available space	*/
 
   {
-  int           operator;
+  long           operator;
   char         *oper    ;
   struct chain *operand ;
   static char  *str_z   = NULL;
@@ -480,7 +480,7 @@ int          *size_pnt;			/* size of available space	*/
 	/*        "(operand operator operand operator operand ...)"	*/
 	/* ###------------------------------------------------------### */
 
-    operator = (int) ((struct chain *) expr->DATA)->DATA;
+    operator = (long) ((struct chain *) expr->DATA)->DATA;
     operand  = (struct chain *) expr->NEXT->DATA;
 
     if (operator == STABLE)

@@ -1,5 +1,5 @@
 /*
- *  $Id: dpgen_Adder.c,v 1.2 2002/09/30 16:20:21 czo Exp $
+ *  $Id: dpgen_Adder.c,v 1.3 2009/06/14 13:51:43 ludo Exp $
  *
  *  /----------------------------------------------------------------\
  *  |                                                                |
@@ -191,7 +191,7 @@ static void RSA_netlist ()
                   "add_sub",
                   GENLIB_ELM ("INB" , i),
                   GENLIB_ELM ("XORB", i),
-                  "VDD", "VSS", 0);
+                  "VDD", "VSS", NULL);
   }
 
 
@@ -202,26 +202,26 @@ static void RSA_netlist ()
                   GENLIB_ELM ("XORB", i),
                   GENLIB_NAME ("GI_0_%d", i),
                   GENLIB_NAME ("PI_0_%d", i),
-                  "VDD", "VSS", 0);
+                  "VDD", "VSS", NULL);
   }
     
 
   /* Calcul somme et retenue du LSB */
   GENLIB_LOINS ("fulladder_x2", "S0",
-                GENLIB_ELM ("INA",0),
-                GENLIB_ELM ("INA",0),
-                GENLIB_ELM ("INA",0),
-                GENLIB_ELM ("INA",0),
-                GENLIB_ELM ("XORB",0),
-                GENLIB_ELM ("XORB",0),
-                GENLIB_ELM ("XORB",0),
-                GENLIB_ELM ("XORB",0),
+                GENLIB_ELM ("INA",NULL),
+                GENLIB_ELM ("INA",NULL),
+                GENLIB_ELM ("INA",NULL),
+                GENLIB_ELM ("INA",NULL),
+                GENLIB_ELM ("XORB",NULL),
+                GENLIB_ELM ("XORB",NULL),
+                GENLIB_ELM ("XORB",NULL),
+                GENLIB_ELM ("XORB",NULL),
                 "add_sub",
                 "add_sub",
                 "add_sub",
                 "R_1",
-                GENLIB_ELM ("S", 0),
-                "VDD", "VSS", 0);
+                GENLIB_ELM ("S", NULL),
+                "VDD", "VSS", NULL);
     
 
   for (n = 1; n <= ilog2 (LV_N); n++) {
@@ -233,7 +233,7 @@ static void RSA_netlist ()
                     GENLIB_NAME ("R_%d"    , iexp2 (n - 1)),
                     GENLIB_NAME ("GI_%d_%d", ilog2 (isr), iexp2(n - 1) + isr),
                     GENLIB_NAME ("R_%d"    , iexp2 (n - 1) + isr + 1),
-                    "VDD", "VSS", 0);
+                    "VDD", "VSS", NULL);
     }
 
     /* Calcul des PI GI intermediaires (PG) */
@@ -245,7 +245,7 @@ static void RSA_netlist ()
                      GENLIB_NAME ("PI_%d_%d"   , n - 1, ipg - 1),
                      GENLIB_NAME ("PI_%d_%d"   , ilog2 (npg), inpg),
                      GENLIB_NAME ("PI_%d_%d"   , n, inpg),
-                     "VDD", "VSS", 0);
+                     "VDD", "VSS", NULL);
                         
         GENLIB_LOINS("oa22_x2",
                      GENLIB_NAME ("PG_i2_%d_%d", n, inpg),
@@ -253,7 +253,7 @@ static void RSA_netlist ()
                      GENLIB_NAME ("GI_%d_%d"   , n - 1, ipg - 1),
                      GENLIB_NAME ("GI_%d_%d"   , ilog2 (npg), inpg),
                      GENLIB_NAME ("GI_%d_%d"   , n, inpg),
-                     "VDD", "VSS", 0);
+                     "VDD", "VSS", NULL);
       }
     }
   } 
@@ -266,7 +266,7 @@ static void RSA_netlist ()
                  GENLIB_NAME ("PI_0_%d", i),
                  GENLIB_NAME ("R_%d",    i),
                  GENLIB_ELM  ("S",       i),
-                 "VDD","VSS",0);
+                 "VDD","VSS",NULL);
   }
 
 

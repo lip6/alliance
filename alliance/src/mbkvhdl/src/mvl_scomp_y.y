@@ -34,7 +34,7 @@ static struct lofig *MVL_CHDHED = NULL;	/* childs list                  */
 %}
 %union
   {
-  int         valu;
+  long        valu;
   char       *text;
   char        flag;
   mvl_name    name;
@@ -67,7 +67,7 @@ static struct lofig *MVL_CHDHED = NULL;	/* childs list                  */
 %token <text> Identifier
 %token        DecimalInt
 %token        DecimalReal
-%token <valu> AbstractLit
+%token <text> AbstractLit
 %token        BasedInt
 %token        BasedReal
 %token <text> CharacterLit
@@ -398,11 +398,11 @@ formal_port_element
 		{
 		struct locon *locon_pnt;
 		struct losig *losig_pnt;
-		int           sig_width;
-		int           sig_conf;
+		long          sig_width;
+		long          sig_conf;
 		char         *sig_name;
 		struct chain *sig_list;
-		int           local_err;
+		long          local_err;
 
 		local_err = $6.ERR_FLG;
 		if ( ($6.LEFT == -1) && (($5 == MVL_BTVDFN) ||
@@ -503,7 +503,7 @@ formal_port_element
 		    if (local_err == 0)
 		      {
 		      mvl_addtab (MVL_HSHTAB,sig_name,MVL_MODNAM,MVL_PNTDFN,
-		                  (int)losig_pnt);
+		                  (long)losig_pnt);
 		      mvl_addtab (MVL_HSHTAB,sig_name,MVL_MODNAM,MVL_SIGDFN,
 		                  sig_conf);
 		      mvl_addtab (MVL_HSHTAB,sig_name,MVL_MODNAM,MVL_LFTDFN,
@@ -594,11 +594,11 @@ signal_declaration
 	  Semicolon_ERR
 		{
 		struct losig *losig_pnt;
-		int           sig_width;
-		int           sig_conf;
+		long           sig_width;
+		long           sig_conf;
 		char         *sig_name;
 		struct chain *sig_list;
-		int           local_err;
+		long           local_err;
 
 		local_err = $5.ERR_FLG;
 		if (($5.LEFT==-1) && (($4==MVL_BTVDFN) || ($4==MVL_RGVDFN)))
@@ -651,7 +651,7 @@ signal_declaration
 		    if (local_err == 0)
 		      {
 		      mvl_addtab (MVL_HSHTAB,sig_name,MVL_MODNAM,MVL_PNTDFN,
-		                  (int)losig_pnt);
+		                  (long)losig_pnt);
 		      mvl_addtab (MVL_HSHTAB,sig_name,MVL_MODNAM,MVL_SIGDFN,
 		                  sig_conf);
 		      mvl_addtab (MVL_HSHTAB,sig_name,MVL_MODNAM,MVL_LFTDFN,
@@ -733,11 +733,11 @@ local_port_element
 	  .BUS.
 		{
 		struct locon *locon_pnt;
-		int           sig_width;
-		int           sig_conf;
+		long           sig_width;
+		long           sig_conf;
 		char         *sig_name;
 		struct chain *sig_list;
-		int           local_err = 0;
+		long           local_err = 0;
 
 		if (($6.ERR_FLG != 0) || (MVL_CHDPNT == NULL))
 		  local_err = 1;
@@ -878,8 +878,8 @@ component_instantiation_statement
 	: a_label
 	  simple_name
 		{
-		int con_count;
-		int local_err = 0;
+		long con_count;
+		long local_err = 0;
 
 		MVL_CONRNK = 0;
 		MVL_CHDNAM = $2;
@@ -927,7 +927,7 @@ component_instantiation_statement
 		struct chain *chain_pnt    ;
 		char         *prt_name     ;
 		char          tampon [256] ;
-		int           i            = 0;
+		long           i            = 0;
 
 		if (MVL_CHDPNT != NULL)
 		  {
@@ -990,11 +990,11 @@ association_element
 	  Arrow
 	  actual_port_name
 		{
-		int           sig_width;
-		int           con_pos;
+		long           sig_width;
+		long           con_pos;
 		struct chain *sig_list1;
 		struct chain *sig_list2;
-		int           local_err = 0;
+		long           local_err = 0;
 
 		if (MVL_CHDPNT == NULL)
 		  local_err = 1;
@@ -1043,14 +1043,14 @@ association_element
 		}
 	| actual_port_name
 		{
-		int           sig_width ;
+		long           sig_width ;
 		struct chain *sig_list1 ;
 		char         *prt_name  ;
-		int           prt_width ;
-		int           left_bnd  ;
-		int           right_bnd ;
-		int           local_err = 0;
-		int           i         ;
+		long           prt_width ;
+		long           left_bnd  ;
+		long           right_bnd ;
+		long           local_err = 0;
+		long           i         ;
 
 		if (MVL_CHDPNT == NULL)
 		  local_err = 1;
@@ -1243,15 +1243,15 @@ primary
 		{
 		mvl_expr      expr;
 		struct losig *losig_pnt;
-		int           i;
-		int           left;
-		int           right;
-		int           left_bnd;
-		int           right_bnd;
-		int           sig_width;
-		int           rev_flg;
-		int           in_bound;
-		int           out_bound;
+		long           i;
+		long           left;
+		long           right;
+		long           left_bnd;
+		long           right_bnd;
+		long           sig_width;
+		long           rev_flg;
+		long           in_bound;
+		long           out_bound;
 
 		if (mvl_chktab (MVL_HSHTAB,$1.NAME,MVL_MODNAM,MVL_SIGDFN) != 0)
 		  {
@@ -1462,7 +1462,7 @@ Semicolon_ERR
 
 abstractlit
 	: AbstractLit
-		{ $$ = atoi ($1); }
+		{ $$ = atol ($1); }
 	;
 
 RightParen_ERR

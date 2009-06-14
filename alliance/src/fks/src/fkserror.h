@@ -46,6 +46,8 @@
 # ifndef FKS_ERROR_H
 # define FKS_ERROR_H
 
+# include <libgen.h>
+
 /*------------------------------------------------------------\
 |                                                             |
 |                           Constants                         |
@@ -69,7 +71,7 @@
 |                                                             |
 \------------------------------------------------------------*/
 
-# define fkserror( E, V ) (fks_error( (int)(E), (char *)(V), autbasename(__FILE__,NULL), __LINE__ ))
+# define fkserror( E, V ) (fks_error( (long)(E), (char *)(V), autbasename(__FILE__,NULL), __LINE__ ))
 
 /*------------------------------------------------------------\
 |                                                             |

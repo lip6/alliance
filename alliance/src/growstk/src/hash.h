@@ -29,7 +29,7 @@
 
 typedef chain_list *ht_t;       /* def d'1 table de hachage table de htele_t */
 
-extern ht_t *htinit (int size);
+extern ht_t *htinit (long size);
 extern void htremove (ht_t * htable);
 extern chain_list *htset (ht_t * htable, char *key);
 extern chain_list *htget (ht_t * htable, char *key);

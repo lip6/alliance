@@ -103,7 +103,7 @@ void SyfDisplayError( File, Line, Error, Text )
       fprintf( stderr, "Missing scan-port declaration in figure \"%s\"\n",  Text );
     break;
     case SYF_ERROR_UNKNOWN_ENCODE_TYPE :
-      fprintf( stderr, "Unknown encode type \"%c\"\n",  (int)Text );
+      fprintf( stderr, "Unknown encode type \"%c\"\n",  (char)((long)Text) );
     break;
     case SYF_ERROR_BAD_STACK_NO_PUSH :
       fprintf( stderr, "Bad stack, no \"push\" in figure \"%s\"\n",  Text );

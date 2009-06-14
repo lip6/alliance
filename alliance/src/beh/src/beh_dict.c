@@ -52,7 +52,7 @@ char         *key;
 
   {
   struct beden *entry;
-  int           i    ;
+  long           i    ;
 
   if (BEH_DCEHED == NULL)
     {
@@ -91,7 +91,7 @@ char         *key;
 
   {
   struct bedrd *recrd;
-  int           i    ;
+  long           i    ;
 
   if (BEH_DCRHED == NULL)
     {
@@ -134,7 +134,7 @@ struct beden **beh_initab ()
 
   {
   struct beden **head;
-  int                i;
+  long                i;
 
   head = (struct beden **)
          mbkalloc (sizeof(struct beden *) * BEH_HSZDFN);
@@ -156,17 +156,17 @@ void beh_addtab (head, key_str, ctx_str, field, valu)
 struct beden **head;
 char          *key_str;
 char          *ctx_str;
-int            field;
-int            valu;
+long            field;
+long            valu;
 
   {
-  int           found     = 0;
-  unsigned int  key       ;
-  unsigned int  index     ;
+  long           found     = 0;
+  unsigned long  key       ;
+  unsigned long  index     ;
   struct beden *entry_pnt ;
   struct bedrd *recrd_pnt ;
 
-  key       = ((unsigned int) key_str) + ((unsigned int) ctx_str);
+  key       = ((unsigned long) key_str) + ((unsigned long) ctx_str);
 
   index     = key % BEH_HSZDFN;
   entry_pnt = head [index];
@@ -238,17 +238,17 @@ long beh_chktab (head, key_str, ctx_str, field)
 struct beden **head   ;
 char          *key_str;
 char          *ctx_str;
-int            field  ;
+long            field  ;
 
   {
-  int           found    = 0;
+  long           found    = 0;
   long          valu     = 0;
-  unsigned int  key      ;
-  unsigned int  index    ;
+  unsigned long  key      ;
+  unsigned long  index    ;
   struct beden *entry_pnt;
   struct bedrd *recrd_pnt;
 
-  key       = ((unsigned int) key_str) + ((unsigned int) ctx_str);
+  key       = ((unsigned long) key_str) + ((unsigned long) ctx_str);
 
   index     = key % BEH_HSZDFN;
   entry_pnt = head [index];
@@ -317,7 +317,7 @@ struct beden **pt_hash;
   struct beden *pt_entry   ;
   struct beden *pt_nxtentry;
   struct bedrd *pt_record  ;
-  int           i          ;
+  long           i          ;
 
   if (pt_hash != NULL)
     {

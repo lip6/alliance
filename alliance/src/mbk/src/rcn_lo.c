@@ -21,7 +21,7 @@
  * Software Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
  */
 
-#ident "$Id: rcn_lo.c,v 1.4 2006/03/29 17:10:33 xtof Exp $"
+#ident "$Id: rcn_lo.c,v 1.5 2009/06/14 13:51:52 ludo Exp $"
 
 /*******************************************************************************
 * rcn    : acces functions to logical rc network structures                    *
@@ -1096,7 +1096,7 @@ lonode_list *getlonode(ptsig, index)
 losig_list *ptsig;
 long  index;
 {
-  int taille;
+  long taille;
   ptype_list *head;
   chain_list *scan;
   int max;
@@ -1111,7 +1111,7 @@ long  index;
     EXIT(1);
   }
 
-  taille = (int)(getptype( ptsig->PRCN->USER, RCN_SIZETAB )->DATA); 
+  taille = (long)(getptype( ptsig->PRCN->USER, RCN_SIZETAB )->DATA); 
   scan   = head->DATA;
 
   pos=0;
@@ -1144,7 +1144,7 @@ lonode_list *givelonode(ptsig, index)
 losig_list  *ptsig;
 long  index;
 {
-  int taille;
+  long taille;
   ptype_list *head;
   chain_list *scan;
   chain_list *prev;
@@ -1173,7 +1173,7 @@ long  index;
     EXIT(1);
   }
 
-  taille = (int)(getptype( ptsig->PRCN->USER, RCN_SIZETAB )->DATA); 
+  taille = (long)(getptype( ptsig->PRCN->USER, RCN_SIZETAB )->DATA); 
   scan   = head->DATA;
   prev   = head->DATA;
 
@@ -1495,7 +1495,7 @@ loctc_list* heaploctc()
     ptctc=HEAD_CTC_FREE;
     for(i=1;i<RCNBUFSIZE;i++)
     {
-      ptctc->SIG1 = ptctc+1;
+      ptctc->SIG1 = (struct losig *)ptctc+1;
       ptctc->NODE1 = -1000;
       ptctc++;
     }
@@ -1627,7 +1627,7 @@ losig_list	*ptsig;
 {
   chain_list	*head;
   chain_list	*scan;
-  int		 taille;
+  long  	 taille;
   ptype_list	*ptl;
   int            i;
   lonode_list   *ptnode;
@@ -1651,7 +1651,7 @@ losig_list	*ptsig;
     exit(-1);
   }
 
-  taille = (int)(getptype( ptsig->PRCN->USER, RCN_SIZETAB )->DATA );
+  taille = (long)(getptype( ptsig->PRCN->USER, RCN_SIZETAB )->DATA );
   for( scan = head; scan ; scan = scan->NEXT )
   {
     for( i=0 ; i<taille ; i++ )
@@ -1963,14 +1963,14 @@ unsigned char    flag;
 {
   long                   i;
   ptype_list		*head;
-  int			 taille;
+  long  		 taille;
   chain_list		*scan;
 
   head = getptype( ptrcnet->USER, RCN_LONODE );
   if( ! head )
     return;
 
-  taille = (int)(getptype( ptrcnet->USER, RCN_SIZETAB )->DATA);
+  taille = (long)(getptype( ptrcnet->USER, RCN_SIZETAB )->DATA);
   for( scan = (chain_list*)(head->DATA) ; scan ; scan = scan->NEXT )
   {
     for( i=0 ; i<taille ; i++ )
@@ -2406,8 +2406,8 @@ losig_list	*ptsig;
         if( !scanwire )
         {
            wireok = 0;
-           printf( "   [16] Wire %08X inexistant trouve sur le noeud %d.\n",
-                   (int)scanchain->DATA,
+           printf( "   [16] Wire %lX inexistant trouve sur le noeud %d.\n",
+                   (long)scanchain->DATA,
                    i
                  );
         }

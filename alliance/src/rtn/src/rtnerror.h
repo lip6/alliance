@@ -46,6 +46,8 @@
 # ifndef RTL_ERROR_H
 # define RTL_ERROR_H
 
+# include <libgen.h>
+
 /*------------------------------------------------------------\
 |                                                             |
 |                           Constants                         |

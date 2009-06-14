@@ -1,7 +1,10 @@
 /*
  * $Log: x2vy_main.c,v $
- * Revision 1.1  2002/04/26 09:51:07  ludo
- * Initial revision
+ * Revision 1.2  2009/06/14 13:51:57  ludo
+ * - port 64 bits
+ *
+ * Revision 1.1.1.1  2002/04/26 09:51:07  ludo
+ * Mise a plat de mbkvhdlg
  *
  * Revision 1.1.1.1  2002/04/11 08:54:53  fred
  * Importing mbkvhdlg into the new Alliance CVS tree
@@ -35,10 +38,11 @@
  *
  */
 
-#ident "$Id: x2vy_main.c,v 1.1 2002/04/26 09:51:07 ludo Exp $"
+#ident "$Id: x2vy_main.c,v 1.2 2009/06/14 13:51:57 ludo Exp $"
 
 #include <stdio.h>
 #include <string.h>
+#include <stdlib.h>
 #include <mut.h>
 #include <mlo.h>
 #include <mlu.h>

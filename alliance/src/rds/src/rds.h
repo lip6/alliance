@@ -13,6 +13,8 @@
 # ifndef RDS_210_H
 # define RDS_210_H
 
+# include <libgen.h>
+
 #ifndef __P
 # if defined(__STDC__) ||  defined(__GNUC__)
 #  define __P(x) x
@@ -51,11 +53,11 @@
 
 # define rdsfreeblock( Pointer )                      \
                                                       \
-         ( rdsfree( (char *)( Pointer ), (unsigned int)0 ) )
+         ( rdsfree( (char *)( Pointer ), (unsigned long)0 ) )
 
 # define rdsfreeheap( Pointer, SizeOf )               \
                                                       \
-         ( rdsfree( (char *)( Pointer ), (unsigned int)( SizeOf ) ) )
+         ( rdsfree( (char *)( Pointer ), (unsigned long)( SizeOf ) ) )
 
 /*------------------------------------------------------------\
 |                                                             |

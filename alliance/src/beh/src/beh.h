@@ -277,6 +277,7 @@ begex_list;
 	/* ###------------------------------------------------------### */
 
 extern struct beaux  *beh_addbeaux   ();
+extern struct bequad *beh_addbequad  ();
 extern struct bebux  *beh_addbebux   ();
 extern struct bebus  *beh_addbebus   ();
 extern struct befig  *beh_addbefig   ();

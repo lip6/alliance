@@ -66,3 +66,4 @@ static struct dct_entry **initab ();
 static void               addtab ();
 static int                chktab ();
 static void               fretab ();
+static long chkdcl ( char object, long  mode, long  type, char flag, long  kind, char constraint, long  *conf );

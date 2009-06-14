@@ -48,11 +48,11 @@ struct chain *pt_abl;
   struct chain *opr_lst;
   char         *sig_nam;
   struct chain *new_abl;
-  unsigned int  opera  ;
+  unsigned long  opera  ;
 
   if (pt_abl->NEXT != NULL)
     {
-    opera = (unsigned int) ((struct chain *) pt_abl->DATA)->DATA;
+    opera = (unsigned long) ((struct chain *) pt_abl->DATA)->DATA;
     if (opera == STABLE)
       {
       sig_nam = (char *) ((struct chain *) pt_abl->NEXT->DATA)->DATA;

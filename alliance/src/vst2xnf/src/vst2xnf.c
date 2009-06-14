@@ -299,13 +299,13 @@ int  val;
 char *s = getsigname(ls);
 
    if ((val = gethtitem(h, s)) == EMPTYHT) /* the name is unique up to now */
-      addhtitem(h, s, (int)ls);
+      addhtitem(h, s, (long)ls);
       /* that suck because I assume sizeof(int) == sizeof (void *),
          which insn't true on some beasts */
-   else if (val != (int)ls) {
+   else if (val != (long)ls) {
       /* that sucks: two signals have same name, so I return the
          concatenation of the signal name and its index. */
-      sprintf(buffer, "%s%d", s, ls->INDEX);
+      sprintf(buffer, "%s%ld", s, ls->INDEX);
       s = namealloc(buffer);
    }
    return xnfvector(s,buffer);

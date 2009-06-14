@@ -26,7 +26,7 @@
  * Date    : 18/12/91
  * Author  : Frederic Petrot <Frederic.Petrot@lip6.fr>
  * Modified by Czo <Olivier.Sirol@lip6.fr> 1997,98
- * $Id: mbk_sys.h,v 1.2 2002/09/30 16:20:50 czo Exp $
+ * $Id: mbk_sys.h,v 1.3 2009/06/14 13:51:52 ludo Exp $
  */
 
 #ifndef _MBK_SYS_H_
@@ -44,8 +44,8 @@
   extern    FILE* mbkfopen __P((const char *name, const char *extension, const char *mode));
   extern    FILE *mbkfopentrace __P((const char *name, const char *extension, const char *mode));
   extern    void  mbkfopen_infos __P((const FILE *in, const char *filename, const char *name, const char *extension, const char *mode, const char  filter));
-  extern    void* mbkalloc __P((unsigned int nbytes));
-  extern    void* mbkrealloc __P((void *pt, unsigned int nbytes));
+  extern    void* mbkalloc __P((size_t nbytes));
+  extern    void* mbkrealloc __P((void *pt, size_t nbytes));
   extern    void  mbkfree __P((void *ptr));
   void ps();
   extern    void  mbkackchld __P((int));

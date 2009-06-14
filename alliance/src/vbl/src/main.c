@@ -33,7 +33,7 @@
 # include "vbl.h"
 
 # ifdef VBL_DEBUG
-  extern int vbl_y_debug;
+  extern long vbl_y_debug;
 # endif
 
 /*------------------------------------------------------------\

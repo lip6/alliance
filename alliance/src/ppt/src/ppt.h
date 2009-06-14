@@ -31,8 +31,8 @@
 extern struct paseq  *pat_lodpaseq ();	/* parser			*/
 extern struct paseq  *pat_prspat   ();	/* pat format parser		*/
 
-extern int            pat_savpaseq ();	/* driver			*/
-extern int            pat_drvpat   ();	/* pat format driver		*/
+extern long            pat_savpaseq ();	/* driver			*/
+extern long            pat_drvpat   ();	/* pat format driver		*/
 
 extern char          *pat_pattostr ();
 #endif

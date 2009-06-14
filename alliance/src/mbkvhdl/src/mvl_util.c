@@ -56,8 +56,8 @@ char              *key_str;
 char              *ctx_str;
 
   {
-  int               found = 0;
-  int               index;
+  long               found = 0;
+  long               index;
   struct dct_entry *entry_pnt;
   struct dct_entry *last_entry = NULL;
   struct dct_recrd *recrd_pnt;
@@ -123,7 +123,7 @@ struct dct_entry **mvl_initab ()
 
   {
   struct dct_entry **head;
-  int                i;
+  long                i;
 
   head = (struct dct_entry **)
          mbkalloc (sizeof(struct dct_entry *) * MVL_HSZDFN);
@@ -139,7 +139,7 @@ struct dct_entry **mvl_initab ()
 /*  content  : print out warning messages on the standard error output  */
 /* ###--------------------------------------------------------------### */
 void mvl_warning (code,str1)
-int   code;
+long   code;
 char *str1;
   {
   static char first_time = 0;
@@ -174,10 +174,10 @@ char *str1;
 /* ###--------------------------------------------------------------### */
 void mvl_toolbug (code,str1,str2,nbr1)
 
-int   code;
+long   code;
 char *str1;
 char *str2;
-int   nbr1;
+long   nbr1;
 
   {
   (void) fprintf (stderr,"Fatal error %d executing `%s`: ", code,str1);
@@ -197,9 +197,9 @@ int   nbr1;
 /* ###--------------------------------------------------------------### */
 void mvl_message (code,str1,nmb1)
 
-int   code;
+long   code;
 char *str1;
-int   nmb1;
+long   nmb1;
 
   {
   switch (code)
@@ -217,12 +217,12 @@ void mvl_addtab (head,key_str,ctx_str,field,valu)
 struct dct_entry **head;
 char              *key_str;
 char              *ctx_str;
-int                field;
-int                valu;
+long               field;
+long               valu;
 
   {
-  int               found = 0;
-  int               index;
+  long              found = 0;
+  long              index;
   struct dct_entry *entry_pnt;
   struct dct_recrd *recrd_pnt;
 
@@ -296,16 +296,16 @@ int                valu;
 /* ###--------------------------------------------------------------### */
 /*  function : mvl_chktab						*/
 /* ###--------------------------------------------------------------### */
-int  mvl_chktab (head,key_str,ctx_str,field)
+long mvl_chktab (head,key_str,ctx_str,field)
 
 struct dct_entry **head;
 char              *key_str;
 char              *ctx_str;
-int                field;
+long               field;
 
   {
-  int               found = 0;
-  int               valu = 0;
+  long              found = 0;
+  long              valu = 0;
   struct dct_entry *entry_pnt;
   struct dct_recrd *recrd_pnt;
 
@@ -379,7 +379,7 @@ struct dct_entry **pt_hash;
   struct dct_entry *pt_entry;
   struct dct_entry *pt_nxtentry;
   struct dct_recrd *pt_record;
-  int               i;
+  long              i;
 
   if (pt_hash != NULL)
     {
@@ -413,7 +413,7 @@ struct dct_entry **pt_hash;
 /* ###--------------------------------------------------------------### */
 void mvl_error (code,str1)
 
-int   code;
+long  code;
 char *str1;
 
   {
@@ -535,7 +535,7 @@ char             *key;
 
   {
   struct dct_entry *entry;
-  int               i;
+  long              i;
 
   if (MVL_DCEHED == NULL)
     {
@@ -571,7 +571,7 @@ char             *key;
 
   {
   struct dct_recrd *recrd;
-  int               i;
+  long              i;
 
   if (MVL_DCRHED == NULL)
     {
@@ -643,7 +643,7 @@ char *name;
   char                     *prv_name;
   char                     *tmp_name;
   char                      buffer[200];
-  int                       i,j,flag,number;
+  long                      i,j,flag,number;
   static struct dct_entry **namtab=NULL;
 
   if (namtab == NULL)
@@ -697,7 +697,7 @@ char *name;
       new_name = namealloc (buffer);
       }
     mvl_addtab (namtab,new_name,NULL,MVL_NEWDFN,1);
-    mvl_addtab (namtab,tmp_name,NULL,MVL_PNTDFN,(int)new_name);
+    mvl_addtab (namtab,tmp_name,NULL,MVL_PNTDFN,(long)new_name);
     mvl_addtab (namtab,tmp_name,NULL,MVL_NAMDFN,1);
     }
 
@@ -740,7 +740,7 @@ char *new_name;
 void *mvl_vectnam(pt_list,left,right,name,type)
   
 void *pt_list;
-int *left, *right;
+long *left, *right;
 char **name;
 char type;
 

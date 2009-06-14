@@ -1,5 +1,6 @@
 %{
 #include <stdio.h>
+#include <string.h>
 #include "elp_y.h"
 #undef ECHO
 #define ECHO

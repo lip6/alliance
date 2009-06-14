@@ -36,7 +36,7 @@
 #include "beh_debug.h"
 
 static char           *buffer      = NULL;
-static unsigned int    buff_size   = 0;
+static unsigned long    buff_size   = 0;
 static struct circuit *circuit_pnt = NULL;
 
 
@@ -55,7 +55,7 @@ char         **str;			/* recognized strings		*/
 
   {
 
-  int                     i;
+  long                     i;
   struct chain           *ptr_abl;
 
   struct chain           *chain_pnt;
@@ -79,7 +79,7 @@ char         **str;			/* recognized strings		*/
 
   char                  **string_pnt;
   char                   *character_pnt;
-  int                    *int_pnt;
+  long                    *int_pnt;
 
 	/* ###------------------------------------------------------### */
 	/*    initialization						*/
@@ -516,7 +516,7 @@ char         **str;			/* recognized strings		*/
 
     case integer_DFN :
 
-      int_pnt = (int *) curpnt.data;
+      int_pnt = (long *) curpnt.data;
 
       typ [integer_DFN]     = IMMEDIATE_DFN | d_DFN | integer_DFN;
       pnt [integer_DFN].imd = *int_pnt;
@@ -641,17 +641,17 @@ char         **str;			/* recognized strings		*/
 /* called func.	: none							*/
 /* ###--------------------------------------------------------------### */
 
-static int splitline (words, line)
+static long splitline (words, line)
 
 char **words;
 char  *line ;
   {
 
   char *heap   = *words;
-  int   new    =  1;
-  int   wrdcnt =  0;
-  int   i      =  0;
-  int   j      =  0;
+  long   new    =  1;
+  long   wrdcnt =  0;
+  long   i      =  0;
+  long   j      =  0;
 
 	/* ###------------------------------------------------------### */
 	/*    copy the line read from input into the words until a	*/
@@ -692,12 +692,12 @@ char  *line ;
 static void push (stk, stkpnt, data, type)
 
 struct stack *stk;
-int          *stkpnt;
+long          *stkpnt;
 void         *data;
 short         type;
 
   {
-  int stkidx = *stkpnt;
+  long stkidx = *stkpnt;
 
   if (stkidx == STKSIZ_DFN)
     fprintf (stdout, "beh_debug :\tSTACK OVERFLOW !!\tSTACK OVERFLOW !!\n");
@@ -724,11 +724,11 @@ short         type;
 
 static void pop (stkpnt, count)
 
-int          *stkpnt;
-int           count;
+long          *stkpnt;
+long           count;
 
   {
-  int stkidx = *stkpnt;
+  long stkidx = *stkpnt;
 
   if (stkidx <= count)
     stkidx = 0;
@@ -748,7 +748,7 @@ int           count;
 static struct chain *goforward (pnt, count)
 
 struct chain *pnt;
-int           count;
+long           count;
 
   {
   while ((count > 0) && (pnt != NULL) && (pnt->NEXT != NULL))
@@ -767,17 +767,17 @@ int           count;
 /* called func.	: none							*/
 /* ###--------------------------------------------------------------### */
 
-static int translate (words, wrdcnt, strgs, nmbrs, flags, indxs)
+static long translate (words, wrdcnt, strgs, nmbrs, flags, indxs)
 
 char **words;				/* list of words		*/
-int    wrdcnt;				/* number of words		*/
+long    wrdcnt;				/* number of words		*/
 char **strgs;				/* list of recognized strings	*/
-int   *nmbrs;				/* words translated to numbers	*/
+long   *nmbrs;				/* words translated to numbers	*/
 char  *flags;				/* set if word is a number	*/
-int   *indxs;				/* words' index in strgs table	*/
+long   *indxs;				/* words' index in strgs table	*/
 
   {
-  int i , j;
+  long i , j;
 
 	/* ###------------------------------------------------------### */
 	/*    initialize flags and indxs				*/
@@ -813,10 +813,10 @@ int   *indxs;				/* words' index in strgs table	*/
 
 static void getsize (siz)
 
-unsigned int siz [];
+unsigned long siz [];
 
   {
-  int i;
+  long i;
  
   for (i=0 ; i<MAXCMD_DFN ; i++)
     siz [i] = 0;
@@ -858,7 +858,7 @@ static void disp_immd (str, pnt, type)
 
 char        **str;
 union value pnt  ;
-int         type ;
+long         type ;
 
   {
   char         *lcl_str         ;
@@ -931,25 +931,25 @@ char *type;				/* structure's type		*/
   char          heap   [128];		/* buffer to split the cmd line	*/
 
   char         *words  [ 10];		/* number of words on a line	*/
-  int           nmbrs  [ 10];		/* words translated into number	*/
+  long           nmbrs  [ 10];		/* words translated into number	*/
   char          flags  [ 10];		/* set if words is a number	*/
-  int           indxs  [ 10];		/* index of words		*/
+  long           indxs  [ 10];		/* index of words		*/
 
   struct stack  jtab   [ 10];		/* list of memorized addresses	*/
-  int           idx, i;
-  int           dispflg = 0;
-  int           code;
-  unsigned int  size;
+  long           idx, i;
+  long           dispflg = 0;
+  long           code;
+  unsigned long  size;
   char         *pntr   = NULL;
   long          pshtype;
-  int           wrdcnt = 1;
+  long           wrdcnt = 1;
 
   struct stack  stk [STKSIZ_DFN];
-  int           stkpnt = -1;
+  long           stkpnt = -1;
 
   union value   pnt [MAXCMD_DFN];
   long          typ [MAXCMD_DFN];
-  unsigned int  siz [MAXCMD_DFN];
+  unsigned long  siz [MAXCMD_DFN];
 
   static char  *str [] = {
                           "_back"    , "_exit"    , "_jump"    , "_save"    ,
@@ -1176,7 +1176,7 @@ char *type;				/* structure's type		*/
             {
             size = siz [(typ [idx] & TYPE_DFN)];
             pntr = (void *)
-                   (((unsigned int) pnt [idx].dat) + (size * nmbrs [1]));
+                   (((unsigned long) pnt [idx].dat) + (size * nmbrs [1]));
             push (stk, &stkpnt, pntr, pshtype);
             dispflg = 1;
             }
@@ -1189,7 +1189,7 @@ char *type;				/* structure's type		*/
             {
             size = sizeof (void *);
             pntr = * (void **)
-                     (((unsigned int) pnt [idx].dat) + (size * nmbrs [1]));
+                     (((unsigned long) pnt [idx].dat) + (size * nmbrs [1]));
             push (stk, &stkpnt, pntr, pshtype);
             dispflg = 1;
             }

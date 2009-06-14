@@ -35,7 +35,7 @@
 #include "vbl_bedef.h"
 #include "vbl_bspec.h"
 
-static int VblEvalError = 0;
+static long VblEvalError = 0;
 
 /* ###--------------------------------------------------------------### */
 /* function	: vbl_stostr						*/
@@ -49,8 +49,8 @@ char *str;
 
 {
   char *resstr;
-  int   i;
-  int   j=0;
+  long   i;
+  long   j=0;
 
   resstr = (char *)mbkalloc(100);
   resstr[0] = '\0';
@@ -89,9 +89,7 @@ char *str;
 /*		  vbl_error , addchain   , freechain			*/
 /* ###--------------------------------------------------------------### */
 
-vbtyp_list *vbl_getbasetype( type )
-
-  int type;
+vbtyp_list *vbl_getbasetype( long type )
 {
   vbtyp_list *ScanType;
 
@@ -113,12 +111,12 @@ vbtyp_list *vbl_getbasetype( type )
   return( ScanType );
 }
 
-vexexpr *vbl_dynamicvexatom( Name, Left, Right, Dynamic )
+vexexpr *vbl_dynamicvexatom( 
 
-   char          *Name;
-   long           Left;
-   long           Right;
-   unsigned char  Dynamic;
+   char          *Name,
+   long           Left,
+   long           Right,
+   unsigned char  Dynamic )
 {
   vexexpr *Result;
 
@@ -146,19 +144,19 @@ vexexpr *vbl_dynamicvexatom( Name, Left, Right, Dynamic )
 
 }
 
-vbl_vexstr vbl_crtvex( oper, expr1, expr2, left, right, dynamic )
+vbl_vexstr vbl_crtvex( 
 
-short      oper;
-vbl_vexstr expr1;
-vbl_vexstr expr2;
-long       left;
-long       right;
-unsigned char dynamic;
+short      oper,
+vbl_vexstr expr1,
+vbl_vexstr expr2,
+long       left,
+long       right,
+unsigned char dynamic )
 {
   char            name[128];
   vbl_vexstr      result;
   char            lcl_buffer[128];
-  int             Length;
+  long             Length;
   vbtyp_list     *BaseType1;
   vbtyp_list     *BaseType2;
   vbtyp_list     *VbhType;
@@ -543,7 +541,7 @@ unsigned char dynamic;
 	  vbl_toolbug (4,"vbl_crtvex","arithmetic operators",0);
         else
         {
-          int Width;
+          long Width;
 
           result.VEX = createvexbinexpr( oper, 1, expr1.VEX, expr2.VEX );
 
@@ -669,7 +667,7 @@ long vbl_bintonum(str)
 char* str;
 
 {
-	int res,i=0;
+	long res,i=0;
 
    res = 0; 
 	while(str[i])
@@ -686,8 +684,7 @@ char* str;
 /* description	: transform a ENUMERATE 		*/
 /*		  in a string of '0' and '1's				*/
 /* ###--------------------------------------------------------------### */
-char *vbl_numtobin(num)
-long num;
+char *vbl_numtobin( long num )
 
 {
    char val[256]; 
@@ -712,9 +709,7 @@ long num;
 /*            store a user-type value, given the scope width  */
 /*------------------------------------------------------------*/
 
-int vbl_codeSize( Size )
-
-  long Size;
+long vbl_codeSize( long Size )
 {
   return( getvexintnumbit( Size ) );
 }
@@ -724,10 +719,7 @@ int vbl_codeSize( Size )
 /*            store an integer value, given the left and right */
 /*------------------------------------------------------------*/
 
-int vbl_intSize( Left, Right )
-
-  long Left;
-  long Right;
+long vbl_intSize( long Left, long Right )
 {
   return( getvexintervalnumbit( Left, Right ) );
 }
@@ -738,14 +730,14 @@ int vbl_intSize( Left, Right )
 /* description  : transform a ENUMERATE                 */
 /*                in a string of '0' and '1' and '-'                    */
 /* ###--------------------------------------------------------------### */
-char *vbl_enumbitstring(num,size,numbit)
-int num;
-int size;
-int numbit;
+char *vbl_enumbitstring(
+long num,
+long size,
+long numbit )
 
 {
   char  val[40];
-  int   i;
+  long   i;
   long  shiftnum;
   long  sup_bound; /*         (1 << (numbit-1))  */
   long  inf_bound; /* size & ~(1 << (numbit-1))  */
@@ -801,18 +793,18 @@ long j, k;
 	return s;
 } 
 
-int vbl_tobin (trg,src,left,right)
+long vbl_tobin (
 
-char *trg;
-char *src;
-int   left;
-int   right;
+char *trg,
+char *src,
+long   left,
+long   right )
 
 {
   char base;
-  int  indx;
-  int  j = 0;
-  int  type = -1;
+  long  indx;
+  long  j = 0;
+  long  type = -1;
   char lcl_trg[256];
   unsigned long  Value;
   unsigned long  Mask;
@@ -1159,10 +1151,7 @@ static long vbl_vexeval( Vex )
   return( Value );
 }
 
-int vbl_vextonum( Vex, PValue )
-
-  vexexpr *Vex;
-  long    *PValue;
+long vbl_vextonum( vexexpr *Vex, long    *PValue )
 {
   VblEvalError = 0;
   *PValue = vbl_vexeval( Vex );

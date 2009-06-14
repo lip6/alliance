@@ -62,17 +62,17 @@
 void vhdlsavebefig (pthedbefig, trace_mode)
 
 struct befig *pthedbefig;
-int           trace_mode;
+long          trace_mode;
 
   {
   char         *suffix;
   char         *str;
   char         *mode;
   char         *type_mark;
-  int           nrlabel = 0;
+  long           nrlabel = 0;
   FILE         *fd;
   time_t        clock;
-  int           left,right;
+  long           left,right;
   char         *name;
   char         *bus;
 

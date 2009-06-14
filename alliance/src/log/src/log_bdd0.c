@@ -30,7 +30,7 @@
 
 
 
-#ident "$Id: log_bdd0.c,v 1.5 2006/03/29 17:10:13 xtof Exp $"
+#ident "$Id: log_bdd0.c,v 1.6 2009/06/14 13:51:47 ludo Exp $"
 
 /****************************************************************************/
 /*    Produit : librairie BDD - Gestion de BDD                              */
@@ -63,7 +63,7 @@ return 		 :pointeur sur le noeud cree.
 
 pNode 
 initVertexBdd (index, high, low)
-     int index;
+     long index;
      pNode high, low;
 {
   pNode pt;
@@ -143,7 +143,7 @@ return 		 :rien.
 
 void 
 initializeBdd (size)
-     int size;
+     long size;
 {
   switch (size)
     {
@@ -179,7 +179,7 @@ return 		 :rien.
 
 void 
 destroyBdd (level)
-     int level;
+     long level;
 {
   chain_list *pt;
 
@@ -214,7 +214,7 @@ return 		 :rien.
 void 
 resetBdd ()
 {
-  int i;
+  long i;
   pNode *pBdd;
   chain_list *pt;
 
@@ -248,7 +248,7 @@ numberNodeAllBdd :compte le nombre de noeud utilise dans le systeme.
 return 		 :le nombre de noeud.
 ------------------------------------------------------------------------------*/
 
-int 
+long 
 numberNodeAllBdd ()
 {
   return ((sysBdd.pRT)->compteur);
@@ -262,11 +262,11 @@ parametres 	 :un pointeur de Node.
 return 		 :le nombre de noeud.
 ------------------------------------------------------------------------------*/
 
-int 
+long 
 numberNodeBdd (pBdd)
      pNode pBdd;
 {
-  int val;
+  long val;
 
   markBdd (pBdd, -1);
   markBdd (pBdd, 0);
@@ -280,9 +280,9 @@ countNode        : calcul du nombre de noeuds BDD
 -------------------------------------------------------
 parametres 	 : une pNode
 -------------------------------------------------------
-return 		 : int
+return 		 : long
 ------------------------------------------------------------------------------*/
-int 
+long 
 countNode (pt)
      pNode pt;
 {
@@ -302,9 +302,9 @@ countNodeTdg     : calcul du nombre de noeuds equivalent TDG sur un BDD
 -------------------------------------------------------
 parametres 	 : une pNode
 -------------------------------------------------------
-return 		 : int
+return 		 : long
 ------------------------------------------------------------------------------*/
-int 
+long 
 countNodeTdg (pt)
      pNode pt;
 {
@@ -312,7 +312,7 @@ countNodeTdg (pt)
     {
       if (pt->mark == 0)
 	{
-	  int val;
+	  long val;
 	  pt->mark = 1;
 	  val = countNodeTdg (pt->high) + countNodeTdg (pt->low) + 1;
 	  markBdd (notBdd (pt), 1);
@@ -573,21 +573,21 @@ displayBddLoc (level, pt)
     pt->mark = 1;
   if (pt->index > 1)
     {
-      printf ("%d\t INDEX = %d\t", (int) pt, (int) pt->index);
+      printf ("%ld\t INDEX = %ld\t", (long) pt, (long) pt->index);
 
       if ((pt->low)->index == 0)
 	printf (" LOW = ZERO");
       else if ((pt->low)->index == 1)
 	printf (" LOW = ONE");
       else
-	printf (" LOW = %d", (int) pt->low);
+	printf (" LOW = %ld", (long) pt->low);
 
       if ((pt->high)->index == 0)
 	printf ("\t HIGH = ZERO\n");
       else if ((pt->high)->index == 1)
 	printf ("\t HIGH = ONE\n");
       else
-	printf ("\t HIGH = %d\n", (int) pt->high);
+	printf ("\t HIGH = %ld\n", (long) pt->high);
 
       /* appel recursif */
 
@@ -608,7 +608,7 @@ displayBddLoc (level, pt)
 void 
 displayBdd (pBdd, level)
      pNode pBdd;
-     int level;
+     long level;
 {
   markBdd (pBdd, 0);
   displayBddLoc (level, pBdd);
@@ -625,7 +625,7 @@ void
 assignNumNodeBdd (bdd, vTable, pNodeNumber)
      pNode bdd;
      pTH vTable;
-     int *pNodeNumber;
+     long *pNodeNumber;
 {
   if (bdd != one && bdd != zero)
     {
@@ -660,9 +660,9 @@ displayGraphicBdd (pBdd)
      pNode pBdd;
 {
   pTH vTable;
-  int numNode = 2;
+  long numNode = 2;
   chain_list *lst, *supp;
-  int i;
+  long i;
 
   supp = reverse (supportChain_listBdd (pBdd));
 
@@ -706,9 +706,9 @@ displayGraphicBdd (pBdd)
 
 	  if (i == pt->index)
 	    {
-	      int numLow = searchTH (vTable, (char *) pt->low);
-	      int numHigh = searchTH (vTable, (char *) pt->high);
-	      int num = searchTH (vTable, (char *)pt);
+	      long numLow = searchTH (vTable, (char *) pt->low);
+	      long numHigh = searchTH (vTable, (char *) pt->high);
+	      long num = searchTH (vTable, (char *)pt);
 
 	      printf ("  %d_(%d)_%d  ", numLow, num, numHigh);
 	    }
@@ -742,20 +742,20 @@ displayBddName (level, pt, TabName)
   pt->mark = 1;
   if (pt->index > 1)
     {
-      printf ("%d\t INPUT = %s\t", (int) pt, *(TabName + pt->index - 2));
+      printf ("%ld\t INPUT = %s\t", (long) pt, *(TabName + pt->index - 2));
       if ((pt->high)->index == 0)
 	printf (" HIGH = ZERO");
       else if ((pt->high)->index == 1)
 	printf (" HIGH = ONE");
       else
-	printf (" HIGH = %d", (int) pt->high);
+	printf (" HIGH = %ld", (long) pt->high);
 
       if ((pt->low)->index == 0)
 	printf ("\t LOW = ZERO\n");
       else if ((pt->low)->index == 1)
 	printf ("\t LOW = ONE\n");
       else
-	printf ("\t LOW = %d\n", (int) pt->low);
+	printf ("\t LOW = %ld\n", (long) pt->low);
       if (level == 1)
 	{
 	  if ((pt->low)->index > 1)
@@ -806,7 +806,7 @@ return 		 :un pointeur de Bdd.
 
 pNode 
 applyTerm (oper, index, pBdd)
-     int oper;
+     long oper;
      short index;
      pNode pBdd;
 {
@@ -1483,7 +1483,7 @@ return 		 :un pointeur de Bdd.
 pNode 
 composeBdd (pBdd1, pBdd2, index)
      pNode pBdd1, pBdd2;
-     int index;
+     long index;
 {
   pNode r1, r2, resul;
 
@@ -1514,7 +1514,7 @@ addListBdd (pt, pBdd)
      pNode pBdd;
 {
   chain_list *new_lstGdb, *pCur, *pCurSup;
-  int index;
+  long index;
 
 
   index = pBdd->index;
@@ -1556,10 +1556,10 @@ renvoie 1 si le graphe est une tautologie
 -----------------------------------------------------------------------
 parametres 	 :un pointeur de Bdd.
 -----------------------------------------------------------------------
-return 		 :un int.
+return 		 :un long.
 ------------------------------------------------------------------------------*/
 
-int 
+long 
 oneBdd (pBdd)
      pNode pBdd;
 {
@@ -1575,10 +1575,10 @@ renvoie 1 si le graphe est une antilogie
 -----------------------------------------------------------------------
 parametres 	 :un pointeur de Bdd.
 -----------------------------------------------------------------------
-return 		 :un int.
+return 		 :un long.
 ------------------------------------------------------------------------------*/
 
-int 
+long 
 zeroBdd (pBdd)
      pNode pBdd;
 {
@@ -1597,7 +1597,7 @@ parametres 	 :deux pointeurs de Bdd.
 return 		 :un short.
 ------------------------------------------------------------------------------*/
 
-int 
+long 
 equalBdd (pBdd1, pBdd2)
      pNode pBdd1, pBdd2;
 {
@@ -1670,7 +1670,7 @@ markAllBdd (value)
      short value;
 {
   pNode pBdd, *ppBdd;
-  int i;
+  long i;
 
   ppBdd = (sysBdd.pRT)->pBdd;
 
@@ -1787,7 +1787,7 @@ regenereBdd (pBdd, sysCible, pTHNode)
      struct systemBdd *sysCible;
      pTH pTHNode;
 {
-  int resul;
+  long resul;
 
   if ((resul = searchTH (pTHNode, (char *)pBdd)) != EMPTYTH)
     return ((pNode) resul);
@@ -1798,7 +1798,7 @@ regenereBdd (pBdd, sysCible, pTHNode)
 	  printf ("gcNode : error - bad index %d\n", pBdd->index);
 	  exit (-1);
 	}
-      resul = (int) initVertexBddAux (pBdd->index,
+      resul = (long) initVertexBddAux (pBdd->index,
 				regenereBdd (pBdd->high, sysCible, pTHNode),
 				 regenereBdd (pBdd->low, sysCible, pTHNode),
 				      sysCible);
@@ -1831,8 +1831,8 @@ gcNodeBdd (pt)
   sysBddAux.lpAT = NULL;
   zeroAux = initVertexBddAux (0, (pNode) 0, (pNode) 1, &sysBddAux);
   oneAux = initVertexBddAux (1, (pNode) 0, (pNode) 1, &sysBddAux);
-  addTH (pTHNode, (char *)zero, (int) zeroAux);
-  addTH (pTHNode, (char *)one, (int) oneAux);
+  addTH (pTHNode, (char *)zero, (long) zeroAux);
+  addTH (pTHNode, (char *)one, (long) oneAux);
 
   while (pt)
     {
@@ -1882,10 +1882,10 @@ rempTabIndex (pt, tabIndex)
 chain_list *
 supportIndexBdd (pt, sens)
      pNode pt;
-     int sens;
+     long sens;
 {
   char *tabIndex;
-  int i;
+  long i;
   chain_list *ret;
 
   /*  initialisation du tableau d'index utilises */

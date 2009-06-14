@@ -40,6 +40,9 @@
 
 /*
  * $Log: parse_vti_p.c,v $
+ * Revision 1.4  2009/06/14 13:51:58  ludo
+ * - port 64 bits
+ *
  * Revision 1.3  2002/09/30 16:21:00  czo
  * support/users
  *
@@ -77,7 +80,7 @@
  * rcs version number consistency
  *
  */
-#ident "$Id: parse_vti_p.c,v 1.3 2002/09/30 16:21:00 czo Exp $"
+#ident "$Id: parse_vti_p.c,v 1.4 2009/06/14 13:51:58 ludo Exp $"
 
 #include <string.h>
 #include <ctype.h>
@@ -124,7 +127,7 @@ point_list *ptpoint; \
 phcon_list  *ptcon; \
  \
    for (ptcon = figure->PHCON; ptcon; ptcon = ptcon->NEXT) \
-      if (((int)(getptype(ptcon->USER, (long)VTIPARSER)->DATA)) == refnum) \
+      if (((long)(getptype(ptcon->USER, (long)VTIPARSER)->DATA)) == refnum) \
          break; \
  \
    if (ptcon == (phcon_list *)NULL) \
@@ -146,7 +149,7 @@ phins_list *ptins; \
    ptins = getphins(figure, insname); \
    ptnewfig = getphfig(ptins->FIGNAME, 'P'); \
    for (ptcon = ptnewfig->PHCON; ptcon; ptcon = ptcon->NEXT) \
-      if ((int)(getptype(ptcon->USER, (long)VTIPARSER)->DATA) == refnum) \
+      if ((long)(getptype(ptcon->USER, (long)VTIPARSER)->DATA) == refnum) \
          break; \
  \
    if (ptcon == (phcon_list *)NULL) \

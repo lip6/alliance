@@ -30,12 +30,14 @@
 
 
 
-#ident "$Id: log_thashloc.c,v 1.2 2002/09/30 16:20:44 czo Exp $"
+#ident "$Id: log_thashloc.c,v 1.3 2009/06/14 13:51:47 ludo Exp $"
 
 /*--------------------------------------------------------------------------
    la table de hachage local 
    la version du 14.12.90 
   -------------------------------------------------------------------------- */
+#include <stdlib.h>
+#include <string.h>
 #include  "mut.h"
 #include "log.h"
 
@@ -51,7 +53,7 @@
    a. creation de table 
 
    pTableLoc createTabLoc(len)
-   int len;
+   long len;
 
    b. destruction de la table
 
@@ -71,7 +73,7 @@
 
    e. ajout d'un element
 
-   int addTabLoc(pTab,pLoc)
+   long addTabLoc(pTab,pLoc)
    pTableLoc pTab;
    pVertexLoc pLoc;
 
@@ -85,13 +87,13 @@
 
 /*-------------------- la fonction de hachage ---------------------------- */
 
-int 
+long 
 hashLoc (high, low)
      pNode high, low;
 {
   return (abs (high->index + low->index +
-	       (((int) high) >> 4) + (((int) low) >> 5) +
-	       (int) high + (int) low));
+	       (((long) high) >> 4) + (((long) low) >> 5) +
+	       (long) high + (long) low));
 }
 
 /*--------------- La table de hachage pour des LOC ------------ */
@@ -103,11 +105,11 @@ hashLoc (high, low)
 
 pTableLoc 
 createTabLoc (len)
-     int len;
+     long len;
 {
   pTableLoc pTab;
   pVertexLoc pLoc;
-  int i;
+  long i;
 
   if (!(pTab = (pTableLoc) mbkalloc (sizeof (struct tableLoc))))
     {
@@ -150,7 +152,7 @@ searchTabLoc (pTab, high, low, oper)
      short oper;
 {
   pVertexLoc pLoc;
-  int indice;
+  long indice;
 
   /* un seul acces permis */
 
@@ -165,14 +167,14 @@ searchTabLoc (pTab, high, low, oper)
  /* ajout d'un element a la table */
 
 
-int 
+long 
 addTabLoc (pTab, high, low, father, oper)
      pTableLoc pTab;
      pNode high, low, father;
      short oper;
 {
   pVertexLoc pLoc;
-  int indice;
+  long indice;
 
   /* un seul acces permis */
 
@@ -192,8 +194,8 @@ void
 displayLoc (pTab)
      pTableLoc pTab;
 {
-  int i;
-  int co = 0;
+  long i;
+  long co = 0;
   pVertexLoc pLoc;
 
   pLoc = pTab->pLoc;
@@ -206,12 +208,12 @@ displayLoc (pTab)
       if (pLoc[i].oper != EMPTYTH)
 	{
 	  co++;
-	  printf ("****** indice %d ****** \n", i);
-	  printf ("HIGH %d LOW %d FATHER %d\n", (int) pLoc[i].high, (int) pLoc[i].low, (int) pLoc[i].father);
+	  printf ("****** indice %ld ****** \n", i);
+	  printf ("HIGH %d LOW %ld FATHER %ld\n", (long) pLoc[i].high, (long) pLoc[i].low, (long) pLoc[i].father);
 	  printf ("\n");
 	}
     }
-  printf ("\n****** Nombre de noeuds dans la table  = %d\n", co);
+  printf ("\n****** Nombre de noeuds dans la table  = %ld\n", co);
 }
 
 
@@ -229,7 +231,7 @@ videTabLoc (pTab)
      pTableLoc pTab;
 {
   pVertexLoc pLoc;
-  int i;
+  long i;
 
   pLoc = pTab->pLoc;
 

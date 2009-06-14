@@ -38,18 +38,18 @@ char *str;
 /*		  in a string of '0' and '1's				*/
 /* ###--------------------------------------------------------------### */
 
-static int tobin (trg, src, left, right)
+static long tobin (
 
-char *trg  ;
-char *src  ;
-int   left ;
-int   right;
+char *trg  ,
+char *src  ,
+long   left ,
+long   right )
 
-  {
+{
   char base         ;
-  int  indx         ;
-  int  j            = 0;
-  int  errflg       = 0;
+  long  indx         ;
+  long  j            = 0;
+  long  errflg       = 0;
   char lcl_trg [256];
 
   lcl_trg [0] = '\0';
@@ -216,25 +216,25 @@ int   right;
     }
 
   return (errflg);
-  }
+}
 
 /* ###--------------------------------------------------------------### */
 /* function	: chkdcl						*/
 /* ###--------------------------------------------------------------### */
 
-static int chkdcl (object, mode, type, flag, kind, constraint, conf)
+static long chkdcl (object, mode, type, flag, kind, constraint, conf)
 
 char object    ;
-int  mode      ;
-int  type      ;
+long  mode      ;
+long  type      ;
 char flag      ;
-int  kind      ;
+long  kind      ;
 char constraint;
-int  *conf     ;
+long  *conf     ;
 
   {
-  int errflg = 0;
-  int lclcnf = 0;
+  long errflg = 0;
+  long lclcnf = 0;
 
   if (flag != constraint)
     {
@@ -404,8 +404,8 @@ static void *addstr (ptfig, object, mode, type, flag, name, left, right)
 
 struct befig *ptfig ;
 char          object;
-int           mode  ;
-int           type  ;
+long           mode  ;
+long           type  ;
 char          flag  ;
 char         *name  ;
 short         left  ;
@@ -580,8 +580,8 @@ short         right   ;		/* array's right bound (= -1 if scalar)	*/
   struct begen *ptgen        ;
   struct chain *ptauxnam     ;
   struct chain *ptauxnat     ;
-  int           i            ;
-  int           inc          = 1;
+  long           i            ;
+  long           inc          = 1;
 
   ptgen    = last_gen;
   ptauxnam = nam_lst ;
@@ -697,13 +697,13 @@ bvl_ablstr ablstr;
 /*		  bvl_error , addchain   , freechain			*/
 /* ###--------------------------------------------------------------### */
 
-static bvl_ablstr crtabl (oper, expr1, expr2, left, right)
+static bvl_ablstr crtabl (
 
-short      oper ;
-bvl_ablstr expr1;
-bvl_ablstr expr2;
-int        left ;
-int        right;
+short      oper ,
+bvl_ablstr expr1,
+bvl_ablstr expr2,
+long        left ,
+long        right )
 
   {
   char            name [256]      ;
@@ -1247,7 +1247,7 @@ bvl_ablstr    pt_ablstr;	/* tested expression			*/
 
   {
   char             binstr[256];
-  int              i;
+  long              i;
   struct chain    *pt_auxabl;
   pNode            pt_bddres;
   pNode            pt_bddnew;
@@ -1256,8 +1256,8 @@ bvl_ablstr    pt_ablstr;	/* tested expression			*/
   char             nomvar[10];
   struct chain    *pt_newabl;
   struct chain    *pt_newabl2;
-  static int       oth_flg=0;
-  static int       last_width=0;
+  static long       oth_flg=0;
+  static long       last_width=0;
   static pCircuit  pC = NULL;
 
   result->LIST_ABL = NULL;
@@ -1871,7 +1871,7 @@ formal_port_element
 	  .signal_kind.
 		{
 		char *signame;
-		int   sigconf;
+		long   sigconf;
 		void *pnt;
 
 		/* ###----------------------------------------------### */
@@ -1895,7 +1895,7 @@ formal_port_element
 		  beh_addtab (dic, signame, BVL_MODNAM, BVL_SIGDFN, sigconf);
 		  beh_addtab (dic, signame, BVL_MODNAM, BVL_WMNDFN, $6.LEFT);
 		  beh_addtab (dic, signame, BVL_MODNAM, BVL_WMXDFN, $6.RIGHT);
-		  beh_addtab (dic, signame, BVL_MODNAM, BVL_PNTDFN, (int)pnt);
+		  beh_addtab (dic, signame, BVL_MODNAM, BVL_PNTDFN, (long)pnt);
 
 		  BVL_NM1LST = delchain (BVL_NM1LST, BVL_NM1LST);
 		  }
@@ -1984,7 +1984,7 @@ constant_declaration
 	  constant_VarAsgn__expression
 	  Semicolon_ERR
 		{
-		int sigconf;
+		long sigconf;
 		
 		if (chkdcl ('C', 0, $4.VALU, $4.FLAG, 0, $5.FLAG, &sigconf)==0)
 		  {
@@ -2012,9 +2012,9 @@ signal_declaration
 	  Semicolon_ERR
 		{
 		char *signame;
-		int   sigconf;
+		long   sigconf;
 		void *pnt;
-		int   errflg;
+		long   errflg;
 
 		errflg = chkdcl ('S',0,$4.VALU,$4.FLAG,$6,$5.FLAG,&sigconf);
 
@@ -2037,7 +2037,7 @@ signal_declaration
 		  beh_addtab (dic, signame, BVL_MODNAM, BVL_SIGDFN, sigconf);
 		  beh_addtab (dic, signame, BVL_MODNAM, BVL_WMNDFN, $5.LEFT);
 		  beh_addtab (dic, signame, BVL_MODNAM, BVL_WMXDFN, $5.RIGHT);
-		  beh_addtab (dic, signame, BVL_MODNAM, BVL_PNTDFN, (int)pnt);
+		  beh_addtab (dic, signame, BVL_MODNAM, BVL_PNTDFN, (long)pnt);
 
 		  BVL_NM1LST = delchain (BVL_NM1LST, BVL_NM1LST);
 		  }
@@ -2163,7 +2163,7 @@ unlabeled_conditional_signal_assignment
 	  waveform
 	  Semicolon_ERR
 		{
-		int             i        ;
+		long             i        ;
 		struct beout   *beout_pnt;
 		struct bebus   *bebus_pnt;
 		struct bereg   *bereg_pnt;
@@ -2178,15 +2178,15 @@ unlabeled_conditional_signal_assignment
 		struct bvl_expr expr4    ;
 		struct bvl_expr expr5    ;
 		struct bvl_expr expr6    ;
-		int             rev_flg  = 0;
-		int             left_bnd ;
-		int             right_bnd;
-		int             left     ;
-		int             right    ;
-		int             in_bound ;
-		int             out_bound;
-		int             sig_width;
-		int             sig_conf ;
+		long             rev_flg  = 0;
+		long             left_bnd ;
+		long             right_bnd;
+		long             left     ;
+		long             right    ;
+		long             in_bound ;
+		long             out_bound;
+		long             sig_width;
+		long             sig_conf ;
 
 		delay = $6.TIME;
 		expr4 = $6     ;
@@ -2468,7 +2468,7 @@ unlabeled_selected_signal_assignment
 	  ...waveform__WHEN__choices..
 	  Semicolon_ERR
 		{
-		int             i;
+		long             i;
 		struct beout   *beout_pnt;
 		struct bebus   *bebus_pnt;
 		struct bereg   *bereg_pnt;
@@ -2477,15 +2477,15 @@ unlabeled_selected_signal_assignment
 		struct chain   *abl_pnt  ;
 		unsigned long   delay    ;
 		struct bvl_expr expr1    ;
-		int             rev_flg  = 0;
-		int             left_bnd;
-		int             right_bnd;
-		int             left;
-		int             right;
-		int             in_bound;
-		int             out_bound;
-		int             sig_width;
-		int             sig_conf;
+		long             rev_flg  = 0;
+		long             left_bnd;
+		long             right_bnd;
+		long             left;
+		long             right;
+		long             in_bound;
+		long             out_bound;
+		long             sig_width;
+		long             sig_conf;
 
 		/* ###----------------------------------------------### */
 		/*    $10 est une structure, pas un pointeur...		*/
@@ -2791,7 +2791,7 @@ delay_expression
 	: abstractlit
 	  time_unit
 		{
-		unsigned int dly;
+		unsigned long dly;
 
 		/* ###----------------------------------------------### */
 		/*    if the delay is not null unset the 'zero delay'	*/
@@ -2847,13 +2847,13 @@ choice
 		{
 		char           *val;
 		char            val2[256];
-		int             left;
-		int             right;
-		int             in_bound;
-		int             out_bound;
-		int             left_bnd;
-		int             right_bnd;
-		int             sig_conf;
+		long             left;
+		long             right;
+		long             in_bound;
+		long             out_bound;
+		long             left_bnd;
+		long             right_bnd;
+		long             sig_conf;
 
 		strcpy (val2, "B\"");
 		sig_conf = beh_chktab (dic, $1.NAME, BVL_MODNAM, BVL_SIGDFN);
@@ -3048,13 +3048,13 @@ primary
 	| name
 		{
 		struct bvl_expr expr1;
-		int             left;
-		int             right;
-		int             left_bnd;
-		int             right_bnd;
-		int             in_bound;
-		int             out_bound;
-		int             sig_conf;
+		long             left;
+		long             right;
+		long             left_bnd;
+		long             right_bnd;
+		long             in_bound;
+		long             out_bound;
+		long             sig_conf;
 
 		sig_conf = beh_chktab (dic, $1.NAME, BVL_MODNAM, BVL_SIGDFN);
 		switch (sig_conf)
@@ -3214,7 +3214,7 @@ attribute_name
 		{
 		char             extname [100];
 		char            *lclname      ;
-		int              sig_conf     ;
+		long              sig_conf     ;
 		struct bvl_expr  expr1        ;
 		struct bvl_expr  expr2        ;
 		struct chain    *ptabl        ;

@@ -26,7 +26,7 @@
  * Date    : 31/08/93
  * Author  : Frederic Petrot <Frederic.Petrot@lip6.fr>
  * Modified by Czo <Olivier.Sirol@lip6.fr> 1997,98
- * $Id: mut.h,v 1.8 2003/10/20 08:55:22 xtof Exp $
+ * $Id: mut.h,v 1.9 2009/06/14 13:51:52 ludo Exp $
  */
 
 #ifndef _MUT_H_
@@ -35,6 +35,8 @@
 #include <stdio.h>
 #include <unistd.h>
 #include <signal.h>
+#include <stdlib.h>
+#include <libgen.h>
 
 #ifdef __cplusplus
 extern "C" {
@@ -278,8 +280,8 @@ extern void mbkexit __P(( int ExitValue ));   /* new exit handler system  */
 /*******************************************************************************
 * externals for mbk_sys.c functions                                            *
 *******************************************************************************/
-  extern          void  *mbkalloc __P((unsigned int nbytes));
-  extern          void  *mbkrealloc __P((void *pt, unsigned int nbytes));
+  extern          void  *mbkalloc __P((size_t nbytes));
+  extern          void  *mbkrealloc __P((void *pt, size_t nbytes));
   extern          void  mbkfree __P((void *ptr));
   extern          char  *mbkgetenv __P((const char *name));
   extern          FILE  *mbkfopen __P((const char *name, const char *extension, const char *mode));

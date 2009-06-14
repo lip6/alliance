@@ -42,6 +42,6 @@ extern long   VBL_LINNUM;		/* file's line number		*/
 
 typedef struct 
 {       char nom[VBL_LG_MC];
-	int kval;
+	long kval;
 } el_mc;
 

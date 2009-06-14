@@ -51,7 +51,7 @@
 /* called funct	: mbkalloc, addht, gethtitem, addhtitem,		*/
 /* ###--------------------------------------------------------------### */
 
-unsigned int vhx_getvalu (pt_lkdins, pt_ptmem, size, pt_func)
+unsigned long vhx_getvalu (pt_lkdins, pt_ptmem, size, pt_func)
 
 struct lkdins   *pt_lkdins  ;
 char           **pt_ptmem   ;
@@ -71,17 +71,17 @@ void          (* pt_func) ();
 
   pt_mem = (char *) gethtitem (mem_tabl, pt_lkdins);
 
-  if (((int) pt_mem) == EMPTYHT)
+  if (((long) pt_mem) == EMPTYHT)
     {
     pt_mem = mbkalloc (size);
-    addhtitem (mem_tabl, pt_lkdins, (int) pt_mem);
+    addhtitem (mem_tabl, pt_lkdins, (long) pt_mem);
     addhtitem (siz_tabl, pt_lkdins,       size  );
 
     if (pt_func != NULL)
       (* pt_func) (pt_lkdins, pt_mem);
     }
 
-  size      = (unsigned int) gethtitem (siz_tabl, pt_lkdins);
+  size      = (unsigned long) gethtitem (siz_tabl, pt_lkdins);
   *pt_ptmem = pt_mem;
 
   return (size);
@@ -93,7 +93,7 @@ void          (* pt_func) ();
 /* called func.	: vhx_getvalu						*/
 /* ###--------------------------------------------------------------### */
 
-unsigned int vhx_getsize (pt_lkdfig)
+unsigned long vhx_getsize (pt_lkdfig)
 
 struct lkdfig *pt_lkdfig;
 

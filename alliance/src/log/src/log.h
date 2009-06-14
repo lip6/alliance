@@ -30,7 +30,7 @@
 
 
 
-/* $Id: log.h,v 1.5 2005/04/15 08:38:49 alliance Exp $ */
+/* $Id: log.h,v 1.6 2009/06/14 13:51:47 ludo Exp $ */
 
 #ifndef LUC_LOG_H
 #define LUC_LOG_H
@@ -75,7 +75,7 @@
 typedef struct elemTH
   {
     char *key;
-    int value;
+    long value;
   }
  *pElemTH;
 
@@ -86,9 +86,9 @@ typedef struct elemTH
 
 typedef struct tableTH
   {
-    int length;
+    long length;
     pElemTH pElem;
-    int count;
+    long count;
   }
  *pTH;
 
@@ -108,7 +108,7 @@ typedef struct tableTH
 #define CADR(expr) CAR(CDR(expr))
 #define ATOM(expr) (!expr->NEXT)
 #define VALUE_ATOM(expr) (char *) expr->DATA
-#define OPER(expr) ((int)(CAR(expr))->DATA)
+#define OPER(expr) ((long)(CAR(expr))->DATA)
 
 
 
@@ -186,9 +186,9 @@ typedef struct node
 
 typedef struct tableBdd
   {
-    int lenTableBdd;
+    long lenTableBdd;
     pNode *pBdd;
-    int compteur;
+    long compteur;
   }
  *pTableBdd;
 
@@ -210,7 +210,7 @@ typedef struct vertexLoc
 
 typedef struct tableLoc
   {
-    int lenTabLoc;
+    long lenTabLoc;
     pVertexLoc pLoc;
   }
  *pTableLoc;
@@ -236,7 +236,7 @@ struct systemBdd
     chain_list *lpAT;
     pTableBdd pRT;
     pNode pAT;
-    int indiceAT;
+    long indiceAT;
     pTableLoc pMC;
   };
 extern struct systemBdd sysBdd;
@@ -255,24 +255,24 @@ extern pNode one, zero;
 
 /* Prototypes from log_bdd0.c */
 
-  extern           pNode initVertexBdd __P((int index, pNode high, pNode low));
+  extern           pNode initVertexBdd __P((long index, pNode high, pNode low));
   extern           pNode createNodeTermBdd __P((short index));
-  extern            void initializeBdd __P((int size));
-  extern            void destroyBdd __P((int level));
+  extern            void initializeBdd __P((long size));
+  extern            void destroyBdd __P((long level));
   extern            void resetBdd __P(());
-  extern             int numberNodeAllBdd __P(());
-  extern             int numberNodeBdd __P((pNode pBdd));
-  extern             int countNode __P((pNode pt));
-  extern             int countNodeTdg __P((pNode pt));
+  extern             long numberNodeAllBdd __P(());
+  extern             long numberNodeBdd __P((pNode pBdd));
+  extern             long countNode __P((pNode pt));
+  extern             long countNodeTdg __P((pNode pt));
   extern    chain_list * muxAbl __P((pNode high, pNode low, chain_list *a, char **tabName));
   extern    chain_list * bddToAbl __P((pNode pt, char **tabName));
   extern            void displayBddLoc __P((short level, pNode pt));
-  extern            void displayBdd __P((pNode pBdd, int level));
-  extern            void assignNumNodeBdd __P((pNode bdd, pTH vTable, int *pNodeNumber));
+  extern            void displayBdd __P((pNode pBdd, long level));
+  extern            void assignNumNodeBdd __P((pNode bdd, pTH vTable, long *pNodeNumber));
   extern            void displayGraphicBdd __P((pNode pBdd));
   extern            void displayBddName __P((short level, pNode pt, char **TabName));
   extern           pNode notBdd __P((pNode pBdd));
-  extern           pNode applyTerm __P((int oper, short index, pNode pBdd));
+  extern           pNode applyTerm __P((long oper, short index, pNode pBdd));
   extern           pNode applyBinBdd __P((short oper, pNode pBdd1, pNode pBdd2));
   extern           pNode applyBdd __P((short oper, chain_list *pt));
   extern           pNode cnstBdd __P((pNode pBdd1, pNode pBddGc));
@@ -282,11 +282,11 @@ extern pNode one, zero;
   extern           pNode simplifPlusDcZeroBdd __P((pNode pGon, pNode pGdc));
   extern           pNode simplifDcOneBdd __P((pNode pGon, pNode pGdc));
   extern           pNode simplifDcOneFPGABdd __P((pNode pGon, pNode pGdc));
-  extern           pNode composeBdd __P((pNode pBdd1, pNode pBdd2, int index));
+  extern           pNode composeBdd __P((pNode pBdd1, pNode pBdd2, long index));
   extern    chain_list * addListBdd __P((chain_list *pt, pNode pBdd));
-  extern             int oneBdd __P((pNode pBdd));
-  extern             int zeroBdd __P((pNode pBdd));
-  extern             int equalBdd __P((pNode pBdd1, pNode pBdd2));
+  extern             long oneBdd __P((pNode pBdd));
+  extern             long zeroBdd __P((pNode pBdd));
+  extern             long equalBdd __P((pNode pBdd1, pNode pBdd2));
   extern            void markBdd __P((pNode pBdd, short value));
   extern           pNode upVarBdd __P((pNode pF, pNode pFoldIndex, short newIndex));
   extern            void markAllBdd __P((short value));
@@ -296,12 +296,12 @@ extern pNode one, zero;
   extern           pNode regenereBdd __P((pNode pBdd, struct systemBdd *sysCible, pTH pTHNode));
   extern            void gcNodeBdd __P((chain_list *pt));
   extern            void rempTabIndex __P((pNode pt, char *tabIndex));
-  extern    chain_list * supportIndexBdd __P((pNode pt, int sens));
+  extern    chain_list * supportIndexBdd __P((pNode pt, long sens));
 
 
 /* Prototypes from log_bdd1.c */
 
-  extern        pCircuit initializeCct __P((char *name, int nbI, int nbO));
+  extern        pCircuit initializeCct __P((char *name, long nbI, long nbO));
   extern            void resetCct __P((pCircuit pC));
   extern            void destroyCct __P((pCircuit pC));
   extern           pNode searchOutputCct __P((pCircuit pC, char *name));
@@ -310,22 +310,22 @@ extern pNode one, zero;
   extern           short searchInputCct __P((pCircuit pC, char *name));
   extern           short addInputCct __P((pCircuit pC, char *name));
   extern            void delInputCct __P((pCircuit pC, char *name));
-  extern            void displayCct __P((pCircuit pC, int mode));
+  extern            void displayCct __P((pCircuit pC, long mode));
   extern            void composeCct __P((pCircuit pC, char *name, pNode pt));
   extern            void constraintCct __P((pCircuit pC, pNode pt));
   extern            void proofCct __P((pCircuit pC1, pCircuit pC2));
   extern           pNode ablToBddCct __P((pCircuit pC, chain_list *expr));
   extern            void cpOrderCct __P((pCircuit CC1, pCircuit CC2));
   extern            void upVarCct __P((pCircuit pC, pNode ptOldIndex, short newIndex));
-  extern             int numberNodeCct __P((pCircuit pC));
-  extern             int numberNodeTdgCct __P((pCircuit pC));
+  extern             long numberNodeCct __P((pCircuit pC));
+  extern             long numberNodeTdgCct __P((pCircuit pC));
   extern    chain_list * bddToAblCct __P((pCircuit pC, pNode pBdd));
   extern            void gcNodeCct __P((pCircuit pC));
 
 
 /* Prototypes from log_prefbib.c */
 
-  extern          char * gensym_abl __P((char *name, int num));
+  extern          char * gensym_abl __P((char *name, long num));
   extern            void ablError __P((chain_list *expr, char *func));
   extern    chain_list * createAtom __P((char *name));
   extern    chain_list * createExpr __P((short oper));
@@ -339,86 +339,86 @@ extern pNode one, zero;
   extern            void displayExprInt __P((chain_list *expr));
   extern            void displayExpr __P((chain_list *expr));
   extern            void displayInfExpr __P((chain_list *expr));
-  extern          char * exprToCharInt __P((chain_list *expr, int mode, char *chaine, int *taille));
-  extern          char * exprToChar __P((chain_list *expr, int mode));
-  extern          char * identExprInt __P((chain_list *expr, char *chaine, int *taille));
+  extern          char * exprToCharInt __P((chain_list *expr, long mode, char *chaine, long *taille));
+  extern          char * exprToChar __P((chain_list *expr, long mode));
+  extern          char * identExprInt __P((chain_list *expr, char *chaine, long *taille));
   extern          char * identExpr __P((chain_list *expr));
-  extern             int profExpr __P((chain_list *expr));
-  extern             int profAOExpr __P((chain_list *expr));
+  extern             long profExpr __P((chain_list *expr));
+  extern             long profAOExpr __P((chain_list *expr));
   extern    chain_list * mapCarExpr __P((chain_list *(*func)(), short oper, chain_list *expr));
   extern            void mapExpr __P((void (*func)(), chain_list *expr));
-  extern             int anyExpr __P((int (*func)(), chain_list *expr));
-  extern             int everyExpr __P((int (*func)(), chain_list *expr));
-  extern             int searchOperExpr __P((chain_list *expr, short oper));
+  extern             long anyExpr __P((long (*func)(), chain_list *expr));
+  extern             long everyExpr __P((long (*func)(), chain_list *expr));
+  extern             long searchOperExpr __P((chain_list *expr, short oper));
   extern           short searchExprLow __P((chain_list *expr, char *name));
-  extern             int searchExpr __P((chain_list *expr, char *name));
-  extern             int equalExpr __P((chain_list *expr1, chain_list *expr2));
-  extern             int equalVarExpr __P((chain_list *expr1, chain_list *expr2));
-  extern             int lengthExpr __P((chain_list *expr));
-  extern             int numberOperBinExpr __P((chain_list *expr));
-  extern             int numberAtomExpr __P((chain_list *expr));
+  extern             long searchExpr __P((chain_list *expr, char *name));
+  extern             long equalExpr __P((chain_list *expr1, chain_list *expr2));
+  extern             long equalVarExpr __P((chain_list *expr1, chain_list *expr2));
+  extern             long lengthExpr __P((chain_list *expr));
+  extern             long numberOperBinExpr __P((chain_list *expr));
+  extern             long numberAtomExpr __P((chain_list *expr));
   extern    chain_list * copyExpr __P((chain_list *expr));
   extern            void substPhyExpr __P((chain_list *expr1, char *name, chain_list *expr2));
   extern    chain_list * substExpr __P((chain_list *expr1, char *name, chain_list *expr2));
   extern    chain_list * devXorExpr __P((chain_list *expr));
   extern    chain_list * devXor2Expr __P((chain_list *expr));
-  extern    chain_list * flatPolarityExpr __P((chain_list *expr, int signe));
+  extern    chain_list * flatPolarityExpr __P((chain_list *expr, long signe));
   extern            void flatArityExpr __P((chain_list *expr));
   extern            void supportChain_listExprInt __P((chain_list *expr, chain_list **ppCL));
   extern    chain_list * supportChain_listExpr __P((chain_list *expr));
   extern            void supportPtype_listExprInt __P((chain_list *expr, ptype_list **ppCL));
   extern    ptype_list * supportPtype_listExpr __P((chain_list *expr));
-  extern    chain_list * maxExpr __P((chain_list *expr, int (*func)()));
-  extern    chain_list * minExpr __P((chain_list *expr, int (*func)()));
-  extern            void sortExpr __P((chain_list *expr, int (*func)(), int direction));
-  extern             int funcNormExpr __P((chain_list *expr));
+  extern    chain_list * maxExpr __P((chain_list *expr, long (*func)()));
+  extern    chain_list * minExpr __P((chain_list *expr, long (*func)()));
+  extern            void sortExpr __P((chain_list *expr, long (*func)(), long direction));
+  extern             long funcNormExpr __P((chain_list *expr));
   extern            void normExpr __P((chain_list *expr));
-  extern            void deleteNumExpr __P((chain_list *expr, int i));
-  extern    chain_list * searchNumExpr __P((chain_list *expr, int i));
-  extern             int numberOccExpr __P((chain_list *exp, char *name));
+  extern            void deleteNumExpr __P((chain_list *expr, long i));
+  extern    chain_list * searchNumExpr __P((chain_list *expr, long i));
+  extern             long numberOccExpr __P((chain_list *exp, char *name));
   extern            void changeOperExpr __P((chain_list *expr, short oper));
   extern    chain_list * simplif10Expr __P((chain_list *expr));
   extern    chain_list * simplifNotExpr __P((chain_list *exp));
-  extern    chain_list * charToExprInt __P((char *stringExpr, int *cptCar));
+  extern    chain_list * charToExprInt __P((char *stringExpr, long *cptCar));
   extern    chain_list * charToExpr __P((char *stringExpr));
-  extern          char * tokenExpr __P((char *stringExpr, int *cptCar));
-  extern             int PMExprInt __P((chain_list *expr, chain_list *pattern, ptype_list **bind));
-  extern             int PMExpr __P((chain_list *expr, chain_list *pattern));
+  extern          char * tokenExpr __P((char *stringExpr, long *cptCar));
+  extern             long PMExprInt __P((chain_list *expr, chain_list *pattern, ptype_list **bind));
+  extern             long PMExpr __P((chain_list *expr, chain_list *pattern));
 
 
 /* Prototypes from log_thash.c */
 
-  extern             int hashTH __P((char *pn));
-  extern             pTH createTH __P((int len));
+  extern             long hashTH __P((char *pn));
+  extern             pTH createTH __P((long len));
   extern            void destroyTH __P((pTH pTable));
-  extern             int searchTH __P((pTH pTable, char *key));
-  extern             int addTH __P((pTH pTable, char *key, int value));
-  extern             int addExistTH __P((pTH pTable, char *key, int value));
-  extern             int deleteTH __P((pTH pTable, char *key));
+  extern             long searchTH __P((pTH pTable, char *key));
+  extern             long addTH __P((pTH pTable, char *key, long value));
+  extern             long addExistTH __P((pTH pTable, char *key, long value));
+  extern             long deleteTH __P((pTH pTable, char *key));
   extern            void displayTH __P((pTH pTable));
   extern            void reAllocTH __P((pTH pTable));
 
 
 /* Prototypes from log_thashbdd.c */
 
-  extern             int hashBdd __P((int index, pNode high, pNode low));
-  extern             int newKeyBdd __P((int index, pNode high, pNode low));
-  extern       pTableBdd createTableBdd __P((int len));
+  extern             long hashBdd __P((long index, pNode high, pNode low));
+  extern             long newKeyBdd __P((long index, pNode high, pNode low));
+  extern       pTableBdd createTableBdd __P((long len));
   extern            void destroyTableBdd __P((pTableBdd pTab));
   extern       pTableBdd reAllocTableBdd __P((pTableBdd pTab));
-  extern           pNode searchTableBdd __P((pTableBdd pTab, int index, pNode high, pNode low));
-  extern             int addTableBdd __P((pTableBdd pTab, pNode pBdd));
-  extern             int deleteTableBdd __P((pTableBdd pTab, pNode pBdd));
+  extern           pNode searchTableBdd __P((pTableBdd pTab, long index, pNode high, pNode low));
+  extern             long addTableBdd __P((pTableBdd pTab, pNode pBdd));
+  extern             long deleteTableBdd __P((pTableBdd pTab, pNode pBdd));
   extern            void displayHashBdd __P((pTableBdd pTab));
 
 
 /* Prototypes from log_thashloc.c */
 
-  extern             int hashLoc __P((pNode high, pNode low));
-  extern       pTableLoc createTabLoc __P((int len));
+  extern             long hashLoc __P((pNode high, pNode low));
+  extern       pTableLoc createTabLoc __P((long len));
   extern            void destroyTabLoc __P((pTableLoc pTab));
   extern           pNode searchTabLoc __P((pTableLoc pTab, pNode high, pNode low, short oper));
-  extern             int addTabLoc __P((pTableLoc pTab, pNode high, pNode low, pNode father, short oper));
+  extern             long addTabLoc __P((pTableLoc pTab, pNode high, pNode low, pNode father, short oper));
   extern            void displayLoc __P((pTableLoc pTab));
   extern            void videTabLoc __P((pTableLoc pTab));
 #endif

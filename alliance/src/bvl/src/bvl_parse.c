@@ -28,17 +28,17 @@ struct befig *vhdlloadbefig (pt_befig, figname, trace_mode)
 
 struct befig *pt_befig  ;
 char         *figname   ;
-unsigned int  trace_mode;
+unsigned long  trace_mode;
 
   {
   extern FILE          *bvl_y_in      ;
-  extern int            bvl_y_parse ();
+  extern long            bvl_y_parse ();
   char                 *tok           ;
   char                 *str           ;
-  unsigned int          check_mode    ;
+  unsigned long          check_mode    ;
   struct chain         *behsfx_lst    = NULL;
   struct chain         *suffix        = NULL;
-  static unsigned int   call_nbr      = 0   ;
+  static unsigned long   call_nbr      = 0   ;
 
 	/* ###------------------------------------------------------### */
 	/*    read the environment variable VH_BEHSFX to create a list	*/

@@ -1508,9 +1508,9 @@ void CallbackLayerVisible( MyWidget, ClientData, CallData )
 {
   autbegin();
 
-  if ( XPAT_ACTIVE_LAYER_TABLE[ (int)ClientData ] == 0 )
+  if ( XPAT_ACTIVE_LAYER_TABLE[ (long)ClientData ] == 0 )
   {
-    XpatSetLayerVisible( (int)ClientData );
+    XpatSetLayerVisible( (long)ClientData );
   }
 
   autend();
@@ -1530,9 +1530,9 @@ void CallbackLayerInvisible( MyWidget, ClientData, CallData )
 {
   autbegin();
 
-  if ( XPAT_ACTIVE_LAYER_TABLE[ (int)ClientData ] )
+  if ( XPAT_ACTIVE_LAYER_TABLE[ (long)ClientData ] )
   {
-    XpatSetLayerInvisible( (int)ClientData );
+    XpatSetLayerInvisible( (long)ClientData );
   }
 
   autend();
@@ -1552,7 +1552,7 @@ void CallbackNameVisible( MyWidget, ClientData, CallData )
 {
   autbegin();
 
-  if ( XPAT_ACTIVE_NAME_TABLE[ (int)ClientData ] == 0 )
+  if ( XPAT_ACTIVE_NAME_TABLE[ (long)ClientData ] == 0 )
   {
     XpatSetNameVisible( ClientData );
   }
@@ -1574,7 +1574,7 @@ void CallbackNameInvisible( MyWidget, ClientData, CallData )
 {
   autbegin();
 
-  if ( XPAT_ACTIVE_NAME_TABLE[ (int)ClientData ] )
+  if ( XPAT_ACTIVE_NAME_TABLE[ (long)ClientData ] )
   {
     XpatSetNameInvisible( ClientData );
   }

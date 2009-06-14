@@ -322,7 +322,7 @@ GRILLE grille[NB_FACES];
 		lp = grille[face].lst_pas;
 
 		while (lp != NULL) {
-			printf("x %5ld ----- y %5ld proprio %d\n", (lp)->xabs, (lp)->yabs, (int)lp->proprio);
+			printf("x %5ld ----- y %5ld proprio %ld\n", (lp)->xabs, (lp)->yabs, (long)lp->proprio);
 			if (lp->suiv == NULL) 
 				der = lp;
 			lp = lp->suiv;
@@ -631,8 +631,8 @@ LST_EQUIPO     equipo;
 	}
 
 	if (mode_debug) 
-		printf("alloue et chaine face %d  c1x %ld c2 x %ld c1pt %d c2pt%d\n", (int)face, seg->c1->xabs, seg->c2->xabs,
-		     (int)seg->c1, (int)seg->c2);
+		printf("alloue et chaine face %ld  c1x %ld c2 x %ld c1pt %ld c2pt%ld\n", (long)face, seg->c1->xabs, seg->c2->xabs,
+		     (long)seg->c1, (long)seg->c2);
 	seg->largeur = largeur;
 	seg->layer = layer;
 
@@ -741,7 +741,7 @@ char	layer;
 	long	aux;
 
 	/*
-	if (mode_debug) printf("SEGMENT LIBRE tabseg %d  listeseg %d\n",(int) tab_seg, (int) liste_seg);
+	if (mode_debug) printf("SEGMENT LIBRE tabseg %ld  listeseg %ld\n",(long) tab_seg, (long) liste_seg);
 	*/
 
 	/* on classe les colonnes et les pistes */
@@ -885,7 +885,7 @@ LST_SEGMENT tab_seg[NB_FACES];
 		/* printf("PAR DERRIERE\n");
   		while (der) {
    			printf("face %d x1 %5ld y1 %5ld x2 %5ld y2 %5ld ---- piste1 %3ld piste2 %3ld --- larg %3ld layer %d \n",
-   			der->face,der->c1->xabs,der->c1->yabs,der->c2->xabs,der->c2->yabs,der->piste1,der->piste2,der->largeur,(int)der->layer);
+   			der->face,der->c1->xabs,der->c1->yabs,der->c2->xabs,der->c2->yabs,der->piste1,der->piste2,der->largeur,(long)der->layer);
   			der = der->prec;
     		}
 		*/
@@ -938,7 +938,7 @@ phfig_list *circuit_ph;
 
 /*-----------------------------------------------------------------------------------*/
 
-int	croisement_con_alim(ptcoor, concoeur, ptalim)
+long	croisement_con_alim(ptcoor, concoeur, ptalim)
 PT_COORDONNEES ptcoor;
 LST_PSEUDO_CON concoeur;
 chain_list     *ptalim;
@@ -950,7 +950,7 @@ chain_list     *ptalim;
 	int	i, nbcolatrouver;
 
 	if (mode_debug) 
-		printf("\tCroisement con avec alim  %s larg %ld face %d x %ld y %ld\n", concoeur->nom_con, concoeur->largeur,
+		printf("\tCroisement con avec alim  %s larg %ld face %ld x %ld y %ld\n", concoeur->nom_con, concoeur->largeur,
 		     concoeur->face, ptcoor->xabs, ptcoor->yabs);
 
 	nbcolatrouver = (concoeur->largeur + pitch) / (2 * pitch);
@@ -963,7 +963,7 @@ chain_list     *ptalim;
 		if ((NULL != lst_coor) && (NULL == lst_coor->proprio))
 			lst_coor = lst_coor->suiv;
 		else 
-			return ((int) 1);
+			return ((long) 1);
 	}
 
 	lst_coor = ptcoor->prec;
@@ -971,7 +971,7 @@ chain_list     *ptalim;
 		if ((NULL != lst_coor) && (NULL == lst_coor->proprio))
 			lst_coor = lst_coor->prec;
 		else 
-			return ((int) 1);
+			return ((long) 1);
 	}
 
 	switch (concoeur->face) {
@@ -1011,16 +1011,16 @@ chain_list     *ptalim;
 					     con->nom_con, position, diff, con->largeur);
 
 			if (diff < 0)  
-				return((int) -diff);
+				return((long) -diff);
 			if (diff < dminmetalmetal) 
-				return ((int) pitch);
+				return ((long) pitch);
 
 		}
 
 		ptalim = ptalim->NEXT;
 	}
 
-	return((int) 0);
+	return((long) 0);
 }
 
 /*-----------------------------------------------------------------------------------------*/
@@ -1105,7 +1105,7 @@ long	*largvdd, *largvss;
 /* si testlayer =0                                                                   */
 /*-----------------------------------------------------------------------------------*/
 
-int	croisementok_alimequi(concoeur, ptalim, testlayer)
+long	croisementok_alimequi(concoeur, ptalim, testlayer)
 LST_PSEUDO_CON concoeur;
 chain_list     *ptalim;
 char	testlayer;
@@ -1115,7 +1115,7 @@ char	testlayer;
 	char	metalcol = 0;
 
 	if (mode_debug) 
-		printf("\tCroisement con avec alim equi %s larg %ld face %d x %ld y %ld\n", concoeur->nom_con, concoeur->largeur,
+		printf("\tCroisement con avec alim equi %s larg %ld face %ld x %ld y %ld\n", concoeur->nom_con, concoeur->largeur,
 		     concoeur->face, concoeur->coord->xabs, concoeur->coord->yabs);
 
 	switch (concoeur->face) {
@@ -1147,32 +1147,32 @@ char	testlayer;
 			}
 
 			if (mode_debug) 
-				printf("\tCroisement conplot avec alim equi %s larg %ld face %d position%ld\n", con->nom_con,
+				printf("\tCroisement conplot avec alim equi %s larg %ld face %ld position%ld\n", con->nom_con,
 				     con->largeur, con->face, position);
 
 			if (position < positioncour) { 
 				if (((position + con->largeur / 2) >= positioncour) && ((con->layer == metalcol) || (testlayer)) ) { 
 					if (mode_debug) 
 						printf("croisement trouve\n");
-					return((int) 1);
+					return((long) 1);
 				}
 			} else if (position > positioncour) { 
 				if (((position - con->largeur / 2) <= positioncour) && ((con->layer == metalcol) || (testlayer)) ) {
 					if (mode_debug) 
 						printf("croisement trouve\n");
-					return((int) 1);
+					return((long) 1);
 				}
 			} else if ((con->layer == metalcol) || (testlayer)) {  
 				if (mode_debug) 
 					printf("croisement trouve\n");
-				return ((int) 1);
+				return ((long) 1);
 			}
 		}
 
 		ptalim = ptalim->NEXT;
 	}
 
-	return((int) 0);
+	return((long) 0);
 }
 
 /*----------------------------------------------------------------------------------*/

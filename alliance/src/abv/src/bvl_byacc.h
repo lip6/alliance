@@ -55,7 +55,7 @@ bvl_name;
 
 struct g_type
   {
-  int  VALU;
+  long  VALU;
   char FLAG;
   };
 
@@ -64,7 +64,7 @@ char         *BVL_MODNAM;		/* curnennt model name		*/
 bvl_ablstr    BVL_SLCEXP;		/* structure filled with the	*/
 bvl_ablstr    BVL_EMPSTR;		/* empty structure used with NOT*/
 
-extern int    BVL_AUXMOD;		/* simplify internal sig (= 1)	*/
+extern long    BVL_AUXMOD;		/* simplify internal sig (= 1)	*/
  
 static char         *BVL_LBLNAM = NULL;	/* label			*/
 static struct chain *BVL_NM1LST = NULL;	/* 1-st name liste		*/
@@ -75,6 +75,7 @@ static struct befig *BVL_BEFPNT = NULL;	/* current BEFIG pointer	*/
 
 static struct beden **dic = NULL;	/* dictionary			*/
 
+static long chkdcl ( char object, long  mode, long  type, char flag, long  kind, char constraint, long  *conf  );
 struct chain *BVL_INTLST = NULL;
 struct begen *BVL_GENPNT = NULL;
 
@@ -83,8 +84,21 @@ extern struct befig *BVL_HEDFIG;	/* head of befigs		*/
 
 extern struct begen      *bvl_addgen();
 
-extern bvl_ablstr         bvl_crtabl();
-extern bvl_ablstr         bvl_cpyablstr();
-extern void               bvl_select();
-extern void               bvl_error();
-extern void              *addstr ();
+extern bvl_ablstr bvl_crtabl ( short      oper, bvl_ablstr expr1, bvl_ablstr expr2, long        left, long        right );
+extern bvl_ablstr bvl_cpyablstr ( bvl_ablstr ablstr );
+
+extern void bvl_select ( 
+bvl_ablstr   *result,
+struct chain *pt_str,		/* pointer on a list of choices		*/
+bddnode     **pt_bdd,		/* used to check if a choice is legal	*/
+bvl_ablstr   pt_ablstr );	/* tested expression			*/
+extern void bvl_error ( long   code, char *str1 );
+extern void *addstr ( 
+struct befig *ptfig,
+char          object,
+long           mode,
+long           type,
+char          flag,
+char         *name,
+short         left,
+short         right );

@@ -183,7 +183,7 @@ if (gethtitem(HSH_PGA_USED,pga)!=EMPTYHT) {fprintf(stderr,"%d: connector PGA %c 
 	else addhtitem(HSH_PGA_USED,pga, 1);	
 
 /******* chargement des donnees ******/
-addhtitem(HSH_DATA, pga, (int)EMUL[$1]);
+addhtitem(HSH_DATA, pga, (long)EMUL[$1]);
 }
 ;
 

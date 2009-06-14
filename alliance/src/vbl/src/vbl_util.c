@@ -52,8 +52,8 @@
 char             VBL_ERRFLG  = 0;            /* if = 1 no structure is made  */
 char            *VBL_FILENAME = (char *)0;
 long             VBL_LINNUM  = 1;            /* file's line number           */
-int              VBL_NUMPTP  = 0;            /* file's line number           */
-int              VBL_NUMCHOICE = 0;
+long              VBL_NUMPTP  = 0;            /* file's line number           */
+long              VBL_NUMCHOICE = 0;
 vbfig_list      *VBL_HEADFIG = (vbfig_list *)0;
 vbmap_list      *VBL_GENMAP  = (vbmap_list *)0;
 
@@ -106,10 +106,10 @@ vbmap_list      *VBL_GENMAP  = (vbmap_list *)0;
 /* ###--------------------------------------------------------------### */
 void vbl_toolbug (code,str1,str2,nbr1)
 
-int   code;
+long   code;
 char *str1;
 char *str2;
-int   nbr1;
+long   nbr1;
 
 {
   (void) fprintf (stderr,"Fatal error %d executing `%s`: ", code,str1);
@@ -187,9 +187,9 @@ int   nbr1;
 /* ###--------------------------------------------------------------### */
 void vbl_message (code,str1,nmb1)
 
-int   code;
+long   code;
 char *str1;
-int   nmb1;
+long   nmb1;
 
 {
   switch (code)
@@ -252,10 +252,7 @@ int   nmb1;
 /*  function : vbl_error						*/
 /* ###--------------------------------------------------------------### */
 
-void vbl_error (code,str1)
-
-int   code;
-char *str1;
+void vbl_error ( long   code, char *str1  )
 
 {
   VBL_ERRFLG++;
@@ -515,10 +512,7 @@ char *str1;
   autexit(1);
 }
 
-void vbl_warning (code,str1)
-
-int   code;
-char *str1;
+void vbl_warning ( long   code, char *str1 )
 
 {
   (void)fprintf (stderr,"Warning %d line %ld in file %s :",code,VBL_LINNUM, VBL_FILENAME);

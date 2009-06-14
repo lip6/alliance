@@ -58,13 +58,13 @@ static void addtab ();
 static long chktab ();
 static void fretab ();
 void *fbl_addstr ();
-int fbl_chkdcl ();
+long fbl_chkdcl ();
 struct ptype *reversetype();
 struct choice_chain *order_choice();
 %}
 
 %union  {
-	int		 valu;
+	long		 valu;
 	char		*text;
 	struct ptype	*ptyp;
 	struct fbpcs	proc;
@@ -522,7 +522,7 @@ entity_declaration
 	  simple_name
 	  IS
         {
-		int type,size=0;
+		long type,size=0;
 		struct fbtyp *fbtyp_pnt;
                 char   *name;
                 char   *name_bit;
@@ -687,7 +687,7 @@ formal_port_element
 	  .signal_kind.
                 {
                 char *signame;
-                int   sigconf;
+                long   sigconf;
                 void *pnt;
  
                 /* ###----------------------------------------------### */
@@ -715,7 +715,7 @@ formal_port_element
                   addtab (hshtab,signame,FBL_MODNAM,FBL_WMNDFN,$6.LEFT);
                   addtab (hshtab,signame,FBL_MODNAM,FBL_WMXDFN,$6.RIGHT);
                   addtab (hshtab,signame,FBL_MODNAM,FBL_LBLDFN,$7);
-                  addtab (hshtab,signame,FBL_MODNAM,FBL_PNTDFN,(int)pnt);
+                  addtab (hshtab,signame,FBL_MODNAM,FBL_PNTDFN,(long)pnt);
  
                   FBL_NM1LST = delchain (FBL_NM1LST, FBL_NM1LST);
                   }
@@ -828,7 +828,7 @@ pragma_declaration
 		char name[128];
 		char value[128];
 		char *pt;
-		int  field;
+		long  field;
 
 		 field = sscanf((char *)$1,"-- %s %s %s %s", pragma,type,name,value);
 
@@ -854,7 +854,7 @@ constant_declaration
 	  constant_VarAsgn__expression
 	  Semicolon_ERR
                 {
-                int sigconf;
+                long sigconf;
 
                 if (fbl_chkdcl ('C',0,val_type($4.NAME),$4.FLAG,0,$5.FLAG,&sigconf) == 0)
                 {
@@ -883,9 +883,9 @@ signal_declaration
 	  Semicolon_ERR
                 {
                 char *signame;
-                int   sigconf;
+                long   sigconf;
                 void *pnt;
-                int   errflg;
+                long   errflg;
  
                 errflg = fbl_chkdcl ('S',0,val_type($4.NAME),$4.FLAG,$6,$5.FLAG,&sigconf);
  
@@ -917,7 +917,7 @@ signal_declaration
                 addtab (hshtab,signame,FBL_MODNAM,FBL_WMNDFN,$5.LEFT);
               addtab (hshtab,signame,FBL_MODNAM,FBL_WMXDFN,$5.RIGHT);
               addtab (hshtab,signame,FBL_MODNAM,FBL_LBLDFN,$6);
-            addtab (hshtab,signame,FBL_MODNAM,FBL_PNTDFN,(int)pnt);
+            addtab (hshtab,signame,FBL_MODNAM,FBL_PNTDFN,(long)pnt);
  
           FBL_NM1LST = delchain (FBL_NM1LST,FBL_NM1LST);
         
@@ -942,7 +942,7 @@ full_type_declaration
    		addtab(hshtab,$2,FBL_MODNAM,FBL_SIGDFN,FBL_TPEDFN);
    		addtab(hshtab,$2,FBL_MODNAM,FBL_LBLDFN,$4.CLASS);
    	        addtab(hshtab,$2,FBL_MODNAM,FBL_TYPDFN,FBL_NUMTYP);
-                addtab (hshtab,$2,FBL_MODNAM,FBL_PNTDFN,(int)FBL_BEFPNT->BETYP);
+                addtab (hshtab,$2,FBL_MODNAM,FBL_PNTDFN,(long)FBL_BEFPNT->BETYP);
 				FBL_NUMTYP++;
 		}
           Semicolon_ERR
@@ -969,7 +969,7 @@ subtype_declaration
    		addtab(hshtab,$2,FBL_MODNAM,FBL_SIGDFN,FBL_TPEDFN);
    		addtab(hshtab,$2,FBL_MODNAM,FBL_LBLDFN,$4.CLASS);
    	        addtab(hshtab,$2,FBL_MODNAM,FBL_TYPDFN,FBL_NUMTYP);
-                addtab (hshtab,$2,FBL_MODNAM,FBL_PNTDFN,(int)FBL_BEFPNT->BETYP);
+                addtab (hshtab,$2,FBL_MODNAM,FBL_PNTDFN,(long)FBL_BEFPNT->BETYP);
 				FBL_NUMTYP++;
 		}
           Semicolon_ERR
@@ -1004,8 +1004,8 @@ enumeration_type_definition
           RightParen_ERR
                 {
                 char *enumname;
-		int size=0;
-		int indice=0;
+		long size=0;
+		long indice=0;
                 char **pnt;
 		chain_list *nm1lst;
  
@@ -1034,7 +1034,7 @@ enumeration_type_definition
                   addtab (hshtab,enumname,FBL_MODNAM,FBL_WMNDFN,-1);
                   addtab (hshtab,enumname,FBL_MODNAM,FBL_WMXDFN,-1);
                   addtab (hshtab,enumname,FBL_MODNAM,FBL_LBLDFN,indice);
-                  addtab (hshtab,enumname,FBL_MODNAM,FBL_PNTDFN,(int)pnt);
+                  addtab (hshtab,enumname,FBL_MODNAM,FBL_PNTDFN,(long)pnt);
  
 		  pnt[indice++] = enumname;
                   FBL_NM1LST = delchain (FBL_NM1LST, FBL_NM1LST);
@@ -1147,7 +1147,7 @@ discrete_range
 type_mark
    	: simple_name
               { 
-		int type;
+		long type;
 		$$.NAME = $1;
 		$$.LEFT = -1;
 		$$.RIGHT = -1;
@@ -1280,7 +1280,7 @@ unlabeled_conditional_signal_assignment
 	  waveform
 	  Semicolon_ERR
 		{
-		int             i;
+		long             i;
 		struct fbout   *fbout_pnt;
 		struct fbbus   *fbbus_pnt;
 		struct fbreg   *fbreg_pnt;
@@ -1294,15 +1294,15 @@ unlabeled_conditional_signal_assignment
 		struct fbl_expr expr4;
 		struct fbl_expr expr5;
 		struct fbl_expr expr6;
-		int             rev_flg = 0;
-		int             left_bnd;
-		int             right_bnd;
-		int             left;
-		int             right;
-		int             in_bound;
-		int             out_bound;
-		int             sig_width;
-		int             sig_conf;
+		long             rev_flg = 0;
+		long             left_bnd;
+		long             right_bnd;
+		long             left;
+		long             right;
+		long             in_bound;
+		long             out_bound;
+		long             sig_width;
+		long             sig_conf;
 
 		expr4 = $5;
 
@@ -1587,7 +1587,7 @@ unlabeled_selected_signal_assignment
 	  ...waveform__WHEN__choices..
 	  Semicolon_ERR
 		{
-		int             i;
+		long             i;
 		struct fbout   *fbout_pnt;
 		struct fbbus   *fbbus_pnt;
 		struct fbreg   *fbreg_pnt;
@@ -1595,15 +1595,15 @@ unlabeled_selected_signal_assignment
 		struct fbbux   *fbbux_pnt;
 		struct chain   *abl_pnt;
 		struct fbl_expr expr1;
-		int             rev_flg = 0;
-		int             left_bnd;
-		int             right_bnd;
-		int             left;
-		int             right;
-		int             in_bound;
-		int             out_bound;
-		int             sig_width;
-		int             sig_conf;
+		long             rev_flg = 0;
+		long             left_bnd;
+		long             right_bnd;
+		long             left;
+		long             right;
+		long             in_bound;
+		long             out_bound;
+		long             sig_width;
+		long             sig_conf;
 
 		expr1 = fbl_crtabl (ABL_OR ,$8 ,$9,-1,-1);
 		if (FBL_BDDPNT != getlogbddnodeone())
@@ -1979,13 +1979,13 @@ signal_assignment_statement
 	  _LESym
 	  waveform
 	  Semicolon_ERR
-		{   unsigned int type; 
-		    int sig_conf,i; 	
-		    int left_bnd,right_bnd;
-		    int in_bound,out_bound;
-		    int left ,right;
-	            int rev_flg, debut;
-		    int sig_width;
+		{   unsigned long type; 
+		    long sig_conf,i; 	
+		    long left_bnd,right_bnd;
+		    long in_bound,out_bound;
+		    long left ,right;
+	            long rev_flg, debut;
+		    long sig_width;
 		    struct chain   *abl_pnt;
 		    char extname[100];
 		    struct fbl_expr expr;
@@ -2225,9 +2225,9 @@ case_statement
 	  CASE
 	  Semicolon_ERR
 		{
-		unsigned int size=1;
-		unsigned int *size1;
-		int indice=0;
+		unsigned long size=1;
+		unsigned long *size1;
+		long indice=0;
 		struct choice_chain *ch;
                 struct fbcho **pnt;
                 struct fbcho *tab;
@@ -2257,7 +2257,7 @@ case_statement
 		  tab[indice].SIZE = -1;
 		  tab[indice++].VALUE = namealloc("others");
 		  (*pnt) = tab;
-		  size1 = (unsigned int*) FBL_NM1LST->DATA;
+		  size1 = (unsigned long*) FBL_NM1LST->DATA;
 		  *size1 = size;
 		  FBL_NM1LST = delchain(FBL_NM1LST,FBL_NM1LST);
 		  FBL_OTHPNT = 0;
@@ -2414,13 +2414,13 @@ choice
                 {
                 char           *val;
                 char            val2[256];
-                int             left;
-                int             right;
-                int             in_bound;
-                int             out_bound;
-                int             left_bnd;
-                int             right_bnd;
-                int             sig_conf;
+                long             left;
+                long             right;
+                long             in_bound;
+                long             out_bound;
+                long             left_bnd;
+                long             right_bnd;
+                long             sig_conf;
  
                 strcpy (val2,"B\"");
                 sig_conf = chktab (hshtab,$1.NAME,FBL_MODNAM,FBL_SIGDFN);
@@ -2646,15 +2646,15 @@ primary
         | name
                 {
                 struct fbl_expr expr1;
-                int             left;
-                int             right;
-                int             left_bnd;
-                int             right_bnd;
-                int             in_bound;
-                int             out_bound;
-                int             mode;
-		int  prtype;
-		int  type;
+                long             left;
+                long             right;
+                long             left_bnd;
+                long             right_bnd;
+                long             in_bound;
+                long             out_bound;
+                long             mode;
+		long  prtype;
+		long  type;
 
                 mode = chktab (hshtab,$1.NAME,FBL_MODNAM,FBL_SIGDFN);
 		type = chktab(hshtab,$1.NAME,FBL_MODNAM,FBL_TYPDFN);
@@ -2769,7 +2769,7 @@ primary
                 else
                  {
                  expr1.IDENT = (char *)chktab(hshtab,$1.NAME,0,FBL_PNTDFN);
-		 expr1.TYPE =(int)-1;/*dec, cast int */
+		 expr1.TYPE =(long)-1;/*dec, cast long */
                   $$ = fbl_crtabl (NOPS,expr1,FBL_EMPSTR,in_bound,out_bound);
                  }
 		}
@@ -2864,9 +2864,9 @@ attribute_name
                 {
                 char             extname[100];
                 char            *lclname;
-                int              sig_conf;
-                int              type;
-		int              kind;
+                long              sig_conf;
+                long              type;
+		long              kind;
                 struct fbl_expr  expr1;
                 struct fbl_expr  expr2;
                 struct chain    *ptabl;
@@ -3035,7 +3035,7 @@ char             *key;
 
   {
   struct dct_entry *entry;
-  int              i;
+  long              i;
 
   if (FBL_DCEHED == 0)
     {
@@ -3068,7 +3068,7 @@ char             *key;
 
   {
   struct dct_recrd *recrd;
-  int               i;
+  long               i;
 
   if (FBL_DCRHED == 0)
     {
@@ -3105,7 +3105,7 @@ static struct dct_entry **initab ()
 
   {
   struct dct_entry **head;
-  int                i;
+  long                i;
 
   head = (struct dct_entry **)
          mbkalloc (sizeof(struct dct_entry *) * FBL_HSZDFN);
@@ -3121,12 +3121,12 @@ static void addtab (head,key_str,ctx_str,field,valu)
 struct dct_entry **head;
 char              *key_str;
 char              *ctx_str;
-int                field;
+long                field;
 long               valu;
 
   {
-  int               found = 0;
-  int               index;
+  long               found = 0;
+  long               index;
   struct dct_entry *entry_pnt;
   struct dct_recrd *recrd_pnt;
 
@@ -3202,11 +3202,11 @@ static long chktab (head,key_str,ctx_str,field)
 struct dct_entry **head;
 char              *key_str;
 char              *ctx_str;
-int                field;
+long                field;
 
   {
-  int               found = 0;
-  int               valu = 0;
+  long               found = 0;
+  long               valu = 0;
   struct dct_entry *entry_pnt;
   struct dct_recrd *recrd_pnt;
 
@@ -3277,7 +3277,7 @@ struct dct_entry **pt_hash;
   struct dct_entry *pt_entry;
   struct dct_entry *pt_nxtentry;
   struct dct_recrd *pt_record;
-  int               i;
+  long               i;
 
   if (pt_hash != 0)
     {
@@ -3310,8 +3310,8 @@ void *fbl_addstr (ptfig,object,mode,prtype,type,flag,name,left,right)
 
 struct fbfig *ptfig;
 char          object;
-int           mode;
-int           prtype;
+long           mode;
+long           prtype;
 unsigned char type;
 char          flag;
 char         *name;
@@ -3511,19 +3511,19 @@ short         right;
   return (pnt);
 }
 
-int fbl_chkdcl (object,mode,type,flag,kind,constraint,conf)
+long fbl_chkdcl (object,mode,type,flag,kind,constraint,conf)
 
 char object;
-int  mode;
-int  type;
+long  mode;
+long  type;
 char flag;
-int  kind;
+long  kind;
 char constraint;
-int  *conf;
+long  *conf;
 
 {
-  int errflg = 0;
-  int lclcnf = 0;
+  long errflg = 0;
+  long lclcnf = 0;
 
   if (flag != constraint && constraint !='U'  && flag !='U')
     {
@@ -3695,7 +3695,7 @@ int  *conf;
   return (errflg);
 }
 
-int val_type(name)
+long val_type(name)
  char *name;
 {
     if(!name)
@@ -3760,7 +3760,7 @@ int val_type(name)
  struct choice_chain *lastpnt;
  struct ptype *type;
  char    *val;
- unsigned int size;
+ unsigned long size;
  {
     struct choice_chain *pnt;	
 
@@ -3776,7 +3776,7 @@ int val_type(name)
  struct choice_chain *pnt;
  struct ptype *type;
  char    *val;
- unsigned int size;
+ unsigned long size;
  {
     struct choice_chain *aux1;
     struct choice_chain *aux2;

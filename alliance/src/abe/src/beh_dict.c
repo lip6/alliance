@@ -164,8 +164,8 @@ void beh_addtab (head, key_str, ctx_str, field, valu)
 struct beden **head;
 char          *key_str;
 char          *ctx_str;
-int            field;
-int            valu;
+long           field;
+long           valu;
 
   {
   int               found = 0;

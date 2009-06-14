@@ -379,9 +379,9 @@ extern void alloue_etchaine_segment();
 extern int	segment_libre();
 extern void affic_listeseg();
 extern phcon_list *cherche_conph_circuit();
-extern int	croisement_con_alim();
+extern long	croisement_con_alim();
 extern void largeur_vddvss();
-extern int	croisementok_alimequi();
+extern long	croisementok_alimequi();
 extern long	compte_nbplotsface();
 
 #endif /* __STRUCT_H */

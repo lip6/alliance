@@ -1476,9 +1476,9 @@ void CallbackLayerVisible( MyWidget, ClientData, CallData )
 {
   autbegin();
 
-  if ( XVPN_ACTIVE_LAYER_TABLE[ (int)ClientData ] == 0 )
+  if ( XVPN_ACTIVE_LAYER_TABLE[ (long)ClientData ] == 0 )
   {
-    XvpnSetLayerVisible( (int)ClientData );
+    XvpnSetLayerVisible( (long)ClientData );
   }
 
   autend();
@@ -1498,9 +1498,9 @@ void CallbackLayerInvisible( MyWidget, ClientData, CallData )
 {
   autbegin();
 
-  if ( XVPN_ACTIVE_LAYER_TABLE[ (int)ClientData ] )
+  if ( XVPN_ACTIVE_LAYER_TABLE[ (long)ClientData ] )
   {
-    XvpnSetLayerInvisible( (int)ClientData );
+    XvpnSetLayerInvisible( (long)ClientData );
   }
 
   autend();
@@ -1520,7 +1520,7 @@ void CallbackNameVisible( MyWidget, ClientData, CallData )
 {
   autbegin();
 
-  if ( XVPN_ACTIVE_NAME_TABLE[ (int)ClientData ] == 0 )
+  if ( XVPN_ACTIVE_NAME_TABLE[ (long)ClientData ] == 0 )
   {
     XvpnSetNameVisible( ClientData );
   }
@@ -1542,7 +1542,7 @@ void CallbackNameInvisible( MyWidget, ClientData, CallData )
 {
   autbegin();
 
-  if ( XVPN_ACTIVE_NAME_TABLE[ (int)ClientData ] )
+  if ( XVPN_ACTIVE_NAME_TABLE[ (long)ClientData ] )
   {
     XvpnSetNameInvisible( ClientData );
   }

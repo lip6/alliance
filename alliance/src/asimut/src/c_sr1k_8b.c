@@ -38,6 +38,7 @@
 #include "vh_ltype.h"
 #include "vh_lspec.h"
 #include "vh_xspec.h"
+#include "vh_xcomm.h"
 
 
 /* ###--------------------------------------------------------------### */

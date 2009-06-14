@@ -40,7 +40,7 @@ static struct dct_entry *addent ();
 static struct dct_recrd *addrcd ();
 static struct dct_entry **initab ();
 static void addtab ();
-static int chktab ();
+static long chktab ();
 static void fretab ();
 static void *vbl_addstr ();
 static vbtyp_list *val_type();
@@ -52,8 +52,8 @@ static struct choice_chain *order_choice();
 extern char          VBL_ERRFLG;        /* set to 1 in case of error    */
 extern struct vbfig *VBL_HEADFIG;       /* head of vbfigs               */
 extern long          VBL_LINNUM;
-extern int           VBL_NUMPTP;
-extern int           VBL_NUMCHOICE;
+extern long           VBL_NUMPTP;
+extern long           VBL_NUMCHOICE;
 
 /*\
 pNode         VBL_BDDPNT;
@@ -70,7 +70,7 @@ char         *VBL_GNRNAM;               /* current generate name        */
 vbl_vexstr    VBL_SLCEXP;		/* structure filled with the	*/
 vbl_vexstr    VBL_EMPSTR;		/* empty structure used with NOT*/
  
-static int           VBL_NUMTYP = 0;	/* nombre de type			*/
+static long           VBL_NUMTYP = 0;	/* nombre de type			*/
 static struct chain *VBL_NM1LST = NULL;	/* 1-st name liste		*/
 static struct chain *VBL_NM2LST = NULL;	/* 2-st name liste		*/
 static struct chain *VBL_INSLST = NULL;	/* 3-st name liste		*/
@@ -94,7 +94,7 @@ static chain_list   *VBL_GNR_BEGNR = (chain_list *)0;
 
 static struct authtable *VBL_ENUMVAL = NULL;
 static struct choice_chain  *VBL_CASPNT = NULL;
-static int                   VBL_CASSIZE = 0;
+static long                   VBL_CASSIZE = 0;
 static struct ptype *VBL_OTHPNT = NULL;
 static struct ptype *VBL_PTYPE = NULL;
 
@@ -105,7 +105,8 @@ static struct dct_entry **hshtab;
  
 extern struct vbgen      *bvl_addgen();
 
-extern vbl_vexstr         vbl_crtvex();
+extern vbl_vexstr vbl_crtvex( short oper, vbl_vexstr expr1, vbl_vexstr expr2,
+    long       left, long       right, unsigned char dynamic );
 extern vbl_vexstr         bvl_cpyvexstr();
 extern vbl_vexstr         bvl_select();
 extern char              *bvl_stostr();

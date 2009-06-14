@@ -1082,8 +1082,8 @@ gcNodeBeh (beh, lstbeh)
   sysBddAux.lpAT = NULL;
   zeroAux = initVertexBddAux (0, (pNode)0, (pNode)1, &sysBddAux);
   oneAux = initVertexBddAux (1, (pNode)0, (pNode)1, &sysBddAux);
-  addTH (pTHNode, (char *)zero, (int)zeroAux);
-  addTH (pTHNode, (char *)one, (int)oneAux);
+  addTH (pTHNode, (char *)zero, (long)zeroAux);
+  addTH (pTHNode, (char *)one, (long)oneAux);
 
   /* si lstbeh = 1 on garbage sur toutes les befig */
   /* sinon on ne prends que la premiere befig */

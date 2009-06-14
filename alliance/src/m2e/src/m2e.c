@@ -881,9 +881,9 @@ void TraitSignaux(lofig_list *ptfig)
       *p = '_'; /* remplace l'espace par _ dans les signaux indices  */
     if((pt = getptype(psig->USER,(long)DEDALE)) != NULL)
     {
-       if((int)pt->DATA != class) {
-           fprintf(po,"Change Class %d;\n",(int)pt->DATA) ;
-           class = (int)pt->DATA;
+       if((long)pt->DATA != class) {
+           fprintf(po,"Change Class %ld;\n",(long)pt->DATA) ;
+           class = (long)pt->DATA;
        }
     }
     else

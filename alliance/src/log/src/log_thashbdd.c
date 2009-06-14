@@ -30,7 +30,7 @@
 
 
 
-#ident "$Id: log_thashbdd.c,v 1.3 2006/03/29 17:10:13 xtof Exp $"
+#ident "$Id: log_thashbdd.c,v 1.4 2009/06/14 13:51:47 ludo Exp $"
 
 /*--------------------------------------------------------------------------
    la table de hachage des BDD 
@@ -54,7 +54,7 @@
    a. creation de table 
 
    pTableBdd createTableBdd(len)
-   int len;
+   long len;
 
    b. destruction de la table
 
@@ -70,18 +70,18 @@
 
    pNode searchTableBdd(pTab,index,high,low)
    pTableBdd pTab;
-   int index;
+   long index;
    pNode high,low;
 
    e. ajout d'un element
 
-   int addTableBdd(pTab,pBdd)
+   long addTableBdd(pTab,pBdd)
    pTableBdd pTab;
    pNode pBdd;
 
    f. destruction d'un element
 
-   int deleteTableBdd(pTab,key)
+   long deleteTableBdd(pTab,key)
    pTableBdd pTab;
    pNode pBdd;
 
@@ -100,23 +100,23 @@
 
 /*-------------------- la fonction de hachage ---------------------------- */
 
-int 
+long 
 hashBdd (index, high, low)
-     int index;
+     long index;
      pNode high, low;
 {
-  return (abs (index + ((int) high << 1) + (int) low +
-	       ((int) high >> 4) + ((int) low >> 5)));
+  return (abs (index + ((long) high << 1) + (long) low +
+	       ((long) high >> 4) + ((long) low >> 5)));
 }
 
 /*--------------- la fonction de changement de cle ------------------------- */
 
-int 
+long 
 newKeyBdd (index, high, low)
-     int index;
+     long index;
      pNode high, low;
 {
-  return (index + (index << 2) + (int) high + ((int) low << 1));
+  return (index + (index << 2) + (long) high + ((long) low << 1));
 }
 
 /*--------------- La table de hachage pour des BDD ------------ */
@@ -128,11 +128,11 @@ newKeyBdd (index, high, low)
 
 pTableBdd 
 createTableBdd (len)
-     int len;
+     long len;
 {
   pTableBdd pTab;
   pNode *pBdd;
-  int i;
+  long i;
 
   if (!(pTab = (pTableBdd) mbkalloc (sizeof (struct tableBdd))))
     {
@@ -179,7 +179,7 @@ return 		 :rien.
 /*
    void markBddLst(pC,value)
    pCircuit pC;
-   int value;
+   long value;
    {
    pNode pBdd;
 
@@ -200,7 +200,7 @@ pTableBdd
 reAllocTableBdd (pTab)
      pTableBdd pTab;
 {
-  int i;
+  long i;
   pNode *pBdd;
   pTableBdd pTabBis;
 
@@ -227,13 +227,13 @@ reAllocTableBdd (pTab)
 pNode 
 searchTableBdd (pTab, index, high, low)
      pTableBdd pTab;
-     int index;
+     long index;
      pNode high, low;
 {
-  int co = 0;
+  long co = 0;
   pNode pBddCur;
-  int key = index;
-  int indice;
+  long key = index;
+  long indice;
 
   do
     {
@@ -255,18 +255,18 @@ searchTableBdd (pTab, index, high, low)
  /* ajout d'un element a la table */
 
 
-int 
+long 
 addTableBdd (pTab, pBdd)
      pTableBdd pTab;
      pNode pBdd;
 {
-  int co = 0;
+  long co = 0;
   pNode *pBddCur;
-  int index = pBdd->index;
+  long index = pBdd->index;
   pNode high = pBdd->high;
   pNode low = pBdd->low;
-  int key = index;
-  int indice;
+  long key = index;
+  long indice;
 
   if (pTab->compteur++ > (pTab->lenTableBdd) * 8 / 10)	/* remplissage au 8/10 */
     return (TABLE_PLEINE);
@@ -290,17 +290,17 @@ addTableBdd (pTab, pBdd)
    /* elimination d'un element de la table */
 
 
-int 
+long 
 deleteTableBdd (pTab, pBdd)
      pTableBdd pTab;
      pNode pBdd;
 {
-  int co = 0;
+  long co = 0;
   pNode *pBddCur;
   pNode high = pBdd->high;
   pNode low = pBdd->low;
-  int key = pBdd->index;
-  int indice;
+  long key = pBdd->index;
+  long indice;
 
   do
     {
@@ -319,7 +319,7 @@ deleteTableBdd (pTab, pBdd)
       key = newKeyBdd (key, high, low);
     }
   while (pBddCur != NULL);
-  return ((int) NULL);
+  return ((long) NULL);
 }
 
 /* affichage des elements de la table */
@@ -328,8 +328,8 @@ void
 displayHashBdd (pTab)
      pTableBdd pTab;
 {
-  int i;
-  int co = 0;
+  long i;
+  long co = 0;
   pNode *pBdd;
 
   pBdd = pTab->pBdd;

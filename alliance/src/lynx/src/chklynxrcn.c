@@ -202,7 +202,7 @@ lofig_list   *fig;
 	fprintf(stderr,"  %s",scan->NAME); 
 
       for(ptptype = scan->USER ; ptptype ; ptptype = ptptype->NEXT )
-        printf("[%ld-%08X] ", ptptype->TYPE, (int)(ptptype->DATA) );
+        printf("[%ld-%08lX] ", ptptype->TYPE, (long)(ptptype->DATA) );
       printf("*\n");
       
       if(getptype(scan->USER,RDSLOCON))

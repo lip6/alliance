@@ -46,6 +46,8 @@
 # ifndef VPD_ERROR_H
 # define VPD_ERROR_H
 
+# include <libgen.h>
+
 /*------------------------------------------------------------\
 |                                                             |
 |                           Constants                         |

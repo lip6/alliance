@@ -42,7 +42,7 @@
 /***************************************************************************/
 /*      choose '1' or '0' to simplify the expression as well as we can     */
 /***************************************************************************/
-static void find_d_z_abl(chain_list* abl, int value)
+static void find_d_z_abl(chain_list* abl, long value)
 {
    
   if (ABL_ATOM(abl)) {    
@@ -56,6 +56,7 @@ static void find_d_z_abl(chain_list* abl, int value)
          /* a pull-up is done for better conductance*/
          ABL_CAR_L(abl)=getablatomone()/* = namealloc("'1'")*/;
       }   
+      return;
    }
    
    /*the first operator influences the most*/

@@ -625,7 +625,7 @@ int          *size_pnt;			/* size of available space	*/
 	/*        "(operand operator operand operator operand ...)"	*/
 	/* ###------------------------------------------------------### */
 
-    operator = (int) ((struct chain *) expr->DATA)->DATA;
+    operator = (long) ((struct chain *) expr->DATA)->DATA;
     operand  = (struct chain *)expr->NEXT->DATA;
 
     if (operator == STABLE)

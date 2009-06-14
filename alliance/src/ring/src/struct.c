@@ -830,7 +830,7 @@ LST_EQUIPO lst_equipo;
 	}
 		
 	if (mode_debug) 
-		printf("INSNAME %s face %d ptcon %d\n", ((loins_list * ) (con->con_lo)->ROOT)->INSNAME, (int)face, (int)con);
+		printf("INSNAME %s face %ld ptcon %ld\n", ((loins_list * ) (con->con_lo)->ROOT)->INSNAME, (long)face, (long)con);
 
 	if (tab_coeur[face] == NULL) {
 		if (mode_debug) 

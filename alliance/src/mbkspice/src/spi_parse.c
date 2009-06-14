@@ -21,7 +21,7 @@
  * Software Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
  */
 
-#ident "$Author: xtof $ $Date: 2006/03/29 17:10:37 $ $Revision: 1.5 $"
+#ident "$Author: ludo $ $Date: 2009/06/14 13:51:54 $ $Revision: 1.6 $"
 
 /*******************************************************************************
 *                                                                              *
@@ -173,8 +173,8 @@ char             mode;
   if( SPI_VERBOSE )
   {
     printf( "Parser Spice compile le %s a %s\n", __DATE__, __TIME__ );
-    printf( "Revision     : %s\n", "$Revision: 1.5 $" );
-    printf( "Date         : %s\n", "$Date: 2006/03/29 17:10:37 $"     );
+    printf( "Revision     : %s\n", "$Revision: 1.6 $" );
+    printf( "Date         : %s\n", "$Date: 2009/06/14 13:51:54 $"     );
     
     printf( "Separateur   : '%c'\n", SPI_SEPAR  );
     printf( "Nom de noeud : %s\n", SPI_NETNAME  );
@@ -1989,7 +1989,7 @@ char		mode;
 
   for( scanlocon = ptfig->LOCON ; scanlocon ; scanlocon = scanlocon->NEXT )
   {
-    scanlocon->PNODE = reverse( (chain_list*)scanlocon->PNODE );
+    scanlocon->PNODE = (struct num *)reverse( (chain_list*)scanlocon->PNODE );
   
     ptnodename = getptype( scanlocon->USER, PNODENAME );
     for( sc1 = (chain_list*)( ptnodename->DATA ) ; sc1 ; sc1 = sc1->NEXT )
@@ -2004,7 +2004,7 @@ char		mode;
     }
   }
 
-  ptfig->LOCON = reverse( (chain_list*)ptfig->LOCON );
+  ptfig->LOCON = (locon_list *)reverse( (chain_list*)ptfig->LOCON );
 
   /* On cree les transistors */
 
@@ -2846,8 +2846,8 @@ circuit		*ptcir;
 
   printf("Interface :\n");
   for( sc = ptcir->CINTERF; sc; sc = sc->NEXT )
-    printf("  %8X %4d %4d %4d %s\n",
-           ((unsigned int)(sc->DATA)),
+    printf("  %ld %4d %4d %4d %s\n",
+           ((unsigned long)(sc->DATA)),
            ((noeud*)(sc->DATA))->SPICE,
            ((noeud*)(sc->DATA))->SIGNAL,
            ((noeud*)(sc->DATA))->RCN,
@@ -2856,28 +2856,28 @@ circuit		*ptcir;
   for(scantrans = ptcir->TRANS; scantrans; scantrans = scantrans->SUIV)
   {
     printf("Transitor : %s\n",scantrans->NOM);
-    printf("  DRAIN   %8X %4d %4d %4d %s\n",
-            (unsigned int)scantrans->DRAIN,
+    printf("  DRAIN   %ld %4d %4d %4d %s\n",
+            (unsigned long)scantrans->DRAIN,
             scantrans->DRAIN->SPICE,
             scantrans->DRAIN->SIGNAL,
             scantrans->DRAIN->RCN,
             scantrans->DRAIN->NOM ? scantrans->DRAIN->NOM : "" );
-    printf("  GRILLE  %8X %4d %4d %4d %s\n",
-            (unsigned int)scantrans->GRILLE,
+    printf("  GRILLE  %ld %4d %4d %4d %s\n",
+            (unsigned long)scantrans->GRILLE,
             scantrans->GRILLE->SPICE,
             scantrans->GRILLE->SIGNAL,
             scantrans->GRILLE->RCN,
             scantrans->GRILLE->NOM ? scantrans->GRILLE->NOM : ""    );
-    printf("  SOURCE  %8X %4d %4d %4d %s\n",
-            (unsigned int)scantrans->SOURCE,
+    printf("  SOURCE  %ld %4d %4d %4d %s\n",
+            (unsigned long)scantrans->SOURCE,
             scantrans->SOURCE->SPICE,
             scantrans->SOURCE->SIGNAL,
             scantrans->SOURCE->RCN,
             scantrans->SOURCE->NOM ? scantrans->SOURCE->NOM : ""    );
     if( scantrans->SUBST )
     {
-      printf("  SUBST   %8X %4d %4d %4d %s\n",
-              (unsigned int)scantrans->SUBST,
+      printf("  SUBST   %ld %4d %4d %4d %s\n",
+              (unsigned long)scantrans->SUBST,
               scantrans->SUBST->SPICE,
               scantrans->SUBST->SIGNAL,
               scantrans->SUBST->RCN,
@@ -2895,14 +2895,14 @@ circuit		*ptcir;
   for(scanresi = ptcir->RESI ; scanresi; scanresi = scanresi->SUIV )
   {
     printf("Resistance : %s\n",scanresi->NOM);
-    printf("  N1   %8X %4d %4d %4d %s\n",
-            (unsigned int)scanresi->N1,
+    printf("  N1   %ld %4d %4d %4d %s\n",
+            (unsigned long)scanresi->N1,
             scanresi->N1->SPICE,
             scanresi->N1->SIGNAL,
             scanresi->N1->RCN,
             scanresi->N1->NOM ? scanresi->N1->NOM : ""    );
-    printf("  N2   %8X %4d %4d %4d %s\n",
-            (unsigned int)scanresi->N2,
+    printf("  N2   %ld %4d %4d %4d %s\n",
+            (unsigned long)scanresi->N2,
             scanresi->N2->SPICE,
             scanresi->N2->SIGNAL,
             scanresi->N2->RCN,
@@ -2913,14 +2913,14 @@ circuit		*ptcir;
   for(scancapa = ptcir->CAPA ; scancapa; scancapa = scancapa->SUIV )
   {
     printf("Capacite : %s\n",scancapa->NOM);
-    printf("  N1   %8X %4d %4d %4d %s\n",
-            (unsigned int)scancapa->N1,
+    printf("  N1   %ld %4d %4d %4d %s\n",
+            (unsigned long)scancapa->N1,
             scancapa->N1->SPICE,
             scancapa->N1->SIGNAL,
             scancapa->N1->RCN,
             scancapa->N1->NOM ? scancapa->N1->NOM : ""    );
-    printf("  N2   %8X %4d %4d %4d %s\n",
-            (unsigned int)scancapa->N2,
+    printf("  N2   %ld %4d %4d %4d %s\n",
+            (unsigned long)scancapa->N2,
             scancapa->N2->SPICE,
             scancapa->N2->SIGNAL,
             scancapa->N2->RCN,
@@ -2932,8 +2932,8 @@ circuit		*ptcir;
   {
     printf("Instance %s basee sur %s\n",scaninst->NOM, scaninst->MODELE);
     for( sc = scaninst->IINTERF; sc; sc = sc->NEXT )
-      printf("  %8X %4d %4d %4d %s\n",
-             ((unsigned int)(sc->DATA)),
+      printf("  %ld %4d %4d %4d %s\n",
+             ((unsigned long)(sc->DATA)),
              ((noeud*)(sc->DATA))->SPICE,
              ((noeud*)(sc->DATA))->SIGNAL,
              ((noeud*)(sc->DATA))->RCN,

@@ -57,11 +57,11 @@ extern ablexpr     *bddToAbl () ;
 
   extern  struct chain * fbl_cpyabllst __P((struct chain *abllst));
   extern     fbl_ablstr  fbl_cpyablstr __P((fbl_ablstr ablstr));
-  extern     fbl_ablstr  fbl_crtabl __P((short oper, fbl_ablstr expr1, fbl_ablstr expr2, int left, int right));
-  extern          char * fbl_numtobin __P((int num));
-  extern            int  fbl_tobin __P((char *trg, char *src, int left, int right));
-  extern           void  loc_fbl_error __P((int code, char *str1));
-  extern           void  fbl_toolbug __P((int code, char *str1, char *str2, int nbr1));
+  extern     fbl_ablstr  fbl_crtabl __P((short oper, fbl_ablstr expr1, fbl_ablstr expr2, long left, long right));
+  extern          char * fbl_numtobin __P((long num));
+  extern            long  fbl_tobin __P((char *trg, char *src, long left, long right));
+  extern           void  loc_fbl_error __P((long code, char *str1));
+  extern           void  fbl_toolbug __P((long code, char *str1, char *str2, long nbr1));
 
 # define fbl_error( C, S ) \
   fprintf( stderr, "%s.%d: ", autbasename(__FILE__,NULL),__LINE__ ); loc_fbl_error( C, S );

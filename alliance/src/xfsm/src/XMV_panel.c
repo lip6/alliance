@@ -1480,9 +1480,9 @@ void CallbackLayerVisible( MyWidget, ClientData, CallData )
 {
   autbegin();
 
-  if ( XFSM_ACTIVE_LAYER_TABLE[ (int)ClientData ] == 0 )
+  if ( XFSM_ACTIVE_LAYER_TABLE[ (long)ClientData ] == 0 )
   {
-    XfsmSetLayerVisible( (int)ClientData );
+    XfsmSetLayerVisible( (long)ClientData );
   }
 
   autend();
@@ -1502,9 +1502,9 @@ void CallbackLayerInvisible( MyWidget, ClientData, CallData )
 {
   autbegin();
 
-  if ( XFSM_ACTIVE_LAYER_TABLE[ (int)ClientData ] )
+  if ( XFSM_ACTIVE_LAYER_TABLE[ (long)ClientData ] )
   {
-    XfsmSetLayerInvisible( (int)ClientData );
+    XfsmSetLayerInvisible( (long)ClientData );
   }
 
   autend();
@@ -1524,7 +1524,7 @@ void CallbackNameVisible( MyWidget, ClientData, CallData )
 {
   autbegin();
 
-  if ( XFSM_ACTIVE_NAME_TABLE[ (int)ClientData ] == 0 )
+  if ( XFSM_ACTIVE_NAME_TABLE[ (long)ClientData ] == 0 )
   {
     XfsmSetNameVisible( ClientData );
   }
@@ -1546,7 +1546,7 @@ void CallbackNameInvisible( MyWidget, ClientData, CallData )
 {
   autbegin();
 
-  if ( XFSM_ACTIVE_NAME_TABLE[ (int)ClientData ] )
+  if ( XFSM_ACTIVE_NAME_TABLE[ (long)ClientData ] )
   {
     XfsmSetNameInvisible( ClientData );
   }

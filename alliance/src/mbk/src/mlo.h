@@ -27,7 +27,7 @@
  * Author  : Frederic Petrot <Frederic.Petrot@lip6.fr>
  * Modified by Czo <Olivier.Sirol@lip6.fr> 1997,98
  * Modified by pnt <Pierre.Nguyen-Tuong@lip6.fr> 2002
- * $Id: mlo.h,v 1.7 2002/09/30 16:20:50 czo Exp $
+ * $Id: mlo.h,v 1.8 2009/06/14 13:51:52 ludo Exp $
  */
 
 #ifndef _MLO_H_
@@ -298,8 +298,8 @@ typedef struct loself                              /* analog inductor           
   extern          char * getsigname __P((losig_list *ptsig));
   extern           void  lofigchain __P((lofig_list *ptfig));
   extern           void  viewlo __P(());
-  extern           void  setsigsize __P((lofig_list*, int));
-  extern            int  getsigsize __P((lofig_list* ));
+  extern           void  setsigsize __P((lofig_list*, long));
+  extern           long  getsigsize __P((lofig_list* ));
   extern           void  dellosiguser __P((losig_list*));
   extern           void  dellotrsuser __P((lotrs_list*));
   extern           void  delloinsuser __P((loins_list*));

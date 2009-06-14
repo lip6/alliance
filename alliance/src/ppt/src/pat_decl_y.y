@@ -32,7 +32,7 @@
 %{
 
 #include <stdio.h>
-#include <strings.h>
+#include <string.h>
 #include "mut.h"
 #include "pat.h"
 #include "ppt.h"

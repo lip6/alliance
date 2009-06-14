@@ -794,7 +794,7 @@ char *type;				/* structure's type		*/
             {
             size = siz [(typ [idx] & TYPE_DFN)];
             pntr = (void *)
-                   (((unsigned int) pnt [idx].dat) + (size * nmbrs [1]));
+                   (((unsigned long) pnt [idx].dat) + (size * nmbrs [1]));
             push (stk, &stkpnt, pntr, pshtype);
             readflg = 1;
             }
@@ -811,7 +811,7 @@ char *type;				/* structure's type		*/
             {
             size = sizeof (void *);
             pntr = * (void **)
-                     (((unsigned int) pnt [idx].dat) + (size * nmbrs [1]));
+                     (((unsigned long) pnt [idx].dat) + (size * nmbrs [1]));
             push (stk, &stkpnt, pntr, pshtype);
             readflg = 1;
             }

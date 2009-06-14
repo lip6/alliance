@@ -27,10 +27,10 @@
 /*		  bvl_getvers						*/
 /* ###--------------------------------------------------------------### */
 
-int vhdlsavebefig (pt_fig, trace_mode)
+long vhdlsavebefig (pt_fig, trace_mode)
 
 struct befig *pt_fig    ;
-int           trace_mode;
+long           trace_mode;
 
   {
   struct begen *pt_gen    = NULL;	/* current ptype pnt (generic)	*/
@@ -49,17 +49,17 @@ int           trace_mode;
   char         *kind      ;
   char         *direct    ;
   char         *transp    ;
-  int           nrlabel   =   0;
-  int           buff_size = 128;
+  long           nrlabel   =   0;
+  long           buff_size = 128;
   char         *buffer    ;
   FILE         *fp        ;
   time_t        clock     ;
-  int           left      ;
-  int           right     ;
+  long           left      ;
+  long           right     ;
   char          name [256];
   char         *time_unit ;
-  unsigned int  time_step ;
-  int           err_flg   =   0;
+  unsigned long  time_step ;
+  long           err_flg   =   0;
 
   if ((pt_fig == NULL) || (pt_fig->ERRFLG != 0))
     beh_toolbug (10, "vhdlsavebefig", NULL, 0);

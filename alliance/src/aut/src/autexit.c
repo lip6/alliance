@@ -86,7 +86,7 @@
 
 void autexit( Value )
 
-  int Value;
+  long Value;
 {
   long *Core = (long *)1;
 

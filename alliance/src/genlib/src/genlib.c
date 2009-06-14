@@ -71,7 +71,7 @@
 #include "mbkgen.h"
 #define __GENLIB__
 #include "mgn.h"
-static char rcsid[] = "$Id: genlib.c,v 1.12 2003/02/06 09:52:14 fred Exp $";
+static char rcsid[] = "$Id: genlib.c,v 1.13 2009/06/14 13:51:43 ludo Exp $";
 
 /*******************************************************************************
 * global variables used in genlib                                              *
@@ -89,7 +89,7 @@ static chain_list *lolist;
 static char *checkname();
 static void toolong();
 static int hassep();
-int is_bus();
+int is_bus(char *name);
 int bus_decod();
 
 /*******************************************************************************
@@ -281,8 +281,7 @@ chain_list *c = NULL;
 /*******************************************************************************
 * function DEF_PHFIG                                                           *
 *******************************************************************************/
-void genDEF_PHFIG(name)
-char  *name;
+void genDEF_PHFIG( char  *name )
 {
 phfig_list *ptfig;
 char *s;
@@ -3081,8 +3080,7 @@ chain_list *ptchain = NULL;
 /*******************************************************************************
 * function LOSIG                                                               *
 *******************************************************************************/
-void genLOSIG(signame)
-char *signame;
+void genLOSIG( char *signame )
 {
 losig_list *ptsig;
 chain_list *ptchain, *ptchain1 = NULL;
@@ -3167,8 +3165,7 @@ char  *s;
 /*******************************************************************************
 * function LOCON                                                               *
 *******************************************************************************/
-void genLOCON(conname, direction, signame)
-char *conname, direction, *signame;
+void genLOCON( char *conname, char direction, char *signame )
 {
 losig_list * ptsig;
 chain_list * ptchain, *ptchain1 = NULL, *ptchain2 = NULL;
@@ -3336,10 +3333,7 @@ char  *s = NULL; /* To make -Wall happy */
 /*******************************************************************************
 * function LOTRS                                                               *
 *******************************************************************************/
-void genLOTRS(type, width, length, grid, source, drain)
-char type;
-unsigned short width, length;
-char *grid, *source, *drain;
+void genLOTRS( char type, unsigned short width, unsigned short length, char *grid, char *source, char *drain )
 {
 int i = 0;
 losig_list *s_grid = NULL, *s_source = NULL, *s_drain = NULL, *ptsig = NULL;
@@ -3390,8 +3384,7 @@ char *signame = NULL; /* To make -Wall happy */
 /*******************************************************************************
 * function LOSIGMERGE                                                          *
 *******************************************************************************/
-void genLOSIGMERGE(sig1, sig2)
-char *sig1, *sig2;
+void genLOSIGMERGE( char *sig1, char *sig2 )
 {
 losig_list *ls0, *ls1, *ls2;
 locon_list *c;
@@ -3680,9 +3673,7 @@ char       *s, *t;
 /*******************************************************************************
 * function FLATTEN_LOFIG                                                       *
 *******************************************************************************/
-void genFLATTEN_LOFIG(insname, concat)
-char *insname;
-char concat;
+void genFLATTEN_LOFIG( char *insname, char concat )
 {
 long i = 0;
 losig_list *s;
@@ -3705,8 +3696,7 @@ losig_list *s;
 /*******************************************************************************
 * flattens FLATTEN_ALL_LOINS                                                   *
 *******************************************************************************/
-void genFLATTEN_ALL_LOINS(concat, catal)
-char concat, catal;
+void genFLATTEN_ALL_LOINS( char concat, int catal )
 {
 chain_list *c, *namelist = NULL;
 loins_list *l;
@@ -3779,10 +3769,7 @@ chain_list *ilist = NULL;
 /*******************************************************************************
 * function SC_PLACE                                                            *
 *******************************************************************************/
-void genSC_PLACE(insname, sym, x, y)
-char  *insname;
-int   sym;
-long  x, y;
+void genSC_PLACE( char  *insname, int   sym, long  x, long y )
 {
 loins_list * ptins;
 char  *s = namealloc(insname);
@@ -3816,9 +3803,7 @@ char  *s = namealloc(insname);
 /*******************************************************************************
 * function SC_RIGHT                                                            *
 *******************************************************************************/
-void genSC_RIGHT(insname, sym)
-char  *insname;
-int   sym;
+void genSC_RIGHT( char  *insname, int   sym )
 {
 loins_list * ptins;
 char  *s = namealloc(insname);
@@ -3852,9 +3837,7 @@ char  *s = namealloc(insname);
 /*******************************************************************************
 * function SC_LEFT                                                             *
 *******************************************************************************/
-void genSC_LEFT(insname, sym)
-char  *insname;
-int   sym;
+void genSC_LEFT( char  *insname, int   sym )
 {
 loins_list *ptins;
 char *s = namealloc(insname);
@@ -3886,9 +3869,7 @@ char *s = namealloc(insname);
 /*******************************************************************************
 * function SC_TOP                                                              *
 *******************************************************************************/
-void genSC_TOP(insname, sym)
-char *insname;
-int sym;
+void genSC_TOP( char *insname, int sym )
 {
 loins_list *ptins;
 char *s = namealloc(insname);
@@ -3920,9 +3901,7 @@ char *s = namealloc(insname);
 /*******************************************************************************
 * function SC_BOTTOM                                                           *
 *******************************************************************************/
-void genSC_BOTTOM(insname, sym)
-char *insname;
-int sym;
+void genSC_BOTTOM( char *insname, int sym )
 {
 loins_list *ptins;
 char *s = namealloc(insname);
@@ -3955,9 +3934,7 @@ char *s = namealloc(insname);
 /*******************************************************************************
 * BUS allows the definition of a bus for logical operations                    *
 *******************************************************************************/
-char *genBUS(signame, from, to)
-char *signame;
-long from, to;
+char *genBUS( char *signame, long from, long to )
 {
 char sigid[100];
 
@@ -3974,9 +3951,7 @@ char sigid[100];
 /*******************************************************************************
 * ELM allows the definition of a bus element for logical operations            *
 *******************************************************************************/
-char *genELM(signame, number)
-char *signame;
-long number;
+char *genELM( char *signame, long number )
 {
 char sigid[100];
 
@@ -3994,9 +3969,7 @@ char sigid[100];
  * Do not forget to free a vectorized string that comes out from this
  * function ! */
 
-char *genUSED(s, c)
-  char *s;
-  int c;
+char *genUSED( char *s, int c )
   /* Czo */
 {
 char *t, *u;
@@ -4015,8 +3988,7 @@ char *t, *u;
 * loads the net-list description of a cell and create what's necessary to      *
 * physically describe it                                                       *
 *******************************************************************************/
-void genDEF_PHSC(name)
-char *name;
+void genDEF_PHSC( char *name )
 {
 lofig_list *ptlofig;
 
@@ -4192,8 +4164,7 @@ long  d;
 * something like "abcd[efgh]" will exit on a syntax error                      *
 * return 1 if "abcd[23:45]" 0 if "abcd" or "abdc[12]"                          *
 *******************************************************************************/
-int is_bus(signame)
-char *signame;
+int is_bus( char *signame )
 {
 char *t = signame, c;
 char is_a_bus = 0, flag = 0;
@@ -4251,9 +4222,7 @@ char i, where = 0; /* used to say exactly where */
 * function bus_decod                                                           *
 * decods the bus name so buses can be used in LOINS & LOCON                    *
 *******************************************************************************/
-int bus_decod(busname, signame, first, last)
-char *busname, *signame;
-long *first, *last;
+int bus_decod( char *busname, char *signame, long *first, long *last )
 {
 char  *space;
 char *buffer = mbkstrdup(busname);
@@ -4276,8 +4245,7 @@ char *buffer = mbkstrdup(busname);
 * function toolong                                                             *
 * cheks the validity of the lentgh of a string                                 *
 *******************************************************************************/
-static void toolong(length)
-long length;
+static void toolong( long length )
 {
    if (length > BUFSIZ) {
       (void)fflush(stdout);
@@ -4290,8 +4258,7 @@ long length;
 /*******************************************************************************
 * checkname : check for busses with single index                               *
 *******************************************************************************/
-static char *checkname(name)
-char *name;
+static char *checkname( char *name )
 {
 static char str[256];
 char *s, *t;
@@ -4324,8 +4291,7 @@ end:
 /*******************************************************************************
 * hassep    : check for legal instance names                                   *
 *******************************************************************************/
-static int hassep(s)
-char *s;
+static int hassep( char *s )
 {
    for (; *s != '\0'; s++)
       if (*s == '[' || *s == ']' ||

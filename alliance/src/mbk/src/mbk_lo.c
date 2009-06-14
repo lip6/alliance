@@ -30,7 +30,7 @@
  * Modified by pnt <Pierre.Nguyen-Tuong@lip6.fr> 2002
  */
 
-#ident "$Id: mbk_lo.c,v 1.7 2003/04/03 14:46:30 xtof Exp $"
+#ident "$Id: mbk_lo.c,v 1.8 2009/06/14 13:51:52 ludo Exp $"
 
 #include <stdio.h>
 #include <unistd.h>
@@ -41,7 +41,7 @@
 #include "rcn.h"
 #include "mbk_lo.h"
 
-int NB_TAT_LOSIG = 0;
+long NB_TAT_LOSIG = 0;
 /*******************************************************************************
 * global variable for netlist view                                             *
 *******************************************************************************/
@@ -383,10 +383,10 @@ losig_list *ptsig;
 losig_list *pthead;
 ptype_list *pt;
 chain_list *ptchain;
-int high;
-int low;
-int i;
-int sigsize;
+long high;
+long low;
+long i;
+long sigsize;
 
         sigsize = getsigsize( ptfig );
 
@@ -855,9 +855,9 @@ losig_list *getlosig(lofig_list *ptfig, long index)
 {
 losig_list *ptsig;
 ptype_list *pt;
-int low;
-int high;
-int sigsize;
+long low;
+long high;
+long sigsize;
 
         sigsize = getsigsize( ptfig );
    low = (index % sigsize);
@@ -1010,13 +1010,13 @@ chain_list *ptscan;
 char *ptchar;
 char buffer[50];
 char *result = NULL;
-register int nseparmin = 1000;
+register long nseparmin = 1000;
 
    if (ptsig == NULL)
       return NULL;
 
    for (ptscan = ptsig->NAMECHAIN; ptscan; ptscan = ptscan->NEXT) {
-   register int nsepar = 0;
+   register long nsepar = 0;
       if (ptscan->DATA != NULL) {
          for (ptchar = (char *)ptscan->DATA; *ptchar != '\0'; ptchar++)
             if (*ptchar == SEPAR)
@@ -1481,13 +1481,13 @@ else
 * function getsigsize()                                                        *
 *******************************************************************************/
 
-int getsigsize(lofig_list *ptfig)
+long getsigsize(lofig_list *ptfig)
 {
   ptype_list    *ptl;
 
   ptl = getptype( ptfig->USER, PTSIGSIZE );
   if( ptl )
-    return( (int)(ptl->DATA) );
+    return( (long)(ptl->DATA) );
 
   return( SIGSIZE );
 }
@@ -1496,7 +1496,7 @@ int getsigsize(lofig_list *ptfig)
 * function setsigsize()                                                        *
 *******************************************************************************/
 
-void setsigsize(lofig_list *ptfig, int nb)
+void setsigsize(lofig_list *ptfig, long nb)
 {
   ptype_list    *ptl;
 
@@ -1528,7 +1528,7 @@ void delloconuser(locon_list *ptlocon)
   ptype_list *scanptype;
   ptype_list *next;
   ptype_list *prev;
-  int         del;
+  long         del;
 
   prev = NULL;
   for( scanptype = ptlocon->USER ; scanptype ; scanptype = next )
@@ -1570,7 +1570,7 @@ void dellofiguser(lofig_list *ptlofig)
   ptype_list *scanptype;
   ptype_list *next;
   ptype_list *prev;
-  int         del;
+  long         del;
 
   prev = NULL;
   for( scanptype = ptlofig->USER ; scanptype ; scanptype = next )
@@ -1615,7 +1615,7 @@ void delloinsuser(loins_list *ptloins)
   ptype_list *scanptype;
   ptype_list *next;
   ptype_list *prev;
-  int         del;
+  long         del;
 
   prev = NULL;
   for( scanptype = ptloins->USER ; scanptype ; scanptype = next )
@@ -1657,7 +1657,7 @@ void dellotrsuser(lotrs_list *ptlotrs)
   ptype_list *scanptype;
   ptype_list *next;
   ptype_list *prev;
-  int         del;
+  long         del;
  
   prev = NULL; 
   for( scanptype = ptlotrs->USER ; scanptype ; scanptype = next )
@@ -1695,7 +1695,7 @@ void dellosiguser(losig_list *ptlosig)
   ptype_list *scanptype;
   ptype_list *next;
   ptype_list *prev;
-  int         del;
+  long         del;
 
   prev = NULL;
   for( scanptype = ptlosig->USER ; scanptype ; scanptype = next )
@@ -1959,7 +1959,7 @@ void dellocapuser(locap_list *ptlocap)
   ptype_list *scanptype = NULL ;
   ptype_list *next      = NULL ;
   ptype_list *prev      = NULL ;
-  int         del       = 0    ;
+  long         del       = 0    ;
  
   for(scanptype = ptlocap -> USER ; scanptype != NULL ; scanptype = next)
     {
@@ -2222,7 +2222,7 @@ void delloresuser(lores_list *ptlores)
   ptype_list *scanptype = NULL ;
   ptype_list *next      = NULL ;
   ptype_list *prev      = NULL ;
-  int         del       = 0    ;
+  long         del       = 0    ;
  
   for(scanptype = ptlores -> USER ; scanptype != NULL ; scanptype = next)
     {
@@ -2485,7 +2485,7 @@ void delloselfuser(loself_list *ptloself)
   ptype_list *scanptype = NULL ;
   ptype_list *next      = NULL ;
   ptype_list *prev      = NULL ;
-  int         del       = 0    ;
+  long         del       = 0    ;
  
   for(scanptype = ptloself -> USER ; scanptype != NULL ; scanptype = next)
     {

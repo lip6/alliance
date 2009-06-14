@@ -21,6 +21,7 @@
 # include <ctype.h>
 # include <stdlib.h>
 # include <string.h>
+# include <libgen.h>
 
 # include <mut.h>
 # include <mph.h>

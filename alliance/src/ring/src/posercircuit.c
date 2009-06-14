@@ -178,7 +178,7 @@ void poser_segments_eq(LST_EQUIPO equipo, COEUR lecoeur, lofig_list *circuit_lo)
 
 		precseg = (LST_SEGMENT) lst_seg->DATA;
 
-		/*if (mode_debug) printf("pointeur ptprecseg %d face %d\n",(int) precseg,(int)precseg->face); */
+		/*if (mode_debug) printf("pointeur ptprecseg %ld face %ld\n",(long) precseg,(long)precseg->face); */
 
 		if (VRAI_SEG == precseg->vraifaux) {
 			switch (precseg->face) {
@@ -268,8 +268,8 @@ void poser_vias_eq(LST_EQUIPO equipo, COEUR lecoeur, phfig_list *circuit_ph)
 		}
 
 		if (mode_debug) 
-			printf("seg pt %d layer %d ptc1 %d ptc2 %d piste1 %ld piste2 %ld\n", (int) seg, (int)seg->layer,
-			    (int)seg->c1, (int)seg->c2, seg->piste1, seg->piste2);
+			printf("seg pt %ld layer %ld ptc1 %ld ptc2 %ld piste1 %ld piste2 %ld\n", (long) seg, (long)seg->layer,
+			    (long)seg->c1, (long)seg->c2, seg->piste1, seg->piste2);
 
 		if (FAUX_SEG == seg->vraifaux) 
 			break;
@@ -309,7 +309,7 @@ void poser_vias_eq(LST_EQUIPO equipo, COEUR lecoeur, phfig_list *circuit_ph)
 		}
 
 		if (mode_debug) 
-			printf("seg pt %d layer %d x1 %ld y1 %ld x2 %ld y2 %ld\n", (int) seg, (int)seg->layer, x1, y1, x2,
+			printf("seg pt %ld layer %ld x1 %ld y1 %ld x2 %ld y2 %ld\n", (long) seg, (long)seg->layer, x1, y1, x2,
 			     y2);
 		liste = lst_seg;
 
@@ -358,7 +358,7 @@ void poser_vias_eq(LST_EQUIPO equipo, COEUR lecoeur, phfig_list *circuit_ph)
 				}
 
 				if (mode_debug) 
-					printf("*seg2 pt %d layer %d x1 %ld y1 %ld x2 %ld y2 %ld\n", (int) seg2, (int)seg2->layer,
+					printf("*seg2 pt %ld layer %ld x1 %ld y1 %ld x2 %ld y2 %ld\n", (long) seg2, (long)seg2->layer,
 					     x1seg2, y1seg2, x2seg2, y2seg2);
 
 				/* ------------------------------*/
@@ -523,7 +523,7 @@ void traite_equipo_ext(chain_list *nom_plot[NB_FACES], chain_list *liste_plotsph
 	while (con_circuit != NULL) {
 		sig_circuit = con_circuit->SIG;  /* un signal unique par connecteur */
 		if (mode_debug) 
-			printf("pointeur Sigcircuit %d\n", (int) sig_circuit);
+			printf("pointeur Sigcircuit %ld\n", (long) sig_circuit);
 		if (mode_debug) 
 			printf("*******NOM concircuit %s signal %ld*********\n", con_circuit->NAME, sig_circuit->INDEX);
 
@@ -868,8 +868,8 @@ void poser_vias_visavisalim(LST_EQUIPO equipo, COEUR lecoeur,
 		}
 
 		if (mode_debug) 
-			printf("seg pt %d layer %d ptc1 %d ptc2 %d piste1 %ld piste2 %ld\n", (int) seg, (int)seg->layer,
-			    (int)seg->c1, (int)seg->c2, seg->piste1, seg->piste2);
+			printf("seg pt %ld layer %ld ptc1 %ld ptc2 %ld piste1 %ld piste2 %ld\n", (long) seg, (long)seg->layer,
+			    (long)seg->c1, (long)seg->c2, seg->piste1, seg->piste2);
 
 		if (FAUX_SEG == seg->vraifaux) 
 			break;
@@ -926,7 +926,7 @@ void poser_vias_visavisalim(LST_EQUIPO equipo, COEUR lecoeur,
 		}
 
 		if (mode_debug) 
-			printf("seg pt %d layer %d x1 %ld y1 %ld x2 %ld y2 %ld\n", (int) seg, (int)seg->layer, x1, y1, x2,
+			printf("seg pt %ld layer %ld x1 %ld y1 %ld x2 %ld y2 %ld\n", (long) seg, (long)seg->layer, x1, y1, x2,
 			     y2);
 		liste = lst_seg;
 
@@ -974,7 +974,7 @@ void poser_vias_visavisalim(LST_EQUIPO equipo, COEUR lecoeur,
 				}
 
 				if (mode_debug) 
-					printf("*seg2 pt %d layer %d x1 %ld y1 %ld x2 %ld y2 %ld\n", (int) seg2, (int)seg2->layer,
+					printf("*seg2 pt %ld layer %ld x1 %ld y1 %ld x2 %ld y2 %ld\n", (long) seg2, (long)seg2->layer,
 					     x1seg2, y1seg2, x2seg2, y2seg2);
 
 				/* ----------------------------- */

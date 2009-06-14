@@ -40,7 +40,7 @@ static struct dct_entry *addent ();
 static struct dct_recrd *addrcd ();
 static struct dct_entry **initab ();
 static void addtab ();
-static int chktab ();
+static long chktab ();
 static void fretab ();
 static void *ctp_addstr ();
 static ctltype_list *val_type();
@@ -50,7 +50,7 @@ static struct ptype *reversetype();
 extern char          CTP_ERRFLG;        /* set to 1 in case of error    */
 extern ctlfig_list  *CTP_HEADFIG;       /* head of vbfigs               */
 extern long          CTP_LINNUM;
-extern int           CTP_NUMPTP;
+extern long          CTP_NUMPTP;
 extern char         *CTP_MODNAM;
 
 /*\
@@ -60,7 +60,7 @@ pNode         CTP_BDDPNT;
 ctp_vexstr    CTP_SLCEXP;		/* structure filled with the	*/
 ctp_vexstr    CTP_EMPSTR;		/* empty structure used with NOT*/
  
-static int           CTP_NUMTYP = 0;	/* nombre de type			*/
+static long          CTP_NUMTYP = 0;	/* nombre de type			*/
 static struct chain *CTP_NM1LST = NULL;	/* 1-st name liste		*/
 static struct chain *CTP_NM2LST = NULL;	/* 2-st name liste		*/
 static struct chain *CTP_INSLST = NULL;	/* 3-st name liste		*/

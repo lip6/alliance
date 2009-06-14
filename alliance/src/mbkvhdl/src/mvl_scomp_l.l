@@ -27,7 +27,7 @@
 /* called func.	: addht, addhtitem, gethtitem, namealloc		*/
 /* ###--------------------------------------------------------------### */
 
-static int search (key)
+static long search (key)
 
 char  *key;
 
@@ -255,7 +255,7 @@ base_specifier	  	  (B|b|O|o|X|x)
 			return(Slash);
 									}
 {letter}(_?{letter_or_digit})* 						{
-			int itoken;
+			long itoken;
 
 			itoken = search (yytext);
 			if (itoken == EMPTYHT) 
@@ -269,22 +269,22 @@ base_specifier	  	  (B|b|O|o|X|x)
 			  }
 									}
 ({decimal_literal})|({base}#{based_integer}(\.{based_integer})?#({exponent})?)|({base}:{based_integer}(\.{based_integer})?:({exponent})?)		{
-			yylval.text = mbkalloc((unsigned int)strlen(yytext)+1);
+			yylval.text = mbkalloc((size_t)strlen(yytext)+1);
 	 		strcpy(yylval.text,yytext);
 			return ( AbstractLit );
 									}
 '({graphic_character}|\"|\%)' 						{
-			yylval.text = mbkalloc((unsigned int)strlen(yytext)+1);
+			yylval.text = mbkalloc((unsigned long)strlen(yytext)+1);
 	 		strcpy(yylval.text,yytext);
 			return ( CharacterLit );
 									}
 (\"({graphic_character}|(\"\")|\%)*\")|(\%({graphic_character}|(\%\%)|\")*\%) {
-			yylval.text = mbkalloc((unsigned int)strlen(yytext)+1);
+			yylval.text = mbkalloc((size_t)strlen(yytext)+1);
 	 		strcpy(yylval.text,yytext);
 			return ( StringLit );
 									}
 {base_specifier}(\"{extended_digit}(_?{extended_digit})*\"|\%{extended_digit}(_?{extended_digit})*\%) 							{
-			yylval.text = mbkalloc((unsigned int)strlen(yytext)+1);
+			yylval.text = mbkalloc((size_t)strlen(yytext)+1);
 	 		strcpy(yylval.text,yytext);
 			return ( BitStringLit );
 									}

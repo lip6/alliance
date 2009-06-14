@@ -42,17 +42,17 @@
 /* called func.	: makfopen  , pat_error, pat_warning, pat_drvpat	*/
 /* ###--------------------------------------------------------------### */
 
-int pat_savpaseq (name, ptseq, labelsiz)
+long pat_savpaseq (name, ptseq, labelsiz)
 
 char         *name    ;		/* name of the drived file		*/
 struct paseq *ptseq   ;		/* list of existing sequences		*/
-unsigned int  labelsiz;		/* length of the longest label		*/
+unsigned long  labelsiz;		/* length of the longest label		*/
 
   {
   static FILE *fp      = NULL;
   static char *sfx     = NULL;
   char        *str     ;
-  int          err_flg = 0   ;
+  long          err_flg = 0   ;
 
 	/* ###------------------------------------------------------### */
 	/*    read the environment variable VH_PATSFX to get the	*/

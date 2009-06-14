@@ -2294,9 +2294,9 @@ void CallbackLayerVisible( MyWidget, ClientData, CallData )
 {
   autbegin();
 
-  if ( XSCH_ACTIVE_LAYER_TABLE[ (int)ClientData ] == 0 )
+  if ( XSCH_ACTIVE_LAYER_TABLE[ (long)ClientData ] == 0 )
   {
-    XschSetLayerVisible( (int)ClientData );
+    XschSetLayerVisible( (long)ClientData );
   }
 
   autend();
@@ -2316,9 +2316,9 @@ void CallbackLayerInvisible( MyWidget, ClientData, CallData )
 {
   autbegin();
 
-  if ( XSCH_ACTIVE_LAYER_TABLE[ (int)ClientData ] )
+  if ( XSCH_ACTIVE_LAYER_TABLE[ (long)ClientData ] )
   {
-    XschSetLayerInvisible( (int)ClientData );
+    XschSetLayerInvisible( (long)ClientData );
   }
 
   autend();
@@ -2338,7 +2338,7 @@ void CallbackNameVisible( MyWidget, ClientData, CallData )
 {
   autbegin();
 
-  if ( XSCH_ACTIVE_NAME_TABLE[ (int)ClientData ] == 0 )
+  if ( XSCH_ACTIVE_NAME_TABLE[ (long)ClientData ] == 0 )
   {
     XschSetNameVisible( ClientData );
   }
@@ -2360,7 +2360,7 @@ void CallbackNameInvisible( MyWidget, ClientData, CallData )
 {
   autbegin();
 
-  if ( XSCH_ACTIVE_NAME_TABLE[ (int)ClientData ] )
+  if ( XSCH_ACTIVE_NAME_TABLE[ (long)ClientData ] )
   {
     XschSetNameInvisible( ClientData );
   }

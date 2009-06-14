@@ -14,6 +14,7 @@
 #include <stdlib.h>
 #include <time.h>
 #include "mut.h"
+#include "mlo.h"
 #include "beh.h"
 #include "log.h"
 #include "pat.h"
@@ -1153,7 +1154,7 @@ unsigned char     value;
   unsigned int     l_tim = 0;    /*  Statistics last_time access  */
   unsigned int       res = 0;
 
-  switch((unsigned int)ctx)
+  switch((unsigned long)ctx)
     {
     case CTXPRB :
       if (value == '1')

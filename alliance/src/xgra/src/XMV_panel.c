@@ -1438,9 +1438,9 @@ void CallbackLayerVisible( MyWidget, ClientData, CallData )
 {
   autbegin();
 
-  if ( XGRA_ACTIVE_LAYER_TABLE[ (int)ClientData ] == 0 )
+  if ( XGRA_ACTIVE_LAYER_TABLE[ (long)ClientData ] == 0 )
   {
-    XgraSetLayerVisible( (int)ClientData );
+    XgraSetLayerVisible( (long)ClientData );
   }
 
   autend();
@@ -1460,9 +1460,9 @@ void CallbackLayerInvisible( MyWidget, ClientData, CallData )
 {
   autbegin();
 
-  if ( XGRA_ACTIVE_LAYER_TABLE[ (int)ClientData ] )
+  if ( XGRA_ACTIVE_LAYER_TABLE[ (long)ClientData ] )
   {
-    XgraSetLayerInvisible( (int)ClientData );
+    XgraSetLayerInvisible( (long)ClientData );
   }
 
   autend();
@@ -1482,7 +1482,7 @@ void CallbackNameVisible( MyWidget, ClientData, CallData )
 {
   autbegin();
 
-  if ( XGRA_ACTIVE_NAME_TABLE[ (int)ClientData ] == 0 )
+  if ( XGRA_ACTIVE_NAME_TABLE[ (long)ClientData ] == 0 )
   {
     XgraSetNameVisible( ClientData );
   }
@@ -1504,7 +1504,7 @@ void CallbackNameInvisible( MyWidget, ClientData, CallData )
 {
   autbegin();
 
-  if ( XGRA_ACTIVE_NAME_TABLE[ (int)ClientData ] )
+  if ( XGRA_ACTIVE_NAME_TABLE[ (long)ClientData ] )
   {
     XgraSetNameInvisible( ClientData );
   }

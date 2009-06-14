@@ -89,8 +89,8 @@ short         right;		/* array's right bound (= -1 if scalar)	*/
   struct begen *ptgen;
   struct chain *ptauxnam;
   struct chain *ptauxnat;
-  int           i;
-  int           inc = 1;
+  long           i;
+  long           inc = 1;
 
   ptgen    = lastgeneric;
   ptauxnam = nam_lst;
@@ -160,9 +160,7 @@ struct chain *abllst;
 /* called func.	: mbkalloc <mbk>, bvl_cpyabllst				*/
 /* ###--------------------------------------------------------------### */
 
-bvl_ablstr bvl_cpyablstr (ablstr)
-
-bvl_ablstr ablstr;
+bvl_ablstr bvl_cpyablstr ( bvl_ablstr ablstr )
   {
   bvl_ablstr pt_ablstr;
 
@@ -196,15 +194,15 @@ bvl_ablstr ablstr;
 /*		  bvl_error , addchain   , freechain			*/
 /* ###--------------------------------------------------------------### */
 
-bvl_ablstr bvl_crtabl ( oper, expr1, expr2, left, right )
+bvl_ablstr bvl_crtabl ( 
 
-short      oper;
-bvl_ablstr expr1;
-bvl_ablstr expr2;
-int        left;
-int        right;
+short      oper,
+bvl_ablstr expr1,
+bvl_ablstr expr2,
+long        left,
+long        right )
 
-  {
+{
   char            name[256];
   char           *name2;
   struct chain   *pt_abl1;
@@ -213,8 +211,8 @@ int        right;
   struct chain   *pt_aux2;
   bvl_ablstr      result;
   char            lcl_buffer[256];
-  short           inc;
-  short           i;
+  long            inc;
+  long            i;
   char            true_flag_un = 0;
   char            true_flag_zero = 0;
 
@@ -725,7 +723,7 @@ int        right;
       }
 
     return (result);
-    }
+}
 
 /* ###--------------------------------------------------------------### */
 /* function	: bvl_select						*/
@@ -740,16 +738,16 @@ int        right;
 
 extern bddcircuit *BvlBddCircuit;
 
-void bvl_select (result,pt_str, pt_bdd, pt_ablstr)
+void bvl_select (
 
-bvl_ablstr   *result;
-struct chain *pt_str;		/* pointer on a list of choices		*/
-bddnode     **pt_bdd;		/* used to check if a choice is legal	*/
-bvl_ablstr   pt_ablstr;		/* tested expression			*/
+bvl_ablstr   *result,
+struct chain *pt_str,		/* pointer on a list of choices		*/
+bddnode     **pt_bdd,		/* used to check if a choice is legal	*/
+bvl_ablstr   pt_ablstr )	/* tested expression			*/
 
   {
   char             binstr[256];
-  int              i;
+  long              i;
   struct chain    *pt_auxabl;
   bddnode         *pt_bddres;
   bddnode         *pt_bddnew;
@@ -758,8 +756,8 @@ bvl_ablstr   pt_ablstr;		/* tested expression			*/
   char             nomvar[10];
   struct chain    *pt_newabl;
   struct chain    *pt_newabl2;
-  static int       oth_flg=0;
-  static int       last_width=0;
+  static long       oth_flg=0;
+  static long       last_width=0;
 
   result->LIST_ABL = NULL;
   result->IDENT    = NULL;
@@ -851,18 +849,18 @@ bvl_ablstr   pt_ablstr;		/* tested expression			*/
 /*		  in a string of '0' and '1's				*/
 /* ###--------------------------------------------------------------### */
 
-int bvl_tobin (trg,src,left,right)
+long bvl_tobin (
 
-char *trg;
-char *src;
-int   left;
-int   right;
+char *trg,
+char *src,
+long   left,
+long   right )
 
-  {
+{
   char base;
-  int  indx;
-  int  j = 0;
-  int  errflg = 0;
+  long  indx;
+  long  j = 0;
+  long  errflg = 0;
   char lcl_trg[256];
 
   lcl_trg[0] = '\0';

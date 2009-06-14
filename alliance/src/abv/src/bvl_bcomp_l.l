@@ -51,7 +51,7 @@ bvl_name;
 
 struct g_type
   {
-  int  VALU;
+  long  VALU;
   char FLAG;
   };
 
@@ -187,7 +187,7 @@ base_specifier	  	  (B|b|O|o|X|x)
 									}
 
 {letter}(_?{letter_or_digit})*						{
-		int itoken;
+		long itoken;
 
 		itoken = search (yytext);
 		if (itoken == EMPTYHT) 
@@ -203,7 +203,7 @@ base_specifier	  	  (B|b|O|o|X|x)
 		  }
 									}
 ({decimal_literal})|({base}#{based_integer}(\.{based_integer})?#({exponent})?)|({base}:{based_integer}(\.{based_integer})?:({exponent})?)		{
-		yylval.text = mbkalloc ((unsigned int)strlen(yytext)+1);
+		yylval.text = mbkalloc ((unsigned long)strlen(yytext)+1);
 	 	strcpy (yylval.text, yytext);
 		return (AbstractLit);
 									}
@@ -250,7 +250,7 @@ int yywrap ()
 /* called func.	: addht, addhtitem, gethtitem, namealloc		*/
 /* ###--------------------------------------------------------------### */
 
-static int search (key)
+static long search (key)
 
 char  *key;
 

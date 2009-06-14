@@ -212,8 +212,8 @@ int delschfig( Name )
   loc_delschcon( Figure->CON_IN  );
   loc_delschcon( Figure->CON_OUT );
 
-  loc_delschnet( Figure->CON_OUT );
-  loc_delschbox( Figure->CON_OUT );
+  loc_delschnet( Figure->NET );
+  loc_delschbox( Figure->BOX );
 
   freeschfig( Figure );
 

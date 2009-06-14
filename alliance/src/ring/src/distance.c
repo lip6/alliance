@@ -181,7 +181,7 @@ PT_COORDONNEES existe_con_precalim(long x2, long y2, long w2, char l2, int face,
 	PT_COORDONNEES coordalim = NULL;
 
 	if (mode_debug) 
-		printf("Existeprecalim x %ld y %ld face %d ptcoor %d\n\n", x2, y2, face, (int)liste_coor);
+		printf("Existeprecalim x %ld y %ld face %d ptcoor %ld\n\n", x2, y2, face, (long)liste_coor);
 
 	switch (face) {
 	case NORD:
@@ -258,14 +258,14 @@ PT_COORDONNEES existe_con_suiv(long x1, long y1, long w1, char l1,
 	PT_COORDONNEES coordalim = NULL;
 
 	if (mode_debug) 
-		printf("Existesuivalim x %ld y %ld face %d ptcoor %d\n\n", x1, y1, face, (int)liste_coor);
+		printf("Existesuivalim x %ld y %ld face %d ptcoor %ld\n\n", x1, y1, face, (long)liste_coor);
 
 	switch (face) {
 	case NORD:
 	case SUD:
 		while (NULL != liste_coor) {
 			if (mode_debug) 
-				printf("ptcoor %d proprio %d x %ld\n", (int) liste_coor, (int)liste_coor->proprio, liste_coor->xabs);
+				printf("ptcoor %;d proprio %;d x %ld\n", (long) liste_coor, (long)liste_coor->proprio, liste_coor->xabs);
 
 			if (NULL != liste_coor->proprio) {
 				con = ((LST_PSEUDO_CON)liste_coor->proprio);
@@ -281,7 +281,7 @@ PT_COORDONNEES existe_con_suiv(long x1, long y1, long w1, char l1,
 					coordalim = liste_coor;
 				}
 				if (mode_debug) 
-					printf("ptcoordalim %d\n", (int) coordalim);
+					printf("ptcoordalim %ld\n", (long) coordalim);
 			}
 
 			liste_coor = liste_coor->suiv;
@@ -295,7 +295,7 @@ PT_COORDONNEES existe_con_suiv(long x1, long y1, long w1, char l1,
 	case OUEST:
 		while (NULL != liste_coor) {
 			if (mode_debug) 
-				printf("ptcoor %d proprio %d x %ld\n", (int) liste_coor, (int)liste_coor->proprio, liste_coor->yabs);
+				printf("ptcoor %ld proprio %ld x %ld\n", (long) liste_coor, (long)liste_coor->proprio, liste_coor->yabs);
 
 			if (NULL != liste_coor->proprio) {
 				con = ((LST_PSEUDO_CON)liste_coor->proprio);
@@ -311,7 +311,7 @@ PT_COORDONNEES existe_con_suiv(long x1, long y1, long w1, char l1,
 					coordalim = liste_coor;
 				}
 				if (mode_debug) 
-					printf("ptcoordalim %d\n", (int) coordalim);
+					printf("ptcoordalim %ld\n", (long) coordalim);
 			}
 
 			liste_coor = liste_coor->suiv;

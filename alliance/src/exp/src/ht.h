@@ -11,7 +11,7 @@ typedef union
 {
   struct htelt_st  *e;
   double f;
-  int    i;
+  long   i;
   char   *s;
 }
 elt_t;
@@ -20,9 +20,9 @@ typedef struct htelt_st
 {
   struct htelt_st * NEXT;
   char *KEY;
-  int TYPE;
-  int USED;
-  int FLINE;
+  long TYPE;
+  long USED;
+  long FLINE;
   char * FNAME;
   elt_t VAL;
 }
@@ -62,7 +62,7 @@ extern void htremove (ht_t * ht);
 /* creation du dictionnaire
 ** ------------------------
 */
-extern ht_t *htinit (int size);
+extern ht_t *htinit (long size);
 
 /* recherche d'une entree dans la table
 ** rend un pointeur sur l'element

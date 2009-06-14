@@ -171,7 +171,7 @@ losig_list *Signal;
                                                               Rec->X+Rec->DX,
                                                               Rec->Y+Rec->DY);
           for( ptdebug = Rec->USER ; ptdebug ; ptdebug = ptdebug->NEXT )
-            printf("[%5ld-%08X] ", ptdebug->TYPE, (int)(ptdebug->DATA) );
+            printf("[%5ld-%08lX] ", ptdebug->TYPE, (long)(ptdebug->DATA) );
           printf("\n");
         }
   
@@ -370,12 +370,12 @@ GrgWindow	*WinInfo;
                n'y est deja pas present */
 
             if(GrgWinDebug)
-              fprintf(stderr," (%6ld;%6ld)-(%6ld;%6ld) USERS: %X\n",
+              fprintf(stderr," (%6ld;%6ld)-(%6ld;%6ld) USERS: %lX\n",
                              ScanchRec->REC[i]->X,
                              ScanchRec->REC[i]->Y,
                              ScanchRec->REC[i]->X+ScanchRec->REC[i]->DX,
                              ScanchRec->REC[i]->Y+ScanchRec->REC[i]->DY,
-                             (int)(ScanchRec->REC[i]->USER) );
+                             (long)(ScanchRec->REC[i]->USER) );
 
             R=ScanchRec->REC[i];
             if(R->USER!=(ptype_list*)1)
@@ -404,8 +404,8 @@ GrgWindow	*WinInfo;
       R->USER=scanmystack->PILE[scanmystack->CASEIN];
 
       if(GrgWinDebug)
-        fprintf(stderr," (%6ld;%6ld)-(%6ld;%6ld) USERS: %X\n",
-                       R->X,R->Y,R->X+R->DX,R->Y+R->DY,(int)(R->USER) );
+        fprintf(stderr," (%6ld;%6ld)-(%6ld;%6ld) USERS: %lX\n",
+                       R->X,R->Y,R->X+R->DX,R->Y+R->DY,(long)(R->USER) );
 
       if(scanmystack->CASEIN==0)
         scanmystack=scanmystack->NEXT;

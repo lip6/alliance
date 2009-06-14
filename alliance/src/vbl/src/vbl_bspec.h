@@ -40,7 +40,7 @@ typedef struct vbl_expr
   char          *IDENT;                 /* identifier or constant name  */
   vexexpr       *VEX;                   /* pointer on bvl_abllst list   */
   short          TYPE;
-  int            WIDTH;                 /* width of bit vector          */
+  long            WIDTH;                 /* width of bit vector          */
   char           SIGNED;
   char           AGGREG;
   }
@@ -61,7 +61,7 @@ vbl_name;
 
 struct g_type
   {
-  int  VALU;
+  long  VALU;
   char FLAG;
   };
 
@@ -69,7 +69,7 @@ struct choice_chain
   {
   struct choice_chain* NEXT;
   chain_list  *VALUES;
-  unsigned int  SIZE;
+  unsigned long  SIZE;
   struct ptype *INSTRUCTION;
   };
 
@@ -79,15 +79,16 @@ extern struct vbfig *VBL_HEADFIG;
 extern struct vbmap *VBL_GENMAP;
 
 
-extern vbl_vexstr         vbl_crtvex ();
-extern char 		  *vbl_numtobin ();
-extern char	          *vbl_enumbitstring();
-extern int                vbl_codeSize();
-extern vexexpr           *vbl_dynamicvexatom();
-extern int                vbl_intSize();
-extern int                vbl_vextonum();
-extern vbtyp_list *vbl_getbasetype();
-  extern void               vbl_error();
-  extern void               vbl_warning();
-  extern int                vbl_tobin();
+extern vbl_vexstr vbl_crtvex( short oper, vbl_vexstr expr1, vbl_vexstr expr2,
+    long       left, long       right, unsigned char dynamic );
+extern char *vbl_numtobin( long num );
+extern char *vbl_enumbitstring( long num, long size, long numbit );
+extern long vbl_codeSize( long Size );
+extern vexexpr *vbl_dynamicvexatom( char          *Name, long           Left, long           Right, unsigned char  Dynamic );
+extern long vbl_intSize( long Left, long Right );
+extern long vbl_vextonum( vexexpr *Vex, long    *PValue );
+extern vbtyp_list *vbl_getbasetype( long type );
+extern long vbl_tobin ( char *trg, char *src, long   left, long   right );
+extern void vbl_error ( long   code, char *str1  );
+extern void vbl_warning ( long   code, char *str1 );
 

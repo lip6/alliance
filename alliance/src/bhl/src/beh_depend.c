@@ -30,6 +30,8 @@
 /* ###--------------------------------------------------------------### */
 
 #include <stdio.h>
+#include <string.h>
+#include <stdlib.h>
 #include "mut.h"
 #include "log.h"
 #include "beh.h"
@@ -57,7 +59,7 @@ struct chain *pt_exp;
   struct chain *del_chain = NULL;
   struct chain *tmp_chain = NULL;
   struct chain *mem_chain = NULL;
-  int           value           ;
+  long          value           ;
 
   if (pt_fig->ERRFLG == 0)
     {
@@ -97,7 +99,7 @@ struct chain *pt_exp;
         exit( pt_fig->ERRFLG );
       }
       else
-        tmp_chain->DATA = (void *) value;
+        tmp_chain->DATA = (chain_list *) value;
 
       tmp_chain = tmp_chain->NEXT;
       }
@@ -129,7 +131,7 @@ struct befig *pt_fig;
   struct beout *pt_out    ;
   struct bebus *pt_bus    ;
   struct biabl *pt_biabl  ;
-  unsigned int  count     = 0;
+  unsigned long count     = 0;
 
 	/* ###------------------------------------------------------### */
 	/*   if there is no error in the current figure ...		*/
@@ -155,7 +157,7 @@ struct befig *pt_fig;
 
     while (pt_rin != NULL)
       {
-      addhtitem (rin_list, pt_rin->NAME, (int) pt_rin);
+      addhtitem (rin_list, pt_rin->NAME, (long) pt_rin);
       pt_rin = pt_rin->NEXT;
       }
 

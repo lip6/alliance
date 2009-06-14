@@ -2116,7 +2116,7 @@ void CallbackModifyRectangleLayer( MyWidget, ClientData, CallData )
 {
   rdsbegin();
 
-  DrealRectangleMLayer = (int)ClientData;
+  DrealRectangleMLayer = (long)ClientData;
 
   DrealPromptModifyRectangle();
 

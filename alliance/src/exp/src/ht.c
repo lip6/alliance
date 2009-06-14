@@ -68,8 +68,8 @@ void eltremove (htelt_t * list)
 */
 void htremove (ht_t * ht)
 {
-  int i;
-  for (i = 1; i < (int) ht[0]; i++)
+  long i;
+  for (i = 1; i < (long) ht[0]; i++)
     eltremove (ht[i]);
   free (ht);
 }
@@ -79,12 +79,12 @@ void htremove (ht_t * ht)
 */
 void htstat (ht_t * ht)
 {
-  int i;
+  long i;
   htelt_t *elt;
   if (ht)
   {
-    static int start=1;
-    for (i = 1; i < (int) ht[0]; i++)
+    static long start=1;
+    for (i = 1; i < (long) ht[0]; i++)
       for (elt = ht[i]; elt; elt = elt->NEXT)
         if (elt->USED == 0)
         {  
@@ -113,9 +113,9 @@ static int primes[] = {
 /* creation d'un dictionnaire
 ** --------------------------
 */
-ht_t *htinit (int size)
+ht_t *htinit (long size)
 {
-  int i;
+  long i;
   ht_t *ht;
 
   /* prend le premier nombre premier au dela de size */
@@ -138,12 +138,12 @@ ht_t *htinit (int size)
 /* calcul de la valeur de hachage primaire
 ** ---------------------------------------
 */
-static int hash (ht_t * ht, char *key)
+static long hash (ht_t * ht, char *key)
 {
-  int alveole = 0;
-  int length = strlen (key);
-  int segment;
-  int l;
+  long alveole = 0;
+  long length = strlen (key);
+  long segment;
+  long l;
 
   if (ht == NULL)
   {
@@ -160,7 +160,7 @@ static int hash (ht_t * ht, char *key)
     segment = 0xFFFF & ((key[l] << 8) | key[l + 1]);
     alveole = alveole ^ ((segment << 1) | (segment >> 15));
   }
-  alveole %= (int) ht[0];       /* ht[0] == la taille de la table */
+  alveole %= (long) ht[0];       /* ht[0] == la taille de la table */
   return (alveole + 1);         /* +1 car on ne doit rien mettre dans case 0 */
 }
 
@@ -174,7 +174,7 @@ static int hash (ht_t * ht, char *key)
 */
 htelt_t *htget (ht_t * ht, char *key)
 {
-  int alveole = hash (ht, key);
+  long alveole = hash (ht, key);
   htelt_t *p;
 
   for (p = ht[alveole]; p && strcmp (p->KEY, key); p = p->NEXT);
@@ -187,7 +187,7 @@ htelt_t *htget (ht_t * ht, char *key)
 */
 htelt_t *htadd (ht_t * ht, char *key)
 {
-  int alveole = hash (ht, key);
+  long alveole = hash (ht, key);
 
   return ht[alveole] = eltadd (ht[alveole], key);
 }
@@ -197,7 +197,7 @@ htelt_t *htadd (ht_t * ht, char *key)
 */
 htelt_t *htset (ht_t * ht, char *key)
 {
-  int alveole = hash (ht, key);
+  long alveole = hash (ht, key);
   htelt_t *p;
 
   for (p = ht[alveole]; p && strcmp (p->KEY, key); p = p->NEXT);
@@ -215,12 +215,12 @@ htelt_t *htsetre (ht_t * ht, char *key)
 {
   regex_t preg;
   htelt_t *elt, *res = NULL;
-  int i;
+  long i;
 
   if (regcomp(&preg, key, REG_EXTENDED | REG_NOSUB) != 0)
     return NULL;
   if (ht)
-    for (i = 1; i < (int) ht[0]; i++)
+    for (i = 1; i < (long) ht[0]; i++)
       for (elt = ht[i]; elt; elt = elt->NEXT)
         if (regexec (&preg, elt->KEY, (size_t) 0, NULL, 0) == 0)
         {

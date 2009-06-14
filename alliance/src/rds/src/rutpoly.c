@@ -17,6 +17,7 @@
 
 # include <math.h>
 # include <stdlib.h>
+# include <string.h>
 
 # include <mut.h>
 # include <mph.h>
@@ -567,7 +568,7 @@ unsigned  *new_coord_numb;
     EXIT(1);
   }
   /* On recopie ces valeurs definitives dans le nouveau tableau   */
-  (void)memcpy((char *)xtab, (char *)tab, (int)nb_x * sizeof(long));
+  (void)memcpy((char *)xtab, (char *)tab, (size_t)nb_x * sizeof(long));
 
 
   for (i = 0; i < coord_numb; i++)            /* Puis on s'occupe des ordonnees de la meme facon           */

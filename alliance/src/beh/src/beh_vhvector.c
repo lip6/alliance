@@ -30,6 +30,7 @@
 /* ###--------------------------------------------------------------### */
 
 #include <stdio.h>
+#include <string.h>
 #include "mut.h"
 #include "log.h"
 #include "beh.h"
@@ -46,7 +47,7 @@ char *name;
   {
   char                 *new_name   ;
   char                  tmp1 [256] ;
-  int                   i          = 0   ;
+  long                   i          = 0   ;
   static struct beden **tab        = NULL;
 
 	/* ###------------------------------------------------------### */

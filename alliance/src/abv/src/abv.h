@@ -57,8 +57,8 @@ extern "C" {
 	/*    functions							*/
 	/* ###------------------------------------------------------### */
 
-extern struct befig *vhdlloadbefig __P((struct befig *pt_befig, char *figname, int trace_mode));
-extern void          vhdlsavebefig __P((struct befig *pthedbefig, int trace_mode));
+extern struct befig *vhdlloadbefig __P((struct befig *pt_befig, char *figname, long trace_mode));
+extern void          vhdlsavebefig __P((struct befig *pthedbefig, long trace_mode));
 
 #ifdef __cplusplus
 }

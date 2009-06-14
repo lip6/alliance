@@ -36,15 +36,15 @@ static int primes[] = {
 
 void htremove (ht_t * htable)
 {
-  int i;
-  for (i = 1; i < (int)htable[0]; i++)
+  long i;
+  for (i = 1; i < (long)htable[0]; i++)
     freechain (htable[i]);
   free (htable);
 }
 
-ht_t *htinit (int size)
+ht_t *htinit (long size)
 {
-  int i;
+  long i;
   ht_t *htable;
 
   /* prend le premier nombre premier au dela de size */
@@ -64,12 +64,12 @@ ht_t *htinit (int size)
   return htable;
 }
 
-static int hash (ht_t * htable, char *key)
+static long hash (ht_t * htable, char *key)
 {
-  int alveole = 0;
-  int length = strlen (key);
-  int segment;
-  int l;
+  long alveole = 0;
+  long length = strlen (key);
+  long segment;
+  long l;
 
   if ((key == NULL) || (length == 0))
   {
@@ -81,13 +81,13 @@ static int hash (ht_t * htable, char *key)
     segment = 0xFFFF & ((key[l] << 8) | key[l + 1]);
     alveole = alveole ^ ((segment << 1) | (segment >> 15));
   }
-  alveole %= (int) htable[0];   /* htable[0] == la taille de la table */
+  alveole %= (long) htable[0];   /* htable[0] == la taille de la table */
   return (alveole + 1);         /* +1 car on ne doit rien mettre dans case 0 */
 }
 
 chain_list *htget (ht_t * htable, char *key)
 {
-  int alveole = hash (htable, key);
+  long alveole = hash (htable, key);
   chain_list *p;
 
   for (p = htable[alveole]; p && strcmp (p->DATA, key); p = p->NEXT);
@@ -96,7 +96,7 @@ chain_list *htget (ht_t * htable, char *key)
 
 chain_list *htset (ht_t * htable, char *key)
 {
-  int alveole = hash (htable, key);
+  long alveole = hash (htable, key);
   chain_list *p;
 
   for (p = htable[alveole]; p && strcmp (p->DATA, key); p = p->NEXT);

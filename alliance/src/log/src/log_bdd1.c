@@ -31,14 +31,15 @@
 
 
 
-#ident "$Id: log_bdd1.c,v 1.2 2002/09/30 16:20:43 czo Exp $"
+#ident "$Id: log_bdd1.c,v 1.3 2009/06/14 13:51:47 ludo Exp $"
 
 
 /****************************************************************************/
 /*    Produit : librairie BDD - Gestion de BDD                              */
 /****************************************************************************/
 
-#include<stdio.h>
+#include <stdio.h>
+#include <stdlib.h>
 #include "mut.h"
 #include "log.h"
 
@@ -52,11 +53,11 @@ return 		 :pointeur de circuit.
 pCircuit 
 initializeCct (name, nbI, nbO)
      char *name;
-     int nbI, nbO;
+     long nbI, nbO;
 {
   pCircuit pC;
   char **pt;
-  int i;
+  long i;
   /* on assure ... */
   nbI++;
   nbO++;
@@ -139,7 +140,7 @@ searchOutputCct (pC, name)
      pCircuit pC;
      char *name;
 {
-  int res;
+  long res;
 
   if ((res = searchTH (pC->pTO, namealloc (name))) != EMPTYTH)
     return ((pNode) res);
@@ -161,7 +162,7 @@ addOutputCct (pC, name, pt)
      pNode pt;
 {
   name = namealloc (name);
-  addTH (pC->pTO, name, (int)pt);
+  addTH (pC->pTO, name, (long)pt);
 }
 /*------------------------------------------------------------------------------
 searchIndexCct	 :recherche entree associe a un index . 
@@ -192,8 +193,8 @@ searchInputCct (pC, name)
      pCircuit pC;
      char *name;
 {
-  int reallocTH;
-  int resul;
+  long reallocTH;
+  long resul;
 
   reallocTH = (pC->pTI)->length;
   resul = searchTH (pC->pTI, namealloc (name));
@@ -202,7 +203,7 @@ searchInputCct (pC, name)
 
   if (reallocTH != (pC->pTI)->length)
     {
-      int i, j;
+      long i, j;
       char **pOldName = pC->pNameI;
       char **pOldSave = pC->pNameI;
       char **pt;
@@ -250,7 +251,7 @@ addInputCct (pC, name)
     }
   else
     {
-      int reallocTH;
+      long reallocTH;
 
       index = pC->countI;
       reallocTH = (pC->pTI)->length;
@@ -260,7 +261,7 @@ addInputCct (pC, name)
 
       if (reallocTH != (pC->pTI)->length)
 	{
-	  int i, j;
+	  long i, j;
 	  char **pOldName = pC->pNameI;
 	  char **pOldSave = pC->pNameI;
 	  char **pt;
@@ -315,7 +316,7 @@ return 		 :rien.
 void 
 displayCct (pC, mode)
      pCircuit pC;
-     int mode;
+     long mode;
 {
   pElemTH pEl;
   short i, cpt = 0;
@@ -380,7 +381,7 @@ composeCct (pC, name, pt)
      char *name;
      pNode pt;
 {
-  int i;
+  long i;
   short index;
   pElemTH pEl;
 
@@ -394,7 +395,7 @@ composeCct (pC, name, pt)
   for (i = 0; i < (pC->pTO)->length; i++)
     {
       if (pEl->value != EMPTYTH && pEl->value != DELETETH)
-	pEl->value = (int) composeBdd ((pNode)pEl->value, pt, index);
+	pEl->value = (long) composeBdd ((pNode)pEl->value, pt, index);
       pEl++;
     }
   deleteTH (pC->pTI, name);	/* on elimine name des INPUT */
@@ -412,14 +413,14 @@ constraintCct (pC, pt)
      pCircuit pC;
      pNode pt;
 {
-  int i;
+  long i;
   pElemTH pEl;
 
   pEl = (pC->pTO)->pElem;	/* pointeur courant de la table pTO */
   for (i = 0; i < (pC->pTO)->length; i++)
     {
       if (pEl->value != EMPTYTH && pEl->value != DELETETH)
-	pEl->value = (int) constraintBdd ((pNode)pEl->value, pt);
+	pEl->value = (long) constraintBdd ((pNode)pEl->value, pt);
       pEl++;
     }
 }
@@ -436,7 +437,7 @@ proofCct (pC1, pC2)
 {
   pElemTH pEl;
   pNode noeudCC2;
-  int i;
+  long i;
   short indexCC2;
   chain_list *expr;
 
@@ -556,7 +557,7 @@ void
 cpOrderCct (CC1, CC2)
      pCircuit CC1, CC2;
 {
-  int i;
+  long i;
   pElemTH pEl1;
   pElemTH pEl2;
   char **pt1, **pt2;
@@ -601,14 +602,14 @@ upVarCct (pC, ptOldIndex, newIndex)
      pNode ptOldIndex;
      short newIndex;
 {
-  int i;
+  long i;
   pElemTH pEl;
 
   pEl = (pC->pTO)->pElem;
   for (i = 0; i < (pC->pTO)->length; i++)
     {
       if (pEl->value != EMPTYTH && pEl->value != DELETETH)
-	pEl->value = (int) upVarBdd ((pNode)pEl->value, ptOldIndex, newIndex);
+	pEl->value = (long) upVarBdd ((pNode)pEl->value, ptOldIndex, newIndex);
       pEl++;
     }
   deleteTH (pC->pTI, *(pC->pNameI + newIndex - 2));
@@ -622,12 +623,12 @@ numberNodeCct 	: calcule le nombre de noeud d'un circuit
 retour		: un entier.
 ---------------------------------------------------------------------------*/
 
-int 
+long 
 numberNodeCct (pC)
      pCircuit pC;
 {
   pElemTH pEl;
-  int i, number_node;
+  long i, number_node;
 
   number_node = 0;
   markAllBdd (0);
@@ -650,12 +651,12 @@ numberNodeTdgCct : calcule le nombre de noeud equivalent TDG d'un circuit
 retour	    	: un entier.
 ---------------------------------------------------------------------------*/
 
-int 
+long 
 numberNodeTdgCct (pC)
      pCircuit pC;
 {
   pElemTH pEl;
-  int i, number_node;
+  long i, number_node;
 
   number_node = 0;
   markAllBdd (0);
@@ -704,7 +705,7 @@ gcNodeCct (pC)
   pNode zeroAux, oneAux;
   pTH pTHNode;
   pElemTH pEl;
-  int j;
+  long j;
 
   pTHNode = createTH (MEDIUM);
   sysBddAux.pRT = createTableBdd (MEDIUM);
@@ -713,8 +714,8 @@ gcNodeCct (pC)
   sysBddAux.lpAT = NULL;
   zeroAux = initVertexBddAux (0, (pNode) 0, (pNode) 1, &sysBddAux);
   oneAux = initVertexBddAux (1, (pNode) 0, (pNode) 1, &sysBddAux);
-  addTH (pTHNode, (char *)zero, (int) zeroAux);
-  addTH (pTHNode, (char *)one, (int) oneAux);
+  addTH (pTHNode, (char *)zero, (long) zeroAux);
+  addTH (pTHNode, (char *)one, (long) oneAux);
 
 
   /* on regenere les graphes */
@@ -723,7 +724,7 @@ gcNodeCct (pC)
   for (j = 0; j < (pC->pTO)->length; j++)
     {
       if (pEl->value != EMPTYTH && pEl->value != DELETETH)
-	pEl->value = (int) regenereBdd ((pNode) pEl->value, &sysBddAux, pTHNode);
+	pEl->value = (long) regenereBdd ((pNode) pEl->value, &sysBddAux, pTHNode);
       pEl++;
     }
 

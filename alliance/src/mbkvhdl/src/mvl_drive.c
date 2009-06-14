@@ -37,6 +37,7 @@
 #include <time.h>
 #include <mut.h>
 #include <mlo.h>
+#include <stdlib.h>
 #include "mvl_utype.h"
 #include "mvl_utdef.h"
 #include "mvl_drive.h"

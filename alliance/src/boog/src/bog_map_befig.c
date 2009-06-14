@@ -54,7 +54,7 @@ static lofig_list *lofig;
 /*befig in mapping*/
 static befig_list* befig;
 /*index of losig*/
-static long index;
+static long loc_index;
 
 
 
@@ -63,7 +63,7 @@ static long index;
 /****************************************************************************/
 extern void setindex(long new_index)
 {
-   index = new_index;
+   loc_index = new_index;
 }
 
 
@@ -73,8 +73,8 @@ extern void setindex(long new_index)
 extern long getindex()
 {
    long ret;
-   ret=index;
-   index++;
+   ret=loc_index;
+   loc_index++;
    return ret;
 }
 
@@ -128,7 +128,7 @@ extern losig_list* make_equi(losig_list* losig_sce, losig_list* losig_dest)
    for (namechain=losig_dest->NAMECHAIN; namechain; namechain=namechain->NEXT) {
       name=(char*) namechain->DATA;
       losig_dest->NAMECHAIN=addchain(losig_dest->NAMECHAIN,name);
-      addauthelem(HTABLE,name,(int)losig_dest);
+      addauthelem(HTABLE,name,(long)losig_dest);
    }
    
    losig_dest->TYPE=losig_sce->TYPE;
@@ -210,9 +210,9 @@ static void add_losig_to_lofig()
       addlocon(lofig,bepor->NAME,losig,bepor->DIRECTION);
 
       /*seek fast*/
-      if (isvss(bepor->NAME)) addauthelem(HTABLE,VSS,(int) losig);
-      else if (isvdd(bepor->NAME)) addauthelem(HTABLE,VDD,(int) losig);
-      else addauthelem(HTABLE,bepor->NAME,(int) losig);
+      if (isvss(bepor->NAME)) addauthelem(HTABLE,VSS,(long) losig);
+      else if (isvdd(bepor->NAME)) addauthelem(HTABLE,VDD,(long) losig);
+      else addauthelem(HTABLE,bepor->NAME,(long) losig);
    }
    
    /*copy of INTERNAL signals*/
@@ -221,21 +221,21 @@ static void add_losig_to_lofig()
       index=getindex();
       losig=addlosig(lofig,index,namechain,INTERNAL/*no more capa parameter*/);    
       /*seek fast*/
-      addauthelem(HTABLE,beaux->NAME,(int) losig);
+      addauthelem(HTABLE,beaux->NAME,(long) losig);
    }
    
    for (bereg=befig->BEREG; bereg; bereg=bereg->NEXT) {
       namechain=addchain(NULL,bereg->NAME);
       index=getindex();
       losig=addlosig(lofig,index,namechain,INTERNAL/*no more capa parameter*/);
-      addauthelem(HTABLE,bereg->NAME,(int) losig);
+      addauthelem(HTABLE,bereg->NAME,(long) losig);
    }
    
    for (bebux=befig->BEBUX; bebux; bebux=bebux->NEXT) {
       namechain=addchain(NULL,bebux->NAME);
       index=getindex();
       losig=addlosig(lofig,index,namechain,INTERNAL/*no more capa parameter*/);
-      addauthelem(HTABLE,bebux->NAME,(int) losig);
+      addauthelem(HTABLE,bebux->NAME,(long) losig);
    }
 
 }
@@ -259,7 +259,7 @@ static void add_one_zero_losig()
    namechain=addchain(NULL,name);
    index=getindex();
    one=addlosig(lofig,index,namechain,INTERNAL/*no more capa parameter*/);    
-   addauthelem(HTABLE,getablatomone(),(int) one);
+   addauthelem(HTABLE,getablatomone(),(long) one);
 
    name=getautoname("zero");
    /*report same properties*/
@@ -268,7 +268,7 @@ static void add_one_zero_losig()
    namechain=addchain(NULL,name);
    index=getindex();
    zero=addlosig(lofig,index,namechain,INTERNAL/*no more capa parameter*/);    
-   addauthelem(HTABLE,getablatomzero(),(int) zero);
+   addauthelem(HTABLE,getablatomzero(),(long) zero);
 }
 
  
@@ -317,7 +317,7 @@ extern lofig_list* map_befig(befig_list *befig_param, char* lofig_name)
    
    befig=befig_param;
    HTABLE= createauthtable (BLOCK);
-   index=0;
+   loc_index=0;
    begin_count_area();
    
    /*header of lofig created*/
@@ -342,7 +342,7 @@ extern lofig_list* map_befig(befig_list *befig_param, char* lofig_name)
 
    destroyauthtable(HTABLE);
    HTABLE=NULL;
-   index=0;
+   loc_index=0;
    
    return lofig;
 }

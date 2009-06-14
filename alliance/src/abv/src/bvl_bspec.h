@@ -40,7 +40,11 @@ extern bvl_ablstr    BVL_EMPSTR;
 struct begen      *bvl_addgen ();
 struct chain      *bvl_cpyabllst ();
 bvl_ablstr         bvl_cpyablstr ();
-bvl_ablstr         bvl_crtabl ();
-void               bvl_select ();
+extern bvl_ablstr bvl_crtabl ( short      oper, bvl_ablstr expr1, bvl_ablstr expr2, long        left, long        right );
+extern void bvl_select ( 
+bvl_ablstr   *result,
+struct chain *pt_str,		/* pointer on a list of choices		*/
+bddnode     **pt_bdd,		/* used to check if a choice is legal	*/
+bvl_ablstr   pt_ablstr ); /* tested expression			*/
 extern void bvl_error();
-extern int  bvl_tobin();
+extern long bvl_tobin ( char *trg, char *src, long   left, long   right );

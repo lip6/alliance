@@ -8,8 +8,8 @@
 /*		  the simulation funciotns				*/
 /* ###--------------------------------------------------------------### */
 
-extern unsigned int   vhx_getvalu         ();
-extern unsigned int   vhx_getsize         ();
+extern unsigned long   vhx_getvalu         ();
+extern unsigned long   vhx_getsize         ();
 extern char           vhx_gexeval         ();
 extern char           vhx_muxbit          ();
 extern char           vhx_worbit          ();

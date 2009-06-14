@@ -3140,7 +3140,7 @@ void CallbackChangeSegmentLayer( MyWidget, ClientData, CallData )
 {
   rdsbegin();
 
-  GraalSegmentLayer = (int)ClientData;
+  GraalSegmentLayer = (long)ClientData;
   GraalSegmentWidth = GRAAL_SEGMENT_VALUE_TABLE[ GraalSegmentLayer ][0];
 
   if ( GraalSegmentWire == GRAAL_FALSE )
@@ -3310,7 +3310,7 @@ void CallbackChangeViaType( MyWidget, ClientData, CallData )
 {
   rdsbegin();
 
-  GraalViaType = (int)ClientData;
+  GraalViaType = (long)ClientData;
 
   GraalChangeEditMode( GRAAL_CREATE_VIA,
                        GraalPromptCreateVia );
@@ -3409,7 +3409,7 @@ void CallbackChangeBigViaType( MyWidget, ClientData, CallData )
 {
   rdsbegin();
 
-  GraalBigViaType = (int)ClientData;
+  GraalBigViaType = (long)ClientData;
 
   GraalChangeEditMode( GRAAL_CREATE_BIGVIA,
                        GraalPromptCreateBigVia );
@@ -3509,7 +3509,7 @@ void CallbackChangeTransistorType( MyWidget, ClientData, CallData )
 {
   rdsbegin();
 
-  GraalTransistorType  = (int)ClientData;
+  GraalTransistorType  = (long)ClientData;
   GraalTransistorWidth = GRAAL_SEGMENT_VALUE_TABLE[ GraalTransistorType ][0];
 
   if ( GraalTransistorWire == GRAAL_FALSE )
@@ -3680,7 +3680,7 @@ void CallbackChangeConnectorLayer( MyWidget, ClientData, CallData )
 {
   rdsbegin();
 
-  GraalConnectorLayer = (int)ClientData;
+  GraalConnectorLayer = (long)ClientData;
   GraalConnectorWidth = GRAAL_SEGMENT_VALUE_TABLE[ GraalConnectorLayer ][0];
 
   GraalChangeEditMode( GRAAL_CREATE_CONNECTOR,
@@ -3754,7 +3754,7 @@ void CallbackChangeConnectorOrient( MyWidget, ClientData, CallData )
 {
   rdsbegin();
 
-  GraalConnectorOrient = (int)ClientData;
+  GraalConnectorOrient = (long)ClientData;
 
   GraalChangeEditMode( GRAAL_CREATE_CONNECTOR,
                        GraalPromptCreateConnector );
@@ -3803,7 +3803,7 @@ void CallbackChangeReferenceType( MyWidget, ClientData, CallData )
 {
   rdsbegin();
 
-  GraalReferenceType = (int)ClientData;
+  GraalReferenceType = (long)ClientData;
 
   GraalChangeEditMode( GRAAL_CREATE_REFERENCE,
                        GraalPromptCreateReference );
@@ -3883,7 +3883,7 @@ void CallbackChangeInstanceSym( MyWidget, ClientData, CallData )
 {
   rdsbegin();
 
-  GraalInstanceSym = (int)ClientData;
+  GraalInstanceSym = (long)ClientData;
 
   GraalChangeEditMode( GRAAL_CREATE_INSTANCE,
                        GraalPromptCreateInstance );

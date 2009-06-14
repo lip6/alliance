@@ -85,7 +85,7 @@ static int control_vector()
             name=nameindex((char*) ptype->DATA,ptype->TYPE);
             SEPAR='_';
             /*build a bit from a vector*/
-            addauthelem(HTABLE,name,(int)nameindex(ptype->DATA,ptype->TYPE));
+            addauthelem(HTABLE,name,(long)nameindex(ptype->DATA,ptype->TYPE));
          }
       }
       else {
@@ -349,21 +349,21 @@ extern void change_radical(befig_list* befig)
       if (!forbid_radical(beaux->NAME)) continue;
       name=beaux->NAME;       /*name begins by MBK_NOT_..... */
       beaux->NAME=getautoname(beaux->NAME);
-      addauthelem(HTABLE,name,(int)beaux->NAME);
+      addauthelem(HTABLE,name,(long)beaux->NAME);
    }
    
    for (bereg=befig->BEREG; bereg; bereg=bereg->NEXT) {
       if (!forbid_radical(bereg->NAME)) continue;
       name=bereg->NAME;
       bereg->NAME=getautoname(bereg->NAME);
-      addauthelem(HTABLE,name,(int)bereg->NAME);
+      addauthelem(HTABLE,name,(long)bereg->NAME);
    }
    
    for (bebux=befig->BEBUX; bebux; bebux=bebux->NEXT) {
       if (!forbid_radical(bebux->NAME)) continue;
       name=bebux->NAME;
       bebux->NAME=getautoname(bebux->NAME);
-      addauthelem(HTABLE,name,(int)bebux->NAME);
+      addauthelem(HTABLE,name,(long)bebux->NAME);
    }
 
    for (beaux=befig->BEAUX; beaux; beaux=beaux->NEXT) {

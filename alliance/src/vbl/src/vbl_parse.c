@@ -68,7 +68,7 @@
 \------------------------------------------------------------*/
 
   extern FILE       *vbl_y_in;
-  extern int         vbl_y_parse();
+  extern long         vbl_y_parse();
   extern char        VBL_ERRFLG;
   extern vbfig_list *VBL_HEADFIG;
   extern vbmap_list *VBL_GENMAP;
@@ -86,8 +86,8 @@ vbfig_list *getvbfiggenmap( InputFileName, Extention, GenericMap  )
   char       *Extention;
   vbmap_list *GenericMap;
 {
-  int   Value;
-  int   Index;
+  long   Value;
+  long   Index;
 
 static  char *AllianceExtention[] = { "vst", "vbe", "fsm" };
 

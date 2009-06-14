@@ -46,6 +46,8 @@
 # ifndef VEX_ERROR_H
 # define VEX_ERROR_H
 
+# include <libgen.h>
+
 /*------------------------------------------------------------\
 |                                                             |
 |                           Constants                         |

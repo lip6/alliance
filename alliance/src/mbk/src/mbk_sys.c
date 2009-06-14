@@ -28,7 +28,7 @@
  * Modified by Czo <Olivier.Sirol@lip6.fr> 1997,98
  */
 
-#ident "$Id: mbk_sys.c,v 1.3 2002/09/30 16:20:50 czo Exp $"
+#ident "$Id: mbk_sys.c,v 1.4 2009/06/14 13:51:52 ludo Exp $"
 
 #include <stdio.h>
 #include <stdlib.h>
@@ -55,7 +55,7 @@ int STAT_AUTOACKCHLD;
 
 long mbkalloc_stat = 0; /* statistics on maximun allocated memory */
 
-void *mbkalloc(unsigned int nbytes)
+void *mbkalloc(size_t nbytes)
 {
 void  *pt;
 
@@ -69,7 +69,7 @@ void  *pt;
    return pt;
 }
 
-void *mbkrealloc(void  *pt, unsigned int nbytes)
+void *mbkrealloc(void  *pt, size_t nbytes)
 {
 
    mbkalloc_stat += nbytes;

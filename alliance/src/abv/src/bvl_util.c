@@ -51,10 +51,7 @@
 /*  function : bvl_error						*/
 /* ###--------------------------------------------------------------### */
 
-void bvl_error (code, str1)
-
-int   code;
-char *str1;
+void bvl_error ( long   code, char *str1 )
 
   {
   BVL_ERRFLG++;
@@ -214,7 +211,7 @@ char *name;
   char                 *prv_name;
   char                 *tmp_name;
   char                  buffer[200];
-  int                   i,j,flag,number;
+  long                   i,j,flag,number;
   static struct beden **namtab=NULL;
   static char          *keywrd [] = {
                                      "abs"         , "access"       ,
@@ -334,7 +331,7 @@ char *name;
   {
   char *new_name  ;
   char  tmp1 [256];
-  int   i          = 0;
+  long   i          = 0;
   static struct beden **tab = NULL;
 
   if (tab == NULL)
@@ -373,7 +370,7 @@ char *name;
 void *bvl_vectnam(pt_list,left,right,name,type)
 
 void *pt_list;
-int *left, *right;
+long *left, *right;
 char **name;
 char type;		/* If type = 0 bepor_list, type = 1 bebux_list	*/
 			/* If type = 2 bereg_list, type = 3 beaux_list	*/
@@ -614,10 +611,10 @@ char *bvl_abl2str (expr, chaine, size_pnt)
 
 struct chain *expr;			/* expression			*/
 char         *chaine;			/* target string		*/
-int          *size_pnt;			/* size of available space	*/
+long          *size_pnt;			/* size of available space	*/
 
   {
-  int           operator;
+  long           operator;
   char         *oper    ;
   struct chain *operand ;
   static char  *str_z = NULL;
@@ -667,7 +664,7 @@ int          *size_pnt;			/* size of available space	*/
 	/*        "(operand operator operand operator operand ...)"	*/
 	/* ###------------------------------------------------------### */
 
-    operator = (int) ((struct chain *) expr->DATA)->DATA;
+    operator = (long) ((struct chain *) expr->DATA)->DATA;
     operand  = (struct chain *)expr->NEXT->DATA;
 
     if (operator == ABL_STABLE)

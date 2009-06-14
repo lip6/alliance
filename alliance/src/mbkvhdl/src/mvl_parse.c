@@ -31,6 +31,7 @@
 /* ###--------------------------------------------------------------### */
 
 #include <stdio.h>
+#include <string.h>
 #include <sys/types.h>
 #include <mut.h>
 #include <mlo.h>

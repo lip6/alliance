@@ -46,6 +46,8 @@
 # ifndef RTD_ERROR_H
 # define RTD_ERROR_H
 
+# include <libgen.h>
+
 /*------------------------------------------------------------\
 |                                                             |
 |                           Constants                         |

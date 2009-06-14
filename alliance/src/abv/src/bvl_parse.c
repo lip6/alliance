@@ -60,14 +60,14 @@ struct befig *vhdlloadbefig (pt_befig, figname, trace_mode)
 
 struct befig *pt_befig;
 char         *figname;
-int           trace_mode;
+long           trace_mode;
 
 {
   char                   *tok;
   char                   *str;
   struct chain           *behsfx_lst = NULL;
   struct chain           *suffix     = NULL;
-  static unsigned int     call_nbr = 0;
+  static unsigned long     call_nbr = 0;
   bddsystem              *SaveBddSystem;
   bddcircuit             *SaveBddCircuit;
 

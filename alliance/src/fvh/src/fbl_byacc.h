@@ -66,7 +66,7 @@ fbl_name;
 
 struct g_type
   {
-  int  VALU;
+  long  VALU;
   char FLAG;
   };
 
@@ -74,7 +74,7 @@ struct choice_chain
   {
   struct choice_chain* NEXT;	
   char  *VALUE;
-  unsigned int  SIZE;
+  unsigned long  SIZE;
   struct ptype *INSTRUCTION;
   };
 
@@ -84,7 +84,7 @@ fbl_ablstr    FBL_EMPSTR;		/* empty structure used with NOT*/
  
 struct bddnode *FBL_BDDPNT = NULL;		/* BDD pointer			*/
 static char         *FBL_LBLNAM = NULL;	/* label			*/
-static int           FBL_NUMTYP = 0;	/* nombre de type			*/
+static long           FBL_NUMTYP = 0;	/* nombre de type			*/
 static struct chain *FBL_NM1LST = NULL;	/* 1-st name liste		*/
 static struct chain *FBL_GRDLST = NULL;	/* list of guard's ABL		*/
 static struct chain *FBL_CNDLST = NULL;	/* list of conditions (ABL)	*/
@@ -102,22 +102,22 @@ static authtable *FBL_HASH_ASG_FSM = (authtable *)0;
 
 extern char          FBL_ERRFLG;	/* set to 1 in case of error	*/
 extern struct fbfig *FBL_HEADFIG;	/* head of fbfigs		*/
-extern int           FBL_LINNUM;
-extern int           FBL_NUMPTP;
+extern long           FBL_LINNUM;
+extern long           FBL_NUMPTP;
 
 
 static struct dct_entry **hshtab;
  
   extern  struct fbgen * fbl_addgen __P((struct fbgen *lastgeneric, struct chain *nam_lst, struct chain *nat_lst, char *type, short left, short right));
-  extern            int  val_type __P((char *name));
+  extern            long  val_type __P((char *name));
 
-  extern            int  fbl_tobin __P((char *trg, char *src, int left, int right));
-  extern            int  fbl_bintonum __P((char *str));
-  extern     fbl_ablstr  fbl_crtabl __P((short oper, fbl_ablstr expr1, fbl_ablstr expr2, int left, int right));
+  extern            long  fbl_tobin __P((char *trg, char *src, long left, long right));
+  extern            long  fbl_bintonum __P((char *str));
+  extern     fbl_ablstr  fbl_crtabl __P((short oper, fbl_ablstr expr1, fbl_ablstr expr2, long left, long right));
   extern     fbl_ablstr  fbl_cpyablstr __P((fbl_ablstr ablstr));
 extern void         fbl_select();
   extern          char * fbl_stostr __P((char *str));
 
   extern           void  fbl_y_error __P((char *str));
-  extern            int  fbl_y_lex __P(());
+  extern            long  fbl_y_lex __P(());
 

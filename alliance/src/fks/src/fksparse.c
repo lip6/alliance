@@ -76,7 +76,7 @@
 |                                                             |
 \------------------------------------------------------------*/
 
-  static int   KissLineNumber = 0;
+  static long  KissLineNumber = 0;
   static char  KissBuffer[ KISS_BUFFER_SIZE ];
   static char *KissScanBuffer;
   static FILE *KissFile;

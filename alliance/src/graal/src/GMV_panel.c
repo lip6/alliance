@@ -3157,7 +3157,7 @@ void CallbackLayerVisible( MyWidget, ClientData, CallData )
 {
   rdsbegin();
 
-  if ( GRAAL_RDS_ACTIVE_LAYER_TABLE[ (int)ClientData ] == 0 )
+  if ( GRAAL_RDS_ACTIVE_LAYER_TABLE[ (long)ClientData ] == 0 )
   {
     GraalSetLayerVisible( ClientData );
   }
@@ -3179,7 +3179,7 @@ void CallbackNameVisible( MyWidget, ClientData, CallData )
 {
   rdsbegin();
 
-  if ( GRAAL_RDS_ACTIVE_NAME_TABLE[ (int)ClientData ] == 0 )
+  if ( GRAAL_RDS_ACTIVE_NAME_TABLE[ (long)ClientData ] == 0 )
   {
     GraalSetNameVisible( ClientData );
   }
@@ -3201,7 +3201,7 @@ void CallbackLayerInvisible( MyWidget, ClientData, CallData )
 {
   rdsbegin();
 
-  if ( GRAAL_RDS_ACTIVE_LAYER_TABLE[ (int)ClientData ] == 1 )
+  if ( GRAAL_RDS_ACTIVE_LAYER_TABLE[ (long)ClientData ] == 1 )
   { 
     GraalSetLayerInvisible( ClientData );
   }
@@ -3223,7 +3223,7 @@ void CallbackNameInvisible( MyWidget, ClientData, CallData )
 {
   rdsbegin();
 
-  if ( GRAAL_RDS_ACTIVE_NAME_TABLE[ (int)ClientData ] == 1 )
+  if ( GRAAL_RDS_ACTIVE_NAME_TABLE[ (long)ClientData ] == 1 )
   {
     GraalSetNameInvisible( ClientData );
   }

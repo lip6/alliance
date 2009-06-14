@@ -41,9 +41,7 @@
 /* called func. : beh_addbequad	 					*/
 /* ###--------------------------------------------------------------### */
 
-void beh_makquad (pt_befig)
-
-struct befig *pt_befig;
+void beh_makquad ( struct befig *pt_befig )
 
   {
   struct beaux  *pt_beaux;

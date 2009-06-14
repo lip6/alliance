@@ -20,6 +20,8 @@
 # ifndef RDS_ERROR_H
 # define RDS_ERROR_H
 
+# include <libgen.h>
+
 /*------------------------------------------------------------\
 |                                                             |
 |                           Constants                         |

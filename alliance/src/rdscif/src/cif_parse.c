@@ -1166,7 +1166,7 @@ void CifCommandDefineDelete()
       ciferror( CIF_ERROR_SYMBOL_STARTED, NULL, CifLineCounter );
     }
 
-    CifDelSymbol( CifGetUnsigned );
+    CifDelSymbol( CifGetUnsigned() );
 }
 
 /*------------------------------------------------------------\

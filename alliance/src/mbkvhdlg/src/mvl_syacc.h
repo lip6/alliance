@@ -18,7 +18,7 @@ extern struct dct_entry **MVL_HSHTAB;	/* dictionnary's entry points	*/
 
 extern struct dct_entry **mvl_initab();
 extern void          mvl_addtab();
-extern int           mvl_chktab();
+extern long          mvl_chktab();
 extern void          mvl_fretab();
 extern void          mvl_error();
 extern void          mvl_warning();

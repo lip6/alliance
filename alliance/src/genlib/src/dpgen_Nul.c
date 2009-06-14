@@ -1,5 +1,5 @@
 /*
- *  $Id: dpgen_Nul.c,v 1.2 2002/09/30 16:20:22 czo Exp $
+ *  $Id: dpgen_Nul.c,v 1.3 2009/06/14 13:51:43 ludo Exp $
  *
  *  /----------------------------------------------------------------\
  *  |                                                                |
@@ -101,7 +101,7 @@ static long  create_Netlist_Tree (aOffset, amDepth, amDepthNext)
                      s64printf("i => i0[%ld]", aOffset),
                      "nq => nul",
                      "vdd => vdd",
-                     "vss => vss", 0);
+                     "vss => vss", NULL);
     } else {
       LV_prevTreeOut = aOffset;
 
@@ -119,7 +119,7 @@ static long  create_Netlist_Tree (aOffset, amDepth, amDepthNext)
                        s64printf("i  => i0[%ld]", aOffset),
                        s64printf("nq => nul_%ld", aOffset),
                        "vdd => vdd",
-                       "vss => vss", 0);
+                       "vss => vss", NULL);
 
       }
       LV_oneShift = 1; aOffset++;
@@ -184,7 +184,7 @@ static long  create_Netlist_Tree (aOffset, amDepth, amDepthNext)
                      sInstance,
                      sI0, sI1, sQ,
                      "vdd => vdd",
-                     "vss => vss", 0);
+                     "vss => vss", NULL);
     }
   }
 
@@ -225,7 +225,7 @@ static long  create_Netlist_Tree (aOffset, amDepth, amDepthNext)
                  s64printf("i1 => nul_%ld", i1_index),
                  sQ,
                  "vdd => vdd",
-                 "vss => vss", 0);
+                 "vss => vss", NULL);
 
   LV_prevTreeOut = cell_index;
 
@@ -258,7 +258,7 @@ static void  create_Netlist ()
 
 
   offset     = 0;
-  depthNext  = get_depth (LV_N, 0);
+  depthNext  = get_depth (LV_N, NULL);
 
   do {
     depth     = depthNext;
@@ -398,7 +398,7 @@ static void  create_Layout ()
 
 
   offset     = 0;
-  depthNext  = get_depth (LV_N, 0);
+  depthNext  = get_depth (LV_N, NULL);
 
   do {
     depth     = depthNext;

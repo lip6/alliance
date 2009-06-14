@@ -15,6 +15,7 @@
 
 /* les inclusions */
 #include <stdio.h>
+#include <string.h>
 #include <stdarg.h>
 #include "mut.h"
 #include "mlo.h"

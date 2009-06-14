@@ -1,8 +1,11 @@
 /*
    ### -------------------------------------------------- ### 
-   $Author: hcl $
-   $Date: 2002/03/15 14:37:22 $
+   $Author: ludo $
+   $Date: 2009/06/14 13:51:59 $
    $Log: mbk_tree.c,v $
+   Revision 1.2  2009/06/14 13:51:59  ludo
+   - port 64 bits
+
    Revision 1.1  2002/03/15 14:37:22  hcl
    Ca roule.
 
@@ -36,7 +39,7 @@
 #include "mbk_tree.h"
 
 static char *res_id =
-    "$Id: mbk_tree.c,v 1.1 2002/03/15 14:37:22 hcl Exp $";
+    "$Id: mbk_tree.c,v 1.2 2009/06/14 13:51:59 ludo Exp $";
 
 /*****************************************************************************/
 /*                            Global variables                               */
@@ -63,8 +66,8 @@ rbtree *HEAD_RBTREE = NULL;     /* red-black tree buffer head */
 static inline int static_defaultcompare(void *first, void *second)
 {
 
-    return ((int) first ==
-            (int) second) ? 0 : (((int) first > (int) second) ? 1 : -1);
+    return ((long) first ==
+            (long) second) ? 0 : (((long) first > (long) second) ? 1 : -1);
 }
 
 /** red-black tree node creation function **/

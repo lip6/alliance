@@ -31,6 +31,7 @@
 
 #include <stdio.h>
 #include <time.h>
+#include <string.h>
 #include "mut.h"
 #include "pat.h"
 
@@ -51,14 +52,14 @@ struct papat *ptpat;
   struct paini *ptini          = ptpat->PAINI;
   char          buffer  [1024] ;	/* register's value		*/
   char          name    [ 256] ;	/* current register's root name	*/
-  int           indx           ;	/* current register's index	*/
+  long           indx           ;	/* current register's index	*/
   char          oldname [ 256] ;	/* previous root name		*/
   char          direction      = '?';	/* array's direction		*/
-  int           redvar         ;	/* = 2 if (name + index)	*/
-  int           oldred         ;	/* previous value of redvar	*/
-  int           left           ;	/* the left  bound of an array	*/
-  int           right          ;	/* the right bound of an array	*/
-  int           i              = 0  ;
+  long           redvar         ;	/* = 2 if (name + index)	*/
+  long           oldred         ;	/* previous value of redvar	*/
+  long           left           ;	/* the left  bound of an array	*/
+  long           right          ;	/* the right bound of an array	*/
+  long           i              = 0  ;
 
 	/* ###------------------------------------------------------### */
 	/*    split the register's name into a root name and an index.	*/
@@ -189,14 +190,14 @@ struct papat *ptpat;
 /* called func.	: dclini, mbkalloc, mbkfree, pat_error			*/
 /* ###--------------------------------------------------------------### */
 
-int pat_drvpat (fp, ptseq, labelsiz)
+long pat_drvpat (fp, ptseq, labelsiz)
 
 FILE         *fp      ;			/* result file pointer		*/
 struct paseq *ptseq   ;			/* paseq structure to be drived	*/
-unsigned int  labelsiz;			/* length of the longest label	*/
+unsigned long  labelsiz;			/* length of the longest label	*/
 
   {
-  int           tmpc  ;
+  long           tmpc  ;
   time_t        clock ;
 
   struct papat *ptpat   = NULL;		/* current pattern		*/
@@ -205,18 +206,18 @@ unsigned int  labelsiz;			/* length of the longest label	*/
   struct pacom *svcom   = NULL;		/* last comment of OLDPACOM	*/
   struct pagrp *ptgrp   = NULL;		/* current input-output array	*/
   struct paiol *ptiol   = NULL;		/* current input-output	element	*/
-  int           iol_idx = 0   ;		/* index in input-output list	*/
-  int           stt_nbr = 0   ;		/* # of stm. since last comment	*/
-  int           pat_nbr = 0   ;		/* # of patterns		*/
+  long           iol_idx = 0   ;		/* index in input-output list	*/
+  long           stt_nbr = 0   ;		/* # of stm. since last comment	*/
+  long           pat_nbr = 0   ;		/* # of patterns		*/
 
-  int           row     = 1   ;		/* maximum length of I/O names	*/
-  int           column  = 5   ;		/* number of char. in a pattern	*/
+  long           row     = 1   ;		/* maximum length of I/O names	*/
+  long           column  = 5   ;		/* number of char. in a pattern	*/
 
-  int           indx    ;
-  int           left    ;		/* left  bound of an array	*/
-  int           right   ;		/* right bound of an array	*/
-  int           redvar  ;
-  int           oldred  ;
+  long           indx    ;
+  long           left    ;		/* left  bound of an array	*/
+  long           right   ;		/* right bound of an array	*/
+  long           redvar  ;
+  long           oldred  ;
   char          name     [256];
   char          oldname  [256];
   char          pat_date [ 32];
@@ -225,14 +226,14 @@ unsigned int  labelsiz;			/* length of the longest label	*/
   char          format  ;		/* input-output format		*/
   char          seprt   ;		/* name separator left par or ,	*/
 
-  int           i       ;
-  int           j       ;
-  int           compare ;
+  long           i       ;
+  long           j       ;
+  long           compare ;
   char          sflag   = 'S';		/* processed or unprocessed	*/
-  int           length  ;		/* length of string		*/
-  int           ret_val = 0  ;		/* value to be returned		*/
+  long           length  ;		/* length of string		*/
+  long           ret_val = 0  ;		/* value to be returned		*/
 
-  unsigned int  t_step ;		/* time step			*/
+  unsigned long  t_step ;		/* time step			*/
   unsigned char zd_flg ;		/* zero delay flag (if != 0)	*/
 
   static char  *model  = NULL;		/* model : "   :?1 2 34;"	*/

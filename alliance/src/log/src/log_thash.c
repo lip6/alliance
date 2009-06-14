@@ -31,13 +31,14 @@
 
 
 
-#ident "$Id: log_thash.c,v 1.2 2002/09/30 16:20:43 czo Exp $"
+#ident "$Id: log_thash.c,v 1.3 2009/06/14 13:51:47 ludo Exp $"
 
 /****************************************************************************/
 /*    Produit : librairie TSH - Gestion de tables de hachage                */
 /****************************************************************************/
 
 #include <stdio.h>
+#include <stdlib.h>
 #include  "mut.h"
 #include "log.h"
 
@@ -50,7 +51,7 @@
    a. creation de table 
 
    pTH createTH(len)
-   int len;
+   long len;
 
    b. destruction de la table
 
@@ -59,29 +60,29 @@
 
    c. recherche d'un element
 
-   int searchTH(pTable,key)
+   long searchTH(pTable,key)
    pTH pTable;
    char *key;
 
    d. ajout d'un element (ecrasement de la valeur s'il existe deja un element
    dans la table possedant la meme cle)
 
-   int addTH(pTable,key,value)
+   long addTH(pTable,key,value)
    pTH pTable;
    char *key;
-   int value;
+   long value;
 
    e. test d'existence et ajout d'un element dans la table.( renvoie 0 si
    l'element n'existait pas avant son ajout, 1 sinon).
 
-   int addExistTH(pTable,key,value)
+   long addExistTH(pTable,key,value)
    pTH pTable;
    char *key;
-   int value;
+   long value;
 
    f. destruction d'un element
 
-   int deleteTH(pTable,key)
+   long deleteTH(pTable,key)
    pTH pTable;
    char *key;
 
@@ -99,12 +100,12 @@
 /*--------------- la fonction de base pour le hachage.---------------- */
 
 
-int 
+long 
 hashTH (pn)
      char *pn;
 {
 
-  /* return(abs((int) pn * ((int) pn >> 5) >> 4)); */
+  /* return(abs((long) pn * ((long) pn >> 5) >> 4)); */
   return (((unsigned long) pn >> 2));
 
 }
@@ -113,11 +114,11 @@ hashTH (pn)
 
 pTH 
 createTH (len)
-     int len;
+     long len;
 {
   pTH pTable;
   pElemTH pEl;
-  int i;
+  long i;
 
   if (len <= 0)
     {
@@ -156,13 +157,13 @@ destroyTH (pTable)
      renvoie -1 si la recherche echoue. */
 
 
-int 
+long 
 searchTH (pTable, key)
      pTH pTable;
      char *key;
 {
-  int co = 0;
-  int indice = 0;
+  long co = 0;
+  long indice = 0;
   pElemTH pEl;
 
   indice = hashTH (key) % pTable->length;
@@ -177,7 +178,7 @@ searchTH (pTable, key)
       pEl = (pTable->pElem) + indice;
       if (pEl->value != EMPTYTH && pEl->value != DELETETH)
 	{
-	  if ((int) key == (int) pEl->key)
+	  if ((long) key == (long) pEl->key)
 	    return (pEl->value);
 	}
       else if (pEl->value == EMPTYTH)
@@ -190,15 +191,15 @@ searchTH (pTable, key)
 
  /* ajout d'un element a la table */
 
-int 
+long 
 addTH (pTable, key, value)
      pTH pTable;
      char *key;
-     int value;
+     long value;
 {
-  int indice = 0;
+  long indice = 0;
   pElemTH pEl;
-  int co = 0;
+  long co = 0;
 
   if (value == EMPTYTH || value == DELETETH)
     {
@@ -226,7 +227,7 @@ addTH (pTable, key, value)
 	  pEl->key = key;
 	  return (value);
 	}
-      else if ((int) pEl->key == (int) key)
+      else if ((long) pEl->key == (long) key)
 	{
 	  pTable->count--;
 	  pEl->value = value;
@@ -240,15 +241,15 @@ addTH (pTable, key, value)
 
  /* test d'existence et ajout d'un element a la table */
 
-int 
+long 
 addExistTH (pTable, key, value)
      pTH pTable;
      char *key;
-     int value;
+     long value;
 {
-  int indice = 0;
+  long indice = 0;
   pElemTH pEl;
-  int co = 0;
+  long co = 0;
 
   if (value == EMPTYTH || value == DELETETH)
     {
@@ -276,7 +277,7 @@ addExistTH (pTable, key, value)
 	  pEl->key = key;
 	  return (0);
 	}
-      else if ((int) pEl->key == (int) key)
+      else if ((long) pEl->key == (long) key)
 	{
 	  pTable->count--;
 	  pEl->value = value;
@@ -294,14 +295,14 @@ addExistTH (pTable, key, value)
    /* elimination d'un element de la table */
 
 
-int 
+long 
 deleteTH (pTable, key)
      pTH pTable;
      char *key;
 {
-  int indice = 0;
+  long indice = 0;
   pElemTH pEl;
-  int co = 0;
+  long co = 0;
 
   indice = hashTH (key) % pTable->length;
   do
@@ -314,7 +315,7 @@ deleteTH (pTable, key)
       pEl = (pTable->pElem) + indice;
       if (pEl->value != EMPTYTH && pEl->value != DELETETH)
 	{
-	  if ((int) key == (int) pEl->key)
+	  if ((long) key == (long) pEl->key)
 	    {
 	      pTable->count--;
 	      pEl->value = DELETETH;
@@ -335,7 +336,7 @@ void
 displayTH (pTable)
      pTH pTable;
 {
-  int i;
+  long i;
   pElemTH pEl;
   pEl = pTable->pElem;
   printf ("================== DISPLAYTH ================\n");
@@ -361,7 +362,7 @@ reAllocTH (pTable)
 {
   pTH tabBis;
   pElemTH pEl;
-  int i;
+  long i;
 
   pEl = pTable->pElem;
   tabBis = createTH ((pTable->length) * 5);

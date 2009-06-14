@@ -12,7 +12,7 @@
 #include "log.h"
 #include "beh.h"
 
-int           BVL_AUXMOD      ;		/* don't keep internal sig (=1)	*/
+long           BVL_AUXMOD      ;		/* don't keep internal sig (=1)	*/
 char          BVL_ERRFLG      = 0   ;	/* error flag                  	*/
 char          BVL_CURFIL [256];		/* current file name		*/
 struct befig *BVL_HEDFIG      = NULL;	/* list of descriptions		*/

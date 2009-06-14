@@ -6,9 +6,10 @@
 /* description	: Parser VHDL --> MBK					*/
 /*									*/
 /* ###--------------------------------------------------------------### */
-#ident "$Id: mvl_parse.c,v 1.1 2002/04/26 09:51:07 ludo Exp $"
+#ident "$Id: mvl_parse.c,v 1.2 2009/06/14 13:51:56 ludo Exp $"
 #include <stdio.h>
 #include <sys/types.h>
+#include <string.h>
 #include <mut.h>
 #include <mlo.h>
 #include "mvl_parse.h"

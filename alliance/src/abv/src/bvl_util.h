@@ -35,7 +35,7 @@
 /*									*/
 /* ###--------------------------------------------------------------### */
 	
-extern int                BVL_LINNUM;	/* file's line number		*/
+extern long               BVL_LINNUM;	/* file's line number		*/
 extern char               BVL_ERRFLG;	/* Error flag                   */
 extern char               BVL_CURFIL[];	/* current file name		*/
 

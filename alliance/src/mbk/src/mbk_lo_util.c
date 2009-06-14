@@ -28,7 +28,7 @@
  * Modified by Czo <Olivier.Sirol@lip6.fr> 1997,98
  */
 
-#ident "$Id: mbk_lo_util.c,v 1.4 2002/09/30 16:20:49 czo Exp $"
+#ident "$Id: mbk_lo_util.c,v 1.5 2009/06/14 13:51:52 ludo Exp $"
 
 #include <stdio.h>
 #include <stdlib.h>
@@ -1264,7 +1264,7 @@ void debugctc2 ( lofig_list *ptfig )
    printf( "Information sur la figure %s.\n", ptfig->NAME );
    for( sig = ptfig->LOSIG ; sig ; sig = sig->NEXT )
    {
-     printf( "Signal %2ld (%08X)\n", sig->INDEX, (unsigned int) sig );
+     printf( "Signal %2ld (%08X)\n", sig->INDEX, (unsigned long) sig );
      if( sig->PRCN )
      {
        for( scanchain = sig->PRCN->PCTC ;
@@ -1274,12 +1274,12 @@ void debugctc2 ( lofig_list *ptfig )
        {
          ptctc = ( loctc_list* )( scanchain->DATA );
          printf(
-                "  CTC (%08X) entre le signal %2ld (%08X) et le signal %2ld (%08X).\n",
-                 (unsigned int)ptctc,
+                "  CTC (%lX) entre le signal %2ld (%lX) et le signal %2ld (%lX).\n",
+                 (unsigned long)ptctc,
                  ptctc->SIG1->INDEX,
-                 (unsigned int)ptctc->SIG1,
+                 (unsigned long)ptctc->SIG1,
                  ptctc->SIG2->INDEX,
-                 (unsigned int)ptctc->SIG2
+                 (unsigned long)ptctc->SIG2
                );
        }
      }
@@ -1304,9 +1304,9 @@ void debugctc ( losig_list *headlosig, int niveau )
       ptctc = (loctc_list*)( scanctc->DATA );
       if( getptype( ptctc->USER, FLATTEN_CTC ) )
       {
-        printf( "(%d) FLATTEN_CTC trouve dans la CTC (%08X)  entre %ld.%ld et %ld.%ld.\n",
+        printf( "(%d) FLATTEN_CTC trouve dans la CTC (%lX)  entre %ld.%ld et %ld.%ld.\n",
                 niveau,
-                (unsigned int)ptctc,
+                (unsigned long)ptctc,
                 ptctc->SIG1->INDEX,
                 ptctc->NODE1,
                 ptctc->SIG2->INDEX,
@@ -1324,9 +1324,9 @@ void debugctc ( losig_list *headlosig, int niveau )
       }
       if( !scanctc2 )
       {
-        printf( "(%d) CTC (%08X) entre %ld:%ld et %ld:%ld sur signal %ld non trouvee sur l'autre signal.\n",
+        printf( "(%d) CTC (%lX) entre %ld:%ld et %ld:%ld sur signal %ld non trouvee sur l'autre signal.\n",
                 niveau,
-                (unsigned int)ptctc,
+                (unsigned long)ptctc,
                 ptctc->SIG1->INDEX, ptctc->NODE1,
                 ptctc->SIG2->INDEX, ptctc->NODE2,
                 scanlosig->INDEX

@@ -25,7 +25,7 @@
 typedef struct bvl_expr			/* a signal's expression	*/
   {
   char          *IDENT   ;		/* identifier or constant name	*/
-  unsigned int   TIME    ;		/* waveform's delay		*/
+  unsigned long   TIME    ;		/* waveform's delay		*/
   struct chain  *LIST_ABL;		/* pointer on a list of ABL	*/
   short          WIDTH   ;		/* width of bit vector		*/
   }
@@ -42,7 +42,7 @@ bvl_name;
 
 struct g_type
   {
-  int  VALU;
+  long  VALU;
   char FLAG;
   };
 
@@ -51,7 +51,7 @@ struct g_type
 	/*    global variables						*/
 	/* ###------------------------------------------------------### */
 
-extern int           BVL_AUXMOD   ;	/* don't keep internal sig (=1)	*/
+extern long           BVL_AUXMOD   ;	/* don't keep internal sig (=1)	*/
 extern char          BVL_ERRFLG   ;	/* error flag                   */
 extern char          BVL_CURFIL [];	/* current file name		*/
 extern struct befig *BVL_HEDFIG   ;	/* list of descriptions		*/
@@ -72,6 +72,6 @@ extern char         *bvl_printabl  ();
 extern void          bvl_message   ();
 
 extern struct befig *vhdlloadbefig ();
-extern int           vhdlsavebefig ();
+extern long           vhdlsavebefig ();
 
 #endif

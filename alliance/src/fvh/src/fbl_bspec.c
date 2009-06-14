@@ -79,8 +79,8 @@ short         right;    /* array's right bound (= -1 if scalar)  */
   struct fbgen *ptgen;
   struct chain *ptauxnam;
   struct chain *ptauxnat;
-  int           i;
-  int           inc = 1;
+  long           i;
+  long           inc = 1;
 
   ptgen    = lastgeneric;
   ptauxnam = nam_lst;
@@ -141,8 +141,8 @@ char *str;
 
   {
   char *resstr;
-  int   i;
-  int   j=0;
+  long   i;
+  long   j=0;
 
   resstr = (char *)mbkalloc(100);
   resstr[0] = '\0';
@@ -226,8 +226,8 @@ fbl_ablstr fbl_crtabl ( oper, expr1, expr2, left, right )
 short      oper;
 fbl_ablstr expr1;
 fbl_ablstr expr2;
-int        left;
-int        right;
+long        left;
+long        right;
 
 {
   char            name[256];
@@ -677,11 +677,11 @@ int        right;
 /* description  : transform a ENUMERATE     */
 /*      in a string of '0' and '1's        */
 /* ###--------------------------------------------------------------### */
-int fbl_bintonum(str)
+long fbl_bintonum(str)
 char* str;
 
   {
-  int res,i=0;
+  long res,i=0;
 
    res = 0; 
   while(str[i])
@@ -699,12 +699,12 @@ char* str;
 /*      in a string of '0' and '1's        */
 /* ###--------------------------------------------------------------### */
 char *fbl_numtobin(num)
-int num;
+long num;
 
   {
    char val[256]; 
    char *str;
-  int res,i=1;
+  long res,i=1;
 
    val[255] = '\0';
    res = num; 
@@ -724,18 +724,18 @@ int num;
 /*      in a string of '0' and '1's        */
 /* ###--------------------------------------------------------------### */
 
-int fbl_tobin (trg,src,left,right)
+long fbl_tobin (trg,src,left,right)
 
 char *trg;
 char *src;
-int   left;
-int   right;
+long   left;
+long   right;
 
   {
   char base;
-  int  indx;
-  int  j = 0;
-  int  errflg = 0;
+  long  indx;
+  long  j = 0;
+  long  errflg = 0;
   char lcl_trg[256];
 
   lcl_trg[0] = '\0';
@@ -927,7 +927,7 @@ bddnode     **pt_bdd;		/* used to check if a choice is legal	*/
 fbl_ablstr  *pt_ablstr;		/* tested expression			*/
 {
   char             binstr[512];
-  int              i;
+  long              i;
   struct chain    *pt_auxabl;
   bddnode         *pt_bddres;
   bddnode         *pt_bddnew;
@@ -936,8 +936,8 @@ fbl_ablstr  *pt_ablstr;		/* tested expression			*/
   char             nomvar[10];
   struct chain    *pt_newabl;
   struct chain    *pt_newabl2;
-  static int       oth_flg=0;
-  static int       last_width=0;
+  static long       oth_flg=0;
+  static long       last_width=0;
 
   result->LIST_ABL = NULL;
   result->IDENT    = NULL;

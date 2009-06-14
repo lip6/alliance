@@ -28,7 +28,7 @@
  * Modified by Czo <Olivier.Sirol@lip6.fr> 1997,98
  */
 
-#ident "$Id: mbk_util.c,v 1.5 2003/10/20 10:04:39 xtof Exp $"
+#ident "$Id: mbk_util.c,v 1.6 2009/06/14 13:51:52 ludo Exp $"
 
 #include <stdio.h>
 #include <stdlib.h>
@@ -872,7 +872,7 @@ char *mbkstrdup(const char *s)
   if (s == NULL)
     return NULL;
   
-  t = (char *)mbkalloc((unsigned int)(strlen(s) + 1));
+  t = (char *)mbkalloc((size_t)(strlen(s) + 1));
   return strcpy(t, s);
 }
 
@@ -916,7 +916,7 @@ static char **table;
    if (!size)
       loadcatalog(&table, &size, 'F');
    return size ?
-            (int)bsearch(&figname, table, size, sizeof(char *), pstrcmp) : 0;
+            (long)bsearch(&figname, table, size, sizeof(char *), pstrcmp) : 0;
 }
 
 /*******************************************************************************
@@ -931,7 +931,7 @@ static char **table;
    if (!size)
       loadcatalog(&table, &size, 'G');
    return size ?
-            (int)bsearch(&figname, table, size, sizeof(char *), pstrcmp) : 0;
+            (long)bsearch(&figname, table, size, sizeof(char *), pstrcmp) : 0;
 }
 
 /*******************************************************************************
@@ -946,7 +946,7 @@ static char **table;
    if (!size)
       loadcatalog(&table, &size, 'C');
    return size ?
-            (int)bsearch(&figname, table, size, sizeof(char *), pstrcmp) : 0;
+            (long)bsearch(&figname, table, size, sizeof(char *), pstrcmp) : 0;
 }
 
 /*******************************************************************************
@@ -961,7 +961,7 @@ static char **table;
    if (!size)
       loadcatalog(&table, &size, 'D');
    return size ?
-            (int)bsearch(&figname, table, size, sizeof(char *), pstrcmp) : 0;
+            (long)bsearch(&figname, table, size, sizeof(char *), pstrcmp) : 0;
 }
 
 /*******************************************************************************

@@ -32,7 +32,8 @@
 %{
 
 #include <stdio.h>
-#include <strings.h>
+#include <string.h>
+#include <stdlib.h>
 #include "mut.h"
 #include "pat.h"
 #include "ppt.h"
@@ -276,11 +277,11 @@ char         *value  ;
   struct paini *ptini        = lastini;
   char         *frc          ;
   char         *cmp          ;
-  int           length       ;
-  int           size         = 1;
-  int           index        = 1;
-  int           i            ;
-  int           inc          ;
+  long           length       ;
+  long           size         = 1;
+  long           index        = 1;
+  long           i            ;
+  long           inc          ;
   char          extname [100];
   char          format       = 'B';
 
@@ -394,11 +395,11 @@ struct paevt *lastevt;
 short         index  ;
 char          compare;
 char          value  ;
-int           rank   ;
+long           rank   ;
 
   {
   struct paiol *ptiol  ;
-  int           i      ;
+  long           i      ;
   char          cmp_val;
   char          frc_val;
   char         *frc    ;
@@ -482,13 +483,13 @@ int           rank   ;
 
 static void islegal (index, value, flag, status)
 
-int  index;				/* ptiol's index		*/
+long  index;				/* ptiol's index		*/
 char value;				/* value (+,-,*,0,...,9,a,...,f)*/
 char flag;				/* comparison flag (C,F)	*/
-int  status;				/* (0,1,2) (bit,array,inside)	*/
+long  status;				/* (0,1,2) (bit,array,inside)	*/
 
   {
-  int           code = -1;
+  long           code = -1;
   char          comp = flag;
   struct paiol *ptiol;
 
@@ -609,7 +610,7 @@ struct paseq *pat_descpat (fp, ptseq, maxpat, mode)
 
 FILE          *fp    ;
 struct paseq  *ptseq ;
-unsigned int   maxpat;
+unsigned long   maxpat;
 unsigned char  mode  ;			/* the description style	*/
 
   {
@@ -620,7 +621,7 @@ unsigned char  mode  ;			/* the description style	*/
 
   struct papat *lastpat;
   extern FILE  *pat_decl_y_in;
-  int           i      ;
+  long           i      ;
 
   if ((ptseq == NULL) || (ptseq->ERRFLG != 0))
     ERR_FLG += pat_error (100, NULL, ' ', 0);
@@ -887,7 +888,7 @@ unsigned char  mode  ;			/* the description style	*/
 
 %union
   {
-  int           valu;
+  long           valu;
   float         fval;
   char          immd;
   char         *text;
@@ -1031,7 +1032,7 @@ Identifier...Identifier..
 	  ...Identifier..
 		{
 		char name[256];
-		int  i;
+		long  i;
 
 		strcpy (name, $1);
 		for (i=0; i<NAM_IDX ; i++)
@@ -1102,7 +1103,7 @@ unlabeled_pattern
 	  Semicolons_ERR
 		{
 		char            c     = '\0';
-		int             i     = 0   ;
+		long             i     = 0   ;
 		unsigned short  idx   = 0   ;
 		char            endfl = 'Y' ;
 		char            cmpfl = 'F' ;

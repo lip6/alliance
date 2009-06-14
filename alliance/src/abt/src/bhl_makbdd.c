@@ -51,6 +51,7 @@
 # include "abt.h"
 
 # include <stdio.h>
+# include <string.h>
 # include "bhl_error.h"
 # include "bhl_makbdd.h"
 # include "bhl_orderbdd.h"

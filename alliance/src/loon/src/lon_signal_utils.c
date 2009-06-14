@@ -129,7 +129,7 @@ static void putsignal(signal_list* signal, char* name)
    /*if doesn't exist hash table, init*/
    if (!HTABLE) init_signals();
    
-   addauthelem(HTABLE,name,(int)signal);
+   addauthelem(HTABLE,name,(long)signal);
 }   
 
 

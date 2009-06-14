@@ -46,6 +46,8 @@
 # ifndef VVH_ERROR_H
 # define VVH_ERROR_H
 
+# include <libgen.h>
+
 /*------------------------------------------------------------\
 |                                                             |
 |                           Constants                         |

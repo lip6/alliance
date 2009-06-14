@@ -46,7 +46,7 @@
 /*     control cycles in befig and erase unused internal signal               */
 /*			return 1 if correct befig						                           */
 /******************************************************************************/
-extern int DAG_control __P ((befig_list *befig));
+extern long DAG_control __P ((befig_list *befig));
 
 
 #endif

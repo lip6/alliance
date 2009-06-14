@@ -186,11 +186,14 @@
 *
 ****************************************************************************/
 /*
-**	$Header: /dsk/l1/alliance/cvsroot/alliance/src/vbl/src/vhdl.yac,v 1.1 2002/03/21 13:41:36 ludo Exp $<y_op>$<y_op>$
+**	$Header: /dsk/l1/alliance/cvsroot/alliance/src/vbl/src/vhdl.yac,v 1.2 2009/06/14 13:52:17 ludo Exp $<y_op>$<y_op>$
 **
 **	$Log: vhdl.yac,v $
-**	Revision 1.1  2002/03/21 13:41:36  ludo
-**	Initial revision
+**	Revision 1.2  2009/06/14 13:52:17  ludo
+**	- port 64 bits
+**	
+**	Revision 1.1.1.1  2002/03/21 13:41:36  ludo
+**	
 **	<y_op>$<y_op>$
  * Revision 4.0  87/11/30  15:58:01  rbratton
  * Check in of VHDL version 4.0 (version reported in thesis).
@@ -293,21 +296,21 @@
 
 
 extern HASH_ENTRY hashtab[];  /* hash table of id indices and names */
-extern int ANY_NAME;	/* generic hash table index for error recovery */
+extern long ANY_NAME;	/* generic hash table index for error recovery */
 extern SYM_PTR ANYPTR; 	/* generic symbol table ptr for error recovery */
 SYM_PTR sym1, sym2, sym3;  	/* temp variables for symbol table pointers */
 NODE_PTR nod1, nod2, nod3;      /* temp variables for node list pointers */
-int op1, op2, op3;     		/* temporary variables for op indices */
+long op1, op2, op3;     		/* temporary variables for op indices */
 
-int is_childless;		/* attribute of architecture body */
-int is_structure;		/* attribute of architecture body */
+long is_childless;		/* attribute of architecture body */
+long is_structure;		/* attribute of architecture body */
 %}
 
 %union  {
-	int y_tok;		/*   token	*/	
-	int y_op;		/* Index to op table entry    */
-	int y_hash;		/* Index to hash table entry  */
-	int y_str;    		/* Index to string storage  */
+	long y_tok;		/*   token	*/	
+	long y_op;		/* Index to op table entry    */
+	long y_hash;		/* Index to hash table entry  */
+	long y_str;    		/* Index to string storage  */
 	SYM_PTR y_sym;		/* Pointer to symbol table entry   */
 	long   y_val; 		/* Floating point number (32 bits) */
 				/*   (also handles integer values) */

@@ -4422,7 +4422,7 @@ void CallbackModifySegmentLayer( MyWidget, ClientData, CallData )
 
   rdsbegin();
 
-  NewLayer = (int)ClientData;
+  NewLayer = (long)ClientData;
 
   if ( ( GraalSegmentMName == (char *)0 ) &&
        ( ( NewLayer >= CALU1          ) &&
@@ -4547,7 +4547,7 @@ void CallbackModifyTransistorType( MyWidget, ClientData, CallData )
 
   rdsbegin();
 
-  GraalTransistorMType  = (int)ClientData;
+  GraalTransistorMType  = (long)ClientData;
   MinWidth              = GRAAL_SEGMENT_VALUE_TABLE[ GraalTransistorMType ][0];
 
   if ( GraalTransistorMWidth < MinWidth ) GraalTransistorMWidth = MinWidth;
@@ -4662,7 +4662,7 @@ void CallbackModifyConnectorLayer( MyWidget, ClientData, CallData )
 
   rdsbegin();
 
-  GraalConnectorMLayer = (int)ClientData;
+  GraalConnectorMLayer = (long)ClientData;
   MinWidth             = GRAAL_SEGMENT_VALUE_TABLE[ GraalConnectorMLayer ][0];
 
   if ( GraalConnectorMWidth < MinWidth ) GraalConnectorMWidth = MinWidth;
@@ -4686,7 +4686,7 @@ void CallbackModifyConnectorOrient( MyWidget, ClientData, CallData )
 {
   rdsbegin();
 
-  GraalConnectorMOrient = (int)ClientData;
+  GraalConnectorMOrient = (long)ClientData;
 
   GraalPromptModifyConnector();
 
@@ -4796,7 +4796,7 @@ void CallbackModifyReferenceType( MyWidget, ClientData, CallData )
 {
   rdsbegin();
 
-  GraalReferenceMType = (int)ClientData;
+  GraalReferenceMType = (long)ClientData;
 
   GraalPromptModifyReference();
 
@@ -4887,7 +4887,7 @@ void CallbackModifyInstanceSym( MyWidget, ClientData, CallData )
 {
   rdsbegin();
 
-  GraalInstanceMSym = (int)ClientData;
+  GraalInstanceMSym = (long)ClientData;
 
   GraalPromptModifyInstance();
 
@@ -4997,7 +4997,7 @@ void CallbackModifyViaType( MyWidget, ClientData, CallData )
 {
   rdsbegin();
 
-  GraalViaMType = (int)ClientData;
+  GraalViaMType = (long)ClientData;
 
   GraalPromptModifyVia();
 
@@ -5089,7 +5089,7 @@ void CallbackModifyBigViaType( MyWidget, ClientData, CallData )
 {
   rdsbegin();
 
-  GraalViaMType = (int)ClientData;
+  GraalViaMType = (long)ClientData;
 
   GraalPromptModifyBigVia();
 

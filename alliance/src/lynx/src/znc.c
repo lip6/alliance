@@ -551,7 +551,7 @@ WinZnc	*winznc;
     for(scanwin=*(winznc->ChZnc+i);scanwin;scanwin=scanwin->NEXT)
     {
       zone=(znc*)(scanwin->DATA);
-      fprintf(stderr,"\t%X : (%ld,%ld)-(%ld,%ld) [%s]\n", (int)zone,
+      fprintf(stderr,"\t%lX : (%ld,%ld)-(%ld,%ld) [%s]\n", (long)zone,
                                                           zone->x1,
                                                           zone->y1,
                                                           zone->x2,

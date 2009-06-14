@@ -1,8 +1,11 @@
 /*
    ### -------------------------------------------------- ### 
-   $Author: xtof $
-   $Date: 2006/03/29 17:10:57 $
+   $Author: ludo $
+   $Date: 2009/06/14 13:52:00 $
    $Log: ocrConnectorUtil.c,v $
+   Revision 1.5  2009/06/14 13:52:00  ludo
+   - port 64 bits
+
    Revision 1.4  2006/03/29 17:10:57  xtof
    * gcc4 compatible : no cast like (Foo*)bar=foo; use bar=(Bar*)foo;
 
@@ -273,7 +276,7 @@ createHashTable(ocrRoutingDataBase * i_pDataBase, phfig_list * i_pPhFig)
 
     for (l_pInst = i_pPhFig->PHINS; l_pInst; l_pInst = l_pInst->NEXT) {
         addhtitem(i_pDataBase->HTABLE,
-                  (void *) l_pInst->INSNAME, (int) (l_pInst));
+                  (void *) l_pInst->INSNAME, (long) (l_pInst));
     }
 
     display(LEVEL, DEBUG, "%s\n", " done");

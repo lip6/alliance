@@ -43,6 +43,7 @@
 
 # include <stdio.h>
 # include <string.h>
+# include <libgen.h>
 # include <memory.h>
 # include "mut.h"
 # include "aut.h"

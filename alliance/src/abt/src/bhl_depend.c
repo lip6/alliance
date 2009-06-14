@@ -73,7 +73,7 @@ struct chain *pt_exp;
 
   if (pt_exp->NEXT != NULL)
     {
-    if (((int) ((struct chain *) pt_exp->DATA)->DATA) == ABL_STABLE)
+    if (((long) ((struct chain *) pt_exp->DATA)->DATA) == ABL_STABLE)
       {
       name      = ((struct chain *) pt_exp->NEXT->DATA)->DATA;
       res_chain = addchain (NULL, name);
@@ -117,7 +117,7 @@ struct chain *pt_exp;
 
   {
   struct chain *res_chain = NULL;
-  int           value           ;
+  long           value           ;
 
   if (pt_fig->ERRFLG == 0)
     {
@@ -172,7 +172,7 @@ struct befig *pt_fig;
   struct beout *pt_out;
   struct bebus *pt_bus;
   struct biabl *pt_biabl;
-  unsigned int  count = 0;
+  unsigned long  count = 0;
 
 	/* ###------------------------------------------------------### */
 	/*   if there is no error in the current figure ...		*/

@@ -21,7 +21,7 @@ void *ident;
   {
   unsigned int index;
 
-  index  = (unsigned int) ident;
+  index  = (unsigned long) ident;
   index  = (((index >> 2) ^ (index >> 10)) + (index >> 12) + (index >> 20));
   index &= index & 0x000000ff;
 

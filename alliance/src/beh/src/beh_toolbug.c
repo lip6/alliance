@@ -68,7 +68,7 @@ int   nbr1;
       fprintf (stderr,"cannot drive empty or erroneous description\n");
       break;
     case 15 :
-      fprintf (stderr,"illegal bit string value : `%c`\n",nbr1);
+      fprintf (stderr,"illegal bit string value : `%c`\n",(char)nbr1);
       break;
     case 16 :
       fprintf (stderr,"the same expression cannot be used twice\n");

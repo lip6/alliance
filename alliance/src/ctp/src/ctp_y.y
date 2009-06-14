@@ -60,7 +60,7 @@
 %}
 
 %union  {
-          int           valu;
+          long          valu;
           char         *text;
           chain_list   *pcha;
           ctp_name      name;
@@ -700,7 +700,7 @@ subtype_indication
          .constraint.
          {
            ctltype_list *ctltype_pnt;
-           int           mode;
+           long          mode;
   
            mode = chktab(hshtab,$1,CTP_MODNAM,CTP_SYMDFN);
 
@@ -754,9 +754,9 @@ enumeration_type_definition
           {
               char *enumname;
               char *enumval;
-              int   size;
-              int   indice;
-              int   numbit;
+              long  size;
+              long  indice;
+              long  numbit;
               char **pnt;
               chain_list *nm1lst;
 
@@ -961,8 +961,8 @@ range
          {
            long Left;
            long Right;
-           int  ErrorL;
-           int  ErrorR;
+           long ErrorL;
+           long  ErrorR;
 
            ErrorL = ctp_vextonum( $1.VEX, &Left  );
            ErrorR = ctp_vextonum( $3.VEX, &Right );
@@ -1003,7 +1003,7 @@ type_mark
           :
            simple_name
            {
-              int type;
+              long type;
               $$.NAME = $1;
               $$.LEFT = -1;
               $$.RIGHT = -1;
@@ -1339,8 +1339,8 @@ primary
           long            right_bnd;
           long            in_bound;
           long            out_bound;
-          int             mode;
-          int             flag;
+          long             mode;
+          long             flag;
 
           flag = $1.FLAG;
 
@@ -1393,7 +1393,7 @@ primary
             right = $1.RIGHT;
 
             {
-              int  type;
+              long  type;
 
               expr1.IDENT = $1.NAME;
               type = chktab(hshtab,$1.NAME,LocalName,CTP_TYPDFN);
@@ -1610,7 +1610,7 @@ indexed_name
             vexexpr    *VexExpr;
             vexexpr    *VexRet;
             long        Index;
-            int         Error;
+            long         Error;
             long        Def;
 
             ScanChain = $2;
@@ -1686,8 +1686,8 @@ slice_name
            char *LocalName;
            long  Left;
            long  Right;
-           int   ErrorL;
-           int   ErrorR;
+           long   ErrorL;
+           long   ErrorR;
 
            LocalName = CTP_MODNAM;
 
@@ -1721,9 +1721,9 @@ attribute_name
           attribute_designator
           {
             char *LocalName;
-            int   type;
-            int   flag;
-            int   mode;
+            long   type;
+            long   flag;
+            long   mode;
             long  AttrLeft;
             long  AttrRight;
             long  AttrLow;
@@ -1850,7 +1850,7 @@ char             *key;
 
 {
   struct dct_entry *entry = NULL;
-  int              i;
+  long              i;
 
   if (CTP_DCEHED == NULL)
     {
@@ -1883,7 +1883,7 @@ char             *key;
 
 {
   struct dct_recrd *recrd = NULL;
-  int               i;
+  long               i;
 
   if (CTP_DCRHED == NULL)
     {
@@ -1912,7 +1912,7 @@ static struct dct_entry **initab ()
 
 {
   struct dct_entry **head = NULL;
-  int                i;
+  long                i;
 
   head = (struct dct_entry **)
          autallocblock (sizeof(struct dct_entry *) * CTP_HSZDFN);
@@ -2009,7 +2009,7 @@ long               valu;
     }
 }
 
-static int chktab (head,key_str,ctx_str,field)
+static long chktab (head,key_str,ctx_str,field)
 
 struct dct_entry **head;
 char              *key_str;
@@ -2127,7 +2127,7 @@ struct dct_entry **pt_hash;
 static void *ctp_addstr(object,mode,prtype,type,flag,name,left,right,exp)
 
 char          object;
-int           mode;
+long           mode;
 ctltype_list *prtype;
 unsigned char type;
 char          flag;
@@ -2141,7 +2141,7 @@ vexexpr      *exp;
   ctldecl_list *CtlDeclar;
   void         *pnt    = NULL;
   vexexpr      *vex_pnt;
-  int           bitsize;
+  long           bitsize;
 
   if ( object == 'F' )
   {

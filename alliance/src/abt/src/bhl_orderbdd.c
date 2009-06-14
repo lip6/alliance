@@ -49,6 +49,7 @@
 # include "abt.h"
 
 # include <stdio.h>
+# include <string.h>
 # include "bhl_error.h"
 # include "bhl_orderbdd.h"
 
@@ -257,8 +258,8 @@ static long bhl_sortcompare( ValueArray, Index1, Index2 )
 void bhl_orderbdd( BehFigure, AuxFlag, OrderFlag )
 
   befig_list *BehFigure;
-  int         AuxFlag;
-  int         OrderFlag;
+  long        AuxFlag;
+  long        OrderFlag;
 {
   struct berin  *BehRin;
   struct beaux  *BehAux;

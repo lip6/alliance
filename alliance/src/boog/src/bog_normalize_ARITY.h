@@ -44,7 +44,7 @@
 
 /*head operator arity*/
 /*  Warning: simpablexpr() do not work anymore after pulling arity         */
-#define ABL_ARITY(abl) ((int)ABL_CDR((chain_list*)ABL_CAR(abl)))
+#define ABL_ARITY(abl) ((long)ABL_CDR((chain_list*)ABL_CAR(abl)))
 #define ABL_ARITY_L(abl) (ABL_CDR((chain_list*)ABL_CAR(abl)))
 
 /***************************************************************************/

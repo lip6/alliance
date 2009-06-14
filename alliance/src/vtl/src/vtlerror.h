@@ -46,6 +46,8 @@
 # ifndef VTL_ERROR_H
 # define VTL_ERROR_H
 
+# include <libgen.h>
+
 /*------------------------------------------------------------\
 |                                                             |
 |                           Constants                         |

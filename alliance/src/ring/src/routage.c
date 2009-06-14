@@ -330,8 +330,8 @@ void construit_couronne(long piste_cour[NB_FACES], long	piste_infalim[NB_FACES],
 					break;
 				}
 				if (mode_debug) 
-					printf("construit cour face %d  debutcoorx %ld nouveaucoin x %ld debpt %d coinpt%d\n",
-					     (int)prec_con->face, debut_coor->xabs, nouveaucoin->xabs, (int)debut_coor, (int)nouveaucoin);
+					printf("construit cour face %ld  debutcoorx %ld nouveaucoin x %ld debpt %ld coinpt%ld\n",
+					     (long)prec_con->face, debut_coor->xabs, nouveaucoin->xabs, (long)debut_coor, (long)nouveaucoin);
 			} /* fin du if */
 
 			else		 {
@@ -362,12 +362,12 @@ void construit_couronne(long piste_cour[NB_FACES], long	piste_infalim[NB_FACES],
 		change_face = 0;
 
 		if (mode_debug) 
-			printf("prec-con-pt %d\n", (int)prec_con);
+			printf("prec-con-pt %ld\n", (long)prec_con);
 
 		while ((NULL != lst_proj) && (!change_face)) {
 			con = (LST_PSEUDO_CON)((PT_COORDONNEES)lst_proj->DATA)->proprio;
 			if (mode_debug) 
-				printf("con-pt %d\n", (int)con);
+				printf("con-pt %ld\n", (long)con);
 			change_face = prec_con->face != con->face;
 			if (!change_face) { 
 				prec_con = con; 
@@ -495,8 +495,8 @@ void construit_couronne(long piste_cour[NB_FACES], long	piste_infalim[NB_FACES],
 		} /* fin du else */
 
 		if (mode_debug) 
-			printf("construit cour face %d debutcoorx %ld coin x %ld debpt %d coinpt%d\n", (int)prec_con->face,
-			     debut_coor->xabs, coin->xabs, (int)debut_coor, (int)coin);
+			printf("construit cour face %ld debutcoorx %ld coin x %ld debpt %ld coinpt%ld\n", (long)prec_con->face,
+			     debut_coor->xabs, coin->xabs, (long)debut_coor, (long)coin);
 
 	} /* fin du 1er while */
 

@@ -35,8 +35,8 @@
 /* ###--------------------------------------------------------------### */
 
 char         BVL_ERRFLG = 0;		/* if = 1 no structure is made  */
-int          BVL_LINNUM = 1;		/* file's line number           */
-int          BVL_AUXMOD;		/* simplify internal sig (= 1)	*/
+long         BVL_LINNUM = 1;		/* file's line number           */
+long         BVL_AUXMOD;		/* simplify internal sig (= 1)	*/
 char         BVL_CURFIL[200];		/* current file's name          */
 befig_list  *BVL_HEDFIG = NULL;
 

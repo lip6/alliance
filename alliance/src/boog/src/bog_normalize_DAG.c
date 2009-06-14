@@ -42,11 +42,11 @@
 
 
 #define USING(node) {node=-mark;}
-#define USED(node) {node=(int)((((int)node<0)?0:(int)node)+1);}
-#define IS_USING(node) ((int)node==-mark)
-#define IS_USED(node) ((int)node!=0)
-#define IS_UNUSED(node) ((int)node==0)
-#define IS_ONE(node) ((int)node==1)
+#define USED(node) {node=(long)((((long)node<0)?0L:(long)node)+1L);}
+#define IS_USING(node) ((long)node==-mark)
+#define IS_USED(node) ((long)node!=0)
+#define IS_UNUSED(node) ((long)node==0)
+#define IS_ONE(node) ((long)node==1)
 
 
 typedef struct equi {
@@ -330,7 +330,7 @@ static void unmark_all()
 /*                mark and follow the tree of abl                             */
 /*         return 1 if correct abl                                            */
 /******************************************************************************/
-static int abl_dispatching(chain_list *abl, int mark)
+static long abl_dispatching(chain_list *abl, long mark)
 {
    bebux_list *bebux;
    beaux_list *beaux;
@@ -502,12 +502,12 @@ static int abl_dispatching(chain_list *abl, int mark)
 /*                   mark each output                                      */
 /* return 1 if correct                                                     */
 /***************************************************************************/
-static int mark_output()
+static long mark_output()
 {
    bebus_list *bebus;
    beout_list *beout;
    biabl_list *biabl;
-   int mark=1;
+   long mark=1;
 
    /*create new internal signals and mark the path from output to input*/
    for (beout=befig->BEOUT; beout; beout=beout->NEXT) {
@@ -549,7 +549,7 @@ static int mark_output()
 /*     control cycles in befig and erase unused internal signal               */
 /*         return 1 if correct befig                                          */
 /******************************************************************************/
-extern int DAG_control(befig_list *befig_param)
+extern long DAG_control(befig_list *befig_param)
 {
    equi_list* equi, *equi2;
    bereg_list *bereg;

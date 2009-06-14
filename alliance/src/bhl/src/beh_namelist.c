@@ -88,7 +88,7 @@ struct chain *pt_exp;
 	/*       variable list.						*/
 	/* ###------------------------------------------------------### */
 
-      if (((int) ((struct chain *) pt_exp->DATA)->DATA) == STABLE)
+      if (((long) ((struct chain *) pt_exp->DATA)->DATA) == STABLE)
         {
         name      = ((struct chain *) pt_exp->NEXT->DATA)->DATA;
         res_chain = addchain (NULL, name);
