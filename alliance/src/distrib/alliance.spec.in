@@ -7,7 +7,7 @@
 Name:         %{name}
 Summary:      Alliance VLSI CAD Sytem
 Version:      %{ver}
-Release:      %{release}
+Release:      %{release}%{dist}
 License:      GPL
 Group:        Applications/VLSI
 Source:       %{name}-%{ver}.tar.gz
@@ -170,6 +170,10 @@ Sources of the Alliance VLSI CAD System, as you might guess...
 
 
 %changelog
+* Wed Aug 26 2009 Jean-Paul.Chaput <Jean-Paul.Chaput@lip6.fr>
+- Update to the latest CVS snapshot, including 64 bits support
+  (courtesy of L. Jacomme).
+
 * Thu Feb 17 2005 Jean-Paul.Chaput <Jean-Paul.Chaput@lip6.fr>
 - Synch with current version: bug & compliance with gcc 3.4.x.
 
