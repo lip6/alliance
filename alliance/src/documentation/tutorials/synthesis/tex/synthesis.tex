@@ -1,6 +1,10 @@
 %%%%%%%%%%%%%%%%
-% $Id: synthesis.tex,v 1.6 2009/08/26 11:41:46 jpc Exp $
+% $Id: synthesis.tex,v 1.7 2009/08/26 12:25:16 jpc Exp $
 % $Log: synthesis.tex,v $
+% Revision 1.7  2009/08/26 12:25:16  jpc
+% Some more adjustments for LaTeX: no more here.sty, rule thickness put
+% after begin{document} for fancyhdr.
+%
 % Revision 1.6  2009/08/26 11:41:46  jpc
 % Replacing fancyheaders by fancyhdr for newer LaTeX's versions.
 %
@@ -22,7 +26,7 @@
 \usepackage{fancyhdr}
 \usepackage{float}
 \usepackage{graphicx}
-\usepackage{here}
+%\usepackage{here}
 %\usepackage{isolatin1}
 \usepackage{charter}
 \usepackage{picinpar}
@@ -75,10 +79,10 @@ xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
 \rfoot{\thepage}
 \lfoot{ALLIANCE TUTORIAL}
 \cfoot{}
-\setlength{\footrulewidth}{0.6pt}
 
 %---------------------------------- document ---------------------------------
 \begin{document}
+\setlength{\footrulewidth}{0.6pt}
 
 \title{
                {\Huge ALLIANCE TUTORIAL\\}

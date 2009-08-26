@@ -1,6 +1,10 @@
 %%%%%%%%%%%%%%%%
-% $Id: place_and_route.tex,v 1.7 2009/08/26 11:41:55 jpc Exp $
+% $Id: place_and_route.tex,v 1.8 2009/08/26 12:25:11 jpc Exp $
 % $Log: place_and_route.tex,v $
+% Revision 1.8  2009/08/26 12:25:11  jpc
+% Some more adjustments for LaTeX: no more here.sty, rule thickness put
+% after begin{document} for fancyhdr.
+%
 % Revision 1.7  2009/08/26 11:41:55  jpc
 % Replacing fancyheaders by fancyhdr for newer LaTeX's versions.
 %
@@ -23,7 +27,7 @@
 \usepackage{fancyhdr}
 \usepackage{float}
 \usepackage{graphicx}
-\usepackage{here}
+%\usepackage{here}
 %\usepackage{isolatin1}
 \usepackage{charter}
 \usepackage{picinpar}
@@ -73,7 +77,6 @@ xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
 %--------------------------------- page style --------------------------------
 \pagestyle{fancy} \rhead{Place and route}
 \lhead{PART 3} \rfoot{\thepage} \lfoot{ALLIANCE TUTORIAL} \cfoot{}
-\setlength{\footrulewidth}{0.6pt}
 %
 %\begin{figure}[H]\centering
 % \includegraphics[width=8cm,height=8cm]{.eps}
@@ -82,6 +85,7 @@ xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
 %\end{figure}
 %---------------------------------- document ---------------------------------
 \begin{document}
+\setlength{\footrulewidth}{0.6pt}
 
 \title{
                {\Huge ALLIANCE TUTORIAL \\}
