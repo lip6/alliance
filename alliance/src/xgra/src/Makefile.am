@@ -59,4 +59,5 @@ XSB_error.h XSB.h XSB_parse.c XSB_parse.h XSB_share.c XSB_share.h XTB_cursor.c \
 XTB_cursor.h XTB_dialog.c XTB_dialog.h XTB.h XTB_icon.c XTB_icon.h XTB_menu.c \
 XTB_menu.h XTB_panel.c XTB_panel.h XTB_pixmap.c XTB_pixmap.h \
 XGR.h XGR_bound.c XGR_bound.h XGR_error.c XGR_error.h XGR_graph.c XGR_graph.h \
-XGR_object.c XGR_object.h XGR_place.c XGR_place.h XGR_select.c XGR_select.h xgra.c
+XGR_object.c XGR_object.h XGR_place.c XGR_place.h XGR_select.c XGR_select.h xgra.c \
+xgra.h
