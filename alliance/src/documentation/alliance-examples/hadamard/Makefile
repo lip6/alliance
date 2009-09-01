@@ -17,6 +17,8 @@
 # \------------------------------------------------------------*/
 
 ALLIANCE_BIN = $(ALLIANCE_TOP)/bin
+ 
+ALLIANCE_EXAMPLES=/usr/share/doc/alliance-doc-5.0/alliance-examples
 
 VASY   = $(ALLIANCE_BIN)/vasy
 ASIMUT = $(ALLIANCE_BIN)/asimut
@@ -39,14 +41,14 @@ XFSM   = $(ALLIANCE_BIN)/xfsm
 TOUCH  = touch
 
 TARGET_LIB      = $(ALLIANCE_TOP)/cells/sxlib
-RDS_TECHNO_SYMB = ../etc/techno-symb.rds
-RDS_TECHNO      = ../etc/techno-035.rds
+RDS_TECHNO_SYMB = $(ALLIANCE_EXAMPLES)/etc/techno-symb.rds
+RDS_TECHNO      = $(ALLIANCE_EXAMPLES)/etc/techno-035.rds
 SPI_MODEL       = $(ALLIANCE_TOP)/etc/spimodel.cfg
 METAL_LEVEL     = 6
 
 # /*------------------------------------------------------------\
 # |                                                             |
-# |                            Environement                     |
+# |                            Environment                     |
 # |                                                             |
 # \------------------------------------------------------------*/
 
@@ -163,11 +165,11 @@ hadamard.vst calcul.vbe ram.vbe rom.vbe compteur.vbe sequenceur.vbe hadamard_mod
 
 res_vasy_1.pat : hadamard.vst calcul.vbe ram.vbe rom.vbe \
                  compteur.vbe sequenceur.vbe hadamard_model.vbe
-	$(ENV_ASIMUT_VASY); $(ASIMUT) hadamard hadamard_1 res_vasy_1 
+	$(ENV_ASIMUT_VASY); $(ASIMUT) hadamard hadamard_1 res_vasy_1
 
 res_synth_1.pat : hadamard.vst calcul.vst ram.vst rom.vst \
                  compteur.vst sequenceur.vst hadamard_model.vst
-	$(ENV_ASIMUT_SYNTH); $(ASIMUT) -zd hadamard hadamard_1 res_synth_1 
+	$(ENV_ASIMUT_SYNTH); $(ASIMUT) -zd hadamard hadamard_1 res_synth_1
 
 
 # /*------------------------------------------------------------\
@@ -299,7 +301,7 @@ hadamard_er.al : hadamard.cif
 # |                                                             |
 # \------------------------------------------------------------*/
 
-lvx.done : hadamard.vst hadamard_e.al 
+lvx.done : hadamard.vst hadamard_e.al
 	$(ENV_LVX); $(LVX) vst al hadamard hadamard_e -f
 	$(TOUCH) lvx.done
 
@@ -355,4 +357,4 @@ clean     :
 	$(RM) -f *.vst *.vbe *.boom *.done *.xsc *.al *.ap *.gpl *.gds \
 	      *.log *.drc *.cif *.fin *.dat *.out hadamard_e.spi res_synth_1.pat \
 	      res_vasy_1.pat
-	
+

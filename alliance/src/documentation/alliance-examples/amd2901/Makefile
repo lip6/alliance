@@ -12,6 +12,8 @@
 
 # Standart Alliance binary access paths.
  ALLIANCE_BIN  = $(ALLIANCE_TOP)/bin
+ 
+ALLIANCE_EXAMPLES=/usr/share/doc/alliance-doc-5.0/alliance-examples
 
 # --------------------------------------------------------------------
 # Standarts binaries.
@@ -41,8 +43,8 @@
     CATA_LIB2 = $(ALLIANCE_TOP)/cells/padlib
     CATA_LIB  = .:$(CATA_LIB0):$(CATA_LIB1):$(CATA_LIB2)
    TARGET_LIB = $(ALLIANCE_TOP)/cells/sxlib
-   RDS_TECHNO     = ../etc/techno-symb.rds
-  REAL_RDS_TECHNO = ../etc/techno-035.rds 
+RDS_TECHNO_SYMB = $(ALLIANCE_EXAMPLES)/etc/techno-symb.rds
+RDS_TECHNO      = $(ALLIANCE_EXAMPLES)/etc/techno-035.rds
    GRAAL_TECHNO = $(ALLIANCE_TOP)/etc/cmos.graal
 
 

@@ -1,0 +1,10 @@
+[Desktop Entry]
+Encoding=UTF-8
+Name=Alliance: Layout Viewer
+Exec=ALLIANCE_TOP/bin/dreal
+Icon=dreal.png
+Type=Application
+Terminal=false
+GenericName=dreal
+Categories=Electronics;Engineering;
+Comment=View the Real layout

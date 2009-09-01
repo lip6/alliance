@@ -6,6 +6,8 @@
 
 # Standart Alliance binary access paths.
  ALLIANCE_BIN  = $(ALLIANCE_TOP)/bin
+ 
+ALLIANCE_EXAMPLES=/usr/share/doc/alliance-doc-5.0/alliance-examples
 
 # FitPath Alliance binary access paths.
 #    DEVEL_BIN  = /users/soft5/newlabo/alliance-4.5.0/archi/Solaris/bin
@@ -119,7 +121,7 @@ ENV_COUGAR_SPI =  MBK_WORK_LIB=.; export MBK_WORK_LIB; \
       LVX = $(MBK_EXTRACT_ENV); $(ALLIANCE_BIN)/lvx
     PROOF = $(MBK_EXTRACT_ENV); $(ALLIANCE_BIN)/proof
      RING = $(MBK_GENERAT_ENV); $(ALLIANCE_BIN)/ring
-    DPGEN = $(MBK_GENERAT_ENV); $(ALLIANCE_BIN)/genlib
+    DPGEN = $(MBK_GENERAT_ENV); $(ALLIANCE_BIN)/genlib --keep-exec --verbose
     OCP   = $(MBK_GENERAT_ENV); $(ALLIANCE_BIN)/ocp -v -gnuplot
     OCR   = $(MBK_GENERAT_ENV); $(ALLIANCE_BIN)/ocr
     NERO  = $(MBK_GENERAT_ENV); $(ALLIANCE_BIN)/nero -V

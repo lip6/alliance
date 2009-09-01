@@ -13,6 +13,8 @@
 
 # Standart Alliance binary access paths.
  ALLIANCE_BIN  = $(ALLIANCE_TOP)/bin
+ 
+ALLIANCE_EXAMPLES=/usr/share/doc/alliance-doc-5.0/alliance-examples
 
 # --------------------------------------------------------------------
 # Standarts binaries.

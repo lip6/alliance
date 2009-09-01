@@ -1,5 +1,5 @@
 #include <genlib.h>
-#define POWER "vdde","vdd","vsse","vss",0
+#define POWER "vdde","vdd","vsse","vss",NULL
 
 int main ()
  {
@@ -78,7 +78,7 @@ int main ()
 
 	"vdd => vdd",
 	"vss => vss",
-	0);
+	NULL);
 
   GENLIB_LOINS("pck_sp","p_ck","ck","cki", POWER);
 
@@ -119,13 +119,13 @@ int main ()
   GENLIB_LOINS ("piot_sp","p_r3",
 	"ram_o_up","sh_left","ram_i_up","r3","cki", POWER );
 
-  GENLIB_LOINS("pvddick_sp","p_vddick0","ckc","cki","vdde","vdd","vsse","vss",0);
-  GENLIB_LOINS("pvssick_sp","p_vssick0","ckc","cki","vdde","vdd","vsse","vss",0);
+  GENLIB_LOINS("pvddick_sp","p_vddick0","ckc","cki","vdde","vdd","vsse","vss",NULL);
+  GENLIB_LOINS("pvssick_sp","p_vssick0","ckc","cki","vdde","vdd","vsse","vss",NULL);
 
-  GENLIB_LOINS("pvddeck_sp","p_vddeck0","ckc","cki","vdde","vdd","vsse","vss",0);
-  GENLIB_LOINS("pvddeck_sp","p_vddeck1","ckc","cki","vdde","vdd","vsse","vss",0);
-  GENLIB_LOINS("pvsseck_sp","p_vsseck0","ckc","cki","vdde","vdd","vsse","vss",0);
-  GENLIB_LOINS("pvsseck_sp","p_vsseck1","ckc","cki","vdde","vdd","vsse","vss",0);
+  GENLIB_LOINS("pvddeck_sp","p_vddeck0","ckc","cki","vdde","vdd","vsse","vss",NULL);
+  GENLIB_LOINS("pvddeck_sp","p_vddeck1","ckc","cki","vdde","vdd","vsse","vss",NULL);
+  GENLIB_LOINS("pvsseck_sp","p_vsseck0","ckc","cki","vdde","vdd","vsse","vss",NULL);
+  GENLIB_LOINS("pvsseck_sp","p_vsseck1","ckc","cki","vdde","vdd","vsse","vss",NULL);
 
   GENLIB_SAVE_LOFIG();
 

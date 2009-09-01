@@ -1,4 +1,4 @@
-#      Copyright (c) 1997 by Cadence. All rights reserved.      
+#      
 ###################################################################
 # In each of TOP()/BOTTOM()/LEFT()/RIGHT() section, there are     #
 # placed IOs. In the IGNORE() section, the IOs are ignored        #

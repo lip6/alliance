@@ -1,0 +1,10 @@
+[Desktop Entry]
+Encoding=UTF-8
+Name=Alliance: FSM Viewer
+Exec=ALLIANCE_TOP/bin/xfsm
+Icon=xfsm.png
+Type=Application
+Terminal=false
+GenericName=xfsm
+Categories=Electronics;Engineering;
+Comment=View Finite State Machines

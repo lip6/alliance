@@ -1,0 +1,10 @@
+[Desktop Entry]
+Encoding=UTF-8
+Name=Alliance: Schematic Viewer
+Exec=ALLIANCE_TOP/bin/xsch
+Icon=xsch.png
+Type=Application
+Terminal=false
+GenericName=Xsch
+Categories=Electronics;Engineering;
+Comment=View the Schematic

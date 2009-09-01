@@ -10,11 +10,13 @@ This directory contains the VHDL description of a 16 bits adder-accumulator and
 the associated stimuli file, and also a configuration file for IO
 placement (used during the Place and Route step).
 
-The Makefile set environement variables properly and run Alliance tools, 
+The Makefile set environment variables properly and run Alliance tools,
 following each step of the design flow from VHDL up to real layout in a
  pseudo 0.35 techno.
 
-The environement variable ALLIANCE_TOP has to be set.
+ 
+copy the folder "addaccu16" to any writable folder of your choice and type:
+$ make
 
 The main targets of the makefile are listed below (following the design flow).
 

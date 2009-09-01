@@ -1,0 +1,10 @@
+[Desktop Entry]
+Encoding=UTF-8
+Name=Alliance: Petri Nets Viewer
+Exec=ALLIANCE_TOP/bin/xvpn
+Icon=xvpn.png
+Type=Application
+Terminal=false
+GenericName=xpvn
+Categories=Electronics;Engineering;
+Comment=View the Petri Nets

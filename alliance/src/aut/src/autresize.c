@@ -42,7 +42,7 @@
 \------------------------------------------------------------*/
 
 # include <stdio.h>
-# include <malloc.h>
+# include <stdlib.h>
 # include <memory.h>
 # include <string.h>
 

@@ -1,6 +1,9 @@
 %%%%%%%%%%%%%%%%
-% $Id: simulation.tex,v 1.8 2009/08/26 12:25:16 jpc Exp $
+% $Id: simulation.tex,v 1.9 2009/09/01 21:33:42 jpc Exp $
 % $Log: simulation.tex,v $
+% Revision 1.9  2009/09/01 21:33:42  jpc
+% Include patches from Fedora (Chitlesh Goorah) and Naohiko Shimizu.
+%
 % Revision 1.8  2009/08/26 12:25:16  jpc
 % Some more adjustments for LaTeX: no more here.sty, rule thickness put
 % after begin{document} for fancyhdr.
@@ -180,7 +183,7 @@ manual page.
         }
 
 All the files used in this part are located in the \\ 
-\texttt{/tutorial/simulation/src} directory.\\
+\texttt{/usr/share/doc/alliance-doc-5.0/tutorial/simulation/src} directory.\\
 This directory contains two subdirectories and one Makefile : 
 \begin{itemize}
 \item The Makefile allows you to validate automatically the entire simulation part
@@ -635,13 +638,13 @@ be chosen among those available in the library of standard cells {
 \bf SXLIB }. For the functionality of the various cells and their
 interface, the sxlib man is available. The behavioral
 description of each cell is present in \\
-{\bf /alliance/cells/sxlib }.
+{\bf \$ALLIANCE\_TOP/cells/sxlib }.
 
 You must set the environment variable { \bf MBK\_CATA\_LIB }
 to be able to reach these cells.
 
 \begin{commandline}
- > MBK_CATA_LIB=/alliance/cells/sxlib
+ > MBK_CATA_LIB=\$ALLIANCE\_TOP/cells/sxlib
  > export MBK_CATA_LIB
 \end{commandline}
 

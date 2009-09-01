@@ -109,7 +109,7 @@ main()
        "out_x[3:0] =>     y[3:0]",
 
        "vdd => vdd",
-       "vss => vss", 0);
+       "vss => vss", NULL);
 
 
   /* ***************** Control Instanciation ****************** */
@@ -161,7 +161,7 @@ main()
        "oe => oe",
 
        "vdd => vdd",
-       "vss => vss", 0);
+       "vss => vss", NULL);
 
   GENLIB_PLACE ("amd2901_dpt", "amd2901_dpt", NOSYM, 0, 0);
   GENLIB_DEF_AB (0, 0, 0, 100);

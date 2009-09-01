@@ -17,6 +17,8 @@
 # \------------------------------------------------------------*/
 
 ALLIANCE_BIN=$(ALLIANCE_TOP)/bin
+ 
+ALLIANCE_EXAMPLES=/usr/share/doc/alliance-doc-5.0/alliance-examples
 
 VASY   = $(ALLIANCE_BIN)/vasy
 ASIMUT = $(ALLIANCE_BIN)/asimut
@@ -39,14 +41,14 @@ XFSM   = $(ALLIANCE_BIN)/xfsm
 TOUCH  = touch
 
 TARGET_LIB      = $(ALLIANCE_TOP)/cells/sxlib
-RDS_TECHNO_SYMB = ../etc/techno-symb.rds
-RDS_TECHNO      = ../etc/techno-035.rds
+RDS_TECHNO_SYMB = $(ALLIANCE_EXAMPLES)/etc/techno-symb.rds
+RDS_TECHNO      = $(ALLIANCE_EXAMPLES)/etc/techno-035.rds
 SPI_MODEL       = $(ALLIANCE_TOP)/etc/spimodel.cfg
 METAL_LEVEL     = 5
 
 # /*------------------------------------------------------------\
 # |                                                             |
-# |                            Environement                     |
+# |                            Environment                     |
 # |                                                             |
 # \------------------------------------------------------------*/
 
@@ -161,9 +163,9 @@ sqrt8.vst sm.vbe sqrt8_model.vbe : sqrt8.vhdl
 # \------------------------------------------------------------*/
 
 res_vasy_1.pat : sqrt8.vst sm.vbe sqrt8_model.vbe
-	$(ENV_ASIMUT_VASY); $(ASIMUT) sqrt8 sqrt8 res_vasy_1 
+	$(ENV_ASIMUT_VASY); $(ASIMUT) sqrt8 sqrt8 res_vasy_1
 
-res_synth_1.pat : sqrt8.vst sm.vst sqrt8_model.vst 
+res_synth_1.pat : sqrt8.vst sm.vst sqrt8_model.vst
 	$(ENV_ASIMUT_SYNTH); $(ASIMUT) sqrt8 sqrt8 res_synth_1
 
 
@@ -257,7 +259,7 @@ sqrt8_er.al : sqrt8.cif
 # |                                                             |
 # \------------------------------------------------------------*/
 
-lvx.done : sqrt8.vst sqrt8_e.al 
+lvx.done : sqrt8.vst sqrt8_e.al
 	$(ENV_LVX); $(LVX) vst al sqrt8 sqrt8_e -f
 	$(TOUCH) lvx.done
 
@@ -313,4 +315,4 @@ clean     :
 	$(RM) -f *.vst *.vbe *.boom *.done *.xsc *.al *.ap *.gpl *.gds \
 	      *.log *.drc *.cif *.fin *.dat *.out sqrt8_e.spi res_synth_1.pat \
 	      res_vasy_1.pat
-	
+

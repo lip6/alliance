@@ -270,7 +270,7 @@ char *XgraGetInformations()
 
   if ( XgraFigureGra != (autgraph *)NULL )
   {
-    sprintf( Scan, "  FIGURE : %s\n\n  NODES : %d\n  ARCS : %d\n\n",
+    sprintf( Scan, "  FIGURE : %s\n\n  NODES : %ld\n  ARCS : %ld\n\n",
         XgraFigure->NAME,
         XgraFigureGra->NUMBER_NODE,
         XgraFigureGra->NUMBER_ARC );
@@ -282,7 +282,7 @@ char *XgraGetInformations()
 
   Scan = Scan + strlen( Scan );
 
-  sprintf( Scan, "  BOUNDING BOX : \n\n  XMIN : %d\n  YMIN : %d\n  XMAX : %d\n  YMAX : %d\n\n",
+  sprintf( Scan, "  BOUNDING BOX : \n\n  XMIN : %ld\n  YMIN : %ld\n  XMAX : %ld\n  YMAX : %ld\n\n",
            XgraBoundXmin / XGRA_UNIT, XgraBoundYmin / XGRA_UNIT,
            XgraBoundXmax / XGRA_UNIT, XgraBoundYmax / XGRA_UNIT );
 

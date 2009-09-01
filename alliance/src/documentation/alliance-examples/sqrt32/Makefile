@@ -17,6 +17,8 @@
 # \------------------------------------------------------------*/
 
 ALLIANCE_BIN=$(ALLIANCE_TOP)/bin
+ 
+ALLIANCE_EXAMPLES=/usr/share/doc/alliance-doc-5.0/alliance-examples
 
 VASY   = $(ALLIANCE_BIN)/vasy
 ASIMUT = $(ALLIANCE_BIN)/asimut
@@ -39,8 +41,8 @@ XFSM   = $(ALLIANCE_BIN)/xfsm
 TOUCH  = touch
 
 TARGET_LIB      = $(ALLIANCE_TOP)/cells/sxlib
-RDS_TECHNO_SYMB = ../etc/techno-symb.rds
-RDS_TECHNO      = ../etc/techno-035.rds
+RDS_TECHNO_SYMB = $(ALLIANCE_EXAMPLES)/etc/techno-symb.rds
+RDS_TECHNO      = $(ALLIANCE_EXAMPLES)/etc/techno-035.rds
 SPI_MODEL       = $(ALLIANCE_TOP)/etc/spimodel.cfg
 METAL_LEVEL     = 5
 

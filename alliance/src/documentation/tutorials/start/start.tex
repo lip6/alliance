@@ -5,7 +5,7 @@
 % Version for Alliance releases 2.0 and up by Frederic Petrot
 % Modified by czo for Alliance release 4.0 (01/2000)
 % TODO : no fully working, needs some adjustements
-% $Id: start.tex,v 1.7 2009/08/26 12:25:16 jpc Exp $
+% $Id: start.tex,v 1.8 2009/09/01 21:33:42 jpc Exp $
 %
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \documentclass{article}
@@ -116,13 +116,13 @@ If you run a \texttt{c-like} shell, like \texttt{csh} or \texttt{tcsh},
 try to run the following command :
 
 \begin{phraseverbatim}
-~alp/addaccu %-) source /alliance/etc/alc_env.csh
+~alp/addaccu %-) source /etc/profile.d/alc_env.csh
 \end{phraseverbatim}
 
 Otherwise, if you run a \texttt{sh-like} shell, try to run the following 
 command :
 \begin{phraseverbatim}
-~alp/addaccu %-) source /alliance/alc_env.sh
+~alp/addaccu %-) source /etc/profile.d/alc_env.sh
 \end{phraseverbatim}
 \\
 Before we proceed to the tutorial, you must make sure that the
@@ -151,13 +151,13 @@ MBK_OUT_PH=ap
 MBK_CATAL_NAME=CATAL
 MBK_SCALE_X=100
 MBK_VSS=vss
-MBK_CATA_LIB=.:/alliance/cells/sxlib:/alliance/cells/padlib
+MBK_CATA_LIB=.:\$ALLIANCE\_TOP/cells/sxlib:\$ALLIANCE\_TOP/cells/padlib
 MBK_WORK_LIB=.
 MBK_VDD=vdd
 MBK_C4_LIB=./cellsC4
 MBK_IN_LO=vst
 MBK_IN_PH=ap
-MBK_TARGET_LIB=/alliance/cells/sxlib
+MBK_TARGET_LIB=\$ALLIANCE\_TOP/cells/sxlib
 MBK_OUT_LO=vst
 \end{framedverbatim}
 \caption{\label{mbk} \texttt{MBK} environment variables.}

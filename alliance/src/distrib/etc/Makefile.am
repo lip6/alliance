@@ -1,6 +1,6 @@
-# $Id: Makefile.am,v 1.4 2002/06/25 14:09:38 czo Exp $
+# $Id: Makefile.am,v 1.5 2009/09/01 21:33:39 jpc Exp $
 
-etcdir=$(prefix)/etc
+etcdir=/etc/profile.d
 
 etc_SCRIPTS=alc_env.csh alc_env.sh
 

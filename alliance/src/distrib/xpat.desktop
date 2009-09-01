@@ -1,0 +1,10 @@
+[Desktop Entry]
+Encoding=UTF-8
+Name=Alliance: Patterns Viewer
+Exec=ALLIANCE_TOP/bin/xpat
+Icon=xpat.png
+Type=Application
+Terminal=false
+GenericName=xpat
+Categories=Electronics;Engineering;
+Comment=View the Patterns

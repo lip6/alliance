@@ -1,0 +1,10 @@
+[Desktop Entry]
+Encoding=UTF-8
+Name=Alliance: Layout Editor
+Exec=ALLIANCE_TOP/bin/graal
+Icon=graal.png
+Type=Application
+Terminal=false
+GenericName=graal
+Categories=Electronics;Engineering;
+Comment=Edits physical layouts
