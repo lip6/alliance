@@ -30,7 +30,7 @@
 
 #define YY_NO_UNPUT	/* Avoids warning */
 
-/*int	 yylineno = 1;*/
+int	 yylineno = 1;
 
 %}
 
