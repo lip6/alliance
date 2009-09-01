@@ -2,8 +2,13 @@
 
 bin_PROGRAMS = xgra
 AM_CFLAGS = @ALLIANCE_CFLAGS@ @X_CFLAGS@ \
+         -I$(top_srcdir)/aut/src \
+         -I$(top_srcdir)/mbk/src \
 	 -DXGRA_DEFAULT_PARAM_NAME=\"${ALLIANCE_TOP}/etc/xgra.par\" \
-	 -DXMS_FILE_NAME=\".xgra.cfg\"
+	 -DXMS_FILE_NAME=\".xgra.cfg\" \
+         $(GLIB_CFLAGS) \
+         -DG_LOG_DOMAIN=\"xgra\"
+
 
 # -----------------------------------------------------------------------------
 # X Libraries.
@@ -37,7 +42,9 @@ ALL_X_LIBS = $(X_LDFLAGS) $(LIBXM) $(LIBXT) \
 
 
 
-xgra_LDADD = @ALLIANCE_LIBS@ $(ALL_X_LIBS) \
+xgra_LDADD = @ALLIANCE_LIBS@ $(GLIB_CFLAGS) $(ALL_X_LIBS) \
+-L$(top_builddir)/aut/src \
+-L$(top_builddir)/mbk/src \
 -lAut -lMut
 
 xgra_SOURCES = \
