@@ -1,5 +1,5 @@
 %define        prefix    %{_libdir}/%{name}
-%define        snapshot  20090827
+%define        snapshot  20090901
 %define        _default_patch_fuzz  2
 
 Name:          alliance
