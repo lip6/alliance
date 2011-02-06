@@ -1,8 +1,8 @@
 %{
 /*
  * $Author: jpc $
- * $Id: DEF_grammar_lex.l,v 1.2 2011/02/06 14:37:33 jpc Exp $
- * $Date: 2011/02/06 14:37:33 $
+ * $Id: DEF_grammar_lex.l,v 1.3 2011/02/06 15:14:31 jpc Exp $
+ * $Date: 2011/02/06 15:14:31 $
  */
 
 #include <errno.h>
@@ -13,12 +13,14 @@
 #include "DEF_grammar_yacc.h"
 
 
-# define    YY_NO_UNPUT
-# define    yylval       DEF_grammarlval
-# define    yylineno     DEF_grammarlineno
+#define    YY_NO_UNPUT
+#define    yylval       DEF_grammarlval
+#define    yylineno     DEF_grammarlineno
 
 
-//          int  yylineno = 1;
+#ifndef FLEX_BETA 
+        int  yylineno = 1;
+#endif
 
 
 static  int  yywrap(void);
