@@ -269,7 +269,7 @@ nobase_examples_DATA = alliance-examples/addaccu16/Makefile \
                        alliance-examples/mipsR3000/asm/rome.u \
                        alliance-examples/mipsR3000/asm/rome.vbe \
                        alliance-examples/mipsR3000/asm/romr.e \
-                       alliance-examples/mipsR3000/asm/roms.vbe.orig \
+                       alliance-examples/mipsR3000/asm/roms-orig.vbe \
                        alliance-examples/mipsR3000/asm/romu.vbe \
                        alliance-examples/mipsR3000/asm/sle000.u \
                        alliance-examples/mipsR3000/asm/sle001.u \

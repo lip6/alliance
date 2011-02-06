@@ -27,6 +27,7 @@
 #include <stdio.h>
 #include <iostream>
 #include <ctype.h>
+#include <string.h>
 using namespace std;
 
 #include "mut.h"

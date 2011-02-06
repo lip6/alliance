@@ -17,6 +17,7 @@
 #include "bvl.h"
 #include "bvl_byacc.h"
 #include "bvl_bedef.h"
+#include "bvl_bcomp_y.h"
 
 /* ###--------------------------------------------------------------### */
 /* function	: bvl_y_error						*/

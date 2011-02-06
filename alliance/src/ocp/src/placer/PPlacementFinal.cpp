@@ -38,6 +38,7 @@ using namespace __gnu_cxx; // GCC 3.1 and later
 
 #include <math.h>
 #include <unistd.h>
+#include <string.h>
 #include <algorithm>
 using namespace std;
 

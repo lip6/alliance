@@ -26,6 +26,7 @@
 // Authors-Tag 
 #include <stdlib.h>
 #include <limits.h>
+#include <string.h>
 using namespace std;
 
 #include "PBin.h"

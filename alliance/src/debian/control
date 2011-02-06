@@ -1,0 +1,47 @@
+Source:        alliance
+Section:       Science/Electronics
+Priority:      optional
+Maintainer:    Jean-Paul Chaput <Jean-Paul.Chaput@lip6.fr>
+Build-Depends: debhelper (>= 7),
+               quilt,
+               bison,
+               flex,
+               texlive-full,
+	       automake1.9,
+	       libmotif-dev,
+	       libxp-dev,
+	       libxt-dev,
+	       libxpm-dev
+Homepage:      http://www-asim.lip6.fr/recherche/alliance/ 
+Standards-Version: 3.8.4
+
+Package:      alliance
+Architecture: any
+Depends:      ${shlibs:Depends},
+              ${misc:Depends}
+Description: VLSI CAD Tools
+ Alliance is  a complete set of free  CAD tools and portable  libraries for VLSI
+ design. It includes  a VHDL compiler and simulator,  logic synthesis tools, and
+ automatic place and route tools.
+   A  complete set  of  portable CMOS  libraries  is provided,  including a  RAM
+ generator, a ROM generator and a data-path compiler.
+   Alliance is the result of more than ten years effort spent at ASIM department
+ of LIP6 laboratory of the Pierre et Marie Curie University (Paris VI, France).
+   Alliance has been used for research  projects such as the 875 000 transistors
+ StaCS  superscalar microprocessor  and  400 000  transistors  IEEE Gigabit  HSL
+ Router.
+ .
+ You are kindly requested to mention:
+   "Designed with alliance (c) LIP6, Université Pierre et Marie Curie"
+   so as to spread the word about "alliance CAD system" and its development team.
+ .
+ Alliance provides CAD tools covering most of all the digital design flow:
+  * VHDL Compilation and Simulation
+  * Model checking and formal proof
+  * RTL and Logic synthesis 
+  * Data-Path compilation
+  * Macro-cells generation
+  * Place and route
+  * Layout edition
+  * Netlist extraction and verification
+  * Design rules checking

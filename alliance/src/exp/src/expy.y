@@ -4,6 +4,7 @@
 #include <math.h>
 #include "exp.h"
 #include "ht.h"
+#include "expy.h"
 
 #define VERBOSE        (int)((htget(dico, "verbose")->VAL.f+EPSILON))
 #define EPSILON        0.00001

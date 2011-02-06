@@ -1,8 +1,8 @@
 %{
 /*
  * $Author: jpc $
- * $Id: DEF_grammar_lex.l,v 1.1 2002/04/25 16:16:20 jpc Exp $
- * $Date: 2002/04/25 16:16:20 $
+ * $Id: DEF_grammar_lex.l,v 1.2 2011/02/06 14:37:33 jpc Exp $
+ * $Date: 2011/02/06 14:37:33 $
  */
 
 #include <errno.h>
@@ -18,7 +18,7 @@
 # define    yylineno     DEF_grammarlineno
 
 
-          int  yylineno = 1;
+//          int  yylineno = 1;
 
 
 static  int  yywrap(void);

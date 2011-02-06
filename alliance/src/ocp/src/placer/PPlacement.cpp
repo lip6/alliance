@@ -25,6 +25,7 @@
 //
 // Authors-Tag 
 #include <unistd.h>
+#include <string.h>
 #include <set>
 #include <algorithm>
 #include <string>

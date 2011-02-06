@@ -24,6 +24,7 @@
 // Author : Christophe Alexandre  <Christophe.Alexandre@lip6.fr>
 //
 // Authors-Tag 
+#include <string.h>
 #include "PBin.h"
 #include "PPlacement.h"
 

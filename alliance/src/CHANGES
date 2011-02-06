@@ -9,6 +9,38 @@
 This document lists the main differences between each Alliance's revisions.
 
 --------------------------------------------------------------------------------
+ALLIANCE revision 5.0 (2011/02/03)
+
+- Ubuntu native packaging purposes.
+  + Support more closely the FHS layout. If installed under /usr :
+      Configuration files goes in : /etc/alliance
+      Cells goes in :               /usr/share/alliance/cells
+      General doc goes in :         /usr/share/doc/alliance
+      Examples goes in :            /usr/share/doc/alliance/examples
+      Tutorials goes in :           /usr/share/doc/alliance/tutorials
+    Environment scripts (alc_env.*) have been updateds accordingly.
+    Note: In the case of a FHS installation, the task of moving the
+          configuration files, cells library, documentations & examples
+          remains to the packager. This has been done for Ubuntu.
+            It was more efficient to move files *after* they have been
+          installed by autohell in one strike than for each Alliance tool.
+  + Change: In MIPS/asm rename *.ext.orig files into *-orig.ext file to
+      avoid confusing the Debian automatic patch system (quilt).
+
+- Minor bugs fix (seems to shows only under recent Ubuntu for now).
+  + Bug: In OCP, missing include <string.h> in various files.
+  + Bug: In expy, bvl, missing include of the "y.tab.h" in the parser file.
+  + Bug: In sea, duplicated lineno declaration in DEF parser.
+
+- Cells, for compliance with the Coriolis2 router Kite.
+  + Change: In ramlib, obstacles must not overlap terminals.
+  + Change: In pxlib, to prevent Kite from routing over the pads, add a
+     "barrier" of blockages that leaves only one notch for the incomming
+     terminals.
+       In clock pads, output terminals of cko where no longer connected
+     to the output of transistors (how can that happens??), reconnecteds now.
+
+--------------------------------------------------------------------------------
 ALLIANCE revision 5.0 (2004/09/09)
 
 - Many Bugs fix in Loon and Boog, Graal, etc ...

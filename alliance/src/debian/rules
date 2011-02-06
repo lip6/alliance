@@ -1,0 +1,40 @@
+#!/usr/bin/make -f
+# -*- makefile -*-
+# Sample debian/rules that uses debhelper.
+# This file was originally written by Joey Hess and Craig Small.
+# As a special exception, when this file is copied by dh-make into a
+# dh-make output file, you may use that output file without restriction.
+# This special exception was added by Craig Small in version 0.37 of dh-make.
+
+# Uncomment this to turn on verbose mode.
+export DH_VERBOSE=1
+
+%:
+	dh  $@ --with python-central
+
+
+override_dh_auto_install:
+	dh_auto_install
+	destdir="`pwd`/debian/alliance"; \
+	prefix="/usr"; \
+	sharedir="$${prefix}/share"; \
+	alliancesharedir="$${sharedir}/alliance"; \
+	celldir="$${alliancesharedir}/cell"; \
+	docdir="$${sharedir}/doc/alliance"; \
+	examplesdir="$${docdir}/examples"; \
+	echo "destdir=$${destdir}"; \
+	if [ ! -d "$${destdir}/etc/alliance" ]; then mkdir -p "$${destdir}/etc/alliance"; fi; \
+	mv $${destdir}$${prefix}/etc/* $${destdir}/etc/alliance; \
+	mv $${destdir}/etc/profile.d/* $${destdir}/etc/alliance; \
+	rmdir $${destdir}$${prefix}/etc; \
+	rmdir $${destdir}/etc/profile.d; \
+	if [ ! -d "$${destdir}$${alliancesharedir}" ]; then mkdir -p "$${destdir}$${alliancesharedir}"; fi; \
+	mv $${destdir}$${prefix}/cells $${destdir}$${alliancesharedir}; \
+	if [ ! -d "$${destdir}$${examplesdir}" ]; then mkdir -p "$${destdir}$${examplesdir}"; fi; \
+	mv "$${destdir}$${prefix}/examples/alliance-examples/"* "$${destdir}$${examplesdir}"; \
+	rmdir "$${destdir}$${prefix}/examples/alliance-examples"; \
+	rmdir "$${destdir}$${prefix}/examples"; \
+	mv "$${destdir}$${prefix}/tutorials" "$${destdir}$${docdir}"; \
+	mv "$${destdir}$${prefix}/doc/"* "$${destdir}$${docdir}"; \
+	rmdir "$${destdir}$${prefix}/doc"; \
+	mv "$${destdir}$${prefix}/share/man/man3/log.3" "$${destdir}$${prefix}/share/man/man3/alc_log.3"
