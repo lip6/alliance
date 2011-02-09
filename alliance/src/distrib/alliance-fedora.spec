@@ -1,10 +1,10 @@
 %define        prefix    %{_libdir}/%{name}
-%define        snapshot  20090901
+%define        snapshot  20110203
 %define        _default_patch_fuzz  2
 
 Name:          alliance
 Version:       5.0
-Release:       30.%{snapshot}snap%{?dist}
+Release:       1.%{snapshot}snap%{?dist}
 Summary:       VLSI EDA System
 
 License:       GPLv2
@@ -13,51 +13,16 @@ Group:         Applications/Engineering
 Source:        http://www-asim.lip6.fr/pub/alliance/distribution/5.0/%{name}-%{version}-%{snapshot}.tar.gz
 URL:           http://www-asim.lip6.fr/recherche/alliance/
 
-Patch0:        alliance-env.patch
-Patch1:        alliance-run.patch
-Patch2:        alliance-perms.patch
 
-# Improving autogeneration of documentation
-Patch3:        alliance-tutorials-place_n_route.patch
-Patch4:        alliance-tutorials-simulation.patch
-Patch5:        alliance-tutorials-start.patch
-Patch6:        alliance-tutorials-synthesis.patch
-Patch7:        alliance-tutorials-amd2901.patch
-
-# Improving examples
-Patch8:        alliance-examples.patch
-Patch9:        alliance-examples-adm2901.patch
-Patch10:       alliance-examples-mipsR3000.patch
-
-# upstream enhancements
-Patch11:       alliance-xgra.patch
-
-# Fixes warning: format '%%d' expects type 'int', but argument N has type 'long int'
-Patch12:       alliance-xgra-xgrerror-ld.patch
-
-Source1:       xsch.desktop
-Source2:       dreal.desktop
-Source3:       xpat.desktop
-Source4:       xfsm.desktop
-Source5:       xvpn.desktop
-Source6:       graal.desktop
-Source7:       xgra.desktop
-
-Source8:       alliance.fedora
+Source1:       alliance.fedora
 
 # Chitlesh's donated pictures to alliance
-Source9:       graal.png
-Source10:      dreal.png
-Source11:      xvpn.png
-Source12:      xfsm.png
-Source13:      xpat.png
-Source14:      xsch.png
-Source15:      xgra.png
+# included asfrom snapshot 20090901
 
-Source16:      alliance-tutorials-go-all.sh
-Source17:      alliance-tutorials-go-all-clean.sh
-Source18:      alliance-examples-go-all.sh
-Source19:      alliance-examples-go-all-clean.sh
+Source2:       alliance-tutorials-go-all.sh
+Source3:       alliance-tutorials-go-all-clean.sh
+Source4:       alliance-examples-go-all.sh
+Source5:       alliance-examples-go-all-clean.sh
 
 BuildRoot:     %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 BuildRequires: libXt-devel byacc desktop-file-utils bison
@@ -72,7 +37,7 @@ BuildRequires: lesstif-devel
 %endif
 
 Requires:      xorg-x11-fonts-misc
-# 442379
+# RHBZ 442379
 Requires(post): %{name}-libs = %{version}-%{release}
 
 %description
@@ -113,7 +78,9 @@ Alliance provides CAD tools covering most of all the digital design flow:
 Summary:      Alliance VLSI CAD Sytem - multilibs
 Group:        Applications/Engineering
 Requires:     %{name} = %{version}-%{release}
+%if ! 0%{?rhel}
 Requires:     electronics-menu
+%endif
 
 
 %description libs
@@ -137,31 +104,18 @@ Documentation and tutorials for the Alliance VLSI CAD Sytem.
 %setup -q
 %{__rm} -rf autom4te.cache
 
-%{__cp} -p %{SOURCE1} %{SOURCE2} %{SOURCE3} %{SOURCE4} %{SOURCE5} %{SOURCE6} %{SOURCE7} %{SOURCE8} .
-sed -i "s|ALLIANCE_TOP|%{prefix}|" *.desktop
+%{__cp} -p %{SOURCE1} .
+sed -i "s|ALLIANCE_TOP|%{prefix}|" distrib/*.desktop
 
 # removed useless copyrighted (by Cadence) lines from the examples
 # and even in alliance-run
 # https://www-asim.lip6.fr/wws/arc/alliance-users/2007-07/msg00006.html
 
-%patch11 -p1 -b .xgra-makefile.am
-%patch12 -p0 -b .xgra-long
-
-
-%patch0 -p0 -b .env
-%patch1 -p0 -b .run
-%patch2 -p0 -b .perms
-
-
 # ------------------------------------------------------------------------------
 # Description : 2008 March : TexLive introduction to Rawhide
+sed -i "s|tutorials||" documentation/Makefile.am
 sed -i "s|tutorials||" documentation/Makefile.in
 sed -i "s|documentation/tutorials/Makefile||" configure*
-%patch3 -p1 -b .doc
-%patch4 -p1 -b .doc
-%patch5 -p1 -b .doc
-%patch6 -p1 -b .doc
-%patch7 -p0 -b .doc
 pushd documentation/tutorials
     # clean unneccessary files
     %{__rm} Makefile*
@@ -175,8 +129,8 @@ pushd documentation/tutorials
         %{__rm} -rf $folder
     done
     # Add automated scripts to tutorials
-    %{__install} -pm 755 %{SOURCE16} go-all.sh
-    %{__install} -pm 755 %{SOURCE17} go-all-clean.sh
+    %{__install} -pm 755 %{SOURCE2} go-all.sh
+    %{__install} -pm 755 %{SOURCE3} go-all-clean.sh
     # Fedora Electronic Lab self test for alliance
     #./go-all.sh 2>&1 | tee self-test-tutorials.log
     # clean temporary files
@@ -184,13 +138,9 @@ pushd documentation/tutorials
 popd
 # ------------------------------------------------------------------------------
 
-%patch8  -p0 -b .examples
-%patch9  -p1 -b .examples
-%patch10 -p1 -b .examples
-
 # fixing flex and bison update on rawhide
-sed -i '30i\#include \"string.h\"' ocp/src/placer/Ocp.cpp ocp/src/placer/PPlacement.h
-sed -i '18i\#include \"bvl_bcomp_y.h\"' bvl/src/bvl_bcomp_y.y
+#sed -i '30i\#include \"string.h\"' ocp/src/placer/Ocp.cpp ocp/src/placer/PPlacement.h
+#sed -i '18i\#include \"bvl_bcomp_y.h\"' bvl/src/bvl_bcomp_y.y
 
 # make sure the man pages are UTF-8...
 for nonUTF8 in FAQ README LICENCE distrib/doc/alc_origin.1 alcban/man1/alcbanner.1 \
@@ -211,21 +161,31 @@ done
 sed -i 's/\r//' mipsR3000/asm/*
 popd
 
-# Fix xgra build 
-sed -i "s|AM_CFLAGS =|AM_CFLAGS = -I../../mbk/src -I../../aut/src/|g" xgra/src/Makefile*
-sed -i "s|xgra_LDADD =|xgra_LDADD = -L../../mbk/src -L../../aut/src/|g" xgra/src/Makefile*
-
+find documentation/tutorials/ \
+    -name *.vbe  -o \
+    -name *.pat  -o \
+    -name *.vhdl -o \
+    -name *.vst  -o \
+    -name *.c \
+    -exec chmod 0644 {} ';'
+    
 %build
 
 export ALLIANCE_TOP=%{prefix}
 
-%configure --prefix=%{prefix}             \
-           --enable-alc-shared            \
-           --disable-static               \
-           --includedir=%{prefix}/include \
-           --libdir=%{prefix}/lib         \
-           --bindir=%{prefix}/bin         \
-           --mandir=%{_datadir}/%{name}/man         #252941
+aclocal -I .
+libtoolize --force --copy
+automake --add-missing --foreign
+autoconf
+
+./configure --target=%{_target_platform}   \
+            --prefix=%{prefix}             \
+            --enable-alc-shared            \
+            --disable-static               \
+            --includedir=%{prefix}/include \
+            --libdir=%{prefix}/lib         \
+            --bindir=%{prefix}/bin         \
+            --mandir=%{_datadir}/%{name}/man         # RHBZ 252941
 
 # disabling rpath
 sed -i 's|^hardcode_libdir_flag_spec="\\${wl}--rpath \\${wl}\\$libdir"|hardcode_libdir_flag_spec=""|g' libtool
@@ -244,7 +204,6 @@ sed -i -e 's! -shared ! -Wl,--as-needed\0!g' libtool
 
 %{__make} INSTALL="install -p" DESTDIR=%{buildroot} install
 
-
 # Set execution rights on the alc_env.* batchs and adjust ALLIANCE_TOP.
 pushd %{buildroot}%{_sysconfdir}/profile.d
   chmod 0644 alc_env.*
@@ -262,8 +221,8 @@ popd
 %{__rm} -rf %{buildroot}%{prefix}/examples/
 
 # Add automated scripts to examples
-%{__install} -pm 755 %{SOURCE18} alliance-examples/go-all.sh
-%{__install} -pm 755 %{SOURCE19} alliance-examples/go-all-clean.sh
+%{__install} -pm 755 %{SOURCE4} alliance-examples/go-all.sh
+%{__install} -pm 755 %{SOURCE5} alliance-examples/go-all-clean.sh
 
 pushd alliance-examples/
     # FEL self test for alliance
@@ -277,13 +236,13 @@ find %{buildroot} -name '*.la' -exec rm -f {} ';'
 
 # Adding icons for the menus
 %{__mkdir} -p %{buildroot}%{_datadir}/icons/hicolor/48x48/apps/
-%{__cp} -p %{SOURCE9} %{SOURCE10} %{SOURCE11} %{SOURCE12} %{SOURCE13} %{SOURCE14} %{SOURCE15} \
+%{__cp} -p distrib/*.png \
     %{buildroot}%{_datadir}/icons/hicolor/48x48/apps/
 
 
 # desktop files with enhanced menu from electronics-menu now on Fedora
 # thanks Peter Brett
-for desktopfile in *.desktop; do
+for desktopfile in distrib/*.desktop; do
 desktop-file-install --vendor "" \
   --dir %{buildroot}%{_datadir}/applications/ \
   $desktopfile
@@ -291,13 +250,12 @@ done
 
 
 # Architecture independent files
-%{__mv} %{buildroot}%{prefix}/cells %{buildroot}%{_datadir}/%{name}/
-%{__mv} %{buildroot}%{prefix}/etc   %{buildroot}%{_datadir}/%{name}/
+%{__mv} %{buildroot}%{prefix}/cells           %{buildroot}%{_datadir}/%{name}/
+%{__mv} %{buildroot}%{prefix}%{_sysconfdir}/* %{buildroot}%{_sysconfdir}/%{name}
+rmdir   %{buildroot}%{prefix}%{_sysconfdir}
 
 
 # protecting hardcoded links
-ln -sf ../../..%{_datadir}/%{name}/cells %{buildroot}%{prefix}/cells
-ln -sf ../../..%{_datadir}/%{name}/etc   %{buildroot}%{prefix}/etc
 ln -sf ../../..%{_datadir}/%{name}/man   %{buildroot}%{prefix}/man
 
 
@@ -314,8 +272,7 @@ EOF
 
 # removing tools for compiling and installing Alliance tools
 # These are for the packager (i.e me) and not for user
-%{__rm} -f %{buildroot}%{_sysconfdir}/%{name}/attila.conf
-%{__rm} -f %{buildroot}%{prefix}/etc/attila.conf
+%{__rm} -f %{buildroot}%{_sysconfdir}/attila.conf
 %{__rm} -f %{buildroot}%{prefix}/bin/attila
 %{__rm} -f %{buildroot}%{_datadir}/man/man1/attila*
 %{__rm} -f doc/html/alliance/*attila.html
@@ -325,6 +282,7 @@ EOF
 sed -i "s|/bin/zsh|/bin/sh|" doc/alliance-run/bench.zsh
 
 %{_fixperms} %{buildroot}/*
+
 
 
 %post
@@ -349,8 +307,8 @@ touch --no-create %{_datadir}/icons/hicolor || :
 
 
 %files
-%doc CHANGES LICENCE COPYING* FAQ alliance.fedora
 %defattr(-,root,root,-)
+%doc CHANGES LICENCE COPYING* FAQ alliance.fedora
 %{prefix}/
 %{_datadir}/%{name}/
 %{_datadir}/icons/hicolor/48x48/apps/*
@@ -359,6 +317,7 @@ touch --no-create %{_datadir}/icons/hicolor || :
 %files libs
 %defattr(-,root,root,-)
 %config(noreplace) %{_sysconfdir}/ld.so.conf.d/*
+%config(noreplace) %{_sysconfdir}/%{name}/*
 %{_datadir}/applications/*.desktop
 %config(noreplace) %{_sysconfdir}/profile.d/alc_env.*
 
@@ -381,6 +340,10 @@ touch --no-create %{_datadir}/icons/hicolor || :
 
 
 %changelog
+* Wed Sep 02 2009 Chitlesh Goorah <chitlesh [AT] fedoraproject DOT org> - 5.0-31.20090901snap
+- updated to upstream's 20090901 snapshot
+- Removed all patches which are accepted by upstream
+
 * Thu Aug 27 2009 Chitlesh Goorah <chitlesh [AT] fedoraproject DOT org> - 5.0-30.20090827snap
 - updated to upstream's 20090828 snapshot
 - merged patches with upstream's snapshot: 64 bits stability patches and upstream enhancements
