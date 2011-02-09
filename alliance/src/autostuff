@@ -1,5 +1,8 @@
 #!/bin/sh
 #$Log: autostuff,v $
+#Revision 1.13  2011/02/09 22:48:53  jpc
+#Replace AC_PROG_RANLIB by AC_PROG_LIBTOOL.
+#
 #Revision 1.12  2005/04/15 08:38:29  alliance
 #
 #* alliance/src/ : porting under Darwin/MacOS X
@@ -106,7 +109,7 @@ echo "AC_PROG_CPP"                           >> configure.in
 echo "AC_PROG_CXX"                           >> configure.in
 echo "AC_PROG_INSTALL"                       >> configure.in
 echo "AC_PROG_MAKE_SET"                      >> configure.in
-echo "AC_PROG_RANLIB"                        >> configure.in
+echo "AC_PROG_LIBTOOL"                       >> configure.in
 echo "AC_PROG_YACC"                          >> configure.in
 echo "AC_TYPE_SIGNAL"                        >> configure.in
 

@@ -250,9 +250,11 @@ done
 
 
 # Architecture independent files
+%{__mv} %{buildroot}%{prefix}/bin             %{buildroot}%{_bindir}
 %{__mv} %{buildroot}%{prefix}/cells           %{buildroot}%{_datadir}/%{name}/
 %{__mv} %{buildroot}%{prefix}%{_sysconfdir}/* %{buildroot}%{_sysconfdir}/%{name}
 rmdir   %{buildroot}%{prefix}%{_sysconfdir}
+rmdir   %{buildroot}%{prefix}/bin
 
 
 # protecting hardcoded links
@@ -310,6 +312,7 @@ touch --no-create %{_datadir}/icons/hicolor || :
 %defattr(-,root,root,-)
 %doc CHANGES LICENCE COPYING* FAQ alliance.fedora
 %{prefix}/
+%{_bindir}/*
 %{_datadir}/%{name}/
 %{_datadir}/icons/hicolor/48x48/apps/*
 
