@@ -1,4 +1,4 @@
-AC_DEFUN(AM_ALLIANCE,[
+AC_DEFUN([AM_ALLIANCE],[
   AC_REQUIRE([AC_PROG_LIBTOOL])
   AC_ARG_WITH(alliance-top,
     [  --with-alliance-top=ALLIANCE_TOP 

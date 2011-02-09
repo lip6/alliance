@@ -7,7 +7,7 @@ dnl put Xpm library directory in xpm_libraries,
 dnl and add appropriate flags to X_CFLAGS and X_LIBS.
 dnl
 dnl
-AC_DEFUN(AC_FIND_XPM,
+AC_DEFUN([AC_FIND_XPM],
 [
 AC_REQUIRE([AC_PATH_XTRA])
 xpm_includes=
