@@ -13,11 +13,23 @@ export DH_VERBOSE=1
 	dh  $@ --with python-central
 
 
+override_dh_auto_configure:
+	dh_auto_configure -- --enable-alc-shared --disable-static
+
+
+override_dh_makeshlibs:
+	dh_makeshlibs
+	ldsoconfdir="/etc/ld.so.conf.d"; \
+	allianceldsoconf="$${ldsoconfdir}/alliance.conf"; \
+	echo "# Alliance VLSI design system" > $${allianceldsoconf}; \
+	echo "/usr/lib/alliance/lib"         > $${allianceldsoconf};
+
+
 override_dh_auto_install:
 	dh_auto_install
 	destdir="`pwd`/debian/alliance"; \
-	prefix="/usr"; \
-	sharedir="$${prefix}/share"; \
+	prefix="/usr/lib/alliance"; \
+	sharedir="/usr/share"; \
 	alliancesharedir="$${sharedir}/alliance"; \
 	celldir="$${alliancesharedir}/cell"; \
 	docdir="$${sharedir}/doc/alliance"; \

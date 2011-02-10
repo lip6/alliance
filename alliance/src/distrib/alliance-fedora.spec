@@ -205,8 +205,8 @@ sed -i -e 's! -shared ! -Wl,--as-needed\0!g' libtool
 pushd %{buildroot}%{_sysconfdir}/profile.d
   chmod 0644 alc_env.*
   sed -i "s|@DATE@|`date`|" alc_env*
-  sed "s|ALLIANCE_TOP *= *\([^;]*\)|ALLIANCE_TOP=%{_prefix}|" alc_env.sh
-  sed "s|setenv *ALLIANCE_TOP *\([^;]*\)|setenv ALLIANCE_TOP %{_prefix}|" alc_env.csh
+  sed -i "s|ALLIANCE_TOP *= *\([^;]*\)|ALLIANCE_TOP=%{prefix}|" alc_env.sh
+  sed -i "s|setenv *ALLIANCE_TOP *\([^;]*\)|setenv ALLIANCE_TOP %{prefix}|" alc_env.csh
 popd
 
 

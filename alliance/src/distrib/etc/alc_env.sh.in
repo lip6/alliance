@@ -7,7 +7,7 @@
 #  Alliance CAD system environnement
 #  Usage (in Bourne-shell) : > . alc_env.sh
 #  (C) 1997 Czo  -- <Olivier.Sirol@lip6.fr>
-#  $Id: alc_env.sh.in,v 1.12 2011/02/10 11:44:53 jpc Exp $
+#  $Id: alc_env.sh.in,v 1.13 2011/02/10 13:36:58 jpc Exp $
 #  Generated from alc_env.sh.in on @DATE@
 
 # $ALLIANCE_OS and $ALLIANCE_TOP are the only variables you will
@@ -23,7 +23,7 @@
         ALLIANCE_TOP=@prefix@;                       export ALLIANCE_TOP
          SYSCONF_TOP=$ALLIANCE_TOP
            CELLS_TOP=$ALLIANCE_TOP
- if [ "$ALLIANCE_TOP" = "/usr" ]; then
+ if [ "$ALLIANCE_TOP" = "/usr/lib/alliance" ]; then
   # FHS Installation.
          SYSCONF_TOP="/etc/alliance"
            CELLS_TOP="/usr/share/alliance/cells"
@@ -77,7 +77,7 @@
 
 
 # System PATH variables, only needed when not installed in the FHS.
- if [ "$ALLIANCE_TOP" != "/usr" ]; then
+ if [ "$ALLIANCE_TOP" != "/usr/lib/alliance" ]; then
    PATH=$PATH:$ALLIANCE_TOP/bin
    export PATH
   
