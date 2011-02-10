@@ -138,10 +138,6 @@ pushd documentation/tutorials
 popd
 # ------------------------------------------------------------------------------
 
-# fixing flex and bison update on rawhide
-#sed -i '30i\#include \"string.h\"' ocp/src/placer/Ocp.cpp ocp/src/placer/PPlacement.h
-#sed -i '18i\#include \"bvl_bcomp_y.h\"' bvl/src/bvl_bcomp_y.y
-
 # make sure the man pages are UTF-8...
 for nonUTF8 in FAQ README LICENCE distrib/doc/alc_origin.1 alcban/man1/alcbanner.1 \
                loon/doc/loon.1 m2e/doc/man1/m2e.1 boog/doc/boog.1 ; do
@@ -173,6 +169,7 @@ find documentation/tutorials/ \
 
 export ALLIANCE_TOP=%{prefix}
 
+# must run autotools before it does itself and fail
 aclocal -I .
 libtoolize --force --copy
 automake --add-missing --foreign
@@ -208,8 +205,8 @@ sed -i -e 's! -shared ! -Wl,--as-needed\0!g' libtool
 pushd %{buildroot}%{_sysconfdir}/profile.d
   chmod 0644 alc_env.*
   sed -i "s|@DATE@|`date`|" alc_env*
-  sed "s|ALLIANCE_TOP *= *\([^;]*\)|ALLIANCE_TOP=%{prefix}|" alc_env.sh
-  sed "s|setenv *ALLIANCE_TOP *\([^;]*\)|setenv ALLIANCE_TOP %{prefix}|" alc_env.csh
+  sed "s|ALLIANCE_TOP *= *\([^;]*\)|ALLIANCE_TOP=%{_prefix}|" alc_env.sh
+  sed "s|setenv *ALLIANCE_TOP *\([^;]*\)|setenv ALLIANCE_TOP %{_prefix}|" alc_env.csh
 popd
 
 
@@ -236,8 +233,7 @@ find %{buildroot} -name '*.la' -exec rm -f {} ';'
 
 # Adding icons for the menus
 %{__mkdir} -p %{buildroot}%{_datadir}/icons/hicolor/48x48/apps/
-%{__cp} -p distrib/*.png \
-    %{buildroot}%{_datadir}/icons/hicolor/48x48/apps/
+%{__cp} -p distrib/*.png %{buildroot}%{_datadir}/icons/hicolor/48x48/apps/
 
 
 # desktop files with enhanced menu from electronics-menu now on Fedora
@@ -250,7 +246,9 @@ done
 
 
 # Architecture independent files
-%{__mv} %{buildroot}%{prefix}/bin             %{buildroot}%{_bindir}
+%{__mkdir} -p %{buildroot}%{_sysconfdir}/%{name}
+%{__mkdir} -p %{buildroot}%{_bindir}
+%{__mv} %{buildroot}%{prefix}/bin/*           %{buildroot}%{_bindir}
 %{__mv} %{buildroot}%{prefix}/cells           %{buildroot}%{_datadir}/%{name}/
 %{__mv} %{buildroot}%{prefix}%{_sysconfdir}/* %{buildroot}%{_sysconfdir}/%{name}
 rmdir   %{buildroot}%{prefix}%{_sysconfdir}

@@ -12,9 +12,11 @@
  STANDART_PATH = PATH=$(STANDART_BIN); export PATH
 
 # Standart Alliance binary access paths.
- ALLIANCE_BIN  = $(ALLIANCE_TOP)/bin
- 
-ALLIANCE_EXAMPLES=/usr/share/doc/alliance-doc-5.0/alliance-examples
+ ALLIANCE_BIN  = /usr/bin
+ SYSCONF_TOP   = /etc/alliance
+ CELLS_TOP     = /usr/share/alliance/cells
+
+ ALLIANCE_EXAMPLES = /usr/share/doc/alliance-doc-5.0/alliance-examples
 
 # --------------------------------------------------------------------
 # Standarts binaries.
@@ -37,13 +39,13 @@ ALLIANCE_EXAMPLES=/usr/share/doc/alliance-doc-5.0/alliance-examples
  EXTRACT_PH   = ap
  GENERAT_SP   = .
  EXTRACT_SP   = .
-    CATA_LIB0 = $(ALLIANCE_TOP)/cells/sxlib
-    CATA_LIB1 = $(ALLIANCE_TOP)/cells/dp_sxlib
-    CATA_LIB2 = $(ALLIANCE_TOP)/cells/padlib
+    CATA_LIB0 = $(CELLS_TOP)/sxlib
+    CATA_LIB1 = $(CELLS_TOP)/dp_sxlib
+    CATA_LIB2 = $(CELLS_TOP)/padlib
     CATA_LIB  = .:$(CATA_LIB0):$(CATA_LIB1):$(CATA_LIB2)
-   TARGET_LIB = $(MBK_TARGET_LIB)
-   RDS_TECHNO = $(ALLIANCE_TOP)/etc/cmos.rds
-   GRAAL_TECHNO = $(ALLIANCE_TOP)/etc/cmos.graal
+   TARGET_LIB = $(CATA_LIB0)
+   RDS_TECHNO = $(SYSCONF_TOP)/cmos.rds
+ GRAAL_TECHNO = $(SYSCONF_TOP)/cmos.graal
 
 
  MBK_GENERAT_ENV = MBK_TARGET_LIB=$(TARGET_LIB);  export MBK_TARGET_LIB;    \
@@ -80,9 +82,9 @@ ALLIANCE_EXAMPLES=/usr/share/doc/alliance-doc-5.0/alliance-examples
 # --------------------------------------------------------------------
 # Alliance binaries & environment.
 
-     BOOM = $(ALLIANCE_BIN)/boom -V
-     BOOG = $(ALLIANCE_BIN)/boog 
-     LOON = $(ALLIANCE_BIN)/loon
+     BOOM = $(MBK_GENERAT_ENV); $(ALLIANCE_BIN)/boom -V
+     BOOG = $(MBK_GENERAT_ENV); $(ALLIANCE_BIN)/boog 
+     LOON = $(MBK_GENERAT_ENV); $(ALLIANCE_BIN)/loon
   ASIMUT1 = $(MBK_GENERAT_ENV); $(ALLIANCE_BIN)/asimut
   ASIMUT2 = $(MBK_EXTRACT_ENV); $(ALLIANCE_BIN)/asimut
    COUGAR = $(ALLIANCE_BIN)/cougar
