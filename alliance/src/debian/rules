@@ -14,15 +14,17 @@ export DH_VERBOSE=1
 
 
 override_dh_auto_configure:
-	dh_auto_configure -- --enable-alc-shared --disable-static
+	./configure --prefix=/usr/lib/alliance --enable-alc-shared --disable-static
 
 
 override_dh_makeshlibs:
 	dh_makeshlibs
-	ldsoconfdir="/etc/ld.so.conf.d"; \
+	destdir="`pwd`/debian/alliance"; \
+	ldsoconfdir="$${destdir}/etc/ld.so.conf.d"; \
 	allianceldsoconf="$${ldsoconfdir}/alliance.conf"; \
-	echo "# Alliance VLSI design system" > $${allianceldsoconf}; \
-	echo "/usr/lib/alliance/lib"         > $${allianceldsoconf};
+	if [ ! -d "$${ldsoconfdir}" ]; then mkdir -p "$${ldsoconfdir}"; fi; \
+	echo "# Alliance VLSI design system" >  $${allianceldsoconf}; \
+	echo "/usr/lib/alliance/lib"         >> $${allianceldsoconf};
 
 
 override_dh_auto_install:
@@ -33,6 +35,8 @@ override_dh_auto_install:
 	alliancesharedir="$${sharedir}/alliance"; \
 	celldir="$${alliancesharedir}/cell"; \
 	docdir="$${sharedir}/doc/alliance"; \
+	mandir="$${sharedir}/man"; \
+	bindir="/usr/bin"; \
 	examplesdir="$${docdir}/examples"; \
 	echo "destdir=$${destdir}"; \
 	if [ ! -d "$${destdir}/etc/alliance" ]; then mkdir -p "$${destdir}/etc/alliance"; fi; \
@@ -49,4 +53,11 @@ override_dh_auto_install:
 	mv "$${destdir}$${prefix}/tutorials" "$${destdir}$${docdir}"; \
 	mv "$${destdir}$${prefix}/doc/"* "$${destdir}$${docdir}"; \
 	rmdir "$${destdir}$${prefix}/doc"; \
-	mv "$${destdir}$${prefix}/share/man/man3/log.3" "$${destdir}$${prefix}/share/man/man3/alc_log.3"
+	mv "$${destdir}$${prefix}/man/man3/log.3" "$${destdir}$${prefix}/man/man3/alc_log.3"; \
+	if [ ! -d "$${destdir}$${mandir}" ]; then mkdir -p "$${destdir}$${mandir}"; fi; \
+	mv "$${destdir}$${prefix}/man/"* "$${destdir}$${mandir}"; \
+	rmdir "$${destdir}$${prefix}/man"; \
+	if [ ! -d "$${destdir}$${bindir}" ]; then mkdir -p "$${destdir}$${bindir}"; fi; \
+	mv "$${destdir}$${prefix}/bin/"* "$${destdir}$${bindir}"; \
+	rmdir "$${destdir}$${prefix}/bin"; \
+	find $${destdir} -name "attila*" | xargs rm;
