@@ -1,5 +1,8 @@
 #!/bin/sh
 #$Log: autostuff,v $
+#Revision 1.14  2011/09/13 11:39:15  alliance
+#Remove also automake script ylwrap.
+#
 #Revision 1.13  2011/02/09 22:48:53  jpc
 #Replace AC_PROG_RANLIB by AC_PROG_LIBTOOL.
 #
@@ -38,6 +41,7 @@ if  test "$1" = "clean" ; then
    rm -f missing
    rm -f install-sh
    rm -f depcomp
+   rm -f ylwrap
    rm -f distrib/alliance.spec
    exit
 fi 
