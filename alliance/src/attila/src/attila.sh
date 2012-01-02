@@ -1,6 +1,6 @@
 #!/bin/sh
 #
-# $Id: attila.sh,v 1.25 2008/07/15 16:45:28 xtof Exp $
+# $Id: attila.sh,v 1.26 2012/01/02 22:30:19 jpc Exp $
 #                                                                        
 # /------------------------------------------------------------------\
 # |                                                                  |
@@ -14,6 +14,9 @@
 # | **************************************************************** |
 # |  U p d a t e s                                                   |
 # | $Log: attila.sh,v $
+# | Revision 1.26  2012/01/02 22:30:19  jpc
+# | Added support for Scientific Linux 6.
+# |
 # | Revision 1.25  2008/07/15 16:45:28  xtof
 # | do not use Solaris anymore
 # |
@@ -216,6 +219,9 @@
      Linux*el5*)        echo "Linux.SLSoC5x";;
      Linux*SLSoC5*)     echo "Linux.SLSoC5x";;
      Linux*el5*x86_64)  echo "Linux.SLSoC5x_64";;
+     Linux*el6*x86_64)  echo "Linux.slsoc6x_64";;
+     Linux*slsoc6*)     echo "Linux.slsoc6x";;
+     Linux*el6*)        echo "Linux.slsoc6x";;
      Linux*i686*)       echo "Linux.i686";;
      SunOS\ 5*)         echo "Solaris";;
      Darwin*)           echo "Darwin";;
@@ -232,6 +238,16 @@
  guess_gcc ()
  {
    case "$1" in
+     "Linux.slsoc6x")    if which gcc > /dev/null 2>&1; then
+                           CXX=$LINUX_slsoc6x_CXX
+                            CC=$LINUX_slsoc6x_CC
+                         fi
+                         ;;
+     "Linux.slsoc6x_64") if which gcc > /dev/null 2>&1; then
+                           CXX=$LINUX_slsoc6x_64_CXX
+                            CC=$LINUX_slsoc6x_64_CC
+                         fi
+                         ;;
      "Linux.SLSoC5x")    if which gcc > /dev/null 2>&1; then
                            CXX=$LINUX_SLSoC5x_CXX
                             CC=$LINUX_SLSoC5x_CC
@@ -479,6 +495,8 @@
    echo "  o  Compilation environment."
 
    case "$ALLIANCE_OS" in
+     "Linux.slsoc6x_64")  MAKE="make";;
+     "Linux.slsoc6x")     MAKE="make";;
      "Linux.SLSoC5x_64")  MAKE="make";;
      "Linux.SLSoC5x")     MAKE="make";;
      "Linux.SLA4x")       MAKE="make";;
@@ -592,7 +610,12 @@
        echo "     - Adding dynamic link support for ASIM install"
        ARGS_CONFIGURE="$ARGS_CONFIGURE --enable-alc-shared"
      fi
-     $SRC_DIR/$TOOL/configure --prefix=$INSTALL_DIR $ARGS_CONFIGURE
+     ARGS_CONFIGURE="$ARGS_CONFIGURE --enable-alc-shared --disable-static"
+     $SRC_DIR/$TOOL/configure --prefix=$INSTALL_DIR \
+                                CFLAGS="-I$ALLIANCE_TOP/include" \
+                              CXXFLAGS="-I$ALLIANCE_TOP/include" \
+                               LDFLAGS="-L$ALLIANCE_TOP/lib" \
+                              --enable-alc-shared
      $MAKE prefix=$INSTALL_DIR $ARGS_MAKE
 
      cd ..
@@ -622,6 +645,14 @@
 
 
    CVS_STARTUP_FILES=""
+
+  LINUX_slsoc6x_64_TARGET="coriolis"
+      LINUX_slsoc6x_64_CC="gcc"
+     LINUX_slsoc6x_64_CXX="g++"
+
+     LINUX_slsoc6x_TARGET="yo35"
+         LINUX_slsoc6x_CC="gcc"
+        LINUX_slsoc6x_CXX="g++"
 
   LINUX_SLSoC5x_64_TARGET="coriolis"
       LINUX_SLSoC5x_64_CC="gcc"
