@@ -1,6 +1,6 @@
 #!/bin/sh
 #
-# $Id: attila.sh,v 1.26 2012/01/02 22:30:19 jpc Exp $
+# $Id: attila.sh,v 1.27 2012/04/11 13:30:29 alliance Exp $
 #                                                                        
 # /------------------------------------------------------------------\
 # |                                                                  |
@@ -14,6 +14,9 @@
 # | **************************************************************** |
 # |  U p d a t e s                                                   |
 # | $Log: attila.sh,v $
+# | Revision 1.27  2012/04/11 13:30:29  alliance
+# | Small adjustments.
+# |
 # | Revision 1.26  2012/01/02 22:30:19  jpc
 # | Added support for Scientific Linux 6.
 # |
@@ -216,6 +219,7 @@
      Linux*EL*i686*)    echo "Linux.SLA4x";;
      Linux*EL*x86_64*)  echo "Linux.SLA4x_64";;
      Linux*2.6.16*FC5*) echo "Linux.SLA4x";;
+     Linux*el5*x86_64)  echo "Linux.SLSoC5x_64";;
      Linux*el5*)        echo "Linux.SLSoC5x";;
      Linux*SLSoC5*)     echo "Linux.SLSoC5x";;
      Linux*el5*x86_64)  echo "Linux.SLSoC5x_64";;
@@ -612,6 +616,7 @@
      fi
      ARGS_CONFIGURE="$ARGS_CONFIGURE --enable-alc-shared --disable-static"
      $SRC_DIR/$TOOL/configure --prefix=$INSTALL_DIR \
+                              --mandir=$INSTALL_DIR/man \
                                 CFLAGS="-I$ALLIANCE_TOP/include" \
                               CXXFLAGS="-I$ALLIANCE_TOP/include" \
                                LDFLAGS="-L$ALLIANCE_TOP/lib" \
@@ -658,7 +663,7 @@
       LINUX_SLSoC5x_64_CC="gcc"
      LINUX_SLASoC5_64_CXX="g++"
 
-     LINUX_SLSoC5x_TARGET="bip"
+     LINUX_SLSoC5x_TARGET="stixo"
          LINUX_SLSoC5x_CC="gcc"
         LINUX_SLASoC5_CXX="g++"
 
@@ -687,7 +692,7 @@
 # Internal variables.
 
 
-             ALL_OSS="Linux.SLSoC5x Linux.SLA4x Solaris"
+             ALL_OSS="Linux.SLSoC5x_64 Linux.SLSoC5x Linux.SLA4x Solaris"
                   CC=gcc
                  CXX=g++
               export CC CXX
@@ -865,9 +870,9 @@
    ENVIRONMENT=""
    ENVIRONMENT="$ENVIRONMENT ALLIANCE_TOP=$ALLIANCE_TOP; export ALLIANCE_TOP;"
 
-  #$RSH $LINUX_SLSoC5x_64_TARGET "/bin/bash -c \"$ENVIRONMENT $SELF $ARGS\""
    $RSH $LINUX_SLSoC5x_TARGET    "/bin/bash -c \"$ENVIRONMENT $SELF $ARGS\""
-   $RSH $LINUX_SLA4x_TARGET      "/bin/bash -c \"$ENVIRONMENT $SELF $ARGS\""
+   $RSH $LINUX_SLSoC5x_64_TARGET "/bin/bash -c \"$ENVIRONMENT $SELF $ARGS\""
+  #$RSH $LINUX_SLA4x_TARGET      "/bin/bash -c \"$ENVIRONMENT $SELF $ARGS\""
   #$RSH $LINUX_FC2_TARGET        "/bin/bash -c \"$ENVIRONMENT $SELF $ARGS\""
   #$RSH $LINUX_RH71_TARGET       "/bin/bash -c \"$ENVIRONMENT $SELF $ARGS\""
   #$RSH $SOLARIS_TARGET          "/bin/bash -c \". /etc/profile; $ENVIRONMENT $SELF $ARGS\""
