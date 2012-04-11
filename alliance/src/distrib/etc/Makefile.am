@@ -1,6 +1,6 @@
-# $Id: Makefile.am,v 1.5 2009/09/01 21:33:39 jpc Exp $
+# $Id: Makefile.am,v 1.6 2012/04/11 13:31:14 alliance Exp $
 
-etcdir=/etc/profile.d
+etcdir=$(sysconfdir)
 
 etc_SCRIPTS=alc_env.csh alc_env.sh
 

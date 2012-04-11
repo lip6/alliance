@@ -7,7 +7,7 @@
 #  Alliance CAD system environnement
 #  Usage (in C-shell) : > source alc_env.csh
 #  (C) 1997 Czo  -- <Olivier.Sirol@lip6.fr>
-#  $Id: alc_env.csh.in,v 1.14 2011/12/02 17:24:11 alliance Exp $
+#  $Id: alc_env.csh.in,v 1.15 2012/04/11 13:31:14 alliance Exp $
 #  Generated from alc_env.csh.in on @DATE@
 
 # $ALLIANCE_OS and $ALLIANCE_TOP are the only variables you will
@@ -21,7 +21,7 @@
 
 # Where the Alliance CAD is installed
  setenv ALLIANCE_TOP         "@prefix@"
- set    SYSCONF_TOP          "${ALLIANCE_TOP}"
+ set    SYSCONF_TOP          "${ALLIANCE_TOP}/etc"
  set    CELLS_TOP            "${ALLIANCE_TOP}/cells"
  if ( "${ALLIANCE_TOP}" == "/usr/lib/alliance" ) then
 # For installation in the FHS.
