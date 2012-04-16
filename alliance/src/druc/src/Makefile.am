@@ -8,6 +8,7 @@ drucompi.h drucring.c drucring.h drucutil.c drucutil.h vmcaract.c vmcaract.h \
 vmcasmld.c vmcasmld.h vmcerror.c vmcerror.h vmcmesur.c vmcmesur.h vmcrelat.c \
 vmcrelat.h vmctools.c vmctools.h vmcunify.c vmcunify.h
 
+CFLAGS=-g -O0
 libVrd_la_LDFLAGS = -version-info @VRD_DLL_VERSION@
 
 CLEANFILES          = drucompi_l.c drucompi_y.h drucompi_y.c
