@@ -1,0 +1,44 @@
+
+=== License  ===
+Alliance CAD system is distributed under the GNU license v2.
+There is no more or less limitation than the ones defined by the GPL v2.
+
+You are kindly requested to mention
+" Designed with alliance (c) LIP6, Université Pierre et Marie Curie"
+so as to spread the word about "alliance CAD system" and its development team.
+
+
+=== Proper Usage ===
+
+It is recommended to source the alc_env.sh or alc_env.csh before using alliance.
+
+source /etc/profile.d/alc_env.sh
+(for example)
+
+When a user logs in, environment variables on
+/etc/profile.d/alc_env.sh
+are set will be automatically sourced.
+
+
+=== Overview ===
+
+A general overview of Alliance CAD System can be found here:
+/usr/share/doc/alliance-doc-5.0/design-flow/index.html
+(available on the alliance-doc rpm)
+
+=== Tutorials ===
+
+The tutorials can be found at /usr/share/doc/alliance-doc-5.0/tutorials/
+(available on the alliance-doc rpm)
+
+It is recommended to first read /usr/share/doc/alliance-doc-5.0/overview.pdf
+ 1. start.pdf
+ 2. simulation.pdf
+ 3. synthesis.pdf
+ 4. place_and_route.pdf
+
+
+=========================================================================================
+Chitlesh Goorah (chitlesh AT fedoraproject DOT org)
+Alliance development team and other contributors (ASIM/LIP6/UPMC)
+alliance-users AT asim DOT lip6 DOT fr

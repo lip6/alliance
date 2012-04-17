@@ -1,10 +1,10 @@
 %define        prefix    %{_libdir}/%{name}
-%define        snapshot  20110203
+%define        snapshot  20120416
 %define        _default_patch_fuzz  2
 
 Name:          alliance
 Version:       5.0
-Release:       1.%{snapshot}snap%{?dist}
+Release:       32.%{snapshot}snap%{?dist}
 Summary:       VLSI EDA System
 
 License:       GPLv2
@@ -13,16 +13,8 @@ Group:         Applications/Engineering
 Source:        http://www-asim.lip6.fr/pub/alliance/distribution/5.0/%{name}-%{version}-%{snapshot}.tar.gz
 URL:           http://www-asim.lip6.fr/recherche/alliance/
 
-
-Source1:       alliance.fedora
-
 # Chitlesh's donated pictures to alliance
 # included asfrom snapshot 20090901
-
-Source2:       alliance-tutorials-go-all.sh
-Source3:       alliance-tutorials-go-all-clean.sh
-Source4:       alliance-examples-go-all.sh
-Source5:       alliance-examples-go-all-clean.sh
 
 BuildRoot:     %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 BuildRequires: libXt-devel byacc desktop-file-utils bison
@@ -104,7 +96,7 @@ Documentation and tutorials for the Alliance VLSI CAD Sytem.
 %setup -q
 %{__rm} -rf autom4te.cache
 
-%{__cp} -p %{SOURCE1} .
+cp distrib/alliance.fedora .
 sed -i "s|ALLIANCE_TOP|%{prefix}|" distrib/*.desktop
 
 # removed useless copyrighted (by Cadence) lines from the examples
@@ -129,8 +121,8 @@ pushd documentation/tutorials
         %{__rm} -rf $folder
     done
     # Add automated scripts to tutorials
-    %{__install} -pm 755 %{SOURCE2} go-all.sh
-    %{__install} -pm 755 %{SOURCE3} go-all-clean.sh
+    %{__install} -pm 755 ../../distrib/alliance-tutorials-go-all.sh        go-all.sh
+    %{__install} -pm 755 ../../distrib/alliance-tutorials-go-all-clean.sh  go-all-clean.sh
     # Fedora Electronic Lab self test for alliance
     #./go-all.sh 2>&1 | tee self-test-tutorials.log
     # clean temporary files
@@ -182,6 +174,7 @@ autoconf
             --includedir=%{prefix}/include \
             --libdir=%{prefix}/lib         \
             --bindir=%{prefix}/bin         \
+            --sysconfdir=/etc              \
             --mandir=%{_datadir}/%{name}/man         # RHBZ 252941
 
 # disabling rpath
@@ -202,6 +195,8 @@ sed -i -e 's! -shared ! -Wl,--as-needed\0!g' libtool
 %{__make} INSTALL="install -p" DESTDIR=%{buildroot} install
 
 # Set execution rights on the alc_env.* batchs and adjust ALLIANCE_TOP.
+#%{__mkdir_p} %{buildroot}%{_sysconfdir}/profile.d
+#mv %{buildroot}%{prefix}/etc/*.*sh %{buildroot}%{_sysconfdir}/profile.d
 pushd %{buildroot}%{_sysconfdir}/profile.d
   chmod 0644 alc_env.*
   sed -i "s|@DATE@|`date`|" alc_env*
@@ -218,8 +213,8 @@ popd
 %{__rm} -rf %{buildroot}%{prefix}/examples/
 
 # Add automated scripts to examples
-%{__install} -pm 755 %{SOURCE4} alliance-examples/go-all.sh
-%{__install} -pm 755 %{SOURCE5} alliance-examples/go-all-clean.sh
+%{__install} -pm 755 ./distrib/alliance-examples-go-all.sh       alliance-examples/go-all.sh
+%{__install} -pm 755 ./distrib/alliance-examples-go-all-clean.sh alliance-examples/go-all-clean.sh
 
 pushd alliance-examples/
     # FEL self test for alliance
@@ -341,6 +336,10 @@ touch --no-create %{_datadir}/icons/hicolor || :
 
 
 %changelog
+* Tue Apr 17 2012 Jean-Paul Chaput <Jean-Paul DOT Chaput [AT] lip6 DOT fr> - 5.0-32.20120416
+- This snapshot integrates the bug avoidance for druc (uses -O0 and *not* -O2).
+- Merge in the scripts written by Chitlest Goorah (no more extra sources).
+
 * Wed Sep 02 2009 Chitlesh Goorah <chitlesh [AT] fedoraproject DOT org> - 5.0-31.20090901snap
 - updated to upstream's 20090901 snapshot
 - Removed all patches which are accepted by upstream
