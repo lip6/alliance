@@ -1,5 +1,8 @@
 #!/bin/sh
 #$Log: autostuff,v $
+#Revision 1.15  2012/04/17 08:04:27  alliance
+#Removed generation of the old alliance.spec (now uses alliance-fedora.spec).
+#
 #Revision 1.14  2011/09/13 11:39:15  alliance
 #Remove also automake script ylwrap.
 #
@@ -323,7 +326,6 @@ echo "AC_SUBST(TOOLSDIRS)"                   >> configure.in
 echo ""                                      >> configure.in
 echo "AC_OUTPUT(["                           >> configure.in
 echo "Makefile"                              >> configure.in
-echo "distrib/alliance.spec"                 >> configure.in
 echo "distrib/etc/alc_env.sh"                >> configure.in
 echo "distrib/etc/alc_env.csh"               >> configure.in
 for template in $AC_OUTPUT; do
