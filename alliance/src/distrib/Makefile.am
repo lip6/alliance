@@ -1,8 +1,9 @@
-# $Id: Makefile.am,v 1.4 2012/04/17 08:05:13 alliance Exp $
+# $Id: Makefile.am,v 1.5 2012/04/17 09:04:30 alliance Exp $
 
 SUBDIRS = doc etc
 
 EXTRA_DIST = alliance.spec.in alliance-fedora.spec \
+             alliance.fedora \
              alliance-examples-go-all.sh alliance-examples-go-all-clean.sh \
              alliance-tutorials-go-all.sh alliance-tutorials-go-all-clean.sh \
              dreal.png  graal.png  xfsm.png  xgra.png  xpat.png  xsch.png  xvpn.png \
