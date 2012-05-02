@@ -8,7 +8,7 @@ drucompi.h drucring.c drucring.h drucutil.c drucutil.h vmcaract.c vmcaract.h \
 vmcasmld.c vmcasmld.h vmcerror.c vmcerror.h vmcmesur.c vmcmesur.h vmcrelat.c \
 vmcrelat.h vmctools.c vmctools.h vmcunify.c vmcunify.h
 
-CFLAGS=-g -O0
+CFLAGS = $(ALLIANCE_CFLAGS) -g -O0
 libVrd_la_LDFLAGS = -version-info @VRD_DLL_VERSION@
 
 CLEANFILES          = drucompi_l.c drucompi_y.h drucompi_y.c
@@ -24,13 +24,13 @@ bin_PROGRAMS = druc
 AM_CFLAGS = -I$(top_srcdir)/mbk/src -I$(top_srcdir)/rds/src
 
 druc_LDADD = $(ALLIANCE_LIBS) -L. -lVrd \
--L$(top_builddir)/rds/src -lRtl -lRgs \
--L$(top_builddir)/rdscif/src -lRcf -lRfm -lRpr -lRwi -lRut \
--L$(top_builddir)/rdsgds/src -lRds \
--L$(top_builddir)/mbk/src -lMpu \
--L$(top_builddir)/mbkvti/src -lMcp \
--L$(top_builddir)/mbkap/src -lMap \
--L$(top_builddir)/mbkmg/src -lMmg -lMph \
+-L$(builddir)/../../rds/src -lRtl -lRgs \
+-L$(builddir)/../../rdscif/src -lRcf -lRfm -lRpr -lRwi -lRut \
+-L$(builddir)/../../rdsgds/src -lRds \
+-L$(builddir)/../../mbk/src -lMpu \
+-L$(builddir)/../../mbkvti/src -lMcp \
+-L$(builddir)/../../mbkap/src -lMap \
+-L$(builddir)/../../mbkmg/src -lMmg -lMph \
 -lMut
 
 druc_SOURCES = \
