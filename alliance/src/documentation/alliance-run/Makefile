@@ -1,4 +1,6 @@
-      TECHNO_REAL = prol10
+
+ ALLIANCE_TOP ?= /usr/lib/alliance
+  TECHNO_REAL  = prol10
 
 
 #
@@ -11,12 +13,20 @@
  STANDART_BIN  = /usr/local/bin:/labo/gnu/bin:/usr/bin:/bin
  STANDART_PATH = PATH=$(STANDART_BIN); export PATH
 
+ifeq ($(ALLIANCE_TOP),/usr/lib/alliance)
 # Standart Alliance binary access paths.
- ALLIANCE_BIN  = /usr/bin
- SYSCONF_TOP   = /etc/alliance
- CELLS_TOP     = /usr/share/alliance/cells
+   ALLIANCE_BIN      = /usr/bin
+   SYSCONF_TOP       = /etc/alliance
+   CELLS_TOP         = /usr/share/alliance/cells
 
- ALLIANCE_EXAMPLES = /usr/share/doc/alliance-doc-5.0/alliance-examples
+   ALLIANCE_EXAMPLES = /usr/share/doc/alliance-doc-5.0/alliance-examples
+else
+   ALLIANCE_TOP      = $(HOME)/alliance/Linux.slsoc6x/install
+   ALLIANCE_BIN      = $(ALLIANCE_TOP)/bin
+   SYSCONF_TOP       = $(ALLIANCE_TOP)/etc
+   CELLS_TOP         = $(ALLIANCE_TOP)/cells
+endif
+
 
 # --------------------------------------------------------------------
 # Standarts binaries.
