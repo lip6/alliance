@@ -11,23 +11,23 @@ AM_CFLAGS =  -I$(top_srcdir)/abe/src \
 bin_PROGRAMS = boog
 
 boog_LDADD = @ALLIANCE_LIBS@ \
--L$(top_builddir)/abv/src \
--L$(top_builddir)/abe/src \
--L$(top_builddir)/abt/src \
--L$(top_builddir)/mbk/src \
--L$(top_builddir)/mbkvti/src \
--L$(top_builddir)/mbkal/src \
--L$(top_builddir)/mbkspice/src \
--L$(top_builddir)/mbkhilo/src \
--L$(top_builddir)/mbkedif/src \
--L$(top_builddir)/mbkvhdlg/src \
--L$(top_builddir)/mbkvrlog/src \
--L$(top_builddir)/mbk/src \
--L$(top_builddir)/mbk/src \
--L$(top_builddir)/bdd/src \
--L$(top_builddir)/abl/src \
--L$(top_builddir)/aut/src \
--L$(top_builddir)/mbk/src \
+-L$(builddir)/../../abv/src \
+-L$(builddir)/../../abe/src \
+-L$(builddir)/../../abt/src \
+-L$(builddir)/../../mbk/src \
+-L$(builddir)/../../mbkvti/src \
+-L$(builddir)/../../mbkal/src \
+-L$(builddir)/../../mbkspice/src \
+-L$(builddir)/../../mbkhilo/src \
+-L$(builddir)/../../mbkedif/src \
+-L$(builddir)/../../mbkvhdlg/src \
+-L$(builddir)/../../mbkvrlog/src \
+-L$(builddir)/../../mbk/src \
+-L$(builddir)/../../mbk/src \
+-L$(builddir)/../../bdd/src \
+-L$(builddir)/../../abl/src \
+-L$(builddir)/../../aut/src \
+-L$(builddir)/../../mbk/src \
           -lAbv -lAbe -lAbt -lMlu -lMcl -lMal -lMsl -lMhl -lMel -lMvg -lMgl -lRcn -lMlo -lBdd -lAbl -lAut -lMut
 	   
 boog_SOURCES = \

@@ -150,7 +150,7 @@ static int distribCell(befig_list* befig)
          }
 
          /*patterns aren't equal, new is more precise*/
-         if (!biabl_befig) break;
+         if (!biabl_befig) continue;
          
          /*patterns are equal -->comparison*/
          if (cell->AREA<getgenericarea(befig)) return 0;  /*don't use the new*/
@@ -224,7 +224,7 @@ static int distribCell(befig_list* befig)
          }
 
          /*patterns aren't equal, new is more precise*/
-         if (!biabl_befig) break;
+         if (biabl_befig) continue;
          
          /*patterns are equal -->comparison*/
          if (cell->AREA<getgenericarea(befig)) return 0;  /*don't use the new*/
