@@ -28,7 +28,7 @@
  * Modified by Czo <Olivier.Sirol@lip6.fr> 1997,98
  */
 
-#ident "$Id: mbk_util.c,v 1.6 2009/06/14 13:51:52 ludo Exp $"
+#ident "$Id: mbk_util.c,v 1.7 2012/05/02 15:23:46 jpc Exp $"
 
 #include <stdio.h>
 #include <stdlib.h>
@@ -69,6 +69,27 @@ char IN_PH[5] = "ap";                          /* input physical format       */
 char OUT_LO[5] = "al";                         /* output logical format       */
 char OUT_PH[5] = "ap";                         /* output physical format      */
 long SCALE_X = 100;                            /* distance scale definition   */
+long MBK_X_GRID             = 5;
+long MBK_Y_GRID             = 5;
+long MBK_Y_SLICE            = 50;
+long MBK_WIDTH_VSS          = 6;
+long MBK_WIDTH_VDD          = 6;
+long MBK_TRACK_WIDTH_ALU1   = 2;
+long MBK_TRACK_WIDTH_ALU2   = 2;
+long MBK_TRACK_WIDTH_ALU3   = 2;
+long MBK_TRACK_WIDTH_ALU4   = 2;
+long MBK_TRACK_WIDTH_ALU5   = 2;
+long MBK_TRACK_WIDTH_ALU6   = 2;
+long MBK_TRACK_WIDTH_ALU7   = 2;
+long MBK_TRACK_WIDTH_ALU8   = 0;
+long MBK_TRACK_SPACING_ALU1 = 3;
+long MBK_TRACK_SPACING_ALU2 = 3;
+long MBK_TRACK_SPACING_ALU3 = 3;
+long MBK_TRACK_SPACING_ALU4 = 3;
+long MBK_TRACK_SPACING_ALU5 = 8;
+long MBK_TRACK_SPACING_ALU6 = 8;
+long MBK_TRACK_SPACING_ALU7 = 8;
+long MBK_TRACK_SPACING_ALU8 = 0;
 char PARSER_INFO[100] = "nothing yet";         /* version number, and so on   */
 char *VDD = NULL;                              /* user name for power high    */
 char *VSS = NULL;                              /* user name for power ground  */
@@ -196,6 +217,90 @@ static char MBK_RAND_SEED[] = { 0x62,
    str = mbkgetenv("MBK_SCALE_X");
    if (str != NULL)
       SCALE_X = (long)atoi(str);
+
+   str = mbkgetenv("MBK_X_GRID");
+   if (str != NULL)
+      MBK_X_GRID = (long)atoi(str);
+
+   str = mbkgetenv("MBK_Y_GRID");
+   if (str != NULL)
+      MBK_Y_GRID = (long)atoi(str);
+
+   str = mbkgetenv("MBK_Y_SLICE");
+   if (str != NULL)
+      MBK_Y_SLICE = (long)atoi(str);
+
+   str = mbkgetenv("MBK_WIDTH_VSS");
+   if (str != NULL)
+      MBK_WIDTH_VSS = (long)atoi(str);
+
+   str = mbkgetenv("MBK_WIDTH_VDD");
+   if (str != NULL)
+      MBK_WIDTH_VDD = (long)atoi(str);
+
+   str = mbkgetenv("MBK_TRACK_WIDTH_ALU1");
+   if (str != NULL)
+      MBK_TRACK_WIDTH_ALU1 = (long)atoi(str);
+
+   str = mbkgetenv("MBK_TRACK_WIDTH_ALU2");
+   if (str != NULL)
+      MBK_TRACK_WIDTH_ALU2 = (long)atoi(str);
+
+   str = mbkgetenv("MBK_TRACK_WIDTH_ALU3");
+   if (str != NULL)
+      MBK_TRACK_WIDTH_ALU3 = (long)atoi(str);
+
+   str = mbkgetenv("MBK_TRACK_WIDTH_ALU4");
+   if (str != NULL)
+      MBK_TRACK_WIDTH_ALU4 = (long)atoi(str);
+
+   str = mbkgetenv("MBK_TRACK_WIDTH_ALU5");
+   if (str != NULL)
+      MBK_TRACK_WIDTH_ALU5 = (long)atoi(str);
+
+   str = mbkgetenv("MBK_TRACK_WIDTH_ALU6");
+   if (str != NULL)
+      MBK_TRACK_WIDTH_ALU6 = (long)atoi(str);
+
+   str = mbkgetenv("MBK_TRACK_WIDTH_ALU7");
+   if (str != NULL)
+      MBK_TRACK_WIDTH_ALU7 = (long)atoi(str);
+
+   str = mbkgetenv("MBK_TRACK_WIDTH_ALU8");
+   if (str != NULL)
+      MBK_TRACK_WIDTH_ALU8 = (long)atoi(str);
+
+   str = mbkgetenv("MBK_TRACK_SPACING_ALU1");
+   if (str != NULL)
+      MBK_TRACK_SPACING_ALU1 = (long)atoi(str);
+
+   str = mbkgetenv("MBK_TRACK_SPACING_ALU2");
+   if (str != NULL)
+      MBK_TRACK_SPACING_ALU2 = (long)atoi(str);
+
+   str = mbkgetenv("MBK_TRACK_SPACING_ALU3");
+   if (str != NULL)
+      MBK_TRACK_SPACING_ALU3 = (long)atoi(str);
+
+   str = mbkgetenv("MBK_TRACK_SPACING_ALU4");
+   if (str != NULL)
+      MBK_TRACK_SPACING_ALU4 = (long)atoi(str);
+
+   str = mbkgetenv("MBK_TRACK_SPACING_ALU5");
+   if (str != NULL)
+      MBK_TRACK_SPACING_ALU5 = (long)atoi(str);
+
+   str = mbkgetenv("MBK_TRACK_SPACING_ALU6");
+   if (str != NULL)
+      MBK_TRACK_SPACING_ALU6 = (long)atoi(str);
+
+   str = mbkgetenv("MBK_TRACK_SPACING_ALU7");
+   if (str != NULL)
+      MBK_TRACK_SPACING_ALU7 = (long)atoi(str);
+
+   str = mbkgetenv("MBK_TRACK_SPACING_ALU8");
+   if (str != NULL)
+      MBK_TRACK_SPACING_ALU8 = (long)atoi(str);
 
    srand((unsigned int) MBK_RAND_SEED);
 

@@ -26,7 +26,7 @@
  * Date    : 31/08/93
  * Author  : Frederic Petrot <Frederic.Petrot@lip6.fr>
  * Modified by Czo <Olivier.Sirol@lip6.fr> 1997,98
- * $Id: mut.h,v 1.9 2009/06/14 13:51:52 ludo Exp $
+ * $Id: mut.h,v 1.10 2012/05/02 15:23:46 jpc Exp $
  */
 
 #ifndef _MUT_H_
@@ -190,6 +190,27 @@ extern char       IN_PH[];                     /* physical input format       */
 extern char       OUT_LO[];                    /* logical output format       */
 extern char       OUT_PH[];                    /* physical output format      */
 extern long       SCALE_X;                     /* distance scale parameter    */
+extern long MBK_X_GRID;
+extern long MBK_Y_GRID;
+extern long MBK_Y_SLICE;
+extern long MBK_WIDTH_VSS;
+extern long MBK_WIDTH_VDD;
+extern long MBK_TRACK_WIDTH_ALU1;
+extern long MBK_TRACK_WIDTH_ALU2;
+extern long MBK_TRACK_WIDTH_ALU3;
+extern long MBK_TRACK_WIDTH_ALU4;
+extern long MBK_TRACK_WIDTH_ALU5;
+extern long MBK_TRACK_WIDTH_ALU6;
+extern long MBK_TRACK_WIDTH_ALU7;
+extern long MBK_TRACK_WIDTH_ALU8;
+extern long MBK_TRACK_SPACING_ALU1;
+extern long MBK_TRACK_SPACING_ALU2;
+extern long MBK_TRACK_SPACING_ALU3;
+extern long MBK_TRACK_SPACING_ALU4;
+extern long MBK_TRACK_SPACING_ALU5;
+extern long MBK_TRACK_SPACING_ALU6;
+extern long MBK_TRACK_SPACING_ALU7;
+extern long MBK_TRACK_SPACING_ALU8;
 extern char       PARSER_INFO[];               /* version number, and so on   */
 extern char       *VDD;                        /* user name for power high    */
 extern char       *VSS;                        /* user name for power ground  */
