@@ -27,7 +27,7 @@
 #ifndef __PCONSTANTS_H
 #define __PCONSTANTS_H
 
-#define PITCH (5 * SCALE_X)
-#define ROWHEIGHT 10
+#define PITCH (MBK_X_GRID * SCALE_X)
+#define ROWHEIGHT (MBK_Y_SLICE / MBK_Y_GRID)
 
 #endif /* __PCONSTANTS_H */

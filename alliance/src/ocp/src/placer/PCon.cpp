@@ -60,7 +60,7 @@ PCon::Save(struct phfig *physicalfig, const double dx, const double dy) const {
                 , (int)(GetPosX() * PITCH + dx)
                 , (int)(GetPosY() * PITCH + dy)
                 , _orient==NORTH || _orient == SOUTH ? ALU2 : ALU3
-                , (_orient==NORTH || _orient == SOUTH ? 2 : 1) * (PITCH/5));
+                , (_orient==NORTH || _orient == SOUTH ? 2 : 1) * (PITCH/MBK_X_GRID));
     } else {
 #if 0
         addphcon(physicalfig,
@@ -89,7 +89,7 @@ PCon::RingSave(struct phfig *physicalfig, const double dx, const double dy) cons
 			(int)(GetPosX() * PITCH + dx),
 			(int)(GetPosY() * PITCH + dy),
 			ALU2,
-			2 * (PITCH/5));
+			2 * (PITCH/MBK_X_GRID));
 }
 
 ostream&
