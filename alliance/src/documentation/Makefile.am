@@ -51,6 +51,7 @@ nobase_doc_DATA = overview/datapath.gif \
                   design-flow/xpat.gif \
                   design-flow/xsch.gif \
                   \
+                  regression.sh \
                   alliance-run/Makefile \
                   alliance-run/README \
                   alliance-run/amd2901_chip.c \
@@ -60,6 +61,7 @@ nobase_doc_DATA = overview/datapath.gif \
                   alliance-run/amd2901_ctl.lax \
                   alliance-run/amd2901_ctl.vbe \
                   alliance-run/amd2901_dpt.c \
+                  alliance-run/bench.sh \
                   alliance-run/bench.zsh \
                   alliance-run/pattern.c
 
@@ -118,6 +120,7 @@ nobase_examples_DATA = alliance-examples/addaccu16/Makefile \
                        alliance-examples/hadamard/ram.vhdl \
                        alliance-examples/hadamard/rom.vhdl \
                        alliance-examples/hadamard/sequenceur.vhdl \
+                       alliance-examples/Makefile \
                        alliance-examples/mipsR3000/asm/CATAL \
                        alliance-examples/mipsR3000/asm/CATAL_VBE \
                        alliance-examples/mipsR3000/asm/CATAL_VBE_DPT \
