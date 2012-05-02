@@ -1,7 +1,7 @@
 
 // -*- C++ -*-
 //
-// $Id: RMBK.cpp,v 1.17 2008/06/11 09:20:34 jpc Exp $
+// $Id: RMBK.cpp,v 1.18 2012/05/02 14:49:23 jpc Exp $
 //
 //  /----------------------------------------------------------------\ 
 //  |                                                                |
@@ -38,6 +38,8 @@ void  CRBox::mbkload (MBK::CFig *mbkfig
                      , int zup
                      , int rtype
                      , bool halfpitch
+                     , bool xhalfpitch
+                     , bool yhalfpitch
                      , bool rotate
                      , set<string>* subNetList )
 {
@@ -45,6 +47,7 @@ void  CRBox::mbkload (MBK::CFig *mbkfig
   MBK::MLosig::iterator   endSig;
   MBK::MLosig::iterator   sig;
                    long   mX, mY, mZ, x, y, zz, xadjust, yadjust, yoffsetslice;
+                   long   xpitch, ypitch;
                    long   XRW1, YRW1, XRW2, YRW2;
                    bool   use_global;
                    long   northPad, southPad, eastPad, westPad;
@@ -84,6 +87,12 @@ void  CRBox::mbkload (MBK::CFig *mbkfig
   // Half pitch offset.
   if ( halfpitch ) {
     xoffsettrack = D::X_GRID / 2;
+    yoffsettrack = D::Y_GRID / 2;
+  }
+  else if ( xhalfpitch ) {
+    xoffsettrack = D::X_GRID / 2;
+  }
+  else if ( yhalfpitch ) {
     yoffsettrack = D::Y_GRID / 2;
   }
 

@@ -1,7 +1,7 @@
 
 // -*- C++ -*-
 //
-// $Id: UDefs.h,v 1.3 2005/10/13 12:44:40 jpc Exp $
+// $Id: UDefs.h,v 1.4 2012/05/02 14:49:23 jpc Exp $
 //
 // /-----------------------------------------------------------------\ 
 // |                                                                 |
@@ -89,6 +89,7 @@ namespace D {
   extern const long _TRACK_WIDTH_ALU5;
   extern const long _TRACK_WIDTH_ALU6;
   extern const long _TRACK_WIDTH_ALU7;
+  extern const long _TRACK_WIDTH_ALU8;
   extern const long _TRACK_SPACING_ALU1;
   extern const long _TRACK_SPACING_ALU2;
   extern const long _TRACK_SPACING_ALU3;
@@ -96,6 +97,7 @@ namespace D {
   extern const long _TRACK_SPACING_ALU5;
   extern const long _TRACK_SPACING_ALU6;
   extern const long _TRACK_SPACING_ALU7;
+  extern const long _TRACK_SPACING_ALU8;
 
   extern long  X_GRID;
   extern long  Y_GRID;
@@ -109,6 +111,7 @@ namespace D {
   extern long  TRACK_WIDTH_ALU5;
   extern long  TRACK_WIDTH_ALU6;
   extern long  TRACK_WIDTH_ALU7;
+  extern long  TRACK_WIDTH_ALU8;
   extern long  TRACK_SPACING_ALU1;
   extern long  TRACK_SPACING_ALU2;
   extern long  TRACK_SPACING_ALU3;
@@ -116,6 +119,7 @@ namespace D {
   extern long  TRACK_SPACING_ALU5;
   extern long  TRACK_SPACING_ALU6;
   extern long  TRACK_SPACING_ALU7;
+  extern long  TRACK_SPACING_ALU8;
 
 }
 

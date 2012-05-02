@@ -1,7 +1,7 @@
 
 // -*- C++ -*-
 //
-// $Id: UConst.cpp,v 1.3 2005/10/13 12:44:40 jpc Exp $
+// $Id: UConst.cpp,v 1.4 2012/05/02 14:49:23 jpc Exp $
 //
 // /-----------------------------------------------------------------\ 
 // |                                                                 |
@@ -52,6 +52,7 @@ namespace D {
 
 
   // MBK Routing related constants.
+#if 0
   const long _X_GRID             = 5;
   const long _Y_GRID             = 5;
   const long _Y_SLICE            = 50;
@@ -71,6 +72,7 @@ namespace D {
   const long _TRACK_SPACING_ALU5 = 8;
   const long _TRACK_SPACING_ALU6 = 8;
   const long _TRACK_SPACING_ALU7 = 8;
+#endif
 
   long  X_GRID;
   long  Y_GRID;
@@ -84,6 +86,7 @@ namespace D {
   long  TRACK_WIDTH_ALU5;
   long  TRACK_WIDTH_ALU6;
   long  TRACK_WIDTH_ALU7;
+  long  TRACK_WIDTH_ALU8;
   long  TRACK_SPACING_ALU1;
   long  TRACK_SPACING_ALU2;
   long  TRACK_SPACING_ALU3;
@@ -91,6 +94,7 @@ namespace D {
   long  TRACK_SPACING_ALU5;
   long  TRACK_SPACING_ALU6;
   long  TRACK_SPACING_ALU7;
+  long  TRACK_SPACING_ALU8;
 
 
 

@@ -1,7 +1,7 @@
 
 // -*- C++ -*-
 //
-// $Id: RDefs.h,v 1.5 2008/06/11 09:20:34 jpc Exp $
+// $Id: RDefs.h,v 1.6 2012/05/02 14:49:23 jpc Exp $
 //
 // /-----------------------------------------------------------------\ 
 // |                                                                 |
@@ -70,6 +70,8 @@
                           , int zup
                           , int rtype
                           , bool halfpitch
+                          , bool xhalfpitch
+                          , bool yalfpitch
                           , bool rotate
                           , set<string>* subNetList=NULL );
     public: void  mbksave (string &name) throw (except_done);

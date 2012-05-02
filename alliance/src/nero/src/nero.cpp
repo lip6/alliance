@@ -1,7 +1,7 @@
 
 // -*- C++ -*-
 //
-// $Id: nero.cpp,v 1.12 2008/06/11 09:20:35 jpc Exp $
+// $Id: nero.cpp,v 1.13 2012/05/02 14:49:23 jpc Exp $
 //
 //  /----------------------------------------------------------------\ 
 //  |                                                                |
@@ -71,6 +71,8 @@ static void help (void)
        << "     [-c|--core-dump]    := Generate core dump if an internal "
        <<         "error occurs.\n"
        << "     [-H|--half-pitch]   := First track is at half pitch (both X & Y).\n"
+       << "     [-x|--half-pitch-x] := First track is at half pitch (X).\n"
+       << "     [-y|--half-pitch-y] := First track is at half pitch (Y).\n"
        << "     [-R|--rotate]       := Exchange preferred routing directions.\n"
        << "     [-2|--layers-2]     := Use only 2 routing layers.\n"
        << "     [-3|--layers-3]     := Use only 3 routing layers.\n"
@@ -151,6 +153,8 @@ int  main (int argc, char *argv[])
     options.add ("h", "help");
     options.add ("c", "coredump");
     options.add ("H", "half-pitch");
+    options.add ("x", "half-pitch-x");
+    options.add ("y", "half-pitch-y");
     options.add ("R", "rotate");
     options.add ("2", "layers-2");
     options.add ("3", "layers-3");
@@ -249,6 +253,8 @@ int  main (int argc, char *argv[])
                    , 4
                    , global
                    , options["H"]->parsed
+                   , options["x"]->parsed
+                   , options["y"]->parsed
                    , options["R"]->parsed
                    , netSet );
     //cdebug.off ();
