@@ -6,6 +6,7 @@
 
 # Standart Alliance binary access paths.
  ALLIANCE_BIN  = $(ALLIANCE_TOP)/bin
+ CELLS_TOP     = $(ALLIANCE_TOP)/cells
  
 ALLIANCE_EXAMPLES=/usr/share/doc/alliance-doc-5.0/alliance-examples
 
@@ -34,12 +35,12 @@ ALLIANCE_EXAMPLES=/usr/share/doc/alliance-doc-5.0/alliance-examples
  EXTRACT_PH   = ap
  GENERAT_SP   = .
  EXTRACT_SP   = .
-    CATA_LIB0 = $(ALLIANCE_TOP)/cells/sxlib
-    CATA_LIB1 = $(ALLIANCE_TOP)/cells/dp_sxlib
-    CATA_LIB2 = $(ALLIANCE_TOP)/cells/padlib
-    CATA_LIB3 = $(ALLIANCE_TOP)/cells/rflib
+    CATA_LIB0 = $(CELLS_TOP)/sxlib
+    CATA_LIB1 = $(CELLS_TOP)/dp_sxlib
+    CATA_LIB2 = $(CELLS_TOP)/padlib
+    CATA_LIB3 = $(CELLS_TOP)/rflib
     CATA_LIB  = .:$(CATA_LIB0):$(CATA_LIB1):$(CATA_LIB2):$(CATA_LIB3)
-   TARGET_LIB = $(ALLIANCE_TOP)/cells/sxlib
+   TARGET_LIB = $(CELLS_TOP)/sxlib
     FPGEN_LIB = $(CATA_LIB0):$(CATA_LIB1)
   TECHNO_NAME = local-cmos
   CARAC_TECHNO_NAME = local-cmos-035
