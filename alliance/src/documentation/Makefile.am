@@ -49,7 +49,7 @@ nobase_doc_DATA = overview/datapath.gif \
                   design-flow/tools.html \
                   design-flow/xfsm.gif \
                   design-flow/xpat.gif \
-                  design-flow/xsch.gif \
+                  design-flow/xsch.gif
 
 examplesdir = $(prefix)/examples
 
