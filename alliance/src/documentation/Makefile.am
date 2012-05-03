@@ -50,24 +50,11 @@ nobase_doc_DATA = overview/datapath.gif \
                   design-flow/xfsm.gif \
                   design-flow/xpat.gif \
                   design-flow/xsch.gif \
-                  \
-                  regression.sh \
-                  alliance-run/Makefile \
-                  alliance-run/README \
-                  alliance-run/amd2901_chip.c \
-                  alliance-run/amd2901_chip.rin \
-                  alliance-run/amd2901_core.c \
-                  alliance-run/amd2901_core.ioc \
-                  alliance-run/amd2901_ctl.lax \
-                  alliance-run/amd2901_ctl.vbe \
-                  alliance-run/amd2901_dpt.c \
-                  alliance-run/bench.sh \
-                  alliance-run/bench.zsh \
-                  alliance-run/pattern.c
 
 examplesdir = $(prefix)/examples
 
-nobase_examples_DATA = alliance-examples/addaccu16/Makefile \
+nobase_examples_DATA = regression.sh \
+                       alliance-examples/addaccu16/Makefile \
                        alliance-examples/addaccu16/README \
                        alliance-examples/addaccu16/addaccu.ioc \
                        alliance-examples/addaccu16/addaccu.pat \
@@ -121,6 +108,7 @@ nobase_examples_DATA = alliance-examples/addaccu16/Makefile \
                        alliance-examples/hadamard/rom.vhdl \
                        alliance-examples/hadamard/sequenceur.vhdl \
                        alliance-examples/Makefile \
+                       alliance-examples/mipsR3000/Makefile \
                        alliance-examples/mipsR3000/asm/CATAL \
                        alliance-examples/mipsR3000/asm/CATAL_VBE \
                        alliance-examples/mipsR3000/asm/CATAL_VBE_DPT \
@@ -406,7 +394,20 @@ nobase_examples_DATA = alliance-examples/addaccu16/Makefile \
                        alliance-examples/tuner/tuner.ioc \
                        alliance-examples/tuner/tuner.rin \
                        alliance-examples/tuner/tuner.vbe \
-                       alliance-examples/tuner/tuner_io.c 
+                       alliance-examples/tuner/tuner_io.c \
+                       \
+                       alliance-run/Makefile \
+                       alliance-run/README \
+                       alliance-run/amd2901_chip.c \
+                       alliance-run/amd2901_chip.rin \
+                       alliance-run/amd2901_core.c \
+                       alliance-run/amd2901_core.ioc \
+                       alliance-run/amd2901_ctl.lax \
+                       alliance-run/amd2901_ctl.vbe \
+                       alliance-run/amd2901_dpt.c \
+                       alliance-run/bench.sh \
+                       alliance-run/bench.zsh \
+                       alliance-run/pattern.c
 
 EXTRA_DIST = $(nobase_doc_DATA) $(nobase_examples_DATA)
 
