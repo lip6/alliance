@@ -215,9 +215,9 @@ popd
 %{__rm} -rf %{buildroot}%{prefix}/examples/
 
 # Add automated scripts to examples
-%{__install} -pm 755 ./distrib/alliance-examples-go-all.sh       alliance-examples/go-all.sh
-%{__install} -pm 755 ./distrib/alliance-examples-go-all-clean.sh alliance-examples/go-all-clean.sh
-%{__chmod} ug+x      ./alliance-examples/mipsR3000/asm/go-*.sh
+%{__chmod} ug+x ./alliance-examples/mipsR3000/asm/go-*.sh \
+                ./alliance-examples/go-all.sh             \
+                ./alliance-examples/go-all-clean.sh
 
 pushd alliance-examples/
     # FEL self test for alliance
