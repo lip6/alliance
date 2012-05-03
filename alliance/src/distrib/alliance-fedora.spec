@@ -217,6 +217,7 @@ popd
 # Add automated scripts to examples
 %{__install} -pm 755 ./distrib/alliance-examples-go-all.sh       alliance-examples/go-all.sh
 %{__install} -pm 755 ./distrib/alliance-examples-go-all-clean.sh alliance-examples/go-all-clean.sh
+%{__chmod} ug+x      ./alliance-examples/mipsR3000/asm/go-*.sh
 
 pushd alliance-examples/
     # FEL self test for alliance
@@ -344,6 +345,7 @@ touch --no-create %{_datadir}/icons/hicolor || :
 - Merge patches from Naohiko Shimizu (<nshimizu [AT] ip-arch DOT jp>.
 - Compatibility of ocp & nero with pharosc (variable gabarit).
 - Small change of behavior for boog regarding registers, also for pharosc.
+- Correct the Alliance examples so they can run once installeds.
 - Merge in the scripts written by Chitlest Goorah (no more extra sources).
 
 * Wed Sep 02 2009 Chitlesh Goorah <chitlesh [AT] fedoraproject DOT org> - 5.0-31.20090901snap
