@@ -54,6 +54,8 @@ nobase_doc_DATA = overview/datapath.gif \
 examplesdir = $(prefix)/examples
 
 nobase_examples_DATA = regression.sh \
+                       alliance-examples/go-all.sh \
+                       alliance-examples/go-all-clean.sh \
                        alliance-examples/addaccu16/Makefile \
                        alliance-examples/addaccu16/README \
                        alliance-examples/addaccu16/addaccu.ioc \
