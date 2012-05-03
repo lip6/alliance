@@ -208,6 +208,8 @@ popd
 # documentation
 %{__cp} -pr %{buildroot}%{prefix}/doc/ .
 %{__cp} -pr %{buildroot}%{prefix}/examples/alliance-examples/ .
+%{__cp} -pr %{buildroot}%{prefix}/examples/alliance-run/ .
+%{__cp} -p  %{buildroot}%{prefix}/examples/regression.sh .
 
 %{__rm} -rf %{buildroot}%{prefix}/doc/
 %{__rm} -rf %{buildroot}%{prefix}/examples/
@@ -331,13 +333,17 @@ touch --no-create %{_datadir}/icons/hicolor || :
 #   Makefile for alliance (VLSI designers normally don't know how to do so)
 # * it is not part of the build, but part of the working environment of the user
 %doc alliance-examples/
-%doc doc/alliance-run/
+%doc alliance-run/
+%doc regression.sh
 
 
 
 %changelog
 * Tue Apr 17 2012 Jean-Paul Chaput <Jean-Paul DOT Chaput [AT] lip6 DOT fr> - 5.0-32.20120416
 - This snapshot integrates the bug avoidance for druc (uses -O0 and *not* -O2).
+- Merge patches from Naohiko Shimizu (<nshimizu [AT] ip-arch DOT jp>.
+- Compatibility of ocp & nero with pharosc (variable gabarit).
+- Small change of behavior for boog regarding registers, also for pharosc.
 - Merge in the scripts written by Chitlest Goorah (no more extra sources).
 
 * Wed Sep 02 2009 Chitlesh Goorah <chitlesh [AT] fedoraproject DOT org> - 5.0-31.20090901snap
