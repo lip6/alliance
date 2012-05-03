@@ -146,7 +146,8 @@ ENV_S2R  = MBK_WORK_LIB=.; export MBK_WORK_LIB; \
            MBK_CATA_LIB=$(TARGET_LIB); export MBK_CATA_LIB; \
            MBK_CATAL_NAME=CATAL; export MBK_CATAL_NAME
 
-all :  hadamard_er.al
+#all :  hadamard_er.al
+all :  hadamard_et.spi
 
 # /*------------------------------------------------------------\
 # |                                                             |
