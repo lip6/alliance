@@ -217,7 +217,8 @@ popd
 # Add automated scripts to examples
 %{__chmod} ug+x ./alliance-examples/mipsR3000/asm/go-*.sh \
                 ./alliance-examples/go-all.sh             \
-                ./alliance-examples/go-all-clean.sh
+                ./alliance-examples/go-all-clean.sh       \
+                ./regression.sh
 
 pushd alliance-examples/
     # FEL self test for alliance
