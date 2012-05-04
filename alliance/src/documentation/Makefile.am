@@ -97,6 +97,7 @@ nobase_examples_DATA = regression.sh \
                        alliance-examples/divcas4/divcas4_model.lax \
                        alliance-examples/etc/techno-035.rds \
                        alliance-examples/etc/techno-symb.rds \
+                       alliance-examples/etc/alliance-env.mk \
                        alliance-examples/hadamard/CATAL_ASIMUT_VASY \
                        alliance-examples/hadamard/Makefile \
                        alliance-examples/hadamard/calcul.vhdl \
