@@ -16,9 +16,7 @@
 # |                                                             |
 # \------------------------------------------------------------*/
 
-ALLIANCE_BIN = $(ALLIANCE_TOP)/bin
- 
-ALLIANCE_EXAMPLES=/usr/share/doc/alliance-doc-5.0/alliance-examples
+include ../etc/alliance-env.mk
 
 VASY   = $(ALLIANCE_BIN)/vasy
 ASIMUT = $(ALLIANCE_BIN)/asimut
@@ -40,10 +38,8 @@ XFSM   = $(ALLIANCE_BIN)/xfsm
 
 TOUCH  = touch
 
-TARGET_LIB      = $(ALLIANCE_TOP)/cells/sxlib
-RDS_TECHNO_SYMB = $(ALLIANCE_EXAMPLES)/etc/techno-symb.rds
-RDS_TECHNO      = $(ALLIANCE_EXAMPLES)/etc/techno-035.rds
-SPI_MODEL       = $(ALLIANCE_TOP)/etc/spimodel.cfg
+TARGET_LIB      = $(CELLS_TOP)/sxlib
+SPI_MODEL       = $(SYSCONF_TOP)/spimodel.cfg
 METAL_LEVEL     = 6
 
 # /*------------------------------------------------------------\
@@ -105,7 +101,7 @@ ENV_COUGAR_SPI =  MBK_WORK_LIB=.; export MBK_WORK_LIB; \
 	   MBK_OUT_LO=spi; export MBK_OUT_LO; \
            MBK_SPI_NAMEDNODES="true"; export MBK_SPI_NAMEDNODES; \
            MBK_SPI_MODEL=$(SPI_MODEL); export MBK_SPI_MODEL; \
-           RDS_TECHNO_NAME=$(RDS_TECHNO); export RDS_TECHNO_NAME; \
+           RDS_TECHNO_NAME=$(RDS_TECHNO_REAL); export RDS_TECHNO_NAME; \
            RDS_IN=cif; export RDS_IN; \
            RDS_OUT=cif; export RDS_OUT; \
            MBK_CATA_LIB=$(TARGET_LIB); export MBK_CATA_LIB; \
@@ -116,7 +112,7 @@ ENV_COUGAR_SPI =  MBK_WORK_LIB=.; export MBK_WORK_LIB; \
 ENV_COUGAR =  MBK_WORK_LIB=.; export MBK_WORK_LIB; \
            MBK_IN_LO=al; export MBK_IN_LO; \
 	   MBK_OUT_LO=al; export MBK_OUT_LO; \
-           RDS_TECHNO_NAME=$(RDS_TECHNO); export RDS_TECHNO_NAME; \
+           RDS_TECHNO_NAME=$(RDS_TECHNO_REAL); export RDS_TECHNO_NAME; \
            RDS_IN=cif; export RDS_IN; \
            RDS_OUT=cif; export RDS_OUT; \
            MBK_CATA_LIB=$(TARGET_LIB); export MBK_CATA_LIB; \
@@ -138,7 +134,7 @@ ENV_DRUC = MBK_WORK_LIB=.; export MBK_WORK_LIB; \
            MBK_CATAL_NAME=CATAL; export MBK_CATAL_NAME
 
 ENV_S2R  = MBK_WORK_LIB=.; export MBK_WORK_LIB; \
-           RDS_TECHNO_NAME=$(RDS_TECHNO); export RDS_TECHNO_NAME; \
+           RDS_TECHNO_NAME=$(RDS_TECHNO_REAL); export RDS_TECHNO_NAME; \
            RDS_IN=cif; export RDS_IN; \
            RDS_OUT=cif; export RDS_OUT; \
            MBK_IN_PH=ap; export MBK_IN_PH; \

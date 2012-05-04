@@ -11,10 +11,26 @@
 #Construit le projet complet
 #Building the entire project.
 
+ if [ -z "$ALLIANCE_TOP" ]; then
+   alcEnv="/etc/profile.d/alc_env.sh"
+
+   if [ ! -x "${alcEnv}" ]; then
+     ALLIANCE_TOP="${HOME}/alliance/Linux.slsoc6x/install"
+
+     alcEnv="${ALLIANCE_TOP}/etc/profile.d/alc_env.sh"
+     if [ ! -f "${alcEnv}" ]; then
+       alcEnv="${ALLIANCE_TOP}/etc/alc_env.sh"
+     else
+       echo "[ERROR] Cannot find alc_env.sh."
+       exit 1
+     fi
+   fi
+   . ${alcEnv}
+ fi
+
+
 export MBK_IN_LO=vst
 export MBK_OUT_LO=vst
-export MBK_CATA_LIB=$ALLIANCE_TOP/cells/sxlib:$ALLIANCE_TOP/cells/padlib
-export RDS_TECHNO_NAME=$ALLIANCE_TOP/etc/cmos.rds
 
 #Utilisez cet artefact pour commenter une partie du source
 #Use this artifact to comment out part of this code, since
@@ -46,7 +62,7 @@ proof tuner_o tuner
 
 #Projection structurelle sur la bibliotheque standard
 #Mapping of the behavior on the standard cell library
-export MBK_TARGET_LIB=$ALLIANCE_TOP/cells/sxlib
+#export MBK_TARGET_LIB=$CELLS_TOP/sxlib
 boog -m 0 tuner_o tuner_x
 
 #Adaptation de la puissance des portes à leur charge
@@ -142,8 +158,8 @@ lvx vst vst tuner circuit
 #We use a fake 0.5 micron technology
 export RDS_IN=cif
 export RDS_OUT=cif
-export RDS_TECHNO_NAME=fake05.rds
-export DREAL_TECHNO_NAME=fake05.dreal
+export RDS_TECHNO_NAME=./fake05.rds
+export DREAL_TECHNO_NAME=./fake05.dreal
 s2r -v circuit
 
 #Visualisation du resultat

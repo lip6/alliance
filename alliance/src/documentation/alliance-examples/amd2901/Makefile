@@ -6,14 +6,7 @@
 # \------------------------------------------------------------------/
 #
 
-# Standart System binary access paths.
- STANDART_BIN  = /usr/local/bin:/usr/bin:/bin
- STANDART_PATH = PATH=$(STANDART_BIN); export PATH
-
-# Standart Alliance binary access paths.
- ALLIANCE_BIN  = $(ALLIANCE_TOP)/bin
- 
-ALLIANCE_EXAMPLES=/usr/share/doc/alliance-doc-5.0/alliance-examples
+include ../etc/alliance-env.mk
 
 # --------------------------------------------------------------------
 # Standarts binaries.
@@ -28,9 +21,9 @@ ALLIANCE_EXAMPLES=/usr/share/doc/alliance-doc-5.0/alliance-examples
           AWK = PATH=$(STANDART_BIN); gawk
           CAT = PATH=$(STANDART_BIN); cat
          MAKE = PATH=$(STANDART_BIN); make
-       TOUCH = PATH=$(STANDART_BIN); touch
-       GREP = PATH=$(STANDART_BIN); grep
-         ECHO =                  /bin/echo
+        TOUCH = PATH=$(STANDART_BIN); touch
+         GREP = PATH=$(STANDART_BIN); grep
+         ECHO = /bin/echo
 #  Alliance paths and formats settings.
  GENERAT_LO   = vst
  EXTRACT_LO   = al
@@ -38,14 +31,12 @@ ALLIANCE_EXAMPLES=/usr/share/doc/alliance-doc-5.0/alliance-examples
  EXTRACT_PH   = ap
  GENERAT_SP   = .
  EXTRACT_SP   = .
-    CATA_LIB0 = $(ALLIANCE_TOP)/cells/sxlib
-    CATA_LIB1 = $(ALLIANCE_TOP)/cells/dp_sxlib
-    CATA_LIB2 = $(ALLIANCE_TOP)/cells/padlib
-    CATA_LIB  = .:$(CATA_LIB0):$(CATA_LIB1):$(CATA_LIB2)
-   TARGET_LIB = $(ALLIANCE_TOP)/cells/sxlib
-RDS_TECHNO_SYMB = $(ALLIANCE_EXAMPLES)/etc/techno-symb.rds
-RDS_TECHNO      = $(ALLIANCE_EXAMPLES)/etc/techno-035.rds
-   GRAAL_TECHNO = $(ALLIANCE_TOP)/etc/cmos.graal
+    CATA_LIB0 = $(CELLS_TOP)/sxlib
+    CATA_LIB1 = $(CELLS_TOP)/dp_sxlib
+    CATA_LIB2 = $(CELLS_TOP)/padlib
+     CATA_LIB = .:$(CATA_LIB0):$(CATA_LIB1):$(CATA_LIB2)
+   TARGET_LIB = $(CELLS_TOP)/sxlib
+ GRAAL_TECHNO = $(SYSCONF_TOP)/cmos.graal
 
 
  MBK_GENERAT_ENV = MBK_TARGET_LIB=$(TARGET_LIB);  export MBK_TARGET_LIB;    \
@@ -59,7 +50,7 @@ RDS_TECHNO      = $(ALLIANCE_EXAMPLES)/etc/techno-035.rds
                    MBK_SEPAR=$(GENERAT_SP);       export MBK_SEPAR;         \
                    MBK_VDD=vdd;                   export MBK_VDD;           \
                    MBK_VSS=vss;                   export MBK_VSS;	    \
-		   RDS_TECHNO_NAME=$(RDS_TECHNO); export RDS_TECHNO_NAME; \
+		   RDS_TECHNO_NAME=$(RDS_TECHNO_SYMB); export RDS_TECHNO_NAME; \
 		   GRAAL_TECHNO_NAME=$(GRAAL_TECHNO); export GRAAL_TECHNO_NAME
 		   
 # MBK extracting environment.
@@ -74,7 +65,7 @@ RDS_TECHNO      = $(ALLIANCE_EXAMPLES)/etc/techno-035.rds
                    MBK_SEPAR=$(EXTRACT_SP);      export MBK_SEPAR;      \
                    MBK_VDD=vdd;                  export MBK_VDD;        \
                    MBK_VSS=vss;                  export MBK_VSS;	\
-		   RDS_TECHNO_NAME=$(REAL_RDS_TECHNO); export RDS_TECHNO_NAME;\
+		   RDS_TECHNO_NAME=$(RDS_TECHNO_REAL); export RDS_TECHNO_NAME;\
                    GRAAL_TECHNO_NAME=$(GRAAL_TECHNO); export GRAAL_TECHNO_NAME
 
 MBK_EXTRACT_ENV_SPI = MBK_TARGET_LIB=$(TARGET_LIB); export MBK_TARGET_LIB; \
@@ -88,7 +79,7 @@ MBK_EXTRACT_ENV_SPI = MBK_TARGET_LIB=$(TARGET_LIB); export MBK_TARGET_LIB; \
                    MBK_SEPAR=$(EXTRACT_SP);      export MBK_SEPAR;      \
                    MBK_VDD=vdd;                  export MBK_VDD;        \
                    MBK_VSS=vss;                  export MBK_VSS;	\
-		   RDS_TECHNO_NAME=$(REAL_RDS_TECHNO); export RDS_TECHNO_NAME;\
+		   RDS_TECHNO_NAME=$(RDS_TECHNO_REAL); export RDS_TECHNO_NAME;\
                    GRAAL_TECHNO_NAME=$(GRAAL_TECHNO); export GRAAL_TECHNO_NAME
 		   
 # --------------------------------------------------------------------

@@ -1,17 +1,6 @@
 
 
-# Standart System binary access paths.
- STANDART_BIN  = /bin:/usr/local/bin:/usr/bin
- STANDART_PATH = PATH=$(STANDART_BIN); export PATH
-
-# Standart Alliance binary access paths.
- ALLIANCE_BIN  = $(ALLIANCE_TOP)/bin
- CELLS_TOP     = $(ALLIANCE_TOP)/cells
- 
-ALLIANCE_EXAMPLES=/usr/share/doc/alliance-doc-5.0/alliance-examples
-
-# FitPath Alliance binary access paths.
-#    DEVEL_BIN  = /users/soft5/newlabo/alliance-4.5.0/archi/Solaris/bin
+include ../../etc/alliance-env.mk
 
 # --------------------------------------------------------------------
 # Standarts binaries.
@@ -43,24 +32,24 @@ ALLIANCE_EXAMPLES=/usr/share/doc/alliance-doc-5.0/alliance-examples
    TARGET_LIB = $(CELLS_TOP)/sxlib
     FPGEN_LIB = $(CATA_LIB0):$(CATA_LIB1)
   TECHNO_NAME = local-cmos
-  CARAC_TECHNO_NAME = local-cmos-035
+CARAC_TECHNO_NAME = local-cmos-035
 CARAC_SPI_MODEL = ./model
 
-SPI_MODEL       = $(ALLIANCE_TOP)/etc/spimodel.cfg
-RDS_TECHNO      = local-cmos-035.rds
+SPI_MODEL       = $(SYSCONF_TOP)/spimodel.cfg
+RDS_TECHNO_REAL = ./local-cmos-035.rds
 
-ENV_COUGAR_SPI =  MBK_WORK_LIB=.; export MBK_WORK_LIB; \
-           MBK_IN_LO=spi; export MBK_IN_LO; \
-	   MBK_OUT_LO=spi; export MBK_OUT_LO; \
-           MBK_SPI_MODEL=$(SPI_MODEL); export MBK_SPI_MODEL; \
-           MBK_SPI_NAMEDNODES="true"; export MBK_SPI_NAMEDNODES; \
-           RDS_TECHNO_NAME=$(RDS_TECHNO); export RDS_TECHNO_NAME; \
-           RDS_IN=cif; export RDS_IN; \
-           RDS_OUT=cif; export RDS_OUT; \
-           MBK_CATA_LIB=$(CATA_LIB); export MBK_CATA_LIB; \
-           MBK_IN_PH=ap; export MBK_IN_PH; \
-           MBK_OUT_PH=ap; export MBK_OUT_PH; \
-           MBK_CATAL_NAME=CATAL; export MBK_CATAL_NAME
+ENV_COUGAR_SPI =  MBK_WORK_LIB=.;                     export MBK_WORK_LIB; \
+                  MBK_IN_LO=spi;                      export MBK_IN_LO; \
+                  MBK_OUT_LO=spi;                     export MBK_OUT_LO; \
+                  MBK_SPI_MODEL=$(SPI_MODEL);         export MBK_SPI_MODEL; \
+                  MBK_SPI_NAMEDNODES="true";          export MBK_SPI_NAMEDNODES; \
+                  RDS_TECHNO_NAME=$(RDS_TECHNO_REAL); export RDS_TECHNO_NAME; \
+                  RDS_IN=cif;                         export RDS_IN; \
+                  RDS_OUT=cif;                        export RDS_OUT; \
+                  MBK_CATA_LIB=$(CATA_LIB);           export MBK_CATA_LIB; \
+                  MBK_IN_PH=ap;                       export MBK_IN_PH; \
+                  MBK_OUT_PH=ap;                      export MBK_OUT_PH; \
+                  MBK_CATAL_NAME=CATAL;               export MBK_CATAL_NAME
 
 
  MBK_GENERAT_ENV = MBK_TARGET_LIB=$(TARGET_LIB);  	export MBK_TARGET_LIB;\
@@ -117,7 +106,7 @@ ENV_COUGAR_SPI =  MBK_WORK_LIB=.; export MBK_WORK_LIB; \
   FLATBEH = $(MBK_GENERAT_ENV); $(ALLIANCE_BIN)/flatbeh
   FLATLO  = $(MBK_GENERAT_ENV); $(ALLIANCE_BIN)/flatlo
      LYNX = $(MBK_EXTRACT_ENV); $(ALLIANCE_BIN)/cougar -v
-    LYNX3 = $(ENV_COUGAR_SPI);   $(ALLIANCE_BIN)/cougar -v
+    LYNX3 = $(ENV_COUGAR_SPI);  $(ALLIANCE_BIN)/cougar -v
      DRUC = $(MBK_GENERAT_ENV); $(ALLIANCE_BIN)/druc
       LVX = $(MBK_EXTRACT_ENV); $(ALLIANCE_BIN)/lvx
     PROOF = $(MBK_EXTRACT_ENV); $(ALLIANCE_BIN)/proof
