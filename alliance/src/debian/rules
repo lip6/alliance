@@ -14,23 +14,25 @@ export DH_VERBOSE=1
 
 
 override_dh_auto_configure:
-	./configure --prefix=/usr/lib/alliance --enable-alc-shared --disable-static
+	./configure --prefix=/usr --enable-alc-shared --disable-static
 
 
 override_dh_makeshlibs:
 	dh_makeshlibs
-	destdir="`pwd`/debian/alliance"; \
-	ldsoconfdir="$${destdir}/etc/ld.so.conf.d"; \
-	allianceldsoconf="$${ldsoconfdir}/alliance.conf"; \
-	if [ ! -d "$${ldsoconfdir}" ]; then mkdir -p "$${ldsoconfdir}"; fi; \
-	echo "# Alliance VLSI design system" >  $${allianceldsoconf}; \
-	echo "/usr/lib/alliance/lib"         >> $${allianceldsoconf};
+
+#       Now install directly in /usr/lib.
+#	destdir="`pwd`/debian/alliance"; \
+#	ldsoconfdir="$${destdir}/etc/ld.so.conf.d"; \
+#	allianceldsoconf="$${ldsoconfdir}/alliance.conf"; \
+#	if [ ! -d "$${ldsoconfdir}" ]; then mkdir -p "$${ldsoconfdir}"; fi; \
+#	echo "# Alliance VLSI design system" >  $${allianceldsoconf}; \
+#	echo "/usr/lib/alliance/lib"         >> $${allianceldsoconf};
 
 
 override_dh_auto_install:
 	dh_auto_install
 	destdir="`pwd`/debian/alliance"; \
-	prefix="/usr/lib/alliance"; \
+	prefix="/usr"; \
 	sharedir="/usr/share"; \
 	alliancesharedir="$${sharedir}/alliance"; \
 	celldir="$${alliancesharedir}/cell"; \
@@ -47,7 +49,11 @@ override_dh_auto_install:
 	if [ ! -d "$${destdir}$${alliancesharedir}" ]; then mkdir -p "$${destdir}$${alliancesharedir}"; fi; \
 	mv $${destdir}$${prefix}/cells $${destdir}$${alliancesharedir}; \
 	if [ ! -d "$${destdir}$${examplesdir}" ]; then mkdir -p "$${destdir}$${examplesdir}"; fi; \
-	mv "$${destdir}$${prefix}/examples/alliance-examples/"* "$${destdir}$${examplesdir}"; \
+	mv "$${destdir}$${prefix}/examples/alliance-examples" "$${destdir}$${examplesdir}"; \
+	mv "$${destdir}$${prefix}/examples/alliance-run"      "$${destdir}$${examplesdir}"; \
+	mv "$${destdir}$${prefix}/examples/regression.sh"     "$${destdir}$${examplesdir}"; \
+        chmod a+x "$${destdir}$${examplesdir}/regression.sh" \
+                  "$${destdir}$${examplesdir}/alliance-run/"*.*sh; \
 	rmdir "$${destdir}$${prefix}/examples/alliance-examples"; \
 	rmdir "$${destdir}$${prefix}/examples"; \
 	mv "$${destdir}$${prefix}/tutorials" "$${destdir}$${docdir}"; \

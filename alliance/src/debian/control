@@ -1,5 +1,5 @@
 Source:        alliance
-Section:       Science/Electronics
+Section:       Electronics
 Priority:      optional
 Maintainer:    Jean-Paul Chaput <Jean-Paul.Chaput@lip6.fr>
 Build-Depends: debhelper (>= 7),
@@ -12,7 +12,7 @@ Build-Depends: debhelper (>= 7),
 	       libxp-dev,
 	       libxt-dev,
 	       libxpm-dev
-Homepage:      http://www-asim.lip6.fr/recherche/alliance/ 
+Homepage:      https://soc-extras.lip6.fr/en/alliance-abstract-en/
 Standards-Version: 3.8.4
 
 Package:      alliance
