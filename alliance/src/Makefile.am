@@ -13,7 +13,7 @@ EXTRA_DIST = autostuff alliance.m4 motif.m4 oldgcc.m4 xpm.m4 build depcomp \
              debian/alliance.postinst \
              debian/alliance.postrm \
              debian/compat \
-             debian/docs
+             debian/docs \
              \
              debian/patches \
              debian/source/format
