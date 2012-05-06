@@ -17,3 +17,6 @@ EXTRA_DIST = autostuff alliance.m4 motif.m4 oldgcc.m4 xpm.m4 build depcomp \
              \
              debian/patches \
              debian/source/format
+
+dist-hook:
+	rm -rf $(distdir)/debian/patches/CVS
