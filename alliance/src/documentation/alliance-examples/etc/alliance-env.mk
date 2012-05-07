@@ -12,7 +12,11 @@ ifeq ($(ALLIANCE_TOP),/usr/lib/alliance)
    ALLIANCE_BIN      = /usr/bin
    SYSCONF_TOP       = /etc/alliance
    CELLS_TOP         = /usr/share/alliance/cells
-   ALLIANCE_EXAMPLES = /usr/share/doc/alliance-doc-5.0/alliance-examples
+   ifeq ($(findstring Ubuntu,$(shell uname -v)),Ubuntu)
+     ALLIANCE_EXAMPLES = /usr/share/alliance/examples/alliance-examples
+   else
+     ALLIANCE_EXAMPLES = /usr/share/doc/alliance-doc-5.0/alliance-examples
+   endif
 else
   # Most likely hand-made installation (from .tar.gz by autotools).
   #ALLIANCE_TOP      = $(HOME)/alliance/Linux.slsoc6x/install
