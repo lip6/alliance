@@ -25,6 +25,7 @@ libSch_la_LDFLAGS = -version-info @SCH_DLL_VERSION@
 bin_PROGRAMS = asimut
 
 asimut_LDADD = \
+-lBhl \
 -L. libCst.la libSch.la \
 -L$(top_builddir)/mbkvti/src \
 -L$(top_builddir)/mbkedif/src \
@@ -46,7 +47,7 @@ asimut_LDADD = \
 -lMlu \
 -lMal \
 -lMcl -lMel -lMhl -lMgl -lMsl \
-      -lMvg -lMlo -lRcn -lBvl -lBhl -lBeh -lPpt -lPhl -lPat -lLog -lMut
+      -lMvg -lMlo -lRcn -lBvl -lBeh -lPpt -lPhl -lPat -lLog -lMut
 
 asimut_SOURCES = \
 beh_delay.h	  c_fsyn_sr1k_56.c    vh_debug.c    vh_lspec.c	  vh_util.h \

@@ -19,10 +19,10 @@ cougar_LDADD = @ALLIANCE_LIBS@ \
 -L$(top_srcdir)/rds/src \
 -L$(top_srcdir)/rdscif/src \
 -L$(top_srcdir)/rdsgds/src \
+ -lRtl -lRgs -lRcf -lRfm -lRpr -lRwi -lRut -lRds \
  -lMlu -lMpu -lMap -lMmg -lMcp -lMcl -lMel \
  -lMhl -lMvl -lMlo -lMph -lMut -lMal -lRcn \
- -lMsl -lMgl \
- -lRtl -lRgs -lRcf -lRfm -lRpr -lRwi -lRut -lRds
+ -lMsl -lMgl
 
 flatrds_LDADD = @ALLIANCE_LIBS@ \
 -L$(top_srcdir)/mbk/src \
@@ -38,10 +38,10 @@ flatrds_LDADD = @ALLIANCE_LIBS@ \
 -L$(top_srcdir)/rds/src \
 -L$(top_srcdir)/rdscif/src \
 -L$(top_srcdir)/rdsgds/src \
+ -lRtl -lRgs -lRcf -lRfm -lRpr -lRwi -lRut -lRds \
  -lMlu -lMpu -lMap -lMmg -lMcp -lMcl -lMel \
  -lMhl -lMvl -lMlo -lMph -lMut -lMal -lRcn \
- -lMsl -lMgl \
- -lRtl -lRgs -lRcf -lRfm -lRpr -lRwi -lRut -lRds
+ -lMsl -lMgl
 
 flatrds_SOURCES = flatrds.c
 
