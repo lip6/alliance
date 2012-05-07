@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/bash
 
  if [ -z "$ALLIANCE_TOP" ]; then
    alcEnv="/etc/profile.d/alc_env.sh"
