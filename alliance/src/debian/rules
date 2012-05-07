@@ -14,55 +14,53 @@ export DH_VERBOSE=1
 
 
 override_dh_auto_configure:
-	./configure --prefix=/usr --enable-alc-shared --disable-static
+	./configure --prefix=/usr/lib/alliance --enable-alc-shared --disable-static
 
 
 override_dh_makeshlibs:
 	dh_makeshlibs
-
-#       Now install directly in /usr/lib.
-#	destdir="`pwd`/debian/alliance"; \
-#	ldsoconfdir="$${destdir}/etc/ld.so.conf.d"; \
-#	allianceldsoconf="$${ldsoconfdir}/alliance.conf"; \
-#	if [ ! -d "$${ldsoconfdir}" ]; then mkdir -p "$${ldsoconfdir}"; fi; \
-#	echo "# Alliance VLSI design system" >  $${allianceldsoconf}; \
-#	echo "/usr/lib/alliance/lib"         >> $${allianceldsoconf};
+	destdir="`pwd`/debian/alliance"; \
+	ldsoconfdir="$${destdir}/etc/ld.so.conf.d"; \
+	allianceldsoconf="$${ldsoconfdir}/alliance.conf"; \
+	if [ ! -d "$${ldsoconfdir}" ]; then mkdir -p "$${ldsoconfdir}"; fi; \
+	echo "# Alliance VLSI design system" >  $${allianceldsoconf}; \
+	echo "/usr/lib/alliance/lib"         >> $${allianceldsoconf};
 
 
 override_dh_auto_install:
 	dh_auto_install
 	destdir="`pwd`/debian/alliance"; \
-	prefix="/usr"; \
+	prefix="/usr/lib/alliance"; \
 	sharedir="/usr/share"; \
 	alliancesharedir="$${sharedir}/alliance"; \
 	celldir="$${alliancesharedir}/cell"; \
 	docdir="$${sharedir}/doc/alliance"; \
 	mandir="$${sharedir}/man"; \
 	bindir="/usr/bin"; \
-	examplesdir="$${docdir}/examples"; \
+	examplesdir="$${alliancesharedir}/examples"; \
 	echo "destdir=$${destdir}"; \
 	if [ ! -d "$${destdir}/etc/alliance" ]; then mkdir -p "$${destdir}/etc/alliance"; fi; \
 	mv $${destdir}$${prefix}/etc/* $${destdir}/etc/alliance; \
-	mv $${destdir}/etc/profile.d/* $${destdir}/etc/alliance; \
 	rmdir $${destdir}$${prefix}/etc; \
-	rmdir $${destdir}/etc/profile.d; \
 	if [ ! -d "$${destdir}$${alliancesharedir}" ]; then mkdir -p "$${destdir}$${alliancesharedir}"; fi; \
 	mv $${destdir}$${prefix}/cells $${destdir}$${alliancesharedir}; \
 	if [ ! -d "$${destdir}$${examplesdir}" ]; then mkdir -p "$${destdir}$${examplesdir}"; fi; \
 	mv "$${destdir}$${prefix}/examples/alliance-examples" "$${destdir}$${examplesdir}"; \
 	mv "$${destdir}$${prefix}/examples/alliance-run"      "$${destdir}$${examplesdir}"; \
 	mv "$${destdir}$${prefix}/examples/regression.sh"     "$${destdir}$${examplesdir}"; \
-        chmod a+x "$${destdir}$${examplesdir}/regression.sh" \
+        chmod u+x "$${destdir}$${examplesdir}/regression.sh" \
+                  "$${destdir}$${examplesdir}/alliance-examples/"*.*sh \
+                  "$${destdir}$${examplesdir}/alliance-examples/mipsR3000/asm/"*.*sh \
                   "$${destdir}$${examplesdir}/alliance-run/"*.*sh; \
-	rmdir "$${destdir}$${prefix}/examples/alliance-examples"; \
 	rmdir "$${destdir}$${prefix}/examples"; \
+	if [ ! -d "$${destdir}$${docdir}" ]; then mkdir -p "$${destdir}$${docdir}"; fi; \
 	mv "$${destdir}$${prefix}/tutorials" "$${destdir}$${docdir}"; \
 	mv "$${destdir}$${prefix}/doc/"* "$${destdir}$${docdir}"; \
 	rmdir "$${destdir}$${prefix}/doc"; \
-	mv "$${destdir}$${prefix}/man/man3/log.3" "$${destdir}$${prefix}/man/man3/alc_log.3"; \
+	mv "$${destdir}$${prefix}/share/man/man3/log.3" "$${destdir}$${prefix}/share/man/man3/alc_log.3"; \
 	if [ ! -d "$${destdir}$${mandir}" ]; then mkdir -p "$${destdir}$${mandir}"; fi; \
-	mv "$${destdir}$${prefix}/man/"* "$${destdir}$${mandir}"; \
-	rmdir "$${destdir}$${prefix}/man"; \
+	mv "$${destdir}$${prefix}/share/man/"* "$${destdir}$${mandir}"; \
+	rmdir "$${destdir}$${prefix}/share/man"; \
 	if [ ! -d "$${destdir}$${bindir}" ]; then mkdir -p "$${destdir}$${bindir}"; fi; \
 	mv "$${destdir}$${prefix}/bin/"* "$${destdir}$${bindir}"; \
 	rmdir "$${destdir}$${prefix}/bin"; \

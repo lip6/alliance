@@ -1,5 +1,5 @@
 Source:        alliance
-Section:       Electronics
+Section:       electronics
 Priority:      optional
 Maintainer:    Jean-Paul Chaput <Jean-Paul.Chaput@lip6.fr>
 Build-Depends: debhelper (>= 7),
@@ -33,7 +33,8 @@ Description: VLSI CAD Tools
  .
  You are kindly requested to mention:
    "Designed with alliance (c) LIP6, Université Pierre et Marie Curie"
-   so as to spread the word about "alliance CAD system" and its development team.
+   so as to spread the word about "alliance  CAD  system"  and  its  development
+   team.
  .
  Alliance provides CAD tools covering most of all the digital design flow:
   * VHDL Compilation and Simulation

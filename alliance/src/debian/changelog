@@ -1,6 +1,6 @@
 alliance (5.0-20120503-1) lucid; urgency=low
 
-  * New upstream release. Closes: #00002
+  * New upstream release.
   * Correct druc NWELL merging problem (do not compile with -g -02).
   * Includes patches submiteds by Naohiko Shimizu (compatibility with pharosc).
   * Reorganisation of alliance-examples, so they can run everywhere. 

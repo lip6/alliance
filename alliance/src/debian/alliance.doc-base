@@ -1,5 +1,7 @@
 Document: alliance
 Title:    Alliance Documentation
 Abstract: VLSI CAD Tools Documentation
-Section:  Electronics
+Section:  electronics
 
+Format: HTML
+Files: /usr/share/doc/alliance/html/alliance/*.html
