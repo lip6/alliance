@@ -277,9 +277,6 @@ EOF
 %{__rm} -f doc/html/alliance/*attila.html
 %{__rm} -f doc/pdf/attila.pdf
 
-# correcting minor documentation details
-sed -i "s|/bin/zsh|/bin/sh|" alliance-run/bench.zsh
-
 %{_fixperms} %{buildroot}/*
 
 
