@@ -409,7 +409,6 @@ nobase_examples_DATA = regression.sh \
                        alliance-run/amd2901_ctl.vbe \
                        alliance-run/amd2901_dpt.c \
                        alliance-run/bench.sh \
-                       alliance-run/bench.zsh \
                        alliance-run/pattern.c
 
 EXTRA_DIST = $(nobase_doc_DATA) $(nobase_examples_DATA)
