@@ -12,8 +12,7 @@ Build-Depends: debhelper (>= 7),
 	       libmotif-dev,
 	       libxp-dev,
 	       libxt-dev,
-	       libxpm-dev,
-               zsh
+	       libxpm-dev
 Homepage:      https://soc-extras.lip6.fr/en/alliance-abstract-en/
 Standards-Version: 3.8.4
 
