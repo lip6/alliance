@@ -18,7 +18,7 @@
  * 
  * You should have received a copy  of the GNU General Public License along
  * with the GNU C Library; see the  file COPYING. If not, write to the Free
- * Software Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
+ * Software Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
  */
  
 /*----------------------------------------------------------------------------*/
@@ -29,6 +29,9 @@
 /*version 1.2 : Extended by Olivier BEAURIN (September, 93)                   */
 /*version 1.2 : Extended by Olivier BEAURIN (November, 93)                    */
 /* $Log: driver.c,v $
+/* Revision 1.5  2012/05/14 14:20:24  alliance
+/* Updated GNU/FSF address (patch from Thibault North).
+/*
 /* Revision 1.4  2002/09/30 16:20:54  czo
 /* support/users
 /*

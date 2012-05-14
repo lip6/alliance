@@ -18,10 +18,10 @@
  * 
  * You should have received a copy  of the GNU General Public License along
  * with the GNU C Library; see the  file COPYING. If not, write to the Free
- * Software Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
+ * Software Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
  */
 
-#ident "$Id: x2y.c,v 1.5 2004/07/30 14:28:22 fred Exp $"
+#ident "$Id: x2y.c,v 1.6 2012/05/14 14:20:41 alliance Exp $"
 #include <stdio.h>
 #include <string.h>
 #include "mut.h"

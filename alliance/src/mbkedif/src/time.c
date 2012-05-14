@@ -18,12 +18,15 @@
  * 
  * You should have received a copy  of the GNU General Public License along
  * with the GNU C Library; see the  file COPYING. If not, write to the Free
- * Software Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
+ * Software Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
  */
  
 /*
  * gives time the format edif wants
  * $Log: time.c,v $
+ * Revision 1.5  2012/05/14 14:20:24  alliance
+ * Updated GNU/FSF address (patch from Thibault North).
+ *
  * Revision 1.4  2006/03/29 17:10:36  xtof
  * * gcc4 compatible : no cast like (Foo*)bar=foo; use bar=(Bar*)foo;
  *

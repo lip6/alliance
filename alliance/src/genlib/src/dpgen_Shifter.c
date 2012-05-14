@@ -18,13 +18,16 @@
  * 
  * You should have received a copy  of the GNU General Public License along
  * with the GNU C Library; see the  file COPYING. If not, write to the Free
- * Software Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
+ * Software Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
  */
 
 /* Simple barrel shifter generator.
    Author: Frédéric Pétrot
    Date  : 1/10/2000
    $Log: dpgen_Shifter.c,v $
+   Revision 1.11  2012/05/14 14:20:13  alliance
+   Updated GNU/FSF address (patch from Thibault North).
+
    Revision 1.10  2004/05/23 13:04:14  ludo
    - Bug: Back to the previous version without bufferized command cell. Those
    buffer cells (inv_x4 etc ..) are too big and do not fit in the first column area.
@@ -115,7 +118,7 @@
 
 */
 
-static char rcsid[]="$Id: dpgen_Shifter.c,v 1.10 2004/05/23 13:04:14 ludo Exp $";
+static char rcsid[]="$Id: dpgen_Shifter.c,v 1.11 2012/05/14 14:20:13 alliance Exp $";
 
 
 #include  "util_Defs.h"

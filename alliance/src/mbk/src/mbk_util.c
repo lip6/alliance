@@ -18,7 +18,7 @@
  * 
  * You should have received a copy  of the GNU General Public License along
  * with the GNU C Library; see the  file COPYING. If not, write to the Free
- * Software Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
+ * Software Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
  */
 
 /* 
@@ -28,7 +28,7 @@
  * Modified by Czo <Olivier.Sirol@lip6.fr> 1997,98
  */
 
-#ident "$Id: mbk_util.c,v 1.7 2012/05/02 15:23:46 jpc Exp $"
+#ident "$Id: mbk_util.c,v 1.8 2012/05/14 14:20:23 alliance Exp $"
 
 #include <stdio.h>
 #include <stdlib.h>

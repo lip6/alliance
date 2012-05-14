@@ -18,10 +18,10 @@
  * 
  * You should have received a copy  of the GNU General Public License along
  * with the GNU C Library; see the  file COPYING. If not, write to the Free
- * Software Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
+ * Software Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
  */
 
-#ident "$Id: rcn.h,v 1.4 2002/09/30 16:20:51 czo Exp $"
+#ident "$Id: rcn.h,v 1.5 2012/05/14 14:20:23 alliance Exp $"
 
 /*******************************************************************************
 * rcn     : constantes, externs, and data-structures                           *

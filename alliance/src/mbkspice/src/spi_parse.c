@@ -18,10 +18,10 @@
  * 
  * You should have received a copy  of the GNU General Public License along
  * with the GNU C Library; see the  file COPYING. If not, write to the Free
- * Software Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
+ * Software Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
  */
 
-#ident "$Author: ludo $ $Date: 2009/06/14 13:51:54 $ $Revision: 1.6 $"
+#ident "$Author: alliance $ $Date: 2012/05/14 14:20:25 $ $Revision: 1.7 $"
 
 /*******************************************************************************
 *                                                                              *
@@ -173,8 +173,8 @@ char             mode;
   if( SPI_VERBOSE )
   {
     printf( "Parser Spice compile le %s a %s\n", __DATE__, __TIME__ );
-    printf( "Revision     : %s\n", "$Revision: 1.6 $" );
-    printf( "Date         : %s\n", "$Date: 2009/06/14 13:51:54 $"     );
+    printf( "Revision     : %s\n", "$Revision: 1.7 $" );
+    printf( "Date         : %s\n", "$Date: 2012/05/14 14:20:25 $"     );
     
     printf( "Separateur   : '%c'\n", SPI_SEPAR  );
     printf( "Nom de noeud : %s\n", SPI_NETNAME  );

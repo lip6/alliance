@@ -1,10 +1,10 @@
 %define        prefix    %{_libdir}/%{name}
-%define        snapshot  20120416
+%define        snapshot  20120515
 %define        _default_patch_fuzz  2
 
 Name:          alliance
 Version:       5.0
-Release:       32.%{snapshot}snap%{?dist}
+Release:       33.%{snapshot}%{?dist}
 Summary:       VLSI EDA System
 
 License:       GPLv2
@@ -338,6 +338,11 @@ touch --no-create %{_datadir}/icons/hicolor || :
 
 
 %changelog
+* Mon May 14 2012 Thibault North <tnorth [AT] fedoraproject.org> - 5.0-33.20120515
+- Updated GNU/GPL address.
+- In asimut Makefile.am, put Bvl before Bhl. The symbol dependency problem
+  shows only when using static linking.
+
 * Tue Apr 17 2012 Jean-Paul Chaput <Jean-Paul DOT Chaput [AT] lip6 DOT fr> - 5.0-32.20120416
 - This snapshot integrates the bug avoidance for druc (uses -O0 and *not* -O2).
 - Merge patches from Naohiko Shimizu (<nshimizu [AT] ip-arch DOT jp>.

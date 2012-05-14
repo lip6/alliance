@@ -18,7 +18,7 @@
  * 
  * You should have received a copy  of the GNU General Public License along
  * with the GNU C Library; see the  file COPYING. If not, write to the Free
- * Software Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
+ * Software Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
  */
 
 /* 
@@ -27,7 +27,7 @@
  * Author  : Frederic Petrot <Frederic.Petrot@lip6.fr>
  * Modified by Czo <Olivier.Sirol@lip6.fr> 1997,98
  * Modified by pnt <Pierre.Nguyen-Tuong@lip6.fr> 2002
- * $Id: mlu.h,v 1.5 2002/09/30 16:20:50 czo Exp $
+ * $Id: mlu.h,v 1.6 2012/05/14 14:20:23 alliance Exp $
  */
 
 #ifndef _MLU_H_

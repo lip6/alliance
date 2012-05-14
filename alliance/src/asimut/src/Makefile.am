@@ -25,6 +25,7 @@ libSch_la_LDFLAGS = -version-info @SCH_DLL_VERSION@
 bin_PROGRAMS = asimut
 
 asimut_LDADD = \
+-lBvl \
 -lBhl \
 -L. libCst.la libSch.la \
 -L$(top_builddir)/mbkvti/src \

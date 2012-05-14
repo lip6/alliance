@@ -18,7 +18,7 @@
  * 
  * You should have received a copy  of the GNU General Public License along
  * with the GNU C Library; see the  file COPYING. If not, write to the Free
- * Software Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
+ * Software Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
  */
 
 /*
@@ -27,7 +27,7 @@
  * version  : 1.00
  * date     : 05/02/92
  * author   : Frederic Petrot
- * $Id: mbkgen.h,v 1.2 2002/09/30 16:20:23 czo Exp $
+ * $Id: mbkgen.h,v 1.3 2012/05/14 14:20:13 alliance Exp $
  */
 
 #ifndef _MBKGEN_H_

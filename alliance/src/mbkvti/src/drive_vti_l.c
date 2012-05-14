@@ -18,7 +18,7 @@
  * 
  * You should have received a copy  of the GNU General Public License along
  * with the GNU C Library; see the  file COPYING. If not, write to the Free
- * Software Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
+ * Software Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
  */
 
 /*******************************************************************************
@@ -30,6 +30,9 @@
 * Modified, rewritten and maintained by Frederic Petrot since september 1990   *
 * Modified by Gregoire Avot : RC wire support.                                 *
 * $Log: drive_vti_l.c,v $
+* Revision 1.5  2012/05/14 14:20:26  alliance
+* Updated GNU/FSF address (patch from Thibault North).
+*
 * Revision 1.4  2009/06/14 13:51:58  ludo
 * - port 64 bits
 *
