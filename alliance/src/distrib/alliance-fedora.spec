@@ -67,7 +67,7 @@ Alliance provides CAD tools covering most of all the digital design flow:
 
 
 %package libs
-Summary:      Alliance VLSI CAD Sytem - multilibs
+Summary:      Alliance VLSI CAD System - multilibs
 Group:        Applications/Engineering
 Requires:     %{name} = %{version}-%{release}
 %if ! 0%{?rhel}
@@ -76,11 +76,11 @@ Requires:     electronics-menu
 
 
 %description libs
-Architecture dependent files for the Alliance VLSI CAD Sytem.
+Architecture dependent files for the Alliance VLSI CAD System.
 
 
 %package doc
-Summary:      Alliance VLSI CAD Sytem - Documentations
+Summary:      Alliance VLSI CAD System - Documentations
 Group:        Applications/Engineering
 Requires:     %{name} = %{version}-%{release}
 Requires:     gnuplot 
@@ -89,7 +89,7 @@ BuildRequires:tetex-latex
 
 
 %description doc
-Documentation and tutorials for the Alliance VLSI CAD Sytem.
+Documentation and tutorials for the Alliance VLSI CAD System.
 
 
 %prep
