@@ -1,3 +1,9 @@
+alliance (5.0-20120515-1) lucid; urgency=low
+
+  * Corrected GPL adress.
+
+ -- Jean-Paul Chaput <Jean-Paul.Chaput@lip6.fr>  Sat, 05 May 2012 17:32:36 +0200
+
 alliance (5.0-20120503-1) lucid; urgency=low
 
   * New upstream release.
