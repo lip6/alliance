@@ -1,76 +1,25 @@
 #!/bin/sh
 #
-# $Id: attila.sh,v 1.27 2012/04/11 13:30:29 alliance Exp $
-#                                                                        
-# /------------------------------------------------------------------\
-# |                                                                  |
+# +------------------------------------------------------------------+
 # |        A l l i a n c e   C A D   S y s t e m                     |
 # |             T o o l   I n s t a l l e r                          |
 # |                                                                  |
 # |  Author    :                      Jean-Paul CHAPUT               |
-# |  E-mail    :         alliance-users@asim.lip6.fr                 |
+# |  E-mail    :           alliance-users@asim.lip6.fr               |
 # | ================================================================ |
 # |  sh script :         "./attila"                                  |
-# | **************************************************************** |
-# |  U p d a t e s                                                   |
-# | $Log: attila.sh,v $
-# | Revision 1.27  2012/04/11 13:30:29  alliance
-# | Small adjustments.
-# |
-# | Revision 1.26  2012/01/02 22:30:19  jpc
-# | Added support for Scientific Linux 6.
-# |
-# | Revision 1.25  2008/07/15 16:45:28  xtof
-# | do not use Solaris anymore
-# |
-# | Revision 1.24  2008/07/15 16:34:04  xtof
-# | nausicaa -> bip
-# |
-# | Revision 1.23  2007/11/20 17:51:21  alliance
-# |
-# | Added support for SLSoC5x (32 & 64 bits).
-# |
-# | Revision 1.22  2005/10/03 14:44:41  jpc
-# |
-# | Added support for SLA4x.
-# |
-# | Revision 1.21  2004/09/06 16:15:31  jpc
-# | Added support for Darwin (MacOS X).
-# | Added "--devel" argument.
-# |
-# | Revision 1.20  2004/08/31 08:44:45  jpc
-# | Be less strict in the OS guessing : Fedora Core can change the kernel revision
-# | number...
-# |
-# | Revision 1.19  2004/07/29 07:50:31  alliance
-# | Adding the dynamic link flag for Alliance libraries when installing for
-# | ASIM, since this is required in any case for this type of install
-# |
-# | Revision 1.18  2004/07/24 22:40:33  jpc
-# | La nouvelle config a trois architectures : Linux.FC2, Linux.RH71 et Solaris.
-# |
-# | Revision 1.17  2003/10/29 16:08:54  xtof
-# | changing target machine for installations
-# |
-# | Revision 1.16  2003/10/03 11:36:00  fred
-# | Adding fa: in front of the ATTILA_CVS_ROOT, in order to be able to
-# | retrieve Alliance form machines that do not mount the usual disks.
-# |                                                                 |
-# \------------------------------------------------------------------/
-#
+# +------------------------------------------------------------------+
 
 
 
 
-# /------------------------------------------------------------------\
-# |                                                                  |
+# +------------------------------------------------------------------+
 # |                      Functions Definitions                       |
-# |                                                                  |
-# \------------------------------------------------------------------/
+# +------------------------------------------------------------------+
 
 
 # --------------------------------------------------------------------
-# Function  :  `print_usage()'.
+# Function  :  "print_usage()".
 
  print_usage ()
  {
@@ -134,10 +83,8 @@
  }
 
 
-
-
 # --------------------------------------------------------------------
-# Function  :  `alc_banner()'.
+# Function  :  "alc_banner()".
 
  alc_banner ()
  {
@@ -165,9 +112,8 @@
  }
 
 
-
 # --------------------------------------------------------------------
-# Function  :  `find_self()'.
+# Function  :  "find_self()".
 #
 # Usage : find_self <program> <tool> <args>
 #
@@ -184,7 +130,7 @@
   # In case of self install, switch to the CVS script.
    if [ "$TOOL" = "attila" ]; then
      if [ "`basename $PROG`" != "attila.sh" ]; then
-       SELF="$HOME/alliance/src/attila/src/attila.sh"
+       SELF="$HOME/alliance/alliance/src/attila/src/attila.sh"
 
        if [ ! -x "$SELF" ]; then
          echo "attila: Self install problem, cannot find source file :"
@@ -207,9 +153,8 @@
  }
 
 
-
 # --------------------------------------------------------------------
-# Function  :  `guess_os()'.
+# Function  :  "guess_os()".
 
  guess_os ()
  {
@@ -234,10 +179,8 @@
  }
 
 
-
-
 # --------------------------------------------------------------------
-# Function  :  `guess_gcc()'.
+# Function  :  "guess_gcc()".
 
  guess_gcc ()
  {
@@ -294,7 +237,7 @@
 
 
 # --------------------------------------------------------------------
-# Function  :  `switch_os()'.
+# Function  :  "switch_os()".
 
  switch_os ()
  {
@@ -375,8 +318,6 @@
  }
 
 
-
-
 # --------------------------------------------------------------------
 # Function : `get_string()'.
 
@@ -388,10 +329,8 @@
  }
 
 
-
-
 # --------------------------------------------------------------------
-# Function : `norm_dir()'.
+# Function : "norm_dir()".
 
  norm_dir()
  {
@@ -399,7 +338,7 @@
 
    if [ -z "$DIR" ]; then
      case "$1" in
-       "SRC")     DIR="$HOME/alliance/src";;
+       "SRC")     DIR="$HOME/alliance/alliance/src";;
        "INSTALL") DIR="$HOME/alliance/$ALLIANCE_OS/install";;
        *)         DIR="$HOME/alliance/$ALLIANCE_OS/build" ;;
      esac
@@ -416,10 +355,8 @@
  }
 
 
-
-
 # --------------------------------------------------------------------
-# Function : `make_dir()'.
+# Function : "make_dir()".
 
  make_dir()
  {
@@ -428,71 +365,41 @@
  }
 
 
-
-
 # --------------------------------------------------------------------
-# Function  :  `cvs_check()'.
+# Function  :  "source_check()".
 
- cvs_check ()
+ source_check ()
  {
-   echo "  o  Checking CVSROOT."
-
-  # Check the CVROOT variable.
-   if [ -z "$CVSROOT" ]; then
-     echo "     - CVROOT is not set. Using defaut $ATTILA_CVSROOT."
-     CVSROOT="$ATTILA_CVSROOT"; export CVSROOT
-   else
-     echo "     - Trusting user supplied \$CVSROOT ($CVSROOT)."
-   fi
-
-
-   cd $HOME
-  # Check out minimal set of files if needed.
-   for file in $CVS_STARTUP_FILES; do
-     if [ ! -f $HOME/alliance/src/$file ]; then
-       cvs co alliance/src/$file
-     fi
-   done
-
-
+   echo "  o  Checking Sources."
+   MISSING_TOOLS=""
 
   # Checks for tools sources.
    echo "  o  Checking tools sources."
    for TOOL in $TOOLS; do
-     echo "     - $HOME/alliance/src/$TOOL."
+     echo -n "     - $HOME/alliance/alliance/src/$TOOL "
 
-     if [ ! -d $HOME/alliance/src/$TOOL ]; then
-       echo    "       > The tool directory $TOOL doesn't exist."
-       echo -n "       > Do you want to check it out from the CVS tree ? [y]/n "
-
-       LOOP="y"
-       while [ "$LOOP" = "y" ]; do
-         read ANSWER
-         case "$ANSWER" in
-           "y"|"") ANSWER="y"; LOOP="n";;
-           "n")    LOOP="n";;
-           *)      echo -n "       > ";;
-         esac
-       done
-
-       case "$ANSWER" in
-         "y") cvs co alliance/src/$TOOL;;
-         "n") exit 1;;
-       esac
+     if [ ! -d $HOME/alliance/alliance/src/$TOOL ]; then
+       echo "[Not Found]"
+       MISSING_TOOLS="$MISSING_TOOLS $TOOL"
+     else
+       echo "[Found]"
      fi
    done
+
+   if [ ! -z "$MISSING_TOOLS" ]; then
+     echo "     Some tools are missing their sources, please check your git checkout."
+     exit 1
+   fi
 
    echo ""
  }
 
 
-
 # --------------------------------------------------------------------
-# Function  :  `compile_tool()'.
+# Function  :  "compile_tool()".
 
  compile_tool ()
  {
-
   # ----------------------------------------------------------------
   # Check environment.
 
@@ -547,14 +454,11 @@
    echo "     - INSTALL_DIR := $INSTALL_DIR"
    echo ""
 
-
-
-
   # ------------------------------------------------------------------
   # Do the work.
 
 
-   cd $HOME/alliance/src
+   cd $HOME/alliance/alliance/src
    if [ "$ASIM" = "y" ]; then
      if [ "$ALLIANCE_OS" = "Linux" ]; then
        echo "  o  For ASIM install, removing $BUILD_DIR & configure"
@@ -588,15 +492,15 @@
 
    echo "  o  Building & installing requested tools."
    for TOOL in $TOOLS; do
-     cd  $HOME/alliance/src
+     cd  $HOME/alliance/alliance/src
      if [ ! -f "$TOOL/Makefile.in" -o ! -f "$TOOL/configure" ]; then
        echo "     - Running autostools for $TOOL."
       #./autostuff $TOOL
        cd $TOOL
        aclocal -I . -I ..
-       if grep "^AM_PROG_LIBTOOL" configure.in >/dev/null; then
+      #if grep "^AM_PROG_LIBTOOL" configure.in >/dev/null; then
           libtoolize --force --copy --automake
-       fi
+      #fi
        automake --add-missing --copy --foreign
        autoconf
        cd ..
@@ -633,13 +537,9 @@
  }
 
 
-
-
-# /------------------------------------------------------------------\
-# |                                                                  |
+# +------------------------------------------------------------------+
 # |                  Main Part of the Shell Script                   |
-# |                                                                  |
-# \------------------------------------------------------------------/
+# +------------------------------------------------------------------+
 
 
  ATTILA_ALLIANCE_TOP="__ALLIANCE_INSTALL_DIR__"
@@ -648,8 +548,6 @@
 # --------------------------------------------------------------------
 # Variables sets in "attila.conf".
 
-
-   CVS_STARTUP_FILES=""
 
   LINUX_slsoc6x_64_TARGET="coriolis"
       LINUX_slsoc6x_64_CC="gcc"
@@ -699,7 +597,7 @@
 
                  RSH="rsh"
 
-             SRC_DIR="alliance/src"
+             SRC_DIR="alliance/alliance/src"
            BUILD_DIR=""
          INSTALL_DIR=""
 
@@ -845,7 +743,7 @@
 
  load_conf
 
- cvs_check
+ source_check
 
  if [ "$FULL" = "y" ]; then
   # Recursive call.

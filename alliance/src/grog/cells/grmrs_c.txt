@@ -1,3 +1,0 @@
-cell : grmrs_c
-This cell is the rom word line decoder, for 512 words to 4 k.
-Its inputs are directly joined on address lines.

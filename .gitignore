@@ -1,0 +1,15 @@
+Linux.*/
+Darwin/
+Solaris/
+Makefile.in
+aclocal.m4
+autom4te.cache/
+config.guess
+config.sub
+configure
+install-sh
+ltmain.sh
+missing
+depcomp
+dev/scripts/cppcheck/*
+
