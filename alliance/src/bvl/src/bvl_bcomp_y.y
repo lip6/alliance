@@ -2016,9 +2016,8 @@ signal_declaration
 		char *signame;
 		long   sigconf;
 		void *pnt;
-		long   errflg;
 
-		errflg = chkdcl ('S',0,$4.VALU,$4.FLAG,$6,$5.FLAG,&sigconf);
+		chkdcl ('S',0,$4.VALU,$4.FLAG,$6,$5.FLAG,&sigconf);
 
 		/* ###----------------------------------------------### */
 		/*    First, check the validity of the declaration.	*/

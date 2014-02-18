@@ -1114,7 +1114,6 @@ static void VasySynthesisWithSelectVpnProc( VpnFigure, RtlFigure, VpnProc )
   vexexpr        *ElseData;
   vexexpr        *VexData; 
   vexexpr        *VexCond; 
-  char           *AtomName;
   rtlasg_list    *RtlAssign;
   long            MaxNode;
   long            NumberNode;
@@ -1166,7 +1165,7 @@ static void VasySynthesisWithSelectVpnProc( VpnFigure, RtlFigure, VpnProc )
   AsgAtom   = VpnAction->VEX_ATOM;
   AsgExpr   = VpnAction->VEX_EXPR;
   ElseData  = AsgExpr;
-  AtomName  = GetVexAtomValue( AsgAtom );
+//AtomName  = GetVexAtomValue( AsgAtom );
   
   RtlAtom   = dupvexexpr( AsgAtom );
   RtlAssign = addrtlasg( RtlFigure, RtlAtom, RTL_ASG_CONDITIONAL );

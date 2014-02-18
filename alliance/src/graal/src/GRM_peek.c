@@ -407,7 +407,6 @@ char GraalRealFlatInstance( Rectangle )
    rdsrec_list *Rectangle;
 {
   phfig_list   *FigureMbk;
-  phins_list   *InstanceMbk;
   phins_list   *SourceMbk;
 
   void         *Pointer;
@@ -419,10 +418,10 @@ char GraalRealFlatInstance( Rectangle )
   FigureMbk = addphfig( "_ludo_" );
   SourceMbk = (phins_list *)GRAAL_MBK( Rectangle );
 
-  InstanceMbk = addphins( FigureMbk,
-                          SourceMbk->FIGNAME, SourceMbk->INSNAME, 
-                          SourceMbk->TRANSF, 
-                          SourceMbk->XINS, SourceMbk->YINS );
+  /*InstanceMbk =*/ addphins( FigureMbk,
+                              SourceMbk->FIGNAME, SourceMbk->INSNAME, 
+                              SourceMbk->TRANSF, 
+                              SourceMbk->XINS, SourceMbk->YINS );
   Pointer = (void *)
 
       Graalflattenphfig( FigureMbk, FigureMbk->PHINS->INSNAME, YES );

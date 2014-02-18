@@ -57,7 +57,6 @@ struct lofig *ptfig;
   extern char  *getsigname ();
   struct loins *ptins        = NULL;
   struct locon *ptcon        = NULL;
-  struct locon *tmp_ptcon    = NULL;
   struct locon *ptscan       = NULL;
   struct losig *ptsig        = NULL;
   struct chain *ptmodel      = NULL;
@@ -309,7 +308,7 @@ struct lofig *ptfig;
     ptcon = ptins->LOCON; 
     while (ptcon != NULL)
       {
-      tmp_ptcon = (struct locon *) mvl_vectnam (ptcon,&left,&right,&name,1);
+      mvl_vectnam (ptcon,&left,&right,&name,1);
       fprintf (ptfile,"    %s => ",mvl_vhdlname (name));
 
       if (left != -1)

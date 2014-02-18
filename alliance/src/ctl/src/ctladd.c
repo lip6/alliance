@@ -132,7 +132,6 @@ static ctldecl_list *loc_addctldecl( Figure, Expr, DeclType )
   unsigned char  DeclType;
 {
   ctldecl_list  *Decl;
-  ctldecl_list **PrevDecl;
   vexexpr       *Atom;
   ctlsym        *Sym;
   char          *Name;
@@ -184,7 +183,7 @@ static ctldecl_list *loc_addctldecl( Figure, Expr, DeclType )
     Index += IndexStep;
   }
 
-  PrevDecl = &Figure->DECLAR[ DeclType ];
+//PrevDecl = &Figure->DECLAR[ DeclType ];
 
   Decl->VEX_ATOM  = Expr;
   Decl->DECL_SYM  = Sym;

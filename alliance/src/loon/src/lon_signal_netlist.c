@@ -103,7 +103,6 @@ extern double loins_max_T(loins_list* loins)
    ptype_list* ptype;
    port_list* port;
    locon_list* locon;
-   char* input;
    biabl_list* biabl;
    
    if (!loins) {
@@ -161,7 +160,7 @@ extern double loins_max_T(loins_list* loins)
          fprintf(stderr,"loins_max_T: no losig name\n");
          autexit(1);
       }
-      input=(char*) locon->SIG->NAMECHAIN->DATA;
+    //input=(char*) locon->SIG->NAMECHAIN->DATA;
       
       /*finaly eval delay*/
       delay=port->T;
@@ -184,7 +183,6 @@ extern double loins_max_RC(loins_list* loins, char* output)
    ptype_list* ptype;
    port_list* port;
    locon_list* locon;
-   char* input;
    biabl_list* biabl;
    
    if (!loins || !output) {
@@ -242,7 +240,7 @@ extern double loins_max_RC(loins_list* loins, char* output)
          fprintf(stderr,"loins_max_RC: no losig name\n");
          autexit(1);
       }
-      input=(char*) locon->SIG->NAMECHAIN->DATA;
+    //input=(char*) locon->SIG->NAMECHAIN->DATA;
       
       /*finaly eval delay*/
       delay=port->R*getcapacitance(output);

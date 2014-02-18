@@ -173,7 +173,6 @@ rtldecl_list *addrtldecl( Figure, Atom, Type )
   int          Type;
 {
   rtldecl_list  *Decl;
-  rtldecl_list **PrevDecl;
   rtlsym        *Sym;
   char          *Name;
   int            Width;
@@ -221,7 +220,7 @@ rtldecl_list *addrtldecl( Figure, Atom, Type )
     Index += IndexStep;
   }
 
-  PrevDecl = &Figure->DECLAR[ Type ];
+//PrevDecl = &Figure->DECLAR[ Type ];
 
   Decl->VEX_ATOM  = Atom;
   Decl->DECL_SYM  = Sym;

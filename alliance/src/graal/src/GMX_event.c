@@ -719,15 +719,12 @@ void CallbackEvent ( MyWidget, Event, Args, Argc )
      String       *Args;
      int          *Argc;
 {
-  Display  *EventDisplay;
   char      MouseEvent;
   int       FlagUp;
   Position  OldLambdaCursorX;
   Position  OldLambdaCursorY;
 
   rdsbegin();
-
-  EventDisplay = Event->display;
 
   MouseEvent = atoi( Args[ 0 ] );
 

@@ -185,7 +185,7 @@ void insere_valcurv(long valcurv, PT_COORDONNEES coord, LST_EQUIPO equipo)
 void ordonne_eq_proj(LST_EQUIPO equipo, COEUR lecoeur)
 {
 
-	ptype_list * lst_proj = NULL, *prec_proj = NULL, *prem = NULL, *deux = NULL, *precprem = NULL;
+	ptype_list * lst_proj = NULL, *prec_proj = NULL, *prem = NULL, *deux = NULL;
 	long	delta = 0, deltamax = 0;
 
 	prec_proj = lst_proj = (equipo->cour).lst_projetes;
@@ -199,7 +199,7 @@ void ordonne_eq_proj(LST_EQUIPO equipo, COEUR lecoeur)
 			printf("Delta %5ld\n", delta);
 		if (delta > deltamax) { 
 			prem = lst_proj; 
-			precprem = prec_proj; 
+          //precprem = prec_proj; 
 			deux = lst_proj->NEXT; 
 			deltamax = delta;
 		}

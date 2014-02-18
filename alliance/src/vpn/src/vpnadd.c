@@ -527,7 +527,6 @@ static vpndecl_list *loc_addvpndecl( Figure, Expr, Type, Base )
   unsigned char  Base;
 {
   vpndecl_list  *Decl;
-  vpndecl_list **PrevDecl;
   vexexpr       *Atom;
   vpnsym        *Sym;
   char          *Name;
@@ -578,8 +577,6 @@ static vpndecl_list *loc_addvpndecl( Figure, Expr, Type, Base )
 
     Index += IndexStep;
   }
-
-  PrevDecl = &Figure->DECLAR[ Type ];
 
   Decl->VEX_ATOM  = Expr;
   Decl->DECL_SYM  = Sym;

@@ -466,7 +466,6 @@ static long BoomBddSetExprKeepAux( Expr )
   char          *Name;
   char          *Vector;
   beaux_list    *BehAux;
-  bddnode       *BddNode;
   authelem      *Element;
   long           Index;
   long           Number;
@@ -519,8 +518,8 @@ static long BoomBddSetExprKeepAux( Expr )
 
                 addauthelem( BoomBddHashKeepAux, BehAux->NAME, 0 );
                 SetBoomBehAuxKeep( BehAux );
-                BddNode = addbddcircuitin( (bddcircuit *)0, BehAux->NAME,
-                                           0, BDD_IN_MODE_LAST );
+                /*BddNode =*/ addbddcircuitin( (bddcircuit *)0, BehAux->NAME,
+                                               0, BDD_IN_MODE_LAST );
   
                 Number++;
               }
@@ -581,7 +580,6 @@ void BoomBehMakeBddNodeNoExplosion( BehFigure )
   bereg_list    *BehReg;
   biabl_list    *BiAbl;
   binode_list   *BiNode;
-  bddnode       *BddNode;
   char          *Name;
   char          *Vector;
   long           Index;
@@ -648,8 +646,8 @@ void BoomBehMakeBddNodeNoExplosion( BehFigure )
 
               if ( Vector == Name )
               {
-                BddNode = addbddcircuitin( (bddcircuit *)0, BehAux->NAME,
-                                            0, BDD_IN_MODE_LAST );
+                /*BddNode =*/ addbddcircuitin( (bddcircuit *)0, BehAux->NAME,
+                                               0, BDD_IN_MODE_LAST );
 
                 if ( IsBoomBehAuxKeep( BehAux ) )
                 {

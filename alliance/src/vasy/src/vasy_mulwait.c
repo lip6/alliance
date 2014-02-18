@@ -148,7 +148,6 @@ static void VasyMultiWaitHashWrite( VpnFigure, VpnProc )
   vexexpr       *AsgAtom;
   char          *AtomName;
   unsigned char *Flags;
-  chain_list   **Support;
   int            AsgIndex;
   int            AsgMin;
   int            AsgMax;
@@ -179,7 +178,7 @@ static void VasyMultiWaitHashWrite( VpnFigure, VpnProc )
       if ( VpnAction->TYPE == VPN_ACT_ASG_DEFINE ) continue;
 
       ActInfo = GetVasyVpnActInfo( VpnAction );
-      Support = ActInfo->SUPPORT;
+    //Support = ActInfo->SUPPORT;
       Flags   = ActInfo->FLAGS;
 
       AsgAtom   = VpnAction->VEX_ATOM;
@@ -237,7 +236,6 @@ static void VasyMultiWaitArcWait2Wait( VpnFigure, VpnProc, BeginTrans, AsgTrans,
   vpntrans_list *EndTrans;
 {
   vasyprocinfo   *ProcInfo;
-  vasytransinfo  *TransInfo;
   vasyactinfo    *ActInfo;
   vasysyminfo    *SymInfo;
   vpnact_list   *VpnAction;
@@ -246,7 +244,6 @@ static void VasyMultiWaitArcWait2Wait( VpnFigure, VpnProc, BeginTrans, AsgTrans,
   vpndecl_list  *AsgDeclar;
   vexexpr       *AsgAtom;
   char          *AtomName;
-  chain_list   **Support;
   chain_list   **Literal;
   chain_list   **Event;
   chain_list    *ScanChain;
@@ -285,7 +282,7 @@ static void VasyMultiWaitArcWait2Wait( VpnFigure, VpnProc, BeginTrans, AsgTrans,
     addauthelem( VasyHashSens, (char*)VpnSymbol, (long)VpnSymbol );
   }
 
-  TransInfo   = GetVasyVpnTransInfo( AsgTrans );
+//TransInfo   = GetVasyVpnTransInfo( AsgTrans );
 
   NumberWrite = 0;
 
@@ -296,7 +293,7 @@ static void VasyMultiWaitArcWait2Wait( VpnFigure, VpnProc, BeginTrans, AsgTrans,
     if ( VpnAction->TYPE == VPN_ACT_ASG_DEFINE ) continue;
 
     ActInfo = GetVasyVpnActInfo( VpnAction );
-    Support = ActInfo->SUPPORT;
+  //Support = ActInfo->SUPPORT;
     Literal = ActInfo->LITERAL;
     Event   = ActInfo->EVENT;
     Flags   = ActInfo->FLAGS;

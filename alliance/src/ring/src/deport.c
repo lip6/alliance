@@ -210,7 +210,6 @@ void deport_alim(LST_EQUIPO lst_equipo, BARRE_PLOTS tab_plots[NB_FACES],
 	int	i, nbcolatrouver, face;
 	long	largmetalpiste, largmetalcol, piste;
 	char	niveaupiste;
-	LST_SEGMENT    * segcol;
 	LST_SEGMENT    * segpiste;
 
 	recherche_equipo_alim(&equipo_vdd, &equipo_vss, lst_equipo);
@@ -245,7 +244,7 @@ void deport_alim(LST_EQUIPO lst_equipo, BARRE_PLOTS tab_plots[NB_FACES],
 				case NORD:
 				case SUD :
 					niveaupiste = xmetal;
-					segcol = segy_occ;
+                  //segcol = segy_occ;
 					segpiste = segx_occ;
 					largmetalpiste = xmetal_width;
 					largmetalcol   = ymetal_width;
@@ -273,7 +272,7 @@ void deport_alim(LST_EQUIPO lst_equipo, BARRE_PLOTS tab_plots[NB_FACES],
 				case EST  :
 				case OUEST:
 					niveaupiste = ymetal;
-					segcol = segx_occ;
+                  //segcol = segx_occ;
 					segpiste = segy_occ;
 					largmetalpiste = ymetal_width;
 					largmetalcol   = xmetal_width;
@@ -345,7 +344,7 @@ void deport_alim(LST_EQUIPO lst_equipo, BARRE_PLOTS tab_plots[NB_FACES],
 				case NORD:
 				case SUD :
 					niveaupiste = xmetal;
-					segcol = segy_occ;
+                  //segcol = segy_occ;
 					segpiste = segx_occ;
 					largmetalpiste = xmetal_width;
 					largmetalcol   = ymetal_width;
@@ -372,7 +371,7 @@ void deport_alim(LST_EQUIPO lst_equipo, BARRE_PLOTS tab_plots[NB_FACES],
 				case EST  :
 				case OUEST:
 					niveaupiste = ymetal;
-					segcol = segx_occ;
+                  //segcol = segx_occ;
 					segpiste = segy_occ;
 					largmetalpiste = ymetal_width;
 					largmetalcol   = xmetal_width;

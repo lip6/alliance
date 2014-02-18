@@ -421,7 +421,6 @@ formal_port_element
           .constraint.
           .BUS.
                 {
-                struct locon *locon_pnt;
                 struct losig *losig_pnt;
                 long           sig_width;
                 long           sig_conf;
@@ -460,7 +459,7 @@ formal_port_element
                       case (MVL_ICNDFN + MVL_BTVDFN + MVL_NORDFN) :
                         losig_pnt = mvl_addlosig (MVL_LOFPNT,MVL_SIGIDX,'E','0',
                                                   sig_name,$6.LEFT,$6.RIGHT);
-                        locon_pnt = mvl_addlocon (MVL_LOFPNT,losig_pnt,'I',
+                        mvl_addlocon (MVL_LOFPNT,losig_pnt,'I',
                                                   sig_name,$6.LEFT,$6.RIGHT);
                         break;
 
@@ -468,15 +467,15 @@ formal_port_element
                       case (MVL_OCNDFN + MVL_BTVDFN + MVL_NORDFN) :
                         losig_pnt = mvl_addlosig (MVL_LOFPNT,MVL_SIGIDX,'E','0',
                                                   sig_name,$6.LEFT,$6.RIGHT);
-                        locon_pnt = mvl_addlocon (MVL_LOFPNT,losig_pnt,'O',
+                        mvl_addlocon (MVL_LOFPNT,losig_pnt,'O',
                                                   sig_name,$6.LEFT,$6.RIGHT);
                         break;
 
                       case (MVL_OCNDFN + MVL_MUXDFN + MVL_BUSDFN) :
                       case (MVL_OCNDFN + MVL_MXVDFN + MVL_BUSDFN) :
-                        losig_pnt = mvl_addlosig (MVL_LOFPNT,MVL_SIGIDX,'E','M',
+                        mvl_addlosig (MVL_LOFPNT,MVL_SIGIDX,'E','M',
                                                   sig_name,$6.LEFT,$6.RIGHT);
-                        locon_pnt = mvl_addlocon (MVL_LOFPNT,losig_pnt,'Z',
+                        mvl_addlocon (MVL_LOFPNT,losig_pnt,'Z',
                                                   sig_name,$6.LEFT,$6.RIGHT);
                         break;
 
@@ -484,7 +483,7 @@ formal_port_element
                       case (MVL_OCNDFN + MVL_WRVDFN + MVL_BUSDFN) :
                         losig_pnt = mvl_addlosig (MVL_LOFPNT,MVL_SIGIDX,'E','W',
                                                   sig_name,$6.LEFT,$6.RIGHT);
-                        locon_pnt = mvl_addlocon (MVL_LOFPNT,losig_pnt,'Z',
+                        mvl_addlocon (MVL_LOFPNT,losig_pnt,'Z',
                                                   sig_name,$6.LEFT,$6.RIGHT);
                         break;
 
@@ -492,7 +491,7 @@ formal_port_element
                       case (MVL_BCNDFN + MVL_BTVDFN + MVL_NORDFN) :
                         losig_pnt = mvl_addlosig (MVL_LOFPNT,MVL_SIGIDX,'E','0',
                                                   sig_name,$6.LEFT,$6.RIGHT);
-                        locon_pnt = mvl_addlocon (MVL_LOFPNT,losig_pnt,'B',
+                        mvl_addlocon (MVL_LOFPNT,losig_pnt,'B',
                                                   sig_name,$6.LEFT,$6.RIGHT);
                         break;
 
@@ -500,7 +499,7 @@ formal_port_element
                       case (MVL_BCNDFN + MVL_MXVDFN + MVL_BUSDFN) :
                         losig_pnt = mvl_addlosig (MVL_LOFPNT,MVL_SIGIDX,'E','M',
                                                   sig_name,$6.LEFT,$6.RIGHT);
-                        locon_pnt = mvl_addlocon (MVL_LOFPNT,losig_pnt,'T',
+                        mvl_addlocon (MVL_LOFPNT,losig_pnt,'T',
                                                   sig_name,$6.LEFT,$6.RIGHT);
                         break;
 
@@ -508,7 +507,7 @@ formal_port_element
                       case (MVL_BCNDFN + MVL_WRVDFN + MVL_BUSDFN) :
                         losig_pnt = mvl_addlosig (MVL_LOFPNT,MVL_SIGIDX,'E','W',
                                                   sig_name,$6.LEFT,$6.RIGHT);
-                        locon_pnt = mvl_addlocon (MVL_LOFPNT,losig_pnt,'T',
+                        mvl_addlocon (MVL_LOFPNT,losig_pnt,'T',
                                                   sig_name,$6.LEFT,$6.RIGHT);
                         break;
 
@@ -516,7 +515,7 @@ formal_port_element
                       case (MVL_XCNDFN + MVL_BTVDFN + MVL_NORDFN) :
                         losig_pnt = mvl_addlosig (MVL_LOFPNT,MVL_SIGIDX,'E','0',
                                                   sig_name,$6.LEFT,$6.RIGHT);
-                        locon_pnt = mvl_addlocon (MVL_LOFPNT,losig_pnt,'X',
+                        mvl_addlocon (MVL_LOFPNT,losig_pnt,'X',
                                                   sig_name,$6.LEFT,$6.RIGHT);
                         break;
                       default :
@@ -758,7 +757,6 @@ local_port_element
 .constraint.
           .BUS.
                 {
-                struct locon *locon_pnt;
                 long           sig_width;
                 long           sig_conf;
                 char         *sig_name;
@@ -794,50 +792,42 @@ local_port_element
                       {
                       case (MVL_ICNDFN + MVL_BITDFN + MVL_NORDFN) :
                       case (MVL_ICNDFN + MVL_BTVDFN + MVL_NORDFN) :
-                        locon_pnt = mvl_addlocon (MVL_CHDPNT,NULL,'I',
-                                                  sig_name,$6.LEFT,$6.RIGHT);
+                        mvl_addlocon (MVL_CHDPNT,NULL,'I', sig_name,$6.LEFT,$6.RIGHT);
                         break;
 
                       case (MVL_OCNDFN + MVL_BITDFN + MVL_NORDFN) :
                       case (MVL_OCNDFN + MVL_BTVDFN + MVL_NORDFN) :
-                        locon_pnt = mvl_addlocon (MVL_CHDPNT,NULL,'O',
-                                                  sig_name,$6.LEFT,$6.RIGHT);
+                        mvl_addlocon (MVL_CHDPNT,NULL,'O', sig_name,$6.LEFT,$6.RIGHT);
                         break;
 
                       case (MVL_OCNDFN + MVL_MUXDFN + MVL_BUSDFN) :
                       case (MVL_OCNDFN + MVL_MXVDFN + MVL_BUSDFN) :
-                        locon_pnt = mvl_addlocon (MVL_CHDPNT,NULL,'Z',
-                                                  sig_name,$6.LEFT,$6.RIGHT);
+                        mvl_addlocon (MVL_CHDPNT,NULL,'Z', sig_name,$6.LEFT,$6.RIGHT);
                         break;
 
                       case (MVL_OCNDFN + MVL_WORDFN + MVL_BUSDFN) :
                       case (MVL_OCNDFN + MVL_WRVDFN + MVL_BUSDFN) :
-                        locon_pnt = mvl_addlocon (MVL_CHDPNT,NULL,'Z',
-                                                  sig_name,$6.LEFT,$6.RIGHT);
+                        mvl_addlocon (MVL_CHDPNT,NULL,'Z', sig_name,$6.LEFT,$6.RIGHT);
                         break;
 
                       case (MVL_BCNDFN + MVL_BITDFN + MVL_NORDFN) :
                       case (MVL_BCNDFN + MVL_BTVDFN + MVL_NORDFN) :
-                        locon_pnt = mvl_addlocon (MVL_CHDPNT,NULL,'B',
-                                                  sig_name,$6.LEFT,$6.RIGHT);
+                        mvl_addlocon (MVL_CHDPNT,NULL,'B', sig_name,$6.LEFT,$6.RIGHT);
                         break;
 
                       case (MVL_BCNDFN + MVL_MUXDFN + MVL_BUSDFN) :
                       case (MVL_BCNDFN + MVL_MXVDFN + MVL_BUSDFN) :
-                        locon_pnt = mvl_addlocon (MVL_CHDPNT,NULL,'T',
-                                                  sig_name,$6.LEFT,$6.RIGHT);
+                        mvl_addlocon (MVL_CHDPNT,NULL,'T', sig_name,$6.LEFT,$6.RIGHT);
                         break;
 
                       case (MVL_BCNDFN + MVL_WORDFN + MVL_BUSDFN) :
                       case (MVL_BCNDFN + MVL_WRVDFN + MVL_BUSDFN) :
-                        locon_pnt = mvl_addlocon (MVL_CHDPNT,NULL,'T',
-                                                  sig_name,$6.LEFT,$6.RIGHT);
+                        mvl_addlocon (MVL_CHDPNT,NULL,'T', sig_name,$6.LEFT,$6.RIGHT);
                         break;
 
                       case (MVL_XCNDFN + MVL_BITDFN + MVL_NORDFN) :
                       case (MVL_XCNDFN + MVL_BTVDFN + MVL_NORDFN) :
-                        locon_pnt = mvl_addlocon (MVL_CHDPNT,NULL,'X',
-                                                  sig_name,$6.LEFT,$6.RIGHT);
+                        mvl_addlocon (MVL_CHDPNT,NULL,'X', sig_name,$6.LEFT,$6.RIGHT);
                         break;
 
                       default :

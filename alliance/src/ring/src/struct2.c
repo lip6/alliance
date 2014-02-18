@@ -852,7 +852,7 @@ char	layer;
 void affic_listeseg(tab_seg)
 LST_SEGMENT tab_seg[NB_FACES];
 {
-	LST_SEGMENT lseg, der;
+    LST_SEGMENT lseg;
 	int	face;
 	static char	a1[3] = "A1";
 	static char	a2[3] = "A2";
@@ -876,8 +876,8 @@ LST_SEGMENT tab_seg[NB_FACES];
 			printf("face %d x1 %5ld y1 %5ld x2 %5ld y2 %5ld -- piste1 %3ld piste2 %3ld -- larg %3ld layer %2s \n",
 			       lseg->face, lseg->c1->xabs, lseg->c1->yabs, lseg->c2->xabs, lseg->c2->yabs, lseg->piste1, lseg
 			    ->piste2, lseg->largeur, metal);
-			if (NULL  == lseg->suiv) 
-				der = lseg;
+          //if (NULL  == lseg->suiv) 
+          //	der = lseg;
 
 			lseg = lseg->suiv;
 		}

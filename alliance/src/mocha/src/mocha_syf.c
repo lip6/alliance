@@ -279,7 +279,6 @@ fsmfig_list *MochaSyfFbhParse( Name )
   fsmfig_list    *FsmFigure;
   fsmfig_list    *ScanFigure;
   chain_list     *ScanChain;
-  mochasyfinfo   *MochaSyfInfo;
   fsmstate_list  *ScanState;
 
   MochaSyfInitializeKeyword();
@@ -295,7 +294,7 @@ fsmfig_list *MochaSyfFbhParse( Name )
           ScanChain  = ScanChain->NEXT )
     {
       ScanFigure = (fsmfig_list *)ScanChain->DATA; 
-      MochaSyfInfo = MochaSyfaddfsmsyfinfo( ScanFigure );
+      /*MochaSyfInfo =*/ MochaSyfaddfsmsyfinfo( ScanFigure );
     }
   }
   else
@@ -517,7 +516,6 @@ static void MochaSyfSynthOut2Abl( FsmFigure )
   fsmlocout_list *ScanLocout;
   mochasyfout    *ScanMochaSyfOut;
   mochasyfstate  *ScanMochaSyfState;
-  mochasyfcode   *ScanMochaSyfCode;
   ablexpr        *Equation;
   ablexpr        *Atom;
 
@@ -536,7 +534,7 @@ static void MochaSyfSynthOut2Abl( FsmFigure )
         ScanState  = ScanState->NEXT )
   {
     ScanMochaSyfState = MOCHA_SYF_STATE( ScanState );
-    ScanMochaSyfCode  = ScanMochaSyfState->CODE;
+  //ScanMochaSyfCode  = ScanMochaSyfState->CODE;
 
     for ( ScanLocout  = ScanState->LOCOUT;
           ScanLocout != (fsmlocout_list *)0;

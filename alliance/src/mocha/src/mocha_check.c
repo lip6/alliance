@@ -557,14 +557,13 @@ static void MochaCheckComputeReachableStates( MochaFigure )
 
   mochafig_list *MochaFigure;
 {
-  ctlfig_list  *CtlFigure;
   btrtransfunc *BtrTransFunc;
   bddnode      *BddNewSet;
   bddnode      *BddCurrentSet;
   bddnode      *BddReachedSet;
   bddnode      *BddNode;
 
-  CtlFigure    = MochaFigure->CTL_FIGURE;
+//CtlFigure    = MochaFigure->CTL_FIGURE;
   BtrTransFunc = MochaFigure->BTR_TRANS_FUNC;
 
   setbddlocalcircuit( MochaFigure->BDD_CIRCUIT );

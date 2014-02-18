@@ -1125,7 +1125,6 @@ unlabeled_generate_statement
           {
             vbl_name      *Range;
             vbvar_list    *VbVar;
-            vexexpr       *Target;
             short          Signed;
             long           Left;
             long           Right;
@@ -1164,7 +1163,7 @@ unlabeled_generate_statement
               VbVar = (vbvar_list *)vbl_addstr( 'f',0,
                                                get_type(VBH_TYPE_INTEGER),VBH_TYPE_INTEGER,
                                               'I',$1.IDENT, -1, -1, NULL, 0, 0 );
-              Target = VbVar->TARGET;
+            //Target = VbVar->TARGET;
               Signed = ( IsVexNodeSigned( VbVar->TARGET ) != 0 );
 
               if ( IsVexAtomBit( VbVar->TARGET ) )
@@ -1319,8 +1318,6 @@ association_element
           long            right;
           long            left_bnd;
           long            right_bnd;
-          long            in_bound;
-          long            out_bound;
           unsigned char   dynamic;
           long             mode;
           long             flag;
@@ -1381,8 +1378,8 @@ association_element
               {
                 if (left <= right)
                 {
-                  in_bound  = left  - left_bnd;
-                  out_bound = right - left_bnd;
+                //in_bound  = left  - left_bnd;
+                //out_bound = right - left_bnd;
                   if ((left < left_bnd) || (right > right_bnd))
                   {
                     my_vbl_error (36,$1.NAME);
@@ -1390,8 +1387,8 @@ association_element
                 }
                 else
                 {
-                  in_bound  = right - left_bnd;
-                  out_bound = left  - left_bnd;
+                  //in_bound  = right - left_bnd;
+                  //out_bound = left  - left_bnd;
                   if ((left > right_bnd) || (right < left_bnd))
                   {
                     my_vbl_error (36,$1.NAME);
@@ -1402,8 +1399,8 @@ association_element
               {
                 if (left <= right)
                 {
-                  in_bound  = left  - right_bnd;
-                  out_bound = right - right_bnd;
+                //in_bound  = left  - right_bnd;
+                //out_bound = right - right_bnd;
                   if ((left < right_bnd) || (right > left_bnd))
                   {
                     my_vbl_error (36,$1.NAME);
@@ -1411,8 +1408,8 @@ association_element
                 }
                 else
                 {
-                  in_bound  = right - right_bnd;
-                  out_bound = left  - right_bnd;
+                //in_bound  = right - right_bnd;
+                //out_bound = left  - right_bnd;
                   if ((left > left_bnd) || (right < right_bnd))
                   {
                     my_vbl_error (36,$1.NAME);
@@ -5193,6 +5190,8 @@ signal_list
        {
            vexexpr    *Vex;
            chain_list *Chain;
+
+#if THIS_IS_DISABLED
            char       *LocalName;
 
            if ( chktab(hshtab,$1.NAME,VBL_FUNCNAM,VBL_SYMDFN ) )
@@ -5208,6 +5207,13 @@ signal_list
            {
              my_vbl_error(17,$1.NAME);
            }
+#else
+           if ( !chktab(hshtab,$1.NAME,VBL_FUNCNAM,VBL_SYMDFN)
+              && !chktab(hshtab,$1.NAME,VBL_MODNAM,VBL_SYMDFN) )
+           {
+             my_vbl_error(17,$1.NAME);
+           }
+#endif
 
            if ( ! $1.DYNAMIC )
            {
@@ -5240,6 +5246,8 @@ signal_list
        {
            vexexpr    *Vex;
            chain_list *Chain;
+
+#if THIS_IS_DISABLED
            char       *LocalName;
 
            if ( chktab(hshtab,$2.NAME,VBL_FUNCNAM,VBL_SYMDFN ) )
@@ -5255,6 +5263,13 @@ signal_list
            {
              my_vbl_error(17,$2.NAME);
            }
+#else
+           if (  !chktab(hshtab,$2.NAME,VBL_FUNCNAM,VBL_SYMDFN)
+              && !chktab(hshtab,$2.NAME,VBL_MODNAM,VBL_SYMDFN) )
+           {
+             my_vbl_error(17,$2.NAME);
+           }
+#endif
 
            if ( ! $2.DYNAMIC )
            {
@@ -6356,8 +6371,6 @@ choice
            vexexpr        *VexCst;
            long             left;
            long             right;
-           long             in_bound;
-           long             out_bound;
            long             left_bnd;
            long             right_bnd;
            long             sig_conf;
@@ -6396,8 +6409,8 @@ choice
              {
                if (left <= right)
                {
-                 in_bound = left - left_bnd;
-                 out_bound = right - left_bnd;
+               //in_bound = left - left_bnd;
+               //out_bound = right - left_bnd;
                  if ((left < left_bnd) || (right > right_bnd))
                  {
                    my_vbl_error (36,$1.NAME);
@@ -6405,8 +6418,8 @@ choice
                }
                else
                {
-                 in_bound = left - right_bnd;
-                 out_bound = right - right_bnd;
+               //in_bound = left - right_bnd;
+               //out_bound = right - right_bnd;
                  if ((left > right_bnd) || (right < left_bnd))
                  {
                    my_vbl_error (36,$1.NAME);
@@ -6417,8 +6430,8 @@ choice
              {
                if (left <= right)
                {
-                 in_bound = right - left_bnd;
-                 out_bound = left - left_bnd;
+               //in_bound = right - left_bnd;
+               //out_bound = left - left_bnd;
                  if ((left < right_bnd) || (right > left_bnd))
                  {
                    my_vbl_error (36,$1.NAME);
@@ -6426,8 +6439,8 @@ choice
                }
                else
                {
-                 in_bound = right - right_bnd;
-                 out_bound = left - right_bnd;
+               //in_bound = right - right_bnd;
+               //out_bound = left - right_bnd;
                  if ((left > left_bnd) || (right < right_bnd))
                  {
                    my_vbl_error (36,$1.NAME);
@@ -6676,8 +6689,6 @@ primary
           long            right;
           long            left_bnd;
           long            right_bnd;
-          long            in_bound;
-          long            out_bound;
           long             mode;
           long             flag;
           unsigned char   dynamic;
@@ -6780,8 +6791,8 @@ primary
                   {
                     if (left <= right)
                     {
-                      in_bound  = left  - left_bnd;
-                      out_bound = right - left_bnd;
+                    //in_bound  = left  - left_bnd;
+                    //out_bound = right - left_bnd;
                       if ((left < left_bnd) || (right > right_bnd))
                       {
                         my_vbl_error (36,$1.NAME);
@@ -6789,8 +6800,8 @@ primary
                     }
                     else
                     {
-                      in_bound  = right - left_bnd;
-                      out_bound = left  - left_bnd;
+                    //in_bound  = right - left_bnd;
+                    //out_bound = left  - left_bnd;
                       if ((left > right_bnd) || (right < left_bnd))
                       {
                         my_vbl_error (36,$1.NAME);
@@ -6801,8 +6812,8 @@ primary
                   {
                     if (left <= right)
                     {
-                      in_bound  = left  - right_bnd;
-                      out_bound = right - right_bnd;
+                    //in_bound  = left  - right_bnd;
+                    //out_bound = right - right_bnd;
                       if ((left < right_bnd) || (right > left_bnd))
                       {
                         my_vbl_error (36,$1.NAME);
@@ -6810,8 +6821,8 @@ primary
                     }
                     else
                     {
-                      in_bound  = right - right_bnd;
-                      out_bound = left  - right_bnd;
+                    //in_bound  = right - right_bnd;
+                    //out_bound = left  - right_bnd;
                       if ((left > left_bnd) || (right < right_bnd))
                       {
                         my_vbl_error (36,$1.NAME);

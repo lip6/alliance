@@ -672,7 +672,6 @@ static void VvhVbhTreatIfs( ScanIfs )
   vpntrans_list *TrueTrans;
   vpntrans_list *FalseTrans;
   vpntrans_list *EndTrans;
-  vpnarc        *VpnArc;
   vexexpr       *VexCond;
   long           Number;
 
@@ -695,21 +694,21 @@ static void VvhVbhTreatIfs( ScanIfs )
   BeginPlace = VvhVpnAddPlace( VvhName );
   BeginPlace->TYPE = VPN_PLACE_IF;
 
-  VpnArc = addvpnarctrans( VvhVpnFigure, VvhPrevTrans, BeginPlace );
+  /*VpnArc =*/ addvpnarctrans( VvhVpnFigure, VvhPrevTrans, BeginPlace );
 
   sprintf( VvhName, "if_true.%s.%ld", VvhTopName, Number );
   TrueTrans = VvhVpnAddTrans( VvhName );
   TrueTrans->TYPE  = VPN_TRANS_GUARDED;
   TrueTrans->VEX_GUARD = dupvexexpr( VexCond );
 
-  VpnArc = addvpnarcplace( VvhVpnFigure, BeginPlace, TrueTrans );
+  /*VpnArc =*/ addvpnarcplace( VvhVpnFigure, BeginPlace, TrueTrans );
 
   sprintf( VvhName, "if_false.%s.%ld", VvhTopName, Number );
   FalseTrans = VvhVpnAddTrans( VvhName );
   FalseTrans->TYPE  = VPN_TRANS_GUARDED;
   FalseTrans->VEX_GUARD = optimvexnotexpr( VexCond );
 
-  VpnArc = addvpnarcplace( VvhVpnFigure, BeginPlace, FalseTrans );
+  /*VpnArc =*/ addvpnarcplace( VvhVpnFigure, BeginPlace, FalseTrans );
 
   VvhPrevTrans = TrueTrans;
 
@@ -730,18 +729,18 @@ static void VvhVbhTreatIfs( ScanIfs )
 
   if ( TrueTrans != (vpntrans_list *)0 )
   {
-    VpnArc = addvpnarctrans( VvhVpnFigure, TrueTrans , EndPlace );
+    /*VpnArc =*/ addvpnarctrans( VvhVpnFigure, TrueTrans , EndPlace );
   }
 
   if ( FalseTrans != (vpntrans_list *)0 )
   {
-    VpnArc = addvpnarctrans( VvhVpnFigure, FalseTrans, EndPlace );
+    /*VpnArc =*/ addvpnarctrans( VvhVpnFigure, FalseTrans, EndPlace );
   }
 
   EndTrans = VvhVpnAddTrans( VvhName );
   EndTrans->TYPE = VPN_TRANS_IMMEDIATE;
 
-  VpnArc = addvpnarcplace( VvhVpnFigure, EndPlace, EndTrans );
+  /*VpnArc =*/ addvpnarcplace( VvhVpnFigure, EndPlace, EndTrans );
 
   VvhPrevTrans = EndTrans;
 }
@@ -870,7 +869,6 @@ static void VvhVbhTreatAggregate( ScanAgr )
 {
   vpnplace_list *AssignPlace;
   vpntrans_list *AssignTrans;
-  vpnarc        *VpnArc;
   long           Number;
 
   Number = VvhNumberAsg++;
@@ -881,8 +879,8 @@ static void VvhVbhTreatAggregate( ScanAgr )
   AssignTrans = VvhVpnAddTrans( VvhName );
   AssignTrans->TYPE = VPN_TRANS_ACT_EXEC_CONC;
 
-  VpnArc = addvpnarctrans( VvhVpnFigure, VvhPrevTrans, AssignPlace );
-  VpnArc = addvpnarcplace( VvhVpnFigure, AssignPlace , AssignTrans );
+  /*VpnArc =*/ addvpnarctrans( VvhVpnFigure, VvhPrevTrans, AssignPlace );
+  /*VpnArc =*/ addvpnarcplace( VvhVpnFigure, AssignPlace , AssignTrans );
 
   VvhPrevTrans = AssignTrans;
 
@@ -966,7 +964,6 @@ static void VvhVbhTreatCase( ScanCase )
   vpntrans_list *PrevTrans;
   vpntrans_list *CaseTrans;
   vpntrans_list *EndTrans;
-  vpnarc        *VpnArc;
   vexexpr       *VexCond;
   vexexpr       *VexOthers;
   vexexpr       *VexGuard = NULL;
@@ -1177,7 +1174,7 @@ static void VvhVbhTreatCase( ScanCase )
 
     CaseTrans->VEX_GUARD = VexBoolean;
 
-    VpnArc = addvpnarcplace( VvhVpnFigure, BeginPlace, CaseTrans );
+    /*VpnArc =*/ addvpnarcplace( VvhVpnFigure, BeginPlace, CaseTrans );
 
     VvhPrevTrans = CaseTrans;
 
@@ -1187,7 +1184,7 @@ static void VvhVbhTreatCase( ScanCase )
 
     if ( VvhPrevTrans != (vpntrans_list *)0 )
     {
-      VpnArc = addvpnarctrans( VvhVpnFigure, VvhPrevTrans, EndPlace );
+      /*VpnArc =*/ addvpnarctrans( VvhVpnFigure, VvhPrevTrans, EndPlace );
     }
   }
 
@@ -1200,8 +1197,8 @@ static void VvhVbhTreatCase( ScanCase )
   EndTrans = VvhVpnAddTrans( VvhName );
   EndTrans->TYPE = VPN_TRANS_IMMEDIATE;
 
-  VpnArc = addvpnarctrans( VvhVpnFigure, PrevTrans, BeginPlace );
-  VpnArc = addvpnarcplace( VvhVpnFigure, EndPlace, EndTrans );
+  /*VpnArc =*/ addvpnarctrans( VvhVpnFigure, PrevTrans, BeginPlace );
+  /*VpnArc =*/ addvpnarcplace( VvhVpnFigure, EndPlace, EndTrans );
 
   VvhPrevTrans = EndTrans;
 }
@@ -1224,7 +1221,6 @@ static int VvhVbhTreatWait( ScanWait )
   vpntrans_list *UntilTrue;
   vpntrans_list *UntilFalse;
   vpntrans_list *UntilEnd;
-  vpnarc        *VpnArc;
   chain_list    *Support;
   vexexpr       *VexCond;
   long           Number;
@@ -1239,8 +1235,8 @@ static int VvhVbhTreatWait( ScanWait )
   WaitPlace->TYPE = VPN_PLACE_WAIT;
   WaitTrans = VvhVpnAddTrans( VvhName );
 
-  VpnArc = addvpnarctrans( VvhVpnFigure, VvhPrevTrans, WaitPlace );
-  VpnArc = addvpnarcplace( VvhVpnFigure, WaitPlace   , WaitTrans );
+  /*VpnArc =*/ addvpnarctrans( VvhVpnFigure, VvhPrevTrans, WaitPlace );
+  /*VpnArc =*/ addvpnarcplace( VvhVpnFigure, WaitPlace   , WaitTrans );
 
   WaitTrans->TYPE = VPN_TRANS_INF_WAIT;
   VvhPrevTrans = WaitTrans;
@@ -1275,13 +1271,13 @@ static int VvhVbhTreatWait( ScanWait )
 
     VexCond = VvhVbhTreatTest( UntilTrans, VexCond );
 
-    VpnArc = addvpnarctrans( VvhVpnFigure, WaitTrans , UntilPlace );
-    VpnArc = addvpnarcplace( VvhVpnFigure, UntilPlace, UntilTrans );
+    /*VpnArc =*/ addvpnarctrans( VvhVpnFigure, WaitTrans , UntilPlace );
+    /*VpnArc =*/ addvpnarcplace( VvhVpnFigure, UntilPlace, UntilTrans );
 
     UntilTest = VvhVpnAddPlace( VvhName );
     UntilTest->TYPE = VPN_PLACE_UNTIL_TEST;
 
-    VpnArc = addvpnarctrans( VvhVpnFigure, UntilTrans, UntilTest  );
+    /*VpnArc =*/ addvpnarctrans( VvhVpnFigure, UntilTrans, UntilTest  );
 
     sprintf( VvhName, "until_true.%s.%ld", VvhTopName, Number );
     UntilTrue = VvhVpnAddTrans( VvhName );
@@ -1293,9 +1289,9 @@ static int VvhVbhTreatWait( ScanWait )
     UntilFalse->TYPE = VPN_TRANS_GUARDED;
     UntilFalse->VEX_GUARD = optimvexnotexpr( VexCond );
 
-    VpnArc = addvpnarcplace( VvhVpnFigure, UntilTest , UntilTrue  );
-    VpnArc = addvpnarcplace( VvhVpnFigure, UntilTest , UntilFalse );
-    VpnArc = addvpnarctrans( VvhVpnFigure, UntilFalse, WaitPlace  );
+    /*VpnArc =*/ addvpnarcplace( VvhVpnFigure, UntilTest , UntilTrue  );
+    /*VpnArc =*/ addvpnarcplace( VvhVpnFigure, UntilTest , UntilFalse );
+    /*VpnArc =*/ addvpnarctrans( VvhVpnFigure, UntilFalse, WaitPlace  );
 
     sprintf( VvhName, "end_until.%s.%ld", VvhTopName, Number );
     UntilPlace = VvhVpnAddPlace( VvhName );
@@ -1304,8 +1300,8 @@ static int VvhVbhTreatWait( ScanWait )
     UntilEnd = VvhVpnAddTrans( VvhName );
     UntilEnd->TYPE = VPN_TRANS_IMMEDIATE;
 
-    VpnArc = addvpnarctrans( VvhVpnFigure, UntilTrue, UntilPlace );
-    VpnArc = addvpnarcplace( VvhVpnFigure, UntilPlace, UntilEnd  );
+    /*VpnArc =*/ addvpnarctrans( VvhVpnFigure, UntilTrue, UntilPlace );
+    /*VpnArc =*/ addvpnarcplace( VvhVpnFigure, UntilPlace, UntilEnd  );
     
     WaitPlace->LINK = UntilPlace;
 
@@ -1331,7 +1327,6 @@ static int VvhVbhTreatLoop( ScanLoop )
   vpnplace_list *OldEndLoop;
   vpntrans_list *BeginTrans;
   vpntrans_list *EndTrans;
-  vpnarc        *VpnArc;
   long           Number;
 
   VvhCurrentLine = ScanLoop->LINE;
@@ -1342,12 +1337,12 @@ static int VvhVbhTreatLoop( ScanLoop )
   BeginPlace = VvhVpnAddPlace( VvhName );
   BeginPlace->TYPE = VPN_PLACE_LOOP;
 
-  VpnArc = addvpnarctrans( VvhVpnFigure, VvhPrevTrans, BeginPlace );
+  /*VpnArc =*/ addvpnarctrans( VvhVpnFigure, VvhPrevTrans, BeginPlace );
 
   BeginTrans = VvhVpnAddTrans( VvhName );
   BeginTrans->TYPE  = VPN_TRANS_IMMEDIATE;
 
-  VpnArc = addvpnarcplace( VvhVpnFigure, BeginPlace, BeginTrans );
+  /*VpnArc =*/ addvpnarcplace( VvhVpnFigure, BeginPlace, BeginTrans );
 
   sprintf( VvhName, "end_loop.%s.%s.%ld", ScanLoop->LABEL, VvhTopName, Number );
   EndPlace = VvhVpnAddPlace( VvhName );
@@ -1358,7 +1353,7 @@ static int VvhVbhTreatLoop( ScanLoop )
   EndTrans = VvhVpnAddTrans( VvhName );
   EndTrans->TYPE = VPN_TRANS_IMMEDIATE;
 
-  VpnArc = addvpnarcplace( VvhVpnFigure, EndPlace, EndTrans );
+  /*VpnArc =*/ addvpnarcplace( VvhVpnFigure, EndPlace, EndTrans );
 
   addauthelem( VvhHashEndLoop  , ScanLoop->LABEL, (long)EndPlace   );
   addauthelem( VvhHashBeginLoop, ScanLoop->LABEL, (long)BeginPlace );
@@ -1376,7 +1371,7 @@ static int VvhVbhTreatLoop( ScanLoop )
 
   if ( VvhPrevTrans != (vpntrans_list *)0 )
   {
-    VpnArc = addvpnarctrans( VvhVpnFigure, VvhPrevTrans, BeginPlace );
+    /*VpnArc =*/ addvpnarctrans( VvhVpnFigure, VvhPrevTrans, BeginPlace );
   }
 
   delauthelem( VvhHashEndLoop  , ScanLoop->LABEL );
@@ -1421,7 +1416,6 @@ static void VvhVbhTreatWhile( ScanWhile )
   vpntrans_list *TrueTrans;
   vpntrans_list *FalseTrans;
   vpntrans_list *EndTrans;
-  vpnarc        *VpnArc;
   vexexpr       *VexCond;
   long           Number;
 
@@ -1433,7 +1427,7 @@ static void VvhVbhTreatWhile( ScanWhile )
   BeginPlace = VvhVpnAddPlace( VvhName );
   BeginPlace->TYPE = VPN_PLACE_WHILE;
 
-  VpnArc = addvpnarctrans( VvhVpnFigure, VvhPrevTrans, BeginPlace );
+  /*VpnArc =*/ addvpnarctrans( VvhVpnFigure, VvhPrevTrans, BeginPlace );
 
   sprintf( VvhName, "end_while.%s.%s.%ld", ScanWhile->LABEL, VvhTopName, Number );
   EndPlace = VvhVpnAddPlace( VvhName );
@@ -1444,7 +1438,7 @@ static void VvhVbhTreatWhile( ScanWhile )
   EndTrans = VvhVpnAddTrans( VvhName );
   EndTrans->TYPE = VPN_TRANS_IMMEDIATE;
 
-  VpnArc = addvpnarcplace( VvhVpnFigure, EndPlace, EndTrans );
+  /*VpnArc =*/ addvpnarcplace( VvhVpnFigure, EndPlace, EndTrans );
 
   addauthelem( VvhHashEndLoop  , ScanWhile->LABEL, (long)EndPlace   );
   addauthelem( VvhHashBeginLoop, ScanWhile->LABEL, (long)BeginPlace );
@@ -1465,8 +1459,8 @@ static void VvhVbhTreatWhile( ScanWhile )
   TestPlace = VvhVpnAddPlace( VvhName );
   TestPlace->TYPE = VPN_PLACE_WHILE_TEST;
 
-  VpnArc = addvpnarcplace( VvhVpnFigure, BeginPlace, TestTrans );
-  VpnArc = addvpnarctrans( VvhVpnFigure, TestTrans,  TestPlace );
+  /*VpnArc =*/ addvpnarcplace( VvhVpnFigure, BeginPlace, TestTrans );
+  /*VpnArc =*/ addvpnarctrans( VvhVpnFigure, TestTrans,  TestPlace );
 
   sprintf( VvhName, "while_true.%s.%s.%ld", ScanWhile->LABEL, VvhTopName, Number );
   TrueTrans = VvhVpnAddTrans( VvhName );
@@ -1478,8 +1472,8 @@ static void VvhVbhTreatWhile( ScanWhile )
   FalseTrans->TYPE  = VPN_TRANS_GUARDED;
   FalseTrans->VEX_GUARD = optimvexnotexpr( VexCond );
 
-  VpnArc = addvpnarcplace( VvhVpnFigure, TestPlace, TrueTrans );
-  VpnArc = addvpnarcplace( VvhVpnFigure, TestPlace, FalseTrans );
+  /*VpnArc =*/ addvpnarcplace( VvhVpnFigure, TestPlace, TrueTrans );
+  /*VpnArc =*/ addvpnarcplace( VvhVpnFigure, TestPlace, FalseTrans );
 
   VvhPrevTrans = TrueTrans;
 
@@ -1487,10 +1481,10 @@ static void VvhVbhTreatWhile( ScanWhile )
 
   if ( VvhPrevTrans != (vpntrans_list *)0 )
   {
-    VpnArc = addvpnarctrans( VvhVpnFigure, VvhPrevTrans, BeginPlace );
+    /*VpnArc =*/ addvpnarctrans( VvhVpnFigure, VvhPrevTrans, BeginPlace );
   }
 
-  VpnArc = addvpnarctrans( VvhVpnFigure, FalseTrans, EndPlace );
+  /*VpnArc =*/ addvpnarctrans( VvhVpnFigure, FalseTrans, EndPlace );
 
   addvpnline( VvhVpnFigure, &EndPlace->LINE, VvhCurrentLine );
 
@@ -1527,7 +1521,6 @@ static void VvhVbhTreatFor( ScanFor )
   vpntrans_list *EndTrans;
   vpntrans_list *IncTrans;
   vpnact_list   *VpnAction;
-  vpnarc        *VpnArc;
   vexexpr       *VexLeft;
   vexexpr       *VexRight;
   vexexpr       *VexVar;
@@ -1544,7 +1537,7 @@ static void VvhVbhTreatFor( ScanFor )
   BeginPlace = VvhVpnAddPlace( VvhName );
   BeginPlace->TYPE = VPN_PLACE_FOR;
 
-  VpnArc = addvpnarctrans( VvhVpnFigure, VvhPrevTrans, BeginPlace );
+  /*VpnArc =*/ addvpnarctrans( VvhVpnFigure, VvhPrevTrans, BeginPlace );
 
   sprintf( VvhName, "end_for.%s.%s.%ld", ScanFor->LABEL, VvhTopName, Number );
   EndPlace = VvhVpnAddPlace( VvhName );
@@ -1555,7 +1548,7 @@ static void VvhVbhTreatFor( ScanFor )
   EndTrans = VvhVpnAddTrans( VvhName );
   EndTrans->TYPE = VPN_TRANS_IMMEDIATE;
 
-  VpnArc = addvpnarcplace( VvhVpnFigure, EndPlace, EndTrans );
+  /*VpnArc =*/ addvpnarcplace( VvhVpnFigure, EndPlace, EndTrans );
 
   sprintf( VvhName, "for_init.%s.%s.%ld", ScanFor->LABEL, VvhTopName, Number );
   InitTrans = VvhVpnAddTrans( VvhName );
@@ -1581,8 +1574,8 @@ static void VvhVbhTreatFor( ScanFor )
   LoopPlace = VvhVpnAddPlace( VvhName );
   LoopPlace->TYPE = VPN_PLACE_FOR_LOOP;
 
-  VpnArc = addvpnarcplace( VvhVpnFigure, BeginPlace, InitTrans );
-  VpnArc = addvpnarctrans( VvhVpnFigure, InitTrans,  LoopPlace );
+  /*VpnArc =*/ addvpnarcplace( VvhVpnFigure, BeginPlace, InitTrans );
+  /*VpnArc =*/ addvpnarctrans( VvhVpnFigure, InitTrans,  LoopPlace );
 
   sprintf( VvhName, "for_test.%s.%s.%ld", ScanFor->LABEL, VvhTopName, Number );
   TestTrans = VvhVpnAddTrans( VvhName );
@@ -1593,8 +1586,8 @@ static void VvhVbhTreatFor( ScanFor )
   TestPlace = VvhVpnAddPlace( VvhName );
   TestPlace->TYPE = VPN_PLACE_FOR_TEST;
 
-  VpnArc = addvpnarcplace( VvhVpnFigure, LoopPlace, TestTrans );
-  VpnArc = addvpnarctrans( VvhVpnFigure, TestTrans, TestPlace );
+  /*VpnArc =*/ addvpnarcplace( VvhVpnFigure, LoopPlace, TestTrans );
+  /*VpnArc =*/ addvpnarctrans( VvhVpnFigure, TestTrans, TestPlace );
 
   sprintf( VvhName, "for_true.%s.%s.%ld", ScanFor->LABEL, VvhTopName, Number );
   TrueTrans = VvhVpnAddTrans( VvhName );
@@ -1606,8 +1599,8 @@ static void VvhVbhTreatFor( ScanFor )
   FalseTrans->TYPE  = VPN_TRANS_GUARDED;
   FalseTrans->VEX_GUARD = optimvexnotexpr( VexCond );
 
-  VpnArc = addvpnarcplace( VvhVpnFigure, TestPlace, TrueTrans );
-  VpnArc = addvpnarcplace( VvhVpnFigure, TestPlace, FalseTrans );
+  /*VpnArc =*/ addvpnarcplace( VvhVpnFigure, TestPlace, TrueTrans );
+  /*VpnArc =*/ addvpnarcplace( VvhVpnFigure, TestPlace, FalseTrans );
 
   sprintf( VvhName, "for_inc.%s.%s.%ld", ScanFor->LABEL, VvhTopName, Number );
   IncPlace = VvhVpnAddPlace( VvhName );
@@ -1632,8 +1625,8 @@ static void VvhVbhTreatFor( ScanFor )
   VpnAction = addvpnactasg( VvhVpnFigure, IncTrans, VexVar, VexInc );
   addvpnline( VvhVpnFigure, &VpnAction->LINE, VvhCurrentLine );
 
-  VpnArc = addvpnarcplace( VvhVpnFigure, IncPlace , IncTrans  );
-  VpnArc = addvpnarctrans( VvhVpnFigure, IncTrans , LoopPlace );
+  /*VpnArc =*/ addvpnarcplace( VvhVpnFigure, IncPlace , IncTrans  );
+  /*VpnArc =*/ addvpnarctrans( VvhVpnFigure, IncTrans , LoopPlace );
 
   OldBeginLoop = VvhBeginLoop;
   OldEndLoop   = VvhEndLoop;
@@ -1651,10 +1644,10 @@ static void VvhVbhTreatFor( ScanFor )
 
   if ( TrueTrans != (vpntrans_list *)0 )
   {
-    VpnArc = addvpnarctrans( VvhVpnFigure, TrueTrans, IncPlace  );
+    /*VpnArc =*/ addvpnarctrans( VvhVpnFigure, TrueTrans, IncPlace  );
   }
 
-  VpnArc = addvpnarctrans( VvhVpnFigure, FalseTrans, EndPlace );
+  /*VpnArc =*/ addvpnarctrans( VvhVpnFigure, FalseTrans, EndPlace );
 
   addvpnline( VvhVpnFigure, &EndPlace->LINE, VvhCurrentLine );
 
@@ -1684,7 +1677,6 @@ static int VvhVbhTreatNext( ScanNext )
   vpnplace_list *LoopPlace;
   vpntrans_list *TrueTrans;
   vpntrans_list *FalseTrans;
-  vpnarc        *VpnArc;
   vexexpr       *VexCond;
   long           Number;
 
@@ -1720,7 +1712,7 @@ static int VvhVbhTreatNext( ScanNext )
     }
   }
 
-  VpnArc = addvpnarctrans( VvhVpnFigure, VvhPrevTrans, BeginPlace );
+  /*VpnArc =*/ addvpnarctrans( VvhVpnFigure, VvhPrevTrans, BeginPlace );
 
   if ( VexCond != (vexexpr *)0 )
   {
@@ -1733,23 +1725,23 @@ static int VvhVbhTreatNext( ScanNext )
     EndTrans = VvhVpnAddTrans( VvhName );
     EndTrans->TYPE = VPN_TRANS_IMMEDIATE;
 
-    VpnArc = addvpnarcplace( VvhVpnFigure, EndPlace, EndTrans );
+    /*VpnArc =*/ addvpnarcplace( VvhVpnFigure, EndPlace, EndTrans );
 
     sprintf( VvhName, "next_true.%s.%ld", VvhTopName, Number );
     TrueTrans = VvhVpnAddTrans( VvhName );
     TrueTrans->TYPE  = VPN_TRANS_GUARDED;
     TrueTrans->VEX_GUARD = dupvexexpr( VexCond );
 
-    VpnArc = addvpnarcplace( VvhVpnFigure, BeginPlace, TrueTrans );
+    /*VpnArc =*/ addvpnarcplace( VvhVpnFigure, BeginPlace, TrueTrans );
 
     sprintf( VvhName, "next_false.%s.%ld", VvhTopName, Number );
     FalseTrans = VvhVpnAddTrans( VvhName );
     FalseTrans->TYPE  = VPN_TRANS_GUARDED;
     FalseTrans->VEX_GUARD = optimvexnotexpr( VexCond );
 
-    VpnArc = addvpnarcplace( VvhVpnFigure, BeginPlace, FalseTrans );
-    VpnArc = addvpnarctrans( VvhVpnFigure, FalseTrans, EndPlace  );
-    VpnArc = addvpnarctrans( VvhVpnFigure, TrueTrans , LoopPlace );
+    /*VpnArc =*/ addvpnarcplace( VvhVpnFigure, BeginPlace, FalseTrans );
+    /*VpnArc =*/ addvpnarctrans( VvhVpnFigure, FalseTrans, EndPlace  );
+    /*VpnArc =*/ addvpnarctrans( VvhVpnFigure, TrueTrans , LoopPlace );
 
     VvhPrevTrans = EndTrans;
 
@@ -1759,8 +1751,8 @@ static int VvhVbhTreatNext( ScanNext )
   TrueTrans = VvhVpnAddTrans( VvhName );
   TrueTrans->TYPE  = VPN_TRANS_IMMEDIATE;
 
-  VpnArc = addvpnarcplace( VvhVpnFigure, BeginPlace, TrueTrans );
-  VpnArc = addvpnarctrans( VvhVpnFigure, TrueTrans , LoopPlace );
+  /*VpnArc =*/ addvpnarcplace( VvhVpnFigure, BeginPlace, TrueTrans );
+  /*VpnArc =*/ addvpnarctrans( VvhVpnFigure, TrueTrans , LoopPlace );
 
   VvhPrevTrans = (vpntrans_list *)0;
 
@@ -1784,7 +1776,6 @@ static int VvhVbhTreatExit( ScanExit )
   vpnplace_list *LoopPlace;
   vpntrans_list *TrueTrans;
   vpntrans_list *FalseTrans;
-  vpnarc        *VpnArc;
   vexexpr       *VexCond;
   long           Number;
 
@@ -1820,7 +1811,7 @@ static int VvhVbhTreatExit( ScanExit )
     }
   }
 
-  VpnArc = addvpnarctrans( VvhVpnFigure, VvhPrevTrans, BeginPlace );
+  /*VpnArc =*/ addvpnarctrans( VvhVpnFigure, VvhPrevTrans, BeginPlace );
 
   if ( VexCond != (vexexpr *)0 )
   {
@@ -1833,23 +1824,23 @@ static int VvhVbhTreatExit( ScanExit )
     EndTrans = VvhVpnAddTrans( VvhName );
     EndTrans->TYPE = VPN_TRANS_IMMEDIATE;
 
-    VpnArc = addvpnarcplace( VvhVpnFigure, EndPlace, EndTrans );
+    /*VpnArc =*/ addvpnarcplace( VvhVpnFigure, EndPlace, EndTrans );
 
     sprintf( VvhName, "exit_true.%s.%ld", VvhTopName, Number );
     TrueTrans = VvhVpnAddTrans( VvhName );
     TrueTrans->TYPE  = VPN_TRANS_GUARDED;
     TrueTrans->VEX_GUARD = dupvexexpr( VexCond );
   
-    VpnArc = addvpnarcplace( VvhVpnFigure, BeginPlace, TrueTrans );
+    /*VpnArc =*/ addvpnarcplace( VvhVpnFigure, BeginPlace, TrueTrans );
   
     sprintf( VvhName, "exit_false.%s.%ld", VvhTopName, Number );
     FalseTrans = VvhVpnAddTrans( VvhName );
     FalseTrans->TYPE  = VPN_TRANS_GUARDED;
     FalseTrans->VEX_GUARD = optimvexnotexpr( VexCond );
   
-    VpnArc = addvpnarcplace( VvhVpnFigure, BeginPlace, FalseTrans );
-    VpnArc = addvpnarctrans( VvhVpnFigure, FalseTrans, EndPlace  );
-    VpnArc = addvpnarctrans( VvhVpnFigure, TrueTrans , LoopPlace );
+    /*VpnArc =*/ addvpnarcplace( VvhVpnFigure, BeginPlace, FalseTrans );
+    /*VpnArc =*/ addvpnarctrans( VvhVpnFigure, FalseTrans, EndPlace  );
+    /*VpnArc =*/ addvpnarctrans( VvhVpnFigure, TrueTrans , LoopPlace );
   
     VvhPrevTrans = EndTrans;
 
@@ -1859,8 +1850,8 @@ static int VvhVbhTreatExit( ScanExit )
   TrueTrans = VvhVpnAddTrans( VvhName );
   TrueTrans->TYPE  = VPN_TRANS_IMMEDIATE;
 
-  VpnArc = addvpnarcplace( VvhVpnFigure, BeginPlace, TrueTrans );
-  VpnArc = addvpnarctrans( VvhVpnFigure, TrueTrans , LoopPlace );
+  /*VpnArc =*/ addvpnarcplace( VvhVpnFigure, BeginPlace, TrueTrans );
+  /*VpnArc =*/ addvpnarctrans( VvhVpnFigure, TrueTrans , LoopPlace );
 
   VvhPrevTrans = (vpntrans_list *)0;
 
@@ -1880,7 +1871,6 @@ static void VvhVbhTreatCall( ScanCall )
   vpnplace_list *CallPlace;
   vpntrans_list *CallTrans;
   vpnact_list   *VpnAction;
-  vpnarc        *VpnArc;
   vexexpr       *Expr;
   long           Number;
 
@@ -1895,8 +1885,8 @@ static void VvhVbhTreatCall( ScanCall )
   CallTrans = VvhVpnAddTrans( VvhName );
   CallTrans->TYPE = VPN_TRANS_ACT_EXEC;
 
-  VpnArc = addvpnarctrans( VvhVpnFigure, VvhPrevTrans, CallPlace );
-  VpnArc = addvpnarcplace( VvhVpnFigure, CallPlace , CallTrans );
+  /*VpnArc =*/ addvpnarctrans( VvhVpnFigure, VvhPrevTrans, CallPlace );
+  /*VpnArc =*/ addvpnarcplace( VvhVpnFigure, CallPlace , CallTrans );
 
   VvhPrevTrans = CallTrans;
 
@@ -1917,7 +1907,6 @@ static void VvhVbhTreatReturn( ScanReturn )
   vpnplace_list *ReturnPlace;
   vpntrans_list *ReturnTrans;
   vpnact_list   *VpnAction;
-  vpnarc        *VpnArc;
   vexexpr       *Expr;
   long           Number;
 
@@ -1940,15 +1929,15 @@ static void VvhVbhTreatReturn( ScanReturn )
   ReturnTrans = VvhVpnAddTrans( VvhName );
   ReturnTrans->TYPE = VPN_TRANS_ACT_EXEC;
 
-  VpnArc = addvpnarctrans( VvhVpnFigure, VvhPrevTrans, ReturnPlace );
-  VpnArc = addvpnarcplace( VvhVpnFigure, ReturnPlace , ReturnTrans );
+  /*VpnArc =*/ addvpnarctrans( VvhVpnFigure, VvhPrevTrans, ReturnPlace );
+  /*VpnArc =*/ addvpnarcplace( VvhVpnFigure, ReturnPlace , ReturnTrans );
 
   VvhPrevTrans = ReturnTrans;
 
   VpnAction = addvpnactreturn( VvhVpnFigure, VvhPrevTrans, Expr );
   addvpnline( VvhVpnFigure, &VpnAction->LINE, VvhCurrentLine );
 
-  VpnArc = addvpnarctrans( VvhVpnFigure, VvhPrevTrans, VvhFirstPlace );
+  /*VpnArc =*/ addvpnarctrans( VvhVpnFigure, VvhPrevTrans, VvhFirstPlace );
 
   VvhPrevTrans = (vpntrans_list *)0;
 }
@@ -2024,7 +2013,6 @@ static void VvhVbhTreatProcess()
   vpnplace_list *WaitPlace;
   vpntrans_list *WaitTrans;
   vpndecl_list  *VpnDeclar;
-  vpnarc        *VpnArc;
   ptype_list    *ScanPType;
   chain_list    *ScanChain;
   vbpcs_list    *ScanProc;
@@ -2078,7 +2066,7 @@ static void VvhVbhTreatProcess()
     VvhProcess->ELABO = BeginTrans;
     BeginPlace->TOKEN = 1;
 
-    VpnArc = addvpnarcplace( VvhVpnFigure, BeginPlace, BeginTrans );
+    /*VpnArc =*/ addvpnarcplace( VvhVpnFigure, BeginPlace, BeginTrans );
 
     for ( ScanPType  = ScanProc->VARIABLE;
           ScanPType != (ptype_list *)0;
@@ -2129,10 +2117,10 @@ static void VvhVbhTreatProcess()
 
       if ( VvhPrevTrans != (vpntrans_list *)0 )
       {
-        VpnArc = addvpnarctrans( VvhVpnFigure, VvhPrevTrans, WaitPlace );
+        /*VpnArc =*/ addvpnarctrans( VvhVpnFigure, VvhPrevTrans, WaitPlace );
       }
 
-      VpnArc = addvpnarcplace( VvhVpnFigure, WaitPlace, WaitTrans );
+      /*VpnArc =*/ addvpnarcplace( VvhVpnFigure, WaitPlace, WaitTrans );
 
       WaitTrans->TYPE = VPN_TRANS_INF_WAIT;
       VvhPrevTrans = WaitTrans;
@@ -2142,7 +2130,7 @@ static void VvhVbhTreatProcess()
 
     if ( VvhPrevTrans != (vpntrans_list *)0 )
     {
-      VpnArc = addvpnarctrans( VvhVpnFigure, VvhPrevTrans, BeginPlace );
+      /*VpnArc =*/ addvpnarctrans( VvhVpnFigure, VvhPrevTrans, BeginPlace );
     }
 
     VvhNumberProc++;
@@ -2160,7 +2148,6 @@ static void VvhVbhTreatFunction()
   vpnplace_list *BeginPlace;
   vpntrans_list *BeginTrans;
   vpndecl_list  *VpnDeclar;
-  vpnarc        *VpnArc;
   ptype_list    *ScanPType;
   vbfun_list    *ScanFunc;
   vbarg_list    *ScanArg;
@@ -2209,7 +2196,7 @@ static void VvhVbhTreatFunction()
     VvhFunction->ELABO = BeginTrans;
     BeginPlace->TOKEN = 1;
 
-    VpnArc = addvpnarcplace( VvhVpnFigure, BeginPlace, BeginTrans );
+    /*VpnArc =*/ addvpnarcplace( VvhVpnFigure, BeginPlace, BeginTrans );
 
     for ( ScanArg  = ScanFunc->ARGUMENT;
           ScanArg != (vbarg_list *)0;
@@ -2282,7 +2269,7 @@ static void VvhVbhTreatFunction()
 
     if ( VvhPrevTrans != (vpntrans_list *)0 )
     {
-      VpnArc = addvpnarctrans( VvhVpnFigure, VvhPrevTrans, BeginPlace );
+      /*VpnArc =*/ addvpnarctrans( VvhVpnFigure, VvhPrevTrans, BeginPlace );
     }
 
     VvhNumberFunc++;

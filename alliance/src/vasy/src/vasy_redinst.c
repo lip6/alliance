@@ -452,7 +452,6 @@ static void VasyRedInstLateralVpnAct( BeginPlace )
   vexexpr       *AsgExpr2;
   vexexpr       *AsgExpr3;
   char          *AtomValue;
-  char          *AtomValue2;
   auth2elem     *Element;
   int            AsgIndex;
   int            AsgMin;
@@ -556,7 +555,7 @@ static void VasyRedInstLateralVpnAct( BeginPlace )
               viewvexexprboundln( AsgExpr2 );
             }
 
-            AtomValue2 = GetVexAtomValue( AsgAtom2 );
+          //AtomValue2 = GetVexAtomValue( AsgAtom2 );
 
             AsgMin2 = getvexvectormin( AsgAtom2 );
             AsgMax2 = getvexvectormax( AsgAtom2 );

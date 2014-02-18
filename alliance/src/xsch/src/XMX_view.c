@@ -1817,7 +1817,6 @@ static void XschDrawOrAnd( X1r, Y1r, X2r, Y2r, Ycr, Obj )
   long          Ycr;
   xschobj_list *Obj;
 {
-  long gs_y;
   long gs_x;
   long cs;
   int i;
@@ -1829,7 +1828,7 @@ static void XschDrawOrAnd( X1r, Y1r, X2r, Y2r, Ycr, Obj )
   long gas_x;
   long Radius;
 
-  long x, y;
+  long x;
   long yc;
   long y1;
   long DeltaX;
@@ -1854,11 +1853,11 @@ XDrawRectangle( XschGraphicDisplay,
   n = Obj->ARG1;
 
   gs_x = ( 6 * DeltaX ) / 8;
-  gs_y = ( 7 * DeltaY ) / 8;
+//gs_y = ( 7 * DeltaY ) / 8;
   cs   = DeltaX / 8;
 
   yc = XschGraphicDy - Ycr;
-  y  = XschGraphicDy - Ycr - gs_y/2;
+//y  = XschGraphicDy - Ycr - gs_y/2;
   x = X1r + cs;
 
   if ( Obj->ARG3 == 0 )

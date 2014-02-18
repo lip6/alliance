@@ -54,22 +54,18 @@ char *argv[];
   char             usage_flg     = 0         ;        /* print usage          */
   char             help_flg      = 0         ;        /* display help         */
   char             init_flg      = 0         ;        /* description's init.  */
-  char             core_flg      = 0         ;        /* core file at error   */
   char             sdebug_flg    = 0         ;        /* debug structural     */
   char             bdebug_flg    = 0         ;        /* debug behavioural    */
   char             pdebug_flg    = 0         ;        /* debug pattern        */
   char             ldebug_flg    = 0         ;        /* debug linker         */
   char             cdebug_flg    = 0         ;        /* dbeug cycle by cycle */
-  char             ddebug_flg    = 0         ;        /* debug delta by delta */
   char             behav_flg     = 0         ;        /* behav. description   */
   char             nosim_flg     = 0         ;        /* no simulation        */
   char             nores_flg     = 0         ;        /* no result file       */
-  char             makbdd_flg    = 0         ;        /* trace bdd making     */
   char             bdd_flg       = 0         ;        /* use bdd or gex       */
   char             xmess_flg     = 0         ;        /* no execution message */
   char             randly_flg    = 0         ;        /* random delays        */
   char             fixdly_flg    = 0         ;        /* fixed  delays        */
-  char             defdly_flg    = 0         ;        /* default  delays      */
   char             bckdly_flg    = 0         ;        /* backanotated  delays */
   char             trans_flg     = 0         ;        /* transport delays     */
   char             inert_flg     = 1         ;        /* inertial  delays     */
@@ -84,7 +80,6 @@ char *argv[];
   unsigned int     init_val      = 0         ;        /* init. constant       */
 
   unsigned int     comp_mode     = 0         ;        /* beh compiler mode    */
-  struct lofig    *ptlofig       ;
   struct befig    *ptbefig       = NULL      ;
   struct befig    *ptbef         ;
   struct chain    *ptchain       ;
@@ -192,7 +187,7 @@ char *argv[];
       if ((!strcmp (argv [i], "-defaultdelay"))
        || (!strcmp (argv [i], "-dd")))
         {
-        defdly_flg   = 1;
+        //defdly_flg   = 1;
         delay_mode  |= BEH_DELAY_DEFAULT;
         arg_flg [i]  = 1;
         }
@@ -238,7 +233,7 @@ char *argv[];
 
       if (!strcmp (argv [i], "-t"))
         {
-        makbdd_flg  = 1;
+        //makbdd_flg  = 1;
         arg_flg [i] = 1;
         }
 
@@ -260,7 +255,7 @@ char *argv[];
 
       if (!strcmp (argv [i], "-core"))
         {
-        core_flg      = i + 1;
+        //core_flg      = i + 1;
         arg_flg [i  ] = 1;
         arg_flg [i+1] = 1;
         }
@@ -327,8 +322,8 @@ char *argv[];
               pdebug_flg = 1; break;
             case 'c':
               cdebug_flg = 1; break;
-            case 'd':
-              ddebug_flg = 1; break;
+            //case 'd':
+            //ddebug_flg = 1; break;
             }
           }
         }
@@ -527,7 +522,7 @@ char *argv[];
       error_flag += ptbefig->ERRFLG;
       }
 
-    ptlofig = vhl_makgst (ptbefig);
+    /*ptlofig =*/ vhl_makgst (ptbefig);
 
     }
   else

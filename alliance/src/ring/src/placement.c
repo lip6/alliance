@@ -1744,8 +1744,7 @@ void fabrique_grille_finale(BARRE_PLOTS tab_plots[NB_FACES],
 {
 	LST_PSEUDO_CON liste, liste_coeur;
 	int	face;
-	char	niveau;
-	long	position, largeurmin;
+	long	position;
 
 	if (mode_debug) 
 		printf("Fabrique grille finale\n");
@@ -1762,8 +1761,8 @@ void fabrique_grille_finale(BARRE_PLOTS tab_plots[NB_FACES],
 		switch (face) {
 		case NORD:
 		case SUD :
-			niveau = ymetal;
-			largeurmin = ymetal_width;
+        //niveau = ymetal;
+        //largeurmin = ymetal_width;
 
 			while (liste != NULL) {
 				if (mode_debug) 

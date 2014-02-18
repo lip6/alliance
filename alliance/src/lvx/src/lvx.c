@@ -1765,7 +1765,7 @@ char **argv;
 {
  static char figname1 [100], figname2 [100];
  lofig_list *lofig1 = NULL, *lofig2 = NULL;
- int firstcount = 4, count = 4, flag_flatten = FALSE, flag_ord  = FALSE, flag_tie = TRUE;
+ int firstcount = 4, count = 4, flag_flatten = FALSE, flag_ord  = FALSE;
  int result;
 
  presentation ();
@@ -1811,7 +1811,7 @@ char **argv;
           case 'f' : break;
           case 'o' : flag_ord = TRUE; break;
           case 'i' : readparamfile (lofig1, lofig2, argv[++count]); break;
-          case 't' : flag_tie = FALSE;
+          case 't' : //flag_tie = FALSE;
                      while ((argv[count+1][0] != '-') && (++count < argc)) {
                            delins (lofig1, argv[count]);
                            delins (lofig2, argv[count]);

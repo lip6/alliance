@@ -682,9 +682,8 @@ subtype_indication
          .constraint.
          {
            ctltype_list *ctltype_pnt;
-           long          mode;
   
-           mode = chktab(hshtab,$1,CTP_MODNAM,CTP_SYMDFN);
+           /*mode = */chktab(hshtab,$1,CTP_MODNAM,CTP_SYMDFN);
 
            ctltype_pnt = (ctltype_list *)chktab(hshtab,$2.NAME,CTP_MODNAM,CTP_PNTDFN);
   
@@ -1315,8 +1314,6 @@ primary
           char            Buffer[ 40 ];
           long            left;
           long            right;
-          long            left_bnd;
-          long            right_bnd;
           long             mode;
           long             flag;
 
@@ -1364,8 +1361,8 @@ primary
               my_ctp_error (17,$1.NAME);
             }
 
-            left_bnd  = chktab (hshtab,$1.NAME,LocalName,CTP_WMNDFN);
-            right_bnd = chktab (hshtab,$1.NAME,LocalName,CTP_WMXDFN);
+            /*left_bnd  =*/ chktab (hshtab,$1.NAME,LocalName,CTP_WMNDFN);
+            /*right_bnd =*/ chktab (hshtab,$1.NAME,LocalName,CTP_WMXDFN);
               
             left  = $1.LEFT;
             right = $1.RIGHT;
@@ -1696,14 +1693,13 @@ attribute_name
             char *LocalName;
             long   type;
             long   flag;
-            long   mode;
             long  AttrLeft;
             long  AttrRight;
             long  AttrLow;
             long  AttrHigh;
 
             LocalName = CTP_MODNAM;
-            mode = chktab (hshtab,$1.NAME,LocalName,CTP_SYMDFN);
+            /*mode = */ chktab (hshtab,$1.NAME,LocalName,CTP_SYMDFN);
             type = chktab (hshtab,$1.NAME,LocalName,CTP_TYPDFN);
             flag = $3;
 

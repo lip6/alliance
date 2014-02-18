@@ -201,7 +201,6 @@ void SyfSynthStack2Abl( FsmFigure )
   syfregstack   *StackArray;
   syfregstack   *StackNextArray = NULL;
   syfregstack   *StackPrevArray;
-  syfregstate   *RegArray;
   syfctrl       *CtrlArray;
   long           Constant;
   long           StackMask;
@@ -223,7 +222,7 @@ void SyfSynthStack2Abl( FsmFigure )
 
   if ( ! SyfInfo->STACK ) return;
 
-  RegArray   = SyfInfo->REG_ARRAY;
+//RegArray   = SyfInfo->REG_ARRAY;
   CtrlArray  = SyfInfo->CTRL_ARRAY;
   StackArray = SyfInfo->STACK_ARRAY;
   StackCste  = -1;
@@ -656,7 +655,6 @@ void SyfSynthOut2Abl( FsmFigure )
   fsmlocout_list *ScanLocout;
   syfout         *ScanSyfOut;
   syfstate       *ScanSyfState;
-  syfcode        *ScanSyfCode;
   ablexpr        *Equation = NULL;
   ablexpr        *ScanPath;
   ablexpr        *Atom;
@@ -686,7 +684,7 @@ void SyfSynthOut2Abl( FsmFigure )
         ScanState  = ScanState->NEXT )
   {
     ScanSyfState = FSM_SYF_STATE( ScanState );
-    ScanSyfCode  = ScanSyfState->CODE;
+  //ScanSyfCode  = ScanSyfState->CODE;
 
     for ( ScanLocout  = ScanState->LOCOUT;
           ScanLocout != (fsmlocout_list *)0;

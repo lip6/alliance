@@ -340,15 +340,12 @@ static void VasyOneWaitAssignVpnSymbol( VpnFigure, VpnProc  , VpnTrans,
   authelem      *Element;
   auth2elem     *Element2;
   chain_list   **Support;
-  chain_list   **Literal;
   chain_list   **Event;
   chain_list   **Support2;
   chain_list   **Literal2;
   chain_list   **DefSupport;
-  chain_list   **DefSupport2;
   unsigned char *DefFlags;
   unsigned char *DefFlags2;
-  unsigned char *Flags;
   unsigned char *Flags2;
   chain_list    *ListOutput;
   chain_list    *SupportBdd;
@@ -424,9 +421,9 @@ static void VasyOneWaitAssignVpnSymbol( VpnFigure, VpnProc  , VpnTrans,
   HashSupport = TransInfo->HASH_SUPPORT;
 
   ActInfo = GetVasyVpnActInfo( AsgAction );
-  Literal = ActInfo->LITERAL;
+//Literal = ActInfo->LITERAL;
   Support = ActInfo->SUPPORT;
-  Flags   = ActInfo->FLAGS;
+//Flags   = ActInfo->FLAGS;
   Event   = ActInfo->EVENT;
 
   ActInfo->SPLIT = 1;
@@ -882,7 +879,7 @@ static void VasyOneWaitAssignVpnSymbol( VpnFigure, VpnProc  , VpnTrans,
                   }
   
                   DefAction2  = (vpnact_list *)Element->VALUE;
-                  DefSupport2 = GetVasyVpnActInfoSupport( DefAction2 );
+                //DefSupport2 = GetVasyVpnActInfoSupport( DefAction2 );
                   DefFlags2   = GetVasyVpnActInfoFlags( DefAction2 );
                   DefAtom2    = DefAction2->VEX_ATOM;
   

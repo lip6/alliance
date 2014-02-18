@@ -221,14 +221,12 @@ void CallbackMapEvent ( MyWidget, Event, Args, Argc )
      String       *Args;
      int          *Argc;
 {
-  Display  *EventDisplay;
   char      MouseEvent;
   long      X;
   long      Y;
 
   autbegin();
 
-  EventDisplay = Event->display;
   MouseEvent   = Args[ 0 ][ 0 ] - '0';
 
   X = Event->x;
@@ -305,11 +303,7 @@ void CallbackMapExpose( MyWidget, ClientData, CallData )
      XtPointer                    ClientData;
      XmDrawingAreaCallbackStruct *CallData;
 {
-  XExposeEvent *ExposeEvent;
-
   autbegin();
-
-  ExposeEvent = (XExposeEvent *)CallData->event;
 
   if ( XfsmFirstExpose )
   {

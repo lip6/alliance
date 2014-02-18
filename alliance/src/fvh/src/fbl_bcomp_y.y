@@ -885,9 +885,8 @@ signal_declaration
                 char *signame;
                 long   sigconf;
                 void *pnt;
-                long   errflg;
  
-                errflg = fbl_chkdcl ('S',0,val_type($4.NAME),$4.FLAG,$6,$5.FLAG,&sigconf);
+                /*errflg =*/ fbl_chkdcl ('S',0,val_type($4.NAME),$4.FLAG,$6,$5.FLAG,&sigconf);
  
               /* ###----------------------------------------------### */
             /*    First, check the validity of the declaration.     */
@@ -2226,7 +2225,6 @@ case_statement
 		unsigned long size=1;
 		unsigned long *size1;
 		long indice=0;
-		struct choice_chain *ch;
                 struct fbcho **pnt;
                 struct fbcho *tab = NULL;
 		struct choice_chain *nm1lst;
@@ -2247,7 +2245,7 @@ case_statement
 		  tab[indice].INSTRUCTION = reversetype(FBL_CASPNT->INSTRUCTION);
 		  tab[indice].SIZE = FBL_CASPNT->SIZE;
 		  tab[indice++].VALUE = FBL_CASPNT->VALUE;
-		  ch = FBL_CASPNT;
+        /*ch = FBL_CASPNT;*/
 		  FBL_CASPNT =FBL_CASPNT->NEXT;
 		  /*free(ch);*/
 		  }
@@ -2651,7 +2649,6 @@ primary
                 long             in_bound;
                 long             out_bound;
                 long             mode;
-		long  prtype;
 		long  type;
 
                 mode = chktab (hshtab,$1.NAME,FBL_MODNAM,FBL_SIGDFN);
@@ -2742,7 +2739,7 @@ primary
 		   (chktab(hshtab,$1.NAME,FBL_MODNAM,FBL_TYPDFN) != -1))
                   {
                   expr1.IDENT = $1.NAME;
-		prtype = chktab(hshtab,$1.NAME,FBL_MODNAM,FBL_USRDFN);
+                  /*prtype =*/ chktab(hshtab,$1.NAME,FBL_MODNAM,FBL_USRDFN);
 		if(val_type((FBL_BEFPNT->BETYP + type -1)->NAME) !=-1)
 		  expr1.TYPE = chktab(hshtab,namealloc("bit"),FBL_MODNAM,FBL_TYPDFN);
 		else
