@@ -192,7 +192,7 @@ extern ptype_list* max_delay_path(befig_list* befig, lofig_list* lofig)
 {
    ptype_list* head, *path;
    loins_list* loins;
-   char *insname;
+   char *insname = NULL;
   
    if (!befig) {
       fprintf(stderr,"max_delay_path: NULL pointer\n");

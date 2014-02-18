@@ -447,15 +447,12 @@ compileVHDL (file, orderPI, order, par,
 {
   befig_list *vhdlloadbefig ();
   beaux_list *aux;
-  chain_list *ptChain;
   biabl_list *biabl;
   bereg_list *reg;
-  int coInter;
   char *path;
   int i;
   int indice = 0;
   char *filep;
-  chain_list *liste, *pAux = NULL;
 
 
   /* si BEH est NULL, on appelle le compilateur */

@@ -135,7 +135,7 @@ bddnode *addbddnode( BddSystem, Index, High, Low  )
   {
     if ( ! IsBddSystemExplosion( BddLocalSystem ) )
     {
-      BddLocalSystem->HASH_OPER->TABLE_FREEZE;
+    //BddLocalSystem->HASH_OPER->TABLE_FREEZE;
 
       if ( BddLocalSystem->EXPLOSION_FUNC != NULL )
       {

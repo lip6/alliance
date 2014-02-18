@@ -45,6 +45,7 @@
 # include <stdio.h>
 # include <string.h>
 # include <Xm/Xm.h>
+# include <Xm/Text.h>
 # include <Xm/FileSB.h>
 # include <Xm/SelectioB.h>
 # include <Xm/PushBG.h>
@@ -117,7 +118,9 @@
              (Widget)NULL
            }
            ,
-           NULL
+           {
+             NULL
+           }
          };
 
    XgraPanelItem XgraToolsMessagePanel =

@@ -87,6 +87,7 @@
   extern void DrealInitializeLambdaMap();
   extern void DrealDisplayLambdaMap();
 
+  extern void DrealBuildPanelMap();
   extern void DrealEnterMapPanel();
   extern void DrealClearMapWindow();
   extern void DrealResizeMapWindow();

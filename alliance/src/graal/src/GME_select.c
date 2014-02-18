@@ -60,9 +60,13 @@
 # include "GSB.h"
 # include "GME.h"
 # include "GMT.h"
+# include "GMV.h"
 
 # include "GME_select.h"
+# include "GRM_select.h"
 # include "GME_message.h"
+# include "GME_panel.h"
+# include "GME_dialog.h"
 
 /*------------------------------------------------------------\
 |                                                             |
@@ -119,14 +123,14 @@ void GraalAddSelectList( Rectangle )
     {
       sprintf( GraalSelectBuffer, 
       "  TRANSISTOR : %s",
-      GRAAL_TRANSISTOR_NAME_TABLE[ ((phseg_list *)Pointer)->LAYER ][0] );
+             GRAAL_TRANSISTOR_NAME_TABLE[ (int)((phseg_list *)Pointer)->LAYER ][0] );
     }
     else
     {
       sprintf( GraalSelectBuffer, 
       "  SEGMENT %s : %s",
         ( Rectangle->NAME != (char *)NULL ) ? Rectangle->NAME : "None",
-        GRAAL_SEGMENT_NAME_TABLE[ ((phseg_list *)Pointer)->LAYER ][0] );
+        GRAAL_SEGMENT_NAME_TABLE[ (int)((phseg_list *)Pointer)->LAYER ][0] );
     }
   }
   else
@@ -146,7 +150,7 @@ void GraalAddSelectList( Rectangle )
     sprintf( GraalSelectBuffer,
     "  CONNECTOR %s : %s %s",
     ( Rectangle->NAME != (char *)NULL ) ? Rectangle->NAME : "None",
-    GRAAL_CONNECTOR_NAME_TABLE[ ((phcon_list *)Pointer)->LAYER ][0],
+    GRAAL_CONNECTOR_NAME_TABLE[ (int)((phcon_list *)Pointer)->LAYER ][0],
     GRAAL_ORIENT_NAME_TABLE[ Orient ][0] );
   }
   else
@@ -157,13 +161,13 @@ void GraalAddSelectList( Rectangle )
     {
       sprintf( GraalSelectBuffer,
       "  VIA : %s",
-      GRAAL_VIA_NAME_TABLE[ ((phvia_list *)Pointer)->TYPE ][0] );
+      GRAAL_VIA_NAME_TABLE[ (int)((phvia_list *)Pointer)->TYPE ][0] );
     }
     else
     {
       sprintf( GraalSelectBuffer,
       "  BIGVIA : %s",
-      GRAAL_BIGVIA_NAME_TABLE[ ((phvia_list *)Pointer)->TYPE ][0] );
+      GRAAL_BIGVIA_NAME_TABLE[ (int)((phvia_list *)Pointer)->TYPE ][0] );
     }
   }
   else
@@ -341,17 +345,17 @@ void GraalEditSelectPoint( LambdaX1, LambdaY1 )
     {
       for ( Layer = 0; Layer < RDS_MAX_LAYER; Layer++ ) 
       {
-        StaticLayer = RDS_STATIC_LAYER[ Layer ];
+        StaticLayer = RDS_STATIC_LAYER[ (int)Layer ];
 
-        if ( GRAAL_RDS_ACTIVE_LAYER_TABLE[ StaticLayer ] != 1 ) continue; 
+        if ( GRAAL_RDS_ACTIVE_LAYER_TABLE[ (int)StaticLayer ] != 1 ) continue; 
 
-        for ( ScanWinRec  = ScanWin->LAYERTAB[ Layer ];
+        for ( ScanWinRec  = ScanWin->LAYERTAB[ (int)Layer ];
               ScanWinRec != (graalwinrec *)NULL;
               ScanWinRec  = ScanWinRec->NEXT )
         {
           for ( ScanRec = 0; ScanRec < GRAAL_MAX_REC ; ScanRec++ )
           {
-            Rec = ScanWinRec->RECTAB[ ScanRec ];
+            Rec = ScanWinRec->RECTAB[ (int)ScanRec ];
 
             if ( ( Rec != (rdsrec_list *)NULL        ) &&
                  ( ! IsGraalDeleted( Rec )           ) &&
@@ -393,7 +397,7 @@ void GraalEditSelectPoint( LambdaX1, LambdaY1 )
                 {
                   StaticLayer = RDS_STATIC_LAYER[ GetRdsLayer( CheckRec ) ];
 
-                  if ( GRAAL_RDS_ACTIVE_LAYER_TABLE[ StaticLayer ] != 1 )
+                  if ( GRAAL_RDS_ACTIVE_LAYER_TABLE[ (int)StaticLayer ] != 1 )
 
                     break;
                   
@@ -499,9 +503,9 @@ void GraalEditSelectWindow( LambdaX1, LambdaY1, LambdaX2, LambdaY2 )
 
     for ( Layer = 0; Layer < RDS_MAX_LAYER; Layer++ ) 
     {
-      StaticLayer = RDS_STATIC_LAYER[ Layer ];
+      StaticLayer = RDS_STATIC_LAYER[ (int)Layer ];
 
-      if ( GRAAL_RDS_ACTIVE_LAYER_TABLE[ StaticLayer ] != 1 ) continue; 
+      if ( GRAAL_RDS_ACTIVE_LAYER_TABLE[ (int)StaticLayer ] != 1 ) continue; 
 
       Y = Ymin;
 
@@ -517,13 +521,13 @@ void GraalEditSelectWindow( LambdaX1, LambdaY1, LambdaX2, LambdaY2 )
 
           if ( ScanWin->LAYERTAB != (graalwinrec **)NULL )
           {
-            for ( ScanWinRec  = ScanWin->LAYERTAB[ Layer ];
+            for ( ScanWinRec  = ScanWin->LAYERTAB[ (int)Layer ];
                   ScanWinRec != (graalwinrec *)NULL;
                   ScanWinRec  = ScanWinRec->NEXT )
             {
               for ( ScanRec = 0; ScanRec < GRAAL_MAX_REC ; ScanRec++ )
               {
-                Rec = ScanWinRec->RECTAB[ ScanRec ];
+                Rec = ScanWinRec->RECTAB[ (int)ScanRec ];
 
                 if ( ( Rec != (rdsrec_list *)NULL        ) &&
                      ( ! IsGraalDeleted( Rec )           ) &&
@@ -545,7 +549,7 @@ void GraalEditSelectWindow( LambdaX1, LambdaY1, LambdaX2, LambdaY2 )
                     {
                       StaticLayer = RDS_STATIC_LAYER[ GetRdsLayer( CheckRec ) ];
 
-                      if ( GRAAL_RDS_ACTIVE_LAYER_TABLE[ StaticLayer ] != 1 )
+                      if ( GRAAL_RDS_ACTIVE_LAYER_TABLE[ (int)StaticLayer ] != 1 )
 
                        break;
 
@@ -647,9 +651,9 @@ void GraalEditSelectFence( LambdaX1, LambdaY1, LambdaX2, LambdaY2 )
 
     for ( Layer = 0; Layer < RDS_MAX_LAYER; Layer++ ) 
     {
-      StaticLayer = RDS_STATIC_LAYER[ Layer ];
+      StaticLayer = RDS_STATIC_LAYER[ (int)Layer ];
 
-      if ( GRAAL_RDS_ACTIVE_LAYER_TABLE[ StaticLayer ] != 1 ) continue; 
+      if ( GRAAL_RDS_ACTIVE_LAYER_TABLE[ (int)StaticLayer ] != 1 ) continue; 
 
       Y = Ymin;
 
@@ -665,13 +669,13 @@ void GraalEditSelectFence( LambdaX1, LambdaY1, LambdaX2, LambdaY2 )
 
           if ( ScanWin->LAYERTAB != (graalwinrec **)NULL )
           {
-            for ( ScanWinRec  = ScanWin->LAYERTAB[ Layer ];
+            for ( ScanWinRec  = ScanWin->LAYERTAB[ (int)Layer ];
                   ScanWinRec != (graalwinrec *)NULL;
                   ScanWinRec  = ScanWinRec->NEXT )
             {
               for ( ScanRec = 0; ScanRec < GRAAL_MAX_REC ; ScanRec++ )
               {
-                Rec = ScanWinRec->RECTAB[ ScanRec ];
+                Rec = ScanWinRec->RECTAB[ (int)ScanRec ];
 
                 if ( ( Rec != (rdsrec_list *)NULL        ) &&
                      ( ! IsGraalDeleted( Rec )           ) &&
@@ -693,7 +697,7 @@ void GraalEditSelectFence( LambdaX1, LambdaY1, LambdaX2, LambdaY2 )
                     {
                       StaticLayer = RDS_STATIC_LAYER[ GetRdsLayer( CheckRec ) ];
 
-                      if ( GRAAL_RDS_ACTIVE_LAYER_TABLE[ StaticLayer ] != 1 )
+                      if ( GRAAL_RDS_ACTIVE_LAYER_TABLE[ (int)StaticLayer ] != 1 )
 
                         break;
 

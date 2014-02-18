@@ -92,6 +92,7 @@
 |                                                             |
 \------------------------------------------------------------*/
 
-  extern  void  aut_error __P((int Error, char *Text, char *File, long Line));
+  extern  void  aut_error   __P((int Error, char *Text, char *File, long Line));
+  extern  void  aut_warning __P((int Warning, char* Text, char* File, long Line ));
 
 # endif

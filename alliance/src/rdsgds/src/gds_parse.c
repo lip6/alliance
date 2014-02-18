@@ -419,7 +419,6 @@ static int
 int layer;
 {
 int rds_layer;
-char texte[8];
 
    if (layer != -1)
       for (rds_layer = 0; rds_layer < RDS_MAX_LAYER; rds_layer++) {
@@ -900,8 +899,7 @@ int FLAG = 0;
                   free(nom_instance);
                   return(-1);
                }
-               if ((CheckPhysicalGridAligned(x)
-                     | CheckPhysicalGridAligned(x)) != 0) {
+               if ((CheckPhysicalGridAligned(x)) != 0) {
                pv_emet_warning(pv_model->NAME,
                                     "Gds Instance not aligned on grid", NULL);
                pv_model->INSTANCE = addrdsins(pv_model, nom_modele,
@@ -1012,7 +1010,7 @@ FILE *fp;
       default :
          pv_init_error();
          pv_error.v_error = ENOCODE;
-         error = TRUE;
+       //error = TRUE;
          break;
       }   /* fin du SWITCH */
 

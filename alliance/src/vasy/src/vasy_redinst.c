@@ -157,7 +157,7 @@ static int VasyRedInstHashVpnAct( VpnTrans, VpnAct )
     NewAct = addvpnactasgbefore( VasyFigure, VpnTrans, VpnAct, DefAtom, AsgExpr );
     unionvpnline( VasyFigure, &NewAct->LINE, VpnAct->LINE );
 
-    AsgExpr = VpnAct->VEX_EXPR;
+  //AsgExpr = VpnAct->VEX_EXPR;
   }
 
   addauth2elem( VasyHash2Assign, (char*)VpnTrans, (char*)AtomValue, (long)VpnAct );

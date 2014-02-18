@@ -123,7 +123,7 @@ char  LynxParseEqui()
 
   while (  fgets( LynxBuffer, LYNX_BUFFER_SIZE, LynxFile ) != (char *)0 )
   {
-    LynxBuffer[ strlen( LynxBuffer ) - 1 ] = '\0';
+  //LynxBuffer[ strlen( LynxBuffer ) - 1 ] = '\0';
 
     LynxScanEqui = addchain( LynxScanEqui,
                              (void *)namealloc( LynxBuffer ) );

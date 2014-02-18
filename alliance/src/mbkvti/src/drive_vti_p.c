@@ -63,7 +63,7 @@ int year, nday, hour, minute, second;
 
 	(void)time(&timer);
 	(void)strcpy(date, ctime(&timer));
-	(void)sscanf(date, "%s %s %d %d:%d:%d 19%d",
+	(void)sscanf(date, "%3s %3s %11d %11d:%11d:%11d 19%11d",
 						day, month, &nday, &hour, &minute, &second, &year);
 	(void)sprintf(date, "%02d-%s-%02d %02d:%02d",
 						nday, month, year, hour, minute);
@@ -85,21 +85,22 @@ char one = 1;
 	s = name;
 	t = buffer;
 	while (*s) {
-		if (*s == ' ')
-			if (one) {
-				*t++ = '[';
-				s++;
-				one = 0;
-			} else {
-				*t++ = ']';
-				*t++ = '[';
-				s++;
-			}
-		if (*s == '_' && !one) { /* was SEPAR and not / */
-			*t++ = ']';
-			one = 1;
-		}
-		*t++ = *s++;
+      if (*s == ' ') {
+        if (one) {
+          *t++ = '[';
+          s++;
+          one = 0;
+        } else {
+          *t++ = ']';
+          *t++ = '[';
+          s++;
+        }
+      }
+      if (*s == '_' && !one) { /* was SEPAR and not / */
+        *t++ = ']';
+        one = 1;
+      }
+      *t++ = *s++;
 	}
 	if (!one)
 		*t++ = ']';
@@ -121,9 +122,9 @@ phvia_list *ptvia;
 phref_list *ptref;
 int npoint = 0;
 int vix[LAST_CONTACT];
-int conindex = 0;                                      /* connector index    */
+int conindex = 0;             /* connector index    */
 char symm;
-char type;                                             /* connector orient   */
+char type = '-';              /* connector orient   */
 char *filename = ptfig->NAME; /* namealloc unnecessary */
 char figname[10];
 char insname[10];

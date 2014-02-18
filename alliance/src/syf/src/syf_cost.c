@@ -147,6 +147,7 @@ long SyfFbhAblGiveCost( FbhFigure )
 |                                                             |
 \------------------------------------------------------------*/
 
+#if THIS_IS_DISABLED
 static long SyfBddGiveCost( BddNode )
 
   bddnode *BddNode;
@@ -184,3 +185,4 @@ static long SyfBddGiveCost( BddNode )
 
   return( 0 );
 }
+#endif

@@ -29,10 +29,10 @@ static void drv_genvalue(FILE *ptfile, logen_list *ptgen)
          fprintf(ptfile, "'%c'", ptgen->VALUE.CHAR);
          break;
       case GENTYPE_VAL:
-         fprintf(ptfile, "%d", ptgen->VALUE.VAL);
+         fprintf(ptfile, "%ld", ptgen->VALUE.VAL);
          break;
       case GENTYPE_ARG:
-         fprintf(ptfile, "%d", ptgen->VALUE.VAL);
+         fprintf(ptfile, "%ld", ptgen->VALUE.VAL);
          break;
       case GENTYPE_TEXT:
          fputs(ptgen->VALUE.TEXT, ptfile);
@@ -53,7 +53,7 @@ static void drv_generic(FILE *ptfile, ptype_list *pttype)
 {
 struct logen *ptgen;
 
-   if (pttype=getptype(pttype,LOGEN)) {
+   if ( (pttype=getptype(pttype,LOGEN)) ) {
       fprintf (ptfile,"   generic (\n");
       for (ptgen=pttype->DATA;ptgen;ptgen=ptgen->NEXT) {
          fprintf (ptfile,"      CONSTANT %s : ",ptgen->NAME);

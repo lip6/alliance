@@ -72,7 +72,7 @@
 |                                                             |
 \------------------------------------------------------------*/
   
-  static XvpnLockLoop = 0;
+  static int XvpnLockLoop = 0;
 
   static XvpnDialogItem XvpnWarningDialog =
 

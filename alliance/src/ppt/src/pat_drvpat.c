@@ -66,7 +66,7 @@ struct papat *ptpat;
 	/* ###------------------------------------------------------### */
 
   fprintf (fp,"\n-- modification of registers\n");
-  oldred = sscanf (ptini->NAME, "%s %d", oldname, &left);
+  oldred = sscanf (ptini->NAME, "%255s %22ld", oldname, &left);
 
   strcpy (name, oldname);
   redvar    = oldred;
@@ -83,7 +83,7 @@ struct papat *ptpat;
 	/* split the register's name into a root name and an index.	*/
 	/* ###------------------------------------------------------### */
 
-    redvar = sscanf (ptini->NAME, "%s %d", name, &indx);
+    redvar = sscanf (ptini->NAME, "%255s %22ld", name, &indx);
 
     if ( (!strcmp (name, oldname)) && (oldred == 2) && (redvar == 2) &&
          ( (((direction == '?') || (direction == 'U')) && (indx == right+1)) ||
@@ -129,15 +129,15 @@ struct papat *ptpat;
         switch (direction)
           {
           case 'U' :
-            fprintf (fp, "%s (%d to %d) <= B\"%s\";\n", oldname, left,
+            fprintf (fp, "%s (%ld to %ld) <= B\"%s\";\n", oldname, left,
                                                         right  , buffer);
             break;
           case 'D' :
-            fprintf (fp, "%s (%d downto %d) <= B\"%s\";\n", oldname, left,
+            fprintf (fp, "%s (%ld downto %ld) <= B\"%s\";\n", oldname, left,
                                                             right  , buffer);
             break;
           case '?' :
-            fprintf (fp, "%s (%d) <= \'%s\';\n", oldname, left, buffer);
+            fprintf (fp, "%s (%ld) <= \'%s\';\n", oldname, left, buffer);
             break;
           }
         }
@@ -168,15 +168,15 @@ struct papat *ptpat;
     switch (direction)
       {
       case 'U' :
-        fprintf (fp, "%s (%d to %d) <= B\"%s\";\n", oldname, left,
+        fprintf (fp, "%s (%ld to %ld) <= B\"%s\";\n", oldname, left,
                                                     right  , buffer);
         break;
       case 'D' :
-        fprintf (fp, "%s (%d downto %d) <= B\"%s\";\n", oldname, left,
+        fprintf (fp, "%s (%ld downto %ld) <= B\"%s\";\n", oldname, left,
                                                         right  , buffer);
         break;
       case '?' :
-        fprintf (fp, "%s (%d) <= \'%s\';\n", oldname, left, buffer);
+        fprintf (fp, "%s (%ld) <= \'%s\';\n", oldname, left, buffer);
         break;
       }
     }
@@ -228,8 +228,8 @@ unsigned long  labelsiz;			/* length of the longest label	*/
 
   long           i       ;
   long           j       ;
-  long           compare ;
-  char          sflag   = 'S';		/* processed or unprocessed	*/
+  long           compare = 0;
+  char           sflag   = 'S';		/* processed or unprocessed	*/
   long           length  ;		/* length of string		*/
   long           ret_val = 0  ;		/* value to be returned		*/
 
@@ -384,8 +384,9 @@ unsigned long  labelsiz;			/* length of the longest label	*/
           case 'U':
             mode = "signal  "; break;
           default :
-            mode = "signal  "; break;
+            mode = "signal  ";
             ret_val = pat_error (201, ptiol->NAME, ptiol->MODE, 0);
+            break;
           }
 
 	/* ###------------------------------------------------------### */
@@ -436,17 +437,17 @@ unsigned long  labelsiz;			/* length of the longest label	*/
 	/*    print out the declaration of an actual array		*/
 	/* ###------------------------------------------------------### */
 
-            sscanf (ptiol->NAME, "%s %d", name, &left);
+            sscanf (ptiol->NAME, "%255s %22ld", name, &left);
             ptiol += ptgrp->LENGTH - 1;
-            sscanf (ptiol->NAME, "%s %d", name, &right);
+            sscanf (ptiol->NAME, "%255s %22ld", name, &right);
 
             if (left < right)
               direc = "to";
             else
               direc = "downto";
 
-            fprintf (fp, "%s %s (%d %s %d) %c", mode , name, left, direc,
-                                                right, format);
+            fprintf (fp, "%s %s (%ld %s %ld) %c", mode , name, left, direc,
+                                                  right, format);
             }
           else
             {
@@ -459,7 +460,7 @@ unsigned long  labelsiz;			/* length of the longest label	*/
 
             fprintf (fp, "%s %s ", mode, ptgrp->NAME);
             seprt  = '(';
-            oldred = sscanf (ptiol->NAME, "%s %d", oldname, &left);
+            oldred = sscanf (ptiol->NAME, "%255s %22ld", oldname, &left);
             redvar = oldred;
             right  = left;
             strcpy (name, oldname);
@@ -467,7 +468,7 @@ unsigned long  labelsiz;			/* length of the longest label	*/
             ptiol++;
             for (i=1 ; i<ptgrp->LENGTH; i++)
               {
-              redvar = sscanf (ptiol->NAME, "%s %d", name, &indx);
+              redvar = sscanf (ptiol->NAME, "%255s %22ld", name, &indx);
 
               if (!strcmp (name, oldname))
                 right = indx;
@@ -481,8 +482,8 @@ unsigned long  labelsiz;			/* length of the longest label	*/
                     direc = "to";
                   else
                     direc = "downto";
-                  fprintf (fp, "%c %s (%d %s %d)", seprt, oldname, left,
-                                                   direc, right);
+                  fprintf (fp, "%c %s (%ld %s %ld)", seprt, oldname, left,
+                                                     direc, right);
                   }
                 left   = indx;
                 oldred = redvar;
@@ -502,8 +503,8 @@ unsigned long  labelsiz;			/* length of the longest label	*/
               else
                 direc = "downto";
 
-              fprintf (fp, "%c %s (%d %s %d) ) %c", seprt, name , left,
-                                                    direc, right, format);
+              fprintf (fp, "%c %s (%ld %s %ld) ) %c", seprt, name , left,
+                                                      direc, right, format);
               }
             }
           iol_idx += ptgrp->LENGTH;
@@ -520,11 +521,11 @@ unsigned long  labelsiz;			/* length of the longest label	*/
 	/*       - increment the length of the pattern			*/
 	/* ###------------------------------------------------------### */
 
-          redvar = sscanf (ptiol->NAME, "%s %d", name, &indx);
+          redvar = sscanf (ptiol->NAME, "%255s %22ldd", name, &indx);
           if (redvar == 1)
             fprintf (fp, "%s %s %c"     , mode, name, format);
           else
-            fprintf (fp, "%s %s (%d) %c", mode, name, indx, format);
+            fprintf (fp, "%s %s (%ld) %c", mode, name, indx, format);
 
           length = strlen (ptiol->NAME);
           if (row < length)
@@ -791,8 +792,8 @@ unsigned long  labelsiz;			/* length of the longest label	*/
           {
           ptiol = ptseq->PAIOL + iol_idx;
 
-          if (sscanf (ptiol->NAME, "%s %d", name, &indx) == 2)
-            fprintf (fp, "-- error on `%s (%d)` : ", name, indx );
+          if (sscanf (ptiol->NAME, "%255s %22ld", name, &indx) == 2)
+            fprintf (fp, "-- error on `%s (%ld)` : ", name, indx );
           else
             fprintf (fp, "-- error on `%s` : "     , ptiol->NAME);
 
@@ -818,8 +819,8 @@ unsigned long  labelsiz;			/* length of the longest label	*/
 
           if ((ptiol->FLAG & PAT_IOL__SPY) != 0)
             {
-            if (sscanf (ptiol->NAME, "%s %d", name, &indx) == 2)
-              fprintf (fp, "%s (%d) ", name, indx );
+            if (sscanf (ptiol->NAME, "%255s %22ld", name, &indx) == 2)
+              fprintf (fp, "%s (%ld) ", name, indx );
             else
               fprintf (fp, "%s "     , ptiol->NAME);
             }
@@ -834,7 +835,7 @@ unsigned long  labelsiz;			/* length of the longest label	*/
 
       if (zd_flg == 0)
         {
-        sprintf (pat_date, "<%11u %s>", ptpat->TIME * t_step, t_unit);
+        sprintf (pat_date, "<%11lu %s>", ptpat->TIME * t_step, t_unit);
 
         for (i=0 ; i<16 ; i++)
           buffer [i] = pat_date [i];

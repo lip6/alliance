@@ -212,7 +212,7 @@ main(int argc, char **argv)
 				{
 				    if (i+3 < argc)
 				    {
-					if (!sscanf(argv[i+1], "%lg", &BBoxOccCostRatio))
+					if (!sscanf(argv[i+1], "%22lg", &BBoxOccCostRatio))
 					{
 					    cout << "WARNING : invalid argument for -r" << endl;
 					    UsageFlg = true;
@@ -228,17 +228,17 @@ main(int argc, char **argv)
             if (!strcmp (argv[i], "-nbrmult")) {
               if (i+5 < argc)
               {
-        	if (!sscanf(argv[i+1], "%lg", &NetMult))
+        	if (!sscanf(argv[i+1], "%22lg", &NetMult))
         	{
             	  cout << "WARNING : invalid argument for -nbrmult" << endl;
         	  UsageFlg = true;
         	}
-        	if (!sscanf(argv[i+2], "%lg", &RowMult))
+        	if (!sscanf(argv[i+2], "%22lg", &RowMult))
         	{
             	  cout << "WARNING : invalid argument for -nbrmult" << endl;
         	  UsageFlg = true;
         	}
-        	if (!sscanf(argv[i+3], "%lg", &BinMult))
+        	if (!sscanf(argv[i+3], "%22lg", &BinMult))
         	{
             	  cout << "WARNING : invalid argument for -nbrmult" << endl;
         	  UsageFlg = true;
@@ -255,7 +255,7 @@ main(int argc, char **argv)
 	    if (!strcmp (argv[i], "-margin")) {
 	      if (i+3 < argc)
 	      {
-                if (!sscanf(argv[i+1], "%lg", &Margin))
+                if (!sscanf(argv[i+1], "%22lg", &Margin))
 		{
 	    	  cout << "WARNING : invalid argument for -margin" << endl;
 		  UsageFlg = true;
@@ -272,7 +272,7 @@ main(int argc, char **argv)
 	    if (!strcmp (argv[i], "-partial")) {
 	      if (i+3 < argc)
 	      {
-                if (!sscanf(argv[i+1], "%s", PartialFile))
+                if (!sscanf(argv[i+1], "%255s", PartialFile))
 		{
 	    	  cout << "WARNING : invalid argument for -partial" << endl;
 		  UsageFlg = true;
@@ -289,7 +289,7 @@ main(int argc, char **argv)
 	    if (!strcmp (argv[i], "-ioc")) {
 	      if (i+3 < argc)
 	      {
-                if (!sscanf(argv[i+1], "%s", IocFile))
+                if (!sscanf(argv[i+1], "%255s", IocFile))
 		{
 	    	  cout << "WARNING : invalid argument for -partial" << endl;
 		  UsageFlg = true;
@@ -307,7 +307,7 @@ main(int argc, char **argv)
 	    if (!strcmp (argv[i], "-mdl")) {
 	      if (i+3 < argc)
 	      {
-                if (!sscanf(argv[i+1], "%d", &MaxDetLoop))
+                if (!sscanf(argv[i+1], "%11d", &MaxDetLoop))
 		{
 		  cout << "WARNING : invalid argument for -mdl" << endl;
 		  UsageFlg = true;
@@ -324,7 +324,7 @@ main(int argc, char **argv)
 	    if (!strcmp (argv[i], "-rows")) {
 	      if (i+3 < argc)
 	      {
-	        if (!sscanf(argv[i+1], "%d", &NbRows))
+	        if (!sscanf(argv[i+1], "%11d", &NbRows))
 		{
 		  cout << "WARNING : invalid argument for -rows" << endl;
 		  UsageFlg = true;

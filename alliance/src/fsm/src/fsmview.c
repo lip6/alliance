@@ -124,7 +124,7 @@ void viewfsmport( Port )
   fprintf( stdout, "\n\t\tNAME : %s", Port->NAME );
   fprintf( stdout, "\n\t\tDIR : %c", Port->DIR );
   if ( Port->TYPE < FSM_MAX_TYPE )
-    fprintf( stdout, "\n\t\tTYPE : %s", FSM_TYPE_NAME[ Port->TYPE ] );
+    fprintf( stdout, "\n\t\tTYPE : %s", FSM_TYPE_NAME[ (int)Port->TYPE ] );
   else
     fprintf( stdout, "\n\t\tTYPE : %d", (int)Port->TYPE );
   fprintf( stdout, "\n\t\tFLAGS : %lx", Port->FLAGS );

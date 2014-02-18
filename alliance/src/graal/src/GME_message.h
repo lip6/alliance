@@ -91,5 +91,7 @@
   extern void GraalPromptModifyReference();
   extern void GraalPromptModifyVia();
   extern void GraalPromptModifyBigVia();
+  extern void GraalPromptModifyInstance();
+
 
 # endif 

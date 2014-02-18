@@ -50,7 +50,7 @@ char          mode;		/* recursive delete or not (Y or N)	*/
 
   {
   struct beaux  headaux;
-  struct beaux *ptlastaux;
+  struct beaux *ptlastaux = NULL;
   struct beaux *ptbeaux;
 
   if (listbeaux != NULL)

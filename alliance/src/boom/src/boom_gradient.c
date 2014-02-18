@@ -166,7 +166,7 @@ chain_list *BoomBehGradientBddOrder( BehFigure )
 
   befig_list *BehFigure;
 {
-  boombefiginfo *FigInfo;
+/*boombefiginfo *FigInfo;*/
   chain_list    *OrderList;
   long           NumberVar;
   long           VarIndex;
@@ -175,7 +175,7 @@ chain_list *BoomBehGradientBddOrder( BehFigure )
   long           MaxNode;
   char          *Name;
 
-  FigInfo = GetBoomBehFigInfo( BehFigure );
+/*FigInfo = GetBoomBehFigInfo( BehFigure );*/
 
   VarIndex          = getbddvarindex( BddLocalSystem, 0 );
   BoomBddTopVarNode = addbddcircuitin( BddLocalCircuit, "_top_", VarIndex, 

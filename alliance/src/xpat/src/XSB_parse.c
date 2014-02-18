@@ -122,7 +122,7 @@
   static keyword KeywordDefine[ XSB_MAX_KEYWORD ] =
 
   {
-    "None", 0
+    { "None", 0 }
   };
 
 /*------------------------------------------------------------\
@@ -152,7 +152,7 @@ char *XsbFileGetString( String, Size )
   int   Size;
 {
   register char *RegisterString;
-  register       Register;
+  register int   Register = 0;
 
   autbegin();
  
@@ -215,7 +215,7 @@ void XsbGetLine( Buffer )
       XsbError( UNEXPECTED_EOF, (char *)NULL, XsbCurrentLine );
     }
  
-    if ( String = strchr( Buffer, XSB_COMMENT_CHAR ))
+    if ( (String = strchr( Buffer, XSB_COMMENT_CHAR )) )
     {
       if ( String == Buffer )
       {
@@ -279,7 +279,7 @@ char *XsbGetFirstWord( Buffer, IsKeyword, Hash )
  
   autbegin();
  
-  if ( String = (char *)strtok( Buffer, XSB_SEPARATORS_STRING )) 
+  if ( (String = (char *)strtok( Buffer, XSB_SEPARATORS_STRING )) ) 
   {
     if ( Hash )
     {
@@ -324,7 +324,7 @@ char *XsbGetNextWord( IsKeyword, Hash )
 
   autbegin();
  
-  if ( String = (char *)strtok( (char *)NULL, XSB_SEPARATORS_STRING )) 
+  if ( (String = (char *)strtok( (char *)NULL, XSB_SEPARATORS_STRING )) ) 
   {
      if ( Hash )
      {
@@ -382,7 +382,7 @@ long XsbGetStringValue( String )
 
   autbegin();
  
-  if ( sscanf( String, "%d", &Value) )
+  if ( sscanf( String, "%22ld", &Value) )
   {
     autend();
     return ( Value );
@@ -418,7 +418,7 @@ float XsbGetStringFloat( String )
 
   autbegin();
 
-  if ( ! sscanf( String, "%g", &Value) )
+  if ( ! sscanf( String, "%32g", &Value) )
   {
     XsbError( ILLEGAL_FLOAT, String, XsbCurrentLine );
   }
@@ -441,7 +441,7 @@ long XsbGetNumber( String )
 
   autbegin();
 
-  if ( ! sscanf( String, "%d", &Value ))
+  if ( ! sscanf( String, "%22ld", &Value ))
   {
     XsbError( UNEXPECTED_LINE, "number", XsbCurrentLine );
   }
@@ -460,10 +460,10 @@ long XsbGetNumber( String )
 void XsbReadLayerName()
 
 {
-  char  Layer;
-  char  LayerCount;
-  char  EndTable;
-  char  Field;
+  int   Layer;
+  int   LayerCount;
+  int   EndTable;
+  int   Field;
   char *FirstWord;
 
   autbegin();

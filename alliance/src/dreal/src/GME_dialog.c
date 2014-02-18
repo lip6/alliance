@@ -64,6 +64,7 @@
 # include "GME_modify.h"
 # include "GME_search.h"
 # include "GME_edit.h"
+# include "GME_message.h"
 
 /*------------------------------------------------------------\
 |                                                             |

@@ -32,6 +32,7 @@
 
 #include <stdio.h>
 #include <stdlib.h>
+#include <string.h>
 #include "spi_msg.h"
 
 #include <mut.h>

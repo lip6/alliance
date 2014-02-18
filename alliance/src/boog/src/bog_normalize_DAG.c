@@ -41,8 +41,8 @@
 #include "bog_normalize_DAG.h"
 
 
-#define USING(node) {node=-mark;}
-#define USED(node) {node=(long)((((long)node<0)?0L:(long)node)+1L);}
+#define USING(node) {node=(void*)(((long)node)-mark);}
+#define USED(node) {node=(void*)((((long)node<0)?0L:(long)node)+1L);}
 #define IS_USING(node) ((long)node==-mark)
 #define IS_USED(node) ((long)node!=0)
 #define IS_UNUSED(node) ((long)node==0)

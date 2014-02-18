@@ -44,6 +44,7 @@
 
 # include <stdio.h>
 # include <stdlib.h>
+# include <string.h>
 # include <signal.h>
 # include <setjmp.h>
 # include "mut.h"
@@ -55,6 +56,7 @@
 # include "GSB.h" 
 # include "GRM.h"
 # include "GRM_error.h"
+# include "GMF_menu.h"
 
 /*------------------------------------------------------------\
 |                                                             |
@@ -376,13 +378,13 @@ char *GraalGetInformations()
 
   Scan = Scan + strlen( Scan );
 
-  sprintf( Scan, "  BOUNDING BOX : \n\n  XMIN : %d\n  YMIN : %d\n  XMAX : %d\n  YMAX : %d\n\n",
+  sprintf( Scan, "  BOUNDING BOX : \n\n  XMIN : %ld\n  YMIN : %ld\n  XMAX : %ld\n  YMAX : %ld\n\n",
            GraalBoundXmin / GRAAL_RDS_LAMBDA, GraalBoundYmin / GRAAL_RDS_LAMBDA,
            GraalBoundXmax / GRAAL_RDS_LAMBDA, GraalBoundYmax / GRAAL_RDS_LAMBDA );
 
   Scan = Scan + strlen( Scan );
 
-  sprintf( Scan, "  WINDOWS : \n\n  XMIN : %d\n  YMIN : %d\n  XMAX : %d\n  YMAX : %d\n  DX : %d\n  DY : %d\n  SIDE : %d\n\n",
+  sprintf( Scan, "  WINDOWS : \n\n  XMIN : %ld\n  YMIN : %ld\n  XMAX : %ld\n  YMAX : %ld\n  DX : %ld\n  DY : %ld\n  SIDE : %ld\n\n",
            GraalWindowXmin / GRAAL_RDS_LAMBDA, GraalWindowYmin / GRAAL_RDS_LAMBDA,
            GraalWindowXmax / GRAAL_RDS_LAMBDA, GraalWindowYmax / GRAAL_RDS_LAMBDA,
            GraalWindowDx               , GraalWindowDy,

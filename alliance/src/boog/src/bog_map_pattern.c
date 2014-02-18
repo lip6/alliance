@@ -406,7 +406,7 @@ extern cell_list* cell_pattern(chain_list* expr)
    /*create a temporary NOT to match perfectly with cell*/
    not=createabloper(ABL_NOT);
    ABL_CDR(not)=addchain(NULL,NULL);
-   ABL_ARITY_L(not)=1;
+   ABL_ARITY_L(not)=(chain_list*)1;
    
    /*take those are biggest*/
    for (cell=getcell_logic_lib(); cell; cell=cell->NEXT) {
@@ -525,7 +525,7 @@ extern cell_list* cell_pattern(chain_list* expr)
       fprintf(stderr,"Library Error: No cell could match  '");
       display_abl(expr);
       if (ABL_ATOM(expr)) fprintf(stderr,"'\n");
-      else fprintf(stderr,"'    (oper arity=%d)\n",ABL_ARITY(expr));
+      else fprintf(stderr,"'    (oper arity=%ld)\n",ABL_ARITY(expr));
       exit(1);
    }
    
@@ -566,7 +566,7 @@ extern cell_list* cell_pattern_bus(biabl_list* biabl)
    /*create a temporary NOT to match perfectly with cell*/
    not=createabloper(ABL_NOT);
    ABL_CDR(not)=addchain(NULL,NULL);
-   ABL_ARITY_L(not)=1;
+   ABL_ARITY_L(not)=(chain_list*)1;
    
    for (cell=getcell_tristate_lib(); cell; cell=cell->NEXT) {
       /*prepare for use*/
@@ -713,7 +713,7 @@ extern cell_list* cell_pattern_reg(biabl_list* biabl)
    /*create a temporary NOT to match perfectly with cell*/
    not=createabloper(ABL_NOT);
    ABL_CDR(not)=addchain(NULL,NULL);
-   ABL_ARITY_L(not)=1;
+   ABL_ARITY_L(not)=(chain_list*)1;
    
    cell=getcell_register_lib();
 

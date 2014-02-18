@@ -60,9 +60,13 @@
 # include "GSB.h"
 # include "GME.h"
 # include "GMT.h"
+# include "GMV.h"
 
+# include "GME_panel.h"
 # include "GME_select.h"
 # include "GME_message.h"
+# include "GRD_select.h"
+# include "GTB_dialog.h"
 
 /*------------------------------------------------------------\
 |                                                             |
@@ -111,7 +115,7 @@ void DrealAddSelectList( Rectangle )
   if ( IsRdsInstance( Rectangle ) )
   {
     sprintf( DrealSelectBuffer,
-    "  INSTANCE %s : %s", Rectangle->NAME );
+    "  INSTANCE %s", Rectangle->NAME );
   }
   else
   if ( IsRdsFigure( Rectangle ) )
@@ -126,7 +130,7 @@ void DrealAddSelectList( Rectangle )
     sprintf( DrealSelectBuffer, 
     "  RECTANGLE %s : %s",
       ( Rectangle->NAME != (char *)NULL ) ? Rectangle->NAME : "None",
-      DREAL_RDS_LAYER_NAME_TABLE[ StaticLayer ][0] );
+      DREAL_RDS_LAYER_NAME_TABLE[ (int)StaticLayer ][0] );
   }
 
   DrealDisplaySelectList( DrealSelectBuffer );
@@ -280,17 +284,17 @@ void DrealEditSelectPoint( LambdaX1, LambdaY1 )
     {
       for ( Layer = 0; Layer < RDS_MAX_LAYER; Layer++ ) 
       {
-        StaticLayer = RDS_STATIC_LAYER[ Layer ];
+        StaticLayer = RDS_STATIC_LAYER[ (int)Layer ];
 
-        if ( DREAL_RDS_ACTIVE_LAYER_TABLE[ StaticLayer ] != 1 ) continue; 
+        if ( DREAL_RDS_ACTIVE_LAYER_TABLE[ (int)StaticLayer ] != 1 ) continue; 
 
-        for ( ScanWinRec  = ScanWin->LAYERTAB[ Layer ];
+        for ( ScanWinRec  = ScanWin->LAYERTAB[ (int)Layer ];
               ScanWinRec != (drealwinrec *)NULL;
               ScanWinRec  = ScanWinRec->NEXT )
         {
           for ( ScanRec = 0; ScanRec < DREAL_MAX_REC ; ScanRec++ )
           {
-            Rec = ScanWinRec->RECTAB[ ScanRec ];
+            Rec = ScanWinRec->RECTAB[ (int)ScanRec ];
 
             if ( ( Rec != (rdsrec_list *)NULL        ) &&
                  ( ! IsDrealDeleted( Rec )           ) &&
@@ -419,9 +423,9 @@ void DrealEditSelectWindow( LambdaX1, LambdaY1, LambdaX2, LambdaY2 )
 
     for ( Layer = 0; Layer < RDS_MAX_LAYER; Layer++ ) 
     {
-      StaticLayer = RDS_STATIC_LAYER[ Layer ];
+      StaticLayer = RDS_STATIC_LAYER[ (int)Layer ];
 
-      if ( DREAL_RDS_ACTIVE_LAYER_TABLE[ StaticLayer ] != 1 ) continue; 
+      if ( DREAL_RDS_ACTIVE_LAYER_TABLE[ (int)StaticLayer ] != 1 ) continue; 
 
       Y = Ymin;
 
@@ -437,13 +441,13 @@ void DrealEditSelectWindow( LambdaX1, LambdaY1, LambdaX2, LambdaY2 )
 
           if ( ScanWin->LAYERTAB != (drealwinrec **)NULL )
           {
-            for ( ScanWinRec  = ScanWin->LAYERTAB[ Layer ];
+            for ( ScanWinRec  = ScanWin->LAYERTAB[ (int)Layer ];
                   ScanWinRec != (drealwinrec *)NULL;
                   ScanWinRec  = ScanWinRec->NEXT )
             {
               for ( ScanRec = 0; ScanRec < DREAL_MAX_REC ; ScanRec++ )
               {
-                Rec = ScanWinRec->RECTAB[ ScanRec ];
+                Rec = ScanWinRec->RECTAB[ (int)ScanRec ];
 
                 if ( ( Rec != (rdsrec_list *)NULL        ) &&
                      ( ! IsDrealDeleted( Rec )           ) &&
@@ -551,9 +555,9 @@ void DrealEditSelectFence( LambdaX1, LambdaY1, LambdaX2, LambdaY2 )
 
     for ( Layer = 0; Layer < RDS_MAX_LAYER; Layer++ ) 
     {
-      StaticLayer = RDS_STATIC_LAYER[ Layer ];
+      StaticLayer = RDS_STATIC_LAYER[ (int)Layer ];
 
-      if ( DREAL_RDS_ACTIVE_LAYER_TABLE[ StaticLayer ] != 1 ) continue; 
+      if ( DREAL_RDS_ACTIVE_LAYER_TABLE[ (int)StaticLayer ] != 1 ) continue; 
 
       Y = Ymin;
 
@@ -569,13 +573,13 @@ void DrealEditSelectFence( LambdaX1, LambdaY1, LambdaX2, LambdaY2 )
 
           if ( ScanWin->LAYERTAB != (drealwinrec **)NULL )
           {
-            for ( ScanWinRec  = ScanWin->LAYERTAB[ Layer ];
+            for ( ScanWinRec  = ScanWin->LAYERTAB[ (int)Layer ];
                   ScanWinRec != (drealwinrec *)NULL;
                   ScanWinRec  = ScanWinRec->NEXT )
             {
               for ( ScanRec = 0; ScanRec < DREAL_MAX_REC ; ScanRec++ )
               {
-                Rec = ScanWinRec->RECTAB[ ScanRec ];
+                Rec = ScanWinRec->RECTAB[ (int)ScanRec ];
 
                 if ( ( Rec != (rdsrec_list *)NULL        ) &&
                      ( ! IsDrealDeleted( Rec )           ) &&

@@ -66,6 +66,7 @@
 # include "XMX.h"
 # include "XMH.h"
 
+# include "XTB_dialog.h" 
 # include "XMH_panel.h" 
 # include "LIP6bw.h" 
 

@@ -59,6 +59,8 @@
 # include "GTB.h"
 # include "GSB.h"
 # include "GMF.h"
+# include "GMV.h"
+# include "GMT.h"
 
 # include "GMF_file.h"
 

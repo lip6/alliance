@@ -100,11 +100,12 @@ extern void          sch_insentry ();
 extern void          sch_inswave  ();
 
 extern struct shdul *sch_CreateScheduler        ();
-extern void          sch_AddTranscation         ();
+extern void          sch_AddTransaction         ();
 extern struct shtra *sch_GetCurrentTransactions ();
 extern int           sch_GotoNextTime           ();
 extern int           sch_GetNextTime            ();
 extern void          sch_FreeTransactions       ();
 extern unsigned int  sch_GetCurrentTime         ();
+extern void          sch_SetCurrentTime         ();
 
 #endif

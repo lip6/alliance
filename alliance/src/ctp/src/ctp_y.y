@@ -53,6 +53,9 @@
 # define my_ctp_error ctp_error
 #endif
 
+extern int   ctp_y_lex   (void);
+extern void  ctp_y_error (char*);
+
 #ifdef CTP_DEBUG
 #define YYDEBUG 1
 #endif
@@ -359,13 +362,9 @@ constant_declaration
           ctltype_list  *Type;
           ctldecl_list  *CtlCst;
           vexexpr       *VexValue;
-          chain_list    *HeadChain;
-          chain_list    *ScanChain;
-          ctp_vexstr    *VexStr;
           short          Signed;
           long           Left;
           long           Right;
-          short          Width;
           long           AttrLeft;
           long           AttrRight;
 
@@ -424,13 +423,9 @@ assumption_declaration
           ctltype_list  *Type;
           ctldecl_list  *CtlAss;
           vexexpr       *VexValue;
-          chain_list    *HeadChain;
-          chain_list    *ScanChain;
-          ctp_vexstr    *VexStr;
           short          Signed;
           long           Left;
           long           Right;
-          short          Width;
           long           AttrLeft;
           long           AttrRight;
 
@@ -469,13 +464,9 @@ initial_declaration
           ctltype_list  *Type;
           ctldecl_list  *CtlAss;
           vexexpr       *VexValue;
-          chain_list    *HeadChain;
-          chain_list    *ScanChain;
-          ctp_vexstr    *VexStr;
           short          Signed;
           long           Left;
           long           Right;
-          short          Width;
           long           AttrLeft;
           long           AttrRight;
 
@@ -514,13 +505,9 @@ reset_cond_declaration
           ctltype_list  *Type;
           ctldecl_list  *CtlAss;
           vexexpr       *VexValue;
-          chain_list    *HeadChain;
-          chain_list    *ScanChain;
-          ctp_vexstr    *VexStr;
           short          Signed;
           long           Left;
           long           Right;
-          short          Width;
           long           AttrLeft;
           long           AttrRight;
 
@@ -567,8 +554,6 @@ variable_declaration
           {
             char         *LocalName;
             char         *signame;
-            char         *codedsigname;
-            char          buffer[ 128 ];
             ctltype_list *Type;
             ctldecl_list *CtlVar;
             short         Signed;
@@ -576,9 +561,6 @@ variable_declaration
             long          Right;
             long          AttrLeft;
             long          AttrRight;
-            char          StrFlag;
-            vexexpr      *VexInit;
-            struct ctp_expr expr1;
 
             LocalName = CTP_MODNAM;
             Type  = val_type( $4.NAME );
@@ -753,10 +735,8 @@ enumeration_type_definition
           RightParen_ERR
           {
               char *enumname;
-              char *enumval;
               long  size;
               long  indice;
-              long  numbit;
               char **pnt;
               chain_list *nm1lst;
 
@@ -862,7 +842,7 @@ constrained_array_definition
                 my_ctp_error(123,NULL);
               }
 
-              sprintf( buffer, "_subtype_%d", CTP_NUMTYP );
+              sprintf( buffer, "_subtype_%ld", CTP_NUMTYP );
               name = namealloc( buffer );
 
               NewType = addctltype(CTP_HEADFIG,name,$4.INDEX, $4.LEFT,
@@ -1337,8 +1317,6 @@ primary
           long            right;
           long            left_bnd;
           long            right_bnd;
-          long            in_bound;
-          long            out_bound;
           long             mode;
           long             flag;
 
@@ -1577,10 +1555,7 @@ element_association
 name
        : simple_name
          {
-           authelem *valbitstr;
-           char     *codedsigname;
            char     *LocalName;
-           char      buffer[128];
 
            LocalName = CTP_MODNAM;
 
@@ -1607,8 +1582,6 @@ indexed_name
             char       *LocalName;
             ctp_vexstr *VexStr;
             chain_list *ScanChain;
-            vexexpr    *VexExpr;
-            vexexpr    *VexRet;
             long        Index;
             long         Error;
             long        Def;
@@ -2264,6 +2237,7 @@ static ctltype_list *val_type(name)
   return( searchctltype( CTP_HEADFIG, name ) );
 }
 
+#if THIS_IS_DISABLED
 static ctltype_list *get_type(val)
 
   long val;
@@ -2279,6 +2253,7 @@ static ctltype_list *get_type(val)
 
   return( Type );
 }
+#endif
 
 int ctp_y_wrap ()
 {

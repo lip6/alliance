@@ -71,7 +71,7 @@
 |                                                             |
 \------------------------------------------------------------*/
   
-  static XgraLockLoop = 0;
+  static int XgraLockLoop = 0;
 
   static XgraDialogItem XgraWarningDialog =
 

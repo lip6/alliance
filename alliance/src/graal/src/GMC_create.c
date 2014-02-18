@@ -57,6 +57,8 @@
 # include "GTB.h"
 # include "GSB.h"
 # include "GMC.h"
+# include "GMV.h"
+# include "GMT.h"
 
 # include "GMC_create.h"
 # include "GMC_dialog.h"
@@ -191,7 +193,6 @@ void GraalCreateSegmentMbk( LambdaX1, LambdaY1, LambdaX2, LambdaY2 )
   char        *SaveName;
   char        *SegmentName;
   long         Delta;
-  int          Error;
 
   rdsbegin();
 
@@ -206,7 +207,7 @@ void GraalCreateSegmentMbk( LambdaX1, LambdaY1, LambdaX2, LambdaY2 )
 
   if ( Delta < 0 ) Delta = - Delta;
   
-  if ( Delta < GRAAL_SCALE * GRAAL_SEGMENT_VALUE_TABLE[GraalSegmentLayer][1] )
+  if ( Delta < GRAAL_SCALE * GRAAL_SEGMENT_VALUE_TABLE[(int)GraalSegmentLayer][1] )
   {
     GraalErrorMessage( GraalMainWindow, "This segment is too small !" );
 
@@ -384,8 +385,8 @@ void GraalCreateBigViaMbk( LambdaX1, LambdaY1, LambdaX2, LambdaY2 )
     ViaDx = LambdaX2 - LambdaX1;
     ViaDy = LambdaY2 - LambdaY1;
 
-    if ( ( ViaDx < GRAAL_SCALE * GRAAL_BIGVIA_VALUE_TABLE[ GraalBigViaType ][0] ) ||
-         ( ViaDy < GRAAL_SCALE * GRAAL_BIGVIA_VALUE_TABLE[ GraalBigViaType ][0] ) )
+    if ( ( ViaDx < GRAAL_SCALE * GRAAL_BIGVIA_VALUE_TABLE[ (int)GraalBigViaType ][0] ) ||
+         ( ViaDy < GRAAL_SCALE * GRAAL_BIGVIA_VALUE_TABLE[ (int)GraalBigViaType ][0] ) )
     {
       GraalErrorMessage( GraalMainWindow, "This big via is too small !" );
 
@@ -475,7 +476,7 @@ void GraalCreateTransistorMbk( LambdaX1, LambdaY1, LambdaX2, LambdaY2 )
 
   if ( Delta < 0 ) Delta = - Delta;
   
-  if ( Delta < GRAAL_SCALE * GRAAL_SEGMENT_VALUE_TABLE[GraalTransistorType][1] )
+  if ( Delta < GRAAL_SCALE * GRAAL_SEGMENT_VALUE_TABLE[(int)GraalTransistorType][1] )
   { 
     GraalErrorMessage( GraalMainWindow, "This transistor is too small !" );
 
@@ -544,7 +545,6 @@ void GraalCreateConnectorMbk( LambdaX1, LambdaY1 )
 {
   rdsrec_list *Rectangle;
   phcon_list  *Connector;
-  char         Orient;
   char         MbkOrient;
 
   rdsbegin();
@@ -712,7 +712,6 @@ void GraalCreateInstanceMbk( LambdaX1, LambdaY1 )
    long LambdaX1;
    long LambdaY1;
 {
-  rdsrec_list *Rectangle;
   phins_list  *InstanceMbk;
   phins_list  *SaveInstance;
   rdsins_list *InstanceRds;

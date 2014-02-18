@@ -95,11 +95,19 @@
 #include <stdio.h>
 #include <string.h>
 #include <stdlib.h>
+#include <ctype.h>
 #include <mut.h>
 #include <mlo.h>
 #include <mlu.h>
 #include "vel_velo.h"
 #include "gen_generic.h"
+
+extern void vhdlsavelofig();
+extern int vhdlsavevelofig();
+extern void vectorize_velosig();
+extern void vectorize_velocon();
+extern void chkdir();
+extern void addsignals();
 
 /* ###--------------------------------------------------------------------### */
 /* #   Static Variables                                                     # */
@@ -223,12 +231,13 @@ static void drv_genvalue(FILE *ptfile, logen_list *ptgen)
          }
          for (l=ptgen->VALUE.LIST; l; l=l->NEXT) {
             drv_genvalue(ptfile, l);
-            if (l->NEXT)
+            if (l->NEXT) {
                if (dim==2) {
                   fputs(",\n", ptfile);
                   for (i=0; i<strlength; i++) putc(' ', ptfile);
                } else
                   fputc(',', ptfile);
+            }
          }
          fputc(')', ptfile);
          dim++;
@@ -304,7 +313,7 @@ loins_list *i;
 velocon *c;
 velosig *s, *ss;
 int maxlength;
-char *buf;
+char *buf=NULL;
 int length, j;
 
    if (!(file=mbkfopen(f->NAME, mode?"vhd":"vst", "w"))) {
@@ -426,12 +435,13 @@ int length, j;
             for (m=s->VSIG; m; m=m->NEXT) {
                ss=(velosig *)m->DATA;
                fputs(ss->NAME, file);
-               if (ss->TYPE=='V' || ss->TYPE=='M')
+               if (ss->TYPE=='V' || ss->TYPE=='M') {
                   if (ss->LEFT==ss->RIGHT)
                      fprintf(file, "(%ld)", ss->LEFT);
                   else
                      fprintf(file, "(%ld %s %ld)",
                              ss->LEFT, getvectordirection(ss), ss->RIGHT);
+               }
                if (m->NEXT)
                   fputs("& ",file);
             }
@@ -603,7 +613,7 @@ loins_list *i;
 losig_list *s;
 locon_list *c;
 char       *cn;
-char       *sn, *t, *r = NULL;
+char       *sn, *t=NULL, *r = NULL;
 int first = 1, previous=0, delta=0, current=0;
 char       Buffer0[1024];
 int        sigi = 0;
@@ -748,7 +758,7 @@ its_first:
 
    buildvelo(f);
 
-   p=getptype(f->USER, VEL_SIG);
+ //p=getptype(f->USER, VEL_SIG);
    vectorize_velosig(f);
 
    p=getptype(f->USER, VEL_CON);

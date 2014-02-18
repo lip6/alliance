@@ -1,3 +1,7 @@
+
+%option noinput
+%option nounput
+
 %{
 #include <stdio.h>
 #include <stdlib.h>
@@ -58,7 +62,7 @@ message      [Mm][Ee][Ss][Ss][Aa][Gg][Ee]
                      lineno_stack[include_stack_ptr] = lineno;
                      fname_stack[include_stack_ptr++] = expfname;
                      if ((expfname = strdup (filename)) == NULL) {
-                       fprintf (stderr, " %-3d %s : not enough memory\n", lineno, expfname, filename);
+                       fprintf (stderr, " %-3d %s %s : not enough memory\n", lineno, expfname, filename);
                        exit (1);
                      }   
                      lineno = 1;

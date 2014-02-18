@@ -44,8 +44,7 @@ static long chktab ();
 static void fretab ();
 static void *ctp_addstr ();
 static ctltype_list *val_type();
-static ctltype_list *get_type();
-static struct ptype *reversetype();
+/*static ctltype_list *get_type();*/
 
 extern char          CTP_ERRFLG;        /* set to 1 in case of error    */
 extern ctlfig_list  *CTP_HEADFIG;       /* head of vbfigs               */
@@ -62,12 +61,14 @@ ctp_vexstr    CTP_EMPSTR;		/* empty structure used with NOT*/
  
 static long          CTP_NUMTYP = 0;	/* nombre de type			*/
 static struct chain *CTP_NM1LST = NULL;	/* 1-st name liste		*/
-static struct chain *CTP_NM2LST = NULL;	/* 2-st name liste		*/
+/*static struct chain *CTP_NM2LST = NULL;*/	/* 2-st name liste		*/
 static struct chain *CTP_INSLST = NULL;	/* 3-st name liste		*/
 static struct chain *CTP_LINLST = NULL; /* list of line                 */
 static struct chain *CTP_VALLST = NULL;	/* list of waveforms (ABL)	*/
 
+/*
 static struct ptype *CTP_PTYPE = NULL;
+*/
 
 static struct dct_entry  *CTP_DCEHED;	/* free dct_entry's head	*/
 static struct dct_recrd  *CTP_DCRHED;	/* free dct_recrd's head	*/

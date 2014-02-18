@@ -49,6 +49,7 @@
 # include "GRM.h"
 # include "GSB.h"
 # include "GRM_peek.h"
+# include "GRM_window.h"
 
 /*------------------------------------------------------------\
 |                                                             |
@@ -151,7 +152,7 @@ void GraalDelPeek()
 
     for ( Layer = 0; Layer < RDS_ABOX; Layer++ )
     {
-      Previous = &Instance->LAYERTAB[ Layer ];
+      Previous = &Instance->LAYERTAB[ (int)Layer ];
       ScanRec  = *Previous;
 
       while( ScanRec != (rdsrec_list *)0 )
@@ -286,7 +287,7 @@ void GraalPeekInstance( Rectangle, LambdaX1, LambdaY1, LambdaX2, LambdaY2 )
 
     for ( Layer = 0; Layer < RDS_MAX_LAYER; Layer++ )
     {
-      ScanRec = FigureRds->LAYERTAB[ Layer ];
+      ScanRec = FigureRds->LAYERTAB[ (int)Layer ];
 
       while ( ScanRec != (rdsrec_list *)0 )
       {
@@ -306,8 +307,8 @@ void GraalPeekInstance( Rectangle, LambdaX1, LambdaY1, LambdaX2, LambdaY2 )
           SetGraalPeek( DelRec );
           ClearRdsFigRec( DelRec );
 
-          DelRec->NEXT                 = TargetRds->LAYERTAB[ Layer ];
-          TargetRds->LAYERTAB[ Layer ] = DelRec;
+          DelRec->NEXT                      = TargetRds->LAYERTAB[ (int)Layer ];
+          TargetRds->LAYERTAB[ (int)Layer ] = DelRec;
 
           GRAAL_MBK( DelRec )      = (void         *)SourceMbk;
           GRAAL_PREVIOUS( DelRec ) = (rdsrec_list **)TargetRds;
@@ -330,7 +331,7 @@ void GraalPeekInstance( Rectangle, LambdaX1, LambdaY1, LambdaX2, LambdaY2 )
         }
       }
 
-      FigureRds->LAYERTAB[ Layer ] = (rdsrec_list *)0;
+      FigureRds->LAYERTAB[ (int)Layer ] = (rdsrec_list *)0;
     }
 
     InstanceMbk = FigureMbk->PHINS;

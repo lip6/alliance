@@ -110,7 +110,7 @@ char *loc_getbddstablename( Name )
     sprintf( BddStableName, "%s'stable", Name );
     StableName = namealloc( BddStableName );
 
-    Element = addauthelem( BddHashInvStable, StableName, (long)Name );
+    addauthelem( BddHashInvStable, StableName, (long)Name );
     Element = addauthelem( BddHashStable   , Name, (long)StableName );
   }
 
@@ -600,7 +600,7 @@ bddnode *addbddcircuitout( BddCircuit, OutputName, BddNode )
   else
   {
     BddLocalCircuit->NUMBER_NAME_OUT++;
-    Element = addauthelem( BddLocalCircuit->HASH_OUT, OutputName, (long)BddNode );
+    addauthelem( BddLocalCircuit->HASH_OUT, OutputName, (long)BddNode );
   }
 
   return( incbddrefext( BddNode ) );

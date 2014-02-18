@@ -1,3 +1,6 @@
+
+#include "rwi.h"
+
 /*------------------------------------------------------------\
 |                                                             |
 | Tool    :                     DRUC                          |
@@ -319,21 +322,29 @@ typedef struct struct_mesure
           long         POSY_RECT_RI;
           long         POSDX_RECT_RI;
           long         POSDY_RECT_RI;
-        } DrucTypeStructMesure;
+} DrucTypeStructMesure;
 /*------------------------------------------------------------\
 |                                                             |
 |                  Druc VmcTools Fonctions                    |
 |                                                             |
 \------------------------------------------------------------*/
-extern void            DrucClearFlag           ();
-extern void            DrucComputeEqui         ();
-extern rdsrecwin_list *DrucChercheWindow       ();
-extern boolean         DrucIsRectangleEquipot  ();
-extern boolean         DrucIsRectanglesValides ();
-extern void            DrucSetEquiFlag         ();
-extern void            DrucClearEquiFlag       ();
-extern void            DrucAddRecFigure        ();
-extern void            DrucViewString          ();
-extern char           *DrucAddSuffixeName      ();
-extern void            DrucVerifyEqui          ();
-extern void            DrucVerifyEquiLayer     ();
+extern void            DrucClearFlag              ();
+extern void            DrucComputeEqui            ();
+extern rdsrecwin_list *DrucChercheWindow          ();
+extern boolean         DrucIsRectangleEquipot     ();
+extern boolean         DrucIsRectanglesValides    ();
+extern void            DrucSetEquiFlag            ();
+extern void            DrucClearEquiFlag          ();
+extern void            DrucAddRecFigure           ();
+extern void            DrucViewString             ();
+extern char           *DrucAddSuffixeName         ();
+extern void            DrucVerifyEqui             ();
+extern void            DrucVerifyEquiLayer        ();
+extern void            DrucComputeEquiLayer       ();
+extern void            DrucDestroyLayerWindow     ();
+extern void            DrucBuiltLayerWindow       ();
+extern void            DrucIsPositionInclusInEqui ();
+extern boolean         DrucIsPerimetreInclusInEqui();
+extern boolean         DrucIsRectanglesContact    ();
+extern void            DrucInitStructLayers       ();
+extern void            DrucComputeEquiFigure      ();

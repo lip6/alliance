@@ -120,6 +120,7 @@
   extern void XfsmChangeForceDisplay();
   extern void XfsmChangeCursor();
   
+  extern void XfsmInitializeLayer();
   extern void XfsmSetLayerVisible();
   extern void XfsmSetLayerInvisible();
   extern void XfsmSetNameVisible();

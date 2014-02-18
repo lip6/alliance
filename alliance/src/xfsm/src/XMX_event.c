@@ -67,6 +67,9 @@
 # include "XMX_cursor.h"
 # include "XMX_event.h"
 # include "XMX_message.h"
+# include "XMX_graphic.h"
+# include "XMV_view.h"
+# include "XMF_file.h"
 
 /*------------------------------------------------------------\
 |                                                             |
@@ -118,7 +121,7 @@
 |                                                             |
 \------------------------------------------------------------*/
 
-  static char XfsmMaxEventEditTable[] =
+  static int XfsmMaxEventEditTable[] =
 
   {
     2,  /* XFSM_EDIT_MEASURE   */
@@ -126,7 +129,7 @@
     1   /* XFSM_EDIT_CONNECTED */
   };
 
-  static char XfsmInputEventEditTable[] =
+  static int XfsmInputEventEditTable[] =
 
   {
     XFSM_INPUT_HALF_BOX, /* XFSM_EDIT_MEASURE   */
@@ -134,7 +137,7 @@
     XFSM_INPUT_POINT     /* XFSM_EDIT_CONNECTED */
   };
 
-  static char XfsmMaxEventZoomTable[] =
+  static int XfsmMaxEventZoomTable[] =
 
   {
     1,  /* XFSM_ZOOM_CENTER            */
@@ -142,7 +145,7 @@
     2   /* XFSM_ZOOM_PAN               */
   };
 
-  static char XfsmInputEventZoomTable[] =
+  static int XfsmInputEventZoomTable[] =
 
   {
     XFSM_INPUT_POINT,  /* XFSM_ZOOM_CENTER            */
@@ -164,15 +167,15 @@
 
   static long     XfsmUnitEventZoomX[ 2 ] = { 0, 0 };
   static long     XfsmUnitEventZoomY[ 2 ] = { 0, 0 };
-  static char     XfsmMaxEventZoom          = 0;
-         char     XfsmCountEventZoom        = 0;
+  static int      XfsmMaxEventZoom          = 0;
+         int      XfsmCountEventZoom        = 0;
 
   static long     XfsmUnitEventEditX[ 2 ] = { 0, 0 };
   static long     XfsmUnitEventEditY[ 2 ] = { 0, 0 };
-  static char     XfsmMaxEventEdit          = 2;
-         char     XfsmCountEventEdit        = 0;
+  static int      XfsmMaxEventEdit          = 2;
+         int      XfsmCountEventEdit        = 0;
 
-  static char     XfsmFirstExpose           = XFSM_TRUE;
+  static int      XfsmFirstExpose           = XFSM_TRUE;
 
 /*------------------------------------------------------------\
 |                                                             |
@@ -180,10 +183,10 @@
 |                                                             |
 \------------------------------------------------------------*/
 
- static char XfsmInputMode     = XFSM_INPUT_HALF_BOX;
- static char XfsmSaveInputMode = XFSM_INPUT_HALF_BOX;
- static char XfsmEditMode      = XFSM_EDIT_MEASURE;
- static char XfsmSaveEditMode  = XFSM_EDIT_MEASURE;
+ static int  XfsmInputMode     = XFSM_INPUT_HALF_BOX;
+ static int  XfsmSaveInputMode = XFSM_INPUT_HALF_BOX;
+ static int  XfsmEditMode      = XFSM_EDIT_MEASURE;
+ static int  XfsmSaveEditMode  = XFSM_EDIT_MEASURE;
 
 /*------------------------------------------------------------\
 |                                                             |
@@ -207,7 +210,7 @@
  
 void XfsmChangeEditMode( EditMode , PromptMessage )
  
-   char  EditMode;
+   int   EditMode;
    void (*PromptMessage)();
 {
   autbegin();
@@ -272,9 +275,9 @@ void XfsmChangeEditMode( EditMode , PromptMessage )
 
 void XfsmContinueEditMode( EditMode , PromptMessage, CountEvent )
 
-   char  EditMode;
+   int   EditMode;
    void (*PromptMessage)();
-   char  CountEvent;
+   int   CountEvent;
 {
   autbegin();
 
@@ -451,7 +454,7 @@ void CallbackEvent ( MyWidget, Event, Args, Argc )
      int          *Argc;
 {
   Display  *EventDisplay;
-  char      MouseEvent;
+  int       MouseEvent;
   Position  OldUnitCursorX;
   Position  OldUnitCursorY;
 

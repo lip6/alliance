@@ -57,6 +57,8 @@
 #include "rfm.h"
 
 extern void rps_print_man ();
+extern void rps_print_dict_bw ();
+extern void rps_print_dict_color ();
 extern struct rps_param p;
 
 /* - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - */
@@ -254,7 +256,7 @@ struct rps_param	*param;
 			continue;
 		};
 		if (!strncmp(argv[a], "-pages=", 7)) {
-			if (sscanf (&(argv[a][7]),"%ldx%ld",
+			if (sscanf (&(argv[a][7]),"%dx%d",
 			    &param->nbx_pages,
 			    &param->nby_pages) != 2) {
 				print_usage (argv[0]);

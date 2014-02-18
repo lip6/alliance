@@ -457,7 +457,8 @@
 |                                                             |
 \------------------------------------------------------------*/
 
-  extern           void  loadrdsparam __P(());
-  extern           void  viewrdsparam __P(());
+  extern           void  loadrdsparam      __P(());
+  extern           void  viewrdsparam      __P(());
+  extern           long  RprTranslateParam __P(( double Param ));
 
 # endif 

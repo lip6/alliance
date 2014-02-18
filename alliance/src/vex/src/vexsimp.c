@@ -464,7 +464,7 @@ static int loc_isoperandsamewidth( Expr )
 {
   chain_list *ScanOper;
   vexexpr    *Operand;
-  int         Width;
+  int         Width  = 0;
 
   for ( ScanOper  = Expr->OPERAND;
         ScanOper != (chain_list *)0;

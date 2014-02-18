@@ -65,5 +65,8 @@
 \------------------------------------------------------------*/
 
   extern void XfsmEditSelectObject();
+  extern void XfsmEditSelectPoint();
+  extern void XfsmAddSelectList();
+  extern void XfsmEditSelectCancel();
 
 # endif

@@ -193,9 +193,8 @@ static chain_list *mkvector(lofig_list *f, chain_list *c)
 {
 velosig *s, *e;
 char *name=NULL;
-long left, right;
-char type;
-chain_list *r=NULL, *sigchain;
+long left=0, right=0;
+chain_list *r=NULL, *sigchain=NULL;
 ptype_list *ps;
 
    ps=getptype(f->USER, VEL_SIG);
@@ -216,7 +215,6 @@ ptype_list *ps;
          name=s->NAME;
          left=s->LEFT;
          right=s->RIGHT;
-         type=s->TYPE;
          sigchain=addchain(NULL, s);
       }
       c=c->NEXT;
@@ -337,11 +335,12 @@ long dir;
 
    dir=vs->RIGHT-vs->LEFT;
 
-   if (dir!=0)
+   if (dir!=0) {
       if (dir<0)
          return -1;
       else
          return 1;
+   }
 
    return 0;
 }
@@ -445,7 +444,7 @@ int  f=0;
 
    c=buf;
    if (!isalpha(*name)) {
-      sprintf(c,"v_", signalindex++);
+      sprintf(c,"v_%u", signalindex++);
       c+=2;
       f=1;
    }
@@ -470,8 +469,11 @@ int  f=0;
 
    if (f) {
       *c='\0';
-      while (namefind(buf))
-         sprintf(buf, "d%s", buf);
+      char buf2[BUFSIZ];
+      while (namefind(buf)) {
+         sprintf(buf2, "d%s", buf);
+         strncpy(buf, buf2, BUFSIZ-1);
+      }
       return namealloc(buf);
    } else {
       return name;

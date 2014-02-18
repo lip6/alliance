@@ -72,4 +72,6 @@
 |                                                             |
 \------------------------------------------------------------*/
 
+extern void freectltype __P(( ctltype_list *Type ));
+
 # endif

@@ -122,6 +122,7 @@
   extern void XpatChangeForceDisplay();
   extern void XpatChangeCursor();
 
+  extern void XpatInitializeLayer();
   extern void XpatSetLayerVisible();
   extern void XpatSetLayerInvisible();
   extern void XpatSetNameVisible();

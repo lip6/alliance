@@ -85,7 +85,7 @@ extern void invert_port(port_list* port)
         {
           /*add a not*/
           not=createabloper(ABL_NOT);
-          ABL_ARITY_L(not)=1;
+          ABL_ARITY_L(not)=(chain_list*)1;
           /*swap pointers references*/
           swap_pointers(port->ABL,not);
           ABL_CDR(port->ABL)=addchain(NULL,not);
@@ -94,12 +94,12 @@ extern void invert_port(port_list* port)
       else  
       {
         switch (ABL_OPER(port->ABL)) {
-        case ABL_AND: ABL_OPER_L(port->ABL)=ABL_NAND; break;
-        case ABL_NAND: ABL_OPER_L(port->ABL)=ABL_AND; break;
-        case ABL_OR: ABL_OPER_L(port->ABL)=ABL_NOR; break;
-        case ABL_NOR: ABL_OPER_L(port->ABL)=ABL_OR; break;
-        case ABL_XOR: ABL_OPER_L(port->ABL)=ABL_NXOR; break;
-        case ABL_NXOR: ABL_OPER_L(port->ABL)=ABL_XOR; break;
+        case ABL_AND: ABL_OPER_L(port->ABL)=(chain_list*)ABL_NAND; break;
+        case ABL_NAND: ABL_OPER_L(port->ABL)=(chain_list*)ABL_AND; break;
+        case ABL_OR: ABL_OPER_L(port->ABL)=(chain_list*)ABL_NOR; break;
+        case ABL_NOR: ABL_OPER_L(port->ABL)=(chain_list*)ABL_OR; break;
+        case ABL_XOR: ABL_OPER_L(port->ABL)=(chain_list*)ABL_NXOR; break;
+        case ABL_NXOR: ABL_OPER_L(port->ABL)=(chain_list*)ABL_XOR; break;
         case ABL_NOT: /*no need to insert*/
             port->ABL=ABL_CADR_L(port->ABL); continue;
         default:
@@ -112,7 +112,7 @@ extern void invert_port(port_list* port)
       
       /*insert a NOT to match perfectly with cell*/
       not=createabloper(ABL_NOT);
-      ABL_ARITY_L(not)=1;
+      ABL_ARITY_L(not)=(chain_list*)1;
       /*swap pointers references*/
       swap_pointers(port->ABL,not);
       ABL_CDR(port->ABL)=addchain(NULL,not);
@@ -160,17 +160,17 @@ static chain_list* loc_adapt_abl(chain_list* expr, float C)
       /*evaluate with the biggest oper*/
       int arity=ABL_ARITY(expr);  /*memorize arity*/
       /*search the biggest arity which matches expr*/
-      for (ABL_ARITY_L(expr)=ABL_ARITY(expr)-1 ; ABL_ARITY(expr)>0; 
-      ABL_ARITY_L(expr)=ABL_ARITY(expr)-1) {
+      for (ABL_ARITY_L(expr)=(chain_list*)(ABL_ARITY(expr)-1) ; ABL_ARITY(expr)>0; 
+           ABL_ARITY_L(expr)=(chain_list*)(ABL_ARITY(expr)-1) ) {
          cell=cell_prepare(expr);
          if (cell) break;
       }
-      ABL_ARITY_L(expr)=arity;   /*put back arity*/
+      ABL_ARITY_L(expr)=(chain_list*)arity;   /*put back arity*/
       if (!cell) {
          fprintf(stderr,"Library Error: No cell could match  '");
          display_abl(expr);
          if (ABL_ATOM(expr)) fprintf(stderr,"'\n");
-         else fprintf(stderr,"'    (oper arity=%d)\n",ABL_ARITY(expr));
+         else fprintf(stderr,"'    (oper arity=%ld)\n",ABL_ARITY(expr));
          exit(1);      
       }
       
@@ -241,16 +241,16 @@ extern chain_list* adapt_abl(chain_list* expr)
       /*evaluate with the biggest oper*/
       arity=ABL_ARITY(expr);  /*memorize arity*/
       /*search the biggest arity which matches expr*/
-      for (ABL_ARITY_L(expr)=ABL_ARITY(expr)-1 ; ABL_ARITY(expr)>0; 
-      ABL_ARITY_L(expr)=ABL_ARITY(expr)-1) {
+      for (ABL_ARITY_L(expr)=(chain_list*)(ABL_ARITY(expr)-1) ; ABL_ARITY(expr)>0; 
+           ABL_ARITY_L(expr)=(chain_list*)(ABL_ARITY(expr)-1) ) {
          cell=cell_prepare(expr);
          if (cell) break;
       }
-      ABL_ARITY_L(expr)=arity;   /*put back arity*/
+      ABL_ARITY_L(expr)=(chain_list*)arity;   /*put back arity*/
       if (!cell) {
          fprintf(stderr,"Library Error: No cell could match  '");
          display_abl(expr);
-         fprintf(stderr,"'    (oper arity=%d)\n",ABL_ARITY(expr));
+         fprintf(stderr,"'    (oper arity=%ld)\n",ABL_ARITY(expr));
          exit(1);      
       }
       
@@ -315,7 +315,7 @@ extern biabl_list* adapt_bus(biabl_list* biabl)
       biabl->VALABL=build_negativ(biabl->VALABL);  
       biabl->VALABL=createablnotexpr(biabl->VALABL);
       /* createablnotexpr() can simplify*/
-      if (!ABL_ATOM(biabl->VALABL)) ABL_ARITY_L(biabl->VALABL)=1;
+      if (!ABL_ATOM(biabl->VALABL)) ABL_ARITY_L(biabl->VALABL)=(chain_list*)1;
    }
 
    cell=cell_prepare_bus(biabl);

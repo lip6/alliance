@@ -47,7 +47,7 @@ struct shdul *pt_shdul;
     pt_shtra = pt_shent->TRANS [wind_offset];
     if (pt_shtra == NULL)
       {
-  printf ("sch_bug amar 2 : %x\n", pt_shtra);
+      printf ("sch_bug amar 2 : %x\n", (unsigned int)pt_shtra);
       sch_bug (1, "sch_GetCurrentTranscations", NULL);
       }
     else
@@ -62,12 +62,12 @@ struct shdul *pt_shdul;
           pt_shwav = pt_shwav->NEXT;
 
         if ((pt_shwav == NULL) || (pt_shwav->TRANS != pt_shtra))
-{
-printf ("wav : %x, tra : %x\n", pt_shwav->TRANS, pt_shtra);
-sch_debug (pt_shtra, "shtra");
-sch_debug (pt_shwav, "shwav");
+          {
+          printf ("wav : %x, tra : %x\n", (unsigned int)pt_shwav->TRANS, (unsigned int)pt_shtra);
+          sch_debug (pt_shtra, "shtra");
+          sch_debug (pt_shwav, "shwav");
           sch_bug (2, "sch_GetCurrentTranscations", NULL);
-}
+          }
         else
           pt_shwav->TRANS = pt_shtra->WAVE;
 

@@ -30,6 +30,7 @@
 
 
 #include <mut.h>
+#include <aut.h>
 #include <abl.h>
 #include <abe.h>
 #include "lon_lib_negativ.h"
@@ -61,39 +62,39 @@ extern chain_list* inv_oper(chain_list* abl, int negativ)
 
    switch (ABL_OPER(abl)) {
       case ABL_AND: 
-         if (negativ) ABL_OPER_L(abl)=ABL_NAND;
-         else ABL_OPER_L(abl)=ABL_NOR;
-         negativ=!negativ;
-         break;
+        if (negativ) ABL_OPER_L(abl)=(void*)ABL_NAND;
+        else ABL_OPER_L(abl)=(void*)ABL_NOR;
+        negativ=!negativ;
+        break;
       case ABL_NAND: 
-         if (negativ) ABL_OPER_L(abl)=ABL_NOR;
-         else ABL_OPER_L(abl)=ABL_NAND;
-         break;
+        if (negativ) ABL_OPER_L(abl)=(void*)ABL_NOR;
+        else ABL_OPER_L(abl)=(void*)ABL_NAND;
+        break;
       case ABL_OR:
-         if (negativ) ABL_OPER_L(abl)=ABL_NOR;
-         else ABL_OPER_L(abl)=ABL_NAND;
-         negativ=!negativ;
-         break;
+        if (negativ) ABL_OPER_L(abl)=(void*)ABL_NOR;
+        else ABL_OPER_L(abl)=(void*)ABL_NAND;
+        negativ=!negativ;
+        break;
       case ABL_NOR:
-         if (negativ) ABL_OPER_L(abl)=ABL_NAND;
-         else ABL_OPER_L(abl)=ABL_NOR;
-         break;
+        if (negativ) ABL_OPER_L(abl)=(void*)ABL_NAND;
+        else ABL_OPER_L(abl)=(void*)ABL_NOR;
+        break;
       case ABL_XOR:
-         if (negativ) ABL_OPER_L(abl)=ABL_NXOR;
-         negativ=0;
-         /*nothing to do:  same size XOR and NXOR*/
-         break;
-      case ABL_NXOR:
-         if (negativ) ABL_OPER_L(abl)=ABL_XOR;
-         negativ=0;
-         /*nothing to do*/
-         break;
-      case ABL_NOT:   /*erase NOT*/
-         chain=abl;
-         abl=inv_oper(ABL_CADR(abl),!negativ);
-         freechain(chain);
-         return abl;
-      default:
+        if (negativ) ABL_OPER_L(abl)=(void*)ABL_NXOR;
+        negativ=0;
+      /*nothing to do:  same size XOR and NXOR*/
+        break;
+     case ABL_NXOR:
+       if (negativ) ABL_OPER_L(abl)=(void*)ABL_XOR;
+       negativ=0;
+     /*nothing to do*/
+       break;
+     case ABL_NOT:   /*erase NOT*/
+       chain=abl;
+       abl=inv_oper(ABL_CADR(abl),!negativ);
+       freechain(chain);
+       return abl;
+     default:
          fprintf(stderr,"inv_oper: unknown operator %ld\n",ABL_OPER(abl));
          autexit(1);
    }
@@ -117,7 +118,7 @@ extern chain_list* build_negativ(chain_list* abl)
 {
    int to_inv=0;  /*leaf to change*/
    int to_let=0;  /*leaf to let like this*/
-   chain_list *leaf, *chain; 
+   chain_list *leaf = NULL, *chain; 
      
    if (ABL_ATOM(abl)) return abl;
    /*NOT special case try to erase it*/
@@ -175,12 +176,12 @@ extern chain_list* build_negativ(chain_list* abl)
          continue;
       }
       switch (ABL_OPER(leaf)) {
-         case ABL_AND: ABL_OPER_L(leaf)=ABL_NAND; break; 
-         case ABL_OR: ABL_OPER_L(leaf)=ABL_NOR; break; 
-         case ABL_NAND: ABL_OPER_L(leaf)=ABL_AND; break; 
-         case ABL_NOR: ABL_OPER_L(leaf)=ABL_OR; break; 
-         case ABL_XOR: ABL_OPER_L(leaf)=ABL_NXOR; break; 
-         case ABL_NXOR: ABL_OPER_L(leaf)=ABL_XOR; break; 
+         case ABL_AND: ABL_OPER_L(leaf)=(void*)ABL_NAND; break; 
+         case ABL_OR: ABL_OPER_L(leaf)=(void*)ABL_NOR; break; 
+         case ABL_NAND: ABL_OPER_L(leaf)=(void*)ABL_AND; break; 
+         case ABL_NOR: ABL_OPER_L(leaf)=(void*)ABL_OR; break; 
+         case ABL_XOR: ABL_OPER_L(leaf)=(void*)ABL_NXOR; break; 
+         case ABL_NXOR: ABL_OPER_L(leaf)=(void*)ABL_XOR; break; 
          case ABL_NOT: 
             ABL_CAR_L(chain)=ABL_CADR(leaf);
             freechain(leaf);
@@ -192,12 +193,12 @@ extern chain_list* build_negativ(chain_list* abl)
    }
    
    switch (ABL_OPER(abl)) {
-      case ABL_AND: ABL_OPER_L(abl)=ABL_NOR; break; 
-      case ABL_OR: ABL_OPER_L(abl)=ABL_NAND; break; 
-      case ABL_NAND: ABL_OPER_L(abl)=ABL_OR; break; 
-      case ABL_NOR: ABL_OPER_L(abl)=ABL_AND; break; 
-      case ABL_XOR: ABL_OPER_L(abl)=ABL_NXOR; break; 
-      case ABL_NXOR: ABL_OPER_L(abl)=ABL_XOR; break; 
+      case ABL_AND: ABL_OPER_L(abl)=(void*)ABL_NOR; break; 
+      case ABL_OR: ABL_OPER_L(abl)=(void*)ABL_NAND; break; 
+      case ABL_NAND: ABL_OPER_L(abl)=(void*)ABL_OR; break; 
+      case ABL_NOR: ABL_OPER_L(abl)=(void*)ABL_AND; break; 
+      case ABL_XOR: ABL_OPER_L(abl)=(void*)ABL_NXOR; break; 
+      case ABL_NXOR: ABL_OPER_L(abl)=(void*)ABL_XOR; break; 
       case ABL_NOT: 
          chain=abl;
          abl=ABL_CADR(abl);

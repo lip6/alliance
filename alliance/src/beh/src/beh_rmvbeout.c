@@ -50,7 +50,7 @@ char          mode;		/* recursive delete or not (Y or N)	*/
 
   {
   struct beout  headout;
-  struct beout *ptlastout;
+  struct beout *ptlastout = NULL;
   struct beout *ptbeout;
 
   if (listbeout != NULL)

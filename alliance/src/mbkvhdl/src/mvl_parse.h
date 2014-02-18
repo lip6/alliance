@@ -52,6 +52,7 @@ struct lofig   *MVL_LOFPNT = NULL;      /* current LOFIG pointer        */
 
 extern FILE    *mvl_y_in;
 extern int      mvl_y_parse();
+extern void     mvl_y_restart();
 extern void 	mvl_decomp();
 
 /* ###--------------------------------------------------------------### */

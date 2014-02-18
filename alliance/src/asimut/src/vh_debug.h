@@ -1,18 +1,22 @@
 
 /* ###--------------------------------------------------------------### */
-/* file		: vh_debug.h						*/
-/* date		: Aug 20 1997						*/
-/* version	: v3.0							*/
-/* author	: Pirouz BAZARGAN SABET					*/
-/* description	: declaration of diefines, global variables and,	*/
-/*		  functions used in the debugger			*/
+/* file          : vh_debug.h                                           */
+/* date          : Aug 20 1997                                          */
+/* version       : v3.0                                                 */
+/* author        : Pirouz BAZARGAN SABET                                */
+/* description   : declaration of diefines, global variables and,       */
+/*                 functions used in the debugger                       */
 /* ###--------------------------------------------------------------### */
 
-struct stack				/* debugger's stack's structure	*/
+        /* ###------------------------------------------------------### */
+        /* defines                                                      */
+        /* ###------------------------------------------------------### */
+
+struct stack                              /* debugger's stack's structure */
   {
-  short  type;				/* type of the current ponter	*/
-  short  mark;				/* stop mark			*/
-  void  *data;				/* current pointer		*/
+  short  type;                            /* type of the current ponter   */
+  short  mark;                            /* stop mark                    */
+  void  *data;                            /* current pointer              */
   };
 
 union value
@@ -21,7 +25,7 @@ union value
   long  imd;
   };
 
-#define STKSIZ_DFN     500		/* debugger's stack size	*/
+#define STKSIZ_DFN     500                /* debugger's stack size        */
 
 #define KIND_DFN       0xff000000
 #define COMMAND_DFN    0x01000000
@@ -203,3 +207,9 @@ union value
 #define wave_DFN       (value_DFN      + 1)
 
 #define MAXCMD_DFN     (wave_DFN       + 1)
+
+        /* ###------------------------------------------------------### */
+        /* functions                                                    */
+        /* ###------------------------------------------------------### */
+
+extern void dast_dbg ();

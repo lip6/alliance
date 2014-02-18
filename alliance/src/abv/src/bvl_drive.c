@@ -67,14 +67,14 @@ long          trace_mode;
   {
   char         *suffix;
   char         *str;
-  char         *mode;
-  char         *type_mark;
-  long           nrlabel = 0;
+  char         *mode      = NULL;
+  char         *type_mark = NULL;
+  long          nrlabel   = 0;
   FILE         *fd;
   time_t        clock;
-  long           left,right;
+  long          left,right;
   char         *name;
-  char         *bus;
+  char         *bus       = NULL;
 
   struct begen *ptgeneric = NULL;	/* current ptype pnt (generic)	*/
   struct bereg *ptbereg   = NULL;	/* current BEREG pointer	*/
@@ -192,7 +192,7 @@ long          trace_mode;
           default :
             beh_error (68, ptbepor->NAME);
           }
-        (void)fprintf(fd,"  %s : %s %s(%d %s %d) %s",vhdlablname(name), mode,
+        (void)fprintf(fd,"  %s : %s %s(%ld %s %ld) %s",vhdlablname(name), mode,
                       type_mark, left, (left>=right)?"DOWNTO":"TO",right,bus);
         }
       else
@@ -245,7 +245,7 @@ long          trace_mode;
     ptbereg = (bereg_list *)bvl_vectnam(ptbereg,&left,&right,&name,2);
     if(left != -1)
       {
-      (void)fprintf(fd,"  SIGNAL %s : REG_VECTOR(%d %s %d) REGISTER;\t-- %s\n",
+      (void)fprintf(fd,"  SIGNAL %s : REG_VECTOR(%ld %s %ld) REGISTER;\t-- %s\n",
                     vhdlablname(name),left,(left>=right)?"DOWNTO":"TO",
                     right,name);
       }
@@ -278,7 +278,7 @@ long          trace_mode;
           type_mark = namealloc("MUX_VECTOR"); 
           break;
         }
-      (void)fprintf(fd,"  SIGNAL %s : %s(%d %s %d) BUS;\t-- %s\n",
+      (void)fprintf(fd,"  SIGNAL %s : %s(%ld %s %ld) BUS;\t-- %s\n",
                     vhdlablname(name),type_mark,left,(left>=right)?"DOWNTO":"TO",
                     right,name);
       }
@@ -307,7 +307,7 @@ long          trace_mode;
     ptbeaux = (beaux_list *)bvl_vectnam(ptbeaux,&left,&right,&name,3);
     if(left != -1)
       {
-      (void)fprintf(fd,"  SIGNAL %s : BIT_VECTOR(%d %s %d);\t-- %s\n",
+      (void)fprintf(fd,"  SIGNAL %s : BIT_VECTOR(%ld %s %ld);\t-- %s\n",
                     vhdlablname(name),left,(left>=right)?"DOWNTO":"TO",
                     right,name);
       }
@@ -389,7 +389,7 @@ long          trace_mode;
     ptbiabl = ptbereg->BIABL;
     while (ptbiabl != NULL)
       {
-      (void) fprintf (fd,"  label%d : BLOCK ",nrlabel);
+      (void) fprintf (fd,"  label%ld : BLOCK ",nrlabel);
       if (ptbiabl->CNDABL  != NULL)
       {
         (void) fprintf (fd,"(" );
@@ -419,7 +419,7 @@ long          trace_mode;
       else
         beh_toolbug (20,"bvl_decomp",ptbereg->NAME,0);
 
-      (void) fprintf ( fd,"  END BLOCK label%d;\n",nrlabel);
+      (void) fprintf ( fd,"  END BLOCK label%ld;\n",nrlabel);
       ptbiabl = ptbiabl->NEXT;
       nrlabel++;
       }
@@ -438,7 +438,7 @@ long          trace_mode;
     ptbiabl = ptbebux->BIABL;
     while (ptbiabl != NULL)
       {
-      (void) fprintf (fd,"  label%d : BLOCK (",nrlabel);
+      (void) fprintf (fd,"  label%ld : BLOCK (",nrlabel);
       if (ptbiabl->CNDABL != NULL)
       {
         bvl_printablfile( fd, ptbiabl->CNDABL );
@@ -468,7 +468,7 @@ long          trace_mode;
       else
         beh_toolbug (20,"bvl_decomp",ptbebux->NAME,0);
 
-      (void) fprintf (fd,"  END BLOCK label%d;\n",nrlabel);
+      (void) fprintf (fd,"  END BLOCK label%ld;\n",nrlabel);
       ptbiabl = ptbiabl->NEXT;
       nrlabel++;
       }
@@ -487,7 +487,7 @@ long          trace_mode;
     ptbiabl = ptbebus->BIABL;
     while (ptbiabl != NULL)
       {
-      (void) fprintf (fd,"\tlabel%d : BLOCK (",nrlabel);
+      (void) fprintf (fd,"\tlabel%ld : BLOCK (",nrlabel);
       if (ptbiabl->CNDABL != NULL)
       {
         bvl_printablfile ( fd, ptbiabl->CNDABL );
@@ -516,7 +516,7 @@ long          trace_mode;
       else
         beh_toolbug (20,"bvl_decomp",ptbebus->NAME,0);
 
-      (void) fprintf (fd,"\tEND BLOCK label%d;\n",nrlabel);
+      (void) fprintf (fd,"\tEND BLOCK label%ld;\n",nrlabel);
       ptbiabl = ptbiabl->NEXT;
       nrlabel++;
       }

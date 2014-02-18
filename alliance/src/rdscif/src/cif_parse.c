@@ -789,12 +789,12 @@ static void CifGetPoint( Point )
 
 static void CifGetPolygon()
 {
-    long     FirstX;
-    long     FirstY;
-    int      Counter;
-    int      NewCounter;
-    coord_t *NewArray;
-    coord_t  PointArray[ CIF_MAX_POINT ];
+    long          FirstX;
+    long          FirstY;
+    int           Counter;
+    unsigned int  NewCounter;
+    coord_t      *NewArray;
+    coord_t       PointArray[ CIF_MAX_POINT ];
 
     Counter = 0;
     FirstX  = FirstY = 0;

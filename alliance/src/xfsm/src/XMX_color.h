@@ -83,6 +83,8 @@
   extern void XfsmInitializeColors();
   extern void XpatChangeCursorContext();
   extern void XpatInitializeColorMap();
+  extern void XfsmInitializeColorMap();
+  extern void XfsmChangeCursorContext();
 
 
 # endif 

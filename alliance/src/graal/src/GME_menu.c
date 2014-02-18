@@ -226,7 +226,9 @@
              (GraalMenuItem *)NULL
            } 
            , 
-           NULL
+           {
+             NULL
+           }
          };
 
    GraalMenuItem GraalWindowMenu[] =
@@ -360,7 +362,9 @@
              (GraalMenuItem *)NULL
            }
            ,
-           NULL
+           {
+             NULL
+           }
         };
 
 /*------------------------------------------------------------\

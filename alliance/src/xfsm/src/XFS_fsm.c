@@ -55,6 +55,7 @@
 # include "ftl.h"
 # include "XSB.h" 
 # include "XFS.h"
+# include "XFS_error.h"
 # include "XFS_fsm.h"
 
 /*------------------------------------------------------------\
@@ -82,7 +83,6 @@
 \------------------------------------------------------------*/
 
   static jmp_buf XfsmJumpBuffer;
-  static void    (*OldExitHandler)() = NULL;
 
 /*------------------------------------------------------------\
 |                                                             |

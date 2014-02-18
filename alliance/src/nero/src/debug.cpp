@@ -183,6 +183,7 @@
 
     // Constructor.
     public: TMatrix  (CDRGrid *drgrid);
+    private: TMatrix ( const TMatrix& );
 
     // Destructor.
     public: ~TMatrix (void);
@@ -211,7 +212,12 @@
 
 
     // Constructor.
-    public: CMatrixPri (CDRGrid *drgrid) : TMatrix<char>(drgrid) { }
+    public: CMatrixPri (CDRGrid *drgrid)
+              : TMatrix<char>(drgrid)
+              , offset(0)
+              , delta(0)
+              , cleared(false)
+            { }
 
     // Modifiers.
     public: void clear    (void);
@@ -306,6 +312,7 @@
 
     // Constructor.
     public: CDRGrid  (int x, int y, int z);
+    private: CDRGrid ( const CDRGrid& );
 
     // Destructor.
     public: ~CDRGrid (void);
@@ -519,9 +526,6 @@ int  CDRGrid::iterator::manhattan (iterator &other)
 
 CDRGrid::CDRGrid (int x, int y, int z)
 {
-  int    index;
-
-
   X    = x;
   Y    = y;
   Z    = z;
@@ -683,10 +687,11 @@ __CNode__ *TMatrix<__CNode__>::_CHollow::get (int x, int y)
 
 template<class __CNode__>
 TMatrix<__CNode__>::TMatrix (CDRGrid *drgrid)
-{
-  _drgrid = drgrid;
-  _grid   = new (__CNode__) [_drgrid->size];
-}
+  : _drgrid(drgrid)
+  , _zero  ()
+  , _grid  (new (__CNode__) [_drgrid->size])
+  , hole   ()
+{ }
 
 
 
@@ -709,11 +714,8 @@ TMatrix<__CNode__>::~TMatrix (void)
 template<class __CNode__>
 __CNode__ &TMatrix<__CNode__>::operator[] (int index)
 {
-  __CNode__ *node;
-
-
   if (index < _drgrid->XY ) {
-    node = _zero->get (_drgrid->x(index), _drgrid->y(index)) ;
+    __CNode__ *node = _zero->get (_drgrid->x(index), _drgrid->y(index)) ;
     if ( node != NULL ) return ( *node );
   } else {
     if (index < _drgrid->XYZ) return ( _grid[index - _drgrid->XY] );

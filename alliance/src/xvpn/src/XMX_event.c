@@ -451,14 +451,11 @@ void CallbackEvent ( MyWidget, Event, Args, Argc )
      String       *Args;
      int          *Argc;
 {
-  Display  *EventDisplay;
   short     MouseEvent;
   Position  OldUnitCursorX;
   Position  OldUnitCursorY;
 
   autbegin();
-
-  EventDisplay = Event->display;
 
   MouseEvent = atoi( Args[ 0 ] );
 

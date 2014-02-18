@@ -112,7 +112,7 @@ static ptype_list* search_long_path(losig_list* losig, int ck_include)
    char* signame, *ck=NULL;
    int reg=0;  /*flag for flip-flop*/
    chain_list* lofigchain;
-   ptype_list* ptype, *ret;
+   ptype_list* ptype, *ret = NULL;
    double max_delay=-1, delay;
    cell_list* cell;
    biabl_list* biabl;

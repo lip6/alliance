@@ -72,7 +72,7 @@ printf ("entering vlg_name %s\n", name);
 		}
 		else 
 		{
-                        if (isalpha(*name) || *name == '_' || (i != 0 && (isdigit(*name)) || *name == '$')) 
+            if (isalpha(*name) || *name == '_' || (((i != 0) && (isdigit(*name))) || *name == '$')) 
 			{
 				*scan_new = *name++;
 		/* modif mourad : le 03/12/97
@@ -177,7 +177,6 @@ lofig_list *ptfig;
 {
 	loins_list *ptins = NULL;
 	locon_list *ptcon = NULL;
-	locon_list *tmp_ptcon = NULL;
 	locon_list *ptscan = NULL;
 	losig_list *ptsig = NULL;
 	FILE *ptfile;
@@ -339,7 +338,7 @@ printf("entering vlogsavelofig\n");
 		ptcon = ptins->LOCON;
 		while(ptcon != NULL) 
 		{
-			tmp_ptcon = vlg_busname(ptcon, &left, &right, &name);
+			vlg_busname(ptcon, &left, &right, &name);
 			(void) fprintf (ptfile, ".%s(",vlg_name(name));
 			if(left != -1) 
 			{

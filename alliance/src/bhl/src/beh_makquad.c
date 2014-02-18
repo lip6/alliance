@@ -45,14 +45,12 @@ void beh_makquad ( struct befig *pt_befig )
 
   {
   struct beaux  *pt_beaux;
-  struct berin  *pt_berin;
   struct beout  *pt_beout;
   struct bebus  *pt_bebus;
   struct bebux  *pt_bebux;
   struct bereg  *pt_bereg;
   struct bemsg  *pt_bemsg;
   struct binode *pt_binod;
-  struct biabl  *pt_biabl;
 
 	/* ###------------------------------------------------------### */
 	/*   simple output ports					*/

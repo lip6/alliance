@@ -25,3 +25,4 @@
 extern int   DrucReadNextCodeAsm ();
 extern int   DrucInitInstruction ();
 extern int   DrucReadAsm         ();
+extern void  DrucComputeCtm      ();

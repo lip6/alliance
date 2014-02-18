@@ -521,10 +521,6 @@ void addctlpredefinedtype( Figure )
   static char         *std_ulogic_vl[9];
 
   ctltype_list        *TypeBit;
-  ctltype_list        *TypeReg;
-  ctltype_list        *TypeMux;
-  ctltype_list        *TypeWor;
-  ctltype_list        *TypeInt;
   ctltype_list        *TypeStd_logic;
   ctltype_list        *TypeStd_ulogic;
   ctltype_list        *TypeCharacter;
@@ -564,7 +560,7 @@ void addctlpredefinedtype( Figure )
   addctltype( Figure, "string",
               VEX_TYPE_STRING, 0, 0x7fffffff, 0, NULL,  'U', TypeCharacter );
 
-  TypeInt = addctltype( Figure, "integer",
+  addctltype( Figure, "integer",
               VEX_TYPE_INTEGER, 0x80000000, 0x7fffffff, 0, NULL, 'I', NULL );
 
   addctltype( Figure, "natural",

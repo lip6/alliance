@@ -215,6 +215,8 @@ int  XschDisplayUnitGrid( GraphicX1, GraphicY1, GraphicX2, GraphicY2 )
 
   if ( XschUnitUserGrid == 1  )
   {
+    Check = ( XSCH_LOWER_GRID_STEP * 2 / XschUnitUserGridDy );
+#if THIS_IS_DISABLED
     if ( XschUnitUserGridDx > XschUnitUserGridDy )
     {
       Check = ( XSCH_LOWER_GRID_STEP * 2 / XschUnitUserGridDy );
@@ -223,6 +225,7 @@ int  XschDisplayUnitGrid( GraphicX1, GraphicY1, GraphicX2, GraphicY2 )
     {
       Check = ( XSCH_LOWER_GRID_STEP * 2 / XschUnitUserGridDy );
     }
+#endif
 
     if ( XschUnitGridStep < Check ) UserGrid = 0;
     else                               UserGrid = 1;

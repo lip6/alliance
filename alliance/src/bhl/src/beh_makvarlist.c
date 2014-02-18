@@ -58,7 +58,6 @@ struct chain *expr    ;		/* pointer abl expression		*/
   int             index                ;
   char           *atom                 ;
   static char     buffer [128]         ;
-  short           oper                 ;
   struct chain   *cst_AddSetElement  ();
   struct chain   *cst_CreateUnionSet ();
 
@@ -92,7 +91,7 @@ struct chain *expr    ;		/* pointer abl expression		*/
 	/*    if the expression is not a terminal (is a complex expr.)	*/
 	/* ###------------------------------------------------------### */
 
-      if ((oper = OPER(expr)) != STABLE)
+      if (OPER(expr) != STABLE)
        {
        while ((expr = CDR(expr)) != NULL)
          {

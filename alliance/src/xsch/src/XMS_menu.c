@@ -140,7 +140,9 @@
              (XschMenuItem *)NULL
            }
            ,
-           NULL
+           {
+             NULL
+           }
          };
 
 

@@ -234,8 +234,7 @@ void XschBuf(x0, y0, scale, cflag)
 int gs = GSIZE * scale;
 int is = (2 * GSIZE * scale) / 3;
 int cs = CSIZE * scale; /* Size of the circle when an io is complemented */
-int i;
-int x, y, x1, y1;
+int x, y;
 
    x = x0;
    y = y0 - gs/2;

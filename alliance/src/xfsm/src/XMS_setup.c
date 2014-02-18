@@ -61,6 +61,7 @@
 # include "XMS.h"
 # include "XMH.h"
 
+# include "XMV_panel.h"
 # include "XMS_setup.h"
 
 /*------------------------------------------------------------\
@@ -212,7 +213,7 @@ void XfsmReadPanelValues( Panel )
 
   autbegin();
 
-  fscanf( FileConfig, "X: %d, Y: %d, WIDTH: %d, HEIGHT: %d, MANAGED: %d\n",
+  fscanf( FileConfig, "X: %11d, Y: %11d, WIDTH: %11d, HEIGHT: %11d, MANAGED: %11d\n",
           &Values[0], &Values[1], &Values[2], &Values[3], &Values[4] );
 
   XfsmSetPanelValues( Panel, Values );
@@ -234,7 +235,7 @@ char XfsmReadTopLevelValues()
 
   autbegin();
 
-  fscanf( FileConfig, "VERSION: %s\n", Version );
+  fscanf( FileConfig, "VERSION: %63s\n", Version );
 
   if ( strcmp( Version, VERSION ) )
   {
@@ -242,7 +243,7 @@ char XfsmReadTopLevelValues()
     return( 0 );
   }
 
-  fscanf( FileConfig, "X: %d, Y: %d, WIDTH: %d, HEIGHT: %d, MANAGED: %d\n",
+  fscanf( FileConfig, "X: %11d, Y: %11d, WIDTH: %11d, HEIGHT: %11d, MANAGED: %11d\n",
           &Values[0], &Values[1], &Values[2], &Values[3], &Values[4] );
 
   XtVaSetValues( XfsmTopLevel,
@@ -271,14 +272,14 @@ void XfsmReadActiveLayers()
 
   for ( Layer = 0; Layer < XFSM_MAX_LAYER; Layer++ )
   {
-    fscanf( FileConfig, "ACTIVE: %d\n", &Value );
+    fscanf( FileConfig, "ACTIVE: %11d\n", &Value );
 
     XFSM_ACTIVE_LAYER_TABLE[ Layer ] = Value;
   }
 
   for ( Layer = 0; Layer < XFSM_MAX_ACTIVE_NAME; Layer++ )
   {
-    fscanf( FileConfig, "ACTIVE: %d\n", &Value );
+    fscanf( FileConfig, "ACTIVE: %11d\n", &Value );
 
     XFSM_ACTIVE_NAME_TABLE[ Layer ] = Value;
   }
@@ -295,14 +296,14 @@ void XfsmReadActiveLayers()
 void XfsmWriteActiveLayers()
 
 {
-  char Layer;
+  int  Layer;
 
   autbegin();
 
   for ( Layer = 0; Layer < XFSM_MAX_LAYER; Layer++ )
   {
     fprintf( FileConfig, "ACTIVE: %d\n",
-             XFSM_ACTIVE_LAYER_TABLE[ Layer ] );
+             XFSM_ACTIVE_LAYER_TABLE[ (int)Layer ] );
   }
 
   for ( Layer = 0; Layer < XFSM_MAX_ACTIVE_NAME; Layer++ )

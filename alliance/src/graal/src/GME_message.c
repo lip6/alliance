@@ -476,7 +476,7 @@ void GraalPromptModifySegment()
   GraalDisplayMessage( GRAAL_MESSAGE_MODE, "Modify Segment" );
 
   sprintf( MessageBuffer, "Layer: %s   Width: %.2f  Name: %s",
-           GRAAL_SEGMENT_NAME_TABLE[ GraalSegmentMLayer ][0] ,
+         GRAAL_SEGMENT_NAME_TABLE[ (int)GraalSegmentMLayer ][0] ,
            GraalSegmentMWidth,
            ( GraalSegmentMName ) ? GraalSegmentMName : "none" );
 
@@ -500,9 +500,9 @@ void GraalPromptModifyConnector()
   GraalDisplayMessage( GRAAL_MESSAGE_MODE, "Modify Connector" );
 
   sprintf( MessageBuffer, "Layer: %s   Width: %.2f  Orient: %s   Name: %s",
-           GRAAL_CONNECTOR_NAME_TABLE[ GraalConnectorMLayer ][0],
+           GRAAL_CONNECTOR_NAME_TABLE[ (int)GraalConnectorMLayer ][0],
            GraalConnectorMWidth,
-           GRAAL_ORIENT_NAME_TABLE[ GraalConnectorMOrient ][0],
+           GRAAL_ORIENT_NAME_TABLE[ (int)GraalConnectorMOrient ][0],
            ( GraalConnectorMName ) ? GraalConnectorMName : "none" );
 
   GraalDisplayMessage( GRAAL_MESSAGE_INFO, MessageBuffer );
@@ -527,13 +527,13 @@ void GraalPromptModifyReference()
   if ( GraalReferenceMName != (char *)NULL )
   {
     sprintf( MessageBuffer, "Type: %s   Name: %s",
-             GRAAL_REFERENCE_NAME_TABLE[GraalReferenceMType][0],
+             GRAAL_REFERENCE_NAME_TABLE[(int)GraalReferenceMType][0],
              GraalReferenceMName );
   }
   else
   {   
     sprintf( MessageBuffer, "Type: %s   Name: none",
-             GRAAL_REFERENCE_NAME_TABLE[GraalReferenceMType][0] );
+             GRAAL_REFERENCE_NAME_TABLE[(int)GraalReferenceMType][0] );
   }
 
   GraalDisplayMessage( GRAAL_MESSAGE_INFO, MessageBuffer );
@@ -556,7 +556,7 @@ void GraalPromptModifyVia()
   GraalDisplayMessage( GRAAL_MESSAGE_MODE, "Modify Via" );
 
   sprintf( MessageBuffer, "Type: %s  Name: %s",
-           GRAAL_VIA_NAME_TABLE[ GraalViaMType ][0],
+           GRAAL_VIA_NAME_TABLE[ (int)GraalViaMType ][0],
            GraalViaMName ? GraalViaMName : "none" );
 
   GraalDisplayMessage( GRAAL_MESSAGE_INFO, MessageBuffer );
@@ -579,7 +579,7 @@ void GraalPromptModifyBigVia()
   GraalDisplayMessage( GRAAL_MESSAGE_MODE, "Modify big Via" );
 
   sprintf( MessageBuffer, "Type: %s  Name: %s",
-           GRAAL_BIGVIA_NAME_TABLE[ GraalViaMType ][0],
+           GRAAL_BIGVIA_NAME_TABLE[ (int)GraalViaMType ][0],
            GraalViaMName ? GraalViaMName : "none" );
 
   GraalDisplayMessage( GRAAL_MESSAGE_INFO, MessageBuffer );
@@ -604,13 +604,13 @@ void GraalPromptModifyTransistor()
   if ( GraalTransistorMName == (char *)NULL )
   {
     sprintf( MessageBuffer, "Type: %s   Width: %.2f  Name: None",
-             GRAAL_TRANSISTOR_NAME_TABLE[ GraalTransistorMType ][0],
+             GRAAL_TRANSISTOR_NAME_TABLE[ (int)GraalTransistorMType ][0],
              GraalTransistorMWidth );
   }
   else
   {
     sprintf( MessageBuffer, "Type: %s   Width: %.2f  Name: %s",
-             GRAAL_TRANSISTOR_NAME_TABLE[ GraalTransistorMType ][0],
+             GRAAL_TRANSISTOR_NAME_TABLE[ (int)GraalTransistorMType ][0],
              GraalTransistorMWidth, GraalTransistorMName );
   }
 
@@ -634,7 +634,7 @@ void GraalPromptModifyInstance()
   GraalDisplayMessage( GRAAL_MESSAGE_MODE, "Modify Instance" );
 
   sprintf( MessageBuffer, "Symmetry: %s   Model: %s   Name: %s",
-           GRAAL_SYMMETRY_NAME_TABLE[ GraalInstanceMSym ][0],
+           GRAAL_SYMMETRY_NAME_TABLE[ (int)GraalInstanceMSym ][0],
            GraalInstanceMModel, GraalInstanceMName  );
 
   GraalDisplayMessage( GRAAL_MESSAGE_INFO, MessageBuffer );

@@ -41,16 +41,16 @@
 /*                                                                          */
 /****************************************************************************/
 /* $Log: lvx.c,v $
-/* Revision 1.5  2012/05/14 14:20:21  alliance
-/* Updated GNU/FSF address (patch from Thibault North).
-/*
-/* Revision 1.4  2004/05/22 14:26:08  ludo
-/* Now, by default LVX does not check unassigned signals between the two input netlists.
-/* (this feature is usefull/mandatory with the new VST driver that adds sometimes unused
-/* signals to have consitent VHDL vectors declaration)
-/* The command line option '-u' permits to behave like it was before and then check
-/* also unassigned signals.
-/*
+ * Revision 1.5  2012/05/14 14:20:21  alliance
+ * Updated GNU/FSF address (patch from Thibault North).
+ *
+ * Revision 1.4  2004/05/22 14:26:08  ludo
+ * Now, by default LVX does not check unassigned signals between the two input netlists.
+ * (this feature is usefull/mandatory with the new VST driver that adds sometimes unused
+ * signals to have consitent VHDL vectors declaration)
+ * The command line option '-u' permits to behave like it was before and then check
+ * also unassigned signals.
+ *
  * Revision 1.3  2002/09/30 16:20:46  czo
  * support/users
  *
@@ -103,8 +103,10 @@ static char rcsid[] = "$Id: lvx.c,v 1.5 2012/05/14 14:20:21 alliance Exp $" ;
 #include <stdio.h>
 #include <string.h>
 #include <signal.h>
+#include <time.h>
 #include <mut.h>
 #include <mlo.h>
+#include <mlu.h>
 
 #define  TRUE          1
 #define  FALSE         0
@@ -181,7 +183,7 @@ int     exitcode = 2;
 /*****************************************************************************/
 
 /*===========================================================================*/
-          fatalerror (message)
+void  fatalerror (message)
 /*===========================================================================*/
 char *message;
 
@@ -332,7 +334,7 @@ locon_tree *ptnode;
 */
 {
  locon_list *ptaux;
- int result1, result2;
+ int result1;
 
  if ( (locon == (locon_list *)NULL) || (ptnode == (locon_tree *)NULL) )
     return ( -1 );
@@ -501,8 +503,8 @@ unsigned char mark;
    Returns ERR if error on insertion, OK else.
 */
 {
- locon_tree *prev_node, *ptnode, *ptaux;
- int prev_compar, compar;
+ locon_tree *prev_node = NULL, *ptnode, *ptaux;
+ int prev_compar = 0, compar;
 
  if (locon == (locon_list *)NULL)
     fatalerror ("Fatal error on tree construction. (insertlocon)");
@@ -551,6 +553,7 @@ unsigned char mark;
         }
 
  fatalerror ("Fatal error on tree construction. (insertlocon)");
+ return 0; /* never reached. */
 }
 
 
@@ -685,6 +688,7 @@ rootlocon_tree *ptnode;
         }
 
  fatalerror ("Fatal error on Terminals Tree checking. (checkrootlocontree)");
+ return 0; /* never reached. */
 }
 
 
@@ -726,11 +730,12 @@ loins_tree *ptnode;
         }
 
  fatalerror ("Fatal error on Instances Tree checking. (checkloinstree)");
+ return 0; /* never reached. */
 }
 
 
 /*===========================================================================*/
-          mylofigchain (lofig)
+void  mylofigchain (lofig)
 /*===========================================================================*/
 lofig_list *lofig;
 
@@ -831,6 +836,7 @@ locon_list *locon;
         }
 
  fatalerror ("Fatal error on mbk structure: Illegal connector");
+ return NULL; /* never reached. */
 }
 
 
@@ -979,7 +985,6 @@ lofig_list *lofig1, *lofig2;
    Returns OK if terminals are equivalent, ERR else.
 */
 {
- rootlocon_tree *ptnode;
  int result;
 
  rootlocon_time = time( (long *)0 );
@@ -1152,9 +1157,9 @@ lofig_list *lofig1, *lofig2;
      }
      else result4 = OK;
 
- printf ("\n\n===== Terminals .......... %-6lu\n", rootlocon_count);
- printf (    "===== Instances .......... %-6lu\n", loins_count);
- printf (    "===== Connectors ......... %-6lu\n", locon_count);
+ printf ("\n\n===== Terminals .......... %-6d\n", rootlocon_count);
+ printf (    "===== Instances .......... %-6d\n", loins_count);
+ printf (    "===== Connectors ......... %-6d\n", locon_count);
  if (error_count) printf (  "\n===== Errors ............. %i\n", error_count);
 
  if ( (result3 == OK) && (result4 == OK)) return ( OK );
@@ -1264,7 +1269,6 @@ char *name1, *name2;
  locon_list *ptlocon, *ptaux, *prevlocon;
  locon_list *reflocon = NULL;
  losig_list *oldlosig, *reflosig;
- int found = FALSE;
 
  if (lofig == NULL) fatalerror ("Invalid figure. (equivinslocon)");
  if (loins == NULL) fatalerror ("Invalid instance. (equivinslocon)");
@@ -1341,7 +1345,7 @@ char *name1, *name2;
 
 
 /*===========================================================================*/
-          localstartid ( ptlocon, name1, name2)
+void  localstartid ( ptlocon, name1, name2)
 /*===========================================================================*/
 locon_list *ptlocon;
 char *name1, *name2;
@@ -1363,7 +1367,7 @@ char *name1, *name2;
 
 
 /*===========================================================================*/
-          reducepower (lofig1, lofig2)
+void   reducepower (lofig1, lofig2)
 /*===========================================================================*/
 lofig_list *lofig1, *lofig2;
 
@@ -1377,7 +1381,6 @@ lofig_list *lofig1, *lofig2;
   chain_list *Delete;
   chain_list *ScanChain;
  locon_list *ptlocon;
- locon_list *next_locon;
 char *firstvdd;
 char *firstvss;
  loins_list *ptloins;
@@ -1528,7 +1531,7 @@ locon_list *list1, *list2;
 
 
 /*===========================================================================*/
-          order (lofig1, lofig2)
+void  order (lofig1, lofig2)
 /*===========================================================================*/
 lofig_list *lofig1, *lofig2;
 
@@ -1697,7 +1700,7 @@ char *loinsname;
 
 
 /*===========================================================================*/
-          readparamfile (lofig1, lofig2, filename)
+void  readparamfile (lofig1, lofig2, filename)
 /*===========================================================================*/
 lofig_list *lofig1, *lofig2;
 char *filename;
@@ -1733,7 +1736,7 @@ char *filename;
 
 
 /*===========================================================================*/
-          presentation ()
+void  presentation ()
 /*===========================================================================*/
 { char revision[100] ;
 
@@ -1752,7 +1755,7 @@ char *filename;
 }
 
 /*****************************************************************************/
-          main (argc, argv)
+int  main (argc, argv)
 /*****************************************************************************/
 int argc;
 char **argv;
@@ -1839,4 +1842,5 @@ char **argv;
     savelofig (lofig2);
     }
  exit ( 0 );
+ return 0;
 }

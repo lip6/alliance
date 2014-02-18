@@ -248,7 +248,7 @@ static chain_list *permutations_abl(chain_list* abl)
    /*put the operator*/
    for (chain=list_abl; chain; chain=chain->NEXT) {
       head=createabloper(ABL_OPER(abl));
-      ABL_ARITY_L(head)=ABL_ARITY(abl);
+      ABL_ARITY_L(head)=(chain_list*)ABL_ARITY(abl);
       ABL_CDR(head)=dupablchain(chain->DATA);
       chain->DATA=head;
    }   
@@ -266,6 +266,7 @@ static chain_list *permutations_abl(chain_list* abl)
 }
 
 
+#if THIS_IS_DISABLED
 /******************************************************************************/
 /* return 1 if abl1 and abl2 heave the same properties                        */
 /******************************************************************************/
@@ -302,6 +303,7 @@ static int same_properties(chain_list* abl1, chain_list* abl2, befig_list* befig
    
    return 0;   /*equality*/
 }
+#endif
 
 
 /******************************************************************************/

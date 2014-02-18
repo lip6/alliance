@@ -58,6 +58,7 @@
 # include "XFS.h"
 # include "XMX.h"
 
+# include "XFS_error.h"
 # include "xfsm.h"
 
 /*------------------------------------------------------------\

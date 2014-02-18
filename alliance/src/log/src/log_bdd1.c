@@ -40,6 +40,7 @@
 
 #include <stdio.h>
 #include <stdlib.h>
+#include <string.h>
 #include "mut.h"
 #include "log.h"
 
@@ -326,7 +327,7 @@ displayCct (pC, mode)
   for (i = 0; i < (pC->pTI)->length; i++)
     {
       if (pEl->value != EMPTYTH && pEl->value != DELETETH)
-	printf ("INPUT = %s	INDEX = %d\n", pEl->key, pEl->value);
+	printf ("INPUT = %s	INDEX = %ld\n", pEl->key, pEl->value);
       pEl++;
     }
   printf ("\n-------------  NUMBER OF INPUTS : %d\n\n", (pC->countI) - 2);
@@ -346,7 +347,7 @@ displayCct (pC, mode)
 	  printf ("OUTPUT = %s", pEl->key);
 	  if (mode == 0)
 	    {
-	      printf ("	BDD = %d\n", pEl->value);
+	      printf ("	BDD = %ld\n", pEl->value);
 	      displayBddName (TRUE, (pNode)pEl->value, pC->pNameI);
 	    }
 	  else

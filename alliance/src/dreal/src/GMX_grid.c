@@ -200,8 +200,6 @@ char DrealDisplayLambdaGrid( GraphicX1, GraphicY1, GraphicX2, GraphicY2 )
   long      Ymin;
   char      UserGrid;
   char      LambdaGrid;
-  char      TraceCroix;
-  char      TracePoint;
   float     Check;
 
   rdsbegin();
@@ -217,6 +215,7 @@ char DrealDisplayLambdaGrid( GraphicX1, GraphicY1, GraphicX2, GraphicY2 )
 
   if ( DrealLambdaUserGrid == 1  )
   {
+#if THIS_IS_DISABLED
     if ( DrealLambdaUserGridDx > DrealLambdaUserGridDy )
     {
       Check = ( DREAL_LOWER_GRID_STEP * 2 / DrealLambdaUserGridDy );
@@ -225,6 +224,9 @@ char DrealDisplayLambdaGrid( GraphicX1, GraphicY1, GraphicX2, GraphicY2 )
     {
       Check = ( DREAL_LOWER_GRID_STEP * 2 / DrealLambdaUserGridDy );
     }
+#else
+    Check = ( DREAL_LOWER_GRID_STEP * 2 / DrealLambdaUserGridDy );
+#endif
 
     if ( DrealLambdaGridStep < Check ) UserGrid = 0;
     else                               UserGrid = 1;

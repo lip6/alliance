@@ -55,7 +55,7 @@ extern chain_list* inv_oper(chain_list* abl, int negativ)
       else {
          if (negativ) {
             abl=createablnotexpr(abl);
-            ABL_ARITY_L(abl)=1;
+            ABL_ARITY_L(abl)=(chain_list*)1;
          }   
       }
       return abl;
@@ -63,30 +63,30 @@ extern chain_list* inv_oper(chain_list* abl, int negativ)
 
    switch (ABL_OPER(abl)) {
       case ABL_AND: 
-         if (negativ) ABL_OPER_L(abl)=ABL_NAND;
-         else ABL_OPER_L(abl)=ABL_NOR;
+         if (negativ) ABL_OPER_L(abl)=(chain_list*)ABL_NAND;
+         else ABL_OPER_L(abl)=(chain_list*)ABL_NOR;
          negativ=!negativ;
          break;
       case ABL_NAND: 
-         if (negativ) ABL_OPER_L(abl)=ABL_NOR;
-         else ABL_OPER_L(abl)=ABL_NAND;
+         if (negativ) ABL_OPER_L(abl)=(chain_list*)ABL_NOR;
+         else ABL_OPER_L(abl)=(chain_list*)ABL_NAND;
          break;
       case ABL_OR:
-         if (negativ) ABL_OPER_L(abl)=ABL_NOR;
-         else ABL_OPER_L(abl)=ABL_NAND;
+         if (negativ) ABL_OPER_L(abl)=(chain_list*)ABL_NOR;
+         else ABL_OPER_L(abl)=(chain_list*)ABL_NAND;
          negativ=!negativ;
          break;
       case ABL_NOR:
-         if (negativ) ABL_OPER_L(abl)=ABL_NAND;
-         else ABL_OPER_L(abl)=ABL_NOR;
+         if (negativ) ABL_OPER_L(abl)=(chain_list*)ABL_NAND;
+         else ABL_OPER_L(abl)=(chain_list*)ABL_NOR;
          break;
       case ABL_XOR:
-         if (negativ) ABL_OPER_L(abl)=ABL_NXOR;
+         if (negativ) ABL_OPER_L(abl)=(chain_list*)ABL_NXOR;
          negativ=0;
          /*nothing to do:  same size XOR and NXOR*/
          break;
       case ABL_NXOR:
-         if (negativ) ABL_OPER_L(abl)=ABL_XOR;
+         if (negativ) ABL_OPER_L(abl)=(chain_list*)ABL_XOR;
          negativ=0;
          /*nothing to do*/
          break;
@@ -98,7 +98,7 @@ extern chain_list* inv_oper(chain_list* abl, int negativ)
       case ABL_STABLE:
          if (negativ) {
             abl=createablnotexpr(abl);
-            ABL_ARITY_L(abl)=1;
+            ABL_ARITY_L(abl)=(chain_list*)1;
          }   
          return abl;
       default:
@@ -187,22 +187,22 @@ extern chain_list* build_negativ(chain_list* abl)
             ABL_CAR_L(leaf)=getablatomzero();
          else {
             ABL_CAR_L(chain)=createablnotexpr(ABL_CAR(chain));
-            ABL_ARITY_L(ABL_CAR(chain))=1;
+            ABL_ARITY_L(ABL_CAR(chain))=(chain_list*)1;
          }   
          continue;
       }
       else if (ABL_OPER(leaf)==ABL_STABLE) {
          ABL_CAR_L(chain)=createablnotexpr(ABL_CAR(chain));
-         ABL_ARITY_L(ABL_CAR(chain))=1;
+         ABL_ARITY_L(ABL_CAR(chain))=(chain_list*)1;
          continue;
       }
       switch (ABL_OPER(leaf)) {
-         case ABL_AND: ABL_OPER_L(leaf)=ABL_NAND; break; 
-         case ABL_OR: ABL_OPER_L(leaf)=ABL_NOR; break; 
-         case ABL_NAND: ABL_OPER_L(leaf)=ABL_AND; break; 
-         case ABL_NOR: ABL_OPER_L(leaf)=ABL_OR; break; 
-         case ABL_XOR: ABL_OPER_L(leaf)=ABL_NXOR; break; 
-         case ABL_NXOR: ABL_OPER_L(leaf)=ABL_XOR; break; 
+         case ABL_AND: ABL_OPER_L(leaf)=(chain_list*)ABL_NAND; break; 
+         case ABL_OR: ABL_OPER_L(leaf)=(chain_list*)ABL_NOR; break; 
+         case ABL_NAND: ABL_OPER_L(leaf)=(chain_list*)ABL_AND; break; 
+         case ABL_NOR: ABL_OPER_L(leaf)=(chain_list*)ABL_OR; break; 
+         case ABL_XOR: ABL_OPER_L(leaf)=(chain_list*)ABL_NXOR; break; 
+         case ABL_NXOR: ABL_OPER_L(leaf)=(chain_list*)ABL_XOR; break; 
          case ABL_NOT: 
             ABL_CAR_L(chain)=ABL_CADR(leaf);
             freechain(leaf);
@@ -214,10 +214,10 @@ extern chain_list* build_negativ(chain_list* abl)
    }
    
    switch (ABL_OPER(abl)) {
-      case ABL_AND: ABL_OPER_L(abl)=ABL_NOR; break; 
-      case ABL_OR: ABL_OPER_L(abl)=ABL_NAND; break; 
-      case ABL_NAND: ABL_OPER_L(abl)=ABL_OR; break; 
-      case ABL_NOR: ABL_OPER_L(abl)=ABL_AND; break; 
+      case ABL_AND: ABL_OPER_L(abl)=(chain_list*)ABL_NOR; break; 
+      case ABL_OR: ABL_OPER_L(abl)=(chain_list*)ABL_NAND; break; 
+      case ABL_NAND: ABL_OPER_L(abl)=(chain_list*)ABL_OR; break; 
+      case ABL_NOR: ABL_OPER_L(abl)=(chain_list*)ABL_AND; break; 
       case ABL_NOT: 
          chain=abl;
          abl=ABL_CADR(abl);

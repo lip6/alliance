@@ -179,13 +179,13 @@ void XgraDelView()
 
 void XgraInterruptDisplay()
 {
+  autbegin();
+
+# ifdef XGRA_CTRL_C
   XEvent       Event;
   KeySym       Key;
   char         Text;
 
-  autbegin();
-
-# ifdef XGRA_CTRL_C
   if ( XCheckTypedEvent( XgraGraphicDisplay, KeyPress, &Event ) )
   {
     XLookupString( &Event.xkey, &Text, 1, &Key, 0 );
@@ -213,11 +213,11 @@ void XgraInterruptDisplay()
 
 void XgraFlushEventDisplay()
 {
-  XEvent Event;
-  
   autbegin();
 
 # ifdef XGRA_CTRL_C
+  XEvent Event;
+  
   while ( XCheckTypedEvent( XgraGraphicDisplay, KeyPress, &Event ) );
 # endif
 

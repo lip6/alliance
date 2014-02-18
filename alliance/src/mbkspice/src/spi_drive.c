@@ -194,8 +194,6 @@ char            *vss;
 {
   losig_list	*scanlosig;
   int		 nbr;
-  convindex	*cvx;
-  ptype_list	*ptptype;
   lowire_list	*scanlowire;
   int            nbctc;
   chain_list    *scanchain;
@@ -209,9 +207,6 @@ char            *vss;
     if( !scanlosig->PRCN )
       continue;
     
-    ptptype = getptype( scanlosig->USER, SPI_DRIVER_PTYPE );
-    cvx     = (convindex*)(ptptype->DATA);
-   
     if( scanlosig->PRCN->PWIRE || scanlosig->PRCN->PCTC )
     {
       nbr = 1;
@@ -330,15 +325,11 @@ locon_list	*c;
 int             position;
 {
   losig_list	*signal;
-  ptype_list	*pt;
-  convindex	*noeudbase;
   num_list	*tetenum,*scannum;
-  char           v[1024];
+  char           v[1024] = "";
   int            lgmot;
 
   signal    = c->SIG;
-  pt        = getptype( signal->USER, SPI_DRIVER_PTYPE );
-  noeudbase = (convindex*)(pt->DATA);
 
   if( c->PNODE )
   {
@@ -387,8 +378,6 @@ int              position;
   int            n;
   chain_list    *cpteordre;
   losig_list    *signal;
-  ptype_list    *pt;
-  convindex     *noeudbase;
   num_list      *scannum;
   num_list      *tetenum;
   char           v[1024];
@@ -416,8 +405,6 @@ int              position;
         num++;
 
     signal    = scanlocon->SIG;
-    pt        = getptype( signal->USER, SPI_DRIVER_PTYPE );
-    noeudbase = (convindex*)(pt->DATA);
 
     if( scanlocon->PNODE )
     {

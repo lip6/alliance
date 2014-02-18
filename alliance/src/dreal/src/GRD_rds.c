@@ -82,7 +82,6 @@
 \------------------------------------------------------------*/
 
   static jmp_buf DrealJumpBuffer;
-  static void    (*OldExitHandler)() = NULL;
 
 /*------------------------------------------------------------\
 |                                                             |
@@ -207,9 +206,9 @@ void DrealAddFigure( Name )
 
     for ( Layer = 0; Layer < RDS_MAX_LAYER; Layer++ )
     {
-      Previous = &DrealFigureRds->LAYERTAB[ Layer ];
+      Previous = &DrealFigureRds->LAYERTAB[ (int)Layer ];
 
-      for ( Rectangle  = DrealFigureRds->LAYERTAB[ Layer ];
+      for ( Rectangle  = DrealFigureRds->LAYERTAB[ (int)Layer ];
             Rectangle != (rdsrec_list *)NULL;
             Rectangle  = Rectangle->NEXT )
       {
@@ -226,7 +225,7 @@ void DrealAddFigure( Name )
     {
       for ( Layer = 0; Layer < RDS_MAX_LAYER; Layer++ )
       {
-        for ( Rectangle  = Instance->LAYERTAB[ Layer ];
+        for ( Rectangle  = Instance->LAYERTAB[ (int)Layer ];
               Rectangle != (rdsrec_list *)NULL;
               Rectangle  = Rectangle->NEXT )
         {
@@ -269,7 +268,7 @@ rdsrec_list *DrealAddRectangle( Name, Layer, X, Y, Dx, Dy )
     DREAL_PREVIOUS_L( ScanRec->NEXT ) = &ScanRec->NEXT;
   }
 
-  DREAL_PREVIOUS_L( ScanRec ) = &DrealFigureRds->LAYERTAB[ Layer ];
+  DREAL_PREVIOUS_L( ScanRec ) = &DrealFigureRds->LAYERTAB[ (int)Layer ];
 
   rdsend();
   return( ScanRec );
@@ -333,13 +332,12 @@ void DrealDelFigure()
   rdsrec_list *ScanRec;
   rdsins_list *ScanIns;
   rdsins_list *DelIns;
-  rdsfig_list *ScanFig;
 
   rdsbegin();
 
   for ( Layer = 0; Layer < RDS_MAX_LAYER; Layer++ )
   {
-    ScanRec  = DrealFigureRds->LAYERTAB[ Layer ];  
+    ScanRec  = DrealFigureRds->LAYERTAB[ (int)Layer ];  
 
     while ( ScanRec != (rdsrec_list *)NULL )
     {
@@ -351,7 +349,7 @@ void DrealDelFigure()
       freerdsrec( DelRec, DREAL_SIZE );
     }
 
-    DrealFigureRds->LAYERTAB[ Layer ] = (rdsrec_list *)NULL;
+    DrealFigureRds->LAYERTAB[ (int)Layer ] = (rdsrec_list *)NULL;
   }
 
   ScanIns  = DrealFigureRds->INSTANCE;
@@ -363,7 +361,7 @@ void DrealDelFigure()
 
     for ( Layer = 0; Layer < RDS_MAX_LAYER; Layer++ )
     {
-      ScanRec  = DrealFigureRds->LAYERTAB[ Layer ];  
+      ScanRec  = DrealFigureRds->LAYERTAB[ (int)Layer ];  
 
       while ( ScanRec != (rdsrec_list *)NULL )
       {
@@ -442,9 +440,9 @@ void DrealFlattenFigure()
   {
     for ( Layer = 0; Layer < RDS_MAX_LAYER; Layer++ )
     {
-      ScanRec = ScanIns->LAYERTAB[ Layer ];
+      ScanRec = ScanIns->LAYERTAB[ (int)Layer ];
 
-      ScanIns->LAYERTAB[ Layer ] = (rdsrec_list *)NULL;
+      ScanIns->LAYERTAB[ (int)Layer ] = (rdsrec_list *)NULL;
 
       while ( ScanRec  != (rdsrec_list *)NULL )
       {
@@ -466,8 +464,8 @@ void DrealFlattenFigure()
 
   for ( Layer = 0; Layer < RDS_MAX_LAYER; Layer++ )
   {
-    Previous = &DrealFigureRds->LAYERTAB[ Layer ];
-    ScanRec  = Figure->LAYERTAB[ Layer ]; 
+    Previous = &DrealFigureRds->LAYERTAB[ (int)Layer ];
+    ScanRec  = Figure->LAYERTAB[ (int)Layer ]; 
 
     while ( ScanRec != (rdsrec_list *)NULL )
     {
@@ -478,9 +476,9 @@ void DrealFlattenFigure()
 
       if ( ScanRec->NEXT == (rdsrec_list *)NULL )
       {
-        ScanRec->NEXT = DrealFigureRds->LAYERTAB[ Layer ];
-        DrealFigureRds->LAYERTAB[ Layer ] = Figure->LAYERTAB[ Layer ];
-        Figure->LAYERTAB[ Layer ] = (rdsrec_list *)NULL;
+        ScanRec->NEXT = DrealFigureRds->LAYERTAB[ (int)Layer ];
+        DrealFigureRds->LAYERTAB[ (int)Layer ] = Figure->LAYERTAB[ (int)Layer ];
+        Figure->LAYERTAB[ (int)Layer ] = (rdsrec_list *)NULL;
 
         if ( ScanRec->NEXT != (rdsrec_list *)NULL )
         {

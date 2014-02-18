@@ -196,7 +196,7 @@ void ringerreur(int code, void *pt_liste, void *pt_liste2)
 					/* modif : chain_list pointe sur des loins maintenant                        */
 					/* ------------------------------------------------------------------------- */
 
-					if ((trouve = liste_inst->INSNAME ==  ((loins_list * ) liste->DATA)->INSNAME ))
+                  if ((trouve = (liste_inst->INSNAME ==  ((loins_list * ) liste->DATA)->INSNAME) ))
 						break;
 
 					liste = liste->NEXT;

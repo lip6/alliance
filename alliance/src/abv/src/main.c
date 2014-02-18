@@ -66,8 +66,6 @@ int main( argc, argv )
   char        Option;
   long        Value;
 
-  int FlagVerbose = 0;
-
   mbkenv();
   autenv();
   ablenv();
@@ -88,7 +86,7 @@ int main( argc, argv )
 
         switch ( Option )
         {
-          case 'V' : FlagVerbose = 1;
+          case 'V' : 
           break;
           default  : BvlUsage();
         }

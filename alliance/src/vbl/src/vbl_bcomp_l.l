@@ -1,3 +1,7 @@
+
+%option noinput
+%option nounput
+
 /*------------------------------------------------------------\
 |                                                             |
 | This file is part of the Alliance CAD System Copyright      |
@@ -180,16 +184,10 @@ static long find_mc(s)
   strcpy(loc,s);
   while(l--) loc[l]=tolower(loc[l]);	/* conversion en minuscules */
   pt= (el_mc *) bsearch(loc, (char *)tab_mc,VBL_NB_MC,sizeof(el_mc),
- (long (*)(const void *, const void *)) strcmp);
+                        (int (*)(const void *, const void *)) strcmp);
   if (pt==NULL) return(-1);
 
   return(pt->kval);
-}
-
-
-int vbl_y_wrap ()
-{
-  return (1);
 }
 
 %}
@@ -283,3 +281,8 @@ base_specifier	  	  (B|b|O|o|X|x)
 			return (*yytext);
 									}
 %%
+
+int vbl_y_wrap ()
+{
+  return (1);
+}

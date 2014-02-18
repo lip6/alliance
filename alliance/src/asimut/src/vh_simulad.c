@@ -24,9 +24,11 @@
 #include "vh_ltype.h"
 #include "vh_globals.h"
 #include "vh_util.h"
+#include "vh_init.h"
 #include "vh_lspec.h"
 #include "vh_xspec.h"
 #include "vh_xcomm.h"
+#include "vh_debug.h"
 #include "vh_simulad.h"
 #include "beh_delay.h"
 
@@ -35,10 +37,10 @@ extern char MVL_ERRFLG;
 static char *VH_TUNIT_TABLE [] = { "vu", "fs", "ps", "ns", "us", "ms" };
 
 
-main (argc, argv)
+int  main (argc, argv)
 
 int   argc;
-char **argv;
+char *argv[];
 
 {
   int              i             ;
@@ -73,7 +75,6 @@ char **argv;
   char             inert_flg     = 1         ;        /* inertial  delays     */
   char             bufreg_flg    = 0         ;        /* bufreg  delays       */
   char             stat_flg      = 0         ;        /* stat                 */
-  char             sav_end       ;                    /* saved end flag       */
   int              max_err       = 10        ;        /* # of simul. errors   */
   unsigned int     max_pat       = 0         ;        /* # of patterns        */
   unsigned int     labelsiz      = 32        ;        /* longest patt. label  */
@@ -88,7 +89,7 @@ char **argv;
   struct befig    *ptbef         ;
   struct chain    *ptchain       ;
   struct papat    *pt_papat      ;
-  struct papat    *lst_papat     ;
+  struct papat    *lst_papat     = NULL;
   struct paseq    *pt_paseq      ;
   struct pains    *pt_pains      = NULL      ;        /* inspected instances  */
   struct lkdspy   *pt_lkdspy     = NULL      ;        /* inspected signals    */
@@ -490,7 +491,7 @@ char **argv;
 
       if (bckdly_flg != 0)
         {
-        error_flag += beh_backdelay (delay_dic, argv [bckdly_flg], delay_mode);
+          error_flag += beh_backdelay (delay_dic, argv [(int)bckdly_flg], delay_mode);
         }
 
       if ((bckdly_flg != 0) || (fixdly_flg != 0) || (randly_flg != 0))
@@ -742,12 +743,12 @@ char **argv;
 
   if (init_flg != 0)
     {
-    if ((sscanf (argv [init_flg], "%u", &init_val) == 1) && (init_val <= 1))
+    if ((sscanf (argv [(int)init_flg], "%u", &init_val) == 1) && (init_val <= 1))
       vhx_initval (VHL_HEDLKF, init_val + '0');
     else
       {
-      if ((filepnt = mbkfopen (argv [init_flg], "sav", READ_TEXT)) == NULL)
-        vhu_error (116, argv [init_flg], NULL);
+      if ((filepnt = mbkfopen (argv [(int)init_flg], "sav", READ_TEXT)) == NULL)
+        vhu_error (116, argv [(int)init_flg], NULL);
       else
         {
         error_flag = vhx_initfig (VHL_HEDLKF, filepnt);
@@ -939,9 +940,9 @@ char **argv;
     {
     if (stat_flg != 0)
       {
-      st_wrtsta (stat_dic, VHL_HEDLKF, pt_paseq, num_cycle, argv [stat_flg]);
-      st_wrtstadly (stat_dic, VHL_HEDLKF, pt_paseq, cur_date, ref_date, argv [stat_flg]);
-      st_wrtstabis (stat_dic, VHL_HEDLKF, pt_paseq, cur_date, ref_date, argv [stat_flg]);
+      st_wrtsta (stat_dic, VHL_HEDLKF, pt_paseq, num_cycle, argv [(int)stat_flg]);
+      st_wrtstadly (stat_dic, VHL_HEDLKF, pt_paseq, cur_date, ref_date, argv [(int)stat_flg]);
+      st_wrtstabis (stat_dic, VHL_HEDLKF, pt_paseq, cur_date, ref_date, argv [(int)stat_flg]);
       }
     }
 

@@ -3,8 +3,7 @@
 //
 // $Id: RMBK.cpp,v 1.18 2012/05/02 14:49:23 jpc Exp $
 //
-//  /----------------------------------------------------------------\ 
-//  |                                                                |
+//  +----------------------------------------------------------------+ 
 //  |        A l l i a n c e   C A D   S y s t e m                   |
 //  |              S i m p l e   R o u t e r                         |
 //  |                                                                |
@@ -12,10 +11,7 @@
 //  |  E-mail      :       alliance-support@asim.lip6.fr             |
 //  | ============================================================== |
 //  |  C++ Module  :       "./RMBK.cpp"                              |
-//  | ************************************************************** |
-//  |  U p d a t e s                                                 |
-//  |                                                                |
-//  \----------------------------------------------------------------/
+//  +----------------------------------------------------------------+
 
 
 
@@ -25,9 +21,9 @@
 
 
 
-//  /----------------------------------------------------------------\
+//  +----------------------------------------------------------------+
 //  |                     Methods Definitions                        |
-//  \----------------------------------------------------------------/
+//  +----------------------------------------------------------------+
 
 
 // -------------------------------------------------------------------
@@ -47,7 +43,6 @@ void  CRBox::mbkload (MBK::CFig *mbkfig
   MBK::MLosig::iterator   endSig;
   MBK::MLosig::iterator   sig;
                    long   mX, mY, mZ, x, y, zz, xadjust, yadjust, yoffsetslice;
-                   long   xpitch, ypitch;
                    long   XRW1, YRW1, XRW2, YRW2;
                    bool   use_global;
                    long   northPad, southPad, eastPad, westPad;
@@ -61,7 +56,6 @@ void  CRBox::mbkload (MBK::CFig *mbkfig
         MBK::phfig_list  *pModel;
             MBK::CXRect  *rect;
               MBK::CIns  *pIns;
-                   MNet   routeds;
                    CNet  *pNet;
                  string   sig_name, term_name, ins_name;
       CDRGrid::iterator   coord;
@@ -206,7 +200,7 @@ void  CRBox::mbkload (MBK::CFig *mbkfig
 
       if (z < 5) {
         cmess2 << "        - Forcing 4 routing layers.\n";
-        mZ = z = 5;
+        mZ = 5;
       }
     } else {
       cmess2 << "     o  Small design, global routing disabled.\n";

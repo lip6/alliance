@@ -57,13 +57,13 @@ static chain_list* unflatnegexpr(chain_list* abl)
    
    switch(ABL_OPER(abl)) {
    case ABL_NAND: 
-      ABL_OPER_L(abl)=ABL_AND;
+     ABL_OPER_L(abl)=(chain_list*)ABL_AND;
       return createablnotexpr(abl);
    case ABL_NOR: 
-      ABL_OPER_L(abl)=ABL_OR;
+      ABL_OPER_L(abl)=(chain_list*)ABL_OR;
       return createablnotexpr(abl);
    case ABL_NXOR: 
-      ABL_OPER_L(abl)=ABL_XOR;
+      ABL_OPER_L(abl)=(chain_list*)ABL_XOR;
       return createablnotexpr(abl);
    default: return abl;         
    }

@@ -59,6 +59,7 @@
 # include "GMX.h"
 # include "GRD.h"
 # include "GMT.h"
+# include "GMV.h"
 
 # include "GMT_tools.h"
 # include "GMT_message.h"

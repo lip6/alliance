@@ -34,6 +34,7 @@
 
 #include "ctp_bedef.h"
 #include "ctp_bspec.h"
+#include "ctp_util.h"
 
 static int CtpEvalError = 0;
 
@@ -163,9 +164,11 @@ long       right;
   ctltype_list     *BaseType2;
   ctltype_list     *CtlType;
 
-  result.IDENT = NULL;
-  result.VEX   = NULL;
-  result.WIDTH = 0;
+  result.IDENT  = NULL;
+  result.VEX    = NULL;
+  result.TYPE   = 0;
+  result.WIDTH  = 0;
+  result.SIGNED = 0;
   result.AGGREG = 0;
 
   switch (oper)

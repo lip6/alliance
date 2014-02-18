@@ -1109,7 +1109,7 @@ static int read;
          nb = 0;
          while (!feof((FILE *)((chain_list *)pt)->DATA)) {
             nb++; /* count lines */
-            nb_input = fscanf((FILE *)((chain_list *)pt)->DATA, "%s %c\n",
+            nb_input = fscanf((FILE *)((chain_list *)pt)->DATA, "%4096s %c\n",
                               buffer, &attrib);
             if (nb_input == 0) /* skip white lines */
                continue;
@@ -1558,7 +1558,7 @@ char day[4], month[4];
 int year, nday, hour, minute, second;
 
    (void)time(&timer);
-   (void)sscanf(ctime(&timer), "%s %s %d %d:%d:%d %d",
+   (void)sscanf(ctime(&timer), "%3s %3s %11d %11d:%11d:%11d %11d",
                        day, month, &nday, &hour, &minute, &second, &year);
    /* rince off :
       the buffer is filled with nul characteres. */

@@ -179,7 +179,7 @@ void getvbpkg( FileName, Extention )
 
       if ( Buffer[ 0 ] == '#' ) continue;
 
-      if ( sscanf( Buffer, "%s : %s\n", LogicalName, PhysicalName ) == 2 )
+      if ( sscanf( Buffer, "%511s : %511s\n", LogicalName, PhysicalName ) == 2 )
       {
         VbhFigure = getvbfiggenmap( PhysicalName, Extention, (vbmap_list *)0 );
 

@@ -27,9 +27,10 @@
 #include <stdlib.h>
 #include "mut.h"
 #include "mlo.h"
+#include "mlu.h"
 
 
-usage(progname)
+void  usage(progname)
 char *progname;
 {
 	fprintf(stderr, "usage : %s logical_figure instance output_name\n",
@@ -42,7 +43,7 @@ char *progname;
 	EXIT(1);
 }
 
-main(argc, argv)
+int  main(argc, argv)
 int argc;
 char **argv;
 {
@@ -65,4 +66,5 @@ lofig_list *p;
         p->NAME=argv[3];
 	savelofig(p);
 	exit(0);
+    return 0;
 }

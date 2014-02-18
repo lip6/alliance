@@ -62,12 +62,11 @@ int	hour;
 int	minute;
 int	second;
 char month[6];
-int	nmonth;
 
 	time(&tim);
 	date = (char *)malloc(30);
 	strcpy(date, ctime(&tim));
-	sscanf(date, "%s %s %d %d:%d:%d %d",
+	sscanf(date, "%5s %5s %11d %11d:%11d:%11d %11d",
 		day,month,&nday,&hour,&minute,&second,&year);
 	sprintf(date, "%04d %02d %02d %02d %02d %02d",
 	      	year,EdifMonth(month),nday,hour,minute,second); 

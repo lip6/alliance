@@ -153,7 +153,7 @@ void GraalDisplayMessage( Where, Text )
 
   TextString = XmStringCreateSimple( Text ); 
 
-  XtVaSetValues( GraalMessageText[ Where ], XmNlabelString, TextString, NULL );
+  XtVaSetValues( GraalMessageText[ (int)Where ], XmNlabelString, TextString, NULL );
 
   XmStringFree( TextString );
 

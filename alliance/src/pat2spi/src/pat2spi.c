@@ -63,7 +63,7 @@ patfig_list *pat_addpatfig( paseq_list *Sequence )
   int           Left;
   int           Right;        
   char         *Direction;
-  char         *Mode;
+  char         *Mode = NULL;
 
   long          NumberIO;
   long          NumberBit;
@@ -73,9 +73,7 @@ patfig_list *pat_addpatfig( paseq_list *Sequence )
   unsigned long TimeScale;
   unsigned long TimeDelta;
   unsigned long Delta;
-  unsigned long TimeCurrent;
-  unsigned long TimeNext;
-  char          TimeAllZero;
+//char          TimeAllZero;
 
   paiol_list   *ScanIol;
   pagrp_list   *ScanGrp;
@@ -137,12 +135,12 @@ patfig_list *pat_addpatfig( paseq_list *Sequence )
       {
         if ( ! ScanGrp->FLAG )
         {
-          sscanf( ScanIol->NAME, "%s %d", Name, &Left );
+          sscanf( ScanIol->NAME, "%511s %11d", Name, &Left );
 
           ScanIol  += ScanGrp->LENGTH - 1;
           IndexBit += ScanGrp->LENGTH;
 
-          sscanf( ScanIol->NAME, "%s %d", Name, &Right );
+          sscanf( ScanIol->NAME, "%511s %11d", Name, &Right );
 
           if ( Left < Right ) Direction = "to";
           else                Direction = "downto";
@@ -255,7 +253,7 @@ patfig_list *pat_addpatfig( paseq_list *Sequence )
 # ifdef DEBUG
       fprintf( stdout, "%ld\n", ScanPaPat->TIME );
 # endif
-      if ( ScanPaPat->TIME != 0 ) TimeAllZero = 0;
+    //if ( ScanPaPat->TIME != 0 ) TimeAllZero = 0;
 
       if ( ScanPaPat->NEXT != (papat_list *)0 )
       {
@@ -376,8 +374,8 @@ void P2Sdrivepatfig( patfig_list *PatFigure, char *FileName, long Slope )
   char          *IolName;
   FILE          *File;
 
-  unsigned long  CurrentTime;
-  unsigned long  NextTime;
+  unsigned long  CurrentTime = 0;
+//unsigned long  NextTime;
 
   NumberBit = PatFigure->IO_NUMBER_BIT;
   PaSeq     = PatFigure->SEQUENCE;
@@ -428,14 +426,14 @@ void P2Sdrivepatfig( patfig_list *PatFigure, char *FileName, long Slope )
     {
       CurrentTime = PaPat->TIME;
   
-      if ( PaPat->NEXT != (papat_list *)0 )
-      {
-        NextTime = PaPat->NEXT->TIME;
-      }
-      else
-      {
-        NextTime = CurrentTime + Slope;
-      }
+      /* if ( PaPat->NEXT != (papat_list *)0 ) */
+      /* { */
+      /*   NextTime = PaPat->NEXT->TIME; */
+      /* } */
+      /* else */
+      /* { */
+      /*   NextTime = CurrentTime + Slope; */
+      /* } */
   
       if ( ! FirstTime )
       {

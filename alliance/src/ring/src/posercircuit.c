@@ -49,6 +49,7 @@
 #include "barre.h"
 #include "stat.h"
 #include "sesame.h"
+#include "mgn.h"
 
 extern long	bigvias, ringvias;
 

@@ -42,8 +42,6 @@
 
 #ident "$Id: vel_sort.c,v 1.1 2002/04/26 09:51:07 ludo Exp $"
 
-static char buffer[BUFSIZ];
-static char str[BUFSIZ];
 
 #if 0
 /*******************************************************************************

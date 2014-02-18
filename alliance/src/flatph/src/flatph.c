@@ -23,10 +23,12 @@
 
 #ident "$Id: flatph.c,v 1.3 2012/05/14 14:20:10 alliance Exp $"
 #include <stdio.h>
+#include <string.h>
 #include "mut.h"
 #include "mph.h"
+#include "mpu.h"
 
-usage(progname)
+void usage(progname)
 char *progname;
 {
 	fprintf(stderr, "usage : %s physical_figure instance output_name\n", progname);
@@ -38,7 +40,7 @@ char *progname;
 	EXIT(1);
 }
 
-main(argc, argv)
+int main(argc, argv)
 int argc;
 char **argv;
 {
@@ -60,4 +62,5 @@ phfig_list *p;
         p->NAME=argv[3]; 
 	savephfig(p);
 	exit(0);
+    return 0;
 }

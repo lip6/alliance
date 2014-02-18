@@ -31,6 +31,7 @@
 
 #include <stdio.h>
 #include <stdlib.h>
+#include <string.h>
 
 #include "mut.h"
 #include "log.h"
@@ -1237,11 +1238,11 @@ orderProofBeh (bef1, bef2, varaux)
 
   makeBddBeh (bef1, bef1->CIRCUI, 0, 0, 100, 10000000, NULL);
 
-  printf ("---> final number of nodes = %d", (sysBdd.pRT)->compteur);
+  printf ("---> final number of nodes = %ld", (sysBdd.pRT)->compteur);
 
   gcNodeBeh (bef1, 0);
 
-  printf ("(%d)\n\n", (sysBdd.pRT)->compteur);
+  printf ("(%ld)\n\n", (sysBdd.pRT)->compteur);
 
   /* calcul des graphes pour le 2eme circuit */
 
@@ -2174,8 +2175,8 @@ proofBeh (beh1, beh2, mode, exitIO)
   bereg_list *reg1, *reg2;
   binode_list *binode1, *binode2;
   biabl_list *biabl1, *biabl2;
-  pNode *pDC1, *pON1;
-  pNode *pDC2, *pON2;
+  pNode *pDC1 = NULL, *pON1;
+  pNode *pDC2 = NULL, *pON2;
   int numberError = 0;
   int countDC1;
   int countDC2;

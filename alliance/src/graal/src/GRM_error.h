@@ -70,6 +70,7 @@
 |                                                             |
 \------------------------------------------------------------*/
 
-  extern void GraalFlushErrorMessage();
+  extern void GraalFlushErrorMessage     ();
+  extern void GraalInitializeErrorMessage();
 
 # endif 

@@ -192,8 +192,8 @@
 |                                                             |
 \------------------------------------------------------------*/
 
-  extern char XgraCountEventZoom;
-  extern char XgraCountEventEdit;
+  extern int  XgraCountEventZoom;
+  extern int  XgraCountEventEdit;
 
 /*------------------------------------------------------------\
 |                                                             |

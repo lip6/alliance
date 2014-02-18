@@ -53,6 +53,8 @@
 #include "lireplace.h"
 #include "sesame.h"
 
+extern  int   yyparse   ( );
+
 /*-----------------------------------------------------------------------------------*/
 /* Lecture et verification du fichier de parametres , suffixe .rin. Lancement de     */
 /* l'analyseur syntaxique                                                            */

@@ -31,6 +31,7 @@
 
 %{
 #include <stdio.h>
+#include <string.h>
 #include "mut.h"
 #include "log.h"
 #include "beh.h"
@@ -38,7 +39,13 @@
 #include "mips_defs.h"
 #include "mips_yacc.h"
 
-main (argc, argv)
+extern  void  yyrestart ( );
+extern  int   yyparse   ( );
+extern  int   yylex     ( );
+extern  void  yyerror   ( );
+
+
+int  main (argc, argv)
 
 int   argc   ;
 char *argv [];
@@ -58,7 +65,7 @@ char *argv [];
   int           txt_fil       =   0;
   int           dat_fil       =   0;
   int           i             ;
-  char         *symbol_fil    ;
+  char         *symbol_fil    = NULL;
   char          arg_err       =   0;
   static int    call_nbr      =   0;
 
@@ -1640,7 +1647,7 @@ char *str;
 /* called func.	: none							*/
 /* ###--------------------------------------------------------------### */
 
-yyerror (str)
+void yyerror (str)
 
 char *str;
 
@@ -1740,7 +1747,7 @@ int byte_nbr;
         {
         adr = MPS_ADDRES;
         for (i=0 ; i<byte_nbr ; i++)
-          fprintf (MPS_WRTFIL, "%.8x : %.2x\n", adr+i, MPS_BYTTAB [i]);
+          fprintf (MPS_WRTFIL, "%.8lx : %.2x\n", adr+i, MPS_BYTTAB [i]);
         }
       else
         {
@@ -1793,7 +1800,7 @@ char *str;
   else
     seg = "data";
 
-  fprintf (MPS_SYMFIL, "%s\t: location %x in %s segment\n", str,
+  fprintf (MPS_SYMFIL, "%s\t: location %lx in %s segment\n", str,
            MPS_ADDRES, seg);
   }
 

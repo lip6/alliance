@@ -32,6 +32,7 @@
 #include <dirent.h>
 #include <string.h>
 #include <mut.h>
+#include <aut.h>
 #include <abl.h>
 #include <mlo.h>
 #include <abe.h>

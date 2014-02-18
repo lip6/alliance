@@ -150,7 +150,7 @@ int BoomLogicReorderWindow2( BehFigure, BehAux, BddVar, PCost )
 
   swapbddvar( (bddsystem *)0, BddVar );
 
-  BehAux  = BoomLogicComputeAux( BehFigure, BehAux );
+//BehAux  = BoomLogicComputeAux( BehFigure, BehAux );
   NewCost = BoomBehGiveCost( BehFigure );
 
   if ( NewCost < *PCost )
@@ -197,7 +197,7 @@ int BoomLogicReorderWindow3( BehFigure, BehAux, BddVar, PCost )
 
   swapbddvar( (bddsystem *)0, BddVar );
 
-  BehAux  = BoomLogicComputeAux( BehFigure, BehAux );
+//BehAux  = BoomLogicComputeAux( BehFigure, BehAux );
   NewCost = BoomBehGiveCost( BehFigure );
 
   if ( IsBoomDebugLevel0() )
@@ -218,7 +218,7 @@ int BoomLogicReorderWindow3( BehFigure, BehAux, BddVar, PCost )
 
   swapbddvar( (bddsystem *)0, BddVar );
 
-  BehAux  = BoomLogicComputeAux( BehFigure, BehAux );
+//BehAux  = BoomLogicComputeAux( BehFigure, BehAux );
   NewCost = BoomBehGiveCost( BehFigure );
 
   if ( IsBoomDebugLevel0() )
@@ -239,7 +239,7 @@ int BoomLogicReorderWindow3( BehFigure, BehAux, BddVar, PCost )
 
   swapbddvar( (bddsystem *)0, BddVar );
 
-  BehAux  = BoomLogicComputeAux( BehFigure, BehAux );
+//BehAux  = BoomLogicComputeAux( BehFigure, BehAux );
   NewCost = BoomBehGiveCost( BehFigure );
 
   if ( IsBoomDebugLevel0() )
@@ -260,7 +260,7 @@ int BoomLogicReorderWindow3( BehFigure, BehAux, BddVar, PCost )
 
   swapbddvar( (bddsystem *)0, BddVar );
 
-  BehAux  = BoomLogicComputeAux( BehFigure, BehAux );
+//BehAux  = BoomLogicComputeAux( BehFigure, BehAux );
   NewCost = BoomBehGiveCost( BehFigure );
 
   if ( IsBoomDebugLevel0() )
@@ -281,7 +281,7 @@ int BoomLogicReorderWindow3( BehFigure, BehAux, BddVar, PCost )
 
   swapbddvar( (bddsystem *)0, BddVar );
 
-  BehAux  = BoomLogicComputeAux( BehFigure, BehAux );
+//BehAux  = BoomLogicComputeAux( BehFigure, BehAux );
   NewCost = BoomBehGiveCost( BehFigure );
 
   if ( IsBoomDebugLevel0() )
@@ -340,15 +340,11 @@ void BoomLogicOptimizeWindow( BehFigure )
   beaux_list *BehAux;
   short      *ReorderLevel;
   bddvar      NumberChild;
-  bddvar      BestChild;
   bddvar      ChildCount;
-  bddvar      ChildTo;
   bddvar      ChildFrom;
-  int         SwapReorder;
   int         AnySwap;
   int         Moved;
   long        Cost;
-  long        NewCost;
 
   NumberChild  = BddLocalSystem->NUMBER_VAR;
   ReorderLevel = (short *)autallocblock( sizeof( short ) * NumberChild );
@@ -465,7 +461,7 @@ void BoomLogicOptimizeTop( BehFigure )
 
     if ( IsBoomDebugLevel2() )
     {
-      BoomPrintf( stdout, "-> ChildFrom %d\n", ChildFrom );
+      BoomPrintf( stdout, "-> ChildFrom %u\n", ChildFrom );
     }
 
     ReorderLevel[ ChildFrom ] = 0;
@@ -476,7 +472,7 @@ void BoomLogicOptimizeTop( BehFigure )
     {
       if ( IsBoomDebugLevel2() )
       {
-        BoomPrintf( stdout, "-> Swap %d and %d\n", ChildTo, ChildTo + 1 );
+        BoomPrintf( stdout, "-> Swap %u and %u\n", ChildTo, ChildTo + 1 );
       }
 
       swapbddvar( (bddsystem *)0, ChildTo );
@@ -501,7 +497,7 @@ void BoomLogicOptimizeTop( BehFigure )
 
     if ( IsBoomDebugLevel1() )
     {
-      BoomPrintf( stdout, "--> Best child %d\n", BestChild );
+      BoomPrintf( stdout, "--> Best child %u\n", BestChild );
       BoomPrintf( stdout, "--> Best cost %ld\n", Cost      );
     }
 
@@ -510,7 +506,7 @@ void BoomLogicOptimizeTop( BehFigure )
 # ifdef BDD_DEBUG
   if ( IsBoomDebugLevel1() )
   {
-fprintf( stdout, "-> UnSwap %d and %d\n", ChildTo - 1, ChildTo );
+fprintf( stdout, "-> UnSwap %d and %u\n", ChildTo - 1, ChildTo );
   }
 # endif
 
@@ -555,7 +551,6 @@ void BoomLogicOptimizeProcrast( BehFigure )
   bddvar         NumberChild;
   bddvar         ChildTo;
   bddvar         ChildFrom;
-  char           SwapReorder;
   long           Cost;
   long           NumberNode;
   long           NewCost;
@@ -588,14 +583,14 @@ void BoomLogicOptimizeProcrast( BehFigure )
     {
       if ( IsBoomDebugLevel1() )
       {
-        BoomPrintf( stdout, "-> ChildFrom %d\n", ChildFrom );
+        BoomPrintf( stdout, "-> ChildFrom %u\n", ChildFrom );
       }
   
       for ( ChildTo = ChildFrom; ChildTo < ( NumberChild - 1 ); ChildTo++ )
       {
         if ( IsBoomDebugLevel1() )
         {
-          BoomPrintf( stdout, "-> Swap %d and %d\n", ChildTo, ChildTo + 1 );
+          BoomPrintf( stdout, "-> Swap %u and %d\n", ChildTo, ChildTo + 1 );
         }
   
         swapbddvar( (bddsystem *)0, ChildTo );
@@ -629,7 +624,7 @@ void BoomLogicOptimizeProcrast( BehFigure )
         {
           if ( IsBoomDebugLevel1() )
           {
-            BoomPrintf( stdout, "-> UnSwap %d and %d\n", ChildTo, ChildTo - 1 );
+            BoomPrintf( stdout, "-> UnSwap %u and %d\n", ChildTo, ChildTo - 1 );
           }
 
           swapbddvar( (bddsystem *)0, ChildTo - 1 );
@@ -668,7 +663,6 @@ void BoomLogicOptimizeBest( BehFigure )
   bddvar         NumberChild;
   bddvar         ChildTo;
   bddvar         ChildFrom;
-  char           SwapReorder;
   long           Cost;
   long           NewCost;
   long           Iteration;
@@ -700,14 +694,14 @@ void BoomLogicOptimizeBest( BehFigure )
     {
       if ( IsBoomDebugLevel1() )
       {
-        BoomPrintf( stdout, "-> ChildFrom %d\n", ChildFrom );
+        BoomPrintf( stdout, "-> ChildFrom %u\n", ChildFrom );
       }
   
       for ( ChildTo = ChildFrom; ChildTo < ( NumberChild - 1 ); ChildTo++ )
       {
         if ( IsBoomDebugLevel1() )
         {
-          BoomPrintf( stdout, "-> Swap %d and %d\n", ChildTo, ChildTo + 1 );
+          BoomPrintf( stdout, "-> Swap %u and %d\n", ChildTo, ChildTo + 1 );
         }
   
         swapbddvar( (bddsystem *)0, ChildTo );
@@ -734,7 +728,7 @@ void BoomLogicOptimizeBest( BehFigure )
         {
           if ( IsBoomDebugLevel1() )
           {
-            BoomPrintf( stdout, "-> UnSwap %d and %d\n", ChildTo, ChildTo - 1 );
+            BoomPrintf( stdout, "-> UnSwap %u and %d\n", ChildTo, ChildTo - 1 );
           }
 
           swapbddvar( (bddsystem *)0, ChildTo - 1 );
@@ -847,7 +841,7 @@ void BoomLogicOptimizeRandom( BehFigure )
 
   if ( IsBoomDebugLevel0() )
   {
-    BoomPrintf( stdout, "Initial cost %ld, NumberVar %d\n", Cost, NumberVar );
+    BoomPrintf( stdout, "Initial cost %ld, NumberVar %u\n", Cost, NumberVar );
   }
 
   if ( MaxIteration <= 0 ) MaxIteration = NumberVar;
@@ -858,7 +852,7 @@ void BoomLogicOptimizeRandom( BehFigure )
 
     if ( IsBoomDebugLevel0() )
     {
-      BoomPrintf( stdout, "Swap %d\n", BddVar );
+      BoomPrintf( stdout, "Swap %u\n", BddVar );
     }
 
     BoomLogicReorderWindow2( BehFigure, BehAux, BddVar, &Cost );
@@ -964,16 +958,16 @@ void BoomLogicOptimizeOne( BehFigure )
 
   befig_list *BehFigure;
 {
-  beaux_list *BehAux;
-  bddvar      NumberVar;
-  bddvar      BddVar;
+//beaux_list *BehAux;
+//bddvar      NumberVar;
+//bddvar      BddVar;
   long        Cost;
 
   reorderbddsystemwindow( BddLocalSystem );
 
-  NumberVar = BddLocalSystem->NUMBER_VAR;
+//NumberVar = BddLocalSystem->NUMBER_VAR;
 
-  BehAux = BoomLogicComputeAux( BehFigure, BehFigure->BEAUX );
+//BehAux = BoomLogicComputeAux( BehFigure, BehFigure->BEAUX );
   Cost   = BoomBehGiveCost( BehFigure );
 
   if ( IsBoomDebugLevel0() )
@@ -995,7 +989,7 @@ void BoomLogicOptimization( BehFigure )
   boombefiginfo *FigInfo;
   bddsystem     *BddSystem;
   bddcircuit    *BddCircuit;
-  beaux_list    *BehAux;
+//beaux_list    *BehAux;
 
   FigInfo = GetBoomBehFigInfo( BehFigure ); 
 
@@ -1015,7 +1009,7 @@ void BoomLogicOptimization( BehFigure )
   BoomBehAbl2BddNode( BehFigure, FigInfo->KEEP_AUX, FigInfo->INIT_BDD_ORDER );
   reorderbddsystemdynamic( BddSystem, garbagebddsystem, 200000, 50 );
 
-  BehAux = BehFigure->BEAUX;
+//BehAux = BehFigure->BEAUX;
 
   if ( IsBoomDebugLevel1() )
   {

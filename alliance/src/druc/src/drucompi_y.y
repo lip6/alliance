@@ -32,6 +32,7 @@ extern FILE *yyin;
        int   DrucNegatif;
        float DrucInputFloat;
        char  DrucInputChaine[DRUC_MAX_STRING_BUFFER + 1];
+extern int   yylex ();
 %}
 
 /*------------------------------------------------------------\
@@ -96,7 +97,7 @@ drc       :                  { DrucNombreInstructions = 0;
             DRUC_REGLES
             list_bloc
             DRUC_FIN
-	    DRUC_REGLES      { return ;}
+	    DRUC_REGLES      { return 0;}
           ;
 
 list_layer: list_layer layer

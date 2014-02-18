@@ -84,7 +84,6 @@ ctlfig_list *loadctlfig( InputFileName )
   char *InputFileName;
 {
   int   Value;
-  int   Index;
 
   ctp_y_in = mbkfopen( InputFileName, "ctl", "r" );
 

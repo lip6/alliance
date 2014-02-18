@@ -24,17 +24,6 @@
 // Author : Christophe Alexandre  <Christophe.Alexandre@lip6.fr>
 //
 // Authors-Tag 
-#ifdef __GNUC__
-#if __GNUC__ < 3
-#include <hash_map.h>
-#else
-#include <ext/hash_map>
-#if __GNUC_MINOR__ == 0
-#else
-using namespace __gnu_cxx; // GCC 3.1 and later
-#endif
-#endif
-#endif
 
 #include <math.h>
 #include <unistd.h>
@@ -228,7 +217,7 @@ bool
 PPlacement::FinalOptimize()
 {
     int  Loop = 0;
-    double NewCost;
+  //double NewCost;
     double InitCost = DetPlaceDebugNetCost();
     _detInitNetCost = InitCost;
     if (_verbose)
@@ -247,8 +236,8 @@ PPlacement::FinalOptimize()
 		ContinueCondition = true;
 		OptimizationResult = true;
 	    }
-	    NewCost = DetPlaceDebugNetCost();
-	    InitCost = NewCost;
+        /*NewCost =*/ DetPlaceDebugNetCost();
+      //InitCost = NewCost;
 	}
     ++Loop;
     }
@@ -335,12 +324,14 @@ int PPlacement::AddRowend(struct phfig* physicalfig)
     {
       char *nb = strdup(It->INSNAME + 9);
       if ( atoi(nb) > rowendcount ) rowendcount = atoi(nb);
+      free( nb );
     }
      
     if ( strncmp(It->INSNAME,"tiex0_",6) == 0 )
     {
       char *nb = strdup(It->INSNAME + 6);
       if ( atoi(nb) > tiecount ) tiecount = atoi(nb);
+      free( nb );
     }
      
   // fill the tab with instances (true = instance is present)

@@ -117,7 +117,6 @@ void XgraInitializeColors()
 {
   XColor   ForgetIt;
   XColor   GetIt;
-  Window   Root;
   int      Counter;
   Colormap ColorMap;
   char     Error;

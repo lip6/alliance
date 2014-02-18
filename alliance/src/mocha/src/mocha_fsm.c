@@ -100,7 +100,6 @@ void MochaCompileFsm( MochaFigure, FileName, FlagVerbose )
   chain_list      *ScanChain;
   mochafsm_list   *MochaFsm;
   fsmstate_list   *ScanState;
-  mochastate_list *MochaState;
   mochasyfinfo    *MochaSyfInfo;
   mochasyfstate   *MochaSyfState;
 
@@ -170,8 +169,8 @@ void MochaCompileFsm( MochaFigure, FileName, FlagVerbose )
           ScanState  = ScanState->NEXT )
     {
       MochaSyfState = MOCHA_SYF_STATE( ScanState );
-      MochaState    = MochaAddState( MochaFigure, MochaFsm, ScanState->NAME,
-                                     MochaSyfState->CODE->VALUE );
+      MochaAddState( MochaFigure, MochaFsm, ScanState->NAME,
+                     MochaSyfState->CODE->VALUE );
     }
   }
 /*

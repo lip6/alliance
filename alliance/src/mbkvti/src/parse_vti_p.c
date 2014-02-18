@@ -285,9 +285,9 @@ static void vti_addphseg(phfig_list * figure, char layer,
 static long   stol(tokenpt)
 char *tokenpt;
 {
-register char *pt;
+//register char *pt;
 
-   if ((pt = strchr(tokenpt, '.')) == (char *)NULL)
+  if ((/*pt =*/ strchr(tokenpt, '.')) == (char *)NULL)
       return (long)(SCALE_X * atol(tokenpt));
    else {
 #if 0
@@ -377,11 +377,12 @@ char *s, *t;
    while (*t) {
       if (*t == '[')
          *t = ' ';
-      else if (*t == ']')
+      else if (*t == ']') {
          if (*(++t) == '\0') /* ok, it's finished */
             goto end;
          else if (*t == '[') /* multiple array */
             continue;
+      }
       *s++ = *t++;
    }
 end:

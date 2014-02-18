@@ -1,5 +1,8 @@
 %{
 #include "elp.h"
+
+  int  yylex  ();
+  void yyerror();
 %}
 
 %union {
@@ -100,12 +103,12 @@ elpvar    :
 extern int  yylineno ;
 extern char yytext[] ;
 
-yyerror()
+void yyerror()
 
 {
 elpError(1001,yytext,yylineno) ; /* si erreur de syntaxe => erreur 1001 */
 }
 
 
-yywrap() {return 1 ;}
+int yywrap() {return 1 ;}
 

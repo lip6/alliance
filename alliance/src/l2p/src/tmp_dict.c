@@ -1,4 +1,4 @@
-extern rps_put();
+extern void rps_put();
 void rps_print_dict_bw (pg)
 void *pg;
 {

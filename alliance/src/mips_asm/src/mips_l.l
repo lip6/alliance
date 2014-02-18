@@ -29,6 +29,9 @@
 /* description	: MIPS assembler - lex rules				*/
 /* ###--------------------------------------------------------------### */
 
+%option noinput
+%option nounput
+
 %{
 #include <stdio.h>
 #include "mut.h"

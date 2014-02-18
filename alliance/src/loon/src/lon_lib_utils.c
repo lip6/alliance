@@ -240,8 +240,7 @@ static cell_list* properties_addCell(befig_list* befig, lofig_list *lofig)
          if (bepor->NAME==locon->NAME) break;
       }        
       if (!locon) {
-         fprintf(stderr,"properties_addCell: locon '%s' not found\n",
-         locon->NAME);
+         fprintf(stderr,"properties_addCell: locon '%s' not found\n", bepor->NAME);
          autexit(1);
       }
       losig=locon->SIG;
@@ -251,9 +250,11 @@ static cell_list* properties_addCell(befig_list* befig, lofig_list *lofig)
          if (losig==locon->SIG) break;
       }        
       if (!locon) {
-         fprintf(stderr,"properties_addCell: locon '%s' not found in cell\n",
-         locon->NAME);
-         autexit(1);
+        const char* signame = "<anonymous>";
+        if (losig->NAMECHAIN)
+          signame = (const char*)losig->NAMECHAIN->DATA;
+        fprintf(stderr,"properties_addCell: locon '%s' not found in cell\n", signame);
+        autexit(1);
       }
       
       /*apply properties*/

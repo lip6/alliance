@@ -127,7 +127,7 @@ char *XsbFileGetString( String, Size )
   int   Size;
 {
   register char *RegisterString;
-  register       Register;
+  register int   Register = 0;
 
   autbegin();
  
@@ -357,7 +357,7 @@ long XsbGetStringValue( String )
 
   autbegin();
  
-  if ( sscanf( String, "%ld", &Value) )
+  if ( sscanf( String, "%22ld", &Value) )
   {
     autend();
     return ( Value );
@@ -393,7 +393,7 @@ float XsbGetStringFloat( String )
 
   autbegin();
 
-  if ( ! sscanf( String, "%g", &Value) )
+  if ( ! sscanf( String, "%32g", &Value) )
   {
     XsbError( ILLEGAL_FLOAT, String, XsbCurrentLine );
   }
@@ -416,7 +416,7 @@ long XsbGetNumber( String )
 
   autbegin();
 
-  if ( ! sscanf( String, "%ld", &Value ))
+  if ( ! sscanf( String, "%22ld", &Value ))
   {
     XsbError( UNEXPECTED_LINE, "number", XsbCurrentLine );
   }

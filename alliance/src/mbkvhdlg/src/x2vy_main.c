@@ -49,6 +49,9 @@
 #include "gen_generic.h"
 #include "vel_velo.h"
 
+extern void vectlosig();
+extern int vhdlsavevelofig();
+
 #define NOALIM 0x01
 #define RENINS 0x02
 #define VECCON 0x04

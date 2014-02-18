@@ -11,12 +11,15 @@
 
 %{
 #include <stdio.h>
+#include <string.h>
 #include <mut.h>
 #include <mlo.h>
 #include "mvl_stype.h"
 #include "mvl_syacc.h"
 #include "mvl_stdef.h"
 
+extern void          yyerror ();
+extern int           yylex   ();
 
 static int           MVL_GENFLG = 0   ;	/* Indicates if generic 	*/
 static int           MVL_CONRNK = 0   ;	/* rank of an implicit connexion*/
@@ -925,9 +928,7 @@ component_instantiation_statement
 		struct loins *loins_pnt    ;
 		struct locon *locon_pnt    ;
 		struct chain *chain_pnt    ;
-		char         *prt_name     ;
 		char          tampon [256] ;
-		long           i            = 0;
 
 		if (MVL_CHDPNT != NULL)
 		  {
@@ -1043,7 +1044,6 @@ association_element
 		}
 	| actual_port_name
 		{
-		long           sig_width ;
 		struct chain *sig_list1 ;
 		char         *prt_name  ;
 		long           prt_width ;

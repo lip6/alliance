@@ -33,6 +33,7 @@
 #include <mlo.h>
 #include <abl.h>
 #include <abe.h>
+#include <aut.h>
 #include "lon_lib_utils.h"
 #include "lon_signal_netlist.h"
 #include "lon_optim_stats.h"
@@ -132,7 +133,7 @@ extern ptype_list* percent_instance(ptype_list* model_list)
    for (ptype=model_list; ptype; ptype=ptype->NEXT) {
       cell=getCell((char*)ptype->DATA);
       if (!cell) {
-         fprintf(stderr,"Library Error: cell '%s' not found\n",cell->NAME);
+         fprintf(stderr,"Library Error: cell '%s' not found\n",(char*)ptype->DATA);
          autexit(1);
       }
       inst=addptype(inst,cell->AREA*ptype->TYPE,ptype->DATA);

@@ -32,3 +32,4 @@ extern logen_list *getlogen(logen_list *,char *);
 extern logen_list *duplogen(logen_list *,logen_list *, char *);
 extern logen_list *chklogen(logen_list *,logen_list *, char *, char *);
 extern logen_list *dellogen(logen_list *, char *name);
+extern void        debuglogen(logen_list *g, int level);

@@ -65,5 +65,9 @@
 \------------------------------------------------------------*/
 
   extern void XpatEditSelectObject();
+  extern void XpatEditSelectPoint();
+  extern void XpatAddSelectList();
+  extern void XpatEditSelectAccept();
+  extern void XpatEditSelectCancel();
 
 # endif

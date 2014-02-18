@@ -78,7 +78,7 @@ static dual_list* add_dual(dual_list* top, cell_list* cell)
       if (dual->OPER!=ABL_OPER(cell->ABL)
       && (!dual->CELL || ABL_OPER(cell->ABL)!=ABL_OPER(dual->CELL->ABL))){
          fprintf(stderr,
-         "add_dual: computing error on cell with oper %s and %s (arity %d)\n",
+         "add_dual: computing error on cell with oper %s and %s (arity %ld)\n",
          getabloperuppername(ABL_OPER(cell->ABL)),
          getabloperuppername(dual->OPER),ABL_ARITY(cell->ABL));
          exit(1);
@@ -543,7 +543,7 @@ extern void control_lib()
    }
 
    /*if xor doesn't exist, build*/
-   if (!xor) {
+   if (xor == NULL) {
       fprintf(stderr,
       "Mapping Warning: 'xor' is missing in cell library...Generating\n");
       cell=complete_xor_lib();    

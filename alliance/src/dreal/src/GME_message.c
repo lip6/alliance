@@ -447,17 +447,17 @@ void DrealPromptModifyRectangle()
 
   DrealDisplayMessage( DREAL_MESSAGE_MODE, "Modify Rectangle" );
 
-  StaticLayer = RDS_STATIC_LAYER[ DrealRectangleMLayer ];
+  StaticLayer = RDS_STATIC_LAYER[ (int)DrealRectangleMLayer ];
 
   if ( DrealRectangleMName == (char *)NULL )
   {
     sprintf( MessageBuffer, "Layer: %s   Name: none",
-             DREAL_RDS_LAYER_NAME_TABLE[ StaticLayer ][0] );
+             DREAL_RDS_LAYER_NAME_TABLE[ (int)StaticLayer ][0] );
   }
   else
   {   
     sprintf( MessageBuffer, "Layer: %s   Name: %s",
-             DREAL_RDS_LAYER_NAME_TABLE[ StaticLayer ][0] ,
+             DREAL_RDS_LAYER_NAME_TABLE[ (int)StaticLayer ][0] ,
              DrealRectangleMName );
   }
 

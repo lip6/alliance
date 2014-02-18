@@ -59,7 +59,7 @@
 # include "GTB.h"
 # include "GSB.h"
 # include "GMF.h"
-
+# include "GMF_menu.h"
 # include "GMF_dialog.h"
 # include "GMF_file.h"
 

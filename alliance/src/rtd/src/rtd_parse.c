@@ -232,7 +232,7 @@ static vexexpr *RtlReadPrefixExpr()
       return( (vexexpr *)0 );
     }
 
-    sscanf( Name, "{%ld,%ld,%lx}", &Left, &Right, &Type );
+    sscanf( Name, "{%22ld,%22ld,%22lx}", &Left, &Right, &Type );
     Name = Scan + 1;
 
     Oper = getvexoperbyname( Name );
@@ -339,7 +339,7 @@ static vexexpr *RtlReadPrefixExpr()
       return( (vexexpr *)0 );
     }
 
-    sscanf( Name, "{%ld,%ld,%lx}", &Left, &Right, &Type );
+    sscanf( Name, "{%22ld,%22ld,%22lx}", &Left, &Right, &Type );
     Name = Scan + 1;
 
     Oper = getvexoperbyname( Name );
@@ -446,7 +446,7 @@ static int RtlLoadFigure( RtlFigure )
 
     if ( Keyword == RtlKeyAsgBiVex )
     {
-      Error = 2 - sscanf( ScanBuffer, "%ld\t%ld",
+      Error = 2 - sscanf( ScanBuffer, "%22ld\t%22ld",
                           &Value1, &Value2 );
 
       RtlBiVex = addrtlasgbivex( RtlFigure, RtlAsg, (vexexpr *)0, (vexexpr *)0, Value1 );
@@ -473,7 +473,7 @@ static int RtlLoadFigure( RtlFigure )
     else
     if ( Keyword == RtlKeyAsg )
     {
-      Error = 3 - sscanf( ScanBuffer, "%ld\t%ld\t%ld",
+      Error = 3 - sscanf( ScanBuffer, "%22ld\t%22ld\t%22ld",
                           &Value1, &Value2, &Value3 );
 
       if ( Error ) return( 1 );
@@ -503,7 +503,7 @@ static int RtlLoadFigure( RtlFigure )
     else
     if ( Keyword == RtlKeyDeclar )
     {
-      Error = 5 - sscanf( ScanBuffer, "%ld\t%ld\t%ld\t%ld\t%ld",
+      Error = 5 - sscanf( ScanBuffer, "%22ld\t%22ld\t%22ld\t%22ld\t%22ld",
                           &Value1, &Value2, &Value3, &Value4, &Value5 );
 
       if ( Error ) return( 1 );
@@ -532,7 +532,7 @@ static int RtlLoadFigure( RtlFigure )
     else
     if ( Keyword == RtlKeySymbol )
     {
-      Error = 6 - sscanf( ScanBuffer, "%ld\t%ld\t%ld\t%ld\t%ld\t%ld",
+      Error = 6 - sscanf( ScanBuffer, "%22ld\t%22ld\t%22ld\t%22ld\t%22ld\t%22ld",
         &Value1, &Value2, &Value3, &Value4, &Value5, &Value6 );
 
       if ( Error ) return( 1 );
@@ -548,7 +548,7 @@ static int RtlLoadFigure( RtlFigure )
     else
     if ( Keyword == RtlKeyInstance )
     {
-      Error = 1 - sscanf( ScanBuffer, "%ld", &Value1 );
+      Error = 1 - sscanf( ScanBuffer, "%22ld", &Value1 );
 
       if ( Error ) return( 1 );
 
@@ -568,7 +568,7 @@ static int RtlLoadFigure( RtlFigure )
     else
     if ( Keyword == RtlKeyMap )
     {
-      Error = 1 - sscanf( ScanBuffer, "%ld", &Value1 );
+      Error = 1 - sscanf( ScanBuffer, "%22ld", &Value1 );
 
       if ( Error ) return( 1 );
 
@@ -597,7 +597,7 @@ static int RtlLoadFigure( RtlFigure )
     else
     if ( Keyword == RtlKeyModel )
     {
-      Error = 1 - sscanf( ScanBuffer, "%ld", &Value1 );
+      Error = 1 - sscanf( ScanBuffer, "%22ld", &Value1 );
 
       if ( Error ) return( 1 );
 
@@ -608,7 +608,7 @@ static int RtlLoadFigure( RtlFigure )
     else
     if ( Keyword == RtlKeyPort )
     {
-      Error = 3 - sscanf( ScanBuffer, "%ld\t%ld\t%ld", &Value1, &Value2, &Value3 );
+      Error = 3 - sscanf( ScanBuffer, "%22ld\t%22ld\t%22ld", &Value1, &Value2, &Value3 );
 
       if ( Error ) return( 1 );
 
@@ -622,7 +622,7 @@ static int RtlLoadFigure( RtlFigure )
     else
     if ( Keyword == RtlKeyFigure )
     {
-      Error = 1 - sscanf( ScanBuffer, "%ld",
+      Error = 1 - sscanf( ScanBuffer, "%22ld",
                           &Value1 );
 
       if ( Error ) return( 1 );
@@ -633,7 +633,7 @@ static int RtlLoadFigure( RtlFigure )
     else
     if ( Keyword == RtlKeyGenMap )
     {
-      Error = 2 - sscanf( ScanBuffer, "%ld\t%ld", &Value1, &Value2 );
+      Error = 2 - sscanf( ScanBuffer, "%22ld\t%22ld", &Value1, &Value2 );
 
       if ( Error ) return( 1 );
 
@@ -649,7 +649,7 @@ static int RtlLoadFigure( RtlFigure )
     else
     if ( Keyword == RtlKeyGenMod )
     {
-      Error = 2 - sscanf( ScanBuffer, "%ld\t%ld", &Value1, &Value2 );
+      Error = 2 - sscanf( ScanBuffer, "%22ld\t%22ld", &Value1, &Value2 );
 
       if ( Error ) return( 1 );
 

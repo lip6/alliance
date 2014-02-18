@@ -470,7 +470,7 @@ void DrucErreurCleanFigureErreur ( DrucFigureRdsErreur,
     delrdsfig ( DrucFigureRdsErrorName 
               );
 
-    DrucFigureRdsErreur = ( rdsfig_list *)NULL;
+  //DrucFigureRdsErreur = ( rdsfig_list *)NULL;
   }
 }
 

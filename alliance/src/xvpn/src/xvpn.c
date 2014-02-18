@@ -56,6 +56,8 @@
 # include "XSB.h"
 # include "XVP.h"
 # include "XMX.h"
+# include "XTB.h"
+# include "XMF.h"
 
 # include "xvpn.h"
 

@@ -593,7 +593,6 @@ void DrealDisplayFigure( GraphicX1, GraphicY1, GraphicX2, GraphicY2 )
   char         ScanRec;
   char         Layer;
   char         StaticLayer;
-  char         DrawLine;
   long         Xmin;
   long         Ymin;
   long         Xmax;
@@ -604,12 +603,12 @@ void DrealDisplayFigure( GraphicX1, GraphicY1, GraphicX2, GraphicY2 )
   long         Y2;
   long         X;
   long         Y;
+/*
   long         LambdaGridX;
   long         LambdaGridY;
+*/
   long         X1r;
   long         Y1r;
-  long         X2r;
-  long         Y2r;
   long         LambdaMin; 
   char         DrawText;
   char         DrawTextFig;
@@ -717,8 +716,10 @@ void DrealDisplayFigure( GraphicX1, GraphicY1, GraphicX2, GraphicY2 )
   Y1 = Y1 * RDS_PHYSICAL_GRID; 
   Y2 = Y2 * RDS_PHYSICAL_GRID; 
 
+/*
   LambdaGridX = DrealLambdaGridX * RDS_PHYSICAL_GRID;
   LambdaGridY = DrealLambdaGridY * RDS_PHYSICAL_GRID;
+*/
 
   Xmin = ( X1 - DrealWindowXmin ) / DrealWindowSide;
   Xmax = ( X2 - DrealWindowXmin ) / DrealWindowSide;
@@ -745,9 +746,9 @@ void DrealDisplayFigure( GraphicX1, GraphicY1, GraphicX2, GraphicY2 )
   {
     if ( DrealCheckInterrupt() ) break;
 
-    StaticLayer = RDS_STATIC_LAYER[ Layer ];
+    StaticLayer = RDS_STATIC_LAYER[ (int)Layer ];
 
-    if ( DREAL_RDS_ACTIVE_LAYER_TABLE[ StaticLayer ] != 1 ) continue; 
+    if ( DREAL_RDS_ACTIVE_LAYER_TABLE[ (int)StaticLayer ] != 1 ) continue; 
 
     Y = Ymin;
 
@@ -767,13 +768,13 @@ void DrealDisplayFigure( GraphicX1, GraphicY1, GraphicX2, GraphicY2 )
 
         if ( ScanWin->LAYERTAB != (drealwinrec **)NULL )
         {
-          for ( ScanWinRec  = ScanWin->LAYERTAB[ Layer ];
+          for ( ScanWinRec  = ScanWin->LAYERTAB[ (int)Layer ];
                 ScanWinRec != (drealwinrec *)NULL;
                 ScanWinRec  = ScanWinRec->NEXT )
           {
             for ( ScanRec = 0; ScanRec < DREAL_MAX_REC ; ScanRec++ )
             {
-              Rec = ScanWinRec->RECTAB[ ScanRec ];
+              Rec = ScanWinRec->RECTAB[ (int)ScanRec ];
 
               if ( ( Rec != (rdsrec_list *)NULL  ) &&
                    ( ! IsDrealDeleted( Rec )     ) &&
@@ -862,8 +863,8 @@ void DrealDisplayFigure( GraphicX1, GraphicY1, GraphicX2, GraphicY2 )
                 }
                 else
                 {
-                  DrealDrawGC = DrealLayerDrawGC[ StaticLayer ];
-                  DrealFillGC = DrealLayerFillGC[ StaticLayer ];
+                  DrealDrawGC = DrealLayerDrawGC[ (int)StaticLayer ];
+                  DrealFillGC = DrealLayerFillGC[ (int)StaticLayer ];
 
                   DrealDisplayOneRectangle( Rec );
 
@@ -892,7 +893,7 @@ void DrealDisplayFigure( GraphicX1, GraphicY1, GraphicX2, GraphicY2 )
       if ( IsDrealAccepted( Rec ) != 0 )
       {
         DrealDrawGC = DrealAcceptDrawGC;
-        DrealFillGC = DrealLayerAcceptGC[ StaticLayer ];
+        DrealFillGC = DrealLayerAcceptGC[ (int)StaticLayer ];
       }
 
       DrealDisplayOneRectangle( Rec );
@@ -928,12 +929,10 @@ void DrealDisplayRectangle( Rectangle )
 
    rdsrec_list *Rectangle;
 {
-  rdsrec_list *ScanRec;
   long         Xmin;
   long         Ymin;
   long         Xmax;
   long         Ymax;
-  char         Layer;
 
   rdsbegin();
 

@@ -88,8 +88,8 @@ extern void  dpgen_RF1 (aFunction, aAL)
 {
 long nmot;	/* nombre de mots */
 long nbitd;	/* nombre de bits en-dessous des buffers */
-long type; 	/* fifo, avec ou sans decodeurs  */
-long flags;     /* indexation : bit 0 en bas si flags = 0 */
+long type = 0; 	/* fifo, avec ou sans decodeurs  */
+/*long flags; * UNUSED indexation : bit 0 en bas si flags = 0 */
 
 long nbitu=0;   /* nombre de bits au-dessus des buffers : non utilise */
 long hbuf=2;    /* hauteur des buffers (2 ou 4 slices) : non utilise */
@@ -99,7 +99,8 @@ long HCELL = 50;
 long bottom;
 long ntot;
 long i,j;
-long half,max;
+long half;
+long max = 0;
 long sym1,sym2;
 long adrange;
 
@@ -130,7 +131,7 @@ cell_mid_mem=(char*)malloc(sizeof(char)*512);
 //////////////////////////////////////////////////////////
 
 model_name =      va_arg (aAL, char*);
-flags      =      va_arg (aAL, long );
+                  va_arg (aAL, long );
 nbitd      =      va_arg (aAL, long );
 nmot       =      va_arg (aAL, long );
 
@@ -257,8 +258,8 @@ GENLIB_LOCON("vss",IN,"vss");
 // placement des lignes de bit en dessous des buffers
 //
 ///////////////////////////////////////////////////////////////////
-cell_in_mem = strdup("rf_inmux_mem");
-cell_out_mem = strdup("rf_out_mem");
+strcpy(cell_in_mem, "rf_inmux_mem");
+strcpy(cell_out_mem, "rf_out_mem");
 bottom = 0;
 sym1 = NOSYM;
 sym2 = SYM_X;
@@ -355,8 +356,8 @@ GENLIB_PLACE_RIGHT(cell_out_buf,"outbuf",NOSYM);
 // placement des lignes de bit au dessus des buffers
 //
 ///////////////////////////////////////////////////////////////////
-cell_in_mem = strdup("rf_inmux_mem");
-cell_out_mem = strdup("rf_out_mem");
+strcpy(cell_in_mem, "rf_inmux_mem");
+ strcpy(cell_out_mem, "rf_out_mem");
 bottom = (nbitd+hbuf) * HCELL;
 for(i=0;i<nbitu;i++){
 switch(i%2){

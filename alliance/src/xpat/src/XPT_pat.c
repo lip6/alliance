@@ -54,6 +54,7 @@
 # include "XSB.h" 
 # include "XPT.h"
 # include "XPT_pat.h"
+# include "XPT_error.h"
 
 /*------------------------------------------------------------\
 |                                                             |
@@ -216,7 +217,7 @@ patfig_list *pat_addpatfig( Sequence )
   int           Left;
   int           Right;        
   char         *Direction;
-  char         *Mode;
+  char         *Mode = NULL;
 
   long          NumberIO;
   long          NumberBit;
@@ -226,9 +227,7 @@ patfig_list *pat_addpatfig( Sequence )
   unsigned long TimeScale;
   unsigned long TimeDelta;
   unsigned long Delta;
-  unsigned long TimeCurrent;
-  unsigned long TimeNext;
-  char          TimeAllZero;
+//char          TimeAllZero;
 
   paiol_list   *ScanIol;
   pagrp_list   *ScanGrp;
@@ -287,7 +286,7 @@ patfig_list *pat_addpatfig( Sequence )
 # ifdef DEBUG
     if ( ScanGrp != (pagrp_list *)0 )
     {
-      fprintf( stdout, "ScanGrp %s %d %d %d\n",
+      fprintf( stdout, "ScanGrp %255s %11d %11d %11d\n",
           ScanGrp->NAME, ScanGrp->FINDEX, ScanGrp->LENGTH, ScanGrp->FLAG );
     }
 # endif
@@ -302,12 +301,12 @@ patfig_list *pat_addpatfig( Sequence )
       {
         if ( ! ScanGrp->FLAG )
         {
-          sscanf( ScanIol->NAME, "%s %d", Name, &Left );
+          sscanf( ScanIol->NAME, "%255s %11d", Name, &Left );
 
           ScanIol  += ScanGrp->LENGTH - 1;
           IndexBit += ScanGrp->LENGTH;
 
-          sscanf( ScanIol->NAME, "%s %d", Name, &Right );
+          sscanf( ScanIol->NAME, "%255s %11d", Name, &Right );
 
           if ( Left < Right ) Direction = "to";
           else                Direction = "downto";
@@ -417,7 +416,7 @@ patfig_list *pat_addpatfig( Sequence )
 # ifdef DEBUG
       fprintf( stdout, "%ld\n", ScanPaPat->TIME );
 # endif
-      if ( ScanPaPat->TIME != 0 ) TimeAllZero = 0;
+    //if ( ScanPaPat->TIME != 0 ) TimeAllZero = 0;
 
       if ( ScanPaPat->NEXT != (papat_list *)0 )
       {

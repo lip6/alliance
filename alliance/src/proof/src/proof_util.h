@@ -61,6 +61,21 @@
 |                                                             |
 \------------------------------------------------------------*/
 
-extern chain_list * berinToChain_list __P(( befig_list *beh ));
+extern chain_list* berinToChain_list __P(( befig_list *beh ));
+extern char*       nameIntVect       __P(( char* name ));
+extern int         mayCoverBdd       __P(( pNode on1, pNode dc1, pNode on2, pNode dc2 ));
+extern void        displayExprLaxInt __P(( chain_list* expr ));
+extern void        displayExprLax    __P(( chain_list* expr ));
+extern chain_list* searchExprOutBeh  __P(( befig_list* beh, char* name));
+extern void        substExprBeh      __P(( befig_list* beh, char* name, chain_list* sexpr));
+extern void        polarBDBeh        __P(( befig_list* beh ));
+extern void        elimInoutBeh      __P(( befig_list* beh ));
+extern pNode       sumCNDBinode      __P(( binode_list* binode ));
+extern chain_list* AND2              __P(( chain_list* expr1, chain_list* expr2));
+extern chain_list* OR2               __P(( chain_list* expr1, chain_list* expr2));
+extern chain_list* sumBiabl          __P(( biabl_list* biabl ));
+extern void        orderProofBeh     __P(( befig_list* bef1,  befig_list* bef2, char varaux ));
+extern int         elimBusMuxBeh     __P(( befig_list* beh ));
+extern int         proofBeh          __P(( befig_list* beh1,  befig_list* beh2, int mode, int exitIO));
 
 # endif

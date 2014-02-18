@@ -48,7 +48,7 @@ char         *berinname;	/* name of the BERIN to be deleted	*/
 
   {
   struct berin  headrin;
-  struct berin *ptlastrin;
+  struct berin *ptlastrin = NULL;
   struct berin *ptberin;
 
   if (listberin != NULL)

@@ -56,13 +56,11 @@ void DrucDefineResize ( DrucFigureRds,
 
          int          TmpLayerDest;
          int          TmpLayerSource1;
-         int          TmpLayerSource2;
 register rdsrec_list *TmpRectangleSource;
 register rdsrec_list *TmpRectangleDest;
 
   TmpLayerDest    = DrucInstructionCourante->LAYER_DEST;
   TmpLayerSource1 = DrucInstructionCourante->LAYER_1;
-  TmpLayerSource2 = DrucInstructionCourante->LAYER_2;
   /*\
    * modifier tous les rectangles du layer source 1
   \*/

@@ -259,7 +259,7 @@ static void VasyVerilogTreatMap( RtlFigure, RtlInst )
   vexexpr      *VexAtom;
   char         *AtomValue;
   char          Buffer[ 64 ];
-  int           Type;
+  int           Type = 0;
 
   for ( RtlMap  = RtlInst->MAP;
         RtlMap != (rtlmap_list *)0;
@@ -610,7 +610,7 @@ static void VasyDriveVerilogDeclar( RtlFigure, Type )
   vexexpr      *VexDeclar;
   vexexpr      *VexInit;   
   char         *DeclarName;
-  char         *DeclarDir;
+//char         *DeclarDir;
   char         *DeclarKind;
 
   for ( RtlDeclar  = RtlFigure->DECLAR[ Type ];
@@ -620,7 +620,7 @@ static void VasyDriveVerilogDeclar( RtlFigure, Type )
     VexDeclar  = RtlDeclar->VEX_ATOM;
     VexInit    = RtlDeclar->VEX_INIT;
     DeclarName = GetVexAtomValue( VexDeclar );
-    DeclarDir  = VERILOG_DIR_TYPE[ RtlDeclar->DIR ];
+  /*DeclarDir  = VERILOG_DIR_TYPE[ RtlDeclar->DIR ];*/
     DeclarKind = VasyGetVerilogNetType( RtlDeclar );
 
     if ( ! IsVasyRtlDeclarUsed( RtlDeclar ) ) continue;

@@ -58,16 +58,9 @@ void main (argc , argv )
 {
 phfig_list                *DrucFigureMbk;
 rdsfig_list               *DrucFigureRds;
-rdswindow                 *DrucRdsWindow;
 char                      *Name;
 char                      *DrucFigureName;
 char                      *DrucErrorName           = (char *)NULL;
-char                      *DrucCouronneRdsName;
-char                      *DrucNetworkName;
-DrucTypeStructInstruction *DrucTabInstruction      = ( DrucTypeStructInstruction *)NULL;
-int                        DrucNombreInstructions;
-int                        IndexLayer;
-int                        Resultat;
 
 /*\
  *  lecture des parametres d'entree

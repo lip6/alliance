@@ -123,7 +123,9 @@
              (Widget)NULL
            }
            ,
-           NULL
+           {
+             NULL
+           }
          };
 
    XschPanelItem XschEditSearchViewPanel  =
@@ -193,7 +195,9 @@
              (Widget)NULL
            }
            ,
-           NULL
+           {
+             NULL
+           }
          };
 
    XschPanelItem XschEditIdentifyPanel =
@@ -277,7 +281,9 @@
              (Widget)NULL
            }
            ,
-           NULL
+           {
+             NULL
+           }
          };
 
    XschPanelItem XschEditSelectPanel =

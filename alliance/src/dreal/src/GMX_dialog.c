@@ -61,6 +61,8 @@
 # include "GMS.h"
 # include "GMH.h"
 # include "GMX.h"
+# include "GME.h"
+# include "GMC.h"
 
 # include "GMX_dialog.h"
 

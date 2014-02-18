@@ -56,6 +56,7 @@
 
 # include "GMS_menu.h"
 # include "GMS_setup.h"
+# include "GMS_panel.h"
 
 /*------------------------------------------------------------\
 |                                                             |
@@ -140,7 +141,9 @@
              (DrealMenuItem *)NULL
            }
            ,
-           NULL
+           {
+             NULL
+           }
          };
 
 

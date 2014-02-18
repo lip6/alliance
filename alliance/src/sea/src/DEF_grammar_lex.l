@@ -1,3 +1,6 @@
+
+%option nounput
+
 %{
 /*
  * $Author: jpc $

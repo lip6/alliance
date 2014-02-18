@@ -57,7 +57,7 @@ char          mode;		/* recursive delete or not (Y or N)	*/
 
   {
   struct beaux  headaux;
-  struct beaux *ptlastaux;
+  struct beaux *ptlastaux = NULL;
   struct beaux *ptbeaux;
 
   if (listbeaux != NULL)
@@ -131,7 +131,7 @@ char          mode;		/* recursive delete or not (Y or N)	*/
 
   {
   struct bebus  headbus;
-  struct bebus *ptlastbus;
+  struct bebus *ptlastbus = NULL;
   struct bebus *ptbebus;
 
   if (listbebus != NULL)
@@ -210,7 +210,7 @@ char          mode;		/* recursive delete or not (Y or N)	*/
 
   {
   struct bebux  headbux;
-  struct bebux *ptlastbux;
+  struct bebux *ptlastbux = NULL;
   struct bebux *ptbebux;
 
   if (listbebux != NULL)
@@ -292,7 +292,7 @@ char          mode;		/* recursive delete or not (Y or N)	*/
 
   {
   struct befig  headfig;
-  struct befig *ptlastfig;
+  struct befig *ptlastfig = NULL;
   struct befig *ptbefig;
   struct ptype *ptptype;
 
@@ -395,7 +395,7 @@ char          mode;		/* recursive delete or not (Y or N)	*/
 
   {
   struct begen  headgen;
-  struct begen *ptlastgen;
+  struct begen *ptlastgen = NULL;
   struct begen *ptbegen;
 
   if (listbegen != NULL)
@@ -470,7 +470,7 @@ char          mode;		/* recursive delete or not (Y or N)	*/
 
   {
   struct bemsg  headmsg;
-  struct bemsg *ptlastmsg;
+  struct bemsg *ptlastmsg = NULL;
   struct bemsg *ptbemsg;
 
   if (listbemsg != NULL)
@@ -545,7 +545,7 @@ char          mode;		/* recursive delete or not (Y or N)	*/
 
   {
   struct beout  headout;
-  struct beout *ptlastout;
+  struct beout *ptlastout = NULL;
   struct beout *ptbeout;
 
   if (listbeout != NULL)
@@ -618,7 +618,7 @@ char         *beporname;	/* name of the BEPOR to be deleted	*/
 
   {
   struct bepor  headpor;
-  struct bepor *ptlastpor;
+  struct bepor *ptlastpor = NULL;
   struct bepor *ptbepor;
 
   if (listbepor != NULL)
@@ -681,7 +681,7 @@ char          mode;		/* recursive delete or not (Y or N)	*/
 
   {
   struct bereg  headreg;
-  struct bereg *ptlastreg;
+  struct bereg *ptlastreg = NULL;
   struct bereg *ptbereg;
 
   if (listbereg != NULL)
@@ -758,7 +758,7 @@ char         *berinname;	/* name of the BERIN to be deleted	*/
 
   {
   struct berin  headrin;
-  struct berin *ptlastrin;
+  struct berin *ptlastrin = NULL;
   struct berin *ptberin;
 
   if (listberin != NULL)

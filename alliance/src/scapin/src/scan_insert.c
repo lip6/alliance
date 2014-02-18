@@ -228,9 +228,6 @@ void ScanInsertScanPath( LoFigure, ScanParam, PathParam,
   int         FlagBuffer;
 {
   lofig_list      *LoModel;
-  lofig_list      *LoModel2;
-  lofig_list      *LoModel3;
-  lofig_list      *LoModel4;
   loins_list      *LoIns;
   chain_list      *ScanChain;
   char            *RegName;
@@ -249,18 +246,17 @@ void ScanInsertScanPath( LoFigure, ScanParam, PathParam,
   locon_list      *LoConVdd;
   locon_list      *LoConVss;
   locon_list      *LoInsCon;
-  locon_list      *LoInsConClk;
-  locon_list      *LoInsConSel;
-  locon_list      *LoInsConInput;
-  locon_list      *LoInsConOutput;
-  locon_list      *LoInsConVdd;
-  locon_list      *LoInsConVss;
-  locon_list      *LoInsConInputSel;
-  locon_list      *LoInsConInputNsel;
+  locon_list      *LoInsConClk       = NULL;
+  locon_list      *LoInsConSel       = NULL;
+  locon_list      *LoInsConInput     = NULL;
+  locon_list      *LoInsConOutput    = NULL;
+  locon_list      *LoInsConVdd       = NULL;
+  locon_list      *LoInsConVss       = NULL;
+  locon_list      *LoInsConInputSel  = NULL;
+  locon_list      *LoInsConInputNsel = NULL;
   scanreg_list    *ScanReg;
   scanregmux_list *ScanRegMux;
   scanmux_list    *ScanMux;
-  scanmux_list    *ScanMux1;
   scanbuf_list    *ScanBuf;
   authtable       *InsHashTable;
   authtable       *RegHashTable;
@@ -271,9 +267,7 @@ void ScanInsertScanPath( LoFigure, ScanParam, PathParam,
   long             LoSigIndex;
   long             LoInsIndex;
   int              Number;
-  locon_list       *LoInsConOutputMux;
-  losig_list       *LoSigOutputMux;
-  
+ 
 /*
 ** Compute and Initialize max signal index
 */

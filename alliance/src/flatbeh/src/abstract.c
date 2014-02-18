@@ -508,12 +508,16 @@ for(inst = lofig->LOINS; inst; inst = inst->NEXT)
                   
                      if ((ret = searchauthelem(busTH, busName)) == NULL)
                         {
+#if THIS_IS_DISABLED
                         if (cptInt == 0)
                            befig->BEBUS = beh_addbebus(befig->BEBUS, busName,
                                                        newBi, NULL, bus->TYPE);
                         else
                            befig->BEBUS = beh_addbebus(befig->BEBUS, busName,
                                                        newBi, NULL, bus->TYPE);
+#endif
+                        befig->BEBUS = beh_addbebus(befig->BEBUS, busName,
+                                                    newBi, NULL, bus->TYPE);
                         addauthelem(busTH, busName,(long) befig->BEBUS);
                         }
                      else

@@ -531,7 +531,6 @@ spifile		*df;
 ginterf         **teteinterf;
 {
   char		complet;
-  char		debut;
   chain_list	*ligne;
   chain_list	*elem, *elem1, *elem2;
   float		valeur;
@@ -552,7 +551,6 @@ ginterf         **teteinterf;
   char          buf[1024];
   char          tt;
 
-  debut   = 0;
   complet = 0;
   ptcir   = NULL;
 
@@ -1791,7 +1789,6 @@ char		mode;
   trans		*scantrans;
   inst		*scaninst;
   char		*nom;
-  int		idxcon;
   lotrs_list	*pttrs;
   locon_list	*scancon;
   capa		*scancapa;
@@ -1936,7 +1933,6 @@ char		mode;
 
   /* Connecteurs de l'interface */
 
-  idxcon = 1;
   for( sc1 = ptcir->CINTERF, sc2 = instances->GINTERF ;
        sc1 && sc2 ;
        sc1 = sc1->NEXT, sc2 = sc2->NEXT
@@ -2407,10 +2403,7 @@ spifile         *df;
   int		val;
   char		*fin;
   noeud		*sn;
-  char		*nom;
-
-  val = -1;
-  nom = NULL;
+  char		*nom = NULL;
 
   val = strtol( index, &fin, 10 );
 
@@ -2645,9 +2638,7 @@ circuit		*ptcir;
   capa		*c1, *c2;
   noeud		*tmp;
   char		*vss;
-  char		*vdd;
 
-  vdd = spicenamealloc( ptcir, VDD );
   vss = spicenamealloc( ptcir, VSS);
 
   for( scanresi = ptcir->RESI ; scanresi ; scanresi = scanresi->SUIV )

@@ -211,7 +211,7 @@ void kissloadfsmfig( FsmFigure, FigureName )
   char        *FigureName;
 {
   fsmstate_list *StateFrom;
-  fsmstate_list *StateTo;
+  fsmstate_list *StateTo          = NULL;
   fsmstate_list *StarState;
   fsmout_list   *Output;
   fsmin_list    *Input;
@@ -222,9 +222,9 @@ void kissloadfsmfig( FsmFigure, FigureName )
   char          *StateVoidName;
   char          *StarStateName;
   char          *PortName;
-  int            NumberIn;
-  int            NumberOut;
-  int            NumberState;
+  int            NumberIn        = 0;
+  int            NumberOut       = 0;
+  int            NumberState     = 0;
   char           Instruction;
   char           DeclarationType;
   int            Index;

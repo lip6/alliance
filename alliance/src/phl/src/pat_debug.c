@@ -30,6 +30,7 @@
 /* ###--------------------------------------------------------------### */
 
 #include <stdio.h>
+#include <string.h>
 #include "mut.h"
 #include "pat.h"
 #include "pat_debug.h"
@@ -596,7 +597,7 @@ long   *indxs ;				/* words' index in strgs table	*/
 
   for (i=0 ; i<wrdcnt ; i++)
     {
-    flags [i] = sscanf (words [i], "%u", &nmbrs [i]);
+    flags [i] = sscanf (words [i], "%22lu", &nmbrs [i]);
     for (j=0; j<MAXCMD_DFN ; j++)
       {
       if (!strcmp (strgs [j], words [i]))
@@ -693,7 +694,8 @@ char *type;				/* structure's type		*/
 
   {
 
-  char          line   [128];		/* buffer to read a cmd line	*/
+  size_t        lline      = 128;   /* buffer length                */
+  char         *line       = NULL;	/* buffer to read a cmd line	*/
   char          buffer [128];		/* buffer to split the cmd line	*/
 
   char         *words  [ 10];		/* number of words on a line	*/
@@ -707,7 +709,7 @@ char *type;				/* structure's type		*/
   unsigned long size;
   char         *pntr   = NULL;
   long          pshtype;
-  long          wrdcnt = 1;
+  long          wrdcnt;
 
   struct stack  stk [STKSIZ_DFN];
   long          stkpnt = -1;
@@ -749,6 +751,7 @@ char *type;				/* structure's type		*/
 	/*    - search that words among recognized strings		*/
 	/* ###------------------------------------------------------### */
 
+  line = (char*)malloc (lline*sizeof(char));
   words [0] = buffer;
   get_size (siz);
 
@@ -998,7 +1001,7 @@ char *type;				/* structure's type		*/
 
     printf ("\n\nCOMMAND > ");
 
-    gets (line);
+    getline (&line,&lline,stdin);
     wrdcnt = splitline (words, line);
     idx    = translate (words, wrdcnt, str, nmbrs, flags, indxs);
     }

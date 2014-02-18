@@ -141,7 +141,7 @@ velosig *s;
 
 int delvelocon(ptype_list *p, velocon *d)
 {
-   velocon *c, *s;
+   velocon *c, *s=NULL;
 
    for (c=(velocon *)p->DATA; c; c=c->NEXT) {
       if (c==d)
@@ -165,7 +165,7 @@ int delvelocon(ptype_list *p, velocon *d)
 
 int delvelosig(ptype_list *p, velosig *d)
 {
-   velosig *c, *s;
+   velosig *c=NULL, *s=NULL;
 
    for (c=(velosig *)p->DATA; c; c=c->NEXT) {
       if (c==d)

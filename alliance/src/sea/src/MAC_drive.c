@@ -163,7 +163,7 @@ extern void  macRoute(apPhfig, apLofig, macName, aPower, aFlags)
 {
   struct eLoseg_s *pLoseg;
   struct    losig *pLosig;
-  struct    phseg *pPhseg;
+//struct    phseg *pPhseg;
              long  isRouted, isFirst /*, dx */;
              char *sigName;
              char  defSigName[SIZE_SNAME];
@@ -247,7 +247,7 @@ extern void  macRoute(apPhfig, apLofig, macName, aPower, aFlags)
 
       for (; pLoseg != NULL; pLoseg = pLoseg->next) {
         if (pLoseg->type == LOSEG_SEG) {
-          pPhseg = (struct phseg*)(pLoseg->MBKobj);
+          //pPhseg = (struct phseg*)(pLoseg->MBKobj);
 
           /* Is this segment touching the AB. */
           /*if (   (   (pPhseg->X1 == apPhfig->XAB1) 

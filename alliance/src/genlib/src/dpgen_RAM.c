@@ -63,11 +63,10 @@ extern void  dpgen_RAM (aFunction, aAL)
 int   nmot;      	/* nombre de mots */
 int   nbit;      	/* nombre de bits */
 char *model_name;	/* nom de modele */
-long  flags;
 
 int HCELL = 50;
 
-int bottom,i,j,k;
+int bottom,i,j;
 int sym1,sym2;
 int adrange;
 
@@ -84,7 +83,7 @@ char x7[10];
 //////////////////////////////////////////////////////////
 
 model_name = va_arg (aAL, char*);
-flags      = va_arg (aAL, long );
+       (void)va_arg (aAL, long ); // flags are ignored.
 nbit       = va_arg (aAL, long );
 nmot       = va_arg (aAL, long );
 

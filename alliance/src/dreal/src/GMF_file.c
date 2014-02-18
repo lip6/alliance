@@ -59,7 +59,8 @@
 # include "GTB.h"
 # include "GSB.h"
 # include "GMF.h"
-
+# include "GMV.h"
+# include "GMT.h"
 # include "GMF_file.h"
 
 /*------------------------------------------------------------\
@@ -232,8 +233,6 @@ void DrealFileOpen( FileName )
 
   char *FileName;
 {
-  char       *Directory;
-  char       *File;
   int         Index;
   char       *SWAP_WORK_LIB = WORK_LIB;
 

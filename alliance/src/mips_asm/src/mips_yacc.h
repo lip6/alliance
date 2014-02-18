@@ -43,8 +43,6 @@ static FILE              *MPS_DATFIL = NULL;
 static unsigned long      MPS_DATADR = 0   ;
 static int                MPS_DATSIZ = 0   ;
 
-static char              *MPS_LABEL  = NULL;
-
 static FILE              *MPS_WRTFIL = NULL;
 static FILE              *MPS_SYMFIL = NULL;
 

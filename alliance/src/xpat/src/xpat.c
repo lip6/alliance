@@ -55,6 +55,7 @@
 # include "XPT.h"
 # include "XMX.h"
 
+# include "XPT_error.h"
 # include "xpat.h"
 
 /*------------------------------------------------------------\

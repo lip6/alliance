@@ -145,7 +145,6 @@ void XpatInitializeColors()
 {
   XColor   ForgetIt;
   XColor   GetIt;
-  Window   Root;
   int      Counter;
   char     Error;
   char    *ColorName;
@@ -198,8 +197,6 @@ void XpatInitializeColors()
 
 void XpatChangeCursorContext()
 {
-  XGCValues GraphicValue;
-
   if ( XPAT_XOR_CURSOR == XPAT_TRUE )
   {
     XpatXorGC = XpatXorGCXor;

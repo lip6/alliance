@@ -82,14 +82,14 @@
    export PATH
   
   # Only needed on Solaris (included in /etc/ld.so.conf under Linux).
-   if [ "`uname -o`" != "GNU/Linux" ]; then
+  #if [ "`uname -o`" != "GNU/Linux" ]; then
      if [ -z "${LD_LIBRARY_PATH}" ]; then
        LD_LIBRARY_PATH=$ALLIANCE_TOP/lib
      else
        LD_LIBRARY_PATH=$LD_LIBRARY_PATH:$ALLIANCE_TOP/lib
      fi
      export LD_LIBRARY_PATH
-   fi
+  #fi
   
    if [ -z "${MANPATH}" ]; then
      MANPATH=:$ALLIANCE_TOP/man:$(manpath)

@@ -65,6 +65,8 @@
 # include "XMX_color.h" 
 # include "XMX_panel.h"
 # include "XMX_dialog.h"
+# include "XMX_icon.h"
+# include "XMF_panel.h"
 
 /*------------------------------------------------------------\
 |                                                             |

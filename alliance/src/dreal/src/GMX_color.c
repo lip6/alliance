@@ -523,8 +523,6 @@ void DrealInitializeColors()
 
 void DrealChangeCursorContext()
 {
-  XGCValues GraphicValue;
-
   if ( DREAL_XOR_CURSOR == DREAL_TRUE )
   {
     DrealXorGC = DrealXorGCXor;
@@ -659,7 +657,7 @@ void DrealInitializeGraphicContext()
         Pattern = DrealLayerPatternDefine[ Counter ];
       }
   
-      GraphicValue.stipple    = DrealPattern[ Pattern ];
+      GraphicValue.stipple    = DrealPattern[ (int)Pattern ];
       GraphicValue.fill_style = FillStippled;
       GraphicValue.foreground = DrealColor[ 3 ];
   

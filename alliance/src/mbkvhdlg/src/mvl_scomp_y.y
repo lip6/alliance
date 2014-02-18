@@ -21,7 +21,9 @@
 #include "gen_generic.h"
 
 
-static int           MVL_GENFLG = 0   ; /* Indicates if generic         */
+extern int           yylex      ();
+extern void          yyerror    ();
+
 static int           MVL_CONRNK = 0   ; /* rank of an implicit connexion*/
 static int           MVL_SIGIDX = 1   ; /* structural's signal index    */
 static int           MVL_SIMFLG = 0   ; /* simple flag                  */
@@ -951,10 +953,7 @@ component_instantiation_statement
                 struct loins *loins_pnt    ;
                 struct locon *locon_pnt    ;
                 struct chain *chain_pnt    ;
-                struct logen *genmod       ;
-                char         *prt_name     ;
                 char          tampon [256] ;
-                long           i            = 0;
 
                 if (MVL_CHDPNT != NULL)
                   {
@@ -1076,12 +1075,13 @@ generic_simple_expression
         : .sign.
           generic_term
                 {
-                   if ($1)
+                   if ($1) {
                       if (MVL_LOGEN.TYPE!=GENTYPE_VAL) {
                          fputs("Don't know how to change Identifier sign\n",
                                stderr);
                       } else
                          MVL_LOGEN.VALUE.VAL = -MVL_LOGEN.VALUE.VAL;
+                   }
                 }
           ...generic_term..
         ;
@@ -1271,7 +1271,6 @@ association_element
                 }
         | actual_port_name
                 {
-                long           sig_width ;
                 struct chain *sig_list1 ;
                 char         *prt_name  ;
                 long           prt_width ;

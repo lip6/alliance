@@ -68,5 +68,6 @@
   extern void GraalEditSearchInstance();
   extern void GraalEditSearchSegment();
   extern void GraalEditSearchReference();
+  extern void GraalEditSearchVia();
 
 # endif

@@ -843,7 +843,7 @@ LST_EQUIPO lst_equipo;
 		case NORD :
 		case SUD  :
 			while (liste->suiv != NULL) {
-				if ((trouve = x < (liste->coord)->xabs)) {
+                if ((trouve = (x < (liste->coord)->xabs))) {
 					inserer_avant_lstcon(con, liste, &(tab_coeur[face]));
 					break;
 				}
@@ -863,7 +863,7 @@ LST_EQUIPO lst_equipo;
 		case EST  :
 		case OUEST:
 			while (liste->suiv != NULL) {
-				if ((trouve = y < (liste->coord)->yabs)) {
+                if ((trouve = (y < (liste->coord)->yabs))) {
 					inserer_avant_lstcon(con, liste, &(tab_coeur[face]));
 					break;
 				}
@@ -978,7 +978,7 @@ LST_EQUIPO lst_equipo;
 		case NORD:
 		case SUD:
 			while (liste->suiv != NULL) {
-				if ((trouve = x < (liste->coord)->xabs)) {
+                if ((trouve = (x < (liste->coord)->xabs))) {
 					inserer_avant_lstcon(con, liste, &(tab_plots[face].lst_con));
 					break;
 				}
@@ -997,7 +997,7 @@ LST_EQUIPO lst_equipo;
 		case OUEST:
 		case EST:
 			while (liste->suiv != NULL) {
-				if ((trouve = y < (liste->coord)->yabs)) {
+                if ((trouve = (y < (liste->coord)->yabs))) {
 					inserer_avant_lstcon(con, liste, &(tab_plots[face].lst_con));
 					break;
 				}

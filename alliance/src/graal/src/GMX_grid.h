@@ -73,4 +73,7 @@
 |                                                             |
 \------------------------------------------------------------*/
 
+extern void GraalInitializeLambdaGrid();
+extern char GraalDisplayLambdaGrid();
+
 # endif 

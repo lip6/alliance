@@ -86,19 +86,18 @@ extern void  dpgen_ROM (aFunction, aAL)
 {
 long nmot;	/* nombre de mots */
 long nbit; 	/* nombre de bits */
-long flags;    	/* indexation : bit 0 en bas si flags = 0 */
-long type;
+/*long flags; * UNUSED indexation : bit 0 en bas si flags = 0 */
+long type = 0;
 
 long HCELL = 50;
 
-long i,j,k,l,iter;
+long i,j,l;
 long x1,y1;
 long x2,y2;
 long sym;
-long adrange;
+long adrange = 0;
 
 long data[2048];
-long value;
 
 char *model_name;  
 char signame[30];  
@@ -120,7 +119,7 @@ char x9[30];
 
 
 model_name = va_arg (aAL, char*);
-flags      = va_arg (aAL, long );
+       (void)va_arg (aAL, long ); // flags are ignoreds.
 nbit       = va_arg (aAL, long );
 nmot       = va_arg (aAL, long );
 

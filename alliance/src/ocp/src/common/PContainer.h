@@ -53,7 +53,7 @@ class PContainer
     double              GetWidth() const                { return _bBox.GetWidth(); }
     double              GetHeight() const               { return _bBox.GetHeight(); }
     PBBox		GetBBox() const			{ return _bBox; };
-    void		MergeBBox(const PBBox bbox)	{_bBox.Merge(bbox); };
+    void		MergeBBox(const PBBox& bbox)	{_bBox.Merge(bbox); };
 
     virtual ostream&	Print(ostream& os) const = 0;
 };

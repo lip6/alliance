@@ -261,7 +261,7 @@ void XpatPlacePattern()
   char           Event;
   char          *NextString;
   char          *CurrentString;
-  char          *Name;
+  char          *Name = NULL;
   char           FirstTime;
   long           NumberIO;
   long           NumberBit;
@@ -273,7 +273,6 @@ void XpatPlacePattern()
   long           StepX;
   long           StepY;
   long           Height;
-  long           HalfHeight;
 
   unsigned long  CurrentTime;
   unsigned long  NextTime;
@@ -299,7 +298,6 @@ void XpatPlacePattern()
   StepX      = ( XPAT_UNIT * XPAT_PATTERN_STEP_X );
   StepY      = ( XPAT_UNIT * XPAT_PATTERN_STEP_Y );
 
-  HalfHeight = ( StepY / 4 );
   Height     = ( StepY / 2 );
   X          = 0;
   FirstTime  = 1;
@@ -523,9 +521,9 @@ xpatobj_list *XpatAddCursor( X )
   if ( X >= 0 ) 
   {
     NumberIO = XpatFigurePat->IO_NUMBER;
-    Unit     = XpatTimeUnit[ XpatFigurePat->TIME_UNIT ];
+    Unit     = XpatTimeUnit[ (int)XpatFigurePat->TIME_UNIT ];
 
-    sprintf( Buffer, "<%d %s>", X, Unit );
+    sprintf( Buffer, "<%ld %s>", X, Unit );
 
     X *= XPAT_UNIT;
     Y1 = (           -1 )  * XPAT_PATTERN_STEP_Y * XPAT_UNIT;

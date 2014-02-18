@@ -71,7 +71,7 @@
 #include "mbkgen.h"
 #define __GENLIB__
 #include "mgn.h"
-static char rcsid[] = "$Id: genlib.c,v 1.14 2012/05/14 14:20:13 alliance Exp $";
+//static char rcsid[] = "$Id: genlib.c,v 1.14 2012/05/14 14:20:13 alliance Exp $";
 
 /*******************************************************************************
 * global variables used in genlib                                              *
@@ -338,7 +338,7 @@ long dx1, dy1, dx2, dy2;
 {
 phfig_list *ptfig;
 phins_list *ptins;
-ptype_list *ptype;
+/*ptype_list *ptype;*/
 long x1, y1, x2, y2;
 long insx1, insx2, insy1, insy2;
 
@@ -355,10 +355,10 @@ long insx1, insx2, insy1, insy2;
       y2 = y1 = WORK_PHFIG->PHINS->YINS;
    }
    for (ptins = WORK_PHFIG->PHINS; ptins; ptins = ptins->NEXT) {
+#if 0
       ptype = getptype(ptins->USER, (long)PLACEABOX);
    /* This has been commented out as it should never ever occur, since
     * all instances are placed using genlib. */
-#if 0
       if (ptype == NULL) {
 #endif
          ptfig = getphfig(ptins->FIGNAME, 'P');
@@ -2241,7 +2241,7 @@ phins_list *ins;
 phcon_list *con = NULL; /* To make -Wall happy */
 phseg_list *seg = NULL; /* may not be overwritten */
 phref_list *ref;
-chain_list *chain = NULL;
+/* chain_list *chain = NULL; */
 long x, y;
 
    if (WORK_PHFIG == NULL) {
@@ -2298,8 +2298,9 @@ long x, y;
    }
 
    /* Absolutly needed for GenView */
-   if (seg)
-      chain = addchain(chain, (void *)seg);
+   /* if (seg)
+    *   chain = addchain(chain, (void *)seg);
+    */
    return addptype(
              seg ? addptype(NULL, MBK_SEGMENT, addchain(NULL, seg)) : NULL,
                  MBK_CONNECTOR,
@@ -2993,7 +2994,7 @@ chain_list *ptchain = NULL;
                   *s = ' ';
             break;
          }
-      if (sscanf(signame, " %s %d:%d => %s %d:%d ", con, &icon, &jcon, sig, &isig, &jsig) == 6) {
+      if (sscanf(signame, " %99s %11d:%11d => %99s %11d:%11d ", con, &icon, &jcon, sig, &isig, &jsig) == 6) {
          if (abs(icon - jcon) != abs(isig - jsig) || icon == jcon) {
 
             fprintf(stderr, "Not a valid range : %s[%d:%d] => %s[%d:%d]\n",
@@ -3006,7 +3007,7 @@ chain_list *ptchain = NULL;
             consiglist = addptype(consiglist,
                                     (long)vectorize(con, nb),
                                     vectorize(sig, nbs));
-      } else if (sscanf(signame, " %s => %s ", con, sig) == 2)
+      } else if (sscanf(signame, " %99s => %99s ", con, sig) == 2)
          consiglist = addptype(consiglist, (long)namealloc(checkname(con)),
                                  namealloc(checkname(sig)));
       else {
@@ -3158,7 +3159,7 @@ char  *s;
          }
          ptchain1 = ptchain1->NEXT;
       }
-      ptchain1 = (chain_list *)reverse(ptchain1);
+    //ptchain1 = (chain_list *)reverse(ptchain1);
    }
 }
 
@@ -3516,9 +3517,8 @@ chain_list *chain;
 logen_list *genLOGENLIST(int type, ...)
 {
 va_list     ap;
-int         v;
 char       *s, *t;
-logen_list *g = NULL, *x = NULL;
+logen_list *g = NULL;
 
    va_start(ap, type);
    while (type != GENTYPE_EMPTY) {
@@ -3568,7 +3568,7 @@ logen_list *g;
 
    p->DATA = g = addlogen(p->DATA, name);
 
-   if (type < 0 && type > GENTYPE_MAX) {
+   if (type < 0 || type > GENTYPE_MAX) {
       (void)fflush(stdout);
       (void)fputs("*** genlib error ***\n", stderr);
       (void)fprintf(stderr, "Illegal LOGEN: unsupported generic type\n");
@@ -3602,7 +3602,7 @@ logen_list *g;
           EXIT(1);
    }
    va_end(ap);
-   debuglogen(g, 0);
+ //debuglogen(g, 0);
 }
 
 /*******************************************************************************
@@ -3612,7 +3612,6 @@ void genSETLOGEN(char *instance, char *name, ...)
 {
 va_list ap; /* We have a single argument, but of unknown type yet! */
 loins_list *i = getloins(WORK_LOFIG, instance);
-lofig_list *f;
 ptype_list *p;
 logen_list *g;
 char       *s, *t;
@@ -4236,7 +4235,7 @@ char *buffer = mbkstrdup(busname);
    if (!(space = strchr(buffer, ']')))
       return 0;
    *space = ' ';
-   (void)sscanf(buffer, "%s %ld %ld", signame, first, last);
+   (void)sscanf(buffer, "%1024s %22ld %22ld", signame, first, last);
    mbkfree(buffer);
    return 1;
 }

@@ -65,6 +65,7 @@
 # include "GME_modify.h"
 # include "GME_search.h"
 # include "GME_edit.h"
+# include "GME_message.h"
 
 /*------------------------------------------------------------\
 |                                                             |
@@ -431,7 +432,7 @@ void CallbackModifySegmentWidthOk( MyWidget, ClientData, CallData )
     NewWidth = atof( WidthSet );
     NewWidth = (float)( (long)( NewWidth * Factor / 2.0 ) * 2 / Factor );
 
-    if ( NewWidth >=  GRAAL_SEGMENT_VALUE_TABLE[ GraalSegmentMLayer ][0] )    
+    if ( NewWidth >=  GRAAL_SEGMENT_VALUE_TABLE[ (int)GraalSegmentMLayer ][0] )    
     {
       GraalSegmentMWidth = NewWidth;
     }
@@ -570,7 +571,7 @@ void CallbackModifyTransistorWidthOk( MyWidget, ClientData, CallData )
     NewWidth = atof( WidthSet );
     NewWidth = (float)( (long)( NewWidth * Factor / 2.0 ) * 2 / Factor );
 
-    if ( NewWidth >= GRAAL_SEGMENT_VALUE_TABLE[ GraalTransistorMType ][0] )
+    if ( NewWidth >= GRAAL_SEGMENT_VALUE_TABLE[ (int)GraalTransistorMType ][0] )
     {
       GraalTransistorMWidth = NewWidth;
     }
@@ -702,7 +703,7 @@ void CallbackModifyConnectorWidthOk( MyWidget, ClientData, CallData )
     NewWidth = atof( WidthSet );
     NewWidth = (float)( (long)( NewWidth * Factor / 2.0 ) * 2 / Factor );
 
-    if ( NewWidth >= GRAAL_SEGMENT_VALUE_TABLE[ GraalConnectorMLayer ][0] )
+    if ( NewWidth >= GRAAL_SEGMENT_VALUE_TABLE[ (int)GraalConnectorMLayer ][0] )
     {
       GraalConnectorMWidth = NewWidth;
     }

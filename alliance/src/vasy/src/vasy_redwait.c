@@ -328,8 +328,8 @@ static void VasyRedWaitStackVpnTrans()
   VpnArc = GetVpnArc( EndWait->PLACE_IN );
   EndPlace = GetVpnArcSourcePlace( VpnArc );
 
-  VpnArc = addvpnarcplace( VasyFigure, BeginPlace, VpnTrans );
-  VpnArc = addvpnarctrans( VasyFigure, VpnTrans  , EndPlace );
+  addvpnarcplace( VasyFigure, BeginPlace, VpnTrans );
+  addvpnarctrans( VasyFigure, VpnTrans  , EndPlace );
 
   RedAction = 0;
 

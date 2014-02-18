@@ -43,6 +43,7 @@
 \------------------------------------------------------------*/
 
 # include <stdio.h>
+# include <string.h>
 
 # include "mut.h"
 # include "mlo.h"
@@ -298,7 +299,6 @@ long LynxCutTransistorElbow( Figure, Window, Core )
   long            X;
   long            Y;
   int             MbkLayer;
-  char            TransType;
   char            CXType;
 
   rdsbegin();
@@ -316,7 +316,6 @@ long LynxCutTransistorElbow( Figure, Window, Core )
 
     if ( Table == (long *)0 ) continue;
 
-    TransType = GET_LYNX_TRANSISTOR_TYPE( MbkLayer );
     CXType    = GET_LYNX_TRANSISTOR_CX( MbkLayer );
     GateLayer = GET_LYNX_TRANSISTOR_GATE_LAYER( MbkLayer );
     DiffLayer = GET_LYNX_TRANSISTOR_DIFF_LAYER( MbkLayer );

@@ -904,11 +904,11 @@ phfig_list *circuit_ph;
 	phins_list * lst_instph = circuit_ph->PHINS;
 	phcon_list * liste_con;
 	char	orientnord = 'N', *nominst = ((loins_list*)con_lo->ROOT)->INSNAME;
-	char	orientplot, *figure =  ((loins_list*)con_lo->ROOT)->FIGNAME;
+	char	/*orientplot,*/ *figure =  ((loins_list*)con_lo->ROOT)->FIGNAME;
 
 	while (NULL != lst_instph) {
 		if (lst_instph->INSNAME == nominst) {
-			orientplot = lst_instph->TRANSF;
+        //orientplot = lst_instph->TRANSF;
 			break;
 		}
 
@@ -950,7 +950,7 @@ chain_list     *ptalim;
 	int	i, nbcolatrouver;
 
 	if (mode_debug) 
-		printf("\tCroisement con avec alim  %s larg %ld face %ld x %ld y %ld\n", concoeur->nom_con, concoeur->largeur,
+		printf("\tCroisement con avec alim  %s larg %ld face %d x %ld y %ld\n", concoeur->nom_con, concoeur->largeur,
 		     concoeur->face, ptcoor->xabs, ptcoor->yabs);
 
 	nbcolatrouver = (concoeur->largeur + pitch) / (2 * pitch);
@@ -1034,7 +1034,7 @@ long	*largvdd, *largvss;
 	char	*nom_con;
 	long	larg_con, largeurvdd, largeurvss;
 	int	existevdd = 0, existevss = 0;
-	static int	mess = 1;
+  //static int	mess = 1;
 
 	ptvdd = equipo_vdd->lst_con;
 	ptvss = equipo_vss->lst_con;
@@ -1091,7 +1091,7 @@ long	*largvdd, *largvss;
 		liste = liste->NEXT;
 	}
 
-	mess = 0;
+  //mess = 0;
 	if (!existevdd)  
 		vdd_width = (*largvdd) = largeurvdd / 2;
 	if (!existevss)  
@@ -1115,7 +1115,7 @@ char	testlayer;
 	char	metalcol = 0;
 
 	if (mode_debug) 
-		printf("\tCroisement con avec alim equi %s larg %ld face %ld x %ld y %ld\n", concoeur->nom_con, concoeur->largeur,
+		printf("\tCroisement con avec alim equi %s larg %ld face %d x %ld y %ld\n", concoeur->nom_con, concoeur->largeur,
 		     concoeur->face, concoeur->coord->xabs, concoeur->coord->yabs);
 
 	switch (concoeur->face) {
@@ -1147,7 +1147,7 @@ char	testlayer;
 			}
 
 			if (mode_debug) 
-				printf("\tCroisement conplot avec alim equi %s larg %ld face %ld position%ld\n", con->nom_con,
+				printf("\tCroisement conplot avec alim equi %s larg %ld face %d position%ld\n", con->nom_con,
 				     con->largeur, con->face, position);
 
 			if (position < positioncour) { 

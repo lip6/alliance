@@ -28,6 +28,7 @@
 
 #include "drucutil.h"
 #include "vmctools.h"
+#include "vmcunify.h"
 #include "deftools.h"
 #include "defunion.h"
 #include "definter.h"

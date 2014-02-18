@@ -342,8 +342,7 @@ int FspVerifyInputOutput( FsmFigure1, FsmFigure2 )
   fsmout_list *ScanOut;
   authtable   *HashTable;
 
-  if ( ( FsmFigure1->NUMBER_IN  != FsmFigure2->NUMBER_IN  ) ||
-       ( FsmFigure2->NUMBER_OUT != FsmFigure2->NUMBER_OUT ) )
+  if ( FsmFigure1->NUMBER_IN  != FsmFigure2->NUMBER_IN  )
   {
     return( 0 );
   }

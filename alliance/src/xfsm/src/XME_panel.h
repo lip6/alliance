@@ -86,5 +86,6 @@
   extern void CallbackEditSelectCancel();
 
   extern void XfsmDisplaySelectList();
+  extern void XfsmEditSelectAccept();
 
 # endif 

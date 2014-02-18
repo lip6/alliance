@@ -202,17 +202,17 @@ void XschBuildPresentPanel()
                            );
 
   PanelPixmap = XschCreatePixmap( XschMainWindow,
-                                    LIP6bw_bits,
-                                    LIP6bw_width,
-                                    LIP6bw_height);
+                                  LIP6bw_bits,
+                                  LIP6bw_width,
+                                  LIP6bw_height);
 
   PanelLabel = XtVaCreateManagedWidget( "",
-                                         xmLabelGadgetClass, 
-                                         XschHelpPresentPanel.FORM,
-			                   XmNlabelType   , XmPIXMAP,
-			                   XmNlabelPixmap , PanelPixmap,
-			                   NULL
-                                       );
+                                        xmLabelGadgetClass, 
+                                        XschHelpPresentPanel.FORM,
+                                        XmNlabelType   , XmPIXMAP,
+                                        XmNlabelPixmap , PanelPixmap,
+                                        NULL
+                                      );
 
   sprintf( Buffer, "ALLIANCE CAD SYSTEM  %s\n", ALLIANCE_VERSION );
 

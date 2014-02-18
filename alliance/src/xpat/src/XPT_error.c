@@ -321,7 +321,7 @@ char *XpatGetInformations()
 
   Scan = Scan + strlen( Scan );
 
-  sprintf( Scan, "  BOUNDING BOX : \n\n  XMIN : %d\n  YMIN : %d\n  XMAX : %d\n  YMAX : %d\n\n",
+  sprintf( Scan, "  BOUNDING BOX : \n\n  XMIN : %ld\n  YMIN : %ld\n  XMAX : %ld\n  YMAX : %ld\n\n",
            XpatBoundXmin / XPAT_UNIT, XpatBoundYmin / XPAT_UNIT,
            XpatBoundXmax / XPAT_UNIT, XpatBoundYmax / XPAT_UNIT );
 

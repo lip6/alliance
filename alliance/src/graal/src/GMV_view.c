@@ -58,6 +58,7 @@
 # include "GMV.h"
 
 # include "GMV_view.h"
+# include "GMX_grid.h"
 
 /*------------------------------------------------------------\
 |                                                             |

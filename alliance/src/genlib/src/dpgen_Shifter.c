@@ -118,7 +118,7 @@
 
 */
 
-static char rcsid[]="$Id: dpgen_Shifter.c,v 1.11 2012/05/14 14:20:13 alliance Exp $";
+//static char rcsid[]="$Id: dpgen_Shifter.c,v 1.11 2012/05/14 14:20:13 alliance Exp $";
 
 
 #include  "util_Defs.h"
@@ -193,7 +193,7 @@ extern void dpgen_Shifter(aFunction, aAL)
    int ops;
    char *LSB, *MSB; 
    char *MuxInput0, *MuxInput1, *MuxInput2;  /* Mux inputs */
-   char *Cell;
+   char *Cell = NULL;
    int sym, mys;
 
    modelName =      va_arg (aAL, char*);
@@ -361,11 +361,12 @@ extern void dpgen_Shifter(aFunction, aAL)
          GENLIB_SC_TOP(XX_NAME("a_%d", 0), SYM);
       }
       for (SliceIndex = 0; SliceIndex < Slices; SliceIndex++) {
-         if (SliceIndex > 0)
+         if (SliceIndex > 0) {
             if (aFunction == DPGEN_SHROT)
                GENLIB_DEF_PHINS(XX_NAME("oa_%d", SliceIndex * n + n - 1));
             else
                GENLIB_DEF_PHINS(XX_NAME("m_%d", SliceIndex * n + n - 1));
+         }
          if (SliceIndex == 0)
             GENLIB_SC_RIGHT(XX_NAME("i_%d", SliceIndex), SYM);
          else

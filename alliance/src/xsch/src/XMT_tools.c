@@ -55,9 +55,11 @@
 # include "XMX.h"
 # include "XSC.h"
 # include "XMT.h"
+# include "XMV.h"
 
 # include "XMT_tools.h"
 # include "XMT_message.h"
+# include "XMX_event.h"
 
 /*------------------------------------------------------------\
 |                                                             |
@@ -179,7 +181,6 @@ char XschDelHierarchy()
 
 void XschToolsHierarchyDown()
 {
-  xschselect_list *Select;
   xschobj_list    *Obj;
   schbox_list     *SchBox;
   loins_list      *LoIns;
@@ -324,7 +325,7 @@ static void XschToolsSaveXfigLine( X1r, Y1r, X2r, Y2r )
    *        + Poly Line
    */
 
-  fprintf( XschXfigFile, "  %ld %ld %ld %dl\n", X1r, XschXfigDy - Y1r,
+  fprintf( XschXfigFile, "  %ld %ld %ld %ld\n", X1r, XschXfigDy - Y1r,
                                                 X2r, XschXfigDy - Y2r );
 }
 
@@ -394,15 +395,15 @@ static void XschToolsSaveXfigCircle( X1r, Y1r, Dx, Dy )
   Rady = Dy / 2;
 
   fprintf( XschXfigFile,
-           "1 3 0 1 %d 0 %d  0 -1 0.000 1 0.000 %d %d %d %d %d %d %d %d\n",
-  /*        ^ ^ ^ ^ ^  ^ ^   ^  ^ ^     ^ ^     ^  ^  ^  ^  ^  ^  ^  ^
-   *        | | | | |  | |   |  | |     | |     |  |  |  |  |  |  |  + end_y
-   *        | | | | |  | |   |  | |     | |     |  |  |  |  |  |  + end_x
-   *        | | | | |  | |   |  | |     | |     |  |  |  |  |  + start_y
-   *        | | | | |  | |   |  | |     | |     |  |  |  |  + start_x
-   *        | | | | |  | |   |  | |     | |     |  |  |  + rad_y
-   *        | | | | |  | |   |  | |     | |     |  |  + rad_x
-   *        | | | | |  | |   |  | |     | |     |  + Cy
+           "1 3 0 1 %d 0 %d  0 -1 0.000 1 0.000 %ld %ld %ld %ld %ld %ld %ld %ld\n",
+  /*        ^ ^ ^ ^ ^  ^ ^   ^  ^ ^     ^ ^     ^   ^   ^   ^   ^   ^   ^   ^
+   *        | | | | |  | |   |  | |     | |     |   |   |   |   |   |   |   + end_y
+   *        | | | | |  | |   |  | |     | |     |   |   |   |   |   |   +  end_x
+   *        | | | | |  | |   |  | |     | |     |   |   |   |   |   +  start_y
+   *        | | | | |  | |   |  | |     | |     |   |   |   |   + start_x
+   *        | | | | |  | |   |  | |     | |     |   |   |   + rad_y
+   *        | | | | |  | |   |  | |     | |     |   |   + rad_x
+   *        | | | | |  | |   |  | |     | |     |   + Cy
    *        | | | | |  | |   |  | |     | |     + Cx
    *        | | | | |  | |   |  | |     | + Angle
    *        | | | | |  | |   |  | |     + Direction
@@ -506,7 +507,6 @@ static void XschToolsSaveXfigArc( X1r, Y1r, Dx, Dy, AngleFrom, AngleTo )
   long          AngleFrom;
   long          AngleTo;
 {
-  long   MiddleAngle;
   long   Xc;
   long   Yc;
   long   Width;
@@ -587,7 +587,7 @@ static void XschToolsSaveXfigBuffer( X1r, Y1r, X2r, Y2r, Ycr, Obj )
 ** Fred Petrot  (The King ) has initially written those lines !
 ** Ludo Jacomme (The Slave) has modified them :-)
 */
-  long gs;
+/*long gs;*/
   long is_x;
   long is_y;
   long cs;
@@ -601,7 +601,7 @@ static void XschToolsSaveXfigBuffer( X1r, Y1r, X2r, Y2r, Ycr, Obj )
   if ( DeltaX <= 0 ) DeltaX = 1;
   if ( DeltaY <= 0 ) DeltaY = 1;
 
-  gs = DeltaX;
+/*gs = DeltaX;*/
   is_x = ( 5 * DeltaX ) / 16;
   is_y = ( 5 * DeltaY ) / 8;
   cs = DeltaX / 8;
@@ -658,12 +658,12 @@ static void XschToolsSaveXfigTristate( X1r, Y1r, X2r, Y2r, Ycr, Obj )
 ** Fred Petrot  (The King ) has initially written those lines !
 ** Ludo Jacomme (The Slave) has modified them :-)
 */
-  long gs;
+/*long gs;*/
   long is_x;
   long is_y;
   long cs;
   long csm;
-  long x, x1, y1, y2,y0;
+  long x, y1, y2,y0;
   long DeltaX;
   long DeltaY;
 
@@ -673,14 +673,14 @@ static void XschToolsSaveXfigTristate( X1r, Y1r, X2r, Y2r, Ycr, Obj )
   if ( DeltaX <= 0 ) DeltaX = 1;
   if ( DeltaY <= 0 ) DeltaY = 1;
 
-  gs = DeltaX;
+/*gs = DeltaX;*/
   is_x = ( 5 * DeltaX ) / 16;
   is_y = ( 5 * DeltaY ) / 16;
   cs = DeltaX / 8;
   csm = DeltaX / 10;
 
   y1 = Ycr;
-  x1 = (X2r + X1r) / 2;
+/*x1 = (X2r + X1r) / 2;*/
   x  = X1r + cs;
  
   XschToolsSaveXfigLine( x, y1 - is_y/2, x, y1 + is_y/2);
@@ -756,22 +756,20 @@ static void XschToolsSaveXfigConstant( X1r, Y1r, X2r, Y2r, Ycr, Obj )
   long          Ycr;
   xschobj_list *Obj;
 {
- long is_x;
- long is_y;
  long cs;
  long x, yc, y1,y2,y3;
  long DeltaX;
- long DeltaY;
+/*long DeltaY;*/
  int  i;
  int  n;
  
  n = Obj->ARG1;
 
  DeltaX = X2r - X1r;
- DeltaY = Y2r - Y1r;
+/* DeltaY = Y2r - Y1r;*/
 
  if ( DeltaX <= 0 ) DeltaX = 1;
- if ( DeltaY <= 0 ) DeltaY = 1;
+/* if ( DeltaY <= 0 ) DeltaY = 1;*/
 
   cs = DeltaX / 8;
   x  = X1r + cs;
@@ -837,24 +835,17 @@ static void XschToolsSaveXfigTransistor( X1r, Y1r, X2r, Y2r, Ycr, Obj )
 ** Fred Petrot  (The King ) has initially written those lines !
 ** Ludo Jacomme (The Slave) has modified them :-)
 */
-  long gs;
-  long is_x;
-  long is_y;
   long cs;
-  long csm;
   long x, x1, y1, y2,y0;
   long DeltaX;
-  long DeltaY;
+/*long DeltaY;*/
 
   DeltaX = X2r - X1r;
-  DeltaY = Y2r - Y1r;
+/*DeltaY = Y2r - Y1r;*/
 
   if ( DeltaX <= 0 ) DeltaX = 1;
-  if ( DeltaY <= 0 ) DeltaY = 1;
+/*if ( DeltaY <= 0 ) DeltaY = 1;*/
 
-  gs = DeltaX;
-  is_x = ( 5 * DeltaX ) / 16;
-  is_y = ( 5 * DeltaY ) / 16;
   cs = DeltaX / 8;
 
   y0 = Obj->Y + ( SCP_BOX_CON_BASE_Y * XSCH_UNIT );
@@ -1467,7 +1458,6 @@ static void XschToolsSaveXfigMux( X1r, Y1r, X2r, Y2r, Ycr, Obj )
   long          Ycr;
   xschobj_list *Obj;
 {
-  long gs_y;
   long gs_x;
   long ms_x;
   long ms_y;
@@ -1476,25 +1466,25 @@ static void XschToolsSaveXfigMux( X1r, Y1r, X2r, Y2r, Ycr, Obj )
   int ni;
   int ns;
 
-  long x, y;
+  long x;
   long yc;
   long y1;
   long y2;
   long y3;
   long x3;
   long DeltaX;
-  long DeltaY;
+/*long DeltaY;*/
 
  DeltaX = X2r - X1r;
- DeltaY = Y2r - Y1r;
+/* DeltaY = Y2r - Y1r;*/
 
  if ( DeltaX <= 0 ) DeltaX = 1;
- if ( DeltaY <= 0 ) DeltaY = 1;
+/* if ( DeltaY <= 0 ) DeltaY = 1;*/
 
  ns = Obj->ARG1;
  ni = Obj->ARG2;
 
-  gs_y = ( 7 * DeltaY ) / 8;
+/*gs_y = ( 7 * DeltaY ) / 8;*/
   gs_x = ( 6 * DeltaX ) / 8;
   cs   = DeltaX / 8;
 
@@ -1511,8 +1501,6 @@ static void XschToolsSaveXfigMux( X1r, Y1r, X2r, Y2r, Ycr, Obj )
 
   y2   = y1;
   ms_y = y2 - Y1r;
-
-  y2 = y2;
 
   XschToolsSaveXfigRectangle( x, y2, x + ms_x, y2 - ms_y );
 
@@ -1593,7 +1581,7 @@ static void XschToolsSaveXfigOrAnd( X1r, Y1r, X2r, Y2r, Ycr, Obj )
   long          Ycr;
   xschobj_list *Obj;
 {
-  long gs_y;
+/*long gs_y;*/
   long gs_x;
   long cs;
   int i;
@@ -1605,7 +1593,7 @@ static void XschToolsSaveXfigOrAnd( X1r, Y1r, X2r, Y2r, Ycr, Obj )
   long gas_x;
   long Radius;
 
-  long x, y;
+  long x /*, y*/;
   long yc;
   long y1;
   long DeltaX;
@@ -1619,12 +1607,12 @@ static void XschToolsSaveXfigOrAnd( X1r, Y1r, X2r, Y2r, Ycr, Obj )
 
   n = Obj->ARG1;
 
-  gs_y = ( 7 * DeltaY ) / 8;
+/*gs_y = ( 7 * DeltaY ) / 8;*/
   gs_x = ( 6 * DeltaX ) / 8;
   cs   = DeltaX / 8;
 
   yc = Ycr;
-  y  = Ycr - gs_y/2;
+/*y  = Ycr - gs_y/2;*/
   x = X1r + cs;
 
   if ( Obj->ARG3 == 0 )
@@ -1707,7 +1695,7 @@ static void XschToolsSaveXfigOrAnd( X1r, Y1r, X2r, Y2r, Ycr, Obj )
   gas_y   = 2 * DeltaY / 3;
   gas_x   = ( 2 * gs_x ) / 3;
   yc      = Ycr;
-  y       = yc + gas_y /2;
+/*y       = yc + gas_y /2;*/
   x       = x + gos_x;
 
   XschToolsSaveXfigLine( x, yc - gas_y /2, x, yc + gas_y/2);
@@ -1818,7 +1806,6 @@ void XschToolsSaveXfigObject( Obj )
 
    xschobj_list *Obj;
 {
-  int     Index;
   long    X1r;
   long    X2r;
   long    Y1r;
@@ -1827,9 +1814,6 @@ void XschToolsSaveXfigObject( Obj )
   long    DeltaX;
   long    DeltaY;
   short   ObjType;
-  long    Length;
-  long    WidthText;
-  long    HeightText;
 
   if ( IsXschLineLeft( Obj ) )
   {
@@ -1993,10 +1977,6 @@ void XschToolsSaveXfigObject( Obj )
          ( ( IsXschSchNet( Obj                                   ) && 
              XSCH_ACTIVE_NAME_TABLE[ XSCH_NET_NAME       ]     ) ) )
     {
-      Length     = strlen( Obj->NAME );
-      WidthText  = Length * 15;
-      HeightText = 15;
-
       if ( Obj->TYPE == XSCH_OBJECT_TEXT_RIGHT )
       {
         /* Left */
@@ -2033,7 +2013,6 @@ void XschToolsSaveXfig( FileName )
   char *FileName;
 {
   xschobj_list *Obj;
-  char         *NewFileName;
   int           Layer;
 
 
@@ -2059,7 +2038,7 @@ void XschToolsSaveXfig( FileName )
 
   for ( Layer = 0; Layer < XSCH_MAX_LAYER; Layer++ )
   {
-    fprintf( XschXfigFile, "0 %d #%06x\n", Layer + 32, XSCH_LAYER_XFIG_COLOR[ Layer ] );
+    fprintf( XschXfigFile, "0 %d #%06lx\n", Layer + 32, (unsigned long)XSCH_LAYER_XFIG_COLOR[ Layer ] );
   }
 
   for ( Layer = 0; Layer < XSCH_MAX_LAYER; Layer++ )

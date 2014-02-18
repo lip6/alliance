@@ -237,7 +237,9 @@
              (Widget)NULL
            }
            ,
-           NULL
+           {
+             NULL
+           }
          };
 
    XschPanelItem XschViewArrowsPanel =
@@ -425,7 +427,9 @@
              (Widget)NULL
            }
            ,
-           NULL
+           {
+             NULL
+           }
          };
 
    XschPanelItem XschViewZoomPanel =
@@ -522,7 +526,9 @@
              (Widget)NULL   
            }
            ,
-           NULL
+           {
+             NULL
+           }
          };
 
      XschPanelItem XschViewGridPanel =
@@ -1671,7 +1677,9 @@
              (Widget)NULL
            }
            ,
-           NULL
+           {
+             NULL
+           }
          };
 
      XschPanelItem XschViewLayerPanel =
@@ -2419,7 +2427,7 @@ void CallbackLayerForceDisplay( MyWidget, ClientData, CallData )
 
 void XschChangeCursor( Type )
 
-  char Type;
+  int Type;
 {
   int      Pos;
   XmString Label;
@@ -2447,7 +2455,7 @@ void XschChangeCursor( Type )
 
 void XschChangeForceDisplay( Index )
 
-  char Index;
+  int Index;
 {
   int      Pos;
   XmString Label;

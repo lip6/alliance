@@ -58,6 +58,7 @@
 
 # include "XME_dialog.h"
 # include "XME_edit.h"
+# include "XME_search.h"
 
 /*------------------------------------------------------------\
 |                                                             |

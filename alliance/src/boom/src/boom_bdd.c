@@ -540,7 +540,7 @@ static long BoomBddSetExprKeepAux( Expr )
 
             addauthelem( BoomBddHashKeepAux, BehAux->NAME, 0 );
             SetBoomBehAuxKeep( BehAux );
-            BddNode = addbddcircuitin( (bddcircuit *)0, BehAux->NAME, 0, BDD_IN_MODE_LAST );
+            /*BddNode =*/ addbddcircuitin( (bddcircuit *)0, BehAux->NAME, 0, BDD_IN_MODE_LAST );
   
             Number++;
           }
@@ -677,7 +677,7 @@ void BoomBehMakeBddNodeNoExplosion( BehFigure )
           }
           else
           {
-            BddNode = addbddcircuitin( (bddcircuit *)0, BehAux->NAME, 0, BDD_IN_MODE_LAST );
+            /*BddNode =*/ addbddcircuitin( (bddcircuit *)0, BehAux->NAME, 0, BDD_IN_MODE_LAST );
 
             if ( IsBoomBehAuxKeep( BehAux ) )
             {
@@ -1780,7 +1780,7 @@ void BoomBehRandomBddOrder( BehFigure, Amplitude )
   befig_list *BehFigure;
   long        Amplitude;
 {
-  boombefiginfo *FigInfo;
+/*boombefiginfo *FigInfo;*/
   long           NumberVar;
   long           MaxNode;
   long           BddVar;
@@ -1790,7 +1790,7 @@ void BoomBehRandomBddOrder( BehFigure, Amplitude )
 
   static unsigned char InitRandom = 1;
 
-  FigInfo = GetBoomBehFigInfo( BehFigure );
+/*FigInfo = GetBoomBehFigInfo( BehFigure );*/
 
   if ( InitRandom )
   {

@@ -44,6 +44,10 @@
 #include "vbl_bspec.h"
 #include "vbl_byacc.h"
 
+extern  int   yywrap    ( );
+extern  int   yylex     ( );
+extern  void  yyerror   ( );
+
 #if 1
 # define my_fprintf fprintf( stdout, "%s %d : ", basename(__FILE__), __LINE__ ); fprintf
 # define my_vbl_error(N,V) \
@@ -496,13 +500,13 @@ package_declaration
             chain_list *ScanChain;
             char       *Name;
             char      **FuncArray;
-            long         Index;   
-            long        Left;
-            long        Right;
-            long        AttrLeft;
-            long        AttrRight;
+            long        Index;   
+            long        Left      = 0;
+            long        Right     = 0;
+            long        AttrLeft  = 0;
+            long        AttrRight = 0;
             long        Dir;
-            long         Signed;
+            long        Signed    = 0;
             vbcst_list *VbhCst;
             vbaux_list *VbhAux;
             vbmod_list *VbhMod;
@@ -1584,8 +1588,8 @@ local_port_element
             vbpor_list *VbPort;
             vbtyp_list *VbType;
             short       Signed;
-            long        Left;
-            long        Right;
+            long        Left      = 0;
+            long        Right      = 0;
             long        AttrLeft;
             long        AttrRight;
 
@@ -1908,12 +1912,12 @@ entity_declaration
             char       *Name;
             char      **FuncArray;
             long         Index;   
-            long        Left;
-            long        Right;
-            long        AttrLeft;
-            long        AttrRight;
+            long        Left      = 0;
+            long        Right     = 0;
+            long        AttrLeft  = 0;
+            long        AttrRight = 0;
             long        Dir;
-            long         Signed;
+            long        Signed    = 0;
             vbcst_list *VbhCst;
             vbaux_list *VbhAux;
             vbmod_list *VbhMod;
@@ -2448,8 +2452,8 @@ formal_port_element
             vexexpr    *VexInit;
             char        buffer[ 40 ];
             short       Signed;
-            long        Left;
-            long        Right;
+            long        Left     = 0;
+            long        Right    = 0;
             long        AttrLeft;
             long        AttrRight;
             struct vbl_expr expr1;
@@ -3481,8 +3485,8 @@ constant_declaration
           chain_list    *ScanChain;
           vbl_vexstr    *VexStr;
           short          Signed;
-          long           Left;
-          long           Right;
+          long           Left   = 0;
+          long           Right  = 0;
           short          Width;
           long           AttrLeft;
           long           AttrRight;
@@ -3611,8 +3615,8 @@ variable_declaration
             long           EnumSize;
             vbvar_list   *VbVar;
             short         Signed;
-            long          Left;
-            long          Right;
+            long          Left   = 0;
+            long          Right  = 0;
             long          AttrLeft;
             long          AttrRight;
             char          StrFlag;
@@ -3826,8 +3830,8 @@ signal_declaration
             char         *codedsigname;
             vbtyp_list   *TypeEnum;
             short         Signed;
-            long          Left;
-            long          Right;
+            long          Left   = 0;
+            long          Right  = 0;
             long          AttrLeft;
             long          AttrRight;
             long           EnumSize;
@@ -4180,13 +4184,13 @@ enumeration_type_definition
           ...enumeration_literal..
           RightParen_ERR
           {
-                char  buffer[ 128 ];
-                char *enumname;
-                char *enumval;
+              char  buffer[ 128 ];
+              char *enumname;
+              char *enumval;
               long size;
               long indice;
-                long numbit;
-                char **pnt;
+              long numbit;
+              char **pnt = NULL;
               chain_list *nm1lst;
 
                 VBL_NM1LST = reverse (VBL_NM1LST);
@@ -4316,7 +4320,7 @@ constrained_array_definition
                 my_vbl_error(123,NULL);
               }
 
-              sprintf( buffer, "_subtype_%d", VBL_NUMTYP );
+              sprintf( buffer, "_subtype_%ld", VBL_NUMTYP );
               name = namealloc( buffer );
 
               NewType = vbh_addvbtyp(VBL_BEFPNT,name,$4.LEFT,
@@ -5587,7 +5591,7 @@ timeout_clause
            $$.DYNAMIC = 1;
 
            viewvexexprboundln( $2.VEX );
-           fprintf( stdout, " %d\n", $3 );
+           fprintf( stdout, " %ld\n", $3 );
          }
        ;
 
@@ -5697,7 +5701,7 @@ variable_assignment_statement
            char          buffer[128];
            struct ptype **pnt;
            vexexpr       *vex;
-           char          *LocalName;
+           char          *LocalName = NULL;
            vbl_vexstr    *VexStr;
            vbl_vexstr    *VexStr2;
            chain_list    *ScanChain;
@@ -5884,7 +5888,7 @@ signal_assignment_statement
            long            mode;
            char           buffer[128];
            char          *codedsigname;
-           char          *LocalName;
+           char          *LocalName = NULL;
            long           left ,right;
            long           left_bnd ,right_bnd;
            struct ptype **pnt;
@@ -6175,7 +6179,7 @@ case_statement
            long indice=0;
            struct choice_chain *ch;
            struct vbcho **pnt;
-           struct vbcho *tab;
+           struct vbcho *tab = NULL;
            struct choice_chain *nm1lst;
 
 
@@ -7916,7 +7920,7 @@ unsigned char kind;
 unsigned char dynamic;
 
 {
-  ptype_list *GenVar;
+  ptype_list *GenVar = NULL;
   void  *pnt    = NULL;
   char   porflg = 0;
   char   modflg = 0;

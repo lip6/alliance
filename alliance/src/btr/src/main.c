@@ -345,9 +345,6 @@ int main( argc, argv )
 
   bddnode      *BddInitial;
   bddsystem    *BddSystem;
-  bddcircuit   *BddCircuit;
-
-  long          BtrNumReg;
 
   btrtransfunc *BtrTransFunc;
   btrtransrel  *BtrTransRel;

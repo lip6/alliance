@@ -961,9 +961,6 @@ static void addimp (model, verbose)
 
   if (model->INSTANCE == NULL && model->LAYERTAB[RDS_NWELL] != NULL)
   {
-    rdsrec_list *rectab = model->LAYERTAB[RDS_ABOX];
-    long qty = 0;
-    
     model->LAYERTAB[RDS_PIMP] = NULL;
     model->LAYERTAB[RDS_NIMP] = NULL;
     

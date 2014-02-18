@@ -66,14 +66,15 @@ extern void  dpgen_RF2 (aFunction, aAL)
 {
 long nmot;	/* nombre de mots */
 long nbit;	/* nombre de bits */
-long type; 	/* avec ou sans decodeurs  */
-long flags;     /* indexation : bit 0 en bas si flags = 0 */
+long type = 0; 	/* avec ou sans decodeurs  */
+/*long flags; * UNUSED indexation : bit 0 en bas si flags = 0 */
 
 long HCELL = 50;
 
 long bottom;
 long i,j;
-long half,max;
+long half;
+long max = 0;
 long sym1,sym2;
 long adrange;
 
@@ -91,7 +92,7 @@ char *model_name;   // le nom du modele.
 //////////////////////////////////////////////////////////
 
 model_name =      va_arg (aAL, char*);
-flags      =      va_arg (aAL, long );
+            (void)va_arg (aAL, long ); // flags are ignoreds.
 nbit       =      va_arg (aAL, long );
 nmot       =      va_arg (aAL, long );
 

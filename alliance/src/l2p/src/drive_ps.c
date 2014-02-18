@@ -117,7 +117,7 @@ long            *X, *Y, *dX, *dY;
         rdsins_list     *Instance;
         int                     Layer;
         long            X1, Y1, X2, Y2;
-        long            XMinRds, YMinRds, XMaxRds, YMaxRds;
+        long            XMinRds = 0, YMinRds = 0, XMaxRds = 0, YMaxRds = 0;
         long            MaskCounter;
         short           ComputeBound;
  
@@ -204,8 +204,8 @@ char	*s;
 	};
 }
 
-extern rps_print_dict_color ();
-extern rps_print_dict_bw ();
+extern void rps_print_dict_color ();
+extern void rps_print_dict_bw ();
 /* - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - */
 void rps_put_psdict (pg)
 rps_pge	*pg;
@@ -267,7 +267,9 @@ rps_pge	*pg;
 		rps_put (pg, "/Helvetica findfont 10 scalefont setfont\n");
 		sprintf (buf, "( %dx%d pages total)", p.nbx_pages,
 		p.nby_pages);
-		sprintf (buf, "%sshow\n", buf);
+        char tmp[512];
+		sprintf (tmp, "%sshow\n", buf);
+        strcpy(buf, tmp);
 		rps_put (pg, buf);
 	};
 };
@@ -280,6 +282,7 @@ rps_par *p;
 	double	topsw, topsh;
 	char	fname[256];
 	char	buf[512];
+	char	tmp[512];
 	rps_pge	*pg;
 
                                                    /* On calcule l'echelle */
@@ -375,8 +378,8 @@ rps_par *p;
 		pg->ps_x, pg->ps_y, pg->ps_x+pg->ps_w,
 		pg->ps_y+pg->ps_h);
 		rps_put (pg, buf);
-		sprintf (buf, "%%%%Creator: Rps v%s", VERSION);
-		sprintf (buf, "%s with%s\n", buf, p->cmdline);
+		sprintf (tmp, "%%%%Creator: Rps v%s", VERSION);
+		sprintf (buf, "%s with%s\n", tmp, p->cmdline);
 		rps_put (pg, buf);
 		sprintf (buf, "%%SCALE=%f\n", p->tops);
 		rps_put (pg, buf);
@@ -449,8 +452,8 @@ rps_par *p;
 			pg->ps_x, pg->ps_y, pg->ps_x+pg->ps_w,
 			pg->ps_y+pg->ps_h);
 			rps_put (pg, buf);
-			sprintf (buf, "%%%%Creator: Rps v%s", VERSION);
-			sprintf (buf, "%s with%s\n", buf, p->cmdline);
+			sprintf (tmp, "%%%%Creator: Rps v%s", VERSION);
+			sprintf (buf, "%s with%s\n", tmp, p->cmdline);
 			rps_put (pg, buf);
 			sprintf (buf, "%%SCALE=%f\n", p->tops);
 			rps_put (pg, buf);
@@ -558,8 +561,8 @@ rdsrec_list	*r;
 	ay += p.rds_dy;
 	if ((ax < p.rds_x) || (ay < p.rds_y) || (aw > p.rds_w)
            || (ah > p.rds_h)) {
-		sprintf (p.err, "(%d, %d, %d, %d) is", ax, ay, aw, ah);
-		sprintf (p.err, "%s out of boundingbox:(%d, %d, %d, %d)",
+		sprintf (p.err, "(%ld, %ld, %ld, %ld) is", ax, ay, aw, ah);
+		sprintf (p.err, "%s out of boundingbox:(%ld, %ld, %ld, %ld)",
 		p.err, p.rds_x, p.rds_y, p.rds_w, p.rds_h);
 		rps_error (E_OUTBOX, p.err);
 	}

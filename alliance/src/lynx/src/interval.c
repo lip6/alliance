@@ -433,7 +433,7 @@ void LynxTestInterval()
 
   while ( fgets( Buffer, 32, stdin ) )
   {
-    if ( sscanf( Buffer, "%d %d", &Min, &Max ) != 2 ) break;
+    if ( sscanf( Buffer, "%11d %11d", &Min, &Max ) != 2 ) break;
 
     Interval1 = LynxUnionInterval( Interval1, Min, Max );
     LynxViewInterval( Interval1 );
@@ -443,7 +443,7 @@ void LynxTestInterval()
 
   while ( fgets( Buffer, 32, stdin ) )
   {
-    if ( sscanf( Buffer, "%d %d", &Min, &Max ) != 2 ) break;
+    if ( sscanf( Buffer, "%11d %11d", &Min, &Max ) != 2 ) break;
 
     Interval1 = LynxSplitInterval( Interval1, Min, Max );
     LynxViewInterval( Interval1 );
@@ -453,7 +453,7 @@ void LynxTestInterval()
 
   while ( fgets( Buffer, 32, stdin ) )
   {
-    if ( sscanf( Buffer, "%d %d", &Min, &Max ) != 2 ) break;
+    if ( sscanf( Buffer, "%11d %11d", &Min, &Max ) != 2 ) break;
 
     Interval2 = LynxUnionInterval( Interval2, Min, Max );
     LynxViewInterval( Interval2 );

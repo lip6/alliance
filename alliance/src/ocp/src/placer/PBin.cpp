@@ -34,9 +34,14 @@ using namespace std;
 #include "PBin.h"
 
 PBin::PBin()
-    : PContainer(), _toPlaceInss(), _sourceHits(0), _targetHits(0)
-{
-}
+  : PContainer  ()
+  , _subRow     (NULL)
+  , _capa       (0.0)
+  , _size       (0.0)
+  , _toPlaceInss()
+  , _sourceHits (0)
+  , _targetHits (0)
+{ }
 
 void
 PBin::Init(const PBBox& bbox, double margin, PSubRow &row)
@@ -116,10 +121,10 @@ PBin::PlotLabel(ofstream& out, unsigned totalMoves) const
 {
   unsigned x = (unsigned)(GetMinX() + GetMaxX()) / 2;
   unsigned y = (unsigned)(GetMinY() + GetMaxY()) / 2;
-  double percent;
+
   if (totalMoves != 0)
   {
-    percent = (_sourceHits * 100.0) / totalMoves;
+    double percent = (_sourceHits * 100.0) / totalMoves;
     out << "set label \""  
 	<< percent << "%\" at " << x << "," << y << " center"
 	<< endl;

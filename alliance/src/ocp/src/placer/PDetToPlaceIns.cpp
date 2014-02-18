@@ -37,13 +37,14 @@ using namespace std;
 
 #include "PDetToPlaceIns.h"
 
-PDetToPlaceIns::PDetToPlaceIns(PToPlaceIns* toplaceins):
-	PIns(toplaceins->GetInstance()),
-        _pos(toplaceins->GetPos()),
-	_marginWidth(toplaceins->GetWidth()),
-	_leftCorner(PPos(_pos.GetX() - toplaceins->GetWidth() / 2.0,
-		_pos.GetY() - toplaceins->GetHeight() / 2.0)),
-	_placed(true)
+PDetToPlaceIns::PDetToPlaceIns(PToPlaceIns* toplaceins)
+  : PIns        (toplaceins->GetInstance())
+  , _subRow     (NULL)
+  , _pos        (toplaceins->GetPos())
+  , _marginWidth(toplaceins->GetWidth())
+  ,	_leftCorner (PPos(_pos.GetX() - toplaceins->GetWidth () / 2.0,
+                      _pos.GetY() - toplaceins->GetHeight() / 2.0))
+  ,	_placed(true)
 {
     // initialisation des vecteurs de nets,
     // les adresses ne sont pas modifiees

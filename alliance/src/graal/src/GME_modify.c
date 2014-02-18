@@ -58,11 +58,14 @@
 # include "GMX.h"
 # include "GTB.h"
 # include "GME.h"
+# include "GMT.h"
+# include "GMV.h"
 
 # include "GME_modify.h"
 # include "GME_panel.h"
 # include "GME_edit.h"
 # include "GME_message.h"
+# include "GME_dialog.h"
 
 /*------------------------------------------------------------\
 |                                                             |
@@ -273,9 +276,8 @@ void GraalEditModify()
   void        *Pointer;
   void        *Element;
   char         FirstUndo;
-  char         Orient;
-  char         MbkOrient;
   char         MbkLayer;
+  char         MbkOrient = '-';
 
   rdsbegin();
 

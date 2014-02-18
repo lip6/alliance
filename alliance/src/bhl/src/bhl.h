@@ -55,6 +55,7 @@ extern int           beh_chkbefig    ();
 extern void          beh_debug       ();
 extern void          beh_makbdd      ();
 extern void          beh_makgex      ();
+extern void          beh_makquad     ();
 extern void          beh_makderiv    ();
 extern void          beh_makvarlist  ();
 extern void          beh_freabl      ();

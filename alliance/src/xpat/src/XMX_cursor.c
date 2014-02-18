@@ -100,9 +100,9 @@
   Position XpatCursorY       = 0;
   Position XpatCursorSaveX   = 0;
   Position XpatCursorSaveY   = 0;
-  char     XpatCursorSaved   = XPAT_FALSE;
-  char     XpatCursorInside  = XPAT_FALSE;
-  char     XpatCursorType    = XPAT_INPUT_HALF_BOX;
+  int      XpatCursorSaved   = XPAT_FALSE;
+  int      XpatCursorInside  = XPAT_FALSE;
+  int      XpatCursorType    = XPAT_INPUT_HALF_BOX;
 
   long     XpatUnitCursorX = 0;
   long     XpatUnitCursorY = 0;
@@ -111,7 +111,7 @@
 
   long     XpatUnitCursorSaveX[ 2 ] = { 0, 0 };
   long     XpatUnitCursorSaveY[ 2 ] = { 0, 0 };
-  char     XpatCursorIndex            = 0;
+  int      XpatCursorIndex            = 0;
 
 /*------------------------------------------------------------\
 |                                                             |
@@ -175,13 +175,11 @@ void XpatDisplayCoordinates()
 {
   char **NameArray;
   long   NumberIO;
-  char  *NameX;
   char  *NameY;
   int    Unit;
   long   X;
   long   Y;
   long   Dx;
-  long   Dy;
   long   TimeDelta;
 
   autbegin();
@@ -189,9 +187,7 @@ void XpatDisplayCoordinates()
   X  = XpatUnitCursorX / XPAT_PATTERN_STEP_X;
   Y  = XpatUnitCursorY / XPAT_PATTERN_STEP_Y;
   Dx = X - ( XpatUnitCursorSaveX[0] / XPAT_PATTERN_STEP_X );
-  Dy = Y - ( XpatUnitCursorSaveX[1] / XPAT_PATTERN_STEP_Y );
 
-  NameX = (char *)0;
   NameY = (char *)0;
 
   if ( XpatFigurePat != (patfig_list *)0 )

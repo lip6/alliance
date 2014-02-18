@@ -59,6 +59,7 @@
 # include "XSC.h"
 # include "XME.h"
 # include "XMV.h"
+# include "XMT.h"
 
 # include "XME_select.h"
 # include "XME_panel.h"

@@ -59,12 +59,17 @@
 # include "XMF.h"
 # include "XMS.h"
 # include "XMH.h"
+# include "XGR.h"
 
+# include "XMF_file.h"
+# include "XMX_view.h"
+# include "XMX_graphic.h"
 # include "XMX_motif.h"
 # include "XMX_grid.h"
 # include "XMX_cursor.h"
 # include "XMX_event.h"
 # include "XMX_message.h"
+# include "XMV_view.h"
 
 /*------------------------------------------------------------\
 |                                                             |
@@ -160,15 +165,15 @@
 
   static long     XgraUnitEventZoomX[ 2 ] = { 0, 0 };
   static long     XgraUnitEventZoomY[ 2 ] = { 0, 0 };
-  static char     XgraMaxEventZoom          = 0;
-         char     XgraCountEventZoom        = 0;
+  static int      XgraMaxEventZoom          = 0;
+         int      XgraCountEventZoom        = 0;
 
   static long     XgraUnitEventEditX[ 2 ] = { 0, 0 };
   static long     XgraUnitEventEditY[ 2 ] = { 0, 0 };
-  static char     XgraMaxEventEdit          = 2;
-         char     XgraCountEventEdit        = 0;
+  static int      XgraMaxEventEdit          = 2;
+         int      XgraCountEventEdit        = 0;
 
-  static char     XgraFirstExpose           = XGRA_TRUE;
+  static int      XgraFirstExpose           = XGRA_TRUE;
 
 /*------------------------------------------------------------\
 |                                                             |
@@ -176,10 +181,10 @@
 |                                                             |
 \------------------------------------------------------------*/
 
- static char XgraInputMode     = XGRA_INPUT_HALF_BOX;
- static char XgraSaveInputMode = XGRA_INPUT_HALF_BOX;
- static char XgraEditMode      = XGRA_EDIT_MEASURE;
- static char XgraSaveEditMode  = XGRA_EDIT_MEASURE;
+ static int  XgraInputMode     = XGRA_INPUT_HALF_BOX;
+ static int  XgraSaveInputMode = XGRA_INPUT_HALF_BOX;
+ static int  XgraEditMode      = XGRA_EDIT_MEASURE;
+ static int  XgraSaveEditMode  = XGRA_EDIT_MEASURE;
 
 /*------------------------------------------------------------\
 |                                                             |
@@ -203,7 +208,7 @@
  
 void XgraChangeEditMode( EditMode , PromptMessage )
  
-   char  EditMode;
+   int   EditMode;
    void (*PromptMessage)();
 {
   autbegin();
@@ -268,9 +273,9 @@ void XgraChangeEditMode( EditMode , PromptMessage )
 
 void XgraContinueEditMode( EditMode , PromptMessage, CountEvent )
 
-   char  EditMode;
+   int   EditMode;
    void (*PromptMessage)();
-   char  CountEvent;
+   int   CountEvent;
 {
   autbegin();
 
@@ -446,14 +451,11 @@ void CallbackEvent ( MyWidget, Event, Args, Argc )
      String       *Args;
      int          *Argc;
 {
-  Display  *EventDisplay;
   char      MouseEvent;
   Position  OldUnitCursorX;
   Position  OldUnitCursorY;
 
   autbegin();
-
-  EventDisplay = Event->display;
 
   MouseEvent = atoi( Args[ 0 ] );
 

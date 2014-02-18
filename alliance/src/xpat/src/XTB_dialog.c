@@ -53,6 +53,7 @@
 # include "pat.h"
 # include "XTB.h"
 # include "XSB.h"
+# include "XPT.h"
 # include "XTB_dialog.h"
 
 /*------------------------------------------------------------\
@@ -71,7 +72,7 @@
 |                                                             |
 \------------------------------------------------------------*/
   
-  static XpatLockLoop = 0;
+  static int XpatLockLoop = 0;
 
   static XpatDialogItem XpatWarningDialog =
 

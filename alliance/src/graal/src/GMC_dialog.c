@@ -330,7 +330,7 @@ void CallbackChangeSegmentWidthOk( MyWidget, ClientData, CallData )
     NewWidth = atof( WidthSet );
     NewWidth = (float)( (long)( NewWidth * Factor / 2.0 ) * 2 / Factor );
 
-    if ( NewWidth >= GRAAL_SEGMENT_VALUE_TABLE[ GraalSegmentLayer ][0] )    
+    if ( NewWidth >= GRAAL_SEGMENT_VALUE_TABLE[ (int)GraalSegmentLayer ][0] )    
     {
       GraalSegmentWidth = NewWidth;
     }
@@ -488,7 +488,7 @@ void CallbackChangeTransistorWidthOk( MyWidget, ClientData, CallData )
     NewWidth = atof( WidthSet );
     NewWidth = (float)( (long)( NewWidth * Factor / 2.0 ) * 2 / Factor );
 
-    if ( NewWidth >=  GRAAL_SEGMENT_VALUE_TABLE[ GraalTransistorType ][0] )
+    if ( NewWidth >=  GRAAL_SEGMENT_VALUE_TABLE[ (int)GraalTransistorType ][0] )
     {
       GraalTransistorWidth = NewWidth;
     }
@@ -646,7 +646,7 @@ void CallbackChangeConnectorWidthOk( MyWidget, ClientData, CallData )
     NewWidth = atof( WidthSet );
     NewWidth = (float)( (long)( NewWidth * Factor / 2.0 ) * 2 / Factor );
 
-    if ( NewWidth >=  GRAAL_SEGMENT_VALUE_TABLE[ GraalConnectorLayer ][0] )
+    if ( NewWidth >=  GRAAL_SEGMENT_VALUE_TABLE[ (int)GraalConnectorLayer ][0] )
     {
       GraalConnectorWidth = NewWidth;
     }
@@ -1008,7 +1008,6 @@ void CallbackChangeInstanceModelCancel( MyWidget, ClientData, FileStruct )
 
 void GraalEnterChangeInstanceModelDialog()
 {
-  XmString Label;
   XmString Filter;
 
   if ( GraalModelFilter[2] == '\0' )

@@ -49,6 +49,10 @@
 #include "bvl_util.h"
 #include "bvl_byacc.h"
 #include "bvl_bedef.h"
+#include "bvl_bspec.h"
+
+extern  int   yylex     ( );
+extern  void  yyerror   ( );
 
 %}
 
@@ -300,7 +304,7 @@ design_file
 		  {
         if (beaux_pnt->ABL == NULL)
         {
-          fprintf (stderr,"`%s` Warning %d line %d :",BVL_CURFIL,40,BVL_LINNUM);
+          fprintf (stderr,"`%s` Warning %d line %ld :",BVL_CURFIL,40,BVL_LINNUM);
           fprintf (stderr,"signal `%s` never assigned\n",beaux_pnt->NAME);
           
           /*removing signal*/
@@ -1459,7 +1463,7 @@ choices
 	  Bar
 	  choice
 		{
-		if ($3 == "others")
+        if (!strncmp($3,"others",7))
 		  bvl_error (30,NULL);
 		BVL_NM1LST = addchain (BVL_NM1LST ,$3);
 		}
@@ -2039,8 +2043,8 @@ short         right )
   char   auxflg = 0;
   char   buxflg = 0;
   char   regflg = 0;
-  char   lclmod;
-  char   lcltyp;
+  char   lclmod = 0;
+  char   lcltyp = 0;
   char   extname[100];
   short  i;
   short  inc = 1;

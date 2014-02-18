@@ -3,8 +3,7 @@
 //
 // $Id: MMBK.h,v 1.6 2005/10/17 23:11:06 jpc Exp $
 //
-// /-----------------------------------------------------------------\ 
-// |                                                                 |
+// +-----------------------------------------------------------------+ 
 // |        A l l i a n c e   C A D   S y s t e m                    |
 // |              S i m p l e   R o u t e r                          |
 // |                                                                 |
@@ -12,10 +11,7 @@
 // |  E-mail      :       alliance-support@asim.lip6.fr              |
 // | =============================================================== |
 // |  C++ Header  :       "./UMBK.h"                                 |
-// | *************************************************************** |
-// |  U p d a t e s                                                  |
-// |                                                                 |
-// \-----------------------------------------------------------------/
+// +-----------------------------------------------------------------+
 
 
 
@@ -89,16 +85,16 @@ namespace MBK {
   // ---------------------------------------------------------------
   // Functions.
 
-  extern char *layer2a (char layer);
-  extern bool  isobs (char layer);
-  extern bool  isALU (char layer);
-  extern bool  isCALU (char layer);
-  extern char  layer2ALU (char layer);
-  extern char  layer2CALU (char layer);
-  extern char  layer2TALU (char layer);
-  extern long  cmpALU (char layer1, char layer2);
-  extern char  topVIALayer (char type);
-  extern char  bottomVIALayer (char type);
+  extern const char *layer2a (char layer);
+  extern       bool  isobs (char layer);
+  extern       bool  isALU (char layer);
+  extern       bool  isCALU (char layer);
+  extern       char  layer2ALU (char layer);
+  extern       char  layer2CALU (char layer);
+  extern       char  layer2TALU (char layer);
+  extern       long  cmpALU (char layer1, char layer2);
+  extern       char  topVIALayer (char type);
+  extern       char  bottomVIALayer (char type);
 
 
 

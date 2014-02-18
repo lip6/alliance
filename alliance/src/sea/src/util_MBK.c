@@ -160,9 +160,10 @@ extern char **makesegnamelist(aName)
 {
   static char *tSegAlias[1024];
          long  mSegAlias;
-         char *pS, *pVector;
+         char *pS;
          char  losegName[SIZE_SNAME];
 # if 0
+         char *pVector;
          char  pathName[SIZE_SNAME];
 # endif
          long  iEnd;
@@ -176,8 +177,10 @@ extern char **makesegnamelist(aName)
   /* Add the signal name "as is". */
   tSegAlias[mSegAlias++] = namealloc (losegName);
 
+#if 0
   /* Try to find if it is a vector. */
   pVector = NULL;
+#endif
   for (pS = losegName + iEnd; pS != losegName; pS--) {
     if (*pS == ' ') {
       *pS = '_';
@@ -1210,14 +1213,13 @@ extern void  addPowerNet(apLoFig, asPower)
         char *asPower;
 {
   chain_list *pChain;
-  losig_list *pSigPower;
         char *sPOW;
 
 
   sPOW = namealloc(asPower);
 
-  pChain    = addchain((chain_list*)NULL, (void*)sPOW);
-  pSigPower = addlosig(apLoFig, NEWSIGINDEX, pChain, EXTERNAL);
+  pChain = addchain((chain_list*)NULL, (void*)sPOW);
+  addlosig(apLoFig, NEWSIGINDEX, pChain, EXTERNAL);
 }
 
 
@@ -2314,8 +2316,6 @@ extern void  checklosegaccess(apPhfig)
     if (ptLoseg->tAccess[iLoseg] == 0) {
       if (!flag) {
         /* Print the head error message. */
-        flag = TRUE;
-
         eprinth (NULL);
         eprintf ("The following physical net segments are not in the");
         eprintf (" netlist :\n");

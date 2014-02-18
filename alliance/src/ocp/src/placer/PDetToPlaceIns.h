@@ -35,7 +35,7 @@ class PDetSubRow;
 class PDetToPlaceIns : public PIns {
     
   private:  
-    PDetSubRow*		_subRow;
+    PDetSubRow*	_subRow;
     PPos		_pos;
     double		_marginWidth;
     PPos		_leftCorner;

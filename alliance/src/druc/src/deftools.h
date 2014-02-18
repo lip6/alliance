@@ -65,3 +65,4 @@ extern void DrucExclusionRectangle ();
 | ou retoune NULL                                             |
 \------------------------------------------------------------*/
 extern void DrucMarqueInclusion ();
+extern void DrucCalculOperationUnaire ();

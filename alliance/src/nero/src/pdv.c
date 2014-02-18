@@ -107,19 +107,19 @@ int main (int argc, char *argv[])
   total_length = 0;
   total_number = 0;
   for (i = 0; i < _MAX_ALU_; i++) {
-    printf ("  - ALU%d length  := %10d", i+2, length[i]);
-    printf ("  (average length := %d)\n", length[i] / number[i]);
+    printf ("  - ALU%d length  := %10ld", i+2, length[i]);
+    printf ("  (average length := %ld)\n", length[i] / number[i]);
 
     total_length += length[i];
     total_number += number[i];
   }
 
   printf ("\n");
-  printf ("  - Total length := %10d" , total_length);
-  printf ("  (average length := %d)\n", total_length / total_number);
+  printf ("  - Total length := %10ld" , total_length);
+  printf ("  (average length := %ld)\n", total_length / total_number);
 
   printf ("\n");
-  printf ("  - Total VIA    := %10d\n" , total_VIA);
+  printf ("  - Total VIA    := %10ld\n" , total_VIA);
   printf ("\n\n");
   
 

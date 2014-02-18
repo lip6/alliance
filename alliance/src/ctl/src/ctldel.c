@@ -48,6 +48,7 @@
 
 # include <stdio.h>
 # include "ctldel.h"
+# include "ctlfree.h"
 # include "ctlerror.h"
 
 /*------------------------------------------------------------\
@@ -102,6 +103,7 @@ static void loc_delallctlline( ScanLine )
 |                                                             |
 \------------------------------------------------------------*/
 
+#if THIS_IS_DISABLED
 static void loc_delctldecl( Figure, Declar )
 
   ctlfig_list  *Figure;
@@ -125,6 +127,7 @@ static void loc_delctldecl( Figure, Declar )
   freevexexpr( Declar->VEX_INIT );
   freectldecl( Declar );
 }
+#endif
 
 /*------------------------------------------------------------\
 |                                                             |

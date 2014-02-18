@@ -55,8 +55,11 @@
 # include "XMX.h"
 # include "XPT.h"
 # include "XME.h"
+# include "XMV.h"
 
 # include "XME_search.h"
+# include "XTB_dialog.h"
+# include "XMV_view.h"
 
 /*------------------------------------------------------------\
 |                                                             |

@@ -52,6 +52,7 @@
 # include "GRM.h"
 # include "GSB.h"
 # include "GRM_equi.h"
+# include "GRM_window.h"
 
 /*------------------------------------------------------------\
 |                                                             |
@@ -120,7 +121,7 @@ rdsrec_list *GraalCutCx( Rec, X1, Y1, X2, Y2  )
   Yvia    = ((phvia_list *)Pointer)->YVIA;
   CXType  = ((phvia_list *)Pointer)->TYPE;
 
-  MbkLayer  = GRAAL_CUT_C_X_LIST[ CXType ];
+  MbkLayer  = GRAAL_CUT_C_X_LIST[ (int)CXType ];
   GateLayer = GET_LYNX_TRANSISTOR_GATE_LAYER( MbkLayer );
   DiffLayer = GET_LYNX_TRANSISTOR_DIFF_LAYER( MbkLayer );
 
@@ -130,7 +131,7 @@ rdsrec_list *GraalCutCx( Rec, X1, Y1, X2, Y2  )
     return( Rec );
   }
 
-  Table = GRAAL_CUT_C_X_ARRAY[ MbkLayer ];
+  Table = GRAAL_CUT_C_X_ARRAY[ (int)MbkLayer ];
   Mask  = 0;
   Save  = Rec;
 
@@ -151,13 +152,13 @@ rdsrec_list *GraalCutCx( Rec, X1, Y1, X2, Y2  )
   {
     ScanWin = ScanRecWin->WINDOW;
 
-    for ( ScanWinRec  = ScanWin->LAYERTAB[ GateLayer ];
+    for ( ScanWinRec  = ScanWin->LAYERTAB[ (int)GateLayer ];
           ScanWinRec != (graalwinrec *)NULL;
           ScanWinRec  = ScanWinRec->NEXT )
     {
       for ( Index = 0; Index < GRAAL_MAX_REC; Index++ )
       {
-        ScanRec = ScanWinRec->RECTAB[ Index ];
+        ScanRec = ScanWinRec->RECTAB[ (int)Index ];
 
         if ( ( ScanRec != (rdsrec_list *)NULL    ) &&
              ( ! IsGraalDeleted( ScanRec )       ) &&
@@ -201,7 +202,7 @@ rdsrec_list *GraalCutCx( Rec, X1, Y1, X2, Y2  )
 
     for ( Index = 0; Index < 16; Index = Index + 4 )
     {
-      if ( LineTable[ Index ]  == -1 ) break;
+      if ( LineTable[ (int)Index ]  == -1 ) break;
 
       Diff = addrdsfigrec( GraalFigureRds,
                            NULL, DiffLayer,  
@@ -212,7 +213,7 @@ rdsrec_list *GraalCutCx( Rec, X1, Y1, X2, Y2  )
 
       GRAAL_PREVIOUS( Diff ) =
 
-        &(GraalFigureRds->LAYERTAB[ DiffLayer ]);
+        &(GraalFigureRds->LAYERTAB[ (int)DiffLayer ]);
 
       if ( Diff->NEXT != (rdsrec_list *)NULL )
       {
@@ -358,7 +359,7 @@ void GraalExtractEqui( Rec )
                 {
                   Pointer = GRAAL_MBK( ScanRec );
 
-                  if ( GRAAL_CUT_C_X_LIST[ ((phvia_list *)Pointer)->TYPE ] < MBK_MAX_LAYER )
+                  if ( GRAAL_CUT_C_X_LIST[ (int)((phvia_list *)Pointer)->TYPE ] < MBK_MAX_LAYER )
                   {
                     ScanRec = GraalCutCx( ScanRec, X1, Y1, X2, Y2 );
                   }

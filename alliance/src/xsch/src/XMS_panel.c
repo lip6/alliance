@@ -122,7 +122,9 @@
              (Widget)NULL
            }
            ,
-           NULL
+           {
+             NULL
+           }
          };
 
    XschPanelItem XschSetupInformationsPanel =

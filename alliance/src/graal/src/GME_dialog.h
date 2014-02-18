@@ -131,4 +131,6 @@
   extern void CallbackSearchViaOk();
   extern void CallbackSearchViaCancel();
 
+  extern void GraalLimitedLoop();
+
 # endif 

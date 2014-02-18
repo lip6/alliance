@@ -92,4 +92,6 @@ htelt_t *htset (ht_t * ht, char *key);
 */
 htelt_t *htsetre (ht_t * ht, char *key);
 
+void htstat (ht_t * ht);
+
 #endif

@@ -101,6 +101,7 @@
 |                                                             |
 \------------------------------------------------------------*/
 
+#if THIS_IS_DISABLED
 static long BoomGetAblDepth( Expr )
 
   ablexpr *Expr;
@@ -141,6 +142,7 @@ static long BoomGetAblDepth( Expr )
 
   return( MaxDepth + NumberOper );
 }
+#endif
 
 /*------------------------------------------------------------\
 |                                                             |
@@ -533,7 +535,7 @@ void BoomBehCreateAux( BehFigure )
 
   befig_list *BehFigure;
 {
-  beaux_list  *InitialAux;
+/*beaux_list  *InitialAux;*/
   bddcircuit  *BddCircuit;
   bddsystem   *BddSystem;
   long         Reverse;
@@ -551,7 +553,7 @@ fprintf( stdout, "Before BoomBehMakeBddNode\n" );
 testbddcircuit( (bddcircuit *)0 );
 # endif
 
-  InitialAux    = BehFigure->BEAUX;
+/*InitialAux    = BehFigure->BEAUX;*/
   BoomAuxNumber = 0;
 
   if ( BoomAuxHashTable == (authtable *)0 )

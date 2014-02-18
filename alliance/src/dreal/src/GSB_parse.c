@@ -227,7 +227,7 @@ char *GsbFileGetString( String, Size )
   int   Size;
 {
   register char *RegisterString;
-  register       Register;
+  register int   Register       = 0;
 
   rdsbegin();
 
@@ -290,7 +290,7 @@ void GsbGetLine( Buffer )
       GsbError( UNEXPECTED_EOF, (char *)NULL, GsbCurrentLine );
     }
 
-    if ( String = strchr( Buffer, GSB_COMMENT_CHAR ))
+    if ( (String = strchr( Buffer, GSB_COMMENT_CHAR )) )
     {
       if ( String == Buffer )
       {
@@ -354,7 +354,7 @@ char *GsbGetFirstWord( Buffer, IsKeyword, Hash )
 
   rdsbegin();
 
-  if ( String = (char *)strtok( Buffer, GSB_SEPARATORS_STRING )) 
+  if ( (String = (char *)strtok( Buffer, GSB_SEPARATORS_STRING )) ) 
   {
     if ( Hash )
     {
@@ -399,7 +399,7 @@ char *GsbGetNextWord( IsKeyword, Hash )
 
   rdsbegin();
 
-  if ( String = (char *)strtok( (char *)NULL, GSB_SEPARATORS_STRING )) 
+  if ( (String = (char *)strtok( (char *)NULL, GSB_SEPARATORS_STRING )) ) 
   {
      if ( Hash )
      {
@@ -458,7 +458,7 @@ long GsbGetStringValue( String )
 
   rdsbegin();
 
-  if ( sscanf( String, "%d", &Value) )
+  if ( sscanf( String, "%11ld", &Value) )
   {
     rdsend();
     return ( Value );
@@ -491,12 +491,10 @@ float GsbGetStringFloat( String )
    char     *String;
 {
   float     Value;
-  keyword  *Keyword;
-  keyword   Entry;
 
   rdsbegin();
 
-  if ( ! sscanf( String, "%g", &Value) )
+  if ( ! sscanf( String, "%22g", &Value) )
   {
     GsbError( ILLEGAL_FLOAT, String, GsbCurrentLine );
   }
@@ -519,7 +517,7 @@ long GsbGetNumber( String )
 
   rdsbegin();
 
-  if ( ! sscanf( String, "%d", &Value ))
+  if ( ! sscanf( String, "%11ld", &Value ))
   {
     GsbError( UNEXPECTED_LINE, "number", GsbCurrentLine );
   }
@@ -574,9 +572,9 @@ void GsbReadRdsLayerName()
           GsbError( MISSING_VALUE, (char *)NULL, GsbCurrentLine );
         }
         else
-        if ( RDS_DYNAMIC_LAYER[ Layer ] != RDS_LAYER_UNUSED )
+        if ( RDS_DYNAMIC_LAYER[ (int)Layer ] != RDS_LAYER_UNUSED )
         {
-          DREAL_RDS_LAYER_NAME_TABLE [ Layer ][ Field ] = FirstWord;
+          DREAL_RDS_LAYER_NAME_TABLE [ (int)Layer ][ (int)Field ] = FirstWord;
         }
       }
    
@@ -586,9 +584,9 @@ void GsbReadRdsLayerName()
       {
         Pattern = GsbGetStringValue( FirstWord );
 
-        if ( RDS_DYNAMIC_LAYER[ Layer ] != RDS_LAYER_UNUSED )
+        if ( RDS_DYNAMIC_LAYER[ (int)Layer ] != RDS_LAYER_UNUSED )
         {
-          DREAL_RDS_LAYER_PATTERN_TABLE[ Layer ] = (int)Pattern;
+          DREAL_RDS_LAYER_PATTERN_TABLE[ (int)Layer ] = (int)Pattern;
         }
 
         FirstWord = GsbGetNextWord( 0, 1 );
@@ -779,10 +777,10 @@ void DrealLoadParameters()
 
   for ( Layer = 0; Layer < RDS_ALL_LAYER; Layer++ )
   {
-    DREAL_RDS_LAYER_NAME_TABLE[ Layer ][0] = (char *)NULL;
-    DREAL_RDS_LAYER_NAME_TABLE[ Layer ][1] = (char *)NULL;
-    DREAL_RDS_LAYER_NAME_TABLE[ Layer ][2] = (char *)NULL;
-    DREAL_RDS_LAYER_PATTERN_TABLE[ Layer ] = -1;
+    DREAL_RDS_LAYER_NAME_TABLE[ (int)Layer ][0] = (char *)NULL;
+    DREAL_RDS_LAYER_NAME_TABLE[ (int)Layer ][1] = (char *)NULL;
+    DREAL_RDS_LAYER_NAME_TABLE[ (int)Layer ][2] = (char *)NULL;
+    DREAL_RDS_LAYER_PATTERN_TABLE[ (int)Layer ] = -1;
   }
 
   DREAL_LOWER_GRID_STEP       = 0.0;

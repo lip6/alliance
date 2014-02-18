@@ -311,7 +311,7 @@ void SyfFsmUserEncode( FsmFigure, FileName )
           {
             StateName = ScanBuffer;
             ScanBuffer[ Index ] = '\0';
-            sscanf( ScanBuffer + Index + 1, "%lx", &StateCode );
+            sscanf( ScanBuffer + Index + 1, "%22lx", &StateCode );
   
             break;
           }

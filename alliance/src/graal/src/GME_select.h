@@ -65,5 +65,9 @@
 \------------------------------------------------------------*/
 
   extern void GraalEditSelectRectangle();
+  extern void GraalEditSelectAccept();
+  extern void GraalEditSelectCancel();
+  extern void GraalEditSelectWindowStretch();
+  extern void GraalEditSelectPointStretch();
 
 # endif

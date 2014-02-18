@@ -83,5 +83,6 @@
   extern void XvpnInitializeColors();
   extern void XpatChangeCursorContext();
   extern void XpatInitializeColorMap();
+  extern void XvpnChangeCursorContext();
 
 # endif 

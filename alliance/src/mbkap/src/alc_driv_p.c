@@ -41,6 +41,7 @@
 *                                                               *
 ************************************************************************/
 
+#include <string.h>
 #include <time.h>
 #include <mut.h>
 #include <mph.h>

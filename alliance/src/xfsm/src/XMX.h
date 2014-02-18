@@ -192,8 +192,8 @@
 |                                                             |
 \------------------------------------------------------------*/
 
-  extern char XfsmCountEventZoom;
-  extern char XfsmCountEventEdit;
+  extern int  XfsmCountEventZoom;
+  extern int  XfsmCountEventEdit;
 
 /*------------------------------------------------------------\
 |                                                             |

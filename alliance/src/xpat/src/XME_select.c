@@ -59,6 +59,8 @@
 # include "XME.h"
 
 # include "XME_select.h"
+# include "XME_panel.h"
+# include "XMV_view.h"
 
 /*------------------------------------------------------------\
 |                                                             |
@@ -232,7 +234,6 @@ char XpatEditObjectNearPoint( Obj, X1, Y1 )
   float  LineY;
   float  Norm;
   float  Distance;
-  float  MinDistance;
 
   Type = GetXpatObjectType( Obj );
 

@@ -38,3 +38,5 @@ extern void DrucErreurOutFileRegle      ();
 extern void DrucErreurOutFileLayer      ();
 extern void DrucErreurUnRectangle       ();
 extern void DrucErreurCleanFigureErreur ();
+extern void DrucOpenErrorFile           ();
+extern void DrucCloseErrorFile          ();

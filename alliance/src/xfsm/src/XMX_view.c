@@ -182,9 +182,11 @@ void XfsmDelView()
 
 void XfsmInterruptDisplay()
 {
+# ifdef XFSM_CTRL_C
   XEvent       Event;
   KeySym       Key;
   char         Text;
+#endif
 
   autbegin();
 
@@ -216,7 +218,9 @@ void XfsmInterruptDisplay()
 
 void XfsmFlushEventDisplay()
 {
+# ifdef XFSM_CTRL_C
   XEvent Event;
+#endif
   
   autbegin();
 

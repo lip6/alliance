@@ -10,10 +10,12 @@
 /*                      version 4.06:   by Olivier BEAURIN (Nov. 93)    */
 /*----------------------------------------------------------------------*/
 
-#include <mut.h>
-#include <mlo.h>
 #include <stdlib.h>
 #include <string.h>
+#include <ctype.h>
+#include <mut.h>
+#include <mlo.h>
+#include <rcn.h>
 
 /*---------------------------------------------------------\
                      Les defines
@@ -62,9 +64,12 @@ static  char        CheckCadenceBusError( );
 static  char       *CheckCadenceNetError( );
 static  lofig_list *get_figure_pt       ( );
 static  char        is_portinstance     ( );
+static  int         yyerror             ( );
+extern  void        yyrestart           ( );
 extern  char       *edif_busname        ( );
 
 extern  int         yylineno;
+extern  int         yylex               ( );
 
 %}
 
@@ -189,7 +194,7 @@ r_extcell :
 
 				YY_BASE_CELL = incatalog( cell_name );
 
-				if( ptf->LOCON && YY_BASE_CELL || ptf->LOSIG )
+				if( (ptf->LOCON && YY_BASE_CELL) || ptf->LOSIG )
 					YY_NOLOAD_FIG = 1; 
 				else
 					YY_NOLOAD_FIG = 0; 
@@ -283,7 +288,7 @@ r_cell :
 
 				YY_BASE_CELL = incatalog( cell_name );
 
-				if( ptf->LOCON && YY_BASE_CELL || ptf->LOSIG )
+				if( (ptf->LOCON && YY_BASE_CELL) || ptf->LOSIG )
 					YY_NOLOAD_FIG = 1; 
 				else
 					YY_NOLOAD_FIG = 0; 
@@ -298,15 +303,11 @@ r_cell :
 
 			if (YY_NOLOAD_FIG == 0)
 			{
-				char       *array_cname;
-				char       *array_sname;
-				locon_list *ptcon;
 				char        new_sig_name[MAXSTRLEN];
-				char        end;
 				locon_list *YY_INS_PTCON  = (locon_list *) NULL;
 				locon_list *YY_PTCON      = (locon_list *) NULL;
-                losig_list *sigvss;
-                losig_list *sigvdd;
+                losig_list *sigvss        = NULL;
+                losig_list *sigvdd        = NULL;
                 locon_list *ptlocon;
 
                 for( ptlocon = YY_PTFIG->LOCON; ptlocon; ptlocon = ptlocon->NEXT )
@@ -838,7 +839,8 @@ r_portref :
 				exit( 1 );
 			}
 
-			if (YY_PORTLIST) 
+			if (YY_PORTLIST)
+            {
 				if (++YY_PORTLIST_NUM < YY_BUS_WIDTH) 
 				YY_PORTLIST_SIG = YY_PORTLIST_SIG->NEXT;
 				else
@@ -850,6 +852,7 @@ r_portref :
 						                  yylineno );
 						exit (1);
 					}
+            }
 			}
 		}
 	| T_PORTREF T_MEMBER r_namedef T_INTEGER ')' ')'
@@ -862,9 +865,9 @@ r_portref :
 
 				if ( (CheckCadenceBusError ($3, &begin, &end))
 				  && ($4 <= abs( begin - end ) ) )
-					sprintf(&port_name[0], "%s %d", YY_ARRAYPORTNAME, ( begin <= end ) ? begin + $4 : begin - $4 ); 
+					sprintf(&port_name[0], "%s %ld", YY_ARRAYPORTNAME, ( begin <= end ) ? begin + $4 : begin - $4 ); 
 				else
-					sprintf(&port_name[0], "%s %d", $3, $4); 
+					sprintf(&port_name[0], "%s %ld", $3, $4); 
 
 				YY_PTCON = getlocon (YY_PTFIG, port_name);
 				if (!YY_PORTLIST)
@@ -873,7 +876,7 @@ r_portref :
 					YY_PTCON->SIG = (losig_list *)YY_PORTLIST_SIG->DATA;
 
 				YY_SIGTYPE = EXTERNAL;
-				if (YY_PORTLIST) 
+				if (YY_PORTLIST) {
 					if (++YY_PORTLIST_NUM < YY_BUS_WIDTH) 
 						YY_PORTLIST_SIG = YY_PORTLIST_SIG->NEXT;
 					else
@@ -885,6 +888,7 @@ r_portref :
 							                  yylineno );
 							exit (1);
 						}
+                }
 			}
 		}
 	| T_PORTREF T_MEMBER r_namedef T_INTEGER ')' T_INSTANCEREF r_namedef ')' ')'
@@ -901,9 +905,9 @@ r_portref :
 
 				if ( (CheckCadenceBusError ($3, &begin, &end) )
 				  && ($4 <= abs( begin - end ) ) )
-					sprintf(&port_name[0], "%s %d", YY_ARRAYPORTNAME, ( begin <= end ) ? begin + $4 : begin - $4 ); 
+					sprintf(&port_name[0], "%s %ld", YY_ARRAYPORTNAME, ( begin <= end ) ? begin + $4 : begin - $4 ); 
 				else
-					sprintf(&port_name[0], "%s %d", $3, $4); 
+					sprintf(&port_name[0], "%s %ld", $3, $4); 
 
 				YY_PORTNAME = namealloc (&port_name[0]);
 				for (YY_PTCON = YY_PTINS->LOCON; YY_PTCON; YY_PTCON = YY_PTCON->NEXT)
@@ -927,7 +931,7 @@ r_portref :
 					exit (1);
 				}
 
-				if (YY_PORTLIST) 
+				if (YY_PORTLIST) {
 					if (++YY_PORTLIST_NUM < YY_BUS_WIDTH) 
 						YY_PORTLIST_SIG = YY_PORTLIST_SIG->NEXT;
 					else
@@ -939,6 +943,7 @@ r_portref :
 							                 yylineno );
 							exit (1);
 						}
+                }
 			}
 		}
 	;
@@ -1104,7 +1109,6 @@ locon_list *ptlocon;
 char       *bnameref;
 int         bus_width;
 {
-	int         i, n;
 	char        port_name[MAXSTRLEN];
 	char       *pname;
 	locon_list *loconp;
@@ -1152,9 +1156,7 @@ char        mode;
 	char        filename[120];
 	lofig_list *pt;
 	losig_list *ptsig;
-	losig_list *ptsignext;
 	loins_list *ptins;
-	loins_list *ptinsnext;
 
 	static char Vierge = 1; /* first time */
 
@@ -1562,7 +1564,7 @@ char        master;
 			j = 0;
             do
 			{
-				sprintf (buf, "%s %d", YY_RIPPER_IN, j);
+				sprintf (buf, "%s %ld", YY_RIPPER_IN, j);
    				b = namealloc (buf);
 
         		for (c1 = i->LOCON; c1; c1 = c1->NEXT)
@@ -1571,7 +1573,7 @@ char        master;
 					{
 						i1 = c1->SIG->INDEX;
 
-						sprintf (buf, "%s %d", YY_RIPPER_OUT, j);
+						sprintf (buf, "%s %ld", YY_RIPPER_OUT, j);
    						b = namealloc (buf);
 
         				for (c2 = i->LOCON; c2; c2 = c2->NEXT)

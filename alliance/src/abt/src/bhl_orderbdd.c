@@ -401,7 +401,7 @@ void bhl_orderbdd( BehFigure, AuxFlag, OrderFlag )
     BehReg = BehReg->NEXT;
   }
 
-  BehRin = BehFigure->BERIN;
+/*BehRin = BehFigure->BERIN;*/
 
 # ifdef BHL_ORDER_DEBUG
   viewauthtable( BhlHashTableOrder, viewauthelem );

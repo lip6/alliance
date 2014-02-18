@@ -1,3 +1,7 @@
+
+%option noinput
+%option nounput
+
 %{
 #include "ringram.h"
 #include "struct.h"

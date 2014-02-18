@@ -47,7 +47,7 @@ unsigned int  line;
 
   {
   if (code > 100)
-    fprintf (stderr, "PAT : Warning %d line %d : ", code, line);
+    fprintf (stderr, "PAT : Warning %d line %u : ", code, line);
   else
     {
     fprintf (stderr, "PAT : Warning %d : ", code);

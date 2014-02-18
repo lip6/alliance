@@ -71,5 +71,6 @@
 \------------------------------------------------------------*/
 
   extern void XpatFlushErrorMessage();
+  extern void XpatInitializeErrorMessage();
 
 # endif 

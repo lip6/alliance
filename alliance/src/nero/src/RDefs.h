@@ -3,8 +3,7 @@
 //
 // $Id: RDefs.h,v 1.6 2012/05/02 14:49:23 jpc Exp $
 //
-// /-----------------------------------------------------------------\ 
-// |                                                                 |
+// +-----------------------------------------------------------------+ 
 // |        A l l i a n c e   C A D   S y s t e m                    |
 // |              S i m p l e   R o u t e r                          |
 // |                                                                 |
@@ -12,10 +11,7 @@
 // |  E-mail      :       alliance-support@asim.lip6.fr              |
 // | =============================================================== |
 // |  C++ Header  :       "./RDefs.h"                                |
-// | *************************************************************** |
-// |  U p d a t e s                                                  |
-// |                                                                 |
-// \-----------------------------------------------------------------/
+// +-----------------------------------------------------------------+
 
 
 
@@ -56,6 +52,7 @@
     // Constructor.
     public: CRBox (void);
     public: CRBox (int rtype, bool debug);
+    private: CRBox ( const CRBox& );
 
     // Destructor.
     public: ~CRBox (void);
@@ -63,8 +60,7 @@
     // Modifiers.
     public: CNet *findnet (string &signame);
     public: CNet *findnet (char *signame);
-    public: CNet *getnet  (string &signame);
-    public: CNet *getnet  (char *signame);
+    public: CNet *getnet  (const string &signame);
     public: void  mbkload (MBK::CFig *mbkfig
                           , int z
                           , int zup

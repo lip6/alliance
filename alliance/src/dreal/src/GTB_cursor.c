@@ -46,6 +46,7 @@
 # include <stdio.h>
 # include <X11/cursorfont.h>
 # include <X11/Intrinsic.h>
+#include  <Xm/Xm.h>
 # include "mut.h"
 # include "rds.h"
 # include "GTB.h"
@@ -145,12 +146,12 @@ void DrealSetMouseCursor( MainWidget, CursorType )
   TopWindow  = XtWindow( TopShell  );
   ScanWindow = XtWindow( ScanShell );
 
-  if ( DrealMouseCursorArray[ CursorType ].MAKE == True )
+  if ( DrealMouseCursorArray[ (int)CursorType ].MAKE == True )
   {
-    if ( DrealMouseCursorArray[ CursorType ].CURSOR != 0 )
+    if ( DrealMouseCursorArray[ (int)CursorType ].CURSOR != 0 )
     {
       NewCursor = XCreateFontCursor( DisplayId, 
-                                     DrealMouseCursorArray[ CursorType ].CURSOR );
+                                     DrealMouseCursorArray[ (int)CursorType ].CURSOR );
     }
     else
     {
@@ -181,13 +182,13 @@ void DrealSetMouseCursor( MainWidget, CursorType )
                                        &Black, &White, 0, 0 );
     }
 
-    DrealMouseCursorArray[ CursorType ].CURSOR = NewCursor;
-    DrealMouseCursorArray[ CursorType ].MAKE   = False;
+    DrealMouseCursorArray[ (int)CursorType ].CURSOR = NewCursor;
+    DrealMouseCursorArray[ (int)CursorType ].MAKE   = False;
   }
 
   XDefineCursor( XtDisplay( TopShell ), 
                  XtWindow( MainWidget ),
-                 DrealMouseCursorArray[ CursorType ].CURSOR );
+                 DrealMouseCursorArray[ (int)CursorType ].CURSOR );
 
   Context = XtWidgetToApplicationContext( TopShell );
 

@@ -34,6 +34,7 @@
 
 #include "vbl_bedef.h"
 #include "vbl_bspec.h"
+#include "vbl_util.h"
 
 static long VblEvalError = 0;
 
@@ -161,9 +162,11 @@ unsigned char dynamic )
   vbtyp_list     *BaseType2;
   vbtyp_list     *VbhType;
 
-  result.IDENT = NULL;
-  result.VEX   = NULL;
-  result.WIDTH = 0;
+  result.IDENT  = NULL;
+  result.VEX    = NULL;
+  result.SIGNED = 0;
+  result.TYPE   = 0;
+  result.WIDTH  = 0;
   result.AGGREG = 0;
 
   switch (oper)

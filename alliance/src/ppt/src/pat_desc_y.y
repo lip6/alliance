@@ -40,6 +40,10 @@
 #include "pat_type.h"
 #include "pat_desc.h"
 
+extern  int  pat_desc_y_parse ();
+extern  int  pat_decl_y_lex   ();
+extern  void pat_decl_y_error ();
+
 /* ###--------------------------------------------------------------### */
 /* function	: lcl_addpacom						*/
 /* description	: create PACOM structure if there is no more structure	*/
@@ -343,34 +347,34 @@ char         *value  ;
           {
           case 'X':
           case 'x':
-            sprintf (extname, "%s %d", gname.ident, i);
+            sprintf (extname, "%s %ld", gname.ident, i);
             i += inc;
             ptini = lcl_addpaini (ptini, extname, frc[0]);
-            sprintf (extname, "%s %d", gname.ident, i);
+            sprintf (extname, "%s %ld", gname.ident, i);
             i += inc;
             ptini = lcl_addpaini (ptini, extname, frc[1]);
-            sprintf (extname, "%s %d", gname.ident, i);
+            sprintf (extname, "%s %ld", gname.ident, i);
             i += inc;
             ptini = lcl_addpaini (ptini, extname, frc[2]);
-            sprintf (extname, "%s %d", gname.ident, i);
+            sprintf (extname, "%s %ld", gname.ident, i);
             i += inc;
             ptini = lcl_addpaini (ptini, extname, frc[3]);
             break;
           case 'O':
           case 'o':
-            sprintf (extname, "%s %d", gname.ident, i);
+            sprintf (extname, "%s %ld", gname.ident, i);
             i += inc;
             ptini = lcl_addpaini (ptini, extname, frc[1]);
-            sprintf (extname, "%s %d", gname.ident, i);
+            sprintf (extname, "%s %ld", gname.ident, i);
             i += inc;
             ptini = lcl_addpaini (ptini, extname, frc[2]);
-            sprintf (extname, "%s %d", gname.ident, i);
+            sprintf (extname, "%s %ld", gname.ident, i);
             i += inc;
             ptini = lcl_addpaini (ptini, extname, frc[3]);
             break;
           case 'B':
           case 'b':
-            sprintf (extname, "%s %d", gname.ident, i);
+            sprintf (extname, "%s %ld", gname.ident, i);
             i += inc;
             ptini = lcl_addpaini (ptini, extname, frc[3]);
             break;
@@ -1245,7 +1249,7 @@ unlabeled_pattern
 
 		if ((c != '\0') && ($2 [i] != '\0'))
 {
-printf ("pat : %s < i : %d < index : %d\n", $2, i, idx);
+printf ("pat : %s < i : %ld < index : %d\n", $2, i, idx);
 		  ERR_FLG += pat_error (3, NULL, ' ', PAT_LINNUM);
 }
 

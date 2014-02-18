@@ -65,6 +65,9 @@
 # include "XMX_cursor.h"
 # include "XMX_event.h"
 # include "XMX_message.h"
+# include "XMX_graphic.h"
+# include "XMV_view.h"
+# include "XMF_file.h"
 
 /*------------------------------------------------------------\
 |                                                             |
@@ -169,14 +172,14 @@
   static long     XpatUnitEventZoomX[ 2 ] = { 0, 0 };
   static long     XpatUnitEventZoomY[ 2 ] = { 0, 0 };
   static char     XpatMaxEventZoom          = 0;
-         char     XpatCountEventZoom        = 0;
+         int      XpatCountEventZoom        = 0;
 
   static long     XpatUnitEventEditX[ 2 ] = { 0, 0 };
   static long     XpatUnitEventEditY[ 2 ] = { 0, 0 };
   static char     XpatMaxEventEdit          = 2;
-         char     XpatCountEventEdit        = 0;
+         int      XpatCountEventEdit        = 0;
 
-  static char     XpatFirstExpose           = XPAT_TRUE;
+  static int      XpatFirstExpose           = XPAT_TRUE;
 
 /*------------------------------------------------------------\
 |                                                             |
@@ -211,7 +214,7 @@
  
 void XpatChangeEditMode( EditMode , PromptMessage )
  
-   char  EditMode;
+   int   EditMode;
    void (*PromptMessage)();
 {
   autbegin();
@@ -276,9 +279,9 @@ void XpatChangeEditMode( EditMode , PromptMessage )
 
 void XpatContinueEditMode( EditMode , PromptMessage, CountEvent )
 
-   char  EditMode;
+   int   EditMode;
    void (*PromptMessage)();
-   char  CountEvent;
+   int   CountEvent;
 {
   autbegin();
 
@@ -468,14 +471,11 @@ void CallbackEvent ( MyWidget, Event, Args, Argc )
      String       *Args;
      int          *Argc;
 {
-  Display  *EventDisplay;
   char      MouseEvent;
   Position  OldUnitCursorX;
   Position  OldUnitCursorY;
 
   autbegin();
-
-  EventDisplay = Event->display;
 
   MouseEvent = atoi( Args[ 0 ] );
 

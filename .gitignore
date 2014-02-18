@@ -11,5 +11,13 @@ install-sh
 ltmain.sh
 missing
 depcomp
+alliance/src/configure.in
 dev/scripts/cppcheck/*
+*.eps
+*.aux
+*.dvi
+*.pdf
+*.log
+*.lst
+archives/
 

@@ -153,7 +153,7 @@ void DrealDisplayMessage( Where, Text )
 
   TextString = XmStringCreateSimple( Text ); 
 
-  XtVaSetValues( DrealMessageText[ Where ], XmNlabelString, TextString, NULL );
+  XtVaSetValues( DrealMessageText[ (int)Where ], XmNlabelString, TextString, NULL );
 
   XmStringFree( TextString );
 

@@ -359,9 +359,6 @@ int  CDRGrid::iterator::manhattan (iterator &other)
 CDRGrid::CDRGrid (int xoff, int yoff, int x, int y, int z)
   : xoffset(xoff), yoffset(yoff), X(x), Y(y), Z(z)
 {
-  int    index;
-
-
   XY   = X  * Y;
   XYZ  = XY * Z;
   size = XY * (Z - 1);
@@ -546,11 +543,8 @@ TMatrix<__CNode__>::~TMatrix (void)
 template<class __CNode__>
 __CNode__ &TMatrix<__CNode__>::operator[] (int index)
 {
-  __CNode__ *node;
-
-
   if (index < _drgrid->XY ) {
-    node = _zero->get (_drgrid->x(index), _drgrid->y(index)) ;
+    __CNode__* node = _zero->get (_drgrid->x(index), _drgrid->y(index)) ;
     if ( node != NULL ) return ( *node );
   } else {
     if (index < _drgrid->XYZ) return ( _grid[index - _drgrid->XY] );

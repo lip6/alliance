@@ -183,7 +183,7 @@ extern void save_xsch(FILE* xsch_stream, lofig_list* lofig, ptype_list* long_pat
    ptype_list* ptype, *ptype2=NULL;
    float delay=0, delay_out=0;
    char mes[1024];
-   char* signame;
+   char* signame = NULL;
    locon_list* locon;
    losig_list* losig;
    float gradient=1;

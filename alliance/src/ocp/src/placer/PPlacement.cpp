@@ -236,7 +236,7 @@ PPlacement::Init(lofig* fig, int NbRows)
 		}
 		else
 		{
-		    loins* ins = (loins *)con->ROOT;
+            loins* ins = (loins*)(con->ROOT);
 		    set<loins*>::iterator liit = siginsset.find(ins);
 		    if (liit == siginsset.end())
 		    {
@@ -265,7 +265,7 @@ PPlacement::Init(lofig* fig, int NbRows)
 		    }
 		    else
 		    {
-			loins* ins = (loins *)con->ROOT;
+            loins* ins = (loins*)(con->ROOT);
 			cerr << "instance " << ins->INSNAME;
 		    }
 		    cerr << endl;
@@ -282,7 +282,6 @@ PPlacement::Init(lofig* fig, int NbRows)
     }
 
 
-    unsigned vectcpt = 0;
     for (loins* ins = fig->LOINS ; ins ; ins = ins->NEXT)
     {
 	set<losig*> inssigset;
@@ -293,7 +292,6 @@ PPlacement::Init(lofig* fig, int NbRows)
 	    exit(1);
 	}
 	PElem::PNets& netvector = iit->second->GetNets();
-	vectcpt = 0;
 	for (locon* con = ins->LOCON ; con ; con = con->NEXT)
 	{
 	    losig* sig = con->SIG;
@@ -359,7 +357,7 @@ PPlacement::Init(lofig* fig, int NbRows)
 		locon_list* con = (locon_list*)(it->DATA);
 		if (con->TYPE == INTERNAL)
 		{
-		    loins* ins = (loins *)con->ROOT;
+            loins* ins = (loins*)(con->ROOT);
 		    set<loins*>::iterator liit = siginsset.find(ins);
 		    if (liit == siginsset.end())
 		    {
@@ -964,10 +962,9 @@ PPlacement::PlotInstances(ofstream& out) const
 // void PlotAll(char *output) const
 // ======================================================================
 void
-PPlacement::PlotAll(char* output) const
+PPlacement::PlotAll(const string& output) const
 {
-    string name(output);
-    name += ".gpl";
+    string name = output + ".gpl";
     ofstream out(name.c_str());
 
     out << "set noxtics\nset noytics\n"
@@ -997,10 +994,9 @@ PPlacement::PlotAll(char* output) const
 // void PlotFinal(char *output) const
 // ======================================================================
 void
-PPlacement::PlotFinal(char* output) const
+PPlacement::PlotFinal(const string& output) const
 {
-    string name(output);
-    name += ".gpl";
+    string name = output + ".gpl";
     ofstream out(name.c_str());
 
     out << "set noxtics\nset noytics\n"
@@ -1059,10 +1055,9 @@ PPlacement::PlotFinal(char* output) const
 // void PlotOnlyInstances(char* output) const
 // ======================================================================
 void
-PPlacement::PlotOnlyInstances(char* output) const
+PPlacement::PlotOnlyInstances(const string& output) const
 {
-    string name(output);
-    name += ".gpl";
+    string name = output + ".gpl";
     ofstream out(name.c_str());
 
     out << "set noxtics\nset noytics\n"
@@ -1084,10 +1079,9 @@ PPlacement::PlotOnlyInstances(char* output) const
 // void PlotOnlyBins(char* output) const
 // ======================================================================
 void
-PPlacement::PlotOnlyBins(char* output) const
+PPlacement::PlotOnlyBins(const string& output) const
 {  
-    string name (output);
-    name += ".gpl";
+    string name = output + ".gpl";
     ofstream out(name.c_str());
 
     out << "set noxtics\nset noytics\n"
@@ -1358,7 +1352,7 @@ PPlacement::InitPlace(int NbRows)
     }
 
     // Computing Placement BBox
-    double MaxX = 0.0, MaxY = 0.0, RowMaxX, RowMaxY;
+    double MaxX = 0.0, MaxY = 0.0, RowMaxX = 0.0, RowMaxY = 0.0;
     for (PRows::iterator rit = _rows.begin(); rit != _rows.end(); rit++)
     {
         RowMaxX = (*rit)->GetMaxX();

@@ -1,8 +1,15 @@
+
+%option noinput
+%option nounput
+
 %{
+#include <ctype.h>
 #include "mut.h"
+#include "rds.h"
 #include "drucompi_y.h"
 #include "drucutil.h"
 #include "drucompi.h"
+#include "vmctools.h"
  
 #ifdef FLEX_SCANNER
 

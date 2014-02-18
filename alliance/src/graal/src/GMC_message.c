@@ -96,7 +96,7 @@ void GraalPromptCreateSegment()
   GraalDisplayMessage( GRAAL_MESSAGE_MODE, "Create Segment" );
 
   sprintf( MessageBuffer, "Layer: %s   Width: %.2f   Name: %s",
-           GRAAL_SEGMENT_NAME_TABLE[ GraalSegmentLayer ][0] ,
+           GRAAL_SEGMENT_NAME_TABLE[ (int)GraalSegmentLayer ][0] ,
            GraalSegmentWidth,
            ( GraalSegmentName ) ? GraalSegmentName : "none" );
 
@@ -128,9 +128,9 @@ void GraalPromptCreateConnector()
   GraalDisplayMessage( GRAAL_MESSAGE_MODE, "Create Connector" );
 
   sprintf( MessageBuffer, "Layer: %s   Width: %.2f   Orient: %s",
-           GRAAL_CONNECTOR_NAME_TABLE[ GraalConnectorLayer ][0],
+           GRAAL_CONNECTOR_NAME_TABLE[ (int)GraalConnectorLayer ][0],
            GraalConnectorWidth, 
-           GRAAL_ORIENT_NAME_TABLE[ GraalConnectorOrient ][0] );
+           GRAAL_ORIENT_NAME_TABLE[ (int)GraalConnectorOrient ][0] );
 
   GraalDisplayMessage( GRAAL_MESSAGE_INFO, MessageBuffer );
   GraalDisplayMessage( GRAAL_MESSAGE_PROMPT, "Enter center point" );
@@ -148,7 +148,7 @@ void GraalPromptCreateReference()
   GraalDisplayMessage( GRAAL_MESSAGE_MODE, "Create Reference" );
 
   sprintf( MessageBuffer, "Type: %s",
-           GRAAL_REFERENCE_NAME_TABLE[GraalReferenceType][0] );
+           GRAAL_REFERENCE_NAME_TABLE[(int)GraalReferenceType][0] );
 
   GraalDisplayMessage( GRAAL_MESSAGE_INFO, MessageBuffer );
   GraalDisplayMessage( GRAAL_MESSAGE_PROMPT, "Enter center point" );
@@ -166,7 +166,7 @@ void GraalPromptCreateVia()
   GraalDisplayMessage( GRAAL_MESSAGE_MODE, "Create Via" );
  
   sprintf( MessageBuffer, "Type: %s  Name: %s",
-           GRAAL_VIA_NAME_TABLE[ GraalViaType ][0],
+           GRAAL_VIA_NAME_TABLE[ (int)GraalViaType ][0],
            ( GraalViaName ) ? GraalViaName : "none" );
  
   GraalDisplayMessage( GRAAL_MESSAGE_INFO, MessageBuffer );
@@ -185,7 +185,7 @@ void GraalPromptCreateBigVia()
   GraalDisplayMessage( GRAAL_MESSAGE_MODE, "Create Big Via" );
  
   sprintf( MessageBuffer, "Type: %s  Name: %s",
-           GRAAL_BIGVIA_NAME_TABLE[ GraalBigViaType ][0],
+           GRAAL_BIGVIA_NAME_TABLE[ (int)GraalBigViaType ][0],
            ( GraalBigViaName ) ? GraalBigViaName : "none" );
  
   GraalDisplayMessage( GRAAL_MESSAGE_INFO, MessageBuffer );
@@ -218,13 +218,13 @@ void GraalPromptCreateTransistor()
   if ( GraalTransistorName == (char *)NULL )
   {
     sprintf( MessageBuffer, "Type: %s   Width: %.2f   Name: none",
-             GRAAL_TRANSISTOR_NAME_TABLE[ GraalTransistorType ][0],
+             GRAAL_TRANSISTOR_NAME_TABLE[ (int)GraalTransistorType ][0],
              GraalTransistorWidth );
   }
   else
   {
     sprintf( MessageBuffer, "Type: %s   Width: %.2f   Name: %s",
-             GRAAL_TRANSISTOR_NAME_TABLE[ GraalTransistorType ][0],
+             GRAAL_TRANSISTOR_NAME_TABLE[ (int)GraalTransistorType ][0],
              GraalTransistorWidth, GraalTransistorName );
   }
 
@@ -282,7 +282,7 @@ void GraalPromptCreateInstance()
   GraalDisplayMessage( GRAAL_MESSAGE_MODE, "Create Instance" );
  
   sprintf( MessageBuffer, "Symmetry: %s",
-           GRAAL_SYMMETRY_NAME_TABLE[ GraalInstanceSym ][0]  );
+           GRAAL_SYMMETRY_NAME_TABLE[ (int)GraalInstanceSym ][0]  );
  
   GraalDisplayMessage( GRAAL_MESSAGE_INFO, MessageBuffer );
   GraalDisplayMessage( GRAAL_MESSAGE_PROMPT, "Enter base point" );

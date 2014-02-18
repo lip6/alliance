@@ -68,5 +68,6 @@
 \------------------------------------------------------------*/
 
   extern void GraalInitializeIcon();
+  extern void GraalInitializePanel();
 
 # endif 

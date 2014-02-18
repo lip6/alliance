@@ -69,8 +69,8 @@
   extern Position XgraCursorY;
   extern Position XgraCursorSaveX;
   extern Position XgraCursorSaveY;
-  extern char     XgraCursorSaved;
-  extern char     XgraCursorInside;
+  extern int      XgraCursorSaved;
+  extern int      XgraCursorInside;
   extern long     XgraLambdaCursorX;
   extern long     XgraLambdaCursorY;
 

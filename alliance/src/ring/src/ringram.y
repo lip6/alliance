@@ -2,8 +2,13 @@
 %{
 #include <stdlib.h> 
 #include "struct.h"
+
+extern  void  yyrestart ( );
+extern  int   yyparse   ( );
+extern  int   yylex     ( );
+extern  void  yyerror   ( );
 %}
-%token M_NORTH, M_SOUTH, M_WEST, M_EAST, M_WIDTH
+%token M_NORTH  M_SOUTH  M_WEST  M_EAST  M_WIDTH
 %token NOMBRE
 %token IDENT 
 %union {

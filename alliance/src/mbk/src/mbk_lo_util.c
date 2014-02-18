@@ -1109,7 +1109,7 @@ while(ptfig->LOINS != NULL)
 
   if(all == 'N')
    break ;
-}
+  }
 
   /* Post traitement sur les CTC dont un des noeuds est a 0 */
 
@@ -1149,7 +1149,7 @@ while(ptfig->LOINS != NULL)
      if( othersig == scanlosig && othernode == scanctcnode )
         {
           ptctc->CAPA = -1.0 ;
-          verif = verif + 2 ;
+        //verif = verif + 2 ;
         }
       else
         {
@@ -1178,7 +1178,7 @@ while(ptfig->LOINS != NULL)
                 {
                   ptctc->CAPA+= ptctc2->CAPA;
                   ptctc2->CAPA = -1.0;
-                  verif = verif + 2 ;
+                //verif = verif + 2 ;
                 }
             }
            chainhtab = addchain(chainhtab,ptctc) ;
@@ -1264,7 +1264,7 @@ void debugctc2 ( lofig_list *ptfig )
    printf( "Information sur la figure %s.\n", ptfig->NAME );
    for( sig = ptfig->LOSIG ; sig ; sig = sig->NEXT )
    {
-     printf( "Signal %2ld (%08X)\n", sig->INDEX, (unsigned long) sig );
+     printf( "Signal %2ld (%08lX)\n", sig->INDEX, (unsigned long)sig );
      if( sig->PRCN )
      {
        for( scanchain = sig->PRCN->PCTC ;
@@ -1613,7 +1613,8 @@ losig_list *ptsig;
    static char loconname[BUFSIZE];
    char  *name; 
    char  locondir; 
-   int   i, foundterm = 0;
+ /*int   i;*/
+   int   foundterm = 0;
 
       /* scan connectors list of the current signal */
       ptlosig = (losig_list *)(ptchain->DATA);
@@ -1642,8 +1643,8 @@ losig_list *ptsig;
       locondir = foundterm ? extlocon->DIRECTION : intlocon->DIRECTION;
       name = (ptlosig->NAMECHAIN != NULL) ?  getsigname(ptlosig) :
           foundterm ? extlocon->NAME : intlocon->NAME;
-      i = 0;
       /*
+      i = 0;
       while ( (name[i] != '\0') && (name[i] != ' ') ) { 
          loconname [i] = name[i]; 
          i++; 
@@ -2386,7 +2387,7 @@ key[VHD_scon2DFN]      = vhd_hash ("scon2");
 
   current_pnt.data = head_pnt;
   current_pnt.type = type;
-
+  current_pnt.mark = 0;
   state            = type;
 
   while (state != VHD__XTDFN)
@@ -2915,7 +2916,7 @@ char prvcmd[3][20];
   comd1[0] = '\0';
   comd2[0] = '\0';
   (void)fgets( readstr, 60, stdin );
-  (void)sscanf (readstr,"%s%s%s",comd0,comd1,comd2);
+  (void)sscanf (readstr,"%19s%19s%19s",comd0,comd1,comd2);
 
   if (strcmp(comd0,"."))
     {

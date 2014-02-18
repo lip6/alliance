@@ -1569,7 +1569,7 @@ static schfig_list *loc_buildbox( Figure )
   long            Y_cont1;
   long            Y_cont2;
   long            MiddleDY;
-  long            MiddleInDY;
+//long            MiddleInDY;
   long            Delta;
   int             Number;
   int             NumberIn;
@@ -1676,25 +1676,25 @@ static schfig_list *loc_buildbox( Figure )
       /* TO BE DONE */
       Number     = 1;
       MiddleIn   = Box0->NUMBER_IN / 2;
-      MiddleInDY = SCP_BOX_CON_BASE_Y;
+    //MiddleInDY = SCP_BOX_CON_BASE_Y;
 
       for ( Con  = Box0->CON_IN;
             Con != (schcon_list *)0;
             Con  = Con->NEXT )
       {
-        if ( Number < MiddleIn )
-        {
-          MiddleInDY += SCP_BOX_CON_STEP_Y;
-        }
-        else
-        {
-          if ( ! ( Box0->NUMBER_IN & 0x1 ) )
-          {
-            MiddleInDY += SCP_BOX_CON_STEP_Y / 2;
-          }
+        /* if ( Number < MiddleIn ) */
+        /* { */
+        /*   MiddleInDY += SCP_BOX_CON_STEP_Y; */
+        /* } */
+        /* else */
+        /* { */
+        /*   /\* if ( ! ( Box0->NUMBER_IN & 0x1 ) ) *\/ */
+        /*   /\* { *\/ */
+        /*   /\*   MiddleInDY += SCP_BOX_CON_STEP_Y / 2; *\/ */
+        /*   /\* } *\/ */
 
-          break;
-        }
+        /*   break; */
+        /* } */
 
         Number++;
       }

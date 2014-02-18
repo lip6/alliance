@@ -408,7 +408,6 @@ WinZnc	*wininfo;
     if( elem->x1<=ix2 && ix1<=elem->x2 && iy1<=elem->y2 && elem->y1<=iy2 )
       nx1=x1-1;
   } 
-  x1=nx1;
   return(nx1);
 }
 
@@ -433,7 +432,6 @@ WinZnc	*wininfo;
     if( elem->x1<=ix2 && ix1<=elem->x2 && iy1<=elem->y2 && elem->y1<=iy2 )
       ny1=y1-1;
   } 
-  y1=ny1;
   return(ny1);
 }
 

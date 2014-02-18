@@ -8,6 +8,7 @@
 /* ###--------------------------------------------------------------### */
 
 #include <stdio.h>
+#include <string.h>
 #include "mut.h"
 #include "sch.h"
 #include "sch_debug.h"
@@ -227,24 +228,24 @@ char         **str   ;			/* recognized strings		*/
         {
         case s_DFN :
           if (pnt[i].dat != NULL)
-            printf ("%s", pnt[i].dat);
+            printf ("%s", (char*)pnt[i].dat);
           printf ("\n");
           break;
 
         case f_DFN :
-          printf ("%f\n", pnt[i].imd);
+          printf ("%ld\n", pnt[i].imd);
           break;
 
         case u_DFN :
-          printf ("%u\n", pnt[i].imd);
+          printf ("%ld\n", pnt[i].imd);
           break;
 
         case c_DFN :
-          printf ("%c\n", pnt[i].imd);
+          printf ("%c\n", (char)pnt[i].imd);
           break;
 
         case d_DFN :
-          printf ("%d\n", pnt[i].imd);
+          printf ("%ld\n", pnt[i].imd);
           break;
 
         case l_DFN :
@@ -252,7 +253,7 @@ char         **str   ;			/* recognized strings		*/
           break;
 
         case x_DFN :
-          printf ("0x%x\n", pnt[i].imd);
+          printf ("0x%x\n", (unsigned int)pnt[i].imd);
           break;
 
         }
@@ -492,8 +493,6 @@ union value pnt  ;
 int         type ;
 
   {
-  char *lcl_str;
-
   printf ("   %-15s: ", str [type]);
   switch (type)
     {
@@ -504,17 +503,17 @@ int         type ;
       break;
 
     case float_DFN :
-      printf ("%f\n", pnt.imd);
+      printf ("%ld\n", pnt.imd);
       break;
 
     case character_DFN :
-      printf ("%c\n", pnt.imd);
+      printf ("%c\n", (char)pnt.imd);
       break;
 
     case short_DFN     :
     case integer_DFN   :
     case long_DFN      :
-      printf ("0x%x\n", pnt.imd);
+      printf ("0x%x\n", (unsigned int)pnt.imd);
       break;
 
     default :
@@ -535,8 +534,9 @@ void *head_pnt;				/* structure's pointer		*/
 char *type;				/* structure's type		*/
 
   {
-  char          line   [128];		/* buffer to read a cmd line	*/
-  char          buffer [128];		/* buffer to split the cmd line	*/
+  size_t        lline  = 128;
+  char         *line   = NULL;		/* buffer to read a cmd line	*/
+  char          buffer [lline];		/* buffer to split the cmd line	*/
 
   char         *words  [ 10];		/* number of words on a line	*/
   int           nmbrs  [ 10];		/* words translated into number	*/
@@ -544,9 +544,8 @@ char *type;				/* structure's type		*/
   int           indxs  [ 10];		/* index of words		*/
 
   struct stack  jtab   [ 10];		/* list of memorized addresses	*/
-  int           idx, i;
+  int           idx;
   int           readflg = 0;
-  int           code;
   unsigned int  size;
   char         *pntr   = NULL;
   long          pshtype;
@@ -582,6 +581,7 @@ char *type;				/* structure's type		*/
 	/*    - search that words among recognized strings		*/
 	/* ###------------------------------------------------------### */
 
+  line = (char*)malloc( lline*sizeof(char) );
   words [0] = buffer;
   get_size (siz);
 
@@ -831,7 +831,7 @@ char *type;				/* structure's type		*/
 
     printf ("\n\nCOMMAND > ");
 
-    gets (line);
+    getline (&line, &lline, stdin);
     if (strcmp (line ,"."))
       {
       wrdcnt = splitline (words, line);

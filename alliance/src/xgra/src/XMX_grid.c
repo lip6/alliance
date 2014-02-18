@@ -212,6 +212,8 @@ char XgraDisplayUnitGrid( GraphicX1, GraphicY1, GraphicX2, GraphicY2 )
 
   if ( XgraUnitUserGrid == 1  )
   {
+    Check = ( XGRA_LOWER_GRID_STEP * 2 / XgraUnitUserGridDy );
+#if 0
     if ( XgraUnitUserGridDx > XgraUnitUserGridDy )
     {
       Check = ( XGRA_LOWER_GRID_STEP * 2 / XgraUnitUserGridDy );
@@ -220,6 +222,7 @@ char XgraDisplayUnitGrid( GraphicX1, GraphicY1, GraphicX2, GraphicY2 )
     {
       Check = ( XGRA_LOWER_GRID_STEP * 2 / XgraUnitUserGridDy );
     }
+#endif
 
     if ( XgraUnitGridStep < Check ) UserGrid = 0;
     else                               UserGrid = 1;

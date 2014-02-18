@@ -106,7 +106,6 @@ int main( argc, argv )
   char **argv;
 {
   ablexpr *Expr1;
-  ablexpr *Expr2;
 
   mbkenv();
   autenv();

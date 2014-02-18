@@ -57,6 +57,8 @@
 # include "GSB.h"
 # include "GMX.h"
 # include "GMS.h"
+# include "GMV.h"
+# include "GMF.h"
 
 # include "GMX_motif.h"
 # include "GMX_graphic.h" 

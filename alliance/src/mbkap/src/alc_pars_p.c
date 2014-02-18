@@ -591,7 +591,7 @@ char *fig_name, mode;
     /* Lecture de la ligne d'en tete ( prefixe 'H '). */
     parser.curr_line = 2;
     if ( fscanf(parser.file,
-                "H %[^,],%c,%ld,%ld,%[^,],%ld,%[^,],",
+                "H %1023[^,],%c,%22ld,%22ld,%1023[^,],%22ld,%1023[^,],",
                  s_name,   &c_ftype, &ab_index, &NB_desc,
                  s_date, &deb_index, s_chain_mode        )!=7 )
         alc_printerror( EHEADER);
@@ -599,13 +599,13 @@ char *fig_name, mode;
     if ( c_ftype!='P' )               alc_printerror( EFILETYPE);
 
     /* Lecture de la boundig box. */
-    if ( fscanf(parser.file,"%ld,%ld,%ld,%ld, ",
+    if ( fscanf(parser.file,"%22ld,%22ld,%22ld,%22ld, ",
                       &xbb, &ybb, &dxbb, &dybb )!=4 )
         alc_printerror( EBOUNDBOX);
 
     /* Lecture de l'abutment box. */
     if ( ab_index>=0 )    {
-        if ( fscanf(parser.file,"%ld,%ld,%ld,%ld ",
+        if ( fscanf(parser.file,"%22ld,%22ld,%22ld,%22ld ",
                           &xab, &yab, &dxab, &dyab )!=4 )
             alc_printerror( EABUTMBOX);
         defab( parser.ptfig, 
@@ -855,12 +855,12 @@ static void  alc_load(ptfig,fig_name,mode,setup)
     if ( setup > 3 )
     {
       if (fscanf(parser.file,
-                 "H %[^,],%c,%[^,],%ld\n", s_name, &c_ftype, s_date, &parser.scale_x)!=4)
+                 "H %1023[^,],%c,%1023[^,],%22ld\n", s_name, &c_ftype, s_date, &parser.scale_x)!=4)
           alc_printerror(EHEADER);
     }
     else
     {
-      if (fscanf(parser.file, "H %[^,],%c,%[^\n]\n", s_name, &c_ftype, s_date)!=3)
+      if (fscanf(parser.file, "H %1023[^,],%c,%1023[^\n]\n", s_name, &c_ftype, s_date)!=3)
           alc_printerror(EHEADER);
     }
 
@@ -869,7 +869,7 @@ static void  alc_load(ptfig,fig_name,mode,setup)
 
     /* Lecture de l'abutment box. */
     parser.curr_line++;
-    if (fscanf(parser.file,"A %ld,%ld,%ld,%ld ", &xab, &yab, &dxab, &dyab) != 4)
+    if (fscanf(parser.file,"A %22ld,%22ld,%22ld,%22ld ", &xab, &yab, &dxab, &dyab) != 4)
        alc_printerror(EABUTMBOX);
     defab(parser.ptfig, alc_scale_x(xab), alc_scale_x(yab),
           alc_scale_x(dxab), alc_scale_x(dyab));
@@ -1326,12 +1326,12 @@ char buffer[BUFSIZ];
 		alc_printerror(ESYNTAX);
 
 	/* printf( "%s\n", buffer); */
-	if (sscanf(buffer, "V ALLIANCE : %ld ", &setup) == 1) {
+	if (sscanf(buffer, "V ALLIANCE : %22ld ", &setup) == 1) {
    	if (setup >= 3)
 	       alc_load(ptfig, fig_name, mode,setup);
 		else
 			alc_printerror(ESETUP);
-	} else if (sscanf(buffer, "V ALLIANCE 2.2 SETUP : %ld ", &setup) == 1) {
+	} else if (sscanf(buffer, "V ALLIANCE 2.2 SETUP : %22ld ", &setup) == 1) {
    	if (setup == 2)
 		   alc_old_load(ptfig, fig_name, mode);
 		else

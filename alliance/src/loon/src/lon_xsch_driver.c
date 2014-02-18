@@ -37,6 +37,8 @@
 #include <string.h>
 
 #include <mut.h>
+#include <aut.h>
+#include <aut.h>
 #include <abl.h>
 #include <mlo.h>
 #include <abe.h>
@@ -131,7 +133,7 @@ extern void save_xsch(FILE* xsch_stream, lofig_list* lofig, ptype_list* long_pat
    ptype_list* ptype, *ptype2=NULL;
    double delay=0, delay_out=0;
    char mes[1024];
-   char* signame;
+   char* signame = NULL;
    locon_list* locon;
    losig_list* losig;
    double gradient=1;

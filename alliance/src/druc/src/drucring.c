@@ -113,14 +113,8 @@ void DrucFlattenInstanceRings ( DrucFigureRds
 {
 rdsfig_list               *InstanceModele;
 rdsins_list               *InstanceCourante;
-long                       PositionBboxX;
-long                       PositionBboxY;
-long                       PositionBboxDX;
-long                       PositionBboxDY;
 int                        IndexLayer;
 char                      *TmpName;
-char                      *savName;
-char                      *brico = "a";
 rdsrec_list               *RectangleCourant;
 rdsrec_list               *NouveauRectangle;
 
@@ -293,7 +287,6 @@ void DrucCreateRectangleInCouronne ( DrucCouronneRds,
     long         PositionInterneCouronneDY;
 
 {
-rdsrec_list     *RectangleDest;
       /*\
        *  si le rectangle est en contact avec la couronne
       \*/
@@ -311,14 +304,14 @@ rdsrec_list     *RectangleDest;
        *  creer un nouveau rectangle, 
        *  l'inserer dans la figure couronne sur son layer
       \*/
-        RectangleDest    = addrdsfigrec ( DrucCouronneRds,
-                                          RectangleCourant->NAME,
-                                          IndexLayer,
-                                          RectangleCourant->X,
-                                          RectangleCourant->Y,
-                                          RectangleCourant->DX,
-                                          RectangleCourant->DY
-                                        );
+        addrdsfigrec ( DrucCouronneRds,
+                       RectangleCourant->NAME,
+                       IndexLayer,
+                       RectangleCourant->X,
+                       RectangleCourant->Y,
+                       RectangleCourant->DX,
+                       RectangleCourant->DY
+                     );
   }
 } 
 

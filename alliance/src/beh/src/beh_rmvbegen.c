@@ -50,7 +50,7 @@ char          mode;		/* recursive delete or not (Y or N)	*/
 
   {
   struct begen  headgen;
-  struct begen *ptlastgen;
+  struct begen *ptlastgen = NULL;
   struct begen *ptbegen;
 
   if (listbegen != NULL)

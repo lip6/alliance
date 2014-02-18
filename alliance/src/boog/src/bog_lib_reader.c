@@ -64,7 +64,7 @@ extern chain_list *getfiles_with_ext (char *path, char *ext)
   struct dirent *entry;
   char *filename;
   char *completefilename;
-  int filenamelength, extensionlength, pathlength;
+  int filenamelength, extensionlength;
   chain_list *head;
 
   if (!path || !ext) return NULL;
@@ -73,7 +73,6 @@ extern chain_list *getfiles_with_ext (char *path, char *ext)
   if (!dir) return NULL;
 
   extensionlength = strlen (ext);
-  pathlength = strlen (path); 
   head=NULL;
   
   while ((entry = readdir (dir)) != NULL) {

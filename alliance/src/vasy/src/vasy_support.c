@@ -603,7 +603,7 @@ static void VasySupportVex( PosSupp, PosFrom, PosTo, Expr, Mode )
 
   if ( IsVasyDebugLevel1() )
   {
-    VasyPrintf( stdout, "VasySupportVex %d %d %d Mode %d-> \n",
+    VasyPrintf( stdout, "VasySupportVex %u %u %u Mode %d-> \n",
              PosSupp, PosFrom, PosTo, Mode );
     viewvexexprboundln( Expr );
   }

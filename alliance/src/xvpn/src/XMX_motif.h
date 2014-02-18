@@ -67,4 +67,6 @@
 |                                                             |
 \------------------------------------------------------------*/
 
+  extern void XvpnInitializeColorMap();
+
 # endif 

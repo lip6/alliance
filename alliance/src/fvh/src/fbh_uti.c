@@ -78,15 +78,12 @@ static void FbhScanExprWhen( ScanCase )
 
   fbcas_list  *ScanCase;
 {
-  char *ChoiceValue;
   int   Index;
 
   FbhFuncRight( ScanCase->ABL );
 
   for ( Index = 0; Index < ScanCase->SIZE; Index++ )
   {
-    ChoiceValue = ScanCase->CHOICE[ Index ].VALUE;
-
     FbhScanExprInstruction( ScanCase->CHOICE[ Index ].INSTRUCTION );
   }
 }

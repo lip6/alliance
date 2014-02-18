@@ -136,7 +136,7 @@ void BoomBehOptimizeTop( BehFigure )
   {
     if ( IsBoomDebugLevel2() )
     {
-      BoomPrintf( stdout, "-> ChildFrom %d\n", ChildFrom );
+      BoomPrintf( stdout, "-> ChildFrom %u\n", ChildFrom );
     }
 
     ReorderLevel[ ChildFrom ] = 0;
@@ -147,7 +147,7 @@ void BoomBehOptimizeTop( BehFigure )
     {
       if ( IsBoomDebugLevel2() )
       {
-        BoomPrintf( stdout, "-> Swap %d and %d\n", ChildTo, ChildTo + 1 );
+        BoomPrintf( stdout, "-> Swap %u and %u\n", ChildTo, ChildTo + 1 );
       }
 
       swapbddvar( (bddsystem *)0, ChildTo );
@@ -172,7 +172,7 @@ void BoomBehOptimizeTop( BehFigure )
 
     if ( IsBoomDebugLevel1() )
     {
-      BoomPrintf( stdout, "--> Best child %d\n", BestChild );
+      BoomPrintf( stdout, "--> Best child %u\n", BestChild );
       BoomPrintf( stdout, "--> Best cost %ld\n", Cost      );
     }
 
@@ -181,7 +181,7 @@ void BoomBehOptimizeTop( BehFigure )
 # ifdef BDD_DEBUG
   if ( IsBoomDebugLevel1() )
   {
-fprintf( stdout, "-> UnSwap %d and %d\n", ChildTo - 1, ChildTo );
+fprintf( stdout, "-> UnSwap %u and %u\n", ChildTo - 1, ChildTo );
   }
 # endif
 

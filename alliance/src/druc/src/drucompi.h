@@ -77,7 +77,7 @@ extern char  DrucInputChaine[];
 |                  Druc Fonctions LEX/YACC                    |
 |                                                             |
 \------------------------------------------------------------*/
-extern      vrd_y_parse                      ();
+extern int  vrd_y_parse                      ();
 extern void vrd_y_error                      ();
 /*------------------------------------------------------------\
 |                                                             |
@@ -97,9 +97,12 @@ extern void DrucInitDefineLayerA         ();
 extern void DrucInitDefineLayerB         ();
 extern void DrucStoreInstructionDefine   ();
 
+extern void DrucLoadInstructionDefine    ();
+extern void DrucLoadInstructionUndefine  ();
 extern void DrucInitUndefineUserLayer    ();
 extern void DrucStoreInstructionUndefine ();
 
+extern void DrucInitOpUnaire             ();
 extern void DrucInitRegleNumero          ();
 extern void DrucInitRegleInstruction     ();
 extern void DrucInitRegleLayerA          ();
@@ -108,6 +111,8 @@ extern void DrucInitRegleValeur          ();
 extern void DrucInitRegleRelation        ();
 extern void DrucInitRegleMesure          ();
 extern void DrucInitRegleOpCompare       ();
+extern void DrucInitDefineValeur         ();
+extern void DrucLoadInstructionRegle     ();
 extern void DrucStoreInstructionRegle    ();
 
 extern void DrucEcho                     ();

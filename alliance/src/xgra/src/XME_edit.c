@@ -56,7 +56,10 @@
 # include "XMV.h"
 # include "XME.h"
 
+# include "XTB_dialog.h"
 # include "XME_edit.h"
+# include "XME_panel.h"
+# include "XME_select.h"
 # include "XME_message.h"
 
 /*------------------------------------------------------------\
@@ -82,7 +85,6 @@
 
   static char  XgraIdentifyMessage[ XGRA_IDENTIFY_MESSAGE_SIZE ];
   static char  XgraIdentifyBuffer [ XGRA_IDENTIFY_BUFFER_SIZE  ];
-  static char  XgraIdentifyLocout [ XGRA_IDENTIFY_LOCOUT_SIZE  ];
 
   static char *XgraScanIdentify;
   static long  XgraIdentifyLength;
@@ -104,7 +106,6 @@ short XgraAddIdentify( Obj )
 {
   autnode_list  *Node;
   autarc_list   *Arc;
-  char          *ScanString;
   long           Length;
 
   autbegin();
@@ -159,7 +160,6 @@ void XgraEditIdentify( X1, Y1 )
   long Y1;
 {
   xgraselect_list *Select;
-  xgraobj_list    *Obj;
 
   strcpy( XgraIdentifyMessage, "No element found !" );
 
@@ -193,7 +193,6 @@ void XgraEditConnected( X1, Y1 )
   long Y1;
 {
   xgraselect_list  *Select;
-  xgraselect_list **PrevSelect;
   xgraobj_list     *Obj;
 
   if ( XgraHeadConnect != (xgraselect_list *)NULL )

@@ -45,6 +45,8 @@
 # include <stdio.h>
 # include <string.h>
 # include <Xm/Xm.h>
+# include <Xm/Text.h>
+# include <Xm/List.h>
 # include <Xm/FileSB.h>
 # include <Xm/SelectioB.h>
 # include <Xm/PushBG.h>
@@ -61,6 +63,7 @@
 # include "XME_dialog.h"
 # include "XME_edit.h"
 # include "XME_search.h"
+# include "XME_select.h"
 
 /*------------------------------------------------------------\
 |                                                             |
@@ -117,7 +120,9 @@
              (Widget)NULL
            }
            ,
-           NULL
+           {
+             NULL
+           }
          };
 
    XgraPanelItem XgraEditSearchViewPanel  =
@@ -187,7 +192,9 @@
              (Widget)NULL
            }
            ,
-           NULL
+           {
+             NULL
+           }
          };
 
    XgraPanelItem XgraEditIdentifyPanel =
@@ -271,7 +278,9 @@
              (Widget)NULL
            }
            ,
-           NULL
+           {
+             NULL
+           }
          };
 
    XgraPanelItem XgraEditSelectPanel =
@@ -485,7 +494,7 @@ void XgraDisplaySelectList( Message )
   else
   {
     Label = XmStringCreateSimple( Message );
-    XmListAddItem( XgraEditSelectButton[ 0 ].BUTTON , Label , NULL );
+    XmListAddItem( XgraEditSelectButton[ 0 ].BUTTON , Label , 0 );
     XmStringFree( Label );
   }
 

@@ -100,7 +100,7 @@ void SyfFsmJediEncode( FsmFigure )
   long           *ValueArray;
 
   long           StateCounter;
-  long           BestState;
+  long           BestState = 0;
   long           SortState;
   long           DoneState;
 
@@ -110,7 +110,7 @@ void SyfFsmJediEncode( FsmFigure )
   long           SumCost;
 
   long           LineState;
-  long           LineBest;
+  long           LineBest = 0;
 
 
   long           SortIndex;
@@ -120,7 +120,7 @@ void SyfFsmJediEncode( FsmFigure )
   long           EdgeWeight;
   long           Distance;
 
-  long           BestCode;
+  long           BestCode = 0;
   long           StateCode;
   long           CodeValue;
 

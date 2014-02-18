@@ -88,9 +88,9 @@
   Position XgraCursorY       = 0;
   Position XgraCursorSaveX   = 0;
   Position XgraCursorSaveY   = 0;
-  char     XgraCursorSaved   = XGRA_FALSE;
-  char     XgraCursorInside  = XGRA_FALSE;
-  char     XgraCursorType    = XGRA_INPUT_HALF_BOX;
+  int      XgraCursorSaved   = XGRA_FALSE;
+  int      XgraCursorInside  = XGRA_FALSE;
+  int      XgraCursorType    = XGRA_INPUT_HALF_BOX;
 
   long     XgraUnitCursorX = 0;
   long     XgraUnitCursorY = 0;
@@ -99,7 +99,7 @@
 
   long     XgraUnitCursorSaveX[ 2 ] = { 0, 0 };
   long     XgraUnitCursorSaveY[ 2 ] = { 0, 0 };
-  char     XgraCursorIndex            = 0;
+  int      XgraCursorIndex            = 0;
 
 /*------------------------------------------------------------\
 |                                                             |
@@ -163,16 +163,16 @@ void XgraDisplayCoordinates()
 {
   autbegin();
 
-  sprintf( XgraCursorBuffer, "%d", XgraUnitCursorX );
+  sprintf( XgraCursorBuffer, "%ld", XgraUnitCursorX );
   XgraDisplayMessage( XGRA_MESSAGE_X, XgraCursorBuffer );
 
-  sprintf( XgraCursorBuffer, "%d", XgraUnitCursorY );
+  sprintf( XgraCursorBuffer, "%ld", XgraUnitCursorY );
   XgraDisplayMessage( XGRA_MESSAGE_Y, XgraCursorBuffer );
 
-  sprintf( XgraCursorBuffer, "%d", XgraUnitCursorX - XgraUnitCursorSaveX[0] );
+  sprintf( XgraCursorBuffer, "%ld", XgraUnitCursorX - XgraUnitCursorSaveX[0] );
   XgraDisplayMessage( XGRA_MESSAGE_DX, XgraCursorBuffer );
 
-  sprintf( XgraCursorBuffer, "%d", XgraUnitCursorY - XgraUnitCursorSaveY[0] );
+  sprintf( XgraCursorBuffer, "%ld", XgraUnitCursorY - XgraUnitCursorSaveY[0] );
   XgraDisplayMessage( XGRA_MESSAGE_DY, XgraCursorBuffer );
 
   autend();

@@ -3,8 +3,7 @@
 //
 // $Id: ADefs.h,v 1.4 2008/06/11 09:20:34 jpc Exp $
 //
-// /-----------------------------------------------------------------\ 
-// |                                                                 |
+// +-----------------------------------------------------------------+ 
 // |        A l l i a n c e   C A D   S y s t e m                    |
 // |              S i m p l e   R o u t e r                          |
 // |                                                                 |
@@ -12,10 +11,7 @@
 // |  E-mail      :       alliance-support@asim.lip6.fr              |
 // | =============================================================== |
 // |  C++ Header  :       "./ADefs.h"                                |
-// | *************************************************************** |
-// |  U p d a t e s                                                  |
-// |                                                                 |
-// \-----------------------------------------------------------------/
+// +-----------------------------------------------------------------+
 
 
 
@@ -154,7 +150,7 @@
 
 
     inline static CNodeAS *AS (CDRGrid::iterator  point)
-                    { return ((CNodeAS*)(point.node().algo)); }
+                    { return static_cast<CNodeAS*>(point.node().algo); }
 
 
     // Heap Allocator for CNodeAS. -------------------------------
@@ -346,7 +342,6 @@
     // Internal CASimple attributes : the state of the algorithm.
     public: CQueue   _queue;
     public: CAStar   _astar;
-    public: CDRGrid *_drgrid;
     public: bool     rglobal;
 
     // Attributes.

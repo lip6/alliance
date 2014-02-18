@@ -60,6 +60,7 @@
 # include "GMV_dialog.h"
 # include "GMV_view.h"
 # include "GMV_map.h"
+# include "GMV_panel.h"
 
 /*------------------------------------------------------------\
 |                                                             |
@@ -168,7 +169,9 @@
              (DrealMenuItem *)NULL
            }
            ,
-           NULL
+           {
+             NULL
+           }
          };
 
 /*------------------------------------------------------------\

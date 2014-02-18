@@ -179,7 +179,7 @@ long           trace_mode;
           else
             direct = "TO"    ;
 
-          fprintf (fp, "  SIGNAL %s : %s %s (%d %s %d) %s", beh_vhdlname (name),
+          fprintf (fp, "  SIGNAL %s : %s %s (%ld %s %ld) %s", beh_vhdlname (name),
                        mode, type, left, direct, right, kind);
           }
         else
@@ -239,7 +239,7 @@ long           trace_mode;
         else
           direct = "TO"    ;
 
-        fprintf (fp, "  SIGNAL %s : REG_VECTOR (%d %s %d) REGISTER;\t-- %s\n",
+        fprintf (fp, "  SIGNAL %s : REG_VECTOR (%ld %s %ld) REGISTER;\t-- %s\n",
                      beh_vhdlname (name), left, direct, right, name);
         }
       else
@@ -283,7 +283,7 @@ long           trace_mode;
         else
           direct = "TO"    ;
 
-        fprintf (fp, "  SIGNAL %s : %s (%d %s %d) BUS;\t-- %s\n",
+        fprintf (fp, "  SIGNAL %s : %s (%ld %s %ld) BUS;\t-- %s\n",
                      beh_vhdlname (name), type, left, direct, right, name);
         }
       else
@@ -327,7 +327,7 @@ long           trace_mode;
         else
           direct = "TO"    ;
 
-        fprintf (fp, "  SIGNAL %s : BIT_VECTOR (%d %s %d);\t-- %s\n",
+        fprintf (fp, "  SIGNAL %s : BIT_VECTOR (%ld %s %ld);\t-- %s\n",
                      beh_vhdlname (name), left, direct, right, name);
         }
       else
@@ -398,7 +398,7 @@ long           trace_mode;
         if (pt_aux->TIME == 0)
           fprintf (fp, ";\n");
         else
-          fprintf (fp, " after %u %s;\n", pt_aux->TIME*time_step, time_unit);
+          fprintf (fp, " after %lu %s;\n", pt_aux->TIME*time_step, time_unit);
 
         buffer [0] = '\0';
         }
@@ -416,7 +416,7 @@ long           trace_mode;
       ptbiabl = pt_reg->BIABL;
       while (ptbiabl != NULL)
         {
-        fprintf (fp, "  label%d : BLOCK ", nrlabel);
+        fprintf (fp, "  label%ld : BLOCK ", nrlabel);
 
         if (ptbiabl->CNDABL == NULL)
           beh_toolbug (19, "vhdlsavebefig", pt_reg->NAME, 0);
@@ -445,12 +445,12 @@ long           trace_mode;
           if (ptbiabl->TIME == 0)
             fprintf (fp, ";\n");
           else
-            fprintf (fp, "after %u %s;\n", ptbiabl->TIME*time_step, time_unit);
+            fprintf (fp, "after %lu %s;\n", ptbiabl->TIME*time_step, time_unit);
 
           buffer[0] = '\0';
           }
 
-        fprintf (fp, "  END BLOCK label%d;\n", nrlabel);
+        fprintf (fp, "  END BLOCK label%ld;\n", nrlabel);
         ptbiabl = ptbiabl->NEXT;
         nrlabel++;
         }
@@ -469,7 +469,7 @@ long           trace_mode;
       ptbiabl = pt_bux->BIABL;
       while (ptbiabl != NULL)
         {
-        fprintf (fp, "  label%d : BLOCK ", nrlabel);
+        fprintf (fp, "  label%ld : BLOCK ", nrlabel);
 
         if (ptbiabl->CNDABL == NULL)
           beh_toolbug (19, "vhdlsavebefig", pt_bux->NAME, 0);
@@ -498,12 +498,12 @@ long           trace_mode;
           if (ptbiabl->TIME == 0)
             fprintf (fp, ";\n");
           else
-            fprintf (fp, "after %u %s;\n", ptbiabl->TIME*time_step, time_unit);
+            fprintf (fp, "after %lu %s;\n", ptbiabl->TIME*time_step, time_unit);
 
           buffer[0] = '\0';
           }
 
-        fprintf (fp, "  END BLOCK label%d;\n",nrlabel);
+        fprintf (fp, "  END BLOCK label%ld;\n",nrlabel);
         ptbiabl = ptbiabl->NEXT;
         nrlabel++;
         }
@@ -523,7 +523,7 @@ long           trace_mode;
       ptbiabl = pt_bus->BIABL;
       while (ptbiabl != NULL)
         {
-        fprintf (fp, "  label%d : BLOCK ", nrlabel);
+        fprintf (fp, "  label%ld : BLOCK ", nrlabel);
 
         if (ptbiabl->CNDABL == NULL)
           beh_toolbug (19, "vhdlsavebefig", pt_bus->NAME, 0);
@@ -551,11 +551,11 @@ long           trace_mode;
           if (ptbiabl->TIME == 0)
             fprintf (fp, ";\n");
           else
-            fprintf (fp, "after %u %s;\n", ptbiabl->TIME*time_step, time_unit);
+            fprintf (fp, "after %lu %s;\n", ptbiabl->TIME*time_step, time_unit);
           buffer [0] = '\0';
           }
 
-        fprintf (fp, "\tEND BLOCK label%d;\n", nrlabel);
+        fprintf (fp, "\tEND BLOCK label%ld;\n", nrlabel);
         ptbiabl = ptbiabl->NEXT;
         nrlabel++;
         }
@@ -587,7 +587,7 @@ long           trace_mode;
         if (pt_out->TIME == 0)
           fprintf (fp, ";\n");
         else
-          fprintf (fp, " after %u %s;\n", pt_out->TIME*time_step, time_unit);
+          fprintf (fp, " after %lu %s;\n", pt_out->TIME*time_step, time_unit);
 
         buffer [0] = '\0';
         }

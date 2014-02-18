@@ -119,10 +119,10 @@ main (argc, argv)
   int parsed_option;
   int arguments_left;
 
-  char * ToolName;
-  char * ToolVersion;
-  char * ToolPurpose;
-  char * ToolDate;
+  char * ToolName     = NULL;
+  char * ToolVersion  = NULL;
+  char * ToolPurpose  = NULL;
+  char * ToolDate     = NULL;
 
 
 

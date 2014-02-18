@@ -128,7 +128,7 @@ logen_list *pins, *pmod;
    if (ins) {
       if (ins->NAME) {
          for (pins=ins;pins;pins=pins->NEXT)
-            if (pmod=getlogen(mod,pins->NAME))
+           if ( (pmod=getlogen(mod,pins->NAME)) )
                pmod->TAG=1;
             else {
                fprintf(stderr,

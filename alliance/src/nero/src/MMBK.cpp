@@ -3,8 +3,7 @@
 //
 // $Id: MMBK.cpp,v 1.10 2012/05/02 14:49:23 jpc Exp $
 //
-// /-----------------------------------------------------------------\ 
-// |                                                                 |
+// +-----------------------------------------------------------------+ 
 // |        A l l i a n c e   C A D   S y s t e m                    |
 // |              S i m p l e   R o u t e r                          |
 // |                                                                 |
@@ -12,10 +11,7 @@
 // |  E-mail      :       alliance-support@asim.lip6.fr              |
 // | =============================================================== |
 // |  C++ Module  :       "./UMBK.cpp"                               |
-// | *************************************************************** |
-// |  U p d a t e s                                                  |
-// |                                                                 |
-// \-----------------------------------------------------------------/
+// +-----------------------------------------------------------------+
 
 
 
@@ -40,15 +36,19 @@ namespace MBK {
 
 
 
-//  /----------------------------------------------------------------\
+//  +----------------------------------------------------------------+
 //  |                     Methods Definitions                        |
-//  \----------------------------------------------------------------/
+//  +----------------------------------------------------------------+
 
 
 // -------------------------------------------------------------------
 // Constructor  :  "CXRect::CXRect()".
 
-CXRect::CXRect ( CDRGrid* agrid ) : drgrid(agrid)
+CXRect::CXRect ( CDRGrid* agrid )
+  : drgrid(agrid)
+  , seg   ()
+  , rect  ()
+  , grid  ()
 { }
 
 
@@ -80,7 +80,7 @@ void  CXRect::setSeg (phseg_list &rSeg)
 
 void  CXRect::seg2rect (void)
 {
-  long  width   = env.layer2width   (seg.LAYER);
+//long  width   = env.layer2width   (seg.LAYER);
   long  spacing = env.layer2spacing (seg.LAYER);
   long  expand;
 
@@ -846,7 +846,7 @@ CFig::CFig (string &nameLofig, string &namePhfig) throw (except_done):
 
 CFig::~CFig (void)
 {
-  MIns::iterator  itIns, beginIns, endIns;
+  MIns::iterator  itIns, endIns;
 
 
   cmess2 << "  o  Deleting CFig...";
@@ -946,7 +946,7 @@ void  CFig::addphref (phref_list &ref)
 // -------------------------------------------------------------------
 // Function  :  "layer2a()".
 
-extern char *layer2a(char layer)
+extern const char *layer2a(char layer)
 {
   switch (layer) {
     case NDIF:  return ("NDIF");
@@ -1024,8 +1024,9 @@ extern bool  isALU(char layer)
     case ALU6:
     case ALU7:
     case ALU8:
-    case ALU9: return (true);
+    case ALU9: return true;
   }
+  return false;
 }
 
 

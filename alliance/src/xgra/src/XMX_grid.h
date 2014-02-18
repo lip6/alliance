@@ -73,4 +73,7 @@
 |                                                             |
 \------------------------------------------------------------*/
 
+  extern void XgraInitializeUnitGrid();
+  extern char XgraDisplayUnitGrid();
+
 # endif 

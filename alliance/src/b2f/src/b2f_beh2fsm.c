@@ -452,7 +452,7 @@ bddnode *B2fTreatInitialState( BehFigure, FlagInitial, StringInitial )
   authtable    *HashTable;
   authelem     *Element;
   char         *ScanString;
-  long          Value;
+  long          Value = 0;
   int           Index;
   int           Scan;
   int           Length;
@@ -624,7 +624,6 @@ void B2fTreatState( BehFigure, FlagInitial, StringInitial )
   bddnode      *BddImageSet;
   bddnode      *BddImage;
   bddvar        Variable;
-  int           InitialExist;
   long          NumberIndex;
   long          StateIndex;
 
@@ -738,10 +737,9 @@ void B2fTreatPort( BehFigure )
   befig_list  *BehFigure;
 {
   bepor_list  *ScanPort;
-  char        *ClockName;
   char        *Vector;
   long         Index;
-  int          FsmType;
+  int          FsmType = FSM_TYPE_BIT;
 
   for ( ScanPort  = BehFigure->BEPOR;
         ScanPort != (bepor_list *)0;
@@ -785,18 +783,16 @@ void B2fTreatRegister( BehFigure )
 
   befig_list  *BehFigure;
 {
-  bddcircuit  *BddCircuit;
   bereg_list  *ScanReg;
   binode_list *BiNode;
   bddnode     *BddNode;
   chain_list  *Expr;
   chain_list  *Support;
-  char        *RegName;
+  char        *RegName = NULL;
   long         Index;
 
   B2fNumberRegister = 0;
   B2fRegisterName   = (char *)0;
-  BddCircuit        = BehFigure->CIRCUI;
   BddNode           = (bddnode    *)0;
   Expr              = (chain_list *)0;
 /*

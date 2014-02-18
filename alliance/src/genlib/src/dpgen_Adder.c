@@ -72,7 +72,7 @@
 
 static void  RSA_Layout ()
 {
-  int  pi, i, n, posy;
+  int  pi, i, n;
   int  twostage = -1;
  
 
@@ -121,9 +121,6 @@ static void  RSA_Layout ()
       }
     }
   }
-
-
-  posy = n;
 
 
   /* LV_N n'est pas une puissance entiere de 2. */

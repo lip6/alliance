@@ -1,10 +1,14 @@
 %{
 #include <stdio.h>
 #include <stdlib.h>
+#include <string.h>
 #include <math.h>
 #include "exp.h"
 #include "ht.h"
 #include "expy.h"
+
+  extern int yylex  ();
+         int yyerror(char *s);
 
 #define VERBOSE        (int)((htget(dico, "verbose")->VAL.f+EPSILON))
 #define EPSILON        0.00001
@@ -89,6 +93,7 @@ htelt_t *mess (int type, char *fmt, htelt_t * args)
     }
   }
   eltremove (args);
+  return NULL;
 }
 
 %}
@@ -152,8 +157,8 @@ exp    : IDENT '=' exp                { if ((pcond==0) || (cond[pcond]>0.)) {
        | INF '(' exp ',' exp ')'      { $$ = ((int)(floor(($5+EPSILON)/$3)))*$3; pe(" inf ",$$);}
        | MAX '(' args ')'             { $$ = limit (MAX, $3); pe(" max ",$$);}
        | MIN '(' args ')'             { $$ = limit (MIN, $3); pe(" min ",$$);}
-       | DEF '(' IDENT ')'            { $$ = ($3->TYPE==0) ? -1. : +1.; pe($3,$$);}
-       | NDEF '(' IDENT ')'           { $$ = ($3->TYPE==0) ? +1. : -1.; pe($3,$$);}
+       | DEF '(' IDENT ')'            { $$ = ($3->TYPE==0) ? -1. : +1.; pe(/*$3*/ " IDENT ",$$);}
+       | NDEF '(' IDENT ')'           { $$ = ($3->TYPE==0) ? +1. : -1.; pe(/*$3*/ " IDENT ",$$);}
        ;                                
 cond   : exp                          { if (pcond < PCONDMAX) 
                                           cond[++pcond] = $1; 
@@ -166,8 +171,8 @@ idents : IDENT                        { $$ = eltadd (NULL,NULL); $$->VAL.e=$1;}
        | REGEX                        { $$ = $1->NEXT; $1->NEXT=NULL;}  
        | REGEX ',' idents             { $$ = $1->NEXT; $1->NEXT=$3;}  
        ;                                
-args   : exp                          { $$ = eltadd (NULL,NULL); $$->VAL.f=$1; $$->TYPE=HT_FLOAT;pe(" , ",$1);}  
-       | exp ',' args                 { $$ = eltadd ($3,NULL); $$->VAL.f=$1; $$->TYPE=HT_FLOAT;pe(" , ",$3);}  
+args   : exp                          { $$ = eltadd (NULL,NULL); $$->VAL.f=$1; $$->TYPE=HT_FLOAT;pe(" , ",$$->VAL.f);}  
+       | exp ',' args                 { $$ = eltadd ($3,NULL); $$->VAL.f=$1; $$->TYPE=HT_FLOAT;pe(" , ",$$->VAL.f);}  
        | REGEX                        { $$ = $1->NEXT; $1->NEXT=NULL; 
                                         for (ele = $$; ele; ele = ele->NEXT)
                                         {  

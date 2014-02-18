@@ -70,5 +70,7 @@
 \------------------------------------------------------------*/
 
   extern void DrealFlushErrorMessage();
+  extern void DrealInitializeErrorMessage();
+
 
 # endif 

@@ -102,6 +102,8 @@ drealwin *DrealAllocWinLayer( DrealWin )
 
      (drealwinrec **)rdsallocblock( sizeof(drealwinrec *) * RDS_MAX_LAYER );
   }
+
+  return DrealWin;
 }
 
 /*------------------------------------------------------------\
@@ -270,7 +272,6 @@ void DrealEraseWindow()
 {
   long         Offset;
   drealwin    *ScanWin;
-  drealwin    *DelWin;
   drealwinrec *ScanWinRec;
   drealwinrec *DelWinRec;
   char         Layer;
@@ -285,7 +286,7 @@ void DrealEraseWindow()
     {
       for ( Layer = 0; Layer < RDS_MAX_LAYER; Layer++ )
       {
-        ScanWinRec  = ScanWin->LAYERTAB[ Layer ];
+        ScanWinRec  = ScanWin->LAYERTAB[ (int)Layer ];
 
         while ( ScanWinRec != (drealwinrec *)NULL )
         {
@@ -385,31 +386,31 @@ void DrealInsertRectangle( Rectangle )
 
       Layer = GetRdsLayer( Rectangle );
  
-      WinRec = LinkWin->LAYERTAB[ Layer ];
+      WinRec = LinkWin->LAYERTAB[ (int)Layer ];
  
       if ( WinRec == (drealwinrec *)NULL )
       {
-        WinRec                     = DrealAllocWinRec();
-        LinkWin->LAYERTAB[ Layer ] = WinRec;
-        WinRec->RECTAB[ 0 ]        = Rectangle;
+        WinRec                          = DrealAllocWinRec();
+        LinkWin->LAYERTAB[ (int)Layer ] = WinRec;
+        WinRec->RECTAB[ 0 ]             = Rectangle;
       }
       else
       {   
         for ( Index = 0; Index < DREAL_MAX_REC; Index++ )
         {
-          if ( WinRec->RECTAB[ Index ] == (rdsrec_list *)NULL ) break;
+          if ( WinRec->RECTAB[ (int)Index ] == (rdsrec_list *)NULL ) break;
         }
 
         if ( Index == DREAL_MAX_REC )
         {
-          WinRec                     = DrealAllocWinRec();
-          WinRec->NEXT               = LinkWin->LAYERTAB[ Layer ];
-          LinkWin->LAYERTAB[ Layer ] = WinRec;
-          WinRec->RECTAB[ 0 ]        = Rectangle;
+          WinRec                          = DrealAllocWinRec();
+          WinRec->NEXT                    = LinkWin->LAYERTAB[ (int)Layer ];
+          LinkWin->LAYERTAB[ (int)Layer ] = WinRec;
+          WinRec->RECTAB[ 0 ]             = Rectangle;
         }
         else
         {
-          WinRec->RECTAB[ Index ] = Rectangle;
+          WinRec->RECTAB[ (int)Index ] = Rectangle;
         }
       }
         
@@ -466,7 +467,7 @@ void DrealEraseRectangle( Rectangle )
     ScanWin = DelRecWin->WINDOW;
     Found   = DREAL_MAX_REC;
 
-    FirstWinRec = ScanWin->LAYERTAB[ Layer ];
+    FirstWinRec = ScanWin->LAYERTAB[ (int)Layer ];
 
     for ( ScanWinRec  = FirstWinRec;
           ScanWinRec != (drealwinrec *)NULL;
@@ -474,7 +475,7 @@ void DrealEraseRectangle( Rectangle )
     {
       for ( Index = 0; Index < DREAL_MAX_REC; Index++ )
       {
-        if ( ScanWinRec->RECTAB[ Index ] == Rectangle )
+        if ( ScanWinRec->RECTAB[ (int)Index ] == Rectangle )
         {
           Found = Index; break;
         }
@@ -485,27 +486,27 @@ void DrealEraseRectangle( Rectangle )
 
     if ( ScanWinRec == FirstWinRec )
     {
-      ScanWinRec->RECTAB[ Found ] = (rdsrec_list *)NULL;
+      ScanWinRec->RECTAB[ (int)Found ] = (rdsrec_list *)NULL;
     }
     else
     {
       for ( Index = 0; Index < DREAL_MAX_REC; Index++ )
       {
-        if ( FirstWinRec->RECTAB[ Index ] != (rdsrec_list *)NULL ) break;
+        if ( FirstWinRec->RECTAB[ (int)Index ] != (rdsrec_list *)NULL ) break;
       }
 
-      ScanWinRec->RECTAB[ Found ]  = FirstWinRec->RECTAB[ Index ];
-      FirstWinRec->RECTAB[ Index ] = (rdsrec_list *)NULL;
+      ScanWinRec->RECTAB[ (int)Found ]  = FirstWinRec->RECTAB[ (int)Index ];
+      FirstWinRec->RECTAB[ (int)Index ] = (rdsrec_list *)NULL;
     }
 
     for ( Index = 0; Index < DREAL_MAX_REC; Index++ )
     {
-      if ( FirstWinRec->RECTAB[ Index ] != (rdsrec_list *)NULL ) break;
+      if ( FirstWinRec->RECTAB[ (int)Index ] != (rdsrec_list *)NULL ) break;
     }
 
     if ( Index == DREAL_MAX_REC )
     {
-      ScanWin->LAYERTAB[ Layer ] = FirstWinRec->NEXT;
+      ScanWin->LAYERTAB[ (int)Layer ] = FirstWinRec->NEXT;
 
       DrealFreeWinRec( FirstWinRec );
     }
@@ -724,13 +725,13 @@ char DrealComputeBound()
       {
         for ( Layer = 0; Layer < RDS_MAX_LAYER; Layer++ )
         {
-          for ( ScanWinRec  = ScanWin->LAYERTAB[ Layer ];
+          for ( ScanWinRec  = ScanWin->LAYERTAB[ (int)Layer ];
                 ScanWinRec != (drealwinrec *)NULL;
                 ScanWinRec  = ScanWinRec->NEXT )
           {
             for ( ScanRec = 0; ScanRec < DREAL_MAX_REC ; ScanRec++ )
             {
-              Rec = ScanWinRec->RECTAB[ ScanRec ];
+              Rec = ScanWinRec->RECTAB[ (int)ScanRec ];
 
               if ( ( Rec != (rdsrec_list *)NULL ) &&
                    ( ! IsDrealDeleted( Rec )    ) )
@@ -782,13 +783,13 @@ char DrealComputeBound()
       {
         for ( Layer = 0; Layer < RDS_MAX_LAYER; Layer++ )
         {
-          for ( ScanWinRec  = ScanWin->LAYERTAB[ Layer ];
+          for ( ScanWinRec  = ScanWin->LAYERTAB[ (int)Layer ];
                 ScanWinRec != (drealwinrec *)NULL;
                 ScanWinRec  = ScanWinRec->NEXT )
           {
             for ( ScanRec = 0; ScanRec < DREAL_MAX_REC ; ScanRec++ )
             {
-              Rec = ScanWinRec->RECTAB[ ScanRec ];
+              Rec = ScanWinRec->RECTAB[ (int)ScanRec ];
 
               if ( ( Rec != (rdsrec_list *)NULL ) &&
                    ( ! IsDrealDeleted( Rec )    ) )
@@ -834,13 +835,13 @@ char DrealComputeBound()
       {
         for ( Layer = 0; Layer < RDS_MAX_LAYER; Layer++ )
         {
-          for ( ScanWinRec  = ScanWin->LAYERTAB[ Layer ];
+          for ( ScanWinRec  = ScanWin->LAYERTAB[ (int)Layer ];
                 ScanWinRec != (drealwinrec *)NULL;
                 ScanWinRec  = ScanWinRec->NEXT )
           {
             for ( ScanRec = 0; ScanRec < DREAL_MAX_REC ; ScanRec++ )
             {
-              Rec = ScanWinRec->RECTAB[ ScanRec ];
+              Rec = ScanWinRec->RECTAB[ (int)ScanRec ];
 
               if ( ( Rec != (rdsrec_list *)NULL ) &&
                    ( ! IsDrealDeleted( Rec )    ) )
@@ -886,13 +887,13 @@ char DrealComputeBound()
       {
         for ( Layer = 0; Layer < RDS_MAX_LAYER; Layer++ )
         {
-          for ( ScanWinRec  = ScanWin->LAYERTAB[ Layer ];
+          for ( ScanWinRec  = ScanWin->LAYERTAB[ (int)Layer ];
                 ScanWinRec != (drealwinrec *)NULL;
                 ScanWinRec  = ScanWinRec->NEXT )
           {
             for ( ScanRec = 0; ScanRec < DREAL_MAX_REC ; ScanRec++ )
             {
-              Rec = ScanWinRec->RECTAB[ ScanRec ];
+              Rec = ScanWinRec->RECTAB[ (int)ScanRec ];
 
               if ( ( Rec != (rdsrec_list *)NULL ) &&
                    ( ! IsDrealDeleted( Rec )    ) )

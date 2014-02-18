@@ -43,9 +43,11 @@
 \------------------------------------------------------------*/
 
 # include <stdio.h>
+# include <string.h>
 # include <stdlib.h>
 # include <signal.h>
 # include <setjmp.h>
+
 # include "mut.h"
 # include "mph.h"
 # include "rds.h"
@@ -54,7 +56,9 @@
 # include "rtl.h"
 # include "GSB.h" 
 # include "GRD.h"
+
 # include "GRD_error.h"
+# include "GMF_menu.h"
 
 /*------------------------------------------------------------\
 |                                                             |
@@ -383,7 +387,7 @@ char *DrealGetInformations()
 
   Scan = Scan + strlen( Scan );
 
-  sprintf( Scan, "  WINDOWS : \n\n  XMIN : %.3f\n  YMIN : %.3f\n  XMAX : %.3f\n  YMAX : %.3f\n  DX : %d\n  DY : %d\n  SIDE : %.3f\n\n",
+  sprintf( Scan, "  WINDOWS : \n\n  XMIN : %.3f\n  YMIN : %.3f\n  XMAX : %.3f\n  YMAX : %.3f\n  DX : %ld\n  DY : %ld\n  SIDE : %.3f\n\n",
            (float)( DrealWindowXmin ) * DREAL_RDS_UNIT_TO_MICRON,
            (float)( DrealWindowYmin ) * DREAL_RDS_UNIT_TO_MICRON,
            (float)( DrealWindowXmax ) * DREAL_RDS_UNIT_TO_MICRON,

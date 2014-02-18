@@ -1,3 +1,7 @@
+
+%option noinput
+%option nounput
+
 /* This file is part of the Alliance Project.
    Copyright (C) Laboratoire LIP6 - Departement ASIM
    Universite Pierre et Marie Curie

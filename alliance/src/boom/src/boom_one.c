@@ -94,16 +94,12 @@ void BoomBehOptimizeOne( BehFigure )
 
   befig_list *BehFigure;
 {
-  beaux_list *BehAux;
-  bddvar      NumberVar;
-  long        Cost;
+  long  Cost;
 
   reorderbddsystemwindow( BddLocalSystem );
 
-  NumberVar = BddLocalSystem->NUMBER_VAR;
-
-  BehAux = BoomBehComputeAux( BehFigure, BehFigure->BEAUX );
-  Cost   = BoomBehGiveCost( BehFigure );
+  BoomBehComputeAux( BehFigure, BehFigure->BEAUX );
+  Cost = BoomBehGiveCost( BehFigure );
 
   if ( IsBoomDebugLevel0() )
   {

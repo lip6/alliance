@@ -40,6 +40,10 @@
 #include "pat_type.h"
 #include "pat_decl.h"
 
+extern  void  pat_decl_y_restart ( );
+extern  int   pat_decl_y_parse   ( );
+extern  int   pat_decl_y_lex     ( );
+
 /* ###--------------------------------------------------------------### */
 /* function	: yyerror						*/
 /* description	: print an error message (errors detected by yacc)	*/

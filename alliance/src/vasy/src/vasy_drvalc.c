@@ -365,11 +365,11 @@ static vexexpr *VasyAllianceTreatVexArith( VexExpr )
   vexexpr      *VexSum;
   vexexpr      *VexGen;
   vexexpr      *VexProp;
-  vexexpr      *VexCarry;
+  vexexpr      *VexCarry     = NULL;
   vexexpr      *VexAtomCarry;
   vexexpr      *VexAtomSum;
-  vexexpr      *VexAtomGen;
-  vexexpr      *VexAtomProp;
+  vexexpr      *VexAtomGen   = NULL;
+  vexexpr      *VexAtomProp  = NULL;
   vexexpr      *VexAnd1;
   vexexpr      *VexAnd2;
   vexexpr      *VexAnd3;
@@ -1328,7 +1328,6 @@ static void VasyAllianceTreatMap( RtlInst )
   char         *AtomValue;
   char         *ScanAtomValue;
   char          Buffer[ 64 ];
-  int           Type;
   int           Left;
   int           Right;
   int           ScanLeft;
@@ -1735,7 +1734,6 @@ static void VasyDriveAllianceTreatFigure( RtlFigure, FileName, PRtlFigureVbe, PR
   rtldecl_list  *PortDeclar;
   rtldecl_list **PrevDeclar;
   rtlins_list   *RtlInst;
-  rtlmap_list   *RtlMap;
   rtlmod_list   *RtlModel;
   rtlport_list  *RtlPort;
   rtlasg_list   *RtlAsg;
@@ -1947,7 +1945,7 @@ static void VasyDriveAllianceTreatFigure( RtlFigure, FileName, PRtlFigureVbe, PR
         VexFormal = dupvexexpr( NewDeclar->VEX_ATOM );
         VexActual = dupvexexpr( NewDeclar->VEX_ATOM );
 
-        RtlMap = addrtlinsmap( RtlFigure, RtlInst, VexFormal, VexActual );
+        addrtlinsmap( RtlFigure, RtlInst, VexFormal, VexActual );
       }
     }
 /*
@@ -2052,7 +2050,7 @@ static void VasyDriveAllianceDeclar( RtlFigure, Type )
   char         *AtomValue;
   vexexpr      *VexInit;
   char         *DeclarName;
-  char         *DeclarDir;
+//char         *DeclarDir;
   char         *DeclarBase;
   char         *DeclarVecDir;
   char         *DeclarKind;
@@ -2066,7 +2064,7 @@ static void VasyDriveAllianceDeclar( RtlFigure, Type )
     VexDeclar  = RtlDeclar->VEX_ATOM;
     VexInit    = RtlDeclar->VEX_INIT;
     DeclarName = GetVexAtomValue( VexDeclar );
-    DeclarDir  = RTL_DIR_TYPE[ RtlDeclar->DIR ];
+  /*DeclarDir  = RTL_DIR_TYPE[ RtlDeclar->DIR ];*/
     DeclarBase = VEX_TYPE_NAME[ RtlDeclar->BASE ];
     DeclarKind = RTL_KIND_TYPE[ RtlDeclar->KIND ];
 

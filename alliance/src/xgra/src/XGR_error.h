@@ -71,5 +71,6 @@
 \------------------------------------------------------------*/
 
   extern void XgraFlushErrorMessage();
+  extern void XgraInitializeErrorMessage();
 
 # endif 

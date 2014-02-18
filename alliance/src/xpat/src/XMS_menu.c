@@ -140,7 +140,9 @@
              (XpatMenuItem *)NULL
            }
            ,
-           NULL
+           {
+             NULL
+           }
          };
 
 

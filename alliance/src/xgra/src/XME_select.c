@@ -59,6 +59,7 @@
 # include "XMV.h"
 
 # include "XME_select.h"
+# include "XME_panel.h"
 
 /*------------------------------------------------------------\
 |                                                             |

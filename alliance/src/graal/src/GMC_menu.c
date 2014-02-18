@@ -208,7 +208,9 @@
              (GraalMenuItem *)NULL,
            }
            ,
-           NULL
+           {
+             NULL
+           }
         };
 
 /*------------------------------------------------------------\
@@ -232,7 +234,7 @@ void CallbackCreateSegment( MyWidget, ClientData, CallData )
 
   if ( GraalSegmentWidth == -1.0 )
   {
-    GraalSegmentWidth = GRAAL_SEGMENT_VALUE_TABLE[ GraalSegmentLayer ][0];
+    GraalSegmentWidth = GRAAL_SEGMENT_VALUE_TABLE[ (int)GraalSegmentLayer ][0];
   }
 
   if ( GraalSegmentWire == GRAAL_FALSE )
@@ -365,7 +367,7 @@ void CallbackCreateConnector( MyWidget, ClientData, CallData )
   {
     if ( GraalConnectorWidth == -1.0 )
     {
-      GraalConnectorWidth = GRAAL_SEGMENT_VALUE_TABLE[ GraalConnectorLayer ][0];
+      GraalConnectorWidth = GRAAL_SEGMENT_VALUE_TABLE[ (int)GraalConnectorLayer ][0];
     }
 
     GraalChangeEditMode( GRAAL_CREATE_CONNECTOR,
@@ -393,7 +395,7 @@ void CallbackCreateTransistor( MyWidget, ClientData, CallData )
 
   if ( GraalTransistorWidth == -1.0 )
   {
-    GraalTransistorWidth = GRAAL_SEGMENT_VALUE_TABLE[ GraalTransistorType ][0];
+    GraalTransistorWidth = GRAAL_SEGMENT_VALUE_TABLE[ (int)GraalTransistorType ][0];
   }
 
   GraalChangeEditMode( GRAAL_CREATE_TRANSISTOR,

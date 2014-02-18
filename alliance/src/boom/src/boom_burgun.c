@@ -168,7 +168,7 @@ chain_list *BoomBehBurgunBddOrder( BehFigure )
 
   befig_list *BehFigure;
 {
-  boombefiginfo *FigInfo;
+/*boombefiginfo *FigInfo;*/
   chain_list    *OrderList;
   long           NumberIndex;
   long           NumberVar;
@@ -182,7 +182,7 @@ chain_list *BoomBehBurgunBddOrder( BehFigure )
   char          *Name;
   char           Buffer[ 32 ];
 
-  FigInfo = GetBoomBehFigInfo( BehFigure );
+/*FigInfo = GetBoomBehFigInfo( BehFigure );*/
 
   NumberIndex = BddLocalSystem->NUMBER_INDEX;
   NumberVar   = BddLocalSystem->NUMBER_VAR;

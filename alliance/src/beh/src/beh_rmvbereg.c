@@ -50,7 +50,7 @@ char          mode;		/* recursive delete or not (Y or N)	*/
 
   {
   struct bereg  headreg;
-  struct bereg *ptlastreg;
+  struct bereg *ptlastreg = NULL;
   struct bereg *ptbereg;
 
   if (listbereg != NULL)

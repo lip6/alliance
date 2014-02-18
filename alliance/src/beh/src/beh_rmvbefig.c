@@ -53,7 +53,7 @@ char          mode;		/* recursive delete or not (Y or N)	*/
 
   {
   struct befig  headfig;
-  struct befig *ptlastfig;
+  struct befig *ptlastfig = NULL;
   struct befig *ptbefig;
   struct ptype *ptptype;
 

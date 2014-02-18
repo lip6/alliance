@@ -65,5 +65,9 @@
 \------------------------------------------------------------*/
 
   extern void XgraEditSelectObject();
+  extern void XgraEditSelectPoint();
+  extern void XgraAddSelectList();
+  extern void XgraEditSelectAccept();
+  extern void XgraEditSelectCancel();
 
 # endif

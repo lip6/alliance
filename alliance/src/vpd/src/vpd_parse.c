@@ -255,7 +255,7 @@ static vexexpr *VpnReadPrefixExpr()
       return( (vexexpr *)0 );
     }
 
-    sscanf( Name, "{%ld,%ld,%lx}", &Left, &Right, &Type );
+    sscanf( Name, "{%22ld,%22ld,%22lx}", &Left, &Right, &Type );
     Name = Scan + 1;
 
     Oper = getvexoperbyname( Name );
@@ -362,7 +362,7 @@ static vexexpr *VpnReadPrefixExpr()
       return( (vexexpr *)0 );
     }
 
-    sscanf( Name, "{%ld,%ld,%lx}", &Left, &Right, &Type );
+    sscanf( Name, "{%22ld,%22ld,%22lx}", &Left, &Right, &Type );
     Name = Scan + 1;
 
     Oper = getvexoperbyname( Name );
@@ -487,7 +487,7 @@ static int VpnLoadFigure( VpnFigure )
 
     if ( Keyword == VpnKeyPlace  )
     {
-      Error = 4 - sscanf( ScanBuffer, "%ld\t%ld\t%ld\t%ld",
+      Error = 4 - sscanf( ScanBuffer, "%22ld\t%22ld\t%22ld\t%22ld",
                           &Value1, &Value2, &Value3, &Value4 );
 
       if ( Error ) return( 1 );
@@ -535,7 +535,7 @@ static int VpnLoadFigure( VpnFigure )
     else
     if ( Keyword == VpnKeyLine )
     {
-      Error = 1 - sscanf( ScanBuffer, "%ld", &Value1 );
+      Error = 1 - sscanf( ScanBuffer, "%22ld", &Value1 );
 
       if ( Error ) return( 1 );
 
@@ -551,7 +551,7 @@ static int VpnLoadFigure( VpnFigure )
     else
     if ( Keyword == VpnKeyTrans  )
     {
-      Error = 3 - sscanf( ScanBuffer, "%ld\t%ld\t%ld",
+      Error = 3 - sscanf( ScanBuffer, "%22ld\t%22ld\t%22ld",
                           &Value1, &Value2, &Value3 );
 
       if ( Error ) return( 1 );
@@ -572,7 +572,7 @@ static int VpnLoadFigure( VpnFigure )
     else
     if ( Keyword == VpnKeyAct )
     {
-      Error = 2 - sscanf( ScanBuffer, "%ld\t%ld",
+      Error = 2 - sscanf( ScanBuffer, "%22ld\t%22ld",
                           &Value1, &Value2 );
 
       if ( Error ) return( 1 );
@@ -603,7 +603,7 @@ static int VpnLoadFigure( VpnFigure )
     else
     if ( Keyword == VpnKeyArcIn )
     {
-      Error = 2 - sscanf( ScanBuffer, "%ld\t%ld",
+      Error = 2 - sscanf( ScanBuffer, "%22ld\t%22ld",
                           &Value1, &Value2 );
 
       if ( Error ) return( 1 );
@@ -617,7 +617,7 @@ static int VpnLoadFigure( VpnFigure )
     else
     if ( Keyword == VpnKeyArcOut  )
     {
-      Error = 2 - sscanf( ScanBuffer, "%ld\t%ld",
+      Error = 2 - sscanf( ScanBuffer, "%22ld\t%22ld",
                           &Value1, &Value2 );
 
       if ( Error ) return( 1 );
@@ -640,7 +640,7 @@ static int VpnLoadFigure( VpnFigure )
     else
     if ( Keyword == VpnKeyWait   )
     {
-      Error = 1 - sscanf( ScanBuffer, "%ld", &Value1 );
+      Error = 1 - sscanf( ScanBuffer, "%22ld", &Value1 );
 
       if ( Error ) return( 1 );
 
@@ -650,7 +650,7 @@ static int VpnLoadFigure( VpnFigure )
     else
     if ( Keyword == VpnKeyDeclar )
     {
-      Error = 6 - sscanf( ScanBuffer, "%ld\t%ld\t%ld\t%ld\t%ld\t%ld",
+      Error = 6 - sscanf( ScanBuffer, "%22ld\t%22ld\t%22ld\t%22ld\t%22ld\t%22ld",
         &Value1, &Value2, &Value3, &Value4, &Value5, &Value6 );
 
       if ( Error ) return( 1 );
@@ -731,7 +731,7 @@ static int VpnLoadFigure( VpnFigure )
     else
     if ( Keyword == VpnKeySymbol )
     {
-      Error = 6 - sscanf( ScanBuffer, "%ld\t%ld\t%ld\t%ld\t%ld\t%ld",
+      Error = 6 - sscanf( ScanBuffer, "%22ld\t%22ld\t%22ld\t%22ld\t%22ld\t%22ld",
         &Value1, &Value2, &Value3, &Value4, &Value5, &Value6 );
 
       if ( Error ) return( 1 );
@@ -756,7 +756,7 @@ static int VpnLoadFigure( VpnFigure )
     else
     if ( Keyword == VpnKeyProcess )
     {
-      Error = 2 - sscanf( ScanBuffer, "%ld %ld", &Value1, &Value2 );
+      Error = 2 - sscanf( ScanBuffer, "%22ld %22ld", &Value1, &Value2 );
 
       if ( Error ) return( 1 );
       
@@ -771,7 +771,7 @@ static int VpnLoadFigure( VpnFigure )
     else
     if ( Keyword == VpnKeyFunction )
     {
-      Error = 2 - sscanf( ScanBuffer, "%ld %ld", &Value1, &Value2 );
+      Error = 2 - sscanf( ScanBuffer, "%22ld %22ld", &Value1, &Value2 );
 
       if ( Error ) return( 1 );
       
@@ -810,7 +810,7 @@ static int VpnLoadFigure( VpnFigure )
     else
     if ( Keyword == VpnKeyInstance )
     {
-      Error = 1 - sscanf( ScanBuffer, "%ld", &Value1 );
+      Error = 1 - sscanf( ScanBuffer, "%22ld", &Value1 );
 
       if ( Error ) return( 1 );
 
@@ -832,7 +832,7 @@ static int VpnLoadFigure( VpnFigure )
     else
     if ( Keyword == VpnKeyMap )
     {
-      Error = 1 - sscanf( ScanBuffer, "%ld", &Value1 );
+      Error = 1 - sscanf( ScanBuffer, "%22ld", &Value1 );
 
       if ( Error ) return( 1 );
 
@@ -863,7 +863,7 @@ static int VpnLoadFigure( VpnFigure )
     else
     if ( Keyword == VpnKeyModel )
     {
-      Error = 1 - sscanf( ScanBuffer, "%ld", &Value1 );
+      Error = 1 - sscanf( ScanBuffer, "%22ld", &Value1 );
 
       if ( Error ) return( 1 );
 
@@ -876,7 +876,7 @@ static int VpnLoadFigure( VpnFigure )
     else
     if ( Keyword == VpnKeyPort )
     {
-      Error = 3 - sscanf( ScanBuffer, "%ld\t%ld\t%ld", &Value1, &Value2, &Value3 );
+      Error = 3 - sscanf( ScanBuffer, "%22ld\t%22ld\t%22ld", &Value1, &Value2, &Value3 );
 
       if ( Error ) return( 1 );
 
@@ -892,7 +892,7 @@ static int VpnLoadFigure( VpnFigure )
     else
     if ( Keyword == VpnKeyFigure )
     {
-      Error = 1 - sscanf( ScanBuffer, "%ld", &Value1 );
+      Error = 1 - sscanf( ScanBuffer, "%22ld", &Value1 );
 
       if ( Error ) return( 1 );
 
@@ -902,7 +902,7 @@ static int VpnLoadFigure( VpnFigure )
     else
     if ( Keyword == VpnKeyAttr )
     {
-      Error = 2 - sscanf( ScanBuffer, "%ld\t%ld", &Value1, &Value2 );
+      Error = 2 - sscanf( ScanBuffer, "%22ld\t%22ld", &Value1, &Value2 );
 
       if ( Error ) return( 1 );
 
@@ -926,7 +926,7 @@ static int VpnLoadFigure( VpnFigure )
     else
     if ( Keyword == VpnKeyGenMap )
     {
-      Error = 2 - sscanf( ScanBuffer, "%ld\t%ld", &Value1, &Value2 );
+      Error = 2 - sscanf( ScanBuffer, "%22ld\t%22ld", &Value1, &Value2 );
 
       if ( Error ) return( 1 );
 
@@ -944,7 +944,7 @@ static int VpnLoadFigure( VpnFigure )
     else
     if ( Keyword == VpnKeyGenMod )
     {
-      Error = 2 - sscanf( ScanBuffer, "%ld\t%ld", &Value1, &Value2 );
+      Error = 2 - sscanf( ScanBuffer, "%22ld\t%22ld", &Value1, &Value2 );
 
       if ( Error ) return( 1 );
 

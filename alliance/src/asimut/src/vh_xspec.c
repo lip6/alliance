@@ -19,6 +19,7 @@
 #include "log.h"
 #include "pat.h"
 #include "sch.h"
+#include "vh_util.h"
 #include "vh_ltype.h"
 #include "vh_globals.h"
 #include "vh_xcomm.h"
@@ -862,7 +863,7 @@ unsigned int     cur_date;
   struct simsig *pt_simsig;
   unsigned int   count    = 0;
   unsigned int   l_tim    = 0;    /*  Statistics last_time access  */
-  char           resval   ;
+  char           resval   = 'u';
 
 	/* ###------------------------------------------------------### */
 	/*    update simple signals' value				*/
@@ -1212,7 +1213,8 @@ char              *filename;
 
   if((fp = mbkfopen(filename, "sta", WRITE_TEXT)) == NULL)
     {
-    sprintf(signame, "%s.sta", filename);
+    signame = (char*)malloc( 1024*sizeof(char) );
+    snprintf(signame, 1024, "%s.sta", filename);
     exit(1);
     }
 
@@ -1232,7 +1234,8 @@ char              *filename;
   pt_simsig = pt_lkdfig->SIMSIG;
   while (pt_simsig != NULL)
     {
-    signame = (char *)getsigname(pt_simsig);
+    /* FRAGILE: the cast works because the two first fields are identicals */  
+    signame = (char *)getsigname((losig_list*)pt_simsig);
     num_evt = VHX_VECTOR_TRANS[i];
     num_prb = VHX_VECTOR_PROBA[i];
     pt_paiol = pt_paseq->PAIOL;
@@ -1293,7 +1296,8 @@ char              *filename;
   pt_bussig = pt_lkdfig->BUSSIG;
   while (pt_bussig != NULL)
     {
-    signame = (char *)getsigname(pt_bussig);
+    /* FRAGILE: the cast works because the two first fields are identicals */  
+      signame = (char *)getsigname((losig_list*)pt_bussig);
     num_evt = VHX_VECTOR_TRANS[i];
     num_prb = VHX_VECTOR_PROBA[i];
 
@@ -1482,7 +1486,8 @@ char              *filename;
   pt_simsig = pt_lkdfig->SIMSIG;
   while (pt_simsig != NULL)
     {
-    signame = (char *)getsigname(pt_simsig);
+    /* FRAGILE: the cast works because the two first fields are identicals */  
+    signame = (char *)getsigname((losig_list*)pt_simsig);
     num_evt = st_getstat(dict, pt_simsig, CTXEVT, num_time, *(pt_simsig->CURVAL));
     num_prb = st_getstat(dict, pt_simsig, CTXPRB, num_time, *(pt_simsig->CURVAL));
     pt_paiol = pt_paseq->PAIOL;
@@ -1541,7 +1546,8 @@ char              *filename;
   pt_bussig = pt_lkdfig->BUSSIG;
   while (pt_bussig != NULL)
     {
-    signame = (char *)getsigname(pt_bussig);
+    /* FRAGILE: the cast works because the two first fields are identicals */  
+    signame = (char *)getsigname((losig_list*)pt_bussig);
     num_evt = st_getstat(dict, pt_bussig, CTXEVT, num_time, *(pt_bussig->CURVAL));
     num_prb = st_getstat(dict, pt_bussig, CTXPRB, num_time, *(pt_bussig->CURVAL));
     pt_paiol = pt_paseq->PAIOL;
@@ -1684,19 +1690,18 @@ char              *filename;
   unsigned int   num_sev = 0;
   unsigned int   num_mev = 0;
   unsigned int   num_cycle = 0;
-  int            found = 0;
   struct simsig *pt_simsig;
   struct bussig *pt_bussig;
   struct lkdins *pt_lkdins;
   struct wriaux *pt_wriaux;
   struct wribux *pt_wribux;
   struct wrireg *pt_wrireg;
-  struct paiol  *pt_paiol;
 
   if((fp = mbkfopen(filename, "stb", WRITE_TEXT)) == NULL)
     {
-    sprintf(signame, "%s.stb", filename);
-    exit(1);
+      signame = (char*)malloc( 512*sizeof(char) );
+      snprintf(signame, 512, "%s.stb", filename);
+      exit(1);
     }
 
   time(&clock);
@@ -1715,7 +1720,8 @@ char              *filename;
   pt_simsig = pt_lkdfig->SIMSIG;
   while (pt_simsig != NULL)
     {
-    signame = (char *)getsigname(pt_simsig);
+    /* FRAGILE: the cast works because the two first fields are identicals */  
+    signame = (char *)getsigname((losig_list*)pt_simsig);
     num_sev = (unsigned int) beh_chktab(dict, pt_simsig, CTXSEV, VHL_PNTDFN);
     num_mev = (unsigned int) beh_chktab(dict, pt_simsig, CTXMEV, VHL_PNTDFN);
 
@@ -1736,7 +1742,8 @@ char              *filename;
   pt_bussig = pt_lkdfig->BUSSIG;
   while (pt_bussig != NULL)
     {
-    signame = (char *)getsigname(pt_bussig);
+    /* FRAGILE: the cast works because the two first fields are identicals */  
+    signame = (char *)getsigname((losig_list*)pt_bussig);
     num_sev = (unsigned int) beh_chktab(dict, pt_bussig, CTXSEV, VHL_PNTDFN);
     num_mev = (unsigned int) beh_chktab(dict, pt_bussig, CTXMEV, VHL_PNTDFN);
 

@@ -62,6 +62,7 @@
 # include "GMH.h"
 
 # include "GMS_setup.h"
+# include "GMV_panel.h"
 
 /*------------------------------------------------------------\
 |                                                             |
@@ -215,7 +216,7 @@ void DrealReadPanelValues( Panel )
 
   rdsbegin();
 
-  fscanf( FileConfig, "X: %d, Y: %d, WIDTH: %d, HEIGHT: %d, MANAGED: %d\n",
+  fscanf( FileConfig, "X: %11d, Y: %11d, WIDTH: %11d, HEIGHT: %11d, MANAGED: %11d\n",
           &Values[0], &Values[1], &Values[2], &Values[3], &Values[4] );
 
   Values[2] *= Panel->COLUMN;
@@ -239,7 +240,7 @@ char DrealReadTopLevelValues()
 
   rdsbegin();
 
-  fscanf( FileConfig, "VERSION: %s\n", Version );
+  fscanf( FileConfig, "VERSION: %63s\n", Version );
 
   if ( strcmp( Version, VERSION ) )
   {
@@ -247,7 +248,7 @@ char DrealReadTopLevelValues()
     return( 0 );
   }
 
-  fscanf( FileConfig, "X: %d, Y: %d, WIDTH: %d, HEIGHT: %d, MANAGED: %d\n",
+  fscanf( FileConfig, "X: %11d, Y: %11d, WIDTH: %11d, HEIGHT: %11d, MANAGED: %11d\n",
           &Values[0], &Values[1], &Values[2], &Values[3], &Values[4] );
 
   XtVaSetValues( DrealTopLevel,
@@ -277,31 +278,31 @@ void DrealReadActiveLayers()
 
   for ( Layer = 0; Layer < RDS_ALL_LAYER; Layer++ )
   {
-    fscanf( FileConfig, "ACTIVE: %d\n", &Value );
+    fscanf( FileConfig, "ACTIVE: %11d\n", &Value );
 
-    if ( ( DREAL_RDS_LAYER_NAME_TABLE[ Layer ][ 0 ] != (char *)NULL ) &&
-         ( RDS_DYNAMIC_LAYER[ Layer ] != RDS_LAYER_UNUSED           ) )
+    if ( ( DREAL_RDS_LAYER_NAME_TABLE[ (int)Layer ][ 0 ] != (char *)NULL ) &&
+         ( RDS_DYNAMIC_LAYER[ (int)Layer ] != RDS_LAYER_UNUSED           ) )
     {
-      DREAL_RDS_ACTIVE_LAYER_TABLE[ Layer ] = Value;
+      DREAL_RDS_ACTIVE_LAYER_TABLE[ (int)Layer ] = Value;
     }
     else
     {
-      DREAL_RDS_ACTIVE_LAYER_TABLE[ Layer ] = -1;
+      DREAL_RDS_ACTIVE_LAYER_TABLE[ (int)Layer ] = -1;
     }
   }
 
   for ( Layer = 0; Layer < DREAL_MAX_ACTIVE_NAME; Layer++ )
   {
-    fscanf( FileConfig, "ACTIVE: %d\n", &Value );
+    fscanf( FileConfig, "ACTIVE: %11d\n", &Value );
 
-    DREAL_RDS_ACTIVE_NAME_TABLE[ Layer ] = Value;
+    DREAL_RDS_ACTIVE_NAME_TABLE[ (int)Layer ] = Value;
   }
 
-  fscanf( FileConfig, "FILLMODE: %d\n", &Value );
+  fscanf( FileConfig, "FILLMODE: %11d\n", &Value );
 
   DREAL_FILL_MODE = Value;
 
-  fscanf( FileConfig, "INTERFACE: %d\n", &Value );
+  fscanf( FileConfig, "INTERFACE: %11d\n", &Value );
 
   DREAL_INSTANCE_INTERFACE = Value;
 
@@ -318,20 +319,19 @@ void DrealWriteActiveLayers()
 
 {
   char Layer;
-  int  Value;
 
   rdsbegin();
 
   for ( Layer = 0; Layer < RDS_ALL_LAYER; Layer++ )
   {
     fprintf( FileConfig, "ACTIVE: %d\n",
-             ( DREAL_RDS_ACTIVE_LAYER_TABLE[ Layer ] != 0 ) );
+             ( DREAL_RDS_ACTIVE_LAYER_TABLE[ (int)Layer ] != 0 ) );
   }
 
   for ( Layer = 0; Layer < DREAL_MAX_ACTIVE_NAME; Layer++ )
   {
     fprintf( FileConfig, "ACTIVE: %d\n", 
-             DREAL_RDS_ACTIVE_NAME_TABLE[ Layer ] );
+             DREAL_RDS_ACTIVE_NAME_TABLE[ (int)Layer ] );
   }
 
   fprintf( FileConfig, "FILLMODE: %d\n",
@@ -401,20 +401,20 @@ void DrealDefaultConfig()
 
   for ( Layer = 0; Layer < RDS_ALL_LAYER; Layer++ )
   {
-    if ( ( DREAL_RDS_LAYER_NAME_TABLE[ Layer ][ 0 ] != (char *)NULL ) &&
-         ( RDS_DYNAMIC_LAYER[ Layer ] != RDS_LAYER_UNUSED           ) )
+    if ( ( DREAL_RDS_LAYER_NAME_TABLE[ (int)Layer ][ 0 ] != (char *)NULL ) &&
+         ( RDS_DYNAMIC_LAYER[ (int)Layer ] != RDS_LAYER_UNUSED           ) )
     {
-      DREAL_RDS_ACTIVE_LAYER_TABLE[ Layer ] = 1;
+      DREAL_RDS_ACTIVE_LAYER_TABLE[ (int)Layer ] = 1;
     }
     else
     {
-      DREAL_RDS_ACTIVE_LAYER_TABLE[ Layer ] = -1;
+      DREAL_RDS_ACTIVE_LAYER_TABLE[ (int)Layer ] = -1;
     }
   }
 
   for ( Layer = 0; Layer < DREAL_MAX_ACTIVE_NAME; Layer++ )
   {
-    DREAL_RDS_ACTIVE_NAME_TABLE[ Layer ] = 1;
+    DREAL_RDS_ACTIVE_NAME_TABLE[ (int)Layer ] = 1;
   }
 
   DREAL_FILL_MODE = DREAL_FILL_MODE_PATTERN;

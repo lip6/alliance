@@ -58,10 +58,8 @@ unsigned int *byt_pnt ;
   {
   unsigned int state = 0;
   unsigned int i     = 0;
-  unsigned int j     = 0;
   unsigned int l_idx = 0;
   unsigned int adr   = 0;
-  unsigned int byt   = 0;
 
   strcpy (fil_name, name);
 
@@ -151,7 +149,7 @@ unsigned char *pt_mem   ;
     exit (1);
     }
 
-  printf ("loading RAM initialization file: %s.ini , %.8x , %d\n",
+  printf ("loading RAM initialization file: %s.ini , %.8x , %u\n",
           fil_name, fil_addr, fil_byte);
 
 
@@ -208,10 +206,8 @@ struct lkdins *pt_lkdins;
   {
   char         e_n ;			/* chip select			*/
   char         w_n ;			/* write enable			*/
-  unsigned int dat ;			/* input-output 8-bit data	*/
+  unsigned int dat = 0;			/* input-output 8-bit data	*/
   unsigned int adr ;			/* 10-bit address		*/
-  char         vdd ;			/* power supply			*/
-  char         vss ;			/* power supply			*/
 
 #define POSI_vss             0
 #define POSI_vdd POSI_vss +  1

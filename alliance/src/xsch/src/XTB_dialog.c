@@ -74,7 +74,7 @@
 |                                                             |
 \------------------------------------------------------------*/
   
-  static XschLockLoop = 0;
+  static int XschLockLoop = 0;
 
   static XschDialogItem XschWarningDialog =
 

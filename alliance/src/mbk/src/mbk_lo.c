@@ -1954,49 +1954,42 @@ void viewlocap(locap_list  *ptcap)
 
 /*********************************** Capacitor : dellocapuser **********************************/
 
-void dellocapuser(locap_list *ptlocap)
+void dellocapuser ( locap_list *ptlocap )
 {
-  ptype_list *scanptype = NULL ;
-  ptype_list *next      = NULL ;
-  ptype_list *prev      = NULL ;
-  long         del       = 0    ;
+  ptype_list *scanptype = NULL;
+  ptype_list *next      = NULL;
+  ptype_list *prev      = NULL;
+  long         del      = 0;
  
-  for(scanptype = ptlocap -> USER ; scanptype != NULL ; scanptype = next)
-    {
-      next = scanptype -> NEXT ;
-      del = 0 ;
+  for (scanptype = ptlocap->USER ; scanptype != NULL ; scanptype = next) {
+    next = scanptype->NEXT ;
+    del  = 0 ;
 
-      switch(scanptype -> TYPE)
-	{
-	case LOCAP_INFO : mbkfree(scanptype -> DATA) ;
-	                  del = 1 ;
-                          break ;
-	default :
+    switch (scanptype->TYPE) {
+      case LOCAP_INFO :
+        mbkfree( scanptype->DATA );
+        del = 1 ;
+        break ;
+      default :
 #ifdef MBK_TRACE_BAD_PTYPE
-	  fprintf( stderr, "WARNING in delloconuser() : unknown ptype %ld\n",scanptype -> TYPE) ;
+        fprintf( stderr, "WARNING in delloconuser() : unknown ptype %ld\n", scanptype->TYPE );
 #endif
-          break;
+        break;
 	}
 
-      if(del)
-	{
-	  if(prev != NULL)
-	    {
-	      ptlocap -> USER = next ;
-	    }
-	  else
-	    {
-	      prev -> NEXT = next ;
-	    }
+    if (del) {
+	  if (prev == NULL) {
+        ptlocap->USER = next;
+      } else {
+        prev->NEXT = next;
+      }
 
-	  scanptype -> NEXT = NULL ;
-	  freeptype(scanptype ) ;
-	}
-      else
-	{
+	  scanptype->NEXT = NULL;
+	  freeptype( scanptype );
+	} else {
 	  prev = scanptype ;
 	}
-    }
+  }
 }
 
 /*********************************** Resistor : add ********************************************/
@@ -2012,7 +2005,7 @@ lores_list *addlores(lofig_list *ptfig,char type,double resi,losig_list *ptrcon1
   rcon1 = namealloc("rcon1");
   rcon2 = namealloc("rcon2");
 
-  if((type != RESMIM) && (type != RESMIM))
+  if(type != RESMIM)
     {
       (void)fflush(stdout) ;
       (void)fprintf(stderr, "*** mbk error ***\n") ;
@@ -2243,7 +2236,7 @@ void delloresuser(lores_list *ptlores)
 
       if(del)
 	{
-	  if(prev != NULL)
+	  if(prev == NULL)
 	    {
 	      ptlores -> USER = next ;
 	    }
@@ -2275,7 +2268,7 @@ loself_list *addloself(lofig_list *ptfig,char type,double self,losig_list *ptsco
   scon1 = namealloc("scon1");
   scon2 = namealloc("scon2");
 
-  if((type != SELFMIM) && (type != SELFMIM))
+  if(type != SELFMIM)
     {
       (void)fflush(stdout) ;
       (void)fprintf(stderr, "*** mbk error ***\n") ;
@@ -2503,7 +2496,7 @@ void delloselfuser(loself_list *ptloself)
 
       if(del)
 	{
-	  if(prev != NULL)
+	  if(prev == NULL)
 	    {
 	      ptloself -> USER = next ;
 	    }

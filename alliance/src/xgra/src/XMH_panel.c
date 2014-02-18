@@ -64,6 +64,7 @@
 # include "XMH.h"
 
 # include "XMH_panel.h" 
+# include "XTB_dialog.h"
 
 /*------------------------------------------------------------\
 |                                                             |

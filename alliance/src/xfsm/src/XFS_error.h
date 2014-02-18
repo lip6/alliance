@@ -71,5 +71,6 @@
 \------------------------------------------------------------*/
 
   extern void XfsmFlushErrorMessage();
+  extern void XfsmInitializeErrorMessage();
 
 # endif 

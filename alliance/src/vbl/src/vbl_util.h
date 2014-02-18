@@ -40,3 +40,5 @@
   extern long               VBL_LINNUM;	/* file's line number		*/
   extern char               VBL_ERRFLG;	/* Error flag                   */
   extern char               VBL_CURFIL[];	/* current file name		*/
+
+  extern void vbl_toolbug ();

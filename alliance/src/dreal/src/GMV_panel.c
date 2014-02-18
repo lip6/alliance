@@ -2544,8 +2544,6 @@
            180, 550, 0
          };
 
-   static char FirstEnterLayerPanel = 1;
-
 /*------------------------------------------------------------\
 |                                                             |
 |                        Panel Grid                           |
@@ -3359,7 +3357,7 @@ void DrealChangeFillMode( FillMode )
   rdsbegin();
 
   Index = 2 + ( ( RDS_ALL_LAYER + DREAL_MAX_ACTIVE_NAME ) << 1 );
-  Label = XmStringCreateSimple( DrealViewLayerFillModeName[ FillMode ] );
+  Label = XmStringCreateSimple( DrealViewLayerFillModeName[ (int)FillMode ] );
 
   XtVaSetValues( DrealViewLayerButton[ Index ].BUTTON,
                  XmNlabelString, Label,
@@ -3387,7 +3385,7 @@ void DrealChangeInterface( Interface )
   rdsbegin();
 
   Index = 3 + ( ( RDS_ALL_LAYER + DREAL_MAX_ACTIVE_NAME ) << 1 );
-  Label = XmStringCreateSimple( DrealViewLayerInterfaceName[ Interface ] );
+  Label = XmStringCreateSimple( DrealViewLayerInterfaceName[ (int)Interface ] );
 
   XtVaSetValues( DrealViewLayerButton[ Index ].BUTTON,
                  XmNlabelString, Label,
@@ -3415,7 +3413,7 @@ void DrealChangeCursor( Index )
   rdsbegin();
 
   Pos   = 4 + ( ( RDS_ALL_LAYER + DREAL_MAX_ACTIVE_NAME ) << 1 );
-  Label = XmStringCreateSimple( DrealViewLayerCursorType[ Index ] );
+  Label = XmStringCreateSimple( DrealViewLayerCursorType[ (int)Index ] );
 
   XtVaSetValues( DrealViewLayerButton[ Pos ].BUTTON,
                  XmNlabelString, Label,
@@ -3443,7 +3441,7 @@ void DrealChangeForceDisplay( Index )
   rdsbegin();
 
   Pos   = 5 + ( ( RDS_ALL_LAYER + DREAL_MAX_ACTIVE_NAME ) << 1 );
-  Label = XmStringCreateSimple( DrealViewLayerForceDisplay[ Index ] );
+  Label = XmStringCreateSimple( DrealViewLayerForceDisplay[ (int)Index ] );
 
   XtVaSetValues( DrealViewLayerButton[ Pos ].BUTTON,
                  XmNlabelString, Label,
@@ -3471,7 +3469,7 @@ void DrealChangeBlackBoxString( Index )
   rdsbegin();
 
   Pos   = 6 + ( ( RDS_ALL_LAYER + DREAL_MAX_ACTIVE_NAME ) << 1 );
-  Label = XmStringCreateSimple( DrealViewLayerBlackBoxString[ Index ] );
+  Label = XmStringCreateSimple( DrealViewLayerBlackBoxString[ (int)Index ] );
 
   XtVaSetValues( DrealViewLayerButton[ Pos ].BUTTON,
                  XmNlabelString, Label,

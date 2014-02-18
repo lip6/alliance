@@ -751,9 +751,9 @@ void GraalDisplayFigure( GraphicX1, GraphicY1, GraphicX2, GraphicY2 )
   {
     if ( GraalCheckInterrupt() ) break;
 
-    StaticLayer = RDS_STATIC_LAYER[ Layer ];
+    StaticLayer = RDS_STATIC_LAYER[ (int)Layer ];
 
-    if ( GRAAL_RDS_ACTIVE_LAYER_TABLE[ StaticLayer ] != 1 ) continue;
+    if ( GRAAL_RDS_ACTIVE_LAYER_TABLE[ (int)StaticLayer ] != 1 ) continue;
 
     Y = Ymin;
 
@@ -773,13 +773,13 @@ void GraalDisplayFigure( GraphicX1, GraphicY1, GraphicX2, GraphicY2 )
 
         if ( ScanWin->LAYERTAB != (graalwinrec **)NULL )
         {
-          for ( ScanWinRec  = ScanWin->LAYERTAB[ Layer ];
+          for ( ScanWinRec  = ScanWin->LAYERTAB[ (int)Layer ];
                 ScanWinRec != (graalwinrec *)NULL;
                 ScanWinRec  = ScanWinRec->NEXT )
           {
             for ( ScanRec = 0; ScanRec < GRAAL_MAX_REC ; ScanRec++ )
             {
-              Rec = ScanWinRec->RECTAB[ ScanRec ];
+              Rec = ScanWinRec->RECTAB[ (int)ScanRec ];
 
               if ( ( Rec != (rdsrec_list *)NULL  ) &&
                    ( ! IsGraalDeleted( Rec )     ) &&
@@ -878,8 +878,8 @@ void GraalDisplayFigure( GraphicX1, GraphicY1, GraphicX2, GraphicY2 )
                 }
                 else
                 {
-                  GraalDrawGC = GraalLayerDrawGC[ StaticLayer ];
-                  GraalFillGC = GraalLayerFillGC[ StaticLayer ];
+                  GraalDrawGC = GraalLayerDrawGC[ (int)StaticLayer ];
+                  GraalFillGC = GraalLayerFillGC[ (int)StaticLayer ];
 
                   GraalDisplayOneRectangle( Rec );
 
@@ -908,18 +908,18 @@ void GraalDisplayFigure( GraphicX1, GraphicY1, GraphicX2, GraphicY2 )
       if ( IsGraalAccepted( Rec ) != 0 )
       {
         GraalDrawGC = GraalAcceptDrawGC;
-        GraalFillGC = GraalLayerAcceptGC[ StaticLayer ];
+        GraalFillGC = GraalLayerAcceptGC[ (int)StaticLayer ];
       }
       else
       if ( IsGraalTreated( Rec ) != 0 )
       {
         GraalDrawGC = GraalEquiDrawGC;
-        GraalFillGC = GraalLayerEquiGC[ StaticLayer ];
+        GraalFillGC = GraalLayerEquiGC[ (int)StaticLayer ];
       }
       else
       {
         GraalDrawGC = GraalDrucDrawGC;
-        GraalFillGC = GraalLayerDrucGC[ StaticLayer ];
+        GraalFillGC = GraalLayerDrucGC[ (int)StaticLayer ];
       }
 
       GraalDisplayOneRectangle( Rec );

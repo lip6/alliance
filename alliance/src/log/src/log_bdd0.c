@@ -69,7 +69,7 @@ initVertexBdd (index, high, low)
   pNode pt;
 
 
-  if ((pt = searchTableBdd (sysBdd.pRT, index, high, low)) != NULL)
+  if ((pt = searchTableBdd (sysBdd.pRT, index, high, low)) != NULL) {
     if (pt != BDDTABLE_PLEINE)
       return (pt);
     else
@@ -77,6 +77,7 @@ initVertexBdd (index, high, low)
 	sysBdd.pRT = reAllocTableBdd (sysBdd.pRT);
 	return (initVertexBdd (index, high, low));
       }
+  }
 
   if (high == low)		/* noeud eliminable */
     return (high);
@@ -696,9 +697,9 @@ displayGraphicBdd (pBdd)
   for (i = pBdd->index; i > 1; i--)
     {
       if (i < 10)
-	printf ("  %d   |  ", i);
+	printf ("  %ld   |  ", i);
       else
-	printf ("  %d  |  ", i);
+	printf ("  %ld  |  ", i);
       lst = supp;
       while (lst)
 	{
@@ -710,7 +711,7 @@ displayGraphicBdd (pBdd)
 	      long numHigh = searchTH (vTable, (char *) pt->high);
 	      long num = searchTH (vTable, (char *)pt);
 
-	      printf ("  %d_(%d)_%d  ", numLow, num, numHigh);
+	      printf ("  %ld_(%ld)_%ld  ", numLow, num, numHigh);
 	    }
 	  lst = lst->NEXT;
 	}
@@ -812,7 +813,7 @@ applyTerm (oper, index, pBdd)
 {
   /* noeud one */
 
-  if (index == 1)
+  if (index == 1) {
     if (oper == OR)
       return (one);
     else if (oper == NAND || oper == XOR)
@@ -821,6 +822,7 @@ applyTerm (oper, index, pBdd)
       return (pBdd);
     else
       return (zero);
+  }
 
   /* noeud zero */
 
@@ -853,7 +855,7 @@ applyBinBdd (oper, pBdd1, pBdd2)
   short index1 = pBdd1->index;
   short index2 = pBdd2->index;
 
-  if ((index1 < 2) || (index2 < 2))	/* il existe un noeud terminal */
+  if ((index1 < 2) || (index2 < 2))	{ /* il existe un noeud terminal */
     if ((index1 < 2) && (index2 < 2))	/* tous les deux sont terminaux */
 
       if (index1 != index2)	/* 01 ou 10 */
@@ -875,6 +877,7 @@ applyBinBdd (oper, pBdd1, pBdd2)
       return (applyTerm (oper, index1, pBdd2));
     else
       return (applyTerm (oper, index2, pBdd1));
+  }
 
   /* les index ne correspondent pas a des noeuds terminaux */
 
@@ -1733,7 +1736,7 @@ initVertexBddAux (index, high, low, sysCible)
   pNode pt;
 
 
-  if ((pt = searchTableBdd (sysCible->pRT, index, high, low)) != NULL)
+  if ((pt = searchTableBdd (sysCible->pRT, index, high, low)) != NULL) {
     if (pt != BDDTABLE_PLEINE)
       return (pt);
     else
@@ -1741,6 +1744,7 @@ initVertexBddAux (index, high, low, sysCible)
 	sysCible->pRT = reAllocTableBdd (sysCible->pRT);
 	return (initVertexBddAux (index, high, low, sysCible));
       }
+  }
 
   if (high == low)
     {

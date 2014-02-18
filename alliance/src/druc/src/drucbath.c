@@ -66,7 +66,7 @@ void DrucConcateneErrorFiles ( DrucFigureRds,
 rdsins_list *InstanceCourante;
 char        *TmpErrorFileName;
 FILE        *TmpErrorFile;
-char         DrucTmpFileBuffer [ DRUC_MAX_STRING_BUFFER + 1 ];
+char         DrucTmpFileBuffer [ DRUC_MAX_FILE_BUFFER + 1 ];
 
   fputs ( "\n" ,
           DrucErrorFile 
@@ -236,9 +236,6 @@ void DrucSaveFigureErreur ( DrucFigureRdsErreur
      rdsfig_list *DrucFigureRdsErreur;
 
 {
-
-rdsrec_list *RectangleCourant;
-
   DrucDelLayer     ( DrucFigureRdsErreur,
                      RDS_USER0
                    );
@@ -571,17 +568,9 @@ int main (argc , argv )
      int   argc;
      char *argv[];
 {
-phfig_list                *DrucFigureMbk;
-rdsfig_list               *DrucFigureRds;
-rdswindow                 *DrucRdsWindow;
 char                      *Name;
 char                      *DrucFigureName;
 char                      *DrucErrorName           = (char *)NULL;
-char                      *DrucCouronneRdsName;
-char                      *DrucNetworkName;
-DrucTypeStructInstruction *DrucTabInstruction      = ( DrucTypeStructInstruction *)NULL;
-int                        IndexLayer;
-int                        Resultat;
 int                        IndexName = 1;
 
   int i;

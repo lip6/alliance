@@ -8,8 +8,8 @@
 /*		  the simulation funciotns				*/
 /* ###--------------------------------------------------------------### */
 
-extern unsigned long   vhx_getvalu         ();
-extern unsigned long   vhx_getsize         ();
+extern unsigned long  vhx_getvalu         ();
+extern unsigned long  vhx_getsize         ();
 extern char           vhx_gexeval         ();
 extern char           vhx_muxbit          ();
 extern char           vhx_worbit          ();
@@ -29,4 +29,6 @@ extern unsigned int   vhx_readinput       ();
 extern void           vhx_writeout        ();
 extern void           vhx_writebus        ();
 extern char          *vhx_GetInstanceName ();
+extern void           vhx_vectorinit      ();
 extern void           vhx_vectorstat      ();
+extern void           vhx_commentspytable ();

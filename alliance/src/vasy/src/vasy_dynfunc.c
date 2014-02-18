@@ -137,34 +137,27 @@ static vexexpr *VasyExpandDynFuncVexFunc( VexExpr )
   vexexpr *VexExpr;
 {
   vexexpr    *VexAtom;
-  vexexpr    *VexDeclar;
   vexexpr    *Operand;
   vexexpr    *VexVar;
   vexexpr    *VexData;
   vexexpr    *VexCond;
   vexexpr    *VexValue;
-  authelem   *Element;
-  char       *AtomValue;
   char       *ChoiceValue;
-  vbtyp_list *VbhType;
-  vbtyp_list *VbhBase;
   vbcho_list *VbhChoice;
   vbcas_list *VbhCase;
   ptype_list *ScanPType;
   char       *FuncName;
-  int         FuncId;
+//int         FuncId;
   int         DynFuncSize;
-  int         Vector;
-  int         Step;
   int         SizeValue;
   int         IntValue;
   int         Index;
 
   FuncName = GetVexFuncValue( VexExpr );
-  FuncId   = getvexstdfuncid( FuncName );
+/*FuncId =*/ getvexstdfuncid( FuncName );
 
-  VexAtom   = GetVexOperand( VexExpr->OPERAND       );
-  Operand   = GetVexOperand( VexExpr->OPERAND->NEXT );
+  VexAtom = GetVexOperand( VexExpr->OPERAND       );
+  Operand = GetVexOperand( VexExpr->OPERAND->NEXT );
 
   SizeValue = Operand->WIDTH;
   /*

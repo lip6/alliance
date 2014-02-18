@@ -111,7 +111,7 @@ long xab1, yab1, xab2, yab2;
 long dx, dy;
 long vx1, vx2, vy1, vy2;
 char trsf;
-char newtrsf;
+char newtrsf='-';
 int  Layer;
 
    ptinstbf = getphins(ptfig, insname);
@@ -501,7 +501,7 @@ char face, sym;
    (void)fprintf(stderr, "instanceface impossible :\n");
    (void)fprintf(stderr, "face: %c, sym %c\n", face, sym);
    EXIT(1);
-   return (char)NULL; /* never reached */
+   return (char)'-'; /* never reached */
 }
 
 #define BV_VIA_VIA    6 /* must be even, whatever!                */
@@ -522,7 +522,7 @@ long x, y, dx, dy;
 {
 int i, j;
 long stepx, stepy, xv, yv, dxv, dyv;
-char slayer, blayer; /* small and big layers */
+char slayer='-', blayer='-'; /* small and big layers */
 
    if (dx < 0 || dy < 0) {
       fflush(stdout);
@@ -819,7 +819,8 @@ char  *stru_name;
 
   current_pnt.data = head_pnt;
   current_pnt.type = type;
-  state        = type;
+  current_pnt.mark = 0;
+  state            = type;
 
   while (state != VHD__XTDFN)
     {
@@ -1182,7 +1183,7 @@ char prvcmd[3][20];
   comd1[0] = '\0';
   comd2[0] = '\0';
   (void)fgets( readstr, 60, stdin );
-  (void)sscanf (readstr,"%s%s%s",comd0,comd1,comd2);
+  (void)sscanf (readstr,"%19s%19s%19s",comd0,comd1,comd2);
 
   if (strcmp(comd0,"."))
     {

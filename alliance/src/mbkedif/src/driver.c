@@ -29,20 +29,19 @@
 /*version 1.2 : Extended by Olivier BEAURIN (September, 93)                   */
 /*version 1.2 : Extended by Olivier BEAURIN (November, 93)                    */
 /* $Log: driver.c,v $
-/* Revision 1.5  2012/05/14 14:20:24  alliance
-/* Updated GNU/FSF address (patch from Thibault North).
-/*
-/* Revision 1.4  2002/09/30 16:20:54  czo
-/* support/users
-/*
-/* Revision 1.3  2002/04/25 14:16:44  ludo
-/* correction petits bugs
-/*
-/* Revision 1.2  2002/03/14 12:36:30  fred
-/* Makes the correct substitutions in lex and yacc generated files.
-/* Fixing includes in dot c files
-/* ---------------------------------------------------------------------*/
-/*----------------------------------------------------------------------------*/
+/  Revision 1.5  2012/05/14 14:20:24  alliance
+/  Updated GNU/FSF address (patch from Thibault North).
+/ 
+/  Revision 1.4  2002/09/30 16:20:54  czo
+/  support/users
+/ 
+/  Revision 1.3  2002/04/25 14:16:44  ludo
+/  correction petits bugs
+/ 
+/  Revision 1.2  2002/03/14 12:36:30  fred
+/  Makes the correct substitutions in lex and yacc generated files.
+/  Fixing includes in dot c files
+/  ---------------------------------------------------------------------*/
 
 #include <stdio.h>
 #include <stdlib.h>
@@ -68,6 +67,10 @@
 #define DEBUG_MBKEDIF     "DEBUG_MBKEDIF"
 #define DEFAULT_SUFFIXES  "y=ScLib:dp=DpLib:fp=FpLib:sp=PadLib"
 
+/* External Functions */
+
+extern char *EdifTime();
+
 /* Global variables*/
 
 static int          edif_debug = FALSE;
@@ -91,7 +94,7 @@ static void         view             ( );
 static void         drive_cell       ( );
 static void         r_drive_cell     ( );
 static int          edif_busindex    ( );
-static int          drive_basic_cells( );
+static void         drive_basic_cells( );
 static locon_list  *edif_found_array ( );
 static void         check_fig_portref( );
 static void         r_found_suffixed_cells( );
@@ -179,8 +182,6 @@ int fill;
 void edifsavelofig( firstlofig )
 lofig_list *firstlofig;  
 {
-	chain_list *chainl;
-	chain_list *chainp;
 	char        filename[ 255 ];
 	char       *pc;
     int         index;
@@ -372,7 +373,6 @@ static void r_found_suffixed_cells( ptlofig )
 lofig_list *ptlofig;
 {
 	chain_list *ptchain;
-	lofig_list *ptlfig;
 
 	for (ptchain = ptlofig->MODELCHAIN; ptchain; ptchain = ptchain->NEXT)
 	{
@@ -417,11 +417,10 @@ lofig_list *ptlofig;
 /*---------------------------------------------------------\
                      drive_basic_cells
 \---------------------------------------------------------*/
-static int drive_basic_cells( ptlofig )
+static void drive_basic_cells( ptlofig )
 lofig_list *ptlofig;
 {
 	chain_list *ptchain;
-	lofig_list *ptlfig;
 	char       *cell_model_name;
 
 	for (ptchain = ptlofig->MODELCHAIN; ptchain; ptchain = ptchain->NEXT)
@@ -439,9 +438,6 @@ static void drive_cell(figname, c)
 char *figname;
 char  c;
 {
-	chain_list *ptchain;
-	lofig_list *ptlofig;
-
 	if (in_chain_list(already_drived, figname))
 		return;
 
@@ -652,7 +648,7 @@ locon_list *ptcon;
 static void edit_ins(ptins)
 loins_list *ptins;
 {
-	char  cellref_type;
+/*	char  cellref_type;*/
 	char *name;
 	char *pt;
 
@@ -668,7 +664,7 @@ loins_list *ptins;
             }
         }
 
-		cellref_type = (incatalog(ptins->FIGNAME) ? 'I' : 'A');
+/*		cellref_type = (incatalog(ptins->FIGNAME) ? 'I' : 'A');*/
 
         pt = found_suffixed_cell( ptins->FIGNAME, FALSE );
 
@@ -772,8 +768,8 @@ int     sig_index;
 	if (nb > 1)
 	{
 		fprintf( stderr, "*** mbk error *** edifsavelofig : Error in MBK Structure\n" );
-		fprintf( stderr, "    multiple (portref ..) to lofig '%s' not\n" );
-		fprintf( stderr, "    allowed on signal of type 'E' (cadence)\n", lofig_name );
+		fprintf( stderr, "    multiple (portref ..) to lofig '%s' not\n", lofig_name );
+		fprintf( stderr, "    allowed on signal of type 'E' (cadence)\n" );
 		exit( 1 );
 	}
    
@@ -787,10 +783,9 @@ locon_list *sig_con;
 int         sig_index;
 {
 	losig_list *sig_con_sig;
-	locon_list *connector, *fig_con;
+	locon_list *fig_con;
 	char       *sig_con_name;
 
-	connector = (locon_list *)NULL;
 	fig_con = sig_con;
 	sig_con_name = (char *)NULL;
 
@@ -800,7 +795,6 @@ int         sig_index;
 		if (sig_con_sig -> INDEX == sig_index)
 		{
 			sig_con_name = sig_con -> NAME;
-			connector=sig_con;
 			break;
 		}
 		sig_con = sig_con -> NEXT;
@@ -849,7 +843,7 @@ int        *end;
 		{
 			fprintf( stderr, "*** mbk error *** edifsavelofig : Error in MBK Structure\n" );
 			fprintf( stderr, "    Connectors %s and %s of same bus must have same direction\n", 
-			                ptcon_first_bus->NAME, *ptcon->NAME);
+			                ptcon_first_bus->NAME, ptcon->NAME);
 			exit( 1 );
 		}
 		*end = edif_busindex( ptcon->NAME );

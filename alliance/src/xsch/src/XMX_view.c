@@ -298,12 +298,12 @@ static void XschDrawTristate( X1r, Y1r, X2r, Y2r, Ycr, Obj )
 ** Fred Petrot  (The King ) has initially written those lines !
 ** Ludo Jacomme (The Slave) has modified them :-)
 */
-  long gs;
+/*long gs;*/
   long is_x;
   long is_y;
   long cs;
   long csm;
-  long x, x1, y1, y2,y0;
+  long x, /*x1,*/ y1, y2,y0;
   long DeltaX;
   long DeltaY;
 
@@ -321,14 +321,14 @@ static void XschDrawTristate( X1r, Y1r, X2r, Y2r, Ycr, Obj )
                   DeltaX, DeltaY );
 # endif
 
-  gs = DeltaX;
+/*gs = DeltaX;*/
   is_x = ( 5 * DeltaX ) / 16;
   is_y = ( 5 * DeltaY ) / 16;
   cs = DeltaX / 8;
   csm = DeltaX / 10;
 
   y1 = XschGraphicDy - Ycr;
-  x1 = (X2r + X1r) / 2;
+/*x1 = (X2r + X1r) / 2;*/
   x  = X1r + cs;
  
   XDrawLine( XschGraphicDisplay,
@@ -430,29 +430,30 @@ static void XschDrawConstant( X1r, Y1r, X2r, Y2r, Ycr, Obj )
   long          Ycr;
   xschobj_list *Obj;
 {
- long is_x;
- long is_y;
  long cs;
  long x, yc, y1,y2,y3;
  long DeltaX;
+#if 0
  long DeltaY;
+#endif
  int  i;
  int  n;
  
  n = Obj->ARG1;
 
  DeltaX = X2r - X1r;
- DeltaY = Y2r - Y1r;
 
  if ( DeltaX <= 0 ) DeltaX = 1;
- if ( DeltaY <= 0 ) DeltaY = 1;
 
 # if 0
-  XDrawRectangle( XschGraphicDisplay,
-                  XschGraphicPixmap,
-                  XschDrawGC,
-                  X1r, XschGraphicDy - Y2r,
-                  DeltaX, DeltaY );
+ DeltaY = Y2r - Y1r;
+ if ( DeltaY <= 0 ) DeltaY = 1;
+
+ XDrawRectangle( XschGraphicDisplay,
+                 XschGraphicPixmap,
+                 XschDrawGC,
+                 X1r, XschGraphicDy - Y2r,
+                 DeltaX, DeltaY );
 # endif
 
   cs = DeltaX / 8;
@@ -588,7 +589,6 @@ static void XschDrawBuffer( X1r, Y1r, X2r, Y2r, Ycr, Obj )
 ** Fred Petrot  (The King ) has initially written those lines !
 ** Ludo Jacomme (The Slave) has modified them :-)
 */
- long gs;
  long is_x;
  long is_y;
  long cs;
@@ -610,7 +610,6 @@ static void XschDrawBuffer( X1r, Y1r, X2r, Y2r, Ycr, Obj )
                   DeltaX, DeltaY );
 # endif
 
-   gs = DeltaX;
    is_x = ( 5 * DeltaX ) / 16;
    is_y = ( 5 * DeltaY ) / 8;
    cs = DeltaX / 8;
@@ -683,11 +682,7 @@ static void XschDrawTransistor( X1r, Y1r, X2r, Y2r, Ycr, Obj )
 ** Fred Petrot  (The King ) has initially written those lines !
 ** Ludo Jacomme (The Slave) has modified them :-)
 */
-  long gs;
-  long is_x;
-  long is_y;
   long cs;
-  long csm;
   long x, x1, y1, y2,y0;
   long DeltaX;
   long DeltaY;
@@ -698,9 +693,6 @@ static void XschDrawTransistor( X1r, Y1r, X2r, Y2r, Ycr, Obj )
   if ( DeltaX <= 0 ) DeltaX = 1;
   if ( DeltaY <= 0 ) DeltaY = 1;
 
-  gs = DeltaX;
-  is_x = ( 5 * DeltaX ) / 16;
-  is_y = ( 5 * DeltaY ) / 16;
   cs = DeltaX / 8;
 
   y0 = Obj->Y + ( SCP_BOX_CON_BASE_Y * XSCH_UNIT );
@@ -1555,7 +1547,9 @@ static void XschDrawMux( X1r, Y1r, X2r, Y2r, Ycr, Obj )
   long          Ycr;
   xschobj_list *Obj;
 {
+#if 0
   long gs_y;
+#endif
   long gs_x;
   long ms_x;
   long ms_y;
@@ -1564,7 +1558,7 @@ static void XschDrawMux( X1r, Y1r, X2r, Y2r, Ycr, Obj )
   int ni;
   int ns;
 
-  long x, y;
+  long x;
   long yc;
   long y1;
   long y2;
@@ -1588,9 +1582,10 @@ XDrawRectangle( XschGraphicDisplay,
                 XschDrawGC,
                 X1r, XschGraphicDy - Y2r,
                 DeltaX, DeltaY );
-# endif
 
   gs_y = ( 7 * DeltaY ) / 8;
+# endif
+
   gs_x = ( 6 * DeltaX ) / 8;
   cs   = DeltaX / 8;
 
@@ -1844,20 +1839,22 @@ static void XschDrawOrAnd( X1r, Y1r, X2r, Y2r, Ycr, Obj )
  DeltaY = Y2r - Y1r;
 
  if ( DeltaX <= 0 ) DeltaX = 1;
- if ( DeltaY <= 0 ) DeltaY = 1;
 
 # if 0
+ if ( DeltaY <= 0 ) DeltaY = 1;
+
 XDrawRectangle( XschGraphicDisplay,
                 XschGraphicPixmap,
                 XschDrawGC,
                 X1r, XschGraphicDy - Y2r,
                 DeltaX, DeltaY );
+
 # endif
 
   n = Obj->ARG1;
 
-  gs_y = ( 7 * DeltaY ) / 8;
   gs_x = ( 6 * DeltaX ) / 8;
+  gs_y = ( 7 * DeltaY ) / 8;
   cs   = DeltaX / 8;
 
   yc = XschGraphicDy - Ycr;
@@ -1980,7 +1977,7 @@ XDrawRectangle( XschGraphicDisplay,
   gas_y   = 2 * DeltaY / 3;
   gas_x   = ( 2 * gs_x ) / 3;
   yc      = XschGraphicDy - Ycr;
-  y       = yc + gas_y /2;
+/*y       = yc + gas_y /2;*/
   x       = x + gos_x;
 
   XDrawLine( XschGraphicDisplay,

@@ -200,8 +200,8 @@ void DrealPointCursor()
 
   DrealUndisplayCursor();
 
-  DrealLambdaCursorSaveX[ DrealCursorIndex ] = DrealLambdaCursorX;
-  DrealLambdaCursorSaveY[ DrealCursorIndex ] = DrealLambdaCursorY;
+  DrealLambdaCursorSaveX[ (int)DrealCursorIndex ] = DrealLambdaCursorX;
+  DrealLambdaCursorSaveY[ (int)DrealCursorIndex ] = DrealLambdaCursorY;
 
   DrealCursorIndex = DrealCursorIndex + 1;
 

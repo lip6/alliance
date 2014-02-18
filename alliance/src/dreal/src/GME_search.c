@@ -65,6 +65,7 @@
 # include "GME_panel.h"
 # include "GME_edit.h"
 # include "GME_message.h"
+# include "GTB_dialog.h"
 
 /*------------------------------------------------------------\
 |                                                             |
@@ -157,8 +158,6 @@ void DrealEditSearchRectangle( RectangleName )
   char *RectangleName;
 {
   drealsearch *Search;
-  rdsins_list *Instance;
-  rdsfig_list *Figure;
   rdsrec_list *Rec;
   char         Layer;
   long         X1;
@@ -172,7 +171,7 @@ void DrealEditSearchRectangle( RectangleName )
 
   for ( Layer = 0; Layer < RDS_MAX_LAYER; Layer++ )
   {
-    for ( Rec  = DrealFigureRds->LAYERTAB[ Layer ];
+    for ( Rec  = DrealFigureRds->LAYERTAB[ (int)Layer ];
           Rec != (rdsrec_list *)NULL;
           Rec  = Rec->NEXT )
     {

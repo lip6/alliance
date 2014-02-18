@@ -60,11 +60,17 @@
 # include "GMV.h"
 # include "GMS.h"
 # include "GMH.h"
+# include "GME.h"
+# include "GMC.h"
+# include "GMT.h"
+
+# include "GME_select.h"
 # include "GMX_motif.h"
 # include "GMX_grid.h"
 # include "GMX_cursor.h"
 # include "GMX_event.h"
 # include "GMX_message.h"
+# include "GMX_graphic.h"
 
 /*------------------------------------------------------------\
 |                                                             |
@@ -247,7 +253,7 @@ void DrealChangeEditMode( EditMode , PromptMessage )
     EditMode = EditMode & ~DREAL_ZOOM_MARK;
 
     DrealCountEventZoom = 0;
-    DrealMaxEventZoom   = DrealMaxEventZoomTable[ EditMode ];
+    DrealMaxEventZoom   = DrealMaxEventZoomTable[ (int)EditMode ];
 
     if ( ! ( DrealEditMode & DREAL_ZOOM_MARK ) )
     {
@@ -256,7 +262,7 @@ void DrealChangeEditMode( EditMode , PromptMessage )
       DrealSavePromptMessage = DrealPromptMessage;
     }
 
-    DrealInputMode     = DrealInputEventZoomTable[ EditMode ];
+    DrealInputMode     = DrealInputEventZoomTable[ (int)EditMode ];
     DrealPromptMessage = PromptMessage;
     DrealEditMode      = EditMode | DREAL_ZOOM_MARK;
 
@@ -267,19 +273,19 @@ void DrealChangeEditMode( EditMode , PromptMessage )
     if ( DrealEditMode & DREAL_ZOOM_MARK )
     {
       DrealSaveEditMode      = EditMode;
-      DrealSaveInputMode     = DrealInputEventEditTable[ EditMode ];
+      DrealSaveInputMode     = DrealInputEventEditTable[ (int)EditMode ];
       DrealSavePromptMessage = PromptMessage;
       DrealCountEventEdit    = 0;
-      DrealMaxEventEdit      = DrealMaxEventEditTable[ EditMode ];
+      DrealMaxEventEdit      = DrealMaxEventEditTable[ (int)EditMode ];
     }
     else
     {
       if ( DrealEditMode != EditMode )
       {
         DrealCountEventEdit = 0;
-        DrealMaxEventEdit   = DrealMaxEventEditTable[ EditMode ];
+        DrealMaxEventEdit   = DrealMaxEventEditTable[ (int)EditMode ];
         DrealEditMode       = EditMode;
-        DrealInputMode      = DrealInputEventEditTable[ EditMode ];
+        DrealInputMode      = DrealInputEventEditTable[ (int)EditMode ];
         DrealPromptMessage  = PromptMessage;
 
         DrealChangeCursorType( NULL, NULL, 0, DrealInputMode );
@@ -311,17 +317,17 @@ void DrealContinueEditMode( EditMode , PromptMessage, CountEvent )
   if ( DrealEditMode & DREAL_ZOOM_MARK )
   {
     DrealSaveEditMode      = EditMode;
-    DrealSaveInputMode     = DrealInputEventEditTable[ EditMode ];
+    DrealSaveInputMode     = DrealInputEventEditTable[ (int)EditMode ];
     DrealSavePromptMessage = PromptMessage;
     DrealCountEventEdit    = CountEvent;
-    DrealMaxEventEdit      = DrealMaxEventEditTable[ EditMode ];
+    DrealMaxEventEdit      = DrealMaxEventEditTable[ (int)EditMode ];
   }
   else
   {
     DrealCountEventEdit = CountEvent;
-    DrealMaxEventEdit   = DrealMaxEventEditTable[ EditMode ];
+    DrealMaxEventEdit   = DrealMaxEventEditTable[ (int)EditMode ];
     DrealEditMode       = EditMode;
-    DrealInputMode      = DrealInputEventEditTable[ EditMode ];
+    DrealInputMode      = DrealInputEventEditTable[ (int)EditMode ];
     DrealPromptMessage  = PromptMessage;
 
     DrealChangeCursorType( DrealLambdaEventEditX,
@@ -573,15 +579,12 @@ void CallbackEvent ( MyWidget, Event, Args, Argc )
      String       *Args;
      int          *Argc;
 {
-  Display  *EventDisplay;
   char      MouseEvent;
   int       FlagUp;
   Position  OldLambdaCursorX;
   Position  OldLambdaCursorY;
 
   rdsbegin();
-
-  EventDisplay = Event->display;
 
   MouseEvent = atoi( Args[ 0 ] );
 
@@ -605,8 +608,8 @@ void CallbackEvent ( MyWidget, Event, Args, Argc )
         {
           if ( DrealCountEventZoom < DrealMaxEventZoom )
           {
-            DrealLambdaEventZoomX[ DrealCountEventZoom ] = DrealLambdaCursorX;
-            DrealLambdaEventZoomY[ DrealCountEventZoom ] = DrealLambdaCursorY;
+            DrealLambdaEventZoomX[ (int)DrealCountEventZoom ] = DrealLambdaCursorX;
+            DrealLambdaEventZoomY[ (int)DrealCountEventZoom ] = DrealLambdaCursorY;
 
             DrealCountEventZoom = DrealCountEventZoom + 1;
 
@@ -640,8 +643,8 @@ void CallbackEvent ( MyWidget, Event, Args, Argc )
         {
           if ( DrealCountEventEdit < DrealMaxEventEdit )
           {
-            DrealLambdaEventEditX[ DrealCountEventEdit ] = DrealLambdaCursorX;
-            DrealLambdaEventEditY[ DrealCountEventEdit ] = DrealLambdaCursorY;
+            DrealLambdaEventEditX[ (int)DrealCountEventEdit ] = DrealLambdaCursorX;
+            DrealLambdaEventEditY[ (int)DrealCountEventEdit ] = DrealLambdaCursorY;
 
             DrealCountEventEdit = DrealCountEventEdit + 1;
 

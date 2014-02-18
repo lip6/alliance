@@ -270,6 +270,7 @@ static void VvhVbhTreatVarName( Expr )
 |                                                             |
 \------------------------------------------------------------*/
 
+#if THIS_IS_DISABLED
 static void VvhVbhSubstituteVar( Expr )
 
   vexexpr *Expr;
@@ -290,6 +291,7 @@ static void VvhVbhSubstituteVar( Expr )
     }
   }
 }
+#endif
 
 /*------------------------------------------------------------\
 |                                                             |
@@ -967,7 +969,7 @@ static void VvhVbhTreatCase( ScanCase )
   vpnarc        *VpnArc;
   vexexpr       *VexCond;
   vexexpr       *VexOthers;
-  vexexpr       *VexGuard;
+  vexexpr       *VexGuard = NULL;
   vexexpr       *VexSum;
   vexexpr       *VexBoolean;
   vexexpr       *VexAtom;

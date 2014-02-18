@@ -355,7 +355,6 @@ static  void  SxLib2SYMMETRY()
 static void  AddEmptyPowerPIN(asName)
   char *asName;
 {
-  ePIN_t *pPIN;
   char    Use;
 
 
@@ -364,7 +363,7 @@ static void  AddEmptyPowerPIN(asName)
   if (!strncmp(asName, "vss", 3)) Use = C_USE_GROUND;
 
 
-  if ((pPIN = getPIN(LV_pMACRO, asName)) == (ePIN_t*)NULL) {
+  if (getPIN(LV_pMACRO, asName) == (ePIN_t*)NULL) {
     m_AddPin(LV_pMACRO->lPIN, asName);
     LV_pMACRO->lPIN->DIRECTION = C_DIRECTION_INPUT;
     LV_pMACRO->lPIN->USE       = Use;

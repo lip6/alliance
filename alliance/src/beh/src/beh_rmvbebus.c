@@ -50,7 +50,7 @@ char          mode;		/* recursive delete or not (Y or N)	*/
 
   {
   struct bebus  headbus;
-  struct bebus *ptlastbus;
+  struct bebus *ptlastbus = NULL;
   struct bebus *ptbebus;
 
   if (listbebus != NULL)

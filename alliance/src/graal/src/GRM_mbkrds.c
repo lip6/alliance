@@ -61,6 +61,7 @@
 # include "GRM_error.h"
 # include "GRM_window.h"
 # include "GRM_mbkrds.h"
+# include "GRM_connector.h"
 
 /*------------------------------------------------------------\
 |                                                             |
@@ -267,7 +268,7 @@ rdsins_list *GraalAddInstance( InstanceMbk )
 
   for ( Layer = 0; Layer < RDS_MAX_LAYER; Layer++ )
   {
-    for ( Rectangle  = InstanceRds->LAYERTAB[ Layer ];
+    for ( Rectangle  = InstanceRds->LAYERTAB[ (int)Layer ];
           Rectangle != (rdsrec_list *)NULL;
           Rectangle  = Rectangle->NEXT )
     { 
@@ -318,9 +319,9 @@ rdsins_list *GraalFlatInstance( InstanceRds )
 
   for ( Layer = 0; Layer < RDS_ABOX; Layer++ )
   {
-    ScanRec = InstanceRds->LAYERTAB[ Layer ];
+    ScanRec = InstanceRds->LAYERTAB[ (int)Layer ];
 
-    InstanceRds->LAYERTAB[ Layer ] = (rdsrec_list *)NULL;
+    InstanceRds->LAYERTAB[ (int)Layer ] = (rdsrec_list *)NULL;
 
     while( ScanRec != (rdsrec_list *)NULL )
     {
@@ -346,7 +347,7 @@ rdsins_list *GraalFlatInstance( InstanceRds )
 
   for ( Layer = 0; Layer < RDS_MAX_LAYER; Layer++ )
   {
-    for ( ScanRec  = InstanceRds->LAYERTAB[ Layer ];
+    for ( ScanRec  = InstanceRds->LAYERTAB[ (int)Layer ];
           ScanRec != (rdsrec_list *)NULL;
           ScanRec  = ScanRec->NEXT )
     {
@@ -375,7 +376,6 @@ rdsins_list *GraalUnflatInstance( InstanceRds )
 {
   phfig_list  *ModelMbk;
   phins_list  *InstanceMbk;
-  rdsrec_list *Rectangle;
   rdsrec_list *ScanRec;
   rdsrec_list *DelRec;
   char         Layer;
@@ -394,9 +394,9 @@ rdsins_list *GraalUnflatInstance( InstanceRds )
 
   for ( Layer = 0; Layer < RDS_ABOX; Layer++ )
   {
-    ScanRec = InstanceRds->LAYERTAB[ Layer ];
+    ScanRec = InstanceRds->LAYERTAB[ (int)Layer ];
 
-    InstanceRds->LAYERTAB[ Layer ] = (rdsrec_list *)NULL;
+    InstanceRds->LAYERTAB[ (int)Layer ] = (rdsrec_list *)NULL;
 
     while( ScanRec != (rdsrec_list *)NULL )
     {
@@ -422,7 +422,7 @@ rdsins_list *GraalUnflatInstance( InstanceRds )
 
   for ( Layer = 0; Layer < RDS_MAX_LAYER; Layer++ )
   {
-    for ( ScanRec  = InstanceRds->LAYERTAB[ Layer ];
+    for ( ScanRec  = InstanceRds->LAYERTAB[ (int)Layer ];
           ScanRec != (rdsrec_list *)NULL;
           ScanRec  = ScanRec->NEXT )
     {
@@ -739,7 +739,7 @@ void GraalDelFigure()
 
   for ( Layer = 0; Layer < RDS_MAX_LAYER; Layer++ )
   {
-    ScanRec  = GraalFigureRds->LAYERTAB[ Layer ];  
+    ScanRec  = GraalFigureRds->LAYERTAB[ (int)Layer ];  
 
     while ( ScanRec != (rdsrec_list *)NULL )
     {
@@ -751,7 +751,7 @@ void GraalDelFigure()
       freerdsrec( DelRec, GRAAL_SIZE );
     }
 
-    GraalFigureRds->LAYERTAB[ Layer ] = (rdsrec_list *)NULL;
+    GraalFigureRds->LAYERTAB[ (int)Layer ] = (rdsrec_list *)NULL;
   }
 
   ScanIns  = GraalFigureRds->INSTANCE;
@@ -763,7 +763,7 @@ void GraalDelFigure()
 
     for ( Layer = 0; Layer < RDS_MAX_LAYER; Layer++ )
     {
-      ScanRec  = GraalFigureRds->LAYERTAB[ Layer ];  
+      ScanRec  = GraalFigureRds->LAYERTAB[ (int)Layer ];  
 
       while ( ScanRec != (rdsrec_list *)NULL )
       {
@@ -836,7 +836,7 @@ void GraalDelInstance( InstanceRds )
  
   for ( Layer = 0; Layer < RDS_MAX_LAYER; Layer++ )
   {
-    ScanRec = InstanceRds->LAYERTAB[ Layer ];
+    ScanRec = InstanceRds->LAYERTAB[ (int)Layer ];
  
     while( ScanRec != (rdsrec_list *)NULL )
     {

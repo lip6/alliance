@@ -166,16 +166,16 @@ void XfsmDisplayCoordinates()
 {
   autbegin();
 
-  sprintf( XfsmCursorBuffer, "%d", XfsmUnitCursorX );
+  sprintf( XfsmCursorBuffer, "%ld", XfsmUnitCursorX );
   XfsmDisplayMessage( XFSM_MESSAGE_X, XfsmCursorBuffer );
 
-  sprintf( XfsmCursorBuffer, "%d", XfsmUnitCursorY );
+  sprintf( XfsmCursorBuffer, "%ld", XfsmUnitCursorY );
   XfsmDisplayMessage( XFSM_MESSAGE_Y, XfsmCursorBuffer );
 
-  sprintf( XfsmCursorBuffer, "%d", XfsmUnitCursorX - XfsmUnitCursorSaveX[0] );
+  sprintf( XfsmCursorBuffer, "%ld", XfsmUnitCursorX - XfsmUnitCursorSaveX[0] );
   XfsmDisplayMessage( XFSM_MESSAGE_DX, XfsmCursorBuffer );
 
-  sprintf( XfsmCursorBuffer, "%d", XfsmUnitCursorY - XfsmUnitCursorSaveY[0] );
+  sprintf( XfsmCursorBuffer, "%ld", XfsmUnitCursorY - XfsmUnitCursorSaveY[0] );
   XfsmDisplayMessage( XFSM_MESSAGE_DY, XfsmCursorBuffer );
 
   autend();
@@ -194,8 +194,8 @@ void XfsmPointCursor()
 
   XfsmUndisplayCursor();
 
-  XfsmUnitCursorSaveX[ XfsmCursorIndex ] = XfsmUnitCursorX;
-  XfsmUnitCursorSaveY[ XfsmCursorIndex ] = XfsmUnitCursorY;
+  XfsmUnitCursorSaveX[ (int)XfsmCursorIndex ] = XfsmUnitCursorX;
+  XfsmUnitCursorSaveY[ (int)XfsmCursorIndex ] = XfsmUnitCursorY;
 
   XfsmCursorIndex = XfsmCursorIndex + 1;
 

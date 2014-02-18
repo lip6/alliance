@@ -48,7 +48,7 @@ short         bederindex;	/* index of the BEDER to be deleted	*/
 
   {
   struct beder  headder;
-  struct beder *ptlastder;
+  struct beder *ptlastder = NULL;
   struct beder *ptbeder;
 
   if (listbeder != NULL)

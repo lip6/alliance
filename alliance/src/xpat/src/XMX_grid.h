@@ -73,4 +73,7 @@
 |                                                             |
 \------------------------------------------------------------*/
 
+  extern void XpatInitializeUnitGrid();
+  extern char XpatDisplayUnitGrid();
+
 # endif 

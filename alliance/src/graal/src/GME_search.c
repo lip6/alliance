@@ -65,6 +65,7 @@
 # include "GME_panel.h"
 # include "GME_edit.h"
 # include "GME_message.h"
+# include "GME_dialog.h"
 
 /*------------------------------------------------------------\
 |                                                             |
@@ -296,7 +297,6 @@ void GraalEditSearchSegment( SegmentName )
 {
   graalsearch *Search;
   rdsins_list *Instance;
-  rdsfig_list *Figure;
   rdsrec_list *Rec;
   char         Layer;
   long         X1;
@@ -310,7 +310,7 @@ void GraalEditSearchSegment( SegmentName )
 
   for ( Layer = 0; Layer < RDS_MAX_LAYER; Layer++ )
   {
-    for ( Rec  = GraalFigureRds->LAYERTAB[ Layer ];
+    for ( Rec  = GraalFigureRds->LAYERTAB[ (int)Layer ];
           Rec != (rdsrec_list *)NULL;
           Rec  = Rec->NEXT )
     {
@@ -333,7 +333,7 @@ void GraalEditSearchSegment( SegmentName )
 
     for ( Layer = 0; Layer < RDS_MAX_LAYER; Layer++ )
     {
-      for ( Rec  = Instance->LAYERTAB[ Layer ];
+      for ( Rec  = Instance->LAYERTAB[ (int)Layer ];
             Rec != (rdsrec_list *)NULL;
             Rec  = Rec->NEXT )
       {
@@ -394,7 +394,6 @@ void GraalEditSearchReference( ReferenceName )
 {
   graalsearch *Search;
   rdsins_list *Instance;
-  rdsfig_list *Figure;
   rdsrec_list *Rec;
   char         Layer;
   long         X1;
@@ -408,7 +407,7 @@ void GraalEditSearchReference( ReferenceName )
 
   for ( Layer = 0; Layer < RDS_MAX_LAYER; Layer++ )
   {
-    for ( Rec  = GraalFigureRds->LAYERTAB[ Layer ];
+    for ( Rec  = GraalFigureRds->LAYERTAB[ (int)Layer ];
           Rec != (rdsrec_list *)NULL;
           Rec  = Rec->NEXT )
     {
@@ -431,7 +430,7 @@ void GraalEditSearchReference( ReferenceName )
 
     for ( Layer = 0; Layer < RDS_MAX_LAYER; Layer++ )
     {
-      for ( Rec  = Instance->LAYERTAB[ Layer ];
+      for ( Rec  = Instance->LAYERTAB[ (int)Layer ];
             Rec != (rdsrec_list *)NULL;
             Rec  = Rec->NEXT )
       {
@@ -492,7 +491,6 @@ void GraalEditSearchVia( ViaName )
 {
   graalsearch *Search;
   rdsins_list *Instance;
-  rdsfig_list *Figure;
   rdsrec_list *Rec;
   char         Layer;
   long         X1;
@@ -506,7 +504,7 @@ void GraalEditSearchVia( ViaName )
 
   for ( Layer = 0; Layer < RDS_MAX_LAYER; Layer++ )
   {
-    for ( Rec  = GraalFigureRds->LAYERTAB[ Layer ];
+    for ( Rec  = GraalFigureRds->LAYERTAB[ (int)Layer ];
           Rec != (rdsrec_list *)NULL;
           Rec  = Rec->NEXT )
     {
@@ -529,7 +527,7 @@ void GraalEditSearchVia( ViaName )
 
     for ( Layer = 0; Layer < RDS_MAX_LAYER; Layer++ )
     {
-      for ( Rec  = Instance->LAYERTAB[ Layer ];
+      for ( Rec  = Instance->LAYERTAB[ (int)Layer ];
             Rec != (rdsrec_list *)NULL;
             Rec  = Rec->NEXT )
       {

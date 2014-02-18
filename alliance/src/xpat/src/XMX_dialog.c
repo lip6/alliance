@@ -60,6 +60,7 @@
 # include "XMS.h"
 # include "XMH.h"
 # include "XMX.h"
+# include "XME.h"
 
 # include "XMX_dialog.h"
 

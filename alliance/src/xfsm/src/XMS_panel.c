@@ -45,6 +45,7 @@
 # include <stdio.h>
 # include <string.h>
 # include <Xm/Xm.h>
+# include <Xm/Text.h>
 # include <Xm/FileSB.h>
 # include <Xm/SelectioB.h>
 # include <Xm/PushBG.h>
@@ -60,6 +61,7 @@
 # include "XMS.h"
 
 # include "XMS_panel.h"
+# include "XTB_dialog.h"
 
 /*------------------------------------------------------------\
 |                                                             |
@@ -121,7 +123,9 @@
              (Widget)NULL
            }
            ,
-           NULL
+           {
+             NULL
+           }
          };
 
    XfsmPanelItem XfsmSetupInformationsPanel =

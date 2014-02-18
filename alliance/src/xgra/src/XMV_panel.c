@@ -236,7 +236,9 @@
              (Widget)NULL
            }
            ,
-           NULL
+           {
+             NULL
+           }
          };
 
    XgraPanelItem XgraViewArrowsPanel =
@@ -424,7 +426,9 @@
              (Widget)NULL
            }
            ,
-           NULL
+           {
+             NULL
+           }
          };
 
    XgraPanelItem XgraViewZoomPanel =
@@ -521,7 +525,9 @@
              (Widget)NULL   
            }
            ,
-           NULL
+           {
+             NULL
+           }
          };
 
      XgraPanelItem XgraViewGridPanel =
@@ -910,7 +916,9 @@
              (Widget)NULL
            }
            ,
-           NULL
+           {
+             NULL
+           }
          };
 
      XgraPanelItem XgraViewLayerPanel =

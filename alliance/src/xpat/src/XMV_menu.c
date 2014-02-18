@@ -59,6 +59,7 @@
 # include "XMV_dialog.h"
 # include "XMV_view.h"
 # include "XMV_map.h"
+# include "XMV_panel.h"
 
 /*------------------------------------------------------------\
 |                                                             |
@@ -167,7 +168,9 @@
              (XpatMenuItem *)NULL
            }
            ,
-           NULL
+           {
+             NULL
+           }
          };
 
 /*------------------------------------------------------------\

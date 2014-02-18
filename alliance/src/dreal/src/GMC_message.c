@@ -94,19 +94,19 @@ void DrealPromptCreateRectangle()
 {
   char StaticLayer;
 
-  StaticLayer = RDS_STATIC_LAYER[ DrealRectangleLayer ];
+  StaticLayer = RDS_STATIC_LAYER[ (int)DrealRectangleLayer ];
 
   DrealDisplayMessage( DREAL_MESSAGE_MODE, "Create Rectangle" );
 
   if ( DrealRectangleName == (char *)NULL )
   {
     sprintf( MessageBuffer, "Layer: %s   Name: none",
-             DREAL_RDS_LAYER_NAME_TABLE[ StaticLayer ][0] );
+             DREAL_RDS_LAYER_NAME_TABLE[ (int)StaticLayer ][0] );
   }
   else
   {
     sprintf( MessageBuffer, "Layer: %s   Name: %s",
-             DREAL_RDS_LAYER_NAME_TABLE[ StaticLayer ][0] ,
+             DREAL_RDS_LAYER_NAME_TABLE[ (int)StaticLayer ][0] ,
              DrealRectangleName );
   }
 

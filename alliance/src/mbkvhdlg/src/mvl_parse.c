@@ -15,6 +15,8 @@
 #include "mvl_parse.h"
 #include "mvl_utdef.h"
 
+extern void mvl_y_restart();
+
 void vhdlloadlofig (pt_lofig, figname, mode)
 
 struct lofig *pt_lofig;

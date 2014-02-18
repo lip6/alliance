@@ -104,7 +104,7 @@ void BoomBehOptimizeProcrast( BehFigure )
   long           NewCost;
   long           NumberNode;
   long           NewNumberNode;
-  long           LastNewNumberNode;
+  long           LastNewNumberNode = 0;
   long           Iteration;
   long           MaxIteration;
   int            Level;       
@@ -152,14 +152,14 @@ void BoomBehOptimizeProcrast( BehFigure )
     {
       if ( IsBoomDebugLevel1() )
       {
-        BoomPrintf( stdout, "-> ChildFrom %d\n", ChildFrom );
+        BoomPrintf( stdout, "-> ChildFrom %u\n", ChildFrom );
       }
   
       for ( ChildTo = ChildFrom; ChildTo < ( NumberChild - 1 ); ChildTo++ )
       {
         if ( IsBoomDebugLevel1() )
         {
-          BoomPrintf( stdout, "-> Swap %d and %d\n", ChildTo, ChildTo + 1 );
+          BoomPrintf( stdout, "-> Swap %u and %d\n", ChildTo, ChildTo + 1 );
         }
   
         swapbddvar( (bddsystem *)0, ChildTo );
@@ -220,7 +220,7 @@ void BoomBehOptimizeProcrast( BehFigure )
         {
           if ( IsBoomDebugLevel1() )
           {
-            BoomPrintf( stdout, "-> UnSwap %d and %d\n", ChildTo, ChildTo - 1 );
+            BoomPrintf( stdout, "-> UnSwap %u and %d\n", ChildTo, ChildTo - 1 );
           }
 
           swapbddvar( (bddsystem *)0, ChildTo - 1 );

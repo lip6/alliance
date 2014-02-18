@@ -719,7 +719,7 @@ void SyfFsmSimplify( FsmFigure, FlagSimplify )
   int          FlagSimplify;
 {
   bddsystem      *BddSystem;
-  bddcircuit     *BddCircuit;
+//bddcircuit     *BddCircuit;
   syfinfo        *SyfInfo;
   fsmstate_list  *ScanState;
   fsmstack_list  *ScanStack;
@@ -736,7 +736,7 @@ void SyfFsmSimplify( FsmFigure, FlagSimplify )
       BddSystem  = createbddsystem( SYF_BDD_VAR_NODE, SYF_BDD_OPER_NODE, 1000, SYF_BDD_MAX_NODE );
       reorderbddsystemdynamic( BddSystem, SYF_BDD_REORDER_FUNC,
                                SYF_BDD_REORDER_NODE, SYF_BDD_REORDER_RATIO );
-      BddCircuit = SyfFsmMakeBddCircuit( BddSystem, FsmFigure );
+    /*BddCircuit =*/ SyfFsmMakeBddCircuit( BddSystem, FsmFigure );
       reorderbddsystemsimple( BddSystem );
     }
 

@@ -59,6 +59,8 @@
 # include "GTB.h"
 # include "GSB.h"
 # include "GME.h"
+# include "GMV.h"
+# include "GMT.h"
 
 # include "GME_edit.h"
 # include "GME_panel.h"
@@ -280,7 +282,7 @@ char GraalAddIdentify( Rectangle )
       sprintf( GraalIdentifyBuffer, 
       "TRANSISTOR :\n\n  NAME : %s\n  TYPE : %s\n  X1 : %.2f\n  Y1 : %.2f\n  X2 : %.2f  \n  Y2 : %.2f\n  WIDTH : %.2f\n\n",
       (((phseg_list *)Pointer)->NAME != (char *)0) ? ((phseg_list *)Pointer)->NAME : "None",
-      GRAAL_TRANSISTOR_NAME_TABLE[ ((phseg_list *)Pointer)->LAYER ][0],
+      GRAAL_TRANSISTOR_NAME_TABLE[ (int)((phseg_list *)Pointer)->LAYER ][0],
       (float)((phseg_list *)Pointer)->X1    / (float)SCALE_X, 
       (float)((phseg_list *)Pointer)->Y1    / (float)SCALE_X,
       (float)((phseg_list *)Pointer)->X2    / (float)SCALE_X,
@@ -292,7 +294,7 @@ char GraalAddIdentify( Rectangle )
       sprintf( GraalIdentifyBuffer, 
       "SEGMENT :\n\n  NAME : %s\n  LAYER : %s\n  X1 : %.2f\n  Y1 : %.2f\n  X2 : %.2f\n  Y2 : %.2f\n  WIDTH : %.2f\n\n",
       (((phseg_list *)Pointer)->NAME != (char *)0) ? ((phseg_list *)Pointer)->NAME : "None",
-      GRAAL_SEGMENT_NAME_TABLE[ ((phseg_list *)Pointer)->LAYER ][0],
+      GRAAL_SEGMENT_NAME_TABLE[ (int)((phseg_list *)Pointer)->LAYER ][0],
       (float)((phseg_list *)Pointer)->X1    / (float)SCALE_X, 
       (float)((phseg_list *)Pointer)->Y1    / (float)SCALE_X,
       (float)((phseg_list *)Pointer)->X2    / (float)SCALE_X,
@@ -317,11 +319,11 @@ char GraalAddIdentify( Rectangle )
     sprintf( GraalIdentifyBuffer,
     "CONNECTOR :\n\n  NAME : %s\n  LAYER : %s\n  XCON : %.2f\n  YCON : %.2f\n  WIDTH : %.2f\n  ORIENT : %s\n  INDEX : %ld\n\n",
     (((phcon_list *)Pointer)->NAME != (char *)0) ? ((phcon_list *)Pointer)->NAME : "None",
-    GRAAL_CONNECTOR_NAME_TABLE[ ((phcon_list *)Pointer)->LAYER ][0],
+    GRAAL_CONNECTOR_NAME_TABLE[ (int)((phcon_list *)Pointer)->LAYER ][0],
     (float)((phcon_list *)Pointer)->XCON  / (float)SCALE_X,
     (float)((phcon_list *)Pointer)->YCON  / (float)SCALE_X,
     (float)((phcon_list *)Pointer)->WIDTH / (float)SCALE_X,
-    GRAAL_ORIENT_NAME_TABLE[ Orient ][0],
+    GRAAL_ORIENT_NAME_TABLE[ (int)Orient ][0],
     ((phcon_list *)Pointer)->INDEX );
   }
   else
@@ -333,7 +335,7 @@ char GraalAddIdentify( Rectangle )
       sprintf( GraalIdentifyBuffer,
       "VIA :\n\n  NAME : %s\n  TYPE: %s\n  XVIA : %.2f\n  YVIA : %.2f\n\n",
       (((phvia_list *)Pointer)->NAME != (char *)0) ? ((phvia_list *)Pointer)->NAME : "None",
-      GRAAL_VIA_NAME_TABLE[ ((phvia_list *)Pointer)->TYPE ][0],
+      GRAAL_VIA_NAME_TABLE[ (int)((phvia_list *)Pointer)->TYPE ][0],
       (float)((phvia_list *)Pointer)->XVIA  / (float)SCALE_X,
       (float)((phvia_list *)Pointer)->YVIA  / (float)SCALE_X );
     }
@@ -342,7 +344,7 @@ char GraalAddIdentify( Rectangle )
       sprintf( GraalIdentifyBuffer,
       "BIGVIA :\n\n  NAME: %s\n  TYPE: %s\n  XVIA : %.2f\n  YVIA : %.2f\n  DX   : %.2f\n  DY  : %.2f\n\n",
       (((phvia_list *)Pointer)->NAME != (char *)0) ? ((phvia_list *)Pointer)->NAME : "None",
-      GRAAL_BIGVIA_NAME_TABLE[ ((phvia_list *)Pointer)->TYPE ][0],
+      GRAAL_BIGVIA_NAME_TABLE[ (int)((phvia_list *)Pointer)->TYPE ][0],
       (float)((phvia_list *)Pointer)->XVIA / (float)SCALE_X,
       (float)((phvia_list *)Pointer)->YVIA / (float)SCALE_X,
       (float)((phvia_list *)Pointer)->DX   / (float)SCALE_X,
@@ -368,7 +370,7 @@ char GraalAddIdentify( Rectangle )
     "INSTANCE :\n\n  NAME : %s\n  MODEL : %s\n  TRANSF : %s\n  XINS : %.2f\n  YINS : %.2f\n\n",
     ((phins_list *)Pointer)->INSNAME,
     ((phins_list *)Pointer)->FIGNAME,
-    GRAAL_SYMMETRY_NAME_TABLE[ Orient ][0], 
+    GRAAL_SYMMETRY_NAME_TABLE[ (int)Orient ][0], 
     (float)((phins_list *)Pointer)->XINS  / (float)SCALE_X,
     (float)((phins_list *)Pointer)->YINS  / (float)SCALE_X );
   }
@@ -452,9 +454,7 @@ void GraalEditCopy( LambdaX1, LambdaY1, LambdaX2, LambdaY2, Mode )
   rdsrec_list *NewRec;
   void        *Element;
   void        *Pointer;
-  char         Orient;
   char         FirstUndo;
-  char         MbkOrient;
   long         DeltaX;
   long         DeltaY;
   long         X1;
@@ -654,8 +654,6 @@ void GraalEditMove( LambdaX1, LambdaY1, LambdaX2, LambdaY2, Mode )
   graalconrec *ConRec;
   void        *Element;
   void        *Pointer;
-  char         Orient;
-  char         MbkOrient;
   char         FirstUndo;
   long         DeltaX;
   long         DeltaY;
@@ -1310,7 +1308,7 @@ void GraalEditStretch( LambdaX1, LambdaY1, LambdaX2, LambdaY2, Mode )
         X2 = ((phseg_list *)Pointer)->X2;
         Y2 = ((phseg_list *)Pointer)->Y2;
 
-        Length = (long)( GRAAL_SEGMENT_VALUE_TABLE[ ((phseg_list *)Pointer)->LAYER ][1] * SCALE_X );
+        Length = (long)( GRAAL_SEGMENT_VALUE_TABLE[ (int)((phseg_list *)Pointer)->LAYER ][1] * SCALE_X );
 
         Stretch = 0;
 
@@ -1410,7 +1408,7 @@ void GraalEditStretch( LambdaX1, LambdaY1, LambdaX2, LambdaY2, Mode )
         X2 = X1 + DXvia;
         Y2 = Y1 + DYvia;
 
-        Length = (long)( GRAAL_BIGVIA_VALUE_TABLE[ ((phvia_list *)Pointer)->TYPE ][0] * SCALE_X );
+        Length = (long)( GRAAL_BIGVIA_VALUE_TABLE[ (int)((phvia_list *)Pointer)->TYPE ][0] * SCALE_X );
 
         Stretch = 0;
 

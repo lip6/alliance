@@ -192,10 +192,9 @@ PPlacement::PlaceGlobal()
 {
     int	   Iteration;
     double Cost, RowCost, BinCost, NetCost;
-    double InitCost;
     double Temperature = 1e30, OldTemperature = 1e30;
     int	   Loop = 0;
-    double StdDev = 0, StdDevRow = 0, StdDevBin = 0, StdDevNet = 0;
+    double StdDev = 0 ;
     double SumCost = 0, SumCostRow = 0, SumCostBin = 0, SumCostNet = 0;
     double SumSquare = 0, SumSquareRow = 0, SumSquareBin = 0, SumSquareNet = 0;
     int	   Accepted = 0;
@@ -220,7 +219,7 @@ PPlacement::PlaceGlobal()
     _initBinCost = BinCost = GetBinCost();
     _initNetCost = NetCost = GetNetCost();
 
-    InitCost = Cost = GetCost(RowCost, BinCost, NetCost);
+    Cost = GetCost(RowCost, BinCost, NetCost);
 
     if (_verbose) 
     {
@@ -268,9 +267,9 @@ PPlacement::PlaceGlobal()
     }
 
     StdDev = GetStdDev(SumCost, SumSquare, Accepted);
-    StdDevRow = GetStdDev(SumCostRow, SumSquareRow, Accepted);
-    StdDevBin = GetStdDev(SumCostBin, SumSquareBin, Accepted);
-    StdDevNet = GetStdDev(SumCostNet, SumSquareNet, Accepted);
+    GetStdDev(SumCostRow, SumSquareRow, Accepted);
+    GetStdDev(SumCostBin, SumSquareBin, Accepted);
+    GetStdDev(SumCostNet, SumSquareNet, Accepted);
 
     Temperature = 20.0 * StdDev;
     Iteration   = (int)(5.0 * pow(GetNInsToPlace(), 1.33));
@@ -336,9 +335,9 @@ PPlacement::PlaceGlobal()
 	Loop += 1;
 	OldTemperature = Temperature;
 	StdDev = GetStdDev(SumCost, SumSquare, Accepted);
-	StdDevRow = GetStdDev(SumCostRow, SumSquareRow, Accepted);
-	StdDevBin = GetStdDev(SumCostBin, SumSquareBin, Accepted);
-	StdDevNet = GetStdDev(SumCostNet, SumSquareNet, Accepted);
+	GetStdDev(SumCostRow, SumSquareRow, Accepted);
+	GetStdDev(SumCostBin, SumSquareBin, Accepted);
+	GetStdDev(SumCostNet, SumSquareNet, Accepted);
 	
 	if (StdDev == 0.0)
 	    Temperature = 0.0;

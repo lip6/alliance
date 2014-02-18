@@ -746,10 +746,6 @@ void FvhFbhTreatPort( FbhFigure, FsmFigure )
   fbbux_list  *ScanBux;
   fbbus_list  *ScanBus;
   char         IsClock;
-  char         ClockOk;
-  char         Direction;
-
-  ClockOk = 0;
 
   if ( ! IsFsmFigMixedRtl( FsmFigure ) )
   {
@@ -849,11 +845,6 @@ void FvhFbhTreatPort( FbhFigure, FsmFigure )
       if ( IsFbhAssignByFsm( ScanAux ) )
       {
         addfsmout( FsmFigure, ScanAux->NAME );
-        Direction = 'B';
-      }
-      else
-      {
-        Direction = 'I';
       }
 
       addfsmport( FsmFigure, ScanAux->NAME, 'B', ScanAux->TYPE );
@@ -1650,7 +1641,7 @@ void FvhFbhTreatProcess( FbhFigure, FsmFigure )
 {
   fsmfig_list *Figure;
   fvhfig_list *ScanFigList;
-  fbpcs_list  *ScanProc;
+  fbpcs_list  *ScanProc = NULL;
   chain_list  *ScanSens;
   fbpcs_list  *MainProc;
   fbpcs_list  *ClockProc;

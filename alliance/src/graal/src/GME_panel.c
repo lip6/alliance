@@ -45,6 +45,8 @@
 # include <stdio.h>
 # include <string.h>
 # include <Xm/Xm.h>
+# include <Xm/Text.h>
+# include <Xm/List.h>
 # include <Xm/FileSB.h>
 # include <Xm/SelectioB.h>
 # include <Xm/PushBG.h>
@@ -3544,7 +3546,9 @@
              (Widget)NULL   
            }
            ,
-           NULL
+           {
+             NULL
+           }
          };
 
    GraalPanelItem GraalWindowGlobalPanel  =
@@ -4433,7 +4437,7 @@ void CallbackModifySegmentLayer( MyWidget, ClientData, CallData )
   }
 
   GraalSegmentMLayer = NewLayer;
-  MinWidth           = GRAAL_SEGMENT_VALUE_TABLE[ GraalSegmentMLayer ][0];
+  MinWidth           = GRAAL_SEGMENT_VALUE_TABLE[ (int)GraalSegmentMLayer ][0];
 
   if ( GraalSegmentMWidth < MinWidth ) GraalSegmentMWidth = MinWidth;
 
@@ -4548,7 +4552,7 @@ void CallbackModifyTransistorType( MyWidget, ClientData, CallData )
   rdsbegin();
 
   GraalTransistorMType  = (long)ClientData;
-  MinWidth              = GRAAL_SEGMENT_VALUE_TABLE[ GraalTransistorMType ][0];
+  MinWidth              = GRAAL_SEGMENT_VALUE_TABLE[ (int)GraalTransistorMType ][0];
 
   if ( GraalTransistorMWidth < MinWidth ) GraalTransistorMWidth = MinWidth;
 
@@ -4663,7 +4667,7 @@ void CallbackModifyConnectorLayer( MyWidget, ClientData, CallData )
   rdsbegin();
 
   GraalConnectorMLayer = (long)ClientData;
-  MinWidth             = GRAAL_SEGMENT_VALUE_TABLE[ GraalConnectorMLayer ][0];
+  MinWidth             = GRAAL_SEGMENT_VALUE_TABLE[ (int)GraalConnectorMLayer ][0];
 
   if ( GraalConnectorMWidth < MinWidth ) GraalConnectorMWidth = MinWidth;
 

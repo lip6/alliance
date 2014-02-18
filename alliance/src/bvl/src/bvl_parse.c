@@ -31,14 +31,15 @@ char         *figname   ;
 unsigned long  trace_mode;
 
   {
-  extern FILE          *bvl_y_in      ;
-  extern long            bvl_y_parse ();
-  char                 *tok           ;
-  char                 *str           ;
-  unsigned long          check_mode    ;
-  struct chain         *behsfx_lst    = NULL;
-  struct chain         *suffix        = NULL;
-  static unsigned long   call_nbr      = 0   ;
+  extern FILE          *bvl_y_in       ;
+  extern long           bvl_y_parse  ();
+  extern void           bvl_y_restart();
+  char                 *tok            ;
+  char                 *str            ;
+  unsigned long         check_mode     ;
+  struct chain         *behsfx_lst     = NULL;
+  struct chain         *suffix         = NULL;
+  static unsigned long  call_nbr       = 0   ;
 
 	/* ###------------------------------------------------------### */
 	/*    read the environment variable VH_BEHSFX to create a list	*/

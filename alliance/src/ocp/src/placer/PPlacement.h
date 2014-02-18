@@ -27,22 +27,12 @@
 #ifndef __PPLACEMENT_H
 #define __PPLACEMENT_H
 
-#ifdef __GNUC__
-#if __GNUC__ < 3
-#include <hash_map.h>
-#else
-#include <ext/hash_map>
-#if (__GNUC_MINOR__ == 0) and (__GNUC__ == 3)
-#else
-using namespace __gnu_cxx; // GCC 3.1 and later
-#endif
-#endif
-#endif
-
 #include <iostream>
 #include <fstream>
 #include <vector>
 #include <map>
+#include <unordered_map>
+
 using namespace std;
 
 #include "mut.h"
@@ -58,122 +48,157 @@ using namespace std;
 
 struct eqstr
 {
-    bool operator()(const char* s1, const char* s2) const
+    inline size_t operator()(const char *s) const
+    {
+        size_t hash = 1;
+        for (; *s; ++s) hash = hash * 5 + *s;
+        return hash;
+    }
+
+    inline bool operator()(const char* s1, const char* s2) const
     {
 	return strcmp(s1, s2) == 0;
     }
 };
 
 class PPlacement {
-    public:
-	typedef vector<PRow*>	PRows;
-	typedef vector<PONet*> PONets;
-	typedef vector<PToPlaceIns*> PToPlaceInss;
-	typedef vector<PFixedIns*> PFixedInss;
-	typedef vector<PCon*> PCons;
-	typedef vector <bool> PrePlaceRow;
-	typedef vector<PrePlaceRow> PrePlaceTab;
-	typedef vector<PDetSubRow*> PDetSubRows;
+  public:
+    typedef vector<PRow*>    PRows;
+    typedef vector<PONet*> PONets;
+    typedef vector<PToPlaceIns*> PToPlaceInss;
+    typedef vector<PFixedIns*> PFixedInss;
+    typedef vector<PCon*> PCons;
+    typedef vector <bool> PrePlaceRow;
+    typedef vector<PrePlaceRow> PrePlaceTab;
+    typedef vector<PDetSubRow*> PDetSubRows;
 
-    private:
-	typedef map<double, unsigned, less<double> > PRowsYMax;
-	typedef map<double, unsigned, greater<double> > PRowsYMinInv;
-	typedef hash_map<long, PONet*> PNetMap;
-	typedef hash_map<const char*, PIns*, hash<const char *>, eqstr>PInsMap;
-	typedef hash_map<const char*, PCon*, hash<const char *>, eqstr> PConMap;
-	typedef hash_map<const char*, locon*, hash<const char *>, eqstr> PLoconMap;
-	typedef hash_map<const char*, int, hash<const char *>, eqstr> PFixedMap;
-	typedef hash_map<const char*, PDetToPlaceIns*, hash<const char*>, eqstr> PDetInsMap;
+  private:
+    typedef map< double, unsigned, less<double> > PRowsYMax;
+    typedef map< double, unsigned, greater<double> > PRowsYMinInv;
+    typedef unordered_map<long, PONet*> PNetMap;
+    typedef unordered_map<const char*, PIns*, eqstr, eqstr> PInsMap;
+    typedef unordered_map<const char*, PCon*, eqstr, eqstr> PConMap;
+    typedef unordered_map<const char*, locon*, eqstr, eqstr> PLoconMap;
+    typedef unordered_map<const char*, int, eqstr, eqstr> PFixedMap;
+    typedef unordered_map<const char*, PDetToPlaceIns*, eqstr, eqstr> PDetInsMap;
 
-	PBBox		BBox;
-	int		_dx;
-	int		_dy;
+    PBBox         BBox;
+    int           _dx;
+    int           _dy;
 
-	lofig*		_fig;   
-	phfig*		_prePlaceFig;
-	PToPlaceInss	_toPlaceInss;
-	PFixedInss	_fixedInss;
-	PCons		_cons;
-	PONets		_nets;
-	PRows		_rows;
-	PRowsYMax	_rowsYMax;
-	PRowsYMinInv	_rowsYMinInv;
-	// placement detaille
-	PDetSubRows	_detSubRows;
-	double		_detInitNetCost;
+    lofig*        _fig;   
+    phfig*        _prePlaceFig;
+    PToPlaceInss  _toPlaceInss;
+    PFixedInss    _fixedInss;
+    PCons         _cons;
+    PONets        _nets;
+    PRows         _rows;
+    PRowsYMax     _rowsYMax;
+    PRowsYMinInv  _rowsYMinInv;
+    // placement detaille
+    PDetSubRows   _detSubRows;
+    double        _detInitNetCost;
 
-	bool		_rowZeroOrientation;
+    bool          _rowZeroOrientation;
 
-	double		_initNetCost;
-	double		_initRowCost;
-	double		_initBinCost;
+    double        _initNetCost;
+    double        _initRowCost;
+    double        _initBinCost;
 
-	// parametres
-	double		_margin;
-	double		_realMargin;
-	int		_maxDetLoop; // Maximum nb of loops for detailed placement
-	double		RowMult;
-	double		BinMult;
-	double		NetMult;
-	bool		_placeCons;
-	bool		_ringPlaceCons;
-	con_list*	_PtList;
-	bool		_iocFile;
-	char*		_iocFileName;
-	bool		_boolPlot;
-	bool		_verbose;
-	bool		_prePlace;
-	bool		_eqMargin;
-	unsigned	_totalMoves;
-        unsigned        _sourceEqualTargetMovementNumber;
-        unsigned        _surOccupationTargetMovementNumber;
-        unsigned        _impossibleExchangeMovementNumber;
-        unsigned        _acceptedMoveNumber;
-        unsigned        _acceptedExchangeNumber;
-        unsigned        _rejectedMoveNumber;
-        unsigned        _rejectedExchangeNumber;
+    // parametres
+    double        _margin;
+    double        _realMargin;
+    int           _maxDetLoop; // Maximum nb of loops for detailed placement
+    double        RowMult;
+    double        BinMult;
+    double        NetMult;
+    bool          _placeCons;
+    bool          _ringPlaceCons;
+    con_list*     _PtList;
+    bool          _iocFile;
+    char*         _iocFileName;
+    bool          _boolPlot;
+    bool          _verbose;
+    bool          _prePlace;
+    bool          _eqMargin;
+    unsigned      _totalMoves;
+    unsigned      _sourceEqualTargetMovementNumber;
+    unsigned      _surOccupationTargetMovementNumber;
+    unsigned      _impossibleExchangeMovementNumber;
+    unsigned      _acceptedMoveNumber;
+    unsigned      _acceptedExchangeNumber;
+    unsigned      _rejectedMoveNumber;
+    unsigned      _rejectedExchangeNumber;
 
-	// Placement caracteristics
-	char*		_fileName;
-	unsigned	_elems;
-	unsigned	_nIns;
-	unsigned	_nInsToPlace;
-	double		_binsWidth;
-	double		_binsCapa;
-	double		_binsMinWidth;
-	double		_binsMaxWidth;
-	double		_sumToPlaceInssWidth;
-	double		_biggestToPlaceInsWidth;
+    // Placement caracteristics
+    char*         _fileName;
+    unsigned      _elems;
+    unsigned      _nIns;
+    unsigned      _nInsToPlace;
+    double        _binsWidth;
+    double        _binsCapa;
+    double        _binsMinWidth;
+    double        _binsMaxWidth;
+    double        _sumToPlaceInssWidth;
+    double        _biggestToPlaceInsWidth;
 
-	void		Init(lofig* cell, int NbRows);
-	double		GetRowCost();
-	double		GetBinCost();
-	double		GetNetCost();
-	double		GetCost(double RowCost, double BinCost, double NetCost);
-	void		PlaceGlobal();
-	void		PlaceFinal();
+    void        Init(lofig* cell, int NbRows);
+    double      GetRowCost();
+    double      GetBinCost();
+    double      GetNetCost();
+    double      GetCost(double RowCost, double BinCost, double NetCost);
+    void        PlaceGlobal();
+    void        PlaceFinal();
 
-    public:
-	PPlacement(bool conflg, bool ringflg, double rowmult, double binmult, double netmult,
-		bool iocfile, char *iocfilename, bool plotflg,
-		bool verbose, bool preflg, bool eqmargin,
-		struct phfig* physfig,
-		char* filename):
-	    _prePlaceFig(physfig),
-	_rowZeroOrientation(false),
-	RowMult(rowmult), BinMult(binmult), NetMult(netmult),
-	_placeCons(conflg), _ringPlaceCons(ringflg), _iocFile(iocfile), _iocFileName(iocfilename),
-	_boolPlot(plotflg), _verbose(verbose), _prePlace(preflg), _eqMargin(eqmargin),
-	_totalMoves(0)
-        , _sourceEqualTargetMovementNumber(0)
-        , _surOccupationTargetMovementNumber(0)
-        , _impossibleExchangeMovementNumber(0)
-        , _acceptedMoveNumber(0)
-        , _acceptedExchangeNumber(0)
-        , _rejectedMoveNumber(0)
-        , _rejectedExchangeNumber(0)
-        , _fileName(filename)
-	{}
+  public:
+    PPlacement(bool conflg, bool ringflg, double rowmult, double binmult, double netmult,
+               bool iocfile, char *iocfilename, bool plotflg,
+               bool verbose, bool preflg, bool eqmargin,
+               struct phfig* physfig,
+               char* filename)
+      : _dx                               (0)
+      , _dy                               (0)
+      , _fig                              (NULL)
+      , _prePlaceFig                      (physfig)
+      , _detInitNetCost                   (0.0)
+      , _rowZeroOrientation               (false)
+      , _initNetCost                      (0.0)
+      , _initRowCost                      (0.0)
+      , _initBinCost                      (0.0)
+      , _margin                           (0.0)
+      , _realMargin                       (0.0)
+      , _maxDetLoop                       (0)
+      , RowMult                           (rowmult)
+      , BinMult                           (binmult)
+      , NetMult                           (netmult)
+      , _placeCons                        (conflg)
+      , _ringPlaceCons                    (ringflg)
+      , _PtList                           (NULL)
+      , _iocFile                          (iocfile)
+      , _iocFileName                      (iocfilename)
+      , _boolPlot                         (plotflg)
+      , _verbose                          (verbose)
+      , _prePlace                         (preflg)
+      , _eqMargin                         (eqmargin)
+      , _totalMoves                       (0)
+      , _sourceEqualTargetMovementNumber  (0)
+      , _surOccupationTargetMovementNumber(0)
+      , _impossibleExchangeMovementNumber (0)
+      , _acceptedMoveNumber               (0)
+      , _acceptedExchangeNumber           (0)
+      , _rejectedMoveNumber               (0)
+      , _rejectedExchangeNumber           (0)
+      , _fileName                         (filename)
+      , _elems                            (0)
+      , _nIns                             (0)
+      , _nInsToPlace                      (0)
+      , _binsWidth                        (0.0)
+      , _binsCapa                         (0.0)
+      , _binsMinWidth                     (0.0)
+      , _binsMaxWidth                     (0.0)
+      , _sumToPlaceInssWidth              (0.0)
+      , _biggestToPlaceInsWidth           (0.0)
+    { }
 
 	~PPlacement();
 
@@ -188,11 +213,11 @@ class PPlacement {
 	double		GetNetMult() const		{ return NetMult; }
 	void		Place(lofig* cell, int NbRows);
 
-	void		PlotAll(char* output) const;
-	void		PlotFinal(char* output) const;
-	void		PlotOnlyInstances(char* output) const; 
+	void		PlotAll(const string& output) const;
+	void		PlotFinal(const string& output) const;
+	void		PlotOnlyInstances(const string& output) const; 
 	void		PlotStat();
-	void		PlotOnlyBins(char* output) const;
+	void		PlotOnlyBins(const string& output) const;
 
         double          GetBinsSize() const;
         double          GetBinsCapa() const;

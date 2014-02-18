@@ -486,7 +486,6 @@ int              version;
   if( version == 6 )
   {
     name   = namealloc( (char*)line->DATA );
-    line   = line->NEXT;
   }
 
   pttrs  = addlotrs( ptfig, type, x, y, w, l, ps, pd, xs, xd,
@@ -539,17 +538,12 @@ locap_list *decode_locap(lofig_list *ptfig,chain_list *line,char *fname,int mal_
   int	     phtcon = 0    ;
   int	     phbcon = 0    ;
   locap_list *ptcap = NULL ;
-  int	     n      = 0    ;
   char	     *name  = NULL ;
   float      capa   = 0.0  ;
-
-  n = nbitem(line) ;
   
   /* Version 6 :  P type capa name tcon bcon node_tcon node_bcon */
   
   /***** type *****/
-
-  type = -1 ;
 
   if(strcasecmp((char *)line -> DATA, "MIM") == 0)
    {
@@ -596,7 +590,6 @@ locap_list *decode_locap(lofig_list *ptfig,chain_list *line,char *fname,int mal_
   line    = line -> NEXT ;
   
   phbcon  = decode_int((char *)line -> DATA,fname,mal_line) ;
-  line    = line -> NEXT ;
 
   ptcap  = addlocap(ptfig,type,capa,tcon,bcon,name) ;
 
@@ -633,18 +626,11 @@ lores_list *decode_lores(lofig_list *ptfig,chain_list *line,char *fname,int mal_
   int	     phrcon1 = 0    ;
   int	     phrcon2 = 0    ;
   lores_list *ptres  = NULL ;
-  int	     n       = 0    ;
   char	     *name   = NULL ;
   float      resi    = 0.0  ;
-
-  n = nbitem(line) ;
   
   /* Version 6 :  R type resi name rcon1 rcon2 node_rcon1 node_rcon2 */
   
-  /***** type *****/
-
-  type = -1 ;
-
   if(strcasecmp((char *)line -> DATA, "MIM") == 0)
    {
      type = RESMIM ;
@@ -690,7 +676,6 @@ lores_list *decode_lores(lofig_list *ptfig,chain_list *line,char *fname,int mal_
   line    = line -> NEXT ;
   
   phrcon2  = decode_int((char *)line -> DATA,fname,mal_line) ;
-  line    = line -> NEXT ;
 
   ptres  = addlores(ptfig,type,resi,rcon1,rcon2,name) ;
 
@@ -727,17 +712,10 @@ loself_list *decode_loself(lofig_list *ptfig,chain_list *line,char *fname,int ma
   int	      phscon1  = 0    ;
   int	      phscon2  = 0    ;
   loself_list *ptself = NULL ;
-  int	      n        = 0    ;
   char	      *name    = NULL ;
   float       self     = 0.0  ;
-
-  n = nbitem(line) ;
   
   /* Version 6 :  L type self name scon1 scon2 node_scon1 node_scon2 */
-  
-  /***** type *****/
-
-  type = -1 ;
 
   if(strcasecmp((char *)line -> DATA, "MIM") == 0)
    {
@@ -784,7 +762,6 @@ loself_list *decode_loself(lofig_list *ptfig,chain_list *line,char *fname,int ma
   line    = line -> NEXT ;
   
   phscon2  = decode_int((char *)line -> DATA,fname,mal_line) ;
-  line    = line -> NEXT ;
 
   ptself  = addloself(ptfig,type,self,scon1,scon2,name) ;
 
@@ -860,7 +837,6 @@ int		 mal_line;
   line    = line->NEXT;
 
   node2   = decode_int( (char*)line->DATA, fname, mal_line );
-  line    = line->NEXT;
 
   ptsig1  = givelosig( ptfig, idxsig1 );
   ptsig2  = givelosig( ptfig, idxsig2 );
@@ -891,10 +867,10 @@ int		 mal_line;
   float		y;
   float		dx;
   float		dy;
-  long		lx;
-  long		ly;
-  long		ldx;
-  long		ldy;
+  /* long		lx; */
+  /* long		ly; */
+  /* long		ldx; */
+  /* long		ldy; */
   
   if( nbitem( line ) != 9 )
     mal_error( fname, mal_line,"decode_lowire()","Bad number of argument.\n" );
@@ -927,12 +903,11 @@ int		 mal_line;
   line  = line->NEXT;
 
   dy    = (float)decode_float( line->DATA, fname, mal_line );
-  line  = line->NEXT;
 
-  lx    = x  * SCALE_X;
-  ly    = y  * SCALE_X;
-  ldx   = dx * SCALE_X;
-  ldy   = dy * SCALE_X;
+  /* lx    = x  * SCALE_X; */
+  /* ly    = y  * SCALE_X; */
+  /* ldx   = dx * SCALE_X; */
+  /* ldy   = dy * SCALE_X; */
 
   return( addlowire( ptsig, layer, 0, r, c, x, y, dx, dy, n1, n2 ) );
 }
@@ -943,12 +918,12 @@ losig_list*	decode_sig( ptfig, line, fname, mal_line, version )
 lofig_list	*ptfig;
 chain_list	*line;
 char		*fname;
-int		 mal_line;
-int              version;
+int          mal_line;
+int          version;
 {
-  int		 idx;
+  int            idx;
   losig_list	*ptsig;
-  char		 type;
+  char           type;
   float          capa;
   char           signame[256];
   ht            *htsigname;
@@ -1365,7 +1340,6 @@ int		 mal_line;
 {
   lofig_list	*ptmodele;
   chain_list	*scan;
-  chain_list	*next;
   chain_list	*headsig;
   locon_list	*scancon;
   num_list	*scannum;

@@ -34,6 +34,10 @@
 #include <mph.h>
 #define MAXLAYER (LAST_LAYER + 1)
 
+extern void yyrestart();
+extern int yylex();
+extern void yyerror();
+
 static phfig_list *mgleaf; /* modgen leaf cell parsed */
 static char mbk_layer();
 static char *checkinsname();
@@ -523,6 +527,7 @@ char *mg_layer;
 		return TALU2;
 	if (!strcmp(mg_layer, "am3"))
 		return TALU3;
+    return NWELL;
 }
 
 /* decode a reference name :
@@ -542,25 +547,27 @@ char one = 0;
    s = t = name;
 
    while (*t) {
-      if (*t == '[')
-			if (!one) {
-         	*t = ' ';
-				u = s;
-				one = 1;
-			} else if (one == 1) {
-         	*t = '_';
-				u = s;
-				one++;
-			} else {
-         	*t = ' ';
-				u = s;
-			}
-      else if (*t == ']')
-         if (*(++t) == '\0') /* ok, it's finished */
-            goto end;
-         else if (*t == '[') /* multiple array */
-            continue;
-      *s++ = *t++;
+     if (*t == '[') {
+       if (!one) {
+         *t = ' ';
+         u = s;
+         one = 1;
+       } else if (one == 1) {
+         *t = '_';
+         u = s;
+         one++;
+       } else {
+         *t = ' ';
+         u = s;
+       }
+     }
+     else if (*t == ']') {
+       if (*(++t) == '\0') /* ok, it's finished */
+         goto end;
+       else if (*t == '[') /* multiple array */
+         continue;
+     }
+     *s++ = *t++;
    }
 end:
    *s = '\0';

@@ -60,6 +60,7 @@
 # include "XMV_menu.h"
 # include "XMV_dialog.h"
 # include "XMV_view.h"
+# include "XMV_panel.h"
 # include "XMV_map.h"
 
 /*------------------------------------------------------------\
@@ -169,7 +170,9 @@
              (XfsmMenuItem *)NULL
            }
            ,
-           NULL
+           {
+             NULL
+           }
          };
 
 /*------------------------------------------------------------\

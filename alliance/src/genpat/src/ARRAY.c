@@ -97,8 +97,11 @@ struct   alpha_num decomp;
         {
             TraiterChaine (buffer_anx, &decomp);
             CheckWidth (&decomp);
-            if (strlen(decomp.alpha) ==0) 
-                sprintf(buffer,"%s %s",buffer,decomp.gauche);
+            if (strlen(decomp.alpha) ==0) {
+              char tmp[80];
+              sprintf(tmp,"%s %s",buffer,decomp.gauche);
+              strcpy(buffer, tmp);
+            }
             else 
                 Erreur ("ARRAY must separate each element of a vector\n");
         }
@@ -162,7 +165,9 @@ struct   alpha_num decomp;
         SplitIdent (buffer,buffer_anx);
         if (strlen (buffer_anx) != 0) 
         {
-        sprintf (buffer, "%s %s", buffer, buffer_anx);
+        char tmp[80];
+        sprintf (tmp, "%s %s", buffer, buffer_anx);
+        strcpy(buffer, tmp);
         }
 
         sprintf (buffer_name, "%s %d", name, GNP_PARAM_COURANT);

@@ -117,5 +117,6 @@
 
   extern void DrealDisplayIdentifyMessage();
   extern void DrealDisplaySelectList();
+  extern void DrealBuildPanelModify();
 
 # endif 

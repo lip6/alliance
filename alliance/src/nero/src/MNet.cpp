@@ -3,8 +3,7 @@
 //
 // $Id: MNet.cpp,v 1.12 2006/04/28 07:51:54 jpc Exp $
 //
-//  /----------------------------------------------------------------\ 
-//  |                                                                |
+//  +----------------------------------------------------------------+ 
 //  |        A l l i a n c e   C A D   S y s t e m                   |
 //  |              S i m p l e   R o u t e r                         |
 //  |                                                                |
@@ -12,10 +11,7 @@
 //  |  E-mail      :       alliance-support@asim.lip6.fr             |
 //  | ============================================================== |
 //  |  C++ Module  :       "./MNet.cpp"                              |
-//  | ************************************************************** |
-//  |  U p d a t e s                                                 |
-//  |                                                                |
-//  \----------------------------------------------------------------/
+//  +----------------------------------------------------------------+
 
 
 
@@ -25,19 +21,18 @@
 
 
 
-//  /----------------------------------------------------------------\
+//  +----------------------------------------------------------------+
 //  |                     Methods Definitions                        |
-//  \----------------------------------------------------------------/
+//  +----------------------------------------------------------------+
 
 
 // -------------------------------------------------------------------
 // Constructor  :  "CTerm::CTerm()".
 
 CTerm::CTerm (string termName, int ident)
-{
-  id   = ident;
-  name = termName;
-}
+  : id  (ident)
+  , name(termName)
+{ }
 
 
 
@@ -249,8 +244,6 @@ void  CTerm::lockalone (bool global)
 {
   CDRGrid::iterator  coord;
   CDRGrid::iterator  coord2;
-                int  z, i;
-               bool  adjust;
 
   if (nodes.size() != 1) return;
 
@@ -305,9 +298,9 @@ void  CTerm::lockalone (bool global)
     if ( coord2.y() % 2 ) {
       // We are not on the double pitch grid. Try to go there.
       // Look for up and down grid node.
-      adjust = true;
+      bool adjust = true;
 
-      for (i = 0; i < 3; i++) {
+      for (int i = 0; i < 3; i++) {
         switch (i) {
           case 0: coord2.dy (+1); break;
           case 1: coord2.dy (-2); break;

@@ -240,7 +240,9 @@
              (Widget)NULL
            }
            ,
-           NULL
+           {
+             NULL
+           }
          };
 
    XfsmPanelItem XfsmViewArrowsPanel =
@@ -428,7 +430,9 @@
              (Widget)NULL
            }
            ,
-           NULL
+           {
+             NULL
+           }
          };
 
    XfsmPanelItem XfsmViewZoomPanel =
@@ -525,7 +529,9 @@
              (Widget)NULL   
            }
            ,
-           NULL
+           {
+             NULL
+           }
          };
 
      XfsmPanelItem XfsmViewGridPanel =
@@ -952,7 +958,9 @@
              (Widget)NULL
            }
            ,
-           NULL
+           {
+             NULL
+           }
          };
 
      XfsmPanelItem XfsmViewLayerPanel =
@@ -1605,7 +1613,7 @@ void CallbackLayerForceDisplay( MyWidget, ClientData, CallData )
 
 void XfsmChangeCursor( Type )
 
-  char Type;
+  int  Type;
 {
   int      Pos;
   XmString Label;
@@ -1633,7 +1641,7 @@ void XfsmChangeCursor( Type )
 
 void XfsmChangeForceDisplay( Index )
 
-  char Index;
+  int  Index;
 {
   int      Pos;
   XmString Label;

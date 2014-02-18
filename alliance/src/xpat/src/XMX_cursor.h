@@ -69,8 +69,8 @@
   extern Position XpatCursorY;
   extern Position XpatCursorSaveX;
   extern Position XpatCursorSaveY;
-  extern char     XpatCursorSaved;
-  extern char     XpatCursorInside;
+  extern int      XpatCursorSaved;
+  extern int      XpatCursorInside;
   extern long     XpatLambdaCursorX;
   extern long     XpatLambdaCursorY;
 

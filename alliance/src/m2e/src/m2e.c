@@ -103,7 +103,7 @@ int ParseCommand(int argc,char *argv[])
      {
        case 'v':
          i++;
-         sscanf(argv[i],"%d",&VerboseMode);
+         sscanf(argv[i],"%11d",&VerboseMode);
          if(VerboseMode>=VMINFO) 
            fprintf(stderr,"[m2e] Info : Verbose Level Set to %d \n",VerboseMode);
          break;
@@ -631,7 +631,7 @@ int TraitFichClass(lofig_list *ptfig)
 	  psig->USER = addptype(psig->USER,(long)DEDALE,(void*)NULL);
 	  pt = psig->USER;
 	}
-        sscanf(pcl,"%d",(int*)&(pt->DATA));
+        sscanf(pcl,"%11d",(int*)&(pt->DATA));
 /*fprintf(stderr,"class %d\n",(int)pt->DATA);*/
         trouve = 1;
         break ;
@@ -642,7 +642,7 @@ int TraitFichClass(lofig_list *ptfig)
     fprintf(stderr,"[m2e] Info : Signal %s, absent\n",ps);
   }
 /* exploite /PLACEMENT    */
-  if((ps = strtok(buf,&ct[0])) == 0) 	return 1;
+  if((strtok(buf,&ct[0])) == 0) 	return 1;
   if(strcmp(PLACEMENT,buf) != 0) 	return 1;
   while(LigneSuiv(buf) == 0) 
   {
@@ -863,7 +863,7 @@ void TraitSignaux(lofig_list *ptfig)
   losig_list 	*psig;
   chain_list	*pchcon,*pchbro;
   locon_list	*pcon=NULL;
-  loins_list	*pins;
+  loins_list	*pins=NULL;
   lofig_list	*pfig;
   int           class=0;
   short		n,nbc,nomsig,j,k;
@@ -984,7 +984,7 @@ void TraitSignaux(lofig_list *ptfig)
               fprintf(stderr,"[m2e]            missing in %s.pin\n",pfig->NAME);
              }
           }
-      } /* end if*/
+      }  * end if*/
   if(VerboseMode>=VMTRACE)
     fprintf(stderr,"[m2e] Trace : signal : %s, nombre de broches : %d\n",(char *)psig->NAMECHAIN->DATA,nbc);        
    if(nbc != 0)  

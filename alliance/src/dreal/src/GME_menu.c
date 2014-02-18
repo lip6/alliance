@@ -226,7 +226,9 @@
              (DrealMenuItem *)NULL
            } 
            , 
-           NULL
+           {
+             NULL
+           }
          };
 
    DrealMenuItem DrealWindowMenu[] =
@@ -344,7 +346,9 @@
              (DrealMenuItem *)NULL
            }
            ,
-           NULL
+           {
+             NULL
+           }
         };
 
 /*------------------------------------------------------------\

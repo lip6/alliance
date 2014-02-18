@@ -37,11 +37,12 @@ char *itostr(str,nbr)
 char *str;
 int   nbr;
 {
-char *s = (char *)mbkalloc(strlen(str)+5);
-strcpy(s,str);
-strcat(s,"%d");
-sprintf(s,s,nbr);
-return ((char *)s);
+char *s1 = (char *)mbkalloc(strlen(str)+5);
+char *s2 = (char *)mbkalloc(strlen(str)+5);
+strcpy(s1,str);
+strcat(s1,"%d");
+sprintf(s2,s1,nbr);
+return ((char *)s2);
 }
 
 void Usage(nom)
@@ -140,7 +141,7 @@ char *name;
         while (*s !='\0') { *t++=*s++;}
 
 	*t = '\0';
-	sscanf(tmp_index,"%d",&ind);
+	sscanf(tmp_index,"%11d",&ind);
 	
 	return(ind);
 }

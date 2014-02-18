@@ -127,7 +127,7 @@ char *str1;
     case 2:
       if (first_time != 1)
         {
-        (void)fprintf (stderr,"Warning %d : ",code);
+        (void)fprintf (stderr,"Warning %ld : ",code);
         (void)fprintf(stderr,"consistency checks will be disabled\n");
         first_time = 1;
         }
@@ -140,7 +140,7 @@ char *str1;
 
     default:
       {
-      (void)fprintf(stderr,"Warning %d : ",code);
+      (void)fprintf(stderr,"Warning %ld : ",code);
       (void)fprintf(stderr,"unknown Warning code\n");
       }
     }
@@ -158,7 +158,7 @@ char *str2;
 long   nbr1;
 
   {
-  (void) fprintf (stderr,"Fatal error %d executing `%s`: ", code,str1);
+  (void) fprintf (stderr,"Fatal error %ld executing `%s`: ", code,str1);
   switch (code)
     {
     case 10:
@@ -183,7 +183,7 @@ long   nmb1;
   switch (code)
     {
     default:
-      (void) fprintf (stderr,"mvl_message : code %d unknown.\n",code);
+      (void) fprintf (stderr,"mvl_message : code %ld unknown.\n",code);
     }
   }
 
@@ -397,11 +397,11 @@ char *str1;
   {
   MVL_ERRFLG++;
   if (code < 100)
-    (void)fprintf (stderr,"`%s` Error %d line %d :",MVL_CURFIL,code,MVL_LINNUM);
+    (void)fprintf (stderr,"`%s` Error %ld line %d :",MVL_CURFIL,code,MVL_LINNUM);
   else
     {
     if (code < 200)
-      (void)fprintf (stderr,"Error %d :",code);
+      (void)fprintf (stderr,"Error %ld :",code);
     }
 
   switch (code)
@@ -663,7 +663,7 @@ char *name;
     while (mvl_chktab (namtab,new_name,NULL,MVL_NEWDFN) != 0)
       {
       new_name = prv_name;
-      sprintf (buffer,"%s_%d",new_name,number++);
+      sprintf (buffer,"%s_%ld",new_name,number++);
       prv_name = new_name;
       new_name = namealloc (buffer);
       }

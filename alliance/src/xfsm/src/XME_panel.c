@@ -45,6 +45,8 @@
 # include <stdio.h>
 # include <string.h>
 # include <Xm/Xm.h>
+# include <Xm/Text.h>
+# include <Xm/List.h>
 # include <Xm/FileSB.h>
 # include <Xm/SelectioB.h>
 # include <Xm/PushBG.h>
@@ -64,6 +66,7 @@
 # include "XME_message.h"
 # include "XME_dialog.h"
 # include "XME_edit.h"
+# include "XME_select.h"
 # include "XME_search.h"
 
 /*------------------------------------------------------------\
@@ -121,7 +124,9 @@
              (Widget)NULL
            }
            ,
-           NULL
+           {
+             NULL
+           }
          };
 
    XfsmPanelItem XfsmEditSearchViewPanel  =
@@ -191,7 +196,9 @@
              (Widget)NULL
            }
            ,
-           NULL
+           {
+             NULL
+           }
          };
 
    XfsmPanelItem XfsmEditIdentifyPanel =
@@ -275,7 +282,9 @@
              (Widget)NULL
            }
            ,
-           NULL
+           {
+             NULL
+           }
          };
 
    XfsmPanelItem XfsmEditSelectPanel =

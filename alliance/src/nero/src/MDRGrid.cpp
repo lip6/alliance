@@ -3,8 +3,7 @@
 //
 // $Id: MDRGrid.cpp,v 1.6 2005/10/10 15:34:05 jpc Exp $
 //
-//  /----------------------------------------------------------------\ 
-//  |                                                                |
+//  +----------------------------------------------------------------+ 
 //  |        A l l i a n c e   C A D   S y s t e m                   |
 //  |              S i m p l e   R o u t e r                         |
 //  |                                                                |
@@ -12,10 +11,7 @@
 //  |  E-mail      :       alliance-support@asim.lip6.fr             |
 //  | ============================================================== |
 //  |  C++ Module  :       "./MDRGrid.cpp"                           |
-//  | ************************************************************** |
-//  |  U p d a t e s                                                 |
-//  |                                                                |
-//  \----------------------------------------------------------------/
+//  +----------------------------------------------------------------+
 
 
 
@@ -25,9 +21,9 @@
 
 
 
-//  /----------------------------------------------------------------\
+//  +----------------------------------------------------------------+
 //  |                     Methods Definitions                        |
-//  \----------------------------------------------------------------/
+//  +----------------------------------------------------------------+
 
 
 // -------------------------------------------------------------------
@@ -492,8 +488,9 @@ __CNode__ *TMatrix<__CNode__>::_CHollow::get (int x, int y)
 
 template<class __CNode__>
 TMatrix<__CNode__>::TMatrix (CDRGrid *drgrid)
+  : _drgrid(drgrid)
+  , hole   ()
 {
-  _drgrid = drgrid;
   _grid   = new __CNode__ [_drgrid->size];
 }
 
@@ -518,11 +515,8 @@ TMatrix<__CNode__>::~TMatrix (void)
 template<class __CNode__>
 __CNode__ &TMatrix<__CNode__>::operator[] (int index)
 {
-  __CNode__ *node;
-
-
   if (index < _drgrid->XY ) {
-    node = _zero.get (_drgrid->x(index), _drgrid->y(index)) ;
+    __CNode__ *node = _zero.get (_drgrid->x(index), _drgrid->y(index)) ;
     if ( node != NULL ) return ( *node );
   } else {
     if (index < _drgrid->XYZ) return ( _grid[index - _drgrid->XY] );

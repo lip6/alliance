@@ -99,7 +99,7 @@ int BoomBehReorderWindow2( BehFigure, BehAux, BddVar, PCost )
 
   swapbddvar( (bddsystem *)0, BddVar );
 
-  BehAux  = BoomBehComputeAux( BehFigure, BehAux );
+//BehAux  = BoomBehComputeAux( BehFigure, BehAux );
   NewCost = BoomBehGiveCost( BehFigure );
 
   if ( NewCost < *PCost )
@@ -147,7 +147,7 @@ int BoomBehReorderWindow3( BehFigure, BehAux, BddVar, PCost )
 
   swapbddvar( (bddsystem *)0, BddVar );
 
-  BehAux  = BoomBehComputeAux( BehFigure, BehAux );
+//BehAux  = BoomBehComputeAux( BehFigure, BehAux );
   NewCost = BoomBehGiveCost( BehFigure );
 
   if ( IsBoomDebugLevel0() )
@@ -168,7 +168,7 @@ int BoomBehReorderWindow3( BehFigure, BehAux, BddVar, PCost )
 
   swapbddvar( (bddsystem *)0, BddVar );
 
-  BehAux  = BoomBehComputeAux( BehFigure, BehAux );
+//BehAux  = BoomBehComputeAux( BehFigure, BehAux );
   NewCost = BoomBehGiveCost( BehFigure );
 
   if ( IsBoomDebugLevel0() )
@@ -189,7 +189,7 @@ int BoomBehReorderWindow3( BehFigure, BehAux, BddVar, PCost )
 
   swapbddvar( (bddsystem *)0, BddVar );
 
-  BehAux  = BoomBehComputeAux( BehFigure, BehAux );
+//BehAux  = BoomBehComputeAux( BehFigure, BehAux );
   NewCost = BoomBehGiveCost( BehFigure );
   
   if ( IsBoomDebugLevel0() )
@@ -210,7 +210,7 @@ int BoomBehReorderWindow3( BehFigure, BehAux, BddVar, PCost )
 
   swapbddvar( (bddsystem *)0, BddVar );
 
-  BehAux  = BoomBehComputeAux( BehFigure, BehAux );
+//BehAux  = BoomBehComputeAux( BehFigure, BehAux );
   NewCost = BoomBehGiveCost( BehFigure );
 
   if ( IsBoomDebugLevel0() )
@@ -231,7 +231,7 @@ int BoomBehReorderWindow3( BehFigure, BehAux, BddVar, PCost )
 
   swapbddvar( (bddsystem *)0, BddVar );
 
-  BehAux  = BoomBehComputeAux( BehFigure, BehAux );
+//BehAux  = BoomBehComputeAux( BehFigure, BehAux );
   NewCost = BoomBehGiveCost( BehFigure );
 
   if ( IsBoomDebugLevel0() )

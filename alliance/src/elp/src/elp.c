@@ -18,9 +18,10 @@
 #include <stdlib.h>
 #include "elp.h"
 
-extern FILE *elpyyin                                                          ;
+extern FILE *elpyyin                                                       ;
+extern int   elpyyparse ()                                                 ;
 char   elpTechnoName[elpSTRINGSIZE]                                        ;
-char   elpTechnoFile[elpSTRINGSIZE]                                       ;
+char   elpTechnoFile[elpSTRINGSIZE]                                        ;
 double elpTechnoVersion                                                    ;
 char   elpEsimName[elpSTRINGSIZE]                                          ;
 char   elpModelName[elpSTRINGSIZE] = "MOS"                                 ;
@@ -47,10 +48,8 @@ int    elpyylineno                                                            ;
 /* -------------------                                                       */
 /*    Aucun!                                                                */
 /*****************************************************************************/
-elpFCT elpenv()
+elpFCT int elpenv()
 {
-  char  Buffer[ 512 ];
-
  char *str ;
 
  str = mbkgetenv("ELP_TECHNO_NAME");
@@ -62,6 +61,7 @@ elpFCT elpenv()
    if ( str == (char *)NULL ) str = ALLIANCE_TOP;
    sprintf( elpTechnoFile, "%s/%s", str, TECHNOLOGY );
  }
+ return 0;
 }
 
 /*****************************************************************************/
@@ -249,7 +249,7 @@ if(elpGeneral[elpACM] == 1.0)
     lotrs->PS = lotrs->PD = lotrs->WIDTH ;
     }
 
-return ;
+return 0;
 }
 
 
@@ -457,7 +457,7 @@ if((lotrs->PS != 0.0) && (lotrs->XS != 0.0))
       addcapa( lotrs->SOURCE->SIG, elpLotrsCapaSource(lotrs) ) ;
     }
 
-return ;
+return 0;
 }
 
 
@@ -487,7 +487,7 @@ for(lotrs = lofig->LOTRS ; lotrs != NULL ; lotrs = lotrs->NEXT)
   
   addcapa( lotrs->GRID->SIG, elpLotrsCapaGrid(lotrs) );
 }
-return ;
+return 0;
 }
 
 
@@ -515,5 +515,5 @@ lotrs_list *lotrs  ;
 for(lotrs = lofig->LOTRS ; lotrs != NULL ; lotrs = lotrs->NEXT)
 elpLotrsShrink(lotrs) ;
 
-return ;
+return 0;
 }

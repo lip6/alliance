@@ -61,6 +61,8 @@
 # include "XMX.h"
 # include "XTB.h"
 # include "XMF.h"
+# include "XMT.h"
+# include "XMV.h"
 
 # include "XMF_file.h"
 

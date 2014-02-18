@@ -54,9 +54,12 @@
 # include "rpr.h"
 # include "rwi.h"
 # include "rut.h"
+# include "rtl.h"
 # include "GSB.h"
 # include "GRM.h"
 # include "GMX.h"
+# include "GRM_window.h"
+# include "GRM_error.h"
 
 # include "graal.h"
 
@@ -179,14 +182,14 @@ int main( argc, argv )
   if ( WindowInfo )
   {
     fprintf( stdout, "\nGraal window\n" );
-    fprintf( stdout, "\n  XMIN : %d"  , GraalWindowXmin / GRAAL_RDS_LAMBDA );
-    fprintf( stdout, "\n  XMAX : %d"  , GraalWindowXmax / GRAAL_RDS_LAMBDA );
-    fprintf( stdout, "\n  YMIN : %d"  , GraalWindowYmin / GRAAL_RDS_LAMBDA );
-    fprintf( stdout, "\n  YMAX : %d"  , GraalWindowYmax / GRAAL_RDS_LAMBDA );
-    fprintf( stdout, "\n  SIDE : %d"  , GraalWindowSide / GRAAL_RDS_LAMBDA );
-    fprintf( stdout, "\n  DX   : %d"  , GraalWindowDx                );
-    fprintf( stdout, "\n  DY   : %d"  , GraalWindowDy                );
-    fprintf( stdout, "\n  SIZE : %d\n", GraalWindowSize              );
+    fprintf( stdout, "\n  XMIN : %ld"  , GraalWindowXmin / GRAAL_RDS_LAMBDA );
+    fprintf( stdout, "\n  XMAX : %ld"  , GraalWindowXmax / GRAAL_RDS_LAMBDA );
+    fprintf( stdout, "\n  YMIN : %ld"  , GraalWindowYmin / GRAAL_RDS_LAMBDA );
+    fprintf( stdout, "\n  YMAX : %ld"  , GraalWindowYmax / GRAAL_RDS_LAMBDA );
+    fprintf( stdout, "\n  SIDE : %ld"  , GraalWindowSide / GRAAL_RDS_LAMBDA );
+    fprintf( stdout, "\n  DX   : %ld"  , GraalWindowDx                );
+    fprintf( stdout, "\n  DY   : %ld"  , GraalWindowDy                );
+    fprintf( stdout, "\n  SIZE : %ld\n", GraalWindowSize              );
   }
 
   GraalInitializeCutCxTable();

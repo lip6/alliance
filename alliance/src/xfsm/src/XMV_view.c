@@ -56,6 +56,7 @@
 # include "XMX.h"
 # include "XMV.h"
 
+# include "XMX_grid.h"
 # include "XMV_view.h"
 
 /*------------------------------------------------------------\

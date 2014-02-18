@@ -213,7 +213,6 @@ static struct ulocon_s *getUlocon (apLocon)
 static struct ulocon_s *newUlocon (apLocon)
   struct locon *apLocon;
 {
-  struct ptype    *pType;
   struct ulocon_s *pUlocon;
 
 
@@ -223,8 +222,6 @@ static struct ulocon_s *newUlocon (apLocon)
     pUlocon->flags = 0L;
 
     apLocon->USER = addptype (apLocon->USER, PTYPE_ULOCON, (void*)pUlocon);
-
-    pType = apLocon->USER;
   }
 
 
@@ -1165,7 +1162,6 @@ extern void  protectPowmid(apPhfig)
 {
 # if 0
   struct phins *pIns;
-# endif
   struct phfig *pModel;
           char *powmidName;
           long  width, height, expand;
@@ -1173,14 +1169,11 @@ extern void  protectPowmid(apPhfig)
 
   expand = FLOOR_XY_EXPAND;
 
-
   powmidName = namealloc ("powmid_x0");
-
   pModel = getphfig ("powmid_x0", 'A');
   width  = pModel->XAB2 - pModel->XAB1;
   height = pModel->YAB2 - pModel->YAB1;
 
-# if 0
   for (pIns = apPhfig->PHINS; pIns != NULL; pIns = pIns->NEXT) {
     if (pIns->FIGNAME == powmidName) {
       if (pIns->YINS == apPhfig->YAB1 + expand) {

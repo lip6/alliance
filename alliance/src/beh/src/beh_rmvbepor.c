@@ -48,7 +48,7 @@ char         *beporname;	/* name of the BEPOR to be deleted	*/
 
   {
   struct bepor  headpor;
-  struct bepor *ptlastpor;
+  struct bepor *ptlastpor = NULL;
   struct bepor *ptbepor;
 
   if (listbepor != NULL)

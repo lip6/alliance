@@ -651,7 +651,7 @@ void place_et_cout_barreplot(LST_PSEUDO_CON tab_coeur[NB_FACES],
 				if (mode_debug) 
 					printf("diff barre - face coeur %ld\n", diff);
 
-				if (diff >= 0)
+              //if (diff >= 0)
 					barrexmilieu = tab_plots[face].coord.xabs =  ((lecoeur.coord.xabs - diff / 2) / SCALE_X) *
 					    SCALE_X;
 						
@@ -659,9 +659,9 @@ void place_et_cout_barreplot(LST_PSEUDO_CON tab_coeur[NB_FACES],
 					/* Largeur barre de plots >= largeur coeur */
 					/* --------------------------------------- */
 
-				else
-					barrexmilieu = tab_plots[face].coord.xabs =  ((lecoeur.coord.xabs - diff / 2) / SCALE_X) *
-					    SCALE_X;
+                  //else
+                  //barrexmilieu = tab_plots[face].coord.xabs =  ((lecoeur.coord.xabs - diff / 2) / SCALE_X) *
+                  //    SCALE_X;
 
 				/*---------------------------------------------------------------- */
 				/* Largeur barre de plots < largeur coeur                          */
@@ -763,7 +763,7 @@ void place_et_cout_barreplot(LST_PSEUDO_CON tab_coeur[NB_FACES],
 				if (mode_debug) 
 					printf("diff barre - face coeur %ld\n", diff);
 
-				if (diff >= 0)
+              //if (diff >= 0)
 					barreymilieu = tab_plots[face].coord.yabs =  ((lecoeur.coord.yabs - diff / 2) / SCALE_X) *
 					    SCALE_X;
 
@@ -771,9 +771,9 @@ void place_et_cout_barreplot(LST_PSEUDO_CON tab_coeur[NB_FACES],
 					/* Hauteur barre de plots >= Hauteur coeur */
 					/*---------------------------------------- */
 
-				else
-					barreymilieu = tab_plots[face].coord.yabs =  ((lecoeur.coord.yabs - diff / 2) / SCALE_X) *
-					    SCALE_X;
+                  //else
+                  //barreymilieu = tab_plots[face].coord.yabs =  ((lecoeur.coord.yabs - diff / 2) / SCALE_X) *
+                  //    SCALE_X;
 
 				/* ------------------------------------------------------------ */
 				/* Hauteur barre de plots < Hauteur coeur                       */
@@ -1620,8 +1620,8 @@ void maj_coordplots(BARRE_PLOTS tab_plots[NB_FACES], LST_EQUIPO lst_equipo)
 	LST_EQUIPO     liste_eq = lst_equipo;
 	LST_PSEUDO_CON liste;
 	int	face;
-	char	niveau;
-	long	position, largeurmin, largeurmax;
+  //char	niveau;
+	long	position, /*largeurmin,*/ largeurmax;
 
 	if (WVIA_ALU1 > WVIA_ALU2) 
 		largeurmax = WVIA_ALU1 * lambda;
@@ -1650,8 +1650,8 @@ void maj_coordplots(BARRE_PLOTS tab_plots[NB_FACES], LST_EQUIPO lst_equipo)
 
 		case NORD:
 		case SUD :
-			niveau = ymetal;
-			largeurmin = ymetal_width;
+        //niveau = ymetal;
+        //largeurmin = ymetal_width;
 
 			while (liste != NULL) {
 				if (mode_debug) 
@@ -1687,8 +1687,8 @@ void maj_coordplots(BARRE_PLOTS tab_plots[NB_FACES], LST_EQUIPO lst_equipo)
 
 		case EST  :
 		case OUEST:
-			niveau = xmetal;
-			largeurmin = xmetal_width;
+        //niveau = xmetal;
+        //largeurmin = xmetal_width;
 
 			while (liste != NULL) {
 				if (mode_debug) 
@@ -1844,8 +1844,8 @@ void fabrique_grille_finale(BARRE_PLOTS tab_plots[NB_FACES],
 
 		case EST  :
 		case OUEST:
-			niveau = xmetal;
-			largeurmin = xmetal_width;
+        //niveau = xmetal;
+		//largeurmin = xmetal_width;
 
 			while (liste != NULL) {
 				if (mode_debug) 

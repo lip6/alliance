@@ -209,7 +209,7 @@ void XvpnReadPanelValues( Panel )
 
   autbegin();
 
-  fscanf( FileConfig, "X: %d, Y: %d, WIDTH: %d, HEIGHT: %d, MANAGED: %d\n",
+  fscanf( FileConfig, "X: %11d, Y: %11d, WIDTH: %11d, HEIGHT: %11d, MANAGED: %11d\n",
           &Values[0], &Values[1], &Values[2], &Values[3], &Values[4] );
 
   XvpnSetPanelValues( Panel, Values );
@@ -231,7 +231,7 @@ short XvpnReadTopLevelValues()
 
   autbegin();
 
-  fscanf( FileConfig, "VERSION: %s\n", Version );
+  fscanf( FileConfig, "VERSION: %63s\n", Version );
 
   if ( strcmp( Version, VERSION ) )
   {
@@ -239,7 +239,7 @@ short XvpnReadTopLevelValues()
     return( 0 );
   }
 
-  fscanf( FileConfig, "X: %d, Y: %d, WIDTH: %d, HEIGHT: %d, MANAGED: %d\n",
+  fscanf( FileConfig, "X: %11d, Y: %11d, WIDTH: %11d, HEIGHT: %11d, MANAGED: %11d\n",
           &Values[0], &Values[1], &Values[2], &Values[3], &Values[4] );
 
   XtVaSetValues( XvpnTopLevel,
@@ -268,14 +268,14 @@ void XvpnReadActiveLayers()
 
   for ( Layer = 0; Layer < XVPN_MAX_LAYER; Layer++ )
   {
-    fscanf( FileConfig, "ACTIVE: %d\n", &Value );
+    fscanf( FileConfig, "ACTIVE: %11d\n", &Value );
 
     XVPN_ACTIVE_LAYER_TABLE[ Layer ] = Value;
   }
 
   for ( Layer = 0; Layer < XVPN_MAX_ACTIVE_NAME; Layer++ )
   {
-    fscanf( FileConfig, "ACTIVE: %d\n", &Value );
+    fscanf( FileConfig, "ACTIVE: %11d\n", &Value );
 
     XVPN_ACTIVE_NAME_TABLE[ Layer ] = Value;
   }

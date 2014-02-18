@@ -55,8 +55,6 @@ DrucTypeStructVirtuEquiv TabVirtuEquivalence [ ] =
 \------------------------------------------------------------*/
 extern long DrucCtmMax;
 
-static char DrucFileBuffer [ DRUC_MAX_FILE_BUFFER + 1 ];
-
 /*------------------------------------------------------------\
 |                                                             |
 |                  DRUCHIER  Fonctions                        |
@@ -234,7 +232,6 @@ DrucTypeStructInstruction **DrucStructInstruction;
 int                        *DrucNombreInstructions;
 {
 DrucTypeStructInstruction *TmpStructInstruction;
-int                        InstructionAddNumber ;
 int                        IndexMesure;
 int                        IndexSuite;
 int                        LayerTransparent;
@@ -423,9 +420,7 @@ DrucTypeStructInstruction **DrucStructInstruction;
 int                        *DrucNombreInstructions;
 {
 DrucTypeStructInstruction *TmpStructInstruction;
-int                        InstructionAddNumber ;
 int                        IndexMesure;
-int                        IndexSuite;
 int                        LayerTransparent;
 int                        LayerSource;
 int                        LayerSource2;
@@ -500,9 +495,7 @@ DrucTypeStructInstruction **DrucStructInstruction;
 int                        *DrucNombreInstructions;
 {
 DrucTypeStructInstruction *TmpStructInstruction;
-int                        InstructionAddNumber ;
 int                        IndexMesure;
-int                        IndexSuite;
 int                        LayerVirtuel;
 int                        LayerSource;
 int                        LayerSource2;
@@ -577,7 +570,6 @@ DrucTypeStructInstruction **DrucStructInstruction;
 int                        *DrucNombreInstructions;
 {
 DrucTypeStructInstruction *TmpStructInstruction;
-int                        InstructionAddNumber ;
 int                        IndexMesure;
 int                        IndexSuite;
 int                        LayerTransparent;

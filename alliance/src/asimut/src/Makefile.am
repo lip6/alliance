@@ -48,10 +48,10 @@ asimut_LDADD = \
 -lMlu \
 -lMal \
 -lMcl -lMel -lMhl -lMgl -lMsl \
-      -lMvg -lMlo -lRcn -lBvl -lBeh -lPpt -lPhl -lPat -lLog -lMut
+      -lMvg -lMlo -lRcn -lBvl -lBhl -lBeh -lPpt -lPhl -lPat -lLog -lMut
 
 asimut_SOURCES = \
-beh_delay.h	  c_fsyn_sr1k_56.c    vh_debug.c    vh_lspec.c	  vh_util.h \
+beh_delay.h	  c_fsyn_sr1k_56.c    vh_debug.c    vh_lspec.c	  vh_util.h  vh_init.h \
 beh_setdelay.c	  c_fsyn_sr4k_10.c    vh_debug.h    vh_lspec.h	  vh_xcomm.c \
 c_fsyn_sr1k_10.c  c_hada_repondeur.c  vh_dtype.h    vh_ltype.h	  vh_xcomm.h \
 c_fsyn_sr1k_1.c   c_sr1k_8a.c	      vh_globals.c  vh_simulad.c  vh_xspec.c \

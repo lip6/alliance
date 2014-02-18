@@ -58,7 +58,10 @@
 # include "XTB.h"
 # include "XMX.h"
 # include "XMS.h"
+# include "XMV.h"
+# include "XMF.h"
 
+# include "XMX_icon.h"
 # include "XMX_motif.h"
 # include "XMX_graphic.h" 
 # include "XMX_event.h" 

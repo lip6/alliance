@@ -94,4 +94,7 @@
 |                                                             |
 \------------------------------------------------------------*/
 
+extern void B2fDisplayError  ();
+extern void B2fDisplayWarning();
+
 # endif

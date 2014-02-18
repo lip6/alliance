@@ -283,8 +283,9 @@ extern DrucTypeStructStat         DrucStructStat;
 |                  Druc Fonctions                             |
 |                                                             |
 \------------------------------------------------------------*/
-extern void  DrucComputeCheckSumm();
-extern char *DrucGetRuleComment  ();
-extern void  DrucViewRuleComment ();
-extern chain_list *getrdswindow ();
-extern void DrucStatInit          ();
+extern void        DrucComputeCheckSumm();
+extern char*       DrucGetRuleComment  ();
+extern void        DrucViewRuleComment ();
+extern chain_list* getrdswindow        ();
+extern void        DrucStatInit        ();
+extern void        DrucViewNumber      ();

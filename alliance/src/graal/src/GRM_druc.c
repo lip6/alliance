@@ -82,7 +82,7 @@ rdsrec_list *GraalAddDruc( DrucRec )
   rdsrec_list *ScanDrucRec;
   rdsrec_list *ScanRec;
   rdsrec_list *First;
-  rdsrec_list *Link;
+  rdsrec_list *Link = NULL;
 
   rdsbegin();
 

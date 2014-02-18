@@ -44,6 +44,7 @@
 
 # include <stdio.h>
 # include <stdlib.h>
+# include <string.h>
 # include <signal.h>
 # include <setjmp.h>
 # include "mut.h"
@@ -311,7 +312,7 @@ char *XfsmGetInformations()
 
   if ( XfsmFigureFsm != (fsmfig_list *)NULL )
   {
-    sprintf( Scan, "  FIGURE : %s\n\n  STATES : %d\n  TRANSITIONS : %d\n  INPUTS : %d\n  OUTPUTS : %d\n\n", XfsmFigureFsm->NAME, 
+    sprintf( Scan, "  FIGURE : %s\n\n  STATES : %ld\n  TRANSITIONS : %ld\n  INPUTS : %ld\n  OUTPUTS : %ld\n\n", XfsmFigureFsm->NAME, 
         XfsmFigureFsm->NUMBER_STATE,
         XfsmFigureFsm->NUMBER_TRANS,
         XfsmFigureFsm->NUMBER_IN,
@@ -324,7 +325,7 @@ char *XfsmGetInformations()
 
   Scan = Scan + strlen( Scan );
 
-  sprintf( Scan, "  BOUNDING BOX : \n\n  XMIN : %d\n  YMIN : %d\n  XMAX : %d\n  YMAX : %d\n\n",
+  sprintf( Scan, "  BOUNDING BOX : \n\n  XMIN : %ld\n  YMIN : %ld\n  XMAX : %ld\n  YMAX : %ld\n\n",
            XfsmBoundXmin / XFSM_UNIT, XfsmBoundYmin / XFSM_UNIT,
            XfsmBoundXmax / XFSM_UNIT, XfsmBoundYmax / XFSM_UNIT );
 

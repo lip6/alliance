@@ -65,6 +65,7 @@
 
 # include "XMF_panel.h"
 # include "XMF_dialog.h"
+# include "XTB_dialog.h"
 
 /*------------------------------------------------------------\
 |                                                             |
@@ -113,7 +114,7 @@
    static char  *XGRA_WORK_LIB    = (char  *)NULL;
    static char  *XGRA_DEFAULT_LIB = (char *)NULL;
  
-   static char   XgraFirstLibrary = 1;
+   static int    XgraFirstLibrary = 1;
 
 /*------------------------------------------------------------\
 |                                                             |
@@ -191,12 +192,12 @@ void XgraSetLibraryList()
         Index++ )
   {
     Label = XmStringCreateSimple( XGRA_CATA_LIB[ Index ] );
-    XmListAddItem( XgraLibraryList , Label , NULL );
+    XmListAddItem( XgraLibraryList , Label , 0 );
     XmStringFree( Label );
   }
 
   Label = XmStringCreateSimple( XGRA_WORK_LIB );
-  XmListAddItem( XgraLibraryList , Label , NULL );
+  XmListAddItem( XgraLibraryList , Label , 0 );
   XmStringFree( Label );
 
   XGRA_DEFAULT_LIB = (char *)NULL;

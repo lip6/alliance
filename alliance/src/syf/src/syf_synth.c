@@ -199,7 +199,7 @@ void SyfSynthStack2Abl( FsmFigure )
   syfstate      *ReturnSyfState;
   syfinfo       *SyfInfo;
   syfregstack   *StackArray;
-  syfregstack   *StackNextArray;
+  syfregstack   *StackNextArray = NULL;
   syfregstack   *StackPrevArray;
   syfregstate   *RegArray;
   syfctrl       *CtrlArray;
@@ -572,7 +572,7 @@ void SyfSynthCtrl2Abl( FsmFigure )
         }
       }
 
-      addablhexpr( CtrlArray[ ScanStack->CTRL ].ABL, Equation );
+      addablhexpr( CtrlArray[ (int)ScanStack->CTRL ].ABL, Equation );
     }
   }
 
@@ -657,7 +657,7 @@ void SyfSynthOut2Abl( FsmFigure )
   syfout         *ScanSyfOut;
   syfstate       *ScanSyfState;
   syfcode        *ScanSyfCode;
-  ablexpr        *Equation;
+  ablexpr        *Equation = NULL;
   ablexpr        *ScanPath;
   ablexpr        *Atom;
   char           *PrevScan;
@@ -1210,8 +1210,8 @@ void SyfSynthCode2Abl( FsmFigure, FlagDc )
   syfinfo     *SyfInfo;
   syfcode     *CodeArray;
   syfregstate *RegArray;
-  ablexpr  *Equation;
-  ablexpr  *EquationOut;
+  ablexpr     *Equation;
+  ablexpr     *EquationOut = NULL;
   long         Index;
   long         BitMask;
   long         ScanBit;
@@ -1355,7 +1355,7 @@ void SyfSynthTrans2Abl( FsmFigure )
 
   fsmfig_list *FsmFigure;
 {
-  syfinfo       *SyfInfo;
+//syfinfo       *SyfInfo;
   fsmstate_list *ScanState;
   syfstate      *ScanSyfState;
   syfstate      *FromSyfState;
@@ -1363,7 +1363,7 @@ void SyfSynthTrans2Abl( FsmFigure )
   ablexpr       *Atom;
   fsmtrans_list *ScanTrans;
 
-  SyfInfo = FSM_SYF_INFO( FsmFigure );
+//SyfInfo = FSM_SYF_INFO( FsmFigure );
 
   for ( ScanState  = FsmFigure->STATE;
         ScanState != (fsmstate_list *)0;
@@ -1472,9 +1472,9 @@ void SyfSynthFsm2Abl( FsmFigure )
 
   fsmfig_list *FsmFigure;
 {
-  syfinfo *SyfInfo;
+//syfinfo *SyfInfo;
   
-  SyfInfo = FSM_SYF_INFO( FsmFigure );
+//SyfInfo = FSM_SYF_INFO( FsmFigure );
 
   SyfSynthTrans2Abl( FsmFigure );
   SyfSynthReturn2Abl( FsmFigure );

@@ -1,5 +1,9 @@
+
+%option nounput
+
 %p 5000
 %k 1200
+
 
 %{
 #include <string.h>

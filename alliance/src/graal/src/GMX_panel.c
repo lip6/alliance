@@ -65,6 +65,7 @@
 # include "GMX.h"
 
 # include "GMX_panel.h"
+# include "GME_panel.h"
 
 /*------------------------------------------------------------\
 |                                                             |

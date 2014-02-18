@@ -55,6 +55,7 @@
 # include "fsm.h"
 # include "XTB.h"
 # include "XSB.h"
+# include "XFS.h"
 # include "XTB_dialog.h"
 
 /*------------------------------------------------------------\
@@ -73,7 +74,7 @@
 |                                                             |
 \------------------------------------------------------------*/
   
-  static XfsmLockLoop = 0;
+  static int XfsmLockLoop = 0;
 
   static XfsmDialogItem XfsmWarningDialog =
 

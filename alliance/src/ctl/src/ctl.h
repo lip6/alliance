@@ -306,6 +306,8 @@
   extern  ctlfig_list *addctlfig __P((char *Name));
   extern ctlform_list *addctlform __P((ctlfig_list *Figure, char *Name, vexexpr *Expr));
   extern ctltype_list *addctltype __P((ctlfig_list *Figure, char *Name, unsigned long Index, long Left, long Right, unsigned long Size, char **Value, char Class, ctltype_list *Base));
+  extern void          addctlpredefinedtype __P(( ctlfig_list *Figure ));
+
 
   extern ctldecl_list *addctldecl __P((ctlfig_list *Figure, vexexpr *Atom, unsigned char Type ));
   extern ctldecl_list *addctldeclvar __P((ctlfig_list *Figure, vexexpr *Atom));

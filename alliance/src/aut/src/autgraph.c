@@ -195,7 +195,6 @@ autarc_list *addautgrapharc( Graph, NodeFrom, NodeTo )
   autnode_list *NodeTo;
 {
   autarc_list *Arc;
-  chain_list  *ScanArc;
 
   Arc = searchautgrapharc( Graph, NodeFrom, NodeTo );
 

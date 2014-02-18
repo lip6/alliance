@@ -354,7 +354,6 @@ struct begex *gexpnt;
             case ABL_NOR  :
             case ABL_NXOR :
               freflag = 1; break;
-              break;
             }
           }
 
@@ -370,13 +369,10 @@ struct begex *gexpnt;
             case ABL_NAND :
             case ABL_AND  :
               freflag = 1; break;
-              break;
             case ABL_XOR  :
               gexpnt->TERM = ABL_NXOR; freflag = 1; break;
-              break;
             case ABL_NXOR :
               gexpnt->TERM = ABL_XOR ; freflag = 1; break;
-              break;
             }
           }
 
@@ -465,10 +461,10 @@ struct chain *expr;
 
   {
   char          delayed [128];
-  static char  *str_zero   = NULL;
-  static char  *str_dc     = NULL;
-  static char  *str_one    = NULL;
-  struct begex *resgex       ;
+  static char  *str_zero     = NULL;
+  static char  *str_dc       = NULL;
+  static char  *str_one      = NULL;
+  struct begex *resgex       = NULL;
   struct begex *gex_elt      ;
   struct chain *oper_list    ;
   struct chain *operand      ;

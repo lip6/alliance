@@ -64,6 +64,9 @@
 |                                                             |
 \------------------------------------------------------------*/
 
-  extern void DrealEditSelectRectangle();
+  extern void DrealEditSelectRectangle   ();
+  extern void DrealEditSelectAccept      ();
+  extern void DrealEditSelectCancel      ();
+  extern void DrealEditSelectPointStretch();
 
 # endif

@@ -25,8 +25,10 @@
 #include "log.h"
 #include "pat.h"
 #include "sch.h"
+#include "vh_util.h"
 #include "vh_ltype.h"
 #include "vh_globals.h"
+#include "vh_xspec.h"
 #include "vh_xcomm.h"
 
 /* ###--------------------------------------------------------------### */
@@ -194,7 +196,7 @@ struct magex  *gex      ;
   {
   int           indexgex;
   struct chain *expr    ;
-  char          result  ;
+  char          result  = 'u';
   char          res     ;
 
   if (gex->OPERAND != NULL)
@@ -947,8 +949,8 @@ struct paini      *pt_paini;
   char          *sig_name ;
   char          *ins_name ;
   void          *pt_sig   ;
-  struct ptype  *pt_depend;
-  unsigned char *pt_curval;
+  struct ptype  *pt_depend = NULL;
+  unsigned char *pt_curval = NULL;
 
 	/* ###------------------------------------------------------### */
 	/*    for each paini structure, first find the pointer of the	*/
@@ -1011,8 +1013,8 @@ struct papat *pt_papat;
 
   {
   struct paiol  *pt_paiol ;
-  struct bussig *pt_bussig;
-  struct simsig *pt_simsig;
+/*struct bussig *pt_bussig;*/
+/*struct simsig *pt_simsig;*/
   struct paevt  *pt_paevt ;
 
 	/* ###------------------------------------------------------### */
@@ -1066,7 +1068,7 @@ struct papat *pt_papat;
   int            max_err  = 0;
   struct paiol  *pt_paiol ;
   struct paevt  *pt_paevt ;
-  char           value    ;
+  char           value    = 'u';
   char           usrval   ;
 
   max_iol  = pt_paseq->IOLNBR;
@@ -1289,7 +1291,7 @@ struct paseq  *pt_paseq;
 struct lkdspy *head_lkdspy;
 
   {
-  char           str[200]    ;
+  char           str[256]    ;
   struct lkdspy *pt_lkdspy= NULL ;
 
 	/* ###------------------------------------------------------### */
@@ -1309,7 +1311,9 @@ struct lkdspy *head_lkdspy;
 
       if (pt_lkdspy->PAIOL->MODE == 'I')
         {
-        sprintf(str, "%s : Warning : this spy is useless (input signal)", str);
+        char tmp[256];
+        sprintf(tmp, "%s : Warning : this spy is useless (input signal)", str);
+        strncpy(str, tmp, 256);
         }
       pt_paseq->CURCOM = pat_addpacom(pt_paseq->CURCOM, namealloc(str), 0);
       }
@@ -1339,13 +1343,12 @@ unsigned int   labelsiz;
   struct wrireg *pt_wrireg= NULL ;
   struct paevt  *pt_paevt = NULL ;
   struct lkdspy *pt_lkdspy= NULL ;
-  char           value    ;
+  char           value    = 'u';
   char          *label    ;
-  char           str[200]    ;
   int            spy_event_flag = 0  ;
 
   label = mbkalloc (labelsiz + 1);
-  sprintf(label, "");
+  label[0] = '\0';
   max_iol = pt_paseq->IOLNBR;
 
 	/* ###------------------------------------------------------### */
@@ -1416,7 +1419,9 @@ unsigned int   labelsiz;
           {
           if ((strlen (label) + 10) <= labelsiz)
             {
-            sprintf(label, "%s_spy%u", label, pt_lkdspy->IOLNBR);
+            char tmp[2048];
+            sprintf(tmp, "%s_spy%u", label, pt_lkdspy->IOLNBR);
+            strcpy(label, tmp);
             }
           }
         else

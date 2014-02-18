@@ -68,5 +68,6 @@
 \------------------------------------------------------------*/
 
   extern void XpatInitializeGraphic();
+  extern void XpatInitializeGraphicWindow();
 
 # endif 

@@ -399,15 +399,15 @@ extern void  MBK2DEF_row(apPhref,
   token = strtoup (getRowToken (NULL, "_", apPhref->NAME));
   *apOrient = DEF_a2orient (token);
 
-  token = strtoup (getRowToken (NULL, "_", apPhref->NAME));
+/*token =*/ strtoup (getRowToken (NULL, "_", apPhref->NAME));
   token = strtoup (getRowToken (NULL, "_", apPhref->NAME));
   *apDoNumber = atol (token);
 
-  token = strtoup (getRowToken (NULL, "_", apPhref->NAME));
+/*token =*/ strtoup (getRowToken (NULL, "_", apPhref->NAME));
   token = strtoup (getRowToken (NULL, "_", apPhref->NAME));
   *apByNumber = atol (token);
 
-  token = strtoup (getRowToken (NULL, "_", apPhref->NAME));
+/*token =*/ strtoup (getRowToken (NULL, "_", apPhref->NAME));
   token = strtoup (getRowToken (NULL, "_", apPhref->NAME));
   *apStepX = atol (token);
 
@@ -444,18 +444,18 @@ extern void  MBK2DEF_track(apPhref,
 
   strcpy (ref_name, apPhref->NAME);
 
-  token = getRowToken (ref_name, ".", apPhref->NAME);
+/*token =*/ getRowToken (ref_name, ".", apPhref->NAME);
   token = getRowToken (NULL, "_", apPhref->NAME);
   *apAxisName = (char)toupper ((int)*token);
 
-  token = getRowToken (NULL, "_", apPhref->NAME);
+/*token =*/ getRowToken (NULL, "_", apPhref->NAME);
   *apStart = atol (token);
 
-  token = getRowToken (NULL, "_", apPhref->NAME);
+/*token =*/ getRowToken (NULL, "_", apPhref->NAME);
   token = getRowToken (NULL, "_", apPhref->NAME);
   *apDoNumber = atol (token);
 
-  token = getRowToken (NULL, "_", apPhref->NAME);
+/*token =*/ getRowToken (NULL, "_", apPhref->NAME);
   token = getRowToken (NULL, ".", apPhref->NAME);
   *apStep = atol (token);
 

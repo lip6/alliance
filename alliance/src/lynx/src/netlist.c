@@ -127,7 +127,6 @@ long LynxBuildLogicalSignal( FigureRds, HeadEqui, LogicalFigure, Core, Real, Rcn
    ptype_list  *ScanPtype;
 
    char         LayerMbk;
-   char         LayerRds;
    char         Scan;
 
    char        *ConnectorName=NULL;
@@ -287,7 +286,6 @@ Cette liste contient la liste des rectangles connecteurs. */
          else
          {
            LayerMbk  = GetLynxAttribute( ScanEqui );
-           LayerRds  = GetRdsLayer( ScanEqui );
 
            if ( GET_LYNX_TRANSISTOR_TYPE( LayerMbk ) != 
                 RDS_LYNX_TRANSISTOR_EMPTY )

@@ -98,7 +98,6 @@ int main( argc, argv )
   char         Option;
 
   int   FlagVerbose   = 0;
-  int   FlagSave      = 0;
 
   mbkenv();
   autenv();

@@ -49,9 +49,11 @@
 # include <Xm/SelectioB.h>
 # include <Xm/SeparatoG.h>
 
+# include "mph.h"
 # include "mut.h"
 # include "rds.h"
 # include "GTB.h"
+# include "GRM.h"
 # include "GTB_dialog.h"
 
 /*------------------------------------------------------------\
@@ -70,7 +72,7 @@
 |                                                             |
 \------------------------------------------------------------*/
   
-  static GraalLockLoop = 0;
+  static int GraalLockLoop = 0;
 
   static GraalDialogItem GraalWarningDialog =
 

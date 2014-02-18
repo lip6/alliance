@@ -58,6 +58,10 @@
 
 # include "XME_edit.h"
 # include "XME_message.h"
+# include "XME_select.h"
+# include "XME_panel.h"
+# include "XMV_view.h"
+# include "XTB_dialog.h"
 
 /*------------------------------------------------------------\
 |                                                             |
@@ -82,7 +86,6 @@
 
   static char  XpatIdentifyMessage[ XPAT_IDENTIFY_MESSAGE_SIZE ];
   static char  XpatIdentifyBuffer [ XPAT_IDENTIFY_BUFFER_SIZE  ];
-  static char  XpatIdentifyLocout [ XPAT_IDENTIFY_LOCOUT_SIZE  ];
 
   static char *XpatScanIdentify;
   static long  XpatIdentifyLength;
@@ -133,10 +136,10 @@ short XpatAddIdentify( Obj, X1, Y1 )
   if ( ( Y < NumberIO ) &&
        ( Y >= 0       ) )
   {
-    Unit      = XpatTimeUnit[ XpatFigurePat->TIME_UNIT ];
+    Unit      = XpatTimeUnit[ (int)XpatFigurePat->TIME_UNIT ];
     TimeDelta = XpatFigurePat->TIME_DELTA;
 
-    sprintf( XpatIdentifyBuffer, "  IO NAME : %s\n  IO MODE: %s\n  PREV CHANGE : %d %s\n  CURRENT TIME : %d %s\n  NEXT CHANGE : %d %s\n  VALUE : %s\n\n",
+    sprintf( XpatIdentifyBuffer, "  IO NAME : %s\n  IO MODE: %s\n  PREV CHANGE : %ld %s\n  CURRENT TIME : %ld %s\n  NEXT CHANGE : %ld %s\n  VALUE : %s\n\n",
              NameArray[ Y ], ModeArray[ Y ],
              X  * TimeDelta, Unit,
              X1 * TimeDelta, Unit,
@@ -172,7 +175,6 @@ void XpatEditIdentify( X1, Y1 )
   long Y1;
 {
   xpatselect_list *Select;
-  xpatobj_list    *Obj;
 
   strcpy( XpatIdentifyMessage, "No element found !" );
 
@@ -210,7 +212,6 @@ void XpatEditConnected( X1, Y1 )
   long Y1;
 {
   xpatselect_list  *Select;
-  xpatselect_list **PrevSelect;
   xpatobj_list     *Obj;
 
   if ( XpatHeadConnect != (xpatselect_list *)NULL )
@@ -319,8 +320,6 @@ void XpatEditDelCursor( X1, Y1 )
   long Y1;
 {
   xpatselect_list  *Select;
-  xpatselect_list **PrevSelect;
-  xpatobj_list     *Obj;
 
   if ( XpatHeadConnect != (xpatselect_list *)NULL )
   {

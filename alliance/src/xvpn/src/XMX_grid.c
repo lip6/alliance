@@ -212,6 +212,8 @@ short XvpnDisplayUnitGrid( GraphicX1, GraphicY1, GraphicX2, GraphicY2 )
 
   if ( XvpnUnitUserGrid == 1  )
   {
+    Check = ( XVPN_LOWER_GRID_STEP * 2 / XvpnUnitUserGridDy );
+#if THIS_IS_DISABLED
     if ( XvpnUnitUserGridDx > XvpnUnitUserGridDy )
     {
       Check = ( XVPN_LOWER_GRID_STEP * 2 / XvpnUnitUserGridDy );
@@ -220,6 +222,7 @@ short XvpnDisplayUnitGrid( GraphicX1, GraphicY1, GraphicX2, GraphicY2 )
     {
       Check = ( XVPN_LOWER_GRID_STEP * 2 / XvpnUnitUserGridDy );
     }
+#endif
 
     if ( XvpnUnitGridStep < Check ) UserGrid = 0;
     else                               UserGrid = 1;

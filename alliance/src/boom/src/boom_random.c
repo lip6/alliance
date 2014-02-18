@@ -121,7 +121,7 @@ void BoomBehOptimizeRandom( BehFigure )
 
   if ( IsBoomDebugLevel0() )
   {
-    BoomPrintf( stdout, "Initial cost %ld, NumberVar %d\n", Cost, NumberVar );
+    BoomPrintf( stdout, "Initial cost %ld, NumberVar %u\n", Cost, NumberVar );
   }
 
   if ( MaxIteration <= 0 ) MaxIteration = NumberVar;
@@ -139,7 +139,7 @@ void BoomBehOptimizeRandom( BehFigure )
 
     if ( IsBoomDebugLevel0() )
     {
-      BoomPrintf( stdout, "Swap %d\n", BddVar );
+      BoomPrintf( stdout, "Swap %u\n", BddVar );
     }
 
     BoomBehReorderWindow2( BehFigure, BehAux, BddVar, &Cost );

@@ -169,4 +169,6 @@
   extern void GraalDisplayIdentifyMessage();
   extern void GraalDisplaySelectList();
 
+  extern void GraalBuildPanelModify();
+
 # endif 

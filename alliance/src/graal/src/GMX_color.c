@@ -530,8 +530,6 @@ void GraalInitializeColors()
 
 void GraalChangeCursorContext()
 {
-  XGCValues GraphicValue;
-
   if ( GRAAL_XOR_CURSOR == GRAAL_TRUE )
   {
     GraalXorGC = GraalXorGCXor;
@@ -685,7 +683,7 @@ void GraalInitializeGraphicContext()
         Pattern = GraalLayerPatternDefine[ Counter ];
       }
   
-      GraphicValue.stipple    = GraalPattern[ Pattern ];
+      GraphicValue.stipple    = GraalPattern[ (int)Pattern ];
       GraphicValue.fill_style = FillStippled;
       GraphicValue.foreground = GraalColor[ 3 ];
   

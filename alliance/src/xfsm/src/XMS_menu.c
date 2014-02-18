@@ -142,7 +142,9 @@
              (XfsmMenuItem *)NULL
            }
            ,
-           NULL
+           {
+             NULL
+           }
          };
 
 

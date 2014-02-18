@@ -209,7 +209,7 @@ displayLoc (pTab)
 	{
 	  co++;
 	  printf ("****** indice %ld ****** \n", i);
-	  printf ("HIGH %d LOW %ld FATHER %ld\n", (long) pLoc[i].high, (long) pLoc[i].low, (long) pLoc[i].father);
+	  printf ("HIGH %ld LOW %ld FATHER %ld\n", (long) pLoc[i].high, (long) pLoc[i].low, (long) pLoc[i].father);
 	  printf ("\n");
 	}
     }

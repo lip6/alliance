@@ -53,3 +53,7 @@ extern DrucTypeStructVirtuEquiv         TabVirtuEquivalence [];
 |   ajouter extern au tableau DrucTypeStructTransEquiv        |
 |                                                             |
 \------------------------------------------------------------*/
+
+extern void DrucDuplicateHierarchicalRule();
+extern int  DrucAsTransparenceEquivalent ();
+extern void DrucAddABoxRules             ();

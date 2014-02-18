@@ -52,6 +52,7 @@
 # include "XSB.h"
 # include "XGR.h"
 # include "XGR_graph.h"
+# include "XGR_error.h"
 
 /*------------------------------------------------------------\
 |                                                             |

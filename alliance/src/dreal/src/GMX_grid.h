@@ -73,4 +73,7 @@
 |                                                             |
 \------------------------------------------------------------*/
 
+  extern void DrealInitializeLambdaGrid();
+  extern char DrealDisplayLambdaGrid();
+
 # endif 

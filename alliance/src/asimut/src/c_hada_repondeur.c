@@ -15,6 +15,7 @@
 
 #include "vh_ltype.h"
 #include "vh_xspec.h"
+#include "vh_xcomm.h"
 
 #define MAX 64
 #define ENTREE "fic_entree"
@@ -31,7 +32,6 @@ struct lkdins *pt_lkdins;
   #define PROB 900
 
   static int deja_ouvert=0;
-  static int deja_ouvert2=0;
   static int nb_entrees=0;
   static int nb_sorties=0;
   static int ck_old=0;
@@ -48,8 +48,6 @@ struct lkdins *pt_lkdins;
   char         read  ;
   char         write ;
   int          hadout;                /* Entree sur 14 bits */
-  char         vdd   ;
-  char         vss   ;
 
   char         empty ;
   char         full  ;
@@ -104,12 +102,12 @@ struct lkdins *pt_lkdins;
             {
             empty=0;
             full=0;
-            if (fscanf(fouvrir,"%d",&data) == EOF)
+            if (fscanf(fouvrir,"%11d",&data) == EOF)
               {
               rewind(fouvrir);
-              fscanf(fouvrir,"%d",&data);
+              fscanf(fouvrir,"%11d",&data);
               }
-            fprintf(stderr,"NEW INPUT FIFO VALUE : %d\n", data);
+            fprintf(stderr,"NEW INPUT FIFO VALUE : %u\n", data);
             vhx_writeout(data,pt_lkdins,POSO_data,8);
             nb_entrees--;
             }
@@ -132,12 +130,12 @@ struct lkdins *pt_lkdins;
 
             if ((empty_old == 0) && (read == 1) && (nb_entrees != 0))
                 {
-                if (fscanf(fouvrir,"%d",&data) == EOF)
+                if (fscanf(fouvrir,"%11d",&data) == EOF)
                   {
                   rewind(fouvrir);
-                  fscanf(fouvrir,"%d",&data);
+                  fscanf(fouvrir,"%11d",&data);
                   }
-                fprintf(stderr,"NEW INPUT FIFO VALUE : %d\n", data);
+                fprintf(stderr,"NEW INPUT FIFO VALUE : %u\n", data);
                 vhx_writeout(data,pt_lkdins,POSO_data,8);
                 nb_entrees--;
                 }
@@ -147,12 +145,12 @@ struct lkdins *pt_lkdins;
                 fprintf(stderr,"NEW OUPUT FIFO VALUE : %d\n", hadout);
                 fprintf(fecrire,"0x%x\t",hadout);
                 nb_sorties--;
-                if ( (nb_sorties%8) == 0 ) fprintf(fecrire,"\n",hadout);
+                if ( (nb_sorties%8) == 0 ) fprintf(fecrire,"\n");
 
                 if ( (nb_sorties == 0))
                     {
                     nb_entrees=MAX;
-                    fprintf(fecrire,"\n",hadout);
+                    fprintf(fecrire,"\n");
                     fflush(fecrire);
                     }
                 }

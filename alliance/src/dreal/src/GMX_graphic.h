@@ -67,6 +67,7 @@
 |                                                             |
 \------------------------------------------------------------*/
 
-  extern void DrealInitializeGraphic();
+  extern void DrealInitializeGraphic      ();
+  extern void DrealInitializeGraphicWindow();
 
 # endif 

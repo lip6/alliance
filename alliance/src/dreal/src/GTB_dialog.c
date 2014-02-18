@@ -51,6 +51,7 @@
 # include "mut.h"
 # include "rds.h"
 # include "GTB.h"
+# include "GRD.h"
 # include "GTB_dialog.h"
 
 /*------------------------------------------------------------\
@@ -69,7 +70,7 @@
 |                                                             |
 \------------------------------------------------------------*/
   
-  static DrealLockLoop = 0;
+  static int DrealLockLoop = 0;
 
   static DrealDialogItem DrealWarningDialog =
 

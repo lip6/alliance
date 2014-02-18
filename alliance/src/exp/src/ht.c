@@ -93,7 +93,7 @@ void htstat (ht_t * ht)
             start=0;
             printf ("Warning : following variables declared but never used :\n");
           }
-          printf (" %-3d %-20s : %s\n", elt->FLINE, elt->FNAME, elt->KEY);
+          printf (" %-3ld %-20s : %s\n", elt->FLINE, elt->FNAME, elt->KEY);
         }
     printf ("\n");
     free (ht);

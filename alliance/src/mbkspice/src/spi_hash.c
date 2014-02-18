@@ -31,6 +31,7 @@
 *******************************************************************************/
 
 #include <stdio.h>
+#include <string.h>
 #include <mut.h>
 #include "spi_hash.h"
 

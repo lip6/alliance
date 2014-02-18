@@ -30,6 +30,7 @@
 
 #include <stdio.h>
 #include <mut.h>
+#include <aut.h>
 #include <abl.h>
 #include <abe.h>
 #include <mlo.h>
@@ -38,14 +39,14 @@
 #include "lon_normalize_DAG.h"
 
 
-#define USING(node) {(int)node=-mark;}
-#define USING_L(node) {node=-mark;}
-#define USED(node) {(int)node=(int)((((int)node<0)?0:(int)node)+1);}
-#define USED_L(node) {node=(int)((((int)node<0)?0:(int)node)+1);}
-#define IS_USING(node) ((int)node==-mark)
-#define IS_USED(node) ((int)node!=0)
-#define IS_UNUSED(node) ((int)node==0)
-#define IS_ONE(node) ((int)node==1)
+#define USING(node) {(long)node=-mark;}
+#define USING_L(node) {node=(void*)(((long)node)-mark);}
+#define USED(node) {(long)node=(long)((((long)node<0)?0:(long)node)+1);}
+#define USED_L(node) {node=(void*)((((long)node<0)?0:(long)node)+1);}
+#define IS_USING(node) ((long)node==-mark)
+#define IS_USED(node) ((long)node!=0)
+#define IS_UNUSED(node) ((long)node==0)
+#define IS_ONE(node) ((long)node==1)
 
 
 typedef struct equi {

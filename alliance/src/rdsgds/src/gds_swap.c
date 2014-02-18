@@ -85,7 +85,7 @@ double swapd(d)
 double d;
 #endif
 {
-double t;
+double t = 0;
 
     *((char *)&t + 7) = *((char *)&d + 0);
     *((char *)&t + 6) = *((char *)&d + 1);

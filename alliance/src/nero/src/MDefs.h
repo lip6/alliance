@@ -3,8 +3,7 @@
 //
 // $Id: MDefs.h,v 1.9 2008/06/11 09:20:34 jpc Exp $
 //
-// /-----------------------------------------------------------------\ 
-// |                                                                 |
+// +-----------------------------------------------------------------+ 
 // |        A l l i a n c e   C A D   S y s t e m                    |
 // |              S i m p l e   R o u t e r                          |
 // |                                                                 |
@@ -12,10 +11,7 @@
 // |  E-mail      :       alliance-support@asim.lip6.fr              |
 // | =============================================================== |
 // |  C++ Header  :       "./MDefs.h"                                |
-// | *************************************************************** |
-// |  U p d a t e s                                                  |
-// |                                                                 |
-// \-----------------------------------------------------------------/
+// +-----------------------------------------------------------------+
 
 
 
@@ -133,7 +129,7 @@
     string  message;
 
     // Constructor.
-    public: e_matrix_iterator (string msg) { message = msg; }
+    public: e_matrix_iterator (string msg) : message(msg) { }
 
     // Destructor.
     public: ~e_matrix_iterator (void) throw () { };
@@ -203,6 +199,7 @@
 
     // Constructor.
     public: TMatrix  (CDRGrid *drgrid);
+    private: TMatrix ( const TMatrix& );
 
     // Destructor.
     public: ~TMatrix (void);
@@ -321,6 +318,8 @@
 
     // Constructor.
     public: CDRGrid  (int xoff, int yoff, int x, int y, int z, int zup) throw (e_zupper);
+    private: CDRGrid ( const CDRGrid& );
+
 
     // Destructor.
     public: ~CDRGrid (void);
@@ -373,17 +372,17 @@
                      , int np
                      , bool term
                      , int id
-                     ) {
-              x = i;
-              y = j;
-              z = k;
-              pri       = p;
-              nodepri   = np;
-              terminal  = term;
-              ident     = id;
-              ownerName = owner;
-              netName   = net;
-            }
+                     )
+              : x        (i)
+              , y        (j)
+              , z        (k)
+              , ownerName(owner)
+              , netName  (net)
+              , pri      (p)
+              , nodepri  (np)
+              , terminal (term)
+              , ident    (id)
+              { }
 
     // Destructor.
     public: ~bad_grab (void) throw () { };
@@ -488,7 +487,12 @@
 
 
     // Constructor.
-    public: CMatrixPri (CDRGrid *drgrid) : TMatrix<char>(drgrid) { }
+    public: CMatrixPri (CDRGrid *drgrid)
+      : TMatrix<char>(drgrid)
+      , offset       (0)
+      , delta        (0)
+      , cleared      (false)
+    { }
 
     // Modifiers.
     public: void clear       (void);
@@ -521,10 +525,10 @@
     public: CDRGrid::iterator  node;
 
     // Constructor.
-    public: dup_term (string termName, CDRGrid::iterator &dupNode) {
-              name = termName;
-              node = dupNode;
-            }
+    public: dup_term (string termName, CDRGrid::iterator &dupNode)
+              : name(termName)
+              , node(dupNode)
+            { }
 
     // Destructor.
     public: ~dup_term (void) throw () { };
@@ -556,7 +560,8 @@
                        , long y
                        , long z
                        )
-              : id(ident)
+              : message()
+              , id     (ident)
             {
               ostringstream m;
               m << "Terminals \"" << tn1 << "\" and \"" << tn2 << "\" of net \"" << nn 
@@ -623,7 +628,7 @@
     public: string  name;
 
     // Constructor.
-    public: dup_net (string netName) { name = netName; }
+    public: dup_net (string netName) : name(netName) { }
 
     // Destructor.
     public: ~dup_net (void) throw () { };
@@ -647,10 +652,7 @@
     public: string  termName;
 
     // Constructor.
-    public: term_unknown (string nName, string tName) {
-              netName  = nName;
-              termName = tName;
-            }
+    public: term_unknown (string nName, string tName) : netName(nName), termName(tName) { }
 
     // Destructor.
     public: ~term_unknown (void) throw () { };

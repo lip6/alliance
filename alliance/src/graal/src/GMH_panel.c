@@ -66,6 +66,7 @@
 # include "GMH.h"
 
 # include "GMH_panel.h" 
+# include "GME_dialog.h" 
 # include "LIP6bw.h" 
 
 /*------------------------------------------------------------\

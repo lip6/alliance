@@ -54,8 +54,11 @@
 # include "rpr.h"
 # include "rwi.h"
 # include "rut.h"
+# include "rtl.h"
 # include "GSB.h"
 # include "GRD.h"
+# include "GRD_window.h"
+# include "GRD_error.h"
 # include "GMX.h"
 
 # include "dreal.h"
@@ -167,14 +170,14 @@ int main( argc, argv )
   if ( WindowInfo )
   {
     fprintf( stdout, "\nDreal window\n" );
-    fprintf( stdout, "\n  XMIN : %d"  , DrealWindowXmin / RDS_PHYSICAL_GRID );
-    fprintf( stdout, "\n  XMAX : %d"  , DrealWindowXmax / RDS_PHYSICAL_GRID );
-    fprintf( stdout, "\n  YMIN : %d"  , DrealWindowYmin / RDS_PHYSICAL_GRID );
-    fprintf( stdout, "\n  YMAX : %d"  , DrealWindowYmax / RDS_PHYSICAL_GRID );
-    fprintf( stdout, "\n  SIDE : %d"  , DrealWindowSide / RDS_PHYSICAL_GRID );
-    fprintf( stdout, "\n  DX   : %d"  , DrealWindowDx                );
-    fprintf( stdout, "\n  DY   : %d"  , DrealWindowDy                );
-    fprintf( stdout, "\n  SIZE : %d\n", DrealWindowSize              );
+    fprintf( stdout, "\n  XMIN : %ld"  , DrealWindowXmin / RDS_PHYSICAL_GRID );
+    fprintf( stdout, "\n  XMAX : %ld"  , DrealWindowXmax / RDS_PHYSICAL_GRID );
+    fprintf( stdout, "\n  YMIN : %ld"  , DrealWindowYmin / RDS_PHYSICAL_GRID );
+    fprintf( stdout, "\n  YMAX : %ld"  , DrealWindowYmax / RDS_PHYSICAL_GRID );
+    fprintf( stdout, "\n  SIDE : %ld"  , DrealWindowSide / RDS_PHYSICAL_GRID );
+    fprintf( stdout, "\n  DX   : %ld"  , DrealWindowDx                );
+    fprintf( stdout, "\n  DY   : %ld"  , DrealWindowDy                );
+    fprintf( stdout, "\n  SIZE : %ld\n", DrealWindowSize              );
   }
 
   DrealInitializeErrorMessage( Debug );

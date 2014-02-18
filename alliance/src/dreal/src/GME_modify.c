@@ -57,7 +57,9 @@
 # include "GMX.h"
 # include "GTB.h"
 # include "GME.h"
+# include "GMV.h"
 
+# include "GTB_dialog.h"
 # include "GME_modify.h"
 # include "GME_panel.h"
 # include "GME_edit.h"

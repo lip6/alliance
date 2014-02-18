@@ -50,7 +50,7 @@ char          mode;		/* recursive delete or not (Y or N)	*/
 
   {
   struct bemsg  headmsg;
-  struct bemsg *ptlastmsg;
+  struct bemsg *ptlastmsg = NULL;
   struct bemsg *ptbemsg;
 
   if (listbemsg != NULL)

@@ -40,3 +40,5 @@
   extern long               CTP_LINNUM;	/* file's line number		*/
   extern char               CTP_ERRFLG;	/* Error flag                   */
   extern char               CTP_CURFIL[];	/* current file name		*/
+
+  extern void ctp_toolbug ();

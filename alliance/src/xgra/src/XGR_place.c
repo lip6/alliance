@@ -87,10 +87,6 @@
 void XgraPlaceFigure()
 {
   autnode_list  *ScanNode;
-  autnode_list  *NodeTo;
-  autnode_list  *NodeFrom;
-  autarc_list   *ScanArc;
-  chain_list    *ScanChain;
   int            NumberNode;
   int            PointIndex;
   float          X;

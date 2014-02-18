@@ -112,8 +112,8 @@ int main( argc, argv )
   int   FlagVerbose  = 0;
   int   FlagSave     = 0;
   int   FlagDisplay  = 0;
-  int   FlagErase    = 0;
-  int   FlagBdd      = 0;
+/*int   FlagErase    = 0;*/
+/*int   FlagBdd      = 0;*/
 
   mbkenv();
   autenv();
@@ -135,9 +135,9 @@ int main( argc, argv )
 
         switch ( Option )
         {
-          case 'E' : FlagErase = 1;
+          case 'E' : /*FlagErase = 1;*/
           break;
-          case 'B' : FlagBdd = 1;
+          case 'B' : /*FlagBdd = 1;*/
           break;
           case 'D' : FlagDisplay = 1;
           break;

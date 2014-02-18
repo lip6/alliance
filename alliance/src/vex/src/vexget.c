@@ -397,7 +397,7 @@ ptype_list *getvexatombitnameptype( Expr )
 
   vexexpr *Expr;
 {
-  ptype_list  *HeadList;
+  ptype_list  *HeadList = NULL;
   ptype_list  *NewChain;
   ptype_list **PrevChain;
   char        *Name;

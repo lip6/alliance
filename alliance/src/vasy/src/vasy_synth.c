@@ -232,8 +232,6 @@ void VasySynthesisVpnModel( VpnFigure, RtlFigure )
   rtlmod_list   *RtlModel;
   vpnport_list  *VpnPort;
   vpngen_list   *VpnGen;
-  rtlport_list  *RtlPort;
-  rtlgen_list   *RtlGen;
   vexexpr       *Atom;
   vexexpr       *Expr;
   unsigned char  Dir;
@@ -259,7 +257,7 @@ void VasySynthesisVpnModel( VpnFigure, RtlFigure )
       else
                                 Dir = RTL_DIR_INOUT;
 
-      RtlPort = addrtlmodport( RtlFigure, RtlModel, Atom, Base, Dir );
+      addrtlmodport( RtlFigure, RtlModel, Atom, Base, Dir );
     }
 
     for ( VpnGen  = VpnModel->GENERIC;
@@ -270,7 +268,7 @@ void VasySynthesisVpnModel( VpnFigure, RtlFigure )
       Expr = dupvexexpr( VpnGen->VEX_EXPR );
       Base = VpnGen->BASE;
 
-      RtlGen = addrtlmodgen( RtlFigure, RtlModel, Atom, Expr, Base );
+      addrtlmodgen( RtlFigure, RtlModel, Atom, Expr, Base );
     }
   }
 }
@@ -290,9 +288,7 @@ void VasySynthesisVpnInstance( VpnFigure, RtlFigure )
   rtlins_list   *RtlInst;
   rtlmod_list   *RtlModel;
   vpnmap_list   *VpnMap;
-  rtlmap_list   *RtlMap;
   vpngen_list   *VpnGen;
-  rtlgen_list   *RtlGen;
   vexexpr       *Formal;
   vexexpr       *Actual;
   vexexpr       *Atom;
@@ -312,7 +308,7 @@ void VasySynthesisVpnInstance( VpnFigure, RtlFigure )
       Formal = dupvexexpr( VpnMap->VEX_FORMAL );
       Actual = dupvexexpr( VpnMap->VEX_ACTUAL );
 
-      RtlMap = addrtlinsmap( RtlFigure, RtlInst, Formal, Actual );
+      addrtlinsmap( RtlFigure, RtlInst, Formal, Actual );
     }
 
     for ( VpnGen  = VpnInst->GENERIC;
@@ -322,7 +318,7 @@ void VasySynthesisVpnInstance( VpnFigure, RtlFigure )
       Atom = dupvexexpr( VpnGen->VEX_ATOM );
       Expr = dupvexexpr( VpnGen->VEX_EXPR );
 
-      RtlGen = addrtlinsgen( RtlFigure, RtlInst, Atom, Expr );
+      addrtlinsgen( RtlFigure, RtlInst, Atom, Expr );
     }
   }
 }
@@ -482,7 +478,7 @@ static void VasySynthesisOneWaitVpnTrans( VpnFigure, RtlFigure, VpnTrans )
   vasysyminfo     *SymInfo;
   vasybivex_list  *SymBiVex;
   rtldecl_list   *RtlDeclar; 
-  char           *Flags;
+  unsigned char  *Flags;
   vpndecl_list   *AsgDeclar;
   vpnsym         *AsgSymbol;
   vexexpr        *AsgAtom;
@@ -493,7 +489,6 @@ static void VasySynthesisOneWaitVpnTrans( VpnFigure, RtlFigure, VpnTrans )
   char           *AtomName;
   int             AsgMin;
   int             AsgMax;
-  int             AsgWidth;
   int             AsgIndex;
   int             AsgPos;
   rtlasg_list    *RtlAssign;
@@ -519,7 +514,6 @@ static void VasySynthesisOneWaitVpnTrans( VpnFigure, RtlFigure, VpnTrans )
 
     AsgMin   = getvexvectormin( AsgAtom );
     AsgMax   = getvexvectormax( AsgAtom );
-    AsgWidth = AsgAtom->WIDTH;
 
     RtlDeclar = searchrtldecl( RtlFigure, AtomName );
     Used      = 0;
@@ -676,14 +670,12 @@ void VasySynthesisOneWaitVpnProc( VpnFigure, RtlFigure, VpnProc )
   vpntrans_list *VpnTrans;
   vpnplace_list *SkipPlace;
   vpnarc        *VpnArc;
-  vasyprocinfo   *ProcInfo;
 
   if ( IsVasyDebugLevel0() )
   {
     VasyPrintf( stdout, "  --> VasySynthesisOneWaitVpnProc %s\n", VpnProc->NAME );
   }
 
-  ProcInfo = GetVasyVpnProcInfo( VpnProc );
   WaitTrans = VpnProc->ELABO;
 
   VpnArc    = GetVpnArc( WaitTrans->PLACE_OUT );
@@ -722,7 +714,6 @@ void VasySynthesisMultiWaitVpnProc( VpnFigure, RtlFigure, VpnProc )
   chain_list       *ScanChain;
   vasywaitinfo     *WaitInfo;
   rtlfsm_list      *RtlFsm;
-  rtlfsmstate_list *RtlState;
   rtlfsmstate_list *RtlStateFrom;
   rtlfsmstate_list *RtlStateTo;
   rtlfsmtrans_list *RtlTrans;
@@ -770,7 +761,7 @@ void VasySynthesisMultiWaitVpnProc( VpnFigure, RtlFigure, VpnProc )
     if ( WaitTrans->TYPE != VPN_TRANS_INF_WAIT ) continue;
 
     StateName = VasyGetFsmStateName( VpnProc, WaitTrans );
-    RtlState  = addrtlfsmstate( RtlFigure, RtlFsm, StateName );
+    addrtlfsmstate( RtlFigure, RtlFsm, StateName );
 
     WaitInfo = GetVasyVpnWaitInfo( WaitTrans );
     DefTrans = WaitInfo->DEF_TRANS;

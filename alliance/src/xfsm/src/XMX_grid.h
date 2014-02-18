@@ -73,4 +73,7 @@
 |                                                             |
 \------------------------------------------------------------*/
 
+extern void XfsmInitializeUnitGrid();
+extern char XfsmDisplayUnitGrid();
+
 # endif 

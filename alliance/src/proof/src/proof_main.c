@@ -32,11 +32,13 @@
 
 #include <stdio.h>
 #include <stdlib.h>
+#include <string.h>
 #include "mut.h"
 #include "log.h"
 #include "beh.h"
 
-# include "proof_compile.h"
+#include "proof_compile.h"
+#include "proof_util.h"
 
 char *GLOB_ABL_DC;
 char *GLOB_ABL_ONE;
@@ -124,7 +126,7 @@ alliancebanner("Proof",VERSION,"Formal Proof","1990", ALLIANCE_VERSION);
   GLOB_ABL_ONE = namealloc ("'1'");
   GLOB_ABL_ZERO = namealloc ("'0'");
 
-path = (char *)mbkalloc(5);
+//path = (char *)mbkalloc(5);
 auxpath = (char *) mbkalloc (5);
 
 path = WORK_LIB;

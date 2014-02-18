@@ -22,11 +22,11 @@
  */
 
 /* ###--------------------------------------------------------------### */
-/* file		: beh_clrdepend.c					*/
-/* date		: Mar  8
-/* version	: v111							*/
-/* author	: Laurent VUILLEMIN, Pirouz BAZARGAN SABET		*/
-/* description	: beh_clrdepend  			           	*/
+/* file          : beh_clrdepend.c                                      */
+/* date          : Mar  8                                               */
+/* version       : v111                                                 */
+/* author        : Laurent VUILLEMIN, Pirouz BAZARGAN SABET             */
+/* description   : beh_clrdepend                                        */
 /* ###--------------------------------------------------------------### */
 
 #include <stdio.h>

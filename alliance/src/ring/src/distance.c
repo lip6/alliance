@@ -58,7 +58,7 @@ long distance_con_con(long x1, long y1, long w1, char l1,
 	long x2, long y2, long w2, char l2, int face)
 {
 	long	dist, xa, ya, wa;
-	long	largeurmin, dminmetalmetal;
+	long	largeurmin;
 	char	la;
 
 	switch (face) {
@@ -83,8 +83,6 @@ long distance_con_con(long x1, long y1, long w1, char l1,
 			w2 = wa; 
 			l2 = la;
 		}
-
-		dminmetalmetal = ymetal_dmin;
 
 		if ((l1 != ymetal) || (l2 != ymetal)) {
 			if (ymetal_width < xmetal_width) 
@@ -130,8 +128,6 @@ long distance_con_con(long x1, long y1, long w1, char l1,
 			w2 = wa; 
 			l2 = la;
 		}
-
-		dminmetalmetal = xmetal_dmin;
 
 		if ((l1 != xmetal) || (l2 != xmetal)) {
 			if (ymetal_width < xmetal_width) 
@@ -265,7 +261,7 @@ PT_COORDONNEES existe_con_suiv(long x1, long y1, long w1, char l1,
 	case SUD:
 		while (NULL != liste_coor) {
 			if (mode_debug) 
-				printf("ptcoor %;d proprio %;d x %ld\n", (long) liste_coor, (long)liste_coor->proprio, liste_coor->xabs);
+				printf("ptcoor %ld; proprio %ld; x %ld\n", (long) liste_coor, (long)liste_coor->proprio, liste_coor->xabs);
 
 			if (NULL != liste_coor->proprio) {
 				con = ((LST_PSEUDO_CON)liste_coor->proprio);

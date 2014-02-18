@@ -54,6 +54,7 @@
 # include "XSB.h"
 # include "XMX.h"
 
+# include "XGR_error.h"
 # include "xgra.h"
 
 /*------------------------------------------------------------\

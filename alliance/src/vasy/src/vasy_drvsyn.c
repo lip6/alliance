@@ -1543,7 +1543,7 @@ static void VasySynopsysTreatMap( RtlInst, RtlMap )
   AtomValue = GetVexAtomValue( VexFormal ); 
   RtlPort   = searchrtlmodport( VasyRtlFigure, RtlInst->MODEL, AtomValue );
   Type      = VasyConvertVexType[ RtlPort->BASE ];
-  VasyType  = VasyConvertVasyType[ Type ];
+//VasyType  = VasyConvertVasyType[ Type ];
 
   SetVexVhdlType( VexFormal, Type );
 
@@ -1735,7 +1735,7 @@ static void VasyDriveSynopsysDeclar( RtlFigure, Type )
   vexexpr      *VexInit;
   char         *AtomValue;
   char         *DeclarName;
-  char         *DeclarDir;
+//char         *DeclarDir;
   char         *DeclarBase;
   char         *DeclarVecDir;
 
@@ -1748,7 +1748,7 @@ static void VasyDriveSynopsysDeclar( RtlFigure, Type )
     VexDeclar  = RtlDeclar->VEX_ATOM;
     VexInit    = RtlDeclar->VEX_INIT;
     DeclarName = GetVexAtomValue( VexDeclar );
-    DeclarDir  = RTL_DIR_TYPE[ RtlDeclar->DIR ];
+  /*DeclarDir  = RTL_DIR_TYPE[ RtlDeclar->DIR ];*/
     DeclarBase = VEX_TYPE_NAME[ RtlDeclar->BASE ];
 
     if ( Type == RTL_DECLAR_CONSTANT )

@@ -730,7 +730,7 @@ long RprGetStringValue( String )
  
   if ( strchr( String, '.' )) 
   {
-    if ( sscanf( String, "%lf", &FloatValue) ) 
+    if ( sscanf( String, "%32lf", &FloatValue) ) 
      
       return( RprTranslateParam( FloatValue ) );
  
@@ -738,7 +738,7 @@ long RprGetStringValue( String )
   } 
   else
   {
-    if ( sscanf( String, "%ld", &Value) )
+    if ( sscanf( String, "%22ld", &Value) )
  
      return ( RprTranslateParam( (double)Value) );
  
@@ -778,7 +778,7 @@ float RprGetStringFloat( String )
 {
   float FloatValue;
  
-  if ( sscanf( String, "%f", &FloatValue) )
+  if ( sscanf( String, "%32f", &FloatValue) )
  
     return( FloatValue );
  
@@ -799,7 +799,7 @@ long RprGetNumber( String )
 {
   long Value;
 
-  if ( sscanf( String, "%ld", &Value )) return Value;
+  if ( sscanf( String, "%22ld", &Value )) return Value;
 
   rprerror( RPR_UNEXPECTED_LINE, "number", RprCurrentLine );
 
@@ -2389,7 +2389,7 @@ void RprReadParam()
 
       if ( FirstWord == PhysicalGridKeyword )
       {
-        sscanf( SecondWord, "%lf", &FloatValue); 
+        sscanf( SecondWord, "%32lf", &FloatValue); 
 
         RprComputeRdsUnit( FloatValue );
 
@@ -2398,7 +2398,7 @@ void RprReadParam()
       else
       if ( FirstWord == LambdaKeyword )
       {
-        sscanf( SecondWord, "%lf", &FloatValue); 
+        sscanf( SecondWord, "%32lf", &FloatValue); 
 
         if ( FloatValue <= 0 )
         {
@@ -2611,8 +2611,8 @@ void RprPostParam()
     rdsfreeblock( RDS_STATIC_LAYER );
   }
 
-  RDS_LAYER_NAME   = (char **)rdsallocblock( sizeof( char *) * RDS_MAX_LAYER );
-  RDS_STATIC_LAYER = (char  *)rdsallocblock( sizeof( char  ) * RDS_MAX_LAYER );
+  RDS_LAYER_NAME   = (char          **)rdsallocblock( sizeof( char *) * RDS_MAX_LAYER );
+  RDS_STATIC_LAYER = (unsigned char  *)rdsallocblock( sizeof( char  ) * RDS_MAX_LAYER );
 
   for ( Layer = 0; Layer < RDS_ALL_LAYER; Layer++ )
   {

@@ -149,13 +149,12 @@ unsigned int oper;
 /* called func.	: none							*/
 /* ###--------------------------------------------------------------### */
 
-void *mad_fregex (ptgex, mode)
+void  mad_fregex (ptgex, mode)
 
 struct begex *ptgex;
 char          mode ;
 
   {
-  struct begex *tmpgex;
   struct chain *tmpchn;
 
   if (ptgex != NULL)
@@ -348,7 +347,6 @@ struct begex *gexpnt;
             case NOR  :
             case NXOR :
               freflag = 1; break;
-              break;
             }
           }
 
@@ -364,13 +362,10 @@ struct begex *gexpnt;
             case NAND :
             case AND  :
               freflag = 1; break;
-              break;
             case XOR  :
               gexpnt->TERM = NXOR; freflag = 1; break;
-              break;
             case NXOR :
               gexpnt->TERM = XOR ; freflag = 1; break;
-              break;
             }
           }
 
@@ -458,12 +453,10 @@ struct befig *ptr_befig;
 struct chain *expr;
 
   {
-struct chain *my_operand;
-
   char          delayed [128];
   static char  *str_zero   = NULL;
   static char  *str_one    = NULL;
-  struct begex *resgex       ;
+  struct begex *resgex     = NULL;
   struct begex *gex_elt      ;
   struct chain *oper_list    ;
   struct chain *operand      ;

@@ -70,4 +70,9 @@
 |                                                             |
 \------------------------------------------------------------*/
 
+extern void GraalDisplayDrucMessage();
+extern void GraalToolsDrucNextError();
+extern void GraalToolsDrucAbortError();
+extern void GraalToolsDruc();
+
 # endif 

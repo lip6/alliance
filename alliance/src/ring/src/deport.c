@@ -209,7 +209,7 @@ void deport_alim(LST_EQUIPO lst_equipo, BARRE_PLOTS tab_plots[NB_FACES],
 	long	largeurmin = 0;
 	int	i, nbcolatrouver, face;
 	long	largmetalpiste, largmetalcol, piste;
-	char	niveaucol, niveaupiste;
+	char	niveaupiste;
 	LST_SEGMENT    * segcol;
 	LST_SEGMENT    * segpiste;
 
@@ -244,7 +244,6 @@ void deport_alim(LST_EQUIPO lst_equipo, BARRE_PLOTS tab_plots[NB_FACES],
 				switch (con->face) {
 				case NORD:
 				case SUD :
-					niveaucol = ymetal;
 					niveaupiste = xmetal;
 					segcol = segy_occ;
 					segpiste = segx_occ;
@@ -273,7 +272,6 @@ void deport_alim(LST_EQUIPO lst_equipo, BARRE_PLOTS tab_plots[NB_FACES],
 
 				case EST  :
 				case OUEST:
-					niveaucol = xmetal;
 					niveaupiste = ymetal;
 					segcol = segx_occ;
 					segpiste = segy_occ;
@@ -346,7 +344,6 @@ void deport_alim(LST_EQUIPO lst_equipo, BARRE_PLOTS tab_plots[NB_FACES],
 				switch (con->face) {
 				case NORD:
 				case SUD :
-					niveaucol = ymetal;
 					niveaupiste = xmetal;
 					segcol = segy_occ;
 					segpiste = segx_occ;
@@ -374,7 +371,6 @@ void deport_alim(LST_EQUIPO lst_equipo, BARRE_PLOTS tab_plots[NB_FACES],
 
 				case EST  :
 				case OUEST:
-					niveaucol = xmetal;
 					niveaupiste = ymetal;
 					segcol = segx_occ;
 					segpiste = segy_occ;
@@ -628,7 +624,7 @@ void deport_connecteurs(BARRE_PLOTS tab_plots[NB_FACES],
 {
 
 	int	face, trouve;
-	long	pistelayercentre, pistelayergauche, pistelayerdroite, piste, pistederniere;
+	long	/*pistelayercentre, pistelayergauche, pistelayerdroite,*/ piste, pistederniere;
 	long	largeurmin;
 
 	LST_PSEUDO_CON liste_coeur, liste_plots, ptcentre, ptdernier;
@@ -646,9 +642,9 @@ void deport_connecteurs(BARRE_PLOTS tab_plots[NB_FACES],
 
 		liste_plots = tab_plots[face].lst_con;
 		liste_coeur = tab_coeur[face];
-		pistelayergauche = 0;
-		pistelayerdroite = 0;
-		pistelayercentre = 0;
+      //pistelayergauche = 0;
+      //pistelayerdroite = 0;
+      //pistelayercentre = 0;
 		ptcentre = NULL;
 		ptdernier = NULL;
 		pistederniere = (tab_plots[face].coord).piste;
@@ -685,7 +681,7 @@ void deport_connecteurs(BARRE_PLOTS tab_plots[NB_FACES],
 						if (mode_debug) 
 							printf("deport centre con %s %s piste%ld\n", ptcentre->nom_con, 
 								((loins_list *)(ptcentre->con_lo)->ROOT)->INSNAME, (ptcentre->deport)->piste);
-						pistelayercentre = 1;
+                      //pistelayercentre = 1;
 						if ((ptcentre->deport)->piste != 1) /* pas uniquement layer */ {
 							
 							/*----------------------------------------------------------------------------*/
@@ -700,8 +696,8 @@ void deport_connecteurs(BARRE_PLOTS tab_plots[NB_FACES],
 							/* on marque qu'il existe des deports layers */
 							/* ----------------------------------------- */
 
-							if (ptcentre->layer != ymetal) 
-								pistelayercentre = 1;
+							//if (ptcentre->layer != ymetal) 
+							//	pistelayercentre = 1;
 
 							if (((ptcentre->coord)->prec != NULL) && (((ptcentre->coord)->prec)->proprio ==
 							    NULL)) /*gauche */ {
@@ -731,8 +727,8 @@ void deport_connecteurs(BARRE_PLOTS tab_plots[NB_FACES],
 			piste = pistederniere - 2; /* on laisse une piste pour les deports */
 
 			while ((liste_plots != NULL) && ((liste_plots->coord)->xabs < (lecoeur.coord).xabs)) {
-				if (liste_plots->deport->piste == 1) 
-					pistelayergauche = 1;
+            //if (liste_plots->deport->piste == 1) 
+			//		pistelayergauche = 1;
 
 				/* -------------------- */
 				/* ds ts les cas deport */
@@ -772,8 +768,8 @@ void deport_connecteurs(BARRE_PLOTS tab_plots[NB_FACES],
 			piste = pistederniere - 2; /* on laisse une piste pour les deports */
 
 			while ((ptdernier != NULL) && ((ptdernier->coord)->xabs > ((lecoeur.coord).xabs + lecoeur.width))) {
-				if ((ptdernier->deport)->piste == 1) 
-					pistelayerdroite = 1;
+            //if ((ptdernier->deport)->piste == 1) 
+				//	pistelayerdroite = 1;
 
 				/* -------------------- */
 				/* ds ts les cas deport */
@@ -855,7 +851,7 @@ void deport_connecteurs(BARRE_PLOTS tab_plots[NB_FACES],
 
 					if (ptcentre->deport != NULL) {
 						ptcentre->situe_deport = DEPORTC;
-						pistelayercentre = 1;
+                      //pistelayercentre = 1;
 						if ((ptcentre->deport)->piste != 1) /* pas uniquement layer */ {
 							if (mode_debug) 
 								printf("deport centre con %s %s piste%ld\n", ptcentre->nom_con,
@@ -873,8 +869,8 @@ void deport_connecteurs(BARRE_PLOTS tab_plots[NB_FACES],
 							/* on marque qu'il existe des deports layers */
 							/* ----------------------------------------- */
 
-							if (ptcentre->layer != xmetal) 
-								pistelayercentre = 1;
+                          //if (ptcentre->layer != xmetal) 
+                          //	pistelayercentre = 1;
 
 							if (((ptcentre->coord)->prec != NULL) && (((ptcentre->coord)->prec)->proprio ==
 							    NULL)) /*gauche */ {
@@ -904,8 +900,8 @@ void deport_connecteurs(BARRE_PLOTS tab_plots[NB_FACES],
 			piste = pistederniere - 2; /* on laisse une piste pour les deports */
 
 			while ((liste_plots != NULL) && ((liste_plots->coord)->yabs < (lecoeur.coord).yabs)) {
-				if (liste_plots->deport->piste == 1) 
-					pistelayergauche = 1;
+            //if (liste_plots->deport->piste == 1) 
+				//	pistelayergauche = 1;
 				/* ds ts les cas deport */
 
 				liste_plots->situe_deport = DEPORTG;
@@ -942,8 +938,8 @@ void deport_connecteurs(BARRE_PLOTS tab_plots[NB_FACES],
 			piste = pistederniere - 2; /* on laisse une piste pour les deports */
 
 			while ((ptdernier != NULL) && ((ptdernier->coord)->yabs > ((lecoeur.coord).yabs + lecoeur.height))) {
-				if (ptdernier->deport->piste == 1) 
-					pistelayerdroite = 1;
+            //if (ptdernier->deport->piste == 1) 
+			//		pistelayerdroite = 1;
 
 				/* -------------------- */
 				/* ds ts les cas deport */

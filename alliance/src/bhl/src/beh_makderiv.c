@@ -72,7 +72,6 @@ struct bequad *pt_bequad;
   {
   pNode         pt_node     ;
   struct chain *pt_varidx   ;
-  struct chain *suppor      ;
   struct beder *list_derive = NULL;
 
   pt_varidx = pt_bequad->VARLIST;
@@ -105,7 +104,6 @@ struct befig *pt_befig;
   struct bereg  *pt_bereg;
   struct bemsg  *pt_bemsg;
   struct binode *pt_binod;
-  struct chain  *list_der;
 
 	/* ###------------------------------------------------------### */
 	/*   check that the BEFIG is ready to support the derivation	*/

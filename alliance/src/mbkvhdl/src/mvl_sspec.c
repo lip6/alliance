@@ -62,7 +62,7 @@ short         right;		/* array's right bound (= -1 if scalar)	*/
   short         i           ;
   short         inc         = 1;
   struct chain *pt_chlst    ;
-  struct losig *ptsig       ;
+  struct losig *ptsig       = NULL;
 
   if ((left==-1) && (right==-1))
     {
@@ -112,7 +112,7 @@ short           right;		/* array right bound (= -1 if scalar)	*/
   char          extname[100];
   short         i           ;
   short         inc         = 1;
-  struct locon *ptcon       ;
+  struct locon *ptcon       = NULL;
   struct locon *ptcontmp    ;
 
   if ((left==-1) && (right==-1))

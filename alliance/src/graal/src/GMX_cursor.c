@@ -196,8 +196,8 @@ void GraalPointCursor()
 
   GraalUndisplayCursor();
 
-  GraalLambdaCursorSaveX[ GraalCursorIndex ] = GraalLambdaCursorX;
-  GraalLambdaCursorSaveY[ GraalCursorIndex ] = GraalLambdaCursorY;
+  GraalLambdaCursorSaveX[ (int)GraalCursorIndex ] = GraalLambdaCursorX;
+  GraalLambdaCursorSaveY[ (int)GraalCursorIndex ] = GraalLambdaCursorY;
 
   GraalCursorIndex = GraalCursorIndex + 1;
 

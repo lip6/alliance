@@ -180,13 +180,13 @@ void XpatDelView()
 
 void XpatInterruptDisplay()
 {
+  autbegin();
+
+# ifdef XPAT_CTRL_C
   XEvent       Event;
   KeySym       Key;
   char         Text;
 
-  autbegin();
-
-# ifdef XPAT_CTRL_C
   if ( XCheckTypedEvent( XpatGraphicDisplay, KeyPress, &Event ) )
   {
     XLookupString( &Event.xkey, &Text, 1, &Key, 0 );
@@ -214,11 +214,11 @@ void XpatInterruptDisplay()
 
 void XpatFlushEventDisplay()
 {
-  XEvent Event;
-  
   autbegin();
 
 # ifdef XPAT_CTRL_C
+  XEvent Event;
+  
   while ( XCheckTypedEvent( XpatGraphicDisplay, KeyPress, &Event ) );
 # endif
 
@@ -518,8 +518,6 @@ void XpatDisplayOneString( Obj )
   long    X2r;
   long    Y1r;
   long    Y2r;
-  long    DeltaX;
-  long    DeltaY;
   long    WidthText;
   long    HeightText;
   int     Length;
@@ -555,12 +553,6 @@ void XpatDisplayOneString( Obj )
   X2r  = ( X2r / XPAT_UNIT ) - XpatPixelGridX;
   Y1r  = ( Y1r / XPAT_UNIT ) - XpatPixelGridY;
   Y2r  = ( Y2r / XPAT_UNIT ) - XpatPixelGridY;
-
-  DeltaX = X2r - X1r;
-  DeltaY = Y2r - Y1r;
-
-  if ( DeltaX <= 0 ) DeltaX = 1;
-  if ( DeltaY <= 0 ) DeltaY = 1;
 
   if ( IsXpatIO( Obj ) )
   {

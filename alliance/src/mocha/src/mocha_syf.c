@@ -308,7 +308,6 @@ fsmfig_list *MochaSyfFbhParse( Name )
         ScanChain  = ScanChain->NEXT )
   {
     ScanFigure   = (fsmfig_list *)ScanChain->DATA;
-    MochaSyfInfo = MOCHA_SYF_INFO( ScanFigure );
 
     ScanState = ScanFigure->STAR_STATE;
   
@@ -348,14 +347,11 @@ void MochaSyfFsmSimplify( FsmFigure )
 
   fsmfig_list *FsmFigure;
 {
-  mochasyfinfo   *MochaSyfInfo;
   fsmstate_list  *ScanState;
   fsmlocout_list *ScanLocout;
   fsmlocout_list *DelLocout;
   fsmtrans_list  *ScanTrans;
   fsmtrans_list  *DelTrans;
-
-  MochaSyfInfo = MOCHA_SYF_INFO( FsmFigure );
 
   for ( ScanState  = FsmFigure->STATE;
         ScanState != (fsmstate_list *)0;
@@ -516,7 +512,6 @@ static void MochaSyfSynthOut2Abl( FsmFigure )
 
   fsmfig_list *FsmFigure;
 {
-  mochasyfinfo   *MochaSyfInfo;
   fsmout_list    *ScanOutput;
   fsmstate_list  *ScanState;
   fsmlocout_list *ScanLocout;
@@ -526,7 +521,6 @@ static void MochaSyfSynthOut2Abl( FsmFigure )
   ablexpr        *Equation;
   ablexpr        *Atom;
 
-  MochaSyfInfo = MOCHA_SYF_INFO( FsmFigure );
   Equation     = (ablexpr     *)0;
 
   for ( ScanOutput  = FsmFigure->OUT;
@@ -656,11 +650,8 @@ static void MochaSyfSynthFreeOutAbl( FsmFigure )
 
   fsmfig_list *FsmFigure;
 {
-  mochasyfinfo   *MochaSyfInfo;
   fsmout_list    *ScanOutput;
   mochasyfout    *ScanMochaSyfOut;
-
-  MochaSyfInfo = MOCHA_SYF_INFO( FsmFigure );
 
   for ( ScanOutput  = FsmFigure->OUT;
         ScanOutput != (fsmout_list *)0;
@@ -953,6 +944,7 @@ static void MochaSyfSynthCode2Abl( FsmFigure )
 |                                                             |
 \------------------------------------------------------------*/
 
+#if THIS_IS_DISABLED
 static void MochaSyfSynthFreeCodeAbl( FsmFigure )
 
   fsmfig_list *FsmFigure;
@@ -979,6 +971,7 @@ static void MochaSyfSynthFreeCodeAbl( FsmFigure )
     }
   }
 }
+#endif
 
 /*------------------------------------------------------------\
 |                                                             |
@@ -990,15 +983,12 @@ static void MochaSyfSynthTrans2Abl( FsmFigure )
 
   fsmfig_list *FsmFigure;
 {
-  mochasyfinfo  *MochaSyfInfo;
   fsmstate_list *ScanState;
   mochasyfstate *ScanMochaSyfState;
   mochasyfstate *FromMochaSyfState;
   ablexpr       *ScanChain;
   ablexpr       *Atom;
   fsmtrans_list *ScanTrans;
-
-  MochaSyfInfo = MOCHA_SYF_INFO( FsmFigure );
 
   for ( ScanState  = FsmFigure->STATE;
         ScanState != (fsmstate_list *)0;
@@ -1107,10 +1097,6 @@ static void MochaSyfSynthFsm2Abl( FsmFigure )
 
   fsmfig_list *FsmFigure;
 {
-  mochasyfinfo *MochaSyfInfo;
-  
-  MochaSyfInfo = MOCHA_SYF_INFO( FsmFigure );
-
   MochaSyfSynthTrans2Abl( FsmFigure );
   MochaSyfSynthOut2Abl( FsmFigure );
   MochaSyfSynthReg2Abl( FsmFigure );
@@ -1232,16 +1218,11 @@ void MochaSyfFsmTreatOutput( FsmFigure, FbhFigure )
    fsmfig_list   *FsmFigure;
    fbfig_list    *FbhFigure;
 {
-  mochasyfinfo   *MochaSyfInfo;
   fsmout_list    *ScanOut;
   fbaux_list     *ScanAux;
   mochasyfout    *ScanSyfOut;
-  mochasyfregout *OutArray;
-  fbout_list     *FbhOut;
+ fbout_list     *FbhOut;
   ablexpr        *AblExpr;
-
-  MochaSyfInfo = MOCHA_SYF_INFO( FsmFigure );
-  OutArray     = MochaSyfInfo->OUT_ARRAY;
 
   FbhOut = FbhFigure->BEOUT;
 

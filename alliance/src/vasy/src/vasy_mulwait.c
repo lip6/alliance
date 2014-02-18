@@ -255,7 +255,6 @@ static void VasyMultiWaitArcWait2Wait( VpnFigure, VpnProc, BeginTrans, AsgTrans,
   int            AsgMin;
   int            AsgMax;
   int            AsgPos;
-  auth2table    *HashSupport;
   int            NumberWrite;
 
   if ( IsVasyDebugLevel0() )
@@ -287,7 +286,6 @@ static void VasyMultiWaitArcWait2Wait( VpnFigure, VpnProc, BeginTrans, AsgTrans,
   }
 
   TransInfo   = GetVasyVpnTransInfo( AsgTrans );
-  HashSupport = TransInfo->HASH_SUPPORT;
 
   NumberWrite = 0;
 
@@ -406,7 +404,7 @@ static void VasyMultiWaitCreateVpnTrans( VpnFigure, VpnProc, BeginTrans )
   vpntrans_list *VpnTrans;
   vpntrans_list *DefTrans;
   vpntrans_list *AsgTrans;
-  vpntrans_list *EndTrans;
+//vpntrans_list *EndTrans;
   vpnarc        *VpnArc;
   chain_list    *ScanChain;
 
@@ -464,7 +462,7 @@ static void VasyMultiWaitCreateVpnTrans( VpnFigure, VpnProc, BeginTrans )
     VpnArc   = GetVpnArc( AsgTrans->PLACE_OUT );
     EndPlace = GetVpnArcTargetPlace( VpnArc );
     VpnArc   = GetVpnArc( EndPlace->TRANS_OUT );
-    EndTrans = GetVpnArcTargetTrans( VpnArc );
+  //EndTrans = GetVpnArcTargetTrans( VpnArc );
 /*
 **  Initialize all action's for support computation
 */

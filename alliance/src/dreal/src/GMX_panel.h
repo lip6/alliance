@@ -68,5 +68,6 @@
 \------------------------------------------------------------*/
 
   extern void DrealInitializeIcon();
+  extern void DrealInitializePanel();
 
 # endif 

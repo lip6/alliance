@@ -58,6 +58,7 @@ static void search_name(char* name);
 /******************************************************************************/
 /*  change all leaf expressions from 'mbk_not_a' to 'NOT (a)'                 */
 /******************************************************************************/
+#if THIS_IS_DISABLED
 static chain_list* change_atom(chain_list* abl,int invert)
 {
    chain_list* chain;
@@ -79,6 +80,7 @@ static chain_list* change_atom(chain_list* abl,int invert)
 
    return abl;
 }
+#endif
 
 
 /***************************************************************************/

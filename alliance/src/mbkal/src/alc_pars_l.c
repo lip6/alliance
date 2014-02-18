@@ -102,7 +102,7 @@ char mode;
 		(void)printf("\n--- mbk --- parsing file : %s\n",nomfic);
 	}
 	(void)fgets(ligne,50,in);
-	(void)sscanf(ligne,"V ALLIANCE : %ld", &i);
+	(void)sscanf(ligne,"V ALLIANCE : %22ld", &i);
         if( i== 4 )
 	        alcloadlofig6( pfig, fname, mode, in, 4 );
         else

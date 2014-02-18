@@ -415,7 +415,7 @@ void Graalenv()
   }
 
   Buffer = rdsallocblock( strlen( WORK_LIB ) + 32 );
-  sprintf( Buffer, "%s/_ludo_%ld", WORK_LIB, getpid() );
+  sprintf( Buffer, "%s/_ludo_%u", WORK_LIB, getpid() );
 
   File = fopen( Buffer, "w" );
 

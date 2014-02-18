@@ -71,6 +71,7 @@
 # include "GMF_dialog.h"
 # include "GMC_dialog.h"
 # include "GMT_dialog.h"
+# include "GME_dialog.h"
 
 /*------------------------------------------------------------\
 |                                                             |

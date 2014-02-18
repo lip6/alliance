@@ -25,7 +25,6 @@ struct shdul   *pt_shdul;
 unsigned int   *pt_date ;
 
   {
-  struct shtra  *pt_shtra    ;
   struct shent  *pt_shent    ;
   struct shent  *pt_nxtent   ;
   unsigned int   min_window  = 0;

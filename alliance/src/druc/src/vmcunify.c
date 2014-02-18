@@ -263,7 +263,6 @@ boolean DrucUnifyOrientation (  DrucFigureRds,
 
 {
 
-rdsrec_list *DrucNouveauRectangle;
 long         XA                     =         Rectangle1->X;
 long         YA                     =         Rectangle1->Y;
 long         XB                     =         Rectangle2->X;
@@ -276,16 +275,10 @@ long         FinXA                  = XA    + DXA;
 long         FinXB                  = XB    + DXB;
 long         FinYA                  = YA    + DYA;
 long         FinYB                  = YB    + DYB;
-long         ExtenXAXB              = XA    - XB;
 long         ExtenDXAXB             = FinXA - XB;
-long         ExtenDXADXB            = FinXA - FinXB;
-long         ExtenYAYB              = YA    - YB;
 long         ExtenDYAYB             = FinYA - YB;
-long         ExtenDYADYB            = FinYA - FinYB;
 long         ExtenDXBXA             = FinXB - XA;
-long         ExtenDXBDXA            =       - ExtenDXADXB;
 long         ExtenDYBYA             = FinYB - YA;
-long         ExtenDYBDYA            =       - ExtenDYADYB;
 int          TmpCas;
 boolean FlagIsEquiModified          = DRUC_FALSE;
 
@@ -678,16 +671,10 @@ long         FinXA               = XA    + DXA;
 long         FinXB               = XB    + DXB;
 long         FinYA               = YA    + DYA;
 long         FinYB               = YB    + DYB;
-long         ExtenXAXB           = XA    - XB;
 long         ExtenDXAXB          = FinXA - XB;
-long         ExtenDXADXB         = FinXA - FinXB;
-long         ExtenYAYB           = YA    - YB;
 long         ExtenDYAYB          = FinYA - YB;
-long         ExtenDYADYB         = FinYA - FinYB;
 long         ExtenDXBXA          = FinXB - XA;
-long         ExtenDXBDXA         =       - ExtenDXADXB;
 long         ExtenDYBYA          = FinYB - YA;
-long         ExtenDYBDYA         =       - ExtenDYADYB;
 int          TmpCas;
 boolean      FlagIsEquiModified  = DRUC_FALSE;
 
@@ -948,11 +935,10 @@ rdsrec_list *TmpRectangle1;
 rdsrec_list *TmpRectangle2;
 boolean      FlagNextRectangle1;
 boolean      FlagIsEquiModified;
-boolean      FlagCreateRectangle = DRUC_TRUE;
+boolean      FlagCreateRectangle = DRUC_FALSE;
 DrucTypeStructPlusRect *PlusRec1;
 DrucTypeStructPlusRect *PlusRec2;
 
-  FlagCreateRectangle = DRUC_FALSE;
   do
   {
     FlagIsEquiModified       = DRUC_FALSE;
@@ -1326,8 +1312,6 @@ void DrucUnifyFigure ( DrucFigureRds,
 
 rdswindow               *DrucRdsWindow;
 rdsins_list             *InstanceCourante;
-int                      IndexLayer;
-int                      LayerCourant;
 
   InstanceCourante        = DrucFigureRds->INSTANCE;
   DrucFigureRds->INSTANCE = (rdsins_list *)NULL;

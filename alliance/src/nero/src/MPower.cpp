@@ -3,8 +3,7 @@
 //
 // $Id: MPower.cpp,v 1.4 2005/10/10 15:34:05 jpc Exp $
 //
-// /-----------------------------------------------------------------\ 
-// |                                                                 |
+// +-----------------------------------------------------------------+ 
 // |        A l l i a n c e   C A D   S y s t e m                    |
 // |              S i m p l e   R o u t e r                          |
 // |                                                                 |
@@ -12,10 +11,7 @@
 // |  E-mail      :       alliance-support@asim.lip6.fr              |
 // | =============================================================== |
 // |  C++ Module  :       "./UPower.cpp"                             |
-// | *************************************************************** |
-// |  U p d a t e s                                                  |
-// |                                                                 |
-// \-----------------------------------------------------------------/
+// +-----------------------------------------------------------------+
 
 
 
@@ -31,9 +27,9 @@
 namespace MBK {
 
 
-//  /----------------------------------------------------------------\
+//  +----------------------------------------------------------------+
 //  |                     Methods Definitions                        |
-//  \----------------------------------------------------------------/
+//  +----------------------------------------------------------------+
 
 
 // -------------------------------------------------------------------
@@ -79,12 +75,11 @@ CPowers::CPowers ( CFig *fig
   : xoffset(xoff)
   , yoffset(yoff)
 {
-  LPower::iterator  itLine, beginLine, endLine;
+  LPower::iterator  itLine, endLine;
   phins_list       *ins;
   phfig_list       *model;
   phseg_list       *seg, flatSeg;
-  string            mess1,  mess2;
-  char              ORIENT1, ORIENT2;
+  string            mess1;
   char              segType;
   long              lbound, rbound, key;
 
@@ -97,19 +92,11 @@ CPowers::CPowers ( CFig *fig
     default:
     case C_HORIZONTAL:
       mess1   = "horizontal";
-      mess2   = "EAST/WEST";
-      ORIENT1 = EAST;
-      ORIENT2 = WEST;
-
       AB1 = fig->XAB1 ();
       AB2 = fig->XAB2 ();
       break;
     case C_VERTICAL:
       mess1   = "vertical";
-      mess2   = "NORTH/SOUTH";
-      ORIENT1 = NORTH;
-      ORIENT2 = SOUTH;
-
       AB1 = fig->YAB1 ();
       AB2 = fig->YAB2 ();
       break;
@@ -218,7 +205,7 @@ CPowers::CPowers ( CFig *fig
       }
       
       
-      beginLine = powerLines.begin ();
+    //beginLine = powerLines.begin ();
         endLine = powerLines.end ();
 
 

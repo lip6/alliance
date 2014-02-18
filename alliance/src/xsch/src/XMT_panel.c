@@ -121,7 +121,9 @@
              (Widget)NULL
            }
            ,
-           NULL
+           {
+             NULL
+           }
          };
 
    XschPanelItem XschToolsMessagePanel =
@@ -217,7 +219,9 @@
              (Widget)NULL
            }
            ,
-           NULL
+           {
+             NULL
+           }
          };
 
    XschPanelItem XschToolsHierarchyPanel =

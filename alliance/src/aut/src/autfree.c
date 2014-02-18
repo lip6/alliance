@@ -118,7 +118,7 @@ void  autfree( Pointer, Size )
 
     if ( AllocDebug->POINTER != AllocDebug )
     {
-      fprintf( stdout, "ERROR autfree %lx != %lx !!!!\n", AllocDebug->POINTER, AllocDebug );
+      fprintf( stdout, "ERROR autfree %p != %p !!!!\n", AllocDebug->POINTER, AllocDebug );
       autexit( 1 );
     }
 
@@ -139,7 +139,7 @@ void  autfree( Pointer, Size )
     if ( ( AllocDebug->HEAP         ) &&
          ( AllocDebug->SIZE != Size ) )
     {
-      fprintf( stdout, "ERROR autfree heap mode and size %ld != %ld !!!!\n",
+      fprintf( stdout, "ERROR autfree heap mode and size %ld != %u !!!!\n",
                AllocDebug->SIZE, Size );
       autexit( 1 );
     }

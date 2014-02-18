@@ -1110,12 +1110,11 @@ void DrealChangeRectangleLayer( LayerUp )
 {
   int  RdsLayer;
   int  Step;
-  long RdsWidth;
 
   if ( LayerUp ) Step =  1;
   else           Step = -1;
 
-  RdsLayer = RDS_STATIC_LAYER[ DrealRectangleLayer ];
+  RdsLayer = RDS_STATIC_LAYER[ (int)DrealRectangleLayer ];
 
   do
   {

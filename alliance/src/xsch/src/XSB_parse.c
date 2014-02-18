@@ -167,7 +167,7 @@ char *XsbFileGetString( String, Size )
   int   Size;
 {
   register char *RegisterString;
-  register       Register;
+  register int   Register = 0;
 
   autbegin();
  
@@ -399,7 +399,7 @@ long XsbGetStringValue( String )
 
   autbegin();
  
-  if ( sscanf( String, "%ld", &Value) != 0 )
+  if ( sscanf( String, "%22ld", &Value) != 0 )
   {
     autend();
     return ( Value );
@@ -435,7 +435,7 @@ float XsbGetStringFloat( String )
 
   autbegin();
 
-  if ( ! sscanf( String, "%g", &Value) )
+  if ( ! sscanf( String, "%32g", &Value) )
   {
     XsbError( ILLEGAL_FLOAT, String, XsbCurrentLine );
   }
@@ -458,7 +458,7 @@ long XsbGetNumber( String )
 
   autbegin();
 
-  if ( ! sscanf( String, "%ld", &Value ))
+  if ( ! sscanf( String, "%22ld", &Value ))
   {
     XsbError( UNEXPECTED_LINE, "number", XsbCurrentLine );
   }
@@ -676,7 +676,7 @@ void XsbReadLayerName()
         }
         else
         {
-          sscanf( FirstWord, "%lx", &XSCH_LAYER_XFIG_COLOR[ Layer ] );
+          sscanf( FirstWord, "%32lx", &XSCH_LAYER_XFIG_COLOR[ Layer ] );
         }
       }
 
@@ -705,7 +705,6 @@ void XsbReadParam()
 {
   char *FirstWord;
   char *SecondWord;
-  short Continue;
   long  Mask;
 
   autbegin();

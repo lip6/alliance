@@ -191,8 +191,8 @@
 |                                                             |
 \------------------------------------------------------------*/
 
-  extern char XpatCountEventZoom;
-  extern char XpatCountEventEdit;
+  extern int XpatCountEventZoom;
+  extern int XpatCountEventEdit;
 
 /*------------------------------------------------------------\
 |                                                             |

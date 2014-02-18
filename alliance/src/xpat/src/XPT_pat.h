@@ -68,5 +68,6 @@
 \------------------------------------------------------------*/
 
   extern patfig_list *Xpatloadpatfig();
+  extern void         pat_delpatfig();
 
 # endif 

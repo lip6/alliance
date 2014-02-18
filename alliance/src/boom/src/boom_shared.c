@@ -490,10 +490,8 @@ long BoomComputeLog2( Value )
 
   unsigned long Value;
 {
-  unsigned long Mask;
   unsigned long Log2;
 
-  Mask = 1;
   Log2 = 0;
   
   while ( Value != 0 )

@@ -32,6 +32,7 @@
 #include <stdlib.h>
 #include <stdio.h>
 #include <mut.h>
+#include <aut.h>
 #include <abl.h>
 #include <abe.h>
 #include "lon_normalize_message.h"

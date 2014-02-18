@@ -59,6 +59,7 @@
 # include "GTB.h"
 # include "GSB.h"
 # include "GME.h"
+# include "GMV.h"
 
 # include "GME_edit.h"
 # include "GME_panel.h"
@@ -259,7 +260,7 @@ char DrealAddIdentify( Rectangle )
     "INSTANCE :\n\n  NAME : %s\n  MODEL : %s\n  TRANSF : %s\n  X : %.3f\n  Y : %.3f\n\n",
     Instance->INSNAME,
     Instance->FIGNAME,
-    RDS_TRANSF_NAME[ Instance->TRANSF ],
+    RDS_TRANSF_NAME[ (int)(Instance->TRANSF) ],
     Instance->X * DREAL_RDS_UNIT_TO_MICRON,
     Instance->Y * DREAL_RDS_UNIT_TO_MICRON );
   }
@@ -281,7 +282,7 @@ char DrealAddIdentify( Rectangle )
     sprintf( DrealIdentifyBuffer, 
       "RECTANGLE :\n\n  NAME : %s\n  LAYER : %s\n  X : %.3f\n  Y : %.3f\n  DX : %.3f\n  DY : %.3f\n\n",
         ( Rectangle->NAME != (char *)NULL ) ? Rectangle->NAME : "None",
-        DREAL_RDS_LAYER_NAME_TABLE[ StaticLayer ][0],
+        DREAL_RDS_LAYER_NAME_TABLE[ (int)StaticLayer ][0],
         Rectangle->X  * DREAL_RDS_UNIT_TO_MICRON,
         Rectangle->Y  * DREAL_RDS_UNIT_TO_MICRON,
         Rectangle->DX * DREAL_RDS_UNIT_TO_MICRON,

@@ -114,7 +114,7 @@ short         right;		/* array's right bound (= -1 if scalar)	*/
       {
       for (i=left ; i!=(right+inc) ; i+=inc)
         {
-        sprintf (extname,"%s %d",(char *)ptauxnam->DATA,i);
+        sprintf (extname,"%s %ld",(char *)ptauxnam->DATA,i);
         name = namealloc(extname);
         if (ptauxnat != NULL)
           {
@@ -213,11 +213,13 @@ long        right )
   char            lcl_buffer[256];
   long            inc;
   long            i;
+#if 0
   char            true_flag_un = 0;
   char            true_flag_zero = 0;
 
   struct chain *abl_un    = createablatom("'1'");
   struct chain *abl_zero  = createablatom("'0'");
+#endif
   result.IDENT    = NULL;
   result.LIST_ABL = NULL;
   result.WIDTH    = 0;
@@ -273,7 +275,7 @@ long        right )
 
             for (i=left ; i!=(right+inc) ; i+=inc)
               {
-              sprintf (name,"%s %i",expr1.IDENT,i);
+              sprintf (name,"%s %li",expr1.IDENT,i);
               name2           = namealloc (name);
               result.LIST_ABL = addchain (result.LIST_ABL,createablatom(name2));
               }
@@ -770,7 +772,7 @@ bvl_ablstr   pt_ablstr )	/* tested expression			*/
       {
       for (; last_width<pt_ablstr.WIDTH ; last_width++)
         {
-        sprintf (nomvar,"(%d)",last_width);
+        sprintf (nomvar,"(%ld)",last_width);
         addlogbddcircuitin(BvlBddCircuit,nomvar);
         }
       }
@@ -826,7 +828,7 @@ bvl_ablstr   pt_ablstr )	/* tested expression			*/
   i         = pt_ablstr.WIDTH - 1;
   while (pt_auxabl != NULL)
     {
-    sprintf (nomvar,"(%i)",i);
+    sprintf (nomvar,"(%li)",i);
 /*--------
     substPhyExpr (pt_newabl,namealloc(nomvar),(struct chain *)pt_auxabl->DATA);
 ---------*/

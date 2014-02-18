@@ -3,8 +3,7 @@
 //
 // $Id: UDefs.h,v 1.4 2012/05/02 14:49:23 jpc Exp $
 //
-// /-----------------------------------------------------------------\ 
-// |                                                                 |
+// +-----------------------------------------------------------------+ 
 // |        A l l i a n c e   C A D   S y s t e m                    |
 // |              S i m p l e   R o u t e r                          |
 // |                                                                 |
@@ -12,10 +11,7 @@
 // |  E-mail      :       alliance-support@asim.lip6.fr              |
 // | =============================================================== |
 // |  C++ Header  :       "./UDefs.h"                                |
-// | *************************************************************** |
-// |  U p d a t e s                                                  |
-// |                                                                 |
-// \-----------------------------------------------------------------/
+// +-----------------------------------------------------------------+
 
 
 
@@ -276,11 +272,12 @@ namespace D {
       string value;
 
       // Constructor.
-      COpt (bool arg=false, string val="") {
-        parsed   = false;
-        has_arg  = arg;
-        value    = value;
-      }
+      COpt (bool arg=false, string val="")
+        : found  (false)
+        , parsed (false)
+        , has_arg(arg)
+        , value  (val)
+      { }
 
       // Friends.
       public: friend ostream &operator<< (ostream &o, const COpt &self);
@@ -298,7 +295,7 @@ namespace D {
     public:  vector<string>  tVals;
 
     // Constructor.
-    COpts (void) { tShort = "+"; }
+      COpts (void) : tShort("+") { }
 
     // Modifiers.
     public: void getopts (int argc, char *argv[]) throw (except_done);

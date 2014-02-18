@@ -4,7 +4,7 @@ YACC = @YACC@ -d
 
 INCLUDES = -I$(srcdir)/../common
 
-AM_CXXFLAGS = @ALLIANCE_CFLAGS@ -I$(top_srcdir)/mbk/src
+AM_CXXFLAGS = @ALLIANCE_CFLAGS@ -I$(top_srcdir)/mbk/src -std=c++0x
 AM_CFLAGS = @ALLIANCE_CFLAGS@ -I$(top_srcdir)/mbk/src
 
 bin_PROGRAMS = ocp

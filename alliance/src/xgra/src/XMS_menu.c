@@ -139,7 +139,9 @@
              (XgraMenuItem *)NULL
            }
            ,
-           NULL
+           {
+             NULL
+           }
          };
 
 

@@ -54,7 +54,7 @@ extern void put_arity_abl (chain_list* abl)
      put_arity_abl((chain_list*)ABL_CAR(pattern));
 	}
 
-   ABL_ARITY_L(abl)=arity;
+    ABL_ARITY_L(abl)=(chain_list*)arity;
    return ;
 }
 

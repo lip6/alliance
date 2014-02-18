@@ -1,4 +1,5 @@
-void puts ();
+#include <stdio.h>
+
 void rps_print_man () {
 	puts ("");
 	puts ("");

@@ -147,7 +147,6 @@ void XfsmInitializeColors()
 {
   XColor   ForgetIt;
   XColor   GetIt;
-  Window   Root;
   int      Counter;
   char     Error;
   char    *ColorName;
@@ -200,8 +199,6 @@ void XfsmInitializeColors()
 
 void XfsmChangeCursorContext()
 {
-  XGCValues GraphicValue;
-
   if ( XFSM_XOR_CURSOR == XFSM_TRUE )
   {
     XfsmXorGC = XfsmXorGCXor;

@@ -61,7 +61,6 @@ DrucTypeStructInstruction *DrucInstructionCourante;
 
 {
 
-int                       IndexInstruction;
 long                      Value;
 int                       IndexMesure = 0;
 
@@ -130,7 +129,7 @@ char                      *TmpBuffer;
         return;
       }
 
-      if (  sscanf ( DrucFileBuffer, "%ld\n", &Rule ) == EOF
+      if (  sscanf ( DrucFileBuffer, "%22ld\n", &Rule ) == EOF
          )
       {
         DRUC_EXIT( DRUC_ERROR_BAD_COMMENT );
@@ -173,7 +172,6 @@ DrucTypeStructInstruction **DrucTabInstruction;
 {
 
 int                        TmpIndexMesure;
-int                        TmpResultat;
 int                        IndexLayer;
 boolean                    FlagBegin;
 char                      *FlagBuffer;
@@ -223,7 +221,7 @@ DrucTypeStructInstruction *TmpStructInstruction;
 
   DrucStructInstruction = ( DrucTypeStructInstruction *)NULL;
 
-  TmpResultat           = vrd_y_parse();
+  vrd_y_parse();
   DrucViewString ("\n");
 
   if ( DrucStructStat.FLAG_FLATTEN_MODE  == DRUC_HIERARCHIE

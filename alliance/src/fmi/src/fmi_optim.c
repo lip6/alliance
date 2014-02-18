@@ -219,9 +219,6 @@ FmiRazFlag (classe)
 
   fmiclass_list *ScanClasse;
   fmicelm_list *Scanelm;
-  fmiclass_list *head;
-
-  head = classe;
 
   for (ScanClasse = classe;
        ScanClasse != (fmiclass_list *) 0; ScanClasse = ScanClasse->NEXT)
@@ -347,7 +344,6 @@ FmiRec (fsm, classe)
   fsmtrans_list *ScanTrans;
   chain_list *ScanChain1;
   fsmstate_list *State, *FromState, *ToState;
-  fsmtrans_list *trans;
   fsmfig_list *NewFsm;
 
   fsmin_list *ScanIn;
@@ -419,10 +415,8 @@ FmiRec (fsm, classe)
 				      *) ((fsmtrans_list *)
 					  ScanChain1->DATA)->TO->USER)->
 				    ELM->STATE->NAME);
-	  trans =
-	    addfsmtrans (NewFsm, FromState, ToState,
-			 dupablexpr (((fsmtrans_list *) ScanChain1->DATA)->
-				     ABL));
+      addfsmtrans (NewFsm, FromState, ToState,
+                   dupablexpr (((fsmtrans_list *) ScanChain1->DATA)->ABL));
 	}
     }
 

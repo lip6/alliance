@@ -258,7 +258,6 @@ register long                       UnaireDY;
 
 register rdsrec_list *TmpRectangleDest;
 register int          TmpLayerDest    = DrucInstructionCourante->LAYER_DEST;
-register int          TmpLayerSource  = DrucInstructionCourante->LAYER_1;
 
   TmpRectangleDest       = allocrdsrec( sizeof ( DrucTypeStructPlusRect ));
   TmpRectangleDest->X    = UnaireX ;
@@ -310,11 +309,6 @@ register rdsrec_list *Rectangle1;
 register rdsrec_list *Rectangle2;
 
 {
-
-
-register long TmpDx2 = Rectangle2->X + Rectangle2->DX;
-register long TmpDy2 = Rectangle2->Y + Rectangle2->DY;
-
   if ( ( UnaireX + UnaireDX             < Rectangle2->X ) ||
        ( Rectangle2->X + Rectangle2->DX < UnaireX )
      )

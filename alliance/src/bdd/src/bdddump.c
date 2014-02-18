@@ -161,7 +161,7 @@ bddcircuit *undumpbddcircuit( BddSystem, FileName )
   Name = BddDumpBuffer + 9;
 
   loc_undumpbddgetline();
-  Value = sscanf( BddDumpBuffer, ".port %ld %ld", &NumberIn, &NumberOut );
+  Value = sscanf( BddDumpBuffer, ".port %22ld %22ld", &NumberIn, &NumberOut );
   if ( Value != 2 ) bdderror( BDD_UNDUMP_LINE_ERROR, BddDumpLine );
 
   loc_undumpbddgetline();
@@ -180,7 +180,7 @@ bddcircuit *undumpbddcircuit( BddSystem, FileName )
     if ( Scan != (char *)0 )
     {
       *Scan = '\0';
-      Value = sscanf( BddDumpBuffer, "%ld", &BddVar );
+      Value = sscanf( BddDumpBuffer, "%22ld", &BddVar );
       Name  = namealloc( Scan + 1 );
     }
     
@@ -192,7 +192,7 @@ bddcircuit *undumpbddcircuit( BddSystem, FileName )
   }
 
   loc_undumpbddgetline();
-  Value = sscanf( BddDumpBuffer, ".node %ld %lX %lX",
+  Value = sscanf( BddDumpBuffer, ".node %22ld %18lX %18lX",
                   &NumberNode, &ZeroAddr, &OneAddr );
   if ( Value != 3 ) bdderror( BDD_UNDUMP_LINE_ERROR, BddDumpLine );
 
@@ -206,7 +206,7 @@ bddcircuit *undumpbddcircuit( BddSystem, FileName )
 
   while ( BddDumpBuffer[ 0 ] != '.' )
   {
-    Value = sscanf( BddDumpBuffer, "%lX %ld %lX %lX",
+    Value = sscanf( BddDumpBuffer, "%18lX %22ld %18lX %18lX",
             &NodeAddr, &BddVar, &HighAddr, &LowAddr );
     if ( Value != 4 ) bdderror( BDD_UNDUMP_LINE_ERROR, BddDumpLine );
 
@@ -236,7 +236,7 @@ bddcircuit *undumpbddcircuit( BddSystem, FileName )
     if ( Scan != (char *)0 )
     {
       *Scan = '\0';
-      Value = sscanf( BddDumpBuffer, "%lX", &NodeAddr );
+      Value = sscanf( BddDumpBuffer, "%18lX", &NodeAddr );
       Name  = namealloc( Scan + 1 );
     }
     

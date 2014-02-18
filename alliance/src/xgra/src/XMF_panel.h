@@ -75,5 +75,6 @@
   extern void CallbackLibraryUpdate();
   extern void CallbackLibraryCancel();
   extern void CallbackEnterLibrary();
+  extern void XgraBuildPanelLibrary();
 
 # endif 

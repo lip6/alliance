@@ -694,7 +694,7 @@ void XschPlaceFigure( SchFig )
   xschobj_list  *FirstObj;
   xschobj_list  *PrevObj;
   ptype_list    *InfoPType;
-  xschpath_list *PathInfo;
+  xschpath_list *PathInfo = NULL;
   authelem      *Element;
   xschicon      *XschIcon;
   loins_list    *LoIns;

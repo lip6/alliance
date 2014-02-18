@@ -56,10 +56,13 @@
 #include <mlo.h>
 #include <mlu.h>
 
+extern void sortlosigv();
+
 static char buffer[BUFSIZ];
 
 #define Signame(sig) ((sig)->NAMECHAIN->DATA)
 #define Delvectorname(s) (s)->NAMECHAIN=delchain((s)->NAMECHAIN,(s)->NAMECHAIN)
+
 
 /* ###--------------------------------------------------------------------### */
 /* #   Function addvectorname                                               # */

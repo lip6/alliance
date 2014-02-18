@@ -50,7 +50,7 @@ char          mode;		/* recursive delete or not (Y or N)	*/
 
   {
   struct bebux  headbux;
-  struct bebux *ptlastbux;
+  struct bebux *ptlastbux = NULL;
   struct bebux *ptbebux;
 
   if (listbebux != NULL)

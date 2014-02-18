@@ -23,3 +23,4 @@
 | l'instruction                                               |
 \------------------------------------------------------------*/
 extern void DrucDefineEquipot ();
+extern void DrucDefineUnion   ();

@@ -23,7 +23,9 @@
 #include "rpr.h"
 #include "drucompi_y.h"
 #include "drucutil.h"
+#include "druchier.h"
 #include "vmctools.h"
+#include "vmcasmld.h"
 #include "drucompi.h"
 /*------------------------------------------------------------\
 |                                                             |

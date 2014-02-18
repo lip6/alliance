@@ -78,7 +78,7 @@ static long  create_Netlist_Tree (aOffset, amDepth, amDepthNext)
   long  aOffset, amDepth, amDepthNext;
 {
   long  depth, mk, k, polarity;
-  long  cell_index, i0_index, i1_index, i_offset;
+  long  cell_index = 0, i0_index, i1_index, i_offset;
   char *sModel;
   char  sInstance[SIZE_SNAME];
   char *sQ, *sI0, *sI1;
@@ -240,10 +240,7 @@ static long  create_Netlist_Tree (aOffset, amDepth, amDepthNext)
 
 static void  create_Netlist ()
 {
-  long  mDepth, depth, depthNext, offset;
-
-
-  mDepth = ilog2 (LV_N);
+  long  depth, depthNext, offset;
 
   LV_prevTreeOut = -1;
   LV_oneShift    =  0;
@@ -258,7 +255,7 @@ static void  create_Netlist ()
 
 
   offset     = 0;
-  depthNext  = get_depth (LV_N, NULL);
+  depthNext  = get_depth (LV_N, 0);
 
   do {
     depth     = depthNext;
@@ -286,7 +283,7 @@ static long  create_Layout_Tree (aOffset, amDepth, amDepthNext)
   long  aOffset, amDepth, amDepthNext;
 {
   long  depth, mk, k, polarity;
-  long  cell_index;
+  long  cell_index = 0;
   char *sModel;
   char  sInstance[SIZE_SNAME];
 
@@ -385,10 +382,7 @@ static long  create_Layout_Tree (aOffset, amDepth, amDepthNext)
 
 static void  create_Layout ()
 {
-  long  mDepth, depth, depthNext, offset;
-
-
-  mDepth = ilog2 (LV_N);
+  long  depth, depthNext, offset;
 
   LV_prevTreeOut = -1;
   LV_oneShift    =  0;
@@ -398,7 +392,7 @@ static void  create_Layout ()
 
 
   offset     = 0;
-  depthNext  = get_depth (LV_N, NULL);
+  depthNext  = get_depth (LV_N, 0);
 
   do {
     depth     = depthNext;

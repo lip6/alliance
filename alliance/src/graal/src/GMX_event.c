@@ -61,11 +61,16 @@
 # include "GMS.h"
 # include "GME.h"
 # include "GMH.h"
+# include "GMC.h"
+# include "GMT.h"
 # include "GMX_motif.h"
 # include "GMX_grid.h"
 # include "GMX_cursor.h"
 # include "GMX_event.h"
 # include "GMX_message.h"
+# include "GMX_graphic.h"
+# include "GME_select.h"
+# include "GMT_druc.h"
 
 /*------------------------------------------------------------\
 |                                                             |
@@ -289,7 +294,7 @@ void GraalChangeEditMode( EditMode , PromptMessage )
     EditMode = EditMode & ~GRAAL_ZOOM_MARK;
 
     GraalCountEventZoom = 0;
-    GraalMaxEventZoom   = GraalMaxEventZoomTable[ EditMode ];
+    GraalMaxEventZoom   = GraalMaxEventZoomTable[ (int)EditMode ];
 
     if ( ! ( GraalEditMode & GRAAL_ZOOM_MARK ) )
     {
@@ -298,7 +303,7 @@ void GraalChangeEditMode( EditMode , PromptMessage )
       GraalSavePromptMessage = GraalPromptMessage;
     }
 
-    GraalInputMode     = GraalInputEventZoomTable[ EditMode ];
+    GraalInputMode     = GraalInputEventZoomTable[ (int)EditMode ];
     GraalPromptMessage = PromptMessage;
     GraalEditMode      = EditMode | GRAAL_ZOOM_MARK;
 
@@ -309,19 +314,19 @@ void GraalChangeEditMode( EditMode , PromptMessage )
     if ( GraalEditMode & GRAAL_ZOOM_MARK )
     {
       GraalSaveEditMode      = EditMode;
-      GraalSaveInputMode     = GraalInputEventEditTable[ EditMode ];
+      GraalSaveInputMode     = GraalInputEventEditTable[ (int)EditMode ];
       GraalSavePromptMessage = PromptMessage;
       GraalCountEventEdit    = 0;
-      GraalMaxEventEdit      = GraalMaxEventEditTable[ EditMode ];
+      GraalMaxEventEdit      = GraalMaxEventEditTable[ (int)EditMode ];
     }
     else
     {
       if ( GraalEditMode != EditMode )
       {
         GraalCountEventEdit = 0;
-        GraalMaxEventEdit   = GraalMaxEventEditTable[ EditMode ];
+        GraalMaxEventEdit   = GraalMaxEventEditTable[ (int)EditMode ];
         GraalEditMode       = EditMode;
-        GraalInputMode      = GraalInputEventEditTable[ EditMode ];
+        GraalInputMode      = GraalInputEventEditTable[ (int)EditMode ];
         GraalPromptMessage  = PromptMessage;
 
         GraalChangeCursorType( NULL, NULL, 0, GraalInputMode );
@@ -353,17 +358,17 @@ void GraalContinueEditMode( EditMode , PromptMessage, CountEvent )
   if ( GraalEditMode & GRAAL_ZOOM_MARK )
   {
     GraalSaveEditMode      = EditMode;
-    GraalSaveInputMode     = GraalInputEventEditTable[ EditMode ];
+    GraalSaveInputMode     = GraalInputEventEditTable[ (int)EditMode ];
     GraalSavePromptMessage = PromptMessage;
     GraalCountEventEdit    = CountEvent;
-    GraalMaxEventEdit      = GraalMaxEventEditTable[ EditMode ];
+    GraalMaxEventEdit      = GraalMaxEventEditTable[ (int)EditMode ];
   }
   else
   {
     GraalCountEventEdit = CountEvent;
-    GraalMaxEventEdit   = GraalMaxEventEditTable[ EditMode ];
+    GraalMaxEventEdit   = GraalMaxEventEditTable[ (int)EditMode ];
     GraalEditMode       = EditMode;
-    GraalInputMode      = GraalInputEventEditTable[ EditMode ];
+    GraalInputMode      = GraalInputEventEditTable[ (int)EditMode ];
     GraalPromptMessage  = PromptMessage;
 
     GraalChangeCursorType( GraalLambdaEventEditX,
@@ -746,8 +751,8 @@ void CallbackEvent ( MyWidget, Event, Args, Argc )
         {
           if ( GraalCountEventZoom < GraalMaxEventZoom )
           {
-            GraalLambdaEventZoomX[ GraalCountEventZoom ] = GraalLambdaCursorX;
-            GraalLambdaEventZoomY[ GraalCountEventZoom ] = GraalLambdaCursorY;
+            GraalLambdaEventZoomX[ (int)GraalCountEventZoom ] = GraalLambdaCursorX;
+            GraalLambdaEventZoomY[ (int)GraalCountEventZoom ] = GraalLambdaCursorY;
 
             GraalCountEventZoom = GraalCountEventZoom + 1;
 
@@ -781,8 +786,8 @@ void CallbackEvent ( MyWidget, Event, Args, Argc )
         {
           if ( GraalCountEventEdit < GraalMaxEventEdit )
           {
-            GraalLambdaEventEditX[ GraalCountEventEdit ] = GraalLambdaCursorX;
-            GraalLambdaEventEditY[ GraalCountEventEdit ] = GraalLambdaCursorY;
+            GraalLambdaEventEditX[ (int)GraalCountEventEdit ] = GraalLambdaCursorX;
+            GraalLambdaEventEditY[ (int)GraalCountEventEdit ] = GraalLambdaCursorY;
 
             GraalCountEventEdit = GraalCountEventEdit + 1;
 

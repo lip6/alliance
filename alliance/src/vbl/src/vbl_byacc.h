@@ -46,8 +46,6 @@ static void *vbl_addstr ();
 static vbtyp_list *val_type();
 static vbtyp_list *get_type();
 static struct ptype *reversetype();
-static struct choice_chain *addchoice();
-static struct choice_chain *order_choice();
 
 extern char          VBL_ERRFLG;        /* set to 1 in case of error    */
 extern struct vbfig *VBL_HEADFIG;       /* head of vbfigs               */

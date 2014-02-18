@@ -60,6 +60,7 @@
 # include "XMV_dialog.h"
 # include "XMV_view.h"
 # include "XMV_message.h"
+# include "XMX_color.h"
 
 /*------------------------------------------------------------\
 |                                                             |
@@ -238,7 +239,9 @@
              (Widget)NULL
            }
            ,
-           NULL
+           {
+             NULL
+           }
          };
 
    XpatPanelItem XpatViewArrowsPanel =
@@ -426,7 +429,9 @@
              (Widget)NULL
            }
            ,
-           NULL
+           {
+             NULL
+           }
          };
 
    XpatPanelItem XpatViewZoomPanel =
@@ -523,7 +528,9 @@
              (Widget)NULL   
            }
            ,
-           NULL
+           {
+             NULL
+           }
          };
 
      XpatPanelItem XpatViewGridPanel =
@@ -980,7 +987,9 @@
              (Widget)NULL
            }
            ,
-           NULL
+           {
+             NULL
+           }
          };
 
      XpatPanelItem XpatViewLayerPanel =
@@ -1651,7 +1660,7 @@ void CallbackLayerScale( MyWidget, ClientData, CallData )
 
 void XpatChangeCursor( Type )
 
-  char Type;
+  int Type;
 {
   int      Pos;
   XmString Label;
@@ -1679,7 +1688,7 @@ void XpatChangeCursor( Type )
 
 void XpatChangeForceDisplay( Index )
 
-  char Index;
+  int Index;
 {
   int      Pos;
   XmString Label;

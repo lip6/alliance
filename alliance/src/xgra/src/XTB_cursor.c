@@ -46,6 +46,7 @@
 # include <stdio.h>
 # include <X11/cursorfont.h>
 # include <X11/Intrinsic.h>
+# include <Xm/Xm.h>
 # include "mut.h"
 # include "aut.h"
 # include "XTB.h"
@@ -104,7 +105,7 @@
 void XgraSetMouseCursor( MainWidget, CursorType )
 
      Widget MainWidget;
-     char   CursorType;
+     int    CursorType;
 {
   Display          *DisplayId;
   Window            MainWindow;

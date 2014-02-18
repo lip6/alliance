@@ -827,7 +827,7 @@ pragma_declaration
 		char type[128];
 		char name[128];
 		char value[128];
-		char *pt;
+		char *pt = NULL;
 		long  field;
 
 		 field = sscanf((char *)$1,"-- %s %s %s %s", pragma,type,name,value);
@@ -1006,7 +1006,7 @@ enumeration_type_definition
                 char *enumname;
 		long size=0;
 		long indice=0;
-                char **pnt;
+                char **pnt = NULL;
 		chain_list *nm1lst;
  
                 FBL_NM1LST = reverse (FBL_NM1LST);
@@ -1849,7 +1849,7 @@ process_statement
 	|	{
                   char buffer[ 64 ];
 
-                  sprintf( buffer, "process_%d", FBL_LINNUM );
+                  sprintf( buffer, "process_%ld", FBL_LINNUM );
 		  FBL_LBLNAM = namealloc( buffer ); 
 		}
 	  unlabeled_process_statement
@@ -1990,8 +1990,6 @@ signal_assignment_statement
 		    char extname[100];
 		    struct fbl_expr expr;
 		    struct ptype **pnt;
-                    struct fbaux *fbaux_pnt;
-                    struct fbout *fbout_pnt;
 
 		    type = chktab(hshtab,$1.NAME,FBL_MODNAM,FBL_TYPDFN);
 		    sig_conf = chktab(hshtab,$1.NAME,FBL_MODNAM,FBL_SIGDFN);
@@ -2094,7 +2092,7 @@ signal_assignment_statement
                         {
                           char *newname;
 
-      			sprintf (extname,"%s %d",$1.NAME,i+debut-in_bound);
+      			sprintf (extname,"%s %ld",$1.NAME,i+debut-in_bound);
                         newname = namealloc( extname );
                         if (i >= in_bound)
                           {
@@ -2230,7 +2228,7 @@ case_statement
 		long indice=0;
 		struct choice_chain *ch;
                 struct fbcho **pnt;
-                struct fbcho *tab;
+                struct fbcho *tab = NULL;
 		struct choice_chain *nm1lst;
  
 
@@ -2349,7 +2347,7 @@ choices2
 	  Bar
 	  choice
 		{
-		if ($3.NAME == "others")
+          if (!strncmp($3.NAME,"others",7))
                 {
 		  fbl_error (30,NULL);
                 }
@@ -3327,7 +3325,7 @@ short         right;
   char   auxflg = 0;
   char   buxflg = 0;
   char   regflg = 0;
-  char   lclmod;
+  char   lclmod = 'B';
   char   lcltyp = type;
   char   extname[100];
   short  i;

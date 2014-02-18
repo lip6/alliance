@@ -328,7 +328,7 @@ char *GsbFileGetString( String, Size )
   int   Size;
 {
   register char *RegisterString;
-  register       Register;
+  register int   Register = 0;
 
   rdsbegin();
  
@@ -391,7 +391,7 @@ void GsbGetLine( Buffer )
       GsbError( UNEXPECTED_EOF, (char *)NULL, GsbCurrentLine );
     }
  
-    if ( String = strchr( Buffer, GSB_COMMENT_CHAR ))
+    if ( (String = strchr( Buffer, GSB_COMMENT_CHAR )) )
     {
       if ( String == Buffer )
       {
@@ -455,7 +455,7 @@ char *GsbGetFirstWord( Buffer, IsKeyword, Hash )
  
   rdsbegin();
  
-  if ( String = (char *)strtok( Buffer, GSB_SEPARATORS_STRING )) 
+  if ( (String = (char *)strtok( Buffer, GSB_SEPARATORS_STRING )) ) 
   {
     if ( Hash )
     {
@@ -500,7 +500,7 @@ char *GsbGetNextWord( IsKeyword, Hash )
 
   rdsbegin();
  
-  if ( String = (char *)strtok( (char *)NULL, GSB_SEPARATORS_STRING )) 
+  if ( (String = (char *)strtok( (char *)NULL, GSB_SEPARATORS_STRING )) ) 
   {
      if ( Hash )
      {
@@ -617,7 +617,7 @@ long GsbGetNumber( String )
 
   rdsbegin();
 
-  if ( ! sscanf( String, "%d", &Value ))
+  if ( ! sscanf( String, "%22ld", &Value ))
   {
     GsbError( UNEXPECTED_LINE, "number", GsbCurrentLine );
   }
@@ -674,7 +674,7 @@ void GsbReadSegmentName()
         if ( GET_SEGMENT_LAYER( Layer, 0 ) != RDS_SEGMENT_EMPTY )
 
         {
-          GRAAL_SEGMENT_NAME_TABLE [ Layer ][ Field ] = FirstWord;
+          GRAAL_SEGMENT_NAME_TABLE [ (int)Layer ][ (int)Field ] = FirstWord;
         }
       }
  
@@ -744,7 +744,7 @@ void GsbReadTransistorName()
         else
         if ( GET_SEGMENT_LAYER( Layer, 0 ) != RDS_SEGMENT_EMPTY )
         {
-          GRAAL_TRANSISTOR_NAME_TABLE [ Layer ][ Field ] = FirstWord;
+          GRAAL_TRANSISTOR_NAME_TABLE [ (int)Layer ][ (int)Field ] = FirstWord;
         }
       }
  
@@ -814,7 +814,7 @@ void GsbReadConnectorName()
         else
         if ( GET_SEGMENT_LAYER( Layer, 0 ) != RDS_SEGMENT_EMPTY )
         {
-          GRAAL_CONNECTOR_NAME_TABLE [ Layer ][ Field ] = FirstWord;
+          GRAAL_CONNECTOR_NAME_TABLE [ (int)Layer ][ (int)Field ] = FirstWord;
         }
       }
  
@@ -884,7 +884,7 @@ void GsbReadSegmentValue()
         else
         if ( GET_SEGMENT_LAYER( Layer, 0 ) != RDS_SEGMENT_EMPTY )
         {
-          GRAAL_SEGMENT_VALUE_TABLE [ Layer ][ Field ] = GsbGetStringFloat( FirstWord );
+          GRAAL_SEGMENT_VALUE_TABLE [ (int)Layer ][ (int)Field ] = GsbGetStringFloat( FirstWord );
         }
       }
  
@@ -917,7 +917,6 @@ void GsbReadBigViaValue()
 
 {
   char  Layer;
-  char  Field;
   char  LayerCount;
   char  EndTable;
   char *FirstWord; 
@@ -953,7 +952,7 @@ void GsbReadBigViaValue()
       if ( ( GET_BIGVIA_HOLE_LAYER( Layer, 0 ) != RDS_BIGVIA_HOLE_EMPTY ) ||
            ( GET_TURNVIA_LAYER( Layer, 0 )     != RDS_TURNVIA_EMPTY     ) )
       {
-        GRAAL_BIGVIA_VALUE_TABLE [ Layer ][ 0 ] = GsbGetStringFloat( FirstWord );
+        GRAAL_BIGVIA_VALUE_TABLE [ (int)Layer ][ 0 ] = GsbGetStringFloat( FirstWord );
       }
  
       FirstWord = GsbGetNextWord( 0, 1 );
@@ -1022,7 +1021,7 @@ void GsbReadReferenceName()
         else
         if ( GET_REFERENCE_LAYER( Layer, 0 ) != RDS_REFERENCE_EMPTY )
         {
-          GRAAL_REFERENCE_NAME_TABLE [ Layer ][ Field ] = FirstWord;
+          GRAAL_REFERENCE_NAME_TABLE [ (int)Layer ][ (int)Field ] = FirstWord;
         }
       }
   
@@ -1091,7 +1090,7 @@ void GsbReadOrientName()
         }
         else
         {
-          GRAAL_ORIENT_NAME_TABLE [ Layer ][ Field ] = FirstWord;
+          GRAAL_ORIENT_NAME_TABLE [ (int)Layer ][ (int)Field ] = FirstWord;
         }
       }
   
@@ -1160,7 +1159,7 @@ void GsbReadSymmetryName()
         }
         else
         {
-          GRAAL_SYMMETRY_NAME_TABLE [ Layer ][ Field ] = FirstWord;
+          GRAAL_SYMMETRY_NAME_TABLE [ (int)Layer ][ (int)Field ] = FirstWord;
         }
       }
   
@@ -1231,7 +1230,7 @@ void GsbReadBigViaName()
         if ( ( GET_BIGVIA_HOLE_LAYER( Layer, 0 )  != RDS_BIGVIA_HOLE_EMPTY ) ||
              ( GET_TURNVIA_LAYER( Layer, 0 )      != RDS_TURNVIA_EMPTY     ) )
         {
-          GRAAL_BIGVIA_NAME_TABLE [ Layer ][ Field ] = FirstWord;
+          GRAAL_BIGVIA_NAME_TABLE [ (int)Layer ][ (int)Field ] = FirstWord;
         }
       }
    
@@ -1301,7 +1300,7 @@ void GsbReadViaName()
         else
         if ( GET_VIA_LAYER( Layer, 0 ) != RDS_VIA_EMPTY )
         {
-          GRAAL_VIA_NAME_TABLE [ Layer ][ Field ] = FirstWord;
+          GRAAL_VIA_NAME_TABLE [ (int)Layer ][ (int)Field ] = FirstWord;
         }
       }
    
@@ -1370,9 +1369,9 @@ void GsbReadRdsLayerName()
           GsbError( MISSING_VALUE, (char *)NULL, GsbCurrentLine );
         }
         else
-        if ( RDS_DYNAMIC_LAYER[ Layer ] != RDS_LAYER_UNUSED )
+        if ( RDS_DYNAMIC_LAYER[ (int)Layer ] != RDS_LAYER_UNUSED )
         {
-          GRAAL_RDS_LAYER_NAME_TABLE [ Layer ][ Field ] = FirstWord;
+          GRAAL_RDS_LAYER_NAME_TABLE [ (int)Layer ][ (int)Field ] = FirstWord;
         }
       }
    
@@ -1382,9 +1381,9 @@ void GsbReadRdsLayerName()
       {
         Pattern = GsbGetStringValue( FirstWord );
 
-        if ( RDS_DYNAMIC_LAYER[ Layer ] != RDS_LAYER_UNUSED )
+        if ( RDS_DYNAMIC_LAYER[ (int)Layer ] != RDS_LAYER_UNUSED )
         {
-          GRAAL_RDS_LAYER_PATTERN_TABLE[ Layer ] = (int)Pattern;
+          GRAAL_RDS_LAYER_PATTERN_TABLE[ (int)Layer ] = (int)Pattern;
         }
 
         FirstWord = GsbGetNextWord( 0, 1 );
@@ -1666,62 +1665,62 @@ void GraalLoadParameters()
 
   for ( Layer = 0; Layer < MBK_MAX_LAYER; Layer++ )
   {
-    GRAAL_CONNECTOR_NAME_TABLE[ Layer ][0] = (char *)NULL;;
-    GRAAL_CONNECTOR_NAME_TABLE[ Layer ][1] = (char *)NULL;
-    GRAAL_CONNECTOR_NAME_TABLE[ Layer ][2] = (char *)NULL;
+    GRAAL_CONNECTOR_NAME_TABLE[ (int)Layer ][0] = (char *)NULL;;
+    GRAAL_CONNECTOR_NAME_TABLE[ (int)Layer ][1] = (char *)NULL;
+    GRAAL_CONNECTOR_NAME_TABLE[ (int)Layer ][2] = (char *)NULL;
 
-    GRAAL_SEGMENT_NAME_TABLE[ Layer ][0] = (char *)NULL;;
-    GRAAL_SEGMENT_NAME_TABLE[ Layer ][1] = (char *)NULL;
-    GRAAL_SEGMENT_NAME_TABLE[ Layer ][2] = (char *)NULL;
+    GRAAL_SEGMENT_NAME_TABLE[ (int)Layer ][0] = (char *)NULL;;
+    GRAAL_SEGMENT_NAME_TABLE[ (int)Layer ][1] = (char *)NULL;
+    GRAAL_SEGMENT_NAME_TABLE[ (int)Layer ][2] = (char *)NULL;
 
-    GRAAL_TRANSISTOR_NAME_TABLE[ Layer ][0] = (char *)NULL;;
-    GRAAL_TRANSISTOR_NAME_TABLE[ Layer ][1] = (char *)NULL;
-    GRAAL_TRANSISTOR_NAME_TABLE[ Layer ][2] = (char *)NULL;
+    GRAAL_TRANSISTOR_NAME_TABLE[ (int)Layer ][0] = (char *)NULL;;
+    GRAAL_TRANSISTOR_NAME_TABLE[ (int)Layer ][1] = (char *)NULL;
+    GRAAL_TRANSISTOR_NAME_TABLE[ (int)Layer ][2] = (char *)NULL;
 
-    GRAAL_SEGMENT_VALUE_TABLE[ Layer ][0] = 0;
-    GRAAL_SEGMENT_VALUE_TABLE[ Layer ][1] = 0;
+    GRAAL_SEGMENT_VALUE_TABLE[ (int)Layer ][0] = 0;
+    GRAAL_SEGMENT_VALUE_TABLE[ (int)Layer ][1] = 0;
   }
 
   for ( Layer = 0; Layer < MBK_MAX_VIA; Layer++ )
   {
-    GRAAL_VIA_NAME_TABLE[ Layer ][0]  = (char *)NULL;;
-    GRAAL_VIA_NAME_TABLE[ Layer ][1]  = (char *)NULL;
-    GRAAL_VIA_NAME_TABLE[ Layer ][2]  = (char *)NULL;
+    GRAAL_VIA_NAME_TABLE[ (int)Layer ][0]  = (char *)NULL;;
+    GRAAL_VIA_NAME_TABLE[ (int)Layer ][1]  = (char *)NULL;
+    GRAAL_VIA_NAME_TABLE[ (int)Layer ][2]  = (char *)NULL;
 
-    GRAAL_BIGVIA_NAME_TABLE[ Layer ][0]  = (char *)NULL;;
-    GRAAL_BIGVIA_NAME_TABLE[ Layer ][1]  = (char *)NULL;
-    GRAAL_BIGVIA_NAME_TABLE[ Layer ][2]  = (char *)NULL;
+    GRAAL_BIGVIA_NAME_TABLE[ (int)Layer ][0]  = (char *)NULL;;
+    GRAAL_BIGVIA_NAME_TABLE[ (int)Layer ][1]  = (char *)NULL;
+    GRAAL_BIGVIA_NAME_TABLE[ (int)Layer ][2]  = (char *)NULL;
 
-    GRAAL_BIGVIA_VALUE_TABLE[ Layer ][0] = 0;
+    GRAAL_BIGVIA_VALUE_TABLE[ (int)Layer ][0] = 0;
   }
 
   for ( Layer = 0; Layer < MBK_MAX_REFERENCE; Layer++ )
   {
-    GRAAL_REFERENCE_NAME_TABLE[ Layer ][0] = (char *)NULL;;
-    GRAAL_REFERENCE_NAME_TABLE[ Layer ][1] = (char *)NULL;
-    GRAAL_REFERENCE_NAME_TABLE[ Layer ][2] = (char *)NULL;
+    GRAAL_REFERENCE_NAME_TABLE[ (int)Layer ][0] = (char *)NULL;;
+    GRAAL_REFERENCE_NAME_TABLE[ (int)Layer ][1] = (char *)NULL;
+    GRAAL_REFERENCE_NAME_TABLE[ (int)Layer ][2] = (char *)NULL;
   }
 
   for ( Layer = 0; Layer < RDS_ALL_LAYER; Layer++ )
   {
-    GRAAL_RDS_LAYER_NAME_TABLE[ Layer ][0] = (char *)NULL;;
-    GRAAL_RDS_LAYER_NAME_TABLE[ Layer ][1] = (char *)NULL;
-    GRAAL_RDS_LAYER_NAME_TABLE[ Layer ][2] = (char *)NULL;
-    GRAAL_RDS_LAYER_PATTERN_TABLE[ Layer ] = -1;
+    GRAAL_RDS_LAYER_NAME_TABLE[ (int)Layer ][0] = (char *)NULL;;
+    GRAAL_RDS_LAYER_NAME_TABLE[ (int)Layer ][1] = (char *)NULL;
+    GRAAL_RDS_LAYER_NAME_TABLE[ (int)Layer ][2] = (char *)NULL;
+    GRAAL_RDS_LAYER_PATTERN_TABLE[ (int)Layer ] = -1;
   }
   
   for ( Layer = 0; Layer < MBK_MAX_SYMMETRY; Layer++ )
   {
-    GRAAL_SYMMETRY_NAME_TABLE[ Layer ][0] = (char *)NULL;;
-    GRAAL_SYMMETRY_NAME_TABLE[ Layer ][1] = (char *)NULL;
-    GRAAL_SYMMETRY_NAME_TABLE[ Layer ][2] = (char *)NULL;
+    GRAAL_SYMMETRY_NAME_TABLE[ (int)Layer ][0] = (char *)NULL;;
+    GRAAL_SYMMETRY_NAME_TABLE[ (int)Layer ][1] = (char *)NULL;
+    GRAAL_SYMMETRY_NAME_TABLE[ (int)Layer ][2] = (char *)NULL;
   }
 
   for ( Layer = 0; Layer < MBK_MAX_ORIENT; Layer++ )
   {
-    GRAAL_ORIENT_NAME_TABLE[ Layer ][0] = (char *)NULL;;
-    GRAAL_ORIENT_NAME_TABLE[ Layer ][1] = (char *)NULL;
-    GRAAL_ORIENT_NAME_TABLE[ Layer ][2] = (char *)NULL;
+    GRAAL_ORIENT_NAME_TABLE[ (int)Layer ][0] = (char *)NULL;;
+    GRAAL_ORIENT_NAME_TABLE[ (int)Layer ][1] = (char *)NULL;
+    GRAAL_ORIENT_NAME_TABLE[ (int)Layer ][2] = (char *)NULL;
   }
 
   GRAAL_PEEK_BOUND            = 0;

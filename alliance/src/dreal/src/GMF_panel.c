@@ -66,9 +66,9 @@
 # include "GTB.h"
 # include "GSB.h"
 # include "GMF.h"
-
 # include "GMF_panel.h"
 # include "GMF_dialog.h"
+# include "GTB_dialog.h"
 
 /*------------------------------------------------------------\
 |                                                             |
@@ -120,13 +120,6 @@
  
    static char   DrealFirstLibrary = 1;
 
-/*------------------------------------------------------------\
-|                                                             |
-|                            Buffer                           |
-|                                                             |
-\------------------------------------------------------------*/
-
-  static char *LibraryBuffer = (char *)NULL;
 
 /*------------------------------------------------------------\
 |                                                             |

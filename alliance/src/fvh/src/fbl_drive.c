@@ -48,7 +48,6 @@
 #include "fbl_drive.h"
 
   FILE *FblDriveFile;
-  static int   synopsys = 0;
 
 /* ###--------------------------------------------------------------### */
 /* function : vhdlsavefbfig                     */
@@ -63,7 +62,7 @@ void vhdlsavefbdecl( pthedfbfig, synopsys )
   fbfig_list *pthedfbfig;
   int         synopsys;
 {
-  char         *type_mark;
+  char         *type_mark = NULL;
   int           left,right;
   char         *name;
 
@@ -178,11 +177,11 @@ void vhdlsavefbport( pthedfbfig, synopsys )
   fbfig_list *pthedfbfig;
   int         synopsys;
 {
-  char         *mode;
-  char         *type_mark;
+  char         *mode       = NULL;
+  char         *type_mark  = NULL;
   int           left,right;
   char         *name;
-  char         *bus;
+  char         *bus        = NULL;
 
   struct fbpor *ptfbpor   = 0;  /* correctly ordered port list  */
 

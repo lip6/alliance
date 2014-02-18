@@ -183,7 +183,6 @@ loc_addnamelist( lax_name_list *head, char *name )
 int 
 loc_getdouble( FILE *Pfile, int c, double *PValue )
 {
-  double Value = 0.0;
   char   Buffer[ 32 ];
   int    Index = 0;
 

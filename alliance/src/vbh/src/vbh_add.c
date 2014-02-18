@@ -784,7 +784,7 @@ struct vbtyp *vbh_prdeftyp( VbFigure )
   struct vbtyp        *TypeBit;
   struct vbtyp        *TypeReg;
   struct vbtyp        *TypeMux;
-  struct vbtyp        *TypeWor;
+//struct vbtyp        *TypeWor;
   struct vbtyp        *TypeInt;
   struct vbtyp        *TypeStd_logic;
   struct vbtyp        *TypeStd_ulogic;
@@ -897,8 +897,8 @@ struct vbtyp *vbh_prdeftyp( VbFigure )
   vbh_addvbtyp( VbFigure,"mux_vector",0,0x7fffffff, NULL,
                 0,1,TypeMux,VBH_TYPE_MUX_VECTOR,NULL,'U',-1);
 
-  TypeWor = vbh_addvbtyp( VbFigure,"wor_bit" ,0,1,bit_vl,
-                          2,1,NULL,VBH_TYPE_WOR_BIT,NULL,'E',-1);
+/*TypeWor =*/ vbh_addvbtyp( VbFigure,"wor_bit" ,0,1,bit_vl,
+                            2,1,NULL,VBH_TYPE_WOR_BIT,NULL,'E',-1);
 
   vbh_addvbtyp( VbFigure,"wor_vector",0,0x7fffffff, NULL,
                 0,1,TypeMux,VBH_TYPE_WOR_VECTOR,NULL,'U',-1);

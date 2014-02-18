@@ -65,8 +65,8 @@ gensym_abl (name, num)
   char *ret;
 
   name1 = (char *) mbkalloc (strlen (name) + 5);
-  (void *) strcpy (name1, name);
-  sprintf (number, "%d", num);
+  (void) strcpy (name1, name);
+  sprintf (number, "%ld", num);
   strcat (name1, number);
   ret = namealloc (name1);
   mbkfree (name1);
@@ -357,7 +357,7 @@ displayExprInt (expr)
 	}
       else
 	{
-	  printf ("\ndisplayExpr : error - unknown operator %d\n", oper);
+	  printf ("\ndisplayExpr : error - unknown operator %ld\n", oper);
 	  exit (-1);
 	}
     }
@@ -569,7 +569,7 @@ identExprInt (expr, chaine, taille)
 	}
       if (oper != NOT)
 	{
-	  sprintf (arite, "%d", lengthExpr (expr1));
+	  sprintf (arite, "%ld", lengthExpr (expr1));
 	  strcat (chaine, arite);
 	}
       return (chaine);
@@ -847,11 +847,12 @@ long
 equalExpr (expr1, expr2)
      chain_list *expr1, *expr2;
 {
-  if (ATOM (expr1))
+  if (ATOM (expr1)) {
     if (ATOM (expr2) && (CAR (expr1) == CAR (expr2)))
       return 1;
     else
       return 0;
+  }
   if (ATOM (expr2))
     return 0;
   else
@@ -1504,10 +1505,12 @@ funcNormExpr (expr)
   if (ATOM (expr))
     return ((long) VALUE_ATOM (expr));
   else if (OPER (expr) == NOT)
+    {
     if (ATOM (CADR (expr)))
       return (NOT * 100 + 10);
     else
       return (NOT * 100 + OPER (CADR (expr)));
+    }
 
   return OPER (expr) * 100 + lengthExpr (expr);
 }
@@ -1551,7 +1554,7 @@ deleteNumExpr (expr, i)
 
   if (lengthExpr (expr) <= i)
     {
-      printf ("deleteNumExpr : error - index %d out of bound for \n", i);
+      printf ("deleteNumExpr : error - index %ld out of bound for \n", i);
       displayExpr (e);
       exit (-1);
     }
@@ -1596,7 +1599,7 @@ searchNumExpr (expr, i)
       co++;
     }
 
-  printf ("\nsearchNumExpr : error - index %d out of bound for \n", i);
+  printf ("\nsearchNumExpr : error - index %ld out of bound for \n", i);
   displayExpr (e);
   exit (-1);
 }
@@ -1804,15 +1807,19 @@ simplif10Expr (expr)
 	  if ((oper == AND) || (oper == NOR))
 	    return createAtom ("'1'");
 	  if (oper == XOR)
+        {
 	    if ((cpt1 % 2) == 1)
 	      return createAtom ("'1'");
 	    else
 	      return createAtom ("'0'");
+        }
 	  if (oper == NXOR)
+        {
 	    if ((cpt1 % 2) == 1)
 	      return createAtom ("'0'");
 	    else
 	      return createAtom ("'1'");
+        }
 	}
       /* traitement 1 seul argument */
 
@@ -1824,6 +1831,7 @@ simplif10Expr (expr)
 	  return auxExpr;
 	}
       if (oper == XOR)
+        {
 	if ((cpt1 % 2) == 1)
 	  {
 	    changeOperExpr (auxExpr, NOT);
@@ -1831,7 +1839,9 @@ simplif10Expr (expr)
 	  }
 	else
 	  return CADR (auxExpr);
+        }
       if (oper == NXOR)
+        {
 	if ((cpt1 % 2) == 1)
 	  return CADR (auxExpr);
 	else
@@ -1839,6 +1849,7 @@ simplif10Expr (expr)
 	    changeOperExpr (auxExpr, NOT);
 	    return auxExpr;
 	  }
+        }
     }
   
   printf ("## ERROR in simplif10Expr, %s.%d\n", basename(__FILE__), __LINE__);

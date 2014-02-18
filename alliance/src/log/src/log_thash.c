@@ -340,15 +340,15 @@ displayTH (pTable)
   pElemTH pEl;
   pEl = pTable->pElem;
   printf ("================== DISPLAYTH ================\n");
-  printf ("length = %d\t		count = %d\n", pTable->length, pTable->count);
+  printf ("length = %ld\t		count = %ld\n", pTable->length, pTable->count);
   printf ("=============================================\n");
   for (i = 0; i < pTable->length; i++)
     {
       if (pEl->value != EMPTYTH && pEl->value != DELETETH)
 	{
-	  printf ("index  %d\t", i);
+	  printf ("index  %ld\t", i);
 	  printf ("key    %s\t", pEl->key);
-	  printf ("value  %d \n", pEl->value);
+	  printf ("value  %ld \n", pEl->value);
 	}
       pEl++;
     }

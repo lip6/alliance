@@ -1,3 +1,7 @@
+
+%option noinput
+%option nounput
+
 /*------------------------------------------------------------\
 |                                                             |
 | This file is part of the Alliance CAD System Copyright      |

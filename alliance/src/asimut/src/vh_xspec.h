@@ -21,6 +21,7 @@ extern void           vhx_addexec   ();
 extern int            vhx_execute   ();
 extern unsigned int   vhx_addtra    ();
 extern void           vhx_redtra    ();
+extern void           vhx_supdate   ();
 
 extern void           st_wrtsta    ();
 extern void           st_wrtstadly ();

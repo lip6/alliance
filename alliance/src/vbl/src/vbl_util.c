@@ -112,7 +112,7 @@ char *str2;
 long   nbr1;
 
 {
-  (void) fprintf (stderr,"Fatal error %d executing `%s`: ", code,str1);
+  (void) fprintf (stderr,"Fatal error %ld executing `%s`: ", code,str1);
   switch (code)
     {
     case 1:
@@ -134,19 +134,19 @@ long   nbr1;
       (void) fprintf (stderr,"cannot make BDD of empty expression\n");
       break;
     case 7:
-      (void) fprintf (stderr,"unknown type `%c` for IO `%s`\n",nbr1,str2);
+      (void) fprintf (stderr,"unknown type `%c` for IO `%s`\n",(char)nbr1,str2);
       break;
     case 8:
-      (void) fprintf (stderr,"illegal signal value : hex `%x`\n",nbr1);
+      (void) fprintf (stderr,"illegal signal value : hex `%lx`\n",(unsigned long)nbr1);
       break;
     case 9:
-      (void) fprintf (stderr,"unknown mode `%c` for IO `%s`\n",nbr1,str2);
+      (void) fprintf (stderr,"unknown mode `%c` for IO `%s`\n",(char)nbr1,str2);
       break;
     case 10:
       (void) fprintf (stderr,"decompiler called on empty vbfig\n");
       break;
     case 12:
-      (void) fprintf (stderr,"illegal user value '%c' for IO\n",nbr1);
+      (void) fprintf (stderr,"illegal user value '%c' for IO\n",(char)nbr1);
       break;
     case 13 :
       (void) fprintf (stderr,"cannot find model of `%s`\n",str2);
@@ -155,16 +155,16 @@ long   nbr1;
       (void) fprintf (stderr,"cannot convert empty expression\n");
       break;
     case 15 :
-      (void) fprintf (stderr,"illegal bit string value : `%c`\n",nbr1);
+      (void) fprintf (stderr,"illegal bit string value : `%c`\n",(char)nbr1);
       break;
     case 16 :
       (void) fprintf (stderr,"the same expression cannot be used twice\n");
       break;
     case 17 :
-      (void) fprintf (stderr,"unknown base specifier : `%c`\n",nbr1);
+      (void) fprintf (stderr,"unknown base specifier : `%c`\n",(char)nbr1);
       break;
     case 18:
-      (void) fprintf (stderr,"unknown mode `%c` for port `%s`\n",nbr1,str2);
+      (void) fprintf (stderr,"unknown mode `%c` for port `%s`\n",(char)nbr1,str2);
       break;
     case 19:
       (void) fprintf (stderr,"empty guard expression: `%s`\n",str2);
@@ -176,7 +176,7 @@ long   nbr1;
       (void) fprintf (stderr,"cannot find structural level\n");
       break;
     case 22:
-      (void) fprintf (stderr,"`%s` : `%c` unknown resolution function\n",str2,nbr1);
+      (void) fprintf (stderr,"`%s` : `%c` unknown resolution function\n",str2,(char)nbr1);
       break;
     }
   autexit (1);
@@ -216,7 +216,7 @@ long   nmb1;
       (void) fprintf (stdout,"Linking ...\n");
       break;
     case 10:
-      (void) fprintf (stdout,"###----- processing pattern %d -----###\n",nmb1);
+      (void) fprintf (stdout,"###----- processing pattern %ld -----###\n",nmb1);
       break;
     case 11:
       (void) fprintf (stdout,"Decompiling ...\n");
@@ -244,7 +244,7 @@ long   nmb1;
       (void) fprintf (stderr,"          Verify the file and restart  \n");
       break;	
     default:
-      (void) fprintf (stderr,"vbl_message : code %d unknown.\n",code);
+      (void) fprintf (stderr,"vbl_message : code %ld unknown.\n",code);
     }
 }
 
@@ -257,7 +257,7 @@ void vbl_error ( long   code, char *str1  )
 {
   VBL_ERRFLG++;
   if (code < 100)
-    (void)fprintf (stderr,"Error %d line %ld in file %s :",code,VBL_LINNUM, VBL_FILENAME);
+    (void)fprintf (stderr,"Error %ld line %ld in file %s :",code,VBL_LINNUM, VBL_FILENAME);
 
   else
     {
@@ -269,7 +269,7 @@ void vbl_error ( long   code, char *str1  )
     if (code < 200)
       (void)fprintf (stderr,"Error %d :",code);
 #else
-    (void)fprintf (stderr,"Error %d line %ld in file %s :",code,VBL_LINNUM, VBL_FILENAME);
+    (void)fprintf (stderr,"Error %ld line %ld in file %s :",code,VBL_LINNUM, VBL_FILENAME);
 #endif
     }
 
@@ -515,7 +515,7 @@ void vbl_error ( long   code, char *str1  )
 void vbl_warning ( long   code, char *str1 )
 
 {
-  (void)fprintf (stderr,"Warning %d line %ld in file %s :",code,VBL_LINNUM, VBL_FILENAME);
+  (void)fprintf (stderr,"Warning %ld line %ld in file %s :",code,VBL_LINNUM, VBL_FILENAME);
 
   switch (code)
     {

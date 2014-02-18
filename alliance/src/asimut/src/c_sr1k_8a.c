@@ -45,10 +45,8 @@ struct lkdins *pt_lkdins;
   {
   char         e_n ;			/* chip select			*/
   char         w_n ;			/* write enable			*/
-  unsigned int dat ;			/* input-output 8-bit data	*/
+  unsigned int dat = 0;			/* input-output 8-bit data	*/
   unsigned int adr ;			/* 10-bit address		*/
-  char         vdd ;			/* power supply			*/
-  char         vss ;			/* power supply			*/
 
 #define POSI_vss             0
 #define POSI_vdd POSI_vss +  1

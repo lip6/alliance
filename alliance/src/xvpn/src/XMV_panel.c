@@ -58,6 +58,7 @@
 # include "XMV_dialog.h"
 # include "XMV_view.h"
 # include "XMV_message.h"
+# include "XMX_color.h"
 
 /*------------------------------------------------------------\
 |                                                             |
@@ -1601,7 +1602,7 @@ void CallbackLayerForceDisplay( MyWidget, ClientData, CallData )
 
 void XvpnChangeCursor( Type )
 
-  char Type;
+  int Type;
 {
   int      Pos;
   XmString Label;
@@ -1629,7 +1630,7 @@ void XvpnChangeCursor( Type )
 
 void XvpnChangeForceDisplay( Index )
 
-  char Index;
+  int Index;
 {
   int      Pos;
   XmString Label;

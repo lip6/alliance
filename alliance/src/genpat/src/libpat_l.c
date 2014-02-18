@@ -94,7 +94,7 @@ elt    *hash_pagrp[GNP_HASHSIZE];
 void Erreur (chaine)
 char *chaine;
 {
-  fprintf (stderr, "GENPAT : line %d : %s\n", GNP_LINE, chaine);
+  fprintf (stderr, "GENPAT : line %u : %s\n", GNP_LINE, chaine);
 
 #ifdef DEBUG
   EXIT(1);
@@ -297,7 +297,7 @@ char CheckFormat (format)
 
 char *format;
 {
-char value;
+char value = '-';
 
   KillEsp (format);
   if (strlen (format) > 1 ) 
@@ -336,7 +336,7 @@ char value;
 char CheckType (type)
 char *type;
 {
-    char t;
+    char t = '-';
 
     KillEsp (type);
     if (strlen (type) > 1 ) 
@@ -348,7 +348,6 @@ char *type;
       case 'T':case 't': t = 'T'; break; 
       case 'S':case 's': t = 'S'; break; 
       case 'R':case 'r': t = 'R'; break; 
-           break;
       default:
            Erreur ("MODE error");
     }
@@ -1096,7 +1095,7 @@ char flg =' ';
    if (lg > nb_car) 
    {
        valeur = res = ret_val ;
-       printf ("line %d :VALUE too large value: MSB are truncated\n",GNP_LINE);
+       printf ("line %u :VALUE too large value: MSB are truncated\n",GNP_LINE);
        for (i = 0; i< (lg - nb_car) ; i++,res++);
        while ( *res != '\0')
        {

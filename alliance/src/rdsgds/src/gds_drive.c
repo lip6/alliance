@@ -58,9 +58,10 @@
          if (a != numb) {                                                 \
          pv_init_error();                                                 \
          pv_error.v_error = ENOSPACE;                                     \
-         (void)fclose(fp);                                                \
          pv_give_error("controle");                                       \
+         (void)fclose(fp);                                                \
          EXIT(1); }
+
 
 #define entete(a,b)                                                       \
          infobuf.size = sizeof(hinfo_type) + b/sizeof(char);              \
@@ -344,6 +345,7 @@ coord_t      tab[6]; /* last one reserved for text */
    entete(BOUNDARY, 0);
 
    entete(LAYER0, sizeof(short));
+   controle(1)
    if (islittle()) {
       layer    = swaps(layer);
       datatype = swaps(datatype);
@@ -382,6 +384,7 @@ coord_t      tab[6]; /* last one reserved for text */
       char *pindex;
       char buff [16000];
       strncpy (buff, rect->NAME, 16000);
+      buff[15999] = '\0';
       pindex = strchr (buff, (int)' ');
       if (pindex) {
          *pindex = '[';

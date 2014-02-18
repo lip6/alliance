@@ -95,17 +95,18 @@ char one = 1;
 	s = name;
 	t = buffer;
 	while (*s) {
-		if (*s == ' ')
-			if (one) {
-				*t++ = '[';
-				s++;
-				one = 0;
-			} else {
-				*t++ = ']';
-				*t++ = '[';
-				s++;
-			}
+      if (*s == ' ') {
+        if (one) {
+          *t++ = '[';
+          s++;
+          one = 0;
+        } else {
+          *t++ = ']';
+          *t++ = '[';
+          s++;
+        }
 		*t++ = *s++;
+      }
 	}
 	if (!one)
 		*t++ = ']';
@@ -133,7 +134,6 @@ lofig_list *ptnewfig = NULL;
 FILE *ptfile;
 char *amatla;
 char *SigName = NULL;
-char NetName[100];
 char Buffer[256];
 
 if ((ptfile = mbkfopen(ptfig->NAME, OUT_LO, WRITE_TEXT)) == NULL)
@@ -195,7 +195,7 @@ for (ptins = ptfig->LOINS; ptins; ptins = ptins->NEXT)
     {
     (void)fprintf(stderr, "*** mbk error ***\ninterface discrepancy");
     (void)fprintf(stderr, "between instance %s and", ptins->INSNAME);
-    (void)fprintf(stderr, " model %s", ptins->INSNAME, ptins->FIGNAME);
+    (void)fprintf(stderr, " model %s", ptins->FIGNAME);
     (void)fprintf(stderr, " driving file %s.cct\n", ptfig->NAME);
     EXIT(1);
     }

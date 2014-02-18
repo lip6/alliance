@@ -166,7 +166,7 @@ reorderbddvarwindow3( BddSystem, BddVar )
 
   if ( BddLocalSystem->NUMBER_NODE < NumberNode )
   {
-    NumberNode = BddLocalSystem->NUMBER_NODE;
+  //BddLocalSystem->NUMBER_NODE;
     BestOrder  = BDD_REORDER_132;
   }
 
@@ -353,7 +353,7 @@ reorderbddsystemtop( BddSystem )
   while ( VarCount > 0 )
   {
 # ifdef BDD_DEBUG
-  fprintf( stdout, "-> VarFrom %d\n", VarFrom );
+  fprintf( stdout, "-> VarFrom %u\n", VarFrom );
 # endif
 
     BddReorderLevel[ VarFrom ] = 0;
@@ -363,7 +363,7 @@ reorderbddsystemtop( BddSystem )
     for ( VarTo = VarFrom; VarTo < NumberVar - 1; VarTo++ )
     {
 # ifdef BDD_DEBUG
-  fprintf( stdout, "-> Swap %d and %d\n", VarTo, VarTo + 1 );
+  fprintf( stdout, "-> Swap %u and %d\n", VarTo, VarTo + 1 );
 # endif
 
       swapbddvar( BddLocalSystem, VarTo );
@@ -379,14 +379,14 @@ reorderbddsystemtop( BddSystem )
     }
 
 # ifdef BDD_DEBUG
-  fprintf( stdout, "--> Best one %d\n", BestVar );
+  fprintf( stdout, "--> Best one %u\n", BestVar );
   fprintf( stdout, "--> Number nodes %d\n", NumberNode );
 # endif
 
     for ( VarTo = NumberVar - 1; VarTo > BestVar; VarTo-- )
     {
 # ifdef BDD_DEBUG
-  fprintf( stdout, "-> UnSwap %d and %d\n", VarTo - 1, VarTo );
+  fprintf( stdout, "-> UnSwap %d and %u\n", VarTo - 1, VarTo );
 # endif
 
       SwapReorder                  = BddReorderLevel[ VarTo - 1 ];

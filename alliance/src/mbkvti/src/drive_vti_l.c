@@ -78,7 +78,7 @@ int year, nday, hour, minute, second;
 
 	(void)time(&timer);
 	(void)strcpy(date, ctime(&timer));
-	(void)sscanf(date, "%s %s %d %d:%d:%d 19%d",
+	(void)sscanf(date, "%3s %3s %11d %11d:%11d:%11d 19%11d",
 						day, month, &nday, &hour, &minute, &second, &year);
 	(void)sprintf(date, "%02d-%s-%02d %02d:%02d",
 						nday, month, year, hour, minute);
@@ -103,21 +103,22 @@ char one = 1;
 	s = name;
 	t = buffer;
 	while (*s) {
-		if (*s == ' ')
-			if (one) {
-				*t++ = '[';
-				s++;
-				one = 0;
-			} else {
-				*t++ = ']';
-				*t++ = '[';
-				s++;
-			}
-		if (*s == SEPAR && !one) {
-			*t++ = ']';
-			one = 1;
-		}
-		*t++ = *s++;
+      if (*s == ' ') {
+        if (one) {
+          *t++ = '[';
+          s++;
+          one = 0;
+        } else {
+          *t++ = ']';
+          *t++ = '[';
+          s++;
+        }
+      }
+      if (*s == SEPAR && !one) {
+        *t++ = ']';
+        one = 1;
+      }
+      *t++ = *s++;
 	}
 	if (!one)
 		*t++ = ']';
@@ -294,7 +295,7 @@ lowire_list *scanwire;
 			for( ; scannum ; scannum=scannum->NEXT ) {
 				(void)fprintf(ptfile, "X "); /* unable to represent direction in hns */
 				(void)fprintf(ptfile, "%ld ", ptcon->SIG->INDEX);
-				(void)fprintf(ptfile, "%d ", idx_rcn);
+				(void)fprintf(ptfile, "%ld ", idx_rcn);
 				ptnode=getlonode(ptcon->SIG,scannum->DATA);
 				ptnode->USER= (void *)addptype(ptnode->USER,HNSRCN_X,(void*)idx_rcn);
 				(void)fprintf(ptfile, "%s;\n", busname(ptcon->NAME));
@@ -304,7 +305,7 @@ lowire_list *scanwire;
 		else {
 			(void)fprintf(ptfile, "X "); /* unable to represent direction in hns */
 			(void)fprintf(ptfile, "%ld ", ptcon->SIG->INDEX);
-			(void)fprintf(ptfile, "%d ", idx_rcn++);
+			(void)fprintf(ptfile, "%ld ", idx_rcn++);
 			(void)fprintf(ptfile, "%s;\n", busname(ptcon->NAME));
 		}
 		
@@ -339,11 +340,11 @@ lowire_list *scanwire;
 			for (ptcon = ptins->LOCON; ptcon != NULL; ptcon = ptcon->NEXT) {
 				if( (scannum = ptcon->PNODE) ) {
 					for( ; scannum ; scannum=scannum->NEXT ) {
-						(void)fprintf(ptfile, "%d ", idx_rcn++);
+						(void)fprintf(ptfile, "%ld ", idx_rcn++);
 					}
 				}
 				else {
-					(void)fprintf(ptfile, "%d ", idx_rcn++);
+					(void)fprintf(ptfile, "%ld ", idx_rcn++);
 				}
 				LINEBREAK;
 			}

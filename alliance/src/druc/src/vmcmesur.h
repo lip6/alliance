@@ -19,6 +19,8 @@
 |                  Druc VmcMesur  Fonctions                   |
 |                                                             |
 \------------------------------------------------------------*/
-extern void DrucRelationSetDistance ();
-extern void DrucRelationMesure      ();
-extern void DrucRelationTeste       ();
+extern void DrucRelationSetDistance   ();
+extern void DrucRelationMesure        ();
+extern void DrucRelationTeste         ();
+extern void DrucMesureInter           ();
+extern void DrucRelationTesteDistance ();

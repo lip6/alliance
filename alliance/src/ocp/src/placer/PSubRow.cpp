@@ -31,8 +31,14 @@
 #include "PSubRow.h"
 
 PSubRow::PSubRow()
-    : PContainer(), _bins(),
-    _binsXMax()
+  : PContainer()
+  , _row      (NULL)
+  , _bins     ()
+  , _binsXMax ()
+  , _size     (0.0)
+  , _capa     (0.0)
+  , _max      (0.0)
+  , _nBins    (0)
 {}
 
 PSubRow::~PSubRow()

@@ -62,9 +62,15 @@
 # include "GMF.h"
 # include "GRM.h"
 # include "GMT.h"
+# include "GMV.h"
 
 # include "GMT_tools.h"
+# include "GMT_panel.h"
 # include "GMT_message.h"
+# include "GRM_select.h"
+# include "GMF_menu.h"
+# include "GMF_file.h"
+# include "GRM_window.h"
 
 /*------------------------------------------------------------\
 |                                                             |
@@ -348,7 +354,6 @@ void GraalToolsPeek( LambdaX1, LambdaY1, LambdaX2, LambdaY2 )
   rdsrec_list *Rec;
   graalpeek   *Peek;
   char         ScanRec;
-  char         Layer;
   long         XabMin;
   long         XabMax;
   long         YabMin;
@@ -429,7 +434,7 @@ void GraalToolsPeek( LambdaX1, LambdaY1, LambdaX2, LambdaY2 )
           {
             for ( ScanRec = 0; ScanRec < GRAAL_MAX_REC ; ScanRec++ )
             {
-              Rec = ScanWinRec->RECTAB[ ScanRec ];
+              Rec = ScanWinRec->RECTAB[ (int)ScanRec ];
 
               if ( ( Rec != (rdsrec_list *)NULL      ) &&
                    ( ! IsRdsFigRec( Rec )            ) &&
@@ -501,7 +506,6 @@ void GraalToolsUnpeek()
 
 void GraalToolsHierarchyDown()
 {
-  graalselect *Select;
   rdsrec_list *Rectangle;
   rdsins_list *Instance;
   char        *ModelName;
@@ -541,7 +545,6 @@ void GraalToolsHierarchyShow( LambdaX1, LambdaY1 )
   long LambdaY1;
 {
   graalselect *Select;
-  rdsrec_list *Rectangle;
   phins_list  *InsMbk;
   phins_list  *ScanInsMbk;
   phfig_list  *ModelMbk;
@@ -596,7 +599,7 @@ void GraalToolsHierarchyShow( LambdaX1, LambdaY1 )
       sprintf( GraalScanHierarchyShow, "INSTANCE %s (%s,%s)\n",
                InsMbk->INSNAME,
                InsMbk->FIGNAME,
-               GRAAL_SYMMETRY_NAME_TABLE[ InsMbk->TRANSF ][0] );
+             GRAAL_SYMMETRY_NAME_TABLE[ (int)InsMbk->TRANSF ][0] );
 
       GraalScanHierarchyShow += strlen( GraalScanHierarchyShow );
 

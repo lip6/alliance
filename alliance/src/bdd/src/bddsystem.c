@@ -302,13 +302,13 @@ void viewbddsystem( BddSystem, ViewIndex )
 
     for ( Index = 0; Index < BddSystem->NUMBER_INDEX; Index++ )
     {
-      fprintf( stdout, "  INDEX_TO_VAR[ %d ] = %d\n",
+      fprintf( stdout, "  INDEX_TO_VAR[ %u ] = %d\n",
                Index, IndexToVar[ Index ] );
     }
 
     for ( Variable = 0; Variable < BddSystem->NUMBER_VAR; Variable++ )
     {
-      fprintf( stdout, "  VAR_TO_INDEX[ %d ] = %d\n",
+      fprintf( stdout, "  VAR_TO_INDEX[ %u ] = %d\n",
                Variable, VarToIndex[ Variable ] );
     }
   }

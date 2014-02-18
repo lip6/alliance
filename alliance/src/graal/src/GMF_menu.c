@@ -168,7 +168,9 @@
              (GraalMenuItem *)NULL
            }
            ,
-           NULL
+           {
+             NULL
+           }
          };
 
 /*------------------------------------------------------------\
@@ -282,7 +284,6 @@ void CallbackFileSaveAs( MyWidget, ClientData, CallData )
      caddr_t ClientData;
      caddr_t CallData;
 {
-  Arg      Args;
   XmString SaveAsString;
 
   rdsbegin();

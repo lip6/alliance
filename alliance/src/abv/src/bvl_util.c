@@ -55,7 +55,7 @@ void bvl_error ( long   code, char *str1 )
 
   {
   BVL_ERRFLG++;
-  (void)fprintf (stderr,"`%s` Error %d line %d :",BVL_CURFIL,code,BVL_LINNUM);
+  (void)fprintf (stderr,"`%s` Error %ld line %ld :",BVL_CURFIL,code,BVL_LINNUM);
 
   switch (code)
     {
@@ -194,7 +194,7 @@ void bvl_y_error (str)
 char *str;
   {
   BVL_ERRFLG++;
-  (void)fprintf (stderr,"`%s` Error line %d : %s\n",BVL_CURFIL,BVL_LINNUM,str);
+  (void)fprintf (stderr,"`%s` Error line %ld : %s\n",BVL_CURFIL,BVL_LINNUM,str);
   }
 
 /* ###--------------------------------------------------------------### */

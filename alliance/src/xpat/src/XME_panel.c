@@ -45,6 +45,8 @@
 # include <stdio.h>
 # include <string.h>
 # include <Xm/Xm.h>
+# include <Xm/Text.h>
+# include <Xm/List.h>
 # include <Xm/FileSB.h>
 # include <Xm/SelectioB.h>
 # include <Xm/PushBG.h>
@@ -63,6 +65,7 @@
 # include "XME_dialog.h"
 # include "XME_edit.h"
 # include "XME_search.h"
+# include "XME_select.h"
 
 /*------------------------------------------------------------\
 |                                                             |
@@ -119,7 +122,9 @@
              (Widget)NULL
            }
            ,
-           NULL
+           {
+             NULL
+           }
          };
 
    XpatPanelItem XpatEditSearchViewPanel  =
@@ -189,7 +194,9 @@
              (Widget)NULL
            }
            ,
-           NULL
+           {
+             NULL
+           }
          };
 
    XpatPanelItem XpatEditIdentifyPanel =
@@ -273,7 +280,9 @@
              (Widget)NULL
            }
            ,
-           NULL
+           {
+             NULL
+           }
          };
 
    XpatPanelItem XpatEditSelectPanel =

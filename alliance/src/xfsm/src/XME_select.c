@@ -60,6 +60,8 @@
 # include "XFS.h"
 # include "XME.h"
 
+# include "XME_panel.h"
+# include "XMV_view.h"
 # include "XME_select.h"
 
 /*------------------------------------------------------------\

@@ -67,6 +67,7 @@
 
 # include "XMF_panel.h"
 # include "XMF_dialog.h"
+# include "XTB_dialog.h"
 
 /*------------------------------------------------------------\
 |                                                             |

@@ -86,13 +86,11 @@ vexexpr *shiftvexatomleft( Expr, Count  )
   vexexpr *Expr;
   short    Count;
 {
-  char    *Value;
   vexexpr *VexZero;
   short    Width;
 
   if ( IsVexNodeAtom( Expr ) )
   {
-    Value = GetVexAtomValue( Expr );
     Width = Expr->WIDTH;
 
     if ( Count >= Width )

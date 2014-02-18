@@ -58,7 +58,11 @@
 # include "XFS.h"
 # include "XME.h"
 
+# include "XTB_dialog.h"
+# include "XMV_view.h"
 # include "XME_edit.h"
+# include "XME_panel.h"
+# include "XME_select.h"
 # include "XME_message.h"
 
 /*------------------------------------------------------------\
@@ -201,7 +205,6 @@ void XfsmEditIdentify( X1, Y1 )
   long Y1;
 {
   xfsmselect_list *Select;
-  xfsmobj_list    *Obj;
 
   strcpy( XfsmIdentifyMessage, "No element found !" );
 
@@ -235,7 +238,6 @@ void XfsmEditConnected( X1, Y1 )
   long Y1;
 {
   xfsmselect_list  *Select;
-  xfsmselect_list **PrevSelect;
   xfsmobj_list     *Obj;
 
   if ( XfsmHeadConnect != (xfsmselect_list *)NULL )

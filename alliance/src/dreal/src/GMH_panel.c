@@ -64,8 +64,8 @@
 # include "GTB.h"
 # include "GMX.h"
 # include "GMH.h"
-
 # include "GMH_panel.h" 
+# include "GTB_dialog.h" 
 # include "LIP6bw.h"
 
 /*------------------------------------------------------------\
@@ -208,13 +208,13 @@ void DrealBuildPresentPanel()
                                    LIP6bw_width,
                                    LIP6bw_height);
 
-  PanelLabel = XtVaCreateManagedWidget( "",
-                                         xmLabelGadgetClass, 
-                                         DrealHelpPresentPanel.FORM,
-			                   XmNlabelType   , XmPIXMAP,
-			                   XmNlabelPixmap , PanelPixmap,
-                                         NULL
-                                       );
+  XtVaCreateManagedWidget( "",
+                           xmLabelGadgetClass, 
+                           DrealHelpPresentPanel.FORM,
+			               XmNlabelType   , XmPIXMAP,
+			               XmNlabelPixmap , PanelPixmap,
+                           NULL
+                           );
   sprintf( Buffer, "ALLIANCE CAD SYSTEM  %s\n", ALLIANCE_VERSION );
 
   PanelString = XmStringCreateLtoR( Buffer, "Panel_charset2" );

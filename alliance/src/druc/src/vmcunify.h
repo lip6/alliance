@@ -22,4 +22,5 @@ extern void           DrucUnifyRectangle            ();
 extern void           DrucUnifyLayer                ();
 extern void           DrucUnify                     ();
 extern void           DrucUnifyFigure               ();
+extern void           DrucUnifyLayer                ();
 

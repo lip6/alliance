@@ -106,7 +106,7 @@ short         right;    /* array's right bound (= -1 if scalar)  */
       {
       for (i=left ; i!=(right+inc) ; i+=inc)
         {
-        sprintf (extname,"%s %d",(char *)ptauxnam->DATA,i);
+        sprintf (extname,"%s %ld",(char *)ptauxnam->DATA,i);
         name = namealloc(extname);
         if (ptauxnat != 0)
           {
@@ -950,7 +950,7 @@ fbl_ablstr  *pt_ablstr;		/* tested expression			*/
       {
       for (; last_width<pt_ablstr->WIDTH ; last_width++)
         {
-        sprintf (nomvar,"(%d)",last_width);
+        sprintf (nomvar,"(%ld)",last_width);
         addlogbddcircuitin(FblBddCircuit,nomvar);
         }
       }
@@ -1006,7 +1006,7 @@ fbl_ablstr  *pt_ablstr;		/* tested expression			*/
   i         = pt_ablstr->WIDTH - 1;
   while (pt_auxabl != NULL)
     {
-    sprintf (nomvar,"(%i)",i);
+    sprintf (nomvar,"(%li)",i);
     pt_newabl2 = substdupablexpr (pt_newabl,namealloc(nomvar),
                             (struct chain *)pt_auxabl->DATA);
     freeablexpr (pt_newabl);

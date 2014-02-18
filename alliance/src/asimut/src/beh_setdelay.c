@@ -123,7 +123,7 @@ unsigned char   mode;
   char           new_name [256];
   char          *name          ;
   char           error_flag    ;
-  unsigned int   time  = 0     ;
+  unsigned int   time          = 0 ;
 
 	/* ###------------------------------------------------------### */
 	/*    create a dictionary that will associate to each element	*/
@@ -305,7 +305,7 @@ unsigned char   mode;
           pt_binode       = pt_binode->NEXT;
           }
 
-        printf("WARNING : Buffer %s with delay %d %s is created after register %s.\n",
+        printf("WARNING : Buffer %s with delay %u %s is created after register %s.\n",
                           name, time, beh_gettimeunit(pt_fig->TIME_UNIT), pt_reg->NAME);
         }
 
@@ -331,7 +331,7 @@ unsigned char   mode;
           pt_binode       = pt_binode->NEXT;
           }
 
-        printf("WARNING : Register %s with delay %d %s becomes a null-delay Register.\n",
+        printf("WARNING : Register %s with delay %u %s becomes a null-delay Register.\n",
                           pt_reg->NAME, time, beh_gettimeunit(pt_fig->TIME_UNIT));
         }
 
@@ -343,7 +343,7 @@ unsigned char   mode;
 
       if (mode == 0)
         {
-        printf("WARNING : Register %s with delay %d %s becomes a null-delay Register.\n",
+        printf("WARNING : Register %s with delay %u %s becomes a null-delay Register.\n",
                           pt_reg->NAME, time, beh_gettimeunit(pt_fig->TIME_UNIT));
         }
       }
@@ -426,7 +426,7 @@ unsigned char  delay_mode;
  
   while ( fgets(line, 256, delay_file) != NULL)
     {
-    if ( sscanf( line, "%s : %d : %d : %d : %d", signame,
+    if ( sscanf( line, "%255s : %11d : %11d : %11d : %11d", signame,
                       &typ_delay, &min_delay, &max_delay, &nbr_delay ) == 5 )
       {
       if ((delay_mode & BEH_DELAY_MAX) == BEH_DELAY_MAX)
@@ -436,7 +436,7 @@ unsigned char  delay_mode;
       else if ((delay_mode & BEH_DELAY_TYP) == BEH_DELAY_TYP)
         beh_addtab (delay_dict, namealloc(signame), NULL, BEH_DELAY_FIELD, typ_delay);
       }
-    else if ( sscanf( line, "%s %d : %d : %d : %d : %d", vector_radical, &index,
+    else if ( sscanf( line, "%255s %11d : %11d : %11d : %11d : %11d", vector_radical, &index,
                       &typ_delay, &min_delay, &max_delay, &nbr_delay ) == 6 )
       {
       sprintf(signame, "%s %d", vector_radical, index);
@@ -449,7 +449,7 @@ unsigned char  delay_mode;
       }
     else
       {
-      sscanf( line, "%s", signame );
+      sscanf( line, "%255s", signame );
       printf("WARNING : invalid line in file %s.%s : \n",delay_filename,(char *)(suffix->DATA));
       printf("        : %s\n", line);
       }

@@ -145,7 +145,7 @@
 
 void XfsmDisplayMessage( Where, Text )
  
-     char  Where;
+     int   Where;
      char *Text;
 {
   XmString TextString;

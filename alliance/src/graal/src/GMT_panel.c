@@ -45,6 +45,7 @@
 # include <stdio.h>
 # include <string.h>
 # include <Xm/Xm.h>
+# include <Xm/Text.h>
 # include <Xm/FileSB.h>
 # include <Xm/SelectioB.h>
 # include <Xm/PushBG.h>
@@ -59,6 +60,7 @@
 # include "GTB.h"
 # include "GSB.h"
 # include "GMT.h"
+# include "GMV.h"
 
 # include "GMT_panel.h"
 # include "GMT_message.h"

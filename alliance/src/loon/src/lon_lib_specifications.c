@@ -29,6 +29,7 @@
 
 
 #include <mut.h>
+#include <aut.h>
 #include <mlo.h>
 #include <abl.h>
 #include <abe.h>
@@ -207,7 +208,7 @@ extern double getgenericT(befig_list* befig, char* name)
    int T_setup=0;
    int count=0;
    char memo;
-   char *output;
+   char *output = NULL;
 
    if (befig->BEOUT) output=befig->BEOUT->NAME;
    else if (befig->BEBUS) output=befig->BEBUS->NAME;
@@ -255,7 +256,7 @@ extern double getgenericTh(befig_list* befig, char* name)
    int T_setup=0;
    int count=0;
    char memo;
-   char *output;
+   char *output = NULL;
 
    if (befig->BEOUT) output=befig->BEOUT->NAME;
    else if (befig->BEBUS) output=befig->BEBUS->NAME;
@@ -294,7 +295,7 @@ extern double getgenericTl(befig_list* befig, char* name)
    int T_setup=0;
    int count=0;
    char memo;
-   char *output;
+   char *output = NULL;
 
    if (befig->BEOUT) output=befig->BEOUT->NAME;
    else if (befig->BEBUS) output=befig->BEBUS->NAME;
@@ -330,7 +331,7 @@ extern void putgenericT(befig_list* befig, char* name, double Thl_value, double 
 {
    char* Thl, *Tll, *Tlh, *Thh;
    char memo;
-   char *output;
+   char *output = NULL;
 
    if (befig->BEOUT) output=befig->BEOUT->NAME;
    else if (befig->BEBUS) output=befig->BEBUS->NAME;
@@ -414,7 +415,7 @@ extern int getgenericR(befig_list* befig, char* name)
    int R=0;
    int count=0;
    char memo;   
-   char *output;
+   char *output = NULL;
 
    if (befig->BEOUT) output=befig->BEOUT->NAME;
    else if (befig->BEBUS) output=befig->BEBUS->NAME;
@@ -450,7 +451,7 @@ extern void putgenericR(befig_list* befig, char* name, double Rup_value, double 
 {
    char* R_up, *R_down;
    char memo;   
-   char *output;
+   char *output = NULL;
 
    if (befig->BEOUT) output=befig->BEOUT->NAME;
    else if (befig->BEBUS) output=befig->BEBUS->NAME;
@@ -484,7 +485,7 @@ extern int getgenericRup(befig_list* befig, char* name)
    int R=0;
    int count=0;
    char memo;   
-   char *output;
+   char *output = NULL;
 
    if (befig->BEOUT) output=befig->BEOUT->NAME;
    else if (befig->BEBUS) output=befig->BEBUS->NAME;
@@ -521,7 +522,7 @@ extern int getgenericRdown(befig_list* befig, char* name)
    int R=0;
    int count=0;
    char memo;   
-   char *output;
+   char *output = NULL;
 
    if (befig->BEOUT) output=befig->BEOUT->NAME;
    else if (befig->BEBUS) output=befig->BEBUS->NAME;

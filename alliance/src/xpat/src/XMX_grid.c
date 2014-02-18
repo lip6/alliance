@@ -214,6 +214,8 @@ char XpatDisplayUnitGrid( GraphicX1, GraphicY1, GraphicX2, GraphicY2 )
 
   if ( XpatUnitUserGrid == 1  )
   {
+    Check = ( XPAT_LOWER_GRID_STEP * 2 / XpatUnitUserGridDy );
+#if THIS_IS_DISABLED
     if ( XpatUnitUserGridDx > XpatUnitUserGridDy )
     {
       Check = ( XPAT_LOWER_GRID_STEP * 2 / XpatUnitUserGridDy );
@@ -222,6 +224,7 @@ char XpatDisplayUnitGrid( GraphicX1, GraphicY1, GraphicX2, GraphicY2 )
     {
       Check = ( XPAT_LOWER_GRID_STEP * 2 / XpatUnitUserGridDy );
     }
+#endif
 
     if ( XpatUnitGridStep < Check ) UserGrid = 0;
     else                            UserGrid = 1;

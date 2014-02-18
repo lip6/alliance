@@ -43,7 +43,7 @@ class PCon: public PElem {
       PCon(const locon* con, PPos pos, char orient);
       PPos		GetPos() const			{ return _pos; }
       const locon*	GetLocon() const		{ return _con; }
-      void		SetPos(const PPos pos)		{_pos = pos;}
+      void		SetPos(const PPos& pos)		{_pos = pos;}
       void		SetOrient(const char orient)	{_orient = orient;}
       void		Save(struct phfig *physicalfig, const double dx, const double dy) const;
       void		RingSave(struct phfig *physicalfig, const double dx, const double dy) const;

@@ -57,7 +57,7 @@ char          mode;		/* recursive delete or not (Y or N)	*/
 
   {
   struct fbaux  headaux;
-  struct fbaux *ptlastaux;
+  struct fbaux *ptlastaux = NULL;
   struct fbaux *ptfbaux;
 
   if (listfbaux != 0)
@@ -120,7 +120,7 @@ char          mode;		/* recursive delete or not (Y or N)	*/
 
   {
   struct fbbus  headbus;
-  struct fbbus *ptlastbus;
+  struct fbbus *ptlastbus = NULL;
   struct fbbus *ptfbbus;
 
   if (listfbbus != 0)
@@ -186,7 +186,7 @@ char          mode;		/* recursive delete or not (Y or N)	*/
 
   {
   struct fbbux  headbux;
-  struct fbbux *ptlastbux;
+  struct fbbux *ptlastbux = NULL;
   struct fbbux *ptfbbux;
 
   if (listfbbux != 0)
@@ -252,7 +252,7 @@ char          mode;		/* recursive delete or not (Y or N)	*/
 
   {
   struct fbfig  headfig;
-  struct fbfig *ptlastfig;
+  struct fbfig *ptlastfig = NULL;
   struct fbfig *ptfbfig;
   struct ptype *ptptype;
 
@@ -333,7 +333,7 @@ char          mode;		/* recursive delete or not (Y or N)	*/
 
   {
   struct fbgen  headgen;
-  struct fbgen *ptlastgen;
+  struct fbgen *ptlastgen = NULL;
   struct fbgen *ptfbgen;
 
   if (listfbgen != 0)
@@ -396,7 +396,7 @@ char          mode;		/* recursive delete or not (Y or N)	*/
 
   {
   struct fbmsg  headmsg;
-  struct fbmsg *ptlastmsg;
+  struct fbmsg *ptlastmsg = NULL;
   struct fbmsg *ptfbmsg;
 
   if (listfbmsg != 0)
@@ -459,7 +459,7 @@ char          mode;		/* recursive delete or not (Y or N)	*/
 
   {
   struct fbout  headout;
-  struct fbout *ptlastout;
+  struct fbout *ptlastout = NULL;
   struct fbout *ptfbout;
 
   if (listfbout != 0)
@@ -520,7 +520,7 @@ char         *fbporname;	/* name of the BEPOR to be deleted	*/
 
   {
   struct fbpor  headpor;
-  struct fbpor *ptlastpor;
+  struct fbpor *ptlastpor = NULL;
   struct fbpor *ptfbpor;
 
   if (listfbpor != 0)
@@ -572,7 +572,7 @@ char          mode;		/* recursive delete or not (Y or N)	*/
 
   {
   struct fbreg  headreg;
-  struct fbreg *ptlastreg;
+  struct fbreg *ptlastreg = NULL;
   struct fbreg *ptfbreg;
 
   if (listfbreg != 0)
@@ -636,7 +636,7 @@ char         *fbrinname;	/* name of the BERIN to be deleted	*/
 
   {
   struct fbrin  headrin;
-  struct fbrin *ptlastrin;
+  struct fbrin *ptlastrin = NULL;
   struct fbrin *ptfbrin;
 
   if (listfbrin != 0)

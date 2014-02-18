@@ -3141,7 +3141,7 @@ void CallbackChangeSegmentLayer( MyWidget, ClientData, CallData )
   rdsbegin();
 
   GraalSegmentLayer = (long)ClientData;
-  GraalSegmentWidth = GRAAL_SEGMENT_VALUE_TABLE[ GraalSegmentLayer ][0];
+  GraalSegmentWidth = GRAAL_SEGMENT_VALUE_TABLE[ (int)GraalSegmentLayer ][0];
 
   if ( GraalSegmentWire == GRAAL_FALSE )
   {
@@ -3510,7 +3510,7 @@ void CallbackChangeTransistorType( MyWidget, ClientData, CallData )
   rdsbegin();
 
   GraalTransistorType  = (long)ClientData;
-  GraalTransistorWidth = GRAAL_SEGMENT_VALUE_TABLE[ GraalTransistorType ][0];
+  GraalTransistorWidth = GRAAL_SEGMENT_VALUE_TABLE[ (int)GraalTransistorType ][0];
 
   if ( GraalTransistorWire == GRAAL_FALSE )
   {
@@ -3681,7 +3681,7 @@ void CallbackChangeConnectorLayer( MyWidget, ClientData, CallData )
   rdsbegin();
 
   GraalConnectorLayer = (long)ClientData;
-  GraalConnectorWidth = GRAAL_SEGMENT_VALUE_TABLE[ GraalConnectorLayer ][0];
+  GraalConnectorWidth = GRAAL_SEGMENT_VALUE_TABLE[ (int)GraalConnectorLayer ][0];
 
   GraalChangeEditMode( GRAAL_CREATE_CONNECTOR,
                        GraalPromptCreateConnector );

@@ -179,7 +179,6 @@ static int MochaCheckViewState( MochaFigure, BddStateSet )
   bddnode         *BddReached;
   bddnode         *BddFirst;
   bddnode         *BddFsm;
-  bddnode         *BddAssume;
   bddnode         *BddCheck;
   bddnode         *BddOther;
   bddassoc        *BddAssoc;
@@ -191,7 +190,6 @@ static int MochaCheckViewState( MochaFigure, BddStateSet )
   BddRegAssoc = MochaFigure->BDD_ASSOC_REG;
   BddReached  = MochaFigure->BDD_REACHED_STATE;
   BddFirst    = MochaFigure->BDD_FIRST_STATE;
-  BddAssume   = MochaFigure->BDD_ASSUME;
 
   if ( BddStateSet == BddLocalSystem->ZERO )
   {
@@ -283,7 +281,6 @@ static void MochaCheckBuildTransFunc( MochaFigure )
   mochafsm_list   *MochaFsm;
   mochastate_list *MochaState;
   befig_list      *BehFigure;
-  ctlfig_list     *CtlFigure;
   btrtransfunc    *BtrTransFunc;
   bddassoc        *BddStateAssoc;
   bddassoc        *BddRegAssoc;
@@ -297,13 +294,11 @@ static void MochaCheckBuildTransFunc( MochaFigure )
   char             Buffer[ 512 ];
   long             NumberReg;
   long             Index;
-  long             Index2;
   long             Step;
   long             BitMask;
   long             Width;
 
   BehFigure = MochaFigure->BEH_FIGURE;
-  CtlFigure = MochaFigure->CTL_FIGURE;
 
   setbddlocalcircuit( MochaFigure->BDD_CIRCUIT );
 
@@ -338,7 +333,6 @@ static void MochaCheckBuildTransFunc( MochaFigure )
     else                                    Step =  1;
 
     Index  = MochaFsm->LEFT;
-    Index2 = 0;
 
     HeadList = (chain_list *)0;
 
@@ -351,7 +345,6 @@ static void MochaCheckBuildTransFunc( MochaFigure )
       addbddnodeassoc( (bddsystem *)0, BddStateAssoc, Variable, BddLocalSystem->ONE );
 
       Index += Step;
-      Index2 = Index2 + 1;
 
       HeadList = addchain( HeadList, (void *)BddNode );
     }
@@ -564,19 +557,15 @@ static void MochaCheckComputeReachableStates( MochaFigure )
 
   mochafig_list *MochaFigure;
 {
-  befig_list   *BehFigure;
   ctlfig_list  *CtlFigure;
   btrtransfunc *BtrTransFunc;
-  bddassoc     *BddAssoc;
   bddnode      *BddNewSet;
   bddnode      *BddCurrentSet;
   bddnode      *BddReachedSet;
   bddnode      *BddNode;
 
-  BehFigure    = MochaFigure->BEH_FIGURE;
   CtlFigure    = MochaFigure->CTL_FIGURE;
   BtrTransFunc = MochaFigure->BTR_TRANS_FUNC;
-  BddAssoc     = MochaFigure->BDD_ASSOC_REG;
 
   setbddlocalcircuit( MochaFigure->BDD_CIRCUIT );
 
@@ -680,11 +669,9 @@ static bddnode *MochaCheckCtlBddQuantify( BddNode )
   bddnode      *BddReached; 
   bddnode      *BddAssume;
   bddnode      *BddAssumeNot;
-  btrtransfunc *BtrTransFunc;
   bddassoc     *BddAssoc;
   bddnode      *BddNew;
 
-  BtrTransFunc = MochaMochaFigure->BTR_TRANS_FUNC;
   BddAssoc     = MochaMochaFigure->BDD_ASSOC_REG;
   BddReached   = MochaMochaFigure->BDD_REACHED_STATE;
   BddAssume    = MochaMochaFigure->BDD_ASSUME;
@@ -1327,19 +1314,13 @@ static void MochaCheckCtlFormulae( MochaFigure, FlagVerbose )
 {
   ctlfig_list  *CtlFigure;
   ctlform_list *CtlForm;
-  btrtransfunc *BtrTransFunc;
   biablarray   *BiAblArray;
   ablarray     *AblArray;
   bddnode      *BddNode;
   bddnode      *BddFirst;
   bddnode      *BddReached;
-  bddnode      *BddAssume;
-  bddassoc     *BddAssoc;
 
   CtlFigure    = MochaFigure->CTL_FIGURE;
-  BtrTransFunc = MochaFigure->BTR_TRANS_FUNC;
-  BddAssoc     = MochaFigure->BDD_ASSOC_REG;
-  BddAssume    = MochaFigure->BDD_ASSUME;
   BddReached   = MochaFigure->BDD_REACHED_STATE;
   BddFirst     = MochaFigure->BDD_FIRST_STATE;
 

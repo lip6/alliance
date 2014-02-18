@@ -30,13 +30,14 @@
 /* ###--------------------------------------------------------------### */
 
 #include <stdio.h>
+#include <string.h>
 #include "mut.h"
 #include "log.h"
 #include "beh.h"
 #include "beh_debug.h"
 
 static char           *buffer      = NULL;
-static unsigned long    buff_size   = 0;
+static long            buff_size   = 0;
 static struct circuit *circuit_pnt = NULL;
 
 
@@ -68,7 +69,6 @@ char         **str;			/* recognized strings		*/
   struct beout           *beout_pnt;
   struct bebus           *bebus_pnt;
   struct beaux           *beaux_pnt;
-  struct beaux           *bedly_pnt;
   struct bebux           *bebux_pnt;
   struct bepor           *bepor_pnt;
   struct begen           *begen_pnt;
@@ -561,20 +561,20 @@ char         **str;			/* recognized strings		*/
         {
         case s_DFN :
           if (pnt[i].dat != NULL)
-            printf ("%s", pnt[i].dat);
+            printf ("%s", (char*)pnt[i].dat);
           printf ("\n");
           break;
 
         case u_DFN :
-          printf ("%u\n", pnt[i].imd);
+          printf ("%u\n", (unsigned int)pnt[i].imd);
           break;
 
         case c_DFN :
-          printf ("'%c'\n", pnt[i].imd);
+          printf ("'%c'\n", (char)pnt[i].imd);
           break;
 
         case d_DFN :
-          printf ("%d\n", pnt[i].imd);
+          printf ("%d\n", (int)pnt[i].imd);
           break;
 
         case l_DFN :
@@ -582,7 +582,7 @@ char         **str;			/* recognized strings		*/
           break;
 
         case x_DFN :
-          printf ("0x%x\n", pnt[i].imd);
+          printf ("0x%x\n", (unsigned int)pnt[i].imd);
           break;
 
         case ABL_DFN :
@@ -798,7 +798,7 @@ long   *indxs;				/* words' index in strgs table	*/
 
   for (i=0 ; i<wrdcnt ; i++)
     {
-    flags [i] = sscanf (words [i], "%u", &nmbrs [i]);
+    flags [i] = sscanf (words [i], "%11ld", &nmbrs [i]);
     for (j=0; j<MAXCMD_DFN ; j++)
       {
       if (!strcmp (strgs [j], words [i]))
@@ -861,7 +861,6 @@ union value pnt  ;
 long         type ;
 
   {
-  char         *lcl_str         ;
   struct chain *ptr_abl         ;
 
   printf ("   %-15s: ", str [type]);
@@ -874,13 +873,13 @@ long         type ;
       break;
 
     case character_DFN :
-      printf ("%c\n", pnt.imd);
+      printf ("%c\n", (char)pnt.imd);
       break;
 
     case short_DFN     :
     case integer_DFN   :
     case long_DFN      :
-      printf ("0x%x\n", pnt.imd);
+      printf ("0x%x\n", (unsigned int)pnt.imd);
       break;
 
     case abl_DFN :
@@ -927,8 +926,9 @@ void *head_pnt;				/* structure's pointer		*/
 char *type;				/* structure's type		*/
 
   {
-  char          line   [128];		/* buffer to read a cmd line	*/
-  char          heap   [128];		/* buffer to split the cmd line	*/
+  size_t        lline       = 128;
+  char*         line        ;		/* buffer to read a cmd line	*/
+  char          heap   [lline];		/* buffer to split the cmd line	*/
 
   char         *words  [ 10];		/* number of words on a line	*/
   long           nmbrs  [ 10];		/* words translated into number	*/
@@ -936,13 +936,12 @@ char *type;				/* structure's type		*/
   long           indxs  [ 10];		/* index of words		*/
 
   struct stack  jtab   [ 10];		/* list of memorized addresses	*/
-  long           idx, i;
+  long           idx;
   long           dispflg = 0;
-  long           code;
   unsigned long  size;
   char         *pntr   = NULL;
   long          pshtype;
-  long           wrdcnt = 1;
+  long           wrdcnt;
 
   struct stack  stk [STKSIZ_DFN];
   long           stkpnt = -1;
@@ -981,6 +980,7 @@ char *type;				/* structure's type		*/
 	/*    - search that words among recognized strings		*/
 	/* ###------------------------------------------------------### */
 
+  line = (char*)malloc( lline*sizeof(char) );
   words [0] = heap;
   getsize (siz);
 
@@ -1209,11 +1209,13 @@ char *type;				/* structure's type		*/
 
     printf ("\n\nCOMMAND > ");
 
-    gets (line);
+    getline (&line, &lline, stdin);
     if (strcmp (line ,"."))
       {
       wrdcnt = splitline (words, line);
       idx    = translate (words, wrdcnt, str, nmbrs, flags, indxs);
       }
     }
+    free (line);
+  
   }

@@ -505,7 +505,6 @@ void Lynxrecrdsmbk( Figure, Rectangle, Real )
   rdsrec_list *Rectangle;
   char         Real;
 {
-  rdsrec_list *ScanRec;
   rdsins_list *InstanceRds;
  
   long         X1;
@@ -536,9 +535,9 @@ void Lynxrecrdsmbk( Figure, Rectangle, Real )
       if ( Real )
       {
         LayerRds = GetRdsLayer( Rectangle );
-        ScanRec  = addrdsfigrec( Figure, Rectangle->NAME, LayerRds,
-                                 Rectangle->X , Rectangle->Y, 
-                                 Rectangle->DX, Rectangle->DY );
+        addrdsfigrec( Figure, Rectangle->NAME, LayerRds,
+                      Rectangle->X , Rectangle->Y, 
+                      Rectangle->DX, Rectangle->DY );
 
         if ( LayerRds != RDS_ABOX )
         {

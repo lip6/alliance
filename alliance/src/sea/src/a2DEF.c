@@ -312,7 +312,7 @@ extern int main(argc, argv)
     /* Long options : associated with floorplan. */
     if (!strncmp (argv[i], "--margin=", 9)) {
       argFlags |= A_MARGIN;
-      if (1 != sscanf (argv[i] + 9, "%ld", &margin)) {
+      if (1 != sscanf (argv[i] + 9, "%22ld", &margin)) {
         eprinth (NULL);
         eprintf ("Invalid <MARGIN> value.\n");
         printHelp ();
@@ -332,7 +332,7 @@ extern int main(argc, argv)
       argFlags |=  A_ROW_NUMBER;
       floFlags |=  F_FLOOR_Y_SIZE;
       floFlags &= ~F_FLOOR_ASPECT_RATIO;
-      if (1 != sscanf (argv[i] + 13, "%ld", &ySize)) {
+      if (1 != sscanf (argv[i] + 13, "%22ld", &ySize)) {
         eprinth (NULL);
         eprintf ("Invalid <NR> value.\n\n");
         printHelp ();
@@ -352,7 +352,7 @@ extern int main(argc, argv)
       argFlags |=  A_Y_SIZE;
       floFlags |=  F_FLOOR_Y_SIZE;
       floFlags &= ~F_FLOOR_ASPECT_RATIO;
-      if (1 != sscanf (argv[i] + 9, "%ld", &ySize)) {
+      if (1 != sscanf (argv[i] + 9, "%22ld", &ySize)) {
         eprinth (NULL);
         eprintf ("Invalid <YSIZE> value.\n\n");
         printHelp ();
@@ -373,7 +373,7 @@ extern int main(argc, argv)
       argFlags |=  A_X_SIZE;
       floFlags |=  F_FLOOR_X_SIZE;
       floFlags &= ~F_FLOOR_ASPECT_RATIO;
-      if (1 != sscanf (argv[i] + 9, "%ld", &xSize)) {
+      if (1 != sscanf (argv[i] + 9, "%22ld", &xSize)) {
         eprinth (NULL);
         eprintf ("Invalid <XSIZE> value.\n\n");
         printHelp ();
@@ -393,7 +393,7 @@ extern int main(argc, argv)
       optCount += 1;
       argFlags |=  A_ASPECT_RATIO;
       floFlags |=  F_FLOOR_ASPECT_RATIO;
-      if (1 != sscanf (argv[i] + 15, "%lf", &formFactor)) {
+      if (1 != sscanf (argv[i] + 15, "%22lf", &formFactor)) {
         eprinth (NULL);
         eprintf ("Invalid <FF> value.\n\n");
         printHelp ();
@@ -410,7 +410,7 @@ extern int main(argc, argv)
 
     if (!strncmp (argv[i], "--power=", 8)) {
       argFlags |= A_POWER;
-      if (1 != sscanf (argv[i] + 8, "%ld", &power)) {
+      if (1 != sscanf (argv[i] + 8, "%22ld", &power)) {
         eprinth (NULL);
         eprintf ("Invalid <NP> value.\n\n");
         printHelp ();

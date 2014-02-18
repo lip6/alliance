@@ -102,6 +102,8 @@ graalwin *GraalAllocWinLayer( GraalWin )
 
      (graalwinrec **)rdsallocblock( sizeof(graalwinrec *) * RDS_MAX_LAYER );
   }
+
+  return GraalWin;
 }
 
 /*------------------------------------------------------------\
@@ -280,7 +282,7 @@ void GraalEraseWindow()
     {
       for ( Layer = 0; Layer < RDS_MAX_LAYER; Layer++ )
       {
-        ScanWinRec  = ScanWin->LAYERTAB[ Layer ];
+        ScanWinRec  = ScanWin->LAYERTAB[ (int)Layer ];
 
         while ( ScanWinRec != (graalwinrec *)NULL )
         {
@@ -380,31 +382,31 @@ void GraalInsertRectangle( Rectangle )
 
       Layer = GetRdsLayer( Rectangle );
  
-      WinRec = LinkWin->LAYERTAB[ Layer ];
+      WinRec = LinkWin->LAYERTAB[ (int)Layer ];
  
       if ( WinRec == (graalwinrec *)NULL )
       {
-        WinRec                     = GraalAllocWinRec();
-        LinkWin->LAYERTAB[ Layer ] = WinRec;
-        WinRec->RECTAB[ 0 ]        = Rectangle;
+        WinRec                          = GraalAllocWinRec();
+        LinkWin->LAYERTAB[ (int)Layer ] = WinRec;
+        WinRec->RECTAB[ 0 ]             = Rectangle;
       }
       else
       {   
         for ( Index = 0; Index < GRAAL_MAX_REC; Index++ )
         {
-          if ( WinRec->RECTAB[ Index ] == (rdsrec_list *)NULL ) break;
+          if ( WinRec->RECTAB[ (int)Index ] == (rdsrec_list *)NULL ) break;
         }
 
         if ( Index == GRAAL_MAX_REC )
         {
-          WinRec                     = GraalAllocWinRec();
-          WinRec->NEXT               = LinkWin->LAYERTAB[ Layer ];
-          LinkWin->LAYERTAB[ Layer ] = WinRec;
-          WinRec->RECTAB[ 0 ]        = Rectangle;
+          WinRec                          = GraalAllocWinRec();
+          WinRec->NEXT                    = LinkWin->LAYERTAB[ (int)Layer ];
+          LinkWin->LAYERTAB[ (int)Layer ] = WinRec;
+          WinRec->RECTAB[ 0 ]             = Rectangle;
         }
         else
         {
-          WinRec->RECTAB[ Index ] = Rectangle;
+          WinRec->RECTAB[ (int)Index ] = Rectangle;
         }
       }
         
@@ -461,7 +463,7 @@ void GraalEraseRectangle( Rectangle )
     ScanWin = DelRecWin->WINDOW;
     Found   = GRAAL_MAX_REC;
 
-    FirstWinRec = ScanWin->LAYERTAB[ Layer ];
+    FirstWinRec = ScanWin->LAYERTAB[ (int)Layer ];
 
     for ( ScanWinRec  = FirstWinRec;
           ScanWinRec != (graalwinrec *)NULL;
@@ -469,7 +471,7 @@ void GraalEraseRectangle( Rectangle )
     {
       for ( Index = 0; Index < GRAAL_MAX_REC; Index++ )
       {
-        if ( ScanWinRec->RECTAB[ Index ] == Rectangle )
+        if ( ScanWinRec->RECTAB[ (int)Index ] == Rectangle )
         {
           Found = Index; break;
         }
@@ -480,27 +482,27 @@ void GraalEraseRectangle( Rectangle )
 
     if ( ScanWinRec == FirstWinRec )
     {
-      ScanWinRec->RECTAB[ Found ] = (rdsrec_list *)NULL;
+      ScanWinRec->RECTAB[ (int)Found ] = (rdsrec_list *)NULL;
     }
     else
     {
       for ( Index = 0; Index < GRAAL_MAX_REC; Index++ )
       {
-        if ( FirstWinRec->RECTAB[ Index ] != (rdsrec_list *)NULL ) break;
+        if ( FirstWinRec->RECTAB[ (int)Index ] != (rdsrec_list *)NULL ) break;
       }
 
-      ScanWinRec->RECTAB[ Found ]  = FirstWinRec->RECTAB[ Index ];
-      FirstWinRec->RECTAB[ Index ] = (rdsrec_list *)NULL;
+      ScanWinRec->RECTAB[ (int)Found ]  = FirstWinRec->RECTAB[ (int)Index ];
+      FirstWinRec->RECTAB[ (int)Index ] = (rdsrec_list *)NULL;
     }
 
     for ( Index = 0; Index < GRAAL_MAX_REC; Index++ )
     {
-      if ( FirstWinRec->RECTAB[ Index ] != (rdsrec_list *)NULL ) break;
+      if ( FirstWinRec->RECTAB[ (int)Index ] != (rdsrec_list *)NULL ) break;
     }
 
     if ( Index == GRAAL_MAX_REC )
     {
-      ScanWin->LAYERTAB[ Layer ] = FirstWinRec->NEXT;
+      ScanWin->LAYERTAB[ (int)Layer ] = FirstWinRec->NEXT;
 
       GraalFreeWinRec( FirstWinRec );
     }
@@ -719,13 +721,13 @@ char GraalComputeBound()
       {
         for ( Layer = 0; Layer < RDS_MAX_LAYER; Layer++ )
         {
-          for ( ScanWinRec  = ScanWin->LAYERTAB[ Layer ];
+          for ( ScanWinRec  = ScanWin->LAYERTAB[ (int)Layer ];
                 ScanWinRec != (graalwinrec *)NULL;
                 ScanWinRec  = ScanWinRec->NEXT )
           {
             for ( ScanRec = 0; ScanRec < GRAAL_MAX_REC ; ScanRec++ )
             {
-              Rec = ScanWinRec->RECTAB[ ScanRec ];
+              Rec = ScanWinRec->RECTAB[ (int)ScanRec ];
 
               if ( ( Rec != (rdsrec_list *)NULL ) &&
                    ( ! IsGraalDeleted( Rec )    ) )
@@ -777,13 +779,13 @@ char GraalComputeBound()
       {
         for ( Layer = 0; Layer < RDS_MAX_LAYER; Layer++ )
         {
-          for ( ScanWinRec  = ScanWin->LAYERTAB[ Layer ];
+          for ( ScanWinRec  = ScanWin->LAYERTAB[ (int)Layer ];
                 ScanWinRec != (graalwinrec *)NULL;
                 ScanWinRec  = ScanWinRec->NEXT )
           {
             for ( ScanRec = 0; ScanRec < GRAAL_MAX_REC ; ScanRec++ )
             {
-              Rec = ScanWinRec->RECTAB[ ScanRec ];
+              Rec = ScanWinRec->RECTAB[ (int)ScanRec ];
 
               if ( ( Rec != (rdsrec_list *)NULL ) &&
                    ( ! IsGraalDeleted( Rec )    ) )
@@ -829,13 +831,13 @@ char GraalComputeBound()
       {
         for ( Layer = 0; Layer < RDS_MAX_LAYER; Layer++ )
         {
-          for ( ScanWinRec  = ScanWin->LAYERTAB[ Layer ];
+          for ( ScanWinRec  = ScanWin->LAYERTAB[ (int)Layer ];
                 ScanWinRec != (graalwinrec *)NULL;
                 ScanWinRec  = ScanWinRec->NEXT )
           {
             for ( ScanRec = 0; ScanRec < GRAAL_MAX_REC ; ScanRec++ )
             {
-              Rec = ScanWinRec->RECTAB[ ScanRec ];
+              Rec = ScanWinRec->RECTAB[ (int)ScanRec ];
 
               if ( ( Rec != (rdsrec_list *)NULL ) &&
                    ( ! IsGraalDeleted( Rec )    ) )
@@ -881,13 +883,13 @@ char GraalComputeBound()
       {
         for ( Layer = 0; Layer < RDS_MAX_LAYER; Layer++ )
         {
-          for ( ScanWinRec  = ScanWin->LAYERTAB[ Layer ];
+          for ( ScanWinRec  = ScanWin->LAYERTAB[ (int)Layer ];
                 ScanWinRec != (graalwinrec *)NULL;
                 ScanWinRec  = ScanWinRec->NEXT )
           {
             for ( ScanRec = 0; ScanRec < GRAAL_MAX_REC ; ScanRec++ )
             {
-              Rec = ScanWinRec->RECTAB[ ScanRec ];
+              Rec = ScanWinRec->RECTAB[ (int)ScanRec ];
 
               if ( ( Rec != (rdsrec_list *)NULL ) &&
                    ( ! IsGraalDeleted( Rec )    ) )

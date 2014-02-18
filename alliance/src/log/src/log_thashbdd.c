@@ -342,11 +342,11 @@ displayHashBdd (pTab)
       if (*pBdd != NULL && *pBdd != BDDDELETE)
 	{
 	  co++;
-	  printf ("****** indice %d ****** \n", i);
+	  printf ("****** indice %ld ****** \n", i);
 	  displayBdd (*pBdd , FALSE);
 	  printf ("\n");
 	}
       pBdd++;
     }
-  printf ("\n****** Nombre de noeuds dans la table  = %d\n", co);
+  printf ("\n****** Nombre de noeuds dans la table  = %ld\n", co);
 }

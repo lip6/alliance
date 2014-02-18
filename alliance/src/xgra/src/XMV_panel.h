@@ -115,6 +115,7 @@
   extern void CallbackLayerApply();
   extern void CallbackCloseLayer();
 
+  extern void XgraInitializeLayer();
   extern void XgraSetLayerVisible();
   extern void XgraSetLayerInvisible();
   extern void XgraSetNameVisible();

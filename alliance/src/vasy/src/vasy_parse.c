@@ -62,6 +62,7 @@
 # include "vasy_generate.h"
 # include "vasy_loop.h"
 # include "vasy_array.h"
+# include "vasy_dynfunc.h"
 # include "vasy_error.h"
 # include "vasy_main.h"
 
@@ -442,14 +443,14 @@ static void VasyParseVbhInstanceAddPower( VbhFigure )
 {
   vbins_list *VbhInstance;
   vbmap_list *VbhMap;
-  vbtyp_list *VbhType;
+//vbtyp_list *VbhType;
   vexexpr    *VexFormal;
   vexexpr    *VexActual;
   char       *Name;
   int         AddVdd;
   int         AddVss;
 
-  VbhType = vbh_getvbtyp( VbhFigure, "bit" );
+//VbhType = vbh_getvbtyp( VbhFigure, "bit" );
 
   for ( VbhInstance  = VbhFigure->BEINS;
         VbhInstance != (vbins_list *)0;
@@ -829,9 +830,9 @@ vpnfig_list *VasyParseVbh2VpnFig( VbhFigure )
   vpnplace_list *VpnPlace;
   vpnplace_list *AsgPlace;
   vpnarc        *VpnArc;
-  vpnact_list   *VpnAction;
+  vpnact_list   *VpnAction = NULL;
   vpndecl_list  *VpnDeclar;
-  vexexpr       *VexAtom;
+  vexexpr       *VexAtom = NULL;
   vexexpr       *VexExpr;
   char          *Value;
   long           NumberBus;

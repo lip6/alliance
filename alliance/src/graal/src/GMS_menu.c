@@ -141,7 +141,9 @@
              (GraalMenuItem *)NULL
            }
            ,
-           NULL
+           {
+             NULL
+           }
          };
 
 

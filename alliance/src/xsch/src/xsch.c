@@ -54,6 +54,8 @@
 # include "XSB.h"
 # include "XSC.h"
 # include "XMX.h"
+# include "XTB.h"
+# include "XMF.h"
 
 # include "xsch.h"
 

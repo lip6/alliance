@@ -96,21 +96,22 @@ char one = 1;
 	s = name;
 	t = buffer;
 	while (*s) {
-		if (*s == ' ' || (*s == '_' && !one))
-			if (one) {
-				*t++ = '[';
-				s++;
-				one = 0;
-			} else {
-				*t++ = ']';
-				*t++ = '[';
-				s++;
-			}
-		if ((*s == '/' || *s == '_') && !one) {
-			*t++ = ']';
-			one = 1;
-		}
-		*t++ = *s++;
+      if (*s == ' ' || (*s == '_' && !one)) {
+        if (one) {
+          *t++ = '[';
+          s++;
+          one = 0;
+        } else {
+          *t++ = ']';
+          *t++ = '[';
+          s++;
+        }
+      }
+      if ((*s == '/' || *s == '_') && !one) {
+        *t++ = ']';
+        one = 1;
+      }
+      *t++ = *s++;
 	}
 	if (!one)
 		*t++ = ']';
@@ -431,7 +432,7 @@ FILE *file;
 phref_list *HeadOfList;
 {
 register phref_list *pt;
-static refindex;
+static int refindex;
 
 	for (pt = HeadOfList; pt; pt = pt->NEXT) {
 		/* text because we don't know how to print anything */

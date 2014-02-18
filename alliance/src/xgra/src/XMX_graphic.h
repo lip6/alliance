@@ -68,5 +68,6 @@
 \------------------------------------------------------------*/
 
   extern void XgraInitializeGraphic();
+  extern void XgraInitializeGraphicWindow();
 
 # endif 

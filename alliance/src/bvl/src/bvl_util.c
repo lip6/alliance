@@ -42,7 +42,7 @@ char *str1;
 
   {
   BVL_ERRFLG++;
-  fprintf (stderr, "`%s` Error %d line %d :", BVL_CURFIL, code, BEH_LINNUM);
+  fprintf (stderr, "`%s` Error %ld line %u :", BVL_CURFIL, code, BEH_LINNUM);
 
   switch (code)
     {
@@ -202,7 +202,7 @@ char          *name   ;
   prv_por = pt_por;
   if (pt_por != NULL)
     {
-    if (sscanf (pt_por->NAME, "%s %u", name, &left) == 1)
+    if (sscanf (pt_por->NAME, "%255s %22ld", name, &left) == 1)
       left = -1;
     else
       {
@@ -211,7 +211,7 @@ char          *name   ;
     
       while (pt_por != NULL)
         {
-        if (sscanf (pt_por->NAME, "%s %u", tmp_nam, &index) == 1)
+        if (sscanf (pt_por->NAME, "%255s %22ld", tmp_nam, &index) == 1)
           break;
         else
           {
@@ -255,7 +255,7 @@ char          *name   ;
   prv_aux = pt_aux;
   if (pt_aux != NULL)
     {
-    if (sscanf (pt_aux->NAME, "%s %u", name, &left) == 1)
+    if (sscanf (pt_aux->NAME, "%255s %22ld", name, &left) == 1)
       left = -1;
     else
       {
@@ -264,7 +264,7 @@ char          *name   ;
     
       while (pt_aux != NULL)
         {
-        if (sscanf (pt_aux->NAME, "%s %u", tmp_nam, &index) == 1)
+        if (sscanf (pt_aux->NAME, "%255s %22ld", tmp_nam, &index) == 1)
           break;
         else
           {
@@ -308,7 +308,7 @@ char          *name   ;
   prv_bux = pt_bux;
   if (pt_bux != NULL)
     {
-    if (sscanf (pt_bux->NAME, "%s %u", name, &left) == 1)
+    if (sscanf (pt_bux->NAME, "%255s %22ld", name, &left) == 1)
       left = -1;
     else
       {
@@ -317,7 +317,7 @@ char          *name   ;
     
       while (pt_bux != NULL)
         {
-        if (sscanf (pt_bux->NAME, "%s %u", tmp_nam, &index) == 1)
+        if (sscanf (pt_bux->NAME, "%255s %22ld", tmp_nam, &index) == 1)
           break;
         else
           {
@@ -361,7 +361,7 @@ char          *name   ;
   prv_reg = pt_reg;
   if (pt_reg != NULL)
     {
-    if (sscanf (pt_reg->NAME, "%s %u", name, &left) == 1)
+    if (sscanf (pt_reg->NAME, "%255s %22ld", name, &left) == 1)
       left = -1;
     else
       {
@@ -370,7 +370,7 @@ char          *name   ;
     
       while (pt_reg != NULL)
         {
-        if (sscanf (pt_reg->NAME, "%s %u", tmp_nam, &index) == 1)
+        if (sscanf (pt_reg->NAME, "%255s %22ld", tmp_nam, &index) == 1)
           break;
         else
           {

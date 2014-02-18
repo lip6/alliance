@@ -67,6 +67,7 @@
 
 # include "GMF_dialog.h"
 # include "GMF_file.h"
+# include "GMF_menu.h"
 
 /*------------------------------------------------------------\
 |                                                             |

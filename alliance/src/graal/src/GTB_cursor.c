@@ -46,6 +46,7 @@
 # include <stdio.h>
 # include <X11/cursorfont.h>
 # include <X11/Intrinsic.h>
+# include <Xm/Xm.h>
 # include "mut.h"
 # include "rds.h"
 # include "GTB.h"
@@ -121,9 +122,9 @@ void GraalSetMouseCursor( MainWidget, CursorType )
   DisplayId  = XtDisplay( MainWidget );
   MainWindow = XtWindow( MainWidget  );
 
-  Type = GraalMouseCursorArray[ CursorType ].CURSOR;
+  Type = GraalMouseCursorArray[ (int)CursorType ].CURSOR;
 
-  if ( GraalMouseCursorArray[ CursorType ].MAKE == True )
+  if ( GraalMouseCursorArray[ (int)CursorType ].MAKE == True )
   {
     if ( Type != 0 )
     {
@@ -159,8 +160,8 @@ void GraalSetMouseCursor( MainWidget, CursorType )
                                        &Black, &White, 0, 0 );
     }
 
-    GraalMouseCursorArray[ CursorType ].CURSOR = NewCursor;
-    GraalMouseCursorArray[ CursorType ].MAKE   = False;
+    GraalMouseCursorArray[ (int)CursorType ].CURSOR = NewCursor;
+    GraalMouseCursorArray[ (int)CursorType ].MAKE   = False;
 
     Type = NewCursor;
   }

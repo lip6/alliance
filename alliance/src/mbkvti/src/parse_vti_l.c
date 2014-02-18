@@ -1012,12 +1012,12 @@ losig_list      *sigct1,*sigct2;
 
 				break;
 			case 'Y' : /* Y INT INT [ num , num ] [ num , num ] ; */
-                                break;
-				t1 = strtok(line + 2, " \n\t\"@");
-				t2 = strtok((char *)NULL, " \n\t\"@;");
-				l2 = atol(t2);
-				ylist = addnum(ylist, l2); /* create a list of thru routes */
-				break;
+              break;
+              /* t1 = strtok(line + 2, " \n\t\"@"); */
+              /* t2 = strtok((char *)NULL, " \n\t\"@;"); */
+              /* l2 = atol(t2); */
+              /* ylist = addnum(ylist, l2); /\* create a list of thru routes *\/ */
+              /* break; */
 			case 'Z' : /* Z INT name INT cap INT num num ; */
 				break;
 			default :
@@ -1293,7 +1293,6 @@ lofig_list	*ptfig;
 	int		 index;
 	losig_list	*scanlosig;
 	ptype_list	*ptl;
-	lorcnet_list	*ptrcnet;
 	struct hns_W	*headw;
 	struct hns_W	*scanw;
 	struct hns_W	*elem_w;
@@ -1331,7 +1330,7 @@ lofig_list	*ptfig;
 
       /* On ne cree les vues RC que si on a des resistances. Tant pis pour les noeuds sur les locons */
       if( !scanlosig->PRCN && headw )
-  			ptrcnet = addlorcnet(scanlosig);
+  			addlorcnet(scanlosig);
 
 			for( scanw = headw; scanw; scanw = scanw->NEXT ) {
 

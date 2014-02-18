@@ -3,8 +3,7 @@
 //
 // $Id: AAstar.cpp,v 1.10 2005/04/07 14:56:18 jpc Exp $
 //
-//  /----------------------------------------------------------------\ 
-//  |                                                                |
+//  +----------------------------------------------------------------+ 
 //  |        A l l i a n c e   C A D   S y s t e m                   |
 //  |              S i m p l e   R o u t e r                         |
 //  |                                                                |
@@ -12,10 +11,7 @@
 //  |  E-mail      :       alliance-support@asim.lip6.fr             |
 //  | ============================================================== |
 //  |  C++ Module  :       "./AAStar.cpp"                            |
-//  | ************************************************************** |
-//  |  U p d a t e s                                                 |
-//  |                                                                |
-//  \----------------------------------------------------------------/
+//  +----------------------------------------------------------------+
 
 
 
@@ -25,9 +21,9 @@
 
 
 
-//  /----------------------------------------------------------------\
+//  +----------------------------------------------------------------+
 //  |                     Methods Definitions                        |
-//  \----------------------------------------------------------------/
+//  +----------------------------------------------------------------+
 
 
 // -------------------------------------------------------------------
@@ -127,20 +123,17 @@ void  CAStar::CNodeASSet::check (bool cleared)
 
 void  CAStar::CNodeASSet::reset (void)
 {
-  int  chunk, index, maxindex, maxused_div, maxused_mod;
-
-
   if (_maxused > 0) {
-    maxused_div = (_maxused - 1) / D::CHUNK_SIZE;
-    maxused_mod = (_maxused - 1) % D::CHUNK_SIZE;
+    int maxused_div = (_maxused - 1) / D::CHUNK_SIZE;
+    int maxused_mod = (_maxused - 1) % D::CHUNK_SIZE;
 
-    for (chunk = 0; chunk <= maxused_div; chunk++) {
-      maxindex = D::CHUNK_SIZE - 1;
+    for (int chunk = 0; chunk <= maxused_div; chunk++) {
+      int maxindex = D::CHUNK_SIZE - 1;
 
       // Incomplete last chunk.
       if (chunk == maxused_div) maxindex = maxused_mod;
 
-      for (index = 0; index <= maxindex; index++) {
+      for (int index = 0; index <= maxindex; index++) {
         _chunks[chunk][index].reset ();
       }
     }
@@ -156,16 +149,16 @@ void  CAStar::CNodeASSet::reset (void)
 // Constructor  :  "CAStar::CNodeAS::CNodeAS()".
 
 CAStar::CNodeAS::CNodeAS (CDRGrid::iterator &pos)
+  : point   (pos)
+  , back    (NULL)
+  , distance(0)
+  , remains (LONG_MAX)
+  , queued  (false)
+  , tagged  (false)
+  , intree  (false)
+  , id      (-1)
 {
-  point             = pos;
   point.node().algo = (void*)this;
-
-  back              = NULL;
-  distance          = 0;
-  remains           = LONG_MAX;
-  queued            = false;
-  tagged            = false;
-  intree            = false;
 
   //cdebug << "+   new CNodeAS (id := " << id << ", " << point << ")" << endl;
 }
@@ -207,7 +200,7 @@ void *CAStar::CNodeAS::operator new (size_t size, CNodeASSet &NS)
 
     // Allocate a new chunk.
     if (NS._maxchunk <= chunk) {
-      NS._chunks.push_back ((CNodeAS*)malloc (sizeof (CNodeAS) * D::CHUNK_SIZE));
+      NS._chunks.push_back( static_cast<CNodeAS*>(malloc(sizeof (CNodeAS) * D::CHUNK_SIZE)) );
 
       NS._maxchunk++;
       new_chunk = true;
@@ -260,7 +253,6 @@ void  CAStar::CNodeAS::successors (CNodeASSet &NS, CNet *net, CNodeAS *(*success
 {
   CDRGrid::iterator  neighbor;
   CDRGrid::iterator  neighbor2;
-               CNet *pNet;
             CNodeAS *pNodeAS;
 
   int   cost_x, cost_y, cost_z, cost, edge, i, j;
@@ -418,14 +410,11 @@ void  CAStar::CNodeAS::successors (CNodeASSet &NS, CNet *net, CNodeAS *(*success
 void CAStar::CTree::addterm (CTerm &term)
 {
   list<CDRGrid::iterator>::iterator  endNode, itNode;
-  CNodeAS* pNodeAS;
-
-
   //cdebug << "+   Adding terminal nodes to the tree." << endl;
 
   endNode = term.nodes.end ();
   for (itNode = term.nodes.begin (); itNode != endNode; itNode++) {
-    pNodeAS = AS(*itNode);
+    CNodeAS* pNodeAS = AS(*itNode);
     if (!pNodeAS)
       pNodeAS = new (*_NS) CNodeAS (*itNode);
 
@@ -514,10 +503,19 @@ void CAStar::CQueue::load (CTree &tree, bool start)
 // Constructor  :  "CAStar::CAStar()".
 
 CAStar::CAStar (CDRGrid *drgrid, CASimple *netsched)
+  : _NS               ()
+  , _tree             ()
+  , _queue            ()
+  , _skip             (false)
+  , _trapped          (false)
+  , _reached          (NULL)
+  , net               (NULL)
+  , iterations        (0)
+  , iterations_route  (0)
+  , iterations_reroute(0)
+  , _drgrid           (drgrid)
+  , _netsched         (netsched)
 {
-  _drgrid   = drgrid;
-  _netsched = netsched;
-
   _tree._NS = &_NS;
 }
 
@@ -646,7 +644,7 @@ bool  CAStar::nexttarget (void)
   set<int>::iterator  endSet;
 
   // Are all targets reacheds?
-  if (_tree.reached.size () >= net->size) return (false);
+  if ((long)_tree.reached.size () >= net->size) return (false);
 
   // Reset all the nodeAS objects.
   _NS.reset ();
@@ -682,7 +680,7 @@ bool  CAStar::nexttarget (void)
 void CAStar::backtrack (void)
 {
   CDRGrid::iterator  neighbor;
-            CNodeAS *node, *node_prev;
+            CNodeAS *node;
                CNet *del_net;
                 int  i;
 
@@ -718,7 +716,7 @@ void CAStar::backtrack (void)
 
     _tree.addnode (node);
 
-    node_prev = node;
+    CNodeAS* node_prev = node;
     node = node->back;
 
     node_prev->reset ();
@@ -888,14 +886,11 @@ void  CMatrixNodes::check (bool cleared)
 
 bool  CNode::check (bool cleared)
 {
-  CAStar::CNodeAS *nodeAS;
-
-
   if ( algo != NULL ) {
     if (cleared)
       cerr << "+   Residual algo structure found !" << endl;
 
-    nodeAS = (CAStar::CNodeAS*) algo; 
+    CAStar::CNodeAS *nodeAS = (CAStar::CNodeAS*) algo; 
 
     if ( nodeAS->point.outside() ) {
       cerr << "+     Incoherent algo structure found (node := "

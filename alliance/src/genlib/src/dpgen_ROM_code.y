@@ -411,8 +411,7 @@ long nb, nw, r, msb;
 long *data;
 {
 char str[256];
-char *t;
-int space, i;
+int i;
 
 	/* globalize variables for yacc */
 	nwords = nw;

@@ -57,10 +57,13 @@
 # include "GMX.h"
 # include "GRM.h"
 # include "GMT.h"
+# include "GMV.h"
+# include "GME.h"
 
 # include "GMT_druc.h"
 # include "GMT_panel.h"
 # include "GMT_message.h"
+# include "GRM_select.h"
 
 /*------------------------------------------------------------\
 |                                                             |
@@ -119,7 +122,7 @@ void GraalDisplayDrucError( Rectangle )
   Error   = MACRO_REGLE_NUM( Rectangle );
   Comment = drucgeterror( Error );
 
-  sprintf( GraalDrucErrorMessage, "Rule error %d\n%s", 
+  sprintf( GraalDrucErrorMessage, "Rule error %ld\n%s", 
            Error, Comment );
 
   GraalDisplayDrucMessage( GraalDrucErrorMessage );
@@ -156,7 +159,6 @@ void GraalToolsDrucNextError()
   rdsrec_list  *DrucRec;
   rdsrec_list  *ScanRec;
   char          Layer;
-  char          Error;
   long          X1;
   long          Y1;
 
@@ -178,7 +180,7 @@ void GraalToolsDrucNextError()
     {
       for ( Layer = 0; Layer < RDS_MAX_LAYER; Layer++ )
       {
-        for ( GraalCurrentDruc  = GraalFigureDruc->LAYERTAB[ Layer ];
+        for ( GraalCurrentDruc  = GraalFigureDruc->LAYERTAB[ (int)Layer ];
               GraalCurrentDruc != (rdsrec_list *)0;
               GraalCurrentDruc  = GraalCurrentDruc->NEXT )
         {
@@ -205,7 +207,7 @@ void GraalToolsDrucNextError()
       {
         for ( Layer = GetRdsLayer( GraalCurrentDruc ) + 1; Layer < RDS_MAX_LAYER; Layer++ )
         {
-          for ( GraalCurrentDruc  = GraalFigureDruc->LAYERTAB[ Layer ];
+          for ( GraalCurrentDruc  = GraalFigureDruc->LAYERTAB[ (int)Layer ];
                 GraalCurrentDruc != (rdsrec_list *)0;
                 GraalCurrentDruc  = GraalCurrentDruc->NEXT )
           {
@@ -228,7 +230,7 @@ void GraalToolsDrucNextError()
 
       for ( Layer = 0; Layer < RDS_MAX_LAYER; Layer++ )
       {
-        for ( ScanRec  = GraalFigureDruc->LAYERTAB[ Layer ];
+        for ( ScanRec  = GraalFigureDruc->LAYERTAB[ (int)Layer ];
               ScanRec != (rdsrec_list *)0;
               ScanRec  = ScanRec->NEXT )
         {
@@ -283,12 +285,9 @@ void GraalToolsDruc( LambdaX1, LambdaY1, LambdaX2, LambdaY2 )
   graalselect **Previous;
   rdsrec_list  *Rectangle;
   rdsrec_list **PrevRectangle;
-  rdsrec_list  *DrucRec;
   void         *Pointer;
   char          Layer;
   char          Error;
-  long          X1;
-  long          Y1;
 
   rdsbegin();
 
@@ -382,7 +381,7 @@ void GraalToolsDruc( LambdaX1, LambdaY1, LambdaX2, LambdaY2 )
 
       for ( Layer = 0; Layer < RDS_MAX_LAYER; Layer++ )
       {
-        for ( Rectangle  = GraalFigureDruc->LAYERTAB[ Layer ];
+        for ( Rectangle  = GraalFigureDruc->LAYERTAB[ (int)Layer ];
               Rectangle != (rdsrec_list *)NULL;    
               Rectangle  = Rectangle->NEXT )
         {
@@ -402,9 +401,9 @@ void GraalToolsDruc( LambdaX1, LambdaY1, LambdaX2, LambdaY2 )
 
         for ( Layer = RDS_USER0; Layer <= RDS_USER8; Layer++ )
         {
-          *PrevRectangle = GraalFigureDruc->LAYERTAB[ Layer ];
+          *PrevRectangle = GraalFigureDruc->LAYERTAB[ (int)Layer ];
 
-          for ( Rectangle  = GraalFigureDruc->LAYERTAB[ Layer ];
+          for ( Rectangle  = GraalFigureDruc->LAYERTAB[ (int)Layer ];
                 Rectangle != (rdsrec_list *)0;
                 Rectangle  = Rectangle->NEXT )
           {
@@ -412,7 +411,7 @@ void GraalToolsDruc( LambdaX1, LambdaY1, LambdaX2, LambdaY2 )
             PrevRectangle = &Rectangle->NEXT;
           }
 
-          GraalFigureDruc->LAYERTAB[ Layer ] = (rdsrec_list *)0;
+          GraalFigureDruc->LAYERTAB[ (int)Layer ] = (rdsrec_list *)0;
         }
 
         *PrevRectangle = GraalFigureDruc->LAYERTAB[ RDS_USER9 ];

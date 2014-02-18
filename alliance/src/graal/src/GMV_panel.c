@@ -2573,8 +2573,6 @@
            180, 575, 0
          };
 
-   static char FirstEnterLayerPanel = 1;
-
 /*------------------------------------------------------------\
 |                                                             |
 |                        Panel Grid                           |
@@ -3454,7 +3452,7 @@ void GraalChangeFillMode( FillMode )
   rdsbegin();
 
   Index = 2 + ( ( RDS_ALL_LAYER + GRAAL_MAX_ACTIVE_NAME ) << 1 );
-  Label = XmStringCreateSimple( GraalViewLayerFillModeName[ FillMode ] );
+  Label = XmStringCreateSimple( GraalViewLayerFillModeName[ (int)FillMode ] );
 
   XtVaSetValues( GraalViewLayerButton[ Index ].BUTTON,
                  XmNlabelString, Label,
@@ -3482,7 +3480,7 @@ void GraalChangeInterface( Interface )
   rdsbegin();
 
   Index = 3 + ( ( RDS_ALL_LAYER + GRAAL_MAX_ACTIVE_NAME ) << 1 );
-  Label = XmStringCreateSimple( GraalViewLayerInterfaceName[ Interface ] );
+  Label = XmStringCreateSimple( GraalViewLayerInterfaceName[ (int)Interface ] );
 
   XtVaSetValues( GraalViewLayerButton[ Index ].BUTTON,
                  XmNlabelString, Label,
@@ -3510,7 +3508,7 @@ void GraalChangeIndex( Index )
   rdsbegin();
 
   Pos   = 4 + ( ( RDS_ALL_LAYER + GRAAL_MAX_ACTIVE_NAME ) << 1 );
-  Label = XmStringCreateSimple( GraalViewLayerConnectorIndex[ Index ] );
+  Label = XmStringCreateSimple( GraalViewLayerConnectorIndex[ (int)Index ] );
 
   XtVaSetValues( GraalViewLayerButton[ Pos ].BUTTON,
                  XmNlabelString, Label,
@@ -3538,7 +3536,7 @@ void GraalChangeCursor( Type )
   rdsbegin();
 
   Pos   = 5 + ( ( RDS_ALL_LAYER + GRAAL_MAX_ACTIVE_NAME ) << 1 );
-  Label = XmStringCreateSimple( GraalViewLayerCursorType[ Type ] );
+  Label = XmStringCreateSimple( GraalViewLayerCursorType[ (int)Type ] );
 
   XtVaSetValues( GraalViewLayerButton[ Pos ].BUTTON,
                  XmNlabelString, Label,
@@ -3566,7 +3564,7 @@ void GraalChangeForceDisplay( Index )
   rdsbegin();
 
   Pos   = 6 + ( ( RDS_ALL_LAYER + GRAAL_MAX_ACTIVE_NAME ) << 1 );
-  Label = XmStringCreateSimple( GraalViewLayerForceDisplay[ Index ] );
+  Label = XmStringCreateSimple( GraalViewLayerForceDisplay[ (int)Index ] );
 
   XtVaSetValues( GraalViewLayerButton[ Pos ].BUTTON,
                  XmNlabelString, Label,
@@ -3596,7 +3594,7 @@ void GraalChangeScale( Scale )
 
   Pos   = 7 + ( ( RDS_ALL_LAYER + GRAAL_MAX_ACTIVE_NAME ) << 1 );
 
-  sprintf( Buffer, "Scale %d", Scale );
+  sprintf( Buffer, "Scale %ld", Scale );
   Label = XmStringCreateSimple( Buffer );
 
   XtVaSetValues( GraalViewLayerButton[ Pos ].BUTTON,
@@ -3625,7 +3623,7 @@ void GraalChangeBlackBoxString( Index )
   rdsbegin();
 
   Pos   = 8 + ( ( RDS_ALL_LAYER + GRAAL_MAX_ACTIVE_NAME ) << 1 );
-  Label = XmStringCreateSimple( GraalViewLayerBlackBoxString[ Index ] );
+  Label = XmStringCreateSimple( GraalViewLayerBlackBoxString[ (int)Index ] );
 
   XtVaSetValues( GraalViewLayerButton[ Pos ].BUTTON,
                  XmNlabelString, Label,

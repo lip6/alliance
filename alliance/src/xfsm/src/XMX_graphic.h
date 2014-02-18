@@ -68,5 +68,6 @@
 \------------------------------------------------------------*/
 
   extern void XfsmInitializeGraphic();
+  extern void XfsmInitializeGraphicWindow();
 
 # endif 

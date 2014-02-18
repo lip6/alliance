@@ -74,7 +74,7 @@ int main( argc, argv )
   int         Index;
   char        Option;
   vbfig_list *VbhFigure;
-  vbfig_list *VbhGenFigure;
+//vbfig_list *VbhGenFigure;
   vbins_list *VbhInstance;
   char       *Extention;
 
@@ -175,7 +175,7 @@ int main( argc, argv )
     {
       if ( VbhInstance->GEN_MAP != (vbmap_list *)0 )
       {
-        VbhGenFigure = getvbfiggenmap( VbhInstance->MODEL, Extention, VbhInstance->GEN_MAP );
+        /*VbhGenFigure =*/ getvbfiggenmap( VbhInstance->MODEL, Extention, VbhInstance->GEN_MAP );
       }
     }
 
