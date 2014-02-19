@@ -99,14 +99,14 @@ char *argv [];
     {
     if (arg_flg [i] == 0)
       {
-      if (!strcmp (argv[i], "-textsize"))
+      if (!strcmp (argv[i], "-textsize") && argc > i + 1)
         {
         sscanf (argv[i+1], "%u", &txt_siz);
         arg_flg [i  ] = 1;
         arg_flg [i+1] = 1;
         }
 
-      if (!strcmp (argv[i], "-datasize"))
+      if (!strcmp (argv[i], "-datasize") && argc > i + 1)
         {
         sscanf (argv[i+1], "%u", &dat_siz);
         arg_flg [i  ] = 1;
@@ -119,7 +119,7 @@ char *argv [];
         arg_flg [i]   = 1         ;
         }
 
-      if (!strcmp (argv[i], "-symbol"))
+      if (!strcmp (argv[i], "-symbol") && argc > i + 1)
         {
         MPS_SYMBOL    = 'y'       ;
         symbol_fil    = argv [i+1];

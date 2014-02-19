@@ -102,6 +102,8 @@ int ParseCommand(int argc,char *argv[])
      switch(argv[i][1])
      {
        case 'v':
+	 if (argc <= i + 1)
+		 break;
          i++;
          sscanf(argv[i],"%11d",&VerboseMode);
          if(VerboseMode>=VMINFO) 
@@ -109,6 +111,8 @@ int ParseCommand(int argc,char *argv[])
          break;
 
        case 'o':
+	 if (argc <= i + 1)
+		 break;
          i++;
          OutputName=argv[i];
          if(VerboseMode>=VMINFO) 

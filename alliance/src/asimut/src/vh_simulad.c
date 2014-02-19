@@ -151,8 +151,8 @@ char *argv[];
         arg_flg [i  ] = 1;
         }
 
-      if ((!strcmp (argv [i], "-fixeddelay"))
-       || (!strcmp (argv [i], "-fd")))
+      if (((!strcmp (argv [i], "-fixeddelay"))
+       || (!strcmp (argv [i], "-fd"))) && (argc > i + 1))
         {
         fixdly_flg    = 1;
         delay_mode   |= BEH_DELAY_FIXED;
@@ -161,8 +161,8 @@ char *argv[];
         arg_flg [i+1] = 1;
         }
 
-      if ((!strcmp (argv [i], "-backdelay"))
-       || (!strcmp (argv [i], "-bd")))
+      if (((!strcmp (argv [i], "-backdelay"))
+       || (!strcmp (argv [i], "-bd"))) && (argc > i + 1))
         {
         bckdly_flg    = i + 2;
         delay_mode   |= BEH_DELAY_BACKANOTATED;
@@ -217,14 +217,14 @@ char *argv[];
         arg_flg [i] = 1;
         }
 
-      if (!strcmp (argv [i], "-p"))
+      if (!strcmp (argv [i], "-p") && (argc > i + 1))
         {
         sscanf (argv [i+1], "%u", &max_pat);
         arg_flg [i  ] = 1;
         arg_flg [i+1] = 1;
         }
 
-      if (!strcmp (argv [i], "-l"))
+      if (!strcmp (argv [i], "-l") && (argc > i + 1))
         {
         sscanf (argv [i+1], "%u", &labelsiz);
         arg_flg [i  ] = 1;
@@ -237,7 +237,7 @@ char *argv[];
         arg_flg [i] = 1;
         }
 
-      if (!strcmp (argv [i], "-stat"))
+      if (!strcmp (argv [i], "-stat") && (argc > i + 1))
         {
         stat_flg      = i + 2;
         sscanf (argv [i+1], "%u", &ref_date);
@@ -260,7 +260,7 @@ char *argv[];
         arg_flg [i+1] = 1;
         }
 
-      if (!strcmp (argv [i], "-inspect"))
+      if (!strcmp (argv [i], "-inspect") && (argc > i + 1))
         {
         str           = namealloc (argv [i+1]);
         pt_pains      = pat_addpains (pt_pains, str, str);

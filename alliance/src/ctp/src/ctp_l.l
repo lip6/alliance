@@ -38,25 +38,7 @@
 #include "vex.h"
 #include "ctl.h"
 
-typedef struct ctp_expr
-{
-  vexexpr       *IDENT; 	/* identifier or constant name		*/
-  vexexpr       *VEX;		/* pointer on bvl_abllst list		*/
-  short          WIDTH;
-  short          TYPE;
-}
-ctp_vexstr;
-
-typedef struct
-  {
-  char 		*NAME;		/* identifier name */
-  long   	 LEFT;		/* vector's left index */
-  long  	 RIGHT;		/* vector's right index */
-  short          WIDTH;
-  char           FLAG;
-  }
-ctp_name;
-
+#include "ctp_bspec.h"
 #include "ctp_y.h"
 #include "ctp_bedef.h"
 #include "ctp_blex.h"
