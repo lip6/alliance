@@ -41,7 +41,7 @@ char              *ctx_str;
   struct dct_recrd *recrd_pnt;
   struct dct_recrd *last_recrd = NULL;
 
-  index     = (long)key_str % MVL_HSZDFN;
+  index     = (unsigned long)key_str % MVL_HSZDFN;
   entry_pnt = head [index];
 
   while (entry_pnt != NULL)
@@ -204,7 +204,7 @@ long                valu;
   struct dct_entry *entry_pnt;
   struct dct_recrd *recrd_pnt;
 
-  index     = (long) key_str % MVL_HSZDFN;
+  index     = (unsigned long) key_str % MVL_HSZDFN;
   entry_pnt = head[index];
 
   while (entry_pnt != NULL)
@@ -287,7 +287,7 @@ long                field;
   struct dct_entry *entry_pnt;
   struct dct_recrd *recrd_pnt;
 
-  entry_pnt = head [(long)key_str % MVL_HSZDFN];
+  entry_pnt = head [(unsigned long)key_str % MVL_HSZDFN];
 
   while (entry_pnt != NULL)
     {

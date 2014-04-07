@@ -12,6 +12,7 @@ ltmain.sh
 missing
 depcomp
 alliance/src/configure.in
+alliance/src/ltmain.sh
 dev/scripts/cppcheck/*
 *.eps
 *.aux
@@ -20,4 +21,5 @@ dev/scripts/cppcheck/*
 *.log
 *.lst
 archives/
-
+cvsCommit.txt
+gitCommit.txt
