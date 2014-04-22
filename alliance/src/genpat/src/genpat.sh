@@ -59,8 +59,6 @@ cat << EOF  > $makefile
 
 ALLIANCE_LIBRARY = -L\$(ALLIANCE_TOP)/lib \\
                      -lPgn \\
-                     -lPpt \\
-                     -lPhl \\
                      -lPat \\
                      -lMut \\
                      -lRcn

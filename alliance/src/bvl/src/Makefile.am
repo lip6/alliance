@@ -4,8 +4,8 @@ include_HEADERS     = bvl.h
 libBvl_la_SOURCES   = bvl_bcomp_y.y bvl_bcomp_l.l  bvl_bcomp_y.h \
                       bvl_bedef.h   bvl_drive.c    bvl.h         bvl_util.c \
                       bvl_byacc.h   bvl_globals.c  bvl_parse.c
-
 libBvl_la_LDFLAGS   = -version-info @BVL_DLL_VERSION@
+libBvl_la_LIBADD    = -lBhl -lBeh -lMut
 
 CLEANFILES          = bvl_bcomp_y.c bvl_bcomp_y.h bvl_bcomp_l.c
 

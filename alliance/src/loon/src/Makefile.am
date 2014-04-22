@@ -18,14 +18,7 @@ loon_LDADD = @ALLIANCE_LIBS@ \
 -L$(top_builddir)/aut/src \
 -L$(top_builddir)/bdd/src \
 -L$(top_builddir)/mbk/src \
--L$(top_builddir)/mbkal/src \
--L$(top_builddir)/mbkedif/src \
--L$(top_builddir)/mbkhilo/src \
--L$(top_builddir)/mbkspice/src \
--L$(top_builddir)/mbkvhdlg/src \
--L$(top_builddir)/mbkvrlog/src \
--L$(top_builddir)/mbkvti/src \
-          -lAbv -lAbe -lAbt -lMlu -lMcl -lMal -lMsl -lMhl -lMel -lMvg -lMgl -lRcn -lMlo -lBdd -lAbl -lAut -lMut
+          -lAbv -lAbe -lAbt -lMlu -lMlo -lBdd -lAbl -lAut -lMut
 	   
 loon_SOURCES = \
 lon_lax_param.c           lon_lib_utils.c           lon_optim_capa.h \

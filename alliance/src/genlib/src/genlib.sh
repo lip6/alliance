@@ -248,25 +248,14 @@ cat << EOF > $MAKEFILE
   LOCAL_ALC_LVBE = -lBvl \\
                    -lBeh \\
                    -lBhl \\
-                   -lLog \\
-                   -lCst
+                   -lLog
   LOCAL_ALC_LMGN = -lMgn
   LOCAL_ALC_LMUT = -lMut
   LOCAL_ALC_LMLO = -lMlu \\
                    -lMlo \\
-                   -lMal \\
-                   -lMcl \\
-                   -lMgl \\
-                   -lMel \\
-                   -lMhl \\
-                   -lMsl \\
-                   -lMvg \\
                    -lRcn
   LOCAL_ALC_LMPH = -lMpu \\
-                   -lMph \\
-                   -lMap \\
-                   -lMcp \\
-                   -lMmg
+                   -lMph
   LOCAL_ALC_LIBS = \$(LOCAL_ALC_LDIR) \\
                    \$(LOCAL_ALC_LVBE) \\
                    \$(LOCAL_ALC_LMGN) \\

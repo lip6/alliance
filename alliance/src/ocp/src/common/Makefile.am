@@ -1,8 +1,8 @@
 ## Process this file with automake to produce Makefile.in
 
-AM_CXXFLAGS = @ALLIANCE_CFLAGS@ -I$(top_srcdir)/mbk/src -std=c++0x
+AM_CXXFLAGS          = @ALLIANCE_CFLAGS@ -I$(top_srcdir)/mbk/src -std=c++0x
 
-noinst_LIBRARIES = libPCommon.a
+noinst_LIBRARIES     = libPCommon.a
 
 libPCommon_a_SOURCES = PBBox.cpp PBBox.h PCommon.cpp \
 		       PCommon.h PConstants.h PContainer.h \

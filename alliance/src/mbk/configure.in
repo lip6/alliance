@@ -52,6 +52,8 @@ AC_CHECK_HEADERS(fcntl.h malloc.h strings.h sys/time.h unistd.h)
 AC_C_CONST
 AC_TYPE_SIGNAL
 AC_FUNC_VFORK
+AC_PROG_YACC
+AC_PROG_LEX
 dnl AM_PROG_LIBTOOL
 AM_PROG_LIBTOOL
 
