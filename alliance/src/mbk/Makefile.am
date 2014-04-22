@@ -1,1 +1,1 @@
-SUBDIRS = src man1 man3 man5
+SUBDIRS = src etc man1 man3 man5

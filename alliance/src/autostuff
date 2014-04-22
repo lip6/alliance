@@ -72,7 +72,7 @@ dirs="$newdirs documentation"
 ## Order directories.
 order="mbk \
        aut rds elp abl bdd log btr vex ctl ctp abe abt \
-       abv fsm fks fvh ftl rtn rtd scl vbh vpn pat gcp \
+       abv fsm fks fvh ftl rtn rtd scl vpn vbh pat gcp \
        druc beh bhl bvl"
 ordered_dirs=""
 for lib in $order; do

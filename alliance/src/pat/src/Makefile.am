@@ -25,7 +25,6 @@ pat_decl_y.c pat_decl_y.h : $(srcdir)/pat_decl_y.y
 	$(YACC) -d $(YFLAGS) $(srcdir)/pat_decl_y.y \
 	    && sed -e "s/yy/pat_decl_y_/g" -e "s/YY/PAT_DECL_Y_/g" y.tab.c \
 	     | sed -e "s/int[        ]*pat_decl_y_char;/extern int pat_decl_y_char;/" \
-	     | sed -e "s/PAT_DECL_Y_STYPE[   ]*pat_decl_y_lval;/extern PAT_DECL_Y_STYPE pat_decl_y_lval;/" \
 	     | sed -e "s/int[        ]*pat_decl_y_nerrs;/extern int pat_decl_y_nerrs;/" \
 	     > pat_decl_y.c \
 	    && sed -e "s/yy/pat_decl_y_/g" -e "s/YY/PAT_DECL_Y_/g" y.tab.h > pat_decl_y.h
