@@ -1,92 +1,32 @@
 ## Process this file with automake to produce Makefile.in
 
-AM_YFLAGS = -d -v -p DEF_grammar
-AM_LFLAGS = -s -f -8 -pp -PDEF_grammar -olex.yy.c
+AM_YFLAGS    = -d -v -p DEF_grammar
+AM_LFLAGS    = -s -f -8 -pp -PDEF_grammar -olex.yy.c
 
-AM_CFLAGS = @ALLIANCE_CFLAGS@ \
--I$(top_srcdir)/aut/src \
--I$(top_srcdir)/mbk/src
+AM_CFLAGS    = @ALLIANCE_CFLAGS@ \
+               -I$(top_srcdir)/aut/src \
+               -I$(top_srcdir)/mbk/src
 
 bin_PROGRAMS = a2def def2a sxlib2lef
 bin_SCRIPTS  = sea seroute seplace a2lef 
 
-a2def_LDADD = @ALLIANCE_LIBS@ \
-       ./libUtil.a \
--L$(top_srcdir)/aut/src \
--L$(top_srcdir)/mbk/src \
--L$(top_srcdir)/mbkal/src \
--L$(top_srcdir)/mbkap/src \
--L$(top_srcdir)/mbkedif/src \
--L$(top_srcdir)/mbkhilo/src \
--L$(top_srcdir)/mbkmg/src \
--L$(top_srcdir)/mbkspice/src \
--L$(top_srcdir)/mbkvhdlg/src \
--L$(top_srcdir)/mbkvrlog/src \
--L$(top_srcdir)/mbkvti/src \
-      -lMpu -lMlu \
-      -lMcl -lMcp \
-      -lMal -lMap \
-      -lMsl \
-      -lMel -lMgl \
-      -lMhl \
-      -lMvg \
-      -lMmg \
-      -lMlo \
-      -lMph -lMut \
-      -lRcn \
-      -lAut
+a2def_LDADD  = @ALLIANCE_LIBS@ \
+               ./libUtil.a \
+               -L$(top_srcdir)/aut/src \
+               -L$(top_srcdir)/mbk/src \
+               -lMpu -lMlu -lMlo -lMph -lMut -lRcn -lAut
 
-def2a_LDADD = @ALLIANCE_LIBS@ \
-       ./libUtil.a \
--L$(top_srcdir)/aut/src \
--L$(top_srcdir)/mbk/src \
--L$(top_srcdir)/mbkal/src \
--L$(top_srcdir)/mbkap/src \
--L$(top_srcdir)/mbkedif/src \
--L$(top_srcdir)/mbkhilo/src \
--L$(top_srcdir)/mbkmg/src \
--L$(top_srcdir)/mbkspice/src \
--L$(top_srcdir)/mbkvhdlg/src \
--L$(top_srcdir)/mbkvrlog/src \
--L$(top_srcdir)/mbkvti/src \
-      -lMpu -lMlu \
-      -lMcl -lMcp \
-      -lMal -lMap \
-      -lMsl \
-      -lMel -lMgl \
-      -lMhl \
-      -lMvg \
-      -lMmg \
-      -lMlo \
-      -lMph -lMut \
-      -lRcn \
-      -lAut
+def2a_LDADD  = @ALLIANCE_LIBS@ \
+               ./libUtil.a \
+               -L$(top_srcdir)/aut/src \
+               -L$(top_srcdir)/mbk/src \
+               -lMpu -lMlu -lMlo -lMph -lMut -lRcn -lAut
 
 sxlib2lef_LDADD = @ALLIANCE_LIBS@ \
-       ./libUtil.a \
--L$(top_srcdir)/aut/src \
--L$(top_srcdir)/mbk/src \
--L$(top_srcdir)/mbkal/src \
--L$(top_srcdir)/mbkap/src \
--L$(top_srcdir)/mbkedif/src \
--L$(top_srcdir)/mbkhilo/src \
--L$(top_srcdir)/mbkmg/src \
--L$(top_srcdir)/mbkspice/src \
--L$(top_srcdir)/mbkvhdlg/src \
--L$(top_srcdir)/mbkvrlog/src \
--L$(top_srcdir)/mbkvti/src \
-      -lMpu -lMlu \
-      -lMcl -lMcp \
-      -lMal -lMap \
-      -lMsl \
-      -lMel -lMgl \
-      -lMhl \
-      -lMvg \
-      -lMmg \
-      -lMlo \
-      -lMph -lMut \
-      -lRcn \
-      -lAut
+                  ./libUtil.a \
+                  -L$(top_srcdir)/aut/src \
+                  -L$(top_srcdir)/mbk/src \
+                  -lMpu -lMlu -lMlo -lMph -lMut -lRcn -lAut
 
 noinst_LIBRARIES = libUtil.a
 

@@ -1,17 +1,17 @@
 ## Process this file with automake to produce Makefile.in
 
 bin_PROGRAMS = graal
-AM_CFLAGS = @ALLIANCE_CFLAGS@ @X_CFLAGS@ \
--I$(top_srcdir)/mbk/src \
--I$(top_srcdir)/rds/src \
--I$(top_srcdir)/druc/src \
-         -DGRAAL_DEFAULT_TECHNO_NAME=\"etc/cmos.graal\" \
-         -DGMS_FILE_NAME=\".graal.cfg\" \
-         -DGRAAL_WINDOW_DX=\"GRAAL_WINDOW_DX\" \
-         -DGRAAL_WINDOW_DY=\"GRAAL_WINDOW_DY\" \
-         -DGRAAL_WINDOW_XMIN=\"GRAAL_WINDOW_XMIN\" \
-         -DGRAAL_WINDOW_YMIN=\"GRAAL_WINDOW_YMIN\" \
-         -DGRAAL_WINDOW_SIDE=\"GRAAL_WINDOW_SIDE\" 
+AM_CFLAGS    = @ALLIANCE_CFLAGS@ @X_CFLAGS@ \
+               -I$(top_srcdir)/mbk/src \
+               -I$(top_srcdir)/rds/src \
+               -I$(top_srcdir)/druc/src \
+               -DGRAAL_DEFAULT_TECHNO_NAME=\"etc/cmos.graal\" \
+               -DGMS_FILE_NAME=\".graal.cfg\" \
+               -DGRAAL_WINDOW_DX=\"GRAAL_WINDOW_DX\" \
+               -DGRAAL_WINDOW_DY=\"GRAAL_WINDOW_DY\" \
+               -DGRAAL_WINDOW_XMIN=\"GRAAL_WINDOW_XMIN\" \
+               -DGRAAL_WINDOW_YMIN=\"GRAAL_WINDOW_YMIN\" \
+               -DGRAAL_WINDOW_SIDE=\"GRAAL_WINDOW_SIDE\" 
 
 # -----------------------------------------------------------------------------
 # X Libraries.
@@ -49,16 +49,10 @@ ALL_X_LIBS = $(X_LDFLAGS) $(LIBXM) $(LIBXT) $(LIBXPM) \
 
 
 graal_LDADD = @ALLIANCE_LIBS@ $(ALL_X_LIBS) \
--L$(top_builddir)/druc/src \
--L$(top_builddir)/mbk/src \
--L$(top_builddir)/mbkap/src \
--L$(top_builddir)/mbkmg/src \
--L$(top_builddir)/mbkvti/src \
--L$(top_builddir)/rds/src \
--L$(top_builddir)/rdscif/src \
--L$(top_builddir)/rdsgds/src \
--lVrd -lRtl -lRgs -lRcf -lRfm -lRpr -lRwi -lRut -lRds -lMpu \
--lMap -lMmg -lMcp -lMph -lMut
+              -L$(top_builddir)/druc/src \
+              -L$(top_builddir)/mbk/src \
+              -L$(top_builddir)/rds/src \
+              -lVrd -lRds -lMpu -lMph -lMut
 
 graal_SOURCES = \
 graal.c GMC_create.c GMC_create.h GMC_dialog.c GMC_dialog.h GMC.h GMC_menu.c GMC_menu.h \

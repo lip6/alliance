@@ -29,7 +29,7 @@ vasy_LDADD = @ALLIANCE_LIBS@ \
 -L$(top_srcdir)/vpn/src \
 -L$(top_srcdir)/vtl/src \
 -L$(top_srcdir)/vvh/src \
-          -lRtd -lRtn -lVtl -lVvh -lVpd -lVpn -lVbl -lVbh \
+          -lRtd -lRtn -lVpd -lVpn -lVbh \
 	  -lVex -lBdd -lAbl -lAut -lMut
 
 vasy_SOURCES = \

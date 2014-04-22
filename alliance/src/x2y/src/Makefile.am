@@ -6,29 +6,7 @@ AM_CFLAGS = @ALLIANCE_CFLAGS@ \
 bin_PROGRAMS = x2y
 
 x2y_LDADD = @ALLIANCE_LIBS@ \
--L$(top_srcdir)/mbk/src \
--L$(top_srcdir)/mbkal/src \
--L$(top_srcdir)/mbkap/src \
--L$(top_srcdir)/mbkedif/src \
--L$(top_srcdir)/mbkhilo/src \
--L$(top_srcdir)/mbkmg/src \
--L$(top_srcdir)/mbkspice/src \
--L$(top_srcdir)/mbkvhdl/src \
--L$(top_srcdir)/mbkvrlog/src \
--L$(top_srcdir)/mbkvti/src \
-          -lMpu -lMlu \
-	  -lMcl -lMcp \
-	  -lMal \
-          -lMap \
-	  -lMsl \
-	  -lMel \
-          -lMgl \
-	  -lMhl \
-	  -lMvl \
-	  -lMmg \
-	  -lMlo \
-	  -lMph \
-          -lMut \
-	  -lRcn 
+            -L$(top_srcdir)/mbk/src \
+            -lMpu -lMlu -lMlo -lMph -lMut -lRcn 
 	  
 x2y_SOURCES = x2y.c

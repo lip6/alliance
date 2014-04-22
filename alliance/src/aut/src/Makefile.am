@@ -9,3 +9,4 @@ autdebug.h    autexit.h     authash.h     autresize.h   \
 autenv.c      autfree.c     authash2.c    autsort.c
 
 libAut_la_LDFLAGS = -version-info @AUT_DLL_VERSION@
+libAut_la_LIBADD  = -lMut

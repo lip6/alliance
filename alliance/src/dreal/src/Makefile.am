@@ -1,16 +1,16 @@
 ## Process this file with automake to produce Makefile.in
 
 bin_PROGRAMS = dreal
-AM_CFLAGS = -I$(top_srcdir)/mbk/src \
--I$(top_srcdir)/rds/src \
-@ALLIANCE_CFLAGS@ @X_CFLAGS@ \
-         -DDREAL_DEFAULT_TECHNO_NAME=\"etc/cmos.dreal\" \
-         -DGMS_FILE_NAME=\".dreal.cfg\" \
-         -DDREAL_WINDOW_DX=\"DREAL_WINDOW_DX\" \
-         -DDREAL_WINDOW_DY=\"DREAL_WINDOW_DY\" \
-         -DDREAL_WINDOW_XMIN=\"DREAL_WINDOW_XMIN\" \
-         -DDREAL_WINDOW_YMIN=\"DREAL_WINDOW_YMIN\" \
-         -DDREAL_WINDOW_SIDE=\"DREAL_WINDOW_SIDE\" 
+AM_CFLAGS    = -I$(top_srcdir)/mbk/src \
+               -I$(top_srcdir)/rds/src \
+               @ALLIANCE_CFLAGS@ @X_CFLAGS@ \
+               -DDREAL_DEFAULT_TECHNO_NAME=\"etc/cmos.dreal\" \
+               -DGMS_FILE_NAME=\".dreal.cfg\" \
+               -DDREAL_WINDOW_DX=\"DREAL_WINDOW_DX\" \
+               -DDREAL_WINDOW_DY=\"DREAL_WINDOW_DY\" \
+               -DDREAL_WINDOW_XMIN=\"DREAL_WINDOW_XMIN\" \
+               -DDREAL_WINDOW_YMIN=\"DREAL_WINDOW_YMIN\" \
+               -DDREAL_WINDOW_SIDE=\"DREAL_WINDOW_SIDE\" 
 
 
 # -----------------------------------------------------------------------------
@@ -48,14 +48,9 @@ ALL_X_LIBS = $(X_LDFLAGS) $(LIBXM) $(LIBXT) $(LIBXPM) \
 
 
 dreal_LDADD = @ALLIANCE_LIBS@ $(ALL_X_LIBS) \
--L$(top_builddir)/mbk/src \
--L$(top_builddir)/mbkap/src \
--L$(top_builddir)/mbkmg/src \
--L$(top_builddir)/mbkvti/src \
--L$(top_builddir)/rds/src \
--L$(top_builddir)/rdscif/src \
--L$(top_builddir)/rdsgds/src \
--lRtl -lRgs -lRcf -lRut -lRfm -lRpr -lRds -lMpu -lMap -lMmg -lMcp -lMph -lMut 
+              -L$(top_builddir)/mbk/src \
+              -L$(top_builddir)/rds/src \
+              -lRds -lMpu -lMph -lMut 
 
 
 dreal_SOURCES = \

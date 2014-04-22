@@ -70,9 +70,9 @@ dirs="$newdirs documentation"
 
 
 ## Order directories.
-order="mbk mbkal mbkap mbkedif mbkhilo mbkmg mbkspice mbkvhdl mbkvrlog mbkvti \
-       mbkvhdlg aut rds rdscif rdsgds elp abl bdd log btr vex ctl ctp abe abt \
-       abv fsm fks fvh ftl rtn rtd scl vbh vbl vpn vpd vvh vtl pat ppt phl gcp \
+order="mbk \
+       aut rds elp abl bdd log btr vex ctl ctp abe abt \
+       abv fsm fks fvh ftl rtn rtd scl vbh vpn pat gcp \
        druc beh bhl bvl"
 ordered_dirs=""
 for lib in $order; do
