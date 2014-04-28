@@ -10,6 +10,7 @@ vmcrelat.h vmctools.c vmctools.h vmcunify.c vmcunify.h
 
 CFLAGS = $(ALLIANCE_CFLAGS) -g -O0
 libVrd_la_LDFLAGS = -version-info @VRD_DLL_VERSION@
+libVrd_la_LIBADD  = -lRds -lMut
 
 CLEANFILES          = drucompi_l.c drucompi_y.h drucompi_y.c
 

@@ -11,8 +11,7 @@ AM_CFLAGS = @ALLIANCE_CFLAGS@ \
 -I$(top_srcdir)/rtn/src \
 -I$(top_srcdir)/vex/src \
 -I$(top_srcdir)/vbh/src \
--I$(top_srcdir)/vpn/src \
--I$(top_srcdir)/vtl/src
+-I$(top_srcdir)/vpn/src
 
 vasy_LDADD = @ALLIANCE_LIBS@ \
 -L$(top_srcdir)/abl/src \
@@ -24,7 +23,6 @@ vasy_LDADD = @ALLIANCE_LIBS@ \
 -L$(top_srcdir)/vbh/src \
 -L$(top_srcdir)/vex/src \
 -L$(top_srcdir)/vpn/src \
--L$(top_srcdir)/vtl/src \
           -lRtd -lRtn -lVpn -lVbh \
 	  -lVex -lBdd -lAbl -lAut -lMut
 
