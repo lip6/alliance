@@ -5,6 +5,7 @@ AM_CFLAGS    = @ALLIANCE_CFLAGS@ @X_CFLAGS@ \
                -DXVPN_DEFAULT_PARAM_NAME=\"${ALLIANCE_TOP}/etc/xvpn.par\" \
                -DXMS_FILE_NAME=\".xvpn.cfg\" \
                -I$(top_srcdir)/aut/src \
+               -I$(top_srcdir)/vbh/src \
                -I$(top_srcdir)/vex/src \
                -I$(top_srcdir)/vpn/src \
                -I$(top_srcdir)/vtl/src \

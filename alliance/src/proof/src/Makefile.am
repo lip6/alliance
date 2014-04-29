@@ -9,6 +9,8 @@ AM_CFLAGS     = @ALLIANCE_CFLAGS@ -I$(top_srcdir)/beh/src \
 
 proof_LDADD   = @ALLIANCE_LIBS@ \
                 -L$(top_srcdir)/asimut/src \
+                -L$(top_srcdir)/abl/src \
+                -L$(top_srcdir)/aut/src \
                 -L$(top_srcdir)/beh/src \
                 -L$(top_srcdir)/bhl/src \
                 -L$(top_srcdir)/bvl/src \

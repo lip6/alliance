@@ -25,8 +25,8 @@ bin_PROGRAMS = druc
 AM_CFLAGS = -I$(top_srcdir)/mbk/src -I$(top_srcdir)/rds/src
 
 druc_LDADD = $(ALLIANCE_LIBS) -L. libVrd.la \
--L$(builddir)/../../rds/src -lRds \
--L$(builddir)/../../mbk/src -lMpu -lMut
+-L$(builddir)/../../rds/src/.libs -lRds \
+-L$(builddir)/../../mbk/src/.libs -lMpu -lMut
 
 druc_SOURCES = \
 drucbath.c drucbath.h

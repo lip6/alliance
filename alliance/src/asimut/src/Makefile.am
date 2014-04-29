@@ -28,7 +28,9 @@ asimut_LDADD      = -L. libSch.la -lBvl -lBhl \
                     -L$(top_builddir)/beh/src \
                     -L$(top_builddir)/pat/src \
                     -L$(top_builddir)/log/src \
-                    -lMlu -lRcn -lBvl -lBhl -lBeh -lPat -lLog -lMut
+                    -L$(top_builddir)/abl/src \
+                    -L$(top_builddir)/aut/src \
+                    -lAut -lAbl -lMlu -lRcn -lBvl -lBhl -lBeh -lPat -lLog -lMut
 
 asimut_SOURCES    = beh_delay.h	  c_fsyn_sr1k_56.c    vh_debug.c    vh_lspec.c	  vh_util.h  vh_init.h \
                     beh_setdelay.c	  c_fsyn_sr4k_10.c    vh_debug.h    vh_lspec.h	  vh_xcomm.c \
