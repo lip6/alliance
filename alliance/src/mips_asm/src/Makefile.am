@@ -13,11 +13,11 @@ AM_CFLAGS = @ALLIANCE_CFLAGS@ \
 bin_PROGRAMS = mips_asm
 
 mips_asm_LDADD = @ALLIANCE_LIBS@ \
--L$(top_srcdir)/abl/src \
--L$(top_srcdir)/aut/src \
--L$(top_srcdir)/beh/src \
--L$(top_srcdir)/log/src \
--L$(top_srcdir)/mbk/src \
+-L$(top_builddir)/abl/src/.libs \
+-L$(top_builddir)/aut/src/.libs \
+-L$(top_builddir)/beh/src/.libs \
+-L$(top_builddir)/log/src/.libs \
+-L$(top_builddir)/mbk/src/.libs \
 	  -lBeh -lMut -lLog
 	   
 mips_asm_SOURCES = mips_defs.h mips_y.y mips_l.l mips_globals.c mips_lex.h mips_type.h mips_yacc.h mips_util.c

@@ -12,20 +12,20 @@ bin_SCRIPTS  = sea seroute seplace a2lef
 
 a2def_LDADD  = @ALLIANCE_LIBS@ \
                ./libUtil.a \
-               -L$(top_srcdir)/aut/src \
-               -L$(top_srcdir)/mbk/src \
+               -L$(top_builddir)/aut/src/.libs \
+               -L$(top_builddir)/mbk/src/.libs \
                -lMpu -lMlu -lMlo -lMph -lMut -lRcn -lAut
 
 def2a_LDADD  = @ALLIANCE_LIBS@ \
                ./libUtil.a \
-               -L$(top_srcdir)/aut/src \
-               -L$(top_srcdir)/mbk/src \
+               -L$(top_builddir)/aut/src/.libs \
+               -L$(top_builddir)/mbk/src/.libs \
                -lMpu -lMlu -lMlo -lMph -lMut -lRcn -lAut
 
 sxlib2lef_LDADD = @ALLIANCE_LIBS@ \
                   ./libUtil.a \
-                  -L$(top_srcdir)/aut/src \
-                  -L$(top_srcdir)/mbk/src \
+                  -L$(top_builddir)/aut/src/.libs \
+                  -L$(top_builddir)/mbk/src/.libs \
                   -lMpu -lMlu -lMlo -lMph -lMut -lRcn -lAut
 
 noinst_LIBRARIES = libUtil.a

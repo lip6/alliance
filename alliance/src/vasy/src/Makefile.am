@@ -14,15 +14,15 @@ AM_CFLAGS = @ALLIANCE_CFLAGS@ \
 -I$(top_srcdir)/vpn/src
 
 vasy_LDADD = @ALLIANCE_LIBS@ \
--L$(top_srcdir)/abl/src \
--L$(top_srcdir)/aut/src \
--L$(top_srcdir)/bdd/src \
--L$(top_srcdir)/mbk/src \
--L$(top_srcdir)/rtd/src \
--L$(top_srcdir)/rtn/src \
--L$(top_srcdir)/vbh/src \
--L$(top_srcdir)/vex/src \
--L$(top_srcdir)/vpn/src \
+-L$(top_builddir)/abl/src/.libs \
+-L$(top_builddir)/aut/src/.libs \
+-L$(top_builddir)/bdd/src/.libs \
+-L$(top_builddir)/mbk/src/.libs \
+-L$(top_builddir)/rtd/src/.libs \
+-L$(top_builddir)/rtn/src/.libs \
+-L$(top_builddir)/vbh/src/.libs \
+-L$(top_builddir)/vex/src/.libs \
+-L$(top_builddir)/vpn/src/.libs \
           -lRtd -lRtn -lVpn -lVbh \
 	  -lVex -lBdd -lAbl -lAut -lMut
 

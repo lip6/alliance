@@ -41,9 +41,9 @@ ALL_X_LIBS = $(X_LDFLAGS) $(LIBXM) $(LIBXT) \
 
 
 xpat_LDADD = @ALLIANCE_LIBS@ $(ALL_X_LIBS) \
-             -L$(top_srcdir)/aut/src \
-             -L$(top_srcdir)/mbk/src \
-             -L$(top_srcdir)/pat/src \
+             -L$(top_builddir)/aut/src/.libs \
+             -L$(top_builddir)/mbk/src/.libs \
+             -L$(top_builddir)/pat/src/.libs \
 	     -lPat -lAut -lMut
 
 xpat_SOURCES = \

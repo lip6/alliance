@@ -11,13 +11,13 @@ AM_CFLAGS    = @ALLIANCE_CFLAGS@ \
 bin_PROGRAMS = flatbeh
 
 flatbeh_LDADD = @ALLIANCE_LIBS@ \
--L$(top_srcdir)/abv/src \
--L$(top_srcdir)/abe/src \
--L$(top_srcdir)/abt/src \
--L$(top_srcdir)/mbk/src \
--L$(top_srcdir)/bdd/src \
--L$(top_srcdir)/abl/src \
--L$(top_srcdir)/aut/src \
+-L$(top_builddir)/abv/src/.libs \
+-L$(top_builddir)/abe/src/.libs \
+-L$(top_builddir)/abt/src/.libs \
+-L$(top_builddir)/mbk/src/.libs \
+-L$(top_builddir)/bdd/src/.libs \
+-L$(top_builddir)/abl/src/.libs \
+-L$(top_builddir)/aut/src/.libs \
           -lAbv -lAbe -lAbt -lMlu -lRcn -lMlo -lBdd -lAbl -lAut -lMut
 	   
 flatbeh_SOURCES = abstract.c abstract.h utils.c utils.h main.c

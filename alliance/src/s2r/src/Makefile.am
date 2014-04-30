@@ -8,8 +8,8 @@ AM_CFLAGS    = @ALLIANCE_CFLAGS@ \
                -I$(top_srcdir)/mbk/src
 
 s2r_LDADD    = @ALLIANCE_LIBS@ \
-               -L$(top_srcdir)/mbk/src \
-               -L$(top_srcdir)/rds/src \
+               -L$(top_builddir)/mbk/src/.libs \
+               -L$(top_builddir)/rds/src/.libs \
                -lMpu -lRds -lMph -lMut
 
 s2r_SOURCES  = generic.h  hash.h  maxima.h  merge.h\

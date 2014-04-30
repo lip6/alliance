@@ -45,13 +45,13 @@ ALL_X_LIBS = $(X_LDFLAGS) $(LIBXM) $(LIBXT) \
 
 
 xsch_LDADD = @ALLIANCE_LIBS@ $(ALL_X_LIBS) \
-             -L$(top_srcdir)/abe/src \
-             -L$(top_srcdir)/abl/src \
-             -L$(top_srcdir)/abv/src \
-             -L$(top_srcdir)/aut/src \
-             -L$(top_srcdir)/bdd/src \
-             -L$(top_srcdir)/mbk/src \
-             -L$(top_srcdir)/scl/src \
+             -L$(top_builddir)/abe/src/.libs \
+             -L$(top_builddir)/abl/src/.libs \
+             -L$(top_builddir)/abv/src/.libs \
+             -L$(top_builddir)/aut/src/.libs \
+             -L$(top_builddir)/bdd/src/.libs \
+             -L$(top_builddir)/mbk/src/.libs \
+             -L$(top_builddir)/scl/src/.libs \
              -lScl -lMlu -lMlo -lMut -lAbv -lAbe -lBdd -lAbl -lAut -lRcn
 
 xsch_SOURCES = \

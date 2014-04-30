@@ -11,14 +11,14 @@ AM_CFLAGS = @ALLIANCE_CFLAGS@ \
 -I$(top_srcdir)/mbk/src
 
 fsp_LDADD = @ALLIANCE_LIBS@ \
--L$(top_srcdir)/abl/src \
--L$(top_srcdir)/aut/src \
--L$(top_srcdir)/bdd/src \
--L$(top_srcdir)/fks/src \
--L$(top_srcdir)/fsm/src \
--L$(top_srcdir)/ftl/src \
--L$(top_srcdir)/fvh/src \
--L$(top_srcdir)/mbk/src \
+-L$(top_builddir)/abl/src/.libs \
+-L$(top_builddir)/aut/src/.libs \
+-L$(top_builddir)/bdd/src/.libs \
+-L$(top_builddir)/fks/src/.libs \
+-L$(top_builddir)/fsm/src/.libs \
+-L$(top_builddir)/ftl/src/.libs \
+-L$(top_builddir)/fvh/src/.libs \
+-L$(top_builddir)/mbk/src/.libs \
           -lFtl -lFks -lFvh -lFsm \
 	  -lBdd -lAbl -lAut -lMut
 

@@ -6,8 +6,8 @@ AM_CFLAGS    = @ALLIANCE_CFLAGS@ -I$(top_srcdir)/mbk/src \
                -I$(top_srcdir)/rds/src
 
 l2p_LDADD    = @ALLIANCE_LIBS@ \
-               -L$(top_srcdir)/mbk/src \
-               -L$(top_srcdir)/rds/src \
+               -L$(top_builddir)/mbk/src/.libs \
+               -L$(top_builddir)/rds/src/.libs \
                -lMlu -lMpu -lMlo -lMph -lMut -lRds
 
 l2p_SOURCES  = drive_ps.c  rps_inc.h   tmp_man.c \

@@ -16,7 +16,7 @@ libOcp_a_SOURCES = PElem.cpp PIns.cpp PNet.cpp \
 
 ocp_LDADD        = @ALLIANCE_LIBS@ \
                    ../common/libPCommon.a \
-                   -L$(top_srcdir)/mbk/src \
+                   -L$(top_builddir)/mbk/src/.libs \
                    -lMpu -lMlu -lMlo -lMph -lMut -lRcn 
 	   
 ocp_SOURCES = Ocp.cpp PBin.cpp PCon.cpp \

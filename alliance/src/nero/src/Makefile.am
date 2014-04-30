@@ -21,8 +21,8 @@ bin_PROGRAMS     = nero pdv
 
 nero_LDADD       = -L$(libdir) @ALLIANCE_LIBS@  \
                    ./libU.a     \
-                   -L$(top_srcdir)/aut/src \
-                   -L$(top_srcdir)/mbk/src \
+                   -L$(top_builddir)/aut/src/.libs \
+                   -L$(top_builddir)/mbk/src/.libs \
                    -lMpu -lMlu -lMlo -lMph -lMut -lRcn -lAut
 
 noinst_LIBRARIES = libU.a
@@ -51,8 +51,8 @@ libU_a_SOURCES   = UConst.cpp  \
 nero_SOURCES     = nero.cpp
 
 pdv_LDADD        = @ALLIANCE_LIBS@  \
-                   -L$(top_srcdir)/aut/src \
-                   -L$(top_srcdir)/mbk/src \
+                   -L$(top_builddir)/aut/src/.libs \
+                   -L$(top_builddir)/mbk/src/.libs \
                    -lMpu -lMlu -lMlo -lMph -lMut -lRcn -lAut
 
 pdv_SOURCES      = pdv.c

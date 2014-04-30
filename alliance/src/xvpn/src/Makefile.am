@@ -45,12 +45,12 @@ ALL_X_LIBS = $(X_LDFLAGS) $(LIBXM) $(LIBXT) \
 
 
 xvpn_LDADD = @ALLIANCE_LIBS@ $(ALL_X_LIBS) \
-             -L$(top_srcdir)/abl/src \
-             -L$(top_srcdir)/aut/src \
-             -L$(top_srcdir)/mbk/src \
-             -L$(top_srcdir)/vbh/src \
-             -L$(top_srcdir)/vex/src \
-             -L$(top_srcdir)/vpn/src \
+             -L$(top_builddir)/abl/src/.libs \
+             -L$(top_builddir)/aut/src/.libs \
+             -L$(top_builddir)/mbk/src/.libs \
+             -L$(top_builddir)/vbh/src/.libs \
+             -L$(top_builddir)/vex/src/.libs \
+             -L$(top_builddir)/vpn/src/.libs \
              -lVpn -lVbh -lVex -lAbl -lAut -lMut
 
 xvpn_SOURCES = \

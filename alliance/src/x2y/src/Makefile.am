@@ -6,7 +6,7 @@ AM_CFLAGS = @ALLIANCE_CFLAGS@ \
 bin_PROGRAMS = x2y
 
 x2y_LDADD = @ALLIANCE_LIBS@ \
-            -L$(top_srcdir)/mbk/src \
+            -L$(top_builddir)/mbk/src/.libs \
             -lMpu -lMlu -lMlo -lMph -lMut -lRcn 
 	  
 x2y_SOURCES = x2y.c

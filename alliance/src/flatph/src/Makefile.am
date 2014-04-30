@@ -5,7 +5,7 @@ AM_CFLAGS = @ALLIANCE_CFLAGS@ -I$(top_srcdir)/mbk/src
 bin_PROGRAMS = flatph
 
 flatph_LDADD = @ALLIANCE_LIBS@ \
--L$(top_srcdir)/mbk/src \
+-L$(top_builddir)/mbk/src/.libs \
           -lMpu -lMlu \
 	  -lMlo \
 	  -lMph -lMut \
