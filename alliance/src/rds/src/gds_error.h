@@ -46,14 +46,11 @@
 
 /* erreurs specifiques aux parser/driver */
 
-#define ENOCODE      101        /* Le code rencontre n'est pas reconnu.
-           */
-#define ENORELE      102        /* Le code existe bien mais correspond a une version trop recente du format d
-e stockage */
-                                /* (GDS2, CIF...), dans la version avec laquelle on travaille, ce code etait
-envisage   */
-                                /* mais pas encore implemente.
-           */
+#define ENOCODE      101        /* Le code rencontre n'est pas reconnu.  */
+#define ENORELE      102        /* Le code existe bien mais correspond a une version trop recente du format d e stockage */
+                                /* (GDS2, CIF...), dans la version avec laquelle on travaille, ce code etait envisage   */
+                                /* mais pas encore implemente.  */
+#define ELAYERUNDEF  103        /* There is no layer of this index in the technology. */
 #define ENOTHER      255        /* Any other (wierd !) error. */
 
 /*********

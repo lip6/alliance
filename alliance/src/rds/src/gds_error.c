@@ -106,6 +106,9 @@ char  *message;
       (void)fprintf(stderr, "Il faudrait peut-etre la finir...\n");
       pv_error.v_textp = (char *)NULL;
       break;
+   case ELAYERUNDEF :
+      (void)fprintf(stderr, "%s : There is no layer with such index in the technology (maybe wrong .rds file)\n", message);
+      break;
    case ENOTHER :
       break;
    default :

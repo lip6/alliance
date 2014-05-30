@@ -713,7 +713,14 @@ FILE *fp;
          if (islittle())
             gds_layer = swaps(gds_layer);
          rds_layer = pv_gdslayer_to_symb(gds_layer);
-         if (rds_layer == (char)-1) FLAG = -1;
+       /*if (rds_layer == (char)-1) FLAG = -1;*/
+         if (rds_layer == (char)-1) {
+            pv_init_error();
+            pv_error.v_error = ELAYERUNDEF;
+            pv_error.v_textp = "(layer number)";
+            pv_give_error("construit_rectangle");
+            error = TRUE;
+         }
          if (pv_gdslayer_iscon(gds_layer))
             rds_type = MBK_CONNECTOR_MASK;
          break;
