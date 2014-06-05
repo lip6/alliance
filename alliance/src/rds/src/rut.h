@@ -13,6 +13,8 @@
 # ifndef RUT_209_H
 # define RUT_209_H
 
+#include <stdint.h>
+
 #ifndef __P
 # if defined(__STDC__) ||  defined(__GNUC__)
 #  define __P(x) x
@@ -163,8 +165,8 @@
 
   typedef struct coord_t
   {
-    long X;
-    long Y;
+    int32_t X;
+    int32_t Y;
 
   } coord_t;
 
