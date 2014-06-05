@@ -653,7 +653,7 @@ long RprTranslateParam( Param )
     rprerror( RPR_MULTIPLE_GRID, RprBuffer, RprCurrentLine );
   }
  
-  return( ( long )Param );
+  return( ( long )(Param + 0.5) );
 }
 
 /*------------------------------------------------------------\
