@@ -923,6 +923,8 @@ ptype_list *ptype = NULL;
       ptsig = ptcon->SIG;
       ptype = getptype(ptsig->USER, (long)LOFIGCHAIN);
       ptype->DATA = (void *)addchain((chain_list *)ptype->DATA, (void *)ptcon);
+      if (DEBUG_MODE == 'Y')
+        (void)printf("--- mbk ---    lofigchain (lofig): on signal <%s> add con <%s>\n", getsigname(ptsig), ptcon->NAME);
    }
 
    /*  scan instance  list    */ 
@@ -930,8 +932,9 @@ ptype_list *ptype = NULL;
       for (ptcon=ptins->LOCON; ptcon; ptcon=ptcon->NEXT) {
          ptsig=ptcon->SIG;
          ptype = getptype(ptsig->USER, (long)LOFIGCHAIN);
-         ptype->DATA = (void *)addchain((chain_list *)ptype->DATA,
-                                          (void *)ptcon);
+         ptype->DATA = (void *)addchain((chain_list *)ptype->DATA, (void *)ptcon);
+         if (DEBUG_MODE == 'Y')
+           (void)printf("--- mbk ---    lofigchain (loins): on signal <%s> add con <%s>\n", getsigname(ptsig), ptcon->NAME);
       }
    }
 

@@ -361,6 +361,9 @@ while(ptfig->LOINS != NULL)
     }
     else /* scanlosig->TYPE == EXTERNAL */ 
     {
+      if (DEBUG_MODE == 'Y')
+        (void)printf( "--- mbk --- scanlosig (EXTERNAL): %s\n", getsigname(scanlosig) );
+
       /* cree la liste interf */
       interf = (struct st_interf*)mbkalloc( sizeof( struct st_interf ) );
       interf->base = 0;
@@ -376,6 +379,16 @@ while(ptfig->LOINS != NULL)
          )
       {
         ptcon = (locon_list*)(scanchain->DATA);
+        if (DEBUG_MODE == 'Y') {
+          (void)printf( "--- mbk ---    scanchain: con:%s", ptcon->NAME );
+          (void)printf( " sig:%s", getsigname(ptcon->SIG) ); 
+          if (ptcon->TYPE == EXTERNAL) {
+            (void)printf( " lofig:%s\n", ((lofig_list*)ptcon->ROOT)->NAME );
+          } else {
+            (void)printf( " loins:%s\n", ((loins_list*)ptcon->ROOT)->INSNAME );
+          }
+        }
+
         if( ptcon->ROOT == figins )
         {
           for( scanlocon = ptins->LOCON ;
@@ -2800,7 +2813,10 @@ key[VHD_scon2DFN]      = vhd_hash ("scon2");
         ptchain = ptchain->NEXT;
         }
 
-      (void)printf ("   capa        : %f\n",(losig_pnt->PRCN->CAPA?losig_pnt->PRCN->CAPA:0.0) );
+      if (losig_pnt->PRCN)
+        (void)printf ("   capa        : %f\n",(losig_pnt->PRCN->CAPA?losig_pnt->PRCN->CAPA:0.0) );
+      else
+        (void)printf ("   capa        : NULL\n" );
       (void)printf ("   index       : %ld\n",losig_pnt->INDEX);
       (void)printf ("   type        : %c\n",losig_pnt->TYPE);
       (void)printf ("-> user        : %s\n",tab[VHD_userDFN]);

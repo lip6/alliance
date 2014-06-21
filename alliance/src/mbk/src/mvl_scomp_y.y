@@ -473,7 +473,7 @@ formal_port_element
 
                       case (MVL_OCNDFN + MVL_MUXDFN + MVL_BUSDFN) :
                       case (MVL_OCNDFN + MVL_MXVDFN + MVL_BUSDFN) :
-                        mvl_addlosig (MVL_LOFPNT,MVL_SIGIDX,'E','M',
+                        losig_pnt = mvl_addlosig (MVL_LOFPNT,MVL_SIGIDX,'E','M',
                                                   sig_name,$6.LEFT,$6.RIGHT);
                         mvl_addlocon (MVL_LOFPNT,losig_pnt,'Z',
                                                   sig_name,$6.LEFT,$6.RIGHT);

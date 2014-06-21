@@ -47,24 +47,23 @@ int  main(argc, argv)
 int argc;
 char **argv;
 {
-lofig_list *p;
+  lofig_list *p;
 
+  mbkenv();
+  alliancebanner ("flatLO", "1.4", "FLATen LOgical figure", "1990", ALLIANCE_VERSION);
 
-	mbkenv();
-	alliancebanner ("flatLO", "1.4", "FLATen LOgical figure", "1990", ALLIANCE_VERSION);
+  if (argc != 4)
+    usage(argv[0]);
 
-	if (argc != 4)
-		usage(argv[0]);
+  if (!strcmp(argv[1], "-r"))
+    rflattenlofig(p = getlofig(argv[2],'A'), YES, YES);
+  else if (!strcmp(argv[1], "-t"))
+    rflattenlofig(p = getlofig(argv[2],'A'), YES, NO);
+  else
+    flattenlofig(p = getlofig(argv[1], 'A'), argv[2], YES);
 
-	if (!strcmp(argv[1], "-r"))
-		rflattenlofig(p = getlofig(argv[2],'A'), YES, YES);
-	else if (!strcmp(argv[1], "-t"))
-		rflattenlofig(p = getlofig(argv[2],'A'), YES, NO);
-	else
-		flattenlofig(p = getlofig(argv[1], 'A'), argv[2], YES);
-
-        p->NAME=argv[3];
-	savelofig(p);
-	exit(0);
-    return 0;
+  p->NAME=argv[3];
+  savelofig(p);
+  exit(0);
+  return 0;
 }
