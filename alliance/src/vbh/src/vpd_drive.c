@@ -100,7 +100,7 @@ static void VpnWriteNameFile( Name )
     VpnExprLength = Length;
   }
 
-  fprintf( VpnFile, Name );
+  fprintf( VpnFile, "%s", Name );
 }
 
 /*------------------------------------------------------------\

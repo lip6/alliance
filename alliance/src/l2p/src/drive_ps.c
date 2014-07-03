@@ -83,22 +83,22 @@ char	*msg;
 		break;
 		case E_OPEN :
 			fprintf (stderr, "Problem while opening file ");
-			fprintf (stderr, msg);
+			fprintf (stderr, "%s", msg);
 		break;
 		case E_CLOSE :
 			fprintf (stderr, "Problem while closing file ");
-			fprintf (stderr, msg);
+			fprintf (stderr, "%s", msg);
 		break;
 		case E_WRITE :
 			fprintf (stderr, "Problem while writing file ");
-			fprintf (stderr, msg);
+			fprintf (stderr, "%s", msg);
 		break;
 		case E_READ :
 			fprintf (stderr, "Problem while reading file ");
-			fprintf (stderr, msg);
+			fprintf (stderr, "%s", msg);
 		break;
 		case E_OUTBOX :
-			fprintf (stderr, msg);
+			fprintf (stderr, "%s", msg);
 		break;
 		default :
 			fprintf (stderr, "Unknow internal error");

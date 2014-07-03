@@ -213,7 +213,7 @@ extern char *MBK2DEF_name(asLEF, asMBK)
     *pI = (char)0; pI += 1;
     sprintf (asLEF, "%s(%s)", sTmp, pI);
   } else {
-    sprintf (asLEF, sTmp);
+    sprintf (asLEF, "%s", sTmp);
   }
 
   return (asLEF);

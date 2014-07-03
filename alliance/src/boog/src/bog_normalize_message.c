@@ -106,7 +106,7 @@ extern void display_error_in_abl(char* message, chain_list *abl)
    }
 
    fprintf(stderr,"BEH: ");
-   fprintf(stderr,message);
+   fprintf(stderr,"%s",message);
    fprintf(stderr," in '");
    fflush(stderr);
    display_abl(abl);

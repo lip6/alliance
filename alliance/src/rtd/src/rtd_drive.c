@@ -100,7 +100,7 @@ static void RtlWriteNameFile( Name )
     RtlExprLength = Length;
   }
 
-  fprintf( RtlFile, Name );
+  fprintf( RtlFile, "%s",  Name );
 }
 
 /*------------------------------------------------------------\
