@@ -185,6 +185,10 @@ ostream &operator<< (ostream &o, const CXRect *rect)
 }
 
 
+extern "C" {
+	void rdsenv();
+	void loadrdsparam();
+}
 
 
 // -------------------------------------------------------------------
@@ -193,6 +197,8 @@ ostream &operator<< (ostream &o, const CXRect *rect)
 CEnv::CEnv (void)
 {
   // Load the UNIX environmment for MBK.
+  rdsenv ();
+  loadrdsparam();
   mbkenv ();
 
   // Copy constants values from constants namespace ("D::").

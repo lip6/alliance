@@ -8,12 +8,14 @@ AM_CXXFLAGS      = @ALLIANCE_CFLAGS@ \
                    -I$(top_srcdir)/aut/src \
                    -I$(top_srcdir)/beh/src \
                    -I$(top_srcdir)/genlib/src \
+                   -I$(top_srcdir)/rds/src \
                    -I$(top_srcdir)/mbk/src
 AM_CFLAGS        = @ALLIANCE_CFLAGS@ \
                    -I$(top_srcdir)/abl/src \
                    -I$(top_srcdir)/aut/src \
                    -I$(top_srcdir)/beh/src \
                    -I$(top_srcdir)/genlib/src \
+                   -I$(top_srcdir)/rds/src \
                    -I$(top_srcdir)/mbk/src 
 
 bin_PROGRAMS     = nero pdv
@@ -23,7 +25,8 @@ nero_LDADD       = -L$(libdir) @ALLIANCE_LIBS@  \
                    ./libU.a     \
                    -L$(top_builddir)/aut/src/.libs \
                    -L$(top_builddir)/mbk/src/.libs \
-                   -lMpu -lMlu -lMlo -lMph -lMut -lRcn -lAut
+                   -L$(top_builddir)/rds/src/.libs \
+                   -lMpu -lRds -lMlu -lMlo -lMph -lMut -lRcn -lAut
 
 noinst_LIBRARIES = libU.a
 

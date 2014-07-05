@@ -33,6 +33,7 @@
 # define RPR_MAX_BUFFER        512
 # define RPR_MAX_KEYWORD       151
 
+# define MBK_MAX_WIRESETTING	21 
 # define RPR_SEPARATORS_STRING " \t\n"
 # define RPR_COMMENT_CHAR      '#'
 
@@ -55,6 +56,7 @@
 # define TURNVIA_KEYWORD             "MBK_TO_RDS_TURNVIA"
 # define CONNECTOR_KEYWORD           "MBK_TO_RDS_CONNECTOR"
 # define REFERENCE_KEYWORD           "MBK_TO_RDS_REFERENCE"
+# define WIRESETTING_KEYWORD                "MBK_WIRESETTING"
 # define CIF_LAYER_KEYWORD           "CIF_LAYER"
 # define GDS_LAYER_KEYWORD           "GDS_LAYER" 
 # define S2R_POST_TREAT_KEYWORD      "S2R_POST_TREAT"
@@ -98,8 +100,10 @@
 # define RPR_BIGVIA_HOLE_MASK         0x040000
 # define RPR_BIGVIA_METAL_MASK        0x080000
 # define RPR_TURNVIA_MASK             0x100000
+# define RPR_WIRESETTING_MASK         0x200000
 
-# define RPR_ALL_DEFINED_MASK         0x1FFFFF
+# define RPR_ALL_DEFINED_MASK         0x3FFFFF
+# define RPR_ALL_REQUIRED_MASK        0x1FFFFF
 
 
 /*------------------------------------------------------------\

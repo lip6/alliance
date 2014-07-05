@@ -88,6 +88,29 @@
   unsigned char  RDS_LYNX_TRANSISTOR_TABLE [ MBK_MAX_LAYER ][ RDS_LYNX_TRANSISTOR_FIELD ];
   unsigned char  RDS_LYNX_DIFFUSION_TABLE  [ RDS_ALL_LAYER ][ RDS_LYNX_DIFFUSION_FIELD  ];
 
+extern long MBK_X_GRID, MBK_Y_GRID, MBK_Y_SLICE, MBK_WIDTH_VSS, MBK_WIDTH_VDD,
+	MBK_TRACK_WIDTH_ALU1,	MBK_TRACK_WIDTH_ALU2,
+	MBK_TRACK_WIDTH_ALU3,	MBK_TRACK_WIDTH_ALU4,
+	MBK_TRACK_WIDTH_ALU5,	MBK_TRACK_WIDTH_ALU6,
+	MBK_TRACK_WIDTH_ALU7,	MBK_TRACK_WIDTH_ALU8,
+	MBK_TRACK_SPACING_ALU1,	MBK_TRACK_SPACING_ALU2,
+	MBK_TRACK_SPACING_ALU3,	MBK_TRACK_SPACING_ALU4,
+	MBK_TRACK_SPACING_ALU5,	MBK_TRACK_SPACING_ALU6,
+	MBK_TRACK_SPACING_ALU7,	MBK_TRACK_SPACING_ALU8;
+  long  *RDS_WIRESETTING_TABLE   [ MBK_MAX_WIRESETTING ] = 
+{
+	&MBK_TRACK_SPACING_ALU1,	&MBK_TRACK_SPACING_ALU2,
+	&MBK_TRACK_SPACING_ALU3,	&MBK_TRACK_SPACING_ALU4,
+	&MBK_TRACK_SPACING_ALU5,	&MBK_TRACK_SPACING_ALU6,
+	&MBK_TRACK_SPACING_ALU7,	&MBK_TRACK_SPACING_ALU8,
+	&MBK_TRACK_WIDTH_ALU1,	&MBK_TRACK_WIDTH_ALU2,
+	&MBK_TRACK_WIDTH_ALU3,	&MBK_TRACK_WIDTH_ALU4,
+	&MBK_TRACK_WIDTH_ALU5,	&MBK_TRACK_WIDTH_ALU6,
+	&MBK_TRACK_WIDTH_ALU7,	&MBK_TRACK_WIDTH_ALU8,
+	&MBK_WIDTH_VDD,
+	&MBK_WIDTH_VSS,
+	&MBK_X_GRID, &MBK_Y_GRID, &MBK_Y_SLICE
+};
 /*------------------------------------------------------------\
 |                                                             |
 |                      Keywords variables                     |
@@ -123,6 +146,7 @@
   static char *TurnViaKeyword;
 
   static char *DrcRulesKeword;
+  static char *WireSettingKeyword;
 
   static keyword KeywordDefine [ RPR_MAX_KEYWORD ] =
  
@@ -378,6 +402,33 @@
     "CALU7      ",
     "CALU8      ",
     "CALU9      "
+  };
+
+#define MBK_MAX_WIRESETTING_TLEN 23
+  char MBK_WIRESETTING_NAME [ MBK_MAX_WIRESETTING ][ MBK_MAX_WIRESETTING_TLEN ] =
+  
+  {
+    "track_spacing_alu1",
+    "track_spacing_alu2",
+    "track_spacing_alu3",
+    "track_spacing_alu4",
+    "track_spacing_alu5",
+    "track_spacing_alu6",
+    "track_spacing_alu7",
+    "track_spacing_alu8",
+    "track_width_alu1",
+    "track_width_alu2",
+    "track_width_alu3",
+    "track_width_alu4",
+    "track_width_alu5",
+    "track_width_alu6",
+    "track_width_alu7",
+    "track_width_alu8",
+    "width_vdd",
+    "width_vss",
+    "x_grid",
+    "y_grid",
+    "y_slice"
   };
 
 /*------------------------------------------------------------\
@@ -653,7 +704,11 @@ long RprTranslateParam( Param )
     rprerror( RPR_MULTIPLE_GRID, RprBuffer, RprCurrentLine );
   }
  
-  return( ( long )(Param + 0.5) );
+/*
+ *fprintf( stderr, "RprTranslateParam() - Param:%.18g rouding:%ld truncated:%ld\n"
+ *       , (Param), lround(Param), (long)(Param) );
+ */
+  return( lround(Param) );
 }
 
 /*------------------------------------------------------------\
@@ -1534,6 +1589,80 @@ void RprReadGdsLayer()
           rprerror( RPR_TOO_MANY_WORDS, FirstWord, RprCurrentLine );
         }
       }
+    }
+  
+    LayerCount = LayerCount + 1;
+  }
+ 
+  if ( EndTable == 0 )
+  {
+    rprerror( RPR_LINE_EXPECTED, EndTableKeyword, RprCurrentLine);
+  }
+}
+
+
+
+/*------------------------------------------------------------\
+|                                                             |
+|                        Rpr Read Wire Settings               |
+|                                                             |
+\------------------------------------------------------------*/
+
+int RprReadWireComp(const void *x , const void *y) {
+	return strncmp((char*)x, (char*)y,MBK_MAX_WIRESETTING_TLEN);
+}
+
+void RprReadWireSetting()
+
+{
+  int   Layer;
+  int   LayerCount;
+  int   EndTable;
+  int   EndRecord;
+  char *FirstWord;
+  void *res;
+ 
+  EndTable   = 0;
+  LayerCount = 0;
+ 
+  while ( ( EndTable   != 1             ) &&
+          ( LayerCount <= MBK_MAX_WIRESETTING ) )
+  {
+    RprGetLine( RprBuffer );
+ 
+    FirstWord  = RprGetFirstWord( RprBuffer, 1 );
+    Layer = (char (*)[MBK_MAX_WIRESETTING_TLEN])bsearch(FirstWord, MBK_WIRESETTING_NAME[0],
+	MBK_MAX_WIRESETTING, MBK_MAX_WIRESETTING_TLEN, RprReadWireComp) - MBK_WIRESETTING_NAME;
+    
+    if ( FirstWord == EndTableKeyword )
+    {
+      EndTable = 1;
+    }
+    else
+    if ( LayerCount < MBK_MAX_WIRESETTING )
+    {
+      EndRecord = 0;
+ 
+        FirstWord = RprGetNextWord( 1 );
+  
+        if ( FirstWord == EndRecordKeyword || Layer > MBK_MAX_WIRESETTING || Layer < 0)
+        {
+            rprerror( RPR_MISSING_VALUE, (char *)NULL, RprCurrentLine );
+  
+          EndRecord = 1;
+        }
+        else
+        {
+          *RDS_WIRESETTING_TABLE[ Layer ] = atol( FirstWord );
+  
+        }
+  
+        FirstWord = RprGetNextWord( 0 );
+  
+        if ( FirstWord != EndRecordKeyword )
+        {
+          rprerror( RPR_TOO_MANY_WORDS, FirstWord, RprCurrentLine );
+        }
     }
   
     LayerCount = LayerCount + 1;
@@ -2554,6 +2683,13 @@ void RprReadParam()
 
         Continue |= RPR_TURNVIA_MASK;
       }
+      else
+      if ( FirstWord == WireSettingKeyword )
+      {
+        RprReadWireSetting();
+
+        Continue |= RPR_WIRESETTING_MASK;
+      }
       else RprSkipTable();
     }
     else
@@ -2564,6 +2700,7 @@ void RprReadParam()
       }
       else
       {
+	if ( (Continue & RPR_ALL_REQUIRED_MASK) == RPR_ALL_REQUIRED_MASK ) return;
         rprerror( RPR_UNEXPECTED_EOF, (char *)0, RprCurrentLine  );
       }
     }
@@ -2877,6 +3014,7 @@ void loadrdsparam()
     TurnViaKeyword          = namealloc( TURNVIA_KEYWORD      );
 
     DrcRulesKeword = namealloc( DRC_RULES_KEYWORD );
+    WireSettingKeyword      = namealloc( WIRESETTING_KEYWORD );
 
     KeywordDefined = 1;
   }

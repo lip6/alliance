@@ -33,6 +33,11 @@ using namespace std;
 #include "mut.h"
 #include "mph.h"
 #include "mlo.h"
+extern "C" {
+#include "rds.h"
+#include "rtl.h"
+#include "rpr.h"
+}
 
 #include "PPlacement.h"
 
@@ -161,6 +166,9 @@ main(int argc, char **argv)
     /* first file in the argument list				    */
     /* ###------------------------------------------------------### */
 
+    //mbkenv();
+    rdsenv();
+    loadrdsparam ();
     mbkenv();
     
     alliancebanner ("OCP", VERSION, "Placer for Standards Cells", "2001", ALLIANCE_VERSION);

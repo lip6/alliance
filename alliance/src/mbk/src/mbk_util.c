@@ -761,7 +761,7 @@ chain_list *pt;
 #define HASH_FUNC(inputname, name, code)                                     \
    do {                                                                      \
       while (*inputname) {                                                   \
-         *name = tolowertable[(int)*inputname++];                            \
+         *name = tolower((int)*inputname++);                            \
          code += (code ^ (code >> 1)) + HASH_MULT * (unsigned char) *name++; \
          while (code >= HASH_PRIME)                                          \
             code -= HASH_PRIME;                                              \
