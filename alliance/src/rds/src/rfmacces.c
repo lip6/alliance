@@ -369,6 +369,8 @@ rdsrec_list *viambkrds( Figure, Via, Lynx )
    phvia_list  *Via;
    char         Lynx;
 {
+  fprintf( stderr, "viambkrds()\n" );
+
   rdsrec_list  *Rectangle;
   rdsrec_list  *First;
   rdsrec_list  *Link;
@@ -436,13 +438,13 @@ rdsrec_list *viambkrds( Figure, Via, Lynx )
       MIN_DWR  = -1;
       MAX_OVER =  0;
       LayerRds = GET_BIGVIA_METAL_LAYER( ViaMbk, Index );
-    
+
       while ( LayerRds != RDS_BIGVIA_METAL_EMPTY )
       {
         DWR     = GET_BIGVIA_METAL_DWR( ViaMbk, Index );
         OVERLAP = GET_BIGVIA_METAL_OVERLAP( ViaMbk, Index );
         USE     = GET_BIGVIA_METAL_USE( ViaMbk, Index );
-    
+
         if ( ( ( USE == RDS_USE_ALL     )               ) ||
              ( ( USE == RDS_USE_EXTRACT ) && (   Lynx ) ) ||
              ( ( USE == RDS_USE_DRC     ) && ( ! Lynx ) ) )
@@ -478,6 +480,8 @@ rdsrec_list *viambkrds( Figure, Via, Lynx )
              ( ( USE == RDS_USE_DRC     ) && ( ! Lynx ) ) )
         {
           if ( SIDE_STEP == 0 ) break;
+          if ( WSX < (SIDE_STEP << 1) ) break;
+          if ( WSY < (SIDE_STEP << 1) ) break;
 
           X1R = Xvia + OVERLAP - ( ( WSX + DWR ) >> 1 );
           Y1R = Yvia + OVERLAP - ( ( WSY + DWR ) >> 1 );
@@ -705,7 +709,7 @@ rdsrec_list *viambkrds( Figure, Via, Lynx )
   }
 
   if ( First != (rdsrec_list *)NULL ) Link->USER = (void *)First;
- 
+
   return( First );
 }
 
