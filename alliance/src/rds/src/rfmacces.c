@@ -369,8 +369,6 @@ rdsrec_list *viambkrds( Figure, Via, Lynx )
    phvia_list  *Via;
    char         Lynx;
 {
-  fprintf( stderr, "viambkrds()\n" );
-
   rdsrec_list  *Rectangle;
   rdsrec_list  *First;
   rdsrec_list  *Link;

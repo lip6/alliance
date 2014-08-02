@@ -39,6 +39,10 @@
 |                           Constants                         |
 |                                                             |
 \------------------------------------------------------------*/
+
+#define   NO_FLAGS       (0x00000000)
+#define   CAN_REACH_EOF  (0x00000001)
+
 /*------------------------------------------------------------\
 |                                                             |
 |                            Types                            |
@@ -559,10 +563,12 @@ char *RprFileGetString( String, Size )
 |                                                             |
 \------------------------------------------------------------*/
 
-void RprGetLine( Buffer )
+void RprGetLine( Buffer, flags )
 
   char   *Buffer;
+  int     flags;
 {
+  char   *RprBuffer = Buffer;
   char   *Check;
   char   *String;
   char    OneComment;
@@ -579,6 +585,10 @@ void RprGetLine( Buffer )
     }
     else 
     {
+      if (flags & CAN_REACH_EOF) {
+        *RprBuffer = '\0';
+        return;
+      }
       rprerror( RPR_UNEXPECTED_EOF, (char *)NULL, RprCurrentLine );
     }
  
@@ -596,7 +606,7 @@ void RprGetLine( Buffer )
   
     while (*Buffer != '\0' && strchr( RPR_SEPARATORS_STRING, *Buffer))
     {
-      Buffer = Buffer + 1;;
+      Buffer = Buffer + 1;
     }
  
     if (*Buffer == '\0') OneComment = 1;
@@ -877,7 +887,7 @@ void RprSkipTable()
 
   while ( EndTable != 1 )
   {
-    RprGetLine( RprBuffer );
+    RprGetLine( RprBuffer, NO_FLAGS );
 
     FirstWord = RprGetFirstWord( RprBuffer, 1 );
 
@@ -910,7 +920,7 @@ void RprReadSegment()
   while ( ( EndTable   != 1             ) &&
           ( LayerCount <= MBK_MAX_LAYER ) )
   {
-    RprGetLine( RprBuffer );
+    RprGetLine( RprBuffer, NO_FLAGS );
  
     FirstWord  = RprGetFirstWord( RprBuffer, 1 );
     
@@ -990,7 +1000,7 @@ void RprReadConnector()
   while ( ( EndTable   != 1             ) &&
           ( LayerCount <= MBK_MAX_LAYER ) )
   {
-    RprGetLine( RprBuffer );
+    RprGetLine( RprBuffer, NO_FLAGS );
  
     FirstWord  = RprGetFirstWord( RprBuffer, 1 );
     
@@ -1069,7 +1079,7 @@ void RprReadReference()
   while ( ( EndTable   != 1                 ) &&
           ( LayerCount <= MBK_MAX_REFERENCE ) )
   {
-    RprGetLine( RprBuffer );
+    RprGetLine( RprBuffer, NO_FLAGS );
  
     FirstWord  = RprGetFirstWord( RprBuffer, 1 );
     
@@ -1148,7 +1158,7 @@ void RprReadVia()
   while ( ( EndTable   != 1           ) &&
           ( LayerCount <= MBK_MAX_VIA ) )
   {
-    RprGetLine( RprBuffer );
+    RprGetLine( RprBuffer, NO_FLAGS );
  
     FirstWord  = RprGetFirstWord( RprBuffer, 1 );
     
@@ -1227,7 +1237,7 @@ void RprReadBigViaHole()
   while ( ( EndTable   != 1           ) &&
           ( LayerCount <= MBK_MAX_VIA ) )
   {
-    RprGetLine( RprBuffer );
+    RprGetLine( RprBuffer, NO_FLAGS );
  
     FirstWord  = RprGetFirstWord( RprBuffer, 1 );
     
@@ -1306,7 +1316,7 @@ void RprReadBigViaMetal()
   while ( ( EndTable   != 1           ) &&
           ( LayerCount <= MBK_MAX_VIA ) )
   {
-    RprGetLine( RprBuffer );
+    RprGetLine( RprBuffer, NO_FLAGS );
  
     FirstWord  = RprGetFirstWord( RprBuffer, 1 );
     
@@ -1385,7 +1395,7 @@ void RprReadTurnVia()
   while ( ( EndTable   != 1           ) &&
           ( LayerCount <= MBK_MAX_VIA ) )
   {
-    RprGetLine( RprBuffer );
+    RprGetLine( RprBuffer, NO_FLAGS );
  
     FirstWord  = RprGetFirstWord( RprBuffer, 1 );
     
@@ -1464,7 +1474,7 @@ void RprReadCifLayer()
   while ( ( EndTable   != 1             ) &&
           ( LayerCount <= RDS_ALL_LAYER ) )
   {
-    RprGetLine( RprBuffer );
+    RprGetLine( RprBuffer, NO_FLAGS );
  
     FirstWord  = RprGetFirstWord( RprBuffer, 1 );
     
@@ -1543,7 +1553,7 @@ void RprReadGdsLayer()
   while ( ( EndTable   != 1             ) &&
           ( LayerCount <= RDS_ALL_LAYER ) )
   {
-    RprGetLine( RprBuffer );
+    RprGetLine( RprBuffer, NO_FLAGS );
  
     FirstWord  = RprGetFirstWord( RprBuffer, 1 );
     
@@ -1628,7 +1638,7 @@ void RprReadWireSetting()
   while ( ( EndTable   != 1             ) &&
           ( LayerCount <= MBK_MAX_WIRESETTING ) )
   {
-    RprGetLine( RprBuffer );
+    RprGetLine( RprBuffer, NO_FLAGS );
  
     FirstWord  = RprGetFirstWord( RprBuffer, 1 );
     Layer = (char (*)[MBK_MAX_WIRESETTING_TLEN])bsearch(FirstWord, MBK_WIRESETTING_NAME[0],
@@ -1696,7 +1706,7 @@ void RprReadS2RPostTreat()
   while ( ( EndTable   != 1             ) &&
           ( LayerCount <= RDS_ALL_LAYER ) )
   {
-    RprGetLine( RprBuffer );
+    RprGetLine( RprBuffer, NO_FLAGS );
  
     FirstWord  = RprGetFirstWord( RprBuffer, 1 );
  
@@ -1775,7 +1785,7 @@ void RprReadS2ROversize()
   while ( ( EndTable   != 1             ) &&
           ( LayerCount <= RDS_ALL_LAYER ) )
   {
-    RprGetLine( RprBuffer );
+    RprGetLine( RprBuffer, NO_FLAGS );
  
     FirstWord  = RprGetFirstWord( RprBuffer, 1 );
     
@@ -1854,7 +1864,7 @@ void RprReadS2RRingWidth()
   while ( ( EndTable   != 1             ) &&
           ( LayerCount <= RDS_ALL_LAYER ) )
   {
-    RprGetLine( RprBuffer );
+    RprGetLine( RprBuffer, NO_FLAGS );
  
     FirstWord  = RprGetFirstWord( RprBuffer, 1 );
     
@@ -1933,7 +1943,7 @@ void RprReadS2RLayerWidth()
   while ( ( EndTable   != 1             ) &&
           ( LayerCount <= RDS_ALL_LAYER ) )
   {
-    RprGetLine( RprBuffer );
+    RprGetLine( RprBuffer, NO_FLAGS );
  
     FirstWord  = RprGetFirstWord( RprBuffer, 1 );
     
@@ -2012,7 +2022,7 @@ void RprReadLynxGraph()
   while ( ( EndTable   != 1             ) &&
           ( LayerCount <= RDS_ALL_LAYER ) )
   {
-    RprGetLine( RprBuffer );
+    RprGetLine( RprBuffer, NO_FLAGS );
  
     FirstWord  = RprGetFirstWord( RprBuffer, 1 );
     
@@ -2091,7 +2101,7 @@ void RprReadLynxDiffusion()
   while ( ( EndTable   != 1             ) &&
           ( LayerCount <= RDS_ALL_LAYER ) )
   {
-    RprGetLine( RprBuffer );
+    RprGetLine( RprBuffer, NO_FLAGS );
  
     FirstWord  = RprGetFirstWord( RprBuffer, 1 );
     
@@ -2177,7 +2187,7 @@ void RprReadLynxCapa()
   while ( ( EndTable   != 1             ) &&
           ( LayerCount <= RDS_ALL_LAYER ) )
   {
-    RprGetLine( RprBuffer );
+    RprGetLine( RprBuffer, NO_FLAGS );
  
     FirstWord  = RprGetFirstWord( RprBuffer, 1 );
     
@@ -2267,7 +2277,7 @@ void RprReadLynxResistor()
   while ( ( EndTable   != 1             ) &&
           ( LayerCount <= RDS_ALL_LAYER ) )
   {
-    RprGetLine( RprBuffer );
+    RprGetLine( RprBuffer, NO_FLAGS );
  
     FirstWord  = RprGetFirstWord( RprBuffer, 1 );
     
@@ -2343,7 +2353,7 @@ void RprReadLynxTransistor()
   while ( ( EndTable   != 1             ) &&
           ( LayerCount <= MBK_MAX_LAYER ) )
   {
-    RprGetLine( RprBuffer );
+    RprGetLine( RprBuffer, NO_FLAGS );
  
     FirstWord  = RprGetFirstWord( RprBuffer, 1 );
     
@@ -2422,7 +2432,7 @@ void RprReadLynxBulkImplicit()
   while ( ( EndTable   != 1             ) &&
           ( LayerCount <= RDS_ALL_LAYER ) )
   {
-    RprGetLine( RprBuffer );
+    RprGetLine( RprBuffer, NO_FLAGS );
  
     FirstWord  = RprGetFirstWord( RprBuffer, 1 );
     
@@ -2496,7 +2506,9 @@ void RprReadParam()
 
   while ( Continue != RPR_ALL_DEFINED_MASK )  
   {
-    RprGetLine( RprBuffer );
+    RprGetLine( RprBuffer, CAN_REACH_EOF );
+    if (    ( (Continue & RPR_ALL_REQUIRED_MASK) == RPR_ALL_REQUIRED_MASK ) 
+         && ( RprBuffer[0] == '\0' ) ) break;
 
     FirstWord = RprGetFirstWord( RprBuffer, 0);
 
