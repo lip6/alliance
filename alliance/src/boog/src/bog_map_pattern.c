@@ -413,7 +413,9 @@ extern cell_list* cell_pattern(chain_list* expr)
 
       /*improve speed*/
       if (ABL_ATOM(cell->ABL)!=ABL_ATOM(expr)) continue;
-      
+      if (ABL_ATOM(expr)&&
+          ((ABL_ATOM_VALUE(expr)==getablatomzero() || ABL_ATOM_VALUE(expr)==getablatomone())
+        && ABL_ATOM_VALUE(expr)!=ABL_ATOM_VALUE(cell->ABL))) continue;      
       /*improve speed*/
       if (!ABL_ATOM(expr) && ABL_OPER(expr)!=ABL_NOT/*match all*/) {
          if (ABL_ARITY(cell->ABL)!=ABL_ARITY(expr)) continue;

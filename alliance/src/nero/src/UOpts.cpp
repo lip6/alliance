@@ -16,9 +16,8 @@
 
 
 
-# include  "unistd.h"
+//# include  "unistd.h"
 # include  "UDefs.h"
-
 
 
 
@@ -127,7 +126,7 @@ void COpts::getopts (int argc, char *argv[]) throw (except_done)
 
   short_format = tShort.c_str();
 
-  // Loop over getopt.
+// Loop over getopt.
   while (true) {
     key = getopt (argc, argv, short_format);
 

@@ -17,6 +17,11 @@
 
 
 # include  "RDefs.h"
+# ifdef __ CYGWIN__
+extern "C" {
+  int getopt ( int argc, char * const argv[], const char *optstring );
+}
+# endif
 
 
 
