@@ -55,7 +55,7 @@
         MBK_CATA_LIB=$MBK_CATA_LIB:$CELLS_TOP/ramlib
         MBK_CATA_LIB=$MBK_CATA_LIB:$CELLS_TOP/romlib
         MBK_CATA_LIB=$MBK_CATA_LIB:$CELLS_TOP/pxlib
-        MBK_CATA_LIB=$MBK_CATA_LIB:$CELLS_TOP/padlib
+       #MBK_CATA_LIB=$MBK_CATA_LIB:$CELLS_TOP/padlib
                                                      export MBK_CATA_LIB
 
       MBK_TARGET_LIB=$CELLS_TOP/sxlib;               export MBK_TARGET_LIB
@@ -92,9 +92,9 @@
   #fi
   
    if [ -z "${MANPATH}" ]; then
-     MANPATH=:$ALLIANCE_TOP/man:$(manpath)
+     MANPATH=:$ALLIANCE_TOP/share/man:$(manpath)
    else
-     MANPATH=$MANPATH:$ALLIANCE_TOP/man
+     MANPATH=$MANPATH:$ALLIANCE_TOP/share/man
    fi
    export MANPATH
  fi

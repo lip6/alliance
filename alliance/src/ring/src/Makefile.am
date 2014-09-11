@@ -11,7 +11,8 @@ bin_PROGRAMS = ring
 ring_LDADD   = @ALLIANCE_LIBS@ \
                -L$(top_builddir)/genlib/src \
                -L$(top_builddir)/mbk/src \
-               -lMgn -lMpu -lMlu -lMlo -lMph -lMut -lRcn 
+               -L$(top_builddir)/rds/src \
+               -lMgn -lMpu -lMlu -lMlo -lMph -lMut -lRcn -lRds
 	   
 ring_SOURCES = bigvia.c bigvia.h \
 		compress.c compress.h \

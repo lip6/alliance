@@ -51,6 +51,13 @@
 
 void ringerreur(int code, void *pt_liste, void *pt_liste2)
 {
+  fprintf( stderr, "WMIN_ALU1: %d\n", (int)WMIN_ALU1 );
+  fprintf( stderr, "WMIN_ALU2: %d\n", (int)WMIN_ALU2 );
+  fprintf( stderr, "DMIN_ALU1_ALU1: %d\n", (int)DMIN_ALU1_ALU1 );
+  fprintf( stderr, "DMIN_ALU2_ALU2: %d\n", (int)DMIN_ALU2_ALU2 );
+  fprintf( stderr, "WVIA_ALU1: %d\n", (int)WVIA_ALU1 );
+  fprintf( stderr, "WVIA_ALU2: %d\n", (int)WVIA_ALU2 );
+
 	loins_list * circuit_inst, *liste_inst;
 	locon_list * con_lo;
 	chain_list * liste;

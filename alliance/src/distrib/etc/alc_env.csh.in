@@ -53,7 +53,7 @@
  setenv MBK_CATA_LIB         "${MBK_CATA_LIB}:${CELLS_TOP}/romlib"
  setenv MBK_CATA_LIB         "${MBK_CATA_LIB}:${CELLS_TOP}/ramlib"
  setenv MBK_CATA_LIB         "${MBK_CATA_LIB}:${CELLS_TOP}/pxlib"
- setenv MBK_CATA_LIB         "${MBK_CATA_LIB}:${CELLS_TOP}/padlib"
+#setenv MBK_CATA_LIB         "${MBK_CATA_LIB}:${CELLS_TOP}/padlib"
  setenv MBK_TARGET_LIB       "${CELLS_TOP}/sxlib"
  setenv MBK_C4_LIB           ./cellsC4 
  
@@ -93,9 +93,9 @@
    endif
   
    if ( $?MANPATH ) then
-     setenv MANPATH "${MANPATH}:${ALLIANCE_TOP}/man"
+     setenv MANPATH "${MANPATH}:${ALLIANCE_TOP}/share/man"
    else
-     setenv MANPATH ":${ALLIANCE_TOP}/man:`manpath`"
+     setenv MANPATH ":${ALLIANCE_TOP}/share/man:`manpath`"
    endif
  endif
  

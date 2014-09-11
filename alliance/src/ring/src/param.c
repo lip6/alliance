@@ -126,6 +126,9 @@ void lecture_param(int nbarg, char** tab, char** nom_circuit_lo,
 	/* arguments de mbk */
 	/* ---------------- */
 
+	rdsenv();
+	loadrdsparam();
+
 	mbkenv();  /* choix de l'utilisateur mis dans des variables UNIX */
 	/* on recupere (long) SCALE_X                         */
 

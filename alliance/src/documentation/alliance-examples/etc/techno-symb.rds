@@ -422,6 +422,40 @@ TABLE S2R_MINIMUM_LAYER_WIDTH
 END
 
 ##-------------------------------------------------------------------
+# TABLE MBK_WIRESETTING :
+##-------------------------------------------------------------------
+#
+# This table is used by ocp, nero & ring. It supplies *symbolic*
+# information about the routing grid, the cell gauge and the power
+# wires.
+
+TABLE MBK_WIRESETTING
+ 
+  X_GRID                  5
+  Y_GRID                  5
+  Y_SLICE                50
+  WIDTH_VDD               6
+  WIDTH_VSS               6
+  TRACK_WIDTH_ALU8        0
+  TRACK_WIDTH_ALU7        2
+  TRACK_WIDTH_ALU6        2
+  TRACK_WIDTH_ALU5        2
+  TRACK_WIDTH_ALU4        2
+  TRACK_WIDTH_ALU3        2
+  TRACK_WIDTH_ALU2        2
+  TRACK_WIDTH_ALU1        2
+  TRACK_SPACING_ALU8      0
+  TRACK_SPACING_ALU7      8
+  TRACK_SPACING_ALU6      8
+  TRACK_SPACING_ALU5      3
+  TRACK_SPACING_ALU4      3
+  TRACK_SPACING_ALU3      3
+  TRACK_SPACING_ALU2      3
+  TRACK_SPACING_ALU1      3
+ 
+END
+
+##-------------------------------------------------------------------
 # TABLE CIF_LAYER :
 ##-------------------------------------------------------------------
 

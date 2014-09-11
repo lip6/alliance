@@ -19,6 +19,9 @@
 //# include  "unistd.h"
 # include  "UDefs.h"
 
+extern "C"  {
+	int getopt(int argc, char* const *argv, const char *sf);
+}
 
 
 //  +----------------------------------------------------------------+
