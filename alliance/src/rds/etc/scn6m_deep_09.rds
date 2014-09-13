@@ -1,0 +1,2125 @@
+
+# ==================================================================
+# COPYRIGHT IS UNCERTAIN YET.
+#
+# This file is a derived from the Alliance cmos.rds, adapted by
+# Graham Petley for 0.13um and finally to MOSIS scn6m_deep by
+# Naohiko Shimizu. It is a 2lambdas rules.
+#
+# To be used with the msxlib and mpxlib libraries (the leading 'm'
+# standing for MOSIS).
+#
+# The design  rules are  listed (i)  the 0.13um generic  rule set;
+# (ii) the vsclib 2um rules scaled by the value of lambda (0.055);
+# (iii) the  MOSIS  SCMOS  and  (iv) DEEP  rules scaled  by  0.06;
+# (v) the vsclib 2um rules.
+#------------------------------------+-----+-----+-----+-----+-----+
+#                            DESIGN RULES                          | notes
+#------------------------------------+-----+-----+-----+-----+-----+
+#                                      0.13 vsclib MOSIS DEEP  2um
+#------------------------------------+-----+-----+-----+-----+-----+
+# 1.1   NWELL width                    0.64  0.99  0.60  0.72  18.0
+# 1.1   PWELL width                    0.64  0.99  0.60  0.72  18.0 
+# 1.3   NWELL space                    0.64  0.99  0.36  0.36  18.0
+# 1.3   PWELL space                    0.64  0.99  0.36  0.36  18.0
+#------------------------------------+-----+-----+-----+-----+-----+
+# 2.1a  PDIF/NDIF width                0.20  0.22  0.18  0.18   4.0
+# 2.1b  PTIE/NTIE width                0.20  0.22  0.18  0.18   4.0
+# 2.2a  PDIF space                     0.20  0.22  0.18  0.18   4.0
+# 2.2a  NDIF space                     0.20  0.22  0.18  0.18   4.0
+# 2.2b  PTIE space                     0.20  0.22  0.18  0.18   4.0
+# 2.2b  NTIE space                     0.20  0.22  0.18  0.18   4.0
+# 2.3a  NWELL to NDIF space            0.32  0.33  0.30  0.36   6.0
+# 2.3b  NWELL overlap of PDIF          0.32  0.33  0.30  0.36   6.0
+# 2.4a  NWELL to PTIE space            0.24  0.275 0.18  0.18   5.0
+# 2.4b  NWELL overlap of NTIE          0.24  0.275 0.18  0.18   5.0
+# 2.5   NDIF to PTIE space             0.20  0.22  0.24  0.24   4.0
+# 2.5   PDIF to NTIE space             0.20  0.22  0.24  0.24   4.0
+# 2.8a  PDIF to NDIF space             0.64  0.66  0.60  0.72  12.0
+# 2.8b  PDIF to PTIE space             0.54  0.55  0.48  0.54  11.0
+# 2.8b  NTIE to NDIF space             0.54  0.55  0.48  0.54  11.0
+# 2.8c  NTIE to PTIE space             0.44  0.44  0.36  0.36  10.0
+#------------------------------------+-----+-----+-----+-----+-----+
+# 3.1   POLY width                     0.12  0.11  0.12  0.12   2.0
+# 3.2   POLY space over field          0.20  0.22  0.12  0.18   4.0
+# 3.2a  POLY space over diffusion      0.24  0.275 0.12  0.24   5.0
+# 3.3   POLY overlap of transistor     0.18  0.22  0.12  0.15   4.0
+# 3.4   Source/drain width             0.26  0.275 0.18  0.24   5.0
+# 3.5   PDIF or NDIF to POLY space     0.10  0.11  0.06  0.06   2.0
+# 3.5a  POLY to CHANNEL space          0.10  0.165 0.06  0.06   3.0
+#------------------------------------+-----+-----+-----+-----+-----+
+# 4.1   SELECT to CHANNEL space        0.28  0.275 0.18  0.18   5.0
+# 4.2a  SELECT overlap of PDIF or NDIF 0.18  0.165 0.12  0.12   3.0
+# 4.2b  SELECT overlap of PTIE or NTIE 0.04  0.055 0.12  0.12   1.0
+# 4.4   SELECT width                   0.24  0.22  0.12  0.24   4.0
+#------------------------------------+-----+-----+-----+-----+-----+
+# 5.1   Exact POLY CONTACT size        0.16  0.11  0.12  0.12   2.0
+# 5.2   POLY overlap of CONTACT        0.08  0.11  0.09  0.09   2.0
+# 5.3   CONTACT space                  0.20  0.275 0.12  0.24   5.0
+# 5.4   POLY CONTACT to CHANNEL space  0.16  0.165 0.12  0.12   3.0
+#------------------------------------+-----+-----+-----+-----+-----+
+# 6.1   Exact PDIF or NDIF CONTACT size .16  0.11  0.12  0.12   2.0
+# 6.1   Exact PTIE or NTIE CONTACT size .16  0.11  0.12  0.12   2.0
+# 6.2a  PDIF or NDIF overlap of CONTACT .08  0.11  0.09  0.09   2.0
+# 6.2b  PTIE or NTIE overlap of CONTACT .08  0.11  0.09  0.09   2.0
+# 6.3   CONTACT space                  0.20  0.275 0.12  0.24   5.0
+# 6.4   PDIF CONTACT to CHANNEL space  0.12  0.165 0.12  0.12   3.0
+# 6.4   NDIF CONTACT to CHANNEL space  0.12  0.165 0.12  0.12   3.0
+# 6.4a  PTIE CONTACT to CHANNEL space  0.40  0.44  0.39  0.39   8.0
+# 6.4a  NTIE CONTACT to CHANNEL space  0.40  0.44  0.39  0.39   8.0
+#------------------------------------+-----+-----+-----+-----+-----+
+# 7.1   Metal-1 width                  0.18  0.22  0.18  0.18   4.0
+# 7.2   Metal-1 space                  0.18  0.165 0.12  0.18   3.0
+# 7.3a  Metal-1 side overlap of CONTACT .01  0.055 0.06  0.06   1.0   1
+# 7.3b  Metal-1 end overlap of CONTACT 0.06  0.11  0.06  0.06   2.0
+#------------------------------------+-----+-----+-----+-----+-----+
+# 8.1   VIA1 width                     0.20  0.11  0.12  0.18   2.0
+# 8.2   VIA1 space                     0.24  0.33  0.18  0.18   6.0
+# 8.3a  Metal-1 side overlap of VIA1   0.01  0.055 0.06  0.06   1.0   1
+# 8.3b  Metal-1 end overlap of VIA1    0.06  0.11  0.06  0.06   2.0   2
+#------------------------------------+-----+-----+-----+-----+-----+
+# 9.x=Metal-2 15.x=Metal-3 22.x=Metal-4 26.x=Metal-5
+#------------------------------------+-----+-----+-----+-----+-----+
+# 9.1   Metal-2 width                  0.22  0.22  0.18  0.18   4.0
+# 9.2   Metal-2 space                  0.22  0.22  0.18  0.24   4.0
+# 9.3a  Metal-2 side overlap of VIA1   0.01  0.055 0.06  0.06   1.0   1
+# 9.3b  Metal-2 end overlap of VIA1    0.06  0.11  0.06  0.06   2.0   2
+#------------------------------------+-----+-----+-----+-----+-----+
+# 14.x=VIA2 21.x=VIA3 25.x=VIA4
+#------------------------------------+-----+-----+-----+-----+-----+
+# 14.1  VIA2 width                     0.20  0.11  0.12  0.18   2.0
+# 14.2  VIA2 space                     0.24  0.33  0.18  0.18   6.0
+# 14.3a Metal-2 side overlap of VIA2   0.01  0.055 0.06  0.06   1.0   1
+# 14.3b Metal-2 end overlap of VIA2    0.06  0.11  0.06  0.06   2.0   2
+#------------------------------------+-----+-----+-----+-----+-----+
+# 29.1  VIA5 width                     0.40  0.22  0.18  0.24   2.0   3
+# 29.2  VIA5 space                     0.48  0.66  0.24  0.24  14.0
+# 29.3a Metal-5 side overlap of VIA5   0.02  0.11  0.06  0.06   3.0   1
+# 29.3b Metal-5 end overlap of VIA5    0.06  0.165 0.06  0.06   4.0   2
+#------------------------------------+-----+-----+-----+-----+-----+
+# 30.1  Metal-6 width                  0.44  0.44  0.30  0.30   8.0
+# 30.2  Metal-6 space                  0.44  0.44  0.30  0.30   8.0
+# 30.3a Metal-6 side overlap of VIA5   0.13  0.22  0.06  0.12   3.0
+# 30.3b Metal-6 end overlap of VIA5    0.13  0.22  0.06  0.12   4.0
+#------------------------------------+-----+-----+-----+-----+-----+
+#
+#notes
+# 1. Metal overlap of CONTACT and VIA rules have been divided
+#    into two. Modern technologies have one (small) side
+#                        overlap (1 in the drawing) and a
+#            1           larger end overlap (2 in the drawing).
+#          |--|          For metal-1, the vsclib uses 1.0 for (1)
+#    +--------+ -        and 2.0 for (2). The rule set has checks
+#    |////////| |        for these different values. The checks
+#    |////////| | 2      for the higher metal overlap rules (934,
+#    |//+--+//| +        1434, 1534, 2134, 2234, 2534, 2634,
+#    |//|  |//|          2934) are present. They have been
+#    |//+--+//|          commented (except for ALU6) in the vsc013x
+#    |////////|          RDS file.
+#
+# 2. The end overlap of metal over via should be 2 lambda, but
+#    this isn't supported by NERO. For metal-1 the support is in the
+#    cell layout. For the upper metal layers the end overlap must
+#    be added by a script. Checks are made in vsc013.rds but not in
+#    vsc013x.rds.
+# 3. Rules are for a 6 layer metal process. For fewer layers,
+#    apply metal-6 to top metal and VIA5 to top via.
+#
+##-------------------------------------------------------------------
+# PHYSICAL_GRID :
+##-------------------------------------------------------------------
+
+DEFINE  PHYSICAL_GRID  0.005
+
+##-------------------------------------------------------------------
+# LAMBDA : 
+##-------------------------------------------------------------------
+
+DEFINE  LAMBDA         0.09
+
+##-------------------------------------------------------------------
+# TABLE MBK_TO_RDS_SEGMENT :
+#
+# MBK      RDS layer 1                 RDS layer 2         
+# name     name TRANS DLR DWR OFFSET   name TRANS DLR DWR OFFSET  ...
+##-------------------------------------------------------------------
+
+TABLE MBK_TO_RDS_SEGMENT
+
+  PWELL    RDS_PWELL  VW  0.36  0.0  0.0  ALL \
+           RDS_USER6  VW  0.36  0.0  0.0  DRC
+  NWELL    RDS_NWELL  VW  0.36  0.0  0.0  ALL \
+           RDS_USER3  VW  0.36  0.0  0.0  DRC
+
+# The NIMP/PIMP layers are not visualised in
+# Graal. If you want to see the layers, change
+# the keyword in the NIMP/PIMP entry from DRC to ALL.
+# TVIA3 and TVIA4 are replicas of PIMP and NIMP
+# to ensure geometries written to CIF and GDS.
+  NDIF     RDS_NDIF   VW  0.18  0.0   0.0  ALL \
+           RDS_ACTIV  VW  0.18  0.0   0.0  DRC \
+           RDS_NIMP   VW  0.36  0.36  0.0  DRC \
+           RDS_TVIA4  VW  0.36  0.36  0.0  DRC
+  PDIF     RDS_PDIF   VW  0.18  0.0   0.0  ALL \
+           RDS_ACTIV  VW  0.18  0.0   0.0  DRC \
+           RDS_PIMP   VW  0.36  0.36  0.0  DRC \
+           RDS_TVIA3  VW  0.36  0.36  0.0  DRC
+
+# RDS_NTIE EXT is for visualisation in Graal.
+# RDS_NTIE DRC makes a NIMP layer the same as RDS_NIMP.
+# The NTIE is used to make an implant layer because
+# s2r with the -i option uses NTIE to "cut" a hole in
+# the PIMP implant generated from NWELL. The real NTIE
+# layer is too small for this hole, so the layer is
+# redefined in DRC mode to give the right size hole.
+# RDS_ACTIV is the diffusion layer.
+# RDS_NIMP makes a second implant layer which is the same
+# as the RDS_NTIE. It is included so that the implant layer
+# can be seen in Graal if the DRC entry is changed to ALL.
+# RDS_TPOLY is used to write out an NTIE geometry to
+# CIF and GDS, and for design rule checks to the diffusion
+# layer. NTIE cannot be used for this because it must be
+# oversized to the implant layer.
+# s2r must be run twice to make a single correct
+# CIF or GDS file for cell fred.ap,
+# $ s2r -i fred
+# $ s2r -p fred
+# These should not be combined and must be run one after
+# the other.
+# Make sure old CIF files are removed before running s2r.
+# NTIE     RDS_NTIE   VW  0.495    0.54  0.0  EXT \
+#          RDS_NTIE   VW  0.495    0.54  0.0  DRC \
+#          RDS_ACTIV  VW  0.135   -0.09  0.0  DRC \
+#          RDS_NIMP   VW  0.495    0.54  0.0  DRC \
+#          RDS_TPOLY  VW  0.135   -0.09  0.0  DRC
+# PTIE     RDS_PTIE   VW  0.495    0.54  0.0  EXT \
+#          RDS_PTIE   VW  0.495    0.54  0.0  DRC \
+#          RDS_ACTIV  VW  0.135   -0.09  0.0  DRC \
+#          RDS_PIMP   VW  0.495    0.54  0.0  DRC \
+#          RDS_VPOLY  VW  0.135   -0.09  0.0  DRC
+
+  NTIE     RDS_NTIE   VW  0.045   -0.09  0.0  EXT \
+           RDS_NTIE   VW  0.225    0.27  0.0  DRC \
+           RDS_ACTIV  VW  0.045   -0.09  0.0  DRC \
+           RDS_NIMP   VW  0.225    0.27  0.0  DRC \
+           RDS_TPOLY  VW  0.045   -0.09  0.0  DRC
+  PTIE     RDS_PTIE   VW  0.045   -0.09  0.0  EXT \
+           RDS_PTIE   VW  0.225    0.27  0.0  DRC \
+           RDS_ACTIV  VW  0.045   -0.09  0.0  DRC \
+           RDS_PIMP   VW  0.225    0.27  0.0  DRC \
+           RDS_VPOLY  VW  0.045   -0.09  0.0  DRC
+
+# The GATE layer is the poly which makes the
+# transistor. It is used to measure the ENDCAP
+# value.
+  NTRANS   RDS_POLY   VW  0.27  0.00  0.0  ALL \
+           RDS_GATE   VW  0.27  0.00  0.0  DRC \
+           RDS_NDIF  LCW  0.0   0.27  0.0  EXT \
+           RDS_NDIF  RCW  0.0   0.27  0.0  EXT \
+           RDS_NDIF   VW  0.0   0.72  0.0  DRC \
+           RDS_ACTIV  VW  0.0   0.72  0.0  ALL \
+           RDS_NIMP   VW  0.18  1.26  0.0  DRC \
+           RDS_NIMP   VW  0.18  1.26  0.0  DRC \
+           RDS_TVIA4  VW  0.18  1.26  0.0  DRC \
+           RDS_TVIA4  VW  0.18  1.26  0.0  DRC
+  PTRANS   RDS_POLY   VW  0.27  0.00  0.0  ALL \
+           RDS_GATE   VW  0.27  0.00  0.0  DRC \
+           RDS_PDIF  LCW  0.0   0.27  0.0  EXT \
+           RDS_PDIF  RCW  0.0   0.27  0.0  EXT \
+           RDS_PDIF   VW  0.0   0.72  0.0  DRC \
+           RDS_ACTIV  VW  0.0   0.72  0.0  ALL \
+           RDS_PIMP   VW  0.18  1.26  0.0  ALL \
+           RDS_PIMP   VW  0.18  1.26  0.0  DRC \
+           RDS_TVIA3  VW  0.18  1.26  0.0  DRC \
+           RDS_TVIA3  VW  0.18  1.26  0.0  DRC
+  POLY     RDS_POLY   VW  0.09  0.00  0.0  ALL
+
+# POLY2 layer used to define metal-1 which
+# has a 7 lambda pitch. ALU1 layer is used for
+# metal-1 which has an 8 lambda pitch
+# Layer USER0 is used to check for the end overlap of
+# 2 lambda wide metal-1 to CONT. Layer USER1 checks 4 lambda
+# wide metal-1. Their DLR is
+# metal-1_DLR + lambda + CONT_width/2 + end_overlap
+# = 0.095 + 0.055 + 0.08 + 0.06 = 0.29
+# USER0 DWR is 0.0.
+# USER1 DWR set to size USER1 to CONT width (0.22-0.06=0.16).
+# Layer USER2 is used to check for the end overlap of
+# 4 lambda metal-1. Its DWR is
+# max(CONT+2*end_overlap,width of 4 lambda metal-1)-4
+# = max(0.16+2*0.06,0.22)-0.22 = max(0.28,0.22)-0.22 = 0.06
+# USER2 DLR is set to half CONT width (0.08)
+# USER4 and USER5 match USER1 and USER2 for VIA
+#  POLY2    RDS_POLY2  VW  0.18    0.09  0.0  ALL \
+#           RDS_USER0  VW  0.18    0.09  0.0  DRC \
+#           RDS_USER1  VW  0.18    0.09  0.0  DRC \
+#           RDS_USER2  VW  0.18    0.09  0.0  DRC \
+#           RDS_USER4  VW  0.18    0.09  0.0  DRC \
+#           RDS_USER5  VW  0.18    0.09  0.0  DRC
+
+  ALU1     RDS_ALU1   VW  0.18    0.09  0.0  ALL \
+           RDS_USER0  VW  0.18    0.09  0.0  DRC \
+           RDS_USER1  VW  0.18    0.09  0.0  DRC \
+           RDS_USER2  VW  0.18    0.09  0.0  DRC \
+           RDS_USER4  VW  0.18    0.09  0.0  DRC \
+           RDS_USER5  VW  0.18    0.09  0.0  DRC
+
+# Layers VALU2-VALU6 and TALU2-TALU6  are used to
+# check for the end overlap of the metal to via.
+  ALU2     RDS_ALU2   VW  0.135   0.00 0.0  ALL \
+           RDS_TALU2  VW  0.135   0.00 0.0  DRC \
+           RDS_VALU2  VW  0.135   0.00 0.0  DRC
+  ALU3     RDS_ALU3   VW  0.135   0.00 0.0  ALL \
+           RDS_TALU3  VW  0.135   0.00 0.0  DRC \
+           RDS_VALU3  VW  0.135   0.00 0.0  DRC
+  ALU4     RDS_ALU4   VW  0.135   0.00 0.0  ALL \
+           RDS_TALU4  VW  0.135   0.00 0.0  DRC \
+           RDS_VALU4  VW  0.135   0.00 0.0  DRC
+  ALU5     RDS_ALU5   VW  0.135   0.00 0.0  ALL \
+           RDS_TALU5  VW  0.135   0.00 0.0  DRC \
+           RDS_VALU5  VW  0.135   0.00 0.0  DRC
+  ALU6     RDS_ALU6   VW  0.225   0.00 0.0  ALL \
+           RDS_TALU6  VW  0.225   0.00 0.0  DRC \
+           RDS_VALU6  VW  0.225   0.00 0.0  DRC
+
+  CALU1    RDS_ALU1   VW  0.18     0.0  0.0  ALL
+  CALU2    RDS_ALU2   VW  0.135    0.0  0.0  ALL
+  CALU3    RDS_ALU3   VW  0.135    0.0  0.0  ALL
+  CALU4    RDS_ALU4   VW  0.135    0.0  0.0  ALL
+  CALU5    RDS_ALU5   VW  0.135    0.0  0.0  ALL
+  CALU6    RDS_ALU6   VW  0.225    0.0  0.0  ALL
+  TALU1    RDS_TALU1  VW  0.18     0.0  0.0  ALL
+  TALU2    RDS_TALU2  VW  0.135    0.0  0.0  ALL
+  TALU3    RDS_TALU3  VW  0.135    0.0  0.0  ALL
+  TALU4    RDS_TALU4  VW  0.135    0.0  0.0  ALL
+  TALU5    RDS_TALU5  VW  0.135    0.0  0.0  ALL
+  TALU6    RDS_TALU6  VW  0.225    0.0  0.0  ALL
+  TALU8    RDS_TALU8  VW  0.00    0.0  0.0  ALL
+
+END
+
+##-------------------------------------------------------------------
+# TABLE MBK_TO_RDS_CONNECTOR :
+#
+# MBK      RDS layer 
+# name     name     DER DWR 
+##-------------------------------------------------------------------
+
+TABLE MBK_TO_RDS_CONNECTOR
+
+  POLY    RDS_POLY  0.00  0.00
+#  POLY2   RDS_POLY2 0.00  0.00
+  ALU1    RDS_ALU1  0.00  0.00
+  ALU2    RDS_ALU2  0.00  0.00
+  ALU3    RDS_ALU3  0.00  0.00
+  ALU4    RDS_ALU4  0.00  0.00
+  ALU5    RDS_ALU5  0.00  0.00
+  ALU6    RDS_ALU6  0.00  0.00
+
+END
+
+##-------------------------------------------------------------------
+# TABLE MBK_TO_RDS_REFERENCE :
+#
+# MBK ref    RDS layer 
+# name       name       width
+##-------------------------------------------------------------------
+
+TABLE MBK_TO_RDS_REFERENCE
+
+  REF_REF    RDS_REF    0.27
+  REF_CON    RDS_VALU1  0.27  RDS_TVIA1 0.27  RDS_TALU2  0.36
+
+END
+
+##-------------------------------------------------------------------
+# TABLE MBK_TO_RDS_VIA :
+#
+# MBK via      RDS layer 1  RDS  layer 2  RDS  layer 3  RDS layer 4      
+# name         name  width  name   width  name   width  name  width  
+##-------------------------------------------------------------------
+
+TABLE MBK_TO_RDS_VIA
+# The NIMP/PIMP layers are not visualised in Graal. If you want to
+# see the layers, change the keyword for NIMP/PIMP from DRC to ALL.
+
+  CONT_BODY_P\
+	RDS_PTIE 0.81 DRC\
+	RDS_PTIE 0.45 EXT\
+	RDS_VPOLY 0.45 DRC\
+	RDS_CONT 0.18 ALL\
+	RDS_ALU1 0.36 ALL\
+	RDS_ACTIV 0.45 DRC\
+	RDS_PIMP 0.81 DRC
+  CONT_BODY_N\
+	RDS_NTIE 0.81 DRC\
+	RDS_NTIE 0.45 EXT\
+	RDS_TPOLY 0.45 DRC\
+	RDS_CONT 0.18 ALL\
+	RDS_ALU1 0.36 ALL\
+	RDS_ACTIV 0.45 DRC\
+	RDS_NIMP 0.81 DRC
+  CONT_DIF_N\
+	RDS_NDIF 0.54 ALL\
+	RDS_CONT 0.18 ALL\
+	RDS_ALU1 0.36 ALL\
+	RDS_ACTIV 0.54 DRC\
+	RDS_NIMP 0.90 DRC\
+	RDS_TVIA4 0.90 DRC
+  CONT_DIF_P\
+	RDS_PDIF 0.54 ALL\
+	RDS_CONT 0.18 ALL\
+	RDS_ALU1 0.36 ALL\
+	RDS_ACTIV 0.54 DRC\
+	RDS_PIMP 0.90 DRC\
+	RDS_TVIA3 0.90 DRC
+  CONT_POLY\
+	RDS_POLY 0.54 ALL\
+	RDS_CONT 0.18 ALL\
+	RDS_ALU1 0.36 ALL
+  CONT_VIA\
+	RDS_ALU1 0.45 ALL\
+	RDS_VIA1 0.27 ALL\
+	RDS_ALU2 0.45 ALL
+  CONT_VIA2\
+	RDS_ALU2 0.45 ALL\
+	RDS_VIA2 0.27 ALL\
+	RDS_VALU3 0.45 ALL\
+	RDS_TALU3 0.45 ALL\
+	RDS_ALU3 0.45 ALL
+  CONT_VIA3\
+	RDS_ALU3 0.45 ALL\
+	RDS_VIA3 0.27 ALL\
+	RDS_VALU4 0.45 ALL\
+	RDS_TALU4 0.45 ALL\
+	RDS_ALU4 0.45 ALL
+  CONT_VIA4\
+	RDS_ALU4 0.45 ALL\
+	RDS_VIA4 0.27 ALL\
+	RDS_VALU5 0.45 ALL\
+	RDS_TALU5 0.45 ALL\
+	RDS_ALU5 0.45 ALL
+  CONT_VIA5\
+	RDS_ALU5 0.63 ALL\
+	RDS_VIA5 0.45 ALL\
+	RDS_VALU6 0.72 ALL\
+	RDS_TALU6 0.72 ALL\
+	RDS_ALU6 0.72 ALL
+  C_X_N\
+	RDS_POLY 0.36 ALL\
+	RDS_NDIF 0.55 ALL\
+	RDS_ACTIV 0.55 ALL
+  C_X_P\
+	RDS_POLY 0.36 ALL\
+	RDS_PDIF 0.55 ALL\
+	RDS_ACTIV 0.55 ALL
+END
+
+##-------------------------------------------------------------------
+# TABLE MBK_TO_RDS_BIGVIA_HOLE :
+#
+# MBK via      RDS Hole        
+# name         name  side step mode
+##-------------------------------------------------------------------
+
+TABLE MBK_TO_RDS_BIGVIA_HOLE
+
+CONT_VIA   RDS_VIA1 0.27 0.27 ALL
+CONT_VIA2  RDS_VIA2 0.27 0.27 ALL
+CONT_VIA3  RDS_VIA3 0.27 0.27 ALL
+CONT_VIA4  RDS_VIA4 0.27 0.27 ALL
+CONT_VIA5  RDS_VIA5 0.36 0.36 ALL
+
+END
+
+##-------------------------------------------------------------------
+# TABLE MBK_TO_RDS_BIGVIA_METAL :
+#
+# MBK via      RDS layer 1                      ...
+# name         name  delta-width overlap mode
+##-------------------------------------------------------------------
+
+TABLE MBK_TO_RDS_BIGVIA_METAL
+
+CONT_VIA  RDS_ALU1 0.0 0.09  ALL RDS_ALU2 0.0 0.09  ALL
+CONT_VIA2 RDS_ALU2 0.0 0.09  ALL RDS_ALU3 0.0 0.09  ALL
+CONT_VIA3 RDS_ALU3 0.0 0.09  ALL RDS_ALU4 0.0 0.09  ALL
+CONT_VIA4 RDS_ALU4 0.0 0.09  ALL RDS_ALU5 0.0 0.09  ALL
+CONT_VIA5 RDS_ALU5 0.0 0.09  ALL RDS_ALU6 0.0 0.18  ALL
+
+END 
+
+##-------------------------------------------------------------------
+# TABLE MBK_TO_RDS_TURNVIA :
+#
+# MBK via      RDS layer 1                      ...
+# name         name  DWR MODE
+##-------------------------------------------------------------------
+
+TABLE MBK_TO_RDS_TURNVIA
+
+CONT_TURN1 RDS_ALU1 0.0 ALL
+CONT_TURN2 RDS_ALU2 0.0 ALL
+CONT_TURN3 RDS_ALU3 0.0 ALL
+CONT_TURN4 RDS_ALU4 0.0 ALL
+CONT_TURN5 RDS_ALU5 0.0 ALL
+CONT_TURN6 RDS_ALU6 0.0 ALL
+
+END
+
+TABLE MBK_WIRESETTING
+X_GRID  10
+Y_GRID  10
+Y_SLICE 100
+WIDTH_VDD       12
+WIDTH_VSS       12
+TRACK_WIDTH_ALU8        0
+TRACK_WIDTH_ALU7        4
+TRACK_WIDTH_ALU6        4
+TRACK_WIDTH_ALU5        4
+TRACK_WIDTH_ALU4        3
+TRACK_WIDTH_ALU3        3
+TRACK_WIDTH_ALU2        3
+TRACK_WIDTH_ALU1        3
+TRACK_SPACING_ALU8      0
+TRACK_SPACING_ALU7      4
+TRACK_SPACING_ALU6      4
+TRACK_SPACING_ALU5      4
+TRACK_SPACING_ALU4      4
+TRACK_SPACING_ALU3      4
+TRACK_SPACING_ALU2      4
+TRACK_SPACING_ALU1      3
+END
+     
+
+##-------------------------------------------------------------------
+# TABLE LYNX_GRAPH :
+#
+# RDS layer   Rds layer 1   Rds layer 2    ...
+# name        name          name           ...
+##-------------------------------------------------------------------
+
+TABLE LYNX_GRAPH
+
+##---------------------------
+
+  RDS_NDIF  RDS_CONT RDS_NDIF
+  RDS_PDIF  RDS_CONT RDS_PDIF
+  RDS_NTIE  RDS_CONT RDS_TPOLY RDS_NTIE
+  RDS_PTIE  RDS_CONT RDS_VPOLY RDS_PTIE
+
+  RDS_POLY  RDS_CONT RDS_POLY 
+  RDS_CONT  RDS_PDIF RDS_NDIF RDS_POLY  RDS_PTIE RDS_NTIE RDS_ALU1 RDS_POLY2 RDS_CONT
+  RDS_POLY2 RDS_CONT RDS_ALU1 RDS_POLY2
+  RDS_ALU1  RDS_CONT RDS_VIA1 RDS_POLY2 RDS_ALU1
+
+  RDS_VIA1  RDS_ALU1 RDS_ALU2 RDS_VIA1
+  RDS_VIA2  RDS_ALU2 RDS_ALU3 RDS_VIA2
+  RDS_VIA3  RDS_ALU3 RDS_ALU4 RDS_VIA3
+  RDS_VIA4  RDS_ALU4 RDS_ALU5 RDS_VIA4
+  RDS_VIA5  RDS_ALU5 RDS_ALU6 RDS_VIA5
+  RDS_ALU2  RDS_VIA1 RDS_VIA2 RDS_ALU2
+  RDS_ALU3  RDS_VIA2 RDS_VIA3 RDS_ALU3
+  RDS_ALU4  RDS_VIA3 RDS_VIA4 RDS_ALU4
+  RDS_ALU5  RDS_VIA4 RDS_VIA5 RDS_ALU5
+  RDS_ALU6  RDS_VIA5          RDS_ALU6
+
+END
+
+##-------------------------------------------------------------------
+# TABLE LYNX_CAPA : 
+#
+# RDS layer   Surface capacitance  Perimetric capacitance
+# name        piF / Micron^2       piF / Micron 
+##-------------------------------------------------------------------
+
+TABLE LYNX_CAPA
+#        poly alu0 alu1 alu2 alu3 alu4 alu5 alu6
+# pitch    7    14   14   16   16   16   16   36
+  RDS_POLY    10.10E-05   10.00e-05
+  RDS_POLY2   3.400e-05   5.300e-05
+  RDS_ALU1    3.400e-05   5.300e-05
+  RDS_ALU2    1.400e-05   3.600e-05
+  RDS_ALU3    0.900e-05   2.900e-05
+  RDS_ALU4    0.700e-05   2.400e-05
+  RDS_ALU5    0.500e-05   2.100e-05
+  RDS_ALU6    0.400e-05   1.900e-05
+
+END
+
+##-------------------------------------------------------------------
+# TABLE LYNX_RESISTOR :
+#
+# RDS layer   Surface resistor
+# name        Ohm / Micron^2 
+##-------------------------------------------------------------------
+
+TABLE LYNX_RESISTOR
+
+  RDS_POLY     8.3
+  RDS_POLY2    0.08
+  RDS_ALU1     0.08
+  RDS_ALU2     0.08
+  RDS_ALU3     0.08
+  RDS_ALU4     0.08
+  RDS_ALU5     0.07
+  RDS_ALU6     0.01
+
+END
+
+##-------------------------------------------------------------------
+# TABLE LYNX_TRANSISTOR : 
+#
+# MBK layer  Transistor Type  MBK via
+# name       name             name
+##-------------------------------------------------------------------
+
+TABLE LYNX_TRANSISTOR
+
+  NTRANS  NTRANS  C_X_N   RDS_POLY   RDS_NDIF  RDS_NDIF  RDS_PWELL
+  PTRANS  PTRANS  C_X_P   RDS_POLY   RDS_PDIF  RDS_PDIF  RDS_NWELL
+
+END
+
+##-------------------------------------------------------------------
+# TABLE LYNX_DIFFUSION :
+#
+# RDS layer  RDS layer
+# name       name    
+##-------------------------------------------------------------------
+
+TABLE LYNX_DIFFUSION
+END
+
+##-------------------------------------------------------------------
+# TABLE LYNX_BULK_IMPLICIT :
+#
+# RDS layer  Bulk type
+# name       EXPLICIT/IMPLICIT
+##-------------------------------------------------------------------
+
+TABLE LYNX_BULK_IMPLICIT
+END
+
+
+
+##-------------------------------------------------------------------
+# TABLE S2R_OVERSIZE_DENOTCH :
+##-------------------------------------------------------------------
+
+TABLE S2R_OVERSIZE_DENOTCH 
+  RDS_NWELL 1.075
+  RDS_PWELL 1.075
+  RDS_ACTIV 0.175
+  RDS_PDIF  0.265
+  RDS_NDIF  0.265
+  RDS_TPOLY 0.265
+  RDS_VPOLY 0.265
+  RDS_NTIE  0.265
+  RDS_PTIE  0.265
+# The NIMP and PIMP values are used to set the width of WELL and
+# IMPlant beyond the Abox. Values set equal to the NIMP/PIMP
+# overlap of TIE contact so that thin slivers of IMPlant are not
+# inserted between the TIE implant and well edge.
+  RDS_PIMP  0.355
+  RDS_NIMP  0.355
+# Denotch NIMP and PIMP with user layers allowing single implant
+# contact between two implant edges.
+# Width is (2.5+6.2a)*2+6.1=(0.20+0.08)*2+0.16=0.72. Denotch just below.
+  RDS_TVIA3 0.0
+  RDS_TVIA4 0.0
+  RDS_POLY  0.0
+  RDS_POLY2 0.0
+  RDS_ALU1  0.0
+  RDS_ALU2  0.0
+  RDS_ALU3  0.0
+  RDS_ALU4  0.0
+  RDS_ALU5  0.0
+  RDS_ALU6  0.0 
+END
+
+##-------------------------------------------------------------------
+# TABLE S2R_BLOC_RING_WIDTH :
+##-------------------------------------------------------------------
+
+TABLE S2R_BLOC_RING_WIDTH
+END
+
+##-------------------------------------------------------------------
+# TABLE S2R_MINIMUM_LAYER_WIDTH :
+##-------------------------------------------------------------------
+
+TABLE S2R_MINIMUM_LAYER_WIDTH 
+
+  RDS_NWELL   1.08
+  RDS_PWELL   1.08
+  RDS_NDIF    0.27
+  RDS_PDIF    0.27
+  RDS_NTIE    0.27
+  RDS_PTIE    0.27
+  RDS_TPOLY   0.27
+  RDS_VPOLY   0.27
+  RDS_PIMP    0.36
+  RDS_NIMP    0.36
+  RDS_POLY    0.18
+  RDS_CONT    0.18
+  RDS_POLY2   0.27
+  RDS_ALU1    0.27
+  RDS_TALU1   0.27
+  RDS_VIA1    0.27
+  RDS_ALU2    0.27
+  RDS_TALU2   0.27
+  RDS_VIA2    0.27
+  RDS_ALU3    0.27
+  RDS_TALU3   0.27
+  RDS_VIA3    0.27
+  RDS_ALU4    0.27
+  RDS_TALU4   0.27
+  RDS_VIA4    0.27
+  RDS_ALU5    0.27
+  RDS_TALU5   0.27
+  RDS_VIA5    0.27
+  RDS_ALU6    0.44
+  RDS_TALU6   0.44
+  RDS_REF     0.36
+  RDS_TALU8   3.96
+
+END
+
+##-------------------------------------------------------------------
+# TABLE CIF_LAYER :
+##-------------------------------------------------------------------
+
+TABLE CIF_LAYER
+# Layer definitions used by MOSIS
+#--------------------------------
+  RDS_NWELL    CWN
+  RDS_PWELL    CWP
+  RDS_USER3    CWN
+  RDS_USER6    CWP
+  RDS_NDIF     CND
+  RDS_PDIF     CPD
+  RDS_TPOLY    CNS
+  RDS_VPOLY    CPS
+# PTIE and NTIE actually provide the implants
+# around the cutouts for CONT_BODY_N and _P.
+  RDS_PTIE     CSP
+  RDS_NTIE     CSN
+  RDS_ACTIV    CAA
+  RDS_PIMP     CSP
+  RDS_NIMP     CSN
+# If using 's2r -i' then the TVIA3 and TVIA4
+# lines should be commented. If using 's2r'
+# only then the lines should be uncommented.
+#  RDS_TVIA3    CSP
+#  RDS_TVIA4    CSN
+  RDS_POLY     CPG
+  RDS_CONT     CCC
+#  RDS_POLY2    CM1
+  RDS_ALU1     CM1
+#  RDS_TALU1    TM1
+  RDS_VIA1     CV1
+  RDS_ALU2     CM2
+#  RDS_TALU2    TM2
+  RDS_VIA2     CV2
+  RDS_ALU3     CM3
+#  RDS_TALU3    TM3
+  RDS_VIA3     CV3
+  RDS_ALU4     CM4
+#  RDS_TALU4    TM4
+  RDS_VIA4     CV4
+  RDS_ALU5     CM5
+#  RDS_TALU5    TM5
+  RDS_VIA5     CV5
+  RDS_ALU6     CM6
+#  RDS_TALU6    TM6
+  RDS_REF      REF
+  RDS_TALU8    AB
+
+# Layer definitions used by Alliance
+#-----------------------------------
+#  RDS_NWELL    LNWELL
+#  RDS_PWELL    LPWELL
+#  RDS_NDIF     LNDIF
+#  RDS_PDIF     LPDIF
+#  RDS_TPOLY    LTPOLY
+#  RDS_VPOLY    LVPOLY
+#  RDS_NTIE     LNTIE
+#  RDS_PTIE     LPTIE
+#  RDS_PIMP     LPIMP
+#  RDS_NIMP     LNIMP
+#  RDS_POLY     LPOLY
+#  RDS_POLY2    LPOLY2
+#  RDS_CONT     LCONT
+#  RDS_POLY2    LALU1
+#  RDS_ALU1     LALU1
+#  RDS_TALU1    LTALU1
+#  RDS_VIA1     LVIA
+#  RDS_ALU2     LALU2
+#  RDS_TALU2    LTALU2
+#  RDS_VIA2     LVIA2
+#  RDS_ALU3     LALU3
+#  RDS_TALU3    LTALU3
+#  RDS_VIA3     LVIA3
+#  RDS_ALU4     LALU4
+#  RDS_TALU4    LTALU4
+#  RDS_VIA4     LVIA4
+#  RDS_ALU5     LALU5
+#  RDS_TALU5    LTALU5
+#  RDS_VIA5     LVIA5
+#  RDS_ALU6     LALU6
+#  RDS_TALU6    LTALU6
+#  RDS_REF      LREF
+END
+
+##-------------------------------------------------------------------
+# TABLE GDS_LAYER :
+##-------------------------------------------------------------------
+
+TABLE GDS_LAYER
+# Layer definitions used by MOSIS
+#--------------------------------
+  RDS_PWELL   41
+  RDS_NWELL   42
+  RDS_USER6   41
+  RDS_USER3   42
+  RDS_NDIF    43
+  RDS_PDIF    43
+  RDS_TPOLY   43
+  RDS_VPOLY   43
+  RDS_PTIE    44
+  RDS_NTIE    45
+  RDS_ACTIV   43
+  RDS_PIMP    44
+  RDS_NIMP    45
+#  RDS_TVIA3   44
+#  RDS_TVIA4   45
+  RDS_POLY    46 46
+  RDS_CONT    25
+#  RDS_POLY2   49 49
+  RDS_ALU1    49 49
+#  RDS_TALU1   13
+  RDS_VIA1    50
+  RDS_ALU2    51 51
+#  RDS_TALU2   17
+  RDS_VIA2    61
+  RDS_ALU3    62 62
+#  RDS_TALU3   20
+  RDS_VIA3    30
+  RDS_ALU4    31 31
+#  RDS_TALU4   23
+  RDS_VIA4    32
+  RDS_ALU5    33 33
+#  RDS_TALU5   27
+  RDS_VIA5    36
+  RDS_ALU6    37 37
+#  RDS_TALU6   30
+#  RDS_REF     24
+#  RDS_TALU8   63
+
+# Layer definitions used by Alliance
+#-----------------------------------
+#  RDS_NWELL    1
+#  RDS_PWELL    2
+#  RDS_NDIF     3
+#  RDS_PDIF     4
+#  RDS_NTIE     5
+#  RDS_PTIE     6
+#  RDS_POLY     7
+#  RDS_POLY2    8
+#  RDS_TPOLY    9
+#  RDS_CONT    10
+#  RDS_POLY2   11
+#  RDS_ALU1    11
+#  RDS_TALU1   13
+#  RDS_VIA1    14
+#  RDS_ALU2    16
+#  RDS_TALU2   17
+#  RDS_VIA2    18
+#  RDS_ALU3    19
+#  RDS_TALU3   20
+#  RDS_VIA3    21
+#  RDS_ALU4    22
+#  RDS_TALU4   23
+#  RDS_VIA4    25
+#  RDS_ALU5    26
+#  RDS_TALU5   27
+#  RDS_VIA5    28
+#  RDS_ALU6    29
+#  RDS_TALU6   30
+#  RDS_REF     24
+END
+
+##-------------------------------------------------------------------
+# TABLE S2R_POST_TREAT :
+##-------------------------------------------------------------------
+
+TABLE S2R_POST_TREAT
+
+ RDS_NWELL TREAT NULL
+ RDS_PWELL TREAT NULL
+ RDS_NDIF  TREAT NULL
+ RDS_PDIF  TREAT NULL
+ RDS_NTIE  TREAT NULL
+ RDS_PTIE  TREAT NULL
+ RDS_TPOLY TREAT NULL
+ RDS_VPOLY TREAT NULL
+ RDS_NIMP  TREAT NULL
+ RDS_PIMP  TREAT NULL
+ RDS_TVIA4 TREAT NULL
+ RDS_TVIA3 TREAT NULL
+ RDS_ACTIV TREAT NULL
+ RDS_POLY  TREAT NULL
+ RDS_CONT  NOTREAT NULL
+ RDS_VIA1  NOTREAT NULL
+ RDS_VIA2  NOTREAT NULL
+ RDS_VIA3  NOTREAT NULL
+ RDS_VIA4  NOTREAT NULL
+ RDS_VIA5  NOTREAT NULL
+ RDS_POLY2 TREAT NULL
+ RDS_ALU1  TREAT NULL
+ RDS_ALU2  TREAT NULL
+ RDS_ALU3  TREAT NULL
+ RDS_ALU4  TREAT NULL
+ RDS_ALU5  TREAT NULL
+ RDS_ALU6  TREAT NULL
+ RDS_TALU1 TREAT NULL
+ RDS_TALU2 TREAT NULL
+ RDS_TALU3 TREAT NULL
+ RDS_TALU4 TREAT NULL
+ RDS_TALU5 TREAT NULL
+ RDS_TALU6 TREAT NULL
+
+# Two RDS_TALU8 rectangles are written, one with no name and
+# one with the cell name. When merged, the name is lost.
+# It is prefered to have a single rectangle with no name rather
+# than two, one of which is named.
+ RDS_TALU8 TREAT NULL
+
+END
+
+##-------------------------------------------------------------------
+## All layers used in the regles must be listed here first.
+## Otherwise you get an error like :
+#  DRUC ERR: Undefined RDS LAYER
+##-------------------------------------------------------------------
+DRC_RULES
+
+layer RDS_USER0 0.27;
+layer RDS_USER1 0.27;
+layer RDS_USER2 0.27;
+layer RDS_USER4 0.27;
+layer RDS_USER5 0.27;
+layer RDS_NWELL 1.08;
+layer RDS_PWELL 1.08;
+layer RDS_NTIE 0.27;
+layer RDS_PTIE 0.27;
+layer RDS_NDIF 0.27;
+layer RDS_PDIF 0.27;
+layer RDS_TPOLY 0.27;
+layer RDS_VPOLY 0.27;
+layer RDS_ACTIV 0.27;
+layer RDS_PIMP 0.45;
+layer RDS_NIMP 0.45;
+layer RDS_CONT 0.18;
+layer RDS_VIA1 0.27;
+layer RDS_VIA2 0.27;
+layer RDS_VIA3 0.27;
+layer RDS_VIA4 0.27;
+layer RDS_VIA5 0.36;
+layer RDS_POLY 0.18;
+layer RDS_GATE 0.18;
+layer RDS_ALU1 0.27;
+layer RDS_ALU2 0.27;
+layer RDS_ALU3 0.27;
+layer RDS_ALU4 0.27;
+layer RDS_ALU5 0.27;
+layer RDS_ALU6 0.45;
+
+layer RDS_REF 0.20;
+layer RDS_TALU1 0.27;
+layer RDS_TALU2 0.27;
+layer RDS_TALU3 0.27;
+layer RDS_TALU4 0.27;
+layer RDS_TALU5 0.27;
+layer RDS_TALU6 0.45;
+layer RDS_TALU8 3.96;
+layer RDS_POLY2 0.27;
+layer RDS_VALU2 0.27;
+layer RDS_VALU3 0.27;
+layer RDS_VALU4 0.27;
+layer RDS_VALU5 0.27;
+layer RDS_VALU6 0.45;
+
+regles
+
+# Note : ``min'' is different from ``>=''. 
+# min is applied on polygons and >= is applied on rectangles.
+# There is the same difference between max and <=.
+# >= is faster than min, but min must be used where it is
+# required to consider polygons, for example distance of
+# two objects in the same layer 
+#----------------------------------------------------------- 
+# Check the NWELL shapes
+#-----------------------
+caracterise RDS_NWELL (
+  regle 110 : largeur >= 1.08 ;
+  regle 111 : longueur_inter min 1.08 ;
+  regle 130 : notch >= 1.08 ;
+);
+relation RDS_NWELL , RDS_NWELL (
+  regle 131 : distance axiale min 0.54 ;
+);
+
+# Check the PWELL shapes
+#-----------------------
+caracterise RDS_PWELL (
+  regle 112 : largeur >= 1.08 ;
+  regle 113 : longueur_inter min 1.08 ;
+  regle 132 : notch >= 1.08 ;
+);
+relation RDS_PWELL , RDS_PWELL (
+  regle 133 : distance axiale min 0.54 ;
+);
+
+define RDS_NWELL , RDS_PWELL intersection -> BOTH_WELLS;
+
+# Check no NWELL and PWELL overlap
+#---------------------------------
+# Won't work with PWELL made from symbolic NWELL
+caracterise BOTH_WELLS (
+  regle 140 : largeur max 0.0 ;
+);
+relation RDS_PWELL , RDS_NWELL (
+  regle 141 : distance axiale min 0.0 ;
+);
+
+undefine BOTH_WELLS;
+
+# Check the RDS_PDIF shapes
+#--------------------------
+caracterise RDS_PDIF (
+  regle 210 : largeur >= 0.27 ;
+  regle 211 : longueur_inter min 0.27 ;
+  regle 220 : notch >= 0.27 ;
+);
+relation RDS_PDIF , RDS_PDIF (
+  regle 221 : distance axiale min 0.27 ;
+);
+
+# Check the RDS_NDIF shapes
+#--------------------------
+caracterise RDS_NDIF (
+  regle 212 : largeur >= 0.27 ;
+  regle 213 : longueur_inter min 0.27 ;
+  regle 222 : notch >= 0.27 ;
+);
+relation RDS_NDIF , RDS_NDIF (
+  regle 223 : distance axiale min 0.27 ;
+);
+
+# define PSUB and NSUB layers for easier
+# understanding of design rules
+define RDS_VPOLY , RDS_PTIE intersection -> PSUB;
+define RDS_TPOLY , RDS_NTIE intersection -> NSUB;
+
+# Check the RDS_PTIE shapes
+#--------------------------
+caracterise PSUB (
+  regle 214 : largeur >= 0.27 ;
+  regle 215 : longueur_inter min 0.27 ;
+  regle 224 : notch >= 0.27 ;
+);
+relation PSUB , PSUB (
+  regle 225 : distance axiale min 0.27 ;
+);
+
+# Check the RDS_NTIE shapes
+#--------------------------
+caracterise NSUB (
+  regle 216 : largeur >= 0.27 ;
+  regle 217 : longueur_inter min 0.27 ;
+  regle 226 : notch >= 0.27 ;
+);
+relation NSUB , NSUB (
+  regle 227 : distance axiale min 0.27 ;
+);
+
+# Check RDS_NDIF is outside NWELL
+#--------------------------------
+relation RDS_NDIF , RDS_NWELL (
+  regle 230 : distance axiale >= 0.54 ;
+  regle 231 : enveloppe longueur_inter < 0.0 ;
+  regle 232 : croix longueur_inter < 0.0 ;
+  regle 233 : intersection longueur_inter < 0.0 ;
+  regle 234 : extension longueur_inter < 0.0 ;
+  regle 235 : inclusion longueur_inter < 0.0 ;
+);
+relation RDS_NWELL , RDS_NDIF (
+  regle 236 : marge longueur_inter < 0.0 ;
+);
+
+# Check RDS_PDIF is inside NWELL
+#-------------------------------
+relation RDS_NWELL , RDS_PDIF (
+  regle 237 : enveloppe inferieure min 0.54 ;
+);
+
+# Check RDS_PTIE is outside NWELL
+#--------------------------------
+relation PSUB , RDS_NWELL (
+  regle 240 : distance axiale >= 0.27 ;
+  regle 241 : enveloppe longueur_inter < 0.0 ;
+  regle 242 : croix longueur_inter < 0.0 ;
+  regle 243 : intersection longueur_inter < 0.0 ;
+  regle 244 : extension longueur_inter < 0.0 ;
+  regle 245 : inclusion longueur_inter < 0.0 ;
+);
+relation RDS_NWELL , PSUB (
+  regle 246 : marge longueur_inter < 0.0 ;
+);
+
+# Check RDS_NTIE is inside NWELL
+#-------------------------------
+relation RDS_NWELL , NSUB (
+  regle 247 : enveloppe inferieure min 0.27 ;
+);
+
+# Check NDIF and PDIF separation
+#-------------------------------
+relation RDS_NDIF , PSUB (
+  regle 250 : distance axiale min 0.36 ;
+  regle 251 : intersection longueur_inter < 0.0 ;
+  regle 252 : extension longueur_inter < 0.0 ;
+  regle 253 : inclusion longueur_inter < 0.0 ;
+);
+relation RDS_PDIF , NSUB (
+  regle 254 : distance axiale min 0.36 ;
+  regle 255 : intersection longueur_inter < 0.0 ;
+  regle 256 : extension longueur_inter < 0.0 ;
+  regle 257 : inclusion longueur_inter < 0.0 ;
+);
+
+# Check RDS_PDIF is outside PWELL
+#---------------------------------
+relation RDS_PDIF , RDS_PWELL (
+  regle 260 : distance axiale >= 0.54 ;
+  regle 261 : enveloppe longueur_inter < 0.0 ;
+  regle 262 : croix longueur_inter < 0.0 ;
+  regle 263 : intersection longueur_inter < 0.0 ;
+  regle 264 : extension longueur_inter < 0.0 ;
+  regle 265 : inclusion longueur_inter < 0.0 ;
+);
+relation RDS_PWELL , RDS_PDIF (
+  regle 266 : marge longueur_inter < 0.0 ;
+);
+
+# Check RDS_NDIF is inside PWELL
+#-------------------------------
+relation RDS_PWELL , RDS_NDIF (
+  regle 267 : enveloppe inferieure min 0.54 ;
+);
+
+# Check RDS_NTIE is outside PWELL
+#--------------------------------
+relation NSUB , RDS_PWELL (
+  regle 270 : distance axiale >= 0.27 ;
+  regle 271 : enveloppe longueur_inter < 0.0 ;
+  regle 272 : croix longueur_inter < 0.0 ;
+  regle 273 : intersection longueur_inter < 0.0 ;
+  regle 274 : extension longueur_inter < 0.0 ;
+  regle 275 : inclusion longueur_inter < 0.0 ;
+);
+relation RDS_PWELL , NSUB (
+  regle 276 : marge longueur_inter < 0.0 ;
+);
+
+# Check RDS_PTIE is inside PWELL
+#-------------------------------
+relation RDS_PWELL , PSUB (
+  regle 277 : enveloppe inferieure min 0.27 ;
+);
+
+# Check opposite implant diffusion spacings
+#------------------------------------------
+# These rules added to flag DRC errors even if
+# NWELL and PWELL are not visualised in Graal
+#---------------------------------------------
+relation RDS_PDIF , RDS_NDIF (
+# distance is nwell overlap pdif plus nwell space to ndif
+  regle 280 : distance axiale min 1.08 ;
+);
+relation RDS_PDIF , PSUB (
+# distance is nwell overlap pdif plus nwell space to ptie
+  regle 281 : distance axiale min 0.81 ;
+);
+relation NSUB , RDS_NDIF (
+# distance is nwell overlap ntie plus nwell space to ndif
+  regle 282 : distance axiale min 0.81 ;
+);
+# distance is nwell overlap ntie plus nwell space to ptie
+relation NSUB , PSUB (
+  regle 283 : distance axiale min 0.54 ;
+);
+
+define RDS_ACTIV , RDS_POLY intersection -> CHANNEL;
+
+# Check the RDS_POLY shapes
+#--------------------------
+caracterise RDS_POLY (
+  regle 310 : largeur >= 0.18 ;
+  regle 311 : longueur_inter >= 0.18 ;
+  regle 320 : notch >= 0.27 ;
+);
+relation RDS_POLY , RDS_POLY (
+  regle 321 : distance axiale min 0.27 ;
+);
+
+# Check the CHANNEL shapes
+#--------------------------
+caracterise CHANNEL (
+  regle 322 : notch >= 0.27 ;
+);
+relation CHANNEL , CHANNEL (
+  regle 323 : distance axiale min 0.27 ;
+);
+
+# Check POLY overlap of TRANSISTOR (ENDCAP)
+#------------------------------------------
+relation RDS_POLY , RDS_PDIF (
+  regle 330 : croix longueur_min min 0.225 ;
+);
+relation RDS_POLY , RDS_NDIF (
+  regle 331 : croix longueur_min min 0.225 ;
+);
+
+# Check SOURCE/DRAIN width
+#-------------------------
+relation RDS_PDIF , RDS_GATE (
+  regle 340 : croix longueur_min min 0.36 ;
+);
+relation RDS_NDIF , RDS_GATE (
+  regle 341 : croix longueur_min min 0.36 ;
+);
+
+# Check RDS_POLY separation to DIF
+#---------------------------------
+relation RDS_POLY , RDS_PDIF (
+  regle 350 : distance axiale min 0.09 ;
+);
+relation RDS_POLY , RDS_NDIF (
+  regle 351 : distance axiale min 0.09 ;
+);
+relation RDS_POLY , PSUB (
+  regle 352 : distance axiale min 0.09 ;
+);
+relation RDS_POLY , NSUB (
+  regle 353 : distance axiale min 0.09 ;
+);
+
+# Check RDS_POLY separation to TRANSISTOR CHANNEL
+#------------------------------------------------
+relation RDS_POLY , CHANNEL (
+  regle 354 : distance axiale >= 0.09 ;
+);
+
+undefine NSUB;
+undefine PSUB;
+define RDS_POLY , CHANNEL exclusion -> FIELD_POLY;
+define RDS_PDIF , RDS_POLY intersection -> PGATE;
+
+# Check RDS_POLY does not overlap PDIF
+#-------------------------------------
+relation PGATE , FIELD_POLY (
+  regle 355 : inclusion longueur_inter < 0.0 ;
+);
+relation FIELD_POLY , PGATE (
+  regle 356 : extension longueur_inter < 0.0 ;
+);
+
+undefine PGATE;
+define RDS_NDIF , RDS_POLY intersection -> NGATE;
+
+# Check RDS_POLY does not overlap NDIF
+#-------------------------------------
+relation NGATE , FIELD_POLY (
+  regle 357 : inclusion longueur_inter < 0.0 ;
+);
+relation FIELD_POLY , NGATE (
+  regle 358 : extension longueur_inter < 0.0 ;
+);
+
+undefine NGATE;
+define RDS_PDIF , CHANNEL intersection -> PTR;
+
+# N-select and P-select rules
+#----------------------------
+relation PTR , RDS_NIMP (
+  regle 410 : distance axiale min 0.27 ;
+);
+
+undefine PTR;
+define RDS_NDIF , CHANNEL intersection -> NTR;
+
+relation NTR , RDS_PIMP (
+  regle 411 : distance axiale min 0.27 ;
+);
+
+undefine NTR;
+undefine FIELD_POLY;
+define RDS_VPOLY , RDS_PTIE intersection -> PSUB;
+define RDS_TPOLY , RDS_NTIE intersection -> NSUB;
+
+relation RDS_PIMP , RDS_PDIF (
+  regle 420 : enveloppe inferieure min 0.18 ;
+);
+relation RDS_PIMP , PSUB (
+  regle 421 : enveloppe inferieure min 0.18 ;
+);
+relation RDS_NIMP , RDS_NDIF (
+  regle 422 : enveloppe inferieure min 0.18 ;
+);
+relation RDS_NIMP , NSUB (
+  regle 423 : enveloppe inferieure min 0.18 ;
+);
+
+undefine NSUB;
+undefine PSUB;
+define RDS_PIMP , RDS_PWELL intersection -> TIE_PIMP;
+define RDS_NIMP , RDS_NWELL intersection -> TIE_NIMP;
+
+# Check min SELECT widths for TIE implant
+#----------------------------------------
+caracterise TIE_PIMP (
+  regle 440 : largeur >= 0.36 ;
+  regle 441 : longueur_inter min 0.36 ;
+);
+# This is the min NIMP width rule
+relation TIE_PIMP , TIE_PIMP (
+  regle 444 : distance axiale min 0.36 ;
+);
+caracterise TIE_NIMP (
+  regle 442 : largeur >= 0.36 ;
+  regle 443 : longueur_inter min 0.36 ;
+);
+# This is the min PIMP width rule
+relation TIE_NIMP , TIE_NIMP (
+  regle 445 : distance axiale min 0.36 ;
+);
+
+undefine TIE_NIMP;
+undefine TIE_PIMP;
+define RDS_POLY , RDS_CONT intersection -> POLY_CONT;
+
+# Check CONT layer size, separation and overlaps
+#-----------------------------------------------
+caracterise POLY_CONT (
+  regle 510 : largeur max 0.185 ;
+  regle 511 : largeur min 0.18 ;
+);
+relation RDS_POLY , RDS_CONT (
+  regle 520 : enveloppe inferieure min 0.09 ;
+);
+relation RDS_CONT , RDS_CONT (
+  regle 530 : distance axiale min 0.36 ;
+);
+
+# Check POLY CONTACT separation from TRANSISTOR CHANNEL
+#------------------------------------------------------
+relation CHANNEL , POLY_CONT (
+  regle 540 : distance axiale >= 0.27 ;
+);
+
+undefine POLY_CONT;
+define RDS_CONT , CHANNEL intersection -> BAD_CONT;
+
+# CONTACT not allowed over TRANSISTOR
+#------------------------------------
+caracterise BAD_CONT (
+  regle 580 : largeur max 0.0 ;
+);
+
+undefine BAD_CONT;
+
+define RDS_PDIF , RDS_CONT intersection -> PDIF_CONT;
+caracterise PDIF_CONT (
+  regle 610 : longueur max 0.185 ;
+  regle 611 : longueur_inter min 0.18 ;
+);
+# Check PDIF CONTACT separation from TRANSISTOR CHANNEL
+#------------------------------------------------------
+relation CHANNEL , PDIF_CONT (
+  regle 640 : distance axiale >= 0.18 ;
+);
+
+undefine PDIF_CONT;
+define RDS_NDIF , RDS_CONT intersection -> NDIF_CONT;
+
+caracterise NDIF_CONT (
+  regle 612 : longueur max 0.185 ;
+  regle 613 : longueur_inter min 0.18 ;
+);
+# Check NDIF CONTACT separation from TRANSISTOR CHANNEL
+#------------------------------------------------------
+relation CHANNEL , NDIF_CONT (
+  regle 641 : distance axiale >= 0.18 ;
+);
+
+undefine NDIF_CONT;
+define RDS_PTIE , RDS_CONT intersection -> PTIE_CONT;
+caracterise PTIE_CONT (
+  regle 614 : longueur max 0.185 ;
+  regle 615 : longueur_inter min 0.18 ;
+);
+# Check PTIE CONTACT separation from TRANSISTOR CHANNEL
+#------------------------------------------------------
+relation CHANNEL , PTIE_CONT (
+  regle 642 : distance axiale >= 0.27 ;
+);
+
+undefine PTIE_CONT;
+define RDS_NTIE , RDS_CONT intersection -> NTIE_CONT;
+
+caracterise NTIE_CONT (
+  regle 616 : longueur max 0.185 ;
+  regle 617 : longueur_inter min 0.18 ;
+);
+# Check NTIE CONTACT separation from TRANSISTOR CHANNEL
+#------------------------------------------------------
+relation CHANNEL , NTIE_CONT (
+  regle 643 : distance axiale >= 0.27 ;
+);
+
+undefine NTIE_CONT;
+
+relation RDS_PDIF , RDS_CONT (
+  regle 620 : enveloppe inferieure min 0.09 ;
+);
+relation RDS_NDIF , RDS_CONT (
+  regle 621 : enveloppe inferieure min 0.09 ;
+);
+relation RDS_PTIE , RDS_CONT (
+  regle 622 : enveloppe inferieure min 0.09 ;
+);
+relation RDS_NTIE , RDS_CONT (
+  regle 623 : enveloppe inferieure min 0.09 ;
+);
+
+undefine CHANNEL;
+define RDS_ALU1 , RDS_POLY2 union -> ANY_ALU1;
+
+# Check RDS_ALU1 shapes
+#----------------------
+caracterise RDS_ALU1 (
+  regle 710 : largeur >= 0.27 ;
+  regle 711 : longueur_inter min 0.27 ;
+);
+caracterise ANY_ALU1 (
+  regle 720 : notch >= 0.27 ;
+);
+caracterise RDS_POLY2 (
+  regle 712 : largeur >= 0.27 ;
+  regle 713 : longueur_inter min 0.27 ;
+  regle 721 : notch >= 0.27 ;
+);
+caracterise RDS_TALU1 (
+  regle 714 : largeur >= 0.27 ;
+  regle 715 : longueur_inter min 0.27 ;
+  regle 722 : notch >= 0.27 ;
+);
+relation ANY_ALU1 , ANY_ALU1 (
+  regle 723 : distance axiale min 0.27 ;
+);
+relation RDS_ALU1 , RDS_ALU1 (
+  regle 724 : distance axiale min 0.27 ;
+);
+relation RDS_TALU1 , RDS_TALU1 (
+  regle 725 : distance axiale min 0.27 ;
+);
+
+# Check ALU1 side overlap of CONT
+#--------------------------------
+relation ANY_ALU1 , RDS_CONT (
+# Case where ALU1 overlap of CONT is positive but less than design rule
+  regle 730 : enveloppe inferieure min 0.09 ;
+);
+
+define ANY_ALU1 , RDS_USER2 union -> WIDE_ALU1;
+define WIDE_ALU1 , RDS_USER1 intersection -> THIN_ALU1;
+undefine WIDE_ALU1;
+
+relation THIN_ALU1 , RDS_CONT (
+# Case where ALU1 is 2 lambda wide
+# Side overlap rule used for end overlap
+  regle 733 : croix longueur_min min 0.09 ;
+# Optional larger value of end overlap
+  regle 734 : croix longueur_min min 0.09 ;
+);
+
+undefine THIN_ALU1;
+#define ANY_ALU1 , RDS_USER0 intersection -> THIN_ALU1;
+
+#relation THIN_ALU1 , RDS_CONT (
+# Case where ALU1 is 1 lambda wide
+# Side overlap rule used for end overlap
+#  regle 735 : croix longueur_min min 0.01 ;
+# Optional larger value of end overlap
+#  regle 736 : croix longueur_min min 0.06 ;
+#);
+
+#undefine THIN_ALU1;
+define ANY_ALU1 , RDS_USER5 union -> WIDE_ALU1;
+define WIDE_ALU1 , RDS_USER4 intersection -> THIN_ALU1;
+
+# Check REF size and RDS_ALU1 overlap of REF
+#-------------------------------------------
+#caracterise RDS_REF (
+#  regle 750 : largeur max 0.205 ;
+#  regle 751 : largeur min 0.20 ;
+#);
+#relation RDS_REF , RDS_REF (
+#  regle 760 : distance axiale min 0.24 ;
+#);
+#relation RDS_REF , RDS_ALU1 (
+#  regle 770 : intersection longueur_inter max 0.0 ;
+#);
+#relation RDS_REF ,RDS_TALU1 (
+#  regle 772 : intersection longueur_inter max 0.0 ;
+#);
+#relation RDS_ALU1 , RDS_REF (
+#  regle 773 : enveloppe inferieure min 0.01 ;
+#  regle 774 : marge longueur_inter max 0.01 ;
+#);
+#relation RDS_TALU1 , RDS_REF (
+#  regle 775 : enveloppe inferieure min 0.01 ;
+#  regle 776 : marge longueur_inter max 0.01 ;
+#);
+#relation THIN_ALU1 , RDS_REF (
+#  regle 780 : croix longueur_min min 0.01 ;
+#  regle 781 : croix longueur_min min 0.06 ;
+#);
+
+# Check VIA layer size and separation
+#------------------------------------
+caracterise RDS_VIA1 (
+  regle 810 : largeur <= 0.275 ;
+  regle 811 : largeur >= 0.27 ;
+);
+relation RDS_VIA1 , RDS_VIA1 (
+  regle 820 : distance axiale min 0.27 ;
+);
+
+# Check ALU1 overlap of VIA1
+#---------------------------
+relation RDS_ALU1 , RDS_VIA1 (
+# Case 1: side overlap
+# Basic side overlap checked on all sides
+  regle 830 : enveloppe inferieure min 0.09 ;
+  regle 831 : marge longueur_inter max 0.09 ;
+);
+#relation RDS_VIA1 , RDS_ALU1 (
+#  regle 832 : intersection longueur_inter max 0.0 ;
+#);
+
+relation THIN_ALU1 , RDS_VIA1 (
+# Case 2: end overlap
+# Side overlap rule used for end overlap
+  regle 833 : croix longueur_min min 0.09 ;
+# Optional larger value of end overlap
+  regle 834 : croix longueur_min min 0.09 ;
+);
+
+undefine WIDE_ALU1;
+undefine THIN_ALU1;
+undefine ANY_ALU1;
+
+# Check RDS_ALU2 shapes
+#----------------------
+caracterise RDS_ALU2 (
+  regle 910 : largeur >= 0.27 ;
+  regle 911 : longueur_inter min 0.27 ;
+  regle 920 : notch >= 0.36 ;
+);
+relation RDS_ALU2 , RDS_ALU2 (
+  regle 921 : distance axiale min 0.36 ;
+);
+# Check ALU2 overlap of VIA1
+#---------------------------
+relation RDS_ALU2 , RDS_VIA1 (
+# Case 1: side overlap
+# Basic side overlap checked on all sides
+  regle 930 : enveloppe inferieure min 0.09 ;
+  regle 931 : marge longueur_inter max 0.09 ;
+);
+#relation RDS_VIA1 , RDS_ALU2 (
+#  regle 932 : intersection longueur_inter max 0.0 ;
+#);
+
+define RDS_ALU2 , RDS_TALU2 union -> WIDE_ALU2;
+define WIDE_ALU2 , RDS_VALU2 intersection -> THIN_ALU2;
+
+relation THIN_ALU2 , RDS_VIA1 (
+# Case 2: end overlap
+# Side overlap rule used for end overlap
+  regle 933 : croix longueur_min min 0.09 ;
+# Optional larger value of end overlap
+  regle 934 : croix longueur_min min 0.09 ;
+);
+
+# Check VIA2 layer size and separation
+#-------------------------------------
+caracterise RDS_VIA2 (
+  regle 1410 : largeur <= 0.275 ;
+  regle 1411 : largeur >= 0.27 ;
+);
+relation RDS_VIA2 , RDS_VIA2 (
+  regle 1420 : distance axiale min 0.27 ;
+);
+
+# Check ALU2 overlap of VIA2
+#---------------------------
+relation RDS_ALU2 , RDS_VIA2 (
+# Case 1: side overlap
+# Basic side overlap checked on all sides
+  regle 1430 : enveloppe inferieure min 0.09 ;
+  regle 1431 : marge longueur_inter max 0.09 ;
+);
+#relation RDS_VIA2 , RDS_ALU2 (
+#  regle 1432 : intersection longueur_inter max 0.0 ;
+#);
+
+relation THIN_ALU2 , RDS_VIA2 (
+# Case 2: end overlap
+# Side overlap rule used for end overlap
+  regle 1433 : croix longueur_min min 0.09 ;
+# Optional larger value of end overlap
+  regle 1434 : croix longueur_min min 0.09 ;
+);
+
+undefine WIDE_ALU2;
+undefine THIN_ALU2;
+
+# Check RDS_ALU3 shapes
+#----------------------
+caracterise RDS_ALU3 (
+  regle 1510 : largeur >= 0.27 ;
+  regle 1511 : longueur_inter min 0.27 ;
+  regle 1520 : notch >= 0.36 ;
+);
+relation RDS_ALU3 , RDS_ALU3 (
+  regle 1521 : distance axiale min 0.27 ;
+);
+# Check ALU3 overlap of VIA2
+#---------------------------
+relation RDS_ALU3 , RDS_VIA2 (
+# Case 1: side overlap
+# Basic side overlap checked on all sides
+  regle 1530 : enveloppe inferieure min 0.09 ;
+  regle 1531 : marge longueur_inter max 0.09 ;
+);
+#relation RDS_VIA2 , RDS_ALU3 (
+#  regle 1532 : intersection longueur_inter max 0.0 ;
+#);
+
+define RDS_ALU3 , RDS_TALU3 union -> WIDE_ALU3;
+define WIDE_ALU3 , RDS_VALU3 intersection -> THIN_ALU3;
+
+relation THIN_ALU3 , RDS_VIA2 (
+# Case 2: end overlap
+# Side overlap rule used for end overlap
+  regle 1533 : croix longueur_min min 0.09 ;
+# Optional larger value of end overlap
+  regle 1534 : croix longueur_min min 0.09 ;
+);
+
+# Check VIA3 layer size and separation
+#-------------------------------------
+caracterise RDS_VIA3 (
+  regle 2110 : largeur <= 0.275 ;
+  regle 2111 : largeur >= 0.27 ;
+);
+relation RDS_VIA3 , RDS_VIA3 (
+  regle 2120 : distance axiale min 0.27 ;
+);
+
+# Check ALU3 overlap of VIA3
+#---------------------------
+relation RDS_ALU3 , RDS_VIA3 (
+# Case 1: side overlap
+# Basic side overlap checked on all sides
+  regle 2130 : enveloppe inferieure min 0.09 ;
+  regle 2131 : marge longueur_inter max 0.09 ;
+);
+#relation RDS_VIA3 , RDS_ALU3 (
+#  regle 2132 : intersection longueur_inter max 0.0 ;
+#);
+
+relation THIN_ALU3 , RDS_VIA3 (
+# Case 2: end overlap
+# Side overlap rule used for end overlap
+  regle 2133 : croix longueur_min min 0.09 ;
+# Optional larger value of end overlap
+  regle 2134 : croix longueur_min min 0.09 ;
+);
+
+undefine WIDE_ALU3;
+undefine THIN_ALU3;
+
+# Check RDS_ALU4 shapes
+#----------------------
+caracterise RDS_ALU4 (
+  regle 2210 : largeur >= 0.27 ;
+  regle 2211 : longueur_inter min 0.27 ;
+  regle 2220 : notch >= 0.36 ;
+);
+relation RDS_ALU4 , RDS_ALU4 (
+  regle 2221 : distance axiale min 0.36 ;
+);
+# Check ALU4 overlap of VIA3
+#---------------------------
+relation RDS_ALU4 , RDS_VIA3 (
+# Case 1: side overlap
+# Basic side overlap checked on all sides
+  regle 2230 : enveloppe inferieure min 0.09 ;
+  regle 2231 : marge longueur_inter max 0.09 ;
+);
+#relation RDS_VIA3 , RDS_ALU4 (
+#  regle 2232 : intersection longueur_inter max 0.0 ;
+#);
+
+define RDS_ALU4 , RDS_TALU4 union -> WIDE_ALU4;
+define WIDE_ALU4 , RDS_VALU4 intersection -> THIN_ALU4;
+
+relation THIN_ALU4 , RDS_VIA3 (
+# Case 2: end overlap
+# Side overlap rule used for end overlap
+  regle 2233 : croix longueur_min min 0.09 ;
+# Optional larger value of end overlap
+  regle 2234 : croix longueur_min min 0.09 ;
+);
+
+# Check VIA4 layer size and separation
+#-------------------------------------
+caracterise RDS_VIA4 (
+  regle 2510 : largeur <= 0.275 ;
+  regle 2511 : largeur >= 0.27 ;
+);
+relation RDS_VIA4 , RDS_VIA4 (
+  regle 2520 : distance axiale min 0.27 ;
+);
+
+# Check ALU4 overlap of VIA4
+#---------------------------
+relation RDS_ALU4 , RDS_VIA4 (
+# Case 1: side overlap
+# Basic side overlap checked on all sides
+  regle 2530 : enveloppe inferieure min 0.09 ;
+  regle 2531 : marge longueur_inter max 0.09 ;
+);
+#relation RDS_VIA4 , RDS_ALU4 (
+#  regle 2532 : intersection longueur_inter max 0.0 ;
+#);
+
+relation THIN_ALU4 , RDS_VIA4 (
+# Case 2: end overlap
+# Side overlap rule used for end overlap
+  regle 2533 : croix longueur_min min 0.09 ;
+# Optional larger value of end overlap
+  regle 2534 : croix longueur_min min 0.09 ;
+);
+
+undefine WIDE_ALU4;
+undefine THIN_ALU4;
+
+# Check RDS_ALU5 shapes
+#----------------------
+caracterise RDS_ALU5 (
+  regle 2610 : largeur >= 0.27 ;
+  regle 2611 : longueur_inter min 0.27 ;
+  regle 2620 : notch >= 0.36 ;
+);
+relation RDS_ALU5 , RDS_ALU5 (
+  regle 2621 : distance axiale min 0.36 ;
+);
+# Check ALU5 overlap of VIA4
+#---------------------------
+relation RDS_ALU5 , RDS_VIA4 (
+# Case 1: side overlap
+# Basic side overlap checked on all sides
+  regle 2630 : enveloppe inferieure min 0.09 ;
+  regle 2631 : marge longueur_inter max 0.09 ;
+);
+#relation RDS_VIA4 , RDS_ALU5 (
+#  regle 2632 : intersection longueur_inter max 0.0 ;
+#);
+
+define RDS_ALU5 , RDS_TALU5 union -> WIDE_ALU5;
+define WIDE_ALU5 , RDS_VALU5 intersection -> THIN_ALU5;
+
+relation THIN_ALU5 , RDS_VIA4 (
+# Case 2: end overlap
+# Side overlap rule used for end overlap
+  regle 2633 : croix longueur_min min 0.09 ;
+# Optional larger value of end overlap
+  regle 2634 : croix longueur_min min 0.09 ;
+);
+
+# VIA5 and ALU6 width and spacings
+# larger than lower layers
+#-------------------------------------
+caracterise RDS_VIA5 (
+  regle 2910 : largeur <= 0.365 ;
+  regle 2911 : largeur >= 0.36 ;
+);
+relation RDS_VIA5 , RDS_VIA5 (
+  regle 2920 : distance axiale min 0.36 ;
+);
+
+# Check ALU5 overlap of VIA5
+#---------------------------
+relation RDS_ALU5 , RDS_VIA5 (
+# Case 1: side overlap
+# Basic side overlap checked on all sides
+  regle 2930 : enveloppe inferieure min 0.09 ;
+  regle 2931 : marge longueur_inter max 0.09 ;
+);
+#relation RDS_VIA5 , RDS_ALU5 (
+#  regle 2932 : intersection longueur_inter max 0.0 ;
+#);
+
+relation THIN_ALU5 , RDS_VIA5 (
+# Case 2: end overlap
+# Side overlap rule used for end overlap
+  regle 2933 : croix longueur_min min 0.09 ;
+# Optional larger value of end overlap
+  regle 2934 : croix longueur_min min 0.09 ;
+);
+
+undefine WIDE_ALU5;
+undefine THIN_ALU5;
+
+# Check RDS_ALU6 shapes
+#----------------------
+caracterise RDS_ALU6 (
+  regle 3010 : largeur >= 0.45 ;
+  regle 3011 : longueur_inter min 0.45 ;
+  regle 3020 : notch >= 0.45 ;
+);
+relation RDS_ALU6 , RDS_ALU6 (
+  regle 3021 : distance axiale min 0.45 ;
+);
+# Check ALU6 overlap of VIA5
+#---------------------------
+relation RDS_ALU6 , RDS_VIA5 (
+# Case 1: side overlap
+# Basic side overlap checked on all sides
+  regle 3030 : enveloppe inferieure min 0.18 ;
+  regle 3031 : marge longueur_inter max 0.18 ;
+);
+#relation RDS_VIA5 , RDS_ALU6 (
+#  regle 3032 : intersection longueur_inter max 0.0 ;
+#);
+
+define RDS_ALU6 , RDS_TALU6 union -> WIDE_ALU6;
+define WIDE_ALU6 , RDS_VALU6 intersection -> THIN_ALU6;
+
+relation THIN_ALU6 , RDS_VIA5 (
+# Case 2: end overlap
+# Side overlap rule used for end overlap
+  regle 3033 : croix longueur_min min 0.18 ;
+# Optional larger value of end overlap
+  regle 3034 : croix longueur_min min 0.18 ;
+);
+
+undefine WIDE_ALU6;
+undefine THIN_ALU6;
+define RDS_VPOLY , RDS_PTIE intersection -> PSUB;
+define RDS_TPOLY , RDS_NTIE intersection -> NSUB;
+
+# Rule only applies if an AB in TALU8 has been manually
+# drawn around the cell
+# Check all layers half design rule inside layer AB
+#--------------------------------------------------
+# Equals 4.4/2+4.2b = 0.24/2+0.04 = 0.16
+#relation RDS_TALU8 , PSUB (
+#  regle 5010 : enveloppe inferieure min 0.16 ;
+#);
+#relation RDS_TALU8 , NSUB (
+#  regle 5011 : enveloppe inferieure min 0.16 ;
+#);
+# Equals 2.2/2 = 0.20/2 = 0.10
+#relation RDS_TALU8 , RDS_PDIF (
+#  regle 5020 : enveloppe inferieure min 0.10 ;
+#);
+#relation RDS_TALU8 , RDS_NDIF (
+#  regle 5021 : enveloppe inferieure min 0.10 ;
+#);
+# Equals 3.2/2 = 0.20/2 = 0.10
+#relation RDS_TALU8 , RDS_POLY (
+#  regle 5030 : enveloppe inferieure min 0.10 ;
+#);
+# Equals 7.2/2 = 0.22/2 = 0.11
+#relation RDS_TALU8 , RDS_ALU1 (
+#  regle 5040 : enveloppe inferieure min 0.11 ;
+#);
+# Equals 7.2/2 = 0.18/2 = 0.09
+#relation RDS_TALU8 , RDS_POLY2 (
+#  regle 5041 : enveloppe inferieure min 0.09 ;
+#);
+#relation RDS_TALU8 , RDS_REF (
+#  regle 5050 : enveloppe inferieure min 0.12 ;
+#);
+
+undefine NSUB;
+undefine PSUB;
+
+fin regles
+DRC_COMMENT
+110 1.1  NWELL  Width < 1.08um ( 12 lambda)
+111 1.1  NWELL  Width < 1.08um ( 12 lambda)
+112 1.1  PWELL  Width < 1.08um ( 12 lambda)
+113 1.1  PWELL  Width < 1.08um ( 12 lambda)
+130 1.3  NWELL  Notch < 0.54um ( 6 lambda)
+131 1.3  NWELL  Space < 0.54um ( 6 lambda)
+132 1.3  PWELL  Notch < 0.54um ( 6 lambda)
+133 1.3  PWELL  Space < 0.54um ( 6 lambda)
+140 1.4  NWELL and PWELL must not overlap (misaligned NWELL?)
+141 1.4  NWELL and PWELL  Space < 0um
+210 2.1a PDIF  Width < 0.27um ( 3 lambda)
+211 2.1a PDIF  Width < 0.27um ( 3 lambda)
+220 2.2a PDIF  Notch < 0.27um ( 3 lambda)
+221 2.2a PDIF  Space < 0.27um ( 3 lambda)
+212 2.1a NDIF  Width < 0.27um ( 3 lambda)
+213 2.1a NDIF  Width < 0.27um ( 3 lambda)
+222 2.2a NDIF  Notch < 0.27um ( 3 lambda)
+223 2.2a NDIF  Space < 0.27um ( 3 lambda)
+214 2.1b PTIE  Width < 0.27um ( 3 lambda)
+215 2.1b PTIE  Width < 0.27um ( 3 lambda)
+224 2.2b PTIE  Notch < 0.27um ( 3 lambda)
+225 2.2b PTIE  Space < 0.27um ( 3 lambda)
+216 2.1b NTIE  Width < 0.27um ( 3 lambda)
+217 2.1b NTIE  Width < 0.27um ( 3 lambda)
+226 2.2b NTIE  Notch < 0.27um ( 3 lambda)
+227 2.2b NTIE  Space < 0.27um ( 3 lambda)
+230 2.3a NWELL to NDIF  Space < 0.54um ( 6 lambda)
+231 2.3a NDIF must not touch NWELL
+232 2.3a NDIF must not touch NWELL
+233 2.3a NDIF must not touch NWELL
+234 2.3a NDIF must not touch NWELL
+235 2.3a NDIF must not touch NWELL
+236 2.3a NDIF must not touch NWELL
+237 2.3b NWELL Overlap of PDIF < 0.54um ( 6 lambda)
+240 2.4a NWELL to PTIE  Space < 0.27um (3 lambda)
+241 2.4a PTIE must not touch NWELL
+242 2.4a PTIE must not touch NWELL
+243 2.4a PTIE must not touch NWELL
+244 2.4a PTIE must not touch NWELL
+245 2.4a PTIE must not touch NWELL
+246 2.4a PTIE must not touch NWELL
+247 2.4b NWELL Overlap of NTIE < 0.27um (3 lambda)
+250 2.5  NDIF to PTIE  Space < 0.36um (4 lambda)
+251 2.5  NDIF must not touch or overlap PTIE
+252 2.5  NDIF must not touch or overlap PTIE
+253 2.5  NDIF must not touch or overlap PTIE
+254 2.5  PDIF to NTIE  Space < 0.36um (4 lambda)
+255 2.5  PDIF must not touch or overlap NTIE
+256 2.5  PDIF must not touch or overlap NTIE
+257 2.5  PDIF must not touch or overlap NTIE
+260 2.3b PWELL to PDIF  Space < 0.54um (6 lambda)
+261 2.3b PDIF must not touch PWELL
+262 2.3b PDIF must not touch PWELL
+263 2.3b PDIF must not touch PWELL
+264 2.3b PDIF must not touch PWELL
+265 2.3b PDIF must not touch PWELL
+266 2.3b PDIF must not touch PWELL
+267 2.3a PWELL Overlap of NDIF 0.54um (6 lambda)
+270 2.4b PWELL to NTIE  Space 0.27um (3 lambda)
+271 2.4b NTIE must not touch PWELL
+272 2.4b NTIE must not touch PWELL
+273 2.4b NTIE must not touch PWELL
+274 2.4b NTIE must not touch PWELL
+275 2.4b NTIE must not touch PWELL
+276 2.4b NTIE must not touch PWELL
+277 2.4a PWELL Overlap of PTIE < 0.27um (3 lambda)
+280 2.8a PDIF to NDIF  Space < 1.08um (12 lambda)
+281 2.8b PDIF to PTIE  Space < 0.81um (9 lambda)
+282 2.8b NTIE to NDIF  Space < 0.81um (9 lambda)
+283 2.8c NTIE to PTIE  Space < 0.54um (6 lambda)
+310 3.1  POLY  Width < 0.18um (2 lambda)
+311 3.1  POLY  Width < 0.18um (2 lambda)
+320 3.2  POLY  Notch < 0.27um (3 lambda)
+321 3.2  POLY  Space < 0.27um (3 lambda)
+322 3.2a CHANNEL  Space < 0.36um (4 lambda)
+323 3.2a CHANNEL  Space < 0.36um (4 lambda)
+330 3.3  POLY Overlap of P-TRANSISTOR < 0.225um (2.5 lambda)
+331 3.3  POLY Overlap of N-TRANSISTOR < 0.225um (2.5 lambda)
+340 3.4  P-TRANSISTOR SOURCE/DRAIN  Width < 0.36um (4 lambda)
+341 3.4  N-TRANSISTOR SOURCE/DRAIN  Width < 0.36um (4 lambda)
+350 3.5  PDIF to POLY  Space < 0.09um (1 lambda)
+351 3.5  NDIF to POLY  Space < 0.09um (1 lambda)
+352 3.5  PTIE to POLY  Space < 0.09um (1 lambda)
+353 3.5  NTIE to POLY  Space < 0.09um (1 lambda)
+354 3.5a POLY to GATE  Space < 0.09um (1 lambda)
+355 3.5  POLY must not touch or overlap PDIF
+356 3.5  POLY must not touch or overlap PDIF
+357 3.5  POLY must not touch or overlap NDIF
+358 3.5  POLY must not touch or overlap NDIF
+410 4.1  NIMP to P-TRANSISTOR  Space < 0.27um (3 lambda)
+411 4.1  PIMP to N-TRANSISTOR  Space < 0.27um (3 lambda)
+420 4.2a PIMP Overlap of PDIF < 0.18um (2 lambda)
+421 4.2b PIMP Overlap of PTIE < 0.18um (2 lambda)
+422 4.2a NIMP Overlap of NDIF < 0.18um (2 lambda)
+423 4.2b NIMP Overlap of NTIE < 0.18um (2 lambda)
+440 4.4  PIMP in PWELL  Width < 0.36um (4 lambda)
+441 4.4  PIMP in PWELL  Width < 0.36um (4 lambda)
+442 4.4  NIMP in NWELL  Width < 0.36um (4 lambda)
+443 4.4  NIMP in NWELL  Width < 0.36um (4 lambda)
+444 4.4  NIMP in PWELL  Width < 0.36um (4 lambda)
+445 4.4  PIMP in NWELL  Width < 0.36um (4 lambda)
+510 5.1  POLY CONTACT  Width > 0.18um (2 lambda)
+511 5.1  POLY CONTACT  Width < 0.18um (2 lambda)
+520 5.2  POLY Overlap of CONTACT < 0.135um (1.5 lambda)
+530 5.3  CONTACT  Space < 0.36um (4 lambda)
+540 5.4  POLY CONTACT to CHANNEL  Space < 0.18um (2 lambda)
+580 5.8  CONTACT not allowed over TRANSISTOR
+610 6.1  PDIF CONTACT  Width > 0.18um (2 lambda)
+611 6.1  PDIF CONTACT  Width < 0.18um (2 lambda)
+612 6.1  NDIF CONTACT  Width > 0.18um (2 lambda)
+613 6.1  NDIF CONTACT  Width < 0.18um (2 lambda)
+614 6.1  PTIE CONTACT  Width > 0.18um (2 lambda)
+615 6.1  PTIE CONTACT  Width < 0.18um (2 lambda)
+616 6.1  NTIE CONTACT  Width > 0.18um (2 lambda)
+617 6.1  NTIE CONTACT  Width < 0.18um (2 lambda)
+620 6.2a PDIF Overlap of CONT < 0.135um (1.5 lambda)
+621 6.2a NDIF Overlap of CONT < 0.135um (1.5 lambda)
+622 6.2b PTIE Overlap of CONT < 0.135um (1.5 lambda)
+623 6.2b NTIE Overlap of CONT < 0.135um (1.5 lambda)
+640 6.4  PDIF CONTACT to CHANNEL  Space < 0.18um (2 lambda)
+641 6.4  NDIF CONTACT to CHANNEL  Space < 0.18um (2 lambda)
+642 4.1+4.2b+6.2b  PTIE CONTACT to CHANNEL  Space < 0.585um (6.5 lambda)
+643 4.1+4.2b+6.2b  NTIE CONTACT to CHANNEL  Space < 0.585um (6.5 lambda)
+710 7.1  ALU1  Width < 0.27um (3 lambda)
+711 7.1  ALU1  Width < 0.27um (3 lambda)
+720 7.2  ALU1  Notch < 0.27um (3 lambda)
+712 7.1  ALU0  Width < 0.27um (3 lambda)
+713 7.1  ALU0  Width < 0.27um (3 lambda)
+721 7.2  ALU0  Notch < 0.27um (3 lambda)
+714 7.1  TALU1  Width < 0.27um (3 lambda)
+715 7.1  TALU1  Width < 0.27um (3 lambda)
+722 7.2  TALU1  Notch < 0.27um (3 lambda)
+723 7.2  ALU0  Space < 0.27um (3 lambda)
+724 7.2  ALU1  Space < 0.27um (3 lambda)
+725 7.2  TALU1  Space < 0.27um (3 lambda)
+730 7.3a ALU1 side Overlap of CONTACT < 0.09um (1 lambda)
+731 7.3a ALU1 side Overlap of CONTACT < 0.09um (1 lambda)
+732 7.3b ALU1 end Overlap of CONTACT <= 0.09um (1 lambda)
+733 7.3b ALU1 end Overlap of CONTACT < 0.09um (small) (1 lambda)
+734 7.3b ALU1 end Overlap of CONTACT < 0.09um (big) (1 lambda)
+735 7.3b ALU1 end Overlap of CONTACT < 0.09um (small) (1 lambda)
+736 7.3b ALU1 end Overlap of CONTACT < 0.09um (big) (1 lambda)
+750 7.5  REF  Width > 0.27um (3 lambda)
+751 7.5  REF  Width < 0.27um (3 lambda)
+760 7.6  REF  Space < 0.27um (3 lambda)
+770 7.7  ALU1 must not touch or intersect REF
+772 7.7  TALU1 must not touch or intersect REF
+773 7.7  ALU1 Overlap of REF < 0.09um (1 lambda)
+774 7.7  ALU1 Overlap of REF < 0.09um (1 lambda)
+775 7.7  TALU1 Overlap of REF < 0.09um (1 lambda)
+776 7.7  TALU1 Overlap of REF < 0.09um (1 lambda)
+780 7.8  ALU1 end Overlap of REF < 0.09um (small) (1 lambda)
+781 7.8  ALU1 end Overlap of REF < 0.09um (big) (1 lambda)
+810 8.1  VIA1  Width > 0.27um (3 lambda)
+811 8.1  VIA1  Width < 0.27um (3 lambda)
+820 8.2  VIA1  Space < 0.27um (3 lambda)
+830 8.3a ALU1 side Overlap of VIA1 < 0.09um (1 lambda)
+831 8.3a ALU1 side Overlap of VIA1 < 0.09um (1 lambda)
+832 8.3  ALU1 must not touch or intersect VIA1
+833 8.3b ALU1 end Overlap of VIA1 < 0.09um (small) (1 lambda)
+834 8.3b ALU1 end Overlap of VIA1 < 0.09um (big) (1 lambda)
+910 9.1  ALU2  Width < 0.27um (3 lambda)
+911 9.1  ALU2  Width < 0.27um (3 lambda)
+920 9.2  ALU2  Notch < 0.36um (4 lambda)
+921 9.2  ALU2  Space < 0.36um (4 lambda)
+930 9.3a ALU2 side Overlap of VIA1 < 0.09um (1 lambda)
+931 9.3a ALU2 side Overlap of VIA1 < 0.09um (1 lambda)
+932 9.3  ALU2 must not touch or intersect VIA1
+933 9.3b ALU2 end Overlap of VIA1 < 0.09um (small) (1 lambda)
+934 9.3b ALU2 end Overlap of VIA1 < 0.09um (big) (1 lambda)
+1410 14.1  VIA2  Width > 0.27um (3 lambda)
+1411 14.1  VIA2  Width < 0.27um (3 lambda)
+1420 14.2  VIA2  Space < 0.36um (4 lambda)
+1430 14.3a ALU2 side Overlap of VIA2 < 0.09um (1 lambda)
+1431 14.3a ALU2 side Overlap of VIA2 < 0.09um (1 lambda)
+1432 14.3  ALU2 must not touch or intersect VIA2
+1433 14.3b ALU2 end Overlap of VIA2 < 0.09um (small) (1 lambda)
+1434 14.3b ALU2 end Overlap of VIA2 < 0.09um (big) (1 lambda)
+1510 15.1  ALU3  Width < 0.27um (3 lambda)
+1511 15.1  ALU3  Width < 0.27um (3 lambda)
+1520 15.2  ALU3  Notch < 0.36um (4 lambda)
+1521 15.2  ALU3  Space < 0.36um (4 lambda)
+1530 15.3a ALU3 side Overlap of VIA2 < 0.09um (1 lambda)
+1531 15.3a ALU3 side Overlap of VIA2 < 0.09um (1 lambda)
+1532 15.3  ALU3 must not touch or intersect VIA2
+1533 15.3b ALU3 end Overlap of VIA2 < 0.09um (small) (1 lambda)
+1534 15.3b ALU3 end Overlap of VIA2 < 0.09um (big) (1 lambda)
+2110 21.1  VIA3  Width > 0.27um (3 lambda)
+2111 21.1  VIA3  Width < 0.27um (3 lambda)
+2120 21.2  VIA3  Space < 0.36um (4 lambda)
+2130 21.3a ALU3 side Overlap of VIA3 < 0.09um (1 lambda)
+2131 21.3a ALU3 side Overlap of VIA3 < 0.09um (1 lambda)
+2132 21.3  ALU3 must not touch or intersect VIA3
+2133 21.3b ALU3 end Overlap of VIA3 < 0.09um (small) (1 lambda)
+2134 21.3b ALU3 end Overlap of VIA3 < 0.09um (big) (1 lambda)
+2210 22.1  ALU4  Width < 0.27um (3 lambda)
+2211 22.1  ALU4  Width < 0.27um (3 lambda)
+2220 22.2  ALU4  Notch < 0.36um (4 lambda)
+2221 22.2  ALU4  Space < 0.36um (4 lambda)
+2230 22.3a ALU4 side Overlap of VIA3 < 0.09um (1 lambda)
+2231 22.3a ALU4 side Overlap of VIA3 < 0.09um (1 lambda)
+2232 22.3  ALU4 must not touch or intersect VIA3
+2233 22.3b ALU4 end Overlap of VIA3 < 0.09um (small) (1 lambda)
+2234 22.3b ALU4 end Overlap of VIA3 < 0.09um (big) (1 lambda)
+2510 25.1  VIA4  Width > 0.27um (3 lambda)
+2511 25.1  VIA4  Width < 0.27um (3 lambda)
+2520 25.2  VIA4  Space < 0.36um (4 lambda)
+2530 25.3a ALU4 side Overlap of VIA4 < 0.09um (1 lambda)
+2531 25.3a ALU4 side Overlap of VIA4 < 0.09um (1 lambda)
+2532 25.3  ALU4 must not touch or intersect VIA4
+2533 25.3b ALU4 end Overlap of VIA4 < 0.09um (small) (1 lambda)
+2534 25.3b ALU4 end Overlap of VIA4 < 0.09um (big) (1 lambda)
+2610 26.1  ALU5  Width < 0.27um (3 lambda)
+2611 26.1  ALU5  Width < 0.27um (3 lambda)
+2620 26.2  ALU5  Notch < 0.36um (4 lambda)
+2621 26.2  ALU5  Space < 0.36um (4 lambda)
+2630 26.3a ALU5 side Overlap of VIA4 < 0.09um (1 lambda)
+2631 26.3a ALU5 side Overlap of VIA4 < 0.09um (1 lambda)
+2632 26.3  ALU5 must not touch or intersect VIA4
+2633 26.3b ALU5 end Overlap of VIA4 < 0.09um (small) (1 lambda)
+2634 26.3b ALU5 end Overlap of VIA4 < 0.09um (big) (1 lambda)
+2910 29.1  VIA5  Width > 0.36um (4 lambda)
+2911 29.1  VIA5  Width < 0.36um (4 lambda)
+2920 29.2  VIA5  Space < 0.36um  (4 lambda)
+2930 29.3a ALU5 side Overlap of VIA5 < 0.09um (1 lambda)
+2931 29.3a ALU5 side Overlap of VIA5 < 0.09um (1 lambda)
+2932 29.3  ALU5 must not touch or intersect VIA5
+2933 29.3b ALU5 end Overlap of VIA5 < 0.09um (small) (1 lambda)
+2934 29.3b ALU5 end Overlap of VIA5 < 0.09um (big) (1 lambda)
+3010 30.1  ALU6  Width < 0.45um (5 lambda)
+3011 30.1  ALU6  Width < 0.45um (5 lambda)
+3020 30.2  ALU6  Notch < 0.45um (5 lambda)
+3021 30.2  ALU6  Space < 0.45um (5 lambda)
+3030 30.3a ALU6 side Overlap of VIA5 < 0.18um (2 lambda)
+3031 30.3a ALU6 side Overlap of VIA5 < 0.18um (2 lambda)
+3032 30.3  ALU6 must not touch or intersect VIA5
+3033 30.3b ALU6 end Overlap of VIA5 < 0.18um (small) (2 lambda)
+3034 30.3b ALU6 end Overlap of VIA5 < 0.18um (big) (2 lambda)
+5010 50.1  AB Overlap of PTIE < 0.36um (4 lambda)
+5011 50.1  AB Overlap of NTIE < 0.36um (4 lambda)
+5020 50.2  AB Overlap of PDIF < 0.135um (1.5 lambda)
+5021 50.2  AB Overlap of NDIF < 0.135um (1.5 lambda)
+5030 50.3  AB Overlap of POLY < 0.135um (1.5 lambda)
+5040 50.4  AB Overlap of ALU1 < 0.135um (1.5 lambda)
+5041 50.4  AB Overlap of ALU0 < 0.135um (1.5 lambda)
+5050 50.5  AB Overlap of REF < 0.18um (2 lambda)
+END_DRC_COMMENT
+END_DRC_RULES

@@ -1,8 +1,7 @@
-# $Id: Makefile.am,v 1.5 2002/05/08 21:07:26 jpc Exp $
 
 etcdir=$(prefix)/etc
 
-etc_DATA=cmos.rds
+etc_DATA=cmos.rds scn6m_deep_09.rds
 
 EXTRA_DIST=$(etc_DATA)
 
