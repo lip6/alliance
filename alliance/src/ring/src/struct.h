@@ -77,19 +77,20 @@
 #define OUEST  2
 #define EST    3
 /* Nombres entiers obligatoires ! */
-#define WMIN_ALU1      MBK_TRACK_WIDTH_ALU2 /* largeur minimum de l'alu1,l'alu2,dist mini alu1<->alu2 */
-#define WMIN_ALU2      MBK_TRACK_WIDTH_ALU2 /* et largeur du via                                      */
-#define DMIN_ALU1_ALU1 ((MBK_TRACK_SPACING_ALU1+(MBK_TRACK_SPACING_ALU1)%2)/2) /* dmin en a1 a1  2.5 arrondi a 3 */
-#define DMIN_ALU2_ALU2 ((MBK_TRACK_SPACING_ALU2+(MBK_TRACK_SPACING_ALU2)%2)/2)
-#define WVIA_ALU1      MBK_TRACK_WIDTH_ALU1 /* largeur du via pour l'alu1 */
-#define WVIA_ALU2      MBK_TRACK_WIDTH_ALU2 /* largeur du via pour l'alu2 */
+#define WMIN_ALU1 RING_WMIN_ALU1
+#define WMIN_ALU2 RING_WMIN_ALU2
+#define DMIN_ALU1_ALU1 RING_DMIN_ALU1_ALU1
+#define DMIN_ALU2_ALU2 RING_DMIN_ALU2_ALU2
+#define WVIA_ALU1 RING_WVIA_ALU1
 
-#define EXTENSION_ALU2 1 /* extension alu2 pour fignoler coin couronne */
+#define WVIA_ALU2      RING_WVIA_ALU2 /* largeur du via pour l'alu2 */
 
-#define BV_VIA_VIA     (MBK_TRACK_WIDTH_ALU2+MBK_TRACK_WIDTH_ALU2%2)  /* must be even, whatever! */
+#define EXTENSION_ALU2 RING_EXTENSION_ALU2 /* pour fignoler coin couronne */
+
+#define BV_VIA_VIA     RING_BV_VIA_VIA  /* must be even, whatever! */
 #define BV_VIASIZE     WVIA_ALU2  /* design rule for equipotential vias */
 
-#define WALIM          60  /* largeur prdefinie des alim                           */
+#define WALIM          RING_WALIM  /* largeur prdefinie des alim                           */
 
 /*#define PISTE_DEP_ALIMPLOT 10 Nombre de piste a considerer pour une deport alim plot */
 /* code des ringerreurs traitees par ringerreur(code)                                      */

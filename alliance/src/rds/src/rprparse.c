@@ -103,6 +103,10 @@ extern long MBK_X_GRID, MBK_Y_GRID, MBK_Y_SLICE, MBK_WIDTH_VSS, MBK_WIDTH_VDD,
 	MBK_TRACK_SPACING_ALU7,	MBK_TRACK_SPACING_ALU8;
   long  *RDS_WIRESETTING_TABLE   [ MBK_MAX_WIRESETTING ] = 
 {
+	&RING_BV_VIA_VIA,
+	&RING_DMIN_ALU1_ALU1,
+        &RING_DMIN_ALU2_ALU2,
+        &RING_EXTENSION_ALU2,
 	&MBK_TRACK_SPACING_ALU1,	&MBK_TRACK_SPACING_ALU2,
 	&MBK_TRACK_SPACING_ALU3,	&MBK_TRACK_SPACING_ALU4,
 	&MBK_TRACK_SPACING_ALU5,	&MBK_TRACK_SPACING_ALU6,
@@ -111,9 +115,15 @@ extern long MBK_X_GRID, MBK_Y_GRID, MBK_Y_SLICE, MBK_WIDTH_VSS, MBK_WIDTH_VDD,
 	&MBK_TRACK_WIDTH_ALU3,	&MBK_TRACK_WIDTH_ALU4,
 	&MBK_TRACK_WIDTH_ALU5,	&MBK_TRACK_WIDTH_ALU6,
 	&MBK_TRACK_WIDTH_ALU7,	&MBK_TRACK_WIDTH_ALU8,
+        &RING_WALIM,
 	&MBK_WIDTH_VDD,
 	&MBK_WIDTH_VSS,
+        &RING_WMIN_ALU1,
+        &RING_WMIN_ALU2,
+        &RING_WVIA_ALU1,
+        &RING_WVIA_ALU2,
 	&MBK_X_GRID, &MBK_Y_GRID, &MBK_Y_SLICE
+	
 };
 /*------------------------------------------------------------\
 |                                                             |
@@ -412,6 +422,10 @@ extern long MBK_X_GRID, MBK_Y_GRID, MBK_Y_SLICE, MBK_WIDTH_VSS, MBK_WIDTH_VDD,
   char MBK_WIRESETTING_NAME [ MBK_MAX_WIRESETTING ][ MBK_MAX_WIRESETTING_TLEN ] =
   
   {
+    "bv_via_via",
+    "dmin_alu1_alu1",
+    "dmin_alu2_alu2",
+    "extension_alu2",
     "track_spacing_alu1",
     "track_spacing_alu2",
     "track_spacing_alu3",
@@ -428,8 +442,13 @@ extern long MBK_X_GRID, MBK_Y_GRID, MBK_Y_SLICE, MBK_WIDTH_VSS, MBK_WIDTH_VDD,
     "track_width_alu6",
     "track_width_alu7",
     "track_width_alu8",
+    "walim",
     "width_vdd",
     "width_vss",
+    "wmin_alu1",
+    "wmin_alu2",
+    "wvia_alu1",
+    "wvia_alu2",
     "x_grid",
     "y_grid",
     "y_slice"

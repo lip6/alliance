@@ -478,8 +478,8 @@ rdsrec_list *viambkrds( Figure, Via, Lynx )
              ( ( USE == RDS_USE_DRC     ) && ( ! Lynx ) ) )
         {
           if ( SIDE_STEP == 0 ) break;
-          if ( WSX < (SIDE_STEP << 1) ) break;
-          if ( WSY < (SIDE_STEP << 1) ) break;
+          if ( WSX < SIDE+(SIDE>>1) ) break;
+          if ( WSY < SIDE+(SIDE>>1) ) break;
 
           X1R = Xvia + OVERLAP - ( ( WSX + DWR ) >> 1 );
           Y1R = Yvia + OVERLAP - ( ( WSY + DWR ) >> 1 );

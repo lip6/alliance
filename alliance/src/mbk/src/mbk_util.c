@@ -90,6 +90,15 @@ long MBK_TRACK_SPACING_ALU5 = 8;
 long MBK_TRACK_SPACING_ALU6 = 8;
 long MBK_TRACK_SPACING_ALU7 = 8;
 long MBK_TRACK_SPACING_ALU8 = 0;
+unsigned long RING_WMIN_ALU1 = 2;
+unsigned long RING_WMIN_ALU2 = 2;
+unsigned long RING_DMIN_ALU1_ALU1 = 3;
+unsigned long RING_DMIN_ALU2_ALU2 = 3;
+unsigned long RING_WVIA_ALU1 = 2;
+unsigned long RING_WVIA_ALU2 = 3;
+unsigned long RING_EXTENSION_ALU2 = 1;
+unsigned long RING_BV_VIA_VIA = 4;
+unsigned long RING_WALIM = 60;
 char PARSER_INFO[100] = "nothing yet";         /* version number, and so on   */
 char *VDD = NULL;                              /* user name for power high    */
 char *VSS = NULL;                              /* user name for power ground  */
@@ -301,6 +310,43 @@ static char MBK_RAND_SEED[] = { 0x62,
    str = mbkgetenv("MBK_TRACK_SPACING_ALU8");
    if (str != NULL)
       MBK_TRACK_SPACING_ALU8 = (long)atoi(str);
+
+   str = mbkgetenv("RING_WMIN_ALU1");
+   if (str != NULL)
+      RING_WMIN_ALU1 - (long)atoi(str);
+
+   str = mbkgetenv("RING_WMIN_ALU2");
+   if (str != NULL)
+      RING_WMIN_ALU2 - (long)atoi(str);
+
+   str = mbkgetenv("RING_DMIN_ALU1_ALU1");
+   if (str != NULL)
+      RING_DMIN_ALU1_ALU1 - (long)atoi(str);
+
+   str = mbkgetenv("RING_DMIN_ALU2_ALU2");
+   if (str != NULL)
+      RING_DMIN_ALU2_ALU2 - (long)atoi(str);
+
+   str = mbkgetenv("RING_WVIA_ALU1");
+   if (str != NULL)
+      RING_WVIA_ALU1 - (long)atoi(str);
+
+   str = mbkgetenv("RING_WVIA_ALU2");
+   if (str != NULL)
+      RING_WVIA_ALU2 - (long)atoi(str);
+
+   str = mbkgetenv("RING_EXTENSION_ALU2");
+   if (str != NULL)
+      RING_EXTENSION_ALU2 - (long)atoi(str);
+
+   str = mbkgetenv("RING_BV_VIA_VIA");
+   if (str != NULL)
+      RING_BV_VIA_VIA - (long)atoi(str);
+
+   str = mbkgetenv("RING_WALIM");
+   if (str != NULL)
+      RING_WALIM - (long)atoi(str);
+
 
    srand((unsigned int) MBK_RAND_SEED);
 

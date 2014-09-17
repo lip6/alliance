@@ -132,8 +132,16 @@ void lecture_param(int nbarg, char** tab, char** nom_circuit_lo,
 	mbkenv();  /* choix de l'utilisateur mis dans des variables UNIX */
 	/* on recupere (long) SCALE_X                         */
 
-	if (mode_debug) 
+	if (mode_debug)  {
 		printf("CATALNAME  is %s\n", CATAL);
+		printf("WMIN_ALU1  is %ld\n", WMIN_ALU1);
+		printf("WVIA_ALU1  is %ld\n", WVIA_ALU1);
+		printf("WMIN_ALU2  is %ld\n", WMIN_ALU2);
+		printf("WVIA_ALU2  is %ld\n", WVIA_ALU2);
+		printf("DMIN_ALU1_ALU1  is %ld\n", DMIN_ALU1_ALU1);
+		printf("DMIN_ALU2_ALU2  is %ld\n", DMIN_ALU2_ALU2);
+		printf("BV_VIA_VIA  is %ld\n", BV_VIA_VIA);
+	}
 
 	if (NULL == (f_catal = mbkfopen(CATAL, NULL, READ_TEXT))) 
 		ringerreur(ERR_CATAL, CATAL, NULL);

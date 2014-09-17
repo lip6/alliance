@@ -211,6 +211,17 @@ extern long MBK_TRACK_SPACING_ALU5;
 extern long MBK_TRACK_SPACING_ALU6;
 extern long MBK_TRACK_SPACING_ALU7;
 extern long MBK_TRACK_SPACING_ALU8;
+
+extern unsigned long      RING_WMIN_ALU1;
+extern unsigned long      RING_WMIN_ALU2;
+extern unsigned long RING_DMIN_ALU1_ALU1;
+extern unsigned long RING_DMIN_ALU2_ALU2;
+extern unsigned long      RING_WVIA_ALU1;
+extern unsigned long      RING_WVIA_ALU2;
+extern unsigned long RING_EXTENSION_ALU2;
+extern unsigned long     RING_BV_VIA_VIA;
+extern unsigned long          RING_WALIM;
+
 extern char       PARSER_INFO[];               /* version number, and so on   */
 extern char       *VDD;                        /* user name for power high    */
 extern char       *VSS;                        /* user name for power ground  */
