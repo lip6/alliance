@@ -1,6 +1,7 @@
 
 %option noinput
 %option nounput
+%option yylineno
 
 /* This file is part of the Alliance Project.
    Copyright (C) Laboratoire LIP6 - Departement ASIM
