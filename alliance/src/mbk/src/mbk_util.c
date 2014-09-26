@@ -313,39 +313,39 @@ static char MBK_RAND_SEED[] = { 0x62,
 
    str = mbkgetenv("RING_WMIN_ALU1");
    if (str != NULL)
-      RING_WMIN_ALU1 - (long)atoi(str);
+      RING_WMIN_ALU1 = (long)atoi(str);
 
    str = mbkgetenv("RING_WMIN_ALU2");
    if (str != NULL)
-      RING_WMIN_ALU2 - (long)atoi(str);
+      RING_WMIN_ALU2 = (long)atoi(str);
 
    str = mbkgetenv("RING_DMIN_ALU1_ALU1");
    if (str != NULL)
-      RING_DMIN_ALU1_ALU1 - (long)atoi(str);
+      RING_DMIN_ALU1_ALU1 = (long)atoi(str);
 
    str = mbkgetenv("RING_DMIN_ALU2_ALU2");
    if (str != NULL)
-      RING_DMIN_ALU2_ALU2 - (long)atoi(str);
+      RING_DMIN_ALU2_ALU2 = (long)atoi(str);
 
    str = mbkgetenv("RING_WVIA_ALU1");
    if (str != NULL)
-      RING_WVIA_ALU1 - (long)atoi(str);
+      RING_WVIA_ALU1 = (long)atoi(str);
 
    str = mbkgetenv("RING_WVIA_ALU2");
    if (str != NULL)
-      RING_WVIA_ALU2 - (long)atoi(str);
+      RING_WVIA_ALU2 = (long)atoi(str);
 
    str = mbkgetenv("RING_EXTENSION_ALU2");
    if (str != NULL)
-      RING_EXTENSION_ALU2 - (long)atoi(str);
+      RING_EXTENSION_ALU2 = (long)atoi(str);
 
    str = mbkgetenv("RING_BV_VIA_VIA");
    if (str != NULL)
-      RING_BV_VIA_VIA - (long)atoi(str);
+      RING_BV_VIA_VIA = (long)atoi(str);
 
    str = mbkgetenv("RING_WALIM");
    if (str != NULL)
-      RING_WALIM - (long)atoi(str);
+      RING_WALIM = (long)atoi(str);
 
 
    srand((unsigned int) MBK_RAND_SEED);
