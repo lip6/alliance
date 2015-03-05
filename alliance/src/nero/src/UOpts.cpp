@@ -16,12 +16,8 @@
 
 
 
-//# include  "unistd.h"
+# include  <unistd.h>
 # include  "UDefs.h"
-
-extern "C"  {
-	int getopt(int argc, char* const *argv, const char *sf);
-}
 
 
 //  +----------------------------------------------------------------+
@@ -121,7 +117,7 @@ void COpts::getopts (int argc, char *argv[]) throw (except_done)
   extern       char *optarg;
                 int  key; 
                long  key_index; 
-             string  key_string; 
+               string  key_string; 
          const char *short_format;
 
 
@@ -131,7 +127,7 @@ void COpts::getopts (int argc, char *argv[]) throw (except_done)
 
 // Loop over getopt.
   while (true) {
-    key = getopt (argc, argv, short_format);
+    key = ::getopt (argc, argv, short_format);
 
     if (key == -1) break;
 

@@ -291,28 +291,28 @@ find $ordered_dirs -name configure.in | while read config; do
   echo "" >> configure.in
   echo "dnl Infos extracted from $config"  >> configure.in
 
-  for version_line in  `grep -h _CUR= $config`; do
+  for version_line in  `grep -ah _CUR= $config`; do
     echo "$version_line"  >> configure.in
     version_name=`echo $version_line | sed 's,=.*,,'`
     echo "AC_SUBST($version_name)" >> configure.in
   done
-  for version_line in  `grep -h _REV= $config`; do
+  for version_line in  `grep -ah _REV= $config`; do
     echo "$version_line"  >> configure.in
     version_name=`echo $version_line | sed 's,=.*,,'`
     echo "AC_SUBST($version_name)" >> configure.in
   done
-  for version_line in  `grep -h _REL= $config`; do
+  for version_line in  `grep -ah _REL= $config`; do
     echo "$version_line"  >> configure.in
     version_name=`echo $version_line | sed 's,=.*,,'`
     echo "AC_SUBST($version_name)" >> configure.in
   done
 
-  for dll_line in `grep -h _DLL_VERSION= $config`; do
+  for dll_line in `grep -ah _DLL_VERSION= $config`; do
     echo "$dll_line"  >> configure.in
     dll_name=`echo $dll_line | sed 's,=.*,,'`
     echo "AC_SUBST($dll_name)" >> configure.in
   done
-  for version_line in  `grep -h _VERSION= $config | grep -v DLL`; do
+  for version_line in  `grep -ah _VERSION= $config | grep -v DLL`; do
     echo "$version_line"  >> configure.in
     version_name=`echo $version_line | sed 's,=.*,,'`
     echo "AC_SUBST($version_name)" >> configure.in
