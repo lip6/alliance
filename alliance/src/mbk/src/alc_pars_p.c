@@ -63,28 +63,28 @@
 #define        MAXLBUFFER       256
 #define        MAXLBUFF         256
 
-#define        EVAL              -2
-#define        EVER              -3
-#define        EOPEN             -4
-#define        ECLOSE            -5
-#define        ESETUP            -6
-#define        ELAYER            -7
-#define        EOPGEO            -8
-#define        ESYNTAX           -9
-#define        EORIENT           -10
-#define        EHEADER           -11
-#define        EMISSEOF          -12
-#define        ETYPESEG          -13
-#define        ETYPEVIA          -14
-#define        ENAMETRS          -15
-#define        ENBFIELDS         -16
-#define        EFILENAME         -17
-#define        EFILETYPE         -18
-#define        EBOUNDBOX         -19
-#define        EABUTMBOX         -20
-#define        EALLOCFIG         -21
-#define        ECOMPONENT        -22
-#define        ETRANSORIENT      -23
+#define        EVAL               2
+#define        EVER               3
+#define        EOPEN              4
+#define        ECLOSE             5
+#define        ESETUP             6
+#define        ELAYER             7
+#define        EOPGEO             8
+#define        ESYNTAX            9
+#define        EORIENT            10
+#define        EHEADER            11
+#define        EMISSEOF           12
+#define        ETYPESEG           13
+#define        ETYPEVIA           14
+#define        ENAMETRS           15
+#define        ENBFIELDS          16
+#define        EFILENAME          17
+#define        EFILETYPE          18
+#define        EBOUNDBOX          19
+#define        EABUTMBOX          20
+#define        EALLOCFIG          21
+#define        ECOMPONENT         22
+#define        ETRANSORIENT       23
 
 
 #define  mc_nexttoken(p_head,p_next,error_code)       \
@@ -1125,10 +1125,10 @@ static void  alc_printerror(error_code)
             fprintf( stderr, "ptfig not allocated"); break;
         case ECOMPONENT :
             fprintf( stderr, "invalid component"); break;
-        default : fprintf( stderr, "unknow error");
+        default : fprintf( stderr, "unknow error code %ld", error_code );
     }
     fprintf( stderr, "\n( line %ld parsing %s )\n",parser.curr_line,
-                                       parser.file_name ); EXIT( 1);
+                                                   parser.file_name ); EXIT( 1);
 }
 
 
