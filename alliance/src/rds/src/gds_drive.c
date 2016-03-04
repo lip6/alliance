@@ -490,18 +490,22 @@ FILE  *fp;
    }
 
    entete(XY, sizeof(coord_t));
-   if (islittle()) {
-   long X = swapl(inst->X);
-   long Y = swapl(inst->Y);
+   coord_t xy;
+   xy.X = inst->X;
+   xy.Y = inst->Y;
 
-      numb = fwrite((char *)&X, sizeof(long), 1, fp);
+   if (islittle()) {
+      xy.X = swapi(xy.X);
+      xy.Y = swapi(xy.Y);
+
+      numb = fwrite((char *)&xy.X, sizeof(int32_t), 1, fp);
       controle(1);
-      numb = fwrite((char *)&Y, sizeof(long), 1, fp);
+      numb = fwrite((char *)&xy.Y, sizeof(int32_t), 1, fp);
       controle(1);
    } else {
-      numb = fwrite((char *)&inst->X, sizeof(long), 1, fp);
+      numb = fwrite((char *)&xy.X, sizeof(int32_t), 1, fp);
       controle(1);
-      numb = fwrite((char *)&inst->Y, sizeof(long), 1, fp);
+      numb = fwrite((char *)&xy.Y, sizeof(int32_t), 1, fp);
       controle(1);
    }
 

@@ -832,7 +832,7 @@ char gds_real[sizeof(mag_type)];
 short ref_x_axis, abs_mag, abs_ang;
 ushort strans;
 double mag, angle;
-long x, y;
+int32_t x, y;
 char sym;
 char poubelle[TRASHSIZE];
 int FLAG = 0;
@@ -846,14 +846,14 @@ int FLAG = 0;
       }
       switch (infobuf.gdscode) {
          case XY :
-            lecture1(&x, sizeof(long));
+            lecture1(&x, sizeof(int32_t));
             if (islittle())
                x = swapl(x);
-            x = (long)(pv_scale * (double)x);
-            lecture1(&y, sizeof(long));
+            x = (int32_t)(pv_scale * (double)x);
+            lecture1(&y, sizeof(int32_t));
             if (islittle())
                y = swapl(y);
-            y = (long)(pv_scale * (double)y);
+            y = (int32_t)(pv_scale * (double)y);
             break;
          case STRANS :
             lecture1(&strans, sizeof(ushort));
@@ -988,8 +988,8 @@ FILE *fp;
             coord_tab[0].X = swapl(coord_tab[0].X);
             coord_tab[0].Y = swapl(coord_tab[0].Y);
          }
-         coord_tab[0].X = (long)(pv_scale * (double)coord_tab[0].X);
-         coord_tab[0].Y = (long)(pv_scale * (double)coord_tab[0].Y);
+         coord_tab[0].X = (int32_t)(pv_scale * (double)coord_tab[0].X);
+         coord_tab[0].Y = (int32_t)(pv_scale * (double)coord_tab[0].Y);
          XYFLAG = 1;
          break;
       case TEXTTYPE    :
