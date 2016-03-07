@@ -44,10 +44,10 @@
 *
 ***/
 static void quicksort(tab, deb, fin)
-long tab[];
+int32_t tab[];
 unsigned        deb, fin;
 {
-register long   m, aux;
+register int32_t   m, aux;
 register unsigned       i, j;
 
       i = deb;
@@ -95,7 +95,7 @@ register unsigned       i, j;
 *
 ***/
 static int      simplification(tab, tab_lg)
-long    tab[];
+int32_t    tab[];
 unsigned        tab_lg;
 {
 register int i, j;  /* i indice de lecture, j celui d'ecriture */
@@ -312,7 +312,7 @@ unsigned  coord_numb;
 {
       rdsrec_list *Rec;
   register unsigned int  i, j;
-  register long  x, y, dx, dy;
+  register int32_t  x, y, dx, dy;
 
   for (i = 0; i < coord_numb; i += 2) {
     j = i + 1;
@@ -366,7 +366,7 @@ unsigned  coord_numb;
 static coord_t *do_diagonale(rect_tab, nb_rect, xtab, ytab)
 rect_t  rect_tab[];
 type_l  nb_rect;
-long  xtab[], ytab[];
+int32_t  xtab[], ytab[];
 {
   register int  i, j;
   register coord_t  *tab;
@@ -483,10 +483,10 @@ unsigned  *new_coord_numb;
 {
   register int  i, h, v;         /* compteurs a tout faire  */
 
-  long  x1, y1, x2, y2;        /* auxiliaires (de coordonnees) en tout genre */
+  int32_t  x1, y1, x2, y2;        /* auxiliaires (de coordonnees) en tout genre */
 
-  long  *tab;              /* pseudo-tableau auxiliaire */
-  long  *xtab, *ytab;          /* pseudo-tableaux des differentes coordonnees*/
+  int32_t  *tab;              /* pseudo-tableau auxiliaire */
+  int32_t  *xtab, *ytab;          /* pseudo-tableaux des differentes coordonnees*/
   type_i nb_x, nb_y;          /* tailles des 2 tableaux et egalement nombres d'abcisses et d'ordonnees significatives. */
   type_c * col, *lig;          /* pseudo-tableaux contenant respectivement les nombres d'aretes par ligne, par colonne. */
   type_l * index_h, *index_v;      /* pseudo-tableaux permettant d'indexer les tableaux contenant les positions des aretes. */
@@ -503,6 +503,7 @@ unsigned  *new_coord_numb;
   /*                                                           */
   /* On regarde d'abord si le polygone a decouper n'est pas deja un rectangle, auquel cas le probleme est vite resolu.   */
   /*                                                           */
+
   if (coord_numb == 5) {
     nct = (coord_t * )malloc(2 * sizeof(coord_t));
     *new_coord_tab = nct;
@@ -518,10 +519,10 @@ unsigned  *new_coord_numb;
       nct[1].X = coord_tab[2].X;
       nct[1].Y = coord_tab[2].Y;
     } else {
-      nct[0].X = (long)floor(((double)coord_tab[0].X * scale) + .5);
-      nct[0].Y = (long)floor(((double)coord_tab[0].Y * scale) + .5);
-      nct[1].X = (long)floor(((double)coord_tab[2].X * scale) + .5);
-      nct[1].Y = (long)floor(((double)coord_tab[2].Y * scale) + .5);
+      nct[0].X = (int32_t)floor(((double)coord_tab[0].X * scale) + .5);
+      nct[0].Y = (int32_t)floor(((double)coord_tab[0].Y * scale) + .5);
+      nct[1].X = (int32_t)floor(((double)coord_tab[2].X * scale) + .5);
+      nct[1].Y = (int32_t)floor(((double)coord_tab[2].Y * scale) + .5);
     }
   }
 
@@ -538,16 +539,16 @@ unsigned  *new_coord_numb;
     }
     bool = 1;                            /* On vient d'allouer une nouvelle zone pour coordonnees*/
     for (i = 0; i < coord_numb; i++) {               /* On recopie les valeurs du tableau passe en parametre */
-      coordonnees[i].X = (long)floor(((double)coord_tab[i].X * scale) + .5);  /* en les mettant a l'echelle de la base RDS.       */
-      coordonnees[i].Y = (long)floor(((double)coord_tab[i].Y * scale) + .5);
+      coordonnees[i].X = (int32_t)floor(((double)coord_tab[i].X * scale) + .5);  /* en les mettant a l'echelle de la base RDS.       */
+      coordonnees[i].Y = (int32_t)floor(((double)coord_tab[i].Y * scale) + .5);
     }
   }
 
   /*                                      */
   /* On extrait de la liste des coordonnees toutes les valeurs significatives */
   /*                                      */
-  tab = (long *)malloc(coord_numb * sizeof(long));    /* on alloue un tableau auxiliaire pour y stocker */
-  if (tab == (long *)NULL) {                /* temporairement les abcisses et les ordonnees.  */
+  tab = (int32_t *)malloc(coord_numb * sizeof(int32_t));    /* on alloue un tableau auxiliaire pour y stocker */
+  if (tab == (int32_t *)NULL) {                /* temporairement les abcisses et les ordonnees.  */
     ruterror( RDS_NOT_ENOUGH_MEMORY, "p2d(tab)");
     if (bool) 
       free((char *)coordonnees);
@@ -559,8 +560,8 @@ unsigned  *new_coord_numb;
 
   quicksort(tab, 0, coord_numb - 1);           /* On les trie                             */
   nb_x = simplification(tab, coord_numb);        /* On ne garde que les valeurs significatives            */
-  xtab = (long *)malloc(nb_x * sizeof(long));       /* On alloue un pseudo-tableau pour y ranger les valeurs definitives */
-  if (xtab == (long *)NULL) {
+  xtab = (int32_t *)malloc(nb_x * sizeof(int32_t));       /* On alloue un pseudo-tableau pour y ranger les valeurs definitives */
+  if (xtab == (int32_t *)NULL) {
     ruterror( RDS_NOT_ENOUGH_MEMORY, "p2d(xtab)");
     if (bool) 
       free((char *)coordonnees);        /* traine pas d'imprecision : si la techno employee n'est pas assez  */
@@ -568,7 +569,7 @@ unsigned  *new_coord_numb;
     EXIT(1);
   }
   /* On recopie ces valeurs definitives dans le nouveau tableau   */
-  (void)memcpy((char *)xtab, (char *)tab, (size_t)nb_x * sizeof(long));
+  (void)memcpy((char *)xtab, (char *)tab, (size_t)nb_x * sizeof(int32_t));
 
 
   for (i = 0; i < coord_numb; i++)            /* Puis on s'occupe des ordonnees de la meme facon           */
@@ -576,8 +577,8 @@ unsigned  *new_coord_numb;
 
   quicksort(tab, 0, coord_numb - 1);
   nb_y = simplification(tab, coord_numb);
-  ytab = (long *)malloc(nb_y * sizeof(long));
-  if (ytab == (long *)NULL) {
+  ytab = (int32_t *)malloc(nb_y * sizeof(int32_t));
+  if (ytab == (int32_t *)NULL) {
     ruterror( RDS_NOT_ENOUGH_MEMORY, "p2d(ytab)");
     if (bool) 
       free((char *)coordonnees);
@@ -586,7 +587,7 @@ unsigned  *new_coord_numb;
     EXIT(1);
   }
   /* On recopie ces valeurs definitives dans le nouveau tableau   */
-  (void)memcpy((char *)ytab, (char *)tab, (int)nb_y * sizeof(long));
+  (void)memcpy((char *)ytab, (char *)tab, (int)nb_y * sizeof(int32_t));
 
   free((char * )tab);
 

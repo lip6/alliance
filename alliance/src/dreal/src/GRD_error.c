@@ -214,11 +214,13 @@ void DrealInitializeErrorMessage( Debug )
   sprintf( DrealAllFileName, "/tmp/%s_all_%d", PACKAGE, getpid() );
 
   DrealStreamErr = freopen( DrealErrFileName, "w+", stderr);
+//DrealStreamErr = stderr;
   DrealStreamAll = fopen  ( DrealAllFileName, "w+"        );
 
   if ( DrealNormalMode )
   {
     DrealStreamOut = freopen( DrealOutFileName, "w+", stdout);
+  //DrealStreamOut = stdout;
   }
   else
   {

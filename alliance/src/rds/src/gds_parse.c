@@ -1036,17 +1036,16 @@ rdsfig_list *Figure;
 char        *Name;
 char         Mode;
 {
-register int retour;
-hinfo_type infobuf;
-FILE *fp;
-int flag = 0;
-int error = FALSE;
-char poubelle[TRASHSIZE];
-char gds_real[sizeof(unit_type)];
-char nom_modele[33];
-node_list *ScanNode;
-rdsrec_list  *Rec;
-
+   register int retour;
+   hinfo_type infobuf;
+   FILE *fp;
+   int flag = 0;
+   int error = FALSE;
+   char poubelle[TRASHSIZE];
+   char gds_real[sizeof(unit_type)];
+   char nom_modele[33];
+   node_list *ScanNode;
+   rdsrec_list  *Rec;
 
    Figure->MODE = 'L';
 

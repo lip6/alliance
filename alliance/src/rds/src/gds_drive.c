@@ -586,7 +586,20 @@ date_type  *date;
          if (modele->LAYERTAB[i]) {
             rect = modele->LAYERTAB[i];
             while (rect) {
-               if (pv_sauve_rectangle(rect, fp, i) < 0) return -1;
+               if (rect->DX == 0)
+                 fprintf( stderr
+                        , "*** GDS driver warning ***\n"
+                          "In %s, rectangle with null width @(%il,%il) %i\n"
+                        , modele->NAME, rect->X/RDS_LAMBDA, rect->Y/RDS_LAMBDA, i );
+               if (rect->DY == 0)
+                 fprintf( stderr
+                        , "** GDS driver warning ***\n"
+                          "In %s, rectangle with null height @(%il,%il) %i\n"
+                        , modele->NAME, rect->X/RDS_LAMBDA, rect->Y/RDS_LAMBDA, i );
+
+               if ((rect->DX != 0) && (rect->DY != 0)) {
+                 if (pv_sauve_rectangle(rect, fp, i) < 0) return -1;
+               }
                rect = rect->NEXT;
             }
          }
