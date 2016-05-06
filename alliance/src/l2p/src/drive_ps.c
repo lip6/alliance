@@ -37,7 +37,7 @@
 /*    Modifie par :  Gilles-Eric DESCAMPS               le : 30/01/1994     */
 /* 1.03 introduces -landscape, automating centering of cell in drawing,     */
 /* suppression of '-1x1' extension for monopages drawings, use of an        */
-/* external PostScript dictionnary, ability to give its own dictionnary,    */
+/* external PostScript dictionary, ability to give its own dictionary,    */
 /*                                                                          */
 /*    Modifie par :  Etienne LACOUME                    le : 02/03/1995     */
 /* 1.10 introduces a better quality in drawing,the capability to display    */
@@ -101,7 +101,7 @@ char	*msg;
 			fprintf (stderr, "%s", msg);
 		break;
 		default :
-			fprintf (stderr, "Unknow internal error");
+			fprintf (stderr, "Unknown internal error");
 	};
 	fprintf (stderr,"\n");
 	fflush (stderr);

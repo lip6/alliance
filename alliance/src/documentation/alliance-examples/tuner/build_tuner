@@ -71,7 +71,7 @@ loon -x 0 -m 0 tuner_x tuner_o
 
 #Vous pouvez lancer xsch pour voir l'allure de l'ensemble de portes
 #Ce n'est pas très utile, mais ca rassure !
-#You may lauch xsch to see the way your netlist looks
+#You may launch xsch to see the way your netlist looks
 #Not really usefully but sometime pretty.
 xsch -l tuner_o
 

@@ -518,7 +518,7 @@
    /* why CIF_DS_A, CIF_DS_B ?
       the simple of driving CIF would be to take both as 1, and have on
       each coordinate a (x * CIF_UNIT)/rds_unit).
-      The interest here is to shorten the lenght of the numbers in the
+      The interest here is to shorten the length of the numbers in the
       CIF output, and to be able to express a precision better that a
       centh of a micron.
       CIF_DS_A and CIF_DS_B are defined as follow :

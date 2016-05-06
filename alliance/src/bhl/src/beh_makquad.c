@@ -64,7 +64,7 @@ void beh_makquad ( struct befig *pt_befig )
      }
 
 	/* ###------------------------------------------------------### */
-	/*   bussed ouput ports						*/
+	/*   bussed output ports						*/
 	/* ###------------------------------------------------------### */
 
   pt_bebus = pt_befig->BEBUS;

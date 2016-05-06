@@ -2437,7 +2437,7 @@ long x_ref, y_ref; /* return values, x_ref here for beauty */
 /*******************************************************************************
 * set of functions to reverse the `logical' ordering of a set of connectors    
 * This quite weird function is required by the custom block generators
-* so to be able easilly to provide big and little endian bit ordering:
+* so to be able easily to provide big and little endian bit ordering:
 * an option usually called -msb0
 *******************************************************************************/
 #define HARD_CONNECTOR    'H'
@@ -3017,7 +3017,7 @@ chain_list *ptchain = NULL;
       mbkfree(signame);
    }
 
-   /*  Put sigs and cons in dictionnary  */
+   /*  Put sigs and cons in dictionary  */
    for (pcon = consiglist; pcon; pcon = pcon->NEXT) {
       pcon->TYPE = (long)namealloc((char *)pcon->TYPE);
       pcon->DATA = (void *)namealloc((char *)pcon->DATA);
@@ -3755,7 +3755,7 @@ chain_list *ilist = NULL;
    };
    while ((iname = va_arg(instancelist, char *)) != NULL)
       ilist = addchain(ilist, (void *)getloins(WORK_LOFIG, iname));
-   /* this new hierachy level needs to be saved */
+   /* this new hierarchy level needs to be saved */
    savelofig(unflattenlofig(WORK_LOFIG, modelname, instancename, ilist));
    freechain(ilist); 
    va_end(instancelist);

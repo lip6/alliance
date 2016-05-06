@@ -222,11 +222,11 @@ begin
   severity ERROR;
 
   assert (not (mips_dadr = X"BFC00000"))
-  report  "====    reset occured     ===="
+  report  "====    reset occurred     ===="
   severity WARNING;
 
   assert (not (mips_dadr = X"80000080"))
-  report  "====   exception occured  ===="
+  report  "====   exception occurred  ===="
   severity WARNING;
 
 end FUNCTIONAL;

@@ -64,7 +64,7 @@ typedef rdsrec_list *rds_rectanglep_typ;
 /*****************************************************************************
  * Instances :
  * The coordinates and symetry semantics are the gds & cif 's one, that's 
- * completly different from mbk's 
+ * completely different from mbk's 
  *****************************************************************************/
 
 /* Models */

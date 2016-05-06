@@ -1164,7 +1164,7 @@ unlabeled_pattern
 		  else
 		    {
 		/* ###----------------------------------------------### */
-		/*   begining a new array or a new single bit		*/
+		/*   beginning a new array or a new single bit		*/
 		/* ###----------------------------------------------### */
 
 		    if (c == '?')
@@ -1178,7 +1178,7 @@ unlabeled_pattern
 		        cmpfl = 'F';
 
 		/* ###----------------------------------------------### */
-		/*   if begining a new array				*/
+		/*   if beginning a new array				*/
 		/* ###----------------------------------------------### */
 
 		      if ((ptgrp != NULL) && (idx == ptgrp->FINDEX))
@@ -1235,7 +1235,7 @@ unlabeled_pattern
 		      else
 		        {
 		/* ###----------------------------------------------### */
-		/*    Begining a new single bit				*/
+		/*    Beginning a new single bit				*/
 		/* ###----------------------------------------------### */
 
 		        islegal (idx, c, cmpfl, 0);

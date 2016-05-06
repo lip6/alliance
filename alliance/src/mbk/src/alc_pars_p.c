@@ -1072,12 +1072,12 @@ static void  alc_printwarn(warn_code)
         case EOPGEO    :
             fprintf( stderr, "invalid geometric operation"); break;
         case EORIENT   :
-            fprintf( stderr, "unknow orientation"); break;
+            fprintf( stderr, "unknown orientation"); break;
         case ENAMETRS :
             fprintf( stderr, "invalid transistor"); break;
         case ETYPEVIA  :
             fprintf( stderr, "invalid via"); break;
-        default : fprintf( stderr, "unknow warning");
+        default : fprintf( stderr, "unknown warning");
       }
     fprintf( stderr, "\n( line %ld parsing %s )\n",
                                   parser.curr_line,
@@ -1108,7 +1108,7 @@ static void  alc_printerror(error_code)
         case ETYPESEG  :
             fprintf( stderr, "segment neither H nor V"); break;
         case ETRANSORIENT:
-            fprintf( stderr, "Unknow transistor orientation"); break;
+            fprintf( stderr, "Unknown transistor orientation"); break;
         case EHEADER   :
             fprintf( stderr, "unexpected header"); break;
         case ENBFIELDS :
@@ -1125,7 +1125,7 @@ static void  alc_printerror(error_code)
             fprintf( stderr, "ptfig not allocated"); break;
         case ECOMPONENT :
             fprintf( stderr, "invalid component"); break;
-        default : fprintf( stderr, "unknow error code %ld", error_code );
+        default : fprintf( stderr, "unknown error code %ld", error_code );
     }
     fprintf( stderr, "\n( line %ld parsing %s )\n",parser.curr_line,
                                                    parser.file_name ); EXIT( 1);
@@ -1158,7 +1158,7 @@ static void  alc_polar(ptfig)
 
     /* Transformation des segments PTIE et NTIE en PDIF et NDIF.
        On memorise dans les listes LP_PDIF et LP_NDIF non seule-
-       ment les TIE mais aussi les NDIF et PDIF.
+       meant les TIE mais aussi les NDIF et PDIF.
                                ( en cas d'erreur de conception )
        On en profite pour lister les segments NWELL. */
     for( pseg=ptfig->PHSEG; pseg!=(phseg_list*)NULL;

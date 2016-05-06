@@ -9,7 +9,7 @@ GENLIB_SC_PLACE
 .TH GENLIB_SC_PLACE.3 "October 1, 1997" "ASIM/LIP6" "PROCEDURAL GENERATION LANGUAGE"
 .SH NAME
 GENLIB_SC_PLACE \- place an instance in the current figure at absolute coordinates
-.SH SYNOPSYS
+.SH SYNOPSIS
 .nf
 .if n \{\
 .ft B \}
@@ -29,14 +29,14 @@ long x,y;
 Name to be given to the instance on the model
 .TP
 \fIsymetry\fP
-Geometrical operation to be performed on the instance before beeing placed
+Geometrical operation to be performed on the instance before being placed
 .TP
 \fIx, y\fP
 Coordinates of the lower left corner of the abutment box of the model in
 the current figure
 .SH DESCRIPTION
 \fISC_PLACE\fP add an instance in the current cell. The bottom left corner
-of the instance is placed, after beeing symetrized and/or rotated,
+of the instance is placed, after being symetrized and/or rotated,
 at \fI(x, y)\fP
 coordinates. The placement takes place only if the netlist is up to day,
 because the model of the instance is seeked there, in order to ensure

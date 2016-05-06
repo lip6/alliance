@@ -10,7 +10,7 @@ GENLIB_PLACE_TOP
 .SH NAME
 GENLIB_PLACE_TOP \- place a physical instance in the current figure on the top of the
 "reference instance"
-.SH SYNOPSYS
+.SH SYNOPSIS
 .nf
 .if n \{\
 .ft B \}
@@ -26,18 +26,18 @@ char symetry;
 .SH PARAMETERS
 .TP 20
 \fImodelname\fP
-Name of the layout figure to be instanciated
+Name of the layout figure to be instantiated
 .TP
 \fIinsname\fP
 Name to be given to the instance on the model
 .TP
 \fIsymetry\fP
-Geometrical operation to be performed on the instance before beeing placed
+Geometrical operation to be performed on the instance before being placed
 .SH DESCRIPTION
 \fBPLACE_TOP\fP add an instance of model \fImodelname\fP
 in the current layout cell.
 The bottom left corner
-of the abutment box of the instance is placed, after beeing symetrized
+of the abutment box of the instance is placed, after being symetrized
 and/or rotated,
 toward the top left corner of the abutment box of the
 "reference instance". The newly

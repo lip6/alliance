@@ -10,7 +10,7 @@ This directory contains the VHDL description of an adder 4 bits and
 the associated stimuli file, and also a configuration file for IO
 placement (used during the Place and Route step).
 
-The Makefile set environement variables properly and run Alliance tools, 
+The Makefile set environment variables properly and run Alliance tools, 
 following each step of the design flow from VHDL up to real layout in a
  pseudo 0.35 techno.
 
@@ -78,13 +78,13 @@ graal_adder4    : Launch the physical layout editor (GRAAL) and display the resu
 #
 
 adder4_e.al     : Run the hierarchical netlist extractor (COUGAR) and extracts the netlist with parasitic
-                  informations (physical parameters are taken in the techno-035.rds file).
+                  information (physical parameters are taken in the techno-035.rds file).
                   This tool generates the extracted netlist adder4_e.al
 
 xsch_adder4_e   : Run the schematic viewer (XSCH) on the hierarchical extracted netlist (adder4_e.al).
 
 adder4_et.al    : Run the netlist extractor (COUGAR) and extracts the netlist at the transistor level 
-                  with parasitics informations (adder4_et.al).
+                  with parasitics information (adder4_et.al).
 
 xsch_adder4_et  : Run the schematic viewer (XSCH) on the extracted transistor netlist (adder4_et.al).
 

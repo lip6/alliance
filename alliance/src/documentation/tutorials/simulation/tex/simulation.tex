@@ -217,12 +217,12 @@ This directory contains two subdirectories and one Makefile :
 
 The {\bf ALLIANCE} tools used are :
 \begin{itemize}\itemsep=-.8ex
-\item {\bf vasy} : {\bf VHDL} analyzer and convertor.
+\item {\bf vasy} : {\bf VHDL} analyzer and converter.
 \item {\bf asimut} : {\bf VHDL} Compiler and Simulator.
 \item{\bf genpat} :    Procedural generator of stimuli.
 \end{itemize}
 
-You can obtain the detailed informations on an any
+You can obtain the detailed information on an any
 {\bf ALLIANCE} tool by typing the command :
 
 \begin{commandline}
@@ -365,7 +365,7 @@ Alliance subset.
 
 The file addaccu4.vhdl is a description of the addaccu circuit,
 using classical {\bf VHDL} subset (with process statements,
-IEEE 1164 VHDL types, aritmetic operators etc ...) 
+IEEE 1164 VHDL types, arithmetic operators etc ...) 
 
 You can convert this description to the {\bf .vbe} file format using
  {\bf VASY}~:
@@ -492,7 +492,7 @@ first part of this Tutorial. The circuit will be describe in two
 levels of hierarchy :
 
 \begin{itemize}\itemsep=-.8ex
-\item The first level will write the circuit like the instanciation of three blocks.
+\item The first level will write the circuit like the instantiation of three blocks.
 \item The second level will write each of the three blocks in term
 of elementary gates of the standard library.
 \end{itemize}
@@ -522,7 +522,7 @@ vectors more consequent (a hundred clock-edges).
 However, the writing of the stimuli file directly is a tiresome work.
 The tool {\bf genpat} enables you to undertake this work in a
 procedural way. The language {\bf genpat} is a subset of " C " functions.
-For more informations on genpat and the functions of the
+For more information on genpat and the functions of the
 associated library do not hesitate to use the command:
 
 \begin{commandline}
@@ -581,7 +581,7 @@ Initially you must write the structural
 description file of addaccu. This file will have the extension "
 vst " which is the usual extension to indicate a { \bf VHDL }
 structural file (Vhdl Structural view). This view will contain the
-instanciation of three independent blocks:
+instantiation of three independent blocks:
 
 \begin{description}\itemsep=-.8ex
 \item[Block 1] : The 4 bits adder.
@@ -633,7 +633,7 @@ adder by their structural views by modifying the {\bf CATAL} file
 (by removing the component name ).
 
 Each block (alu, accu, mux) must now be described like an
-interconnection of elementary gates. The gates which are to instanciate will
+interconnection of elementary gates. The gates which are to instantiate will
 be chosen among those available in the library of standard cells {
 \bf SXLIB }. For the functionality of the various cells and their
 interface, the sxlib man is available. The behavioral

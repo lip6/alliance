@@ -54,7 +54,7 @@ extern long mbkalloc_stat;      /* memory allocated by mbk */
 void print_statistics (scotch_on_flag)
      int scotch_on_flag;
 {
-   printf ("\to memory allocation informations\n");
+   printf ("\to memory allocation information\n");
    printf ("\t--> required rectangles = %ld ", STAT_RECT_REQRD);
    printf (" really allocated = %ld\n", STAT_RECT_ALLOC);
    if (scotch_on_flag)

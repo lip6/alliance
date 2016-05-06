@@ -14,7 +14,7 @@ savephfig
 .SH NAME
 savephfig \- save a physical figure on disk 
 .so man1/alc_origin.1
-.SH SYNOPSYS
+.SH SYNOPSIS
 .nf
 .if n \{\
 .ft B \}
@@ -34,7 +34,7 @@ Pointer to the \fIphfig\fP to write on disk
 \fIptfig\fP. All the figure lists are ran through, and the appropriate objects
 written, independently of the figure \fImode\fP. 
 .br
-The \fBsavephfig\fP function in fact performs a call to a driver, choosen
+The \fBsavephfig\fP function in fact performs a call to a driver, chosen
 by the \fIMBK_OUT_PH\fP(1) environment variable. The directory in which the file
 is to be written is the one set by \fBMBK_WORK_LIB\fP(1).
 See \fBMBK_OUT_PH\fP(1), \fBMBK_WORK_LIB\fP(1) and
@@ -59,7 +59,7 @@ format.
 .RS
 Either the directory or the file are write protected, so it's not possible to
 open \fIfigname.ext\fP, where \fIext\fP is the file format extension, for 
-writting.
+writing.
 .RE
 .SH EXAMPLE
 .ta 3n 6n 9n 12n 15n 18n 21n

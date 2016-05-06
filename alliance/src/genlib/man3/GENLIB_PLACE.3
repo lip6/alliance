@@ -9,7 +9,7 @@ GENLIB_PLACE
 .TH GENLIB_PLACE.3 "October 1, 1997" "ASIM/LIP6" "PROCEDURAL GENERATION LANGUAGE"
 .SH NAME
 GENLIB_PLACE \- place a physical instance in the current figure at absolute coordinates
-.SH SYNOPSYS
+.SH SYNOPSIS
 .nf
 .if n \{\
 .ft B \}
@@ -26,20 +26,20 @@ long x,y;
 .SH PARAMETERS
 .TP 20
 \fImodelname\fP
-Name of the layout figure to be instanciated
+Name of the layout figure to be instantiated
 .TP
 \fIinsname\fP
 Name to be given to the instance on the model
 .TP
 \fIsymetry\fP
-Geometrical operation to be performed on the instance before beeing placed
+Geometrical operation to be performed on the instance before being placed
 .TP
 \fIx, y\fP
 Coordinates of the lower left corner of the abutment box on the instance in
 the current figure
 .SH DESCRIPTION
 \fBPLACE\fP add an instance in the current layout cell. The bottom left corner
-of the instance of the model \fImodelname\fP is placed, after beeing
+of the instance of the model \fImodelname\fP is placed, after being
 symetrized and/or rotated, at \fI(x, y)\fP coordinates. 
 The placed instance becomes the new "reference instance", used in
 the relative placement functions.

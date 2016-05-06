@@ -437,7 +437,7 @@ extern void control_lib()
          case ABL_XOR: case ABL_NXOR: xor=add_dual(xor,cell); break;
          case ABL_NOT: not=cell; break;
          default: 
-            fprintf(stderr,"control_lib: unknow oper %ld\n",
+            fprintf(stderr,"control_lib: unknown oper %ld\n",
             ABL_OPER(cell->ABL));
             exit(1);
       }

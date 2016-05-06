@@ -142,7 +142,7 @@ struct lkdins *pt_lkdins;
 
             if ((full_old == 0) && (write == 1) && (nb_sorties != 0))
                 {
-                fprintf(stderr,"NEW OUPUT FIFO VALUE : %d\n", hadout);
+                fprintf(stderr,"NEW OUTPUT FIFO VALUE : %d\n", hadout);
                 fprintf(fecrire,"0x%x\t",hadout);
                 nb_sorties--;
                 if ( (nb_sorties%8) == 0 ) fprintf(fecrire,"\n");

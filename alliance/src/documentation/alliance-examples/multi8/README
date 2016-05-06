@@ -11,7 +11,7 @@ This directory contains hierarchical VHDL descriptions of a synchronous 8 bits m
 It contains also the associated stimuli file, and configuration file for IO
 placement (used during the Place and Route step).
 
-The Makefile set environement variables properly and run Alliance tools, 
+The Makefile set environment variables properly and run Alliance tools, 
 following each step of the design flow from VHDL up to real layout in a
  pseudo 0.35 techno.
 

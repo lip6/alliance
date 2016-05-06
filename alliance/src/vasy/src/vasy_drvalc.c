@@ -1596,7 +1596,7 @@ static void VasyDriveAllianceTreatDeclar( RtlFigure )
       else 
       {
 #if 1  /** Francois Donnet: 16/01/2003: do not initialize by default
-       *** because someone else could do it in an upper hierachy.
+       *** because someone else could do it in an upper hierarchy.
        *** It's better not to correct description and to let user
        *** with it's own error than to build some...
        **/
@@ -2842,7 +2842,7 @@ void VasyDriveAllianceRtlFig( RtlFigure, FileName )
     }
     else
     {
-      VasyPrintf( stdout, "ERROR unable to open file %s.vbe for writting\n", 
+      VasyPrintf( stdout, "ERROR unable to open file %s.vbe for writing\n", 
                  RtlFigureVbe->NAME );
       autexit( 1 );
     }
@@ -2873,7 +2873,7 @@ void VasyDriveAllianceRtlFig( RtlFigure, FileName )
 
       if ( VasyLaxFile == (FILE *)0 ) 
       {
-        VasyPrintf( stdout, "ERROR unable to open file %s.lax for writting\n",
+        VasyPrintf( stdout, "ERROR unable to open file %s.lax for writing\n",
                     RtlFigureVbe->NAME );
         autexit( 1 );
       }
@@ -2912,7 +2912,7 @@ void VasyDriveAllianceRtlFig( RtlFigure, FileName )
 
       if ( VasyBoomFile == (FILE *)0 ) 
       {
-        VasyPrintf( stdout, "ERROR unable to open file %s.boom for writting\n",
+        VasyPrintf( stdout, "ERROR unable to open file %s.boom for writing\n",
                     RtlFigureVbe->NAME );
         autexit( 1 );
       }
@@ -2965,7 +2965,7 @@ void VasyDriveAllianceRtlFig( RtlFigure, FileName )
     }
     else
     {
-      VasyPrintf( stdout, "ERROR unable to open file %s.vst for writting\n", 
+      VasyPrintf( stdout, "ERROR unable to open file %s.vst for writing\n", 
                  RtlFigureVst->NAME );
       autexit( 1 );
     }

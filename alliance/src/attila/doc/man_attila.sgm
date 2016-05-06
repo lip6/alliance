@@ -68,7 +68,7 @@
           computer (currently <literal>bip</literal>) and on one Solaris
           computer (<literal>beny</literal>). As to connect on thoses
           computer it will uses <literal>rsh</literal> so you must setup
-          your <literal>~/.rhosts</literal> to access them whithout
+          your <literal>~/.rhosts</literal> to access them without
           passwords. You also can uses <literal>ssh</literal> (but the
           procedure to allow automatic login is more complicated).
           </para>
@@ -285,7 +285,7 @@
         <emphasis>as is</emphasis> to the subsequent call to
         <literal>make</literal>. If no <userinput>-m-</userinput>
         argument is given, then <userinput>install</userinput> is
-        assumed. If you want to completly uninstall a tool and clean
+        assumed. If you want to completely uninstall a tool and clean
         it's build directory you can pass
         <userinput>uninstall clean</userinput>
         </para>

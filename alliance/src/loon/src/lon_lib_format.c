@@ -228,7 +228,7 @@ extern int format_cell(befig_list* befig)
       /*only one condition*/
       if (!befig->BEREG->BIABL || befig->BEREG->BIABL->NEXT) return 0;
 #endif
-      /*one ouput*/
+      /*one output*/
       if (!befig->BEOUT || befig->BEOUT->NEXT) return 0;
       /*  forbid logic on output */ 
       if (!ABL_ATOM(befig->BEOUT->ABL)) {
@@ -251,7 +251,7 @@ extern int format_cell(befig_list* befig)
       if (befig->BEBUS->NEXT || befig->BEREG || befig->BEBUX) return 0;
       /*only one condition*/
       if (!befig->BEBUS->BIABL || befig->BEBUS->BIABL->NEXT) return 0;
-      /*one ouput: bebus*/
+      /*one output: bebus*/
       if (befig->BEOUT) return 0;
    }
 
@@ -260,7 +260,7 @@ extern int format_cell(befig_list* befig)
       if (befig->BEBUX->NEXT || befig->BEREG || befig->BEBUS) return 0;
       /*only one condition*/
       if (!befig->BEBUX->BIABL || befig->BEBUX->BIABL->NEXT) return 0;
-      /*one ouput: beout*/
+      /*one output: beout*/
       if (!befig->BEOUT || befig->BEOUT->NEXT) return 0;
       /*  forbid logic on output */ 
       if (!ABL_ATOM(befig->BEOUT->ABL)) {
@@ -287,7 +287,7 @@ extern int format_cell(befig_list* befig)
    }
 
    if (befig->BEOUT) {
-      /*one kind of ouput: beout*/
+      /*one kind of output: beout*/
       if (  befig->BEBUS ) return 0;
    }
 

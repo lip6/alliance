@@ -9,7 +9,7 @@ GENLIB_UNFLATTEN_LOFIG
 .TH GENLIB_UNFLATTEN_LOFIG.3 "October 1, 1997" "ASIM/LIP6" "PROCEDURAL GENERATION LANGUAGE"
 .SH NAME
 \fBUNFLATTEN_LOFIG\fP \- creates a hierarchy level from instances in the current logical figure
-.SH SYNOPSYS
+.SH SYNOPSIS
 .nf
 .if n \{\
 .ft B \}
@@ -29,14 +29,14 @@ char \(**list_of_instances;
 Name of the figure of the new hierarchy to be created
 .TP
 \fIinstancename\fP
-Name to be given at the instanciation of \fIfigurename\fP into the current
+Name to be given at the instantiation of \fIfigurename\fP into the current
 structual figure
 .TP
 \fIlist_of_instances\fP
 List of strings representing the instances to be inserted into the new figure
 .SH DESCRIPTION
 \fBUNFLATTEN_LOFIG\fP creates a new level of hierarchy, whose model name will
-be \fIfigurename\fP, and instanciate it under the name \fIinstancename\fP in
+be \fIfigurename\fP, and instantiate it under the name \fIinstancename\fP in
 the current figure.
 The instances whose name belong to the \fIlist_of_instances\fP parameters are
 added in the new figure, and destroyed from the current figure.

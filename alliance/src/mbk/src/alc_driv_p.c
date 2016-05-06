@@ -245,7 +245,7 @@ char *word;
    case EOPEN     :
        fprintf( stderr, "can\'t open file : %s .\n", word); break;
    case EREF    :
-       fprintf( stderr, " inconsistant reference :%s.\n", word); break;
+       fprintf( stderr, " inconsistent reference :%s.\n", word); break;
    case ECLOSE    :
        fprintf( stderr, "can\'t close file : %s.\n", word); break;
    default : fprintf( stderr, "unknown error");

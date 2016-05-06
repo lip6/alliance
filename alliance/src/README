@@ -38,7 +38,7 @@ Alliance naming scheme:
 - sources: alliance-XXX-YYY.tar.gz
     where:
         XXX = Alliance version number. eg 5.0
-        YYY = Alliance release number, wich is the date of the build. eg 20020624
+        YYY = Alliance release number, which is the date of the build. eg 20020624
 
 - binaries: alliance-XXX-YYY-ZZZ.KKK
     where:
@@ -144,7 +144,7 @@ This explains how to proceed from the Alliance CVS tree.
 > cvs update -d -P
 
 2/ Remove some directories from the Alliance tree. These directories
-   contain tools that may be helpfull but are not maintained anymore,
+   contain tools that may be helpful but are not maintained anymore,
    so they will likely not compile.
    Assuming Alliance sources reside in "~fred/alliance", do:
 > cd src

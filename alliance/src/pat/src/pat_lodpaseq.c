@@ -104,7 +104,7 @@ unsigned char  mode  ;		/* compiler mode			*/
     {
 	/* ###------------------------------------------------------### */
 	/*    parse the openned file. Close the file when the end is	*/
-	/* reached or if an error has occured.				*/
+	/* reached or if an error has occurred.				*/
 	/* ###------------------------------------------------------### */
 
     ptseq = pat_prspat (fp, name, ptseq, maxpat, mode);

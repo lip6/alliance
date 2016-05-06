@@ -14,7 +14,7 @@ rdsalloc
 .SH NAME
  rdsalloc \- memory allocation function
 .so man1/alc_origin.1
-.SH SYNOPSYS
+.SH SYNOPSIS
 .nf
 .if n \{\
 .ft B \}
@@ -37,7 +37,7 @@ takes the values RDS_ALLOC_BLOCK or RDS_ALLOC_HEAP (two defined constants).
 The \fIrdsalloc\fP function can do memory allocation by block or by heap. If the user wants to allocate by block, he sets the parameter Heap to the constant RDS_ALLOC_BLOCK else, he wants to allocate by heap so the parameter Heap is set to RDS_ALLOC_HEAP.
 If rdsalloc is used with the constant RDS_ALLOC_BLOCK then rdsalloc is used as standard language C function malloc().
 If the user allocates by heap then :
-At the first allocation of the block of \fIsize\fP the parameter \'Size\', a heap of size multiple of the block Size is allocated. When another allocation of the same size is done then if the the heap isn't full then a pointer (of \fIsize\fP=\'Size\') is returned else a new heap is allocated and a pointer returned. Like this, the user does really one allocation (he has many pointers) to minimize fragmentation. Heap allocation is usefull if the user has to allocate many pointers of the same size (ex: rdsrec_list structure).
+At the first allocation of the block of \fIsize\fP the parameter \'Size\', a heap of size multiple of the block Size is allocated. When another allocation of the same size is done then if the the heap isn't full then a pointer (of \fIsize\fP=\'Size\') is returned else a new heap is allocated and a pointer returned. Like this, the user does really one allocation (he has many pointers) to minimize fragmentation. Heap allocation is useful if the user has to allocate many pointers of the same size (ex: rdsrec_list structure).
 .TP
 Note: Memory place allocated is set to NULL.
 .SH RETURN VALUE

@@ -37,7 +37,7 @@ entity mips_seq is
   test          : in BIT;                       -- test
   itrqs         : in BIT;			-- it reqst
   adrs		: in BIT_VECTOR(1 downto 0);     -- adr1 and adr2
-  exrqs		: in BIT;			-- exeption reqst
+  exrqs		: in BIT;			-- exception reqst
  
   ctlopx        : out bit_vector(8 DOWNTO 0) ;  -- ctlopx
   ctlopy        : out bit_vector(6 DOWNTO 0) ;  -- ctlopy

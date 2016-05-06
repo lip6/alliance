@@ -8,11 +8,11 @@
 # \------------------------------------------------------------------/
 #
 
-# Standart System binary access paths.
+# Standard System binary access paths.
  STANDART_BIN  = /usr/local/bin:/usr/bin:/bin
  STANDART_PATH = PATH=$(STANDART_BIN); export PATH
 
-# Standart Alliance binary access paths.
+# Standard Alliance binary access paths.
  ALLIANCE_BIN  = $(ALLIANCE_TOP)/bin
 
 # FitPath Alliance binary access paths.

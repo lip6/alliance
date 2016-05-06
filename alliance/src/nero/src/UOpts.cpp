@@ -93,7 +93,7 @@ void COpts::add ( string key_short
   }
 
 
-  // Add to the option list & dictionnary.
+  // Add to the option list & dictionary.
   tList.push_back (new COpt (arg, val));
   key_index = tList.size() - 1;
 
@@ -144,7 +144,7 @@ void COpts::getopts (int argc, char *argv[]) throw (except_done)
     key_index = (*this)(key_string);
     tList[key_index]->parsed = true;
 
-    // Get any optionnal argument.
+    // Get any optional argument.
     if (tList[key_index]->has_arg) {
       tList[key_index]->value = optarg;
     }

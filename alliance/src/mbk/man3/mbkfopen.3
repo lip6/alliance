@@ -12,9 +12,9 @@ mbkfopen
 .XE4 \}
 .TH MBKFOPEN 3 "October 1, 1997" "ASIM/LIP6" "MBK UTILITY FUNCTIONS"
 .SH NAME
-mbkfopen \- open a file with several search pathes
+mbkfopen \- open a file with several search paths
 .so man1/alc_origin.1
-.SH SYNOPSYS
+.SH SYNOPSIS
 .nf
 .if n \{\
 .ft B \}
@@ -36,7 +36,7 @@ Extension to the file name
 \fImodel\fP
 File opening mode
 .SH DESCRIPTION
-\fBmbkfopen\fP opens a file, searching it through the pathes given in the
+\fBmbkfopen\fP opens a file, searching it through the paths given in the
 environment variables \fBMBK_CATA_LIB\fP(1) and \fBMBK_WORK_LIB\fP(1).
 Its main issue is to enable simple file access for any program that works
 with mbk path environment variables.
@@ -51,19 +51,19 @@ The legal values for \fImode\fP are
 opens for reading
 .TP
 \fBWRITE_TEXT\fP
-discards and opens for writting
+discards and opens for writing
 .br
 since disk access should be a straight forward operation knowing mbk's needs.
 .LP
 The search algorithm depends on the value of \fImode\fP.
-If \fImode\fP is \fBWRITE_TEXT\fP, then the file is open for writting in
+If \fImode\fP is \fBWRITE_TEXT\fP, then the file is open for writing in
 \fBMBK_WORK_LIB\fP(1). If \fImode\fP is \fBREAD_TEXT\fP then the file is first
 searched through \fBMBK_WORK_LIB\fP(1), and if not found, through each directory
 specified in \fBMBK_CATA_LIB\fP(1), in the order of declaration under unix.
 No internal hash table is generated, in order to let the user choose its
 directory priority.
 As soon as the file is found, it is opened.
-There is no check for redundant files in the specified pathes, since it is
+There is no check for redundant files in the specified paths, since it is
 neither illegal nor bad to have many files with the same names.
 .SH RETURN VALUE
 \fBmbkfopen\fP returns a pointer to the opened file.

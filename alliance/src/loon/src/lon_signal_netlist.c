@@ -22,7 +22,7 @@
  */
 
 /*
- * Tool    : LooN - special netlist for timing dependancies
+ * Tool    : LooN - special netlist for timing dependencies
  * Date    : 2000
  * Author  : Francois Donnet
  */
@@ -139,7 +139,7 @@ extern double loins_max_T(loins_list* loins)
          locon->NAME,loins->INSNAME);
          autexit(1);
       }
-      /*eval delay on input dependancy*/
+      /*eval delay on input dependency*/
       if (isvdd(locon->NAME) || isvss(locon->NAME)) continue;
       if (locon->DIRECTION==OUT || locon->DIRECTION==TRISTATE) continue;
       /*only clock accepted for flip-flop*/
@@ -219,7 +219,7 @@ extern double loins_max_RC(loins_list* loins, char* output)
          locon->NAME,loins->INSNAME);
          autexit(1);
       }
-      /*eval delay on input dependancy*/
+      /*eval delay on input dependency*/
       if (isvdd(locon->NAME) || isvss(locon->NAME)) continue;
       if (locon->DIRECTION==OUT || locon->DIRECTION==TRISTATE) continue;
       /*only clock accepted for flip-flop*/
@@ -300,7 +300,7 @@ extern double loins_delay(loins_list* loins, char* output)
          locon->NAME,loins->INSNAME);
          autexit(1);
       }
-      /*eval delay on input dependancy*/
+      /*eval delay on input dependency*/
       if (isvdd(locon->NAME) || isvss(locon->NAME)) continue;
       if (locon->DIRECTION==OUT || locon->DIRECTION==TRISTATE) continue;
       /*only clock accepted for flip-flop*/

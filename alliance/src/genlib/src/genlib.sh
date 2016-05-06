@@ -41,7 +41,7 @@
    echo "    [-k|--keep-exec]     : Keep binary after execution."
    echo "    [-m|--keep-makefile] : Keep makefile after execution."
    echo "    [-n|--no-exec]       : Do not execute the binary."
-   echo "    [-v|--verbose]       : Issue more informations."
+   echo "    [-v|--verbose]       : Issue more information."
    echo "    [-e [args]]          : [args] are passed to the binary."
    echo ""
  }

@@ -4,7 +4,7 @@
 /* date		: Aug 20 1997						*/
 /* version	: v3.0							*/
 /* authors	: VUONG H.N., Pirouz BAZARGAN SABET			*/
-/* content	: contains defines, external variables and funtions used*/
+/* content	: contains defines, external variables and functions used*/
 /*		  by the linker						*/
 /* ###--------------------------------------------------------------### */
 

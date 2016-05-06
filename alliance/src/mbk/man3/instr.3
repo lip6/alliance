@@ -12,10 +12,10 @@ instr
 .XE4 \}
 .TH INSTR 3 "October 1, 1997" "ASIM/LIP6" "MBK UTILITY FUNCTIONS"
 .SH NAME
-instr \- find an occurence of a string in a string, starting at a
+instr \- find an occurrence of a string in a string, starting at a
 specified character.
 .so man1/alc_origin.1
-.SH SYNOPSYS
+.SH SYNOPSIS
 .nf
 .if n \{\
 .ft B \}
@@ -37,15 +37,15 @@ Pointer to the string to be found, the pattern
 \fIfrom\fP
 Character to be searched backwards before searching for the pattern
 .SH DESCRIPTION
-\fBinstr\fP searches the first occurence of the string \fIfind\fP in the string
-\fIs\fP, starting its search at the last occurence of the \fIfrom\fP character
+\fBinstr\fP searches the first occurrence of the string \fIfind\fP in the string
+\fIs\fP, starting its search at the last occurrence of the \fIfrom\fP character
 in the string \fIs\fP.
 .LP
 If either \fIs\fP or \fIfind\fP is \fBNULL\fP, the function returns \fBNULL\fP.
-If \fIfrom\fP is \fB(char)0\fP, the pattern is searched from the begining of
+If \fIfrom\fP is \fB(char)0\fP, the pattern is searched from the beginning of
 \fIs\fP.
 .br
-This quite exotic behaviour is useful to search the occurence of a name in a
+This quite exotic behaviour is useful to search the occurrence of a name in a
 string resulting from a flatten, when only a terminal object name is to be
 taken into account.
 .SH RETURN VALUES

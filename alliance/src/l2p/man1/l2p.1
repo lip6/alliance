@@ -49,8 +49,8 @@ used on any adequat \fBPostcript\fP printer.
 .br
 l2p will generate in the current directory, either a single file called
 \fI<cellname>.ps\fP, either several files suffixed by \fI-<x>x<y>.ps\fP,
-depending on wether you've asked for a monopage plot or for a drawing
-that will be splitted on several pages. 
+depending on whether you've asked for a monopage plot or for a drawing
+that will be split on several pages. 
 If you do something like
 \fIl2p -pages=2x1 cell\fP, it will generate two files called
 \fIcell-1x1.ps\fP, and \fIcell-2x1.ps\fP.
@@ -66,7 +66,7 @@ The default value gives a black and white \fBPostCript\fP file.
 specifies the drawing area in centh of inch.
 By default, wide = 725 and height = 1068 for french A4 paper. If
 the drawing size is bigger than the paper area, then the
-drawing will be splitted on several pages.
+drawing will be split on several pages.
 .TP
 \-fA3
 The drawing is done on A3 format paper.
@@ -78,14 +78,14 @@ The drawing is done on LETTER format paper.
 The drawing is done on LEGAL format paper. 
 .TP
 \-givebwdict
-give the Black & White internal PostScript dictionnary.
+give the Black & White internal PostScript dictionary.
 See below.
 .TP
 \-givecolordict
 This option must be unique on the  command  line.  When
 used  as  in  'l2p  -givebwdict', l2p then gives on the
 standard output its Black & White  internal  Postscript
-dictionnary.  A PostScript dictionnary is a set of mac-
+dictionary.  A PostScript dictionary is a set of mac-
 ros that will be used  during  interpretation  of  your
 PostScript file.  The macros in the internal PostScript
 dictionnaries of l2p allows you to control which  layer
@@ -175,18 +175,18 @@ the file : 'head n1_y-1x1.ps' will show you a PostScript comment beginning
 by '%SCALE=3.78435' for example.
 .TP
 \-usedict=<filename>
-The output Postcript file contains a Postcript dictionnary of macros.
+The output Postcript file contains a Postcript dictionary of macros.
 .br
 There are two standard dictionnaries used by l2p for black and white or color prints.
-This allows you to use a PostScript dictionnary different from the two
+This allows you to use a PostScript dictionary different from the two
 internally encoded into l2p. By modifying one of the standard l2p 
-dictionnary, you can choose which layer to output, how to fill the
+dictionary, you can choose which layer to output, how to fill the
 rectangles (empty, hashed, filled), which color to choose, ... and
 lots of other possibilities. The rest of the generated postscript file
 is mainly orders of drawing rectangles. PostScript is a reverse polish
-notation langage, that is easy to read for simple programs.
+notation language, that is easy to read for simple programs.
 .br
-If you use this functionnality, and think that your dictionnaries are
+If you use this functionality, and think that your dictionnaries are
 worth it, please mail them to alliance\-users@asim.lip6.fr, in order to submit
 them for inclusion in future version of l2p (Thanks).
 
@@ -244,7 +244,7 @@ option that is not implemented yet.
 The generated \fBPostScript\fP is Level 1 for black& white plots.
 When you use color, it generates Level 1 with color extensions.
 It may not run with strict Level 1 interpreters, although it runs here with
-our Apple Personnal LaserWriter, Sun Sparcprinters, and Canon CLC-300-PS.
+our Apple Personal LaserWriter, Sun Sparcprinters, and Canon CLC-300-PS.
 It follows the Adobe Document Structuring Conventions 1, and as there
 is a fake bitmap image inside each generated files, you can re-use them in your
 word-processors, or publishing software, because the PostScript is EPSF-1.2

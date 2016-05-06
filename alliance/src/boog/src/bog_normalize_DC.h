@@ -43,7 +43,7 @@
 
 
 /****************************************************************************/
-/*  change 'z' and 'd' occurence in '0' or '1' in all expressions of befig  */
+/*  change 'z' and 'd' occurrence in '0' or '1' in all expressions of befig  */
 /****************************************************************************/
 extern void remove_DC __P ((befig_list* befig));
 

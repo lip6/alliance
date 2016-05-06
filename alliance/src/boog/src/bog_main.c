@@ -423,7 +423,7 @@ extern int main (int argc, char* argv[])
       freeptype(loins_num);
    }
 
-   /*colors and weight informations for xsch alliance displayer*/
+   /*colors and weight information for xsch alliance displayer*/
    if (xsch_file) {
       FILE* xsch_stream;
       
@@ -447,7 +447,7 @@ extern int main (int argc, char* argv[])
    
    /*for debugging extract a resulting vbe file to compare with source*/
    if (debug_file) {
-      fprintf(stdout,"Formating debug file '%s.vbe'...\n",debug_file);
+      fprintf(stdout,"Formatting debug file '%s.vbe'...\n",debug_file);
       put_back_STABLE(befig);       /*put in condition register STABLE*/
       normalize_nameindex(befig);  /*for bits of vectors*/
       sort_vector(befig);  /*needed to be recognized by parser/driver */

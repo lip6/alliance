@@ -14,7 +14,7 @@ filepath
 .SH NAME
 filepath \- return the whole search path of a file
 .so man1/alc_origin.1
-.SH SYNOPSYS
+.SH SYNOPSIS
 .nf
 .if n \{\
 .ft B \}
@@ -46,7 +46,7 @@ The file to be searched is called \fIname.extension\fP, if extension is not
 \fB""\fP, then the file name will be \fIname.\fP\ .
 .br
 .SH RETURN VALUE
-\fBfilepath\fP returns \fBNULL\fP on failure, ie the file is not in the pathes,
+\fBfilepath\fP returns \fBNULL\fP on failure, ie the file is not in the paths,
 or the absolute path on success.
 The value returned, when not \fBNULL\fP, is stored in a \fBstatic\fP buffer,
 so this values is to use at return time or copied into a user buffer.

@@ -36,7 +36,7 @@ For the scan-path, three more signals are required :
 - scan_out: out bit
 .RE
 .br
-For a ROM implementation, the vdd and vss signals must be explicitely declared as :
+For a ROM implementation, the vdd and vss signals must be explicitly declared as :
 .RS
 .br
 - rom_vdd : in bit
@@ -50,7 +50,7 @@ The '-P' option of \fBsyf\fP(1) allows scan-path implementation.
 Pragmas :
 .br
 .RS
-A pragma is a comment that gives necessary informations to the synthesis and formal
+A pragma is a comment that gives necessary information to the synthesis and formal
 proof tools.
 .br
 
@@ -99,7 +99,7 @@ The last ones for ROM implementation
 Two different processes are used : The first process, called state process,
 allows to describe state transition and outputs generation.
 It is not controlled by the clock.
-The second process is controlled by the clock and descibes the state 
+The second process is controlled by the clock and describes the state 
 register and stack registers modifications. 
 .br
 State process sensitivity list contains inputs and CURRENT_STATE, it means 
@@ -236,7 +236,7 @@ end auto;
 .SH MULTI FSM EXAMPLE
 .br
 It is possible to describe in the same description two or more FSM
-communicating each others throw internal signals as shown bellow.
+communicating each others throw internal signals as shown below.
 It is also possible to incorporate concurrent statements using VBE(5)
 VHDL coding style.
 .nf

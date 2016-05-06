@@ -1151,7 +1151,7 @@ extern void  splitPowerNet(apLoFig, asPower)
 
   if (powerType == C_POWER_UNKNOWN) {
     eprinth((char*)NULL);
-    eprintf("\n  Only \"vdd\" and \"vss\" can be splitted (%s).\n", asPower);
+    eprintf("\n  Only \"vdd\" and \"vss\" can be split (%s).\n", asPower);
     EXIT (1);
   }
 
@@ -1160,7 +1160,7 @@ extern void  splitPowerNet(apLoFig, asPower)
   pSigPower = addlosig(apLoFig, NEWSIGINDEX, pChain, INTERNAL);
 
 
-  /* Find the power net to be splitted. */
+  /* Find the power net to be split. */
   for(pSig = apLoFig->LOSIG; pSig != (losig_list*)NULL; pSig = pSig->NEXT)
     if (cmpSigName(pSig, sPOW)) break;
 
@@ -1383,7 +1383,7 @@ extern loins_list *addloins_noSig(apFig, asIns, apModel)
      pInsCon->NAME      = pCon->NAME;
      pInsCon->DIRECTION = pCon->DIRECTION;
      pInsCon->TYPE      = 'I';
-     /* We do not known the signals for the time beeing. */
+     /* We do not known the signals for the time being. */
      pInsCon->SIG       = NULL;
      pInsCon->ROOT      = (void *)pIns;
      pInsCon->USER      = NULL;

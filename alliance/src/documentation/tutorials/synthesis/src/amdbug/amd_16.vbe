@@ -344,7 +344,7 @@ BEGIN
 END BLOCK;
 --
 --
--- Writing RAM adress b
+-- Writing RAM address b
 --
 
 -- b="0000"

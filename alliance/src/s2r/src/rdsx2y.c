@@ -76,7 +76,7 @@ main (argc, argv)
    getarg (argc, argv, &model_name);
 
 /*\
- * setting environement
+ * setting environment
  * MBK_CATAL_NAME    : file where file name to be replaced are put
  * MBK_CATA_LIB      : where cells, catal file and techno file are
  * MBK_WORK_LIB      : where result file is written or where techno file is

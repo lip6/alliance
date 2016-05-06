@@ -902,7 +902,7 @@ unsigned int     cur_date;
   VHX_SIGUPD = NULL;
 
 	/* ###------------------------------------------------------### */
-	/*    update bused signals' value (also handles errors occured	*/
+	/*    update bused signals' value (also handles errors occurred	*/
 	/* when resolution functions are called)			*/
 	/* ###------------------------------------------------------### */
 
@@ -971,7 +971,7 @@ unsigned int     cur_date;
 
 	/* ###------------------------------------------------------### */
 	/*    update internal bussed signals's value (also handles	*/
-	/* errors occured when resolution functions are called)		*/
+	/* errors occurred when resolution functions are called)		*/
 	/* ###------------------------------------------------------### */
 
   cur_chain = VHX_BUXUPD;
@@ -1037,7 +1037,7 @@ unsigned int     cur_date;
   VHX_BUXUPD = NULL;
 
 	/* ###------------------------------------------------------### */
-	/*    updating registers (also handles errors occured when	*/
+	/*    updating registers (also handles errors occurred when	*/
 	/* resolution functions are called)				*/
 	/* ###------------------------------------------------------### */
 

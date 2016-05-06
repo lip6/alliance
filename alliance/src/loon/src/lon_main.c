@@ -459,7 +459,7 @@ extern int main (int argc, char* argv[])
    }
    
    
-   /*colors and weight informations for xsch alliance displayer*/
+   /*colors and weight information for xsch alliance displayer*/
    if (xsch_file) {
       FILE* xsch_stream;
       ptype_list* ptype;

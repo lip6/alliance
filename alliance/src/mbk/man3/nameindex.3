@@ -14,7 +14,7 @@ nameindex
 .SH NAME
 nameindex \- concatenate a name and index with user separator
 .so man1/alc_origin.1
-.SH SYNOPSYS
+.SH SYNOPSIS
 .nf
 .if n \{\
 .ft B \}
@@ -37,7 +37,7 @@ Long integer
 The \fBnameindex\fP function adds the separator defined by \fBMBK_SEPAR\fP(1),
 and then the string version of \fIi\fP at the end of string \fIs\fP.
 This is not like a \fBstrcat\fP(3) of the standard library, because \fIs\fP is
-not beeing modified.
+not being modified.
 .br
 The string returned has already been put in the names dictionary by
 a call to \fBnamealloc\fP(3).

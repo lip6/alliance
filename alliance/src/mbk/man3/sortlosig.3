@@ -14,7 +14,7 @@ sortlosig
 .SH NAME
 sortlosig \- sort the logical signals of a figure by name
 .so man1/alc_origin.1
-.SH SYNOPSYS
+.SH SYNOPSIS
 .nf
 .if n \{\
 .ft B \}
@@ -35,7 +35,7 @@ The signals are sorted by names, but since names are not the signals
 identifier, the \fBgetsigname\fP(3) routine is called to retrieve a
 signal name.
 .br
-The standart \fBqsort\fP(3) function library is called for sorting.
+The standard \fBqsort\fP(3) function library is called for sorting.
 Therefore, a table the number of signal wide is created, requiring
 a lot of memory with big circuits.
 Also, even if \fBqsort\fP(3) runs in n log n time, \fBgetsigname\fP(3)

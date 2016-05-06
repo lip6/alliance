@@ -659,7 +659,7 @@
 
     // Overridables.
     public: virtual const char* what () const throw () {
-              return ((char*)"Unkown terminal.");
+              return ((char*)"Unknown terminal.");
             }
   };
 

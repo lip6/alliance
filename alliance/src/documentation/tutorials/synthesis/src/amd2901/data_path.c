@@ -22,7 +22,7 @@ GENLIB_MACRO(DPGEN_NAND2, "model_nand2_4bits", F_PLACE, 4, 1);
 GENLIB_MACRO(DPGEN_OR2, "model_or2_4bits", F_PLACE, 4);
 GENLIB_MACRO(DPGEN_ADSB2F, "model_add2_4bits", F_PLACE, 4);
 
-/* operators Instanciation */
+/* operators Instantiation */
 
 GENLIB_LOINS("model_nand2_4bits", "model_nand2_4bits",
 	"v", "v", "v", "v",

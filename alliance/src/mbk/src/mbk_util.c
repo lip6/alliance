@@ -1130,7 +1130,7 @@ int i = 0;
 chain_list *files = (chain_list *)NULL;
 /* Tables for quick cell search :
    The catalog file is read only once, and sorted for speed.
-   The later calls to loadcatalog only return the approriate table. */
+   The later calls to loadcatalog only return the appropriate table. */
 static chain_list *cells[4];
 static char **tabs[4];
 static int sizes[4];
@@ -1258,7 +1258,7 @@ int argc = 0;
    if(str != NULL) {
       s = (char *)mbkalloc((unsigned int)(strlen(str) + 1) * sizeof(char));
       (void)strcpy(s, str);
-      str = s;   /* let's not modify the environement values */
+      str = s;   /* let's not modify the environment values */
       stc = str; /* for counting purposes */
       while (1) {
          if ((c = strchr(stc, ':')) == NULL)

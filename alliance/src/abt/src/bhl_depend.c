@@ -249,7 +249,7 @@ struct befig *pt_fig;
       }
 
 	/* ###------------------------------------------------------### */
-	/*   process simple ouputs.					*/
+	/*   process simple outputs.					*/
 	/*   check that the signal does not already belong to the	*/
 	/* dependency list before adding it to the list			*/
 	/* ###------------------------------------------------------### */
@@ -272,7 +272,7 @@ struct befig *pt_fig;
       }
 
 	/* ###------------------------------------------------------### */
-	/*   process bussed ouputs.					*/
+	/*   process bussed outputs.					*/
 	/*   check that the signal does not already belong to the	*/
 	/* dependency list before adding it to the list			*/
 	/* ###------------------------------------------------------### */

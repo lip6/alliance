@@ -45,7 +45,7 @@
         <para> if the &cmd; signal is set to &one;, the mask IS
         applied, the output is the <emphasis>complemented</emphasis>
         result of the input value <emphasis>ANDed</emphasis> with the mask
-        (suplied by &constVal;).
+        (supplied by &constVal;).
         </para>
       </listitem>
     </itemizedlist>

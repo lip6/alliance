@@ -33,7 +33,7 @@
    buffer cells (inv_x4 etc ..) are too big and do not fit in the first column area.
 
    Revision 1.9  2004/03/04 14:21:56  fred
-   Adding more powerfull cells for the signals controlling the shift.
+   Adding more powerful cells for the signals controlling the shift.
 
    Revision 1.8  2003/01/31 15:53:39  fred
    COPY_UP_SEG now copies all segments of a given name.
@@ -375,7 +375,7 @@ extern void dpgen_Shifter(aFunction, aAL)
       }
 
       /* I've done my best with genlib, but I need to realign overlapping
-       * cells using some more powerfull tools, ...
+       * cells using some more powerful tools, ...
        * This is done only for the last column, in order to keep the
        * vertical alignement constraints. */
       if (aFunction == DPGEN_SHROT) {

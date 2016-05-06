@@ -1472,7 +1472,7 @@ static vexexpr *VasySimulateGetVpnActAtom( VpnFigure, VpnAction )
 
   if ( ! IsVexNodeOper( VexExpr ) )
   {
-    VasyErrorLine( VASY_ERROR_IN_SIMULATION, VpnAction->LINE, "bad assigment" );
+    VasyErrorLine( VASY_ERROR_IN_SIMULATION, VpnAction->LINE, "bad assignment" );
   }
 
   Oper = GetVexOperValue( VexExpr );
@@ -1481,7 +1481,7 @@ static vexexpr *VasySimulateGetVpnActAtom( VpnFigure, VpnAction )
        ( Oper != VEX_DOWNTO ) &&
        ( Oper != VEX_TO     ) )
   {
-    VasyErrorLine( VASY_ERROR_IN_SIMULATION, VpnAction->LINE, "bad assigment" );
+    VasyErrorLine( VASY_ERROR_IN_SIMULATION, VpnAction->LINE, "bad assignment" );
   }
 
   VasyFigure  = VpnFigure;

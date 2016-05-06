@@ -166,11 +166,11 @@ void  LInter::add (long lbound, long rbound)
         mergeInter      = itInter;
         break;
 
-      // "itInter" is completly inside "element".
+      // "itInter" is completely inside "element".
       // - If "element" has not been merged yet (mergeInter == endInter),
       //     resize "itInter" to fit element. "element" merged.
       // - "element" is already merged : delete "itInter".
-      //      Immediatly process the next element.
+      //      Immediately process the next element.
       case C_INTER_IN:
         if (mergeInter == endInter) {
           itInter->first  = element.first;
@@ -185,7 +185,7 @@ void  LInter::add (long lbound, long rbound)
       // The lower bound of "itInter" is inside "element" :
       // - If "element" has not been merged yet (mergeInter == endInter),
       //     Update the lower bound of "itInter". "element" merged.
-      // - "element" is aleady merged : we have to update the upper
+      // - "element" is already merged : we have to update the upper
       //     bounds of "mergeInter" & "element" as it's used as the
       //     reference element for the next comparisons. Then delete
       //     "itInter".

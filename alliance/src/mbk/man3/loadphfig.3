@@ -14,7 +14,7 @@ loadphfig
 .SH NAME
 loadphfig \- load a new physical cell model from disk 
 .so man1/alc_origin.1
-.SH SYNOPSYS
+.SH SYNOPSIS
 .nf
 .if n \{\
 .ft B \}
@@ -46,8 +46,8 @@ finishes to fill an already loaded figure in \fB'P'\fP mode, in order to have
 it all in memory. This last mode allows to keep the same \fIptfig\fP pointer
 when reaccessing the same file.
 .br
-The \fBloadphfig\fP function in fact performs a call to a parser, choosen
-by the \fBMBK_IN_PH\fP(1) environment variable. The directories seached for the
+The \fBloadphfig\fP function in fact performs a call to a parser, chosen
+by the \fBMBK_IN_PH\fP(1) environment variable. The directories searched for the
 file are first the one set by \fBMBK_WORK_LIB\fP(1) and then, in the described
 order, the ones set by \fBMBK_CATA_LIB\fP(1).
 See \fBMBK_IN_PH\fP(1), \fBMBK_WORK_LIB\fP(1), \fBMBK_CATA_LIB\fP(1) and

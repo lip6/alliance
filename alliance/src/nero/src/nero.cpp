@@ -214,7 +214,7 @@ int  main (int argc, char *argv[])
       cout << "File: " << fileNetSet << endl;
       FILE* file = fopen ( fileNetSet.c_str(), "r" );
       if ( file ) {
-        cout << "File Sucessfully opened." << endl;
+        cout << "File Successfully opened." << endl;
         netSet = new set<string>();
         char buffer[2048];
         while ( !feof(file) ) {

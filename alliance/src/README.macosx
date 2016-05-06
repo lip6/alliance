@@ -19,7 +19,7 @@ This file discuss about installation of Alliance on Mac OS X machines.
 
 ===================================================================
 
-Alliance has been succesfully build on Mac OS X.2 (Jaguar) and Mac OS X.3 (Panther)
+Alliance has been successfully build on Mac OS X.2 (Jaguar) and Mac OS X.3 (Panther)
 This is what is needed to build ALLIANCE:
    * get the developer tools.
      ( install XCode, this will install gcc 3.3)

@@ -14,7 +14,7 @@ dellocap
 .SH NAME
 dellocap \- delete a logical capacitor
 .so man1/alc_origin.1
-.SH SYNOPSYS
+.SH SYNOPSIS
 .nf
 .if n \{\
 .ft B \}
@@ -38,7 +38,7 @@ Pointer to the capacitor to be deleted.
 \fBdellocap\fP delete the capacitor pointed to by \fIptcap\fP in the figure 
 pointed to by \fIptfig\fP. 
 The list consistency is maintainded, and the space freed. The capacitor
-connectors are also freed, since if the capacitor disapear,
+connectors are also freed, since if the capacitor disappear,
 no more connections can occur on it.
 .SH RETURN VALUE
 \fBdellocap\fP returns \fB1\fP if the capacitor has been deleted, \fB0\fP

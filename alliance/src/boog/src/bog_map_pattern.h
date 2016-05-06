@@ -51,19 +51,19 @@
 extern int eval_pattern __P ((chain_list* expr, chain_list* pattern, int negativ));
 
 /******************************************************************************/
-/*				return the cell wich matches expr				                     */
+/*				return the cell which matches expr				                     */
 /*fulfill the ORDER field of cell with leaves of pattern matching			      */
 /******************************************************************************/
 extern cell_list* cell_pattern __P ((chain_list* expr));
 
 /******************************************************************************/
-/*		         return the cell tristate wich matches biabl				         */
+/*		         return the cell tristate which matches biabl				         */
 /*fulfill the ORDER field of cell with leaves of pattern matching			      */
 /******************************************************************************/
 extern cell_list* cell_pattern_bus __P ((biabl_list* biabl));
 
 /******************************************************************************/
-/*		return the cell register wich matches biabl				                  */
+/*		return the cell register which matches biabl				                  */
 /*fulfill the ORDER field of cell with leaves of pattern matching			      */
 /******************************************************************************/
 extern cell_list* cell_pattern_reg __P ((biabl_list* biabl));

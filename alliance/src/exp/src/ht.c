@@ -22,13 +22,13 @@ htelt_t *eltadd (htelt_t * list, char *key)
   }
   else if ((new_elt = malloc (sizeof (htelt_t))) == NULL)
   {
-    perror ("add elt in dictionnary");
+    perror ("add elt in dictionary");
     exit (1);
   }
   if (key)
     if ((new_elt->KEY = strdup (key)) == NULL)
     {
-      perror ("add elt in dictionnary");
+      perror ("add elt in dictionary");
       exit (1);
     }
   new_elt->NEXT = list;
@@ -147,7 +147,7 @@ static long hash (ht_t * ht, char *key)
 
   if (ht == NULL)
   {
-    fprintf (stderr, "dictionnary not allocated\n");
+    fprintf (stderr, "dictionary not allocated\n");
     exit (1);
   }
   if ((key == NULL) || (length == 0))

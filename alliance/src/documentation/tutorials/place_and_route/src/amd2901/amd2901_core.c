@@ -53,7 +53,7 @@ main()
   GENLIB_LOCON("vss", IN   ,"vss");
 
 
-  /* **************** Data-Path Instanciation ***************** */
+  /* **************** Data-Path Instantiation ***************** */
 
 
   GENLIB_LOINSE("amd2901_dpt", "amd2901_dpt",
@@ -112,7 +112,7 @@ main()
        "vss => vss", 0);
 
 
-  /* ***************** Control Instanciation ****************** */
+  /* ***************** Control Instantiation ****************** */
 
 
   GENLIB_LOINSE("amd2901_ctl", "ctl",

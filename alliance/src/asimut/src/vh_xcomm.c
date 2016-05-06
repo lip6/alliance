@@ -1132,7 +1132,7 @@ struct papat *pt_papat;
 
 	/* ###------------------------------------------------------### */
 	/*   if no user predicted event has been found and an event has	*/
-	/* been occured, add a new paevt structure to the pattern. Use	*/
+	/* been occurred, add a new paevt structure to the pattern. Use	*/
 	/* a wrong value (the previous value) as user defined value.	*/
 	/* Remember that a user predicted '?*' is always an event.	*/
 	/* ###------------------------------------------------------### */
@@ -1168,7 +1168,7 @@ struct papat *pt_papat;
 	/*    if there is an event related to the input-output, and if	*/
 	/* the value predicted by the user and the simulated value do	*/
 	/* not match print out an error message. In such a case add an	*/
-	/* event on the same input-ouput with a wrong predicted value	*/
+	/* event on the same input-output with a wrong predicted value	*/
 	/* to the next pattern (if it exists).				*/
 	/* ###------------------------------------------------------### */
 
@@ -1224,7 +1224,7 @@ struct papat *pt_papat;
 
 	/* ###------------------------------------------------------### */
 	/* If an error occurs, and if no user event is scheduled in the	*/
-	/* next pattern, add an event on the same input-ouput with a	*/
+	/* next pattern, add an event on the same input-output with a	*/
 	/* wrong predicted value to the next pattern (if it exists).	*/
 	/* ###------------------------------------------------------### */
 
@@ -1407,9 +1407,9 @@ unsigned int   labelsiz;
         }
 
 	/* ###------------------------------------------------------### */
-	/*    if an event has been occured, switch ON a spy_flag.	*/
+	/*    if an event has been occurred, switch ON a spy_flag.	*/
 	/*    and append the paiol IOLNBR to the label.			*/
-	/*    if an event has been occured, add a new paevt structure.	*/
+	/*    if an event has been occurred, add a new paevt structure.	*/
 	/* ###------------------------------------------------------### */
 
       if (pt_paiol->VALUE != value)
@@ -1507,7 +1507,7 @@ unsigned int   labelsiz;
           }
 
 	/* ###------------------------------------------------------### */
-	/*    if an event has been occured, add a new paevt structure.	*/
+	/*    if an event has been occurred, add a new paevt structure.	*/
 	/* ###------------------------------------------------------### */
 
         if (pt_paiol->VALUE != value)

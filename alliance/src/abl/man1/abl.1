@@ -6,7 +6,7 @@
 \fBabl\fP \- Prefixed representation for boolean functions
 .so man1/alc_origin.1
 .SH DESCRIPTION
-\fIlibablmmm.a\fP is a library that enables to represent a boolean function in a LISP-like form. An ABL is a prefixed internal representation for a boolean function having standard operators as OR,NOR,NAND,XOR,NOT and AND. An ABL is only made up of doublets. A doublet is composed of two fields wich are accessible by the functionnal \fI#define\fP \fICAR\fP and \fICDR\fP. A doublet is implemented with a MBK \fIchain_list\fP. 
+\fIlibablmmm.a\fP is a library that enables to represent a boolean function in a LISP-like form. An ABL is a prefixed internal representation for a boolean function having standard operators as OR,NOR,NAND,XOR,NOT and AND. An ABL is only made up of doublets. A doublet is composed of two fields which are accessible by the functionnal \fI#define\fP \fICAR\fP and \fICDR\fP. A doublet is implemented with a MBK \fIchain_list\fP. 
 .br
 \fIExpression\fP is the generic term for a boolean function represented by an ABL. An expression can be an atomic expression or an operator expression. The function \fBf = a\fP is represented by an atomic expression whereas \fBf = (or a b)\fP is represented by an operator expression. An atomic expression is made up of a single doublet having the \fINEXT\fP pointer equal to NULL and \fIDATA\fP pointer equal to the identifier pointer. A constant atomic expression is an atomic expression having the string  "'0'" or "'1'" as identifier.
 .br

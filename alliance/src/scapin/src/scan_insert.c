@@ -341,7 +341,7 @@ void ScanInsertScanPath( LoFigure, ScanParam, PathParam,
   }
 
 /*
-** Create all usefull hash tables (Instance/Reg/Reg Mux etc)
+** Create all useful hash tables (Instance/Reg/Reg Mux etc)
 */
   RegHashTable = createauthtable( 100 );
 

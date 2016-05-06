@@ -125,7 +125,7 @@ char          mode    ;
       EXIT(1);
       }
     /* ----------------------------------------------------------------	*/
-    /* Now, with the new figure, we duplicate the new informations	*/
+    /* Now, with the new figure, we duplicate the new information	*/
     /* to fill the old one.						*/
     /* ----------------------------------------------------------------	*/
     pt_lofig = mvl_fill(pt_lofig_tmp, MVL_LOFPNT);

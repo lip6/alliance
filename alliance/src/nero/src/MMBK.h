@@ -109,7 +109,7 @@ namespace MBK {
     public: CRect       rect;   // Rectangle (MBK coordinates).
     public: CRect       grid;   // Rectangle (routing grid units).
 
-      // Contructor.
+      // Constructor.
     public: CXRect (CDRGrid* agrid);
 
     // Predicate.

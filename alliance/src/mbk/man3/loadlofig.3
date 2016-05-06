@@ -14,7 +14,7 @@ loadlofig
 .SH NAME
 loadlofig \- load a new logical cell model from disk 
 .so man1/alc_origin.1
-.SH SYNOPSYS
+.SH SYNOPSIS
 .nf
 .if n \{\
 .ft B \}
@@ -45,7 +45,7 @@ connectors and extrernal signals are loaded in memory, or \fB'C'\fP, that
 loads the "complement" of an already partially loaded cell in order to
 keep the same pointer when accessing the same file.
 .br
-The \fBloadlofig\fP(3) function in fact performs a call to a parser, choosen
+The \fBloadlofig\fP(3) function in fact performs a call to a parser, chosen
 by the \fBMBK_IN_LO\fP(1) environment variable. The directories searched for the
 file are first the one sets by \fBMBK_WORK_LIB\fP(1) and then, in the described
 order, the ones set by \fBMBK_CATA_LIB\fP(1).

@@ -14,7 +14,7 @@ getlofig
 .SH NAME
 getlofig \- give back a pointer to a \fIlofig\fP 
 .so man1/alc_origin.1
-.SH SYNOPSYS
+.SH SYNOPSIS
 .nf
 .if n \{\
 .ft B \}
@@ -40,7 +40,7 @@ warranty that the expected information is present in memory.
 If \fImode\fP is \fB'A'\fP then the figure has all its lists filled, else
 the figure may either be complete or interface only.
 .br
-This function allows to completly mask disk access for applications
+This function allows to completely mask disk access for applications
 programs. If the figure is in memory, with the specified \fImode\fP,
 then the function returns the appropriate pointer. Else, the function performs
 a call to the \fBloadlofig(3)\fP and returns a pointer to the loaded

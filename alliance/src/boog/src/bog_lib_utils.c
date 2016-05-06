@@ -153,7 +153,7 @@ extern cell_list* addCell(befig_list* befig)
 
    cell->NAME=befig->NAME;
    cell->DELAY=0;
-   cell->MODE='P';                  /*cell won't be developped in lofig result*/
+   cell->MODE='P';                  /*cell won't be developed in lofig result*/
    cell->AREA=getgenericarea(befig);
    cell->ABL=NULL;
    cell->BIABL=NULL;

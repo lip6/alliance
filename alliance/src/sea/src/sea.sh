@@ -387,7 +387,7 @@
    ALLIANCE_TOP="/users/cao/jpc/alliance/Solaris"
 
    echo "WARNING:"
-   echo "WARNING: You are using the developement version."
+   echo "WARNING: You are using the development version."
    echo "WARNING: Resetting \$ALLIANCE_TOP to \"$ALLIANCE_TOP\"."
    echo "WARNING:"
    echo ""

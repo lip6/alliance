@@ -8,7 +8,7 @@ help() {
       echo "Syntax: `basename $0` [-vk] source-file (without extension)"
       echo "                       -v : verbose mode"
       echo "                       -k : keeps  the executable (whith debugging"
-      echo "                            informations) along with the"
+      echo "                            information) along with the"
       echo "                            compilation Makefile after completion"
       exit 1
 }

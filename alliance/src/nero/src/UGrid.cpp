@@ -198,7 +198,7 @@ void  CDRGrid::iterator::valid (bool validindex)
   throw (e_matrix_iterator)
 {
   if (_drgrid == NULL) {
-    throw e_matrix_iterator ("Attempt to use an unitialized grid iterator.");
+    throw e_matrix_iterator ("Attempt to use an uninitialized grid iterator.");
   }
 
   if ( (validindex) && (_index == INT_MAX) )

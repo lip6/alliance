@@ -465,7 +465,7 @@ void BoomBehDeleteUselessAux( BehFigure, InitialAux, RemoveBerin )
 
   if ( IsBoomDebugLevel1() )
   {
-    BoomPrintf( stdout, "Count Occurences\n" );
+    BoomPrintf( stdout, "Count Occurrences\n" );
   }
 
   BoomBehScanAbl( BehFigure, BoomCountAuxOccurAbl, 0 );

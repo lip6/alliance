@@ -25,7 +25,7 @@
  * generics.
  *
  * Revision 1.5  2002/12/10 11:39:05  fred
- * Adding correct generation of uncomplete vectors.
+ * Adding correct generation of incomplete vectors.
  *
  * Revision 1.4  2002/12/06 09:56:05  fred
  * Erasing a forgotten debug dump !
@@ -449,7 +449,7 @@ int length, j;
          }
 
    /*
-    * Components instanciation
+    * Components instantiation
     */
    f->LOINS=(loins_list *)reverse((chain_list *)f->LOINS);
    for (i=f->LOINS; i; i=i->NEXT) {
@@ -621,7 +621,7 @@ int        sigi = 0;
 
    /* Ensure that connector and internal signal names are not
     * identical, and correct this prior to build the velofig.
-    * This nice check is in O(nc * ns), because I dont feel like
+    * This nice check is in O(nc * ns), because I don't feel like
     * building hash tables and all that stuff to speed up things.
     * I may have to if this is really awful */
 

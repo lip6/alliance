@@ -64,7 +64,7 @@ void Usage (Name)
    fprintf (stderr, "\t\t  to translate to real layout\n");
    fprintf (stderr, "\tresult\t: result filename of real layout circuit\n");
    fprintf (stderr, "\t\t  source name is used, if result is absent\n\n");
-   fprintf (stderr, "\toptionnal options (any order, any occurence) :\n");
+   fprintf (stderr, "\toptionnal options (any order, any occurrence) :\n");
    fprintf (stderr, "\t-1\t: only (1) level is translated, all otherwise.\n");
    fprintf (stderr, "\t-c\t: deletes top-level (c)onnectors, keeps all others\n");
    fprintf (stderr, "\t-C\t: keeps top-level (c)onnectors, deletes all others\n");
@@ -196,7 +196,7 @@ int main (argc, argv)
    }
 
 /*\
- * setting environement
+ * setting environment
  * MBK_CATAL_NAME    : file where file name to be replaced are put
  * MBK_CATA_LIB      : where cells, catal file and techno file are
  * MBK_WORK_LIB      : where result file is written or where techno file is

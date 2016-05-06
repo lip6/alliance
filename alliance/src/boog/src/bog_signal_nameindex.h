@@ -53,7 +53,7 @@ extern void free_nameindex __P (());
 extern int forbid_radical __P ((char* name));
 
 /***************************************************************************/
-/* return name concatenated with an index and seperated by '_'             */
+/* return name concatenated with an index and separated by '_'             */
 /* this index is : how many times I have sent this name to getnameindex()  */
 /* unicity is guaranteed until you run free_nameindex() below              */
 /***************************************************************************/

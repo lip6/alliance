@@ -155,7 +155,7 @@ void SyfEnv( Trace )
 
   if ( Trace )
   {
-    fprintf( stdout, "\t\t--> Bdd environement\n\n" );
+    fprintf( stdout, "\t\t--> Bdd environment\n\n" );
     fprintf( stdout, "\t\t\tSYF_BDD_VAR_NODE      : %ld\n", SYF_BDD_VAR_NODE      );
     fprintf( stdout, "\t\t\tSYF_BDD_MAX_NODE      : %ld\n", SYF_BDD_MAX_NODE      );
     fprintf( stdout, "\t\t\tSYF_BDD_OPER_NODE     : %ld\n", SYF_BDD_OPER_NODE     );
@@ -163,7 +163,7 @@ void SyfEnv( Trace )
     fprintf( stdout, "\t\t\tSYF_BDD_REORDER_RATIO : %ld\n", SYF_BDD_REORDER_RATIO );
     fprintf( stdout, "\t\t\tSYF_BDD_REORDER_FUNC  : %c\n", ReorderFunc           );
 
-    fprintf( stdout, "\n\t\t--> Mustang and Jedi environement\n\n" );
+    fprintf( stdout, "\n\t\t--> Mustang and Jedi environment\n\n" );
     fprintf( stdout, "\t\t\tSYF_MUSTANG_JEDI_ATOM : %d\n", SYF_MUSTANG_JEDI_ATOM );
     fprintf( stdout, "\n" );
   }

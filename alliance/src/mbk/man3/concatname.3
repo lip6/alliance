@@ -14,7 +14,7 @@ concatname
 .SH NAME
 concatname \- concatenate two names with user separator
 .so man1/alc_origin.1
-.SH SYNOPSYS
+.SH SYNOPSIS
 .nf
 .if n \{\
 .ft B \}
@@ -35,7 +35,7 @@ Pointer to a string
 .SH DESCRIPTION
 The \fBconcatname\fP function adds the separator defined by \fBMBK_SEPAR\fP(1),
 and then the string \fIt\fP at the end of string \fIs\fP. This is not like a
-\fBstrcat\fP(3) of the standard library, because \fIs\fP is not beeing modified.
+\fBstrcat\fP(3) of the standard library, because \fIs\fP is not being modified.
 The string returned has already been put in the names dictionary by
 a call to \fBnamealloc\fP(3).
 .SH RETURN VALUE

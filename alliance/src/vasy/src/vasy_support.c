@@ -1773,7 +1773,7 @@ void VasySupportVpnTrans( VpnFigure, VpnProc, VpnTrans, CheckVar )
             }
           }
 /*
-**  Verify that no previous signal or variable assigment use this variable !
+**  Verify that no previous signal or variable assignment use this variable !
 */
           for ( VpnAction2  = VpnTrans->ACT;
                 VpnAction2 != (vpnact_list *)0;

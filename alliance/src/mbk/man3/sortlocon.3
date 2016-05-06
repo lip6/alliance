@@ -14,7 +14,7 @@ sortlocon
 .SH NAME
 sortlocon \- sort the logical connectors of a figure by name
 .so man1/alc_origin.1
-.SH SYNOPSYS
+.SH SYNOPSIS
 .nf
 .if n \{\
 .ft B \}
@@ -35,7 +35,7 @@ by \fI\(**connectors\fP.
 The connectors are sorted by names, using a numerical comparison function
 that ensures \fBx_12 > x_2\fP.
 .br
-The standart \fBqsort\fP(3) function library is called for sorting.
+The standard \fBqsort\fP(3) function library is called for sorting.
 Therefore, a table the number of connectors wide is created.
 This is not very memory consuming since the number of connectors in a circuit
 interface is quite small, nor very time consuming since this algorithm runs

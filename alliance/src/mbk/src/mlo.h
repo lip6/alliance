@@ -155,7 +155,7 @@ losig_list;
 /************************* Analogical specific structures ***************************/
 /************************************************************************************/
 
-/********************** Complementary transitor informations ************************/
+/********************** Complementary transitor information ************************/
 
 /* The structure is put in the USER field of the transistor */
 /* with the LOTRS_INFO ptype                                */

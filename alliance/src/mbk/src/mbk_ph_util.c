@@ -22,7 +22,7 @@
  */
 
 /* 
- * Purpose : utilites functions for physical view
+ * Purpose : utilities functions for physical view
  * Date    : 06/03/92
  * Author  : Frederic Petrot <Frederic.Petrot@lip6.fr>
  * Modified by Czo <Olivier.Sirol@lip6.fr> 1997,98
@@ -835,7 +835,7 @@ char  *stru_name;
       }
 
    /* ###------------------------------------------------------### */
-   /*    _exit and _stop commands are allways available     */
+   /*    _exit and _stop commands are always available     */
    /* ###------------------------------------------------------### */
 
     tab[VHD__XTDFN] = avail;

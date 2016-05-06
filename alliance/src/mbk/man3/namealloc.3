@@ -14,7 +14,7 @@ namealloc
 .SH NAME
 namealloc \- hash table for strings
 .so man1/alc_origin.1
-.SH SYNOPSYS
+.SH SYNOPSIS
 .nf
 .if n \{\
 .ft B \}
@@ -30,17 +30,17 @@ char \(**inputname;
 \fIinputname\fP
 Pointer to a string of characters
 .SH DESCRIPTION
-The \fBnamealloc\fP function creates a dictionnary of names in mbk.
+The \fBnamealloc\fP function creates a dictionary of names in mbk.
 It warranties equality on characters string if the pointers to these
 strings are equal, at \fBstrcmp\fP(3) meaning. This means also that there
 is a single memory address for a given string.
 .br
 The case of the letters do not matter. All names are changed to lower case
-before beeing introduced in the symbol table. This is needed because most
+before being introduced in the symbol table. This is needed because most
 of the file format do not check case.
 .br
 \fBnamealloc\fP is used by all mbk utility function using names, so its use
-should be needed only when directly filling or modifing the structure, or when
+should be needed only when directly filling or modifying the structure, or when
 having to compare an external string to mbk internal ones. This should speed
 up string comparisons.
 .br

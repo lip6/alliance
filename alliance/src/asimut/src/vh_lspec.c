@@ -1341,10 +1341,10 @@ struct paseq      *pt_paseq;
 /* description	: restore the mode of external ports of the description	*/
 /*		  when the declared mode is LINKAGE.			*/
 /*									*/
-/*		  First, it restores (if necessary) the informations on	*/
+/*		  First, it restores (if necessary) the information on	*/
 /*		  internal ports checking the consistency between the	*/
 /*		  model and the instance. Then, it propagates restored	*/
-/*		  informations through the signals til the external	*/
+/*		  information through the signals til the external	*/
 /*		  ports. In the final step it checks the consistency of	*/
 /*		  connexions on the signals				*/
 /* called funct	: beh_initab , beh_chktab, beh_addtab, beh_fretab,	*/
@@ -1800,7 +1800,7 @@ struct befig  *head_befig;
 
 /* ###--------------------------------------------------------------### */
 /* function	: vhl_getref						*/
-/* description	: get signal refernces for a distributed simulation	*/
+/* description	: get signal references for a distributed simulation	*/
 /* called func.	: beh_chktab,						*/
 /* ###--------------------------------------------------------------### */
 

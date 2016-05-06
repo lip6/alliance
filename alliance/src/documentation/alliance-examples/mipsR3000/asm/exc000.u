@@ -31,7 +31,7 @@ init:
 		nop
 
 	;  ###--------------------------------------------------------###
-	;  #   check that the load has faild and the content of the	#
+	;  #   check that the load has failed and the content of the	#
 	;  # register has not been altered				#
 	;  ###--------------------------------------------------------###
 

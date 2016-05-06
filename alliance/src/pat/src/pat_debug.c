@@ -436,7 +436,7 @@ char         **str   ;			/* recognized strings		*/
 /* function	: splitline						*/
 /* description	: read a line (the space must have been reserved by the	*/
 /*		  caller - *words) from the standard input and split it	*/
-/*		  into seperate words. Return the number of words read.	*/
+/*		  into separate words. Return the number of words read.	*/
 /* called func.	: none							*/
 /* ###--------------------------------------------------------------### */
 

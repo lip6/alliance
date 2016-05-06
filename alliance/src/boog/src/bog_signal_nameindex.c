@@ -94,7 +94,7 @@ extern int forbid_radical(char* name)
 
 
 /***************************************************************************/
-/* return name concatenated with an index and seperated by '_'             */
+/* return name concatenated with an index and separated by '_'             */
 /* this index is : how many times I have sent this name to getnameindex()  */
 /* unicity is guaranteed until you run Put_index_to_zero() below           */
 /***************************************************************************/
@@ -117,7 +117,7 @@ extern char* getnameindex(char* name)
       return name;      /*unchanged*/
    }
    else {
-      /*add an occurence*/
+      /*add an occurrence*/
       elem->VALUE++;
       memo_char=SEPAR;     /*external value from MBK environment*/
       SEPAR='_';

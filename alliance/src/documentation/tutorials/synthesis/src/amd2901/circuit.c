@@ -13,7 +13,7 @@ GENLIB_LOCON("s",OUT,"s1");
 GENLIB_LOCON("vdd",IN,"vdd");
 GENLIB_LOCON("vss",IN,"vss");
 
-/* Instanciation of the logical doors */
+/* Instantiation of the logical doors */
 GENLIB_LOINS("na2_x1","nand2","a1","c1","f1","vdd","vss",0);
 GENLIB_LOINS("no2_x1","nor2","b1","e1","g1","vdd","vss",0);
 GENLIB_LOINS("o2_x2","or2","d1","f1","h1","vdd","vss",0);

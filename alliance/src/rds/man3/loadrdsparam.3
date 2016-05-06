@@ -14,7 +14,7 @@ loadrdsparam
 .SH NAME
 loadrdsparam \- load parameters from symbolic to real conversion. 
 .so man1/alc_origin.1
-.SH SYNOPSYS
+.SH SYNOPSIS
 .nf
 .if n \{\
 .ft B \}
@@ -28,7 +28,7 @@ none
 .SH DESCRIPTION
 The \fIloadrdsparam\fP function loads parameters contained in a file with extention ".rds" which is the translation file from symbolic to real. Some of these files are contained in the path "/labo/etc".See them for more information.
 .br
-When programming, this function must be called before using the functions of the RFM library ( MBK to RDS convertion functions).
+When programming, this function must be called before using the functions of the RFM library ( MBK to RDS conversion functions).
 .br
 The name of the file "nnn.rds" is set with the environment variable of unix system "RDS_TECHNO_NAME". For more information about it, see the RTL library.
 Before calling the loadrdsparam function, environment variables must be set by using the function \fIrdsenv\fP.

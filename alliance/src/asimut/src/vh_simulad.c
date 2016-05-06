@@ -268,7 +268,7 @@ char *argv[];
         arg_flg [i+1] = 1;
         }
 
-        /*    The spy option has been supressed (09 Sep 1999).          */
+        /*    The spy option has been suppressed (09 Sep 1999).          */
         /*    Spied signals are now specified in the pattern file.      */
 
 /*---------------
@@ -887,7 +887,7 @@ char *argv[];
         lst_papat = vhx_insertspypat (pt_paseq, lst_papat, pt_lkdspy, cur_date, labelsiz);
         }
         /* ###------------------------------------------------------### */
-        /*    If a fatal error has been occured during the simulation   */
+        /*    If a fatal error has been occurred during the simulation   */
         /* (Assert Violation, Bus conflict), set the end flag of the    */
         /* pattern sequence to avoid loading new patterns and break the */
         /* simulation cycle                                             */

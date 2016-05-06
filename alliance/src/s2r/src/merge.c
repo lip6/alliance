@@ -62,7 +62,7 @@ static char *name_transfert (desc1, desc2)
       return desc2->NAME;
 /*\
  * some segments in different chanels made by scr(1) bloc has
- * different name but are linked together throught cells, s2r
+ * different name but are linked together through cells, s2r
  * merged then, but can't say it's a error!
  *
  * if (desc1->u_rec.name != desc2->u_rec.name)

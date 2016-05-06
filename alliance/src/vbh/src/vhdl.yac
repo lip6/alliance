@@ -1294,7 +1294,7 @@ element_declaration
 	;
 
 /*
-**  identifier_list is used consistantly in definitions of new Identifiers,
+**  identifier_list is used consistently in definitions of new Identifiers,
 **  with one exception--IMPORT_DIRECTIVE.  The IMPORT_DIRECTIVE expects to
 **  find all Identifiers declared at the local scope and it is an error if
 **  they are not.  In all other cases, it is an error to have two Identifiers

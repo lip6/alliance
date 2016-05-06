@@ -225,7 +225,7 @@ extern int format_cell(befig_list* befig)
    if (befig->BEREG) {
       /*only one register*/
       if (befig->BEREG->NEXT || befig->BEBUS || befig->BEBUX) return 0;
-      /*one ouput*/
+      /*one output*/
       if (!befig->BEOUT || befig->BEOUT->NEXT) return 0;
       /*  forbid logic on output */ 
       if (!ABL_ATOM(befig->BEOUT->ABL)) {
@@ -246,14 +246,14 @@ extern int format_cell(befig_list* befig)
    if (befig->BEBUS) {
       /*only one bus*/
       if (befig->BEBUS->NEXT || befig->BEREG || befig->BEBUX) return 0;
-      /*one ouput: bebus*/
+      /*one output: bebus*/
       if (befig->BEOUT) return 0;
    }
 
    if (befig->BEBUX) {
       /*only one internal bus*/
       if (befig->BEBUX->NEXT || befig->BEREG || befig->BEBUS) return 0;
-      /*one ouput: beout*/
+      /*one output: beout*/
       if (!befig->BEOUT || befig->BEOUT->NEXT) return 0;
       /*  forbid logic on output */ 
       if (!ABL_ATOM(befig->BEOUT->ABL)) {
@@ -281,7 +281,7 @@ extern int format_cell(befig_list* befig)
    }
 
    if (befig->BEOUT) {
-      /*one ouput: beout*/
+      /*one output: beout*/
       if (befig->BEOUT->NEXT || befig->BEBUS) return 0;
    }
 

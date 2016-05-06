@@ -74,7 +74,7 @@ static void find_d_z_abl(chain_list* abl, long value)
 
 
 /****************************************************************************/
-/*  change 'z' and 'd' occurence in '0' or '1' in all expressions of befig  */
+/*  change 'z' and 'd' occurrence in '0' or '1' in all expressions of befig  */
 /****************************************************************************/
 extern void remove_DC(befig_list* befig)
 {

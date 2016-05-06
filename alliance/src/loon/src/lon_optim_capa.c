@@ -90,7 +90,7 @@ static ptype_list* sort_capa(ptype_list* capa)
 
 /***************************************************************************/
 /* try to improve timing by changing cell impedance                        */
-/* return 1 if replace is successfull                                      */
+/* return 1 if replace is successful                                      */
 /***************************************************************************/
 static int change_instance(loins_list* loins, losig_list* losig, lofig_list* lofig, int optim_level)
 {

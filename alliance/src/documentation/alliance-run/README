@@ -65,17 +65,17 @@ amd2901_core.c:
 	* Description of the amd2901 core in genlib format.
 	  Has to be processed by genlib, to create
 		* amd2901_core.vst:
-			* logical description of amd2901 core which instanciates
+			* logical description of amd2901 core which instantiates
 			  amd2901_dpt.vst and amd2901_ctl.vst.
 		* amd2901_core.ap:
-			* physical description of amd2901 core which instanciates
+			* physical description of amd2901 core which instantiates
 			  amd2901_dpt.ap and expand the abutment box in order
 			  to give enough room to place the control part.
 amd2901_core.ioc:
 	* amd2901_core connectors placement description, used by ocp.
 amd2901_chip.c:
 	* amd2901_chip description in genlib format.
-	  instanciates amd2901_core.vst and the pads from the padlib
+	  instantiates amd2901_core.vst and the pads from the padlib
 	  library.
 amd2901_chip.rin:
 	* pads placement file, used by ring.

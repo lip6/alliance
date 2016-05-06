@@ -9,7 +9,7 @@ GENLIB_DEF_LOFIG
 .TH GENLIB_DEF_LOFIG.3 "October 1, 1997" "ASIM/LIP6" "PROCEDURAL GENERATION LANGUAGE"
 .SH NAME
 GENLIB_DEF_LOFIG \- open a netlist model as current figure
-.SH SYNOPSYS
+.SH SYNOPSIS
 .nf
 .if n \{\
 .ft B \}
@@ -29,7 +29,7 @@ Name of the cell which all futher calls to genlib logical functions will work on
 \fBDEF_LOFIG\fP defines the current working structural figure by it's name, 
 the \fIcellname\fP argument. It can be use anywhere in the \fBgenlib\fP 
 program, but must appear at least once at the top of it, since it also 
-initalize the user's preferences through environment variables.
+initialize the user's preferences through environment variables.
 .br
 If the figure called cellname doesn't exists in memory, it is created. 
 If it already exists in memory, it makes it the current working figure. 

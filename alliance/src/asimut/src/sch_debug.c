@@ -283,7 +283,7 @@ char         **str   ;			/* recognized strings		*/
 /* function	: splitline						*/
 /* description	: read a line (the space must have been reserved by the	*/
 /*		  caller - *words) from the standard input and split it	*/
-/*		  into seperate words. Return the number of words read.	*/
+/*		  into separate words. Return the number of words read.	*/
 /* called func.	: none							*/
 /* ###--------------------------------------------------------------### */
 
@@ -599,7 +599,7 @@ char *type;				/* structure's type		*/
     {
 	/* ###------------------------------------------------------### */
 	/*    if the first word of the line has not been recognized,	*/
-	/* print an error message. Otherwise, proccess the command line	*/
+	/* print an error message. Otherwise, process the command line	*/
 	/* (generally it is a request for displaying a specific field).	*/
 	/*								*/
 	/* At this point :						*/

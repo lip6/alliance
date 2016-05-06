@@ -22,7 +22,7 @@
  */
 
 /* 
- * Purpose : system dependant functions
+ * Purpose : system dependent functions
  * Date    : 06/03/92
  * Author  : Frederic Petrot <Frederic.Petrot@lip6.fr>
  * Modified by Czo <Olivier.Sirol@lip6.fr> 1997,98
@@ -107,7 +107,7 @@ char *value;
 
 /* file opening :
    defines the strategy used for searching and opening file in the
-   mbk environement. */
+   mbk environment. */
 FILE* mbkfopen(const char *name, const char *extension, const char *mode)
 {
   FILE *ptf;

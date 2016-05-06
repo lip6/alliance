@@ -14,7 +14,7 @@ dellores
 .SH NAME
 dellores \- delete a logical resistor
 .so man1/alc_origin.1
-.SH SYNOPSYS
+.SH SYNOPSIS
 .nf
 .if n \{\
 .ft B \}
@@ -38,7 +38,7 @@ Pointer to the resistor to be deleted.
 \fBdellores\fP delete the resistor pointed to by \fIptres\fP in the figure 
 pointed to by \fIptfig\fP. 
 The list consistency is maintainded, and the space freed. The resistor
-connectors are also freed, since if the resistor disapear,
+connectors are also freed, since if the resistor disappear,
 no more connections can occur on it.
 .SH RETURN VALUE
 \fBdellores\fP returns \fB1\fP if the resistor has been deleted, \fB0\fP

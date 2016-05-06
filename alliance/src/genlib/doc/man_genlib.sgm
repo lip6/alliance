@@ -145,7 +145,7 @@
       compaction).
       </para>
       <para> The symbolic objects are segments (wires), vias (contacts),
-      connectors (I/Os), references and instances. For more informations,
+      connectors (I/Os), references and instances. For more information,
       see
       <citerefentry><refentrytitle>phseg</refentrytitle>
       <manvolnum>1</manvolnum></citerefentry>,
@@ -474,12 +474,12 @@
       </tgroup>
     </table>
     -->
-    See the corresponding manual pages for further informations.
+    See the corresponding manual pages for further information.
     </para>
     <para> In  order to compile and execute a &genlib; file, one has to
     call &genlib; with one argument, that is the &genlib; source file.
     The source file must have a .c extension, but the extension should
-    not be mentionned on the command line.
+    not be mentioned on the command line.
     </para>
     <para> The names used in genlib, as arguments to genlib functions,
     should be alphanumerical, including the underscore. They also are not
@@ -534,7 +534,7 @@
           </para>
         </listitem>
         <listitem>
-          <para> &arg-keep-log; : do not erase the log file after a successfull
+          <para> &arg-keep-log; : do not erase the log file after a successful
           completion (the log is keeped after a faulty run).
           </para>
         </listitem>

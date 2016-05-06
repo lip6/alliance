@@ -118,7 +118,7 @@ struct lkdins *pt_lkdins;
           {
 	/* ###------------------------------------------------------### */
 	/*   read the content of the ram and write the result into the	*/
-	/* projected value of ouput data				*/
+	/* projected value of output data				*/
 	/* ###------------------------------------------------------### */
 
           dh_out = local->HI_RAM [adr];

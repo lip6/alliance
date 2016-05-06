@@ -48,17 +48,17 @@ level, so it should unique. When working on both layout and netlist views of
 a cell, instance names should be the same on each representation.
 .TP
 \fIFIGNAME\fP
-Name of the model of the instanciated cell.
+Name of the model of the instantiated cell.
 .TP
 \fILOCON\fP
 Pointer to the head of the list of connectors of the instance. Consistency
 between the connectors of the instance and the connectors of its model on disk
-is not ensured by the parsers, because a model local to the file beeing parsed
+is not ensured by the parsers, because a model local to the file being parsed
 is used, not the possible model on disk. See \fBlocon\fP(3) for details.
 .TP
 \fIUSER\fP
 Pointer to a ptype list, see \fBptype\fP(3) for details, that is a general purpose
-pointer used to share informations on the instance.
+pointer used to share information on the instance.
 .SH SEE ALSO
 .BR mbk (1),
 .BR addloins (3),

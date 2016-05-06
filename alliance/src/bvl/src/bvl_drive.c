@@ -564,7 +564,7 @@ long           trace_mode;
       }
 
 	/* ###------------------------------------------------------### */
-	/*   print a concurrent signal assignment for each ouput port	*/
+	/*   print a concurrent signal assignment for each output port	*/
 	/* ###------------------------------------------------------### */
 
     pt_out = pt_fig->BEOUT;

@@ -109,7 +109,7 @@ sed -i "s|tutorials||" documentation/Makefile.am
 sed -i "s|tutorials||" documentation/Makefile.in
 sed -i "s|documentation/tutorials/Makefile||" configure*
 pushd documentation/tutorials
-    # clean unneccessary files
+    # clean unnecessary files
     %{__rm} Makefile*
     %{__rm} *.pdf
     # build documentation
@@ -517,7 +517,7 @@ touch --no-create %{_datadir}/icons/hicolor || :
 * Sun Oct 13 2002 Jean-Paul.Chaput <Jean-Paul.Chaput@lip6.fr>
 - autoconf m4 macros moved back in the Alliance source tree to avoid
   re-declaration on our development computers (on which the macros
-  are in teh source tree).
+  are in the source tree).
 - Adopt the versioning scheme from czo.
 - Try to switch to dynamic libraries.
 

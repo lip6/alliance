@@ -14,7 +14,7 @@ dellotrs
 .SH NAME
 dellotrs \- delete a logical transistor
 .so man1/alc_origin.1
-.SH SYNOPSYS
+.SH SYNOPSIS
 .nf
 .if n \{\
 .ft B \}
@@ -37,7 +37,7 @@ Pointer to the transistor to be deleted.
 \fBdellotrs\fP delete the transistor pointed to by \fIpttrs\fP in the figure 
 pointed to by \fIptfig\fP. 
 The list consistency is maintainded, and the space freed. The transistor
-connectors are also freed, since if the transistor disapear,
+connectors are also freed, since if the transistor disappear,
 no more connections can occur on it.
 .SH RETURN VALUE
 \fBdellotrs\fP returns \fB1\fP if the transistor has been deleted, \fB0\fP

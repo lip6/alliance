@@ -14,7 +14,7 @@ addrdsrecwindow
 .SH NAME
 addrdsrecwindow \- adds a rectangle in the windowing of rds structure.
 .so man1/alc_origin.1
-.SH SYNOPSYS
+.SH SYNOPSIS
 .nf
 .if n \{\
 .ft B \}
@@ -34,7 +34,7 @@ The rectangle to add to the windowing.
 \fIRdsWindow\fP
 The head of the windowing which has to contain the rectangle.
 .SH DESCRIPTION
-The \fIaddrdsrecwindow\fP function inserts a rdsrec_list rectangle structure in the windowing of the rds structure. The rectangle is added in one or many windows of the table (it depends on his dimensions). The field \'USER\' of the rectangle is used to point to the list of windows which contains the rectangle. So, the field \'USER\' has to be saved in an added structure to the rdsrec_list structure if librfm functions are used because somes use the field \'USER\' to link rectangles (see librds about field \'USER\').
+The \fIaddrdsrecwindow\fP function inserts a rdsrec_list rectangle structure in the windowing of the rds structure. The rectangle is added in one or many windows of the table (it depends on his dimensions). The field \'USER\' of the rectangle is used to point to the list of windows which contains the rectangle. So, the field \'USER\' has to be saved in an added structure to the rdsrec_list structure if librfm functions are used because some use the field \'USER\' to link rectangles (see librds about field \'USER\').
 .TP
 \fINote\fP
 If the rectangle is contained in only one window, then the field \'USER\' points to a "rdswin_list" window structure.

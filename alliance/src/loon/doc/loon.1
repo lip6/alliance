@@ -52,7 +52,7 @@ LooN \- Local optimizations of Nets.
 gate netlist and also to optimize the delay.
 The netlist can be hierarchical and is flattened if necessary.
 \f4loon\fP runs in batch mode and a parameter file can be used
-(see man \f4lax\fP) to parametrize optimization by adding informations
+(see man \f4lax\fP) to parametrize optimization by adding information
 on outputs (fanin), inputs (fanout, delay) and by setting general
 parameters such as optimization level.
 \f4loon\fP permits to compute delays of gates in the netlist and gives
@@ -95,7 +95,7 @@ Here is the default lax file (see the user's manual for further information abou
 Help mode. Displays possible uses of \f4loon\fP.
 .TP 10
 \f4\-o input_file\fP
-Overwrites the source file if no \fIoutput_file\fP is given. This can be usefull if you don't want several netlist files.
+Overwrites the source file if no \fIoutput_file\fP is given. This can be useful if you don't want several netlist files.
 .TP 10
 \f4\-m optim_mode\fP
 Optimization mode. Can be defined in lax file, it's only a shortcut to define it on command line. This mode number has an array defined between \fI0\fP and \fI4\fP. It indicates the way of optimization the user wants. If \fI0\fP is chosen, the circuit area will be improved. On the other hand, \fI4\fP will improve circuit delays. \fI2\fP is a medium value for optimization.
@@ -104,7 +104,7 @@ Optimization mode. Can be defined in lax file, it's only a shortcut to define it
 Generate a '.xsc' file. It is a color map for each signals contained in \fIoutput_file\fP network. This file is used by \f4xsch\fP to view the netlist. By choosing level 0 or 1 for xsch_mode, you can color respectively the critical path or all signals with delay graduation.
 .TP 10
 \f4\-l lax_file\fP
-Just another way to show explicitely the \f4LAX\fP parameter file name.
+Just another way to show explicitly the \f4LAX\fP parameter file name.
 .br
 
 .SH ENVIRONMENT VARIABLES

@@ -1000,7 +1000,7 @@ static void VasyOneWaitAssignVpnSymbol( VpnFigure, VpnProc  , VpnTrans,
     
         freechain( SupportBdd );
 /*
-**  Search all asynchronous informations
+**  Search all asynchronous information
 */
         BddNode = applybddnode( (bddsystem *)0, ABL_AND, BddCAsync, BddFAsync );
         decbddrefext( BddNode );
@@ -1028,7 +1028,7 @@ static void VasyOneWaitAssignVpnSymbol( VpnFigure, VpnProc  , VpnTrans,
 
         BddDataAsync = BddNode;
 /*
-**  Verify the correctness of asynchronous informations
+**  Verify the correctness of asynchronous information
 */
         BddNode = applybddnode( (bddsystem *)0, ABL_AND, BddCWriteAsync, BddDataAsync );
         decbddrefext( BddNode );
@@ -1069,7 +1069,7 @@ static void VasyOneWaitAssignVpnSymbol( VpnFigure, VpnProc  , VpnTrans,
           BddDataAsync   = incbddrefext( BddData   );
         }
 /*
-**  Add asynchronous informations to symbol
+**  Add asynchronous information to symbol
 */
         {
           if ( BddCSetAsync != BddSystem->ZERO )
@@ -1149,7 +1149,7 @@ static void VasyOneWaitAssignVpnSymbol( VpnFigure, VpnProc  , VpnTrans,
         decbddrefext( BddCWriteAsync  );
         decbddrefext( BddDataAsync    );
 /*
-**  Search all synchronous informations
+**  Search all synchronous information
 */
         if ( EventSymbol != (vpnsym *)0 )
         {
@@ -1246,7 +1246,7 @@ static void VasyOneWaitAssignVpnSymbol( VpnFigure, VpnProc  , VpnTrans,
            
             freechain( SupportBdd );
 /*
-**  Search all synchronous informations
+**  Search all synchronous information
 */
             BddNode = applybddnode( (bddsystem *)0, ABL_AND, BddCSync, BddFSync );
             decbddrefext( BddNode );
@@ -1305,7 +1305,7 @@ static void VasyOneWaitAssignVpnSymbol( VpnFigure, VpnProc  , VpnTrans,
             BddDataSync   = incbddrefext( BddFSync );
           }
 /*
-**  Verify the correctness of synchronous informations
+**  Verify the correctness of synchronous information
 */
           BddNode = applybddnode( (bddsystem *)0, ABL_AND, BddCWriteSync, BddDataSync );
           decbddrefext( BddNode );
@@ -1319,7 +1319,7 @@ static void VasyOneWaitAssignVpnSymbol( VpnFigure, VpnProc  , VpnTrans,
             VasyPrintf( stdout, "Illegal synchronous conditions %s\n", AsgSymbol->NAME );
           }
 /*
-**  Add synchronous informations to symbol
+**  Add synchronous information to symbol
 */
           if ( BddCEdge != BddSystem->ZERO )
           {

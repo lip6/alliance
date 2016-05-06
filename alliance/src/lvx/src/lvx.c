@@ -46,7 +46,7 @@
  *
  * Revision 1.4  2004/05/22 14:26:08  ludo
  * Now, by default LVX does not check unassigned signals between the two input netlists.
- * (this feature is usefull/mandatory with the new VST driver that adds sometimes unused
+ * (this feature is useful/mandatory with the new VST driver that adds sometimes unused
  * signals to have consitent VHDL vectors declaration)
  * The command line option '-u' permits to behave like it was before and then check
  * also unassigned signals.
@@ -456,7 +456,7 @@ unsigned char mark;
     }
 
  prev_mark = ptnode->MARK;
- if (compar == -1) { /* two instances with same insname, but fignames differents */
+ if (compar == -1) { /* two instances with same insname, but fignames different */
     if (prev_mark == mark) { /* the  two instances are in the same figure */
        error_count ++;
        printf ("\n\nInstance '%s' repeated with different fignames in netlist %i:",
@@ -792,7 +792,7 @@ ptype_list *ptype = NULL;
 locon_list *locon;
 unsigned char mark;
 
-/* Searchs in the Tree of all connectors the node corresponding to the 'locon',
+/* Searches in the Tree of all connectors the node corresponding to the 'locon',
    and returns the pointer to the locon in the opposite figure. 'mark' is the
    mark of the figure for the given locon.
    Returns NULL if not found.

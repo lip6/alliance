@@ -901,7 +901,7 @@ TABLE S2R_POST_TREAT
 
 # Two RDS_TALU8 rectangles are written, one with no name and
 # one with the cell name. When merged, the name is lost.
-# It is prefered to have a single rectangle with no name rather
+# It is preferred to have a single rectangle with no name rather
 # than two, one of which is named.
  RDS_TALU8 TREAT NULL
 

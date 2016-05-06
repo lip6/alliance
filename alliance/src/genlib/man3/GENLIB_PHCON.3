@@ -9,7 +9,7 @@ GENLIB_PHCON
 .TH GENLIB_PHCON.3 "October 1, 1997" "ASIM/LIP6" "PROCEDURAL GENERATION LANGUAGE"
 .SH NAME
 GENLIB_PHCON \- place a physical connector in the current figure at absolute coordinates
-.SH SYNOPSYS
+.SH SYNOPSIS
 .nf
 .if n \{\
 .ft B \}
@@ -85,7 +85,7 @@ In order to be able to do so, an \fIindex\fP is computed for each connector
 that has an already existing name, following a topological order.
 Each time a connector is created, the \fIindex\fP is updated, regarding the
 name of the connector.
-Since someone writting a tiler needs to know exactly what connector to access,
+Since someone writing a tiler needs to know exactly what connector to access,
 the indexation algorithm must be known by the user.
 .TP 20
 Connectors with a unique name:
@@ -98,7 +98,7 @@ If two connectors are on the same location, with the same name, then the
 \fIlayer\fP decides which one is has the greater number, from lower level,
 \fBNWELL\fP to upper level, \fBALU3\fP.
 .LP
-The \fIorient\fP paramater may take the following values:
+The \fIorient\fP parameter may take the following values:
 .TP 20
 \fBNORTH\fP
 for a connector placed on the top of the cell.

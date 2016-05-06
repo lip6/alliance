@@ -115,7 +115,7 @@ Here is the default lax file (see the user's manual for further information abou
 \f4  Mapping with a standard cell library\fP
 .br
 Every cell appearing in the directory defined by the environment variable MBK_TARGET_LIB may be used by \f4boog\fP since they are described as a '.vbe' file. There are some restrictions about the type of the cell used. Every cell has to have only one output. 
-The cell must be characterized. The timing and area informations required by \f4boog\fP are specified in the "generic" clause of the ".vbe" file.
+The cell must be characterized. The timing and area information required by \f4boog\fP are specified in the "generic" clause of the ".vbe" file.
 .br
 
 .SH OPTION
@@ -130,10 +130,10 @@ Optimization mode. Can be defined in lax file, it's only a shortcut to define it
 Generate a '.xsc' file. It is a color map for each signals contained in \fIoutput_file\fP network. This file is used by \f4xsch\fP to view the netlist. By choosing level 0 or 1 for xsch_mode, you can color respectively the critical path or all signals with delay graduation.
 .TP 10
 \f4\-o output_file\fP
-Just another way to show explicitely the \f4VST\fP output file name.
+Just another way to show explicitly the \f4VST\fP output file name.
 .TP 10
 \f4\-l lax_file\fP
-Just another way to show explicitely the \f4LAX\fP parameter file name.
+Just another way to show explicitly the \f4LAX\fP parameter file name.
 .TP 10
 \f4\-d debug_file\fP
 Generates a \f4VBE\f debug file. It comes from internal result algorithm. Users aren't concerned.

@@ -108,7 +108,7 @@ struct lkdins *pt_lkdins;
         {
 	/* ###------------------------------------------------------### */
 	/*   read the content of the ram and write the result into the	*/
-	/* projected value of ouput data				*/
+	/* projected value of output data				*/
 	/* ###------------------------------------------------------### */
 
         if (oe == 1)

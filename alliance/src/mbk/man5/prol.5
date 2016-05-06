@@ -6,7 +6,7 @@
 .so man1/alc_origin.1
 .SH DESCRIPTION
 This file describes the rules used by the \fBmbk\fP(1) to \fBrds\fP translator.
-In the following file, symbolic layout objects are refered as \fBmbk\fP(1)
+In the following file, symbolic layout objects are referred as \fBmbk\fP(1)
 objects, \fBmbk\fP(1) being the internal data structure that supports
 symbolic representation.
 On the other hand, \fBrds\fP is a data structure describing mainly rectangles,
@@ -16,7 +16,7 @@ Some syntaxic remarques on the way to write the file follow.
 The case of identifiers is not significant, so NDIF is equivalent to NdiF.
 Comments are allowed anywhere in the file, using the \fIsharp\fP (#) as start of
 comment, and \fInewline\fP as end of comment.
-A line begining with a \fIsharp\fP will be ignored, and a line containing a
+A line beginning with a \fIsharp\fP will be ignored, and a line containing a
 \fIsharp\fP will be read up to the character preeceding it.
 A \fInewline\fP can be escaped using the \fIbackslash\fP (\) followed by
 the \fInewline\fP.
@@ -34,7 +34,7 @@ Then, a set of tables is needed, to describe how to translate a symbolic
 object, belonging to the \fBmbk\fP(1) world, and a set of layout rectangles,
 in \fBrds\fP.
 .br
-Each table has a special meaning, and its parametrization exend beeing not
+Each table has a special meaning, and its parametrization exend being not
 full, some borders are to be evocated.
 Several type of table exists indeed.
 Some are needed for object translation, others for post treatment
@@ -279,7 +279,7 @@ PHYSICAL_GRID\fR.
 .ft B \}
 TABLE MBK_TO_RDS_SEGMENT\fR
 .br
-This table contains all the informations needed to translate a symbolic
+This table contains all the information needed to translate a symbolic
 segment of a given layer onto one, two or three real rectangles of
 specified layers.
 An example of this table is given below, with values needed for a
@@ -356,7 +356,7 @@ These parameters are meant regarding the symbolic segment.
 .ft B \}
 TABLE MBK_TO_RDS_CONNECTOR\fR
 .br
-This table contains all the informations needed to translate a symbolic
+This table contains all the information needed to translate a symbolic
 connector of a given layer onto one \fIsingle\fP real rectangle.
 .br
 An example of this table is given below, with values needed for a
@@ -407,7 +407,7 @@ designing.
 .ft B \}
 TABLE MBK_TO_RDS_VIA\fR
 .br
-This table contains all the informations needed to translate a symbolic
+This table contains all the information needed to translate a symbolic
 via of a given layer onto one to four real rectangles of user
 specified layers.
 An example of this table is given below, with values needed for a
@@ -465,7 +465,7 @@ TABLE S2R_OVERSIZE_DENOTCH\fR
 .br
 This table contains the oversize value needed to erase notches.
 All the rectangles of the same \fBrds\fP layer are oversized by this value
-and then merged alltogether and undersized by the same value.
+and then merged altogether and undersized by the same value.
 An example of this table is given below.
 .PP
 .ie t \{\
@@ -593,7 +593,7 @@ Precicely if a layer is only to be be translated, or translated
 and then post-processed.
 Translated means translate and fit from symbolic to real, and
 postreated that it should also be merged with its neighbours.
-For example, it's not necesary to merge cut layers such as RDS_CONT. 
+For example, it's not necessary to merge cut layers such as RDS_CONT. 
 .PP
 .ie t \{\
 .ft CR \}

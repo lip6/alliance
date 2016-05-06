@@ -5,7 +5,7 @@
 /* date           : Jan 11 2014                                         */
 /* version        : v3.0                                                */
 /* authors        : J.-P. CHAPUT , P. BAZARGAN                          */
-/* content        : contains defines, external variables and funtions   */
+/* content        : contains defines, external variables and functions   */
 /*                  used by init functions                              */
 /* ###--------------------------------------------------------------### */
 

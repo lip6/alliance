@@ -3,9 +3,9 @@ void rps_print_dict_bw (pg)
 void *pg;
 {
 	rps_put (pg,"% = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = =\n");
-	rps_put (pg,"% This is the beginning of the l2p BLACK & WHITE PostScript dictionnary.\n");
+	rps_put (pg,"% This is the beginning of the l2p BLACK & WHITE PostScript dictionary.\n");
 	rps_put (pg,"% (If you want to change patterns, this is THE place to do it.)\n");
-	rps_put (pg,"% (Remember that you can substitute another PostScript dictionnary.)\n");
+	rps_put (pg,"% (Remember that you can substitute another PostScript dictionary.)\n");
 	rps_put (pg,"%%Pages: 1 1\n");
 	rps_put (pg,"%%EndComments\n");
 	rps_put (pg,"%%BeginPreview: 256 64 1 64\n");
@@ -410,7 +410,7 @@ void *pg;
 	rps_put (pg,"%- - - END   OF LAYER TRADUCTION - - -\n");
 	rps_put (pg,"%%EndSetup\n");
 	rps_put (pg,"\n");
-	rps_put (pg,"% This is the end of the l2p BLACK & WHITE PostScript dictionnary.\n");
+	rps_put (pg,"% This is the end of the l2p BLACK & WHITE PostScript dictionary.\n");
 	rps_put (pg,"% = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = =\n");
 }
 
@@ -418,9 +418,9 @@ void rps_print_dict_color (pg)
 void *pg;
 {
 	rps_put (pg,"% = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = =\n");
-	rps_put (pg,"% This is the beginning of the l2p COLOR PostScript dictionnary.\n");
+	rps_put (pg,"% This is the beginning of the l2p COLOR PostScript dictionary.\n");
 	rps_put (pg,"% (If you want to change colors or patterns, this is THE place to do it.)\n");
-	rps_put (pg,"% (Remember that you can substitute another PostScript dictionnary.)\n");
+	rps_put (pg,"% (Remember that you can substitute another PostScript dictionary.)\n");
 	rps_put (pg,"%%Pages: 1 1\n");
 	rps_put (pg,"%%EndComments\n");
 	rps_put (pg,"%%BeginPreview: 256 64 1 64\n");
@@ -846,6 +846,6 @@ void *pg;
 	rps_put (pg,"%- - - END   OF LAYER TRADUCTION - - -\n");
 	rps_put (pg,"%%EndSetup\n");
 	rps_put (pg,"\n");
-	rps_put (pg,"% This is the end of the l2p COLOR PostScript dictionnary.\n");
+	rps_put (pg,"% This is the end of the l2p COLOR PostScript dictionary.\n");
 	rps_put (pg,"% = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = =\n");
 }

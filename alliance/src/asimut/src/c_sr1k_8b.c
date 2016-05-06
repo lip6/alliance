@@ -255,7 +255,7 @@ struct lkdins *pt_lkdins;
     }
 
 	/* ###------------------------------------------------------### */
-	/*   write the result into the projected value of ouput signals	*/
+	/*   write the result into the projected value of output signals	*/
 	/* ###------------------------------------------------------### */
 
   if ((e_n == 0) && (w_n == 1))

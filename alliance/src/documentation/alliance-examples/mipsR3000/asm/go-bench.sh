@@ -126,7 +126,7 @@
    grep -i "can't open file" $LOG_MSG
  fi
 
- grep "exception occured" $LOG_RES  > /dev/null
+ grep "exception occurred" $LOG_RES  > /dev/null
 
  if [ $? -eq 0 ] ; then
    grep "exc" $1.u  > /dev/null
@@ -135,7 +135,7 @@
    fi
  fi
 
- grep "exception occured" $LOG_MSG  > /dev/null
+ grep "exception occurred" $LOG_MSG  > /dev/null
 
  if [ $? -eq 0 ] ; then
    grep "exc" $1.u  > /dev/null

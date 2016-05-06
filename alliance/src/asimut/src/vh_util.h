@@ -4,7 +4,7 @@
 /* date		: Nov 13 1995						*/
 /* version	: v3.0							*/
 /* authors	: VUONG H.N., L.A. TABUSSE, P. BAZARGAN			*/
-/* content	: contains defines, external variables and funtions used*/
+/* content	: contains defines, external variables and functions used*/
 /*		  by utility functions					*/
 /* ###--------------------------------------------------------------### */
 

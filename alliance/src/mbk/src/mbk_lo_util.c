@@ -1675,7 +1675,7 @@ losig_list *ptsig;
          Since the interface of the resulting figure is not supposed to be
          used by humans, let's make simple names.
          Hey Hey, this was true a while ago, but as always, now we want
-         humans to predict the ouput of the function. Fun, ain'it? */
+         humans to predict the output of the function. Fun, ain'it? */
       /* !Franck
       sprintf(loconname, "%s_%lu", loconname, newtermcount++);
       */
@@ -2416,7 +2416,7 @@ key[VHD_scon2DFN]      = vhd_hash ("scon2");
       }
 
    /* ###------------------------------------------------------### */
-   /*    _exit and _stop commands are allways available     */
+   /*    _exit and _stop commands are always available     */
    /* ###------------------------------------------------------### */
 
     tab[VHD__XTDFN] = avail;

@@ -384,7 +384,7 @@ extern int eval_pattern(chain_list* expr, chain_list* pattern, int negativ)
 
 
 /******************************************************************************/
-/*            return the cell wich matches expr                               */
+/*            return the cell which matches expr                               */
 /*fulfill the ORDER field of cell with leaves of pattern matching             */
 /******************************************************************************/
 extern cell_list* cell_pattern(chain_list* expr)
@@ -549,7 +549,7 @@ extern cell_list* cell_pattern(chain_list* expr)
 
 
 /******************************************************************************/
-/*               return the cell tristate wich matches biabl                  */
+/*               return the cell tristate which matches biabl                  */
 /*fulfill the ORDER field of cell with leaves of pattern matching             */
 /******************************************************************************/
 extern cell_list* cell_pattern_bus(biabl_list* biabl)

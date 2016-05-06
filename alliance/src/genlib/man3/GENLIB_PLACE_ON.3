@@ -10,7 +10,7 @@ GENLIB_PLACE_ON
 .SH NAME
 GENLIB_PLACE_ON \- place a physical instance in the current figure matching
 connectors
-.SH SYNOPSYS
+.SH SYNOPSIS
 .nf
 .if n \{\
 .ft B \}
@@ -27,7 +27,7 @@ long index1, index2;
 .SH PARAMETERS
 .TP 20
 \fIfigname\fP
-Name of the layout figure to be instanciated
+Name of the layout figure to be instantiated
 .TP
 \fIins1\fP
 Name to be given to the instance in the model
@@ -40,7 +40,7 @@ Index of the connector, or reference, \fIcon1\fP of the model to be used
 for placement
 .TP
 \fIsymetry\fP
-Geometrical operation to be performed on the instance before beeing placed
+Geometrical operation to be performed on the instance before being placed
 .TP
 \fIins2\fP
 Name of the instance to be used for relative placement
@@ -54,7 +54,7 @@ Index of the connector \fIcon2\fP of the instance to be used for relative
 placement
 .SH DESCRIPTION
 \fBPLACE_ON\fP add an instance in the current layout cell. The bottom left corner
-of the instance of the model \fImodelname\fP is placed, after beeing
+of the instance of the model \fImodelname\fP is placed, after being
 symetrized and/or rotated, at \fI(x, y)\fP coordinates. 
 The placed instance becomes the new "reference instance", used in
 the relative placement functions.

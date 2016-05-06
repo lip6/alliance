@@ -366,7 +366,7 @@ void  CDRGrid::iterator::valid (bool validindex)
   throw (e_matrix_iterator)
 {
   if (_drgrid == NULL) {
-    throw e_matrix_iterator ("Attempt to use an unitialized grid iterator.");
+    throw e_matrix_iterator ("Attempt to use an uninitialized grid iterator.");
   }
 
   if ( (validindex) && (_index == INT_MAX) )
@@ -843,7 +843,7 @@ __CNode__ &TMatrix<__CNode__>::add (int index)
 
     // Overridables.
     public: virtual const char* what () const {
-              return ((char*)"Unkown terminal.");
+              return ((char*)"Unknown terminal.");
             }
   };
 
@@ -961,7 +961,7 @@ void  CMatrixPri::findfree (int index)
 
     for (i = cx - radius; i < cx + radius + 1; i++) {
       for (j = cy - radius; j < cy + radius + 1; j++) {
-        // Proccess only nodes of the ring.
+        // Process only nodes of the ring.
         // if ( (i > cx - radius) || (i < cx + radius) ) continue;
         // if ( (j > cy - radius) || (j < cy + radius) ) continue;
 
@@ -1050,7 +1050,7 @@ void CMatrixPri::load (CNet &net, bool global, int expand=0)
   // That is, in the first step of the algorithm we fill both queue
   //   at the same time.
   // In the case of the map of a global signal (i.e. using z=3&4 for
-  //   the time beeing, set to one the map points above the terminal
+  //   the time being, set to one the map points above the terminal
   //   in z=1&2, as they will not be set by the _bb loop.
 
   for (id = 0; id < net.size; id++) {

@@ -139,7 +139,7 @@ CPowers::CPowers ( CFig *fig
         cerr << "  " << layer2a (layer) << " \"" << seg->NAME
              <<"\" segment at ("
              << UNSCALE (seg->X1) << ","
-             << UNSCALE (seg->Y1) << ") doesn't have the rigth witdth :"
+             << UNSCALE (seg->Y1) << ") doesn't have the right witdth :"
              << UNSCALE (seg->WIDTH) << " instead of "
              << UNSCALE (width) << ".\n";
         cerr << "  (instance \"" << ins->INSNAME << "\" of model \""

@@ -3,7 +3,7 @@
  ALLIANCE_TOP       ?= /usr/lib/alliance
  RUN_IN_SOURCE_TREE ?= False
 
-# Standart System binary access paths.
+# Standard System binary access paths.
  STANDART_BIN        = /usr/local/bin:/usr/bin:/bin
  STANDART_PATH       = PATH=$(STANDART_BIN); export PATH
 

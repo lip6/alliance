@@ -14,7 +14,7 @@ namefind
 .SH NAME
 namefind \- hash table for strings
 .so man1/alc_origin.1
-.SH SYNOPSYS
+.SH SYNOPSIS
 .nf
 .if n \{\
 .ft B \}
@@ -30,16 +30,16 @@ char \(**inputname;
 \fIinputname\fP
 Pointer to a string of characters
 .SH DESCRIPTION
-The \fBnamefind\fP function search the mbk dictionnary of names.
-If the string has already been inserted in the dictionnary, then a pointer
+The \fBnamefind\fP function search the mbk dictionary of names.
+If the string has already been inserted in the dictionary, then a pointer
 to this string is return, else \fBnamefind\fP returns NULL.
 .br
 The case of the letters do not matter. All names are changed to lower case
-before beeing searched in the symbol table. This is needed because most
+before being searched in the symbol table. This is needed because most
 of the file format do not check case.
 .br
 \fBnamefind\fP is used by all mbk utility function using names, so its use
-should be needed only when directly filling or modifing the structure, or when
+should be needed only when directly filling or modifying the structure, or when
 having to compare an external string to mbk internal ones. This should speed
 up string comparisons.
 .br

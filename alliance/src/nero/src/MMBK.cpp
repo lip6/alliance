@@ -490,7 +490,7 @@ CLofig::CLofig (string &name)
   cmess1 << "  o  Loading netlist \"" << name << "\"...\n";
   fig = getlofig ((char *)name.c_str (), 'A');
 
-  // Build the instances dictionnary (map).
+  // Build the instances dictionary (map).
   for (pLoins = fig->LOINS; pLoins != NULL; pLoins = pLoins->NEXT) {
     instances[pLoins->INSNAME] = pLoins;
   }
@@ -523,13 +523,13 @@ void CLofig::rflatten (char concat, char catal)
   cmess2 << "  o  Flattening netlist...\n";
   rflattenlofig (fig, concat, catal);
 
-  // Rebuild the instances dictionnary (map).
+  // Rebuild the instances dictionary (map).
   instances.clear ();
   for (pLoins = fig->LOINS; pLoins != NULL; pLoins = pLoins->NEXT) {
     instances[pLoins->INSNAME] = pLoins;
   }
 
-  // Build the signal dictionnary.
+  // Build the signal dictionary.
   // Load all name aliases.
   for (pLosig = fig->LOSIG; pLosig != NULL; pLosig = pLosig->NEXT) {
     //signals[getsigname(pLosig)] = pLosig;
@@ -597,7 +597,7 @@ CPhfig::CPhfig (string &name)
   cmess1 << "  o  Loading layout \"" << name << "\"...\n";
   fig = getphfig ((char *)name.c_str (), 'A');
 
-  // Build the instances dictionnary (map).
+  // Build the instances dictionary (map).
   for (pPhins = fig->PHINS; pPhins != NULL; pPhins = pPhins->NEXT) {
     instances[pPhins->INSNAME] = pPhins;
   }
@@ -628,7 +628,7 @@ void CPhfig::rflatten (char concat, char catal)
   cmess2 << "  o  Flattening layout...\n";
   rflattenphfig (fig, concat, catal);
 
-  // Rebuild the instances dictionnary (map).
+  // Rebuild the instances dictionary (map).
   instances.clear ();
   for (pPhins = fig->PHINS; pPhins != NULL; pPhins = pPhins->NEXT) {
     instances[pPhins->INSNAME] = pPhins;

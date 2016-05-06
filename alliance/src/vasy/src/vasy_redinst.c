@@ -538,7 +538,7 @@ static void VasyRedInstLateralVpnAct( BeginPlace )
           AsgSymbol = getvpnsymdecl( AsgDeclar, AsgIndex );
           Element   = searchauth2elem( VasyHash2BitVecAsg, (char*)VpnTrans2, (char*)AsgSymbol );
 /*
-**  Assign to symbol V appears in transistion VpnTrans2 !
+**  Assign to symbol V appears in transition VpnTrans2 !
 */
           if ( Element != (auth2elem *)0 )
           {
@@ -844,7 +844,7 @@ static int VasyRedInstLateral( BeginPlace, EndPlace, KeepGuard )
     VasyHash2BitVecAsg = createauth2table( 100 );
   }
 /*
-**  Make only disjunct assigment for all ASGi in Ti
+**  Make only disjunct assignment for all ASGi in Ti
 */
   VasyRedInstLateralVpnAct( BeginPlace );
 /*
@@ -1905,7 +1905,7 @@ void VasyRedInstVpnProc( VpnFigure, VpnProc )
   }
 
 /*
-**  Only one assigment to each symbols for all actions
+**  Only one assignment to each symbols for all actions
 */
   for ( ScanTrans  = VpnProc->TRANS;
         ScanTrans != (vpntrans_list *)0;
