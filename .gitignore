@@ -2,6 +2,7 @@ cvsCommit.txt
 gitCommit.txt
 patchs/
 Linux.*/
+Linux.el7_64
 Darwin/
 Solaris/
 Makefile.in

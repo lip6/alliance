@@ -45,15 +45,32 @@ vst             VHDL        netlist
 
  */
 
+void addloinscon(struct loins *ptfig,  const char *cname, losig_list *ptsig, char dir) {
+   locon_list  *ptcon; 
+   ptcon            = (locon_list *)mbkalloc(sizeof(locon_list));
+   ptcon->NAME      = cname;
+   ptcon->TYPE      = 'E';
+   ptcon->SIG       = ptsig;
+   ptcon->ROOT      = (void *)ptfig;
+   ptcon->DIRECTION = dir;
+   ptcon->USER      = NULL;
+   ptcon->NEXT      = ptfig->LOCON;
+   ptcon->PNODE     = NULL;
+   ptfig->LOCON     = ptcon;
+}
+
 int main( argc, argv )
 
   int argc;
   char **argv;
 {
   lofig_list *LogicalFigure;
+  struct loins *ptfig;
+  losig_list *sigvss, *sigvdd;
   phfig_list *PhysicalFigure;
   char       *InputName;
   char       *OutputName;
+  char       *FigureName;
   char       *InputFormat;
   char       *OutputFormat;
   int         MbkIn;
@@ -63,10 +80,10 @@ int main( argc, argv )
 
   alliancebanner ("x2y", "1.4", "MBK Format Translator", "1990", ALLIANCE_VERSION);
 
-  if ( argc != 5 )
+  if ( argc != 5 && argc != 6 && argc != 7)
   {
     fprintf( stdout,
-"Syntax: x2y in_format out_format in_file out_file\n"
+"Syntax: x2y in_format out_format in_file out_file [[fig_name] addpcon]\n"
 "Where format is one of:\n"
 "    al              ALLIANCE    netlist\n"
 "    ap              ALLIANCE    layout\n"
@@ -86,6 +103,8 @@ int main( argc, argv )
   OutputFormat = namealloc( argv[ 2 ] );
   InputName    = namealloc( argv[ 3 ] );
   OutputName   = namealloc( argv[ 4 ] );
+  if(argc>=6)
+	  FigureName   = namealloc( argv[ 5 ] );
 
   if ( ( !strcmp( InputFormat, "al"  ) ) ||
        ( !strcmp( InputFormat, "vst" ) ) ||
@@ -146,8 +165,28 @@ int main( argc, argv )
   fprintf( stdout, "\t--> Conversion of %s(%s) to %s(%s)\n", 
            InputName, InputFormat, OutputName, OutputFormat );
 
-  if ( MbkIn  == 1 ) LogicalFigure  = getlofig( InputName, 'A' );
+  if ( MbkIn  == 1 ) {
+		     LogicalFigure  = getlofig( InputName, 'A' );
+		     if(argc>=6)
+			     LogicalFigure  = getlofig( FigureName, 'A' );
+  }
   else               PhysicalFigure = getphfig( InputName, 'A' );
+  if(argc == 7 && !strcmp(argv[6],"addpcon")) {
+     struct locon  *LOCON; 
+     sigvss=NULL;
+     sigvdd=NULL;
+     for (LOCON = LogicalFigure->LOCON; LOCON; LOCON = LOCON->NEXT) {
+      if(!strcmp(LOCON->NAME,"vss")) sigvss=LOCON->SIG;
+      if(!strcmp(LOCON->NAME,"vdd")) sigvdd=LOCON->SIG;
+     }
+     for (ptfig = LogicalFigure->LOINS; ptfig; ptfig = ptfig->NEXT) {
+        for (LOCON=ptfig->LOCON; LOCON && strcmp(LOCON->NAME,"vss"); LOCON = LOCON->NEXT) ;
+     if(!LOCON) {
+        addloinscon( ptfig, namealloc( "vdd" ), sigvdd, 'X' );
+        addloinscon( ptfig, namealloc( "vss" ), sigvss, 'X' );
+     }
+   }
+  }
 
   if ( MbkOut == 1 ) 
   {
