@@ -201,7 +201,7 @@ void lecture_fic(char *nomfic, lofig_list *circuit_lo,
 		if (!existe_signal_circuit(liste, circuit_lo, lecoeur))
 			ringerreur(ERR_NONCONWIDTHPARAM, nom_con, NULL);
 
-		if (larg_con < SCALE_X) 
+		if (larg_con < WVIA_ALU2) 
 			ringerreur(ERR_WIDTHPARAM, (void * )nom_con, (void * ) & larg_con);
 
 		liste = liste->NEXT;

@@ -478,8 +478,7 @@ rdsrec_list *viambkrds( Figure, Via, Lynx )
              ( ( USE == RDS_USE_DRC     ) && ( ! Lynx ) ) )
         {
           if ( SIDE_STEP == 0 ) break;
-          if ( WSX < SIDE+(SIDE>>1) ) break;
-          if ( WSY < SIDE+(SIDE>>1) ) break;
+          if ( ( WSX < SIDE+(SIDE>>1) ) && ( WSY < SIDE+(SIDE>>1) ) ) break;
 
           X1R = Xvia + OVERLAP - ( ( WSX + DWR ) >> 1 );
           Y1R = Yvia + OVERLAP - ( ( WSY + DWR ) >> 1 );
@@ -494,11 +493,13 @@ rdsrec_list *viambkrds( Figure, Via, Lynx )
           Y1R = RfmRoundLow ( Y1R );
           Y2R = RfmRoundHigh( Y2R );
 
+#if 0
           if ( X1R >= 0 ) X1R = ( (X1R + SIDE_STEP - 1) / SIDE_STEP ) * SIDE_STEP;
           else            X1R = ( X1R / SIDE_STEP ) * SIDE_STEP;
 
           if ( Y1R >= 0 ) Y1R = ( (Y1R + SIDE_STEP - 1) / SIDE_STEP ) * SIDE_STEP;
           else            Y1R = ( Y1R / SIDE_STEP ) * SIDE_STEP;
+#endif
 
           BX1R = X1R;
 

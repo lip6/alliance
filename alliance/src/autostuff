@@ -73,7 +73,7 @@ dirs="$newdirs documentation"
 order="mbk \
        aut rds elp abl bdd log btr vex ctl ctp abe abt \
        abv fsm fks fvh ftl rtn rtd scl vpn vbh pat gcp \
-       druc beh bhl bvl"
+       druc beh bhl bvl gscr"
 ordered_dirs=""
 for lib in $order; do
    if echo "$dirs" | grep $lib > /dev/null ; then

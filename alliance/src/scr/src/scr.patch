@@ -1,0 +1,151 @@
+diff -Naur sources/patch2.patch ../../alliance-4.0-patchd/sources/patch2.patch
+--- sources/patch2.patch	1970-01-01 09:00:00.000000000 +0900
++++ ../../alliance-4.0-patchd/sources/patch2.patch	2017-03-06 18:52:25.604945300 +0900
+@@ -0,0 +1,5 @@
++diff -r ../sources-old/scr/SCR_Type.h scr/SCR_Type.h
++68c68
++< # define MIDDLESUPPLY    ((long ) 2 * SCALE_X)
++---
++> # define MIDDLESUPPLY    ((long ) 3 * SCALE_X)
+diff -Naur sources/scr/main.c ../../alliance-4.0-patchd/sources/scr/main.c
+--- sources/scr/main.c	2017-03-06 18:55:30.274247300 +0900
++++ ../../alliance-4.0-patchd/sources/scr/main.c	2017-03-06 18:52:37.108768700 +0900
+@@ -494,7 +494,7 @@
+  for (CurrentLine = ptFig->LINE; CurrentLine; CurrentLine = CurrentLine->NEXT) {
+   if (CurrentLine->TYPE == CELL) {
+    CurrentInst = CurrentLine->INS;
+-   if (Xab1Figure != CurrentInst->X) {
++   if (Xab1Figure + NewInstWidth <= CurrentInst->X) {
+     CurrentInst =  CreateInstance(ScrNameIndex("row",(*Counter)++),
+                                   NewphIns->NAME,Xab1Figure,CurrentLine->Y,
+                                   NewInstWidth,NewInstHeight,NOSYM);
+@@ -505,7 +505,7 @@
+     CurrentLine->ALLOW = addchain(CurrentLine->ALLOW,(char *)ptNewAllow);
+    }
+    while (CurrentInst->NEXT) {
+-    if ((CurrentInst->X + CurrentInst->WIDTH) != 
++    if ((CurrentInst->X + CurrentInst->WIDTH) + NewInstWidth <=
+         (NextInst = CurrentInst->NEXT)->X) {
+      PrevInst = CurrentInst;
+      CurrentInst = CreateInstance(ScrNameIndex("row",(*Counter)++),
+@@ -521,7 +521,7 @@
+     }
+     else  CurrentInst = CurrentInst->NEXT;
+    }
+-   while ((CurrentInst->X + CurrentInst->WIDTH) != Xab2Figure) {
++   while ((CurrentInst->X + CurrentInst->WIDTH) + NewInstWidth <= Xab2Figure) {
+     CurrentInst->NEXT =  CreateInstance(ScrNameIndex("row",(*Counter)++),
+                                         NewphIns->NAME,
+                                         CurrentInst->X + CurrentInst->WIDTH,
+@@ -768,6 +768,7 @@
+  char           Buffer[10];
+  long           IndexSignal = 0;
+  long           ChannelNumber = 0;
++ static long    Counter = 0;
+ 
+  for (ptScrLine = ptfig->LINE; ptScrLine; ptScrLine = ptScrLine->NEXT)
+  {
+@@ -850,11 +851,11 @@
+    for (CurrentSeg = ptScrChannel->V_SEGMENT; CurrentSeg;
+         CurrentSeg = CurrentSeg->NextSeg) {
+     if ((Y1Symbolic = CurrentSeg->Y1Seg) == 0)
+-     Y1Segment = Yab1 - ((SXMODE && !L3MODE) ? CELLAB/2:0);
++     Y1Segment = Yab1 - ((SXMODE && !L3MODE) ? CELLAB*40/50:0);
+     else
+      Y1Segment = ((Y1Symbolic - 1) * PITCH_Y) + SOUTHOFFSET + YLine;
+     if ((Y2Symbolic = CurrentSeg->Y2Seg) == ChannelHeight + 1)
+-     Y2Segment = Yab2 + ((SXMODE && !L3MODE)? CELLAB/2:0);
++     Y2Segment = Yab2 + ((SXMODE && !L3MODE)? CELLAB*40/50:0);
+     else
+      Y2Segment = ((Y2Symbolic - 1) * PITCH_Y) + SOUTHOFFSET + YLine;
+     X1Segment = X2Segment = ((CurrentSeg->X1Seg - 1) * PITCH_X) + WESTOFFSET + Xab1;
+@@ -1131,6 +1132,7 @@
+                                 ALU1,VSSWIDTH);
+  /* BARRES D'ALIMENTATIONS HORIZONTALES */
+     for (ptXBreak = ptXInsert; ptXBreak; ptXBreak = ptXBreak->NEXT) {
++     long xins;
+      X1 = ptXBreak->X;
+      X2 = X1 + VerticalChannelWidth;
+      X3 = X1 + RIGHTSUPPLY + (VddWidth / 2);
+@@ -1141,6 +1143,16 @@
+      ptMbkRoot->PHSEG = addphseg(ptMbkRoot,ALU1,VDDWIDTH,X1,Y2,X2,Y2,NameVdd);
+      bigvia(ptMbkRoot, CONT_VIA,X3, Y2, VddWidth, VDDWIDTH);
+      bigvia(ptMbkRoot, CONT_VIA,X4, Y1, VssWidth, VSSWIDTH);
++     for(xins=X1; xins+10*SCALE_X <= X2; xins += 10*SCALE_X) {
++        addphins(ptMbkRoot,"tie_x0",ScrNameIndex("tiefeed",Counter++),
++                               NOSYM,
++                               xins,ptScrLine->Y);
++     }
++     for(; xins+5*SCALE_X <= X2; xins += 5*SCALE_X) {
++        addphins(ptMbkRoot,"rowend_x0",ScrNameIndex("tiefeed",Counter++),
++                               NOSYM,
++                               xins,ptScrLine->Y);
++     }
+      /*
+      if (L3MODE)
+      {
+@@ -1600,6 +1612,16 @@
+   fprintf(stderr,"Get the transparencies model ...\n");
+ # endif
+ 
++  NewphIns = getphfig((SXMODE ? "tie_x0":"tie_y"),'A');
++  sx2sc (NewphIns);
++
++
++# ifdef SCR_DEBUG
++  fprintf(stderr,"Complete rows ...\n");
++# endif
++
++  CompleteLine(ptfig,NewphIns,&CounterInst);
++
+   NewphIns = getphfig((SXMODE ? "rowend_x0":"tie_y"),'A');
+   sx2sc (NewphIns);
+ 
+@@ -1610,6 +1632,8 @@
+ 
+   CompleteLine(ptfig,NewphIns,&CounterInst);
+ 
++  NewphIns = getphfig((SXMODE ? "tie_x0":"tie_y"),'A');
++  sx2sc (NewphIns);
+ # ifdef SCR_DEBUG   
+   fprintf(stderr,"In ViewDataBase \n");
+   ViewScrFigure(ptfig);
+@@ -1619,6 +1643,15 @@
+ 
+   if (ptOption->SupplyRecall != 0)
+    ptXInsertList = PreparVerticalChannel(ptfig, NewphIns, ptOption->SupplyRecall, &CounterInst);
++  else
++   if (LeadPlaceConList && (LeadPlaceConList->VER_FEED != 0)) 
++    ptXInsertList = PreparVerticalChannel(ptfig, NewphIns, 1, &CounterInst);
++
++  NewphIns = getphfig((SXMODE ? "rowend_x0":"tie_y"),'A');
++  sx2sc (NewphIns);
++
++  if (ptOption->SupplyRecall != 0)
++   ptXInsertList = PreparVerticalChannel(ptfig, NewphIns, ptOption->SupplyRecall, &CounterInst);
+   else
+    if (LeadPlaceConList && (LeadPlaceConList->VER_FEED != 0)) 
+     ptXInsertList = PreparVerticalChannel(ptfig, NewphIns, 1, &CounterInst);
+diff -Naur sources/scr/ScrSesame.c ../../alliance-4.0-patchd/sources/scr/ScrSesame.c
+--- sources/scr/ScrSesame.c	2017-03-06 18:55:30.258623000 +0900
++++ ../../alliance-4.0-patchd/sources/scr/ScrSesame.c	2017-03-06 18:52:37.171269700 +0900
+@@ -117,6 +117,7 @@
+  for (CurrentphIns = ptphIns; CurrentphIns; CurrentphIns = CurrentphIns->NEXT) {
+   /*if (!(incatalogfeed(CurrentphIns->FIGNAME))) {*/
+   if (strcmp(CurrentphIns->FIGNAME,(SXMODE ? "rowend_x0":"tie_y"))) {
++//  if (strcmp(CurrentphIns->FIGNAME,(SXMODE ? "tie_x0":"tie_y"))) {
+    for (CurrentloIns = ptloIns; CurrentloIns; CurrentloIns = CurrentloIns->NEXT)
+     if (CurrentloIns->INSNAME == CurrentphIns->INSNAME) break;
+    if (CurrentloIns == NULL) {
+diff -Naur sources/scr/SCR_Type.h ../../alliance-4.0-patchd/sources/scr/SCR_Type.h
+--- sources/scr/SCR_Type.h	2017-03-06 18:55:30.227372000 +0900
++++ ../../alliance-4.0-patchd/sources/scr/SCR_Type.h	2017-03-06 18:52:37.108768700 +0900
+@@ -65,7 +65,7 @@
+ # define VSSWIDTH	((long ) (SXMODE ? 6:8) * SCALE_X)
+ # define RIGHTSUPPLY	(PITCH_X / (SXMODE ? 1:2))
+ # define LEFTSUPPLY	(PITCH_X / (SXMODE ? 1:2))
+-# define MIDDLESUPPLY	((long ) 2 * SCALE_X)
++# define MIDDLESUPPLY	((long ) 3 * SCALE_X)
+ # define CELLAB	        ((long ) 50 * SCALE_X)
+ 
+ typedef struct SCR_Figure 

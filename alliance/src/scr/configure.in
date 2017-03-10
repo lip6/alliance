@@ -1,0 +1,37 @@
+dnl Process this file with autoconf to produce a configure script.
+AC_INIT(src/ScrSesame.cpp)
+
+SCR_MAJOR_VERSION=5
+SCR_MINOR_VERSION=4
+SCR_VERSION=$SCR_MAJOR_VERSION.$SCR_MINOR_VERSION
+
+AC_SUBST(SCR_MAJOR_VERSION)
+AC_SUBST(SCR_MINOR_VERSION)
+AC_SUBST(SCR_VERSION)
+
+# For automake.
+VERSION=$SCR_VERSION
+PACKAGE=scr
+
+dnl Initialize automake stuff
+AM_INIT_AUTOMAKE($PACKAGE, $VERSION)
+
+dnl Checks for programs.
+AC_PROG_CC
+AM_PROG_LIBTOOL
+AC_PROG_MAKE_SET
+AM_WITH_REGEX
+AM_PROG_LEX
+AC_PROG_YACC
+
+AC_CHECK_LIB(m, pow)
+
+dnl Checks for typedefs, structures, and compiler characteristics.
+AC_C_CONST
+
+AM_ALLIANCE
+
+AC_OUTPUT([
+Makefile
+src/Makefile
+])
