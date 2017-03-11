@@ -192,8 +192,6 @@ void DrucEcho ( text )
   }
 }
 
-#ifndef yywrap
 
 int yywrap()
 { return(1) ; }
-#endif

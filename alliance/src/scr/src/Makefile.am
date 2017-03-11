@@ -6,7 +6,8 @@ AM_YFLAGS        = -d
 CFLAGS           = -g -O2
 #CFLAGS          = -O2
 AM_CFLAGS        = @ALLIANCE_CFLAGS@ \
-                   -I$(top_srcdir)/mbk/src 
+                   -I$(top_srcdir)/mbk/src \
+                   -I$(top_srcdir)/gscr/src
 
 bin_PROGRAMS     = scr
 
