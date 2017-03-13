@@ -12,7 +12,8 @@ AM_CFLAGS        = @ALLIANCE_CFLAGS@ \
 bin_PROGRAMS     = scr
 
 scr_LDADD        = -L$(libdir) @ALLIANCE_LIBS@  \
-                   -L$(top_builddir)/mbk/src/.libs \
+                   -L$(top_builddir)/mbk/src \
+                   -L$(top_builddir)/gscr/src \
                    -lApr -lMpu -lMlu -lMlo -lMph -lMut
 
 scr_SOURCES      = GlobalRouter.c LoadDataBase.c main.c ScrSesame.c ViewDataBase.c \
