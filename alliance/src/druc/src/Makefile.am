@@ -10,7 +10,7 @@ vmcrelat.h vmctools.c vmctools.h vmcunify.c vmcunify.h
 
 CFLAGS = $(ALLIANCE_CFLAGS) -g -O0
 libVrd_la_LDFLAGS = -version-info @VRD_DLL_VERSION@
-libVrd_la_LIBADD  = -lRds -lMut
+libVrd_la_LIBADD  = -lRds -lMut -lMph
 
 CLEANFILES          = drucompi_l.c drucompi_y.h drucompi_y.c
 
@@ -25,8 +25,8 @@ bin_PROGRAMS = druc
 AM_CFLAGS = -I$(top_srcdir)/mbk/src -I$(top_srcdir)/rds/src
 
 druc_LDADD = $(ALLIANCE_LIBS) -L. libVrd.la \
--L$(builddir)/../../rds/src/.libs -lRds \
--L$(builddir)/../../mbk/src/.libs -lMpu -lMut
+-L$(builddir)/../../rds/src -lRds \
+-L$(builddir)/../../mbk/src -lMpu -lMut -lMph
 
 druc_SOURCES = \
 drucbath.c drucbath.h

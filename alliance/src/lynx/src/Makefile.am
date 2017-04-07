@@ -7,14 +7,14 @@ AM_CFLAGS       = @ALLIANCE_CFLAGS@ \
                   -I$(top_srcdir)/rds/src
 
 cougar_LDADD    = @ALLIANCE_LIBS@ \
-                  -L$(top_builddir)/mbk/src/.libs \
-                  -L$(top_builddir)/rds/src/.libs \
-                  -lRds -lMlu -lMpu -lMlo -lMph -lMut 
+                  -L$(top_builddir)/mbk/src \
+                  -L$(top_builddir)/rds/src \
+                  -lRcn -lRds -lMlu -lMpu -lMlo -lMph -lMut 
 
 flatrds_LDADD   = @ALLIANCE_LIBS@ \
-                  -L$(top_builddir)/mbk/src/.libs \
-                  -L$(top_builddir)/rds/src/.libs \
-                  -lRds -lMlu -lMpu -lMlo -lMph -lMut 
+                  -L$(top_builddir)/mbk/src \
+                  -L$(top_builddir)/rds/src \
+                  -lRcn -lRds -lMlu -lMpu -lMlo -lMph -lMut
 
 flatrds_SOURCES = flatrds.c
 
