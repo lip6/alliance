@@ -213,8 +213,6 @@
   };
 
 
-
-
   // ---------------------------------------------------------------
   // Detailed Routing Grid Class.
 
@@ -338,6 +336,104 @@
                                { return ( x + (X * (y + (Y * z))) ); }
 
   };
+
+
+  // ---------------------------------------------------------------
+  // Detailed Routing Matrix Class (methods)
+
+
+  template<class __CNode__>
+  TMatrix<__CNode__>::_CHollow::~_CHollow (void)
+  {
+    typename   _CRow::iterator  itRow;
+    typename _CLayer::iterator  itLayer;
+  
+  
+    for (itLayer  = nodes.begin ();
+         itLayer != nodes.end   (); itLayer++) {
+      for (itRow  = itLayer->second.begin ();
+           itRow != itLayer->second.end   (); itRow++) {
+        delete itRow->second;
+      }
+    }
+  }
+  
+  
+  template<class __CNode__>
+  __CNode__ &TMatrix<__CNode__>::_CHollow::add (int x, int y)
+  {
+    typename   _CRow::iterator  itRow;
+    typename _CLayer::iterator  itLayer;
+  
+  
+    itLayer = nodes.find (x);
+    if (itLayer == nodes.end ()) { nodes[x] = _CRow (); }
+  
+    itRow = nodes[x].find (y);
+    if (itRow == nodes[x].end ()) { nodes[x][y] = new __CNode__ (); }
+  
+    return (*(nodes[x][y]));
+  }
+  
+  
+  template<class __CNode__>
+  __CNode__ *TMatrix<__CNode__>::_CHollow::get (int x, int y)
+  {
+    typename   _CRow::iterator  itRow;
+    typename _CLayer::iterator  itLayer;
+  
+  
+    itLayer = nodes.find (x);
+    if (itLayer == nodes.end ()) { return (NULL); }
+  
+    itRow = nodes[x].find (y);
+    if (itRow == nodes[x].end ()) { return (NULL); }
+  
+    return ((*itRow).second);
+  }
+  
+  
+  template<class __CNode__>
+  TMatrix<__CNode__>::TMatrix (CDRGrid *drgrid)
+    : _drgrid(drgrid)
+    , hole   ()
+  {
+    _grid   = new __CNode__ [_drgrid->size];
+  }
+  
+  
+  template<class __CNode__>
+  TMatrix<__CNode__>::~TMatrix (void)
+  {
+    delete [] _grid;
+  }
+  
+  
+  template<class __CNode__>
+  __CNode__ &TMatrix<__CNode__>::operator[] (int index)
+  {
+    if (index < _drgrid->XY ) {
+      __CNode__ *node = _zero.get (_drgrid->x(index), _drgrid->y(index)) ;
+      if ( node != NULL ) return ( *node );
+    } else {
+      if (index < _drgrid->XYZ) return ( _grid[index - _drgrid->XY] );
+    }
+  
+    return ( hole );
+  }
+  
+  
+  template<class __CNode__>
+  __CNode__ &TMatrix<__CNode__>::add (int index)
+  {
+    if (index < _drgrid->XY) {
+      return ( _zero.add (_drgrid->x(index), _drgrid->y(index)) );
+    } else {
+      if (index < _drgrid->XYZ) return ( (*this)[index] );
+    }
+  
+    return ( hole );
+  }
 
 
 
