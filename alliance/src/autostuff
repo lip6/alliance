@@ -295,7 +295,7 @@ EOF
 echo "AM_ALLIANCE"                                 >> configure.ac
 echo "AM_CONDITIONAL([ALLIANCE_BUILD],[(exit 0)])" >> configure.ac
 
-find $ordered_dirs -name configure.ac | while read config; do
+find $ordered_dirs -name configure.in | while read config; do
   echo "Scanning $config"
   echo "" >> configure.ac
   echo "dnl Infos extracted from $config"  >> configure.ac
