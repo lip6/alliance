@@ -15,6 +15,8 @@
 #include "mvl_parse.h"
 #include "mvl_utdef.h"
 
+int yydebug =  1;
+
 extern void mvl_y_restart();
 
 void vhdlloadlofig (pt_lofig, figname, mode)

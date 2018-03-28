@@ -28,5 +28,5 @@ struct dct_recrd
   short             fd4_val;
   short             fd5_val;
   short             fd6_val;
-  int               pnt_val;
+  long              pnt_val;
   };

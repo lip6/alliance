@@ -21,6 +21,7 @@
 #include "gen_generic.h"
 
 
+extern int           yydebug    = 1;
 extern int           yylex      ();
 extern void          yyerror    ();
 
@@ -42,6 +43,8 @@ static struct logen  MVL_LOGEN;
 static long              base ;
 
 %}
+/* %define  parse.trace */
+
 %union
   {
   long         valu;
@@ -1460,15 +1463,15 @@ primary
                 {
                 mvl_expr      expr;
                 struct losig *losig_pnt;
-                long           i;
-                long           left;
-                long           right;
-                long           left_bnd;
-                long           right_bnd;
-                long           sig_width;
-                long           rev_flg;
-                long           in_bound;
-                long           out_bound;
+                long          i;
+                long          left;
+                long          right;
+                long          left_bnd;
+                long          right_bnd;
+                long          sig_width;
+                long          rev_flg;
+                long          in_bound;
+                long          out_bound;
 
                 if (mvl_chktab (MVL_HSHTAB,$1.NAME,MVL_MODNAM,MVL_SIGDFN) != 0)
                   {
@@ -1493,7 +1496,7 @@ primary
                     sig_width = right_bnd - left_bnd + 1;
                     if (left <= right)
                       {
-                      expr.WIDTH   = right - left + 1;
+                      expr.WIDTH = right - left + 1;
                       rev_flg    = 0;
                       in_bound   = right_bnd - right;
                       out_bound  = right_bnd - left;
@@ -1502,7 +1505,7 @@ primary
                       }
                     else
                       {
-                      expr.WIDTH   = left - right + 1;
+                      expr.WIDTH = left - right + 1;
                       rev_flg    = 1;
                       in_bound   = right_bnd - left;
                       out_bound  = right_bnd - right;
@@ -1524,7 +1527,7 @@ primary
                       }
                     else
                       {
-                      expr.WIDTH   = left - right + 1;
+                      expr.WIDTH = left - right + 1;
                       rev_flg    = 0;
                       in_bound   = right - right_bnd;
                       out_bound  = left  - right_bnd;
