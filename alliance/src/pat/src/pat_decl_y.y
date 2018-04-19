@@ -396,7 +396,7 @@ struct paseq  *ptseq ;
 
 %union
   {
-  int           valu;
+  long          valu;
   float         fval;
   char          immd;
   char         *text;

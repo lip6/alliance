@@ -892,7 +892,7 @@ unsigned char  mode  ;			/* the description style	*/
 
 %union
   {
-  long           valu;
+  long          valu;
   float         fval;
   char          immd;
   char         *text;

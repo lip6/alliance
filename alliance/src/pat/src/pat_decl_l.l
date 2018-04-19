@@ -186,7 +186,7 @@ letter		[a-zA-Z]
 								}
 <INITIAL,OUT_PAT,DTC_FRM>(0|[1-9][0-9]*)			{
 /*printf ("AbstractLit\n");*/
-		yylval.valu =  atoi (yytext);
+		yylval.valu =  atol (yytext);
 		return (AbstractLit);
 								}
 <INS_PAT>[0-9a-fA-FuU\*\+\-\? \t\n]+				{
