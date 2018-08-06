@@ -61,7 +61,7 @@
 # include "ViewDataBase.h"
 
 PlaceConList   *LeadPlaceConList = NULL;
-extern int L3MODE;
+extern int L3MODE=0;
 extern int SXMODE;
 extern int SCR_RATIO;
 

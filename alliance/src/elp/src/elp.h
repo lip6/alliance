@@ -106,7 +106,8 @@ extern double elpGeneral[elpGENERALNUM] ;
 #define elpACM        0  /* methode de calcul des capacites dynamiques */
 #define elpTEMP       1  /* temperature de simulation et d'analyse     */
 #define elpSLOPE      2  /* front sur les connecteurs d'entree         */
-
+extern int  yylineno ;
+extern int  elpyylineno ;
 
 /* les fonctions externes */
 extern int elpenv() ;

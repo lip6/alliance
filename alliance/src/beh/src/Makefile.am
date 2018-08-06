@@ -24,5 +24,6 @@ libBeh_la_SOURCES   = beh_addbeaux.c	 beh_delbebus.c    beh_frebeaux.c  beh_mess
                       cst_CrtUnionSet.c  cst_GetNextElt.c  cst_RemSetElt.c \
                       cst_DisjunctSet.c  cst_GetPrevElt.c  cst_SetCmp.c
 
-libBeh_la_LDFLAGS   = -version-info @BEH_DLL_VERSION@
+libBeh_la_LDFLAGS   = -version-info @BEH_DLL_VERSION@ -L../../log/src -L../../mbk/src \
+			-L../../abl/src -L../../aut/src -L../../mbk/src
 libBeh_la_LIBADD    = -lLog -lAbl -lAut -lMut

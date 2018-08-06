@@ -16,7 +16,7 @@ libSch_la_SOURCES = sch_addshent.c	sch_CrtSch.c  sch_GetCTim.c  sch.h	     sch_r
                     sch_AddTra.c	sch_error.c   sch_globals.c  sch_inswave.c \
                     sch_bug.c	sch_Free.c    sch_GoNTim.c   sch_message.c
 
-libSch_la_LDFLAGS = -version-info @SCH_DLL_VERSION@
+libSch_la_LDFLAGS = -version-info @SCH_DLL_VERSION@ -L../../mbk/src
 libSch_la_LIBADD  = -lMut
 
 bin_PROGRAMS      = asimut

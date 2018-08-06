@@ -100,7 +100,6 @@ elpvar    :
           ;
 %%
 
-extern int  yylineno ;
 extern char yytext[] ;
 
 void yyerror()

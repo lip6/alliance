@@ -13,11 +13,12 @@ libVbh_la_SOURCES   = vbh.h  vbh_add.c  vbh_crt.c  vbh_dup.c	vbh_fre.c  vbh_simp
                       vtl.h  vtlacces.c	vtlacces.h  vtlerror.c	vtlerror.h \
                       vpd.h          vpd_drive.h  vpd_error.h  vpd_parse.h \
                       vpd_drive.c  vpd_error.c  vpd_parse.c
+libVbh_la_LDFLAGS   = -version-info @VBH_DLL_VERSION@ -L../../vpn/src -L../../vex/src  -L../../aut/src -L../../mbk/src
 libVbh_la_LIBADD    = -lVpn -lVex -lAut -lMut
 
 CLEANFILES          = vbl_bcomp_y.c vbl_bcomp_y.h vbl_bcomp_l.c
 
 vbl_bcomp_y.c vbl_bcomp_y.h : $(srcdir)/vbl_bcomp_y.y
-	$(YACC) -d $(YFLAGS) $(srcdir)/vbl_bcomp_y.y && sed -e "s/yy/vbl_y_/g" -e "s/YY/VBL_Y_/g" y.tab.c > vbl_bcomp_y.c && sed -e "s/yy/vbl_y_/g" -e "s/YY/VBL_Y_/g" y.tab.h > vbl_bcomp_y.h
+	$(YACC) -d $(YFLAGS) $(srcdir)/vbl_bcomp_y.y && $(SED) -e "s/yy/vbl_y_/g" -e "s/YY/VBL_Y_/g" y.tab.c > vbl_bcomp_y.c && $(SED) -e "s/yy/vbl_y_/g" -e "s/YY/VBL_Y_/g" y.tab.h > vbl_bcomp_y.h
 vbl_bcomp_l.c : $(srcdir)/vbl_bcomp_l.l vbl_bcomp_y.h
-	$(LEX) -t $(srcdir)/vbl_bcomp_l.l | sed -e "s/yy/vbl_y_/g" -e "s/YY/VBL_Y_/g" > vbl_bcomp_l.c
+	$(LEX) -t $(srcdir)/vbl_bcomp_l.l | $(SED) -e "s/yy/vbl_y_/g" -e "s/YY/VBL_Y_/g" > vbl_bcomp_l.c

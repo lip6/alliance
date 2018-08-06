@@ -50,21 +50,21 @@ CLEANFILES        = mg2mbk_y.c mg2mbk_y.h mg2mbk_l.c \
 
 mg2mbk_y.c mg2mbk_y.h : $(srcdir)/mg2mbk_y.y
 	$(YACC) $(YFLAGS) $(srcdir)/mg2mbk_y.y && \
-	sed -e "s/yy/mgn/g" -e "s/YY/MGN/g" y.tab.c > mg2mbk_y.c && \
-	sed -e "s/yy/mgn/g" -e "s/YY/MGN/g" y.tab.h > mg2mbk_y.h
+	$(SED) -e "s/yy/mgn/g" -e "s/YY/MGN/g" y.tab.c > mg2mbk_y.c && \
+	$(SED) -e "s/yy/mgn/g" -e "s/YY/MGN/g" y.tab.h > mg2mbk_y.h
 mg2mbk_l.c : $(srcdir)/mg2mbk_l.l mg2mbk_y.h
-	$(LEX) -t $(srcdir)/mg2mbk_l.l | sed -e "s/yy/mgn/g" -e "s/YY/MGN/g" > mg2mbk_l.c
+	$(LEX) -t $(srcdir)/mg2mbk_l.l | $(SED) -e "s/yy/mgn/g" -e "s/YY/MGN/g" > mg2mbk_l.c
 
 parser_y.c parser_y.h : $(srcdir)/parser_y.y
 	$(YACC) $(YFLAGS) $(srcdir)/parser_y.y && \
-	sed -e "s/yy/edif/g" -e "s/YY/EDIF/g" y.tab.c > parser_y.c && \
-	sed -e "s/yy/edif/g" -e "s/YY/EDIF/g" y.tab.h > parser_y.h
+	$(SED) -e "s/yy/edif/g" -e "s/YY/EDIF/g" y.tab.c > parser_y.c && \
+	$(SED) -e "s/yy/edif/g" -e "s/YY/EDIF/g" y.tab.h > parser_y.h
 parser_l.c : $(srcdir)/parser_l.l parser_y.h
-	$(LEX) -t $(srcdir)/parser_l.l | sed -e "s/yy/edif/g" -e "s/YY/EDIF/g" > parser_l.c
+	$(LEX) -t $(srcdir)/parser_l.l | $(SED) -e "s/yy/edif/g" -e "s/YY/EDIF/g" > parser_l.c
 
 mvl_scomp_y.c mvl_scomp_y.h : $(srcdir)/mvl_scomp_y.y
 	$(YACC) $(YFLAGS) $(srcdir)/mvl_scomp_y.y && \
-	sed -e "s/yy/mvl_y_/g" -e "s/YY/MVL_Y_/g" y.tab.c > mvl_scomp_y.c && \
-	sed -e "s/yy/mvl_y_/g" -e "s/YY/MVL_Y_/g" y.tab.h > mvl_scomp_y.h
+	$(SED) -e "s/yy/mvl_y_/g" -e "s/YY/MVL_Y_/g" y.tab.c > mvl_scomp_y.c && \
+	$(SED) -e "s/yy/mvl_y_/g" -e "s/YY/MVL_Y_/g" y.tab.h > mvl_scomp_y.h
 mvl_scomp_l.c : $(srcdir)/mvl_scomp_l.l mvl_scomp_y.h
-	$(LEX) -t $(srcdir)/mvl_scomp_l.l | sed -e "s/yy/mvl_y_/g" -e "s/YY/MVL_Y_/g" > mvl_scomp_l.c
+	$(LEX) -t $(srcdir)/mvl_scomp_l.l | $(SED) -e "s/yy/mvl_y_/g" -e "s/YY/MVL_Y_/g" > mvl_scomp_l.c

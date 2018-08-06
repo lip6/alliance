@@ -26,9 +26,7 @@
 # define MINJOG_LENGTH ((long ) 1)
 # define LEADPATTERN   6     
 extern long EndPattern;
-long TabRout[MAXCOL][MAXLINE]; 
-
-BOOLEAN TOPNOTROUT, BOTNOTROUT;
+extern long TabRout[MAXCOL][MAXLINE]; 
 
 #define PREVHNET(I)   TabRout[0][I]
 #define HNET(I)       TabRout[1][I]

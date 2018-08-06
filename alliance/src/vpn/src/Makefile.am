@@ -6,5 +6,5 @@ libVpn_la_SOURCES   = vpnalloc.c  vpnenv.h	  vpnget.c     vpnsimp.h \
                       vpn.h	  vpndel.c    vpnerror.h  vpnsearch.c  vpnunion.h \
                       vpnadd.c  vpndel.h    vpnfree.c   vpnsearch.h  vpnview.c \
                       vpnadd.h  vpnenv.c    vpnfree.h   vpnsimp.c    vpnview.h
-libVpn_la_LDFLAGS   = -version-info @VPN_DLL_VERSION@
+libVpn_la_LDFLAGS   = -version-info @VPN_DLL_VERSION@ -L../../vex/src -L../../aut/src -L../../mbk/src
 libVpn_la_LIBADD    = -lVex -lAut -lMut

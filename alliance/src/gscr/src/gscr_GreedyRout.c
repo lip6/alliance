@@ -36,6 +36,7 @@
 # include "gscr_DynamicUtil.h"
 
 long EndPattern = LEADPATTERN;
+BOOLEAN TOPNOTROUT, BOTNOTROUT;
 /******************************************************************************/
 /*                SCR_SplitNet Modul of Initialisation                        */
 /******************************************************************************/

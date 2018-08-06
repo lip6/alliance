@@ -43,7 +43,7 @@
 |                                                             |
 \------------------------------------------------------------*/
 
-# include <malloc.h>
+# include <malloc/malloc.h>
 # include <stdlib.h>
 # include <string.h>
 # include "mut.h"

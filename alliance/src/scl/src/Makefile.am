@@ -10,5 +10,5 @@ libScl_la_SOURCES   = scgmain.h	schenv.c    schget.h   scpadd.h    scpfree.c \
                       scglofig.c  schalloc.h	schfree.c   scl.h   scpbuild.h \
                       scglofig.h  schdel.c	schfree.h   scp.h      scpdel.c \
                       scgmain.c   schdel.h	schget.c    scpadd.c   scpdel.h
-libScl_la_LDFLAGS   = -version-info @SCL_DLL_VERSION@
+libScl_la_LDFLAGS   = -version-info @SCL_DLL_VERSION@ -L../../abl/src -L../../aut/src -L../../mbk/src
 libScl_la_LIBADD    = -lAbl -lAut -lMut

@@ -15,9 +15,9 @@ CLEANFILES          = bvl_bcomp_y.c bvl_bcomp_y.h bvl_bcomp_l.c
 
 
 bvl_bcomp_y.c bvl_bcomp_y.h : $(srcdir)/bvl_bcomp_y.y
-	$(YACC) -d $(YFLAGS) $(srcdir)/bvl_bcomp_y.y && sed -e "s/yy/bvl_y_/g" -e "s/YY/BVL_Y_/g" y.tab.c > bvl_bcomp_y.c && sed -e "s/yy/bvl_y_/g" -e "s/YY/BVL_Y_/g" y.tab.h > bvl_bcomp_y.h
+	$(YACC) -d $(YFLAGS) $(srcdir)/bvl_bcomp_y.y && $(SED) -e "s/yy/bvl_y_/g" -e "s/YY/BVL_Y_/g" y.tab.c > bvl_bcomp_y.c && $(SED) -e "s/yy/bvl_y_/g" -e "s/YY/BVL_Y_/g" y.tab.h > bvl_bcomp_y.h
 
 bvl_bcomp_l.c : $(srcdir)/bvl_bcomp_l.l bvl_bcomp_y.h
-	$(LEX) -t $(srcdir)/bvl_bcomp_l.l | sed -e "s/yy/bvl_y_/g" -e "s/YY/BVL_Y_/g" > bvl_bcomp_l.c
+	$(LEX) -t $(srcdir)/bvl_bcomp_l.l | $(SED) -e "s/yy/bvl_y_/g" -e "s/YY/BVL_Y_/g" > bvl_bcomp_l.c
 
-libAbv_la_LDFLAGS = -version-info @ABV_DLL_VERSION@
+libAbv_la_LDFLAGS = -version-info @ABV_DLL_VERSION@ -L../../abe/src -L../../bdd/src -L../../mbk/src

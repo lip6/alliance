@@ -9,7 +9,7 @@ vmcasmld.c vmcasmld.h vmcerror.c vmcerror.h vmcmesur.c vmcmesur.h vmcrelat.c \
 vmcrelat.h vmctools.c vmctools.h vmcunify.c vmcunify.h
 
 CFLAGS = $(ALLIANCE_CFLAGS) -g -O0
-libVrd_la_LDFLAGS = -version-info @VRD_DLL_VERSION@
+libVrd_la_LDFLAGS = -version-info @VRD_DLL_VERSION@ -L../../rds/src -L../../mbk/src
 libVrd_la_LIBADD  = -lRds -lMut -lMph
 
 CLEANFILES          = drucompi_l.c drucompi_y.h drucompi_y.c

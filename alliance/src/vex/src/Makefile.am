@@ -8,5 +8,5 @@ libVex_la_SOURCES   = vexcreate.h  vexerror.c   vexfree.h   vexshift.c	vexunflat
                       vexalloc.c   vexdup.h	  vexextend.c  vexis.h	   vexslice.c \
                       vexalloc.h   vexenv.c	  vexextend.h  vexoptim.c  vexslice.h \
                       vexcreate.c  vexenv.h	  vexfree.c    vexoptim.h  vexunflat.c
-libVex_la_LDFLAGS   = -version-info @VEX_DLL_VERSION@
+libVex_la_LDFLAGS   = -version-info @VEX_DLL_VERSION@ -L../../mbk/src -L../../aut/src
 libVex_la_LIBADD    = -lAut -lMut

@@ -25,7 +25,7 @@ libMgn_la_SOURCES   = genlib.c \
                       dpgen_uROM.c \
                       dpgen_Shifter.c
 
-libMgn_la_LDFLAGS = -version-info @MGN_DLL_VERSION@
+libMgn_la_LDFLAGS = -version-info @MGN_DLL_VERSION@ -L../../mbk/src
 libMgn_la_LIBADD  = -lMlu -lMlo -lMpu -lMph -lMut
 
 bin_SCRIPTS         = genlib

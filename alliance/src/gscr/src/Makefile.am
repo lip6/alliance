@@ -13,7 +13,7 @@ libApr_la_SOURCES = gscr_greedy.h  gscr_StaticUtil.h  scp_inits.h  scp_modif.h  
                     gscr_main.h  scp_channel.h  scp_mbk2scp.h  scp_scp2mbk.h  gscr_DynamicUtil.h  \
                     gscr_StaticUtil.c  scp_inits.c  scp_modif.c  scp_time.c
 
-#libApr_la_LDFLAGS = -version-info @APR_DLL_VERSION@
+libApr_la_LDFLAGS = -version-info @APR_DLL_VERSION@ -L../../mbk/src
 
 libApr_la_LIBADD  = -lMut -lMph -lMlo
 

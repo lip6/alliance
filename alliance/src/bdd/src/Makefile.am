@@ -24,5 +24,5 @@ libBdd_la_SOURCES   = bdd.h            bddenv.h         bddimply.h       bddsimp
                       bdddump.h        bddhoper.h       bddsatisfy.h     \
                       bddenv.c         bddimply.c       bddsimpdc.c
 
-libBdd_la_LDFLAGS   = -version-info @BDD_DLL_VERSION@
+libBdd_la_LDFLAGS   = -version-info @BDD_DLL_VERSION@ -L../../abl/src -L../../mbk/src
 libBdd_la_LIBADD    = -lAbl -lAut

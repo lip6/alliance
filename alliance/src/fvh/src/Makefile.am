@@ -13,14 +13,15 @@ libFvh_la_SOURCES   = fbl_bcomp_y.y fbl_bcomp_l.l \
                       fbl_utype.h fvhdrive.c fvhdrive.h fvherror.c fvherror.h \
                       fvhfbh2fsm.c fvhfbh2fsm.h fvh.h fvhparse.c fvhparse.h
 
-libFvh_la_LDFLAGS   = -version-info @FVH_DLL_VERSION@
+libFvh_la_LDFLAGS   = -version-info @FVH_DLL_VERSION@ -L../../fsm/src -L../../abl/src \
+					  -L../../bdd/src -L../../aut/src -L../../mbk/src
 libFvh_la_LIBADD    = -lFsm -lAbl -lBdd -lAut -lMut
 
 CLEANFILES          = fbl_bcomp_y.c fbl_bcomp_y.h fbl_bcomp_l.c
 
 fbl_bcomp_y.c fbl_bcomp_y.h : $(srcdir)/fbl_bcomp_y.y
 	$(YACC) -d $(YFLAGS) $(srcdir)/fbl_bcomp_y.y && \
-	sed -e "s/yy/fbl_y_/g" -e "s/YY/FBL_Y_/g" y.tab.c > fbl_bcomp_y.c && \
-	sed -e "s/yy/fbl_y_/g" -e "s/YY/FBL_Y_/g" y.tab.h > fbl_bcomp_y.h
+	$(SED) -e "s/yy/fbl_y_/g" -e "s/YY/FBL_Y_/g" y.tab.c > fbl_bcomp_y.c && \
+	$(SED) -e "s/yy/fbl_y_/g" -e "s/YY/FBL_Y_/g" y.tab.h > fbl_bcomp_y.h
 fbl_bcomp_l.c : $(srcdir)/fbl_bcomp_l.l fbl_bcomp_y.h
-	$(LEX) -t $(srcdir)/fbl_bcomp_l.l | sed -e "s/yy/fbl_y_/g" -e "s/YY/FBL_Y_/g" > fbl_bcomp_l.c
+	$(LEX) -t $(srcdir)/fbl_bcomp_l.l | $(SED) -e "s/yy/fbl_y_/g" -e "s/YY/FBL_Y_/g" > fbl_bcomp_l.c

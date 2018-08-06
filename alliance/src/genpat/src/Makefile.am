@@ -7,7 +7,7 @@ libPgn_la_SOURCES = AFFECT.c ARRAY.c CONV.c DECLAR.c DEF_GEN.c GETCPAT.c \
                     INIT.c LABEL.c  SAVE.c SAV_GEN.c SETTUNIT.c \
                     libpat_l.c libpat_l.h
 
-libPgn_la_LDFLAGS = -version-info @PGN_DLL_VERSION@
+libPgn_la_LDFLAGS = -version-info @PGN_DLL_VERSION@ -L../../pat/src -L../../mbk/src
 libPgn_la_LIBADD  = -lPat -lMut
 
 bin_SCRIPTS       = genpat

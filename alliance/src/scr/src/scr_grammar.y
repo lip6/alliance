@@ -1,7 +1,7 @@
 %{
 #include <stdio.h>
 #include <string.h>
-#include <malloc.h>
+#include <malloc/malloc.h>
 # include <mut.h>
 # include <mlo.h> 
 # include <mph.h> 

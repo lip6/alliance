@@ -11,5 +11,5 @@ libAbl_la_SOURCES    = abldel.h       ablflat.h      abloptim.h     ablunflat.h 
                        ablctlsimp.c   ablerror.c     ablmap.c       ablsubst.c \
                        ablctlsimp.h   ablerror.h     ablmap.h       ablsubst.h \
                        abldel.c       ablflat.c      abloptim.c     ablunflat.c
-libAbl_la_LDFLAGS    = -version-info @ABL_DLL_VERSION@
+libAbl_la_LDFLAGS    = -version-info @ABL_DLL_VERSION@ -L../../aut/src
 libAbl_la_LIBADD     = -lAut -lMut

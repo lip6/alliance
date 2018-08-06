@@ -5,5 +5,5 @@ libFsm_la_SOURCES   = fsm.h	    fsmalloc.h	fsmdel.h    fsmfree.h	 fsmsearch.h  f
                       fsmadd.c    fsmbdd.c	fsmerror.c  fsmorder.c	 fsmsimp.c \
                       fsmadd.h    fsmbdd.h	fsmerror.h  fsmorder.h	 fsmsimp.h \
                       fsmalloc.c  fsmdel.c	fsmfree.c   fsmsearch.c  fsmview.c
-libFsm_la_LDFLAGS   = -version-info @FSM_DLL_VERSION@
+libFsm_la_LDFLAGS   = -version-info @FSM_DLL_VERSION@ -L../../bdd/src -L../../abl/src -L../../aut/src -L../../mbk/src
 libFsm_la_LIBADD    = -lBdd -lAbl -lAut -lMut
