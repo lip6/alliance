@@ -1,4 +1,6 @@
 #!/bin/bash
+#
+# For Smart HTTP commit test #1
 
  if [ -z "$ALLIANCE_TOP" ]; then
    alcEnv="/etc/profile.d/alc_env.sh"
