@@ -35,6 +35,8 @@
 # include "gscr_SymbChanRout.h"
 # include "gscr_DynamicUtil.h"
 
+long TabRout[MAXCOL][MAXLINE];
+
 long EndPattern = LEADPATTERN;
 BOOLEAN TOPNOTROUT, BOTNOTROUT;
 /******************************************************************************/
