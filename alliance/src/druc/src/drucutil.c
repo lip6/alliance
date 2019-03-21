@@ -89,9 +89,9 @@ void DrucViewString ( String
   if ( DrucStructStat.FLAG_VERBOSE_MODE == DRUC_VERBOSE
      )
   {
-    fprintf ( stdout, 
-              "%s", 
-              String 
+    fprintf ( stdout,
+              "%s",
+              String
             );
     fflush  ( stdout
             );
@@ -113,9 +113,9 @@ void DrucViewNumber ( Number
   if ( DrucStructStat.FLAG_VERBOSE_MODE == DRUC_VERBOSE
      )
   {
-    fprintf ( stdout, 
-              "%3ld", 
-              Number 
+    fprintf ( stdout,
+              "%3ld",
+              Number
             );
   }
 }
@@ -127,7 +127,7 @@ void DrucViewNumber ( Number
 | Calcule et met a jour le checksumm des instructions         |
 | assembleur ecrites dans le fichier  DRUC_OUTPUT_NAME;       |
 
-void DrucComputeCheckSumm ( Value 
+void DrucComputeCheckSumm ( Value
                           )
      int Value;
 
@@ -148,7 +148,7 @@ unsigned int TmpCheckSumm;
 |                                                             |
 \------------------------------------------------------------*/
 
-char *DrucGetRuleComment ( Rule 
+char *DrucGetRuleComment ( Rule
                          )
      long Rule;
 
@@ -158,13 +158,13 @@ DrucTypeStructRuleComment *Scan;
 
   for ( Scan  = DrucRuleCommentList;
         Scan != (DrucTypeStructRuleComment *)NULL;
-        Scan  = Scan->NEXT 
+        Scan  = Scan->NEXT
       )
   {
-    if ( Scan->RULE == Rule 
+    if ( Scan->RULE == Rule
        )
     {
-      return ( Scan->COMMENT 
+      return ( Scan->COMMENT
              );
     }
   }
@@ -187,7 +187,7 @@ DrucTypeStructRuleComment *Scan;
 
   for ( Scan  = DrucRuleCommentList;
         Scan != (DrucTypeStructRuleComment *)NULL;
-        Scan  = Scan->NEXT 
+        Scan  = Scan->NEXT
       )
   {
     DrucViewNumber ( Scan->RULE
@@ -217,7 +217,8 @@ void DrucStatInit ( Flatten,
                     FileType
                   )
      boolean        Flatten;
-     boolean        Verbose;	
+     boolean        Verbose;
+     boolean        View_Rules;
      boolean        FileType;
 
  {
