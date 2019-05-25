@@ -59,9 +59,9 @@
 
 # define XSCH_MAX_COLOR              ( 5 + XSCH_MAX_LAYER )
 
-# define XSCH_LARGE_TEXT_FONT_NAME   "9x15"
-# define XSCH_MEDIUM_TEXT_FONT_NAME  "7x13"
-# define XSCH_SMALL_TEXT_FONT_NAME   "5x8"
+# define XSCH_LARGE_TEXT_FONT_NAME   "-*-fixed-medium-*-normal--15-*-*-*-*-90-iso10646-1"
+# define XSCH_MEDIUM_TEXT_FONT_NAME  "-*-fixed-medium-*-normal--13-*-*-*-*-70-iso10646-1"
+# define XSCH_SMALL_TEXT_FONT_NAME   "-*-fixed-medium-*-normal--8-*-*-*-*-50-iso10646-1"
 
 /*------------------------------------------------------------\
 |                                                             |

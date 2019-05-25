@@ -59,9 +59,9 @@
 
 # define XGRA_MAX_COLOR              ( 5 + XGRA_MAX_LAYER )
 
-# define XGRA_LARGE_TEXT_FONT_NAME   "9x15"
-# define XGRA_MEDIUM_TEXT_FONT_NAME  "7x13"
-# define XGRA_SMALL_TEXT_FONT_NAME   "5x8"
+# define XGRA_LARGE_TEXT_FONT_NAME   "-*-fixed-medium-*-normal--15-*-*-*-*-90-iso10646-1"
+# define XGRA_MEDIUM_TEXT_FONT_NAME  "-*-fixed-medium-*-normal--13-*-*-*-*-70-iso10646-1"
+# define XGRA_SMALL_TEXT_FONT_NAME   "-*-fixed-medium-*-normal--8-*-*-*-*-50-iso10646-1"
 
 /*------------------------------------------------------------\
 |                                                             |

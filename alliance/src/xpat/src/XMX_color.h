@@ -59,9 +59,9 @@
 
 # define XPAT_MAX_COLOR              ( 5 + XPAT_MAX_LAYER )
 
-# define XPAT_LARGE_TEXT_FONT_NAME   "9x15"
-# define XPAT_MEDIUM_TEXT_FONT_NAME  "7x13"
-# define XPAT_SMALL_TEXT_FONT_NAME   "5x8"
+# define XPAT_LARGE_TEXT_FONT_NAME   "-*-fixed-medium-*-normal--15-*-*-*-*-90-iso10646-1"
+# define XPAT_MEDIUM_TEXT_FONT_NAME  "-*-fixed-medium-*-normal--13-*-*-*-*-70-iso10646-1"
+# define XPAT_SMALL_TEXT_FONT_NAME   "-*-fixed-medium-*-normal--8-*-*-*-*-50-iso10646-1"
 
 /*------------------------------------------------------------\
 |                                                             |

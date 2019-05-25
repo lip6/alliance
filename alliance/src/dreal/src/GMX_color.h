@@ -64,9 +64,9 @@
 
 # define DREAL_MAX_COLOR        ( RDS_ALL_LAYER + 5 )
 
-# define DREAL_LARGE_TEXT_FONT_NAME   "9x15"
-# define DREAL_MEDIUM_TEXT_FONT_NAME  "7x13"
-# define DREAL_SMALL_TEXT_FONT_NAME   "5x8"
+# define DREAL_LARGE_TEXT_FONT_NAME   "-*-fixed-medium-*-normal--15-*-*-*-*-90-iso10646-1"
+# define DREAL_MEDIUM_TEXT_FONT_NAME  "-*-fixed-medium-*-normal--13-*-*-*-*-70-iso10646-1"
+# define DREAL_SMALL_TEXT_FONT_NAME   "-*-fixed-medium-*-normal--8-*-*-*-*-50-iso10646-1"
 
 /*------------------------------------------------------------\
 |                                                             |

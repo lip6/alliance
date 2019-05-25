@@ -59,9 +59,9 @@
 
 # define XFSM_MAX_COLOR              ( 5 + XFSM_MAX_LAYER )
 
-# define XFSM_LARGE_TEXT_FONT_NAME   "9x15"
-# define XFSM_MEDIUM_TEXT_FONT_NAME  "7x13"
-# define XFSM_SMALL_TEXT_FONT_NAME   "5x8"
+# define XFSM_LARGE_TEXT_FONT_NAME   "-*-fixed-medium-*-normal--15-*-*-*-*-90-iso10646-1"
+# define XFSM_MEDIUM_TEXT_FONT_NAME  "-*-fixed-medium-*-normal--13-*-*-*-*-70-iso10646-1"
+# define XFSM_SMALL_TEXT_FONT_NAME   "-*-fixed-medium-*-normal--8-*-*-*-*-50-iso10646-1"
 
 /*------------------------------------------------------------\
 |                                                             |
