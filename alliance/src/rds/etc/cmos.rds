@@ -75,7 +75,7 @@ TABLE MBK_TO_RDS_SEGMENT
            RDS_NDIF  RCW -1.5  2.0  0.0  EXT \
            RDS_NDIF   VW -1.5  4.0  0.0  DRC \
            RDS_ACTIV  VW -1.5  5.0  0.0  ALL \
-	   RDS_PWELL  VW -1.5  0.0  0.0  EXT
+	       RDS_PWELL  VW -1.5  0.0  0.0  EXT
   PTRANS   RDS_POLY   VW  0.0  0.0  0.0  ALL \
            RDS_PDIF  LCW -1.5  2.0  0.0  EXT \
            RDS_PDIF  RCW -1.5  2.0  0.0  EXT \
@@ -123,6 +123,11 @@ TABLE MBK_TO_RDS_CONNECTOR
   ALU4    RDS_ALU4 1.0  0  
   ALU5    RDS_ALU5 1.0  0  
   ALU6    RDS_ALU6 1.0  0  
+  CALU1   RDS_ALU1  .5  0 
+  CALU2   RDS_ALU2 1.0  0 
+  CALU3   RDS_ALU3 1.0  0 
+  CALU4   RDS_ALU4 1.0  0  
+  CALU5   RDS_ALU5 1.0  0  
 
 END
 
@@ -484,24 +489,24 @@ TABLE GDS_LAYER
   RDS_POLY2    8
   RDS_TPOLY    9
   RDS_CONT    10
-  RDS_ALU1    11
+  RDS_ALU1    11	11
   RDS_VALU1   12
   RDS_TALU1   13
   RDS_VIA1    14
   RDS_TVIA1   15
-  RDS_ALU2    16
+  RDS_ALU2    16	16
   RDS_TALU2   17
   RDS_VIA2    18
-  RDS_ALU3    19
+  RDS_ALU3    19	19
   RDS_TALU3   20
   RDS_VIA3    21
-  RDS_ALU4    22
+  RDS_ALU4    22	22
   RDS_TALU4   23
   RDS_VIA4    25
-  RDS_ALU5    26
+  RDS_ALU5    26	26
   RDS_TALU5   27
   RDS_VIA5    28
-  RDS_ALU6    29
+  RDS_ALU6    29	29
   RDS_TALU6   30
   RDS_REF     24
 

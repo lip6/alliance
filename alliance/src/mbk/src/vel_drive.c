@@ -656,7 +656,7 @@ int        sigi = 0;
          int  i, t; /* This sucks and I'm not very proud of that, but really,
                     at least it should work */
          for (t = 0, i = 0; name[i] != 0; i++)
-            if (name[i] == SEPAR) {
+            if ((name[i] == SEPAR) || (name[i] == '.')) {
                name[i]='_'; /* Shaaaaaaaame on meeeeeeeeee */
                t = 1;
             }
