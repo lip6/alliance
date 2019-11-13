@@ -231,27 +231,32 @@ phins_list;
 /*******************************************************************************
 * externals for physical view                                                  *
 *******************************************************************************/
-extern phfig_list *HEAD_PHFIG;                 /* physical figure list head   */
-  extern    phfig_list * addphfig __P((const char *figname));
-  extern    phins_list * addphins __P((phfig_list *ptfig, const char *figname, const char *insname, char sym, long x, long y));
-  extern    phvia_list * addphvia __P((phfig_list *ptfig, char viatype, long x, long y, long dx, long dy, const char *name));
-  extern    phref_list * addphref __P((phfig_list *ptfig, const char *type, const char *name, long x, long y));
-  extern    phseg_list * addphseg __P((phfig_list *ptfig, char layer, long width, long x1, long y1, long x2, long y2, const char *nodename));
-  extern    phcon_list * addphcon __P((phfig_list *ptfig, char orient, const char *conname, long x, long y, char layer, long width));
-  extern           void  defab __P((phfig_list *ptfig, long x1, long y1, long x2, long y2));
-  extern    phfig_list * getphfig __P((const char *figname, char mode));
-  extern    phins_list * getphins __P((phfig_list *ptfig, const char *insname));
-  extern    phcon_list * getphcon __P((phfig_list *ptfig, const char *conname, long index));
-  extern    phref_list * getphref __P((phfig_list *ptfig, const char *refname));
-  extern            int  delphcon __P((phfig_list *ptfig, phcon_list *ptdelcon));
-  extern            int  delphins __P((phfig_list *ptfig, const char *insname));
-  extern            int  delphfig __P((const char *name));
-  extern            int  delphvia __P((phfig_list *ptfig, phvia_list *ptvia));
-  extern            int  delphseg __P((phfig_list *ptfig, phseg_list *ptseg));
-  extern            int  delphref __P((phfig_list *ptfig, phref_list *ptref));
-  extern           void  xyflat __P((long *xout, long *yout, long x, long y, long xins, long yins, long x1, long y1, long x2, long y2, char trsf));
-  extern           void  invxyflat __P((long *x, long *y, long xout, long yout, long xins, long yins, long x1, long y1, long x2, long y2, char trsf));
-  extern           void  viewph __P(());
+  extern    phfig_list* HEAD_PHFIG;                 /* physical figure list head   */
+  extern    phfig_list* addphfig  __P((const char *figname));
+  extern    phins_list* addphins  __P((phfig_list *ptfig, const char *figname, const char *insname, char sym, long x, long y));
+  extern    phvia_list* addphvia  __P((phfig_list *ptfig, char viatype, long x, long y, long dx, long dy, const char *name));
+  extern    phref_list* addphref  __P((phfig_list *ptfig, const char *type, const char *name, long x, long y));
+  extern    phseg_list* addphseg  __P((phfig_list *ptfig, char layer, long width, long x1, long y1, long x2, long y2, const char *nodename));
+  extern    phcon_list* addphcon  __P((phfig_list *ptfig, char orient, const char *conname, long x, long y, char layer, long width));
+  extern          void  defab     __P((phfig_list *ptfig, long x1, long y1, long x2, long y2));
+  extern    phfig_list* getphfig  __P((const char *figname, char mode));
+  extern    phins_list* getphins  __P((phfig_list *ptfig, const char *insname));
+  extern    phcon_list* getphcon  __P((phfig_list *ptfig, const char *conname, long index));
+  extern    phref_list* getphref  __P((phfig_list *ptfig, const char *refname));
+  extern           int  delphcon  __P((phfig_list *ptfig, phcon_list *ptdelcon));
+  extern           int  delphins  __P((phfig_list *ptfig, const char *insname));
+  extern           int  delphfig  __P((const char *name));
+  extern           int  delphvia  __P((phfig_list *ptfig, phvia_list *ptvia));
+  extern           int  delphseg  __P((phfig_list *ptfig, phseg_list *ptseg));
+  extern           int  delphref  __P((phfig_list *ptfig, phref_list *ptref));
+  extern          void  xyflat    __P((long *xout, long *yout, long x, long y, long xins, long yins, long x1, long y1, long x2, long y2, char trsf));
+  extern          void  invxyflat __P((long *x, long *y, long xout, long yout, long xins, long yins, long x1, long y1, long x2, long y2, char trsf));
+  extern          void  viewph    __P(());
+  extern    phins_list* revphins  __P((phfig_list *ptfig));
+  extern    phvia_list* revphvia  __P((phfig_list *ptfig));
+  extern    phref_list* revphref  __P((phfig_list *ptfig));
+  extern    phseg_list* revphseg  __P((phfig_list *ptfig));
+  extern    phcon_list* revphcon  __P((phfig_list *ptfig));
   
 #ifdef __cplusplus
 }

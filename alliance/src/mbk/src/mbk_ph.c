@@ -252,6 +252,23 @@ char *insname;
 }
 
 /*******************************************************************************
+* fonction revphins                                                            *
+*******************************************************************************/
+phins_list* revphins ( phfig_list* ptfig )
+{
+  phins_list* ptprev1 = NULL;
+  phins_list* ptprev2 = NULL;
+  phins_list* ptins   = ptfig->PHINS;
+  while ( ptins != NULL ) {
+    ptprev2       = ptprev1;
+    ptprev1       = ptins;
+    ptins         = ptins->NEXT;
+    ptprev1->NEXT = ptprev2;
+  }
+  ptfig->PHINS = ptprev1;
+}
+
+/*******************************************************************************
 * fonction addphvia                                                            *
 *******************************************************************************/
 phvia_list *addphvia(phfig_list *ptfig, char viatype, long x, long y, long dx, long dy, const char *vname)
@@ -292,6 +309,23 @@ char *name;
 }
 
 /*******************************************************************************
+* fonction revphvia                                                            *
+*******************************************************************************/
+phvia_list* revphvia ( phfig_list* ptfig )
+{
+  phvia_list* ptprev1 = NULL;
+  phvia_list* ptprev2 = NULL;
+  phvia_list* ptvia   = ptfig->PHVIA;
+  while ( ptvia != NULL ) {
+    ptprev2       = ptprev1;
+    ptprev1       = ptvia;
+    ptvia         = ptvia->NEXT;
+    ptprev1->NEXT = ptprev2;
+  }
+  ptfig->PHVIA = ptprev1;
+}
+
+/*******************************************************************************
 * fonction addphref                                                            *
 *******************************************************************************/
 phref_list *addphref(phfig_list *ptfig, const char *rtype, const char *rname, long x, long y)
@@ -318,6 +352,23 @@ char *name;
       (void)fprintf(stdout, "type %s name %s x=%ld  y=%ld \n", type, name, x, y);
    }
    return ptref;
+}
+
+/*******************************************************************************
+* fonction revphref                                                            *
+*******************************************************************************/
+phref_list* revphref ( phfig_list* ptfig )
+{
+  phref_list* ptprev1 = NULL;
+  phref_list* ptprev2 = NULL;
+  phref_list* ptref   = ptfig->PHREF;
+  while ( ptref != NULL ) {
+    ptprev2       = ptprev1;
+    ptprev1       = ptref;
+    ptref         = ptref->NEXT;
+    ptprev1->NEXT = ptprev2;
+  }
+  ptfig->PHREF = ptprev1;
 }
 
 /*******************************************************************************
@@ -396,6 +447,23 @@ char *nodename = namealloc(sname);
                      x1, y1, x2, y2, (long)layer, width, nodename);
    }
    return ptseg;
+}
+
+/*******************************************************************************
+* fonction revphseg                                                            *
+*******************************************************************************/
+phseg_list* revphseg ( phfig_list* ptfig )
+{
+  phseg_list* ptprev1 = NULL;
+  phseg_list* ptprev2 = NULL;
+  phseg_list* ptseg   = ptfig->PHSEG;
+  while ( ptseg != NULL ) {
+    ptprev2       = ptprev1;
+    ptprev1       = ptseg;
+    ptseg         = ptseg->NEXT;
+    ptprev1->NEXT = ptprev2;
+  }
+  ptfig->PHSEG = ptprev1;
 }
 
 /*******************************************************************************
@@ -528,6 +596,23 @@ char *conname;
            index, x, y, width, layer);
    }
    return ptcon;
+}
+
+/*******************************************************************************
+* fonction revphcon                                                            *
+*******************************************************************************/
+phcon_list* revphcon ( phfig_list* ptfig )
+{
+  phcon_list* ptprev1 = NULL;
+  phcon_list* ptprev2 = NULL;
+  phcon_list* ptcon   = ptfig->PHCON;
+  while ( ptcon != NULL ) {
+    ptprev2       = ptprev1;
+    ptprev1       = ptcon;
+    ptcon         = ptcon->NEXT;
+    ptprev1->NEXT = ptprev2;
+  }
+  ptfig->PHCON = ptprev1;
 }
 
 /*******************************************************************************

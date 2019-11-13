@@ -1341,4 +1341,10 @@ char buffer[BUFSIZ];
 
    if (fclose(parser.file) != 0)
 		alc_printerror(ECLOSE);
+
+   revphins(ptfig);
+   revphcon(ptfig);
+   revphseg(ptfig);
+   revphvia(ptfig);
+   revphref(ptfig);
 }
