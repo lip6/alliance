@@ -2,6 +2,7 @@ lib_LTLIBRARIES       = libVrd.la
 include_HEADERS     = vrd.h
 libVrd_la_SOURCES    = drucompi_l.l drucompi_y.y \
 defdefin.c defdefin.h defexclu.c defexclu.h definclu.c definclu.h definter.c \
+defminmax.h defminmax.c \
 definter.h defresiz.c defresiz.h deftools.c deftools.h defunion.c defunion.h \
 drucgral.c druchier.c druchier.h drucmin.c drucmin.h drucompi.c \
 drucompi.h drucring.c drucring.h drucutil.c drucutil.h vmcaract.c vmcaract.h \

@@ -126,6 +126,21 @@ DrucViewString ("\n");
 \*/
       break;
     }
+  case DRUC_MESURE_LARGEUR_MIN:
+  case DRUC_MESURE_LARGEUR_MAX:
+  case DRUC_MESURE_LONGUEUR_MIN:
+  case DRUC_MESURE_LONGUEUR_MAX:
+    {
+//	    printf("DRUC_OPERATION_%d\n", DrucInstructionCourante->OP_COMPOSE );
+
+      DrucDefineMinMax ( DrucFigureRds,
+                            DrucRdsWindow,
+                            DrucInstructionCourante
+                          );
+      break;
+    }
+  defualt:
+    DRUC_EXIT( DRUC_ERROR_UNDEFINED );
   }/* switch */
 
   DrucComputeEquiLayer ( DrucFigureRds ,
