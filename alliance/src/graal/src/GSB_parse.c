@@ -146,7 +146,7 @@
   static char *CursorSizeKeyword;
 
 
-  static keyword KeywordDefine[ GSB_MAX_KEYWORD ] =
+  static keyword GsbKeywordDefine[ GSB_MAX_KEYWORD ] =
  
 
   {
@@ -571,7 +571,7 @@ long GsbGetStringValue( String )
   Entry.NAME = String;
  
   Keyword = (keyword *)bsearch( (char *)(&Entry), 
-                                (char *)KeywordDefine, 
+                                (char *)GsbKeywordDefine, 
                                 GSB_MAX_KEYWORD, sizeof( keyword ),
                                 GsbKeywordCompare );
  

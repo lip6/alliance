@@ -46,7 +46,7 @@
 # define GSB_PARSE
 
 # define GSB_MAX_BUFFER        255
-# define GSB_MAX_KEYWORD       74
+# define GSB_MAX_KEYWORD       153
 
 # define GSB_SEPARATORS_STRING " \t\n"
 # define GSB_COMMENT_CHAR      '#'
