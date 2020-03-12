@@ -53,7 +53,11 @@ static int Ext[LAST_LAYER + 1] = {
 	/*	NDIF	 */ 1,
 	/*	PDIF	 */ 1,
 	/*	NTRANS */ 0, /* meant for N transistor grid */
+	/*	NTRANS_FAST */ 0, /* meant for N transistor grid */
+	/*	NTRANS_HVIO */ 0, /* meant for N transistor grid */
 	/*	PTRANS */ 0, /* meant for P transistor grid */
+	/*	PTRANS_FAST */ 0, /* meant for P transistor grid */
+	/*	PTRANS_HVIO */ 0, /* meant for P transistor grid */
 	/*	POLY	 */ 1,
 	/*	ALU1	 */ 1,
 	/*	ALU2	 */ 2,
@@ -131,7 +135,11 @@ static char *mg_layer[] = {
 	/* NDIF   */ "nn",
 	/* PDIF   */ "pp",
 	/* NTRANS */ "NULL",
+	/* NTRANS_FAST */ "NULL",
+	/* NTRANS_HVIO */ "NULL",
 	/* PTRANS */ "NULL",
+	/* PTRANS_FAST */ "NULL",
+	/* PTRANS_HVIO */ "NULL",
 	/* POLY   */ "ps",
 	/* ALU1   */ "m1",
 	/* ALU2   */ "m2",
@@ -333,7 +341,11 @@ register long Xcenter, Ycenter;
 		if (Ptr->TYPE == LEFT || Ptr->TYPE == RIGHT) {
 			switch (Ptr->LAYER) {
 				case NTRANS :
+				case NTRANS_FAST :
+				case NTRANS_HVIO :
 				case PTRANS :
+				case PTRANS_FAST :
+				case PTRANS_HVIO :
 					Xbl = Ptr->X1;
 					Ybl = Ptr->Y1;
 					Xtr = Ptr->X2;
@@ -368,7 +380,11 @@ register long Xcenter, Ycenter;
 		} else {
 			switch (Ptr->LAYER) {
 				case NTRANS :
+				case NTRANS_FAST :
+				case NTRANS_HVIO :
 				case PTRANS :
+				case PTRANS_FAST :
+				case PTRANS_HVIO :
 					Xbl = Ptr->X1;
 					Ybl = Ptr->Y1;
 					Ytr = Ptr->Y2;

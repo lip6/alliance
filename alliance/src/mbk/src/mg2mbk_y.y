@@ -52,7 +52,11 @@ static int Extension[MAXLAYER] = {
 	/*	NDIF	 */ 1,
 	/*	PDIF	 */ 1,
 	/*	NTRANS */ 0, /* meant for N transistor grid */
+	/*	NTRANS_FAST */ 0, /* meant for N transistor grid */
+	/*	NTRANS_HVIO */ 0, /* meant for N transistor grid */
 	/*	PTRANS */ 0, /* meant for P transistor grid */
+	/*	PTRANS_FAST */ 0, /* meant for P transistor grid */
+	/*	PTRANS_HVIO */ 0, /* meant for P transistor grid */
 	/*	POLY	 */ 1,
 	/*	ALU1	 */ 1,
 	/*	ALU2	 */ 2,
