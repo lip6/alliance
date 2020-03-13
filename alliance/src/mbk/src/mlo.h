@@ -51,11 +51,11 @@ extern "C" {
 #define TRANSFAST   (1 << 1)
 #define TRANSHVIO   (1 << 3)
 
-#define TRANSN_FAST (TRANSN & TRANSFAST)
-#define TRANSP_FAST (TRANSP & TRANSFAST)
+#define TRANSN_FAST (TRANSN | TRANSFAST)
+#define TRANSP_FAST (TRANSP | TRANSFAST)
 
-#define TRANSN_HVIO (TRANSN & TRANSHVIO)
-#define TRANSP_HVIO (TRANSP & TRANSHVIO)
+#define TRANSN_HVIO (TRANSN | TRANSHVIO)
+#define TRANSP_HVIO (TRANSP | TRANSHVIO)
 
 #define IsTransP(type)    (type & 1)
 #define IsTransN(type)    (!IsTransP(type))

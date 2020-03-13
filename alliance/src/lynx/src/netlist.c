@@ -851,8 +851,18 @@ long LynxBuildLogicalTransistor( FigureRds, LogicalFigure )
          ( BulkLayer == RDS_LYNX_TRANSISTOR_EMPTY )) continue;     /*4p*/
 
 
+#if 0
     if ( TransType == NTRANS ) TransType = TRANSN;
     else                       TransType = TRANSP;
+#endif
+    switch ( TransType ) {
+	    case NTRANS:	TransType = TRANSN; break;
+	    case NTRANS_FAST:	TransType = TRANSN_FAST; break;
+	    case NTRANS_HVIO:	TransType = TRANSN_HVIO; break;
+	    case PTRANS:	TransType = TRANSP; break;
+	    case PTRANS_FAST:	TransType = TRANSP_FAST; break;
+	    case PTRANS_HVIO:	TransType = TRANSP_HVIO; break;
+    }
 
     for ( Gate  = FigureRds->LAYERTAB[ GateLayer ];
           Gate != (rdsrec_list *)0;
