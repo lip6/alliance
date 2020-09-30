@@ -264,7 +264,7 @@ base_specifier	  	  (B|b|O|o|X|x)
 \/									{
 			return(Slash);
 									}
-{letter}(_?{letter_or_digit})* 						{
+{letter}(_|{letter_or_digit})* 						{
 			int itoken;
 
 			itoken = search (yytext);
