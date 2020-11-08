@@ -21,12 +21,12 @@
 
 # Where the Alliance CAD is installed
  setenv ALLIANCE_TOP         "@prefix@"
- set    SYSCONF_TOP          "${ALLIANCE_TOP}/etc"
- set    CELLS_TOP            "${ALLIANCE_TOP}/cells"
+ set    SYSCONF_TOP        = "${ALLIANCE_TOP}/etc"
+ set    CELLS_TOP          = "${ALLIANCE_TOP}/cells"
  if ( "${ALLIANCE_TOP}" == "/usr/lib/alliance" ) then
 # For installation in the FHS.
-   set  SYSCONF_TOP          "/etc/alliance"
-   set  CELLS_TOP            "/usr/share/alliance/cells"
+   set  SYSCONF_TOP        = "/etc/alliance"
+   set  CELLS_TOP          = "/usr/share/alliance/cells"
  endif
 
 
