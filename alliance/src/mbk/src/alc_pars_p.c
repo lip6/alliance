@@ -59,9 +59,9 @@
 #define        FALSE              0
 
 
-#define        MBKSZNAME       1024
-#define        MAXLBUFFER       256
-#define        MAXLBUFF         256
+#define        MBKSZNAME       2048
+#define        MAXLBUFFER      1024
+#define        MAXLBUFF        1024
 
 #define        EVAL               2
 #define        EVER               3
