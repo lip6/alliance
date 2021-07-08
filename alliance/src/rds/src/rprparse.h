@@ -31,7 +31,7 @@
 # define RPR_MAX_RDS_UNIT      100000L
 # define RPR_EPSILON           ((double)0.001)
 # define RPR_MAX_BUFFER        512
-# define RPR_MAX_KEYWORD       151
+# define RPR_MAX_KEYWORD       155
 
 # define MBK_MAX_WIRESETTING	30
 # define RPR_SEPARATORS_STRING " \t\n"

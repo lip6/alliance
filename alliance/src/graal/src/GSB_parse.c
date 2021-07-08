@@ -146,7 +146,7 @@
   static char *CursorSizeKeyword;
 
 
-  static keyword KeywordDefine[ GSB_MAX_KEYWORD ] =
+  static keyword GsbKeywordDefine[ GSB_MAX_KEYWORD ] =
  
 
   {
@@ -199,12 +199,16 @@
     { "nosym",        NOSYM            }, 
     { "ntie",         NTIE             },
     { "ntrans",       NTRANS           },
+    { "ntrans_fast",  NTRANS_FAST      },
+    { "ntrans_hvio",  NTRANS_HVIO      },
     { "nwell",        NWELL            },
     { "pdif",         PDIF             },
     { "poly",         POLY             },
     { "poly2",        POLY2            },
     { "ptie",         PTIE             },
     { "ptrans",       PTRANS           },
+    { "ptrans_fast",  PTRANS_FAST      },
+    { "ptrans_hvio",  PTRANS_HVIO      },
     { "pwell",        PWELL            },
     { "rds_abox",     RDS_LAYER_ABOX   },
     { "rds_activ",    RDS_LAYER_ACTIV  },
@@ -567,7 +571,7 @@ long GsbGetStringValue( String )
   Entry.NAME = String;
  
   Keyword = (keyword *)bsearch( (char *)(&Entry), 
-                                (char *)KeywordDefine, 
+                                (char *)GsbKeywordDefine, 
                                 GSB_MAX_KEYWORD, sizeof( keyword ),
                                 GsbKeywordCompare );
  

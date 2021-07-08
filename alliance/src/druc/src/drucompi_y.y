@@ -124,7 +124,6 @@ bloc      : define           { DrucLoadInstructionDefine () ;}
 
 define    : DRUC_DEFINE
             DRUC_NOM         { DrucInitDefineLayerA ( DrucInputChaine ) ;}
-            ','
             resiz
             DRUC_DESTINATION
             DRUC_NOM         { DrucInitDefineLayerDest ( DrucInputChaine ) ;}
@@ -133,8 +132,10 @@ define    : DRUC_DEFINE
 
 resiz     : valresiz
             defmodif
-            defoper
-          | DRUC_NOM         { DrucInitDefineLayerB ( DrucInputChaine ) ;}
+	  | mesure_rel	     
+	    valresiz         { DrucStructDefineOpCompose ( $1 ) ; }
+          | ','
+            DRUC_NOM         { DrucInitDefineLayerB ( DrucInputChaine ) ;}
             compose
           ;
 

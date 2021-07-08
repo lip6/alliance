@@ -356,8 +356,16 @@ char *layername;
       return PTIE;
    else if (!strcmp(layername, "ntrans"))
       return NTRANS;
+   else if (!strcmp(layername, "ntrans_hvio"))
+      return NTRANS_HVIO;
+   else if (!strcmp(layername, "ntrans_fast"))
+      return NTRANS_FAST;
    else if (!strcmp(layername, "ptrans"))
       return PTRANS;
+   else if (!strcmp(layername, "ptrans_hvio"))
+      return PTRANS_HVIO;
+   else if (!strcmp(layername, "ptrans_fast"))
+      return PTRANS_FAST;
    else if (!strcmp(layername, "nwell"))
       return NWELL;
    else if (!strcmp(layername, "pwell"))
