@@ -86,7 +86,7 @@ short           left ;		/* array left bound (= -1 if scalar)	*/
 short           right;		/* array right bound (= -1 if scalar)	*/
 
   {
-  char          extname[100];
+  char          extname[65536];
   short         i           ;
   short         inc         = 1;
   struct locon *ptcon       = NULL;

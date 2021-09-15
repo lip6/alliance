@@ -63,8 +63,8 @@ extern "C" {
 #define WRITE_TEXT  "w" /* write access */
 
 /* chain buffer size */
-#define BUFSIZE     1024
-#define SIGSIZE     1024
+#define BUFSIZE     8192
+#define SIGSIZE     8192
 
 /* USER field codes  */
 #define LOFIGCHAIN  4592

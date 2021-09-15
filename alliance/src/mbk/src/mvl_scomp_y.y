@@ -19,6 +19,7 @@
 #include "mvl_syacc.h"
 #include "mvl_stdef.h"
 #include "gen_generic.h"
+//#define  YYDEBUG  1
 
 
 extern int           yydebug    = 1;
