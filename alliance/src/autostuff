@@ -75,14 +75,14 @@ for dir in $dirs; do
   if [ ! -f "$dir/Makefile.am"    ]; then continue; fi
   newdirs="$newdirs $dir"
 done
-dirs="$newdirs documentation"
+dirs="$newdirs"
 
 
 ## Order directories.
 order="mbk \
        aut rds elp abl bdd log btr vex ctl ctp abe abt \
        abv fsm fks fvh ftl rtn rtd scl vpn vbh pat gcp \
-       druc beh bhl bvl gscr"
+       genlib druc beh bhl bvl gscr"
 ordered_dirs=""
 for lib in $order; do
    if echo "$dirs" | grep $lib > /dev/null ; then
