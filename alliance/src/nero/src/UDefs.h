@@ -222,7 +222,7 @@ namespace D {
   class except_done : public exception {
 
     // Overridables.
-    public: const char* what () const throw () {
+    public: const char* what () const noexcept {
               return ((char*)"This exception has already been processed.");
             }
   };
@@ -298,15 +298,15 @@ namespace D {
       COpts (void) : tShort("+") { }
 
     // Modifiers.
-    public: void getopts (int argc, char *argv[]) throw (except_done);
+    public: void getopts (int argc, char *argv[]) ;
     public: void add ( string key_short
                      , string key_long
                      , bool   arg=false
                      , string val=""
-                     ) throw (except_done);
+                     ) ;
 
     // Operators.
-    private: long         operator() (string key) throw (except_done);
+    private: long         operator() (string key) ;
     public:  struct COpt *operator[] (string key);
 
   };

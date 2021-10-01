@@ -70,7 +70,7 @@
                           , bool yalfpitch
                           , bool rotate
                           , set<string>* subNetList=NULL );
-    public: void  mbksave (string &name) throw (except_done);
+    public: void  mbksave (string &name) ;
     public: void  route   (void);
 
   };

@@ -195,7 +195,6 @@ CDRGrid::iterator::iterator (CDRGrid::iterator &other)
 // Method  :  "CDRGrid::iterator::valid ()".
 
 void  CDRGrid::iterator::valid (bool validindex)
-  throw (e_matrix_iterator)
 {
   if (_drgrid == NULL) {
     throw e_matrix_iterator ("Attempt to use an uninitialized grid iterator.");
@@ -328,7 +327,6 @@ ostream &operator<< (ostream &o, CDRGrid::iterator &self)
 // Method : "CDRGrid::iterator::manhattan ()".
 
 int  CDRGrid::iterator::manhattan (iterator &other)
-  throw (e_matrix_iterator)
 {
   long  manhattan;
 

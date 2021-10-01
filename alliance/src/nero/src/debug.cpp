@@ -266,13 +266,13 @@
 
       public: friend ostream &operator<< (ostream &o, iterator &self);
 
-      public: void   valid   (bool validindex) throw (e_matrix_iterator);
+      public: void   valid   (bool validindex);
       public: int    x       (void) { return ( _drgrid->x (_index) ); }
       public: int    y       (void) { return ( _drgrid->y (_index) ); }
       public: int    z       (void) { return ( _drgrid->z (_index) ); }
       public: bool   outside (void) { return ( _index == INT_MAX ); }
       public: bool   inside  (void) { return ( !outside() ); }
-      public: int    manhattan (iterator &other) throw (e_matrix_iterator);
+      public: int    manhattan (iterator &other);
 
       // Modifiers.
       public: iterator &set    (int x, int y, int z);
@@ -363,7 +363,6 @@ CDRGrid::iterator::iterator (CDRGrid::iterator &other)
 // Method  :  "CDRGrid::iterator::valid ()".
 
 void  CDRGrid::iterator::valid (bool validindex)
-  throw (e_matrix_iterator)
 {
   if (_drgrid == NULL) {
     throw e_matrix_iterator ("Attempt to use an uninitialized grid iterator.");
@@ -496,7 +495,6 @@ ostream &operator<< (ostream &o, CDRGrid::iterator &self)
 // Method : "CDRGrid::iterator::manhattan ()".
 
 int  CDRGrid::iterator::manhattan (iterator &other)
-  throw (e_matrix_iterator)
 {
   long  manhattan;
 
@@ -796,7 +794,7 @@ __CNode__ &TMatrix<__CNode__>::add (int index)
     public: CNode &lowest   (void);
 
     // Modifiers.
-    public: CNode *newaccess (int x, int y, int z, int ident, CNet *net) throw (dup_term);
+    public: CNode *newaccess (int x, int y, int z, int ident, CNet *net);
     public: void   newaccess (CRect &rect, int z, int ident, CNet *net);
     public: void   lockalone (bool global=false);
     public: void   setid     (int ident);

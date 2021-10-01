@@ -71,7 +71,7 @@ CPowers::CPowers ( CFig *fig
                  , char  atype
                  , int   alayer
                  , long  awidth
-                 ) throw (except_done)
+                 )
   : xoffset(xoff)
   , yoffset(yoff)
 {

@@ -316,7 +316,7 @@ CEnv::CEnv (void)
 // -------------------------------------------------------------------
 // Method  :  "CEnv::layer2width()".
 
-long  CEnv::layer2width (char layer) throw (except_done)
+long  CEnv::layer2width (char layer)
 {
   MLayer::iterator  itLayer;
 
@@ -336,7 +336,7 @@ long  CEnv::layer2width (char layer) throw (except_done)
 // -------------------------------------------------------------------
 // Method  :  "CEnv::layer2spacing()".
 
-long  CEnv::layer2spacing (char layer) throw (except_done)
+long  CEnv::layer2spacing (char layer)
 {
   MLayer::iterator  itLayer;
 
@@ -356,7 +356,7 @@ long  CEnv::layer2spacing (char layer) throw (except_done)
 // -------------------------------------------------------------------
 // Method  :  "CEnv::layer2z()".
 
-long  CEnv::layer2z (char layer) throw (except_done)
+long  CEnv::layer2z (char layer)
 {
   MLayer::iterator  itLayer;
 
@@ -376,7 +376,7 @@ long  CEnv::layer2z (char layer) throw (except_done)
 // -------------------------------------------------------------------
 // Method  :  "CEnv::z2alu()".
 
-char  CEnv::z2alu (int z) throw (except_done)
+char  CEnv::z2alu (int z)
 {
   MLayer::iterator  itLayer, endLayer;
 
@@ -399,7 +399,7 @@ char  CEnv::z2alu (int z) throw (except_done)
 // -------------------------------------------------------------------
 // Method  :  "CEnv::z2calu()".
 
-char  CEnv::z2calu (int z) throw (except_done)
+char  CEnv::z2calu (int z)
 {
   MLayer::iterator  itLayer, endLayer;
 
@@ -422,7 +422,7 @@ char  CEnv::z2calu (int z) throw (except_done)
 // -------------------------------------------------------------------
 // Method  :  "CEnv::z2via()".
 
-char  CEnv::z2via (int z) throw (except_done)
+char  CEnv::z2via (int z)
 {
   char viaType;
 
@@ -768,8 +768,8 @@ phseg_list &CIns::flatseg (phseg_list &flatSeg, phseg_list &seg)
 // -------------------------------------------------------------------
 // Constructor :  "CFig::CFig()".
 
-CFig::CFig (string &nameLofig, string &namePhfig) throw (except_done):
-  lofig (nameLofig), phfig (namePhfig)
+CFig::CFig (string &nameLofig, string &namePhfig)
+  : lofig (nameLofig), phfig (namePhfig)
 {
   MLoins::iterator  itLoins, endLoins;
   MPhins::iterator  itPhins, endPhins;

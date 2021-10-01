@@ -646,7 +646,7 @@ void  CRBox::mbkload (MBK::CFig *mbkfig
 // -------------------------------------------------------------------
 // Modifier  :  "CRBox::mbksave()".
 
-  void  CRBox::mbksave (string &name) throw (except_done)
+  void  CRBox::mbksave (string &name)
 {
                 int  x, y, z, mX, mY, mZ, pitch, spaceVIA;
                bool  inseg;

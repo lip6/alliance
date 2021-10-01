@@ -572,7 +572,7 @@ void  CAStar::load (CNet *pNet, int delta, int expand)
 // -------------------------------------------------------------------
 // Method  :  "CAStar::step()".
 
-bool  CAStar::step (void) throw (trapped_astar)
+bool  CAStar::step (void)
 {
   CNodeAS *successors[6], *pNodeAS;
       int  edge;
@@ -806,7 +806,7 @@ void CAStar::dump (void)
 // -------------------------------------------------------------------
 // Method  :  "CAStar::route()".
 
-  void CAStar::route (CNet *pNet) throw (reach_max_pri)
+  void CAStar::route (CNet *pNet)
 {
   int   pri;
   int   increase, expand;

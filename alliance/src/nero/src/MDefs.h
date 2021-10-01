@@ -132,10 +132,10 @@
     public: e_matrix_iterator (string msg) : message(msg) { }
 
     // Destructor.
-    public: ~e_matrix_iterator (void) throw () { };
+    public: ~e_matrix_iterator (void)  { };
 
     // Overridables.
-    public: const char* what () const throw () { return (message.c_str()); }
+    public: const char* what () const noexcept { return (message.c_str()); }
 
   };
 
@@ -152,10 +152,10 @@
     public: e_zupper (int  zup) { zupper = zup; }
 
     // Destructor.
-    public: ~e_zupper (void) throw () { };
+    public: ~e_zupper (void)  { };
 
     // Overridables.
-    public: const char* what () const throw () {
+    public: const char* what () const noexcept {
               return ((char*)"\"zupper\" must not be lower than 4.");
             }
   };
@@ -248,7 +248,7 @@
 
       public: friend ostream &operator<< (ostream &o, iterator &self);
 
-      public: void  valid     (bool validindex) throw (e_matrix_iterator);
+      public: void  valid     (bool validindex);
       public:  int  x         (void) { return ( _drgrid->x (_index) ); }
       public:  int  y         (void) { return ( _drgrid->y (_index) ); }
       public:  int  z         (void) { return ( _drgrid->z (_index) ); }
@@ -262,7 +262,7 @@
 
                                         return (false);
                                      };
-      public:  int  manhattan (iterator &other) throw (e_matrix_iterator);
+      public:  int  manhattan (iterator &other);
       public:  int  zupper    (void) { return ( _drgrid->zupper ); }
 
       // Modifiers.
@@ -315,7 +315,7 @@
     public: CMatrixNodes *nodes;
 
     // Constructor.
-    public: CDRGrid  (int xoff, int yoff, int x, int y, int z, int zup) throw (e_zupper);
+    public: CDRGrid  (int xoff, int yoff, int x, int y, int z, int zup);
     private: CDRGrid ( const CDRGrid& );
 
 
@@ -481,10 +481,10 @@
               { }
 
     // Destructor.
-    public: ~bad_grab (void) throw () { };
+    public: ~bad_grab (void)  { };
 
     // Overridables.
-    public: const char* what () const throw () {
+    public: const char* what () const noexcept {
               return ((char*)"Attempt to grab a non-free node.");
             }
 
@@ -531,7 +531,7 @@
     public:        void grab   ( CNet *net
                                , int pri
                                , CDRGrid::iterator &coord
-                               ) throw (bad_grab);
+                               );
     public:        void ungrab (void);
     public:        void lock   (void)   { data.lock = true; }
     public:        void unlock (void)   { data.lock = false; }
@@ -627,10 +627,10 @@
             { }
 
     // Destructor.
-    public: ~dup_term (void) throw () { };
+    public: ~dup_term (void)  { };
 
     // Overridables.
-    public: const char* what () const throw () {
+    public: const char* what () const noexcept {
               return ((char*)"Duplicated terminal node.");
             }
   };
@@ -666,10 +666,10 @@
             }
 
     // Destructor.
-    public: ~merge_term (void) throw () { };
+    public: ~merge_term (void)  { };
 
     // Overridables.
-    public: const char* what () const throw () {
+    public: const char* what () const noexcept {
               return (message.c_str());
             }
   };
@@ -700,8 +700,7 @@
     public: CDRGrid::iterator &lowest   (void);
 
     // Modifiers.
-    public: CNode *newaccess (int x, int y, int z, int ident, CNet *net)
-                     throw (dup_term, bad_grab, merge_term);
+    public: CNode *newaccess (int x, int y, int z, int ident, CNet *net);
     public: void   newaccess (CRect &rect, int z, int ident, CNet *net);
     public: void   merge     (CTerm *other, int ident, CNet *net);
     public: void   lockalone (bool global=false);
@@ -727,10 +726,10 @@
     public: dup_net (string netName) : name(netName) { }
 
     // Destructor.
-    public: ~dup_net (void) throw () { };
+    public: ~dup_net (void)  { };
 
     // Overridables.
-    public: const char* what () const throw () {
+    public: const char* what () const noexcept {
               return ((char*)"Duplicated net.");
             }
   };
@@ -751,10 +750,10 @@
     public: term_unknown (string nName, string tName) : netName(nName), termName(tName) { }
 
     // Destructor.
-    public: ~term_unknown (void) throw () { };
+    public: ~term_unknown (void)  { };
 
     // Overridables.
-    public: virtual const char* what () const throw () {
+    public: virtual const char* what () const noexcept {
               return ((char*)"Unknown terminal.");
             }
   };

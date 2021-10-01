@@ -56,7 +56,7 @@ void COpts::add ( string key_short
                      , string key_long
                      , bool   arg
                      , string val
-                     ) throw (except_done)
+                     )
 {
   long  key_index;
 
@@ -109,7 +109,7 @@ void COpts::add ( string key_short
 // -------------------------------------------------------------------
 // Modifier  :  "COpts::getopts()".
 
-void COpts::getopts (int argc, char *argv[]) throw (except_done)
+void COpts::getopts (int argc, char *argv[])
 {
   extern        int  opterr;
   extern        int  optopt;
@@ -161,7 +161,7 @@ void COpts::getopts (int argc, char *argv[]) throw (except_done)
 // -------------------------------------------------------------------
 // Operator  :  "COpts::operator()".
 
-long  COpts::operator() (string key) throw (except_done)
+long  COpts::operator() (string key)
 {
   MOpt::iterator  iter;
 

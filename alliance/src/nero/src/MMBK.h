@@ -145,12 +145,12 @@ namespace MBK {
     CEnv (void);
 
     // Accessors.
-    long  layer2spacing (char layer) throw (except_done);
-    long  layer2width   (char layer) throw (except_done);
-    long  layer2z       (char layer) throw (except_done);
-    char  z2calu        (int z) throw (except_done);
-    char  z2alu         (int z) throw (except_done);
-    char  z2via         (int z) throw (except_done);
+    long  layer2spacing (char layer) ;
+    long  layer2width   (char layer) ;
+    long  layer2z       (char layer) ;
+    char  z2calu        (int z) ;
+    char  z2alu         (int z) ;
+    char  z2via         (int z) ;
     long  z2width       (int z) { return (layer2width (z2alu(z))); }
     
 
@@ -258,7 +258,7 @@ namespace MBK {
     MIns    orphans;
 
     // Constructor.
-    CFig (string &nameLofig, string &namePhfig) throw (except_done);
+    CFig (string &nameLofig, string &namePhfig) ;
 
     // Destructor.
     ~CFig (void);
@@ -351,7 +351,7 @@ namespace MBK {
     LPower  powerLines;
 
     // Constructor.
-    CPowers (CFig*, long xoff, long yoff, char, int, long) throw (except_done);
+    CPowers (CFig*, long xoff, long yoff, char, int, long) ;
 
     // Methods.
     void  dump (CFig *fig);

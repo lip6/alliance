@@ -134,7 +134,6 @@ CDRGrid::iterator &CTerm::lowest (void)
 // Method  :  "CTerm::newaccess()".
 
 CNode *CTerm::newaccess (int x, int y, int z, int ident, CNet *net)
-  throw (dup_term, bad_grab, merge_term)
 {
   list<CDRGrid::iterator>::iterator  itNode;
        CDRGrid::iterator             coord;

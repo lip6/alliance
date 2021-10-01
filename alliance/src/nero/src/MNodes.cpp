@@ -58,7 +58,6 @@ CNode::CNode (void)
 // Method  :  "CNode::grab()".
 
 void  CNode::grab (CNet *net, int pri, CDRGrid::iterator &coord)
-    throw (bad_grab)
 {
   if (data.owner && (data.owner != net))
     throw bad_grab ( data.owner->terms[getid()]->name

@@ -49,7 +49,7 @@
     public: trapped_astar (CNet *pNet) { net = pNet; }
 
     // Overridables.
-    public: const char* what () const throw () {
+    public: const char* what () const noexcept {
               return ((char*)"AStar algorithm can't find a path.");
             }
   };
@@ -69,7 +69,7 @@
     public: no_route (CNet *pNet) { net = pNet; }
 
     // Overridables.
-    public: const char* what () const throw () {
+    public: const char* what () const noexcept {
               return ((char*)"No route.");
             }
   };
@@ -89,7 +89,7 @@
     public: reach_max_pri (CNet *pNet) { net = pNet; }
 
     // Overridables.
-    public: const char* what () const throw () {
+    public: const char* what () const noexcept {
               return ((char*)"Maximum priority reached in AStar.");
             }
   };
@@ -271,7 +271,7 @@
     public: CAStar (CDRGrid *drgrid, CASimple *netsched);
 
     // Modifiers.
-    private: bool  step       (void) throw (trapped_astar);
+    private: bool  step       (void);
     private: bool  nexttarget (void);
     private: void  backtrack  (void);
     private: void  abort      (void);
@@ -279,7 +279,7 @@
     public:  void  clear      (void);
     public:  void  load       (CNet *pNet, int delta=0, int expand=0);
     public:  bool  search     (void);
-    public:  void  route      (CNet *pNet) throw (reach_max_pri);
+    public:  void  route      (CNet *pNet);
 
 
     // Database integrity check.
