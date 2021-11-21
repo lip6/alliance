@@ -59,5 +59,5 @@ typedef struct XSupplyRecall
 /******************************************************************************/
 /*  Variables Globales                                                        */
 /******************************************************************************/
-char	*NameVdd;
-char	*NameVss;
+extern char	*NameVdd;
+extern char	*NameVss;

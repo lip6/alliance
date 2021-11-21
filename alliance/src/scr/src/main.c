@@ -64,6 +64,9 @@ PlaceConList   *LeadPlaceConList = NULL;
 extern int L3MODE=0;
 extern int SXMODE;
 extern int SCR_RATIO;
+char *NameVdd=NULL;
+char *NameVss=NULL;
+
 
 /******************************************************************************/
 /* Function : ScrUsage()                                                      */
