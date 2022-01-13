@@ -1,7 +1,7 @@
 ## Process this file with automake to produce Makefile.in
 
-#CXXFLAGS        = -g -pg -O2
-CXXFLAGS         = -g -O2
+#CXXFLAGS        = -g -pg -O2 -std=c++11
+CXXFLAGS         = -g -O2 -std=c++11
 #CXXFLAGS        = -O2
 AM_CXXFLAGS      = @ALLIANCE_CFLAGS@ \
                    -I$(top_srcdir)/abl/src \
