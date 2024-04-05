@@ -33,7 +33,7 @@ pat_decl_y.c pat_decl_y.h : $(srcdir)/pat_decl_y.y
 pat_decl_l.c : $(srcdir)/pat_decl_l.l pat_decl_y.h
 	$(LEX) -t $(srcdir)/pat_decl_l.l | $(SED) -e "s/yy/pat_decl_y_/g" -e "s/YY/PAT_DECL_Y_/g" > pat_decl_l.c
 
-pat_desc_y.c pat_desc_y.h : $(srcdir)/pat_desc_y.y
+pat_desc_y.c pat_desc_y.h : $(srcdir)/pat_desc_y.y pat_decl_l.c
 	$(YACC) -d $(YFLAGS) $(srcdir)/pat_desc_y.y \
 	    && $(SED) -e "s/yyparse/pat_desc_y_parse/g" y.tab.c \
 	     | $(SED) -e "s/yy/pat_decl_y_/g" -e "s/YY/PAT_DECL_Y_/g" > pat_desc_y.c \

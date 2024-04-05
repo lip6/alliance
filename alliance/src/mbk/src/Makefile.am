@@ -55,14 +55,14 @@ mg2mbk_y.c mg2mbk_y.h : $(srcdir)/mg2mbk_y.y
 mg2mbk_l.c : $(srcdir)/mg2mbk_l.l mg2mbk_y.h
 	$(LEX) -t $(srcdir)/mg2mbk_l.l | $(SED) -e "s/yy/mgn/g" -e "s/YY/MGN/g" > mg2mbk_l.c
 
-parser_y.c parser_y.h : $(srcdir)/parser_y.y
+parser_y.c parser_y.h : $(srcdir)/parser_y.y mg2mbk_l.c
 	$(YACC) $(YFLAGS) $(srcdir)/parser_y.y && \
 	$(SED) -e "s/yy/edif/g" -e "s/YY/EDIF/g" y.tab.c > parser_y.c && \
 	$(SED) -e "s/yy/edif/g" -e "s/YY/EDIF/g" y.tab.h > parser_y.h
 parser_l.c : $(srcdir)/parser_l.l parser_y.h
 	$(LEX) -t $(srcdir)/parser_l.l | $(SED) -e "s/yy/edif/g" -e "s/YY/EDIF/g" > parser_l.c
 
-mvl_scomp_y.c mvl_scomp_y.h : $(srcdir)/mvl_scomp_y.y
+mvl_scomp_y.c mvl_scomp_y.h : $(srcdir)/mvl_scomp_y.y parser_l.c
 	$(YACC) $(YFLAGS) $(srcdir)/mvl_scomp_y.y && \
 	$(SED) -e "s/yy/mvl_y_/g" -e "s/YY/MVL_Y_/g" y.tab.c > mvl_scomp_y.c && \
 	$(SED) -e "s/yy/mvl_y_/g" -e "s/YY/MVL_Y_/g" y.tab.h > mvl_scomp_y.h

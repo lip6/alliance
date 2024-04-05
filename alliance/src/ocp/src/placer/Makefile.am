@@ -48,3 +48,6 @@ ocp_SOURCES = Ocp.cpp PBin.cpp PCon.cpp \
 EXTRA_DIST = iocgram.h
 
 CLEANFILES = iocgram.c iocgram.h
+
+ioscan.c: iocgram.c
+
