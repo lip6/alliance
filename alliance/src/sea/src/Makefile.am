@@ -75,6 +75,8 @@ a2lef: $(srcdir)/a2lef.sh
 	cp $< $@ 
 	chmod a+x $@
 
+DEF_grammar_lex.c: DEF_grammar_yacc.c
+
 EXTRA_DIST = DEF_grammar_yacc.h debug.c debugon.h debugoff.h \
              sea.sh seplace.sh seroute.sh a2lef.sh
  
