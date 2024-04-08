@@ -131,8 +131,10 @@ END
 
 TABLE GRAAL_TRANSISTOR_NAME
 
-  NTRANS   Ntrans lawn_green       Black
-  PTRANS   Ptrans yellow           Black
+  NTRANS        Ntrans lawn_green       Black
+  NTRANS_HVIO   NHVIO    lawn_green       Dark_Gray
+  PTRANS        Ptrans yellow           Black
+  PTRANS_HVIO   PHVIO    yellow           Dark_Gray
 
 END
 
@@ -172,7 +174,11 @@ TABLE GRAAL_SEGMENT_VALUE
   NTIE     2   2
   PTIE     2   2
   NTRANS   1   4
+  NTRANS_HVIO   2   4
+  NTRANS_FAST   1   4
   PTRANS   1   4
+  PTRANS_HVIO   2   4
+  PTRANS_FAST   1   4
   POLY     1   1
   POLY2    1   1
   ALU1     1   1

@@ -381,8 +381,13 @@ void GraalEditModify()
 
     if ( IsRdsSegment( Rectangle ) )
     {
-      if ( ( ((phseg_list *)Pointer)->LAYER != NTRANS ) &&
-           ( ((phseg_list *)Pointer)->LAYER != PTRANS ) )
+      if ( ( ((phseg_list *)Pointer)->LAYER != NTRANS )      &&
+           ( ((phseg_list *)Pointer)->LAYER != NTRANS_FAST ) &&
+           ( ((phseg_list *)Pointer)->LAYER != NTRANS_HVIO ) &&
+           ( ((phseg_list *)Pointer)->LAYER != PTRANS )      &&
+           ( ((phseg_list *)Pointer)->LAYER != PTRANS_FAST ) &&
+           ( ((phseg_list *)Pointer)->LAYER != PTRANS_HVIO ) 
+	   )
       {
         GraalAcceptRectangle( Rectangle );
         GraalDisplayRectangle( Rectangle );
