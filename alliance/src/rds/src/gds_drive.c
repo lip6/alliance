@@ -318,16 +318,19 @@ short layer;
 {
 register int numb;
 hinfo_type   infobuf;
+short        nlayer = 0;
 short        datatype = 0;
 int          bool = FALSE;
 coord_t      tab[6]; /* last one reserved for text */
 
    /* A connectors is written using a specific layer from now on:
     * this implies a simple change of layer */
-   if ((IsRdsConExter(rect) || IsRdsRefCon (rect)) && !IsRdsVia(rect))
-      layer = GET_GDS_CONNECTOR_LAYER(layer);
-   else
-      layer = GET_GDS_LAYER(layer);
+   if (0&&(IsRdsConExter(rect) || IsRdsRefCon (rect)) && !IsRdsVia(rect))
+      nlayer = GET_GDS_CONNECTOR_LAYER(layer);
+   else {
+      nlayer = GET_GDS_LAYER(layer);
+      datatype = GET_GDS_CONNECTOR_LAYER(layer);
+   }
 
    tab[0].X = rect->X;
    tab[0].Y = rect->Y;
@@ -347,7 +350,7 @@ coord_t      tab[6]; /* last one reserved for text */
    entete(LAYER0, sizeof(short));
    controle(1)
    if (islittle()) {
-      layer    = swaps(layer);
+      nlayer    = swaps(nlayer);
       datatype = swaps(datatype);
       tab[0].X = swapl(tab[0].X);
       tab[0].Y = swapl(tab[0].Y);
@@ -362,7 +365,7 @@ coord_t      tab[6]; /* last one reserved for text */
       tab[5].X = swapl(tab[5].X);
       tab[5].Y = swapl(tab[5].Y);
    }
-   numb = fwrite((char *)&layer, sizeof(short), 1, fp);
+   numb = fwrite((char *)&nlayer, sizeof(short), 1, fp);
    controle(1);
 
    entete(DATATYPE, sizeof(short));
@@ -394,14 +397,14 @@ coord_t      tab[6]; /* last one reserved for text */
       entete(TEXT, 0);
 
       entete(LAYER0, sizeof(short));
-      numb = fwrite((char *)&layer, sizeof(short), 1, fp);
+      numb = fwrite((char *)&nlayer, sizeof(short), 1, fp);
       controle(1);
 
       /* TEXTTYPE values is set to 0, who cares */
 
       entete(TEXTTYPE, sizeof(short));
       layer = 0x00; 
-      numb = fwrite((char *)&layer, sizeof(short), 1, fp);
+      numb = fwrite((char *)&datatype, sizeof(short), 1, fp);
       controle(1);
 
       entete(XY, sizeof(coord_t));
