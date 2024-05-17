@@ -739,7 +739,7 @@ ptype_list *model_list;
    numb = fwrite(u_unit, sizeof(unit_type), 1, fp);
    free(u_unit);
    controle(1);
-   m_unit = pv_double_to_gdsreal( 2.0e-6 / RDS_UNIT, 2);
+   m_unit = pv_double_to_gdsreal( (double)(2.0e-6l / RDS_UNIT), 2);
 
    /* cas d'underflow, d'overflow ou de manque d'espace memoire */
    if (m_unit == (char *)NULL) {
