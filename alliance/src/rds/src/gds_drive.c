@@ -154,6 +154,7 @@ short precision;
 {
    register int   i;
    char     buffer[56], *pt;
+   long double lvalue;
 
    pt = (char *)calloc((unsigned)precision * 4, sizeof(char));
    if (pt == (char *)NULL) {
@@ -166,16 +167,16 @@ short precision;
 
    /* On commence par s'occuper du signe du nombre.   */
    *pt = (value > 0)? '\0' : '\300';
-   value = fabs(value);
+   lvalue = fabs(value) + (__DBL_MIN__);
 
    /* on va chercher la valeur de l'exposant du nombre exprime en base 16.       */
    i = 0;
-   while (value >= 1.0) {  /* si le nombre correspond a une puissance positive de 16   */
-      value /= 16.0;
+   while (lvalue >= 1.0) {  /* si le nombre correspond a une puissance positive de 16   */
+      lvalue /= 16.0;
       i++;
    }
-   while (value < 0.0625) {/* si le nombre correspond a une puissance negative de 16   */
-      value *= 16.0;
+   while (lvalue < 0.0625) {/* si le nombre correspond a une puissance negative de 16   */
+      lvalue *= 16.0;
       i--;
    }
    if (i > 63) {     /* On prevoit les cas d'overflow.   */
@@ -199,10 +200,10 @@ short precision;
 
    /* On va maintenant decomposer, bit a bit, la mantisse dans un tableau de caracteres.        */
    for (i = 0; i < ( 24 + 32*(precision-1) ); i++) {
-      value *= 2;
-      if (value >= 1) {
+      lvalue *= 2;
+      if (lvalue >= 1) {
          buffer[i] = '\1';
-         value -= 1;
+         lvalue -= 1;
       } else buffer[i] = '\0';
    }  /* Puis on replace tous ces bits au sein de quelques octets (3 ou 7 selon la precision)   */
    for (i = 0; i < ( 24 + 32*(precision-1) ); i++)
@@ -729,7 +730,7 @@ ptype_list *model_list;
 
    entete(UNITS, 2 * sizeof(unit_type));
    /* who cares about user defined unit ? */
-   u_unit = pv_double_to_gdsreal(1.0 / RDS_UNIT, 2);
+   u_unit = pv_double_to_gdsreal(2.0 / RDS_UNIT, 2);
    /* cas d'underflow, d'overflow ou de manque d'espace memoire */
    if (u_unit == (char *)NULL) {
       (void)fclose(fp);
@@ -738,7 +739,7 @@ ptype_list *model_list;
    numb = fwrite(u_unit, sizeof(unit_type), 1, fp);
    free(u_unit);
    controle(1);
-   m_unit = pv_double_to_gdsreal( 1.0e-6 / RDS_UNIT, 2);
+   m_unit = pv_double_to_gdsreal( 2.0e-6 / RDS_UNIT, 2);
 
    /* cas d'underflow, d'overflow ou de manque d'espace memoire */
    if (m_unit == (char *)NULL) {
