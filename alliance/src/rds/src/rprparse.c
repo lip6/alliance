@@ -765,7 +765,7 @@ void RprComputeRdsUnit( PhysicalGrid )
   RdsUnit = 1;
  
   for ( Number = 1; 
-        ! RprEqual( PhysicalGrid * (double)RdsUnit, (double)Number ); 
+        ! RprEqual( (long double)PhysicalGrid * (long double)RdsUnit, (long double)Number ); 
         Number = Number + 1 )
   {
     if ( RdsUnit > RPR_MAX_RDS_UNIT ) 
@@ -774,10 +774,10 @@ void RprComputeRdsUnit( PhysicalGrid )
     }
  
     for ( RdsUnit = RdsUnit - 1; 
-          PhysicalGrid * (double)RdsUnit + RPR_EPSILON <  (double)Number; 
+          ((long double)PhysicalGrid * (long double)RdsUnit + (long double)RPR_EPSILON) <  (long double)Number; 
           RdsUnit = RdsUnit + 1 );
  
-    if ( RprEqual( PhysicalGrid * (double)RdsUnit, (double)Number )) 
+    if ( RprEqual( (long double)PhysicalGrid * (long double)RdsUnit, (long double)Number )) 
  
        break;
   }

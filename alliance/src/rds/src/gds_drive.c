@@ -154,6 +154,7 @@ short precision;
 {
    register int   i;
    char     buffer[56], *pt;
+   long double lvalue;
 
    pt = (char *)calloc((unsigned)precision * 4, sizeof(char));
    if (pt == (char *)NULL) {
@@ -166,16 +167,16 @@ short precision;
 
    /* On commence par s'occuper du signe du nombre.   */
    *pt = (value > 0)? '\0' : '\300';
-   value = fabs(value);
+   lvalue = fabs(value) + (__DBL_MIN__);
 
    /* on va chercher la valeur de l'exposant du nombre exprime en base 16.       */
    i = 0;
-   while (value >= 1.0) {  /* si le nombre correspond a une puissance positive de 16   */
-      value /= 16.0;
+   while (lvalue >= 1.0) {  /* si le nombre correspond a une puissance positive de 16   */
+      lvalue /= 16.0;
       i++;
    }
-   while (value < 0.0625) {/* si le nombre correspond a une puissance negative de 16   */
-      value *= 16.0;
+   while (lvalue < 0.0625) {/* si le nombre correspond a une puissance negative de 16   */
+      lvalue *= 16.0;
       i--;
    }
    if (i > 63) {     /* On prevoit les cas d'overflow.   */
@@ -199,10 +200,10 @@ short precision;
 
    /* On va maintenant decomposer, bit a bit, la mantisse dans un tableau de caracteres.        */
    for (i = 0; i < ( 24 + 32*(precision-1) ); i++) {
-      value *= 2;
-      if (value >= 1) {
+      lvalue *= 2;
+      if (lvalue >= 1) {
          buffer[i] = '\1';
-         value -= 1;
+         lvalue -= 1;
       } else buffer[i] = '\0';
    }  /* Puis on replace tous ces bits au sein de quelques octets (3 ou 7 selon la precision)   */
    for (i = 0; i < ( 24 + 32*(precision-1) ); i++)
@@ -318,16 +319,19 @@ short layer;
 {
 register int numb;
 hinfo_type   infobuf;
+short        nlayer = 0;
 short        datatype = 0;
 int          bool = FALSE;
 coord_t      tab[6]; /* last one reserved for text */
 
    /* A connectors is written using a specific layer from now on:
     * this implies a simple change of layer */
-   if ((IsRdsConExter(rect) || IsRdsRefCon (rect)) && !IsRdsVia(rect))
-      layer = GET_GDS_CONNECTOR_LAYER(layer);
-   else
-      layer = GET_GDS_LAYER(layer);
+   if (0&&(IsRdsConExter(rect) || IsRdsRefCon (rect)) && !IsRdsVia(rect))
+      nlayer = GET_GDS_CONNECTOR_LAYER(layer);
+   else {
+      nlayer = GET_GDS_LAYER(layer);
+      datatype = GET_GDS_CONNECTOR_LAYER(layer);
+   }
 
    tab[0].X = rect->X;
    tab[0].Y = rect->Y;
@@ -347,7 +351,7 @@ coord_t      tab[6]; /* last one reserved for text */
    entete(LAYER0, sizeof(short));
    controle(1)
    if (islittle()) {
-      layer    = swaps(layer);
+      nlayer    = swaps(nlayer);
       datatype = swaps(datatype);
       tab[0].X = swapl(tab[0].X);
       tab[0].Y = swapl(tab[0].Y);
@@ -362,7 +366,7 @@ coord_t      tab[6]; /* last one reserved for text */
       tab[5].X = swapl(tab[5].X);
       tab[5].Y = swapl(tab[5].Y);
    }
-   numb = fwrite((char *)&layer, sizeof(short), 1, fp);
+   numb = fwrite((char *)&nlayer, sizeof(short), 1, fp);
    controle(1);
 
    entete(DATATYPE, sizeof(short));
@@ -394,14 +398,14 @@ coord_t      tab[6]; /* last one reserved for text */
       entete(TEXT, 0);
 
       entete(LAYER0, sizeof(short));
-      numb = fwrite((char *)&layer, sizeof(short), 1, fp);
+      numb = fwrite((char *)&nlayer, sizeof(short), 1, fp);
       controle(1);
 
       /* TEXTTYPE values is set to 0, who cares */
 
       entete(TEXTTYPE, sizeof(short));
       layer = 0x00; 
-      numb = fwrite((char *)&layer, sizeof(short), 1, fp);
+      numb = fwrite((char *)&datatype, sizeof(short), 1, fp);
       controle(1);
 
       entete(XY, sizeof(coord_t));
@@ -726,7 +730,7 @@ ptype_list *model_list;
 
    entete(UNITS, 2 * sizeof(unit_type));
    /* who cares about user defined unit ? */
-   u_unit = pv_double_to_gdsreal(1.0 / RDS_UNIT, 2);
+   u_unit = pv_double_to_gdsreal(2.0 / RDS_UNIT, 2);
    /* cas d'underflow, d'overflow ou de manque d'espace memoire */
    if (u_unit == (char *)NULL) {
       (void)fclose(fp);
@@ -735,7 +739,7 @@ ptype_list *model_list;
    numb = fwrite(u_unit, sizeof(unit_type), 1, fp);
    free(u_unit);
    controle(1);
-   m_unit = pv_double_to_gdsreal( 1.0e-6 / RDS_UNIT, 2);
+   m_unit = pv_double_to_gdsreal( 2.0e-6 / RDS_UNIT, 2);
 
    /* cas d'underflow, d'overflow ou de manque d'espace memoire */
    if (m_unit == (char *)NULL) {
