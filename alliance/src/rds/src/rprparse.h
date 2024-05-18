@@ -28,8 +28,8 @@
 |                                                             |
 \------------------------------------------------------------*/
 
-# define RPR_MAX_RDS_UNIT      100000L
-# define RPR_EPSILON           ((double)0.001)
+# define RPR_MAX_RDS_UNIT      1000000L
+# define RPR_EPSILON           ((double)0.0001)
 # define RPR_MAX_BUFFER        512
 # define RPR_MAX_KEYWORD       155
 
