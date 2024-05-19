@@ -782,8 +782,10 @@ void RprComputeRdsUnit( PhysicalGrid )
        break;
   }
  
-  RDS_UNIT          = RdsUnit << 1;
-  RDS_PHYSICAL_GRID = Number  << 1;
+//  RDS_UNIT          = RdsUnit << 1;
+//  RDS_PHYSICAL_GRID = Number  << 1;
+  RDS_UNIT          = RdsUnit ;
+  RDS_PHYSICAL_GRID = Number  ;
   RDS_UNIT2         = RDS_UNIT * RDS_UNIT;
 }
 
