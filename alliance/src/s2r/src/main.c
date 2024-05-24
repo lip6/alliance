@@ -56,6 +56,8 @@
 #include "statistics.h"
 #include "postrat.h"
 
+extern int Pin_Layer;           /* generate the pin layer for GDS from table for CALUx */
+
 void Usage (Name)
      char *Name;
 {
@@ -70,6 +72,7 @@ void Usage (Name)
    fprintf (stderr, "\t-C\t: keeps top-level (c)onnectors, deletes all others\n");
    fprintf (stderr, "\t-i\t: generate implants from NWELL\n");
    fprintf (stderr, "\t-n\t: deletes all signal names, but connectors\n");
+   fprintf (stderr, "\t-P\t: generate pin layer in GDS for connectors\n");
    fprintf (stderr, "\t-s\t: (s)cotchs are created\n");
    fprintf (stderr, "\t-t\t: layout is just (t)ranslated, not post-treated\n");
    fprintf (stderr, "\t-r\t: black boxes are not (r)eplaced\n");
@@ -135,6 +138,9 @@ int main (argc, argv)
                break;
             case 'c':
                root_conn = 0;
+               break;
+            case 'P':
+               Pin_Layer = 1;
                break;
             case 'n':
                signal_name = 0;
