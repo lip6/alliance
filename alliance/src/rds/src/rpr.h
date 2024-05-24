@@ -125,7 +125,7 @@
 \------------------------------------------------------------*/
 
 # define RDS_CIF_LAYER_FIELD  1
-# define RDS_GDS_LAYER_FIELD  2
+# define RDS_GDS_LAYER_FIELD  4
 
 # define RDS_CIF_LAYER_EMPTY  (char *)NULL
 # define RDS_GDS_LAYER_EMPTY  (unsigned char)255
@@ -399,9 +399,17 @@
                                                               \
         ( RDS_GDS_LAYER_TABLE [ (int)(Layer) ][ 0 ] )
 
-# define GET_GDS_CONNECTOR_LAYER( Layer )                               \
+# define GET_GDS_DATATYPE( Layer )                               \
                                                               \
         ( RDS_GDS_LAYER_TABLE [ (int)(Layer) ][ 1 ] )
+
+# define GET_GDS_CONNECTOR_LAYER( Layer )                               \
+                                                              \
+        ( RDS_GDS_LAYER_TABLE [ (int)(Layer) ][ 2 ] )
+
+# define GET_GDS_CONNECTOR_DATATYPE( Layer )                               \
+                                                              \
+        ( RDS_GDS_LAYER_TABLE [ (int)(Layer) ][ 3 ] )
 
 /*------------------------------------------------------------\
 |                                                             |

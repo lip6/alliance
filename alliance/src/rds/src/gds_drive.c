@@ -42,6 +42,7 @@
 |                           Constants                         |
 |                                                             |
 \------------------------------------------------------------*/
+  int Pin_Layer = 0;
 
   static short FIRST_MODEL;
 
@@ -326,11 +327,21 @@ coord_t      tab[6]; /* last one reserved for text */
 
    /* A connectors is written using a specific layer from now on:
     * this implies a simple change of layer */
-   if (0&&(IsRdsConExter(rect) || IsRdsRefCon (rect)) && !IsRdsVia(rect))
+   if (Pin_Layer &&  GET_GDS_CONNECTOR_LAYER(layer) && 
+       (IsRdsConExter(rect) || IsRdsRefCon (rect)) && !IsRdsVia(rect)) {
+      rdsrec_list *pinlayer;
+      pinlayer = (rdsrec_list*)mbkalloc(sizeof(rdsrec_list));
+      memcpy(pinlayer, rect, sizeof(rdsrec_list));
+      pinlayer->NEXT = NULL;
+      pinlayer->FLAGS &= ~RDS_CON_EXTER_MASK;
+      pv_sauve_rectangle(pinlayer, fp, layer);
+      mbkfree(pinlayer);
       nlayer = GET_GDS_CONNECTOR_LAYER(layer);
+      datatype = GET_GDS_CONNECTOR_DATATYPE(layer);
+   }
    else {
       nlayer = GET_GDS_LAYER(layer);
-      datatype = GET_GDS_CONNECTOR_LAYER(layer);
+      datatype = GET_GDS_DATATYPE(layer);
    }
 
    tab[0].X = rect->X;
