@@ -121,7 +121,7 @@
   static char *CursorColorNameKeyword;
   static char *CursorSizeKeyword;
 
-  static keyword KeywordDefine[ GSB_MAX_KEYWORD ] =
+  static keyword KeywordDefine[ RDS_ALL_LAYER ] =
  
   {
     { "rds_abox",     RDS_LAYER_ABOX   },
@@ -468,7 +468,7 @@ long GsbGetStringValue( String )
 
   Keyword = (keyword *)bsearch( (char *)(&Entry), 
                                 (char *)KeywordDefine, 
-                                GSB_MAX_KEYWORD, sizeof( keyword ),
+                                RDS_ALL_LAYER , sizeof( keyword ),
                                 GsbKeywordCompare );
 
   if ( Keyword == (keyword *)NULL )
