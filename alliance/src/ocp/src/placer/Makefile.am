@@ -49,5 +49,6 @@ EXTRA_DIST = iocgram.h
 
 CLEANFILES = iocgram.c iocgram.h
 
-ioscan.c: iocgram.c
+iogram.h: iocgram.c
+iocscan.c: iocgram.h
 
