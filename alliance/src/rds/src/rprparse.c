@@ -756,6 +756,48 @@ void RprComputeRdsUnit( PhysicalGrid )
 {
   long Number;
   long RdsUnit;
+  double iPhysicalGrid = 1.0/PhysicalGrid;
+ 
+  if ( PhysicalGrid <= 0 )
+  {
+    rprerror( RPR_NEGATIVE_VALUE, PhysicalGridKeyword, RprCurrentLine );
+  }
+ 
+  RdsUnit = 1;
+ 
+  for ( Number = 1; 
+        RdsUnit = ceil (iPhysicalGrid * Number ),  ! RprEqual( PhysicalGrid * RdsUnit , Number);
+        Number = Number + 1 )
+  {
+    
+    if ( RdsUnit > RPR_MAX_RDS_UNIT ) 
+    {
+      rprerror( RPR_TOO_SMAL, PhysicalGridKeyword, RprCurrentLine );
+    }
+    for ( RdsUnit = RdsUnit - 1; 
+          (PhysicalGrid * RdsUnit + RPR_EPSILON) <  Number; 
+          RdsUnit = RdsUnit + 1 );
+ 
+    if ( RprEqual( PhysicalGrid * RdsUnit, Number )) 
+ 
+       break;
+ 
+  }
+ 
+//  RDS_UNIT          = RdsUnit << 1;
+//  RDS_PHYSICAL_GRID = Number  << 1;
+  RDS_UNIT          = RdsUnit ;
+  RDS_PHYSICAL_GRID = Number  ;
+  RDS_UNIT2         = RDS_UNIT * RDS_UNIT;
+}
+
+#if 0
+void RprComputeRdsUnit( PhysicalGrid )
+
+    double PhysicalGrid;
+{
+  long Number;
+  long RdsUnit;
  
   if ( PhysicalGrid <= 0 )
   {
@@ -788,6 +830,7 @@ void RprComputeRdsUnit( PhysicalGrid )
   RDS_PHYSICAL_GRID = Number  ;
   RDS_UNIT2         = RDS_UNIT * RDS_UNIT;
 }
+#endif
 
 /*------------------------------------------------------------\
 |                                                             |

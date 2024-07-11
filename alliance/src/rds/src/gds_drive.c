@@ -155,7 +155,7 @@ short precision;
 {
    register int   i;
    char     buffer[56], *pt;
-   long double lvalue;
+   double lvalue;
 
    pt = (char *)calloc((unsigned)precision * 4, sizeof(char));
    if (pt == (char *)NULL) {
@@ -741,7 +741,7 @@ ptype_list *model_list;
 
    entete(UNITS, 2 * sizeof(unit_type));
    /* who cares about user defined unit ? */
-   u_unit = pv_double_to_gdsreal(1.0 / RDS_UNIT, 2);
+   u_unit = pv_double_to_gdsreal((1.0 / RDS_UNIT), 2);
    /* cas d'underflow, d'overflow ou de manque d'espace memoire */
    if (u_unit == (char *)NULL) {
       (void)fclose(fp);
@@ -750,7 +750,7 @@ ptype_list *model_list;
    numb = fwrite(u_unit, sizeof(unit_type), 1, fp);
    free(u_unit);
    controle(1);
-   m_unit = pv_double_to_gdsreal( (double)(1.0e-6l / RDS_UNIT), 2);
+   m_unit = pv_double_to_gdsreal( (1.0e-6 / RDS_UNIT), 2);
 
    /* cas d'underflow, d'overflow ou de manque d'espace memoire */
    if (m_unit == (char *)NULL) {
