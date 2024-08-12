@@ -68,6 +68,9 @@ char *NameVdd=NULL;
 char *NameVss=NULL;
 
 
+ void rdsenv ();
+ void loadrdsparam();
+
 /******************************************************************************/
 /* Function : ScrUsage()                                                      */
 /*                                                                            */
@@ -1556,6 +1559,8 @@ char	*argv[];
  long		CellLineNumber = 0;
  extern FILE	*yyin;
 
+ rdsenv ();
+ loadrdsparam();
  mbkenv();
  NameVdd = namealloc(VDD);
  NameVss = namealloc(VSS);

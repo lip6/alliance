@@ -59,14 +59,14 @@ extern int SXMODE;
 # define BOOLEAN	int
 # define FALSE		((int ) 0)
 # define TRUE		((int ) 1)
-# define VDDOFFSET	((long ) (SXMODE ? 3:2) * SCALE_X)
-# define VSSOFFSET	((long ) (SXMODE ? 3:2) * SCALE_X)
-# define VDDWIDTH	((long ) (SXMODE ? 6:8) * SCALE_X)
-# define VSSWIDTH	((long ) (SXMODE ? 6:8) * SCALE_X)
-# define RIGHTSUPPLY	(PITCH_X / (SXMODE ? 1:2))
-# define LEFTSUPPLY	(PITCH_X / (SXMODE ? 1:2))
-# define MIDDLESUPPLY	((long ) 3 * SCALE_X)
-# define CELLAB	        ((long ) 50 * SCALE_X)
+# define VDDOFFSET	((long ) (long)(MBK_WIDTH_VDD/2) * SCALE_X)
+# define VSSOFFSET	((long ) (long)(MBK_WIDTH_VSS/2) * SCALE_X)
+# define VDDWIDTH	((long ) MBK_WIDTH_VDD * SCALE_X)
+# define VSSWIDTH	((long ) MBK_WIDTH_VSS * SCALE_X)
+# define RIGHTSUPPLY	(PITCH_X / MBK_TRACK_WIDTH_ALU1)
+# define LEFTSUPPLY	(PITCH_X / MBK_TRACK_WIDTH_ALU1)
+# define MIDDLESUPPLY	((long )(MBK_WIDTH_VDD/2) * SCALE_X)
+# define CELLAB	        ((long ) MBK_Y_SLICE * SCALE_X)
 
 typedef struct SCR_Figure 
 	{
