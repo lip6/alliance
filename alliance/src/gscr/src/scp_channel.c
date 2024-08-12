@@ -42,7 +42,8 @@
 \---------------------------------------------------------*/
 #include "scp_channel.h"
 extern int SXMODE;
-# define PITCH_X        ((long )((SXMODE ? 5:6) * SCALE_X))
+extern long MBK_X_GRID;
+# define PITCH_X (MBK_X_GRID * SCALE_X)
 /*---------------------------------------------------------\
 					Les definitions de type
 \---------------------------------------------------------*/

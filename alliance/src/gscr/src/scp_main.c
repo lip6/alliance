@@ -81,7 +81,7 @@ static long CoutMoyen = 141900;
 					Place 
 \---------------------------------------------------------*/
 
-int SXMODE=0;
+int SXMODE=1;
 int SCR_RATIO=100; /* carre */
 
 placement_fig *Place (LogicalFigur,NombreModifications,NbRow,WeightX,WeightY,WeightRows,WeightCon,Connectors,WHratio)
@@ -105,8 +105,8 @@ PlaceConList  *Connectors;
 	cells_of_net *pt_cl2; 
 	int   iNet, iCell;
 
-	set_time ();
-	srand(getpid());
+	//set_time ();
+	//srand(getpid());
 	PoidsX = WeightX;
 	PoidsY = WeightY;
 	printf("Loading SCP data base ...\n");

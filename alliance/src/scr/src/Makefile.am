@@ -7,6 +7,7 @@ CFLAGS           = -g -O2
 #CFLAGS          = -O2
 AM_CFLAGS        = @ALLIANCE_CFLAGS@ \
                    -I$(top_srcdir)/mbk/src \
+                   -I$(top_srcdir)/rds/src \
                    -I$(top_srcdir)/gscr/src
 
 bin_PROGRAMS     = scr
@@ -14,7 +15,8 @@ bin_PROGRAMS     = scr
 scr_LDADD        = -L$(libdir) @ALLIANCE_LIBS@  \
                    -L$(top_builddir)/mbk/src \
                    -L$(top_builddir)/gscr/src \
-                   -lApr -lMpu -lMlu -lMlo -lMph -lMut
+                   -L$(top_builddir)/rds/src/.libs \
+                   -lRds -lApr -lMpu -lMlu -lMlo -lMph -lMut
 
 scr_SOURCES      = GlobalRouter.c LoadDataBase.c main.c ScrSesame.c ViewDataBase.c \
                    scr_grammar.y scr_lexer.l

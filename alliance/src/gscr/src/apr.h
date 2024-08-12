@@ -45,14 +45,14 @@
 /*############################################################################*/
 # define BOOLEAN	int 
 # define NONET		((long ) 0)
-# define PITCH_X	((long )(/*6*/5 * SCALE_X))
-# define PITCH_Y	((long )(5 * SCALE_X))
-# define NORTHOFFSET	((long )((L3MODE?5:4) * SCALE_X))
-# define SOUTHOFFSET	((long )((L3MODE?0:4) * SCALE_X))
+# define PITCH_X (MBK_X_GRID*SCALE_X)
+# define PITCH_Y (MBK_Y_GRID*SCALE_X)
+# define NORTHOFFSET	((long )(MBK_Y_GRID * SCALE_X))
+# define SOUTHOFFSET	((long )(MBK_Y_GRID * SCALE_X))
 # define WESTOFFSET	(PITCH_X /* / 2 */)
 # define EASTOFFSET	(0 /* PITCH_X / 2 */)
-# define LAYER1WIDTH	((long) 2 * SCALE_X)
-# define LAYER2WIDTH	((long) 2 * SCALE_X)
+# define LAYER1WIDTH	((long) MBK_TRACK_WIDTH_ALU1 * SCALE_X)
+# define LAYER2WIDTH	((long) MBK_TRACK_WIDTH_ALU2 * SCALE_X)
 
 /******************************************************************************/
 typedef struct SCR_ConnectorList
