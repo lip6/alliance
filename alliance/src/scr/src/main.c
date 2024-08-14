@@ -1139,6 +1139,8 @@ for (; ptScrLine->NEXT; ptScrLine = ptScrLine->NEXT);
  /* BARRES D'ALIMENTATIONS HORIZONTALES */
     for (ptXBreak = ptXInsert; ptXBreak; ptXBreak = ptXBreak->NEXT) {
      long xins;
+     phfig_list *feed1, *feed2;
+     long feed1_width, feed2_width;
      X1 = ptXBreak->X;
      X2 = X1 + VerticalChannelWidth;
      X3 = X1 + RIGHTSUPPLY + (VddWidth / 2);
@@ -1149,12 +1151,16 @@ for (; ptScrLine->NEXT; ptScrLine = ptScrLine->NEXT);
      ptMbkRoot->PHSEG = addphseg(ptMbkRoot,ALU1,VDDWIDTH,X1,Y2,X2,Y2,NameVdd);
      bigvia(ptMbkRoot, CONT_VIA,X3, Y2, VddWidth, VDDWIDTH);
      bigvia(ptMbkRoot, CONT_VIA,X4, Y1, VssWidth, VSSWIDTH);
-     for(xins=X1; xins+10*SCALE_X <= X2; xins += 10*SCALE_X) {
+     feed1 = getphfig("tie_x0",'A');
+     feed2 = getphfig("rowend_x0",'A');
+     feed1_width=feed1->XAB2-feed1->XAB1;
+     feed2_width=feed2->XAB2-feed2->XAB1;
+     for(xins=X1; xins+feed1_width*SCALE_X <= X2; xins += feed1_width*SCALE_X) {
         addphins(ptMbkRoot,"tie_x0",ScrNameIndex("tiefeed",Counter++),
                                NOSYM,
                                xins,ptScrLine->Y);
      }
-     for(; xins+5*SCALE_X <= X2; xins += 5*SCALE_X) {
+     for(; xins+feed2_width*SCALE_X <= X2; xins += feed2_width*SCALE_X) {
         addphins(ptMbkRoot,"rowend_x0",ScrNameIndex("tiefeed",Counter++),
                                NOSYM,
                                xins,ptScrLine->Y);
