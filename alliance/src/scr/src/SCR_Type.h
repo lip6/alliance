@@ -63,8 +63,8 @@ extern int SXMODE;
 # define VSSOFFSET	((long ) (long)(MBK_WIDTH_VSS/2) * SCALE_X)
 # define VDDWIDTH	((long ) MBK_WIDTH_VDD * SCALE_X)
 # define VSSWIDTH	((long ) MBK_WIDTH_VSS * SCALE_X)
-# define RIGHTSUPPLY	(PITCH_X / MBK_TRACK_WIDTH_ALU1)
-# define LEFTSUPPLY	(PITCH_X / MBK_TRACK_WIDTH_ALU1)
+# define RIGHTSUPPLY	((long )(MBK_TRACK_SPACING_ALU2 +  MBK_WIDTH_VDD/2) * SCALE_X)
+# define LEFTSUPPLY	((long )(MBK_TRACK_SPACING_ALU2 +  MBK_WIDTH_VDD/2) * SCALE_X)
 # define MIDDLESUPPLY	((long )(MBK_WIDTH_VDD/2) * SCALE_X)
 # define CELLAB	        ((long ) MBK_Y_SLICE * SCALE_X)
 
