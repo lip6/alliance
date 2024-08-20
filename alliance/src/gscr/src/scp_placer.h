@@ -48,6 +48,7 @@ typedef struct Option
          int            SupplyRecall;
          int            Row;
          int            Iteration;
+         unsigned int   RandomSeed;
         }OptionList;
 
 

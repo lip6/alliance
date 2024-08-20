@@ -211,6 +211,7 @@ extern long MBK_TRACK_SPACING_ALU5;
 extern long MBK_TRACK_SPACING_ALU6;
 extern long MBK_TRACK_SPACING_ALU7;
 extern long MBK_TRACK_SPACING_ALU8;
+extern unsigned int MBK_RAND_SEED;
 
 extern unsigned long      RING_WMIN_ALU1;
 extern unsigned long      RING_WMIN_ALU2;

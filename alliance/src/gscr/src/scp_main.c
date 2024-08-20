@@ -105,8 +105,8 @@ PlaceConList  *Connectors;
 	cells_of_net *pt_cl2; 
 	int   iNet, iCell;
 
-	//set_time ();
-	//srand(getpid());
+	set_time ();
+	srand((unsigned int)MBK_RAND_SEED);
 	PoidsX = WeightX;
 	PoidsY = WeightY;
 	printf("Loading SCP data base ...\n");

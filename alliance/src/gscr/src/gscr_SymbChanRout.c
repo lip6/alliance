@@ -442,14 +442,17 @@ long		Density;
        CurrentPoint = CurrentColumn->PointList->NextPoint;
        ((CurrentPoint) && (CurrentPoint->Layer1 != RIGHT));
        CurrentPoint = CurrentPoint->NextPoint, TrackCounter--);
+  if (! CurrentPoint) return NULL;
   for (Counter = Density, PointList = EndWestColumn->PointList->NextPoint;
        Counter > TrackCounter; PointList = PointList->NextPoint, Counter--);
+  if (! PointList) return NULL;
   PointList->Via    = FALSE;
   PointList->Layer1 = RIGHT;
   PointList->Layer2 = NOP;
   for (CurrentList = LeadWestCon; 
        CurrentList->ConName != CurrentPoint->PointName; 
        CurrentList = CurrentList->NextCon);
+  if (! CurrentList) return NULL;
    CurrentList->Mark = TrackCounter;
  }
  return (EndWestColumn);
@@ -527,7 +530,7 @@ long		Density;
 /******************************************************************************/
 /*                     SAUVEGARDE DU RESULTAT DE ROUTAGE                      */
 /******************************************************************************/
-void	SCR_SaveResult( 
+int	SCR_SaveResult( 
                        LeadDataBase, EndDataBase, LeadH_Segment,
                        LeadV_Segment, LeadVia, Density, LeadWestCon
                       )
@@ -562,6 +565,7 @@ ConnectorList   *LeadWestCon;
 
  if (LeadWestCon) CounterColumn = 0; 
  else CounterColumn = 1; 
+ if (!LeadDataBase) return -1;
  for (CurrentColumnList = LeadDataBase; (CurrentColumnList != EndDataBase);
       CurrentColumnList = CurrentColumnList->NextCol, CounterColumn++) 
   for (CurrentPoint = CurrentColumnList->PointList, 
@@ -640,6 +644,7 @@ ConnectorList   *LeadWestCon;
     }
    }
   } 
+ return 0;
 }
 
 /******************************************************************************/
@@ -781,11 +786,13 @@ ViasList	**LeadVia;
  if (*LeadWestCon) {
   LeadRealChannel = SCR_WestPostAnalysis( Lead_NS_Column,*LeadWestCon,
 				         ChannelDensity);
+  if(!LeadRealChannel) return -1;
  }
 
  if (*LeadEastCon) {
   EndRealChannel = SCR_EastPostAnalysis( LeadEastColumn,*LeadEastCon,
 		       		        ChannelDensity );
+  if(!EndRealChannel) return -1;
  }
 
 # ifdef SCR_DEBUG
@@ -794,8 +801,8 @@ ViasList	**LeadVia;
  fprintf(stderr,"Saving a Channel Router Result \n");
 # endif
 
- SCR_SaveResult(LeadRealChannel, EndRealChannel, LeadH_Segment, 
-	        LeadV_Segment, LeadVia, ChannelDensity,*LeadWestCon);
+ if(SCR_SaveResult(LeadRealChannel, EndRealChannel, LeadH_Segment, 
+	        LeadV_Segment, LeadVia, ChannelDensity,*LeadWestCon) < 0) return -1;;
 
 # ifdef SCR_DEBUG
  fprintf(stderr,"Print Horizontal Segment : \n");

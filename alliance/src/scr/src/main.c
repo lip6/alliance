@@ -51,6 +51,7 @@
 #endif
 
 # include <string.h>
+# include <stdlib.h>
 # include <mut.h>
 # include <mlo.h> 
 # include <mph.h> 
@@ -99,6 +100,7 @@ char	*Execut;
  fprintf(stderr," [-i IterationNumber] : This action is used to improve the quality of the placement\n");
  fprintf(stderr," [-l SliceNumber]     : This option allows the designer to set the number of rows\n");
  fprintf(stderr," [-a SupplyNumber]    : This option allows the designer to set the number of power supply\n");
+ fprintf(stderr," [-s RandomSeed  ]    : This option allows the designer to set the random seed value\n");
  fprintf(stderr,"for more informations use man scr\n");
  exit(1);
 }
@@ -130,6 +132,7 @@ char		*ArgValue[];
  ptOption->SupplyRecall = 1;
  ptOption->Row          = 0;
  ptOption->Iteration    = 0;
+ ptOption->RandomSeed   = 0;
  
  L3MODE = (getenv ("SCR_L3MODE")) ? 1 : 0;
  SXMODE = (getenv ("SCR_SCLIB")) ? 0 : 1;
@@ -183,6 +186,14 @@ char		*ArgValue[];
                  ScrUsage(ArgValue[0]);
                 else
                  ptOption->Iteration = atoi(ArgValue[++ArgNumber]);
+               else ScrUsage(ArgValue[0]);
+               continue;
+
+    case 's' : if (*++ArgV == '\0') 
+                if (ArgValue[++AuxArgNumber] == NULL) 
+                 ScrUsage(ArgValue[0]);
+                else
+                 MBK_RAND_SEED = ptOption->RandomSeed = atoi(ArgValue[++ArgNumber]);
                else ScrUsage(ArgValue[0]);
                continue;
 
@@ -1564,6 +1575,7 @@ char	*argv[];
  long		ChannelWidth  = 0;
  long		CellLineNumber = 0;
  extern FILE	*yyin;
+ int            res;
 
  rdsenv ();
  loadrdsparam();
@@ -1584,6 +1596,8 @@ char	*argv[];
   fclose(yyin);
  }
 
+redo:
+
  fprintf(stderr,"Loading logical view : %s\n",ptOption->InputFileName);
  ptlofig = getlofig(ptOption->InputFileName,'A');
  rflattenlofig(ptlofig,'Y','Y');
@@ -1592,6 +1606,7 @@ char	*argv[];
   fprintf(stderr,"scr_error : Check that the catalogue file existes and that it contains all the models instanciated in the figure.\n");
   exit(1);
  }
+
 
  if (ptOption->Placer) {
   fprintf(stderr,"Placing logical view : %s\n",ptOption->InputFileName);
@@ -1682,12 +1697,17 @@ char	*argv[];
      ptLine->NAME = ScrNameIndex(ptOption->ChannelName,Counter);
     fprintf(stderr,"|_____Routing Channel : %s \n",ptLine->NAME);
     ptChannel  = ptLine->CHANNEL;
-    if (SymbolicChannelRouter(&ptChannel->NORTH_LIST,&ptChannel->SOUTH_LIST,
+    if (TRUE == (res = SymbolicChannelRouter(&ptChannel->NORTH_LIST,&ptChannel->SOUTH_LIST,
                               &ptChannel->WEST_LIST,&ptChannel->EAST_LIST,
                               &(ptChannel->WIDTH),&(ptChannel->HEIGTH),
                               &(ptChannel->H_SEGMENT),&(ptChannel->V_SEGMENT),
-                              &(ptChannel->VIA))) 
+                              &(ptChannel->VIA))) )
      LineWidthChange = TRUE;
+    else if (res < 0 ) {
+       fprintf(stderr,"Channel routing failed redo ...\n\n\n");
+       MBK_RAND_SEED= random();
+       goto redo;
+    }
     ptLine->WIDTH = ((ptChannel->WIDTH - 1) * PITCH_X) + WESTOFFSET + EASTOFFSET;
     ptLine->HEIGTH = ((ptChannel->HEIGTH - 1) * PITCH_Y) + SOUTHOFFSET + NORTHOFFSET;
    }
