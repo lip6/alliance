@@ -90,6 +90,7 @@ long MBK_TRACK_SPACING_ALU5 = 8;
 long MBK_TRACK_SPACING_ALU6 = 8;
 long MBK_TRACK_SPACING_ALU7 = 8;
 long MBK_TRACK_SPACING_ALU8 = 0;
+unsigned int MBK_RAND_SEED =  0x30343762;
 unsigned long RING_WMIN_ALU1 = 2;
 unsigned long RING_WMIN_ALU2 = 2;
 unsigned long RING_DMIN_ALU1_ALU1 = 3;
@@ -177,11 +178,6 @@ void mbkenv(void)
 {
 char *str;
 long nchar;
-
-static char MBK_RAND_SEED[] = { 0x62,
-  0x37, 0x34, 0x30, 0x30, 0x32, 0x31, 0x38, 0x61, 0x31, 0x37, 0x34,
-  0x64, 0x34, 0x64, 0x36, 0x36, 0x65, 0x32, 0x35, 0x38, 0x30, 0x34, 0x63,
-  0x31, 0x36, 0x32, 0x38, 0x34, 0x65, 0x37, 0x61 } ;
 
 
    str = mbkgetenv("MBK_TRACE_GETENV");
@@ -348,7 +344,10 @@ static char MBK_RAND_SEED[] = { 0x62,
       RING_WALIM = (long)atoi(str);
 
 
-   srand((unsigned int) MBK_RAND_SEED);
+   str = mbkgetenv("MBK_RAND_SEED");
+   if (str != NULL)
+      MBK_RAND_SEED = (unsigned int)atoi(str);
+   srand(MBK_RAND_SEED);
 
    str = mbkgetenv("MBK_IN_LO");
    if (str != NULL) {
