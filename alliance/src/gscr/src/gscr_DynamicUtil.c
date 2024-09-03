@@ -27,6 +27,7 @@
 /******************************************************************************/
 
 # include <stdio.h>
+# include <stdlib.h>
 # include "gscr_DataBase.h"
 # include "gscr_greedy.h"
 

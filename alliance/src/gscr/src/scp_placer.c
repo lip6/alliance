@@ -46,9 +46,12 @@
 #include <unistd.h>
 #include <mut.h>
 #include <mlo.h>
+#include <mlu.h>
 #include <mph.h>
+#include <mpu.h>
 #include "scp_placer.h"
 #include "scp_scp2mbk.h"
+
 
 /******************************************************************************/
 /* Function : ScrUsage()                                                      */

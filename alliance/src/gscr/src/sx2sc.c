@@ -19,7 +19,7 @@ void sx2sc (phfig_list * phfig)
   
   if (phfig->USER) return; /* deja traite */
   
-  phfig->USER = 1;
+  phfig->USER = (void*)1;
   /*
    * initialisation du tableau des transparences
    */

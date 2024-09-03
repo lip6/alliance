@@ -17,6 +17,8 @@ long	con_order;
 long	order_begin;
 long	order_end;
 char	buffer[256];
+int yylex();
+int yyerror();
 
 extern PlaceConList     *LeadPlaceConList;
 /******************************************************************************/
@@ -219,13 +221,13 @@ order
 
 %%
 
-yyerror() 
+int yyerror() 
 {
  fprintf(stdout,"SYNTAX ERROR at line %d \n",tpllineno);
  exit(1);
 }
 
-yywrap() {
+int yywrap() {
 	return 1;
 }
 

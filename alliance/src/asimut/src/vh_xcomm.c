@@ -2112,5 +2112,7 @@ struct node   *pt_bdd   ;
 
 void vhx_callagain (pt_lkdins)
 
+struct lkdins *pt_lkdins;
+
   {
   }

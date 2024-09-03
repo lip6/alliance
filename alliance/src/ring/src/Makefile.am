@@ -4,6 +4,7 @@ YACC         = @YACC@ -d
 
 AM_CFLAGS    = @ALLIANCE_CFLAGS@ \
                -I$(top_srcdir)/mbk/src \
+               -I$(top_srcdir)/rds/src \
                -I$(top_srcdir)/genlib/src
 
 bin_PROGRAMS = ring

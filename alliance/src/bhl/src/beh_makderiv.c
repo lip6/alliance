@@ -77,7 +77,7 @@ struct bequad *pt_bequad;
   pt_varidx = pt_bequad->VARLIST;
   while (pt_varidx != NULL)
     {
-    pt_node     = beh_derivSigByVar (pt_bequad->BDD, pt_varidx->DATA);
+    pt_node     = beh_derivSigByVar (pt_bequad->BDD, (short)pt_varidx->DATA);
     list_derive = beh_addbeder      (list_derive   , pt_node, pt_varidx->DATA);
 
     pt_varidx   = pt_varidx->NEXT;
