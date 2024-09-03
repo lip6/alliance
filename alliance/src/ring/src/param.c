@@ -44,6 +44,10 @@
 /*--------------------------------------------------------------------------*/
 #include <string.h>
 #include <stdio.h>
+#include "mph.h"
+#include "rds.h"
+#include "rtl.h"
+#include "rpr.h"
 
 #include "param.h"
 #include "sesame.h"

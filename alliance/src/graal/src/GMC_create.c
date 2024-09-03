@@ -360,6 +360,8 @@ void GraalCreateBigViaMbk( LambdaX1, LambdaY1, LambdaX2, LambdaY2 )
 
    long LambdaX1;
    long LambdaY1;
+   long LambdaX2;
+   long LambdaY2;
 {
   rdsrec_list *Rectangle;
   phvia_list  *Via;

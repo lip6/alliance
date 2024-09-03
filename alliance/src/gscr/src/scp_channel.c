@@ -40,10 +40,12 @@
 /*---------------------------------------------------------\
 					Les includes
 \---------------------------------------------------------*/
+#include <string.h>
 #include "scp_channel.h"
 extern int SXMODE;
 extern long MBK_X_GRID;
 # define PITCH_X (MBK_X_GRID * SCALE_X)
+void sx2sc (phfig_list * phfig);
 /*---------------------------------------------------------\
 					Les definitions de type
 \---------------------------------------------------------*/

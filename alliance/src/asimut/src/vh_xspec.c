@@ -1147,7 +1147,7 @@ static unsigned int st_getstat(dict, key, ctx, date, value)
 
 struct dct_entry **dict;
 void              *key;
-void              *ctx;
+unsigned long    ctx;
 unsigned int       date;
 unsigned char     value;
 

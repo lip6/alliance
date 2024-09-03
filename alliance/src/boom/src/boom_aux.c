@@ -436,6 +436,7 @@ void BoomBehDeleteUselessAux( BehFigure, InitialAux, RemoveBerin )
 
   befig_list *BehFigure;
   beaux_list *InitialAux;
+  int RemoveBerin;
 {
   boombeauxinfo *AuxInfo;
   beaux_list    *BehAux;

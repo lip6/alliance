@@ -42,7 +42,7 @@
 /* called func.	: mbkfree						*/
 /* ###--------------------------------------------------------------### */
 
-void beh_delbequad (listbequad, ptbequad, mode)
+void beh_delbequad (ptbequad, mode)
 
 struct bequad *ptbequad;	/* pointer of the BEQUAD to be deleted	*/
 char           mode;		/* recursive delete or not (Y or N)	*/

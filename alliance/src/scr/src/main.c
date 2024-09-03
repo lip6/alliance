@@ -55,6 +55,8 @@
 # include <mut.h>
 # include <mlo.h> 
 # include <mph.h> 
+# include <mpu.h> 
+# include <mlu.h> 
 # include <apr.h> 
 # include "SCR_Type.h"
 # include "main.h"
@@ -69,8 +71,12 @@ char *NameVdd=NULL;
 char *NameVss=NULL;
 
 
+ void yyparse ();
  void rdsenv ();
  void loadrdsparam();
+
+void   GlobalRoute( Figure *ptfig, phfig_list  *NewphIns, XSupplyRecallList *ptXInsert);
+void   Sesame( phfig_list	*ptphfig, lofig_list	*ptlofig);
 
 /******************************************************************************/
 /* Function : ScrUsage()                                                      */
