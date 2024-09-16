@@ -64,11 +64,12 @@
 # include "ViewDataBase.h"
 
 PlaceConList   *LeadPlaceConList = NULL;
-extern int L3MODE=0;
+extern int L3MODE;
 extern int SXMODE;
 extern int SCR_RATIO;
 char *NameVdd=NULL;
 char *NameVss=NULL;
+static  int            MaxRetry = 10;
 
 
  void yyparse ();
@@ -107,6 +108,7 @@ char	*Execut;
  fprintf(stderr," [-l SliceNumber]     : This option allows the designer to set the number of rows\n");
  fprintf(stderr," [-a SupplyNumber]    : This option allows the designer to set the number of power supply\n");
  fprintf(stderr," [-s RandomSeed  ]    : This option allows the designer to set the random seed value\n");
+ fprintf(stderr," [-M MaxRetryNumber ] : This option allows the designer to set the maximum retry number\n");
  fprintf(stderr,"for more informations use man scr\n");
  exit(1);
 }
@@ -198,8 +200,18 @@ char		*ArgValue[];
     case 's' : if (*++ArgV == '\0') 
                 if (ArgValue[++AuxArgNumber] == NULL) 
                  ScrUsage(ArgValue[0]);
-                else
+                else {
                  MBK_RAND_SEED = ptOption->RandomSeed = atoi(ArgValue[++ArgNumber]);
+                 srand(MBK_RAND_SEED);
+                }
+               else ScrUsage(ArgValue[0]);
+               continue;
+
+    case 'M' : if (*++ArgV == '\0') 
+                if (ArgValue[++AuxArgNumber] == NULL) 
+                 ScrUsage(ArgValue[0]);
+                else
+                 MaxRetry =  atoi(ArgValue[++ArgNumber]);
                else ScrUsage(ArgValue[0]);
                continue;
 
@@ -1603,6 +1615,11 @@ char	*argv[];
  }
 
 redo:
+ MaxRetry--;
+ if(MaxRetry<0) {
+   fprintf(stderr,"scr_error : The maximum retry number exceeded. Try another random seed or increase iteration number.\n");
+   exit(1);
+ }
 
  fprintf(stderr,"Loading logical view : %s\n",ptOption->InputFileName);
  ptlofig = getlofig(ptOption->InputFileName,'A');
