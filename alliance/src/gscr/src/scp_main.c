@@ -106,7 +106,7 @@ PlaceConList  *Connectors;
 	int   iNet, iCell;
 
 	set_time ();
-	srand((unsigned int)MBK_RAND_SEED);
+	//srand((unsigned int)MBK_RAND_SEED);
 	PoidsX = WeightX;
 	PoidsY = WeightY;
 	printf("Loading SCP data base ...\n");

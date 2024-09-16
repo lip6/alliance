@@ -36,6 +36,7 @@
 #include <ctype.h>
 #include <string.h>
 #include <signal.h>
+#include <time.h>
 #include <sys/types.h>
 #include <sys/wait.h>
 
@@ -347,6 +348,8 @@ long nchar;
    str = mbkgetenv("MBK_RAND_SEED");
    if (str != NULL)
       MBK_RAND_SEED = (unsigned int)atoi(str);
+   else
+      MBK_RAND_SEED = (unsigned int)clock();
    srand(MBK_RAND_SEED);
 
    str = mbkgetenv("MBK_IN_LO");
@@ -1518,7 +1521,6 @@ int i;
 * All that needed for a cute banner, by Frederic Petrot                        *
 * Used to be a standalone library                                              *
 *******************************************************************************/
-#include <time.h>
 #define WINDOW_SIZE 81
 #define LINES 15
 #define ASCENT 13
