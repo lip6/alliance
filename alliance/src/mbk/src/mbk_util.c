@@ -346,12 +346,10 @@ long nchar;
 
 
    str = mbkgetenv("MBK_RAND_SEED");
-   if (str != NULL)
+   if (str != NULL) {
       MBK_RAND_SEED = (unsigned int)atoi(str);
-   else
-      MBK_RAND_SEED = (unsigned int)clock();
-   srand(MBK_RAND_SEED);
-
+      srand(MBK_RAND_SEED);
+   }
    str = mbkgetenv("MBK_IN_LO");
    if (str != NULL) {
       if (!strcmp(str, "hns"))

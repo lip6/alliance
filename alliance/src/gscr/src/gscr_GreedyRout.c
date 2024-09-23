@@ -1021,7 +1021,7 @@ long		*ChannelWidth;
 /******************************************************************************/
 /*                        GREEDY ROUTER ALGORITHM                             */
 /******************************************************************************/
-void	SCR_GreedyRouter(
+int	SCR_GreedyRouter(
 			 LeadStaticDataBase, EndRealChannel,
 			 LeadEastColumn, Density, Width, ChannelWidth
 			)

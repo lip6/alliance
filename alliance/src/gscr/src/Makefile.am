@@ -1,6 +1,6 @@
 AM_CFLAGS         = @ALLIANCE_CFLAGS@ \
                     -I$(top_srcdir)/mbk/src \
-                    -DMAXLINE=500 -DMAXCOL=1000 -O4
+                    -DMAXLINE=500 -DMAXCOL=1000 -O2
 
 lib_LTLIBRARIES   = libApr.la
 include_HEADERS   = apr.h

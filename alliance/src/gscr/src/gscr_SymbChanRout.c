@@ -770,8 +770,8 @@ ViasList	**LeadVia;
 # endif
 
  *ChannelWidth = OldChannelWidth;
- SCR_GreedyRouter( LeadStaticDataBase, End_NS_Column, LeadEastColumn,
-                  &ChannelDensity, NewChannelWidth, ChannelWidth);
+ if(SCR_GreedyRouter( LeadStaticDataBase, End_NS_Column, LeadEastColumn,
+                  &ChannelDensity, NewChannelWidth, ChannelWidth) < 0) return -1;
 
  *ChannelHeight = ChannelDensity;
 

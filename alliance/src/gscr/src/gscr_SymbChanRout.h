@@ -28,7 +28,7 @@ extern	BOOLEAN		SCR_Belong();
 extern	long		SCR_ChannelDensity();
 extern	void		SCR_InsertNewColumn();
 extern	void		SCR_InsertNewTrack();
-extern	void		SCR_GreedyRouter();
+extern	int		SCR_GreedyRouter();
 extern 	StaticColumn	*SCR_WestEastPostAnalysis();
 extern	void		SCR_SaveResult();
 extern 	BOOLEAN		SymbolicChannelRouter();

@@ -35,4 +35,4 @@ extern	void	Step4();
 extern	void	Step5();
 extern	void	Step6();
 extern	void	SCR_EndingNotCollapsingNets();
-extern	void	SCR_GreedyRouter();
+extern	int	SCR_GreedyRouter();

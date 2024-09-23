@@ -41,4 +41,4 @@
 /******************************************************************************/
 extern	long	MaxConInColumn();
 extern	Signal	*SortSignal();
-extern	void	GlobalRoute();
+extern	int	GlobalRoute();

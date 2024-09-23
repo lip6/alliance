@@ -107,6 +107,7 @@ PlaceConList  *Connectors;
 
 	set_time ();
 	//srand((unsigned int)MBK_RAND_SEED);
+        CoutMoyen = 141900;  // static variable must be initialized for every retry
 	PoidsX = WeightX;
 	PoidsY = WeightY;
 	printf("Loading SCP data base ...\n");

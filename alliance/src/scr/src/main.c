@@ -69,14 +69,14 @@ extern int SXMODE;
 extern int SCR_RATIO;
 char *NameVdd=NULL;
 char *NameVss=NULL;
-static  int            MaxRetry = 10;
+static  int            MaxRetry = 2;
 
 
  void yyparse ();
  void rdsenv ();
  void loadrdsparam();
 
-void   GlobalRoute( Figure *ptfig, phfig_list  *NewphIns, XSupplyRecallList *ptXInsert);
+int    GlobalRoute( Figure *ptfig, phfig_list  *NewphIns, XSupplyRecallList *ptXInsert);
 void   Sesame( phfig_list	*ptphfig, lofig_list	*ptlofig);
 
 /******************************************************************************/
@@ -202,7 +202,6 @@ char		*ArgValue[];
                  ScrUsage(ArgValue[0]);
                 else {
                  MBK_RAND_SEED = ptOption->RandomSeed = atoi(ArgValue[++ArgNumber]);
-                 srand(MBK_RAND_SEED);
                 }
                else ScrUsage(ArgValue[0]);
                continue;
@@ -1601,6 +1600,7 @@ char	*argv[];
  NameVdd = namealloc(VDD);
  NameVss = namealloc(VSS);
  alliancebanner("SCR","5.3","Standard Cell router","1991",ALLIANCE_VERSION);
+
  if (argc < 3) ScrUsage(argv[0]);
  else
   if (*argv[1] == '-') ptOption = GetOptions(argc,argv);
@@ -1615,6 +1615,9 @@ char	*argv[];
  }
 
 redo:
+ srand((unsigned int)MBK_RAND_SEED);
+ fprintf(stderr, "Random seed is: %u\n",(unsigned int)MBK_RAND_SEED);
+ 
  MaxRetry--;
  if(MaxRetry<0) {
    fprintf(stderr,"scr_error : The maximum retry number exceeded. Try another random seed or increase iteration number.\n");
@@ -1709,7 +1712,11 @@ redo:
     ptXInsertList = PreparVerticalChannel(ptfig, NewphIns, 1, &CounterInst);
 
   fprintf(stderr,"Global routing ...\n");
-  GlobalRoute(ptfig,NewphIns,ptXInsertList);
+  if(GlobalRoute(ptfig,NewphIns,ptXInsertList) <0) {
+    fprintf(stderr,"GlobalRoute failed redo ... \n\n\n");
+    MBK_RAND_SEED = (unsigned int)rand();
+    goto redo;
+  }
 
   fprintf(stderr,"Channel routing ...\n");
   for (ptLine = ptfig->LINE; ptLine; ptLine = ptLine->NEXT) {
@@ -1728,7 +1735,7 @@ redo:
      LineWidthChange = TRUE;
     else if (res < 0 ) {
        fprintf(stderr,"Channel routing failed redo ...\n\n\n");
-       MBK_RAND_SEED= random();
+       MBK_RAND_SEED = (unsigned int)random();
        goto redo;
     }
     ptLine->WIDTH = ((ptChannel->WIDTH - 1) * PITCH_X) + WESTOFFSET + EASTOFFSET;

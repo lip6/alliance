@@ -347,6 +347,12 @@ long		IndexCol;
     else PrevCon->NextCon  = ptNewCon;
     break;
    }
+   else if( IndexCol && CurrentCon->Mark == IndexCol) {
+     fprintf(stderr, "Duplicate Positioned Connector! at (%d@%d) vs (%d@%d)\n", 
+             IndexSig, IndexCol,
+             CurrentCon->ConName,CurrentCon->Mark);
+     return NULL;
+   }
    PrevCon = CurrentCon;
    CurrentCon = CurrentCon->NextCon;
   }
@@ -389,7 +395,7 @@ long		Heigth;
 /******************************************************************************/
 /*	Function : FillChannel()                                              */
 /******************************************************************************/
-void		FillChannel(ptfig)
+int		FillChannel(ptfig)
 
 Figure		*ptfig;
 
@@ -426,14 +432,17 @@ Figure		*ptfig;
     CurrentCon = ((Connector *) ConList->DATA);
     ptSouthList = MakeConList(ptSouthList,CurrentCon->SIG->INDEX,
                               ((CurrentCon->X - WESTOFFSET) / PITCH_X) + 1);
+    if(!ptSouthList) return -1;
    }
   }
   else {
    for (ConList = SouthLine->CON; ConList; ConList = ConList->NEXT) {
     CurrentCon = ((Connector *) ConList->DATA);
-    if (CurrentCon->ORIENT == NORTH) 
+    if (CurrentCon->ORIENT == NORTH) {
      ptSouthList = MakeConList(ptSouthList,CurrentCon->SIG->INDEX,
                                ((CurrentCon->X - WESTOFFSET) / PITCH_X) + 1);
+     if(!ptSouthList) return -1;
+    }
    }
   }
   if (NorthLine->TYPE == UP) {
@@ -441,14 +450,17 @@ Figure		*ptfig;
     CurrentCon = ((Connector *) ConList->DATA);
     ptNorthList = MakeConList(ptNorthList,CurrentCon->SIG->INDEX,
                               ((CurrentCon->X - WESTOFFSET) / PITCH_X) + 1);
+    if(!ptNorthList) return -1;
    }
   }
   else {
    for (ConList = NorthLine->CON; ConList; ConList = ConList->NEXT) {
     CurrentCon = ((Connector *) ConList->DATA);
-    if (CurrentCon->ORIENT == SOUTH) 
+    if (CurrentCon->ORIENT == SOUTH) {
      ptNorthList = MakeConList(ptNorthList,CurrentCon->SIG->INDEX,
                                ((CurrentCon->X - WESTOFFSET) / PITCH_X) + 1);
+     if(!ptNorthList) return -1;
+     }
    }
   }
  
@@ -457,6 +469,7 @@ Figure		*ptfig;
                                    ((PathLine->WIDTH) / PITCH_X),
                                    ((PathLine->HEIGTH) / PITCH_Y));
  }
+ return 0;
 }
 
 /******************************************************************************/
@@ -698,7 +711,7 @@ XSupplyRecallList       *ptXInsert;
 /******************************************************************************/
 /*		fonction GlobalRoute()                                        */
 /******************************************************************************/
-void			GlobalRoute(ptfig,NewphIns,ptXInsert)
+int			GlobalRoute(ptfig,NewphIns,ptXInsert)
 Figure			*ptfig;
 phfig_list		*NewphIns;
 XSupplyRecallList       *ptXInsert;
@@ -707,7 +720,7 @@ XSupplyRecallList       *ptXInsert;
 
  ptfig->SIG = SortSignal(ptfig->SIG);
  SpreadSignal(ptfig,NewphIns,ptXInsert);
- FillChannel(ptfig);
+ if(FillChannel(ptfig)<0) return -1;
 
 # ifdef SCR_DEBUG
   fprintf(stderr,"Eliminate the multiple connections ...\n");
@@ -715,5 +728,6 @@ XSupplyRecallList       *ptXInsert;
 
   ptfig = EliminateMultipleConnection(ptfig);
 
+  return 0;
 }
 /******************************************************************************/
