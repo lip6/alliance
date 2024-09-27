@@ -7,6 +7,8 @@
 #include <mlu.h>
 #include "spi_global.h"
 
+#define TRUE 1
+
 spimodel *SPIHEADMODEL = NULL;
 
 void spiloaderror( char*, int, char* );
@@ -78,6 +80,7 @@ void spiloadmodel( void )
     new->NEXT  = SPIHEADMODEL ;
     new->MODEL = namealloc( word );
     new->TYPE  = 0;
+    new->SUBCKT  = 0;
     SPIHEADMODEL = new;
 
     while( *buffer==' ' && *buffer )
@@ -124,6 +127,9 @@ void spiloadmodel( void )
       else
       if( strcasecmp( word, "HVIO" ) == 0 )
         new->TYPE = new->TYPE | TRANSHVIO;
+      else
+      if( strcasecmp( word, "SUBCKT" ) == 0 )
+        new->SUBCKT = TRUE;
       else
         spiloaderror( env, line, "Unknown option" );
  
@@ -179,6 +185,22 @@ char spitranstype( char *model )
   {
     if( strcasecmp(scan->MODEL, model) == 0 )
       return( scan->TYPE );
+  }
+
+  return(SPI_UNK_TRANS_TYPE);
+}
+
+char spitranssubckt( char *model )
+{
+  spimodel *scan;
+
+  if( !SPIHEADMODEL )
+    spiloadmodel();
+
+  for( scan = SPIHEADMODEL ; scan ; scan = scan->NEXT )
+  {
+    if( strcasecmp(scan->MODEL, model) == 0 )
+      return( scan->SUBCKT );
   }
 
   return(SPI_UNK_TRANS_TYPE);
