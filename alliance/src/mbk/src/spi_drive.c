@@ -584,9 +584,9 @@ char            *vss;
 char            *vdd;
 {
   lotrs_list	*scantrs;
-  int		 nb;
+  int		 nb, subckt;
   ht            *trname;
-  char           name[1024], *ptr ;
+  char           name[1024], *ptr, *model ;
 
   for( scantrs = ptfig->LOTRS, nb=1 ; scantrs ; scantrs = scantrs->NEXT, nb++ );
 
@@ -598,6 +598,8 @@ char            *vdd;
   {
     if( scantrs->TRNAME )
     {
+      model = spitransmodel( scantrs->TYPE );
+      subckt = spitranssubckt(model);
       if( gethtitem( trname, scantrs->TRNAME ) != EMPTYHT )
       {
         do
@@ -608,11 +610,17 @@ char            *vdd;
         }
         while( gethtitem( trname, ptr ) != EMPTYHT );
         addhtitem( trname, ptr, 1 );
-        tooutput( df, "M%s ", name );    
+        if(subckt) 
+          tooutput( df, "X%s ", name );
+        else
+          tooutput( df, "M%s ", name );
       }
       else
       {
-        tooutput( df, "M%s ", scantrs->TRNAME );
+        if(subckt) 
+          tooutput( df, "X%s ", scantrs->TRNAME );
+        else
+          tooutput( df, "M%s ", scantrs->TRNAME );
         addhtitem( trname, scantrs->TRNAME, 1 );
       }
     }
@@ -625,7 +633,10 @@ char            *vdd;
         ptr = namealloc( name );
       }
       while( gethtitem( trname, ptr ) != EMPTYHT );
-      tooutput( df, "M%s ", name );
+      if(subckt) 
+        tooutput( df, "X%s ", name );
+      else
+        tooutput( df, "M%s ", name );
       addhtitem( trname, ptr, 1 );
     }
 
@@ -668,7 +679,7 @@ char            *vdd;
       }
     }
 
-    tooutput( df, "%s ", spitransmodel( scantrs->TYPE ) );
+    tooutput( df, "%s ", model );
 #define SCALED(x,y) (double)((double)(x)/(double)(y))
 
     if(scantrs->LENGTH!=0)
