@@ -71,7 +71,7 @@ for dir in $dirs; do
   if [ "$dir" = "autom4te.cache" ]; then continue; fi
   if [ "$dir" = "Linux"          ]; then continue; fi
   if [ "$dir" = "Solaris"        ]; then continue; fi
-  if [ "$dir" = "documentation"  ]; then continue; fi
+# if [ "$dir" = "documentation"  ]; then continue; fi
   if [ ! -f "$dir/Makefile.am"    ]; then continue; fi
   newdirs="$newdirs $dir"
 done
