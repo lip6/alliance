@@ -8,7 +8,7 @@ drucompi.h drucring.c drucring.h drucutil.c drucutil.h vmcaract.c vmcaract.h \
 vmcasmld.c vmcasmld.h vmcerror.c vmcerror.h vmcmesur.c vmcmesur.h vmcrelat.c \
 vmcrelat.h vmctools.c vmctools.h vmcunify.c vmcunify.h
 
-CFLAGS = $(ALLIANCE_CFLAGS) -g -O0
+AM_CFLAGS = $(ALLIANCE_CFLAGS) -g -O0
 libVrd_la_LDFLAGS = -version-info @VRD_DLL_VERSION@ -L../../rds/src -L../../mbk/src
 libVrd_la_LIBADD  = -lRds -lMut -lMph
 
