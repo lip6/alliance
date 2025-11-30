@@ -3,9 +3,10 @@
 AM_YFLAGS        = -d
 
 #CFLAGS          = -g -pg -O2
-CFLAGS           = -g -O2
+#CFLAGS           = -g -O2
 #CFLAGS          = -O2
-AM_CFLAGS        = @ALLIANCE_CFLAGS@ \
+AM_CFLAGS        = -g -O2 \
+                   @ALLIANCE_CFLAGS@ \
                    -I$(top_srcdir)/mbk/src \
                    -I$(top_srcdir)/rds/src \
                    -I$(top_srcdir)/gscr/src
