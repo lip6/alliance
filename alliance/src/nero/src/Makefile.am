@@ -4,6 +4,7 @@
 #CXXFLAGS        = -g -O2 -std=gnu++11
 #CXXFLAGS        = -O2
 AM_CXXFLAGS      = -g -O2 -std=gnu++11 \
+                   @CXXFLAGS@ \
                    @ALLIANCE_CFLAGS@ \
                    -I$(top_srcdir)/abl/src \
                    -I$(top_srcdir)/aut/src \
