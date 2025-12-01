@@ -92,7 +92,7 @@
   #fi
   
    if [ -z "${MANPATH}" ]; then
-     MANPATH=:$ALLIANCE_TOP/share/man:$(manpath)
+     MANPATH=:$ALLIANCE_TOP/share/man:$(MANPATH)
    else
      MANPATH=$MANPATH:$ALLIANCE_TOP/share/man
    fi
