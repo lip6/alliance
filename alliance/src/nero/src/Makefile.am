@@ -1,9 +1,10 @@
 ## Process this file with automake to produce Makefile.in
 
 #CXXFLAGS        = -g -pg -O2 -std=c++11
-CXXFLAGS         = -g -O2 -std=gnu++11
+#CXXFLAGS        = -g -O2 -std=gnu++11
 #CXXFLAGS        = -O2
-AM_CXXFLAGS      = @ALLIANCE_CFLAGS@ \
+AM_CXXFLAGS      = -g -O2 -std=gnu++11 \
+                   @ALLIANCE_CFLAGS@ \
                    -I$(top_srcdir)/abl/src \
                    -I$(top_srcdir)/aut/src \
                    -I$(top_srcdir)/beh/src \
