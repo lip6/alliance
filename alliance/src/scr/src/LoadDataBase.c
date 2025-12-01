@@ -363,7 +363,7 @@ InsertAllowInIns (ptCell, Xab1, Xab2, Yab1, Yab2, ptphInsfig)
               Xab1, Yab1, Xab2, Yab2, ptCell->TRANSF);
 
       /* fw : elimination des segments ALLOW empiles */
-      for (ptphSeg_dejavu = ptCell->ALLOW;
+      for (ptphSeg_dejavu = (phseg_list*)ptCell->ALLOW;
            ptphSeg_dejavu && (X1 != ptphSeg_dejavu->X1);
            ptphSeg_dejavu = ptphSeg_dejavu->NEXT);
 
