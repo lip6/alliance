@@ -35,6 +35,7 @@
 #include "mg2mbk_y.h"
 static void zweep();
 extern char *filenameforlex();
+extern int yyerror(char*);
 /* change lex input routine to a non case sensitive one */
 #ifdef FLEX_SCANNER
 #ifdef YY_INPUT
