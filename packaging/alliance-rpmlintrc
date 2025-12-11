@@ -1,0 +1,6 @@
+
+addFilter("unstripped-binary-or-object /usr/bin")
+addFilter("unstripped-binary-or-object /usr/lib64/alliance/lib")
+addFilter("no-%check-section")
+addFilter("devel-file-in-non-devel-package")
+addFilter("files-duplicated-waste .*")

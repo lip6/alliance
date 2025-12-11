@@ -1,0 +1,142 @@
+#!/usr/bin/make -f
+# -*- makefile -*-
+# Sample debian/rules that uses debhelper.
+# This file was originally written by Joey Hess and Craig Small.
+# As a special exception, when this file is copied by dh-make into a
+# dh-make output file, you may use that output file without restriction.
+# This special exception was added by Craig Small in version 0.37 of dh-make.
+
+# Uncomment this to turn on verbose mode.
+export DH_VERBOSE=1
+
+NAME        = alliance
+VERSION     = 5.0
+DESTDIR     = $(CURDIR)/debian/tmp
+DOCDIR      = /usr/share/doc/alliance
+PREFIX      = /usr/lib/alliance
+SYSCONFDIR  = /etc
+DATADIR     = /usr/share
+
+%:
+	dh $@
+
+binary:
+	dh_testdir
+	dh_testroot
+	dh_installchangelogs
+	dh_prep
+	set -x;          \
+	cd alliance/src; \
+	./autostuff;     \
+	sed -i "s|tutorials||" documentation/Makefile.am;         \
+	sed -i "s|documentation/tutorials/Makefile||" configure*; \
+	cd documentation/tutorials;    \
+	    rm Makefile*;              \
+	    for folder in place_and_route/tex start simulation/tex synthesis/tex; do \
+	        (cd $${folder}; make);    \
+	        rm -rf $${folder};        \
+	    done;                         \
+	    install -pm 755 ../../distrib/alliance-tutorials-go-all.sh        go-all.sh;       \
+	    install -pm 755 ../../distrib/alliance-tutorials-go-all-clean.sh  go-all-clean.sh; \
+	    ./go-all-clean.sh; \
+	cd ../..;              \
+	for nonUTF8 in FAQ README LICENCE distrib/doc/alc_origin.1 alcban/man1/alcbanner.1 \
+	               loon/doc/loon.1 m2e/doc/man1/m2e.1 boog/doc/boog.1 ; do \
+	  iconv -f ISO-8859-1 -t utf-8 $${nonUTF8} > $${nonUTF8}.conv;         \
+	  mv -f $${nonUTF8}.conv $nonUTF8;                                     \
+	done; \
+	cd documentation/alliance-examples/; \
+	for nonUTF8 in tuner/build_tuner mipsR3000/asm/mips_defs.h tuner/tuner.vbe \
+	               tuner/README mipsR3000/sce/mips_dpt.c ; do       \
+	  iconv -f ISO-8859-1 -t utf-8 $${nonUTF8} > $${nonUTF8}.conv;  \
+	  mv -f $nonUTF8.conv $nonUTF8;                 \
+	done;                                           \
+	sed -i 's/\r//' mipsR3000/asm/*;                \
+	cd ../..;                                       \
+	find documentation/tutorials/                   \
+	    -name *.vbe  -o                             \
+	    -name *.pat  -o                             \
+	    -name *.vhdl -o                             \
+	    -name *.vst  -o                             \
+	    -name *.c                                   \
+	    -exec chmod 0644 {} ';';                    \
+	export ALLIANCE_TOP=${PREFIX};                  \
+	export   CFLAGS="-std=gnu99 -fPIC";             \
+	export CXXFLAGS="-std=gnu99 -fPIC";             \
+	export  LDFLAGS=-L${DESTDIR}${PREFIX}/lib;      \
+	aclocal -I .;                                   \
+	libtoolize --force --copy;                      \
+	automake --add-missing --foreign;               \
+	autoconf;                                       \
+	./configure --prefix=${PREFIX}                  \
+	            --enable-alc-shared                 \
+	            --disable-static                    \
+	            --includedir=${PREFIX}/include      \
+	            --libdir=${PREFIX}/lib              \
+	            --bindir=${PREFIX}/bin              \
+	            --sysconfdir=/etc                   \
+	            --mandir=/usr/share/alliance/man;   \
+	sed -i 's|^hardcode_libdir_flag_spec="\\${wl}--rpath \\${wl}\\$libdir"|hardcode_libdir_flag_spec=""|g' libtool; \
+	sed -i 's|^runpath_var=LD_RUN_PATH|runpath_var=DIE_RPATH_DIE|g' libtool; \
+	sed -i -e 's! -shared ! -Wl,--as-needed\0!g' libtool;     \
+	make -j1 DESTDIR=${DESTDIR};                              \
+	make -j1 INSTALL="install -p" DESTDIR=${DESTDIR} install; \
+	(cd ${DESTDIR}${SYSCONFDIR}/profile.d;                    \
+	  chmod 0644 alc_env.*;                                   \
+	  sed -i "s|@DATE@|`date`|" alc_env*;                     \
+	  sed -i "s|ALLIANCE_TOP *= *\([^;]*\)|ALLIANCE_TOP=${PREFIX}|"             alc_env.sh; \
+	  sed -i "s|setenv *ALLIANCE_TOP *\([^;]*\)|setenv ALLIANCE_TOP ${PREFIX}|" alc_env.csh \
+	); \
+	mkdir -p $(DESTDIR)$(DOCDIR); \
+	cp -pr CHANGES LICENCE COPYING* FAQ                    $(DESTDIR)$(DOCDIR); \
+	cp -pr ${DESTDIR}${PREFIX}/doc/                        $(DESTDIR)$(DOCDIR); \
+	cp -pr ${DESTDIR}${PREFIX}/examples/alliance-examples/ $(DESTDIR)$(DOCDIR); \
+	cp -pr ${DESTDIR}${PREFIX}/examples/alliance-run/      $(DESTDIR)$(DOCDIR); \
+	cp -p  ${DESTDIR}${PREFIX}/examples/regression.sh      $(DESTDIR)$(DOCDIR); \
+	cp -pr documentation/tutorials/                        $(DESTDIR)$(DOCDIR); \
+	rm -rf ${DESTDIR}${PREFIX}/doc/; \
+	rm -rf ${DESTDIR}${PREFIX}/examples/; \
+	cd documentation; \
+	chmod ug+x ./alliance-examples/mipsR3000/asm/go-*.sh \
+	           ./alliance-examples/go-all.sh             \
+	           ./alliance-examples/go-all-clean.sh       \
+	           ./regression.sh; \
+	cd alliance-examples/; \
+	    ./go-all-clean.sh; \
+	cd ../..; \
+	cp -pr documentation  ../..; \
+	find ${DESTDIR} -name '*.la' -exec rm -f {} ';'; \
+	mkdir -p ${DESTDIR}${DATADIR}/icons/hicolor/48x48/apps/; \
+	cp -p distrib/*.png ${DESTDIR}${DATADIR}/icons/hicolor/48x48/apps/; \
+	for desktopfile in distrib/*.desktop; do   \
+	  desktop-file-install --vendor ""         \
+	  --dir ${DESTDIR}${DATADIR}/applications/ \
+	  $${desktopfile};                         \
+	done;                                      \
+	mkdir -p ${DESTDIR}${SYSCONFDIR}/alliance; \
+	mkdir -p ${DESTDIR}/bin; \
+	mv ${DESTDIR}${PREFIX}/bin/*          ${DESTDIR}/bin; \
+	mv ${DESTDIR}${PREFIX}/cells          ${DESTDIR}${DATADIR}/alliance/; \
+	mv ${DESTDIR}${PREFIX}${SYSCONFDIR}/* ${DESTDIR}${SYSCONFDIR}/alliance; \
+	rmdir   ${DESTDIR}${PREFIX}${SYSCONFDIR}; \
+	rmdir   ${DESTDIR}${PREFIX}/bin; \
+	ln -sf ../../..${DATADIR}/alliance/man   ${DESTDIR}${PREFIX}/man; \
+	find ${DESTDIR}${PREFIX}/man -type f -not -name '*.gz' -print | xargs gzip -9f; \
+	rm -f ${DESTDIR}${SYSCONFDIR}/attila.conf; \
+	rm -f ${DESTDIR}${PREFIX}/bin/attila; \
+	rm -f ${DESTDIR}${DATADIR}/man/man1/attila*; \
+	rm -f doc/html/alliance/*attila.html; \
+	rm -f doc/pdf/attila.pdf; \
+	chmod -Rf a+rX,u+w,g-w,o-w ${DESTDIR}/*
+	find ${DESTDIR}
+	dh_installdeb
+	dh_install
+	dh_shlibdeps
+	dh_gencontrol
+	dh_md5sums
+	dh_builddeb
+
+clean:
+	dh_testdir
+	dh_testroot
+	dh_clean

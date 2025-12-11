@@ -1,0 +1,4 @@
+/etc/profile.d/alc_env.sh
+/etc/profile.d/alc_env.csh
+/etc/alliance/*
+/etc/ld.so.conf.d/*

@@ -1,0 +1,8 @@
+/bin/*
+/usr/lib/alliance/*
+/usr/share/alliance/*
+/usr/share/icons/hicolor/48x48/apps/*
+/usr/share/applications/*.desktop
+/etc/profile.d/alc_env.sh
+/etc/profile.d/alc_env.csh
+/etc/alliance/*
