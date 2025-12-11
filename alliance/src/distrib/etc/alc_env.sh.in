@@ -81,16 +81,6 @@
    PATH=$PATH:$ALLIANCE_TOP/bin
    export PATH
   
-  # Only needed on Solaris (included in /etc/ld.so.conf under Linux).
-  #if [ "`uname -o`" != "GNU/Linux" ]; then
-     if [ -z "${LD_LIBRARY_PATH}" ]; then
-       LD_LIBRARY_PATH=$ALLIANCE_TOP/lib
-     else
-       LD_LIBRARY_PATH=$LD_LIBRARY_PATH:$ALLIANCE_TOP/lib
-     fi
-     export LD_LIBRARY_PATH
-  #fi
-  
    if [ -z "${MANPATH}" ]; then
      MANPATH=:$ALLIANCE_TOP/share/man
    else
@@ -98,6 +88,16 @@
    fi
    export MANPATH
  fi
+  
+# Only needed on Solaris (included in /etc/ld.so.conf under Linux).
+#if [ "`uname -o`" != "GNU/Linux" ]; then
+   if [ -z "${LD_LIBRARY_PATH}" ]; then
+     LD_LIBRARY_PATH=$ALLIANCE_TOP/lib
+   else
+     LD_LIBRARY_PATH=$LD_LIBRARY_PATH:$ALLIANCE_TOP/lib
+   fi
+   export LD_LIBRARY_PATH
+#fi
  
 # fixing *** ERROR *** : Variable MBK_SPI_MODEL not found.
  MBK_SPI_MODEL=$SYSCONF_TOP/spimodel.cfg;      export MBK_SPI_MODEL

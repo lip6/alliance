@@ -83,21 +83,21 @@
      setenv PATH "${ALLIANCE_TOP}/bin"
    endif
   
-   if ( "`uname -o`" != "GNU/Linux" ) then
-    # Only needed on Solaris (included in /etc/ld.so.conf under Linux).
-     if ( $?LD_LIBRARY_PATH ) then
-       setenv LD_LIBRARY_PATH "${LD_LIBRARY_PATH}:${ALLIANCE_TOP}/lib"
-     else
-       setenv LD_LIBRARY_PATH "${ALLIANCE_TOP}/lib"
-     endif
-   endif
-  
    if ( $?MANPATH ) then
      setenv MANPATH "${MANPATH}:${ALLIANCE_TOP}/share/man"
    else
      setenv MANPATH ":${ALLIANCE_TOP}/share/man:`manpath`"
    endif
  endif
+  
+# Only needed on Solaris (included in /etc/ld.so.conf under Linux).
+#if ( "`uname -o`" != "GNU/Linux" ) then
+   if ( $?LD_LIBRARY_PATH ) then
+     setenv LD_LIBRARY_PATH "${LD_LIBRARY_PATH}:${ALLIANCE_TOP}/lib"
+   else
+     setenv LD_LIBRARY_PATH "${ALLIANCE_TOP}/lib"
+   endif
+#endif
  
  # fixing *** ERROR *** : Variable MBK_SPI_MODEL not found.
  setenv MBK_SPI_MODEL     "${SYSCONF_TOP}/spimodel.cfg"
